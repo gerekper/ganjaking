@@ -1,16 +1,5 @@
 Events Map for EventON Plugin
 ====================================
-v 1.5 (2023-7-10)
-FIXED: Missing all events text translation
-FIXED: eventON 4.4 compatibility
-UPDATED: minor styles changes
-
-v 1.4.8 (2022-7-14)
-ADDED: show all events button on calendar header to see all the events
-FIXED: color lightbox not changing text color to white
-FIXED: map zoomlevel not passing correct to initializer()
-FIXED: eventON 4.1 compatibility
-
 v 1.4.7 (2021-4-15)
 FIXED: after search map not refreshing
 

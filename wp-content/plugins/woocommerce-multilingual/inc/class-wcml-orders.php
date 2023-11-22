@@ -1,10 +1,11 @@
 <?php
 
+use WCML\Orders\Helper as OrdersHelper;
 use WPML\FP\Fns;
 use WPML\FP\Maybe;
 use WPML\FP\Obj;
 use function WPML\FP\curryN;
-use function WPML\FP\partialRight;
+use function WPML\FP\invoke;
 
 class WCML_Orders {
 
@@ -41,7 +42,7 @@ class WCML_Orders {
 
 		add_filter( 'woocommerce_order_get_items', [ $this, 'woocommerce_order_get_items' ], 10, 2 );
 
-		add_action( 'woocommerce_process_shop_order_meta', [ $this, 'set_order_language_backend' ], 10, 2 );
+		add_action( 'woocommerce_process_shop_order_meta', [ $this, 'set_order_language_backend' ] );
 		add_action(
 			'woocommerce_order_actions_start',
 			[ $this, 'order_language_dropdown' ],
@@ -55,8 +56,7 @@ class WCML_Orders {
 		add_filter(
 			'woocommerce_customer_get_downloadable_products',
 			[ $this, 'filter_customer_get_downloadable_products' ],
-			10,
-			3
+			10
 		);
 
 		if ( is_admin() ) {
@@ -102,7 +102,7 @@ class WCML_Orders {
 	 */
 	public function woocommerce_order_get_items( $items, $order ) {
 
-		$translate_order_items = is_admin() || is_view_order_page() || is_order_received_page() || \WCML\Rest\Functions::isRestApiRequest();
+		$translate_order_items = ! \WCML\Utilities\ActionScheduler::isWcRunningFromAsyncActionScheduler() && ( is_admin() || is_view_order_page() || is_order_received_page() || \WCML\Rest\Functions::isRestApiRequest() );
 		/**
 		 * This filter hook allows to override if we need to translate order items.
 		 *
@@ -250,7 +250,7 @@ class WCML_Orders {
 	 * @return bool
 	 */
 	private function is_on_order_edit_page() {
-		return isset( $_GET['post'] ) && 'shop_order' === get_post_type( $_GET['post'] );
+		return ( \WCML\COT\Helper::isOrderEditAdminScreen() && empty( $_POST ) ) || ( isset( $_GET['post'] ) && 'shop_order' === get_post_type( $_GET['post'] ) );
 	}
 
 	/**
@@ -263,15 +263,46 @@ class WCML_Orders {
 	}
 
 	/**
+	 * @param int    $product_id
+	 * @param string $attribute
+	 *
+	 * @return array
+	 */
+	private function get_attribute_options( $product_id, $attribute ) {
+		$product    = wc_get_product( $product_id );
+		$attributes = $product->get_attributes();
+		return $attributes[ $attribute ]->get_options();
+	}
+
+	/**
 	 * @param WC_Order_Item_Product $item
 	 * @param int                   $variation_id
 	 */
 	private function update_attribute_item_meta_value( $item, $variation_id ) {
 		foreach ( $item->get_meta_data() as $meta_data ) {
 			$data            = $meta_data->get_data();
-			$attribute_value = get_post_meta( $variation_id, 'attribute_' . $data['key'], true );
-			if ( $attribute_value ) {
-				$item->update_meta_data( $data['key'], $attribute_value, isset( $data['id'] ) ? $data['id'] : 0 );
+			$attributeExists = metadata_exists( 'post', $variation_id, 'attribute_' . $data['key'] );
+			if ( $attributeExists ) {
+				$attribute_value = get_post_meta( $variation_id, 'attribute_' . $data['key'], true );
+
+				$isAnyAttribute = '' === $attribute_value;
+				if ( $isAnyAttribute ) {
+					$product_id = $item->get_product_id();
+					$options    = $this->get_attribute_options( $product_id, $data['key'] );
+
+					$order_language   = $item->get_order()->get_meta( self::KEY_LANGUAGE );
+					$order_product_id = apply_filters( 'wpml_object_id', $product_id, 'product', false, $order_language );
+					$order_options    = $this->get_attribute_options( $order_product_id, $data['key'] );
+
+					$position = array_search( $data['value'], $order_options );
+					if ( false !== $position ) {
+						$attribute_value = $options[ $position ];
+					}
+				}
+	
+				if ( $attribute_value ) {
+					$item->update_meta_data( $data['key'], $attribute_value, isset( $data['id'] ) ? $data['id'] : 0 );
+				}
 			}
 		}
 	}
@@ -343,7 +374,7 @@ class WCML_Orders {
 	 */
 	public function set_order_language( $order_id ) {
 		if ( ! self::getLanguage( $order_id ) ) {
-			update_post_meta( $order_id, self::KEY_LANGUAGE, ICL_LANGUAGE_CODE );
+			self::setLanguage( $order_id, ICL_LANGUAGE_CODE );
 		}
 	}
 
@@ -352,11 +383,16 @@ class WCML_Orders {
 	 */
 	public function setOrderLanguageBeforeSave( $order ) {
 		if (
-			$order->get_status() !== 'checkout-draft'
+			! in_array( $order->get_status(), [ 'checkout-draft', 'auto-draft' ], true )
 			&& ! $order->get_meta( self::KEY_LANGUAGE )
 		) {
+			/**
+			 * We cannot use our helper to set the order language at this stage
+			 * because the order is not saved yet, and it may not have an ID.
+			 *
+			 * @see \WCML_Orders::setLanguage()
+			 */
 			$order->add_meta_data( self::KEY_LANGUAGE, $this->sitepress->get_current_language(), true );
-
 			wp_cache_delete( $order->generate_meta_cache_key( $order->get_id(), 'orders' ), 'orders' );
 		}
 	}
@@ -380,7 +416,7 @@ class WCML_Orders {
 	}
 
 	public function order_language_dropdown( $order_id ) {
-		if ( ! get_post_meta( $order_id, '_order_currency' ) ) {
+		if ( ! OrdersHelper::getCurrency( $order_id ) ) { // This is probably a bug, I don't see why we would check on the currency here.
 			$languages     = apply_filters(
 				'wpml_active_languages',
 				[],
@@ -460,21 +496,23 @@ class WCML_Orders {
 		setcookie( self::DASHBOARD_COOKIE_NAME, '', time() - self::COOKIE_TTL, COOKIEPATH, COOKIE_DOMAIN );
 	}
 
+	/**
+	 * @return void
+	 */
 	private function maybe_set_dashboard_cookie() {
-		global $pagenow;
-
-		if (
-			! isset( $_COOKIE [ self::DASHBOARD_COOKIE_NAME ] ) &&
-			( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) && 'shop_order' === $_GET['post_type'] )
-		) {
+		if ( ! isset( $_COOKIE [ self::DASHBOARD_COOKIE_NAME ] ) && OrdersHelper::isOrderCreateAdminScreen() ) {
 			$this->set_dashboard_order_language_cookie( $this->sitepress->get_default_language() );
 		}
 	}
 
-	public function set_order_language_backend( $post_id, $post ) {
-
+	/**
+	 * @param int $orderId
+	 *
+	 * @return void
+	 */
+	public function set_order_language_backend( $orderId ) {
 		if ( isset( $_POST['wcml_shop_order_language'] ) ) {
-			update_post_meta( $post_id, self::KEY_LANGUAGE, filter_input( INPUT_POST, 'wcml_shop_order_language', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+			self::setLanguage( $orderId, filter_input( INPUT_POST, 'wcml_shop_order_language', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
 		}
 	}
 
@@ -535,6 +573,33 @@ class WCML_Orders {
 	 * @return callable|string|false
 	 */
 	public static function getLanguage( $orderId = null ) {
-		return call_user_func_array( curryN( 1, partialRight( 'get_post_meta', self::KEY_LANGUAGE, true ) ), func_get_args() );
+		$getLanguage = function( $orderId ) {
+			/**
+			 * Allow adjusting the order ID before fetching the language.
+			 *
+			 * @since 5.3
+			 *
+			 * @param int $orderId
+			 */
+			$orderId = apply_filters( 'wcml_order_id_for_language', $orderId );
+
+			return Maybe::fromNullable( \wc_get_order( $orderId ) )
+				->map( invoke( 'get_meta' )->with( self::KEY_LANGUAGE ) )
+				->getOrElse( false );
+		};
+
+		return call_user_func_array( curryN( 1, $getLanguage ), func_get_args() );
+	}
+
+	/**
+	 * @param int    $orderId
+	 * @param string $language
+	 *
+	 * @return void
+	 */
+	public static function setLanguage( $orderId, $language ) {
+		Maybe::fromNullable( \wc_get_order( $orderId ) )
+			->map( Fns::tap( invoke( 'update_meta_data' )->with( self::KEY_LANGUAGE, $language ) ) )
+			->map( invoke( 'save' ) );
 	}
 }

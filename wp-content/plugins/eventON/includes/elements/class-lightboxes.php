@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON Lightboxes for back and front
- * @version 4.4.1
+ * @version 4.5.2
  */
 
 class EVO_Lightboxes{
@@ -62,6 +62,7 @@ class EVO_Lightboxes{
 		echo "</div><div class='evo_elms'><em class='evo_tooltip_box'></em></div>";
 
 		echo "<div id='evo_lightboxes' class='evo_lightboxes'></div>";	
+		echo "<div id='evo_sp' class='evo_sp'></div>";	
 	}
 
 	function admin_lightbox_content($arg){

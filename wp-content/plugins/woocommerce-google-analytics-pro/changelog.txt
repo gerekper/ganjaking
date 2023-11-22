@@ -1,5 +1,8 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.11.17 - version 2.0.13
+ * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
+
 2023.09.07 - version 2.0.12
  * Fix - Harden code when parsing cart and product item event data to avoid potential errors in specific situations
 

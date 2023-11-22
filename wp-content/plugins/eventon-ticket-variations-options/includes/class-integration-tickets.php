@@ -8,6 +8,7 @@ class EVOVO_tx{
 	public $help;
 	public function __construct(){		
 
+
 		// frontend view
 		add_filter('evotx_single_product_temp', array($this, 'frontend_temp'), 10,3);
 		add_filter('evotx_add_to_cart_evotxdata', array($this, 'cart_evotx_data'), 10,1);
@@ -25,6 +26,12 @@ class EVOVO_tx{
 			add_filter('evotx_cart_item_name',array($this,'add_to_cart_item_names'),1,4);
 			add_filter('evotx_cart_item_quantity',array($this,'cart_item_quantity'),1,4);
 			add_action('evotix_cart_item_validation', array($this, 'cart_validation'), 10, 3);
+
+			//add_filter('woocommerce_cart_product_subtotal', array($this, 'cart_product_subtotal'), 10, 4);
+			//add_filter('woocommerce_cart_item_subtotal', array($this, 'cart_item_subtotal'), 10, 3);
+			//add_filter('woocommerce_before_calculate_totals', array($this, 'cart_002'), 10, 1);
+			//add_filter('woocommerce_calculate_totals', array($this, 'cart_003'), 10, 1);
+			//add_filter('woocommerce_adjust_non_base_location_prices', array($this, 'cart_004'), 10, 1);
 		
 		// checkout
 			add_action('evotx_checkout_create_order_line_item',array($this,'order_item_meta_update_new'),1,4);
@@ -105,7 +112,7 @@ class EVOVO_tx{
 			if(!$VOs->is_set()) return $return;
 
 			// VO Extension
-			return apply_filters('evovo_is_instock_check', $VOs->method_has_stock(), $return, $event);			
+			return apply_filters('evovo_is_instock_check', $VOs->method_has_stock(), $return, $event);	
 		}
 
 		function text_strings($array){
@@ -374,6 +381,62 @@ class EVOVO_tx{
 
 			return $product_quantity; 
 	   	}
+
+	   	// cart subtotal modifications
+	   		function cart_item_subtotal($product_subtotal, $cart_item, $cart_item_key){
+
+	   			if( isset($cart_item['evovo_data']) && isset($cart_item['evovo_price_adds'])){
+	   				$qty = (float) $cart_item['quantity'];
+	   				$def_price = $cart_item['evovo_data']['def_price'];
+	   				$uncor_price_adds = $cart_item['evovo_price_adds'];
+
+	   				$new_subtotal = ( (float) $def_price * $qty ) + (float)$uncor_price_adds;
+	   				return wc_price( $new_subtotal );
+	   			}
+
+	   			//print_r($cart_item);
+	   			return $product_subtotal;
+	   		}
+	   		function cart_product_subtotal($product_subtotal, $product, $quantity, $class){
+
+	   			return $product_subtotal;
+	   		}
+	   		function cart_004($bool){
+	   			foreach(WC()->cart->get_cart() as $cart_item){
+	   				$cart_item['data']->set_price( 20.55 );
+	   				echo 'R';
+	   			}
+	   			return $bool;
+	   		}
+	   		function cart_003($cart_object){
+	   			foreach ( $cart_object->get_cart() as $cart_item ) {
+	   				$cart_item['data']->set_price( 20.55 );
+	   			}
+	   		}
+	   		function cart_002($cart_object){
+	   			echo 'f';
+	   			foreach ( $cart_object->get_cart() as $cart_item ) {
+	   				//$cart_item['data']->set_price( 20.55 );
+	   				$cart_item['line_subtotal'] = 20.55;
+	   			}
+	   		}
+	   		function cart_001( $total, $cart_item, $cart){
+	   			
+	   			if( isset($cart_item['evovo_data']) && isset($cart_item['evovo_price_adds'])){
+	   				$qty = (float) $cart_item['quantity'];
+	   				$def_price = $cart_item['evovo_data']['def_price'];
+	   				$uncor_price_adds = $cart_item['evovo_price_adds'];
+
+	   				$new_subtotal = ( (float) $def_price * $qty ) + (float)$uncor_price_adds;
+
+	   				//echo $new_subtotal.'XX';
+	   				return ( $new_subtotal );
+	   			}
+    			
+    			return $total;
+
+	   		}
+
 	   	// cart validation
 			function cart_validation($cart_item_key, $cart_item, $event_id){
 

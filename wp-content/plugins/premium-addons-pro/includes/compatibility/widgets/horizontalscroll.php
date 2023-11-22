@@ -41,6 +41,7 @@ class HorizontalScroll extends WPML_Elementor_Module_With_Items {
 		return array(
 			'section_id',
 			'anchor_id',
+			'section_template',
 		);
 	}
 
@@ -57,6 +58,10 @@ class HorizontalScroll extends WPML_Elementor_Module_With_Items {
 
 		if ( 'section_id' === $field ) {
 			return __( 'Horizontal Scroll: Section ID', 'premium-addons-pro' );
+		}
+
+		if ( 'section_template' === $field ) {
+			return __( 'Horizontal Scroll: Template ID', 'premium-addons-pro' );
 		}
 
 		if ( 'anchor_id' === $field ) {

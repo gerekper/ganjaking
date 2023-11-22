@@ -1,0 +1,35 @@
+/**************** Premium Twitter Feed *************/
+/***************************************************/
+.premium-twitter-feed-wrapper {
+  height: auto !important;
+  background: #fff;
+  display: inline-block;
+  width: 100%;
+  border-radius: 0px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+  .premium-twitter-feed-wrapper .premium-social-feed-element {
+    padding: 5px; }
+  .premium-twitter-feed-wrapper .premium-social-icon {
+    margin: 4px 5px 0 0; }
+  .premium-twitter-feed-wrapper[data-col="1"] .premium-social-feed-element {
+    width: 100%; }
+  .premium-twitter-feed-wrapper.ltr .premium-social-icon,
+  .premium-twitter-feed-wrapper.rtl .premium-social-icon {
+    border-color: #000; }
+  .premium-twitter-feed-wrapper.ltr .premium-feed-element-author-img,
+  .premium-twitter-feed-wrapper.ltr .premium-feed-element-author,
+  .premium-twitter-feed-wrapper.ltr .premium-social-icon {
+    float: left;
+    margin-right: 10px; }
+  .premium-twitter-feed-wrapper.rtl .premium-feed-element-date {
+    float: left;
+    margin-right: 10px; }
+  .premium-twitter-feed-wrapper.rtl .premium-feed-element-author-img,
+  .premium-twitter-feed-wrapper.rtl .premium-feed-element-author,
+  .premium-twitter-feed-wrapper.rtl .premium-social-icon {
+    float: right;
+    margin-left: 10px; }
+  .premium-twitter-feed-wrapper.ltr .premium-feed-element-date {
+    float: right;
+    margin-left: 10px; }

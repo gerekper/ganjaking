@@ -214,7 +214,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= sprintf( 'background: url(%s) #fff no-repeat 8px 8px;', WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search.png' );
 		$output .= 'padding-left: 80px ! important;';
 		$output .= 'background-size: 64px 64px;';
-		$output .= 'border-color: #cc99c2 !important;';
+		$output .= 'border-color: #7f54b3 !important;';
 		$output .= 'padding-bottom: 1em;';
 		$output .= '}';
 		$output .= '</style>';
@@ -235,33 +235,33 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '<table>';
 		$output .= '<tr>';
 
-		$output .= '<td style="vertical-align:top">';
+		$output .= '<td style="vertical-align:top; padding-right: 4px;">';
 		$output .= '<h3>';
 		$output .= esc_html__( 'Documentation', 'woocommerce-product-search' );
 		$output .= '</h3>';
 
-		$output .= '<p>';
+		$output .= '<p style="padding-right: 3px;">';
 		$output .= wp_kses(
 			sprintf(
 				__( 'Please refer to the <a href="%s">WooCommerce Product Search</a> documentation pages for detailed information.', 'woocommerce-product-search' ),
-				esc_url( 'https://woocommerce.com/document/woocommerce-product-search/' )
+				esc_url( 'https://woo.com/document/woocommerce-product-search/' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
 		$output .= '</p>';
 		$output .= '</td>';
 
-		$output .= '<td style="vertical-align:top">';
+		$output .= '<td style="vertical-align:top; padding-right: 4px;">';
 		$output .= '<h3>';
 		$output .= esc_html__( 'Support', 'woocommerce-product-search' );
 		$output .= '</h3>';
 
-		$output .= '<p>';
+		$output .= '<p style="padding-right: 3px;">';
 		$output .= wp_kses(
 			sprintf(
 				__( 'For further assistance with <a href="%1$s">WooCommerce Product Search</a>, please use the <a href="%2$s">helpdesk</a>.', 'woocommerce-product-search' ),
-				esc_url( 'https://woocommerce.com/products/woocommerce-product-search/' ),
-				esc_url( 'https://woocommerce.com/my-account/tickets/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=woocommerceplugin' )
+				esc_url( 'https://woo.com/products/woocommerce-product-search/' ),
+				esc_url( 'https://woo.com/my-account/contact-support/' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
@@ -270,7 +270,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '</p>';
 		$output .= '</td>';
 
-		$output .= '<td style="vertical-align:top">';
+		$output .= '<td style="vertical-align:top;">';
 		$output .= '<h3>';
 		$output .= esc_html__( 'Security', 'woocommerce-product-search' );
 		$output .= '</h3>';
@@ -280,9 +280,10 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= ' ';
 		$output .= wp_kses(
 			sprintf(
-				__( '<a href="%1$s">WooCommerce Product Search</a> is made available to you exclusively through <a href="%2$s">WooCommerce</a>.', 'woocommerce-product-search' ),
-				esc_url( 'https://woocommerce.com/products/woocommerce-product-search/' ),
-				esc_url( 'https://woocommerce.com/?utm_source=helptab&utm_medium=product&utm_content=about&utm_campaign=woocommerceplugin' )
+				__( '<a href="%1$s">WooCommerce Product Search</a> is made available to you exclusively through <a href="%2$s">%3$s</a>.', 'woocommerce-product-search' ),
+				esc_url( 'https://woo.com/products/woocommerce-product-search/' ),
+				esc_url( 'https://woo.com/?utm_source=helptab&utm_medium=product&utm_content=about&utm_campaign=woocommerceplugin' ),
+				esc_html( 'Woo' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
@@ -290,7 +291,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= wp_kses(
 			sprintf(
 				__( 'Please always make sure that you obtain or renew this official extension through the only trusted source at <a href="%s">WooCommerce Product Search</a>.', 'woocommerce-product-search' ),
-				esc_url( 'https://woocommerce.com/products/woocommerce-product-search/' )
+				esc_url( 'https://woo.com/products/woocommerce-product-search/' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
@@ -347,11 +348,11 @@ class WooCommerce_Product_Search_Admin_Notice {
 					'Add live search and filters to your shop, using the %sblocks%s, %swidgets%s and %sshortcodes%s that come exclusively with the search engine.',
 					'woocommerce-product-search'
 				),
-				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woo.com/document/woocommerce-product-search/blocks/' ) ),
 				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/widgets/' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woo.com/document/woocommerce-product-search/widgets/' ) ),
 				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woo.com/document/woocommerce-product-search/shortcodes/' ) ),
 				'</a>'
 		);
 		$output .= '</p>';
@@ -411,7 +412,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= wp_kses(
 			sprintf(
 				__( 'We\'re always here for you if you need help or have suggestions, just <a href="%s">ask</a>.', 'woocommerce-product-search' ),
-				esc_url( 'https://woocommerce.com/my-account/tickets/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=woocommerceplugin' )
+				esc_url( 'https://woo.com/my-account/contact-support/' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
@@ -492,7 +493,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '<p>';
 		$output .= sprintf(
 			'<a class="button button-primary" href="%s" target="_blank">%s</a>',
-			esc_url( 'https://woocommerce.com/products/woocommerce-product-search/' ),
+			esc_url( 'https://woo.com/products/woocommerce-product-search/' ),
 			__( 'Submit a rating', 'woocommerce-product-search' )
 		);
 		$output .= '&emsp;';
@@ -507,7 +508,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= ' ';
 		$output .= sprintf(
 			__( 'If you would rate any aspect below 5 stars, please <a href="%s">let us know before</a> you submit your rating so we can improve it.', 'woocommerce-product-search' ),
-			esc_url( 'https://woocommerce.com/my-account/tickets/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=woocommerceplugin' )
+			esc_url( 'https://woo.com/my-account/contact-support/' )
 		);
 		$output .= '</p>';
 		$output .= '</div>';

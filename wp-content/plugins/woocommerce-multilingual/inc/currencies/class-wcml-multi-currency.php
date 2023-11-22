@@ -455,6 +455,9 @@ class WCML_Multi_Currency {
 	public function get_client_currency() {
 		if ( Functions::isRestApiRequest() ) {
 			return $this->get_rest_currency();
+		} elseif ( ! wcml_is_multi_currency_on() ) {
+			// The filter is documented a few lines below.
+			return apply_filters( 'wcml_client_currency', wcml_get_woocommerce_currency_option() );
 		} elseif ( null === $this->client_currency ) {
 			$this->client_currency = ResolverFactory::create()->getClientCurrency();
 

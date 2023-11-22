@@ -1,7 +1,7 @@
 <?php
 /**
  * front-end
- * @version 	0.4
+ * @version 	0.1
  */
 
 class EVOIA_Frontend{
@@ -15,7 +15,7 @@ class EVOIA_Frontend{
 		add_filter('evo_wp_query_post_type_if', array($this, 'wp_query_if'),10,2);
 
 		add_filter('evo_event_etop_class_names', array($this, 'event_class_names'),10,3);
-		add_filter('evoet_data_structure', array($this, 'event_etop_data'),10,3);
+		add_filter('evo_event_etop_felds_array', array($this, 'event_etop_data'),10,3);
 		add_filter('evodata_title', array($this, 'etop_title'),10,2);
 		add_filter('evodata_subtitle', array($this, 'etop_subtitle'),10,2);
 		add_filter('evo_event_data_array', array($this, 'event_data'),10,3);
@@ -33,8 +33,6 @@ class EVOIA_Frontend{
 		return $array;
 	}
 	function add_shortcode_defaults($arr){
-
-		if( isset($arr['include_any'])) return $arr;
 		return array_merge($arr, array(
 			'include_any'=>'no',
 		));	
@@ -84,9 +82,6 @@ class EVOIA_Frontend{
 		$SC = $this->SC;
 
 		if(!isset($SC['include_any'])) return $text;
-
-		//print_r( $SC['include_any'].'--');
-			
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $text;
 
 		if( $EVENT->post_type != 'ajde_events'){
@@ -109,24 +104,16 @@ class EVOIA_Frontend{
 		return $text;
 
 	}
-	public function event_etop_data($arr, $eventdata, $EVENT){
+	public function event_etop_data($arr, $EVENT, $cal){
 
-		$SC = $this->SC = EVO()->calendar->shortcode_args;
+		$SC = $this->SC = $cal->shortcode_args;
 
 		if(!isset($SC['include_any'])) return $arr;
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $arr;
 
 		if( $EVENT->post_type != 'ajde_events'){
-
-			foreach($arr as $ck=>$col){
-				if(!is_array($col)) continue;
-				foreach($col as $dk=>$data){
-					if( !isset( $arr[ $ck ] )) continue;
-					if( !isset( $arr[ $ck ][$dk] )) continue;
-					if( $dk == 'day_block' ) unset($arr[ $ck ][$dk]);
-					if( $dk == 'time_expand' ) unset($arr[ $ck ][$dk]);
-				}
-			}
+			$arr['belowtitle'] = false;
+			$arr['day_block'] = false;
 		} 
 
 		return $arr;
@@ -145,7 +132,6 @@ class EVOIA_Frontend{
 		if(!isset($SC['include_any'])) return $bool;
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $bool;
 
-		$this->SC = $SC;
 		return false;
 	}
 	public function evo_wp_query($list,  $SC){		

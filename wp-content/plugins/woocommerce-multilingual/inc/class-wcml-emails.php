@@ -1,7 +1,5 @@
 <?php
 
-use WPML\Core\ISitePress;
-use WPML\FP\Fns;
 use WPML\FP\Obj;
 
 class WCML_Emails {
@@ -269,7 +267,7 @@ class WCML_Emails {
 			}
 		}
 
-		$language = get_post_meta( $order_id, 'wpml_language', true );
+		$language = WCML_Orders::getLanguage( $order_id );
 
 		if ( ! $language ) {
 			$language = $this->rest_language;
@@ -646,7 +644,7 @@ class WCML_Emails {
 	public function wcml_get_translated_email_string( $context, $name, $order_id = false, $language_code = null ) {
 
 		if ( $order_id && ! $language_code ) {
-			$order_language = get_post_meta( $order_id, 'wpml_language', true );
+			$order_language = WCML_Orders::getLanguage( $order_id );
 			if ( $order_language ) {
 				$language_code = $order_language;
 			}
@@ -699,6 +697,8 @@ class WCML_Emails {
 			$order_id = filter_input( INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT );
 		} elseif ( isset( $_GET['action'] ) && isset( $_GET['order_id'] ) && ( $_GET['action'] == 'woocommerce_mark_order_complete' || $_GET['action'] == 'woocommerce_mark_order_status' ) ) {
 			$order_id = filter_input( INPUT_GET, 'order_id', FILTER_SANITIZE_NUMBER_INT );
+		} elseif ( WCML\COT\Helper::isOrderEditAdminScreen() ) {
+			$order_id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 		} elseif ( isset( $_GET['action'] ) && $_GET['action'] == 'mark_completed' && $this->order_id ) {
 			$order_id = $this->order_id;
 		} elseif ( isset( $_POST['action'] ) && $_POST['action'] == 'woocommerce_refund_line_items' ) {
@@ -716,7 +716,7 @@ class WCML_Emails {
 		$order_id = apply_filters( 'wcml_send_email_order_id', $order_id );
 
 		if ( $order_id ) {
-			$order_language = get_post_meta( $order_id, 'wpml_language', true );
+			$order_language = WCML_Orders::getLanguage( $order_id );
 			if ( $order_language ) {
 				$current_language = $order_language;
 			} else {

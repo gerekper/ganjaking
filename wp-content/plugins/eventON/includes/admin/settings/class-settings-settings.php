@@ -76,11 +76,7 @@ class evo_settings_settings{
 						'legend'=>__('If provided this URL will be used instead of default wordpress URL for users to login where eventon access is restricted to only login users.','eventon','eventon'),
 						'default'=>'https://'
 					),
-					array('id'=>'evo_dis_icshtmldecode',
-						'type'=>'yesno',
-						'name'=>__('Disable ICS file special character encoding','eventon'), 
-						'legend'=>__('This will disable html special character dencoding for all ics downloaded files for events','eventon')
-					),					
+										
 					array('type'=>'sub_section_open','name'=>__('Search Engine Structured Data' ,'eventon')),
 						array('id'=>'evo_schema','type'=>'yesno','name'=>__('Remove schema data from calendar','eventon'), 'legend'=>__('Schema microdata helps in google and other search engines find events in special event data format. With this option you can remove those microdata from showing up on front-end calendar.','eventon'),'afterstatement'=>'evo_schema'),
 
@@ -164,6 +160,11 @@ class evo_settings_settings{
 							'type'=>'yesno',
 							'name'=>__('Disable CSV export event formatting','eventon'), 
 							'legend'=>__('This will disable CSV export all event formatting characters..','eventon'),
+						),
+						array('id'=>'evo_dis_icshtmldecode',
+							'type'=>'yesno',
+							'name'=>__('Disable ICS file special character encoding','eventon'), 
+							'legend'=>__('This will disable html special character dencoding for all ics downloaded files for events','eventon')
 						),
 						array('id'=>'_evo_email_encode','type'=>'dropdown','name'=>__('Select the email content type character encoding type','eventon'),'width'=>'full',
 							'legend'=>__('Using a higher UTF encoding may slow things down.','eventon'),
@@ -271,7 +272,7 @@ class evo_settings_settings{
 					
 					array('type'=>'sub_section_open','name'=>__('General Time/Date Settings','eventon')),
 						array('id'=>'evo_global_tzo','type'=>'dropdown','name'=>__('Default Event Timezone','eventon'),'width'=>'full',
-							'options'=> $help->get_timezone_array(false, true)
+							'options'=> $help->get_timezone_array()
 						),
 						array('id'=>'evo_tzo_all','type'=>'yesno',
 							'name'=>__('Apply default timezone to all events','eventon'), 
@@ -279,7 +280,7 @@ class evo_settings_settings{
 						),
 						array('id'=>'evo_utcoff','type'=>'yesno',
 							'name'=>__('Use UTC offset time globally on calendars','eventon'), 
-							'legend'=>__('This will use UTC time for calculating current live events and use event times on UTC0 conversion. This feature is in beta development stage.','eventon')
+							'legend'=>__('This will use UTC time for calculating current live events and use event times from UTC0 conversion. ','eventon')
 						),
 					array('type'=>'sub_section_close'),
 	
@@ -783,6 +784,11 @@ class evo_settings_settings{
 						'white'=>'Clean White',
 					)
 				);
+			$data[] = array('id'=>'evosm_ics_link',
+				'type'=>'yesno',
+				'name'=>__('Disable event link in ICS file','eventon'), 
+				'legend'=>__('This will adding a event link into description section of ICS file for add to calendar.','eventon')
+			);	
 
 
 			$data[] = array('type'=>'sub_section_close');

@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -347,23 +347,25 @@ class WC_Memberships_Integration_Subscriptions_Membership_Plans {
 
 			if ( $integration && ! empty( $access_granting_sub_ids ) ) {
 
-				$subscription_posts = get_posts( array(
-					'nopaging'       => true,
-					'fields'         => 'ids',
-					'post_type'      => 'shop_subscription',
-					'post_status'    => array( 'wc-active', 'wc-pending', 'wc-on-hold' ),
-					'meta_key'       => '_customer_user',
-					'meta_value_num' => $user_id,
-				) );
+				$subscriptions = $integration->get_subscriptions_ids( [
+					'subscription_status' => [ 'wc-active', 'wc-pending', 'wc-on-hold' ],
+					'meta_query'          => [
+						[
+							'key'     => '_customer_user',
+							'value'   => $user_id,
+							'compare' => '=',
+						],
+					]
+				] );
 
-				foreach ( $subscription_posts as $subscription_post ) {
+				foreach ( $subscriptions as $subscription_id ) {
 
 					// if a membership was granted for the current plan while looping found subscriptions, break loop
 					if ( $user_membership instanceof \WC_Memberships_Integration_Subscriptions_User_Membership ) {
 						break;
 					}
 
-					if ( $subscription = wcs_get_subscription( $subscription_post ) ) {
+					if ( $subscription = wcs_get_subscription( $subscription_id ) ) {
 
 						$subscription_id = $subscription->get_id();
 						$parent_order_id = $subscription->get_parent_id( 'edit' );

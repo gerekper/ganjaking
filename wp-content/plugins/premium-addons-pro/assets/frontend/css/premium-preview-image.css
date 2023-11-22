@@ -1,0 +1,70 @@
+/************* Premium Preview Window *************/
+/**************************************************/
+.premium-preview-image-container a {
+  display: inline-block; }
+
+.premium-prev-img-tooltip-wrap {
+  overflow: hidden;
+  border-color: #000;
+  background: #f7f7f7;
+  padding: 0px; }
+
+.premium-prev-img-tooltip-title-wrap {
+  margin: 10px auto; }
+  .premium-prev-img-tooltip-title-wrap .premium-previmg-tooltip-title {
+    margin: 0; }
+
+.premium-prev-img-tooltip-desc-wrap {
+  margin: 10px auto; }
+
+.premium-preview-image-tooltips-img,
+.premium-prev-img-tooltip-title-wrap,
+.premium-prev-img-tooltip-desc-wrap {
+  border-color: #000; }
+
+.premium-preview-image-wrap .premium-preview-image-inner-trig-img {
+  display: inline-block; }
+
+.premium-preview-image-wrap .premium-preview-image-figcap {
+  border-color: #000; }
+
+.premium-preview-image-wrap .premium-preview-image-trigger {
+  margin: 0;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.premium-preview-image-main-container {
+  position: relative;
+  display: inline-block; }
+
+.premium-preview-image-content-container {
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.premium-preview-image-figure {
+  position: relative; }
+  .premium-preview-image-figure .premium-preview-image-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    object-fit: cover;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+  .premium-preview-image-figure:hover .premium-preview-image-hover {
+    opacity: 1; }
+  .premium-preview-image-figure > svg {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+  .premium-preview-image-figure .premium-prev-image-lottie svg {
+    display: inline-block;
+    width: 60px !important;
+    height: 60px !important; }
+
+.premium-preview-image-trigger.premium-lottie-animation svg {
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }

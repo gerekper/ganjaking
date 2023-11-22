@@ -528,6 +528,13 @@ define('PAFE_FEATURES', json_encode(array(
                 'form-builder' => true,
                 'woocommerce_sales_funnels' => true,
             ),
+            array(
+                'name' => 'Custom CSS',
+                'option' => 'pafe-features-custom-css',
+                'url' => 'https://pafe.piotnet.com/?wpam_id=1',
+                'pro' => 1,
+                'extension' => true,
+            ),
         )
     )
 );

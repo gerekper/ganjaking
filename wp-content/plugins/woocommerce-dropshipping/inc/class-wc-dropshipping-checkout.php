@@ -9,7 +9,6 @@ class WC_Dropshipping_Checkout {
 		$this->order_options = get_option( 'wc_dropship_manager' );
 
 		$this->init();
-
 	}
 
 	public function init() {
@@ -43,7 +42,6 @@ class WC_Dropshipping_Checkout {
 		add_action( 'woocommerce_order_item_meta_start', array( $this, 'wc_email_after_order_table' ), 10, 4 );
 
 		add_action( 'woocommerce_order_item_meta_end', array( $this, 'product_shipping_details' ), 10, 4 );
-
 	}
 
 	public function add_custom_checkout_fields( $fields ) {
@@ -64,7 +62,6 @@ class WC_Dropshipping_Checkout {
 		}
 
 		return $fields;
-
 	}
 
 	public function save_custom_checkout_fields( $order_id ) {
@@ -74,7 +71,6 @@ class WC_Dropshipping_Checkout {
 			opmc_hpos_update_post_meta( $order_id, '_wc_dropshipping_order_number', sanitize_text_field( $_POST['_wc_dropshipping_order_number'] ) );
 
 		}
-
 	}
 
 	public function show_custom_checkout_order_page( $order ) {
@@ -90,7 +86,6 @@ class WC_Dropshipping_Checkout {
 
 			}
 		}
-
 	}
 
 	public function add_custom_checkout_style() {
@@ -98,7 +93,6 @@ class WC_Dropshipping_Checkout {
 		$base_name = explode( '/', plugin_basename( __FILE__ ) );
 
 		wp_enqueue_style( 'wc_dropshipping_checkout_style', plugins_url() . '/' . $base_name[0] . '/assets/css/custom.css' );
-
 	}
 
 	public function show_order_number_header( $columns ) {
@@ -117,7 +111,6 @@ class WC_Dropshipping_Checkout {
 		}
 
 		return $new_columns;
-
 	}
 
 	public function show_order_number_content( $column ) {
@@ -135,7 +128,6 @@ class WC_Dropshipping_Checkout {
 			echo $order_number;
 
 		}
-
 	}
 
 	public function show_order_tracking_header( $columns ) {
@@ -154,7 +146,6 @@ class WC_Dropshipping_Checkout {
 		}
 
 		return $new_columns;
-
 	}
 
 	public function show_order_tracking_content( $column ) {
@@ -202,7 +193,6 @@ class WC_Dropshipping_Checkout {
 				}
 			}
 		}
-
 	}
 
 	public function show_pod_header( $columns ) {
@@ -221,7 +211,6 @@ class WC_Dropshipping_Checkout {
 		}
 
 		return $new_columns;
-
 	}
 
 	public function show_pod_content( $column ) {
@@ -268,7 +257,6 @@ class WC_Dropshipping_Checkout {
 				}
 			}
 		}
-
 	}
 
 	public function wc_view_order_number( $order_id ) {
@@ -283,7 +271,6 @@ class WC_Dropshipping_Checkout {
 
 			}
 		}
-
 	}
 
 	public function wc_email_after_order_table( $item_id, $item, $order, $plain_text ) {
@@ -298,7 +285,6 @@ class WC_Dropshipping_Checkout {
 
 			}
 		}
-
 	}
 
 	public function add_cost_of_goods_on_orders( $order_id, $data ) {
@@ -329,7 +315,6 @@ class WC_Dropshipping_Checkout {
 			opmc_hpos_update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
 
 		}
-
 	}
 
 	public function manual_add_cost_of_goods_on_orders( $order_id ) {
@@ -360,7 +345,6 @@ class WC_Dropshipping_Checkout {
 			opmc_hpos_update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
 
 		}
-
 	}
 
 	public function product_shipping_details( $item_id, $item, $order, $plain_text ) {
@@ -416,8 +400,5 @@ class WC_Dropshipping_Checkout {
 				}
 			}
 		}
-
 	}
-
-
 }

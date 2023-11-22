@@ -107,7 +107,25 @@ class Admin_Notices {
 	 */
 	public function check_papro_license_messages() {
 
-		
+		if ( ( isset( $_GET['sl_activation'] ) || isset( $_GET['sl_deactivation'] ) ) && ! empty( $_GET['message'] ) ) {
+
+			$target = isset( $_GET['sl_activation'] ) ? $_GET['sl_activation'] : null;
+
+			switch ( $target ) {
+				case 'false':
+					$message = urldecode( $_GET['message'] );
+					?>
+					<div class="error">
+						<p><?php echo wp_kses_post( $message ); ?></p>
+					</div>
+					<?php
+					break;
+				case 'true':
+				default:
+					// Developers can put a custom success message here for when activation is successful if they way.
+					break;
+			}
+		}
 
 	}
 
@@ -125,7 +143,7 @@ class Admin_Notices {
 			<div class="error">
 				<?php
 					echo sprintf(
-						'<p>Thank you for purchasing <b>Premium Addons Pro!</b><br><span>Please <a href="%s">activate your license key</a> to get updates, premium support and full access to 320+ Premium Templates and white labeling.</span></p>',
+						'<p>Thank you for purchasing <b>Premium Addons Pro!</b><br><span>Please <a href="%s">activate your license key</a> to get updates, premium support and full access to 400+ Premium Templates and white labeling.</span></p>',
 						$url
 					);
 				?>
@@ -168,7 +186,7 @@ class Admin_Notices {
 
 			$message = '';
 
-			if ( $this->is_plugin_installed( $pa_path ) ) {
+			if ( self::is_plugin_installed( $pa_path ) ) {
 				if ( current_user_can( 'activate_plugins' ) ) {
 
 					$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $pa_path . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $pa_path );
@@ -189,6 +207,7 @@ class Admin_Notices {
 
 				}
 			}
+
 			$this->render_admin_notices( $message );
 		}
 
@@ -202,7 +221,7 @@ class Admin_Notices {
 	 *
 	 * @return boolean
 	 */
-	public function is_plugin_installed( $plugin_path ) {
+	public static function is_plugin_installed( $plugin_path ) {
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 

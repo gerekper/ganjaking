@@ -1,11 +1,42 @@
 <?php
 /**
  * font awesome fonts list array
- * @version 	 4.2.2
- * @fa_version 6.2.0
+ * @version 	 4.5.3
+ * @fa_version 6.4.2
  */
 
 ob_start();?>
+
+.fa-0::before {
+  content: "\30"; }
+
+.fa-1::before {
+  content: "\31"; }
+
+.fa-2::before {
+  content: "\32"; }
+
+.fa-3::before {
+  content: "\33"; }
+
+.fa-4::before {
+  content: "\34"; }
+
+.fa-5::before {
+  content: "\35"; }
+
+.fa-6::before {
+  content: "\36"; }
+
+.fa-7::before {
+  content: "\37"; }
+
+.fa-8::before {
+  content: "\38"; }
+
+.fa-9::before {
+  content: "\39"; }
+
 .fa-fill-drip::before {
   content: "\f576"; }
 
@@ -977,6 +1008,9 @@ ob_start();?>
 
 .fa-v::before {
   content: "\56"; }
+
+.fa-bangladeshi-taka-sign::before {
+  content: "\e2e6"; }
 
 .fa-bicycle::before {
   content: "\f206"; }
@@ -3549,9 +3583,6 @@ ob_start();?>
 .fa-subtract::before {
   content: "\f068"; }
 
-.fa-child-rifle::before {
-  content: "\e4e0"; }
-
 .fa-chess::before {
   content: "\f439"; }
 
@@ -4659,6 +4690,12 @@ ob_start();?>
 .fa-share-square::before {
   content: "\f14d"; }
 
+.fa-child-combatant::before {
+  content: "\e4e0"; }
+
+.fa-child-rifle::before {
+  content: "\e4e0"; }
+
 .fa-gun::before {
   content: "\e19b"; }
 
@@ -4835,6 +4872,9 @@ ob_start();?>
 
 .fa-hand-lizard::before {
   content: "\f258"; }
+
+.fa-notdef::before {
+  content: "\e1fe"; }
 
 .fa-disease::before {
   content: "\f7fa"; }
@@ -5819,35 +5859,6 @@ ob_start();?>
 
 .fa-level-up-alt::before {
   content: "\f3bf"; }
-
-.sr-only,
-.fa-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0; }
-
-.sr-only-focusable:not(:focus),
-.fa-sr-only-focusable:not(:focus) {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0; }
-
-.fab,
-.fa-brands {
-  font-weight: 400; }
-
 .fa-monero:before {
   content: "\f3d0"; }
 
@@ -6012,6 +6023,9 @@ ob_start();?>
 
 .fa-edge:before {
   content: "\f282"; }
+
+.fa-threads:before {
+  content: "\e618"; }
 
 .fa-napster:before {
   content: "\f3d2"; }
@@ -6180,6 +6194,9 @@ ob_start();?>
 
 .fa-scribd:before {
   content: "\f28a"; }
+
+.fa-debian:before {
+  content: "\e60b"; }
 
 .fa-openid:before {
   content: "\f19b"; }
@@ -6420,6 +6437,9 @@ ob_start();?>
 
 .fa-neos:before {
   content: "\f612"; }
+
+.fa-square-threads:before {
+  content: "\e619"; }
 
 .fa-hackerrank:before {
   content: "\f5f7"; }
@@ -6762,6 +6782,9 @@ ob_start();?>
 
 .fa-erlang:before {
   content: "\f39d"; }
+
+.fa-x-twitter:before {
+  content: "\e61b"; }
 
 .fa-cotton-bureau:before {
   content: "\f89e"; }
@@ -7210,6 +7233,9 @@ ob_start();?>
 .fa-internet-explorer:before {
   content: "\f26b"; }
 
+.fa-stubber:before {
+  content: "\e5c7"; }
+
 .fa-telegram:before {
   content: "\f2c6"; }
 
@@ -7218,6 +7244,9 @@ ob_start();?>
 
 .fa-old-republic:before {
   content: "\f510"; }
+
+.fa-odysee:before {
+  content: "\e5c6"; }
 
 .fa-square-whatsapp:before {
   content: "\f40c"; }
@@ -7251,6 +7280,9 @@ ob_start();?>
 
 .fa-quora:before {
   content: "\f2c4"; }
+
+.fa-square-x-twitter:before {
+  content: "\e61a"; }
 
 .fa-reacteurope:before {
   content: "\f75d"; }
@@ -7344,6 +7376,8 @@ ob_start();?>
 
 .fa-steam-symbol:before {
   content: "\f3f6"; }
+
+
 <?php
 	$fonts_string = ob_get_clean();
 	

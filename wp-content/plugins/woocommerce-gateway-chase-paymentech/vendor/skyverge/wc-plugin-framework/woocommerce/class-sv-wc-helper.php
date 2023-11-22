@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_11_7;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_12;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_7\\SV_WC_Helper' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_12\\SV_WC_Helper' ) ) :
 
 
 /**
@@ -446,6 +446,47 @@ class SV_WC_Helper {
 	}
 
 
+	/**
+	 * Joins the array elements into a string using natural language.
+	 *
+	 * For example, the array `['US', 'Canada', 'Mexico']` would become `'US, Canada, and Mexico'`.
+	 *
+	 * When using this method to create user-facing text, it is recommended to supply a localized conjunction.
+	 *
+	 * @since 5.11.8
+	 *
+	 * @param array<scalar> $array
+	 * @param string|null $conjunction one of 'and' or 'or'
+	 * @param string|null $pattern a custom sprintf pattern, with placeholders %1$s and %2$s
+	 * @return string
+	 */
+	public static function array_join_natural( array $array, ?string $conjunction = 'and', ?string $pattern = '' ) : string
+	{
+		$last = array_pop( $array );
+
+		if ( $array ) {
+			if ( ! $pattern ) {
+				switch ( $conjunction ) {
+					case 'or':
+						/* translators: A list of items, for example: "US or Canada", or "US, Canada, or Mexico". English uses Oxford comma before the conjunction ("or") if there are at least 2 items preceding it - hence the use of plural forms. If your locale does not use Oxford comma, you can just provide the same translation to all plural forms. Placeholders: %1$s - a comma-separated list of item, %2$s - the final item in the list */
+						$pattern = _n( '%1$s or %2$s', '%1$s, or %2$s', count( $array ), 'woocommerce-plugin-framework' );
+						break;
+
+					case 'and':
+					default:
+						/* translators: A list of items, for example: "US and Canada", or "US, Canada, and Mexico". English uses Oxford comma before the conjunction ("and") if there are at least 2 items preceding it - hence the use of plural forms. If your locale does not use Oxford comma, you can just provide the same translation to all plural forms. Placeholders: %1$s - a comma-separated list of items, %2$s - the final item in the list */
+						$pattern = _n( '%1$s and %2$s', '%1$s, and %2$s', count( $array ), 'woocommerce-plugin-framework' );
+						break;
+				}
+			}
+
+			return sprintf( $pattern, implode( ', ', $array ), $last );
+		}
+
+		return (string) $last;
+	}
+
+
 	/** Number helper functions *******************************************/
 
 
@@ -488,7 +529,7 @@ class SV_WC_Helper {
 	 * @param \WC_Order $order
 	 * @return \stdClass[] array of line item objects
 	 */
-	public static function get_order_line_items( $order ) {
+	public static function get_order_line_items( $order ): array {
 
 		$line_items = [];
 
@@ -507,7 +548,7 @@ class SV_WC_Helper {
 				$item_desc[] = sprintf( 'SKU: %s', $sku );
 			}
 
-			$meta_data = $item->get_formatted_meta_data( '-', true );
+			$meta_data = $item->get_formatted_meta_data( '_', true );
 			$item_meta = [];
 
 			foreach ( $meta_data as $meta ) {
@@ -529,7 +570,7 @@ class SV_WC_Helper {
 			$line_item->name        = htmlentities( $name, ENT_QUOTES, 'UTF-8', false );
 			$line_item->description = htmlentities( $item_desc, ENT_QUOTES, 'UTF-8', false );
 			$line_item->quantity    = $quantity;
-			$line_item->item_total  = isset( $item['recurring_line_total'] ) ? $item['recurring_line_total'] : $order->get_item_total( $item );
+			$line_item->item_total  = $item['recurring_line_total'] ?? $order->get_item_total( $item );
 			$line_item->line_total  = $order->get_line_total( $item );
 			$line_item->meta        = $item_meta;
 			$line_item->product     = is_object( $product ) ? $product : null;

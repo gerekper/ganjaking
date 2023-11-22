@@ -11,7 +11,7 @@ class WCML_Ajax_Setup {
 
 	public function add_hooks() {
 		add_action( 'init', [ $this, 'init' ] );
-		add_action( 'woocommerce_ajax_get_endpoint', [ $this, 'add_language_to_endpoint' ] );
+		add_filter( 'woocommerce_ajax_get_endpoint', [ $this, 'add_language_to_endpoint' ] );
 	}
 
 	public function init() {

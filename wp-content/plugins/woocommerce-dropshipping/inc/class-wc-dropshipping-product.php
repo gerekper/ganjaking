@@ -29,13 +29,11 @@ class WC_Dropshipping_Product {
 			add_action( 'add_meta_boxes', array($this,'add_custom_box' ));
 
 		*/
-
 	}
 
 	public function add_dropshipper_metaboxes_in_orders() {
 
 		add_meta_box( 'wpt_dropshipper_list', 'Shipping details', array( $this, 'print_dropshipper_list_metabox_in_orders' ), 'shop_order', 'side', 'default' );
-
 	}
 
 	/* ADD METABOX WITH DROPSHIPPER STATUSES IN ADMIN ORDERS */
@@ -133,7 +131,6 @@ class WC_Dropshipping_Product {
 				}
 			}
 		}
-
 	}
 
 	public function de_bulk_actions_edit_product( $bulk_actions ) {
@@ -155,7 +152,6 @@ class WC_Dropshipping_Product {
 		}
 
 		return $bulk_actions;
-
 	}
 
 	public function wc_new_supplier_column( $columns ) {
@@ -163,7 +159,6 @@ class WC_Dropshipping_Product {
 		$columns['supplier'] = 'Dropshipping Supplier';
 
 		return $columns;
-
 	}
 
 	/*Order page listing column */
@@ -199,7 +194,6 @@ class WC_Dropshipping_Product {
 				}
 			}
 		}
-
 	}
 
 	function assign_bulk_supplier( $redirect_to, $action_name, $post_ids, $append = false ) {
@@ -235,7 +229,6 @@ class WC_Dropshipping_Product {
 			return $redirect_to;
 
 		}
-
 	}
 
 	/* Order Detail page */
@@ -250,7 +243,6 @@ class WC_Dropshipping_Product {
 			   echo '<p>Supplier : <b>'.$suppliername.'</b></p>';
 
 		}*/
-
 	}
 
 	public function dropship_supplier_metabox( $post ) {
@@ -320,7 +312,6 @@ class WC_Dropshipping_Product {
 			</div>
 
 		</div>';
-
 	}
 
 	public function save_supplier_name( $post_id ) {
@@ -352,13 +343,11 @@ class WC_Dropshipping_Product {
 				}
 			}
 		}
-
 	}
 
 	public function dropship_supplier_meta_box() {
 
 		add_meta_box( 'dropship_supplier', 'Dropshipping Supplier', array( $this, 'dropship_supplier_metabox' ), 'product', 'side', 'core' );
-
 	}
 
 	public function check_deleted_supplier() {
@@ -393,5 +382,4 @@ class WC_Dropshipping_Product {
 			}
 		}
 	}
-
 }

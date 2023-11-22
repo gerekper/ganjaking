@@ -21,7 +21,7 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Add_Ons_List_Table;
 
 defined( 'ABSPATH' ) or exit;

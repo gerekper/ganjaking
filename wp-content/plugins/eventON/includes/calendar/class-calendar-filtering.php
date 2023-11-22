@@ -673,6 +673,7 @@ class EVO_Cal_Filering{
 				// print all the events
 				foreach($EL as $event)	$content_li.= $event['content'];
 
+
 				// load more events button
 				if( isset($SC['show_limit']) && $SC['show_limit']=='yes' && 
 					((count($EL)> $SC['event_count'] && $SC['show_limit_ajax']=='no' ) || ($SC['show_limit_ajax'] =='yes')
@@ -714,10 +715,12 @@ class EVO_Cal_Filering{
 			}
 			return $eventlist;
 		}
+
+		// @u 4.5.3
 		function move_ml_yl_to_top($eventlist){
 			$args = $this->cal->shortcode_args;
 
-			$ml_events = $yl_events = array();
+			$ml_events = $yl_events = $events = array();
 
 			foreach($eventlist as $event){
 				if(isset($event['event_pmv']['_evo_month_long']) && isset($event['event_pmv']['_evo_month_long'][0]) && $event['event_pmv']['_evo_month_long'][0]=='yes' ){
@@ -728,6 +731,9 @@ class EVO_Cal_Filering{
 					$events[]=$event;
 				}
 			}
+
+			// if no events
+				if( count($events) == 0) return $events;
 
 			if(isset($args['ml_priority']) && $args['ml_priority']=='yes' ){
 				

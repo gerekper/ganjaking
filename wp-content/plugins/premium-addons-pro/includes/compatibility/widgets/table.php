@@ -41,6 +41,7 @@ class Table extends WPML_Elementor_Module_With_Items {
 	public function get_fields() {
 		return array(
 			'premium_table_text',
+			'premium_table_link' => array( 'url' ),
 		);
 	}
 
@@ -58,7 +59,7 @@ class Table extends WPML_Elementor_Module_With_Items {
 		if ( 'premium_table_text' === $field ) {
 			return __( 'Table: Cell Text', 'premium-addons-pro' );
 		}
-		if ( 'premium_table_link' === $field ) {
+		if ( 'url' === $field ) {
 			return __( 'Table: Cell Link', 'premium-addons-pro' );
 		}
 
@@ -80,7 +81,7 @@ class Table extends WPML_Elementor_Module_With_Items {
 		switch ( $field ) {
 			case 'premium_table_text':
 				return 'LINE';
-			case 'premium_table_link':
+			case 'url':
 				return 'LINK';
 			default:
 				return '';

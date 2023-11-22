@@ -1,0 +1,91 @@
+.dce-list .dce-hidden{
+    display:none;
+}
+.dce-list .block{
+    display: flex;
+    align-items: center;
+}
+.dce-list .block:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.dce-list .inline-block{
+    display:inline-block;
+}
+.dce-list.list-unstyled{
+    list-style:none;
+}
+.dce-list .middle{
+    vertical-align:middle;
+}
+.dce-list .fiv-viv{
+    font-size:40px;
+    margin-right:10px;
+    /*float: left;*/
+}
+.dce-list li:not(:last-child){
+    border-bottom:1px solid #ddd;
+}
+.dce-list li:last-child{
+    border-bottom:none !important;
+}
+.dce-list a.dce-file-download, .dce-list a.folder-dir .dce-dir-title{
+    transition: color 0.4s ease-out;
+}
+.dce-search-buttons input{
+    border: solid 0px #000; 
+}
+/*.dce-list a{
+    padding:4px;
+}*/
+.dce-list a:focus{
+    outline: none;
+}
+/*.dce-list a:hover{
+    background-color:#eee;
+}*/
+.dce-dir-title{
+    position: relative;
+    vertical-align: middle;
+}
+input.dce-dir-title, input.dce-file-title{
+    max-width: 64%;
+    padding: 3px 8px;
+}
+.dce-list .dce-file-hide,
+.dce-list .dce-dir-hide {
+    margin-top: 8px;
+    margin-right: 4px;
+}
+.dce-list .dce-file-hide:hover,
+.dce-list .dce-dir-hide:hover {
+    border: none;
+}
+.dce-list .dce-file-description  {
+    margin-left: 0;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0px 7px 4px 0;
+}
+.dce-list textarea.dce-file-description {
+    background-color: #fff;
+    max-width: 73%;
+    box-shadow: 0 0 10px rgba(200,200,200,0.1);
+}
+.elementor-editor-active .dce-list textarea.dce-file-description{
+    max-width: 85%;
+    box-shadow: 0 0 10px rgba(200,200,200,0.1);
+    background: #eee;
+    border: none;
+    padding: 8px 0 0 8px;
+    height: auto;
+    width: 100%;
+}
+.dce-file-search-form {
+    padding: 15px;
+    border: 1px solid #333;
+}
+.dce-file-search-form h3{
+    position: relative;
+}

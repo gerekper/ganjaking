@@ -301,8 +301,6 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 	 * @param string|int $product_id
 	 * @param array      $data
 	 * @param string     $language
-	 *
-	 * @return array
 	 */
 	public function update_component_strings( $original_product_id, $product_id, $data, $language ){
 
@@ -336,11 +334,6 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 		}
 
 		update_post_meta( $product_id, self::META_KEY_SCENARIO, $composite_scenarios_meta );
-
-		return array(
-			'components' => $composite_data,
-			'scenarios'  => $composite_scenarios_meta,
-		);
 	}
 
 	/**

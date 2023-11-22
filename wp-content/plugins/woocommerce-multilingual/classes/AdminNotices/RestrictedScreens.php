@@ -2,8 +2,6 @@
 
 namespace WCML\AdminNotices;
 
-use WPML\FP\Obj;
-
 class RestrictedScreens {
 
 	/**
@@ -18,6 +16,7 @@ class RestrictedScreens {
 			'woocommerce_page_wc-settings',
 			'woocommerce_page_wc-status',
 			'woocommerce_page_wc-addons',
+			'woocommerce_page_wc-orders',
 			'edit-shop_order',
 			'edit-shop_coupon',
 			'edit-product',

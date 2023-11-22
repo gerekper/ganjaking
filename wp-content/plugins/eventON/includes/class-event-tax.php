@@ -53,7 +53,7 @@ class EVO_Event_Tax {
 				<div class='evo_tax_details'>
 					<h3 class='evo_h3 padt20 padb20 fw900i' style="font-size:36px;"><?php echo $org_data_this->name;?></h3>
 
-					<div class='padb10 evo_org_desc'><?php echo $org_data_this->description;?></div>
+					<div class='padb10 evo_org_desc'><?php echo stripslashes( $org_data_this->description );?></div>
 					
 					<?php
 					if(!empty($org_data_this->organizer_contact)){						
@@ -132,6 +132,9 @@ class EVO_Event_Tax {
 
 				$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
 
+				// event type color override @since 4.5.2
+				$etc_override = EVO()->cal->check_yn('evosm_etc_override','evcal_1') ? 'yes':'no';
+
 				
 				echo EVO()->shortcodes->events_list( array(
 					'number_of_months'=>5,
@@ -139,7 +142,8 @@ class EVO_Event_Tax {
 					'hide_mult_occur'=>'no',
 					'hide_empty_months'=>'yes',
 					'eventtop_style'=> $eventtop_style,
-					'ux_val'=>3
+					'ux_val'=>3,
+					'etc_override'=> $etc_override,
 				));
 
 				?>

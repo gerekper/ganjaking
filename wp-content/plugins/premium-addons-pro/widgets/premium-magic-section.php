@@ -12,8 +12,8 @@ use Elementor\Widget_Base;
 use Elementor\Icons_Manager;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -23,6 +23,7 @@ use Elementor\Group_Control_Background;
 use Elementor\Core\Responsive\Responsive;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -36,14 +37,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Magic_Section extends Widget_Base {
 
 	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-magic-section' );
+		return $is_enabled;
+	}
+
+	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -73,7 +96,7 @@ class Premium_Magic_Section extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Magic Section', 'premium-addons-pro' ) );
+		return __( 'Magic Section', 'premium-addons-pro' );
 	}
 
 	/**
@@ -99,6 +122,21 @@ class Premium_Magic_Section extends Widget_Base {
 	}
 
 	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-addons',
+			'premium-pro',
+		);
+	}
+
+	/**
 	 * Retrieve Widget Dependent JS.
 	 *
 	 * @since 1.0.0
@@ -107,7 +145,19 @@ class Premium_Magic_Section extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array( 'premium-pro', 'jquery-ui' );
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-tweenmax',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			$draw_scripts,
+			array(
+				'premium-pro',
+				'jquery-ui',
+			)
+		);
 	}
 
 	/**
@@ -120,6 +170,18 @@ class Premium_Magic_Section extends Widget_Base {
 	 */
 	public function get_categories() {
 		return array( 'premium-elements' );
+	}
+
+	/**
+	 * Retrieve Widget Keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return string Widget keywords.
+	 */
+	public function get_keywords() {
+		return array( 'pa', 'premium', 'off canvas', 'slide' );
 	}
 
 	/**
@@ -139,7 +201,9 @@ class Premium_Magic_Section extends Widget_Base {
 	 * @since  1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'premium_magic_section',
@@ -163,11 +227,38 @@ class Premium_Magic_Section extends Widget_Base {
 		);
 
 		$this->add_control(
+			'live_temp_content',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'premium_magic_section_content_type' => 'template',
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_magic_section_content_temp_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'premium_magic_section_content_type' => 'template',
+				),
+			)
+		);
+
+		$this->add_control(
 			'premium_magic_section_content_temp',
 			array(
-				'label'       => __( 'Content', 'premium-addons-pro' ),
-				'description' => __( 'Magic content is a template which you can choose from Elementor library', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'condition'   => array(
 					'premium_magic_section_content_type' => 'template',
@@ -194,6 +285,15 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label' => __( 'Close Button', 'premium-addons-pro' ),
 				'type'  => Controls_Manager::SWITCHER,
+			)
+		);
+
+		$this->add_control(
+			'close_on_outside',
+			array(
+				'label'   => esc_html__( 'Close On Click Outside', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 			)
 		);
 
@@ -299,7 +399,7 @@ class Premium_Magic_Section extends Widget_Base {
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'premium_magic_section_icon_font_in',
 				'default'          => array(
-					'value'   => 'fa fa-arrow-down',
+					'value'   => 'eicon-arrow-down',
 					'library' => 'solid',
 				),
 				'condition'        => array(
@@ -332,7 +432,7 @@ class Premium_Magic_Section extends Widget_Base {
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'premium_magic_section_icon_font_out',
 				'default'          => array(
-					'value'   => 'fa fa-arrow-up',
+					'value'   => 'eicon-arrow-up',
 					'library' => 'solid',
 				),
 				'condition'        => array(
@@ -388,6 +488,7 @@ class Premium_Magic_Section extends Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-magic-section-icon' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-magic-section-icon-wrap svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -427,6 +528,7 @@ class Premium_Magic_Section extends Widget_Base {
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-magic-section-btn' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-magic-section-button-trig svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
 				),
 				'condition'  => array(
 					'premium_magic_section_trig_float!'   => 'yes',
@@ -463,6 +565,11 @@ class Premium_Magic_Section extends Widget_Base {
 			)
 		);
 
+		$common_conditions = array(
+			'premium_magic_section_icon_switcher' => 'yes',
+			'premium_magic_section_trig_selector' => 'button',
+		);
+
 		$this->add_control(
 			'premium_magic_section_icon_switcher',
 			array(
@@ -476,21 +583,248 @@ class Premium_Magic_Section extends Widget_Base {
 		);
 
 		$this->add_control(
+			'icon_type',
+			array(
+				'label'     => __( 'Icon Type', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'icon' => __( 'Icon', 'premium-addons-pro' ),
+					'svg'  => __( 'SVG Code', 'premium-addons-pro' ),
+				),
+				'default'   => 'icon',
+				'condition' => $common_conditions,
+			)
+		);
+
+		$this->add_control(
 			'new_button_icon_selection',
 			array(
 				'label'            => __( 'Icon', 'premium-addons-pro' ),
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'premium_magic_section_button_icon_selection',
 				'default'          => array(
-					'value'   => 'fa fa-bars',
+					'value'   => 'fa fa-star',
 					'library' => 'solid',
 				),
-				'condition'        => array(
-					'premium_magic_section_trig_selector' => 'button',
-					'premium_magic_section_icon_switcher' => 'yes',
+				'condition'        => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => 'icon',
+					)
 				),
 			)
 		);
+
+		$this->add_control(
+			'custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => 'svg',
+					)
+				),
+			)
+		);
+
+		$this->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => array( 'icon', 'svg' ),
+						'new_button_icon_selection[library]!' => 'svg',
+					)
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'path_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 50,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+						)
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-magic-section-btn svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_loop',
+				array(
+					'label'        => __( 'Loop', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'default'      => 'true',
+					'condition'    => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_reverse',
+				array(
+					'label'        => __( 'Reverse', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'icon_type'    => array( 'icon', 'svg' ),
+							'draw_svg'     => 'yes',
+							'svg_reverse!' => 'true',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'icon_type'   => array( 'icon', 'svg' ),
+							'draw_svg'    => 'yes',
+							'svg_reverse' => 'true',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_hover',
+				array(
+					'label'        => __( 'Only Play on Hover', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'icon_type' => array( 'icon', 'svg' ),
+							'draw_svg'  => 'yes',
+							'svg_loop'  => 'true',
+						)
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$this,
+				'magic',
+				array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => array( 'icon', 'svg' ),
+						'new_button_icon_selection[library]!' => 'svg',
+					)
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_magic_section_icon_position',
@@ -499,13 +833,10 @@ class Premium_Magic_Section extends Widget_Base {
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'before',
 				'options'     => array(
-					'before' => __( 'Before' ),
-					'after'  => __( 'After' ),
+					'before' => __( 'Before', 'premium-addons-pro' ),
+					'after'  => __( 'After', 'premium-addons-pro' ),
 				),
-				'condition'   => array(
-					'premium_magic_section_trig_selector' => 'button',
-					'premium_magic_section_icon_switcher' => 'yes',
-				),
+				'condition'   => $common_conditions,
 				'label_block' => true,
 			)
 		);
@@ -513,14 +844,78 @@ class Premium_Magic_Section extends Widget_Base {
 		$this->add_control(
 			'premium_magic_section_icon_before_size',
 			array(
-				'label'     => __( 'Icon Size', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'condition' => array(
-					'premium_magic_section_trig_selector' => 'button',
-					'premium_magic_section_icon_switcher' => 'yes',
+				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => 'icon',
+					)
 				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-magic-section-btn i ' => 'font-size: {{SIZE}}px',
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-magic-section-btn i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-magic-section-btn svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'svg_icon_width',
+			array(
+				'label'      => __( 'Icon Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => 'svg',
+					)
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-magic-section-btn svg' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'svg_icon_height',
+			array(
+				'label'      => __( 'Icon Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'icon_type' => 'svg',
+					)
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-magic-section-btn svg' => 'height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -578,7 +973,7 @@ class Premium_Magic_Section extends Widget_Base {
 					'condition' => array(
 						'premium_magic_section_trig_selector' => 'button',
 						'premium_magic_section_icon_switcher' => 'yes',
-						'premium_magic_section_icon_position' => 'after',
+						'premium_magic_section_icon_position' => 'before',
 					),
 					'default'   => array(
 						'size' => 15,
@@ -642,15 +1037,15 @@ class Premium_Magic_Section extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -684,15 +1079,15 @@ class Premium_Magic_Section extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -715,15 +1110,15 @@ class Premium_Magic_Section extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'middle' => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'middle',
@@ -751,19 +1146,19 @@ class Premium_Magic_Section extends Widget_Base {
 				'options' => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-left',
+						'icon'  => 'eicon-arrow-left',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-right',
+						'icon'  => 'eicon-arrow-right',
 					),
 				),
 				'default' => 'top',
@@ -840,15 +1235,15 @@ class Premium_Magic_Section extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -869,15 +1264,15 @@ class Premium_Magic_Section extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'center'     => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'selectors' => array(
@@ -948,10 +1343,27 @@ class Premium_Magic_Section extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'premium_magic_section_button_typo',
-				'scheme'    => Typography::TYPOGRAPHY_1,
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector'  => '{{WRAPPER}} .premium-magic-section-btn span',
 				'condition' => array(
 					'premium_magic_section_trig_selector' => 'button',
+				),
+			)
+		);
+
+		$this->add_control(
+			'svg_color',
+			array(
+				'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
+				'separator' => 'after',
+				'condition' => array(
+					'premium_magic_section_trig_selector' => 'button',
+					'icon_type'                           => array( 'icon', 'svg' ),
+					'draw_svg'                            => 'yes',
 				),
 			)
 		);
@@ -971,9 +1383,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector' => 'button',
@@ -989,34 +1400,53 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector' => 'button',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-magic-section-btn .premium-magic-btn-icon' => 'color:{{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-btn .premium-magic-btn-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-btn svg, {{WRAPPER}} .premium-magic-section-btn svg *' => 'fill: {{VALUE}}',
 				),
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'icon_type' => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-magic-section-button-trig svg *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_magic_section_icon_color_normal',
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector!' => 'button',
 					'premium_magic_section_icon_selector'  => 'font-awesome-icon',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-magic-section-btn' => 'color:{{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-btn' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-icon-wrap svg, {{WRAPPER}} .premium-magic-section-button-trig svg' => 'fill: {{VALUE}}',
 				),
 			)
 		);
@@ -1027,9 +1457,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-btn'   => 'background-color: {{VALUE}};',
@@ -1057,7 +1486,7 @@ class Premium_Magic_Section extends Widget_Base {
 					'size' => 0,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-magic-section-btn'     => 'border-radius:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-magic-section-btn'     => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1099,9 +1528,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector' => 'button',
@@ -1117,15 +1545,15 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector' => 'button',
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-btn:hover .premium-magic-btn-icon' => 'color:{{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-btn:hover svg, {{WRAPPER}} .premium-magic-section-btn:hover svg *' => 'fill: {{VALUE}}',
 				),
 			)
 		);
@@ -1135,9 +1563,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'condition' => array(
 					'premium_magic_section_trig_selector!' => 'button',
@@ -1145,6 +1572,7 @@ class Premium_Magic_Section extends Widget_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-btn:hover' => 'color:{{VALUE}};',
+					'{{WRAPPER}} .premium-magic-section-icon-wrap:hover' => 'fill: {{VALUE}}',
 				),
 			)
 		);
@@ -1154,6 +1582,9 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-btn:hover' => 'background: {{VALUE}};',
 				),
@@ -1224,9 +1655,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-wrap .premium-magic-section-close i'   => 'color: {{VALUE}};',
@@ -1251,9 +1681,8 @@ class Premium_Magic_Section extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-magic-section-wrap .premium-magic-section-close:hover i'   => 'color: {{VALUE}};',
@@ -1441,7 +1870,7 @@ class Premium_Magic_Section extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		$template = $settings['premium_magic_section_content_temp'];
+		$template = empty( $settings['premium_magic_section_content_temp'] ) ? $settings['live_temp_content'] : $settings['premium_magic_section_content_temp'];
 
 		$in_icon  = '';
 		$out_icon = '';
@@ -1462,8 +1891,56 @@ class Premium_Magic_Section extends Widget_Base {
 				$icon_font = $settings['premium_magic_section_custom_image']['url'];
 			}
 		} else {
-			$migrated = isset( $settings['__fa4_migrated']['new_button_icon_selection'] );
-			$is_new   = empty( $settings['premium_magic_section_button_icon_selection'] ) && Icons_Manager::is_migration_allowed();
+
+			$icon_type = $settings['icon_type'];
+
+			if ( 'icon' === $icon_type ) {
+
+				$migrated = isset( $settings['__fa4_migrated']['new_button_icon_selection'] );
+				$is_new   = empty( $settings['premium_magic_section_button_icon_selection'] ) && Icons_Manager::is_migration_allowed();
+			}
+
+			if ( ( 'yes' === $settings['draw_svg'] && 'icon' === $icon_type ) || 'svg' === $icon_type ) {
+				$this->add_render_attribute( 'icon', 'class', 'premium-magic-btn-icon' );
+			}
+
+			if ( 'yes' === $settings['draw_svg'] ) {
+
+				$this->add_render_attribute(
+					'container',
+					'class',
+					array(
+						'elementor-invisible',
+						'premium-drawer-hover',
+					)
+				);
+
+				if ( 'icon' === $icon_type ) {
+
+					$this->add_render_attribute( 'icon', 'class', $settings['new_button_icon_selection']['value'] );
+
+				}
+
+				$this->add_render_attribute(
+					'icon',
+					array(
+						'class'            => 'premium-svg-drawer',
+						'data-svg-reverse' => $settings['svg_reverse'],
+						'data-svg-loop'    => $settings['svg_loop'],
+						'data-svg-sync'    => $settings['svg_sync'],
+						'data-svg-hover'   => $settings['svg_hover'],
+						'data-svg-fill'    => $settings['svg_color'],
+						'data-svg-frames'  => $settings['frames'],
+						'data-svg-yoyo'    => $settings['svg_yoyo'],
+						'data-svg-point'   => $settings['svg_reverse'] ? $settings['end_point']['size'] : $settings['start_point']['size'],
+					)
+				);
+
+			} else {
+
+				$this->add_render_attribute( 'icon', 'class', 'premium-svg-nodraw' );
+
+			}
 		}
 
 		$section_gutter = ! empty( $settings['premium_magic_section_gutter'] ) ? $settings['premium_magic_section_gutter'] : 0;
@@ -1477,18 +1954,21 @@ class Premium_Magic_Section extends Widget_Base {
 		}
 
 		$magic_section_settings = array(
-			'position'   => $section_pos,
-			'gutter'     => $section_gutter,
-			'trigger'    => $settings['premium_magic_section_trig_selector'],
-			'style'      => $settings['premium_magic_section_style'],
-			'inIcon'     => $in_icon,
-			'outIcon'    => $out_icon,
-			'responsive' => ( 'yes' === $settings['premium_magic_section_responsive_switcher'] ) ? true : false,
-			'hideTabs'   => ( 'yes' === $settings['premium_magic_section_hide_tabs'] ) ? true : false,
-			'tabSize'    => ( 'yes' === $settings['premium_magic_section_hide_tabs'] ) ? Responsive::get_breakpoints()['lg'] : Responsive::get_breakpoints()['lg'],
-			'hideMobs'   => ( 'yes' === $settings['premium_magic_section_hide_mobs'] ) ? true : false,
-			'mobSize'    => ( 'yes' === $settings['premium_magic_section_hide_mobs'] ) ? Responsive::get_breakpoints()['md'] : Responsive::get_breakpoints()['md'],
+			'position'     => $section_pos,
+			'gutter'       => $section_gutter,
+			'trigger'      => $settings['premium_magic_section_trig_selector'],
+			'style'        => $settings['premium_magic_section_style'],
+			'inIcon'       => $in_icon,
+			'outIcon'      => $out_icon,
+			'responsive'   => ( 'yes' === $settings['premium_magic_section_responsive_switcher'] ) ? true : false,
+			'hideTabs'     => ( 'yes' === $settings['premium_magic_section_hide_tabs'] ) ? true : false,
+			'tabSize'      => ( 'yes' === $settings['premium_magic_section_hide_tabs'] ) ? Responsive::get_breakpoints()['lg'] : Responsive::get_breakpoints()['lg'],
+			'hideMobs'     => ( 'yes' === $settings['premium_magic_section_hide_mobs'] ) ? true : false,
+			'mobSize'      => ( 'yes' === $settings['premium_magic_section_hide_mobs'] ) ? Responsive::get_breakpoints()['md'] : Responsive::get_breakpoints()['md'],
+			'clickOutside' => 'yes' === $settings['close_on_outside'] ? true : false,
 		);
+
+		$this->add_render_attribute( 'container', 'class', 'premium-magic-section-container' );
 
 		?>
 
@@ -1496,18 +1976,18 @@ class Premium_Magic_Section extends Widget_Base {
 			<div class="premium-magic-section-overlay"></div>
 		<?php endif; ?>
 
-		<div class="premium-magic-section-container">
+		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'container' ) ); ?>>
 			<div id="premium-magic-section-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-magic-section-wrap magic-section-hide out <?php echo esc_attr( $section_pos ) . ' ' . esc_attr( $close_align ); ?>" data-settings='<?php echo wp_json_encode( $magic_section_settings ); ?>'>
 				<?php if ( 'top' === $section_pos || 'left' === $section_pos ) : ?>
 				<div class="premium-magic-section-content-wrap-out">
 					<div class="premium-magic-section-content-wrap">
-					<?php
-					if ( 'editor' === $settings['premium_magic_section_content_type'] ) :
-						echo $this->parse_text_editor( $settings['premium_magic_section_content'] );
-				else :
-					echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				endif;
-				?>
+						<?php
+						if ( 'editor' === $settings['premium_magic_section_content_type'] ) :
+							echo $this->parse_text_editor( $settings['premium_magic_section_content'] );
+							else :
+								echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							endif;
+							?>
 					</div>
 				</div>
 
@@ -1518,9 +1998,8 @@ class Premium_Magic_Section extends Widget_Base {
 				<?php endif; ?>
 
 					<?php if ( 'yes' === $settings['premium_magic_section_trig_float'] ) : ?>
-			<div class="premium-magic-section-icon-wrap <?php echo esc_attr( $icon_align ); ?>">
+					<div class="premium-magic-section-icon-wrap <?php echo esc_attr( $icon_align ); ?>">
 						<?php if ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'font-awesome-icon' === $settings['premium_magic_section_icon_selector'] ) : ?>
-
 							<?php
 							if ( $is_new_in || $migrated_in ) :
 								Icons_Manager::render_icon(
@@ -1530,193 +2009,269 @@ class Premium_Magic_Section extends Widget_Base {
 										'aria-hidden' => 'true',
 									)
 								);
-					else :
-						?>
-						<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
-					<?php endif; ?>
+								else :
+									?>
+							<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
+						<?php endif; ?>
 
-				<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) : ?>
+						<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) : ?>
 
-					<img class="premium-magic-section-btn premium-magic-section-icon-image <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" alt ="Custom Image" src="<?php echo esc_attr( $icon_font ); ?>">
+							<img class="premium-magic-section-btn premium-magic-section-icon-image <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" alt ="Custom Image" src="<?php echo esc_attr( $icon_font ); ?>">
 
-				<?php elseif ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
-					<button type="button" class="premium-magic-section-btn btn">
-					<?php
-					if ( $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) :
-						if ( $is_new || $migrated ) :
-							Icons_Manager::render_icon(
-								$settings['new_button_icon_selection'],
-								array(
-									'class'       => 'premium-magic-btn-icon',
-									'aria-hidden' => 'true',
-								)
-							);
-					else :
-						?>
-						<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
+						<?php elseif ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
+							<button class="premium-magic-section-btn btn">
+								<?php
+								if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) :
+									if ( 'icon' === $icon_type ) :
+										if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+											Icons_Manager::render_icon(
+												$settings['new_button_icon_selection'],
+												array(
+													'class' => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+													'aria-hidden' => 'true',
+												)
+											);
+										else :
+											?>
+										<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+											<?php
+										endif;
+									else :
+										?>
+										<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+											<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+										</div>
+										<?php
+									endif;
+								endif;
+								?>
+
+								<?php if ( ! empty( $settings['premium_magic_section_button_text'] ) ) : ?>
+									<span class="premium-magic-btn-text">
+										<?php echo wp_kses_post( $settings['premium_magic_section_button_text'] ); ?>
+									</span>
+								<?php endif; ?>
+
+								<?php
+								if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) :
+									if ( 'icon' === $icon_type ) :
+										if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+											Icons_Manager::render_icon(
+												$settings['new_button_icon_selection'],
+												array(
+													'class' => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+													'aria-hidden' => 'true',
+												)
+											);
+										else :
+											?>
+											<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+											<?php
+										endif;
+									else :
+										?>
+										<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+											<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+										</div>
+										<?php
+									endif;
+								endif;
+								?>
+							</button>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+
+				<?php elseif ( 'bottom' === $section_pos || 'right' === $section_pos ) : ?>
+					<?php if ( 'yes' === $settings['premium_magic_section_trig_float'] ) : ?>
+						<div class="premium-magic-section-icon-wrap <?php echo esc_attr( $icon_align ); ?>">
+							<?php if ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'font-awesome-icon' === $settings['premium_magic_section_icon_selector'] ) : ?>
+								<?php
+								if ( $is_new_in || $migrated_in ) :
+									Icons_Manager::render_icon(
+										$settings['new_icon_font_in'],
+										array(
+											'class'       => array( 'premium-magic-section-btn', 'premium-magic-section-icon', 'elementor-animation-' . $settings['premium_magic_section_trig_anim'] ),
+											'aria-hidden' => 'true',
+										)
+									);
+								else :
+									?>
+								<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
+								<?php endif; ?>
+							<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) : ?>
+								<img class="premium-magic-section-btn premium-magic-section-icon-image <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" alt ="Custom Image" src="<?php echo esc_attr( $icon_font ); ?>" >
+							<?php elseif ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
+								<button class="premium-magic-section-btn btn">
+									<?php
+									if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) :
+										if ( 'icon' === $icon_type ) :
+											if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+												Icons_Manager::render_icon(
+													$settings['new_button_icon_selection'],
+													array(
+														'class' => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+														'aria-hidden' => 'true',
+													)
+												);
+											else :
+												?>
+												<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+												<?php
+											endif;
+										else :
+											?>
+											<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+												<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+											</div>
+											<?php
+										endif;
+									endif;
+									?>
+
+									<?php if ( ! empty( $settings['premium_magic_section_button_text'] ) ) : ?>
+										<span class="premium-magic-btn-text">
+											<?php echo wp_kses_post( $settings['premium_magic_section_button_text'] ); ?>
+										</span>
+									<?php endif; ?>
+
+									<?php
+									if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) :
+										if ( 'icon' === $icon_type ) :
+											if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+												Icons_Manager::render_icon(
+													$settings['new_button_icon_selection'],
+													array(
+														'class' => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+														'aria-hidden' => 'true',
+													)
+												);
+											else :
+												?>
+												<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+												<?php
+											endif;
+										else :
+											?>
+											<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+												<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+											</div>
+											<?php
+										endif;
+									endif;
+									?>
+
+								</button>
+							<?php endif; ?>
+						</div>
 					<?php endif; ?>
+					<div class="premium-magic-section-content-wrap-out">
+						<div class="premium-magic-section-content-wrap">
+							<?php
+							if ( 'editor' === $settings['premium_magic_section_content_type'] ) :
+								echo wp_kses_post( $settings['premium_magic_section_content'] );
+							else :
+								echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							endif;
+							?>
+						</div>
+					</div>
+					<?php if ( $settings['premium_magic_section_close'] ) : ?>
+						<div class="premium-magic-section-close-wrap">
+							<button type="button" class="premium-magic-section-close"><i class="fa fa-times"></i></button>
+						</div>
 					<?php endif; ?>
-					<span class="premium-magic-btn-text">
-						<?php echo wp_kses_post( $settings['premium_magic_section_button_text'] ); ?>
-					</span>
-					<?php if ( $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) : ?>
+				<?php endif; ?>
+			</div>
+
+			<?php if ( 'yes' !== $settings['premium_magic_section_trig_float'] ) : ?>
+				<div class="premium-magic-section-button-trig">
+					<?php if ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
+						<button class="premium-magic-section-btn btn <?php echo esc_attr( $settings['premium_magic_section_button_size'] ); ?>" >
 						<?php
-						if ( $is_new || $migrated ) :
+						if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) :
+							if ( 'icon' === $icon_type ) :
+								if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+									Icons_Manager::render_icon(
+										$settings['new_button_icon_selection'],
+										array(
+											'class'       => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+											'aria-hidden' => 'true',
+										)
+									);
+								else :
+									?>
+										<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+										<?php
+									endif;
+								else :
+									?>
+									<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+										<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+									</div>
+									<?php
+								endif;
+							endif;
+						?>
+
+							<?php if ( ! empty( $settings['premium_magic_section_button_text'] ) ) : ?>
+									<span class="premium-magic-btn-text">
+									<?php echo wp_kses_post( $settings['premium_magic_section_button_text'] ); ?>
+								</span>
+							<?php endif; ?>
+
+							<?php
+							if ( 'yes' === $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) :
+								if ( 'icon' === $icon_type ) :
+									if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+										Icons_Manager::render_icon(
+											$settings['new_button_icon_selection'],
+											array(
+												'class' => array( 'premium-magic-btn-icon', 'premium-svg-nodraw' ),
+												'aria-hidden' => 'true',
+											)
+										);
+									else :
+										?>
+											<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+										<?php
+									endif;
+								else :
+									?>
+									<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+										<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+									</div>
+									<?php
+									endif;
+								endif;
+							?>
+
+						</button>
+					<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'font-awesome-icon' === $settings['premium_magic_section_icon_selector'] ) : ?>
+						<?php
+						if ( $is_new_in || $migrated_in ) :
 							Icons_Manager::render_icon(
-								$settings['new_button_icon_selection'],
+								$settings['new_icon_font_in'],
 								array(
-									'class'       => 'premium-magic-btn-icon',
+									'class'       => array( 'premium-magic-section-btn', 'elementor-animation-' . $settings['premium_magic_section_trig_anim'] ),
 									'aria-hidden' => 'true',
 								)
 							);
 						else :
 							?>
-							<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
+							<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
 						<?php endif; ?>
-					<?php endif; ?>
-					</button>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
-
-		<?php elseif ( 'bottom' === $section_pos || 'right' === $section_pos ) : ?>
-			<?php if ( 'yes' === $settings['premium_magic_section_trig_float'] ) : ?>
-		<div class="premium-magic-section-icon-wrap <?php echo esc_attr( $icon_align ); ?>">
-				<?php if ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'font-awesome-icon' === $settings['premium_magic_section_icon_selector'] ) : ?>
-					<?php
-					if ( $is_new_in || $migrated_in ) :
-						Icons_Manager::render_icon(
-							$settings['new_icon_font_in'],
-							array(
-								'class'       => array( 'premium-magic-section-btn', 'premium-magic-section-icon', 'elementor-animation-' . $settings['premium_magic_section_trig_anim'] ),
-								'aria-hidden' => 'true',
-							)
-						);
-					else :
+						<?php
+					elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) :
+						$image_custom   = $settings['premium_magic_section_custom_image'];
+						$image_url_main = Group_Control_Image_Size::get_attachment_image_src( $image_custom['id'], 'prmium_magic_section_trig_image_size', $settings );
+						$image_url_main = empty( $image_url_main ) ? $image_custom['url'] : $image_url_main;
 						?>
-					<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
+						<img class="premium-magic-section-btn <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" src="<?php echo esc_attr( $image_url_main ); ?>">
 					<?php endif; ?>
-				<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) : ?>
-				<img class="premium-magic-section-btn premium-magic-section-icon-image <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" alt ="Custom Image" src="<?php echo esc_attr( $icon_font ); ?>" >
-		<?php elseif ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
-			<button type="button" class="premium-magic-section-btn btn">
-			<?php
-			if ( $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) :
-				if ( $is_new || $migrated ) :
-					Icons_Manager::render_icon(
-						$settings['new_button_icon_selection'],
-						array(
-							'class'       => 'premium-magic-btn-icon',
-							'aria-hidden' => 'true',
-						)
-					);
-			else :
-				?>
-				<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
-			<?php endif; ?>
-
-			<?php endif; ?>
-			<span class="premium-magic-btn-text"><?php echo esc_attr( $settings['premium_magic_section_button_text'] ); ?></span>
-			<?php
-			if ( $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) :
-				?>
-				<?php
-				if ( $is_new || $migrated ) :
-					Icons_Manager::render_icon(
-						$settings['new_button_icon_selection'],
-						array(
-							'class'       => 'premium-magic-btn-icon',
-							'aria-hidden' => 'true',
-						)
-					);
-				else :
-					?>
-					<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
-				<?php endif; ?>
-			<?php endif; ?></button>
-		<?php endif; ?>
-		</div>
-			<?php endif; ?>
-		<div class="premium-magic-section-content-wrap-out">
-			<div class="premium-magic-section-content-wrap">
-				<?php
-				if ( 'editor' === $settings['premium_magic_section_content_type'] ) :
-					echo wp_kses_post( $settings['premium_magic_section_content'] );
-				else :
-					echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				endif;
-				?>
-			</div>
-		</div>
-			<?php if ( $settings['premium_magic_section_close'] ) : ?>
-				<div class="premium-magic-section-close-wrap">
-					<button type="button" class="premium-magic-section-close"><i class="fa fa-times"></i></button>
 				</div>
 			<?php endif; ?>
-		<?php endif; ?>
-	</div>
-		<?php if ( 'yes' !== $settings['premium_magic_section_trig_float'] ) : ?>
-		<div class="premium-magic-section-button-trig">
-			<?php if ( 'button' === $settings['premium_magic_section_trig_selector'] ) : ?>
-			<button type="button" class="premium-magic-section-btn btn <?php echo esc_attr( $settings['premium_magic_section_button_size'] ); ?>" >
-				<?php if ( $settings['premium_magic_section_icon_switcher'] && 'before' === $settings['premium_magic_section_icon_position'] ) : ?>
-					<?php
-					if ( $is_new || $migrated ) :
-						Icons_Manager::render_icon(
-							$settings['new_button_icon_selection'],
-							array(
-								'class'       => 'premium-magic-btn-icon',
-								'aria-hidden' => 'true',
-							)
-						);
-				else :
-					?>
-					<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
-				<?php endif; ?>
-				<?php endif; ?>
-			<span class="premium-magic-btn-text"><?php echo esc_attr( $settings['premium_magic_section_button_text'] ); ?></span>
-				<?php if ( $settings['premium_magic_section_icon_switcher'] && 'after' === $settings['premium_magic_section_icon_position'] ) : ?>
-					<?php
-					if ( $is_new || $migrated ) :
-						Icons_Manager::render_icon(
-							$settings['new_button_icon_selection'],
-							array(
-								'class'       => 'premium-magic-btn-icon',
-								'aria-hidden' => 'true',
-							)
-						);
-				else :
-					?>
-					<i class="premium-magic-btn-icon <?php echo esc_attr( $settings['premium_magic_section_button_icon_selection'] ); ?>" aria-hidden="true"></i>
-				<?php endif; ?>
-				<?php endif; ?>
-				</button>
-			<?php elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'font-awesome-icon' === $settings['premium_magic_section_icon_selector'] ) : ?>
-				<?php
-				if ( $is_new_in || $migrated_in ) :
-					Icons_Manager::render_icon(
-						$settings['new_icon_font_in'],
-						array(
-							'class'       => array( 'premium-magic-section-btn', 'elementor-animation-' . $settings['premium_magic_section_trig_anim'] ),
-							'aria-hidden' => 'true',
-						)
-					);
-				else :
-					?>
-					<i class ="premium-magic-section-btn premium-magic-section-icon <?php echo esc_attr( $settings['premium_magic_section_icon_font_in'] ); ?> <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>"></i>
-				<?php endif; ?>
-				<?php
-			elseif ( 'icon' === $settings['premium_magic_section_trig_selector'] && 'custom-image' === $settings['premium_magic_section_icon_selector'] ) :
-				$image_custom   = $settings['premium_magic_section_custom_image'];
-				$image_url_main = Group_Control_Image_Size::get_attachment_image_src( $image_custom['id'], 'prmium_magic_section_trig_image_size', $settings );
-				$image_url_main = empty( $image_url_main ) ? $image_custom['url'] : $image_url_main;
-				?>
-			<img class="premium-magic-section-btn <?php echo 'elementor-animation-' . esc_attr( $settings['premium_magic_section_trig_anim'] ); ?>" src="<?php echo esc_attr( $image_url_main ); ?>">
-			<?php endif; ?>
 		</div>
-		<?php endif; ?>
-		</div>
-
 		<?php
 	}
 

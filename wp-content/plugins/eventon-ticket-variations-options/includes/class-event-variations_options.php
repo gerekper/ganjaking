@@ -168,6 +168,8 @@ class EVOVO_Var_opts{
 			$parent_vos[ $vo_id ] = $data;
 		}
 
+		//print_r($parent_vos);
+
 		return $parent_vos;
 	}
 
@@ -551,7 +553,7 @@ class EVOVO_Var_opts{
 	function print_frontend_html($parent_id, $parent_type, $evotx_data= array(), $product='', $args = array()){
 		
 		// initials
-		$this->evotx_data = array();
+		$this->evotx_data = $evotx_data;
 		$has_vos = $this->has_vos = false;
 
 		$POs = new EVOVO_Var_opts($this->event, $this->wcid,'option');			
@@ -762,7 +764,6 @@ class EVOVO_Var_opts{
 						$default_price = isset($initial_v['regular_price']) ? $initial_v['regular_price']:'';
 						$default_var_id = isset($i[0])? $i[0]: false;
 						$default_max_qty = (isset($initial_v['stock'])) ? $initial_v['stock']: 'na';
-						
 						$def_variation_data = $initial_v;
 				
 				endif;
@@ -851,7 +852,6 @@ class EVOVO_Var_opts{
 				endif;
 				
 			}
-
 		
 		// pluggable function 
 		do_action('evovo_add_to_cart_before', $this);
@@ -891,10 +891,10 @@ class EVOVO_Var_opts{
 
 
 					// show remaining stock
-					if( isset($this->evotx_data['event_data']['showRem']) && $this->evotx_data['event_data']['showRem'] && $default_max_qty != 'na' 
+					if( isset($this->evotx_data['event_data']['showRem']) && $this->evotx_data['event_data']['showRem'] 
 					){
 						$showRem = $this->evotx_data['event_data']['showRem'];
-						$visible = ( $showRem === false) ? false: true;
+						$visible = ( $default_max_qty == 'na') ? false: true;
 						$Helper->remaining_stock_html($default_max_qty,'', $visible);
 					}
 			

@@ -19,7 +19,9 @@
             themeColor: "#2183ee",
             animationDuration: 300,
             containerId: "",
-            animationEasing: "easeInOutExpo"
+            animationEasing: "easeInOutExpo",
+            coverSize: "404",
+            feedObject: false
         }, t),
             a = [],
             s = 1,
@@ -31,27 +33,54 @@
             p = 0,
             f = 0,
             g = ["https://api.behance.net/v2/users/", n.userName, "/projects?client_id=", n.apiKey, "&per_page=", n.itemsPerPage, "&page=", s];
+
         e("body").wrapInner(e("<div>").addClass("eb-total-inner-container")).wrapInner(e("<div>").addClass("eb-total-outer-container"));
         var h = e(this).wrap(e("<div>").addClass("eb-container").css({
             position: "relative"
         }));
         e(h).html('<ul class="wrap-projects"></ul>'), e("body").append(C('<div class="eb-loadingicon">' + C("loading") + "</div>"));
+
         var b = function () {
-            a = g, g = g.join(""), r = [], e.ajax({
-                url: g,
-                dataType: "jsonp",
-                success: function (t) {
-                    e.each(t.projects, function (e, t) {
-                        v(e, t)
-                    }), e.each(r, function (t, i) {
-                        o = "", o += i.rawId, o += i.cover, o += i.title, o += i.owners, o += i.appreciations, o = '<li class="wrap-project">' + (o += i.views) + "</li>", e("#premium-behance-container-" + n.containerId + " .wrap-projects").append(o)
-                    }), w()
-                },
-                error: function (e) {
-                    console.log("ERROR: ", e)
-                }
-            })
+
+            a = g, g = g.join(""), r = [];
+
+            if (n.feedObject) {
+
+                handleResponse(n.feedObject);
+
+            } else {
+
+
+                e.ajax({
+                    url: g,
+                    dataType: "jsonp",
+                    success: function (t) {
+
+                        handleResponse(t);
+
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e)
+                    }
+                })
+
+            }
         };
+
+        function handleResponse(response) {
+
+            e.each(response.projects, function (e, t) {
+                v(e, t)
+            });
+
+            e.each(r, function (t, i) {
+                o = "", o += i.rawId, o += i.cover, o += i.title, o += i.owners, o += i.appreciations, o = '<li class="wrap-project">' + (o += i.views) + "</li>", e("#premium-behance-container-" + n.containerId + " .wrap-projects").append(o)
+            });
+
+            w();
+
+
+        }
 
         function v(t, i) {
             r[t] = {
@@ -122,7 +151,8 @@
                     1 == n.views && (s += '<div class="wrap-label">' + C("views") + "</div>", s += '<div class="wrap-value"><p class="wrap-view-value">' + i.stats.views + "</p></div>", !0 !== n.appreciations && (r = '<div class="wrap-project-info">'), s = r + '<div class="wrap-views-outer">' + s + "</div>", 1 == n.appreciations && (s += "</div>"), p = 1);
                     break;
                 case "cover":
-                    s += '<div class="wrap-cover-outer"><div class="wrap-cover">', s += '<img src="' + i.covers[404] + '" alt="' + i.name + '" />', 1 == n.fields && (s += '<ul class="fields-in-cover">' + C("fields"), e.each(i.fields, function (e, t) {
+                    var coverImage = i.covers[n.coverSize] || i.covers[404];
+                    s += '<div class="wrap-cover-outer"><div class="wrap-cover">', s += '<img src="' + coverImage + '" alt="' + i.name + '" />', 1 == n.fields && (s += '<ul class="fields-in-cover">' + C("fields"), e.each(i.fields, function (e, t) {
                         s += '<li class="single">' + t + "</li>"
                     }), s += "</ul>"), s += "</div></div>";
                     break;

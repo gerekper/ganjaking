@@ -17,6 +17,7 @@ function wcml_check_wpml_functions() {
 		if ( function_exists( 'wpml_register_single_string_action' ) ) {
 			add_action( 'wpml_register_single_string', 'wpml_register_single_string_action', 10, 4 );
 		} elseif ( function_exists( 'icl_register_string' ) ) {
+			/* @phpstan-ignore-next-line */
 			add_action( 'wpml_register_single_string', 'icl_register_string', 10, 4 );
 		}
 	}

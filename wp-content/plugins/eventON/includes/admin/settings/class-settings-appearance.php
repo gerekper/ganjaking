@@ -226,6 +226,12 @@ class evoadmin_set_appearance{
 						)
 					),
 					
+					array('id'=>'fs_eventtop_tag','type'=>'fontation','name'=>__('Virtual Tag','eventon'),
+						'variations'=>array(
+							array('id'=>'fs_eventtop_est_0a', 'name'=>'Background color', 'type'=>'color', 'default'=>'5bdaf7'),
+							array('id'=>'fs_eventtop_est_0b', 'name'=>'Font Color', 'type'=>'color', 'default'=>'ffffff'),
+						)
+					),
 					array('id'=>'fs_eventtop_tag','type'=>'fontation','name'=>__('Postponed Tag','eventon'),
 						'variations'=>array(
 							array('id'=>'fs_eventtop_est_1a', 'name'=>'Background color', 'type'=>'color', 'default'=>'e3784b'),

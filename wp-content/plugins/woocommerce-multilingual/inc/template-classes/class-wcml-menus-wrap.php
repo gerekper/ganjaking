@@ -64,7 +64,7 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 					}
 				}
 			}
-			if ( empty( $selected_attribute ) ) {
+			if ( empty( $this->selected_attribute ) ) {
 				$this->selected_attribute = current( $this->product_attributes );
 			}
 		}

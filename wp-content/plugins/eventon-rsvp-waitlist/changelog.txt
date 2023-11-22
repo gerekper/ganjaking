@@ -1,48 +1,5 @@
 RSVP Event WAITLIST (EVORSW) addon for EventON Plugin
 ====================================
-v 1.1.1 (2023-3-28)
-FIXED: sync count offering waitlist into guest list
-FIXED: offer_space_to_waitlist() function -= error
-
-v 1.1 (2023-2-6)
-ADDED: add waitlist guest to list from lightbox
-ADDED: ability to move guest to waitlist from attendee list
-ADDED: Ability to email waitlist guests only from event edit emailing
-ADDED: waitlist to actionuser event manager
-FIXED: Auto sync rsvp counts after moving to list
-UPDATED: Add to attendance list to run via ajax
-
-v 1.0.1 (2022-12-20)
-ADDED: join the waitlist button to open rsvp form
-FIXED: attendee changing rsvp status show as in waitlist
-UPDATED: layout styles to be more flow
-
-v 1.0 (2022-12-13)
-ADDED: Sync count to also process waitlist items 
-FIXED: waitlist attendees to get notification email upon confirm space
-FIXED: no waitlist to show 0 on rsvp event stats
-FIXED: waitlist count not refreshing after adding to waitlist
-FIXED: confirmed attendee changing rsvp to no not offered to waitlist
-UPDATED: front-end design and layout
-
-v 0.6 (2022-12-1)
-ADDED: waitlist count to show with event edit page rsvp stats
-FIXED: admin notification email getting waitlist message
-FIXED: waitlist guest cancel registration
-
-v 0.5 (2021-1-6)
-FIXED: incorrect translation on eventcard not working
-FIXED: manage capacity separate for repeats notice
-FIXED: missing notice when repeat capacity is enable waitlist is not working
-FIXED: eventtop showing na as space remaining count
-REQ: rsvp 2.6.14
-
-v 0.4 (2020-2-11)
-FIXED: missing text strings in translations
-FIXED: Compatibility with events with no rsvp space left
-FIXED: new form success message when added to waitlist auto
-REQ: RSVP 2.6.8
-
 v 0.3 (2019-1-21)
 FIXED: waitlist event top notification showing on all rsvp events
 

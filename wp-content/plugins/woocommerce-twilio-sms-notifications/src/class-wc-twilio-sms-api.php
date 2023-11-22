@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Twilio_SMS\Message_Length_Calculator;
 
 /**

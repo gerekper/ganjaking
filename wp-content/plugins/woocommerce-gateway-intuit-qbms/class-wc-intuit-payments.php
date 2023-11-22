@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * The main class for the Intuit Payments Gateway.  This class handles all the
@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '3.2.0';
+	const VERSION = '3.2.1';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -96,15 +96,21 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'gateways'      => $this->get_available_gateways(),
-				'supports_hpos' => true,
-				'require_ssl'   => true,
-				'supports'      => [
+				'gateways'           => $this->get_available_gateways(),
+				'require_ssl'        => true,
+				'supports'           => [
 					self::FEATURE_CUSTOMER_ID,
 					self::FEATURE_CAPTURE_CHARGE,
 					self::FEATURE_MY_PAYMENT_METHODS,
 				],
-				'dependencies'  => $this->get_active_integration_dependencies(),
+				'dependencies'       => $this->get_active_integration_dependencies(),
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => true,
+						'checkout' => false,
+					],
+				],
 			]
 		);
 

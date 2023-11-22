@@ -1,833 +1,987 @@
 (function ($) {
-    /****** Premium Horizontal Scroll Handler ******/
-    var PremiumHorizontalScrollHandler = function ($scope, $) {
-        var $hScrollElem = $scope.find(".premium-hscroll-wrap"),
-            hScrollSettings = $hScrollElem.data("settings"),
-            instance = null,
-            disableOn = hScrollSettings.disableOn;
 
-        var templates = hScrollSettings.templates;
+    //Fix issues with lock screen on mobile devices.
+    ScrollTrigger.config({
+        limitCallbacks: true,
+        ignoreMobileResize: true
+    });
 
-        if (!templates.length) return;
+    $(window).on('elementor/frontend/init', function () {
+        var PremiumHorizontalScrollHandler = elementorModules.frontend.handlers.Base.extend({
 
-        templates.forEach(function (template) {
-
-            if ("id" === template.template_type && "" !== template.section_id) {
-                if (!$("#" + template.section_id)
-                    .length) {
-                    $hScrollElem.html(
-                        '<div class="premium-error-notice"><span>Section with ID <b>' +
-                        template.section_id +
-                        "</b> does not exist on this page. Please make sure that section ID is properly set from section settings -> Advanced tab -> CSS ID.<span></div>"
-                    );
-                    return;
+            getDefaultSettings: function () {
+                return {
+                    selectors: {
+                        hScrollElem: '.premium-hscroll-wrap',
+                        sectionWrap: '.premium-hscroll-sections-wrap',
+                        hscrollTemp: '.premium-hscroll-temp',
+                    }
                 }
-            }
-        });
+            },
 
-        if (disableOn.includes(elementorFrontend.getCurrentDeviceMode())) {
-            $hScrollElem.find('.premium-hscroll-arrow, .premium-hscroll-progress, .premium-hscroll-nav, .premium-hscroll-pagination, .premium-hscroll-fixed-content').remove();
+            getDefaultElements: function () {
+                var selectors = this.getSettings('selectors'),
+                    elements = {
+                        $hScrollElem: this.$element.find(selectors.hScrollElem),
+                    };
 
-            $hScrollElem.find(".premium-hscroll-temp").each(function (index, slide) {
-                $(slide).removeClass('premium-hscroll-temp');
-            });
+                elements.$sectionWrap = elements.$hScrollElem.find(selectors.sectionWrap);
+                elements.$hscrollTemp = elements.$hScrollElem.find(selectors.hscrollTemp);
 
-            $hScrollElem.find('.premium-hscroll-sections-wrap').removeClass('premium-hscroll-sections-wrap');
+                return elements;
+            },
 
-            return;
-        }
+            bindEvents: function () {
+                this.run();
+            },
 
-        instance = new premiumHorizontalScroll($hScrollElem, hScrollSettings);
-        instance.init();
-    };
+            run: function () {
 
-    window.premiumHorizontalScroll = function ($elem, settings) {
+                var $scope = this.$element,
+                    $hScrollElem = this.elements.$hScrollElem,
+                    hScrollSettings = $hScrollElem.data("settings"),
+                    instance = null,
+                    templates = this.getElementSettings('section_repeater');
 
-        var self = this,
-            id = settings.id,
-            count = settings.templates.length,
-            editMode = elementorFrontend.isEditMode(),
-            currentDevice = elementorFrontend.getCurrentDeviceMode(),
-            progressOffset = 300,
-            currentActiveArr = [],
-            currentActive = 0,
-            prevActive = -1,
-            loop = settings.loop,
-            snapScroll = 'snap' === settings.snap,
-            controller = false,
-            isScrolling = false,
-            scene = null,
-            offset = null,
-            horizontalSlide = null,
-            rtlMode = settings.rtl,
-            scrollEvent = null,
-            dimensions = null;
+                if (!templates.length) return;
 
-        $elem.find(".premium-hscroll-temp").each(function (index, template) {
+                templates.forEach(function (template) {
 
-            var hideOn = $(template).data('hide');
-
-            if (-1 < hideOn.indexOf(currentDevice)) {
-                hideSection(template, index);
-            }
-
-        });
-
-        function hideSection(template, index) {
-
-            if (0 !== count) {
-                count--;
-                $(template).remove();
-                $elem.find('.premium-hscroll-total-slides').html(count > 9 ? count : ('0' + count));
-                $elem.find('.premium-hscroll-nav-item[data-slide="section_' + id + index + '"]').remove();
-            }
-
-            if (0 === count) {
-                $elem.find('.premium-hscroll-arrow, .premium-hscroll-nav, .premium-hscroll-pagination').remove();
-            }
-
-            if (settings.opacity) {
-                $elem.find(".premium-hscroll-temp:first").removeClass("premium-hscroll-hide");
-            }
-
-        }
-
-        var $slides = $elem.find(".premium-hscroll-temp");
-
-        if (settings.opacity)
-            var targetIndex = 0;
-
-        if (rtlMode)
-            targetIndex = count - 1;
-
-
-        if ("desktop" !== currentDevice) {
-            if (snapScroll && settings.disableSnap) {
-                snapScroll = false;
-                settings.enternace = false;
-            }
-            if ("tablet" === currentDevice) {
-                progressOffset = 100;
-            } else if ("mobile" === currentDevice) {
-                progressOffset = 50;
-            }
-        } else if (snapScroll) {
-            progressOffset = 30;
-        }
-
-        var $nav = $(".premium-hscroll-nav-item", $elem),
-            $arrows = $(".premium-hscroll-wrap-icon", $elem);
-
-        self.init = function () {
-
-            if (!count) return;
-
-            self.setLayout();
-
-            self.setSectionsData();
-
-            self.handleAnimations();
-
-            self.setScene();
-
-            if (!loop) self.checkActive();
-
-            scene.on("progress", self.onProgress);
-
-            $nav.on("click.premiumHorizontalScroll", self.onNavDotClick);
-
-            $arrows.on("click.premiumHorizontalScroll", self.onNavArrowClick);
-
-            self.checkRemoteAnchors();
-
-            self.checkLocalAnchors();
-
-            $(document).on('elementor/popup/show', function () {
-                self.checkLocalAnchors();
-            });
-
-            $(window)
-                .on("resize", self.refresh);
-
-            if (snapScroll)
-                document.addEventListener ?
-                    document.addEventListener("wheel", self.onScroll, {
-                        passive: false
-                    }) :
-                    document.attachEvent("onmousewheel", self.onScroll);
-
-            if (settings.keyboard)
-                document.addEventListener ?
-                    document.addEventListener("keydown", self.onKeyboardPress) :
-                    document.attachEvent("keydown", self.onKeyboardPress);
-
-            if (snapScroll) {
-                $(window)
-                    .on("load", function () {
-                        var windowOuterHeight = $(window).outerHeight();
-
-                        if (offset - windowOuterHeight < 150)
-                            return;
-
-                        if (0 === currentActive) {
-                            elementorFrontend.waypoint(
-                                $elem,
-                                function (direction) {
-                                    if ("down" === direction) {
-                                        self.scrollToSlide(0);
-                                    }
-                                }, {
-                                offset: 150,
-                                triggerOnce: false
-                            }
+                    if ("id" === template.template_type && "" !== template.section_id) {
+                        if ($("#" + template.section_id).length == 0) {
+                            $hScrollElem.html(
+                                '<div class="premium-error-notice"><span>Section with ID <b>' +
+                                template.section_id +
+                                "</b> does not exist on this page. Please make sure that section ID is properly set from section settings -> Advanced tab -> CSS ID.<span></div>"
                             );
+                            return;
                         }
-                    });
-            }
-        };
+                    }
+                });
 
-        self.checkLocalAnchors = function () {
+                instance = new premiumHorizontalScroll($scope, hScrollSettings, this.getElementSettings());
+                instance.checkDisableOnOption();
 
-            $("a").on("click", function (event) {
+            },
 
-                var href = $(this).attr("href");
+        });
 
-                if (href) {
+        window.premiumHorizontalScroll = function ($scope, settings, controlSettings) {
 
-                    href = href.replace('#/', '');
+            var self = this,
+                $elem = $scope.find('.premium-hscroll-wrap'),
+                id = settings.id,
+                count = controlSettings.section_repeater.length,
+                editMode = elementorFrontend.isEditMode(),
+                currentDevice = elementorFrontend.getCurrentDeviceMode(),
+                progressOffset = 300,
+                currentActiveArr = [],
+                currentActive = 0,
+                prevActive = -1,
+                loop = controlSettings.loop,
+                entrance = controlSettings.entrance_animation,
+                entranceOnce = controlSettings.trigger_animation_once,
+                snapScroll = 'snap' === controlSettings.scroll_effect,
+                isScrolling = false,
+                scene = null,
+                offset = null,
+                timeline = null,
+                rtlMode = controlSettings.rtl_mode,
+                dimensions = null,
+                isActive = false,
+                state = null;
 
-                    self.checkAnchors(href);
+            $elem.find(".premium-hscroll-temp").each(function (index, template) {
+
+                var hideOn = $(template).data('hide');
+
+                if (-1 < hideOn.indexOf(currentDevice)) {
+                    hideSection(template, index);
                 }
 
             });
 
-        }
+            function hideSection(template, index) {
 
-        self.checkRemoteAnchors = function () {
+                if (0 !== count) {
+                    count--;
+                    $(template).remove();
 
-            var url = new URL(window.location.href);
-
-            if (!url)
-                return;
-
-            var slideID = url.searchParams.get("slide");
-
-            if (slideID)
-                self.checkAnchors(slideID);
-
-        };
-
-        self.checkAnchors = function (href) {
-
-            var $slide = $elem.find(".premium-hscroll-temp[data-section='" + href + "']");
-
-            if (!$slide.length)
-                return;
-
-            var slideIndex = $slide.index();
-
-            self.scrollToSlide(slideIndex, "anchors");
-
-        };
-
-        self.onKeyboardPress = function (e) {
-            if ("BEFORE" === scene.state()) {
-                return;
-            } else {
-                var downKeyCodes = [40, 34],
-                    upKeyCodes = [38, 33];
-
-                if ("AFTER" === scene.state()) {
-                    if (-1 !== $.inArray(e.keyCode, upKeyCodes)) {
-                        var lastScrollOffset = self.getScrollOffset(
-                            $slides.eq(count - 1)
-                        );
-
-                        if (
-                            e.pageY - lastScrollOffset <= 300 &&
-                            e.pageY - lastScrollOffset > 100
-                        ) {
-
-                            self.preventDefault(event);
-                            self.scrollToSlide(count - 1);
-
-
-                        } else if (e.pageY - lastScrollOffset < 100) {
-
-                            self.preventDefault(event);
-                            self.scrollToSlide(count - 2);
-                        }
-
-                        return;
-                    }
-                } else {
-
-                    if (-1 !== $.inArray(e.keyCode, downKeyCodes)) {
-                        if (isScrolling) {
-                            self.preventDefault(event);
-                            return;
-                        }
-
-                        self.goToNext();
-                    }
-
-
-                    if (-1 !== $.inArray(e.keyCode, upKeyCodes)) {
-                        if (isScrolling) {
-                            self.preventDefault(event);
-                            return;
-                        }
-
-                        self.goToPrev("keyboard");
-                    }
+                    $elem.find('.premium-hscroll-bg-layer').eq(index).remove();
+                    $elem.find('.premium-hscroll-total-slides').html(count > 9 ? count : ('0' + count));
+                    $elem.find('.premium-hscroll-nav-item[data-slide="section_' + id + index + '"]').remove();
                 }
-            }
-        };
 
-        self.getResponsiveControlValue = function (ID) {
+                if (0 === count) {
+                    $elem.find('.premium-hscroll-arrow, .premium-hscroll-nav, .premium-hscroll-pagination').remove();
+                }
 
-            var value = settings[ID];
+                if (settings.opacity) {
+                    $elem.find(".premium-hscroll-temp:first").removeClass("premium-hscroll-hide");
+                }
 
-            if ("desktop" !== currentDevice) {
-                value = settings[ID + "_" + currentDevice];
-            }
-
-            return value;
-
-        };
-
-        self.setScene = function () {
-
-            controller = new ScrollMagic.Controller();
-
-            horizontalSlide = new TimelineMax();
-
-            self.setHorizontalSlider();
-
-            var scrollSpeed = self.getResponsiveControlValue('speed');
-
-            if ("desktop" === currentDevice) {
-                scrollSpeed = scrollSpeed * 100 + "%";
-            } else {
-                scrollSpeed = scrollSpeed * $elem.outerHeight();
             }
 
+            var $slides = $elem.find(".premium-hscroll-temp");
 
-            scene = new ScrollMagic.Scene({
-                triggerElement: "#premium-hscroll-spacer-" + id,
-                triggerHook: "onLeave",
-                duration: scrollSpeed
-            })
-                .setPin("#premium-hscroll-wrap-" + id, {
-                    pushFollowers: true
-                })
-                .setTween(horizontalSlide)
-                .addTo(controller);
-
-        };
-
-        self.getDimensions = function () {
-
-            var firstWidth = $slides.eq(0).innerWidth(),
-                distance = firstWidth * (count - 1),
-                progressWidth = firstWidth * count;
-
-            var slidesInViewPort = self.getResponsiveControlValue('slides'),
-                distanceBeyond = self.getResponsiveControlValue('distance');
-
-            distance = distance - (1 - 1 / slidesInViewPort) * $elem.outerWidth();
-
-            distance = distanceBeyond + distance;
+            if (settings.opacity)
+                var targetIndex = 0;
 
             if (rtlMode)
-                $("#premium-hscroll-scroller-wrap-" + id).css("transform", "translateX(" + -distance + "px)");
+                targetIndex = count - 1;
 
-            var ease = Power2.easeOut;
 
-            ease = Power0.easeNone;
+            if (-1 !== currentDevice.indexOf('tablet') && -1 !== currentDevice.indexOf('mobile')) {
+                if (snapScroll && settings.disableSnap) {
+                    snapScroll = false;
+                    entrance = false;
+                }
+                if (['tablet', 'tablet_extra'].includes(currentDevice)) {
+                    progressOffset = 100;
+                } else if (['mobile', 'mobile_extra'].includes(currentDevice)) {
+                    progressOffset = 50;
+                }
+            } else if (snapScroll) {
+                progressOffset = 30;
+            }
 
-            return {
-                distance: distance,
-                progressBar: progressWidth,
-                ease: ease
+            var $nav = $(".premium-hscroll-nav-item", $elem),
+                $arrows = $(".premium-hscroll-wrap-icon", $elem);
+
+            self.checkDisableOnOption = function () {
+
+                var disableOn = controlSettings.disable_on;
+
+                if (disableOn.includes(elementorFrontend.getCurrentDeviceMode())) {
+
+                    $elem.find('.premium-hscroll-arrow, .premium-hscroll-progress, .premium-hscroll-nav, .premium-hscroll-pagination').remove();
+
+                    $elem.find(".premium-hscroll-temp").each(function (index, slide) {
+                        $(slide).removeClass('premium-hscroll-temp');
+                    });
+
+                    $elem.find('.premium-hscroll-sections-wrap').removeClass('premium-hscroll-sections-wrap');
+
+                    return;
+                }
+
+                self.init();
+
+            }
+
+            self.init = function () {
+
+                if (!count) return;
+
+                self.setLayout();
+
+                self.setSectionsData();
+
+                self.handleAnimations();
+
+                self.setScene();
+
+                if (!loop) self.checkActive();
+
+                $nav.on("click.premiumHorizontalScroll", self.onNavDotClick);
+
+                $arrows.on("click.premiumHorizontalScroll", self.onNavArrowClick);
+
+                self.checkRemoteAnchors();
+
+                self.checkLocalAnchors();
+
+                $(document).on('elementor/popup/show', function () {
+                    self.checkLocalAnchors();
+                });
+
+
+                if (snapScroll)
+                    document.addEventListener("wheel", self.onScroll, { passive: false });
+
+
+                //Keyboard Scrolling.
+                document.addEventListener("keydown", self.onKeyboardPress);
+
+
+                if (snapScroll && document.body.scrollHeight > 3000) {
+
+                    // var windowOuterHeight = $(window).outerHeight();
+
+                    //After page reload, check if the spacing between page scroll and offset top of Hscroll is lower than 150. If so, then return.
+                    // if (offset - windowOuterHeight < 150)
+                    //     return;
+
+                    if (0 === currentActive) {
+                        elementorFrontend.waypoint(
+                            $elem,
+                            function (direction) {
+                                if ("down" === direction) {
+                                    self.scrollToSlide(0, 'waypoint');
+                                }
+                            }, {
+                            offset: 150,
+                            triggerOnce: false
+                        }
+                        );
+                    }
+
+                }
             };
 
-        };
+            self.checkLocalAnchors = function () {
 
-        self.setHorizontalSlider = function (progress) {
+                $("a").on("click", function () {
 
-            // horizontalSlide = new TimelineMax();
+                    var href = $(this).attr("href");
 
-            dimensions = self.getDimensions();
+                    if (href) {
 
-            horizontalSlide
-                .to("#premium-hscroll-scroller-wrap-" + id, 1, { x: rtlMode ? "0px" : -dimensions.distance, ease: dimensions.ease }, 0)
-                .to("#premium-hscroll-progress-line-" + id, 1, { width: dimensions.progressBar + "px", ease: dimensions.ease }, 0);
+                        href = href.replace('#/', '');
 
-            if ('undefined' !== typeof progress) {
-                scene.progress(0);
-                scene.update(true);
-            }
-
-        }
-
-        self.setLayout = function () {
-            $elem
-                .closest("section.elementor-section-height-full")
-                .removeClass("elementor-section-height-full");
-        };
-
-        self.setSectionsData = function () {
-
-            var slidesInViewPort = self.getResponsiveControlValue('slides');
-
-            var slideWidth = 100 / slidesInViewPort;
-
-            $elem
-                .find(".premium-hscroll-slider")
-                .css("width", count * slideWidth + "%");
-
-            $elem.find(".premium-hscroll-temp")
-                .css("width", 100 / count + "%");
-
-            var scrollSpeed = self.getResponsiveControlValue('speed');
-
-            var width = parseFloat(
-                $elem.find(".premium-hscroll-sections-wrap")
-                    .width() / count
-            ),
-                winHeight = $(window)
-                    .height() * scrollSpeed;
-
-            $slides.each(function (index, template) {
-
-                if ($(template)
-                    .data("section")) {
-                    var id = $(template)
-                        .data("section");
-                    self.getSectionContent(id);
-                }
-
-                var position = index * width;
-                $(template)
-                    .attr("data-position", position);
-            });
-
-            offset = $elem.offset()
-                .top;
-
-            $slides.each(function (index, template) {
-                var scrollOffset = (index * winHeight) / (count - 1);
-
-                $(template)
-                    .attr("data-scroll-offset", offset + scrollOffset);
-            });
-        };
-
-        self.onScroll = function (event) {
-            if (isScrolling && null !== event) self.preventDefault(event);
-
-
-            var delta = self.getDirection(event),
-                state = scene.state(),
-                direction = 0 > delta ? "down" : "up";
-
-            if ("up" === direction && "AFTER" === scene.state()) {
-                var lastScrollOffset = self.getScrollOffset(
-                    $slides.eq(count - 1)
-                );
-
-                if (
-                    window.pageYOffset - lastScrollOffset <= 300 &&
-                    window.pageYOffset - lastScrollOffset > 100
-                )
-                    self.scrollToSlide(count - 1);
-            }
-
-            if ("DURING" === state) {
-                if ("down" === direction) {
-                    if (!isScrolling && count - 1 !== currentActive) {
-                        self.goToNext();
+                        self.checkAnchors(href);
                     }
-                } else if ("up" === direction) {
-                    if (!isScrolling && 0 !== currentActive) self.goToPrev();
-                }
 
-                if (
-                    (0 !== currentActive && "up" === direction) || ("down" === direction && count - 1 !== currentActive)
-                ) {
-                    self.preventDefault(event);
-                }
-            }
-        };
+                });
 
-        self.getDirection = function (e) {
-            e = window.event || e;
-            var t = Math.max(
-                -1,
-                Math.min(1, e.wheelDelta || -e.deltaY || -e.detail)
-            );
-            return t;
-        };
-
-        self.setSnapScroll = function (event) {
-            var direction = event.scrollDirection;
-
-            if (
-                (0 !== currentActive && "REVERSE" === direction) ||
-                "FORWARD" === direction
-            ) {
-                if (null !== scrollEvent) self.preventDefault(scrollEvent);
             }
 
-            var $nextArrow = $(".premium-hscroll-next", $elem),
-                $prevArrow = $(".premium-hscroll-prev", $elem);
+            self.checkRemoteAnchors = function () {
 
-            if ("FORWARD" === direction) {
-                if (!isScrolling && count - 1 !== currentActive) {
-                    $nextArrow.trigger("click.premiumHorizontalScroll");
+                var url = new URL(window.location.href);
+
+                if (!url)
+                    return;
+
+                var slideID = url.searchParams.get("slide");
+
+                if (slideID)
+                    self.checkAnchors(slideID);
+
+            };
+
+            self.checkAnchors = function (href) {
+
+                var $slide = $elem.find(".premium-hscroll-temp[data-section='" + href + "']");
+
+                if (!$slide.length)
+                    return;
+
+                var slideIndex = $slide.index();
+
+                self.scrollToSlide(slideIndex, "anchors");
+
+            };
+
+            self.onKeyboardPress = function (e) {
+
+                //If Keyboard scrolling is disabled, then use the default browser scrolling.
+                if (!settings.keyboard) {
+                    // e.preventDefault();
+                    return;
                 }
-            } else {
-                if (!isScrolling && 0 !== currentActive)
-                    $prevArrow.trigger("click.premiumHorizontalScroll");
-            }
-        };
 
-        self.refresh = function () {
+                self.getState();
 
-            // dimensions = self.getDimensions();
+                if ("BEFORE" === state) {
+                    return;
+                } else {
+                    var downKeyCodes = [40, 34],
+                        upKeyCodes = [38, 33];
 
-            // horizontalSlide
-            //     .to("#premium-hscroll-scroller-wrap-" + id, 1, { x: "-980", ease: Power0.easeNone }, 0);
+                    if ("AFTER" === state) {
+                        if (-1 !== $.inArray(e.keyCode, upKeyCodes)) {
+                            var lastScrollOffset = self.getScrollOffset(
+                                $slides.eq(count - 1)
+                            );
+
+                            if (
+                                e.pageY - lastScrollOffset <= 300 &&
+                                e.pageY - lastScrollOffset > 100
+                            ) {
+
+                                self.preventDefault(event);
+                                self.scrollToSlide(count - 1);
 
 
-            setTimeout(function () {
-                var sceneProgress = scene.progress();
-                self.setHorizontalSlider(sceneProgress);
-            }, 200);
+                            } else if (e.pageY - lastScrollOffset < 100) {
 
-            // self.setScene();
-        };
+                                self.preventDefault(event);
+                                self.scrollToSlide(count - 2);
+                            }
 
-        self.onProgress = function () {
-
-            var progressFillWidth = $elem.find(".premium-hscroll-progress-line").outerWidth(),
-                elemWidth = $elem.outerWidth();
-
-            $slides.each(function (index) {
-
-                var scrollOffset = $slides.eq(index - 1).data("scroll-offset"),
-                    scrollPosition = $(this).data("position");
-
-                if (settings.opacity && targetIndex !== index) {
-
-                    if (window.pageYOffset >= scrollOffset + elemWidth / 8) {
-                        $(this).removeClass("premium-hscroll-hide");
+                            return;
+                        }
                     } else {
-                        $(this).addClass("premium-hscroll-hide");
-                    }
 
+                        if (-1 !== $.inArray(e.keyCode, downKeyCodes)) {
+                            if (isScrolling) {
+                                self.preventDefault(event);
+                                return;
+                            }
+
+                            self.goToNext();
+                        }
+
+
+                        if (-1 !== $.inArray(e.keyCode, upKeyCodes)) {
+                            if (isScrolling) {
+                                self.preventDefault(event);
+                                return;
+                            }
+
+                            self.goToPrev("keyboard");
+                        }
+                    }
                 }
 
-                if (progressFillWidth >= scrollPosition - progressOffset) {
+            };
 
-                    if (settings.enternace && !isScrolling)
-                        self.triggerAnimations();
+            self.getResponsiveControlValue = function (ID) {
 
-                    if (-1 === currentActiveArr.indexOf(index)) {
-                        currentActiveArr.push(index);
+                var value = controlSettings[ID];
 
-                        currentActive = index;
-                        self.onSlideChange();
-                    }
+                if ('desktop' !== currentDevice) {
+                    value = controlSettings[ID + '_' + currentDevice];
+                }
+
+                if ('scroll_speed' === ID) {
+
+                    value = !value ? 1 : value;
 
                 } else {
-
-                    if (-1 !== currentActiveArr.indexOf(index)) {
-                        currentActiveArr.pop();
-
-                        currentActive = currentActiveArr[currentActiveArr.length - 1];
-                        self.onSlideChange();
-                    }
-
-                }
-            });
-        };
-
-        self.onSlideChange = function () {
-
-            prevActive = currentActive;
-
-            self.addBackgroundLayer();
-
-            if (settings.pagination && !snapScroll) {
-
-                var text = currentActive + 1 > 9 ? "" : "0";
-                $elem
-                    .find(".premium-hscroll-current-slide")
-                    .text(text + (currentActive + 1));
-            }
-
-            $nav.removeClass("active");
-
-            $elem
-                .find(".premium-hscroll-nav-item")
-                .eq(currentActive)
-                .addClass("active");
-
-            self.checkActive();
-
-            if (settings.enternace && !isScrolling)
-                self.restartAnimations(currentActive);
-        };
-
-        self.addBackgroundLayer = function () {
-
-            if ($elem.find(".premium-hscroll-bg-layer[data-layer='" + currentActive + "']").length) {
-                $elem.find(".premium-hscroll-layer-active").removeClass("premium-hscroll-layer-active");
-
-                $elem.find(".premium-hscroll-bg-layer[data-layer='" + currentActive + "']").addClass("premium-hscroll-layer-active");
-            }
-
-        };
-
-        self.getSectionContent = function (sectionID) {
-            if (!$("#" + sectionID)
-                .length) return;
-
-            var htmlContent = $("#" + sectionID);
-
-            if (!editMode) {
-                $("#premium-hscroll-scroller-wrap-" + id)
-                    .find('div[data-section="' + sectionID + '"]')
-                    .append(htmlContent);
-            } else {
-                $slides.find(".elementor-element-overlay")
-                    .remove();
-                $("#premium-hscroll-scroller-wrap-" + id)
-                    .find('div[data-section="' + sectionID + '"]')
-                    .append(htmlContent.clone(true));
-            }
-        };
-
-        self.checkActive = function () {
-            if (!$arrows.length) return;
-
-            if (loop) {
-                if (-1 === currentActive) {
-                    currentActive = count - 1;
-                } else if (count === currentActive) {
-                    currentActive = 0;
-                }
-            } else {
-                if (0 === currentActive) {
-                    $elem
-                        .find(".premium-hscroll-arrow-left")
-                        .addClass("premium-hscroll-arrow-hidden");
-                } else {
-                    $elem
-                        .find(".premium-hscroll-arrow-left")
-                        .removeClass("premium-hscroll-arrow-hidden");
+                    value = !value || parseFloat(('' === value.size || undefined === value) ? self.getControlDefaultVal(ID) : value.size);
                 }
 
-                if (count - 1 === currentActive) {
-                    $elem
-                        .find(".premium-hscroll-arrow-right")
-                        .addClass("premium-hscroll-arrow-hidden");
-                } else {
-                    $elem
-                        .find(".premium-hscroll-arrow-right")
-                        .removeClass("premium-hscroll-arrow-hidden");
-                }
-            }
+                return value;
 
-        };
+            };
 
-        self.onNavDotClick = function () {
-            if (isScrolling) return;
+            self.getControlDefaultVal = function (ID) {
 
-            var $item = $(this),
-                index = $item.index();
+                return ['distance', 'trigger_offset'].includes(ID) ? 0 : 1;
+            };
 
-            if (index === prevActive && "DURING" === scene.state()) return;
+            self.setScene = function () {
 
+                var scrollSpeed = self.getResponsiveControlValue('scroll_speed');
 
-            currentActive = index;
+                //                 if (['desktop', 'laptop', 'widescreen'].includes(currentDevice)) {
+                scrollSpeed = scrollSpeed * 100 + "%";
+                //                 } else {
+                //                     scrollSpeed = scrollSpeed * $elem.outerHeight();
+                //                 }
 
-            self.scrollToSlide(index);
-        };
+                //To fix trigger position when there are more than one column in the parent section.
+                $scope.closest('.elementor-column').css('align-self', 'flex-start');
 
-        self.onNavArrowClick = function (e) {
-            if (isScrolling) return;
+                timeline = gsap.timeline({
+                    id: 'timeline' + id,
+                    onUpdate: function () {
+                        self.onProgress();
+                    },
+                    scrollTrigger: {
+                        trigger: '#premium-hscroll-wrap-' + id,
+                        pin: true,
+                        start: 'top top',
+                        end: scrollSpeed,
+                        scrub: controlSettings.scrub ? 1.3 : 0,
+                        onToggle: function () {
+                            isActive = !isActive;
+                        },
+                    },
+                });
 
-            if ($(e.target).hasClass("premium-hscroll-prev") || $(e.target).find(".premium-hscroll-prev").length) {
-                self.goToPrev();
-            } else if ($(e.target).hasClass("premium-hscroll-next") || $(e.target).find(".premium-hscroll-next").length) {
-                self.goToNext();
-            }
-
-        };
-
-        self.goToNext = function () {
-            if (isScrolling) return;
-
-            currentActive++;
-
-            if (loop) {
-                if (-1 === currentActive) {
-                    currentActive = count - 1;
-                } else if (count === currentActive) {
-                    currentActive = 0;
-                }
-            }
-
-            self.scrollToSlide(currentActive);
-        };
-
-        self.goToPrev = function (trigger) {
-
-            if (isScrolling || ("keyboard" === trigger && currentActive === 0))
-                return;
-
-            currentActive--;
-
-
-            if (loop) {
-                if (-1 === currentActive) {
-                    currentActive = count - 1;
-                } else if (count === currentActive) {
-                    currentActive = 0;
-                }
-            }
-
-            self.scrollToSlide(currentActive);
-        };
-
-        self.scrollToSlide = function (slideIndex, scrollSrc) {
-
-            var targetOffset = self.getScrollOffset($slides.eq(slideIndex));
-
-            if (!scrollSrc) {
-                if (isScrolling) return;
-            }
-
-
-            if (0 > currentActive || count - 1 < currentActive) return;
-
-            isScrolling = true;
-
-            prevActive = slideIndex;
-
-            var spacerHeight = $("#premium-hscroll-spacer-" + id).outerHeight();
-
-            TweenMax.to(window, 1.5, {
-                scrollTo: {
-                    y: targetOffset - spacerHeight
-                },
-                ease: Power3.easeOut,
-                onComplete: self.afterSlideChange
-            });
-
-            if (settings.pagination && snapScroll)
-                $elem
-                    .find(".premium-hscroll-current-slide")
-                    .removeClass("zoomIn animated");
-
-            if (settings.pagination && snapScroll) {
+                //Make sure spacer '.premium-hscroll-spacer' is set to content-box
                 setTimeout(function () {
+                    self.setHorizontalSlider();
+                }, 200);
+
+            };
+
+            self.getDimensions = function () {
+
+                var firstWidth = $slides.eq(0).innerWidth(),
+                    distance = firstWidth * (count - 1),
+                    progressWidth = firstWidth * count;
+
+                var slidesInViewPort = self.getResponsiveControlValue('slides'),
+                    distanceBeyond = self.getResponsiveControlValue('distance');
+
+                distance = distance - (1 - 1 / slidesInViewPort) * $elem.outerWidth();
+
+                distance = distanceBeyond + distance;
+
+                return {
+                    distance: distance,
+                    progressBar: progressWidth
+                };
+
+            };
+
+            self.setHorizontalSlider = function (progress) {
+
+                dimensions = self.getDimensions();
+
+                var fromOrTo = rtlMode ? 'from' : 'to';
+
+                if ('tablet' === currentDevice && self.checkIpad() && !rtlMode) {
+                    timeline.to("#premium-hscroll-scroller-wrap-" + id, 1, { left: rtlMode ? "0px" : -dimensions.distance, ease: Power0.easeNone }, 0)
+                } else {
+                    timeline[fromOrTo]("#premium-hscroll-scroller-wrap-" + id, 1, { x: -dimensions.distance, ease: Power0.easeNone }, 0);
+                }
+
+                timeline.to("#premium-hscroll-progress-line-" + id, 1, { width: dimensions.progressBar + "px", ease: Power0.easeNone }, 0);
+
+                if ($scope.hasClass('custom-scroll-bar')) {
+
+                    $elem.append('<div class="horizontal-content-scroller"><span></span></div>');
+
+                    var progressWrap = $(".horizontal-content-scroller").outerWidth(),
+                        progressBarSpan = $(".horizontal-content-scroller span").outerWidth();
+
+                    var progressBarTransform = progressWrap - progressBarSpan;
+
+                    timeline.to('.horizontal-content-scroller span', 1, { x: progressBarTransform }, 0);
+                }
+
+                if ('undefined' !== typeof progress) {
+                    scene.progress(0);
+                    scene.update(true);
+                }
+
+            }
+
+            self.checkIpad = function () {
+                return /Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+            };
+
+            //Remove Fit to Screen to be replaced with min-height: 100vh
+            self.setLayout = function () {
+                $elem.closest("section.elementor-section-height-full").removeClass("elementor-section-height-full");
+            };
+
+            self.setSectionsData = function () {
+
+                var slidesInViewPort = self.getResponsiveControlValue('slides'),
+                    slideWidth = 100 / slidesInViewPort;
+
+                $elem.find(".premium-hscroll-slider").css("width", count * slideWidth + "%");
+
+                $elem.find(".premium-hscroll-temp").css("width", 100 / count + "%");
+
+                // Will change to scroll_speed.
+                var scrollSpeed = self.getResponsiveControlValue('scroll_speed');
+
+                var width = parseFloat(
+                    $elem.find(".premium-hscroll-sections-wrap").width() / count),
+                    winHeight = window.innerHeight * scrollSpeed + self.getResponsiveControlValue('trigger_offset');
+
+                $slides.each(function (index, template) {
+
+                    var sectionType = 'template' === controlSettings.section_repeater[index].template_type;
+
+                    if ($(template).data("section") && !sectionType) {
+                        var id = $(template).data("section");
+
+                        self.getSectionContent(id);
+                    }
+
+                    var position = index * width;
+
+                    $(template).attr("data-position", position);
+                });
+
+                offset = $elem.offset().top;
+
+                $slides.each(function (index, template) {
+
+                    var scrollOffset = (index * (winHeight)) / (count - 1);
+
+                    if (!['widescreen', 'desktop', 'laptop'].includes(currentDevice) && 0 != index) {
+
+                        // check if iOS.
+                        var ios = /iP(hone|ad|od)/i.test(navigator.userAgent) && !window.MSStream,
+                            ios = ios || self.checkIpad();
+
+                        if (ios) { // iOS device.
+
+                            var allowedBrowser = /(Chrome|CriOS|OPiOS|FxiOS)/.test(navigator.userAgent);
+
+                            if (!allowedBrowser) {
+                                var isFireFox = '' === navigator.vendor;
+                                allowedBrowser = allowedBrowser || isFireFox;
+                            }
+
+                            var isSafari = /WebKit/i.test(navigator.userAgent) && !allowedBrowser;
+
+                            if ('mobile' === currentDevice) {
+
+                                scrollOffset = self.getTouchScrollOffset(index, isSafari ? 80 : 100, scrollSpeed, count);
+
+                            } else {
+
+                                scrollOffset = self.getTouchScrollOffset(index, isSafari ? 30 : 80, scrollSpeed, count);
+
+                            }
+
+                        } else { // Android.
+                            scrollOffset = self.getTouchScrollOffset(index, 60, scrollSpeed, count);
+                        }
+                    }
+
+                    $(template).attr("data-scroll-offset", offset + scrollOffset);
+                });
+            };
+
+            /**
+             * Calculate scroll offset value for touch devices with the address bar height
+             * and trigger offset option taken into account.
+             *
+             * @param {int} addressBar approximate height of address/nav bar on touch devices.
+             */
+            self.getTouchScrollOffset = function (index, addressBar, scrollSpeed, count) {
+
+                var triggerOffset = self.getResponsiveControlValue('trigger_offset');
+
+                return (index * (($(window).innerHeight() + addressBar + triggerOffset) * scrollSpeed)) / (count - 1);
+            };
+
+            self.onScroll = function (event) {
+                if (isScrolling && null !== event) self.preventDefault(event);
+
+                var delta = self.getDirection(event),
+                    direction = 0 > delta ? "down" : "up";
+
+                self.getState();
+
+                if ("up" === direction && "AFTER" === state && document.body.scrollHeight > 3000) {
+                    var lastScrollOffset = self.getScrollOffset(
+                        $slides.eq(count - 1)
+                    );
 
                     if (
-                        currentActive + 1 !=
-                        $elem.find(".premium-hscroll-current-slide")
-                            .text()
-                    ) {
-                        //Lead zero
-                        var text = currentActive + 1 > 9 ? "" : "0";
-                        $elem
-                            .find(".premium-hscroll-current-slide")
-                            .text(text + (currentActive + 1))
-                            .addClass("zoomIn animated");
+                        window.pageYOffset - lastScrollOffset <= 300 &&
+                        window.pageYOffset - lastScrollOffset > 100
+                    )
+                        self.scrollToSlide(count - 1, 'waypoint');
+                }
+
+                if (isActive) {
+
+                    if ("down" === direction) {
+                        if (!isScrolling && count - 1 !== currentActive) {
+                            self.goToNext();
+                        }
+                    } else if ("up" === direction) {
+                        if (!isScrolling && 0 !== currentActive) self.goToPrev();
                     }
-                }, 1000);
-            }
 
-            if (settings.enternace) {
+                    if (
+                        (0 !== currentActive && "up" === direction) || ("down" === direction && count - 1 !== currentActive)
+                    ) {
+                        self.preventDefault(event);
+                    }
+                }
+            };
+
+            self.getDirection = function (e) {
+                e = window.event || e;
+                var t = Math.max(
+                    -1,
+                    Math.min(1, e.wheelDelta || -e.deltaY || -e.detail)
+                );
+                return t;
+            };
+
+            self.refresh = function () {
+
                 setTimeout(function () {
-                    self.setAnimations();
-                }, 1000);
-            }
+                    var sceneProgress = scene.progress();
+                    self.setHorizontalSlider(sceneProgress);
+                }, 200);
 
-            if (snapScroll) {
-                setTimeout(function () {
-                    isScrolling = false;
-                }, 1500);
-            }
-        };
+            };
 
-        self.afterSlideChange = function () {
-            isScrolling = false;
-        };
+            self.getState = function () {
 
-        self.handleAnimations = function () {
-            if (settings.enternace) {
+                if ($('.one-hscroll').length < 1) {
 
-                self.hideAnimations();
+                    switch (true) {
+                        case timeline.scrollTrigger.progress < 0.01:
+                            state = 'BEFORE';
+                            break;
 
-                elementorFrontend.waypoint($elem, function () {
-                    // self.setAnimations();
+                        case timeline.scrollTrigger.progress > 0.99:
+                            state = 'AFTER';
+                            break;
+
+                        case timeline.scrollTrigger.progress > 0.01 && timeline.scrollTrigger.progress < 0.99:
+                            state = 'DURING';
+                            break;
+                    }
+
+                } else {
+                    state = 'DURING';
+                }
+
+            };
+
+            self.onProgress = function () {
+
+                var progressFillWidth = $elem.find(".premium-hscroll-progress-line").outerWidth(),
+                    elemWidth = $elem.outerWidth();
+
+                $slides.each(function (index) {
+
+                    var scrollOffset = $slides.eq(index - 1).data("scroll-offset"),
+                        scrollPosition = $(this).data("position");
+
+                    if (settings.opacity && targetIndex !== index) {
+
+                        if (window.pageYOffset >= scrollOffset + elemWidth / 8) {
+                            $(this).removeClass("premium-hscroll-hide");
+                        } else {
+                            $(this).addClass("premium-hscroll-hide");
+                        }
+
+                    }
+
+                    if (progressFillWidth >= scrollPosition - progressOffset) {
+
+                        if (entrance && !isScrolling)
+                            self.triggerAnimations();
+
+                        if (-1 === currentActiveArr.indexOf(index)) {
+
+                            currentActiveArr.push(index);
+
+                            currentActive = index;
+                            self.onSlideChange();
+                        }
+
+                    } else {
+
+                        if (-1 !== currentActiveArr.indexOf(index)) {
+                            currentActiveArr.pop();
+
+                            currentActive = currentActiveArr[currentActiveArr.length - 1];
+                            self.onSlideChange();
+                        }
+
+                    }
                 });
-            } else {
-                self.unsetAnimations();
-            }
-        };
+            };
 
-        self.hideAnimations = function () {
+            self.onSlideChange = function () {
 
-            $slides.find(".elementor-invisible").addClass("premium-hscroll-elem-hidden");
+                prevActive = currentActive;
 
-        };
+                self.addBackgroundLayer();
 
-        self.unsetAnimations = function () {
-            $slides.find(".elementor-invisible")
-                .each(function (index, elem) {
-                    $(elem)
-                        .removeClass("elementor-invisible");
+                if (settings.pagination && !snapScroll) {
+
+                    var text = currentActive + 1 > 9 ? "" : "0";
+                    $elem
+                        .find(".premium-hscroll-current-slide")
+                        .text(text + (currentActive + 1));
+                }
+
+                $nav.removeClass("active");
+
+                $elem
+                    .find(".premium-hscroll-nav-item")
+                    .eq(currentActive)
+                    .addClass("active");
+
+                self.checkActive();
+
+                if (entrance && !isScrolling)
+                    self.restartAnimations(currentActive);
+            };
+
+            self.addBackgroundLayer = function () {
+
+                if ($elem.find(".premium-hscroll-bg-layer").eq(currentActive).length > 0) {
+
+                    $elem.find(".premium-hscroll-layer-active").removeClass("premium-hscroll-layer-active");
+
+                    $elem.find(".premium-hscroll-bg-layer").eq(currentActive).addClass("premium-hscroll-layer-active");
+
+                }
+
+
+
+            };
+
+            self.getSectionContent = function (sectionID) {
+                if (!$("#" + sectionID).length)
+                    return;
+
+                var htmlContent = $("#" + sectionID);
+
+                if (!editMode) {
+                    $("#premium-hscroll-scroller-wrap-" + id)
+                        .find('div[data-section="' + sectionID + '"]')
+                        .append(htmlContent);
+                } else {
+                    $slides.find(".elementor-element-overlay")
+                        .remove();
+                    $("#premium-hscroll-scroller-wrap-" + id)
+                        .find('div[data-section="' + sectionID + '"]')
+                        .append(htmlContent.clone(true));
+                }
+            };
+
+            self.checkActive = function () {
+                if (!$arrows.length) return;
+
+                if (loop) {
+                    if (-1 === currentActive) {
+                        currentActive = count - 1;
+                    } else if (count === currentActive) {
+                        currentActive = 0;
+                    }
+                } else {
+                    if (0 === currentActive) {
+                        $elem
+                            .find(".premium-hscroll-arrow-left")
+                            .addClass("premium-hscroll-arrow-hidden");
+                    } else {
+                        $elem
+                            .find(".premium-hscroll-arrow-left")
+                            .removeClass("premium-hscroll-arrow-hidden");
+                    }
+
+                    if (count - 1 === currentActive) {
+                        $elem
+                            .find(".premium-hscroll-arrow-right")
+                            .addClass("premium-hscroll-arrow-hidden");
+                    } else {
+                        $elem
+                            .find(".premium-hscroll-arrow-right")
+                            .removeClass("premium-hscroll-arrow-hidden");
+                    }
+                }
+
+            };
+
+            self.onNavDotClick = function () {
+                if (isScrolling) return;
+
+                var $item = $(this),
+                    index = $item.index();
+
+                if (index === prevActive && isActive) return;
+
+                currentActive = index;
+
+                self.scrollToSlide(index);
+            };
+
+            self.onNavArrowClick = function (e) {
+                if (isScrolling) return;
+
+                if ($(e.target).closest(".premium-hscroll-arrow-left").length) {
+                    self.goToPrev();
+                } else if ($(e.target).closest(".premium-hscroll-arrow-right").length) {
+                    self.goToNext();
+                }
+
+            };
+
+            self.goToNext = function () {
+                if (isScrolling) return;
+
+                currentActive++;
+
+                if (loop) {
+                    if (-1 === currentActive) {
+                        currentActive = count - 1;
+                    } else if (count === currentActive) {
+                        currentActive = 0;
+                    }
+                }
+
+                self.scrollToSlide(currentActive);
+            };
+
+            self.goToPrev = function (trigger) {
+
+                if (isScrolling || ("keyboard" === trigger && currentActive === 0))
+                    return;
+
+                currentActive--;
+
+                if (loop) {
+                    if (-1 === currentActive) {
+                        currentActive = count - 1;
+                    } else if (count === currentActive) {
+                        currentActive = 0;
+                    }
+                }
+
+                self.scrollToSlide(currentActive);
+            };
+
+            self.scrollToSlide = function (slideIndex, scrollSrc) {
+
+                var targetOffset = self.getScrollOffset($slides.eq(slideIndex));
+
+                if (!scrollSrc) {
+                    if (isScrolling) return;
+                } else if ('waypoint' === scrollSrc) {
+                    targetOffset = targetOffset + (0 == slideIndex ? 2 : -1);
+                }
+
+                if (0 > currentActive || count - 1 < currentActive) return;
+
+                isScrolling = true;
+
+                prevActive = slideIndex;
+
+                var spacerHeight = $("#premium-hscroll-spacer-" + id).outerHeight();
+
+                if (!snapScroll) {
+
+                    gsap.to(window, 1.5, {
+                        scrollTo: targetOffset - spacerHeight,
+                        ease: Power3.easeOut,
+                        onComplete: self.afterSlideChange
+                    });
+
+                } else {
+
+                    $("html, body").stop().clearQueue().animate({
+                        scrollTop: targetOffset
+                    }, 1000, function () {
+                        var currentX = gsap.getProperty("#premium-hscroll-scroller-wrap-" + id, 'x'),
+                            leftOffset = $slides.eq(slideIndex)[0].getBoundingClientRect().x;
+
+                        setTimeout(function () {
+                            gsap.set("#premium-hscroll-scroller-wrap-" + id, {
+                                x: currentX - leftOffset
+                            });
+                        }, 30);
+
+                    });
+
+                }
+
+                if (settings.pagination && snapScroll)
+                    $elem.find(".premium-hscroll-current-slide").removeClass("zoomIn animated");
+
+                if (settings.pagination && snapScroll) {
+                    setTimeout(function () {
+
+                        if (
+                            currentActive + 1 !=
+                            $elem.find(".premium-hscroll-current-slide")
+                                .text()
+                        ) {
+                            //Lead zero
+                            var text = currentActive + 1 > 9 ? "" : "0";
+                            $elem
+                                .find(".premium-hscroll-current-slide")
+                                .text(text + (currentActive + 1))
+                                .addClass("zoomIn animated");
+                        }
+                    }, 1000);
+                }
+
+                if (entrance && !entranceOnce) {
+
+                    setTimeout(function () {
+                        self.setAnimations();
+                    }, 1000);
+                }
+
+                if (snapScroll) {
+                    setTimeout(function () {
+                        isScrolling = false;
+                    }, 1200);
+                }
+            };
+
+            self.afterSlideChange = function () {
+                isScrolling = false;
+            };
+
+            self.handleAnimations = function () {
+
+                if (entranceOnce)
+                    return;
+
+                if (entrance) {
+
+                    self.hideAnimations();
+
+                    elementorFrontend.waypoint($elem, function () {
+                        self.setAnimations();
+                    });
+                } else {
+                    self.unsetAnimations();
+                }
+            };
+
+            self.hideAnimations = function () {
+
+                $slides.find(".elementor-invisible").addClass("premium-hscroll-elem-hidden");
+
+            };
+
+            self.unsetAnimations = function () {
+
+                $slides.not(":eq(0)").find(".elementor-invisible").each(function (index, elem) {
+
+                    $(elem).removeClass("elementor-invisible");
+
+                    var dataSettings = $(elem).data("settings");
+
+                    if (dataSettings) {
+
+                        delete dataSettings._animation;
+
+                        delete dataSettings.animation;
+
+                        $(elem).attr("data-settings", JSON.stringify(dataSettings));
+
+                    }
+
                 });
-        };
 
-        self.setAnimations = function () {
+            };
 
-            self.restartAnimations();
+            self.setAnimations = function () {
 
-            self.triggerAnimations();
-        };
+                self.restartAnimations();
 
-        self.restartAnimations = function (slideIndex) {
-            var $unactiveSlides = $slides.filter(function (index) {
-                return index !== slideIndex;
-            });
+                self.triggerAnimations();
+            };
 
-            $unactiveSlides.find(".animated")
-                .each(function (index, elem) {
-                    var settings = $(elem)
-                        .data("settings");
-
-                    if (undefined === settings) return;
-
-                    var animation = settings._animation || settings.animation;
-
-                    $(elem)
-                        .removeClass("animated " + animation)
-                        .addClass("elementor-invisible");
+            self.restartAnimations = function (slideIndex) {
+                var $unactiveSlides = $slides.filter(function (index) {
+                    return index !== slideIndex;
                 });
-        };
 
-        self.triggerAnimations = function () {
+                $unactiveSlides.find(".animated")
+                    .each(function (index, elem) {
+                        var settings = $(elem)
+                            .data("settings");
 
-            $slides
-                .eq(currentActive)
-                .find(".elementor-invisible")
-                .each(function (index, elem) {
+                        if (undefined === settings) return;
+
+                        var animation = settings._animation || settings.animation;
+
+                        $(elem)
+                            .removeClass("animated " + animation)
+                            .addClass("elementor-invisible");
+                    });
+            };
+
+            self.triggerAnimations = function () {
+
+                $slides.eq(currentActive).find(".elementor-invisible, .premium-hscroll-elem-hidden").each(function (index, elem) {
                     var settings = $(elem)
                         .data("settings");
 
@@ -835,9 +989,7 @@
 
                     if (!settings._animation && !settings.animation) return;
 
-                    var delay = settings._animation_delay ?
-                        settings._animation_delay :
-                        0,
+                    var delay = settings._animation_delay ? settings._animation_delay : 0,
                         animation = settings._animation || settings.animation;
 
                     setTimeout(function () {
@@ -846,30 +998,34 @@
                             .addClass(animation + " animated");
                     }, delay);
                 });
+            };
+
+            self.getScrollOffset = function (item) {
+
+                if (!$(item).length)
+                    return;
+
+                var slideOffset = $(item).data("scroll-offset");
+
+                if ($("#upper-element").length > 0) {
+                    slideOffset = slideOffset + $("#upper-element").closest(".premium-notbar-outer-container").outerHeight();
+                    $(item).attr("data-scroll-offset", slideOffset);
+                }
+
+                return slideOffset;
+            };
+
+            self.preventDefault = function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            };
         };
 
-        self.getScrollOffset = function (item) {
-            if (!$(item)
-                .length) return;
+        elementorFrontend.elementsHandler.attachHandler('premium-hscroll', PremiumHorizontalScrollHandler);
 
-            return $(item)
-                .data("scroll-offset");
-        };
+    });
 
-        self.preventDefault = function (event) {
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        };
-    };
-
-    $(window)
-        .on("elementor/frontend/init", function () {
-            elementorFrontend.hooks.addAction(
-                "frontend/element_ready/premium-hscroll.default",
-                PremiumHorizontalScrollHandler
-            );
-        });
 })(jQuery);

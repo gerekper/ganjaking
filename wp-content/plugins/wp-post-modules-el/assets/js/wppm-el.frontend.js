@@ -2,7 +2,7 @@
  * wppm.plugin.js
  * JavaScript functions required by the plugin
  *
- * @version 2.2.1
+ * @version 2.4.0
  */
 (function ($) {
 

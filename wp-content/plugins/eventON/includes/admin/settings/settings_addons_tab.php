@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON Settings Tab for addons and licensing
- * @version 4.5
+ * @version 4.5.2
  */
 
 global $ajde, $eventon;
@@ -9,8 +9,11 @@ global $ajde, $eventon;
 $views = new EVO_Views();
 ?>
 
+<style type="text/css">
+	.ajde_settings.evcal_4 .evo_settings_header{margin-left: -20px;}
+</style>
 <div class=''>
-	<p><a href='https://docs.myeventon.com/documentations/can-download-addon-updates/' class='evo_admin_btn btn_triad' target='_blank'><?php _e('How to update EventON addons to latest version','eventon');?></a>  <a style='margin-left:5px;'href='https://docs.myeventon.com/documentations/update-eventon/' target='_blank' class='evo_admin_btn btn_triad'><?php _e('How to update EventON Manually','eventon');?></a></p>
+	<p><a href='https://docs.myeventon.com/documentations/can-download-addon-updates/' class='evo_admin_link_btn' target='_blank'><?php _e('How to update EventON addons to latest version','eventon');?></a>  <br/><a style=''href='https://docs.myeventon.com/documentations/update-eventon/' target='_blank' class='evo_admin_link_btn'><?php _e('How to update EventON Manually','eventon');?></a></p>
 </div>
 <div id="evcal_4" class="postbox evcal_admin_meta curve" style='overflow: hidden'>	
 	<?php

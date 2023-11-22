@@ -82,6 +82,7 @@ class evo_frontend {
 		//_eventon_debug_eventon_get_repeat_intervals( 1611964800, 1612047600);	
 
 
+
 	}
 
 	// heartbeat
@@ -123,7 +124,10 @@ class evo_frontend {
 						
 			wp_register_script('evo_handlebars',plugins_url(EVENTON_BASE) . '/assets/js/lib/handlebars.js', array('jquery'), EVO()->version, true ); // 2.6.8
 			
-			wp_register_script('evo_jitsi','https://meet.jit.si/external_api.js', array('jquery'), EVO()->version, true ); // 3.1
+			if(!EVO()->cal->check_yn('evo_dis_jitsi')){
+				wp_register_script('evo_jitsi','https://meet.jit.si/external_api.js', array('jquery'), EVO()->version, true ); // 4.5.3
+			}
+			
 
 			
 			wp_register_script('evo_moment',plugins_url(EVENTON_BASE) . '/assets/js/lib/moment.min.js', array('jquery'), EVO()->version, true ); // 2.8
@@ -226,6 +230,8 @@ class evo_frontend {
 
 			// pluggable
 				do_action('evo_register_other_styles_scripts');
+
+			
 
 		}
 

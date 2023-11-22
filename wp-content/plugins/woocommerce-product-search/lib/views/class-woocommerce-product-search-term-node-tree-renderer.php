@@ -174,7 +174,6 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 			'current_terms' => $this->current_term_ids,
 			'has_children'  => $node->has_children(),
 			'hierarchical'  => $this->hierarchical,
-
 			'show_count'    => $this->show_count,
 			'expandable'    => $depth >= $this->expandable_from_depth,
 			'expander'      => $this->expander,

@@ -41,6 +41,7 @@ class WCML_Store_Pages {
 			add_action( 'icl_post_languages_options_before', [ $this, 'show_translate_shop_pages_notice' ] );
 		}
 
+		/* phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected */
 		$getData              = wpml_collect( $_GET );
 		$isTranslationPreview = $getData->get( 'preview' ) && $getData->get( 'jobId' );
 		if (
@@ -571,59 +572,59 @@ class WCML_Store_Pages {
 	public function template_loader( $template ) {
 
 		if ( is_product_taxonomy() ) {
-			global $sitepress, $woocommerce_wpml;
 
-			$current_language = $sitepress->get_current_language();
-			$default_language = $sitepress->get_default_language();
+			$current_language = $this->sitepress->get_current_language();
+			$default_language = $this->sitepress->get_default_language();
 
 			if ( $current_language != $default_language ) {
 
-				$templates = [];
-
-				$term = get_queried_object();
+				$term     = get_queried_object();
+				$taxonomy = $term->taxonomy;
+				$prefix   = 'taxonomy-' . $taxonomy;
+				$paths    = [ '', WC()->template_path() ];
 
 				if ( is_tax( 'product_cat' ) || is_tax( 'product_tag' ) ) {
-					$file = 'taxonomy-' . $term->taxonomy . '.php';
+					$file = 'taxonomy-' . $taxonomy . '.php';
 				} else {
 					$file = 'archive-product.php';
 				}
 
-				// check templates
-				$term             = get_queried_object();
-				$taxonomy         = $term->taxonomy;
-				$prefix           = 'taxonomy-' . $taxonomy;
-				$original_term_id = icl_object_id( $term->term_id, $taxonomy, true, $default_language );
-				$original_term    = $woocommerce_wpml->terms->wcml_get_term_by_id( $original_term_id, $taxonomy );
+				$getTemplates = function( $terms_to_check, $lang ) use ( $file, $prefix, $paths ) {
+					$templates = [];
+					foreach ( $paths as $path ) {
+						foreach ( $terms_to_check as $term_id => $term_slug ) {
+							$templates[] = $path . "$prefix-{$lang}-{$term_slug}.php";
+							$templates[] = $path . "$prefix-{$lang}-{$term_id}.php";
+							$templates[] = $path . "$prefix-{$term_slug}.php";
+							$templates[] = $path . "$prefix-{$term_id}.php";
+						}
+						$templates[] = $path . "$prefix-{$lang}.php";
+						$templates[] = $path . "$prefix.php";
+						$templates[] = $path . $file;
+					}
 
+					return $templates;
+				};
+
+				// We don't override if the original `$template` does not look like the template we would like to convert.
 				$terms_to_check = [ $term->term_id => $term->slug ];
+
+				if ( ! in_array( $template, $getTemplates( $terms_to_check, $default_language ) ) ) {
+					return $template;
+				}
+
+				// Add original term and locate the template.
+				$original_term_id = $this->sitepress->get_object_id( $term->term_id, $taxonomy, true, $default_language );
+				$original_term    = $this->woocommerce_wpml->terms->wcml_get_term_by_id( $original_term_id, $taxonomy );
+
 				if ( $original_term ) {
 					$terms_to_check[ $original_term_id ] = $original_term->slug;
 				}
 
-				$paths = [ '', WC()->template_path() ];
-
-				foreach ( $paths as $path ) {
-
-					foreach ( $terms_to_check as $term_id => $term_slug ) {
-
-						$templates[] = $path . "$prefix-{$current_language}-{$term_slug}.php";
-						$templates[] = $path . "$prefix-{$current_language}-{$term_id}.php";
-						$templates[] = $path . "$prefix-{$term_slug}.php";
-						$templates[] = $path . "$prefix-{$term_id}.php";
-
-					}
-
-					$templates[] = $path . "$prefix-{$current_language}.php";
-					$templates[] = $path . "$prefix.php";
-					$templates[] = $path . $file;
-				}
-
-				$loaded_template = locate_template( array_unique( $templates ) );
+				$loaded_template = locate_template( array_unique( $getTemplates( $terms_to_check, $current_language ) ) );
 
 				if ( $loaded_template ) {
-
 					$template = $loaded_template;
-
 				}
 			}
 		}

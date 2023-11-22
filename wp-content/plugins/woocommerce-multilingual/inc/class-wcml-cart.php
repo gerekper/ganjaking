@@ -218,78 +218,118 @@ class WCML_Cart {
 			$this->empty_cart_if_needed( $switching_type );
 			return false;
 		}?>
-		<div id="wcml-cart-dialog-confirm" title="<?php echo esc_attr( $dialog_title ); ?>">
-			<p><?php echo esc_html( $confirmation_message ); ?></p>
+		<div id="wcml-cart-dialog-wrapper">
+			<div class="wcml-cart-dialog-confirm">
+				<p class="wcml-cart-dialog-title"><?php echo esc_attr( $dialog_title ); ?></p>
+				<p class="wcml-cart-dialog-content"><?php echo esc_html( $confirmation_message ); ?></p>
+				<div class="wcml-cart-dialog-buttons">
+					<button id="wcml-cart-dialog-switch" class="button"><?php echo esc_html( $switch_to ); ?></button>
+					<button id="wcml-cart-dialog-stay" class="button"><?php echo esc_html( $stay_in ); ?></button>
+				</div>
+			</div>
+			<style>
+				/* The Modal (background) */
+				#wcml-cart-dialog-wrapper {
+					position: fixed;
+					z-index: 1;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					overflow: auto;
+					background-color: rgb(0,0,0);
+					background-color: rgba(0,0,0,0.7);
+					z-index: 10000;
+				}
+
+				/* Modal Content */
+				.wcml-cart-dialog-confirm {
+					background-color: #fefefe;
+					margin: 25% auto;
+					padding: 20px;
+					border: 1px solid #888;
+					width: 50%;
+					max-width: 560px;
+				}
+
+				.wcml-cart-dialog-title {
+					border-bottom: 1px solid #dcdcde;
+					font-size: 18px;
+					font-weight: 600;
+					padding: 0 0 10px;
+				}
+
+				.wcml-cart-dialog-buttons {
+					text-align: right;
+				}
+
+				.wcml-cart-dialog-buttons button {
+					color: #555;
+					font-size: 16px;
+					padding: 4px 8px;
+					margin: 0 3px;
+				}
+
+				.wcml-cart-dialog-buttons button:hover,
+				.wcml-cart-dialog-buttons button:focus {
+					color: #000;
+					cursor: pointer;
+				}
+			</style>
+
+			<script type="text/javascript">
+				(function(){
+					const modal = document.getElementById('wcml-cart-dialog-wrapper');
+
+					const btnStay   = document.getElementById('wcml-cart-dialog-stay');
+					const btnSwitch = document.getElementById('wcml-cart-dialog-switch');
+
+					const removeAjaxSpinners = function() {
+						document.querySelectorAll('.wcml-spinner').forEach(function(spinner) {
+							spinner.remove();
+						});
+					}
+
+					const removeModal = function() {
+						modal.remove();
+
+						const scriptInsertedByAjax = document.getElementById('wcml-cart-dialog-script');
+
+						if (scriptInsertedByAjax) {
+							scriptInsertedByAjax.remove();
+						}
+					}
+
+					const restoreCurrencyInSwitchers = function() {
+						document.querySelectorAll('.wcml_currency_switcher').forEach(function(switcher) {
+							switcher.disabled = false;
+							switcher.value = '<?php echo esc_js( $stay_in_value ); ?>';
+						});
+					}
+
+					btnSwitch.onclick = function() {
+						removeModal();
+						<?php if ( $language_switch ) : ?>
+						window.location = '<?php echo esc_url( $switch_to_value, null, 'redirect' ); ?>';
+						<?php else : ?>
+						wcml_load_currency("<?php echo esc_js( $switch_to_value ); ?>", true);
+						removeAjaxSpinners();
+						<?php endif; ?>
+					}
+
+					btnStay.onclick = function() {
+						removeModal();
+						<?php if ( $language_switch ) : ?>
+						window.location = '<?php echo esc_url( $stay_in_value, null, 'redirect' ); ?>';
+						<?php else : ?>
+						removeAjaxSpinners();
+						restoreCurrencyInSwitchers();
+						document.addEventListener('click', wcml_switch_currency_handler);
+						<?php endif; ?>
+					}
+				})();
+			</script>
 		</div>
-
-		<script type="text/javascript">
-		  jQuery(function () {
-			  var dialogBox = jQuery("#wcml-cart-dialog-confirm");
-			  dialogBox.dialog({
-				  resizable: false,
-				  draggable: false,
-				  height: "auto",
-				  width: 500,
-				  modal: true,
-				  closeOnEscape: false,
-				  dialogClass: "otgs-ui-dialog wcml-cart-dialog",
-				  create: function () {
-
-				  },
-					open: function (event, ui) {
-						jQuery(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-						jQuery('#jquery-ui-style-css').prop('disabled', true);
-						repositionDialog();
-					},
-				  close: function (event, ui) {
-					  jQuery('#jquery-ui-style-css').prop('disabled', false);
-				  },
-				  buttons: {
-					  "<?php echo $switch_to; ?>": function () {
-						  jQuery(this).dialog("close");
-						  <?php if ( $language_switch ) : ?>
-						  window.location = '<?php echo esc_url( $switch_to_value, null, 'redirect' ); ?>';
-							<?php else : ?>
-						  jQuery('.wcml_currency_switcher').parent().find('img').remove();
-						  wcml_load_currency("<?php echo esc_js( $switch_to_value ); ?>", true);
-							<?php endif; ?>
-
-					  },
-					  "<?php echo $stay_in; ?>": function () {
-						  jQuery(this).dialog("close");
-						  <?php if ( $language_switch ) : ?>
-						  window.location = '<?php echo esc_url( $stay_in_value, null, 'redirect' ); ?>';
-							<?php else : ?>
-						  jQuery('.wcml_currency_switcher').each( function(){
-							  jQuery(this).parent().find('img').remove();
-							  jQuery(this).prop('disabled', false);
-							  jQuery(this).val('<?php echo esc_js( $stay_in_value ); ?>');
-						  });
-						  jQuery(document).on('click', '.wcml_currency_switcher a', wcml_switch_currency_handler );
-							<?php endif; ?>
-					  }
-				  }
-			  });
-
-			  jQuery(window).resize(repositionDialog);
-
-			  function repositionDialog() {
-				  var winH = jQuery(window).height() - 180;
-				  jQuery('.wcml-cart-dialog').css({
-					  "max-height": winH,
-					  "max-width": "95%"
-				  });
-
-				  dialogBox.dialog("option", "position", {
-					  my: "center",
-					  at: "center",
-					  of: window
-				  });
-			  };
-
-
-		  });
-		</script>
 		<?php
 	}
 
@@ -302,8 +342,6 @@ class WCML_Cart {
 	 *
 	 * @param WC_Cart      $cart
 	 * @param string|false $currency
-	 *
-	 * @return array
 	 */
 	public function woocommerce_calculate_totals( $cart, $currency = false ) {
 
@@ -374,8 +412,6 @@ class WCML_Cart {
 
 		$cart->cart_contents              = $this->wcml_check_on_duplicate_products_in_cart( $new_cart_data );
 		$this->woocommerce->session->cart = $cart->cart_contents;
-
-		return $cart->cart_contents;
 	}
 
 	/**
@@ -529,7 +565,6 @@ class WCML_Cart {
 	public function localize_flat_rates_shipping_classes() {
 
 		if ( wp_doing_ajax() && isset( $_POST['action'] ) && $_POST['action'] == 'woocommerce_update_order_review' ) {
-			$this->woocommerce->shipping()->load_shipping_methods();
 			$shipping_methods = $this->woocommerce->shipping()->get_shipping_methods();
 			foreach ( $shipping_methods as $method ) {
 				if ( isset( $method->flat_rate_option ) ) {

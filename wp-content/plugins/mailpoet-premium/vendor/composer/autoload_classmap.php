@@ -43,6 +43,7 @@ return array(
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\ClicksEmailLinkTrigger' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php',

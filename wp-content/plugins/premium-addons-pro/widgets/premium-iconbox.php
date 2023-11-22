@@ -16,8 +16,8 @@ use Elementor\Control_Media;
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -26,6 +26,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Image_Size;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -39,14 +40,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Iconbox extends Widget_Base {
 
 	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-iconbox' );
+		return $is_enabled;
+	}
+
+	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -66,7 +89,7 @@ class Premium_Iconbox extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Icon Box', 'premium-addons-pro' ) );
+		return __( 'Icon Box', 'premium-addons-pro' );
 	}
 
 	/**
@@ -102,7 +125,21 @@ class Premium_Iconbox extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'cta', 'action', 'link' );
+		return array( 'pa', 'premium', 'cta', 'action', 'link' );
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -114,10 +151,20 @@ class Premium_Iconbox extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'tilt-js',
-			'lottie-js',
-			'premium-pro',
+
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-tweenmax',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			$draw_scripts,
+			array(
+				'pa-tilt',
+				'lottie-js',
+				'premium-pro',
+			)
 		);
 	}
 
@@ -137,7 +184,9 @@ class Premium_Iconbox extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'section_general',
@@ -186,6 +235,7 @@ class Premium_Iconbox extends Widget_Base {
 					'font-awesome-icon' => __( 'Font Awesome Icon', 'premium-addons-pro' ),
 					'custom-image'      => __( 'Custom Image', 'premium-addons-pro' ),
 					'animation'         => __( 'Lottie Animation', 'premium-addons-pro' ),
+					'svg'               => __( 'SVG Code', 'premium-addons-pro' ),
 				),
 			)
 		);
@@ -236,26 +286,13 @@ class Premium_Iconbox extends Widget_Base {
 		);
 
 		$this->add_control(
-			'lottie_loop',
+			'custom_svg',
 			array(
-				'label'        => __( 'Loop', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'default'      => 'true',
-				'condition'    => array(
-					'premium_icon_box_selector' => 'animation',
-				),
-			)
-		);
-
-		$this->add_control(
-			'lottie_reverse',
-			array(
-				'label'        => __( 'Reverse', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
-					'premium_icon_box_selector' => 'animation',
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'premium_icon_box_selector' => 'svg',
 				),
 			)
 		);
@@ -278,13 +315,291 @@ class Premium_Iconbox extends Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-icon-box-icon-container i' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .premium-icon-box-icon-container .premium-icon-box-animation, {{WRAPPER}} div:not(.premium-lottie-animation) svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-icon-box-icon-container .premium-icon-box-animation, {{WRAPPER}} div:not(.premium-lottie-animation) svg:not(.premium-icon-box-more-icon)' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
 				),
 				'condition'  => array(
-					'premium_icon_box_selector!' => 'custom-image',
+					'premium_icon_box_selector!' => array( 'custom-image', 'svg' ),
 				),
 			)
 		);
+
+		$this->add_responsive_control(
+			'svg_icon_width',
+			array(
+				'label'      => __( 'Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'premium_icon_box_selector' => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-icon-box-icon-container svg' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'svg_icon_height',
+			array(
+				'label'      => __( 'Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'premium_icon_box_selector' => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-icon-box-icon-container svg' => 'height: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array(
+					'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					'premium_icon_box_font_updated[library]!' => 'svg',
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'stroke_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 20,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-icon-box-icon-container svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$this,
+				'box',
+				array(
+					'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					'premium_icon_box_font_updated[library]!' => 'svg',
+				)
+			);
+
+		}
+
+		$this->add_control(
+			'lottie_loop',
+			array(
+				'label'        => __( 'Loop', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'default'      => 'true',
+				'conditions'   => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'premium_icon_box_selector',
+							'value' => 'animation',
+						),
+						array(
+							'terms' => array(
+								array(
+									'relation' => 'or',
+									'terms'    => array(
+										array(
+											'name'  => 'premium_icon_box_selector',
+											'value' => 'font-awesome-icon',
+										),
+										array(
+											'name'  => 'premium_icon_box_selector',
+											'value' => 'svg',
+										),
+									),
+								),
+								array(
+									'name'  => 'draw_svg',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_control(
+			'lottie_reverse',
+			array(
+				'label'        => __( 'Reverse', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'conditions'   => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'premium_icon_box_selector',
+							'value' => 'animation',
+						),
+						array(
+							'terms' => array(
+								array(
+									'relation' => 'or',
+									'terms'    => array(
+										array(
+											'name'  => 'premium_icon_box_selector',
+											'value' => 'font-awesome-icon',
+										),
+										array(
+											'name'  => 'premium_icon_box_selector',
+											'value' => 'svg',
+										),
+									),
+								),
+								array(
+									'name'  => 'draw_svg',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+						'lottie_reverse!'           => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+						'lottie_reverse'            => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'svg_hover',
+				array(
+					'label'        => __( 'Only Animate on Hover', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+						'draw_svg'                  => 'yes',
+						'lottie_loop'               => 'true',
+					),
+				)
+			);
+		}
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
@@ -324,15 +639,15 @@ class Premium_Iconbox extends Widget_Base {
 				'options' => array(
 					'left'  => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'top'   => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right' => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default' => 'top',
@@ -457,15 +772,15 @@ class Premium_Iconbox extends Widget_Base {
 				'options'      => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'      => 'center',
@@ -823,8 +1138,8 @@ class Premium_Iconbox extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-link i' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .premium-icon-box-link svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-icon-box-more i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-box-more svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
 				),
 				'conditions' => array(
 					'terms' => array(
@@ -866,6 +1181,10 @@ class Premium_Iconbox extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}}.premium-link-icon-after .premium-icon-box-more-icon' => 'margin-' . $icon_spacing_after . ': {{SIZE}}px',
 					'{{WRAPPER}}.premium-link-icon-before .premium-icon-box-more-icon' => 'margin-' . $icon_spacing . ': {{SIZE}}px',
+				),
+				'default'   => array(
+					'size' => 10,
+					'unit' => 'px',
 				),
 				'condition' => array(
 					'premium_icon_box_link_switcher'      => 'yes',
@@ -930,7 +1249,10 @@ class Premium_Iconbox extends Widget_Base {
 		$this->start_controls_section(
 			'premium_icon_box_back_icon_section',
 			array(
-				'label' => __( 'Back Icon', 'premium-addons-pro' ),
+				'label'     => __( 'Back Icon', 'premium-addons-pro' ),
+				'condition' => array(
+					'premium_icon_box_selector!' => 'svg',
+				),
 			)
 		);
 
@@ -950,7 +1272,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -975,7 +1297,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -1052,7 +1374,7 @@ class Premium_Iconbox extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -1062,7 +1384,7 @@ class Premium_Iconbox extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -1075,6 +1397,19 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label' => __( 'Icon', 'premium-addons-pro' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'svg_color',
+			array(
+				'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
+				'condition' => array(
+					'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					'draw_svg'                  => 'yes',
+				),
 			)
 		);
 
@@ -1092,19 +1427,34 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-icon' => 'color:{{VALUE}};',
-					'{{WRAPPER}} .premium-icon-box-icon-container svg' => 'fill:{{VALUE}};',
+					'{{WRAPPER}} .premium-icon-box-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-icon-container svg *' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
-					'premium_icon_box_selector' => 'font-awesome-icon',
+					'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
 				),
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-icon-box-icon-container svg *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_icon_box_background_normal',
@@ -1112,7 +1462,7 @@ class Premium_Iconbox extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-animation'  => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1121,7 +1471,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_border_normal',
-				'selector' => '{{WRAPPER}} .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-animation',
+				'selector' => '{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon',
 			)
 		);
 
@@ -1132,7 +1482,34 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-animation' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'icon_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'icon_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'icon_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -1154,7 +1531,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Shadow', 'premium-addons-pro' ),
 				'name'      => 'premium_icon_box_image_shadow_normal',
-				'selector'  => '{{WRAPPER}} .premium-icon-box-custom-image',
+				'selector'  => '{{WRAPPER}} .premium-icon-box-icon-container img',
 				'condition' => array(
 					'premium_icon_box_selector' => 'custom-image',
 				),
@@ -1168,7 +1545,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-animation' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1180,7 +1557,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-icon-container svg, {{WRAPPER}} .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-animation' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-wrapper, {{WRAPPER}} .premium-icon-box-big .premium-icon-box-icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1199,19 +1576,35 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon'   => 'color: {{VALUE}};',
-					'{{WRAPPER}} .premium-icon-box-container-out:hover svg'   => 'fill: {{VALUE}};',
+					'{{WRAPPER}}:hover .premium-icon-box-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}}:hover .premium-icon-box-icon, {{WRAPPER}}:hover .premium-icon-box-icon *' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
 					'premium_icon_box_selector' => 'font-awesome-icon',
+					'svg_color'                 => '',
 				),
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'stroke_color_hover',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'premium_icon_box_selector' => array( 'font-awesome-icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}}:hover .premium-icon-box-icon-container .premium-icon-box-icon *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_icon_box_background_hover',
@@ -1219,7 +1612,7 @@ class Premium_Iconbox extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-animation' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1228,7 +1621,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_border_hover',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-animation',
+				'selector' => '{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon',
 			)
 		);
 
@@ -1239,7 +1632,34 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-animation' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'icon_hover_adv_radius' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_hover_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'icon_hover_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'icon_hover_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -1249,7 +1669,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Shadow', 'premium-addons-pro' ),
 				'name'      => 'premium_icon_box_icon_shadow_hover',
-				'selector'  => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg',
+				'selector'  => '{{WRAPPER}}:hover .premium-icon-box-icon, {{WRAPPER}}:hover svg',
 				'condition' => array(
 					'premium_icon_box_selector' => 'font-awesome-icon',
 				),
@@ -1261,7 +1681,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Shadow', 'premium-addons-pro' ),
 				'name'      => 'premium_icon_box_image_shadow_hover',
-				'selector'  => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image',
+				'selector'  => '{{WRAPPER}}:hover .premium-icon-box-icon-container img',
 				'condition' => array(
 					'premium_icon_box_selector' => 'custom-image',
 				),
@@ -1275,7 +1695,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-animation' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1287,7 +1707,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-icon, {{WRAPPER}} .premium-icon-box-container-out:hover svg, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-custom-image, {{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-animation' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-wrapper, {{WRAPPER}}:hover .premium-icon-box-big .premium-icon-box-icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1314,9 +1734,8 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-icon-box-title' => 'color:{{VALUE}};',
@@ -1329,12 +1748,11 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-title'  => 'color:{{VALUE}}',
+					'{{WRAPPER}}:hover .premium-icon-box-title'  => 'color:{{VALUE}}',
 				),
 			)
 		);
@@ -1343,7 +1761,9 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-icon-box-title',
 			)
 		);
@@ -1362,7 +1782,7 @@ class Premium_Iconbox extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-title-container'  => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-icon-box-title' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1371,7 +1791,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_title_border',
-				'selector' => '{{WRAPPER}} .premium-icon-box-title-container',
+				'selector' => '{{WRAPPER}} .premium-icon-box-title',
 			)
 		);
 
@@ -1382,7 +1802,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-title-container' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-box-title' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1394,7 +1814,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-title-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-box-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1406,7 +1826,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-title-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-icon-box-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1425,9 +1845,8 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-icon-box-label' => 'color:{{VALUE}};',
@@ -1439,7 +1858,9 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'label_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-icon-box-label',
 			)
 		);
@@ -1474,12 +1895,11 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-content-wrap'  => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-icon-box-content'  => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1489,12 +1909,11 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-content-wrap'  => 'color:{{VALUE}};',
+					'{{WRAPPER}}:hover .premium-icon-box-content'  => 'color:{{VALUE}};',
 				),
 			)
 		);
@@ -1503,8 +1922,10 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'content_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-icon-box-content-wrap',
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				),
+				'selector' => '{{WRAPPER}} .premium-icon-box-content',
 			)
 		);
 
@@ -1512,7 +1933,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'     => 'premium_icon_box_content_shadow',
-				'selector' => '{{WRAPPER}} .premium-icon-box-content-wrap',
+				'selector' => '{{WRAPPER}} .premium-icon-box-content',
 			)
 		);
 
@@ -1606,8 +2027,10 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'read_more_typography',
-				'scheme'    => Typography::TYPOGRAPHY_1,
-				'selector'  => '{{WRAPPER}} .premium-icon-box-link',
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				),
+				'selector'  => '{{WRAPPER}} .premium-icon-box-more',
 				'condition' => array(
 					'premium_icon_box_link_text_switcher' => 'yes',
 					'premium_icon_box_link_switcher'      => 'yes',
@@ -1629,13 +2052,12 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-link' => 'color:{{VALUE}};',
-					'{{WRAPPER}} .premium-icon-box-link svg' => 'fill:{{VALUE}} !important',
+					'{{WRAPPER}} .premium-icon-box-more' => 'color:{{VALUE}};',
+					'{{WRAPPER}} .premium-icon-box-more svg' => 'fill:{{VALUE}} !important',
 				),
 			)
 		);
@@ -1644,7 +2066,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'     => 'premium_icon_box_link_shadow_normal',
-				'selector' => '{{WRAPPER}} .premium-icon-box-link',
+				'selector' => '{{WRAPPER}} .premium-icon-box-more',
 			)
 		);
 
@@ -1717,13 +2139,12 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-link, {{WRAPPER}} .premium-icon-box-more:hover .premium-icon-box-link'   => 'color: {{VALUE}};',
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-link svg, {{WRAPPER}} .premium-icon-box-more:hover .premium-icon-box-link svg'   => 'fill: {{VALUE}} !important',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover'   => 'color: {{VALUE}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more svg, {{WRAPPER}} .premium-icon-box-more:hover svg'   => 'fill: {{VALUE}} !important',
 				),
 			)
 		);
@@ -1732,7 +2153,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'     => 'premium_icon_box_link_shadow_hover',
-				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover .premium-icon-box-link',
+				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover',
 			)
 		);
 
@@ -1890,7 +2311,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'name'     => 'premium_icon_box_inner_container_background_hover',
 				'types'    => array( 'classic', 'gradient' ),
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in',
+				'selector' => '{{WRAPPER}}:hover .premium-icon-box-container-in',
 			)
 		);
 
@@ -1898,7 +2319,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_inner_container_border_hover',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in',
+				'selector' => '{{WRAPPER}}:hover .premium-icon-box-container-in',
 			)
 		);
 
@@ -1909,7 +2330,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-box-container-in' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1919,7 +2340,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'    => __( 'Box Shadow', 'premium-addons-pro' ),
 				'name'     => 'premium_icon_box_inner_container_box_shadow_hover',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in',
+				'selector' => '{{WRAPPER}}:hover .premium-icon-box-container-in',
 			)
 		);
 
@@ -1930,7 +2351,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-box-container-in' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1942,7 +2363,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover .premium-icon-box-container-in' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover .premium-icon-box-container-in' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1966,9 +2387,8 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Back Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-icon-box-big i' => 'color: {{VALUE}}',
@@ -1995,7 +2415,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'name'     => 'premium_icon_box_outer_container_background',
 				'types'    => array( 'classic', 'gradient' ),
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out',
+				'selector' => '{{WRAPPER}}',
 			)
 		);
 
@@ -2003,7 +2423,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_outer_container_box_border',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out',
+				'selector' => '{{WRAPPER}}',
 			)
 		);
 
@@ -2014,7 +2434,34 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'container_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'container_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'container_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}}' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'container_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -2024,7 +2471,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'    => __( 'Box Shadow', 'premium-addons-pro' ),
 				'name'     => 'premium_icon_box_outer_container_box_shadow',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out',
+				'selector' => '{{WRAPPER}}',
 			)
 		);
 
@@ -2035,7 +2482,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2047,7 +2494,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2066,7 +2513,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'name'     => 'premium_icon_box_outer_container_background_hover',
 				'types'    => array( 'classic', 'gradient' ),
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover',
+				'selector' => '{{WRAPPER}}:hover',
 			)
 		);
 
@@ -2074,7 +2521,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_outer_container_border_hover',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover',
+				'selector' => '{{WRAPPER}}:hover',
 			)
 		);
 
@@ -2085,7 +2532,34 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'container_hover_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'container_hover_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'container_hover_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}}:hover' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'container_hover_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -2095,7 +2569,7 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'    => __( 'Box Shadow', 'premium-addons-pro' ),
 				'name'     => 'premium_icon_box_outer_container_box_shadow_hover',
-				'selector' => '{{WRAPPER}} .premium-icon-box-container-out:hover',
+				'selector' => '{{WRAPPER}}:hover',
 			)
 		);
 
@@ -2106,7 +2580,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2118,7 +2592,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-container-out:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2149,7 +2623,7 @@ class Premium_Iconbox extends Widget_Base {
 		$this->add_render_attribute( 'premium_icon_box_title', 'class', 'premium-icon-box-title' );
 		$this->add_inline_editing_attributes( 'premium_icon_box_title', 'basic' );
 
-		$this->add_render_attribute( 'premium_icon_box_content', 'class', 'premium-icon-box-content-wrap' );
+		$this->add_render_attribute( 'premium_icon_box_content', 'class', 'premium-icon-box-content' );
 		$this->add_inline_editing_attributes( 'premium_icon_box_content', 'advanced' );
 
 		$this->add_render_attribute( 'premium_icon_box_label', 'class', 'premium-icon-box-label' );
@@ -2163,49 +2637,78 @@ class Premium_Iconbox extends Widget_Base {
 
 		$flex_ver_pos = 'premium-icon-box-flex-ver-' . $settings['premium_icon_box_icon_flex_ver_pos'];
 
-		$icon_box_url = 'url' === $settings['premium_icon_box_link_selection'] ? $settings['premium_icon_box_link']['url'] : get_permalink( $settings['premium_icon_box_existing_link'] );
+		$icon_box_url = 'url' === $settings['premium_icon_box_link_selection'] ? $settings['premium_icon_box_link'] : get_permalink( $settings['premium_icon_box_existing_link'] );
+
+		if ( 'url' === $settings['premium_icon_box_link_selection'] ) {
+			$this->add_link_attributes( 'link', $icon_box_url );
+		} else {
+			$this->add_render_attribute( 'link', 'href', $icon_box_url );
+		}
+
+		if ( 'yes' !== $settings['box_link'] ) {
+			$this->add_render_attribute( 'link', 'class', 'premium-icon-box-link' );
+		} else {
+			$this->add_render_attribute( 'link', 'class', 'premium-icon-box-whole-link' );
+		}
 
 		$icon_type = $settings['premium_icon_box_selector'];
 
 		$text_ver_pos = 'bottom' !== $settings['premium_icon_box_icon_text_pos'] ? 'premium-icon-box-flex-ver-' . $settings['premium_icon_box_icon_text_ver_pos'] : '';
 
-		if ( 'font-awesome-icon' === $icon_type ) {
-			if ( ! empty( $settings['premium_icon_box_font'] ) ) {
+		if ( 'font-awesome-icon' === $icon_type || 'svg' === $icon_type ) {
+
+			if ( 'font-awesome-icon' === $icon_type ) {
+
+				if ( ! empty( $settings['premium_icon_box_font'] ) ) {
+					$this->add_render_attribute(
+						'icon',
+						'class',
+						array(
+							'premium-icon-box-icon',
+							$settings['premium_icon_box_font'],
+						)
+					);
+					$this->add_render_attribute( 'icon', 'aria-hidden', 'true' );
+				}
+
+				$migrated = isset( $settings['__fa4_migrated']['premium_icon_box_font_updated'] );
+				$is_new   = empty( $settings['premium_icon_box_font'] ) && Icons_Manager::is_migration_allowed();
+
+			}
+
+			if ( ( 'yes' === $settings['draw_svg'] && 'font-awesome-icon' === $icon_type ) || 'svg' === $icon_type ) {
 				$this->add_render_attribute(
 					'icon',
 					'class',
 					array(
-						$settings['premium_icon_box_font'],
 						'premium-icon-box-icon',
+						$settings['premium_icon_box_hover'],
 					)
 				);
-				$this->add_render_attribute( 'icon', 'aria-hidden', 'true' );
 			}
 
-			$migrated = isset( $settings['__fa4_migrated']['premium_icon_box_font_updated'] );
-			$is_new   = empty( $settings['premium_icon_box_font'] ) && Icons_Manager::is_migration_allowed();
+			if ( 'yes' === $settings['draw_svg'] ) {
 
-		} elseif ( 'custom-image' === $icon_type ) {
+				$this->add_render_attribute( 'icon_wrap', 'class', 'elementor-invisible' );
 
-			if ( ! empty( $settings['premium_icon_box_custom_image']['url'] ) ) {
+				if ( 'font-awesome-icon' === $icon_type ) {
 
-				$image_custom = $settings['premium_icon_box_custom_image'];
+					$this->add_render_attribute( 'icon', 'class', $settings['premium_icon_box_font_updated']['value'] );
 
-				$image_url_main = Group_Control_Image_Size::get_attachment_image_src( $image_custom['id'], 'premium_icon_box_image_size', $settings );
-
-				$image_url_main = empty( $image_url_main ) ? $image_custom['url'] : $image_url_main;
-
-				$alt = esc_attr( Control_Media::get_image_alt( $image_custom ) );
+				}
 
 				$this->add_render_attribute(
-					'icon_box_img',
+					'icon',
 					array(
-						'class' => array(
-							'premium-icon-box-custom-image',
-							$settings['premium_icon_box_hover'],
-						),
-						'alt'   => $alt,
-						'src'   => $image_url_main,
+						'class'            => 'premium-svg-drawer',
+						'data-svg-reverse' => $settings['lottie_reverse'],
+						'data-svg-loop'    => $settings['lottie_loop'],
+						'data-svg-hover'   => $settings['svg_hover'],
+						'data-svg-sync'    => $settings['svg_sync'],
+						'data-svg-fill'    => $settings['svg_color'],
+						'data-svg-frames'  => $settings['frames'],
+						'data-svg-yoyo'    => $settings['svg_yoyo'],
+						'data-svg-point'   => $settings['lottie_reverse'] ? $settings['end_point']['size'] : $settings['start_point']['size'],
 					)
 				);
 
@@ -2247,9 +2750,9 @@ class Premium_Iconbox extends Widget_Base {
 		$this->add_render_attribute( 'box', 'class', 'premium-icon-box-container-out' );
 
 		if ( 'true' === $settings['mouse_tilt'] ) {
-			$this->add_render_attribute( 'box', 'data-box-tilt', 'true' );
+			$this->add_render_attribute( '_wrapper', 'data-box-tilt', 'true' );
 			if ( 'true' === $settings['mouse_tilt_rev'] ) {
-				$this->add_render_attribute( 'box', 'data-box-tilt-reverse', 'true' );
+				$this->add_render_attribute( '_wrapper', 'data-box-tilt-reverse', 'true' );
 			}
 		}
 
@@ -2257,56 +2760,66 @@ class Premium_Iconbox extends Widget_Base {
 			'outer_wrap',
 			'class',
 			array(
-				'premium-icon-box-content-outer-wrap',
+				'premium-icon-box-content-wrap',
 				'premium-icon-box-cta-' . $settings['premium_icon_box_icon_text_pos'],
 			)
 		);
 
 		$this->add_render_attribute( 'title_wrap', 'class', 'premium-icon-box-title-container' );
 
+		$this->add_render_attribute( 'icon_wrap', 'class', 'premium-icon-wrapper' );
+
 		?>
 
-	<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'box' ) ); ?>>
+		<?php if ( 'yes' === $settings['premium_icon_box_back_icon_switcher'] ) : ?>
+			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'box' ) ); ?>>
+		<?php endif; ?>
 		<div class="premium-icon-box-container-in <?php echo esc_attr( $flex_pos ) . ' ' . esc_attr( $flex_ver_pos ); ?>" >
 			<div class="premium-icon-box-icon-container">
-				<?php
-				if ( 'font-awesome-icon' === $icon_type ) :
-					if ( $is_new || $migrated ) :
-						Icons_Manager::render_icon(
-							$settings['premium_icon_box_font_updated'],
-							array(
-								'class'       => array(
-									'premium-icon-box-icon',
-									$settings['premium_icon_box_hover'],
-								),
-								'aria-hidden' => 'true',
-							)
-						);
-					else :
-						?>
-						<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_wrap' ) ); ?>>
+					<?php
+					if ( 'font-awesome-icon' === $icon_type ) :
+						if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+							Icons_Manager::render_icon(
+								$settings['premium_icon_box_font_updated'],
+								array(
+									'class'       => array(
+										'premium-icon-box-icon',
+										$settings['premium_icon_box_hover'],
+									),
+									'aria-hidden' => 'true',
+								)
+							);
+						else :
+							?>
+							<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+						<?php endif; ?>
+					<?php elseif ( 'svg' === $icon_type ) : ?>
+						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+							<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+						</div>
+					<?php elseif ( 'custom-image' === $icon_type ) : ?>
+						<?php PAPRO_Helper::get_attachment_image_html( $settings, 'premium_icon_box_image_size', 'premium_icon_box_custom_image', $settings['premium_icon_box_hover'] ); ?>
+					<?php else : ?>
+						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_box_lottie' ) ); ?>></div>
 					<?php endif; ?>
-				<?php elseif ( 'custom-image' === $icon_type ) : ?>
-					<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_box_img' ) ); ?>>
-				<?php else : ?>
-					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_box_lottie' ) ); ?>></div>
-				<?php endif; ?>
-			</div>
+					</div>
+				</div>
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'outer_wrap' ) ); ?>>
 			<?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] || 'yes' === $settings['premium_icon_box_desc_switcher'] ) : ?>
 				<div class="premium-icon-box-text-wrap">
 				<?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] && ! empty( $title ) ) : ?>
-					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'title_wrap' ) ); ?>>
-						<<?php echo wp_kses_post( $heading ) . ' ' . wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_title' ) ); ?>><?php echo wp_kses_post( $settings['premium_icon_box_title'] ); ?></<?php echo wp_kses_post( $heading ); ?>>
-						<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_label' ) ); ?> ><?php echo wp_kses_post( $settings['premium_icon_box_label'] ); ?></span>
-					</div>
+
+						<<?php echo wp_kses_post( $heading ) . ' ' . wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_title' ) ); ?>><?php echo wp_kses_post( $settings['premium_icon_box_title'] ); ?>
+						<?php if ( ! empty( $settings['premium_icon_box_label'] ) ) : ?>
+							<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_label' ) ); ?> ><?php echo wp_kses_post( $settings['premium_icon_box_label'] ); ?></span>
+						<?php endif; ?>
+						</<?php echo wp_kses_post( $heading ); ?>>
 				<?php endif; ?>
 
 				<?php if ( 'yes' === $settings['premium_icon_box_desc_switcher'] && ! empty( $settings['premium_icon_box_content'] ) ) : ?>
-					<div class="premium-icon-box-content">
-						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_content' ) ); ?>>
-							<?php echo $this->parse_text_editor( $settings['premium_icon_box_content'] ); ?>
-						</div>
+					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_content' ) ); ?>>
+						<?php echo $this->parse_text_editor( $settings['premium_icon_box_content'] ); ?>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -2315,16 +2828,9 @@ class Premium_Iconbox extends Widget_Base {
 			<?php if ( 'yes' === $settings['premium_icon_box_link_switcher'] && ( 'yes' !== $settings['box_link'] || 'yes' === $settings['keep_text_link'] ) ) : ?>
 				<?php if ( 'yes' === $settings['premium_icon_box_link_text_switcher'] || 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) : ?>
 					<div class="premium-icon-box-more <?php echo esc_attr( $text_ver_pos ); ?>">
-						<a class="premium-icon-box-link"
-						<?php if ( ! empty( $icon_box_url ) ) : ?>
-							href="<?php echo esc_url( $icon_box_url ); ?>"
+						<?php if ( 'yes' !== $settings['box_link'] ) : ?>
+							<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>>
 						<?php endif; ?>
-						<?php if ( ! empty( $settings['premium_icon_box_link']['is_external'] ) ) : ?>
-							target="_blank"
-						<?php endif; ?>
-						<?php if ( ! empty( $settings['premium_icon_box_link']['nofollow'] ) ) : ?>
-							rel="nofollow"
-						<?php endif; ?>>
 						<?php
 						if ( 'before' === $icon_position && 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) :
 							if ( $read_new || $read_migrated ) :
@@ -2360,7 +2866,9 @@ endif;
 							endif;
 						endif
 						?>
-						</a>
+						<?php if ( 'yes' !== $settings['box_link'] ) : ?>
+							</a>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -2372,29 +2880,30 @@ endif;
 				<?php
 				if ( 'font-awesome-icon' === $icon_type ) :
 					if ( $is_new || $migrated ) :
-						Icons_Manager::render_icon( $settings['premium_icon_box_font_updated'], array( 'aria-hidden' => 'true' ) );
+						Icons_Manager::render_icon(
+							$settings['premium_icon_box_font_updated'],
+							array(
+								'aria-hidden' => 'true',
+								'class'       => 'premium-icon-box-icon',
+							)
+						);
 					else :
 						?>
 						<i class="premium-icon-box-icon-big <?php echo esc_attr( $settings['premium_icon_box_font'] ); ?>"></i>
 					<?php endif; ?>
 				<?php elseif ( 'custom-image' === $icon_type ) : ?>
-					<img class="premium-icon-box-icon-big" src="<?php echo esc_attr( $image_url_main ); ?>">
+					<?php Group_Control_Image_Size::print_attachment_image_html( $settings, 'premium_icon_box_image_size', 'premium_icon_box_custom_image' ); ?>
 				<?php else : ?>
 					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_box_lottie' ) ); ?>></div>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 		<?php if ( 'yes' === $settings['box_link'] ) { ?>
-			<a class="premium-icon-box-whole-link" href="<?php echo esc_url( $icon_box_url ); ?>"
-			<?php if ( ! empty( $settings['premium_icon_box_link']['is_external'] ) ) : ?>
-				target="_blank"
-			<?php endif; ?>
-			<?php if ( ! empty( $settings['premium_icon_box_link']['nofollow'] ) ) : ?>
-				rel="nofollow"
-			<?php endif; ?>>
-			</a>
+			<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>><span><?php echo wp_kses_post( $settings['premium_icon_box_title'] ); ?></span></a>
 		<?php } ?>
-	</div>
+		<?php if ( 'yes' === $settings['premium_icon_box_back_icon_switcher'] ) : ?>
+			</div>
+		<?php endif; ?>
 		<?php
 	}
 
@@ -2421,20 +2930,56 @@ endif;
 				iconType = settings.premium_icon_box_selector;
 				textVerPosition = settings.premium_icon_box_icon_text_pos !== "bottom" ? 'premium-icon-box-flex-ver-' + settings.premium_icon_box_icon_text_ver_pos : "";
 
-				if ( 'font-awesome-icon' === iconType ) {
+				if ( 'font-awesome-icon' === iconType || 'svg' === iconType ) {
 
-					var iconHTML = elementor.helpers.renderIcon( view, settings.premium_icon_box_font_updated, {
+					if( 'font-awesome-icon' === iconType ) {
+
+						var iconHTML = 'yes' !== settings.draw_svg ? elementor.helpers.renderIcon( view, settings.premium_icon_box_font_updated, {
 						'class': [ 'premium-icon-box-icon', settings.premium_icon_box_hover ],
 						'aria-hidden': true
-						}, 'i' , 'object' ),
+						}, 'i' , 'object' ) : false,
 						migrated = elementor.helpers.isIconMigrated( settings, 'premium_icon_box_font_updated' );
 
 					var backIconHtml = elementor.helpers.renderIcon( view, settings.premium_icon_box_font_updated, {
 						'class': 'premium-icon-box-icon', 'aria-hidden': true }, 'i' , 'object' );
 
+					}
+
+					if( ('yes' === settings.draw_svg && 'font-awesome-icon' === iconType ) || 'svg'=== iconType ) {
+						view.addRenderAttribute( 'icon', 'class', [
+							'premium-icon-box-icon',
+							settings.premium_icon_box_hover,
+						] );
+					}
+
+
+					if ( 'yes' === settings.draw_svg ) {
+
+						if( 'font-awesome-icon' === iconType ) {
+
+							view.addRenderAttribute('icon', 'class', settings.premium_icon_box_font_updated.value );
+
+						}
+
+						view.addRenderAttribute( 'icon',
+							{
+								'class'            : 'premium-svg-drawer',
+								'data-svg-reverse' : settings.lottie_reverse,
+								'data-svg-loop'    : settings.lottie_loop,
+								'data-svg-hover'   : settings.svg_hover,
+								'data-svg-sync'    : settings.svg_sync,
+								'data-svg-fill'    : settings.svg_color,
+								'data-svg-frames'  : settings.frames,
+								'data-svg-yoyo'    : settings.svg_yoyo,
+								'data-svg-point'   : settings.lottie_reverse ? settings.end_point.size : settings.start_point.size,
+							}
+						);
+
+					}
+
 				} else if( 'custom-image' === iconType ) {
 
-					if( settings.premium_icon_box_custom_image.url ){
+					if( settings.premium_icon_box_custom_image.url ) {
 
 						var image = {
 							id: settings.premium_icon_box_custom_image.id,
@@ -2448,7 +2993,7 @@ endif;
 
 						view.addRenderAttribute( 'icon_box_img', {
 							'class': [
-								'premium-icon-box-custom-image',
+								'premium-icon-box-icon-container img',
 								settings.premium_icon_box_hover
 							],
 							'src': image_url,
@@ -2471,14 +3016,14 @@ endif;
 
 				view.addRenderAttribute('premium_icon_box_title', 'class', 'premium-icon-box-title' );
 
-				view.addInlineEditingAttributes('premium_icon_box_title', 'basic');
+				view.addInlineEditingAttributes( 'premium_icon_box_title', 'basic' );
 
-				view.addRenderAttribute('premium_icon_box_label', 'class', 'premium-icon-box-label' );
+				view.addRenderAttribute('premium_icon_box_label','class', 'premium-icon-box-label' );
 
-				view.addInlineEditingAttributes('premium_icon_box_label', 'basic');
+				view.addInlineEditingAttributes( 'premium_icon_box_label', 'basic' );
 
 
-				view.addRenderAttribute('premium_icon_box_content', 'class', 'premium-icon-box-content-wrap' );
+				view.addRenderAttribute('premium_icon_box_content', 'class', 'premium-icon-box-content' );
 
 				view.addInlineEditingAttributes('premium_icon_box_content', 'advanced');
 
@@ -2493,14 +3038,14 @@ endif;
 				view.addRenderAttribute( 'box', 'class', 'premium-icon-box-container-out' );
 
 				if( 'true' === settings.mouse_tilt ) {
-					view.addRenderAttribute( 'box', 'data-box-tilt', 'true' );
+					view.addRenderAttribute( '_wrapper', 'data-box-tilt', 'true' );
 					if( 'true' === settings.mouse_tilt_rev ) {
-						view.addRenderAttribute( 'box', 'data-box-tilt-reverse', 'true' );
+						view.addRenderAttribute( '_wrapper', 'data-box-tilt-reverse', 'true' );
 					}
 				}
 
 				view.addRenderAttribute( 'outer_wrap','class', [
-					'premium-icon-box-content-outer-wrap',
+					'premium-icon-box-content-wrap',
 					'premium-icon-box-cta-'+settings.premium_icon_box_icon_text_pos
 					]
 				);
@@ -2509,37 +3054,45 @@ endif;
 
 		#>
 
+		<# if ( 'yes' === settings.premium_icon_box_back_icon_switcher ) { #>
 		<div {{{ view.getRenderAttributeString('box') }}}>
+		<# } #>
 			<div class="premium-icon-box-container-in {{ flexPosition }} {{ flexVerPosition }} ">
 				<div class="premium-icon-box-icon-container">
-					<# if( 'font-awesome-icon' === iconType ) {
-						if ( iconHTML && iconHTML.rendered && ( ! settings.premium_icon_box_font || migrated ) ) { #>
-							{{{ iconHTML.value }}}
+					<div class="premium-icon-wrapper">
+						<# if( 'font-awesome-icon' === iconType ) {
+							if ( iconHTML && iconHTML.rendered && ( ! settings.premium_icon_box_font || migrated ) ) { #>
+								{{{ iconHTML.value }}}
+							<# } else { #>
+								<i {{{ view.getRenderAttributeString('icon') }}}></i>
+							<# } #>
+						<# } else if( 'svg' === iconType ) { #>
+							<div {{{ view.getRenderAttributeString('icon') }}}>
+								{{{ settings.custom_svg }}}
+							</div>
+						<# } else if( 'custom-image' === iconType ) { #>
+							<img {{{ view.getRenderAttributeString('icon_box_img') }}}>
 						<# } else { #>
-							<i class="premium-icon-box-icon {{ settings.premium_icon_box_font }} {{ settings.premium_icon_box_hover }}"></i>
+							<div {{{ view.getRenderAttributeString('icon_box_lottie') }}}></div>
 						<# } #>
-					<# } else if( 'custom-image' === iconType ) { #>
-						<img {{{ view.getRenderAttributeString('icon_box_img') }}}>
-					<# } else { #>
-						<div {{{ view.getRenderAttributeString('icon_box_lottie') }}}></div>
-					<# } #>
+					</div>
 				</div>
 				<div {{{ view.getRenderAttributeString('outer_wrap') }}}>
 					<# if( 'yes' === settings.premium_icon_box_title_switcher || 'yes' === settings.premium_icon_box_desc_switcher ) { #>
 						<div class="premium-icon-box-text-wrap">
 						<# if( 'yes' === settings.premium_icon_box_title_switcher && '' != title ) { #>
-							<div {{{ view.getRenderAttributeString('title_wrap') }}}>
-								<{{{titleTag}}} {{{ view.getRenderAttributeString('premium_icon_box_title') }}}>{{{ settings.premium_icon_box_title }}}</{{{titleTag}}}>
-								<span {{{ view.getRenderAttributeString('premium_icon_box_label') }}} >{{{ settings.premium_icon_box_label }}}</span>
-							</div>
+
+								<{{{titleTag}}} {{{ view.getRenderAttributeString('premium_icon_box_title') }}}>{{{ settings.premium_icon_box_title }}}
+									<# if( '' != settings.premium_icon_box_label ) { #>
+										<span {{{ view.getRenderAttributeString('premium_icon_box_label') }}} >{{{ settings.premium_icon_box_label }}}</span>
+									<# } #>
+								</{{{titleTag}}}>
 						<# } #>
 
 						<# if( 'yes' === settings.premium_icon_box_desc_switcher && '' != settings.premium_icon_box_content ) { #>
-							<div class= "premium-icon-box-content">
 								<div {{{ view.getRenderAttributeString('premium_icon_box_content') }}}>
 									{{{ settings.premium_icon_box_content }}}
 								</div>
-							</div>
 						<# } #>
 						</div>
 					<# } #>
@@ -2548,7 +3101,9 @@ endif;
 						<# if( 'yes' === settings.premium_icon_box_link_text_switcher || 'yes' === settings.premium_icon_box_link_icon_switcher ) {
 							if( '' != settings.premium_icon_box_more_text || '' != settings.premium_icon_box_more_icon ) { #>
 								<div class="premium-icon-box-more {{ textVerPosition }}">
+									<# if( 'yes' !== settings.box_link ) { #>
 									<a class="premium-icon-box-link" href="{{ boxUrl }}">
+									<# } #>
 										<# if( 'before' === iconPosition  && 'yes' === settings.premium_icon_box_link_icon_switcher ) {
 											if ( moreIconHTML && moreIconHTML.rendered && ( ! settings.premium_icon_box_more_icon || moreMigrated ) ) { #>
 												{{{ moreIconHTML.value }}}
@@ -2566,7 +3121,9 @@ endif;
 												<i class="premium-icon-box-more-icon {{ settings.premium_icon_box_more_icon }}" aria-hidden="true"></i>
 											<# }
 										} #>
+									<# if( 'yes' !== settings.box_link ) { #>
 									</a>
+									<# } #>
 								</div>
 							<# } #>
 						<# } #>
@@ -2589,9 +3146,12 @@ endif;
 				</div>
 			<# } #>
 			<# if( 'yes' === settings.box_link ) { #>
-				<a class="premium-icon-box-whole-link" href="{{ boxUrl }}"></a>
+				<a class="premium-icon-box-whole-link" href="{{ boxUrl }}"><span>{{{ settings.premium_icon_box_title }}}</span></a>
 			<# } #>
-		</div>
+
+		<# if ( 'yes' === settings.premium_icon_box_back_icon_switcher ) { #>
+			</div>
+		<# } #>
 
 		<?php
 	}

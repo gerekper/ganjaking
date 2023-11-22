@@ -121,7 +121,7 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 				</div>
 				<?php 
 
-				echo EVO()->elements->icons();
+				echo EVO()->elements->get_icon_html();
 				?>
 				<div class="form-field " id='evo_evnet_type_icon'>	
 				<?php 
@@ -145,7 +145,7 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 					// retrieve the existing value(s) for this meta field. This returns an array
 					$term_meta = get_option( "evo_et_taxonomy_$t_id" ); 
 					
-					echo EVO()->elements->icons();
+					echo EVO()->elements->get_icon_html();
 				?>
 				<tr class="form-field">
 				<th scope="row" valign="top"><label for="term_meta[et_color]"><?php _e( 'Color', 'eventon' ); ?></label></th>
@@ -849,6 +849,8 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 		function evo_save_taxonomy_custom_meta( $term_id , $oo) {
 			$postdata = $this->help->sanitize_array( $_POST );
 
+			$san_html_fields = array('description','description2');			
+
 			if ( isset( $postdata['term_meta'] ) ) {
 				$t_id = $term_id;
 
@@ -859,6 +861,10 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 				
 				$cat_keys = array_keys( $postdata['term_meta'] );
 				foreach ( $cat_keys as $key ) {
+
+					if( in_array($key, $san_html_fields)){
+						$postdata = $this->help->sanitize_html($_POST);
+					}
 
 					if( in_array($key, array('location_lon','location_lat')) ) continue;
 

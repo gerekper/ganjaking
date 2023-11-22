@@ -1529,7 +1529,7 @@ class TCPDF_FONTS {
 	 * @public static
 	 */
 	public static function _getfontpath() {
-		if ( ! defined( 'K_PATH_FONTS' ) and is_dir( $fdir = realpath( dirname( __FILE__ ) . '/../fonts' ) ) ) {
+		if ( ! defined( 'K_PATH_FONTS' ) and is_dir( $fdir = realpath( __DIR__ . '/../fonts' ) ) ) {
 			if ( substr( $fdir, -1 ) != '/' ) {
 				$fdir .= '/';
 			}
@@ -2265,12 +2265,10 @@ class TCPDF_FONTS {
 				// b. Whenever the directional override status is not neutral, reset the current character type to the directional override status.
 				if ( $dos != 'N' ) {
 					$chardir = $dos;
-				} else {
-					if ( isset( TCPDF_FONT_DATA::$uni_type[ $ta[ $i ] ] ) ) {
+				} elseif ( isset( TCPDF_FONT_DATA::$uni_type[ $ta[ $i ] ] ) ) {
 						$chardir = TCPDF_FONT_DATA::$uni_type[ $ta[ $i ] ];
-					} else {
-						$chardir = 'L';
-					}
+				} else {
+					$chardir = 'L';
 				}
 				// stores string characters and other information
 				$chardata[] = array(
@@ -2483,12 +2481,10 @@ class TCPDF_FONTS {
 				if ( ( $chardata[ $i ]['type'] == 'L' ) or ( $chardata[ $i ]['type'] == 'AN' ) or ( $chardata[ $i ]['type'] == 'EN' ) ) {
 					$chardata[ $i ]['level'] += 1;
 				}
-			} else {
-				if ( $chardata[ $i ]['type'] == 'R' ) {
+			} elseif ( $chardata[ $i ]['type'] == 'R' ) {
 					$chardata[ $i ]['level'] += 1;
-				} elseif ( ( $chardata[ $i ]['type'] == 'AN' ) or ( $chardata[ $i ]['type'] == 'EN' ) ) {
-					$chardata[ $i ]['level'] += 2;
-				}
+			} elseif ( ( $chardata[ $i ]['type'] == 'AN' ) or ( $chardata[ $i ]['type'] == 'EN' ) ) {
+				$chardata[ $i ]['level'] += 2;
 			}
 			$maxlevel = max( $chardata[ $i ]['level'], $maxlevel );
 		}
@@ -2582,11 +2578,9 @@ class TCPDF_FONTS {
 								// initial
 								$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][2];
 							}
-						} else {
-							if ( isset( $arabicarr[ $thischar['char'] ][3] ) ) {
+						} elseif ( isset( $arabicarr[ $thischar['char'] ][3] ) ) {
 								// medial
 								$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][3];
-							}
 						}
 					} elseif ( ( $nextchar !== false ) and
 						( ( TCPDF_FONT_DATA::$uni_type[ $nextchar['char'] ] == 'AL' ) or ( TCPDF_FONT_DATA::$uni_type[ $nextchar['char'] ] == 'NSM' ) ) and
@@ -2609,18 +2603,14 @@ class TCPDF_FONTS {
 							$chardata2[ $i - 2 ]['char'] = false;
 							$chardata2[ $i - 1 ]['char'] = false;
 							$chardata2[ $i ]['char'] = 65010;
-						} else {
-							if ( ( $prevchar !== false ) and in_array( $prevchar['char'], $endedletter ) ) {
-								if ( isset( $arabicarr[ $thischar['char'] ][0] ) ) {
-									// isolated
-									$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][0];
-								}
-							} else {
-								if ( isset( $arabicarr[ $thischar['char'] ][1] ) ) {
-									// final
-									$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][1];
-								}
+						} elseif ( ( $prevchar !== false ) and in_array( $prevchar['char'], $endedletter ) ) {
+							if ( isset( $arabicarr[ $thischar['char'] ][0] ) ) {
+								// isolated
+								$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][0];
 							}
+						} elseif ( isset( $arabicarr[ $thischar['char'] ][1] ) ) {
+								// final
+								$chardata2[ $i ]['char'] = $arabicarr[ $thischar['char'] ][1];
 						}
 					} elseif ( isset( $arabicarr[ $thischar['char'] ][0] ) ) {
 						// isolated
@@ -2697,7 +2687,6 @@ class TCPDF_FONTS {
 		}
 		return $ordarray;
 	}
-
 } // END OF TCPDF_FONTS CLASS
 
 // ============================================================+

@@ -3,11 +3,11 @@
  * Plugin Name: WP Post Modules for Elementor
  * Author:      SaurabhSharma
  * Author URI: 	http://codecanyon.net/user/saurabhsharma
- * Version:     2.2.1
+ * Version:     2.4.0
  * Text Domain: wppm-el
  * Domain Path: /languages/
  * Description: Create WordPress Post Modules in different styles for Blog, Magazine and Newspaper websites.
- * Elementor tested up to: 3.13.2
+ * Elementor tested up to: 3.17.3
  */
 
 // Exit if accessed directly
@@ -172,6 +172,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
         public function register_frontend_styles() {
 
                 wp_register_style( 'wppm-el-plugin-css', plugin_dir_url( __FILE__ ) . 'assets/css/wppm-el.frontend.css', array(), null );
+                wp_register_style( 'wppm-el-fontawesome-css', plugin_dir_url( __FILE__ ) . 'assets/css/all.min.css', array(), null );
 
                 // RTL CSS
                 if ( is_rtl() ) {
@@ -184,6 +185,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
         public function enqueue_frontend_styles() {
 
             wp_enqueue_style( 'wppm-el-plugin-css' );
+            wp_enqueue_style( 'wppm-el-fontawesome-css' );
 
             if ( is_rtl() ) {
                 wp_enqueue_style( 'wppm-el-plugin-rtl' );
@@ -351,6 +353,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
                 'content_filter'        => false,
                 'ad_list'               => '',
                 'ad_offset'             => '3',
+                'new_tab'               => false,
 
                 // News Ticker
                 'title_length'      => '10',

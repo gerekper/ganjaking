@@ -4,7 +4,7 @@
  * The main Elementor widget file for WP Post Modules
  *
  * @since 1.0.0
- * @version 2.2.1
+ * @version 2.4.0
  *
  */
 
@@ -55,7 +55,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
      *
      * Retrieve the list of keywords the widget belongs to.
      *
-     * @since 2.2.1
+     * @since 2.4.0
      * @access public
      *
      * @return array Widget keywords.
@@ -1591,6 +1591,19 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'new_tab',
+            [
+            'type' => Controls_Manager::SWITCHER,
+            'label' => __( 'Open links in new Tab/Window', 'wppm-el' ),
+            'default' => '',
+            'label_on' => __( 'On', 'wppm-el' ),
+            'label_off' => __( 'Off', 'wppm-el' ),
+            'return_value' => __( 'true', 'wppm-el' ),
+            'description' => __( 'If enabled, all permalinks (post, author, category, etc.) will open in new tab/window.', 'wppm-el' )
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -1804,6 +1817,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'condition' => [ 'template' => ['tile'] ]
             ]
         );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -3289,7 +3303,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
         'label' => __( 'Social sharing buttons', 'wppm-el' ),
         'type' => Controls_Manager::SELECT2,
         'options' => [
-        'twitter' => __( 'Twitter', 'wppm-el' ),
+        'twitter' => __( 'X (Twitter)', 'wppm-el' ),
         'facebook-f' => __( 'Facebook', 'wppm-el' ),
         'whatsapp' => __( 'Whatsapp', 'wppm-el' ),
         'google-plus-g' => __( 'Google Plus', 'wppm-el' ),
@@ -4152,6 +4166,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             'content_filter'        => false,
             'ad_list'               => '',
             'ad_offset'             => '3',
+            'new_tab'               => false,
 
             // News Ticker
             'title_length'      => '10',

@@ -43,6 +43,8 @@ class Charts extends WPML_Elementor_Module_With_Items {
 
 		return array(
 			'y_axis_column_title',
+			'y_axis_column_data',
+			'y_axis_urls',
 		);
 
 	}
@@ -58,8 +60,19 @@ class Charts extends WPML_Elementor_Module_With_Items {
 	 */
 	protected function get_title( $field ) {
 
-		return __( 'Charts: Y-axis Data', 'premium-addons-pro' );
+		switch ( $field ) {
+			case 'y_axis_column_title':
+				return esc_html__( 'Charts: Y-axis Data Title', 'premium-addons-pro' );
 
+			case 'y_axis_urls':
+				return esc_html__( 'Charts: Y-axis Data URLs', 'premium-addons-pro' );
+
+			case 'y_axis_column_data':
+				return esc_html__( 'Charts: Y-axis Data', 'premium-addons-pro' );
+
+			default:
+				return '';
+		}
 	}
 
 	/**

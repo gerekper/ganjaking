@@ -17,6 +17,7 @@ use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddonsPro\Base\Module_Base;
 
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -25,6 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Module For Premium Lottie section addon.
  */
 class Module extends Module_Base {
+
+	/**
+	 * Load Script
+	 *
+	 * @var $load_assets
+	 */
+	private $load_assets = null;
 
 	/**
 	 * Class Constructor Funcion.
@@ -42,8 +50,9 @@ class Module extends Module_Base {
 			return;
 		}
 
-		// Enqueue the required JS file.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Enqueue the required CSS/JS files.
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );
 
 		// Register Controls inside Section/Column Layout tab.
 		add_action( 'elementor/element/section/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
@@ -53,74 +62,54 @@ class Module extends Module_Base {
 		// insert data before section rendering.
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 
+		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+
+		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+			add_action( 'elementor/container/print_template', array( $this, '_print_template' ), 10, 2 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
+
+	}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * Registers required dependencies for the extension and enqueues them.
+	 *
+	 * @since 2.6.5
+	 * @access public
+	 */
+	public function enqueue_styles() {
+
+		if ( ! wp_style_is( 'pa-global', 'enqueued' ) ) {
+			wp_enqueue_style( 'pa-global' );
+		}
 	}
 
 	/**
 	 * Enqueue scripts.
 	 *
-	 * Registers required dependencies for the extension and enqueues them.
+	 * Enqueue required JS dependencies for the extension.
 	 *
 	 * @since 1.6.5
 	 * @access public
 	 */
 	public function enqueue_scripts() {
 
-		if ( ( true === \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() ) ) || ( function_exists( 'elementor_location_exits' ) && ( elementor_location_exits( 'archive', true ) || elementor_location_exits( 'single', true ) ) ) ) {
-			wp_add_inline_script(
-				'elementor-frontend',
-				'window.scopes_array = {};
-                window.backend = 0;
-                jQuery( window ).on( "elementor/frontend/init", function() {
-
-                    elementorFrontend.hooks.addAction( "frontend/element_ready/section", function( $scope, $ ){
-                        if ( "undefined" == typeof $scope || ! $scope.hasClass( "premium-lottie-yes" ) ) {
-                                return;
-                        }
-
-                        var id = $scope.data("id");
-                        window.scopes_array[ id ] = $scope;
-
-                        if(elementorFrontend.isEditMode()){
-                            window.current_scope = $scope;
-                            var url = papro_addons.lottie_url;
-                            jQuery.cachedAssets = function( url, options ) {
-                                // Allow user to set any option except for dataType, cache, and url.
-                                options = jQuery.extend( options || {}, {
-                                    dataType: "script",
-                                    cache: true,
-                                    url: url
-                                });
-                                // Return the jqXHR object so we can chain callbacks.
-                                return jQuery.ajax( options );
-                            };
-                            jQuery.cachedAssets( url );
-                            window.backend = 1;
-                        }
-                    });
-                });
-                jQuery(document).ready(function(){
-
-                    if ( jQuery.find( ".premium-lottie-yes" ).length < 1 ) {
-                        return;
-                    }
-
-                    var url = papro_addons.lottie_url;
-
-                    jQuery.cachedAssets = function( url, options ) {
-                        // Allow user to set any option except for dataType, cache, and url.
-                        options = jQuery.extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Return the jqXHR object so we can chain callbacks.
-                        return jQuery.ajax( options );
-                    };
-                    jQuery.cachedAssets( url );
-                });	'
-			);
+		if ( ! wp_script_is( 'elementor-waypoints', 'enqueued' ) ) {
+			wp_enqueue_script( 'elementor-waypoints' );
 		}
+
+		if ( ! wp_script_is( 'premium-pro', 'enqueued' ) ) {
+			wp_enqueue_script( 'premium-pro' );
+		}
+
+		if ( ! wp_script_is( 'lottie-js', 'enqueued' ) ) {
+			wp_enqueue_script( 'lottie-js' );
+		}
+
 	}
 
 	/**
@@ -163,6 +152,17 @@ class Module extends Module_Base {
 		);
 
 		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'hide_layer',
+			array(
+				'label'     => __( 'Hide This Layer', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'display: none',
+				),
+			)
+		);
 
 		$repeater->add_control(
 			'source',
@@ -355,6 +355,7 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Horizontal Position (%)', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SLIDER,
+				'render_type' => 'template',
 				'default'     => array(
 					'size' => 50,
 				),
@@ -373,6 +374,7 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Vertical Position (%)', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SLIDER,
+				'render_type' => 'template',
 				'default'     => array(
 					'size' => 50,
 				),
@@ -473,6 +475,7 @@ class Module extends Module_Base {
 				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
+				'separator'  => 'after',
 				'selectors'  => array(
 					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
@@ -487,11 +490,21 @@ class Module extends Module_Base {
 			)
 		);
 
+		$repeater->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'premium_lottie_shadow_hover',
+				'label'    => __( 'Hover Box Shadow', 'premium-addons-pro' ),
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}:hover',
+			)
+		);
+
 		$repeater->add_responsive_control(
 			'premium_lottie_padding',
 			array(
 				'label'      => __( 'Padding', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::DIMENSIONS,
+				'separator'  => 'before',
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -504,6 +517,7 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Scroll Parallax', 'premium-addons-pro' ),
 				'description' => __( 'Enable or disable vertical scroll parallax', 'premium-addons-pro' ),
+				'separator'   => 'before',
 				'type'        => Controls_Manager::SWITCHER,
 			)
 		);
@@ -571,7 +585,7 @@ class Module extends Module_Base {
 		$repeater->add_control(
 			'premium_lottie_zindex',
 			array(
-				'label'       => __( 'z-index', 'premium-addons-pro' ),
+				'label'       => __( 'Z-index', 'premium-addons-pro' ),
 				'description' => __( 'Set z-index for the current layer', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::NUMBER,
 				'classes'     => 'editor-pa-spacer',
@@ -587,12 +601,8 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Show Layer On', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
-				'options'     => array(
-					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
-					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
-				),
-				'default'     => array( 'desktop', 'tablet', 'mobile' ),
+				'options'     => Helper_Functions::get_all_breakpoints(),
+				'default'     => Helper_Functions::get_all_breakpoints( 'keys' ),
 				'multiple'    => true,
 				'separator'   => 'before',
 				'label_block' => true,
@@ -627,7 +637,7 @@ class Module extends Module_Base {
 	 */
 	public function _print_template( $template, $widget ) {
 
-		if ( $widget->get_name() !== 'section' ) {
+		if ( $widget->get_name() !== 'section' && $widget->get_name() !== 'container' ) {
 			return $template;
 		}
 		$old_template = $template;
@@ -680,14 +690,6 @@ class Module extends Module_Base {
 	 */
 	public function before_render( $element ) {
 
-		$data = $element->get_data();
-
-		$type = $data['elType'];
-
-		if ( 'section' !== $type ) {
-			return;
-		}
-
 		$settings = $element->get_settings_for_display();
 
 		$lottie = $settings['premium_lottie_switcher'];
@@ -703,6 +705,36 @@ class Module extends Module_Base {
 		}
 
 		$element->add_render_attribute( '_wrapper', 'data-pa-lottie', wp_json_encode( $repeater ) );
+
+	}
+
+	/**
+	 * Check Assets Enqueue
+	 *
+	 * Check if the assets files should be loaded.
+	 *
+	 * @since 2.6.3
+	 * @access public
+	 *
+	 * @param object $element for current element.
+	 */
+	public function check_assets_enqueue( $element ) {
+
+		if ( $this->load_assets ) {
+			return;
+		}
+
+		if ( 'yes' === $element->get_settings_for_display( 'premium_lottie_switcher' ) ) {
+
+			$this->enqueue_styles();
+
+			$this->enqueue_scripts();
+
+			$this->load_assets = true;
+
+			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
 
 	}
 }

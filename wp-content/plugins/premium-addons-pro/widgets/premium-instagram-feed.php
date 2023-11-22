@@ -8,16 +8,20 @@
 namespace PremiumAddonsPro\Widgets;
 
 // Elementor Classes.
+use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Background;
+
+// PremiumAddonsPro Classes.
+use PremiumAddonsPro\Includes\PAPRO_Helper;
 
 // PremiumAddons Classes.
 use PremiumAddons\Includes\Premium_Template_Tags;
@@ -49,7 +53,7 @@ class Premium_Instagram_Feed extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Instagram Feed', 'premium-addons-pro' ) );
+		return __( 'Instagram Feed', 'premium-addons-pro' );
 	}
 
 	/**
@@ -73,8 +77,10 @@ class Premium_Instagram_Feed extends Widget_Base {
 	public function get_style_depends() {
 		return array(
 			'font-awesome-5-all',
+			'pa-slick',
 			'premium-addons',
 			'pa-prettyphoto',
+			'premium-pro',
 		);
 	}
 
@@ -126,7 +132,7 @@ class Premium_Instagram_Feed extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'profile', 'account', 'post', 'social' );
+		return array( 'pa', 'premium', 'profile', 'account', 'post', 'social' );
 	}
 
 	/**
@@ -146,21 +152,12 @@ class Premium_Instagram_Feed extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_instagram_feed_general_settings_section',
 			array(
 				'label' => __( 'Access Credentials', 'premium-addons-pro' ),
-			)
-		);
-
-		$this->add_control(
-			'deprecate_notice',
-			array(
-				'raw'             => __( '<b>Important:</b> Instagram API has been deprecated, so you will need to migrate to the new API handled by Facebook through the login button below. For further information, please check this <a href="https://www.instagram.com/developer/" target="_blank">page</a>', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 			)
 		);
 
@@ -218,13 +215,29 @@ class Premium_Instagram_Feed extends Widget_Base {
 		);
 
 		$this->add_control(
-			'new_api_notice',
+			'reload',
 			array(
-				'raw'             => __( 'The amount of information given about Instagram media is greatly reduced in the new API', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => array(
-					'api_version' => 'new',
+				'label'   => __( 'Refresh Cached Data Once Every', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'hour'  => __( 'Hour', 'premium-addons-pro' ),
+					'day'   => __( 'Day', 'premium-addons-pro' ),
+					'week'  => __( 'Week', 'premium-addons-pro' ),
+					'month' => __( 'Month', 'premium-addons-pro' ),
+					'year'  => __( 'Year', 'premium-addons-pro' ),
+				),
+				'default' => 'hour',
+			)
+		);
+
+		$this->add_control(
+			'clear_cache',
+			array(
+				'type'        => Controls_Manager::RAW_HTML,
+				'raw'         => '<form onsubmit="clearFeedCache(this);" action="javascript:void(0);" data-target="new_accesstoken"><input type="submit" value="Clear Cached Data" class="elementor-button" style="background-color: #3b5998; color: #fff;"></form>',
+				'label_block' => true,
+				'condition'   => array(
+					'new_accesstoken!' => '',
 				),
 			)
 		);
@@ -239,9 +252,22 @@ class Premium_Instagram_Feed extends Widget_Base {
 		);
 
 		$this->add_control(
+			'hashtag_filter',
+			array(
+				'label'   => __( 'Filter by Hashtags', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'show' => __( 'Show Images', 'premium-addons-pro' ),
+					'hide' => __( 'Hide Images', 'premium-addons-pro' ),
+				),
+				'default' => 'show',
+			)
+		);
+
+		$this->add_control(
 			'premium_instagram_feed_tag_name',
 			array(
-				'label'       => __( 'Filter by Hashtags', 'premium-addons-pro' ),
+				'label'       => __( 'Hashtags', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::TEXT,
 				'description' => __( 'You can separate tags by a comma, for example: sport,football,tennis', 'premium-addons-pro' ),
 				'dynamic'     => array( 'active' => true ),
@@ -426,9 +452,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'premium_instagram_feed_column_number',
 			array(
-				'label'           => __( 'Images per Row', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::SELECT,
-				'options'         => array(
+				'label'              => __( 'Images per Row', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'100%'    => __( '1 Column', 'premium-addons-pro' ),
 					'50%'     => __( '2 Columns', 'premium-addons-pro' ),
 					'33.33%'  => __( '3 Columns', 'premium-addons-pro' ),
@@ -436,20 +462,21 @@ class Premium_Instagram_Feed extends Widget_Base {
 					'20%'     => __( '5 Columns', 'premium-addons-pro' ),
 					'16.667%' => __( '6 Columns', 'premium-addons-pro' ),
 				),
-				'desktop_default' => '33.33%',
-				'tablet_default'  => '50%',
-				'mobile_default'  => '100%',
-				'render_type'     => 'template',
-				'selectors'       => array(
+				'desktop_default'    => '33.33%',
+				'tablet_default'     => '50%',
+				'mobile_default'     => '100%',
+				'render_type'        => 'template',
+				'selectors'          => array(
 					'{{WRAPPER}} .premium-insta-feed' => 'width: {{VALUE}}',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_instagram_feed_image_hover',
 			array(
-				'label'       => __( 'Hover Image Effect', 'premium-addons-pro' ),
+				'label'       => __( 'Image Hover Effect', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => array(
 					'none'    => __( 'None', 'premium-addons-pro' ),
@@ -531,396 +558,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-instafeed-container a.carousel-arrow.carousel-next' => 'right: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .premium-instafeed-container a.carousel-arrow.carousel-prev' => 'left: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'account_info',
-			array(
-				'label' => __( 'Profile Header', 'premium-addons-pro' ),
-			)
-		);
-
-		// Account info controls.
-		$this->add_control(
-			'account_info_switcher',
-			array(
-				'label' => __( 'Profile Header', 'premium-addons-pro' ),
-				'type'  => Controls_Manager::SWITCHER,
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_logo_switcher',
-			array(
-				'label'     => __( 'Show Instagram Logo', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_user_name',
-			array(
-				'label'       => __( 'Username', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'EX: leap13themes', 'premium-addons-pro' ),
-				'description' => __( 'account username is required to show these options successfully.', 'premium-addons-pro' ),
-				'condition'   => array(
-					'account_info_switcher' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'instafeed_userInfo_main_heading',
-			array(
-				'label'     => __( 'User Info', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_profile_pic',
-			array(
-				'label'     => __( 'Show Profile Picture', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_username',
-			array(
-				'label'     => __( 'Show Username', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_verified',
-			array(
-				'label'       => __( 'Show Verifiy Icon', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'condition'   => array(
-					'account_info_switcher'      => 'yes',
-					'premium_instafeed_username' => 'yes',
-				),
-				'description' => __( 'Displayed only if the account is verified by Instagram.', 'premium-addons-pro' ),
-				'default'     => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_bio',
-			array(
-				'label'     => __( 'Show Biography', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$info_terms = array(
-			'relation' => 'or',
-			'terms'    => array(
-				array(
-					'name'  => 'premium_instafeed_profile_pic',
-					'value' => 'yes',
-				),
-				array(
-					'name'  => 'premium_instafeed_username',
-					'value' => 'yes',
-				),
-				array(
-					'name'  => 'premium_instafeed_bio',
-					'value' => 'yes',
-				),
-			),
-		);
-
-		$this->add_control(
-			'instafeed_user_info_display',
-			array(
-				'label'        => __( 'Display', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SELECT,
-				'options'      => array(
-					'row' => __( 'Row', 'premium-addons-pro' ),
-					'col' => __( 'Column', 'premium-addons-pro' ),
-				),
-				'default'      => 'row',
-				'prefix_class' => 'premium-insta-user-',
-				'conditions'   => array(
-					'terms' => array(
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						$info_terms,
-					),
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'instafeed_user_info_alignment',
-			array(
-				'label'      => __( 'Alignment', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::CHOOSE,
-				'options'    => array(
-					'flex-start' => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center'     => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end'   => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'toggle'     => false,
-				'selectors'  => array(
-					'{{WRAPPER}}.premium-insta-user-row .premium-instafeed-header-upper' => 'justify-content: {{VALUE}};',
-					'{{WRAPPER}}.premium-insta-user-col .premium-instafeed-header-upper' => 'align-items: {{VALUE}};',
-					'{{WRAPPER}}.premium-insta-user-col .premium-instafeed-user-activity' => 'align-items: {{VALUE}};',
-				),
-				'default'    => 'flex-start',
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						$info_terms,
-					),
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'instafeed_user_info_Valignment',
-			array(
-				'label'      => __( 'Vertical Alignment', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::CHOOSE,
-				'options'    => array(
-					'flex-start' => array(
-						'title' => __( 'Top', 'premium-addons-for-elementor' ),
-						'icon'  => 'fa fa-long-arrow-up',
-					),
-					'center'     => array(
-						'title' => __( 'Center', 'premium-addons-for-elementor' ),
-						'icon'  => 'fa fa-align-justify',
-					),
-					'flex-end'   => array(
-						'title' => __( 'Bottom', 'premium-addons-for-elementor' ),
-						'icon'  => 'fa fa-long-arrow-down',
-					),
-				),
-				'default'    => 'center',
-				'toggle'     => false,
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'premium_instafeed_profile_pic',
-							'value' => 'yes',
-						),
-						array(
-							'name'  => 'instafeed_user_info_display',
-							'value' => 'row',
-						),
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						array(
-							'relation' => 'or',
-							'terms'    => array(
-								array(
-									'name'  => 'premium_instafeed_username',
-									'value' => 'yes',
-								),
-								array(
-									'name'  => 'premium_instafeed_bio',
-									'value' => 'yes',
-								),
-							),
-						),
-
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}}.premium-insta-user-row .premium-instafeed-header-upper' => 'align-items: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'instafeed_user_info_text_alignment',
-			array(
-				'label'      => __( 'Text Alignment', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::CHOOSE,
-				'options'    => array(
-					'start'  => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'end'    => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'toggle'     => false,
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-user-wrapper' => 'align-items: {{VALUE}};',
-					'{{WRAPPER}} .premium-instafeed-user-activity' => 'justify-content: {{VALUE}};',
-					'{{WRAPPER}} .premium-instafeed-bio' => 'text-align: {{VALUE}};',
-
-				),
-				'default'    => 'start',
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						$info_terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'instafeed_userData_main_heading',
-			array(
-				'label'     => __( 'User Data', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_followers',
-			array(
-				'label'     => __( 'Show Number Of Followers', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_following',
-			array(
-				'label'     => __( 'Show Number Of Followings', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_posts',
-			array(
-				'label'     => __( 'Show Number Of Posts', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-				'default'   => 'yes',
-			)
-		);
-
-		$terms = array(
-			'relation' => 'or',
-			'terms'    => array(
-				array(
-					'name'  => 'premium_instafeed_followers',
-					'value' => 'yes',
-				),
-				array(
-					'name'  => 'premium_instafeed_following',
-					'value' => 'yes',
-				),
-				array(
-					'name'  => 'premium_instafeed_posts',
-					'value' => 'yes',
-				),
-			),
-		);
-
-		$this->add_control(
-			'instafeed_user_activity_display',
-			array(
-				'label'      => __( 'Display', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SELECT,
-				'options'    => array(
-					'inline' => __( 'Inline', 'premium-addons-pro' ),
-					'block'  => __( 'Block', 'premium-addons-pro' ),
-				),
-				'default'    => 'inline',
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item span' => 'display: {{VALUE}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_reload',
-			array(
-				'label'     => __( 'Reload Data Once Every', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => array(
-					'hour'  => __( 'Hour', 'premium-addons-pro' ),
-					'day'   => __( 'Day', 'premium-addons-pro' ),
-					'week'  => __( 'Week', 'premium-addons-pro' ),
-					'month' => __( 'Month', 'premium-addons-pro' ),
-					'year'  => __( 'Year', 'premium-addons-pro' ),
-				),
-				'default'   => 'day',
-				'condition' => array(
-					'account_info_switcher' => 'yes',
 				),
 			)
 		);
@@ -1151,9 +788,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-insta-heart' => 'color: {{VALUE}};',
@@ -1260,9 +896,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-insta-likes' => 'color: {{VALUE}};',
@@ -1275,7 +910,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_instgram_feed_likes_number_type',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-insta-likes',
 			)
 		);
@@ -1384,9 +1021,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-insta-comment' => 'color: {{VALUE}};',
@@ -1493,9 +1129,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-insta-comments' => 'color: {{VALUE}};',
@@ -1508,7 +1143,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_instgram_feed_comments_number_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-insta-comments',
 			)
 		);
@@ -1603,9 +1240,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-insta-image-caption' => 'color: {{VALUE}};',
@@ -1617,7 +1253,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_instgram_feed_caption_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-insta-image-caption',
 			)
 		);
@@ -1760,6 +1398,7 @@ class Premium_Instagram_Feed extends Widget_Base {
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-instafeed-container .slick-arrow svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1778,12 +1417,12 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-instafeed-container .slick-arrow svg, {{WRAPPER}} .premium-instafeed-container .slick-arrow svg path' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -1793,9 +1432,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow' => 'background-color: {{VALUE}};',
@@ -1817,12 +1455,12 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-instafeed-container .slick-arrow:hover svg, {{WRAPPER}} .premium-instafeed-container .slick-arrow:hover svg path' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -1832,9 +1470,8 @@ class Premium_Instagram_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow:hover' => 'background-color: {{VALUE}};',
@@ -1867,716 +1504,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-instafeed-container .slick-arrow' => 'padding: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'profile_header_style',
-			array(
-				'label'     => __( 'Profile Header', 'premium-addons-pro' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => array(
-					'account_info_switcher' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'instafeed_user_info_heading',
-			array(
-				'label'      => __( 'User Info', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::HEADING,
-				'separator'  => 'before',
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'account_info_switcher',
-							'value' => 'yes',
-						),
-						$info_terms,
-					),
-				),
-			)
-		);
-
-		$this->start_controls_tabs( 'isntafeed_user_info_style_tabs' );
-
-		$this->start_controls_tab(
-			'isntafeed_avatar_tab',
-			array(
-				'label'     => __( 'Avatar', 'premium-addons-pro' ),
-				'condition' => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_avatar_size',
-			array(
-				'label'      => __( 'Size', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 50,
-						'max' => 400,
-					),
-					'em' => array(
-						'min' => 1,
-						'max' => 100,
-					),
-				),
-				'default'    => array(
-					'size' => 100,
-					'unit' => 'px',
-				),
-				'condition'  => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-pic-wrapper' => 'width: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'      => 'premium_instafeed_avatar_border',
-				'selector'  => '{{WRAPPER}} .premium-instafeed-header-pic-wrapper',
-				'condition' => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_avatar_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'em' ),
-				'condition'  => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-pic-wrapper' => 'border-radius: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_instafeed_avatar_bg',
-			array(
-				'label'     => __( 'Background Color ', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-header-pic-wrapper' => 'background-color: {{VALUE}};',
-				),
-				'condition' => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'label'     => __( 'Shadow', 'premium-addons-pro' ),
-				'name'      => 'premium_instafeed_avatar_shadow',
-				'selector'  => '{{WRAPPER}} .premium-instafeed-header-pic-wrapper',
-				'condition' => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_avatar_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'condition'  => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-pic-wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_avatar_padding',
-			array(
-				'label'      => __( 'Padding', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'condition'  => array(
-					'premium_instafeed_profile_pic' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-pic-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'isntafeed_username_tab',
-			array(
-				'label'     => __( 'Username', 'premium-addons-pro' ),
-				'condition' => array(
-					'premium_instafeed_username' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_username_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-username' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'premium_isntafeed_username_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-instafeed-username',
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_username_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-username-outer' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'isntafeed_bio_tab',
-			array(
-				'label'     => __( 'Bio', 'premium-addons-pro' ),
-				'condition' => array(
-					'premium_instafeed_bio' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_bio_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-bio' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'premium_isntafeed_bio_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-instafeed-bio',
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_bio_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-bio' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_control(
-			'instafeed_user_activity_heading',
-			array(
-				'label'      => __( 'User Data', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::HEADING,
-				'separator'  => 'before',
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_act_color',
-			array(
-				'label'      => __( 'Color', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::COLOR,
-				'scheme'     => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item' => 'color: {{VALUE}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_act_bg',
-			array(
-				'label'      => __( 'Background color', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::COLOR,
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item' => 'background-color: {{VALUE}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'       => 'premium_isntafeed_act_typo',
-				'scheme'     => Typography::TYPOGRAPHY_1,
-				'selector'   => '{{WRAPPER}} .premium-instafeed-user-activity-item',
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'       => 'premium_isntafeed_act_border',
-				'selector'   => '{{WRAPPER}} .premium-instafeed-user-activity-item',
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_act_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'em' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 0,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item' => 'border-radius: {{SIZE}}{{UNIT}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_isntafeed_act_spacing',
-			array(
-				'label'      => __( 'Number Spacing', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 50,
-					),
-					'em' => array(
-						'min' => 1,
-						'max' => 100,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-insta-lower-item-val' => 'margin-' . $icon_spacing . ': {{SIZE}}{{UNIT}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'  => 'instafeed_user_activity_display',
-							'value' => 'inline',
-						),
-						array(
-							'relation' => 'or',
-							'terms'    => array(
-								array(
-									'name'  => 'premium_instafeed_followers',
-									'value' => 'yes',
-								),
-								array(
-									'name'  => 'premium_instafeed_following',
-									'value' => 'yes',
-								),
-								array(
-									'name'  => 'premium_instafeed_posts',
-									'value' => 'yes',
-								),
-							),
-						),
-					),
-
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_isntafeed_act_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_isntafeed_act_padding',
-			array(
-				'label'      => __( 'Padding', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-user-activity-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-				'conditions' => array(
-					'terms' => array(
-						$terms,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'instafeed_user_verify_heading',
-			array(
-				'label'     => __( 'Verified Icon', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-				'condition' => array(
-					'premium_instafeed_verified' => 'yes',
-					'premium_instafeed_username' => 'yes',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'instafeed_user_verify_size',
-			array(
-				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 100,
-					),
-					'em' => array(
-						'min' => 1,
-						'max' => 100,
-					),
-				),
-				'default'    => array(
-					'size' => 20,
-					'unit' => 'px',
-				),
-				'condition'  => array(
-					'premium_instafeed_verified' => 'yes',
-					'premium_instafeed_username' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .instafeed-v-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_isntafeed_vIcon_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
-				),
-				'condition' => array(
-					'premium_instafeed_verified' => 'yes',
-					'premium_instafeed_username' => 'yes',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .instafeed-v-icon' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_isntafeed_vIcon_spacing',
-			array(
-				'label'      => __( 'Icon Spacing', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 50,
-					),
-					'em' => array(
-						'min' => 1,
-						'max' => 100,
-					),
-				),
-				'default'    => array(
-					'size' => 6,
-					'unit' => 'px',
-				),
-				'condition'  => array(
-					'premium_instafeed_verified' => 'yes',
-					'premium_instafeed_username' => 'yes',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .instafeed-v-icon' => 'margin-' . $icon_spacing . ': {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'instafeed_profile_container_heading',
-			array(
-				'label'     => __( 'Container', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->add_control(
-			'premium_profile_container_background',
-			array(
-				'label'     => __( 'Background Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-header-container' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'     => 'premium_profile_container_border',
-				'selector' => '{{WRAPPER}} .premium-instafeed-header-container',
-			)
-		);
-
-		$this->add_control(
-			'premium_profile_container_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'em' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 0,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-container' => 'border-radius: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'premium_profile_container_shadow',
-				'selector' => '{{WRAPPER}} .premium-instafeed-header-container',
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_profile_container_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-profile-outer-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_profile_container_padding',
-			array(
-				'label'      => __( 'Padding', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-header-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'premium_instafeed_logo_style',
-			array(
-				'label'     => __( 'Instagram Logo', 'premium-addons-pro' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => array(
-					'premium_instafeed_logo_switcher' => 'yes',
-					'account_info_switcher'           => 'yes',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_logo_size',
-			array(
-				'label'      => __( 'Size', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 100,
-					),
-					'em' => array(
-						'min' => 1,
-						'max' => 100,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-logo-container' => 'font-size: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_logo_alignment_row',
-			array(
-				'label'     => __( 'Alignment', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => array(
-					'left'   => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right'  => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'toggle'    => false,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-logo-container' => 'text-align: {{VALUE}};',
-				),
-				'default'   => 'center',
-				'condition' => array(
-					'instafeed_user_info_display' => 'col',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_instafeed_logo_alignment',
-			array(
-				'label'     => __( 'Vertical Alignment', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => array(
-					'top'    => array(
-						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
-					),
-					'middle' => array(
-						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'bottom' => array(
-						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
-					),
-				),
-				'toggle'    => false,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-instafeed-logo-container i ' => 'vertical-align: {{VALUE}};',
-				),
-				'default'   => 'middle',
-				'condition' => array(
-					'instafeed_user_info_display' => 'row',
-				),
-			)
-		);
-		$this->add_responsive_control(
-			'premium_instafeed_logo_margin',
-			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-instafeed-logo-container i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -2624,7 +1551,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_instafeed_button_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-instafeed-sharer',
 			)
 		);
@@ -2805,7 +1734,9 @@ class Premium_Instagram_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_instafeed_sl_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-instafeed-share-text',
 			)
 		);
@@ -2960,8 +1891,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 
 		$api_version = $settings['api_version'];
 
-		$logo = ( 'yes' === $settings['premium_instafeed_logo_switcher'] ) ? true : false;
-
 		$share      = ( 'yes' === $settings['premium_instagram_feed_share'] ) ? true : false;
 		$share_html = '';
 
@@ -3044,7 +1973,40 @@ class Premium_Instagram_Feed extends Widget_Base {
 
 		$carousel = 'yes' === $settings['feed_carousel'] ? true : false;
 
-		$account_info = 'yes' === $settings['account_info_switcher'] ? true : false;
+		$transient_name = sprintf( 'papro_feed_%s', substr( $access_token, -8 ) );
+
+		$response = get_transient( $transient_name );
+
+		if ( false === $response ) {
+
+			$access_token = PAPRO_Helper::check_instagram_token( $access_token );
+
+			sleep( 2 );
+
+			$api_url = sprintf( 'https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,timestamp,permalink,caption,children,thumbnail_url&limit=200&access_token=%s', $access_token );
+
+			$response = wp_remote_get(
+				$api_url,
+				array(
+					'timeout'   => 60,
+					'sslverify' => false,
+				)
+			);
+
+			if ( is_wp_error( $response ) ) {
+				return;
+			}
+
+			$response = wp_remote_retrieve_body( $response );
+			$response = json_decode( $response, true );
+
+			$transient = $settings['reload'];
+
+			$expire_time = Helper_Functions::transient_expire( $transient );
+
+			set_transient( $transient_name, $response, $expire_time );
+
+		}
 
 		if ( $carousel ) {
 
@@ -3052,13 +2014,20 @@ class Premium_Instagram_Feed extends Widget_Base {
 
 			$speed = ! empty( $settings['carousel_autoplay_speed'] ) ? $settings['carousel_autoplay_speed'] : 5000;
 
+			$feed_number        = intval( 100 / substr( $settings['premium_instagram_feed_column_number'], 0, strpos( $settings['premium_instagram_feed_column_number'], '%' ) ) );
+			$feed_number_tab    = intval( 100 / substr( $settings['premium_instagram_feed_column_number_tablet'], 0, strpos( $settings['premium_instagram_feed_column_number_tablet'], '%' ) ) );
+			$feed_number_mobile = intval( 100 / substr( $settings['premium_instagram_feed_column_number_mobile'], 0, strpos( $settings['premium_instagram_feed_column_number_mobile'], '%' ) ) );
+
 			$this->add_render_attribute(
 				'instagram',
 				array(
-					'data-carousel' => $carousel,
-					'data-play'     => $play,
-					'data-speed'    => $speed,
-					'data-rtl'      => is_rtl(),
+					'data-carousel'   => $carousel,
+					'data-play'       => $play,
+					'data-speed'      => $speed,
+					'data-col'        => $feed_number,
+					'data-col-tab'    => $feed_number_tab,
+					'data-col-mobile' => $feed_number_mobile,
+					'data-rtl'        => is_rtl(),
 				)
 			);
 
@@ -3066,7 +2035,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 
 		$instagram_settings = array(
 			'api'         => $api,
-			'accesstok'   => $access_token,
 			'tags'        => $tags,
 			'sort'        => $sort,
 			'limit'       => $limit,
@@ -3080,35 +2048,15 @@ class Premium_Instagram_Feed extends Widget_Base {
 			'theme'       => $settings['premium_instagram_feed_popup_theme'],
 			'words'       => $settings['premium_instagram_feed_caption_number'],
 			'share'       => $share_html,
+			'overlay'     => $settings['premium_instgram_feed_overlay_background'],
+			'feed'        => $response,
+			'filter'      => $settings['hashtag_filter'],
 		);
-
-		if ( $account_info ) {
-
-			$reload = Helper_Functions::transient_expire( $settings['premium_instafeed_reload'] );
-
-			$account_settings = array(
-				'reload'        => $reload,
-				'user_name'     => $settings['premium_instafeed_user_name'],
-				'profile_pic'   => ( 'yes' === $settings['premium_instafeed_profile_pic'] ) ? true : false,
-				'show_username' => ( 'yes' === $settings['premium_instafeed_username'] ) ? true : false,
-				'followers'     => ( 'yes' === $settings['premium_instafeed_followers'] ) ? true : false,
-				'following'     => ( 'yes' === $settings['premium_instafeed_following'] ) ? true : false,
-				'bio'           => ( 'yes' === $settings['premium_instafeed_bio'] ) ? true : false,
-				'verify'        => ( 'yes' === $settings['premium_instafeed_verified'] ) ? true : false,
-				'posts'         => ( 'yes' === $settings['premium_instafeed_posts'] ) ? true : false,
-			);
-
-			$this->add_render_attribute( 'instagram-header', 'class', 'premium-instafeed-header-container' );
-		}
-
-		if ( $logo ) {
-			$this->add_render_attribute( 'instagram_logo', 'class', 'premium-instafeed-logo-container' );
-		}
 
 		$this->add_render_attribute(
 			'instagram',
 			array(
-				'class'         => 'premium-instafeed-container',
+				'class'         => array( 'premium-instafeed-container', 'elementor-invisible' ),
 				'data-settings' => wp_json_encode( $instagram_settings ),
 			)
 		);
@@ -3124,10 +2072,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 			)
 		);
 
-		$feed_number = intval( 100 / substr( $settings['premium_instagram_feed_column_number'], 0, strpos( $settings['premium_instagram_feed_column_number'], '%' ) ) );
-
-		$this->add_render_attribute( 'instagram', 'data-col', $feed_number );
-
 		if ( 'Invalid License Key' === $access_token ) : ?>
 			<div class="premium-error-notice">
 				<?php echo esc_html( __( 'Please activate your license to get the access token', 'premium-addons-pro' ) ); ?>
@@ -3137,18 +2081,6 @@ class Premium_Instagram_Feed extends Widget_Base {
 				<?php echo esc_html( __( 'Please fill the required fields: Access Token', 'premium-addons-pro' ) ); ?>
 			</div>
 		<?php else : ?>
-			<?php if ( $account_info ) : ?>
-			<div class="premium-instafeed-profile-outer-container">
-				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'instagram-header' ) ); ?>>
-					<?php if ( $logo ) : ?>
-						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'instagram_logo' ) ); ?>>
-							<i class="fab fa-instagram"></i>
-						</div>
-					<?php endif; ?>
-					<?php premium_insta_profile_info( $account_settings ); ?>
-				</div>
-			</div>
-			<?php endif; ?>
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'instagram' ) ); ?>>
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'instagram_container' ) ); ?>></div>
 				<div class="premium-loading-feed premium-show-loading">
@@ -3158,6 +2090,63 @@ class Premium_Instagram_Feed extends Widget_Base {
 
 			<?php
 		endif;
+
+        if ( Plugin::instance()->editor->is_edit_mode() ) {
+            if ( 'yes' === $settings['premium_instagram_feed_masonry'] && 'yes' !== $settings['feed_carousel'] ) {
+                $this->render_editor_script();
+            }
+
+		}
+	}
+
+    /**
+	 * Render Editor Masonry Script.
+	 *
+	 * @since 2.9.5
+	 * @access protected
+	 */
+	protected function render_editor_script() {
+
+		?>
+		<script type="text/javascript">
+			jQuery( document ).ready( function( $ ) {
+
+				$( '.premium-instafeed-container' ).each( function() {
+
+					var $node_id 	= '<?php echo esc_attr( $this->get_id() ); ?>',
+						scope 		= $( '[data-id="' + $node_id + '"]' ),
+						selector 	= $(this);
+
+					if ( selector.closest( scope ).length < 1 ) {
+						return;
+					}
+
+
+					var masonryArgs = {
+						itemSelector	: '.premium-insta-feed',
+						percentPosition : true,
+						layoutMode		: 'masonry',
+					};
+
+					var $isotopeObj = {};
+
+					selector.imagesLoaded( function() {
+
+						$isotopeObj = selector.isotope( masonryArgs );
+
+						$isotopeObj.imagesLoaded().progress(function() {
+							$isotopeObj.isotope("layout");
+						});
+
+						selector.find('.premium-insta-feed').resize( function() {
+							$isotopeObj.isotope( 'layout' );
+						});
+					});
+
+				});
+			});
+		</script>
+		<?php
 	}
 }
 ?>

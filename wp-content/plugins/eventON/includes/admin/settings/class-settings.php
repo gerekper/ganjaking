@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.5.1
+ *	@version 4.5.2
  */
 
 class EVO_Settings{
@@ -113,7 +113,7 @@ class EVO_Settings{
 		?>
 		<div class="wrap ajde_settings <?php echo $this->focus_tab;?>" id='<?php echo $args['tab_id'];?>'>
 			<div class='evo_settings_header'>
-				<h2><?php echo $args['title'];?> (ver <?php echo $args['version'];?>)</h2>
+				<h2 class='settings_m_header'><?php echo $args['title'];?> (ver <?php echo $args['version'];?>) <span class='evo_trig_form_save evo_admin_btn btn_blue'><?php _e('Save Changes','eventon');?></span></h2>
 				<h2 class='nav-tab-wrapper' id='meta_tabs'>
 					<?php					
 						foreach($args['tabs'] as $key=>$val){
@@ -130,7 +130,7 @@ class EVO_Settings{
 
 	function settings_tab_start($args){
 		?>
-		<form method="post" action="">
+		<form class='evo_settings_form' method="post" action="">
 			<?php settings_fields($args['field_group']); ?>
 			<?php wp_nonce_field( $args['nonce_key'], $args['nonce_field'] );?>
 		<div id="<?php echo $args['tab_id'];?>" class="<?php implode(' ', $args['classes']);?>">
@@ -140,7 +140,7 @@ class EVO_Settings{
 	function settings_tab_end(){
 		?></div></div><?php
 	}
-
+ 
 
 	// @updated 4.5
 	function evo_save_settings(){
@@ -151,6 +151,7 @@ class EVO_Settings{
 			if ( wp_verify_nonce( $_POST['evcal_noncename'], AJDE_EVCAL_BASENAME ) ){
 
 				$evcal_options = array();
+
 				
 				// run through all post values
 				foreach($_POST as $pf=>$pv){
@@ -158,19 +159,24 @@ class EVO_Settings{
 					if(in_array($pf, array('option_page', 'action','_wpnonce','_wp_http_referer','evcal_noncename',
 					))) continue;
 
-					$none_san_fields = array('evo_ecl','evo_etl','evcal_top_fields','evcal_sort_options');
+					// fields to skip sanitization @u 4.5.2
+					$none_san_fields = apply_filters('evo_settings_non_san_fields', array('evo_ecl','evo_etl','evcal_top_fields','evcal_sort_options'), $focus_tab);
 
-					if( ($pf!='evcal_styles' && $focus_tab!='evcal_4') || !in_array($pf, $none_san_fields) ){
+					// skip styles tab and licenes tab and non san fields
+					if( $pf!='evcal_styles' && $focus_tab!='evcal_4' && !in_array($pf, $none_san_fields)){
 						
 						// none array values
 						if( !is_array($pv) )	$pv = sanitize_text_field( $pv );
 
 						$evcal_options[$pf] = $pv;
 					}
+
+					// non san fields
 					if( in_array($pf, $none_san_fields) ){
-						$evcal_options[$pf] = $pv;
+						$evcal_options[$pf] = $_POST[ $pf ];
 					}				
 				}
+				
 				
 				// General settings page - write styles to head option
 				if($focus_tab=='evcal_1' && isset($_POST['evcal_css_head']) && $_POST['evcal_css_head']=='yes'){
@@ -217,6 +223,7 @@ class EVO_Settings{
 				// all other settings tabs
 				}else{
 					//do_action('evo_save_settings',$focus_tab, $evcal_options);
+
 					$evcal_options = apply_filters('evo_save_settings_optionvals', $evcal_options, $focus_tab);
 					update_option('evcal_options_'.$focus_tab, $evcal_options);
 				}
@@ -266,7 +273,7 @@ class EVO_Settings{
 			$count=1;
 
 		// icon selection
-			$rightside.= EVO()->elements->icons();
+			$rightside.= EVO()->elements->get_icon_html();
 		
 		// different types of content
 			/*
@@ -813,7 +820,7 @@ class EVO_Settings{
 
 						<div class='evo_diag actual'>
 							<!-- save settings -->
-							<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
+							<input type="submit" class="evo_admin_btn btn_prime btn_blue" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
 						</div>	
 
 					</div>

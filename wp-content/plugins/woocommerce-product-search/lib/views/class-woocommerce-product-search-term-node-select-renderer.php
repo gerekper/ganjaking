@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Term_Control;
+
 /**
  * Renders product category filter as select.
  */
@@ -127,7 +129,7 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 		$this->elements_displayed = 0;
 		$this->taxonomy = $node->get_taxonomy();
 		if ( $this->show_count ) {
-			$this->term_counts = WooCommerce_Product_Search_Service::get_term_counts( $this->taxonomy );
+			$this->term_counts = Term_Control::get_term_counts( $this->taxonomy );
 		}
 		$output = $this->render_level( $node );
 		return $output;

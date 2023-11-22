@@ -1,0 +1,43 @@
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-style-iw-c:after{
+  clear: both;
+}
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-style-iw-c .dce-iw-title{
+	font-size: 28px;
+	font-weight: bold;
+	padding-top: 10px;
+}
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-style-iw-c .dce-iw-image img{
+  display: block;
+}
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-style-iw-c .dce-iw-readmore-btn{
+  display: inline-block;
+  transition: all 0.5s ease;
+  background-color: #555555;
+  color: #FFFFFF;
+  padding: 10px 18px;
+  margin-top: 10px;
+}
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-svpc img {
+  max-width: none !important;
+}
+.elementor-widget-dyncontel-acf-google-maps .custom-map-control-button {
+  appearance: button;
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin: 10px;
+  padding: 0 0.5em;
+  height: 40px;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  color: rgb(86, 86, 86);
+}
+.elementor-widget-dyncontel-acf-google-maps .custom-map-control-button:hover {
+  background: #ebebeb;
+}
+.elementor-widget-dyncontel-acf-google-maps .gm-style .gm-style-iw-t::after {
+  border-top: none !important;
+  border-right: none !important;
+}

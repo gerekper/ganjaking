@@ -5,6 +5,8 @@
  */
 
 class EVOVO_Seats{
+	public $o;
+
 	public function __construct(){
 		if( !class_exists('EVO_seats')) return false;
 		if(is_admin()){
@@ -64,6 +66,7 @@ class EVOVO_Seats{
 			}
 			return $boolean;
 		}
+
 		// echo preview seats before adding to cart
 		function preview_vo_seats($boolean, $ST){
 			$_vos = $ST->get_section_prop('has_vos');
@@ -74,8 +77,8 @@ class EVOVO_Seats{
 			$VOs = new EVOVO_Var_opts($ST->event, $ST->wcid,'variation');
 			$POs = new EVOVO_Var_opts($ST->event, $ST->wcid,'option');
 
-			if(!$VOs->is_vo()) return $boolean;
-			if(!$VOs->is_set() && !$POs->is_set()) return $boolean;
+			if( !$VOs->is_vo() ) return $boolean;
+			if( !$VOs->is_set() && !$POs->is_set() ) return $boolean;
 
 			$evotx_data = array();
 			$evotx_data['event_data']['section_id'] = $ST->section;
@@ -193,6 +196,7 @@ class EVOVO_Seats{
 
 			return $fields;
 		}
+
 		function form($key, $form_data, $SEATS){
 
 			
@@ -219,7 +223,6 @@ class EVOVO_Seats{
 				</p><?php
 
 			echo "</div>";
-
 		}
 
 		// duplicate VOs for section

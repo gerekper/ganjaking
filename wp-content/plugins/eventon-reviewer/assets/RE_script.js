@@ -1,6 +1,6 @@
 /**
  * Javascript: Reviwer Script
- * @version  1.1
+ * @version  1.0.3
  */
 jQuery(document).ready(function($){
 	
@@ -172,7 +172,7 @@ jQuery(document).ready(function($){
 		});
 	// open additional rating data 
 		$('body').on('click','.orating .extra_data',function(){
-			$(this).parent().siblings('.rating_data').toggle();
+			$(this).parent().siblings('.rating_data').slideToggle();
 		});
 
 	// Supporting functions

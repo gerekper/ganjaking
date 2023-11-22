@@ -82,6 +82,7 @@ jQuery(document).ready(function($){
 				data: data_arg,
 				dataType:'json',
 				success:function(data){
+					//alert(data);
 					if(data.status=='0'){
 						obj.closest('.evore_details').find('.evore_star_rating').html(data.content);
 						$('#evore_message').fadeOut();

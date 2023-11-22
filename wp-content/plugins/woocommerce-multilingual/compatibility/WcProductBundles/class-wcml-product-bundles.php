@@ -681,8 +681,6 @@ class WCML_Product_Bundles implements \IWPML_Action {
 	 *
 	 * @param int $bundle_id
 	 * @param int $translated_bundle_id
-	 *
-	 * @return array|null
 	 */
 	public function sync_bundled_ids( $bundle_id, $translated_bundle_id ) {
 

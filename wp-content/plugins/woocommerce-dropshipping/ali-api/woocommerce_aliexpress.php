@@ -65,7 +65,6 @@ function import_ali_product_in_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/product
@@ -87,7 +86,6 @@ function import_image_base64() {
 
 		)
 	);
-
 }
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/import_image_base64
@@ -109,7 +107,6 @@ function get_product_details_by_sku() {
 
 		)
 	);
-
 }
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/get_product_details_by_sku
@@ -131,7 +128,6 @@ function get_list_of_product_category_from_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://testprey.avitinfotech.com/wp-json/woo-aliexpress/v1/products-categories
@@ -153,7 +149,6 @@ function create_product_category_in_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://testprey.avitinfotech.com/wp-json/woo-aliexpress/v1/create-categories
@@ -175,7 +170,6 @@ function get_order_details_from_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/order-details
@@ -197,7 +191,6 @@ function authentication_with_CBE_and_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/woo-authentication
@@ -221,7 +214,6 @@ function update_ali_product_in_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/update-product
@@ -243,7 +235,6 @@ function get_merchant_store_currency_code_in_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/store-currency-code
@@ -267,7 +258,6 @@ function get_product_sku_from_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/product-sku
@@ -289,7 +279,6 @@ function get_order_status_from_woo_callback() {
 
 		)
 	);
-
 }
 
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/order-status
@@ -317,7 +306,6 @@ function ali_cbe_price_rate() {
 
 		)
 	);
-
 }
 
 		// /wp-json/woo-aliexpress/v1/price-rate
@@ -375,7 +363,6 @@ if ( ! function_exists( 'getPriceRate' ) ) {
 		}
 
 		return $response;
-
 	}   // function getPriceRate()
 
 }
@@ -505,9 +492,7 @@ function import_ali_product_in_woo( WP_REST_Request $request ) {
 
 				$imagesFlag = true;
 
-			} else {
-
-				if ( strtolower( pathinfo( $value['src'], PATHINFO_EXTENSION ) ) == 'webp' ) {
+			} elseif ( strtolower( pathinfo( $value['src'], PATHINFO_EXTENSION ) ) == 'webp' ) {
 
 					$wp_upload_dir = wp_upload_dir();
 
@@ -519,30 +504,28 @@ function import_ali_product_in_woo( WP_REST_Request $request ) {
 
 					$uploadedWebp = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
 
-					if ( isset( $uploadedWebp ) ) {
+				if ( isset( $uploadedWebp ) ) {
 
-						unlink( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' );
+					unlink( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' );
 
-					}
+				}
 
 					$a = getimagesize( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' );
 
 					$image_type = $a[2];
 
-					if ( in_array( $image_type, array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP ) ) ) {
+				if ( in_array( $image_type, array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP ) ) ) {
 
-						array_push( $inputParamsImg, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
+					array_push( $inputParamsImg, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
 
-					} else {
-
-						array_push( $inputParamsImgInvalid, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
-
-					}
 				} else {
 
-					array_push( $inputParamsImg, array( 'src' => $value['src'] ) );
+					array_push( $inputParamsImgInvalid, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
 
 				}
+			} else {
+
+				array_push( $inputParamsImg, array( 'src' => $value['src'] ) );
 			} $mn++;
 
 		}
@@ -1097,7 +1080,6 @@ function import_image_base64_in_woo( WP_REST_Request $request ) {
 	);
 
 	return $response;
-
 }
 
 function get_product_details_by_sku_in_woo( WP_REST_Request $request ) {
@@ -1386,7 +1368,6 @@ function get_product_details_by_sku_in_woo( WP_REST_Request $request ) {
 	);
 
 	return $response;
-
 }
 
 if ( ! function_exists( 'get_product_category_from_woo' ) ) {
@@ -1454,7 +1435,6 @@ if ( ! function_exists( 'get_product_category_from_woo' ) ) {
 		}
 
 		return $response;
-
 	}   // function product_category_from_woo()
 
 }
@@ -1581,7 +1561,6 @@ if ( ! function_exists( 'create_product_category_in_woo' ) ) {
 		}
 
 		return $response;
-
 	}   // function create_product_category_in_woo()
 
 }
@@ -1799,7 +1778,6 @@ if ( ! function_exists( 'get_order_detail_by_id' ) ) {
 		}
 
 		return $response;
-
 	} // function get_order_detail_by_id()
 
 }
@@ -1940,7 +1918,6 @@ if ( ! function_exists( 'woo_authentication' ) ) {
 		}
 
 		return $response;
-
 	}   // function woo_authentication()
 
 }
@@ -1964,7 +1941,6 @@ function get_sku_in_woo( $sku ) {
 		return '';
 
 	}
-
 } // get_sku_in_woo
 
 	// For update products
@@ -2081,9 +2057,7 @@ function update_ali_product_in_woo( WP_REST_Request $request ) {
 
 				$imagesFlag = true;
 
-			} else {
-
-				if ( strtolower( pathinfo( $value['src'], PATHINFO_EXTENSION ) ) == 'webp' ) {
+			} elseif ( strtolower( pathinfo( $value['src'], PATHINFO_EXTENSION ) ) == 'webp' ) {
 
 					$wp_upload_dir = wp_upload_dir();
 
@@ -2095,30 +2069,28 @@ function update_ali_product_in_woo( WP_REST_Request $request ) {
 
 					$uploadedWebp = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
 
-					if ( isset( $uploadedWebp ) ) {
+				if ( isset( $uploadedWebp ) ) {
 
-						unlink( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' );
+					unlink( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' );
 
-					}
+				}
 
 					$a = getimagesize( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' );
 
 					$image_type = $a[2];
 
-					if ( in_array( $image_type, array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP ) ) ) {
+				if ( in_array( $image_type, array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP ) ) ) {
 
-						array_push( $inputParamsImg, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
+					array_push( $inputParamsImg, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
 
-					} else {
-
-						array_push( $inputParamsImgInvalid, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
-
-					}
 				} else {
 
-					array_push( $inputParamsImg, array( 'src' => $value['src'] ) );
+					array_push( $inputParamsImgInvalid, array( 'src' => $wp_upload_dir['baseurl'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg' ) );
 
 				}
+			} else {
+
+				array_push( $inputParamsImg, array( 'src' => $value['src'] ) );
 			} $mn++;
 
 		}
@@ -2589,7 +2561,6 @@ function get_merchant_store_currency_code_in_woo() {
 	}
 
 	return $response;
-
 } // get_merchant_store_currency_code_in_woo
 
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/store-currency-code
@@ -2624,7 +2595,6 @@ function place_order_automatically_meta_boxes() {
 			}
 		}
 	}
-
 }
 
 function place_order_automatically_meta_box_content() {
@@ -2670,7 +2640,6 @@ function place_order_automatically_meta_box_content() {
 		// wp_die($order_id);
 
 	}
-
 }
 
 	// Getting AliExpress Product URL and open in new tab
@@ -2699,7 +2668,6 @@ function get_order_data() {
 	echo json_encode( $url );
 
 	wp_die();
-
 }
 
 	/***********/
@@ -2733,7 +2701,6 @@ function select_custom_order_status( $post ) {
 			}
 		}
 	}
-
 }
 
 function status_save_metabox() {
@@ -2752,7 +2719,7 @@ function status_save_metabox() {
 
 		// If you don't have the WC_Order object (from a dynamic $order_id)
 
-		$order = wc_get_order( $post->ID );
+		$order = wc_get_order( $_POST['ID'] );
 
 		// The text for the note
 
@@ -2765,7 +2732,6 @@ function status_save_metabox() {
 		// print_r($_POST);
 
 	}
-
 }
 
 function status_of_aliexpress( $post ) {
@@ -2811,7 +2777,6 @@ function status_of_aliexpress( $post ) {
 			<?php
 
 	}
-
 }
 
 	/***********/
@@ -2847,7 +2812,6 @@ function custom_woo_columns_function( $columns ) {
 	// @$new_columns['order_actions'] = @$columns['order_actions'];.
 
 	return $new_columns;
-
 }
 
 		// Change order of columns (working).
@@ -2894,7 +2858,6 @@ function custom_woo_admin_value( $column ) {
 
 		}
 	}
-
 }
 
 	/***********/
@@ -2953,7 +2916,6 @@ function aliexpress_status_filter_to_shop_order_posts_administration() {
 			<?php
 
 	}
-
 }
 
 function aliexpress_status_filter_to_shop_order_page( $query ) {
@@ -3033,7 +2995,6 @@ function aliexpress_status_filter_to_shop_order_page( $query ) {
 
 		}
 	}
-
 }
 
 	/***********
@@ -3102,7 +3063,6 @@ if ( ! function_exists( 'get_product_sku_from_woo' ) ) {
 		}
 
 		return $response;
-
 	}   // function product_category_from_woo()
 
 }
@@ -3154,7 +3114,6 @@ if ( ! function_exists( 'insert_hidden_fields_for_check_cbe' ) ) {
 				<?php
 
 			}
-
 	}
 }
 
@@ -3244,7 +3203,6 @@ if ( ! function_exists( 'get_order_status_by_id' ) ) {
 		}
 
 		return $response;
-
 	} // function get_order_status_by_id()
 
 }

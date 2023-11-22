@@ -4,7 +4,7 @@
  * @version 0.1
  */
 class evorm_admin{
-	public function __construct(){
+	public function __construct(){\
 		add_action('admin_init', array($this, 'admin_init'));		
 	}
 
@@ -90,11 +90,10 @@ class evorm_admin{
 
 			$settings_fields = array();
 			$settings_fields[] = array('id'=>'evorm','type'=>'note',
-						'name'=>'<b>NOTE:</b> Reminder emails for '.$addon_name.' will use cron system to send automatically scheduled emails to selected guests. The cron method may not send the email precisely at that designated time. The auto reminder emails can be enabled within each event edit page under '.$addon_name.' settings.<br/><br/>
-						
-						<b>IMPORTANT:</b> If an already activated event reminder was disabled and saved, all the already scheduled reminder emails for that particular reminder type for events will be deleted.<br/><br/>
+						'name'=>'<b>NOTE:</b> Reminder emails for '.$addon_name.' will use cron system to send automatically scheduled emails to selected guests. The cron method may not send the email precisely at that designated time. The auto reminder emails can be enabled within each event edit page under '.$addon_name.' settings.<br/>
+						<b>Important</b> If an already activated event reminder was disabled and saved, all the already scheduled reminder emails for that particular reminder type for events will be deleted.
 
-						<b>EMAILING:</b> If you are having issues receiving reminder emails, we recommend using a <a href="https://wordpress.org/plugins/search/smtp+plugin/" target="_blank">SMTP wordpress plugin</a>.<br/><br/>
+							<br/><br/>
 							
 							<b>Supported Dynamic Tags for Email Message</b>
 							<span style="display:block; padding:10px 0">

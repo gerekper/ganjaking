@@ -3,7 +3,7 @@
  * bullet-list.php
  * Template part for the WP Post Modules Plugin
  *
- * @version 2.2.1
+ * @version 2.4.0
  * All variables coming from parent file wp-post-modules-el.php
  */
 	$out = '';
@@ -40,7 +40,7 @@
 		}
 
 		// List type module style
-		$format = apply_filters( 'wppm_bullet_list_output', '<li%7$s%8$s  class="%2$s"><%5$s%8$s class="entry-title"><a href="%3$s" title="%9$s">%4$s</a></%5$s></li>' );
+		$format = apply_filters( 'wppm_bullet_list_output', '<li%7$s%8$s  class="%2$s"><%5$s%8$s class="entry-title"><a href="%3$s" title="%9$s"%10$s>%4$s</a></%5$s></li>' );
 
 		$out .= sprintf ( $format,
 			get_the_id(),
@@ -51,7 +51,8 @@
 			$enable_schema && $container_type != '' ? ' itemscope itemtype="' . $protocol . '://schema.org/' . esc_attr( $container_type ) . '"' : '',
 			$enable_schema && $container_prop != '' ? ' itemprop="' . esc_attr( $container_prop ) . '"' : '',
 			$enable_schema && $heading_prop != '' ? ' itemprop="' . esc_attr( $heading_prop ) . '"' : '',
-			wp_strip_all_tags( $title )
+			wp_strip_all_tags( $title ),
+			$new_tab ? ' target="_blank"' : '',
 		);
 
 	endwhile;

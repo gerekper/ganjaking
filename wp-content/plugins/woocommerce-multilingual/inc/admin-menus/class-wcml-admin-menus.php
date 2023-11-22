@@ -76,25 +76,18 @@ class WCML_Admin_Menus {
 	 * @return bool
 	 */
 	private static function is_page_without_admin_language_switcher() {
-		global $pagenow;
+		$get_page = isset( $_GET['page'] ) ? $_GET['page'] : false;
 
-		$get_post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
-		$get_post      = isset( $_GET['post'] ) ? $_GET['post'] : false;
-		$get_page      = isset( $_GET['page'] ) ? $_GET['page'] : false;
-
-		$is_page_wpml_wcml       = isset( $_GET['page'] ) && self::SLUG === $_GET['page'];
-		$is_new_order_or_coupon  = in_array( $pagenow, [ 'edit.php', 'post-new.php' ], true ) &&
-								   $get_post_type &&
-								   in_array( $get_post_type, [ 'shop_coupon', 'shop_order' ], true );
-		$is_edit_order_or_coupon = 'post.php' === $pagenow && $get_post &&
-								   in_array( get_post_type( $get_post ), [ 'shop_coupon', 'shop_order' ], true );
-		$is_shipping_zones       = 'shipping_zones' === $get_page;
-		$is_attributes_page      = apply_filters( 'wcml_is_attributes_page', 'product_attributes' === $get_page );
+		$is_page_wpml_wcml        = self::SLUG === $get_page;
+		$is_shipping_zones        = 'shipping_zones' === $get_page;
+		$is_attributes_page       = apply_filters( 'wcml_is_attributes_page', 'product_attributes' === $get_page );
+		$is_order_create_or_edit  = \WCML\Orders\Helper::isOrderCreateAdminScreen() || \WCML\Orders\Helper::isOrderEditAdminScreen();
+		$is_coupon_create_or_edit = \WCML\Coupons\Helper::isCouponCreateAdminScreen() || \WCML\Coupons\Helper::isCouponEditAdminScreen();
 
 		return is_admin() && (
 				$is_page_wpml_wcml ||
-				$is_new_order_or_coupon ||
-				$is_edit_order_or_coupon ||
+				$is_order_create_or_edit ||
+				$is_coupon_create_or_edit ||
 				$is_shipping_zones ||
 				$is_attributes_page
 			);

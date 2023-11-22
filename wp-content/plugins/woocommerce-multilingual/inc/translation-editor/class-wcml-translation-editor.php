@@ -2,6 +2,8 @@
 
 use WCML\Utilities\DB;
 
+use function WCML\functions\getSetting;
+
 class WCML_Translation_Editor {
 
 	/** @var woocommerce_wpml */
@@ -20,12 +22,14 @@ class WCML_Translation_Editor {
 	public function add_hooks() {
 
 		add_filter( 'wpml-translation-editor-fetch-job', [ $this, 'fetch_translation_job_for_editor' ], 10, 2 );
-		add_filter( 'wpml-translation-editor-job-data', [ $this, 'get_translation_job_data_for_editor' ], 10, 2 );
+		add_filter( 'wpml-translation-editor-job-data', [ $this, 'get_translation_job_data_for_editor' ], 10 );
 		add_action( 'admin_print_scripts', [ $this, 'preselect_product_type_in_admin_screen' ], 11 );
 
 		add_filter( 'icl_post_alternative_languages', [ $this, 'hide_post_translation_links' ] );
 
-		add_filter( 'manage_product_posts_columns', [ $this, 'add_languages_column' ], 100 );
+		if ( getSetting( 'set_up_wizard_run' ) ) {
+			add_filter( 'manage_product_posts_columns', [ $this, 'add_languages_column' ], 100 );
+		}
 		add_action( 'woocommerce_product_after_variable_attributes', [ $this, 'lock_variable_fields' ], 10 );
 
 		add_filter( 'wpml_use_tm_editor', [ $this, 'force_woocommerce_native_editor_for_wcml_products_screen' ], 100 );

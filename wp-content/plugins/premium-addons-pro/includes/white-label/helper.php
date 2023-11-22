@@ -68,7 +68,7 @@ class Helper {
 
 		$license_status = get_option( 'papro_license_status' );
 
-		return ( 'valid' === $license_status ) ? true : true;
+		return ( 'valid' === $license_status ) ? true : false;
 
 	}
 
@@ -119,6 +119,7 @@ class Helper {
 				'premium-wht-lbl-rate',
 				'premium-wht-lbl-about',
 				'premium-wht-lbl-license',
+				'premium-wht-lbl-not',
 				'premium-wht-lbl-logo',
 				'premium-wht-lbl-version',
 				'premium-wht-lbl-prefix',

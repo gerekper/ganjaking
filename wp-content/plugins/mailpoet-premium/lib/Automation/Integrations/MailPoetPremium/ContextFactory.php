@@ -7,27 +7,41 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\TagEntity;
+use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Tags\TagRepository;
 
 class ContextFactory {
   /** @var CustomFieldsRepository */
   private $customFieldsRepository;
 
+  /** @var NewslettersRepository */
+  private $newslettersRepository;
+
   /** @var TagRepository  */
   private $tagRepository;
 
   public function __construct(
     CustomFieldsRepository $customFieldsRepository,
+    NewslettersRepository $newslettersRepository,
     TagRepository $tagRepository
   ) {
     $this->customFieldsRepository = $customFieldsRepository;
+    $this->newslettersRepository = $newslettersRepository;
     $this->tagRepository = $tagRepository;
   }
 
   /** @return mixed[] */
   public function getContextData(): array {
     return [
+      'newsletter_list' => array_map(function (NewsletterEntity $newsletter) {
+        return [
+          'id' => $newsletter->getId(),
+          'subject' => $newsletter->getSubject(),
+          'sent_at' => $newsletter->getSentAt(),
+        ];
+      }, $this->newslettersRepository->getStandardNewsletterList()),
       'custom_fields' => array_map(function (CustomFieldEntity $customField) {
         return $this->buildCustomField($customField);
       }, $this->customFieldsRepository->findAll()),

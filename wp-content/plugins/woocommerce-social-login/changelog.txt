@@ -1,5 +1,8 @@
 *** WooCommerce Social Login Changelog ***
 
+2023.11.17 - version 2.13.1
+ * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
+
 2023.07.13 - version 2.13.0
  * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 

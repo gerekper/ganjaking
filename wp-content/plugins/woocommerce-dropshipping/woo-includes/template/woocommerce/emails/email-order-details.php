@@ -15,16 +15,16 @@
  * @package WooCommerce\Templates\Emails
  * @version 3.7.0
  */
- 
+
 defined( 'ABSPATH' ) || exit;
 
 // Load If plugin is dropshipping activated
 include_once ABSPATH . 'wp-blog-header.php';
-if(class_exists( 'WC_Dropshipping' )){
+if ( class_exists( 'WC_Dropshipping' ) ) {
 
-$text_align = is_rtl() ? 'right' : 'left';
-global  $woocommerce;
-do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
+	$text_align = is_rtl() ? 'right' : 'left';
+	global  $woocommerce;
+	do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
 
 <h2>
 	<?php
@@ -87,11 +87,13 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 			<?php
 
-					$items = $order->get_items();
+				$items = $order->get_items();
+				$all_sub_total = 0;
 			foreach ( $items as $item_id => $item ) {
 				$product = $item->get_product();
 				$sub_total = $item->get_quantity() * wc_get_price_excluding_tax( $product );
-				$total_gst = $item->get_subtotal_tax();
+				$all_sub_total = $sub_total + $all_sub_total;
+				$total_gst += $item->get_subtotal_tax();
 
 				?>
 		 <tr>
@@ -101,11 +103,11 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 				<?php if ( 1 == $split_gst_amount ) { ?>
 				<td><?php echo wc_price( $item->get_quantity() * wc_get_price_excluding_tax( $product ) ); ?></td>
-				<td><?php echo  wc_price( $item->get_subtotal_tax() ); ?></td>
+				<td><?php echo wc_price( $item->get_subtotal_tax() ); ?></td>
 				<td><?php echo wc_price( ( $item->get_quantity() * wc_get_price_excluding_tax( $product ) ) + $item->get_total_tax() ); ?></td>
 			<?php } else { ?>
 				<td style="display:none"><?php echo wc_price( $item->get_quantity() * wc_get_price_excluding_tax( $product ) ); ?></td>
-				<td style="display:none"><?php echo  wc_price( $item->get_subtotal_tax() ); ?></td>
+				<td style="display:none"><?php echo wc_price( $item->get_subtotal_tax() ); ?></td>
 				<td style="display:none"><?php echo wc_price( ( $item->get_quantity() * wc_get_price_excluding_tax( $product ) ) + $item->get_total_tax() ); ?></td>
 			<?php } ?>
 
@@ -113,22 +115,6 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 				<?php
 
 			}
-
-
-
-
-
-			/*
-			  echo wc_get_email_order_items( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				$order,
-				array(
-					'show_sku'      => $sent_to_admin,
-					'show_image'    => false,
-					'image_size'    => array( 32, 32 ),
-					'plain_text'    => $plain_text,
-					'sent_to_admin' => $sent_to_admin,
-				)
-			);*/
 			?>
 
 			<tr style="font-weight:bold;">
@@ -139,15 +125,15 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 				<?php } else { ?>
 					<td style="display:none">&nbsp;</td>
 				<?php } ?>
-				<td><?php echo wc_price( floatval( $sub_total ) ); ?></td>
+				<td><?php echo wc_price( floatval( $all_sub_total ) ); ?></td>
 
 				<?php if ( 1 == $split_gst_amount ) { ?>
 
-					<td><?php echo  wc_price( floatval( $total_gst ) ); ?></td>
-					<td><?php echo wc_price( floatval( ( ( $sub_total + $total_gst ) * 100 ) ) / 100 ); ?></td>
+					<td><?php echo wc_price( floatval( $total_gst ) ); ?></td>
+					<td><?php echo wc_price( floatval( ( ( $all_sub_total + $total_gst ) * 100 ) ) / 100 ); ?></td>
 				<?php } else { ?>
-					<td style="display:none"><?php echo  wc_price( floatval( $total_gst ) ); ?></td>
-					<td style="display:none"><?php echo wc_price( floatval( ( ( $sub_total + $total_gst ) * 100 ) ) / 100 ); ?></td>
+					<td style="display:none"><?php echo wc_price( floatval( $total_gst ) ); ?></td>
+					<td style="display:none"><?php echo wc_price( floatval( ( ( $all_sub_total + $total_gst ) * 100 ) ) / 100 ); ?></td>
 				<?php } ?>
 			</tr>
 
@@ -215,16 +201,16 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 	</table>
 </div>
 
-<?php do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
+	<?php do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
 
-<?php }else{ 
+<?php } else {
 
-// Load Default if plugin is dropshipping deactivated
-if ( class_exists( 'WooCommerce' ) ) { 
-    $woocommerce_path = WP_PLUGIN_DIR . '/woocommerce/templates/emails/email-order-details.php';
-    
-    if (file_exists($woocommerce_path)) {
-        include $woocommerce_path;
-    } 
-} 
+	// Load Default if plugin is dropshipping deactivated
+	if ( class_exists( 'WooCommerce' ) ) {
+		$woocommerce_path = WP_PLUGIN_DIR . '/woocommerce/templates/emails/email-order-details.php';
+
+		if ( file_exists( $woocommerce_path ) ) {
+			include $woocommerce_path;
+		}
+	}
 } ?>

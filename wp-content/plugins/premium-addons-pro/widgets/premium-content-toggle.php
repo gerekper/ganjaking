@@ -13,7 +13,7 @@ use PremiumAddonsPro\Includes\PAPRO_Helper;
 // Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
@@ -34,14 +34,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Content_Toggle extends Widget_Base {
 
 	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -61,7 +67,7 @@ class Premium_Content_Toggle extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Content Switcher', 'premium-addons-pro' ) );
+		return __( 'Content Toggle', 'premium-addons-pro' );
 	}
 
 	/**
@@ -97,7 +103,21 @@ class Premium_Content_Toggle extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'toggle' );
+		return array( 'pa', 'premium', 'toggle' );
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -139,7 +159,7 @@ class Premium_Content_Toggle extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_content_toggle_headings_section',
@@ -235,15 +255,15 @@ class Premium_Content_Toggle extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -297,19 +317,19 @@ class Premium_Content_Toggle extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'condition' => array(
@@ -322,10 +342,38 @@ class Premium_Content_Toggle extends Widget_Base {
 		);
 
 		$this->add_control(
+			'live_temp_content',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'premium_content_toggle_first_content_tools'  => 'elementor_templates',
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_content_toggle_first_content_templates_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'premium_content_toggle_first_content_tools'  => 'elementor_templates',
+				),
+			)
+		);
+
+		$this->add_control(
 			'premium_content_toggle_first_content_templates',
 			array(
-				'label'       => __( 'Elementor Template', 'premium-addons-pro' ),
-				'description' => __( 'Elementor Template is a template which you can choose from Elementor library. Each template will be shown in content', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'type'        => Controls_Manager::SELECT2,
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'label_block' => true,
@@ -380,19 +428,19 @@ class Premium_Content_Toggle extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'condition' => array(
@@ -405,10 +453,38 @@ class Premium_Content_Toggle extends Widget_Base {
 		);
 
 		$this->add_control(
+			'live_temp_content_extra',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'premium_content_toggle_second_content_tools'  => 'elementor_templates',
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_content_toggle_second_content_templates_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'premium_content_toggle_second_content_tools'  => 'elementor_templates',
+				),
+			)
+		);
+
+		$this->add_control(
 			'premium_content_toggle_second_content_templates',
 			array(
-				'label'       => __( 'Elementor Template', 'premium-addons-pro' ),
-				'description' => __( 'Elementor Template is a template which you can choose from Elementor library. Each template will be shown in content', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'type'        => Controls_Manager::SELECT2,
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'label_block' => true,
@@ -448,19 +524,19 @@ class Premium_Content_Toggle extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-left',
+						'icon'  => 'eicon-arrow-left',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-right',
+						'icon'  => 'eicon-arrow-right',
 					),
 				),
 				'default'   => 'top',
@@ -663,9 +739,8 @@ class Premium_Content_Toggle extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-content-toggle-heading-one *' => 'color: {{VALUE}};',
@@ -753,9 +828,8 @@ class Premium_Content_Toggle extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-content-toggle-heading-two *' => 'color: {{VALUE}};',
@@ -921,7 +995,7 @@ class Premium_Content_Toggle extends Widget_Base {
 			array(
 				'label'      => __( 'Height', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min'  => 0,
@@ -949,9 +1023,8 @@ class Premium_Content_Toggle extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-content-toggle-monthly-text' => 'color: {{VALUE}};',
@@ -1038,9 +1111,8 @@ class Premium_Content_Toggle extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-content-toggle-yearly-text' => 'color: {{VALUE}};',
@@ -1296,7 +1368,7 @@ class Premium_Content_Toggle extends Widget_Base {
 
 						<?php
 					elseif ( 'elementor_templates' === $settings['premium_content_toggle_first_content_tools'] ) :
-						$first_template = $settings['premium_content_toggle_first_content_templates'];
+						$first_template = empty( $settings['premium_content_toggle_first_content_templates'] ) ? $settings['live_temp_content'] : $settings['premium_content_toggle_first_content_templates'];
 						?>
 
 					<div class="premium-content-toggle-first-content-item-wrapper">
@@ -1315,7 +1387,7 @@ class Premium_Content_Toggle extends Widget_Base {
 
 						<?php
 					elseif ( 'elementor_templates' === $settings['premium_content_toggle_second_content_tools'] ) :
-						$second_template = $settings['premium_content_toggle_second_content_templates'];
+						$second_template = empty( $settings['premium_content_toggle_second_content_templates'] ) ? $settings['live_temp_content_extra'] : $settings['premium_content_toggle_second_content_templates'];
 						?>
 
 					<div class="premium-content-toggle-second-content-item-wrapper">

@@ -3,6 +3,7 @@
 namespace WCML\Attributes;
 
 use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore as ProductAttributesLookupDataStore;
+use WCML\Terms\SuspendWpmlFiltersFactory;
 use WPML\Convert\Ids;
 use WPML\FP\Obj;
 use WPML\LIB\WP\Hooks;
@@ -43,35 +44,45 @@ class LookupTable implements \IWPML_Action {
 			&& 'publish' === get_post_status( $productId )
 			&& ! $this->sitepress->is_original_content_filter( false, $productId, 'post_product' )
 		) {
+			$savedOnBlogId = get_current_blog_id();
+
 			Hooks::onAction( 'shutdown' )
-				->then( function() use ( $productId ) {
+				->then( function() use ( $productId, $savedOnBlogId ) {
+					$savedOnAnotherBlog = get_current_blog_id() !== $savedOnBlogId;
+
+					if ( $savedOnAnotherBlog ) {
+						switch_to_blog( $savedOnBlogId );
+					}
+
 					// For direct updates, we adjust terms filters just before triggering the update.
 					$hasTermsClausesFilter = $this->adjustTermsFilters();
 
 					wc_get_container()->get( ProductAttributesLookupDataStore::class )->on_product_changed( $productId );
 
 					$this->restoreTermsFilters( $hasTermsClausesFilter );
+
+					if ( $savedOnAnotherBlog ) {
+						restore_current_blog();
+					}
 				} );
 		}
 	}
 
 	/**
-	 * @return bool
+	 * @return \WCML\Utilities\Suspend\Suspend
 	 */
 	public function adjustTermsFilters() {
 		add_filter( 'woocommerce_product_get_attributes', [ $this, 'translateAttributeOptions' ], 10, 2 );
 		add_filter( 'woocommerce_product_variation_get_attributes', [ $this, 'translateVariationTerms' ], 10, 2 );
 
-		return remove_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ] );
+		return SuspendWpmlFiltersFactory::create();
 	}
 
 	/**
-	 * @param bool $hasTermsClausesFilter
+	 * @param \WCML\Utilities\Suspend\Suspend $filtersSuspend
 	 */
-	private function restoreTermsFilters( $hasTermsClausesFilter ) {
-		if ( $hasTermsClausesFilter ) {
-			add_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ], 10, 3 );
-		}
+	private function restoreTermsFilters( $filtersSuspend ) {
+		$filtersSuspend->resume();
 
 		remove_filter( 'woocommerce_product_get_attributes', [ $this, 'translateAttributeOptions' ] );
 		remove_filter( 'woocommerce_product_variation_get_attributes', [ $this, 'translateVariationTerms' ] );

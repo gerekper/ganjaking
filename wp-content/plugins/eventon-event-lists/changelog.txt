@@ -1,21 +1,5 @@
 Event Lists Ext (EL) addon for EventON Plugin
 ====================================
-v 1.0.1 (2023-8-21)
-FIXED: concatenate style path
-
-v 1.0 (2023-5-19)
-FIXED: end range +/- days and months value incorrection
-FIXED: number of months value not working when event list type = date range
-FIXED: show no events message when there are no events on entire calendar
-FIXED: event count not set with event_count_list to show all the events
-FIXED: Compatibility with eventON 4.3
-FIXED: several PHP 8.2 compatibilities
-FIXED: removed unused script file
- 
-v 0.22 (2021-12-3)
-ADDED: Missing POT file for backend translations
-FIXED: missing date range support for +/- days and +/- months
-
 v 0.21 (2020-12-16)
 FIXED: non ajax calendar month order not working correct
 

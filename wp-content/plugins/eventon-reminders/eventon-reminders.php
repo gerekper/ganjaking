@@ -4,18 +4,18 @@
  * Plugin URI: http://www.myeventon.com/addons/reminders
  * Description: Send automated event reminders to RSVP guests or Ticket customers
  * Author: Ashan Jay
- * Version: 0.5
+ * Version: 0.4
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 5.0
- * Tested up to: 5.9.2
+ * Requires at least: 4.0
+ * Tested up to: 4.9.5
  */
 
 class eventon_reminders{
 	
-	public $version='0.5';
-	public $eventon_version = '4.0';
-	public $EVORS_version = '2.7';
-	public $EVOTX_version = '2.0';
+	public $version='0.4';
+	public $eventon_version = '2.6.9';
+	public $EVORS_version = '2.5.15';
+	public $EVOTX_version = '1.6.7';
 	public $name = 'Reminders';
 	public $addon_id = 'EVORM';
 	

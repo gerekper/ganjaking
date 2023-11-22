@@ -47,7 +47,7 @@ class WCML_Status_Store_Pages_UI extends WCML_Templates_Factory {
 				'translated'      => __( "WooCommerce store pages are translated to all the site's languages.", 'woocommerce-multilingual' ),
 			],
 			'nonces'       => [
-				'create_pages' => wp_nonce_field( 'create_pages', 'wcml_nonce' ),
+				'create_pages' => wp_nonce_field( 'create_pages', 'wcml_nonce', true, false ),
 			],
 		];
 

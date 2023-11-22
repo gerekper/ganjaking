@@ -2,7 +2,7 @@
 /**
  * dynamic styles for front end
  *
- * @updated 	4.5.1
+ * @updated 	4.5.4
  * @package		eventon/Styles
  * @author 		AJDE
  */
@@ -237,7 +237,8 @@
 		)
 			/* featured events tag */
 			,array(
-				'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.featured, .evo_pop_body .evoet_cx span.evo_above_title span.featured',
+				'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.featured, .evo_pop_body .evoet_cx span.evo_above_title span.featured,
+				.evosv_grid .evosv_tag.featured',
 				'multicss'=>array(
 					array('css'=>'color:#$', 'var'=>'fs_eventtop_featured_2',	'default'=>'ffffff'),
 					array('css'=>'background-color:#$', 'var'=>'fs_eventtop_featured_1',	'default'=>'ffcb55')
@@ -245,7 +246,8 @@
 			)
 			/* completed events tag */
 			,array(
-				'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.completed, .evo_pop_body .evoet_cx span.evo_above_title span.completed',
+				'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.completed, .evo_pop_body .evoet_cx span.evo_above_title span.completed,
+				.evosv_grid .evosv_tag.completed',
 				'multicss'=>array(
 					array('css'=>'color:#$', 'var'=>'fs_eventtop_completed_2',	'default'=>'ffffff'),
 					array('css'=>'background-color:#$', 'var'=>'fs_eventtop_completed_1',	'default'=>'585858')
@@ -264,6 +266,7 @@
 		// colorful eventtop text color			
 			,array(
 				'item'=>'.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evcal_cblock, .ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evcal_event_title, 
+				.ajde_evcal_calendar.color .evoet_cx em i,
 				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evcal_event_subtitle, 
 				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx em, 
 				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .eventon_list_event .evoet_cx .evcal_desc_info, 
@@ -272,9 +275,9 @@
 				.ajde_evcal_calendar.color .evoet_cx .evo_tz_time .evo_tz, 
 				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig i, 
 				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig b, 
-				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 em i, 
-				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 .evo_ep_pre, 
-				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 .evo_ep_time, 
+				.ajde_evcal_calendar.color .evoet_cx em i, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_ep_pre, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_ep_time, 
 				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig:hover i, 
 				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig:hover b, 
 				.evo_lightboxes .color.eventon_list_event .evoet_cx .evo_below_title .status_reason, 
@@ -424,9 +427,19 @@
 				array('css'=>'background-color:#$', 'var'=>'evcal__cancel_event_1','default'=>'F79191'),
 			)			
 		),
+		// virtual
+		array(
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.vir,, .evo_pop_body .evoet_cx span.evo_above_title span.vir,
+				.evosv_grid .evosv_tag.vir',
+			'multicss'=>array(
+				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_0b','default'=>'ffffff'),
+				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_0a','default'=>'5bdaf7'),
+			)			
+		),	
 		// postponed
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.postponed, .evo_pop_body .evoet_cx span.evo_above_title span.postponed',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.postponed, .evo_pop_body .evoet_cx span.evo_above_title span.postponed,
+			.evosv_grid .evosv_tag.postponed',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_1b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_1a','default'=>'e3784b'),
@@ -434,7 +447,8 @@
 		),		
 		// moved online
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.movedonline, .evo_pop_body .evoet_cx span.evo_above_title span.movedonline',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.movedonline, .evo_pop_body .evoet_cx span.evo_above_title span.movedonline,
+			.evosv_grid .evosv_tag.movedonline',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_2b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_2a','default'=>'6edccd'),
@@ -442,7 +456,8 @@
 		),
 		// rescheduled
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.rescheduled, .evo_pop_body .evoet_cx span.evo_above_title span.rescheduled',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.rescheduled, .evo_pop_body .evoet_cx span.evo_above_title span.rescheduled,
+			.evosv_grid .evosv_tag.rescheduled',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_3b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_3a','default'=>'67ef78'),

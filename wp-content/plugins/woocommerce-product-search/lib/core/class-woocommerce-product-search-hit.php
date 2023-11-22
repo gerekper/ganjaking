@@ -108,7 +108,7 @@ class WooCommerce_Product_Search_Hit {
 					$src_uri_id = self::maybe_record_uri( $src_uri );
 				}
 
-				$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+				$current_url = ( is_ssl() ? 'https://' : 'http://' ) . ( isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : '' ) . ( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '' );
 				$dest_uri_id = self::maybe_record_uri( $current_url );
 
 				$user_id = is_user_logged_in() ? get_current_user_id() : null;

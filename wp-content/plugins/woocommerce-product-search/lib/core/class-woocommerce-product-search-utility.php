@@ -23,12 +23,44 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Base;
+use com\itthinx\woocommerce\search\engine\Cache;
+
 /**
  * Utility methods.
  */
 class WooCommerce_Product_Search_Utility {
 
 	const CACHE_GROUP = 'ixwps_uty';
+
+	/**
+	 * Float conversion.
+	 *
+	 * @since 5.0.0 moved here
+	 *
+	 * @param string|float|null $x to convert
+	 *
+	 * @return float|null converted or null
+	 */
+	public static function to_float( $x ) {
+
+		if ( $x !== null && !is_float( $x ) && is_string( $x ) ) {
+			$locale = localeconv();
+			$decimal_characters = array_unique( array( wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'], '.', ',' ) );
+			$x = str_replace( $decimal_characters, '.', trim( $x ) );
+			$x = preg_replace( '/[^0-9\.,-]/', '', $x );
+			$i = strrpos( $x, '.' );
+			if ( $i !== false ) {
+				$x = ( $i > 0 ? str_replace( '.', '', substr( $x, 0, $i ) ) : '' ) . '.' . ( $i < strlen( $x ) ? str_replace( '.', '', substr( $x, $i + 1 ) ) : '' );
+			}
+			if ( strlen( $x ) > 0 ) {
+				$x = floatval( $x );
+			} else {
+				$x = null;
+			}
+		}
+		return $x;
+	}
 
 	/**
 	 * Whether we are on a page that is considered part of the shop.
@@ -225,8 +257,9 @@ class WooCommerce_Product_Search_Utility {
 	public static function get_product_ids_on_sale( $args = array() ) {
 
 		$cache_key = 'GPIDSOS_' . md5( json_encode( $args ) );
-		$product_ids = wps_cache_get( $cache_key, self::CACHE_GROUP );
-		if ( $product_ids === false ) {
+		$cache = Cache::get_instance();
+		$product_ids = $cache->get( $cache_key, self::CACHE_GROUP );
+		if ( $product_ids === null ) {
 			$on_sale_products = self::get_on_sale_products( $args );
 
 			$product_ids = array();
@@ -244,7 +277,7 @@ class WooCommerce_Product_Search_Utility {
 
 			$product_ids = array_keys( array_flip( $product_ids ) );
 
-			wps_cache_set( $cache_key, $product_ids, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+			$cache->set( $cache_key, $product_ids, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
 		}
 		return $product_ids;
 	}
@@ -264,7 +297,7 @@ class WooCommerce_Product_Search_Utility {
 		$is_product_search = false;
 		if ( $wp_query->is_main_query() ) {
 
-			$is_product_search = isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_TOKEN] );
+			$is_product_search = isset( $_REQUEST[Base::SEARCH_TOKEN] );
 
 			if ( !$is_product_search ) {
 				$post_type = $wp_query->get( 'post_type', false );
@@ -333,8 +366,9 @@ class WooCommerce_Product_Search_Utility {
 			}
 
 		$cache_key = 'PIDSOS_' . md5( $query );
-		$results = wps_cache_get( $cache_key, self::CACHE_GROUP );
-		if ( $results === false ) {
+		$cache = Cache::get_instance();
+		$results = $cache->get( $cache_key, self::CACHE_GROUP );
+		if ( $results === null ) {
 			$results = $wpdb->get_results( $query );
 
 			$n = count( $results );
@@ -342,7 +376,7 @@ class WooCommerce_Product_Search_Utility {
 				$results[$i]->id = intval( $results[$i]->id );
 				$results[$i]->parent_id = intval( $results[$i]->parent_id );
 			}
-			wps_cache_set( $cache_key, $results, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+			$cache->set( $cache_key, $results, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
 
 		}
 

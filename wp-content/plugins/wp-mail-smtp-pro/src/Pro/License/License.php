@@ -193,8 +193,9 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options, $echo = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$key = '1415b451be1a13c283ba771ea52d38bb';
+		$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
 		$type = 'Pro';
+
 		$license     = $options->get_group( 'license' );
 		$is_expired  = isset( $license['is_expired'] ) && $license['is_expired'] === true;
 		$is_disabled = isset( $license['is_disabled'] ) && $license['is_disabled'] === true;
@@ -502,7 +503,7 @@ class License {
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$options = new Options();
+$options = new Options();
 		$all_opt = $options->get_all();
 		$all_opt['license']['type'] = 'pro';
 		$all_opt['license']['is_expired'] = false;
@@ -510,7 +511,6 @@ class License {
 		$all_opt['license']['is_invalid'] = false;
 		$options->set( $all_opt );
 		return;
-
 
 		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();

@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search_filter_reset' ) ) {
@@ -41,7 +44,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_reset' ) ) {
 /**
  * Filter reset.
  */
-class WooCommerce_Product_Search_Filter_Reset {
+class WooCommerce_Product_Search_Filter_Reset extends Filter_Renderer {
 
 	private static $instances = 0;
 
@@ -108,9 +111,10 @@ class WooCommerce_Product_Search_Filter_Reset {
 	 * @return string|mixed
 	 */
 	public static function render( $atts = array(), &$results = null) {
-		self::load_resources();
 
-		$_atts = $atts;
+		global $wp_query;
+
+		self::load_resources();
 
 		$atts = shortcode_atts(
 			array(
@@ -128,12 +132,44 @@ class WooCommerce_Product_Search_Filter_Reset {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
 		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-reset-%d', $n );
 		$heading_class   = 'product-search-filter-reset-heading';
 		$heading_id      = sprintf( 'product-search-filter-reset-heading-%d', $n );
 		$containers      = array();
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
 
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 			$atts['heading']  = _x( 'Filters', 'product filter reset heading', 'woocommerce-product-search' );
@@ -183,10 +219,6 @@ class WooCommerce_Product_Search_Filter_Reset {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
-		}
-
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -244,6 +276,11 @@ class WooCommerce_Product_Search_Filter_Reset {
 		);
 
 		WooCommerce_Product_Search_Filter::filter_added();
+
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
 
 		self::$instances++;
 

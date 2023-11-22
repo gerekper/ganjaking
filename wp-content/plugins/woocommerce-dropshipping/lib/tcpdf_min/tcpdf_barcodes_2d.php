@@ -191,7 +191,6 @@ class TCPDF2DBarcode {
 		header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
 		// header('Content-Length: '.strlen($data));
 		echo $data;
-
 	}
 
 	/**
@@ -268,14 +267,14 @@ class TCPDF2DBarcode {
 		$qrtype = strtoupper( $mode[0] );
 		switch ( $qrtype ) {
 			case 'DATAMATRIX': { // DATAMATRIX (ISO/IEC 16022)
-				require_once( dirname( __FILE__ ) . '/include/barcodes/datamatrix.php' );
+				require_once __DIR__ . '/include/barcodes/datamatrix.php';
 				$qrcode = new Datamatrix( $code );
 				$this->barcode_array = $qrcode->getBarcodeArray();
 				$this->barcode_array['code'] = $code;
 				break;
 			}
 			case 'PDF417': { // PDF417 (ISO/IEC 15438:2006)
-				require_once( dirname( __FILE__ ) . '/include/barcodes/pdf417.php' );
+				require_once __DIR__ . '/include/barcodes/pdf417.php';
 				if ( ! isset( $mode[1] ) or ( $mode[1] === '' ) ) {
 					$aspectratio = 2; // default aspect ratio (width / height)
 				} else {
@@ -306,7 +305,7 @@ class TCPDF2DBarcode {
 				break;
 			}
 			case 'QRCODE': { // QR-CODE
-				require_once( dirname( __FILE__ ) . '/include/barcodes/qrcode.php' );
+				require_once __DIR__ . '/include/barcodes/qrcode.php';
 				if ( ! isset( $mode[1] ) or ( ! in_array( $mode[1], array( 'L', 'M', 'Q', 'H' ) ) ) ) {
 					$mode[1] = 'L'; // Ddefault: Low error correction
 				}

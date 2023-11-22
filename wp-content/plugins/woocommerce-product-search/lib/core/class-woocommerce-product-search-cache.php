@@ -27,6 +27,8 @@ if ( !function_exists( 'wps_cache_get' ) ) {
 	/**
 	 * Get from cache.
 	 *
+	 * @deprecated
+	 *
 	 * @param string $key
 	 * @param string $group
 	 * @param boolean $force
@@ -43,6 +45,8 @@ if ( !function_exists( 'wps_cache_set' ) ) {
 	/**
 	 * Store in cache.
 	 *
+	 * @deprecated
+	 *
 	 * @param string $key
 	 * @param mixed $data
 	 * @param string $group
@@ -55,10 +59,29 @@ if ( !function_exists( 'wps_cache_set' ) ) {
 	}
 }
 
+if ( !function_exists( 'wps_cache_delete' ) ) {
+	/**
+	 * Delete from cache.
+	 *
+	 * @deprecated
+	 *
+	 * @param string $key
+	 * @param string $group
+	 *
+	 * @return boolean
+	 */
+	function wps_cache_delete( $key, $group = '' ) {
+
+		return WooCommerce_Product_Search_Cache::delete( $key, $group );
+	}
+}
+
 /**
  * Cache controller.
  *
  * Adds support for role and group-based caching.
+ *
+ * @deprecated
  */
 class WooCommerce_Product_Search_Cache {
 
@@ -88,6 +111,18 @@ class WooCommerce_Product_Search_Cache {
 	 */
 	public static function set( $key, $data, $group = '', $expire = 0 ) {
 		return wp_cache_set( $key, $data, self::get_group( $group ), $expire );
+	}
+
+	/**
+	 * Delete from cache.
+	 *
+	 * @param string $key
+	 * @param string $group
+	 *
+	 * @return boolean
+	 */
+	public static function delete( $key, $group = '' ) {
+		return wp_cache_delete( $key, self::get_group( $group ) );
 	}
 
 	/**

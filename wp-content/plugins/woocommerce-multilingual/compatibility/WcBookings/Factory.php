@@ -20,17 +20,19 @@ class Factory extends ComponentFactory implements IStandAloneAction {
 
 		if ( wcml_is_multi_currency_on() ) {
 			$hooks[] = new MulticurrencyHooks( getWooCommerceWpml() );
+			$hooks[] = new Prices();
 		}
 
 		if ( ! isStandAlone() ) {
 			$hooks[] = new \WCML_Bookings(
 				getSitePress(),
 				getWooCommerceWpml(),
-				self::getWooCommerce(),
 				self::getWpdb(),
 				self::getElementTranslationPackage(),
 				self::getPostTranslations()
 			);
+			$hooks[] = new Emails( getSitePress(), getWooCommerceWpml(), self::getWooCommerce() );
+			$hooks[] = new Templates\MyBookings();
 		}
 
 		if ( defined( 'WC_ACCOMMODATION_BOOKINGS_VERSION' ) && wcml_is_multi_currency_on() ) {

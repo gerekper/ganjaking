@@ -32,8 +32,6 @@ class WCML_WC_Admin_Duplicate_Product {
 	/**
 	 * @param int|\WC_Product $new_id
 	 * @param \WC_Product     $post
-	 *
-	 * @return array|null
 	 */
 	public function woocommerce_duplicate_product( $new_id, $post ) {
 		$duplicated_products = [];

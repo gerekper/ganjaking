@@ -177,6 +177,8 @@ class EVO_Error{
 				'160'=>'Required fields missing for deactivation, however locally deactivated.',
 				'161'=>'We could not deactivate from remote server. however subscription is deactivated locally.',
 				'162'=>'Successfully deactivated subscription for this site from our server.',
+				'163'=>'Incorrect purchase code format.',
+				'164'=>'Purchase code did not belong to one of your items.',
 			);
 			return $array[$code];
 		}

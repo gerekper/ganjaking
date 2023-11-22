@@ -51,6 +51,7 @@ class PAFE_Multi_Step extends \Elementor\Widget_Base {
 		add_action( 'elementor/element/section/section_layout/after_section_end', [ $this, 'pafe_register_controls' ], 10, 2 );
 		add_action( 'elementor/element/container/section_layout_container/after_section_end', [ $this, 'pafe_register_controls' ], 10, 2 );
 		add_action( 'elementor/frontend/section/before_render', [ $this, 'before_render_section'], 10, 1 );
+        add_action( 'elementor/frontend/container/before_render', [ $this, 'before_render_section'], 10, 1 );
 	}
 
 }

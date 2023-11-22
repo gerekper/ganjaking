@@ -1,6 +1,6 @@
 /**
  * EventON wp-admin all styles
- * @version 4.4.3
+ * @version 4.5.2
  */
 
 :root{
@@ -37,28 +37,9 @@
 		color: #F9CA8D;
 	}
 
-	.evors .ajde_yn_btn, .evors .ajde_yn_btn{position: absolute;	}
-	.evors .yesno_leg_line label,.evotx .yesno_leg_line label{
-		padding-left: 50px;
- 		line-height: 1.8;}
- 	.yesno_leg_line span.ajde_yn_btn {position: absolute;}
  	.evomb_body .ajdeToolTip{opacity: 0.9;}
  	.ajde_icons.fa em{z-index: 1;}
- 	.inline-edit-col .yesno_row .ajde_yn_btn{margin-top: 5px;}
  	/*.yesno_row {display: inline-block;}*/
-
- 	.evoloading:before{
- 		content: "";
-	    background: url(../../images/evo-loader.gif) rgba(245, 245, 245, 0.71) center center no-repeat;
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    z-index: 50;
-	    display: block;
- 	}
- 	.evoloading{position: relative;}
 
  	body.post-type-ajde_events table .evoevent_item .row-actions{display: none;}
  	body.post-type-ajde_events table .evoevent_item .evo_row_actions.row-actions{display: block;}
@@ -128,12 +109,6 @@
 		-o-transition: all .2s ease;
 		transition: all .2s ease;
 	}
-	.evo_loader{
-		background: url(../../images/evo-loader.gif) center center no-repeat;
-		min-height: 100px; min-width: 100px;
-		opacity: 0.4
-	}
-
 /* Button Styles */
 	.ajde_popup .evo_btn,
 	.evo_select_tax .evo_btn, .evomb_section .evo_btn,
@@ -217,10 +192,56 @@
 		.evo_admin_btn.btn_tritiary{background-color:#487e8a;color:#fff;}
 		.evo_admin_btn.btn_tritiary:hover{background-color:#3a717d;}
 
+		.evo_admin_link_btn{}
+		.evo_admin_link_btn:before{
+			margin-right: 5px;
+			font-family: 'evo_FontAwesomeS','evo_FontAwesome','evo_FontAwesomeB';
+    		font-weight: 400;
+			content:"\f138";
+		}
+
 /* color schemes for backend */
 	.evcal_db_uis .evcal_db_ui.selected{background-color: #52b4e4; }
 	.wp-media-buttons .evo_admin_btn.btn_prime{margin-right: 5px;}
+	
+/* loading animation */
+	@keyframes lds-ring {to {	transform: rotate(360deg); }	}
+	.evolb_content.loading, .ajde_popup_text.loading, .ajde_popup_text .evo_lightbox_loading, 
+	.evoloading, .evo_loader{
+		position: relative;
+		min-height: 120px
+	}
 
+	.evolb_content.loading:before,.ajde_popup_text.loading:before, 
+	.ajde_popup_text .evo_lightbox_loading:before, .evoloading:before, .evo_loader:before{
+		content: "";
+  		box-sizing: border-box;
+	  	display: block;
+	  	position: absolute;
+	  	width: 50px;
+	  	height: 50px;
+	  	margin: 8px;	  	
+	  	border-radius: 50%;
+	  	animation: lds-ring 0.7s linear infinite;
+	  	border-top: 8px solid var(--evo_color_prime);
+  		border-right: 8px solid transparent;
+	  	left:calc( 50% - 32px);
+	  	top:calc(50% - 50px);
+	  	z-index: 3;
+	}
+	.evolb_content.loading:after,.ajde_popup_text.loading:after, 
+	.ajde_popup_text .evo_lightbox_loading:after, .evoloading:after, .evo_loader:after{
+		content: "";
+	    position: absolute;
+	    background-color: #ffffff8c;
+	    height: 100%;
+	    width: 100%;
+	    top: 0;
+	    z-index: 2;
+	    box-sizing: border-box;
+	    left: 0;
+	    backdrop-filter: blur(2px);
+	}
 
 /* lightbox window */
 	body.evo_overflow{overflow: hidden;}
@@ -295,32 +316,17 @@
 	.ajde_popup .ajdeYN_row label, .evolb_box .ajdeYN_row label, 
 	.ajde_popup label.pea, .evolb_box label.pea
 	{pointer-events:all;}
-	.evolb_content.loading, .ajde_popup_text.loading, .ajde_popup_text .evo_lightbox_loading{
-		opacity: 0.4;
-		position: relative;
-		min-height: 120px
-	}
-	.evolb_content.loading:before,.ajde_popup_text.loading:before, .ajde_popup_text .evo_lightbox_loading:before{
-		content: "";
-  		background: url(../../images/evo-loader.gif) center center no-repeat;
-  		position: absolute;
-  		top: 0;
-  		left: 0;
-  		width: 100%;
-  		height: 100%;
-  		z-index: 50;
-  		display: block;
-	}
+
 	
 	.evolb_content p.loading, .ajde_popup .ajde_popup_text p.loading{text-align: center;padding: 20px;}
 	.evolb_box.padd .evolb_content, .ajde_popup.padd .ajde_popup_text{	padding:5px 25px;}
 	.evolb_close_btn, .ajde_close_pop_btn, .ajde_backbtn, .ajde_close_btn{
 		cursor:pointer;
-		color:#777676;
+		color:var(--evo_color_1);
 		position:absolute;
 		top:20px;right:20px;
 		font-size:14px;
-		border:1px solid #777676;
+		border:1px solid var(--evo_color_1);
 		border-radius:50%;
 		font-family:var(--evo_main_font);
 		height: 25px;
@@ -332,7 +338,7 @@
 		box-sizing: border-box;
 	}
 	.evolb_close_btn:hover, .ajde_close_pop_btn:hover, .ajde_backbtn:hover, .ajde_close_btn:hover{
-		background-color: #fff; color: #999999;opacity: 1;
+		background-color: #fff; color: var(--evo_color_1);opacity: 1;
 	}	
 	.evolb_close_btn.dark, .ajde_close_btn.dark{color:#565656; border-color: #565656}
 	
@@ -361,7 +367,9 @@
 	}
 	.padded .evolb_content, .padded .ajde_popup_text{padding:15px}
 	
-	.evolb_content p, .ajde_popup_text p{	font:14px var(--evo_main_font); margin: 0; padding-bottom:15px;}
+	.evolb_content p, .ajde_popup_text p{	
+		word-wrap: break-word;
+		font:14px var(--evo_main_font); margin: 0; padding-bottom:15px;}
 	.evolb_content h2, .ajde_popup .ajde_popup_text h2{
 		font:18px var(--evo_main_font);
 		margin:0 0 5px 0
@@ -448,6 +456,65 @@
 	.ajde_popup_text .evo_tax_entry .select2.select2-container, .evolb_content .evo_tax_entry .select2.select2-container{width:100%!important;}
 	.ajde_popup_text .evo_tax_entry select[name="event_tax_termid"], .evolb_content .evo_tax_entry select[name="event_tax_termid"]{width: 100%;}
 
+/* side panel */
+	.evo_sp{		
+	    height: 100%;
+	    top: 0;
+	    width: 300px;
+	    padding: 0px;	    
+	    position: fixed;
+	    z-index: 99999;
+	    opacity: 0;
+	    transition: 100ms cubic-bezier(0.7, 0.17, 0.5, 0.95);
+	    right: -300px;
+	    box-sizing: border-box;
+	}
+	.evo_sp.show{
+		right: 0;
+    	opacity: 1;
+	}
+	.evosp_in{
+		-webkit-box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
+	    box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
+	    background-color: #fff;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.evosp_in .evosp_close{
+		cursor: pointer;
+	    color: var(--evo_color_1);
+	    position: absolute;
+	    top: 15px;
+	    right: 15px;
+	    font-size: 14px;
+	    border: 1px solid var(--evo_color_1);
+	    border-radius: 50%;
+	    font-family: var(--evo_main_font);
+	    height: 25px;
+	    width: 25px;
+	    text-align: center;
+	    /* padding-top: 5px; */
+	    opacity: 0.5;
+	    z-index: 99;
+	    box-sizing: border-box;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    line-height: 1;
+	}
+	.evosp_in .evosp_close:hover{opacity: 1}
+	.evosp_in .evosp_head{
+		font-size: 16px; font-weight: bold;border-bottom: 1px solid #ebebeb;
+	}
+	.evosp_in .evosp_body{
+		position: relative;
+		flex:1;box-sizing: border-box;min-height: calc(100% - 400px);
+	    overflow-y: auto;overflow-x: hidden;
+	}
+	.evosp_in .evosp_head, .evosp_in .evosp_foot{padding: 20px;}
+	.evosp_in .evosp_foot{}
+
 /* loading bars */
 	@keyframes evo_loading_bars_amin {
 	  	0% {}
@@ -458,6 +525,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 300px; padding:20px;
+		box-sizing: border-box;
 	}
 	body .evo_loading_bar{
 		position: relative;  overflow: hidden;flex:1; margin-bottom: 10px;
@@ -470,7 +538,8 @@
 	.evo_loading_bar.wid_40{width: 40%}
 	.evo_loading_bar.wid_30{width: 30%}
 	.evo_loading_bar.wid_25{width: 25%}
-	.evo_loading_bar.hi_50{ height: 30px;flex: 0 1 50px;}
+	.evo_loading_bar.hi_100{ height: 100px;flex: 0 1 100px;}
+	.evo_loading_bar.hi_50{ height: 50px;flex: 0 1 50px;}
 	.evo_loading_bar.hi_30{ height: 30px;flex: 0 1 30px;}
 	.evo_loading_bar:before{
 		content:"";
@@ -914,7 +983,7 @@
 	
 
 /*	ADDONS and license */	
-	.evo_addons_page{	padding: 10px;}
+	.evo_addons_page{	padding: 20px;}
 	.evo_addons_page .addon.activated >*, .evo_addons_page .activated .links a{	color: #fff;}
 	.evo_addons_page .addon >*, .evo_addons_page .links a{	color: var(--evo_color_1);}
 	.evo_addons_page .addon, .evo_auto_update_subscription .inside_content{
@@ -954,7 +1023,6 @@
 	.evo_addons_page .addon.main.activated{background-color: var(--evo_color_prime);}
 	.evo_addons_page .addon.justactivate{background-color: #B2DCEC;}
 	.evo_addons_page .addon.activated.hasupdate{background-color: #a5e29a;}
-	.evo_addons_page .addon:hover{opacity: 0.8;}
 	.evo_addons_page .addon .evo_admin_addons_newup_bar{
 		padding: 3px;
 	    display: block;

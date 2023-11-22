@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 2.2.1
+ * @version 2.4.0
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -41,8 +41,12 @@
 			$post_classes .= ' sticky';
 		}
 
-		$format = apply_filters( 'wppm_ticker_list_output', '<span><a href="%1$s" title="%2$s">%2$s</a></span>' );
-		$out .= sprintf ( $format, $permalink, $title );
+		$format = apply_filters( 'wppm_ticker_list_output', '<span><a href="%1$s" title="%2$s"%3$s>%2$s</a></span>' );
+		$out .= sprintf ( $format,
+			$permalink,
+			$title,
+			$new_tab ? ' target="_blank"' : ''
+		);
 
 	endwhile;
 	$out .= '</div></div>';

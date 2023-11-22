@@ -707,22 +707,19 @@ function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $varia
 
 			$prft_dolr_val = $options['profit_doller_value'];
 		}
-	} else {
-
-		if ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
+	} elseif ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
 
 			$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 			$allElements = explode( '~', $textAreaValue );
 
-			foreach ( $allElements as $row ) {
+		foreach ( $allElements as $row ) {
 
-				  $allTds = explode( '_', $row );
-				if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
+			  $allTds = explode( '_', $row );
+			if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
 
-					$prft_prcnt_val = $allTds[2];
-					$prft_dolr_val = $allTds[3];
-					break;
-				}
+				$prft_prcnt_val = $allTds[2];
+				$prft_dolr_val = $allTds[3];
+				break;
 			}
 		}
 	}
@@ -743,7 +740,7 @@ function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $varia
 
 		// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 		$profit_prcnt = 0;
-	if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+	if ( is_numeric( $prft_prcnt_val ) && is_numeric( $costofproduct ) ) {
 		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 	}
 
@@ -801,23 +798,20 @@ function echo_product_id_sku_general_tab() {
 
 					$prft_dolr_val = $options['profit_doller_value'];
 				}
-			} else {
-
-				if ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
+			} elseif ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
 
 					$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 					$allElements = explode( '~', $textAreaValue );
 
-					foreach ( $allElements as $row ) {
+				foreach ( $allElements as $row ) {
 
-						 $allTds = explode( '_', $row );
+					 $allTds = explode( '_', $row );
 
-						if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
+					if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
 
-							$prft_prcnt_val = $allTds[2];
-							$prft_dolr_val = $allTds[3];
-							break;
-						}
+						$prft_prcnt_val = $allTds[2];
+						$prft_dolr_val = $allTds[3];
+						break;
 					}
 				}
 			}
@@ -837,7 +831,7 @@ function echo_product_id_sku_general_tab() {
 
 			// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 			$profit_prcnt = 0;
-			if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+			if ( is_numeric( $prft_prcnt_val ) && is_numeric( $costofproduct ) ) {
 				$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 			}
 
@@ -921,23 +915,20 @@ function woo_product_custom_fields_for_profitcal() {
 
 				$fee_dolr_val = $options['fee_doller_value'];
 			}
-		} else {
-
-			if ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
+		} elseif ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
 
 				$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 				$allElements = explode( '~', $textAreaValue );
 
-				foreach ( $allElements as $row ) {
+			foreach ( $allElements as $row ) {
 
-					  $allTds = explode( '_', $row );
+				  $allTds = explode( '_', $row );
 
-					if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
+				if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
 
-						$prft_prcnt_val = $allTds[2];
-						$prft_dolr_val = $allTds[3];
-						break;
-					}
+					$prft_prcnt_val = $allTds[2];
+					$prft_dolr_val = $allTds[3];
+					break;
 				}
 			}
 		}
@@ -957,7 +948,7 @@ function woo_product_custom_fields_for_profitcal() {
 
 		// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 		$profit_prcnt = 0;
-		if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+		if ( is_numeric( $prft_prcnt_val ) && is_numeric( $costofproduct ) ) {
 			$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 		}
 
@@ -1028,22 +1019,20 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 
 						$prft_dolr_val = $options['profit_doller_value'];
 					}
-				} else {
-					if ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
+				} elseif ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
 
 						$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 						$allElements = explode( '~', $textAreaValue );
 
-						foreach ( $allElements as $row ) {
+					foreach ( $allElements as $row ) {
 
-							  $allTds = explode( '_', $row );
+						  $allTds = explode( '_', $row );
 
-							if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
+						if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
 
-								$prft_prcnt_val = $allTds[2];
-								$prft_dolr_val = $allTds[3];
-								break;
-							}
+							$prft_prcnt_val = $allTds[2];
+							$prft_dolr_val = $allTds[3];
+							break;
 						}
 					}
 				}
@@ -1063,7 +1052,7 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 
 				// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 				$profit_prcnt = 0;
-				if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+				if ( is_numeric( $prft_prcnt_val ) && is_numeric( $costofproduct ) ) {
 					$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 				}
 				$estimated_profit = $profit_prcnt + $prft_dolr_val;
@@ -1130,23 +1119,20 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 
 					$prft_dolr_val = $options['profit_doller_value'];
 				}
-			} else {
-
-				if ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
+			} elseif ( ! empty( @$options['profit_margin_hidden_textarea'] ) ) {
 
 					$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 					$allElements = explode( '~', $textAreaValue );
 
-					foreach ( $allElements as $row ) {
+				foreach ( $allElements as $row ) {
 
-						$allTds = explode( '_', $row );
+					$allTds = explode( '_', $row );
 
-						if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
+					if ( 'null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >= $allTds[0] && $costofproduct <= $allTds[1] ) {
 
-							$prft_prcnt_val = $allTds[2];
-							$prft_dolr_val = $allTds[3];
-							break;
-						}
+						$prft_prcnt_val = $allTds[2];
+						$prft_dolr_val = $allTds[3];
+						break;
 					}
 				}
 			}
@@ -1166,7 +1152,7 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 
 			// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 			$profit_prcnt = 0;
-			if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+			if ( is_numeric( $prft_prcnt_val ) && is_numeric( $costofproduct ) ) {
 				$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
 			}
 			$estimated_profit = $profit_prcnt + $prft_dolr_val;

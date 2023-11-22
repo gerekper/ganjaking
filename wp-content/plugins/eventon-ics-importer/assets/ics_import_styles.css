@@ -40,7 +40,10 @@
 	  	background-color: #7DCFFF;
 	  	left: 6px;
 	  	top: 0px;
-	 }
+	  	border-radius: 0;
+	    opacity: 1;
+	    margin-top: 0;
+	}
 
 	#evoics_events span.bar{
 		margin-top: 10px;
@@ -49,7 +52,7 @@
 	    display: block;
 	    height: 5px;
 	    width: 20px;
-	    margin: 5px auto;
+	    margin: 5px;
 	}
 	#evoics_events span.status.as:after,
 	#evoics_events span.status.as:before, 
@@ -74,7 +77,7 @@
 	#evoics_events span.status.ns:before, 
 	#evoics_events span.status.ss:after,
 	#evoics_events span.status.ss:before{
-		background-color: #DFA872;
+		background-color: var(--evo_color_prime);
 	}
 
 	#evoics_events span.status{cursor: pointer;}
@@ -82,47 +85,66 @@
 	#evoics_2 .inside{ padding: 10px 25px;}
 	#evoics_2 .inside .evoics_data_section{padding: 0 0 20px;}
 	.evoics_guidelines_section{
-		background-color: #f7f7f7;
-	    margin: 0 -25px -20px;
+		background-color: #71c9ff;
 	    padding: 10px 25px 20px;
-	    border-top:1px solid #e0e0e0;
+	    margin-top: 20px;
+    	border-radius: 15px;
 	}
 	#evoics_events .column-start_date_time span, #evoics_events .column-end_date_time span{display:block;}
-	#evoics_events .column-description .desc_box{position: relative;}
-	#evoics_events .column-description .desc_box:hover .desc_text{
-		opacity: 1;
-	    visibility: visible;
-	    -webkit-transform: translateY(0);
-	    transform: translateY(0);
-	}
-	#evoics_events .column-description .desc_text{
-		position: absolute;    visibility: hidden;opacity: 0;
-	    background-color: #6B6B6B;
+	
+	#evoics_events i.addz{
+		background-color: #333;
 	    color: #fff;
-	    padding: 5px 10px; width: 200px; border-radius: 8px 8px 8px 0;
-	    left: 15px;bottom: 35px;
-	    -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
-	    transition: opacity 0.2s, transform 0.2s;
-	    -webkit-transform: translateY(-15px);
-	    transform: translateY(-15px);
-	    pointer-event: none;
-	    box-shadow: 0px 0px 20px -5px #00000085;
-	    -webkit-font-smoothing: subpixel-antialiased;
+	    font-size: 10px;
+	    padding: 2px 4px;
+	    border-radius: 5px;
 	}
-	#evoics_events .column-description .desc_text:before{
-		content: "";
-	    width: 0px;
-	    height: 0px;
-	    border-style: solid;
-	    border-width: 9px 9px 0 0;
-	    border-color: #6B6B6B transparent transparent transparent;
-	    position: absolute;
-	    bottom: -9px;
-	    left: 0px;
-	}
+	
 
+	/* description tooltip */
+	#evoics_events .tt_data{position: relative;}
+	
+
+/* general */
+	.evoics_sel_desel_trig{
+		border: 2px solid var(--evo_color_1);
+	    padding: 2px 4px;
+	    border-radius: 5px;cursor: pointer;
+	}
+	.evoics_ics_file_holder{
+		background-color: var(--evo_color_prime);padding: 10px 15px;border-radius: 12px; display: block;
+	}
+	.evoics_ics_file_holder input{
+		    background-color: transparent;
+	    border: none;
+	    color: #fff;
+	    box-shadow: none; position: relative;
+	}
+	.evoics_ics_file_holder input::file-selector-button{
+		border-radius: 10px;
+	  padding: 0 16px;
+	  height: 40px;
+	  cursor: pointer;
+	  background-color: white;
+	  border: 1px solid rgba(0, 0, 0, 0.16);
+	  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+	  margin-right: 16px;
+	  transition: background-color 200ms;
+	  color:transparent;
+	}
+	.evoics_ics_file_holder input::after{
+		position: absolute;
+		  pointer-events: none;
+		  top: 14px;left:14px;
+		  color: #0964b0;
+		  content: "Upload File";
+	}
+	.evoics_ics_file_holder input::file-selector-button:hover{
+		background-color: #f3f4f6;
+	}
 
 /* import progress */
+
 	#evoics_import_progress p.bar{
 		width: 100%;
 		border-radius: 20px; overflow: hidden;

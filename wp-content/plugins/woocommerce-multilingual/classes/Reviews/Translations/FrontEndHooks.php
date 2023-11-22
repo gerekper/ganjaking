@@ -15,7 +15,7 @@ class FrontEndHooks implements IWPML_Action {
 		/**
 		 * Allows disabling product reviews translation.
 		 *
-		 * @param bool Whether translation of product reviews should be enabled
+		 * @param bool $true
 		 */
 		if ( apply_filters( 'wcml_enable_product_review_translation', true ) ) {
 			add_action( 'wp_insert_comment', [ $this, 'insertCommentAction' ], 10, 2 );

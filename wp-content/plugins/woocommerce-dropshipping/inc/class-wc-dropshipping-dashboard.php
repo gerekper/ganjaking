@@ -25,7 +25,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 		public function __construct() {
 
 			$this->init();
-
 		}
 
 		public function init() {
@@ -74,7 +73,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 		   endif;
 
 			wp_die(); // this is required to terminate immediately and return a proper response
-
 		}
 
 		public function custom_dashboard_style() {
@@ -86,7 +84,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			wp_register_style( 'add_custom_dashboard_style', plugins_url() . '/' . $base_name[0] . '/assets/css/dashboard.css', array(), '1.0.0' );
 
 			wp_register_script( 'add_custom_dashboard_script', plugins_url() . '/' . $base_name[0] . '/assets/js/dashboard.js', array(), '1.0.0' );
-
 		}
 
 		public function get_daily_purchases_total() {
@@ -563,7 +560,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			}
 
 				return $order_with_supp;
-
 		}
 
 		private function get_all_prod_args() {
@@ -581,7 +577,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			);
 
 			return $args;
-
 		}
 
 
@@ -625,7 +620,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			);
 
 			return $args;
-
 		}
 
 
@@ -660,7 +654,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			);
 
 			return $args;
-
 		}
 
 
@@ -675,7 +668,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			);
 
 			return $args;
-
 		}
 
 
@@ -689,7 +681,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			);
 
 			return $args;
-
 		}
 
 
@@ -701,7 +692,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 				return get_woocommerce_currency_symbol();
 
 			}
-
 		}
 
 
@@ -711,7 +701,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$product_ids = get_posts( $this->get_prod_args_with_supplier() );
 
 			return $product_ids;
-
 		}
 
 
@@ -721,7 +710,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$products = new WP_Query( $this->get_prod_args_with_supplier() );
 
 			return $products->found_posts;
-
 		}
 
 		public function count_untracked_prod_listings() {
@@ -729,7 +717,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$products = new WP_Query( $this->get_prod_args_without_supplier() );
 
 			return $products->found_posts;
-
 		}
 
 
@@ -752,7 +739,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 				}
 			}
 			return $count;
-
 		}
 
 
@@ -826,7 +812,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$count_orders = count( $order_with_supp );
 
 			return array( $count_orders, $projected_profit, $order_with_supp );
-
 		}
 
 
@@ -836,7 +821,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$currency = $this->get_current_currency();
 
 			return $currency;
-
 		}
 
 
@@ -873,7 +857,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$count_orders = count( array_unique( $order_with_supp ) );
 
 			return array( $count_orders, $total_sales );
-
 		}
 
 
@@ -887,7 +870,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$orders = wc_get_orders( $args );
 
 			return $orders;
-
 		}
 
 
@@ -901,7 +883,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$orders = wc_get_orders( $args );
 
 			return count( $orders );
-
 		}
 
 
@@ -941,7 +922,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			}
 
 			return count( $order_with_supp );
-
 		}
 
 
@@ -955,7 +935,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$orders = wc_get_orders( $args );
 
 			return count( $orders );
-
 		}
 
 
@@ -994,7 +973,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			arsort( $prod_orders_count );
 
 			return $prod_orders_count;
-
 		}
 
 
@@ -1048,7 +1026,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			array_multisort( $prod_orders_stocks_count );
 
 			return $prod_orders_stocks_count;
-
 		}
 
 
@@ -1073,7 +1050,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$count_orders = count( array_unique( $order_with_aff ) );
 
 			return $count_orders;
-
 		}
 
 
@@ -1158,7 +1134,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$new_current_month = date( 'm' );
 
-				$date_paid = opmc_hpos_get_post_meta( $order_id, '_date_paid' );
+				$date_paid = get_post_meta( $order_id, '_date_paid', true );
 
 				$date_paid = intval( $date_paid );
 
@@ -1273,7 +1249,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$order_per_day_total['profit'] = $profit;
 
 			return $order_per_day_total;
-
 		}
 
 		public function get_daily_total_sales() {
@@ -1361,7 +1336,6 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$order_per_day_total['profit'] = $profit;
 
 			return $order_per_day_total;
-
 		}
 
 		public function get_products_draft_count() {
@@ -1390,10 +1364,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 				wp_reset_postdata();
 			endif;
 			return count( $ali_draft_id );
-
 		}
-
-
 	}
 
 endif;

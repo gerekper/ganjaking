@@ -242,27 +242,21 @@ class WCML_Synchronize_Variations_Data {
 			 *
 			 * @since 5.2.0
 			 *
-			 * @param WP_Taxonomy[] $taxonomiesToSync
-			 * @param int|string    $original_variation_id
-			 * @param int|string    $tr_variation_id
-			 * @param string        $lang
+			 * @param string[]   $taxonomiesToSync
+			 * @param int|string $original_variation_id
+			 * @param int|string $tr_variation_id
+			 * @param string     $lang
 			 */
 			$all_taxs = apply_filters( 'wcml_product_variations_taxonomies_to_sync', get_object_taxonomies( 'product_variation' ), $original_variation_id, $tr_variation_id, $lang );
 
 			if ( ! empty( $all_taxs ) ) {
-				foreach ( $all_taxs as $tt ) {
-					if ( isset( $tt->name ) ) {
-						$name = $tt->name;
-					} else {
-						$name = $tt;
-					}
-
+				foreach ( $all_taxs as $name ) {
 					$terms    = get_the_terms( $original_variation_id, $name );
 					$tax_sync = [];
 
 					if ( ! empty( $terms ) ) {
 						foreach ( $terms as $term ) {
-							if ( $this->sitepress->is_translated_taxonomy( $tt ) ) {
+							if ( $this->sitepress->is_translated_taxonomy( $name ) ) {
 								$term_id = apply_filters( 'translate_object_id', $term->term_id, $name, false, $lang );
 							} else {
 								$term_id = $term->term_id;

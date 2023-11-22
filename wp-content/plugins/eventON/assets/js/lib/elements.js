@@ -4,6 +4,8 @@
  */
 jQuery(document).ready(function($){
 
+const BB = $('body');
+
 // process element interactivity on demand
 	$.fn.evo_process_element_interactivity = function(O){
 		setup_colorpicker();
@@ -87,8 +89,21 @@ jQuery(document).ready(function($){
 
 		$('body').trigger('evo_yesno_changed',[newval, obj, afterstatement]);
 	});
+
+	// @since 4.5.2
+	$.fn.evo_elm_change_yn_btn = function(val){
+		el = this;
+		el.val( val );
+		if( val == 'no'){
+			el.siblings('.evo_elm').addClass('NO');
+		}else{
+			el.siblings('.evo_elm').removeClass('NO');
+		}
+	}
+	
+
 // yes no button afterstatement hook
-	$('body').on('evo_yesno_changed', function(event, newval, obj, afterstatement){
+	BB.on('evo_yesno_changed', function(event, newval, obj, afterstatement){
 
 		if(afterstatement === undefined) return;
 		
@@ -103,79 +118,95 @@ jQuery(document).ready(function($){
 	// move the sidepanel to body
 		var SP = $('.evo_sidepanel');
 		$('.evo_sidepanel').remove();
-		$('body').append(SP);
-
+		BB.append(SP);
 
 
 // ICON font awesome selector	
-	// move the icon selector to body
-		var FA = $('.ajde_fa_icons_selector');
-		$('.ajde_fa_icons_selector').remove();
-		$('body').append(FA);
-
-		const FAS = $('body').find('.ajde_fa_icons_selector');
+	// move icon selector data to body end
+		const FAA = $('#evo_icons_data');
+		$('#evo_icons_data').remove();
+		BB.append(FAA);
 
 
-	var fa_icon_selection = '';
+	// run icon selector interactive features
+	BB.on('click','.evo_icons', function(){
 
-	// click on icon trigger box
-	$('body').on('click','.evo_icons', function(){
-		
-		FAS.addClass('show');
+		const el = $(this);
+		el.addClass('onfocus');
+		el.evo_open_sidepanel({
+			'uid':'evo_open_icon_edit',
+			'sp_title':'Edit Icons',
+			'content_id': 'evo_icons_data',
+			'other_data': el.data('val')
+		});
 
-		FAS.find('li').removeClass('selected');
-		const selected_icon = FAS.find('li[data-v="'+ $(this).data('val') +'"]');
-		selected_icon.addClass('selected');		
-
-		$('body').find('.evo_icons').removeClass('focused');
-		$(this).addClass('focused');
-
-		fa_icon_selection = $(this);
+		return;
+	})
+	.on('evo_sp_opened_evo_open_icon_edit',function(event, OO){
+		BB.evo_run_icon_selector({icon_val : OO.other_data} );
 	});
-	
 
-	//Select NEW font icon
-		FAS.on('click','li', function(){
-			
+
+	$.fn.evo_run_icon_selector = function(options){
+		const SP = BB.find('.evo_sp');
+		var settings = $.extend({
+            icon_val: "",
+        }, options );
+
+		var el = SP;
+		var icon_on_focus = '';
+
+		el.off('keyup','.evo_icon_search').off('search','.evo_icon_search');;
+
+		var init = function(){
+			scrollto_icon();
+			icon_on_focus = BB.find('.evo_icons.onfocus.'+ settings.icon_val);
+
+			// move search to header
+			el.find('.evo_icon_search_bar').appendTo( el.find('.evosp_head') );
+		}
+
+		var scrollto_icon = function(){
+			const icon_in_list = el.find('li[data-v="' +settings.icon_val+ '"]');
+				icon_in_list.addClass('selected');
+			$('#evops_content').scrollTop( icon_in_list.position().top -100);
+		}
+
+		// select an icon
+		el.on('click','li',function(){
+			icon_on_focus = BB.find('.evo_icons.onfocus.'+ settings.icon_val);
 			var icon = $(this).find('i').data('name');
 
-			FAS.find('li').removeClass('selected');
-			FAS.find('li[data-v="'+ icon +'"]').addClass('selected');
+			el.find('li').removeClass('selected');
+			el.find('li[data-v="'+ icon +'"]').addClass('selected');
 
 			var extra_classes = '';
-			if( fa_icon_selection.hasClass('so')) extra_classes += ' so';
+			if( icon_on_focus.hasClass('so')) extra_classes += ' so';
 
-			fa_icon_selection
+			//console.log(icon);
+
+			icon_on_focus
 				.attr({'class':'evo_icons ajde_icons default fa '+icon + extra_classes })
-				.data('val', icon);
-			fa_icon_selection.siblings('input').val(icon);
+				.data('val', icon)
+				.removeClass('onfocus');
+			icon_on_focus.siblings('input').val(icon);
 
-			$('.ajde_fa_icons_selector').removeClass('show');
+			el.off('click','li');
+			el.evo_close_sidepanel();
 		});
 
-	// remove icon
-		$('body').on('click','i.evo_icons em', function(){
-			$(this).parent().attr({'class':'evo_icons ajde_icons default'}).data('val','');
-			$(this).parent().siblings('input').val('');
+		// search icon
+		el.on('search','.evo_icon_search',function(){
+			el.find('li').show();
+			scrollto_icon();
 		});
-	
-	// close with click outside popup box when pop is shown	
-		$(document).mouseup(function (e){
-			var container=$('.ajde_fa_icons_selector');
-			
-			if (!container.is(e.target) // if the target of the click isn't the container...
-			&& container.has(e.target).length === 0) // ... nor a descendant of the container
-			{
-				$('.ajde_fa_icons_selector').removeClass('show');
-			}		
-		});
-
-	// search icon
-		$('body').on('keyup', '.evo_icon_search',function(event){
+		el.on('keyup', '.evo_icon_search',function(event){
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			var typed_val = $(this).val().toLowerCase();
+
+			console.log('e');
 			
-			$(this).closest('.ajde_fa_icons_selector').find('li').each(function(){
+			el.find('li').each(function(){
 				const nn = $(this).data('v');
 				const n = nn.substr(3);
 
@@ -188,8 +219,20 @@ jQuery(document).ready(function($){
 						$(this).hide();
 					}
 				}				
-			});		
+			});	
 		});
+
+		init();
+	}
+
+	// remove icon
+		$('body').on('click','i.evo_icons em', function(){
+			$(this).parent().attr({'class':'evo_icons ajde_icons default'}).data('val','');
+			$(this).parent().siblings('input').val('');
+		});
+	
+
+		
 	
 
 // select2 dropdown field - 4.0.3

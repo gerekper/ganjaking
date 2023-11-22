@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use stdClass;
 
 defined( 'ABSPATH' ) or exit;

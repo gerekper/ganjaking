@@ -241,6 +241,17 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 						$options['hide_contact_info_Suppliers'] = '0';
 					}
+
+					// Customer Phone Number to Supplier
+					if ( isset( $_POST['billing_phone'] ) ) {
+
+						$options['billing_phone'] = '1';
+					} else {
+
+						$options['billing_phone'] = '0';
+					}
+					// End Customer Phone Number to Supplier
+
 					// End hide contact_info_Suppliers
 
 					// store add_shipping_add
@@ -598,6 +609,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					$hide_contact_info_Suppliers = '';
 				}
 				// hide contact_info_Suppliers
+
+				// Customer Phone Number to Supplier
+				if ( isset( $options['billing_phone'] ) ) {
+
+					$billing_phone = $options['billing_phone'];
+				} else {
+
+					$billing_phone = '';
+				}
+				// End Customer Phone Number to Supplier
 
 				// store add_shipping_add
 				if ( isset( $options['store_add_shipping_add'] ) ) {
@@ -1107,6 +1128,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				}
 				// hide contact_info_Suppliers
 
+				// Customer Phone Number to Supplier
+				if ( $billing_phone == '1' || $billing_phone == '' ) {
+
+					$billing_phone = ' checked="checked" ';
+				} else {
+
+					$billing_phone = ' ';
+				}
+				// End Customer Phone Number to Supplier
+
 				// store add_shipping_add
 				if ( $store_add_shipping_add == '1' || $store_add_shipping_add == '' ) {
 
@@ -1191,14 +1222,6 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					$address_billing = ' ';
 
 					$billing_address_option = 'style="display:hide"';
-				}
-
-				if ( $billing_phone == '1' ) {
-
-					$phone_billing = ' checked="checked" ';
-				} else {
-
-					$phone_billing = ' ';
 				}
 
 				if ( $email_supplier == '1' ) {
@@ -1998,11 +2021,20 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 							// <table>
 							// <tr>
-							// <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
+							// <td><input name="customer_phone_billing" id="customer_phone_billing" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $customer_phone_billing . '  /></td>
 
-							// <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
+							// <td><label for="customer_phone_billing">Include the customer&apos;s phone number in the packing slip.</label></td>
 							// </tr>
 							// </table>';
+
+							echo '<p></p>
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" name="billing_phone" id="billing_phone" class="miscellaneous_packing_slip_options_checkbox_false"  value="1" tabIndex="1" onClick="ckChange(this)" ' . $billing_phone . '></td>
+
+                                    <td><label for="billing_phone">Include the customer&apos;s phone number in the packing slip.</label></td>
+                                </tr>
+                            </table>';
 
 							echo '<p></p>
 
@@ -2862,7 +2894,6 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				WC_Admin_Settings::output_fields( $settings );
 			}
-
 		}
 
 		$settings[] = new WC_DS_Settings();

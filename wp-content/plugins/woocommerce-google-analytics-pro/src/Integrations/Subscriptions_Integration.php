@@ -43,7 +43,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\Integrations\Subscriptions\Events\
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Integrations\Subscriptions\Events\Universal_Analytics\Subscription_Renewed;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Integrations\Subscriptions\Events\Universal_Analytics\Suspended_Subscription;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4\Reorder_Event;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

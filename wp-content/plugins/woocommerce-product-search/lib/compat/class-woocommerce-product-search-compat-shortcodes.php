@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Query_Control;
+
 if ( !defined( 'WPS_SHORTCODES_PRODUCTS_FILTER' ) ) {
 	define( 'WPS_SHORTCODES_PRODUCTS_FILTER', false );
 }
@@ -143,7 +145,10 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
 		$_REQUEST['post_type'] = 'product';
 
-		$post_ids = WooCommerce_Product_Search_Service::get_post_ids_for_request_filtered( array( 'variations' => true, 'log_query_times' => false ) );
+		$query_control = new Query_Control();
+		$params = $query_control->get_request_parameters();
+		$params['variations'] = true;
+		$post_ids = $query_control->get_ids( $params );
 
 		if ( $post_type !== null ) {
 			$_REQUEST['post_type'] = $post_type;
@@ -171,7 +176,7 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 				$query_args['post__in'] = $post_ids;
 			}
 
-			$query_args['nocache'] = microtime( true );
+			$query_args['nocache'] = function_exists( 'microtime' ) ? microtime( true ) : time();
 
 		}
 		return $query_args;

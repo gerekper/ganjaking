@@ -3,6 +3,7 @@
 namespace WCML\Compatibility\WcBookings;
 
 use WC_Product;
+use WCML_Bookings;
 
 class SharedHooks implements \IWPML_Action {
 
@@ -59,7 +60,7 @@ class SharedHooks implements \IWPML_Action {
 	}
 
 	public function clear_transient_fields() {
-		if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wc_booking' && isset( $_GET['page'] ) && $_GET['page'] == 'booking_calendar' ) {
+		if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == WCML_Bookings::POST_TYPE && isset( $_GET['page'] ) && $_GET['page'] == 'booking_calendar' ) {
 
 			// delete transient fields
 			$this->wpdb->query(

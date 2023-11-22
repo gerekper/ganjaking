@@ -16,3 +16,5 @@ function fadeInAjxResp(spot, msg, err){
 function fadeOutAjxResp(spot){
     jQuery(spot).fadeOut();
 }
+
+var icl_ajxloaderimg = '<img src="'+icl_ajxloaderimg_src+'" alt="loading" width="16" height="16" />';

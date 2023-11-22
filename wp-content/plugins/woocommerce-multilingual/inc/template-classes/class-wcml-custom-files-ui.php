@@ -30,7 +30,7 @@ class WCML_Custom_Files_UI extends WCML_Templates_Factory {
 		$model = [
 			'product_id'   => $this->product_id,
 			'is_variation' => $this->is_variation,
-			'nonce'        => wp_nonce_field( 'wcml_save_files_option', 'wcml_save_files_option_nonce' ),
+			'nonce'        => wp_nonce_field( 'wcml_save_files_option', 'wcml_save_files_option_nonce', true, false ),
 			'sync_custom'  => get_post_meta( $this->product_id, 'wcml_sync_files', true ),
 			'strings'      => [
 				'use_custom' => __( 'Use custom settings for translations download files', 'woocommerce-multilingual' ),

@@ -13,7 +13,7 @@ use Elementor\Controls_Manager;
 use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Color;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 
@@ -31,14 +31,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Hscroll extends Widget_Base {
 
 	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -58,7 +64,7 @@ class Premium_Hscroll extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Horizontal Scroll', 'premium-addons-pro' ) );
+		return __( 'Horizontal Scroll', 'premium-addons-pro' );
 	}
 
 	/**
@@ -96,6 +102,7 @@ class Premium_Hscroll extends Widget_Base {
 	public function get_style_depends() {
 		return array(
 			'premium-addons',
+			'premium-pro',
 		);
 	}
 
@@ -110,7 +117,7 @@ class Premium_Hscroll extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'pa-tweenmax',
-			'pa-gsap',
+			'pa-scrolltrigger',
 			'elementor-waypoints',
 			'papro-hscroll',
 		);
@@ -135,7 +142,7 @@ class Premium_Hscroll extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'slider', 'full', 'scene' );
+		return array( 'pa', 'premium', 'slider', 'full', 'scene' );
 	}
 
 	/**
@@ -155,7 +162,16 @@ class Premium_Hscroll extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$has_custom_breakpoints = \Elementor\Plugin::$instance->breakpoints->has_custom_breakpoints();
+
+		$extra_devices = ! $has_custom_breakpoints ? array() : array(
+			'widescreen'   => __( 'Widescreen', 'premium-addons-pro' ),
+			'laptop'       => __( 'Laptop', 'premium-addons-pro' ),
+			'tablet_extra' => __( 'Tablet Extra', 'premium-addons-pro' ),
+			'mobile_extra' => __( 'Mobile Extra', 'premium-addons-pro' ),
+		);
 
 		$this->start_controls_section(
 			'content_templates',
@@ -189,10 +205,38 @@ class Premium_Hscroll extends Widget_Base {
 		);
 
 		$temp_repeater->add_control(
+			'live_temp_content',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'template_type' => 'template',
+				),
+			)
+		);
+
+		$temp_repeater->add_control(
+			'section_template_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'template_type' => 'template',
+				),
+			)
+		);
+
+		$temp_repeater->add_control(
 			'section_template',
 			array(
-				'label'       => __( 'Elementor Template', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'multiple'    => false,
 				'label_block' => true,
@@ -254,10 +298,13 @@ class Premium_Hscroll extends Widget_Base {
 				'type'               => Controls_Manager::SELECT2,
 				'multiple'           => true,
 				'label_block'        => true,
-				'options'            => array(
-					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
-					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
+				'options'            => array_merge(
+					array(
+                        'desktop' => __( 'Desktop', 'premium-addons-pro' ),
+						'tablet' => __( 'Tablet', 'premium-addons-pro' ),
+						'mobile' => __( 'Mobile', 'premium-addons-pro' ),
+					),
+					$extra_devices
 				),
 				'render_type'        => 'template',
 				'frontend_available' => true,
@@ -267,11 +314,12 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_control(
 			'section_repeater',
 			array(
-				'label'         => __( 'Sections', 'premium-addons-pro' ),
-				'type'          => Controls_Manager::REPEATER,
-				'fields'        => $temp_repeater->get_controls(),
-				'title_field'   => '{{{ "template" === template_type ? section_template : section_id }}}',
-				'prevent_empty' => false,
+				'label'              => __( 'Sections', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::REPEATER,
+				'fields'             => $temp_repeater->get_controls(),
+				'title_field'        => '{{{ "template" === template_type ? section_template : section_id }}}',
+				'prevent_empty'      => false,
+				'frontend_available' => true,
 			)
 		);
 
@@ -287,6 +335,7 @@ class Premium_Hscroll extends Widget_Base {
 						'step' => 0.1,
 					),
 				),
+				'separator' => 'after',
 				'selectors' => array(
 					'{{WRAPPER}} .premium-hscroll-bg-layer' => 'transition-duration: {{SIZE}}s;',
 				),
@@ -294,39 +343,43 @@ class Premium_Hscroll extends Widget_Base {
 		);
 
 		$this->add_control(
-			'fixed_template',
+			'fixed_content_heading',
 			array(
-				'label'       => __( 'Fixed Content Template', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT2,
-				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
-				'separator'   => 'before',
-				'label_block' => true,
-				'multiple'    => false,
+				'label' => esc_html__( 'Fixed Content Template', 'premium-addons-pro' ),
+				'type'  => Controls_Manager::HEADING,
 			)
 		);
 
-		$this->add_responsive_control(
-			'fixed_content_voffset',
+		$this->add_control(
+			'live_temp_content_extra',
 			array(
-				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 600,
-					),
-					'em' => array(
-						'min' => 0,
-						'max' => 50,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-hscroll-fixed-content' => 'top: {{SIZE}}{{UNIT}}',
-				),
-				'condition'  => array(
-					'fixed_template!' => '',
-				),
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'fixed_template_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+			)
+		);
+
+		$this->add_control(
+			'fixed_template',
+			array(
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
+				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
+				'label_block' => true,
+				'multiple'    => false,
 			)
 		);
 
@@ -335,7 +388,7 @@ class Premium_Hscroll extends Widget_Base {
 			array(
 				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -349,8 +402,49 @@ class Premium_Hscroll extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-hscroll-fixed-content' => 'left: {{SIZE}}{{UNIT}}',
 				),
-				'condition'  => array(
-					'fixed_template!' => '',
+			)
+		);
+
+		$this->add_responsive_control(
+			'fixed_content_voffset',
+			array(
+				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 0,
+						'max' => 50,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-hscroll-fixed-content' => 'top: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'fixed_content_width',
+			array(
+				'label'      => __( 'Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 0,
+						'max' => 50,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-hscroll-fixed-content' => 'width: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -358,14 +452,11 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_control(
 			'fixed_content_zindex',
 			array(
-				'label'     => __( 'z-index', 'premium-addons-pro' ),
+				'label'     => __( 'Z-index', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => 1,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-hscroll-fixed-content' => 'z-index: {{VALUE}}',
-				),
-				'condition' => array(
-					'fixed_template!' => '',
 				),
 			)
 		);
@@ -382,73 +473,95 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_responsive_control(
 			'slides',
 			array(
-				'label'          => __( 'Number of Slides in Viewport', 'premium-addons-pro' ),
-				'type'           => Controls_Manager::SLIDER,
-				'description'    => __( 'Select the number of slides to appear in your browser viewport. For example, 1.5 means half of the next slide will appear on viewport', 'premium-addons-pro' ),
-				'range'          => array(
+				'label'              => __( 'Number of Slides in Viewport', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'description'        => __( 'Select the number of slides to appear in your browser viewport. For example, 1.5 means half of the next slide will appear on viewport', 'premium-addons-pro' ),
+				'range'              => array(
 					'px' => array(
 						'min'  => 1,
 						'step' => 0.1,
 					),
 				),
-				'default'        => array(
+				'default'            => array(
 					'size' => 1,
 				),
-				'tablet_default' => array(
+				'tablet_default'     => array(
 					'size' => 0.5,
 				),
-				'mobile_default' => array(
+				'mobile_default'     => array(
 					'size' => 0.5,
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_responsive_control(
 			'distance',
 			array(
-				'label'       => __( 'Scroll Distance Beyond Last Slide', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Set value in pixels for the scroll distance after last slide before scroll down to next section', 'premium-addons-pro' ),
-				'range'       => array(
+				'label'              => __( 'Scroll Distance Beyond Last Slide', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'description'        => __( 'Set value in pixels for the scroll distance after last slide before scroll down to next section', 'premium-addons-pro' ),
+				'range'              => array(
 					'px' => array(
 						'min' => 0,
 						'max' => 300,
 					),
 				),
-				'default'     => array(
+				'default'            => array(
 					'size' => 0,
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_responsive_control(
 			'trigger_offset',
 			array(
-				'label'       => __( 'Offset (PX)', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Offset at which the horizontal scroll is triggered', 'premium-addons-pro' ),
-				'range'       => array(
+				'label'              => __( 'Offset (PX)', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'description'        => __( 'Offset at which the horizontal scroll is triggered', 'premium-addons-pro' ),
+				'range'              => array(
 					'px' => array(
 						'min' => 0,
 						'max' => 600,
 					),
 				),
-				'selectors'   => array(
+				'default'            => array(
+					'size' => 0,
+				),
+				'selectors'          => array(
 					'{{WRAPPER}} .premium-hscroll-sections-wrap' => 'padding-top: {{SIZE}}px',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'scroll_effect',
 			array(
-				'label'   => __( 'Scroll Type', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
+				'label'              => __( 'Scroll Type', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'normal' => __( 'Normal', 'premium-addons-pro' ),
 					'snap'   => __( 'Snappy', 'premium-addons-pro' ),
 				),
-				'default' => 'normal',
+				'default'            => 'normal',
+				'frontend_available' => true,
+			)
+		);
+
+		$this->add_control(
+			'scrub',
+			array(
+				'label'              => __( 'Scrub', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Enable this option to soften the scroll animtion.', 'premium-addons-pro' ),
+				'return_value'       => 'true',
+				'default'            => 'true',
+				'condition'          => array(
+					'scroll_effect' => 'normal',
+				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -468,12 +581,12 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_responsive_control(
 			'scroll_speed',
 			array(
-				'label'       => __( 'Decrease Scroll Speed by', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'For example, 2 means that scene scroll speed will be decreased to half', 'premium-addons-pro' ),
-				'min'         => 1,
-				'default'     => 1,
-				'conditions'  => array(
+				'label'              => __( 'Decrease Scroll Speed by', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'For example, 2 means that scene scroll speed will be decreased to half.', 'premium-addons-pro' ),
+				'min'                => 1,
+				'default'            => 1,
+				'conditions'         => array(
 					'relation' => 'or',
 					'terms'    => array(
 						array(
@@ -486,6 +599,7 @@ class Premium_Hscroll extends Widget_Base {
 						),
 					),
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -547,8 +661,9 @@ class Premium_Hscroll extends Widget_Base {
 				'separator'    => 'before',
 				'default'      => 'true',
 				'condition'    => array(
-					'entrance_animation!' => 'true',
-					'rtl_mode!'           => 'true',
+					'entrance_animation!'     => 'true',
+					'trigger_animation_once!' => 'true',
+					'rtl_mode!'               => 'true',
 				),
 			)
 		);
@@ -556,16 +671,34 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_control(
 			'entrance_animation',
 			array(
-				'label'        => __( 'Trigger Entrance Animations on Scroll', 'premium-addons-pro' ),
-				'description'  => __( 'This option will trigger entrance animations for inner widgets each time you scroll to a slide', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Trigger Entrance Animations on Scroll', 'premium-addons-pro' ),
+				'description'        => __( 'This option will trigger entrance animations for inner widgets each time you scroll to a slide', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'condition'          => array(
 					'scroll_effect'       => 'snap',
 					'opacity_transition!' => 'true',
 					'rtl_mode!'           => 'true',
 				),
+				'frontend_available' => true,
 
+			)
+		);
+
+		$this->add_control(
+			'trigger_animation_once',
+			array(
+				'label'              => __( 'Trigger Entrance Animations Once', 'premium-addons-pro' ),
+				'description'        => __( 'This option will trigger entrance animations for inner widgets only the first time you scroll to a slide', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'condition'          => array(
+					'scroll_effect'       => 'snap',
+					'opacity_transition!' => 'true',
+					'rtl_mode!'           => 'true',
+					'entrance_animation'  => 'true',
+				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -584,12 +717,13 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_control(
 			'rtl_mode',
 			array(
-				'label'        => __( 'RTL Mode', 'premium-addons-pro' ),
-				'description'  => __( 'Enable this option to change scroll direction to RTL', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'prefix_class' => 'premium-hscroll-rtl-',
-				'render_type'  => 'template',
+				'label'              => __( 'RTL Mode', 'premium-addons-pro' ),
+				'description'        => __( 'Enable this option to change scroll direction to RTL', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'prefix_class'       => 'premium-hscroll-rtl-',
+				'render_type'        => 'template',
+				'frontend_available' => true,
 			)
 		);
 
@@ -598,9 +732,13 @@ class Premium_Hscroll extends Widget_Base {
 			array(
 				'label'              => __( 'Disable Horizonal Scroll On', 'premium-addons-pro' ),
 				'type'               => Controls_Manager::SELECT2,
-				'options'            => array(
-					'tablet' => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile' => __( 'Mobile', 'premium-addons-pro' ),
+				'default'            => array(),
+				'options'            => array_merge(
+					array(
+						'tablet' => __( 'Tablet', 'premium-addons-pro' ),
+						'mobile' => __( 'Mobile', 'premium-addons-pro' ),
+					),
+					$extra_devices
 				),
 				'multiple'           => true,
 				'label_block'        => true,
@@ -769,13 +907,14 @@ class Premium_Hscroll extends Widget_Base {
 		$this->add_control(
 			'loop',
 			array(
-				'label'        => __( 'Loop', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Loop', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'condition'          => array(
 					'scroll_effect' => 'normal',
 					'nav_arrows'    => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -803,7 +942,7 @@ class Premium_Hscroll extends Widget_Base {
 			array(
 				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -828,7 +967,7 @@ class Premium_Hscroll extends Widget_Base {
 			array(
 				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -1426,7 +1565,7 @@ class Premium_Hscroll extends Widget_Base {
 		$disable_snap = false;
 
 		if ( 'snap' === $settings['scroll_effect'] && 'true' === $settings['disable_snap'] ) {
-				$disable_snap = true;
+			$disable_snap = true;
 		}
 
 		$opacity = 'true' === $settings['opacity_transition'] ? true : false;
@@ -1437,35 +1576,14 @@ class Premium_Hscroll extends Widget_Base {
 			$tooltips = explode( ',', $settings['dots_tooltips'] );
 		}
 
-		$slides = ! empty( $settings['slides']['size'] ) ? floatval( $settings['slides']['size'] ) : 1;
-
-		$distance = ! empty( $settings['distance']['size'] ) ? floatval( $settings['distance']['size'] ) : 0;
-
-		$speed = ! empty( $settings['scroll_speed'] ) ? intval( $settings['scroll_speed'] ) : 1;
-
 		$hscroll_settings = array(
-			'id'              => $widget_id,
-			'templates'       => $templates,
-			'slides'          => $slides,
-			'slides_tablet'   => empty( $settings['slides_tablet']['size'] ) ? $slides : floatval( $settings['slides_tablet']['size'] ),
-			'slides_mobile'   => empty( $settings['slides_mobile']['size'] ) ? $slides : floatval( $settings['slides_mobile']['size'] ),
-			'distance'        => $distance,
-			'distance_tablet' => empty( $settings['distance_tablet']['size'] ) ? $slides : floatval( $settings['distance_tablet']['size'] ),
-			'distance_mobile' => empty( $settings['distance_mobile']['size'] ) ? $slides : floatval( $settings['distance_mobile']['size'] ),
-			'snap'            => $settings['scroll_effect'],
-			'disableSnap'     => intval( $disable_snap ),
-			'speed'           => $speed,
-			'speed_tablet'    => empty( $settings['scroll_speed_tablet'] ) ? $speed : intval( $settings['scroll_speed_tablet'] ),
-			'speed_mobile'    => empty( $settings['scroll_speed_mobile'] ) ? $speed : intval( $settings['scroll_speed_mobile'] ),
-			'opacity'         => intval( $opacity ),
-			'loop'            => $settings['loop'],
-			'enternace'       => $settings['entrance_animation'],
-			'keyboard'        => $settings['keyboard_scroll'],
-			'pagination'      => intval( $pagination ),
-			'rtl'             => $settings['rtl_mode'],
-			'arrows'          => 'true' === esc_html( $settings['nav_arrows'] ) ? true : false,
-			'dots'            => 'true' === esc_html( $settings['nav_dots'] ) ? true : false,
-			'disableOn'       => $settings['disable_on'],
+			'id'          => $widget_id,
+			'disableSnap' => intval( $disable_snap ),
+			'opacity'     => intval( $opacity ),
+			'keyboard'    => $settings['keyboard_scroll'],
+			'pagination'  => intval( $pagination ),
+			'arrows'      => 'true' === esc_html( $settings['nav_arrows'] ) ? true : false,
+			'dots'        => 'true' === esc_html( $settings['nav_dots'] ) ? true : false,
 		);
 
 		// Fix warning trying to access array offset with value null.
@@ -1517,10 +1635,11 @@ class Premium_Hscroll extends Widget_Base {
 				endforeach;
 
 				?>
-			<?php if ( ! empty( $settings['fixed_template'] ) ) : ?>
+			<?php if ( ! empty( $settings['fixed_template'] ) || ! empty( $settings['live_temp_content_extra'] ) ) : ?>
 				<div class="premium-hscroll-fixed-content">
 					<?php
-						$template_title = $settings['fixed_template'];
+						$template_title = empty( $settings['fixed_template'] ) ? $settings['live_temp_content_extra'] : $settings['fixed_template'];
+
 						echo $this->getTemplateInstance()->get_template_content( $template_title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
 				</div>
@@ -1585,7 +1704,7 @@ class Premium_Hscroll extends Widget_Base {
 						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'section_' . $index ) ); ?>>
 							<?php
 							if ( 'template' === $section['template_type'] ) {
-								$template_title = $section['section_template'];
+								$template_title = empty( $section['section_template'] ) ? $section['live_temp_content'] : $section['section_template'];
 								echo $this->getTemplateInstance()->get_template_content( $template_title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							}
 							?>

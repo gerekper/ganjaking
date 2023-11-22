@@ -1,0 +1,588 @@
+<wpml-config>
+    <elementor-widgets>
+        <widget name="dce-max-submissions">
+            <conditions>
+                <condition key="widgetType">form</condition>
+            </conditions>
+            <fields>
+                <field type="Form - Max Submissions - Error Message" editor_type="LINE">dce_max_submissions_error_message</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-animateText">
+            <conditions>
+                <condition key="widgetType">dyncontel-animateText</condition>
+            </conditions>
+            <fields-in-item items_of="words">
+                <field type="Word" editor_type="LINE">text_word</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-add-to-favorites">
+            <conditions>
+                <condition key="widgetType">dce-add-to-favorites</condition>
+            </conditions>
+            <fields>
+                <field type="Add to Favorites - Add - Label" editor_type="LINE">dce_favorite_title_add</field>
+                <field type="Add to Favorites - Remove - Label" editor_type="LINE">dce_favorite_title_remove</field>
+            </fields>
+        </widget>
+        <widget name="dce-add-to-woo-wishlist">
+            <conditions>
+                <condition key="widgetType">dce-add-to-woo-wishlist</condition>
+            </conditions>
+            <fields>
+                <field type="Add to Favorites - Add - Label" editor_type="LINE">dce_favorite_title_add</field>
+                <field type="Add to Favorites - Remove - Label" editor_type="LINE">dce_favorite_title_remove</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-acf">
+            <conditions>
+                <condition key="widgetType">dyncontel-acf</condition>
+            </conditions>
+            <fields>
+                <field type="Text before" editor_type="LINE">acf_text_before</field>
+                <field type="Text after" editor_type="LINE">acf_text_after</field>
+            </fields>
+        </widget>
+        <widget name="dce-pdf-viewer">
+            <conditions>
+                <condition key="widgetType">dce-pdf-viewer</condition>
+            </conditions>
+            <fields>
+                <field type="Text for Previous Button" editor_type="LINE">previous_text</field>
+                <field type="Text for Next Button" editor_type="LINE">next_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-copy-to-clipboard">
+            <conditions>
+                <condition key="widgetType">dce-copy-to-clipboard</condition>
+            </conditions>
+            <fields>
+                <field type="Text" editor_type="LINE">text</field>
+                <field type="Change text to" editor_type="LINE">change_text</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-acf-google-maps">
+            <conditions>
+                <condition key="widgetType">dyncontel-acf-google-maps</condition>
+            </conditions>
+            <fields>
+                <field type="InfoWindow Custom text" editor_type="AREA">custom_infoWindow_wysiwig</field>
+                <field type="Geolocation Button Text" editor_type="LINE">geolocation_button_text</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-metabox-google-maps">
+            <conditions>
+                <condition key="widgetType">dce-metabox-google-maps</condition>
+            </conditions>
+            <fields>
+                <field type="InfoWindow Custom text" editor_type="AREA">custom_infoWindow_wysiwig</field>
+                <field type="Geolocation Button Text" editor_type="LINE">geolocation_button_text</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-dynamic-google-maps-directions">
+            <conditions>
+                <condition key="widgetType">dce-dynamic-google-maps-directions</condition>
+            </conditions>
+            <fields>
+                <field type="Geolocation Button Text" editor_type="LINE">geolocation_button_text</field>
+                <field type="Departure - Marker Title" editor_type="LINE">departure_marker_title</field>
+                <field type="Departure - Marker Label" editor_type="LINE">departure_marker_label</field>
+                <field type="Destination - Marker Title" editor_type="LINE">destination_marker_title</field>
+                <field type="Destination - Marker Label" editor_type="LINE">destination_marker_label</field>
+                <field type="Departure - InfoWindow" editor_type="AREA">departure_info_window</field>
+                <field type="Destination - InfoWindow" editor_type="AREA">destination_info_window</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-acf-relation">
+            <conditions>
+                <condition key="widgetType">dyncontel-acf-relation</condition>
+            </conditions>
+            <fields>
+                <field type="Post HTML" editor_type="AREA">acf_relation_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-animatedoffcanvasmenu">
+            <conditions>
+                <condition key="widgetType">dce-animatedoffcanvasmenu</condition>
+            </conditions>
+            <fields>
+                <field type="Close Text" editor_type="LINE">close_text</field>
+            </fields>
+        </widget>
+        <widget name="dce_add_to_calendar">
+            <conditions>
+                <condition key="widgetType">dce_add_to_calendar</condition>
+            </conditions>
+            <fields>
+                <field type="Text" editor_type="LINE">text</field>
+                <field type="Title" editor_type="LINE">dce_calendar_title</field>
+                <field type="DateTime Start" editor_type="LINE">dce_calendar_datetime_start</field>
+                <field type="DateTime End" editor_type="LINE">dce_calendar_datetime_end</field>
+                <field type="DateTime Format" editor_type="LINE">dce_calendar_datetime_string_format</field>
+                <field type="DateTime Start" editor_type="LINE">dce_calendar_datetime_start_string</field>
+                <field type="DateTime End" editor_type="LINE">dce_calendar_datetime_end_string</field>
+                <field type="Description" editor_type="LINE">dce_calendar_description</field>
+                <field type="Location" editor_type="LINE">dce_calendar_location</field>
+            </fields>
+        </widget>
+        <widget name="dce-filebrowser">
+            <conditions>
+                <condition key="widgetType">dce-filebrowser</condition>
+            </conditions>
+            <fields>
+                <field type="Search Text" editor_type="LINE">search_text</field>
+                <field type="Search Notice" editor_type="LINE">search_notice</field>
+                <field type="Find" editor_type="LINE">search_find_text</field>
+                <field type="Reset Text" editor_type="LINE">search_reset_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-breadcrumbs">
+            <conditions>
+                <condition key="widgetType">dce-breadcrumbs</condition>
+            </conditions>
+            <fields>
+                <field type="Home Text" editor_type="LINE">home-text</field>
+            </fields>
+        </widget>
+        <widget name="single-posts-menu">
+            <conditions>
+                <condition key="widgetType">single-posts-menu</condition>
+            </conditions>
+            <fields>
+                <field type="Title Text" editor_type="LINE">title_text</field>
+            </fields>
+        </widget>
+        <widget name="taxonomy-terms-menu">
+            <conditions>
+                <condition key="widgetType">taxonomy-terms-menu</condition>
+            </conditions>
+            <fields>
+                <field type="Custom Taxonomy Name" editor_type="LINE">tax_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-meta">
+            <conditions>
+                <condition key="widgetType">dce-meta</condition>
+            </conditions>
+            <fields>
+                <field type="Button Text" editor_type="LINE">dce_meta_button_text</field>
+                <field type="Text Fallback" editor_type="LINE">dce_meta_fallback_text</field>
+                <field type="Data Source Format" editor_type="LINE">dce_meta_date_format_source</field>
+                <field type="Date Display Format" editor_type="LINE">dce_meta_date_format_display</field>
+                <field type="Custom HTML" editor_type="AREA">dce_meta_custom</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-terms">
+            <conditions>
+                <condition key="widgetType">dyncontel-terms</condition>
+            </conditions>
+            <fields>
+                <field type="Text before" editor_type="LINE">text_before</field>
+                <field type="Text after" editor_type="LINE">text_after</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-date">
+            <conditions>
+                <condition key="widgetType">dyncontel-date</condition>
+            </conditions>
+            <fields>
+                <field type="Date Format" editor_type="LINE">format</field>
+                <field type="2 - Date Format" editor_type="LINE">format2</field>
+                <field type="3 - Date Format" editor_type="LINE">format3</field>
+                <field type="Text before" editor_type="LINE">date_text_before</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-titleType">
+            <conditions>
+                <condition key="widgetType">dyncontel-titleType</condition>
+            </conditions>
+            <fields>
+                <field type="Text Before" editor_type="LINE">titleType_text_before</field>
+                <field type="Text After" editor_type="LINE">titleType_text_after</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-modalwindow">
+            <conditions>
+                <condition key="widgetType">dyncontel-modalwindow</condition>
+            </conditions>
+            <fields>
+                <field type="Text Button" editor_type="LINE">text_btn</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-popup">
+            <conditions>
+                <condition key="widgetType">dyncontel-popup</condition>
+            </conditions>
+            <fields>
+                <field type="Modal Content" editor_type="AREA">modal_content</field>
+                <field type="Button Text" editor_type="LINE">button_text</field>
+            </fields>
+        </widget>
+        <widget name="dce_pdf_button">
+            <conditions>
+                <condition key="widgetType">dce_pdf_button</condition>
+            </conditions>
+            <fields>
+                <field type="Text" editor_type="LINE">text</field>
+                <field type="Title" editor_type="LINE">dce_pdf_button_title</field>
+            </fields>
+        </widget>
+        <widget name="dce-tokens">
+            <conditions>
+                <condition key="widgetType">dce-tokens</condition>
+            </conditions>
+            <fields>
+                <field type="Text Editor with Tokens" editor_type="AREA">text_w_tokens</field>
+            </fields>
+        </widget>
+        <widget name="dce-text-timber">
+            <conditions>
+                <condition key="widgetType">dce-text-timber</condition>
+            </conditions>
+            <fields>
+                <field type="Text Editor with Timber" editor_type="AREA">content</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-twentytwenty">
+            <conditions>
+                <condition key="widgetType">dyncontel-twentytwenty</condition>
+            </conditions>
+            <fields>
+                <field type="Before Label" editor_type="LINE">before_label</field>
+                <field type="After Label" editor_type="LINE">after_label</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-post-nextprev">
+            <conditions>
+                <condition key="widgetType">dyncontel-post-nextprev</condition>
+            </conditions>
+            <fields>
+                <field type="Previous Label" editor_type="LINE">prev_label</field>
+                <field type="Next Label" editor_type="LINE">next_label</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-readmore">
+            <conditions>
+                <condition key="widgetType">dyncontel-readmore</condition>
+            </conditions>
+            <fields>
+                <field type="Button HTML" editor_type="LINE">button_html</field>
+                <field type="Button Text" editor_type="LINE">button_text</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-excerpt">
+            <conditions>
+                <condition key="widgetType">dyncontel-excerpt</condition>
+            </conditions>
+            <fields>
+                <field type="Excerpt Ellipsis" editor_type="LINE">excerpt_ellipsis</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-svgpathText">
+            <conditions>
+                <condition key="widgetType">dyncontel-svgpathText</condition>
+            </conditions>
+            <fields>
+                <field type="Text" editor_type="LINE">svgpathtext_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-user-fields">
+            <conditions>
+                <condition key="widgetType">dce-user-fields</condition>
+            </conditions>
+            <fields>
+                <field type="Text after" editor_type="LINE">user_text_before</field>
+                <field type="Custom HTML" editor_type="AREA">dce_user_custom</field>
+                <field type="Empty field behaviour" editor_type="AREA">dce_user_section_fallback</field>
+            </fields>
+        </widget>
+        <widget name="dyncontel-acfposts">
+            <conditions>
+                <condition key="widgetType">dyncontel-acfposts</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Read More" editor_type="LINE">readmore_text</field>
+            </fields>
+        </widget>
+        <widget name="dce-dynamicposts-v2">
+            <conditions>
+                <condition key="widgetType">dce-dynamicposts-v2</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-acf-relationship">
+            <conditions>
+                <condition key="widgetType">dce-acf-relationship</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+         <widget name="dce-dynamic-show-favorites">
+            <conditions>
+                <condition key="widgetType">dce-dynamic-show-favorites</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-woo-wishlist">
+            <conditions>
+                <condition key="widgetType">dce-woo-wishlist</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-woo-products-cart">
+            <conditions>
+                <condition key="widgetType">dce-woo-products-cart</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-dynamic-woo-products">
+            <conditions>
+                <condition key="widgetType">dce-dynamic-woo-products</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-my-posts">
+            <conditions>
+                <condition key="widgetType">dce-my-posts</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-sticky-posts">
+            <conditions>
+                <condition key="widgetType">dce-sticky-posts</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-search-results">
+            <conditions>
+                <condition key="widgetType">dce-search-results</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+         <widget name="dce-metabox-relationship">
+            <conditions>
+                <condition key="widgetType">dce-metabox-relationship</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+                <field type="Infinite Scroll Label Loading" editor_type="LINE">infiniteScroll_label_loading</field>
+                <field type="Infinite Scroll Label Last" editor_type="LINE">infiniteScroll_label_last</field>
+                <field type="Infinite Scroll Label Error" editor_type="LINE">infiniteScroll_label_error</field>
+                <field type="Filter - All element text" editor_type="LINE">grid_filters_alltext_filter</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_format</field>
+                <field type="Meta Date Format" editor_type="LINE">querydate_field_meta_future_format</field>
+                <field type="Caption Date Format" editor_type="LINE">slideshow_caption_date_format</field>
+                <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+            </fields>
+            <fields-in-item items_of="list_items">
+                <field type="Read more" editor_type="LINE">readmore_text</field>
+                <field type="Add to Cart" editor_type="LINE">add_to_cart_text</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dyncontel-dynamicusers">
+            <conditions>
+                <condition key="widgetType">dyncontel-dynamicusers</condition>
+            </conditions>
+            <fields>
+                <field type="Pagination Previous Label" editor_type="LINE">pagination_prev_label</field>
+                <field type="Pagination Next Label" editor_type="LINE">pagination_next_label</field>
+                <field type="Pagination First Label" editor_type="LINE">pagination_first_label</field>
+                <field type="Pagination Last Label" editor_type="LINE">pagination_last_label</field>
+            </fields>
+            <fields-in-item items_of="user_meta_items">
+                <field type="Text before" editor_type="LINE">text_before</field>
+            </fields-in-item>
+        </widget>
+        <widget name="dce-views">
+            <conditions>
+                <condition key="widgetType">dce-views</condition>
+            </conditions>
+            <fields>
+                <field type="Count Text" editor_type="AREA">dce_views_count_text</field>
+                <field type="Form Title" editor_type="LINE">dce_views_style_form_text</field>
+                <field type="Submit Label" editor_type="LINE">dce_views_style_form_submit_text</field>
+                <field type="Label" editor_type="LINE">dce_views_order_label</field>
+                <field type="Default Text" editor_type="LINE">dce_views_order_by_default</field>
+                <field type="Text - Fallback" editor_type="LINE">dce_views_fallback_text</field>
+            </fields>
+            <fields-in-item items_of="dce_views_select_fields">
+                <field type="Label" editor_type="LINE">dce_views_select_label</field>
+                <field type="Description" editor_type="LINE">dce_views_select_description</field>
+                <field type="Fallback" editor_type="LINE">dce_views_select_no_results</field>
+            </fields-in-item>
+            <fields-in-item items_of="dce_views_where_form">
+                <field type="Label" editor_type="LINE">dce_views_where_form_label</field>
+                <field type="Empty Option Label" editor_type="LINE">dce_views_where_form_required_empty_label</field>
+                <field type="Hint" editor_type="LINE">dce_views_where_form_hint</field>
+                <field type="Placeholder" editor_type="LINE">dce_views_where_form_placeholder</field>
+            </fields-in-item>
+            <fields-in-item items_of="dce_views_where">
+                <field type="Value" editor_type="LINE">dce_views_where_value</field>
+            </fields-in-item>
+        </widget>
+    </elementor-widgets>
+</wpml-config>

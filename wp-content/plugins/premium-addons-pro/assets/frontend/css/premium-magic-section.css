@@ -1,0 +1,185 @@
+/**************** Premium Magic Section ********************/
+/***********************************************************/
+.premium-magic-section-wrap {
+  text-align: center;
+  background: #f7f7f7;
+  position: fixed;
+  z-index: 9999;
+  padding: 5px 7px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+  .premium-magic-section-wrap.magic-section-hide {
+    visibility: hidden; }
+
+.premium-magic-section-body-inner {
+  position: relative;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.premium-magic-section-wrap.top, .premium-magic-section-wrap.bottom {
+  width: 100%;
+  left: 0; }
+
+.premium-magic-section-wrap.left, .premium-magic-section-wrap.right {
+  height: 100%;
+  top: 0; }
+
+.premium-magic-section-wrap.left {
+  left: -100%; }
+
+.premium-magic-section-wrap.right {
+  right: -100%; }
+
+.premium-magic-section-wrap.bottom {
+  bottom: -1000px; }
+
+.premium-magic-section-wrap.close-left {
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse; }
+
+.premium-magic-section-wrap.close-top .premium-magic-section-close-wrap,
+.premium-magic-section-wrap.close-bottom .premium-magic-section-close-wrap {
+  position: absolute; }
+
+.premium-magic-section-wrap.close-top .premium-magic-section-close-wrap {
+  top: 0px; }
+
+.premium-magic-section-wrap.close-bottom .premium-magic-section-close-wrap {
+  bottom: 0px; }
+
+.premium-magic-section-wrap.close-top .premium-magic-section-close-wrap,
+.premium-magic-section-wrap.close-bottom .premium-magic-section-close-wrap {
+  right: 0.3em; }
+
+.premium-magic-section-wrap.left .premium-magic-section-content-wrap-out,
+.premium-magic-section-wrap.right .premium-magic-section-content-wrap-out {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.premium-magic-section-wrap .premium-magic-section-content-wrap-out {
+  height: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+
+.premium-magic-section-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(2, 2, 2, 0.5);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+  .premium-magic-section-overlay.active {
+    visibility: visible;
+    opacity: 1; }
+
+.premium-magic-section-wrap.right .premium-magic-section-icon-wrap {
+  position: absolute;
+  right: 100%;
+  text-align: right; }
+
+.premium-magic-section-icon-wrap.top {
+  top: 0; }
+
+.premium-magic-section-icon-wrap.middle {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.premium-magic-section-icon-wrap.bottom {
+  bottom: 0; }
+
+.premium-magic-section-wrap.left .premium-magic-section-icon-wrap {
+  position: absolute;
+  left: 100%;
+  text-align: left; }
+
+.premium-magic-section-wrap .premium-magic-section-icon {
+  font-size: 30px;
+  cursor: pointer;
+  border-color: #000;
+  border-radius: 50%;
+  padding: 5px; }
+
+.premium-magic-section-wrap .premium-magic-section-icon-image {
+  cursor: pointer;
+  border-color: #000;
+  width: 100%;
+  height: 100%; }
+
+.premium-magic-section-wrap h3 {
+  margin: 0; }
+
+.premium-magic-section-button-trig .premium-magic-section-btn,
+.premium-magic-section-icon-wrap .premium-magic-section-btn {
+  border-color: #000;
+  border: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.premium-magic-section-button-trig .premium-magic-section-btn {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.premium-magic-section-button-trig .premium-magic-section-btn:focus {
+  outline: none; }
+
+.premium-magic-section-button-trig .premium-magic-btn-icon,
+.premium-magic-section-button-trig .premium-magic-btn-text {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.premium-magic-section-button-trig i,
+.premium-magic-section-button-trig img {
+  cursor: pointer; }
+
+.premium-magic-section-wrap button.premium-magic-section-close {
+  padding: 0px;
+  border: none;
+  background: transparent;
+  border-color: #000;
+  line-height: 0.5; }
+
+.premium-magic-section-wrap.left button.premium-magic-section-close,
+.premium-magic-section-wrap.right button.premium-magic-section-close {
+  margin-top: 10px; }
+
+.premium-magic-section-wrap button.premium-magic-section-close i {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.elementor-add-new-section .premium-magic-button {
+  background: #1d80be;
+  margin-right: 25px; }
+
+.elementor-editor-active
+.elementor.elementor-edit-mode
+.premium-magic-section-wrap
+.premium-magic-section-content-wrap .elementor-inner,
+.elementor-editor-active
+.elementor.elementor-edit-mode
+.premium-magic-section-wrap
+.premium-magic-section-content-wrap .elementor-inner-section:first-child {
+  margin-top: 0; }

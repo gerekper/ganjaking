@@ -41,6 +41,8 @@ class MultiScroll extends WPML_Elementor_Module_With_Items {
 		return array(
 			'left_side_template',
 			'right_side_template',
+			'left_side_text',
+			'right_side_text',
 		);
 	}
 
@@ -55,15 +57,22 @@ class MultiScroll extends WPML_Elementor_Module_With_Items {
 	 */
 	protected function get_title( $field ) {
 
-		if ( 'left_side_template' === $field ) {
-			return __( 'Multi Scroll: Left Template ID', 'premium-addons-pro' );
-		}
+		switch ( $field ) {
+			case 'left_side_template':
+				return esc_html__( 'Multi Scroll: Left Template ID', 'premium-addons-pro' );
 
-		if ( 'right_side_template' === $field ) {
-			return __( 'Multi Scroll: Right Template ID', 'premium-addons-pro' );
-		}
+			case 'right_side_template':
+				return esc_html__( 'Multi Scroll: Right Template ID', 'premium-addons-pro' );
 
-		return '';
+			case 'left_side_text':
+				return esc_html__( 'Multi Scroll: Left Side Text', 'premium-addons-pro' );
+
+			case 'right_side_text':
+				return esc_html__( 'Multi Scroll: Right Side Text', 'premium-addons-pro' );
+
+			default:
+				return '';
+		}
 
 	}
 
@@ -78,7 +87,18 @@ class MultiScroll extends WPML_Elementor_Module_With_Items {
 	 */
 	protected function get_editor_type( $field ) {
 
-		return 'LINE';
+		switch ( $field ) {
+			case 'left_side_template':
+			case 'right_side_template':
+				return 'LINE';
+
+			case 'left_side_text':
+			case 'right_side_text':
+				return 'VISUAL';
+
+			default:
+				return '';
+		}
 	}
 
 }

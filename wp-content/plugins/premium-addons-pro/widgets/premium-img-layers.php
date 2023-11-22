@@ -7,14 +7,15 @@
 
 namespace PremiumAddonsPro\Widgets;
 
+// PremiumAddonsPro Classes.
+use PremiumAddonsPro\Includes\PAPRO_Helper;
+
 // Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Repeater;
 use Elementor\Controls_Manager;
 use Elementor\Control_Media;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -22,6 +23,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Image_Size;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -35,14 +37,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Img_Layers extends Widget_Base {
 
 	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-img-layers' );
+		return $is_enabled;
+	}
+
+	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -62,7 +86,7 @@ class Premium_Img_Layers extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Image Layers', 'premium-addons-pro' ) );
+		return __( 'Image Layers', 'premium-addons-pro' );
 	}
 
 	/**
@@ -98,7 +122,7 @@ class Premium_Img_Layers extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'float', 'parallax', 'mouse', 'interactive', 'advanced' );
+		return array( 'pa', 'premium', 'float', 'parallax', 'mouse', 'interactive', 'advanced' );
 	}
 
 	/**
@@ -111,7 +135,9 @@ class Premium_Img_Layers extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+			'e-animations',
 			'premium-addons',
+			'premium-pro',
 		);
 	}
 
@@ -124,13 +150,20 @@ class Premium_Img_Layers extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'pa-tweenmax',
-			'tilt-js',
-			'elementor-waypoints',
-			'pa-anime',
-			'lottie-js',
-			'premium-pro',
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			array(
+				'pa-tweenmax',
+				'pa-tilt',
+				'pa-anime',
+				'lottie-js',
+				'premium-pro',
+			),
+			$draw_scripts
 		);
 	}
 
@@ -161,7 +194,9 @@ class Premium_Img_Layers extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'premium_img_layers_content',
@@ -173,6 +208,29 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater = new Repeater();
 
 		$repeater->add_control(
+			'hide_layer',
+			array(
+				'label'    => __( 'Hide This Layer On', 'premium-addons-pro' ),
+				'type'     => Controls_Manager::SELECT2,
+				'options'  => array(
+					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
+					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
+					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
+				),
+				'multiple' => true,
+			)
+		);
+
+		$repeater->start_controls_tabs( 'layer_repeater' );
+
+		$repeater->start_controls_tab(
+			'layer_content_tab',
+			array(
+				'label' => esc_html__( 'Content', 'elementor-pro' ),
+			)
+		);
+
+		$repeater->add_control(
 			'media_type',
 			array(
 				'label'   => __( 'Media Type', 'premium-addons-pro' ),
@@ -181,8 +239,25 @@ class Premium_Img_Layers extends Widget_Base {
 					'image'     => __( 'Image', 'premium-addons-pro' ),
 					'animation' => __( 'Lottie Animation', 'premium-addons-pro' ),
 					'text'      => __( 'Text', 'premium-addons-pro' ),
+					'svg'       => __( 'SVG/Icon', 'premium-addons-pro' ),
 				),
 				'default' => 'image',
+			)
+		);
+
+		$repeater->add_control(
+			'svg_icon',
+			array(
+				'label'     => __( 'Type', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'svg'  => __( 'SVG', 'premium-addons-pro' ),
+					'icon' => __( 'Font Awesome Icon', 'premium-addons-pro' ),
+				),
+				'default'   => 'svg',
+				'condition' => array(
+					'media_type' => 'svg',
+				),
 			)
 		);
 
@@ -216,18 +291,151 @@ class Premium_Img_Layers extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'font_icon',
+			array(
+				'label'                  => __( 'Select Icon', 'premium-addons-pro' ),
+				'type'                   => Controls_Manager::ICONS,
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'classes'                => 'editor-pa-icon-control',
+				'default'                => array(
+					'value'   => 'fas fa-star',
+					'library' => 'fa-solid',
+				),
+				'label_block'            => false,
+				'condition'              => array(
+					'media_type' => 'svg',
+					'svg_icon'   => 'icon',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'media_type' => 'svg',
+					'svg_icon'   => 'svg',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array(
+					'media_type' => 'svg',
+				),
+			)
+		);
+
+		$animation_conditions = array(
+			'relation' => 'or',
+			'terms'    => array(
+				array(
+					'name'  => 'media_type',
+					'value' => 'animation',
+				),
+				array(
+					'terms' => array(
+						array(
+							'name'  => 'media_type',
+							'value' => 'svg',
+						),
+						array(
+							'name'  => 'draw_svg',
+							'value' => 'yes',
+						),
+					),
+				),
+			),
+		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'media_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_transparent',
+				array(
+					'label'     => __( 'Remove All Fill Colors', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'media_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'media_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$repeater,
+				'layers',
+				array(
+					'media_type' => 'svg',
+				)
+			);
+
+		}
+
+		$repeater->add_control(
 			'lottie_loop',
 			array(
 				'label'        => __( 'Loop', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
 				'default'      => 'true',
-				'condition'    => array(
-					'media_type'  => 'animation',
-					'lottie_url!' => '',
-				),
+				'conditions'   => $animation_conditions,
+
 			)
 		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'svg_notice',
+				array(
+					'raw'             => __( 'Loop and Speed options are overriden when Draw SVGs in Sequence option is enabled.', 'premium-addons-pro' ),
+					'type'            => Controls_Manager::RAW_HTML,
+					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+					'condition'       => array(
+						'media_type'    => 'svg',
+						'draw_svg'      => 'yes',
+						'lottie_hover!' => 'true',
+					),
+				)
+			);
+		}
 
 		$repeater->add_control(
 			'lottie_reverse',
@@ -235,23 +443,85 @@ class Premium_Img_Layers extends Widget_Base {
 				'label'        => __( 'Reverse', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
-				'condition'    => array(
-					'media_type'  => 'animation',
-					'lottie_url!' => '',
-				),
+				'conditions'   => $animation_conditions,
 			)
 		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'media_type'      => 'svg',
+						'draw_svg'        => 'yes',
+						'lottie_reverse!' => 'true',
+					),
+
+				)
+			);
+
+			$repeater->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'media_type'     => 'svg',
+						'draw_svg'       => 'yes',
+						'lottie_reverse' => 'true',
+					),
+
+				)
+			);
+
+			$repeater->add_control(
+				'restart_draw',
+				array(
+					'label'        => __( 'Restart Animation on Scroll Up', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'media_type'    => 'svg',
+						'draw_svg'      => 'yes',
+						'lottie_hover!' => 'true',
+					),
+
+				)
+			);
+
+			$repeater->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'media_type'  => 'svg',
+						'draw_svg'    => 'yes',
+						'lottie_loop' => 'true',
+					),
+				)
+			);
+		}
 
 		$repeater->add_control(
 			'lottie_hover',
 			array(
-				'label'        => __( 'Only Play on Hover', 'premium-addons-pro' ),
+				'label'        => __( 'Only Animate on Hover', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
-				'condition'    => array(
-					'media_type'  => 'animation',
-					'lottie_url!' => '',
-				),
+				'conditions'   => $animation_conditions,
 			)
 		);
 
@@ -307,169 +577,6 @@ class Premium_Img_Layers extends Widget_Base {
 				'default'   => 'full',
 				'condition' => array(
 					'media_type' => 'image',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'premium_img_layers_position',
-			array(
-				'label'   => __( 'Position', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::HIDDEN,
-				'options' => array(
-					'relative' => __( 'Relative', 'premium-addons-pro' ),
-					'absolute' => __( 'Absolute', 'premium-addons-pro' ),
-				),
-			)
-		);
-
-		$repeater->add_responsive_control(
-			'premium_img_layers_hor_position',
-			array(
-				'label'       => __( 'Horizontal Offset', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Mousemove Interactivity works only with pixels', 'premium-addons-pro' ),
-				'size_units'  => array( 'px', '%' ),
-				'range'       => array(
-					'px' => array(
-						'min' => -200,
-						'max' => 300,
-					),
-					'%'  => array(
-						'min' => -50,
-						'max' => 100,
-					),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.absolute' => 'left: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$repeater->add_responsive_control(
-			'premium_img_layers_ver_position',
-			array(
-				'label'       => __( 'Vertical Offset', 'premium-addons-pro' ),
-				'description' => __( 'Mousemove Interactivity works only with pixels', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SLIDER,
-				'size_units'  => array( 'px', '%' ),
-				'range'       => array(
-					'px' => array(
-						'min' => -200,
-						'max' => 300,
-					),
-					'%'  => array(
-						'min' => -50,
-						'max' => 100,
-					),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.absolute' => 'top: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$repeater->add_responsive_control(
-			'premium_img_layers_width',
-			array(
-				'label'      => __( 'Width', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'vw' ),
-				'range'      => array(
-					'px' => array(
-						'max'  => 1000,
-						'step' => 1,
-					),
-					'%'  => array(
-						'max'  => 100,
-						'step' => 1,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'width: {{SIZE}}{{UNIT}};',
-				),
-				'separator'  => 'after',
-			)
-		);
-
-		$repeater->add_control(
-			'text_color',
-			array(
-				'label'     => __( 'Text Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text' => 'color:{{VALUE}}',
-				),
-				'condition' => array(
-					'media_type' => 'text',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'text_color_hover',
-			array(
-				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}:hover .premium-img-layers-text'  => 'color:{{VALUE}}',
-				),
-				'condition' => array(
-					'media_type' => 'text',
-				),
-			)
-		);
-
-		$repeater->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'      => 'text_typography',
-				'scheme'    => Typography::TYPOGRAPHY_1,
-				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text',
-				'condition' => array(
-					'media_type' => 'text',
-				),
-			)
-		);
-
-		$repeater->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			array(
-				'name'      => 'text_shadow',
-				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text',
-				'condition' => array(
-					'media_type' => 'text',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'blend_mode',
-			array(
-				'label'     => __( 'Blend Mode', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => array(
-					''            => __( 'Normal', 'premium-addons-pro' ),
-					'multiply'    => 'Multiply',
-					'screen'      => 'Screen',
-					'overlay'     => 'Overlay',
-					'darken'      => 'Darken',
-					'lighten'     => 'Lighten',
-					'color-dodge' => 'Color Dodge',
-					'saturation'  => 'Saturation',
-					'color'       => 'Color',
-					'luminosity'  => 'Luminosity',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mix-blend-mode: {{VALUE}}',
 				),
 			)
 		);
@@ -535,6 +642,466 @@ class Premium_Img_Layers extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'mask_image',
+			array(
+				'label'     => esc_html__( 'Mask Image Shape', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'separator' => 'before',
+				'condition' => array(
+					'media_type' => 'image',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'mask_shape',
+			array(
+				'label'       => esc_html__( 'Mask Image', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
+					'url' => '',
+				),
+				'description' => esc_html__( 'Use PNG image with the shape you want to mask around feature image.', 'premium-addons-pro' ),
+				'selectors'   => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mask-image: url("{{URL}}"); -webkit-mask-image: url("{{URL}}");',
+				),
+				'condition'   => array(
+					'media_type' => 'image',
+					'mask_image' => 'yes',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'mask_size',
+			array(
+				'label'     => __( 'Mask Size', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'contain' => __( 'Contain', 'premium-addons-pro' ),
+					'cover'   => __( 'Cover', 'premium-addons-pro' ),
+				),
+				'default'   => 'contain',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mask-size: {{VALUE}};-webkit-mask-size: {{VALUE}};',
+				),
+				'condition' => array(
+					'media_type' => 'image',
+					'mask_image' => 'yes',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'mask_position_cover',
+			array(
+				'label'     => __( 'Mask Position', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'center center' => __( 'Center Center', 'premium-addons-pro' ),
+					'center left'   => __( 'Center Left', 'premium-addons-pro' ),
+					'center right'  => __( 'Center Right', 'premium-addons-pro' ),
+					'top center'    => __( 'Top Center', 'premium-addons-pro' ),
+					'top left'      => __( 'Top Left', 'premium-addons-pro' ),
+					'top right'     => __( 'Top Right', 'premium-addons-pro' ),
+					'bottom center' => __( 'Bottom Center', 'premium-addons-pro' ),
+					'bottom left'   => __( 'Bottom Left', 'premium-addons-pro' ),
+					'bottom right'  => __( 'Bottom Right', 'premium-addons-pro' ),
+				),
+				'default'   => 'center center',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mask-position: {{VALUE}};-webkit-mask-position: {{VALUE}}',
+				),
+				'condition' => array(
+					'media_type' => 'image',
+					'mask_image' => 'yes',
+					'mask_size'  => 'cover',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'mask_position_contain',
+			array(
+				'label'     => __( 'Mask Position', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'center center' => __( 'Center Center', 'premium-addons-pro' ),
+					'top center'    => __( 'Top Center', 'premium-addons-pro' ),
+					'bottom center' => __( 'Bottom Center', 'premium-addons-pro' ),
+				),
+				'default'   => 'center center',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mask-position: {{VALUE}};-webkit-mask-position: {{VALUE}}',
+				),
+				'condition' => array(
+					'media_type' => 'image',
+					'mask_image' => 'yes',
+					'mask_size'  => 'contain',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_img_layers_zindex',
+			array(
+				'label'     => __( 'Z-index', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::NUMBER,
+				'separator' => 'before',
+				'default'   => 1,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-img-layers-list-item' => 'z-index: {{VALUE}};',
+				),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'layer_style_tab',
+			array(
+				'label' => esc_html__( 'Style', 'elementor-pro' ),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'premium_img_layers_hor_position',
+			array(
+				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => -200,
+						'max' => 300,
+					),
+					'%'  => array(
+						'min' => -50,
+						'max' => 100,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'left: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'premium_img_layers_ver_position',
+			array(
+				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => -200,
+						'max' => 300,
+					),
+					'%'  => array(
+						'min' => -50,
+						'max' => 100,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'top: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'premium_img_layers_width',
+			array(
+				'label'      => __( 'Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'max'  => 100,
+						'step' => 1,
+					),
+				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'media_type',
+							'operator' => '!==',
+							'value'    => 'svg',
+						),
+						array(
+							'name'  => 'svg_icon',
+							'value' => 'svg',
+						),
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.premium-svg-drawer):not(.premium-svg-nodraw)' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}}[class*="premium-svg-"] svg' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'svg_height',
+			array(
+				'label'      => __( 'Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'media_type' => 'svg',
+					'svg_icon'   => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'svg_icon_size',
+			array(
+				'label'      => __( 'Size', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 500,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 250,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'media_type' => 'svg',
+					'svg_icon'   => 'icon',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'text_color',
+			array(
+				'label'     => __( 'Text Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#54595F',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'media_type' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'text_color_hover',
+			array(
+				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#54595F',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}:hover .premium-img-layers-text'  => 'color:{{VALUE}}',
+				),
+				'condition' => array(
+					'media_type' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'text_typography',
+				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text',
+				'condition' => array(
+					'media_type' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'      => 'text_shadow',
+				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}} .premium-img-layers-text',
+				'condition' => array(
+					'media_type' => 'text',
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'icon_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => '#6EC1E4',
+					'condition' => array(
+						'media_type' => 'svg',
+					),
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}} svg' => 'color: {{VALUE}};',
+						'{{WRAPPER}} {{CURRENT_ITEM}} svg *' => 'stroke: {{VALUE}}',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'fill_color',
+				array(
+					'label'     => __( 'Fill Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => 'transparent',
+					'condition' => array(
+						'media_type' => 'svg',
+					),
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}} svg *' => 'fill: {{VALUE}}',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_stroke',
+				array(
+					'label'     => __( 'After Draw Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'condition' => array(
+						'media_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_color',
+				array(
+					'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'condition' => array(
+						'media_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'path_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 20,
+							'step' => 0.1,
+						),
+					),
+					'default'   => array(
+						'size' => 3,
+						'unit' => 'px',
+					),
+					'condition' => array(
+						'media_type' => 'svg',
+					),
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}} svg path, {{WRAPPER}} {{CURRENT_ITEM}} svg circle, {{WRAPPER}} {{CURRENT_ITEM}} svg square, {{WRAPPER}} {{CURRENT_ITEM}} svg ellipse, {{WRAPPER}} {{CURRENT_ITEM}} svg rect, {{WRAPPER}} {{CURRENT_ITEM}} svg polyline, {{WRAPPER}} {{CURRENT_ITEM}} svg line' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+		}
+
+		$repeater->add_control(
+			'blend_mode',
+			array(
+				'label'     => __( 'Blend Mode', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					''            => __( 'Normal', 'premium-addons-pro' ),
+					'multiply'    => 'Multiply',
+					'screen'      => 'Screen',
+					'overlay'     => 'Overlay',
+					'darken'      => 'Darken',
+					'lighten'     => 'Lighten',
+					'color-dodge' => 'Color Dodge',
+					'saturation'  => 'Saturation',
+					'color'       => 'Color',
+					'luminosity'  => 'Luminosity',
+				),
+				'separator' => 'before',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'mix-blend-mode: {{VALUE}}',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'hover_effect',
+			array(
+				'label'   => __( 'Hover Effect', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'none'    => __( 'None', 'premium-addons-pro' ),
+					'zoomin'  => __( 'Zoom In', 'premium-addons-pro' ),
+					'zoomout' => __( 'Zoom Out', 'premium-addons-pro' ),
+					'scale'   => __( 'Scale', 'premium-addons-pro' ),
+					'gray'    => __( 'Grayscale', 'premium-addons-pro' ),
+					'blur'    => __( 'Blur', 'premium-addons-pro' ),
+					'bright'  => __( 'Bright', 'premium-addons-pro' ),
+					'sepia'   => __( 'Sepia', 'premium-addons-pro' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'opacity',
+			array(
+				'label'     => __( 'Opacity', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1,
+						'step' => .1,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'opacity: {{SIZE}}',
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'premium_img_layers_rotate',
 			array(
 				'label' => __( 'Rotate', 'premium-addons-pro' ),
@@ -542,7 +1109,7 @@ class Premium_Img_Layers extends Widget_Base {
 			)
 		);
 
-		$repeater->add_control(
+		$repeater->add_responsive_control(
 			'premium_img_layers_rotatex',
 			array(
 				'label'       => __( 'Degrees', 'premium-addons-pro' ),
@@ -560,10 +1127,19 @@ class Premium_Img_Layers extends Widget_Base {
 			)
 		);
 
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'layer_animation_tab',
+			array(
+				'label' => esc_html__( 'Animations', 'elementor-pro' ),
+			)
+		);
+
 		$repeater->add_control(
 			'premium_img_layers_animation_switcher',
 			array(
-				'label' => __( 'Animation', 'premium-addons-pro' ),
+				'label' => __( 'Entrance Animation', 'premium-addons-pro' ),
 				'type'  => Controls_Manager::SWITCHER,
 			)
 		);
@@ -571,7 +1147,7 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater->add_control(
 			'premium_img_layers_animation',
 			array(
-				'label'              => __( 'Entrance Animation', 'premium-addons-pro' ),
+				'label'              => __( 'Select Animation', 'premium-addons-pro' ),
 				'type'               => Controls_Manager::ANIMATION,
 				'default'            => '',
 				'label_block'        => true,
@@ -1654,9 +2230,9 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater->add_control(
 			'mask_switcher',
 			array(
-				'label'        => __( 'Minimal Mask Effect', 'premium-addons-for-elementor' ),
+				'label'        => __( 'Minimal Mask Effect', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'Note: This effect takes place once the element is in the viewport', 'premium-addons-for-elementor' ),
+				'description'  => __( 'Note: This effect takes place once the element is in the viewport', 'premium-addons-pro' ),
 				'render_type'  => 'template',
 				'prefix_class' => 'premium-mask-',
 				'condition'    => array(
@@ -1668,7 +2244,7 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater->add_control(
 			'mask_color',
 			array(
-				'label'       => __( 'Mask Color', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Mask Color', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::COLOR,
 				'render_type' => 'template',
 				'selectors'   => array(
@@ -1684,15 +2260,15 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater->add_control(
 			'mask_dir',
 			array(
-				'label'       => __( 'Direction', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Direction', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'tr',
 				'render_type' => 'template',
 				'options'     => array(
-					'tr' => __( 'To Right', 'premium-addons-for-elementor' ),
-					'tl' => __( 'To Left', 'premium-addons-for-elementor' ),
-					'tt' => __( 'To Top', 'premium-addons-for-elementor' ),
-					'tb' => __( 'To Bottom', 'premium-addons-for-elementor' ),
+					'tr' => __( 'To Right', 'premium-addons-pro' ),
+					'tl' => __( 'To Left', 'premium-addons-pro' ),
+					'tt' => __( 'To Top', 'premium-addons-pro' ),
+					'tb' => __( 'To Bottom', 'premium-addons-pro' ),
 				),
 				'condition'   => array(
 					'media_type'    => 'text',
@@ -1704,7 +2280,7 @@ class Premium_Img_Layers extends Widget_Base {
 		$repeater->add_responsive_control(
 			'mask_padding',
 			array(
-				'label'      => __( 'Words Padding', 'premium-addons-for-elementor' ),
+				'label'      => __( 'Words Padding', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
@@ -1717,17 +2293,9 @@ class Premium_Img_Layers extends Widget_Base {
 			)
 		);
 
-		$repeater->add_control(
-			'premium_img_layers_zindex',
-			array(
-				'label'     => __( 'z-index', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 1,
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-img-layers-list-item' => 'z-index: {{VALUE}};',
-				),
-			)
-		);
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
 
 		$repeater->add_control(
 			'premium_img_layers_class',
@@ -1746,19 +2314,78 @@ class Premium_Img_Layers extends Widget_Base {
 			)
 		);
 
+		if ( $draw_icon ) {
+			$this->add_control(
+				'draw_svgs_sequence',
+				array(
+					'label'        => __( 'Draw SVGs In Sequence', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'prefix_class' => 'pa-svg-draw-seq-',
+					'render_type'  => 'template',
+				)
+			);
+
+			$this->add_control(
+				'draw_svgs_loop',
+				array(
+					'label'        => __( 'Loop', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'prefix_class' => 'pa-svg-draw-loop-',
+					'render_type'  => 'template',
+					'condition'    => array(
+						'draw_svgs_sequence' => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'draw_svgs_sequence' => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_yoyo',
+				array(
+					'label'        => __( 'Yoyo Animation', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'prefix_class' => 'pa-svg-draw-yoyo-',
+					'render_type'  => 'template',
+					'condition'    => array(
+						'draw_svgs_sequence' => 'yes',
+						'draw_svgs_loop'     => 'yes',
+					),
+				)
+			);
+		}
+
 		$this->add_control(
 			'premium_parallax_layers_devices',
 			array(
 				'label'       => __( 'Apply Scroll Effects On', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
-				'options'     => array(
-					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
-					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
-				),
-				'default'     => array( 'desktop', 'tablet', 'mobile' ),
+				'options'     => Helper_Functions::get_all_breakpoints(),
+				'default'     => Helper_Functions::get_all_breakpoints( 'keys' ),
 				'multiple'    => true,
 				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'disable_fe_on_safari',
+			array(
+				'label'        => __( 'Disable Floating Effects On Safari', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'pa-imglayers-disable-fe-',
 			)
 		);
 
@@ -1776,7 +2403,7 @@ class Premium_Img_Layers extends Widget_Base {
 			array(
 				'label'      => __( 'Minimum Height', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', 'vh' ),
+				'size_units' => array( 'px', 'em', 'vh', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -2009,7 +2636,6 @@ class Premium_Img_Layers extends Widget_Base {
 		$this->add_render_attribute(
 			'container',
 			array(
-				'id'    => 'premium-img-layers-wrapper',
 				'class' => 'premium-img-layers-wrapper',
 			)
 		);
@@ -2017,6 +2643,11 @@ class Premium_Img_Layers extends Widget_Base {
 		$scroll_effects = isset( $settings['premium_parallax_layers_devices'] ) ? $settings['premium_parallax_layers_devices'] : array();
 
 		$this->add_render_attribute( 'container', 'data-devices', wp_json_encode( $scroll_effects ) );
+
+		$draw_icon = $this->check_icon_draw();
+		if ( $draw_icon && 'yes' === $settings['draw_svgs_sequence'] ) {
+			$this->add_render_attribute( 'container', 'data-speed', $settings['frames'] );
+		}
 
 		?>
 
@@ -2040,16 +2671,14 @@ class Premium_Img_Layers extends Widget_Base {
 
 				$list_item_key = 'img_layer_' . $index;
 
-				$position = ! empty( $image['premium_img_layers_position'] ) ? $image['premium_img_layers_position'] : 'absolute';
-
 				$this->add_render_attribute(
 					$list_item_key,
 					'class',
 					array(
 						'premium-img-layers-list-item',
-						$position,
 						esc_attr( $image['premium_img_layers_class'] ),
 						'elementor-repeater-item-' . $image['_id'],
+						'premium-img-layer-' . $image['hover_effect'],
 					)
 				);
 
@@ -2236,6 +2865,7 @@ class Premium_Img_Layers extends Widget_Base {
 					}
 				}
 
+				$dir_class = '';
 				if ( 'yes' === $image['mask_switcher'] ) {
 					$this->add_render_attribute( $list_item_key, 'class', 'premium-mask-yes' );
 					$dir_class = 'premium-mask-' . $image['mask_dir'];
@@ -2260,23 +2890,26 @@ class Premium_Img_Layers extends Widget_Base {
 
 				}
 
-				if ( 'url' === $image['premium_img_layers_link_selection'] ) {
-					$image_url = $image['premium_img_layers_link']['url'];
-				} else {
-					$image_url = get_permalink( $image['premium_img_layers_existing_link'] );
-				}
-
-				$list_item_link = 'img_link_' . $index;
 				if ( 'yes' === $image['premium_img_layers_link_switcher'] ) {
-					$this->add_render_attribute( $list_item_link, 'class', 'premium-img-layers-link' );
 
-					$this->add_render_attribute( $list_item_link, 'href', $image_url );
+					$list_item_link = 'img_link_' . $index;
 
-					if ( ! empty( $image['premium_img_layers_link']['is_external'] ) ) {
-						$this->add_render_attribute( $list_item_link, 'target', '_blank' );
-					}
-					if ( ! empty( $image['premium_img_layers_link']['nofollow'] ) ) {
-						$this->add_render_attribute( $list_item_link, 'rel', 'nofollow' );
+					$this->add_render_attribute(
+						$list_item_link,
+						array(
+							'class'      => 'premium-img-layers-link',
+							'aria-label' => 'Link ' . ( $index + 1 ),
+						)
+					);
+
+					if ( 'url' === $image['premium_img_layers_link_selection'] ) {
+
+						$this->add_link_attributes( $list_item_link, $image['premium_img_layers_link'] );
+
+					} else {
+
+						$this->add_render_attribute( $list_item_link, 'href', get_permalink( $image['premium_img_layers_existing_link'] ) );
+
 					}
 				}
 
@@ -2294,7 +2927,36 @@ class Premium_Img_Layers extends Widget_Base {
 						)
 					);
 
+				} elseif ( 'svg' === $image['media_type'] ) {
+
+					$this->add_render_attribute( $list_item_key, 'class', 'elementor-invisible' );
+
+					if ( 'yes' === $image['draw_svg'] ) {
+
+						$this->add_render_attribute(
+							$list_item_key,
+							array(
+								'class'            => 'premium-svg-drawer',
+								'data-svg-reverse' => $image['lottie_reverse'],
+								'data-svg-loop'    => $image['lottie_loop'],
+								'data-svg-hover'   => $image['lottie_hover'],
+								'data-svg-sync'    => $image['svg_sync'],
+								'data-svg-trans'   => $image['svg_transparent'],
+								'data-svg-restart' => $image['restart_draw'],
+								'data-svg-fill'    => $image['svg_color'],
+								'data-svg-stroke'  => $image['svg_stroke'],
+								'data-svg-frames'  => $image['frames'],
+								'data-svg-yoyo'    => $image['svg_yoyo'],
+								'data-svg-point'   => $image['lottie_reverse'] ? $image['end_point']['size'] : $image['start_point']['size'],
+							)
+						);
+
+					} else {
+						$this->add_render_attribute( $list_item_key, 'class', 'premium-svg-nodraw' );
+					}
 				}
+
+				$this->add_render_attribute( $list_item_key, 'data-layer-hide', wp_json_encode( $image['hide_layer'] ) );
 
 				?>
 
@@ -2302,29 +2964,42 @@ class Premium_Img_Layers extends Widget_Base {
 					<?php
 					if ( 'image' === $image['media_type'] ) {
 
-						$image_src = $image['premium_img_layers_image'];
+						$image_src = $image['premium_img_layers_image']['url'];
 
-						$image_src_size = Group_Control_Image_Size::get_attachment_image_src( $image_src['id'], 'thumbnail', $image );
+						if ( ! empty( $image_src ) ) {
+							$image_id = attachment_url_to_postid( $image_src );
 
-						if ( empty( $image_src_size ) ) {
-							$image_src_size = $image_src['url'];
-						} else {
-							$image_src_size = $image_src_size;
+							$settings['image_data'] = Helper_Functions::get_image_data( $image_id, $image['premium_img_layers_image']['url'], $image['thumbnail_size'] );
+
+							if ( 'custom' === $image['thumbnail_size'] ) {
+								$settings['image_data']['image_custom_dimension'] = $image['thumbnail_custom_dimension'];
+							}
+
+							PAPRO_Helper::get_attachment_image_html( $settings, 'thumbnail', 'image_data', 'premium-img-layers-image' );
 						}
-
-						$alt = Control_Media::get_image_alt( $image['premium_img_layers_image'] );
 						?>
-							<img src="<?php echo esc_url( $image_src_size ); ?>" class="premium-img-layers-image" alt="<?php echo esc_attr( $alt ); ?>">
+
 						<?php
 					} elseif ( 'text' === $image['media_type'] ) {
 						?>
 						<p class="premium-img-layers-text <?php echo esc_attr( $dir_class ); ?>" >
 							<?php echo wp_kses_post( $image['img_layer_text'] ); ?>
 						</p>
-					<?php } ?>
+						<?php
+					} elseif ( 'svg' === $image['media_type'] ) {
+						if ( 'svg' === $image['svg_icon'] ) {
+							echo $this->print_unescaped_setting( 'custom_svg', 'premium_img_layers_images_repeater', $index );
+						} else {
+							?>
+							<i class="<?php echo esc_attr( $image['font_icon']['value'] ); ?>"></i>
+							<?php
+						}
+					}
+					?>
 
 					<?php if ( 'yes' === $image['premium_img_layers_link_switcher'] ) : ?>
-						<a <?php echo wp_kses_post( $this->get_render_attribute_string( $list_item_link ) ); ?>></a>
+						<a <?php echo wp_kses_post( $this->get_render_attribute_string( $list_item_link ) ); ?>>
+						</a>
 					<?php endif; ?>
 
 				</li>
@@ -2350,10 +3025,13 @@ class Premium_Img_Layers extends Widget_Base {
 		<#
 
 			view.addRenderAttribute( 'container', {
-				'id': 'premium-img-layers-wrapper',
 				'class': 'premium-img-layers-wrapper',
 				'data-devices': JSON.stringify( settings.premium_parallax_layers_devices )
 			});
+
+			if ( 'yes' === settings.draw_svgs_sequence ) {
+				view.addRenderAttribute( 'container', 'data-speed', settings.frames );
+			}
 
 
 		#>
@@ -2388,14 +3066,12 @@ class Premium_Img_Layers extends Widget_Base {
 
 				listItemKey = 'img_layer_' + index;
 
-				var position = '' !== image.premium_img_layers_position ? image.premium_img_layers_position : 'absolute';
-
 				view.addRenderAttribute( listItemKey, 'class',
 					[
 						'premium-img-layers-list-item',
-						position,
 						image.premium_img_layers_class,
-						'elementor-repeater-item-' + image._id
+						'elementor-repeater-item-' + image._id,
+						'premium-img-layer-' + image.hover_effect,
 					]
 				);
 
@@ -2611,20 +3287,53 @@ class Premium_Img_Layers extends Widget_Base {
 						'data-lottie-render': image.lottie_renderer,
 					});
 
+				} else if ( 'svg' === image.media_type ) {
+
+					view.addRenderAttribute( listItemKey, 'class', 'elementor-invisible' );
+
+					if ( 'yes' === image.draw_svg ) {
+
+						view.addRenderAttribute( listItemKey, {
+							'class':  'premium-svg-drawer',
+							'data-svg-reverse': image.lottie_reverse,
+							'data-svg-loop': image.lottie_loop,
+							'data-svg-hover': image.lottie_hover,
+							'data-svg-sync': image.svg_sync,
+							'data-svg-trans': image.svg_transparent,
+							'data-svg-restart': image.restart_draw,
+							'data-svg-fill': image.svg_color,
+							'data-svg-stroke': image.svg_stroke,
+							'data-svg-frames': image.frames,
+							'data-svg-yoyo': image.svg_yoyo,
+							'data-svg-point': image.lottie_reverse ? image.end_point.size : image.start_point.size,
+						});
+
+					} else {
+						view.addRenderAttribute( listItemKey, 'class', 'premium-svg-nodraw' );
+					}
+
 				}
+
+				view.addRenderAttribute( listItemKey, 'data-layer-hide', JSON.stringify( image.hide_layer ) );
 
 				#>
 
 				<li {{{ view.getRenderAttributeString(listItemKey) }}}>
 					<# if( 'image' === image.media_type ) { #>
 						<img src="{{ image_url }}" class="premium-img-layers-image">
-					<# }  else if( 'text' === image.media_type ) { #>
+					<# } else if( 'text' === image.media_type ) { #>
 						<p class="premium-img-layers-text {{{ dirClass }}}">
 							{{{image.img_layer_text}}}
 						</p>
-					<# } #>
+					<# } else if ( 'svg' === image.media_type ) {
+						if ( 'svg' === image.svg_icon ) { #>
+							{{{ image.custom_svg }}}
+						<# } else { #>
+							<i class="{{ image.font_icon.value }}"></i>
+						<#}
+					}
 
-					<# if( 'yes' === image.premium_img_layers_link_switcher ) { #>
+					if( 'yes' === image.premium_img_layers_link_switcher ) { #>
 						<a class="premium-img-layers-link" href="{{ imageUrl }}"></a>
 					<# } #>
 				</li>

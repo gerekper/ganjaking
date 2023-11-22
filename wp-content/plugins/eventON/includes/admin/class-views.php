@@ -63,15 +63,18 @@ class EVO_Views{
 				$EVO_prod = new EVO_Product_Lic('eventon');
 				$has_update = $EVO_prod->has_update();
 
+				$styles_1 = "text-transform:uppercase;    border: 1px solid #fff; padding: 3px 10px; border-radius: 15px;";
+				$styles_2 = "cursor:pointer;";
+
 				$new_update_details_btn = ($has_update)?
 					"<b class='evo_admin_addons_newup_bar'>".__('New Update availale','eventon')."</b><a class='evo_admin_btn btn_primary' href='".admin_url()."update-core.php'>Update Now</a> <a class='thickbox evo_admin_btn btn_primary' href='".BACKEND_URL."plugin-install.php?tab=plugin-information&plugin=eventon&section=changelog&TB_iframe=true&width=600&height=400'>Version Details</a> ":null;
 
-				$new_update_details_btn .= "<a class='evo_admin_btn btn_secondary' href='http://docs.myeventon.com' target='_blank'>Docs</a> <a class='evo_admin_btn btn_secondary' href='http://www.myeventon.com/news/' target='_blank'>News</a>";
+				$new_update_details_btn .= "<a class='evo_admin_btn' href='http://docs.myeventon.com' target='_blank'>Docs</a> <a class='evo_admin_btn' href='http://www.myeventon.com/news/' target='_blank'>News</a>";
 				?>
 					<div id='evoaddon_eventon' class="addon main activated <?php echo ($has_update)? 'hasupdate':null;?>">
 						<h2>EventON</h2>
 						<p class='version'>v<?php echo EVO()->version;?><?php if($has_update):?><span>/<?php echo $EVO_prod->get_remote_version();?></span><?php endif;?></p>
-						<p><?php _e('License Status','eventon');?>: <strong style='text-transform:uppercase'><?php _e('Activated','eventon');?></strong> | <a id='evoDeactLic' style='cursor:pointer'><?php _e('Deactivate','eventon');?></a></p>
+						<p><?php _e('License Status','eventon');?>: <strong style='<?php echo $styles_1;?>'><?php _e('Activated','eventon');?></strong> <a id='evoDeactLic' class='evomarl10' style='<?php echo $styles_2;?>'><?php _e('Deactivate','eventon');?></a></p>
 						<p><?php _e('Purchase Key','eventon');?>: <strong><?php echo $EVO_prod->get_partial_license('eventon');?></strong></p>
 
 						<?php if( !$EVO_prod->remotely_validated()): ?>
@@ -92,7 +95,7 @@ class EVO_Views{
 					<p class='status'><?php _e('License Status','eventon');?>: <strong style='text-transform:uppercase'><?php _e('Not Activated','eventon');?></strong>
 					</p>
 					<p class='action'>
-						<a id='evo_license_form_trig' class='ajde_popup_trig evo_admin_btn btn_prime' data-dynamic_c='1' data-content_id='eventon_pop_content_001' poptitle='Activate EventON License'><?php _e('Activate Now','eventon');?></a>
+						<a id='evo_license_form_trig' class='ajde_popup_trig evo_admin_btn btn_prime' data-dynamic_c='1' data-content_id='eventon_pop_content_001' data-t='Activate EventON License'><?php _e('Activate Now','eventon');?></a>
 					</p>
 					<p class='activation_text'><i><a href='https://docs.myeventon.com/documentations/how-to-find-eventon-license-key/' target='_blank'>How to find activation key</a><?php EVO()->elements->echo_tooltips('EventON license you have purchased from Codecanyon, either regular or extended will allow you to install eventON in ONE site only. In order to install eventON in another site you will need a seperate license.','L');?></i>
 					</p>

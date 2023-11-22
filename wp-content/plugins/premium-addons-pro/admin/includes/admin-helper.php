@@ -61,9 +61,6 @@ class Admin_Helper {
 		// Register AJAX Hooks
 		add_action( 'wp_ajax_pa_wht_lbl_save_settings', array( $this, 'save_white_labeling_settings' ) );
 
-		// Register Rollback hooks
-		// add_action( 'admin_post_papro_rollback', array( $this, 'papro_rollback' ) );
-
 		// PAPRO License Actions
 		add_action( 'admin_init', array( $this, 'papro_register_option' ) );
 
@@ -85,7 +82,7 @@ class Admin_Helper {
 	 */
 	public function insert_action_links( $links ) {
 
-		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=' . $this->page_slug . '#tab=1' ), __( 'Settings', 'premium-addons-pro' ) );
+		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=' . $this->page_slug . '#tab=general' ), __( 'Settings', 'premium-addons-pro' ) );
 
 		array_push( $links, $settings_link );
 
@@ -236,7 +233,7 @@ class Admin_Helper {
 
 		check_admin_referer( 'papro_nonce', 'papro_nonce' );
 
-		$license = '8699958a-77f3-4db8-9422-126b0836e1c5';
+		$license = trim( $_POST['papro_license_key'] );
 
 		API::papro_activate_license( $license );
 	}
@@ -271,9 +268,9 @@ class Admin_Helper {
 	 */
 	public static function get_license_status() {
 
-		$status = 'valid';
+		$status = get_option( 'papro_license_status' );
 
-		return $status;
+		return ( ! $status ) ? false : $status;
 
 	}
 
@@ -287,9 +284,9 @@ class Admin_Helper {
 	 */
 	public static function get_license_key() {
 
-		$license = '8699958a-77f3-4db8-9422-126b0836e1c5';
+		$license = get_option( 'papro_license_key' );
 
-		return trim( $license );
+		return ( ! $license ) ? false : trim( $license );
 
 	}
 
@@ -303,11 +300,13 @@ class Admin_Helper {
 	 */
 	public static function get_encrypted_key() {
 
-		$input_string = '8699958a-77f3-4db8-9422-126b0836e1c5';
+		$input_string = self::get_license_key();
 
-		$status = 'valid';
+		$status = self::get_license_status();
 
-	
+		if ( 'valid' !== $status ) {
+			return '';
+		}
 
 		$start  = 5;
 		$length = mb_strlen( $input_string ) - $start - 5;
@@ -317,49 +316,6 @@ class Admin_Helper {
 		$input_string = substr_replace( $input_string, $mask_string, $start, $length );
 
 		return $input_string;
-	}
-
-
-	/**
-	 * PAPRO Rollback
-	 *
-	 * Fires rollback function for PAPRO
-	 *
-	 * @since 2.0.7
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function papro_rollback() {
-
-		check_admin_referer( 'papro_rollback' );
-
-		$plugin_slug = basename( PREMIUM_PRO_ADDONS_FILE, '.php' );
-
-		$package_url = API::get_plugin_package_url( PREMIUM_PRO_ADDONS_STABLE_VERSION );
-
-		if ( is_wp_error( $package_url ) ) {
-			wp_die( $package_url );
-		}
-
-		$pa_rollback = new PA_Rollback(
-			array(
-				'version'     => PREMIUM_PRO_ADDONS_STABLE_VERSION,
-				'plugin_name' => PREMIUM_PRO_ADDONS_BASENAME,
-				'plugin_slug' => $plugin_slug,
-				'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', $plugin_slug, PREMIUM_ADDONS_STABLE_VERSION ),
-			)
-		);
-
-		$pa_rollback->run();
-
-		wp_die(
-			'',
-			__( 'Rollback to Previous Version', 'premium-addons-for-elementor' ),
-			array(
-				'response' => 200,
-			)
-		);
 	}
 
 	/**
@@ -398,6 +354,7 @@ class Admin_Helper {
 			'premium-wht-lbl-rate'            => intval( $settings['premium-wht-lbl-rate'] ? 1 : 0 ),
 			'premium-wht-lbl-about'           => intval( $settings['premium-wht-lbl-about'] ? 1 : 0 ),
 			'premium-wht-lbl-license'         => intval( $settings['premium-wht-lbl-license'] ? 1 : 0 ),
+			'premium-wht-lbl-not'             => intval( $settings['premium-wht-lbl-not'] ? 1 : 0 ),
 			'premium-wht-lbl-logo'            => intval( $settings['premium-wht-lbl-logo'] ? 1 : 0 ),
 			'premium-wht-lbl-version'         => intval( $settings['premium-wht-lbl-version'] ? 1 : 0 ),
 		);

@@ -1,0 +1,24 @@
+/*Premium Site Logo**/
+.premium-site-logo-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .premium-site-logo-wrapper .premium-logo-img-wrapper {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+    .premium-site-logo-wrapper .premium-logo-img-wrapper img {
+      height: 100%; }
+  .premium-site-logo-wrapper .premium-logo-svg svg,
+  .premium-site-logo-wrapper .premium-lottie-animation svg {
+    width: 100%;
+    height: 100%; }
+  .premium-site-logo-wrapper .premium-logo-text-wrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+    .premium-site-logo-wrapper .premium-logo-text-wrapper .premium-logo-heading,
+    .premium-site-logo-wrapper .premium-logo-text-wrapper .premium-logo-sub-heading {
+      white-space: nowrap; }

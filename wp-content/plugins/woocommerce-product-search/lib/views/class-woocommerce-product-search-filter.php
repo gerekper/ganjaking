@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search_filter' ) ) {
@@ -71,13 +74,13 @@ if ( !function_exists( 'woocommerce_product_filter_products' ) ) {
 /**
  * Filter
  */
-class WooCommerce_Product_Search_Filter {
+class WooCommerce_Product_Search_Filter extends Filter_Renderer {
+
+	const CACHE_GROUP = 'ixwps_filter';
 
 	private static $fields = 0;
 
 	private static $filters = 0;
-
-	const CACHE_GROUP = 'ixwps_filter';
 
 	/**
 	 * Adds shortcodes.
@@ -195,8 +198,39 @@ class WooCommerce_Product_Search_Filter {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
+		$n          = self::get_n();
+		$search_id  = 'product-filter-search-' . $n;
+		$form_id    = 'product-filter-search-form-' . $n;
+		$field_id   = 'product-filter-field-' . $n;
+		$results_id = 'product-filter-results-' . $n;
+		$ixwpss     = !empty( $_REQUEST['ixwpss'] ) ? $_REQUEST['ixwpss'] : '';
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $search_id, $atts, $ixwpss ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				self::field_added();
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
+
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
-			$atts['heading']  = _x( 'Search', 'product search filter heading', 'woocommerce-product-search' );
+			$atts['heading'] = _x( 'Search', 'product search filter heading', 'woocommerce-product-search' );
 		}
 
 		$url_params = array();
@@ -296,10 +330,6 @@ class WooCommerce_Product_Search_Filter {
 			}
 		}
 
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
-		}
-
 		$heading_class = 'product-search-filter-search-heading';
 		$heading_id    = sprintf( 'product-search-filter-search-heading-%s', md5( json_encode( $atts ) ) );
 		if ( !empty( $params['heading_class'] ) ) {
@@ -318,15 +348,6 @@ class WooCommerce_Product_Search_Filter {
 		$params['placeholder'] = apply_filters( 'woocommerce_product_filter_placeholder', $params['placeholder'] );
 
 		$output = '';
-
-		$product_search = true;
-
-		$n          = self::get_n();
-		$search_id  = 'product-filter-search-' . $n;
-		$form_id    = 'product-filter-search-form-' . $n;
-		$field_id   = 'product-filter-field-' . $n;
-		$results_id = 'product-filter-results-' . $n;
-		$ixwpss     = !empty( $_REQUEST['ixwpss'] ) ? $_REQUEST['ixwpss'] : '';
 
 		$output .= self::inline_styles();
 
@@ -581,6 +602,14 @@ class WooCommerce_Product_Search_Filter {
 		$inline_script .= woocommerce_product_search_safex( $safex_inline_script );
 		wp_add_inline_script( 'product-filter', $inline_script );
 
+		if ( $render_cache ) {
+			$data['inline_scripts'][] = array( 'handle' => 'product-filter', 'inline_script' => $inline_script );
+		}
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
+
 		self::field_added();
 
 		return $output;
@@ -784,6 +813,7 @@ class WooCommerce_Product_Search_Filter {
 	 *
 	 * @param array $atts
 	 * @param string $content
+	 *
 	 * @return string
 	 */
 	public static function shortcode_products( $atts = [], $content = '' ) {
@@ -795,6 +825,7 @@ class WooCommerce_Product_Search_Filter {
 	 *
 	 * @param array $atts
 	 * @param null $results
+	 *
 	 * @return string
 	 */
 	public static function render_products( $atts = [], &$results = null ) {
@@ -938,6 +969,7 @@ class WooCommerce_Product_Search_Filter {
 	 * @param array $query_args query parameters
 	 * @param array $atts shortcode attributes
 	 * @param string $loop_name identifies the product filter loop
+	 *
 	 * @return string
 	 */
 	public static function product_loop( $query_args, $atts, $loop_name ) {
@@ -978,11 +1010,20 @@ class WooCommerce_Product_Search_Filter {
 		$woocommerce_loop['name']    = $loop_name;
 		$query_args                  = apply_filters( 'woocommerce_product_search_filter_shortcode_products_query', $query_args, $atts, $loop_name );
 
-		$cache_key = md5( json_encode( $query_args ) );
-		$products = wps_cache_get( $cache_key, self::CACHE_GROUP );
-		if ( $products === false ) {
+		$query_control = Query_Control::get_instance();
+		$request_parameters = null;
+		if ( $query_control !== null ) {
+			$handle_query = $query_control->get_handle_query();
+			$query_control->set_handle_query( true );
+			$request_parameters = $query_control->get_request_parameters();
+		}
+
+		$cache_key = md5( json_encode( array( $query_args, $request_parameters ) ) );
+		$cache = Cache::get_instance();
+		$products = $cache->get( $cache_key, self::CACHE_GROUP );
+		if ( $products === null ) {
 			$products = new WP_Query( $query_args );
-			wps_cache_set( $cache_key, $products, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+			$cache->set( $cache_key, $products, self::CACHE_GROUP, self::get_data_cache_lifetime() );
 		}
 
 		if (
@@ -997,21 +1038,27 @@ class WooCommerce_Product_Search_Filter {
 				isset( $_REQUEST['ixwpse'] )
 			)
 		) {
-			$url = $_SERVER['REQUEST_URI'];
+			$url = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
 
 			$unpage_url = preg_replace( '~/' . WooCommerce_Product_Search::get_pagination_base() . '/[0-9]+~i', '', $url );
-			$unpage_url = remove_query_arg( 'paged', $unpage_url );
+			$unpage_url = remove_query_arg( array( 'paged', 'product-page' ), $unpage_url );
 			if ( $url !== $unpage_url ) {
-				unset( $query_args['paged'] );
-				$wps_products_paged = 1;
+				if ( isset( $query_args['paged'] ) ) {
+					unset( $query_args['paged'] );
+					$wps_products_paged = 1;
 
-				$cache_key = md5( json_encode( $query_args ) );
-				$products = wps_cache_get( $cache_key, self::CACHE_GROUP );
-				if ( $products === false ) {
-					$products = new WP_Query( $query_args );
-					wps_cache_set( $cache_key, $products, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+					$cache_key = md5( json_encode( array( $query_args, $request_parameters ) ) );
+					$products = $cache->get( $cache_key, self::CACHE_GROUP );
+					if ( $products === null ) {
+						$products = new WP_Query( $query_args );
+						$cache->set( $cache_key, $products, self::CACHE_GROUP, self::get_data_cache_lifetime() );
+					}
 				}
 			}
+		}
+
+		if ( $query_control !== null ) {
+			$query_control->set_handle_query( $handle_query );
 		}
 
 		$wps_products = $products;

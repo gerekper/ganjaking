@@ -13,18 +13,18 @@ use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Logging\LoggerFactory;
-use MailPoet\Models\ScheduledTask;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Scheduler\PostNotificationScheduler;
 use MailPoet\Newsletter\Scheduler\Scheduler as NewsletterScheduler;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\SubscribersFinder;
 use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoet\Subscribers\SubscribersRepository;
-use MailPoet\Tasks\Sending as SendingTask;
 use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
@@ -47,6 +47,12 @@ class Scheduler {
 
   /** @var ScheduledTasksRepository */
   private $scheduledTasksRepository;
+
+  /** @var ScheduledTaskSubscribersRepository */
+  private $scheduledTaskSubscribersRepository;
+
+  /** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
 
   /** @var NewslettersRepository */
   private $newslettersRepository;
@@ -78,6 +84,8 @@ class Scheduler {
     CronHelper $cronHelper,
     CronWorkerScheduler $cronWorkerScheduler,
     ScheduledTasksRepository $scheduledTasksRepository,
+    ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository,
+    SendingQueuesRepository $sendingQueuesRepository,
     NewslettersRepository $newslettersRepository,
     SegmentsRepository $segmentsRepository,
     NewsletterSegmentRepository $newsletterSegmentRepository,
@@ -92,6 +100,8 @@ class Scheduler {
     $this->loggerFactory = $loggerFactory;
     $this->cronWorkerScheduler = $cronWorkerScheduler;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->scheduledTaskSubscribersRepository = $scheduledTaskSubscribersRepository;
+    $this->sendingQueuesRepository = $sendingQueuesRepository;
     $this->newslettersRepository = $newslettersRepository;
     $this->segmentsRepository = $segmentsRepository;
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
@@ -109,81 +119,73 @@ class Scheduler {
     $this->cronHelper->enforceExecutionLimit($timer);
 
     $scheduledTasks = $this->getScheduledSendingTasks();
-    if (!count($scheduledTasks)) return false;
-
-    // To prevent big changes we convert ScheduledTaskEntity to old model
-    $scheduledQueues = [];
-    foreach ($scheduledTasks as $scheduledTask) {
-      $task = ScheduledTask::findOne($scheduledTask->getId());
-      if (!$task) continue;
-      $scheduledQueue = SendingTask::createFromScheduledTask($task);
-      if (!$scheduledQueue) continue;
-      $scheduledQueues[] = $scheduledQueue;
-    }
-
     $this->updateTasks($scheduledTasks);
-    foreach ($scheduledQueues as $i => $queue) {
-      $newsletter = $this->newslettersRepository->findOneById($queue->newsletterId);
+    foreach ($scheduledTasks as $task) {
+      $queue = $task->getSendingQueue();
+      if (!$queue) {
+        $this->deleteByTask($task);
+        continue;
+      }
+
+      $newsletter = $queue->getNewsletter();
       try {
         if (!$newsletter instanceof NewsletterEntity || $newsletter->getDeletedAt() !== null) {
-          $queue->delete();
+          $this->deleteByTask($task);
         } elseif ($newsletter->getStatus() !== NewsletterEntity::STATUS_ACTIVE && $newsletter->getStatus() !== NewsletterEntity::STATUS_SCHEDULED) {
           continue;
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_WELCOME) {
-          $this->processWelcomeNewsletter($newsletter, $queue);
+          $this->processWelcomeNewsletter($newsletter, $task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_NOTIFICATION) {
-          $this->processPostNotificationNewsletter($newsletter, $queue);
+          $this->processPostNotificationNewsletter($newsletter, $task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_STANDARD) {
-          $this->processScheduledStandardNewsletter($newsletter, $queue);
+          $this->processScheduledStandardNewsletter($newsletter, $task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_AUTOMATIC) {
-          $this->processScheduledAutomaticEmail($newsletter, $queue);
+          $this->processScheduledAutomaticEmail($newsletter, $task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_RE_ENGAGEMENT) {
-          $this->processReEngagementEmail($queue);
+          $this->processReEngagementEmail($task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_AUTOMATION) {
-          $this->processScheduledAutomationEmail($queue);
+          $this->processScheduledAutomationEmail($task);
         } elseif ($newsletter->getType() === NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL) {
-          $this->processScheduledTransactionalEmail($queue);
+          $this->processScheduledTransactionalEmail($task);
         }
       } catch (EntityNotFoundException $e) {
         // Doctrine throws this exception when newsletter doesn't exist but is referenced in a scheduled task.
         // This was added while refactoring this method to use Doctrine instead of Paris. We have to handle this case
         // for the SchedulerTest::testItDeletesQueueDuringProcessingWhenNewsletterNotFound() test. I'm not sure
         // if this problem could happen in production or not.
-        $queue->delete();
+        $this->deleteByTask($task);
       }
       $this->cronHelper->enforceExecutionLimit($timer);
     }
   }
 
-  public function processWelcomeNewsletter(NewsletterEntity $newsletter, $queue) {
-    $subscribers = $queue->getSubscribers();
+  public function processWelcomeNewsletter(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
+    $subscribers = $task->getSubscribers();
     if (empty($subscribers[0])) {
-      $queue->delete();
-      $this->updateScheduledTaskEntity($queue, true);
+      $this->deleteByTask($task);
       return false;
     }
-    $subscriberId = (int)$subscribers[0];
+    $subscriberId = (int)$subscribers[0]->getSubscriberId();
     if ($newsletter->getOptionValue('event') === 'segment') {
-      if ($this->verifyMailpoetSubscriber($subscriberId, $newsletter, $queue) === false) {
+      if ($this->verifyMailpoetSubscriber($subscriberId, $newsletter, $task) === false) {
         return false;
       }
     } else {
       if ($newsletter->getOptionValue('event') === 'user') {
-        if ($this->verifyWPSubscriber($subscriberId, $newsletter, $queue) === false) {
+        if ($this->verifyWPSubscriber($subscriberId, $newsletter, $task) === false) {
           return false;
         }
       }
     }
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  public function processPostNotificationNewsletter(NewsletterEntity $newsletter, SendingTask $queue) {
+  public function processPostNotificationNewsletter(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
       'process post notification in scheduler',
-      ['newsletter_id' => $newsletter->getId(), 'task_id' => $queue->taskId]
+      ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
     );
 
     // ensure that segments exist
@@ -191,24 +193,21 @@ class Scheduler {
     if (empty($segments)) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
         'post notification no segments',
-        ['newsletter_id' => $newsletter->getId(), 'task_id' => $queue->taskId]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
       );
-      return $this->deleteQueueOrUpdateNextRunDate($queue, $newsletter);
+      $this->deleteQueueOrUpdateNextRunDate($task, $newsletter);
+      return false;
     }
 
     // ensure that subscribers are in segments
-    $taskModel = $queue->task();
-    $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
-    if ($taskEntity instanceof ScheduledTaskEntity) {
-      $subscribersCount = $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments, $newsletter->getFilterSegmentId());
-    }
-
+    $subscribersCount = $this->subscribersFinder->addSubscribersToTaskFromSegments($task, $segments, $newsletter->getFilterSegmentId());
     if (empty($subscribersCount)) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
         'post notification no subscribers',
-        ['newsletter_id' => $newsletter->getId(), 'task_id' => $queue->taskId, 'segment_ids' => $segments]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId(), 'segment_ids' => $segments]
       );
-      return $this->deleteQueueOrUpdateNextRunDate($queue, $newsletter);
+      $this->deleteQueueOrUpdateNextRunDate($task, $newsletter);
+      return false;
     }
 
     // create a duplicate newsletter that acts as a history record
@@ -217,133 +216,114 @@ class Scheduler {
     } catch (\Exception $exception) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->error(
         'creating post notification history failed',
-        ['newsletter_id' => $newsletter->getId(), 'task_id' => $queue->taskId, 'error' => $exception->getMessage()]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId(), 'error' => $exception->getMessage()]
       );
       return false;
     }
 
     // queue newsletter for delivery
-    $queue->newsletterId = (int)$notificationHistory->getId();
-    $queue->updateCount();
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
-
-    // Because there is mixed usage of the old and new model, we want to be sure about the correct state
-    $this->newslettersRepository->refresh($notificationHistory);
-    $queue->getSendingQueueEntity(); // This call refreshes sending queue entity
+    $queue = $task->getSendingQueue();
+    if (!$queue) {
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->error(
+        'post notification no queue',
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
+      );
+      return false;
+    }
+    $queue->setNewsletter($notificationHistory);
+    $this->sendingQueuesRepository->updateCounts($queue);
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
 
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
       'post notification set status to sending',
-      ['newsletter_id' => $newsletter->getId(), 'task_id' => $queue->taskId]
+      ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
     );
     return true;
   }
 
-  public function processScheduledAutomaticEmail(NewsletterEntity $newsletter, $queue) {
+  public function processScheduledAutomaticEmail(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
     if ($newsletter->getOptionValue('sendTo') === 'segment') {
       $segment = $this->segmentsRepository->findOneById($newsletter->getOptionValue('segment'));
       if ($segment instanceof SegmentEntity) {
-        $taskModel = $queue->task();
-        $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
-        if ($taskEntity instanceof ScheduledTaskEntity) {
-          $result = $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, [(int)$segment->getId()]);
-        }
+        $result = $this->subscribersFinder->addSubscribersToTaskFromSegments($task, [(int)$segment->getId()]);
 
         if (empty($result)) {
-          $queue->delete();
-          $this->updateScheduledTaskEntity($queue, true);
+          $this->deleteByTask($task);
           return false;
         }
       }
     } else {
-      $subscribers = $queue->getSubscribers();
-      $subscriber = (!empty($subscribers) && is_array($subscribers)) ?
-        $this->subscribersRepository->findOneById($subscribers[0]) :
-        false;
+      $subscribers = $task->getSubscribers();
+      $subscriber = isset($subscribers[0]) ? $subscribers[0]->getSubscriber() : null;
       if (!$subscriber) {
-        $queue->delete();
-        $this->updateScheduledTaskEntity($queue, true);
+        $this->deleteByTask($task);
         return false;
       }
-      if ($this->verifySubscriber($subscriber, $queue) === false) {
+      if ($this->verifySubscriber($subscriber, $task) === false) {
         return false;
       }
     }
 
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  public function processScheduledAutomationEmail($queue): bool {
-    $subscribers = $queue->getSubscribers();
-    $subscriber = (!empty($subscribers) && is_array($subscribers)) ? $this->subscribersRepository->findOneById($subscribers[0]) : null;
+  public function processScheduledAutomationEmail(ScheduledTaskEntity $task): bool {
+    $subscribers = $task->getSubscribers();
+    $subscriber = isset($subscribers[0]) ? $subscribers[0]->getSubscriber() : null;
     if (!$subscriber) {
-      $queue->delete();
-      $this->updateScheduledTaskEntity($queue, true);
+      $this->deleteByTask($task);
       return false;
     }
-    if (!$this->verifySubscriber($subscriber, $queue)) {
+    if (!$this->verifySubscriber($subscriber, $task)) {
       return false;
     }
 
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  public function processScheduledTransactionalEmail($queue): bool {
-    $subscribers = $queue->getSubscribers();
-    $subscriber = (!empty($subscribers) && is_array($subscribers)) ? $this->subscribersRepository->findOneById($subscribers[0]) : null;
+  public function processScheduledTransactionalEmail(ScheduledTaskEntity $task): bool {
+    $subscribers = $task->getSubscribers();
+    $subscriber = isset($subscribers[0]) ? $subscribers[0]->getSubscriber() : null;
     if (!$subscriber) {
-      $queue->delete();
-      $this->updateScheduledTaskEntity($queue, true);
+      $this->deleteByTask($task);
       return false;
     }
-    if (!$this->verifySubscriber($subscriber, $queue)) {
-      $queue->delete();
-      $this->updateScheduledTaskEntity($queue, true);
+    if (!$this->verifySubscriber($subscriber, $task)) {
+      $this->deleteByTask($task);
       return false;
     }
 
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  public function processScheduledStandardNewsletter(NewsletterEntity $newsletter, SendingTask $task) {
+  public function processScheduledStandardNewsletter(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
     $segments = $newsletter->getSegmentIds();
-    $taskModel = $task->task();
-    $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
+    $this->subscribersFinder->addSubscribersToTaskFromSegments($task, $segments, $newsletter->getFilterSegmentId());
 
-    if ($taskEntity instanceof ScheduledTaskEntity) {
-      $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments, $newsletter->getFilterSegmentId());
+    $task->setStatus(null);
+    $queue = $task->getSendingQueue();
+    if ($queue) {
+      $this->sendingQueuesRepository->updateCounts($queue);
     }
-
-    // update current queue
-    $task->updateCount();
-    $task->status = null;
-    $task->save();
-    // update newsletter status
     $newsletter->setStatus(NewsletterEntity::STATUS_SENDING);
-    $this->newslettersRepository->persist($newsletter);
-    $this->newslettersRepository->flush();
-    $this->updateScheduledTaskEntity($task);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  private function processReEngagementEmail($queue) {
-    $queue->status = null;
-    $queue->save();
-    $this->updateScheduledTaskEntity($queue);
+  private function processReEngagementEmail(ScheduledTaskEntity $task) {
+    $task->setStatus(null);
+    $this->scheduledTasksRepository->flush();
     return true;
   }
 
-  public function verifyMailpoetSubscriber(int $subscriberId, NewsletterEntity $newsletter, $queue): bool {
+  public function verifyMailpoetSubscriber(int $subscriberId, NewsletterEntity $newsletter, ScheduledTaskEntity $task): bool {
     $subscriber = $this->subscribersRepository->findOneById($subscriberId);
 
     // check if subscriber is in proper segment
@@ -355,83 +335,63 @@ class Scheduler {
       ]
     );
     if (!$subscriber || !$subscriberInSegment) {
-      $queue->delete();
+      $this->deleteByTask($task);
       return false;
     }
-    return $this->verifySubscriber($subscriber, $queue);
+    return $this->verifySubscriber($subscriber, $task);
   }
 
-  public function verifyWPSubscriber(int $subscriberId, NewsletterEntity $newsletter, $queue): bool {
+  public function verifyWPSubscriber(int $subscriberId, NewsletterEntity $newsletter, ScheduledTaskEntity $task): bool {
     // check if user has the proper role
     $subscriber = $this->subscribersRepository->findOneById($subscriberId);
     if (!$subscriber || $subscriber->isWPUser() === false || is_null($subscriber->getWpUserId())) {
-      $queue->delete();
+      $this->deleteByTask($task);
       return false;
     }
     $wpUser = get_userdata($subscriber->getWpUserId());
     if ($wpUser === false) {
-      $queue->delete();
+      $this->deleteByTask($task);
       return false;
     }
     if (
       $newsletter->getOptionValue('role') !== WelcomeScheduler::WORDPRESS_ALL_ROLES
       && !in_array($newsletter->getOptionValue('role'), ((array)$wpUser)['roles'])
     ) {
-      $queue->delete();
+      $this->deleteByTask($task);
       return false;
     }
-    return $this->verifySubscriber($subscriber, $queue);
+    return $this->verifySubscriber($subscriber, $task);
   }
 
-  public function verifySubscriber(SubscriberEntity $subscriber, $queue): bool {
-    $newsletter = $queue->newsletterId ? $this->newslettersRepository->findOneById($queue->newsletterId) : null;
+  public function verifySubscriber(SubscriberEntity $subscriber, ScheduledTaskEntity $task): bool {
+    $queue = $task->getSendingQueue();
+    $newsletter = $queue ? $queue->getNewsletter() : null;
     if ($newsletter && $newsletter->getType() === NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL) {
       return $subscriber->getStatus() !== SubscriberEntity::STATUS_BOUNCED;
     }
     if ($subscriber->getStatus() === SubscriberEntity::STATUS_UNCONFIRMED) {
       // reschedule delivery
-      $task = $this->scheduledTasksRepository->findOneById($queue->task()->id);
-
-      if ($task instanceof ScheduledTaskEntity) {
-        $this->cronWorkerScheduler->rescheduleProgressively($task);
-      }
-
+      $this->cronWorkerScheduler->rescheduleProgressively($task);
       return false;
     } else if ($subscriber->getStatus() === SubscriberEntity::STATUS_UNSUBSCRIBED) {
-      $queue->delete();
+      $this->deleteByTask($task);
       return false;
     }
     return true;
   }
 
-  public function deleteQueueOrUpdateNextRunDate($queue, NewsletterEntity $newsletter) {
+  public function deleteQueueOrUpdateNextRunDate(ScheduledTaskEntity $task, NewsletterEntity $newsletter) {
     if ($newsletter->getOptionValue('intervalType') === PostNotificationScheduler::INTERVAL_IMMEDIATELY) {
-      $queue->delete();
-      $this->updateScheduledTaskEntity($queue, true);
-      return;
+      $this->deleteByTask($task);
     } else {
-      $nextRunDate = $this->scheduler->getNextRunDate($newsletter->getOptionValue('schedule'));
+      $nextRunDate = $this->scheduler->getNextRunDateTime($newsletter->getOptionValue('schedule'));
       if (!$nextRunDate) {
-        $queue->delete();
-        $this->updateScheduledTaskEntity($queue, true);
+        $this->deleteByTask($task);
         return;
       }
-      $queue->scheduledAt = $nextRunDate;
-      $queue->save();
-      $this->updateScheduledTaskEntity($queue);
+      $task->setScheduledAt($nextRunDate);
+      $this->scheduledTasksRepository->flush();
     }
-  }
-
-  private function updateScheduledTaskEntity(SendingTask $queue, bool $hasBeenDeleted = false) {
-    $taskModel = $queue->task();
-    if (!$taskModel instanceof ScheduledTask) {
-      return;
-    }
-    $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
-    if (!$taskEntity instanceof ScheduledTaskEntity) {
-      return;
-    }
-    $hasBeenDeleted ? $this->scheduledTasksRepository->detach($taskEntity) : $this->scheduledTasksRepository->refresh($taskEntity);
   }
 
   public function createPostNotificationHistory(NewsletterEntity $newsletter): NewsletterEntity {
@@ -485,5 +445,15 @@ class Scheduler {
    */
   public function getScheduledSendingTasks(): array {
     return $this->scheduledTasksRepository->findScheduledSendingTasks(self::TASK_BATCH_SIZE);
+  }
+
+  private function deleteByTask(ScheduledTaskEntity $task): void {
+    $queue = $task->getSendingQueue();
+    if ($queue) {
+      $this->sendingQueuesRepository->remove($queue);
+    }
+    $this->scheduledTaskSubscribersRepository->deleteByScheduledTask($task);
+    $this->scheduledTasksRepository->remove($task);
+    $this->scheduledTasksRepository->flush();
   }
 }

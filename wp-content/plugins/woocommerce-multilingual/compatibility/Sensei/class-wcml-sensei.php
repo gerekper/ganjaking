@@ -204,7 +204,7 @@ class WCML_Sensei implements \IWPML_Action {
 	public function filter_bought_product_id( $product_id, $order ) {
 
 		$order_id       = method_exists( 'WC_Order', 'get_id' ) ? $order->get_id() : $order->id;
-		$order_language = get_post_meta( $order_id, 'wpml_language', true );
+		$order_language = WCML_Orders::getLanguage( $order_id );
 
 		$tr_product_id = apply_filters( 'translate_object_id', $product_id, get_post_type( $product_id ), false, $order_language );
 

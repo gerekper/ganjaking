@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Twilio_SMS\Integrations\Bookings;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * Bookings notification schedule field helper object.

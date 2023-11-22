@@ -1,12 +1,5 @@
 Reminders (RM) addon for EventON Plugin
 ====================================
-v 0.5 (2022-3-21)
-FIXED: get_reminder_prop() method array error
-FIXED: unexpected code error on class-admin.php file
-FIXED: PHP new version compatibility
-FIXED: meta box display styles
-UPDATED: Reminders emailing notice in settings
-
 v 0.4 (2018-5-14)
 FIXED: Reminders are not saving for correct times
 FIXED: field naming error in settings

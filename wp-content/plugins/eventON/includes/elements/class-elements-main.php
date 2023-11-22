@@ -352,14 +352,16 @@ class EVO_General_Elements{
 			break;
 
 			// DROP Down select field
-			case 'dropdown':					
+			case 'dropdown':		
+		
 						
 				echo "<p class='evo_elm_row evo_elm_select {$id} {$row_class}' style='{$row_style}'>";
 				echo "<label>$name $legend_code</label>"; 
 				echo "<select class='ajdebe_dropdown {$field_class}' name='".$id."'>";
 
 				if(is_array($options)){
-					$dropdown_opt = !empty($value)? $value: (!empty($default)? $default :'');		
+					$dropdown_opt = !empty($value)? $value: (!empty($default)? $default :'');	
+
 					foreach($options as $option=>$option_val){
 						echo"<option name='".$id."' value='".$option."' "
 						.  ( ($option == $dropdown_opt)? 'selected=\"selected\"':null)  .">".$option_val."</option>";
@@ -492,7 +494,7 @@ class EVO_General_Elements{
 			echo "<input type='hidden' name='{$name}' value='{$value}'>";
 		}
 	}
-// Ligthbox triggering button @since 4.3.5
+// triggering button @since 4.3.5 @updated 4.5.2
 	function print_trigger_element($args, $type){
 		$help = new evo_helper();
 
@@ -652,9 +654,44 @@ class EVO_General_Elements{
 				<<?php echo $dom_element;?> class='<?php echo $class_attr . $extra_classes;?>' <?php echo $help->array_to_html_data($btn_data);?> style='<?php echo $styles;?>'><?php echo $title;?></<?php echo $dom_element;?>>
 				<?php
 			break;
+
+			case 'trig_sp':
+
+				$opt = extract( array_merge(array(
+					'class_attr'=>'',
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'sp_title'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'hide_sp'=> false,
+					'hide_message'=> false,
+					'content_id'=>'',
+					'ajax'=>'no',			
+					'ajax_data'=>'',			
+					'end'=>'admin',// only for admin					
+				), $args) );
+
+				$class_attr = empty($class_attr) ? 'evo_admin_btn evosp_trigger ': $class_attr;
+
+				$btn_data = array(
+					'd'=> array('uid'=> $uid,
+					'hide_sp'=> $hide_sp,
+					'hide_message'=> $hide_message,
+					'sp_title'=> $sp_title,
+					'ajax'=> $ajax,
+					'content_id'=>$content_id,
+					'ajax_data'=>$ajax_data,
+				));
+
+				?>
+				<<?php echo $dom_element;?> class='<?php echo $class_attr . $extra_classes;?>' <?php echo $help->array_to_html_data($btn_data);?> style='<?php echo $styles;?>'><?php echo $title;?></<?php echo $dom_element;?>>
+				<?php
+
+			break;
 		}
 	}
-
 
 // date time selector
 	function print_date_time_selector($A){
@@ -979,49 +1016,32 @@ class EVO_General_Elements{
 		$this->tooltips($content, $position,true);
 	}
 
-// Side panel
-	function _print_side_panel(){
-		?>
-		<div class='evo_sidepanel' style='display:none'>
-			<div class='evo_sp_in'>
-				<span class='evo_sp_close'><i class='fa fa-close'></i></span>
-				<div class='evo_sp_head'>
-					
-				</div>
-				<div class='evo_sp_body'>
-					
-				</div>
-				<div class='evo_sp_foot'>
-					
-				</div>
-			</div>
-		</div>
-		<?php
-	}
+// Icon Selector -@updated 4.5.2
 
-// Icon Selector
-	function icons(){
+	// @since 4.5.2
+	function get_icon_html(){
 		include_once( AJDE_EVCAL_PATH.'/assets/fonts/fa_fonts.php' );
-		ob_start();?>			
-		<div class='ajde_fa_icons_selector'>
-			<div class='iconsel_header'>
-				<h3><?php _e('Select Icon','eventon');?></h3>
-				<p><input id='evo_icon_search' type='text' class='evo_icon_search' placeholder='<?php _e('Type name to search icons','eventon');?>'/></p>
-			</div>
-			<div class="fai_in">
+
+		ob_start();
+
+		?>
+		<div id='evo_icons_data' style='display:none'>
+			<p class='evo_icon_search_bar evomar0'>
+				<input id='evo_icon_search' type='search' class='evo_icon_search' placeholder='<?php _e('Type name to search icons','eventon');?>'/></p>
+			<div class="evo_icon_selector fai_in">
 				<ul class="faicon_ul">
 				<?php
 				// $font_ passed from incldued font awesome file above
 				if(!empty($font_)){
 					foreach($font_ as $fa){
-						echo "<li data-v='".$fa."'><i data-name='".$fa."' class='fa ".$fa."' title='{$fa}'></i></li>";
+						echo "<li class='evo_icons_ico' data-v='".$fa."'><i data-name='".$fa."' class='fa ".$fa."' title='{$fa}'></i></li>";
 					}
 				}
 				?>						
-				</ul>
-			</div>
-		</div>
-		<?php return ob_get_clean();
+			</ul>
+		</div></div>
+		<?php
+		return ob_get_clean();
 	}
 	function get_font_icons_data(){
 		include_once( AJDE_EVCAL_PATH.'/assets/fonts/fa_fonts.php' );

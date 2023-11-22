@@ -14,6 +14,9 @@
                 date_format: "ll",
                 date_locale: "en",
                 adminPosts: false,
+                totalPostsNumber: null,
+                messagedPosts: 0,
+                adminPostsNumber: 0,
                 since: {
                     years: " years ago",
                     months: " months ago",
@@ -84,7 +87,12 @@
                         }).attr({
                             src: f
                         })
-                    } ++c == r && i.callback && i.callback()
+                    }
+
+                    if (i.totalPostsNumber)
+                        r = i.messagedPosts;
+
+                    ++c == (i.adminPosts ? i.adminPostsNumber : r) && i.callback && i.callback()
                 }
             };
             var l = {
@@ -185,6 +193,7 @@
                                 e.screen_name = t.user.screen_name,
                                 e.retweet_count = t.retweet_count,
                                 e.favorite_count = t.favorite_count,
+                                e.showHeader = "yes" === i.twitter.header,
                                 e.dt_create = l.getTimeAgo(t.created_at, "twitter"),
                                 e.author_link = "https://twitter.com/" + t.user.screen_name,
                                 e.author_picture = t.user.profile_image_url_https,
@@ -193,8 +202,8 @@
                                 e.readMore = i.readMore,
                                 e.post_url = e.author_link + "/status/" + t.id_str,
                                 e.author_name = t.user.name,
-                                e.message = void 0 === t.text ? t.full_text.substr(t.display_text_range[0],
-                                    t.display_text_range[1]) : t.text, e.description = "",
+                                e.message = void 0 === t.text ? t.full_text : t.text,
+                                e.description = "",
                                 e.link = "https://twitter.com/" + t.user.screen_name + "/status/" + t.id_str,
                                 e.followers_count = formatBigNumbers(t.user.followers_count),
                                 e.following_count = formatBigNumbers(t.user.friends_count),
@@ -203,6 +212,7 @@
                                 var a = t.entities.media[0].media_url_https;
                                 a && (e.attachment = '<img class="attachment" src="' + a + '" />')
                             }
+
                             return e
                         }
                     }
@@ -212,27 +222,37 @@
                     graph: "https://graph.facebook.com/",
                     loaded: !1,
                     getData: function (t) {
-                        var e = function (t) {
-                            s.request(t, l.facebook.utility.getPosts)
-                        },
-                            a = "?fields=id,from,message,created_time,admin_creator,story";
-                        a += !0 === i.show_media ? ",full_picture" : "";
-                        var n, o = "&limit=" + i.facebook.limit,
-                            r = "&access_token=" + i.facebook.access_token + "&callback=?";
-                        switch (t[0]) {
-                            case "@":
-                                var c = t.substr(1);
-                                l.facebook.utility.getUserId(c, function (t) {
-                                    "" !== t.id && (n = l.facebook.graph + "v4.0/" + t.id + "/posts" + a + o + r, e(n)) && console.log(n)
-                                });
-                                break;
-                            case "!":
-                                var u = t.substr(1);
-                                n = l.facebook.graph + "v4.0/" + u + "/feed" + a + o + r, e(n);
-                                break;
-                            default:
-                                e(n)
+
+                        if (i.facebook.feedObject) {
+                            l.facebook.utility.getPosts(i.facebook.feedObject);
+                        } else {
+
+                            var e = function (t) { s.request(t, l.facebook.utility.getPosts) },
+                                a = "?fields=id,from,message,created_time,admin_creator,story";
+
+                            a += !0 === i.show_media ? ",full_picture" : "";
+
+                            var n, o = "&limit=" + i.facebook.limit,
+                                r = "&access_token=" + i.facebook.access_token + "&callback=?";
+
+                            switch (t[0]) {
+                                case "@":
+                                    var c = t.substr(1);
+                                    l.facebook.utility.getUserId(c, function (t) {
+                                        "" !== t.id && (n = l.facebook.graph + "v5.0/" + t.id + "/posts" + a + o + r, e(n))
+                                    });
+                                    break;
+                                case "!":
+                                    var u = t.substr(1);
+                                    n = l.facebook.graph + "v5.0/" + u + "/feed" + a + o + r, e(n);
+                                    break;
+                                default:
+                                    e(n)
+                            }
+
                         }
+
+
                     },
                     utility: {
                         getUserId: function (e, a) {
@@ -247,16 +267,27 @@
                             return -1 === (t = decodeURIComponent(t).split(e + "=")[1]).indexOf("fbcdn-sphotos") ? t.split("&")[0] : t
                         },
                         getPosts: function (t) {
+
                             var showAdminPosts = i.adminPosts;
+
+                            if (t.data)
+                                i.totalPostsNumber = t.data.length;
+
                             t.data && t.data.forEach(function (t) {
-                                if (null !== t.from) {
+
+                                var shouldRender = (i.show_media && t.full_picture) || t.message;
+                                if (null !== t.from && shouldRender) {
+                                    i.messagedPosts++;
                                     if (!showAdminPosts) {
                                         new u("facebook", l.facebook.utility.unifyPostData(t)).render()
                                     } else if (t.admin_creator) {
+                                        i.adminPostsNumber++;
                                         new u("facebook", l.facebook.utility.unifyPostData(t)).render()
                                     }
                                 }
-                            })
+
+                            });
+
                         },
                         unifyPostData: function (t) {
                             var e = {},

@@ -386,33 +386,35 @@ class WCML_Products {
 		return $found_products;
 	}
 
-	// update menu_order fro translations after ordering original products.
+	/**
+	 * Sync to translations after sorting original products.
+	 */
 	public function update_all_products_translations_ordering() {
 		if ( $this->woocommerce_wpml->settings['products_sync_order'] ) {
 			$current_language = $this->sitepress->get_current_language();
-			if ( $current_language == $this->sitepress->get_default_language() ) {
-				$products = $this->wpdb->get_results(
-					$this->wpdb->prepare(
-						"SELECT p.ID FROM {$this->wpdb->posts} AS p
-                                    LEFT JOIN {$this->wpdb->prefix}icl_translations AS icl
-                                    ON icl.element_id = p.id
-                                    WHERE p.post_type = 'product'
-                                      AND p.post_status IN ( 'publish', 'future', 'draft', 'pending', 'private' )
-                                      AND icl.element_type= 'post_product'
-                                      AND icl.language_code = %s",
-						$current_language
+			$default_language = $this->sitepress->get_default_language();
+			if ( $current_language === $default_language ) {
+				$this->wpdb->query(
+					$this->wpdb->prepare( "
+						UPDATE {$this->wpdb->posts} posts
+						JOIN {$this->wpdb->prefix}icl_translations trans ON posts.ID = trans.element_id AND trans.element_type = 'post_product'
+						SET posts.menu_order = (
+							SELECT menu_order FROM {$this->wpdb->posts}
+							JOIN {$this->wpdb->prefix}icl_translations ON ID = element_id AND element_type = 'post_product'
+							WHERE language_code = '%s' AND trid = trans.trid
+						)
+						WHERE trans.language_code <> %s
+						",
+						$default_language,
+						$default_language
 					)
 				);
-
-				foreach ( $products as $product ) {
-					$this->update_order_for_product_translations( (int)$product->ID );
-				}
 			}
 		}
 	}
 
 	/**
-	 * update menu_order fro translations after ordering original products
+	 * Update menu_order fro translations after ordering original products
 	 *
 	 * @param int $product_id
 	 */
@@ -421,13 +423,20 @@ class WCML_Products {
 			$current_language = $this->sitepress->get_current_language();
 
 			if ( $current_language == $this->sitepress->get_default_language() ) {
-				$menu_order   = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT menu_order FROM {$this->wpdb->posts} WHERE ID = %d", $product_id ) );
-				$translations = $this->post_translations->get_element_translations( $product_id );
+				$translations = array_diff(
+					$this->post_translations->get_element_translations( $product_id ),
+					[ $product_id ]
+				);
 
-				foreach ( $translations as $translation ) {
-					if ( (int)$translation !== $product_id ) {
-						$this->wpdb->update( $this->wpdb->posts, [ 'menu_order' => $menu_order ], [ 'ID' => $translation ] );
-					}
+				if ( $translations ) {
+					$menu_order = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT menu_order FROM {$this->wpdb->posts} WHERE ID = %d", $product_id ) );
+
+					$this->wpdb->query(
+						$this->wpdb->prepare(
+							"UPDATE {$this->wpdb->posts} SET menu_order = %d WHERE ID IN (" . wpml_prepare_in( $translations, '%d' ) . ')',
+							$menu_order
+						)
+					);
 				}
 			}
 		}
@@ -676,22 +685,22 @@ class WCML_Products {
 	 * @return bool
 	 */
 	public function is_customer_bought_product( $value, $customer_email, $user_id, $product_id ) {
-        if ( $value ) {
-            return $value;
-        }
+		if ( $value ) {
+			return $value;
+		}
 
-        $post_type = get_post_type( $product_id );
-        $trid      = apply_filters( 'wpml_element_trid', 0, $product_id, 'post_' . $post_type );
+		$post_type = get_post_type( $product_id );
+		$trid      = apply_filters( 'wpml_element_trid', 0, $product_id, 'post_' . $post_type );
 
-        // $has_bought_original_or_translation :: object -> bool
-        $has_bought_original_or_translation = pipe(
-            Obj::prop( 'element_id' ),
-            partial( 'wc_customer_bought_product', $customer_email, $user_id )
-        );
+		// $has_bought_original_or_translation :: object -> bool
+		$has_bought_original_or_translation = pipe(
+			Obj::prop( 'element_id' ),
+			partial( 'wc_customer_bought_product', $customer_email, $user_id )
+		);
 
-        return (bool) wpml_collect(
-            apply_filters( 'wpml_get_element_translations', [], $trid, $post_type )
-        )->first( $has_bought_original_or_translation );
+		return (bool) wpml_collect(
+			apply_filters( 'wpml_get_element_translations', [], $trid, $post_type )
+		)->first( $has_bought_original_or_translation );
 	}
 
 	public function filter_product_data( $data, $product_id, $meta_key ) {

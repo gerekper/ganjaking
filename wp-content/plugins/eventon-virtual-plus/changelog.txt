@@ -1,5 +1,9 @@
 Virtual Plus (EVOVP) addon for EventON Plugin
 ====================================
+v 0.2 (2023-10-16)
+FIXED: settings showing on main general settings page
+FIXED: compatibility with eventON 4.5
+FIXED: pre event content errors
 
 v 0.1 (2021-2-18)
 Initial release

@@ -1,0 +1,275 @@
+/**************** Premium Tables ***************************/
+/***********************************************************/
+.elementor-widget-premium-tables-addon {
+  display: -ms-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  -js-display: flex;
+  display: flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.elementor-widget-premium-tables-addon .elementor-widget-container {
+  width: 100%;
+}
+
+.premium-table-wrap {
+  position: relative;
+}
+
+.premium-table {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+}
+
+.premium-table .premium-table-row,
+.premium-table .premium-table-cell {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-table .premium-table-cell {
+  vertical-align: middle;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.premium-table .premium-table-text {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  -js-display: flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+  padding: 12px;
+  cursor: auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-color: #000;
+}
+
+.premium-table .premium-table-text a {
+  color: inherit;
+}
+
+.premium-table-cell a.premium-table-text,
+.premium-table-sort-head .premium-table-text {
+  cursor: pointer;
+}
+
+.premium-table .premium-table-text.premium-table-cell-top {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.elementor-element-edit-mode.elementor-widget-premium-tables-addon .premium-table .premium-table-text .premium-table-inner {
+  cursor: text;
+}
+
+.premium-table .premium-table-cell-icon-after {
+  -ms-flex-order: 2;
+  -webkit-order: 2;
+  order: 2;
+  margin-right: 10px;
+}
+
+.premium-table .premium-table-cell-icon-before {
+  margin-left: 10px;
+}
+
+.premium-table .premium-table-cell-icon-top {
+  margin-bottom: 0px;
+}
+
+.premium-table thead .premium-table-cell .premium-table-sort-icon:before {
+  border-color: #000;
+  padding: 2px;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-table-sort .premium-table-text span.premium-table-sort-icon {
+  -ms-flex-positive: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  text-align: left;
+  padding: 5px;
+}
+
+.premium-table-sort .premium-table-text .premium-icon-sort-down,
+.premium-table-sort .premium-table-text .premium-icon-sort-up,
+.premium-table-sort .premium-table-down .premium-table-text .premium-icon-sort,
+.premium-table-sort .premium-table-up .premium-table-text .premium-icon-sort {
+  display: none;
+}
+
+.premium-table-sort .premium-table-down .premium-table-text .premium-icon-sort-down,
+.premium-table-sort .premium-table-up .premium-table-text .premium-icon-sort-up {
+  display: block;
+}
+
+.premium-table .premium-table-cell .premium-table-text {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-color: #000;
+}
+
+.premium-table-wrap .premium-table-search-field {
+  display: inline-block;
+  margin: 15px 0;
+  border-radius: 3px;
+  border-color: #000;
+  outline: none;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.premium-table-filter-records .premium-table-search-field {
+  width: 100% !important;
+}
+
+.premium-table-blur tbody:hover .premium-table-row .premium-table-text {
+  color: transparent !important;
+  text-shadow: 0 0 3px #aaa;
+}
+
+.premium-table-blur tbody:hover .premium-table-row:hover .premium-table-text {
+  color: #aaa !important;
+  text-shadow: 0 0px 0 transparent;
+}
+
+.premium-table-blur tbody:hover .premium-table-row .premium-table-text {
+  color: transparent !important;
+  text-shadow: 0 0 3px #aaa;
+}
+
+.premium-table-blur tbody:hover .premium-table-row:hover .premium-table-text {
+  color: #aaa !important;
+  text-shadow: 0 0px 0 transparent;
+}
+
+.premium-table-wrap.premium-table-filter-records .premium-table-filter {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  -js-display: flex;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.premium-table-records-box option:focus {
+  outline: none;
+}
+
+.premium-table .premium-table-search-hide,
+.premium-table .premium-table-hide {
+  display: none;
+}
+
+.premium-table-pagination {
+  margin-top: 1em;
+}
+
+.premium-table-pagination ul.page-numbers {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  -js-display: flex;
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.premium-table-pagination ul.page-numbers li {
+  margin: 0 0 0.4em 0.4em;
+  padding: 0;
+  text-align: center;
+}
+
+.premium-table-pagination ul li .page-numbers {
+  margin: 0;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #54595f;
+  padding: 0;
+  line-height: 1;
+  font-size: 1em;
+  font-weight: 400;
+  padding: 0.75em;
+  display: block;
+  min-width: 2.5em;
+  -webkit-transition: all 0.2s ease-in-out;
+  -mos-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.premium-table-pagination ul li .page-numbers:hover,
+.premium-table-pagination ul li .page-numbers:focus,
+.premium-table-pagination ul li .page-numbers.current {
+  background-color: #54595f;
+  color: #fff;
+}
+
+.premium-table tr.premium-table-row-hidden {
+  display: none;
+}
+
+.premium-table-wrap .premium-loading-feed,
+.premium-chart-container .premium-loading-feed {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(255, 255, 255, 0.2);
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  -js-display: flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .premium-table-responsive {
+      overflow: scroll;
+  }
+}

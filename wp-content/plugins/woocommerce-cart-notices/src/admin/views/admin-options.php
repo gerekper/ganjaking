@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-cart-notices/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * The Admin UI for the WooCommerce Cart Notices plugin.  This renders the
@@ -63,7 +63,7 @@ wc_cart_notices()->get_admin_instance()->message_handler->show_messages(); ?>
 	<?php if ( isset( $_GET['result'] ) ) : /* show any action messages */ ?>
 
 		<div id="message" class="updated">
-			<p><strong><?php echo esc_html__( 'Cart Notice', 'woocommerce-cart-notices' ) . ' ' . $_GET['result']; ?></strong></p>
+			<p><strong><?php echo esc_html__( 'Cart Notice', 'woocommerce-cart-notices' ) . ' ' . esc_html( $_GET['result'] ); ?></strong></p>
 		</div>
 
 	<?php endif; ?>

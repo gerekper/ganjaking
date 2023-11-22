@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin;
 
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Display_Rules\Display_Rule_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Meta_Boxes\Add_On_Data;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Data_Store_Options;
 

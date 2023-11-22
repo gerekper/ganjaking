@@ -1,7 +1,7 @@
 <?php
 /**
  * Function ajax for backend
- * @version   4.5
+ * @version   4.5.2
  */
 class EVO_admin_ajax{
 	public $helper, $post_data;
@@ -186,7 +186,7 @@ class EVO_admin_ajax{
 			
 		}
 
-		// @updated 4.5
+		// @updated 4.5.2
 		public function save_virtual_event_settings(){
 			$post_data = $this->helper->sanitize_array( $_POST);
 
@@ -195,8 +195,13 @@ class EVO_admin_ajax{
 
 			foreach($post_data as $key=>$val){
 
-				if( in_array($key, array( '_vir_url','_vir_after_content','_vir_pre_content','_vir_embed'))){
+				if( in_array($key, array( '_vir_url'))){
 					$val = $post_data[$key];
+				}
+
+				// html content
+				if( in_array($key, array( '_vir_after_content','_vir_pre_content','_vir_embed'))){
+					$val = $this->helper->sanitize_html( $_POST[ $key ] );
 				}
 
 				$EVENT->save_meta($key, $val);
@@ -433,8 +438,8 @@ class EVO_admin_ajax{
 		}
 
 	// export events as CSV
-	// @update 4.3
-		function export_events(){
+	// @update 4.5.2
+		function export_events($event_id = ''){
 
 			// check if admin and loggedin
 				if(!is_admin() && !is_user_logged_in()) die('User not loggedin!');
@@ -443,9 +448,14 @@ class EVO_admin_ajax{
 				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_download_events')) die('Security Check Failed!');
 
 			$run_process_content = false;
+			$wp_args = array();
 
 			// if event ID was passed
-			$event_id = isset($_REQUEST['eid']) ? (int)$_REQUEST['eid'] : false;
+				if( isset($_REQUEST['eid']) ){
+					$wp_args = array('p' => (int)$_REQUEST['eid']);
+				}
+				
+
 
 			header('Content-Encoding: UTF-8');
         	header('Content-type: text/csv; charset=UTF-8');
@@ -457,6 +467,8 @@ class EVO_admin_ajax{
 			$evo_opt = get_option('evcal_options_evcal_1');
 			$event_type_count = evo_get_ett_count($evo_opt);
 			$cmd_count = evo_calculate_cmd_count($evo_opt);
+
+			$run_iconv = EVO()->cal->check_yn('evo_disable_csv_formatting','evcal_1') ? false : true;
 
 			$fields = $this->get_event_csv_fields();
 
@@ -480,261 +492,221 @@ class EVO_admin_ajax{
 				$csvHeader.= "\n";
 				
 				echo (function_exists('iconv'))? iconv("UTF-8", "ISO-8859-2", $csvHeader): $csvHeader;
- 	
- 			// WP Get events
-				$wp_arg = array(
-					'posts_per_page'=>-1,
-					'post_type' => 'ajde_events',
-					'post_status'=>'any'			
-				);
-				if( $event_id ) $wp_arg['p'] = $event_id;
-				$events = new WP_Query($wp_arg);
+ 		
 
-			if($events->have_posts()):
-
-				$DD = new DateTime('now', EVO()->calendar->timezone0);
+			// using calendar function
+				$events = EVO()->calendar->get_all_event_data(array(
+					'hide_past'=>'no',
+					'wp_args'=> $wp_args
+				));
 				
-				// allow processing content for html readability
-				$process_html_content = true;
+				if(!empty($events)):
 
-				// for each event
-				while($events->have_posts()): $events->the_post();
-					$__id = get_the_ID();
-					$pmv = get_post_meta($__id);
+					// allow processing content for html readability
+					$process_html_content = true;
 
-					// create Event
-					$EVENT = new EVO_Event( $__id, '', 0, true, $events->post );
+					$DD = new DateTime('now', EVO()->calendar->timezone0);
 
+					// EACH EVENT
+					foreach($events as $event_id=>$event):
 
-					$csvRow = '';
-					$csvRow.= get_post_status($__id).",";
-					$csvRow.= $__id.",";
-					$loctaxid = $orgtaxid = '';
-					$loctaxname = $orgtaxname = '';
+						$pmv = isset($event['pmv'] ) ? $event['pmv'] : '';
 
-					$csvRow.= ( $EVENT->get_hex() ).",";
+						$EVENT = new EVO_Event( $event_id, $pmv, 0, true, false);
+						if(empty($pmv ) ) $pmv = $EVENT->get_data();
 
-					// location for this event
-						$lDATA = $EVENT->get_location_data();
-						$location_term_meta = $event_location_term_id = false;
+						// Initial values
+						$csvRow = '';
+						$csvRow.= ( $event['post_status'] ?? '').",";
+						$csvRow.= $event_id.",";
+						$csvRow.= ( $EVENT->get_hex() ).",";
+
+						$csvRow.= '"'. $event['name'].'",';
+
 						
-						if ( $lDATA ){
-							$event_location_term_id = $lDATA['location_term_id'];
-							$location_term_meta = $lDATA;
-						}
-
-					// Organizer for this event
-						$_event_organizer_term = wp_get_object_terms( $__id, 'event_organizer' );
-						$organizer_term_meta = $organizer_term_id = false;
-						if( $_event_organizer_term && !is_wp_error($_event_organizer_term)){
-							$organizer_term_id = $_event_organizer_term[0]->term_id;
-							$organizer_term_meta = evo_get_term_meta('event_organizer',$organizer_term_id, '', true);
-						}
-
-					// Event Initial
-						// event name
-							$eventName = $EVENT->get_title();
-							if( $run_process_content){
-								$eventName = $this->html_process_content($eventName, $process_html_content);
-								$eventName = iconv("utf-8", "ascii//TRANSLIT//IGNORE", $eventName);
-								$eventName =  preg_replace("/^'|[^A-Za-z0-9\s-]|'$/", '', $output); 
-								$eventName = str_replace('&amp;#8217;', "'", $eventName);
-							}
-							$csvRow.= '"'. $eventName.'",';
-
 						// summary for the ICS file
-						$event_content = (!empty($EVENT->content))? $EVENT->content:'';
-							$event_content = str_replace('"', "'", $event_content);
-							$event_content = str_replace(',', "\,", $event_content);
-							if( $run_process_content){
-								$event_content = $this->html_process_content( $event_content, $process_html_content);
-							}
-						$csvRow.= '"'.$event_content.'",';
+							$event_content = ( $event['content'] ?? '');
+								$event_content = str_replace('"', "'", $event_content);
+								$event_content = str_replace(',', "\,", $event_content);
+								if( $run_process_content){
+									$event_content = $this->html_process_content( $event_content, $process_html_content);
+								}
+							$csvRow.= '"'. sanitize_text_field($event_content).'",';
+;
 
 						// start time
-							$start = (!empty($pmv['evcal_srow'])?$pmv['evcal_srow'][0]:'');
-							if(!empty($start)){
-								$DD->setTimestamp( $start);
+							if( isset($event['start'])){
+								$DD->setTimestamp( $event['start'] );
 								// date and time as separate columns
 								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_dateformat','m/d/Y') ) .'",';
 								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_timeformat','h:i:A') ) .'",';
 							}else{ $csvRow.= "'','',";	}
 
 						// end time
-							$end = (!empty($pmv['evcal_erow'])?$pmv['evcal_erow'][0]:'');
-							if(!empty($end)){
-								$DD->setTimestamp( $end);
+							if( isset($event['end'])){
+								$DD->setTimestamp( $event['end'] );
 								// date and time as separate columns
 								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_dateformat','m/d/Y') ) .'",';
 								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_timeformat','h:i:A') ) .'",';
-							}else{ $csvRow.= "'','',";	}
+							}else{ $csvRow.= ",,";	}
 
-						
-					// FOR EACH field
-					
-					foreach($fields as $var=>$val){
-						// skip already added fields
-							if(in_array($val, array('publish_status',	
-								'event_id',			
-								'color',
-								'event_name',				
-								'event_description','event_start_date','event_start_time','event_end_date','event_end_time',))){
-								continue;
-							}
-						
-						// yes no values
-							if(in_array($val, array('featured','all_day','hide_end_time','event_gmap','evo_year_long','_evo_month_long','repeatevent'))){
 
-								$csvRow.= ( (!empty($pmv[$var]) && $pmv[$var][0]=='yes') ? 'yes': 'no').',';
-								continue;
-							}
 
-						// organizer field
-							$continue = false;
-							switch($val){
-								case 'evo_organizer_id':
-									if($organizer_term_id){
-										$csvRow .= '"'. $organizer_term_id .'",';
+						// FOR EACH field					
+						foreach($fields as $var=>$val){
+							// skip already added fields
+								if(in_array($val, array('publish_status',	
+									'event_id',			
+									'color',
+									'event_name',				
+									'event_description','event_start_date','event_start_time','event_end_date','event_end_time',))){
+									continue;
+								}
+							
+							// yes no values
+								if(in_array($val, array('featured','all_day','hide_end_time','event_gmap','evo_year_long','_evo_month_long','repeatevent'))){
+
+									$csvRow.= ( (!empty($pmv[$var]) && $pmv[$var][0]=='yes') ? 'yes': 'no').',';
+									continue;
+								}
+
+							// organizer field
+								$continue = false;
+
+								switch($val){
+									case 'evo_organizer_id':
+										if(isset($event['organizer_tax']) ){
+											$csvRow .= '"'. $event['organizer_tax'] .'",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'event_organizer':
+										if( isset($event['organier_name']) ){
+											$csvRow.= '"'. $this->html_process_content( $event['organier_name'], $process_html_content) . '",';	
+										
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'organizer_description':
+										if( isset($event['organizer_desc']) ){
+											$csvRow.= '"'. $this->html_process_content($event['organizer_desc'], $process_html_content) . '",';
+										
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'evcal_org_contact':
+										if( isset($event['evcal_org_contact']) ){
+											$csvRow.= '"'. $this->html_process_content($event['evcal_org_contact'], $process_html_content) . '",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'evcal_org_address':
+										if( isset($event['organizer_address']) ){
+											$csvRow.= '"'. $this->html_process_content($event['organizer_address'], $process_html_content) . '",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'evcal_org_exlink':
+										if( isset($event['organizer_link']) ){
+											$csvRow.= '"'. $this->html_process_content($event['organizer_link'], $process_html_content) . '",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'evo_org_img':
+										if( isset($event['organizer_img']) ){
+											$csvRow.= '"'. $event['organizer_img'] . '",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+								}
+								if($continue) continue;
+
+							// location tax field
+								$continue = false;
+								switch ($val){
+									case 'location_description':
+										if(isset($event['location_desc']) ){
+											$csvRow .= '"'. $this->html_process_content( $event['location_desc'], $process_html_content ) .'",';
+										}else{	$csvRow.= ",";	}$continue = true;
+
+									break;
+									case 'evo_location_id':
+										if(isset($event['location_tax']) ){
+											$csvRow .= '"'. $event['location_tax'] .'",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'location_name':
+										if(isset($event['location_name']) ){
+											$csvRow .= '"'. $this->html_process_content( $event['location_name'], $process_html_content ) .'",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'event_location':
+
+										if(isset($event['location_address']) ){
+											$csvRow .= '"'. $this->html_process_content( $event['location_address'] ,$process_html_content ) .'",';
+										}else{	$csvRow.= ",";	}$continue = true;
+									break;
+									case 'location_latitude':
+										if(isset($event['location_lat']) ){
+											$csvRow .= '"'. $event['location_lat']  .'",';
+										}else{	$csvRow.= ",";	}$continue = true;								
+									break;
+									case 'location_longitude':
+										if(isset($event['location_lon']) ){
+											$csvRow .= '"'. $event['location_lon']  .'",';
+										}else{	$csvRow.= ",";	}$continue = true;									
+									break;
+									case 'location_link':
+										if(isset($event['location_link']) ){
+											$csvRow .= '"'. $event['location_link']  .'",';
+										}else{	$csvRow.= ",";	}$continue = true;									
+									break;
+									case 'location_img':
+										if(isset($event['location_img']) ){
+											$csvRow .= '"'. $event['location_img']  .'",';
+										}else{	$csvRow.= ",";	}$continue = true;	
+																	
+									break;
+								}
+
+								if($continue) continue;
+
+							// skip fields
+								if(in_array($val, array('featured','all_day','hide_end_time','event_gmap','evo_year_long','_evo_month_long','repeatevent','color','publish_status','event_name','event_description','event_start_date','event_start_time','event_end_date','event_end_time','evo_organizer_id', 'evo_location_id'
+									)
+								)) continue;
+
+							// image
+								if($val =='image_url'){
+
+									if( isset($event['image_url'])){
+										$csvRow.= $event['image_url'].",";
 									}else{
 										$csvRow.= ",";
-									}
-									$continue = true;
-								break;
-								case 'event_organizer':
-									if($organizer_term_id){
-										$csvRow.= '"'. $this->html_process_content($_event_organizer_term[0]->name, $process_html_content) . '",';	
-									}elseif(!empty($pmv[$var]) ){
-										$value = $this->html_process_content($pmv[$var][0], $process_html_content);
-										$csvRow.= '"'.$value.'"';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'organizer_description':
-									if($organizer_term_id){
-										$csvRow.= '"'. $this->html_process_content($_event_organizer_term[0]->description) . '",';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'evcal_org_contact':
-									$csvRow.= ($organizer_term_meta && !empty($organizer_term_meta['evcal_org_contact'])) ? '"'. $this->html_process_content($organizer_term_meta['evcal_org_contact']) .'",':
-										","; $continue = true;
-								break;
-								case 'evcal_org_address':
-									$csvRow.= ($organizer_term_meta && !empty($organizer_term_meta['evcal_org_address'])) ? '"'. $this->html_process_content($organizer_term_meta['evcal_org_address']) .'",':
-										","; $continue = true;
-								break;
-								case 'evcal_org_exlink':
-									$csvRow.= ($organizer_term_meta && !empty($organizer_term_meta['evcal_org_exlink'])) ? '"'. $this->html_process_content($organizer_term_meta['evcal_org_exlink']) .'",':
-										","; $continue = true;
-								break;
-								case 'evo_org_img':
-									$csvRow.= ($organizer_term_meta && !empty($organizer_term_meta['evo_org_img'])) ? '"'. $organizer_term_meta['evo_org_img'] .'",':","; $continue = true;
-								break;
-							}
-							if($continue) continue;
-
-						// location tax field
-							$continue = false;
-							switch ($val){
-								case 'location_description':
-									if ( $event_location_term_id && !empty($location_term_meta['location_description']) ){
-										$csvRow.= '"'. $this->html_process_content( $location_term_meta['location_description']) . '",';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'evo_location_id':
-									if ( $event_location_term_id ){
-										$csvRow.= '"'.$event_location_term_id . '",';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'location_name':
-									if($event_location_term_id && !empty(  $location_term_meta['location_name'] )){
-										$csvRow.= '"'. $this->html_process_content( $location_term_meta['location_name'], $process_html_content) . '",';									
-									}elseif(!empty($pmv[$var]) ){
-										$value = $this->html_process_content($pmv[$var][0], $process_html_content);
-										$csvRow.= '"'.$value.'"';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'event_location':
-									if($location_term_meta){
-										$csvRow.= !empty($location_term_meta['location_address'])? 
-											'"'. $this->html_process_content($location_term_meta['location_address'], $process_html_content) . '",':
-											",";									
-									}elseif(!empty($pmv[$var]) ){
-										$value = $this->html_process_content($pmv[$var][0], $process_html_content);
-										$csvRow.= '"'.$value.'"';
-									}else{	$csvRow.= ",";	}
-									$continue = true;
-								break;
-								case 'location_latitude':
-									$csvRow.= ($location_term_meta && !empty($location_term_meta['location_lat'])) ? '"'. $location_term_meta['location_lat'] .'",':
-										","; $continue = true;									
-								break;
-								case 'location_longitude':
-									$csvRow.= ($location_term_meta && !empty($location_term_meta['location_lon'])) ? '"'. $location_term_meta['location_lon'] .'",':
-										","; $continue = true;									
-								break;
-								case 'location_link':
-									$csvRow.= ($location_term_meta && !empty($location_term_meta['evcal_location_link'])) ? '"'. $location_term_meta['evcal_location_link'] .'",':
-										","; $continue = true;									
-								break;
-								case 'location_img':
-									$csvRow.= ($location_term_meta && !empty($location_term_meta['evo_loc_img'])) ? '"'. $location_term_meta['evo_loc_img'] .'",':
-										","; $continue = true;									
-								break;
-							}
-
-							if($continue) continue;
-
-						// skip fields
-						if(in_array($val, array('featured','all_day','hide_end_time','event_gmap','evo_year_long','_evo_month_long','repeatevent','color','publish_status','event_name','event_description','event_start_date','event_start_time','event_end_date','event_end_time','evo_organizer_id', 'evo_location_id'
-							)
-						)) continue;
-
-						// image
-							if($val =='image_url'){
-								$img_id =get_post_thumbnail_id($__id);
-								if($img_id!=''){
+									} 
 									
-									$img_src = wp_get_attachment_image_src($img_id,'full');
-									if($img_src){
-										$csvRow.= $img_src[0].",";
-									}else{
-										$csvRow.= ",";
-									}
-									
-								}else{ $csvRow.= ",";}
-							}else{
-								if(!empty($pmv[$var])){
-									$value = $this->html_process_content($pmv[$var][0], $process_html_content);
-									$csvRow.= '"'.$value.'"';
-								}else{ $csvRow.= '';}
-								$csvRow.= ',';
-							}
-					}
+							// all other fields
+								}else{
+									if(!empty($pmv[$var])){
+										$value = $this->html_process_content(
+											$pmv[$var][0], 
+											$process_html_content
+										);
+										$csvRow.= '"'.$value.'"';
+									}else{ $csvRow.= '';}
+									$csvRow.= ',';
+								}
+
+						}
 					
 					// event types
 						for($y=1; $y<=$event_type_count;  $y++){
 							$_ett_name = ($y==1)? 'event_type': 'event_type_'.$y;
-							$terms = get_the_terms( $__id, $_ett_name );
-
-							if ( $terms && ! is_wp_error( $terms ) ){
-								$csvRow.= '"';
-								foreach ( $terms as $term ) {
-									$csvRow.= $term->term_id.',';
-									//$csvRow.= $term->name.',';
+								
+							if( isset($event[$_ett_name])){
+								$term_ids = $term_names = '';
+								
+								foreach ( $event[$_ett_name] as $termid=>$termname ) {
+									$term_ids .= $termid.',';
+									$term_names .= $termname.',';
 								}
-								$csvRow.= '",';
 
-								// slug version
-								$csvRow.= '"';
-								foreach ( $terms as $term ) {
-									$csvRow.= $term->slug.',';
-								}
-								$csvRow.= '",';
-							}else{ $csvRow.= ",";}
+								$csvRow.= '"'. $term_ids. '",';
+								$csvRow.= '"'. $termname. '",';
+							}else{	$csvRow.= ",,";	}	// no event type					
 						}
 					// for event custom meta data
 						for($z=1; $z<=$cmd_count;  $z++){
@@ -745,20 +717,25 @@ class EVO_admin_ajax{
 							$csvRow.= ",";
 						}
 
-					$csvRow = apply_filters('evo_export_events_csv_row',$csvRow, $__id, $pmv);
-					$csvRow.= "\n";
+					// closing
+						$csvRow = apply_filters('evo_export_events_csv_row',$csvRow, $event_id, $pmv);
+						$csvRow.= "\n";
 
-					if( EVO()->cal->check_yn('evo_disable_csv_formatting','evcal_1')){
-						echo $csvRow;
-					}else{
-						echo (function_exists('iconv'))? iconv("UTF-8", "ISO-8859-2", $csvRow): $csvRow;
-					}
-				
+						if( $run_iconv ){
+							echo (function_exists('iconv'))? iconv("UTF-8", "ISO-8859-2", $csvRow): $csvRow;
+							//echo $csvRow;
+						}else{
+							echo $csvRow;
+							
+						}
 
-				endwhile;
-			endif;
+					endforeach;
+				endif;
 
-			wp_reset_postdata();
+				wp_die();
+
+
+ 			
 		}
 
 		private function get_event_csv_fields(){
@@ -847,6 +824,7 @@ class EVO_admin_ajax{
 			// if license key format is validated
 			if($verifyformat){
 
+
 				// save eventon data
 				if($type=='main') $PROD->save_license_data();
 
@@ -877,7 +855,7 @@ class EVO_admin_ajax{
 				}
 
 				$results = $this->get_remote_validation_results($validation, $PROD, $type);
-			
+	
 				if(isset($results['error_code'])) $error_code = $results['error_code'];
 
 				$status = $results['status'];

@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.4.4
+ * @version 4.5.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -33,11 +33,13 @@ class EVO_Event extends EVO_Data_Store{
 	public $utcoff = 0;
 	public $is_utcoff = false;
 
+	private $help;
+
 	public $event_data, $end_unix; 
 
 	public function __construct($event_id, $event_pmv='', $ri = 0, $force_data_set = true, $post=false){
 
-		
+		$this->help = new evo_helper();
 		$this->event_id = $this->ID = (int)$event_id;
 		$this->post_type = 'ajde_events';		
 		$this->meta_array_key = '_edata';		
@@ -47,6 +49,11 @@ class EVO_Event extends EVO_Data_Store{
 		} 		
 		
 		$this->is_utcoff = EVO()->calendar->is_utcoff;
+
+		// set event offset from utc 0
+			$tz_string = $this->get_timezone_key();
+			$this->utc_offset = $this->utcoff = $this->help->_get_tz_offset_seconds( $tz_string );
+
 		$this->localize_edata();
 		$this->ri = $ri;
 
@@ -131,7 +138,7 @@ class EVO_Event extends EVO_Data_Store{
 
 		// Process event times on the load
 			public function _process_eventtimes(){
-				
+				// event unix saved at UTC0
 				$start = $this->get_prop('evcal_srow');
 				$end = $this->get_prop('evcal_erow')? $this->get_prop('evcal_erow'): $this->get_prop('evcal_srow');
 
@@ -153,19 +160,11 @@ class EVO_Event extends EVO_Data_Store{
 				if($vir_end = $this->is_virtual_end() ){
 					$this->vir_duration = (int)$vir_end - (int)$start;
 				}
-
-
-				// return unix offset of event time from utc 0
-				// get event offset from utc 0
-				$tz_string = $this->get_timezone_key();
-				$HELP = new evo_helper();
-				$this->utc_offset = $this->utcoff = $HELP->get_timezone_offset( $tz_string , $this->start_unix );
 				
-				// if settings set to use utf offset
-				if( $this->is_utcoff ){	
-					$this->start_unix =  $this->start_unix + $this->utc_offset;
-				}
-
+				// from now on start_unix is UTC adjusted based on timezone
+				// adjusted to time in UTC0 use current_time0
+				$this->start_unix =  $this->start_unix + $this->utc_offset;
+			
 				return;
 			}
 
@@ -204,29 +203,34 @@ class EVO_Event extends EVO_Data_Store{
 
 
 		// current and future
-		// @updated 4.2
-		function is_current_event( $cutoff='end', $current_time = '', $utc = false){
+		// @updated 4.5.4
+		function is_current_event( $cutoff='end', $current_time = ''){
 			if(empty($current_time)){
-				$current_time = EVO()->calendar->get_current_time();
+				// current time in utc0
+				$current_time = EVO()->calendar->current_time0;
 			}
 
-			$event_start_time = ($this->is_utcoff) ? $this->start_unix: $this->start_unix_raw;
+			$event_start_time = $this->start_unix; // start time in ouc0
 			$event_time = $cutoff == 'end' ?  $event_start_time + $this->duration : $event_start_time;
-
 			
 			return $event_time > $current_time? true: false;
 		}		
 		
-		// if the event is live right now
+		// if the event is live right now - @u 4.5.4
 		function is_event_live_now($CT=''){
-			if(empty($CT)) $CT = EVO()->calendar->get_current_time();
 
-			$end = $this->start_unix + $this->duration;
+			// time in utc0
+			if(empty($CT)) $CT = EVO()->calendar->current_time0;
 
-			$bool =  (  $CT >= $this->start_unix && $CT <= $end) ? true : false;
+			// start time in utc0
+			$event_start_time = $this->start_unix; // start_unix is in utc0
+			$end = $event_start_time + $this->duration;
+
+			// compare time in utc0
+			$bool =  (  $CT >= $event_start_time && $CT <= $end) ? true : false;
 			//return $bool;
 
-			return apply_filters('evodata_vir_live', $bool, $this, $this->start_unix, $end, $CT);
+			return apply_filters('evodata_vir_live', $bool, $this, $event_start_time, $end, $CT);
 		}
 
 		// @~ 2.8
@@ -236,11 +240,11 @@ class EVO_Event extends EVO_Data_Store{
 		}
 		// +3.0.6 
 		public function is_future_event( ){
-			return $this->start_unix > EVO()->calendar->get_current_time() ? true: false;
+			return $this->start_unix > EVO()->calendar->utc_time ? true: false;
 		}
 		// this checked if event start time is less than current time - added 3.1
 		public function is_event_started(){
-			return $this->start_unix < EVO()->calendar->get_current_time() ? true : false;
+			return $this->start_unix < EVO()->calendar->utc_time ? true : false;
 		}
 
 		function is_all_day(){
@@ -250,20 +254,20 @@ class EVO_Event extends EVO_Data_Store{
 			return $this->check_yn('evo_hide_endtime');
 		}
 
-		// @+2.8
+		// @+2.8 @u4.5.2
 		function is_event_in_date_range($S=0, $E=0, $start='' ,$end='' , $utc = false){
 			if(empty($start) && empty($end) ){
-				$start = ($utc) ? $this->start_unix: $this->start_unix_raw;
+				$start = $this->get_start_time( $utc );
 				$end = $start + $this->duration;
 			}
 			return EVO()->calendar->shell->is_in_range( $S, $E, $start, $end);
 		}
 
+		// @u 4.5.4
 		function seconds_to_start_event($CT = ''){			
-			if(empty($CT)) $CT = EVO()->calendar->get_current_time() ;
+			if(empty($CT)) $CT = EVO()->calendar->utc_time ;
 
 			$t = $this->start_unix - $CT;
-
 			return ($t<=0) ? false: $t;
 		}
 
@@ -275,14 +279,13 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 	// DATE TIME
-		// primary function to get event start end unix with repeat interval adjusted
-		// run on __construct
-		function get_start_end_times($custom_ri='', $return_type = 'both', $utcoff = false){
+		// primary function to get event start end unix with repeat interval adjusted @u 4.5.4
+		function get_start_end_times($custom_ri='', $return_type = 'both', $utc=false){
 			
-			$start = $this->start_unix_raw;
-			$end = $this->start_unix_raw + $this->duration;
+			$start = $this->start_unix_raw; // get raw time
+			$end = $start + $this->duration;
 			
-
+			// if repeating event
 			if($this->is_repeating_event() ){
 				$repeat_interval = !empty($custom_ri)? (int)$custom_ri: (int)$this->ri;
 				$intervals = $this->get_prop('repeat_intervals');
@@ -293,8 +296,8 @@ class EVO_Event extends EVO_Data_Store{
 				}				
 			}
 
-			// if return utc offsetted time
-			if( $utcoff){
+			// if return time in utc0
+			if( $utc){
 				$start = $start + $this->utc_offset;
 				$end = $end + $this->utc_offset;
 			}
@@ -307,36 +310,26 @@ class EVO_Event extends EVO_Data_Store{
 			}
 
 			if( $return_type == 'start') return $this->_year_month_long_filter($start, 'start');
-			if( $return_type == 'end') return $this->_year_month_long_filter($end, 'end');
-
-			
+			if( $return_type == 'end') return $this->_year_month_long_filter($end, 'end');			
 		}
 
-		// @+ 2.6.10 @updated 3.1.6
+		// @+ 2.6.10 @updated 4.5.2
 		function get_start_time($utc = false){
-
-			if( !$utc) return $this->start_unix_raw;
-
-			if( $this->start_unix == $this->start_unix_raw ) return $this->start_unix + $this->utc_offset;
-
-			return $this->start_unix;
+			return $start = ($utc ) ? $this->start_unix: $this->start_unix_raw;
 		}
 		function get_end_time($utc = false){
-
-			if(!$utc) return $this->start_unix_raw + $this->duration;
-
-			if( $this->start_unix == $this->start_unix_raw ) return $this->start_unix + $this->utc_offset + $this->duration;
-
-			return $this->start_unix + $this->duration;
+			$start = $this->get_start_time( $utc);
+			return $start + $this->duration;
 		}
+		// @since 4.5.3
+		function get_start_raw(){ return $this->start_unix_raw; }
+		function get_end_raw(){ return $this->start_unix_raw + $this->duration; }
 
 
 		// updated 3.1.2
 		// return event start/ end time for initial or custom repeat with utc offset
-		// will auto use utcoff if not passed and enabled in settings
-		function get_event_time($type='start', $custom_ri='', $utcoff = true){
-			$utcoff  = ( $utcoff != false )? EVO()->calendar->is_utcoff: $utcoff;
-			return 	$this->get_start_end_times($custom_ri, $type , $utcoff);			
+		function get_event_time($type='start', $custom_ri='', $utc = false){
+			return 	$this->get_start_end_times( $custom_ri, $type , $utc );			
 		}
 
 
@@ -427,18 +420,17 @@ class EVO_Event extends EVO_Data_Store{
 
 		// return start and end time in array after adjusting time to UTC offset 
 		// based on site timezone passed via event edit
-		// UPDATED: 3.1.3
+		// @u 4.5.4
 		function get_utc_adjusted_times(){			
-			// use raw start time to calculate UTC offset time
-			$start = $this->start_unix_raw + $this->utc_offset;
-
+			
 			return $new_times = array(
-				'start'=> $start, 
+				'start'=> $this->start_unix, // start time in utc0
 				'start_dst'=> false,
-				'end'=> $start + $this->duration,
+				'end'=> $this->start_unix + $this->duration,
 				'end_dst'=> false,
 			);			
 		}
+
 		// return none adjusted event times
 		// added @4.0.6
 		function get_non_adjusted_times(){			
@@ -874,10 +866,7 @@ class EVO_Event extends EVO_Data_Store{
 			$when_to_show = $this->get_prop('_vir_show');
 			if( $when_to_show == 'always') return true;
 
-			$current_time = EVO()->calendar->get_current_time();
-
-			$event_start_time = $this->get_event_time('start');
-			if( $event_start_time - $when_to_show < $current_time ) return true;
+			if( ($this->start_unix - $when_to_show ) < EVO()->calendar->current_time0 ) return true;
 
 			return false;
 		}
@@ -897,11 +886,10 @@ class EVO_Event extends EVO_Data_Store{
 			if( !$this->get_prop('_vir_after_content')) return false;
 
 			$when = (int)$this->get_prop('_vir_after_content_when');
-			$current_time = EVO()->calendar->get_current_time();
 
-			$event_end_time = $this->get_event_time('end');
+			$event_end_time = $this->start_unix + $this->duration;
 
-			if( $event_end_time + $when > $current_time ) return false;
+			if( ( $event_end_time + $when ) > EVO()->calendar->current_time0 ) return false;
 
 			return $this->get_prop('_vir_after_content');
 		}
@@ -914,11 +902,12 @@ class EVO_Event extends EVO_Data_Store{
 			return $this->set_prop('_mod_joined', $joined);
 		}
 
-		// if event is starting in 30 minutes
+		// if event is starting in 30 minutes @u 4.5.4
 			public function is_event_starting_soon($time = 30){
-				$current_time = EVO()->calendar->get_current_time();
 
-				$event_start_time = $this->get_event_time('start');
+				// get times in utc0
+				$current_time = EVO()->calendar->current_time0;
+				$event_start_time = $this->start_unix;
 
 				return $current_time < $event_start_time && $current_time >= ($event_start_time - ($time*60)) ? true : false;
 			}
@@ -1512,10 +1501,15 @@ class EVO_Event extends EVO_Data_Store{
 				echo "TZID:". $tz. "\r\n";
 			}
 
+			// Event links for descrition @since 4.5.2
+			$desc_adds = '';
+			if( !EVO()->cal->check_yn('evosm_ics_link','evcal_1')){
+				$desc_adds = "\\n" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() );
+			}
 
 			echo "LOCATION:{$location}\n";
-			echo "SUMMARY:".html_entity_decode( $HELP->esc_ical_text($name))."\n";
-			echo "DESCRIPTION: ".$HELP->esc_ical_text($summary)."\\n" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() ) . "\n";
+			echo "SUMMARY:".html_entity_decode( $HELP->esc_ical_text($name)). "\n";
+			echo "DESCRIPTION: ".$HELP->esc_ical_text($summary). $desc_adds . "\n";
 
 			echo "URL:" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() ) . "\n";
 

@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Auth;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Event_Tracking;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Universal_Analytics_Event;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

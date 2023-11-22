@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -279,9 +279,9 @@ class WC_Memberships_Post_Types {
 	 */
 	public static function maybe_remove_meta_boxes( $post_type ) {
 
-		if ( in_array( $post_type, array( 'wc_membership_plan', 'wc_user_membership' ), true ) ) {
+		$screen = Framework\SV_WC_Helper::get_current_screen();
 
-			$screen = get_current_screen();
+		if ( $screen && in_array( $post_type, [ 'wc_membership_plan', 'wc_user_membership' ], true ) ) {
 
 			/**
 			 * Whitelist of allowed meta boxes to appear on Memberships custom post type admin screens.

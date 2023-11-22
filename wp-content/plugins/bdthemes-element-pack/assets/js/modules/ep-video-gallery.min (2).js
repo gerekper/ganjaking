@@ -1,0 +1,1 @@
+!function(n,e){"use strict";var t=function(n,e){var t=n.find(".rvs-container");t.length&&e(t).rvslider()};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-video-gallery.default",t)}))}(jQuery,window.elementorFrontend);

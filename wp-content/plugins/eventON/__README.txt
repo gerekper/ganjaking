@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
-Tested up to: 6.3.1
-Stable tag: 4.5.1
+Tested up to: 6.4.1
+Stable tag: 4.5.4
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,45 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.5.4 (2023-11-14) =
+FIXED: zoom error when api info is deleted
+FIXED: move_ml_yl_to_top() no events error
+FIXED: check_updates() from cron on evo_install
+FIXED: organizer description HTML clearing out on save
+FIXED: twitter icon updated to X
+FIXED: eventcard section title stripslashes
+FIXED: jitsi script disabled in settings to not run wp_register_script() 
+FIXED: get_timezone_array() to return DST adjusted times
+FIXED: eventtop text color on lightbox to sync with settings colors
+FIXED: hide_month_headers also hiding show more events button
+
+= 4.5.3 (2023-10-17) =
+ADDED: repeat index number into custom repeat list in event edit 
+ADDED: option to not sort custom repeats on Event edit custom repeat box
+FIXED: eventon license validation error
+FIXED: icon selector search not working
+UPDATED: font awesome library to version 6.4.2
+
+= 4.5.2 (2023-10-13) =
+ADDED: setting to disable event link inside description content for ICS file
+ADDED: save changes button to settings header
+ADDED: global side panel settings for eventON admin side
+ADDED: schedule view to support event tags
+FIXED: google map not showing when tickets are enabled
+FIXED: organizer secondary description html not outputting correct
+FIXED: organizer archive page to sync with event_type color override setting 
+FIXED: organizer lightbox events to also sync with event_type color override
+FIXED: language translate to strip out ! marks eventon-core-functions.php 1433
+FIXED: ics download for private events when logged in
+FIXED: live now event calculation errors
+FIXED: virtual events after event content sanitizing to sync with settings
+FIXED: shortcode generator to show correct ux_val options
+FIXED: lightbox eventtop gradient not working
+UPDATED: admin loading animation 
+UPDATED: settings layout styles
+UPDATED: yes no button to LTR
+UPDATED: Download all events as CSV to use calendar get_all_event_data()
+
 = 4.5.1 (2023-9-14) =
 ADDED: new side panel based icon selector
 FIXED: outputting errors after sanitizing settings values

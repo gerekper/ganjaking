@@ -41,7 +41,7 @@ class Store implements Strategy {
 		 *
 		 * @since 4.11.0
 		 *
-		 * @param string 'wc-session' Storage strategy
+		 * @param string $strategy Storage strategy
 		 * @param string $key      The key operating the storage
 		 */
 		switch ( apply_filters( 'wcml_user_store_strategy', 'wc-session', $key ) ) {

@@ -10,7 +10,7 @@ namespace PremiumAddonsPro\Widgets;
 // Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 
 // PremiumAddons Classes.
 use PremiumAddons\Includes\Helper_Functions;
@@ -41,7 +41,7 @@ class Premium_Fb_Chat extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Messenger Chat', 'premium-addons-pro' ) );
+		return __( 'Messenger Chat', 'premium-addons-pro' );
 	}
 
 	/**
@@ -64,6 +64,20 @@ class Premium_Fb_Chat extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'pa-pro-messenger-chat';
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -99,7 +113,7 @@ class Premium_Fb_Chat extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'facebook', 'message' );
+		return array( 'pa', 'premium', 'facebook', 'message' );
 	}
 
 	/**
@@ -119,7 +133,7 @@ class Premium_Fb_Chat extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_fbchat_account_settings',
@@ -244,9 +258,9 @@ class Premium_Fb_Chat extends Widget_Base {
 		);
 
 		$docs = array(
-			'https://premiumaddons.com/docs/facebook-messenger-chat-widget-tutorial/' => __( 'Getting started »', 'premium-addons-for-elementor' ),
-			'https://premiumaddons.com/docs/how-to-create-facebook-application-for-premium-facebook-messenger-widget/' => __( 'How to create Facebook application »', 'premium-addons-for-elementor' ),
-			'https://premiumaddons.com/docs/how-to-whitelist-your-domain-for-premium-messenger-chat-widget/' => __( 'How to whitelist your domain through your Facebook page settings »', 'premium-addons-for-elementor' ),
+			'https://premiumaddons.com/docs/facebook-messenger-chat-widget-tutorial/' => __( 'Getting started »', 'premium-addons-pro' ),
+			'https://premiumaddons.com/docs/how-to-create-facebook-application-for-premium-facebook-messenger-widget/' => __( 'How to create Facebook application »', 'premium-addons-pro' ),
+			'https://premiumaddons.com/docs/how-to-whitelist-your-domain-for-premium-messenger-chat-widget/' => __( 'How to whitelist your domain through your Facebook page settings »', 'premium-addons-pro' ),
 		);
 
 		$doc_index = 1;
@@ -282,10 +296,7 @@ class Premium_Fb_Chat extends Widget_Base {
 			array(
 				'label'  => __( 'Theme Color', 'premium-addons-pro' ),
 				'type'   => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
-				),
+				'global' => false,
 			)
 		);
 

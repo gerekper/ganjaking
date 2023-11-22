@@ -11,8 +11,8 @@ namespace PremiumAddonsPro\Widgets;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -33,14 +33,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Multi_Scroll extends Widget_Base {
 
 	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -60,7 +66,7 @@ class Premium_Multi_Scroll extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Multi Scroll', 'premium-addons-pro' ) );
+		return __( 'Multi Scroll', 'premium-addons-pro' );
 	}
 
 	/**
@@ -96,7 +102,21 @@ class Premium_Multi_Scroll extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'animation', 'split', 'half', 'slider' );
+		return array( 'pa', 'premium', 'animation', 'split', 'half', 'slider' );
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -146,6 +166,15 @@ class Premium_Multi_Scroll extends Widget_Base {
 	 */
 	protected function get_repeater_controls( $repeater, $condition = array() ) {
 
+		$has_custom_breakpoints =   \Elementor\Plugin::$instance->breakpoints->has_custom_breakpoints();
+
+		$extra_devices = ! $has_custom_breakpoints ? array() : array(
+			'widescreen'   => __( 'Widescreen', 'premium-addons-pro' ),
+			'laptop'       => __( 'laptop', 'premium-addons-pro' ),
+			'tablet_extra' => __( 'Tablet Extra', 'premium-addons-pro' ),
+			'mobile_extra' => __( 'Mobile Extra', 'premium-addons-pro' ),
+		);
+
 		$repeater->add_control(
 			'notice',
 			array(
@@ -181,9 +210,38 @@ class Premium_Multi_Scroll extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'live_temp_content',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'left_content' => 'temp',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'left_side_template_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'left_content' => 'temp',
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'left_side_template',
 			array(
-				'label'       => __( 'Left Template', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'type'        => Controls_Manager::SELECT2,
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'multiple'    => false,
@@ -195,20 +253,20 @@ class Premium_Multi_Scroll extends Widget_Base {
 		);
 
 		$repeater->add_control(
-			'hide_left_section_tabs',
+			'hide_left_section',
 			array(
-				'label'       => __( 'Hide on Tabs', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'This option works only when multiscroll disabled on tablets', 'premium-addons-pro' ),
-			)
-		);
-
-		$repeater->add_control(
-			'hide_left_section_mobs',
-			array(
-				'label'       => __( 'Hide on Mobiles', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'This option works only when multiscroll disabled on mobiles', 'premium-addons-pro' ),
+				'label'       => __( 'Hide On', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'label_block' => true,
+				'options'     => array_merge(
+					array(
+						'tablet' => __( 'Tablet', 'premium-addons-pro' ),
+						'mobile' => __( 'Mobile', 'premium-addons-pro' ),
+					),
+					$extra_devices
+				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -240,34 +298,73 @@ class Premium_Multi_Scroll extends Widget_Base {
 		);
 
 		$repeater->add_control(
-			'right_side_template',
+			'live_temp_content_extra',
 			array(
-				'label'       => __( 'Right Template', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT2,
-				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
-				'multiple'    => false,
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
 				'condition'   => array(
 					'right_content' => 'temp',
 				),
+			)
+		);
+
+		$repeater->add_control(
+			'right_side_template_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
 				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'right_content' => 'temp',
+				),
 			)
 		);
 
 		$repeater->add_control(
-			'hide_right_section_tabs',
+			'right_side_template',
 			array(
-				'label'       => __( 'Hide on Tabs', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'This option works only when multiscroll disabled on tablets', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
+				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
+				'multiple'    => false,
+				'label_block' => true,
+				'condition'   => array(
+					'right_content' => 'temp',
+				),
 			)
 		);
 
 		$repeater->add_control(
-			'hide_right_section_mobs',
+			'hide_right_section',
 			array(
-				'label'       => __( 'Hide on Mobiles', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'This option works only when multiscroll disabled on mobiles', 'premium-addons-pro' ),
+				'label'              => __( 'Hide On', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT2,
+				'multiple'           => true,
+				'label_block'        => true,
+				'options'            => array_merge(
+					array(
+						'tablet' => __( 'Tablet', 'premium-addons-pro' ),
+						'mobile' => __( 'Mobile', 'premium-addons-pro' ),
+					),
+					$extra_devices
+				),
+				'frontend_available' => true,
+			)
+		);
+
+		$repeater->add_control(
+			'custom_navigation',
+			array(
+				'label'       => __( 'Custom Navigation Element Selector', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'separator'   => 'before',
+				'label_block' => true,
+				'description' => __( 'Use this to add an element selector to be used to navigate to this slide. For example #slide-1', 'premium-addons-for-elementor' ),
 			)
 		);
 
@@ -279,7 +376,7 @@ class Premium_Multi_Scroll extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'content_templates',
@@ -289,11 +386,11 @@ class Premium_Multi_Scroll extends Widget_Base {
 		);
 
 		$this->add_control(
-			'template_height_hint',
+			'scroll_notice',
 			array(
-				'label' => '<span style="line-height: 1.4em;">It\'s recommended that templates be the same height</span>',
-				'type'  => Controls_Manager::RAW_HTML,
-
+				'raw'             => __( 'Please note that Multi Scroll works on mouse and keyboard scrolling only, not when scrolling using the scrollbar.', 'premium-addons-pro' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
 
@@ -336,15 +433,15 @@ class Premium_Multi_Scroll extends Widget_Base {
 				'options'      => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'      => 'left',
@@ -363,11 +460,11 @@ class Premium_Multi_Scroll extends Widget_Base {
 				'options'      => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'      => 'top',
@@ -572,9 +669,9 @@ class Premium_Multi_Scroll extends Widget_Base {
 		$this->add_control(
 			'scroll_responsive_tabs',
 			array(
-				'label'       => __( 'Disable on Tabs', 'premium-addons-pro' ),
+				'label'       => __( 'Disable on Tablets', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Disable multiscroll on tabs', 'premium-addons-pro' ),
+				'description' => __( 'Disable multiscroll on tablets', 'premium-addons-pro' ),
 				'default'     => 'yes',
 			)
 		);
@@ -615,9 +712,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-multiscroll-left-text' => 'color: {{VALUE}};',
@@ -630,9 +726,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-multiscroll-left-text' => 'background-color: {{VALUE}};',
@@ -644,7 +739,9 @@ class Premium_Multi_Scroll extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'left_text_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-multiscroll-left-text',
 			)
 		);
@@ -677,15 +774,15 @@ class Premium_Multi_Scroll extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'middle' => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'middle',
@@ -745,9 +842,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-multiscroll-right-text' => 'color: {{VALUE}};',
@@ -760,9 +856,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-multiscroll-right-text' => 'background-color: {{VALUE}};',
@@ -774,7 +869,9 @@ class Premium_Multi_Scroll extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'right_text_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-multiscroll-right-text',
 			)
 		);
@@ -807,15 +904,15 @@ class Premium_Multi_Scroll extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'middle' => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'middle',
@@ -876,9 +973,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Tooltips Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .multiscroll-tooltip' => 'color: {{VALUE}};',
@@ -910,9 +1006,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Dots Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .multiscroll-nav span' => 'background-color: {{VALUE}};',
@@ -925,9 +1020,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Active Dot Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .multiscroll-nav li .active span'  => 'background-color: {{VALUE}};',
@@ -940,9 +1034,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Dots Border Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .multiscroll-nav span' => 'border-color: {{VALUE}};',
@@ -964,9 +1057,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .multiscroll-nav' => 'background-color: {{VALUE}}',
@@ -1034,9 +1126,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link'  => 'color: {{VALUE}}',
@@ -1049,9 +1140,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link:hover'  => 'color: {{VALUE}}',
@@ -1064,9 +1154,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item'  => 'background-color: {{VALUE}}',
@@ -1097,9 +1186,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item.active .premium-scroll-nav-link'  => 'color: {{VALUE}}',
@@ -1112,9 +1200,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item.active .premium-scroll-nav-link:hover'  => 'color: {{VALUE}}',
@@ -1127,9 +1214,8 @@ class Premium_Multi_Scroll extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-scroll-nav-menu .premium-scroll-nav-item.active'  => 'background-color: {{VALUE}}',
@@ -1217,11 +1303,13 @@ class Premium_Multi_Scroll extends Widget_Base {
 
 		$bottom_loop = ( 'yes' === $settings['loop_bottom'] ) ? true : false;
 
-		$dots_text = explode( ',', $settings['dots_tooltips'] );
+		$dots_text = ! empty( $settings['dots_tooltips'] ) ? explode( ',', $settings['dots_tooltips'] ) : array();
 
 		$nav_items = $settings['nav_menu_repeater'];
 
 		$anchors_arr = array();
+
+		$custom_navigation = array();
 
 		if ( 'yes' === $settings['nav_menu_switch'] ) {
 			foreach ( $nav_items as $index => $item ) {
@@ -1248,6 +1336,7 @@ class Premium_Multi_Scroll extends Widget_Base {
 			'keyboard'   => ( 'yes' === $settings['keyboard_scrolling'] ) ? true : false,
 			'rtl'        => is_rtl(),
 			'id'         => esc_attr( $id ),
+			'navigation' => $custom_navigation,
 		);
 
 		$this->add_render_attribute( 'multiscroll_wrapper', 'class', 'premium-multiscroll-wrap' );
@@ -1292,6 +1381,16 @@ class Premium_Multi_Scroll extends Widget_Base {
 
 		$templates = $settings['left_side_repeater'];
 
+		foreach ( $templates as $index => $section ) {
+
+			array_push( $custom_navigation, $section['custom_navigation'] );
+
+			$this->add_render_attribute( 'left_section' . $index, 'data-hide', $section['hide_left_section'] );
+
+			$this->add_render_attribute( 'right_section' . $index, 'data-hide', $section['hide_right_section'] );
+
+		}
+
 		?>
 
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'multiscroll_wrapper' ) ); ?> data-settings='<?php echo wp_json_encode( $scoll_settings ); ?>'>
@@ -1308,17 +1407,11 @@ class Premium_Multi_Scroll extends Widget_Base {
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'left_side' ) ); ?>>
 					<?php
 					foreach ( $templates as $index => $section ) :
-						if ( 'yes' === $section['hide_left_section_tabs'] ) {
-							$this->add_render_attribute( 'left_section' . $index, 'data-hide-tabs', true );
-						}
-						if ( 'yes' === $section['hide_left_section_mobs'] ) {
-							$this->add_render_attribute( 'left_section' . $index, 'data-hide-mobs', true );
-						}
 						?>
-					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'left_template' ) . $this->get_render_attribute_string( 'left_section' . $index ) ); ?>>
+					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'left_template' ) . $this->get_render_attribute_string( 'left_section' . $index ) ); ?> data-navigation='<?php echo wp_json_encode( $custom_navigation ); ?>'>
 						<?php
 						if ( 'temp' === $section['left_content'] ) :
-							$template = $section['left_side_template'];
+							$template = empty( $section['left_side_template'] ) ? $section['live_temp_content'] : $section['left_side_template'];
 							echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							else :
 								?>
@@ -1334,17 +1427,11 @@ class Premium_Multi_Scroll extends Widget_Base {
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'right_side' ) ); ?>>
 					<?php
 					foreach ( $templates as $index => $section ) :
-						if ( 'yes' === $section['hide_right_section_tabs'] ) {
-							$this->add_render_attribute( 'right_section' . $index, 'data-hide-tabs', true );
-						}
-						if ( 'yes' === $section['hide_right_section_mobs'] ) {
-							$this->add_render_attribute( 'right_section' . $index, 'data-hide-mobs', true );
-						}
 						?>
 					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'right_template' ) . $this->get_render_attribute_string( 'right_section' . $index ) ); ?>>
 						<?php
 						if ( 'temp' === $section['right_content'] ) :
-							$template = $section['right_side_template'];
+							$template = empty( $section['right_side_template'] ) ? $section['live_temp_content_extra'] : $section['right_side_template'];
 							echo $this->getTemplateInstance()->get_template_content( $template ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							else :
 								?>

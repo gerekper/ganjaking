@@ -1,0 +1,226 @@
+/*
+================================================================
+ * Copyright (c) 2023 Flerosoft (https://flerosoft.com)
+ * Software Name: Ad Block Detector Pro | Light-weight Pure JavaScript Plugin
+ * Version: 1.0.0
+ * Product Page : https://adblockdetectorpro.flerosoft.com
+ * Documentation: https://adblockdetectorpro.flerosoft.com/docs
+ * Changelog: https://adblockdetectorpro.flerosoft.com/docs
+ * Description: AdBlock Detector Pro is a pure JavaScript plugin that helps you identify whether an ad-blocker is being used on a user's browser. If an ad blocker is detected, it shows a popup message to users, asking them to disable their ad blockers.
+================================================================
+*/
+
+/*=================================================
+  Table of Contents
+=================================================
+	1. Fonts Import
+	2. Reset CSS
+	3. Popup Modal
+        3.1. Popup Modal - Screen 2
+    4. Media Queries
+=======================================================*/
+
+/* =================================== */
+/*  1. Fonts Import
+/* =================================== */
+
+
+/* =================================== */
+/*  2. Reset CSS
+/* =================================== */
+.ab-detector-wrap * {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 100%;
+    color: #000;
+    user-select: none;
+}
+
+/* =================================== */
+/*  3. Popup Modal
+/* =================================== */
+#abDetectorModal .abdmodal {
+    background-color: var(--popup-backdrop-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 1;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.2s ease;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+#abDetectorModal .abdmodal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    min-height: calc(100% - 30px);
+}
+
+#abDetectorModal .close-icon{
+    position: absolute;
+    width: 30px;
+    height: auto;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+#abDetectorModal .abdmodal-content {
+    position: relative;
+    background-color: var(--popup-background);
+    box-shadow: 0 3px 15px -5px rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    overflow: hidden;
+    transform: scale(0);
+    transition: transform 0.4s ease;
+}
+
+
+#abDetectorModal .abdmodal-body {
+    margin: 20px 0 0px;
+}
+
+#abDetectorModal .abdmodal-body p {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--desc-color);
+}
+
+#abDetectorModal .extension-icon {
+    background: url('data:image/png;base64,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');
+    width: 200px;
+    height: 77px;
+    border-radius: 12px;
+    display: block;
+    margin: 20px auto 0;
+    border: 1px solid #ededed;
+}
+
+#abDetectorModal .abdmodal-body ul {
+    text-align: left;
+}
+
+#abDetectorModal .abdmodal-body ul li {
+    line-height: 1.4;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    color: var(--steps-color);
+}
+
+#abDetectorModal .abdmodal-body ul li::before {
+    content: "\2022";
+    color: #000000;
+    font-size: 20px;
+    margin-right: 6px;
+    position: relative;
+    top: 2px;
+}
+
+
+#abDetectorModal svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#abDetectorModal svg path,
+#abDetectorModal svg g,
+#abDetectorModal svg circle {
+    fill: var(--icon-color);
+}
+
+#abDetectorModal .icon {
+    width: 100%;
+    max-width: 80px;
+    margin: 0 auto 16px;
+}
+
+#abDetectorModal .heading {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.1;
+    color: var(--title-color);
+}
+
+
+#abDetectorModal .btn {
+    outline: none;
+    padding: 10px 14px;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background: var(--btn-background-color);
+    color: var(--btn-color);
+}
+
+#abDetectorModal .help-text {
+    margin-top: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    color: var(--help-text-color);
+}
+
+#abDetectorModal .abdmodal-footer {
+    margin-top: 20px;
+}
+
+/* =================================== */
+/*  3.1. Popup Modal - Screen 2
+/* =================================== */
+
+#abDetectorModal .screen-two {
+    display: none;
+}
+
+#abDetectorModal .screen-two .help-text {
+    margin-top: 24px;
+}
+
+#abDetectorModal.screen-two-active .screen-two {
+    display: block;
+}
+
+#abDetectorModal.screen-two-active .screen-one {
+    display: none;
+}
+
+
+#abDetectorModal .screen-two .heading {
+    font-size: 24px;
+}
+
+/* =================================== */
+/*  4. Media Queries
+/* =================================== */
+@media (max-width: 575.98px) {
+    #abDetectorModal .abdmodal-wrapper {
+        margin: 5px;
+        min-height: calc(100% - 10px);
+    }
+
+    #abDetectorModal .abdmodal-content {
+        padding: 30px;
+    }
+}

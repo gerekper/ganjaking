@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Google_Analytics_Pro\API;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Universal_Analytics\Management_API;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Universal_Analytics\Measurement_Protocol_API as Measurement_Protocol_UA_API;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

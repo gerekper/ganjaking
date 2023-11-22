@@ -6,9 +6,17 @@
 .sui-wrap .smush-upsell-link,
 .sui-wrap a.smush-upsell-link {
 	color: $purple;
+	> span:before {
+		color: $purple;
+	}
 	&:hover:not(.sui-button),
 	&:focus:not(.sui-button),
-	&:active:not(.sui-button) { color: #64007e; }
+	&:active:not(.sui-button) {
+		color: #64007e;
+		> span:before {
+			color: #64007e;
+		}
+	}
 }
 
 /**

@@ -1,12 +1,13 @@
 <?php
 /**
  * Virtual Plus frontend
+ * @version 0.2
  */
 
 class EVOVP_Front{
 
 	public $refresh = true;
-	public $refresh_main;
+	public $refresh_main, $helper;
 
 	public function __construct(){
 
@@ -30,6 +31,8 @@ class EVOVP_Front{
 		// ajax
 		add_action( 'evo_ajax_refresh_event_elms', array( $this, 'ajax_refresh_elms' ), 10,5 );
 		add_action( 'evo_ajax_general_send_results', array( $this, 'evo_general_ajax' ), 10,2 );
+
+		$this->helper = new evo_helper();
 	}
 
 	// register scripts for the page
@@ -45,10 +48,16 @@ class EVOVP_Front{
 		public function refreshable($bool){
 			return true;
 		}
+
+	// check moderator
+		function is_user_mod( $EV){
+			//return false;
+			return $EV->_is_user_moderator;
+		}
 	// pre event content
 		public function pre_content($html, $EV){
 
-			if($EV->is_live_now || $EV->is_past || $EV->_is_user_moderator) return $html;
+			if($EV->is_live_now || $EV->is_past || $this->is_user_mod($EV) ) return $html;
 
 			// pre event content			
 			return apply_filters('evovp_eventcard_virtual_pre_content', $this->is_vir_pre_content($EV), $EV);
@@ -70,12 +79,15 @@ class EVOVP_Front{
 
 				// show pre content all the time
 				if($when == 'all' ){
-					return  $current_time < $event_start_time ? $EV->event->get_prop('_vir_pre_content') : false; 
+					return  $current_time < $event_start_time ? 
+						$EV->event->get_prop('_vir_pre_content') : false; 
 				} 
 
 				$cutoff = $event_start_time - (int)$when;
 
-				if( $cutoff <= $current_time && $current_time < $event_start_time ) return $EV->event->get_prop('_vir_pre_content');
+				if( $cutoff <= $current_time && $current_time < $event_start_time ){
+					return $EV->event->get_prop('_vir_pre_content');
+				} 
 
 				return false;
 			}
@@ -164,6 +176,8 @@ class EVOVP_Front{
 		public function evo_general_ajax($array, $PP){
 
 			if(isset($PP['fnct']) && $PP['fnct'] != 'mark_event_ended') return $array;
+			if( !isset($PP['uid']) ) return $array;
+			if( $PP['uid'] != 'evo_mark_live_event_status' ) return $array;
 
 			$event = new EVO_Event( $PP['eid'], '', $PP['ri']);
 
@@ -193,7 +207,7 @@ class EVOVP_Front{
 
 			if( !EVO()->cal->check_yn('evo_realtime_vir_update','evcal_1') ) return $response;
 
-			$response = EVO()->ajax->get_refresh_elm_data( $data, 'heartbeat');
+			$response = EVO_AJAX::get_refresh_elm_data( $data, 'heartbeat');
 			
 			return $response;
 		}
@@ -245,13 +259,24 @@ class EVOVP_Front{
 
 			if( $EV->vir_type != 'jitsi') return;
 
+
+
 			// if mod require ending event enabled
 			if( $EV->EVENT->check_yn('_vir_after_mod_end') ){
 
+				$data = array(
+					'eid'=>$EV->EVENT->ID,
+					'ri'=> $EV->EVENT->ri,
+					'vire'=>'yes',
+					'uid'=>'evo_mark_live_event_status'
+				);
+
 				if( !$EV->EVENT->check_yn('_vir_ended')){
-					echo "<p style='padding-top:10px;'><a class='evcal_btn evo_trig_ajax evo_trig_vir_end' data-eid='{$EV->event->ID}' data-ri='{$EV->event->ri}' data-vire='yes'>". evo_lang('Mark as live event ended') ."</a></p>";
+					
+
+					echo "<p style='padding-top:10px;'><a class='evcal_btn evo_trig_ajax evo_trig_vir_end' ". $this->helper->array_to_html_data($data) ." >". evo_lang('Mark as live event ended') ."</a></p>";
 				}else{
-					echo "<p style='padding-top:10px;'><a class='evcal_btn evo_trig_ajax evo_trig_vir_end' data-eid='{$EV->event->ID}' data-ri='{$EV->event->ri}' data-vire='no'>". evo_lang('Start event back') ."</a></p>";
+					echo "<p style='padding-top:10px;'><a class='evcal_btn evo_trig_ajax evo_trig_vir_end' ". $this->helper->array_to_html_data($data) .">". evo_lang('Start event back') ."</a></p>";
 				}
 				
 			}
@@ -292,7 +317,7 @@ class EVOVP_Front{
 			if( $EVENT->virtual_type() != 'jitsi') return $bool;
 			// if mod need to end is enabled & vir is not marked as ended
 			//echo $EVENT->check_yn('_vir_ended')? 'y':'g';
-			if( $EVENT->check_yn('_vir_after_mod_end') && !$EVENT->check_yn('_vir_ended')){
+			if( $EVENT->is_event_started() && $EVENT->check_yn('_vir_after_mod_end') && !$EVENT->check_yn('_vir_ended')){
 				return true;
 			}
 			return $bool;

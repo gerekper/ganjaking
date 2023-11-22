@@ -1,0 +1,102 @@
+/** Common PRO*/
+.premium-loading-feed {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px; }
+  .premium-loading-feed.premium-show-loading {
+    display: block;
+    background: #fff;
+    text-align: center;
+    z-index: 10;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: 0.5s;
+    transition: 0.5s; }
+
+/**Tooltipster*/
+.tooltipster-sidetip .tooltipster-content {
+  background: transparent;
+  text-align: center;
+  padding: 0; }
+
+.premium-tooltipster-base .tooltipster-content {
+  padding: 0.3em 0.6em;
+  border-radius: 2px; }
+
+.premium-tooltipster-base .tooltipster-box {
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+/*
+* Common Buttons Style.
+*/
+.premium-btn-sm,
+.premium-btn-md,
+.premium-btn-lg,
+.premium-btn-block {
+  background-color: #eee;
+  color: #042551;
+  margin: 0px;
+  text-decoration: none; }
+  .premium-btn-sm:hover,
+  .premium-btn-md:hover,
+  .premium-btn-lg:hover,
+  .premium-btn-block:hover {
+    background-color: #54595f;
+    color: #eee; }
+
+div[class*="elementor-widget-premium"] .premium-btn-sm {
+  padding: 12px 24px;
+  font-size: 14px;
+  line-height: 1; }
+
+div[class*="elementor-widget-premium"] .premium-btn-md {
+  padding: 14px 26px;
+  font-size: 16px;
+  line-height: 1.2; }
+
+div[class*="elementor-widget-premium"] .premium-btn-lg {
+  padding: 16px 28px;
+  font-size: 18px;
+  line-height: 1.3333; }
+
+div[class*="elementor-widget-premium"] .premium-btn-block {
+  font-size: 18px;
+  line-height: 1;
+  padding: 20px 0px;
+  width: 100%;
+  text-align: center; }
+
+/*
+* Common SVG Draw
+*/
+.premium-svg-nodraw *,
+.premium-svg-drawer *,
+.premium-icon-box-icon svg * {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition-property: stroke, fill, background-color;
+  transition-property: stroke, fill, background-color; }
+
+.premium-svg-nodraw .no-transition,
+.premium-svg-drawer .no-transition,
+.premium-icon-box-icon svg .no-transition {
+  -webkit-transition: none !important;
+  transition: none !important; }
+
+.premium-addons__v-hidden {
+  visibility: hidden;
+  opacity: 0; }

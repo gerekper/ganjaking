@@ -1,0 +1,98 @@
+/**************** Premium Image Layers ****************/
+/******************************************************/
+.premium-img-layers-wrapper {
+  position: relative; }
+  .premium-img-layers-wrapper ul.premium-img-layers-list-wrapper {
+    margin: 0;
+    padding: 0;
+    min-height: 10px; }
+  .premium-img-layers-wrapper .premium-img-layers-list-item {
+    list-style-type: none;
+    position: absolute; }
+    .premium-img-layers-wrapper .premium-img-layers-list-item .premium-img-layers-image {
+      width: 100%;
+      border-color: #000;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+
+.elementor-editor-active .premium-img-layers-list-wrapper .premium-img-layers-list-item {
+  cursor: -webkit-grab;
+  cursor: grab; }
+  .elementor-editor-active .premium-img-layers-list-wrapper .premium-img-layers-list-item.ui-draggable-dragging {
+    cursor: -webkit-grabbing;
+    cursor: grabbing; }
+
+.elementor-editor-active .premium-img-layers-list-item canvas:hover,
+.elementor-editor-active .premium-img-layers-list-item img:hover,
+.elementor-editor-active .premium-img-layers-list-item svg:hover {
+  outline: 1px dashed #6ec1e4; }
+
+.premium-img-layers-list-item .premium-img-layers-text {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.premium-img-layers-list-item .premium-img-layers-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.premium-img-layers-list-wrapper li[data-layer-animation*="animated-"] {
+  opacity: 0; }
+
+/*
+* Hover Effects
+*/
+.premium-img-layer-zoomout img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2); }
+
+.premium-img-layer-gray img {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%); }
+
+.premium-img-layer-sepia img {
+  -webkit-filter: sepia(30%);
+  filter: sepia(30%); }
+
+.premium-img-layer-bright img {
+  -webkit-filter: brightness(1);
+  filter: brightness(1); }
+
+.premium-img-layer-blur img {
+  -webkit-filter: blur(3px);
+  filter: blur(3px); }
+
+/*Thumbnail Container Hover*/
+.premium-img-layer-zoomin:hover img {
+  -webkit-transform: scaleX(1.1) scaleY(1.1);
+  -ms-transform: scaleX(1.1) scaleY(1.1);
+  transform: scaleX(1.1) scaleY(1.1); }
+
+.premium-img-layer-zoomout:hover img {
+  -webkit-transform: scaleX(1) scaleY(1);
+  -ms-transform: scaleX(1) scaleY(1);
+  transform: scaleX(1) scaleY(1); }
+
+.premium-img-layer-scale:hover img {
+  -webkit-transform: scaleX(1.2) scaleY(1.2) rotate(5deg);
+  -ms-transform: scaleX(1.2) scaleY(1.2) rotate(5deg);
+  transform: scaleX(1.2) scaleY(1.2) rotate(5deg); }
+
+.premium-img-layer-gray:hover img {
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%); }
+
+.premium-img-layer-blur:hover img {
+  -webkit-filter: blur(0px);
+  filter: blur(0px); }
+
+.premium-img-layer-sepia:hover img {
+  -webkit-filter: sepia(0%);
+  filter: sepia(0%); }
+
+.premium-img-layer-bright:hover img {
+  -webkit-filter: brightness(1.2);
+  filter: brightness(1.2); }

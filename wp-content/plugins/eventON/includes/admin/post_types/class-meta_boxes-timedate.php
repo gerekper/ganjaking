@@ -136,7 +136,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				'id'=>'_evo_tz',
 				'value'=> $default_timezone,
 				'name'=> __('Event Timezone','eventon'),
-				'options'=> $help->get_timezone_array( $EVENT->get_prop('evcal_srow'),true ),
+				'options'=> $help->get_timezone_array( ),
 				'row_style'=>'padding-bottom:10px;',
 			),
 			array(
@@ -518,7 +518,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				if($important_msg_for_repeats)	echo "<p><i style='opacity:0.7'>".$important_msg_for_repeats."</i></p>";
 
 
-				echo "<p id='no_repeats' style='display:none;opacity:0.7'>There are no additional custom repeats!</p>";
+				echo "<p id='no_repeats' style='display:none;opacity:0.7'>". __('There are no additional custom repeats','eventon'). "!</p>";
 
 				echo "<ul class='evo_custom_repeat_list'>";
 				$count =0;
@@ -542,7 +542,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 						$end_dt = $DD->format($date_format_string);
 
 
-						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'flex').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<span>'.__('from','eventon').'</span> '. $start_dt .' <span class="e">End</span> '. $end_dt .'<em class="evo_rep_del" alt="Delete">x</em>
+						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'flex').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<i>'.$count.'</i><span>'.__('from','eventon').'</span> '. $start_dt .' <span class="e">End</span> '. $end_dt .'<em class="evo_rep_del" alt="Delete">x</em>
 						<input type="hidden" name="repeat_intervals['.$count.'][0]" value="'.$start_unix.'"/><input type="hidden" name="repeat_intervals['.$count.'][1]" value="'.$end_unix.'"/></li>';
 						$count++;
 					}										
@@ -557,7 +557,6 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				<div class='evo_date_time_elem evo_start'>
 					<p class='evo_event_time_label'><?php _e('New Repeat Start', 'eventon')?></p>
 					<?php
-
 					
 					$rand = 478933;
 					
@@ -595,6 +594,15 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				</div>				
 			</div>
 			<p class='evo_repeat_interval_button'><a id='evo_add_repeat_interval' class='button_evo'>+ <?php _e('Add New Repeat Interval','eventon');?></a><span></span></p>
+			<?php 
+				echo EVO()->elements->get_element(array(
+					'type'=>'yesno_btn',
+					'id'=>'_evo_rep_no_nosort',
+					'value'=> $EVENT->get_prop('_evo_rep_no_nosort'),
+					'label'=> __('Do not auto sort custom repeats'),
+					'tooltip'=> __('Setting this will stop custom repeat event times being ordered, instead will maintain repeat index association.')
+				));
+			?>
 		</div>	
 	</div>
 </div><!--evcal_dates-->

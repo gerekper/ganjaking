@@ -5,6 +5,7 @@ namespace MailPoet\Newsletter\Scheduler;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\Workers\SendingQueue\SendingQueue;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterOptionFieldEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
@@ -15,7 +16,6 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
-use MailPoet\Tasks\Sending;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\ParameterType;
@@ -99,7 +99,7 @@ class ReEngagementScheduler {
     $scheduledTask = new ScheduledTaskEntity();
     $scheduledTask->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
     $scheduledTask->setScheduledAt(Carbon::createFromTimestamp($this->wp->currentTime('timestamp')));
-    $scheduledTask->setType(Sending::TASK_TYPE);
+    $scheduledTask->setType(SendingQueue::TASK_TYPE);
     $scheduledTask->setPriority(SendingQueueEntity::PRIORITY_MEDIUM);
     $this->scheduledTasksRepository->persist($scheduledTask);
     $this->scheduledTasksRepository->flush();

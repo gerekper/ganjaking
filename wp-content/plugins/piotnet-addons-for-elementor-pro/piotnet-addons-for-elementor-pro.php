@@ -3,7 +3,7 @@
  * Plugin Name: Piotnet Addons For Elementor Pro
  * Description: Piotnet Addons For Elementor Pro (PAFE Pro) adds many new features for Elementor
  * Plugin URI:  https://pafe.piotnet.com/
- * Version:     7.1.15
+ * Version:     7.1.17
  * Author:      Piotnet Team
  * Author URI:  https://piotnet.com/
  * Text Domain: pafe
@@ -11,7 +11,6 @@
  * Elementor tested up to: 3.13.4
  * Elementor Pro tested up to: 3.13.2
  */
-
 update_option( 'piotnet_addons_for_elementor_pro_license_key', [ 'siteKey' => '**********', 'licenseKey' => '*********' ] );
 update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => time() + 5*365*24*60*60, 'value' => [
 'status' => 'VALID',
@@ -22,11 +21,10 @@ update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => t
 'activated_site_total' => 1,
 'lifetime' => 1,
 'expired_at' => time() + 5*365*24*60*60,
-] ] ); 
- 
+] ] );
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'PAFE_PRO_VERSION', '7.1.15' );
+define( 'PAFE_PRO_VERSION', '7.1.17' );
 define( 'PAFE_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 final class Piotnet_Addons_For_Elementor_Pro {
@@ -111,6 +109,10 @@ final class Piotnet_Addons_For_Elementor_Pro {
 			add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_styles_widget_preview' ] );
 		}
 
+		if( get_option( 'pafe-features-custom-css', 2 ) == 2 || get_option( 'pafe-features-custom-css', 2 ) == 1 ) {
+			add_action('elementor/frontend/after_enqueue_scripts', [$this, 'add_custom_css_for_editor']);
+		}
+
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 		register_activation_hook( __FILE__, [ $this, 'plugin_activate'] );
 		add_action( 'admin_init', [ $this, 'plugin_redirect'] );
@@ -185,6 +187,7 @@ final class Piotnet_Addons_For_Elementor_Pro {
             require_once( __DIR__ . '/inc/dynamic-tags.php');
 			require_once( __DIR__ . '/inc/ajax/pafe-forms-functions.php');
 			require_once( __DIR__ . '/inc/ajax/pafe-widget-functions.php');
+            require_once( __DIR__ . '/inc/ajax-razorpay.php');
 		}
 		if( get_option( 'pafe-features-woocommerce-checkout', 2 ) == 2 || get_option( 'pafe-features-woocommerce-checkout', 2 ) == 1 ) {
 			require_once( __DIR__ . '/inc/ajax-form-builder-woocommerce-checkout.php' );
@@ -319,6 +322,36 @@ final class Piotnet_Addons_For_Elementor_Pro {
 		add_filter( 'manage_pafe-forms_posts_columns', [ $this, 'pafe_forms_set_custom_edit_columns' ] );
     	add_action( 'manage_pafe-forms_posts_custom_column', [ $this, 'pafe_forms_custom_column' ], 10, 2 );
 	}
+
+	public function add_custom_css_for_editor() {
+        wp_dequeue_script( 'editor-css-script' );
+		wp_dequeue_script( 'purify' );
+		wp_dequeue_script( 'softlite-elementor-editor-script' );
+        
+        wp_enqueue_script(
+            'purify',
+            plugin_dir_url( __FILE__ ) . 'assets/js/libs/purify.min.js',
+            [],
+            PAFE_PRO_VERSION,
+            true
+        );
+
+        wp_enqueue_script(
+            'pafe-custom-css-script',
+            plugin_dir_url( __FILE__ ) . 'assets/js/libs/custom-css.js',
+            ['elementor-frontend', 'purify'],
+            PAFE_PRO_VERSION,
+            true
+        );
+
+        wp_localize_script(
+            'pafe-custom-css-script',
+            'elementData',
+            array(
+                'postID' => get_the_ID()
+            )
+        );
+    }
 
 	public function pafe_form_shortcode($atts) {
 		if(!class_exists('Elementor\Plugin')){
@@ -2173,6 +2206,11 @@ final class Piotnet_Addons_For_Elementor_Pro {
 		if( get_option( 'pafe-features-woocommerce-sales-funnel', 2 ) == 2 || get_option( 'pafe-features-woocommerce-sales-funnel', 2 ) == 1 ) {
 			require_once( __DIR__ . '/controls/pafe-woocommerce-sales-funnels-add-to-cart.php' );
 			new PAFE_Woocommerce_Sales_Funnels_Add_To_Cart();
+		}
+
+		if( get_option( 'pafe-features-custom-css', 2 ) == 2 || get_option( 'pafe-features-custom-css', 2 ) == 1 ) {
+			require_once( __DIR__ . '/controls/pafe-custom-css.php' );
+			new PAFE_Custom_Css();
 		}
 
 	}

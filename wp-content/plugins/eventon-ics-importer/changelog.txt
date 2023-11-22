@@ -1,5 +1,14 @@
 ICS Importer for EventON Plugin
 ====================================
+v 2.0 (2023-10-13)
+ADDED: ability to set custom timezone for importing events
+ADDED: new side panel options to hide end time on imported events
+ADDED: new side panel option to set user interaction
+ADDED: new side panel option to modify all processed events times
+FIXED: use wp_remote_get instead of download_url() for ICS files
+UPDATED: ICS file processing via lightbox window
+UPDATED: use eventon settings library
+
 v 1.1.4 (2020-10-22)
 FIXED: all day events end day importing as one day past
 FIXED: validate the cron schedule passed values

@@ -4,8 +4,8 @@ Author: SaurabhSharma
 Author URI: http://codecanyon.net/user/saurabhsharma
 Tags: post modules, post snippets, wp query
 Requires at least: 4.3
-Tested up to: 6.2.1
-Stable tag: 6.2.1
+Tested up to: 6.4.1
+Stable tag: 6.4.1
 
 
 == Description ==
@@ -124,6 +124,19 @@ For installation and setup, please refer to the documentation/index.html file in
 main download archive.
 
 == Changelog ==
+
+= 2.4.0 =
+* Updated social sharing twitter icons with the new "X" icon
+* Included Fontawesome v6.4.2 Free icons library
+    - Dropped requirement for the Fontawesome 4 support
+* Elementor tested upto 3.17.3
+* Ensured compatibility upto WordPress 6.4.1
+
+= 2.3.0 =
+* Added option for opening post links in new tab/window
+    - See WP Post Modules > Style > Display > Open links in new Tab/Window
+* Elementor tested upto 3.14.1
+* Ensured compatibility upto WordPress 6.2.2
 
 = 2.2.1 =
 * Fixed: Image link not working in "Tile" display style

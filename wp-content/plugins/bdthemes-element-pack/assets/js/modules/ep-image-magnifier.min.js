@@ -1,0 +1,1 @@
+!function(e,n){"use strict";var t=function(e,n){var t=e.find(".bdt-image-magnifier"),i=t.data("settings"),o=t.find("> .bdt-image-magnifier-image");t.length&&n(o).ImageZoom(i)};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-image-magnifier.default",t)}))}(jQuery,window.elementorFrontend);

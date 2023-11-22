@@ -72,7 +72,7 @@ class MulticurrencyHooks implements \IWPML_Action {
 
 				$cost = get_post_meta( $original_id, $metaKey, true );
 
-				add_filter( 'get_post_metadata', [ $this, 'filter_composite_product_cost' ], 10, 4 );
+				add_filter( 'get_post_metadata', [ $this, 'filter_composite_product_cost' ], 10, 3 );
 
 				if ( $cost ){
 					return $this->woocommerce_wpml->multi_currency->prices->convert_price_amount( $cost, $currency );

@@ -50,6 +50,8 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 			include_once 'widgets/horizontalscroll.php';
 			include_once 'widgets/tabs.php';
 			include_once 'widgets/table.php';
+			include_once 'widgets/accordion.php';
+			include_once 'widgets/image-layers.php';
 
 		}
 
@@ -117,6 +119,16 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'editor_type' => 'LINE',
 					),
 					array(
+						'field'       => 'premium_content_toggle_first_content_templates',
+						'type'        => __( 'Content Switcher: First Template ID', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'premium_content_toggle_second_content_templates',
+						'type'        => __( 'Content Switcher: Second Template ID', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+					array(
 						'field'       => 'premium_content_toggle_first_content_text',
 						'type'        => __( 'Content Switcher: First Content', 'premium-addons-pro' ),
 						'editor_type' => 'AREA',
@@ -139,8 +151,13 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 					),
 					array(
 						'field'       => 'content_link_title',
-						'type'        => __( 'Divider: Link Titlte', 'premium-addons-pro' ),
+						'type'        => __( 'Divider: Link Title', 'premium-addons-pro' ),
 						'editor_type' => 'LINE',
+					),
+					'content_url' => array(
+						'field'       => 'url',
+						'type'        => __( 'Divider: Separator Link', 'premium-addons-pro' ),
+						'editor_type' => 'LINK',
 					),
 				),
 			);
@@ -158,6 +175,11 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'type'        => __( 'Facebook Feed: User ID/Page Slug', 'premium-addons-pro' ),
 						'editor_type' => 'LINE',
 					),
+					array(
+						'field'       => 'read_text',
+						'type'        => __( 'Facebook Feed: Show more Text', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
 				),
 			);
 
@@ -167,6 +189,22 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 					array(
 						'field'       => 'page_name',
 						'type'        => __( 'Facebook Reviews: Page Name', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
+			$widgets['premium-fb-chat'] = array(
+				'conditions' => array( 'widgetType' => 'premium-fb-chat' ),
+				'fields'     => array(
+					array(
+						'field'       => 'premium_fbchat_login_msg',
+						'type'        => __( 'Messanger Chat: Login Message', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'premium_fbchat_logout_msg',
+						'type'        => __( 'Messanger Chat: Logout Message', 'premium-addons-pro' ),
 						'editor_type' => 'LINE',
 					),
 				),
@@ -238,6 +276,11 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'editor_type' => 'LINE',
 					),
 					array(
+						'field'       => 'premium_icon_box_label',
+						'type'        => __( 'Icon Box: Title', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+					array(
 						'field'       => 'premium_icon_box_content',
 						'type'        => __( 'Icon Box: Description', 'premium-addons-pro' ),
 						'editor_type' => 'AREA',
@@ -281,6 +324,12 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 				),
 			);
 
+			$widgets['premium-image-accordion'] = array(
+				'conditions'        => array( 'widgetType' => 'premium-image-accordion' ),
+				'fields'            => array(),
+				'integration-class' => 'PremiumAddonsPro\Compatibility\WPML\Widgets\Accordion',
+			);
+
 			$widgets['premium-addon-image-comparison'] = array(
 				'conditions' => array( 'widgetType' => 'premium-addon-image-comparison' ),
 				'fields'     => array(
@@ -299,7 +348,14 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 
 			$widgets['premium-addon-image-hotspots'] = array(
 				'conditions'        => array( 'widgetType' => 'premium-addon-image-hotspots' ),
+				'fields'            => array(),
 				'integration-class' => 'PremiumAddonsPro\Compatibility\WPML\Widgets\Hotspots',
+			);
+
+			$widgets['premium-img-layers-addon'] = array(
+				'conditions'        => array( 'widgetType' => 'premium-img-layers-addon' ),
+				'fields'            => array(),
+				'integration-class' => 'PremiumAddonsPro\Compatibility\WPML\Widgets\Image_Layers',
 			);
 
 			$widgets['premium-addon-magic-section'] = array(
@@ -309,6 +365,11 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'field'       => 'premium_magic_section_content',
 						'type'        => __( 'Magic Section: Content', 'premium-addons-pro' ),
 						'editor_type' => 'AREA',
+					),
+					array(
+						'field'       => 'premium_magic_section_content_temp',
+						'type'        => __( 'Magic Section: Content Template ID', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'premium_magic_section_button_text',
@@ -360,6 +421,11 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'type'        => __( 'Alert Box: Close Button Text', 'premium-addons-pro' ),
 						'editor_type' => 'LINE',
 					),
+					'premium_notbar_link' => array(
+						'field'       => 'url',
+						'type'        => __( 'Alert Box: URL', 'premium-addons-pro' ),
+						'editor_type' => 'LINK',
+					),
 				),
 			);
 
@@ -367,8 +433,13 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 				'conditions' => array( 'widgetType' => 'premium-addon-preview-image' ),
 				'fields'     => array(
 					array(
-						'field'       => 'premium_preview_image_alt',
-						'type'        => __( 'Preview Window: Image Alt', 'premium-addons-pro' ),
+						'field'       => 'trigger_text',
+						'type'        => __( 'Preview Window: Trigger Text', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'premium_preview_image_content_temp',
+						'type'        => __( 'Preview Window: Content Template ID', 'premium-addons-pro' ),
 						'editor_type' => 'LINE',
 					),
 					array(
@@ -396,7 +467,30 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 
 			$widgets['premium-addon-tabs'] = array(
 				'conditions'        => array( 'widgetType' => 'premium-addon-tabs' ),
+				'fields'            => array(),
 				'integration-class' => 'PremiumAddonsPro\Compatibility\WPML\Widgets\Tabs',
+			);
+
+			$widgets['premium-twitter-feed'] = array(
+				'conditions' => array( 'widgetType' => 'premium-twitter-feed' ),
+				'fields'     => array(
+					array(
+						'field'       => 'read_text',
+						'type'        => __( 'Twitter Feed: Read More Text', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
+			$widgets['premium-yelp-reviews'] = array(
+				'conditions' => array( 'widgetType' => 'premium-yelp-reviews' ),
+				'fields'     => array(
+					array(
+						'field'       => 'readmore',
+						'type'        => __( 'Yelp Reviews: Read More Text', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
+					),
+				),
 			);
 
 			$widgets['premium-unfold-addon'] = array(
@@ -411,6 +505,11 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'field'       => 'premium_unfold_content',
 						'type'        => __( 'Unfold: Content', 'premium-addons-pro' ),
 						'editor_type' => 'AREA',
+					),
+					array(
+						'field'       => 'content_temp',
+						'type'        => __( 'Unfold: Content Template ID', 'premium-addons-pro' ),
+						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'premium_unfold_button_fold_text',

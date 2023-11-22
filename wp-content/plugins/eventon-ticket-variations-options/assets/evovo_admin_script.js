@@ -115,10 +115,15 @@ jQuery(document).ready(function($){
 		}
 
 
-	// delete an item
-		$('body').on('click','.evovo_vo_list li em.delete',function(){
-			if(!confirm('Are you sure you want to delete?')) return false;
-			return;			
+	// delete an item -- need fixed
+		$('body').on('click','.evovo_vo_list li em.delete',function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			if(confirm('Are you sure you want to delete?') == true){
+				return true;
+			}else{				
+				return false;
+			} 				
 		});
 
 

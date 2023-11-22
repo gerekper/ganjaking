@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Chase Paymentech Gateway 1.18.0\n"
+"Project-Id-Version: WooCommerce Chase Paymentech Gateway 1.18.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-07-28 10:33:22+00:00\n"
+"POT-Creation-Date: 2023-11-17 02:36:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-chase-paymentech.php:220
+#: class-wc-chase-paymentech.php:226
 #. translators: Placeholders: %1$s - <strong>, %2$s - </strong>, %3$s - <a>,
 #. %4$s - </a>
 msgid ""
@@ -22,7 +22,7 @@ msgid ""
 "%3$sregister with Chase%4$s."
 msgstr ""
 
-#: class-wc-chase-paymentech.php:260
+#: class-wc-chase-paymentech.php:266
 msgid "Invalid order ID"
 msgstr ""
 

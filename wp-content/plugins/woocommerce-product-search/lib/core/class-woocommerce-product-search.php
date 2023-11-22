@@ -143,11 +143,19 @@ class WooCommerce_Product_Search {
 
 		add_action( 'wpmu_new_blog', array( __CLASS__, 'wpmu_new_blog' ), 9, 2 );
 		add_action( 'delete_blog', array( __CLASS__, 'delete_blog' ), 10, 2 );
+
+		require_once WOO_PS_CORE_LIB . '/interface-base.php';
+
 		require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-log.php';
 
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-system.php';
 
-		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-cache.php';
+		require_once WOO_PS_CORE_LIB . '/class-lock.php';
+
+		require_once WOO_PS_CACHE_LIB . '/class-cache-boot.php';
+
+		require_once WOO_PS_ENGINE_LIB . '/class-engine-boot.php';
+
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
@@ -155,6 +163,9 @@ class WooCommerce_Product_Search {
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+		require_once WOO_PS_CONTROL_LIB . '/class-product-search-field-control.php';
+		require_once WOO_PS_CONTROL_LIB . '/class-query-control.php';
+		require_once WOO_PS_CONTROL_LIB . '/class-term-control.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
 		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
 		require_once WOO_PS_BLOCKS_LIB . '/class-blocks.php';
@@ -469,6 +480,7 @@ class WooCommerce_Product_Search {
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product.php';
+			require_once WOO_PS_VIEWS_LIB . '/class-filter-renderer.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-field.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-context.php';
@@ -496,6 +508,7 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-term-node-select-renderer.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-thumbnail.php';
 			if ( is_admin() ) {
+				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-base.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-bar.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-navigation.php';
@@ -575,6 +588,7 @@ class WooCommerce_Product_Search {
 	 * @param int $blog_id
 	 */
 	public static function switch_to_blog( $blog_id ) {
+
 		switch_to_blog( $blog_id );
 		if ( function_exists( 'wp_cache_switch_to_blog' ) ) {
 			wp_cache_switch_to_blog( $blog_id );
@@ -750,6 +764,8 @@ class WooCommerce_Product_Search {
 			self::cleanup_metas();
 			WooCommerce_Product_Search_Controller::cleanup( true );
 			self::cleanup_v1_indexes();
+			delete_option( 'woocommerce_product_search_engine_cache_marker' );
+			delete_option( 'woocommerce_product_search_file_cache_gc_scheduled' );
 			delete_option( 'woocommerce_product_search_worker_init_scheduled' );
 			delete_option( 'woocommerce_product_search_plugin_tables' );
 			delete_option( 'woocommerce_product_search_plugin_version' );
@@ -919,7 +935,7 @@ class WooCommerce_Product_Search {
 		echo '<p>';
 		echo '<strong>';
 		/* translators: Link */
-		printf( esc_html__( 'WooCommerce Product Search requires %s to be installed and active.', 'woocommerce-product-search' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) ;
+		printf( esc_html__( 'WooCommerce Product Search requires %s to be installed and active.', 'woocommerce-product-search' ), '<a href="https://woo.com/" target="_blank">WooCommerce</a>' ) ;
 		echo '</strong>';
 		echo '</p>';
 		echo '</div>';

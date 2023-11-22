@@ -23,6 +23,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Base;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 /**
@@ -68,7 +69,7 @@ class WooCommerce_Product_Search_Product {
 
 			$addends[] = 'COALESCE(cat_max_weight.weight,0)';
 
-			if ( isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] ) ) {
+			if ( isset( $_REQUEST[Base::SEARCH_QUERY] ) ) {
 
 				$settings = Settings::get_instance();
 
@@ -95,10 +96,10 @@ class WooCommerce_Product_Search_Product {
 					$title = true;
 				}
 
-				$search_query = isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] ) ? $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] : '';
+				$search_query = isset( $_REQUEST[Base::SEARCH_QUERY] ) ? $_REQUEST[Base::SEARCH_QUERY] : '';
 				$search_query = apply_filters( 'woocommerce_product_search_request_search_query', $search_query );
-				$search_query = preg_replace( '/[^\p{L}\p{N}]++/u', ' ', $search_query );
-				$search_query = trim( preg_replace( '/\s+/', ' ', $search_query ) );
+				$search_query = \WooCommerce_Product_Search_Indexer::normalize( $search_query );
+				$search_query = trim( \WooCommerce_Product_Search_Indexer::remove_accents( $search_query ) );
 				$search_terms = explode( ' ', $search_query );
 				$search_terms = array_unique( $search_terms );
 
@@ -215,10 +216,11 @@ class WooCommerce_Product_Search_Product {
 	}
 
 	/**
-	 * Modify the join clase to take weights into account.
+	 * Modify the join clause to take weights into account.
 	 *
 	 * @param string $join
 	 * @param WP_Query $query
+	 *
 	 * @return string
 	 */
 	public static function posts_join( $join, $query ) {
@@ -253,6 +255,7 @@ class WooCommerce_Product_Search_Product {
 	 *
 	 * @param string $orderby
 	 * @param WP_Query $query
+	 *
 	 * @return string
 	 */
 	public static function posts_orderby( $orderby, $query ) {
@@ -271,6 +274,7 @@ class WooCommerce_Product_Search_Product {
 	 * Whether to take weights into account.
 	 *
 	 * @param WP_Query $query
+	 *
 	 * @return boolean
 	 */
 	private static function use_weights( &$query ) {
@@ -286,7 +290,7 @@ class WooCommerce_Product_Search_Product {
 			if (
 				$query->is_search() ||
 				$query->get( 'product_search', false ) ||
-				isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_TOKEN] ) ||
+				isset( $_REQUEST[Base::SEARCH_TOKEN] ) ||
 				strlen( $ixwpss ) > 0
 			) {
 				$result = true;

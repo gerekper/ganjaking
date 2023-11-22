@@ -1,6 +1,6 @@
 /**
  * wppm-el.frontend.css
- * @version 2.2.1
+ * @version 2.4.0
  */
 
 .wppm-ajax-nav a:before,
@@ -5563,12 +5563,12 @@
 
 .wppm-sharing .wppm-twitter a:before {
   content: '\f081';
-  color: #3cf;
+  color: #0f1419;
 }
 
 .wppm-sharing .wppm-facebook a:before {
   content: '\f082';
-  color: #3c5a98;
+  color: #0866ff;
 }
 
 .wppm-sharing .wppm-whatsapp a:before {
@@ -6210,15 +6210,15 @@ div.wpcf7 .wpcf7-form .ajax-loader {
 }
 
 /* Colors */
-.wppm-el-sharing-list .fa-twitter:before,
-.wppm-el-sharing-inline li .fa-twitter {
-  color: #1DA1F2;
+.wppm-el-sharing-list .fa-x-twitter:before,
+.wppm-el-sharing-inline li .fa-x-twitter {
+  color: #0f1419;
 }
 
 .wppm-el-sharing-list .fa-facebook-f:before,
 .wppm-el-sharing-inline li .fa-facebook-square,
 .wppm-el-sharing-inline li .fa-facebook-f {
-  color: #3c5a98;
+  color: #0866ff;
 }
 
 .wppm-el-sharing-list .fa-google-plus-g:before,

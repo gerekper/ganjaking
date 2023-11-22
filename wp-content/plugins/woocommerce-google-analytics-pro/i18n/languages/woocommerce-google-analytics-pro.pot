@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.12\n"
+"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.13\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-09-07 06:48:31+00:00\n"
+"POT-Creation-Date: 2023-11-17 01:44:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -563,7 +563,7 @@ msgstr ""
 msgid "WooCommerce Google Analytics Pro"
 msgstr ""
 
-#: src/Plugin.php:444
+#: src/Plugin.php:450
 #. translators: Placeholder: %s - WooCommerce Google Analytics Pro (plugin
 #. name)
 msgid ""
@@ -571,7 +571,7 @@ msgid ""
 "and is not needed when the Pro version is active."
 msgstr ""
 
-#: src/Plugin.php:476
+#: src/Plugin.php:482
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
 #. <a> tag, %4$s - </a> tag
 msgid ""
@@ -579,7 +579,7 @@ msgid ""
 "%3$sread the documentation%4$s."
 msgstr ""
 
-#: src/Plugin.php:488
+#: src/Plugin.php:494
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
 #. <a> tag, %4$s - </a> tag
 msgid ""
@@ -587,39 +587,39 @@ msgid ""
 "please ​%3$sconnect to Google Analytics%4$s."
 msgstr ""
 
-#: src/Plugin.php:530
+#: src/Plugin.php:536
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag
 msgid ""
 "%1$sWooCommerce Google Analytics Pro is now compatible with GA4!%2$s You "
 "can now add GA4 properties for event tracking."
 msgstr ""
 
-#: src/Plugin.php:538
+#: src/Plugin.php:544
 msgid "How to set up GA4?"
 msgstr ""
 
-#: src/Plugin.php:539
+#: src/Plugin.php:545
 msgid "Set up now"
 msgstr ""
 
-#: src/Plugin.php:559
+#: src/Plugin.php:565
 msgid ""
 "Google is retiring Universal Analytics in July 2023. After that, Universal "
 "Analytics settings will no longer be available, and your store will no "
 "longer track events in Universal Analytics."
 msgstr ""
 
-#: src/Plugin.php:562 src/Plugin.php:585
+#: src/Plugin.php:568 src/Plugin.php:591
 msgid "Learn more from Google"
 msgstr ""
 
-#: src/Plugin.php:582
+#: src/Plugin.php:588
 msgid ""
 "Google is retiring Google Optimize. It will no longer be available after "
 "September 30, 2023."
 msgstr ""
 
-#: src/Plugin.php:606
+#: src/Plugin.php:612
 #. translators: %1$s - function name, %2$s, %4$s - opening <a> tag, %3$s, %5$s
 #. - closing </a> tag
 msgid ""

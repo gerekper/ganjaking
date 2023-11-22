@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * Main WooCommerce Measurement Price Calculator class.
@@ -32,7 +32,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
  */
 class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
-	const VERSION = '3.22.0';
+	const VERSION = '3.22.1';
 
 	/** @var WC_Measurement_Price_Calculator single instance of this plugin */
 	protected static $instance;
@@ -70,8 +70,14 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain'   => 'woocommerce-measurement-price-calculator',
-				'supports_hpos' => true,
+				'text_domain'        => 'woocommerce-measurement-price-calculator',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => false,
+						'checkout' => false,
+					],
+				],
 			]
 		);
 

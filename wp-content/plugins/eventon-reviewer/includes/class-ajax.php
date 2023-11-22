@@ -118,14 +118,33 @@ class evo_re_ajax{
 		function sync_ratings(){
 			
 			$status = 0;
-			$event_id = (int)$_POST['e_id'];			
+			$event_id = $_POST['e_id'];			
 
 			EVORE()->frontend->functions->sync_ratings($event_id);
 
-			$event_reviews = new EVORE_Reviews($event_id);	
+			// get new updated event post data
+			$pmv = get_post_custom($event_id);
+
+			ob_start();
+
+			?>
+				<p><?php _e('Overall average rating for this event','eventon');?><?php echo EVO()->throw_guide("The rating information is for all repeating instances of this event (if has repeating instances)", '',false)?></p>
+				<?php
+					$ALLaverage = EVORE()->frontend->functions->get_average_all_ratings($event_id, $pmv);
+					$ALLrating_count = EVORE()->frontend->functions->get_rating_all_count($event_id, $pmv);
+					
+					echo EVORE()->frontend->functions->get_star_rating_html( $ALLaverage);
+				?>
+				<em class='rating_data'><?php echo $ALLaverage? $ALLaverage:'0.0';?>/5.0 (<?php echo EVORE()->frontend->functions->get_rating_percentage($ALLaverage);  ?>%)</em>
+				<em class='rating_data'><?php echo $ALLrating_count?$ALLrating_count:'0';?> <?php _e('Ratings','eventon');?></em>
+				<p id="evore_message" style='display:none' data-t1='<?php _e('Loading..','eventon');?>' data-t2='<?php _e('Count not sync ratings at this moment, please try later','eventon');?>'></p>
+
+			<?php
+
+			$output = ob_get_clean();
 
 			$return_content = array(
-				'content'=> $event_reviews->get_admin_reviews_stat_html(),
+				'content'=> $output,
 				'status'=>$status
 			);
 			

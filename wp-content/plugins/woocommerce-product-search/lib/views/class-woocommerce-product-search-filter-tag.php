@@ -23,7 +23,11 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
+use com\itthinx\woocommerce\search\engine\Term_Control;
 
 if ( !function_exists( 'woocommerce_product_search_filter_tag' ) ) {
 	/**
@@ -41,7 +45,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_tag' ) ) {
 /**
  * Filter by tag.
  */
-class WooCommerce_Product_Search_Filter_Tag {
+class WooCommerce_Product_Search_Filter_Tag extends Filter_Renderer {
 
 	const DEFAULT_NUMBER = 10;
 
@@ -120,9 +124,10 @@ class WooCommerce_Product_Search_Filter_Tag {
 	 * @return mixed
 	 */
 	public static function render( $atts = array(), &$results = null ) {
-		self::load_resources();
 
-		add_filter( 'woocommerce_product_search_get_terms_args_apply', array( __CLASS__, 'get_terms_args_apply' ), 10, 3 );
+		global $wp_query;
+
+		self::load_resources();
 
 		$atts = shortcode_atts(
 			array(
@@ -157,11 +162,45 @@ class WooCommerce_Product_Search_Filter_Tag {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
 		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-tag-%d', $n);
 		$heading_class   = 'product-search-filter-terms-heading product-search-filter-tag-heading';
 		$heading_id      = sprintf( 'product-search-filter-tag-heading-%d', $n );
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array(),
+				'elements_displayed' => 0
+			);
+		}
+
+		add_filter( 'woocommerce_product_search_get_terms_args_apply', array( __CLASS__, 'get_terms_args_apply' ), 10, 3 );
 
 		$taxonomy = get_taxonomy( trim( $atts['taxonomy'] ) );
 
@@ -304,10 +343,6 @@ class WooCommerce_Product_Search_Filter_Tag {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
-		}
-
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -523,7 +558,19 @@ class WooCommerce_Product_Search_Filter_Tag {
 		$inline_script = woocommerce_product_search_safex( $inline_script );
 		wp_add_inline_script( 'product-filter', $inline_script );
 
+		if ( $render_cache ) {
+			$data['inline_scripts'][] = array( 'handle' => 'product-filter', 'inline_script' => $inline_script );
+		}
+
 		WooCommerce_Product_Search_Filter::filter_added();
+
+		if ( $render_cache ) {
+			if ( isset( $results['elements_displayed'] ) ) {
+				$data['elements_displayed'] = $results['elements_displayed'];
+			}
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
 
 		self::$instances++;
 
@@ -618,7 +665,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 
 		if ( ! ( empty( $tags ) || is_wp_error( $tags ) ) ) {
 
-			$term_counts = WooCommerce_Product_Search_Service::get_term_counts( $args['taxonomy'] );
+			$term_counts = Term_Control::get_term_counts( $args['taxonomy'] );
 			foreach ( $tags as $key => $tag ) {
 				if ( 'edit' == $args['link'] ) {
 					$link = get_edit_term_link( $tag->term_id, $tag->taxonomy, $args['post_type'] );

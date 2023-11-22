@@ -2,9 +2,9 @@
 Contributors: leap13
 Tags: elementor, elements, addons, elementor addon, elementor widget, elementor extensions, page builder, builder, visual editor, wordpress page builder
 Requires at least: 4.5
-Tested up to: 5.7.1
-Requires PHP: 5.4
-Stable tag: 2.4.5
+Tested Up To: 6.4.1
+Requires PHP: 7.0
+Stable tag: 2.9.9
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -59,7 +59,6 @@ Premium Addons PRO can be used only as a complement of Elementor page builder pl
 28. [Premium Unfold](https://premiumaddons.com/unfold-widget-for-elementor-page-builder/)
 29. [Premium WhatsApp Chat](https://premiumaddons.com/whatsapp-widget-for-elementor-page-builder/)
 30. [Premium Yelp Reviews](https://premiumaddons.com/elementor-yelp-reviews-widget/)
-31. [Premium Trustpilot Reviews](https://premiumaddons.com/elementor-trustpilot-reviews-widget/)
 
 == Installation ==
 
@@ -91,9 +90,427 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 == Changelog ==
 
+= 2.9.9 =
+
+- Tweak: Divider widget rebuilt - [here](https://premiumaddons.com/divider-widget-for-elementor-page-builder/).
+- Tweak: Option to Disable Scroll on Accordion Item Click added in in Tabs widget.
+
+= 2.9.8 =
+
+- Tweak: Added option to hide Horizontal Scroll widget slides on desktop devices.
+- Fixed: Unnecessary HTML markup rendered in the table widget.
+- Fixed: Feed is duplicated in Facebook and Behance Feed widgets.
+- Fixed: Facebook and Behance Feed widgets not working on the frontend.
+
+= 2.9.7 =
+
+- Tweak: Added SVG Code option in Site Logo widget.
+- Tweak: Gold API error messages handled in News Ticker widget.
+
+= 2.9.6 =
+
+- Tweak: Added Option to enable US numbers sorting in Table widget.
+- Tweak: Compatibility between Hide Slide On option in Multi Scroll widget and Elementor custom breakpoints.
+
+= 2.9.5 =
+
+- Fixed: Fatal error when Premium Addons Pro is activated without the free version.
+- Fixed: Masonry effect not working correctly on editor page in Instagram Feed widget.
+
+= 2.9.4 =
+
+- Tweak: Added Custom Navigation Element Selector option in Multi Scroll to be used to navigate to Multi Scroll slides.
+- Fixed: Ratings values between .7 and .9 are rendered as half star in Social Reviews widgets.
+
+= 2.9.3 =
+
+- Fixed: PHP Error when Image Accordion widget is used.
+- Fixed: Elementor asks to run Safe Mode with Magic Scroll addon.
+
+= 2.9.2 =
+
+- Tweak: Added Alternative Gold API key option in News Ticker widget.
+- Tweak: Added Load More option in Smart Post Listing widget.
+- Tweak: Added more styling controls in Smart Post Listing widget.
+
+= 2.9.1 =
+
+- Tweak: Code improved for better performance and security.
+
+= 2.9.0 =
+
+- New: Added Smart Post Listing widget - [here](https://premiumaddons.com/elementor-smart-post-listing-widget/).
+- Tweak: Show Alt text for the images in Ken Burns addon.
+
+= 2.8.27 =
+
+- Fixed: Twitter Feed widget not working.
+
+= 2.8.26 =
+
+- Tweak: Code refactored for better performance and security.
+- Fixed: Numbers showing on hover not formatted in Charts widget.
+
+= 2.8.25 =
+
+- Tweak: Removed Twitter Feed credentials section.
+
+= 2.8.24 =
+
+- Tweak: Added custom position options for tooltips in Image Hotspots widget.
+- Fixed: Multi Scroll widget not working when elements with entrance animations used in it.
+- Fixed: Twitter Feed widget not working in some cases.
+- Fixed: Image Comparison widget handle not working on RTL sites.
+
+= 2.8.23 =
+
+- Tweak: Added caching options in Facebook and Behance Feed widgets.
+- Tweak: Multi Scroll widget improved to trigger entrance animations on slide change.
+- Fixed: Button showing in back side in 3D Hover Box widget.
+- Fixed: Horizontal Scroll issues on mobile devices.
+- Fixed: Hide Empty Reviews option not working correctly in Google Reviews widget.
+
+= 2.8.22 =
+
+- Tweak: Added custom size unit for range controls in some widgets.
+- Tweak: Load posts only if they have body text in Facebook Feed widget.
+- Fixed: Load Chart On option not working in Charts widget.
+- Fixed: Fatal error in Tabs widget when an image icon with empty image is added.
+
+= 2.8.21 =
+
+- New: Added Magnet Effect in Custom Mouse Cursor addon - [here](https://premiumaddons.com/elementor-custom-mouse-cursor-global-feature/).
+- Tweak: Magic Scroll addon performance improved.
+
+= 2.8.20 =
+
+- Tweak: CSS files size minimized for better performance.
+- Fixed: Custom link attributes not working in Icon Box widget.
+- Fixed: Console error in Horizontal Scroll widget.
+
+= 2.8.19 =
+
+- Tweak: Added option to load Magic Scroll addon on page load, not when the section is reached.
+- Fixed: Image Comparison widget not working when used inside Tabs widget.
+- Fixed: Lock Page Scroll option in Magic Scroll addon causing a blank area while scrolling on mobile devices.
+- Fixed: PHP warning in Parallax addon when no layers are added.
+- Fixed: Console error with Horizontal Scroll widget.
+
+= 2.8.18 =
+
+- Tweak: Added Text Shadow and Box Shadow scroll effects in Magic Scroll addon.
+- Tweak: Added Sort Reviews by date option in Google Reviews widget.
+- Tweak: Show/hide images by hashtags in Instagram Feed widget.
+
+= 2.8.17 =
+
+- Tweak: Sticky effect behavior improved in Magic Scroll addon.
+- Tweak: Added option to trigger entrance animations once for Snappy scroll in Horizontal Scroll widget.
+- Fixed: Sticky effect not working on the editor page in Magic Scroll addon.
+
+= 2.8.16 =
+
+- Fixed: Draw SVG not working on the editor page with multiple SVGs in Magic Scroll addon.
+- Fixed: Transition is added to Icon Box widget when used with Magic Scroll addon.
+
+= 2.8.15 =
+
+- Fixed: Elements with entrance animation flash in Horizontal Scroll widget.
+- Fixed: Icons not showing in some controls.
+
+= 2.8.14 =
+
+- New: Added Magic Scroll addon - [here](https://premiumaddons.com/elementor-magic-scroll-global-addon/).
+
+= 2.8.13 =
+
+- Fixed: Compatibility issues with Elementor v3.8.0
+- Fixed: Ken Burns section/column addon not working with recent Elementor versions.
+
+= 2.8.12 =
+
+- New: Added Site Logo widget - [here](https://premiumaddons.com/elementor-site-logo-widget/).
+
+= 2.8.11 =
+
+- Tweak: Added caching option in Instagram Feed widget to improve the feed performance and loading speed.
+- Tweak: Added Close On Click Outside option in Magic Section widget.
+- Fixed: Icon styling not applied properly on SVG icons in Divider widget.
+- Fixed: Mouse tilt option not working since Premium Addons for Elementor v4.9.35.
+- Fixed: Feed is not showing if Posts/Account option value is larger than the posts returned by Facebook.
+- Fixed: Alignment option not working properly for multi-line values in Table widget.
+
+= 2.8.10 =
+
+- New: Added Random Badges option in Mega Menu widget - [here](https://premiumaddons.com/elementor-mega-menu-widget/).
+- Fixed: PHP warnings in Google Reviews widget.
+
+= 2.8.9 =
+
+- Fixed: Console error when SVG Draw option is disabled for Parallax addon.
+- Fixed: SVG Draw option not working for Font Awesome icons in Icon Box widget.
+- Fixed: Applying global background colors not working in Magic Section widget.
+- Fixed: Icon color applied on Lottie animation in Hover Box widget.
+
+= 2.8.8 =
+
+- Tweak: Behance Feed widget now loads feed on scroll, not on page load.
+- Fixed: PHP warning after v2.8.7.
+
+= 2.8.7 =
+
+- Tweak: Make sure Custom Mouse Cursor addon JS files are loaded only if the addon is used on a page.
+- Fixed: Navigation Arrows/Dots not working properly on touch devices in Horizontal Scroll widget.
+
+= 2.8.6 =
+
+- Fixed: Fatal error due to Image Accordion widget since v2.8.4.
+
+= 2.8.5 =
+
+- Fixed: Icons in Icon Box widget always dissappear if Draw SVG option is disabled.
+
+= 2.8.4 =
+
+- New: Added Draw Icon option in all widgets that has Icon option in them.
+- Tweak: Added Horizontal/Vertical Alignment options for multi-layers in Parallax addon.
+- Fixed: Conflict between Custom Mouse Cursor addon and WP Rocket Defer JS files option.
+
+= 2.8.3 =
+
+- Fixed: Compatibility issues with Elementor v3.7.0.
+- Fixed: Freehand Positioning feature not working when the device mode is changed in the editor page.
+
+= 2.8.2 =
+
+- Tweak: Facebook Feed widget styling improved for RTL sites.
+- Fixed: Conflict with Elementor Pro templates.
+- Fixed: Even layout not working with Carousel Infinite Autoplay in social reviews widgets.
+- Fixed: Carousel Navigation Arrows color/size controls not working in Instagram Feed widget.
+
+= 2.8.1 =
+
+- Fixed: PHP warning since v2.8.0
+
+= 2.8.0 =
+
+- Tweak: Apply Custom Mouse Cursor on full page or the entire website - [here](https://premiumaddons.com/elementor-custom-mouse-cursor-global-feature/).
+- Tweak: Added responsive controls to Number of Columns option in Behance Feed widget.
+- Fixed: Carousel Tabs option applied on nested tabs.
+- Fixed: Unnecessay Elementor placeholder images added to the Media Library after importing templates.
+- Fixed: Multi Scroll widget not working with Elementor custom breakpoints.
+- Fixed: Ken Burns addon not showing images properly on small screens.
+- Fixed: Hover Box widget not working properly on iOS devices.
+
+= 2.7.9 =
+
+- Tweak: Add responsive controls for image control in Ken Burns section/column addon.
+- Fixed: Horizontal/Vertical Offset option not working for social icon in all Social Reviews widgets.
+- Fixed: Horizontal Offset and z-index options not working for Fixed Content template in Horizontal Scroll widget.
+- Fixed: Console error in Charts widget.
+
+= 2.7.8 =
+
+- Tweak: Code improvements for better performance and loading speed.
+
+= 2.7.7 =
+
+- Tweak: Load Custom Mouse Cursor addon when the element is visible on viewport to improve performance and page loading speed.
+- Tweak: Added Cover Image size option in Behance Feed widget.
+
+= 2.7.6 =
+
+- Tweak: Add Mask Image option in Image Layers widget.
+- Tweak: Add Render As SVG/Canvas option for Lottie Animation icons in Hover Box widget.
+- Tweak: HTML markup optimized for Image Hotspots and Twitter Feed widgets for better performance.
+- Fixed: Accordion Tabs option not working in Tabs widget.
+
+= 2.7.5 =
+
+- New: Added URL String, Shortcode and WooCommerce Products in Cart options in Display Conditions.
+- Tweak: HTML markup optimized for Hover Box, Image Accordion, Instagram Feed, Tabs, Unfold widgets for better performance.
+- Tweak: Added Disable Floating Effects on Safari option in widgets have floating effects.
+- Tweak: Trigger Particles and Badge addons JS code when visible on viewport to improve page loading speed.
+- Tweak: Added compatibility Charts and Horizontal Scroll widgets.
+- Fixed: Change Colors As Gradient option not working in Background Transition widget.
+- Fixed: Profile Header image not showing properly on small devices in Twitter Feed widget.
+- Fixed: Right Side Template option not showing in Multi Scroll widget.
+
+= 2.7.4 =
+
+- Tweak: Added compatibility between Badge Global Addon and Elementor Container element - [here](https://elementor.com/help/container-element/).
+- Fixed: Horizontal Scroll jiterring issue on touch devices.
+
+= 2.7.3 =
+
+- New: Added Create/Edit Live Templates feature in all widgets that support Elementor Templates.
+
+= 2.7.2 =
+
+- Tweak: Added support for future features compatibility
+- Fixed: Button Trigger Size option not working on frontend in Magic Section widget.
+- Fixed: Alignment issue in Icon Box widget when description is short.
+- Fixed: Invalid CSS added in the editor when Badge Addon is enabled.
+
+= 2.7.1 =
+
+- Fixed: Fatal error with some PHP versions after v2.7.0
+
+= 2.7.0 =
+
+- New: Added Premium Badge global addon - [here](https://premiumaddons.com/elementor-badge-global-addon/).
+
+= 2.6.9 =
+
+- Tweak: HTML markup optimized for Table widget for better performance.
+- Tweak: Added Icon Color and Text Color/Typography options for each repeater cell in Table widget.
+- Fixed: Hover Color and Padding options not working for Read More link in Icon Box widget.
+
+= 2.6.8 =
+
+- New: Added five new skins in Elementor WooCommerce Products Listing widget - [here](https://premiumaddons.com/elementor-woocommerce-products/).
+- Tweak: Added compatibility between section/column addons and Elementor Container element - [here](https://elementor.com/help/container-element/).
+- Tweak: Widgets code refactored to improve performance and loading speed.
+- Tweak: Added Hover Box Shadow option in Lottie Animation section addon.
+- Fixed: PHP warning when Follow Delay option value is not set in Custom Mouse Cursor addon.
+- Fixed: Image with Size option set to custom not rendered in Image Layers and Icon Box widgets.
+
+= 2.6.7 =
+
+- New: Added Custom Mouse Cursor global addon - [here](https://premiumaddons.com/elementor-custom-mouse-cursor-global-feature).
+- Tweak: Added Auto Change Tabs option in Tabs widget.
+- Tweak: HTML markup for images in Icon Box widget.
+- Tweak: Make sure images in Image Layers and Tabs widgets are lazyloaded to improve loading speed.
+- Fixed: Section/Column addons not working on editor when used inside widgets using Elementor templates.
+
+= 2.6.6 =
+
+- Fixed: Box shadow and Background Color options overriden by default values in CSS in Preview Window widget.
+- Fixed: Charts widget not working in some cases inside Tabs widget.
+- Fixed: Animated Gradient and Blob Generator addons not working in Tabs widget.
+- Fixed: Ken Burns addon Infinite option always disabled when the editor page is reloaded.
+
+= 2.6.5 =
+
+- Tweak: Load the main CSS file only when required.
+- Fixed: Tabs widget not working properly with some themes.
+- Fixed: Compatibility between Carousel option in Social Reviews widgets and RTL sites.
+- Fixed: Keyboard Scrolling still works even when the control is disabled in Horizontal Scroll widget.
+
+= 2.6.4 =
+
+- Fixed: Compatibility issues with Elementor v3.5.0.
+
+= 2.6.3 =
+
+- Tweak: Added options to control Scroll Offset for each section individually in Color Transition widget.
+- Tweak: Javascript loading method improved for Animated Gradient, Particles section/column addons for better performance.
+- Fixed: Styling options not working for SVG icons in Magic Section widget.
+
+= 2.6.2 =
+
+- Tweak: Added WooCommerce Total Amount In Cart and Current Product Stock options in Display Conditions feature.
+- Fixed: Console error when videos are inserted in Tabs widget.
+
+= 2.6.1 =
+
+- Fixed: Undefined variable $dir_class in Image Layers widget when Text option is used.
+- Fixed: Button Size option not working in WhatsApp Chat widget.
+
+= 2.6.0 =
+
+- New: Added Animated Blob Generator section addon - [here](https://premiumaddons.com/elementor-animated-blob-generator/).
+- Tweak: Added Radar Style option in Image Hotspots widget.
+- Tweak: Added div, p and span HTML tag options for heading in Hover Box widget.
+- Fixed: Default icon size changed in Hover Box widget.
+- Fixed: Background Color not changing when multiple Background Transition widgets are used on the same page.
+
+= 2.5.5 =
+
+- Fixed: Background is not changed on scroll up in Background Transition widget.
+- Fixed: Nested tabs styling overwrite issue in Tabs widget.
+
+= 2.5.4 =
+
+- Tweak: Tabs widget rebuilt for better usability and editing experience.
+- Tweak: Control number of carousel slides to show in Instagram Feed widget.
+- Tweak: Prevent Background Transition widget from changing color when up/down backgrounds are the same.
+- Fixed: Line height not working for Business/Place Name, Reviewer Name and Review Text in Social Reviews widgets.
+- Fixed: Entrance Animations not working on for the first in Horizontal Scroll widget.
+- Fixed: Premium Parallax not working for Elementor columns.
+- Fixed: Tabs widget not working when shortcodes are used in tabs content.
+
+= 2.5.3 =
+
+- Tweak: Added Heroes Flying-Left effect in iHover widget.
+- Tweak: Remove any duplicate content when Accordion Tabs option is enabled in Tabs widget.
+- Tweak: Added Tab ID option in Tabs widget.
+- Fixed: Animation issues for Flash Rotation, Flip Door, and Magic Door effects in iHover widget.
+- Fixed: Charts not working on the editor page on Chrome browser.
+- Fixed: Color option not applied on links in Table widget when CSV file is used.
+
+= 2.5.2 =
+
+- Tweak: Save all the plugin settings on change without need to click "Save Settings" button.
+- Tweak: Compatibility with Elementor v3.4.4.
+- Fixed: Snappy scroll stability issues in Horizontal Scroll issues.
+- Fixed: Compatibility issues between Elementor custom breakpoints and Horizontal Scroll widget.
+
+= 2.5.1 =
+
+- Tweak: iHover widget code refactored for faster editing speed..
+- Tweak: Added Image Hover Effect in Image Layers widget.
+- Tweak: Added compatibility between Multiscroll widget and sticky headers.
+- Fixed: Premium Parallax not working for Elementor columns.
+- Fixed: Premium Particles not working on some devices in editor page.
+- Fixed: Premium Parallax not working for Elementor columns.
+- Fixed: Content is not fully rendered issue in Unfold widget.
+- Fixed: Removed Unnecessary requests made in Instagram Feed widget.
+- Fixed: Hide Slide On and Disable Horizontal Scroll On options not working togethr in Horizontal Scroll widget.
+- Fixed: Carousel not working in Facebook Feed widget when `Only Show Admin Posts` option is enabled.
+- Fixed: Fold Height option not working when set to `0` in Unfold widget.
+- Fixed: Console error in Multi Scroll widget.
+- Fixed: Admin notices not showing when Premium Addons for Elementor is not installed.
+
+= 2.5.0 =
+
+- Tweak: JS code refactored for better performance and faster editing speed.
+- Tweak: Compatibility with Elementor v3.4.2.
+- Fixed: Emojis not showing in Twitter Feed widget.
+- Fixed: Slides overlapping issue on touch devices in Horizontal Scroll widget.
+- Fixed: Image Hotspots colors not working in editor page.
+
+= 2.4.9 =
+
+- New: Added Advanced Border Radius option to improve the normal Border Radius option - [here](https://9elements.github.io/fancy-border-radius/).
+- Fixed: Particles overlapping issue when browser active tab is changed.
+- Fixed: Alignment controls icons not showing in editor panel.
+- Fixed: Tabs widget style conflict with LearnDash plugin.
+
+= 2.4.8 =
+
+- Tweak: Added option to control `Based on Number of Reviews` string in all social reviews widgets.
+- Fixed: Expired access token is not refreshed in Instagram Feed widget.
+- Fixed: Image appears before entrance animation starts in Image Layers widget.
+- Fixed: Facebook Feed widget conflict with Complianz | GDPR/CCPA Cookie Consent plugin.
+- Fixed: Pagination not working in the editor in Table widget.
+- Fixed: Tabs widget conflict with some themes.
+
+= 2.4.7 =
+
+- Tweak: Added `Change Tabs to Accordion On Small Screens` option in Tabs widget.
+- Tweak: Improved compatibility with Elementor new version.
+
+= 2.4.6 =
+
+- Tweak: Improved Social Reviews widgets compatibility for RTL sites.
+- Tweak: Improved WPML compatibility with all widgets.
+- Tweak: Added Icon Spacing option in Unfold widget.
+- Fixed: SVGs icons not showing on button in Unfold widget.
+
 = 2.4.5 =
 
-- Fixed: Error `Call to undefined function` when only Trustpilot Review widget is enabled.
+- Fixed: Code improvements for better performance.
 
 = 2.4.4 =
 
@@ -101,7 +518,6 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 = 2.4.3 =
 
-- New: Added Premium Trustpilot Reviews widget.
 - Tweak: Added Infinite Autoplay for carousel in social reviews widgets.
 - Tweak: Added Navigation Type Dots/Arrows option in social reviews widgets.
 - Tweak: Added Show Number of Reviews option in social reviews widgets.
@@ -128,7 +544,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 - Tweak: Added Hovered Image Width control option in Image Accordion widget.
 - Tweak: Javascript Code refactored for better performance and security.
-- Fixed: Lottie Animation icon size option not working on Chrome in Whatsapp Chat widget.
+- Fixed: Lottie Animation icon size option not working on Chrome in WhatsApp Chat widget.
 
 = 2.3.8 =
 
@@ -185,7 +601,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 - Tweak: Added Hover Image option in Preview Window widget.
 - Tweak: Added responsive controls for Fold Height and Fade Height options in Unfold widget.
 - Tweak: Added Icon Spacing option for Link in Icon Box widget.
-- Fixed: Icon Spacing not working on RTL sites in Whatsapp Chat widget.
+- Fixed: Icon Spacing not working on RTL sites in WhatsApp Chat widget.
 - Fixed: Tooltips height issue in Image Hotspots widget.
 
 = 2.2.9 =
@@ -300,7 +716,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 = 2.1.0 =
 
-- Fixed: Icon Spacing option not working on RTL sites in Whatsapp Chat widget.
+- Fixed: Icon Spacing option not working on RTL sites in WhatsApp Chat widget.
 - Fixed: Icon Spacing option not working when Icon Position is set to After in Magic Section widget.
 - Fixed: Freehand design option not working in Image Layers, Hotspots and Parallax section add-on after Elementor 3.0.0.
 - Fixed: Page update button is disabled after using Freehand position/resize feature.
@@ -315,7 +731,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 = 2.0.8 =
 
 - Tweak: Add different color to each dataset value in bar Chart widget.
-- Fixed: Whatsapp Chat widget group option not working on mobile devices.
+- Fixed: WhatsApp Chat widget group option not working on mobile devices.
 - Fixed: Hotspots Horizontal Position option not working for RTL sites in Image Hotspots widget.
 - Fixed: Compatibility issues with WordPress 5.5.
 
@@ -362,7 +778,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 - Fixed: Image Layers scroll effects not working since v2.0.0
 - Fixed: Premium Lottie section add-on editor overloading issue.
-- Fixed: Whatsapp button not working on iOS mobile devices.
+- Fixed: WhatsApp button not working on iOS mobile devices.
 
 = 2.0.1 =
 
@@ -896,7 +1312,7 @@ Premium Addons for Elementor is light weight and we also gave you the control to
 
 = 1.0.7 =
 
-- New: Added Whatsapp Chat widget.
+- New: Added WhatsApp Chat widget.
 
 = 1.0.6 =
 

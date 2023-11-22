@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 5.6
-Tested up to: 6.3.1
+Tested up to: 6.4.1
 Requires PHP: 7.4
 
 Measure your site's success using advanced eCommerce tracking via Google Analytics

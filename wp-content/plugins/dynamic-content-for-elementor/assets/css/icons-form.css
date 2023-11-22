@@ -1,0 +1,9 @@
+.dce-field-input-wrapper .input-icons {
+  position: absolute;
+  z-index: 100;
+}
+
+.elementor-select-wrapper .input-icons {
+  position: absolute;
+  z-index: 100;
+}

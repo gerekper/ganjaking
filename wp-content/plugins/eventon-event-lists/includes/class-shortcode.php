@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON-EL/Functions/shortcode
- * @version     1.0
+ * @version     0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -47,22 +47,22 @@ class evo_el_shortcode{
 			$new_shortcode_array = array(
 				array(
 					'id'=>'s_el',
-					'name'=>__('Event Lists: Extended','evoel'),
+					'name'=>'Event Lists: Extended',
 					'code'=>'add_eventon_el',
 					'variables'=>array(
 						array(
-							'name'=>__('Custom Calendar title','evoel'),
+							'name'=>'Custom Calendar title',
 							'type'=>'text',
 							'var'=>'el_title',	
 						),array(
-							'name'=>__('Select Event List Type','evoel'),
+							'name'=>'Select Event List Type',
 							'type'=>'select_step',
-							'guide'=>__('Type of event list you want to show.','evoel'),
+							'guide'=>'Type of event list you want to show.',
 							'var'=>'el_type',
 							'options'=>array(
-								'ue'=>__('Upcoming Events','evoel'),
-								'pe'=>__('Past Events','evoel'),
-								'dr'=>__('Date Range','evoel')
+								'ue'=>'Upcoming Events',
+								'pe'=>'Past Events',
+								'dr'=>'Date Range'
 							)
 						)	
 							,array('type'=>'open_select_steps','id'=>'ue')
@@ -71,32 +71,32 @@ class evo_el_shortcode{
 							,array(	'type'=>'close_select_step')
 							,array('type'=>'open_select_steps','id'=>'dr')
 								,array(
-									'name'=>__('Start Date Range','evoel'),
+									'name'=>'Start Date Range',
 									'type'=>'text',
 									'var'=>'start_range',
 									'default'=>'0',
-									'guide'=>__('Date value MUST be in yyyy/mm/dd format. ALSO supported values: today, rightnow, +/-{x} days, +/-{x} months','evoel'),
+									'guide'=>'Date value MUST be in yyyy/mm/dd format. ALSO supported values: today, rightnow, +/-{x} days, +/-{x} months',
 									'placeholder'=>'eg. 2017/12/30'
 								),array(
-									'name'=>__('End Date Range','evoel'),
+									'name'=>'End Date Range',
 									'type'=>'text',
 									'var'=>'end_range',
 									'default'=>'0',
-									'guide'=>__('Date value MUST be in yyyy/mm/dd format. ALSO supported values: today, rightnow, +/-{x} days, +/-{x} months','evoel'),
+									'guide'=>'Date value MUST be in yyyy/mm/dd format. ALSO supported values: today, rightnow, +/-{x} days, +/-{x} months',
 									'placeholder'=>'eg. 2017/12/30'
 								)
 							,array(	'type'=>'close_select_step')
 							
 						,array(
-							'name'=>__('Event Cut-off','evoel'),
+							'name'=>'Event Cut-off',
 							'type'=>'select_step',
-							'guide'=>__('Past or upcoming events cut-off time. This will allow you to override past event cut-off settings for calendar events. Current date = today at 12:00am','evoel'),
+							'guide'=>'Past or upcoming events cut-off time. This will allow you to override past event cut-off settings for calendar events. Current date = today at 12:00am',
 							'var'=>'pec',
-							'default'=>__('Current Time','evoel'),
+							'default'=>'Current Time',
 							'options'=>array( 
-								'ct'=>__('Current Time: ','evoel') .date('m/j/Y g:i a', current_time('timestamp')),
-								'cd'=>__('Current Date: ','evoel') .date('m/j/Y', current_time('timestamp')),
-								'ft'=>__('Fixed Time','evoel')
+								'ct'=>'Current Time: '.date('m/j/Y g:i a', current_time('timestamp')),
+								'cd'=>'Current Date: '.date('m/j/Y', current_time('timestamp')),
+								'ft'=>'Fixed Time'
 							)
 						)
 						
@@ -113,33 +113,33 @@ class evo_el_shortcode{
 						$evo_shortcode_box->shortcode_default_field('number_of_months'),	
 						$evo_shortcode_box->shortcode_default_field('event_count'),	
 						array(
-							'name'=>__('Apply Event Count to Whole Events List','evoel'),
+							'name'=>'Apply Event Count to Whole Events List',
 							'type'=>'YN',
-							'guide'=>__('Event Count limit will be applied to the entire events list instead of per each month, by default event count is applied to each month','evoel'),
+							'guide'=>'Event Count limit will be applied to the entire events list instead of per each month, by default event count is applied to each month',
 							'var'=>'event_count_list',
 							'default'=>'no'
 						),		
 
 						array(
-							'name'=>__('Show load more events button','evoel'),
+							'name'=>__('Show load more events button','eventon'),
 							'type'=>'YN',
-							'guide'=>__('Require "event count limit" to work, then this will add a button to show rest of the events for calendar in increments','evoel'),
+							'guide'=>__('Require "event count limit" to work, then this will add a button to show rest of the events for calendar in increments','eventon'),
 							'var'=>'show_limit',
 							'default'=>'no',
 							'afterstatement'=>'show_limit'
 						),
 							array(
-								'name'=>__('Redirect load more events button','evoel'),
+								'name'=>__('Redirect load more events button','eventon'),
 								'type'=>'text',
-								'guide'=>__('http:// URL the load more events button will redirect to instead of loading more events on the same calendar.','evoel'),
+								'guide'=>__('http:// URL the load more events button will redirect to instead of loading more events on the same calendar.','eventon'),
 								'var'=>'show_limit_redir',
 								'default'=>'no',
 							),
-							array('name'=>__('Load more events via AJAX only support when "Separate events by month" is disabled AND "Apply Event Count to Whole Events List" is enabled','evoel'),'type'=>'note')
+							array('name'=>'Load more events via AJAX only support when "Separate events by month" is disabled AND "Apply Event Count to Whole Events List" is enabled','type'=>'note')
 							,array(
-								'name'=>__('Load more events via AJAX','evoel'),
+								'name'=>__('Load more events via AJAX','eventon'),
 								'type'=>'YN',
-								'guide'=>__('This will load more events via AJAX as oppose to loading all events onLoad.','evoel'),
+								'guide'=>__('This will load more events via AJAX as oppose to loading all events onLoad.','eventon'),
 								'var'=>'show_limit_ajax',
 								'default'=>'no',
 							)
@@ -148,9 +148,9 @@ class evo_el_shortcode{
 								'closestatement'=>'show_limit'
 							),
 						array(
-							'name'=>__('Separate events by month','evoel'),
+							'name'=>'Separate events by month',
 							'type'=>'YN',
-							'guide'=>__('This will separate events into months similar to basic event list','evoel'),
+							'guide'=>'This will separate events into months similar to basic event list',
 							'var'=>'sep_month',
 							'default'=>'no'	
 						),					
@@ -160,14 +160,14 @@ class evo_el_shortcode{
 						$evo_shortcode_box->shortcode_default_field('show_year'),	
 						$evo_shortcode_box->shortcode_default_field('event_order'),
 						array(
-							'name'=>__('Month Order for List','evoel'),
+							'name'=>'Month Order for List',
 							'type'=>'select',
-							'guide'=>__('How to order months in the events list where there are more than one month','evoel'),
+							'guide'=>'How to order months in the events list where there are more than one month',
 							'var'=>'month_order',
 							'default'=>'ASC',
 							'options'=>array( 
-								'ASC'=>__('ASC: Nov, Dec','evoel'),
-								'DESC'=>__('DESC: Dec, Nov','evoel')
+								'ASC'=>'ASC: Nov, Dec',
+								'DESC'=>'DESC: Dec, Nov'
 							)
 						),
 						

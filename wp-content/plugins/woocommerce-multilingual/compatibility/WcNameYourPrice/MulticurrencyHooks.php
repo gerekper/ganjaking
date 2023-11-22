@@ -4,12 +4,13 @@ namespace WCML\Compatibility\WcNameYourPrice;
 
 use WC_Name_Your_Price_Compatibility;
 
+use function WPML\Container\make;
 use function WCML\functions\getClientCurrency;
 
 /**
  * WooCommerce Name Your Price compatibility.
  *
- * @version 4.12.2
+ * @version 5.2.1
  */
 class MulticurrencyHooks implements \IWPML_Action {
 
@@ -30,6 +31,10 @@ class MulticurrencyHooks implements \IWPML_Action {
 		// Cart currency switching.
 		add_filter( 'woocommerce_add_cart_item_data', [ $this, 'add_initial_currency' ] );
 		add_filter( 'woocommerce_get_cart_item_from_session', [ $this, 'filter_woocommerce_get_cart_item_from_session' ], 20, 2 );
+
+		// Convert cart editing price.
+		add_filter( 'wc_nyp_edit_in_cart_args', [ $this, 'edit_in_cart_args' ], 10 );
+		add_filter( 'wc_nyp_get_initial_price', [ $this, 'get_initial_price' ], 10, 3 );
 	}
 
 	/**
@@ -106,5 +111,40 @@ class MulticurrencyHooks implements \IWPML_Action {
 
 		return $session_data;
 	}
+
+	/**
+	 * Add currency to cart edit link.
+	 *
+	 * @param array $args
+	 * @return array
+	 */
+	public function edit_in_cart_args( $args ) {
+		$args['nyp_currency'] = get_woocommerce_currency();
+		return $args;
+	}
+
+	/**
+	 * Maybe convert any prices being edited from the cart
+	 *
+	 * @param string           $initial_price
+	 * @param mixed|WC_Product $product
+	 * @param string           $suffix
+	 * @return string
+	 */
+	public function get_initial_price( $initial_price, $product, $suffix ) {
+
+		if ( isset( $_REQUEST[ 'nyp_raw' . $suffix ] ) && isset( $_REQUEST[ 'nyp_currency' ] ) ) {
+			$from_currency = wc_clean( $_REQUEST[ 'nyp_currency' ] );
+			$current_currency = get_woocommerce_currency();
+			if ( $from_currency !== $current_currency ) {
+				$raw_price = wc_clean( $_REQUEST[ 'nyp_raw' . $suffix ] );
+
+				$multi_currency = make( \WCML_Multi_Currency::class );
+				$initial_price = $multi_currency->prices->convert_price_amount_by_currencies( $raw_price, $from_currency, $current_currency );
+			}
+		}
+		
+		return $initial_price;
+	}  
 
 }

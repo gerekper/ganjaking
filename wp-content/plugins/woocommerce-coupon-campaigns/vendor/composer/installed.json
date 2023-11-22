@@ -1,0 +1,42 @@
+{
+    "packages": [
+        {
+            "name": "woocommerce/grow",
+            "version": "dev-compat-checker",
+            "version_normalized": "dev-compat-checker",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/woocommerce/grow.git",
+                "reference": "f2d93534bb5fa177b722339ff9116759f918e8a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/woocommerce/grow/zipball/f2d93534bb5fa177b722339ff9116759f918e8a4",
+                "reference": "f2d93534bb5fa177b722339ff9116759f918e8a4",
+                "shasum": ""
+            },
+            "require-dev": {
+                "woocommerce/woocommerce-sniffs": "^0.1.3"
+            },
+            "time": "2023-10-26T08:01:37+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Automattic\\WooCommerce\\Grow\\Tools\\CompatChecker\\v0_0_1\\": "src/"
+                }
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Compatibility checker for Woo Grow extensions",
+            "support": {
+                "source": "https://github.com/woocommerce/grow/tree/compat-checker",
+                "issues": "https://github.com/woocommerce/grow/issues"
+            },
+            "install-path": "../woocommerce/grow"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

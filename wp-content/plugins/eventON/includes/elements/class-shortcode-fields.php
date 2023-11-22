@@ -1,7 +1,7 @@
 <?php
 /**
  * Shortcode Field Data Array
- * @updated 4.5
+ * @updated 4.5.2
  */
 
 class Evo_Shortcode_Fields{
@@ -282,6 +282,22 @@ class Evo_Shortcode_Fields{
 					'0'=>'None',
 					'X'=>__('Do not interact','eventon'),
 					'1'=>__('Slide Down EventCard','eventon'),
+					'3'=>__('Lightbox popup window','eventon'),
+					'3a'=>__('Lightbox popup window with AJAX','eventon'),
+					'4'=>__('Open in single event page','eventon'),
+					'4a'=>__('Open in single event page in new window','eventon')
+				))
+			),
+			// ux val specific to schedule view @4.5.2
+			'UIX_sv'=>array(
+				'name'=>__('User Interaction','eventon'),
+				'type'=>'select',
+				'guide'=>__('Select the user interaction option to override individual event user interactions','eventon'),
+				'var'=>'ux_val',
+				'default'=>'0',
+				'options'=>apply_filters('eventon_uix_shortcode_opts', array(
+					'0'=>'None',
+					'X'=>__('Do not interact','eventon'),
 					'3'=>__('Lightbox popup window','eventon'),
 					'3a'=>__('Lightbox popup window with AJAX','eventon'),
 					'4'=>__('Open in single event page','eventon'),

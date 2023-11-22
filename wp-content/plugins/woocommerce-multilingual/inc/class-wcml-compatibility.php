@@ -64,7 +64,6 @@ class WCML_Compatibility {
 			\WCML\Compatibility\WcPip\Factory::class                  => class_exists( 'WC_PIP' ),
 			\WCML\Compatibility\TheEventsCalendar\Factory::class      => class_exists( 'Tribe__Events__Main' ),
 			\WCML\Compatibility\KlarnaPayments\Factory::class         => class_exists( 'WC_Gateway_Klarna' ),
-			\WCML\Compatibility\StripePayments\Factory::class         => class_exists( 'WC_Gateway_Stripe' ) && isset( $woocommerce_wpml->multi_currency->orders ),
 			\WCML\Compatibility\YithWcQuickView\Factory::class        => class_exists( 'YITH_WCQV' ),
 			\WCML\Compatibility\WcMemberships\Factory::class          => class_exists( 'WC_Memberships' ),
 			\WCML\Compatibility\MaxStorePro\Factory::class            => function_exists( 'maxstore_pro_setup' ),

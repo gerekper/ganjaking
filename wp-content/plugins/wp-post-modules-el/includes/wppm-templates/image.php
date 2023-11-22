@@ -5,7 +5,7 @@
  * or custom field
  *
  * @since 1.0.0
- * @version 2.2.1
+ * @version 2.4.0
  */
 
 $thumblink = '';
@@ -47,12 +47,13 @@ if ( $show_thumbnail && '' === $thumblink ) {
 		if ( 'none' == $imglink ) {
 			$img_anchor = $enable_schema ? get_the_post_thumbnail( get_the_id(), array( floatval( $imgwidth ), floatval( $imgheight ), 'bfi_thumb' => $bfi, 'crop' => $imgcrop, 'quality' => floatval($imgquality), 'grayscale' => $imggrayscale ), array( 'itemprop' => 'url' ) ) : get_the_post_thumbnail( get_the_id(), array( floatval($imgwidth), floatval($imgheight), 'bfi_thumb' => $bfi, 'crop' => $imgcrop, 'quality' => floatval($imgquality), 'grayscale' => $imggrayscale ) );
 		} else {
-			$img_anchor = sprintf( '<a href="%1$s" title="%2$s"%3$s>%4$s%5$s</a>',
+			$img_anchor = sprintf( '<a href="%1$s" title="%2$s"%3$s%6$s>%4$s%5$s</a>',
 				'media' == $imglink ? wp_get_attachment_url( get_post_thumbnail_id( get_the_id() ), 'full' ) : esc_url( get_permalink() ),
 				wp_strip_all_tags( $title ),
 				( ( 'media' == $imglink ) && $imglightbox ) ? ' data-elementor-open-lightbox="yes"' : '',
 				$enable_schema ? get_the_post_thumbnail( get_the_id(), array( floatval( $imgwidth ), floatval( $imgheight ), 'bfi_thumb' => $bfi, 'crop' => $imgcrop, 'quality' => floatval($imgquality), 'grayscale' => $imggrayscale ), array( 'itemprop' => 'url' ) ) : get_the_post_thumbnail( get_the_id(), array( floatval($imgwidth), floatval($imgheight), 'bfi_thumb' => $bfi, 'crop' => $imgcrop, 'quality' => floatval($imgquality), 'grayscale' => $imggrayscale ) ),
-				$format_icon
+				$format_icon,
+				$new_tab ? ' target="_blank"' : '',
 			);
 		}
 		$thumblink = sprintf( apply_filters( 'wppm_grid_thumbnail_s1', '<div%1$s class="post-img%2$s">%3$s%4$s</div>' ),
@@ -98,7 +99,7 @@ if ( $show_thumbnail && '' === $thumblink ) {
 					$enable_schema ? ' itemprop="url"' : ''
 				);
 			} else {
-				$img_anchor = sprintf( '<a href="%1$s" title="%2$s"%3$s>%4$s%5$s</a>',
+				$img_anchor = sprintf( '<a href="%1$s" title="%2$s"%3$s%6$s>%4$s%5$s</a>',
 					'media' == $imglink ? esc_url( $img_url ) : esc_url( get_permalink() ),
 					wp_strip_all_tags( $title ),
 					( ( 'media' == $imglink ) && $imglightbox ) ? ' data-elementor-open-lightbox="yes"' : '',
@@ -107,7 +108,8 @@ if ( $show_thumbnail && '' === $thumblink ) {
 						wp_strip_all_tags( $title ),
 						$enable_schema ? ' itemprop="url"' : ''
 					),
-					$format_icon
+					$format_icon,
+					$new_tab ? ' target="_blank"' : '',
 				);
 			}
 			$thumblink = sprintf( apply_filters( 'wppm_grid_thumbnail_s1', '<div%1$s class="post-img">%2$s</div>' ),

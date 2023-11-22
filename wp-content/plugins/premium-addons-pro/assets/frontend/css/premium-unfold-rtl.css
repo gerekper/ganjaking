@@ -1,0 +1,108 @@
+/**************** Premium Unfold ******************/
+/**************************************************/
+.elementor-widget-premium-unfold-addon .premium-button {
+    -js-display: inline-flex;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.premium-unfold-container {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.premium-unfold-container .premium-unfold-content {
+    overflow: hidden;
+}
+
+.premium-unfold-btn-outside .elementor-widget-container,
+.premium-unfold-btn-inside .premium-unfold-container {
+    -js-display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.elementor-widget-premium-unfold-addon .premium-button i,
+.elementor-widget-premium-unfold-addon .premium-button svg,
+.elementor-widget-premium-unfold-addon .premium-button span {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.premium-unfold-icon svg {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.premium-icon-holder-fold,
+.premium-icon-holder-unfolded {
+    display: none;
+}
+
+.premium-unfold-container {
+    padding: 10px 10px 0 10px;
+}
+
+.premium-unfold-container .premium-unfold-heading {
+    margin-bottom: 5px;
+    border-color: #000;
+}
+
+.premium-unfold-container .premium-unfold-before {
+    margin-left: 5px;
+}
+
+.premium-unfold-container .premium-unfold-after {
+    margin-right: 5px;
+}
+
+.premium-unfold-folder {
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-unfold-gradient {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    max-height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    background: -webkit-gradient(linear,
+            right top,
+            right bottom,
+            color-stop(0, rgba(255, 255, 255, 0)),
+            to(#fff));
+    background: -webkit-linear-gradient(top,
+            rgba(255, 255, 255, 0) 0,
+            #fff 100%);
+    background: -webkit-gradient(linear,
+            left top,
+            left bottom,
+            color-stop(0, rgba(255, 255, 255, 0)),
+            to(#fff));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(255, 255, 255, 0)), to(#fff));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0, #fff 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.premium-unfold-gradient.toggled {
+    visibility: visible;
+    opacity: 1;
+}

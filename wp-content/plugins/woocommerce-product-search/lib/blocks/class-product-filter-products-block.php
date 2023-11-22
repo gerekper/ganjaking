@@ -33,9 +33,9 @@ class Product_Filter_Products_Block extends Block {
 			'woocommerce-product-search/woocommerce-product-filter-products',
 			array(
 				'api_version' => 2,
-				'style' => 'product-search',
-				'editor_style' => 'woocommerce-product-search-blocks-editor',
-				'editor_script' => 'woocommerce-product-search-blocks',
+				'style_handles' => array( 'product-search' ),
+				'editor_style_handles' => array( 'woocommerce-product-search-blocks-editor' ),
+				'editor_script_handles' => array( 'woocommerce-product-search-blocks' ),
 				'render_callback' => array( __CLASS__, 'render' ),
 				'attributes' => array(
 					'columns' => array(

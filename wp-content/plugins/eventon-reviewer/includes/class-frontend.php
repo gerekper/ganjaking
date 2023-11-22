@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon-reviewer/classes
- * @version     1.1
+ * @version     0.6
  */
 class evore_front{
 	private $currentlang;
@@ -19,7 +19,7 @@ class evore_front{
 		include_once('class-functions.php');
 		$this->functions = new evo_re_functions();
 
-		add_filter('eventon_eventCard_evore', array($this, 'frontend_box'), 10, 3);
+		add_filter('eventon_eventCard_evore', array($this, 'frontend_box'), 10, 2);
 		add_filter('eventon_eventcard_array', array($this, 'eventcard_array'), 10, 4);
 		add_filter('evo_eventcard_adds', array($this, 'eventcard_adds'), 10, 1);
 
@@ -70,6 +70,7 @@ class evore_front{
 			echo ob_get_clean();
 		}
 
+
 	// EventON lightbox Call
 		function lightbox($array){
 			$array['evorev_lightbox']= array(
@@ -80,13 +81,12 @@ class evore_front{
 			return $array;
 		}
 
+
 	// Review EVENTCARD form HTML
 		// add Review box to front end
-			function frontend_box($object, $helpers, $EVENT){
-
-				$EVORE = new EVORE_Reviews( $EVENT );
-
-				$event_pmv = $EVENT->get_data();
+			function frontend_box($object, $helpers){
+				global $eventon_re, $eventon;
+				$event_pmv = get_post_custom($object->event_id);
 
 				// loggedin user
 					$currentUserID = 	$this->functions->get_current_userid();	
@@ -95,9 +95,10 @@ class evore_front{
 					if( !evo_check_yn($event_pmv,'event_review') ) return;
 
 				// Get the language passed via shortcode or from single events page URL
-				$lang = !empty( EVO()->evo_generator->shortcode_args['lang'] )? 
-					EVO()->evo_generator->shortcode_args['lang']:
+				$lang = !empty($eventon->evo_generator->shortcode_args['lang'])? 
+					$eventon->evo_generator->shortcode_args['lang']:
 					(!empty($_GET['l'])? $_GET['l']:'L1');
+
 				
 				ob_start();
 
@@ -106,75 +107,43 @@ class evore_front{
 							<div class='evcal_evdata_cell'>							
 								<h3 class='evo_h3'>".evo_lang('Event Reviews',$lang,$this->opt2)."</h3>";
 
-					$current_average_rating = $EVORE->get_calculated_average_rating(1);
+					$current_average_rating = $this->functions->get_average_rating($object->event_id,$event_pmv, $object->__repeatInterval );
 
 				echo "<div class='evore_row_inside'>";
 
 					// if this event have a current rating and average
 					if($current_average_rating):
-
-						$rating_count = $EVORE->get_specific_ratings_count();
-
-						echo '<div rel="schema:aggregateRating" style="display:none">
-				          <div typeof="schema:AggregateRating">
-				            <div property="schema:reviewCount" content="'. $rating_count. '"></div>
-				            <div property="schema:ratingValue" content="'. $current_average_rating. '"></div>
-				          </div>
-				        </div>';
-						
-						echo "<h3 class='evo_h3 orating'>".evo_lang('Overall Rating:',$lang,$this->opt2).
-						" <span class='orating_stars' title='{$current_average_rating}'>".$this->functions->get_star_rating_html($current_average_rating)."</span>".
-						"<span class='orating_data'>". $rating_count ." ".evo_lang('Ratings',$lang,$this->opt2)."</span>";
-
-						// button to show rating count
-							if( !$EVENT->check_yn('_rating_data') ){
-
-								echo "<span class='extra_data' style='margin-left:5px;'>".evo_lang('Data',$lang,$this->opt2)."</span>";
-							}
-
+						echo "<h3 class='evo_h3 orating'>".evo_lang('Overall Rating:',$lang,$this->opt2)." <span class='orating_stars' title='{$current_average_rating}'>".$this->functions->get_star_rating_html($current_average_rating)."</span> <span class='orating_data'>".$this->functions->get_rating_count($object->event_id,$event_pmv, $object->__repeatInterval)." ".evo_lang('Ratings',$lang,$this->opt2)."</span>";
+							echo ((!empty($event_pmv['_rating_data']) && $event_pmv['_rating_data'][0]!='yes') || empty($event_pmv['_rating_data']))? "<span class='extra_data' style='margin-left:5px;'>".evo_lang('Data',$lang,$this->opt2)."</span>":'';
 						echo "</h3>";
 
 						// additional rating data
-						if( !$EVENT->check_yn('_rating_data') ):
+						if( !evo_check_yn($event_pmv, '_rating_data') ):
 							echo "<div class='rating_data' style='display:none'>";
-
-							// average value
-							echo "<div class='evore_avg_val marb10'>".$current_average_rating." " . evo_lang('Out of') ." 5</div>";
-
 							$rate_count = $this->functions->get_rating_ind_counts($object->event_id, $object->__repeatInterval,$event_pmv);
 							$rate_sum = ($rate_count && is_array($rate_count))? array_sum($rate_count):0;
 							
 							for($x=5; $x>0; $x--){
 								$width_percentage = round(($rate_count[$x]/$rate_sum)*100);
-								echo "<div class='rating_line'>
-								<span class='rating_txt'>{$x} Star</span>
-								<span class='rating'>".$this->functions->get_star_rating_html($x)."</span>
+								echo "<p><span class='rating'>".$this->functions->get_star_rating_html($x)."</span>
 									<span class='bar'><em title='{$width_percentage}%' style='width:".($width_percentage)."%'></em></span>
 									<span class='count'>".$rate_count[$x]."</span>
-								</div>";
+								</p>";
 							}
 							echo "</div>";
 						endif;
 
 						// all reviews list
-						$reviews_array =  $EVORE->get_all_reviews();
-
+						$reviews_array =  $this->functions->get_all_reviews_for_event($object->event_id, $object->__repeatInterval);
 						if(!empty($reviews_array) && count($reviews_array)>0):
 							echo "<div class='review_list ". (evo_check_yn($event_pmv,'_all_reviews')?'alllist':'') ."'>";							
 								$count = '';
 									$count = 1;
 									foreach($reviews_array as $review){
-
-										if( !isset($review['review'])) continue;
-										if( empty($review['review'])) continue;
-
-										echo "<p class='review ".($count==1?'show':'')."' property='review' typeof='Review'>
-											<span style='display:none' property='reviewRating' typeof='Rating'><span property='ratingValue'>". $review['rating'] ."</span></span>
+										echo "<p class='review ".($count==1?'show':'')."'>
 											<span class='rating'>".$this->functions->get_star_rating_html($review['rating'])."</span>";
 										echo "<span class='description'>".$review['review']."</span>";
-										echo "<span class='reviewer'>".(!empty($review['reviewer'])? 
-											"<span property='author' typeof='Person'><span property='name'>" . $review['reviewer'] . "</span></span>":'')
-										." on <span property='datePublished' content='{$review['date']}'>{$review['date']}</span></p>";
+										echo "<span class='reviewer'>".(!empty($review['reviewer'])? $review['reviewer']:'')." on ".$review['date']."</span></p>";
 										$count++;
 									}					
 							echo "</div>";
@@ -224,7 +193,6 @@ class evore_front{
 					return false;
 				}
 			}
-
 		// get form messages html
 			function get_form_message($code='', $lang=''){
 				$array =  array(

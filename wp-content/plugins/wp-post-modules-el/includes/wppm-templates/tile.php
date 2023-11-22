@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 2.2.1
+ * @version 2.4.0
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -71,7 +71,7 @@
 		// User defined post meta
 		$user_meta = '';
 		$rows = array( 'row_1' => '', 'row_2' => '', 'row_3' => '', 'row_4' => '' );
-		$metas = wppm_el_custom_meta();
+		$metas = wppm_el_custom_meta( $new_tab );
 		if ( $custom_meta ) {
 			$user_meta = sprintf( '<span class="entry-meta custom-format">' . $meta_format . '</span>', $metas['author'], $metas['date'], $metas['date_modified'], $metas['categories'], $metas['comments'], $metas['permalink'] );
 		}
@@ -97,6 +97,7 @@
 				'share_btns' => $share_btns,
 				'cat_limit'  => $cat_limit,
 				'show_more_cats' => $show_more_cats,
+				'new_tab'		=> $new_tab,
 
 				// Schema props
 				'datecreated_prop'		=> $datecreated_prop,
@@ -125,7 +126,7 @@
 
         require( dirname( __FILE__ ) . $image_path . 'image.php' );
 
-		$format = apply_filters( 'wppm_portfolio_output', '<article%10$s%11$s class="%1$s"><div class="tile-wrap"><div class="tile-content"><div class="tile-overlay">%3$s<%9$s%12$s class="entry-title"><a href="%4$s" title="%13$s">%5$s</a></%9$s>%6$s%7$s%8$s</div></div>%2$s</div></article>' );
+		$format = apply_filters( 'wppm_portfolio_output', '<article%10$s%11$s class="%1$s"><div class="tile-wrap"><div class="tile-content"><div class="tile-overlay">%3$s<%9$s%12$s class="entry-title"><a href="%4$s" title="%13$s"%14$s>%5$s</a></%9$s>%6$s%7$s%8$s</div></div>%2$s</div></article>' );
 		if ( 'featured' == $img_source && has_post_thumbnail() ) {
 			$out .= sprintf ( $format,
 				$post_classes,
@@ -140,7 +141,8 @@
 				$enable_schema && $container_type != '' ? ' itemscope itemtype="' . $protocol . '://schema.org/' . esc_attr( $container_type ) . '"' : '',
 				$enable_schema && $container_prop != '' ? ' itemprop="' . esc_attr( $container_prop ) . '"' : '',
 				$enable_schema && $heading_prop != '' ? ' itemprop="' . esc_attr( $heading_prop ) . '"' : '',
-				wp_strip_all_tags( $title )
+				wp_strip_all_tags( $title ),
+				$new_tab ? ' target="_blank"' : '',
 			);
 
 			$count++;

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\Profile_Field\Confirm_De
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\User_Membership\Confirm_Edit_Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -226,6 +226,37 @@ class WC_Memberships_Admin {
 
 
 	/**
+	 * Gets the current screen ID.
+	 *
+	 * @return string|null
+	 */
+	private function get_current_screen_id() : ?string {
+
+		$screen_id = null;
+
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() && ( Framework\SV_WC_Order_Compatibility::is_order_screen() || Framework\SV_WC_Subscription_Compatibility::is_subscription_screen() ) ) {
+
+			// legacy orders screen identifiers are just used for backwards compatibility to organize admin components within Memberships
+			if ( Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
+				$screen_id = 'edit-shop_order';
+			} elseif ( Framework\SV_WC_Subscription_Compatibility::is_subscriptions_screen() ) {
+				$screen_id = 'edit-shop_subscription';
+			} elseif ( Framework\SV_WC_Order_Compatibility::is_order_edit_screen() ) {
+				$screen_id = 'shop_order';
+			} elseif ( Framework\SV_WC_Subscription_Compatibility::is_subscription_edit_screen() ) {
+				$screen_id = 'shop_subscription';
+			}
+
+		} elseif ( $screen = Framework\SV_WC_Helper::get_current_screen() ) {
+
+			$screen_id = $screen->id;
+		}
+
+		return $screen_id;
+	}
+
+
+	/**
 	 * Returns Memberships admin screen IDs.
 	 *
 	 * @since 1.0.0
@@ -233,7 +264,7 @@ class WC_Memberships_Admin {
 	 * @param string|null $context when a context is specified, screens for a particular group are displayed (default null: display all)
 	 * @return string[] list of admin screen IDs where Memberships does something
 	 */
-	public function get_screen_ids( $context = null ) {
+	public function get_screen_ids( ?string $context = null ) : array {
 
 		$settings_page_id = Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id();
 
@@ -329,18 +360,19 @@ class WC_Memberships_Admin {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param string $screen_id a screen ID to check - default blank, will try to determine the current admin screen
+	 * @param null|\WP_Screen|string $screen_id a screen ID to check - default blank, will try to determine the current admin screen
 	 * @param string|string[] $which check for a specific screen type (or array of types) or leave 'any' to check if the current screen is one of the memberships screens
 	 * @param bool $exclude_content if set to false (default) the check will exclude Memberships restrictable post types edit screens
 	 * @return bool
 	 */
-	public function is_memberships_admin_screen( $screen_id = '', $which = 'any', $exclude_content = false ) {
-		global $current_screen;
+	public function is_memberships_admin_screen( $screen_id = '', string $which = 'any', bool $exclude_content = false ) : bool {
 
-		$screen = empty( $screen_id ) ? $current_screen : $screen_id;
-
-		if ( $screen instanceof \WP_Screen ) {
-			$screen_id = $screen->id;
+		if ( empty( $screen_id ) ) {
+			$screen_id = $this->get_current_screen_id();
+		} elseif ( $screen_id instanceof \WP_Screen ) {
+			$screen_id = $screen_id->id;
+		} elseif ( ! is_string( $screen_id ) ) {
+			return false;
 		}
 
 		$is_screen = false;
@@ -404,7 +436,7 @@ class WC_Memberships_Admin {
 	 * @param null|\WP_Screen|string $screen optional, defaults to current screen global
 	 * @return bool
 	 */
-	public function is_memberships_modal_admin_screen( $screen = null ) {
+	public function is_memberships_modal_admin_screen( $screen = null ) : bool {
 
 		return $this->is_memberships_admin_screen( $screen, $this->get_screen_ids( 'modals' ) );
 	}
@@ -839,59 +871,62 @@ class WC_Memberships_Admin {
 	 */
 	public function init() {
 
-		if ( $screen = get_current_screen() ) {
+		$screen_id = $this->get_current_screen_id();
 
-			switch ( $screen->id ) {
+		if ( ! $screen_id ) {
+			return;
+		}
 
-				// subscriptions are correctly handled here as orders subclasses
-				case 'shop_order' :
-				case 'edit-shop_order' :
-				case 'shop_subscription' :
-				case 'edit-shop_subscription' :
-					$this->orders = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-orders.php', 'WC_Memberships_Admin_Orders' );
-				break;
+		switch ( $screen_id ) {
 
-				case 'product' :
-				case 'edit-product' :
-					$this->products = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-products.php', 'WC_Memberships_Admin_Products' );
-				break;
+			// subscriptions are correctly handled here as orders subclasses
+			case 'shop_order' :
+			case 'edit-shop_order' :
+			case 'shop_subscription' :
+			case 'edit-shop_subscription' :
+				$this->orders = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-orders.php', 'WC_Memberships_Admin_Orders' );
+			break;
 
-				case 'wc_membership_plan' :
-				case 'edit-wc_membership_plan' :
-					$this->membership_plans = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-membership-plans.php',  'WC_Memberships_Admin_Membership_Plans');
-				break;
+			case 'product' :
+			case 'edit-product' :
+				$this->products = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-products.php', 'WC_Memberships_Admin_Products' );
+			break;
 
-				case 'wc_user_membership' :
-				case 'edit-wc_user_membership' :
-					$this->user_memberships = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-user-memberships.php',  'WC_Memberships_Admin_User_Memberships' );
-					// the import / export handler runs bulk export on User Memberships screen
-					$this->import_export = wc_memberships()->load_class( '/src/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
-				break;
+			case 'wc_membership_plan' :
+			case 'edit-wc_membership_plan' :
+				$this->membership_plans = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-membership-plans.php',  'WC_Memberships_Admin_Membership_Plans');
+			break;
 
-				case 'admin_page_wc_memberships_import_export' :
-					$this->import_export = wc_memberships()->load_class( '/src/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
-				break;
+			case 'wc_user_membership' :
+			case 'edit-wc_user_membership' :
+				$this->user_memberships = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-user-memberships.php',  'WC_Memberships_Admin_User_Memberships' );
+				// the import / export handler runs bulk export on User Memberships screen
+				$this->import_export = wc_memberships()->load_class( '/src/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
+			break;
 
-				case 'admin_page_wc_memberships_profile_fields' :
-					$this->profile_fields = wc_memberships()->load_class( '/src/admin/Profile_Fields.php', 'SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields' );
-				break;
+			case 'admin_page_wc_memberships_import_export' :
+				$this->import_export = wc_memberships()->load_class( '/src/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
+			break;
 
-				case 'users' :
-				case 'user-edit' :
-				case 'profile' :
-					$this->users = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-users.php', 'WC_Memberships_Admin_Users' );
-				break;
-			}
+			case 'admin_page_wc_memberships_profile_fields' :
+				$this->profile_fields = wc_memberships()->load_class( '/src/admin/Profile_Fields.php', 'SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields' );
+			break;
 
-			// init modals in screens where they could be opened
-			if ( in_array( $screen->id, $this->get_screen_ids( 'modals' ), true ) ) {
-				$this->init_modals();
-			}
+			case 'users' :
+			case 'user-edit' :
+			case 'profile' :
+				$this->users = wc_memberships()->load_class( '/src/admin/class-wc-memberships-admin-users.php', 'WC_Memberships_Admin_Users' );
+			break;
+		}
 
-			// init meta boxes on restrictable post types edit screens
-			if ( in_array( $screen->id, $this->get_screen_ids( 'meta_boxes' ), true ) ) {
-				$this->init_meta_boxes();
-			}
+		// init modals in screens where they could be opened
+		if ( in_array( $screen_id, $this->get_screen_ids( 'modals' ), true ) ) {
+			$this->init_modals();
+		}
+
+		// init meta boxes on restrictable post types edit screens
+		if ( in_array( $screen_id, $this->get_screen_ids( 'meta_boxes' ), true ) ) {
+			$this->init_meta_boxes();
 		}
 	}
 
@@ -950,7 +985,7 @@ class WC_Memberships_Admin {
 	 */
 	private function init_modals() {
 
-		if ( $screen = get_current_screen() ) {
+		if ( $screen_id = $this->get_current_screen_id() ) {
 
 			// load abstracts
 			require_once( wc_memberships()->get_plugin_path() . '/src/admin/modals/abstract-wc-memberships-modal.php' );
@@ -961,28 +996,26 @@ class WC_Memberships_Admin {
 			$modals_classes = [];
 
 			// new user membership screen
-			if ( 'edit-wc_user_membership' === $screen->id ) {
+			if ( 'edit-wc_user_membership' === $screen_id ) {
 				$modals_classes['WC_Memberships_Modal_Add_User_Membership'] = '/src/admin/modals/';
 				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/src/admin/modals/';
 			// edit user membership screen
-			} elseif ( 'wc_user_membership' === $screen->id ) {
+			} elseif ( 'wc_user_membership' === $screen_id ) {
 				$modals_classes['WC_Memberships_Modal_Add_User_Membership'] = '/src/admin/modals/';
 				$modals_classes['WC_Memberships_Modal_Transfer_User_Membership'] = '/src/admin/modals/';
 				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/src/admin/modals/';
 				$modals_classes[ '\\' . Confirm_Edit_Profile_Fields::class ] = '/src/admin/Views/Modals/User_Membership/';
 			// membership plan screens
-			} elseif ( in_array( $screen->id, array( 'wc_membership_plan', 'edit-wc-membership-plan' ), true ) ) {
+			} elseif ( in_array( $screen_id, [ 'wc_membership_plan', 'edit-wc-membership-plan' ], true ) ) {
 				$modals_classes['WC_Memberships_Modal_Grant_Access_Membership_Plan'] = '/src/admin/modals/';
 			// user memberships import/export screens
-			} elseif ( 'admin_page_wc_memberships_import_export' === $screen->id ) {
+			} elseif ( 'admin_page_wc_memberships_import_export' === $screen_id ) {
 				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/src/admin/modals/';
 			// email settings screens
-			} elseif ( isset( $_GET['tab'], $_GET['section'] ) && 'email' === $_GET['tab'] && in_array( $_GET['section'], array( 'wc_memberships_user_membership_ending_soon_email', 'wc_memberships_user_membership_renewal_reminder_email' ), true ) && Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id() === $screen->id ) {
+			} elseif ( isset( $_GET['tab'], $_GET['section'] ) && 'email' === $_GET['tab'] && in_array( $_GET['section'], array( 'wc_memberships_user_membership_ending_soon_email', 'wc_memberships_user_membership_renewal_reminder_email' ), true ) && Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id() === $screen_id ) {
 				$modals_classes['WC_Memberships_Modal_Reschedule_User_Memberships_Events'] = '/src/admin/modals/';
-
 			// profile fields screens
 			} elseif ( $this->get_profile_fields_instance() && $this->get_profile_fields_instance()->is_profile_fields_screen( [ Profile_Fields::SCREEN_ACTION_NEW, Profile_Fields::SCREEN_ACTION_EDIT ] ) ) {
-
 				$modals_classes[ '\\' . Confirm_Deletion::class ] = '/src/admin/Views/Modals/Profile_Field/';
 			}
 
@@ -995,9 +1028,9 @@ class WC_Memberships_Admin {
 			 * @since 1.9.0
 			 *
 			 * @param \WC_Memberships_Modal[] $modals an associative array of modals names and instances
-			 * @param \WP_Screen $screen the current screen
+			 * @param \WP_Screen $screen_id the current screen
 			 */
-			$modals = apply_filters( 'wc_memberships_modals', $modals, $screen );
+			$modals = apply_filters( 'wc_memberships_modals', $modals, Framework\SV_WC_Helper::get_current_screen() );
 
 			foreach ( $modals as $modal_name => $modal_object ) {
 				if ( ! empty( $modal_name ) ) {
@@ -1018,7 +1051,7 @@ class WC_Memberships_Admin {
 	private function init_meta_boxes() {
 		global $pagenow;
 
-		$screen = get_current_screen();
+		$screen = Framework\SV_WC_Helper::get_current_screen();
 
 		// bail out if not on a new post / edit post screen
 		if ( ! $screen || ( 'post-new.php' !== $pagenow && 'post.php' !== $pagenow ) ) {
@@ -1128,9 +1161,9 @@ class WC_Memberships_Admin {
 	 */
 	public function enqueue_scripts_and_styles() {
 
-		$screen = get_current_screen();
+		$screen_id = $this->get_current_screen_id();
 
-		if ( $screen && in_array( $screen->id, $this->get_screen_ids( 'scripts' ), true ) ) {
+		if ( $screen_id && in_array( $screen_id, $this->get_screen_ids( 'scripts' ), true ) ) {
 
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
@@ -1171,9 +1204,9 @@ class WC_Memberships_Admin {
 	private function enqueue_scripts() {
 		global $pagenow, $typenow;
 
-		$screen   = get_current_screen();
-		$path     = wc_memberships()->get_plugin_url() . '/assets/js/admin/';
-		$ver      = \WC_Memberships::VERSION;
+		$screen = Framework\SV_WC_Helper::get_current_screen();
+		$path   = wc_memberships()->get_plugin_url() . '/assets/js/admin/';
+		$ver    = \WC_Memberships::VERSION;
 
 		// base scripts
 		wp_register_script( 'wc-memberships-enhanced-select', $path . 'wc-memberships-enhanced-select.min.js', [ 'jquery', 'select2' ], $ver );
@@ -1322,10 +1355,15 @@ class WC_Memberships_Admin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $screen_ids
-	 * @return array
+	 * @param string[]|mixed $screen_ids
+	 * @return string[]
 	 */
-	public function load_wc_scripts( $screen_ids ) {
+	public function load_wc_scripts( $screen_ids ) : array {
+
+		if ( ! is_array( $screen_ids ) ) {
+			return $screen_ids;
+		}
+
 		return array_merge( $screen_ids, $this->get_screen_ids( 'scripts' ) );
 	}
 
@@ -1412,9 +1450,9 @@ class WC_Memberships_Admin {
 	 * @param string $current_tab current tab slug, defaults to user memberships
 	 * @return string
 	 */
-	public function get_current_tab( $current_tab = 'members' ) {
+	public function get_current_tab( string $current_tab = 'members' ) : string {
 
-		if ( $screen = get_current_screen() ) {
+		if ( $screen = Framework\SV_WC_Helper::get_current_screen() ) {
 			if ( in_array( $screen->id, array( 'wc_membership_plan', 'edit-wc_membership_plan' ), true ) ) {
 				$current_tab = 'memberships';
 			} elseif ( in_array( $screen->id, array( 'wc_user_membership', 'edit-wc_user_membership' ), true ) ) {
@@ -1448,10 +1486,10 @@ class WC_Memberships_Admin {
 	public function render_tabs() {
 		global $post, $typenow;
 
-		$screen = get_current_screen();
+		$screen_id = $this->get_current_screen_id();
 
 		// handle tabs on the relevant WooCommerce pages
-		if ( $screen && in_array( $screen->id, $this->get_screen_ids( 'tabs' ), true ) ) :
+		if ( $screen_id && in_array( $screen_id, $this->get_screen_ids( 'tabs' ), true ) ) :
 
 			$tabs = apply_filters( 'wc_memberships_admin_tabs', [
 				'members'        => [
@@ -1481,7 +1519,7 @@ class WC_Memberships_Admin {
 				<div class="wrap woocommerce">
 					<h2 class="nav-tab-wrapper woo-nav-tab-wrapper" <?php echo $hide_in_enhanced_navigation; ?>>
 						<?php $current_tab = $this->get_current_tab(); ?>
-						<?php $current_tab = 'members' === $current_tab && 'admin_page_wc_memberships_import_export' === $screen->id ? 'import-export' : $current_tab; ?>
+						<?php $current_tab = 'members' === $current_tab && 'admin_page_wc_memberships_import_export' === $screen_id? 'import-export' : $current_tab; ?>
 						<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 							<?php $class = $tab_id === $current_tab ? array( 'nav-tab', 'nav-tab-active' ) : array( 'nav-tab' ); ?>
 							<?php printf( '<a href="%1$s" class="%2$s">%3$s</a>', esc_url( $tab['url'] ), implode( ' ', array_map( 'sanitize_html_class', $class ) ), esc_html( $tab['title'] ) ); ?>

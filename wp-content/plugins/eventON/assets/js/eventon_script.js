@@ -653,7 +653,7 @@ jQuery(document).ready(function($){
 				html += "<div class='date_row'>";
 				$.each(events, function(index, item){		
 
-					location_data = organizer_data = '';
+					location_data = organizer_data = event_tags = '';
 
 					// location 
 					if( SC.show_location == 'yes' && 'location' in item){
@@ -665,12 +665,21 @@ jQuery(document).ready(function($){
 						organizer_data = "<div class='evosv_subdata evosv_org'>" +item.organizer+"</div>";
 					}
 
+					// event tags
+					if( SC.show_tags == 'yes' && 'event_tags' in item){
+						event_tags = "<div class='evosv_subdata evosv_tags'>";
+						$.each( item.event_tags, function(index, val){
+							event_tags += "<span class='evosv_tag " + index +"'>" + val+"</span>";
+						});
+						event_tags += "</div>";
+					}
+
 					html += "<div class='row'>"+
 						"<div class='evosv_date'>"+DN+"</div>"+
 						"<div class='evosv_items' data-id='"+item.uID+"' data-uxval='"+ item.ux_val+"'>"+
 							"<div class='evosv_clr llxvl' style='background-color:"+item.hex_color+"'></div>"+
 							"<div class='evosv_time llxvl'>"+item.t+"</div>"+
-							"<div class='evosv_event llxvl'>"+ item.event_title + location_data+ organizer_data+ "</div>"+
+							"<div class='evosv_event llxvl'>"+ event_tags + item.event_title + location_data+ organizer_data+ "</div>"+
 							
 						"</div>"+
 					"</div>";
@@ -1084,7 +1093,9 @@ jQuery(document).ready(function($){
 			fullheight_img_reset(); 
 
 			// update border color and eventtop color
-				bgcolor = LIGHTBOX_content.find('.evcal_cblock').data('bgcolor');
+				const evoet_data = LIGHTBOX_content.find('.evoet_data').data();
+				bgcolor = evoet_data.bgc;
+				bggrad = evoet_data.bggrad;
 
 				// if tiles and eventtop style set to clean
 				var show_lightbox_color = SC.tiles == 'yes' && ( SC.eventtop_style == '0' || SC.eventtop_style == '4') ? false: true;
@@ -1094,7 +1105,10 @@ jQuery(document).ready(function($){
 
 				){
 					LIGHTBOX_content.addClass('color');
-					LIGHTBOX_content.find('.evopop_top').css({'background-color':bgcolor});
+					LIGHTBOX_content.find('.evopop_top').css({
+						'background-color':bgcolor,
+						'background-image': bggrad,
+					});
 				}else{
 					LIGHTBOX_content.find('.evopop_top').css({'border-left':'3px solid '+bgcolor});
 				}
@@ -1103,13 +1117,13 @@ jQuery(document).ready(function($){
 			if( obj.data('runjs')){
 				$('body').trigger('evo_load_single_event_content',[ SC.event_id, OO.other_data.obj]);
 			}
-
+			
 			// countdown
 			LIGHTBOX_content.find('.evo_countdowner').each(function(){
-				var obj = $(this);
 				obj.removeClass('evo_cd_on');
 				obj.evo_countdown();
 			});
+
 
 			
 			// RTL

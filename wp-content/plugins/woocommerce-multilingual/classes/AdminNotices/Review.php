@@ -7,8 +7,6 @@ use WPML_Notices;
 use IWPML_Backend_Action;
 use IWPML_Frontend_Action;
 use IWPML_DIC_Action;
-use wpdb;
-use WPML\Core\ISitePress;
 
 class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_Action, IStandAloneAction {
 
@@ -17,36 +15,18 @@ class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_A
 	/** @var WPML_Notices $wpmlNotices */
 	private $wpmlNotices;
 
-	/** @var wpdb $wpdb */
-	private $wpdb;
-
-	/** @var \SitePress $sitepress */
-	private $sitepress;
-
 	/**
-	 * Review constructor.
-	 *
 	 * @param WPML_Notices $wpmlNotices
-	 * @param wpdb $wpdb
-	 * @param \SitePress $sitepress
 	 */
-	public function __construct( WPML_Notices $wpmlNotices, wpdb $wpdb, ISitePress $sitepress ) {
+	public function __construct( WPML_Notices $wpmlNotices ) {
 		$this->wpmlNotices = $wpmlNotices;
-		$this->wpdb        = $wpdb;
-		$this->sitepress   = $sitepress;
 	}
 
-	/**
-	 * add hooks
-	 */
 	public function add_hooks() {
 		add_action( 'admin_notices', [ $this, 'addNotice' ] );
 		add_action( 'woocommerce_after_order_object_save', [ $this, 'onNewOrder' ] );
 	}
 
-	/**
-	 * add notice message
-	 */
 	public function addNotice() {
 
 		if ( $this->shouldDisplayNotice() ) {
@@ -71,12 +51,10 @@ class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_A
 	}
 
 	/**
-	 * get notice text
-	 *
 	 * @return string
 	 */
 	private function getNoticeText() {
-		$text = '<h2>';
+		$text  = '<h2>';
 		$text .= __( 'Congrats! You\'ve just earned some money using WooCommerce Multilingual & Multicurrency.', 'woocommerce-multilingual' );
 		$text .= '</h2>';
 
@@ -94,38 +72,31 @@ class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_A
 	}
 
 	/**
-	 * check if we should display notice
-	 *
 	 * @return bool
 	 */
 	private function shouldDisplayNotice() {
 		return get_option( self::OPTION_NAME, false );
 	}
 
-	public function onNewOrder(){
-		if ( !$this->shouldDisplayNotice() ) {
-			$this->maybeAddOptionToShowNotice();
+	/**
+	 * @param \WC_Order $order
+	 */
+	public function onNewOrder( $order ) {
+		if ( ! $this->shouldDisplayNotice() ) {
+			$this->maybeAddOptionToShowNotice( $order );
 		}
 	}
 
 	/**
-	 * maybe add option to show notice
+	 * @param \WC_Order $order
 	 */
-	private function maybeAddOptionToShowNotice() {
+	private function maybeAddOptionToShowNotice( $order ) {
+		$isOrderInSecondLanguage = $order->get_meta( 'wpml_language' ) !== apply_filters( 'wpml_default_language', '' );
 
-		$ordersCountInSecondLanguageOrCurrency = $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT COUNT(p.ID) FROM {$this->wpdb->postmeta} as pm 
-				INNER JOIN {$this->wpdb->posts} as p ON pm.post_id = p.ID 
-				WHERE p.post_type = 'shop_order' AND ( 
- 				( pm.meta_key = '_order_currency' AND pm.meta_value != %s ) 
- 				OR 
- 				( pm.meta_key = 'wpml_language' AND pm.meta_value != %s  ) )",
-				wcml_get_woocommerce_currency_option(),
-				$this->sitepress->get_default_language() )
-		);
+		$isOrderInSecondCurrency = wcml_is_multi_currency_on()
+			&& $order->get_currency() !== wcml_get_woocommerce_currency_option();
 
-		if ( $ordersCountInSecondLanguageOrCurrency ) {
+		if ( $isOrderInSecondLanguage || $isOrderInSecondCurrency ) {
 			add_option( self::OPTION_NAME, true );
 		}
 	}

@@ -11,8 +11,8 @@ class WC_Dropshipping_Admin {
 	public $ali_prod_filter = null;
 
 	public function __construct() {
-		 require_once( 'class-wc-dropshipping-product.php' );
-		require_once( 'class-wc-dropshipping-csv-import.php' );
+		 require_once 'class-wc-dropshipping-product.php';
+		require_once 'class-wc-dropshipping-csv-import.php';
 		$this->product = new WC_Dropshipping_Product();
 		$this->csv = new WC_Dropshipping_CSV_Import();
 		// admin menu
@@ -76,7 +76,6 @@ class WC_Dropshipping_Admin {
 
 	public function hide_cbe_message() {
 		update_option( 'cbe_hideoption', 'yes' ); // here
-
 	}
 
 	// ajax function for generate api key callback function
@@ -181,7 +180,6 @@ class WC_Dropshipping_Admin {
 		}
 
 		die(); // this is required to return a proper result
-
 	}
 
 	public function manage_columns( $cols ) {
@@ -368,45 +366,63 @@ class WC_Dropshipping_Admin {
 
 		echo '
 		<style>#col-right {
-			float: right;
-			width: 65%;
-			margin-top: -720px;
-		}
+            float: right;
+            width: 65%;
+            margin-top: -720px;
+        }
 
-		#wpfooter {
-			position: fixed;
-		}
+        #wpfooter {
+            position: fixed;
+        }
 
-		#col-left {
-			float: left;
-			width: 25%;
-		}
+        #col-left {
+            float: left;
+            width: 25%;
+        }
 
-		#col-right {
-			float: right;
-			width: 75%;
-			margin-top: -840px;
-		}
+        #col-right {
+            float: right;
+            width: 75%;
+            margin-top: -840px;
+        }
 
-		.wp-core-ui .button-primary {
-			white-space: pre-wrap;
-			font-size: 11px;
-			padding: 0 5px;
-		}
+        .wp-core-ui .button-primary {
+            white-space: pre-wrap;
+            font-size: 11px;
+            padding: 0 5px;
+        }
 
-		.thickbox button-primary csvwindow{
-			width: 50px;
-		}
+        .thickbox button-primary csvwindow{
+            width: 50px;
+        }
 
-		.td_address{
-			width: 95%;
-		}
-		.widefat th{
-			font-size: 12px;
-		}
+        .td_address{
+            width: 95%;
+        }
+        .widefat th{
+            font-size: 12px;
+        }
+        #col-container{
+            display: flex;
+        }
+        @media screen and (min-width: 1200px) {
+            #col-right {
+                margin-top: -830px;
+            }
+        }
+        @media screen and (min-width: 1201px) {
+            #col-right {
+                margin-top: -740px;
+            }
+        }
+        @media screen and (min-width: 1300px) {
+            #col-right {
+                margin-top: -700px;
+            }
+        }
 
 
-		</style>
+        </style>
 
 			<div class="form-field term-account_number-wrap">
 				<label for="account_number" >Account #</label>
@@ -748,7 +764,6 @@ class WC_Dropshipping_Admin {
 				}
 			}
 		}
-
 	}
 
 	public function ajax_save_category_fields() {
@@ -790,5 +805,3 @@ class WC_Dropshipping_Admin {
 		$wpdb->query( "DELETE FROM {$wpdb->termmeta} WHERE `term_id` = " . $term_id );
 	}
 }
-
-

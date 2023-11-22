@@ -63,6 +63,7 @@ class ComposerStaticInit8ac3f31ff107f86cc2ca371dcc03ea36
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\ClicksEmailLinkTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php',

@@ -17,17 +17,17 @@
  * needs please refer to http://www.skyverge.com
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_12\Admin;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_12\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_12\\Admin\\Setup_Wizard' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_12\\Admin\\Setup_Wizard' ) ) :
 
 
 /**
@@ -605,7 +605,17 @@ abstract class Setup_Wizard {
 	protected function render_finished() {
 
 		?>
-		<h1><?php printf( esc_html__( '%s is ready!', 'woocommerce-plugin-framework' ), esc_html( $this->get_plugin()->get_plugin_name() ) ); ?></h1>
+		<h1>
+			<?php
+
+			printf(
+				/* translators: Placeholder: %s - the plugin name */
+				esc_html__( '%s is ready!', 'woocommerce-plugin-framework' ),
+				esc_html( $this->get_plugin()->get_plugin_name()
+			) );
+
+			?>
+		</h1>
 		<?php $this->render_before_next_steps(); ?>
 		<?php $this->render_next_steps(); ?>
 		<?php $this->render_after_next_steps(); ?>

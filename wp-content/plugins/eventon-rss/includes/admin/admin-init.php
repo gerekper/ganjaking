@@ -2,7 +2,7 @@
 /**
  * Admin class for RSS plugin
  *
- * @version 	1.1.4
+ * @version 	0.4
  * @author  	AJDE
  */
 
@@ -129,8 +129,6 @@ class evorss_admin{
 			$new_ar = array(
 				array('type'=>'togheader','name'=>'ADDON: RSS FEED'),
 					array('label'=>'RSS FEED for our calendar','name'=>'evoRSS_001',),
-					array('label'=>'START','var'=>'1'),
-					array('label'=>'END','var'=>'1'),
 				array('type'=>'togend'),
 			);
 			return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

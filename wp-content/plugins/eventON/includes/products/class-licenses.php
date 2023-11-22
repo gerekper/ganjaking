@@ -1,7 +1,7 @@
 <?php
 /**
  * Eventon License class
- * @version 4.0.3
+ * @version 4.5.3
  */
 class EVO_Product_lic extends EVO_Product{
 
@@ -21,6 +21,7 @@ class EVO_Product_lic extends EVO_Product{
 
 			if( $this->slug == 'eventon'){
 				$str = explode('-', $key);
+
 
 				$status = true;
 				$status = $this->is_valid_format($key);
@@ -42,8 +43,18 @@ class EVO_Product_lic extends EVO_Product{
 
 		// Check for licekse key format is valid
 			public function is_valid_format($key){
+				$key = trim($key);
+
 				$pattern = '/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
-				return (bool) preg_match( $pattern, $key );
+				$pattern2 = "/^(\w{8})-((\w{4})-){3}(\w{12})$/";
+				$r1 = (bool) preg_match( $pattern, $key );
+
+				if( !$r1){
+					return (bool) preg_match( $pattern2, $key );
+				}else{
+					return $r1;
+				}
+				
 			}
 
 	// Actions
@@ -261,7 +272,7 @@ class EVO_Product_lic extends EVO_Product{
 					$valid_key = $this->purchase_key_format($key);
 					if($valid_key){
 						$parts = explode('-', $key);
-						return 'xxxxxxxx-xxxx-xxxx-xxxx-'.$parts[4];
+						return '********-****-****-****-'.$parts[4];
 					}else{
 						$this->deactivate($slug);
 						return 'n/a';
@@ -308,7 +319,7 @@ class EVO_Product_lic extends EVO_Product{
 				$output['api_url'] = $url;
 
 				if($this->slug == 'eventon'){
-					$personalToken = 'gYLcQMz1UBTbY0ZfyoeAYzKGD6CGgnjP';
+					$personalToken = 'STrTp78UCvU8Eb7TbrWB00cqwgCNkbZZ';
 					$response = wp_remote_get( $url,
 						array(
 							'headers'=> array(
@@ -323,6 +334,8 @@ class EVO_Product_lic extends EVO_Product{
 					$response = wp_remote_post( $url);
 				}
 				
+
+				//print_r($response);
 				
 				if ( is_wp_error( $response ) ){
 					$output['error_code'] = 23; 
@@ -330,6 +343,18 @@ class EVO_Product_lic extends EVO_Product{
 					return $output;
 				}
 
+				if ( $response['response']['code'] == 403 ) {
+					$output['error_code'] = 163; 
+					$this->record(163,'remote_validation_failed', 'URL:'.$url);
+					return $output;
+				}
+				if ( $response['response']['code'] == 404 ) {
+					$output['error_code'] = 164; 
+					$this->record(164,'remote_validation_failed', 'URL:'.$url);
+					return $output;
+				}
+
+				// 
 				if ( $response['response']['code'] !== 200 ) {
 					$output['error_code'] = 21;
 					$this->record(21,'remote_validation_failed', 'URL:'.$url);

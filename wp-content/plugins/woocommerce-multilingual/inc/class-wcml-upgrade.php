@@ -43,6 +43,7 @@ class WCML_Upgrade {
 		'4.11.0',
 		'4.12.0',
 		'5.0.0',
+		'5.3.0',
 	];
 
 	public function __construct() {
@@ -858,6 +859,10 @@ class WCML_Upgrade {
 	}
 
 	private function upgrade_5_0_0() {
+		delete_transient( WCML_Payment_Gateway_PayPal_V2::BEARER_TOKEN_TRANSIENT );
+	}
+
+	private function upgrade_5_3_0() {
 		if (
 			LookupTableFactory::hasFeature() &&
 			! wc_get_container()->get( LookupDataStore::class )->regeneration_is_in_progress()
@@ -865,7 +870,23 @@ class WCML_Upgrade {
 			wc_get_container()->get( DataRegenerator::class )->initiate_regeneration();
 		}
 
-		delete_transient( WCML_Payment_Gateway_PayPal_V2::BEARER_TOKEN_TRANSIENT );
+		$adminNotices = $this->get_wpml_admin_notices();
+
+		if ( $adminNotices ) {
+			$adminNotices->remove_notice( 'wcml-admin-notices', 'hpos-sync-disabled' );
+		}
 	}
 
+	/**
+	 * @return WPML_Notices|null
+	 */
+	private function get_wpml_admin_notices() {
+		if ( function_exists( 'wpml_get_admin_notices' ) ) {
+			return wpml_get_admin_notices();
+		} elseif ( function_exists( 'wcml_wpml_get_admin_notices' ) ) { // Case Standalone.
+			return wcml_wpml_get_admin_notices();
+		}
+
+		return null;
+	}
 }

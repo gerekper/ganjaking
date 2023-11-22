@@ -6,7 +6,8 @@
 namespace PremiumAddonsPro\Includes;
 
 use PremiumAddonsPro\Admin\Includes\Admin_Helper;
-
+use PremiumAddonsPro\Admin\Includes\Admin_Notices;
+use PremiumAddonsPro\Admin\Includes\PA_Installer;
 use PremiumAddons\Includes\Helper_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,10 +46,16 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 			// Load plugin core.
 			add_action( 'plugins_loaded', array( $this, 'premium_pro_elementor_setup' ), 9 );
 
+			add_action( 'admin_init', array( $this, 'load_pa_installer' ) );
+
 			// Check if free version of Premium Addons installed.
 			if ( self::check_premium_free() ) {
 				// Load Addons required Files.
 				add_action( 'elementor/init', array( $this, 'elementor_init' ) );
+			}
+
+			if ( defined( 'ELEMENTOR_PRO_VERSION' ) && defined( 'PREMIUM_ADDONS_VERSION' ) ) {
+				require_once PREMIUM_PRO_ADDONS_PATH . 'includes/grid-builder/pa-grid-builder-handler.php';
 			}
 		}
 
@@ -103,6 +110,9 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 				is_network_admin() ? update_site_option( 'pa_wht_lbl_save_settings', $white_label_settings ) : update_option( 'pa_wht_lbl_save_settings', $white_label_settings );
 
 			}
+
+			add_option( 'pa_check_flag', true );
+
 		}
 
 		/**
@@ -116,16 +126,16 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 		 */
 		public function elementor_init() {
 
-			$wpml = 'sitepress-multilingual-cms/sitepress.php';
+            //Deprecated: We use wpml-config.xml
+			// $wpml = 'sitepress-multilingual-cms/sitepress.php';
 
-			$wpml_trans = 'wpml-string-translation/plugin.php';
+			// $wpml_trans = 'wpml-string-translation/plugin.php';
 
-			if ( self::check_plugin_active( $wpml ) && self::check_plugin_active( $wpml_trans ) ) {
-				Compatibility\Premium_Pro_Wpml::get_instance();
-			}
+			// if ( self::check_plugin_active( $wpml ) && self::check_plugin_active( $wpml_trans ) ) {
+			// 	Compatibility\Premium_Pro_Wpml::get_instance();
+			// }
 
 			Addons_Integration::get_instance();
-
 		}
 
 		/**
@@ -240,12 +250,12 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 		 */
 		public function init_files() {
 
+			$current_page = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+
 			if ( self::check_premium_free() ) {
 
 				if ( is_admin() ) {
 					\PremiumAddonsPro\Admin\Includes\Admin_Helper::get_instance();
-
-					$current_page = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 					if ( false === strpos( $current_page, 'action=elementor' ) ) {
 						if ( ! class_exists( 'PAPRO_Plugin_Updater' ) ) {
@@ -256,7 +266,6 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 
 						White_Label\Branding::init();
 
-						\PremiumAddonsPro\Admin\Includes\Admin_Notices::get_instance();
 					}
 				}
 
@@ -264,8 +273,40 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 
 			}
 
+			if ( is_admin() && false === strpos( $current_page, 'action=elementor' ) ) {
+				\PremiumAddonsPro\Admin\Includes\Admin_Notices::get_instance();
+			}
+
 		}
 
+		/**
+		 * Load PA Installer
+		 *
+		 * Load the handler file to install the free version.
+		 *
+		 * @since 2.5.3
+		 * @access public
+		 *
+		 * @return void
+		 */
+		public function load_pa_installer() {
+
+			$is_pa_installed = Admin_Notices::is_plugin_installed( 'premium-addons-for-elementor/premium-addons-for-elementor.php' );
+
+			if ( ! $is_pa_installed ) {
+				PA_Installer::get_instance();
+			}
+
+			if ( is_admin() && get_option( 'pa_check_flag', false ) && current_user_can( 'install_plugins' ) ) {
+
+				delete_option( 'pa_check_flag' );
+
+				if ( ! $is_pa_installed ) {
+					wp_safe_redirect( 'admin.php?action=install_pa_version' );
+				}
+			}
+
+		}
 
 		/**
 		 * Get instance

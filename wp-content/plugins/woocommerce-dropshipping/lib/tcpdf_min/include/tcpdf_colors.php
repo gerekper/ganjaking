@@ -471,8 +471,6 @@ class TCPDF_COLORS {
 		}
 		return 'color.' . $color;
 	}
-
-
 } // END OF TCPDF_COLORS CLASS
 
 // ============================================================+

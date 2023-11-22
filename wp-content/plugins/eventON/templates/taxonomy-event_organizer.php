@@ -6,7 +6,7 @@
  
  *	@Author: AJDE
  *	@EventON
- *	@version: 4.4.4
+ *	@version: 4.5.3
  */	
 	
 
@@ -69,7 +69,8 @@
 							echo category_description();
 
 							// secondary description
-							if( !empty( $term_meta['description2'])) echo $term_meta['description2'];
+							if( !empty( $term_meta['description2'])) 
+								echo ( stripslashes( $term_meta['description2'] ) );
 							
 							if(!empty($term_meta['evcal_org_contact'])){						
 								echo "<p class='contactinfo border marb10'>". $term_meta['evcal_org_contact'] ."</p>";
@@ -87,6 +88,8 @@
 							foreach( eventon_get_organizer_social_meta_array()  as $f=>$k){
 								if(!isset($term_meta[$k])) continue;
 								if(empty($term_meta[$k])) continue;
+
+								if( $f == 'twitter' ) $f = 'x-'. $f;
 
 								$social_html .= "<a href='". $term_meta[$k]. "'><i class='fa fa-{$f}'></i></a>";
 							}
@@ -140,12 +143,16 @@
 
 							$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
 
+							// if event type color to be override in settings @since 4.5.2
+							$etc_override = EVO()->cal->check_yn('evosm_etc_override','evcal_1') ? 'yes':'no';
+
 							echo EVO()->shortcodes->events_list( apply_filters('evo_tax_archieve_page_shortcode' ,array(
 								'number_of_months'=>5,
 								'event_organizer'=>$term->term_id,
 								'hide_mult_occur'=>'no',
 								'hide_empty_months'=>'yes',
-								'eventtop_style'=> $eventtop_style
+								'eventtop_style'=> $eventtop_style,
+								'etc_override'=> $etc_override,
 							) , $tax,$term->term_id) );
 
 						?>

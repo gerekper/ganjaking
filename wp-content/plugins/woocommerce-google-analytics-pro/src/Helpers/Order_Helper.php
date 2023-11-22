@@ -23,8 +23,8 @@
 
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0\SV_WC_Helper;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0\SV_WC_Order_Compatibility;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12\SV_WC_Helper;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12\SV_WC_Order_Compatibility;
 use WC_Order_Item;
 use WC_Order_Item_Product;
 use WC_Order_Factory;

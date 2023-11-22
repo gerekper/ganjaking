@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 2.2.1
+ * @version 2.4.0
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -62,7 +62,7 @@
 		// User defined post meta
 		$user_meta = '';
 		$rows = array( 'row_1' => '', 'row_2' => '', 'row_3' => '', 'row_4' => '' );
-		$metas = wppm_el_custom_meta();
+		$metas = wppm_el_custom_meta( $new_tab );
 		if ( $custom_meta ) {
 			$user_meta = sprintf( '<span class="entry-meta custom-format">' . $meta_format . '</span>', $metas['author'], $metas['date'], $metas['date_modified'], $metas['categories'], $metas['comments'], $metas['permalink'] );
 		}
@@ -88,6 +88,7 @@
 				'share_btns' => $share_btns,
 				'cat_limit'  => $cat_limit,
 				'show_more_cats' => $show_more_cats,
+				'new_tab'		=> $new_tab,
 
 				// Schema props
 				'datecreated_prop'		=> $datecreated_prop,
@@ -117,7 +118,7 @@
         require( dirname( __FILE__ ) . $image_path . 'image.php' );
 
 
-		$format = apply_filters( 'wppm_grid_s1_output', '<article%12$s%13$s  class="%2$s%3$s"><div class="wppm-post-wrap"><div class="entry-content">%5$s<%11$s%14$s class="entry-title%15$s%16$s"><a href="%6$s" title="%17$s">%7$s</a></%11$s>%8$s%9$s%10$s</div>%4$s</div></article>' );
+		$format = apply_filters( 'wppm_grid_s1_output', '<article%12$s%13$s  class="%2$s%3$s"><div class="wppm-post-wrap"><div class="entry-content">%5$s<%11$s%14$s class="entry-title%15$s%16$s"><a href="%6$s" title="%17$s"%18$s>%7$s</a></%11$s>%8$s%9$s%10$s</div>%4$s</div></article>' );
 
 
 		$out .= sprintf ( $format,
@@ -137,7 +138,8 @@
 			$enable_schema && $heading_prop != '' ? ' itemprop="' . esc_attr( $heading_prop ) . '"' : '',
 			'',
 			'',
-			wp_strip_all_tags( $title )
+			wp_strip_all_tags( $title ),
+			$new_tab ? ' target="_blank"' : '',
 		);
 
 		$count++;

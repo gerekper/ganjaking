@@ -108,17 +108,17 @@
  */
 
 // TCPDF configuration
-require_once( dirname( __FILE__ ) . '/tcpdf_autoconfig.php' );
+require_once __DIR__ . '/tcpdf_autoconfig.php';
 // TCPDF static font methods and data
-require_once( dirname( __FILE__ ) . '/include/tcpdf_font_data.php' );
+require_once __DIR__ . '/include/tcpdf_font_data.php';
 // TCPDF static font methods and data
-require_once( dirname( __FILE__ ) . '/include/tcpdf_fonts.php' );
+require_once __DIR__ . '/include/tcpdf_fonts.php';
 // TCPDF static color methods and data
-require_once( dirname( __FILE__ ) . '/include/tcpdf_colors.php' );
+require_once __DIR__ . '/include/tcpdf_colors.php';
 // TCPDF static image methods and data
-require_once( dirname( __FILE__ ) . '/include/tcpdf_images.php' );
+require_once __DIR__ . '/include/tcpdf_images.php';
 // TCPDF static methods and data
-require_once( dirname( __FILE__ ) . '/include/tcpdf_static.php' );
+require_once __DIR__ . '/include/tcpdf_static.php';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -4806,7 +4806,7 @@ class TCPDF {
 		}
 		// include font file
 		if ( ! TCPDF_STATIC::empty_string( $fontfile ) and ( @TCPDF_STATIC::file_exists( $fontfile ) ) ) {
-			include( $fontfile );
+			include $fontfile;
 		} else {
 			$this->Error( 'Could not include font definition file: ' . $family . '' );
 		}
@@ -5587,12 +5587,10 @@ class TCPDF {
 					} else {
 						$this->x = $x;
 					}
-				} else {
-					if ( $this->pagedim[ $this->page ]['olm'] != $this->pagedim[ $oldpage ]['olm'] ) {
+				} elseif ( $this->pagedim[ $this->page ]['olm'] != $this->pagedim[ $oldpage ]['olm'] ) {
 						$this->x = $x + ( $this->pagedim[ $this->page ]['olm'] - $this->pagedim[ $oldpage ]['olm'] );
-					} else {
-						$this->x = $x;
-					}
+				} else {
+					$this->x = $x;
 				}
 			}
 			return true;
@@ -6342,24 +6340,23 @@ class TCPDF {
 					$s .= sprintf( '%F %F l ', $xL, $yL );
 					$s .= 'S ';
 				}
-			} else { // strlen($border) == 1
-				if ( strpos( $border, 'L' ) !== false ) { // L
+			} elseif ( strpos( $border, 'L' ) !== false ) { // strlen($border) == 1
+				// L
 					$s .= sprintf( '%F %F m ', $xL, $yL );
 					$s .= sprintf( '%F %F l ', $xT, $yT );
 					$s .= 'S ';
-				} elseif ( strpos( $border, 'T' ) !== false ) { // T
-					$s .= sprintf( '%F %F m ', $xT, $yT );
-					$s .= sprintf( '%F %F l ', $xR, $yR );
-					$s .= 'S ';
-				} elseif ( strpos( $border, 'R' ) !== false ) { // R
-					$s .= sprintf( '%F %F m ', $xR, $yR );
-					$s .= sprintf( '%F %F l ', $xB, $yB );
-					$s .= 'S ';
-				} elseif ( strpos( $border, 'B' ) !== false ) { // B
-					$s .= sprintf( '%F %F m ', $xB, $yB );
-					$s .= sprintf( '%F %F l ', $xL, $yL );
-					$s .= 'S ';
-				}
+			} elseif ( strpos( $border, 'T' ) !== false ) { // T
+				$s .= sprintf( '%F %F m ', $xT, $yT );
+				$s .= sprintf( '%F %F l ', $xR, $yR );
+				$s .= 'S ';
+			} elseif ( strpos( $border, 'R' ) !== false ) { // R
+				$s .= sprintf( '%F %F m ', $xR, $yR );
+				$s .= sprintf( '%F %F l ', $xB, $yB );
+				$s .= 'S ';
+			} elseif ( strpos( $border, 'B' ) !== false ) { // B
+				$s .= sprintf( '%F %F m ', $xB, $yB );
+				$s .= sprintf( '%F %F l ', $xL, $yL );
+				$s .= 'S ';
 			}
 			if ( is_array( $style ) and ! empty( $style ) ) {
 				// reset border style to previous value
@@ -8079,12 +8076,10 @@ class TCPDF {
 			} else {
 				$this->x = abs( $x );
 			}
-		} else {
-			if ( $x >= 0 ) {
+		} elseif ( $x >= 0 ) {
 				$this->x = $x;
-			} else {
-				$this->x = $this->w + $x;
-			}
+		} else {
+			$this->x = $this->w + $x;
 		}
 		if ( $this->x < 0 ) {
 			$this->x = 0;
@@ -9032,12 +9027,10 @@ class TCPDF {
 							}
 							if ( $hasState and in_array( $pl['opt']['state'], $states ) ) {
 								$annots .= ' /State /' . $pl['opt']['state'];
-							} else {
-								if ( $pl['opt']['statemodel'] == 'Marked' ) {
+							} elseif ( $pl['opt']['statemodel'] == 'Marked' ) {
 									$annots .= ' /State /Unmarked';
-								} else {
-									$annots .= ' /State /None';
-								}
+							} else {
+								$annots .= ' /State /None';
 							}
 							break;
 						}
@@ -10364,7 +10357,7 @@ class TCPDF {
 		// if required, add standard sRGB ICC colour profile
 		if ( $this->pdfa_mode or $this->force_srgb ) {
 			$iccobj = $this->_newobj();
-			$icc = file_get_contents( dirname( __FILE__ ) . '/include/sRGB.icc' );
+			$icc = file_get_contents( __DIR__ . '/include/sRGB.icc' );
 			$filter = '';
 			if ( $this->compress ) {
 				$filter = ' /Filter /FlateDecode';
@@ -10879,7 +10872,6 @@ class TCPDF {
 	protected function _dooverlinew( $x, $y, $w ) {
 		$linew = - $this->CurrentFont['ut'] / 1000 * $this->FontSizePt;
 		return sprintf( '%F %F %F %F re f', $x * $this->k, ( ( $this->h - $y + $this->FontAscent ) * $this->k ) - $linew, $w * $this->k, $linew );
-
 	}
 
 	/**
@@ -14273,13 +14265,14 @@ class TCPDF {
 	 * @since 2.9.000 (2008-03-26)
 	 */
 	public function setUserRights(
-			$enable = true,
-			$document = '/FullSave',
-			$annots = '/Create/Delete/Modify/Copy/Import/Export',
-			$form = '/Add/Delete/FillIn/Import/Export/SubmitStandalone/SpawnTemplate',
-			$signature = '/Modify',
-			$ef = '/Create/Delete/Modify/Import',
-			$formex = '' ) {
+		$enable = true,
+		$document = '/FullSave',
+		$annots = '/Create/Delete/Modify/Copy/Import/Export',
+		$form = '/Add/Delete/FillIn/Import/Export/SubmitStandalone/SpawnTemplate',
+		$signature = '/Modify',
+		$ef = '/Create/Delete/Modify/Import',
+		$formex = ''
+	) {
 		$this->ur['enabled'] = $enable;
 		$this->ur['document'] = $document;
 		$this->ur['annots'] = $annots;
@@ -15525,15 +15518,13 @@ class TCPDF {
 			// offset represents a location along the gradient vector
 			if ( isset( $stop['offset'] ) ) {
 				$this->gradients[ $n ]['colors'][ $key ]['offset'] = $stop['offset'];
-			} else {
-				if ( $key == 0 ) {
+			} elseif ( $key == 0 ) {
 					$this->gradients[ $n ]['colors'][ $key ]['offset'] = 0;
-				} elseif ( $key == $last_stop_id ) {
-					$this->gradients[ $n ]['colors'][ $key ]['offset'] = 1;
-				} else {
-					$offsetstep = ( 1 - $this->gradients[ $n ]['colors'][ ( $key - 1 ) ]['offset'] ) / ( $num_stops - $key );
-					$this->gradients[ $n ]['colors'][ $key ]['offset'] = $this->gradients[ $n ]['colors'][ ( $key - 1 ) ]['offset'] + $offsetstep;
-				}
+			} elseif ( $key == $last_stop_id ) {
+				$this->gradients[ $n ]['colors'][ $key ]['offset'] = 1;
+			} else {
+				$offsetstep = ( 1 - $this->gradients[ $n ]['colors'][ ( $key - 1 ) ]['offset'] ) / ( $num_stops - $key );
+				$this->gradients[ $n ]['colors'][ $key ]['offset'] = $this->gradients[ $n ]['colors'][ ( $key - 1 ) ]['offset'] + $offsetstep;
 			}
 			if ( isset( $stop['opacity'] ) ) {
 				$this->gradients[ $n ]['colors'][ $key ]['opacity'] = $stop['opacity'];
@@ -16221,7 +16212,7 @@ class TCPDF {
 		if ( TCPDF_STATIC::empty_string( trim( $code ) ) ) {
 			return;
 		}
-		require_once( dirname( __FILE__ ) . '/tcpdf_barcodes_1d.php' );
+		require_once __DIR__ . '/tcpdf_barcodes_1d.php';
 		// save current graphic settings
 		$gvars = $this->getGraphicVars();
 		// create new barcode object
@@ -16540,7 +16531,7 @@ class TCPDF {
 		if ( TCPDF_STATIC::empty_string( trim( $code ) ) ) {
 			return;
 		}
-		require_once( dirname( __FILE__ ) . '/tcpdf_barcodes_2d.php' );
+		require_once __DIR__ . '/tcpdf_barcodes_2d.php';
 		// save current graphic settings
 		$gvars = $this->getGraphicVars();
 		// create new barcode object
@@ -18885,25 +18876,21 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 												if ( $currentxpos < $textpos ) {
 													$x_diff = ( $spacewidth * ( $nsmax - $lnstring[3][ $strcount ] ) );
 													$w_diff = ( $spacewidth * $lnstring[2][ $strcount ] );
-												} else {
-													if ( $strcount > 0 ) {
+												} elseif ( $strcount > 0 ) {
 														$x_diff = ( $spacewidth * ( $nsmax - $lnstring[3][ ( $strcount - 1 ) ] ) );
 														$w_diff = ( $spacewidth * $lnstring[2][ ( $strcount - 1 ) ] );
-													}
 												}
-											} else { // LTR
-												if ( $currentxpos > $textpos ) {
-													if ( $strcount > 0 ) {
-														$x_diff = ( $spacewidth * $lnstring[3][ ( $strcount - 1 ) ] );
-													}
+											} elseif ( $currentxpos > $textpos ) { // LTR
+												if ( $strcount > 0 ) {
+													$x_diff = ( $spacewidth * $lnstring[3][ ( $strcount - 1 ) ] );
+												}
 													$w_diff = ( $spacewidth * $lnstring[2][ $strcount ] );
-												} else {
-													if ( $strcount > 1 ) {
-														$x_diff = ( $spacewidth * $lnstring[3][ ( $strcount - 2 ) ] );
-													}
-													if ( $strcount > 0 ) {
-														$w_diff = ( $spacewidth * $lnstring[2][ ( $strcount - 1 ) ] );
-													}
+											} else {
+												if ( $strcount > 1 ) {
+													$x_diff = ( $spacewidth * $lnstring[3][ ( $strcount - 2 ) ] );
+												}
+												if ( $strcount > 0 ) {
+													$w_diff = ( $spacewidth * $lnstring[2][ ( $strcount - 1 ) ] );
 												}
 											}
 											if ( preg_match( '/(' . $xmatches[1] . ')[\s](' . $xmatches[2] . ')[\s](' . $xmatches[3] . ')[\s](' . $strpiece[1][0] . ')[\s](re)([\s]*)/x', $pmid, $pmatch ) == 1 ) {
@@ -19061,20 +19048,18 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$startlinepage = $this->page;
 				if ( isset( $endlinepos ) and ( ! $pbrk ) ) {
 					$startlinepos = $endlinepos;
-				} else {
-					if ( $this->inxobj ) {
+				} elseif ( $this->inxobj ) {
 						// we are inside an XObject template
 						$startlinepos = strlen( $this->xobjects[ $this->xobjid ]['outdata'] );
-					} elseif ( ! $this->InFooter ) {
-						if ( isset( $this->footerlen[ $this->page ] ) ) {
-							$this->footerpos[ $this->page ] = $this->pagelen[ $this->page ] - $this->footerlen[ $this->page ];
-						} else {
-							$this->footerpos[ $this->page ] = $this->pagelen[ $this->page ];
-						}
-						$startlinepos = $this->footerpos[ $this->page ];
+				} elseif ( ! $this->InFooter ) {
+					if ( isset( $this->footerlen[ $this->page ] ) ) {
+						$this->footerpos[ $this->page ] = $this->pagelen[ $this->page ] - $this->footerlen[ $this->page ];
 					} else {
-						$startlinepos = $this->pagelen[ $this->page ];
+						$this->footerpos[ $this->page ] = $this->pagelen[ $this->page ];
 					}
+					$startlinepos = $this->footerpos[ $this->page ];
+				} else {
+					$startlinepos = $this->pagelen[ $this->page ];
 				}
 				unset( $endlinepos );
 				$plalign = $lalign;
@@ -23162,34 +23147,28 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					$textrendermode = 2;
 				}
 				$textstrokewidth = $stroke;
-			} else {
-				if ( $clip === true ) {
+			} elseif ( $clip === true ) {
 					// Fill text and add to path for clipping
 					$textrendermode = 4;
-				} else {
-					// Fill text
-					$textrendermode = 0;
-				}
-			}
-		} else {
-			if ( $stroke > 0 ) {
-				if ( $clip === true ) {
-					// Stroke text and add to path for clipping
-					$textrendermode = 5;
-				} else {
-					// Stroke text
-					$textrendermode = 1;
-				}
-				$textstrokewidth = $stroke;
 			} else {
-				if ( $clip === true ) {
-					// Add text to path for clipping
-					$textrendermode = 7;
-				} else {
-					// Neither fill nor stroke text (invisible)
-					$textrendermode = 3;
-				}
+				// Fill text
+				$textrendermode = 0;
 			}
+		} elseif ( $stroke > 0 ) {
+			if ( $clip === true ) {
+				// Stroke text and add to path for clipping
+				$textrendermode = 5;
+			} else {
+				// Stroke text
+				$textrendermode = 1;
+			}
+				$textstrokewidth = $stroke;
+		} elseif ( $clip === true ) {
+				// Add text to path for clipping
+				$textrendermode = 7;
+		} else {
+			// Neither fill nor stroke text (invisible)
+			$textrendermode = 3;
 		}
 		$this->textrendermode = $textrendermode;
 		$this->textstrokewidth = $stroke;
@@ -23941,12 +23920,10 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			} else {
 				$this->rMargin = ( $this->w - $this->columns[ $this->current_column ]['x'] - $this->columns[ $this->current_column ]['w'] );
 			}
-		} else {
-			if ( $this->rtl ) {
+		} elseif ( $this->rtl ) {
 				$this->lMargin = max( $this->clMargin, $this->original_lMargin );
-			} else {
-				$this->rMargin = max( $this->crMargin, $this->original_rMargin );
-			}
+		} else {
+			$this->rMargin = max( $this->crMargin, $this->original_rMargin );
 		}
 		// adjust coordinates and page margins
 		foreach ( $this->page_regions as $regid => $regdata ) {
@@ -25531,19 +25508,17 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$this->PolyLine( $p, $obstyle, array(), array() );
 					}
 					$this->StopTransform();
-				} else { // polygon
-					if ( $clipping ) {
+				} elseif ( $clipping ) { // polygon
 						$this->SVGTransform( $tm );
 						$this->Polygon( $p, 'CNZ', array(), array(), true );
-					} else {
-						$this->StartTransform();
-						$this->SVGTransform( $tm );
-						$obstyle = $this->setSVGStyles( $svgstyle, $prev_svgstyle, $x, $y, $w, $h, 'Polygon', array( $p, 'CNZ' ) );
-						if ( ! empty( $obstyle ) ) {
-							$this->Polygon( $p, $obstyle, array(), array(), true );
-						}
-						$this->StopTransform();
+				} else {
+					$this->StartTransform();
+					$this->SVGTransform( $tm );
+					$obstyle = $this->setSVGStyles( $svgstyle, $prev_svgstyle, $x, $y, $w, $h, 'Polygon', array( $p, 'CNZ' ) );
+					if ( ! empty( $obstyle ) ) {
+						$this->Polygon( $p, $obstyle, array(), array(), true );
 					}
+					$this->StopTransform();
 				}
 				break;
 			}
@@ -25903,7 +25878,6 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 
 		return TCPDF_STATIC::file_exists( $file );
 	}
-
 } // END OF TCPDF CLASS
 
 // ============================================================+

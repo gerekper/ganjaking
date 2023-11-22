@@ -24,18 +24,18 @@ function monthToName( monthInNumber ) {
 
   function last7Days() {
 	  var result = [];
-	  var last_day_orders= [];
+	  //var last_day_orders= [];
 	  var currentDate = '';
 	  var currentMonth = '';
 
-	  alert(last_day_orders);
+	  //alert(last_day_orders);
 	  for( var i = 0; i < 7; i++ ) {
 		  var d = new Date();
-		  if(last_day_orders.length	> 0){
+		 // if(last_day_orders.length	> 0){
 				  currentMonth = last_day_orders['active_months'][i];
 				  currentDate = last_day_orders['last7days'][i];
 				  result.push( currentDate + ' ' + monthToName(currentMonth) );
-		  }
+		 // }
 	  }
 		  return result.reverse();
   }
@@ -68,8 +68,8 @@ function monthToName( monthInNumber ) {
 
   Chart.defaults.global.defaultFontColor = 'white';
   Chart.defaults.global.defaultFontSize = 16;
-  var last_day_orders= [];
-  if(last_day_orders.length	> 0){
+  //var last_day_orders= [];
+ // if(last_day_orders.length	> 0){
   new Chart(document.getElementById("bar-chart-grouped"), {
 	   type: 'bar',
 	   data: {
@@ -93,7 +93,7 @@ function monthToName( monthInNumber ) {
 		   maintainAspectRatio: false
 	   }
   });
-}
+//}
 
   var canvas = document.getElementById("barChart");
 

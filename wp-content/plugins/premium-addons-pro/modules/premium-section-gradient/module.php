@@ -24,6 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	/**
+	 * Load Script
+	 *
+	 * @var $load_assets
+	 */
+	private $load_assets = null;
+
+	/**
 	 * Class Constructor Funcion.
 	 */
 	public function __construct() {
@@ -39,93 +46,63 @@ class Module extends Module_Base {
 			return;
 		}
 
-		// Enqueue the required JS file.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Enqueue the required CSS/JS files.
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );
 
 		// Creates Premium Animated Gradient tab at the end of section layout tab.
 		add_action( 'elementor/element/section/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+
 		add_action( 'elementor/element/column/section_advanced/after_section_end', array( $this, 'register_controls' ), 10 );
 
 		add_action( 'elementor/section/print_template', array( $this, 'print_template' ), 10, 2 );
+
 		add_action( 'elementor/column/print_template', array( $this, 'print_template' ), 10, 2 );
 
-		// insert data before section rendering.
+		// Insert data before section rendering.
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 		add_action( 'elementor/frontend/column/before_render', array( $this, 'before_render' ), 10, 1 );
+
+		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+		add_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+
+		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+			add_action( 'elementor/container/print_template', array( $this, 'print_template' ), 10, 2 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
 
 	}
 
 	/**
 	 * Enqueue scripts.
 	 *
-	 * Registers required dependencies for the extension and enqueues them.
+	 * Enqueue required JS dependencies for the extension.
 	 *
-	 * @since 1.6.5
+	 * @since 2.6.5
 	 * @access public
 	 */
 	public function enqueue_scripts() {
 
-		if ( ( true === \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() ) ) || ( function_exists( 'elementor_location_exits' ) && ( elementor_location_exits( 'archive', true ) || elementor_location_exits( 'single', true ) ) ) ) {
-			wp_add_inline_script(
-				'elementor-frontend',
-				'window.scopes_array = {};
-                window.backend = 0;
+		if ( ! wp_script_is( 'pa-gradient', 'enqueued' ) ) {
+			wp_enqueue_script( 'pa-gradient' );
+		}
 
-                jQuery( window ).on( "elementor/frontend/init", function() {
-                    elementorFrontend.hooks.addAction( "frontend/element_ready/global", function( $scope, $ ){
+	}
 
-                        if ( "undefined" == typeof $scope || ! $scope.hasClass( "premium-gradient-yes" ) ) {
-                            return;
-                        }
+	/**
+	 * Enqueue styles.
+	 *
+	 * Registers required dependencies for the extension and enqueues them.
+	 *
+	 * @since 2.6.5
+	 * @access public
+	 */
+	public function enqueue_styles() {
 
-                        if(elementorFrontend.isEditMode()){
-
-                            window.current_scope = $scope;
-
-                            var url = papro_addons.gradient_url;
-
-                            jQuery.cachedAssets = function( url, options ) {
-                                // Allow user to set any option except for dataType, cache, and url.
-                                options = jQuery.extend( options || {}, {
-                                    dataType: "script",
-                                    cache: true,
-                                    url: url
-                                });
-                                // Return the jqXHR object so we can chain callbacks.
-                                return jQuery.ajax( options );
-                            };
-                            jQuery.cachedAssets( url );
-
-                            window.backend = 1;
-                        } else {
-                            var id = $scope.data("id");
-                            window.scopes_array[ id ] = $scope;
-                        }
-                    });
-                });
-
-                jQuery(document).ready(function(){
-
-                    if ( jQuery.find( ".premium-gradient-yes" ).length < 1 ) {
-                        return;
-                    }
-
-                    var url = papro_addons.gradient_url;
-
-                    jQuery.cachedAssets = function( url, options ) {
-                        // Allow user to set any option except for dataType, cache, and url.
-                        options = jQuery.extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Return the jqXHR object so we can chain callbacks.
-                        return jQuery.ajax( options );
-                    };
-                    jQuery.cachedAssets( url );
-                });	'
-			);
+		if ( ! wp_style_is( 'pa-global', 'enqueued' ) ) {
+			wp_enqueue_style( 'pa-global' );
 		}
 	}
 
@@ -241,14 +218,16 @@ class Module extends Module_Base {
 	 */
 	public function print_template( $template, $widget ) {
 
-		if ( $widget->get_name() !== 'section' && $widget->get_name() !== 'column' ) {
+		if ( $widget->get_name() !== 'section' && $widget->get_name() !== 'container' && $widget->get_name() !== 'column' ) {
 			return $template;
 		}
 
 		$old_template = $template;
 		ob_start();
+
 		?>
 		<# if( 'yes' === settings.premium_gradient_switcher ) {
+
 
 			var gradientSettings = {},
 				colorsArr = [];
@@ -288,13 +267,9 @@ class Module extends Module_Base {
 	 */
 	public function before_render( $element ) {
 
-		$data = $element->get_data();
-
-		$type = $data['elType'];
-
 		$settings = $element->get_settings_for_display();
 
-		if ( ( 'section' === $type || 'column' === $type ) && 'yes' === $settings['premium_gradient_switcher'] && isset( $settings['premium_gradient_colors_repeater'] ) ) {
+		if ( 'yes' === $settings['premium_gradient_switcher'] && isset( $settings['premium_gradient_colors_repeater'] ) ) {
 
 			$grad_angle = ! empty( $settings['premium_gradient_angle'] ) ? $settings['premium_gradient_angle'] : -45;
 
@@ -313,5 +288,36 @@ class Module extends Module_Base {
 
 			$element->add_render_attribute( '_wrapper', 'data-gradient', wp_json_encode( $gradient_settings ) );
 		}
+	}
+
+	/**
+	 * Check Assets Enqueue
+	 *
+	 * Check if the assets files should be loaded.
+	 *
+	 * @since 2.6.3
+	 * @access public
+	 *
+	 * @param object $element for current element.
+	 */
+	public function check_assets_enqueue( $element ) {
+
+		if ( $this->load_assets ) {
+			return;
+		}
+
+		if ( 'yes' === $element->get_settings_for_display( 'premium_gradient_switcher' ) ) {
+
+			$this->enqueue_styles();
+
+			$this->enqueue_scripts();
+
+			$this->load_assets = true;
+
+			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
+
 	}
 }

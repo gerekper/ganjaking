@@ -2767,8 +2767,6 @@ class TCPDF_STATIC {
 		}
 		return $page_mode;
 	}
-
-
 } // END OF TCPDF_STATIC CLASS
 
 // ============================================================+

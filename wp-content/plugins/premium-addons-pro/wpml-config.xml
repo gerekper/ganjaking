@@ -1,0 +1,257 @@
+<wpml-config>
+    <elementor-widgets>
+
+        <widget name="premium-behance-feed">
+            <fields>
+                <field name="Behance Feed: Username" editor_type="LINE">username</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-chart">
+            <fields>
+                <field name="Charts: X-axis Label" editor_type="LINE">x_axis_label</field>
+                <field name="Charts: Data Labels" editor_type="LINE">x_axis_labels</field>
+                <field name="Charts: y-axis Label" editor_type="LINE">y_axis_label</field>
+                <field name="Charts: Title" editor_type="LINE">title</field>
+            </fields>
+            <fields-in-item items_of="y_axis_data">
+                <field name="Charts: Y-axis Data Title" editor_type="LINE">y_axis_column_title</field>
+                <field name="Charts: Y-axis Data URLs" editor_type="LINE">y_axis_urls</field>
+                <field name="Charts: Y-axis Data Data" editor_type="LINE">y_axis_column_data</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-addon-content-toggle">
+            <fields>
+                <field name="Content Switcher: First Label" editor_type="LINE">premium_content_toggle_heading_one</field>
+                <field name="Content Switcher: Second Label" editor_type="LINE">premium_content_toggle_heading_two</field>
+                <field name="Content Switcher: First Template ID" editor_type="LINE">premium_content_toggle_first_content_templates</field>
+                <field name="Content Switcher: Second Template ID" editor_type="LINE">premium_content_toggle_second_content_templates</field>
+                <field name="Content Switcher: First Content" editor_type="AREA">premium_content_toggle_first_content_text</field>
+                <field name="Content Switcher: Second Content" editor_type="AREA">premium_content_toggle_second_content_text</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-divider">
+            <fields>
+                <field name="Divider: Separator Text" editor_type="LINE">content_text</field>
+                <field name="Divider: Link Title" editor_type="LINE">content_link_title</field>
+                <field name="Divider: Separator Link" editor_type="LINK">content_url>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-facebook-feed">
+            <fields>
+                <field name="Facebook Feed: Access Token" editor_type="LINE">access_token</field>
+                <field name="Facebook Feed: User ID/Page Slug" editor_type="LINE">account_id</field>
+                <field name="Facebook Feed: Show more Text" editor_type="LINE" >read_text</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-facebook-reviews">
+            <fields>
+                <field name="Facebook Reviews: Page Name" editor_type="LINE">page_name</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-fb-chat">
+            <fields>
+                <field name="Messanger Chat: Login Message" editor_type="LINE">premium_fbchat_login_msg</field>
+                <field name="Messanger Chat: Logout Message" editor_type="LINE">premium_fbchat_logout_msg</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-addon-flip-box">
+            <fields>
+                <field name="Hover Box: Front Title" editor_type="LINE">premium_flip_paragraph_header</field>
+                <field name="Hover Box: Back Title" editor_type="LINE">premium_flip_back_paragraph_header</field>
+                <field name="Hover Box: Front Description" editor_type="AREA">premium_flip_paragraph_text</field>
+                <field name="Hover Box: Back Description" editor_type="AREA">premium_flip_back_paragraph_text</field>
+                <field name="Hover Box: Link Text" editor_type="LINE">premium_flip_back_link_text</field>
+                <field name="Hover Box: URL" editor_type="LINK">premium_flip_back_link>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-google-reviews">
+            <fields>
+                <field name="Google Reviews: API Key" editor_type="LINE">api_key</field>
+                <field name="Google Reviews: Place ID" editor_type="LINE">place_id</field>
+                <field name="Google Reviews: Language Prefix" editor_type="LINE">language_prefix</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-addon-icon-box">
+            <fields>
+                <field name="Icon Box: Title" editor_type="LINE">premium_icon_box_title</field>
+                <field name="Icon Box: Title" editor_type="LINE">premium_icon_box_label</field>
+                <field name="Icon Box: Description" editor_type="AREA">premium_icon_box_content</field>
+                <field name="Icon Box: Read More Text" editor_type="LINE">premium_icon_box_more_text</field>
+                <field name="Icon Box: URL" editor_type="LINK">premium_icon_box_link>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-ihover">
+            <fields>
+                <field name="iHover: Link Title" editor_type="LINE">premium_ihover_thumbnail_link_text</field>
+                <field name="iHover: Link Title" editor_type="LINE">premium_ihover_thumbnail_back_title</field>
+                <field name="iHover: Link Descrtiption" editor_type="AREA">premium_ihover_thumbnail_back_description</field>
+                <field name="iHover: URL" editor_type="LINK">premium_ihover_thumbnail_url>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-image-accordion">
+            <fields-in-item items_of="image_content">
+                <field name="Image Accordion: Image Title" editor_type="LINE">image_title</field>
+                <field name="Image Accordion: Image Description" editor_type="AREA">image_desc</field>
+                <field name="Image Accordion: Link Title" editor_type="LINE">link_title</field>
+                <field name="Image Accordion: Content Template ID" editor_type="LINE">temp_content</field>
+                <field name="Image Accordion: Image Link" editor_type="LINK">link>url</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-addon-image-comparison">
+            <fields>
+                <field name="Image Comparison: First Label" editor_type="LINE">premium_img_compare_original_img_label</field>
+                <field name="Image Comparison: Second Label" editor_type="LINE">premium_image_comparison_modified_image_label</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-addon-image-hotspots">
+            <fields-in-item items_of="premium_image_hotspots_icons">
+                <field name="Hotspots: Content" editor_type="AREA">premium_image_hotspots_tooltips_texts</field>
+                <field name="Hotspots: Link Title" editor_type="LINE">premium_image_hotspots_link_text</field>
+                <field name="Hotspots: Content Template ID" editor_type="LINE">premium_image_hotspots_tooltips_temp</field>
+                <field name="Hotspots: Hotspot Text" editor_type="LINE">premium_image_hotspots_text</field>
+                <field name="Hotspots: Hotspot Link" editor_type="LINK">premium_image_hotspots_url>url</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-img-layers-addon">
+            <fields-in-item items_of="premium_img_layers_images_repeater">
+                <field name="Image Layers: Text" editor_type="LINE">img_layer_text</field>
+                <field name="Image Layers: Link" editor_type="LINK">premium_img_layers_link>url</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-addon-magic-section">
+            <fields>
+                <field name="Magic Section: Content" editor_type="LINE">premium_magic_section_content</field>
+                <field name="Magic Section: Content Template ID" editor_type="LINE">premium_magic_section_content_temp</field>
+                <field name="Magic Section: Button Text" editor_type="AREA">premium_magic_section_button_text</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-multi-scroll">
+            <fields>
+                <field name="Multi Scroll: Dots Tooltips Text" editor_type="LINE">dots_tooltips</field>
+            </fields>
+            <fields-in-item items_of="left_side_repeater">
+                <field name="Multi Scroll: Left Template ID" editor_type="LINE">left_side_template</field>
+                <field name="Multi Scroll: Right Template ID" editor_type="LINE">right_side_template</field>
+                <field name="Multi Scroll: Left Side Text" editor_type="VISUAL">left_side_text</field>
+                <field name="Multi Scroll: Right Side Text" editor_type="VISUAL">right_side_text</field>
+            </fields-in-item>
+            <fields-in-item items_of="nav_menu_repeater">
+                <field name="Navigation Menu: List Item" editor_type="LINE">nav_menu_item</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-hscroll">
+            <fields>
+                <field name="Horizontal Scroll: Dots Tooltips Text" editor_type="LINE">dots_tooltips</field>
+            </fields>
+            <fields-in-item items_of="section_repeater">
+                <field name="Horizontal Scroll: Section ID" editor_type="LINE">section_id</field>
+                <field name="Horizontal Scroll: Anchor ID" editor_type="LINE">anchor_id</field>
+                <field name="Horizontal Scroll: Section Template" editor_type="LINE">section_template</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-notbar">
+            <fields>
+                <field name="Alert Box: Content Template ID" editor_type="LINE">premium_notbar_content_temp</field>
+                <field name="Alert Box: Content Text" editor_type="AREA">premium_notbar_text</field>
+                <field name="Alert Box: Close Button Text" editor_type="LINE">premium_notbar_close_text</field>
+                <field name="Alert Box: URL" editor_type="LINK">premium_notbar_link>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-addon-preview-image">
+            <fields>
+                <field name="Preview Window: Trigger Text" editor_type="LINE">trigger_text</field>
+                <field name="Preview Window: Contnet Template ID" editor_type="LINE">premium_preview_image_content_temp</field>
+                <field name="Preview Window: Caption" editor_type="LINE">premium_preview_image_caption</field>
+                <field name="Preview Window: Title" editor_type="LINE">premium_preview_image_title</field>
+                <field name="Preview Window: Description" editor_type="AREA">premium_preview_image_desc</field>
+                <field name="Preview Window: URL" editor_type="LINK">premium_preview_image_link>url</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-addon-tabs">
+            <fields-in-item items_of="premium_tabs_repeater">
+                <field name="Tabs: Tab Template ID" editor_type="LINE">premium_tabs_content_temp</field>
+                <field name="Tabs: Tab Content" editor_type="AREA">premium_tabs_content_text</field>
+                <field name="Tabs: Tab Title: Section Template" editor_type="LINE">premium_tabs_title</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-twitter-feed">
+            <fields>
+                <field name="Twitter Feed: Read More Text" editor_type="LINE">read_text</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-yelp-reviews">
+            <fields>
+                <field name="Yelp Reviews: Read More Text" editor_type="LINE">readmore</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-unfold-addon">
+            <fields>
+                <field name="Unfold: Title" editor_type="LINE">premium_unfold_title</field>
+                <field name="Unfold: Content" editor_type="AREA">premium_unfold_content</field>
+                <field name="Unfold: Content Template ID" editor_type="LINE">content_temp</field>
+                <field name="Unfold: Unfold Text" editor_type="LINE">premium_unfold_button_fold_text</field>
+                <field name="Unfold: Fold Text" editor_type="LINE">premium_unfold_button_unfold_text</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-whatsapp-chat">
+            <fields>
+                <field name="Whatsapp: Phone Number" editor_type="LINE">number</field>
+                <field name="Whatsapp: Group ID" editor_type="LINE">group_id</field>
+                <field name="Whatsapp: Button Text" editor_type="LINE">button_text</field>
+                <field name="Whatsapp: Tooltip Text" editor_type="LINE">tooltips_msg</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-tables-addon">
+            <fields>
+                <field name="Table: Search Label" editor_type="LINE">premium_table_search_placeholder</field>
+                <field name="Table: Records Label" editor_type="LINE">premium_table_records_label</field>
+            </fields>
+            <fields-in-item items_of="premium_table_body_repeater">
+                <field name="Table: Cell Text" editor_type="LINE">premium_table_text</field>
+                <field name="Table: Cell Link" editor_type="LINK">premium_table_link>url</field>
+            </fields-in-item>
+            <fields-in-item items_of="premium_table_head_repeater">
+                <field name="Table: Head Text" editor_type="LINE">premium_table_text</field>
+                <field name="Table: Head Link" editor_type="LINK">head_link>url</field>
+            </fields-in-item>
+
+        </widget>
+
+        <widget name="premium-smart-post-listing">
+            <fields>
+                <field name="Smart Post Listing: Empty Query Message" editor_type="LINE">empty_query_text</field>
+                <field name="Smart Post Listing: Post Title" editor_type="LINE">posts_title</field>
+                <field name="Smart Post Listing: Filter Tabs Message" editor_type="LINE">filter_tabs_notice</field>
+                <field name="Smart Post Listing: First Tab Label" editor_type="LINE">first_tab_label</field>
+                <field name="Smart Post Listing: Previous Page String" editor_type="LINE">premium_blog_prev_text</field>
+                <field name="Smart Post Listing: Next Page String" editor_type="LINE">premium_blog_next_text</field>
+            </fields>
+        </widget>
+
+    </elementor-widgets>
+</wpml-config>

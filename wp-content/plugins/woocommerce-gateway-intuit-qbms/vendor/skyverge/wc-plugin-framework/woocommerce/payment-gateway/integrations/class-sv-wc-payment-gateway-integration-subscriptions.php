@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_11_4;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_12;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_4\\SV_WC_Payment_Gateway_Integration_Subscriptions' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_12\\SV_WC_Payment_Gateway_Integration_Subscriptions' ) ) :
 
 
 /**
@@ -98,7 +98,11 @@ class SV_WC_Payment_Gateway_Integration_Subscriptions extends SV_WC_Payment_Gate
 		add_filter( 'woocommerce_my_subscriptions_payment_method', array( $this, 'maybe_render_payment_method' ), 10, 3 );
 
 		// don't copy over order-specific meta to the WC_Subscription object during renewal processing
-		add_filter( 'wcs_renewal_order_meta', array( $this, 'do_not_copy_order_meta' ) );
+		if ( SV_WC_Plugin_Compatibility::is_wc_subscriptions_version_gte( '2.5' ) ) {
+			add_filter( 'wc_subscriptions_renewal_order_data', [ $this, 'do_not_copy_order_meta' ] );
+		} else {
+			add_filter( 'wcs_renewal_order_meta', [ $this, 'do_not_copy_order_meta' ] );
+		}
 
 		// process the Change Payment "transaction"
 		add_filter( 'wc_payment_gateway_' . $this->get_gateway()->get_id() . '_process_payment', array( $this, 'process_change_payment' ), 10, 3 );
@@ -381,7 +385,12 @@ class SV_WC_Payment_Gateway_Integration_Subscriptions extends SV_WC_Payment_Gate
 	 */
 	public function get_order( $order ) {
 
-		$order->description = sprintf( esc_html__( '%1$s - Subscription Renewal Order %2$s', 'woocommerce-plugin-framework' ), wp_specialchars_decode( SV_WC_Helper::get_site_name(), ENT_QUOTES ), $order->get_order_number() );
+		$order->description = sprintf(
+			/* translators: Placeholders: %1$s - Site name, %2$s - Order number */
+			esc_html__( '%1$s - Subscription Renewal Order %2$s', 'woocommerce-plugin-framework' ),
+			wp_specialchars_decode( SV_WC_Helper::get_site_name(), ENT_QUOTES ),
+			$order->get_order_number()
+		);
 
 		// override the payment total with the amount to charge given by Subscriptions
 		$order->payment_total = $this->renewal_payment_total;
@@ -420,23 +429,25 @@ class SV_WC_Payment_Gateway_Integration_Subscriptions extends SV_WC_Payment_Gate
 
 
 	/**
-	 * Don't copy order-specific meta to renewal orders from the WC_Subscription
-	 * object. Generally the subscription object should not have any order-specific
-	 * meta (aside from `payment_token` and `customer_id`) as they are not
-	 * copied during the upgrade (see do_not_copy_order_meta_during_upgrade()), so
-	 * this method is more of a fallback in case meta accidentally is copied.
+	 * Don't copy order-specific meta to renewal orders from the {@see WC_Subscription} object.
+	 *
+	 * Generally the subscription object should not have any order-specific meta (aside from `payment_token` and `customer_id`)
+	 * as they are not copied during the upgrade (see do_not_copy_order_meta_during_upgrade()),
+	 * so this method is more of a fallback in case meta accidentally is copied.
 	 *
 	 * @since 4.1.0
-	 * @param array $order_meta order meta to copy
-	 * @return array
+	 *
+	 * @param array<mixed>|scalar $order_meta order meta to copy
+	 * @return array<mixed>|scalar
 	 */
 	public function do_not_copy_order_meta( $order_meta ) {
 
 		$meta_keys = $this->get_order_specific_meta_keys();
 
-		foreach ( $order_meta as $index => $meta ) {
+		foreach ( (array) $order_meta as $index => $meta ) {
 
-			if ( in_array( $meta['meta_key'], $meta_keys ) ) {
+			// this accounts for different versions of the Subscriptions filter running before and after WooCommerce Subscriptions 2.5
+			if ( in_array( $index, $meta_keys ) || ( isset( $meta['meta_key'] ) && in_array( $meta['meta_key'], $meta_keys ) ) ) {
 				unset( $order_meta[ $index ] );
 			}
 		}
@@ -668,7 +679,14 @@ class SV_WC_Payment_Gateway_Integration_Subscriptions extends SV_WC_Payment_Gate
 		$token = $this->get_gateway()->get_payment_tokens_handler()->get_token( $subscription->get_user_id(), $this->get_gateway()->get_order_meta( $subscription, 'payment_token' ) );
 
 		if ( $token instanceof SV_WC_Payment_Gateway_Payment_Token ) {
-			$payment_method_to_display = sprintf( __( 'Via %s ending in %s', 'woocommerce-plugin-framework' ), $token->get_type_full(), $token->get_last_four() );
+
+			$payment_method_to_display = sprintf(
+				/* translators: Context: Payment made for order. Placeholders: %1$s - Payment method name (e.g. "Credit Card", "PayPal", etc.), %2$s - Last four digits of the card/account used */
+				__( 'Via %1$s ending in %2$s', 'woocommerce-plugin-framework' ),
+				$token->get_type_full(),
+				$token->get_last_four()
+			);
+
 		}
 
 		return $payment_method_to_display;
@@ -884,11 +902,13 @@ class SV_WC_Payment_Gateway_Integration_Subscriptions extends SV_WC_Payment_Gate
 
 		// payment token
 		if ( empty( $meta['post_meta'][ $prefix . 'payment_token' ]['value'] ) ) {
+			/* translators: Context: Error message. Placeholder: %s - Label of the related value */
 			throw new \Exception( sprintf( __( '%s is required.', 'woocommerce-plugin-framework' ), $meta['post_meta'][ $prefix . 'payment_token' ]['label'] ) );
 		}
 
 		// customer ID - optional for some gateways so check if it's set first
 		if ( isset( $meta['post_meta'][ $prefix . 'customer_id'] ) && empty( $meta['post_meta'][ $prefix . 'customer_id' ]['value'] ) ) {
+			/* translators: Context: Error message. Placeholder: %s - Label of the related value */
 			throw new \Exception( sprintf( __( '%s is required.', 'woocommerce-plugin-framework' ), $meta['post_meta'][ $prefix . 'customer_id' ]['label'] ) );
 		}
 	}

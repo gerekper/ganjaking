@@ -47,8 +47,7 @@ class WooCommerce_Product_Search_Thumbnail {
 	public static function init() {
 		add_action( 'after_setup_theme', array( __CLASS__, 'after_setup_theme' ) );
 		add_filter( 'image_downsize', array( __CLASS__, 'image_downsize' ), 10, 3 );
-		add_filter( 'woocommerce_product_settings', array( __CLASS__, 'woocommerce_product_settings' ) );
-		add_action( 'woocommerce_admin_field_wps_thumbnail', array( __CLASS__, 'woocommerce_admin_field_wps_thumbnail' ) );
+
 	}
 
 	/**
@@ -232,76 +231,6 @@ class WooCommerce_Product_Search_Thumbnail {
 			}
 		}
 		return $result;
-	}
-
-	/**
-	 * Product settings
-	 *
-	 * @param array $settings current settings section content
-	 *
-	 * @return array modified settings section
-	 */
-	public static function woocommerce_product_settings( $settings ) {
-
-		$this_setting = null;
-		$i = 0;
-
-		foreach ( $settings as $index => $setting ) {
-			if ( isset( $setting['id'] ) && ( $setting['id'] == 'shop_thumbnail_image_size' ) ) {
-				$this_setting = array(
-					'title' => __( 'Product Search Thumbnail', 'woocommerce-product-search' ),
-					'id'    => self::THUMBNAIL,
-					'type'  => 'wps_thumbnail',
-					'desc'  => __( 'The image size used to display thumbnails of the main product image within search results using the <code>&#91;woocommerce_product_search&#93;</code> shortcode or the <em>Product Search Field</em> widget.', 'woocommerce-product-search' )
-				);
-				break;
-			}
-			$i++;
-		}
-		if ( $this_setting !== null ) {
-			$settings = array_merge( array_slice( $settings, 0, $i + 1 ), array( $this_setting ), array_slice( $settings, $i + 1 ) );
-		}
-		return $settings;
-	}
-
-	/**
-	 * Renders the special field content.
-	 *
-	 * @param array $value holds id, title, type and optionally desc
-	 */
-	public static function woocommerce_admin_field_wps_thumbnail( $value ) {
-
-		$settings = Settings::get_instance();
-
-		$thumbnail_width  = $settings->get( self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
-		$thumbnail_height = $settings->get( self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
-		$thumbnail_crop   = $settings->get( self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
-
-		echo '<tr valign="top">';
-		echo '<th scope="row">';
-		printf( '<label for="%s">%s</label>', esc_attr( $value['id'] ), esc_html( $value['title'] ) );
-		echo '</th>';
-		printf( '<td class="forminp forminp-%s">', esc_attr( $value['type'] ) );
-
-		if ( ! defined( 'WC_VERSION' ) ) {
-			$url = admin_url( 'admin.php?page=woocommerce_settings&tab=product-search' );
-		} else {
-			$url = admin_url( 'admin.php?page=wc-settings&tab=product-search' );
-		}
-		printf(
-			'<em>%d</em> x <em>%d</em> px <em>%s</em> <a href="%s">%s</a>',
-			esc_html( $thumbnail_width ),
-			esc_html( $thumbnail_height ),
-			$thumbnail_crop ? esc_html( __( 'cropped', 'woocommerce-product-search' ) ) : esc_html( __( 'uncropped', 'woocommerce-product-search' ) ),
-			esc_url( $url ),
-			esc_html( __( 'Change', 'woocommerce-product-search' ) )
-		);
-
-		if ( ! empty( $value['desc'] ) ) {
-			echo wp_kses_post( wpautop( wptexturize( $value['desc'] ) ) );
-		}
-		echo '</td>';
-		echo '</tr>';
 	}
 
 	/**

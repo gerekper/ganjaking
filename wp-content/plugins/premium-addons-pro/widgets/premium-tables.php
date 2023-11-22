@@ -11,8 +11,8 @@ namespace PremiumAddonsPro\Widgets;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -33,14 +33,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Tables extends Widget_Base {
 
 	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -60,7 +66,7 @@ class Premium_Tables extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Table', 'premium-addons-pro' ) );
+		return __( 'Table', 'premium-addons-pro' );
 	}
 
 	/**
@@ -96,7 +102,7 @@ class Premium_Tables extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'sheet', 'data', 'advanced', 'dynamic', 'comparison', 'csv', 'google' );
+		return array( 'pa', 'premium', 'sheet', 'data', 'advanced', 'dynamic', 'comparison', 'csv', 'google' );
 	}
 
 	/**
@@ -120,6 +126,7 @@ class Premium_Tables extends Widget_Base {
 	public function get_style_depends() {
 		return array(
 			'premium-addons',
+			'premium-pro',
 		);
 	}
 
@@ -173,11 +180,35 @@ class Premium_Tables extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'text_color',
+			array(
+				'label'     => __( 'Text Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-table-text' => 'color: {{VALUE}} !important;',
+				),
+				'condition' => array_merge( $condition, array() ),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'cell_typography',
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector' => '{{WRAPPER}} .premium-table .premium-table-row th{{CURRENT_ITEM}}.premium-table-cell .premium-table-text, {{WRAPPER}} .premium-table .premium-table-row td{{CURRENT_ITEM}}.premium-table-cell .premium-table-text',
+			)
+		);
+
+		$repeater->add_control(
 			'premium_table_icon_selector',
 			array(
 				'label'       => __( 'Icon Type', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'font-awesome-icon',
+				'separator'   => 'before',
 				'label_block' => true,
 				'options'     => array(
 					'font-awesome-icon' => __( 'Font Awesome Icon', 'premium-addons-pro' ),
@@ -298,6 +329,23 @@ class Premium_Tables extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-table-text i' => 'color: {{VALUE}} !important',
+				),
+				'condition' => array_merge(
+					$condition,
+					array(
+						'premium_table_icon_selector' => 'font-awesome-icon',
+					)
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'premium_table_cell_icon_spacing',
 			array(
 				'label'     => __( 'Icon Spacing', 'premium-addons-pro' ),
@@ -318,6 +366,7 @@ class Premium_Tables extends Widget_Base {
 				'label'     => __( 'Row Span', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::NUMBER,
 				'title'     => __( 'Enter the number of rows for the cell', 'premium-addons-pro' ),
+				'separator' => 'before',
 				'default'   => 1,
 				'min'       => 1,
 				'max'       => 10,
@@ -343,28 +392,29 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'                => __( 'Alignment', 'premium-addons-pro' ),
 				'type'                 => Controls_Manager::CHOOSE,
+				'separator'            => 'before',
 				'options'              => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors_dictionary' => array(
-					'left'   => 'flex-start',
-					'center' => 'center',
-					'right'  => 'flex-end',
+					'left'   => 'justify-content: flex-start; text-align: left',
+					'center' => 'justify-content: center; text-align: center',
+					'right'  => 'justify-content: flex-end; text-align: right',
 				),
 				'default'              => 'left',
 				'selectors'            => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-table-text' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-table-text' => '{{VALUE}};',
 				),
 				'condition'            => array_merge(
 					$condition,
@@ -383,15 +433,15 @@ class Premium_Tables extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'left',
@@ -415,7 +465,7 @@ class Premium_Tables extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_table_data_section',
@@ -812,7 +862,7 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'      => __( 'Width', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
+				'size_units' => array( 'px', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -852,15 +902,15 @@ class Premium_Tables extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -887,6 +937,20 @@ class Premium_Tables extends Widget_Base {
 				'description'        => __( 'Enables sorting with respect to the table heads.', 'premium-addons-pro' ),
 				'frontend_available' => true,
 				'condition'          => array(
+					'premium_table_data_type!' => 'csv',
+				),
+			)
+		);
+
+		$this->add_control(
+			'us_numbers',
+			array(
+				'label'              => __( 'US Numbers Format', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Enable this if you are using US formatted numbers. For instance, 1,234,567.89', 'premium-addons-pro' ),
+				'frontend_available' => true,
+				'condition'          => array(
+					'premium_table_sort'       => 'yes',
 					'premium_table_data_type!' => 'csv',
 				),
 			)
@@ -961,15 +1025,15 @@ class Premium_Tables extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'right',
@@ -991,15 +1055,15 @@ class Premium_Tables extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'right',
@@ -1043,15 +1107,15 @@ class Premium_Tables extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -1073,11 +1137,11 @@ class Premium_Tables extends Widget_Base {
 				'options'      => array(
 					'ltr' => array(
 						'title' => __( 'LTR', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-right',
+						'icon'  => 'eicon-arrow-right',
 					),
 					'rtl' => array(
 						'title' => __( 'RTL', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-left',
+						'icon'  => 'eicon-arrow-left',
 					),
 				),
 				'selectors'    => array(
@@ -1144,9 +1208,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text' => 'color: {{VALUE}};',
@@ -1159,9 +1222,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text:hover' => 'color: {{VALUE}};',
@@ -1174,9 +1236,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text i' => 'color: {{VALUE}};',
@@ -1191,7 +1252,9 @@ class Premium_Tables extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_table_odd_head_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text',
 			)
 		);
@@ -1258,25 +1321,25 @@ class Premium_Tables extends Widget_Base {
 				'options'              => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'              => 'left',
 				'selectors_dictionary' => array(
-					'left'   => 'flex-start',
-					'center' => 'center',
-					'right'  => 'flex-end',
+					'left'   => 'justify-content: flex-start; text-align: left',
+					'center' => 'justify-content: center; text-align: center',
+					'right'  => 'justify-content: flex-end; text-align: right',
 				),
 				'selectors'            => array(
-					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(odd) .premium-table-text' => '{{VALUE}};',
 				),
 				'condition'            => array(
 					'premium_table_data_type' => 'csv',
@@ -1298,9 +1361,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text' => 'color: {{VALUE}};',
@@ -1313,9 +1375,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text:hover' => 'color: {{VALUE}};',
@@ -1328,9 +1389,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text i' => 'color: {{VALUE}};',
@@ -1345,7 +1405,9 @@ class Premium_Tables extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_table_even_head_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text',
 			)
 		);
@@ -1412,25 +1474,25 @@ class Premium_Tables extends Widget_Base {
 				'options'              => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'              => 'left',
 				'selectors_dictionary' => array(
-					'left'   => 'flex-start',
-					'center' => 'center',
-					'right'  => 'flex-end',
+					'left'   => 'justify-content: flex-start; text-align: left',
+					'center' => 'justify-content: center; text-align: center',
+					'right'  => 'justify-content: flex-end; text-align: right',
 				),
 				'selectors'            => array(
-					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-table .premium-table-row th.premium-table-cell:nth-child(even) .premium-table-text' => '{{VALUE}};',
 				),
 				'condition'            => array(
 					'premium_table_data_type' => 'csv',
@@ -1487,9 +1549,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(odd) .premium-table-cell .premium-table-text' => 'color: {{VALUE}};',
@@ -1504,9 +1565,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(odd) .premium-table-cell .premium-table-text:hover' => 'color: {{VALUE}};',
@@ -1520,9 +1580,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(odd) .premium-table-cell .premium-table-text i' => 'color: {{VALUE}};',
@@ -1537,7 +1596,9 @@ class Premium_Tables extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_table_odd_row_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-table tbody tr:nth-of-type(odd) .premium-table-cell .premium-table-text',
 			)
 		);
@@ -1610,9 +1671,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(even) .premium-table-cell .premium-table-text' => 'color: {{VALUE}};',
@@ -1626,9 +1686,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(even) .premium-table-cell .premium-table-text:hover' => 'color: {{VALUE}};',
@@ -1642,9 +1701,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table tbody tr:nth-of-type(even) .premium-table-cell .premium-table-text i' => 'color: {{VALUE}};',
@@ -1659,7 +1717,9 @@ class Premium_Tables extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_table_even_row_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-table tbody tr:nth-of-type(even) .premium-table-cell .premium-table-text',
 			)
 		);
@@ -1816,25 +1876,25 @@ class Premium_Tables extends Widget_Base {
 				'options'              => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'              => 'left',
 				'selectors_dictionary' => array(
-					'left'   => 'flex-start',
-					'center' => 'center',
-					'right'  => 'flex-end',
+					'left'   => 'justify-content: flex-start; text-align: left',
+					'center' => 'justify-content: center; text-align: center',
+					'right'  => 'justify-content: flex-end; text-align: right',
 				),
 				'selectors'            => array(
-					'{{WRAPPER}} .premium-table .premium-table-row .premium-table-cell:nth-child(odd) .premium-table-text' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-table .premium-table-row .premium-table-cell:nth-child(odd) .premium-table-text' => '{{VALUE}};',
 				),
 				'condition'            => array(
 					'premium_table_data_type' => 'csv',
@@ -1905,25 +1965,25 @@ class Premium_Tables extends Widget_Base {
 				'options'              => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'              => 'left',
 				'selectors_dictionary' => array(
-					'left'   => 'flex-start',
-					'center' => 'center',
-					'right'  => 'flex-end',
+					'left'   => 'justify-content: flex-start; text-align: left',
+					'center' => 'justify-content: center; text-align: center',
+					'right'  => 'justify-content: flex-end; text-align: right',
 				),
 				'selectors'            => array(
-					'{{WRAPPER}} .premium-table .premium-table-row td.premium-table-cell:nth-child(even) .premium-table-text' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-table .premium-table-row td.premium-table-cell:nth-child(even) .premium-table-text' => '{{VALUE}};',
 				),
 				'condition'            => array(
 					'premium_table_data_type' => 'csv',
@@ -1954,9 +2014,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table thead .premium-table-cell .premium-table-sort-icon:before' => 'color: {{VALUE}};',
@@ -1969,9 +2028,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table thead .premium-table-cell:hover .premium-table-sort-icon:before' => 'color: {{VALUE}};',
@@ -1984,9 +2042,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Background', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table thead .premium-table-cell .premium-table-sort-icon:before' => 'background: {{VALUE}};',
@@ -2052,7 +2109,7 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'      => __( 'Width', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'em' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -2074,9 +2131,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Input Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table-search-field' => 'color: {{VALUE}};',
@@ -2163,7 +2219,7 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'      => __( 'Width', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%', 'em' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 50,
@@ -2185,9 +2241,8 @@ class Premium_Tables extends Widget_Base {
 			array(
 				'label'     => __( 'Options Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-table-records-box' => 'color: {{VALUE}};',
@@ -2285,7 +2340,9 @@ class Premium_Tables extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'pagination_typography',
-				'scheme'   => Typography::TYPOGRAPHY_4,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
+				),
 				'selector' => '{{WRAPPER}} .premium-table-pagination ul li > .page-numbers',
 			)
 		);
@@ -2559,30 +2616,26 @@ class Premium_Tables extends Widget_Base {
 						if ( 'yes' === $head_cell['head_link_switcher'] ) {
 							$html_tag = 'a';
 							if ( 'url' === $head_cell['head_link_selection'] ) {
-								$this->add_render_attribute( 'head-text-' . $index, 'href', $head_cell['head_link']['url'] );
+								$this->add_link_attributes( 'head-text-' . $index, $head_cell['head_link'] );
 							} else {
 								$this->add_render_attribute( 'head-text-' . $index, 'href', get_permalink( $head_cell['head_existing_link'] ) );
 							}
-							if ( $head_cell['head_link']['is_external'] ) {
-								$this->add_render_attribute( 'head-text-' . $index, 'target', '_blank' );
-							}
-							if ( $head_cell['head_link']['nofollow'] ) {
-								$this->add_render_attribute( 'head-text-' . $index, 'rel', 'nofollow' );
-							}
 						}
 
-						$this->add_render_attribute( 'head-cell-' . $index, 'class', 'premium-table-cell' );
-						$this->add_render_attribute( 'head-cell-' . $index, 'class', 'elementor-repeater-item-' . $head_cell['_id'] );
+						$this->add_render_attribute(
+							'head-cell-' . $index,
+							'class',
+							array(
+								'premium-table-cell',
+								'elementor-repeater-item-' . $head_cell['_id'],
+							)
+						);
 
 						$this->add_render_attribute( 'head-text-' . $index, 'class', 'premium-table-text' );
 
 						if ( 'top' === $head_cell['premium_table_cell_icon_align'] ) {
 							$this->add_render_attribute( 'head-text-' . $index, 'class', 'premium-table-cell-top' );
 						}
-
-						$this->add_render_attribute( $head_cell_text, 'class', 'premium-table-inner' );
-
-						$this->add_inline_editing_attributes( $head_cell_text, 'basic' );
 
 						if ( $head_cell['premium_table_cell_span'] > 1 ) {
 							$this->add_render_attribute( 'head-cell-' . $index, 'colspan', $head_cell['premium_table_cell_span'] );
@@ -2625,7 +2678,7 @@ class Premium_Tables extends Widget_Base {
 							$head .= '</span>';
 						}
 
-						$head .= '<span ' . $this->get_render_attribute_string( $head_cell_text ) . '>' . $head_cell['premium_table_text'] . '</span>';
+						$head .= $head_cell['premium_table_text'];
 						if ( 'yes' === $settings['premium_table_sort'] ) {
 							$head .= '<span class="premium-table-sort-icon premium-icon-sort fa fa-sort"></span>';
 							$head .= '<span class="premium-table-sort-icon premium-icon-sort-up fa fa-sort-up"></span>';
@@ -2707,15 +2760,9 @@ class Premium_Tables extends Widget_Base {
 				if ( 'yes' === $elem['premium_table_link_switcher'] ) {
 					$html_tag = 'a';
 					if ( 'url' === $elem['premium_table_link_selection'] ) {
-						$this->add_render_attribute( 'body-cell-text-' . $counter, 'href', $elem['premium_table_link']['url'] );
+						$this->add_link_attributes( 'body-cell-text-' . $counter, $elem['premium_table_link'] );
 					} else {
 						$this->add_render_attribute( 'body-cell-text-' . $counter, 'href', get_permalink( $elem['premium_table_existing_link'] ) );
-					}
-					if ( $elem['premium_table_link']['is_external'] ) {
-						$this->add_render_attribute( 'body-cell-text-' . $counter, 'target', '_blank' );
-					}
-					if ( $elem['premium_table_link']['nofollow'] ) {
-						$this->add_render_attribute( 'body-cell-text-' . $counter, 'rel', 'nofollow' );
 					}
 				}
 
@@ -2729,12 +2776,6 @@ class Premium_Tables extends Widget_Base {
 						$this->add_render_attribute( 'body-cell-text-' . $counter, 'class', 'premium-table-cell-top' );
 					}
 
-					$this->add_render_attribute( $body_cell_text, 'class', 'premium-table-inner' );
-
-					$this->add_inline_editing_attributes( $body_cell_text, 'basic' );
-					if ( $elem['_id'] ) {
-						$this->add_render_attribute( 'body-cell-' . $counter, 'id', $elem['_id'] );
-					}
 					if ( $elem['premium_table_cell_span'] > 1 ) {
 						$this->add_render_attribute( 'body-cell-' . $counter, 'colspan', $elem['premium_table_cell_span'] );
 					}
@@ -2777,8 +2818,8 @@ class Premium_Tables extends Widget_Base {
 
 						$body .= '</span>';
 					}
-					$body .= '<span ' . $this->get_render_attribute_string( $body_cell_text ) . '>' . $elem['premium_table_text'] . '</span>';
-					$body .= '</span>';
+					$body .= $elem['premium_table_text'];
+					// $body .= '</span>';
 					$body .= '</' . $html_tag . '>';
 					$body .= '</' . $elem['premium_table_cell_type'] . '>';
 				} else {
@@ -2844,6 +2885,7 @@ class Premium_Tables extends Widget_Base {
 
 		$table_settings = array(
 			'sort'       => ( 'yes' === $settings['premium_table_sort'] ) ? true : false,
+			'usNumbers'  => ( 'yes' === $settings['us_numbers'] ) ? true : false,
 			'sortMob'    => ( 'yes' === $settings['premium_table_sort_mob'] ) ? true : false,
 			'search'     => ( 'yes' === $settings['premium_table_search'] ) ? true : false,
 			'records'    => ( 'yes' === $settings['premium_table_records'] ) ? true : false,
@@ -2863,7 +2905,6 @@ class Premium_Tables extends Widget_Base {
 		$this->add_render_attribute( 'table', 'data-settings', wp_json_encode( $table_settings ) );
 
 		if ( 'yes' === $settings['premium_table_search'] ) {
-			$this->add_render_attribute( 'search', 'id', 'premium-table-search-field' );
 			$this->add_render_attribute( 'search', 'class', 'premium-table-search-field' );
 			$this->add_render_attribute( 'search', 'type', 'text' );
 			$this->add_render_attribute( 'search', 'placeholder', $settings['premium_table_search_placeholder'] );
@@ -2872,37 +2913,40 @@ class Premium_Tables extends Widget_Base {
 		?>
 
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'table_wrap' ) ); ?>>
-			<div class="premium-table-filter">
-			<?php if ( 'yes' === $settings['premium_table_search'] ) : ?>
-				<div class="premium-table-search-wrap">
-					<input <?php echo wp_kses_post( $this->get_render_attribute_string( 'search' ) ); ?>>
-				</div>
-			<?php endif; ?>
-			<?php if ( 'yes' === $settings['premium_table_records'] && 'custom' === $settings['premium_table_data_type'] ) : ?>
-				<div class="premium-table-records-wrap">
-					<label class="premium-table-label-records">
-						<?php echo wp_kses_post( $settings['premium_table_records_label'] ); ?>
-						</label>
-					<select class="premium-table-records-box">
-						<?php
-							$rows = 0;
-						foreach ( $settings['premium_table_body_repeater'] as $element ) {
-							if ( 'row' === $element['premium_table_elem_type'] ) {
-								$rows++;
-								if ( 1 === $rows ) {
-									?>
-									<option value="1" selected="selected"><?php echo esc_html( __( 'All', 'premium-addons-pro' ) ); ?></option>
-								<?php } else { ?>
-									<option value="<?php echo esc_attr( $rows ); ?>"><?php echo wp_kses_post( $rows - 1 ); ?></option>
-									<?php
+			<?php if ( 'yes' === $settings['premium_table_search'] || 'yes' === $settings['premium_table_records'] ) : ?>
+				<div class="premium-table-filter">
+					<?php if ( 'yes' === $settings['premium_table_search'] ) : ?>
+						<div class="premium-table-search-wrap">
+							<input <?php echo wp_kses_post( $this->get_render_attribute_string( 'search' ) ); ?>>
+						</div>
+					<?php endif; ?>
+					<?php if ( 'yes' === $settings['premium_table_records'] && 'custom' === $settings['premium_table_data_type'] ) : ?>
+						<div class="premium-table-records-wrap">
+							<label class="premium-table-label-records">
+								<?php echo wp_kses_post( $settings['premium_table_records_label'] ); ?>
+								</label>
+							<select class="premium-table-records-box">
+								<?php
+									$rows = 0;
+								foreach ( $settings['premium_table_body_repeater'] as $element ) {
+									if ( 'row' === $element['premium_table_elem_type'] ) {
+										$rows++;
+										if ( 1 === $rows ) {
+											?>
+											<option value="1" selected="selected"><?php echo esc_html( __( 'All', 'premium-addons-pro' ) ); ?></option>
+										<?php } else { ?>
+											<option value="<?php echo esc_attr( $rows ); ?>"><?php echo wp_kses_post( $rows - 1 ); ?></option>
+											<?php
+										}
+									}
 								}
-							}
-						}
-						?>
-					</select>
+								?>
+							</select>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			</div>
+
 			<table <?php echo wp_kses_post( $this->get_render_attribute_string( 'table' ) ); ?> >
 
 			<?php
@@ -2969,6 +3013,7 @@ class Premium_Tables extends Widget_Base {
 			var tableSettings = {};
 
 			tableSettings.sort = 'yes' === settings.premium_table_sort ? true : false;
+			tableSettings.usNumbers = 'yes' === settings.us_numbers ? true : false;
 			tableSettings.sortMob = 'yes' === settings.premium_table_sort_mob ? true : false;
 			tableSettings.search  = 'yes' === settings.premium_table_search ? true : false;
 			tableSettings.records = 'yes' === settings.premium_table_records ? true : false;
@@ -2976,6 +3021,8 @@ class Premium_Tables extends Widget_Base {
 			tableSettings.csvFile   = 'file' === settings.premium_table_csv_type ? settings.premium_table_csv.url : settings.premium_table_csv_url;
 			tableSettings.firstRow  = settings.premium_table_csv_first_row;
 			tableSettings.separator = settings.premium_table_separator;
+			tableSettings.pagination = settings.pagination;
+			tableSettings.rows = settings.rows_per_page;
 
 
 			if( 'csv' === settings.premium_table_data_type ) {
@@ -2986,7 +3033,6 @@ class Premium_Tables extends Widget_Base {
 			view.addRenderAttribute('table', 'data-settings', JSON.stringify(tableSettings));
 
 			if( 'yes' === settings.premium_table_search ) {
-				view.addRenderAttribute('search', 'id', 'premium-table-search-field' );
 				view.addRenderAttribute('search', 'class', 'premium-table-search-field' );
 				view.addRenderAttribute('search', 'type', 'text' );
 				view.addRenderAttribute('search', 'placeholder', settings.premium_table_search_placeholder );
@@ -3034,7 +3080,6 @@ class Premium_Tables extends Widget_Base {
 						}
 
 						view.addRenderAttribute(headCellText, 'class', 'premium-table-inner');
-
 						view.addInlineEditingAttributes(headCellText, 'basic');
 
 						if( headCell.premium_table_cell_span > 1 ){
@@ -3146,11 +3191,8 @@ class Premium_Tables extends Widget_Base {
 							}
 
 							view.addRenderAttribute(bodyCellText, 'class', 'premium-table-inner');
-
 							view.addInlineEditingAttributes(bodyCellText, 'basic');
-							if( bodyCell._id ){
-								view.addRenderAttribute('body-cell-' + counter, 'id', bodyCell._id);
-							}
+
 							if( bodyCell.premium_table_cell_span > 1 ){
 								view.addRenderAttribute('body-cell-' + counter, 'colspan', bodyCell.premium_table_cell_span);
 							}

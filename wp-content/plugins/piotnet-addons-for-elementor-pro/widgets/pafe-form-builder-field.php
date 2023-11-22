@@ -4785,6 +4785,100 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
+        //Option style for Select Autocompleted
+        $this->start_controls_section(
+			'pafe_select_auto_completed_style',
+			[
+				'label' => __( 'Select Autocomplete Options', 'pafe' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+				'condition' =>[
+					'field_type' => 'select_autocomplete'
+				]
+			]
+		);
+        $this->start_controls_tabs('pafe_autocomplete_tab');
+        $this->start_controls_tab(
+			'pafe_style_select_autocomplete_normal',
+			[
+				'label' => __( 'Normal', 'elementor' ),
+			]
+		);
+        $this->add_control(
+			'pafe_select_auto_completed_color',
+			[
+				'label' => __( 'Color', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown .selectize-dropdown-content' => 'color: {{VALUE}}',
+				],
+			]
+		);
+        $this->add_control(
+			'pafe_select_auto_completed_bg_color',
+			[
+				'label' => __( 'Background Color', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown.elementor-field-textual' => 'background-color: {{VALUE}} !important;',
+                    '{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown.elementor-field-textual .selectize-dropdown-content' => 'background-color: {{VALUE}} !important;',
+				],
+			]
+		);
+        $this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'select_autocompleted',
+				'label' => __( 'Typography', 'pafe' ),
+				'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown .selectize-dropdown-content .option',
+			]
+		);
+        $this->end_controls_tab();
+        $this->start_controls_tab(
+			'pafe_style_select_autocomplete_hover',
+			[
+				'label' => __( 'Hover', 'elementor' ),
+			]
+		);
+        $this->add_control(
+			'pafe_select_auto_completed_hover_color',
+			[
+				'label' => __( 'Color', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown .selectize-dropdown-content:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+        $this->add_control(
+			'pafe_select_auto_completed_hover_bg_color',
+			[
+				'label' => __( 'Background Color', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+                    '{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown.elementor-field-textual .selectize-dropdown-content .active' => 'background-color: {{VALUE}} !important;',
+				],
+			]
+		);
+        $this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'select_autocompleted_active',
+				'label' => __( 'Typography', 'pafe' ),
+				'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field .selectize-control .selectize-dropdown .selectize-dropdown-content .option:hover',
+			]
+		);
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        //Tạo tab
+        // $this->add_group_control(
+		// 	\Elementor\Group_Control_Background::get_type(),
+		// 	[
+		// 		'name' => 'pafe_select_auto_completed_bg_color',
+		// 		'types' => [ 'classic', 'gradient'],
+		// 		'selector' => '{{WRAPPER}} ',
+		// 	]
+		// );
+        $this->end_controls_section();
 		//
 		$this->start_controls_section(
 			'section_style_piotnet_form_show_password',
@@ -5211,9 +5305,6 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 					list( $option_label, $option_value ) = explode( '|', $option );
 				}
 
-                if ($terms_select && !empty($item['field_required'])) {
-                    $this->add_render_attribute( $element_id, 'required', 'required' );
-                }
 				$this->add_render_attribute(
 					$element_id,
 					[

@@ -12,8 +12,8 @@ class WC_Dropshipping_Orders {
 		add_action( 'woocommerce_order_actions', array( $this, 'add_order_meta_box_order_processing' ) );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'order_processing' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'order_complete' ) );
-		// add_action( 'woocommerce_order_status_changed', array($this,'grab_order_old_status'), 10, 4 );
-		add_action( 'woocommerce_order_status_cancelled', array( $this, 'order_cancelled' ) );
+		add_action( 'woocommerce_order_status_changed', array($this,'grab_order_old_status'), 10, 4 );
+		// add_action( 'woocommerce_order_status_cancelled', array( $this, 'order_cancelled' ) );
 		add_action( 'woocommerce_order_action_resend_dropship_supplier_notifications', array( $this, 'order_processing' ) );
 		add_action( 'wc_dropship_manager_send_order', array( $this, 'send_order' ), 10, 2 );
 		add_filter( 'wp_mail_content_type', array( $this, 'wpse27856_set_content_type' ) );
@@ -69,24 +69,27 @@ class WC_Dropshipping_Orders {
 
 	// Below function to send an email when order status cancelled.
 
-	/*
+
+	/** 
+	*	Function is for grab_order_old_status.
+	*/
 	public function grab_order_old_status( $order_id, $status_from, $status_to, $order ) {
 		$order = new WC_Order( $order_id );
 
-		if($status_from == "completed" && $status_to == "cancelled"){
-		   $this->notify_warehouse($order);
-	   }elseif($status_from == "processing" && $status_to == "cancelled"){
-			$this->notify_warehouse($order);
-		}else{
-
+		if ( 'completed' == $status_from && 'cancelled' == $status_to ) {
+			$this->notify_warehouse( $order );
+		} elseif ( 'processing' == $status_from  && 'cancelled' == $status_to ) {
+			$this->notify_warehouse( $order );
+		} elseif ( 'on-hold' == $status_from   && 'cancelled' == $status_to ) {
+			// Do Nothing
 		}
-	}*/
-
-
-	public function order_cancelled( $order_id ) {
-		$order = new WC_Order( $order_id ); // load the order from woocommerce
-		$this->notify_warehouse( $order );
 	}
+
+
+	// public function order_cancelled( $order_id ) {
+	// 	$order = new WC_Order( $order_id ); // load the order from woocommerce
+	// 	$this->notify_warehouse( $order );
+	// }
 	/*
 	 Notify Suppliers */
 	// perform all tasks that happen once an order is set to processing
@@ -312,7 +315,7 @@ class WC_Dropshipping_Orders {
 				$supid = get_post_meta( $item['product_id'], 'supplierid', true );
 				if ( $supid != '' || ! is_null( $supid ) ) {
 					update_post_meta( $item_id, 'supplierid', $supid );
-					update_post_meta( $order->get_id(), 'supplier_' . $supid, $sup_name );
+					opmc_hpos_update_post_meta( $order->get_id(), 'supplier_' . $supid, $sup_name );
 				}
 				$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
 				if ( isset( $ds['id'] ) && $ds['id'] > 0 ) {
@@ -370,7 +373,7 @@ class WC_Dropshipping_Orders {
 	public function make_pdf( $order_info, $supplier_info, $html, $file_name ) {
 		// Include TCPDF library
 		if ( ! class_exists( 'TCPDF' ) ) {
-			require_once( wc_dropshipping_get_base_path() . '/lib/tcpdf_min/tcpdf.php' );
+			require_once wc_dropshipping_get_base_path() . '/lib/tcpdf_min/tcpdf.php';
 		}
 		$options = get_option( 'wc_dropship_manager' );
 		$logourl = $options['packing_slip_url_to_logo'];
@@ -563,13 +566,11 @@ class WC_Dropshipping_Orders {
 			  User can override the default packingslip PDF by creating a "dropship_manager" directory
 				inside their theme's directory and placing a custom packingslip.html there */
 			$templatepath = get_stylesheet_directory() . '/wc_dropship_manager/' . $filename;
-		} else {
-			if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+		} elseif ( class_exists( 'WC_DS_Settings_Pro' ) ) {
 				$data = '';
 				$templatepath = apply_filters( 'add_packingslip_file_dropshipping_pro', $data );
-			} else {
-				$templatepath = wc_dropshipping_get_base_path() . $filename;
-			}
+		} else {
+			$templatepath = wc_dropshipping_get_base_path() . $filename;
 		}
 		return $this->get_template_html( $templatepath, $order_info, $supplier_info );
 	}
@@ -608,13 +609,11 @@ class WC_Dropshipping_Orders {
 			  User can override the default packingslip PDF by creating a "dropship_manager" directory
 				inside their theme's directory and placing a custom packingslip.html there */
 			$templatepath = get_stylesheet_directory() . '/wc_dropship_manager/' . $filename;
-		} else {
-			if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+		} elseif ( class_exists( 'WC_DS_Settings_Pro' ) ) {
 				$data = '';
 				$templatepath = apply_filters( 'add_packingslip_file_dropshipping_pro', $data );
-			} else {
-				$templatepath = wc_dropshipping_get_base_path() . $filename;
-			}
+		} else {
+			$templatepath = wc_dropshipping_get_base_path() . $filename;
 		}
 		return $this->get_template_html( $templatepath, $order_info, $supplier_info );
 	}
@@ -622,7 +621,7 @@ class WC_Dropshipping_Orders {
 		$html = '';
 		ob_start();
 		if ( file_exists( $templatepath ) ) {
-			include( $templatepath );
+			include $templatepath;
 		} else {
 			echo '<b>Template ' . $templatepath . ' not found!</b>';
 		}
@@ -641,11 +640,9 @@ class WC_Dropshipping_Orders {
 			$renewal_order = wcs_get_subscriptions_for_renewal_order( $order_info['id'] );
 			if ( empty( $renewal_order ) ) {
 				$this->_send_order( $order_info, $supplier_info );
-			} else {
-				if ( isset( $options['renewal_email'] ) ) {
-					if ( $options['renewal_email'] != 1 ) {
-						$this->_send_order( $order_info, $supplier_info );
-					}
+			} elseif ( isset( $options['renewal_email'] ) ) {
+				if ( $options['renewal_email'] != 1 ) {
+					$this->_send_order( $order_info, $supplier_info );
 				}
 			}
 		} else {
@@ -713,11 +710,11 @@ class WC_Dropshipping_Orders {
 			if ( $order->get_status() == 'processing' ) {
 				if ( $complete_url == '1' ) {
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-			    	<tr><td style="text-align: center;">' . sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping' ), '' ) . '<br/><a href="' . get_home_url() . '/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid=' . $order_info['custom_order_number'] . '&supplierid=' . $supplier_info['id'] . '">' . sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping' ), '' ) . '</a></td></tr></table>';
+			    	<tr><td style="text-align: center;">' . sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping' ), '' ) . '<br/><a href="' . get_home_url() . '/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid=' . $order_info['custom_order_number'] . '&supplierid=' . $supplier_info['id'] . '">' . sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping' ), '' ) . '</a></td></tr></table>';
 				}
 				if ( $order_email == '1' ) {
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-			    	<tr><td style="text-align: center;"><a href="' . get_home_url() . '/admin.php?page=dropshipper-order-list">' . sprintf( __( 'View order in dashboard', 'woocommerce-dropshipping' ), '' ) . '</a></td></tr></table>';
+			    	<tr><td style="text-align: center;"><a href="' . get_home_url() . '/wp-admin/admin.php?page=dropshipper-order-list">' . sprintf( __( 'View order in dashboard', 'woocommerce-dropshipping' ), '' ) . '</a></td></tr></table>';
 
 				}
 			}
@@ -915,10 +912,11 @@ class WC_Dropshipping_Orders {
 					$uniqe_userid = array_unique( $arrayuser );
 					foreach ( $uniqe_userid as $key => $value ) {
 						$dropshipper_shipping_info = get_post_meta( $postid, 'dropshipper_shipping_info_' . $value, true );
-						$track_no = $dropshipper_shipping_info['tracking_number'];
+						
 						$supplier_id = get_user_meta( $value, 'supplier_id', true );
 						$term = get_term_by( 'id', $supplier_id, 'dropship_supplier' );
 						if ( $dropshipper_shipping_info ) {
+							$track_no = $dropshipper_shipping_info['tracking_number'];
 							echo 'Tracking Number(s): ' . $track_no;
 						} else {
 							echo '';

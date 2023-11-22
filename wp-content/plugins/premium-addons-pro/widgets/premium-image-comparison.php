@@ -11,8 +11,8 @@ namespace PremiumAddonsPro\Widgets;
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -58,7 +58,7 @@ class Premium_Image_Comparison extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Image Comparison', 'premium-addons-pro' ) );
+		return __( 'Image Comparison', 'premium-addons-pro' );
 	}
 
 	/**
@@ -71,6 +71,20 @@ class Premium_Image_Comparison extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'pa-pro-image-comparison';
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -103,6 +117,18 @@ class Premium_Image_Comparison extends Widget_Base {
 	}
 
 	/**
+	 * Retrieve Widget Keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return string Widget keywords.
+	 */
+	public function get_keywords() {
+		return array( 'pa', 'premium', 'compare', 'before', 'after', 'slider' );
+	}
+
+	/**
 	 * Retrieve Widget Support URL.
 	 *
 	 * @access public
@@ -119,7 +145,7 @@ class Premium_Image_Comparison extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_img_compare_original_image_section',
@@ -173,15 +199,15 @@ class Premium_Image_Comparison extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'condition' => array(
@@ -197,7 +223,7 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -209,7 +235,7 @@ class Premium_Image_Comparison extends Widget_Base {
 					'premium_image_comparison_orientation' => 'horizontal',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-before-label' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-before-label' => 'left: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -222,15 +248,15 @@ class Premium_Image_Comparison extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'middle' => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'condition' => array(
@@ -246,7 +272,7 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -258,7 +284,7 @@ class Premium_Image_Comparison extends Widget_Base {
 					'premium_image_comparison_orientation' => 'vertical',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-before-label' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-before-label' => 'top: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -312,28 +338,27 @@ class Premium_Image_Comparison extends Widget_Base {
 		$this->add_control(
 			'premium_img_compare_modified_hor_label_position',
 			array(
-				'label'       => __( 'Horizontal Position', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::CHOOSE,
-				'options'     => array(
+				'label'     => __( 'Horizontal Position', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
-				'condition'   => array(
+				'condition' => array(
 					'premium_image_comparison_modified_image_label_switcher' => 'yes',
 					'premium_image_comparison_orientation' => 'vertical',
 				),
-				'default'     => 'center',
-				'label_block' => true,
+				'default'   => 'center',
 			)
 		);
 
@@ -342,7 +367,7 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -354,7 +379,7 @@ class Premium_Image_Comparison extends Widget_Base {
 					'premium_image_comparison_orientation' => 'horizontal',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-after-label' => 'right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-after-label' => 'right: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -367,15 +392,15 @@ class Premium_Image_Comparison extends Widget_Base {
 				'options'   => array(
 					'top'    => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'middle' => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'bottom' => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-arrow-circle-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'condition' => array(
@@ -391,7 +416,7 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'      => __( 'Vertical Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -403,7 +428,7 @@ class Premium_Image_Comparison extends Widget_Base {
 					'premium_image_comparison_orientation' => 'vertical',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-after-label' => 'bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-after-label' => 'bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -428,26 +453,29 @@ class Premium_Image_Comparison extends Widget_Base {
 		$this->add_control(
 			'premium_image_comparison_orientation',
 			array(
-				'label'       => __( 'Orientation', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'        => __( 'Orientation', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => array(
 					'horizontal' => __( 'Vertical', 'premium-addons-pro' ),
 					'vertical'   => __( 'Horizontal', 'premium-addons-pro' ),
 				),
-				'default'     => 'horizontal',
-				'label_block' => true,
+				'prefix_class' => 'premium-img-compare-',
+				'default'      => 'horizontal',
+				'label_block'  => true,
+				'render_type'  => 'template',
 			)
 		);
 
 		$this->add_control(
 			'premium_img_compare_visible_ratio',
 			array(
-				'label'   => __( 'Visible Ratio', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 0.5,
-				'min'     => 0,
-				'step'    => 0.1,
-				'max'     => 1,
+				'label'       => __( 'Visible Ratio', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::NUMBER,
+				'description' => __( 'This option specifies the area of the original image that is visible by default.', 'premium-addons-pro' ),
+				'default'     => 0.5,
+				'min'         => 0,
+				'step'        => 0.1,
+				'max'         => 1,
 			)
 		);
 
@@ -460,6 +488,9 @@ class Premium_Image_Comparison extends Widget_Base {
 				'default'     => 'yes',
 				'label_on'    => 'Show',
 				'label_off'   => 'Hide',
+				'condition'   => array(
+					'magic_scroll!' => 'yes',
+				),
 			)
 		);
 
@@ -472,7 +503,8 @@ class Premium_Image_Comparison extends Widget_Base {
 				'label_on'    => 'Show',
 				'label_off'   => 'Hide',
 				'condition'   => array(
-					'premium_image_comparison_add_drag_handle'  => 'yes',
+					'premium_image_comparison_add_drag_handle' => 'yes',
+					'magic_scroll!' => 'yes',
 				),
 			)
 		);
@@ -489,6 +521,9 @@ class Premium_Image_Comparison extends Widget_Base {
 				),
 				'default'     => 'mousemove',
 				'label_block' => true,
+				'condition'   => array(
+					'magic_scroll!' => 'yes',
+				),
 			)
 		);
 
@@ -503,12 +538,31 @@ class Premium_Image_Comparison extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'magic_scroll',
+			array(
+				'label' => __( 'Use With Magic Scroll', 'premium-addons-pro' ),
+				'type'  => Controls_Manager::SWITCHER,
+			)
+		);
+
+		$this->add_control(
+			'magic_scroll_rev',
+			array(
+				'label'     => __( 'Reverse Direction', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => array(
+					'magic_scroll' => 'yes',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -518,7 +572,7 @@ class Premium_Image_Comparison extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -541,9 +595,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-before-label span'   => 'color: {{VALUE}};',
@@ -555,7 +608,9 @@ class Premium_Image_Comparison extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_image_comparison_original_label_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-twentytwenty-before-label span',
 			)
 		);
@@ -565,9 +620,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-before-label span'  => 'background-color: {{VALUE}};',
@@ -642,9 +696,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-after-label span'   => 'color: {{VALUE}};',
@@ -656,7 +709,9 @@ class Premium_Image_Comparison extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_image_comparison_modified_label_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-twentytwenty-after-label span',
 			)
 		);
@@ -666,9 +721,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-after-label span'  => 'background-color: {{VALUE}};',
@@ -777,9 +831,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-handle'  => 'background-color: {{VALUE}};',
@@ -860,9 +913,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-left-arrow' => 'border-right-color: {{VALUE}}',
@@ -892,9 +944,8 @@ class Premium_Image_Comparison extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twentytwenty-handle:after, {{WRAPPER}} .premium-twentytwenty-handle:before'  => 'background-color: {{VALUE}};',
@@ -915,10 +966,10 @@ class Premium_Image_Comparison extends Widget_Base {
 				),
 				'label_block' => true,
 				'selectors'   => array(
-					'{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-handle:after' => 'top: {{SIZE}}%;',
-					'{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-handle:before' => 'bottom: {{SIZE}}%;',
-					'{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-handle:after' => 'right: {{SIZE}}%;',
-					'{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-handle:before' => 'left: {{SIZE}}%;',
+					'{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-handle:after' => 'top: {{SIZE}}%;',
+					'{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-handle:before' => 'bottom: {{SIZE}}%;',
+					'{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-handle:after' => 'right: {{SIZE}}%;',
+					'{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-handle:before' => 'left: {{SIZE}}%;',
 				),
 			)
 		);
@@ -931,7 +982,7 @@ class Premium_Image_Comparison extends Widget_Base {
 				'size_units'  => array( 'px', 'em' ),
 				'label_block' => true,
 				'selectors'   => array(
-					'{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-handle:before,{{WRAPPER}} .premium-twentytwenty-vertical .premium-twentytwenty-handle:after' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-handle:before,{{WRAPPER}}.premium-img-compare-vertical .premium-twentytwenty-handle:after' => 'height: {{SIZE}}{{UNIT}};',
 				),
 				'condition'   => array(
 					'premium_image_comparison_add_drag_handle' => 'yes',
@@ -949,7 +1000,7 @@ class Premium_Image_Comparison extends Widget_Base {
 				'size_units'  => array( 'px', 'em', '%' ),
 				'label_block' => true,
 				'selectors'   => array(
-					'{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-handle:after,{{WRAPPER}} .premium-twentytwenty-horizontal .premium-twentytwenty-handle:before' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-handle:after,{{WRAPPER}}.premium-img-compare-horizontal .premium-twentytwenty-handle:before' => 'width: {{SIZE}}{{UNIT}};',
 				),
 				'condition'   => array(
 					'premium_image_comparison_add_drag_handle' => 'yes',
@@ -1061,7 +1112,7 @@ class Premium_Image_Comparison extends Widget_Base {
 
 		$img_compare_setttings = array(
 			'orientation'  => $settings['premium_image_comparison_orientation'],
-			'visibleRatio' => ! empty( $settings['premium_img_compare_visible_ratio'] ) ? $settings['premium_img_compare_visible_ratio'] : 0.1,
+			'visibleRatio' => ! empty( $settings['premium_img_compare_visible_ratio'] ) || '0' == $settings['premium_img_compare_visible_ratio'] ? $settings['premium_img_compare_visible_ratio'] : 0.1,
 			'switchBefore' => ( 'yes' === $settings['premium_img_compare_original_img_label_switcher'] ) ? true : false,
 			'beforeLabel'  => ( 'yes' === $settings['premium_img_compare_original_img_label_switcher'] && ! empty( $settings['premium_img_compare_original_img_label'] ) ) ? $settings['premium_img_compare_original_img_label'] : '',
 			'switchAfter'  => ( 'yes' === $settings['premium_image_comparison_modified_image_label_switcher'] ) ? true : false,
@@ -1077,10 +1128,17 @@ class Premium_Image_Comparison extends Widget_Base {
 			'verafterPos'  => $settings['premium_img_compare_modified_hor_label_position'],
 		);
 
+		if ( 'yes' === $settings['magic_scroll'] ) {
+
+			$img_compare_setttings['reverse'] = $settings['magic_scroll_rev'];
+
+			$this->add_render_attribute( 'image-compare', 'class', 'premium-compare-mscroll' );
+
+		}
+
 		$this->add_render_attribute(
 			'image-compare',
 			array(
-				'id'            => 'premium-image-comparison-contents-wrapper-' . $this->get_id(),
 				'class'         => array( 'premium-images-compare-container', 'premium-twentytwenty-container' ),
 				'data-settings' => wp_json_encode( $img_compare_setttings ),
 			)
@@ -1104,12 +1162,10 @@ class Premium_Image_Comparison extends Widget_Base {
 
 		?>
 
-	<div class="premium-image-comparison-contents-wrapper premium-twentytwenty-wrapper">
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'image-compare' ) ); ?>>
 			<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'first-image' ) ); ?>>
 			<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'second-image' ) ); ?>>
 		</div>
-	</div>
 
 		<?php
 

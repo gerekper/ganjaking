@@ -1,5 +1,60 @@
 *** WooCommerce Product Search ***
 
+2023.11.10 - version 5.0.0
+* Update - WordPress 6.4 compatible.
+* Update - WooCommerce 8.3 compatible.
+* Update - Requires at least WooCommerce 7.9.
+* Update - This major new release introduces a new high performance scalable search engine and cache system, engineered specifically for WooCommerce and created from the ground up.
+* Update - This new search engine is unique in that it provides fast, scalable, complete and sound results for any search and filter combinations, including those involving mixes of keyword searches, categories, attributes, tags, prices, ratings, products in stock, products on sale, etc.
+* Add - Introduces the new high performance search engine.
+* Add - Introduces the new integrated and independent high performance cache system.
+* Add - Added the built-in Transitory Cache.
+* Add - Added the built-in File Cache.
+* Add - Added support for Redis Cache to the integrated cache system.
+* Add - Added support for Memcached to the integrated cache system.
+* Add - Added support for the WPS_REDIS_CACHE_API constant which can be used to force use of the built-in Redis API (instead of the PHPRedis API when available).
+* Dev - Certain worker log entries are now only made if scheduling was likely unsuccessful and explicit debugging is enabled for the extension.
+* Add - Added support for the WPS_DEBUG_VERBOSE constant, used to log more details, added the wps_log_verbose() function and related method.
+* Add - Added support for the WPS_DEBUG_ENGINE_TIMER constant, used to log timing information related to the internal engine.
+* Add - Added support for the WPS_DEBUG_ENGINE_TIMER_VERBOSE constant, which enables extended timing information.
+* Add - Added support for the WPS_CACHE_DEBUG constant, which allows to log cache-specific information.
+* Remove - Removed unnecessary deprecated WPML filter icl_set_current_language.
+* Fix - Variable products would not be included in results for brands.
+* Fix - Variable products would not be included in results for vendors.
+* Fix - Changes to brand terms would not cause the index for related products to be updated.
+* Fix - Changes to vendor terms would not cause the index for related products to be updated.
+* Add - Added support for the WPS_RENDER_CACHE constant which enables or disables all render caching, enabled by default.
+* Add - Added the woocommerce_product_search_render_cache filter which determines if render caching is used for instances.
+* Remove - Removed the woocommerce_product_search_filter_stock_stock_counts_cache_expire filter.
+* Add - Added the woocommerce_product_search_filter_renderer_data_cache_lifetime filter.
+* Add - Added the woocommerce_product_search_filter_renderer_render_cache_lifetime filter.
+* Add - Added the woocommerce_product_search_field_render_cache_lifetime filter.
+* Fix - Product filter renderer loop also needs to check for product-page parameter to retry without pagination.
+* Dev - Updated the block registration calls to replace the use of deprecated properties.
+* Dev - Removed admin info rendering code dependent on an old thumbnail setting shop_thumbnail_image_size not used since WooCommerce 3.3.0.
+* Add - Added support for the woocommerce_product_search_engine_cache_update action which allows to notify the cache system that an update is required.
+* Add - Added the woocommerce_product_search_indexer_purge_start action to signal indexer purge start.
+* Add - Added the woocommerce_product_search_indexer_purge_end action to signal indexer purge end.
+* Add - Added the woocommerce_product_search_engine_process_start action to signal engine processing start.
+* Add - Added the woocommerce_product_search_engine_process_end action to signal engine processing end.
+* Add - Added the woocommerce_product_search_get_cache_instance filter to allow to provide custom caches.
+* Add - Added the woocommerce_product_search_cache_slot_path filter to allow to modify the cache slot path.
+* Add - Added the woocommerce_product_search_engine_cache_group_suffix filter which allows to modify the cache group suffix for further distinction of cache groups.
+* Add - Added the woocommerce_product_search_cache_dir filter which allows to determine the root cache directory.
+* Add - Added the woocommerce_product_search_file_cache_min_free_disk_space filter which allows to determine the minimum free disk space required for the File Cache during runtime.
+* Add - Added the woocommerce_product_search_engine_stage_apply_object_limit filter.
+* Add - Added the woocommerce_product_search_engine_stage_parameters filter.
+* Add - Added the woocommerce_product_search_engine_stage_posts_use_wp_query filter.
+* Add - Added the woocommerce_product_search_filter_renderer_data_cache_lifetime filter.
+* Add - Added the woocommerce_product_search_filter_renderer_render_cache_lifetime filter.
+* Update - Updated the translation template.
+* Update - Updated the German translations (formal and informal) for Germany, Austria and Switzerland.
+* Update - Updated the Spanish translation.
+* Update - Updated the French translation.
+* Update - Updated the Indonesian translation.
+* Update - Updated references to woocommerce.com to point to woo.com.
+* Update - Updated the support links to point to https://woo.com/my-account/contact-support/.
+
 2023.08.31 - version 4.16.0
 * Update - WordPress 6.3 compatible.
 * Update - WooCommerce 8.1 compatible.

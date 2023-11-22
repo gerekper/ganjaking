@@ -2,6 +2,13 @@
 
 use WCML\Utilities\DB;
 
+/**
+ * This class is responsible for handling legacy WC reports. Legacy WC reports are being phased out in favor of newer WC analytics.
+ * Legacy WC reports are not HPOS-compatible: https://github.com/woocommerce/woocommerce/issues/40671
+ *
+ * @deprecated This class is deprecated and should no longer be used because it's incompatible with HPOS.
+ * @link https://onthegosystems.myjetbrains.com/youtrack/issue/wcml-4489
+ */
 class WCML_Reports{
 
     public $tab;

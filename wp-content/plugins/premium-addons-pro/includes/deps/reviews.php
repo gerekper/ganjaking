@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'PREMIUM_FB_REV_GRAPH_API', 'https://graph.facebook.com/v4.0/' );
+define( 'PREMIUM_FB_REV_GRAPH_API', 'https://graph.facebook.com/v5.0/' );
 
 define( 'PREMIUM_GOOGLE_PLACE_API', 'https://maps.googleapis.com/maps/api/place/' );
 
@@ -16,8 +16,6 @@ define( 'PREMIUM_INSTA_LINK', 'https://www.instagram.com/' );
 
 define( 'PREMIUM_INSTA_API_ENDPOINT', '/?__a=1' );
 
-define( 'PREMIUM_TRUSTPILOT_API', 'https://nilepromotion.com/pa-test/wp-json/fbapp/v2/trustapp/' );
-
 use PremiumAddons\Includes\Helper_Functions;
 
 
@@ -25,11 +23,7 @@ use PremiumAddons\Includes\Helper_Functions;
  * Get Instagram Profile Info.
  *
  * @param array $settings widget settings.
- */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
+ */
 function premium_insta_profile_info( $settings ) {
 
 	$user_name = $settings['user_name'];
@@ -99,31 +93,6 @@ function premium_insta_profile_info( $settings ) {
 }
 
 /**
- * Round Numbers In A Reading-friendly Format.
- *
- * @param integer $num followers number.
- */
-function premium_format_numbers( $num ) {
-	$num    = intval( $num );
-	$result = '';
-
-	if ( $num >= 1000000 ) {
-		$tmp    = round( ( $num / 1000000 ), 1 );
-		$result = $tmp . 'M';
-		return $result;
-	}
-
-	if ( $num >= 1000 ) {
-		$tmp    = round( ( $num / 1000 ), 1 );
-		$result = $tmp . 'K';
-
-		return $result;
-	}
-
-	return round( $num, 1 );
-}
-
-/**
  * Parse Insta Profile Data.
  *
  * @param array $settings widget settings.
@@ -163,19 +132,19 @@ function premium_parse_insta_profile( $settings, $info ) {
 			<div class="premium-instafeed-user-activity">
 				<?php if ( $posts ) : ?>
 					<div class="premium-instafeed-user-activity-item">
-						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( premium_format_numbers( $info['posts'] ) ); ?></span>
+						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( Helper_Functions::premium_format_numbers( $info['posts'] ) ); ?></span>
 						<span><?php echo esc_html( __( 'Posts', 'premium-addons-pro' ) ); ?></span>
 					</div>
 				<?php endif; ?>
 				<?php if ( $followers ) : ?>
 					<div class="premium-instafeed-user-activity-item">
-						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( premium_format_numbers( $info['followed_by'] ) ); ?></span>
+						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( Helper_Functions::premium_format_numbers( $info['followed_by'] ) ); ?></span>
 						<span><?php echo esc_html( __( 'Followers', 'premium-addons-pro' ) ); ?></span>
 					</div>
 				<?php endif; ?>
 				<?php if ( $following ) : ?>
 					<div class="premium-instafeed-user-activity-item">
-						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( premium_format_numbers( $info['following'] ) ); ?></span>
+						<span class='premium-insta-lower-item-val'><?php echo wp_kses_post( Helper_Functions::premium_format_numbers( $info['following'] ) ); ?></span>
 						<span><?php echo esc_html( __( 'Following', 'premium-addons-pro' ) ); ?></span>
 					</div>
 				<?php endif; ?>
@@ -211,7 +180,7 @@ function is_profile_cached( $username ) {
  */
 function premium_fb_rev_api_rating( $page_id, $page_access_token ) {
 
-	$api_url = PREMIUM_FB_REV_GRAPH_API . $page_id . '/ratings?access_token=' . $page_access_token . '&fields=reviewer{id,name,picture.width(200).height(200)},created_time,rating,recommendation_type,review_text,open_graph_story{id}&limit=9999';
+	$api_url = PREMIUM_FB_REV_GRAPH_API . $page_id . '/ratings?access_token=' . $page_access_token . '&fields=reviewer{id,name,picture.width(100).height(100)},created_time,rating,recommendation_type,review_text,open_graph_story{id}&limit=9999';
 
 	$api_response = rplg_urlopen( $api_url );
 
@@ -257,7 +226,7 @@ function premium_fb_rev_page( $page_id, $settings ) {
 	}
 
 	if ( $settings['show_name'] ) {
-		$page_link = sprintf( '<a class="premium-fb-rev-page-link" href="https://fb.com/%s" target="_blank" title="%2$s" ><span>%2$s</span></a>', $page_id, $page_name );
+		$page_link = sprintf( '<a class="premium-fb-rev-page-link" href="https://fb.com/%s" target="_blank" title="%2$s">%2$s</a>', $page_id, $page_name );
 	}
 
 	if ( $settings['show_image'] ) :
@@ -285,7 +254,7 @@ function premium_fb_rev_page( $page_id, $settings ) {
 		</div>
 		<?php if ( isset( $reviews_count ) > 0 && 'yes' === $reviews_number ) : ?>
 			<div class="premium-fb-rev-rating-count">
-				<span><?php echo wp_kses_post( sprintf( 'Based on %s reviews', $reviews_count ) ); ?></span>
+				<span><?php echo wp_kses_post( sprintf( $settings['number_text'], $reviews_count ) ); ?></span>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -384,7 +353,7 @@ function premium_fb_rev_reviews( $reviews, $settings ) {
 							<?php if ( isset( $review->reviewer->id ) ) : ?>
 								<div class="premium-fb-rev-reviewer-wrapper">
 									<?php
-										$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review_url . '" target="_blank"><span>' . $review->reviewer->name . '</span></a>';
+										$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review_url . '" target="_blank">' . $review->reviewer->name . '</a>';
 										echo wp_kses_post( $person_link );
 									?>
 								</div>
@@ -468,8 +437,9 @@ function premium_fb_rev_reviews( $reviews, $settings ) {
  * @param string $api_key API key.
  * @param string $place_id place ID.
  * @param string $prefix language prefix.
+ * @param string $sort sort by.
  */
-function premium_google_rev_api_rating( $api_key, $place_id, $prefix ) {
+function premium_google_rev_api_rating( $api_key, $place_id, $prefix, $sort ) {
 
 	$language = '';
 
@@ -477,7 +447,7 @@ function premium_google_rev_api_rating( $api_key, $place_id, $prefix ) {
 		$language = '&language=' . $prefix;
 	}
 
-	$api_url = PREMIUM_GOOGLE_PLACE_API . 'details/json?placeid=' . trim( $place_id ) . $language . '&key=' . trim( $api_key );
+	$api_url = PREMIUM_GOOGLE_PLACE_API . 'details/json?placeid=' . trim( $place_id ) . $language . '&reviews_sort=' . $sort . '&key=' . trim( $api_key );
 
 	$api_response = rplg_urlopen( $api_url );
 
@@ -531,6 +501,7 @@ function premium_reviews_place( $place, $settings ) {
 					$place_img = '';
 				}
 
+				$place_img = str_replace( '/o.', '/ls.', $place_img );
 				if ( isset( $place_img ) ) {
 					update_option( 'premium_reviews_img-' . $id, $place_img );
 				} else {
@@ -549,7 +520,7 @@ function premium_reviews_place( $place, $settings ) {
 		<?php if ( ! empty( $place->name ) && $settings['show_name'] ) : ?>
 			<div class="premium-fb-rev-page-link-wrapper">
 				<?php
-				$place_link = '<a class="premium-fb-rev-page-link" href="' . $place->url . '" target="_blank"><span>' . $place->name . '</span></a>';
+				$place_link = '<a class="premium-fb-rev-page-link" href="' . $place->url . '" target="_blank">' . $place->name . '</a>';
 				echo wp_kses_post( $place_link );
 				?>
 			</div>
@@ -567,11 +538,11 @@ function premium_reviews_place( $place, $settings ) {
 		<?php if ( 'yes' === $reviews_number ) : ?>
 			<?php if ( isset( $place->user_ratings_total ) ) : ?>
 				<div class="premium-fb-rev-rating-count">
-					<span><?php echo wp_kses_post( sprintf( 'Based on %s reviews', $place->user_ratings_total ) ); ?></span>
+					<span><?php echo wp_kses_post( sprintf( $settings['number_text'], $place->user_ratings_total ) ); ?></span>
 				</div>
 			<?php elseif ( isset( $place->review_count ) ) : ?>
 				<div class="premium-fb-rev-rating-count">
-					<span><?php echo wp_kses_post( sprintf( 'Based on %s reviews', $place->review_count ) ); ?></span>
+					<span><?php echo wp_kses_post( sprintf( $settings['number_text'], $place->review_count ) ); ?></span>
 				</div>
 			<?php endif; ?>
 		<?php endif; ?>
@@ -667,17 +638,18 @@ function premium_google_rev_reviews( $reviews, $settings ) {
 					continue;
 				}
 
-				if ( ! isset( $review->text ) && 'yes' === $settings['hide_empty'] ) {
+				if ( ( ! isset( $review->text ) || empty( $review->text ) ) && 'yes' === $settings['hide_empty'] ) {
 					continue;
 				}
 
 				$review->more = false;
 
-				if ( strlen( $review->profile_photo_url ) > 0 ) {
+				if ( isset( $review->profile_photo_url ) && strlen( $review->profile_photo_url ) > 0 ) {
 					$author_photo = '<img class="premium-fb-rev-img" src="' . esc_url( $review->profile_photo_url ) . '" alt="' . esc_attr( $review->author_name ) . '">';
 				} else {
 					$author_photo = PREMIUM_FB_REV_AVATAR;
 				}
+
 				?>
 				<div class="premium-fb-rev-review-wrap">
 					<div class="premium-fb-rev-review">
@@ -697,12 +669,14 @@ function premium_google_rev_reviews( $reviews, $settings ) {
 								<?php if ( 'bubble' === $skin_type || 'left' === $settings['image_display'] ) { ?>
 									<div class="premium-fb-rev-reviewer-header">
 								<?php } ?>
-								<div class="premium-fb-rev-reviewer-wrapper">
-									<?php
-									$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review->author_url . '" target="_blank"><span>' . $review->author_name . '</span></a>';
-										echo wp_kses_post( $person_link );
-									?>
-								</div>
+								<?php if ( isset( $review->author_url ) ) { ?>
+									<div class="premium-fb-rev-reviewer-wrapper">
+										<?php
+											$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review->author_url . '" target="_blank">' . $review->author_name . '</a>';
+												echo wp_kses_post( $person_link );
+										?>
+									</div>
+								<?php } ?>
 
 								<?php if ( $show_date || $show_stars ) : ?>
 									<div class="premium-fb-rev-info">
@@ -794,25 +768,21 @@ function premium_fb_rev_stars( $rating, $fill_color, $empty_color, $star_size, $
 	<span class="premium-fb-rev-stars">
 	<?php
 
-	if ( 'yes' === $default ) {
-		$rating = round( $rating * 2 ) / 2;
-		?>
-			<span class="premium-fb-rev-star"><img src="<?php echo sprintf( 'https://cdn.trustpilot.net/brand-assets/4.1.0/stars/stars-%s.svg', $rating ); ?>"></span>
-		<?php
-		return;
-	}
-
 	foreach ( array( 1, 2, 3, 4, 5 ) as $val ) {
-		$score = $rating - $val;
-		if ( $score >= 0 ) {
+		$score = round( ( $rating - $val ), 2 );
+
+		if ( $score >= -0.2 ) {
+
 			?>
 				<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
-			<?php } elseif ( $score > -1 && $score < 0 ) { ?>
+			<?php
+		} elseif ( $score > -0.8 && $score < -0.2 ) {
+			?>
 				<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1250 957l257-250-356-52-66-10-30-60-159-322v963l59 31 318 168-60-355-12-66zm452-262l-363 354 86 500q5 33-6 51.5t-34 18.5q-17 0-40-12l-449-236-449 236q-23 12-40 12-23 0-34-18.5t-6-51.5l86-500-364-354q-32-32-23-59.5t54-34.5l502-73 225-455q20-41 49-41 28 0 49 41l225 455 502 73q45 7 54 34.5t-24 59.5z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
-			<?php } else { ?>
+		<?php } else { ?>
 				<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1201 1004l306-297-422-62-189-382-189 382-422 62 306 297-73 421 378-199 377 199zm527-357q0 22-26 48l-363 354 86 500q1 7 1 20 0 50-41 50-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $empty_color ); ?>"></path></svg></span>
 				<?php
-			}
+		}
 	}
 	?>
 	</span>
@@ -827,6 +797,8 @@ function premium_fb_rev_stars( $rating, $fill_color, $empty_color, $star_size, $
  * @param integer $size review length.
  */
 function premium_fb_rev_trim_text( $text, $size ) {
+
+	$text = wp_strip_all_tags( $text );
 
 	$length = count( preg_split( '/\s+/', $text ) );
 
@@ -957,7 +929,8 @@ function premium_yelp_rev_reviews( $reviews, $settings ) {
 			}
 
 			if ( strlen( $review->user->image_url ) > 0 ) {
-				$author_photo = '<img class="premium-fb-rev-img" src="' . esc_url( $review->user->image_url ) . '" alt="' . esc_attr( $review->user->name ) . '">';
+				$image_url    = str_replace( '/o.', '/ms.', $review->user->image_url );
+				$author_photo = '<img class="premium-fb-rev-img" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $review->user->name ) . '">';
 			} else {
 				$author_photo = PREMIUM_FB_REV_AVATAR;
 			}
@@ -987,7 +960,7 @@ function premium_yelp_rev_reviews( $reviews, $settings ) {
 
 								<div class="premium-fb-rev-reviewer-wrapper">
 									<?php
-										$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review->user->profile_url . '" target="_blank"><span class="rating">' . $review->user->name . '</span></a>';
+										$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review->user->profile_url . '" target="_blank">' . $review->user->name . '</a>';
 										echo wp_kses_post( $person_link );
 									?>
 								</div>
@@ -1062,316 +1035,6 @@ function premium_yelp_rev_reviews( $reviews, $settings ) {
 		}
 	}
 	?>
-	</div>
-	<?php
-}
-
-
-/**
- * Gets Trustpilot Data
- *
- * @since 2.4.3
- *
- * @param string $business_name business name.
- */
-function premium_trustpilot_data( $business_name ) {
-
-	$business_name = str_replace( ' ', '%20', $business_name );
-
-	$url = PREMIUM_TRUSTPILOT_API . $business_name;
-
-	$reviews_data = rplg_urlopen( $url );
-
-	return $reviews_data;
-
-}
-
-/**
- * Render Trustpilot Business Layout
- *
- * @since 2.4.3
- *
- * @param array  $result business info.
- * @param object $settings widget settings.
- */
-function premium_trustpilot_reviews_business( $result, $settings ) {
-
-	$custom_image = $settings['image'];
-
-	$rating = $settings['rating'];
-
-	$fill_color = $settings['color'];
-
-	$empty_color = $settings['empty_color'];
-
-	$show_stars = $settings['stars'];
-
-	$star_size = $settings['stars_size'];
-
-	$business_rate = $settings['business_rate'];
-
-	$id = $settings['id'];
-
-	$default_stars = $settings['default_stars'];
-
-	$label = $settings['rate_label'];
-
-	$reviews_number = $settings['rev_number'];
-
-	$badge = $settings['badge'];
-
-	if ( $settings['show_image'] ) {
-		?>
-			<div class="premium-fb-rev-page-left">
-				<?php
-				if ( empty( $custom_image ) ) {
-
-					$image = $result->avatar_url;
-
-					if ( ! empty( $image ) ) {
-						$business_img = $image;
-					} else {
-						$business_img = '';
-					}
-				} else {
-					$business_img = $custom_image;
-				}
-
-				?>
-				<img class="premium-fb-rev-img" src="<?php echo esc_url( $business_img ); ?>" alt="<?php echo esc_attr( $result->name ); ?>">
-			</div>
-	<?php } ?>
-
-	<div class="premium-fb-rev-page-right">
-
-		<?php if ( isset( $result->name ) && $settings['show_name'] ) : ?>
-			<div class="premium-fb-rev-page-link-wrapper">
-				<?php
-					$business_link = '<a class="premium-fb-rev-page-link" href="' . $result->url . '"  target="_blank"><span>' . $result->name . '</span></a>';
-					echo wp_kses_post( $business_link );
-				?>
-			</div>
-		<?php endif; ?>
-
-		<?php
-		if ( isset( $result->reviews->score ) && 'yes' === $label ) :
-			$score = $result->reviews->score;
-			switch ( $score ) {
-
-				case 4.2 < $score:
-					$label = __( 'Excellent', 'premium-addons-pro' );
-					break;
-				case 3.8 <= $score && $score <= 4.2:
-					$label = __( 'Great', 'premium-addons-pro' );
-					break;
-				case 2.8 <= $score && $score < 3.8:
-					$label = __( 'Average', 'premium-addons-pro' );
-					break;
-				case 1.8 <= $score && $score < 2.8:
-					$label = __( 'Poor', 'premium-addons-pro' );
-					break;
-				case $score < 1.8:
-					$label = __( 'Bad', 'premium-addons-pro' );
-					break;
-
-			}
-
-			?>
-			<div class="premium-fb-rev-rating-label">
-				<span><?php echo wp_kses_post( $label ); ?></span>
-			</div>
-		<?php endif; ?>
-
-		<div class="premium-fb-rev-page-rating-wrapper">
-			<?php if ( $business_rate ) : ?>
-				<span class="premium-fb-rev-page-rating"><?php echo wp_kses_post( $result->reviews->score ); ?></span>
-			<?php endif; ?>
-
-			<?php if ( $show_stars ) : ?>
-				<span class="premium-fb-rev-page-stars"><?php premium_fb_rev_stars( $result->reviews->score, $fill_color, $empty_color, $star_size, $default_stars ); ?></span>
-			<?php endif; ?>
-		</div>
-
-		<?php if ( isset( $result->reviews->count ) && 'yes' === $reviews_number ) : ?>
-			<div class="premium-fb-rev-rating-count">
-				<span><?php echo wp_kses_post( sprintf( 'Based on %s reviews', $result->reviews->count ) ); ?></span>
-			</div>
-		<?php endif; ?>
-
-		<?php
-		if ( 'yes' === $badge ) :
-			$badge_src = sprintf( 'https://cdn.trustpilot.net/brand-assets/1.1.0/logo-%s.svg', $settings['theme'] );
-			?>
-			<div class="premium-trustpilot-badge">
-				<img src="<?php echo esc_attr( $badge_src ); ?>" alt="Trustpilot Badge">
-			</div>
-		<?php endif; ?>
-
-	</div>
-	<?php
-}
-
-/**
- * Render Trustpilot Reviews Layout
- *
- * @since 2.4.3
- *
- * @param array  $reviews Trustpilot Reviews.
- * @param object $settings widget settings.
- */
-function premium_trustpilot_rev_reviews( $reviews, $settings ) {
-
-	$limit = $settings['limit'];
-
-	$min_filter = $settings['filter_min'];
-
-	$max_filter = $settings['filter_max'];
-
-	$show_date = $settings['date'];
-
-	$show_stars = $settings['stars'];
-
-	$date_format = $settings['format'];
-
-	$fill_color = $settings['fill_color'];
-
-	$empty_color = $settings['empty_color'];
-
-	$star_size = $settings['stars_size'];
-
-	$rev_text = $settings['text'];
-
-	$length = $settings['rev_length'];
-
-	$readmore = $settings['readmore'];
-
-	$skin_type = $settings['skin_type'];
-
-	$default_stars = $settings['default_stars'];
-
-	?>
-
-	<div class="premium-fb-rev-reviews">
-		<?php
-		if ( count( $reviews ) > 0 ) {
-			array_splice( $reviews, $limit );
-			foreach ( $reviews as $review ) {
-
-				if ( $review->rating < $min_filter || $review->rating > $max_filter ) {
-					continue;
-				}
-
-				if ( ! isset( $review->text ) && 'yes' === $settings['hide_empty'] ) {
-					continue;
-				}
-
-				$review->more = false;
-
-				$review->review_url = 'https://trustpilot.com/reviews/' . $review->id;
-
-				$review->reviewer_url = 'https://trustpilot.com/users/' . $review->reviewer->id;
-
-				if ( $settings['show_image'] ) {
-					if ( strlen( $review->reviewer->avatar_url ) > 0 && false === strpos( $review->reviewer->avatar_url, 'default-avatar' ) ) {
-						$author_photo = '<img class="premium-fb-rev-img" src="' . esc_url( $review->reviewer->avatar_url ) . '" alt="' . esc_attr( $review->reviewer->name ) . '">';
-					} else {
-						$author_photo = PREMIUM_FB_REV_AVATAR;
-					}
-				}
-
-				?>
-			<div class="premium-fb-rev-review-wrap">
-				<div class="premium-fb-rev-review">
-					<div class="premium-fb-rev-review-inner">
-						<?php
-						if ( ( 'default' === $skin_type && 'left' !== $settings['image_display'] ) || ( 'card' === $skin_type && 'inline' === $settings['image_display'] ) ) {
-							if ( $settings['show_image'] ) {
-								?>
-								<div class="premium-fb-rev-content-left">
-									<?php echo $author_photo; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								</div>
-								<?php
-							}
-						}
-						?>
-						<div class="premium-fb-rev-content-right">
-						<?php
-						if ( 'bubble' === $skin_type || 'left' === $settings['image_display'] ) {
-							?>
-							<div class="premium-fb-rev-reviewer-header"> <?php } ?>
-								<div class="premium-fb-rev-reviewer-wrapper">
-									<?php
-										$person_link = '<a class="premium-fb-rev-reviewer-link" href="' . $review->reviewer_url . '" target="_blank"><span class="rating">' . $review->reviewer->name . '</span></a>';
-										echo wp_kses_post( $person_link );
-									?>
-								</div>
-								<?php if ( $show_date || $show_stars ) : ?>
-									<div class="premium-fb-rev-info">
-										<?php if ( $show_date ) : ?>
-											<div class="premium-fb-rev-time"><span class="premium-fb-rev-time-text"><?php echo date( $date_format, strtotime( $review->created_at ) ); ?></span></div>
-										<?php endif; ?>
-
-										<?php if ( $show_stars ) : ?>
-											<div class="premium-fb-rev-stars-container">
-												<?php
-													echo premium_fb_rev_stars( $review->rating, $fill_color, $empty_color, $star_size, $default_stars );
-												?>
-											</div>
-										<?php endif; ?>
-									</div>
-									<?php
-								endif;
-								if ( 'bubble' === $skin_type || 'left' === $settings['image_display'] ) {
-									?>
-										</div>
-									<?php
-								}
-								if ( isset( $review->text ) && $rev_text ) :
-									?>
-								<div class="premium-fb-rev-rating">
-									<div class="premium-fb-rev-text-wrapper">
-										<span class="premium-fb-rev-text reviews"><?php $review->more = premium_fb_rev_trim_text( $review->text, $length ); ?></span>
-										<?php
-										if ( $review->more && isset( $review->review_url ) ) :
-												$url = $review->review_url;
-											?>
-												<a class="premium-fb-rev-readmore" href="<?php echo esc_attr( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo wp_kses_post( $readmore ); ?></a>
-										<?php endif; ?>
-										</div>
-
-										<?php if ( 'bubble' === $skin_type && $settings['bubble_arrow'] ) { ?>
-										<div class="premium-rev-arrow-bubble">
-											<div class="premium-rev-arrow-bubble-border"></div>
-											<div class="premium-rev-arrow"></div>
-										</div>
-									<?php } ?>
-								</div>
-
-								<?php endif; ?>
-							<?php
-							if ( $settings['show_image'] ) {
-								if ( ( 'card' === $skin_type && 'inline' !== $settings['image_display'] ) || 'bubble' === $skin_type || 'left' === $settings['image_display'] ) {
-									?>
-										<div class="premium-fb-rev-content-left">
-											<?php echo $author_photo; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-										</div>
-									<?php
-								}
-							}
-							?>
-						</div>
-						<?php if ( 'yes' === $settings['show_icon'] ) { ?>
-							<div class="premium-fb-rev-icon">
-								<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#00b67a" d="M17.227 16.67l2.19 6.742-7.413-5.388 5.223-1.354zM24 9.31h-9.165L12.005.589l-2.84 8.723L0 9.3l7.422 5.397-2.84 8.714 7.422-5.388 4.583-3.326L24 9.311z"></path></svg>
-							</div>
-						<?php } ?>
-					</div>
-				</div>
-			</div>
-				<?php
-			}
-		}
-		?>
 	</div>
 	<?php
 }

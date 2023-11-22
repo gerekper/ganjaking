@@ -85,7 +85,6 @@ if ( ! function_exists( 'generate_aliexpress_key' ) ) {
 		$key = md5( $domain . $passphrase );
 
 		return $key;
-
 	}
 } // Generate aliexpress api key and send to the admin mailbox.
 
@@ -108,7 +107,6 @@ if ( ! function_exists( 'get_dropship_option' ) ) {
 			return array();
 
 		}
-
 	}
 }
 
@@ -127,7 +125,6 @@ if ( ! function_exists( 'update_dropship_option' ) ) {
 			update_option( 'opmc_dropshipping_options', $d_options );
 
 		}
-
 	}
 }
 
@@ -158,7 +155,6 @@ if ( ! function_exists( 'wc_dropshipping_get_dropship_supplier' ) ) {
 		}
 
 		return $supplier;
-
 	}
 }
 
@@ -193,7 +189,6 @@ if ( ! function_exists( 'wc_dropshipping_get_dropship_supplier_by_product_id' ) 
 		}
 
 		return $supplier;
-
 	}
 }
 
@@ -206,7 +201,6 @@ if ( ! function_exists( 'wc_dropshipping_get_base_path' ) ) {
 	function wc_dropshipping_get_base_path() {
 
 		return plugin_dir_path( __FILE__ );
-
 	}
 }
 
@@ -236,7 +230,6 @@ function pod_received_callback() {
 	header( 'Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list' );
 
 	die;
-
 }
 
 function woocommerce_dropshippers_mark_as_shipped_callback() {
@@ -318,7 +311,6 @@ function woocommerce_dropshippers_mark_as_shipped_callback() {
 	}
 
 	die;
-
 }
 
 
@@ -457,17 +449,17 @@ function dropshipper_order_list() {
 
 		if ( 1 == $hide_client_info_Suppliers ) {
 
-			echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
 		} elseif ( 0 == $hide_client_info_Suppliers || 1 == $store_add_shipping_add ) {
-			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 		} elseif ( 0 == $hide_client_info_Suppliers && 0 == $store_add_shipping_add && 1 == $sup['specific_delivery_location'] ) {
-			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 		}
 
 		if ( 1 == $hide_contact_info_Suppliers ) {
-			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
+			echo '<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
 		} else {
-			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
+			echo '<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
 		}
 
 						echo '
@@ -509,7 +501,6 @@ function dropshipper_order_list() {
 				return 'Not Received </br> </br> <a href="' . $pod_ajax_url . '" id="pod_received_' . $order_id . '_' . $supplier_pod_id . '" class="button button-primary" href="" style="margin-top:2px">Mark as Received</a>';
 
 			}
-
 		}
 
 		if ( $the_query->have_posts() ) {
@@ -604,15 +595,15 @@ function dropshipper_order_list() {
 				}
 
 				if ( 1 == $hide_contact_info_Suppliers ) {
-					echo'<td class="client-email column-client-email" data-colname="client-email" style="display:none;">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
+					echo '<td class="client-email column-client-email" data-colname="client-email" style="display:none;">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
 				} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add ) ) {
 
-					echo'<td class="client-email column-client-email" data-colname="client-email">' . $admin_email . '<br><div class="row-actions"><span><a href="mailto:' . $admin_email . '">Send an Email</a></span></div></td>';
+					echo '<td class="client-email column-client-email" data-colname="client-email">' . $admin_email . '<br><div class="row-actions"><span><a href="mailto:' . $admin_email . '">Send an Email</a></span></div></td>';
 				} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add ) ) {
 
-					echo'<td class="client-email column-client-email" data-colname="client-email">' . $packing_slip_customer_service_email . '<br><div class="row-actions"><span><a href="mailto:' . $packing_slip_customer_service_email . '">Send an Email</a></span></div></td>';
+					echo '<td class="client-email column-client-email" data-colname="client-email">' . $packing_slip_customer_service_email . '<br><div class="row-actions"><span><a href="mailto:' . $packing_slip_customer_service_email . '">Send an Email</a></span></div></td>';
 				} else {
-						echo'<td class="client-email column-client-email" data-colname="client-email">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
+						echo '<td class="client-email column-client-email" data-colname="client-email">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
 				}
 
 				   echo '
@@ -670,17 +661,17 @@ function dropshipper_order_list() {
 
 		if ( 1 == $hide_client_info_Suppliers || 0 == $store_add_shipping_add ) {
 
-			echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
 		} elseif ( 0 == $hide_client_info_Suppliers || 1 == $store_add_shipping_add ) {
-			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 		} elseif ( 0 == $hide_client_info_Suppliers && 0 == $store_add_shipping_add && 1 == $sup['specific_delivery_location'] ) {
-			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+			echo '<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 		}
 
 		if ( 1 == $hide_contact_info_Suppliers ) {
-			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
+			echo '<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
 		} else {
-			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
+			echo '<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
 		}
 
 						echo '

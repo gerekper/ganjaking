@@ -29,7 +29,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\Plugin;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4\Custom_Event;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use function Sodium\add;
 
 defined( 'ABSPATH' ) or exit;

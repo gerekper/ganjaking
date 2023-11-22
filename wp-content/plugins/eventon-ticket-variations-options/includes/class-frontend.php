@@ -8,8 +8,8 @@ class evovo_frontend{
 	public $opt2;
 	public function __construct(){
 
-		add_action( 'init', array( $this, 'register_styles_scripts' ) ,15);
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ), 10 );
+		add_action( 'evo_register_other_styles_scripts', array( $this, 'register_styles_scripts' ) ,15);
+		add_action( 'eventon_enqueue_styles', array( $this, 'load_styles' ), 12 );
 		
 		$this->opt2 = get_option('evcal_options_evcal_2');		
 

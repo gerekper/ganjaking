@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields as Profile_Fields_F
 use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -982,14 +982,16 @@ class WC_Memberships_AJAX {
 		if ( ! empty( $access_product_ids ) ) {
 
 			// get orders that contain an access granting product (or variation) to the given plan
-			$product_ids = Strings_Helper::esc_sql_in_ids( $access_product_ids );
-			$order_ids   = $wpdb->get_col(  "
-				SELECT DISTINCT posts.ID
+			$product_ids  = Strings_Helper::esc_sql_in_ids( $access_product_ids );
+			$orders_table = Framework\SV_WC_Order_Compatibility::get_orders_table();
+			$order_id_col = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'id' : 'ID';
+			$order_ids    = $wpdb->get_col(  "
+				SELECT DISTINCT orders.{$order_id_col}
 				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta,
 				     {$wpdb->prefix}woocommerce_order_items AS order_items,
-				     {$wpdb->prefix}posts AS posts
+				     $orders_table AS orders
 				WHERE order_items.order_item_id = order_item_meta.order_item_id
-				AND order_items.order_id = posts.ID
+				AND order_items.order_id = orders.{$order_id_col}
 				AND ( ( order_item_meta.meta_key LIKE '_product_id'   AND order_item_meta.meta_value IN ({$product_ids}) )
 				 OR   ( order_item_meta.meta_key LIKE '_variation_id' AND order_item_meta.meta_value IN ({$product_ids}) ) )
 			" );

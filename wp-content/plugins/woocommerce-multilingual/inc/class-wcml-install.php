@@ -1,5 +1,6 @@
 <?php
 
+use WCML\COT\Helper as COTHelper;
 use function WCML\functions\isStandAlone;
 
 class WCML_Install {
@@ -349,6 +350,7 @@ class WCML_Install {
 	 * @param string $default_language
 	 */
 	public static function set_language_to_existing_orders( $default_language ) {
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 
 		// Set default language for old orders before WCML was installed.
@@ -356,14 +358,14 @@ class WCML_Install {
 			"SELECT DISTINCT( pm.post_id ) FROM {$wpdb->postmeta} AS pm 
 					INNER JOIN {$wpdb->posts} AS p ON pm.post_id = p.ID 
 					WHERE p.post_type = 'shop_order' AND pm.post_id NOT IN 
-					( SELECT DISTINCT( post_id ) FROM {$wpdb->postmeta} WHERE meta_key = 'wpml_language' )"
+					( SELECT DISTINCT( post_id ) FROM {$wpdb->postmeta} WHERE meta_key = '" . WCML_Orders::KEY_LANGUAGE . "' )"
 		);
 
 		$values_query = function ( $order_id ) use ( $wpdb, $default_language ) {
 			return $wpdb->prepare(
 				'(%d, %s, %s)',
 				$order_id,
-				'wpml_language',
+				WCML_Orders::KEY_LANGUAGE,
 				$default_language
 			);
 		};
@@ -375,6 +377,27 @@ class WCML_Install {
 
 			$wpdb->query( $query );
 		} );
+
+		if ( COTHelper::getTableExists() ) {
+			$orderTable     = COTHelper::getTableName();
+			$orderMetaTable = COTHelper::getMetaTableName();
+
+			// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+			// phpcs:disable WordPress.VIP.DirectDatabaseQuery.NoCaching
+			$wpdb->query(
+				$wpdb->prepare(
+					"
+						INSERT IGNORE INTO {$orderMetaTable} (order_id, meta_key, meta_value)
+						SELECT o.id, '" . WCML_Orders::KEY_LANGUAGE . "' AS meta_key, %s AS meta_value
+						FROM {$orderTable} o
+						LEFT JOIN {$orderMetaTable} om ON o.id = om.order_id AND om.meta_key = '" . WCML_Orders::KEY_LANGUAGE . "'
+						WHERE om.id IS NULL
+					",
+					$default_language
+				)
+			);
+			// phpcs::enable.
+		}
 	}
 
 }

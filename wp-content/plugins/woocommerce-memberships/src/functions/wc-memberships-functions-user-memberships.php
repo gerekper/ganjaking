@@ -17,13 +17,13 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 
 /**
@@ -196,7 +196,7 @@ function wc_memberships_user_can( $user_id, $action, $target, $when = '' ) {
  *
  * @param array $args array of arguments
  * @param string $action either 'create' or 'renew' -- when in doubt, use 'create'
- * @throws \SkyVerge\WooCommerce\PluginFramework\v5_10_13\SV_WC_Plugin_Exception may create an exception on errors
+ * @throws \SkyVerge\WooCommerce\PluginFramework\v5_11_12\SV_WC_Plugin_Exception may create an exception on errors
  * @return \WC_Memberships_User_Membership
  */
 function wc_memberships_create_user_membership( $args = array(), $action = 'create' ) {

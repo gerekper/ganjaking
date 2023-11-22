@@ -1,11 +1,11 @@
 /**
  * AJDE backender styles
- * @version 4.5
+ * @version 4.5.4
  */
 
 /* General Appearace */
 	.ajde_settings{
-	    margin: 0;
+	    margin: 0!important;
 	    padding-right: 20px;
 	    padding-top: 20px;
 	    padding-bottom: 50px;
@@ -13,20 +13,27 @@
 	.ajde_settings.evcal_1{padding-left: 0px;}
 	.evo_settings_header{
 		background-color: #fff;
-	    padding: 30px 50px 10px;
+	    padding: 65px 0 0px;
 	    margin: -20px -20px 30px;
+	    border-bottom:1px solid #e0e0e0
 	}
-	.evo_settings_header h2{	font-size: 24px;}
+	.evo_settings_header h2{
+		border-bottom: 1px solid #e0e0e0; margin:0;padding:20px;
+	}
+	h2.settings_m_header{
+		position: fixed;
+	    background-color: #fff;
+	    width: 100%;
+	    z-index: 3; top:30px; padding:20px 20px 15px;
+	}
 	.evo_settings_header div{color:#202124;}
+	.wrap .evo_settings_header .updated{margin:5px;}
 
 	.ajde_settings .evo_lang_export{margin-left: 155px;}
+	.ajde_settings.evcal_2 .evo_lang_export{margin-left: 0;}
 
-	.ajde_settings.evcal_2 .evo_settings_header,.ajde_settings.evcal_2 .evo_lang_export,
-	.ajde_settings.evcal_3 .evo_settings_header,.ajde_settings.evcal_3 .evo_lang_export,
-	.ajde_settings.evcal_4 .evo_settings_header,.ajde_settings.evcal_4 .evo_lang_export,
-	.ajde_settings.evcal_5 .evo_settings_header,.ajde_settings.evcal_5 .evo_lang_export{
-		margin-left: 0px;
-	}
+	.evo_settings_box .postbox{border:none;}
+	.evo_settings_box .postbox .inside{border:none;margin:0; padding:20px;}
 
 /* new tag */
 	.acus_line .new{
@@ -96,7 +103,7 @@
 	}
 
 /* top menu*/
-	#evcal_settings #meta_tabs{ border-bottom: none; margin:0px 0 10px;}
+	#evcal_settings #meta_tabs{ border-bottom: none; margin:0px;}
 	#evcal_settings #meta_tabs a {
 		border-radius: 30px;
 	    border: 1px solid #e8e8e8;
@@ -104,6 +111,7 @@
 	    padding: 5px 15px;
 	    background-color: transparent;
 	}
+	#evcal_settings #meta_tabs a:hover{background-color: var(--evo_color_1); color:#fff;}
 	#evcal_settings #meta_tabs a.nav-tab-active{
 		background-color: #fed584; border-color: var(--evo_color_1)
 	}
@@ -135,7 +143,6 @@
 	#acus_left ul a i.fa{
 		position: absolute;
 		left: 10px;
-		opacity: 0.6;
 		font-size: 18px;
 	}
 	@media screen and (max-width: 782px){#acus_left ul a i.fa{text-indent: 5px}}
@@ -168,8 +175,7 @@
 	#ajde_customization td.evo_settings_right{	
 		background-color: #fff;
 	    position: relative;
-	    min-height: 900px;border-radius: 12px;
-	    box-shadow: 0px 0px 20px -5px #0000001c;
+	    min-height: 900px;border-radius: 15px;
 	}
 
 /* subsection */
@@ -220,8 +226,6 @@
 	}
 	
 /* collpase menu button */
-	.ajde_settings.mini .evo_settings_header,
-	.ajde_settings.mini .evo_diag,
 	.ajde_settings.mini .evo_lang_export	{margin-left: 45px;}
 	.backender_left .ajde-collapse-menu span, .backender_left .ajde-collapse-menu #collapse-button div:after{
 		color: #a8a8a8;
@@ -666,41 +670,4 @@
     min-height: 15px;}
 	.row_faicons p i:hover{opacity: 0.7}
 	
-	.fa_icons_selection{
-		background-color: #fff;
-		height:200px; width: 600px;
-		padding: 5px 0px;
-		-webkit-box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-		box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-		position: absolute;
-		z-index: 999;
-		border-radius: 12px;
-	}
-	.fa_icons_selection:before{
-		content:"";
-		width: 0px;
-		height: 0px;
-		border-style: solid;
-		border-width: 12px 10px 0 10px;
-		border-color: #ffffff transparent transparent transparent;
-		position: absolute;
-		bottom: 0; left: 0;
-		margin-bottom: -12px;
-		margin-left: 173px;
-	}
-	.fa_icons_selection .fai_in{
-		height:200px; width: 600px;
-		overflow: auto;
-	}
-	.fa_icons_selection li.select,.fa_icons_selection ul li:hover{background-color: #fde95c;}	
-	.fa_icons_selection ul{margin-top: 0;}
-	.fa_icons_selection ul li{
-		display: inline-block;
-		cursor: pointer;
-		margin: 0;
-		padding: 9px; border-radius: 8px;
-	}
-	.fa_icons_selection ul li i{
-		font-size: 28px; 
-		width: 28px;
-	}
+	

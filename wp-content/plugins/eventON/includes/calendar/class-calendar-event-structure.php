@@ -30,9 +30,43 @@ class EVO_Cal_Event_Structure{
 
 
 // HTML EventTop
-	function get_eventtop_item_html($field, $object, $eventtop_fields = ''){
-		extract($object);
-		$object = (object) $object;
+	function get_eventtop_tags( $EVENT, $object ){
+		$eventtop_tags = array();
+		extract( $object );
+
+		// status
+		if( $_status && $_status != 'scheduled'){
+			$eventtop_tags['status'] = array(
+				$EVENT->get_event_status_lang(),
+				$_status
+			);
+		}
+
+		// featured
+		if(!empty($featured) && $featured){
+			$eventtop_tags['featured'] = array(evo_lang('Featured')	);
+		}
+
+		// completed
+		if(!empty($completed) && $completed){
+			$eventtop_tags['completed'] = array(evo_lang('Completed')	);
+		}
+
+		// virtual
+		if( $EVENT && $EVENT->get_attendance_mode() != 'offline' ){
+			if( $EVENT->is_mixed_attendance()){
+				$eventtop_tags['virtual_physical'] = 
+					array(evo_lang('Virtual/ Physical Event'), 'vir'	);
+			}else{
+				$eventtop_tags['virtual'] = array(evo_lang('Virtual Event'), 'vir'	);
+			}							
+		}
+
+		return $eventtop_tags;
+	}
+	function get_eventtop_item_html($field, $_object, $eventtop_fields = ''){
+		extract($_object);
+		$object = (object) $_object;
 		$SC = EVO()->calendar->shortcode_args;
 		$EVENT = $this->EVENT;
 
@@ -43,6 +77,7 @@ class EVO_Cal_Event_Structure{
 		switch($field){
 			case 'data':
 
+				// organizer data
 				$orgs = array();
 				if( !empty($event_organizer) ){
 					foreach($event_organizer as $id=>$dd){
@@ -50,11 +85,31 @@ class EVO_Cal_Event_Structure{
 					}
 				}
 
+				// event tag data
+					$tags = array();
+					if( isset($SC['hide_et_tags']) && $SC['hide_et_tags'] == 'yes'){}else{
+
+						// get set to hide event top tags
+							$eventtop_hidden_tags = EVO()->cal->get_prop('evo_etop_tags') ?: array();
+
+						// print the event top tags
+						foreach( apply_filters('eventon_eventtop_abovetitle_tags', $this->get_eventtop_tags( $EVENT, $_object) ) as $ff=>$vv){
+							if(in_array($ff, $eventtop_hidden_tags)) continue;
+
+							$ff = isset($vv[1]) ? $vv[1] : $ff;
+							$tags[ $ff ] = $vv[0];
+						}
+					}
+
+				// build data array
 				$data = array(
 					'd'=> array(
 						'loc.n'=> (!empty($location_name) ? $location_name: ''),
-						'orgs'=> $orgs
-					)
+						'orgs'=> $orgs,
+						'tags'=> $tags
+					),
+					'bgc'=> $color,
+					'bggrad'=> ( !empty($bggrad)? $bggrad:'')
 				);
 				$OT .= "<span class='evoet_data' ". $this->helper->array_to_html_data($data)."></span>";
 
@@ -153,46 +208,13 @@ class EVO_Cal_Event_Structure{
 						$OT.= "<span class='evo_live_now' title='".( evo_lang('Live Now')  )."'>". EVO()->elements->get_icon('live') ."</span>";
 					}
 
-
 					// get set to hide event top tags
-					$eventtop_hidden_tags = EVO()->cal->get_prop('evo_etop_tags');
-					if( !$eventtop_hidden_tags) $eventtop_hidden_tags = array();
+						$eventtop_hidden_tags = EVO()->cal->get_prop('evo_etop_tags') ?: array();
 
 					$OT .= apply_filters("eventon_eventtop_abovetitle", '', $object, $EVENT, $eventtop_hidden_tags);
-
-					$eventtop_tags = apply_filters('eventon_eventtop_abovetitle_tags', array());
-
-					// status
-					if( $_status && $_status != 'scheduled'){
-						$eventtop_tags['status'] = array(
-							$EVENT->get_event_status_lang(),
-							$_status
-						);
-					}
-
-					// featured
-					if(!empty($featured) && $featured){
-						$eventtop_tags['featured'] = array(evo_lang('Featured')	);
-					}
-
-					// completed
-					if(!empty($completed) && $completed){
-						$eventtop_tags['completed'] = array(evo_lang('Completed')	);
-					}
-
-					// virtual
-					if( $EVENT && $EVENT->get_attendance_mode() != 'offline' ){
-						if( $EVENT->is_mixed_attendance()){
-							$eventtop_tags['virtual_physical'] = 
-								array(evo_lang('Virtual/ Physical Event'), 'vir'	);
-						}else{
-							$eventtop_tags['virtual'] = array(evo_lang('Virtual Event'), 'vir'	);
-						}							
-					}
-
 					
 					// print the event top tags
-					foreach($eventtop_tags as $ff=>$vv){
+					foreach( apply_filters('eventon_eventtop_abovetitle_tags', $this->get_eventtop_tags( $EVENT, $_object) ) as $ff=>$vv){
 						if(in_array($ff, $eventtop_hidden_tags)) continue;
 
 						$v1 = isset($vv[1]) ? ' '.$vv[1]:'';
@@ -415,10 +437,12 @@ class EVO_Cal_Event_Structure{
 
 					//$OT.= "<span class='evo_ep_pre'>". evo_lang('Live Now') ."</span>";
 
-					$now =  EVO()->calendar->utc_time;
-					$duration = $EVENT->duration;
-					$end_utc = $EVENT->get_end_time( true);
-					$gap = $end_utc - $now; // how far event has progressed
+					$end_utc = $EVENT->get_end_time( true); // end time in utc0
+
+					// deprecating values
+						$now =  EVO()->calendar->utc_time;
+						$duration = $EVENT->duration;					
+						$gap = $end_utc - $now; // how far event has progressed
 
 					$perc = $duration == 0? 0: ($duration - $gap) / $duration;
 					$perc = (int)( $perc*100);
@@ -891,7 +915,8 @@ class EVO_Cal_Event_Structure{
 							$repeat_start_time_format = apply_filters('evo_eventcard_repeatseries_start_dtformat','');
 							$repeat_end_time_format = apply_filters('evo_eventcard_repeatseries_end_dtformat','');
 
-
+							// sort the repeats by event date @4.5.3
+							asort($object->future_intervals);
 							
 							foreach($object->future_intervals as $key=>$interval){
 								$OT .= "<span data-repeat='{$key}' data-l='". $EVENT->get_permalink($key,$EVENT->l) ."' class='evo_repeat_series_date'>"; 
@@ -959,7 +984,7 @@ class EVO_Cal_Event_Structure{
 
 						// since 4.5
 						$is_google_map_good = true;
-						if( !EVO()->cal->get_prop('evo_gmap_api_key')) $is_google_map_good = false;
+						if( !EVO()->cal->get_prop('evo_gmap_api_key','evcal_1')) $is_google_map_good = false;
 
 						if( !$is_google_map_good ) break;
 
@@ -1099,6 +1124,8 @@ class EVO_Cal_Event_Structure{
 								foreach($EVENT->get_organizer_social_meta_array() as $key=>$val){
 
 									if( empty($EO->$key )) continue;
+
+									if( $key == 'twitter') $key = 'x-'. $key;
 										
 									$org_social .= "<a target='_blank' href='". urldecode( $EO->$key ) . "'><i class='fa fa-{$key}'></i></a>";
 								}

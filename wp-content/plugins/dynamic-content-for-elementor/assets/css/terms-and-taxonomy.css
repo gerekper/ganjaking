@@ -1,0 +1,42 @@
+.elementor-widget-dyncontel-terms .dce-terms img{
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+.elementor-widget-dyncontel-terms .dce-terms ul{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+.elementor-widget-dyncontel-terms .dce-terms span.text_before, .elementor-widget-dyncontel-terms .dce-terms span.text_after {
+    display: flex;
+}
+.elementor-widget-dyncontel-terms .dce-terms ul.dce-image-block{
+    align-items: flex-start;
+}
+.elementor-widget-dyncontel-terms .dce-terms ul li{
+    display: flex;
+    align-items: center;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-term-wrap{
+    display: flex;
+    align-items: center;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-image-inline .dce-term-wrap{
+    flex-direction: row;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-image-block .dce-term-wrap{
+    flex-direction: column;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-term-item{
+    display: inline-block;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-term-item.dce-term-mode-background{
+    padding: 5px 10px;
+}
+.elementor-widget-dyncontel-terms .dce-terms .dce-term-item.dce-term-mode-border{
+    border-bottom-style: solid;
+    border-color: transparent;
+}

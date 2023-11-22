@@ -1139,114 +1139,17 @@
 		}
 	}
 
-	.wp-smush-ultra-compression-modal {
-		@media screen and (min-width: 782px) {
-			max-width: 660px !important;
+	.wp-smush-ultra-compression-link {
+		background-color: #F1E7FF!important;
+		color: $purple!important;
+		span:before {
+			color: $purple;
 		}
-		.sui-box-body {
-			.sui-description {
-				margin-top: 8px!important;
-				margin-bottom: 30px!important;
-			}
-			.smush-footer-link {
-				font-size: 13px;
-				line-height: 21px;
-			}
-		}
-		.sui-box-footer {
-			flex-direction: column;
-		}
-		.sui-box-footer {
-			.sui-box-title {
-				font-size: 13px;
-				font-weight: 500;
-				width:100%;
-				margin-bottom: 11px;
-				// padding-left: 7px;
-			}
-			.wp-smush-pro-features {
-				display: flex;
-				ul {
-					font-size: 12px;
-					margin:0;
-					padding:0;
-					li {
-						display: flex;
-						flex-direction: column;
-						.wp-smush-pro-features_item {
-							display: flex;
-							align-self: stretch;
-							align-items: flex-start;
-							width: 100%;
-							gap: 10px;
-							margin-bottom: 7px;
-							// padding-left: 7px;
-							.sui-icon-box{
-								display: block;
-								border-radius: 6px;
-								padding:3px;
-								border: 1px solid #ddd;
-								justify-content: center;
-								>span{
-									width:20px;
-									height: 20px;
-									justify-content: center;
-									align-items: center;
-									display: flex;
-								}
-							}
-							.sui-content-box {
-								margin:0;
-								h5 {
-									line-height: 16px;
-									margin:0 0 3px 0;
-									font-weight: 600;
-									font-size: inherit;
-									display: flex;
-									align-self: stretch;
-									letter-spacing: 0;
-								}
-								p {
-									margin:0;
-									font-size: 12px;
-									line-height: 20px;
-								}
-							}
-						}
-						@media screen and (min-width: 480px) {
-							flex-direction: row;
-							.wp-smush-pro-features_item {
-								width: 50%;
-								&:last-child{
-									padding-left: 7px;
-								}
-							}
-						}
-					}
-				}
-			}
-			> p {
-				--purple: #8D00B1;
-				width:100%;
-				margin-top: 16px;
-				.sui-button-ghost {
-					font-size: 13px;
-					display: block;
-					color: var( --purple );
-					background-color: #F8F8F8;
-					text-align: center;
-					padding: 7px 12px;
-					transition: all 0.3s ease;
-					line-height: 22px;
-					span {
-						&:before {
-							color: var( --purple );
-						}
-					}
-					&:hover{
-						text-decoration: underline;
-					}
-				}
+
+		&:hover {
+			color: #64007e!important;
+			span:before {
+				color: #64007e;
 			}
 		}
 	}

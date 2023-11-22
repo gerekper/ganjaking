@@ -17,12 +17,12 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -201,6 +201,28 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 
 
 	/**
+	 * Returns the temporary export file path available only for the batch session.
+	 *
+	 * @uses wp_tempnam()
+	 *
+	 * @since 1.25.1
+	 *
+	 * @param string $file_name
+	 * @return string
+	 */
+	private function get_tmp_file_path( string $file_name = '' ) : string {
+
+		$tmp_file = wp_tempnam( $file_name );
+
+		if ( file_exists( $tmp_file ) ) {
+			unlink( $tmp_file );
+		}
+
+		return $tmp_file;
+	}
+
+
+	/**
 	 * Returns the export file URL.
 	 *
 	 * @since 1.10.0
@@ -229,10 +251,11 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 	public function create_job( $attrs ) {
 
 		// makes the current export job file name unique for the current user
-		$file_id   = md5( http_build_query( wp_parse_args( $attrs, array( 'user_id' => get_current_user_id() ) ) ) );
-		$file_name = $this->get_file_name( $file_id );
-		$file_path = $this->get_file_path( $file_name );
-		$file_url  = $this->get_file_url( $file_name );
+		$file_id	   = md5( http_build_query( wp_parse_args( $attrs, array( 'user_id' => get_current_user_id() ) ) ) );
+		$file_name	   = $this->get_file_name( $file_id );
+		$file_path	   = $this->get_file_path( $file_name );
+		$file_url	   = $this->get_file_url( $file_name );
+		$tmp_file_path = $this->get_tmp_file_path( $file_name );
 
 		// given that it could be filtered, we need to ensure there's a valid file name produced
 		if ( '' === $file_name ) {
@@ -244,6 +267,7 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 			'file_path'              => $file_path,
 			'file_url'               => $file_url,
 			'fields_delimiter'       => 'comma',
+			'tmp_file_path'          => $tmp_file_path,
 			'include_profile_fields' => false,
 			'include_meta_data'      => false,
 			'results'                => (object) [
@@ -328,6 +352,11 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 			$this->start_time = time();
 		}
 
+		if( file_exists( $job->tmp_file_path ) ) {
+
+			unlink( $job->tmp_file_path );
+		}
+
 		// indicate that the job has started processing
 		if ( 'processing' !== $job->status ) {
 
@@ -377,6 +406,13 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 				if ( $processed_memberships >= $items_per_batch || $this->time_exceeded() || $this->memory_exceeded() ) {
 					break;
 				}
+			}
+
+			if ( file_exists( $job->tmp_file_path ) ) {
+
+				file_put_contents( $job->file_path, file_get_contents( $job->tmp_file_path ), FILE_APPEND );
+
+				unlink( $job->tmp_file_path );
 			}
 
 			$job->progress  += $processed_memberships;
@@ -620,7 +656,7 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 				if ( ! empty( $user_membership_csv_row_data ) && ! empty( $job->file_path ) ) {
 
 					// open the file to append data ('a' is for 'append')
-					$file_handle = @fopen( $job->file_path, 'a' );
+					$file_handle = @fopen( $job->tmp_file_path, 'a' );
 
 					if ( false === $file_handle || ! is_writable( $job->file_path ) ) {
 

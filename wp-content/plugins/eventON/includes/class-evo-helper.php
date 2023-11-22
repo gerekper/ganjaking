@@ -3,7 +3,7 @@
  * Helper functions to be used by eventon or its addons
  * front-end only
  *
- * @version 4.4.5
+ * @version 4.5.4
  */
 
 
@@ -71,7 +71,7 @@ class evo_helper{
 			return $array;
 		}	
 
-		// sanitize html content
+		// sanitize html content @u 4.5.3
 			function sanitize_html($content){
 				if( !EVO()->cal->check_yn('evo_sanitize_html','evcal_1')) return $content;
 
@@ -80,6 +80,7 @@ class evo_helper{
 				        'href' => array(),
 				        'title' => array()
 				    ),
+				    'br' => array(),
 				    'p' => array(),
 				    'i' => array(),
 				    'b' => array(),
@@ -598,15 +599,18 @@ class evo_helper{
 				"Pacific/Auckland"               => "(GMT+12:00) Auckland, Wellington"
 			);
 		}
-		function get_timezone_array( $unix = false , $adjusted = false) {
+
+		// @updated 4.5.4
+		// $unix var is deprecating
+		function get_timezone_array( $unix = '' , $adjusted = true) {
 			
 			$tzs = $this->get_default_timezones_array();
 
 			if(!$adjusted) return $tzs;
 		
 			// adjust GMT values based on daylight savings time
-			$DD = new DateTime();
-			if($unix) $DD->setTimestamp($unix);
+			$DD = new DateTime('now');
+			
 			$updated_zones = array();
 			foreach($tzs as $f=>$v){
 				$DD->setTimezone( new DateTimeZone( $f ));
@@ -617,14 +621,40 @@ class evo_helper{
 			return $updated_zones;
 		}
 
+
 		function get_timezone_name($key){
 			$data = $this->get_timezone_array();
-
-			if( isset( $data[$key] )) return $data[$key];
-			return $key;
+			return ( isset( $data[$key] )) ? $data[$key] : $key;
 		}
 
-		// return time offset in seconds
+		// return time offset from saved timezone values @4.5.2
+		public function _get_tz_offset_seconds( $tz_key){
+			$data = $this->get_timezone_array();
+			if( !isset( $data[$tz_key] )) return 0;// if non existing tz string 
+
+			$str = explode('GMT', $data[$tz_key]);
+			$str2 = explode(')', $str[1]);
+
+			$offset_time = $str2[0]; // return a val like +12:00
+
+			// if it is UTC 0
+			if(strpos($offset_time, '+0:') !== false)	return 0;
+
+			// alter
+			if(strpos($offset_time, '+') !== false){
+				$ss = str_replace('+', '-', $offset_time);
+			}else{
+				$ss = str_replace('-', '+', $offset_time);	
+			}
+
+			// convert to seconds
+			sscanf($ss, "%d:%d", $hours, $minutes);
+
+			return $hours * 3600 + $minutes * 60;
+		}
+
+		// return time offset in seconds -- deprecating @4.5.2
+		// @key  timezone string
 		function get_timezone_offset($key, $event_unix, $opposite = true, $unix = true){
 			$data = $this->get_timezone_array();
 
@@ -633,10 +663,10 @@ class evo_helper{
 			$str = explode('GMT', $data[$key]);
 			$str2 = explode(')', $str[1]);
 
-			$offset_time = $str2[0]; // 12:00
+			$offset_time = $str2[0]; // return a val like +12:00
 						
 
-			// return unix value
+			// return unix time value
 			if($unix){
 
 				// only return the utc offset
@@ -650,7 +680,9 @@ class evo_helper{
 								
 				return $offset;
 
+			// return offset from timezone string
 			}else{
+				// if return opposite of offset to counter
 				if(!$opposite){
 					return $offset_time;
 				}else{
@@ -663,8 +695,14 @@ class evo_helper{
 					}else{
 						$ss = str_replace('-', '+', $offset_time);	
 					}
-					
+
 					return $ss;
+
+					sscanf($ss, "%d:%d", $hours, $minutes);
+
+					$time_seconds = $hours * 3600 + $minutes * 60;
+					
+					return $time_seconds;
 				}				
 			}
 		}

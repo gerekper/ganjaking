@@ -326,12 +326,10 @@ class TCPDF_IMAGES {
 					$trns = array( ord( $t[1] ) );
 				} elseif ( $ct == 2 ) { // DeviceRGB
 					$trns = array( ord( $t[1] ), ord( $t[3] ), ord( $t[5] ) );
-				} else { // Indexed
-					if ( $n > 0 ) {
+				} elseif ( $n > 0 ) { // Indexed
 						$trns = array();
-						for ( $i = 0; $i < $n; ++ $i ) {
-							$trns[] = ord( $t[ $i ] );
-						}
+					for ( $i = 0; $i < $n; ++$i ) {
+						$trns[] = ord( $t[ $i ] );
 					}
 				}
 				fread( $f, 4 );
@@ -383,7 +381,6 @@ class TCPDF_IMAGES {
 			'data' => $data,
 		);
 	}
-
 } // END OF TCPDF_IMAGES CLASS
 
 // ============================================================+

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.35.0\n"
+"Project-Id-Version: MailPoet Premium 4.36.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-31T10:25:42+00:00\n"
+"POT-Creation-Date: 2023-11-14T17:36:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -362,6 +362,29 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:175
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:176
 msgid "Important information about your order"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:58
+#: assets/dist/js/premium.js:2
+msgid "Subscriber clicks a link in email"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:82
+msgid "Please select a newsletter."
+msgstr ""
+
+#. translators: %d is the ID of the segment
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:89
+msgid "Newsletter with ID '%d' not found."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:96
+msgid "Please select an operator."
+msgstr ""
+
+#. translators: %d is the ID of the segment
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:106
+msgid "Link with ID '%d' not found."
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php:50
@@ -884,6 +907,71 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "Start the automation when a tag is removed from a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select a newsletter"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Newsletter:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a newsletter"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Loading..."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "This newsletter has no links"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Condition:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a condition"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "any of"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "all of"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "none of"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Link:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a link"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Triggers an automation when a subscriber clicks a link in an email."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgctxt "noun"
+msgid "Trigger"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "link"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "clicks"
 msgstr ""
 
 #: assets/dist/js/premium.js:2

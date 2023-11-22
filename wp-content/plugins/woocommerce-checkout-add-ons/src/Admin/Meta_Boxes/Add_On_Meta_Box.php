@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Meta_Boxes;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 
 defined( 'ABSPATH' ) or exit;

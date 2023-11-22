@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+
 /**
  * Controller to handle table creation.
  */
@@ -90,11 +92,12 @@ class WooCommerce_Product_Search_Controller {
 	 *
 	 * @param string $name unprefixed name of the table
 	 *
-	 * @return string prefixed table name
+	 * @return string prefixed table name, already escaped for use in queries
 	 */
 	public static function get_tablename( $name ) {
 		global $wpdb;
-		return $wpdb->prefix . 'wps_' . $name;
+
+		return esc_sql( $wpdb->prefix . 'wps_' . $name );
 	}
 
 	/**
@@ -176,8 +179,10 @@ class WooCommerce_Product_Search_Controller {
 				}
 			}
 
-			$limit = wp_cache_get( 'object_limit', self::CACHE_GROUP );
-			if ( $limit === false ) {
+			$cache = Cache::get_instance();
+			$cache->set_unigroup( true );
+			$limit = $cache->get( 'object_limit', self::CACHE_GROUP );
+			if ( $limit === null ) {
 				$max_allowed_packet = self::get_max_allowed_packet();
 				$max_id_size = $wpdb->get_var( "SELECT LENGTH(MAX(ID)) FROM $wpdb->posts" );
 				if ( $max_id_size !== null ) {
@@ -200,8 +205,9 @@ class WooCommerce_Product_Search_Controller {
 					wps_log_info( sprintf( 'Object limit established at %d.', $limit ) );
 				}
 
-				$cached = wp_cache_set( 'object_limit', $limit, self::CACHE_GROUP, self::SECONDS_PER_DAY );
+				$cache->set( 'object_limit', $limit, self::CACHE_GROUP, self::SECONDS_PER_DAY );
 			}
+			$cache->set_unigroup( false );
 		} else {
 			if ( is_numeric( WPS_OBJECT_LIMIT ) ) {
 				$limit = intval( WPS_OBJECT_LIMIT );
@@ -231,6 +237,7 @@ class WooCommerce_Product_Search_Controller {
 	 * @return boolean true if all went well
 	 */
 	public static function setup() {
+
 		global $wpdb;
 
 		$result = true;
@@ -255,7 +262,6 @@ class WooCommerce_Product_Search_Controller {
 				PRIMARY KEY   (key_id),
 				INDEX `key`   (`key`(10))
 			) $charset_collate;";
-
 		}
 		$index_table = self::get_tablename( 'index' );
 		$tables[] = $index_table;

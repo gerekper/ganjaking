@@ -1,6 +1,6 @@
 <?php
 	$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
-	require( $parse_uri[0] . 'wp-load.php' );
+	require $parse_uri[0] . 'wp-load.php';
 	$parse_uri1 = explode( 'wp-content', $_SERVER['REQUEST_URI'] );
 	$id = $_GET['orderid'];
 	$suppid = $_GET['suppid'];
@@ -26,4 +26,3 @@ if ( empty( $get_id ) || ! isset( $get_id ) ) {
 	wp_mail( $to, $subject, $message );
 	update_post_meta( $id, '_' . $id . '_' . $suppid, $id . '_' . $suppid );
 }
-

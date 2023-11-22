@@ -10,13 +10,14 @@ namespace PremiumAddonsPro\Widgets;
 // Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +46,7 @@ class Premium_Facebook_Feed extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Facebook Feed', 'premium-addons-pro' ) );
+		return __( 'Facebook Feed', 'premium-addons-pro' );
 	}
 
 	/**
@@ -81,7 +82,7 @@ class Premium_Facebook_Feed extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'fb', 'profile', 'account', 'post', 'page', 'social' );
+		return array( 'pa', 'premium', 'fb', 'profile', 'account', 'post', 'page', 'social' );
 	}
 
 	/**
@@ -94,7 +95,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+			'pa-slick',
 			'premium-addons',
+			'premium-pro',
 		);
 	}
 
@@ -107,13 +110,20 @@ class Premium_Facebook_Feed extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'social-dot',
-			'jquery-socialfeed',
-			'isotope-js',
-			'pa-slick',
-			'imagesloaded',
-			'premium-pro',
+
+		$plugin_settings = Admin_Helper::get_enabled_elements();
+
+		$is_dynamic_assets = $plugin_settings['premium-assets-generator'] ? array() : array( 'premium-pro' );
+
+		return array_merge(
+			array(
+				'social-dot',
+				'jquery-socialfeed',
+				'isotope-js',
+				'pa-slick',
+				'imagesloaded',
+			),
+			$is_dynamic_assets
 		);
 	}
 
@@ -144,7 +154,7 @@ class Premium_Facebook_Feed extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'access_credentials_section',
@@ -194,19 +204,37 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'account_id',
 			array(
-				'label'       => __( 'ID', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => array( 'active' => true ),
-				'label_block' => true,
+				'label'              => __( 'ID', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'frontend_available' => true,
+				'label_block'        => true,
 			)
 		);
 
 		$this->add_control(
 			'access_token',
 			array(
-				'label'   => __( 'Access Token', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'dynamic' => array( 'active' => true ),
+				'label'              => __( 'Access Token', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXTAREA,
+				'dynamic'            => array( 'active' => true ),
+				'frontend_available' => true,
+			)
+		);
+
+		$this->add_control(
+			'reload',
+			array(
+				'label'   => __( 'Refresh Cached Data Once Every', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'hour'  => __( 'Hour', 'premium-addons-pro' ),
+					'day'   => __( 'Day', 'premium-addons-pro' ),
+					'week'  => __( 'Week', 'premium-addons-pro' ),
+					'month' => __( 'Month', 'premium-addons-pro' ),
+					'year'  => __( 'Year', 'premium-addons-pro' ),
+				),
+				'default' => 'hour',
 			)
 		);
 
@@ -249,9 +277,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'column_number',
 			array(
-				'label'           => __( 'Posts/Row', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::SELECT,
-				'options'         => array(
+				'label'              => __( 'Posts/Row', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'100%'    => __( '1 Column', 'premium-addons-pro' ),
 					'50%'     => __( '2 Columns', 'premium-addons-pro' ),
 					'33.33%'  => __( '3 Columns', 'premium-addons-pro' ),
@@ -259,14 +287,15 @@ class Premium_Facebook_Feed extends Widget_Base {
 					'20%'     => __( '5 Columns', 'premium-addons-pro' ),
 					'16.667%' => __( '6 Columns', 'premium-addons-pro' ),
 				),
-				'desktop_default' => '33.33%',
-				'tablet_default'  => '50%',
-				'mobile_default'  => '100%',
-				'render_type'     => 'template',
-				'condition'       => array(
+				'desktop_default'    => '33.33%',
+				'tablet_default'     => '50%',
+				'mobile_default'     => '100%',
+				'render_type'        => 'template',
+				'condition'          => array(
 					'layout_style' => 'masonry',
 				),
-				'selectors'       => array(
+				'frontend_available' => true,
+				'selectors'          => array(
 					'{{WRAPPER}} .premium-social-feed-element-wrap' => 'width: {{VALUE}}',
 				),
 			)
@@ -280,11 +309,11 @@ class Premium_Facebook_Feed extends Widget_Base {
 				'options' => array(
 					'ltr' => array(
 						'title' => __( 'Left to Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-chevron-circle-right',
+						'icon'  => 'eicon-chevron-right',
 					),
 					'rtl' => array(
 						'title' => __( 'Right to Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-chevron-circle-left',
+						'icon'  => 'eicon-chevron-left',
 					),
 				),
 				'default' => 'ltr',
@@ -299,19 +328,19 @@ class Premium_Facebook_Feed extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'selectors' => array(
@@ -333,31 +362,35 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'post_number',
 			array(
-				'label'       => __( 'Posts/Account', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'label_block' => false,
-				'description' => __( 'How many posts will be shown for each account', 'premium-addons-pro' ),
-				'default'     => 5,
+				'label'              => __( 'Posts/Account', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'label_block'        => false,
+				'max'                => 100,
+				'description'        => __( 'How many posts will be shown for each account', 'premium-addons-pro' ),
+				'default'            => 5,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'content_length',
 			array(
-				'label'   => __( 'Post Length', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 200,
+				'label'              => __( 'Post Length', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'default'            => 200,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'posts_media',
 			array(
-				'label'     => __( 'Show Post Media', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => 'Show',
-				'label_off' => 'Hide',
-				'default'   => 'yes',
+				'label'              => __( 'Show Post Media', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'default'            => 'yes',
+				'frontend_available' => true,
 			)
 		);
 
@@ -389,12 +422,12 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'image_fit',
 			array(
-				'label'     => __( 'Image Fit', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Image Fit', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					'cover'   => __( 'Cover', 'premium-addons-for-elementor' ),
-					'fill'    => __( 'Fill', 'premium-addons-for-elementor' ),
-					'contain' => __( 'Contain', 'premium-addons-for-elementor' ),
+					'cover'   => __( 'Cover', 'premium-addons-pro' ),
+					'fill'    => __( 'Fill', 'premium-addons-pro' ),
+					'contain' => __( 'Contain', 'premium-addons-pro' ),
 				),
 				'default'   => 'fill',
 				'selectors' => array(
@@ -410,10 +443,11 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'admin_posts',
 			array(
-				'label'        => __( 'Show Admin Posts Only', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'Enable this to show only the posts that are posted by page admins', 'premium-addons-pro' ),
-				'return_value' => 'true',
+				'label'              => __( 'Show Admin Posts Only', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Enable this to show only the posts that are posted by page admins', 'premium-addons-pro' ),
+				'return_value'       => 'true',
+				'frontend_available' => true,
 			)
 		);
 
@@ -500,11 +534,12 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'read_text',
 			array(
-				'label'     => __( 'Read More Text', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::TEXT,
-				'dynamic'   => array( 'active' => true ),
-				'default'   => 'Read More →',
-				'condition' => array(
+				'label'              => __( 'Read More Text', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => 'Read More →',
+				'frontend_available' => true,
+				'condition'          => array(
 					'read' => 'inline-block',
 				),
 			)
@@ -538,17 +573,19 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'feed_carousel',
 			array(
-				'label' => __( 'Carousel', 'premium-addons-pro' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'              => __( 'Carousel', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'carousel_play',
 			array(
-				'label'     => __( 'Auto Play', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
+				'label'              => __( 'Auto Play', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'frontend_available' => true,
+				'condition'          => array(
 					'feed_carousel' => 'yes',
 				),
 			)
@@ -557,11 +594,12 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'carousel_autoplay_speed',
 			array(
-				'label'       => __( 'Autoplay Speed', 'premium-addons-pro' ),
-				'description' => __( 'Autoplay Speed means at which time the next slide should come. Set a value in milliseconds (ms)', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'default'     => 5000,
-				'condition'   => array(
+				'label'              => __( 'Autoplay Speed', 'premium-addons-pro' ),
+				'description'        => __( 'Autoplay Speed means at which time the next slide should come. Set a value in milliseconds (ms)', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'default'            => 5000,
+				'frontend_available' => true,
+				'condition'          => array(
 					'feed_carousel' => 'yes',
 					'carousel_play' => 'yes',
 				),
@@ -609,7 +647,7 @@ class Premium_Facebook_Feed extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -772,7 +810,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'facebook_feed_content_typography',
-				'scheme'    => Typography::TYPOGRAPHY_1,
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector'  => '{{WRAPPER}} .premium-feed-element-text',
 				'condition' => array(
 					'show_content' => 'block',
@@ -785,9 +825,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-text' => 'color: {{VALUE}}',
@@ -857,9 +896,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-read-more' => 'color: {{VALUE}};',
@@ -875,9 +913,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-read-more:hover' => 'color: {{VALUE}};',
@@ -906,7 +943,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'facebook_feed_read_more_typography',
-				'scheme'    => Typography::TYPOGRAPHY_1,
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector'  => '{{WRAPPER}} .premium-feed-element-read-more',
 				'condition' => array(
 					'read' => 'inline-block',
@@ -1019,9 +1058,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-social-icon' => 'color: {{VALUE}};',
@@ -1071,9 +1109,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-author a' => 'color: {{VALUE}};',
@@ -1086,9 +1123,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-author:hover a' => 'color: {{VALUE}};',
@@ -1100,7 +1136,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-feed-element-author a',
 			)
 		);
@@ -1135,9 +1173,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-date a' => 'color: {{VALUE}};',
@@ -1151,9 +1188,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-date:hover a' => 'color: {{VALUE}};',
@@ -1165,7 +1201,9 @@ class Premium_Facebook_Feed extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'date_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-feed-element-date a',
 			)
 		);
@@ -1198,11 +1236,10 @@ class Premium_Facebook_Feed extends Widget_Base {
 		$this->add_control(
 			'arrow_color',
 			array(
-				'label'     => __( 'Arrrow Color', 'premium-addons-pro' ),
+				'label'     => __( 'Arrow Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-facebook-feed-wrapper .slick-arrow' => 'color: {{VALUE}};',
@@ -1227,9 +1264,8 @@ class Premium_Facebook_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-facebook-feed-wrapper .slick-arrow' => 'background-color: {{VALUE}};',
@@ -1365,6 +1401,18 @@ class Premium_Facebook_Feed extends Widget_Base {
 			return;
 		}
 
+		add_filter(
+			'pa_facebook_feed',
+			function( $feed_arr ) {
+
+				$id              = $this->get_id();
+				$feed_arr[ $id ] = $this->get_facebook_feed();
+
+				return $feed_arr;
+
+			}
+		);
+
 		$layout_class = 'list' === $settings['layout_style'] ? 'list-layout' : 'grid-layout';
 
 		$template = 'list' === $settings['layout_style'] ? 'list-template.php' : 'grid-template.php';
@@ -1375,30 +1423,10 @@ class Premium_Facebook_Feed extends Widget_Base {
 
 		$account_id = ( 'user' === $settings['type'] ? '@' : '!' ) . $account_id;
 
-		if ( 'yes' === $settings['feed_carousel'] ) {
-
-			$this->add_render_attribute(
-				'facebook',
-				array(
-					'data-carousel' => $settings['feed_carousel'],
-					'data-play'     => $settings['carousel_play'],
-					'data-speed'    => $settings['carousel_autoplay_speed'],
-					'data-rtl'      => is_rtl(),
-				)
-			);
-
-		}
-
 		$facebook_settings = array(
-			'accounts'   => esc_html( $account_id ),
-			'limit'      => $settings['post_number'],
-			'accessTok'  => esc_html( $settings['access_token'] ),
-			'length'     => $settings['content_length'],
-			'showMedia'  => $settings['posts_media'],
-			'layout'     => $layout_class,
-			'readMore'   => esc_html( $settings['read_text'] ),
-			'template'   => plugins_url( '/templates/', __FILE__ ) . $template,
-			'adminPosts' => $settings['admin_posts'],
+			'id'       => $this->get_id(),
+			'layout'   => $layout_class,
+			'template' => plugins_url( '/templates/', __FILE__ ) . $template,
 		);
 
 		if ( 'yes' === $settings['equal_height_switcher'] ) {
@@ -1448,6 +1476,63 @@ class Premium_Facebook_Feed extends Widget_Base {
 			</div>
 		</div>
 		<?php
+
+	}
+
+	/**
+	 * Get Facebook Feed
+	 *
+	 * Used to get posts from Facebook and cache them.
+	 *
+	 * @since 2.8.23
+	 * @access public
+	 *
+	 * @return object $response feed object.
+	 */
+	protected function get_facebook_feed() {
+
+		$settings = $this->get_settings_for_display();
+
+		$token = $settings['access_token'];
+
+		$limit = $settings['post_number'];
+
+		$account_id = preg_replace( '/[!@]/', '', $settings['account_id'] );
+
+		$transient_name = sprintf( 'papro_feed_%s', substr( $token, -8 ) );
+
+		$response = get_transient( $transient_name );
+
+		if ( false === $response ) {
+
+			sleep( 2 );
+
+			$api_url = sprintf( 'https://graph.facebook.com/v5.0/%s/feed?fields=id,from,message,created_time,admin_creator,story,full_picture&limit=%s&access_token=%s', $account_id, $limit, $token );
+
+			$response = wp_remote_get(
+				$api_url,
+				array(
+					'timeout'   => 60,
+					'sslverify' => false,
+				)
+			);
+
+			if ( is_wp_error( $response ) ) {
+				return;
+			}
+
+			$response = wp_remote_retrieve_body( $response );
+			$response = json_decode( $response, true );
+
+			$transient = $settings['reload'];
+
+			$expire_time = Helper_Functions::transient_expire( $transient );
+
+			set_transient( $transient_name, $response, $expire_time );
+
+		}
+
+		return $response;
 
 	}
 }

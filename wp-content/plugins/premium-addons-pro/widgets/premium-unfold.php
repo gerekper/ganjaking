@@ -14,8 +14,8 @@ use PremiumAddonsPro\Includes\PAPRO_Helper;
 use Elementor\Widget_Base;
 use Elementor\Icons_Manager;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -36,14 +36,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Unfold extends Widget_Base {
 
 	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -63,7 +69,7 @@ class Premium_Unfold extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Unfold', 'premium-addons-pro' ) );
+		return __( 'Unfold', 'premium-addons-pro' );
 	}
 
 	/**
@@ -89,6 +95,21 @@ class Premium_Unfold extends Widget_Base {
 	}
 
 	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS script handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-addons',
+			'premium-pro',
+		);
+	}
+
+	/**
 	 * Retrieve Widget Dependent JS.
 	 *
 	 * @since 1.0.0
@@ -100,20 +121,6 @@ class Premium_Unfold extends Widget_Base {
 		return array(
 			'jquery-ui',
 			'premium-pro',
-		);
-	}
-
-	/**
-	 * Retrieve Widget Dependent CSS.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @return array CSS script handles.
-	 */
-	public function get_style_depends() {
-		return array(
-			'premium-addons',
 		);
 	}
 
@@ -138,7 +145,7 @@ class Premium_Unfold extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'read', 'section', 'more', 'cta', 'content' );
+		return array( 'pa', 'premium', 'read', 'section', 'more', 'cta', 'content' );
 	}
 
 	/**
@@ -158,7 +165,7 @@ class Premium_Unfold extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'premium_unfold_general_settings',
@@ -236,10 +243,38 @@ class Premium_Unfold extends Widget_Base {
 		);
 
 		$this->add_control(
+			'live_temp_content',
+			array(
+				'label'       => __( 'Template Title', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'classes'     => 'premium-live-temp-title control-hidden',
+				'label_block' => true,
+				'condition'   => array(
+					'content_type' => 'template',
+				),
+			)
+		);
+
+		$this->add_control(
+			'content_temp_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'content_type' => 'template',
+				),
+			)
+		);
+
+		$this->add_control(
 			'content_temp',
 			array(
-				'label'       => __( 'Select Template', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'condition'   => array(
 					'content_type' => 'template',
@@ -256,19 +291,19 @@ class Premium_Unfold extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'selectors' => array(
@@ -290,20 +325,22 @@ class Premium_Unfold extends Widget_Base {
 		$this->add_control(
 			'premium_unfold_button_fold_text',
 			array(
-				'label'   => __( 'Unfold Text', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::TEXT,
-				'dynamic' => array( 'active' => true ),
-				'default' => __( 'Show more', 'premium-addons-pro' ),
+				'label'              => __( 'Unfold Text', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => __( 'Show more', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_button_unfold_text',
 			array(
-				'label'   => __( 'Fold Text', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::TEXT,
-				'dynamic' => array( 'active' => true ),
-				'default' => __( 'Show Less', 'premium-addons-pro' ),
+				'label'              => __( 'Fold Text', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => __( 'Show Less', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
@@ -388,15 +425,16 @@ class Premium_Unfold extends Widget_Base {
 		$this->add_control(
 			'premium_unfold_button_position',
 			array(
-				'label'       => __( 'Button Position', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'inside',
-				'options'     => array(
+				'label'        => __( 'Button Position', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'inside',
+				'options'      => array(
 					'inside'  => __( 'Inside', 'premium-addons-pro' ),
 					'outside' => __( 'Outside', 'premium-addons-pro' ),
 				),
-				'label_block' => true,
-				'separator'   => 'before',
+				'prefix_class' => 'premium-unfold-btn-',
+				'label_block'  => true,
+				'separator'    => 'before',
 			)
 		);
 
@@ -405,24 +443,29 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Alignment', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::CHOOSE,
+				'default'   => 'center',
+				'toggle'    => false,
 				'options'   => array(
-					'left'   => array(
+					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
-					'center' => array(
+					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
-					'right'  => array(
+					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
+
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-unfold-button-container' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .premium-button' => 'align-self: {{VALUE}}',
 				),
-				'default'   => 'center',
+				'condition' => array(
+					'premium_unfold_button_size!' => 'block',
+				),
 			)
 		);
 
@@ -482,134 +525,143 @@ class Premium_Unfold extends Widget_Base {
 		$this->add_control(
 			'premium_unfold_fold_height_select',
 			array(
-				'label'       => __( 'Fold Height', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'percent',
-				'options'     => array(
+				'label'              => __( 'Fold Height', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'default'            => 'percent',
+				'options'            => array(
 					'percent' => __( 'Percentage', 'premium-addons-pro' ),
 					'pixel'   => __( 'Pixels', 'premium-addons-pro' ),
 				),
-				'label_block' => true,
-				'separator'   => 'before',
+				'label_block'        => true,
+				'separator'          => 'before',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_responsive_control(
 			'premium_unfold_fold_height',
 			array(
-				'label'       => __( 'Fold Height', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'How much of the folded content should be shown, default is 60%', 'premium-addons-pro' ),
-				'min'         => 0,
-				'default'     => 60,
-				'condition'   => array(
+				'label'              => __( 'Fold Height', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'How much of the folded content should be shown, default is 60%', 'premium-addons-pro' ),
+				'min'                => 0,
+				'default'            => 60,
+				'condition'          => array(
 					'premium_unfold_fold_height_select' => 'percent',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_responsive_control(
 			'premium_unfold_fold_height_pix',
 			array(
-				'label'           => __( 'Fold Height', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::NUMBER,
-				'description'     => __( 'How much of the folded content should be shown, default is 100px', 'premium-addons-pro' ),
-				'min'             => 0,
-				'desktop_default' => 100,
-				'tablet_default'  => 100,
-				'mobile_default'  => 100,
-				'condition'       => array(
+				'label'              => __( 'Fold Height', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'How much of the folded content should be shown, default is 100px', 'premium-addons-pro' ),
+				'min'                => 0,
+				'desktop_default'    => 100,
+				'tablet_default'     => 100,
+				'mobile_default'     => 100,
+				'condition'          => array(
 					'premium_unfold_fold_height_select' => 'pixel',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_fold_dur_select',
 			array(
-				'label'       => __( 'Fold Duration', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'fast',
-				'options'     => array(
+				'label'              => __( 'Fold Duration', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'default'            => 'fast',
+				'options'            => array(
 					'slow'   => __( 'Slow', 'premium-addons-pro' ),
 					'fast'   => __( 'Fast', 'premium-addons-pro' ),
 					'custom' => __( 'Custom', 'premium-addons-pro' ),
 				),
-				'label_block' => true,
-				'separator'   => 'before',
+				'label_block'        => true,
+				'separator'          => 'before',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_fold_dur',
 			array(
-				'label'       => __( 'Number of Seconds', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'How much time does it take for the fold, default is 0.5s', 'premium-addons-pro' ),
-				'min'         => 0.1,
-				'default'     => 0.5,
-				'condition'   => array(
+				'label'              => __( 'Number of Seconds', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'How much time does it take for the fold, default is 0.5s', 'premium-addons-pro' ),
+				'min'                => 0.1,
+				'default'            => 0.5,
+				'condition'          => array(
 					'premium_unfold_fold_dur_select' => 'custom',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_fold_easing',
 			array(
-				'label'       => __( 'Fold Easing', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'swing',
-				'options'     => array(
+				'label'              => __( 'Fold Easing', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'default'            => 'swing',
+				'options'            => array(
 					'swing'  => 'Swing',
 					'linear' => 'Linear',
 				),
-				'label_block' => true,
+				'label_block'        => true,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_unfold_dur_select',
 			array(
-				'label'       => __( 'Unfold Duration', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'fast',
-				'options'     => array(
+				'label'              => __( 'Unfold Duration', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'default'            => 'fast',
+				'options'            => array(
 					'slow'   => 'Slow',
 					'fast'   => 'Fast',
 					'custom' => 'Custom',
 				),
-				'label_block' => true,
-				'separator'   => 'before',
+				'label_block'        => true,
+				'separator'          => 'before',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_unfold_dur',
 			array(
-				'label'       => __( 'Number of Seconds', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'How much time does it take for the unfold, default is 0.5s', 'premium-addons-pro' ),
-				'min'         => 0.1,
-				'default'     => 0.5,
-				'condition'   => array(
+				'label'              => __( 'Number of Seconds', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'How much time does it take for the unfold, default is 0.5s', 'premium-addons-pro' ),
+				'min'                => 0.1,
+				'default'            => 0.5,
+				'condition'          => array(
 					'premium_unfold_unfold_dur_select' => 'custom',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'premium_unfold_unfold_easing',
 			array(
-				'label'       => __( 'Unfold Easing', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'description' => __( 'Choose the animation style', 'premium-addons-pro' ),
-				'default'     => 'swing',
-				'options'     => array(
+				'label'              => __( 'Unfold Easing', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'description'        => __( 'Choose the animation style', 'premium-addons-pro' ),
+				'default'            => 'swing',
+				'options'            => array(
 					'swing'  => 'Swing',
 					'linear' => 'Linear',
 				),
-				'label_block' => true,
+				'label_block'        => true,
+				'frontend_available' => true,
 			)
 		);
 
@@ -799,9 +851,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-unfold-heading' => 'color: {{VALUE}};',
@@ -814,7 +865,9 @@ class Premium_Unfold extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_unfold_heading_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-unfold-heading',
 			)
 		);
@@ -902,9 +955,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-unfold-content' => 'color: {{VALUE}};',
@@ -920,7 +972,9 @@ class Premium_Unfold extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'unfold_content_typo',
-				'scheme'    => Typography::TYPOGRAPHY_1,
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector'  => '{{WRAPPER}} .premium-unfold-content',
 				'condition' => array(
 					'content_type' => 'editor',
@@ -998,9 +1052,29 @@ class Premium_Unfold extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-button i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-button .premium-unfold-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-button .premium-unfold-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
 				'condition'  => array(
+					'premium_unfold_button_icon_switcher' => 'yes',
+				),
+			)
+		);
+
+		$icon_spacing = is_rtl() ? 'left' : 'right';
+
+		$icon_spacing_after = is_rtl() ? 'right' : 'left';
+
+		$this->add_responsive_control(
+			'icon_spacing',
+			array(
+				'label'     => __( 'Icon Spacing', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'selectors' => array(
+					'{{WRAPPER}} .premium-unfold-after'  => 'margin-' . $icon_spacing_after . ': {{SIZE}}px',
+					'{{WRAPPER}} .premium-unfold-before' => 'margin-' . $icon_spacing . ': {{SIZE}}px',
+				),
+				'condition' => array(
 					'premium_unfold_button_icon_switcher' => 'yes',
 				),
 			)
@@ -1010,7 +1084,9 @@ class Premium_Unfold extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_unfold_button_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-button',
 			)
 		);
@@ -1029,9 +1105,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button span' => 'color: {{VALUE}};',
@@ -1044,12 +1119,12 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-button svg, {{WRAPPER}} .premium-button svg g path' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
 					'premium_unfold_button_icon_switcher' => 'yes',
@@ -1062,9 +1137,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button' => 'background-color: {{VALUE}};',
@@ -1167,9 +1241,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button:hover span'   => 'color: {{VALUE}};',
@@ -1182,12 +1255,12 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button:hover i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-button:hover svg, {{WRAPPER}} .premium-button:hover svg g path' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
 					'premium_unfold_button_icon_switcher' => 'yes',
@@ -1200,9 +1273,8 @@ class Premium_Unfold extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-button:hover' => 'background-color: {{VALUE}};',
@@ -1369,20 +1441,18 @@ class Premium_Unfold extends Widget_Base {
 	protected function render_unfold_button() {
 
 		$settings    = $this->get_settings_for_display();
-		$button_size = 'premium-button-' . $settings['premium_unfold_button_size'];
+		$button_size = 'premium-btn-' . $settings['premium_unfold_button_size'];
 
 		?>
-		<div class="premium-unfold-button-container">
-			<a id='premium-unfold-button-<?php echo esc_attr( $this->get_id() ); ?>' class="premium-button <?php echo esc_attr( $button_size ); ?>">
-			<?php if ( $settings['premium_unfold_button_icon_switcher'] && 'before' === $settings['premium_unfold_button_icon_position'] ) : ?>
-				<i class="premium-unfold-before"></i>
-			<?php endif; ?>
-				<span id="premium-unfold-button-text-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-unfold-button-text"></span>
-			<?php if ( $settings['premium_unfold_button_icon_switcher'] && 'after' === $settings['premium_unfold_button_icon_position'] ) : ?>
-				<i class="premium-unfold-after"></i>
-			<?php endif; ?>
-			</a>
-		</div>
+		<a class="premium-button <?php echo esc_attr( $button_size ); ?>" href="javascript:;">
+		<?php if ( $settings['premium_unfold_button_icon_switcher'] && 'before' === $settings['premium_unfold_button_icon_position'] ) : ?>
+			<span class="premium-unfold-icon premium-unfold-before"></span>
+		<?php endif; ?>
+			<span class="premium-unfold-button-text"></span>
+		<?php if ( $settings['premium_unfold_button_icon_switcher'] && 'after' === $settings['premium_unfold_button_icon_position'] ) : ?>
+			<span class="premium-unfold-icon premium-unfold-after"></span>
+		<?php endif; ?>
+		</a>
 		<?php
 	}
 
@@ -1411,82 +1481,69 @@ class Premium_Unfold extends Widget_Base {
 		$fold_migrated = isset( $settings['__fa4_migrated']['premium_unfold_button_icon_updated'] );
 		$fold_is_new   = empty( $settings['premium_unfold_button_icon'] ) && Icons_Manager::is_migration_allowed();
 
-		$button_icon = ( $fold_migrated || $fold_is_new ) ? $settings['premium_unfold_button_icon_updated']['value'] : $settings['premium_unfold_button_icon'];
-
 		$unfold_migrated = isset( $settings['__fa4_migrated']['premium_unfold_button_icon_unfolded_updated'] );
 		$unfold_is_new   = empty( $settings['premium_unfold_button_icon_unfolded'] ) && Icons_Manager::is_migration_allowed();
-
-		$button_icon_unfolded = ( $unfold_migrated || $unfold_is_new ) ? $settings['premium_unfold_button_icon_unfolded_updated']['value'] : $settings['premium_unfold_button_icon_unfolded'];
-
-		$fold_height = ( 'percent' === $settings['premium_unfold_fold_height_select'] ) ? array(
-			'desktop' => $settings['premium_unfold_fold_height'],
-			'tablet'  => $settings['premium_unfold_fold_height_tablet'],
-			'mobile'  => $settings['premium_unfold_fold_height_mobile'],
-		) : array(
-			'desktop' => $settings['premium_unfold_fold_height_pix'],
-			'tablet'  => $settings['premium_unfold_fold_height_pix_tablet'],
-			'mobile'  => $settings['premium_unfold_fold_height_pix_mobile'],
-		);
-
-		$fold_dur = ( 'custom' === $settings['premium_unfold_fold_dur_select'] ) ? $settings['premium_unfold_fold_dur'] * 1000 : $settings['premium_unfold_fold_dur_select'];
-
-		$unfold_dur = ( 'custom' === $settings['premium_unfold_unfold_dur_select'] ) ? $settings['premium_unfold_unfold_dur'] * 1000 : $settings['premium_unfold_unfold_dur_select'];
-
-		$fold_ease = $settings['premium_unfold_fold_easing'];
-
-		$unfold_ease = $settings['premium_unfold_unfold_easing'];
-
-		$unfold_settings = array(
-			'buttonIcon'       => $button_icon,
-			'buttonUnfoldIcon' => $button_icon_unfolded,
-			'foldSelect'       => $settings['premium_unfold_fold_height_select'],
-			'foldHeight'       => $fold_height,
-			'foldDur'          => $fold_dur,
-			'unfoldDur'        => $unfold_dur,
-			'foldEase'         => $fold_ease,
-			'unfoldEase'       => $unfold_ease,
-			'foldText'         => $settings['premium_unfold_button_fold_text'],
-			'unfoldText'       => $settings['premium_unfold_button_unfold_text'],
-		);
 
 		$title_tag = PAPRO_Helper::validate_html_tag( $settings['premium_unfold_title_heading'] );
 
 		?>
 
-		<div class="premium-unfold-wrap" data-settings='<?php echo wp_json_encode( $unfold_settings ); ?>'>
-			<div class='premium-unfold-container'>
-				<div class='premium-unfold-folder'>
-					<?php if ( 'yes' === $settings['premium_unfold_title_switcher'] && ! empty( $settings['premium_unfold_title'] ) ) : ?>
-						<<?php echo wp_kses_post( $title_tag . ' ' . $this->get_render_attribute_string( 'premium_unfold_title' ) ); ?>>
-							<?php echo wp_kses_post( $settings['premium_unfold_title'] ); ?>
-						</<?php echo wp_kses_post( $title_tag ); ?>>
-					<?php endif; ?>
+		<div class='premium-unfold-container'>
+			<div class='premium-unfold-folder'>
+				<?php if ( 'yes' === $settings['premium_unfold_title_switcher'] && ! empty( $settings['premium_unfold_title'] ) ) : ?>
+					<<?php echo wp_kses_post( $title_tag . ' ' . $this->get_render_attribute_string( 'premium_unfold_title' ) ); ?>>
+						<?php echo wp_kses_post( $settings['premium_unfold_title'] ); ?>
+					</<?php echo wp_kses_post( $title_tag ); ?>>
+				<?php endif; ?>
 
-					<div id="premium-unfold-content-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-unfold-content toggled">
-						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_unfold_content' ) ); ?>>
-							<?php if ( 'editor' === $settings['content_type'] ) : ?>
-								<?php echo $this->parse_text_editor( $settings['premium_unfold_content'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-							<?php else : ?>
-								<?php echo $this->getTemplateInstance()->get_template_content( $settings['content_temp'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-							<?php endif; ?>
-						</div>
+				<div id="premium-unfold-content-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-unfold-content toggled">
+					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_unfold_content' ) ); ?>>
+						<?php if ( 'editor' === $settings['content_type'] ) : ?>
+							<?php echo $this->parse_text_editor( $settings['premium_unfold_content'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php
+						else :
+							$temp_id = empty( $settings['content_temp'] ) ? $settings['live_temp_content'] : $settings['content_temp'];
+							echo $this->getTemplateInstance()->get_template_content( $temp_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							?>
+						<?php endif; ?>
 					</div>
-					<?php if ( 'yes' === $settings['premium_unfold_sep_switcher'] ) : ?>
-					<div id="premium-unfold-gradient-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-unfold-gradient toggled"></div>
-					<?php endif; ?>
 				</div>
-			<?php
-			if ( 'inside' === $settings['premium_unfold_button_position'] ) {
-				$this->render_unfold_button();
-			}
-			?>
+				<?php if ( 'yes' === $settings['premium_unfold_sep_switcher'] ) : ?>
+				<div id="premium-unfold-gradient-<?php echo esc_attr( $this->get_id() ); ?>" class="premium-unfold-gradient toggled"></div>
+				<?php endif; ?>
 			</div>
-			<?php
-			if ( 'outside' === $settings['premium_unfold_button_position'] ) {
-				$this->render_unfold_button();
-			}
-			?>
+		<?php
+		if ( 'inside' === $settings['premium_unfold_button_position'] ) {
+			$this->render_unfold_button();
+		}
+		?>
 		</div>
+		<?php
+		if ( 'outside' === $settings['premium_unfold_button_position'] ) {
+			$this->render_unfold_button();
+		}
+		?>
+
+		<?php if ( $settings['premium_unfold_button_icon_switcher'] ) : ?>
+			<span class="premium-icon-holder-fold">
+				<?php
+				if ( $fold_migrated || $fold_is_new ) :
+					Icons_Manager::render_icon( $settings['premium_unfold_button_icon_updated'], array( 'aria-hidden' => 'true' ) );
+					else :
+						?>
+					<i class ="<?php echo esc_attr( $settings['premium_unfold_button_icon'] ); ?>"></i>
+				<?php endif; ?>
+			</span>
+			<span class="premium-icon-holder-unfolded">
+				<?php
+				if ( $unfold_migrated || $unfold_is_new ) :
+					Icons_Manager::render_icon( $settings['premium_unfold_button_icon_unfolded_updated'], array( 'aria-hidden' => 'true' ) );
+					else :
+						?>
+					<i class ="<?php echo esc_attr( $settings['premium_unfold_button_icon_unfolded'] ); ?>"></i>
+				<?php endif; ?>
+			</span>
+		<?php endif; ?>
 		<?php
 	}
 }

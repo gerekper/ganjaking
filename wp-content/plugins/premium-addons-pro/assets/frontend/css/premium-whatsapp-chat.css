@@ -1,0 +1,59 @@
+/**************** Premium WhatsApp Chat ****************/
+/*******************************************************/
+.premium-whatsapp-icon-before .premium-whatsapp-icon-wrap {
+  -webkit-order: 5;
+  -ms-flex-order: 5;
+  order: 5; }
+
+.premium-whatsapp-icon-after .premium-whatsapp-icon-wrap {
+  -webkit-order: 15;
+  -ms-flex-order: 15;
+  order: 15; }
+
+.premium-whatsapp-link {
+  background-color: #61ce70;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 999;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+  .premium-whatsapp-link .premium-whatsapp-text {
+    -webkit-order: 10;
+    -ms-flex-order: 10;
+    order: 10; }
+  .premium-whatsapp-link .premium-whatsapp-lottie {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+  .premium-whatsapp-link .premium-whatsapp-icon,
+  .premium-whatsapp-link span {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+  .premium-whatsapp-link img {
+    width: 30px;
+    height: 30px; }
+  .premium-whatsapp-link svg {
+    width: 70px;
+    height: 70px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+  .premium-whatsapp-link .premium-whatsapp-icon {
+    font-size: 22px; }
+  .premium-whatsapp-link.premium-btn-block {
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+
+.premium-button-float.right {
+  position: fixed;
+  bottom: 1em;
+  right: 1em; }
+
+.premium-button-float.left {
+  position: fixed;
+  bottom: 1em;
+  left: 1em; }

@@ -24,7 +24,7 @@
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons;
 
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations\WC_Subscriptions_Integration;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Admin;
@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.7.0';
+	const VERSION = '2.7.1';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';
@@ -79,8 +79,14 @@ class Plugin extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'supports_hpos' => true,
-				'text_domain'   => 'woocommerce-checkout-add-ons'
+				'text_domain'        => 'woocommerce-checkout-add-ons',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => false,
+						'checkout' => false,
+					],
+				],
 			]
 		);
 

@@ -146,3 +146,21 @@ function wcml_user_store_get( $key ) {
 function wcml_user_store_set( $key, $value ) {
 	\WPML\Container\make( WCML\User\Store\Store::class )->set( $key, $value );
 }
+
+/**
+ * @param string   $handle Unique name
+ * @param string   $src    Relative path to the file
+ * @param string[] $deps   Array of registered script handles this script depends on
+ * @param array    $args
+ *
+ * @return bool
+ */
+function wcml_register_script( $handle, $src, $deps = [], $args = [] ) {
+	global $wp_version;
+
+	if ( version_compare( $wp_version,'6.3', '<' ) ) {
+		$args = isset( $args['in_footer'] ) ? $args['in_footer'] : false;
+	}
+
+	return wp_register_script( $handle, WCML_PLUGIN_URL . '/' . $src, $deps, WCML_VERSION, $args );
+}

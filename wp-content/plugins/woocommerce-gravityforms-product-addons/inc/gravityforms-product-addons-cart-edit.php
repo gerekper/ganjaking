@@ -27,9 +27,9 @@ class WC_GFPA_Cart_Edit {
 
 	public function on_get_woocommerce_cart_item_permalink( $permalink, $cart_item, $cart_item_key ) {
 
-		if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
+		if ( isset( $cart_item['_gravity_form_data'] ) ) {
 
-			if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
+			if ( isset( $cart_item['_gravity_form_lead'] ) ) {
 
 				if ( $cart_item['data']->get_type() == 'variation' ) {
 					$p = wc_get_product( $cart_item['data']->get_parent_id() );

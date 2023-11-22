@@ -24,6 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	/**
+	 * Load Script
+	 *
+	 * @var $load_assets
+	 */
+	private $load_assets = null;
+
+	/**
 	 * Class Constructor Funcion.
 	 */
 	public function __construct() {
@@ -39,9 +46,6 @@ class Module extends Module_Base {
 			return;
 		}
 
-		// Enqueue the required JS file.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
 		// Creates Premium Prallax tab at the end of section/column layout tab.
 		add_action( 'elementor/element/section/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
 		add_action( 'elementor/element/column/section_advanced/after_section_end', array( $this, 'register_controls' ), 10 );
@@ -50,57 +54,44 @@ class Module extends Module_Base {
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 		add_action( 'elementor/frontend/column/before_render', array( $this, 'before_render' ), 10, 1 );
 
+		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+		add_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+
+		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
+
+	}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * Registers required dependencies for the extension and enqueues them.
+	 *
+	 * @since 2.6.5
+	 * @access public
+	 */
+	public function enqueue_styles() {
+
+		if ( ! wp_style_is( 'pa-global', 'enqueued' ) ) {
+			wp_enqueue_style( 'pa-global' );
+		}
 	}
 
 	/**
 	 * Enqueue scripts.
 	 *
-	 * Registers required dependencies for the extension and enqueues them.
+	 * Enqueue required JS dependencies for the extension.
 	 *
 	 * @since 1.6.5
 	 * @access public
 	 */
 	public function enqueue_scripts() {
 
-		if ( ( true === \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() ) ) || ( function_exists( 'elementor_location_exits' ) && ( elementor_location_exits( 'archive', true ) || elementor_location_exits( 'single', true ) ) ) ) {
-			wp_add_inline_script(
-				'elementor-frontend',
-				'window.scopes_array = {};
-                window.backend = 0;
-                jQuery( window ).on( "elementor/frontend/init", function() {
-                    elementorFrontend.hooks.addAction( "frontend/element_ready/global", function( $scope, $ ){
-                        if ( "undefined" == typeof $scope || ! $scope.hasClass( "premium-kenburns-yes" ) ) {
-                            return;
-                        }
-
-                        var id = $scope.data("id");
-                        window.scopes_array[ id ] = $scope;
-
-                    });
-                });
-
-                jQuery(document).ready(function(){
-
-                    if ( jQuery.find( ".premium-kenburns-yes" ).length < 1 ) {
-                        return;
-                    }
-
-                    var url = papro_addons.kenburns_url;
-
-                    jQuery.cachedAssets = function( url, options ) {
-                        // Allow user to set any option except for dataType, cache, and url.
-                        options = jQuery.extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Return the jqXHR object so we can chain callbacks.
-                        return jQuery.ajax( options );
-                    };
-                    jQuery.cachedAssets( url );
-                });	'
-			);
+		if ( ! wp_script_is( 'pa-kenburns', 'enqueued' ) ) {
+			wp_enqueue_script( 'pa-kenburns' );
 		}
 	}
 
@@ -142,7 +133,7 @@ class Module extends Module_Base {
 
 		$repeater = new Repeater();
 
-		$repeater->add_control(
+		$repeater->add_responsive_control(
 			'premium_kenburns_images',
 			array(
 				'label'       => __( 'Upload Image', 'premium-addons-pro' ),
@@ -264,7 +255,7 @@ class Module extends Module_Base {
 				'label'        => __( 'Infinite', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'description'  => __( 'This option works only if you have only one image slide', 'premium-addons-pro' ),
-				'return_value' => true,
+				'return_value' => 'true',
 			)
 		);
 
@@ -301,7 +292,7 @@ class Module extends Module_Base {
 
 		$settings = $element->get_settings_for_display();
 
-		if ( ( 'section' === $type || 'column' === $type ) && 'yes' === $settings['premium_kenburns_switcher'] && isset( $settings['premium_kenburns_repeater'] ) ) {
+		if ( ( 'section' === $type || 'container' === $type || 'column' === $type ) && 'yes' === $settings['premium_kenburns_switcher'] && isset( $settings['premium_kenburns_repeater'] ) ) {
 
 			$transition = 1000 * ( ( isset( $settings['premium_kenburns_speed'] ) && ! empty( $settings['premium_kenburns_speed']['size'] ) ) ? $settings['premium_kenburns_speed']['size'] : 6.5 );
 
@@ -326,5 +317,36 @@ class Module extends Module_Base {
 			$element->add_render_attribute( '_wrapper', 'data-kenburns', wp_json_encode( $kenburns_settings ) );
 
 		}
+	}
+
+	/**
+	 * Check Assets Enqueue
+	 *
+	 * Check if the assets files should be loaded.
+	 *
+	 * @since 2.6.3
+	 * @access public
+	 *
+	 * @param object $element for current element.
+	 */
+	public function check_assets_enqueue( $element ) {
+
+		if ( $this->load_assets ) {
+			return;
+		}
+
+		if ( 'yes' === $element->get_settings_for_display( 'premium_kenburns_switcher' ) ) {
+
+			$this->enqueue_styles();
+
+			$this->enqueue_scripts();
+
+			$this->load_assets = true;
+
+			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
+
 	}
 }

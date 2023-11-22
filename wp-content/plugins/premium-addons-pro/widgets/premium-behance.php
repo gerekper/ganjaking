@@ -11,14 +11,17 @@ use PremiumAddons\Includes\Helper_Functions;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Core\Responsive\Responsive;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
+
+// PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -46,7 +49,7 @@ class Premium_Behance extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Behance Feed', 'premium-addons-pro' ) );
+		return __( 'Behance Feed', 'premium-addons-pro' );
 	}
 
 	/**
@@ -70,7 +73,7 @@ class Premium_Behance extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'portfolio', 'work', 'project', 'social' );
+		return array( 'pa', 'premium', 'portfolio', 'work', 'project', 'social' );
 	}
 
 	/**
@@ -88,6 +91,20 @@ class Premium_Behance extends Widget_Base {
 	}
 
 	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
+	}
+
+	/**
 	 * Retrieve Widget Dependent JS.
 	 *
 	 * @since 1.0.0
@@ -96,9 +113,16 @@ class Premium_Behance extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'premium-behance',
-			'premium-pro',
+
+		$plugin_settings = Admin_Helper::get_enabled_elements();
+
+		$is_dynamic_assets = $plugin_settings['premium-assets-generator'] ? array() : array( 'premium-pro' );
+
+		return array_merge(
+			array(
+				'pa-behance',
+			),
+			$is_dynamic_assets
 		);
 	}
 
@@ -129,7 +153,7 @@ class Premium_Behance extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'access_credentials_section',
@@ -149,6 +173,22 @@ class Premium_Behance extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'reload',
+			array(
+				'label'   => __( 'Refresh Cached Data Once Every', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'hour'  => __( 'Hour', 'premium-addons-pro' ),
+					'day'   => __( 'Day', 'premium-addons-pro' ),
+					'week'  => __( 'Week', 'premium-addons-pro' ),
+					'month' => __( 'Month', 'premium-addons-pro' ),
+					'year'  => __( 'Year', 'premium-addons-pro' ),
+				),
+				'default' => 'hour',
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -158,29 +198,33 @@ class Premium_Behance extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'feed_column_number',
 			array(
-				'label'   => __( 'Number of Columns', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'col-1' => __( '1 Column', 'premium-addons-pro' ),
-					'col-2' => __( '2 Columns', 'premium-addons-pro' ),
-					'col-3' => __( '3 Columns', 'premium-addons-pro' ),
-					'col-4' => __( '4 Columns', 'premium-addons-pro' ),
-					'col-5' => __( '5 Columns', 'premium-addons-pro' ),
-					'col-6' => __( '6 Columns', 'premium-addons-pro' ),
-					'col-7' => __( '7 Columns', 'premium-addons-pro' ),
-					'col-8' => __( '8 Columns', 'premium-addons-pro' ),
+				'label'           => __( 'Number of Columns', 'premium-addons-pro' ),
+				'type'            => Controls_Manager::SELECT,
+				'options'         => array(
+					'100%'    => __( '1 Column', 'premium-addons-pro' ),
+					'50%'     => __( '2 Columns', 'premium-addons-pro' ),
+					'33.33%'  => __( '3 Columns', 'premium-addons-pro' ),
+					'25%'     => __( '4 Columns', 'premium-addons-pro' ),
+					'20%'     => __( '5 Columns', 'premium-addons-pro' ),
+					'16.667%' => __( '6 Columns', 'premium-addons-pro' ),
 				),
-				'default' => 'col-3',
+				'desktop_default' => '33.33%',
+				'tablet_default'  => '50%',
+				'mobile_default'  => '100%',
+				'render_type'     => 'template',
+				'selectors'       => array(
+					'{{WRAPPER}} li.wrap-project' => 'width: {{VALUE}}',
+				),
 			)
 		);
 
 		$this->add_control(
 			'hover_effect',
 			array(
-				'label'       => __( 'Hover Image Effect', 'premium-addons-pro' ),
+				'label'       => __( 'Image Hover Effect', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => array(
 					'none'    => __( 'None', 'premium-addons-pro' ),
@@ -206,15 +250,15 @@ class Premium_Behance extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -232,15 +276,15 @@ class Premium_Behance extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -261,15 +305,15 @@ class Premium_Behance extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -290,15 +334,15 @@ class Premium_Behance extends Widget_Base {
 				'options'    => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'conditions' => array(
@@ -436,12 +480,31 @@ class Premium_Behance extends Widget_Base {
 		);
 
 		$this->add_control(
+			'cover_size',
+			array(
+				'label'       => __( 'Cover Image Resolution', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array(
+					'115'      => __( '115 x 90', 'premium-addons-pro' ),
+					'202'      => __( '202 x 158', 'premium-addons-pro' ),
+					'230'      => __( '230 x 180', 'premium-addons-pro' ),
+					'404'      => __( '404 x 316', 'premium-addons-pro' ),
+					'808'      => __( '808 x 632', 'premium-addons-pro' ),
+					'original' => __( 'Original', 'premium-addons-pro' ),
+				),
+				'default'     => '404',
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
 			'load',
 			array(
 				'label'     => __( 'Load More', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => 'Show',
 				'label_off' => 'Hide',
+				'separator' => 'before',
 			)
 		);
 
@@ -481,15 +544,15 @@ class Premium_Behance extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -504,7 +567,7 @@ class Premium_Behance extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -514,7 +577,7 @@ class Premium_Behance extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -635,9 +698,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-projects li .wrap-cover .fields-in-cover > svg path' => 'fill: {{VALUE}};',
@@ -735,9 +797,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-projects li .wrap-cover .fields-in-cover .single' => '    color: {{VALUE}};',
@@ -749,7 +810,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'overlay_num_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .wrap-projects li .wrap-cover .fields-in-cover .single',
 			)
 		);
@@ -861,6 +924,30 @@ class Premium_Behance extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'project_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'project_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .wrap-projects .wrap-project' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'project_adv_radius' => 'yes',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
@@ -911,9 +998,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .wrap-projects .wrap-title-text' => 'color: {{VALUE}};',
@@ -926,9 +1012,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .wrap-title-text:hover' => 'color: {{VALUE}};',
@@ -940,7 +1025,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .wrap-project .wrap-title-text',
 			)
 		);
@@ -1035,9 +1122,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-label' => 'color: {{VALUE}};',
@@ -1049,7 +1135,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'author_label_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .wrap-label',
 			)
 		);
@@ -1131,9 +1219,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .owner-full-name a' => 'color: {{VALUE}};',
@@ -1146,9 +1233,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .owner-full-name:hover a' => 'color: {{VALUE}};',
@@ -1168,7 +1254,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'author_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .owner-full-name a',
 			)
 		);
@@ -1259,9 +1347,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-appreciations-outer .wrap-label svg g path' => 'fill: {{VALUE}};',
@@ -1358,9 +1445,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-appreciations-outer .wrap-app-value' => 'color: {{VALUE}};',
@@ -1372,7 +1458,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'app_num_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .wrap-appreciations-outer .wrap-app-value',
 			)
 		);
@@ -1471,9 +1559,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-views-outer .wrap-label svg g path' => 'fill: {{VALUE}};',
@@ -1570,9 +1657,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-container .wrap-views-outer .wrap-view-value' => 'color: {{VALUE}};',
@@ -1584,7 +1670,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'views_num_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-container .wrap-views-outer .wrap-view-value',
 			)
 		);
@@ -1673,7 +1761,9 @@ class Premium_Behance extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-behance-btn .eb-pagination-button span',
 			)
 		);
@@ -1692,9 +1782,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-btn .eb-pagination-button span'  => 'color: {{VALUE}};',
@@ -1785,9 +1874,8 @@ class Premium_Behance extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-behance-btn .eb-pagination-button:hover span'  => 'color: {{VALUE}};',
@@ -1872,35 +1960,6 @@ class Premium_Behance extends Widget_Base {
 
 	}
 
-	/**
-	 * Get Behance Responsive Style
-	 *
-	 * Returns responsive style based on Elementor Breakpoints
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 *
-	 * @return string widget CSS.
-	 */
-	protected function get_behance_responsive_style() {
-
-		$breakpoints = Responsive::get_breakpoints();
-		$style       = '<style>';
-		$style      .= '@media ( max-width: ' . $breakpoints['lg'] . 'px ) {';
-		$style      .= '.premium-behance-container .wrap-project {';
-		$style      .= 'flex-basis: 50% !important; -ms-flex-preferred-size: 50% !important';
-		$style      .= '}';
-		$style      .= '}';
-		$style      .= '@media ( max-width: ' . $breakpoints['md'] . 'px ) {';
-		$style      .= '.premium-behance-container .wrap-project {';
-		$style      .= 'flex-basis: 100% !important; -ms-flex-preferred-size: 100% !important';
-		$style      .= '}';
-		$style      .= '}';
-		$style      .= '</style>';
-
-		return $style;
-
-	}
 
 	/**
 	 * Render Behance widget output on the frontend.
@@ -1912,9 +1971,7 @@ class Premium_Behance extends Widget_Base {
 	 */
 	protected function render() {
 
-		$settings = $this->get_settings();
-
-		$widget_id = $this->get_id();
+		$settings = $this->get_settings_for_display();
 
 		$username = $settings['username'];
 
@@ -1927,15 +1984,27 @@ class Premium_Behance extends Widget_Base {
 			<?php
 			return; }
 
+		add_filter(
+			'pa_behance_feed',
+			function( $feed_arr ) {
+
+				$id              = $this->get_id();
+				$feed_arr[ $id ] = $this->get_behance_feed();
+
+				return $feed_arr;
+
+			}
+		);
+
 		$load_more = 'yes' === $settings['load'] ? '' : 'button-none';
 
 		$hover_effect = $settings['hover_effect'];
 
 		$photos_num = ! empty( $settings['number'] ) ? $settings['number'] : 1;
 
-		$col_num = $settings['feed_column_number'];
-
 		$button_size = $settings['button_size'];
+
+		$widget_id = $this->get_id();
 
 		$behance_settings = array(
 			'username'       => $username,
@@ -1947,6 +2016,7 @@ class Premium_Behance extends Widget_Base {
 			'date'           => $settings['date'],
 			'url'            => $settings['url'],
 			'desc'           => $settings['desc'],
+			'cover_size'     => $settings['cover_size'],
 			'id'             => $widget_id,
 			'number'         => $photos_num,
 		);
@@ -1957,7 +2027,6 @@ class Premium_Behance extends Widget_Base {
 				'id'            => 'premium-behance-container-' . $widget_id,
 				'class'         => array(
 					'premium-behance-container',
-					'premium-behance-' . $col_num,
 					$button_size,
 					$load_more,
 					$hover_effect,
@@ -1974,6 +2043,60 @@ class Premium_Behance extends Widget_Base {
 		</div>
 
 		<?php
-		echo $this->get_behance_responsive_style();
+	}
+
+	/**
+	 * Get Behance Feed
+	 *
+	 * Used to get feed from Behance and cache them.
+	 *
+	 * @since 2.8.23
+	 * @access public
+	 *
+	 * @return object $response feed object.
+	 */
+	protected function get_behance_feed() {
+
+		$settings = $this->get_settings_for_display();
+
+		$photos_num = ! empty( $settings['number'] ) ? $settings['number'] : 1;
+
+		$username = $settings['username'];
+
+		$transient_name = sprintf( 'papro_feed_%s', $username );
+
+		$response = get_transient( $transient_name );
+
+		if ( false === $response ) {
+
+			sleep( 2 );
+
+			$api_url = sprintf( 'https://api.behance.net/v2/users/%s/projects?client_id=XQhsS66hLTKjUoj8Gky7FOFJxNMh23uu&per_page=%s&page=1', $username, $photos_num );
+
+			$response = wp_remote_get(
+				$api_url,
+				array(
+					'timeout'   => 60,
+					'sslverify' => false,
+				)
+			);
+
+			if ( is_wp_error( $response ) ) {
+				return;
+			}
+
+			$response = wp_remote_retrieve_body( $response );
+			$response = json_decode( $response, true );
+
+			$transient = $settings['reload'];
+
+			$expire_time = Helper_Functions::transient_expire( $transient );
+
+			set_transient( $transient_name, $response, $expire_time );
+
+		}
+
+		return $response;
+
 	}
 }

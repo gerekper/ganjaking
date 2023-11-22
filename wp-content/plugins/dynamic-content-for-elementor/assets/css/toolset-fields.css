@@ -1,0 +1,89 @@
+.dynamic-content-elements-toolset a{
+  display: block;
+}
+.elementor-widget-dyncontel-toolset .tx-before{
+
+}
+.elementor-widget-dyncontel-toolset.forcewidth-yes img,
+.elementor-widget-dyncontel-toolset.forcewidth-yes .toolset-image{
+    width: 100%;
+    display: block;
+}
+.elementor-widget-dyncontel-toolset .mask{
+  overflow: hidden;
+}
+/* toolset Fields - IMAGE */
+.elementor-widget-dyncontel-toolset .toolset-image{
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.elementor-widget-dyncontel-toolset.align-dce-left .toolset-image{
+  margin-right: auto;
+}
+.elementor-widget-dyncontel-toolset.align-dce-center .toolset-image{
+  margin-left: auto;
+  margin-right: auto;
+}
+.elementor-widget-dyncontel-toolset.align-dce-right .toolset-image{
+  margin-left: auto;
+}
+.elementor-widget-dyncontel-toolset .toolset-image:hover .dce-overlay_hover{
+    opacity: 1;
+}
+.elementor-widget-dyncontel-toolset .toolset-bg-image{
+  position: relative;
+  display: block;
+}
+/* toolset Fields - VIDEO */
+.elementor-widget-dyncontel-toolset .elementor-open-lightbox iframe {
+  display: none;
+}
+.elementor-widget-dyncontel-toolset embed,
+.elementor-widget-dyncontel-toolset iframe,
+.elementor-widget-dyncontel-toolset object,
+.elementor-widget-dyncontel-toolset video {
+    display: block;
+}
+.elementor-widget-dyncontel-toolset .elementor-open-inline .elementor-custom-embed-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: 50%;
+}
+.elementor-widget-dyncontel-toolset .elementor-custom-embed-image-overlay {
+  cursor: pointer;
+  text-align: center;
+}
+.elementor-widget-dyncontel-toolset .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play i {
+  opacity: 0.9;
+  text-shadow: 3px 2px 30px rgba(0, 0, 0, 0.6);
+}
+.elementor-widget-dyncontel-toolset .elementor-custom-embed-image-overlay img {
+  display: block;
+  width: 100%;
+}
+.elementor-widget-dyncontel-toolset.align-dce-center .toolset-bg-image{
+  margin: 0 auto;
+}
+.elementor-widget-dyncontel-toolset.align-dce-right .toolset-bg-image{
+  margin: 0 0 0 auto;
+}
+.elementor-widget-dyncontel-toolset.align-dce-justify .toolset-bg-image{
+  display: inline;
+}
+.dynamic-content-for-elementor-toolset{
+  position: relative;
+  transition: all 0.5s ease;
+}
+.dynamic-content-for-elementor-toolset .edc-toolset{
+  transition: all 0.5s ease;
+}
+.elementor-widget-dyncontel-toolset.align-dce-justify .dynamic-content-for-elementor-toolset{
+  display: block;
+  text-align: center;
+}

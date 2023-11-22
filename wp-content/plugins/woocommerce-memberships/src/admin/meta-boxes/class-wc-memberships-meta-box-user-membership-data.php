@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -476,9 +476,9 @@ class WC_Memberships_Meta_Box_User_Membership_Data extends \WC_Memberships_Meta_
 				if ( $order ) {
 
 					/* translators: Placeholder: %s - order number */
-					$order_ref       = '<a href="' . esc_url( get_edit_post_link( $order->get_id() ) ) . '">' . sprintf(  __( 'Order %s', 'woocommerce-memberships' ), $order->get_order_number() ) . '</a>';
-					$order_date      = $order->get_date_created( 'edit' );
-					$billing_fields  = [
+					$order_ref      = '<a href="' . esc_url( $order->get_edit_order_url() ) . '">' . sprintf(  __( 'Order %s', 'woocommerce-memberships' ), $order->get_order_number() ) . '</a>';
+					$order_date     = $order->get_date_created( 'edit' );
+					$billing_fields = [
 						__( 'Purchased in:', 'woocommerce-memberships' ) => $order_ref,
 						__( 'Order Date:', 'woocommerce-memberships' )   => $order_date ? date_i18n( wc_date_format(), $order_date->getTimestamp() ) : '',
 						__( 'Order Total:', 'woocommerce-memberships' )  => $order->get_formatted_order_total(),

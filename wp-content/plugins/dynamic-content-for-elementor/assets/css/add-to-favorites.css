@@ -1,0 +1,20 @@
+.elementor-widget-dce-add-to-favorites .elementor-align-counter-left{
+    order: 0;
+}
+.elementor-widget-dce-add-to-favorites .elementor-align-counter-right{
+    order: 100;
+}
+.elementor-widget-dce-add-to-favorites .elementor-button-icon i{
+    line-height: 0;
+    vertical-align: middle;
+}
+.dce-add-to-favorite-remove .dce-add-to-favorite-icon-add,
+.dce-add-to-favorite-remove .dce-add-to-favorite-text-add,
+.dce-add-to-favorite-add .dce-add-to-favorite-icon-remove,
+.dce-add-to-favorite-add .dce-add-to-favorite-text-remove {
+    display: none;
+}
+.elementor-widget-dce-add-to-favorites .elementor-button-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}

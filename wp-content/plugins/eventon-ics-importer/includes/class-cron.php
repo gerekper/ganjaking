@@ -1,6 +1,7 @@
 <?php
 /**
  * CRON job for ICS Importer
+ * @version 2.0
  */
 
 class evoics_cron extends evo_cron{
@@ -63,13 +64,32 @@ class evoics_cron extends evo_cron{
 
 	// auto fethcing events
 	function fetching_action(){
-		if(!empty($this->options['evoics_file_url']) && $this->options['evoics_import_type'] !='manual_file' && $this->options['evoics_import_type'] !='manual_link'){
+		if(!empty($this->options['evoics_file_url']) && $this->options['evoics_import_type'] !='manual_file' && $this->options['evoics_import_type'] !='manual_link'
+		){
 
-			// get events from ICS file
-			$events = EVOICS()->fnc->get_events_from_ics($this->options['evoics_file_url']);
-
+			
 			$log = array();
 			$log['time']= time();
+
+			$remote_events = EVOICS_Fnc::_get_remote_events();
+
+			// error handling
+			if( $remote_events == 'no_file'){
+				$log['details'] = __('No ICS file URL saved in settings.');
+				$this->record_log($log,'evoics');
+
+				return;
+			}
+
+			if( $remote_events == 'no_remote'){
+				$log['details'] = __('Can not access the ICS file remotely. Make sure ICS file URL is correct.');
+				$this->record_log($log,'evoics');
+
+				return;
+			}
+
+			$events = $remote_events;
+			
 
 			if(!empty($events) && sizeof($events)>0){
 				$process_events = EVOICS()->fnc->process_fetched_events($events);

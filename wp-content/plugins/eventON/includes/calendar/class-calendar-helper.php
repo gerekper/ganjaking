@@ -121,7 +121,7 @@ class evo_cal_help {
 					'key'=>'eventonsm_tw',
 					'counter' =>1,
 					'favicon' => 'twitter.png',
-					'url' => '<a class="tw evo_ss" onclick="'.$tw_js.'" href="//twitter.com/intent/tweet?text=TITLECOUNT&#32;-&#32;&url=PERMALINK" title="'.evo_lang('Share on Twitter').'" rel="nofollow" target="_blank" data-url="PERMALINK"><i class="fa fab fa-twitter"></i></a>',
+					'url' => '<a class="tw evo_ss" onclick="'.$tw_js.'" href="//twitter.com/intent/tweet?text=TITLECOUNT&#32;-&#32;&url=PERMALINK" title="'.evo_lang('Share on Twitter').'" rel="nofollow" target="_blank" data-url="PERMALINK"><i class="fa fab fa-x-twitter"></i></a>',
 				),
 				'LinkedIn'=> array(
 					'key'=>'eventonsm_ln',

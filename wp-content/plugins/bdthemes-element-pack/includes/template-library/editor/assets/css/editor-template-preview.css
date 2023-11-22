@@ -1,0 +1,28 @@
+.elementor-add-ep-button {
+    border-radius: 30px;
+    margin-left: 5px;
+    background-color: #08aeec;
+    background-image: linear-gradient(145deg, #20e2ad 0%, #08aeec 100%);
+}
+.elementor-add-ep-button i.ep-icon-element-pack {
+    font-size: 18px;
+    margin-top: -1px;
+    color: #fff;
+}
+.elementor-add-new-section {
+    display: inline-flex;
+    position: relative;
+    padding-bottom: 30px
+}
+
+.elementor-add-ep-button {
+    order: 4
+}
+
+.elementor-add-section-drag-title {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    left: 0
+}
+

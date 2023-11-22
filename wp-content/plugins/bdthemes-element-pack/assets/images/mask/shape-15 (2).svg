@@ -1,0 +1,16 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 viewBox="0 0 204.1 230.7" enable-background="new 0 0 204.1 230.7" xml:space="preserve">
+<g>
+	<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M182.4,12.3H21.8c-9.2,0-16.7,7.9-16.7,17.7v153.4
+		c0,9.8,7.5,17.7,16.7,17.7h48.8l24.6,26.1c3.8,4,10,4,13.8,0l24.6-26.1h48.8c9.2,0,16.7-7.9,16.7-17.7V30
+		C199.1,20.2,191.6,12.3,182.4,12.3z"/>
+	<path d="M173.2,23.9H31.1c-8.1,0-14.7,7-14.7,15.6v135.7c0,8.6,6.6,15.6,14.7,15.6h43.2L96,213.9c3.4,3.6,8.8,3.6,12.2,0l21.8-23.1
+		h43.2c8.1,0,14.7-7,14.7-15.6V39.5C187.9,30.9,181.3,23.9,173.2,23.9z"/>
+	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="67.7" y1="6.6" x2="180.4" y2="6.6"/>
+	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="152.1" y1="0.5" x2="166.5" y2="0.5"/>
+	<polyline fill="none" stroke="#231F20" stroke-miterlimit="10" points="56.1,205.3 68.4,205.3 76.2,213.3 	"/>
+	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="61.5" y1="210.1" x2="41" y2="210.1"/>
+	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="203.6" y1="38.9" x2="203.6" y2="106.7"/>
+	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="0.5" y1="181.3" x2="0.5" y2="150.5"/>
+</g>
+</svg>

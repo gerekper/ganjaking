@@ -64,17 +64,17 @@
         },
         {
             "name": "skyverge/wc-plugin-framework",
-            "version": "5.11.4",
-            "version_normalized": "5.11.4.0",
+            "version": "5.11.12",
+            "version_normalized": "5.11.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/godaddy-wordpress/wc-plugin-framework.git",
-                "reference": "6fc86e9091cb7c2728965ec2573a7e1b236e2e8e"
+                "reference": "f4092f2a8d67f85beb166dcd66a2d54b6b208094"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/godaddy-wordpress/wc-plugin-framework/zipball/6fc86e9091cb7c2728965ec2573a7e1b236e2e8e",
-                "reference": "6fc86e9091cb7c2728965ec2573a7e1b236e2e8e",
+                "url": "https://api.github.com/repos/godaddy-wordpress/wc-plugin-framework/zipball/f4092f2a8d67f85beb166dcd66a2d54b6b208094",
+                "reference": "f4092f2a8d67f85beb166dcd66a2d54b6b208094",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "lucatume/wp-browser": "3.0.5",
                 "phpcompatibility/php-compatibility": "9.3.5"
             },
-            "time": "2023-06-13T02:16:39+00:00",
+            "time": "2023-11-16T04:41:17+00:00",
             "type": "library",
             "installation-source": "dist",
             "license": [
@@ -95,7 +95,7 @@
             ],
             "description": "The official SkyVerge WooCommerce plugin framework",
             "support": {
-                "source": "https://github.com/godaddy-wordpress/wc-plugin-framework/tree/5.11.4",
+                "source": "https://github.com/godaddy-wordpress/wc-plugin-framework/tree/5.11.12",
                 "issues": "https://github.com/godaddy-wordpress/wc-plugin-framework/issues"
             },
             "install-path": "../skyverge/wc-plugin-framework"

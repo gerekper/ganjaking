@@ -14,7 +14,7 @@ function clearCache(obj, transient, control) {
         },
         success: function () {
 
-            jQuery(obj).parents(".elementor-control-clear_cache").prevAll(".elementor-control-" + control).find("input").trigger("input");
+            jQuery(obj).parents(".elementor-control-clear_cache").prevAll(".elementor-control-" + control).find("input, textarea").trigger("input");
 
         },
         error: function (err) {
@@ -33,7 +33,20 @@ function clearReviewsCache(obj) {
         transient = null;
 
 
-    transient = 'papro_reviews_' + jQuery(obj).parents(".elementor-control-clear_cache").prevAll(".elementor-control-" + targetControl).find("input").val() + '_' + currentID;
+    transient = 'papro_feed_' + jQuery(obj).parents(".elementor-control-clear_cache").prevAll(".elementor-control-" + targetControl).find("input").val() + '_' + currentID;
+
+    console.log(transient);
+    clearCache(obj, transient, targetControl);
+}
+
+function clearFeedCache(obj) {
+
+    if (!obj || !currentID) return;
+
+    var targetControl = jQuery(obj).data("target"),
+        transient = null;
+
+    transient = 'papro_feed_' + jQuery(obj).parents(".elementor-control-clear_cache").prevAll(".elementor-control-" + targetControl).find("textarea").val().slice(-8);
 
     clearCache(obj, transient, targetControl);
 }

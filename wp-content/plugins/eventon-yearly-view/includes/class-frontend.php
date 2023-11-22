@@ -1,7 +1,8 @@
 <?php
 /**
  * YV front-end
- * @version 	0.7
+ * @version 	0.1
+ * @updated 	2019
  */
 
 class evoyv_frontend{
@@ -24,8 +25,6 @@ class evoyv_frontend{
 		add_action('eventon_calendar_header_content', array($this, 'cal_header_content'), 10, 1);
 		add_filter('evo_global_data', array($this, 'global_data'), 10, 1);
 
-		// evo ajax
-		add_action('eventon_below_sorts', array($this, 'add_loading'), 10, 2);
 		add_action('evo_ajax_cal_before', array($this, 'evo_init_ajax_before'), 10, 1);
 
 		add_action('evo_cal_view_switcher_end', array($this, 'view_switcher'),10,1);
@@ -79,21 +78,6 @@ class evoyv_frontend{
 			return $O;
 		}
 
-	// loading animation
-		public function add_loading($content, $args){
-			if($args['calendar_type'] != 'yearly') return;
-
-			?>
-			<div class='evo_ajax_load_events evoyv_pre_loader'>
-				<?php
-				for($x=1; $x<= 12; $x++){
-					echo "<em><span></span></em>";
-				}
-				?>
-			</div>
-			<?php
-		}
-
 	// BEFORE INIT
 		function evo_init_ajax_before($atts){
 			$SC = EVO()->calendar->shortcode_args;
@@ -104,10 +88,8 @@ class evoyv_frontend{
 		function cal_header_content($A){
 			if($A['calendar_type'] != 'yearly') return;
 
-			echo "<div class='evo_header_title'>";
 			echo "<p id='evcal_cur' class='evo_month_title'>". $A['fixed_year']."</p>";
 			echo EVO()->calendar->body->cal_parts_arrows();
-			echo "</div>";
 		}
 
 	// UX override

@@ -2,15 +2,15 @@ import MixPanel from "../mixpanel";
 
 class ProductAnalytics {
     init() {
-        this.trackUltraModal();
+        this.trackUltraLinks();
     }
 
-    trackUltraModal() {
-		const ultraModals = document.querySelectorAll( '.wp-smush-ultra-compression-modal' );
-		if ( ! ultraModals ) {
+    trackUltraLinks() {
+		const ultraUpsellLinks = document.querySelectorAll( '.wp-smush-upsell-ultra-compression' );
+		if ( ! ultraUpsellLinks ) {
 			return;
 		}
-		const getLocation = ( modalId ) => {
+		const getLocation = ( ultraLink ) => {
 			const locations = {
 				'settings': 'bulksmush_settings',
 				'dashboard': 'dash_summary',
@@ -20,44 +20,18 @@ class ProductAnalytics {
 				'cdn': 'cdn_summary',
 				'webp': 'webp_summary',
 			};
-			const locationId = modalId.includes( '__settings' ) ? 'settings' : this.getCurrentPageSlug();
+			const locationId = ultraLink.classList.contains( 'wp-smush-ultra-compression-link' ) ? 'settings' : this.getCurrentPageSlug();
 			return locations[locationId] || 'bulksmush_settings';
 		}
 
-		ultraModals.forEach( ( modal ) => {
+		ultraUpsellLinks.forEach( ( ultraLink ) => {
 			const eventName = 'ultra_upsell_modal';
-			let modalAction;
-            let location;
-			modal.addEventListener( 'click', (e) => {
-				if ( 'A' !== e.target?.nodeName ) {
-					return;
-				}
-				const action = e.target.dataset?.action;
-				const actions = {
-					'upgrade': 'cta_clicked',
-					'connect_dash': 'connect_dash',
-				}
-
-				modalAction = actions[action] || 'connect_site';
+			ultraLink.addEventListener( 'click', (e) => {
 				MixPanel.getInstance().track( eventName, {
-					'Location': location,
-					'Modal Action': modalAction,
+					'Location': getLocation( e.target ),
+					'Modal Action': 'direct_cta',
 				});
 			});
-
-			modal.addEventListener( 'close', (e) => {
-				setTimeout( () => {
-					if ( modalAction && 'closed' !== modalAction ) {
-						return;
-					}
-					modalAction = 'closed';
-					MixPanel.getInstance().track( eventName, {
-						'Location': location || getLocation( e.target.id ),
-						'Modal Action': modalAction,
-					});
-				}, 1000);
-			} );
-			
 		});
 	}
 

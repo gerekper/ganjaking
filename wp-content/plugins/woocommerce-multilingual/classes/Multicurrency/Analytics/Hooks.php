@@ -2,6 +2,8 @@
 
 namespace WCML\Multicurrency\Analytics;
 
+use WCML\COT\Helper as COTHelper;
+use WCML\Orders\Helper as OrdersHelper;
 use WCML\Utilities\Resources;
 use WCML\Rest\Functions;
 use WCML\StandAlone\IStandAloneAction;
@@ -154,15 +156,28 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 	 * @return array
 	 */
 	public function addWhere( $clauses ) {
-		$clauses[] = $this->wpdb->prepare(
-			"AND EXISTS (
-				SELECT 1 FROM {$this->wpdb->postmeta}
-				  WHERE post_id = {$this->wpdb->prefix}wc_order_stats.order_id
-				  AND meta_key = '_order_currency'
-				  AND meta_value = %s
-			)",
-			$this->getCurrency()
-		);
+		if ( COTHelper::isUsageEnabled() ) {
+			$orderTable = COTHelper::getTableName();
+
+			$clauses[] = $this->wpdb->prepare(
+				"AND EXISTS (
+					SELECT 1 FROM {$orderTable}
+					  WHERE id = {$this->wpdb->prefix}wc_order_stats.order_id
+					  AND currency = %s
+				)",
+				$this->getCurrency()
+			);
+		} else {
+			$clauses[] = $this->wpdb->prepare(
+				"AND EXISTS (
+					SELECT 1 FROM {$this->wpdb->postmeta}
+					  WHERE post_id = {$this->wpdb->prefix}wc_order_stats.order_id
+					  AND meta_key = '" . OrdersHelper::KEY_LEGACY_CURRENCY . "'
+					  AND meta_value = %s
+				)",
+				$this->getCurrency()
+			);
+		}
 
 		return $clauses;
 	}

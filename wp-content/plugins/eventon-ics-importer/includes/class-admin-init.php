@@ -2,7 +2,7 @@
 /**
  * Admin class for ICS importer plugin
  *
- * @version 	0.2
+ * @version 	1.2
  * @author  	AJDE
  */
 
@@ -23,12 +23,13 @@ class EVOICS_admin{
 	}
 	/**	Add the tab to settings page on myeventon	 */
 		function tab_array($evcal_tabs){
-			$evcal_tabs['evcal_ics']='ICS Import';
+			$evcal_tabs['evoics_1']='ICS Import';
 			return $evcal_tabs;
 		}
 	// EventON settings menu inclusion
 		function menu(){
-			add_submenu_page( 'eventon', 'ICS Import', __('ICS Import','eventon'), 'manage_eventon', 'evoics', array($this, 'page_content') );
+			//add_submenu_page( 'eventon', 'ICS Import', __('ICS Import','eventon'), 'manage_eventon', 'evoics', array($this, 'page_content') );
+			add_submenu_page( 'eventon', 'ICS Import', __('ICS Import','eventon'), 'manage_eventon', 'admin.php?page=eventon&tab=evoics_1','' );
 		}
 
 	/**	ICS settings content	 */
@@ -45,18 +46,15 @@ class EVOICS_admin{
 
 	// Styles and scripts for the page
 		public function admin_scripts(){
-			global $evoics, $pagenow, $eventon, $ajde;
-
+			global $pagenow;
+			
 			if( (!empty($pagenow) && $pagenow=='admin.php')
-			 && (!empty($_GET['page']) && $_GET['page']=='evoics') 
+			 && (!empty($_GET['tab']) && $_GET['tab']=='evoics_1') 
 			){
-				// LOAD ajde library
-				if(isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'evoics_1'){
-					$ajde->load_ajde_backender();
-				}
+				
 
-				wp_enqueue_style( 'ics_import_styles',$evoics->assets_path.'ics_import_styles.css');
-				wp_enqueue_script('ics_import_script',$evoics->assets_path.'script.js', array('jquery'), 1.0, true );
+				wp_enqueue_style( 'ics_import_styles', EVOICS()->assets_path.'ics_import_styles.css');
+				wp_enqueue_script('ics_import_script', EVOICS()->assets_path.'evoics_script.js', array('jquery'), 1.0, true );
 				wp_localize_script( 
 					'ics_import_script', 
 					'evoics_ajax_script', 

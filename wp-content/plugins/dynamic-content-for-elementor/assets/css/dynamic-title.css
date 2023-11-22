@@ -1,0 +1,224 @@
+.elementor-widget-dyncontel-title .dce-title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+/* Masking */
+.elementor-widget-dyncontel-title.dce-title-mask-yes span{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 10px 0;
+}
+/* Dividers */
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-left .dce-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-right .dce-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-center .dce-divider{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-left .dce-divider{
+    justify-content: flex-start;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-right .dce-divider{
+    justify-content: flex-end;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-center .dce-divider{
+    justify-content: center;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-center .dce-divider:after, .dce-title-divider-yes.dce-divider-position-center .dce-divider:before{
+    content: '';
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-left .dce-divider:after, .dce-title-divider-yes.dce-divider-position-bottom .dce-divider:after{
+    content: '';
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-right .dce-divider:before, .dce-title-divider-yes.dce-divider-position-top .dce-divider:before{
+    content: '';
+}
+
+@media only screen and (max-width: 992px) {
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-left .dce-divider,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-right .dce-divider,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-center .dce-divider{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: center;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-left .dce-divider{
+        justify-content: flex-start;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-right .dce-divider{
+        justify-content: flex-end;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-center .dce-divider{
+        justify-content: center;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-center .dce-divider:after,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-center .dce-divider:before{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-left .dce-divider:after,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-bottom .dce-divider:after{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-right .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-top .dce-divider:before{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-left .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-bottom .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-right .dce-divider:after,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-top .dce-divider:after{
+        content: none;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-left .dce-divider,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-right .dce-divider,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-center .dce-divider{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: center;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-left .dce-divider{
+        justify-content: flex-start;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-right .dce-divider{
+        justify-content: flex-end;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-center .dce-divider{
+        justify-content: center;
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-center .dce-divider:after, 
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-center .dce-divider:before{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-left .dce-divider:after, 
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-bottom .dce-divider:after{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-right .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-top .dce-divider:before{
+        content: '';
+    }
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-left .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-bottom .dce-divider:before,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-right .dce-divider:after,
+    .elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-top .dce-divider:after{
+        content: none;
+    }
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-bottom .dce-title-divider{
+    display: block;
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-left.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-left.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-left.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-left.dce-divider-position-bottom .dce-title-divider
+{
+    margin-right: auto;
+    margin-left: 0;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-right.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-right.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-right.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-right.dce-divider-position-bottom .dce-title-divider
+{
+    margin-left: auto;
+    margin-right: 0;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-center.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-center.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-center.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-center.dce-divider-position-bottom .dce-title-divider
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-tablet-bottom .dce-title-divider
+{
+    display: block;
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-tablet-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-tablet-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-tablet-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-left.dce-divider-position-tablet-bottom .dce-title-divider
+{
+    margin: 0 auto 0 0;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-tablet-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-tablet-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-tablet-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-right.dce-divider-position-tablet-bottom .dce-title-divider{
+    margin: 0 0 0 auto;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-tablet-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-tablet-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-tablet-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-tablet-center.dce-divider-position-tablet-bottom .dce-title-divider{
+    margin: 0 auto;
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-divider-position-mobile-bottom .dce-title-divider{
+    display: block;
+}
+
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-mobile-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-mobile-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-mobile-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-left.dce-divider-position-mobile-bottom .dce-title-divider
+{
+    margin: 0 auto 0 0;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-mobile-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-mobile-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-mobile-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-right.dce-divider-position-mobile-bottom .dce-title-divider{
+    margin: 0 0 0 auto;
+}
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-bottom .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-mobile-top .dce-divider:before,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-mobile-bottom .dce-divider:after,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-mobile-top .dce-title-divider,
+.elementor-widget-dyncontel-title.dce-title-divider-yes.dce-title-align-mobile-center.dce-divider-position-mobile-bottom .dce-title-divider{
+    margin: 0 auto;
+}

@@ -1,0 +1,188 @@
+/**************** Premium Multi Scroll *****************/
+/*******************************************************/
+.premium-multiscroll-inner {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.premium-multiscroll-inner.premium-scroll-fit {
+  height: 100vh;
+}
+
+.ms-section {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ms-section.ms-table {
+  display: table;
+  width: 100%;
+}
+
+.ms-tableCell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+.premium-scroll-easing {
+  -webkit-transition: all 0.7s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition: all 0.7s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+.multiscroll-nav {
+  position: absolute;
+  z-index: 100;
+  margin-top: -32px;
+  opacity: 1;
+}
+
+.multiscroll-nav.middle {
+  top: 50%;
+}
+
+.multiscroll-nav.top {
+  top: 40px;
+}
+
+.multiscroll-nav.bottom {
+  bottom: 30px;
+}
+
+.multiscroll-nav.right {
+  left: 17px;
+}
+
+.multiscroll-nav.left {
+  right: 17px;
+}
+
+.multiscroll-nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+.multiscroll-nav li {
+  display: block;
+  width: 14px;
+  height: 13px;
+  margin: 7px;
+  position: relative;
+}
+
+.multiscroll-nav li a {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.multiscroll-nav li .active span {
+  background: #333;
+}
+
+.multiscroll-nav span {
+  top: 2px;
+  right: 2.5px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #000;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+
+.multiscroll-tooltip {
+  position: absolute;
+  color: #fff;
+  font-size: 14px;
+  font-family: arial, helvetica, sans-serif;
+  top: -5px;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+.multiscroll-tooltip.right {
+  left: 25px;
+}
+
+.multiscroll-tooltip.left {
+  right: 25px;
+}
+
+.ms-responsive .ms-hide {
+  display: none;
+}
+
+.ms-scrollable {
+  overflow: hidden;
+  position: relative;
+}
+
+.ms-scroller {
+  overflow: hidden;
+}
+
+.iScrollIndicator {
+  border: 0 !important;
+}
+
+.premium-scroll-nav-menu {
+  position: absolute;
+  top: 20px;
+  height: 40px;
+  z-index: 70;
+  padding: 0;
+  margin: 0;
+}
+
+.premium-scroll-nav-menu.left {
+  right: 0;
+}
+
+.premium-scroll-nav-menu.right {
+  left: 0;
+}
+
+.premium-scroll-nav-menu .premium-scroll-nav-item {
+  display: inline-block;
+  margin: 10px;
+  color: #000;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link {
+  padding: 9px 18px;
+  display: block;
+}
+
+.premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link,
+.premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link:hover {
+  color: #000;
+}
+
+.premium-scroll-nav-menu .premium-scroll-nav-item .premium-scroll-nav-link:focus,
+.multiscroll-nav li a:focus {
+  outline: none;
+}
+
+.premium-scroll-nav-menu.premium-scroll-responsive {
+  display: none;
+}
+
+.premium-multiscroll-inner ul.premium-multiscroll-dot-list,
+.premium-multiscroll-wrap .premium-scroll-nav-menu {
+  margin: 0 !important;
+  padding: 0;
+}
+
+.premium-multiscroll-inner .premium-multiscroll-hide {
+  display: none;
+}

@@ -1,0 +1,1 @@
+!function(e,n){"use strict";var i=function(e,n){var i=e.find(".bdt-timeline-skin-olivier");i.length&&n(i).timeline({visibleItems:i.data("visible_items")})};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-timeline.bdt-olivier",i)}))}(jQuery,window.elementorFrontend);

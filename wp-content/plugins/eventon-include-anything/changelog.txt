@@ -1,28 +1,4 @@
 Include Anything (IA) addon for EventON Plugin
 ====================================
-v 0.6 (2023-8-21)
-ADDED: sync minute increment values to match eventon settings
-FIXED: admin side text translations
-FIXED: if include anything is turned off for a post, skip saving meta values
-
-v 0.5 (2023-6-5)
-FIXED: offset type error on frontend.php 118
-FIXED: event_etop_data() incorrect array filtering 
-FIXED: incorrect addon details
-FIXED: guide details updated
-FIXED: PHP 8.2 version compatibility issues
-
-v 0.4 (2023-3-23)
-ADDED: input field to enter HEX color codes
-REDQ: EventON 4.1
-
-v 0.3 (2022-3-15)
-FIXED: colorpicker not opening up on post and pages
-FIXED: meta box styling
-
-v 0.2 (2022-3-7) 
-FIXED: color picker not working
-FIXED: EventON 4.0 compatibility
-
 v 0.1 (2020-12-28)
 Initial release

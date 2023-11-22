@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Intuit\Handlers;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * Payment form handler.

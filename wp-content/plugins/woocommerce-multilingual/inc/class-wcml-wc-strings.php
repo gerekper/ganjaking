@@ -6,6 +6,11 @@ use WPML\FP\Str;
 
 class WCML_WC_Strings {
 
+	/** @see \WPML_ST_Taxonomy_Strings::LEGACY_STRING_DOMAIN */
+	const DOMAIN_WORDPRESS              = 'WordPress';
+	/** @see \WPML_ST_Taxonomy_Strings::LEGACY_NAME_PREFIX_SINGULAR */
+	const TAXONOMY_SINGULAR_NAME_PREFIX = 'taxonomy singular name: ';
+
 	private $translations_from_mo_file = [];
 	private $mo_files                  = [];
 	private $current_language;
@@ -95,7 +100,7 @@ class WCML_WC_Strings {
 		$product_id = false;
 		$lang       = $this->sitepress->get_current_language();
 
-		if ( isset( $_GET['post'] ) && 'shop_order' === get_post_type( $_GET['post'] ) ) {
+		if ( \WCML\Orders\Helper::isOrderEditAdminScreen() ) {
 			$lang = $this->sitepress->get_user_admin_language( get_current_user_id(), true );
 		}
 
@@ -107,7 +112,21 @@ class WCML_WC_Strings {
 			$product_id = $product_obj->get_id();
 		}
 
-		$name = $this->woocommerce_wpml->attributes->filter_attribute_name( $name, $product_id, true );
+		$name = $this->woocommerce_wpml->attributes->filter_attribute_name(
+			$name,
+			$product_id,
+			/**
+			 * This filter allows to override the attribute name sanitization, used only for legacy and specific purposes.
+			 *
+			 *
+			 * @param  bool   $state Whether we should run sanitization.
+			 * @param  string $name  Attribute name
+			 * @param  string $label Attribute label
+			 *
+			 * @return string
+			 */
+			apply_filters( 'wcml_sanitize_name_for_translated_attribute_label', true, $name, $label )
+		);
 
 		if ( $product_id ) {
 
@@ -120,7 +139,7 @@ class WCML_WC_Strings {
 			}
 		}
 
-		$trnsl_label = apply_filters( 'wpml_translate_single_string', $label, 'WordPress', 'taxonomy singular name: ' . $label, $lang );
+		$trnsl_label = apply_filters( 'wpml_translate_single_string', $label, self::DOMAIN_WORDPRESS, self::TAXONOMY_SINGULAR_NAME_PREFIX . $label, $lang );
 
 		if ( $label != $trnsl_label ) {
 			return $trnsl_label;
@@ -128,10 +147,10 @@ class WCML_WC_Strings {
 
 		if ( is_admin() && ! wpml_is_ajax() ) {
 
-			$string_language = $this->get_string_language( 'taxonomy singular name: ' . $label, 'WordPress' );
+			$string_language = $this->get_string_language( self::TAXONOMY_SINGULAR_NAME_PREFIX . $label, self::DOMAIN_WORDPRESS );
 
 			if ( $this->sitepress->get_user_admin_language( get_current_user_id(), true ) != $string_language ) {
-				$string_id = icl_get_string_id( 'taxonomy singular name: ' . $label, 'WordPress' );
+				$string_id = icl_get_string_id( self::TAXONOMY_SINGULAR_NAME_PREFIX . $label, self::DOMAIN_WORDPRESS );
 				$strings   = icl_get_string_translations_by_id( $string_id );
 				if ( $strings ) {
 					return $strings[ $this->sitepress->get_user_admin_language( get_current_user_id(), true ) ]['value'];
@@ -467,13 +486,13 @@ class WCML_WC_Strings {
 	public function translate_attribute_taxonomies_labels( $attribute_taxonomies ) {
 
 		foreach ( $attribute_taxonomies as $key => $attribute_taxonomy ) {
-			$string_language = $this->get_string_language( $attribute_taxonomy->attribute_label, 'WordPress', 'taxonomy singular name: ' . $attribute_taxonomy->attribute_label );
+			$string_language = $this->get_string_language( $attribute_taxonomy->attribute_label, self::DOMAIN_WORDPRESS, self::TAXONOMY_SINGULAR_NAME_PREFIX . $attribute_taxonomy->attribute_label );
 
 			if ( $this->sitepress->get_current_language() == $string_language ) {
 				continue;
 			}
 
-			$string_id = icl_get_string_id( $attribute_taxonomy->attribute_label, 'WordPress', 'taxonomy singular name: ' . $attribute_taxonomy->attribute_label );
+			$string_id = icl_get_string_id( $attribute_taxonomy->attribute_label, self::DOMAIN_WORDPRESS, self::TAXONOMY_SINGULAR_NAME_PREFIX . $attribute_taxonomy->attribute_label );
 			$strings   = icl_get_string_translations_by_id( $string_id );
 
 			if ( $strings && isset( $strings[ $this->sitepress->get_current_language() ] ) ) {
@@ -527,13 +546,13 @@ class WCML_WC_Strings {
 	 * @return array
 	 */
 	public function translate_attribute_labels( $args, $attribute_label ) {
-		$singular_label = $this->get_translated_string_by_name_and_context( 'WordPress', 'taxonomy singular name: ' . $attribute_label, null, $attribute_label );
+		$singular_label = $this->get_translated_string_by_name_and_context( self::DOMAIN_WORDPRESS, self::TAXONOMY_SINGULAR_NAME_PREFIX . $attribute_label, null, $attribute_label );
 		if ( $singular_label ) {
 			$args['labels']['singular_name'] = $singular_label;
 		}
 
 		$label = sprintf( 'Product %s', $attribute_label );
-		$label = $this->get_translated_string_by_name_and_context( 'WordPress', 'taxonomy general name: ' . $label, null, $label );
+		$label = $this->get_translated_string_by_name_and_context( self::DOMAIN_WORDPRESS, 'taxonomy general name: ' . $label, null, $label );
 		if ( $label ) {
 			$args['labels']['name'] = $label;
 		}

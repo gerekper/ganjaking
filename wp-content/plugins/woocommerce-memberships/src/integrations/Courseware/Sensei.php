@@ -17,14 +17,14 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Memberships\Integrations\Courseware;
 
 use SkyVerge\WooCommerce\Memberships\Integrations\Courseware;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -247,7 +247,7 @@ class Sensei extends Courseware {
 	 * @internal
 	 * @deprecated since 1.22.4
 	 *
-	 * @TODO remove this deprecated method by August 2022 or version 2.0.0 {unfulvio 2021-08-2022}
+	 * @TODO remove this deprecated method by August 2022 or version 2.0.0 {unfulvio 2021-08-2023}
 	 *
 	 * @since 1.22.0
 	 *

@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search_filter_price' ) ) {
@@ -41,7 +44,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_price' ) ) {
 /**
  * Filter by price.
  */
-class WooCommerce_Product_Search_Filter_Price {
+class WooCommerce_Product_Search_Filter_Price extends Filter_Renderer {
 
 	/**
 	 * @var int Default decimals.
@@ -132,6 +135,9 @@ class WooCommerce_Product_Search_Filter_Price {
 	 * @return string|mixed
 	 */
 	public static function render( $atts = array(), &$results = null) {
+
+		global $wp_query;
+
 		self::load_resources();
 
 		$atts = shortcode_atts(
@@ -160,12 +166,50 @@ class WooCommerce_Product_Search_Filter_Price {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
 		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-price-%d', $n );
 		$heading_class   = 'product-search-filter-price-heading';
 		$heading_id      = sprintf( 'product-search-filter-price-heading-%d', $n );
 		$containers      = array();
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+
+				$slider = isset( $atts['slider'] ) ? strtolower( $atts['slider'] ) : '';
+				$slider = in_array( $slider, array( 'true', 'yes', '1' ) );
+				if ( $slider ) {
+					wp_enqueue_script( 'wps-price-slider' );
+					wp_enqueue_style( 'wps-price-slider' );
+				}
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
 
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 			$atts['heading']  = _x( 'Price', 'product price filter heading', 'woocommerce-product-search' );
@@ -229,10 +273,6 @@ class WooCommerce_Product_Search_Filter_Price {
 			}
 		}
 
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
-		}
-
 		if ( !empty( $containers['container_class'] ) ) {
 			$container_class = $containers['container_class'];
 		}
@@ -246,8 +286,8 @@ class WooCommerce_Product_Search_Filter_Price {
 			$heading_id = $containers['heading_id'];
 		}
 
-		$min_price   = isset( $_REQUEST['min_price'] ) ? WooCommerce_Product_Search_Service::to_float( $_REQUEST['min_price'] ) : '';
-		$max_price   = isset( $_REQUEST['max_price'] ) ? WooCommerce_Product_Search_Service::to_float( $_REQUEST['max_price'] ) : '';
+		$min_price = isset( $_REQUEST['min_price'] ) ? WooCommerce_Product_Search_Utility::to_float( $_REQUEST['min_price'] ) : '';
+		$max_price = isset( $_REQUEST['max_price'] ) ? WooCommerce_Product_Search_Utility::to_float( $_REQUEST['max_price'] ) : '';
 
 		if ( $min_price === null ) {
 			$min_price = '';
@@ -350,6 +390,10 @@ class WooCommerce_Product_Search_Filter_Price {
 
 			$inline_script = woocommerce_product_search_safex( $inline_script );
 			wp_add_inline_script( 'wps-price-slider', $inline_script );
+
+			if ( $render_cache ) {
+				$data['inline_scripts'][] = array( 'handle' => 'wps-price-slider', 'inline_script' => $inline_script );
+			}
 		}
 
 		$output .= sprintf(
@@ -552,7 +596,16 @@ class WooCommerce_Product_Search_Filter_Price {
 
 		wp_add_inline_script( 'product-filter', $inline_script );
 
+		if ( $render_cache ) {
+			$data['inline_scripts'][] = array( 'handle' => 'product-filter', 'inline_script' => $inline_script );
+		}
+
 		WooCommerce_Product_Search_Filter::filter_added();
+
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
 
 		self::$instances++;
 

@@ -27,14 +27,14 @@ class evorm_meta_boxes{
 		?>
 		<div class='eventon_mb'>
 		<div class="evors">			
-			<div id='evorm_details' class='evorm_details evomb_body' style=''>
+			<div id='evorm_details' class='evorm_details evomb_body' style='padding-top:0px; padding-bottom:0px'>
 				
 				<?php if( class_exists('EventON_rsvp')):?>			
 	
 				<h3 style='font-size:14px;'><?php _e('RSVP Reminders','eventon');?></h3>
 				<div class='evo_negative_25'>
 				<table width='100%' class='eventon_settings_table'>
-				<?php $this->reminder_meta_box($event_id, 'rs', '');?>
+				<?php $this->reminder_meta_box('', $event_id, 'rs');?>
 				</table>
 				</div>
 
@@ -45,7 +45,7 @@ class evorm_meta_boxes{
 				<h3 style='font-size:14px;'><?php _e('Ticket Reminders','eventon');?></h3>
 				<div class='evo_negative_25'>
 				<table width='100%' class='eventon_settings_table'>
-				<?php $this->reminder_meta_box( $event_id, 'tx', '');?>
+				<?php $this->reminder_meta_box('', $event_id, 'tx');?>
 				</table>
 				</div>
 
@@ -58,13 +58,13 @@ class evorm_meta_boxes{
 
 	
 	function tx_meta_box($event_id, $epmv){
-		$this->reminder_meta_box( $event_id, 'tx',$epmv);
+		$this->reminder_meta_box($epmv, $event_id, 'tx');
 	}
 	function rsvp_meta_box($epmv, $event_id){
-		$this->reminder_meta_box( $event_id, 'rs', $epmv);
+		$this->reminder_meta_box($epmv, $event_id, 'rs');
 	}
 
-	function reminder_meta_box($event_id, $addon, $epmv=''){
+	function reminder_meta_box($epmv='', $event_id, $addon){
 		// only for simple, non-repeating - events
 		
 		global $ajde;
@@ -93,7 +93,7 @@ class evorm_meta_boxes{
 				// Append a cron status next to reminder line
 				$cron_status_addition = '';
 
-				$styles = 'style="margin-left:50px; display:inline-block;font-size:12px; border-radius:5px; background-color:#adadad;padding:2px 7px;color:#fff"';
+				$styles = 'style="margin-left:5px; font-size:12px; border-radius:5px; background-color:#adadad;padding:2px 7px;color:#fff"';
 				
 				// if there are current cron jobs for this reminder
 				if( array_key_exists($cron_hook, $all_cronjobs) ){

@@ -1,12 +1,12 @@
 /**
  * Primary Styles for EventON Calendar Front-end
- * @version		4.5
+ * @version		4.5.4
  */
 
 
 /* ROOT */
 	:root{
-		--evo_font_1:'Figtree','Montserrat', sans-serif;
+		--evo_font_1:'Montserrat', sans-serif;
 		--evo_font_2:'Noto Sans',arial;
 		--evo_font_weight: 800;
 		--evo_color_1:#202124;
@@ -1305,17 +1305,33 @@
 	    	line-height: 1;
 		}
 		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.postponed, 
-		.evo_pop_body .evoet_cx span.evoet_tags span.postponed
+		.evo_pop_body .evoet_cx span.evoet_tags span.postponed,
+		.evosv_grid .evosv_tag.postponed
 		{background-color: #e3784b}
 
+		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.vir, 
+		.evo_pop_body .evoet_cx span.evoet_tags span.vir,
+		.evosv_grid .evosv_tag.vir
+		{background-color: #5bdaf7}
+
 		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.rescheduled, 
-		.evo_pop_body .evoet_cx span.evoet_tags span.rescheduled
+		.evo_pop_body .evoet_cx span.evoet_tags span.rescheduled,
+		.evosv_grid .evosv_tag.rescheduled
 		{background-color: #67ef78}
 		
 		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.movedonline, 
-		.evo_pop_body .evoet_cx span.evoet_tags span.movedonline
+		.evo_pop_body .evoet_cx span.evoet_tags span.movedonline,
+		.evosv_grid .evosv_tag.movedonline
 		{background-color: #6edccd}
-
+		
+		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.featured, 
+		.evo_pop_body .evoet_cx span.evoet_tags span.featured,
+		.evosv_grid .evosv_tag.featured
+		{background-color: #ffcb55}
+		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.completed, 
+		.evo_pop_body .evoet_cx span.evoet_tags span.completed,
+		.evosv_grid .evosv_tag.completed
+		{background-color: #585858	}
 
 		.evoet_cx span.evoet_tags span.status_reason,
 		.evoet_cx span.evoet_subtitle span.status_reason
@@ -1324,14 +1340,6 @@
 		    background: transparent;
 		    color: #888;
 		    padding: 0;
-		}
-		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.featured, 
-		.evo_pop_body .evoet_cx span.evoet_tags span.featured{
-			background-color: #ffcb55
-		}
-		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span.completed, 
-		.evo_pop_body .evoet_cx span.evoet_tags span.completed{
-			background-color: #585858
 		}
 
 
@@ -1511,9 +1519,10 @@
 	}
 
 	/* live now with bigger image */
-		.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a.desc_trig{padding:0; display: flex; border:10px solid transparent;}
+		.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a.desc_trig
+		{padding:10px; display: flex;}
 		.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a.desc_trig:hover{
-			border-width: 10px;opacity: 0.8
+			border-width: 15px;opacity: 0.8
 		}
 		.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a .ev_ftImg{
 			margin: 0;
@@ -1587,6 +1596,25 @@
 	.evosv_grid .evosv_items .evosv_event .evosv_subdata{
 		flex:1; flex-basis: 100%;opacity: 0.5; padding-left: 2px;
 	}
+
+	/* event tags */
+		.evosv_grid .evosv_items .evosv_event .evosv_subdata.evosv_tags{
+			opacity: 1
+		}
+		.evosv_grid .evosv_tag{
+			    display: inline-block;
+		    color: #fff;
+		    background-color: #F79191;
+		    border-radius: 5px;
+		    padding: 4px 9px;
+		    margin-bottom: 2px;
+		    margin-right: 5px;
+		    text-transform: uppercase;
+		    font-size: 10px;
+		    position: relative;
+		    line-height: 1;
+		    font-family: var(--evo_font_2);
+		}
 
 	/* widget */
 		#evcal_widget .evosv_grid .row{flex-wrap: wrap;}
@@ -2301,7 +2329,7 @@
 
 	.eventon_list_event .evoet_cx em.evo_mytime.tzo_trig b{color:#8c8c8c;}
 	.eventon_list_event .evoet_cx em.evo_mytime{
-		padding:0 6px 0 0px; margin-right: 5px; background-color: #2eb4dc; border-radius: 5px;}
+		padding:2px 6px 2px 4px; margin-right: 5px; background-color: #2eb4dc; border-radius: 5px;}
 	
 	.eventon_list_event .evoet_cx em.evo_mytime >*,
 	.eventon_list_event .evcal_evdata_cell .evo_mytime >*
@@ -2718,8 +2746,11 @@
 	
 	/* header */
 	#evcal_widget .ajde_evcal_calendar .evo_header_title, .widget .ajde_evcal_calendar .evo_header_title{
-		flex-direction: column-reverse; align-items: flex-start;
+		    flex-direction: row-reverse;
+	    align-items: center;
+	    justify-content: flex-end;
 	}
+	#evcal_widget .ajde_evcal_calendar .evo_header_title p{padding-bottom: 0}
 	#evcal_widget .ajde_evcal_calendar .evo_arrows #evcal_prev, 
 	.widget .ajde_evcal_calendar .evo_arrows #evcal_prev{margin-left: 0}
 
@@ -3883,82 +3914,52 @@
 /* General Elements */
 	/* yes no button */
 		.ajde_yn_btn {
-			background-color: #f3c991;
-		  	height: 24px;
-		  	width: 68px;
+			background-color: var(--evo_color_prime);
+			border:1px solid var(--evo_color_1);
+		  	height: 20px;
+		  	width: 40px;
 		  	overflow: hidden;
 		 	display: inline-block;
 		  	cursor: pointer;
 		  	border-radius: 13px;
 		  	margin-top: 2px;
-		  	-webkit-transition: all .5s ease;
-			-moz-transition: all .5s ease;
-			-ms-transition: all .5s ease;
-			-o-transition: all .5s ease;
-			transition: all .5s ease;
-		  	-webkit-box-sizing: border-box;
-    		-moz-box-sizing: border-box;
-    		box-sizing: border-box;
+    		box-sizing: content-box;
     		position: absolute;
 		}
-		.ajde_yn_btn:hover{background-color:#fddcb1 }
-		.ajde_yn_btn.NO:hover{background-color:#e6e6e6 }
-		.ajde_yn_btn:hover .catchHandle{background-color: #fff;}
-		.ajde_yn_btn.NO{background-color: #dedede;		}
+		.ajde_yn_btn:hover{opacity: 0.8 }
+		.ajde_yn_btn.NO{background-color: #f0f0f0; border-color: var(--evo_color_1)		}
 		.ajde_yn_btn.absolute{position: absolute;}
-		.ajde_yn_btn_label{padding-left: 80px; line-height: 1.8;display:inline-block;}
+		
 		.ajde_yn_btn .btn_inner:before,.ajde_yn_btn .btn_inner:after, .btn_inner em{
 			top: 0;
 			position: absolute;		
 			padding: 4px 8px;
 			line-height: 90%;
-		}
-		.ajde_yn_btn .btn_inner em{
-			font-size: 12px;
-			-webkit-box-sizing: border-box;
-    		-moz-box-sizing: border-box;
-    		box-sizing: border-box;
-    		line-height: 22px;
-    		padding: 0 8px;
-    		max-width: 45px;
-    		width: 45px;
-    		text-align: center;
-    		overflow: hidden;
-    		text-overflow: ellipsis;
-    		font-style: normal;
-    		font-weight: bold;
-    		font-family: 'open sans',arial;
-		}
-		.ajde_yn_btn .btn_inner em.no{
-			left: 0;color: #ffffff;
-			padding: 0 2px 0 8px;
-		}
-		.ajde_yn_btn .btn_inner em.yes{
-			right: 0;
-			color: #fff;
-			padding-right: 8px;
-		}
+		}		
 		.ajde_yn_btn .btn_inner{
 			position: relative;
-			padding-left: 45px;
-			padding-right: 42px;
-			padding-top: 0;
-			height: 24px;
-			width: 110px;
-			display: block;
-			margin-left: -42px;
-			margin-top: 2px;
-			box-sizing:border-box;
+		    padding-left: 23px;
+		    padding-right: 23px;
+		    padding-top: 0;
+		    width: 12px;
+		    display: block;
+		    margin: 0;
+		    margin-left: 0px;
+		    border: none;
+		    background: none;
+		    box-sizing: content-box;
 		}	
-			.ajde_yn_btn.NO .btn_inner{margin-left: 0px;}
+		.ajde_yn_btn.NO .btn_inner{margin-left: -18px;}
+
 		.catchHandle, .yesno_row .catchHandle{
-			background-color: #F9F9F9;
-			height: 20px;width: 20px;	
-			display: block;
-			padding-left: 0;
-			border-radius: 12px;
-	   		box-sizing: border-box;
-	   		position: relative;
+			    background-color: #fff;
+		    height: 12px;
+		    width: 12px;
+		    display: block;
+		    padding-left: 0;
+		    border-radius: 12px;
+		    box-sizing: border-box;
+		    margin-top: 4px;
 		}
 		.ajde_yn_btn .btn_inner, .catchHandle {
 			-webkit-transition: all .2s ease;
@@ -3967,7 +3968,9 @@
 			-o-transition: all .2s ease;
 			transition: all .2s ease;
 		}
-		.ajde_yn_btn.NO .catchHandle, .yesno_row .ajde_yn_btn.NO .catchHandle{border-color:#D9D7D7; background-color: #F9F9F9}
+		.ajde_yn_btn.NO .catchHandle, 
+		.yesno_row .ajde_yn_btn.NO .catchHandle
+		{ background-color: var(--evo_color_1);}
 		.evomb_body .ajde_yn_btn{border-color:#666666;}
 		.evomb_body .catchHandle{border-color:#9B9B9B;}
 		.yesno_row span.field_name, .yesno_row label{	padding-left: 80px; line-height: 1.8;}
@@ -3976,15 +3979,7 @@
 		  	padding: 0;
 		}
 
-		/* yea no button from evo elements */
-		.yesno_row .ajde_yn_btn.evo_elm, .ajde_yn_btn.evo_elm{width:40px;margin-top: 0px;} 
-		.yesno_row .ajde_yn_btn.evo_elm .btn_inner, .ajde_yn_btn.evo_elm .btn_inner{
-			padding-left:20px; padding-right: 20px;width:22px;margin-top: 3px;box-sizing: content-box; margin-left: -16px;} 
-		.yesno_row .ajde_yn_btn.evo_elm.NO .btn_inner, .ajde_yn_btn.evo_elm.NO .btn_inner
-		{margin-left: -1px}
-		.yesno_row .ajde_yn_btn.evo_elm .catchHandle, .ajde_yn_btn.evo_elm .catchHandle{
-			width:18px; height:18px;
-		}
+		.ajde_yn_btn_label{padding-left: 80px; line-height: 1.8;display:inline-block;}
 		.ajde_yn_btn_label.evo_elm{padding-left: 55px;}
 	
 	/* TOOL TIPS */

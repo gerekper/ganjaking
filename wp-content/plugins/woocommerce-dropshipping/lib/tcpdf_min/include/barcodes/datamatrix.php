@@ -1421,7 +1421,6 @@ class Datamatrix {
 		}
 		return $marr;
 	}
-
 } // end DataMatrix class
 // ============================================================+
 // END OF FILE

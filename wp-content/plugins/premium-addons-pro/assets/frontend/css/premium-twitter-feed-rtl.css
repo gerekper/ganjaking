@@ -1,0 +1,220 @@
+/**************** Premium Twitter Feed *************/
+/***************************************************/
+.premium-twitter-feed-wrapper {
+  height: auto !important;
+  background: #fff;
+  display: inline-block;
+  width: 100%;
+  border-radius: 0px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-twitter-feed-wrapper .premium-social-feed-element {
+  padding: 5px;
+}
+
+.premium-twitter-feed-wrapper .premium-social-icon {
+  margin: 4px 0 0 5px;
+}
+
+.premium-twitter-feed-wrapper[data-col="1"] .premium-social-feed-element {
+  width: 100%;
+}
+
+.premium-social-feed-element.hidden {
+  background-color: red !important;
+}
+
+.premium-social-feed-element img {
+  width: auto;
+  width: auto\9;
+  height: auto;
+  border: 0;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
+}
+
+.premium-feed-element-author-img img {
+  box-shadow: none !important;
+}
+
+.premium-social-feed-element {
+  overflow: hidden;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  line-height: 16px;
+}
+
+.premium-social-feed-element .attachment {
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
+  width: 100%;
+}
+
+.premium-social-feed-element a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+.premium-social-feed-element a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.premium-social-feed-element a:hover,
+.premium-social-feed-element a:active {
+  outline: 0;
+  color: #005580;
+  text-decoration: underline;
+}
+
+.premium-social-feed-element p {
+  margin: 0 0 10px;
+}
+
+.premium-social-feed-element .premium-feed-element-meta {
+  margin-bottom: 4px;
+}
+
+.premium-social-feed-element p.premium-feed-element-text {
+  margin: 0;
+  border-color: #000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.premium-social-feed-element .media-body {
+  overflow: hidden;
+}
+
+.premium-social-feed-element .media-body .premium-social-network-icon {
+  margin-top: -3px;
+  margin-left: 5px;
+  width: 16px;
+}
+
+.premium-social-feed-element .media-body .premium-feed-element-content-wrap {
+  line-height: 20px;
+  clear: both;
+}
+
+.premium-social-feed-element:first-child {
+  margin-top: 0;
+}
+
+.premium-social-feed-element .media-object {
+  display: block;
+  width: 30px;
+}
+
+.premium-social-feed-element .media-heading {
+  margin: 0 0 5px;
+}
+
+.premium-social-feed-element .media-list {
+  margin-right: 0;
+  list-style: none;
+}
+
+.premium-social-feed-element .muted {
+  color: #000;
+}
+
+.premium-social-feed-element a.muted:hover,
+.premium-social-feed-element a.muted:focus {
+  color: #808080;
+}
+
+.premium-social-feed-element .premium-feed-element-author {
+  color: #444;
+  line-height: 1.5em;
+  font-weight: 500;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-social-feed-element .premium-feed-element-author a {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-social-feed-container .premium-feed-element-date a,
+.premium-social-feed-container .premium-feed-element-read-more {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-social-feed-container.list-layout .premium-feed-element-date {
+  width: auto !important;
+}
+
+.premium-social-feed-container.grid-layout .premium-social-feed-element-wrap {
+  width: 33.3%;
+  margin-top: 0px;
+  float: right;
+}
+
+.premium-twitter-feed-wrapper.ltr .premium-social-icon,
+.premium-twitter-feed-wrapper.rtl .premium-social-icon {
+  border-color: #000;
+}
+
+.premium-twitter-feed-wrapper.ltr .premium-feed-element-author-img,
+.premium-twitter-feed-wrapper.ltr .premium-feed-element-author,
+.premium-twitter-feed-wrapper.ltr .premium-social-icon {
+  float: right;
+  margin-left: 10px;
+}
+
+.premium-twitter-feed-wrapper.rtl .premium-feed-element-date {
+  float: right;
+  margin-left: 10px;
+}
+
+.premium-twitter-feed-wrapper.rtl .premium-feed-element-author-img,
+.premium-twitter-feed-wrapper.rtl .premium-feed-element-author,
+.premium-twitter-feed-wrapper.rtl .premium-social-icon {
+  float: left;
+  margin-right: 10px;
+}
+
+.premium-twitter-feed-wrapper.ltr .premium-feed-element-date {
+  float: left;
+  margin-right: 10px;
+}
+
+.premium-loading-feed {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.premium-loading-feed.premium-show-loading {
+  display: block;
+  background: #fff;
+  text-align: center;
+  z-index: 10;
+  -js-display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}

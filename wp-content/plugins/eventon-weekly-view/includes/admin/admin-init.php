@@ -29,7 +29,7 @@ class evowv_admin{
 		function time_settings($A){
 			$A[] = array('id'=>'evowv_','type'=>'subheader','name'=>__('WeeklyView Time/Date Settings','eventon'));
 			$A[] = array('id'=>'evowv_range_timeformat','type'=>'dropdown',
-				'name'=>__('Select week range date format','eventon'),
+				'name'=>__('Select week range date form','eventon'),
 				'width'=>'full',
 				'options'=>array(
 					'MM D/MM D, YYYY'=> 'Feb 1 - Feb 3, 2020',

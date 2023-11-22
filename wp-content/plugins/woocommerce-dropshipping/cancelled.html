@@ -1,6 +1,6 @@
 <style>
 	th {
-		text-decoration: none!important;
+		text-decoration: none !important;
 	}
 </style>
 
@@ -117,20 +117,21 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 ?>
 
-	<?php // $meta = get_term_meta( $term->term_id, 'meta',true ); ?>
+<?php // $meta = get_term_meta( $term->term_id, 'meta',true ); ?>
 
-	<div style="<?php echo $woo_base_color . $body_font_size . $body_font_color; ?>">
+<div style="<?php echo $woo_base_color . $body_font_size . $body_font_color; ?>">
 
-		<!-- Table for mail top header -->
+	<!-- Table for mail top header -->
 
-		<table class="ordernum_date" border="0" align="center" style="width:180mm; <?php echo $woo_body_bg_color; ?>" cellpadding="5" cellspacing="0">
+	<table class="ordernum_date" border="0" align="center" style="width:180mm; <?php echo $woo_body_bg_color; ?>"
+		cellpadding="5" cellspacing="0">
 
-			<tr style="<?php echo $body_font_color; ?> padding:30px 0px; <?php echo $woo_base_color; ?>">
+		<tr style="<?php echo $body_font_color; ?> padding:30px 0px; <?php echo $woo_base_color; ?>">
 
-				<td align="center">
+			<td align="center">
 
-					<h2 style="<?php echo $packing_slip_title_color . $packing_slip_title_font_size; ?>">
-						<?php
+				<h2 style="<?php echo $packing_slip_title_color . $packing_slip_title_font_size; ?>">
+					<?php
 						printf(
 							__( '[ %1$s Order # %2$s is cancelled ]', 'woocommerce-dropshipping' ),
 							$packing_slip_header,
@@ -138,702 +139,729 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 						);
 						?>
 
-						<span>
+					<span>
 
-					<?php if ( ( '1' == $order_info['options']['order_date'] ) && ( '1' == $order_info['options']['full_information'] ) ) { ?>
+						<?php if ( ( '1' == $order_info['options']['order_date'] ) && ( '1' == $order_info['options']['full_information'] ) ) { ?>
 
-						(<?php echo gmdate( 'F d,Y' ); ?>)
+						(
+							<?php echo gmdate( 'F d,Y' ); ?>)
 
-					<?php } else { ?>
+						<?php } else { ?>
 
-					<?php } ?>
+						<?php } ?>
 
-				</span>
+					</span>
 
-					</h2>
+				</h2>
 
-				</td>
+			</td>
 
-			</tr>
+		</tr>
 
-			<tr>
+		<tr>
 
-				<td align="center">
+			<td align="center">
 
-					<h4 style="
+				<h4 style="
 					<?php
 					echo $woo_body_bg_color;
 					echo $woo_body_text_color;
 					?>
 					 ">
 
-						<?php
-						if ( $supplier_info['account_number'] ) {
+					<?php
+					if ( $supplier_info['account_number'] ) {
 
-							echo __( 'Supplier Account', 'woocommerce-dropshipping' ) . ' #' . $supplier_info['account_number'];
+						echo __( 'Supplier Account', 'woocommerce-dropshipping' ) . ' #' . $supplier_info['account_number'];
 
-						} else {
-								echo '';
-						}
-						?>
+					} else {
+							echo '';
+					}
+					?>
 
-					</h4>
+				</h4>
 
-				</td>
+			</td>
 
-			</tr>
+		</tr>
 
-		</table>
+	</table>
 
-		<!-- For Display Shipping methode and supplier name -->
+	<!-- For Display Shipping methode and supplier name -->
 
-		<table align="center" style="width:180mm;" cellpadding="5" cellspacing="0">
-			<tr>
-				<td style="<?php echo $woo_body_bg_color; ?>">
-					<table>
-						<tr>
-							<td style="<?php echo $woo_body_bg_color; ?> text-align:left;">
-								<table class="top_address" cellpadding="5" cellspacing="0" style="width:100%;">
+	<table align="center" style="width:180mm;" cellpadding="5" cellspacing="0">
+		<tr>
+			<td style="<?php echo $woo_body_bg_color; ?>">
+				<table>
+					<tr>
+						<td style="<?php echo $woo_body_bg_color; ?> text-align:left;">
+							<table class="top_address" cellpadding="5" cellspacing="0" style="width:100%;">
 
-									<tbody>
+								<tbody>
 
-										<?php if ( isset( $order_info['ordernote'] ) ) { ?>
+									<?php if ( isset( $order_info['ordernote'] ) ) { ?>
 
-										<tr>
+									<tr>
 
-											<td class="cus_note" colspan="3" style="<?php echo $woo_body_text_color; ?>">
+										<td class="cus_note" colspan="3" style="<?php echo $woo_body_text_color; ?>">
 
-												<?php echo @$order_info['ordernote']; ?>
+											<?php echo @$order_info['ordernote']; ?>
 
-											</td>
+										</td>
 
-										</tr>
+									</tr>
 
-										<?php } ?>
+									<?php } ?>
 
-										<?php if ( '1' == $order_info['options']['shipping'] ) { ?>
+									<?php if ( '1' == $order_info['options']['shipping'] ) { ?>
 
-										<tr>
+									<tr>
 
-											<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>; border-top:1px solid <?php echo $woo_base_color_only; ?>;">
-
-												<?php
-												if ( $order_info['options']['dropship_chosen_shipping_method'] ) {
-
-													echo @$order_info['options']['dropship_chosen_shipping_method'] . ':';
-
-												} else {
-
-													_e( 'Chosen Shipping Method:', 'woocommerce-dropshipping' );
-
-												}
-												?>
-
-												<?php echo @$order_info['shipping_info']['shipping_method']; ?>
-											</td>
-
-										</tr>
+										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color"
+											colspan="3"
+											style="<?php echo $woo_body_text_color; ?>; border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
 											<?php
-										}
+											if ( $order_info['options']['dropship_chosen_shipping_method'] ) {
 
-										if ( '1' == $order_info['options']['full_information'] ) {
+												echo @$order_info['options']['dropship_chosen_shipping_method'] . ':';
+
+											} else {
+
+												_e( 'Chosen Shipping Method:', 'woocommerce-dropshipping' );
+
+											}
 											?>
 
-														<?php if ( ( '1' == @$order_info['options']['show_pay_type'] ) || ( '' == @$order_info['options']['show_pay_type'] ) ) { ?>
+											<?php echo @$order_info['shipping_info']['shipping_method']; ?>
+										</td>
 
-										<tr>
+									</tr>
 
-											<td class="payment_type" colspan="3" style="
+										<?php
+									}
+
+									if ( '1' == $order_info['options']['full_information'] ) {
+										?>
+
+										<?php if ( ( '1' == @$order_info['options']['show_pay_type'] ) || ( '' == @$order_info['options']['show_pay_type'] ) ) { ?>
+
+									<tr>
+
+										<td class="payment_type" colspan="3" style="
 															<?php
 															echo $woo_body_text_color;
 															echo $woo_body_bg_color;
 															?>
 											 border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
-															<?php
-															if ( $order_info['options']['dropship_payment_type'] ) {
+											<?php
+											if ( $order_info['options']['dropship_payment_type'] ) {
 
-																echo @$order_info['options']['dropship_payment_type'] . ':';
+												echo @$order_info['options']['dropship_payment_type'] . ':';
 
-															} else {
+											} else {
 
-																_e( 'Payment Type :', 'woocommerce-dropshipping' );
+												_e( 'Payment Type :', 'woocommerce-dropshipping' );
 
-															}
-															?>
-
-															<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
-
-											</td>
-
-										</tr>
-
-															<?php
-														}
-										} else {
-
-											if ( ( '1' == @$order_info['options']['show_pay_type'] ) || ( '' == @$order_info['options']['show_pay_type'] ) ) {
-												?>
-
-										<tr>
-
-											<td class="payment_type" colspan="3" style="
-												<?php
-												echo $woo_body_text_color;
-												echo $woo_body_bg_color;
-												?>
-											 border-top:1px solid <?php echo $woo_base_color_only; ?>">
-
-																		<?php
-																		if ( $order_info['options']['dropship_payment_type'] ) {
-
-																			echo @$order_info['options']['dropship_payment_type'] . ':';
-
-																		} else {
-
-																			_e( 'Payment Type :', 'woocommerce-dropshipping' );
-
-																		}
-																		?>
-
-												<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
-
-											</td>
-
-										</tr>
-
-												<?php
 											}
+											?>
+
+											<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
+
+										</td>
+
+									</tr>
+
+											<?php
 										}
+									} elseif ( ( '1' == @$order_info['options']['show_pay_type'] ) || ( '' == @$order_info['options']['show_pay_type'] ) ) {
+
 										?>
 
-										<?php if ( $order_info['options']['checkout_order_number'] ) : ?>
+									<tr>
 
-										<tr>
+										<td class="payment_type" colspan="3" style="
+											<?php
+											echo $woo_body_text_color;
+											echo $woo_body_bg_color;
+											?>
+											 border-top:1px solid <?php echo $woo_base_color_only; ?>">
 
-											<td class="order_number" colspan="3" style="<?php echo $woo_body_text_color . ' ' . $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+											<?php
+											if ( $order_info['options']['dropship_payment_type'] ) {
 
-												<?php _e( 'Order Number :', 'woocommerce-dropshipping' ); ?>
+												echo @$order_info['options']['dropship_payment_type'] . ':';
 
-												<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_wc_dropshipping_order_number' ); ?>
+											} else {
 
-											</td>
+												_e( 'Payment Type :', 'woocommerce-dropshipping' );
 
-										</tr>
+											}
+											?>
 
-										<?php endif; ?>
+											<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
 
-										<tr>
+										</td>
 
-											<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $order_note_font_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+									</tr>
 
-												<?php
-												if ( '1' == $order_info['options']['customer_note'] ) {
+											<?php
 
-													printf( __( 'Customer Order Note : %s', 'woocommerce-dropshipping' ), $order_info['customer_note'] );
+									}
+									?>
+
+									<?php if ( $order_info['options']['checkout_order_number'] ) : ?>
+
+									<tr>
+
+										<td class="order_number" colspan="3"
+											style="<?php echo $woo_body_text_color . ' ' . $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+
+											<?php _e( 'Order Number :', 'woocommerce-dropshipping' ); ?>
+
+											<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_wc_dropshipping_order_number' ); ?>
+
+										</td>
+
+									</tr>
+
+									<?php endif; ?>
+
+									<tr>
+
+										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color"
+											colspan="3"
+											style="<?php echo $order_note_font_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+
+											<?php
+											if ( '1' == $order_info['options']['customer_note'] ) {
+
+												printf( __( 'Customer Order Note : %s', 'woocommerce-dropshipping' ), $order_info['customer_note'] );
+
+											}
+											?>
+
+										</td>
+
+									</tr>
+
+
+
+									<tr>
+
+										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>;">
+
+											<?php
+
+											$options = get_option( 'wc_dropship_manager' );
+
+												$hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
+
+												$hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
+
+												$store_add_shipping_add = $options['store_add_shipping_add'];
+
+												$packing_slip_customer_service_email = $options['packing_slip_customer_service_email'];
+
+												$order_billing_phone = opmc_hpos_get_post_meta( $order_info['id'], '_billing_phone' );
+
+
+												$admin_email = get_option( 'admin_email' );
+
+											if ( ( '1' == $options['hide_client_info_Suppliers'] ) && ( 0 == $options['hide_contact_info_Suppliers'] ) ) {
+
+												if ( @$order_info['options']['customer_email'] == '1' ) {
+
+													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+													?>
+													<br> <hr style="border-top: 1px solid #96588a;"> 
+													<?php
 
 												}
-												?>
-
-											</td>
-
-										</tr>
-
-
-
-										<tr>
-
-											<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>;">
-
-												<?php
-
-												$options = get_option( 'wc_dropship_manager' );
-
-													$hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
-
-													$hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
-
-													$store_add_shipping_add = $options['store_add_shipping_add'];
-
-													$packing_slip_customer_service_email = $options['packing_slip_customer_service_email'];
-
-
-													$admin_email = get_option( 'admin_email' );
-
-												if ( ( '1' == $options['hide_client_info_Suppliers'] ) && ( 0 == $options['hide_contact_info_Suppliers'] ) ) {
-
-													if ( @$order_info['options']['customer_email'] == '1' ) {
-
-														printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
-
-													}
-												} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add ) ) {
-
-													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), $admin_email );
-
-
-
-
-												} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add ) ) {
-													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['options']['packing_slip_customer_service_email'] );
-
-												} else if ( 0 == $options['hide_contact_info_Suppliers'] ) {
-
-													if ( @$order_info['options']['customer_email'] == '1' ) {
-
-														printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
-
-													}
-												} else {
-													echo '';
+												if ( $options['billing_phone'] == 1 ) {
+													printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
 												}
-												?>
+											} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add ) ) {
 
-											</td>
+												printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), $admin_email );
 
-										</tr>
+											} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add ) ) {
+												printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['options']['packing_slip_customer_service_email'] );
 
-										<tr>
+											} else if ( 0 == $options['hide_contact_info_Suppliers'] ) {
 
-											<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>">
+												if ( @$order_info['options']['customer_email'] == '1' ) {
 
-												<?php
+													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+													?>
+													<br><hr style="border-top: 1px solid #96588a;">
+													<?php
+
+												}
+												if ( $options['billing_phone'] == 1 ) {
+													printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
+												}
+											} else if ( 1 == $options['hide_contact_info_Suppliers'] ) {
+
+												if ( @$order_info['options']['customer_email'] == '1' ) {
+
+													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+													?>
+													<br><hr style="border-top: 1px solid #96588a;">
+													<?php
+
+												}
+
+												if ( $options['billing_phone'] == 1 ) {
+													printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
+												}
+											} else {
+												echo '';
+											}
+											?>
+
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color"
+											colspan="3" style="<?php echo $woo_body_text_color; ?>">
+
+											<?php
 
 												$delivery_date_field = get_option( 'orddd_lite_delivery_date_field_label' );
 
-												if ( ! empty( $delivery_date_field ) ) {
+											if ( ! empty( $delivery_date_field ) ) {
 
-													$delivery = opmc_hpos_get_post_meta( $order_info['id'], $delivery_date_field );
+												$delivery = opmc_hpos_get_post_meta( $order_info['id'], $delivery_date_field );
 
-													if ( ! empty( $delivery ) ) {
+												if ( ! empty( $delivery ) ) {
 
-														echo $delivery_date_field . ' : ' . $delivery;
+													echo $delivery_date_field . ' : ' . $delivery;
 
-													}
 												}
-												?>
+											}
+											?>
 
-											</td>
+										</td>
 
-										</tr>
+									</tr>
 
-									</tbody>
+								</tbody>
 
-								</table>
-							</td>
-						</tr>
-					</table>
+							</table>
+						</td>
+					</tr>
+				</table>
 
-					<!-- If Tracking Number Exist and Order complete action performed then send email with Tracking Number -->
+				<!-- If Tracking Number Exist and Order complete action performed then send email with Tracking Number -->
 
-					<?php
+				<?php
 
 					global $post;
 
 					$order = wc_get_order( $order_info['id'] );
 
-					if ( ! empty( $order ) ) {
+				if ( ! empty( $order ) ) {
 
-						$status = $order->get_status();
+					$status = $order->get_status();
 
-						if ( isset( $status ) && 'completed' == $status ) {
+					if ( isset( $status ) && 'completed' == $status ) {
 
-							$items = $order->get_items();
+						$items = $order->get_items();
 
-							$arrayuser = array();
+						$arrayuser = array();
 
-							foreach ( $items as $item_id => $item ) {
+						foreach ( $items as $item_id => $item ) {
 
-									$supplier_id = get_post_meta( $item_id, 'supplierid', true );
+								$supplier_id = get_post_meta( $item_id, 'supplierid', true );
 
-								$arg = array(
+							$arg = array(
 
-									'meta_key'    => 'supplier_id',
+								'meta_key'    => 'supplier_id',
 
-									'meta_value'    => $supplier_id,
+								'meta_value'    => $supplier_id,
 
-								);
+							);
 
-								$user_query = new WP_User_Query( $arg );
+							$user_query = new WP_User_Query( $arg );
 
-								$authors = $user_query->get_results();
+							$authors = $user_query->get_results();
 
-								foreach ( $authors as $author ) {
+							foreach ( $authors as $author ) {
 
-									$arrayuser[] = $author->ID;
+								$arrayuser[] = $author->ID;
 
-								}
 							}
+						}
 
-							$uniqe_userid = array_unique( $arrayuser );
+						$uniqe_userid = array_unique( $arrayuser );
 
-							$dropshipper_shipping_info = '';
+						$dropshipper_shipping_info = '';
 
-							$mainsupplier_id = $supplier_info['id'];
+						$mainsupplier_id = $supplier_info['id'];
 
-							foreach ( $uniqe_userid as $key => $value ) {
+						foreach ( $uniqe_userid as $key => $value ) {
 
-								$supplier_id = get_user_meta( $value, 'supplier_id', true );
+							$supplier_id = get_user_meta( $value, 'supplier_id', true );
 
-								if ( $mainsupplier_id == $supplier_id ) {
+							if ( $mainsupplier_id == $supplier_id ) {
 
-									$dropshipper_shipping_info = opmc_hpos_get_post_meta( $order_info['id'], 'dropshipper_shipping_info_' . $value );
+								$dropshipper_shipping_info = opmc_hpos_get_post_meta( $order_info['id'], 'dropshipper_shipping_info_' . $value );
 
-								}
 							}
+						}
 
-							if ( isset( $dropshipper_shipping_info ) ) {
-								?>
+						if ( isset( $dropshipper_shipping_info ) ) {
+							?>
 
-						<table>
-							<tr>
-								<td class="tracking_number" colspan="3" style="
-								<?php
-								echo $woo_body_text_color;
-								echo $woo_body_bg_color;
-								?>
+				<table>
+					<tr>
+						<td class="tracking_number" colspan="3" style="
+							<?php
+							echo $woo_body_text_color;
+							echo $woo_body_bg_color;
+							?>
 								 border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
-													<?php _e( 'Tracking Number:', 'woocommerce-dropshipping' ); ?>
-													<?php echo @$dropshipper_shipping_info['tracking_number']; ?>
+							<?php _e( 'Tracking Number:', 'woocommerce-dropshipping' ); ?>
+							<?php echo @$dropshipper_shipping_info['tracking_number']; ?>
 
-								</td>
-							</tr>
-						</table>
+						</td>
+					</tr>
+				</table>
 
-										<?php } else { ?>
+				<?php } else { ?>
 
-						<table>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
 
-								<?php
-										}
-						}
+							<?php
+				}
 					}
-					?>
+				}
+				?>
 
-						<table>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
 
-						<!-- Product Details here -->
-						<?php
+				<!-- Product Details here -->
+				<?php
 						$options = get_option( 'wc_dropship_manager' );
 						$split_gst_amount = $options['show_gst_supplier_email'];
 
-						?>
+				?>
 
-						<table class="products-tab" style="border:1px solid #000;width:100%;" border="1" align="center" cellpadding="8" cellspacing="0">
+				<table class="products-tab" style="border:1px solid #000;width:100%;" border="1" align="center"
+					cellpadding="8" cellspacing="0">
 
-							<thead class="product_table" border="0" style="<?php echo $woo_body_bg_color; ?>">
+					<thead class="product_table" border="0" style="<?php echo $woo_body_bg_color; ?>">
 
-								<tr class="product_table" border="0" style="<?php echo $woo_body_text_color; ?>">
+						<tr class="product_table" border="0" style="<?php echo $woo_body_text_color; ?>">
 
-									<!-- For Image Title -->
+							<!-- For Image Title -->
 
-									<?php
-									if ( '1' == $order_info['options']['full_information'] ) {
+							<?php
+							if ( '1' == $order_info['options']['full_information'] ) {
 
-										if ( '1' == $order_info['options']['product_image'] ) {
+								if ( '1' == $order_info['options']['product_image'] ) {
 
-											if ( $order_info['options']['dropship_image'] ) {
-												?>
+									if ( $order_info['options']['dropship_image'] ) {
+										?>
 
-									<th border="0" align="left">
+							<th border="0" align="left">
 
-										<b>
+								<b>
 
-														<?php echo @$order_info['options']['dropship_image']; ?>
-
-												</b>
-
-									</th>
-
-											<?php } else { ?>
-
-									<th border="0" align="left">
-
-										<b>
-
-												<?php echo 'Image'; ?>
-
-											</b>
-
-									</th>
-
-												<?php
-											}
-										}
-									} else {
-
-										if ( '1' == $order_info['options']['product_image'] ) {
-
-											if ( $order_info['options']['dropship_image'] ) {
-												?>
-
-									<th border="0" align="left">
-
-										<b>
-
-														<?php echo @$order_info['options']['dropship_image']; ?>
-
-											</b>
-
-									</th>
-
-											<?php } else { ?>
-
-									<th border="0" align="left">
-
-										<b>
-
-												<?php _e( 'Image', 'woocommerce-dropshipping' ); ?>
-
-												</b>
-
-									</th>
-
-												<?php
-											}
-										}
-									}
-									?>
-									<!-- For Image Title End -->
-
-									<?php if ( $order_info['options']['dropship_sku'] ) { ?>
-
-									<th border="0" align="left"><b>
-
-										<?php echo @$order_info['options']['dropship_sku']; ?>
-
-										</b>
-
-									</th>
-
-									<?php } else { ?>
-
-									<th border="0" align="left"><b>
-
-											<?php _e( 'SKU', 'woocommerce-dropshipping' ); ?>
-
-											</b>
-
-									</th>
-
-									<?php } ?>
-
-									<?php if ( $order_info['options']['dropship_product'] ) { ?>
-
-									<th border="0" align="center"><b>
-
-										<?php echo @$order_info['options']['dropship_product']; ?>
-
-							</b>
-
-									</th>
-
-									<?php } else { ?>
-
-									<th border="0" align="center"><b>
-
-										<?php _e( 'Product', 'woocommerce-dropshipping' ); ?>
-
-							</b>
-
-									</th>
-
-									<?php } ?>
-
-									<?php if ( $order_info['options']['dropship_quantity'] ) { ?>
-
-									<th border="0" align="center"><b>
-
-											<?php echo @$order_info['options']['dropship_quantity']; ?>
-
-											</b>
-
-									</th>
-
-									<?php } else { ?>
-
-									<th border="0" align="center"><b>
-
-											<?php _e( 'Quantity', 'woocommerce-dropshipping' ); ?></b>
-
-									</th>
-
-									<?php } ?>
-
-									<!-- For Type of package Title -->
-
-									<?php
-									if ( '1' == $order_info['options']['full_information'] ) {
-
-										if ( '1' == $order_info['options']['type_of_package'] ) {
-
-											if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
-												?>
-
-									<th border="0" align="center">
-
-										<b>
-
-														<?php echo @$order_info['options']['type_of_package_conversion']; ?>
-
-									</b>
-
-									</th>
-
-													<?php } else { ?>
-
-									<th border="0" align="center">
-
-										<b>
-
-												<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
-
-										</b>
-
-									</th>
-
-												<?php
-													}
-										}
-									} else {
-
-										if ( '1' == $order_info['options']['type_of_package'] ) {
-
-											if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
-												?>
-
-									<th border="0" align="center">
-
-										<b>
-
-														<?php echo @$order_info['options']['type_of_package_conversion']; ?>
-
-									</b>
-
-									</th>
-
-													<?php } else { ?>
-
-									<th border="0" align="center">
-
-										<b>
-
-												<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
-
-									</b>
-
-									</th>
-
-												<?php
-													}
-										}
-									}
-									?>
-									<!-- For type_of_package End-->
-
-									<!-- For Price Title -->
-
-									<?php
-									if ( '1' == $order_info['options']['full_information'] ) {
-
-										if ( '1' == $order_info['options']['product_price'] ) {
-
-											if ( $order_info['options']['dropship_price'] ) {
-												?>
-
-									<th border="0" align="center">
-
-										<b>
-
-												<?php echo @$order_info['options']['dropship_price']; ?>
+										<?php echo @$order_info['options']['dropship_image']; ?>
 
 								</b>
 
-									</th>
+							</th>
 
-										<?php } else { ?>
+							<?php } else { ?>
 
-									<th border="0" align="center">
+							<th border="0" align="left">
 
-										<b>
+								<b>
 
-													<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
+										<?php echo 'Image'; ?>
 
-												</b>
+								</b>
 
-									</th>
+							</th>
 
-												<?php
-										}
-										}
-									} else {
+										<?php
+							}
+								}
+							} elseif ( '1' == $order_info['options']['product_image'] ) {
 
-										if ( '1' == $order_info['options']['product_price'] ) {
 
-											if ( $order_info['options']['dropship_price'] ) {
-												?>
-
-									<th border="0" align="center">
-
-										<b>
-
-													<?php echo @$order_info['options']['dropship_price']; ?>
-
-												</b>
-
-									</th>
-
-									<?php } else { ?>
-
-									<th border="0" align="center">
-
-										<b>
-
-													<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
-
-												</b>
-
-									</th>
-
-												<?php
-									}
-										}
-									}
+								if ( $order_info['options']['dropship_image'] ) {
 									?>
-									<?php if ( 1 == $split_gst_amount ) { ?>
 
-									<th border="0" align="center">
-										<?php esc_html_e( 'Sub Total (excl GST)', 'woocommerce-dropshipping' ); ?>
-									</th>
+							<th border="0" align="left">
 
-									<th border="0" align="center">
-										<?php esc_html_e( 'GST Amount', 'woocommerce-dropshipping' ); ?>
-									</th>
+								<b>
 
-									<th border="0" align="center">
-										<?php esc_html_e( 'Amount Payable (Incl GST)', 'woocommerce-dropshipping' ); ?>
-									</th>
+									<?php echo @$order_info['options']['dropship_image']; ?>
 
-									<?php } ?>
-									<!-- For Price Title End-->
+								</b>
 
-								</tr>
+							</th>
 
-							</thead>
+							<?php } else { ?>
 
-							<tbody border="0" style="<?php echo $woo_body_text_color; ?>  <?php echo $woo_body_bg_color; ?>">
+							<th border="0" align="left">
 
-								<?php
+								<b>
+
+										<?php _e( 'Image', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+										<?php
+							}
+							}
+							?>
+							<!-- For Image Title End -->
+
+							<?php if ( $order_info['options']['dropship_sku'] ) { ?>
+
+							<th border="0" align="left"><b>
+
+									<?php echo @$order_info['options']['dropship_sku']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="left"><b>
+
+									<?php _e( 'SKU', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+							<?php } ?>
+
+							<?php if ( $order_info['options']['dropship_product'] ) { ?>
+
+							<th border="0" align="center"><b>
+
+									<?php echo @$order_info['options']['dropship_product']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center"><b>
+
+									<?php _e( 'Product', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+							<?php } ?>
+
+							<?php if ( $order_info['options']['dropship_quantity'] ) { ?>
+
+							<th border="0" align="center"><b>
+
+									<?php echo @$order_info['options']['dropship_quantity']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center"><b>
+
+									<?php _e( 'Quantity', 'woocommerce-dropshipping' ); ?>
+								</b>
+
+							</th>
+
+							<?php } ?>
+
+							<!-- For Type of package Title -->
+
+							<?php
+							if ( '1' == $order_info['options']['full_information'] ) {
+
+								if ( '1' == $order_info['options']['type_of_package'] ) {
+
+									if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
+										?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php echo @$order_info['options']['type_of_package_conversion']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+										<?php
+							}
+								}
+							} elseif ( '1' == $order_info['options']['type_of_package'] ) {
+
+
+								if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
+									?>
+
+							<th border="0" align="center">
+
+								<b>
+
+									<?php echo @$order_info['options']['type_of_package_conversion']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+										<?php
+							}
+							}
+							?>
+							<!-- For type_of_package End-->
+
+							<!-- For Price Title -->
+
+							<?php
+							if ( '1' == $order_info['options']['full_information'] ) {
+
+								if ( '1' == $order_info['options']['product_price'] ) {
+
+									if ( $order_info['options']['dropship_price'] ) {
+										?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php echo @$order_info['options']['dropship_price']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+										<?php
+							}
+								}
+							} elseif ( '1' == $order_info['options']['product_price'] ) {
+
+
+								if ( $order_info['options']['dropship_price'] ) {
+									?>
+
+							<th border="0" align="center">
+
+								<b>
+
+									<?php echo @$order_info['options']['dropship_price']; ?>
+
+								</b>
+
+							</th>
+
+							<?php } else { ?>
+
+							<th border="0" align="center">
+
+								<b>
+
+										<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
+
+								</b>
+
+							</th>
+
+										<?php
+							}
+							}
+							?>
+							<?php if ( 1 == $split_gst_amount ) { ?>
+
+							<th border="0" align="center">
+								<?php esc_html_e( 'Sub Total (excl GST)', 'woocommerce-dropshipping' ); ?>
+							</th>
+
+							<th border="0" align="center">
+								<?php esc_html_e( 'GST Amount', 'woocommerce-dropshipping' ); ?>
+							</th>
+
+							<th border="0" align="center">
+								<?php esc_html_e( 'Amount Payable (Incl GST)', 'woocommerce-dropshipping' ); ?>
+							</th>
+
+							<?php } ?>
+							<!-- For Price Title End-->
+
+						</tr>
+
+					</thead>
+
+					<tbody border="0" style="<?php echo $woo_body_text_color; ?>  <?php echo $woo_body_bg_color; ?>">
+
+						<?php
 
 								$rows = '';
 
@@ -841,318 +869,301 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								$order_subtotal = 0;
 
-								foreach ( $order_info[ $supplier_info['slug'] ] as $prod_info ) {
+						foreach ( $order_info[ $supplier_info['slug'] ] as $prod_info ) {
 
-									$order_total_tax += $prod_info['subtotal_tax'];
+							$order_total_tax += $prod_info['subtotal_tax'];
 
-									$get_shipping_total = $prod_info['get_shipping_total'];
+							$get_shipping_total = $prod_info['get_shipping_total'];
 
-									$get_tax_total = $prod_info['get_tax_total'];
+							$get_tax_total = $prod_info['get_tax_total'];
 
-									$order_subtotal += $prod_info['total'];
+							$order_subtotal += $prod_info['total'];
 
-									$order = wc_get_order( $order_info['id'] );
+							$order = wc_get_order( $order_info['id'] );
 
-									$imgurl = $prod_info['imgurl'];
+							$imgurl = $prod_info['imgurl'];
 
-									$ali_image = $prod_info['ali_image'];
+							$ali_image = $prod_info['ali_image'];
 
-									$dummyimg = plugin_dir_url( __FILE__ ) . 'no.png';
+							$dummyimg = plugin_dir_url( __FILE__ ) . 'no.png';
 
-									$price = $prod_info['price'];
+							$price = $prod_info['price'];
 
-									$typeofpackage = $prod_info['typeofpackage'];
-									$total = $prod_info['total'];
+							$typeofpackage = $prod_info['typeofpackage'];
+							$total = $prod_info['total'];
 
-									$currency_sym = get_woocommerce_currency_symbol();
+							$currency_sym = get_woocommerce_currency_symbol();
 
-									$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
+							$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
 
-									if ( '1' == $order_info['options']['full_information'] ) {
+							if ( '1' == $order_info['options']['full_information'] ) {
 
-										if ( '1' == $order_info['options']['product_image'] ) {
+								if ( '1' == $order_info['options']['product_image'] ) {
 
-											if ( $imgurl != '' ) {
+									if ( $imgurl != '' ) {
 
-												$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
+										$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
 
-											} elseif ( $ali_image != '' ) {
+									} elseif ( $ali_image != '' ) {
 
-												$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
+										$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
 
-											} else {
-
-												$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
-
-											}
-										}
 									} else {
 
-										if ( '1' == $order_info['options']['product_image'] ) {
+										$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
 
-											if ( $imgurl != '' ) {
-
-												$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
-
-											} elseif ( $ali_image != '' ) {
-
-												$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
-
-											} else {
-
-												$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
-
-											}
-										}
 									}
+								}
+							} elseif ( '1' == $order_info['options']['product_image'] ) {
 
-									$rows .= '<td align="left" >' . $prod_info['sku'] . '</td>
+
+								if ( $imgurl != '' ) {
+
+									$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
+
+								} elseif ( $ali_image != '' ) {
+
+									$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
+
+								} else {
+
+									$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
+
+								}
+							}
+
+							$rows .= '<td align="left" >' . $prod_info['sku'] . '</td>
 
 					<td align="left" >' . $prod_info['variation_name'] . '<br/>';
 
-									$rows .= ' ' . $prod_info['variation_labels'];
+							$rows .= ' ' . $prod_info['variation_labels'];
 
-									foreach ( $prod_info['order_item_meta'] as $meta ) {
+							foreach ( $prod_info['order_item_meta'] as $meta ) {
 
-										$rows .= '<br /> ' . $meta->key . ':' . trim( $meta->value );
+								$rows .= '<br /> ' . $meta->key . ':' . trim( $meta->value );
 
-									}
+							}
 
-									$rows .= '</td>
+							$rows .= '</td>
 
 				<td align="center">' . $prod_info['qty'] . '</td>';
 
-									if ( '1' == $order_info['options']['full_information'] ) {
+							if ( '1' == $order_info['options']['full_information'] ) {
 
-										if ( '1' == $order_info['options']['type_of_package'] ) {
+								if ( '1' == $order_info['options']['type_of_package'] ) {
 
-											$rows .= '<td align="center">' . $typeofpackage . '</td>';
-
-										}
-									} else {
-
-										if ( '1' == $order_info['options']['type_of_package'] ) {
-
-											$rows .= '<td align="center">' . $typeofpackage . '</td>';
-
-										}
-									}
-
-									if ( '1' == $order_info['options']['full_information'] ) {
-
-										if ( '1' == $order_info['options']['product_price'] ) {
-
-											$rows .= '<td align="center">' . $price . '</td>';
-
-										}
-									} else {
-
-										if ( '1' == $order_info['options']['product_price'] ) {
-
-											$rows .= '<td align="center">' . $price . '</td>';
-
-										}
-									}
-									if ( 1 == $split_gst_amount ) {
-										$rows .= '<td class = "gst_price" align="center">' . wc_price( $total ) . '</td>';
-										$rows .= '<td class = "gst_price" align="center">' . wc_price( $prod_info['subtotal_tax'] ) . '</td>';
-										$rows .= '<td class = "gst_price" align="center">' . wc_price( $total + $prod_info['subtotal_tax'] ) . '</td>';
-									}
-
-									$rows .= '</tr>';
+									$rows .= '<td align="center">' . $typeofpackage . '</td>';
 
 								}
+							} elseif ( '1' == $order_info['options']['type_of_package'] ) {
+
+
+									$rows .= '<td align="center">' . $typeofpackage . '</td>';
+							}
+
+							if ( '1' == $order_info['options']['full_information'] ) {
+
+								if ( '1' == $order_info['options']['product_price'] ) {
+
+									$rows .= '<td align="center">' . $price . '</td>';
+
+								}
+							} elseif ( '1' == $order_info['options']['product_price'] ) {
+
+
+									$rows .= '<td align="center">' . $price . '</td>';
+							}
+							if ( 1 == $split_gst_amount ) {
+								$rows .= '<td class = "gst_price" align="center">' . wc_price( $total ) . '</td>';
+								$rows .= '<td class = "gst_price" align="center">' . wc_price( $prod_info['subtotal_tax'] ) . '</td>';
+								$rows .= '<td class = "gst_price" align="center">' . wc_price( $total + $prod_info['subtotal_tax'] ) . '</td>';
+							}
+
+							$rows .= '</tr>';
+
+						}
+
+						if ( '0' == $order_info['options']['cost_of_goods'] ) {
+
+							if ( ( '0' == $order_info['options']['hide_shipping_price'] ) || ( '' == $order_info['options']['hide_shipping_price'] ) ) {
+
+								$rows .= '<tr><td colspan="' . $misc_colspan . '" align="center"><b>' . __( 'Miscellaneous', 'woocommerce-dropshipping' ) . '</b></td></tr>';
+
+								$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
+
+								if ( '1' == $order_info['options']['full_information'] ) {
+
+									if ( '0' == $order_info['options']['cost_of_goods'] ) {
+
+										$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . __( 'Shipping Cost', 'woocommerce-dropshipping' ) . '</td>';
+
+										$rows .= '<td align="center">' . wc_price(
+											$get_shipping_total,
+											array(
+												'currency' => $order_currency,
+												'decimal_separator' => $woocommerce_price_decimal_sep,
+												'thousand_separator' => $woocommerce_price_thousand_sep,
+											)
+										) . '</td>';
+
+									}
+								} elseif ( '0' == $order_info['options']['cost_of_goods'] ) {
+
+
+										$rows .= '<td align="right" colspan="' . $product_price_colspan . '"> ' . __( 'Shipping Cost', 'woocommerce-dropshipping' ) . ' </td>';
+
+										$rows .= '<td align="center">' . wc_price(
+											$get_shipping_total,
+											array(
+												'currency' => $order_currency,
+												'decimal_separator' => $woocommerce_price_decimal_sep,
+												'thousand_separator' => $woocommerce_price_thousand_sep,
+											)
+										) . '</td>';
+								}
+
+									// Tax price End.
+
+								$rows .= '</tr>';
+
+							}
+
+							if ( isset( $order_info['tax_label'] ) ) {
+
+								$order_tax_label = $order_info['tax_label'];
+
+							} else {
+
+								$order_tax_label = __( 'taxes', 'woocommerce-dropshipping' );
+
+							}
+
+							if ( '1' == $order_info['options']['full_information'] ) {
 
 								if ( '0' == $order_info['options']['cost_of_goods'] ) {
 
-									if ( ( '0' == $order_info['options']['hide_shipping_price'] ) || ( '' == $order_info['options']['hide_shipping_price'] ) ) {
-
-										$rows .= '<tr><td colspan="' . $misc_colspan . '" align="center"><b>' . __( 'Miscellaneous', 'woocommerce-dropshipping' ) . '</b></td></tr>';
+									if ( ( '0' == $order_info['options']['hide_tax'] ) || ( '' == $order_info['options']['hide_tax'] ) ) {
 
 										$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
 
-										if ( '1' == $order_info['options']['full_information'] ) {
+											$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . $order_tax_label . '</td>';
 
-											if ( '0' == $order_info['options']['cost_of_goods'] ) {
-
-												$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . __( 'Shipping Cost', 'woocommerce-dropshipping' ) . '</td>';
-
-												$rows .= '<td align="center">' . wc_price(
-													$get_shipping_total,
-													array(
-														'currency' => $order_currency,
-														'decimal_separator' => $woocommerce_price_decimal_sep,
-														'thousand_separator' => $woocommerce_price_thousand_sep,
-													)
-												) . '</td>';
-
-											}
-										} else {
-
-											if ( '0' == $order_info['options']['cost_of_goods'] ) {
-
-												$rows .= '<td align="right" colspan="' . $product_price_colspan . '"> ' . __( 'Shipping Cost', 'woocommerce-dropshipping' ) . ' </td>';
-
-												$rows .= '<td align="center">' . wc_price(
-													$get_shipping_total,
-													array(
-														'currency' => $order_currency,
-														'decimal_separator' => $woocommerce_price_decimal_sep,
-														'thousand_separator' => $woocommerce_price_thousand_sep,
-													)
-												) . '</td>';
-
-											}
-										}
-
-											// Tax price End.
+											$rows .= '<td align="center">' . wc_price(
+												$get_tax_total,
+												array(
+													'currency' => $order_currency,
+													'decimal_separator' => $woocommerce_price_decimal_sep,
+													'thousand_separator' => $woocommerce_price_thousand_sep,
+												)
+											) . '</td>';
 
 										$rows .= '</tr>';
 
 									}
-
-									if ( isset( $order_info['tax_label'] ) ) {
-
-										$order_tax_label = $order_info['tax_label'];
-
-									} else {
-
-										$order_tax_label = __( 'taxes', 'woocommerce-dropshipping' );
-
-									}
-
-									if ( '1' == $order_info['options']['full_information'] ) {
-
-										if ( '0' == $order_info['options']['cost_of_goods'] ) {
-
-											if ( ( '0' == $order_info['options']['hide_tax'] ) || ( '' == $order_info['options']['hide_tax'] ) ) {
-
-												$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
-
-													$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . $order_tax_label . '</td>';
-
-													$rows .= '<td align="center">' . wc_price(
-														$get_tax_total,
-														array(
-															'currency' => $order_currency,
-															'decimal_separator' => $woocommerce_price_decimal_sep,
-															'thousand_separator' => $woocommerce_price_thousand_sep,
-														)
-													) . '</td>';
-
-												$rows .= '</tr>';
-
-											}
-										}
-									} else {
-
-										if ( '0' == $order_info['options']['cost_of_goods'] ) {
-
-											$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
-
-												$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . $order_tax_label . '</td>';
-
-												$rows .= '<td align="center">' . wc_price(
-													$get_tax_total,
-													array(
-														'currency' => $order_currency,
-														'decimal_separator' => $woocommerce_price_decimal_sep,
-														'thousand_separator' => $woocommerce_price_thousand_sep,
-													)
-												) . '</td>';
-
-											$rows .= '</tr>';
-
-										}
-									}
-
-										// Tax price End.
-
-									if ( ( '0' == $order_info['options']['hide_shipping_price'] ) || ( '' == $order_info['options']['hide_shipping_price'] ) ) {
-
-										$grandtotal = $order_subtotal + $get_tax_total + $get_shipping_total;
-
-									} else {
-
-										$grandtotal = $order_subtotal + $get_tax_total;
-
-									}
-
-									if ( '1' == $order_info['options']['full_information'] ) {
-
-										if ( '1' == $order_info['options']['total_price'] ) {
-
-											$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
-
-											$rows .= '<td align="right" colspan="' . $product_price_colspan . '"> ' . __( 'Total', 'woocommerce-dropshipping' ) . ' </td>';
-
-											$rows .= '<td align="center">' . wc_price(
-												$grandtotal,
-												array(
-													'currency' => $order_currency,
-													'decimal_separator' => $woocommerce_price_decimal_sep,
-													'thousand_separator' => $woocommerce_price_thousand_sep,
-												)
-											) . '</td>';
-
-											// total price End.
-
-											$rows .= '</tr>';
-
-										}
-									} else {
-
-										if ( '1' == $order_info['options']['total_price'] ) {
-
-											$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
-
-											$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . __( 'Total', 'woocommerce-dropshipping' ) . '</td>';
-
-											$rows .= '<td align="center">' . wc_price(
-												$grandtotal,
-												array(
-													'currency' => $order_currency,
-													'decimal_separator' => $woocommerce_price_decimal_sep,
-													'thousand_separator' => $woocommerce_price_thousand_sep,
-												)
-											) . '</td>';
-
-											// total price End.
-
-											$rows .= '</tr>';
-
-										}
-									}
 								}
+							} elseif ( '0' == $order_info['options']['cost_of_goods'] ) {
+
+
+									$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
+
+										$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . $order_tax_label . '</td>';
+
+										$rows .= '<td align="center">' . wc_price(
+											$get_tax_total,
+											array(
+												'currency' => $order_currency,
+												'decimal_separator' => $woocommerce_price_decimal_sep,
+												'thousand_separator' => $woocommerce_price_thousand_sep,
+											)
+										) . '</td>';
+
+									$rows .= '</tr>';
+							}
+
+								// Tax price End.
+
+							if ( ( '0' == $order_info['options']['hide_shipping_price'] ) || ( '' == $order_info['options']['hide_shipping_price'] ) ) {
+
+								$grandtotal = $order_subtotal + $get_tax_total + $get_shipping_total;
+
+							} else {
+
+								$grandtotal = $order_subtotal + $get_tax_total;
+
+							}
+
+							if ( '1' == $order_info['options']['full_information'] ) {
+
+								if ( '1' == $order_info['options']['total_price'] ) {
+
+									$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
+
+									$rows .= '<td align="right" colspan="' . $product_price_colspan . '"> ' . __( 'Total', 'woocommerce-dropshipping' ) . ' </td>';
+
+									$rows .= '<td align="center">' . wc_price(
+										$grandtotal,
+										array(
+											'currency' => $order_currency,
+											'decimal_separator' => $woocommerce_price_decimal_sep,
+											'thousand_separator' => $woocommerce_price_thousand_sep,
+										)
+									) . '</td>';
+
+									// total price End.
+
+									$rows .= '</tr>';
+
+								}
+							} elseif ( '1' == $order_info['options']['total_price'] ) {
+
+
+									$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
+
+									$rows .= '<td align="right" colspan="' . $product_price_colspan . '">' . __( 'Total', 'woocommerce-dropshipping' ) . '</td>';
+
+									$rows .= '<td align="center">' . wc_price(
+										$grandtotal,
+										array(
+											'currency' => $order_currency,
+											'decimal_separator' => $woocommerce_price_decimal_sep,
+											'thousand_separator' => $woocommerce_price_thousand_sep,
+										)
+									) . '</td>';
+
+									// total price End.
+
+									$rows .= '</tr>';
+							}
+						}
 
 
 								echo $rows;
 
-								?>
+						?>
 
-							</tbody>
+					</tbody>
 
-						</table>
+				</table>
 
-						<table>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
 
-						<!-- Billing and Shipping Address -->
+				<!-- Billing and Shipping Address -->
 
-						<?php
+				<?php
 
 						$billing_add = opmc_hpos_get_post_meta( $order_info['id'], '_billing_address' );
 
 						$shipping_add = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_address' );
 
-						?>
+				?>
 
 
 
-							<?php
+				<?php
 
 							// $billing_add = opmc_hpos_get_post_meta($order_info['id'], '_billing_address' );
 
@@ -1218,119 +1229,124 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 							$order_shipping_country = WC()->countries->countries[ $order_shipping_country ];
 
-							if ( ! empty( $order_billing_address_2 ) ) {
+				if ( ! empty( $order_billing_address_2 ) ) {
 
-								$fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name . ' <br/>' . $order_billing_company . ' <br/>' . $order_billing_address_1 . ', <br/>' . $order_billing_address_2 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
+					$fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name . ' <br/>' . $order_billing_company . ' <br/>' . $order_billing_address_1 . ', <br/>' . $order_billing_address_2 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
 
-							} else {
+				} else {
 
-								$fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name . ' <br/>' . $order_billing_company . ' <br/>' . $order_billing_address_1 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
+					$fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name . ' <br/>' . $order_billing_company . ' <br/>' . $order_billing_address_1 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
 
-							}
-
-
-
-							if ( ! empty( $order_shipping_address_2 ) ) {
-
-								$full_ship_address = $order_shipping_first_name . ' ' . $order_shipping_last_name . ' <br/>' . $order_shipping_company . ' <br/>' . $order_shipping_address_1 . ', <br/>' . $order_shipping_address_2 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
-
-							} else {
-
-								$full_ship_address = $order_shipping_first_name . ' ' . $order_shipping_last_name . ' <br/>' . $order_shipping_company . ' <br/>' . $order_shipping_address_1 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
-
-							}
-
-							if ( empty( $order_shipping_address_1 ) ) {
-								$full_ship_address = $fullBillAddress;
-							}
-
-							?>
-
-								<?php if ( '1' == $order_info['options']['shipping'] ) { ?>
-
-									<?php if ( ( '1' == $order_info['options']['billing_address'] ) || ( '1' == $order_info['options']['shipping_address'] ) ) { ?>
-
-								<table align="center" cellpadding="5" cellspacing="0" style="width:100%;">
-
-									<tbody>
-
-										<tr style="vertical-align:baseline;<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
-
-											<td width="30%">
-
-												<table width="100%" cellpadding="4" cellspacing="0">
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
-
-															<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																				 <?php
-																					if ( $order_info['options']['dropship_company_address'] ) {
-
-																						echo @$order_info['options']['dropship_company_address'];
-
-																					} else {
+				}
 
 
-																						_e( 'Company Address', 'woocommerce-dropshipping' );
 
-																					}
-																					?>
-															</b>
-														</td>
+				if ( ! empty( $order_shipping_address_2 ) ) {
 
-													</tr>
+					$full_ship_address = $order_shipping_first_name . ' ' . $order_shipping_last_name . ' <br/>' . $order_shipping_company . ' <br/>' . $order_shipping_address_1 . ', <br/>' . $order_shipping_address_2 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
 
-													<tr>
+				} else {
 
-														<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>;">
+					$full_ship_address = $order_shipping_first_name . ' ' . $order_shipping_last_name . ' <br/>' . $order_shipping_company . ' <br/>' . $order_shipping_address_1 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
 
-															<h4>
-																<?php echo @$order_info['options']['packing_slip_company_name']; ?>
-															</h4>
+				}
 
-															<?php echo @$order_info['options']['packing_slip_address']; ?><br />
+				if ( empty( $order_shipping_address_1 ) ) {
+					$full_ship_address = $fullBillAddress;
+				}
 
-															<?php echo @$order_info['options']['packing_slip_customer_service_email']; ?><br />
+				?>
 
-															<?php echo @$order_info['options']['packing_slip_customer_service_phone']; ?><br />
+				<?php if ( '1' == $order_info['options']['shipping'] ) { ?>
 
-														</td>
-													</tr>
+					<?php if ( ( '1' == $order_info['options']['billing_address'] ) || ( '1' == $order_info['options']['shipping_address'] ) ) { ?>
 
-												</table>
+				<table align="center" cellpadding="5" cellspacing="0" style="width:100%;">
 
-											</td>
+					<tbody>
 
-											<td width="5%">&nbsp;</td>
+						<tr
+							style="vertical-align:baseline;<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
 
-											<td width="30%">
+							<td width="30%">
 
-												<?php if ( $order_info['options']['billing_address'] == '1' ) { ?>
+								<table width="100%" cellpadding="4" cellspacing="0">
 
-													<table width="100%" cellpadding="4" cellspacing="0">
+									<tr>
 
-														<tr>
+										<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
-															<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+												if ( $order_info['options']['dropship_company_address'] ) {
 
-																<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																					 <?php
-																						if ( $order_info['options']['dropship_billing_address_email'] ) {
-																							echo @$order_info['options']['dropship_billing_address_email'];} else {
-																							_e( 'Billing Address', 'woocommerce-dropshipping' ); }
-																							?>
-																</b>
+													echo @$order_info['options']['dropship_company_address'];
 
-															</td>
+												} else {
 
-														</tr>
 
-														<tr>
+													_e( 'Company Address', 'woocommerce-dropshipping' );
 
-															<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
-																<?php
+												}
+												?>
+											</b>
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>;">
+
+											<h4>
+												<?php echo @$order_info['options']['packing_slip_company_name']; ?>
+											</h4>
+
+											<?php echo @$order_info['options']['packing_slip_address']; ?><br />
+
+											<?php echo @$order_info['options']['packing_slip_customer_service_email']; ?><br />
+
+											<?php echo @$order_info['options']['packing_slip_customer_service_phone']; ?><br />
+
+										</td>
+									</tr>
+
+								</table>
+
+							</td>
+
+							<td width="5%">&nbsp;</td>
+
+							<td width="30%">
+
+								<?php if ( $order_info['options']['billing_address'] == '1' ) { ?>
+
+								<table width="100%" cellpadding="4" cellspacing="0">
+
+									<tr>
+
+										<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
+
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+												if ( $order_info['options']['dropship_billing_address_email'] ) {
+													echo @$order_info['options']['dropship_billing_address_email'];} else {
+													_e( 'Billing Address', 'woocommerce-dropshipping' ); }
+													?>
+											</b>
+
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
+											<?php
 
 																$options = get_option( 'wc_dropship_manager' );
 
@@ -1358,100 +1374,102 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 																$mainsupplier_id = $supplier_info['id'];
 																$sup = wc_dropshipping_get_dropship_supplier( $mainsupplier_id );
-																?>
+											?>
 
-																<?php
-																if ( ( $hide_client_info_Suppliers == 1 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
-																	echo '';
-																}
-																?>
+											<?php
+											if ( ( $hide_client_info_Suppliers == 1 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
+												echo '';
+											}
+											?>
 
-																<?php
-																if ( ( $hide_client_info_Suppliers == 0 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
-																	echo $client_info;
-																}
-																?>
+											<?php
+											if ( ( $hide_client_info_Suppliers == 0 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
+												echo $client_info;
+											}
+											?>
 
-																<?php
-																if ( $hide_client_info_Suppliers == 1 && $hide_contact_info_Suppliers == 0 ) {
-																	echo $contact_info;
+											<?php
+											if ( $hide_client_info_Suppliers == 1 && $hide_contact_info_Suppliers == 0 ) {
+												echo $contact_info;
 
-																}
-																?>
-
-
-																<?php
-																if ( 1 == $store_add_shipping_add ) {
-
-																	echo @$full_store_address;
-
-																}
-																?>
+											}
+											?>
 
 
+											<?php
+											if ( 1 == $store_add_shipping_add ) {
 
+												echo @$full_store_address;
 
-																<?php
-																if ( $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 && $store_add_shipping_add == 0 && ( '' == $sup['address_line1'] ) ) {
-
-																	echo @$fullBillAddress;
-																}
-																?>
-
-																<?php
-																if ( '' != $sup['address_line1'] && $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 ) {
-
-																	print_r( $sup['address_line1'] . '<br>' . $sup['address_line2'] . '<br>' . $sup['supplier_city'] . '<br>' . $sup['country_state'] . '<br>' . $sup['postcode_zip'] . '<br />' );
-
-																}
-																?>
-
-
-															</td>
-
-														</tr>
-
-													</table>
-												<?php } ?>
-
-											</td>
-											<td width="5%">&nbsp;</td>
-
-											<td width="30%">
-
-											<?php if ( '1' == $order_info['options']['shipping_address'] ) { ?>
-
-												<table width="100%" cellpadding="4" cellspacing="0">
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
-
-															<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																				 <?php
-
-
-																					if ( $order_info['options']['dropship_shipping_address_email'] ) {
-
-																						echo $order_info['options']['dropship_shipping_address_email'];
-																					} else {
-																						_e( 'Shipping Address', 'woocommerce-dropshipping' ); }
-																					?>
-															</b>
-
-														</td>
-
-													</tr>
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
+											}
+											?>
 
 
 
-															<!-- 3rd phone shipping -->
 
-															<?php
+											<?php
+											if ( $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 && $store_add_shipping_add == 0 && ( '' == $sup['address_line1'] ) ) {
+
+												echo @$fullBillAddress;
+											}
+											?>
+
+											<?php
+											if ( '' != $sup['address_line1'] && $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 ) {
+
+												print_r( $sup['address_line1'] . '<br>' . $sup['address_line2'] . '<br>' . $sup['supplier_city'] . '<br>' . $sup['country_state'] . '<br>' . $sup['postcode_zip'] . '<br />' );
+
+											}
+											?>
+
+
+										</td>
+
+									</tr>
+
+								</table>
+								<?php } ?>
+
+							</td>
+							<td width="5%">&nbsp;</td>
+
+							<td width="30%">
+
+								<?php if ( '1' == $order_info['options']['shipping_address'] ) { ?>
+
+								<table width="100%" cellpadding="4" cellspacing="0">
+
+									<tr>
+
+										<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
+
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+
+
+												if ( $order_info['options']['dropship_shipping_address_email'] ) {
+
+													echo $order_info['options']['dropship_shipping_address_email'];
+												} else {
+													_e( 'Shipping Address', 'woocommerce-dropshipping' ); }
+												?>
+											</b>
+
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
+
+
+
+											<!-- 3rd phone shipping -->
+
+											<?php
 
 															$options = get_option( 'wc_dropship_manager' );
 
@@ -1474,269 +1492,278 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 															$mainsupplier_id = $supplier_info['id'];
 															$sup = wc_dropshipping_get_dropship_supplier( $mainsupplier_id );
-															?>
+											?>
 
 
-															 <?php
-																if ( ( $hide_client_info_Suppliers == 0 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
-																	echo $full_ship_address;
-																} else {
-																	echo '';
-																}
-																?>
+											<?php
+											if ( ( $hide_client_info_Suppliers == 0 ) && ( 1 == $hide_contact_info_Suppliers ) ) {
+												echo $full_ship_address;
+											} else {
+												echo '';
+											}
+											?>
 
 
-															<?php
-															if ( 1 == $store_add_shipping_add ) {
+											<?php
+											if ( 1 == $store_add_shipping_add ) {
 
-																echo @$full_store_address;
-
-															}
-															?>
-
-
-
-															<?php
-															if ( $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 && $store_add_shipping_add == 0 && ( '' == $sup['address_line1'] ) ) {
-
-																echo @$full_ship_address;
-															} else {
-																echo '';
-															}
-															?>
-
-															<?php
-															if ( '' != $sup['address_line1'] && $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 ) {
-
-																print_r( $sup['address_line1'] . '<br>' . $sup['address_line2'] . '<br>' . $sup['supplier_city'] . '<br>' . $sup['country_state'] . '<br>' . $sup['postcode_zip'] . '<br />' );
-
-															}
-															?>
-														</td>
-
-													</tr>
-												</table>
-
-												<?php
+												echo @$full_store_address;
 
 											}
 											?>
 
-											</td>
 
-										</tr>
 
-									</tbody>
+											<?php
+											if ( $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 && $store_add_shipping_add == 0 && ( '' == $sup['address_line1'] ) ) {
+
+												echo @$full_ship_address;
+											} else {
+												echo '';
+											}
+											?>
+
+											<?php
+											if ( '' != $sup['address_line1'] && $hide_client_info_Suppliers == 0 && $hide_contact_info_Suppliers == 0 ) {
+
+												print_r( $sup['address_line1'] . '<br>' . $sup['address_line2'] . '<br>' . $sup['supplier_city'] . '<br>' . $sup['country_state'] . '<br>' . $sup['postcode_zip'] . '<br />' );
+
+											}
+											?>
+										</td>
+
+									</tr>
+								</table>
+
+									<?php
+
+								}
+								?>
+
+							</td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+
+				<?php } else { ?>
+
+				<table align="center" cellpadding="5" cellspacing="0" style="width:100%;">
+
+					<tbody>
+
+						<tr
+							style="vertical-align:baseline;<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
+
+							<td width="30%">
+
+								<table width="100%" cellpadding="4" cellspacing="0">
+
+									<tr>
+
+										<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
+
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+												if ( $order_info['options']['dropship_company_address'] ) {
+
+													echo @$order_info['options']['dropship_company_address'];
+
+												} else {
+
+
+													_e( 'Company Address', 'woocommerce-dropshipping' );
+
+												}
+												?>
+											</b>
+
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>;">
+
+											<h4>
+												<?php echo @$order_info['options']['packing_slip_company_name']; ?>
+											</h4>
+
+											<?php echo @$order_info['options']['packing_slip_address']; ?><br />
+
+											<?php echo @$order_info['options']['packing_slip_customer_service_email']; ?><br />
+
+											<?php echo @$order_info['options']['packing_slip_customer_service_phone']; ?><br />
+
+										</td>
+									</tr>
 
 								</table>
 
-								<?php } else { ?>
+							</td>
 
-								<table align="center" cellpadding="5" cellspacing="0" style="width:100%;">
+							<td width="5%">&nbsp;</td>
 
-									<tbody>
+							<td width="30%">
 
-										<tr style="vertical-align:baseline;<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
+								<?php if ( '1' == $order_info['options']['billing_address'] ) { ?>
 
-											<td width="30%">
+								<table width="100%" cellpadding="4" cellspacing="0">
 
-												<table width="100%" cellpadding="4" cellspacing="0">
+									<tr>
 
-													<tr>
+										<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
-														<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+												if ( $order_info['options']['dropship_billing_address_email'] ) {
 
-															<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																				 <?php
-																					if ( $order_info['options']['dropship_company_address'] ) {
+													echo @$order_info['options']['dropship_billing_address_email'];
 
-																						echo @$order_info['options']['dropship_company_address'];
+												} else {
 
-																					} else {
+													e_( 'Billing Address', 'woocommerce-dropshipping' );
 
+												}
+												?>
 
-																						_e( 'Company Address', 'woocommerce-dropshipping' );
+											</b>
 
-																					}
-																					?>
-															</b>
+										</td>
 
-														</td>
+									</tr>
 
-													</tr>
+									<tr>
 
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>;">
-
-															<h4>
-																<?php echo @$order_info['options']['packing_slip_company_name']; ?>
-															</h4>
-
-															<?php echo @$order_info['options']['packing_slip_address']; ?><br />
-
-															<?php echo @$order_info['options']['packing_slip_customer_service_email']; ?><br />
-
-															<?php echo @$order_info['options']['packing_slip_customer_service_phone']; ?><br />
-
-														</td>
-													</tr>
-
-												</table>
-
-											</td>
-
-											<td width="5%">&nbsp;</td>
-
-											<td width="30%">
-
-										<?php if ( '1' == $order_info['options']['billing_address'] ) { ?>
-
-												<table width="100%" cellpadding="4" cellspacing="0">
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
-
-															<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																				 <?php
-																					if ( $order_info['options']['dropship_billing_address_email'] ) {
-
-																						echo @$order_info['options']['dropship_billing_address_email'];
-
-																					} else {
-
-																						e_( 'Billing Address', 'woocommerce-dropshipping' );
-
-																					}
-																					?>
-
-									</b>
-
-														</td>
-
-													</tr>
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
 
 
-															<?php echo @$full_ship_address; ?><br />
+											<?php echo @$full_ship_address; ?><br />
 
-															<?php echo @$order_info['billing_info']['phone']; ?><br />
+											<?php echo @$order_info['billing_info']['phone']; ?><br />
 
 											<?php if ( '1' == @$order_info['options']['customer_email'] ) { ?>
 
-															<?php echo @$order_info['billing_info']['billing_email']; ?><br />
+												<?php echo @$order_info['billing_info']['billing_email']; ?><br />
 
-															<?php } ?>
+											<?php } ?>
 
-														</td>
+										</td>
 
-													</tr>
-
-												</table>
-
-												<?php } ?>
-
-											</td>
-
-											<td width="5%">&nbsp;</td>
-
-											<td width="30%">
-
-											<?php if ( '1' == $order_info['options']['shipping_address'] ) { ?>
-
-												<table width="100%" cellpadding="4" cellspacing="0">
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $base_color2; ?>">
-
-															<b style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
-																				 <?php
-																					if ( $order_info['options']['dropship_shipping_address_email'] ) {
-
-																						echo $order_info['options']['dropship_shipping_address_email'];
-
-																					} else {
-
-																						_e( 'Shipping Address', 'woocommerce-dropshipping' );
-
-																					}
-																					?>
-
-										</b>
-
-														</td>
-
-													</tr>
-
-													<tr>
-
-														<td width="100%" align="left" style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
-
-													<?php echo @$full_ship_address; ?><br /><br />
-
-														<?php
-														if ( '1' == $order_info['options']['billing_phone'] ) {
-															echo @$order_info['shipping_info']['billing_phone'] . '<br /><br />'; }
-														?>
-
-														</td>
-
-													</tr>
-
-												</table>
-
-												<?php
-
-											}
-											?>
-
-											</td>
-
-										</tr>
-
-										<tr border="0" style="<?php echo $woo_body_bg_color; ?>">
-
-											<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style=" padding: 20px; <?php echo $woo_body_text_color; ?>">
-
-												<p>
-
-													<?php
-													if ( $order_info['options']['dropship_additional_comment'] ) {
-
-														echo @$order_info['options']['dropship_additional_comment'];
-
-													}
-													?>
-
-												</p>
-
-											</td>
-
-										</tr>
-
-									</tbody>
+									</tr>
 
 								</table>
 
-										<?php
-								}
+								<?php } ?>
+
+							</td>
+
+							<td width="5%">&nbsp;</td>
+
+							<td width="30%">
+
+								<?php if ( '1' == $order_info['options']['shipping_address'] ) { ?>
+
+								<table width="100%" cellpadding="4" cellspacing="0">
+
+									<tr>
+
+										<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+
+											<b
+												style="<?php echo $bottom_sub_heading_font_size . $bottom_sub_heading_font_color; ?>">
+												<?php
+												if ( $order_info['options']['dropship_shipping_address_email'] ) {
+
+													echo $order_info['options']['dropship_shipping_address_email'];
+
+												} else {
+
+													_e( 'Shipping Address', 'woocommerce-dropshipping' );
+
+												}
+												?>
+
+											</b>
+
+										</td>
+
+									</tr>
+
+									<tr>
+
+										<td width="100%" align="left"
+											style="<?php echo $sub_heading_content_font_size . $sub_heading_content_color; ?>">
+
+											<?php echo @$full_ship_address; ?><br /><br />
+
+											<?php
+											if ( '1' == $order_info['options']['billing_phone'] ) {
+												echo @$order_info['shipping_info']['billing_phone'] . '<br /><br />'; }
+											?>
+
+										</td>
+
+									</tr>
+
+								</table>
+
+									<?php
+
 								}
 								?>
-				</td>
-			</tr>
-		</table>
 
-	</div>
+							</td>
 
-	<!-- Order complete link -->
+						</tr>
 
-	<h4 align="center" style="<?php echo $footer_message_font_size . $footer_message_font_color; ?> padding:20px 0px; margin-top:0; <?php echo $woo_body_bg_color; ?>">
+						<tr border="0" style="<?php echo $woo_body_bg_color; ?>">
 
-		<?php echo @$order_info['options']['packing_slip_thankyou']; ?>
+							<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left"
+								style=" padding: 20px; <?php echo $woo_body_text_color; ?>">
 
-	</h4>
+								<p>
+
+									<?php
+									if ( $order_info['options']['dropship_additional_comment'] ) {
+
+										echo @$order_info['options']['dropship_additional_comment'];
+
+									}
+									?>
+
+								</p>
+
+							</td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+
+						<?php
+				}
+				}
+				?>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<!-- Order complete link -->
+
+<h4 align="center"
+	style="<?php echo $footer_message_font_size . $footer_message_font_color; ?> padding:20px 0px; margin-top:0; <?php echo $woo_body_bg_color; ?>">
+
+	<?php echo @$order_info['options']['packing_slip_thankyou']; ?>
+
+</h4>

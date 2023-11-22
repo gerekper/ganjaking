@@ -11,7 +11,7 @@ namespace PremiumAddonsPro\Widgets;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes\Color;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -47,7 +47,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Twitter Feed', 'premium-addons-pro' ) );
+		return __( 'Twitter Feed', 'premium-addons-pro' );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'tweet', 'profile', 'account', 'tag', 'social' );
+		return array( 'pa', 'premium', 'tweet', 'profile', 'account', 'tag', 'social' );
 	}
 
 	/**
@@ -97,7 +97,9 @@ class Premium_Twitter_Feed extends Widget_Base {
 	public function get_style_depends() {
 		return array(
 			'font-awesome-5-all',
+			'pa-slick',
 			'premium-addons',
+			'premium-pro',
 		);
 	}
 
@@ -148,39 +150,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-
-		$this->start_controls_section(
-			'access_credentials_section',
-			array(
-				'label' => __( 'Access Credentials', 'premium-addons-pro' ),
-			)
-		);
-
-		$this->add_control(
-			'consumer_key',
-			array(
-				'label'       => __( 'Consumer Key', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => false,
-				'default'     => 'wwC72W809xRKd9ySwUzXzjkmS',
-				'description' => '<a href="https://apps.twitter.com/" target="_blank">Get Consumer Key </a>by creating a new app or selecting an existing app ',
-			)
-		);
-
-		$this->add_control(
-			'consumer_secret',
-			array(
-				'label'       => __( 'Consumer Secret Key', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => false,
-				'default'     => 'rn54hBqxjve2CWOtZqwJigT3F5OEvrriK2XAcqoQVohzr2UA8h',
-				'description' => '<a href="https://apps.twitter.com/" target="_blank">Get Consumer Secret Key </a>by creating a new app or selecting an existing app',
-				'separator'   => 'after',
-			)
-		);
-
-		$this->end_controls_section();
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'account_settings_section',
@@ -209,7 +179,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 				'type'          => Controls_Manager::REPEATER,
 				'default'       => array(
 					array(
-						'account_id' => '@leap13themes',
+						'account_id' => '@LeapWorx',
 					),
 				),
 				'fields'        => $acc_repeater->get_controls(),
@@ -280,9 +250,9 @@ class Premium_Twitter_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'column_number',
 			array(
-				'label'           => __( 'Tweets/Row', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::SELECT,
-				'options'         => array(
+				'label'              => __( 'Tweets/Row', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'100%'    => __( '1 Column', 'premium-addons-pro' ),
 					'50%'     => __( '2 Columns', 'premium-addons-pro' ),
 					'33.33%'  => __( '3 Columns', 'premium-addons-pro' ),
@@ -290,16 +260,17 @@ class Premium_Twitter_Feed extends Widget_Base {
 					'20%'     => __( '5 Columns', 'premium-addons-pro' ),
 					'16.667%' => __( '6 Columns', 'premium-addons-pro' ),
 				),
-				'desktop_default' => '33.33%',
-				'tablet_default'  => '50%',
-				'mobile_default'  => '100%',
-				'render_type'     => 'template',
-				'condition'       => array(
+				'desktop_default'    => '33.33%',
+				'tablet_default'     => '50%',
+				'mobile_default'     => '100%',
+				'render_type'        => 'template',
+				'condition'          => array(
 					'layout_style' => 'masonry',
 				),
-				'selectors'       => array(
+				'selectors'          => array(
 					'{{WRAPPER}} .premium-social-feed-element-wrap' => 'width: {{VALUE}}',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -311,11 +282,11 @@ class Premium_Twitter_Feed extends Widget_Base {
 				'options' => array(
 					'ltr' => array(
 						'title' => __( 'Left to Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-chevron-circle-right',
+						'icon'  => 'eicon-chevron-right',
 					),
 					'rtl' => array(
 						'title' => __( 'Right to Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-chevron-circle-left',
+						'icon'  => 'eicon-chevron-left',
 					),
 				),
 				'default' => 'ltr',
@@ -330,19 +301,19 @@ class Premium_Twitter_Feed extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'selectors' => array(
@@ -408,7 +379,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'cover_image_height',
 			array(
-				'label'      => __( 'Height', 'premium-addons-for-elementor' ),
+				'label'      => __( 'Height', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em' ),
 				'range'      => array(
@@ -517,15 +488,15 @@ class Premium_Twitter_Feed extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'center'     => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'center',
@@ -606,12 +577,12 @@ class Premium_Twitter_Feed extends Widget_Base {
 		$this->add_responsive_control(
 			'image_fit',
 			array(
-				'label'     => __( 'Image Fit', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Image Fit', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					'cover'   => __( 'Cover', 'premium-addons-for-elementor' ),
-					'fill'    => __( 'Fill', 'premium-addons-for-elementor' ),
-					'contain' => __( 'Contain', 'premium-addons-for-elementor' ),
+					'cover'   => __( 'Cover', 'premium-addons-pro' ),
+					'fill'    => __( 'Fill', 'premium-addons-pro' ),
+					'contain' => __( 'Contain', 'premium-addons-pro' ),
 				),
 				'default'   => 'fill',
 				'separator' => 'after',
@@ -844,7 +815,7 @@ class Premium_Twitter_Feed extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-twitter-img-container .premium-twitter-header-img' => 'width: {{SIZE}}{{UNIT}};height:{{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-twitter-img-container .premium-twitter-header-img' => 'width: {{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -936,9 +907,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Name Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-header-link .premium-twitter-feed-name' => 'color: {{VALUE}}',
@@ -951,9 +921,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Username Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-header-link .premium-twitter-screen-name' => 'color: {{VALUE}}',
@@ -1048,9 +1017,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-header-count span:last-of-type' => 'color: {{VALUE}};',
@@ -1063,9 +1031,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Count Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-header-count span:first-of-type' => 'color: {{VALUE}};',
@@ -1154,9 +1121,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-feed-follow a' => 'background-color: {{VALUE}};',
@@ -1506,9 +1472,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-text' => 'color: {{VALUE}};',
@@ -1578,9 +1543,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-read-more' => 'color: {{VALUE}};',
@@ -1596,9 +1560,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-read-more:hover' => 'color: {{VALUE}};',
@@ -1739,9 +1702,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-social-icon' => 'color: {{VALUE}};',
@@ -1791,9 +1753,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-author a' => 'color: {{VALUE}};',
@@ -1806,9 +1767,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-author:hover a' => 'color: {{VALUE}};',
@@ -1854,9 +1814,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-feed-element-date a' => 'color: {{VALUE}};',
@@ -1903,9 +1862,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-comments-field ' => 'color: {{VALUE}};',
@@ -1920,9 +1878,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-comments-field:hover' => 'color: {{VALUE}};',
@@ -2001,9 +1958,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-feed-wrapper .slick-arrow' => 'color: {{VALUE}};',
@@ -2028,9 +1984,8 @@ class Premium_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-twitter-feed-wrapper .slick-arrow' => 'background-color: {{VALUE}};',
@@ -2151,13 +2106,6 @@ class Premium_Twitter_Feed extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		if ( empty( $settings['consumer_key'] ) || empty( $settings['consumer_secret'] ) ) { ?>
-			<div class="premium-error-notice">
-				<?php echo esc_html( __( 'Please fill the required fields: Consumer Key & Consumer Secret', 'premium-addons-pro' ) ); ?>
-			</div>
-			<?php
-			return; }
-
 		$layout_class = 'list' === $settings['layout_style'] ? 'list-layout' : 'grid-layout';
 
 		$layout = sprintf( '%s-template.php', str_replace( '-layout', '', $layout_class ) );
@@ -2201,12 +2149,11 @@ class Premium_Twitter_Feed extends Widget_Base {
 		$twitter_settings = array(
 			'accounts'  => $accounts,
 			'limit'     => $settings['tweets_number'],
-			'consKey'   => $settings['consumer_key'],
-			'consSec'   => $settings['consumer_secret'],
 			'length'    => $settings['tweets_length'],
 			'showMedia' => $settings['tweets_media'],
 			'layout'    => $layout_class,
 			'readMore'  => esc_html( $settings['read_text'] ),
+			'header'    => $settings['header_enable'],
 			'template'  => plugins_url( '/templates/', __FILE__ ) . $layout,
 		);
 

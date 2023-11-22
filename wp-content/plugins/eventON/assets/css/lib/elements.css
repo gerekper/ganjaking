@@ -1,6 +1,6 @@
 /* 
  * EventON Elements CSS 
- * @version 4.4.2
+ * @version 4.5.2
     General
     Lightbox Select Field
     Select in a row
@@ -26,8 +26,9 @@
 /* yes no button */
     .ajde_yn_btn {
         background-color: var(--evo_color_prime);
-        height: 24px;
+        height: 20px;
         width: 40px;
+        border:1px solid var(--evo_color_prime);
         overflow: hidden;
         display: inline-block;
         cursor: pointer;
@@ -41,8 +42,8 @@
     }
     .ajde_yn_btn:hover{opacity: 0.7}
     .ajde_yn_btn.NO{
-        background-color: #c5c5c5;
-        border-color: #d9d7d7;
+        background-color: #f0f0f0;
+        border-color: var(--evo_color_1);
     }
     .ajde_yn_btn_label{padding-left: 10px; line-height: 1.8;}
     .ajde_yn_btn .btn_inner:before,.ajde_yn_btn .btn_inner:after{
@@ -54,35 +55,28 @@
     
     .ajde_yn_btn .btn_inner{
         position: relative;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 23px;
+        padding-right: 23px;
         padding-top: 0;
         width: 22px;
         display: block;
         margin:0;
-        margin-left: -15px;
+        margin-left: 0px;
         border:none;
         background:none;
         box-sizing:content-box;
     }   
-    .ajde_yn_btn.NO .btn_inner{margin-left: -1px;}
+    .ajde_yn_btn.NO .btn_inner{margin-left: -18px;}
     .catchHandle, .yesno_row .catchHandle{
         background-color: #fff;
-        height: 15px;width: 15px;      
+        height: 12px;width: 12px;      
         display: block;
         padding-left: 0;
         border-radius: 12px;
         box-sizing: border-box;
         margin-top: 4px;
     }
-    .catchHandle:before, .yesno_row .catchHandle:before{
-        content:"";
-        height: 13px;
-        width: 3px;
-        display: block;
-        margin-left: 8px;
-    }
-    .ajde_yn_btn.NO .catchHandle, .yesno_row .ajde_yn_btn.NO .catchHandle{background-color: #fff}
+    .ajde_yn_btn.NO .catchHandle, .yesno_row .ajde_yn_btn.NO .catchHandle{background-color: var(--evo_color_1)}
     .ajde_yn_btn.NO .catchHandle:before, .yesno_row .ajde_yn_btn.NO .catchHandle:before{
         margin-left: 8px;
     }
@@ -93,7 +87,8 @@
         -o-transition: all .2s ease;
         transition: all .2s ease;
     }
-    .yesno_row span.field_name, .yesno_row label{ padding-left:10px; line-height: 1.8;     }
+    .yesno_row span.field_name, .yesno_row label, .yesno_leg_line label
+    { padding-left:10px; line-height: 1.8;     }
     .evo_lightbox .yesno_row span.field_name{padding-left: 10px;}
     .evo_inside .yesno_row span.field_name{pointer-events:auto;}
     .yesno_row .ajde_yn_btn { padding: 0;}
@@ -137,103 +132,34 @@
         text-align: center;
     }
 
-/* Side panel @4.5.1 */
-    .evo_sidepanel{
-        background-color: #fff;
-          height: 100%; top :0; 
-          width: 350px;
-          padding: 20px 20px 20px 40px;
-          -webkit-box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-          box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-          position: fixed;
-          z-index: 99999;
-          opacity: 0;
-          transition: 500ms cubic-bezier(0.25,0.1,0.25,1);
-          right:-350px;
-          box-sizing: border-box;
-    }
-    .evo_sidepanel .evo_sp_in{display: flex;flex-direction: column;height: 100%;}
-    .evo_sidepanel .evo_sp_head{}
-    .evo_sidepanel .evo_sp_body{flex:1;}
-    .evo_sidepanel .evo_sp_foot{}
-    .evo_sidepanel .evo_sp_close{
-        position: fixed;
-        margin-left: -58px;
-        background-color: #ffffff;
-        padding: 10px;
-        border-radius: 25px;
-        border: 2px solid #d5d5d5;
-        height: 15px;
-        width: 15px;
-        display: flex;
-        justify-content: center;
-        /* color: #fff; */
-        cursor: pointer;
-    }
-    .evo_sidepanel .evo_sp_close:hover{background-color: #d9d9d9}
 
 /* icon selector everywhere */
-    .ajde_fa_icons_selector {
-      background-color: #fff;
-      height: 100%; top :0; 
-      width: 350px;
-      padding: 20px;
-      -webkit-box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-      box-shadow: 0px 0px 19px 1px rgba(123, 122, 122, 0.5);
-      position: fixed;
-      z-index: 99999;
-      opacity: 0;
-      transition: 500ms cubic-bezier(0.25,0.1,0.25,1);
-      right:-350px;
-      box-sizing: border-box;
+    .evo_icon_selector{}
+    .evo_icon_selector ul{    margin-top: 0;}
+    .evo_icon_selector ul li{
+        display: inline-block;
+        cursor: pointer;
+        margin: 0;
+        padding: 9px;
     }
-    .ajde_fa_icons_selector .evo_icon_search{
+    .evo_icon_selector ul li:hover{    background-color: #eeeeee;}
+    .evo_icon_selector ul li.selected{background-color: var(--evo_color_prime);}
+    .evo_icon_selector ul li.selected i{}
+    .evo_icon_selector ul li i{
+        font-size: 28px;
+        width: 28px;
+        transition: all linear 0.1s;
+    }
+    .evo_icon_selector ul li:hover i{  transform: scale(1.2); color:var(--evo_color_prime);}
+    .evo_icon_search_bar{margin-top: 10px}
+
+    .evo_icon_search{
         width: 100%;
         padding: 7px 10px;
         margin-bottom: 5px;
     }
-    .ajde_fa_icons_selector.show{
-        right:0; opacity: 1;
-    }
-    .ajde_fa_icons_selector .iconsel_header{}
-    .ajde_fa_icons_selector:before {
-      content: "";
-      width: 0px;
-      height: 0px;
-      border-style: solid;
-      border-width: 12px 10px 0 10px;
-      border-color: #fff transparent transparent transparent;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      margin-bottom: -12px;
-      margin-left: 80px;
-    }
-    .ajde_fa_icons_selector .fai_in {
-      height: calc(100% - 110px);
-      width: 310px;
-      overflow: auto;
-    }
-    .ajde_fa_icons_selector ul {
-      margin-top: 0;
-    }
-    .ajde_fa_icons_selector ul li {
-      display: inline-block;
-      cursor: pointer;
-      margin: 0;
-      padding: 9px;
-    }
-    .ajde_fa_icons_selector ul li:hover {
-      background-color: #eeeeee;
-    }
-    .ajde_fa_icons_selector ul li i {
-      font-size: 28px;
-      width: 28px;
-    }
-    .ajde_fa_icons_selector ul li.selected{background-color: var(--evo_color_prime)}
-    .ajde_fa_icons_selector ul li i.remove{
+    
 
-    }
     .ajde_icons.default{
         height: 35px; width: 45px;
         padding: 0;
@@ -551,5 +477,6 @@
     .evo_meta_elements .evo_elm_row .evo_field_container.visi .evo_elm_color{margin-right: 10px}
 
 /* general meta boxes */
-    .evo_elm_row.yesno_row, .yesno_row{display: flex; padding:5px 0;justify-content: flex-start;}
+    .yesno_leg_line .ajde_yn_btn{position: relative;}
+    .evo_elm_row.yesno_row, .yesno_row, .yesno_leg_line{display: flex; padding:5px 0;justify-content: flex-start;}
     .evo_elm_row.yesno_row .field_name{margin-bottom: 10px;}

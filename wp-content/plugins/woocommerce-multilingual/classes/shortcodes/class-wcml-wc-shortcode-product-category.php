@@ -73,6 +73,9 @@ class WCML_WC_Shortcode_Product_Category {
 	private function replace_category_in_query_arguments( array $args, Collection $terms ) {
 
 		foreach ( $args['tax_query'] as $i => $tax_query ) {
+			if ( ! is_array( $tax_query ) ) {
+				continue;
+			}
 			$args['tax_query'][ $i ] = [];
 			if ( ! is_int( key( $tax_query ) ) ) {
 				$tax_query = [ $tax_query ];

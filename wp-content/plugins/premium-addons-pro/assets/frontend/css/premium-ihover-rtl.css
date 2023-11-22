@@ -1,0 +1,1209 @@
+/**************** Premium iHover ****************/
+/************************************************/
+.premium-ihover-container {
+  position: relative;
+  clear: both;
+  display: block;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 0px;
+  padding: 0;
+}
+
+.premium-ihover-list {
+  display: block;
+  position: relative;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.premium-ihover-container .premium-ihover-item-wrap {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+  font-stretch: normal;
+  letter-spacing: normal;
+  word-wrap: normal;
+  word-spacing: normal;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.premium-ihover-container .premium-ihover-item {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-container .premium-ihover-img-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.premium-ihover-container .premium-ihover-img-wrap img {
+  object-fit: cover;
+  border: 0;
+  box-shadow: none;
+  width: 100%;
+  height: 100%;
+}
+
+.premium-ihover-img-wrap .premium-ihover-img-inner-wrap {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 100%;
+}
+
+.premium-ihover-container .premium-ihover-info-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: block;
+}
+
+.premium-ihover-info-wrap .premium-ihover-info-back {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.premium-ihover-info-wrap .premium-ihover-title-wrap * {
+  margin: 0;
+  padding: 0;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-divider {
+  height: 1px;
+  margin-top: 7px;
+  margin-bottom: 11px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-divider .premium-ihover-divider-line {
+  border-style: solid;
+  border-width: 24px;
+  display: inline;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-description {
+  font-size: 20px;
+  border-color: #000;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-icon {
+  border-color: #000;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-lottie {
+  -js-display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.premium-ihover-info-wrap .premium-ihover-content .premium-ihover-description * {
+  margin: 0;
+}
+
+.premium-ihover-item.style20 .premium-ihover-spinner {
+  width: 100%;
+  height: 100%;
+}
+
+.premium-ihover-container .premium-ihover-item-wrap,
+.premium-ihover-container .premium-ihover-img,
+.premium-ihover-container .premium-ihover-info-back,
+.premium-ihover-container .premium-ihover-spinner {
+  border-radius: 50%;
+}
+
+.premium-ihover-container a.premium-ihover-link {
+  display: inline-block;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-ihover-container a.premium-ihover-link:focus {
+  outline: none;
+  text-decoration: none;
+  border: none;
+  box-shadow: none;
+}
+
+.premium-ihover-btn-scale-yes .premium-ihover-container a.premium-ihover-link:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/** Style 1 **/
+.premium-ihover-item.style1 .premium-ihover-img-wrap {
+  -webkit-transition: all 0.35s linear;
+  transition: all 0.35s linear;
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+
+.premium-ihover-item.style1 .premium-ihover-info-wrap {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.premium-ihover-item.style1 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transform: translate3d(0, 0, -220px) rotate3d(-1, 0, 0, -90deg);
+  transform: translate3d(0, 0, -220px) rotate3d(-1, 0, 0, -90deg);
+  opacity: 1;
+  visibility: hidden;
+  -webkit-transition: all 0.35s linear;
+  transition: all 0.35s linear;
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.premium-ihover-item.style1:hover .premium-ihover-img-wrap {
+  -webkit-transform: translate3d(0, 280px, 0) rotate3d(-1, 0, 0, 90deg);
+  transform: translate3d(0, 280px, 0) rotate3d(-1, 0, 0, 90deg);
+  opacity: 0;
+}
+
+.premium-ihover-item.style1:hover .premium-ihover-info-back {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: rotate3d(-1, 0, 0, 0);
+  transform: rotate3d(-1, 0, 0, 0);
+}
+
+.premium-ihover-item.style2 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1) translateY(0);
+  -ms-transform: scale(1) translateY(0);
+  transform: scale(1) translateY(0);
+  z-index: 11;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style2 .premium-ihover-info-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.premium-ihover-item.style2:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5) translateY(-100%);
+  -ms-transform: scale(0.5) translateY(-100%);
+  transform: scale(0.5) translateY(-100%);
+}
+
+.premium-ihover-item.style2:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.premium-ihover-item.style2-1 .premium-ihover-img-wrap,
+.premium-ihover-item.style2-2 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1) translateX(0);
+  -ms-transform: scale(1) translateX(0);
+  transform: scale(1) translateX(0);
+  z-index: 11;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style2-1:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5) translateX(100%);
+  -ms-transform: scale(0.5) translateX(100%);
+  transform: scale(0.5) translateX(100%);
+}
+
+.premium-ihover-item.style2-2:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5) translateX(-100%);
+  -ms-transform: scale(0.5) translateX(-100%);
+  transform: scale(0.5) translateX(-100%);
+}
+
+.premium-ihover-item.style2-1 .premium-ihover-info-wrap,
+.premium-ihover-item.style2-2 .premium-ihover-info-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.premium-ihover-item.style2-1:hover .premium-ihover-info-wrap,
+.premium-ihover-item.style2-2:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.premium-ihover-item.style4 .premium-ihover-info-wrap {
+  opacity: 0;
+}
+
+.premium-ihover-item.style4:hover .premium-ihover-info-wrap {
+  opacity: 1;
+}
+
+.premium-ihover-item.style4 .premium-ihover-info-wrap .premium-ihover-info-back {
+  overflow: hidden;
+  -webkit-transform: rotate3d(0, 1, 0, -180deg);
+  transform: rotate3d(0, 1, 0, -180deg);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style4:hover .premium-ihover-info-wrap .premium-ihover-info-back {
+  z-index: 10;
+  -webkit-transform: rotateX(0deg) rotateY(0deg);
+  transform: rotateX(0deg) rotateY(0deg);
+}
+
+.premium-ihover-item.style5 .premium-ihover-img-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style5:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.premium-ihover-item.style5 .premium-ihover-info-wrap {
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style5:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style5-1 .premium-ihover-img-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style5-1:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style5-1 .premium-ihover-info-wrap {
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.premium-ihover-item.style5-1:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style6 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  z-index: 11;
+}
+
+.premium-ihover-item.style6:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateY(50%) scale(0.5);
+  -ms-transform: translateY(50%) scale(0.5);
+  transform: translateY(50%) scale(0.5);
+}
+
+.premium-ihover-item.style6 .premium-ihover-info-wrap {
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style6:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style7 .premium-ihover-img-wrap {
+  -webkit-transform-origin: 95% 50%;
+  -ms-transform-origin: 95% 50%;
+  transform-origin: 95% 50%;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  z-index: 11;
+}
+
+.premium-ihover-item.style7 .premium-ihover-img-wrap:after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  margin: -4px -4px 0 0;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
+  border-radius: 100%;
+}
+
+.premium-ihover-item.style7:hover .premium-ihover-img-wrap {
+  -webkit-transform: rotate(-170deg);
+  -ms-transform: rotate(-170deg);
+  transform: rotate(-170deg);
+}
+
+.premium-ihover-item.style7-1 .premium-ihover-img-wrap {
+  -webkit-transform-origin: 5% 50%;
+  -ms-transform-origin: 5% 50%;
+  transform-origin: 5% 50%;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  z-index: 11;
+}
+
+.premium-ihover-item.style7-1 .premium-ihover-img-wrap:after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 50%;
+  right: 95%;
+  margin: -4px -4px 0 0;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
+  border-radius: 100%;
+}
+
+.premium-ihover-item.style7-1:hover .premium-ihover-img-wrap {
+  -webkit-transform: rotate(170deg);
+  -ms-transform: rotate(170deg);
+  transform: rotate(170deg);
+}
+
+.premium-ihover-item.style8 .premium-ihover-img-wrap {
+  -webkit-transform: translateX(0) rotate(0);
+  -ms-transform: translateX(0) rotate(0);
+  transform: translateX(0) rotate(0);
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateX(100%) rotate(180deg);
+  -ms-transform: translateX(100%) rotate(180deg);
+  transform: translateX(100%) rotate(180deg);
+  opacity: 0;
+  z-index: -1;
+}
+
+.premium-ihover-item.style8 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(100%) rotate(180deg);
+  -ms-transform: translateX(100%) rotate(180deg);
+  transform: translateX(100%) rotate(180deg);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateX(0) rotate(0);
+  -ms-transform: translateX(0) rotate(0);
+  transform: translateX(0) rotate(0);
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+}
+
+.premium-ihover-item.style8-1 .premium-ihover-img-wrap {
+  -webkit-transform: translateY(0) rotate(0);
+  -ms-transform: translateY(0) rotate(0);
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-1:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateY(-100%) rotate(180deg);
+  -ms-transform: translateY(-100%) rotate(180deg);
+  transform: translateY(-100%) rotate(180deg);
+  opacity: 0;
+  z-index: -1;
+}
+
+.premium-ihover-item.style8-1 .premium-ihover-info-wrap {
+  -webkit-transform: translateY(-100%) rotate(180deg);
+  -ms-transform: translateY(-100%) rotate(180deg);
+  transform: translateY(-100%) rotate(180deg);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-1:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateY(0) rotate(0);
+  -ms-transform: translateY(0) rotate(0);
+  transform: translateY(0) rotate(0);
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+}
+
+.premium-ihover-item.style8-2 .premium-ihover-img-wrap {
+  -webkit-transform: translateY(0) rotate(0);
+  -ms-transform: translateY(0) rotate(0);
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-2:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateY(100%) rotate(-180deg);
+  -ms-transform: translateY(100%) rotate(-180deg);
+  transform: translateY(100%) rotate(-180deg);
+  opacity: 0;
+  z-index: -1;
+}
+
+.premium-ihover-item.style8-2 .premium-ihover-info-wrap {
+  -webkit-transform: translateY(100%) rotate(-180deg);
+  -ms-transform: translateY(100%) rotate(-180deg);
+  transform: translateY(100%) rotate(-180deg);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-2:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateY(0) rotate(0);
+  -ms-transform: translateY(0) rotate(0);
+  transform: translateY(0) rotate(0);
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+}
+
+.premium-ihover-item.style8-3 .premium-ihover-img-wrap {
+  -webkit-transform: translateX(0) rotate(0);
+  -ms-transform: translateX(0) rotate(0);
+  transform: translateX(0) rotate(0);
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-3:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateX(-100%) rotate(-180deg);
+  -ms-transform: translateX(-100%) rotate(-180deg);
+  transform: translateX(-100%) rotate(-180deg);
+  opacity: 0;
+  z-index: -1;
+}
+
+.premium-ihover-item.style8-3 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(-100%) rotate(-180deg);
+  -ms-transform: translateX(-100%) rotate(-180deg);
+  transform: translateX(-100%) rotate(-180deg);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style8-3:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateX(0) rotate(0);
+  -ms-transform: translateX(0) rotate(0);
+  transform: translateX(0) rotate(0);
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+}
+
+.premium-ihover-item .premium-ihover-img-front {
+  width: 100%;
+  height: 100%;
+}
+
+.premium-ihover-item.style9 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-ihover-item.style9:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style9 .premium-ihover-img-wrap .premium-ihover-img-front {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9:hover .premium-ihover-img-front {
+  opacity: 0;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.premium-ihover-item.style9 .premium-ihover-info-wrap {
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 1;
+}
+
+.premium-ihover-item.style9 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease-in-out 0.6s;
+  transition: all 0.35s ease-in-out 0.6s;
+}
+
+.premium-ihover-item.style9:hover .premium-ihover-info-back {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style9-1 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-ihover-item.style9-1:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style9-1 .premium-ihover-img-wrap .premium-ihover-img-front {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-1:hover .premium-ihover-img-front {
+  opacity: 0;
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.premium-ihover-item.style9-1 .premium-ihover-info-wrap {
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-1:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 1;
+}
+
+.premium-ihover-item.style9-1 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease-in-out 0.6s;
+  transition: all 0.35s ease-in-out 0.6s;
+}
+
+.premium-ihover-item.style9-1:hover .premium-ihover-info-back {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style9-2 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-ihover-item.style9-2:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style9-2 .premium-ihover-img-wrap .premium-ihover-img-front {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-2:hover .premium-ihover-img-front {
+  opacity: 0;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.premium-ihover-item.style9-2 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-2:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1;
+}
+
+.premium-ihover-item.style9-2 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease-in-out 0.6s;
+  transition: all 0.35s ease-in-out 0.6s;
+}
+
+.premium-ihover-item.style9-2:hover .premium-ihover-info-back {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style9-3 .premium-ihover-img-wrap {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-ihover-item.style9-3:hover .premium-ihover-img-wrap {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style9-3 .premium-ihover-img-wrap .premium-ihover-img-front {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-3:hover .premium-ihover-img-front {
+  opacity: 0;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.premium-ihover-item.style9-3 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+
+.premium-ihover-item.style9-3:hover .premium-ihover-info-wrap {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1;
+}
+
+.premium-ihover-item.style9-3 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease-in-out 0.6s;
+  transition: all 0.35s ease-in-out 0.6s;
+}
+
+.premium-ihover-item.style9-3:hover .premium-ihover-info-back {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style10 .premium-ihover-img-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style10:hover .premium-ihover-img-wrap {
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.premium-ihover-item.style10 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style10:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.premium-ihover-item.style11 .premium-ihover-img-wrap {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.premium-ihover-item.style11:hover .premium-ihover-img-wrap {
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.premium-ihover-item.style11 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+
+.premium-ihover-item.style11:hover .premium-ihover-info-wrap {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.premium-ihover-item.style12 .premium-ihover-img-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
+}
+
+.premium-ihover-item.style12:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.premium-ihover-item.style12 .premium-ihover-info-wrap {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+
+.premium-ihover-item.style12:hover .premium-ihover-info-wrap {
+  visibility: visible;
+  z-index: 0;
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.premium-ihover-item.style13 .premium-ihover-img-wrap {
+  -webkit-transform: translateX(0) rotate(0);
+  -ms-transform: translateX(0) rotate(0);
+  transform: translateX(0) rotate(0);
+  opacity: 1;
+  z-index: 1;
+  -webkit-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
+}
+
+.premium-ihover-item.style13:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  z-index: -1;
+  -webkit-transform: translateX(100%) rotate(180deg);
+  -ms-transform: translateX(100%) rotate(180deg);
+  transform: translateX(100%) rotate(180deg);
+}
+
+.premium-ihover-item.style13 .premium-ihover-info-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease 0.2s;
+  transition: all 0.35s ease 0.2s;
+}
+
+.premium-ihover-item.style13:hover .premium-ihover-info-wrap {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style14 .premium-ihover-img-wrap {
+  -webkit-transform: translateZ(0) rotateY(0);
+  transform: translateZ(0) rotateY(0);
+  opacity: 1;
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style14:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  -webkit-transform: translateZ(-1000px) rotateY(90deg);
+  transform: translateZ(-1000px) rotateY(90deg);
+}
+
+.premium-ihover-item.style14 .premium-ihover-info-wrap {
+  -webkit-transform: translateZ(-1000px) rotateY(-90deg);
+  transform: translateZ(-1000px) rotateY(-90deg);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease 0.35s, all 0.35s ease-out 0.12s;
+  transition: all 0.35s ease 0.35s, all 0.35s ease-out 0.12s;
+}
+
+.premium-ihover-item.style14:hover .premium-ihover-info-wrap {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateZ(0) rotateY(0);
+  transform: translateZ(0) rotateY(0);
+}
+
+.premium-ihover-item.style15 .premium-ihover-info-wrap {
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style15:hover .premium-ihover-info-wrap {
+  opacity: 1;
+}
+
+.premium-ihover-item.style16 .premium-ihover-img-wrap {
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+  -webkit-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+}
+
+.premium-ihover-item.style16:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
+}
+
+.premium-ihover-item.style16 .premium-ihover-info-wrap {
+  -webkit-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0% 50%;
+  -ms-transform-origin: 0% 50%;
+  transform-origin: 0% 50%;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.35s ease 0.3s, all 0.35s ease-out 0.12s;
+  transition: all 0.35s ease 0.3s, all 0.35s ease-out 0.12s;
+}
+
+.premium-ihover-item.style16:hover .premium-ihover-info-wrap {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+.premium-ihover-item.style17 .premium-ihover-img-wrap {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scale(1) rotate(0);
+  -ms-transform: scale(1) rotate(0);
+  transform: scale(1) rotate(0);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style17:hover .premium-ihover-img-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.5) rotate(-720deg);
+  -ms-transform: scale(0.5) rotate(-720deg);
+  transform: scale(0.5) rotate(-720deg);
+}
+
+.premium-ihover-item.style17 .premium-ihover-info-wrap {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.5) rotate(720deg);
+  -ms-transform: scale(0.5) rotate(720deg);
+  transform: scale(0.5) rotate(720deg);
+  -webkit-transition: all 0.35s ease 0.3s, all 0.35s ease-out 0.12s;
+  transition: all 0.35s ease 0.3s, all 0.35s ease-out 0.12s;
+}
+
+.premium-ihover-item.style17:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scale(1) rotate(0);
+  -ms-transform: scale(1) rotate(0);
+  transform: scale(1) rotate(0);
+}
+
+.premium-ihover-item.style18 .premium-ihover-info-wrap {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.premium-ihover-item.style18:hover .premium-ihover-info-wrap {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.premium-ihover-item.style19 .premium-ihover-img-wrap {
+  -webkit-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  z-index: 11;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.premium-ihover-item.style19:hover .premium-ihover-img-wrap {
+  -webkit-transform: rotate3d(0, 1, 0, 180deg);
+  transform: rotate3d(0, 1, 0, 180deg);
+}
+
+.premium-ihover-item.style20 .premium-ihover-spinner {
+  border-top-color: #6ec1e4;
+  border-right-color: #6ec1e4;
+  border-bottom-color: #54595f;
+  border-left-color: #54595f;
+  position: relative;
+  border-width: 10px;
+  border-style: solid;
+  z-index: 1;
+  -webkit-transition: -webkit-transform 0.8s ease-out;
+  transition: -webkit-transform 0.8s ease-out;
+  transition: transform 0.8s ease-out;
+  transition: transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
+}
+
+.premium-ihover-item.style20:hover .premium-ihover-spinner {
+  -webkit-transition: -webkit-transform 0.8s ease-in-out;
+  transition: -webkit-transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out, -webkit-transform 0.8s ease-in-out;
+  -webkit-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+.premium-ihover-item.style20 .premium-ihover-img-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 0.35s linear;
+  transition: all 0.35s linear;
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+
+.premium-ihover-item.style20 .premium-ihover-info-wrap .premium-ihover-info-back {
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+  -webkit-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+  opacity: 0;
+}
+
+.premium-ihover-item.style20:hover .premium-ihover-info-wrap .premium-ihover-info-back {
+  opacity: 1;
+}
+
+.premium-ihover-item.style20:hover .premium-ihover-info-wrap .premium-ihover-info-back .premium-ihover-content {
+  z-index: 2;
+}

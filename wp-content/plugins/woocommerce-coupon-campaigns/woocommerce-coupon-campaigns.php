@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Coupon Campaigns & Tracking
- * Version: 1.2.11
+ * Version: 1.2.12
  * Plugin URI: https://woo.com/products/woocommerce-coupon-campaigns/.
  * Description: Provides the ability to group coupons into campaigns - also offers better tracking and reporting of coupons as well as a bulk coupon generation tool.
  * Author: WooCommerce
@@ -16,6 +16,9 @@
  * @package woocommerce-coupon-campaigns
  */
 
+require __DIR__ . '/vendor/autoload.php';
+
+use Automattic\WooCommerce\Grow\Tools\CompatChecker\v0_0_1\Checker;
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,6 +38,13 @@ add_action(
 if ( ! function_exists( 'wc_coupon_campaigns_tracking' ) && ! function_exists( 'wc_coupon_campaigns_tracking_reports' ) ) {
 
 	function wc_coupon_campaigns_tracking() {
+		define( 'WC_COUPON_CAMPAIGNS_VERSION', '1.2.12' ); // WRCS: DEFINED_VERSION.
+
+		// Run compatibility checker checks and bail if not compatible.
+		if ( ! Checker::instance()->is_compatible( __FILE__, WC_COUPON_CAMPAIGNS_VERSION ) ) {
+			return;
+		}
+
 		require_once 'includes/class-wc-coupon-campaigns.php';
 		require_once 'includes/class-wc-coupon-campaigns-privacy.php';
 		require_once 'includes/class-wc-coupon-campaign-filter.php';

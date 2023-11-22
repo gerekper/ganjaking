@@ -1,7 +1,7 @@
 <?php
 /**
 Zoom integration with eventon
-@version 4.4.5
+@version 4.5.4
 */
 
 
@@ -31,13 +31,11 @@ class EVO_Zoom_Int{
 
 		EVO()->cal->set_cur('evcal_1');
 
-		$api_key = EVO()->cal->get_prop('_evo_zoom_key');
-		$api_secret = EVO()->cal->get_prop('_evo_zoom_secret');
 
 		// validate key and secret
-		if( !$api_key || !$api_secret){
+		if( !$this->is_zoom_ok() || !$this->is_oauth_active() ){
 			echo json_encode(array(
-				'status'=>'bad','content'=> "<div style='padding:20px;'>".__('Zoom API Access information must be saved under EventON Settings > Third Party APIs','eventon') ."!</div>"
+				'status'=>'bad','content'=> "<div style='padding:20px;'>".__('Zoom API or OAuth Access information must be saved under EventON Settings > Third Party APIs','eventon') ."!</div>"
 			));exit;
 		}
 
@@ -110,7 +108,7 @@ class EVO_Zoom_Int{
 				<select name='_evoz_tz'><?php 
 
 				$_evoz_tz = $E->get_eprop('_evoz_tz');
-				foreach($help->get_timezone_array(false, true) as $f=>$v){
+				foreach($help->get_timezone_array() as $f=>$v){
 					echo "<option value='{$f}' ". ( $_evoz_tz && $_evoz_tz == $f? 'selected="selected"':'') .">{$v}</option>";
 				}
 

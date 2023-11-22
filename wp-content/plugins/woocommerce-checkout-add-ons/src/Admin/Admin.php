@@ -24,7 +24,7 @@
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin;
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Handlers\Shop_Order;

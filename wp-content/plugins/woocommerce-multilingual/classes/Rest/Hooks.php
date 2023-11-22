@@ -20,7 +20,7 @@ class Hooks {
 
 			add_filter( "woocommerce_rest_{$type}_query", [ $restObject, 'query' ], 10, 2 );
 			add_filter( "woocommerce_rest_{$type}_object_query", [ $restObject, 'query' ], 10, 2 );
-			add_action( "woocommerce_rest_prepare_{$type}_object", [ $restObject, 'prepare' ], 10, 3 );
+			add_filter( "woocommerce_rest_prepare_{$type}_object", [ $restObject, 'prepare' ], 10, 3 );
 			add_action( "woocommerce_rest_insert_{$type}_object", [ $restObject, 'insert' ], 10, 3 );
 		}
 
@@ -31,13 +31,14 @@ class Hooks {
 			$restObject = Factory::create( 'term' );
 
 			add_filter( "woocommerce_rest_{$type}_query", [ $restObject, 'query' ], 10, 2 );
-			add_action( "woocommerce_rest_prepare_{$type}", [ $restObject, 'prepare' ], 10, 3 );
+			add_filter( "woocommerce_rest_prepare_{$type}", [ $restObject, 'prepare' ], 10, 3 );
 			add_action( "woocommerce_rest_insert_{$type}", [ $restObject, 'insert' ], 10, 3 );
 		}
 
-		add_filter( "woocommerce_rest_prepare_report_top_sellers", [ Factory::create( 'reports_top_seller' ), 'prepare' ], 10, 3 );
-		add_filter( "woocommerce_rest_prepare_report_products_count", [ Factory::create( 'reports_products_count' ), 'prepare' ], 10, 3 );
-		add_filter( "woocommerce_rest_prepare_report_sales", [ Factory::create( 'reports_products_sales' ), 'prepare' ], 10, 3 );
+		add_filter( 'woocommerce_rest_prepare_report_top_sellers', [ Factory::create( 'reports_top_seller' ), 'prepare' ], 10, 3 );
+		add_filter( 'woocommerce_rest_prepare_report_products_count', [ Factory::create( 'reports_products_count' ), 'prepare' ], 10, 3 );
+		add_filter( 'woocommerce_rest_prepare_report_sales', [ Factory::create( 'reports_products_sales' ), 'prepare' ], 10, 3 );
+		add_filter( 'woocommerce_rest_prepare_product_attribute', [ Factory::create( 'product_attribute' ), 'prepare' ], 10, 3 );
 
 		self::addHooksSpecificForV1();
 	}
@@ -45,12 +46,12 @@ class Hooks {
 	private static function addHooksSpecificForV1() {
 
 		if ( 1 === Functions::getApiRequestVersion() ) {
-			add_action( 'woocommerce_rest_prepare_product', [ Factory::create( 'product' ), 'prepare' ], 10, 3 );
+			add_filter( 'woocommerce_rest_prepare_product', [ Factory::create( 'product' ), 'prepare' ], 10, 3 );
 			add_action( 'woocommerce_rest_insert_product', [ Factory::create( 'product' ), 'insert' ], 10, 3 );
 			add_action( 'woocommerce_rest_update_product', [ Factory::create( 'product' ), 'insert' ], 10, 3 );
 
 			add_action( 'woocommerce_rest_insert_shop_order', [ Factory::create( 'shop_order' ), 'insert' ], 10, 3 );
-			add_action( 'woocommerce_rest_prepare_shop_order', [ Factory::create( 'shop_order' ), 'prepare' ], 10, 3 );
+			add_filter( 'woocommerce_rest_prepare_shop_order', [ Factory::create( 'shop_order' ), 'prepare' ], 10, 3 );
 		}
 	}
 

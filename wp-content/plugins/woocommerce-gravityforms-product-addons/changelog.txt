@@ -1,4 +1,7 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.11.11 - version 3.5.2
+    * WC and WP Compatibility Tags.
+
 2023.08.15 - version 3.5.1
     * WC and WP Compatibility Tags.
     * Add AJAX manager to help with AJAX compatibility issues with various themes and page builders.

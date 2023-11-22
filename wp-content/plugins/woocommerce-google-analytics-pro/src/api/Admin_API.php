@@ -31,7 +31,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Admin_API\Request;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Admin_API\Response;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Integration;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Plugin;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

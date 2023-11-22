@@ -272,10 +272,9 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 															<?php
 														}
-										} else {
+										} elseif ( ( @$order_info['options']['show_pay_type'] == '1' ) || ( @$order_info['options']['show_pay_type'] == '' ) ) {
 
-											if ( ( @$order_info['options']['show_pay_type'] == '1' ) || ( @$order_info['options']['show_pay_type'] == '' ) ) {
-												?>
+											?>
 
 										<tr>
 
@@ -305,7 +304,7 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 										</tr>
 
 												<?php
-											}
+
 										}
 										?>
 
@@ -359,6 +358,8 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 													$packing_slip_customer_service_email = $options['packing_slip_customer_service_email'];
 
+													$order_billing_phone = opmc_hpos_get_post_meta( $order_info['id'], '_billing_phone' );
+
 
 													$admin_email = get_option( 'admin_email' );
 
@@ -367,14 +368,17 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 													if ( @$order_info['options']['customer_email'] == '1' ) {
 
 														printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+														?>
+														<br> <hr style="border-top: 1px solid #96588a;"> 
+														<?php
 
+													}
+													if ( $options['billing_phone'] == 1 ) {
+														printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
 													}
 												} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add ) ) {
 
 													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), $admin_email );
-
-
-
 
 												} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add ) ) {
 													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['options']['packing_slip_customer_service_email'] );
@@ -384,7 +388,27 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 													if ( @$order_info['options']['customer_email'] == '1' ) {
 
 														printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+														?>
+														<br><hr style="border-top: 1px solid #96588a;">
+														<?php
 
+													}
+													if ( $options['billing_phone'] == 1 ) {
+														printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
+													}
+												} else if ( 1 == $options['hide_contact_info_Suppliers'] ) {
+
+													if ( @$order_info['options']['customer_email'] == '1' ) {
+
+														printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
+														?>
+														<br><hr style="border-top: 1px solid #96588a;">
+														<?php
+
+													}
+
+													if ( $options['billing_phone'] == 1 ) {
+														printf( __( 'Customer Contact No. : <a href="tel:%1$s">%2$s</a>', 'woocommerce-dropshipping' ), $order_billing_phone, $order_billing_phone );
 													}
 												} else {
 													echo '';
@@ -570,18 +594,17 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 												<?php
 											}
 										}
-									} else {
+									} elseif ( $order_info['options']['product_image'] == '1' ) {
 
-										if ( $order_info['options']['product_image'] == '1' ) {
 
-											if ( $order_info['options']['dropship_image'] ) {
-												?>
+										if ( $order_info['options']['dropship_image'] ) {
+											?>
 
 									<th border="0" align="left">
 
 										<b>
 
-														<?php echo @$order_info['options']['dropship_image']; ?>
+													<?php echo @$order_info['options']['dropship_image']; ?>
 
 											</b>
 
@@ -601,7 +624,6 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 												<?php
 											}
-										}
 									}
 									?>
 									<!-- For Image Title End -->
@@ -705,24 +727,23 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 												<?php
 													}
 										}
-									} else {
+									} elseif ( $order_info['options']['type_of_package'] == '1' ) {
 
-										if ( $order_info['options']['type_of_package'] == '1' ) {
 
-											if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
-												?>
+										if ( ! empty( $order_info['options']['type_of_package_conversion'] ) ) {
+											?>
 
 									<th border="0" align="center">
 
 										<b>
 
-														<?php echo @$order_info['options']['type_of_package_conversion']; ?>
+													<?php echo @$order_info['options']['type_of_package_conversion']; ?>
 
 									</b>
 
 									</th>
 
-													<?php } else { ?>
+												<?php } else { ?>
 
 									<th border="0" align="center">
 
@@ -735,8 +756,7 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 									</th>
 
 												<?php
-													}
-										}
+												}
 									}
 									?>
 									<!-- For type_of_package End-->
@@ -776,18 +796,17 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 												<?php
 										}
 										}
-									} else {
+									} elseif ( $order_info['options']['product_price'] == '1' ) {
 
-										if ( $order_info['options']['product_price'] == '1' ) {
 
-											if ( $order_info['options']['dropship_price'] ) {
-												?>
+										if ( $order_info['options']['dropship_price'] ) {
+											?>
 
 									<th border="0" align="center">
 
 										<b>
 
-													<?php echo @$order_info['options']['dropship_price']; ?>
+												<?php echo @$order_info['options']['dropship_price']; ?>
 
 												</b>
 
@@ -807,7 +826,6 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 												<?php
 									}
-										}
 									}
 									?>
 									<?php if ( $split_gst_amount == 1 ) { ?>
@@ -888,23 +906,21 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 											}
 										}
-									} else {
+									} elseif ( $order_info['options']['product_image'] == '1' ) {
 
-										if ( $order_info['options']['product_image'] == '1' ) {
 
-											if ( $imgurl != '' ) {
+										if ( $imgurl != '' ) {
 
-												$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
+											$rows .= '<td align="center"><img class="p_image" src="' . $imgurl . '"/></td>';
 
-											} elseif ( $ali_image != '' ) {
+										} elseif ( $ali_image != '' ) {
 
-												$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
+											$rows .= '<td align="center"><img width="250" class="p_image" src="' . $ali_image . '"/></td>';
 
-											} else {
+										} else {
 
-												$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
+											$rows .= '<td align="center"><img class="p_image" src="' . $dummyimg . '"/></td>';
 
-											}
 										}
 									}
 
@@ -931,13 +947,10 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 											$rows .= '<td align="center">' . $typeofpackage . '</td>';
 
 										}
-									} else {
+									} elseif ( $order_info['options']['type_of_package'] == '1' ) {
 
-										if ( $order_info['options']['type_of_package'] == '1' ) {
 
 											$rows .= '<td align="center">' . $typeofpackage . '</td>';
-
-										}
 									}
 
 									if ( $order_info['options']['full_information'] == '1' ) {
@@ -947,13 +960,10 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 											$rows .= '<td align="center">' . $price . '</td>';
 
 										}
-									} else {
+									} elseif ( $order_info['options']['product_price'] == '1' ) {
 
-										if ( $order_info['options']['product_price'] == '1' ) {
 
 											$rows .= '<td align="center">' . $price . '</td>';
-
-										}
 									}
 									if ( $split_gst_amount == 1 ) {
 										$rows .= '<td class = "gst_price" align="center">' . wc_price( $total ) . '</td>';
@@ -987,9 +997,8 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 												) . '</td>';
 
 											}
-										} else {
+										} elseif ( $order_info['options']['cost_of_goods'] == '0' ) {
 
-											if ( $order_info['options']['cost_of_goods'] == '0' ) {
 
 												$rows .= '<td align="right" colspan="' . $product_price_colspan . '"> ' . __( 'Shipping Cost', 'woocommerce-dropshipping' ) . ' </td>';
 
@@ -1001,8 +1010,6 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 														'thousand_separator' => $woocommerce_price_thousand_sep,
 													)
 												) . '</td>';
-
-											}
 										}
 
 										// Tax price End
@@ -1044,9 +1051,8 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 
 											}
 										}
-									} else {
+									} elseif ( $order_info['options']['cost_of_goods'] == '0' ) {
 
-										if ( $order_info['options']['cost_of_goods'] == '0' ) {
 
 											$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
 
@@ -1062,8 +1068,6 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 											) . '</td>';
 
 											$rows .= '</tr>';
-
-										}
 									}
 
 									// Tax price End
@@ -1100,9 +1104,8 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 											$rows .= '</tr>';
 
 										}
-									} else {
+									} elseif ( $order_info['options']['total_price'] == '1' ) {
 
-										if ( $order_info['options']['total_price'] == '1' ) {
 
 											$rows .= '<tr border="0" style="' . $woo_body_text_color . ' ' . $woo_body_bg_color . '">';
 
@@ -1120,8 +1123,6 @@ if ( $order_info['options']['type_of_package'] == '0' ) {
 											// total price End
 
 											$rows .= '</tr>';
-
-										}
 									}
 								}
 

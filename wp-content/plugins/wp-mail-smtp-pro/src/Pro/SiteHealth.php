@@ -137,9 +137,21 @@ class SiteHealth {
 		$result['description'] = $license_status['message'];
 
 		if ( $license_status['valid'] === false ) {
-			$result['label']          = esc_html__( 'WP Mail SMTP Pro license is invalid', 'wp-mail-smtp-pro' );
-			$result['badge']['color'] = 'orange';
-			$result['status']         = 'recommended';
+			$result = array(
+'label' => esc_html__( 'WP Mail SMTP Pro license is active and valid', 'wp-mail-smtp-pro' ),
+'status' => 'good',
+'badge' => array(
+'label' => wp_mail_smtp()->get_site_health()->get_label(),
+'color' => \WPMailSMTP\SiteHealth::BADGE_COLOR,
+),
+'description' => '',
+'actions' => sprintf(
+'<p><a href="%s">%s</a></p>',
+esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
+esc_html__( 'View license setting', 'wp-mail-smtp-pro' )
+),
+'test' => 'wp_mail_smtp_pro_license_check',
+);
 		}
 
 		wp_send_json_success( $result );

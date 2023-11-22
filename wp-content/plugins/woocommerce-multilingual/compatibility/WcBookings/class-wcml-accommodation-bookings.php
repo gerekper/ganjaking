@@ -1,6 +1,7 @@
 <?php
 
 use WCML\Compatibility\WcBookings\SharedHooks;
+use WCML\Compatibility\WcBookings\Prices;
 
 class WCML_Accommodation_Bookings implements \IWPML_Action {
 
@@ -43,7 +44,7 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
 		    $this->woocommerce_wpml->products->is_original_product( $post_id )
 	    ){
 
-            $custom_costs_status = get_post_meta( $post_id, '_wcml_custom_costs_status', true );
+            $custom_costs_status = get_post_meta( $post_id, Prices::CUSTOM_COSTS_STATUS_KEY, true );
 
             $checked = !$custom_costs_status ? 'checked="checked"' : ' ';
 
@@ -115,7 +116,7 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
 
         if( isset( $_POST['_wcml_custom_costs'] ) && isset( $nonce ) && wp_verify_nonce( $nonce, 'wcml_save_accommodation_bookings_custom_costs' ) ){
 
-            update_post_meta( $post_id, '_wcml_custom_costs_status', $_POST['_wcml_custom_costs'] );
+            update_post_meta( $post_id, Prices::CUSTOM_COSTS_STATUS_KEY, $_POST['_wcml_custom_costs'] );
 
             if( $_POST['_wcml_custom_costs'] == 1 ){
 
@@ -164,7 +165,7 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
 
             $original_product = $this->woocommerce_wpml->products->get_original_product_id( $object_id );
 
-            if ( get_post_meta( $original_product, '_wcml_custom_costs_status' ) ) {
+            if ( get_post_meta( $original_product, Prices::CUSTOM_COSTS_STATUS_KEY ) ) {
 
                 $price = get_post_meta( $object_id, '_price_' . $currency , true );
             }

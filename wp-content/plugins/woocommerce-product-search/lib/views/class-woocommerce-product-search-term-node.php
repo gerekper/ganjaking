@@ -23,12 +23,17 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Term_Control;
+
 /**
  * Term node.
  */
 class WooCommerce_Product_Search_Term_Node {
 
 	const CACHE_GROUP = 'ixwpsnode';
+
+	const CACHE_LIFETIME = Cache::YEAR;
 
 	/**
 	 * Node's taxonomy
@@ -106,7 +111,7 @@ class WooCommerce_Product_Search_Term_Node {
 
 		if ( $terms === null ) {
 
-			$term_counts = WooCommerce_Product_Search_Service::get_term_counts( $taxonomy );
+			$term_counts = Term_Control::get_term_counts( $taxonomy );
 			$this->terms = array();
 			$_terms = get_terms( array( 'taxonomy' => $taxonomy, 'include' => $term_ids ) );
 			if ( is_array( $_terms ) ) {
@@ -210,8 +215,12 @@ class WooCommerce_Product_Search_Term_Node {
 
 					if ( $bubble_down && ( $bubble_down_levels === null || $bubble_down_levels >= 0 ) ) {
 
-						$all_children = wps_cache_get( 'all-children', self::CACHE_GROUP );
-						if ( $all_children === false ) {
+						$cache = Cache::get_instance();
+						$cache->set_unigroup( true );
+
+						$cache_key = 'all-children-' . $taxonomy;
+						$all_children = $cache->get( $cache_key, self::CACHE_GROUP );
+						if ( $all_children === null ) {
 							$all_children = array();
 							global $wpdb;
 							$term_taxonomies = $wpdb->get_results( $wpdb->prepare(
@@ -223,8 +232,9 @@ class WooCommerce_Product_Search_Term_Node {
 									$all_children[intval( $term_taxonomy->parent )][] = intval( $term_taxonomy->term_id );
 								}
 							}
-							wps_cache_set( 'all-children', $all_children, self::CACHE_GROUP );
+							$cache->set( $cache_key, $all_children, self::CACHE_GROUP, self::CACHE_LIFETIME );
 						}
+						$cache->set_unigroup( false );
 						if ( isset( $all_children[$term->term_id] ) ) {
 							$children = $all_children[$term->term_id];
 						} else {

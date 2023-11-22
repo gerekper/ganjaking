@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search' ) ) {
@@ -43,6 +45,11 @@ if ( !function_exists( 'woocommerce_product_search' ) ) {
  * Search field definitions and renderers.
  */
 class WooCommerce_Product_Search_Field {
+
+	/**
+	 * @var int
+	 */
+	const RENDER_CACHE_LIFETIME = 300;
 
 	private static $instances = 0;
 
@@ -136,6 +143,32 @@ class WooCommerce_Product_Search_Field {
 			),
 			$atts
 		);
+
+		$n          = self::get_n();
+		$search_id  = 'product-search-' . $n;
+		$form_id    = 'product-search-form-' . $n;
+		$field_id   = 'product-search-field-' . $n;
+		$results_id = 'product-search-results-' . $n;
+		$results_content_id = 'product-search-results-content-' . $n;
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$cache = Cache::get_instance();
+
+			$cache_key = md5( json_encode( array( $search_id, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
 
 		$url_params = array();
 		foreach ( $atts as $key => $value ) {
@@ -257,15 +290,6 @@ class WooCommerce_Product_Search_Field {
 		$params['no_results']  = apply_filters( 'woocommerce_product_search_no_results', $params['no_results'] );
 
 		$output = '';
-
-		$product_search = true;
-
-		$n          = self::get_n();
-		$search_id  = 'product-search-' . $n;
-		$form_id    = 'product-search-form-' . $n;
-		$field_id   = 'product-search-field-' . $n;
-		$results_id = 'product-search-results-' . $n;
-		$results_content_id = 'product-search-results-content-' . $n;
 
 		$output .= self::inline_styles();
 
@@ -417,6 +441,20 @@ class WooCommerce_Product_Search_Field {
 
 		$inline_script .= woocommerce_product_search_safex( $safex_inline_script );
 		wp_add_inline_script( 'product-search', $inline_script );
+
+		if ( $render_cache ) {
+			$data['inline_scripts'][] = array( 'handle' => 'product-search', 'inline_script' => $inline_script );
+		}
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$lifetime = apply_filters( 'woocommerce_product_search_field_render_cache_lifetime', static::RENDER_CACHE_LIFETIME );
+			if ( is_numeric( $lifetime ) ) {
+				$lifetime = max( 0, intval( $lifetime ) );
+			} else {
+				$lifetime = static::RENDER_CACHE_LIFETIME;
+			}
+			$cache->set( $cache_key, $data, __CLASS__, $lifetime );
+		}
 
 		self::$instances++;
 

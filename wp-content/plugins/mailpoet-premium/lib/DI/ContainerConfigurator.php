@@ -100,6 +100,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\ClicksEmailLinkTrigger::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject::class)->setPublic(true);
 

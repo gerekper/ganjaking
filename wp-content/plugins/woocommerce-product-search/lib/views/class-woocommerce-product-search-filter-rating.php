@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search_filter_rating' ) ) {
@@ -41,7 +44,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_rating' ) ) {
 /**
  * Filter reset.
  */
-class WooCommerce_Product_Search_Filter_Rating {
+class WooCommerce_Product_Search_Filter_Rating extends Filter_Renderer {
 
 	/**
 	 * Minimum rating value.
@@ -65,9 +68,9 @@ class WooCommerce_Product_Search_Filter_Rating {
 	const CACHE_GROUP = 'ixwpse_rating';
 
 	/**
-	 * @var integer seconds in a day
+	 * @var int seconds in a day
 	 */
-	const SECONDS_PER_DAY = 86400;
+	const DATA_CACHE_LIFETIME = 86400;
 
 	private static $instances = 0;
 
@@ -134,6 +137,9 @@ class WooCommerce_Product_Search_Filter_Rating {
 	 * @return string|mixed
 	 */
 	public static function render( $atts = array(), &$results = null) {
+
+		global $wp_query;
+
 		self::load_resources();
 
 		$atts = shortcode_atts(
@@ -153,12 +159,52 @@ class WooCommerce_Product_Search_Filter_Rating {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
+		$has_rating_only = strtolower( $atts['has_rating_only'] );
+		$has_rating_only = in_array( $has_rating_only, array( 'true', 'yes', '1' ) );
+		if ( $has_rating_only ) {
+			if ( !self::has_ratings() ) {
+				return '';
+			}
+		}
+
 		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-rating-%d', $n );
 		$heading_class   = 'product-search-filter-rating-heading product-search-filter-extras-heading';
 		$heading_id      = sprintf( 'product-search-filter-rating-heading-%d', $n );
 		$containers      = array();
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
 
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 			$atts['heading']  = _x( 'Rating', 'product filter rating heading', 'woocommerce-product-search' );
@@ -210,10 +256,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 			}
 		}
 
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
-		}
-
 		if ( !empty( $containers['container_class'] ) ) {
 			$container_class = $containers['container_class'];
 		}
@@ -228,12 +270,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 		}
 
 		$rating = isset( $_REQUEST['rating'] ) ? intval( $_REQUEST['rating'] ) : false;
-
-		if ( $params['has_rating_only'] ) {
-			if ( !self::has_ratings() ) {
-				return '';
-			}
-		}
 
 		$output = apply_filters(
 			'woocommerce_product_search_filter_rating_prefix',
@@ -330,6 +366,11 @@ class WooCommerce_Product_Search_Filter_Rating {
 
 		WooCommerce_Product_Search_Filter::filter_added();
 
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
+
 		self::$instances++;
 
 		return $output;
@@ -376,10 +417,9 @@ class WooCommerce_Product_Search_Filter_Rating {
 		global $wpdb;
 		$result = false;
 
-		$cached = wp_cache_get( 'has_ratings', self::CACHE_GROUP );
-		if ( $cached !== false ) {
-			$result = json_decode( $cached );
-		} else {
+		$cache = Cache::get_instance();
+		$result = $cache->get( 'has_ratings', self::CACHE_GROUP );
+		if ( $result === null ) {
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
 				$query = "SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= 1.0 LIMIT 1";
 			} else {
@@ -390,7 +430,7 @@ class WooCommerce_Product_Search_Filter_Rating {
 				$result = true;
 			}
 
-			$cached = wp_cache_set( 'has_ratings', json_encode( $result ), self::CACHE_GROUP, self::SECONDS_PER_DAY );
+			$cache->set( 'has_ratings', $result, self::CACHE_GROUP, self::get_data_cache_lifetime() );
 		}
 		return $result;
 	}

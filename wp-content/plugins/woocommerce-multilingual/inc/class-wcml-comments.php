@@ -109,6 +109,10 @@ class WCML_Comments {
 		foreach ( $translations as $translation ) {
 			$product = wc_get_product( $translation );
 
+			if ( ! $product ) {
+				continue;
+			}
+
 			$ratings      = WC_Comments::get_rating_counts_for_product( $product );
 			$review_count = WC_Comments::get_review_count_for_product( $product );
 

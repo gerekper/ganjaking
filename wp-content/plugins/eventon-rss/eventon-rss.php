@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create RSS feed of all events
  Author: Ashan Jay
- Version: 1.1.5
+ Version: 1.1.3
  Author URI: http://www.ashanjay.com/
- Requires at least: 6.0
- Tested up to: 6.1.1
+ Requires at least: 5.0
+ Tested up to: 5.8
 
  */
 
  class eventon_rss{
- 	public $version='1.1.5';
-	public $eventon_version = '4.2';
+ 	public $version='1.1.3';
+	public $eventon_version = '3.1';
 	public $name = 'RSS Feed';
 
 	public $rss_slug;
@@ -91,7 +91,7 @@
 	
 	// Supportive
 		function eventon_plugin_links($links){
-			$settings_link = '<a href="admin.php?page=eventon#eventon_rss">'.__('Settings','eventon').'</a>'; 
+			$settings_link = '<a href="admin.php?page=eventon#eventon_rss">Settings</a>'; 
 			array_unshift($links, $settings_link); 
 	 		return $links; 	
 		}

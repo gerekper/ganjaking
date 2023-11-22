@@ -78,6 +78,7 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 				'share_btns' => '',
 				'cat_limit' => 3,
 				'show_more_cats' => true,
+				'new_tab'		=> false,
 
 				// Schema props
 				'datecreated_prop'		=> 'datePublished',
@@ -131,7 +132,15 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 						$hasmore = true;
 						$cat_list .= '<li class="submenu-parent"><a class="wppm-cat-toggle" href="#">' . sprintf( esc_attr_x( '+ %d more', 'more count for category list', 'wppm-el' ), number_format_i18n( $cat_count - 1 ) ) . '</a><ul class="cat-sub submenu">';
 					}
-					$cat_list .= '<li><a class="cat-' . $cat->slug . '" href="' . get_category_link( $cat->cat_ID ) . '">' . $cat->cat_name . '</a></li>';
+
+					$cat_list .= sprintf( '<li><a class="cat-%1$s" href="%2$s"%3$s>%4$s</a></li>',
+						$cat->slug,
+						get_category_link( $cat->cat_ID ),
+						$new_tab ? ' target="_blank"' : '',
+						$cat->cat_name
+					);
+					
+
 					if ( $i == $cat_limit && ! $show_more_cats ) {
 						break;
 					}
@@ -153,13 +162,14 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 
 			$author = get_the_author();
 			if ( $show_avatar ) {
-				$meta_data .= sprintf( '<div%s%s class="author-avatar-32%s"><a%s href="%s" title="%s">%s%s</a></div>',
+				$meta_data .= sprintf( '<div%s%s class="author-avatar-32%s"><a%s href="%s" title="%s"%s>%s%s</a></div>',
 					$enable_schema ? ' itemscope itemtype="' . $schema . $authorbox_type . '"' : '',
 					$enable_schema ? ' itemprop="' . $authorbox_prop . '"' : '',
 					! $show_author && ! $show_date ? ' avatar-only' : '',
 					$enable_schema ? ' itemprop="' . $authorname_prop . '"' : '',
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 					sprintf( esc_html__( 'More posts by %s', 'wppm-el' ), esc_attr( $author ) ),
+					$new_tab ? ' target="_blank"' : '',
 					$enable_schema ? '<span itemprop="' . $authoravatar_prop . '">' . get_avatar( get_the_author_meta( 'user_email' ), 80 ) . '</span>' : get_avatar( get_the_author_meta( 'user_email' ), 80 ),
 					$enable_schema ? '<span class="schema-only" itemprop="' . $authorname_prop . '">' . esc_attr( $author ) . '</span>' : ''
 
@@ -184,13 +194,14 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 				$enable_schema ? '<meta itemprop="' . $datemodified_prop . '" content="' . esc_attr( the_modified_date( $modified_date_format, '', '', false ) ) . '"/>' : ''
 			);
 
-			$meta_data .= sprintf( '<li%1$s%2$s class="post-author%3$s"><span class="screen-reader-text">%4$s </span><a href="%5$s">%6$s</a></li>',
+			$meta_data .= sprintf( '<li%1$s%2$s class="post-author%3$s"><span class="screen-reader-text">%4$s </span><a href="%5$s"%7$s>%6$s</a></li>',
 				$enable_schema ? ' itemscope itemtype="' . $schema . $authorbox_type . '"' : '',
 				$enable_schema ? ' itemprop="' . $authorbox_prop . '"' : '',
 				! $show_author ? ' schema-only' : '',
 				esc_html_x( 'Author', 'Used before post author name.', 'wppm-el' ),
 				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				$enable_schema ? '<span itemprop="' . $authorname_prop . '">' . esc_attr( $author ) . '</span>' : esc_attr( $author )
+				$enable_schema ? '<span itemprop="' . $authorname_prop . '">' . esc_attr( $author ) . '</span>' : esc_attr( $author ),
+				$new_tab ? ' target="_blank"' : ''
 			);
 
 			$meta_data .= '</ul>';
@@ -199,11 +210,12 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 			$num_comments = get_comments_number();
 			$comment_meta = '';
 			if ( comments_open() && ( $num_comments >= 1 ) && $show_comments ) {
-				$comment_meta = sprintf( '<a href="%1$s" class="post-comment" title="%2$s">%3$s%4$s</a>',
+				$comment_meta = sprintf( '<a href="%1$s" class="post-comment" title="%2$s"%5$s>%3$s%4$s</a>',
 					esc_url( get_comments_link() ),
 					sprintf( __( 'Comment on %s', 'wppm-el' ), get_the_title() ),
 					$enable_schema ? '<meta itemprop="' . $commenturl_prop . '" content="' . esc_url( get_comments_link() ) . '" />' : '',
-					$enable_schema ? '<span itemprop="' . $commentcount_prop . '">' . $num_comments . '</span>' : $num_comments
+					$enable_schema ? '<span itemprop="' . $commentcount_prop . '">' . $num_comments . '</span>' : $num_comments,
+					$new_tab ? ' target="_blank"' : ''
 				);
 			}
 
@@ -280,8 +292,9 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 				}
 
 				if ( $readmore || $views_meta || $comment_meta || $sharing ) {
-					$row_3 = sprintf( '<aside class="meta-row row-3"><div class="meta-col col-50"><a class="readmore-link" href="%s">%s</a></div><div class="meta-col col-50 text-right">%s%s%s</div></aside>',
+					$row_3 = sprintf( '<aside class="meta-row row-3"><div class="meta-col col-50"><a class="readmore-link" href="%s"%s>%s</a></div><div class="meta-col col-50 text-right">%s%s%s</div></aside>',
 						$ext_link && $custom_link ? esc_url( $custom_link) : esc_url( get_permalink() ),
+						$new_tab ? ' target="_blank"' : '',
 						esc_attr( $readmore_text ),
 						$views_meta,
 						$comment_meta,
@@ -430,7 +443,7 @@ if ( ! function_exists( 'wppm_el_share_btns' ) ) :
 				switch( $button ) {
 
 					case 'twitter':
-						$list .= sprintf( '<li class="wppm-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s">%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on twitter', 'wppm-el' ), esc_attr__( 'Twitter', 'wppm-el' ) );
+						$list .= sprintf( '<li class="wppm-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s">%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on X (Twitter)', 'wppm-el' ), esc_attr__( 'Share on X (Twitter)', 'wppm-el' ) );
 					break;
 
 					case 'facebook':
@@ -495,24 +508,38 @@ endif;
 
 
 if ( ! function_exists( 'wppm_el_custom_meta' ) ) :
-	function wppm_el_custom_meta() {
+	function wppm_el_custom_meta( $new_tab = false ) {
 		$meta = array();
-		$meta['author'] = sprintf( '<a href="%s"><span itemprop="name">%s</span></a>', esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ), get_the_author() );
+		
+		$meta['author'] = sprintf( '<a href="%s"%s><span itemprop="name">%s</span></a>',
+			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+			$new_tab ? ' target="_blank"' : '',
+			get_the_author()
+		);
+		
 		$meta['date'] = sprintf( '<span class="posted-on"><time itemprop="datePublished" class="entry-date" datetime="%s">%s</time></span>', get_the_date( DATE_W3C ), get_the_date() );
+		
 		$meta['date_modified'] = sprintf( '<span class="updated-on"><meta itemprop="dateModified" content="%s">%s %s</span>', get_the_modified_date( DATE_W3C ), get_the_modified_date(), get_the_modified_date('H:i:s') );
 
 		// Comment link
 		$num_comments = get_comments_number();
 		$meta['comments'] = 0;
 		if ( comments_open() && ( $num_comments >= 1 ) ) {
-			$meta['comments'] = sprintf( '<a href="%1$s" class="post-comment" title="%2$s">%3$s</a>',
+			$meta['comments'] = sprintf( '<a href="%1$s" class="post-comment" title="%2$s"%4$s>%3$s</a>',
 				esc_url( get_comments_link() ),
 				sprintf( __( 'Comment on %s', 'newsplus' ), get_the_title() ),
-				$num_comments
+				$num_comments,
+				$new_tab ? ' target="_blank"' : ''
 			);
 		}
 
-		$meta['categories'] = get_the_category_list( _x( ', ', 'category items separator', 'wppm-el' ) );
+		if ( $new_tab ) {
+			$cat_links = get_the_category_list( _x( ', ', 'category items separator', 'wppm-el' ) );
+			$meta['categories'] = links_add_target( $cat_links );
+		} else {
+			$meta['categories'] = get_the_category_list( _x( ', ', 'category items separator', 'wppm-el' ) );
+		}
+		
 		$meta['permalink'] = get_permalink();
 
 		return $meta;
@@ -576,7 +603,7 @@ function wppm_el_sharing_buttons( $sharing_buttons, $limit, $text = false ) {
 		foreach ( $sharing_buttons as $button ) {
 				switch( $button ) {
 					case 'twitter':
-						$list .= sprintf( '<li class="nn-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s"><i class="fab fa-twitter"></i>%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on twitter', 'wppm_el' ), $text ? esc_attr__( 'Twitter', 'wppm_el' ) : '<span class="sr-only">' . esc_attr__( 'Twitter', 'wppm_el' ) . '</span>'  );
+						$list .= sprintf( '<li class="nn-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s"><i class="fab fa-x-twitter"></i>%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on X (Twitter)', 'wppm_el' ), $text ? esc_attr__( 'X (Twitter)', 'wppm_el' ) : '<span class="sr-only">' . esc_attr__( 'X (Twitter)', 'wppm_el' ) . '</span>'  );
 					break;
 
 					case 'facebook-f':
@@ -771,7 +798,7 @@ function qalam_sharing_buttons( $sharing_buttons, $limit, $text = false ) {
 		foreach ( $sharing_buttons as $button ) {
 			switch( $button ) {
 				case 'twitter':
-					$list .= sprintf( '<li class="qlm-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s"><i class="fab fa-twitter"></i>%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on twitter', 'qalam' ), $text ? esc_attr__( 'Twitter', 'qalam' ) : '<span class="sr-only">' . esc_attr__( 'Twitter', 'qalam' ) . '</span>'  );
+					$list .= sprintf( '<li class="qlm-twitter"><a href="%s://twitter.com/intent/tweet?text=%s" target="_blank" title="%s"><i class="fab fa-x-twitter"></i>%s</a></li>', esc_attr( $protocol ), urlencode( esc_url( get_permalink() ) ), esc_attr__( 'Share on X (Twitter)', 'qalam' ), $text ? esc_attr__( 'X (Twitter)', 'qalam' ) : '<span class="sr-only">' . esc_attr__( 'X (Twitter)', 'qalam' ) . '</span>'  );
 				break;
 
 				case 'facebook-f':

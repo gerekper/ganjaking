@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Term_Control;
+
 /**
  * Walker
  */
@@ -209,7 +211,7 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 		if ( $args['show_count'] ) {
 			$object_count = $object->count;
 			if ( apply_filters( 'woocommerce_product_search_term_walker_apply_get_term_count', true, $object ) ) {
-				$object_count = WooCommerce_Product_Search_Service::get_term_count( $object->term_id );
+				$object_count = Term_Control::get_term_count( $object->term_id );
 			}
 			$output .= ' <span class="count">(' . $object_count . ')</span>';
 		}

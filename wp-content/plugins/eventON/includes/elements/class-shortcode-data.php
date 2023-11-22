@@ -420,18 +420,25 @@ class EVO_Shortcode_Data{
 					'variables'=>array(						
 						$this->shortcode_default_field('lang'),
 						$this->shortcode_default_field('etc_override'),
-						$this->shortcode_default_field('UIX'),	
+						$this->shortcode_default_field('UIX_sv'),	
 						array(
 							'name'=>__('Show event location name','eventon'),
 							'type'=>'YN',
 							'guide'=>__('This will show event location name if available.','eventon'),
 							'var'=>'show_location',
 							'default'=>'no'
-						),array(
+						),
+						array(
 							'name'=>__('Show event organizer name(s)','eventon'),
 							'type'=>'YN',
 							'guide'=>__('This will show event organizer name(s) if available.','eventon'),
 							'var'=>'show_organizer',
+							'default'=>'no'
+						),array(
+							'name'=>__('Show event tags','eventon'),
+							'type'=>'YN',
+							'guide'=>__('This will show event tags if available.','eventon'),
+							'var'=>'show_tags',
 							'default'=>'no'
 						)
 					)

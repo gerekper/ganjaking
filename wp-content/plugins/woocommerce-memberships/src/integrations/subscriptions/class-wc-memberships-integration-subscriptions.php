@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -346,7 +346,7 @@ class WC_Memberships_Integration_Subscriptions {
 	public function cancel_related_membership( $post_id ) {
 
 		// bail out if the post being deleted is not a subscription
-		if ( 'shop_subscription' !== get_post_type( $post_id ) ) {
+		if ( ! Framework\SV_WC_Subscription_Compatibility::is_subscription( $post_id ) ) {
 			return;
 		}
 
@@ -795,32 +795,30 @@ class WC_Memberships_Integration_Subscriptions {
 
 
 	/**
-	 * Returns Subscriptions.
+	 * Gets Subscriptions by arguments.
 	 *
-	 * @see wcs_get_subscriptions() but more broad
+	 * @NOTE as of v1.25.0 this will accept different arguments conditionally to whether HPOS is used in the WooCommerce installation
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param array $args
-	 * @return \WC_Subscription[]|int[] an associative array of post ids => subscription objects (or IDS if 'fields' => 'ids' is passed in $args ).
+	 * @param array<string, mixed> $args
+	 * @return array<int, \WC_Subscription[]>|int[] an associative array of post ids => subscription objects (or IDS if requested in args).
 	 */
-	public function get_subscriptions( $args = array() ) {
+	public function get_subscriptions( array $args = [] ) : array {
 
-		$args = wp_parse_args( $args, array(
-			'posts_per_page' => -1,
-			'post_status'    => 'any',
-		) );
+		$results = wcs_get_subscriptions( wp_parse_args( $args, [
+			'subscriptions_per_page' => -1,
+			'subscription_status'    => 'any',
+		] ) );
 
-		$args['post_type'] = 'shop_subscription';
+		$return_ids = isset( $args['return'] ) && 'ids' === $args['return'];
 
-		$results = get_posts( $args );
+		if ( $results && ! $return_ids ) {
 
-		if ( $results && ! isset( $args['fields'] ) ) {
+			$subscriptions = [];
 
-			$subscriptions = array();
-
-			foreach ( $results as $subscription_post ) {
-				$subscriptions[ $subscription_post->ID ] = new \WC_Subscription( $subscription_post );
+			foreach ( $results as $subscription ) {
+				$subscriptions[ $subscription->get_id() ] = $subscription;
 			}
 
 			return $subscriptions;
@@ -833,14 +831,16 @@ class WC_Memberships_Integration_Subscriptions {
 	/**
 	 * Returns Subscriptions IDs.
 	 *
+	 * @NOTE as of v1.25.0 this will accept different arguments conditionally to whether HPOS is used in the WooCommerce installation
+	 *
 	 * @since 1.7.0
 	 *
-	 * @param array $args optional, passed to `get_posts()`
+	 * @param array<string, mixed> $args optional, passed to `get_posts()`
 	 * @return int[] an array of ids (by default from all the existing subscriptions)
 	 */
-	public function get_subscriptions_ids( $args = array() ) {
+	public function get_subscriptions_ids( array $args = [] ) : array {
 
-		$args['fields'] = 'ids';
+		$args['return'] = 'ids';
 
 		return $this->get_subscriptions( $args );
 	}

@@ -24,7 +24,7 @@
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\API;
 
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Properties_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

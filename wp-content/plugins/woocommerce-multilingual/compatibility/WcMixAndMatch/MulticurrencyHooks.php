@@ -5,7 +5,7 @@ namespace WCML\Compatibility\WcMixAndMatch;
 class MulticurrencyHooks implements \IWPML_Action {
 
 	public function add_hooks() {
-		add_filter( 'wcml_price_custom_fields_filtered', [ $this, 'get_price_custom_fields' ], 10, 2 );
+		add_filter( 'wcml_price_custom_fields_filtered', [ $this, 'get_price_custom_fields' ], 10 );
 		add_filter( 'wcml_update_custom_prices_values', [ $this, 'update_container_custom_prices_values' ], 10, 2 );
 		add_filter( 'wcml_after_save_custom_prices', [ $this, 'update_container_base_price' ], 10, 4 );
 	}

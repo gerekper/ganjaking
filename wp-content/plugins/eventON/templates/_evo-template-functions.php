@@ -185,8 +185,6 @@ function evotemp_before_single_event_content(){
 	if( EVO()->cal->check_yn('evosm_show_monthyear')):
 		?><div id='evcal_head' class='calendar_header'><p id='evcal_cur'><?php echo $header_text;?></p></div><?php
 	endif;
-
-	
 }
 
 

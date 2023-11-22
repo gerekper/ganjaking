@@ -231,11 +231,7 @@ class evorm_fnc{
 	}
 	function get_reminder_prop($event_id, $field_variable){
 		$reminders = $this->get_reminders_prop();
-		
-		if(empty($reminders) || !is_array($reminders) ) return false;
-
-		if( sizeof($reminders)==0) return false;
-		
+		if(empty($reminders) && sizeof($reminders)==0) return false;
 		if(!isset($reminders[$event_id][$field_variable])) return false;
 
 		return $reminders[$event_id][$field_variable];

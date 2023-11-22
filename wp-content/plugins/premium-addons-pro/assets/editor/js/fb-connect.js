@@ -1,3 +1,26 @@
+var licenseKey = null;
+
+jQuery.ajax({
+    type: "GET",
+    url: settings.ajaxurl,
+    dataType: "JSON",
+    data: {
+        action: "get_papro_key",
+        security: settings.nonce,
+    },
+    success: function (res) {
+
+        if (res.data) {
+            licenseKey = res.data.key
+        }
+
+    },
+    error: function (err) {
+        console.log(err);
+    }
+});
+
+
 function openFbPopup(url, width, height, callBack) {
     var top = top || screen.height / 2 - height / 2,
         left = left || screen.width / 2 - width / 2,
@@ -27,8 +50,7 @@ function openFbPopup(url, width, height, callBack) {
 
 function connectFb(obj, type) {
 
-    var url = "https://appfb.premiumaddons.com/auth/fbreviews?scope=manage_pages,pages_show_list",
-        licenseKey = settings.key;
+    var url = "https://appfb.premiumaddons.com/auth/fbreviews?scope=manage_pages,pages_show_list"
 
     url = url + "&key=" + licenseKey;
 
@@ -104,8 +126,7 @@ function connectFb(obj, type) {
 
 function connectInstagram(obj, type) {
 
-    var url = "https://appfb.premiumaddons.com/auth/instagram?",
-        licenseKey = settings.key;
+    var url = "https://appfb.premiumaddons.com/auth/instagram?"
 
     url = url + "key=" + licenseKey;
 

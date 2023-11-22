@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2023-11-16 - version 5.7.1
+* Fix: PLUGINS-2299 - Fix code that is causing memory limit in the Anti Fraud dashboard page.
+
 2023-11-10 - version 5.7.0
 * New: PLUGINS-2242 - Support bulk blacklisting of emails.
 * New: PLUGINS-2267 - Add whitelisting of IP addresses.

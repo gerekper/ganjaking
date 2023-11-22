@@ -240,13 +240,16 @@ class evovo_admin_ajax{
 									$opt_[ str_replace(' ', '-', $opt)] = $opt;
 								}
 
+								$value = (isset($values['variations'][$index])? 
+											$values['variations'][$index]:'');
+
 								$fields[ 'variations['.$index.']']= array(
 									'name'=> $data['name'],
 									'type'=>'dropdown',
 									'options'=> $opt_,
-									'value'=> (isset($values['variations'][$index])? 
-											$values['variations'][$index]:'')
+									'value'=> $value
 								);
+
 							}
 						}
 
@@ -370,13 +373,14 @@ class evovo_admin_ajax{
 
 			}
 
-			//print_r($form_fields);
+			
 			if( $form_go):
 
 				// custom fields for the form
 				foreach($form_fields as $key=>$data):
 					$form_fields[$key]['id'] = $key;
-					$form_fields[$key]['value'] = $this->check_v( $values, $key);
+					if( !isset($form_fields[$key]['value']) )
+						$form_fields[$key]['value'] = $this->check_v( $values, $key);
 
 				endforeach;
 

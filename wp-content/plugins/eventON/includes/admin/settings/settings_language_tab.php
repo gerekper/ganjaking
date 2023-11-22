@@ -2,7 +2,7 @@
 /**
  * Language Settings 
  *
- * @version		4.4
+ * @version		4.5.1
  * @package		EventON/settings
  * @category	Settings
  * @author 		AJDE
@@ -29,7 +29,7 @@ class evo_settings_lang{
 	// return content for 
 	function get_content(){
 		ob_start(); ?>
-		<form method="post" action=""><?php settings_fields('evcal_field_group'); 
+		<form class='evo_settings_form' method="post" action=""><?php settings_fields('evcal_field_group'); 
 			wp_nonce_field( AJDE_EVCAL_BASENAME, 'evcal_noncename' ); ?>
 			<div id="evcal_2" class="postbox evcal_admin_meta curve">	
 				<div class="inside">
@@ -312,14 +312,24 @@ class evo_settings_lang{
 					array('label'=>'Until','var'=>1),	
 					array('label'=>'From','var'=>1),	
 				array('type'=>'togend'),
+			);
+	
 
-				array('type'=>'togheader','name'=>__('Other','eventon')),
+			// pluggable additions to language @since 4.5.1
+				$other_items = apply_filters('evo_lang_other_text', array(
+					array('type'=>'togheader','name'=>__('Other','eventon')),
 					array('label'=>'List','var'=>1),	
-					array('label'=>'Tiles','var'=>1),	
-				array('type'=>'togend'),
+					array('label'=>'Tiles','var'=>1),
+				) ); 
+				
+				$other_items[] = array('type'=>'togend');
+
+			$output = array_merge(
+				$output, 
+				$other_items,
+				$this->_array_part_taxonomies()
 			);
 
-			$output = array_merge($output, $this->_array_part_taxonomies());
 			$output = array_merge($output, array(
 				
 				array('type'=>'togheader','name'=>__('Calendar Header','eventon')),

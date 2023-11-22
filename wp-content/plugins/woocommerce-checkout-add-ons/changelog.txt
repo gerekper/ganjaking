@@ -1,5 +1,8 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2023.11.17 - version 2.7.1
+ * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
+
 2023.07.28 - version 2.7.0
  * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 

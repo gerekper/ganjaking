@@ -5,6 +5,7 @@ namespace WCML\Compatibility\WcSubscriptions;
 use WC_Product;
 use WC_Product_Subscription_Variation;
 use WC_Product_Variable_Subscription;
+use WCML\Orders\Helper as OrdersHelper;
 use WCML\Utilities\DB;
 use WCML_Custom_Prices_UI;
 use woocommerce_wpml;
@@ -116,7 +117,7 @@ class MulticurrencyHooks implements \IWPML_Action {
 		}
 
 		if ( $subscriptionId ) {
-			$subscriptionCurrency = get_post_meta( $subscriptionId, '_order_currency', true );
+			$subscriptionCurrency = OrdersHelper::getCurrency( $subscriptionId );
 			if ( $subscriptionCurrency && $this->woocommerce_wpml->multi_currency->get_client_currency() !== $subscriptionCurrency ) {
 				$this->woocommerce_wpml->multi_currency->set_client_currency( $subscriptionCurrency );
 			}

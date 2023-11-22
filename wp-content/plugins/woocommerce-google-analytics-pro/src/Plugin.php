@@ -28,7 +28,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\API\API_Client;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Identity_Helper;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Order_Helper;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Integrations\Subscriptions_Integration;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '2.0.12';
+	public const VERSION = '2.0.13';
 
 	/** @var Plugin the singleton instance of the plugin */
 	protected static $instance;
@@ -85,8 +85,14 @@ class Plugin extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain'   => 'woocommerce-google-analytics-pro',
-				'supports_hpos' => true,
+				'text_domain'        => 'woocommerce-google-analytics-pro',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => false,
+						'checkout' => false,
+					],
+				],
 			]
 		);
 

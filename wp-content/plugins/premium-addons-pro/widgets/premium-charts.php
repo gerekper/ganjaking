@@ -14,8 +14,8 @@ use PremiumAddonsPro\Includes\PAPRO_Helper;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
@@ -51,7 +51,7 @@ class Premium_Charts extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Charts', 'premium-addons-pro' ) );
+		return __( 'Charts', 'premium-addons-pro' );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class Premium_Charts extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'data', 'graph', 'bar', 'circle', 'dynamic', 'statistic' );
+		return array( 'pa', 'premium', 'data', 'graph', 'bar', 'circle', 'dynamic', 'statistic' );
 	}
 
 	/**
@@ -88,6 +88,20 @@ class Premium_Charts extends Widget_Base {
 	 */
 	public function get_categories() {
 		return array( 'premium-elements' );
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -133,7 +147,7 @@ class Premium_Charts extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'general_settings',
@@ -145,22 +159,23 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'data_source',
 			array(
-				'label'   => __( 'Data Source', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'custom',
-				'options' => array(
+				'label'              => __( 'Data Source', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'default'            => 'custom',
+				'options'            => array(
 					'custom' => __( 'Custom', 'premium-addons-pro' ),
 					'csv'    => 'CSV' . __( ' File', 'premium-addons-pro' ),
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'type',
 			array(
-				'label'       => __( 'Layout', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'              => __( 'Layout', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'line'          => __( 'Line', 'premium-addons-pro' ),
 					'bar'           => __( 'Bar', 'premium-addons-pro' ),
 					'horizontalBar' => __( 'Horizontal Bar', 'premium-addons-pro' ),
@@ -170,8 +185,9 @@ class Premium_Charts extends Widget_Base {
 					'polarArea'     => __( 'Polar Area', 'premium-addons-pro' ),
 
 				),
-				'default'     => 'bar',
-				'label_block' => true,
+				'default'            => 'bar',
+				'label_block'        => true,
+				'frontend_available' => true,
 			)
 		);
 
@@ -245,93 +261,100 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'x_axis_label_switch',
 			array(
-				'label'        => __( 'Show Axis Label', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'description'  => __( 'Show or Hide X-Axis Label', 'premium-addons-pro' ),
+				'label'              => __( 'Show Axis Label', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Show or Hide X-Axis Label', 'premium-addons-pro' ),
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_label',
 			array(
-				'label'       => __( 'Label', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => array( 'active' => true ),
-				'default'     => 'X-Axis',
-				'label_block' => true,
-				'condition'   => array(
+				'label'              => __( 'Label', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => 'X-Axis',
+				'label_block'        => true,
+				'condition'          => array(
 					'x_axis_label_switch' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_labels',
 			array(
-				'label'       => __( 'Data Labels', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => array( 'active' => true ),
-				'default'     => 'Jan,Feb,Mar,Apr,May',
-				'description' => __( 'Enter labels for X-Axis separated with \' , \' ', 'premium-addons-pro' ),
-				'label_block' => true,
-				'condition'   => array(
+				'label'              => __( 'Data Labels', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => 'Jan,Feb,Mar,Apr,May',
+				'description'        => __( 'Enter labels for X-Axis separated with \' , \' ', 'premium-addons-pro' ),
+				'label_block'        => true,
+				'condition'          => array(
 					'data_source' => 'custom',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_grid',
 			array(
-				'label'        => __( 'Show Grid Lines', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'default'      => 'true',
-				'description'  => __( 'Show or Hide X-Axis Grid Lines', 'premium-addons-pro' ),
+				'label'              => __( 'Show Grid Lines', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'default'            => 'true',
+				'description'        => __( 'Show or Hide X-Axis Grid Lines', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_begin',
 			array(
-				'label'        => __( 'Begin at Zero', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'description'  => __( 'Start X-Axis Labels at zero', 'premium-addons-pro' ),
+				'label'              => __( 'Begin at Zero', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'description'        => __( 'Start X-Axis Labels at zero', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_label_rotation',
 			array(
-				'label'   => __( 'Labels\' Rotation ', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 360,
-				'default' => 0,
+				'label'              => __( 'Labels\' Rotation ', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 360,
+				'default'            => 0,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_column_width',
 			array(
-				'label'     => __( 'Column Width', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Column Width', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 1,
 						'step' => 0.1,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'type' => 'bar',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -347,26 +370,28 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'y_axis_label_switch',
 			array(
-				'label'        => __( 'Show Axis Label', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'description'  => __( 'Show or Hide Y-Axis Label', 'premium-addons-pro' ),
+				'label'              => __( 'Show Axis Label', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Show or Hide Y-Axis Label', 'premium-addons-pro' ),
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_label',
 			array(
-				'label'       => __( 'Label', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => array( 'active' => true ),
-				'default'     => 'Y-Axis',
-				'label_block' => true,
-				'condition'   => array(
+				'label'              => __( 'Label', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'dynamic'            => array( 'active' => true ),
+				'default'            => 'Y-Axis',
+				'label_block'        => true,
+				'condition'          => array(
 					'y_axis_label_switch' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -557,55 +582,59 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'data_type',
 			array(
-				'label'     => __( 'Data Type', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => array(
+				'label'              => __( 'Data Type', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'linear'      => __( 'Linear', 'premium-addons-pro' ),
 					'logarithmic' => __( 'Logarithmic', 'premium-addons-pro' ),
 				),
-				'default'   => 'linear',
-				'condition' => array(
+				'default'            => 'linear',
+				'condition'          => array(
 					'type!' => 'horizontalBar',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_grid',
 			array(
-				'label'        => __( 'Show Grid Lines', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'default'      => 'true',
-				'description'  => __( 'Show or Hide Y-Axis Grid Lines', 'premium-addons-pro' ),
+				'label'              => __( 'Show Grid Lines', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'default'            => 'true',
+				'description'        => __( 'Show or Hide Y-Axis Grid Lines', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_begin',
 			array(
-				'label'        => __( 'Begin at Zero', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'true',
-				'return_value' => 'true',
-				'description'  => __( 'Start Y-Axis Data at zero', 'premium-addons-pro' ),
+				'label'              => __( 'Begin at Zero', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'default'            => 'true',
+				'return_value'       => 'true',
+				'description'        => __( 'Start Y-Axis Data at zero', 'premium-addons-pro' ),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_urls_target',
 			array(
-				'label'        => __( 'Open Links in new tab', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'default'      => 'true',
-				'condition'    => array(
+				'label'              => __( 'Open Links in new tab', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'default'            => 'true',
+				'condition'          => array(
 					'data_source' => 'custom',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -686,15 +715,15 @@ class Premium_Charts extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
@@ -719,185 +748,198 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'y_axis_min',
 			array(
-				'label'       => __( 'Minimum Value', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'Set Y-axis minimum value, this will be overriden if data has a smaller value or Begin At Zero option is enabled', 'premium-addons-pro' ),
-				'condition'   => array(
+				'label'              => __( 'Minimum Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'Set Y-axis minimum value, this will be overriden if data has a smaller value or Begin At Zero option is enabled', 'premium-addons-pro' ),
+				'condition'          => array(
 					'type!' => array( 'pie', 'doughnut', 'radar', 'polarArea' ),
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_max',
 			array(
-				'label'       => __( 'Maximum Value', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'Set Y-axis maximum value, this will be overriden if data has a larger value', 'premium-addons-pro' ),
-				'min'         => 0,
-				'default'     => 1,
-				'condition'   => array(
+				'label'              => __( 'Maximum Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'Set Y-axis maximum value, this will be overriden if data has a larger value', 'premium-addons-pro' ),
+				'min'                => 0,
+				'default'            => 1,
+				'condition'          => array(
 					'type!' => array( 'pie', 'doughnut' ),
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'step_size',
 			array(
-				'label'     => __( 'Step Size', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::NUMBER,
-				'condition' => array(
+				'label'              => __( 'Step Size', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'condition'          => array(
 					'type!' => array( 'pie', 'doughnut' ),
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_display',
 			array(
-				'label'        => __( 'Show Legend', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'Show or Hide chart legend', 'premium-addons-pro' ),
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
+				'label'              => __( 'Show Legend', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Show or Hide chart legend', 'premium-addons-pro' ),
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_circle',
 			array(
-				'label'        => __( 'Change Legend to Circles', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Change Legend to Circles', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'condition'          => array(
 					'legend_display' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_hide',
 			array(
-				'label'        => __( 'Hide Legend on Tablet/Mobile Devices', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'Show or Hide chart legend', 'premium-addons-pro' ),
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Hide Legend on Tablet/Mobile Devices', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Show or Hide chart legend', 'premium-addons-pro' ),
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'condition'          => array(
 					'legend_display' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_responsive_control(
 			'legend_position',
 			array(
-				'label'          => __( 'Legend Position', 'premium-addons-pro' ),
-				'type'           => Controls_Manager::SELECT,
-				'options'        => array(
+				'label'              => __( 'Legend Position', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'top'    => __( 'Top', 'premium-addons-pro' ),
 					'right'  => __( 'Right', 'premium-addons-pro' ),
 					'bottom' => __( 'Bottom', 'premium-addons-pro' ),
 					'left'   => __( 'Left', 'premium-addons-pro' ),
 				),
-				'default'        => 'top',
-				'tablet_default' => 'top',
-				'mobile_default' => 'top',
-				'condition'      => array(
+				'default'            => 'top',
+				'tablet_default'     => 'top',
+				'mobile_default'     => 'top',
+				'condition'          => array(
 					'legend_display' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_reverse',
 			array(
-				'label'        => __( 'Reverse', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'Enable or Disable legend data reverse', 'premium-addons-pro' ),
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Reverse', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Enable or Disable legend data reverse', 'premium-addons-pro' ),
+				'return_value'       => 'true',
+				'condition'          => array(
 					'legend_display' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'tool_tips',
 			array(
-				'label'        => __( 'Show Values on Hover', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
+				'label'              => __( 'Show Values on Hover', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'tool_tips_percent',
 			array(
-				'label'        => __( 'Convert Values to percent', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Convert Values to percent', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'return_value'       => 'true',
+				'condition'          => array(
 					'tool_tips' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'tool_tips_mode',
 			array(
-				'label'     => __( 'Mode', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => array(
+				'label'              => __( 'Mode', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'point'   => __( 'Point', 'premium-addons-pro' ),
 					'nearest' => __( 'Nearest', 'premium-addons-pro' ),
 					'dataset' => __( 'Dataset', 'premium-addons-pro' ),
 					'x'       => __( 'X', 'premium-addons-pro' ),
 					'y'       => __( 'Y', 'premium-addons-pro' ),
 				),
-				'default'   => 'nearest',
-				'condition' => array(
+				'default'            => 'nearest',
+				'condition'          => array(
 					'tool_tips' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'value_on_chart',
 			array(
-				'label'        => __( 'Show Values on Chart', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'This option works only with Pie and Douhnut Charts', 'premium-addons-pro' ),
-				'label_on'     => 'Show',
-				'label_off'    => 'Hide',
-				'return_value' => 'true',
-				'condition'    => array(
+				'label'              => __( 'Show Values on Chart', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'This option works only with Pie and Douhnut Charts', 'premium-addons-pro' ),
+				'label_on'           => 'Show',
+				'label_off'          => 'Hide',
+				'return_value'       => 'true',
+				'condition'          => array(
 					'type'       => array( 'pie', 'doughnut' ),
 					'tool_tips!' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'duration',
 			array(
-				'label'       => __( 'Animation Duration (msec)', 'premium-addons-pro' ),
-				'description' => __( 'Set the animation duration in milliseconds', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
+				'label'              => __( 'Animation Duration (msec)', 'premium-addons-pro' ),
+				'description'        => __( 'Set the animation duration in milliseconds', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'start_animation',
 			array(
-				'label'   => __( 'Animation', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
+				'label'              => __( 'Animation', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'linear'           => __( 'Linear', 'premium-addons-pro' ),
 					'easeInQuad'       => __( 'Ease in Quad', 'premium-addons-pro' ),
 					'easeOutQuad'      => __( 'Ease out Quad', 'premium-addons-pro' ),
@@ -930,31 +972,33 @@ class Premium_Charts extends Widget_Base {
 					'easeOutBounce'    => __( 'Ease out Bounce', 'premium-addons-pro' ),
 					'easeInOutBounce'  => __( 'Ease in out Bounce', 'premium-addons-pro' ),
 				),
-				'default' => 'easeInQuad',
+				'default'            => 'easeInQuad',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'render_event',
 			array(
-				'label'   => __( 'Load Chart On', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
+				'label'              => __( 'Load Chart On', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
 					'scroll' => __( 'Scroll', 'premium-addons-pro' ),
 					'load'   => __( 'Page Load', 'premium-addons-pro' ),
 				),
-				'default' => 'scroll',
+				'default'            => 'scroll',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'format_locale',
 			array(
-				'label'       => __( 'Data Format Locale', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SELECT,
-				'description' => __( 'Use this to format strings into specific locale format. For example, use de to format numbers according to German formatting.', 'premium-addons-pro' ),
-				'default'     => '',
-				'options'     => array(
+				'label'              => __( 'Data Format Locale', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'description'        => __( 'Use this to format strings into specific locale format. For example, use de to format numbers according to German formatting.', 'premium-addons-pro' ),
+				'default'            => '',
+				'options'            => array(
 					''   => __( 'Default', 'premium-addons-pro' ),
 					'en' => __( 'English', 'premium-addons-pro' ),
 					'fr' => __( 'French', 'premium-addons-pro' ),
@@ -962,7 +1006,8 @@ class Premium_Charts extends Widget_Base {
 					'de' => __( 'German', 'premium-addons-pro' ),
 					'ar' => __( 'Arabic', 'premium-addons-pro' ),
 				),
-				'label_block' => true,
+				'label_block'        => true,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1067,9 +1112,8 @@ class Premium_Charts extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-chart-title' => 'color: {{VALUE}};',
@@ -1081,7 +1125,9 @@ class Premium_Charts extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-chart-title',
 			)
 		);
@@ -1173,23 +1219,24 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'x_axis_label_color',
 			array(
-				'label'  => __( 'Color', 'premium-addons-pro' ),
-				'type'   => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'global'             => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_label_size',
 			array(
-				'label'   => __( 'Size', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 50,
-				'default' => 12,
+				'label'              => __( 'Size', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 50,
+				'default'            => 12,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1208,23 +1255,24 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'x_axis_labels_color',
 			array(
-				'label'  => __( 'Color', 'premium-addons-pro' ),
-				'type'   => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'global'             => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_labels_size',
 			array(
-				'label'   => __( 'Size', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 50,
-				'default' => 12,
+				'label'              => __( 'Size', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 50,
+				'default'            => 12,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1243,28 +1291,30 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'x_axis_grid_color',
 			array(
-				'label'   => __( 'Color', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::COLOR,
-				'default' => '#6ec1e4',
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'default'            => '#6ec1e4',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'x_axis_grid_width',
 			array(
-				'label'   => __( 'Width', 'premium-charts' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => array(
+				'label'              => __( 'Width', 'premium-charts' ),
+				'type'               => Controls_Manager::SLIDER,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10,
 						'step' => 0.1,
 					),
 				),
-				'default' => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1,
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -1296,23 +1346,24 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'y_axis_label_color',
 			array(
-				'label'  => __( 'Color', 'premium-addons-pro' ),
-				'type'   => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'global'             => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_label_size',
 			array(
-				'label'   => __( 'Size', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 50,
-				'default' => 12,
+				'label'              => __( 'Size', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 50,
+				'default'            => 12,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1331,19 +1382,21 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'y_axis_labels_color',
 			array(
-				'label' => __( 'Color', 'premium-addons-pro' ),
-				'type'  => Controls_Manager::COLOR,
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_labels_size',
 			array(
-				'label'   => __( 'Size', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 50,
-				'default' => 12,
+				'label'              => __( 'Size', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 50,
+				'default'            => 12,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1362,28 +1415,30 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'y_axis_grid_color',
 			array(
-				'label'   => __( 'Color', 'premium-addons-pro' ),
-				'type'    => Controls_Manager::COLOR,
-				'default' => '#54595f',
+				'label'              => __( 'Color', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'default'            => '#54595f',
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'y_axis_grid_width',
 			array(
-				'label'   => __( 'Width', 'premium-charts' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => array(
+				'label'              => __( 'Width', 'premium-charts' ),
+				'type'               => Controls_Manager::SLIDER,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10,
 						'step' => 0.1,
 					),
 				),
-				'default' => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1,
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -1405,29 +1460,32 @@ class Premium_Charts extends Widget_Base {
 		$this->add_control(
 			'legend_text_color',
 			array(
-				'label' => __( 'Color', 'premium-charts' ),
-				'type'  => Controls_Manager::COLOR,
+				'label'              => __( 'Color', 'premium-charts' ),
+				'type'               => Controls_Manager::COLOR,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_text_size',
 			array(
-				'label'   => __( 'Size', 'premium-charts' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'max'     => 50,
-				'default' => 12,
+				'label'              => __( 'Size', 'premium-charts' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 0,
+				'max'                => 50,
+				'default'            => 12,
+				'frontend_available' => true,
 			)
 		);
 
 		$this->add_control(
 			'legend_item_width',
 			array(
-				'label'   => __( 'Item Width', 'premium-charts' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 1,
-				'default' => 40,
+				'label'              => __( 'Item Width', 'premium-charts' ),
+				'type'               => Controls_Manager::NUMBER,
+				'min'                => 1,
+				'default'            => 40,
+				'frontend_available' => true,
 			)
 		);
 
@@ -1453,7 +1511,6 @@ class Premium_Charts extends Widget_Base {
 		if ( ! empty( $settings['title'] ) && $settings['title_switcher'] ) {
 			$title = '<' . $title_tag . ' class="premium-chart-title">' . $settings['title'] . '</' . $title_tag . '>';
 		}
-		$xlabels = explode( ',', $settings['x_axis_labels'] );
 
 		$data_source   = $settings['data_source'];
 		$columns_array = array();
@@ -1514,66 +1571,11 @@ class Premium_Charts extends Widget_Base {
 			}
 		}
 
-		$labels_rotation = ! empty( $settings['x_axis_label_rotation'] ) ? $settings['x_axis_label_rotation'] : 0;
-
-		$x_label_size = ! empty( $settings['x_axis_labels_size'] ) ? $settings['x_axis_labels_size'] : 12;
-
-		$y_label_size = ! empty( $settings['y_axis_labels_size'] ) ? $settings['y_axis_labels_size'] : 12;
-
-		$ytype = 'horizontalBar' !== $settings['type'] ? $settings['data_type'] : 'category';
-
 		$chart_id = 'premium-chart-canvas-' . $id;
 
 		$chart_settings = array(
-			'type'          => $settings['type'],
-			'xlabeldis'     => $settings['x_axis_label_switch'],
-			'xlabel'        => $settings['x_axis_label'],
-			'ylabeldis'     => $settings['y_axis_label_switch'],
-			'ylabel'        => $settings['y_axis_label'],
-			'xlabels'       => $xlabels,
-			'easing'        => $settings['start_animation'],
-			'duration'      => ! empty( $settings['duration'] ) ? intval( $settings['duration'] ) : 500,
-			'xwidth'        => ! empty( $settings['x_column_width']['size'] ) ? $settings['x_column_width']['size'] : 0.9,
-			'enTooltips'    => $settings['tool_tips'],
-			'printVal'      => $settings['value_on_chart'],
-			'percentage'    => $settings['tool_tips_percent'],
-			'modTooltips'   => $settings['tool_tips_mode'],
-			'legDis'        => $settings['legend_display'],
-			'legRes'        => $settings['legend_hide'],
-			'legPos'        => $settings['legend_position'],
-			'legPos_tablet' => $settings['legend_position_tablet'],
-			'legPos_mobile' => $settings['legend_position_mobile'],
-			'legRev'        => $settings['legend_reverse'],
-			'legCircle'     => $settings['legend_circle'],
-			'legCol'        => ! empty( $settings['legend_text_color'] ) ? ( $settings['legend_text_color'] ) : '#54595f',
-			'legSize'       => ( $settings['legend_text_size'] ),
-			'itemWid'       => ( $settings['legend_item_width'] ),
-			'xGrid'         => $settings['x_axis_grid'],
-			'xGridCol'      => $settings['x_axis_grid_color'],
-			'xGridWidth'    => $settings['x_axis_grid_width']['size'],
-			'xTicksSize'    => $x_label_size,
-			'xlabelcol'     => $settings['x_axis_label_color'],
-			'ylabelcol'     => $settings['y_axis_label_color'],
-			'xlabelsize'    => $settings['x_axis_label_size'],
-			'ylabelsize'    => $settings['y_axis_label_size'],
-			'xTicksCol'     => ! empty( $settings['x_axis_labels_color'] ) ? $settings['x_axis_labels_color'] : '#54595f',
-			'xTicksRot'     => $labels_rotation,
-			'xTicksBeg'     => $settings['x_axis_begin'],
-			'yAxis'         => $ytype,
-			'yGrid'         => $settings['y_axis_grid'],
-			'yGridCol'      => $settings['y_axis_grid_color'],
-			'yGridWidth'    => $settings['y_axis_grid_width']['size'],
-			'yTicksSize'    => $y_label_size,
-			'yTicksCol'     => ! empty( $settings['y_axis_labels_color'] ) ? $settings['y_axis_labels_color'] : '#54595f',
-			'yTicksBeg'     => $settings['y_axis_begin'],
-			'chartId'       => $chart_id,
-			'suggestedMin'  => $settings['y_axis_min'],
-			'suggestedMax'  => $settings['y_axis_max'],
-			'stepSize'      => $settings['step_size'],
-			'height'        => ! empty( $settings['height'] ) ? $settings['height'] : 400,
-			'target'        => ( $settings['y_axis_urls_target'] ) ? '_blank' : '_top',
-			'event'         => $settings['render_event'],
-			'locale'        => $settings['format_locale'],
+			'chartId' => $chart_id,
+			'height'  => ! empty( $settings['height'] ) ? $settings['height'] : 400,
 		);
 
 		$this->add_render_attribute(
@@ -1583,7 +1585,6 @@ class Premium_Charts extends Widget_Base {
 				'class'         => 'premium-chart-container',
 				'data-chart'    => wp_json_encode( $columns_array ),
 				'data-settings' => wp_json_encode( $chart_settings ),
-				'data-source'   => $data_source,
 			)
 		);
 

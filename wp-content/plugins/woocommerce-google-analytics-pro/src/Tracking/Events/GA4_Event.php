@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Identity_Helper;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Contracts\Deferred_Event;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0\SV_WC_Helper;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12\SV_WC_Helper;
 
 defined( 'ABSPATH' ) or exit;
 

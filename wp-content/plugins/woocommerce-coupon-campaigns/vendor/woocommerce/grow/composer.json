@@ -1,0 +1,21 @@
+{
+    "name": "woogrow/compat-checker",
+    "description": "Compatibility checker for Woo Grow extensions",
+    "version": "0.0.1",
+    "license": "GPL-3.0",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Automattic\\WooCommerce\\Grow\\Tools\\CompatChecker\\v0_0_1\\": "src/"
+        }
+    },
+    "require-dev": {
+        "woocommerce/woocommerce-sniffs": "^0.1.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

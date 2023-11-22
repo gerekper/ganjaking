@@ -1,0 +1,1 @@
+!function(n,e){"use strict";var t=function(n,e){var t=n.find(".bdt-slinky-vertical-menu"),r=t.attr("id");if(!t.length)return;e("#"+r).slinky()};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-slinky-vertical-menu.default",t)}))}(jQuery,window.elementorFrontend);

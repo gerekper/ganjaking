@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * WooCommerce Social Login Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.13.0';
+	const VERSION = '2.13.1';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -75,9 +75,15 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain'   => 'woocommerce-social-login',
-				'supports_hpos' => true,
-				'dependencies'  => [
+				'text_domain'        => 'woocommerce-social-login',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => false,
+						'checkout' => false,
+					],
+				],
+				'dependencies'       => [
 					'php_extensions' => [
 						'curl',
 					],

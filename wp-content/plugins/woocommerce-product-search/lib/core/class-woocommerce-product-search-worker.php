@@ -24,6 +24,8 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 use com\itthinx\woocommerce\search\engine\Settings;
+use com\itthinx\woocommerce\search\engine\Lock;
+use com\itthinx\woocommerce\search\engine\Lock_Exception;
 
 /**
  * Index worker.
@@ -51,11 +53,24 @@ class WooCommerce_Product_Search_Worker {
 		add_action( 'woocommerce_product_search_work', array( __CLASS__, 'work' ), 10, 0 );
 		add_action( 'woocommerce_product_search_deactivate', array( __CLASS__, 'deactivate' ) );
 
-		$last_scheduled = intval( get_option( 'woocommerce_product_search_worker_init_scheduled', 0 ) );
-		if ( ( time() - $last_scheduled ) > self::INIT_SCHEDULED_GAP ) {
+		$lock = null;
+		$blog_id = intval( get_current_blog_id() );
+		$lock_path = untrailingslashit( WP_CONTENT_DIR ) . DIRECTORY_SEPARATOR . '.scheduleworkerlock-' . $blog_id;
+		try {
 
-			update_option( 'woocommerce_product_search_worker_init_scheduled', time() );
-			self::schedule();
+			$lock = new Lock( $lock_path, false );
+		} catch ( Lock_Exception $le ) {
+		}
+		if ( $lock === null || $lock->writer() ) {
+			$last_scheduled = intval( get_option( 'woocommerce_product_search_worker_init_scheduled', 0 ) );
+			if ( ( time() - $last_scheduled ) > self::INIT_SCHEDULED_GAP ) {
+
+				update_option( 'woocommerce_product_search_worker_init_scheduled', time() );
+				self::schedule();
+			}
+		}
+		if ( $lock !== null ) {
+			$lock->release();
 		}
 	}
 
@@ -114,14 +129,25 @@ class WooCommerce_Product_Search_Worker {
 					$next = time() + self::get_idle_cycle();
 				}
 				$scheduled = wp_schedule_single_event( $next, 'woocommerce_product_search_work' );
-				wps_log_info( sprintf(
-					'Worker @ %s; next scheduled @ %s',
-					date( 'Y-m-d H:i:s', time() ),
-					date( 'Y-m-d H:i:s', $next ) )
-				);
-				if ( $scheduled === false ) {
 
-					wps_log_warning( 'Worker could not schedule next work cycle.' );
+				if ( $scheduled !== false ) {
+					wps_log_info( sprintf(
+						'Worker @ %s; next scheduled @ %s',
+						date( 'Y-m-d H:i:s', time() ),
+						date( 'Y-m-d H:i:s', $next ) )
+					);
+				} else {
+
+					if ( WPS_DEBUG ) {
+						if ( $scheduled === false ) {
+
+							$event = wp_get_scheduled_event( 'woocommerce_product_search_work' );
+							if ( $event === false ) {
+
+								wps_log_warning( 'Worker could not schedule next work cycle.' );
+							}
+						}
+					}
 				}
 			}
 		}

@@ -3,9 +3,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Post Modules for Elementor v2.2.1\n"
+"Project-Id-Version: WP Post Modules for Elementor v2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-post-modules\n"
-"POT-Creation-Date: 2023-05-18 14:16+0530\n"
+"POT-Creation-Date: 2023-11-13 11:19+0530\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,7 +138,7 @@ msgid "Order by"
 msgstr ""
 
 #: ../includes/widget-wppm.php:255 ../includes/widget-wppm.php:385
-#: ../includes/widget-wppm.php:1875 ../includes/widget-wppm.php:2195
+#: ../includes/widget-wppm.php:1889 ../includes/widget-wppm.php:2209
 msgid "None"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: ../includes/widget-wppm.php:258 ../includes/widget-wppm.php:2211
+#: ../includes/widget-wppm.php:258 ../includes/widget-wppm.php:2225
 msgid "Title"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Post In"
 msgstr ""
 
-#: ../includes/widget-wppm.php:270 ../includes/widget-wppm.php:2931
+#: ../includes/widget-wppm.php:270 ../includes/widget-wppm.php:2945
 msgid "Post Views"
 msgstr ""
 
@@ -341,22 +341,23 @@ msgstr ""
 #: ../includes/widget-wppm.php:485 ../includes/widget-wppm.php:997
 #: ../includes/widget-wppm.php:1012 ../includes/widget-wppm.php:1027
 #: ../includes/widget-wppm.php:1175 ../includes/widget-wppm.php:1237
-#: ../includes/widget-wppm.php:1521 ../includes/widget-wppm.php:1825
-#: ../includes/widget-wppm.php:1888 ../includes/widget-wppm.php:2004
-#: ../includes/widget-wppm.php:2019 ../includes/widget-wppm.php:2047
-#: ../includes/widget-wppm.php:2060 ../includes/widget-wppm.php:2074
-#: ../includes/widget-wppm.php:2098 ../includes/widget-wppm.php:2379
-#: ../includes/widget-wppm.php:2427 ../includes/widget-wppm.php:2555
-#: ../includes/widget-wppm.php:2610 ../includes/widget-wppm.php:2771
-#: ../includes/widget-wppm.php:2886 ../includes/widget-wppm.php:2898
-#: ../includes/widget-wppm.php:2921 ../includes/widget-wppm.php:2933
-#: ../includes/widget-wppm.php:2946 ../includes/widget-wppm.php:3024
-#: ../includes/widget-wppm.php:3057 ../includes/widget-wppm.php:3157
-#: ../includes/widget-wppm.php:3266 ../includes/widget-wppm.php:3348
-#: ../includes/widget-wppm.php:3539 ../includes/widget-wppm.php:3585
-#: ../includes/widget-wppm.php:3719 ../includes/widget-wppm.php:3803
-#: ../includes/widget-wppm.php:3847 ../includes/widget-wppm.php:3861
+#: ../includes/widget-wppm.php:1521 ../includes/widget-wppm.php:1600
+#: ../includes/widget-wppm.php:1839 ../includes/widget-wppm.php:1902
+#: ../includes/widget-wppm.php:2018 ../includes/widget-wppm.php:2033
+#: ../includes/widget-wppm.php:2061 ../includes/widget-wppm.php:2074
+#: ../includes/widget-wppm.php:2088 ../includes/widget-wppm.php:2112
+#: ../includes/widget-wppm.php:2393 ../includes/widget-wppm.php:2441
+#: ../includes/widget-wppm.php:2569 ../includes/widget-wppm.php:2624
+#: ../includes/widget-wppm.php:2785 ../includes/widget-wppm.php:2900
+#: ../includes/widget-wppm.php:2912 ../includes/widget-wppm.php:2935
+#: ../includes/widget-wppm.php:2947 ../includes/widget-wppm.php:2960
+#: ../includes/widget-wppm.php:3038 ../includes/widget-wppm.php:3071
+#: ../includes/widget-wppm.php:3171 ../includes/widget-wppm.php:3280
+#: ../includes/widget-wppm.php:3362 ../includes/widget-wppm.php:3553
+#: ../includes/widget-wppm.php:3599 ../includes/widget-wppm.php:3733
+#: ../includes/widget-wppm.php:3817 ../includes/widget-wppm.php:3861
 #: ../includes/widget-wppm.php:3875 ../includes/widget-wppm.php:3889
+#: ../includes/widget-wppm.php:3903
 msgid "On"
 msgstr ""
 
@@ -365,22 +366,23 @@ msgstr ""
 #: ../includes/widget-wppm.php:486 ../includes/widget-wppm.php:998
 #: ../includes/widget-wppm.php:1013 ../includes/widget-wppm.php:1028
 #: ../includes/widget-wppm.php:1176 ../includes/widget-wppm.php:1238
-#: ../includes/widget-wppm.php:1522 ../includes/widget-wppm.php:1826
-#: ../includes/widget-wppm.php:1889 ../includes/widget-wppm.php:2005
-#: ../includes/widget-wppm.php:2020 ../includes/widget-wppm.php:2048
-#: ../includes/widget-wppm.php:2061 ../includes/widget-wppm.php:2075
-#: ../includes/widget-wppm.php:2099 ../includes/widget-wppm.php:2380
-#: ../includes/widget-wppm.php:2428 ../includes/widget-wppm.php:2556
-#: ../includes/widget-wppm.php:2611 ../includes/widget-wppm.php:2772
-#: ../includes/widget-wppm.php:2887 ../includes/widget-wppm.php:2899
-#: ../includes/widget-wppm.php:2922 ../includes/widget-wppm.php:2934
-#: ../includes/widget-wppm.php:2947 ../includes/widget-wppm.php:3025
-#: ../includes/widget-wppm.php:3058 ../includes/widget-wppm.php:3158
-#: ../includes/widget-wppm.php:3267 ../includes/widget-wppm.php:3349
-#: ../includes/widget-wppm.php:3540 ../includes/widget-wppm.php:3586
-#: ../includes/widget-wppm.php:3720 ../includes/widget-wppm.php:3804
-#: ../includes/widget-wppm.php:3848 ../includes/widget-wppm.php:3862
+#: ../includes/widget-wppm.php:1522 ../includes/widget-wppm.php:1601
+#: ../includes/widget-wppm.php:1840 ../includes/widget-wppm.php:1903
+#: ../includes/widget-wppm.php:2019 ../includes/widget-wppm.php:2034
+#: ../includes/widget-wppm.php:2062 ../includes/widget-wppm.php:2075
+#: ../includes/widget-wppm.php:2089 ../includes/widget-wppm.php:2113
+#: ../includes/widget-wppm.php:2394 ../includes/widget-wppm.php:2442
+#: ../includes/widget-wppm.php:2570 ../includes/widget-wppm.php:2625
+#: ../includes/widget-wppm.php:2786 ../includes/widget-wppm.php:2901
+#: ../includes/widget-wppm.php:2913 ../includes/widget-wppm.php:2936
+#: ../includes/widget-wppm.php:2948 ../includes/widget-wppm.php:2961
+#: ../includes/widget-wppm.php:3039 ../includes/widget-wppm.php:3072
+#: ../includes/widget-wppm.php:3172 ../includes/widget-wppm.php:3281
+#: ../includes/widget-wppm.php:3363 ../includes/widget-wppm.php:3554
+#: ../includes/widget-wppm.php:3600 ../includes/widget-wppm.php:3734
+#: ../includes/widget-wppm.php:3818 ../includes/widget-wppm.php:3862
 #: ../includes/widget-wppm.php:3876 ../includes/widget-wppm.php:3890
+#: ../includes/widget-wppm.php:3904
 msgid "Off"
 msgstr ""
 
@@ -390,22 +392,22 @@ msgstr ""
 #: ../includes/widget-wppm.php:1014 ../includes/widget-wppm.php:1029
 #: ../includes/widget-wppm.php:1177 ../includes/widget-wppm.php:1239
 #: ../includes/widget-wppm.php:1253 ../includes/widget-wppm.php:1523
-#: ../includes/widget-wppm.php:1827 ../includes/widget-wppm.php:1890
-#: ../includes/widget-wppm.php:2006 ../includes/widget-wppm.php:2021
-#: ../includes/widget-wppm.php:2049 ../includes/widget-wppm.php:2062
-#: ../includes/widget-wppm.php:2076 ../includes/widget-wppm.php:2100
-#: ../includes/widget-wppm.php:2381 ../includes/widget-wppm.php:2429
-#: ../includes/widget-wppm.php:2557 ../includes/widget-wppm.php:2613
-#: ../includes/widget-wppm.php:2773 ../includes/widget-wppm.php:2888
-#: ../includes/widget-wppm.php:2900 ../includes/widget-wppm.php:2923
-#: ../includes/widget-wppm.php:2935 ../includes/widget-wppm.php:2948
-#: ../includes/widget-wppm.php:3026 ../includes/widget-wppm.php:3059
-#: ../includes/widget-wppm.php:3159 ../includes/widget-wppm.php:3268
-#: ../includes/widget-wppm.php:3350 ../includes/widget-wppm.php:3541
-#: ../includes/widget-wppm.php:3587 ../includes/widget-wppm.php:3721
-#: ../includes/widget-wppm.php:3805 ../includes/widget-wppm.php:3849
+#: ../includes/widget-wppm.php:1602 ../includes/widget-wppm.php:1841
+#: ../includes/widget-wppm.php:1904 ../includes/widget-wppm.php:2020
+#: ../includes/widget-wppm.php:2035 ../includes/widget-wppm.php:2063
+#: ../includes/widget-wppm.php:2076 ../includes/widget-wppm.php:2090
+#: ../includes/widget-wppm.php:2114 ../includes/widget-wppm.php:2395
+#: ../includes/widget-wppm.php:2443 ../includes/widget-wppm.php:2571
+#: ../includes/widget-wppm.php:2627 ../includes/widget-wppm.php:2787
+#: ../includes/widget-wppm.php:2902 ../includes/widget-wppm.php:2914
+#: ../includes/widget-wppm.php:2937 ../includes/widget-wppm.php:2949
+#: ../includes/widget-wppm.php:2962 ../includes/widget-wppm.php:3040
+#: ../includes/widget-wppm.php:3073 ../includes/widget-wppm.php:3173
+#: ../includes/widget-wppm.php:3282 ../includes/widget-wppm.php:3364
+#: ../includes/widget-wppm.php:3555 ../includes/widget-wppm.php:3601
+#: ../includes/widget-wppm.php:3735 ../includes/widget-wppm.php:3819
 #: ../includes/widget-wppm.php:3863 ../includes/widget-wppm.php:3877
-#: ../includes/widget-wppm.php:3891
+#: ../includes/widget-wppm.php:3891 ../includes/widget-wppm.php:3905
 msgid "true"
 msgstr ""
 
@@ -459,8 +461,8 @@ msgstr ""
 msgid "Provide a text which shall be displayed if no posts found."
 msgstr ""
 
-#: ../includes/widget-wppm.php:466 ../includes/widget-wppm.php:4036
-#: ../wp-post-modules-el.php:243
+#: ../includes/widget-wppm.php:466 ../includes/widget-wppm.php:4050
+#: ../wp-post-modules-el.php:245
 msgid "No posts found."
 msgstr ""
 
@@ -703,8 +705,8 @@ msgstr ""
 msgid "Ticker label"
 msgstr ""
 
-#: ../includes/widget-wppm.php:781 ../includes/widget-wppm.php:4158
-#: ../wp-post-modules-el.php:357
+#: ../includes/widget-wppm.php:781 ../includes/widget-wppm.php:4173
+#: ../wp-post-modules-el.php:360
 msgid "Breaking News"
 msgstr ""
 
@@ -816,7 +818,7 @@ msgstr ""
 msgid "Image and content ratio (%)"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1057 ../includes/widget-wppm.php:1967
+#: ../includes/widget-wppm.php:1057 ../includes/widget-wppm.php:1981
 msgid "Select image width (in %) when image and content are inline."
 msgstr ""
 
@@ -828,7 +830,7 @@ msgstr ""
 msgid "Content Background"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1087 ../includes/widget-wppm.php:1771
+#: ../includes/widget-wppm.php:1087 ../includes/widget-wppm.php:1784
 msgid "Content Padding"
 msgstr ""
 
@@ -836,7 +838,7 @@ msgstr ""
 msgid "Padding for the post container."
 msgstr ""
 
-#: ../includes/widget-wppm.php:1101 ../includes/widget-wppm.php:1797
+#: ../includes/widget-wppm.php:1101 ../includes/widget-wppm.php:1810
 msgid "Content Border Radius"
 msgstr ""
 
@@ -968,19 +970,19 @@ msgstr ""
 msgid "Content Position"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1364 ../includes/widget-wppm.php:1689
+#: ../includes/widget-wppm.php:1364 ../includes/widget-wppm.php:1702
 msgid "Default"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1365 ../includes/widget-wppm.php:1690
+#: ../includes/widget-wppm.php:1365 ../includes/widget-wppm.php:1703
 msgid "Top"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1366 ../includes/widget-wppm.php:1691
+#: ../includes/widget-wppm.php:1366 ../includes/widget-wppm.php:1704
 msgid "Middle"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1367 ../includes/widget-wppm.php:1692
+#: ../includes/widget-wppm.php:1367 ../includes/widget-wppm.php:1705
 msgid "Bottom"
 msgstr ""
 
@@ -1042,180 +1044,190 @@ msgstr ""
 msgid "Select spacing between counter and content."
 msgstr ""
 
-#: ../includes/widget-wppm.php:1599
+#: ../includes/widget-wppm.php:1598
+msgid "Open links in new Tab/Window"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1603
+msgid ""
+"If enabled, all permalinks (post, author, category, etc.) will open in new "
+"tab/window."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1612
 msgid "Overlay Content"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1611 ../includes/widget-wppm.php:2632
+#: ../includes/widget-wppm.php:1624 ../includes/widget-wppm.php:2646
 msgid "Normal"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1628 ../includes/widget-wppm.php:2662
+#: ../includes/widget-wppm.php:1641 ../includes/widget-wppm.php:2676
 msgid "Hover"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1643
+#: ../includes/widget-wppm.php:1656
 msgid "Transition Duration"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1668
+#: ../includes/widget-wppm.php:1681
 msgid "Show Content"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1672
+#: ../includes/widget-wppm.php:1685
 msgid "Always"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1673
+#: ../includes/widget-wppm.php:1686
 msgid "On Hover"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1674
+#: ../includes/widget-wppm.php:1687
 msgid "Never"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1678
+#: ../includes/widget-wppm.php:1691
 msgid "Select content visibility."
 msgstr ""
 
-#: ../includes/widget-wppm.php:1686
+#: ../includes/widget-wppm.php:1699
 msgid "Content position"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1703
+#: ../includes/widget-wppm.php:1716
 msgid "Content Width"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1737
+#: ../includes/widget-wppm.php:1750
 msgid "Content Height"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1784
+#: ../includes/widget-wppm.php:1797
 msgid "Content Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1803
+#: ../includes/widget-wppm.php:1816
 msgid "Select border radius for overlay content."
 msgstr ""
 
-#: ../includes/widget-wppm.php:1812
+#: ../includes/widget-wppm.php:1826
 msgid "Images"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1822
+#: ../includes/widget-wppm.php:1836
 msgid "Post thumbnail"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1823
+#: ../includes/widget-wppm.php:1837
 msgid "Whether to show post thumbnails."
 msgstr ""
 
-#: ../includes/widget-wppm.php:1835
+#: ../includes/widget-wppm.php:1849
 msgid "Image Source"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1838
+#: ../includes/widget-wppm.php:1852
 msgid "Featured Image"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1839 ../includes/widget-wppm.php:2243
-#: ../includes/widget-wppm.php:2393
+#: ../includes/widget-wppm.php:1853 ../includes/widget-wppm.php:2257
+#: ../includes/widget-wppm.php:2407
 msgid "Meta Box"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1840 ../includes/widget-wppm.php:2244
-#: ../includes/widget-wppm.php:2394
+#: ../includes/widget-wppm.php:1854 ../includes/widget-wppm.php:2258
+#: ../includes/widget-wppm.php:2408
 msgid "Custom Field"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1843 ../includes/widget-wppm.php:2247
+#: ../includes/widget-wppm.php:1857 ../includes/widget-wppm.php:2261
 msgid "Select source for the title text"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1850 ../includes/widget-wppm.php:2254
-#: ../includes/widget-wppm.php:2414
+#: ../includes/widget-wppm.php:1864 ../includes/widget-wppm.php:2268
+#: ../includes/widget-wppm.php:2428
 msgid "Meta box key name"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1852 ../includes/widget-wppm.php:2256
-#: ../includes/widget-wppm.php:2416
+#: ../includes/widget-wppm.php:1866 ../includes/widget-wppm.php:2270
+#: ../includes/widget-wppm.php:2430
 msgid "Provide key name of meta box or options panel. E.g. my_theme_meta_box"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1860 ../includes/widget-wppm.php:2264
-#: ../includes/widget-wppm.php:2438
+#: ../includes/widget-wppm.php:1874 ../includes/widget-wppm.php:2278
+#: ../includes/widget-wppm.php:2452
 msgid "Custom field key name"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1862 ../includes/widget-wppm.php:2266
+#: ../includes/widget-wppm.php:1876 ../includes/widget-wppm.php:2280
 msgid "Provide custom field key name. E.g. my_title"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1870
+#: ../includes/widget-wppm.php:1884
 msgid "Image link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1873
+#: ../includes/widget-wppm.php:1887
 msgid "Permalink"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1874
+#: ../includes/widget-wppm.php:1888
 msgid "Media File"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1886
+#: ../includes/widget-wppm.php:1900
 msgid "Lightbox"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1898
+#: ../includes/widget-wppm.php:1912
 msgid "Image Alignment"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1902 ../includes/widget-wppm.php:2152
-#: ../includes/widget-wppm.php:2314 ../includes/widget-wppm.php:2479
-#: ../includes/widget-wppm.php:2585 ../includes/widget-wppm.php:3385
+#: ../includes/widget-wppm.php:1916 ../includes/widget-wppm.php:2166
+#: ../includes/widget-wppm.php:2328 ../includes/widget-wppm.php:2493
+#: ../includes/widget-wppm.php:2599 ../includes/widget-wppm.php:3399
 msgid "Left"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1906 ../includes/widget-wppm.php:2161
-#: ../includes/widget-wppm.php:2323 ../includes/widget-wppm.php:2488
-#: ../includes/widget-wppm.php:2594 ../includes/widget-wppm.php:3393
+#: ../includes/widget-wppm.php:1920 ../includes/widget-wppm.php:2175
+#: ../includes/widget-wppm.php:2337 ../includes/widget-wppm.php:2502
+#: ../includes/widget-wppm.php:2608 ../includes/widget-wppm.php:3407
 msgid "Right"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1921
+#: ../includes/widget-wppm.php:1935
 msgid "Image Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1934
+#: ../includes/widget-wppm.php:1948
 msgid "Image Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1947
+#: ../includes/widget-wppm.php:1961
 msgid "Image and Content ratio (%)"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1975
+#: ../includes/widget-wppm.php:1989
 msgid "Image Width"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1980
+#: ../includes/widget-wppm.php:1994
 msgid "Image width in px (without unit). E.g. 600"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1988
+#: ../includes/widget-wppm.php:2002
 msgid "Image Height"
 msgstr ""
 
-#: ../includes/widget-wppm.php:1993
+#: ../includes/widget-wppm.php:2007
 msgid "Image height in px (without unit). E.g. 400"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2002
+#: ../includes/widget-wppm.php:2016
 msgid "Enable BFI Thumb"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2007
+#: ../includes/widget-wppm.php:2021
 msgid ""
 "If enabled, images will be resized on-the-fly. If not, you can use <a href="
 "\"https://wordpress.org/plugins/otf-regenerate-thumbnails/\" target=\"_blank"
@@ -1223,1116 +1235,1116 @@ msgid ""
 "specified in these options."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2016
+#: ../includes/widget-wppm.php:2030
 msgid "Hard Crop Images"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2017
+#: ../includes/widget-wppm.php:2031
 msgid "Whether to hard crop images. Requires BFI to be enabled."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2029
+#: ../includes/widget-wppm.php:2043
 msgid "Image Quality"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2035
+#: ../includes/widget-wppm.php:2049
 msgid "Image quality in range 1 to 100. E.g. 75. *Requires BFI to be enabled."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2044
+#: ../includes/widget-wppm.php:2058
 msgid "Convert images to grayscale"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2045
+#: ../includes/widget-wppm.php:2059
 msgid "*Requires BFI to be enabled."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2058
+#: ../includes/widget-wppm.php:2072
 msgid "Enable video embeds"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2063
+#: ../includes/widget-wppm.php:2077
 msgid "The first video placed in post content will be shown."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2072
+#: ../includes/widget-wppm.php:2086
 msgid "Post format icon"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2083
+#: ../includes/widget-wppm.php:2097
 msgid "Select image Size"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2087
+#: ../includes/widget-wppm.php:2101
 msgid ""
 "Select an image size. This setting will override custom image sizes and hard "
 "cropping."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2096
+#: ../includes/widget-wppm.php:2110
 msgid "Post thumbnail captions"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2107
+#: ../includes/widget-wppm.php:2121
 msgid "Caption Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2121
+#: ../includes/widget-wppm.php:2135
 msgid "Caption Typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2129
+#: ../includes/widget-wppm.php:2143
 msgid "Caption text color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2138
+#: ../includes/widget-wppm.php:2152
 msgid "Caption background color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2147
+#: ../includes/widget-wppm.php:2161
 msgid "Caption Align"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2148
+#: ../includes/widget-wppm.php:2162
 msgid "* Not applicable to Tile display style"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2156 ../includes/widget-wppm.php:2318
-#: ../includes/widget-wppm.php:2483 ../includes/widget-wppm.php:2589
-#: ../includes/widget-wppm.php:3389
+#: ../includes/widget-wppm.php:2170 ../includes/widget-wppm.php:2332
+#: ../includes/widget-wppm.php:2497 ../includes/widget-wppm.php:2603
+#: ../includes/widget-wppm.php:3403
 msgid "Center"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2166 ../includes/widget-wppm.php:2328
-#: ../includes/widget-wppm.php:2493
+#: ../includes/widget-wppm.php:2180 ../includes/widget-wppm.php:2342
+#: ../includes/widget-wppm.php:2507
 msgid "Justified"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2179
+#: ../includes/widget-wppm.php:2193
 msgid "Image border radius"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2192
+#: ../includes/widget-wppm.php:2206
 msgid "Image Effect"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2196
+#: ../includes/widget-wppm.php:2210
 msgid "ZoomIn"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2197
+#: ../includes/widget-wppm.php:2211
 msgid "ZoomOut"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2198
+#: ../includes/widget-wppm.php:2212
 msgid "ZoomInRotate"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2199
+#: ../includes/widget-wppm.php:2213
 msgid "FadeOut"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2202
+#: ../includes/widget-wppm.php:2216
 msgid "Select image effect on hover."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2220
+#: ../includes/widget-wppm.php:2234
 msgid "Title tag"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2223 ../includes/widget-wppm.php:2451
+#: ../includes/widget-wppm.php:2237 ../includes/widget-wppm.php:2465
 msgid "h1"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2224 ../includes/widget-wppm.php:2452
+#: ../includes/widget-wppm.php:2238 ../includes/widget-wppm.php:2466
 msgid "h2"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2225 ../includes/widget-wppm.php:2453
+#: ../includes/widget-wppm.php:2239 ../includes/widget-wppm.php:2467
 msgid "h3"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2226 ../includes/widget-wppm.php:2454
+#: ../includes/widget-wppm.php:2240 ../includes/widget-wppm.php:2468
 msgid "h4"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2227 ../includes/widget-wppm.php:2455
+#: ../includes/widget-wppm.php:2241 ../includes/widget-wppm.php:2469
 msgid "h5"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2228 ../includes/widget-wppm.php:2456
+#: ../includes/widget-wppm.php:2242 ../includes/widget-wppm.php:2470
 msgid "h6"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2229 ../includes/widget-wppm.php:2457
+#: ../includes/widget-wppm.php:2243 ../includes/widget-wppm.php:2471
 msgid "p"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2232
+#: ../includes/widget-wppm.php:2246
 msgid "Select html tag for post title."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2239
+#: ../includes/widget-wppm.php:2253
 msgid "Title Source"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2242
+#: ../includes/widget-wppm.php:2256
 msgid "Post Title"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2274
+#: ../includes/widget-wppm.php:2288
 msgid "Title heading color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2277
+#: ../includes/widget-wppm.php:2291
 msgid "Choose color for title heading"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2284
+#: ../includes/widget-wppm.php:2298
 msgid "Title heading hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2287
+#: ../includes/widget-wppm.php:2301
 msgid "Choose hover color for title heading"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2310
+#: ../includes/widget-wppm.php:2324
 msgid "Title Align"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2341
+#: ../includes/widget-wppm.php:2355
 msgid "Title length"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2346
+#: ../includes/widget-wppm.php:2360
 msgid "Provide a word length to which the title shall be trimmed. E.g. 8"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2353
+#: ../includes/widget-wppm.php:2367
 msgid "Title Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2359
+#: ../includes/widget-wppm.php:2373
 msgid "Select margin for post title."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2367
+#: ../includes/widget-wppm.php:2381
 msgid "Excerpt"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2377
+#: ../includes/widget-wppm.php:2391
 msgid "Post excerpt"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2388
+#: ../includes/widget-wppm.php:2402
 msgid "Post text source"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2391
+#: ../includes/widget-wppm.php:2405
 msgid "Excerpt (trimmed)"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2392
+#: ../includes/widget-wppm.php:2406
 msgid "Content (with allowed tags)"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2397
+#: ../includes/widget-wppm.php:2411
 msgid ""
 "Select a source for post text. If chosen Excerpt, text will be stripped from "
 "custom excerpt or content. If chosen as Content, text is trimmed from post "
 "content with allowed tags."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2404
+#: ../includes/widget-wppm.php:2418
 msgid "Allowed tags for post text"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2406
+#: ../includes/widget-wppm.php:2420
 msgid ""
 "Provide allowed tags for post text when stripped from content. E.g. p,a,"
 "strong,br,span,div"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2425
+#: ../includes/widget-wppm.php:2439
 msgid "Retain content formatting from source"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2430
+#: ../includes/widget-wppm.php:2444
 msgid "Enabling this option will retain p and br tags coming from source."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2440
+#: ../includes/widget-wppm.php:2454
 msgid "Provide custom field key name. E.g. my_content"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2448
+#: ../includes/widget-wppm.php:2462
 msgid "Post text tag"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2458
+#: ../includes/widget-wppm.php:2472
 msgid "span"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2459
+#: ../includes/widget-wppm.php:2473
 msgid "div"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2462
+#: ../includes/widget-wppm.php:2476
 msgid "Select html tag for post text."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2475
+#: ../includes/widget-wppm.php:2489
 msgid "Text Align"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2506
+#: ../includes/widget-wppm.php:2520
 msgid "Post excerpt color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2515
+#: ../includes/widget-wppm.php:2529
 msgid "Post text length"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2521
+#: ../includes/widget-wppm.php:2535
 msgid "Post text length in words. E.g. 10"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2528
+#: ../includes/widget-wppm.php:2542
 msgid "Excerpt Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2534
+#: ../includes/widget-wppm.php:2548
 msgid "Select margin for post excerpt."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2543
+#: ../includes/widget-wppm.php:2557
 msgid "Post Meta"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2553
+#: ../includes/widget-wppm.php:2567
 msgid "Category links"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2564
+#: ../includes/widget-wppm.php:2578
 msgid "Links limit"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2567
+#: ../includes/widget-wppm.php:2581
 msgid "Limit category links to."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2579
+#: ../includes/widget-wppm.php:2593
 msgid "Post Meta align"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2580
+#: ../includes/widget-wppm.php:2594
 msgid ""
 "* Not applicable when two columns are shown in post meta. i.e Cat links + "
 "Review stars. Or date meta + comments."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2608
+#: ../includes/widget-wppm.php:2622
 msgid "More links dropdown"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2612
+#: ../includes/widget-wppm.php:2626
 msgid ""
 "Whether to show a more categories dropdown if there are more categories to "
 "display than the specified limit."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2620
+#: ../includes/widget-wppm.php:2634
 msgid "Category Link Colors"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2640
+#: ../includes/widget-wppm.php:2654
 msgid "Category links color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2650
+#: ../includes/widget-wppm.php:2664
 msgid "Category links background"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2670
+#: ../includes/widget-wppm.php:2684
 msgid "Category links hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2680
+#: ../includes/widget-wppm.php:2694
 msgid "Category links hover background"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2694
+#: ../includes/widget-wppm.php:2708
 msgid "Cat links Typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2704
+#: ../includes/widget-wppm.php:2718
 msgid "Links Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2717
+#: ../includes/widget-wppm.php:2731
 msgid "Links Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2730
+#: ../includes/widget-wppm.php:2744
 msgid "Links row z-index"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2742 ../includes/widget-wppm.php:2869
+#: ../includes/widget-wppm.php:2756 ../includes/widget-wppm.php:2883
 msgid "Border radius"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2755
+#: ../includes/widget-wppm.php:2769
 msgid "Cat links row margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2769 ../includes/widget-wppm.php:2790
+#: ../includes/widget-wppm.php:2783 ../includes/widget-wppm.php:2804
 msgid "Readmore link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2780
+#: ../includes/widget-wppm.php:2794
 msgid "Readmore text"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2782 ../includes/widget-wppm.php:4056
-#: ../includes/wppm.functions.php:75 ../wp-post-modules-el.php:262
+#: ../includes/widget-wppm.php:2796 ../includes/widget-wppm.php:4070
+#: ../includes/wppm.functions.php:75 ../wp-post-modules-el.php:264
 msgid "Read more"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2801
+#: ../includes/widget-wppm.php:2815
 msgid "Readmore link Typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2811
+#: ../includes/widget-wppm.php:2825
 msgid "Readmore link color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2814
+#: ../includes/widget-wppm.php:2828
 msgid "Choose foreground color for readmore link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2822
+#: ../includes/widget-wppm.php:2836
 msgid "Readmore link hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2825
+#: ../includes/widget-wppm.php:2839
 msgid "Choose foreground hover color for readmore link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2833
+#: ../includes/widget-wppm.php:2847
 msgid "Readmore link background color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2836
+#: ../includes/widget-wppm.php:2850
 msgid "Choose background color for readmore link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2844
+#: ../includes/widget-wppm.php:2858
 msgid "Readmore link background hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2847
+#: ../includes/widget-wppm.php:2861
 msgid "Choose background hover color for readmore link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2855
+#: ../includes/widget-wppm.php:2869
 msgid "Link Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2861
+#: ../includes/widget-wppm.php:2875
 msgid "Select padding for readmore link."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2875
+#: ../includes/widget-wppm.php:2889
 msgid "Select border radius for readmore link."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2884
+#: ../includes/widget-wppm.php:2898
 msgid "Author link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2896
+#: ../includes/widget-wppm.php:2910
 msgid "Post date"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2907
+#: ../includes/widget-wppm.php:2921
 msgid "Date Format"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2911
+#: ../includes/widget-wppm.php:2925
 msgid "Use a valid date format for showing date. E.g. F j, Y."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2919
+#: ../includes/widget-wppm.php:2933
 msgid "Comments link"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2936
+#: ../includes/widget-wppm.php:2950
 msgid "Requires Post Views Counter Plugin."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2944
+#: ../includes/widget-wppm.php:2958
 msgid "Reviews"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2949
+#: ../includes/widget-wppm.php:2963
 msgid "Requires WP Review Plugin."
 msgstr ""
 
-#: ../includes/widget-wppm.php:2957
+#: ../includes/widget-wppm.php:2971
 msgid "Review text typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2967
+#: ../includes/widget-wppm.php:2981
 msgid "Review Stars Size"
 msgstr ""
 
-#: ../includes/widget-wppm.php:2997
+#: ../includes/widget-wppm.php:3011
 msgid "Stars background color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3009
+#: ../includes/widget-wppm.php:3023
 msgid "Stars front color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3022
+#: ../includes/widget-wppm.php:3036
 msgid "Author Avatar"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3034
+#: ../includes/widget-wppm.php:3048
 msgid "Avatar Size"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3055
+#: ../includes/widget-wppm.php:3069
 msgid "Avatar Position Absolute"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3068
+#: ../includes/widget-wppm.php:3082
 msgid "Avatar Offset Left"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3098
+#: ../includes/widget-wppm.php:3112
 msgid "Avatar Offset Top"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3128
+#: ../includes/widget-wppm.php:3142
 msgid "Avatar border radius"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3141
+#: ../includes/widget-wppm.php:3155
 msgid "Avatar Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3155
+#: ../includes/widget-wppm.php:3169
 msgid "Custom Post Meta"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3167
+#: ../includes/widget-wppm.php:3181
 msgid "Custom meta format"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3169
+#: ../includes/widget-wppm.php:3183
 #, php-format
 msgid ""
 "Use %1$s, %2$s, %3$s, %4$s, %5$s and %6$s for Author, Date, Updated date, "
 "Categories, Comments, and Permalink respectively. E.g. Posted by %1$s in %2$s"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3171
+#: ../includes/widget-wppm.php:3185
 #, php-format
 msgid "By %1$s in %4$s"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3179
+#: ../includes/widget-wppm.php:3193
 msgid "Custom Meta Position"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3182
+#: ../includes/widget-wppm.php:3196
 msgid "Before Title"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3183
+#: ../includes/widget-wppm.php:3197
 msgid "After Title"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3184
+#: ../includes/widget-wppm.php:3198
 msgid "After Excerpt"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3188
+#: ../includes/widget-wppm.php:3202
 msgid "Select position for meta placement."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3197
+#: ../includes/widget-wppm.php:3211
 msgid "Post Meta text and links"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3207
+#: ../includes/widget-wppm.php:3221
 msgid "Post Meta Typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3216
+#: ../includes/widget-wppm.php:3230
 msgid "Post meta links color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3222
+#: ../includes/widget-wppm.php:3236
 msgid "Choose foreground color for post meta links."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3229
+#: ../includes/widget-wppm.php:3243
 msgid "Post meta links hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3232
+#: ../includes/widget-wppm.php:3246
 msgid "Choose foreground hover color for post meta links."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3239
+#: ../includes/widget-wppm.php:3253
 msgid "Post Meta Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3245
+#: ../includes/widget-wppm.php:3259
 msgid "Select margin for post meta."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3254
+#: ../includes/widget-wppm.php:3268
 msgid "Social"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3264
+#: ../includes/widget-wppm.php:3278
 msgid "Enable social sharing for post modules"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3275
+#: ../includes/widget-wppm.php:3289
 msgid "Share style"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3278
+#: ../includes/widget-wppm.php:3292
 msgid "Popup"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3279
+#: ../includes/widget-wppm.php:3293
 msgid "Inline"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3282
+#: ../includes/widget-wppm.php:3296
 msgid "Select a style for social sharing buttons"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3289
+#: ../includes/widget-wppm.php:3303
 msgid "Social sharing buttons"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3292 ../includes/wppm.functions.php:433
-#: ../includes/wppm.functions.php:579 ../includes/wppm.functions.php:774
-msgid "Twitter"
+#: ../includes/widget-wppm.php:3306 ../includes/wppm.functions.php:606
+#: ../includes/wppm.functions.php:801
+msgid "X (Twitter)"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3293 ../includes/wppm.functions.php:437
-#: ../includes/wppm.functions.php:583 ../includes/wppm.functions.php:778
+#: ../includes/widget-wppm.php:3307 ../includes/wppm.functions.php:450
+#: ../includes/wppm.functions.php:610 ../includes/wppm.functions.php:805
 msgid "Facebook"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3294 ../includes/wppm.functions.php:442
-#: ../includes/wppm.functions.php:588 ../includes/wppm.functions.php:783
+#: ../includes/widget-wppm.php:3308 ../includes/wppm.functions.php:455
+#: ../includes/wppm.functions.php:615 ../includes/wppm.functions.php:810
 msgid "Whatsapp"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3295 ../includes/wppm.functions.php:593
+#: ../includes/widget-wppm.php:3309 ../includes/wppm.functions.php:620
 msgid "Google Plus"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3296 ../includes/wppm.functions.php:451
-#: ../includes/wppm.functions.php:597 ../includes/wppm.functions.php:788
+#: ../includes/widget-wppm.php:3310 ../includes/wppm.functions.php:464
+#: ../includes/wppm.functions.php:624 ../includes/wppm.functions.php:815
 msgid "LinkedIn"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3298 ../includes/wppm.functions.php:460
-#: ../includes/wppm.functions.php:606 ../includes/wppm.functions.php:797
+#: ../includes/widget-wppm.php:3312 ../includes/wppm.functions.php:473
+#: ../includes/wppm.functions.php:633 ../includes/wppm.functions.php:824
 msgid "Pinterest"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3299
+#: ../includes/widget-wppm.php:3313
 msgid "VK Ontakte"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3300 ../includes/wppm.functions.php:469
-#: ../includes/wppm.functions.php:641 ../includes/wppm.functions.php:836
+#: ../includes/widget-wppm.php:3314 ../includes/wppm.functions.php:482
+#: ../includes/wppm.functions.php:668 ../includes/wppm.functions.php:863
 msgid "Reddit"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3301
+#: ../includes/widget-wppm.php:3315
 msgid "Digg"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3302 ../includes/wppm.functions.php:637
-#: ../includes/wppm.functions.php:832
+#: ../includes/widget-wppm.php:3316 ../includes/wppm.functions.php:664
+#: ../includes/wppm.functions.php:859
 msgid "Tumblr"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3303 ../includes/wppm.functions.php:648
-#: ../includes/wppm.functions.php:843
+#: ../includes/widget-wppm.php:3317 ../includes/wppm.functions.php:675
+#: ../includes/wppm.functions.php:870
 msgid "Stumbleupon"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3304 ../includes/wppm.functions.php:656
-#: ../includes/wppm.functions.php:851
+#: ../includes/widget-wppm.php:3318 ../includes/wppm.functions.php:683
+#: ../includes/wppm.functions.php:878
 msgid "Yahoo"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3305
+#: ../includes/widget-wppm.php:3319
 msgid "GetPocket"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3306 ../includes/wppm.functions.php:670
-#: ../includes/wppm.functions.php:865
+#: ../includes/widget-wppm.php:3320 ../includes/wppm.functions.php:697
+#: ../includes/wppm.functions.php:892
 msgid "Skype"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3307 ../includes/wppm.functions.php:678
-#: ../includes/wppm.functions.php:873
+#: ../includes/widget-wppm.php:3321 ../includes/wppm.functions.php:705
+#: ../includes/wppm.functions.php:900
 msgid "Telegram"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3308 ../includes/wppm.functions.php:685
-#: ../includes/wppm.functions.php:880
+#: ../includes/widget-wppm.php:3322 ../includes/wppm.functions.php:712
+#: ../includes/wppm.functions.php:907
 msgid "Xing"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3309
+#: ../includes/widget-wppm.php:3323
 msgid "Ren Ren"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3310
+#: ../includes/widget-wppm.php:3324
 msgid "E Mail"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3313
+#: ../includes/widget-wppm.php:3327
 msgid ""
 "Select social share buttons. Use Ctrl + Select or Command + select for "
 "mutiple selection."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3321
+#: ../includes/widget-wppm.php:3335
 msgid "Links outer margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3336
+#: ../includes/widget-wppm.php:3350
 msgid "Ajax Options"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3346
+#: ../includes/widget-wppm.php:3360
 msgid "Enable ajax navigation on post module"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3351
+#: ../includes/widget-wppm.php:3365
 msgid "This will add next/prev ajax navigation for loading more posts"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3359
+#: ../includes/widget-wppm.php:3373
 msgid "Navigation Position"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3363
+#: ../includes/widget-wppm.php:3377
 msgid "Above"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3367
+#: ../includes/widget-wppm.php:3381
 msgid "Below"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3381
+#: ../includes/widget-wppm.php:3395
 msgid "Navigation Align"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3407
+#: ../includes/widget-wppm.php:3421
 msgid "Navigation row margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3420
+#: ../includes/widget-wppm.php:3434
 msgid "Nav button text color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3432
+#: ../includes/widget-wppm.php:3446
 msgid "Nav button text hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3444
+#: ../includes/widget-wppm.php:3458
 msgid "Nav button text background color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3456
+#: ../includes/widget-wppm.php:3470
 msgid "Nav button text background hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3468
+#: ../includes/widget-wppm.php:3482
 msgid "Nav arrow size"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3510
+#: ../includes/widget-wppm.php:3524
 msgid "Nav Button Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3523
+#: ../includes/widget-wppm.php:3537
 msgid "Nav button border radius"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3537
+#: ../includes/widget-wppm.php:3551
 msgid "Show ajax navigation status"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3549
+#: ../includes/widget-wppm.php:3563
 msgid "Ajax navigation status text"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3551
+#: ../includes/widget-wppm.php:3565
 msgid ""
 "Provide nav status text in format %current% of %total%. The %current% and "
 "%total% will be replaced by current page and total page number. E.g. Showing "
 "%current% out of %total% pages"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3560
+#: ../includes/widget-wppm.php:3574
 msgid "Status text typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3570
+#: ../includes/widget-wppm.php:3584
 msgid "Nav status color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3583
+#: ../includes/widget-wppm.php:3597
 msgid "Enable ajax loadmore on post module"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3588
+#: ../includes/widget-wppm.php:3602
 msgid ""
 "This will add a loadmore button at the end of posts. Important: Use this "
 "option only if ajax navigation is not enabled. Both options will not work "
 "together."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3596
+#: ../includes/widget-wppm.php:3610
 msgid "Loadmore button text"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3598 ../includes/widget-wppm.php:4140
-#: ../wp-post-modules-el.php:339
+#: ../includes/widget-wppm.php:3612 ../includes/widget-wppm.php:4154
+#: ../wp-post-modules-el.php:341
 msgid "Load more"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3599
+#: ../includes/widget-wppm.php:3613
 msgid "Provide custom text for the loadmore button"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3608
+#: ../includes/widget-wppm.php:3622
 msgid "Loadmore Button Typography"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3618
+#: ../includes/widget-wppm.php:3632
 msgid "Button text color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3630
+#: ../includes/widget-wppm.php:3644
 msgid "Button text hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3642
+#: ../includes/widget-wppm.php:3656
 msgid "Button text background color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3654
+#: ../includes/widget-wppm.php:3668
 msgid "Button text background hover color"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3666
+#: ../includes/widget-wppm.php:3680
 msgid "Button Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3679
+#: ../includes/widget-wppm.php:3693
 msgid "Button Margin"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3692
+#: ../includes/widget-wppm.php:3706
 msgid "Button border radius"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3707
+#: ../includes/widget-wppm.php:3721
 msgid "Slider Options"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3717
+#: ../includes/widget-wppm.php:3731
 msgid "Enable Slider for this template"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3729
+#: ../includes/widget-wppm.php:3743
 msgid "Slides per view"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3748
+#: ../includes/widget-wppm.php:3762
 msgid "Provide number of slides to show per viewport. E.g. 3"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3757
+#: ../includes/widget-wppm.php:3771
 msgid "Slides Spacing"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3776
+#: ../includes/widget-wppm.php:3790
 msgid "Choose space between each slide (in px). E.g. 10"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3785
+#: ../includes/widget-wppm.php:3799
 msgid "Stage Padding"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3792
+#: ../includes/widget-wppm.php:3806
 msgid "The left and right padding style (in px) onto stage wrapper"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3801
+#: ../includes/widget-wppm.php:3815
 msgid "Auto Play"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3806
+#: ../includes/widget-wppm.php:3820
 msgid "Whether to start slider auotmatically?"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3814
+#: ../includes/widget-wppm.php:3828
 msgid "Autoplay Timeout"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3821
+#: ../includes/widget-wppm.php:3835
 msgid "Time (in miliseconds), for how long slides should stay visible."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3829
+#: ../includes/widget-wppm.php:3843
 msgid "Animation Speed"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3836
+#: ../includes/widget-wppm.php:3850
 msgid "Provide animation speed (in miliseconds). E.g. 300"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3845
+#: ../includes/widget-wppm.php:3859
 msgid "Auto Height"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3850
+#: ../includes/widget-wppm.php:3864
 msgid "Whether to enable dynamic smooth height for slider?"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3859
+#: ../includes/widget-wppm.php:3873
 msgid "Loop Animation"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3864
+#: ../includes/widget-wppm.php:3878
 msgid "Whether to loop slides infinitely?"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3873
+#: ../includes/widget-wppm.php:3887
 msgid "Prev / Next Buttons"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3878
+#: ../includes/widget-wppm.php:3892
 msgid "Whether to show prev/next buttons?"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3887
+#: ../includes/widget-wppm.php:3901
 msgid "Dots Navigation"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3892
+#: ../includes/widget-wppm.php:3906
 msgid "Whether to show dots navigation?"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3900
+#: ../includes/widget-wppm.php:3914
 msgid "Dots Size"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3934
+#: ../includes/widget-wppm.php:3948
 msgid "Select dot size."
 msgstr ""
 
-#: ../includes/widget-wppm.php:3942
+#: ../includes/widget-wppm.php:3956
 msgid "Dots Spacing"
 msgstr ""
 
-#: ../includes/widget-wppm.php:3976
+#: ../includes/widget-wppm.php:3990
 msgid "Select spacing between dots."
 msgstr ""
 
-#: ../includes/wppm-templates/bullet-list.php:61
-#: ../includes/wppm-templates/grid.php:169
-#: ../includes/wppm-templates/list.php:159
-#: ../includes/wppm-templates/tile.php:163
+#: ../includes/wppm-templates/bullet-list.php:62
+#: ../includes/wppm-templates/grid.php:171
+#: ../includes/wppm-templates/list.php:161
+#: ../includes/wppm-templates/tile.php:165
 msgid "Prev"
 msgstr ""
 
-#: ../includes/wppm-templates/bullet-list.php:62
-#: ../includes/wppm-templates/grid.php:170
-#: ../includes/wppm-templates/list.php:160
-#: ../includes/wppm-templates/tile.php:164
+#: ../includes/wppm-templates/bullet-list.php:63
+#: ../includes/wppm-templates/grid.php:172
+#: ../includes/wppm-templates/list.php:162
+#: ../includes/wppm-templates/tile.php:166
 msgid "Next"
 msgstr ""
 
-#: ../includes/wppm.functions.php:109
+#: ../includes/wppm.functions.php:110
 #, php-format
 msgctxt "human time difference. E.g. 10 days ago"
 msgid "%s ago"
 msgstr ""
 
-#: ../includes/wppm.functions.php:132
+#: ../includes/wppm.functions.php:133
 #, php-format
 msgctxt "more count for category list"
 msgid "+ %d more"
 msgstr ""
 
-#: ../includes/wppm.functions.php:162
+#: ../includes/wppm.functions.php:171
 #, php-format
 msgid "More posts by %s"
 msgstr ""
 
-#: ../includes/wppm.functions.php:191
+#: ../includes/wppm.functions.php:201
 msgctxt "Used before post author name."
 msgid "Author"
 msgstr ""
 
-#: ../includes/wppm.functions.php:204 ../includes/wppm.functions.php:510
+#: ../includes/wppm.functions.php:215 ../includes/wppm.functions.php:530
 #, php-format
 msgid "Comment on %s"
 msgstr ""
 
-#: ../includes/wppm.functions.php:424 ../includes/wppm.functions.php:722
-#: ../includes/wppm.functions.php:729 ../includes/wppm.functions.php:919
-#: ../includes/wppm.functions.php:926
+#: ../includes/wppm.functions.php:437 ../includes/wppm.functions.php:749
+#: ../includes/wppm.functions.php:756 ../includes/wppm.functions.php:946
+#: ../includes/wppm.functions.php:953
 msgid "Share this post"
 msgstr ""
 
-#: ../includes/wppm.functions.php:433 ../includes/wppm.functions.php:579
-#: ../includes/wppm.functions.php:774
-msgid "Share on twitter"
+#: ../includes/wppm.functions.php:446 ../includes/wppm.functions.php:606
+#: ../includes/wppm.functions.php:801
+msgid "Share on X (Twitter)"
 msgstr ""
 
-#: ../includes/wppm.functions.php:437 ../includes/wppm.functions.php:583
-#: ../includes/wppm.functions.php:778
+#: ../includes/wppm.functions.php:450 ../includes/wppm.functions.php:610
+#: ../includes/wppm.functions.php:805
 msgid "Share on facebook"
 msgstr ""
 
-#: ../includes/wppm.functions.php:442
+#: ../includes/wppm.functions.php:455
 msgid "Share on Whatsapp"
 msgstr ""
 
-#: ../includes/wppm.functions.php:447 ../includes/wppm.functions.php:593
+#: ../includes/wppm.functions.php:460 ../includes/wppm.functions.php:620
 msgid "Share on Google+"
 msgstr ""
 
-#: ../includes/wppm.functions.php:447
+#: ../includes/wppm.functions.php:460
 msgid "Google+"
 msgstr ""
 
-#: ../includes/wppm.functions.php:451 ../includes/wppm.functions.php:597
-#: ../includes/wppm.functions.php:788
+#: ../includes/wppm.functions.php:464 ../includes/wppm.functions.php:624
+#: ../includes/wppm.functions.php:815
 msgid "Share on LinkedIn"
 msgstr ""
 
-#: ../includes/wppm.functions.php:459 ../includes/wppm.functions.php:605
-#: ../includes/wppm.functions.php:796
+#: ../includes/wppm.functions.php:472 ../includes/wppm.functions.php:632
+#: ../includes/wppm.functions.php:823
 msgid "Pin it"
 msgstr ""
 
-#: ../includes/wppm.functions.php:465 ../includes/wppm.functions.php:611
-#: ../includes/wppm.functions.php:802
+#: ../includes/wppm.functions.php:478 ../includes/wppm.functions.php:638
+#: ../includes/wppm.functions.php:829
 msgid "Share via VK"
 msgstr ""
 
-#: ../includes/wppm.functions.php:465 ../includes/wppm.functions.php:611
-#: ../includes/wppm.functions.php:802
+#: ../includes/wppm.functions.php:478 ../includes/wppm.functions.php:638
+#: ../includes/wppm.functions.php:829
 msgid "VKOntakte"
 msgstr ""
 
-#: ../includes/wppm.functions.php:469
+#: ../includes/wppm.functions.php:482
 msgid "Share on Reddit"
 msgstr ""
 
-#: ../includes/wppm.functions.php:473 ../includes/wppm.functions.php:619
-#: ../includes/wppm.functions.php:810
+#: ../includes/wppm.functions.php:486 ../includes/wppm.functions.php:646
+#: ../includes/wppm.functions.php:837
 msgid "Email this"
 msgstr ""
 
-#: ../includes/wppm.functions.php:473 ../includes/wppm.functions.php:619
-#: ../includes/wppm.functions.php:810
+#: ../includes/wppm.functions.php:486 ../includes/wppm.functions.php:646
+#: ../includes/wppm.functions.php:837
 msgid "Email"
 msgstr ""
 
-#: ../includes/wppm.functions.php:515
+#: ../includes/wppm.functions.php:537 ../includes/wppm.functions.php:540
 msgctxt "category items separator"
 msgid ", "
 msgstr ""
 
-#: ../includes/wppm.functions.php:615 ../includes/wppm.functions.php:806
+#: ../includes/wppm.functions.php:642 ../includes/wppm.functions.php:833
 msgid "Share on LINE"
 msgstr ""
 
-#: ../includes/wppm.functions.php:615
+#: ../includes/wppm.functions.php:642
 msgid "LINE"
 msgstr ""
 
-#: ../includes/wppm.functions.php:624 ../includes/wppm.functions.php:814
+#: ../includes/wppm.functions.php:651 ../includes/wppm.functions.php:841
 msgid "Print"
 msgstr ""
 
-#: ../includes/wppm.functions.php:628 ../includes/wppm.functions.php:822
-#: ../includes/wppm.functions.php:823
+#: ../includes/wppm.functions.php:655 ../includes/wppm.functions.php:849
+#: ../includes/wppm.functions.php:850
 msgid "Digg it"
 msgstr ""
 
-#: ../includes/wppm.functions.php:636 ../includes/wppm.functions.php:831
+#: ../includes/wppm.functions.php:663 ../includes/wppm.functions.php:858
 msgid "Share on tumblr"
 msgstr ""
 
-#: ../includes/wppm.functions.php:647 ../includes/wppm.functions.php:842
+#: ../includes/wppm.functions.php:674 ../includes/wppm.functions.php:869
 msgid "Share on Stumbleupon"
 msgstr ""
 
-#: ../includes/wppm.functions.php:655 ../includes/wppm.functions.php:850
+#: ../includes/wppm.functions.php:682 ../includes/wppm.functions.php:877
 msgid "Send via Yahoo"
 msgstr ""
 
-#: ../includes/wppm.functions.php:662 ../includes/wppm.functions.php:857
+#: ../includes/wppm.functions.php:689 ../includes/wppm.functions.php:884
 msgid "Share on Getpocket"
 msgstr ""
 
-#: ../includes/wppm.functions.php:663 ../includes/wppm.functions.php:858
+#: ../includes/wppm.functions.php:690 ../includes/wppm.functions.php:885
 msgid "Getpocket"
 msgstr ""
 
-#: ../includes/wppm.functions.php:669 ../includes/wppm.functions.php:864
+#: ../includes/wppm.functions.php:696 ../includes/wppm.functions.php:891
 msgid "Share on Skype"
 msgstr ""
 
-#: ../includes/wppm.functions.php:677 ../includes/wppm.functions.php:872
+#: ../includes/wppm.functions.php:704 ../includes/wppm.functions.php:899
 msgid "Share on Telegran"
 msgstr ""
 
-#: ../includes/wppm.functions.php:684 ../includes/wppm.functions.php:879
+#: ../includes/wppm.functions.php:711 ../includes/wppm.functions.php:906
 msgid "Share on Xing"
 msgstr ""
 
-#: ../includes/wppm.functions.php:693 ../includes/wppm.functions.php:888
+#: ../includes/wppm.functions.php:720 ../includes/wppm.functions.php:915
 msgid "Share on RenRen"
 msgstr ""
 
-#: ../includes/wppm.functions.php:694 ../includes/wppm.functions.php:889
+#: ../includes/wppm.functions.php:721 ../includes/wppm.functions.php:916
 msgid "RenRen"
 msgstr ""
 
-#: ../includes/wppm.functions.php:730 ../includes/wppm.functions.php:927
+#: ../includes/wppm.functions.php:757 ../includes/wppm.functions.php:954
 msgid "Close"
 msgstr ""
 
-#: ../includes/wppm.functions.php:731 ../includes/wppm.functions.php:928
+#: ../includes/wppm.functions.php:758 ../includes/wppm.functions.php:955
 msgid "Close sharing box"
 msgstr ""
 
-#: ../includes/wppm.functions.php:806
+#: ../includes/wppm.functions.php:833
 msgid "Line"
 msgstr ""
 

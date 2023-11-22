@@ -11,7 +11,7 @@ class WCML_Editor_Save_Filters {
 
 		add_filter( 'wpml_tm_save_post_trid_value', [ $this, 'wpml_tm_save_post_trid_value' ], 10, 2 );
 		add_filter( 'wpml_tm_save_post_lang_value', [ $this, 'wpml_tm_save_post_lang_value' ], 10, 2 );
-		add_filter( 'wpml_save_post_trid_value', [ $this, 'wpml_save_post_trid_value' ], 10, 3 );
+		add_filter( 'wpml_save_post_trid_value', [ $this, 'wpml_save_post_trid_value' ], 10, 2 );
 		add_filter( 'wpml_save_post_lang', [ $this, 'wpml_save_post_lang_value' ], 10 );
 	}
 

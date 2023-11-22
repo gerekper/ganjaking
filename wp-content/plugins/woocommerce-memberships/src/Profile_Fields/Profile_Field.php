@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Data_Stores\Profile_Field\User_Meta;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Exceptions\Invalid_Field;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

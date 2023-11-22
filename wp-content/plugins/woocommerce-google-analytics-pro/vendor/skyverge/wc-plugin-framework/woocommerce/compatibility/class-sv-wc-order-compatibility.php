@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_11_0;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_12;
 
 use Automattic\WooCommerce\Admin\Overrides\Order;
 use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
@@ -32,7 +32,7 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_0\\SV_WC_Order_Compatibility' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_12\\SV_WC_Order_Compatibility' ) ) :
 
 
 /**
@@ -101,6 +101,8 @@ class SV_WC_Order_Compatibility extends SV_WC_Data_Compatibility {
 
 	/**
 	 * Gets the admin Edit screen URL for an order according to HPOS compatibility.
+	 *
+	 * @NOTE consider using {@see \WC_Order::get_edit_order_url()} whenever possible
 	 *
 	 * @see OrderUtil::get_order_admin_edit_url()
 	 * @see PageController::get_edit_url()
@@ -257,7 +259,7 @@ class SV_WC_Order_Compatibility extends SV_WC_Data_Compatibility {
 		if ( is_callable( OrderUtil::class . '::get_order_admin_screen' ) ) {
 			return OrderUtil::get_order_admin_screen();
 		} elseif ( SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
-			return function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop-order' ) : false;
+			return function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop-order' ) : 'woocommerce_page_wc-orders';
 		}
 
 		return 'shop_order';
@@ -513,6 +515,25 @@ class SV_WC_Order_Compatibility extends SV_WC_Data_Compatibility {
 		return false;
 	}
 
+
+	/**
+	 * Gets the list of order post types.
+	 *
+	 * @since 5.11.6
+	 *
+	 * @return string[]
+	 */
+	public static function get_order_post_types(): array {
+
+		$order_post_types = ['shop_order'];
+
+		/** @see \Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer */
+		if ( SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$order_post_types[] = 'shop_order_placehold';
+		}
+
+		return $order_post_types;
+	}
 
 }
 

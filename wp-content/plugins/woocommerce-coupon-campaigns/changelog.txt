@@ -1,5 +1,8 @@
 *** WC Coupon Campaigns ***
 
+2023-11-14 - version 1.2.12
+* Add - Versioning and compatibility checks to implement support policy.
+
 2023-11-07 - version 1.2.11
 * Dev - Run unit tests using Pest instead of PHPUnit.
 * Fix - Doc - Use new Woo.com domain.

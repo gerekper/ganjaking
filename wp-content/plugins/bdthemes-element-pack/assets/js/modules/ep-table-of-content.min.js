@@ -1,0 +1,1 @@
+!function(n,t){"use strict";var e=function(n,t){var e=n.find(".bdt-table-of-content");e.length&&t(e).tocify(e.data("settings"))};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-table-of-content.default",e)}))}(jQuery,window.elementorFrontend);

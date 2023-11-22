@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -138,19 +138,20 @@ class WC_Memberships_User_Membership_Note_Email extends \WC_Memberships_User_Mem
 	 *
 	 * @since 1.12.0
 	 *
-	 * @param array $args default args
-	 * @return array associative array
+	 * @param array<string, mixed> $args default args
+	 * @return array<string, mixed> associative array
 	 */
-	protected function get_template_args( $args = array() ) {
+	protected function get_template_args( $args = [] ) : array {
 
-		return array(
-			'user_membership' => $this->object,
-			'membership_note' => $this->membership_note,
-			'email'           => $this,
-			'email_heading'   => $this->get_heading(),
-			'email_body'      => $this->get_body(),
-			'sent_to_admin'   => $this->sent_to_admin,
-		);
+		return [
+			'user_membership'    => $this->object,
+			'membership_note'    => $this->membership_note,
+			'email'              => $this,
+			'email_heading'      => $this->get_heading(),
+			'email_body'         => $this->get_body(),
+			'additional_content' => $this->get_additional_content(),
+			'sent_to_admin'      => $this->sent_to_admin,
+		];
 	}
 
 

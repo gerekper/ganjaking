@@ -24,6 +24,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 use com\itthinx\woocommerce\search\engine\Settings;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 
 if ( class_exists( 'WC_Product_Data_Store_CPT' ) ) {
 
@@ -134,14 +135,14 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		global $wps_process_query;
 		if ( self::$json_product_search || isset( $wps_process_query ) && !$wps_process_query ) {
-
-			$_search_query = isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] ) ? $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] : null;
-			$_variations   = isset( $_REQUEST[WooCommerce_Product_Search_Service::VARIATIONS] ) ? $_REQUEST[WooCommerce_Product_Search_Service::VARIATIONS] : null;
 			foreach ( $term_groups as $term_group ) {
 				if ( strlen( $term_group ) > 0 ) {
-					$_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] = $term_group;
-					$_REQUEST[WooCommerce_Product_Search_Service::VARIATIONS] = $include_variations ? 1 : 0;
-					$post_ids = WooCommerce_Product_Search_Service::get_post_ids_for_request();
+
+					$query_control = new Query_Control();
+					$params = $query_control->get_request_parameters();
+					$params['search_query'] = $term_group;
+					$params['variations'] = $include_variations ? 1 : 0;
+					$post_ids = $query_control->get_ids( $params );
 					if ( count( $post_ids ) === 0 ) {
 						$post_ids = array( -1 );
 					}
@@ -151,17 +152,6 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 					}
 					$search_queries[] = " ( posts.ID IN ( " . implode( ',', $post_ids ) . " ) ) ";
 				}
-			}
-
-			if ( $_search_query !== null ) {
-				$_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] = $_search_query;
-			} else {
-				unset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] );
-			}
-			if ( $_variations !== null ) {
-				$_REQUEST[WooCommerce_Product_Search_Service::VARIATIONS] = $_variations;
-			} else {
-				unset( $_REQUEST[WooCommerce_Product_Search_Service::VARIATIONS] );
 			}
 		}
 

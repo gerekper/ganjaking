@@ -1,7 +1,7 @@
 <?php
 /**
  * REST API for event access
- * @version 4.4.1
+ * @version 4.5.2
  */
 
 class EVO_Rest_API{
@@ -10,7 +10,7 @@ class EVO_Rest_API{
 
 	public function __construct(){
 		add_action('wp_loaded', array($this, 'nonce_gen'));
-		add_action( 'rest_api_init', array($this, 'rest_routes'));	
+		add_action( 'rest_api_init', array($this, 'rest_routes'));
 	}
 	function nonce_gen(){
 		$this->nonce = wp_create_nonce( 'rest_eventon' );
@@ -21,7 +21,7 @@ class EVO_Rest_API{
 	}
 	function rest_routes(){
 		register_rest_route( 
-			'eventon/'. self::$version ,'/data/', 
+			'eventon/'. self::$version ,'/data', 
 			array(
 				'methods' => 'POST',
 				'callback' => array($this,'rest_returns'),					
@@ -30,6 +30,22 @@ class EVO_Rest_API{
             	}
 			) 
 		);
+
+		register_rest_route( 
+			'evo-admin' ,
+			'data', 
+			array(
+				'methods'   => WP_REST_Server::READABLE,
+				'callback' => array($this,'rest_admin'),					
+				'permission_callback' => function (WP_REST_Request $request) {
+                	return true;
+            	}
+			) 
+		);
+	}
+
+	function rest_admin(){
+		return new WP_REST_Response('Howdy!!');
 	}
 
 	function rest_returns( WP_REST_Request $request){

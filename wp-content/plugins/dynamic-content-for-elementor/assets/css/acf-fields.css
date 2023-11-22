@@ -1,0 +1,139 @@
+.dynamic-content-elements-acf a{
+  display: block;
+}
+.elementor-widget-dyncontel-acf.elementor-drop-cap-view-stacked .elementor-drop-cap {
+  background-color: #818a91;
+  color: #fff;
+}
+.elementor-widget-dyncontel-acf.elementor-drop-cap-view-framed .elementor-drop-cap {
+  color: #818a91;
+  border: 3px solid;
+  background-color: transparent;
+}
+.elementor-widget-dyncontel-acf:not(.elementor-drop-cap-view-default) .elementor-drop-cap {
+  margin-top: 8px; }
+  .elementor-widget-dyncontel-acf:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter {
+    width: 1em;
+    height: 1em;
+}
+.elementor-widget-dyncontel-acf .elementor-drop-cap {
+  float: left;
+  text-align: center;
+}
+.elementor-widget-dyncontel-acf .elementor-drop-cap-letter {
+  display: inline-block;
+  line-height: 1;
+  font-size: 50px;
+}
+.elementor-widget-dyncontel-acf.forcewidth-yes img,
+.elementor-widget-dyncontel-acf.forcewidth-yes .acf-image,
+.elementor-widget-dyncontel-acf.forcewidth-yes .dynamic-content-for-elementor-acf{
+    width: 100%;
+    display: block;
+}
+.elementor-widget-dyncontel-acf .mask{
+  overflow: hidden;
+}
+/* ACF Fields - IMAGE */
+.elementor-widget-dyncontel-acf .acf-image{
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.elementor-widget-dyncontel-acf .acf-image img{
+  width: 100%;
+}
+.elementor-widget-dyncontel-acf .acf-image.acf-bg-image .wrap-filters {
+  line-height: 0;
+}
+.elementor-widget-dyncontel-acf.align-dce-left .acf-image{
+  margin-right: auto;
+}
+.elementor-widget-dyncontel-acf.align-dce-center .acf-image{
+  margin-left: auto;
+  margin-right: auto;
+}
+.elementor-widget-dyncontel-acf.align-dce-right .acf-image{
+  margin-left: auto;
+}
+.elementor-widget-dyncontel-acf .acf-image:hover .dce-overlay_hover{
+    opacity: 1;
+}
+.elementor-widget-dyncontel-acf .acf-bg-image{
+  position: relative;
+  display: block;
+}
+/* ACF Fields - VIDEO */
+.elementor-widget-dyncontel-acf .elementor-open-lightbox iframe {
+  display: none;
+}
+.elementor-widget-dyncontel-acf embed,
+.elementor-widget-dyncontel-acf iframe,
+.elementor-widget-dyncontel-acf object,
+.elementor-widget-dyncontel-acf video {
+    display: block;
+}
+.elementor-widget-dyncontel-acf .elementor-open-inline .elementor-custom-embed-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: 50%;
+}
+.elementor-widget-dyncontel-acf .elementor-custom-embed-image-overlay {
+  cursor: pointer;
+  text-align: center;
+}
+.elementor-widget-dyncontel-acf .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play i {
+  opacity: 0.9;
+  text-shadow: 3px 2px 30px rgba(0, 0, 0, 0.6);
+}
+.elementor-widget-dyncontel-acf .elementor-custom-embed-image-overlay img {
+  display: block;
+  width: 100%;
+}
+.elementor-widget-dyncontel-acf.align-dce-center .acf-bg-image{
+  margin: 0 auto;
+}
+.elementor-widget-dyncontel-acf.align-dce-right .acf-bg-image{
+  margin: 0 0 0 auto;
+}
+.elementor-widget-dyncontel-acf.align-dce-justify .acf-bg-image{
+  display: inline;
+}
+.elementor-widget.elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acfimage-bg{
+  width: 100%;
+  display: inline-block;
+  margin-bottom: -5px;
+}
+.elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acfimage-bg{
+  width: 100% !important;
+}
+
+.dynamic-content-for-elementor-acf{
+  position: relative;
+  transition: all 0.5s ease;
+  display: inline-block; /*NOTA: questo crea uno spazio sotto al widget*/
+  /*margin-bottom: -4px; NOTA: il floating annulla lo spazio sotto*/
+}
+.use-bg1  .dynamic-content-for-elementor-acf,
+.elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acf {
+  display: block;
+}
+.dynamic-content-for-elementor-acf .edc-acf{
+  display: inline;
+  transition: all 0.5s ease;
+}
+.elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acf{
+
+}
+.elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acf{
+  display: block;
+}
+.elementor-widget-dyncontel-acf.hyphens-yes .dynamic-content-for-elementor-acf{
+  -webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+}

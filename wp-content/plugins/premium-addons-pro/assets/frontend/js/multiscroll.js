@@ -1,6 +1,7 @@
 ! function (t, e, i, o, n) {
     t.fn.multiscroll = function (s) {
         var l = t.fn.multiscroll;
+
         s = t.extend({
             verticalCentered: !0,
             scrollingSpeed: 700,
@@ -56,9 +57,9 @@
                 down: "pointerdown",
                 move: "pointermove"
             } : {
-                    down: "MSPointerDown",
-                    move: "MSPointerMove"
-                },
+                down: "MSPointerDown",
+                move: "MSPointerMove"
+            },
             x = {
                 touchmove: "ontouchmove" in e ? "touchmove" : g.move,
                 touchstart: "ontouchstart" in e ? "touchstart" : g.down
@@ -227,7 +228,53 @@
             s.css3 ? (R(t("#premium-multiscroll-" + s.id + " .ms-left"), "translate3d(0px, -" + t("#premium-multiscroll-" + s.id + " .ms-left").find(".ms-section.active").position().top + "px, 0px)", !1), R(t("#premium-multiscroll-" + s.id + " .ms-right"), "translate3d(0px, -" + t("#premium-multiscroll-" + s.id + " .ms-right").find(".ms-section.active").position().top + "px, 0px)", !1)) : (t("#premium-multiscroll-" + s.id + " .ms-left").css("top", -t("#premium-multiscroll-" + s.id + " .ms-left").find(".ms-section.active").position().top), t("#premium-multiscroll-" + s.id + " .ms-right").css("top", -t("#premium-multiscroll-" + s.id + " .ms-right").find(".ms-section.active").position().top))
         }
 
+        function resetAnimations() {
+
+            var $slides = t("#premium-multiscroll-" + s.id + " .ms-section").not('.active');
+
+            $slides.find('*[class*=animated]').each(function (index, elem) {
+
+                var settings = t(elem).data("settings");
+
+                if (!settings)
+                    return;
+
+                if (!settings._animation && !settings.animation)
+                    return;
+
+                var animation = settings._animation || settings.animation;
+
+                t(elem).removeClass("animated " + animation).addClass("elementor-invisible");
+            });
+
+        }
+
+        function triggerAnimation() {
+
+            t("#premium-multiscroll-" + s.id + " .ms-section.active .elementor-invisible").each(function (index, elem) {
+
+                var settings = t(elem).data("settings");
+
+                if (!settings)
+                    return;
+
+                if (!settings._animation && !settings.animation)
+                    return;
+
+                var delay = settings._animation_delay ? settings._animation_delay : 0,
+                    animation = settings._animation || settings.animation;
+
+                setTimeout(function () {
+                    t(elem).removeClass("elementor-invisible").addClass(animation +
+                        ' animated');
+                }, delay);
+            });
+        }
+
         function B(e) {
+
+            resetAnimations();
+
             var i, o, n = e.index(),
                 l = t("#premium-multiscroll-" + s.id + " .ms-right").find(".ms-section").eq(f - 1 - n),
                 r = e.data("anchor"),
@@ -236,42 +283,66 @@
             v = !0;
             var u, d, p, h = e.position().top,
                 g = l.position().top;
+
             if (l.addClass("active").siblings().removeClass("active"), e.addClass("active").siblings().removeClass("active"), s.anchors.length, F(), s.css3) {
+
                 t.isFunction(s.onLeave) && s.onLeave.call(this, m, n + 1, c);
+
                 var x = "translate3d(0px, -" + h + "px, 0px)",
                     b = "translate3d(0px, -" + g + "px, 0px)";
+
                 R(t("#premium-multiscroll-" + s.id + " .ms-left"), x, !0), R(t("#premium-multiscroll-" + s.id + " .ms-right"), b, !0), setTimeout(function () {
+
+                    triggerAnimation();
                     t.isFunction(s.afterLoad) && s.afterLoad.call(this, r, n + 1), setTimeout(function () {
-                        v = !1
+                        v = !1;
                     }, a)
                 }, s.scrollingSpeed)
             } else t.isFunction(s.onLeave) && s.onLeave.call(this, m, n + 1, c), t("#premium-multiscroll-" + s.id + " .ms-left").animate({
                 top: -h
             }, s.scrollingSpeed, s.easing, function () {
+                triggerAnimation();
                 t.isFunction(s.afterLoad) && s.afterLoad.call(this, r, n + 1), setTimeout(function () {
                     v = !1
                 }, a)
             }), t("#premium-multiscroll-" + s.id + " .ms-right").animate({
                 top: -g
             }, s.scrollingSpeed, s.easing);
-            lastScrolledDestiny = r, u = r, s.menu && (t(s.menu).find(".active").removeClass("active"), t(s.menu).find('[data-menuanchor="' + u + '"]').addClass("active")), d = r, p = n, s.navigation && (t("#multiscroll-nav-" + s.id).find(".active").removeClass("active"), d ? t("#multiscroll-nav-" + s.id).find('a[href="#' + d + '"]').addClass("active") : t("#multiscroll-nav-" + s.id).find("li").eq(p).find("a").addClass("active"))
+
+            lastScrolledDestiny = r;
+            u = r;
+            s.menu && (t(s.menu).find(".active").removeClass("active"), t(s.menu).find('[data-menuanchor="' + u + '"]').addClass("active")), d = r, p = n, s.navigation && (t("#multiscroll-nav-" + s.id).find(".active").removeClass("active"), d ? t("#multiscroll-nav-" + s.id).find('a[href="#' + d + '"]').addClass("active") : t("#multiscroll-nav-" + s.id).find("li").eq(p).find("a").addClass("active"))
         }
 
         function P() {
-            var t = i.getElementById("premium-multiscroll-" + s.id);
-            i.addEventListener ? t.addEventListener("wheel", D, !1) : t.attachEvent("onmousewheel", D)
+            var t = i.getElementById("premium-multiscroll-" + s.id),
+                stickyHeader = i.getElementById("multi-sticky");
+
+            i.addEventListener ? t.addEventListener("wheel", D, !1) : t.attachEvent("onmousewheel", D);
+
+            if (stickyHeader) {
+                i.addEventListener ? stickyHeader.addEventListener("wheel", D, !1) : stickyHeader.attachEvent("onmousewheel", D)
+            }
+
         }
 
         function D(i) {
+
             var n, l = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active").next(".ms-section"),
                 a = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active").prev(".ms-section"),
                 m = t("#premium-multiscroll-" + s.id).offset().top,
-                c = (t("#premium-multiscroll-" + s.id).outerHeight(), n = i, n = e.event || n, o.max(-1, o.min(1, n.wheelDelta || -n.deltaY || -n.detail)));
-            return ("fit" === s.fit || b(t("#premium-multiscroll-" + s.id), !1, !1)) && (v && r > 0 && M(i), null !== i.target.closest("#premium-multiscroll-" + s.id) && (c < 0 ? (l.length > 0 || s.loopBottom) && (M(i), v || (r++, "fit" === s.fit && t("html, body").stop().clearQueue().animate({
-                scrollTop: m
-            }, 700), I())) : c > 0 && (a.length > 0 || s.loopTop) && (M(i), v || ("fit" === s.fit && t("html, body").stop().clearQueue().animate({
-                scrollTop: m
-            }, 700), Y())))), !1
+                c = (t("#premium-multiscroll-" + s.id).outerHeight(),
+                    n = i,
+                    n = e.event || n,
+                    o.max(-1, o.min(1, n.wheelDelta || -n.deltaY || -n.detail))),
+                scrollDiff = parseInt(m - t(window).scrollTop()),
+                checkStickyHeader = null !== i.target.closest("#multi-sticky") && scrollDiff <= 0;
+
+            return ("fit" === s.fit || b(t("#premium-multiscroll-" + s.id), !1, !1)) && (v && r > 0 && M(i), (checkStickyHeader || null !== i.target.closest("#premium-multiscroll-" + s.id)) && (c < 0 ? (l.length > 0 || s.loopBottom) && (M(i), v || (r++, "fit" === s.fit && t("html, body").stop().clearQueue().animate({
+                scrollTop: Math.ceil(m)
+            }, 700), I(scrollDiff <= 0 || "fit" !== s.fit ? null : 'first'))) : c > 0 && (a.length > 0 || s.loopTop) && (M(i), v || ("fit" === s.fit && t("html, body").stop().clearQueue().animate({
+                scrollTop: Math.ceil(m)
+            }, 700), Y(scrollDiff >= 0 || "fit" !== s.fit ? null : 'last'))))), !1
         }
 
         function z(t) {
@@ -302,13 +373,24 @@
             t("body")[0].className = t("body")[0].className.replace(l, ""), t("body").addClass("ms-viewing-" + n)
         }
 
-        function I() {
-            var e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active").next(".ms-section");
+        function I(target) {
+
+            var e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active");
+
+            //If window will scroll, don't scroll to next slide.
+            if ('first' !== target)
+                e = e.next(".ms-section");
+
             !e.length && s.loopBottom && (e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section").first()), e.length && B(e)
         }
 
-        function Y() {
-            var e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active").prev(".ms-section");
+        function Y(target) {
+            var e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section.active");
+
+            //If window will scroll, don't scroll to previous slide.
+            if ('last' !== target)
+                e = e.prev(".ms-section");
+
             !e.length && s.loopTop && (e = t("#premium-multiscroll-" + s.id + " .ms-left .ms-section").last()), e.length && B(e)
         }
 
@@ -354,6 +436,9 @@
             })), t(e).off("hashchange", y).off("resize", E), t(i).off("mouseenter", "#multiscroll-nav-" + s.id + " li").off("mouseleave", "#multiscroll-nav-" + s.id + " li").off("click", "#multiscroll-nav-" + s.id + " a").off("click", "#premium-scroll-nav-menu-" + s.id + " a")
         }, l.build = function () {
             q(!0), A(), t(e).on("hashchange", y).on("resize", E), t(i).on("mouseenter", "#multiscroll-nav-" + s.id + " li", C).on("mouseleave", "#multiscroll-nav-" + s.id + " li", S).on("click", "#multiscroll-nav-" + s.id + " a", w).on("click", "#premium-scroll-nav-menu-" + s.id + " a", w)
-        }
+        },
+            l.moveTo = function (section) {
+                B(isNaN(section) ? t("#premium-multiscroll-" + s.id + ' .ms-left [data-anchor="' + section + '"]') : t("#premium-multiscroll-" + s.id + " .ms-left .ms-section").eq((section)))
+            }
     }
 }(jQuery, window, document, Math);

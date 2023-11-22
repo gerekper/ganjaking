@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * WooCommerce Address Validation main plugin class.
@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.11.0';
+	const VERSION = '2.11.1';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -63,8 +63,14 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain'   => 'woocommerce-address-validation',
-				'supports_hpos' => true,
+				'text_domain'        => 'woocommerce-address-validation',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => false,
+						'checkout' => false,
+					]
+				],
 			]
 		);
 

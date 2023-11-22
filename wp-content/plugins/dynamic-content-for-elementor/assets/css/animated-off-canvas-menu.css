@@ -1,0 +1,138 @@
+.dce-button-hamburger {
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.animatedoffcanvasmenu .dce-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.animatedoffcanvasmenu .dce-nav .dce-menu-aocm {
+  position: fixed;
+  width: 0;
+  height: 100vh;
+  top: 0;
+  background: #fff;
+  z-index: 2000;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.animatedoffcanvasmenu .dce-nav-menu {
+  margin: auto;
+  padding: 3em;
+}
+
+.animatedoffcanvasmenu .dce-nav-menu ul.dce-ul-menu {
+  padding: 0;
+  margin: 0;
+}
+
+.animatedoffcanvasmenu .dce-nav-menu ul.dce-ul-menu li {
+  display: block;
+}
+
+.animatedoffcanvasmenu .dce-nav-menu .menu-item-wrap {
+  vertical-align: baseline;
+}
+
+.animatedoffcanvasmenu .dce-nav .dce-menu-aocm ul#dce-ul-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.animatedoffcanvasmenu .dce-nav .dce-menu-aocm ul#dce-ul-menu li {
+  padding: 10px;
+}
+
+.animatedoffcanvasmenu .dce-nav .dce-menu-aocm ul#dce-ul-menu li a {
+  vertical-align: middle;
+}
+
+.animatedoffcanvasmenu .dce-nav .dce-menu-aocm ul.sub-menu {
+  display: none;
+}
+
+.animatedoffcanvasmenu ul#dce-ul-menu li span.indicator-child {
+  padding: 0px 0.33em;
+  cursor: pointer;
+  transition: color 0.5s ease, background-color 0.5s ease;
+  border-radius: 100px;
+  margin: 0 8px;
+  line-height: 0 !important;
+  vertical-align: middle;
+}
+
+.animatedoffcanvasmenu .dce-menu-aocm .dce-close {
+  border: none;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  padding: 8px;
+  margin: 0;
+  line-height: 14px;
+  height: auto;
+  font-size: 24px;
+  background-color: transparent;
+}
+
+.animatedoffcanvasmenu .dce-menu-aocm .dce-close .dce-button-text {}
+
+.animatedoffcanvasmenu .dce-menu-aocm .dce-close img {
+  max-width: 100px;
+}
+
+.animatedoffcanvasmenu .dce-menu-aocm .close-hidden {
+  display: none;
+}
+
+.animatedoffcanvasmenu .dce-bg {
+  position: fixed;
+  z-index: 1999;
+  width: 0;
+  height: 100vh;
+  background: #ccc;
+  top: 0;
+  right: 45%;
+}
+
+#dce_hamburger {
+  width: 80px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+#dce_hamburger g {
+  transform-origin: center;
+}
+
+#dce_hamburger g line,
+#dce_hamburger g circle,
+#dce_hamburger g path,
+#dce_hamburger g polygon,
+#dce_hamburger g rect {
+  fill: #FFFFFF;
+  stroke: #000000;
+  stroke-width: 0.5;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#dce_hamburger g,
+#dce_hamburger g line,
+#dce_hamburger g circle,
+#dce_hamburger g path,
+#dce_hamburger g polygon,
+#dce_hamburger g rect {
+  transition-property: fill, stroke, stroke-width, transform, transform-origin, r;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+#dce_hamburger g circle {
+  stroke-align: inside;
+}

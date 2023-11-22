@@ -20,7 +20,7 @@ class WCML_Pip implements \IWPML_Action {
 	}
 
 	public function print_invoice_language( $type, $order_id ) {
-		$order_language = get_post_meta( $order_id, 'wpml_language', true );
+		$order_language = WCML_Orders::getLanguage( $order_id );
 
 		if ( $order_language ) {
 			do_action( 'wpml_switch_language', $order_language );

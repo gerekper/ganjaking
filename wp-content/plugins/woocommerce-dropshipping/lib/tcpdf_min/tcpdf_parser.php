@@ -41,7 +41,7 @@
  */
 
 // include class for decoding filters
-require_once( dirname( __FILE__ ) . '/include/tcpdf_filters.php' );
+require_once __DIR__ . '/include/tcpdf_filters.php';
 
 /**
  * @class TCPDF_PARSER
@@ -823,7 +823,6 @@ class TCPDF_PARSER {
 			throw new Exception( 'TCPDF_PARSER ERROR: ' . $msg );
 		}
 	}
-
 } // END OF TCPDF_PARSER CLASS
 
 // ============================================================+

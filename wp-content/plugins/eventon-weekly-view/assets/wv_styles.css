@@ -2,10 +2,6 @@
  * Styles for WeeklyView Addon
  * @version 1.0.7
  */	
-
- :root{
- 	--evowv_border_c: #737373;
- }	
 .evowv_arrow, .evo_wv_day, .EVOWV_dates p{
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
@@ -21,12 +17,12 @@
 	.evowv_tooltip,
 	ul.EVOWV_date_ranges li	
 	{
-		font-family: var(--evo_font_1), 'roboto',oswald,'arial narrow';
+		font-family: 'roboto',oswald,'arial narrow';
 		font-weight: 700;
 	}
 	.eventon_weeklyview, .EVOWV_thisdates_range
 	{
-		font-family: var(--evo_font_2), 'open sans','arial';
+		font-family: 'open sans','arial';
 	}
 /* General */
 	.ajde_evcal_calendar.evoWV .calendar_header{min-height: auto; margin-bottom: 5px}
@@ -48,8 +44,8 @@
 	.EVOWV_dates .evowv_this_weekbtn{
 		text-transform: uppercase;
 		background-color: #fff;
-	    border: 1px solid var(--evowv_border_c);
-	    color: var(--evowv_border_c);
+	    border: 1px solid #e2e0e2;
+	    color: #b7b7b7;
 	    margin-right: 8px;
 	        display: inline-flex;
     	align-items: center;
@@ -63,9 +59,9 @@
 			cursor: pointer;
 		    margin: 0;
 		    display: block;
-		    color: var(--evowv_border_c);
+		    color: #e0dfe0;
 		    background-color: #ffffff;
-		    border: 1px solid var(--evowv_border_c);
+		    border: 1px solid #e0dfe0;
 		    border-radius: 50%;
 		    height: 34px;
 		    width: 34px;
@@ -116,7 +112,7 @@
 		padding:15px 0 0;
 		height: 120px;
 	}
-	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .evowv_daybox{}
+	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .evowv_daybox{padding-top: 5px}
 	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .mo_name{
 		text-transform: uppercase;
 	    font-size: 10px; padding: 5px;
@@ -371,12 +367,6 @@
 		min-width: 260px
 	}
 	.evo_widget .ajde_evcal_calendar.evoWV ul.EVOWV_date_ranges li{font-size: 12px;}
-
-
-/* RTL */
-	.evortl .EVOWV_dates{justify-content: flex-end;}
-	.evortl .EVOWV_grid{flex-direction: row-reverse;display: flex;}
-	.evortl.evoWV .evo_ajax_load_events span.d{float:right;}
 
 /* responsive */
 	@media (max-width: 600px){

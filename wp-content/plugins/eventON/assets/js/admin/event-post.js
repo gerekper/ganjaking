@@ -1,7 +1,9 @@
 /** 
- * @version  4.5
+ * @version  4.5.3
  */
 jQuery(document).ready(function($){
+
+	const BB = $('body');
 
 	var date_format = $('#evcal_dates').attr('date_format');
 	var time_format = ($('body').find('input[name=_evo_time_format]').val()=='24h')? 'H:i':'h:i:A';
@@ -502,35 +504,7 @@ jQuery(document).ready(function($){
 			);
 		});
 
-		// custom repeat interval function
-			$('.evo_repeat_interval_new .ristD').datepicker({
-				dateFormat: date_format,
-				altField: $('input.ristD_h'),
-				altFormat: 'yy/mm/dd',
-				isRTL: RTL,
-				onSelect: function( selectedDate , obj) {
-					var date = $(this).datepicker('getDate');
-
-					// update end time
-					$( ".rietD" ).datepicker( "setDate", date );
-					$( ".rietD" ).datepicker( "option", "minDate", date );
-				}
-			});
-			$('.evo_repeat_interval_new .rietD').datepicker({
-				dateFormat: date_format,
-				altField: $('input.rietD_h'),
-				altFormat: 'yy/mm/dd',
-				isRTL: RTL,
-				onSelect: function( selectDate, obj){
-					//$( ".ristD" ).datepicker( "option", "maxDate", selectedDate );
-				}
-			});
 		
-			$('.evo_repeat_interval_new .ristT, .evo_repeat_interval_new .rietT').timepicker({
-				'step': 5,
-				'timeFormat':time_format
-			});
-
 		// adding a new custom repeat interval
 		// @since 2.2.24
 		// @updated 2.5.3
@@ -569,7 +543,7 @@ jQuery(document).ready(function($){
 							+':'+obj.find('._new_repeat_end_minute').val()
 							+ ( obj.find('._new_repeat_end_ampm').val() !== undefined ? ':'+ obj.find('._new_repeat_end_ampm').val(): '' );
 
-						var html = '<li data-cnt="'+count+'" class="new"><span>from</span>'
+						var html = '<li data-cnt="'+count+'" class="new"><i>'+count+'</i><span>from</span>'
 							+ start_date_red +' '+start_time
 							+' <span class="e">End</span>'
 							+ end_date_red +' '+ end_time +'<em class="evo_rep_del" alt="Delete">x</em>';
@@ -594,7 +568,7 @@ jQuery(document).ready(function($){
 		// delete a repeat interval
 			$('body').on('click','em.evo_rep_del',function(){
 				LI = $(this).closest('li');
-				LI.slideUp(function(){
+				LI.hide(function(){
 					LI.remove();
 				});
 			});
@@ -604,10 +578,10 @@ jQuery(document).ready(function($){
 				const section = $(this).closest('.repeat_information');
 
 				if($(this).attr('data-show')=='no'){
-					section.find('li.over').slideDown();
+					section.find('li.over').show();
 					$(this).attr({'data-show':'yes'}).html('View Less');
 				}else{
-					section.find('li.over').slideUp();
+					section.find('li.over').hide();
 					$(this).attr({'data-show':'no'}).html('View All');
 				}
 			});

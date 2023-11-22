@@ -34,7 +34,7 @@ the plugin / software / program.
 *** The following license applies to ALL files except otherwise stated.   ***
 *** If you have not been granted a license explicitly or if you have not  ***
 *** received a copy of that license, please get in touch with the         ***
-*** copyright holder at http://www.itthinx.com                            ***
+*** copyright holder at https://www.itthinx.com                            ***
 *****************************************************************************
 
 
@@ -44,7 +44,7 @@ the plugin / software / program.
 
                        For license details please visit:
 
-        http://www.itthinx.com/plugins/woocommerce-product-search/
+        https://www.itthinx.com/plugins/woocommerce-product-search/
 
 
 
@@ -65,7 +65,7 @@ the plugin / software / program.
 *** holder.                                                               ***
 *** If you have not been granted a license explicitly or if you have not  ***
 *** received a copy of that license, please get in touch with the         ***
-*** copyright holder at http://www.itthinx.com                            ***
+*** copyright holder at https://www.itthinx.com                            ***
 *****************************************************************************
 
                     GNU GENERAL PUBLIC LICENSE

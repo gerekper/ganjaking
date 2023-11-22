@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/virtual-plus
  * Description: Extend virtual event features to awesomeness
  * Author: Ashan Jay
- * Version: 0.1
+ * Version: 0.2
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 5.0
- * Tested up to: 5.6
+ * Requires at least: 6.0
+ * Tested up to: 6.3.2
  *  
  * Text Domain: evovp
  * Domain Path: /lang/
@@ -16,13 +16,13 @@
 
 class EVOVP{
 
-	public $version='0.1';
-	public $eventon_version = '3.1';
+	public $version='0.2';
+	public $eventon_version = '4.5';
 	public $name = 'Virtual Plus';
 	public $id = 'EVOVP';
 
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path, $addon, $assets_path;
 
 	// Instanace
 		protected static $_instance = null;

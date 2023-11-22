@@ -159,6 +159,10 @@ class WCML_Multi_Currency_Configuration {
 			$options['countries'] = wc_string_to_array( $options['countries'], ',' );
 		}
 
+		if ( isset( $options['num_decimals'] ) ) {
+			$options['num_decimals'] = absint( $options['num_decimals'] );
+		}
+
 		if ( $wc_currency !== $currency_code ) {
 			$options['thousand_sep'] = wc_format_option_price_separators( null, null, $options['thousand_sep'] );
 			$options['decimal_sep']  = wc_format_option_price_separators( null, null, $options['decimal_sep'] );

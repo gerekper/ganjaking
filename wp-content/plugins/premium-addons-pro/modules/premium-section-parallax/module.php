@@ -28,6 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	/**
+	 * Load Script
+	 *
+	 * @var $load_assets
+	 */
+	private $load_assets = null;
+
+	/**
 	 * Class Constructor Funcion.
 	 */
 	public function __construct() {
@@ -43,91 +50,95 @@ class Module extends Module_Base {
 			return;
 		}
 
-		// Enqueue the required JS file
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Enqueue the required CSS/JS files.
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );
 
-		// Creates Premium Prallax tab at the end of section/column layout tab
+		// Creates Premium Prallax tab at the end of section/column layout tab.
 		add_action( 'elementor/element/section/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
 		add_action( 'elementor/element/column/section_advanced/after_section_end', array( $this, 'register_controls' ), 10 );
 
 		add_action( 'elementor/section/print_template', array( $this, '_print_template' ), 10, 2 );
 		add_action( 'elementor/column/print_template', array( $this, '_print_template' ), 10, 2 );
 
-		// insert data before section/column rendering
+		// insert data before section/column rendering.
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 		add_action( 'elementor/frontend/column/before_render', array( $this, 'before_render' ), 10, 1 );
 
+		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+		add_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+
+		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+			add_action( 'elementor/container/print_template', array( $this, '_print_template' ), 10, 2 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+
+		}
+
+	}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * Registers required dependencies for the extension and enqueues them.
+	 *
+	 * @since 2.6.5
+	 * @access public
+	 */
+	public function enqueue_styles() {
+
+		if ( ! wp_style_is( 'pa-global', 'enqueued' ) ) {
+			wp_enqueue_style( 'pa-global' );
+		}
 	}
 
 	/**
 	 * Enqueue scripts.
 	 *
-	 * Registers required dependencies for the extension and enqueues them.
+	 * Enqueue required JS dependencies for the extension.
 	 *
-	 * @since 1.6.5
+	 * @since 2.6.5
 	 * @access public
 	 */
 	public function enqueue_scripts() {
 
-		if ( ( true === \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() ) ) || ( function_exists( 'elementor_location_exits' ) && ( elementor_location_exits( 'archive', true ) || elementor_location_exits( 'single', true ) ) ) ) {
-			wp_add_inline_script(
-				'elementor-frontend',
-				'window.scopes_array = {};
-                window.backend = 0;
-                jQuery( window ).on( "elementor/frontend/init", function() {
-                    elementorFrontend.hooks.addAction( "frontend/element_ready/global", function( $scope, $ ){
-
-                        if ( "undefined" == typeof $scope || ! $scope.hasClass( "premium-parallax-yes" ) ) {
-                                return;
-                        }
-
-                        if(elementorFrontend.isEditMode()){
-
-                            window.current_scope = $scope;
-
-                            var url = papro_addons.parallax_url;
-
-                            jQuery.cachedAssets = function( url, options ) {
-                                // Allow user to set any option except for dataType, cache, and url.
-                                options = jQuery.extend( options || {}, {
-                                    dataType: "script",
-                                    cache: true,
-                                    url: url
-                                });
-                                // Return the jqXHR object so we can chain callbacks.
-                                return jQuery.ajax( options );
-                            };
-                            jQuery.cachedAssets( url );
-                            window.backend = 1;
-                        } else {
-                            var id = $scope.data("id");
-                            window.scopes_array[ id ] = $scope;
-                        }
-                    });
-                });
-                jQuery(document).ready(function(){
-
-                    if ( jQuery.find( ".premium-parallax-yes" ).length < 1 ) {
-                        return;
-                    }
-
-                    var url = papro_addons.parallax_url;
-
-                    jQuery.cachedAssets = function( url, options ) {
-                        // Allow user to set any option except for dataType, cache, and url.
-                        options = jQuery.extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Return the jqXHR object so we can chain callbacks.
-                        return jQuery.ajax( options );
-                    };
-                    jQuery.cachedAssets( url );
-                });	'
-			);
+		if ( ! wp_script_is( 'imagesloaded', 'enqueued' ) ) {
+			wp_enqueue_script( 'imagesloaded' );
 		}
+
+		$draw_svg = $this->check_icon_draw();
+
+		if ( ! wp_script_is( 'pa-tweenmax', 'enqueued' ) ) {
+			wp_enqueue_script( 'pa-tweenmax' );
+		}
+
+		if ( $draw_svg ) {
+			if ( ! wp_script_is( 'pa-motionpath', 'enqueued' ) ) {
+				wp_enqueue_script( 'pa-motionpath' );
+			}
+		}
+
+		if ( ! wp_script_is( 'pa-parallax', 'enqueued' ) ) {
+			wp_enqueue_script( 'pa-parallax' );
+		}
+
+	}
+
+	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-parallax' );
+		return $is_enabled;
 	}
 
 	/**
@@ -138,6 +149,8 @@ class Module extends Module_Base {
 	 * @param object $element for current element.
 	 */
 	public function register_controls( $element ) {
+
+		$draw_svg = $this->check_icon_draw();
 
 		$element->start_controls_section(
 			'section_premium_parallax',
@@ -150,7 +163,7 @@ class Module extends Module_Base {
 		$element->add_control(
 			'premium_parallax_update',
 			array(
-				'label' => '<div class="elementor-update-preview editor-pa-preview-update" style="background-color: #fff;"><div class="elementor-update-preview-title">Update changes to page</div><div class="elementor-update-preview-button-wrapper"><button class="elementor-update-preview-button elementor-button elementor-button-success">Apply</button></div></div>',
+				'label' => '<div class="elementor-update-preview editor-pa-preview-update"><div class="elementor-update-preview-title">Update changes to page</div><div class="elementor-update-preview-button-wrapper"><button class="elementor-update-preview-button elementor-button elementor-button-success">Apply</button></div></div>',
 				'type'  => Controls_Manager::RAW_HTML,
 			)
 		);
@@ -194,6 +207,30 @@ class Module extends Module_Base {
 		$repeater = new Repeater();
 
 		$repeater->add_control(
+			'hide_layer',
+			array(
+				'label'     => __( 'Hide This Layer', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'display: none',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'layer_type',
+			array(
+				'label'   => __( 'Type', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'img' => __( 'Image', 'premium-addons-pro' ),
+					'svg' => __( 'SVG Code', 'premium-addons-pro' ),
+				),
+				'default' => 'img',
+			)
+		);
+
+		$repeater->add_control(
 			'premium_parallax_layer_image',
 			array(
 				'label'       => __( 'Choose Image', 'premium-addons-pro' ),
@@ -203,6 +240,36 @@ class Module extends Module_Base {
 				),
 				'label_block' => true,
 				'render_type' => 'template',
+				'condition'   => array(
+					'layer_type' => 'img',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_parallax_layer_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'layer_type' => 'svg',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_parallax_layer_hor',
+			array(
+				'label'   => __( 'Horizontal Alignment', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'left'   => __( 'Left', 'premium-addons-pro' ),
+					'center' => __( 'Center', 'premium-addons-pro' ),
+					'right'  => __( 'Right', 'premium-addons-pro' ),
+					'custom' => __( 'Custom', 'premium-addons-pro' ),
+				),
+				'default' => 'custom',
 			)
 		);
 
@@ -219,6 +286,24 @@ class Module extends Module_Base {
 				'min'         => 0,
 				'max'         => 100,
 				'label_block' => true,
+				'condition'   => array(
+					'premium_parallax_layer_hor' => 'custom',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_parallax_layer_ver',
+			array(
+				'label'   => __( 'Vertical Alignment', 'premium-addons-pro' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'top'     => __( 'Top', 'premium-addons-pro' ),
+					'vcenter' => __( 'Center', 'premium-addons-pro' ),
+					'bottom'  => __( 'Bottom', 'premium-addons-pro' ),
+					'custom'  => __( 'Custom', 'premium-addons-pro' ),
+				),
+				'default' => 'custom',
 			)
 		);
 
@@ -235,6 +320,9 @@ class Module extends Module_Base {
 				'max'         => 100,
 				'description' => __( 'Set the vertical position for the layer background, default: 50%', 'premium-addons-pro' ),
 				'label_block' => true,
+				'condition'   => array(
+					'premium_parallax_layer_ver' => 'custom',
+				),
 			)
 		);
 
@@ -248,13 +336,70 @@ class Module extends Module_Base {
 					'unit' => '%',
 				),
 				'label_block' => true,
+				'condition'   => array(
+					'layer_type' => 'img',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'premium_parallax_svg_width',
+			array(
+				'label'      => __( 'Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array(
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'max'  => 100,
+						'step' => 1,
+					),
+				),
+				'condition'  => array(
+					'layer_type' => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'premium_parallax_svg_height',
+			array(
+				'label'      => __( 'Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'layer_type' => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg' => 'height: {{SIZE}}{{UNIT}};',
+				),
 			)
 		);
 
 		$repeater->add_control(
 			'premium_parallax_layer_z_index',
 			array(
-				'label'       => __( 'z-index', 'premium-addons-pro' ),
+				'label'       => __( 'Z-index', 'premium-addons-pro' ),
 				'description' => __( 'Set z-index for the current layer', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 1,
@@ -262,11 +407,266 @@ class Module extends Module_Base {
 		);
 
 		$repeater->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw SVG', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_svg ? '' : 'editor-pa-control-disabled',
+				'separator' => 'before',
+				'condition' => array(
+					'layer_type' => 'svg',
+				),
+			)
+		);
+
+		if ( $draw_svg ) {
+			$repeater->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_loop',
+				array(
+					'label'        => __( 'Loop', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'default'      => 'true',
+					'condition'    => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_notice',
+				array(
+					'raw'             => __( 'Loop and Speed options are overriden when Draw SVGs in Sequence option is enabled.', 'premium-addons-pro' ),
+					'type'            => Controls_Manager::RAW_HTML,
+					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+					'condition'       => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+						'svg_hover!' => 'true',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_reverse',
+				array(
+					'label'        => __( 'Reverse', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'layer_type'   => 'svg',
+						'draw_svg'     => 'yes',
+						'svg_reverse!' => 'true',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'layer_type'  => 'svg',
+						'draw_svg'    => 'yes',
+						'svg_reverse' => 'true',
+					),
+
+				)
+			);
+
+			$repeater->add_control(
+				'svg_hover',
+				array(
+					'label'        => __( 'Only Animate on Hover', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'restart_draw',
+				array(
+					'label'        => __( 'Restart Animation on Scroll Up', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+						'svg_hover!' => 'true',
+					),
+
+				)
+			);
+
+			$repeater->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+						'svg_loop'   => 'true',
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$repeater,
+				'parallax',
+				array(
+					'layer_type' => 'svg',
+				)
+			);
+
+		}
+
+		$repeater->add_control(
+			'path_width',
+			array(
+				'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 20,
+						'step' => 0.1,
+					),
+				),
+				'default'   => array(
+					'size' => 3,
+					'unit' => 'px',
+				),
+				'condition' => array(
+					'layer_type' => 'svg',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg *' => 'stroke-width: {{SIZE}}',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'layer_fill',
+			array(
+				'label'     => __( 'Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'layer_type' => 'svg',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg, {{WRAPPER}} {{CURRENT_ITEM}} svg *' => 'fill: {{VALUE}};',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'layer_stroke',
+			array(
+				'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#6EC1E4',
+				'condition' => array(
+					'layer_type' => 'svg',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} svg *' => 'stroke: {{VALUE}};',
+				),
+			)
+		);
+
+		if ( $draw_svg ) {
+			$repeater->add_control(
+				'svg_color',
+				array(
+					'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'condition' => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_stroke',
+				array(
+					'label'     => __( 'After Draw Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'condition' => array(
+						'layer_type' => 'svg',
+						'draw_svg'   => 'yes',
+					),
+				)
+			);
+		}
+
+		$repeater->add_control(
 			'premium_parallax_layer_mouse',
 			array(
 				'label'       => __( 'Mouse Track', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Enable or disable mousemove interaction', 'premium-addons-pro' ),
+				'description' => __( 'Enable or disable mousemove interaction.', 'premium-addons-pro' ),
+				'separator'   => 'before',
 			)
 		);
 
@@ -449,13 +849,20 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Show Layer On', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
-				'options'     => array(
-					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
-					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
-				),
-				'default'     => array( 'desktop', 'tablet', 'mobile' ),
+				'options'     => Helper_Functions::get_all_breakpoints(),
+				'default'     => Helper_Functions::get_all_breakpoints( 'keys' ),
 				'multiple'    => true,
+				'separator'   => 'before',
+				'label_block' => true,
+			)
+		);
+
+		$repeater->add_control(
+			'premium_parallax_layer_id',
+			array(
+				'label'       => __( 'CSS ID', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'description' => __( 'Set a CSS ID to this layer.', 'premium-addons-pro' ),
 				'separator'   => 'before',
 				'label_block' => true,
 			)
@@ -537,7 +944,7 @@ class Module extends Module_Base {
 		$element->add_control(
 			'premium_parallax_notice',
 			array(
-				'raw'             => __( 'NEW: Now you can position, resize parallax layers from the preview area', 'premium-addons-pro' ),
+				'raw'             => __( 'You can position, resize parallax layers from the preview area. Note that freehand resize not working for SVG layers', 'premium-addons-pro' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => array(
@@ -549,10 +956,63 @@ class Module extends Module_Base {
 		$element->add_control(
 			'premium_parallax_layers_list',
 			array(
-				'type'      => Controls_Manager::REPEATER,
-				'fields'    => $repeater->get_controls(),
-				'condition' => array(
+				'type'          => Controls_Manager::REPEATER,
+				'fields'        => $repeater->get_controls(),
+				'prevent_empty' => false,
+				'condition'     => array(
 					'premium_parallax_type' => 'multi',
+				),
+			)
+		);
+
+		$element->add_control(
+			'draw_svgs_sequence',
+			array(
+				'label'        => __( 'Draw SVGs In Sequence', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'pa-svg-draw-seq-',
+				'render_type'  => 'template',
+			)
+		);
+
+		$element->add_control(
+			'draw_svgs_loop',
+			array(
+				'label'        => __( 'Loop', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'pa-svg-draw-loop-',
+				'render_type'  => 'template',
+				'condition'    => array(
+					'draw_svgs_sequence' => 'yes',
+				),
+			)
+		);
+
+		$element->add_control(
+			'frames',
+			array(
+				'label'       => __( 'Speed', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::NUMBER,
+				'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+				'default'     => 5,
+				'min'         => 1,
+				'max'         => 100,
+				'condition'   => array(
+					'draw_svgs_sequence' => 'yes',
+				),
+			)
+		);
+
+		$element->add_control(
+			'svg_yoyo',
+			array(
+				'label'        => __( 'Yoyo Animation', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'pa-svg-draw-yoyo-',
+				'render_type'  => 'template',
+				'condition'    => array(
+					'draw_svgs_sequence' => 'yes',
+					'draw_svgs_loop'     => 'yes',
 				),
 			)
 		);
@@ -562,12 +1022,8 @@ class Module extends Module_Base {
 			array(
 				'label'       => __( 'Apply Scroll Parallax On', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
-				'options'     => array(
-					'desktop' => __( 'Desktop', 'premium-addons-pro' ),
-					'tablet'  => __( 'Tablet', 'premium-addons-pro' ),
-					'mobile'  => __( 'Mobile', 'premium-addons-pro' ),
-				),
-				'default'     => array( 'desktop', 'tablet', 'mobile' ),
+				'options'     => Helper_Functions::get_all_breakpoints(),
+				'default'     => Helper_Functions::get_all_breakpoints( 'keys' ),
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => array(
@@ -593,7 +1049,7 @@ class Module extends Module_Base {
 	 */
 	public function _print_template( $template, $widget ) {
 
-		if ( $widget->get_name() !== 'section' && $widget->get_name() !== 'column' ) {
+		if ( $widget->get_name() === 'widget' ) {
 			return $template;
 		}
 
@@ -612,7 +1068,7 @@ class Module extends Module_Base {
 
 			if ( "multi" !== parallax && "automove" !== parallax ) {
 
-				var speed                 = "" !== settings.premium_parallax_speed.size ? settings.premium_parallax_speed.size : 0.5;
+				var speed = "" !== settings.premium_parallax_speed.size ? settings.premium_parallax_speed.size : 0.5;
 
 				var positiont = settings.background_position_tablet;
 				if ( 'initial' === positiont ) {
@@ -651,6 +1107,7 @@ class Module extends Module_Base {
 
 				parallaxSettings.items   = layers;
 				parallaxSettings.devices = settings.premium_parallax_layers_devices;
+				parallaxSettings.speed = settings.frames;
 
 			}
 
@@ -682,15 +1139,11 @@ class Module extends Module_Base {
 	 */
 	public function before_render( $element ) {
 
-		$data = $element->get_data();
-
-		$type = $data['elType'];
-
 		$settings = $element->get_settings_for_display();
 
 		$parallax = isset( $settings['premium_parallax_type'] ) ? $settings['premium_parallax_type'] : '';
 
-		if ( ( 'section' === $type || 'column' === $type ) && isset( $parallax ) && '' !== $parallax && 'yes' === $element->get_settings( 'premium_parallax_switcher' ) ) {
+		if ( isset( $parallax ) && '' !== $parallax && 'yes' === $element->get_settings( 'premium_parallax_switcher' ) ) {
 
 			$parallax_settings = array(
 				'type' => $parallax,
@@ -703,29 +1156,14 @@ class Module extends Module_Base {
 
 				$speed = isset( $settings['premium_parallax_speed']['size'] ) ? $settings['premium_parallax_speed']['size'] : 0.5;
 
-				$positiont = $settings['background_position_tablet'];
-				if ( 'initial' === $positiont ) {
-					$positiont = sprintf( '%s%s %s%s', $settings['background_xpos_tablet']['size'], $settings['background_xpos_tablet']['unit'], $settings['background_ypos_tablet']['size'], $settings['background_ypos_tablet']['unit'] );
-
-				}
-
-				$positionm = $settings['background_position_mobile'];
-				if ( 'initial' === $positionm ) {
-					$positionm = sprintf( '%s%s %s%s', $settings['background_xpos_mobile']['size'], $settings['background_xpos_mobile']['unit'], $settings['background_ypos_mobile']['size'], $settings['background_ypos_mobile']['unit'] );
-
-				}
-
 				$parallax_settings = array_merge(
 					$parallax_settings,
 					array(
-						'speed'     => $speed,
-						'android'   => 'yes' === $settings['premium_parallax_android_support'] ? 0 : 1,
-						'ios'       => 'yes' === $settings['premium_parallax_ios_support'] ? 0 : 1,
-						'size'      => $settings['background_size'],
-						'position'  => $settings['background_position'],
-						'positiont' => $positiont,
-						'positionm' => $positionm,
-						'repeat'    => $settings['background_repeat'],
+						'speed'   => $speed,
+						'android' => 'yes' === $settings['premium_parallax_android_support'] ? 0 : 1,
+						'ios'     => 'yes' === $settings['premium_parallax_ios_support'] ? 0 : 1,
+						'size'    => $settings['background_size'],
+						'repeat'  => $settings['background_repeat'],
 					)
 				);
 
@@ -745,12 +1183,14 @@ class Module extends Module_Base {
 
 				$layers = array();
 
-				foreach ( $settings['premium_parallax_layers_list'] as $layer ) {
+				if ( is_countable( $settings['premium_parallax_layers_list'] ) ) {
+					foreach ( $settings['premium_parallax_layers_list'] as $layer ) {
 
-					$layer['alt'] = Control_Media::get_image_alt( $layer['premium_parallax_layer_image'] );
+						$layer['alt'] = Control_Media::get_image_alt( $layer['premium_parallax_layer_image'] );
 
-					array_push( $layers, $layer );
+						array_push( $layers, $layer );
 
+					}
 				}
 
 				$parallax_settings = array_merge(
@@ -758,6 +1198,7 @@ class Module extends Module_Base {
 					array(
 						'items'   => $layers,
 						'devices' => $settings['premium_parallax_layers_devices'],
+						'speed'   => $settings['frames'],
 					)
 				);
 
@@ -766,5 +1207,36 @@ class Module extends Module_Base {
 			$element->add_render_attribute( '_wrapper', 'data-pa-parallax', wp_json_encode( $parallax_settings ) );
 
 		}
+	}
+
+	/**
+	 * Check Assets Enqueue
+	 *
+	 * Check if the assets files should be loaded.
+	 *
+	 * @since 2.6.3
+	 * @access public
+	 *
+	 * @param object $element for current element.
+	 */
+	public function check_assets_enqueue( $element ) {
+
+		if ( $this->load_assets ) {
+			return;
+		}
+
+		if ( 'yes' === $element->get_settings_for_display( 'premium_parallax_switcher' ) ) {
+
+			$this->enqueue_styles();
+
+			$this->enqueue_scripts();
+
+			$this->load_assets = true;
+
+			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/column/before_render', array( $this, 'check_assets_enqueue' ) );
+			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_assets_enqueue' ) );
+		}
+
 	}
 }

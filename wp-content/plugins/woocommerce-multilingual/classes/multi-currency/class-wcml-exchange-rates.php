@@ -58,6 +58,7 @@ class WCML_Exchange_Rates {
 				add_action( 'wp_ajax_wcml_update_exchange_rates', [ $this, 'update_exchange_rates_ajax' ] );
 			}
 			add_filter( 'cron_schedules', [ $this, 'cron_schedules' ] );
+			/* @phpstan-ignore-next-line */
 			add_action( self::CRONJOB_EVENT, [ $this, 'update_exchange_rates' ] );
 		}
 	}

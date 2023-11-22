@@ -18,7 +18,7 @@ $theme_name = sanitize_key( $theme_name );
 $account_link = sprintf( 'https://my.leap13.com/?utm_source=license-page&utm_medium=wp-dash&utm_campaign=your-account&utm_term=%s', $theme_name );
 $get_license  = sprintf( 'https://premiumaddons.com/pro/?utm_source=license-page&utm_medium=wp-dash&utm_campaign=get-pro&utm_term=%s', $theme_name );
 
-$status = 'valid';
+$status = Admin_Helper::get_license_status();
 
 ?>
 

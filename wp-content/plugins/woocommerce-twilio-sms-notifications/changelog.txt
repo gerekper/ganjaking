@@ -1,5 +1,8 @@
 *** WooCommerce Twilio SMS Notifications Changelog ***
 
+2023.11.17 - version 1.18.1
+ * Misc - Add admin notice to help merchants reverting to the checkout shortcode if the checkout block is used
+
 2023.07.25 - version 1.18.0
  * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 

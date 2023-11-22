@@ -2,14 +2,15 @@
 /**
  * EventON Setup
  *
- * @since 4.5.1
+ * @since 4.5.4
  */
+
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.5.1';
+	public $version = '4.5.4';
 	
 	
 	public $template_url;
@@ -237,7 +238,7 @@ final class EventON {
 		// roles and capabilities
 		eventon_init_caps();
 		
-		global $pagenow;
+		//global $pagenow;
 		
 		// Initiate eventon 
 		$this->init_evo_product();

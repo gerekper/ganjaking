@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/addons/yearly-view/
  Description: Display a complete year of events
  Author: Ashan Jay
- Version: 0.7
+ Version: 0.5
  Author URI: http://www.ashanjay.com/
- Requires at least: 6.0
- Tested up to: 6.2.2
+ Requires at least: 5.0
+ Tested up to: 5.5
  */
  
 class EVOYV{
 	
-	public $version='0.7';
-	public $eventon_version = '4.4';
+	public $version='0.5';
+	public $eventon_version = '2.9';
 	public $id = 'EVOYV';
 	public $name = 'YearlyView';
 		
@@ -21,7 +21,7 @@ class EVOYV{
 	public $load_script =false;
 	
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path, $addon, $frontend, $shortcodes;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
 	public $template_url ;	
 	private $urls;
 	
@@ -92,9 +92,10 @@ class EVOYV{
 
 			include_once( 'includes/class-frontend.php' );
 			include_once( 'includes/class-shortcode.php' );
-			include_once( 'includes/class_ajax.php' );
 			
-			
+			if ( defined('DOING_AJAX') ){
+				include_once( 'includes/class_ajax.php' );
+			}
 
 			$this->shortcodes = new evoyv_shortcode();
 			$this->frontend = new evoyv_frontend();

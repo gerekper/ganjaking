@@ -3,11 +3,11 @@
  * Plugin Name: EventON
  * Plugin URI: http://www.myeventon.com/
  * Description: A beautifully crafted minimal calendar experience
- * Version: 4.5.1
+ * Version: 4.5.4
  * Author: AshanJay
  * Author URI: http://www.ashanjay.com
  * Requires at least: 6.0
- * Tested up to: 6.3.1
+ * Tested up to: 6.4.1
  * 
  * Text Domain: eventon
  * Domain Path: /lang/languages/
@@ -20,13 +20,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-$eventon_license = get_option( '_evo_products' );
-foreach ( $eventon_license as $key => $value ) {
-    $eventon_license[ $key ]['status'] = 'active';
-    $eventon_license[ $key ]['key'] = '********-****-****-****-************';
-    $eventon_license[ $key ]['remote_validity'] = 'valid';
+$nm_eventon_options = get_option( '_evo_products' );
+foreach ( $nm_eventon_options as $key => $value ) {
+ $nm_eventon_options[ $key ]['status']          = 'active';
+ $nm_eventon_options[ $key ]['key']             = 'F2A8C4D0-3F21-4B35-9A3F-B5A4C3D2E1F6';
+ $nm_eventon_options[ $key ]['remote_validity'] = 'valid';
 }
-update_option( '_evo_products', $eventon_license );
+update_option( '_evo_products', $nm_eventon_options );
+
 if ( ! defined( 'EVO_PLUGIN_FILE' ) ) {
 	define( 'EVO_PLUGIN_FILE', __FILE__ );
 }

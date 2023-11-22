@@ -23,7 +23,11 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
+use com\itthinx\woocommerce\search\engine\Term_Control;
 
 if ( !function_exists( 'woocommerce_product_search_filter_attribute' ) ) {
 	/**
@@ -41,7 +45,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_attribute' ) ) {
 /**
  * Filter by attribute.
  */
-class WooCommerce_Product_Search_Filter_Attribute {
+class WooCommerce_Product_Search_Filter_Attribute extends Filter_Renderer {
 
 	private static $instances = 0;
 
@@ -102,6 +106,8 @@ class WooCommerce_Product_Search_Filter_Attribute {
 	 */
 	public static function render( $atts = array(), &$results = null ) {
 
+		global $wp_query;
+
 		self::load_resources();
 
 		$_atts = $atts;
@@ -145,11 +151,11 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			$atts
 		);
 
-		$n               = self::get_n();
-		$container_class = '';
-		$container_id    = sprintf( 'product-search-filter-attribute-%d', $n );
-		$heading_class   = 'product-search-filter-terms-heading product-search-filter-attribute-heading';
-		$heading_id      = sprintf( 'product-search-filter-attribute-heading-%d', $n );
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
 
 		$taxonomy = false;
 		if ( $atts['attribute'] !== null ) {
@@ -220,6 +226,50 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			$taxonomy = $taxonomy->name;
 		}
 		$atts['taxonomy'] = $taxonomy;
+
+		$n               = self::get_n();
+		$container_class = '';
+		$container_id    = sprintf( 'product-search-filter-attribute-%d', $n );
+		$heading_class   = 'product-search-filter-terms-heading product-search-filter-attribute-heading';
+		$heading_id      = sprintf( 'product-search-filter-attribute-heading-%d', $n );
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+
+				$style = isset( $atts['style'] ) ? trim( strtolower( $atts['style'] ) ) : '';
+				if ( $style === 'dropdown' ) {
+					wp_enqueue_script( 'selectize' );
+					wp_enqueue_script( 'selectize-ix' );
+					wp_enqueue_style( 'selectize' );
+				}
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				$results = array(
+					'elements_displayed' => $data['elements_displayed'],
+					'container_id'       => $container_id,
+				);
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'             => '',
+				'inline_scripts'     => array(),
+				'elements_displayed' => 0,
+				'container_id'       => $container_id,
+			);
+		}
 
 		$no_valid_include_terms = false;
 
@@ -404,10 +454,6 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
-		}
-
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -654,12 +700,14 @@ class WooCommerce_Product_Search_Filter_Attribute {
 				$root_class .= ' product-search-filter-toggle-widget';
 			}
 			$params['fields'] = 'ids';
-			$term_ids = WooCommerce_Product_Search_Service::get_term_ids_for_request( $params, $taxonomy );
+			$term_ids = Term_Control::get_term_ids( $params, $taxonomy );
+
 			$node = new WooCommerce_Product_Search_Term_Node( $term_ids, $taxonomy, array( 'hide_empty' => $params['hide_empty'] ) );
 			$node->sort( $params['orderby'], $params['order'] );
 			if ( !empty( $params['number'] ) && $params['number'] > 0 ) {
 				$node->crop( 0, $params['number'] );
 			}
+
 			switch( $params['style'] ) {
 				case 'select' :
 				case 'dropdown' :
@@ -697,7 +745,6 @@ class WooCommerce_Product_Search_Filter_Attribute {
 						'show_thumbnails'           => $params['show_thumbnails'],
 					) );
 			}
-
 			$terms_output = apply_filters(
 				"woocommerce_product_search_filter_{$taxonomy}_content",
 				$node_renderer->render( $node ),
@@ -754,6 +801,10 @@ class WooCommerce_Product_Search_Filter_Attribute {
 
 		$inline_script = woocommerce_product_search_safex( $inline_script );
 		wp_add_inline_script( 'product-filter', $inline_script );
+
+		if ( $render_cache ) {
+			$data['inline_scripts'][] = array( 'handle' => 'product-filter', 'inline_script' => $inline_script );
+		}
 
 		if ( $params['style'] === 'dropdown' ) {
 
@@ -864,6 +915,10 @@ class WooCommerce_Product_Search_Filter_Attribute {
 
 			wp_add_inline_script( 'selectize-ix', $inline_script );
 
+			if ( $render_cache ) {
+				$data['inline_scripts'][] = array( 'handle' => 'selectize-ix', 'inline_script' => $inline_script );
+			}
+
 			$output .= sprintf(
 				'<div style="display:none!important" class="woocommerce-product-search-terms-observer" data-id="%s" data-taxonomy="%s" data-parameters="%s" data-adjust_size="%s" data-height="%s"></div>',
 				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ),
@@ -892,6 +947,12 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			'elements_displayed' => $params['walker']->get_elements_displayed(),
 			'container_id'       => $container_id,
 		);
+
+		if ( $render_cache ) {
+			$data['elements_displayed'] = $results['elements_displayed'];
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
 
 		self::$instances++;
 

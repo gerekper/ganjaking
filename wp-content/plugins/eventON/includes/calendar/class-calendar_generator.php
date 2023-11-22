@@ -3,7 +3,7 @@
  * EVO_generator class.
  *
  * @class 		EVO_generator
- * @version		4.5
+ * @version		4.5.2
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -545,10 +545,14 @@ class EVO_generator {
 			// separate months set to yes if not specified on load
 				if(!isset($atts['sep_month'])) $atts['sep_month'] = 'yes';
 				if(!isset($atts['show_limit'])) $atts['show_limit'] = 'no';
+
+				if($atts['show_limit'] =='yes' && $atts['sep_month'] == 'no' ) 
+					$atts['show_limit'] ='no';
+
 				if(isset($atts['hide_month_headers']) && $atts['hide_month_headers'] =='yes') 
 					$atts['sep_month'] = 'no';
 
-				if($atts['show_limit'] =='yes' && $atts['sep_month'] == 'no') $atts['show_limit'] ='no';
+				
 
 
 			// PROCESS SC
@@ -1984,6 +1988,9 @@ class EVO_generator {
 						// hex color passed via wp_query and etc_override applied via _convert_to_readable_eventdata()
 						$event_color = $event_['hex_color'];
 						$EventData['color'] = '#'.str_replace('#', '', $event_color); // remove #
+						if( $ev_grad = $EVENT->get_gradient() ){
+							$EventData['bggrad'] = $ev_grad;
+						}
 			
 				// open event data array for pluggable filters
 					$EventData = apply_filters('evo_event_data_array', $EventData, $EVENT, $this);
@@ -2385,9 +2392,10 @@ class EVO_generator {
 		}
 
 	// generate event data for all eventON events
+	// @updated 4.5.2
 		public function get_all_event_data($args = array()){
 			
-			$evo_opt = EVO()->frontend->evo_options;
+			$evo_opt = EVO()->cal->get_op('evcal_1');
 
 			$events = $this->get_events_from_wp_query($args);
 
@@ -2414,6 +2422,9 @@ class EVO_generator {
 					$event_id = $events->post->ID;
 					$ev_vals = $EVENT->get_data();
 
+					$output[$event_id]['post_status'] = $EVENT->post_status;
+					$output[$event_id]['content'] = $EVENT->content;
+					
 					// event name
 						$output[$event_id]['name'] = $EVENT->get_title();
 
@@ -2428,7 +2439,7 @@ class EVO_generator {
 						if( isset($args['hide_past']) && $args['hide_past'] =='yes' && $this->current_time < $row_end) continue;
 
 					// details
-						$output[$event_id]['details'] = EVO()->frontend->filter_evo_content(get_the_content()); 
+						$output[$event_id]['details'] = EVO()->frontend->filter_evo_content( $EVENT->content); 
 
 					// repeating event
 						if( $EVENT->is_repeating_event() )
@@ -2472,7 +2483,18 @@ class EVO_generator {
 							if( !empty( $LocTermMeta['location_lat']) && !empty( $LocTermMeta['location_lon']) ){
 								$output[$event_id]['location_lat'] = $LocTermMeta['location_lat'];
 								$output[$event_id]['location_lon'] = $LocTermMeta['location_lon'];
-							}								
+							}	
+
+							// location link
+							if(!empty( $LocTermMeta['evcal_location_link']))
+								$output[$event_id]['location_link'] = $LocTermMeta['evcal_location_link']; 
+
+							// location image
+							if(!empty( $LocTermMeta['evo_loc_img']))
+								$output[$event_id]['location_img'] = $LocTermMeta['evo_loc_img']; 
+
+							// location description 
+							$output[$event_id]['location_desc'] = $location_terms[0]->description;							
 						}
 
 					// Organizer
@@ -2494,6 +2516,14 @@ class EVO_generator {
 							// organizer contact
 							if(!empty( $orgTermMeta['evcal_org_contact']))
 								$output[$event_id]['organizer_contact'] = stripslashes($orgTermMeta['evcal_org_contact']);
+
+							// organizer link
+							if(!empty( $orgTermMeta['evcal_org_exlink']))
+								$output[$event_id]['organizer_link'] = stripslashes($orgTermMeta['evcal_org_exlink']);
+
+							// organizer image
+							if(!empty( $orgTermMeta['evo_org_img']))
+								$output[$event_id]['organizer_img'] = stripslashes($orgTermMeta['evo_org_img']);
 
 							// organizer description 
 							$output[$event_id]['organizer_desc'] = $organizer_terms[0]->description;

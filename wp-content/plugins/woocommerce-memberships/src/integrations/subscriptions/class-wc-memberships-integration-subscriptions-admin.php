@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -95,7 +95,7 @@ class WC_Memberships_Integration_Subscriptions_Admin {
 
 		if ( $subscription && $subscription instanceof \WC_Subscription ) {
 			$subscription_id   = $subscription->get_id();
-			$subscription_url  = get_edit_post_link( $subscription_id );
+			$subscription_url  = $subscription->get_edit_order_url();
 			$subscription_link = '<a href="' . esc_url( $subscription_url ) . '">' . esc_html( $subscription_id ) . '</a>';
 		} else {
 			$subscription_id   = '';
@@ -572,9 +572,10 @@ class WC_Memberships_Integration_Subscriptions_Admin {
 
 			$user_membership = new \WC_Memberships_Integration_Subscriptions_User_Membership( $user_membership_id );
 
-			if ( $subscription_id = $user_membership->get_subscription_id() ) {
+			if ( $subscription = $user_membership->get_subscription() ) {
+
 				/* translators: Placeholder: %s - order ID */
-				printf( '<span class="member-since-subscription"><small>' . __( 'Subscription: %s', 'woocommerce-memberships' ) . '</small></span>', '<a href="' . esc_url( get_edit_post_link( $subscription_id ) ) . '">#' . esc_html( $subscription_id ) . '</a>' );
+				printf( '<span class="member-since-subscription"><small>' . __( 'Subscription: %s', 'woocommerce-memberships' ) . '</small></span>', '<a href="' . esc_url( $subscription->get_edit_order_url() ) . '">#' . esc_html( $subscription->get_id() ) . '</a>' );
 			}
 		}
 	}

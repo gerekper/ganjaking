@@ -1,0 +1,14 @@
+.elementor-widget-dce-breadcrumbs ul {
+    list-style: none;
+    margin: 5px 0;
+    overflow: hidden;
+}
+.elementor-widget-dce-breadcrumbs ul li{
+    display: inline;
+    vertical-align: middle;
+}
+.elementor-widget-dce-breadcrumbs .separator{
+    font-size: 18px;
+    font-weight: 100;
+    color: #ccc;
+}

@@ -63,16 +63,16 @@
  useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  
- Visit http://www.itthinx.com/ for help, license details and general info.
+ Visit https://www.itthinx.com/ for help, license details and general info.
  
  -----------------------------------------------------------------------------
 
  Plugin page   :
  
-   http://www.itthinx.com/plugins/woocommerce-product-search
+   https://www.itthinx.com/plugins/woocommerce-product-search
 
  Documentation :
  
-   http://www.itthinx.com/documentation/woocommerce-product-search
+   https://woo.com/document/woocommerce-product-search
 
  -----------------------------------------------------------------------------

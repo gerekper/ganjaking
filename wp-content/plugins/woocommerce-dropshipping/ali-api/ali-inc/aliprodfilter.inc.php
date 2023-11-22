@@ -29,5 +29,4 @@ class Ali_Product_Filter {
 			update_post_meta( $post_id, '_is_ali_product', 'no' );
 		}
 	}
-
 }

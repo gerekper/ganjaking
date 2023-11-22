@@ -2,20 +2,12 @@
 
 namespace WCML\Rest\Wrapper\Orders;
 
+use WCML\Orders\Helper as OrdersHelper;
 use WPML\FP\Obj;
 use WCML\Rest\Wrapper\Handler;
 use WCML\Rest\Exceptions\InvalidCurrency;
 
 class Prices extends Handler {
-
-	/** @var \WCML_Multi_Currency_Orders */
-	private $wcmlMultiCurrencyOrders;
-
-	public function __construct(
-		\WCML_Multi_Currency_Orders $wcmlMultiCurrencyOrders
-	) {
-		$this->wcmlMultiCurrencyOrders = $wcmlMultiCurrencyOrders;
-	}
 
 	/**
 	 * Sets the product information according to the provided language
@@ -40,7 +32,7 @@ class Prices extends Handler {
 				throw new InvalidCurrency( $currency );
 			}
 
-			update_post_meta( $orderId, '_order_currency', $currency );
+			OrdersHelper::setCurrency( $orderId, $currency );
 		}
 	}
 }

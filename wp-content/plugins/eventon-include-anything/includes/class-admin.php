@@ -1,7 +1,6 @@
 <?php 
 /**
 * ADMIN Class
-* @version 0.6
 */
 
 class EVOIA_Admin{
@@ -28,8 +27,6 @@ class EVOIA_Admin{
 
 		foreach ( $my_post_types as $my_post_type ) {
 			if($my_post_type == 'ajde_events') continue;
-
-			EVO()->elements->load_colorpicker();
 
 			add_meta_box(
 				'evoia_mb',
@@ -65,18 +62,13 @@ class EVOIA_Admin{
 		$wp_time_format = get_option('time_format');
 		$wp_date_format = get_option('date_format');
 
-		// Minute increment	
-		$minIncre = EVO()->cal->get_prop('evo_minute_increment','evcal_1');
-		if(empty($minIncre)) $minIncre = 1;
-		$minIncre = 60/ $minIncre;	
-
 		?>
-		<div id='evo_include' class='evo_meta_elements' style='display:<?php echo $POST->check_yn('_evo_inc') ?'block':'none';?>; background: #efefef;border-radius:10px;padding: 20px;'>
+		<div id='evo_include' class='evo_meta_elements' style='display:<?php echo $POST->check_yn('_evo_inc') ?'block':'none';?>; border-top: 1px solid #e0e0e0; background: #efefef;margin: 15px -14px -15px; padding: 20px;'>
 
-			<h4><?php _e('Select the date range to include','evoia');?></h4>
+			<h4>Select the date range to include</h4>
 			
 			<div class='evo_edit_field_box' style='background-color: #f5c485; background: linear-gradient(45deg, #f9d29f, #ffae5b); border-radius: 20px; padding: 15px; margin: 8px 0;'>
-				<p style='padding: 0; margin: 0 0 10px;font-size: 14px;'><?php _e('Start Date for inclusion','evoia');?></p>
+				<p style='padding: 0; margin: 0 0 10px;font-size: 14px;'>Start Date for inclusion</p>
 				<?php
 
 				$rand = 457973;
@@ -95,11 +87,10 @@ class EVOIA_Admin{
 						'unix'=> $POST->get_meta('evcal_srow'),
 						'type'=>'start',
 						'rand'=> $rand,
-						'minute_increment'=> $minIncre,
 					)
 				);
 
-				?><p style='padding: 0;margin: 0 0 10px; font-size: 14px;'><?php _e('End Date for inclusion','evoia');?></p>
+				?><p style='padding: 0;margin: 0 0 10px; font-size: 14px;'>End Date for inclusion</p>
 
 				<input type="hidden" name="_evo_date_format" value='Y/m/d'/>
 				<input type="hidden" name="_evo_time_format" value='<?php echo $used_timeFormat;?>'/>
@@ -114,7 +105,6 @@ class EVOIA_Admin{
 						'unix'=> $POST->get_meta('evcal_erow'),
 						'type'=>'end',
 						'rand'=> $rand,
-						'minute_increment'=> $minIncre,
 					)
 				);
 
@@ -133,21 +123,20 @@ class EVOIA_Admin{
 				array(
 					array(
 						'type'=>'text',
-						'name'=> __('Title for this post', 'evoia'),
+						'name'=> __('Title for this post', 'eventon'),
 						'id'=> '_evoia_title',
 						'value'=> $title ,
 					),
 					array(
 						'type'=>'text',
-						'name'=> __('Sub title for this post', 'evoia'),
+						'name'=> __('Sub title for this post', 'eventon'),
 						'id'=> '_evoia_stitle',
 						'value'=> $POST->get_meta('_evoia_stitle'),
 					),
 					array(
 						'id'=>'evcal_event_color',
 						'type'=>'colorpicker',
-						'support_input'=> true,
-						'name'=> __('Color to use for this post', 'evoia'),
+						'name'=> __('Color to use for this post', 'eventon').' '.$POST->get_meta('evcal_event_color'),
 						'value'=> $POST->get_meta('evcal_event_color'),
 					),
 					array(
@@ -157,20 +146,20 @@ class EVOIA_Admin{
 					),
 					array(
 						'type'=>'text',
-						'name'=> __('Link for this post', 'evoia'),
+						'name'=> __('Link for this post', 'eventon'),
 						'tooltip'=> __('By default this post will link to permalink of this post','evoia'),
 						'id'=> 'evcal_exlink',
 						'value'=> $POST->get_meta('evcal_exlink'),
 					),
 					array(
 						'type'=>'yesno_btn',
-						'label'=> __('Open the link in a new window', 'evoia'),						
+						'label'=> __('Open the link in a new window', 'eventon'),						
 						'id'=> '_evcal_exlink_target',
 						'value'=> $POST->get_meta('_evcal_exlink_target'),
 					),
 					array(
 						'type'=>'textarea',
-						'name'=> __('(Optional) Tracking Code', 'evoia'),
+						'name'=> __('(Optional) Tracking Code', 'eventon'),
 						'tooltip'=> __('This tracking code will be included in the calendar everytime this post is shown on calendar.','evoia'),
 						'id'=> '_tracking_code',
 						'value'=> $POST->get_meta('_tracking_code'),
@@ -214,9 +203,6 @@ class EVOIA_Admin{
 				$_allowed = array( 'post-new.php', 'post.php' );
 				if(!in_array($pagenow, $_allowed)) return;
 
-		// if include anything is turned off > dont save any meta values
-			if( isset($_POST['_evo_inc']) && $_POST['_evo_inc'] == 'no') return;
-
 		// save fields
 			foreach( $this->get_post_meta_fields()as $f){
 				if(!isset( $_POST[ $f ] )) continue;
@@ -251,9 +237,9 @@ class EVOIA_Admin{
 		$default['eventon-include-anything'] = array(
 			'id'=> EVOIA()->id,
 			'name'=> EVOIA()->name,
-			'link'=>'https://www.myeventon.com/addons/include-anything/',
-			'download'=>'https://www.myeventon.com/addons/include-anything/',
-			'desc'=>'Include any posts inside eventON calendar seamlessly',
+			'link'=>'http://www.myeventon.com/addons/repeat-customizer',
+			'download'=>'http://www.myeventon.com/addons/repeat-customizer',
+			'desc'=>'Customize repeating event data for individual repeat instance separately',
 		);
 		return $default;
 	}

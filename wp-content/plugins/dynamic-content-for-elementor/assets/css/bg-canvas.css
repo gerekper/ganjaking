@@ -1,0 +1,16 @@
+.dce-container-bgcanvas{
+    position: relative;
+    height: 500px;
+}
+.dce-container-bgcanvas .scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.dce-container-bgcanvas .scene canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

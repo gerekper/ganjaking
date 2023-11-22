@@ -421,6 +421,34 @@ class Obj {
 
 		return call_user_func_array( curryN( 2, $without ), func_get_args() );
 	}
+
+	/**
+	 * Curried :: array|object -> array|object -> array|object
+	 *
+	 * It merges the new data with item.
+	 *
+	 * @param array|object $newData
+	 * @param array|object $item
+	 *
+	 * @return array|object
+	 */
+	public static function merge( $newData = null, $item = null ) {
+		$merge = function ( $newData, $item ) {
+			$isNested = Logic::anyPass( [ 'is_array', 'is_object' ] );
+
+			foreach ( (array) $newData as $key => $value ) {
+				if ( $isNested( $newData ) && Obj::has( $key, $item ) && $isNested( Obj::prop( $key, $item ) ) ) {
+					$item = Obj::assoc( $key, self::merge( $value, Obj::prop( $key, $item ) ), $item );
+				} else {
+					$item = Obj::assoc( $key, $value, $item );
+				}
+			}
+
+			return $item;
+		};
+
+		return call_user_func_array( curryN( 2, $merge ), func_get_args() );
+	}
 }
 
 Obj::init();

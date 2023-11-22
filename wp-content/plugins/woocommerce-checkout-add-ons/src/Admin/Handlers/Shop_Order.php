@@ -24,7 +24,7 @@
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Handlers;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 
 defined( 'ABSPATH' ) or exit;

@@ -20,7 +20,7 @@ class Languages extends Handler {
 
 		if ( ! is_null( $lang ) && $lang !== 'all' ) {
 			$args['meta_query'][] = [
-				'key'   => 'wpml_language',
+				'key'   => \WCML_Orders::KEY_LANGUAGE,
 				'value' => strval( $lang )
 			];
 		}
@@ -40,7 +40,7 @@ class Languages extends Handler {
 	 */
 	public function prepare( $response, $object, $request ) {
 		$language      = get_query_var( 'lang' );
-		$orderLanguage = get_post_meta( $this->get_id( $object ), 'wpml_language', true );
+		$orderLanguage = \WCML_Orders::getLanguage( $this->get_id( $object ) );
 
 		if ( $orderLanguage !== $language ) {
 			foreach ( $response->data['line_items'] as $k => $item ) {
@@ -95,7 +95,7 @@ class Languages extends Handler {
 				throw new InvalidLanguage( $data['lang'] );
 			}
 
-			update_post_meta( $object->get_id(), 'wpml_language', $data['lang'] );
+			\WCML_Orders::setLanguage( $object->get_id(), $data['lang'] );
 		}
 	}
 }

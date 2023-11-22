@@ -14,8 +14,8 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Control_Media;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -23,6 +23,7 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Text_Shadow;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -34,6 +35,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Premium_Flipbox
  */
 class Premium_Flipbox extends Widget_Base {
+
+	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-flipbox' );
+		return $is_enabled;
+	}
+
+	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
 
 	/**
 	 * Get Elementor Helper Instance.
@@ -62,7 +86,7 @@ class Premium_Flipbox extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Hover Box', 'premium-addons-pro' ) );
+		return __( '3D Hover Box', 'premium-addons-pro' );
 	}
 
 	/**
@@ -90,6 +114,20 @@ class Premium_Flipbox extends Widget_Base {
 	}
 
 	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
+	}
+
+	/**
 	 * Retrieve Widget Dependent JS.
 	 *
 	 * @since 1.0.0
@@ -98,9 +136,19 @@ class Premium_Flipbox extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'lottie-js',
-			'premium-pro',
+
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-tweenmax',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			$draw_scripts,
+			array(
+				'lottie-js',
+				'premium-pro',
+			)
 		);
 	}
 
@@ -113,7 +161,7 @@ class Premium_Flipbox extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'flip', '3d', 'rotate', 'fade', 'info', 'animation' );
+		return array( 'pa', 'premium', 'flip box', '3d', 'rotate', 'fade', 'info', 'animation' );
 	}
 
 	/**
@@ -143,7 +191,9 @@ class Premium_Flipbox extends Widget_Base {
 	 * @since  1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'premium_flip_front_settings',
@@ -181,6 +231,7 @@ class Premium_Flipbox extends Widget_Base {
 					'icon'      => __( 'Font Awesome Icon', 'premium-addons-pro' ),
 					'image'     => __( 'Custom Image', 'premium-addons-pro' ),
 					'animation' => __( 'Lottie Animation', 'premium-addons-pro' ),
+					'svg'       => __( 'SVG Code', 'premium-addons-pro' ),
 				),
 				'label_block' => true,
 				'condition'   => array(
@@ -204,6 +255,19 @@ class Premium_Flipbox extends Widget_Base {
 				'condition'        => array(
 					'premium_flip_icon_fa_switcher' => 'yes',
 					'premium_flip_icon_selection'   => 'icon',
+				),
+			)
+		);
+
+		$this->add_control(
+			'front_custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => 'svg',
 				),
 			)
 		);
@@ -241,36 +305,7 @@ class Premium_Flipbox extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'front_lottie_loop',
-			array(
-				'label'        => __( 'Loop', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'default'      => 'true',
-				'condition'    => array(
-					'premium_flip_icon_fa_switcher' => 'yes',
-					'premium_flip_icon_selection'   => 'animation',
-					'front_lottie_url!'             => '',
-				),
-			)
-		);
-
-		$this->add_control(
-			'front_lottie_reverse',
-			array(
-				'label'        => __( 'Reverse', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
-					'premium_flip_icon_fa_switcher' => 'yes',
-					'premium_flip_icon_selection'   => 'animation',
-					'front_lottie_url!'             => '',
-				),
-			)
-		);
-
-		$this->add_control(
+		$this->add_responsive_control(
 			'premium_flip_icon_size',
 			array(
 				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
@@ -288,23 +323,23 @@ class Premium_Flipbox extends Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .premium-flip-text-wrapper svg' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
+					'{{WRAPPER}} .premium-flip-text-wrapper svg, {{WRAPPER}}.premium-front-lottie-canvas .premium-flip-text-wrapper .premium-lottie-animation' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
 				),
 				'condition'  => array(
 					'premium_flip_icon_fa_switcher' => 'yes',
-					'premium_flip_icon_selection!'  => 'image',
+					'premium_flip_icon_selection!'  => array( 'image', 'svg' ),
 				),
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'premium_flip_image_size',
 			array(
-				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
+				'label'      => __( 'Icon Width', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em' ),
 				'default'    => array(
-					'size' => 40,
+					'size' => 150,
 				),
 				'range'      => array(
 					'px' => array(
@@ -313,11 +348,264 @@ class Premium_Flipbox extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-flip-front-image' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-text-wrapper svg' => 'width: {{SIZE}}{{UNIT}};',
 				),
 				'condition'  => array(
 					'premium_flip_icon_fa_switcher' => 'yes',
-					'premium_flip_icon_selection'   => 'image',
+					'premium_flip_icon_selection'   => array( 'image', 'svg' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'front_icon_height',
+			array(
+				'label'      => __( 'Icon Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'premium_flip_icon_selection' => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-flip-text-wrapper svg' => 'height: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_control(
+			'front_draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+					'premium_flip_icon_fa_updated[library]!' => 'svg',
+				),
+			)
+		);
+
+		$front_anim_conditions = array(
+			'terms' => array(
+				array(
+					'name'  => 'premium_flip_icon_fa_switcher',
+					'value' => 'yes',
+				),
+				array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'premium_flip_icon_selection',
+									'value' => 'animation',
+								),
+								array(
+									'name'     => 'front_lottie_url',
+									'operator' => '!==',
+									'value'    => '',
+								),
+							),
+						),
+						array(
+							'terms' => array(
+								array(
+									'relation' => 'or',
+									'terms'    => array(
+										array(
+											'name'  => 'premium_flip_icon_selection',
+											'value' => 'icon',
+										),
+										array(
+											'name'  => 'premium_flip_icon_selection',
+											'value' => 'svg',
+										),
+									),
+								),
+								array(
+									'name'  => 'front_draw_svg',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			),
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'front_stroke_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 20,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array(
+						'premium_flip_icon_selection' => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-flip-text-wrapper svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'front_svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+						'front_draw_svg'                => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'front_frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+						'front_draw_svg'                => 'yes',
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$this,
+				'3d',
+				array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+					'premium_flip_icon_fa_updated[library]!' => 'svg',
+				)
+			);
+
+		}
+
+		$this->add_control(
+			'front_lottie_loop',
+			array(
+				'label'        => __( 'Loop', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'default'      => 'true',
+				'conditions'   => $front_anim_conditions,
+			)
+		);
+
+		$this->add_control(
+			'front_lottie_reverse',
+			array(
+				'label'        => __( 'Reverse', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'conditions'   => $front_anim_conditions,
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'front_start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+						'front_draw_svg'                => 'yes',
+						'front_lottie_reverse!'         => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'front_end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+						'front_draw_svg'                => 'yes',
+						'front_lottie_reverse'          => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'front_svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+						'front_draw_svg'                => 'yes',
+						'front_lottie_loop'             => 'true',
+					),
+				)
+			);
+		}
+
+		$this->add_control(
+			'front_lottie_renderer',
+			array(
+				'label'        => __( 'Render As', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => array(
+					'svg'    => __( 'SVG', 'premium-addons-pro' ),
+					'canvas' => __( 'Canvas', 'premium-addons-pro' ),
+				),
+				'default'      => 'svg',
+				'render_type'  => 'template',
+				'prefix_class' => 'premium-front-lottie-',
+				'condition'    => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => 'animation',
+					'front_lottie_url!'             => '',
 				),
 			)
 		);
@@ -354,12 +642,15 @@ class Premium_Flipbox extends Widget_Base {
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'h3',
 				'options'     => array(
-					'h1' => 'H1',
-					'h2' => 'H2',
-					'h3' => 'H3',
-					'h4' => 'H4',
-					'h5' => 'H5',
-					'h6' => 'H6',
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
 				),
 				'label_block' => true,
 				'condition'   => array(
@@ -397,20 +688,21 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'center'     => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-flip-front-content' => 'align-items: {{VALUE}};',
+					'{{WRAPPER}} .premium-flip-front-content-container' => 'align-items: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -424,20 +716,21 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-flip-front-content' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-flip-front-content-container' => 'justify-content: {{VALUE}};',
 				),
 			)
 		);
@@ -450,22 +743,23 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front' => 'text-align: {{VALUE}};',
 				),
@@ -543,6 +837,7 @@ class Premium_Flipbox extends Widget_Base {
 					'icon'      => __( 'Font Awesome Icon', 'premium-addons-pro' ),
 					'image'     => __( 'Custom Image', 'premium-addons-pro' ),
 					'animation' => __( 'Lottie Animation', 'premium-addons-pro' ),
+					'svg'       => __( 'SVG Code', 'premium-addons-pro' ),
 				),
 				'label_block' => true,
 				'condition'   => array(
@@ -566,6 +861,19 @@ class Premium_Flipbox extends Widget_Base {
 				'condition'        => array(
 					'premium_flip_back_icon_fa_switcher' => 'yes',
 					'premium_flip_back_icon_selection'   => 'icon',
+				),
+			)
+		);
+
+		$this->add_control(
+			'back_custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => 'svg',
 				),
 			)
 		);
@@ -604,35 +912,6 @@ class Premium_Flipbox extends Widget_Base {
 		);
 
 		$this->add_control(
-			'back_lottie_loop',
-			array(
-				'label'        => __( 'Loop', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'default'      => 'true',
-				'condition'    => array(
-					'premium_flip_back_icon_fa_switcher' => 'yes',
-					'premium_flip_back_icon_selection'   => 'animation',
-					'back_lottie_url!'                   => '',
-				),
-			)
-		);
-
-		$this->add_control(
-			'back_lottie_reverse',
-			array(
-				'label'        => __( 'Reverse', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'true',
-				'condition'    => array(
-					'premium_flip_back_icon_fa_switcher' => 'yes',
-					'premium_flip_back_icon_selection'   => 'animation',
-					'back_lottie_url!'                   => '',
-				),
-			)
-		);
-
-		$this->add_control(
 			'premium_flip_back_icon_size',
 			array(
 				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
@@ -650,11 +929,11 @@ class Premium_Flipbox extends Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .premium-flip-back-text-wrapper svg' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
+					'{{WRAPPER}} .premium-flip-back-text-wrapper svg, {{WRAPPER}}.premium-back-lottie-canvas .premium-flip-back-text-wrapper .premium-lottie-animation' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
 				),
 				'condition'  => array(
 					'premium_flip_back_icon_fa_switcher' => 'yes',
-					'premium_flip_back_icon_selection!'  => 'image',
+					'premium_flip_back_icon_selection!'  => array( 'image', 'svg' ),
 				),
 			)
 		);
@@ -662,7 +941,7 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_control(
 			'premium_flip_back_image_size',
 			array(
-				'label'      => __( 'Icon Size', 'premium-addons-pro' ),
+				'label'      => __( 'Icon Width', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em' ),
 				'default'    => array(
@@ -675,11 +954,266 @@ class Premium_Flipbox extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-flip-back-image' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-text-wrapper svg' => 'width: {{SIZE}}{{UNIT}};',
 				),
 				'condition'  => array(
 					'premium_flip_back_icon_fa_switcher' => 'yes',
-					'premium_flip_back_icon_selection'   => 'image',
+					'premium_flip_back_icon_selection'   => array( 'image', 'svg' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'back_icon_height',
+			array(
+				'label'      => __( 'Icon Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => 'svg',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-flip-back-text-wrapper svg' => 'height: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_control(
+			'back_draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => array( 'icon', 'svg' ),
+					'premium_flip_back_icon_fa_updated[library]!' => 'svg',
+				),
+			)
+		);
+
+		$back_anim_conditions = array(
+			'terms' => array(
+				array(
+					'name'  => 'premium_flip_back_icon_fa_switcher',
+					'value' => 'yes',
+				),
+				array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'premium_flip_back_icon_selection',
+									'value' => 'animation',
+								),
+								array(
+									'name'     => 'back_lottie_url',
+									'operator' => '!==',
+									'value'    => '',
+								),
+							),
+						),
+						array(
+							'terms' => array(
+								array(
+									'relation' => 'or',
+									'terms'    => array(
+										array(
+											'name'  => 'premium_flip_back_icon_selection',
+											'value' => 'icon',
+										),
+										array(
+											'name'  => 'premium_flip_back_icon_selection',
+											'value' => 'svg',
+										),
+									),
+								),
+								array(
+									'name'  => 'back_draw_svg',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			),
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'back_stroke_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 20,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array(
+						'premium_flip_icon_selection' => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-flip-back-text-wrapper svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'back_svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_back_icon_selection' => array( 'icon', 'svg' ),
+						'back_draw_svg'                    => 'yes',
+					),
+				)
+			);
+
+			$this->add_control(
+				'back_frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_back_icon_selection' => array( 'icon', 'svg' ),
+						'back_draw_svg'                    => 'yes',
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$this,
+				'3d',
+				array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => array( 'icon', 'svg' ),
+					'premium_flip_back_icon_fa_updated[library]!' => 'svg',
+				),
+				1
+			);
+
+		}
+
+		$this->add_control(
+			'back_lottie_loop',
+			array(
+				'label'        => __( 'Loop', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'default'      => 'true',
+				'conditions'   => $back_anim_conditions,
+			)
+		);
+
+		$this->add_control(
+			'back_lottie_reverse',
+			array(
+				'label'        => __( 'Reverse', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'true',
+				'conditions'   => $back_anim_conditions,
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'back_start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_back_icon_selection' => array( 'icon', 'svg' ),
+						'front_draw_svg'                   => 'yes',
+						'front_lottie_reverse!'            => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'back_end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_back_icon_selection' => array( 'icon', 'svg' ),
+						'back_draw_svg'                    => 'yes',
+						'back_lottie_reverse'              => 'true',
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'back_svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_back_icon_selection' => array( 'icon', 'svg' ),
+						'back_draw_svg'                    => 'yes',
+						'back_lottie_loop'                 => 'true',
+					),
+				)
+			);
+		}
+
+		$this->add_control(
+			'back_lottie_renderer',
+			array(
+				'label'        => __( 'Render As', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => array(
+					'svg'    => __( 'SVG', 'premium-addons-pro' ),
+					'canvas' => __( 'Canvas', 'premium-addons-pro' ),
+				),
+				'default'      => 'svg',
+				'render_type'  => 'template',
+				'prefix_class' => 'premium-back-lottie-',
+				'condition'    => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => 'animation',
+					'back_lottie_url!'                   => '',
 				),
 			)
 		);
@@ -716,12 +1250,15 @@ class Premium_Flipbox extends Widget_Base {
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'h3',
 				'options'     => array(
-					'h1' => 'H1',
-					'h2' => 'H2',
-					'h3' => 'H3',
-					'h4' => 'H4',
-					'h5' => 'H5',
-					'h6' => 'H6',
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
 				),
 				'label_block' => true,
 				'condition'   => array(
@@ -852,20 +1389,21 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Top', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-up',
+						'icon'  => 'eicon-arrow-up',
 					),
 					'center'     => array(
 						'title' => __( 'Middle', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Bottom', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-down',
+						'icon'  => 'eicon-arrow-down',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-flip-back-content' => 'align-items: {{VALUE}};',
+					'{{WRAPPER}} .premium-flip-back-content-container' => 'align-items: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -879,20 +1417,21 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 					'flex-end'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-long-arrow-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-flip-back-content' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .premium-flip-back-content-container' => 'justify-content: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -906,22 +1445,23 @@ class Premium_Flipbox extends Widget_Base {
 				'options'   => array(
 					'left'    => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
 						'title' => __( 'Justify', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back' => 'text-align: {{VALUE}};',
 				),
@@ -1117,6 +1657,33 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front, {{WRAPPER}}.premium-flip-style-flip .premium-flip-front-overlay'  => 'border-radius: {{SIZE}}{{UNIT}}',
 				),
+				'condition'  => array(
+					'front_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'front_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'front_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-flip-front, {{WRAPPER}}.premium-flip-style-flip .premium-flip-front-overlay' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'front_adv_radius' => 'yes',
+				),
 			)
 		);
 
@@ -1152,6 +1719,33 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back, {{WRAPPER}}.premium-flip-style-flip .premium-flip-back-overlay'  => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'back_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'back_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'back_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-flip-back, {{WRAPPER}}.premium-flip-style-flip .premium-flip-back-overlay' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'back_adv_radius' => 'yes',
+				),
 			)
 		);
 
@@ -1164,7 +1758,7 @@ class Premium_Flipbox extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -1174,7 +1768,7 @@ class Premium_Flipbox extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -1186,6 +1780,20 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label' => __( 'Front', 'premium-addons-pro' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'front_svg_color',
+			array(
+				'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
+				'condition' => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+					'front_draw_svg'                => 'yes',
+				),
 			)
 		);
 
@@ -1212,21 +1820,42 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_control(
 			'premium_flip_fa_color_selection',
 			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'label'       => __( 'Color', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::COLOR,
+				'global'      => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
-				'selectors' => array(
+				'selectors'   => array(
 					'{{WRAPPER}} .premium-flip-front-icon' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .premium-flip-text-wrapper svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .premium-flip-text-wrapper .premium-drawable-icon' => 'fill: {{VALUE}};',
 				),
-				'condition' => array(
-					'premium_flip_icon_selection' => 'icon',
+				'render_type' => 'template',
+				'condition'   => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
 				),
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'front_stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'premium_flip_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection'   => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-flip-text-wrapper .premium-drawable-icon *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_flip_fa_color_background_selection',
@@ -1236,14 +1865,20 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front-icon, {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie'    => 'background: {{VALUE}};',
 				),
+				'condition' => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
-				'name'     => 'premium_flip_icon_border',
-				'selector' => '{{WRAPPER}} .premium-flip-front-icon, {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie',
+				'name'      => 'premium_flip_icon_border',
+				'selector'  => '{{WRAPPER}} .premium-flip-front-icon, {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie',
+				'condition' => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1256,6 +1891,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-icon, {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie'  => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1266,7 +1904,8 @@ class Premium_Flipbox extends Widget_Base {
 				'name'      => 'premium_flip_icon_shadow',
 				'selector'  => '{{WRAPPER}} .premium-flip-front-icon',
 				'condition' => array(
-					'premium_flip_icon_selection' => 'icon',
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => 'icon',
 				),
 			)
 		);
@@ -1278,7 +1917,8 @@ class Premium_Flipbox extends Widget_Base {
 				'name'      => 'premium_flip_image_shadow',
 				'selector'  => '{{WRAPPER}} .premium-flip-front-image',
 				'condition' => array(
-					'premium_flip_icon_selection' => 'image',
+					'premium_flip_icon_fa_switcher' => 'yes',
+					'premium_flip_icon_selection'   => 'image',
 				),
 			)
 		);
@@ -1292,6 +1932,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-icon , {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1303,6 +1946,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-icon, {{WRAPPER}} .premium-flip-front-image, {{WRAPPER}} .premium-flip-front-lottie' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_icon_fa_switcher' => 'yes',
 				),
 			)
 		);
@@ -1324,31 +1970,41 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front-title' => 'color: {{VALUE}};',
 				),
 				'separator' => 'before',
+				'condition' => array(
+					'premium_flip_title_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'premium_flip_front_title_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-flip-front-title',
+				'name'      => 'premium_flip_front_title_typo',
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .premium-flip-front-title',
+				'condition' => array(
+					'premium_flip_title_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(
-				'name'     => 'premium_flip_title_shadow',
-				'selector' => '{{WRAPPER}} .premium-flip-front-title',
+				'name'      => 'premium_flip_title_shadow',
+				'selector'  => '{{WRAPPER}} .premium-flip-front-title',
+				'condition' => array(
+					'premium_flip_title_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1359,6 +2015,9 @@ class Premium_Flipbox extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front-title'    => 'background: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_title_switcher' => 'yes',
 				),
 			)
 		);
@@ -1372,6 +2031,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_title_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1383,6 +2045,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_title_switcher' => 'yes',
 				),
 			)
 		);
@@ -1404,12 +2069,14 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front-description' => 'color: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1417,17 +2084,25 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'premium_flip_desc_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-flip-front-description',
+				'name'      => 'premium_flip_desc_typography',
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .premium-flip-front-description',
+				'condition' => array(
+					'premium_flip_description_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(
-				'name'     => 'premium_flip_description_shadow',
-				'selector' => '{{WRAPPER}} .premium-flip-front-description',
+				'name'      => 'premium_flip_description_shadow',
+				'selector'  => '{{WRAPPER}} .premium-flip-front-description',
+				'condition' => array(
+					'premium_flip_description_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1438,6 +2113,9 @@ class Premium_Flipbox extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-front-description'    => 'background: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1451,6 +2129,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-description' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_description_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1462,6 +2143,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-front-description' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1477,6 +2161,20 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label' => __( 'Back', 'premium-addons-pro' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'back_svg_color',
+			array(
+				'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
+				'condition' => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => array( 'icon', 'svg' ),
+					'back_draw_svg'                      => 'yes',
+				),
 			)
 		);
 
@@ -1503,22 +2201,42 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_control(
 			'premium_flip_back_fa_color_selection',
 			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'label'       => __( 'Color', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::COLOR,
+				'global'      => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
-				'selectors' => array(
+				'selectors'   => array(
 					'{{WRAPPER}} .premium-flip-back-icon' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .premium-flip-back-text-wrapper svg' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .premium-flip-back-text-wrapper .premium-drawable-icon' => 'fill: {{VALUE}}',
 				),
-				'condition' => array(
+				'render_type' => 'template',
+				'condition'   => array(
 					'premium_flip_back_icon_fa_switcher' => 'yes',
-					'premium_flip_back_icon_selection'   => 'icon',
+					'premium_flip_back_icon_selection'   => array( 'icon', 'svg' ),
 				),
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'back_stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'premium_flip_back_icon_fa_switcher' => 'yes',
+						'premium_flip_icon_selection' => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-flip-back-text-wrapper .premium-drawable-icon *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_flip_back_fa_color_background_selection',
@@ -1528,14 +2246,20 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie'    => 'background: {{VALUE}};',
 				),
+				'condition' => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
-				'name'     => 'premium_flip_back_icon_border',
-				'selector' => '{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie',
+				'name'      => 'premium_flip_back_icon_border',
+				'selector'  => '{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie',
+				'condition' => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1548,6 +2272,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie'  => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1558,7 +2285,8 @@ class Premium_Flipbox extends Widget_Base {
 				'name'      => 'premium_flip_back_icon_shadow',
 				'selector'  => '{{WRAPPER}} .premium-flip-back-icon',
 				'condition' => array(
-					'premium_flip_back_icon_selection' => 'icon',
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => 'icon',
 				),
 			)
 		);
@@ -1570,7 +2298,8 @@ class Premium_Flipbox extends Widget_Base {
 				'name'      => 'premium_flip_back_image_shadow',
 				'selector'  => '{{WRAPPER}} .premium-flip-back-image',
 				'condition' => array(
-					'premium_flip_back_icon_selection' => 'image',
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+					'premium_flip_back_icon_selection'   => 'image',
 				),
 			)
 		);
@@ -1584,6 +2313,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1595,6 +2327,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-icon, {{WRAPPER}} .premium-flip-back-image, {{WRAPPER}} .premium-flip-back-lottie' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_back_icon_fa_switcher' => 'yes',
 				),
 			)
 		);
@@ -1616,12 +2351,14 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back-title' => 'color: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_back_title_switcher' => 'yes',
 				),
 			)
 		);
@@ -1629,17 +2366,25 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'premium_flip_back_title_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-flip-back-title',
+				'name'      => 'premium_flip_back_title_typo',
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .premium-flip-back-title',
+				'condition' => array(
+					'premium_flip_back_title_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(
-				'name'     => 'premium_flip_back_title_shadow',
-				'selector' => '{{WRAPPER}} .premium-flip-back-title',
+				'name'      => 'premium_flip_back_title_shadow',
+				'selector'  => '{{WRAPPER}} .premium-flip-back-title',
+				'condition' => array(
+					'premium_flip_back_title_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1650,6 +2395,9 @@ class Premium_Flipbox extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back-title' => 'background: {{VALUE}};',
+					'condition'                            => array(
+						'premium_flip_back_title_switcher' => 'yes',
+					),
 				),
 			)
 		);
@@ -1663,6 +2411,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_back_title_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1674,6 +2425,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_back_title_switcher' => 'yes',
 				),
 			)
 		);
@@ -1695,12 +2449,14 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back-description' => 'color: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_back_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1708,17 +2464,25 @@ class Premium_Flipbox extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'premium_flip_back_desc_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .premium-flip-back-description',
+				'name'      => 'premium_flip_back_desc_typography',
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .premium-flip-back-description',
+				'condition' => array(
+					'premium_flip_back_description_switcher' => 'yes',
+				),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(
-				'name'     => 'premium_flip_back_description_shadow',
-				'selector' => '{{WRAPPER}} .premium-flip-back-description',
+				'name'      => 'premium_flip_back_description_shadow',
+				'selector'  => '{{WRAPPER}} .premium-flip-back-description',
+				'condition' => array(
+					'premium_flip_back_description_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1729,6 +2493,9 @@ class Premium_Flipbox extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-back-description'    => 'background: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_flip_back_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1742,6 +2509,9 @@ class Premium_Flipbox extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-description' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}}  {{LEFT}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'premium_flip_back_description_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1753,6 +2523,9 @@ class Premium_Flipbox extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-flip-back-description' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}}  {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'premium_flip_back_description_switcher' => 'yes',
 				),
 			)
 		);
@@ -1779,7 +2552,9 @@ class Premium_Flipbox extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'premium_flip_box_link_typo',
-				'scheme'    => Typography::TYPOGRAPHY_1,
+				'global'    => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector'  => '{{WRAPPER}} .premium-flip-box-link',
 				'condition' => array(
 					'premium_flip_back_link_switcher' => 'yes',
@@ -1802,9 +2577,8 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-box-link' => 'color:{{VALUE}};',
@@ -1889,9 +2663,8 @@ class Premium_Flipbox extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-flip-box-link:hover'   => 'color: {{VALUE}};',
@@ -1983,36 +2756,88 @@ class Premium_Flipbox extends Widget_Base {
 
 		$trigger = $settings['premium_flip_back_link_trigger'];
 
+		$front_icon = $settings['premium_flip_icon_selection'];
+		$back_icon  = $settings['premium_flip_back_icon_selection'];
+
 		if ( 'url' === $settings['premium_flip_back_link_selection'] ) {
 
-			$button_url = $settings['premium_flip_back_link']['url'];
+			$this->add_link_attributes( 'link', $settings['premium_flip_back_link'] );
 
 		} else {
 
-			$button_url = get_permalink( $settings['premium_flip_back_existing_link'] );
+			$this->add_render_attribute( 'link', 'href', get_permalink( $settings['premium_flip_back_existing_link'] ) );
+		}
+
+		if ( 'full' === $trigger ) {
+			$this->add_render_attribute(
+				'link',
+				array(
+					'class'      => 'premium-flip-box-full-link',
+					'aria-label' => $settings['premium_flip_back_paragraph_header'],
+				)
+			);
+		} else {
+			$this->add_render_attribute( 'link', 'class', 'premium-flip-box-link text' );
 		}
 
 		if ( 'yes' === $settings['premium_flip_icon_fa_switcher'] ) {
-			if ( 'icon' === $settings['premium_flip_icon_selection'] ) {
-				if ( ! empty( $settings['premium_flip_icon_fa'] ) ) {
+
+			if ( 'icon' === $front_icon || 'svg' === $front_icon ) {
+
+				$this->add_render_attribute( 'front_icon', 'class', 'premium-drawable-icon' );
+
+				if ( 'icon' === $front_icon ) {
+
+					if ( ! empty( $settings['premium_flip_icon_fa'] ) ) {
+
+						$this->add_render_attribute(
+							'front_icon',
+							array(
+								'class'       => array(
+									'premium-flip-front-icon',
+									$settings['premium_flip_icon_fa'],
+								),
+								'aria-hidden' => 'true',
+							)
+						);
+
+					}
+
+					$front_migrated = isset( $settings['__fa4_migrated']['premium_flip_icon_fa_updated'] );
+					$front_new      = empty( $settings['premium_flip_icon_fa'] ) && Icons_Manager::is_migration_allowed();
+
+				}
+
+				if ( ( 'yes' === $settings['front_draw_svg'] && 'icon' === $front_icon ) || 'svg' === $front_icon ) {
+					$this->add_render_attribute( 'front_icon', 'class', 'premium-flip-front-icon' );
+				}
+
+				if ( 'yes' === $settings['front_draw_svg'] ) {
+
+					if ( 'icon' === $front_icon ) {
+
+						$this->add_render_attribute( 'front_icon', 'class', $settings['premium_flip_icon_fa_updated']['value'] );
+
+					}
 
 					$this->add_render_attribute(
 						'front_icon',
 						array(
-							'class'       => array(
-								'premium-flip-front-icon',
-								$settings['premium_flip_icon_fa'],
-							),
-							'aria-hidden' => 'true',
+							'class'            => 'premium-svg-drawer',
+							'data-svg-reverse' => $settings['front_lottie_reverse'],
+							'data-svg-loop'    => $settings['front_lottie_loop'],
+							'data-svg-sync'    => $settings['front_svg_sync'],
+							'data-svg-fill'    => $settings['front_svg_color'],
+							'data-svg-frames'  => $settings['front_frames'],
+							'data-svg-yoyo'    => $settings['front_svg_yoyo'],
+							'data-svg-point'   => $settings['front_lottie_reverse'] ? $settings['front_end_point']['size'] : $settings['front_start_point']['size'],
 						)
 					);
 
+				} else {
+					$this->add_render_attribute( 'front_icon', 'class', 'premium-svg-nodraw' );
 				}
-
-				$front_migrated = isset( $settings['__fa4_migrated']['premium_flip_icon_fa_updated'] );
-				$front_new      = empty( $settings['premium_flip_icon_fa'] ) && Icons_Manager::is_migration_allowed();
-
-			} elseif ( 'image' === $settings['premium_flip_icon_selection'] ) {
+			} elseif ( 'image' === $front_icon ) {
 
 				$this->add_render_attribute(
 					'front_image',
@@ -2034,13 +2859,18 @@ class Premium_Flipbox extends Widget_Base {
 						'data-lottie-url'     => $settings['front_lottie_url'],
 						'data-lottie-loop'    => $settings['front_lottie_loop'],
 						'data-lottie-reverse' => $settings['front_lottie_reverse'],
+						'data-lottie-render'  => $settings['front_lottie_renderer'],
 					)
 				);
 			}
 		}
 
 		if ( 'yes' === $settings['premium_flip_back_icon_fa_switcher'] ) {
-			if ( 'icon' === $settings['premium_flip_back_icon_selection'] ) {
+
+			if ( 'icon' === $back_icon || 'svg' === $back_icon ) {
+
+				$this->add_render_attribute( 'back_icon', 'class', 'premium-drawable-icon' );
+
 				if ( ! empty( $settings['premium_flip_back_icon_fa'] ) ) {
 
 					$this->add_render_attribute(
@@ -2059,7 +2889,39 @@ class Premium_Flipbox extends Widget_Base {
 				$back_migrated = isset( $settings['__fa4_migrated']['premium_flip_back_icon_fa_updated'] );
 				$back_new      = empty( $settings['premium_flip_back_icon_fa'] ) && Icons_Manager::is_migration_allowed();
 
-			} elseif ( 'image' === $settings['premium_flip_back_icon_selection'] ) {
+				if ( ( 'yes' === $settings['back_draw_svg'] && 'icon' === $back_icon ) || 'svg' === $back_icon ) {
+					$this->add_render_attribute( 'back_icon', 'class', 'premium-flip-back-icon' );
+				}
+
+				if ( 'yes' === $settings['back_draw_svg'] ) {
+
+					$this->add_render_attribute( 'container', 'class', 'premium-drawer-hover' );
+
+					if ( 'icon' === $back_icon ) {
+
+						$this->add_render_attribute( 'back_icon', 'class', $settings['premium_flip_back_icon_fa_updated']['value'] );
+
+					}
+
+					$this->add_render_attribute(
+						'back_icon',
+						array(
+							'class'            => 'premium-svg-drawer',
+							'data-svg-reverse' => $settings['back_lottie_reverse'],
+							'data-svg-loop'    => $settings['back_lottie_loop'],
+							'data-svg-hover'   => true,
+							'data-svg-sync'    => $settings['back_svg_sync'],
+							'data-svg-fill'    => $settings['back_svg_color'],
+							'data-svg-frames'  => $settings['back_frames'],
+							'data-svg-yoyo'    => $settings['back_svg_yoyo'],
+							'data-svg-point'   => $settings['back_lottie_reverse'] ? $settings['back_end_point']['size'] : $settings['back_start_point']['size'],
+						)
+					);
+
+				} else {
+					$this->add_render_attribute( 'back_icon', 'class', 'premium-svg-nodraw' );
+				}
+			} elseif ( 'image' === $back_icon ) {
 
 				$this->add_render_attribute(
 					'back_image',
@@ -2081,6 +2943,7 @@ class Premium_Flipbox extends Widget_Base {
 						'data-lottie-url'     => $settings['back_lottie_url'],
 						'data-lottie-loop'    => $settings['back_lottie_loop'],
 						'data-lottie-reverse' => $settings['back_lottie_reverse'],
+						'data-lottie-render'  => $settings['back_lottie_renderer'],
 					)
 				);
 			}
@@ -2105,44 +2968,48 @@ class Premium_Flipbox extends Widget_Base {
 		<div class="premium-flip-front premium-flip-front<?php echo esc_attr( $flip_dir ); ?>">
 			<div class="premium-flip-front-overlay">
 				<div class="premium-flip-front-content-container">
-					<div class="premium-flip-front-content">
-						<div class="premium-flip-text-wrapper">
-							<?php if ( 'yes' === $settings['premium_flip_icon_fa_switcher'] ) : ?>
-								<?php
-								if ( 'icon' === $settings['premium_flip_icon_selection'] ) :
-									if ( $front_new || $front_migrated ) :
-										Icons_Manager::render_icon(
-											$settings['premium_flip_icon_fa_updated'],
-											array(
-												'class' => 'premium-flip-front-icon',
-												'aria-hidden' => 'true',
-											)
-										);
-									else :
-										?>
-										<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_icon' ) ); ?>></i>
-										<?php
-									endif;
-								elseif ( 'image' === $settings['premium_flip_icon_selection'] ) :
+					<div class="premium-flip-text-wrapper">
+						<?php if ( 'yes' === $settings['premium_flip_icon_fa_switcher'] ) : ?>
+							<?php
+							if ( 'icon' === $front_icon ) :
+								if ( ( $front_new || $front_migrated ) && 'yes' !== $settings['front_draw_svg'] ) :
+									Icons_Manager::render_icon(
+										$settings['premium_flip_icon_fa_updated'],
+										array(
+											'class'       => array( 'premium-flip-front-icon', 'premium-svg-nodraw', 'premium-drawable-icon' ),
+											'aria-hidden' => 'true',
+										)
+									);
+								else :
 									?>
-									<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_image' ) ); ?>>
-								<?php elseif ( 'animation' === $settings['premium_flip_icon_selection'] ) : ?>
-									<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_lottie' ) ); ?>></div>
-								<?php endif; ?>
-							<?php endif; ?>
-
-							<?php if ( 'yes' === $settings['premium_flip_title_switcher'] && ! empty( $settings['premium_flip_paragraph_header'] ) ) : ?>
-								<<?php echo wp_kses_post( $front_title_size ); ?> class="premium-flip-front-title">
-									<?php echo wp_kses_post( $settings['premium_flip_paragraph_header'] ); ?>
-								</<?php echo wp_kses_post( $front_title_size ); ?>>
-							<?php endif; ?>
-
-							<?php if ( 'yes' === $settings['premium_flip_description_switcher'] ) : ?>
-								<div class="premium-flip-front-description">
-									<?php echo $this->parse_text_editor( $settings['premium_flip_paragraph_text'] ); ?>
+										<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_icon' ) ); ?>></i>
+									<?php
+								endif;
+							elseif ( 'svg' === $front_icon ) :
+								?>
+								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_icon' ) ); ?>>
+									<?php $this->print_unescaped_setting( 'front_custom_svg' ); ?>
 								</div>
+								<?php
+							elseif ( 'image' === $front_icon ) :
+								?>
+								<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_image' ) ); ?>>
+							<?php elseif ( 'animation' === $front_icon ) : ?>
+								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'front_lottie' ) ); ?>></div>
 							<?php endif; ?>
-						</div>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $settings['premium_flip_title_switcher'] && ! empty( $settings['premium_flip_paragraph_header'] ) ) : ?>
+							<<?php echo wp_kses_post( $front_title_size ); ?> class="premium-flip-front-title">
+								<?php echo wp_kses_post( $settings['premium_flip_paragraph_header'] ); ?>
+							</<?php echo wp_kses_post( $front_title_size ); ?>>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $settings['premium_flip_description_switcher'] ) : ?>
+							<div class="premium-flip-front-description">
+								<?php echo $this->parse_text_editor( $settings['premium_flip_paragraph_text'] ); ?>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -2152,73 +3019,56 @@ class Premium_Flipbox extends Widget_Base {
 			<div class="premium-flip-back-overlay">
 				<div class="premium-flip-back-content-container">
 					<?php if ( 'yes' === $settings['premium_flip_back_link_switcher'] && 'full' === $trigger ) : ?>
-						<a class="premium-flip-box-full-link"
-						<?php if ( ! empty( $button_url ) ) : ?>
-							href="<?php echo esc_url( $button_url ); ?>"
-						<?php endif; ?>
-						<?php if ( ! empty( $settings['premium_flip_back_link']['is_external'] ) ) : ?>
-							target="_blank"
-						<?php endif; ?>
-						<?php if ( ! empty( $settings['premium_flip_back_link']['nofollow'] ) ) : ?>
-							rel="nofollow"
-						<?php endif; ?>
-						></a>
+						<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>></a>
 					<?php endif; ?>
-					<div class="premium-flip-back-content">
-						<div class="premium-flip-back-text-wrapper">
 
-							<?php if ( 'yes' === $settings['premium_flip_back_icon_fa_switcher'] ) : ?>
-								<?php
-								if ( 'icon' === $settings['premium_flip_back_icon_selection'] ) :
-									if ( $back_new || $back_migrated ) :
-										Icons_Manager::render_icon(
-											$settings['premium_flip_back_icon_fa_updated'],
-											array(
-												'class' => 'premium-flip-back-icon',
-												'aria-hidden' => 'true',
-											)
-										);
-								else :
-									?>
+					<div class="premium-flip-back-text-wrapper">
+
+						<?php if ( 'yes' === $settings['premium_flip_back_icon_fa_switcher'] ) : ?>
+							<?php
+							if ( 'icon' === $back_icon ) :
+								if ( ( $back_new || $back_migrated ) && 'yes' !== $settings['back_draw_svg'] ) :
+									Icons_Manager::render_icon(
+										$settings['premium_flip_back_icon_fa_updated'],
+										array(
+											'class'       => array( 'premium-flip-back-icon', 'premium-svg-nodraw', 'premium-drawable-icon' ),
+											'aria-hidden' => 'true',
+										)
+									);
+							else :
+								?>
 									<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_icon' ) ); ?>></i>
-									<?php
-								endif;
-								elseif ( 'image' === $settings['premium_flip_back_icon_selection'] ) :
-									?>
-									<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_image' ) ); ?>>
-								<?php elseif ( 'animation' === $settings['premium_flip_back_icon_selection'] ) : ?>
-									<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_lottie' ) ); ?>></div>
-								<?php endif; ?>
-							<?php endif; ?>
-
-							<?php if ( 'yes' === $settings['premium_flip_back_title_switcher'] && ! empty( $settings['premium_flip_back_paragraph_header'] ) ) : ?>
-								<<?php echo wp_kses_post( $back_title_size ); ?> class="premium-flip-back-title">
-									<?php echo wp_kses_post( $settings['premium_flip_back_paragraph_header'] ); ?>
-								</<?php echo wp_kses_post( $back_title_size ); ?>>
-							<?php endif; ?>
-
-							<?php if ( 'yes' === $settings['premium_flip_back_description_switcher'] ) : ?>
-								<span class="premium-flip-back-description">
-									<?php echo $this->parse_text_editor( $settings['premium_flip_back_paragraph_text'] ); ?>
-								</span>
-							<?php endif; ?>
-
-							<?php if ( 'yes' === $settings['premium_flip_back_link_switcher'] && 'text' === $trigger ) : ?>
-								<a class="premium-flip-box-link text"
 								<?php
-								if ( ! empty( $button_url ) ) :
-									?>
-									href="<?php echo esc_url( $button_url ); ?>"
-								<?php endif; ?>
-								<?php if ( ! empty( $settings['premium_flip_back_link']['is_external'] ) ) : ?>
-									target="_blank"
-								<?php endif; ?>
-								<?php if ( ! empty( $settings['premium_flip_back_link']['nofollow'] ) ) : ?>
-									rel="nofollow"
-								<?php endif; ?>
-								><?php echo wp_kses_post( ( $settings['premium_flip_back_link_text'] ) ); ?></a>
+							endif;
+							elseif ( 'svg' === $back_icon ) :
+								?>
+								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_icon' ) ); ?>>
+									<?php $this->print_unescaped_setting( 'back_custom_svg' ); ?>
+								</div>
+								<?php
+							elseif ( 'image' === $back_icon ) :
+								?>
+								<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_image' ) ); ?>>
+							<?php else : ?>
+								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'back_lottie' ) ); ?>></div>
 							<?php endif; ?>
-						</div>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $settings['premium_flip_back_title_switcher'] && ! empty( $settings['premium_flip_back_paragraph_header'] ) ) : ?>
+							<<?php echo wp_kses_post( $back_title_size ); ?> class="premium-flip-back-title">
+								<?php echo wp_kses_post( $settings['premium_flip_back_paragraph_header'] ); ?>
+							</<?php echo wp_kses_post( $back_title_size ); ?>>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $settings['premium_flip_back_description_switcher'] ) : ?>
+							<span class="premium-flip-back-description">
+								<?php echo $this->parse_text_editor( $settings['premium_flip_back_paragraph_text'] ); ?>
+							</span>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $settings['premium_flip_back_link_switcher'] && 'text' === $trigger ) : ?>
+							<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>><?php echo wp_kses_post( ( $settings['premium_flip_back_link_text'] ) ); ?></a>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -2240,60 +3090,141 @@ class Premium_Flipbox extends Widget_Base {
 		?>
 		<#
 			var trigger = settings.premium_flip_back_link_trigger,
-
 				buttonUrl = 'url' == settings.premium_flip_back_link_selection ? settings.premium_flip_back_link.url : settings.premium_flip_back_existing_link,
-
 				backTitleTag = elementor.helpers.validateHTMLTag( settings.premium_flip_back_paragraph_header_size ),
-
 				frontTitleTag = elementor.helpers.validateHTMLTag( settings.premium_flip_paragraph_header_size ),
+				flipDir = settings.premium_flip_direction,
+				frontIcon = settings.premium_flip_icon_selection,
+				backIcon = settings.premium_flip_back_icon_selection;
 
-				flipDir = settings.premium_flip_direction;
+			view.addRenderAttribute( 'back_side_wrap', 'class', [ 'premium-flip-back','premium-flip-back' + flipDir ] );
 
-			view.addRenderAttribute('back_side_wrap', 'class', [ 'premium-flip-back','premium-flip-back' + flipDir ] );
+			view.addRenderAttribute( 'front_side_wrap', 'class', [ 'premium-flip-front','premium-flip-front' + flipDir ] );
 
-			view.addRenderAttribute('front_side_wrap', 'class', [ 'premium-flip-front','premium-flip-front' + flipDir ] );
+			if( 'yes' === settings.premium_flip_icon_fa_switcher ) {
 
-			if( 'yes' === settings.premium_flip_icon_fa_switcher && 'icon' === settings.premium_flip_icon_selection ) {
+				if ( 'icon' === frontIcon || 'svg' === frontIcon ) {
 
-				var frontIconHTML = elementor.helpers.renderIcon( view, settings.premium_flip_icon_fa_updated, { 'class': 'premium-flip-front-icon', 'aria-hidden': true }, 'i' , 'object' ),
-					frontMigrated = elementor.helpers.isIconMigrated( settings, 'premium_flip_icon_fa_updated' );
+					view.addRenderAttribute( 'front_icon', 'class', 'premium-drawable-icon' );
+
+					if( 'icon' === frontIcon ) {
+
+						var frontIconHTML = 'yes' !== settings.front_draw_svg ? elementor.helpers.renderIcon( view, settings.premium_flip_icon_fa_updated, { 'class': [ 'premium-flip-front-icon', 'premium-svg-nodraw' , 'premium-drawable-icon' ], 'aria-hidden': true }, 'i' , 'object' ) : false,
+							frontMigrated = elementor.helpers.isIconMigrated( settings, 'premium_flip_icon_fa_updated' );
+					}
+
+					if( ( 'yes' === settings.front_draw_svg && 'icon' === frontIcon ) || 'svg' === frontIcon ) {
+						view.addRenderAttribute( 'front_icon', 'class', 'premium-flip-front-icon' );
+					}
+
+
+					if ( 'yes' === settings.front_draw_svg ) {
+
+						if( 'icon' === frontIcon ) {
+
+							view.addRenderAttribute( 'front_icon', 'class', settings.premium_flip_icon_fa_updated.value );
+
+						}
+
+						view.addRenderAttribute( 'front_icon',
+							{
+								'class'            : 'premium-svg-drawer',
+								'data-svg-reverse' : settings.front_lottie_reverse,
+								'data-svg-loop'    : settings.front_lottie_loop,
+								'data-svg-sync'    : settings.front_svg_sync,
+								'data-svg-fill'    : settings.front_svg_color,
+								'data-svg-frames'  : settings.front_frames,
+								'data-svg-yoyo'    : settings.front_svg_yoyo,
+								'data-svg-point'   : settings.front_lottie_reverse ? settings.front_end_point.size : settings.front_start_point.size,
+							}
+						);
+
+					} else {
+						view.addRenderAttribute( 'front_icon', 'class', 'premium-svg-nodraw' );
+					}
+
+				} else if( 'animation' === frontIcon ) {
+
+					view.addRenderAttribute( 'front_lottie', {
+						'class': [
+							'premium-flip-front-lottie',
+							'premium-lottie-animation'
+						],
+						'data-lottie-url': settings.front_lottie_url,
+						'data-lottie-loop': settings.front_lottie_loop,
+						'data-lottie-reverse': settings.front_lottie_reverse,
+						'data-lottie-render': settings.front_lottie_renderer,
+					});
+
+				}
 
 			}
 
-			if( 'yes' === settings.premium_flip_icon_fa_switcher && 'animation' === settings.premium_flip_icon_selection ) {
 
-				view.addRenderAttribute( 'front_lottie', {
-					'class': [
-						'premium-flip-front-lottie',
-						'premium-lottie-animation'
-					],
-					'data-lottie-url': settings.front_lottie_url,
-					'data-lottie-loop': settings.front_lottie_loop,
-					'data-lottie-reverse': settings.front_lottie_reverse
-				});
+
+			if( 'yes' === settings.premium_flip_back_icon_fa_switcher ) {
+
+				if ( 'icon' === backIcon || 'svg' === backIcon ) {
+
+					view.addRenderAttribute( 'back_icon', 'class', 'premium-drawable-icon' );
+
+					if( 'icon' === backIcon ) {
+
+						var backIconHTML = 'yes' !== settings.back_draw_svg ? elementor.helpers.renderIcon( view, settings.premium_flip_back_icon_fa_updated, { 'class': [ 'premium-flip-back-icon', 'premium-svg-nodraw' , 'premium-drawable-icon' ], 'aria-hidden': true }, 'i' , 'object' ) : false,
+							backMigrated = elementor.helpers.isIconMigrated( settings, 'premium_flip_back_icon_fa_updated' );
+
+					}
+
+					if( ( 'yes' === settings.back_draw_svg && 'icon' === backIcon ) || 'svg' === backIcon ) {
+						view.addRenderAttribute( 'back_icon', 'class', 'premium-flip-back-icon' );
+					}
+
+
+					if ( 'yes' === settings.back_draw_svg ) {
+
+						view.addRenderAttribute( 'container', 'class', 'premium-drawer-hover' );
+
+						if( 'icon' === backIcon ) {
+
+							view.addRenderAttribute( 'back_icon', 'class', settings.premium_flip_back_icon_fa_updated.value );
+
+						}
+
+						view.addRenderAttribute( 'back_icon',
+							{
+								'class'            : 'premium-svg-drawer',
+								'data-svg-reverse' : settings.back_lottie_reverse,
+								'data-svg-loop'    : settings.back_lottie_loop,
+								'data-svg-hover'   : true,
+								'data-svg-sync'    : settings.back_svg_sync,
+								'data-svg-fill'    : settings.back_svg_color,
+								'data-svg-frames'  : settings.back_frames,
+								'data-svg-yoyo'    : settings.back_svg_yoyo,
+								'data-svg-point'   : settings.back_lottie_reverse ? settings.back_end_point.size : settings.back_start_point.size,
+							}
+						);
+
+					} else {
+						view.addRenderAttribute( 'back_icon', 'class', 'premium-svg-nodraw' );
+					}
+
+				} else if (  'animation' === backIcon ) {
+
+					view.addRenderAttribute( 'back_lottie', {
+						'class': [
+							'premium-flip-back-lottie',
+							'premium-lottie-animation'
+						],
+						'data-lottie-url': settings.back_lottie_url,
+						'data-lottie-loop': settings.back_lottie_loop,
+						'data-lottie-reverse': settings.back_lottie_reverse,
+						'data-lottie-render': settings.back_lottie_renderer,
+					});
+
+				}
 
 			}
 
-			if( 'yes' === settings.premium_flip_back_icon_fa_switcher && 'icon' === settings.premium_flip_back_icon_selection ) {
-
-				var backIconHTML = elementor.helpers.renderIcon( view, settings.premium_flip_back_icon_fa_updated, { 'class': 'premium-flip-back-icon', 'aria-hidden': true }, 'i' , 'object' ),
-					backMigrated = elementor.helpers.isIconMigrated( settings, 'premium_flip_back_icon_fa_updated' );
-
-			}
-
-			if( 'yes' === settings.premium_flip_back_icon_fa_switcher && 'animation' === settings.premium_flip_back_icon_selection ) {
-
-				view.addRenderAttribute( 'back_lottie', {
-					'class': [
-						'premium-flip-back-lottie',
-						'premium-lottie-animation'
-					],
-					'data-lottie-url': settings.back_lottie_url,
-					'data-lottie-loop': settings.back_lottie_loop,
-					'data-lottie-reverse': settings.back_lottie_reverse
-				});
-
-			}
 
 			view.addRenderAttribute( 'container', 'class', 'premium-flip-main-box' );
 
@@ -2310,33 +3241,34 @@ class Premium_Flipbox extends Widget_Base {
 			<div {{{ view.getRenderAttributeString('front_side_wrap') }}}>
 				<div class="premium-flip-front-overlay">
 					<div class="premium-flip-front-content-container">
-						<div class="premium-flip-front-content">
-							<div class="premium-flip-text-wrapper">
-								<# if( 'yes' == settings.premium_flip_icon_fa_switcher && 'icon' === settings.premium_flip_icon_selection ) {
+						<div class="premium-flip-text-wrapper">
+							<# if( 'yes' === settings.premium_flip_icon_fa_switcher ) {
+								if( 'icon' === frontIcon ) {
 									if ( frontIconHTML && frontIconHTML.rendered && ( ! settings.premium_flip_icon_fa || frontMigrated ) ) { #>
 											{{{ frontIconHTML.value }}}
 									<# } else { #>
-										<i class="premium-flip-front-icon {{ settings.premium_flip_icon_fa }}" aria-hidden="true"></i>
+										<i {{{ view.getRenderAttributeString('front_icon') }}}></i>
 									<# }
-								} else if( 'yes' === settings.premium_flip_icon_fa_switcher && 'image' === settings.premium_flip_icon_selection ) { #>
+
+								} else if( 'svg' === frontIcon ) { #>
+									<div {{{ view.getRenderAttributeString('front_icon') }}}>
+										{{{ settings.front_custom_svg }}}
+									</div>
+								<# } else if( 'image' === frontIcon ) { #>
 									<img alt="front side img" class="premium-flip-front-image" src="{{ settings.premium_flip_icon_image.url }}">
-								<# } else if( 'yes' === settings.premium_flip_icon_fa_switcher && 'animation' === settings.premium_flip_icon_selection ) { #>
+								<# } else { #>
 									<div {{{ view.getRenderAttributeString('front_lottie') }}}></div>
 								<# } #>
+							<# } #>
 
-								<# if( 'yes' === settings.premium_flip_title_switcher && '' != settings.premium_flip_paragraph_header ) { #>
-
+							<# if( 'yes' === settings.premium_flip_title_switcher && '' != settings.premium_flip_paragraph_header ) { #>
 								<{{{frontTitleTag}}} class="premium-flip-front-title">{{{ settings.premium_flip_paragraph_header }}}</{{{frontTitleTag}}}>
+							<# } #>
 
-								<# } #>
+							<# if( 'yes' === settings.premium_flip_description_switcher ) { #>
+								<div class="premium-flip-front-description">{{{settings.premium_flip_paragraph_text}}}</div>
+							<# } #>
 
-								<# if( 'yes' === settings.premium_flip_description_switcher ) { #>
-
-									<div class="premium-flip-front-description">{{{settings.premium_flip_paragraph_text}}}</div>
-
-								<# } #>
-
-							</div>
 						</div>
 					</div>
 				</div>
@@ -2348,39 +3280,43 @@ class Premium_Flipbox extends Widget_Base {
 						<# if( 'yes' === settings.premium_flip_back_link_switcher && 'full' === trigger ) { #>
 							<a class="premium-flip-box-full-link" href="{{ buttonUrl }}"></a>
 						<# } #>
-						<div class="premium-flip-back-content">
-							<div class="premium-flip-back-text-wrapper">
-								<# if( 'yes' === settings.premium_flip_back_icon_fa_switcher && 'icon' === settings.premium_flip_back_icon_selection ) {
+
+						<div class="premium-flip-back-text-wrapper">
+
+							<# if( 'yes' === settings.premium_flip_back_icon_fa_switcher ) {
+								if( 'icon' === backIcon ) {
 									if ( backIconHTML && backIconHTML.rendered && ( ! settings.premium_flip_back_icon_fa || backMigrated ) ) { #>
 										{{{ backIconHTML.value }}}
-								<# } else { #>
-									<i class="premium-flip-back-icon {{ settings.premium_flip_back_icon_fa }}" aria-hidden="true"></i>
-								<# }
+									<# } else { #>
+										<i {{{ view.getRenderAttributeString('back_icon') }}}></i>
+									<# }
 
-								} else if( 'yes' === settings.premium_flip_back_icon_fa_switcher && 'image' === settings.premium_flip_back_icon_selection ) { #>
+								} else if( 'svg' === backIcon ) { #>
+									<div {{{ view.getRenderAttributeString('back_icon') }}}>
+										{{{ settings.back_custom_svg }}}
+									</div>
+								<# } else if( 'image' === backIcon ) { #>
 									<img alt="back side img" class="premium-flip-back-image" src="{{ settings.premium_flip_back_icon_image.url }}">
-								<# } else if( 'yes' === settings.premium_flip_back_icon_fa_switcher && 'animation' === settings.premium_flip_back_icon_selection ) { #>
+								<# } else { #>
 									<div {{{ view.getRenderAttributeString('back_lottie') }}}></div>
 								<# } #>
+							<# } #>
 
-								<# if( 'yes' === settings.premium_flip_back_title_switcher && '' != settings.premium_flip_back_paragraph_header ) { #>
-
+							<# if( 'yes' === settings.premium_flip_back_title_switcher && '' != settings.premium_flip_back_paragraph_header ) { #>
 								<{{{backTitleTag}}} class="premium-flip-back-title">{{{ settings.premium_flip_back_paragraph_header }}}</{{{backTitleTag}}}>
+							<# } #>
 
-								<# } #>
+							<# if( 'yes' === settings.premium_flip_back_description_switcher ) { #>
 
-								<# if( 'yes' === settings.premium_flip_back_description_switcher ) { #>
+								<div class="premium-flip-back-description">{{{settings.premium_flip_back_paragraph_text}}}</div>
 
-									<div class="premium-flip-back-description">{{{settings.premium_flip_back_paragraph_text}}}</div>
+							<# } #>
 
-								<# } #>
+							<# if( 'yes' === settings.premium_flip_back_link_switcher && 'text' === trigger ) { #>
 
-								<# if( 'yes' === settings.premium_flip_back_link_switcher && 'text' === trigger ) { #>
+								<a class="premium-flip-box-link text" href="{{ buttonUrl }}">{{{ settings.premium_flip_back_link_text }}}</a>
 
-									<a class="premium-flip-box-link text" href="{{ buttonUrl }}">{{{ settings.premium_flip_back_link_text }}}</a>
-
-								<# } #>
-							</div>
+							<# } #>
 						</div>
 					</div>
 				</div>

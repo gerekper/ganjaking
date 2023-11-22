@@ -212,7 +212,6 @@ class evo_ra_admin{
 					array('label'=>'Overall Rating:','var'=>'1'),
 					array('label'=>'Ratings','var'=>'1'),
 					array('label'=>'Data','var'=>'1'),
-					array('label'=>'Out of','var'=>'1'),
 					array('label'=>'There are no reviews for this event','var'=>'1'),
 					array('label'=>'Write a Review','var'=>'1'),
 
@@ -328,6 +327,7 @@ class evo_ra_admin{
 			</div>
 			<div class='evo_diag'>
 				<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/><br/>
+				<a target='_blank' href='http://www.myeventon.com/support/'><img src='<?php echo AJDE_EVCAL_URL;?>/assets/images/myeventon_resources.png'/></a>
 			</div>			
 			</form>	
 		<?php

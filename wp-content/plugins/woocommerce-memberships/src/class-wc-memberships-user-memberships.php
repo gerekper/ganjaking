@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -1693,7 +1693,7 @@ class WC_Memberships_User_Memberships {
 	 */
 	public function handle_order_trashed( $order_id ) {
 
-		$this->handle_order_cancellation( $order_id, __( 'Membership cancelled because the associated order was trashed.', 'woocommerce-memberships' ) );
+		$this->handle_order_cancellation( (int) $order_id, __( 'Membership cancelled because the associated order was trashed.', 'woocommerce-memberships' ) );
 	}
 
 
@@ -1708,7 +1708,7 @@ class WC_Memberships_User_Memberships {
 	 */
 	public function handle_order_refunded( $order_id ) {
 
-		$this->handle_order_cancellation( $order_id, __( 'Membership cancelled because the associated order was refunded.', 'woocommerce-memberships' ) );
+		$this->handle_order_cancellation( (int) $order_id, __( 'Membership cancelled because the associated order was refunded.', 'woocommerce-memberships' ) );
 	}
 
 
@@ -1719,10 +1719,11 @@ class WC_Memberships_User_Memberships {
 	 *
 	 * @param int $order_id order ID associated to the User Membership
 	 * @param string $note cancellation message
+	 * @return void
 	 */
-	private function handle_order_cancellation( $order_id, $note ) {
+	private function handle_order_cancellation( int $order_id, string $note ) : void {
 
-		if ( 'shop_order' !== get_post_type( $order_id ) ) {
+		if ( ! Framework\SV_WC_Order_Compatibility::is_order( $order_id ) ) {
 			return;
 		}
 

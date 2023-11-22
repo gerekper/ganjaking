@@ -110,7 +110,7 @@ class EVOVP_Admin{
 		$arr[] = array(
 				'id'=>'evcal_vp',
 				'name'=>__('Virtual Plus Settings','evovp'),
-				'display'=>'show',
+				'display'=>false,
 				'icon'=>'gears',
 				'tab_name'=>__('Virtual Plus','evovp'),
 				'top'=>'4',

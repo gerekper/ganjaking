@@ -28,11 +28,11 @@ class EVOVO_BO{
 		add_filter('evovo_ticket_frontend_mod', array($this, 'frontend_mod'),10, 4);
 		add_action('evovo_add_to_cart_before', array($this, 'default_values'), 10, 1);
 		
-		if(!is_admin()){
-			add_filter('evovo_vo_item_stock_return', array($this, 'evovo_vo_item_stock_return'), 10, 2);
-		}
+		add_filter('evovo_vo_item_stock_return', array($this, 'evovo_vo_item_stock_return'), 10, 2);
+		
 	
 		add_filter('evobo_blocks_json', array($this, 'json_blocks'), 10, 3);
+
 
 	}
 
@@ -278,9 +278,24 @@ class EVOVO_BO{
 
 				// if variations set update block capacity
 				if( $VO->is_set()){
-					$qty = $VO->get_total_stock_for_method($index, 'booking');
-					if( $qty ) 
-						$BLOCKS->save_block_prop($index, 'capacity', $qty);
+
+					$stock = 0;
+
+					$vos = $VO->get_parent_vos($index, 'booking');
+
+					// for each variation calculate stock
+					foreach($vos as $vo_id=>$vo){
+						$VO->set_item_data($vo_id);
+						if(!$VO->in_stock()) continue;
+						//$s = $this->get_item_stock();
+						$s = $VO->get_item_prop('stock');
+						if($s) $stock +=$s;
+					}
+
+					// if variations have set stock number > use it as block stock
+					if( $stock > 0  ) {
+						$BLOCKS->save_block_prop($index, 'capacity', $stock);
+					}
 				}
 				
 				return;

@@ -24,6 +24,10 @@ class WordPress {
     return add_action($hookName, $callback, $priority, $acceptedArgs);
   }
 
+  public function removeAction(string $hookName, callable $callback, int $priority = 10): bool {
+    return remove_action($hookName, $callback, $priority);
+  }
+
   /** @param mixed ...$arg */
   public function doAction(string $hookName, ...$arg): void {
     do_action($hookName, ...$arg);
@@ -187,5 +191,19 @@ class WordPress {
   /** @return \WP_Taxonomy|false */
   public function getTaxonomy(string $name) {
     return get_taxonomy($name);
+  }
+
+  /** @return int|string */
+  public function currentTime(string $type, bool $gmt = false) {
+    return current_time($type, $gmt);
+  }
+
+  /**
+   * @param string $field
+   * @param string|int $value
+   * @return false|WP_User
+   */
+  public function getUserBy(string $field, $value) {
+    return get_user_by($field, $value);
   }
 }

@@ -1,6 +1,6 @@
 /**
  * frontend script 
- * @version 1.1.2
+ * @version 1.1.3
  */
 jQuery(document).ready(function($){
 
@@ -22,7 +22,6 @@ jQuery(document).ready(function($){
         evovo_data = evovo_data.evovo_data;
         EVOROW = $(this).closest('.evorow');  
 
-        //console.log(evovo_data);
 
         DATA_var = all_variations = evovo_data.v;// all variations
 
@@ -45,84 +44,53 @@ jQuery(document).ready(function($){
 
         const selected_vars = evovo_data.vart;
 
+        //console.log(selected_vars);
+        //console.log(all_variations);
+
          
         // each variation type   
             _m_var_id = false;
             _m_var_id_all = false;
 
-
-            // each selected variation type
-            $.each( selected_vars , function ( s_vtid, s_vval){
+            // run through each variation to find a match for all               
                 $.each(all_variations, function(var_id, data){
-                    $.each( data.variations , function( vtid, vval){
-                        // save variation type as selected
-                        if( s_vtid ==  vtid ){
-                            if( s_vval ==  vval ){
-                               _m_var_id = var_id; return;
-                            }
-                        }
-                        // load variation type ALL value
-                        if( vval == 'All') _m_var_id_all = var_id;
-                    });
-
-                    if( _m_var_id ) return;
-                });
-                if( _m_var_id ){
-                    return;
-                }else{
-                    _m_var_id = _m_var_id_all; return;
-                }
-            });
-            
-            /*
-            // each variation
-            $.each(all_variations, function(var_id, data){
-                var_types_match = true;
-
-                $.each( data.variations , function( vtid, vval){
-
                     
-                        if(vtid ==  s_vtid)
+                    var match_count = 0;
+
+                    if( _m_var_id ) return; // if a matching variation id is already set stop loop
+                    if( !('variations' in data) ) return; // skip no variations data variation
+
+                    const variation_type_count = Object.keys(data.variations).length ;
+
+                    // run through each variation type
+                    $.each( data.variations , function( vtid, vval){
+
+                        var _this_match = false;
+
+                        // run through selected values and see if it matches
+                        // if selected values does not have this variation type
+                        if( !( vtid in selected_vars ) ) return;
+                        
+                        if( selected_vars[vtid] == vval ) _this_match = true;
+                        if( selected_vars[vtid] != vval ) _this_match = false;
+                        if( selected_vars[vtid] == 'All' ) _this_match = true; // select val = all
+                        if( vval == 'All' ) _this_match = true; // variation vt = all
+
+                        if( _this_match ) match_count++;
+                       
                     });
 
-                });
-
-
-                console.log(data.stock_status);
-
-               // each selected variation type
-                $.each( selected_vars , function(vt_id, vtv){
-                    // variation type value for this variation
-                    vtv_v = data.variations[vt_id];
-
-                   
-                    // vtv == 'All' 
-                    if( (vtv == vtv_v) || ( vtv != vtv_v && (vtv_v == 'All' ) )  ){
-
-                        if( vtv_v == 'All'  ){
-                            _m_var_id_all = var_id;
-                        }else{
-                            _m_var_id = var_id;
-                        }   
-                        
-                    }else{
-                        _m_var_id = false;
-                        return false;
+                    // see if this variation have all matching variation types to selected values
+                    if( match_count ==  variation_type_count ){
+                        // set matching variation id
+                        _m_var_id = var_id;
+                        return;
                     }
                 });
 
-                if( _m_var_id != false ) return false;
-            });
-
-
-            if( _m_var_id != false && _m_var_id_all != false){
-                _m_var_id = _m_var_id_all;
-            }
-            */
-
-          
+           
+            // if matching variation ID is set
             if(_m_var_id != false){
-                //console.log(DATA_var[_m_var_id]);
                 new_variation_price = DATA_var[_m_var_id].regular_price;
                 new_variation_id = _m_var_id;
                 new_variation_max_qty = parseInt(DATA_var[_m_var_id].stock);
@@ -180,6 +148,15 @@ jQuery(document).ready(function($){
         QTY_SECTION = SECTION.find('.evotx_quantity');
         QTY_SECTION.find('input').data('max', new_variation_max_qty);
         Set_stock_val = QTY_SECTION.find('input').val();
+
+        // set remainging tickets
+            if( !isNaN(new_variation_max_qty ) ){
+                SECTION.find('.evotx_remaining').show();
+                SECTION.find('.evotx_remaining_stock span').html( new_variation_max_qty );
+            }else{
+                SECTION.find('.evotx_remaining').hide();
+            }
+            
 
         // if current qty is greater than max stock
         if(new_variation_max_qty != 'na' && Set_stock_val > new_variation_max_qty){

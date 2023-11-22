@@ -81,7 +81,7 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 	 * Clears cached widget.
 	 */
 	public static function cache_delete() {
-		wp_cache_delete( self::$cache_id, self::$cache_group );
+
 	}
 
 	/**
@@ -96,11 +96,6 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 
 		WooCommerce_Product_Search_Field::load_resources();
-
-		$cache = wps_cache_get( self::$cache_id, self::$cache_group );
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
 
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
@@ -118,11 +113,6 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 		$instance['title'] = isset( $instance['query_title'] ) ? $instance['query_title'] : 'yes';
 		$output .= WooCommerce_Product_Search_Field::woocommerce_product_search( $instance );
 		$output .= $after_widget;
-
-		if ( isset( $args['widget_id'] ) ) {
-			$cache[$args['widget_id']] = $output;
-			wps_cache_set( self::$cache_id, $cache, self::$cache_group );
-		}
 
 		echo $output;
 	}

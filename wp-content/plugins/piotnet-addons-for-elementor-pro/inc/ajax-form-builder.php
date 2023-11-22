@@ -784,14 +784,74 @@
                             'razor_payment_data'=> $razor_payment_data,
                             'razorpayment'=> true
                         ]);
-                        wp_die();
-                        return;
                     }else{
                         echo json_encode([
                             'status'=> 'error',
                             'razorpayment'=> true
                         ]);
                     }
+                    wp_die();
+                    return;
+                }
+                //Razorpay Subcriptions
+                if(! empty( $form['settings']['razorpay_sub_enable'] ) && $_POST['razo_sub'] == 'yes'){
+                    $razorpay_id = get_option( 'piotnet-addons-for-elementor-pro-razorpay-api-key' );
+                    $razorpay_secret = get_option( 'piotnet-addons-for-elementor-pro-razorpay-secret-key' );
+                    $razor_quantity = replace_email($form['settings']['razor_subcription_quantity'],$fields);
+                    $razor_total_count = replace_email($form['settings']['razor_subcription_total_count'],$fields);
+                    $razor_sub_prefill = [];
+                    if(!empty($form['settings']['razor_sub_prefill'])){
+                        $razor_sub_prefill = [
+                            'name' => replace_email($form['settings']['razorpay_sub_customer_name'],$fields),
+                            'email' => replace_email($form['settings']['razorpay_sub_customer_email'],$fields),
+                            'contact' => replace_email($form['settings']['razorpay_sub_customer_contact'],$fields),
+                        ];
+                    }
+                    $razor_sub_notes = [];
+                    if(!empty($form['settings']['razorpay_sub_notes']) && !empty($form['settings']['razorpay_sub_note_list'])){
+						foreach($form['settings']['razorpay_sub_note_list'] as $k => $metadata){
+							$razor_note_key = !empty($metadata['razorpay_sub_metadata_label']) ? $metadata['razorpay_sub_metadata_label'] : $k;
+							$razor_sub_notes[$razor_note_key] = replace_email($metadata['razorpay_sub_metadata_value'],$fields);
+						}
+					}
+                    $razorpay_sub_url = 'https://api.razorpay.com/v1/subscriptions';
+                    $razor_sub = [
+                        'plan_id' => replace_email($form['settings']['razor_subcription_plan_id'],$fields),
+                        'total_count' => !empty($razor_total_count) ? (int) $razor_total_count : 1,
+                        'quantity' => !empty($razor_quantity) ? (int) $razor_quantity : 1,
+                    ];
+                    $razor_sub_args = [
+                        'method' => 'POST',
+                        'headers' => [
+                            'content-type' => 'application/json',
+                            'Authorization' => 'Basic ' . base64_encode( $razorpay_id . ':' . $razorpay_secret ),
+                        ],
+                        'body' => json_encode($razor_sub)
+                    ];
+                    $razor_sub_response = wp_remote_post($razorpay_sub_url, $razor_sub_args);
+                    if ( !is_wp_error( $razor_sub_response ) && !is_wp_error(wp_remote_retrieve_body($razor_sub_response)) ) {
+                        $razor_sub_body = json_decode( wp_remote_retrieve_body( $razor_sub_response ) );
+                        $razor_sub_data = [
+                            'key' => $razorpay_id,
+                            'subscription_id' => $razor_sub_body->id,
+                            'name' => replace_email($form['settings']['razor_subcription_name'],$fields),
+                            'description' => replace_email($form['settings']['razor_subcription_desc'],$fields),
+                            'image' => replace_email($form['settings']['razor_subcription_image'],$fields),
+                            'prefill' => $razor_sub_prefill,
+                            'notes' => $razor_sub_notes,
+                        ];
+                        echo json_encode([
+                            'subscription_razor_data' => $razor_sub_data,
+                            'razorpay_sub'=> true
+                        ]);
+                    }else{
+                        echo json_encode([
+                            'status'=> 'error',
+                            'razorpay_sub'=> true
+                        ]);
+                    }
+                    wp_die();
+                    return;
                 }
 				if ( ! empty( $form['settings']['form_metadata'] ) ) {
 					$form_metadata = $form['settings']['form_metadata'];

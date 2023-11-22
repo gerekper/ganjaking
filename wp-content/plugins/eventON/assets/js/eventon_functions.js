@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.5.1
+ * @version: 4.5.2
  */
 (function($){
 
@@ -98,6 +98,7 @@
   			LB = false;
   			if( OO.lightbox_key != '') LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
 
+  			//console.log(OO);
 
   			var returnvals = '';
 
@@ -126,7 +127,6 @@
 					//return;			
 					//console.log(OO);
 					if( LB ){
-
 						// show message
 							if( 'msg' in data && data.msg != '' && LB){
 								LB.evo_lightbox_show_msg({'type': data.status, 
@@ -134,8 +134,7 @@
 									hide_lightbox: OO.hide_lightbox,	
 									hide_message: OO.hide_message
 								});
-							}
-							
+							}							
 
 						// populate content
 						if( OO.ajaxdata.load_lbcontent || OO.ajaxdata.load_new_content || OO.load_new_content ){
@@ -145,9 +144,25 @@
 							}else{
 								LB.evo_lightbox_populate_content({content: data.content});
 							}							
+						}					
+					}else{
+						// populate content
+						if( OO.ajaxdata.load_lbcontent || OO.ajaxdata.load_new_content || OO.load_new_content ){
+							// populate a specific dom element inside with content 
+							if( OO.load_new_content_id != '' ){
+								$('body').find('#'+OO.load_new_content_id ).html( data.content );
+							}							
 						}
-					}	
+					}
 
+					// for SP content @since 4.5.2
+						if( 'sp_content' in data){
+							$("body").find('#evops_content').html( data.sp_content);
+						}
+					// SP footer content @since 4.5.2
+						if( 'sp_content_foot' in data){
+							$("body").find('.evosp_foot').html( data.sp_content_foot);
+						}
 					// process trumbowyg editors
 						$('body').trigger('evo_elm_load_interactivity');
 
@@ -184,11 +199,13 @@
   			}
 
   			var OO = $.extend({}, defs, opt);
-  			el = this;
+  			const el = this;
 
   			const form = this.closest('form');
   			var LB = false;
   			if( OO.lightbox_key != '') LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+
+  			if( LB) LB.evo_lightbox_hide_msg();
 
   			//console.log(OO);
 
@@ -206,7 +223,7 @@
 					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data, el ]);	
 
 					if( data.status == 'good'){
-						if(LB){
+						if(LB && 'msg' in data){
 							LB.evo_lightbox_show_msg({'type': 'good', 
 								'message':data.msg, 
 								hide_lightbox: OO.hide_lightbox,
@@ -360,8 +377,6 @@
 						},complete:function(){}
 					});
 				}
-
-			
 			
 			$('body').trigger('evo_lightbox_processed', [ OO, LIGHTBOX]);
 		}
@@ -516,6 +531,7 @@
 				's':seconds
 			}; 
 		};
+		// @u 4.5.2
 		$.fn.evo_countdown = function(opt){
 			var defaults = { S1:''};
 			var OPT = $.extend({}, defaults, opt);
@@ -542,6 +558,7 @@
 				gap = endutc - Mnow.unix();
 
 
+			// on initial run - event hasnt happened yet
 			if( gap > 0 ){
 
 				// initial
@@ -558,7 +575,9 @@
 					gap = el.data('gap'); // get gap for this cycle
 					duration = el.data('dur');	
 
-					const bar_elm = el.closest('.evo_event_progress').find('.evo_ep_bar');						
+					const bar_elm = el.closest('.evo_event_progress').find('.evo_ep_bar');	
+
+					// when timer is ticking
 					if( gap > 0 ){
 
 						// increase bar width if exists
@@ -572,6 +591,7 @@
 						el.html( ( dd.d>0 ? dd.d + ' '  + ( dd.d >1 ? days_text: day_text ) + " ":'') + dd.h + ":" + dd.m +':'+ dd.s +' '+text );
 						el.data('gap', ( gap - 1)  );						
 
+					// when timer expired
 					}else{
 
 						const expire_timer_action = el.data('exp_act');
@@ -609,7 +629,10 @@
 					}
 
 				},1000);
+			// event has already passed
 			}else{
+				// if gap is less
+				el.closest('.evo_event_progress').find('.evo_ep_bar').hide();
 				clearInterval(CD);
 			}
 		};	
@@ -820,6 +843,13 @@
 				});
 				RR['organizer'] = org_names;
 			}
+
+			// event tags @s 4.5.2
+			if( 'tags' in eventtop_data && eventtop_data.tags !== undefined ){
+				//console.log(eventtop_data.tags);
+				RR['event_tags'] = eventtop_data.tags;
+			}
+
 
 			return RR;
 

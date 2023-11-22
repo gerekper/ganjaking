@@ -11,8 +11,9 @@ use Elementor\Utils;
 use Elementor\Repeater;
 use Elementor\Controls_Manager;
 use Elementor\Control_Media;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Icons_Manager;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -21,6 +22,7 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Css_Filter;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -32,6 +34,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Premium_Image_Hotspots
  */
 class Premium_Image_Hotspots extends Widget_Base {
+
+	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-image-hotspots' );
+		return $is_enabled;
+	}
 
 	/**
 	 * Template Instance
@@ -67,7 +85,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Image Hotspots', 'premium-addons-pro' ) );
+		return __( 'Image Hotspots', 'premium-addons-pro' );
 	}
 
 	/**
@@ -80,7 +98,9 @@ class Premium_Image_Hotspots extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+			'font-awesome-5-all',
 			'tooltipster',
+			'premium-pro',
 		);
 	}
 
@@ -105,11 +125,20 @@ class Premium_Image_Hotspots extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'lottie-js',
-			'pa-anime',
-			'tooltipster-bundle',
-			'premium-pro',
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-tweenmax',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			$draw_scripts,
+			array(
+				'lottie-js',
+				'pa-anime',
+				'tooltipster-bundle',
+				'premium-pro',
+			)
 		);
 	}
 
@@ -134,7 +163,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'tooltip', 'marker', 'map', 'info', 'box' );
+		return array( 'pa', 'premium', 'tooltip', 'marker', 'map', 'info', 'box' );
 	}
 
 	/**
@@ -164,7 +193,9 @@ class Premium_Image_Hotspots extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'premium_image_hotspots_image_section',
@@ -186,24 +217,6 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			array(
-				'name'    => 'background_image', // Actually its `image_size`.
-				'default' => 'full',
-			)
-		);
-
-		$this->add_control(
-			'premium_image_hotspots_stretch',
-			array(
-				'label'       => __( 'Stretch Image', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Stretch image to full container width', 'premium-addons-pro' ),
-				'default'     => 'yes',
-			)
-		);
-
 		$this->add_responsive_control(
 			'premium_image_hotspots_align',
 			array(
@@ -212,24 +225,21 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-image-hotspots-container' => 'text-align: {{VALUE}}',
 				),
 				'default'   => 'center',
-				'condition' => array(
-					'premium_image_hotspots_stretch!' => 'yes',
-				),
 			)
 		);
 
@@ -536,21 +546,24 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'disable_on_safari',
+			array(
+				'label'        => __( 'Disable Floating Effects On Safari', 'premium-addons-pro' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'pa-hotspots-disable-fe-',
+				'condition'    => array(
+					'float_effects' => 'yes',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'premium_image_hotspots_icons_settings',
 			array(
 				'label' => __( 'Hotspots', 'premium-addons-pro' ),
-			)
-		);
-
-		$this->add_control(
-			'premium_image_hotspots_notice',
-			array(
-				'raw'             => __( 'NEW: Now you can position hotspots from the preview area', 'premium-addons-pro' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
 
@@ -562,18 +575,59 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'radar_duration',
+			array(
+				'label'     => __( 'Animation Duration (sec)', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.1,
+						'max'  => 5,
+						'step' => 0.1,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-image-hotspots-anim .premium-hotsot-icon-wrap::before'  => 'animation-duration: {{SIZE}}s;',
+				),
+				'condition' => array(
+					'premium_image_hotspots_icons_animation' => 'yes',
+				),
+			)
+		);
+
 		$repeater = new Repeater();
+
+		$repeater->start_controls_tabs( 'hotspot_repeater' );
+
+		$repeater->start_controls_tab(
+			'hotspot_content_tab',
+			array(
+				'label' => esc_html__( 'Content', 'elementor-pro' ),
+			)
+		);
+
+		$repeater->add_control(
+			'hotspot_css_id',
+			array(
+				'label'       => __( 'CSS ID', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => array( 'active' => true ),
+				'label_block' => true,
+			)
+		);
 
 		$repeater->add_control(
 			'premium_image_hotspots_icon_type_switch',
 			array(
-				'label'       => __( 'Display On', 'premium-addons-pro' ),
+				'label'       => __( 'Hotspot Type', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => array(
 					'font_awesome_icon' => __( 'Font Awesome Icon', 'premium-addons-pro' ),
+					'animation'         => __( 'Lottie Animation', 'premium-addons-pro' ),
 					'custom_image'      => __( 'Custom Image', 'premium-addons-pro' ),
 					'text'              => __( 'Text', 'premium-addons-pro' ),
-					'animation'         => __( 'Lottie Animation', 'premium-addons-pro' ),
+					'svg'               => __( 'SVG Code', 'premium-addons-pro' ),
 				),
 				'default'     => 'font_awesome_icon',
 				'label_block' => true,
@@ -581,13 +635,16 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$repeater->add_control(
-			'premium_image_hotspots_font_awesome_icon',
+			'new_img_hotspot_icon',
 			array(
-				'label'       => __( 'Select Icon', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'default'     => 'fa fa-map-marker',
-				'condition'   => array(
+				'label'            => __( 'Select Icon', 'premium-addons-pro' ),
+				'type'             => Controls_Manager::ICONS,
+				'fa4compatibility' => 'premium_image_hotspots_font_awesome_icon',
+				'default'          => array(
+					'value'   => 'fas fa-map-marker-alt',
+					'library' => 'fa-solid',
+				),
+				'condition'        => array(
 					'premium_image_hotspots_icon_type_switch'     => 'font_awesome_icon',
 				),
 			)
@@ -621,6 +678,18 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array(
+					'premium_image_hotspots_icon_type_switch'     => 'svg',
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'lottie_url',
 			array(
 				'label'       => __( 'Animation JSON URL', 'premium-addons-pro' ),
@@ -635,15 +704,121 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array(
+					'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+					'new_img_hotspot_icon[library]!' => 'svg',
+				),
+			)
+		);
+
+		$animation_conds = array(
+			'relation' => 'or',
+			'terms'    => array(
+				array(
+					'name'  => 'premium_image_hotspots_icon_type_switch',
+					'value' => 'animation',
+				),
+				array(
+					'terms' => array(
+						array(
+							'relation' => 'or',
+							'terms'    => array(
+								array(
+									'name'  => 'premium_image_hotspots_icon_type_switch',
+									'value' => 'font_awesome_icon',
+								),
+								array(
+									'name'  => 'premium_image_hotspots_icon_type_switch',
+									'value' => 'svg',
+								),
+							),
+						),
+						array(
+							'name'  => 'draw_svg',
+							'value' => 'yes',
+						),
+					),
+				),
+			),
+
+		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'path_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 50,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg' => 'yes',
+					),
+				)
+			);
+
+			$repeater->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg' => 'yes',
+					),
+				)
+			);
+
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$repeater,
+				'hotspots',
+				array(
+					'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+					'new_img_hotspot_icon[library]!' => 'svg',
+				)
+			);
+
+		}
+
+		$repeater->add_control(
 			'lottie_loop',
 			array(
 				'label'        => __( 'Loop', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
 				'default'      => 'true',
-				'condition'    => array(
-					'premium_image_hotspots_icon_type_switch'     => 'animation',
-				),
+				'conditions'   => $animation_conds,
 			)
 		);
 
@@ -653,172 +828,86 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'label'        => __( 'Reverse', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
-				'condition'    => array(
-					'premium_image_hotspots_icon_type_switch'     => 'animation',
-				),
+				'conditions'   => $animation_conds,
 			)
 		);
 
-		$repeater->add_responsive_control(
-			'preimum_image_hotspots_main_icons_horizontal_position',
-			array(
-				'label'      => __( 'Horizontal Position', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 200,
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
 					),
-				),
-				'default'    => array(
-					'size' => 50,
-					'unit' => '%',
-				),
-				'selectors'  => array(
-					'body:not(.rtl) {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'left: {{SIZE}}{{UNIT}}',
-					'body.rtl {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'right: {{SIZE}}{{UNIT}}',
-				),
-			)
-		);
-
-		$repeater->add_responsive_control(
-			'preimum_image_hotspots_main_icons_vertical_position',
-			array(
-				'label'      => __( 'Vertical Position', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 200,
+					'condition'   => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg'        => 'yes',
+						'lottie_reverse!' => 'true',
 					),
-				),
-				'default'    => array(
-					'size' => 50,
-					'unit' => '%',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'top: {{SIZE}}{{UNIT}}',
-				),
-			)
-		);
+				)
+			);
 
-		$repeater->add_control(
-			'premium_image_hotspots_icon_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text' => 'color: {{VALUE}};',
-				),
-				'condition' => array(
-					'premium_image_hotspots_icon_type_switch!' => array( 'custom_image', 'animation' ),
-				),
-			)
-		);
-
-		$repeater->add_responsive_control(
-			'premium_image_hotspots_icon_size',
-			array(
-				'label'      => __( 'Size', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 500,
+			$repeater->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
 					),
-					'em' => array(
-						'min' => 0,
-						'max' => 20,
+					'condition'   => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg'       => 'yes',
+						'lottie_reverse' => 'true',
 					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon' => 'font-size: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} {{CURRENT_ITEM}} img.premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation svg'    => 'width:{{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
-				),
-				'condition'  => array(
-					'premium_image_hotspots_icon_type_switch!' => 'text',
-				),
-			)
-		);
+				)
+			);
 
-		$repeater->add_control(
-			'premium_image_hotspots_icon_backcolor',
-			array(
-				'label'     => __( 'Background Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text, {{WRAPPER}} {{CURRENT_ITEM}} img.premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation' => 'background-color: {{VALUE}}',
-				),
-			)
-		);
+			$repeater->add_control(
+				'svg_hover',
+				array(
+					'label'        => __( 'Only Play on Hover', 'premium-addons-pro' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'true',
+					'condition'    => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg' => 'yes',
+					),
+				)
+			);
 
-		$repeater->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'     => 'premium_image_hotspots_icon_border',
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text, {{WRAPPER}} {{CURRENT_ITEM}} img.premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation',
-			)
-		);
+			$repeater->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg'    => 'yes',
+						'lottie_loop' => 'true',
+					),
+				)
+			);
 
-		$repeater->add_control(
-			'premium_image_hotspots_icon_radius',
-			array(
-				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text, {{WRAPPER}} {{CURRENT_ITEM}} img.premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation' => 'border-radius: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'premium_image_hotspots_icon_radar',
-			array(
-				'label'     => __( 'Radar Color', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-anim::before' => 'background-color: {{VALUE}} !important',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'premium_image_hotspots_icon_radar_radius',
-			array(
-				'label'      => __( 'Radar Border Radius', 'premium-addons-pro' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-anim::before' => 'border-radius: {{SIZE}}{{UNIT}} !important',
-				),
-			)
-		);
-
-		$repeater->add_control(
-			'hotspot_css_id',
-			array(
-				'label'       => __( 'CSS ID', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => array( 'active' => true ),
-				'label_block' => true,
-			)
-		);
+			$repeater->add_control(
+				'svg_color',
+				array(
+					'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'condition' => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+						'draw_svg' => 'yes',
+					),
+				)
+			);
+		}
 
 		$repeater->add_control(
 			'premium_image_hotspots_content',
@@ -848,11 +937,39 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'live_temp_content',
+			array(
+				'label'              => __( 'Template Title', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::TEXT,
+				'classes'            => 'premium-live-temp-title control-hidden',
+				'label_block'        => true,
+				'frontend_available' => true,
+				'condition'          => array(
+					'premium_image_hotspots_content' => 'elementor_templates',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_tooltips_temp_live',
+			array(
+				'type'        => Controls_Manager::BUTTON,
+				'label_block' => true,
+				'button_type' => 'default papro-btn-block',
+				'text'        => __( 'Create / Edit Template', 'premium-addons-pro' ),
+				'event'       => 'createLiveTemp',
+				'condition'   => array(
+					'premium_image_hotspots_content' => 'elementor_templates',
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'premium_image_hotspots_tooltips_temp',
 			array(
-				'label'       => __( 'Elementor Template', 'premium-addons-pro' ),
-				'description' => __( 'Elementor Template is a template which you can choose from Elementor library. Each template will be shown in content', 'premium-addons-pro' ),
+				'label'       => __( 'OR Select Existing Template', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
+				'classes'     => 'premium-live-temp-label',
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'label_block' => true,
 				'condition'   => array(
@@ -862,11 +979,21 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'opened_by_default',
+			array(
+				'label'     => __( 'Opened By Default', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'separator' => 'before',
+			)
+		);
+
+		$repeater->add_control(
 			'premium_image_hotspots_link_switcher',
 			array(
 				'label'       => __( 'Link', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::SWITCHER,
 				'description' => __( 'Add a custom link or select an existing page link', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'separator'   => 'before',
 			)
 		);
 
@@ -931,13 +1058,363 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
+		$repeater->add_control(
+			'icon_label',
+			array(
+				'label'       => __( 'Icon Label', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => array( 'active' => true ),
+				'condition'   => array(
+					'premium_image_hotspots_icon_type_switch!' => 'switch',
+				),
+				'label_block' => true,
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'hotspot_style_tab',
+			array(
+				'label' => esc_html__( 'Style', 'elementor-pro' ),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'preimum_image_hotspots_main_icons_horizontal_position',
+			array(
+				'label'      => __( 'Horizontal Position', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 200,
+					),
+				),
+				'default'    => array(
+					'size' => 50,
+					'unit' => '%',
+				),
+				'selectors'  => array(
+					'body:not(.rtl) {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'left: {{SIZE}}{{UNIT}}  ',
+					'body.rtl {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'right: {{SIZE}}{{UNIT}} ',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'preimum_image_hotspots_main_icons_vertical_position',
+			array(
+				'label'      => __( 'Vertical Position', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 200,
+					),
+				),
+				'default'    => array(
+					'size' => 50,
+					'unit' => '%',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'top: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_icon_color',
+			array(
+				'label'     => __( 'Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text' => 'color: {{VALUE}};',
+					' {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons:not(.lottie-hotspot) svg, {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons:not(.lottie-hotspot) svg *' => 'fill: {{VALUE}};',
+				),
+				'condition' => array(
+					'premium_image_hotspots_icon_type_switch!' => array( 'custom_image', 'animation' ),
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$repeater->add_control(
+				'stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => '#61CE70',
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg *' => 'stroke: {{VALUE}};',
+					),
+					'condition' => array(
+						'premium_image_hotspots_icon_type_switch' => array( 'font_awesome_icon', 'svg' ),
+					),
+				)
+			);
+		}
+
+		$repeater->add_responsive_control(
+			'premium_image_hotspots_icon_size',
+			array(
+				'label'      => __( 'Size', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 500,
+					),
+					'em' => array(
+						'min' => 0,
+						'max' => 20,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}' => 'min-width: {{SIZE}}{{UNIT}}; min-height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon' => 'font-size: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation svg' => 'width:{{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg' => 'width:{{SIZE}}{{UNIT}} !important; height:{{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'premium_image_hotspots_icon_type_switch!' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_icon_backcolor',
+			array(
+				'label'     => __( 'Background Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon, {{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text, {{WRAPPER}} {{CURRENT_ITEM}} .premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation' => 'background-color: {{VALUE}} !important',
+				),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'premium_image_hotspots_icon_border',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon,
+				{{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg,
+				{{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text,
+				{{WRAPPER}} {{CURRENT_ITEM}} .premium-image-hotspots-image-icon,
+				{{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation',
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_icon_radius',
+			array(
+				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} i.premium-image-hotspots-icon,
+					{{WRAPPER}} {{CURRENT_ITEM}}:not(.lottie-hotspot) svg, {{WRAPPER}} {{CURRENT_ITEM}} p.premium-image-hotspots-text, {{WRAPPER}} {{CURRENT_ITEM}} .premium-image-hotspots-image-icon, {{WRAPPER}} {{CURRENT_ITEM}} .premium-lottie-animation' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_icon_radar',
+			array(
+				'label'     => __( 'Radar Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotsot-icon-wrap::before' => 'background-color: {{VALUE}} !important',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'radar_style',
+			array(
+				'label'       => __( 'Radar Style', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array(
+					'circle' => __( 'Circle', 'premium-addons-pro' ),
+					'square' => __( 'Square', 'premium-addons-pro' ),
+					'custom' => __( 'Custom', 'premium-addons-pro' ),
+				),
+				'default'     => 'custom',
+				'label_block' => true,
+			)
+		);
+
+		$repeater->add_control(
+			'premium_image_hotspots_icon_radar_radius',
+			array(
+				'label'      => __( 'Radar Border Radius', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotsot-icon-wrap::before' => 'border-radius: {{SIZE}}{{UNIT}} !important',
+				),
+				'condition'  => array(
+					'radar_style' => 'custom',
+				),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'hotspot_label_tab',
+			array(
+				'label'     => esc_html__( 'Label', 'elementor-pro' ),
+				'condition' => array(
+					'icon_label!' => '',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'label_min_width',
+			array(
+				'label'      => __( 'Minimum Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 20,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label' => 'min-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'label_horizontal_position',
+			array(
+				'label'     => __( 'Horizontal Position (%)', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min' => -100,
+						'max' => 100,
+					),
+				),
+				'selectors' => array(
+					'body:not(.rtl) {{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label'    => 'left: {{SIZE}}%',
+					'body.rtl {{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label'    => 'right: {{SIZE}}%',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'label_vertical_position',
+			array(
+				'label'     => __( 'Vertical Position (%)', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min' => -100,
+						'max' => 100,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label'    => 'top: {{SIZE}}%',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'content_h',
+			array(
+				'label' => __( 'Content Horizontal Position (%)', 'premium-addons-pro' ),
+				'type'  => Controls_Manager::SLIDER,
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'content_v',
+			array(
+				'label' => __( 'Content Vertical Position (%)', 'premium-addons-pro' ),
+				'type'  => Controls_Manager::SLIDER,
+			)
+		);
+
+		$repeater->add_control(
+			'label_color',
+			array(
+				'label'       => __( 'Link', 'premium-addons-pro' ),
+				'description' => __( 'Add a custom link or select an existing page link', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'separator'   => 'before',
+			)
+		);
+
+		$repeater->add_control(
+			'label_back_color',
+			array(
+				'label'     => __( 'Background Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label' => 'background-color: {{VALUE}};',
+				),
+
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'label_border',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label',
+			)
+		);
+
+		$repeater->add_control(
+			'label_radius',
+			array(
+				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->add_responsive_control(
+			'label_padding',
+			array(
+				'label'      => __( 'Padding', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
+
 		$this->add_control(
 			'premium_image_hotspots_icons',
 			array(
-				'label'       => __( 'Hotspots', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater->get_controls(),
-				'title_field' => 'Hotspot: <# if ( "font_awesome_icon" === premium_image_hotspots_icon_type_switch ) { #> <i class="{{premium_image_hotspots_font_awesome_icon}}" aria-hidden="true"></i><#} else if( "text" === premium_image_hotspots_icon_type_switch ) { #> {{premium_image_hotspots_text}} <# } else if( "custom_image" === premium_image_hotspots_icon_type_switch ) {#> <img class="editor-pa-img" src="{{premium_image_hotspots_custom_image.url}}"><# } else { #> Lottie Animation <# } #>',
+				'label'         => __( 'Hotspots', 'premium-addons-pro' ),
+				'type'          => Controls_Manager::REPEATER,
+				'fields'        => $repeater->get_controls(),
+				'prevent_empty' => false,
+				'title_field'   => 'Hotspot: <# if ( "" != hotspot_css_id ) { #> #{{{ hotspot_css_id }}} <# } if ( "font_awesome_icon" === premium_image_hotspots_icon_type_switch ) { #>
+				{{{ elementor.helpers.renderIcon( this, new_img_hotspot_icon, {}, "i", "panel" ) || \'<i class="{{ premium_image_hotspots_font_awesome_icon }}" aria-hidden="true"></i>\' }}}
+				<#} else if( "text" === premium_image_hotspots_icon_type_switch ) { #> {{premium_image_hotspots_text}} <# } else if( "custom_image" === premium_image_hotspots_icon_type_switch ) {#> <img class="editor-pa-img" src="{{premium_image_hotspots_custom_image.url}}"><# } else { #> Lottie Animation <# } #>',
 			)
 		);
 
@@ -963,7 +1440,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->add_control(
 			'premium_image_hotspots_trigger_type',
 			array(
-				'label'   => __( 'Trigger', 'premium-addons-pro' ),
+				'label'   => __( 'Mouse Trigger', 'premium-addons-pro' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => array(
 					'click' => __( 'Click', 'premium-addons-pro' ),
@@ -974,9 +1451,21 @@ class Premium_Image_Hotspots extends Widget_Base {
 		);
 
 		$this->add_control(
+			'click_outside',
+			array(
+				'label'     => __( 'Close Tooltip on Click Outside', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => array(
+					'premium_image_hotspots_trigger_type' => 'click',
+				),
+			)
+		);
+
+		$this->add_control(
 			'premium_image_hotspots_arrow',
 			array(
-				'label'     => __( 'Show Arrow', 'premium-addons-pro' ),
+				'label'     => __( 'Tooltip Arrow', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => __( 'Show', 'premium-addons-pro' ),
 				'label_off' => __( 'Hide', 'premium-addons-pro' ),
@@ -986,7 +1475,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->add_control(
 			'premium_image_hotspots_tooltips_position',
 			array(
-				'label'       => __( 'Positon', 'premium-addons-pro' ),
+				'label'       => __( 'Tooltip Position', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT2,
 				'options'     => array(
 					'top'    => __( 'Top', 'premium-addons-pro' ),
@@ -994,10 +1483,17 @@ class Premium_Image_Hotspots extends Widget_Base {
 					'left'   => __( 'Left', 'premium-addons-pro' ),
 					'right'  => __( 'Right', 'premium-addons-pro' ),
 				),
-				'description' => __( 'Sets the side of the tooltip. The value may one of the following: \'top\', \'bottom\', \'left\', \'right\'. It may also be an array containing one or more of these values. When using an array, the order of values is taken into account as order of fallbacks and the absence of a side disables it', 'premium-addons-pro' ),
+				'description' => __( 'Sets the side of the tooltip. The value may be one of the following: \'top\', \'bottom\', \'left\', \'right\'. You may also add multiple positions separated by\' <b>, \'. When using multiple postitions, the order of values is taken into account as order of fallbacks and the absence of a side disables it', 'premium-addons-pro' ),
 				'default'     => array( 'top', 'bottom' ),
 				'label_block' => true,
 				'multiple'    => true,
+			)
+		);
+
+		$this->update_control(
+			'premium_image_hotspots_tooltips_position',
+			array(
+				'type' => Controls_Manager::TEXT,
 			)
 		);
 
@@ -1022,7 +1518,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 						'max' => 800,
 					),
 				),
-				'description' => __( 'Set a minimum width for the tooltip in pixels, default: 0 (auto width)', 'premium-addons-pro' ),
+				'description' => __( 'Add a minimum width to the tooltip in pixels. The default is [0] Auto Width.', 'premium-addons-pro' ),
 			)
 		);
 
@@ -1037,7 +1533,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 						'max' => 800,
 					),
 				),
-				'description' => __( 'Set a maximum width for the tooltip in pixels, default: null (no max width)', 'premium-addons-pro' ),
+				'description' => __( 'Add a maximum width to the tooltip in pixels. The default is [Null] No Maximum Width.', 'premium-addons-pro' ),
 			)
 		);
 
@@ -1046,7 +1542,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'       => __( 'Height', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SLIDER,
-				'size_units'  => array( 'px', 'em', '%' ),
+				'size_units'  => array( 'px', 'em', '%', 'custom' ),
 				'range'       => array(
 					'px' => array(
 						'min' => 0,
@@ -1070,6 +1566,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'label'       => __( 'Animation', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => array(
+					'none'  => __( 'None', 'premium-addons-pro' ),
 					'fade'  => __( 'Fade', 'premium-addons-pro' ),
 					'grow'  => __( 'Grow', 'premium-addons-pro' ),
 					'swing' => __( 'Swing', 'premium-addons-pro' ),
@@ -1122,6 +1619,128 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'width',
+			array(
+				'label'          => __( 'Width', 'premium-addons-pro' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => array(
+					'unit' => '%',
+				),
+				'tablet_default' => array(
+					'unit' => '%',
+				),
+				'mobile_default' => array(
+					'unit' => '%',
+				),
+				'size_units'     => array( '%', 'px', 'vw', 'custom' ),
+				'range'          => array(
+					'%'  => array(
+						'min' => 1,
+						'max' => 100,
+					),
+					'px' => array(
+						'min' => 1,
+						'max' => 1000,
+					),
+					'vw' => array(
+						'min' => 1,
+						'max' => 100,
+					),
+				),
+				'selectors'      => array(
+					'{{WRAPPER}} .premium-image-hotspots-img-wrap img' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'space',
+			array(
+				'label'          => __( 'Max Width', 'premium-addons-pro' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => array(
+					'unit' => '%',
+				),
+				'tablet_default' => array(
+					'unit' => '%',
+				),
+				'mobile_default' => array(
+					'unit' => '%',
+				),
+				'size_units'     => array( '%', 'px', 'vw', 'custom' ),
+				'range'          => array(
+					'%'  => array(
+						'min' => 1,
+						'max' => 100,
+					),
+					'px' => array(
+						'min' => 1,
+						'max' => 1000,
+					),
+					'vw' => array(
+						'min' => 1,
+						'max' => 100,
+					),
+				),
+				'selectors'      => array(
+					'{{WRAPPER}} .premium-image-hotspots-img-wrap img' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'height',
+			array(
+				'label'          => __( 'Height', 'premium-addons-pro' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => array(
+					'unit' => 'px',
+				),
+				'tablet_default' => array(
+					'unit' => 'px',
+				),
+				'mobile_default' => array(
+					'unit' => 'px',
+				),
+				'size_units'     => array( 'px', 'vh', 'custom' ),
+				'range'          => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 500,
+					),
+					'vh' => array(
+						'min' => 1,
+						'max' => 100,
+					),
+				),
+				'selectors'      => array(
+					'{{WRAPPER}} .premium-image-hotspots-img-wrap img' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'object-fit',
+			array(
+				'label'     => __( 'Object Fit', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SELECT,
+				'condition' => array(
+					'height[size]!' => '',
+				),
+				'options'   => array(
+					''        => __( 'Default', 'premium-addons-pro' ),
+					'fill'    => __( 'Fill', 'premium-addons-pro' ),
+					'cover'   => __( 'Cover', 'premium-addons-pro' ),
+					'contain' => __( 'Contain', 'premium-addons-pro' ),
+				),
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .premium-image-hotspots-img-wrap img' => 'object-fit: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
 			array(
@@ -1142,10 +1761,10 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->add_control(
 			'blend_mode',
 			array(
-				'label'     => __( 'Blend Mode', 'elementor' ),
+				'label'     => __( 'Blend Mode', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					''            => __( 'Normal', 'elementor' ),
+					''            => __( 'Normal', 'premium-addons-pro' ),
 					'multiply'    => 'Multiply',
 					'screen'      => 'Screen',
 					'overlay'     => 'Overlay',
@@ -1204,10 +1823,10 @@ class Premium_Image_Hotspots extends Widget_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'premium_image_hotspots_main_icons_active_borders_style_tabs' );
+		$this->start_controls_tabs( 'hotspot_style_tabs' );
 
 		$this->start_controls_tab(
-			'premium_image_hotspots_main_icons_style_tab',
+			'icon_style_tab',
 			array(
 				'label' => __( 'Icon', 'premium-addons-pro' ),
 			)
@@ -1218,12 +1837,12 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg *' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -1245,7 +1864,8 @@ class Premium_Image_Hotspots extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'font-size: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -1256,7 +1876,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1265,7 +1885,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_image_hotspots_main_icons_border',
-				'selector' => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon',
+				'selector' => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg',
 			)
 		);
 
@@ -1276,7 +1896,34 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'hotspots_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hotspots_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'hotspots_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'hotspots_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -1308,7 +1955,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1320,7 +1967,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-icon, {{WRAPPER}} .premium-image-hotspots-main-icons:not(.lottie-hotspot) svg' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1328,7 +1975,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->end_controls_tab();
 
 		$this->start_controls_tab(
-			'premium_image_hotspots_main_images_style_tab',
+			'img_lottie_style_tab',
 			array(
 				'label' => __( 'Image/Lottie', 'premium-addons-pro' ),
 			)
@@ -1351,7 +1998,8 @@ class Premium_Image_Hotspots extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg' => 'width:{{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon,
+					 {{WRAPPER}} .premium-lottie-animation svg' => 'width:{{SIZE}}{{UNIT}} !important',
 				),
 			)
 		);
@@ -1362,7 +2010,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation' => 'background-color: {{VALUE}}',
 				),
 			)
 		);
@@ -1371,7 +2019,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'preimum_image_hotspots_main_images_border',
-				'selector' => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg',
+				'selector' => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation',
 			)
 		);
 
@@ -1382,7 +2030,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1391,7 +2039,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'premium_image_hotspots_main_images_shadow',
-				'selector'  => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg',
+				'selector'  => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation',
 				'condition' => array(
 					'premium_image_hotspots_icons_animation!' => 'yes',
 				),
@@ -1405,7 +2053,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1417,7 +2065,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation svg' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-image-icon, {{WRAPPER}} .premium-lottie-animation' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1425,7 +2073,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->end_controls_tab();
 
 		$this->start_controls_tab(
-			'premium_image_hotspots_main_text_style_tab',
+			'text_style_tab',
 			array(
 				'label' => __( 'Text', 'premium-addons-pro' ),
 			)
@@ -1436,9 +2084,8 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-text' => 'color: {{VALUE}};',
@@ -1450,7 +2097,9 @@ class Premium_Image_Hotspots extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_image_hotspots_main_text_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-text',
 			)
 		);
@@ -1468,9 +2117,8 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-image-hotspots-main-icons .premium-image-hotspots-text' => 'background-color: {{VALUE}};',
@@ -1542,15 +2190,14 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'     => __( 'Radar Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'condition' => array(
 					'premium_image_hotspots_icons_animation'  => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons.premium-image-hotspots-anim::before' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-hotsot-icon-wrap::before' => 'background-color: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -1563,10 +2210,38 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', '%' ),
 				'condition'  => array(
-					'premium_image_hotspots_icons_animation'  => 'yes',
+					'premium_image_hotspots_icons_animation' => 'yes',
+					'radar_adv_radius!' => 'yes',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-image-hotspots-main-icons.premium-image-hotspots-anim::before' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-hotsot-icon-wrap::before' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'radar_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+				'condition'   => array(
+					'premium_image_hotspots_icons_animation' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'radar_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-hotsot-icon-wrap::before' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'radar_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -1623,7 +2298,9 @@ class Premium_Image_Hotspots extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'premium_image_hotspots_tooltips_wrapper_typo',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'selector' => '.tooltipster-box.tooltipster-box-{{ID}} .premium-image-hotspots-tooltips-text',
 			)
 		);
@@ -1641,8 +2318,9 @@ class Premium_Image_Hotspots extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(12,12,12,.5)',
 				'selectors' => array(
-					'.tooltipster-box.tooltipster-box-{{ID}}' => 'background: {{VALUE}};',
+					'.premium-tooltipster-base .tooltipster-box.tooltipster-box-{{ID}}' => 'background: {{VALUE}};',
 					'.premium-tooltipster-base.tooltipster-top .tooltipster-arrow-{{ID}} .tooltipster-arrow-background' => 'border-top-color: {{VALUE}};',
 					'.premium-tooltipster-base.tooltipster-bottom .tooltipster-arrow-{{ID}} .tooltipster-arrow-background' => 'border-bottom-color: {{VALUE}};',
 					'.premium-tooltipster-base.tooltipster-right .tooltipster-arrow-{{ID}} .tooltipster-arrow-background' => 'border-right-color: {{VALUE}};',
@@ -1682,11 +2360,121 @@ class Premium_Image_Hotspots extends Widget_Base {
 		$this->add_responsive_control(
 			'premium_image_hotspots_tooltips_wrapper_margin',
 			array(
-				'label'      => __( 'Margin', 'premium-addons-pro' ),
+				'label'      => __( 'Padding', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'.tooltipster-box.tooltipster-box-{{ID}} .tooltipster-content, .tooltipster-arrow-{{ID}}' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'.tooltipster-box.tooltipster-box-{{ID}} .tooltipster-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'label_style',
+			array(
+				'label' => __( 'Icon Label', 'premium-addons-pro' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'label_min_width',
+			array(
+				'label'      => __( 'Minimum Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 20,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-hotspot-label' => 'min-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'label_color',
+			array(
+				'label'     => __( 'Text Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .premium-hotspot-label' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'label_typo',
+				'selector' => '{{WRAPPER}} .premium-hotspot-label',
+			)
+		);
+
+		$this->add_control(
+			'label_back_color',
+			array(
+				'label'     => __( 'Background Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .premium-hotspot-label' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'label_border',
+				'selector' => '{{WRAPPER}} .premium-hotspot-label',
+			)
+		);
+
+		$this->add_control(
+			'label_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-hotspot-label' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'label_text_shadow',
+				'selector' => '{{WRAPPER}} .premium-hotspot-label',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'label_box_shadow',
+				'selector' => '{{WRAPPER}} .premium-hotspot-label',
+			)
+		);
+
+		$this->add_responsive_control(
+			'label_padding',
+			array(
+				'label'      => __( 'Padding', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-hotspot-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1790,28 +2578,48 @@ class Premium_Image_Hotspots extends Widget_Base {
 			$animation_class = 'premium-image-hotspots-anim';
 		}
 
-		$image_src      = $settings['premium_image_hotspots_image'];
-		$image_src_size = Group_Control_Image_Size::get_attachment_image_src( $image_src['id'], 'background_image', $settings );
-		$image_src_size = empty( $image_src_size ) ? $image_src['url'] : $image_src_size;
+		$image_src = $settings['premium_image_hotspots_image'];
 
-		$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'background_image', 'premium_image_hotspots_image' );
+		$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, '', 'premium_image_hotspots_image' );
 
 		$alt = Control_Media::get_image_alt( $settings['premium_image_hotspots_image'] );
+
+		$tooltip_postion = array( 'right', 'left' );
+
+		if ( ! empty( $settings['premium_image_hotspots_tooltips_position'] ) ) {
+			if ( is_array( $settings['premium_image_hotspots_tooltips_position'] ) ) {
+				$tooltip_postion = $settings['premium_image_hotspots_tooltips_position'];
+			} else {
+				$tooltip_postion = str_replace( ' ', '', $settings['premium_image_hotspots_tooltips_position'] );
+				$tooltip_postion = explode( ',', $tooltip_postion );
+			}
+		} else {
+			$tooltip_postion = array( 'right', 'left' );
+		}
 
 		$image_hotspots_settings = array(
 			'anim'        => $settings['premium_image_hotspots_anim'],
 			'animDur'     => ! empty( $settings['premium_image_hotspots_anim_dur'] ) ? $settings['premium_image_hotspots_anim_dur'] : 350,
-			'delay'       => ! empty( $settings['premium_image_hotspots_anim_delay'] ) ? $settings['premium_image_hotspots_anim_delay'] : 10,
+			'delay'       => '' !== $settings['premium_image_hotspots_delay'] ? $settings['premium_image_hotspots_delay'] : 10,
 			'arrow'       => ( 'yes' === $settings['premium_image_hotspots_arrow'] ) ? true : false,
 			'distance'    => ! empty( $settings['premium_image_hotspots_tooltips_distance_position'] ) ? $settings['premium_image_hotspots_tooltips_distance_position'] : 6,
 			'minWidth'    => ! empty( $settings['premium_image_hotspots_min_width']['size'] ) ? $settings['premium_image_hotspots_min_width']['size'] : 0,
 			'maxWidth'    => ! empty( $settings['premium_image_hotspots_max_width']['size'] ) ? $settings['premium_image_hotspots_max_width']['size'] : 'null',
-			'side'        => ! empty( $settings['premium_image_hotspots_tooltips_position'] ) ? $settings['premium_image_hotspots_tooltips_position'] : array( 'right', 'left' ),
+			'side'        => $tooltip_postion,
 			'hideMobiles' => 'yes' === $settings['premium_image_hotspots_hide'] ? true : false,
 			'active'      => 'yes' === $settings['interactive'] ? true : false,
 			'trigger'     => $trigger,
 			'id'          => $id,
+			'iconHover'   => $icon_hover,
 		);
+
+		if ( 'none' === $image_hotspots_settings['anim'] ) {
+			$image_hotspots_settings['animDur'] = 10;
+		}
+
+		if ( 'click' === $trigger ) {
+			$image_hotspots_settings['triggerClose'] = $settings['click_outside'];
+		}
 
 		$this->add_render_attribute(
 			'container',
@@ -1821,10 +2629,6 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'data-settings' => wp_json_encode( $image_hotspots_settings ),
 			)
 		);
-
-		if ( 'yes' === $settings['premium_image_hotspots_stretch'] ) {
-			$this->add_render_attribute( 'image_wrap', 'class', 'premium-image-hotspots-stretch' );
-		}
 
 		$this->add_render_attribute( 'image_wrap', 'class', 'premium-image-hotspots-img-wrap' );
 
@@ -1885,157 +2689,231 @@ class Premium_Image_Hotspots extends Widget_Base {
 	<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'container' ) ); ?>>
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'image_wrap' ) ); ?>>
 			<?php echo wp_kses_post( $image_html ); ?>
-		</div>
+			<?php
+			foreach ( $settings['premium_image_hotspots_icons'] as $index => $item ) {
 
-		<?php
-		foreach ( $settings['premium_image_hotspots_icons'] as $index => $item ) {
+				$icon_type = $item['premium_image_hotspots_icon_type_switch'];
 
-			$icon_type = $item['premium_image_hotspots_icon_type_switch'];
+				$list_item_key = 'hotspot_item_' . $index;
 
-			$list_item_key = 'hotspot_item_' . $index;
+				$icon_key = 'hotspot_icon_' . $index;
 
-			$icon_key = 'hotspot_icon_' . $index;
+				$link = $item['premium_image_hotspots_link_switcher'];
 
-			$link = $item['premium_image_hotspots_link_switcher'];
-
-			$this->add_render_attribute(
-				$list_item_key,
-				array(
-					'class'                => array(
-						'premium-image-hotspots-main-icons',
-						'tooltip-wrapper',
-						$animation_class,
-						'elementor-repeater-item-' . $item['_id'],
-						'premium-image-hotspots-main-icons-' . $item['_id'],
-					),
-					'data-tooltip-content' => '#tooltip_content',
-				)
-			);
-
-			if ( ! empty( $item['hotspot_css_id'] ) ) {
-				$this->add_render_attribute( $list_item_key, 'id', $item['hotspot_css_id'] );
-			}
-
-			if ( ! empty( $icon_hover ) ) {
-				$this->add_render_attribute( $icon_key, 'class', 'elementor-animation-' . $icon_hover );
-			}
-
-			if ( 'font_awesome_icon' === $icon_type ) {
-
-				$this->add_render_attribute(
-					$icon_key,
-					array(
-						'class' => array(
-							'premium-image-hotspots-icon',
-							$item['premium_image_hotspots_font_awesome_icon'],
-						),
-					)
-				);
-
-			} elseif ( 'custom_image' === $icon_type ) {
-
-				$image_icon_alt = Control_Media::get_image_alt( $item['premium_image_hotspots_custom_image'] );
-
-				$this->add_render_attribute(
-					$icon_key,
-					array(
-						'class' => 'premium-image-hotspots-image-icon',
-						'alt'   => $image_icon_alt,
-						'src'   => $item['premium_image_hotspots_custom_image']['url'],
-					)
-				);
-
-			} elseif ( 'text' === $icon_type ) {
-
-				$this->add_render_attribute( $icon_key, 'class', 'premium-image-hotspots-text' );
-
-			} else {
-
-				$this->add_render_attribute(
-					$icon_key,
-					array(
-						'class'               => array(
-							'premium-image-hotspots-lottie',
-							'premium-lottie-animation',
-						),
-						'data-lottie-url'     => $item['lottie_url'],
-						'data-lottie-loop'    => $item['lottie_loop'],
-						'data-lottie-reverse' => $item['lottie_reverse'],
-					)
-				);
-
-			}
-
-			if ( 'yes' === $link && 'hover' === $trigger ) {
-
-				$link_type = $item['premium_image_hotspots_link_type'];
-
-				if ( 'url' === $link_type ) {
-					$link_url = $item['premium_image_hotspots_url']['url'];
+				if ( 'circle' === $item['radar_style'] ) {
+					$circled = 'premium-radar-circle';
 				} else {
-					$link_url = get_permalink( $item['premium_image_hotspots_existing_page'] );
+					$circled = '';
 				}
 
-				$link_key = 'hotspot_link_' . $index;
-
 				$this->add_render_attribute(
-					$link_key,
+					$list_item_key,
 					array(
-						'class' => 'premium-image-hotspots-tooltips-link',
-						'href'  => $link_url,
-						'title' => $item['premium_image_hotspots_link_text'],
+						'class'                => array(
+							'premium-image-hotspots-main-icons',
+							'tooltip-wrapper',
+							$animation_class,
+							$circled,
+							'elementor-repeater-item-' . $item['_id'],
+							'premium-image-hotspots-main-icons-' . $item['_id'],
+						),
+						'data-tooltip-content' => '#tooltip_content',
 					)
 				);
 
-				if ( ! empty( $item['premium_image_hotspots_url']['is_external'] ) ) {
-					$this->add_render_attribute( $link_key, 'target', '_blank' );
+				if ( ! empty( $item['content_h']['size'] ) || ! empty( $item['content_v']['size'] ) ) {
+					$this->add_render_attribute(
+						$list_item_key,
+						array(
+							'data-tooltip-h' => $item['content_h']['size'],
+							'data-tooltip-v' => $item['content_v']['size'],
+						)
+					);
 				}
 
-				if ( ! empty( $item['premium_image_hotspots_url']['nofollow'] ) ) {
-					$this->add_render_attribute( $link_key, 'rel', 'nofollow' );
+				if ( 'yes' === $item['opened_by_default'] ) {
+					$this->add_render_attribute( $list_item_key, 'data-active', 'true' );
 				}
-			}
 
-			?>
-			<div <?php echo wp_kses_post( $this->get_render_attribute_string( $list_item_key ) ); ?>>
-				<?php if ( 'yes' === $link && 'hover' === $trigger ) : ?>
-					<a <?php echo wp_kses_post( $this->get_render_attribute_string( $link_key ) ); ?>>
-				<?php endif; ?>
+				if ( ! empty( $item['hotspot_css_id'] ) ) {
+					$this->add_render_attribute( $list_item_key, 'id', $item['hotspot_css_id'] );
+				}
 
-				<?php if ( 'font_awesome_icon' === $icon_type ) : ?>
-					<i <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>></i>
-				<?php elseif ( 'custom_image' === $icon_type ) : ?>
-					<div class="pica">
-						<img <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>>
-					</div>
-				<?php elseif ( 'text' === $icon_type ) : ?>
-					<p <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>>
-						<?php echo wp_kses_post( $item['premium_image_hotspots_text'] ); ?>
-					</p>
-				<?php else : ?>
-					<div <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>></div>
-				<?php endif; ?>
+				if ( ! empty( $icon_hover ) ) {
+					$this->add_render_attribute( $icon_key, 'class', 'elementor-animation-' . $icon_hover );
+				}
 
-				<?php if ( 'yes' === $link && 'hover' === $trigger ) : ?>
-					</a>
-				<?php endif; ?>
+				if ( 'font_awesome_icon' === $icon_type || 'svg' === $icon_type ) {
 
-				<div class="premium-image-hotspots-tooltips-wrapper">
-					<div id="tooltip_content" class="premium-image-hotspots-tooltips-text">
-					<?php
-					if ( 'elementor_templates' === $item['premium_image_hotspots_content'] ) {
-						$template = $item['premium_image_hotspots_tooltips_temp'];
-						echo $this->getTemplateInstance()->get_template_content( $template );
-					} else {
-						echo $this->parse_text_editor( $item['premium_image_hotspots_tooltips_texts'] );
+					if ( 'font_awesome_icon' === $icon_type ) {
+
+						$migrated = isset( $item['__fa4_migrated']['new_img_hotspot_icon'] );
+						$is_new   = empty( $item['premium_image_hotspots_font_awesome_icon'] ) && Icons_Manager::is_migration_allowed();
+
 					}
-					?>
+
+					if ( ( 'yes' === $item['draw_svg'] && 'font_awesome_icon' === $icon_type ) || 'svg' === $icon_type ) {
+						$this->add_render_attribute( $icon_key, 'class', 'premium-image-hotspots-icon' );
+					}
+
+					if ( 'yes' === $item['draw_svg'] ) {
+
+						$this->add_render_attribute( $list_item_key, 'class', 'elementor-invisible' );
+
+						if ( 'font_awesome_icon' === $icon_type ) {
+
+							$this->add_render_attribute( $icon_key, 'class', $item['new_img_hotspot_icon']['value'] );
+
+						}
+
+						$this->add_render_attribute(
+							$icon_key,
+							array(
+								'class'            => 'premium-svg-drawer',
+								'data-svg-reverse' => $item['lottie_reverse'],
+								'data-svg-loop'    => $item['lottie_loop'],
+								'data-svg-hover'   => $item['svg_hover'],
+								'data-svg-sync'    => $item['svg_sync'],
+								'data-svg-fill'    => $item['svg_color'],
+								'data-svg-frames'  => $item['frames'],
+								'data-svg-yoyo'    => $item['svg_yoyo'],
+								'data-svg-point'   => $item['lottie_reverse'] ? $item['end_point']['size'] : $item['start_point']['size'],
+							)
+						);
+
+					} else {
+							$this->add_render_attribute( $icon_key, 'class', 'premium-svg-nodraw' );
+					}
+				} elseif ( 'custom_image' === $icon_type ) {
+
+					$image_icon_alt = Control_Media::get_image_alt( $item['premium_image_hotspots_custom_image'] );
+
+					$this->add_render_attribute(
+						$icon_key,
+						array(
+							'class' => 'premium-image-hotspots-image-icon',
+							'alt'   => $image_icon_alt,
+							'src'   => $item['premium_image_hotspots_custom_image']['url'],
+						)
+					);
+
+				} elseif ( 'text' === $icon_type ) {
+
+					$this->add_render_attribute( $icon_key, 'class', 'premium-image-hotspots-text' );
+
+				} else {
+
+					$this->add_render_attribute( $list_item_key, 'class', 'lottie-hotspot' );
+
+					$this->add_render_attribute(
+						$icon_key,
+						array(
+							'class'               => array(
+								'premium-image-hotspots-lottie',
+								'premium-lottie-animation',
+							),
+							'data-lottie-url'     => $item['lottie_url'],
+							'data-lottie-loop'    => $item['lottie_loop'],
+							'data-lottie-reverse' => $item['lottie_reverse'],
+						)
+					);
+
+				}
+
+				if ( 'yes' === $link && 'hover' === $trigger ) {
+
+					$link_type = $item['premium_image_hotspots_link_type'];
+
+					if ( 'url' === $link_type ) {
+						$link_url = $item['premium_image_hotspots_url']['url'];
+					} else {
+						$link_url = get_permalink( $item['premium_image_hotspots_existing_page'] );
+					}
+
+					$link_key = 'hotspot_link_' . $index;
+
+					$this->add_render_attribute(
+						$link_key,
+						array(
+							'class' => 'premium-image-hotspots-tooltips-link',
+							'href'  => $link_url,
+							'title' => $item['premium_image_hotspots_link_text'],
+						)
+					);
+
+					if ( ! empty( $item['premium_image_hotspots_url']['is_external'] ) ) {
+						$this->add_render_attribute( $link_key, 'target', '_blank' );
+					}
+
+					if ( ! empty( $item['premium_image_hotspots_url']['nofollow'] ) ) {
+						$this->add_render_attribute( $link_key, 'rel', 'nofollow' );
+					}
+				}
+
+				?>
+				<div <?php echo wp_kses_post( $this->get_render_attribute_string( $list_item_key ) ); ?>>
+					<?php if ( 'yes' === $link && 'hover' === $trigger ) : ?>
+						<a <?php echo wp_kses_post( $this->get_render_attribute_string( $link_key ) ); ?>>
+					<?php endif; ?>
+
+					<div class="premium-hotsot-icon-wrap">
+						<?php
+						if ( 'font_awesome_icon' === $icon_type ) :
+
+							if ( ( $is_new || $migrated ) && 'yes' !== $item['draw_svg'] ) :
+								Icons_Manager::render_icon(
+									$item['new_img_hotspot_icon'],
+									array(
+										'class'       => 'premium-image-hotspots-icon',
+										'aria-hidden' => 'true',
+									)
+								);
+							else :
+								?>
+								<i <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>></i>
+							<?php endif; ?>
+						<?php elseif ( 'svg' === $icon_type ) : ?>
+							<div <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>>
+								<?php echo $this->print_unescaped_setting( 'custom_svg', 'premium_image_hotspots_icons', $index ); ?>
+							</div>
+						<?php elseif ( 'custom_image' === $icon_type ) : ?>
+							<img <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>>
+						<?php elseif ( 'text' === $icon_type ) : ?>
+							<p <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>>
+								<?php echo wp_kses_post( $item['premium_image_hotspots_text'] ); ?>
+							</p>
+						<?php else : ?>
+							<div <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_key ) ); ?>></div>
+						<?php endif; ?>
+					</div>
+
+					<?php if ( ! empty( $item['icon_label'] ) ) : ?>
+						<span class="premium-hotspot-label">
+							<?php echo wp_kses_post( $item['icon_label'] ); ?>
+						</span>
+					<?php endif; ?>
+
+					<?php if ( 'yes' === $link && 'hover' === $trigger ) : ?>
+						</a>
+					<?php endif; ?>
+
+					<div class="premium-image-hotspots-tooltips-wrapper">
+						<div id="tooltip_content" class="premium-image-hotspots-tooltips-text">
+							<?php
+							if ( 'elementor_templates' === $item['premium_image_hotspots_content'] ) {
+								$template = empty( $item['premium_image_hotspots_tooltips_temp'] ) ? $item['live_temp_content'] : $item['premium_image_hotspots_tooltips_temp'];
+
+								echo $this->getTemplateInstance()->get_template_content( $template );
+							} else {
+								echo $this->parse_text_editor( $item['premium_image_hotspots_tooltips_texts'] );
+							}
+							?>
+						</div>
 					</div>
 				</div>
-			</div>
-		<?php } ?>
+			<?php } ?>
+		</div>
 	</div>
-
 		<?php
 	}
 
@@ -2056,11 +2934,10 @@ class Premium_Image_Hotspots extends Widget_Base {
 				trigger,
 				animationClass = '',
 				id  = view.getID(),
+				tempId = '',
 				image = {
 					id: settings.premium_image_hotspots_image.id,
 					url: settings.premium_image_hotspots_image.url,
-					size: settings.background_image_size,
-					dimension: settings.background_image_custom_dimension,
 					model: view.getEditModel()
 				},
 				hotSpotsSettings = {};
@@ -2069,24 +2946,46 @@ class Premium_Image_Hotspots extends Widget_Base {
 
 			trigger = settings.premium_image_hotspots_trigger_type;
 
+			var tooltipPostion = ['right', 'left'];
+
+			if ( '' !== settings.premium_image_hotspots_tooltips_position ) {
+				if ( Array.isArray( settings.premium_image_hotspots_tooltips_position ) ) {
+					tooltipPostion = settings.premium_image_hotspots_tooltips_position;
+				} else {
+					tooltipPostion = settings.premium_image_hotspots_tooltips_position.replace(/\s/g, '').split(',');
+				}
+			} else {
+				tooltipPostion = ['right', 'left' ];
+			}
+
 			hotSpotsSettings.anim = settings.premium_image_hotspots_anim;
 			hotSpotsSettings.animDur = '' !== settings.premium_image_hotspots_anim_dur ? settings.premium_image_hotspots_anim_dur : 350;
-			hotSpotsSettings.delay  = '' !== settings.premium_image_hotspots_anim_delay ? settings.premium_image_hotspots_anim_delay : 10;
+			hotSpotsSettings.delay  = '' !== settings.premium_image_hotspots_delay ? settings.premium_image_hotspots_delay : 10;
 			hotSpotsSettings.arrow = 'yes' === settings.premium_image_hotspots_arrow ? true : false;
 			hotSpotsSettings.distance = '' !== settings.premium_image_hotspots_tooltips_distance_position ? settings.premium_image_hotspots_tooltips_distance_position : 6;
-			hotSpotsSettings.minWidth  = '' !== settings.premium_image_hotspots_min_width.size ? settings.premium_image_hotspots_min_width.size : 0;
-			hotSpotsSettings.maxWidth  = '' !== settings.premium_image_hotspots_max_width.size ? settings.premium_image_hotspots_max_width.size : null;
-			hotSpotsSettings.side = '' !== settings.premium_image_hotspots_tooltips_position ? settings.premium_image_hotspots_tooltips_position : ['right', 'left'];
+			hotSpotsSettings.minWidth  = settings.premium_image_hotspots_min_width ? settings.premium_image_hotspots_min_width.size : 0;
+			hotSpotsSettings.maxWidth  = settings.premium_image_hotspots_max_width ? settings.premium_image_hotspots_max_width.size : null;
+			hotSpotsSettings.side = tooltipPostion;
 			hotSpotsSettings.hideMobiles  = 'yes' === settings.premium_image_hotspots_hide ? true : false;
 			hotSpotsSettings.active  = 'yes' === settings.interactive ? true : false;
 			hotSpotsSettings.trigger = trigger;
 			hotSpotsSettings.id = id;
+
+			if( 'none' === hotSpotsSettings.anim ) {
+				hotSpotsSettings.animDur = 10;
+			}
+
+			if ( 'click' === hotSpotsSettings.trigger ) {
+				hotSpotsSettings.triggerClose = settings.click_outside;
+			}
 
 			if( 'yes' === settings.premium_image_hotspots_icons_animation ) {
 				animationClass = 'premium-image-hotspots-anim';
 			}
 
 			var hoverAnimation = settings.preimum_image_hotspots_main_icons_hover_animation;
+
+			hotSpotsSettings.iconHover = hoverAnimation;
 
 			view.addRenderAttribute( 'container', {
 				'id': 'premium-image-hotspots-' + id,
@@ -2098,10 +2997,6 @@ class Premium_Image_Hotspots extends Widget_Base {
 				'id': 'tooltip_content',
 				'class': 'premium-image-hotspots-tooltips-text'
 			});
-
-			if ( 'yes' === settings.premium_image_hotspots_stretch ) {
-				view.addRenderAttribute( 'image_wrap', 'class', 'premium-image-hotspots-stretch' );
-			}
 
 			view.addRenderAttribute( 'image_wrap', 'class', 'premium-image-hotspots-img-wrap' );
 
@@ -2154,127 +3049,194 @@ class Premium_Image_Hotspots extends Widget_Base {
 		<div {{{ view.getRenderAttributeString('container') }}}>
 			<div {{{ view.getRenderAttributeString('image_wrap') }}}>
 				<img src={{image_url}}>
-			</div>
-			<#
-			_.each( settings.premium_image_hotspots_icons, function( hotspot, index ) {
+				<#
 
+				_.each( settings.premium_image_hotspots_icons, function( hotspot, index ) {
 
-				var iconType = hotspot.premium_image_hotspots_icon_type_switch,
-					iconKey = 'hotspot_icon_' + index,
-					link = hotspot.premium_image_hotspots_link_switcher;
+					var iconType = hotspot.premium_image_hotspots_icon_type_switch,
+						iconKey = 'hotspot_icon_' + index,
+						link = hotspot.premium_image_hotspots_link_switcher,
+						circled = '';
 
-				listItemKey = 'hotspot_item_' + index;
-				view.addRenderAttribute( listItemKey, {
-					'class': [
-						animationClass,
-						'premium-image-hotspots-main-icons',
-						'elementor-repeater-item-' + hotspot._id,
-						'tooltip-wrapper',
-						'premium-image-hotspots-main-icons-' + hotspot._id
-					],
-					'data-tooltip-content': '#tooltip_content'
-				});
-
-				if( '' !== hotspot.hotspot_css_id ) {
-					view.addRenderAttribute( listItemKey, 'id', hotspot.hotspot_css_id );
-				}
-
-				if( 'elementor_templates' === hotspot.premium_image_hotspots_content && '' !== hotspot.premium_image_hotspots_tooltips_temp ) {
-					view.addRenderAttribute( listItemKey, 'data-template-id', hotspot.premium_image_hotspots_tooltips_temp );
-				}
-
-				if( '' !== hoverAnimation ) {
-					view.addRenderAttribute( iconKey, 'class', 'elementor-animation-' + hoverAnimation );
-				}
-
-				if( iconType === 'font_awesome_icon' ) {
-
-					view.addRenderAttribute( iconKey, {
-						'class': [
-							'premium-image-hotspots-icon',
-							hotspot.premium_image_hotspots_font_awesome_icon
-						]
-					});
-
-				} else if(  iconType === 'custom_image' ) {
-
-					view.addRenderAttribute( iconKey, {
-						'class': 'premium-image-hotspots-image-icon',
-						'src': hotspot.premium_image_hotspots_custom_image.url
-					});
-
-				} else if( iconType === 'text' ) {
-
-					view.addRenderAttribute( iconKey,  'class', 'premium-image-hotspots-text' );
-
-				} else {
-
-					view.addRenderAttribute( iconKey, {
-						'class': [
-							'premium-image-hotspots-lottie',
-							'premium-lottie-animation'
-						],
-						'data-lottie-url': hotspot.lottie_url,
-						'data-lottie-loop': hotspot.lottie_loop,
-						'data-lottie-reverse': hotspot.lottie_reverse
-					});
-
-				}
-
-				if ( link === 'yes' && trigger === 'hover' ) {
-
-					var linkType = hotspot.premium_image_hotspots_link_type;
-
-					if ( linkType === 'url' ) {
-						linkURL = hotspot.premium_image_hotspots_url.url;
-					} else {
-						linkURL = hotspot.premium_image_hotspots_existing_page;
+					if ( 'circle' === hotspot.radar_style) {
+						circled = 'premium-radar-circle';
 					}
 
-					var linkKey = 'hotspot_link_' + index;
-
-					view.addRenderAttribute( linkKey, {
-						'class': 'premium-image-hotspots-tooltips-link',
-						'href': linkURL,
-						'title': hotspot.premium_image_hotspots_link_text
+					listItemKey = 'hotspot_item_' + index;
+					view.addRenderAttribute( listItemKey, {
+						'class': [
+							animationClass,
+							circled,
+							'premium-image-hotspots-main-icons',
+							'elementor-repeater-item-' + hotspot._id,
+							'tooltip-wrapper',
+							'premium-image-hotspots-main-icons-' + hotspot._id
+						],
+						'data-tooltip-content': '#tooltip_content'
 					});
-				}
 
-			#>
-			<div {{{ view.getRenderAttributeString(listItemKey) }}}>
+					if ( '' !== hotspot.content_h.size || '' !== hotspot.content_v.size ) {
+						view.addRenderAttribute( listItemKey, {
+							'data-tooltip-h' : hotspot.content_h.size,
+							'data-tooltip-v' : hotspot.content_v.size,
+						});
+					}
 
-				<# if ( link === 'yes' && trigger === 'hover' ) { #>
-					<a {{{ view.getRenderAttributeString(linkKey) }}}>
-				<# } #>
+					if ( 'yes' === hotspot.opened_by_default ) {
+						view.addRenderAttribute( listItemKey, 'data-active' , 'true' );
+					}
 
-					<# if ( 'font_awesome_icon' === iconType ) { #>
-						<i {{{ view.getRenderAttributeString( iconKey ) }}}></i>
-					<# } else if ( 'custom_image' === iconType ) { #>
-						<div class="pica">
-							<img {{{ view.getRenderAttributeString( iconKey ) }}}>
-						</div>
-					<# } else if ( 'text' === iconType ) { #>
-						<p {{{ view.getRenderAttributeString( iconKey ) }}}>
-							{{{hotspot.premium_image_hotspots_text}}}
-						</p>
-					<# } else { #>
-						<div {{{ view.getRenderAttributeString( iconKey ) }}}></div>
+					if( '' !== hotspot.hotspot_css_id ) {
+						view.addRenderAttribute( listItemKey, 'id', hotspot.hotspot_css_id );
+					}
+
+					if( 'elementor_templates' === hotspot.premium_image_hotspots_content ) {
+						tempId = '' === hotspot.premium_image_hotspots_tooltips_temp || null == hotspot.premium_image_hotspots_tooltips_temp ? hotspot.live_temp_content : hotspot.premium_image_hotspots_tooltips_temp;
+
+						if ( '' !== tempId ) {
+							view.addRenderAttribute( listItemKey, 'data-template-id', tempId );
+						}
+					}
+
+					if( '' !== hoverAnimation ) {
+						view.addRenderAttribute( iconKey, 'class', 'elementor-animation-' + hoverAnimation );
+					}
+
+					if ( iconType === 'font_awesome_icon' || iconType === 'svg' ) {
+
+						if ( iconType === 'font_awesome_icon' ) {
+							var iconHTML = 'yes' !== hotspot.draw_svg ? elementor.helpers.renderIcon( view, hotspot.new_img_hotspot_icon, { 'class': 'premium-image-hotspots-icon' , 'aria-hidden': true }, 'i' , 'object' ) : false,
+								migrated = elementor.helpers.isIconMigrated( hotspot, 'new_img_hotspot_icon' );
+						}
+
+						if ( ( 'yes' === hotspot.draw_svg && 'font_awesome_icon' === hotspot.icon_type ) || 'svg' === hotspot.icon_type ) {
+							view.addRenderAttribute( iconKey, 'class', 'premium-image-hotspots-icon' );
+						}
+
+						if ( 'yes' === hotspot.draw_svg ) {
+
+							if ( 'font_awesome_icon' === iconType ) {
+
+								view.addRenderAttribute( iconKey, 'class', hotspot.new_img_hotspot_icon.value );
+
+							}
+
+							view.addRenderAttribute( iconKey,
+								{
+									'class' : 'premium-svg-drawer',
+									'data-svg-reverse' : hotspot.lottie_reverse,
+									'data-svg-loop' : hotspot.lottie_loop,
+									'data-svg-hover' : hotspot.svg_hover,
+									'data-svg-sync' : hotspot.svg_sync,
+									'data-svg-fill' : hotspot.svg_color,
+									'data-svg-frames' : hotspot.frames,
+									'data-svg-yoyo' : hotspot.svg_yoyo,
+									'data-svg-point' : hotspot.lottie_reverse ? hotspot.end_point.size : hotspot.start_point.size,
+								}
+							);
+
+						} else {
+							view.addRenderAttribute( iconKey, 'class', 'premium-svg-nodraw' );
+						}
+
+					} else if(  iconType === 'custom_image' ) {
+
+						view.addRenderAttribute( iconKey, {
+							'class': 'premium-image-hotspots-image-icon',
+							'src': hotspot.premium_image_hotspots_custom_image.url
+						});
+
+					} else if( iconType === 'text' ) {
+
+						view.addRenderAttribute( iconKey,  'class', 'premium-image-hotspots-text' );
+
+					} else {
+
+						view.addRenderAttribute( iconKey, {
+							'class': [
+								'premium-image-hotspots-lottie',
+								'premium-lottie-animation'
+							],
+							'data-lottie-url': hotspot.lottie_url,
+							'data-lottie-loop': hotspot.lottie_loop,
+							'data-lottie-reverse': hotspot.lottie_reverse
+						});
+
+					}
+
+					if ( link === 'yes' && trigger === 'hover' ) {
+
+						var linkType = hotspot.premium_image_hotspots_link_type;
+
+						if ( linkType === 'url' ) {
+							linkURL = hotspot.premium_image_hotspots_url.url;
+						} else {
+							linkURL = hotspot.premium_image_hotspots_existing_page;
+						}
+
+						var linkKey = 'hotspot_link_' + index;
+
+						view.addRenderAttribute( linkKey, {
+							'class': 'premium-image-hotspots-tooltips-link',
+							'href': linkURL,
+							'title': hotspot.premium_image_hotspots_link_text
+						});
+					}
+
+				#>
+				<div {{{ view.getRenderAttributeString(listItemKey) }}}>
+
+					<# if ( link === 'yes' && trigger === 'hover' ) { #>
+						<a {{{ view.getRenderAttributeString(linkKey) }}}>
 					<# } #>
 
+					<div class="premium-hotsot-icon-wrap">
+						<# if ( 'font_awesome_icon' === iconType ) { #>
 
-				<# if ( link === 'yes' && trigger === 'hover' ) { #>
-					</a>
-				<# } #>
+							<# if ( iconHTML && iconHTML.rendered && ( ! hotspot.premium_image_hotspots_font_awesome_icon || migrated ) ) { #>
 
-				<div class="premium-image-hotspots-tooltips-wrapper">
-					<div {{{ view.getRenderAttributeString('tooltip_content') }}}>
-						<# if( 'text_editor' === hotspot.premium_image_hotspots_content ) { #>
-								{{{hotspot.premium_image_hotspots_tooltips_texts}}}
+								{{{ iconHTML.value }}}
+
+							<#  } else { #>
+								<i {{{ view.getRenderAttributeString( iconKey ) }}}></i>
+							<# } #>
+
+						<# } else if ( 'svg' === iconType ) { #>
+							<div {{{ view.getRenderAttributeString( iconKey ) }}}>
+								{{{ hotspot.custom_svg }}}
+							</div>
+						<# } else if ( 'custom_image' === iconType ) { #>
+							<img {{{ view.getRenderAttributeString( iconKey ) }}}>
+						<# } else if ( 'text' === iconType ) { #>
+							<p {{{ view.getRenderAttributeString( iconKey ) }}}>
+								{{{hotspot.premium_image_hotspots_text}}}
+							</p>
+						<# } else { #>
+							<div {{{ view.getRenderAttributeString( iconKey ) }}}></div>
 						<# } #>
+
+					</div>
+
+					<# if ( '' != hotspot.icon_label ) { #>
+						<span class="premium-hotspot-label">
+							{{{hotspot.icon_label}}}
+						</span>
+					<# } #>
+
+					<# if ( link === 'yes' && trigger === 'hover' ) { #>
+						</a>
+					<# } #>
+
+					<div class="premium-image-hotspots-tooltips-wrapper">
+						<div {{{ view.getRenderAttributeString('tooltip_content') }}}>
+							<# if( 'text_editor' === hotspot.premium_image_hotspots_content ) { #>
+								{{{hotspot.premium_image_hotspots_tooltips_texts}}}
+							<# } #>
+						</div>
 					</div>
 				</div>
+				<# }); #>
 			</div>
-			<# }); #>
 		</div>
 
 		<?php

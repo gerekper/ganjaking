@@ -18,6 +18,8 @@ class WCML_Payment_Gateway_Stripe extends WCML_Payment_Gateway {
 				'labelCurrency'           => __( 'Currency', 'woocommerce-multilingual' ),
 				'labelLivePublishableKey' => __( 'Live Publishable Key', 'woocommerce-multilingual' ),
 				'labelLiveSecretKey'      => __( 'Live Secret Key', 'woocommerce-multilingual' ),
+				'labelTestPublishableKey' => __( 'Test Publishable Key', 'woocommerce-multilingual' ),
+				'labelTestSecretKey'      => __( 'Test Secret Key', 'woocommerce-multilingual' ),
 			],
 		];
 	}
@@ -37,14 +39,18 @@ class WCML_Payment_Gateway_Stripe extends WCML_Payment_Gateway {
 		foreach ( $active_currencies as $code => $currency ) {
 
 			if ( $default_currency === $code ) {
-				$currencies_details[ $code ]['currency']        = $code;
-				$currencies_details[ $code ]['publishable_key'] = $this->get_gateway()->settings['publishable_key'];
-				$currencies_details[ $code ]['secret_key']      = $this->get_gateway()->settings['secret_key'];
+				$currencies_details[ $code ]['currency']             = $code;
+				$currencies_details[ $code ]['publishable_key']      = $this->get_gateway()->settings['publishable_key'];
+				$currencies_details[ $code ]['secret_key']           = $this->get_gateway()->settings['secret_key'];
+				$currencies_details[ $code ]['test_publishable_key'] = $this->get_gateway()->settings['test_publishable_key'];
+				$currencies_details[ $code ]['test_secret_key']      = $this->get_gateway()->settings['test_secret_key'];
 			} else {
-				$currency_gateway_setting                       = $this->get_setting( $code );
-				$currencies_details[ $code ]['currency']        = $currency_gateway_setting ? $currency_gateway_setting['currency'] : '';
-				$currencies_details[ $code ]['publishable_key'] = $currency_gateway_setting ? $currency_gateway_setting['publishable_key'] : '';
-				$currencies_details[ $code ]['secret_key']      = $currency_gateway_setting ? $currency_gateway_setting['secret_key'] : '';
+				$currency_gateway_setting                            = $this->get_setting( $code );
+				$currencies_details[ $code ]['currency']             = isset( $currency_gateway_setting['currency'] ) ? $currency_gateway_setting['currency'] : '';
+				$currencies_details[ $code ]['publishable_key']      = isset( $currency_gateway_setting['publishable_key'] ) ? $currency_gateway_setting['publishable_key'] : '';
+				$currencies_details[ $code ]['secret_key']           = isset( $currency_gateway_setting['secret_key'] ) ? $currency_gateway_setting['secret_key'] : '';
+				$currencies_details[ $code ]['test_publishable_key'] = isset( $currency_gateway_setting['test_publishable_key'] ) ? $currency_gateway_setting['test_publishable_key'] : '';
+				$currencies_details[ $code ]['test_secret_key']      = isset( $currency_gateway_setting['test_secret_key'] ) ? $currency_gateway_setting['test_secret_key'] : '';
 			}
 		}
 
@@ -71,14 +77,13 @@ class WCML_Payment_Gateway_Stripe extends WCML_Payment_Gateway {
 
 		if ( $gateway_settings && isset( $gateway_settings[ $client_currency ] ) ) {
 			$gateway_setting = $gateway_settings[ $client_currency ];
-			if ( $gateway_setting['publishable_key'] && $gateway_setting['secret_key'] ) {
-				if ( 'yes' === $settings['testmode'] ) {
-					$settings['test_publishable_key'] = $gateway_setting['publishable_key'];
-					$settings['test_secret_key']      = $gateway_setting['secret_key'];
-				} else {
-					$settings['publishable_key'] = $gateway_setting['publishable_key'];
-					$settings['secret_key']      = $gateway_setting['secret_key'];
-				}
+			if ( isset( $gateway_setting['publishable_key'] ) && isset( $gateway_setting['secret_key'] ) ) {
+				$settings['publishable_key'] = $gateway_setting['publishable_key'];
+				$settings['secret_key']      = $gateway_setting['secret_key'];
+			}
+			if ( isset( $gateway_setting['test_publishable_key'] ) && isset( $gateway_setting['test_secret_key'] ) ) {
+				$settings['test_publishable_key'] = $gateway_setting['test_publishable_key'];
+				$settings['test_secret_key']      = $gateway_setting['test_secret_key'];
 			}
 		}
 

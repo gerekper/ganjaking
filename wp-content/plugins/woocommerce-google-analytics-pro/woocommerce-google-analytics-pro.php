@@ -6,7 +6,7 @@
  * Description: Measure your site's success using advanced eCommerce tracking via Google Analytics
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 2.0.12
+ * Version: 2.0.13
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
  * WC requires at least: 3.9.4
- * WC tested up to: 8.0.3
+ * WC tested up to: 8.3.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -45,7 +45,7 @@ class WC_Google_Analytics_Pro_Loader {
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.11.0';
+	const FRAMEWORK_VERSION = '5.11.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Google Analytics Pro';

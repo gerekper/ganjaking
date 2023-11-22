@@ -3448,6 +3448,240 @@ class PAFE_Multi_Step_Form extends \Elementor\Widget_Base {
 		}
 		$this->end_controls_section();
 
+        // Razorpay Subscriptions
+        $this->start_controls_section(
+			'section_razor_subcription',
+			[
+				'label' => __( 'Razorpay Subscriptions', 'pafe' ),
+			]
+		);
+        $this->add_control(
+            'razorpay_sub_enable',
+            [
+                'label' => __( 'Enable', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'default' => '',
+                'render_type' => 'none',
+                'label_on' => 'Yes',
+                'label_off' => 'No',
+                'return_value' => 'yes',
+            ]
+        );
+        $this->add_control(
+			'razor_subcription_get_plan',
+			[
+				'type' => \Elementor\Controls_Manager::RAW_HTML,
+				'classes' => 'elementor-descriptor',
+				'raw' => __( '<div style="text-align:center;"><button class="pafe-admin-button-ajax elementor-button elementor-button-default" type="button" data-pafe-sub-get-plan>Get Plan</button></div><div class="pafe-razor-get-plan-result" style="margin-top: 10px"></div>', 'pafe' ),
+				'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+			]
+		);
+        $this->add_control(
+            'razor_subcription_plan_id',
+            [
+                'label' => __( 'Plan ID', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'separator' => 'before',
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_subcription_total_count',
+            [
+                'label' => __( 'Total Count', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'description' => __( 'The number of billing cycles for which the customer should be charged.', 'pafe'),
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'render_type' => 'none',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_subcription_quantity',
+            [
+                'label' => __( 'Quantity', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'description' => __( 'The number of times the customer should be charged the plan amount per invoice.', 'pafe'),
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'default' => '1',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_subcription_name',
+            [
+                'label' => __( 'Name', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_subcription_desc',
+            [
+                'label' => __( 'Description', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_subcription_image',
+            [
+                'label' => __( 'Image', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razor_sub_prefill',
+            [
+                'label' => __( 'Prefill?', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'default' => '',
+                'render_type' => 'none',
+                'label_on' => 'Yes',
+                'label_off' => 'No',
+                'return_value' => 'yes',
+                'condition' => [
+					'razorpay_sub_enable' => 'yes',
+				]
+            ]
+        );
+        $this->add_control(
+            'razorpay_sub_customer_name',
+            [
+                'label' => __( 'Customer Name', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'render_type' => 'none',
+                'condition' => [
+                    'razor_sub_prefill' => 'yes',
+                    'razorpay_sub_enable' => 'yes'
+                ],
+            ]
+        );
+        $this->add_control(
+            'razorpay_sub_customer_email',
+            [
+                'label' => __( 'Customer Email', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'render_type' => 'none',
+                'condition' => [
+                    'razor_sub_prefill' => 'yes',
+                    'razorpay_sub_enable' => 'yes'
+                ],
+            ]
+        );
+        $this->add_control(
+            'razorpay_sub_customer_contact',
+            [
+                'label' => __( 'Customer Phone', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'render_type' => 'none',
+                'classes' => 'pafe-control-dynamic-tags pafe-control-dynamic-tags--get-fields',
+                'condition' => [
+                    'razor_sub_prefill' => 'yes',
+                    'razorpay_sub_enable' => 'yes'
+                ],
+            ]
+        );
+        $this->add_control(
+            'razorpay_sub_notes',
+            [
+                'label' => esc_html__( 'Notes?', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => esc_html__( 'Yes', 'pafe' ),
+                'label_off' => esc_html__( 'No', 'pafe' ),
+                'return_value' => 'yes',
+                'render_type' => 'none',
+                'default' => '',
+                'condition' => [
+                    'razorpay_sub_enable' => 'yes',
+                ],
+            ]
+        );
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'razorpay_sub_metadata_label', [
+                'label' => esc_html__( 'Label', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+            ]
+        );
+
+        $repeater->add_control(
+            'razorpay_sub_metadata_value',
+            [
+                'label' => esc_html__( 'Value', 'pafe' ),
+                'type' => \Elementor\PafeCustomControls\Select_Control::Select,
+            ]
+        );
+
+        $this->add_control(
+            'razorpay_sub_note_list',
+            [
+                'label' => esc_html__( 'Note List', 'pafe' ),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater->get_controls(),
+                'title_field' => '{{{ razorpay_sub_metadata_label }}}',
+                'render_type' => 'none',
+                'condition' => [
+                    'razorpay_sub_notes' => 'yes',
+                    'razorpay_sub_enable' => 'yes'
+                ],
+            ]
+        );
+        $this->add_control(
+            'pafe_razorpay_sub_message_succeeded',
+            [
+                'label' => __( 'Succeeded Message', 'pafe' ),
+                'label_block' => true,
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Subscription success', 'pafe' ),
+                'render_type' => 'none',
+                'condition' => [
+                    'razorpay_sub_enable' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'pafe_razorpay_sub_message_failed',
+            [
+                'label' => __( 'Failed Message', 'pafe' ),
+                'label_block' => true,
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Subscription failed', 'pafe' ),
+                'render_type' => 'none',
+                'condition' => [
+                    'razorpay_sub_enable' => 'yes',
+                ],
+            ]
+        );
+        $this->end_controls_section();
+
 		$this->start_controls_section(
 			'section_recaptcha',
 			[

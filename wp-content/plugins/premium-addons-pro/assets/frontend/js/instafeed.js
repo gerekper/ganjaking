@@ -15,6 +15,8 @@
                 useHttp: false,
                 afterLoad: null,
                 api: 'old',
+                overlay: '',
+                filter: 'show'
             };
 
             if (typeof params === 'object') {
@@ -39,30 +41,15 @@
         };
 
         Instafeed.prototype.run = function (url) {
-            var header, instanceName, script;
 
-            if (typeof this.options.accessToken !== 'string') {
-                throw new Error("Missing accessToken.");
-            }
-            if ((this.options.before != null) && typeof this.options.before === 'function') {
-                this.options.before.call(this);
-            }
-            if (typeof document !== "undefined" && document !== null) {
-                script = document.createElement('script');
-                script.id = 'instafeed-fetcher';
-                script.src = url || this._buildUrl();
-                header = document.getElementsByTagName('head');
-                header[0].appendChild(script);
-                instanceName = "instafeedCache" + this.unique;
-                window[instanceName] = new Instafeed(this.options, this);
-                window[instanceName].unique = this.unique;
-            }
+            this.parse(this.options.feed);
+
             return true;
         };
 
         Instafeed.prototype.parse = function (response) {
 
-            var anchor, childNodeCount, childNodeIndex, childNodesArr, e, eMsg, fragment, header, htmlString, httpProtocol, i, image, imageString, imageUrl, images, img, imgOrient, videoURL, instanceName, j, k, len, len1, len2, node, parsedLimit, reverse, sortSettings, targetEl, tmpEl;
+            var anchor, childNodeCount, childNodeIndex, childNodesArr, e, eMsg, fragment, htmlString, httpProtocol, i, image, imageString, imageUrl, images, img, imgOrient, videoURL, instanceName, j, k, len, len1, len2, node, parsedLimit, reverse, sortSettings, targetEl, tmpEl;
             if (typeof response !== 'object') {
                 if ((this.options.error != null) && typeof this.options.error === 'function') {
                     this.options.error.call(this, 'Invalid JSON data');
@@ -71,6 +58,8 @@
                     throw new Error('Invalid JSON response');
                 }
             }
+
+            var filter = this.options.filter;
 
             // if (response.meta.code !== 200) {
             //     if ((this.options.error != null) && typeof this.options.error === 'function') {
@@ -149,10 +138,15 @@
                     imageUrl = "new" === this.options.api ? image.media_url : image.images.standard_resolution.url;
 
                     if ("VIDEO" === image.media_type) {
-                        videoURL = image.media_url;
+                        if (this.options.videos)
+                            videoURL = image.media_url;
                         imageUrl = image.thumbnail_url;
+                    } else if ("CAROUSEL_ALBUM" === image.media_type) {
+                        imageUrl = image.media_url;
                     }
 
+                    if (!imageUrl)
+                        continue;
 
                     httpProtocol = window.location.protocol.indexOf("http") >= 0;
                     if (httpProtocol && !this.options.useHttp) {
@@ -164,7 +158,11 @@
 
                     "" !== this.options.tagName && this.options.tagName.forEach(function (t, e) {
                         t = t.toLowerCase();
-                        -1 === image.tags.indexOf(t) ? j[e] = !1 : j[e] = !0
+                        -1 === image.tags.indexOf(t) ? j[e] = false : j[e] = true
+
+                        if ('hide' === filter)
+                            j[e] = !j[e];
+
                     });
 
                     var captionContent = image.caption;
@@ -199,7 +197,7 @@
                     childNodesArr.push(tmpEl.childNodes[childNodeIndex]);
                     childNodeIndex += 1;
                 }
-                this.options.afterLoad();
+                this.options.afterLoad(response);
                 for (j = 0, len1 = childNodesArr.length; j < len1; j++) {
                     node = childNodesArr[j];
                     fragment.appendChild(node);
@@ -215,15 +213,8 @@
                     throw new Error(eMsg);
                 }
                 targetEl.appendChild(fragment);
-                header = document.getElementsByTagName('head')[0];
-                header.removeChild(document.getElementById('instafeed-fetcher'));
-                instanceName = "instafeedCache" + this.unique;
-                window[instanceName] = void 0;
-                try {
-                    delete window[instanceName];
-                } catch (_error) {
-                    e = _error;
-                }
+
+
             }
             if ((this.options.after != null) && typeof this.options.after === 'function') {
                 this.options.after.call(this);
@@ -291,18 +282,35 @@
                 videoSelector = "VIDEO" === data.type ? "premium-insta-video-wrap" : "";
 
             output =
-                '<div class="premium-insta-feed ' + videoSelector + ' premium-insta-box"><div class="premium-insta-feed-inner"><div class="premium-insta-feed-wrap"><div class="premium-insta-img-wrap"><img src="{{image}}"/>';
+                '<div class="premium-insta-feed ' + videoSelector + ' premium-insta-box"><div class="premium-insta-feed-wrap"><div class="premium-insta-img-wrap"><img src="{{image}}"/>';
 
-            if ("VIDEO" === data.type)
+            if ("VIDEO" === data.type && this.options.videos)
                 output += '<video src={{video}} controls>';
 
-            output += '</div><div class="premium-insta-info-wrap"><div class="premium-insta-feed-interactions">' +
-                templateData.likes +
-                templateData.comments +
-                templateData.description +
-                "</div></div>" +
-                templateData.link +
-                "</div>" + templateData.share + "</div></div>";
+
+            output += '</div>';
+
+            //Add info-wrap if overlay color is set.
+            if ('' != this.options.overlay) {
+                output += '<div class="premium-insta-info-wrap">';
+            }
+
+            //Add feed-interactions if description text is set.
+            if ('' != templateData.description) {
+                output += '<div class="premium-insta-feed-interactions">' +
+                    templateData.likes +
+                    templateData.comments +
+                    templateData.description +
+                    "</div>";
+            }
+
+            //Add info-wrap if overlay color is set.
+            if ('' != this.options.overlay) {
+                output += "</div>";
+            }
+
+            output += templateData.link + "</div>" + templateData.share + "</div>";
+
 
             while (pattern.test(output)) {
 

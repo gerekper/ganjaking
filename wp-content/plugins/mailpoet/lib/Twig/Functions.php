@@ -5,11 +5,14 @@ namespace MailPoet\Twig;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Referrals\UrlDecorator;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\FreeDomains;
+use MailPoet\Util\Notices\PendingApprovalNotice;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoet\WPCOM\DotcomHelperFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Twig\Extension\AbstractExtension;
 use MailPoetVendor\Twig\TwigFunction;
@@ -27,6 +30,9 @@ class Functions extends AbstractExtension {
 
   /** @var UrlDecorator */
   private $referralUrlDecorator = null;
+
+  /** @var PendingApprovalNotice */
+  private $pendingApprovalNotice = null;
 
   private function getWooCommerceHelper(): WooCommerceHelper {
     if ($this->woocommerceHelper === null) {
@@ -49,11 +55,22 @@ class Functions extends AbstractExtension {
     return $this->settings;
   }
 
+  private function getDotcomHelperFunctions(): DotcomHelperFunctions {
+    return ContainerWrapper::getInstance()->get(DotcomHelperFunctions::class);
+  }
+
   private function getWp(): WPFunctions {
     if ($this->wp === null) {
       $this->wp = WPFunctions::get();
     }
     return $this->wp;
+  }
+
+  private function getPendingApprovalNotice(): PendingApprovalNotice {
+    if ($this->pendingApprovalNotice === null) {
+      $this->pendingApprovalNotice = ContainerWrapper::getInstance()->get(PendingApprovalNotice::class);
+    }
+    return $this->pendingApprovalNotice;
   }
 
   public function getFunctions() {
@@ -192,6 +209,16 @@ class Functions extends AbstractExtension {
         'is_dotcom_ecommerce_plan',
         [$this, 'isDotcomEcommercePlan'],
         ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
+        'is_dotcom',
+        [$this, 'isDotcom'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
+        'pending_approval_message',
+        [$this, 'pendingApprovalMessage'],
+        ['is_safe' => ['html']]
       ),
     ];
   }
@@ -343,5 +370,13 @@ class Functions extends AbstractExtension {
       return wc_calypso_bridge_is_ecommerce_plan();
     }
     return false;
+  }
+
+  public function isDotcom(): bool {
+    return $this->getDotcomHelperFunctions()->isDotcom();
+  }
+
+  public function pendingApprovalMessage(): string {
+    return $this->getPendingApprovalNotice()->getPendingApprovalMessage();
   }
 }

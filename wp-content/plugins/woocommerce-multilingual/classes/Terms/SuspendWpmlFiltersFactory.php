@@ -18,6 +18,7 @@ class SuspendWpmlFiltersFactory {
 				[ 'get_term', [ $sitepress, 'get_term_adjust_id' ], 1, 1 ],
 				[ 'get_terms', [ 'WPML_Terms_Translations', 'get_terms_filter' ], 10, 2 ],
 				[ 'terms_clauses', [ $sitepress, 'terms_clauses' ], 10, 3 ],
+				[ 'get_terms_args', [ $sitepress, 'get_terms_args_filter' ], 10, 2 ],
 			] )
 		);
 	}

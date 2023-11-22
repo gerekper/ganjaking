@@ -1350,16 +1350,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         try {
                             response = xml.responseText;
                         } catch (e) { }
+
                         var reply = _this2._parseApiReply(response);
+
+
                         reply.httpstatus = httpstatus;
                         if (httpstatus === 200) {
                             _this2.setBearerToken(reply.access_token);
                         }
-                        if (typeof callback === "function") {
-                            callback(reply);
-                        }
-                        if (dfd) {
-                            dfd.resolve({ reply: reply });
+
+                        if (!reply.errors) {
+                            if (typeof callback === "function") {
+                                callback(reply);
+                            }
+                            if (dfd) {
+                                dfd.resolve({ reply: reply });
+                            }
                         }
                     }
                 };

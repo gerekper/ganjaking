@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions
- * @version     4.4
+ * @version     4.5.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -404,7 +404,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	}
 
 	/**
-	 * GET event UNIX time from date and time format $_POST values
+	 * GET event UNIX time from date and time format $_POST values in UTC0
 	 * @updated 4.0.6
 	 */
 	function eventon_get_unix_time($data='', $date_format='', $time_format=''){
@@ -928,15 +928,16 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	// perform tasks to all past events
 	// @updated 4.0.3
 		function evo_process_to_past_events(){
-			global $eventon;
 
+			
+			//EVO()->cal->reload_option_data( 'evcal_1');
 			EVO()->cal->set_cur('evcal_1');
 
 			// trash posts
-			$trash = EVO()->cal->check_yn('evcal_move_trash');
+			$trash = EVO()->cal->check_yn('evcal_move_trash','evcal_1');
 
 			// mark as complete
-			$completed = EVO()->cal->check_yn('evcal_mark_completed');
+			$completed = EVO()->cal->check_yn('evcal_mark_completed','evcal_1');
 
 			// no options set
 			if(!$completed && !$trash) return;
@@ -985,7 +986,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 					$old_status = $event['post_status'];
 
-					$event['post_status']='trash';
+					$event['post_status'] = 'trash';
 					wp_update_post($event);
 
 					do_action('evo_after_trashing_event', $event_id);
@@ -1117,7 +1118,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					$repeat_intervals = array_map('unserialize', array_unique(array_map('serialize', $repeat_intervals)));
 
 				// sort repeating dates
-				asort($repeat_intervals);
+				if( isset($postdata['_evo_rep_no_nosort']) && $postdata['_evo_rep_no_nosort'] == 'yes' ){}else{ asort($repeat_intervals); } 
 
 			}else{
 
@@ -1383,8 +1384,8 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		}
 		
 		$new_lang_val = (!empty($evo_options[$_lang_variation][$field]) )?
-			($evo_options[$_lang_variation][$field]): 
-			$default_val;
+			stripslashes( $evo_options[$_lang_variation][$field] ): 
+			stripslashes( $default_val ); // @s 4.5.3
 			
 		return $new_lang_val;
 	}
@@ -1423,6 +1424,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		}
 
 	// Convert the text string for language into correct escapting variable name
+		// @updated 4.5.2
 		function evo_lang_texttovar_filter($text){
 			$field_name = str_replace(' ', '-',  strtolower($text));
 			$field_name = str_replace('.', '',  $field_name);
@@ -1430,6 +1432,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			$field_name = str_replace(',', '',  $field_name);
 			$field_name = str_replace('[', '',  $field_name);
 			$field_name = str_replace(']', '',  $field_name);
+			$field_name = str_replace('!', '',  $field_name);
 			return $field_name;
 		}
 	// get eventon language using variable

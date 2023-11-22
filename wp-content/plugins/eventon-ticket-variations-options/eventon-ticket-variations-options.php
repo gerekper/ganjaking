@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/ticket-variations-options
  * Description: Extend tickets with variations and options
  * Author: Ashan Jay
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 6.0
- * Tested up to: 6.2.2
+ * Tested up to: 6.4.1
  *  
  * Text Domain: evovo
  * Domain Path: /lang/
@@ -16,8 +16,8 @@
 
 class evovo{
 	
-	public $version='1.1.2';
-	public $eventon_version = '4.4.3';
+	public $version='1.1.3';
+	public $eventon_version = '4.5';
 	public $evotx_version = '2.2.2';
 	public $name = 'Ticket Variations & Options';
 	public $id = 'EVOVO';
@@ -36,7 +36,7 @@ class evovo{
 
 	public function __construct(){
 		$this->super_init();
-		add_action('plugins_loaded', array($this, 'plugin_init'), 13);
+		add_action('plugins_loaded', array($this, 'plugin_init'), 12);
 	}
 
 	public function plugin_init(){		

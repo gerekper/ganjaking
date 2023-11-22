@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfac40ad0467105e56f53556b33778612
+class ComposerStaticInit964b45f07fd5061b640791cb8500efa7
 {
     public static $files = array (
         '5f5b8f7c1db2e892006e8805f0ed573c' => __DIR__ . '/..' . '/wpml/collect/src/Illuminate/Support/helpers.php',
@@ -20,6 +20,10 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
             'WPML\\Collect\\' => 13,
             'WPML\\Auryn\\' => 11,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -30,6 +34,10 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
         'WPML\\Auryn\\' => 
         array (
             0 => __DIR__ . '/..' . '/otgs/auryn/lib',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
     );
 
@@ -65,7 +73,17 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
         'WPML\\Ajax\\IHandler' => __DIR__ . '/..' . '/wpml/core-api/core/interfaces/ajax/Handler.php',
         'WPML\\Container\\Config' => __DIR__ . '/../..' . '/lib/classes/container/class-config.php',
         'WPML\\Container\\Container' => __DIR__ . '/../..' . '/lib/classes/container/class-wpml-container.php',
-        'WPML\\Core\\BackgroundTask' => __DIR__ . '/..' . '/wpml/core-api/core/utility/BackgroundTask.php',
+        'WPML\\Convert\\Ids' => __DIR__ . '/..' . '/wpml/core-api/core/Convert/Ids.php',
+        'WPML\\Core\\BackgroundTask\\Command\\PersistBackgroundTask' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Command/PersistBackgroundTask.php',
+        'WPML\\Core\\BackgroundTask\\Command\\UpdateBackgroundTask' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Command/UpdateBackgroundTask.php',
+        'WPML\\Core\\BackgroundTask\\Exception\\TaskIsNotRunnableException' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Exception/TaskIsNotRunnableException.php',
+        'WPML\\Core\\BackgroundTask\\Exception\\TaskNotRunnable\\ExceededMaxRetriesException' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Exception/TaskNotRunnable/ExceededMaxRetriesException.php',
+        'WPML\\Core\\BackgroundTask\\Exception\\TaskNotRunnable\\TaskIsCompletedException' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Exception/TaskNotRunnable/TaskIsCompletedException.php',
+        'WPML\\Core\\BackgroundTask\\Exception\\TaskNotRunnable\\TaskIsPausedException' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Exception/TaskNotRunnable/TaskIsPausedException.php',
+        'WPML\\Core\\BackgroundTask\\Model\\BackgroundTask' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Model/BackgroundTask.php',
+        'WPML\\Core\\BackgroundTask\\Model\\TaskEndpointInterface' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Model/TaskEndpointInterface.php',
+        'WPML\\Core\\BackgroundTask\\Repository\\BackgroundTaskRepository' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Repository/BackgroundTaskRepository.php',
+        'WPML\\Core\\BackgroundTask\\Service\\BackgroundTaskService' => __DIR__ . '/..' . '/wpml/core-api/core/BackgroundTask/Service/BackgroundTaskService.php',
         'WPML\\Core\\ISitePress' => __DIR__ . '/../..' . '/lib/classes/ISitePress.php',
         'WPML\\Core\\Twig\\Cache\\CacheInterface' => __DIR__ . '/../..' . '/lib/lib/twig/src/Cache/CacheInterface.php',
         'WPML\\Core\\Twig\\Cache\\FilesystemCache' => __DIR__ . '/../..' . '/lib/lib/twig/src/Cache/FilesystemCache.php',
@@ -464,9 +482,12 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
         'WPML\\FP\\Functor\\Functor' => __DIR__ . '/..' . '/wpml/fp/core/Functor/Functor.php',
         'WPML\\FP\\Functor\\IdentityFunctor' => __DIR__ . '/..' . '/wpml/fp/core/Functor/IdentityFunctor.php',
         'WPML\\FP\\Functor\\Pointed' => __DIR__ . '/..' . '/wpml/fp/core/Functor/Pointed.php',
+        'WPML\\FP\\Invoker\\BeforeAfter' => __DIR__ . '/..' . '/wpml/fp/core/Invoker/BeforeAfter.php',
+        'WPML\\FP\\Invoker\\_Invoker' => __DIR__ . '/..' . '/wpml/fp/core/Invoker/Invoker.php',
         'WPML\\FP\\Json' => __DIR__ . '/..' . '/wpml/fp/core/Json.php',
         'WPML\\FP\\Just' => __DIR__ . '/..' . '/wpml/fp/core/Maybe.php',
         'WPML\\FP\\Left' => __DIR__ . '/..' . '/wpml/fp/core/Either.php',
+        'WPML\\FP\\Lens' => __DIR__ . '/..' . '/wpml/fp/core/Lens.php',
         'WPML\\FP\\Logic' => __DIR__ . '/..' . '/wpml/fp/core/Logic.php',
         'WPML\\FP\\Lst' => __DIR__ . '/..' . '/wpml/fp/core/Lst.php',
         'WPML\\FP\\Math' => __DIR__ . '/..' . '/wpml/fp/core/Math.php',
@@ -485,9 +506,9 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
         'WPML\\FP\\System\\System' => __DIR__ . '/..' . '/wpml/fp/core/SystemClass.php',
         'WPML\\FP\\System\\_Filter' => __DIR__ . '/..' . '/wpml/fp/core/Filter.php',
         'WPML\\FP\\System\\_Validator' => __DIR__ . '/..' . '/wpml/fp/core/Validator.php',
+        'WPML\\FP\\Type' => __DIR__ . '/..' . '/wpml/fp/core/Type.php',
         'WPML\\FP\\Undefined' => __DIR__ . '/..' . '/wpml/fp/core/Undefined.php',
         'WPML\\FP\\Wrapper' => __DIR__ . '/..' . '/wpml/fp/core/Wrapper.php',
-        'WPML\\FP\\_Invoker' => __DIR__ . '/..' . '/wpml/fp/core/Invoker.php',
         'WPML\\LIB\\WP\\App\\Resources' => __DIR__ . '/..' . '/wpml/wp/classes/Resources.php',
         'WPML\\LIB\\WP\\Attachment' => __DIR__ . '/..' . '/wpml/wp/classes/Attachment.php',
         'WPML\\LIB\\WP\\Cache' => __DIR__ . '/..' . '/wpml/wp/classes/Cache.php',
@@ -507,12 +528,14 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
         'WPML\\Media\\Option' => __DIR__ . '/..' . '/wpml/core-api/core/media/Option.php',
         'WPML\\Notices\\DismissNotices' => __DIR__ . '/../..' . '/lib/classes/notices/DismissNotices.php',
         'WPML\\Records\\Translations' => __DIR__ . '/..' . '/wpml/core-api/core/Records/Translations.php',
+        'WPML\\Settings\\LanguageNegotiation' => __DIR__ . '/..' . '/wpml/core-api/core/settings/LanguageNegotiation.php',
         'WPML\\Settings\\PostType\\Automatic' => __DIR__ . '/..' . '/wpml/core-api/core/settings/Automatic.php',
         'WPML\\Setup\\Option' => __DIR__ . '/..' . '/wpml/core-api/core/setup/Option.php',
         'WPML\\Timer' => __DIR__ . '/..' . '/wpml/core-api/core/Timer.php',
         'WPML\\UIPage' => __DIR__ . '/..' . '/wpml/core-api/core/UIPage.php',
         'WPML\\Utilities\\ILock' => __DIR__ . '/..' . '/wpml/core-api/core/utility/ILock.php',
         'WPML\\Utilities\\Lock' => __DIR__ . '/..' . '/wpml/core-api/core/utility/Lock.php',
+        'WPML\\Utilities\\Logger' => __DIR__ . '/..' . '/wpml/core-api/core/utility/Logger.php',
         'WPML\\WP\\OptionManager' => __DIR__ . '/..' . '/wpml/core-api/core/OptionManager.php',
         'WPML_AJAX_Action_Validation' => __DIR__ . '/../..' . '/lib/classes/action-filter-loader/class-wpml-ajax-action-validation.php',
         'WPML_AJAX_Base_Factory' => __DIR__ . '/../..' . '/lib/classes/action-filter-loader/class-wpml-ajax-action-base-factory.php',
@@ -544,9 +567,9 @@ class ComposerStaticInitfac40ad0467105e56f53556b33778612
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfac40ad0467105e56f53556b33778612::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfac40ad0467105e56f53556b33778612::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfac40ad0467105e56f53556b33778612::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit964b45f07fd5061b640791cb8500efa7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit964b45f07fd5061b640791cb8500efa7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit964b45f07fd5061b640791cb8500efa7::$classMap;
 
         }, null, ClassLoader::class);
     }

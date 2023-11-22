@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Address Validation 2.11.0\n"
+"Project-Id-Version: WooCommerce Address Validation 2.11.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-07-03 07:17:19+00:00\n"
+"POT-Creation-Date: 2023-11-17 03:12:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-address-validation.php:198
+#: class-wc-address-validation.php:204
 #. translators: Placeholders: %1$s, %3$s - opening <a> tag, %2$s, %4$s -
 #. closing </a> tag
 msgid ""
@@ -22,7 +22,7 @@ msgid ""
 "settings%2$s or %3$ssign up for a free account%4$s."
 msgstr ""
 
-#: class-wc-address-validation.php:216
+#: class-wc-address-validation.php:222
 #. translators: Placeholders: %1$s, %3$s, %5$s - opening <a> tag, %2$s, %4$s,
 #. %6$s- closing </a> tag
 msgid ""
@@ -32,7 +32,7 @@ msgid ""
 "More%6$s"
 msgstr ""
 
-#: class-wc-address-validation.php:244
+#: class-wc-address-validation.php:250
 msgid ""
 "%1$sHeads up!%2$s SmartyStreets is retired as of October 4, 2022. Address "
 "validation has stopped functioning for SmartyStreets users. US stores must "
@@ -40,7 +40,7 @@ msgid ""
 "%4$sLoqate setup guide%5$s. %3$s%3$s%6$sSet up Loqate%7$s"
 msgstr ""
 
-#: class-wc-address-validation.php:295
+#: class-wc-address-validation.php:301
 msgid "Select your address to populate the form."
 msgstr ""
 

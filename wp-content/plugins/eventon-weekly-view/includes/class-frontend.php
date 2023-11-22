@@ -193,7 +193,6 @@ class EVOWV_frontend{
 				}	
 
 				$DD->setTimezone( EVO()->calendar->timezone0 );	
-				$DD->setTime(0,0);
 
 								
 				// ajax new week
@@ -226,7 +225,6 @@ class EVOWV_frontend{
 
 					// week start
 					if($dayDif != 0) $DD->modify('-'. $dayDif .'days');	
-
 					
 				$SC['focus_start_date_range'] = $DD->format('U');	
 

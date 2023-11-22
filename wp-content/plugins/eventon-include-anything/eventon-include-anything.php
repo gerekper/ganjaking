@@ -4,23 +4,23 @@
  * Plugin URI: http://www.myeventon.com/
  * Description: Include any posts inside eventON calendar seamlessly
  * Author: Ashan Jay 
- * Version: 0.6
+ * Version: 0.1
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 6.0
- * Tested up to: 6.3
+ * Requires at least: 5.0
+ * Tested up to: 5.6
  */
 
 class EVO_Include_Anything{
 	
-	public $version='0.6';
-	public $eventon_version = '4.4';
+	public $version='0.1';
+	public $eventon_version = '3.0.6';
 	public $name = 'Include Anything';
 	public $id = 'EVOIA';
 			
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
 	private $urls;
-	public $template_url, $addon , $frontend, $styles;
+	public $template_url ;
 
 	// Instanace
 		protected static $_instance = null;

@@ -23,6 +23,12 @@ jQuery(document).ready(function($){
 		}
 	}
 
+// header save changes button
+	$('body').on('click','.evo_trig_form_save',function(event){
+		event.preventDefault();
+		$('body').find('.evo_settings_form').submit();
+	});
+
 // Settings
 	// webhooks
 		$.fn.evo_webhooks = function (options){

@@ -36,24 +36,38 @@ use Exception;
  */
 class Freq {
 
-	protected $weekdays = [
-		'MO' => 'monday', 'TU' => 'tuesday', 'WE' => 'wednesday', 'TH' => 'thursday', 'FR' => 'friday', 'SA' => 'saturday',
+	static bool $debug = false;
+
+	protected array $weekdays = [
+		'MO' => 'monday',
+		'TU' => 'tuesday',
+		'WE' => 'wednesday',
+		'TH' => 'thursday',
+		'FR' => 'friday',
+		'SA' => 'saturday',
 		'SU' => 'sunday',
 	];
-	protected $knownRules = [
-		'month', 'weekno', 'day', 'monthday', 'yearday', 'hour', 'minute',
+	protected array $knownRules = [
+		'month',
+		'weekno',
+		'day',
+		'monthday',
+		'yearday',
+		'hour',
+		'minute',
 	]; //others : 'setpos', 'second'
-	protected $ruleModifiers = ['wkst'];
-	protected $simpleMode = true;
 
-	protected $rules = ['freq' => 'yearly', 'interval' => 1];
-	protected $start = 0;
-	protected $freq = '';
+	protected array $ruleModifiers = ['wkst'];
+	protected bool $simpleMode = true;
 
-	protected $excluded; //EXDATE
-	protected $added;    //RDATE
+	protected array $rules = ['freq' => 'yearly', 'interval' => 1];
+	protected int $start = 0;
+	protected string $freq = '';
 
-	protected $cache; // getAllOccurrences()
+	protected array $excluded; //EXDATE
+	protected array $added;    //RDATE
+
+	protected array $cache; // getAllOccurrences()
 
 	/**
 	 * Constructs a new Freqency-rule

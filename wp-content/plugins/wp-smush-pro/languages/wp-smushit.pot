@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.15.0\n"
+"Project-Id-Version: Smush Pro 3.15.1\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-02T08:17:53+00:00\n"
+"POT-Creation-Date: 2023-11-15T11:35:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: wp-smushit\n"
@@ -63,24 +63,24 @@ msgstr ""
 msgid "Install Plugin"
 msgstr ""
 
-#: app/class-abstract-page.php:685
+#: app/class-abstract-page.php:673
 msgid "Lets you check if any images can be further optimized. Useful after changing settings."
 msgstr ""
 
-#: app/class-abstract-page.php:688
+#: app/class-abstract-page.php:676
 #: _src/react/bulk/media-library-scanner.js:35
 msgid "Re-Check Images"
 msgstr ""
 
-#: app/class-abstract-page.php:692
+#: app/class-abstract-page.php:680
 msgid "Check Complete"
 msgstr ""
 
-#: app/class-abstract-page.php:699
+#: app/class-abstract-page.php:687
 msgid "Documentation"
 msgstr ""
 
-#: app/class-abstract-page.php:743
+#: app/class-abstract-page.php:731
 #: app/class-admin.php:503
 #: app/class-admin.php:707
 #: app/class-admin.php:751
@@ -90,36 +90,36 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: app/class-abstract-page.php:770
+#: app/class-abstract-page.php:758
 msgid "Your settings have been updated!"
 msgstr ""
 
-#: app/class-abstract-page.php:777
+#: app/class-abstract-page.php:765
 #: app/pages/class-cdn.php:90
 msgid "Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the meantime, please be patient."
 msgstr ""
 
 #. translators: %1$s - <a>, %2$s - </a>
-#: app/class-abstract-page.php:790
+#: app/class-abstract-page.php:778
 msgid "You have images that need smushing. %1$sBulk smush now!%2$s"
 msgstr ""
 
-#: app/class-abstract-page.php:922
+#: app/class-abstract-page.php:910
 #: app/class-admin.php:318
 #: app/views/settings/permissions-meta-box.php:92
 #: core/class-settings.php:1172
 msgid "Tutorials"
 msgstr ""
 
-#: app/class-abstract-page.php:926
+#: app/class-abstract-page.php:914
 msgid "Loading tutorials..."
 msgstr ""
 
-#: app/class-abstract-page.php:927
+#: app/class-abstract-page.php:915
 msgid "min read"
 msgstr ""
 
-#: app/class-abstract-page.php:928
+#: app/class-abstract-page.php:916
 msgid "Read article"
 msgstr ""
 
@@ -1103,93 +1103,16 @@ msgstr ""
 msgid "Background stop scanning modal"
 msgstr ""
 
-#: app/modals/ultra-compression.php:49
-msgid "Smush Ultra Compression"
-msgstr ""
-
-#: app/modals/ultra-compression.php:59
-msgid "Serve images faster with Ultra Smush"
-msgstr ""
-
-#: app/modals/ultra-compression.php:63
-#: app/modals/updated.php:45
-msgid "Experience up to 5x better compression than Super Smush. Optimize your images even further and make your pages load faster than ever. Level up your site performance with Ultra Smush now."
-msgstr ""
-
-#: app/modals/ultra-compression.php:66
-msgid "Find out more"
-msgstr ""
-
-#: app/modals/ultra-compression.php:72
-msgid "Already a member?"
-msgstr ""
-
-#: app/modals/ultra-compression.php:72
-msgid "Connect site"
-msgstr ""
-
-#: app/modals/ultra-compression.php:77
-msgid "Get the following Smush Pro features"
-msgstr ""
-
-#: app/modals/ultra-compression.php:86
-msgid "No Limits, no restrictions"
-msgstr ""
-
-#: app/modals/ultra-compression.php:87
-msgid "One-click bulk optimization, it's quick and easy to compress unlimited images."
-msgstr ""
-
-#: app/modals/ultra-compression.php:95
-#: app/views/smush-upgrade-page.php:129
-msgid "Compress images in the background"
-msgstr ""
-
-#: app/modals/ultra-compression.php:96
-msgid "With background optimization, Smush will keep working even if you leave the page."
-msgstr ""
-
-#: app/modals/ultra-compression.php:106
-#: app/views/smush-upgrade-page.php:135
-msgid "Streamline your images with Smush CDN"
-msgstr ""
-
-#: app/modals/ultra-compression.php:107
-msgid "Serve images faster and closer than ever from 114 data centers all over the globe."
-msgstr ""
-
-#: app/modals/ultra-compression.php:115
-#: app/views/smush-upgrade-page.php:145
-#: core/class-settings.php:307
-msgid "Auto-convert PNGs to JPEGs (lossy)"
-msgstr ""
-
-#: app/modals/ultra-compression.php:116
-msgid "Enjoy more savings and speed by auto-converting to the ideal file format."
-msgstr ""
-
-#: app/modals/ultra-compression.php:126
-msgid "Serve next-gen WebP images"
-msgstr ""
-
-#: app/modals/ultra-compression.php:127
-msgid "Serve lighter and more streamlined WebP images without losing quality."
-msgstr ""
-
-#: app/modals/ultra-compression.php:135
-msgid "Faster sites with Hummingbird Pro"
-msgstr ""
-
-#: app/modals/ultra-compression.php:136
-msgid "Optimize the performance of your sites further with a full caching suite and automatic asset optimization."
-msgstr ""
-
 #: app/modals/updated.php:31
 msgid "Smush Updated Modal"
 msgstr ""
 
 #: app/modals/updated.php:41
 msgid "New: Serve images faster with Ultra Smush"
+msgstr ""
+
+#: app/modals/updated.php:45
+msgid "Experience up to 5x better compression than Super Smush. Optimize your images even further and make your pages load faster than ever. Level up your site performance with Ultra Smush now."
 msgstr ""
 
 #: app/modals/updated.php:51
@@ -1317,7 +1240,6 @@ msgid "New"
 msgstr ""
 
 #: app/pages/class-bulk.php:642
-#: app/views/bulk/lossy-level.php:108
 #: app/views/dashboard/cdn/meta-box-header.php:21
 #: app/views/dashboard/summary-meta-box.php:69
 #: app/views/dashboard/summary-meta-box.php:105
@@ -1531,6 +1453,10 @@ msgstr ""
 #. translators: 1: opening <strong>, 2: closing </strong>
 #: app/views/bulk/lossy-level.php:37
 msgid "%1$sUltra:%2$s Unlock unprecedented compression levels up to 5x greater than Super, while preserving remarkable image quality. The ultimate choice for unparalleled performance."
+msgstr ""
+
+#: app/views/bulk/lossy-level.php:113
+msgid "🚀 Ultra - unlock 5x more compression"
 msgstr ""
 
 #: app/views/bulk/media-lib-empty.php:5
@@ -2472,8 +2398,16 @@ msgstr ""
 msgid "Need a one-click bulk optimization solution to quickly and easily compress your entire image library? Remove the ‘per batch’ bulk smushing restriction and increase the image size limit from 5MB to completely unlimited."
 msgstr ""
 
+#: app/views/smush-upgrade-page.php:129
+msgid "Compress images in the background"
+msgstr ""
+
 #: app/views/smush-upgrade-page.php:130
 msgid "Thanks to Background Optimization, you can leave the plugin interface while images are still being compressed. Smush will continue to work its magic in the background, leaving you free to do other things!"
+msgstr ""
+
+#: app/views/smush-upgrade-page.php:135
+msgid "Streamline your images with Smush CDN"
 msgstr ""
 
 #: app/views/smush-upgrade-page.php:136
@@ -2486,6 +2420,11 @@ msgstr ""
 
 #: app/views/smush-upgrade-page.php:141
 msgid "Prefer not to use Smush CDN? Our standalone WebP feature allows you to serve next-gen images without sacrificing quality. You can also gracefully fall back to the older image formats for browsers that aren't compatible."
+msgstr ""
+
+#: app/views/smush-upgrade-page.php:145
+#: core/class-settings.php:307
+msgid "Auto-convert PNGs to JPEGs (lossy)"
 msgstr ""
 
 #: app/views/smush-upgrade-page.php:146
@@ -2556,17 +2495,21 @@ msgstr ""
 msgid "by WPMU DEV"
 msgstr ""
 
-#: app/views/summary/lossy-level.php:20
+#: app/views/summary/lossy-level.php:24
 #: core/class-settings.php:268
 msgid "Smush Mode"
 msgstr ""
 
-#: app/views/summary/lossy-level.php:23
+#: app/views/summary/lossy-level.php:27
 msgid "Choose the level of compression that suits your needs."
 msgstr ""
 
-#: app/views/summary/lossy-level.php:24
+#: app/views/summary/lossy-level.php:29
 msgid "Improve page speed with Ultra"
+msgstr ""
+
+#: app/views/summary/lossy-level.php:31
+msgid "5x your compression with Ultra"
 msgstr ""
 
 #: app/views/tabs.php:29

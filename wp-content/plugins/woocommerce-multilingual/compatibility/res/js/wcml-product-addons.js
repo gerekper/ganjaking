@@ -1,93 +1,134 @@
-jQuery(function ($) {
+jQuery(function($) {
 
-    $('.wc-pao-addon-header').each(function () {
-        fix_dialogs_visibility($(this));
-    });
+	const selectorAddonsWrapper = '#product_addons_data';
+	const selectorAddonItem = '.wc-pao-addon';
+	const selectorLegacyAddonType = '.wc-pao-addon-type-select'; // Up to v6.4.7.
+	const selectorAddonType = selectorLegacyAddonType + ', .product_addon_type';
+	const selectorToggleManualSecondaryPrices = '.wcml_custom_prices_input';
 
-    if( $('.wcml_custom_prices').length > 0 ){
-        $('.wcml_custom_prices').insertAfter( $('.global-addons-form tr:eq(2)') ).show();
-    }
+	$(selectorAddonItem).each(function () {
+		setupMulticurrencyDialogForItem($(this));
+	});
 
-    $(document).on('click', '#product_addons_data .js-wcml-dialog-trigger', function () {
-        var dialog = $(this).parent().find('.wcml-dialog');
-        var default_price = $(this).parent().parent().find('input.wc_input_price').val();
-        var option_type = $(this).closest('.wc-pao-addon-content').find('.wc-pao-addon-type-select').val();
+	insertToggleManualPricesOnGlobalAddons();
+	watchChangesOnAddonItems();
 
-        dialog.find('.default-price strong').html(default_price ? default_price : 0);
+	$(document).on('click', selectorAddonsWrapper + ' .js-wcml-dialog-trigger', onTriggerOpenDialog);
+	$(document).on('click', '.wcml_product_addons_apply_prices', onDialogClickSave);
+	$(document).on('change', selectorToggleManualSecondaryPrices, onToggleManualSecondaryPricesCheckbox);
+	$(document).on('change', '.wc-pao-addon-type-select', onChangeAddonType);
 
-        if ('multiple_choice' === option_type || 'checkbox' === option_type) {
-            var option_text = $(this).parent().parent().find('.wc-pao-addon-content-label input[type="text"]').val();
-            if (option_text) {
-                dialog.find('p>strong').html(option_text);
-            }
-        } else {
-            var addon_text = $(this).closest('.wc-pao-addon-content').find('.wc-pao-addon-title input[type="text"]').val();
-            if (addon_text) {
-                dialog.find('p>strong').html(addon_text);
-            }
-        }
-    });
+	function onTriggerOpenDialog() {
+		const dialog = $(this).parent().find('.wcml-dialog');
+		const priceInDefaultCurrency = $(this).parent().parent().find('input.wc_input_price').val();
+		const addonType = $(this).closest(selectorAddonItem).find(selectorAddonType).val();
+		let dialogLabel;
 
-    $(document).on('change', '.wc-pao-addon-type-select', function () {
-        fix_dialogs_visibility($(this));
-        maybe_set_prices_dialog_visible($(this));
-    });
+		dialog.find('.default-price strong').html(priceInDefaultCurrency ? priceInDefaultCurrency : 0);
 
-    $(document).on('click', '.wcml_product_addons_apply_prices', function () {
+		if (isAddonTypeWithMultipleOptions(addonType)) {
+			dialogLabel = $(this).parent().parent().find('.wc-pao-addon-content-label input[type="text"]').val();
+		} else {
+			dialogLabel = $(this).closest('.wc-pao-addon-content').find('.wc-pao-addon-title input[type="text"]').val();
+		}
 
-        var dialog = $(this).closest('.wcml-ui-dialog');
-        var dialog_id = $(this).data('dialog');
+		if (dialogLabel) {
+			dialog.find('p>strong').html(dialogLabel);
+		}
+	}
 
-        dialog.find('.wc_input_price').each(function () {
-            $('.wcml-dialog#' + dialog_id).find('input[name="' + $(this).attr('name') + '"]').attr('value', $(this).val());
-        });
-        dialog.find('.wcml-dialog-close-button').trigger('click');
-    });
+	function onDialogClickSave() {
+		const dialog = $(this).closest('.wcml-ui-dialog');
+		const dialogId = $(this).data('dialog');
 
-    $(document).on('change', '.wcml_custom_prices_input', function () {
-        if (parseInt($(this).val()) === 1) {
-            $('#product_addons_data .js-wcml-option-prices').each(function () {
-                $(this).removeClass('hidden');
-            });
-        } else {
-            $('#product_addons_data .js-wcml-option-prices').each(function () {
-                $(this).addClass('hidden');
-            });
-        }
-    });
+		dialog.find('.wc_input_price').each(function () {
+			$('.wcml-dialog#' + dialogId).find('input[name="' + $(this).attr('name') + '"]').attr('value', $(this).val());
+		});
 
+		dialog.find('.wcml-dialog-close-button').trigger('click');
+	}
+
+	function onToggleManualSecondaryPricesCheckbox() {
+		const manualPricesInAddons = selectorAddonsWrapper + ' .js-wcml-option-prices';
+		const isEnabled = isManualSecondaryPricesEnabled();
+
+		$(manualPricesInAddons).each(function () {
+			isEnabled ? $(this).removeClass('hidden') : $(this).addClass('hidden');
+		});
+	}
+
+	function insertToggleManualPricesOnGlobalAddons() {
+		const wrapperInGlobalAddons = $('.wcml_custom_prices');
+
+		if(wrapperInGlobalAddons.length > 0){
+			wrapperInGlobalAddons.insertAfter( $('.global-addons-form tr:eq(2)') ).show();
+		}
+	}
+
+	function setupMulticurrencyDialogForItem(addonItem) {
+		const type = addonItem.find(selectorAddonType).val();
+
+		addonItem.find('.wc-pao-addon-adjust-price-settings').append(addonItem.find('.wc-pao-addon-content>.wcml-option-prices'));
+
+		addonItem.find('.wcml-option-prices .wc_input_price').each(function () {
+			$(this).prop('disabled', false);
+		});
+	}
+
+	/**
+	 * @deprecated
+	 *
+	 * Used up to v6.4.7.
+	 * Starting from v6.5.0, it's not possible to change an item type anymore.
+	 */
+	function onChangeAddonType(event) {
+		const typeSelect = $(event.target);
+		const addonItem = typeSelect.closest(selectorAddonItem);
+		const isMultipleOptions = isAddonTypeWithMultipleOptions(typeSelect.val());
+
+		addonItem.find('.wc-pao-addon-content-option-rows .wcml-option-prices .wc_input_price').each(function () {
+			jQuery(this).prop('disabled', !isMultipleOptions);
+		});
+		addonItem.find('.wc-pao-addon-adjust-price-settings .wcml-option-prices .wc_input_price').each(function () {
+			jQuery(this).prop('disabled', isMultipleOptions);
+		});
+	}
+
+	function maybeSetPricesDialogButtonVisible(addonItem) {
+		if ( isManualSecondaryPricesEnabled() ) {
+			addonItem.find('.js-wcml-option-prices').each(function () {
+				$(this).removeClass('hidden');
+			});
+		}
+	}
+
+	function isManualSecondaryPricesEnabled() {
+		return $(selectorToggleManualSecondaryPrices + ':checked').val() == 1;
+	}
+
+	function isAddonTypeWithMultipleOptions(addonType) {
+		return 'multiple_choice' === addonType || 'checkbox' === addonType;
+	}
+
+	function watchChangesOnAddonItems() {
+		const addonItems = document.querySelector(selectorAddonsWrapper + ' .wc-pao-addons');
+
+		if (addonItems) {
+			const onAddonsChange = function(mutations) {
+				mutations.forEach(function(mutation) {
+					if (mutation.addedNodes.length) {
+						mutation.addedNodes.forEach(function(addedNode) {
+							const addonItem = $(addedNode);
+
+							setupMulticurrencyDialogForItem(addonItem);
+							maybeSetPricesDialogButtonVisible(addonItem);
+						})
+					}
+				})
+			};
+
+			const addonsChangeObserver = new MutationObserver(onAddonsChange);
+			addonsChangeObserver.observe(addonItems, { childList: true, subtree: true });
+		}
+	}
 });
-
-function fix_dialogs_visibility(element) {
-
-    var parent = element.closest('.wc-pao-addon');
-    var option_type = parent.find('.wc-pao-addon-type-select').val();
-
-    parent.find('.wc-pao-addon-adjust-price-settings').append(parent.find('.wc-pao-addon-content>.wcml-option-prices'));
-
-    if ('multiple_choice' !== option_type && 'checkbox' !== option_type) {
-        parent.find('.wc-pao-addon-content-option-rows .wcml-option-prices .wc_input_price').each(function () {
-            jQuery(this).prop('disabled', true);
-        });
-        parent.find('.wc-pao-addon-adjust-price-settings .wcml-option-prices .wc_input_price').each(function () {
-            jQuery(this).prop('disabled', false);
-        });
-    } else {
-        parent.find('.wc-pao-addon-adjust-price-settings .wcml-option-prices .wc_input_price').each(function () {
-            jQuery(this).prop('disabled', true);
-        });
-
-        parent.find('.wc-pao-addon-content-option-rows .wcml-option-prices .wc_input_price').each(function () {
-            jQuery(this).prop('disabled', false);
-        });
-    }
-
-}
-
-function maybe_set_prices_dialog_visible(element) {
-    if (element.closest('#wpbody').find('.wcml_custom_prices_input:checked').val() == 1) {
-        element.closest('.wc-pao-addon').find('.js-wcml-option-prices').each(function () {
-            jQuery(this).removeClass('hidden');
-        });
-    }
-}

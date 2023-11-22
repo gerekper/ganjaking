@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Twilio_SMS;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined ( 'ABSPATH' ) or exit;
 

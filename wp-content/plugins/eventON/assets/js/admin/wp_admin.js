@@ -5,6 +5,8 @@
 
 jQuery(document).ready(function($){	
 
+	const BB = $('body');
+
 // color picker
 	if( $.isFunction($.fn.ColorPicker) ) { 
 		$('body').on('click','.colorselector',function(){
@@ -92,11 +94,11 @@ jQuery(document).ready(function($){
 	function colorPickMulti(itemid, cp){}
 
 // get location cordinates
-	$('body').on('click','.evo_auto_gen_latlng', function(){
+	BB.on('click','.evo_auto_gen_latlng', function(){
 		// validation
 		var O = $(this);
 
-		$('body').remove('.evo_auto_gen_latlng_m');
+		BB.remove('.evo_auto_gen_latlng_m');
 
 		var add = $('body').find('input[name="location_address"]').val();
 		if(!add) 
@@ -140,23 +142,147 @@ jQuery(document).ready(function($){
 		});
 	});
 
-// Side panel @4.5.1
+// Side Panel for admin
+// @since 4.5.2
 	$('body').on('click','.evosp_trigger', function(event){
 		if( event !== undefined ){
 			event.preventDefault();
 			event.stopPropagation();
 		}
+
+		const el = $(this);
+
+		el.addClass('evo_sp_trig_on');
+
+		// spv = side panel values
+		el.evo_open_sidepanel( el.data('d') , el.data('spv') );
+	});
+	$('body').on('click','.evosp_close', function(event){
+		if( event !== undefined ){
+			event.preventDefault();
+			event.stopPropagation();
+		}
 		
-		$(this).evo_sp_open($(this).data('spvals'));
+		$(this).evo_close_sidepanel(  );
 	});
 
-	$.fn.evo_sp_open = function (opt){
-		var defaults = { 
+	$.fn.evo_open_sidepanel = function(opt, spv){
+		var defs = {
+			'uid':'',
+			'end':'admin', // admin or client
+			'hide_sp':false,
+			'hide_message':false,
+			'title':'',
+			'sp_title':'',
+			'content_id':'',  // only to load dynamic content
+			'content_load_delay':0,
+			'ajax':'no',
+			'ajax_data':'',		
+			'other_data':{}	
+		}
+		var OO = $.extend({}, defs, opt);
+		//console.log(OO);
+
+		const SP = $('body').find('.evo_sp');
+
+		// structure
+			const load_html = "<div class='evo_loading_bar_holder h100'><div class='evo_loading_bar wid_50 hi_50'></div><div class='evo_loading_bar hi_100'></div><div class='evo_loading_bar'></div><div class='evo_loading_bar'></div><div class='evo_loading_bar hi_50'></div></div>";
+
+			SP.html("<div class='evosp_in'><span class='evosp_close'><i class='fa fa-multiply'></i></span><div class='evosp_head'>"+OO.sp_title+"</div><div id='evops_content' class='evosp_body'>"+load_html+"</div><div class='evosp_foot'><p class='message'></p></div></div>");
+
+			SP.addClass('show');
+
+			const SP_body = SP.find('.evosp_body');
+			const SP_head = SP.find('.evosp_head');
+			const SP_foot = SP.find('.evosp_foot');
+
+		// load using content
+		if( OO.content_id != ''){
+			if( OO.content_load_delay > 0){
+				setTimeout(function(){
+					SP_body.html( BB.find('#'+ OO.content_id ).html() );
+				}, OO.content_load_delay );
+			}else{
+				SP_body.html( BB.find('#'+ OO.content_id ).html() );
+			}
 			
-		};
+		}
+
+		// run ajax to load content for the lightbox inside
+			if( OO.ajax == 'yes' && OO.ajax_data != ''){
+
+				var passing_data = {
+					ajaxdata: OO.ajax_data, 
+					uid: OO.uid ,
+					end: OO.end,
+					load_new_content: true,
+					load_new_content_id: 'evops_content',
+					lightbox_loader:false
+				};
+
+				SP.evo_admin_get_ajax( passing_data );
+			}
+
+		// populate new content with spv values
+			if( spv != ''){
+				BB.on('evo_ajax_success_'+ OO.uid , function(){
+					$('#evops_content').find('input, select').each(function(){
+						var fel = $(this);
+						$.each(spv,function(index, val){
+							if( fel.attr('name') == index){
+
+								if( val == 'no' || val == 'yes') fel.evo_elm_change_yn_btn( val );
+								fel.val( val );
+							}
+						});					
+					});
+				});
+			}
+  		
+  		BB.trigger('evo_sp_opened_'+OO.uid, OO);
+  		BB.trigger('evo_sp_opened', OO);
+  	}
+
+  	$.fn.evo_savevals_sidepanel = function(spv){
+  		const el = BB.find('.evo_sp_trig_on');
+
+  		el.data('spv', spv);
+  		el.removeClass('evo_sp_trig_on');
+  	}
+
+  	// CLOSE sidepanel
+  	$.fn.evo_close_sidepanel = function(opt){
+  		SP = BB.find('.evo_sp');
+
+  		var defaults = { 'delay':500};
+
+		if( !(SP.hasClass('show')) ) return;
 
 		var OO = $.extend({}, defaults, opt);
 
+  		SP.removeClass('show');
+  		setTimeout(function(){	SP.html('');	}, OO.delay );
+  	}
+
+  	$.fn.evo_showmsg_sidepanel = function(){
+  		var defaults = { 
+			'type':'good',
+			'message':'',
+			'hide_message': false,// hide message after some time pass time or false
+			'hide_sp': false, // hide lightbox after some time of false
+		}; var OO = $.extend({}, defaults, opt);
+
+		const SP = $('body').find('#evo_sp');
+
+		SP.find('.message').removeClass('bad good').addClass( OO.type ).html( OO.message ).fadeIn();
+
+		if( OO.hide_message ) setTimeout(function(){  SP.evo_hidemsg_sidepanel() }, OO.hide_message );
+
+		if( OO.hide_lightbox ) SP.evo_close_sidepanel({ delay: OO.hide_lightbox });
+  	}
+  	$.fn.evo_hidemsg_sidepanel = function(opt){
+		SP = this;
+		SP.find('p.message').hide();
 	}
 
 	
@@ -460,7 +586,6 @@ jQuery(document).ready(function($){
 		}
 	})
 	;	
-
 
 // Upload custom images to eventon custom image meta fields
 	var file_frame,

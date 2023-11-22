@@ -25,6 +25,8 @@ if ( !defined( 'ABSPATH' ) ) {
 
 /**
  * Lock.
+ *
+ * @deprecated since 5.0.0
  */
 class WooCommerce_Product_Search_Lock {
 

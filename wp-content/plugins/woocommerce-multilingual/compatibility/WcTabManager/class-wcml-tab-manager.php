@@ -101,8 +101,6 @@ class WCML_Tab_Manager implements \IWPML_Action {
 	 * @param int    $trnsl_product_id
 	 * @param array  $data
 	 * @param string $lang
-	 *
-	 * @return bool
 	 */
 	public function sync_tabs( $original_product_id, $trnsl_product_id, $data, $lang ) {
 		// check if "duplicate" product
@@ -161,11 +159,7 @@ class WCML_Tab_Manager implements \IWPML_Action {
 				}
 			}
 			update_post_meta( $trnsl_product_id, '_product_tabs', $trnsl_product_tabs );
-
-			return true;
 		}
-
-		return false;
 	}
 
 	/**
@@ -303,18 +297,16 @@ class WCML_Tab_Manager implements \IWPML_Action {
 	 * @param object $obj
 	 * @param int    $product_id
 	 * @param array  $data
-	 *
-	 * @return bool
 	 */
 	public function custom_box_html( $obj, $product_id, $data ) {
 
 		if ( 'yes' !== get_post_meta( $product_id, '_override_tab_layout', true ) ) {
-			return false;
+			return;
 		}
 
 		$orig_prod_tabs = $this->get_product_tabs( $product_id );
 		if ( ! $orig_prod_tabs ) {
-			return false;
+			return;
 		}
 
 		$tabs_section = new WPML_Editor_UI_Field_Section( __( 'Product tabs', 'woocommerce-multilingual' ) );
@@ -347,8 +339,6 @@ class WCML_Tab_Manager implements \IWPML_Action {
 			}
 		}
 		$obj->add_field( $tabs_section );
-
-		return true;
 	}
 
 	/**

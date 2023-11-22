@@ -5,8 +5,8 @@ namespace MailPoet\EmailEditor\Engine\Renderer;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\EmailEditor\Engine\StylesController;
+use MailPoet\EmailEditor\Engine\SettingsController;
 
 interface BlockRenderer {
-  public function render(array $parsedBlock, BlocksRenderer $blocksRenderer, StylesController $stylesController): string;
+  public function render(string $blockContent, array $parsedBlock, SettingsController $settingsController): string;
 }

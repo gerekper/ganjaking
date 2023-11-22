@@ -2,7 +2,7 @@
 /**
  *
  *	EventON Now Calendar Content
- *	@version 4.5
+ *	@version 4.5.2
  */
 
 class Evo_Calendar_Now{
@@ -40,14 +40,15 @@ class Evo_Calendar_Now{
 
 		$DD = new DateTime();
 		$DD->setTimezone( EVO()->calendar->timezone0 );
-		//$current_time = EVO()->calendar->get_current_time();
 		$current_time = EVO()->calendar->current_time;
+		
 		$DD->setTimestamp( $current_time );	
 
 		//echo $DD->format('Y-m-d H:i:s');	
 
 		$plus = $delay? 1:0;
 
+		// in UTC0
 		$A['focus_start_date_range'] = $DD->format('U') + $plus;
 		$A['focus_end_date_range'] = $DD->format('U') + $plus ;
 
@@ -58,7 +59,7 @@ class Evo_Calendar_Now{
 
 		$hide_now = (isset($A['hide_now']) && $A['hide_now'] == 'yes') ? true: false;
 		$hide_next = (isset($A['hide_next']) && $A['hide_next'] == 'yes') ? true: false;
-		
+			
 		?>
 
 		<div class='evo_eventon_now' style='display:<?php echo $hide_now? 'none':'block';?>'>
@@ -110,6 +111,7 @@ class Evo_Calendar_Now{
 			// up next
 				$A = $this->A;
 				
+				// get events for next 12 months
 				$DD->setTimestamp( $current_time );	
 				$A['focus_start_date_range'] = $DD->format('U');
 				$DD->modify('+12 months');
@@ -121,6 +123,8 @@ class Evo_Calendar_Now{
 
 				// if there are events in the next 12 months
 				if( count($event_list_array) > 0){
+
+					$help = new evo_helper();
 
 					$next_event_start_unix = EVO()->calendar->is_utcoff ? 
 						$event_list_array[0]['event_start_unix_utc']:
@@ -139,7 +143,18 @@ class Evo_Calendar_Now{
 						$gap = $next_event_start_unix - EVO()->calendar->get_current_time();
 						$nonce = wp_create_nonce('evo_calendar_now');
 
-						echo "<h3><em class='fsn padr10' >". evo_lang('Coming up Next in') ."</em> <span class='evo_countdowner' data-gap='{$gap}' data-endutc='{$next_event_start_unix}' data-t='' data-d='". evo_lang('Day') ."' data-ds='". evo_lang('Days') ."' data-exp_act='runajax_refresh_now_cal' data-n='{$nonce}'></span></h3>";
+						$data_attr = array(
+							'gap'=> $gap,
+							'endutc'=> $next_event_start_unix,
+							'now'=> EVO()->calendar->get_current_time(),
+							't'=>'',
+							'd'=>evo_lang('Day'),
+							'ds'=>evo_lang('Days'),
+							'exp_act'=> 'runajax_refresh_now_cal',
+							'n'=> $nonce,
+						);
+
+						echo "<h3><em class='fsn padr10' >". evo_lang('Coming up Next in') ."</em> <span class='evo_countdowner' ". $help->array_to_html_data($data_attr) ."></span></h3>";
 
 						$header_args = array(
 							'external'=> true,

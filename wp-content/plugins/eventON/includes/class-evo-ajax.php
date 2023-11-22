@@ -479,7 +479,7 @@ class EVO_AJAX{
 				if( 'ajde_events' !== $EVENT->post_type ) die('Not a valid Event!');
 
 				// check event exists
-				if( $EVENT->post_status != 'publish') die('Not a valid Event!');
+				if( $EVENT->post_status != 'publish' && !is_user_logged_in() ) die('Not a valid Event!');
 
 				// check password protected event
 				if( $EVENT->is_password_required() ) die('Password Protected Event!');		
@@ -512,8 +512,6 @@ class EVO_AJAX{
 			));
 			
 			if(!empty($events)):
-
-				$HELP = new evo_helper();
 
 				$slug = 'eventon_events';
 				header("Content-Type: text/Calendar; charset=utf-8");

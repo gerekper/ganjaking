@@ -1026,15 +1026,13 @@ class QRcode {
 						$y = 9;
 					}
 				}
-			} else {
-				if ( $y == $w ) {
+			} elseif ( $y == $w ) {
 					$y = $w - 1;
 					$x -= 2;
 					$this->dir = -1;
-					if ( $x == 6 ) {
-						$x--;
-						$y -= 8;
-					}
+				if ( $x == 6 ) {
+					$x--;
+					$y -= 8;
 				}
 			}
 			if ( ( $x < 0 ) or ( $y < 0 ) ) {
@@ -2829,7 +2827,7 @@ class QRcode {
 		$frame = $this->qrstrset( $frame, 0, 8, $setPattern );
 		$frame = $this->qrstrset( $frame, $width - 8, 8, $setPattern, 8 );
 		$yOffset = $width - 8;
-		for ( $y = 0; $y < 8; ++$y,++$yOffset ) {
+		for ( $y = 0; $y < 8; ++$y, ++$yOffset ) {
 			$frame[ $y ][8] = "\x84";
 			$frame[ $yOffset ][8] = "\x84";
 		}
@@ -3088,7 +3086,7 @@ class QRcode {
 		}
 		$rs['iprim'] = (int) ( $iprim / $prim );
 		$rs['genpoly'][0] = 1;
-		for ( $i = 0,$root = $fcr * $prim; $i < $nroots; $i++, $root += $prim ) {
+		for ( $i = 0, $root = $fcr * $prim; $i < $nroots; $i++, $root += $prim ) {
 			$rs['genpoly'][ $i + 1 ] = 1;
 			// Multiply rs->genpoly[] by  @**(root + x)
 			for ( $j = $i; $j > 0; --$j ) {
@@ -3150,7 +3148,6 @@ class QRcode {
 		}
 		return $parity;
 	}
-
 } // end QRcode class
 
 // ============================================================+

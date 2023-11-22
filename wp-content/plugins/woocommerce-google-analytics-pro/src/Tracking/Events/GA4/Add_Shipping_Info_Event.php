@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters\Cart_Event_Data_
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Contracts\Deferred_AJAX_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Traits\Has_Deferred_AJAX_Trigger;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

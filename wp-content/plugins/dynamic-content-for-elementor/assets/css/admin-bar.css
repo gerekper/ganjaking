@@ -1,0 +1,6 @@
+#wp-admin-bar-dce-frontend-navigator > .ab-item::before {
+  content: '\e87b';
+  font-family: "dce-icon";
+  top: 4px;
+  font-size: 15px;
+}

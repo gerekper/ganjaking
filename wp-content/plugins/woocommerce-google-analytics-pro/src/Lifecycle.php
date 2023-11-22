@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or exit;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * Plugin lifecycle handler.

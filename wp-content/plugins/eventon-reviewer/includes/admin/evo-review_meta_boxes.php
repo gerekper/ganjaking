@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/evo-review
- * @version     1.1
+ * @version     0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // META box for Review page
 	function evoRE_metabox_review(){
-		global $post,  $ajde, $pagenow;
+		global $post, $eventon_re, $ajde, $pagenow;
 		$pmv = get_post_meta($post->ID);
 		
 		?>	
@@ -35,9 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				<tr><td><?php _e('Star Rating','eventon');?>: </td>
 					<td><div class='evore_star_rating_new'><?php
 					if(!empty($pmv['rating'])){
-						echo EVORE()->frontend->functions->get_star_rating_html($pmv['rating'][0]);
+						echo $eventon_re->frontend->functions->get_star_rating_html($pmv['rating'][0]);
 					}else{
-						echo EVORE()->frontend->functions->get_star_rating_html(1);
+						echo $eventon_re->frontend->functions->get_star_rating_html(1);
 					}
 					?>
 					<input type="hidden" name='rating' value='<?php echo (!empty($pmv['rating'])? $pmv['rating'][0]:'');?>'/>
@@ -119,7 +119,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		
 		// verify this came from the our screen and with proper authorization,
 		// because save_post can be triggered at other times
-		if( isset($_POST['evore_nonce']) && !wp_verify_nonce( $_POST['evore_nonce'], plugin_basename( __FILE__ ) ) ){
+		if( isset($_POST['evorsvp_nonce']) && !wp_verify_nonce( $_POST['evorsvp_nonce'], plugin_basename( __FILE__ ) ) ){
 			return;
 		}
 
@@ -144,8 +144,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		}
 
 		// sync rating count
+		global $eventon_re;
 		if(!empty($_POST['e_id'])){
-			EVORE()->frontend->functions->sync_ratings($_POST['e_id']);
+			$eventon_re->frontend->functions->sync_ratings($_POST['e_id']);
 		}
 
 	}
@@ -153,9 +154,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Review meta box for EVENT posts
 	function evoRE_metabox_content(){
 
-		global $post,  $eventon;
+		global $post, $eventon_re, $eventon;
 		$pmv = get_post_meta($post->ID);
-		wp_nonce_field( plugin_basename( __FILE__ ), 'evore_nonce' );
+		wp_nonce_field( plugin_basename( __FILE__ ), 'evors_nonce' );
 		
 
 		$event_review = (!empty($pmv['event_review']) && $pmv['event_review'][0]=='yes')? 'yes': 'no';
@@ -163,8 +164,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		$repeatIntervals = !empty($pmv['repeat_intervals'])? unserialize($pmv['repeat_intervals'][0]): false;
 
 		$wp_date_format = get_option('date_format');
-
-		$event_reviews = new EVORE_Reviews($post->ID);
 	?>
 	<div class='eventon_mb'>
 	<div class="evore">
@@ -177,10 +176,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				'attr'=>array('afterstatement'=>'evore_details')
 			)); ?>
 		</p>
-		<div id='evore_details' class='evore_details evomb_body evo_edit_field_box' style='margin:15px;<?php echo ( $event_review=='yes')? null:'display:none'; ?>'>		
-			
+		<div id='evore_details' class='evors_details evomb_body ' <?php echo ( $event_review=='yes')? null:'style="display:none"'; ?>>		
 			<div class="evore_star_rating">
-				<?php echo $event_reviews->get_admin_reviews_stat_html();?>
+				<p><?php _e('Overall average rating for this event','eventon');?><?php echo $eventon->throw_guide("The rating information is for all repeating instances of this event (if has repeating instances)", '',false)?></p>
+
+				<div class='evore_star_data'>
+					<span class='evore_stars'>
+					<?php
+						//$average = $eventon_re->frontend->functions->get_average_rating($post->ID, $pmv);
+						//$rating_count = $eventon_re->frontend->functions->get_rating_count($post->ID, $pmv);
+
+						$ALLaverage = $eventon_re->frontend->functions->get_average_all_ratings($post->ID, $pmv);
+						$ALLrating_count = $eventon_re->frontend->functions->get_rating_all_count($post->ID, $pmv);
+						
+						echo $eventon_re->frontend->functions->get_star_rating_html( $ALLaverage);
+
+					?>
+					</span>
+					<em class='rating_data'><?php echo $ALLaverage? $ALLaverage:'0.0';?>/5.0 (<?php echo $eventon_re->frontend->functions->get_rating_percentage($ALLaverage);  ?>%)</em>
+					<em class='rating_data'><?php echo $ALLrating_count?$ALLrating_count:'0';?> <?php _e('Ratings','eventon');?></em>
+				</div>
+				<p id="evore_message" style='display:none' data-t1='<?php _e('Loading..','eventon');?>' data-t2='<?php _e('Count not sync ratings at this moment, please try later','eventon');?>'></p>
 			</div>
 			
 			<?php $rating_data = ( evo_check_yn($pmv, '_rating_data') ? 'yes': 'no');?>
@@ -203,7 +219,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				)); ?>
 			</p>	
 		
-			<div class=' evore_info_actions' style='padding-top: 15px;'>
+			<div class='evcal_rep evore_info_actions'>
 				<div class="evcalr_1">
 					<p class="actions">
 						<a id="evore_VR" class='button_evo reviews ajde_popup_trig' data-e_id='<?php echo $post->ID;?>' data-riactive='<?php echo ($repeatIntervals)?'yes':'no';?>' data-popc='evore_lightbox'><?php _e('View All Reviews','eventon');?></a>
@@ -236,7 +252,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 							$viewreviews_content = ob_get_clean(); 
 							else:	$viewreviews_content = "<div id='evore_view_reviews'>".__('LOADING','eventon')."...</div>";	endif;
 						?>
-					<?php echo EVO()->output_eventon_pop_window(array('class'=>'evore_lightbox', 'content'=>$viewreviews_content, 'title'=>__('View Reviews for this Event','eventon'), 'type'=>'padded', 'max_height'=>450 ));
+					<?php echo $eventon->output_eventon_pop_window(array('class'=>'evore_lightbox', 'content'=>$viewreviews_content, 'title'=>__('View Reviews for this Event','eventon'), 'type'=>'padded', 'max_height'=>450 ));
 					?>
 				</div>
 			</div>

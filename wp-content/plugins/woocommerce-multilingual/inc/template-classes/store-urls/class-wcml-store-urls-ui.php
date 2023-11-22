@@ -84,8 +84,8 @@ class WCML_Store_URLs_UI extends WCML_Templates_Factory {
 				'attribute_slug'   => __( 'Attribute slug: %s', 'woocommerce-multilingual' ),
 			],
 			'nonces'          => [
-				'edit_base'   => wp_nonce_field( 'wcml_edit_base', 'wcml_edit_base_nonce' ),
-				'update_base' => wp_nonce_field( 'wcml_update_base_translation', 'wcml_update_base_nonce' ),
+				'edit_base'   => wp_nonce_field( 'wcml_edit_base', 'wcml_edit_base_nonce', true, false ),
+				'update_base' => wp_nonce_field( 'wcml_update_base_translation', 'wcml_update_base_nonce', true, false ),
 			],
 		];
 

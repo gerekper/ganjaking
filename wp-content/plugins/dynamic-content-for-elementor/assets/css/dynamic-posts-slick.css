@@ -1,0 +1,251 @@
+.elementor-widget-dyncontel-acfposts .slick-slider
+{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.elementor-widget-dyncontel-acfposts .slick-list
+{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.elementor-widget-dyncontel-acfposts.no-masking-yes .slick-list{
+    overflow: visible;
+}
+.elementor-widget-dyncontel-acfposts .slick-list:focus
+{
+    outline: none;
+    outline-width: 0;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.elementor-widget-dyncontel-acfposts .slick-slider .slick-track,
+.elementor-widget-dyncontel-acfposts .slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.elementor-widget-dyncontel-acfposts .slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+
+}
+.elementor-widget-dyncontel-acfposts .slick-track:before,
+.elementor-widget-dyncontel-acfposts .slick-track:after
+{
+    display: table;
+    content: '';
+}
+.elementor-widget-dyncontel-acfposts .slick-track:after
+{
+    clear: both;
+}
+.elementor-widget-dyncontel-acfposts .slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.elementor-widget-dyncontel-acfposts .slick-slide
+{
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+[dir='rtl'] .elementor-widget-dyncontel-acfposts .slick-slide
+{
+    float: right;
+}
+.elementor-widget-dyncontel-acfposts .slick-slide img
+{
+    display: inline-block;
+}
+.elementor-widget-dyncontel-acfposts .slick-slide.slick-loading img
+{
+    display: none;
+}
+.elementor-widget-dyncontel-acfposts .slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.elementor-widget-dyncontel-acfposts .slick-initialized .slick-slide
+{
+    display: block;
+}
+.elementor-widget-dyncontel-acfposts .slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.elementor-widget-dyncontel-acfposts .slick-vertical .slick-slide
+{
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.elementor-widget-dyncontel-acfposts .slick-arrow .fa{
+    color: #000;
+    padding: 0 0.25em;
+    transition: all .6s ease;
+    -webkit-transition: all .6s ease;
+    -moz-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    -ms-transition: all .6s ease;
+}
+.elementor-widget-dyncontel-acfposts .slick-arrow.slick-hidden {
+    display: none;
+}
+.elementor-widget-dyncontel-acfposts .slick-prev,
+.elementor-widget-dyncontel-acfposts .slick-next {
+    position: absolute;
+    bottom: 50%;
+    z-index: 10;
+    display: inline-block;
+    background-color: transparent;
+    line-height: 1;
+    width: auto;
+    height: auto;
+    transform: translateY(50%);
+    border: 0;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 0;
+    transition: all .6s ease;
+    -webkit-transition: all .6s ease;
+    -moz-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    -ms-transition: all .6s ease;
+}
+.elementor-widget-dyncontel-acfposts .slick-arrow.slick-disabled{
+    opacity: 0.4;
+}
+.elementor-widget-dyncontel-acfposts .slick-arrow.slick-disabled.slick-prev{
+    left: -100%;
+}
+.elementor-widget-dyncontel-acfposts .slick-arrow.slick-disabled.slick-next{
+    right: -100%;
+}
+.elementor-widget-dyncontel-acfposts .slick-prev:hover,
+.elementor-widget-dyncontel-acfposts .slick-prev:focus,
+.elementor-widget-dyncontel-acfposts .slick-next:hover,
+.elementor-widget-dyncontel-acfposts .slick-next:focus {
+    background-color: transparent;
+    color: #9f9b8b;
+}
+/* Arrows Inside */
+.arrows-acfposts-position-inside .slick-prev{
+    left: 20px;
+    right: auto;
+}
+.arrows-acfposts-position-inside .slick-next{
+    right: 20px;
+    left: auto;
+}
+/* Arrows Outside */
+.arrows-acfposts-position-outside .slick-prev{
+    left: -30px;
+    right: auto;
+}
+.arrows-acfposts-position-outside .slick-next{
+    right: -30px;
+    left: auto;
+}
+/* Dots */
+.elementor-widget-dyncontel-acfposts .slick-dotted.slick-slider
+{
+    margin-bottom: 30px;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots
+{
+    position: absolute;
+    bottom: -25px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li
+{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li button
+{
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li button:hover,
+.elementor-widget-dyncontel-acfposts .slick-dots li button:focus
+{
+    outline: none;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li button:hover:before,
+.elementor-widget-dyncontel-acfposts .slick-dots li button:focus:before
+{
+    opacity: 1;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li button:before
+{
+    line-height: 20px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    text-align: center;
+    opacity: .25;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: all 0.5s ease;
+}
+.elementor-widget-dyncontel-acfposts .slick-dots li.slick-active button:before
+{
+    opacity: .75;
+    color: black;
+}

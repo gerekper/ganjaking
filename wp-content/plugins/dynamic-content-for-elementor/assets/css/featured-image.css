@@ -1,0 +1,85 @@
+.dce-featured-image{
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  margin-bottom: -4px;
+}
+.usebg-1 .dce-featured-image,
+.dce-featured-image.is-bg{
+  width: 100%;
+  display: block;
+}
+.dce-featured-image img{
+    height: auto;
+    display: block;
+}
+.dce-featured-image a .dce-overlay{
+  -webkit-transition: background-color 0.5s ease, opacity 0.5s ease;
+  -moz-transition: background-color 0.5s ease, opacity 0.5s ease;
+  -ms-transition: background-color 0.5s ease, opacity 0.5s ease;
+  transition: background-color 0.5s ease, opacity 0.5s ease;
+}
+.dce-featured-image a:hover .dce-overlay_hover{
+  opacity: 1;
+}
+.extendbg-yes .dce-featured-image{
+  position: static;
+  max-width: inherit !important;
+}
+.extendbg-yes{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.extendbg-yes .dynamic-content-featuredimage-bg,
+.extendbg-yes .dynamic-content-for-elementor-acfimage-bg,
+.extendbg-yes .dynamic-content-for-elementor-acf ,
+.extendbg-yes .acf-image.acf-bg-image,
+.extendbg-yes .dce-acfposts_image figure.acfposts-image,
+.extendbg-yes .wrap-effect,
+.extendbg-yes .wrap-filters,
+.extendbg-yes .mask{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+.extendbg-yes .dynamic-content-featuredimage-bg{
+  min-height: 320px;
+}
+}
+/* Effetti su contenitore */
+.wrap-filters{
+    transition: filter 0.5s linear;
+}
+/* zoom su featured image */
+.hovereffect-zoom .dce-featured-image a img,
+.hovereffect-zoom .dce-featured-image a figure.dynamic-content-featuredimage-bg{
+    transition: 0.4s transform ease;
+}
+.hovereffect-zoom .dce-featured-image a:hover img,
+.hovereffect-zoom .dce-featured-image a:hover figure.dynamic-content-featuredimage-bg{
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.elementor-widget-dyncontel-featured-image.image-align-center .dce-featured-image{
+  margin: 0 auto;
+}
+.elementor-widget-dyncontel-featured-image.image-align-left .dce-featured-image{
+  margin: 0 auto 0 0;
+}
+.elementor-widget-dyncontel-featured-image.image-align-right .dce-featured-image{
+  margin: 0 0 0 auto;
+}

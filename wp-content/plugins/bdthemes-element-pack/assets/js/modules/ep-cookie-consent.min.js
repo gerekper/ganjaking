@@ -1,0 +1,1 @@
+!function(n,e){"use strict";var o=function(n,e){var o=n.find(".bdt-cookie-consent"),t=o.data("settings"),i=Boolean(elementorFrontend.isEditMode());o.length&&!i&&window.cookieconsent.initialise(t)};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-cookie-consent.default",o)}))}(jQuery,window.elementorFrontend);

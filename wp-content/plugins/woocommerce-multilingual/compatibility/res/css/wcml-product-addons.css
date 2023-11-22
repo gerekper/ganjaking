@@ -1,10 +1,13 @@
+.wc-pao-addon-option-row .wc-pao-addon-content-price:not(.hidden) {
+	grid-column: auto;
+}
 .wc-pao-addon-option-row .wcml-option-prices:not(.hidden) {
     align-self: center;
-    justify-self: center;
-    grid-column: 13/14;
+    justify-self: right;
+    grid-column: auto;
 }
 .wc-pao-addon-option-row .wcml-option-prices:not(.hidden) + .wc-pao-addon-content-remove {
-    grid-column: 14/15;
+    grid-column: 13;
 }
 
 .wcml-dialog-product-addons .wpml-form-row label {

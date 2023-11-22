@@ -20,6 +20,7 @@ use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Analytics
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\ClicksEmailLinkTrigger;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagAddedTrigger;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger;
@@ -64,6 +65,9 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var TagRemovedTrigger  */
   private $tagRemovedTrigger;
 
+  /** @var ClicksEmailLinkTrigger */
+  private $clicksEmailLinkTrigger;
+
   /** @var TagSubject  */
   private $tagSubject;
 
@@ -83,6 +87,7 @@ class MailPoetPremiumIntegration implements Integration {
     UpdateSubscriberAction $updateSubscriberAction,
     NotificationEmailAction $notificationEmailAction,
     CustomTrigger $customTrigger,
+    ClicksEmailLinkTrigger $clicksEmailLinkTrigger,
     CustomDataSubject $customDataSubject,
     CustomAction $customAction,
     TagAddedTrigger $tagAddedTrigger,
@@ -101,6 +106,7 @@ class MailPoetPremiumIntegration implements Integration {
     $this->updateSubscriberAction = $updateSubscriberAction;
     $this->notificationEmailAction = $notificationEmailAction;
     $this->customTrigger = $customTrigger;
+    $this->clicksEmailLinkTrigger = $clicksEmailLinkTrigger;
     $this->customDataSubject = $customDataSubject;
     $this->customAction = $customAction;
     $this->tagAddedTrigger = $tagAddedTrigger;
@@ -126,6 +132,7 @@ class MailPoetPremiumIntegration implements Integration {
     $registry->addAction($this->customAction);
     $registry->addTrigger($this->tagAddedTrigger);
     $registry->addTrigger($this->tagRemovedTrigger);
+    $registry->addTrigger($this->clicksEmailLinkTrigger);
     $registry->addSubject($this->tagSubject);
 
     // remove free only templates

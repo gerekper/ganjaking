@@ -25,7 +25,4 @@ class WC_Dependencies {
 
 		return in_array( 'woocommerce/woocommerce.php', self::$active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', self::$active_plugins );
 	}
-
 }
-
-

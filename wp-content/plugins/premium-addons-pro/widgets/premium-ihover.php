@@ -16,7 +16,7 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Control_Media;
-use Elementor\Core\Schemes\Color;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
@@ -24,6 +24,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Css_Filter;
 
 // PremiumAddons Classes.
+use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Premium_Template_Tags;
 
@@ -37,14 +38,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Premium_Ihover extends Widget_Base {
 
 	/**
+	 * Check Icon Draw Option.
+	 *
+	 * @since 2.8.4
+	 * @access public
+	 */
+	public function check_icon_draw() {
+
+		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
+			return false;
+		}
+
+		$is_enabled = Admin_Helper::check_svg_draw( 'premium-ihover' );
+		return $is_enabled;
+	}
+
+	/**
+	 * Template Instance
+	 *
+	 * @var template_instance
+	 */
+	protected $template_instance;
+
+	/**
 	 * Get Elementor Helper Instance.
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		$this->template_instance = Premium_Template_Tags::getInstance();
-		return $this->template_instance;
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -64,7 +87,7 @@ class Premium_Ihover extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'iHover', 'premium-addons-pro' ) );
+		return __( 'iHover', 'premium-addons-pro' );
 	}
 
 	/**
@@ -100,7 +123,21 @@ class Premium_Ihover extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'cta', 'action', 'link', 'image', 'animation' );
+		return array( 'pa', 'premium', 'cta', 'action', 'link', 'image', 'animation' );
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -112,9 +149,17 @@ class Premium_Ihover extends Widget_Base {
 	 * @return array JS script handles.
 	 */
 	public function get_script_depends() {
-		return array(
-			'lottie-js',
-			'premium-pro',
+		$draw_scripts = $this->check_icon_draw() ? array(
+			'pa-fontawesome-all',
+			'pa-tweenmax',
+			'pa-motionpath',
+		) : array();
+
+		return array_merge(
+			$draw_scripts,
+			array(
+				'lottie-js',
+			)
 		);
 	}
 
@@ -134,7 +179,9 @@ class Premium_Ihover extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+
+		$draw_icon = $this->check_icon_draw();
 
 		$this->start_controls_section(
 			'premium_ihover_image_content_section',
@@ -161,7 +208,7 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'      => __( 'Size', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em' ),
+				'size_units' => array( 'px', 'em', '%' ),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -173,8 +220,22 @@ class Premium_Ihover extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-ihover-item.style20 .premium-ihover-spinner, {{WRAPPER}} .premium-ihover-item, {{WRAPPER}} .premium-ihover-img-wrap, {{WRAPPER}} .premium-ihover-img-wrap .premium-ihover-img, {{WRAPPER}} .premium-ihover-info-wrap' => 'width: {{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-ihover-item' => 'width: {{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}}',
 				),
+			)
+		);
+
+		$this->add_control(
+			'ihover_notice',
+			array(
+				'raw'             => __( 'NOTICE: Please make sure that Size option unit is set to px or em', 'premium-addons-pro' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition'       => array(
+					'premium_ihover_thumbnail_hover_effect' => 'style20',
+					// 'premium_ihover_thumbnail_size.unit' => '%'
+				),
+
 			)
 		);
 
@@ -186,6 +247,33 @@ class Premium_Ihover extends Widget_Base {
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .premium-ihover-item-wrap, {{WRAPPER}} .premium-ihover-img, {{WRAPPER}} .premium-ihover-info-back, {{WRAPPER}} .premium-ihover-spinner' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'container_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'container_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-pro' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'container_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-ihover-item-wrap, {{WRAPPER}} .premium-ihover-img, {{WRAPPER}} .premium-ihover-info-back, {{WRAPPER}} .premium-ihover-spinner' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'container_adv_radius' => 'yes',
 				),
 			)
 		);
@@ -207,6 +295,7 @@ class Premium_Ihover extends Widget_Base {
 					'style9'   => 'Heroes Flying-Top',
 					'style9-1' => 'Heroes Flying-Bottom',
 					'style9-2' => 'Heroes Flying-Right',
+					'style9-3' => 'Heroes Flying-Left',
 					'style14'  => 'Magic Door',
 					'style2'   => 'Reduced Image-Top',
 					'style2-2' => 'Reduced Image-Right',
@@ -214,7 +303,6 @@ class Premium_Ihover extends Widget_Base {
 					'style2-1' => 'Reduced Image-Left',
 					'style7'   => 'Rotated Image-Left',
 					'style7-1' => 'Rotated Image-Right',
-					'style13'  => 'Rotated Wheel Image-Left',
 					'style8'   => 'Rotating Wheel-Left',
 					'style8-1' => 'Rotating Wheel-Top',
 					'style8-2' => 'Rotating Wheel-Bottom',
@@ -340,20 +428,21 @@ class Premium_Ihover extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
+				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-ihover-list' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .premium-ihover-item-wrap' => 'text-align: {{VALUE}}',
 				),
 			)
 		);
@@ -387,6 +476,10 @@ class Premium_Ihover extends Widget_Base {
 			)
 		);
 
+		$common_conditions = array(
+			'premium_ihover_icon_fa_switcher' => 'yes',
+		);
+
 		$this->add_control(
 			'premium_ihover_icon_selection',
 			array(
@@ -398,11 +491,10 @@ class Premium_Ihover extends Widget_Base {
 					'icon'      => __( 'Font Awesome Icon', 'premium-addons-pro' ),
 					'image'     => __( 'Image', 'premium-addons-pro' ),
 					'animation' => __( 'Lottie Animation', 'premium-addons-pro' ),
+					'svg'       => __( 'SVG Code', 'premium-addons-pro' ),
 				),
 				'label_block' => true,
-				'condition'   => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-				),
+				'condition'   => $common_conditions,
 			)
 		);
 
@@ -418,9 +510,11 @@ class Premium_Ihover extends Widget_Base {
 					'library' => 'fa-solid',
 				),
 				'label_block'      => true,
-				'condition'        => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-					'premium_ihover_icon_selection'   => 'icon',
+				'condition'        => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'icon',
+					)
 				),
 			)
 		);
@@ -435,9 +529,26 @@ class Premium_Ihover extends Widget_Base {
 				),
 				'description' => __( 'Choose the icon image', 'premium-addons-pro' ),
 				'label_block' => true,
-				'condition'   => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-					'premium_ihover_icon_selection'   => 'image',
+				'condition'   => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'image',
+					)
+				),
+			)
+		);
+
+		$this->add_control(
+			'custom_svg',
+			array(
+				'label'       => __( 'SVG Code', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => 'You can use these sites to create SVGs: <a href="https://danmarshall.github.io/google-font-to-svg-path/" target="_blank">Google Fonts</a> and <a href="https://boxy-svg.com/" target="_blank">Boxy SVG</a>',
+				'condition'   => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'svg',
+					)
 				),
 			)
 		);
@@ -450,12 +561,143 @@ class Premium_Ihover extends Widget_Base {
 				'dynamic'     => array( 'active' => true ),
 				'description' => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
 				'label_block' => true,
-				'condition'   => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-					'premium_ihover_icon_selection'   => 'animation',
+				'condition'   => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'animation',
+					)
 				),
 			)
 		);
+
+		$this->add_control(
+			'draw_svg',
+			array(
+				'label'     => __( 'Draw Icon', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'classes'   => $draw_icon ? '' : 'editor-pa-control-disabled',
+				'condition' => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+						'premium_ihover_icon_fa_updated[library]!' => 'svg',
+					)
+				),
+			)
+		);
+
+		$animation_conds = array(
+			'terms' => array(
+				array(
+					'name'  => 'premium_ihover_icon_fa_switcher',
+					'value' => 'yes',
+				),
+				array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'premium_ihover_icon_selection',
+							'value' => 'animation',
+						),
+						array(
+							'terms' => array(
+								array(
+									'relation' => 'or',
+									'terms'    => array(
+										array(
+											'name'  => 'premium_ihover_icon_selection',
+											'value' => 'icon',
+										),
+										array(
+											'name'  => 'premium_ihover_icon_selection',
+											'value' => 'svg',
+										),
+									),
+								),
+								array(
+									'name'  => 'draw_svg',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			),
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'path_width',
+				array(
+					'label'     => __( 'Path Thickness', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min'  => 0,
+							'max'  => 50,
+							'step' => 0.1,
+						),
+					),
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+						)
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-ihover-title-wrap svg *' => 'stroke-width: {{SIZE}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_sync',
+				array(
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+							'draw_svg' => 'yes',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'frames',
+				array(
+					'label'       => __( 'Speed', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Larger value means longer animation duration.', 'premium-addons-pro' ),
+					'default'     => 5,
+					'min'         => 1,
+					'max'         => 100,
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+							'draw_svg' => 'yes',
+						)
+					),
+				)
+			);
+		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
+
+			Helper_Functions::get_draw_svg_notice(
+				$this,
+				'ihover',
+				array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+						'premium_ihover_icon_fa_updated[library]!' => 'svg',
+					)
+				)
+			);
+
+		}
 
 		$this->add_control(
 			'lottie_loop',
@@ -464,10 +706,7 @@ class Premium_Ihover extends Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
 				'default'      => 'true',
-				'condition'    => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-					'premium_ihover_icon_selection'   => 'animation',
-				),
+				'conditions'   => $animation_conds,
 			)
 		);
 
@@ -477,12 +716,69 @@ class Premium_Ihover extends Widget_Base {
 				'label'        => __( 'Reverse', 'premium-addons-pro' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'true',
-				'condition'    => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
-					'premium_ihover_icon_selection'   => 'animation',
-				),
+				'conditions'   => $animation_conds,
 			)
 		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'start_point',
+				array(
+					'label'       => __( 'Start Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should start from.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+							'draw_svg'        => 'yes',
+							'lottie_reverse!' => 'true',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'end_point',
+				array(
+					'label'       => __( 'End Point (%)', 'premium-addons-pro' ),
+					'type'        => Controls_Manager::SLIDER,
+					'description' => __( 'Set the point that the SVG should end at.', 'premium-addons-pro' ),
+					'default'     => array(
+						'unit' => '%',
+						'size' => 0,
+					),
+					'condition'   => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+							'draw_svg'       => 'yes',
+							'lottie_reverse' => 'true',
+						)
+					),
+				)
+			);
+
+			$this->add_control(
+				'svg_yoyo',
+				array(
+					'label'     => __( 'Yoyo Effect', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array_merge(
+						$common_conditions,
+						array(
+							'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+							'draw_svg'    => 'yes',
+							'lottie_loop' => 'true',
+						)
+					),
+				)
+			);
+		}
 
 		$this->add_control(
 			'premium_ihover_icon_size',
@@ -503,8 +799,71 @@ class Premium_Ihover extends Widget_Base {
 					'{{WRAPPER}} .premium-ihover-icon' => 'font-size: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .premium-ihover-icon-image, {{WRAPPER}} .premium-ihover-title-wrap svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
-				'condition'  => array(
-					'premium_ihover_icon_fa_switcher' => 'yes',
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection!' => 'svg',
+					)
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'svg_icon_width',
+			array(
+				'label'      => __( 'Icon Width', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 600,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'default'    => array(
+					'size' => 100,
+					'unit' => 'px',
+				),
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'svg',
+					)
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-ihover-title-wrap svg' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'svg_icon_height',
+			array(
+				'label'      => __( 'Icon Height', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 30,
+					),
+				),
+				'condition'  => array_merge(
+					$common_conditions,
+					array(
+						'premium_ihover_icon_selection' => 'svg',
+					)
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-ihover-title-wrap svg' => 'height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -603,15 +962,15 @@ class Premium_Ihover extends Widget_Base {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -626,7 +985,7 @@ class Premium_Ihover extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -636,7 +995,7 @@ class Premium_Ihover extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -700,16 +1059,48 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-icon' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .premium-ihover-title-wrap svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .premium-ihover-title-wrap svg, {{WRAPPER}} .premium-ihover-title-wrap svg *' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
-					'premium_ihover_icon_selection' => 'icon',
+					'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+				),
+			)
+		);
+
+		if ( $draw_icon ) {
+			$this->add_control(
+				'stroke_color',
+				array(
+					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => array(
+						'default' => Global_Colors::COLOR_ACCENT,
+					),
+					'condition' => array(
+						'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .premium-ihover-title-wrap svg *' => 'stroke: {{VALUE}};',
+					),
+				)
+			);
+		}
+
+		$this->add_control(
+			'svg_color',
+			array(
+				'label'     => __( 'After Draw Fill Color', 'premium-addons-pro' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
+				'separator' => 'after',
+				'condition' => array(
+					'premium_ihover_icon_selection' => array( 'icon', 'svg' ),
+					'draw_svg'                      => 'yes',
 				),
 			)
 		);
@@ -811,9 +1202,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-title' => 'color: {{VALUE}};',
@@ -879,9 +1269,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-divider .premium-ihover-divider-line' => 'border-color: {{VALUE}};',
@@ -982,9 +1371,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-description' => 'color: {{VALUE}};',
@@ -1068,9 +1456,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-link' => 'color: {{VALUE}};',
@@ -1083,9 +1470,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-link:hover'  => 'color: {{VALUE}};',
@@ -1098,9 +1484,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-link' => 'background-color: {{VALUE}};',
@@ -1113,9 +1498,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Background Hover Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-link:hover'  => 'background-color: {{VALUE}};',
@@ -1232,9 +1616,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'First Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'condition' => array(
 					'premium_ihover_thumbnail_hover_effect' => 'style20',
@@ -1250,9 +1633,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Second Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_2,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'condition' => array(
 					'premium_ihover_thumbnail_hover_effect' => 'style20',
@@ -1278,9 +1660,8 @@ class Premium_Ihover extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Overlay Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .premium-ihover-info-back' => 'background: {{VALUE}};',
@@ -1424,32 +1805,78 @@ class Premium_Ihover extends Widget_Base {
 
 		$this->add_render_attribute( 'item', 'class', array( 'premium-ihover-item', $settings['premium_ihover_thumbnail_hover_effect'] ) );
 
-		$this->add_render_attribute( 'img', 'class', 'premium-ihover-img' );
-
-		$this->add_render_attribute( 'img', 'src', $settings['premium_ihover_thumbnail_front_image']['url'] );
-		$this->add_render_attribute( 'img', 'alt', Control_Media::get_image_alt( $settings['premium_ihover_thumbnail_front_image'] ) );
+		$this->add_render_attribute(
+			'img',
+			array(
+				'class' => 'premium-ihover-img',
+				'src'   => $settings['premium_ihover_thumbnail_front_image']['url'],
+				'alt'   => Control_Media::get_image_alt( $settings['premium_ihover_thumbnail_front_image'] ),
+			)
+		);
 
 		if ( 'yes' === $settings['premium_ihover_icon_fa_switcher'] ) {
 
 			$icon_type = $settings['premium_ihover_icon_selection'];
 
-			if ( 'icon' === $icon_type ) {
+			if ( 'icon' === $icon_type || 'svg' === $icon_type ) {
 
-				if ( ! empty( $settings['premium_ihover_icon_fa'] ) ) {
-					$this->add_render_attribute(
-						'icon',
-						'class',
-						array(
-							'premium-ihover-icon',
-							$settings['premium_ihover_icon_fa'],
-						)
-					);
-					$this->add_render_attribute( 'icon', 'aria-hidden', 'true' );
+				if ( 'icon' === $icon_type ) {
+
+					if ( ! empty( $settings['premium_ihover_icon_fa'] ) ) {
+						$this->add_render_attribute(
+							'icon',
+							array(
+								'class'       => array(
+									'premium-ihover-icon',
+									$settings['premium_ihover_icon_fa'],
+								),
+								'aria-hidden' => 'true',
+							)
+						);
+
+					}
+
+					$migrated = isset( $settings['__fa4_migrated']['premium_ihover_icon_fa_updated'] );
+					$is_new   = empty( $settings['premium_ihover_icon_fa'] ) && Icons_Manager::is_migration_allowed();
 				}
 
-				$migrated = isset( $settings['__fa4_migrated']['premium_ihover_icon_fa_updated'] );
-				$is_new   = empty( $settings['premium_ihover_icon_fa'] ) && Icons_Manager::is_migration_allowed();
+				if ( ( 'yes' === $settings['draw_svg'] && 'icon' === $icon_type ) || 'svg' === $icon_type ) {
+					$this->add_render_attribute( 'icon', 'class', 'premium-ihover-icon' );
+				}
 
+				if ( 'yes' === $settings['draw_svg'] ) {
+
+					$this->add_render_attribute(
+						'container',
+						'class',
+						array(
+							'elementor-invisible',
+							'premium-drawer-hover',
+						)
+					);
+
+					if ( 'icon' === $icon_type ) {
+
+						$this->add_render_attribute( 'icon', 'class', $settings['premium_ihover_icon_fa_updated']['value'] );
+
+					}
+
+					$this->add_render_attribute(
+						'icon',
+						array(
+							'class'            => 'premium-svg-drawer',
+							'data-svg-reverse' => $settings['lottie_reverse'],
+							'data-svg-loop'    => $settings['lottie_loop'],
+							'data-svg-sync'    => $settings['svg_sync'],
+							'data-svg-hover'   => true,
+							'data-svg-fill'    => $settings['svg_color'],
+							'data-svg-frames'  => $settings['frames'],
+							'data-svg-yoyo'    => $settings['svg_yoyo'],
+							'data-svg-point'   => $settings['lottie_reverse'] ? $settings['end_point']['size'] : $settings['start_point']['size'],
+						)
+					);
+
+				}
 			} elseif ( 'image' === $icon_type ) {
 
 				$alt = Control_Media::get_image_alt( $settings['premium_ihover_icon_image'] );
@@ -1495,10 +1922,14 @@ class Premium_Ihover extends Widget_Base {
 							<div class="premium-ihover-spinner"></div>
 						<?php endif; ?>
 						<div class="premium-ihover-img-wrap">
-							<div class="premium-ihover-img-front">
-								<div class="premium-ihover-img-inner-wrap"></div>
+							<?php if ( false !== strpos( $settings['premium_ihover_thumbnail_hover_effect'], 'style9' ) ) : ?>
+								<div class="premium-ihover-img-front">
+							<?php endif; ?>
+								<!-- <div class="premium-ihover-img-inner-wrap"></div> -->
 								<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'img' ) ); ?>>
-							</div>
+							<?php if ( false !== strpos( $settings['premium_ihover_thumbnail_hover_effect'], 'style9' ) ) : ?>
+								</div>
+							<?php endif; ?>
 						</div>
 						<div class="premium-ihover-info-wrap">
 							<div class="premium-ihover-info-back">
@@ -1508,7 +1939,7 @@ class Premium_Ihover extends Widget_Base {
 											<?php if ( 'yes' === $settings['premium_ihover_icon_fa_switcher'] ) : ?>
 												<?php
 												if ( 'icon' === $icon_type ) :
-													if ( $is_new || $migrated ) :
+													if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
 														Icons_Manager::render_icon(
 															$settings['premium_ihover_icon_fa_updated'],
 															array(
@@ -1518,9 +1949,15 @@ class Premium_Ihover extends Widget_Base {
 														);
 													else :
 														?>
-														<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+															<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
 														<?php
 													endif;
+												elseif ( 'svg' === $icon_type ) :
+													?>
+													<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+														<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+													</div>
+													<?php
 												elseif ( 'image' === $icon_type ) :
 													?>
 													<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'content_img' ) ); ?>>
@@ -1605,10 +2042,45 @@ class Premium_Ihover extends Widget_Base {
 
 				var iconType = settings.premium_ihover_icon_selection;
 
-				if( 'icon' === iconType ) {
+				if( 'icon' === iconType || 'svg' === iconType ) {
 
-					var iconHTML = elementor.helpers.renderIcon( view, settings.premium_ihover_icon_fa_updated, {'class': 'premium-ihover-icon', 'aria-hidden': true }, 'i' , 'object' ),
-						migrated = elementor.helpers.isIconMigrated( settings, 'premium_ihover_icon_fa_updated' );
+					if( 'icon' === iconType ) {
+
+						var iconHTML = 'yes' !== settings.draw_svg ? elementor.helpers.renderIcon( view, settings.premium_ihover_icon_fa_updated, { 'class': 'premium-ihover-icon', 'aria-hidden': true }, 'i' , 'object' ) : false,
+							migrated = elementor.helpers.isIconMigrated( settings, 'premium_ihover_icon_fa_updated' );
+
+					}
+
+					if( ( 'yes' === settings.draw_svg && 'icon' === iconType ) || 'svg' === iconType ) {
+						view.addRenderAttribute( 'front_icon', 'class', 'premium-ihover-icon' );
+					}
+
+					if ( 'yes' === settings.draw_svg ) {
+
+						view.addRenderAttribute( 'container', 'class', 'premium-drawer-hover' );
+
+						if ( 'icon' === iconType ) {
+
+							view.addRenderAttribute( 'icon', 'class', settings.premium_ihover_icon_fa_updated.value );
+
+						}
+
+						view.addRenderAttribute(
+							'icon',
+							{
+								'class'            : 'premium-svg-drawer',
+								'data-svg-reverse' : settings.lottie_reverse,
+								'data-svg-loop'    : settings.lottie_loop,
+								'data-svg-hover'   : true,
+								'data-svg-sync'    : settings.svg_sync,
+								'data-svg-fill'    : settings.svg_color,
+								'data-svg-frames'  : settings.frames,
+								'data-svg-yoyo'    : settings.svg_yoyo,
+								'data-svg-point'   : settings.lottie_reverse ? settings.end_point.size : settings.start_point.size,
+							}
+						);
+
+					}
 
 				} else if ( 'image' === iconType ) {
 
@@ -1644,10 +2116,14 @@ class Premium_Ihover extends Widget_Base {
 							<div class="premium-ihover-spinner"></div>
 						<# } #>
 						<div class="premium-ihover-img-wrap">
+							<# if( -1 != hoverEffect.indexOf( 'style9' ) ){ #>
 							<div class="premium-ihover-img-front">
-								<div class="premium-ihover-img-inner-wrap"></div>
+							<# } #>
+								<!-- <div class="premium-ihover-img-inner-wrap"></div> -->
 								<img class="premium-ihover-img" src="{{ settings.premium_ihover_thumbnail_front_image.url }}">
+								<# if( -1 != hoverEffect.indexOf( 'style9' ) ){ #>
 							</div>
+							<# } #>
 						</div>
 
 						<div class="premium-ihover-info-wrap">
@@ -1656,12 +2132,16 @@ class Premium_Ihover extends Widget_Base {
 									<div class="premium-ihover-content-wrap">
 										<div class="premium-ihover-title-wrap">
 											<# if( 'yes' == settings.premium_ihover_icon_fa_switcher ) { #>
-												<# if( 'icon' == settings.premium_ihover_icon_selection ) {
+												<# if( 'icon' == iconType ) {
 													if ( iconHTML && iconHTML.rendered && ( ! settings.premium_ihover_icon_fa || migrated ) ) { #>
 														{{{ iconHTML.value }}}
 													<# } else { #>
-														<i class="premium-ihover-icon {{ settings.premium_ihover_icon_fa }}"></i>
+														<i {{{ view.getRenderAttributeString('icon') }}}></i>
 													<# } #>
+												<# } else if( 'svg' === iconType ) { #>
+													<div {{{ view.getRenderAttributeString('icon') }}}>
+														{{{ settings.custom_svg }}}
+													</div>
 												<# } else if( 'image' === iconType ) { #>
 													<img {{{ view.getRenderAttributeString('content_img') }}}>
 												<# } else { #>

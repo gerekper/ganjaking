@@ -24,7 +24,8 @@
                 r = t.orientation,
                 i = "vertical" === r ? "down" : "left",
                 s = "vertical" === r ? "up" : "right";
-            a.wrap("<div class='premium-twentytwenty-wrapper premium-twentytwenty-" + r + "'></div>"), t.no_overlay ? a.append("<div class='premium-twentytwenty-overlay premium-twentytwenty-hide'></div>") : a.append("<div class='premium-twentytwenty-overlay premium-twentytwenty-show'></div>");
+
+            t.no_overlay ? a.append("<div class='premium-twentytwenty-overlay premium-twentytwenty-hide'></div>") : a.append("<div class='premium-twentytwenty-overlay premium-twentytwenty-show'></div>");
             var l = a.find("img:first"),
                 o = a.find("img:last");
             t.show_sep ? a.append("<div class='premium-twentytwenty-handle'></div>") : a.append("<div class='premium-twentytwenty-handle premium-twentytwenty-hide'></div>");
@@ -61,14 +62,21 @@
                     (y = parseInt(p.css("top").replace(/px/, ""))) < f + v ? c.addClass("premium-label-hidden") : c.removeClass("premium-label-hidden"), y > h && !(h < 0) ? w.addClass("premium-label-hidden") : w.removeClass("premium-label-hidden")
                 }
                 d = m, "vertical" === r ? (l.css("clip", "rect(0," + d.w + "," + d.ch + ",0)"), o.css("clip", "rect(" + d.ch + "," + d.w + "," + d.h + ",0)")) : (l.css("clip", "rect(0," + d.cw + "," + d.h + ",0)"), o.css("clip", "rect(0," + d.w + "," + d.h + "," + d.cw + ")")), a.css("height", d.h)
-            },
-                f = function (e, t) {
-                    var n, a, i;
-                    return n = "vertical" === r ? (t - h) / u : (e - v) / y, a = 0, i = 1, Math.max(a, Math.min(i, n))
-                };
+            };
+
+            var f = function (e, t) {
+                var n, a, i;
+                return n = "vertical" === r ? (t - h) / u : (e - v) / y, a = 0, i = 1, Math.max(a, Math.min(i, n))
+            };
+
             e(window).on("resize.twentytwenty", function (e) {
                 w(n)
             });
+
+            a.on("updateRatio", function (e, ratio) {
+                w(ratio)
+            });
+
             var v = 0,
                 h = 0,
                 y = 0,
@@ -77,12 +85,14 @@
                     (e.distX > e.distY && e.distX < -e.distY || e.distX < e.distY && e.distX > -e.distY) && "vertical" !== r ? e.preventDefault() : (e.distX < e.distY && e.distX < -e.distY || e.distX > e.distY && e.distX > -e.distY) && "vertical" === r && e.preventDefault(), a.addClass("active"), v = a.offset().left, h = a.offset().top, y = l.width(), u = l.height()
                 },
                 b = function (e) {
+
                     a.hasClass("active") && (n = f(e.pageX, e.pageY), w(n))
                 },
                 g = function () {
                     a.removeClass("active")
                 },
                 C = t.move_with_handle_only ? p : a;
+
             C.on("movestart", _), C.on("move", b), C.on("moveend", g), t.move_slider_on_hover && (a.on("mouseenter", _), a.on("mousemove", b), a.on("mouseleave", g)), p.on("touchmove", function (e) {
                 e.preventDefault()
             }), a.find("img").on("mousedown", function (e) {

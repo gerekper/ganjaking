@@ -11,7 +11,12 @@ class EVO_Blocks{
 
 		if(!function_exists('register_block_type')) return false;
 		add_action( 'init', array($this,'block_registering') );
+		add_action( 'enqueue_block_editor_assets', array($this,'script_enqueue') );
 		add_filter( 'block_categories_all', array($this,'evo_category'), 10, 2);
+	}
+
+	function script_enqueue(){
+		wp_enqueue_script( 'evo-'. $this->blockname .'-sidebar' );
 	}
 	function block_registering(){
 
@@ -19,7 +24,13 @@ class EVO_Blocks{
 		wp_register_script(
 	        'evo-'. $this->blockname,
 	        EVO()->assets_path. 'lib/blocks/evo_blocks.js',
-	        array( 'wp-blocks', 'wp-element' )
+	        array( 'wp-blocks', 'wp-element','wp-plugins', 'wp-edit-post', 'react' )
+	    );
+
+	    wp_register_script(
+	        'evo-'. $this->blockname .'-sidebar',
+	        EVO()->assets_path. 'lib/blocks/evo_sidebar.js',
+	        array( 'wp-plugins', 'wp-edit-post', 'react' )
 	    );
 
 	    //array( 'wp-blocks', 'wp-element','wp-editor' )

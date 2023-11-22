@@ -127,15 +127,19 @@ class __TwigTemplate_414e57f5d39be30b7212208368ba358fb4ae1c2f2d02bf5028ce033882d
 
     {{#if mssKeyPendingApproval }}
       <div class=\"mailpoet_error pendindig_approval_error{{#if awaitingKeyCheck}} with-spinner{{/if}}\">
-        ";
-        // line 61
-        echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("You’ll soon be able to send once our team reviews your account. In the meantime, you can send previews to [link]your authorized emails[/link]."), "https://account.mailpoet.com/authorization", ["target" => "_blank", "rel" => "noopener noreferrer"]);
+        <p>
+          ";
+        // line 62
+        echo $this->extensions['MailPoet\Twig\Functions']->pendingApprovalMessage();
         echo "
+        </p>
         {{#if mssKeyPendingApprovalRefreshMessage }}
-        ";
-        // line 63
+        <p>
+          ";
+        // line 66
         echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("If you have already received approval email, click [link]here[/link] to update the status."), "#", ["id" => "refresh-mss-key-status"]);
         echo "
+        </p>
         {{/if}}
       </div>
     {{/if}}
@@ -156,7 +160,7 @@ class __TwigTemplate_414e57f5d39be30b7212208368ba358fb4ae1c2f2d02bf5028ce033882d
 
     public function getDebugInfo()
     {
-        return array (  134 => 63,  129 => 61,  118 => 53,  112 => 50,  107 => 48,  100 => 44,  96 => 43,  82 => 32,  59 => 12,  53 => 9,  47 => 6,  40 => 2,  37 => 1,);
+        return array (  137 => 66,  130 => 62,  118 => 53,  112 => 50,  107 => 48,  100 => 44,  96 => 43,  82 => 32,  59 => 12,  53 => 9,  47 => 6,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

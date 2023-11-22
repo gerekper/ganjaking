@@ -39,41 +39,59 @@ class PendingApprovalNotice {
     return null;
   }
 
-  private function display(): string {
-    $message = __('<b>Your subscription is currently [link1]pending approval[/link1]</b>, which means you can only send [link2]email previews[/link2] to your [link3]authorized emails[/link3] at the moment. Please check your mailbox or [link4]contact us[/link4] if you haven’t heard from our team about your subscription status in the past 48 hours.', 'mailpoet');
-    $message = Helpers::replaceLinkTags(
+  public function getPendingApprovalTitle(): string {
+    $message = __("MailPoet is [link]reviewing your subscription[/link].", 'mailpoet');
+    return Helpers::replaceLinkTags(
       $message,
-      'https://kb.mailpoet.com/article/350-pending-approval-subscription',
+      'https://kb.mailpoet.com/article/379-our-approval-process',
       [
         'target' => '_blank',
+        'rel' => 'noreferrer',
       ],
-      'link1'
+      'link'
     );
+  }
+
+  public function getPendingApprovalBody(): string {
+    // translators: %s is the email subject, which will always be in English
+    $message = sprintf(__("You can use all MailPoet features and send [link1]email previews[/link1] to your [link2]authorized email addresses[/link2], but sending to your email list contacts is temporarily paused until we review your subscription. If you don't hear from us within 48 hours, please check the inbox and spam folders of your MailPoet account email for follow-up emails with the subject \"%s\" and reply, or [link3]contact us[/link3].", 'mailpoet'), 'Your MailPoet Subscription Review');
     $message = Helpers::replaceLinkTags(
       $message,
       'https://kb.mailpoet.com/article/290-check-your-newsletter-before-sending-it',
       [
         'target' => '_blank',
+        'rel' => 'noreferrer',
       ],
-      'link2'
+      'link1'
     );
     $message = Helpers::replaceLinkTags(
       $message,
-      'https://kb.mailpoet.com/article/266-how-to-add-an-authorized-email-address-as-the-from-address#authorize',
+      'https://kb.mailpoet.com/article/266-how-to-add-an-authorized-email-address-as-the-from-address#how-to-authorize-an-email-address',
       [
         'target' => '_blank',
+        'rel' => 'noreferrer',
       ],
-      'link3'
+      'link2'
     );
     $message = Helpers::replaceLinkTags(
       $message,
       'https://www.mailpoet.com/support/',
       [
         'target' => '_blank',
+        'rel' => 'noreferrer',
       ],
-      'link4'
+      'link3'
     );
 
+    return $message;
+  }
+
+  public function getPendingApprovalMessage(): string {
+    return sprintf('%s %s', $this->getPendingApprovalTitle(), $this->getPendingApprovalBody());
+  }
+
+  private function display(): string {
+    $message = $this->getPendingApprovalMessage();
     WPNotice::displayWarning($message, '', self::OPTION_NAME);
     return $message;
   }

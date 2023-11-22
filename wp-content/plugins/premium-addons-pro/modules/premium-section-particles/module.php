@@ -23,6 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	/**
+	 * Load Script
+	 *
+	 * @var $load_assets
+	 */
+	private $load_assets = null;
+
+	/**
 	 * Class Constructor Funcion.
 	 */
 	public function __construct() {
@@ -38,8 +45,9 @@ class Module extends Module_Base {
 			return;
 		}
 
-		// Enqueue the required JS file.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Enqueue the required CSS/JS file.
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );
 
 		// Register Controls inside Section/Column Layout tab.
 		add_action( 'elementor/element/section/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
@@ -51,6 +59,16 @@ class Module extends Module_Base {
 		// Insert data before Section/Column rendering.
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 		add_action( 'elementor/frontend/column/before_render', array( $this, 'before_render' ), 10, 1 );
+
+		add_action( 'elementor/frontend/column/before_render', array( $this, 'check_script_enqueue' ) );
+		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_script_enqueue' ) );
+
+		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
+			add_action( 'elementor/container/print_template', array( $this, '_print_template' ), 10, 2 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
+		}
 
 	}
 
@@ -64,65 +82,28 @@ class Module extends Module_Base {
 	 */
 	public function enqueue_scripts() {
 
-		if ( ( true === \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() ) ) || ( function_exists( 'elementor_location_exits' ) && ( elementor_location_exits( 'archive', true ) || elementor_location_exits( 'single', true ) ) ) ) {
-			wp_add_inline_script(
-				'elementor-frontend',
-				'window.scopes_array = {};
-                window.backend = 0;
-                jQuery( window ).on( "elementor/frontend/init", function() {
+		if ( ! wp_script_is( 'elementor-waypoints', 'enqueued' ) ) {
+			wp_enqueue_script( 'elementor-waypoints' );
+		}
 
-                    elementorFrontend.hooks.addAction( "frontend/element_ready/global", function( $scope, $ ){
+		if ( ! wp_script_is( 'pa-particles', 'enqueued' ) ) {
+			wp_enqueue_script( 'pa-particles' );
+		}
 
-                        if ( "undefined" == typeof $scope || ! $scope.hasClass( "premium-particles-yes" ) ) {
-                            return;
-                        }
+	}
 
-                        if(elementorFrontend.isEditMode()){
+	/**
+	 * Enqueue styles.
+	 *
+	 * Registers required dependencies for the extension and enqueues them.
+	 *
+	 * @since 2.6.5
+	 * @access public
+	 */
+	public function enqueue_styles() {
 
-                            window.current_scope = $scope;
-
-                            var url = papro_addons.particles_url;
-                            jQuery.cachedAssets = function( url, options ) {
-                                // Allow user to set any option except for dataType, cache, and url.
-                                options = jQuery.extend( options || {}, {
-                                    dataType: "script",
-                                    cache: true,
-                                    url: url
-                                });
-                                // Return the jqXHR object so we can chain callbacks.
-                                return jQuery.ajax( options );
-                            };
-                            jQuery.cachedAssets( url );
-                            window.backend = 1;
-                        } else {
-                            var id = $scope.data("id");
-                            window.scopes_array[ id ] = $scope;
-                        }
-                    });
-                });
-
-                jQuery(document).ready(function(){
-
-                    if ( jQuery.find( ".premium-particles-yes" ).length < 1 ) {
-                        return;
-                    }
-
-                    var url = papro_addons.particles_url;
-
-                    jQuery.cachedAssets = function( url, options ) {
-                        // Allow user to set any option except for dataType, cache, and url.
-                        options = jQuery.extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Return the jqXHR object so we can chain callbacks.
-                        return jQuery.ajax( options );
-                    };
-                    jQuery.cachedAssets( url );
-                });	'
-			);
+		if ( ! wp_style_is( 'pa-global', 'enqueued' ) ) {
+			wp_enqueue_style( 'pa-global' );
 		}
 	}
 
@@ -216,9 +197,10 @@ class Module extends Module_Base {
 	 */
 	public function _print_template( $template, $widget ) {
 
-		if ( $widget->get_name() !== 'section' && $widget->get_name() !== 'column' ) {
+		if ( $widget->get_name() === 'widget' ) {
 			return $template;
 		}
+
 		$old_template = $template;
 		ob_start();
 		?>
@@ -254,15 +236,13 @@ class Module extends Module_Base {
 	 */
 	public function before_render( $element ) {
 
-		$data = $element->get_data();
-
-		$type = $data['elType'];
+		$type = $element->get_name();
 
 		$settings = $element->get_settings_for_display();
 
 		$zindex = ! empty( $settings['premium_particles_zindex'] ) ? $settings['premium_particles_zindex'] : 0;
 
-		if ( ( 'section' === $type || 'column' === $type ) && 'yes' === $settings['premium_particles_switcher'] ) {
+		if ( 'yes' === $settings['premium_particles_switcher'] ) {
 
 			if ( ! empty( $settings['premium_particles_custom_style'] ) ) {
 
@@ -283,5 +263,36 @@ class Module extends Module_Base {
 
 			}
 		}
+	}
+
+	/**
+	 * Check Script Enqueue
+	 *
+	 * Check if the script files should be loaded.
+	 *
+	 * @since 2.6.3
+	 * @access public
+	 *
+	 * @param object $element for current element.
+	 */
+	public function check_script_enqueue( $element ) {
+
+		if ( $this->load_assets ) {
+			return;
+		}
+
+		if ( 'yes' == $element->get_settings_for_display( 'premium_particles_switcher' ) ) {
+
+			$this->enqueue_styles();
+
+			$this->enqueue_scripts();
+
+			$this->load_assets = true;
+
+			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_script_enqueue' ) );
+			remove_action( 'elementor/frontend/column/before_render', array( $this, 'check_script_enqueue' ) );
+			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
+		}
+
 	}
 }

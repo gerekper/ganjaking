@@ -41,7 +41,7 @@ class Premium_Color_Transition extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __( 'Background Transition', 'premium-addons-pro' ) );
+		return __( 'Background Transition', 'premium-addons-pro' );
 	}
 
 	/**
@@ -54,6 +54,20 @@ class Premium_Color_Transition extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'pa-pro-color-transition';
+	}
+
+	/**
+	 * Retrieve Widget Dependent CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array CSS style handles.
+	 */
+	public function get_style_depends() {
+		return array(
+			'premium-pro',
+		);
 	}
 
 	/**
@@ -102,7 +116,7 @@ class Premium_Color_Transition extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'color', 'scroll', 'background' );
+		return array( 'pa', 'premium', 'color', 'scroll', 'background' );
 	}
 
 	/**
@@ -122,12 +136,21 @@ class Premium_Color_Transition extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
 			'sections',
 			array(
 				'label' => __( 'Content', 'premium-addons-pro' ),
+			)
+		);
+
+		$this->add_control(
+			'offset_notice',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => __( 'Important: Please note that Offset option works only when Change Color As Gradient option is disabled.', 'premium-addons-pro' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
 
@@ -147,7 +170,7 @@ class Premium_Color_Transition extends Widget_Base {
 		$id_repeater->start_controls_tab(
 			'scroll_down',
 			array(
-				'label' => sprintf( '<i class="fa fa-arrow-down premium-editor-icon"></i>%s', __( 'Scroll Down', 'premium-addons-pro' ) ),
+				'label' => sprintf( '<i class="eicon-arrow-down premium-editor-icon"></i>%s', __( 'Scroll Down', 'premium-addons-pro' ) ),
 			)
 		);
 
@@ -179,6 +202,7 @@ class Premium_Color_Transition extends Widget_Base {
 				'label'       => __( 'Select Color', 'premium-addons-pro' ),
 				'type'        => Controls_Manager::COLOR,
 				'redner_type' => 'template',
+				'global'      => false,
 				'selectors'   => array(
 					'#premium-color-transition-{{ID}} {{CURRENT_ITEM}}[data-direction="down"], #premium-color-transition-{{ID}} {{CURRENT_ITEM}}[data-direction="up"]' => 'background: {{VALUE}}',
 				),
@@ -310,12 +334,40 @@ class Premium_Color_Transition extends Widget_Base {
 			)
 		);
 
+		$id_repeater->add_control(
+			'scroll_down_offset',
+			array(
+				'label'              => __( 'Offset', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
+					'top-in-view'    => __( 'Viewport Hits Top', 'premium-addons-pro' ),
+					'bottom-in-view' => __( 'Viewport Hits Bottom', 'premium-addons-pro' ),
+					'custom'         => __( 'Custom Offset', 'premium-addons-pro' ),
+				),
+				'label_block'        => true,
+				'frontend_available' => true,
+			)
+		);
+
+		$id_repeater->add_control(
+			'scroll_down_custom_offset',
+			array(
+				'label'              => __( 'Offset', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'size_units'         => array( 'px', '%' ),
+				'frontend_available' => true,
+				'condition'          => array(
+					'scroll_down_offset' => 'custom',
+				),
+			)
+		);
+
 		$id_repeater->end_controls_tab();
 
 		$id_repeater->start_controls_tab(
 			'scroll_up',
 			array(
-				'label' => sprintf( '<i class="fa fa-arrow-up premium-editor-icon"></i>%s', __( 'Scroll Up', 'premium-addons-pro' ) ),
+				'label' => sprintf( '<i class="eicon-arrow-up premium-editor-icon"></i>%s', __( 'Scroll Up', 'premium-addons-pro' ) ),
 			)
 		);
 
@@ -346,6 +398,7 @@ class Premium_Color_Transition extends Widget_Base {
 			array(
 				'label'     => __( 'Select Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
+				'global'    => false,
 				'selectors' => array(
 					'#premium-color-transition-{{ID}} {{CURRENT_ITEM}}[data-direction="up"]' => 'background: {{VALUE}}',
 				),
@@ -477,6 +530,34 @@ class Premium_Color_Transition extends Widget_Base {
 			)
 		);
 
+		$id_repeater->add_control(
+			'scroll_up_offset',
+			array(
+				'label'              => __( 'Offset', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SELECT,
+				'options'            => array(
+					'top-in-view'    => __( 'Viewport Hits Top', 'premium-addons-pro' ),
+					'bottom-in-view' => __( 'Viewport Hits Bottom ', 'premium-addons-pro' ),
+					'custom'         => __( 'Custom Offset', 'premium-addons-pro' ),
+				),
+				'label_block'        => true,
+				'frontend_available' => true,
+			)
+		);
+
+		$id_repeater->add_control(
+			'scroll_up_custom_offset',
+			array(
+				'label'              => __( 'Offset', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'size_units'         => array( 'px', '%' ),
+				'frontend_available' => true,
+				'condition'          => array(
+					'scroll_up_offset' => 'custom',
+				),
+			)
+		);
+
 		$id_repeater->end_controls_tab();
 
 		$id_repeater->end_controls_tabs();
@@ -484,10 +565,11 @@ class Premium_Color_Transition extends Widget_Base {
 		$this->add_control(
 			'id_repeater',
 			array(
-				'label'       => __( 'Elements', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $id_repeater->get_controls(),
-				'title_field' => '{{{ section_id }}}',
+				'label'              => __( 'Elements', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::REPEATER,
+				'fields'             => $id_repeater->get_controls(),
+				'title_field'        => '{{{ section_id }}}',
+				'frontend_available' => true,
 			)
 		);
 
@@ -503,11 +585,12 @@ class Premium_Color_Transition extends Widget_Base {
 		$this->add_control(
 			'gradient',
 			array(
-				'label'        => __( 'Change Colors As Gradient', 'premium-addons-pro' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'This option works if only solid colors are used', 'premium-addons-pro' ),
-				'return_value' => 'true',
-				'default'      => 'true',
+				'label'              => __( 'Change Colors As Gradient', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'This option works if only solid colors are used', 'premium-addons-pro' ),
+				'return_value'       => 'true',
+				'default'            => 'true',
+				'frontend_available' => true,
 			)
 		);
 
@@ -535,13 +618,14 @@ class Premium_Color_Transition extends Widget_Base {
 		$this->add_responsive_control(
 			'offset',
 			array(
-				'label'       => __( 'Offset (PX)', 'premium-addons-pro' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'Distance between the top of viewport and top of the element, default: 30', 'premium-addons-pro' ),
-				'default'     => 30,
-				'condition'   => array(
+				'label'              => __( 'Offset (PX)', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => __( 'Distance between the top of viewport and top of the element, default: 30', 'premium-addons-pro' ),
+				'default'            => 30,
+				'condition'          => array(
 					'gradient!' => 'true',
 				),
+				'frontend_available' => true,
 			)
 		);
 
@@ -550,7 +634,7 @@ class Premium_Color_Transition extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Helpful Documentations', 'premium-addons-pro' ),
 			)
 		);
 
@@ -560,7 +644,7 @@ class Premium_Color_Transition extends Widget_Base {
 			'doc_1',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-for-elementor' ) ),
+				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc1_url, __( 'Getting started »', 'premium-addons-pro' ) ),
 				'content_classes' => 'editor-pa-doc',
 			)
 		);
@@ -579,65 +663,7 @@ class Premium_Color_Transition extends Widget_Base {
 	 */
 	protected function render() {
 
-		$settings = $this->get_settings_for_display();
-
-		$repeater = $settings['id_repeater'];
-
-		$elements = array();
-
-		$down_colors = array();
-
-		$up_colors = array();
-
-		$items_ids = array();
-
-		foreach ( $repeater as $element ) {
-
-			array_push( $elements, $element['section_id'] );
-
-			array_push( $items_ids, $element['_id'] );
-
-			$element['down_background'] = $element['down_color'];
-
-			if ( 'image' === $element['scroll_down_type'] && ! empty( $element['down_image']['url'] ) ) {
-
-				$element['down_background'] = $element['down_image']['url'];
-
-			}
-
-			$element['up_background'] = $element['up_color'];
-
-			if ( 'image' === $element['scroll_up_type'] && ! empty( $element['up_image']['url'] ) ) {
-
-				$element['up_background'] = $element['up_image']['url'];
-
-			}
-
-			array_push( $down_colors, $element['down_background'] );
-
-			array_push( $up_colors, $element['up_background'] );
-
-		}
-
-		$widget_settings = array(
-			'elements'      => $elements,
-			'down_colors'   => $down_colors,
-			'up_colors'     => $up_colors,
-			'offset'        => $settings['offset'],
-			'offset_tablet' => $settings['offset_tablet'],
-			'offset_mobile' => $settings['offset_mobile'],
-			'itemsIDs'      => $items_ids,
-			'id'            => $this->get_id(),
-			'gradient'      => $settings['gradient'],
-		);
-
-		$this->add_render_attribute(
-			'container',
-			array(
-				'class'         => 'premium-scroll-background',
-				'data-settings' => wp_json_encode( $widget_settings ),
-			)
-		);
+		$this->add_render_attribute( 'container', 'class', 'premium-scroll-background' );
 
 		?>
 

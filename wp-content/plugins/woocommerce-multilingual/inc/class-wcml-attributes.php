@@ -608,15 +608,9 @@ class WCML_Attributes {
 					$values_arrs    = array_map( 'trim', explode( '|', $original_product_attr[ $tax ]['value'] ) );
 					$values_arrs_tr = array_map( 'trim', explode( '|', $tr_product_attr[ $tax ]['value'] ) );
 
-					foreach ( $values_arrs as $key => $value ) {
-						$value_sanitized = sanitize_title( $value );
-						if (
-							( $value_sanitized == strtolower( urldecode( $meta_value ) ) ||
-							  strtolower( $value_sanitized ) == $meta_value ||
-							  $value == $meta_value )
-							&& isset( $values_arrs_tr[ $key ] ) ) {
-							$meta_value = $values_arrs_tr[ $key ];
-						}
+					$position = array_search( $meta_value, $values_arrs, true );
+					if ( ( false !== $position ) && isset( $values_arrs_tr[ $position ] )) {
+						$meta_value = $values_arrs_tr[ $position ];
 					}
 				}
 			}

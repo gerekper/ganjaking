@@ -769,7 +769,6 @@ class WC_Dropshipping_CSV_Import {
 		}
 
 		return $row;
-
 	}
 
 	public function woo_dropship_supplier_report( $dropreports ) {
@@ -794,5 +793,4 @@ class WC_Dropshipping_CSV_Import {
 		$report = new WC_Report_Sales_By_Supplier();
 		$report->output_report();
 	}
-
 }

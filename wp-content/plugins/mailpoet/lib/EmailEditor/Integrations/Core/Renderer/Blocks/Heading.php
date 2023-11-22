@@ -6,11 +6,10 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\EmailEditor\Engine\Renderer\BlockRenderer;
-use MailPoet\EmailEditor\Engine\Renderer\BlocksRenderer;
-use MailPoet\EmailEditor\Engine\StylesController;
+use MailPoet\EmailEditor\Engine\SettingsController;
 
 class Heading implements BlockRenderer {
-  public function render($parsedBlock, BlocksRenderer $blocksRenderer, StylesController $stylesController): string {
-    return $parsedBlock['innerHTML'] ?? '';
+  public function render($blockContent, array $parsedBlock, SettingsController $settingsController): string {
+    return $blockContent;
   }
 }

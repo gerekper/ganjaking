@@ -155,7 +155,7 @@ class WCML_YIKES_Custom_Product_Tabs implements \IWPML_Action {
 	 * @return array
 	 */
 	private function get_product_tabs( $product_id ) {
-		return (array) get_post_meta( $product_id, self::CUSTOM_TABS_FIELD, true );
+		return (array) maybe_unserialize( get_post_meta( $product_id, self::CUSTOM_TABS_FIELD, true ) );
 	}
 
 

@@ -1,5 +1,9 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2023.11.17 - version 3.2.1
+ * Misc - Add admin notice to help merchants reverting to the checkout shortcode if the checkout block is used
+ * Localization - Improve the plugin localization of components that are part of the underlying framework dependency
+
 2023.07.25 - version 3.2.0
  * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 

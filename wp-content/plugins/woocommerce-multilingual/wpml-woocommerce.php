@@ -7,11 +7,11 @@
  * Author URI: http://www.onthegosystems.com/
  * Text Domain: woocommerce-multilingual
  * Requires at least: 4.7
- * Tested up to: 6.3.1
- * Version: 5.2.1
+ * Tested up to: 6.4
+ * Version: 5.3.0
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.9
- * WC tested up to: 8.2
+ * WC tested up to: 8.3
  *
  * @package WCML
  * @author  OnTheGoSystems
@@ -37,7 +37,7 @@ if ( ! $wpml_php_version_check->is_ok() ) {
 	return;
 }
 
-define( 'WCML_VERSION', '5.2.1' );
+define( 'WCML_VERSION', '5.3.0' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -104,6 +104,7 @@ function wcml_loader() {
 		\WCML\AdminNotices\Review::class,
 		\WCML\Multicurrency\UI\Factory::class,
 		\WCML\PaymentGateways\Hooks::class,
+		\WCML\PaymentGateways\BlockHooksFactory::class,
 		\WCML\CLI\Hooks::class,
 		\WCML\Reports\Hooks::class,
 		\WCML\Reports\Products\Query::class,
@@ -112,7 +113,6 @@ function wcml_loader() {
 		\WCML\Reports\Categories\Query::class,
 		\WCML\Reports\Orders\Hooks::class,
 		\WCML\Multicurrency\Analytics\Factory::class,
-		\WCML\Multicurrency\Analytics\Export::class,
 		\WCML\Setup\BeforeHooks::class,
 		\WCML\AdminNotices\MultiCurrencyMissing::class,
 		\WCML\Products\Hooks::class,
@@ -124,8 +124,11 @@ function wcml_loader() {
 		\WCML\Rest\Store\HooksFactory::class,
 		\WCML\Importer\Products::class,
 		\WCML\COT\Hooks::class,
-		\WCML\COT\Notice::class,
 		\WCML\DisplayAsTranslated\FrontendHooksFactory::class,
+		\WCML\OrderNotes\Hooks::class,
+		\WCML\User\Hooks::class,
+		\WCML\Exporter\AllLanguagesHooks::class,
+		\WCML\Exporter\AttributeHeadersHooks::class,
 	];
 
 	if (

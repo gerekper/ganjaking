@@ -20,7 +20,7 @@ class ajde_wp_admin{
 		function _print_date_picker_values(){	EVO()->elements->_print_date_picker_values();	}
 
 	// icon selector
-		function icons(){	return EVO()->elements->icons();		}
+		function icons(){	return EVO()->elements->get_icon_html();		}
 		function get_font_icons_data(){	return EVO()->elements->get_font_icons_data();	}
 
 	// wp admin tables

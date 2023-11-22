@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
+use com\itthinx\woocommerce\search\engine\Filter_Renderer;
+use com\itthinx\woocommerce\search\engine\Query_Control;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 if ( !function_exists( 'woocommerce_product_search_filter_stock' ) ) {
@@ -41,10 +44,14 @@ if ( !function_exists( 'woocommerce_product_search_filter_stock' ) ) {
 /**
  * Stock filter.
  */
-class WooCommerce_Product_Search_Filter_Stock {
+class WooCommerce_Product_Search_Filter_Stock extends Filter_Renderer {
 
 	const CACHE_GROUP = 'ixwpsstock';
-	const CACHE_EXPIRE = 3600;
+
+	/**
+	 * @var int
+	 */
+	const DATA_CACHE_LIFETIME = 3600;
 
 	private static $instances = 0;
 
@@ -110,7 +117,10 @@ class WooCommerce_Product_Search_Filter_Stock {
 	 *
 	 * @return string|mixed
 	 */
-	public static function render( $atts = array(), &$results = null) {
+	public static function render( $atts = array(), &$results = null ) {
+
+		global $wp_query;
+
 		self::load_resources();
 
 		$atts = shortcode_atts(
@@ -132,12 +142,53 @@ class WooCommerce_Product_Search_Filter_Stock {
 			$atts
 		);
 
+		$shop_only = strtolower( $atts['shop_only'] );
+		$shop_only = in_array( $shop_only, array( 'true', 'yes', '1' ) );
+		if ( $shop_only && !woocommerce_product_search_is_shop() ) {
+			return '';
+		}
+
+		$has_in_stock_only = strtolower( $atts['has_in_stock_only'] );
+		$has_in_stock_only = in_array( $has_in_stock_only, array( 'true', 'yes', '1' ) );
+		if ( $has_in_stock_only ) {
+			$counts = self::get_stock_counts();
+			if ( $counts['instock'] + $counts['onbackorder'] <= 0 ) {
+				return '';
+			}
+		}
+
 		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-stock-%d', $n );
 		$heading_class   = 'product-search-filter-stock-heading product-search-filter-extras-heading';
 		$heading_id      = sprintf( 'product-search-filter-stock-heading-%d', $n );
 		$containers      = array();
+
+		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
+		if ( $render_cache ) {
+			$query_control = new Query_Control();
+			if ( isset( $wp_query ) && $wp_query->is_main_query() ) {
+				$query_control->set_query( $wp_query );
+			}
+			$request_parameters = $query_control->get_request_parameters();
+			unset( $query_control );
+			$cache = Cache::get_instance();
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$data = $cache->get( $cache_key, __CLASS__ );
+			if ( $data !== null ) {
+
+				foreach ( $data['inline_scripts'] as $script_data ) {
+					wp_add_inline_script( $script_data['handle'], $script_data['inline_script'] );
+				}
+				WooCommerce_Product_Search_Filter::filter_added();
+				self::$instances++;
+				return $data['output'];
+			}
+			$data = array(
+				'output'         => '',
+				'inline_scripts' => array()
+			);
+		}
 
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 			$atts['heading']  = _x( 'Stock', 'product filter stock heading', 'woocommerce-product-search' );
@@ -192,10 +243,6 @@ class WooCommerce_Product_Search_Filter_Stock {
 			}
 		}
 
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
-		}
-
 		if ( !empty( $containers['container_class'] ) ) {
 			$container_class = $containers['container_class'];
 		}
@@ -210,13 +257,6 @@ class WooCommerce_Product_Search_Filter_Stock {
 		}
 
 		$in_stock = isset( $_REQUEST['in_stock'] ) ? boolval( $_REQUEST['in_stock'] ) : false;
-
-		if ( $params['has_in_stock_only'] ) {
-			$counts = self::get_stock_counts();
-			if ( $counts['instock'] + $counts['onbackorder'] <= 0 ) {
-				return '';
-			}
-		}
 
 		$output = apply_filters(
 			'woocommerce_product_search_filter_stock_prefix',
@@ -297,6 +337,11 @@ class WooCommerce_Product_Search_Filter_Stock {
 
 		WooCommerce_Product_Search_Filter::filter_added();
 
+		if ( $render_cache ) {
+			$data['output'] = $output;
+			$cache->set( $cache_key, $data, __CLASS__, self::get_render_cache_lifetime() );
+		}
+
 		self::$instances++;
 
 		return $output;
@@ -311,8 +356,9 @@ class WooCommerce_Product_Search_Filter_Stock {
 
 		global $wpdb;
 
-		$counts = wp_cache_get( 'stock_counts', self::CACHE_GROUP );
-		if ( $counts === false ) {
+		$cache = Cache::get_instance();
+		$counts = $cache->get( 'stock_counts', self::CACHE_GROUP );
+		if ( $counts === null ) {
 			$counts = array( 'instock' => 0, 'outofstock' => 0, 'onbackorder' => 0 );
 			if ( property_exists( $wpdb, 'wc_product_meta_lookup' ) ) {
 				$stock_status_counts = $wpdb->get_results( "SELECT count(stock_status) AS count, stock_status FROM $wpdb->wc_product_meta_lookup GROUP BY stock_status" );
@@ -339,11 +385,7 @@ class WooCommerce_Product_Search_Filter_Stock {
 					$counts[$key] = max( 0, intval( $_counts[$key] ) );
 				}
 			}
-			$expire = intval( apply_filters( 'woocommerce_product_search_filter_stock_stock_counts_cache_expire', self::CACHE_EXPIRE ) );
-			if ( $expire < 0 ) {
-				$expire = 0;
-			}
-			$cached = wp_cache_set( 'stock_counts', $counts, self::CACHE_GROUP, $expire );
+			$cache->set( 'stock_counts', $counts, self::CACHE_GROUP, self::get_data_cache_lifetime() );
 		}
 		return $counts;
 	}

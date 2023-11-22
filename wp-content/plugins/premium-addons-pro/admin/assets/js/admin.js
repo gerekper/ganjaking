@@ -4,9 +4,15 @@
 
 	var settings = premiumProAddonsSettings.settings;
 
-	$('form#pa-white-label').on('submit', function (e) {
+	$('#pa-white-label input').on('change input', function (e) {
 
 		e.preventDefault();
+
+		handleSaveSettings();
+
+	});
+
+	function handleSaveSettings() {
 
 		if ('valid' === settings.status) {
 
@@ -20,15 +26,8 @@
 				},
 				success: function (response) {
 
-					console.log(response);
+					console.log("saved");
 
-					Swal.fire({
-						type: 'success',
-						title: 'Settings Saved!',
-						footer: 'Have Fun :-)',
-						showConfirmButton: false,
-						timer: 2000
-					});
 				},
 				error: function (err) {
 
@@ -48,6 +47,7 @@
 				html: 'Please activate <a href="' + settings.adminurl + "/admin.php?page=premium-addons#tab=license" + '">Premium Addons License</a> to use white labeling option',
 			});
 		}
-	});
+
+	}
 
 })(jQuery);

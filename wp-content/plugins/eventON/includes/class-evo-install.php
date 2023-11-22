@@ -90,7 +90,7 @@ class evo_install {
 	}
 
 	// check updates on remote
-		function check_updates(){
+		public static function check_updates(){
 			EVO_Prods()->get_remote_prods_data();
 		}
 

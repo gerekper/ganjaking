@@ -22,7 +22,7 @@
  */
 
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Plugin;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

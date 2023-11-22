@@ -1,14 +1,5 @@
 Weekly View (WV) addon for EventON Plugin
 ====================================
-v 2.0.2 (2023-9-19)
-FIXED: weeklyview initiation code updates
-
-v 2.0.1 (2023-6-20)
-FIXED: various rtl elements
-FIXED: hour and minutes set to 0 for start of week
-FIXED: minor layout and design issues
-FIXED: EventON 4.4 compatibility
-
 v 2.0 (2021-10-25)
 ADDED: preloader animation for week grid
 ADDED: compatibility with cal_init_nonajax='yes'

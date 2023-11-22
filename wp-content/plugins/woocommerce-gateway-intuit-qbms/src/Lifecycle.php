@@ -27,7 +27,7 @@ namespace SkyVerge\WooCommerce\Intuit;
 defined( 'ABSPATH' ) or exit;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 use WC_Intuit_Payments;
 
 /**

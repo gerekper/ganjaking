@@ -30,13 +30,13 @@ class SettingsController {
   public function __construct(
     SettingsRepository $settingsRepository
   ) {
+    global $wpdb;
+if( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}mailpoet_settings'" ) === $wpdb->prefix . 'mailpoet_settings' ) {
+$this->set( 'mta.mailpoet_api_key', '**********' );
+$this->set( 'mta.mailpoet_api_key_state', [ 'state' => 'valid', 'data' => [ 'is_approved' => 'true' ], 'code' => 200 ] );
+$this->set( 'premium.premium_key', '**********' ); $this->set( 'premium.premium_key_state', 'valid' );
+}
     $this->settingsRepository = $settingsRepository;
-   global $wpdb;
-    if( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}mailpoet_settings'" ) === $wpdb->prefix . 'mailpoet_settings' ) {
-    $this->set( 'mta.mailpoet_api_key', '**********' );
-    $this->set( 'mta.mailpoet_api_key_state', [ 'state' => 'valid', 'data' => [ 'is_approved' => 'true' ], 'code' => 200 ] );
-    $this->set( 'premium.premium_key', '**********' ); $this->set( 'premium.premium_key_state', 'valid' );
-    }
   }
 
   public function get($key, $default = null) {
@@ -131,6 +131,17 @@ class SettingsController {
       $this->settingsRepository->flush();
     }
     unset($this->settings[$key]);
+  }
+
+  /**
+   * Returns true if a value is stored in the database for the given key
+   *
+   * @param string $key
+   *
+   * @return bool
+   */
+  public function hasSavedValue(string $key): bool {
+    return $this->get($key, 'unset') !== 'unset';
   }
 
   private function ensureLoaded() {

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -28,9 +28,10 @@ defined( 'ABSPATH' ) or exit;
  *
  * @type string $email_heading Email heading
  * @type string $email_body Email body
+ * @type string $additional_content Additional content to be added to the email
  * @type \WC_Memberships_User_Membership $user_membership User Membership
  *
- * @version 1.12.0
+ * @version 1.25.0
  * @since 1.12.0
  */
 
@@ -41,5 +42,9 @@ echo "----------\n\n";
 echo wptexturize( $email_body );
 
 echo "----------\n\n";
+
+if ( $additional_content ) {
+	echo wptexturize( $additional_content ) . "\n\n";
+}
 
 echo (string) apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text', '' ) );

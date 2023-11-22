@@ -139,11 +139,6 @@ class woocommerce_wpml {
 		do_action( 'wcml_loaded' );
 	}
 
-	/**
-	 * Init class
-	 *
-	 * @return bool
-	 */
 	public function init() {
 		global $wpdb, $woocommerce, $wpml_url_converter, $wpml_post_translations, $wpml_term_translations;
 
@@ -164,7 +159,7 @@ class woocommerce_wpml {
 				WCML_Resources::load_tooltip_resources();
 			}
 
-			return false;
+			return;
 		}
 
 		new WCML_Upgrade();

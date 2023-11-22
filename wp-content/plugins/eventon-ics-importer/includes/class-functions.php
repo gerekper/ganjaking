@@ -4,24 +4,57 @@
  * @version 2.0
  */
 
+use om\IcalParser;
+
 class EVOICS_Fnc{
+	public $options;
 	function __construct(){		
 		$this->options = get_option('evcal_options_evoics_1');
 		EVO()->cal->load_more('evoics_1', 'evcal_options_', $this->options);
 	}
 
 // ICS event functions
-	function get_events_from_ics($file){
+	public static function get_events_from_ics($file, $file_content = ''){
+		require_once 'lib/EventsList.php';
 		require_once 'lib/IcalParser.php';
 		require_once 'lib/Recurrence.php';
 		require_once 'lib/WindowsTimezones.php';
 		require_once 'lib/Freq.php';
-		$cal = new \om\IcalParser();
-		$results = $cal->parseFile($file);
-		$A = $cal->getSortedEvents();
-
-		return $cal->getSortedEvents();
 		
+
+		$cal = new IcalParser();
+		
+		$results = $cal->parseFile( $file , $file_content);
+
+		//return $results;
+		
+		return $cal->getEvents()->sorted();
+		
+	}
+
+// remote get ICS file events
+	public static function _get_ics_file_content($file_url){		
+		$response = wp_remote_get($file_url);
+
+		if ( ( !is_wp_error($response)) && 200 === wp_remote_retrieve_response_code( $response ) && isset($response['body']) ){
+			return $response['body'];
+			
+		}else{
+			return false;
+		}
+	}
+	public static function _get_remote_events( ){
+		$file_url = EVO()->cal->get_prop('evoics_file_url','evoics_1');
+
+		if( !$file_url) return 'no_file';
+
+		// get file content from remote URL
+			$file_content = self::_get_ics_file_content( $file_url );
+
+			if ( !$file_content ) return 'no_remote';
+
+		// get events from ICS file
+			return self::get_events_from_ics( $file_url, $file_content );
 	}
 
 	
@@ -63,13 +96,182 @@ class EVOICS_Fnc{
 		}		
 	}
 
+// display imported events
+	public function print_imported_events( $events){
+
+		$COUNT = count($events);
+
+		if($COUNT==0)
+			echo "<p style='padding:4px 10px; background-color:#F9E5E1'>".__('IMPORTANT! We could not process any events from the ICS file provided by you. Either the ICS file is not properly built or you have no items in the ICS file. Please make sure you have constructed the ICS file according the the guidelines.','evoics')."</p>";
+
+		if($COUNT==0) return false;
+
+		echo "<h2>".__('Verify Processed Events & Import','evoics')."</h2>";
+		echo "<p><i>".__('Please look through the events processed from the uploaded ICS file and select the ones you want to import into your website calendar.','evoics'). "</i></p>";
+
+		// timeone passed
+			if( isset($events[0]['DTSTART'])){
+				$date = $events[0]['DTSTART'];
+				//print_r($date);
+
+				$tz = $this->get_set_timezone( $date->format('e') );
+				
+				echo "<p>Timezone for Imported Events: <b>". $tz . '</b></p>';
+			}
+		
+		echo "<p>Total Processed Events from ICS file: <b>". $COUNT .'</b></p>';
+
+		echo "<div class='evoics_data_section'>
+
+			<p id='select_row_options'>
+				<span class='evoics_sel_desel_trig checked'><i class='fa fa-check'></i></span>
+				<input id='evoics_import_selected' style='display:none; float:right' type='submit' class='btn_prime evo_admin_btn' value='".__('Import Selected Events','evoics')."'/>
+				<a id='evoics_import_selected_items' class='btn_prime evo_admin_btn'><span></span>".__('IMPORT','evoics')."</a>";
+
+				EVO()->elements->print_trigger_element(array(
+					'uid'=>'evoics_get_more_import_opt',
+					'title'=>'...',
+					'sp_title'=>'More Options',
+					'ajax'=>'yes',
+					'ajax_data'=>array(
+						'action'=>'evoics_more_options'
+					)
+				),'trig_sp');
+				
+			echo "</p>";
+
+			echo "<div id='evoics_import_progress' style='display:none'>
+				<p class='bar'><span></span></p>
+				<p class='text'><em class='processed'>0</em> out of <i>".$COUNT."</i> processed. <b class='loading'></b>
+					<span class='failed' style='display:none'><em></em> ".__('Failed','evoics')."</span>
+					<span class='skipped' style='display:none'><em></em> ".__('Skipped','evoics')."</span>
+				</p>					
+			</div>
+
+			<div id='evoics_import_results' style='display:none'>
+				<p class='results'><b></b>".__('Import completed','evoics')."!</p>
+
+				<p class='results_stats'>
+					<span class='good'>Imported<em>0</em></span> 
+					<span class='skipped'>Skipped<em>0</em></span>
+					<span class='bad'>Failed<em>0</em></span>
+				</p>
+				<p><a class='view_imported_events' href='".admin_url()."edit.php?post_type=ajde_events'>View all imported events</a></p>
+			</div>
+
+			<p id='evoics_import_errors' style='display:none'>Error</p>
+		
+		<div id='evoics_fetched_events'>";
+			settings_fields('eventon_ics_field_grp'); 
+			wp_nonce_field( EVOICS()->plugin_path, 'eventon_ics_noncename' );
+
+
+		EVO()->elements->start_table_header('evoics_events', 
+			array(
+				'status'=>__('Status','evoics'),
+				'event_name'=>__('Event Name','evoics'),
+				'description'=>__('Description','evoics'),
+				'start_date_time'=>__('Start Date & Time','evoics'),
+				'end_date_time'=>__('End Date & Time','evoics'),
+				'location'=>__('Location','evoics')
+			), 
+			array(
+				'width'=>array(		)
+			)
+		);
+
+		$process_events = $this->process_fetched_events($events);
+		//print_r($process_events);
+
+		// for each fetched events
+		foreach($process_events as $index=>$event){
+
+			// skip the events without status
+			if(!isset($event['status'])) continue;
+
+			// event times
+			$startTime = $event['evcal_allday']=='yes'?'All Day': $event['event_start_time'];
+			$endTime = $event['evcal_allday']=='yes'?'All Day': $event['event_end_time'];
+
+			// description
+				$desc = false; $tooltip_description = '';
+				if( !empty($event['DESCRIPTION']) && strlen( $event['DESCRIPTION'] ) > 3){
+					$desc = true;
+					$tooltip_description = eventon_get_normal_excerpt( $event['DESCRIPTION'] ,50) ."...";
+				}
+
+			// Location
+				$loc = !empty($event['LOCATION']) ? true : false;
+
+			$hidden_fields = '';
+			$status = isset($event['status']) ? $event['status'] : 'ss';
+			EVO()->elements->table_row(
+				array(						
+					'status'=> $this->hidden_fields($event, $index). 
+						"<input class='input_status evoics_event_data_row' type='hidden' name='events[{$index}][status]' value='". $status."'/>".
+						"<span class='status ".$status. ($status =='as'?' ss':'') . "' title='". ($event['status']=='as'? 'Already Synced':'Selected'). "'></span>",
+					'event_name'=> "<span>".$event['event_name']."</span>",
+					'description'=> "<span class='desc_box tt_data'><span class='description ".( $desc ? 'check ajdeToolTip':'bar')."' data-d='{$tooltip_description}'></span></span>",
+					'start_date_time'=> '<span class="event_start_date" data-i="'.$index.'">' .$event['event_start_date']."</span><span class='event_start_time' data-i='".$index."'>".$startTime .'</span>',
+					'end_date_time'=> "<span class='event_end_date' data-i='".$index."'>". $event['event_end_date']."</span><span class='event_end_time' data-i='".$index."'>".$endTime .'</span>',
+					'location'=> "<span class='".( $loc ?'check ajdeToolTip':'bar')." eventon_ics_icons' data-d='".($loc? $event['LOCATION']:'')."'></span>"
+				),
+				array(
+					'tr_classes'=> array($status, ($status=='as'?'ss':''))
+				)
+			);
+		}	
+
+		EVO()->elements->table_footer();
+
+		echo "</div>";
+		echo "</div>";
+	}
+
+	// throw input and textfields hidden fields
+		function hidden_fields($ics_data, $count){	
+			
+			// for input that need to appear as textarea field 
+			$textarea_fields = apply_filters('evoics_hidden_field_textarea',array('event_description'));
+			
+			$output = '';
+			foreach($this->get_all_fields() as $field){
+				if(empty( $ics_data[$field])) continue;
+
+				if(in_array($field, $textarea_fields)){
+
+					$f_val = '';
+					if(!empty($ics_data[$field]) ){
+						$f_val = $ics_data[$field];
+						$f_val = str_replace('\n', '<br/>', $f_val);
+						$f_val = stripslashes($f_val);
+					}
+
+					$output .= "<textarea class='evoics_event_data_row {$field}' style='display:none' name='events[{$count}][{$field}]'>". $f_val ."</textarea>";
+				}else{
+					$output .= "<input class='evoics_event_data_row {$field}' type='hidden' name='events[{$count}][{$field}]' ". 'value="'. ( addslashes($ics_data[$field]) ).'"/>';
+				}	
+			}
+
+			// extra hidden fields
+			foreach( apply_filters('evoics_hidden_field_extra', 
+				array('repeat_freq','repeat_gap','repeat_num','repeat_until') ) 
+				as $field){
+				if(empty( $ics_data[$field])) continue;
+
+				$output .= "<input class='evoics_event_data_row' type='hidden' name='events[{$count}][{$field}]' ". 'value="'. ( addslashes($ics_data[$field]) ).'"/>';
+			}
+
+			return $output;
+		}
+
 
 // Create the event post */
 	function create_post($data) {
 		
 		// if duplication check enabled check for existing events with same name
 		if(evo_settings_check_yn($this->options,'EVOICS_dupli_check')){
-			if( $R = $this->event_exists( 'name', $data['event_name'] ) ){
+			if( $R = $this->event_exists($data['event_name'], 'name' ) ){
 				return $R['ID'];
 			}
 		}
@@ -91,7 +293,7 @@ class EVOICS_Fnc{
     }
 
     // check if event exists by event id or name
-	    function event_exists($type = 'id', $val){
+	    function event_exists($val, $type = 'id'){
 			global $wpdb;
 
 			if($type == 'id'){
@@ -116,51 +318,53 @@ class EVOICS_Fnc{
 	    }
 // save custom meta fields
 	function save_event_post_data($post_id,$post_data){
-		global $evoics;
-	 	
+		
+		$PD = $post_data;
+
 	 	// for all fields
-	 	foreach($this->get_all_fields() as $fieldvar=>$field){
+		 	foreach($this->get_all_fields() as $fieldvar=>$field){
 
-	 		// for empty values
-	 		if(empty($post_data[$field])) continue;
+		 		// for empty values
+		 		if(empty($post_data[$field])) continue;
 
-	 		// adjust array field value
-	 		$fieldvar = (is_numeric($fieldvar))? $field: $fieldvar;
-	 		//$value = addslashes(htmlspecialchars_decode($post_data[$field]) );	
-	 		$value = addslashes(html_entity_decode($post_data[$field]) );	
+		 		// adjust array field value
+		 		$fieldvar = (is_numeric($fieldvar))? $field: $fieldvar;
+		 		//$value = addslashes(htmlspecialchars_decode($post_data[$field]) );	
+		 		$value = addslashes(html_entity_decode($post_data[$field]) );	
 
-	 		$fieldSaved = false;		 		
+		 		$fieldSaved = false;		 		
 
-	 		// skip fields
-	 		if(in_array($field, apply_filters('evoics_skipped_save_fields',array(
-	 			'event_description',
-	 			'event_name',
-	 			'event_start_date',
-	 			'event_start_time',
-	 			'event_end_date',
-	 			'event_end_time', 
-	 			'evcal_location_name',
-	 			'UID'
-	 		) 
-	 		))) continue;
+		 		// skip fields
+		 		if(in_array($field, apply_filters('evoics_skipped_save_fields',array(
+		 			'event_description',
+		 			'event_name',
+		 			'event_start_date',
+		 			'event_start_time',
+		 			'event_end_date',
+		 			'event_end_time', 
+		 			'evcal_location_name',
+		 			'UID',
+		 			'time_adds'
+		 		) 
+		 		))) continue;
 
-	 		// yes no fields
-	 		if(in_array($field, array('all_day'))){
-	 			$value = strtolower($value);
-	 			$this->create_custom_fields($post_id, $fieldvar, $value);	
-				$fieldSaved = true;
-	 		}
+		 		// yes no fields
+		 		if(in_array($field, array('all_day'))){
+		 			$value = strtolower($value);
+		 			$this->create_custom_fields($post_id, $fieldvar, $value);	
+					$fieldSaved = true;
+		 		}
 
-	 		// save non saved fields as post type meta
-	 		if(!$fieldSaved){
-	 			$this->create_custom_fields($post_id, $fieldvar, $value);
-	 		}
+		 		// save non saved fields as post type meta
+		 		if(!$fieldSaved){
+		 			$this->create_custom_fields($post_id, $fieldvar, $value);
+		 		}
 
-	 		// pluggable hook
-	 		do_action('evoics_save_event_custom_data', $post_id, $post_data, $field);
+		 		// pluggable hook
+		 		do_action('evoics_save_event_custom_data', $post_id, $PD, $field);
 
-	 	} // endforeach
-	 	
+		 	} // endforeach
+		 	
 	 	// save event date and time information
 	 		if(isset($post_data['event_start_date'])&& isset($post_data['event_end_date']) ){
 				$start_time = !empty($post_data['event_start_time'])?
@@ -182,6 +386,12 @@ class EVOICS_Fnc{
 				);
 				
 				$proper_time = eventon_get_unix_time($date_array, 'm/d/Y');
+
+				// if change event times
+					if( isset($PD['time_adds']) && $PD['time_adds'] != '0'){
+						$proper_time['unix_start'] += ( (int)$PD['time_adds'] * 60 ); 
+						$proper_time['unix_end'] += ( (int)$PD['time_adds'] * 60 ); 
+					}
 				
 				// save required start time variables
 				$this->create_custom_fields($post_id, 'evcal_srow', $proper_time['unix_start']);
@@ -199,8 +409,6 @@ class EVOICS_Fnc{
 			if(isset( $post_data['repeat_num'])){
 				$this->create_custom_fields($post_id, 'evcal_rep_num', (int)$post_data['repeat_num'] );
 			}
-
-
 	
 	 	// event location fields
 	 		if( !empty($post_data['evcal_location_name']) ){
@@ -253,10 +461,8 @@ class EVOICS_Fnc{
 	 		do_action('evoics_save_additional_data', $post_id, $post_data);
 	}
 
-
-
 // process fetched event data
-	function process_fetched_events($events_array){
+	public function process_fetched_events($events_array){
 		if(sizeof($events_array)==0) return false;
 
 		$imported_events = $this->get_imported_event_ids();
@@ -267,6 +473,11 @@ class EVOICS_Fnc{
 		foreach($events_array as $index=>$event){
 
 			$data[$index] = $this->process_fetched_data($event);
+
+			$data[$index]['status'] = 'ss';
+			$data[$index]['_evcal_exlink_option'] = '1';
+			$data[$index]['evo_hide_endtime'] = 'no';
+			$data[$index]['time_adds'] = '-';
 
 			// event Unique ID
 				$event_uid = false;
@@ -282,10 +493,10 @@ class EVOICS_Fnc{
 						continue;
 				}
 
-			// status
+			// status update
 			if(is_array($imported_events) && in_array($event_uid, $imported_events)){
 				$site_event_id = array_search($event_uid, $imported_events);
-				$data[$index]['status'] = 'as';
+				$data[$index]['status'] = 'as';// already saved
 				$data[$index]['imported_event_id'] = $site_event_id;
 			}else{
 				$data[$index]['status'] = 'ss';
@@ -301,14 +512,42 @@ class EVOICS_Fnc{
 		return $data;
 	}
 
+	// get the timezone to use for everything on ICS files @2.0
+	public function get_set_timezone($default = 'UTC'){
+		EVO()->cal->set_cur('evoics_1');
+		$timezone_method = EVO()->cal->get_prop('evoics_timezone_method','evoics_1');
+
+		// check if default is valid option
+		if( !in_array($default, DateTimeZone::listIdentifiers() )) $default = 'UTC';
+
+		// using custom timezone
+		if( EVO()->cal->check_yn('evoics_custom_tz','evoics_1') ){
+			$tz = EVO()->cal->get_prop('evoics_custom_tz_val');
+			return $tz ? $tz : 'UTC';
+		}else{
+			if($timezone_method =='wp' ){
+				$WPtimezone = get_option( 'timezone_string');
+				return empty($WPtimezone)? $default :$WPtimezone;				
+			// use UTC 0 
+			}elseif($timezone_method =='utc' ){
+				return 'UTC';
+			// use tz from file
+			}else{
+				return $default;
+			}
+		}				
+	}
+
 	function process_fetched_data($ics_data){
 
 		//print_r($ics_data);
 		// defaults
 			$ics_data['evcal_allday'] ='no';
-			
-			$timezone_method = evo_settings_check_yn($this->options,'evoics_timezone_method');
-			$alldayADJ = evo_settings_check_yn($this->options,'EVOICS_auto_allday_dis');
+				
+			$tz_string = $this->get_set_timezone();
+
+			$alldayADJ = EVO()->cal->get_prop('EVOICS_auto_allday_dis','evoics_1');
+
 			$WPtimezone = get_option( 'timezone_string');
 				$WPtimezone = (empty($WPtimezone)? false:$WPtimezone );
 
@@ -316,14 +555,8 @@ class EVOICS_Fnc{
 			if(!empty($ics_data['DTSTART'])){
 
 				$dt = $ics_data['DTSTART'];
-
-				// alternate timezones
-				if($timezone_method =='wp' && $WPtimezone){
-					$dt->setTimeZone( new DateTimezone($WPtimezone) );				
-				}elseif($timezone_method =='utc' ){
-					$dt->setTimeZone( new DateTimezone( 'UTC') );
-				}
-
+				
+				$dt->setTimeZone( new DateTimezone( $tz_string ) );
 				
 				$event_start_date_val= $dt->format('m/d/Y');
 				$event_start_time_val= $dt->format('g:i:a');
@@ -338,12 +571,7 @@ class EVOICS_Fnc{
 			if(!empty($ics_data['DTEND'])){
 				$dt = $ics_data['DTEND'];
 				
-				// alternate timezones
-				if($timezone_method =='wp' && $WPtimezone){
-					$dt->setTimeZone( new DateTimezone($WPtimezone) );
-				}elseif($timezone_method =='utc' ){
-					$dt->setTimeZone( new DateTimezone( 'UTC') );
-				}
+				$dt->setTimeZone( new DateTimezone( $tz_string ) );
 
 				$event_end_date_val = $dt->format('m/d/Y');
 				$event_end_time_val = $dt->format('g:i:a');
@@ -365,12 +593,7 @@ class EVOICS_Fnc{
 				if( isset($ics_data['RRULE']['UNTIL'] )){
 					$dt = $ics_data['RRULE']['UNTIL'];
 
-					// alternate timezones
-					if($timezone_method =='wp' && $WPtimezone){
-						$dt->setTimeZone( new DateTimezone($WPtimezone) );
-					}elseif($timezone_method =='utc' ){
-						$dt->setTimeZone( new DateTimezone( 'UTC') );
-					}
+					$dt->setTimeZone( new DateTimezone( $tz_string ) );
 
 					$ics_data['repeat_until'] = $dt->format('U');
 				}
@@ -416,51 +639,6 @@ class EVOICS_Fnc{
 		return $ics_data;
 	}
 
-// upload a file
-	function upload_file($url, $event_name='', $file_type='image'){
-    	if($file_type =='image'){
-    		$preg = '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i';
-    		$desc="Featured image for '$event_name'";
-    	}else{
-    		$preg = '/[^\?]+\.(ics)\b/i';
-    		$desc="ICS File for importing events on ". date('Y-m-d', time());
-    	}
-
-		if(empty($url))	return false;
-
-    	// Download file to temp location
-	      $tmp = download_url( $url );
-
-	      // Set variables for storage
-	      $preg = preg_match( $preg, $url, $matches );
-
-	      if(!$preg) return false;
-
-	      $file_array['name'] = basename($matches[0]);
-	      $file_array['tmp_name'] = $tmp;
-
-	      // If error storing temporarily, unlink
-	      if ( is_wp_error( $tmp ) ) {
-	         @unlink($file_array['tmp_name']);
-	         $file_array['tmp_name'] = '';
-	      }
-
-	      // do the validation and storage stuff
-	      $post_id=0;
-	      
-	      $id = media_handle_sideload( $file_array, $post_id, $desc );
-	      
-	      // If error storing permanently, unlink
-	      if ( is_wp_error($id) ) {
-	         @unlink($file_array['tmp_name']);
-	         return false;
-	      }
-
-	      $src = wp_get_attachment_url( $id );
-	      return array(0=>$id,1=>$src);
-    	
-    }
-
 // get list of already imported events
     function get_imported_event_ids(){
 
@@ -500,7 +678,10 @@ class EVOICS_Fnc{
 			'event_end_time',
 			'event_description',
 			'UID',
-			'imported_event_id'
+			'imported_event_id',
+			'_evcal_exlink_option',
+			'evo_hide_endtime',
+			'time_adds',
 		);
 		
 		// pluggable hook for additional fields
@@ -511,15 +692,14 @@ class EVOICS_Fnc{
 
 // guidelines for ICS file
 	function print_guidelines(){
-		global $eventon, $evoics;
 		
 		ob_start();
 		
-		require_once($evoics->plugin_path.'/guide.php');
+		require_once( EVOICS()->plugin_path.'/guide.php');
 		
 		$content = ob_get_clean();
 		
-		echo $eventon->output_eventon_pop_window( 
+		echo EVO()->output_eventon_pop_window( 
 			array('content'=>$content, 'title'=>'How to use ICS Importer', 'type'=>'padded')
 		);
 		?>					

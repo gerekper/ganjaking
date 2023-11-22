@@ -559,7 +559,13 @@ class WCML_Custom_Prices {
 	 * @return mixed
 	 */
 	private function is_custom_prices_set_for_product( $product_id ) {
-		return get_post_meta( $product_id, '_wcml_custom_prices_status', true );
+		/**
+		 * Allow to override the detection of custom prices.
+		 *
+		 * @param bool $check
+		 * @param int  $productId
+		 */
+		return (bool) apply_filters( 'wcml_product_has_custom_prices', (bool) get_post_meta( $product_id, '_wcml_custom_prices_status', true ), $product_id );
 	}
 
 	/**

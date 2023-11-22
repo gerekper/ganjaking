@@ -1,0 +1,104 @@
+[
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "invert_lightness": true
+            },
+            {
+                "saturation": 10
+            },
+            {
+                "lightness": 30
+            },
+            {
+                "gamma": 0.5
+            },
+            {
+                "hue": "#00aaff"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "saturation": "100"
+            },
+            {
+                "lightness": "27"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#32373c"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "saturation": "100"
+            },
+            {
+                "lightness": "69"
+            },
+            {
+                "gamma": "1.40"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "lightness": "100"
+            },
+            {
+                "saturation": "100"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway.controlled_access",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "saturation": "100"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "saturation": "43"
+            },
+            {
+                "lightness": "51"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "saturation": "45"
+            },
+            {
+                "lightness": "19"
+            }
+        ]
+    }
+]

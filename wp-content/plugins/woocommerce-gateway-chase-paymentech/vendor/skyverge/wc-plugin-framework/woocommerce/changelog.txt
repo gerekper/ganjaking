@@ -1,5 +1,26 @@
 *** SkyVerge WooCommerce Plugin Framework Changelog ***
 
+2023.11.16 - version 5.11.12
+ * Misc - Update documentation links after changes in Woo.com
+
+2023.11.15 - version 5.11.11
+ * Fix - Replace deprecated `wcs_renewal_order_meta` filter usage with `wc_subscriptions_renewal_order_data`
+ * Dev - Replace `supports_hpos` with a `supported_features` key in the main plugin file constructor arguments
+ * Dev - Introduce a `Blocks_Handler` class which will be expanded in a future release for adding WooCommerce Cart & Checkout Blocks compatibility
+ * Misc - Warn merchants when a plugin is not compatible with Cart or Checkout blocks to prompt switching to legacy shortcodes
+
+2023.10.13 - version 5.11.10
+ * Tweak - Improve tokenization support for gateways that tokenize payment methods with sale
+ * Fix - Update deprecated JS event handlers that would have triggered deprecation notices in console
+ * Localization - The Framework has been localized in several languages!
+
+2023.09.28 - version 5.11.9
+ * Fix - Prevent prefixed metadata from being included in order item descriptions
+
+2023.08.23 - version 5.11.8
+ * Misc - Add `SV_WC_Helper::array_join_natural()` helper method
+ * Fix - Pass environment parameter to Google Pay client
+
 2023.07.28 - version 5.11.7
  * Tweak - Enqueue and improve form styles for hosted payment forms
 

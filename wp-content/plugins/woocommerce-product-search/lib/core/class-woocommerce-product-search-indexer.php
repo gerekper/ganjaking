@@ -23,6 +23,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Cache;
 use com\itthinx\woocommerce\search\engine\Settings;
 
 /**
@@ -456,7 +457,7 @@ class WooCommerce_Product_Search_Indexer {
 		global $wpdb;
 
 		$result            = 0;
-		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
+
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
@@ -504,7 +505,7 @@ class WooCommerce_Product_Search_Indexer {
 		global $wpdb;
 
 		$post_ids          = array();
-		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
+
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
@@ -705,6 +706,8 @@ class WooCommerce_Product_Search_Indexer {
 
 		global $wpdb;
 
+		do_action( 'woocommerce_product_search_indexer_purge_start', $post_id );
+
 		$this->delete_indexes( $post_id, 'product' );
 
 		if ( $product = wc_get_product( $post_id ) ) {
@@ -723,6 +726,8 @@ class WooCommerce_Product_Search_Indexer {
 			unset( $product );
 		}
 		$this->delete_unused_keys();
+
+		do_action( 'woocommerce_product_search_indexer_purge_end', $post_id );
 	}
 
 	/**
@@ -788,7 +793,6 @@ class WooCommerce_Product_Search_Indexer {
 				$object_type = 'product_variation';
 			}
 
-			$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 			$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
@@ -1031,8 +1035,6 @@ class WooCommerce_Product_Search_Indexer {
 
 			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
 
-				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
-
 				$product_id   = $product->get_id();
 				$type         = $product->get_type();
 				$category_ids = $product->get_category_ids();
@@ -1201,8 +1203,10 @@ class WooCommerce_Product_Search_Indexer {
 
 		$object_type_id = null;
 
-		$object_types = wp_cache_get( 'object_types', self::CACHE_GROUP );
-		if ( $object_types === false ) {
+		$cache = Cache::get_instance();
+		$cache->set_unigroup( true );
+		$object_types = $cache->get( 'object_types', self::CACHE_GROUP );
+		if ( $object_types === null ) {
 			$object_types = array();
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 			$query = "SELECT * FROM $object_type_table";
@@ -1219,9 +1223,10 @@ class WooCommerce_Product_Search_Indexer {
 					$object_types[$hash] = $row->object_type_id;
 				}
 
-				$cached = wp_cache_set( 'object_types', $object_types, self::CACHE_GROUP );
+				$cache->set( 'object_types', $object_types, self::CACHE_GROUP );
 			}
 		}
+		$cache->set_unigroup( false );
 		$hash = md5( implode( ',', array(
 			'object_type'    => $object_type,
 			'context'        => $context,
@@ -1238,6 +1243,7 @@ class WooCommerce_Product_Search_Indexer {
 	private function get_or_add_object_type( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {
 
 		global $wpdb;
+		$object_type_id = null;
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_type' ) ) {
 			$object_type = array(
@@ -1276,12 +1282,15 @@ class WooCommerce_Product_Search_Indexer {
 						$values
 					);
 					if ( $wpdb->query( $query ) === false ) {
-						$result = false;
+						$object_type_id = null;
 						wps_log_error( 'Failed to execute database query: ' . $query );
 					} else {
 						$object_type_id = $wpdb->get_var( "SELECT LAST_INSERT_ID()" );
 
-						$deleted = wp_cache_delete( 'object_types', self::CACHE_GROUP );
+						$cache = Cache::get_instance();
+						$cache->set_unigroup( true );
+						$cache->delete( 'object_types', self::CACHE_GROUP );
+						$cache->set_unigroup( false );
 					}
 				}
 			}
@@ -1529,11 +1538,13 @@ class WooCommerce_Product_Search_Indexer {
 	 */
 	public static function equalize( $s ) {
 
-		$s = preg_replace( '/[^\P{P}-]+/u', ' ', $s );
-		$s = preg_replace( '/[^\p{L}\p{N}-]++/u', ' ', $s );
-		$s = trim( preg_replace( '/\s-+/', ' ', $s ) );
-		$s = trim( preg_replace( '/-+\s/', ' ', $s ) );
-		$s = trim( preg_replace( '/\s+/', ' ', $s ) );
+		if ( is_string( $s ) ) {
+			$s = preg_replace( '/[^\P{P}-]+/u', ' ', $s );
+			$s = preg_replace( '/[^\p{L}\p{N}-]++/u', ' ', $s );
+			$s = trim( preg_replace( '/\s-+/', ' ', $s ) );
+			$s = trim( preg_replace( '/-+\s/', ' ', $s ) );
+			$s = trim( preg_replace( '/\s+/', ' ', $s ) );
+		}
 		return $s;
 	}
 

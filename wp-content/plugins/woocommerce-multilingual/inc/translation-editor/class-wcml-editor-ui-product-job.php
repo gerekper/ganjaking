@@ -126,7 +126,9 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 	public function add_elements() {
 
 		$this->add_field( new WPML_Editor_UI_Single_Line_Field( 'title', __( 'Title', 'woocommerce-multilingual' ), $this->data, true ) );
-		$this->add_field( new WPML_Editor_UI_Single_Line_Field( 'slug', __( 'Slug', 'woocommerce-multilingual' ), $this->data, true ) );
+		if ( 'translate' === apply_filters( 'wpml_setting', '', 'translated_document_page_url' ) ) {
+			$this->add_field( new WPML_Editor_UI_Single_Line_Field( 'slug', __( 'Slug', 'woocommerce-multilingual' ), $this->data, true ) );
+		}
 
 		if ( $this->woocommerce_wpml->page_builders->get_page_builders_string_packages( $this->product_id ) ) {
 			$page_builders_strings_section = $this->woocommerce_wpml->page_builders->get_page_builders_strings_section( $this->data, $this->product_id, $this->get_target_language() );
@@ -211,7 +213,7 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 
 				} else {
 
-					$custom_fields_values = $this->get_custom_field_values( $this->product_id, $custom_field );
+					$custom_fields_values = (array) $this->get_custom_field_values( $this->product_id, $custom_field );
 
 					if ( $custom_fields_values ) {
 						$cf_fields_group = new WPML_Editor_UI_Field_Group();
@@ -643,7 +645,7 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 			// insert new post.
 			$args                 = [];
 			$args['post_title']   = $translations[ md5( 'title' ) ];
-			$args['post_name']    = $translations[ md5( 'slug' ) ];
+			$args['post_name']    = isset( $translations[ md5( 'slug' ) ] ) ? $translations[ md5( 'slug' ) ] : '';
 			$args['post_type']    = $this->original_post->post_type;
 			$args['post_content'] = isset( $translations[ md5( 'product_content' ) ] ) ? $translations[ md5( 'product_content' ) ] : '';
 			$args['post_excerpt'] = $translations[ md5( 'product_excerpt' ) ];

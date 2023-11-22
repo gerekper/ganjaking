@@ -170,9 +170,9 @@ class WCML_WC_Gateways {
 		$postData = wpml_collect( $_POST );
 		if ( $postData->isNotEmpty() ) {
 			if ( $this->is_user_order_note( $postData ) ) {
-				$current_gateway_language = get_post_meta( $postData->get( 'post_id' ), 'wpml_language', true );
+				$current_gateway_language = WCML_Orders::getLanguage( $postData->get( 'post_id' ) );
 			} elseif ( $this->is_refund_line_item( $postData ) ) {
-				$current_gateway_language = get_post_meta( $postData->get( 'order_id' ), 'wpml_language', true );
+				$current_gateway_language = WCML_Orders::getLanguage( $postData->get( 'order_id' ) );
 			} else {
 				$current_gateway_language = $this->get_order_action_gateway_language( $postData );
 			}
@@ -205,8 +205,8 @@ class WCML_WC_Gateways {
 	 * @return bool
 	 */
 	private function is_refund_line_item( Collection $postData ){
-	    return 'woocommerce_refund_line_items' === $postData->get( 'action' );
-    }
+		return 'woocommerce_refund_line_items' === $postData->get( 'action' );
+	}
 
 
 	/**
@@ -219,16 +219,16 @@ class WCML_WC_Gateways {
 		if ( $postData->get( 'post_ID' ) ) {
 
 			$is_saving_new_order = wpml_collect( [
-					'auto-draft',
-					'draft'
-				] )->contains( $postData->get( 'post_status' ) )
-			                       && 'editpost' === $postData->get( 'action' )
-			                       && $postData->get( 'save' );
+				'auto-draft',
+				'draft'
+			] )->contains( $postData->get( 'post_status' ) )
+				&& 'editpost' === $postData->get( 'action' )
+				&& $postData->get( 'save' );
 			if ( $is_saving_new_order && isset( $_COOKIE[ WCML_Orders::DASHBOARD_COOKIE_NAME ] ) ) {
 				return $_COOKIE[ WCML_Orders::DASHBOARD_COOKIE_NAME ];
 			}
 
-			$is_order_emails_status       = wpml_collect( [
+			$is_order_emails_status = wpml_collect( [
 				'wc-completed',
 				'wc-processing',
 				'wc-refunded',
@@ -237,7 +237,7 @@ class WCML_WC_Gateways {
 
 			$is_send_order_details_action = 'send_order_details' === $postData->get( 'wc_order_action' );
 			if ( $is_order_emails_status || $is_send_order_details_action ) {
-				return get_post_meta( $postData->get( 'post_ID' ), 'wpml_language', true );
+				return WCML_Orders::getLanguage( $postData->get( 'post_ID' ) );
 			}
 		}
 
@@ -256,12 +256,12 @@ class WCML_WC_Gateways {
 					'processing'
 				] )->contains( $getData->get( 'status' ) );
 			if ( $is_order_ajax_action && $getData->get( 'order_id' ) ) {
-				return get_post_meta( $getData->get( 'order_id' ), 'wpml_language', true );
+				return WCML_Orders::getLanguage( $getData->get( 'order_id' ) );
 			}
 		}
 
 		return $this->current_language;
-    }
+	}
 
 	public function show_language_links_for_gateways() {
 

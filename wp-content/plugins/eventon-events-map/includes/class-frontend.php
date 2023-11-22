@@ -1,7 +1,7 @@
 <?php
 /** 
  * front end events map
- * @version 1.4.8
+ * @version 2.1.17
  */
 class evoem_frontend{
 
@@ -16,34 +16,22 @@ class evoem_frontend{
 
 		// calendar header button
 		add_filter('evo_cal_above_header_btn', array($this, 'header_allmap_button'), 10, 2);
-
-		//add_action('evo_view_switcher_items', array($this, 'view_switcher'),16,2);
 	}
 
 
 	// include focus in header section
 		function header_allmap_button($array, $args){
-
-			$array = is_array($array) ? $array : array();
-
-			//echo $args['mo1st'].'tt';
-
-			if( !empty($args['focusmap']) && $args['focusmap']=='yes'){
-				$array['evo-mapfocus'] = evo_lang_get('evoEM_l2','All Map');				
+			if(!empty($args['focusmap']) && $args['focusmap']=='yes'){
+				$new['evo-mapfocus']=evo_lang_get('evoEM_l2','All Map');
+				$array = array_merge($new, $array);
 			}
-			if( !empty($args['show_alle']) && $args['show_alle']=='yes'){
-				$array['evomap_all_events'] = evo_lang('All Events');				
-			}
-
 			return $array;
 		}
 
 	//	MAIN function to generate the calendar outter shell
-		public function generate_evo_em($atts){
+		public function generate_evo_em(){
 
-			$args = EVO()->evo_generator->process_arguments( $atts );
-			$this->atts = $atts;
-			//$args= $atts;
+			$args = EVO()->evo_generator->process_arguments( $this->atts );
 					
 			$this->set_date_range();
 
@@ -85,10 +73,8 @@ class evoem_frontend{
 
 
 				if($args['map_type']=='upcoming'){
-					//echo '<a class="evo-mapfocus evo_btn">'. evo_lang_get('evoEM_l2','All Map').'</a>';
+					echo '<a class="evo-mapfocus evo_btn">'. evo_lang_get('evoEM_l2','All Map').'</a>';
 				}
-
-				
 
 			$this->remove_only_em_actions();
 
@@ -299,24 +285,6 @@ class evoem_frontend{
 				delete_post_meta( $post_id, 'evcal_location_slug');
 			}
 			
-		}
-
-	// View Switcher
-		public function view_switcher( $A, $args){
-			if($args['view_switcher'] == 'yes'){
-
-				$DATA = array();
-
-				$DATA['focus_start_date_range'] = $args['focus_start_date_range'];
-				$DATA['focus_end_date_range'] = $args['focus_end_date_range'];
-
-				$DATA['c'] = 'eventmap';
-
-				EVODV()->load_script = true;
-				$A['evoem'] = array($DATA, 'map', evo_lang('Map'));
-
-			}
-			return $A;
 		}
 
 	//	STYLES

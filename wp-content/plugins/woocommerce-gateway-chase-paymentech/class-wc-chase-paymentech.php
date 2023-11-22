@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_11_7 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_12 as Framework;
 
 /**
  * Main plugin class.
@@ -36,7 +36,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '1.18.0';
+	const VERSION = '1.18.1';
 
 	/** @var WC_Chase_Paymentech single instance of this plugin */
 	protected static $instance;
@@ -68,20 +68,26 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain'   => 'woocommerce-gateway-chase-paymentech',
-				'supports_hpos' => true,
-				'gateways'      => [
+				'text_domain'        => 'woocommerce-gateway-chase-paymentech',
+				'supported_features' => [
+					'hpos'   => true,
+					'blocks' => [
+						'cart'     => true,
+						'checkout' => false,
+					],
+				],
+				'gateways'           => [
 					self::CREDIT_CARD_GATEWAY_ID => self::CREDIT_CARD_GATEWAY_CLASS_NAME,
 				],
-				'dependencies' => [
+				'dependencies'       => [
 					'php_extensions' => [ 'SimpleXML', 'xmlwriter', 'dom' ],
 				],
-				'require_ssl' => true,
-				'supports'    => [
+				'require_ssl'        => true,
+				'supports'           => [
 					self::FEATURE_CAPTURE_CHARGE,
 					self::FEATURE_MY_PAYMENT_METHODS,
 				],
-				'currencies' => [ 'USD' ],
+				'currencies'         => [ 'USD' ],
 			]
 		);
 

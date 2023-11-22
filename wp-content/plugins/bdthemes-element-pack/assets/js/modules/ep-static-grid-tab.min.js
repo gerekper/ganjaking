@@ -1,0 +1,1 @@
+!function(t,n){"use strict";var e=function(t,n){var e=t.find(".bdt-static-grid-tab"),d=e.find(".gridtab"),i=e.data("settings");e.length&&n(d).gridtab(i)};jQuery(window).on("elementor/frontend/init",(function(){elementorFrontend.hooks.addAction("frontend/element_ready/bdt-static-grid-tab.default",e)}))}(jQuery,window.elementorFrontend);

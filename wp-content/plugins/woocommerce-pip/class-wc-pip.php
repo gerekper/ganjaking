@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.13.1';
+	const VERSION = '3.13.2';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;
