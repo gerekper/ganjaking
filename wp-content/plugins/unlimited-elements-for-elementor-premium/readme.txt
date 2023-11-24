@@ -1,9 +1,9 @@
 === Unlimited Elements For Elementor (Free Widgets, Addons, Templates) ===
-Contributors: unitecms, valiano, iritmega
+Contributors: unitecms, valiano, iritmega, freemius
 Donate link: http://unlimited-elements.com/
 Tags: elementor, elements, addons, elementor addons, elementor widget, page builder, builder, visual editor, wordpress page builder, elementor
 Requires at least: 3.5
-Tested up to: 6.1.1
+Tested up to: 6.4.1
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,6 +13,7 @@ The best package of Free Elementor Addons. +100 Free Elementor Widgets, +10 Free
 
 
 == Description ==
+
 
 Take your Elementor page building experience to the next level with Unlimited Elements for Elementor. This is the last widget pack you will need. Find everything in one place and get more than +100 free widgets for your Elementor website. All our elements are easy to use and built with our unique Widget Creator framework. 
 <a href="https://unlimited-elements.com/elementor-widgets/">CHECK OUT THE DEMOS</a>
@@ -1226,8 +1227,6 @@ https://github.com/ykob/shape-overlays Check out the demo [in the link](https://
 
 
 
-
-
 == Installation ==
 
 Note : This plugin works with Elementor. Make sure you have [Elementor](https://wordpress.org/plugins/elementor/) installed.
@@ -1237,6 +1236,270 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 3. Navigate to Unlimited Elements in the WordPress side menu and install the widget you want by hovering over it and clicking install.
 
 == Changelog ==
+
+
+version 1.5.85: 2021-11-15
+
+* Feature: added woo_addcart_ajax_attributes_button in twig for the button
+* Feature: added option to show original settings values in widget debug
+* Feature: added troubleshooting setting not to show php deprecated warnings
+* Fix: better prepare post custom fields for the post multisource
+* Fix: links from meta field works now
+* Fix: fixed the ob_end_clean bug
+* Fix: in post query - excluded posts not in from posts in
+* Fix: fixed a small bug in the unite gallery library
+* Change: updated twig version to 3.x
+* Change: updated instagram data with date released field
+
+
+version 1.5.85: 2021-09-20
+
+* Fix: fixed a small bug with multisource image param message
+
+
+version 1.5.84: 2021-09-20
+
+* Feature: added twig function csv to json
+* Feature: changed the admin view to new design (added designed header and menu)
+* Feature: added option to enable animation on swipe to owl carousel js
+* Feature: added woo mini cart functionality
+* Feature: added option: "current query as a base" to post selection -> include by
+
+* Fix: added support for webp in the manager
+* Fix: allow fetching images from media library post type for the galleries 
+
+
+version 1.5.83: 2023-08-22
+
+* Fix: don't show first item in filter when no terms available
+* Change: updated calculators javascript code base
+
+
+version 1.5.82: 2023-08-16
+
+* Feature: added option for group filtering widgets
+* Feature: solved the video play in gallery type from attachment video
+* Change: turned off the video icon for background attribute
+* Fix: fixed dynamic template with avoid duplicates
+* Fix: fixed gallery widget acf video item error
+* Fix: fixed some sort filter bugs with the default selected
+
+
+version 1.5.81:  2023-08-10
+
+* Fix: fixed some missing css in the dynamic loop widgets
+* Fix: fixed some child filters related bug
+* Fix: fixed order by price in current query
+* Fix: fixed some php 8.16+ version notices 
+* Feature: added option to print the term meta
+
+
+
+version 1.5.80:  2023-08-07
+
+* Feature: added option to get "all taxonomy terms" from a post 
+* Feature: added html preperations for the woocommerce minicart
+* Feature: added "this week" to the date selection query
+* Feature: added "grouping" mode in the "related posts"
+* Fix: the pagination now works on top of the grid
+* Fix: fixed some init ajax filters multiple issues
+* Fix: fixed the error with the assets path set
+
+
+version 1.5.79:  2023-07-24
+
+* Fix: changed name for area-label to aria-label
+* Fix: in filters - refresh single filter if "all" selected and there are hidden items
+* Fix: changed protection against inifnite loop to 200
+* Fix: show child filters at start if there are selected items
+* Fix: date time attribute processor - if no date given - don't take current time
+* Fix: refresh child filter if main filter selected on init
+* Fix: dynamic popup was not worked with multisource in some cases
+
+
+version 1.5.78: 2023-07-16
+
+* Fix: fixed show filters load more
+* Fix: fixed multisource repeater empty
+
+
+version 1.5.77: 2023-07-13
+
+* Fix: fixed dropzone collision in widget editor view
+* Fix: fixed sort filter price filtering
+* Fix: fixed max number in addons db table. from "int" to "bigint"
+* Fix: replaced some deprecated by elementor codes
+
+
+version 1.5.76: 2023-07-12
+
+* Feature: added "rem" unit in slider attribute
+* Fix: fixed some small bug with remote sync debug
+* Fix: fixed the truncate in multisource
+* Fix: fixed some small bugs related to remote controls
+* Fix: fixed dropzon third party conflict in manager
+
+
+version 1.5.75: 2023-07-05
+
+* Feature: added some suggestion text to add some memory in the troubleshooting section in case that needed
+* Fix: the wrong author was displayed in loop post meta data
+* Fix: do_shortcode to html items inside the grid and dynamic loop
+* Update: Updated Freemius SDK to the latest version
+
+
+version 1.5.74: 2023-07-04
+
+* Fix: show search widgets at plugin install.
+* Fix: menu picker depts in multisource
+* Fix: set the author data to be retrievable in dynamic grid template
+* Fix: show meta fields switcher didn't worked in multisource menu items
+
+
+version 1.5.73: 2023-06-26
+
+* Feature: added options for revisions in widget editor
+* Fix: added support for wordpress proxy in api calling
+* Fix: fixed empty post in query result
+* Fix: fixed "wrong template ID" elementor error in post accordion
+
+
+version 1.5.72: 2023-06-21
+
+* Fix: added the swf extension in the allowed files in assets
+* Feature: prepared the plugin for sort filter
+* Change: updated freemius sdk to 2.5.9
+
+
+version 1.5.71: 2023-06-20
+
+* Change: removed js includes of the forms and filters from backend editor
+* Change: changed colors of the free version notification in dark mode
+* Fix: fix the "link" type in wpml integration automatic translation
+* Feature: add support for the conditions in ue forms
+
+
+version 1.5.70 2023-06-19:
+
+* Change: added some "birthday sale" banner
+* Feature: added "truncate text" modifier to multisource fields
+* Feature: dynamic tags now works inside posts and products related widgets
+* Feature: added twig highlighting in codemirror editor
+* Fix: fixed sequence animation sliders bug (fields didn't loaded in elementor)
+* Fix: change the comment from // to /* */ in filters js output to allow proper page compression.
+* Fix: the "time ago" string is now translatable 
+* Fix: fixed the wpml elementor template id output
+* Fix: fixed backgrounds bug with containers in editor
+* Fix: fixed some small bugs with the checkbox filter
+
+
+
+version 1.5.69: 2023-06-08:
+
+* Fix: allow to install webp images in widgets
+
+
+version 1.5.68: 2023-06-06:
+
+* Change: added functionality for sort filter 
+* Feature: added field: "form conditions" for the upcoming form
+* Feature: added link translation to wpml integration
+* Feature: added link_attributes field to post list fields in twig
+* Fix: fixed slider control min max values in case of multiple units
+* Fix: add do shortcode from ajax items response
+* Fix: fixed posts grid output with "product" taxonomy without woocommerce
+* Fix: fixed getting cross sell products query in product list
+
+
+
+version 1.5.67 - 2023-05-29:
+
+* Fix: fixed some more securaty issues related to assets manager
+
+version 1.5.66 - 2023-05-28:
+
+* Fix:  fixed some securaty issues related to non editor users operations and not allowed to upload php files in assets manager
+
+
+version 1.5.65 - 2023-05-26:
+
+* Fix: fixed instagram api related bugs 
+
+
+version 1.5.64 2023-05-23:
+
+* Change: update freemius to latest version 2.5.8
+* Fix: fixed a small php bug
+
+
+version 1.5.63 2023-05-23:
+
+* Change: expand in widget editor is now connected to the screen height
+* Fix: fixed the dynamic popup with multiple fields code 
+* Fix: fixed some sync if the clicked item is link
+* Feature: added support for sort post filter
+* Feature: hide "show only insalled" checkbox in widgets manager if no widget installed.
+
+
+version 1.5.62 2023-05-14:
+
+* Feature: added "edit template" link in template selector
+* Feature: added hidden template edit button to top bar
+* Feature: added option for dynamic popup link to connect to many links in the widget
+* Fix: solved some php error with parse dynamic settings in php 8.1
+* Fix: getMetaValue error in products
+* Fix: fixed doubly css includes in some cases
+
+
+version 1.5.61 - 2023-05-07:
+
+* Feature: added support for woocommerce jet wishlist
+* Feature: did option to disable third party hooks in ajax
+* Fix: click on link on sync didn't worked
+* Fix: added some protections to nonce and to file manager zip exctract (securaty issues fix) 
+* Change: updated freemius sdk to 2.5.7 version.
+
+
+
+version 1.5.60 - 2023-04-30:
+
+* Feature: added functionality to get cart number of products 
+* Fix: fixed link field settings for multisoure
+* Fix: fixed some bugs with regular price in woocommerce widgets
+* Fix: filters js file loaded in editor as well
+* Fix: fixed some small php bug regarding "pathBase"
+* Fix: fixed conditions in multiple select control
+* Change: updated unite gallery version
+* Change: disabled autoload in update_option for the catalog variable
+
+
+version 1.5.59: 2023-04-09
+
+* Feature: added multiple select to condition attributes in widget editor
+* Change: updated freemius sdk to the latest version
+* Fix: fixed empty post meta fields in case that acf plugin is on
+* Fix: fixed some bug with avoid duplicates option and filters in single grid
+* Fix: made some corrections in case that post query show wrong init selected terms values
+* Fix: the post carousel goes to random item after ajax refresh
+* Fix: fixed jet engine custom fields integration
+
+
+version 1.5.58: 2023-03-26
+
+* Feature: added dynamic popup functionality to multisource widgets
+* Fix: fixed missing arguments in the_post action
+* Fix: fixed some php multisource error
+* Fix: fixed some product ajax search related issues
+* Fix: fixed some small but with ajax refresh and sync
+
+
+version 1.5.57: 2023-03-20
+
+* Feature: improved the multisource selectors
+* Feature: added option to get image from post meta in post fields - widget editor
+* Fix: added "skins" folder to unite gallery
+* Fix: added more compatability to woo commerce grids with discounts plugins
+* Fix: fixed same uc_id in dynamic templates
 
 
 version 1.5.56: 2023-03-13:

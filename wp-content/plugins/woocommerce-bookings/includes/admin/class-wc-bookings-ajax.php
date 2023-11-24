@@ -40,7 +40,7 @@ class WC_Bookings_Ajax {
 		$post_id           = intval( $_POST['post_id'] );
 		$loop              = intval( $_POST['loop'] );
 		$add_resource_id   = intval( $_POST['add_resource_id'] );
-		$add_resource_name = wc_clean( $_POST['add_resource_name'] );
+		$add_resource_name = wc_clean( wp_unslash( $_POST['add_resource_name'] ) );
 
 		if ( ! $add_resource_id ) {
 			$resource = new WC_Product_Booking_Resource();
@@ -159,7 +159,8 @@ class WC_Bookings_Ajax {
 		}
 
 		$posted = array();
-		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $posted requires sanitization.
+		parse_str( wp_unslash( $_POST['form'] ), $posted );
 
 		$details_missing_alert = __( 'Error: The booking product details are missing.', 'woocommerce-bookings' );
 
@@ -184,7 +185,7 @@ class WC_Bookings_Ajax {
 		$from = strtotime( date( 'Y-m-01', strtotime( "+{$min_date['value']} {$min_date['unit']}" ) ) );
 		$to   = strtotime( date( 'Y-m-t', strtotime( "+{$max_date['value']} {$max_date['unit']}" ) ) );
 
-		$resource_id_to_check = $posted['wc_bookings_field_resource'];
+		$resource_id_to_check = ( ! empty( $posted['wc_bookings_field_resource'] ) ? absint( $posted['wc_bookings_field_resource'] ) : 0 );
 		$blocks               = $product->get_blocks_in_range( $from, $to, array(), $resource_id_to_check, array(), false, true );
 		$booked               = WC_Bookings_Controller::find_booked_month_blocks( $product->get_id() );
 		$fully_booked_months  = $booked['fully_booked_months'];
@@ -224,7 +225,8 @@ class WC_Bookings_Ajax {
 	public function calculate_costs() {
 		$posted = array();
 
-		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $posted requires sanitization.
+		parse_str( wp_unslash( $_POST['form'] ), $posted );
 
 		$booking_id = absint( $posted['add-to-cart'] );
 		$product    = wc_get_product( $booking_id );
@@ -282,7 +284,8 @@ class WC_Bookings_Ajax {
 
 		// clean posted data
 		$posted = array();
-		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $posted requires sanitization.
+		parse_str( wp_unslash( $_POST['form'] ), $posted );
 		if ( empty( $posted['add-to-cart'] ) ) {
 			return false;
 		}
@@ -334,7 +337,7 @@ class WC_Bookings_Ajax {
 		// cap the upper range
 		$to                   = strtotime( 'midnight', $to ) - 1;
 
-		$resource_id_to_check = ( ! empty( $posted['wc_bookings_field_resource'] ) ? $posted['wc_bookings_field_resource'] : 0 );
+		$resource_id_to_check = ( ! empty( $posted['wc_bookings_field_resource'] ) ? (int) $posted['wc_bookings_field_resource'] : 0 );
 		$resource             = $product->get_resource( absint( $resource_id_to_check ) );
 		$resources            = $product->get_resources();
 
@@ -369,12 +372,12 @@ class WC_Bookings_Ajax {
 			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-bookings' ) );
 		}
 
-		$start_date_time      = isset( $_POST['start_date_time'] ) ? wc_clean( $_POST['start_date_time'] ) : '';
+		$start_date_time      = isset( $_POST['start_date_time'] ) ? wc_clean( wp_unslash( $_POST['start_date_time'] ) ) : '';
 		$product_id           = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : false;
-		$blocks               = isset( $_POST['blocks'] ) ? wc_clean( $_POST['blocks'] ) : array();
+		$blocks               = isset( $_POST['blocks'] ) ? wc_clean( wp_unslash( $_POST['blocks'] ) ) : array();
 		$bookable_product     = wc_get_product( $product_id );
 		$booking_form         = new WC_Booking_Form( $bookable_product );
-		$resource_id_to_check = isset( $_POST['resource_id'] ) ? absint( wc_clean( $_POST['resource_id'] ) ) : 0;
+		$resource_id_to_check = isset( $_POST['resource_id'] ) ? absint( wc_clean( wp_unslash( $_POST['resource_id'] ) ) ) : 0;
 		$html                 = $booking_form->get_end_time_html( $blocks, $start_date_time, array(), $resource_id_to_check );
 
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -396,7 +399,7 @@ class WC_Bookings_Ajax {
 			wp_die( -1, 403 );
 		}
 
-		$term = wc_clean( stripslashes( $_GET['term'] ) );
+		$term = wc_clean( wp_unslash( $_GET['term'] ) );
 
 		if ( empty( $term ) ) {
 			die();
@@ -447,7 +450,7 @@ class WC_Bookings_Ajax {
 		}
 
 		$event = new WC_Global_Availability();
-		$event_data = wc_clean( $_POST['event_data'] );
+		$event_data = wc_clean( wp_unslash( $_POST['event_data'] ) );
 
 		foreach ( $event_data as $field => $value ) {
 			if ( ! is_callable( array( $event, 'set_' . $field ) ) ) {
@@ -482,8 +485,8 @@ class WC_Bookings_Ajax {
 	public function get_store_availability_rules() {
 		check_ajax_referer( 'get-store-availability-rules', 'security' );
 
-		$start_time = ! empty( $_GET['start_time'] ) ? wc_clean( $_GET['start_time'] ) : 'today';
-		$end_time   = ! empty( $_GET['end_time'] )   ? wc_clean( $_GET['end_time'] )   : 'tomorrow';
+		$start_time = ! empty( $_GET['start_time'] ) ? wc_clean( wp_unslash( $_GET['start_time'] ) ) : 'today';
+		$end_time   = ! empty( $_GET['end_time'] )   ? wc_clean( wp_unslash( $_GET['end_time'] ) ) : 'tomorrow';
 
 		$rules = WC_Data_Store::load( 'booking-global-availability' )->get_all_as_array(
 			array( array(
@@ -521,7 +524,7 @@ class WC_Bookings_Ajax {
 			wp_send_json_error( 'Event is not a store availability' );
 		}
 
-		$event_data = wc_clean( $_POST['event_data'] );
+		$event_data = wc_clean( wp_unslash( $_POST['event_data'] ) );
 
 		foreach ( $event_data as $field => $value ) {
 			$field = strtolower( $field );
@@ -564,7 +567,7 @@ class WC_Bookings_Ajax {
 			wp_send_json_error( 'Missing event IDs' );
 		}
 
-		$ids 	= explode( ',', wc_clean( $_POST['ids'] ) );
+		$ids 	= explode( ',', wc_clean( wp_unslash( $_POST['ids'] ) ) );
 
 		$events = array_map( function( $event_id ) {
 			return new WC_Global_Availability( absint( $event_id ) );

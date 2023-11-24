@@ -35,18 +35,22 @@ class WC_Bookings_WC_Ajax {
 
 		check_ajax_referer( 'find-booking-slots', 'security' );
 
-		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized by array_map after explode.
 		$product_ids  = ! empty( $_GET['product_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['product_ids'] ) ) ) : array();
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized by array_map after explode.
 		$category_ids = ! empty( $_GET['category_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['category_ids'] ) ) ) : array();
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized by array_map after explode.
 		$resource_ids = ! empty( $_GET['resource_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['resource_ids'] ) ) ) : array();
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized after URL decode.
 		$min_date = isset( $_GET['min_date'] ) ? strtotime( sanitize_text_field( urldecode( wp_unslash( $_GET['min_date'] ) ) ) ) : 0;
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized after URL decode.
 		$max_date = isset( $_GET['max_date'] ) ? strtotime( sanitize_text_field( urldecode( wp_unslash( $_GET['max_date'] ) ) ) ) : 0;
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized by array_map after explode.
 		$intervals = isset( $_GET['intervals'] ) ? array_slice( array_map( 'absint', explode( ',', wp_unslash( $_GET['intervals'] ) ) ), 0, 2 ) : array();
 
 		$timezone_offset = isset( $_GET['timezone_offset'] ) ? absint( wp_unslash( $_GET['timezone_offset'] ) ) : 0;
-		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$page                         = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : false;
 		$records_per_page             = 10;

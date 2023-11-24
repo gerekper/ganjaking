@@ -200,7 +200,8 @@ class WC_Bookings_Addons {
 	 * @return JSON Filtered results
 	 */
 	public function filter_output_cost( $output, $display_price, $product ) {
-		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $posted requires sanitization.
+		parse_str( wp_unslash( $_POST['form'] ), $posted );
 
 		$booking_data = wc_bookings_get_posted_data( $posted, $product );
 		$cost         = WC_Bookings_Cost_Calculation::calculate_booking_cost( $booking_data, $product );

@@ -634,7 +634,7 @@ class UniteCreatorAcfIntegrate{
 				break;
 				case "term":
 					
-					$termID = "term_".$postID;
+					$termID = "term_".$objID;
 					
 					$value = get_field($fieldName, $objID);
 					

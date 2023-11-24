@@ -2095,16 +2095,32 @@ function UniteAdminUC(){
 					
 				},
 				error:function(jqXHR, textStatus, errorThrown){
+					
+					
 					hideAjaxLoader();
+					
+					var readyState = jqXHR.readyState;
+					
+					var showError = true;
 					
 					switch(textStatus){
 						case "parsererror":
 						case "error":
-							t.debug(jqXHR.responseText);
+							var responseText = jqXHR.responseText;
+							
+							if(responseText !== undefined)
+								t.debug(jqXHR.responseText);
+							else{
+								
+								if(readyState == 0)
+									showError = false;
+							}
+							
 						break;
 					}
 					
-					t.showErrorMessage("Ajax Error!!! " + textStatus);
+					if(showError == true)
+						t.showErrorMessage("Ajax Error!!! " + textStatus);
 				}
 		}
 		

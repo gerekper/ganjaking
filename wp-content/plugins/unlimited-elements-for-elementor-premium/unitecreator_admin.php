@@ -100,6 +100,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					
 					HelperUC::addScript("jquery.dialogextend.min", "jquery-ui-dialogextend","js/dialog_extend", true);
 					
+					//clear dropzone third party inclues
+					UniteFunctionsWPUC::findAndRemoveInclude("dropzone.min");
+					
+					$deletedSelect2 = UniteFunctionsWPUC::findAndRemoveInclude("select2_js");
+					UniteFunctionsWPUC::findAndRemoveInclude("select2_css", false);
+										
+					
 					//dropzone
 					HelperUC::addScript("dropzone", "dropzone_js","js/dropzone");
 					HelperUC::addStyle("dropzone", "dropzone_css","js/dropzone");
@@ -114,10 +121,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					HelperUC::addScript("javascript", "codemirror_javascript","js/codemirror/mode/javascript");
 					HelperUC::addScript("xml", "codemirror_xml","js/codemirror/mode/xml");
 					HelperUC::addScript("htmlmixed", "codemirror_html","js/codemirror/mode/htmlmixed");
+					HelperUC::addScript("twig", "codemirror_twig","js/codemirror/mode/twig");
 					
 					HelperUC::addScript("dialog", "codemirror_dialog","js/codemirror/addon");
 					HelperUC::addScript("searchcursor", "codemirror_search_cursor","js/codemirror/addon");
 					HelperUC::addScript("search", "codemirror_search","js/codemirror/addon");
+					HelperUC::addScript("multiplex", "codemirror_multiplex","js/codemirror/addon");
 					
 					HelperUC::addStyle("codemirror", "codemirror_css","js/codemirror");
 					HelperUC::addStyle("dialog", "codemirror_dialog_css","js/codemirror/addon");

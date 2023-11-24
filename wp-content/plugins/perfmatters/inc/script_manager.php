@@ -232,7 +232,7 @@ echo "<div id='perfmatters-script-manager-wrapper'>";
 											
 												echo "<div class='pmsm-group-heading'>";
 
-													echo "<h4>" . (!empty($details['name']) ? $details['name'] : "") . "</h4>";
+													echo "<h4>" . (!empty($details['name']) ? esc_html($details['name']) : "") . "</h4>";
 
 													//Status
 													echo "<div class='perfmatters-script-manager-status' style='display: flex; align-items: center; white-space: nowrap; margin-left: 10px;'>";
@@ -413,8 +413,6 @@ echo "<div id='perfmatters-script-manager-wrapper'>";
 							//save button
 							echo "<div id='pmsm-save' style='display: flex; align-items: center;'>";
 								if($pmsm_tab != 'global') {
-									//echo "<input type='submit' name='pmsm_save_" . esc_attr($pmsm_tab) . "' value='" . __('Save Changes', 'perfmatters') . "' />";
-									//echo "<span class='pmsm-spinner'></span>";
 							        echo '<button type="submit" id="submit" name="pmsm_save_' . esc_attr($pmsm_tab) . '" class="button button-secondary" style="display: flex; align-items: center;">';
 							            echo '<span class="perfmatters-button-text">' . __('Save Changes', 'perfmatters') . '</span>';
 							            echo '<svg class="perfmatters-button-spinner" viewBox="0 0 100 100" role="presentation" focusable="false" style="background: rgba(0,0,0,.1); border-radius: 100%; width: 16px; height: 28px; margin: 0px 2px; overflow: visible; opacity: 1; background-color: transparent; display: none;"><circle cx="50" cy="50" r="50" vector-effect="non-scaling-stroke" style="fill: transparent; stroke-width: 1.5px; stroke: #fff;"></circle><path d="m 50 0 a 50 50 0 0 1 50 50" vector-effect="non-scaling-stroke" style="fill: transparent; stroke-width: 1.5px; stroke: #4A89DD; stroke-linecap: round; transform-origin: 50% 50%; animation: 1.4s linear 0s infinite normal both running perfmatters-spinner;"></path></svg>';
@@ -427,9 +425,6 @@ echo "<div id='perfmatters-script-manager-wrapper'>";
 							echo "<div class='pmsm-copyright'>© " . date("Y") . " Perfmatters</div>";
 
 						echo "</div>";
-
-						//message
-						//echo "<div id='pmsm-message' class='pmsm-message'></div>";
 
 					echo "</div>";
 				echo "</div>";

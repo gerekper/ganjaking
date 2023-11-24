@@ -464,10 +464,21 @@ function UCManagerActionsAddons(){
 	        addontype: g_addonsType
 		};
 		
-		//init dropzone
-		Dropzone.autoDiscover = false;
-		var objDropzone = new Dropzone("#dialog_import_addons_form", settingsDropzone);
-		
+		try{
+			
+			//init dropzone
+			Dropzone.autoDiscover = false;
+			var objDropzone = new Dropzone("#dialog_import_addons_form", settingsDropzone);
+			
+		}catch(error){
+			
+			var strError = error + " Some other plugin loading Dropzone in this page. <br> Please check the console wich of them, and turn it off. They should load dropzone library only in their page.";
+			
+			g_ucAdmin.showErrorMessage(strError);
+						
+			throw error;
+		}
+			
 		//send file
 		objDropzone.on("sending", function(file, xhr, formData){
 			

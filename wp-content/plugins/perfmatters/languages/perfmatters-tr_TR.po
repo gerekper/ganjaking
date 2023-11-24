@@ -1,0 +1,2320 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfmatters\n"
+"POT-Creation-Date: 2023-08-30 15:12-0700\n"
+"PO-Revision-Date: 2023-11-14 10:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Türkçe\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: perfmatters.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: tr_TR\n"
+"X-Loco-Version: 2.6.6; wp-6.4.1"
+
+#. translators: the plugin name.
+#: EDD_SL_Plugin_Updater.php:257
+#, php-format
+msgid "There is a new version of %1$s available."
+msgstr "%1$s'ın yeni bir sürümü mevcut."
+
+#: EDD_SL_Plugin_Updater.php:263
+msgid "Contact your network administrator to install the update."
+msgstr "Güncellemeyi yüklemek için ağ yöneticinize başvurun."
+
+#. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
+#: EDD_SL_Plugin_Updater.php:268
+#, php-format
+msgid "%1$sView version %2$s details%3$s."
+msgstr "%1$s Sürüm %2$s ayrıntılarını %3$s görüntüleyin."
+
+#: EDD_SL_Plugin_Updater.php:276
+#, php-format
+msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
+msgstr ""
+"%1$s Sürüm %2$s ayrıntılarını görüntüle %3$s veya %4$s şimdi güncelle %5$s."
+
+#: EDD_SL_Plugin_Updater.php:287
+msgid "Update now."
+msgstr "Şimdi güncelle."
+
+#: EDD_SL_Plugin_Updater.php:519
+msgid "You do not have permission to install plugin updates"
+msgstr "Eklenti güncellemelerini yüklemek için izniniz yok"
+
+#: EDD_SL_Plugin_Updater.php:519
+msgid "Error"
+msgstr "Hata"
+
+#: inc/CLI.php:32
+msgid "Unlimited site license required."
+msgstr "Sınırsız site lisansı gereklidir."
+
+#: inc/CLI.php:38
+msgid "License activated!"
+msgstr "Lisans etkinleştirildi!"
+
+#: inc/CLI.php:41
+msgid "License could not be activated."
+msgstr "Lisans etkinleştirilemedi."
+
+#: inc/CLI.php:55
+msgid "License deactivated!"
+msgstr "Lisans devre dışı bırakıldı!"
+
+#: inc/CLI.php:58
+msgid "License could not be deactivated."
+msgstr "Lisans devre dışı bırakılamadı."
+
+#: inc/CLI.php:78
+msgid "License removed!"
+msgstr "Lisans kaldırıldı!"
+
+#: inc/CLI.php:81
+msgid "License could not be removed."
+msgstr "Lisans kaldırılamadı."
+
+#: inc/admin.php:37 inc/settings.php:14
+msgid "General"
+msgstr "Genel"
+
+#: inc/admin.php:38 inc/settings.php:525
+msgid "Assets"
+msgstr "Varlıklar"
+
+#: inc/admin.php:39 inc/settings.php:908
+msgid "Preloading"
+msgstr "Ön Yükleme (Preloading)"
+
+#: inc/admin.php:40 inc/classes/Meta.php:136 inc/settings.php:1008
+msgid "Lazy Loading"
+msgstr "Tembel Yükleme (Lazy Loading)"
+
+#: inc/admin.php:41 inc/settings.php:1208
+msgid "Fonts"
+msgstr "Fontlar"
+
+#: inc/admin.php:42
+msgid "CDN"
+msgstr "CDN"
+
+#: inc/admin.php:43
+msgid "Analytics"
+msgstr "Analytics"
+
+#: inc/admin.php:49 inc/settings.php:1588
+msgid "Tools"
+msgstr "Araçlar"
+
+#: inc/admin.php:50 inc/settings.php:1717
+msgid "Database"
+msgstr "Veritabanı"
+
+#: inc/admin.php:55
+msgid "Network"
+msgstr "Ağ"
+
+#: inc/admin.php:60 inc/license.php:64
+msgid "License"
+msgstr "Lisans"
+
+#: inc/admin.php:64 inc/support.php:5 perfmatters.php:162
+msgid "Support"
+msgstr "Destek"
+
+#: inc/admin.php:74
+msgid "Version"
+msgstr "Versiyon"
+
+#: inc/admin.php:133
+msgid "Save Changes"
+msgstr "Kaydet"
+
+#: inc/classes/Ajax.php:31
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: inc/classes/Ajax.php:47
+msgid "Successfully restored default options."
+msgstr "Varsayılan seçenekler başarıyla geri yüklendi."
+
+#: inc/classes/Ajax.php:63
+msgid "Settings exported."
+msgstr "Ayarlar dışa aktarıldı."
+
+#: inc/classes/Ajax.php:80
+msgid "No import file given."
+msgstr "İçe aktarma dosyası verilmedi."
+
+#: inc/classes/Ajax.php:89
+msgid "Please upload a valid .json file."
+msgstr "Lütfen geçerli bir .json dosyası yükleyin."
+
+#: inc/classes/Ajax.php:105
+msgid "Successfully imported Perfmatters settings."
+msgstr "Perfmatters ayarları başarıyla içe aktarıldı."
+
+#: inc/classes/Ajax.php:117
+msgid "Permission denied."
+msgstr "İzin verilmedi."
+
+#: inc/classes/Ajax.php:124
+msgid "Nonce is invalid."
+msgstr "Nonce geçersiz."
+
+#: inc/classes/CSS.php:615 inc/classes/Meta.php:85 inc/settings.php:837
+#: inc/settings.php:846
+msgid "Clear Used CSS"
+msgstr "Kullanılan CSS'yi Temizle"
+
+#: inc/classes/CSS.php:615
+msgid "Current"
+msgstr "Geçerli"
+
+#: inc/classes/CSS.php:615
+msgid "All"
+msgstr "Tümü"
+
+#: inc/classes/CSS.php:636 inc/classes/CSS.php:676
+msgid "Used CSS cleared."
+msgstr "Kullanılmış CSS temizlendi."
+
+#: inc/classes/DatabaseOptimizer.php:70
+msgid "Database optimization is running in the background."
+msgstr "Veritabanı optimizasyonu arka planda çalışıyor."
+
+#: inc/classes/DatabaseOptimizer.php:88
+msgid "Database optimization completed. The following items were removed:"
+msgstr "Veritabanı optimizasyonu tamamlandı. Aşağıdaki öğeler kaldırıldı:"
+
+#: inc/classes/DatabaseOptimizer.php:99
+msgid "Database optimization completed. No optimizations found."
+msgstr "Veritabanı optimizasyonu tamamlandı. Optimizasyon bulunamadı."
+
+#: inc/classes/DatabaseOptimizer.php:126
+msgid "Once Weekly"
+msgstr "Haftada Bir Kez"
+
+#: inc/classes/DatabaseOptimizer.php:133
+msgid "Once Monthly"
+msgstr "Ayda Bir Kez"
+
+#: inc/classes/DatabaseOptimizer.php:176
+msgid "Revisions"
+msgstr "Revizyonlar"
+
+#: inc/classes/DatabaseOptimizer.php:177
+msgid "Auto Drafts"
+msgstr ""
+
+#: inc/classes/DatabaseOptimizer.php:178 inc/settings.php:1770
+msgid "Trashed Posts"
+msgstr "Silinen Gönderiler"
+
+#: inc/classes/DatabaseOptimizer.php:179 inc/settings.php:1785
+msgid "Spam Comments"
+msgstr "Spam Yorumlar"
+
+#: inc/classes/DatabaseOptimizer.php:180 inc/settings.php:1800
+msgid "Trashed Comments"
+msgstr "Silinmiş Yorumlar"
+
+#: inc/classes/DatabaseOptimizer.php:181
+msgid "Expired transients"
+msgstr "Süresi dolmuş geçiciler"
+
+#: inc/classes/DatabaseOptimizer.php:182
+msgid "Transients"
+msgstr "Geçiciler"
+
+#: inc/classes/DatabaseOptimizer.php:183 inc/settings.php:1845
+msgid "Tables"
+msgstr "Tablolar"
+
+#: inc/classes/DatabaseOptimizer.php:196
+msgid "There is already an existing database optimization process running."
+msgstr "Halihazırda çalışan mevcut bir veritabanı optimizasyon süreci vardır."
+
+#: inc/classes/DatabaseOptimizer.php:219
+msgid "Database optimization process started."
+msgstr "Veritabanı optimizasyon süreci başladı."
+
+#: inc/classes/DatabaseOptimizer.php:234
+msgid "Revisions Found"
+msgstr "Revizyonlar Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:237
+msgid "Auto-Drafts Found"
+msgstr ""
+
+#: inc/classes/DatabaseOptimizer.php:240
+msgid "Trashed Posts Found"
+msgstr "Silinmiş Gönderiler Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:243
+msgid "Spam Comments Found"
+msgstr "Spam Yorumlar Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:246
+msgid "Trashed Comments Found"
+msgstr "Silinmiş Yorumlar Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:250
+msgid "Expired Transients Found"
+msgstr "Süresi Dolmuş Geçiciler Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:253
+msgid "Transients Found"
+msgstr "Geçiciler Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:256
+msgid "Unoptimized Tables Found"
+msgstr "Optimize Edilmemiş Tablolar Bulundu"
+
+#: inc/classes/DatabaseOptimizer.php:259
+msgid "Database scan completed."
+msgstr "Veritabanı taraması tamamlandı."
+
+#: inc/classes/Fonts.php:198
+msgid "Local fonts cleared."
+msgstr "Yerel yazı tipleri temizlendi."
+
+#: inc/classes/LazyLoad.php:171
+msgid "video"
+msgstr "video"
+
+#: inc/classes/Meta.php:124
+msgid "Defer JavaScript"
+msgstr "Javascript'i Ertele"
+
+#: inc/classes/Meta.php:128 inc/settings.php:596
+msgid "Delay JavaScript"
+msgstr "JavaScript'i Geciktir"
+
+#: inc/classes/Meta.php:132
+msgid "Unused CSS"
+msgstr "Kullanılmayan CSS"
+
+#: inc/classes/Meta.php:140
+msgid "Instant Page"
+msgstr ""
+
+#: inc/classes/Meta.php:156
+msgid "No meta options selected."
+msgstr "Meta seçenekleri seçili değil."
+
+#: inc/classes/Meta.php:177
+msgid "Meta options purged."
+msgstr "Meta seçenekleri temizlendi."
+
+#: inc/classes/Meta.php:182
+msgid "Meta options not purged."
+msgstr "Meta seçenekleri temizlenmedi."
+
+#: inc/functions.php:107
+#, php-format
+msgid "No feed available, please visit the <a href='%s'>homepage</a>!"
+msgstr "Yayın yok, lütfen <a href='%s'>homepage</a> ziyaret edin!"
+
+#: inc/functions.php:170
+msgid "Sorry, you do not have permission to make REST API requests."
+msgstr "Üzgünüz, REST API istekleri yapmak için izniniz yok."
+
+#: inc/functions.php:306 inc/functions.php:399 inc/functions.php:404
+msgid "Comments are disabled."
+msgstr "Yorumlar devre dışı bırakılmıştır."
+
+#: inc/functions.php:611 inc/functions.php:631 inc/functions.php:1299
+#: inc/functions_script_manager.php:1535 inc/functions_script_manager.php:1543
+msgid "Perfmatters Warning"
+msgstr "Perfmatters Uyarısı"
+
+#: inc/functions.php:612
+msgid ""
+"WP_POST_REVISIONS is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+"WP_POST_REVISIONS sitenizde başka bir yerde zaten etkinleştirilmiştir. Bu "
+"özelliği yalnızca tek bir yerde etkinleştirmenizi öneririz."
+
+#: inc/functions.php:632
+msgid ""
+"AUTOSAVE_INTERVAL is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+"AUTOSAVE_INTERVAL sitenizde başka bir yerde zaten etkinleştirilmiştir. Bu "
+"özelliği yalnızca tek bir yerde etkinleştirmenizi öneririz."
+
+#: inc/functions.php:1024 inc/settings.php:444
+msgid "This has been disabled."
+msgstr "Devre dışı bırakıldı."
+
+#: inc/functions.php:1300
+msgid "Local Analytics is enabled but no Tracking ID is set."
+msgstr "Yerel Analitik etkinleştirildi ancak İzleme Kimliği ayarlanmadı."
+
+#: inc/functions_network.php:22
+msgid "Network Access"
+msgstr "Ağ Erişimi"
+
+#: inc/functions_network.php:27
+msgid "Choose who has access to manage Perfmatters plugin settings."
+msgstr ""
+"Perfmatters eklenti ayarlarını yönetmek için kimlerin erişimi olduğunu seçin."
+
+#: inc/functions_network.php:33
+msgid "Network Default"
+msgstr "Ağ Varsayılanı"
+
+#: inc/functions_network.php:38
+msgid "Choose a subsite that you want to pull default settings from."
+msgstr "Varsayılan ayarları çekmek istediğiniz bir alt site seçin."
+
+#: inc/functions_network.php:45 inc/settings.php:1595
+msgid "Clean Uninstall"
+msgstr "Tüm Ayarları Sil"
+
+#: inc/functions_network.php:52 inc/settings.php:1602
+msgid ""
+"When enabled, this will cause all Perfmatters options data to be removed "
+"from your database when the plugin is uninstalled."
+msgstr ""
+"Bu özellik etkinleştirildiğinde, eklenti kaldırıldığında tüm Perfmatters "
+"seçenekleri verilerinin veritabanınızdan kaldırılmasına neden olur."
+
+#: inc/functions_network.php:66
+msgid "Site Admins (Default)"
+msgstr "Site Yöneticileri (Varsayılan)"
+
+#: inc/functions_network.php:67
+msgid "Super Admins Only"
+msgstr "Yalnızca Süper Adminler"
+
+#: inc/functions_network.php:83
+msgid "None"
+msgstr "Hiçbiri"
+
+#: inc/functions_script_manager.php:49 inc/functions_script_manager.php:61
+#: inc/functions_script_manager.php:103 inc/script_manager.php:169
+#: inc/script_manager.php:215 inc/settings.php:530
+msgid "Script Manager"
+msgstr "Script Yöneticisi"
+
+#: inc/functions_script_manager.php:64
+msgid "Close Script Manager"
+msgstr "Script Yöneticisini Kapat"
+
+#: inc/functions_script_manager.php:133 inc/script_manager.php:416
+msgid "Save"
+msgstr "Kaydet"
+
+#: inc/functions_script_manager.php:134
+msgid "Saving"
+msgstr "Kaydediliyor"
+
+#: inc/functions_script_manager.php:135 inc/functions_script_manager.php:1251
+msgid "Settings saved successfully!"
+msgstr "Ayarlar başarıyla kaydedildi!"
+
+#: inc/functions_script_manager.php:136
+msgid "Settings failed to update."
+msgstr "Ayarlar güncellenemedi."
+
+#: inc/functions_script_manager.php:137
+msgid "No disabled location selected."
+msgstr "Seçili devre dışı konum yok."
+
+#: inc/functions_script_manager.php:138
+msgid "No options were changed."
+msgstr "Hiçbir seçenek değiştirilmemiştir."
+
+#: inc/functions_script_manager.php:327
+msgid "Status"
+msgstr "Durum"
+
+#: inc/functions_script_manager.php:328
+msgid "Script"
+msgstr "Script"
+
+#: inc/functions_script_manager.php:329
+msgid "Type"
+msgstr "Tür"
+
+#: inc/functions_script_manager.php:330
+msgid "Size"
+msgstr "Boyut"
+
+#: inc/functions_script_manager.php:356
+msgid ""
+"MU Mode is currently enabled, the above settings will apply to the entire "
+"plugin."
+msgstr ""
+"MU Modu şu anda etkindir, yukarıdaki ayarlar tüm eklenti için geçerli "
+"olacaktır."
+
+#: inc/functions_script_manager.php:359
+msgid "The above settings will apply to all assets in this group."
+msgstr "Yukarıdaki ayarlar bu gruptaki tüm varlıklar için geçerli olacaktır."
+
+#: inc/functions_script_manager.php:436
+msgid "Depends on"
+msgstr "Bağlı olduğu:"
+
+#: inc/functions_script_manager.php:449
+msgid "Required by"
+msgstr "Gerekli:"
+
+#: inc/functions_script_manager.php:522 inc/script_manager.php:332
+msgid "MU Mode"
+msgstr "MU Modu"
+
+#: inc/functions_script_manager.php:528 inc/script_manager_css.php:622
+msgid "ON"
+msgstr "AÇIK"
+
+#: inc/functions_script_manager.php:529 inc/script_manager_css.php:637
+msgid "OFF"
+msgstr "KAPALI"
+
+#: inc/functions_script_manager.php:553 inc/settings.php:1889
+msgid "Disabled"
+msgstr "Devre Dışı"
+
+#: inc/functions_script_manager.php:567
+msgid "Everywhere"
+msgstr "Her Yerde"
+
+#: inc/functions_script_manager.php:585 inc/functions_script_manager.php:751
+#: inc/settings.php:424
+msgid "404 Template"
+msgstr "404 Şablon"
+
+#: inc/functions_script_manager.php:600 inc/functions_script_manager.php:765
+msgid "Current URL"
+msgstr "Geçerli URL"
+
+#: inc/functions_script_manager.php:688 inc/functions_script_manager.php:853
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: inc/functions_script_manager.php:690 inc/functions_script_manager.php:702
+#: inc/functions_script_manager.php:855 inc/functions_script_manager.php:867
+#: inc/settings.php:310 inc/settings.php:329 inc/settings.php:349
+#: inc/settings.php:377 inc/settings.php:423 inc/settings.php:620
+#: inc/settings.php:754 inc/settings.php:774 inc/settings.php:936
+#: inc/settings.php:1037 inc/settings.php:1416 inc/settings.php:1435
+msgid "Default"
+msgstr "Varsayılan"
+
+#: inc/functions_script_manager.php:691 inc/functions_script_manager.php:856
+msgid "Logged In"
+msgstr "Giriş Yapanlar"
+
+#: inc/functions_script_manager.php:692 inc/functions_script_manager.php:857
+msgid "Logged Out"
+msgstr "Giriş Yapmayanlar"
+
+#: inc/functions_script_manager.php:700 inc/functions_script_manager.php:865
+msgid "Devices"
+msgstr "Cihazlar"
+
+#: inc/functions_script_manager.php:703 inc/functions_script_manager.php:868
+#: inc/settings.php:2257 inc/settings.php:2303
+msgid "Desktop"
+msgstr "Masaüstü"
+
+#: inc/functions_script_manager.php:704 inc/functions_script_manager.php:869
+#: inc/settings.php:2258 inc/settings.php:2304
+msgid "Mobile"
+msgstr "Mobil"
+
+#: inc/functions_script_manager.php:712 inc/functions_script_manager.php:877
+msgid "Regex"
+msgstr "Regex"
+
+#: inc/functions_script_manager.php:730
+msgid "Exceptions"
+msgstr "İstisnalar"
+
+#: inc/functions_script_manager.php:1536 inc/script_manager.php:357
+msgid "MU plugin version mismatch."
+msgstr "MU eklentisi sürüm uyuşmazlığı."
+
+#: inc/functions_script_manager.php:1536 inc/functions_script_manager.php:1544
+#: inc/script_manager.php:194 inc/script_manager.php:328
+#: inc/script_manager.php:340 inc/settings.php:2485
+msgid "View Documentation"
+msgstr "Belgeleri Görüntüle"
+
+#: inc/functions_script_manager.php:1544 inc/script_manager.php:366
+msgid "MU plugin file not found."
+msgstr "MU eklenti dosyası bulunamadı."
+
+#: inc/license.php:71
+msgid "License Key"
+msgstr "Lisans Anahtarı"
+
+#: inc/license.php:78
+msgid "Save License"
+msgstr "Lisans Kaydet"
+
+#: inc/license.php:82
+msgid "Remove License"
+msgstr "Lisansı Kaldır"
+
+#: inc/license.php:85
+msgid "Save or remove your license key."
+msgstr "Lisans anahtarınızı kaydedin veya kaldırın."
+
+#: inc/license.php:111 inc/license.php:118
+msgid "Activate License"
+msgstr "Lisansı Etkinleştir"
+
+#: inc/license.php:114
+msgid "Deactivate License"
+msgstr "Lisansı Devre Dışı Bırak"
+
+#: inc/license.php:115
+msgid "License is activated."
+msgstr "Lisans etkinleştirildi."
+
+#: inc/license.php:119
+msgid "License is not activated."
+msgstr "Lisans etkinleştirilmedi."
+
+#: inc/license.php:122
+msgid ""
+"Unlimited License needed for use in a multisite environment. Please contact "
+"support to upgrade."
+msgstr ""
+"Çoklu site ortamında kullanım için Sınırsız Lisans gereklidir. Yükseltmek "
+"için lütfen destek ile iletişime geçin."
+
+#: inc/license.php:131
+msgid "License Status"
+msgstr "Lisans Durumu"
+
+#: inc/license.php:136
+msgid "Renew Your License for Updates + Support!"
+msgstr "Yeni Güncellemeler + Destek için Lisansınızı Yenileyin!"
+
+#: inc/license.php:145
+msgid "Licenses Used"
+msgstr "Kullanılan Lisanslar"
+
+#: inc/license.php:153
+msgid "Expiration Date"
+msgstr "Son Geçerlilik Tarihi"
+
+#: inc/license.php:154
+msgid "Lifetime"
+msgstr "Ömür boyu"
+
+#: inc/network.php:37 inc/network.php:76
+msgid "Default settings applied!"
+msgstr "Varsayılan ayarlar uygulandı!"
+
+#: inc/network.php:41
+msgid "Select a site that is not already the Network Default."
+msgstr "Halihazırda Ağ Varsayılanı olmayan bir site seçin."
+
+#: inc/network.php:46 inc/network.php:86
+msgid "Network Default not set."
+msgstr "Ağ Varsayılanı ayarlanmamış."
+
+#: inc/network.php:51
+msgid "Error: Blog Not Found."
+msgstr "Hata: Blog Bulunamadı."
+
+#: inc/network.php:81
+msgid "No available sites found."
+msgstr "Uygun site bulunamadı."
+
+#: inc/network.php:92
+msgid "Options saved."
+msgstr "Seçenekler kaydedildi."
+
+#: inc/network.php:103 inc/network.php:118
+msgid "Apply Default Settings"
+msgstr "Varsayılan Ayarları Uygula"
+
+#: inc/network.php:106
+msgid ""
+"Select a site from the dropdown and click to apply the settings from your "
+"network default (above)."
+msgstr ""
+"Açılır menüden bir site seçin ve ağ varsayılanınızdaki (yukarıdaki) ayarları "
+"uygulamak için tıklayın."
+
+#: inc/network.php:111
+msgid "Select a Site"
+msgstr "Bir Site Seçin"
+
+#: inc/network.php:122
+msgid ""
+"Apply the settings from your network default to all sites. Depending on the "
+"amount, this may take a while."
+msgstr ""
+"Ağ varsayılanınızdaki ayarları tüm sitelere uygulayın. Miktara bağlı olarak "
+"bu işlem biraz zaman alabilir."
+
+#: inc/network.php:124
+msgid "Apply Default Settings to All Sites"
+msgstr "Varsayılan Ayarları Tüm Sitelere Uygula"
+
+#: inc/network.php:124
+msgid ""
+"Are you sure? This will permanently overwrite all Perfmatters options for "
+"all subsites."
+msgstr ""
+"Emin misiniz? Bu, tüm alt siteler için tüm Perfmatters seçeneklerinin kalıcı "
+"olarak üzerine yazacaktır."
+
+#: inc/script_manager.php:170 inc/script_manager_global.php:6
+msgid "Global View"
+msgstr "Genel Bakış"
+
+#: inc/script_manager.php:171 inc/script_manager.php:287 inc/settings.php:2249
+#: inc/settings.php:2293 inc/settings.php:2336 perfmatters.php:175
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: inc/script_manager.php:193
+msgid ""
+"We recommend testing Script Manager changes on a staging/dev site first, as "
+"you could break your site's appearance."
+msgstr ""
+"Sitenizin görünümünü bozabileceğiniz için Script Yöneticisi değişikliklerini "
+"önce bir hazırlama/geliştirme sitesinde test etmenizi öneririz."
+
+#: inc/script_manager.php:200
+msgid ""
+"You are in Testing Mode. Changes will only be visible to logged-in admins."
+msgstr ""
+"Test Modundasınız. Değişiklikler yalnızca oturum açmış yöneticiler "
+"tarafından görülebilir."
+
+#: inc/script_manager.php:216
+msgid "Manage scripts loading on the current page."
+msgstr "Geçerli sayfadaki script yüklemesini yönetin."
+
+#: inc/script_manager.php:241
+msgid "Total size"
+msgstr "Toplam boyut"
+
+#: inc/script_manager.php:270
+msgid "The Script Manager does not support AMP pages."
+msgstr "Script Yöneticisi AMP sayfalarını desteklemez."
+
+#: inc/script_manager.php:273
+msgid "Loading Scripts"
+msgstr "Scriptler Yükleniyor"
+
+#: inc/script_manager.php:288
+msgid "View and manage all of your Script Manager settings."
+msgstr "Tüm Script Manager ayarlarınızı görüntüleyin ve yönetin."
+
+#: inc/script_manager.php:299
+msgid "Display Archives"
+msgstr "Arşivleri Görüntüle"
+
+#: inc/script_manager.php:306
+msgid ""
+"Add WordPress archives to your Script Manager selection options. Archive "
+"posts will no longer be grouped with their post type."
+msgstr ""
+"WordPress arşivlerini Script Yöneticisi seçim seçeneklerinize ekleyin. Arşiv "
+"gönderileri artık gönderi türlerine göre gruplandırılmayacaktır."
+
+#: inc/script_manager.php:310
+msgid "Display Dependencies"
+msgstr "Bağımlılıkları Görüntüle"
+
+#: inc/script_manager.php:317
+msgid "Show dependencies for each script."
+msgstr "Her script için bağımlılıkları gösterin."
+
+#: inc/script_manager.php:321
+msgid "Testing Mode"
+msgstr "Test Modu"
+
+#: inc/script_manager.php:328
+msgid "Restrict your Script Manager configuration to logged-in admins only."
+msgstr ""
+"Script Manager yapılandırmanızı yalnızca oturum açmış yöneticilerle "
+"kısıtlayın."
+
+#: inc/script_manager.php:340
+msgid ""
+"Must-use (MU) mode requires elevated permissions and a file to be copied "
+"into the mu-plugins directory. This gives you more control and the ability "
+"to disable plugin queries, inline CSS, etc."
+msgstr ""
+"Zorunlu kullanım (MU) modu, yükseltilmiş izinler ve mu-plugins dizinine "
+"kopyalanacak bir dosya gerektirir. Bu size daha fazla kontrol ve eklenti "
+"sorgularını, satır içi CSS'yi vb. devre dışı bırakma olanağı sağlar."
+
+#: inc/script_manager.php:342
+msgid "Warning"
+msgstr "Uyarı"
+
+#: inc/script_manager.php:342
+msgid ""
+"Any previous plugin-level disables will now disable the entire plugin. "
+"Please review your existing Script Manager configuration before enabling "
+"this option."
+msgstr ""
+"Önceki eklenti düzeyinde devre dışı bırakmalar artık tüm eklentiyi devre "
+"dışı bırakacaktır. Lütfen bu seçeneği etkinleştirmeden önce mevcut Script "
+"Yöneticisi yapılandırmanızı gözden geçirin."
+
+#: inc/script_manager.php:361
+msgid "MU plugin installed."
+msgstr "MU eklentisi yüklü."
+
+#: inc/script_manager.php:376
+msgid "Hide Disclaimer"
+msgstr "Sorumluluk Reddini Gizle"
+
+#: inc/script_manager.php:383
+msgid "Hide the disclaimer message box across all Script Manager views."
+msgstr ""
+"Tüm Script Yöneticisi görünümlerinde sorumluluk reddi mesaj kutusunu "
+"gizleyin."
+
+#: inc/script_manager.php:387 inc/script_manager.php:391
+msgid "Reset Script Manager"
+msgstr "Script Yöneticisini Sıfırla"
+
+#: inc/script_manager.php:394
+msgid "Remove and reset all of your existing Script Manager settings."
+msgstr "Mevcut tüm Script Manager ayarlarınızı kaldırın ve sıfırlayın."
+
+#: inc/script_manager.php:436
+msgid ""
+"Are you sure? This will remove and reset all of your existing Script Manager "
+"settings and cannot be undone!"
+msgstr ""
+"Emin misiniz? Bu, mevcut tüm Script Yöneticisi ayarlarınızı kaldıracak ve "
+"sıfırlayacaktır ve geri alınamaz!"
+
+#: inc/script_manager_global.php:7
+msgid ""
+"This is a visual representation of the Script Manager configuration across "
+"your entire site."
+msgstr ""
+"Bu, tüm sitenizdeki Script Yöneticisi yapılandırmasının görsel bir "
+"temsilidir."
+
+#: inc/script_manager_global.php:40
+msgid "Handle"
+msgstr ""
+
+#: inc/script_manager_global.php:41
+msgid "Setting"
+msgstr "Ayar"
+
+#: inc/script_manager_global.php:129
+msgid "You don't have any scripts disabled yet."
+msgstr "Henüz devre dışı bırakılmış bir scriptiniz yok."
+
+#: inc/settings.php:19
+msgid "Disable Emojis"
+msgstr "Emojileri Devre Dışı Bırak"
+
+#: inc/settings.php:25
+msgid "Removes WordPress Emojis JavaScript file (wp-emoji-release.min.js)."
+msgstr ""
+"WordPress Emojis JavaScript dosyasını (wp-emoji-release.min.js) kaldırır."
+
+#: inc/settings.php:32
+msgid "Disable Dashicons"
+msgstr "Dashicons'u Devre Dışı Bırak"
+
+#: inc/settings.php:38
+msgid "Disables dashicons on the front end when not logged in."
+msgstr "Oturum açılmadığında ön uçtaki çizgi simgeleri devre dışı bırakır."
+
+#: inc/settings.php:45
+msgid "Disable Embeds"
+msgstr "Yerleştirmeleri (Embeds) Devre Dışı Bırak"
+
+#: inc/settings.php:51
+msgid "Removes WordPress Embed JavaScript file (wp-embed.min.js)."
+msgstr "WordPress Embed JavaScript dosyasını (wp-embed.min.js) kaldırır."
+
+#: inc/settings.php:58
+msgid "Disable XML-RPC"
+msgstr "XML-RPC'yi Devre Dışı Bırak"
+
+#: inc/settings.php:64
+msgid "Disables WordPress XML-RPC functionality."
+msgstr "WordPress XML-RPC işlevselliğini devre dışı bırakır."
+
+#: inc/settings.php:71
+msgid "Remove jQuery Migrate"
+msgstr "jQuery Migrate'i Kaldır"
+
+#: inc/settings.php:77
+msgid "Removes jQuery Migrate JavaScript file (jquery-migrate.min.js)."
+msgstr "jQuery Migrate JavaScript dosyasını (jquery-migrate.min.js) kaldırır."
+
+#: inc/settings.php:84
+msgid "Hide WP Version"
+msgstr "WP Sürümünü Gizle"
+
+#: inc/settings.php:90
+msgid "Removes WordPress version meta tag."
+msgstr "WordPress sürüm meta etiketini kaldırır."
+
+#: inc/settings.php:97
+msgid "Remove wlwmanifest Link"
+msgstr "wlwmanifest Bağlantısını Kaldır"
+
+#: inc/settings.php:103
+msgid "Remove wlwmanifest (Windows Live Writer) link tag."
+msgstr "wlwmanifest (Windows Live Writer) bağlantı etiketini kaldırın."
+
+#: inc/settings.php:110
+msgid "Remove RSD Link"
+msgstr "RSD Bağlantısını Kaldır"
+
+#: inc/settings.php:116
+msgid "Remove RSD (Real Simple Discovery) link tag."
+msgstr "RSD (Real Simple Discovery) bağlantı etiketini kaldırın."
+
+#: inc/settings.php:123
+msgid "Remove Shortlink"
+msgstr "Kısa Bağlantıyı Kaldır"
+
+#: inc/settings.php:129
+msgid "Remove Shortlink link tag."
+msgstr "Kısa bağlantı etiketini kaldırın."
+
+#: inc/settings.php:136
+msgid "Disable RSS Feeds"
+msgstr "RSS Beslemelerini Devre Dışı Bırak"
+
+#: inc/settings.php:142
+msgid "Disable WordPress generated RSS feeds and 301 redirect URL to parent."
+msgstr ""
+"WordPress tarafından oluşturulan RSS beslemelerini devre dışı bırakın ve "
+"URL'yi ana sayfaya 301 olarak yönlendirin."
+
+#: inc/settings.php:149
+msgid "Remove RSS Feed Links"
+msgstr "RSS Besleme Bağlantılarını Kaldır"
+
+#: inc/settings.php:155
+msgid "Disable WordPress generated RSS feed link tags."
+msgstr ""
+"WordPress tarafından oluşturulan RSS beslemesi bağlantı etiketlerini devre "
+"dışı bırakın."
+
+#: inc/settings.php:162
+msgid "Disable Self Pingbacks"
+msgstr "Pingback'leri Devre Dışı Bırak"
+
+#: inc/settings.php:168
+msgid ""
+"Disable Self Pingbacks (generated when linking to an article on your own "
+"blog)."
+msgstr ""
+"Pingback'leri devre dışı bırakın (kendi blogunuzdaki bir makaleye bağlantı "
+"verirken oluşturulur)."
+
+#: inc/settings.php:175
+msgid "Disable REST API"
+msgstr "REST API'yi Devre Dışı Bırak"
+
+#: inc/settings.php:183
+msgid "Default (Enabled)"
+msgstr "Varsayılan (Etkin)"
+
+#: inc/settings.php:184
+msgid "Disable for Non-Admins"
+msgstr "Yönetici Olmayanlar İçin Devre Dışı Bırak"
+
+#: inc/settings.php:185
+msgid "Disable When Logged Out"
+msgstr "Oturum Kapatıldığında Devre Dışı Bırak"
+
+#: inc/settings.php:187
+msgid ""
+"Disables REST API requests and displays an error message if the requester "
+"doesn't have permission."
+msgstr ""
+"REST API isteklerini devre dışı bırakır ve istek sahibinin izni yoksa bir "
+"hata mesajı görüntüler."
+
+#: inc/settings.php:194
+msgid "Remove REST API Links"
+msgstr "REST API Bağlantılarını Kaldır"
+
+#: inc/settings.php:200
+msgid ""
+"Removes REST API link tag from the front end and the REST API header link "
+"from page requests."
+msgstr ""
+"REST API bağlantı etiketini ön uçtan ve REST API başlık bağlantısını sayfa "
+"isteklerinden kaldırır."
+
+#: inc/settings.php:207
+msgid "Disable Google Maps"
+msgstr "Google Haritaları Devre Dışı Bırak"
+
+#: inc/settings.php:214
+msgid ""
+"Removes any instances of Google Maps being loaded across your entire site."
+msgstr "Sitenizin tamamında yüklenen tüm Google Maps örneklerini kaldırır."
+
+#: inc/settings.php:221
+msgid "Exclude Post IDs"
+msgstr "Gönderi Kimliklerini Hariç Tut"
+
+#: inc/settings.php:230
+msgid ""
+"Prevent Google Maps from being disabled on specific post IDs. Format: comma "
+"separated"
+msgstr ""
+"Google Haritalar'ın belirli gönderi kimliklerinde devre dışı bırakılmasını "
+"önleyin. Format: virgülle ayrılmış"
+
+#: inc/settings.php:237
+msgid "Disable Password Strength Meter"
+msgstr "Parola Gücü Ölçeri Devre Dışı Bırak"
+
+#: inc/settings.php:243
+msgid ""
+"Removes WordPress and WooCommerce Password Strength Meter scripts from non "
+"essential pages."
+msgstr ""
+"WordPress ve WooCommerce Parola Gücü Ölçer scriptlerini gerekli olmayan "
+"sayfalardan kaldırır."
+
+#: inc/settings.php:250
+msgid "Disable Comments"
+msgstr "Yorumları Devre Dışı Bırak"
+
+#: inc/settings.php:256
+msgid "Disables WordPress comments across your entire site."
+msgstr "Sitenizin tamamında WordPress yorumlarını devre dışı bırakır."
+
+#: inc/settings.php:263
+msgid "Remove Comment URLs"
+msgstr "Yorum URL'lerini Kaldır"
+
+#: inc/settings.php:269
+msgid ""
+"Removes the WordPress comment author link and website field from blog posts."
+msgstr ""
+"WordPress yorum yazarı bağlantısını ve web sitesi alanını blog "
+"gönderilerinden kaldırır."
+
+#: inc/settings.php:276
+msgid "Add Blank Favicon"
+msgstr "Boş Favicon Ekle"
+
+#: inc/settings.php:282
+msgid ""
+"Adds a blank favicon to your WordPress header, which will prevent a missing "
+"favicon or 404 error. If you already have a favicon on your site, you should "
+"leave this off. "
+msgstr ""
+"Websitenize boş bir favicon ekler, bu da eksik favicon veya 404 hatasını "
+"önler. Sitenizde zaten bir favicon varsa, bunu kapalı bırakmalısınız. "
+
+#: inc/settings.php:289
+msgid "Remove Global Styles"
+msgstr "Global Stilleri Kaldır"
+
+#: inc/settings.php:295
+msgid ""
+"Remove the inline global styles (CSS and SVG code) related to duotone "
+"filters."
+msgstr ""
+"Duotone filtreleriyle ilgili satır içi global stilleri (CSS ve SVG kodu) "
+"kaldırın."
+
+#: inc/settings.php:302
+msgid "Disable Heartbeat"
+msgstr "Kalp Atışını Devre Dışı Bırak"
+
+#: inc/settings.php:311
+msgid "Disable Everywhere"
+msgstr "Her Yerde Devre Dışı Bırak"
+
+#: inc/settings.php:312
+msgid "Only Allow When Editing Posts/Pages"
+msgstr "Yalnızca Yazıları/Sayfaları Düzenlerken İzin Ver"
+
+#: inc/settings.php:314
+msgid ""
+"Disable WordPress Heartbeat everywhere or in certain areas (used for auto "
+"saving and revision tracking)."
+msgstr ""
+"WordPress Heartbeat'i her yerde veya belirli alanlarda devre dışı bırakın "
+"(otomatik kaydetme ve revizyon takibi için kullanılır)."
+
+#: inc/settings.php:321
+msgid "Heartbeat Frequency"
+msgstr "Kalp Atışı Frekansı"
+
+#: inc/settings.php:329 inc/settings.php:330 inc/settings.php:331
+#: inc/settings.php:332
+#, php-format
+msgid "%s Seconds"
+msgstr "%s Saniye"
+
+#: inc/settings.php:334
+msgid "Controls how often the WordPress Heartbeat API is allowed to run."
+msgstr ""
+"WordPress Kalp Atışı (Heartbeat) API'sinin ne sıklıkta çalışmasına izin "
+"verileceğini kontrol eder."
+
+#: inc/settings.php:341
+msgid "Limit Post Revisions"
+msgstr "Gönderi Revizyonlarını Sınırla"
+
+#: inc/settings.php:350
+msgid "Disable Post Revisions"
+msgstr "Gönderi Revizyonlarını Devre Dışı Bırak"
+
+#: inc/settings.php:362
+msgid ""
+"Limits the maximum amount of revisions that are allowed for posts and pages."
+msgstr ""
+"Gönderiler ve sayfalar için izin verilen maksimum revizyon miktarını "
+"sınırlar."
+
+#: inc/settings.php:369
+msgid "Autosave Interval"
+msgstr "Otomatik Kaydetme Aralığı"
+
+#: inc/settings.php:377
+msgid "Minute"
+msgstr "Dakika"
+
+#: inc/settings.php:378
+msgid "Disable Autosave Interval"
+msgstr "Otomatik Kaydetme Aralığını Devre Dışı Bırak"
+
+#: inc/settings.php:379 inc/settings.php:380 inc/settings.php:381
+#: inc/settings.php:382 inc/settings.php:383 inc/settings.php:384
+#: inc/settings.php:385 inc/settings.php:386 inc/settings.php:387
+msgid "Minutes"
+msgstr "Dakika"
+
+#: inc/settings.php:389
+msgid ""
+"Controls how often WordPress will auto save posts and pages while editing."
+msgstr ""
+"WordPress'in düzenleme sırasında yazıları ve sayfaları ne sıklıkla otomatik "
+"olarak kaydedeceğini kontrol eder."
+
+#: inc/settings.php:394
+msgid "Login URL"
+msgstr "Giriş URL'si"
+
+#: inc/settings.php:399
+msgid "Custom Login URL"
+msgstr "Özel Giriş URL'si"
+
+#: inc/settings.php:408
+msgid ""
+"When set, this will change your WordPress login URL (slug) to the provided "
+"string and will block wp-admin and wp-login endpoints from being directly "
+"accessed."
+msgstr ""
+"Bunu ayarladığınızda, WordPress giriş URL'nizi (slug) sağlanan dizeye "
+"değiştirecek ve wp-admin ve wp-login uç noktalarına doğrudan erişilmesini "
+"engelleyecektir."
+
+#: inc/settings.php:415
+msgid "Disabled Behavior"
+msgstr "Engelleme Davranışı"
+
+#: inc/settings.php:423 inc/settings.php:436
+msgid "Message"
+msgstr "Mesaj"
+
+#: inc/settings.php:425
+msgid "Home URL"
+msgstr "Anasayfa URL'si"
+
+#: inc/settings.php:426
+msgid "Local Redirect"
+msgstr "Yerel Yönlendirme"
+
+#: inc/settings.php:429
+msgid "Change what happens when an original login endpoint is visited."
+msgstr ""
+"Orijinal bir oturum açma sayfası ziyaret edildiğinde ne olacağını değiştirin."
+
+#: inc/settings.php:445
+msgid "Change the disabled message that is displayed."
+msgstr "Görüntülenmesini istediğiniz devre dışı mesajınızı belirtin."
+
+#: inc/settings.php:452
+msgid "Redirect Slug"
+msgstr ""
+
+#: inc/settings.php:460
+msgid "404"
+msgstr "404"
+
+#: inc/settings.php:461
+msgid "Change the slug that is used for the local redirect."
+msgstr "Yerel yönlendirme için kullanılan slug'ı değiştirin."
+
+#: inc/settings.php:473
+msgid "Disable Scripts"
+msgstr "Script'i Devre Dışı Bırak"
+
+#: inc/settings.php:479
+msgid ""
+"Disables WooCommerce scripts and styles except on product, cart, and "
+"checkout pages."
+msgstr ""
+"Ürün, sepet ve ödeme sayfaları dışında WooCommerce script dosyalarını ve "
+"stillerini devre dışı bırakır."
+
+#: inc/settings.php:486
+msgid "Disable Cart Fragmentation"
+msgstr "Sepet Parçalamasını Devre Dışı Bırak"
+
+#: inc/settings.php:492
+msgid ""
+"Disables WooCommerce cart fragmentation script when there are no items in "
+"the cart."
+msgstr ""
+"Sepette ürün olmadığında WooCommerce sepet parçalama script dosyasını devre "
+"dışı bırakır."
+
+#: inc/settings.php:499
+msgid "Disable Status Meta Box"
+msgstr "Durum Meta Kutusunu Devre Dışı Bırak"
+
+#: inc/settings.php:505
+msgid "Disables WooCommerce status meta box from the WP Admin Dashboard."
+msgstr ""
+"WP Admin Panelinden WooCommerce durum meta kutusunu devre dışı bırakır."
+
+#: inc/settings.php:512
+msgid "Disable Widgets"
+msgstr "Widget'ları Devre Dışı Bırak"
+
+#: inc/settings.php:518
+msgid "Disables all WooCommerce widgets."
+msgstr "Tüm WooCommerce widget'larını devre dışı bırakır."
+
+#: inc/settings.php:537
+msgid ""
+"Enables the Perfmatters Script Manager, which gives you the ability to "
+"disable CSS and JS files on a page by page basis."
+msgstr ""
+"CSS ve JS dosyalarını sayfa bazında devre dışı bırakabilmenizi sağlayan "
+"Perfmatters Script Yöneticisini etkinleştirir."
+
+#: inc/settings.php:542
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: inc/settings.php:547
+msgid "Defer Javascript"
+msgstr "Javascript'i Ertele"
+
+#: inc/settings.php:554
+msgid "Add the defer attribute to your JavaScript files."
+msgstr "JavaScript dosyalarınıza erteleme (defer) özelliğini ekleyin."
+
+#: inc/settings.php:562
+msgid "Include jQuery"
+msgstr "jQuery'i Dahil Et"
+
+#: inc/settings.php:569
+msgid ""
+"Many plugins and themes require jQuery. We recommend either testing jQuery "
+"deferral separately or leaving this option turned off."
+msgstr ""
+"Birçok eklenti ve tema jQuery gerektirir. JQuery ertelemesini ayrı olarak "
+"test etmenizi veya bu seçeneği kapalı bırakmanızı öneririz."
+
+#: inc/settings.php:570
+msgid ""
+"Allow jQuery core to be deferred. We recommend testing this separately or "
+"leaving it off."
+msgstr ""
+"JQuery çekirdeğinin ertelenmesine izin ver. Bunu ayrıca test etmenizi veya "
+"kapalı bırakmanızı öneririz."
+
+#: inc/settings.php:578
+msgid "Exclude from Deferral"
+msgstr "Erteleme İşleminden Hariç Tut"
+
+#: inc/settings.php:588
+msgid ""
+"Exclude specific JavaScript files from deferral. Exclude a file by adding "
+"the source URL (example.js). Format: one per line"
+msgstr ""
+"Belirli JavaScript dosyalarını ertelemeden hariç tutun. Kaynak URL'yi "
+"(example.js) ekleyerek bir dosyayı hariç tutun. Format: satır başına bir tane"
+
+#: inc/settings.php:603
+msgid "Delay JavaScript from loading until user interaction."
+msgstr "JavaScript'in yüklenmesini kullanıcı etkileşimine kadar geciktirin."
+
+#: inc/settings.php:611
+msgid "Delay Behavior"
+msgstr "Gecikme Davranışı"
+
+#: inc/settings.php:620
+msgid "Only Delay Specified Scripts"
+msgstr "Yalnızca Belirtilen Scriptleri Geciktirin"
+
+#: inc/settings.php:621
+msgid "Delay All Scripts"
+msgstr "Tüm Scriptleri Geciktir"
+
+#: inc/settings.php:623
+msgid "Choose the method used to delay scripts."
+msgstr "Scriptleri geciktirmek için kullanılan yöntemi seçin."
+
+#: inc/settings.php:631
+msgid "Delayed Scripts"
+msgstr "Gecikmeli Scriptler"
+
+#: inc/settings.php:641
+msgid ""
+"Delay specific JavaScript files by adding the source URL (example.js), or "
+"delay an inline script by adding a unique string from that script. Format: "
+"one per line"
+msgstr ""
+"Kaynak URL'yi (example.js) ekleyerek belirli JavaScript dosyalarını "
+"geciktirin veya bir satır içi betiği, o betikten benzersiz bir dize "
+"ekleyerek geciktirin. Format: satır başına bir tane"
+
+#: inc/settings.php:649
+msgid "Quick Exclusions"
+msgstr "Hızlı İstisnalar"
+
+#: inc/settings.php:656
+msgid ""
+"Exclude scripts for popular plugins and themes based on our predefined lists "
+"of common exclusions."
+msgstr ""
+"Popüler eklentiler ve temalar için scriptleri önceden tanımlanmış ortak "
+"dışlama listelerimize göre hariç tutun."
+
+#: inc/settings.php:664
+msgid "Excluded from Delay"
+msgstr "Gecikme Kapsamı Dışında"
+
+#: inc/settings.php:674
+msgid ""
+"Exclude specific JavaScript files from delay by adding the source URL "
+"(example.js), or exclude an inline script by adding a unique string from "
+"that script. Format: one per line"
+msgstr ""
+"Kaynak URL'yi (example.js) ekleyerek belirli JavaScript dosyalarını "
+"gecikmeden hariç tutun veya bu scriptleri benzersiz bir dize ekleyerek bir "
+"satır içi scriptlerini hariç tutun. Format: satır başına bir tane"
+
+#: inc/settings.php:682
+msgid "Delay Timeout"
+msgstr "Gecikme Zaman Aşımı"
+
+#: inc/settings.php:689
+msgid ""
+"Load delayed scripts after a set amount of time if no user interaction has "
+"been detected."
+msgstr ""
+"Herhangi bir kullanıcı etkileşimi algılanmazsa, belirli bir süre sonra "
+"gecikmeli scriptleri yükleyin."
+
+#: inc/settings.php:697
+msgid "Disable Click Delay"
+msgstr "Tıklama Gecikmesini Devre Dışı Bırak"
+
+#: inc/settings.php:704
+msgid ""
+"Prevents the first click from being delayed until JavaScript has finished "
+"loading. This can be helpful if you are excluding scripts for interactive "
+"elements manually."
+msgstr ""
+"JavaScript yüklenmeyi bitirene kadar ilk tıklamanın ertelenmesini önler. "
+"Etkileşimli öğeler için scriptleri manuel olarak hariç tutuyorsanız bu "
+"yararlı olabilir."
+
+#: inc/settings.php:712
+msgid "Enable FastClick"
+msgstr "FastClick'i Etkinleştir"
+
+#: inc/settings.php:719
+msgid ""
+"Load the FastClick library locally to fix the double-click issue on iOS."
+msgstr ""
+"iOS'ta çift tıklama sorununu gidermek için FastClick kitaplığını yerel "
+"olarak yükleyin."
+
+#: inc/settings.php:725
+msgid "CSS"
+msgstr "CSS"
+
+#: inc/settings.php:730
+msgid "Remove Unused CSS"
+msgstr "Kullanılmayan CSS'yi Kaldırın"
+
+#: inc/settings.php:737
+msgid ""
+"Remove unused CSS from your stylesheets and print out used CSS inline in the "
+"header."
+msgstr ""
+"Kullanılmayan CSS'yi stil sayfalarınızdan kaldırın ve kullanılan CSS'yi "
+"başlıkta satır içi olarak yazdırın."
+
+#: inc/settings.php:745
+msgid "Used CSS Method"
+msgstr "Kullanılan CSS Yöntemi"
+
+#: inc/settings.php:754
+msgid "Inline"
+msgstr "Satır içi"
+
+#: inc/settings.php:755
+msgid "File"
+msgstr "Dosya (File)"
+
+#: inc/settings.php:757
+msgid "Choose how the used CSS will be included."
+msgstr "Kullanılan CSS'nin nasıl dahil edileceğini seçin."
+
+#: inc/settings.php:765
+msgid "Stylesheet Behavior"
+msgstr "Stil Sayfası Davranışı"
+
+#: inc/settings.php:774
+msgid "Delay"
+msgstr ""
+
+#: inc/settings.php:775
+msgid "Async"
+msgstr ""
+
+#: inc/settings.php:776 inc/settings.php:2250 inc/settings.php:2295
+#: inc/settings.php:2337
+msgid "Remove"
+msgstr "Kaldır"
+
+#: inc/settings.php:778
+msgid "Choose how the original stylesheets (unused CSS) will be included."
+msgstr ""
+"Orijinal stil sayfalarının (kullanılmayan CSS) nasıl dahil edileceğini seçin."
+
+#: inc/settings.php:786
+msgid "Excluded Stylesheets"
+msgstr "Hariç Tutulan Stil Sayfaları"
+
+#: inc/settings.php:795
+msgid ""
+"Exclude specific stylesheets from unused CSS removal by adding a unique "
+"portion of the source URL (example.css). Format: one per line"
+msgstr ""
+"Kaynak URL'nin benzersiz bir bölümünü (example.css) ekleyerek belirli stil "
+"sayfalarını kullanılmayan CSS kaldırma işleminden hariç tutun. Format: satır "
+"başına bir tane"
+
+#: inc/settings.php:803
+msgid "Excluded Selectors"
+msgstr "Hariç Tutulan Seçiciler"
+
+#: inc/settings.php:812
+msgid ""
+"Exclude specific CSS selectors from being removed by adding the element ID, "
+"class name, etc. (#id, .class). Format: one per line"
+msgstr ""
+"Öğe kimliğini, sınıf adını vb. (Örnek: #id, .class) ekleyerek belirli CSS "
+"seçicilerin kaldırılmasını engelleyin. Format: her satıra bir tane"
+
+#: inc/settings.php:820 inc/settings.php:1243 inc/settings.php:1326
+#: inc/settings.php:1510
+msgid "CDN URL"
+msgstr "CDN URL"
+
+#: inc/settings.php:828
+msgid ""
+"Provide your CDN URL if you are using a CDN rewrite outside of Perfmatters."
+msgstr ""
+"Perfmatters dışında bir CDN yeniden yazma işlemi kullanıyorsanız CDN "
+"URL'nizi sağlayın."
+
+#: inc/settings.php:848
+msgid "Remove all existing unused CSS files that have been generated."
+msgstr "Oluşturulmuş olan tüm kullanılmayan CSS dosyalarını kaldırın."
+
+#: inc/settings.php:853
+msgid "Code"
+msgstr "Kod Ekle"
+
+#: inc/settings.php:858
+msgid "Add Header Code"
+msgstr "Üst Alana (Header) Kod Ekle"
+
+#: inc/settings.php:867
+msgid ""
+"Code added here will be printed in the head section on every page of your "
+"website."
+msgstr ""
+"Buraya eklenen kod, web sitenizin her sayfasındaki üst bölümüne "
+"yazdırılacaktır."
+
+#: inc/settings.php:876
+msgid "Add Body Code"
+msgstr "Gövde Alanına (Body) Kod Ekle"
+
+#: inc/settings.php:885
+msgid ""
+"Code added here will be printed below the opening body tag on every page of "
+"your website."
+msgstr ""
+"Buraya eklenen kod, web sitenizin her sayfasında açılış gövde etiketinin "
+"altına yazdırılacaktır."
+
+#: inc/settings.php:893
+msgid "Add Footer Code"
+msgstr "Alt Alana (Footer) Kod Ekle"
+
+#: inc/settings.php:902
+msgid ""
+"Code added here will be printed above the closing body tag on every page of "
+"your website."
+msgstr ""
+"Buraya eklenen kod, web sitenizin her sayfasında kapanış gövde etiketinin "
+"üzerine yazdırılacaktır."
+
+#: inc/settings.php:913
+msgid "Enable Instant Page"
+msgstr "Hızlı Sayfa Yüklemeyi Etkinleştir"
+
+#: inc/settings.php:920
+msgid ""
+"Automatically prefetch URLs in the background after a user hovers over a "
+"link. This results in almost instantaneous load times and improves the user "
+"experience."
+msgstr ""
+"Kullanıcı bir bağlantının üzerine geldikten sonra URL'leri arka planda "
+"otomatik olarak önceden getirin. Bu, neredeyse anlık yükleme süreleriyle "
+"sonuçlanır ve kullanıcı deneyimini iyileştirir."
+
+#: inc/settings.php:927
+msgid "Preload Critical Images"
+msgstr "Kritik Görüntüleri Önceden Yükleyin"
+
+#: inc/settings.php:943
+msgid ""
+"Automatically preload leading images to help improve Largest Contentful "
+"Paint (LCP)."
+msgstr ""
+"En Büyük İçerikli Boyamayı (LCP) iyileştirmeye yardımcı olmak için önde "
+"gelen görüntüleri otomatik olarak önceden yükleyin."
+
+#: inc/settings.php:950
+msgid "Preload"
+msgstr "Ön Yükleme"
+
+#: inc/settings.php:957
+msgid ""
+"Preload allows you to specify resources (such as fonts or CSS) needed right "
+"away during a page load. This helps fix render-blocking resource warnings. "
+"Format: https://example.com/font.woff2"
+msgstr ""
+"Ön yükleme, sayfa yüklemesi sırasında hemen gereken kaynakları (yazı tipleri "
+"veya CSS gibi) belirtmenize olanak tanır. Bu, render engelleyici kaynak "
+"uyarılarının düzeltilmesine yardımcı olur. Format: https://example.com/font."
+"woff2"
+
+#: inc/settings.php:964
+msgid "Fetch Priority"
+msgstr "Getirme Önceliği"
+
+#: inc/settings.php:971
+msgid ""
+"Add the fetchpriority HTML attribute to a resource to proritize it higher or "
+"lower. This can help improve Largest Contentful Paint (LCP)."
+msgstr ""
+"Daha yüksek veya daha düşük önceliklendirmek için bir kaynağa getirme "
+"önceliği HTML özniteliğini ekleyin. Bu, En Büyük İçerik Boyamasını (LCP) "
+"iyileştirmeye yardımcı olabilir."
+
+#: inc/settings.php:978
+msgid "Preconnect"
+msgstr "Ön Bağlantı (Preconnect)"
+
+#: inc/settings.php:985
+msgid ""
+"Preconnect allows the browser to set up early connections before an HTTP "
+"request, eliminating roundtrip latency and saving time for users. Format: "
+"https://example.com"
+msgstr ""
+"Preconnect, tarayıcının bir HTTP isteğinden önce erken bağlantılar kurmasını "
+"sağlayarak gidiş-dönüş gecikmesini ortadan kaldırır ve kullanıcılar için "
+"zaman kazandırır. Biçim: https://example.com"
+
+#: inc/settings.php:992
+msgid "DNS Prefetch"
+msgstr "DNS Ön Yüklemesi"
+
+#: inc/settings.php:1002
+msgid ""
+"Resolve domain names before a user clicks. Format: //example.com (one per "
+"line)"
+msgstr ""
+"Kullanıcı tıklamadan önce alan adlarını çözümleyin. Format: //example.com "
+"(her satıra bir tane)"
+
+#: inc/settings.php:1013
+msgid "Images"
+msgstr "Resimler"
+
+#: inc/settings.php:1020
+msgid "Enable lazy loading on images."
+msgstr "Resimlerde tembel yüklemeyi etkinleştirin."
+
+#: inc/settings.php:1028
+msgid "Exclude Leading Images"
+msgstr "İlk Görüntüleri Hariç Tut"
+
+#: inc/settings.php:1044
+msgid "Exclude a certain number of images starting from the top of the page."
+msgstr ""
+"Sayfanın üst kısmından başlayarak belirli sayıda görüntüyü hariç tutun."
+
+#: inc/settings.php:1052
+msgid "iFrames and Videos"
+msgstr "iFrame'ler ve Videolar"
+
+#: inc/settings.php:1059
+msgid "Enable lazy loading on iframes and videos."
+msgstr "İframe'lerde ve videolarda tembel yüklemeyi etkinleştirin."
+
+#: inc/settings.php:1067
+msgid "YouTube Preview Thumbnails"
+msgstr "YouTube Önizleme Küçük Resimleri"
+
+#: inc/settings.php:1074
+msgid ""
+"Swap out YouTube iFrames with preview thumbnails. The original iFrame is "
+"loaded when the thumbnail is clicked."
+msgstr ""
+"YouTube iFrame'lerini önizleme küçük resimleriyle değiştirin. Küçük resim "
+"tıklandığında orijinal iFrame yüklenir."
+
+#: inc/settings.php:1082
+msgid "Exclude from Lazy Loading"
+msgstr "Tembel Yüklemeden Hariç Tut"
+
+#: inc/settings.php:1092
+msgid ""
+"Exclude specific elements from lazy loading. Exclude an element by adding "
+"the source URL (example.png) or by adding any unique portion of its "
+"attribute string (class=\"example\"). Format: one per line"
+msgstr ""
+"Belirli öğeleri yavaş yüklemenin dışında tutun. Kaynak URL'sini (example.png)"
+" veya öznitelik dizesinin herhangi bir benzersiz bölümünü (class = "
+"\"example\") ekleyerek bir öğeyi hariç tutun. Format: her satıra bir tane"
+
+#: inc/settings.php:1099
+msgid "Exclude by Parent Selector"
+msgstr "Ebeveyn Seçiciye Göre Hariç Tut"
+
+#: inc/settings.php:1109
+msgid ""
+"Exclude specific images from lazy loading by adding any unique portion of an "
+"attribute string (class=\"example\") from a parent container. Format: one "
+"per line"
+msgstr ""
+"Bir üst kapsayıcıdan bir öznitelik dizesinin (class=\"example\") herhangi "
+"bir benzersiz bölümünü ekleyerek belirli görüntüleri tembel yüklemeden hariç "
+"tutun. Format: satır başına bir tane"
+
+#: inc/settings.php:1117
+msgid "Threshold"
+msgstr "Eşik"
+
+#: inc/settings.php:1127
+msgid ""
+"Extend the lazy loading threshold allowing images to load before they are "
+"visible in the viewport. (px or %)"
+msgstr ""
+"Tembel yükleme eşiğini genişleterek görüntülerin görünüm alanında görünür "
+"olmadan önce yüklenmesini sağlar. (px veya %)"
+
+#: inc/settings.php:1134
+msgid "DOM Monitoring"
+msgstr "DOM İzleme"
+
+#: inc/settings.php:1141
+msgid ""
+"Watch for changes in the DOM and dynamically lazy load newly added elements."
+msgstr ""
+"DOM'daki değişiklikleri izleyin ve yeni eklenen öğeleri dinamik olarak "
+"tembel yükleyin."
+
+#: inc/settings.php:1148
+msgid "Add Missing Image Dimensions"
+msgstr "Eksik Resim Boyutları Ekleme"
+
+#: inc/settings.php:1155
+msgid "Add missing width and height attributes to images."
+msgstr "Görüntülere eksik genişlik ve yükseklik öznitelikleri ekleyin."
+
+#: inc/settings.php:1162
+msgid "Fade In"
+msgstr "Yükleme Efekti"
+
+#: inc/settings.php:1169
+msgid "Add fade in effect when images are loaded in."
+msgstr "Görüntüler yüklenirken solma efekti ekleyin."
+
+#: inc/settings.php:1176
+msgid "CSS Background Images"
+msgstr "CSS Arka Plan Görüntüleri"
+
+#: inc/settings.php:1183
+msgid "Allow lazy loading of background images coming from (CSS) stylesheets."
+msgstr ""
+"(CSS) stil sayfalarından gelen arka plan görüntülerinin tembel yüklenmesine "
+"izin verin."
+
+#: inc/settings.php:1191
+msgid "Background Selectors"
+msgstr "Arka Plan Seçicileri"
+
+#: inc/settings.php:1201
+msgid ""
+"Lazy load a CSS background image by adding a unique selector (ID or class) "
+"found on the element that the background image has been applied to. Format: "
+"one per line"
+msgstr ""
+"Arka plan görüntüsünün uygulandığı öğede bulunan benzersiz bir seçici (ID "
+"veya sınıf) ekleyerek bir CSS arka plan görüntüsünü tembel yükleyin. Format: "
+"satır başına bir tane"
+
+#: inc/settings.php:1213
+msgid "Local Google Fonts"
+msgstr "Yerel Google Fonts"
+
+#: inc/settings.php:1221
+msgid "Host Google Font files locally on your server or CDN."
+msgstr ""
+"Google Font dosyalarını sunucunuzda veya CDN'de yerel olarak barındırın."
+
+#: inc/settings.php:1228
+msgid "Display Swap"
+msgstr "Ekran Değiştirme"
+
+#: inc/settings.php:1236
+msgid "Add the font-display swap property to your Google Fonts."
+msgstr "Font-display swap özelliğini Google Fonts'unuza ekleyin."
+
+#: inc/settings.php:1253
+msgid ""
+"Use your CDN URL when referencing Google Font files inside a parent "
+"stylesheet. Example: https://cdn.example.com"
+msgstr ""
+"Bir ana stil sayfasında Google Font dosyalarına başvururken CDN URL'nizi "
+"kullanın. Örnek: https://cdn.example.com"
+
+#: inc/settings.php:1260 inc/settings.php:1269
+msgid "Clear Local Fonts"
+msgstr "Yerel Yazı Tiplerini Temizle"
+
+#: inc/settings.php:1271
+msgid "Remove all existing local Google Font files and stylesheets."
+msgstr "Mevcut tüm yerel Google Font dosyalarını ve stil sayfalarını kaldırın."
+
+#: inc/settings.php:1278
+msgid "Load Asynchronously"
+msgstr "Eşzamansız Olarak Yükle"
+
+#: inc/settings.php:1286
+msgid ""
+"Load local font stylesheets asynchronously. Preloading individual font files "
+"is recommended when this option is enabled."
+msgstr ""
+"Yerel font stil sayfalarını zaman uyumsuz olarak yükleyin. Bu seçenek "
+"etkinleştirildiğinde tek tek font dosyalarının önceden yüklenmesi önerilir."
+
+#: inc/settings.php:1293
+msgid "Disable Google Fonts"
+msgstr "Google Fonts'u Devre Dışı Bırak"
+
+#: inc/settings.php:1301
+msgid ""
+"Removes any instances of Google Fonts being loaded across your entire site."
+msgstr "Sitenizin tamamında yüklenen tüm Google Fonts örneklerini kaldırır."
+
+#: inc/settings.php:1312
+msgid "Enable CDN Rewrite"
+msgstr "CDN Yeniden Yazmayı Etkinleştir"
+
+#: inc/settings.php:1319
+msgid ""
+"Enables rewriting of your site URLs with your CDN URLs which can be "
+"configured below."
+msgstr ""
+"Site URL'lerinizin aşağıda yapılandırılabilen CDN URL'lerinizle yeniden "
+"yazılmasını sağlar."
+
+#: inc/settings.php:1335
+msgid ""
+"Enter your CDN URL without the trailing backslash. Example: https://cdn."
+"example.com"
+msgstr ""
+"CDN URL'nizi sondaki ters eğik çizgi olmadan girin. Örnek: https://cdn."
+"example.com"
+
+#: inc/settings.php:1342
+msgid "Included Directories"
+msgstr "Dahil Edilen Dizinler"
+
+#: inc/settings.php:1351
+msgid ""
+"Enter any directories you would like to be included in CDN rewriting, "
+"separated by commas (,). Default: wp-content,wp-includes"
+msgstr ""
+"CDN yeniden yazımına dahil edilmesini istediğiniz dizinleri virgül (,) ile "
+"ayırarak girin. Varsayılan: wp-content,wp-includes"
+
+#: inc/settings.php:1358
+msgid "CDN Exclusions"
+msgstr "CDN İstisnaları"
+
+#: inc/settings.php:1367
+msgid ""
+"Enter any directories or file extensions you would like to be excluded from "
+"CDN rewriting, separated by commas (,). Default: .php"
+msgstr ""
+"CDN yeniden yazımından hariç tutulmasını istediğiniz dizinleri veya dosya "
+"uzantılarını virgül (,) ile ayırarak girin. Varsayılan: .php"
+
+#: inc/settings.php:1373
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: inc/settings.php:1378
+msgid "Enable Local Analytics"
+msgstr "Yerel Analitiği Etkinleştir"
+
+#: inc/settings.php:1385
+msgid "Enable syncing of the Google Analytics script to your own server."
+msgstr ""
+"Google Analytics scriptini kendi sunucunuzla senkronizasyonunu etkinleştirin."
+
+#: inc/settings.php:1392
+msgid "Tracking ID"
+msgstr "İzleme Kimliği"
+
+#: inc/settings.php:1400
+msgid "Input your Google Analytics tracking or measurement ID."
+msgstr "Google Analytics izleme veya ölçüm kimliğinizi girin."
+
+#: inc/settings.php:1407
+msgid "Tracking Code Position"
+msgstr "İzleme Kodu Pozisyonu"
+
+#: inc/settings.php:1416
+msgid "Header"
+msgstr "Üst Alan (Header)"
+
+#: inc/settings.php:1417
+msgid "Footer"
+msgstr "Alt Alan (Footer)"
+
+#: inc/settings.php:1419
+msgid ""
+"Load your analytics script in the header (default) or footer of your site. "
+"Default: Header"
+msgstr ""
+"Analiz scriptini sitenizin üst alanına (header) (varsayılan) veya alt "
+"alanına (footer) yükleyin. Varsayılan: üst alan"
+
+#: inc/settings.php:1426
+msgid "Script Type"
+msgstr "Script Türü"
+
+#: inc/settings.php:1438
+msgid "Minimal"
+msgstr ""
+
+#: inc/settings.php:1439
+msgid "Minimal Inline"
+msgstr "Minimal Satır İçi"
+
+#: inc/settings.php:1440
+msgid "Minimal v4"
+msgstr ""
+
+#: inc/settings.php:1443
+msgid "Choose which script method you would like to use."
+msgstr "Hangi script yöntemini kullanmak istediğinizi seçin."
+
+#: inc/settings.php:1450
+msgid "Disable Display Features"
+msgstr "Ekran Özelliklerini Devre Dışı Bırak"
+
+#: inc/settings.php:1458
+msgid "Disable remarketing and advertising which generates a 2nd HTTP request."
+msgstr ""
+"İkinci bir HTTP isteği oluşturan yeniden pazarlama ve reklamcılığı devre "
+"dışı bırakın."
+
+#: inc/settings.php:1465
+msgid "Anonymize IP"
+msgstr "IP'yi Anonimleştir"
+
+#: inc/settings.php:1473
+msgid ""
+"Shorten visitor IP to comply with privacy restrictions in some countries."
+msgstr ""
+"Bazı ülkelerdeki gizlilik kısıtlamalarına uymak için ziyaretçi IP'sini "
+"kısaltın."
+
+#: inc/settings.php:1480
+msgid "Track Logged In Admins"
+msgstr "Oturum Açmış Yöneticileri Takip Et"
+
+#: inc/settings.php:1487
+msgid "Include logged-in WordPress admins in your Google Analytics reports."
+msgstr ""
+"Oturum açmış WordPress yöneticilerini Google Analytics raporlarınıza dahil "
+"edin."
+
+#: inc/settings.php:1494
+msgid "Adjusted Bounce Rate"
+msgstr "Düzeltilmiş Hemen Çıkma Oranı"
+
+#: inc/settings.php:1503
+msgid ""
+"Set a timeout limit in seconds to better evaluate the quality of your "
+"traffic. (1-100)"
+msgstr ""
+"Trafiğinizin kalitesini daha iyi değerlendirmek için saniye cinsinden bir "
+"zaman aşımı sınırı belirleyin. (1-100)"
+
+#: inc/settings.php:1520
+msgid ""
+"Use your CDN URL when referencing analytics.js from inside gtag.js. Example: "
+"https://cdn.example.com"
+msgstr ""
+"Analytics.js'ye gtag.js içinden referans verirken CDN URL'nizi kullanın. "
+"Örnek: https://cdn.example.com"
+
+#: inc/settings.php:1527
+msgid "Use MonsterInsights"
+msgstr "MonsterInsights'ı kullanın"
+
+#: inc/settings.php:1535
+msgid ""
+"Allows MonsterInsights to manage your Google Analytics while still using the "
+"locally hosted gtag.js file generated by Perfmatters."
+msgstr ""
+"MonsterInsights'ın Perfmatters tarafından oluşturulan yerel olarak "
+"barındırılan gtag.js dosyasını kullanmaya devam ederken Google "
+"Analytics'inizi yönetmesini sağlar."
+
+#: inc/settings.php:1542
+msgid "Enable AMP Support"
+msgstr "AMP Desteğini Etkinleştirin"
+
+#: inc/settings.php:1550
+msgid ""
+"Enable support for analytics tracking on AMP sites. This is not a local "
+"script, but a native AMP script."
+msgstr ""
+"AMP sitelerinde analitik izleme desteğini etkinleştirin. Bu yerel bir script "
+"değil, yerel bir AMP komut dosyasıdır."
+
+#: inc/settings.php:1557
+msgid "Dual Tracking"
+msgstr ""
+
+#: inc/settings.php:1565
+msgid "Run Google Analytics 4 and Universal Analytics simultaneously."
+msgstr "Google Analytics 4 ve Universal Analytics'i aynı anda çalıştırın."
+
+#: inc/settings.php:1572
+msgid "Measurement ID"
+msgstr "Ölçüm Kimliği"
+
+#: inc/settings.php:1581
+msgid "Input your Google Analytics 4 measurement ID."
+msgstr "Google Analytics 4 ölçüm kimliğinizi girin."
+
+#: inc/settings.php:1611
+msgid "Accessibility Mode"
+msgstr "Erişilebilirlik Modu"
+
+#: inc/settings.php:1619
+msgid ""
+"Disable the use of visual UI elements in the plugin settings such as "
+"checkbox toggles and hovering tooltips."
+msgstr ""
+"Eklenti ayarlarında onay kutusu geçişleri ve üzerine gelinen araç ipuçları "
+"gibi görsel kullanıcı arayüzü öğelerinin kullanımını devre dışı bırakın."
+
+#: inc/settings.php:1626
+msgid "Hide Admin Bar Menu"
+msgstr "Yönetici Çubuğu Menüsünü Gizle"
+
+#: inc/settings.php:1633
+msgid "Hide the Perfmatters menu in the admin bar."
+msgstr "Yönetici çubuğundaki Perfmatters menüsünü gizleyin."
+
+#: inc/settings.php:1640
+msgid "Show Advanced Options"
+msgstr "Gelişmiş Seçenekleri Göster"
+
+#: inc/settings.php:1647
+msgid "Show advanced options in the Perfmatters UI."
+msgstr "Perfmatters kullanıcı arayüzünde gelişmiş seçenekleri gösterin."
+
+#: inc/settings.php:1648
+msgid ""
+"Advanced options should only be used if you know exactly what you are doing, "
+"as they can break certain plugin functionality if used improperly."
+msgstr ""
+"Gelişmiş seçenekler yalnızca ne yaptığınızı tam olarak biliyorsanız "
+"kullanılmalıdır, çünkü yanlış kullanıldıklarında belirli eklenti işlevlerini "
+"bozabilirler."
+
+#: inc/settings.php:1655 inc/settings.php:1663
+msgid "Restore Default Options"
+msgstr "Varsayılan Seçenekleri Geri Yükle"
+
+#: inc/settings.php:1664
+msgid ""
+"Are you sure? This will remove all existing plugin options and restore them "
+"to their default states."
+msgstr ""
+"Emin misiniz? Bu, mevcut tüm eklenti seçeneklerini kaldıracak ve varsayılan "
+"durumlarına geri yükleyecektir."
+
+#: inc/settings.php:1666
+msgid "Restore all plugin options to their default settings."
+msgstr "Tüm eklenti seçeneklerini varsayılan ayarlarına geri yükleyin."
+
+#: inc/settings.php:1673 inc/settings.php:1681 inc/settings.php:2360
+msgid "Purge Meta Options"
+msgstr "Meta Seçeneklerini Temizle"
+
+#: inc/settings.php:1682
+msgid ""
+"Are you sure? This will delete all existing Perfmatters meta options for all "
+"posts from the database."
+msgstr ""
+"Emin misiniz? Bu, tüm gönderiler için mevcut tüm Perfmatters meta "
+"seçeneklerini veritabanından silecektir."
+
+#: inc/settings.php:1683
+msgid ""
+"Permanently delete all existing Perfmatters meta options from your database."
+msgstr ""
+"Mevcut tüm Perfmatters meta seçeneklerini veritabanınızdan kalıcı olarak "
+"silin."
+
+#: inc/settings.php:1690
+msgid "Export Settings"
+msgstr "Ayarları Dışa Aktar"
+
+#: inc/settings.php:1698
+msgid "Export Plugin Settings"
+msgstr "Eklenti Ayarlarını Dışa Aktar"
+
+#: inc/settings.php:1700
+msgid ""
+"Export your Perfmatters settings for this site as a .json file. This lets "
+"you easily import the configuration into another site."
+msgstr ""
+"Bu site için Perfmatters ayarlarınızı .json dosyası olarak dışa aktarın. Bu, "
+"yapılandırmayı başka bir siteye kolayca aktarmanızı sağlar."
+
+#: inc/settings.php:1707
+msgid "Import Settings"
+msgstr "Ayarları İçe Aktar"
+
+#: inc/settings.php:1712
+msgid "Import Perfmatters settings from an exported .json file."
+msgstr ""
+"Perfmatters ayarlarını dışa aktarılan bir .json dosyasından içe aktarın."
+
+#: inc/settings.php:1722
+msgid "Scan Database"
+msgstr "Veritabanını Tara"
+
+#: inc/settings.php:1730
+msgid "Scan Now"
+msgstr "Şimdi Tara"
+
+#: inc/settings.php:1733
+msgid "..."
+msgstr ""
+
+#: inc/settings.php:1740
+msgid "Post Revisions"
+msgstr "Gönderi Revizyonları"
+
+#: inc/settings.php:1748
+msgid ""
+"Include post revisions in your database optimization. This also includes "
+"revisions for pages and custom post types."
+msgstr ""
+"Veritabanı optimizasyonunuza gönderi revizyonlarını dahil edin. Bu, sayfalar "
+"ve özel gönderi türleri için revizyonları da içerir."
+
+#: inc/settings.php:1755
+msgid "Post Auto-Drafts"
+msgstr "Otomatik Kaydedilen Gönderi Taslakları"
+
+#: inc/settings.php:1763
+msgid ""
+"Include post auto-drafts in your database optimization. This also includes "
+"auto-drafts for pages and custom post types."
+msgstr ""
+"Veritabanı optimizasyonunuza otomatik gönderi taslaklarını dahil edin. Bu, "
+"sayfalar ve özel gönderi türleri için otomatik taslakları da içerir."
+
+#: inc/settings.php:1778
+msgid ""
+"Include trashed posts in your database optimization. This also includes "
+"trashed pages and custom post types."
+msgstr ""
+"Silinen gönderileri veritabanı optimizasyonunuza dahil edin. Buna silinen "
+"sayfalar ve özel gönderi türleri de dahildir."
+
+#: inc/settings.php:1793
+msgid "Include spam comments in your database optimization."
+msgstr "Spam yorumları veritabanı optimizasyonunuza dahil edin."
+
+#: inc/settings.php:1808
+msgid "Include trashed comments in your database optimization."
+msgstr "Silinmiş yorumları veritabanı optimizasyonunuza dahil edin."
+
+#: inc/settings.php:1815
+msgid "Expired Transients"
+msgstr "Süresi Dolmuş Geçiciler"
+
+#: inc/settings.php:1823
+msgid "Include expired transients in your database optimization."
+msgstr "Veritabanı optimizasyonunuza süresi dolmuş geçicileri dahil edin."
+
+#: inc/settings.php:1830
+msgid "All Transients"
+msgstr "Tüm Geçiciler"
+
+#: inc/settings.php:1838
+msgid "Include all transients in your database optimization."
+msgstr "Veritabanı optimizasyonunuza tüm geçicileri dahil edin."
+
+#: inc/settings.php:1853
+msgid "Include tables in your database optimization."
+msgstr "Veritabanı optimizasyonunuza tabloları dahil edin."
+
+#: inc/settings.php:1860
+msgid "Optimize Database"
+msgstr "Veritabanını Optimize Edin"
+
+#: inc/settings.php:1868
+msgid "Optimize Now"
+msgstr "Şimdi Optimize Edin"
+
+#: inc/settings.php:1871
+msgid ""
+"This will make permanent changes that cannot be reverted! Are you sure you "
+"want to proceed with optimization?"
+msgstr ""
+"Bu, geri döndürülemeyen kalıcı değişiklikler yapacaktır! Optimizasyona devam "
+"etmek istediğinizden emin misiniz?"
+
+#: inc/settings.php:1872
+msgid ""
+"Run a one-time optimization of your WordPress database based on the selected "
+"options above. This process runs in the background."
+msgstr ""
+"Yukarıdaki seçili seçeneklere göre WordPress veritabanınızın bir kerelik "
+"optimizasyonunu çalıştırın. Bu işlem arka planda çalışır."
+
+#: inc/settings.php:1879
+msgid "Scheduled Optimization"
+msgstr "Planlanmış Optimizasyon"
+
+#: inc/settings.php:1890
+msgid "Daily"
+msgstr "Günlük"
+
+#: inc/settings.php:1891
+msgid "Weekly"
+msgstr "Haftalık"
+
+#: inc/settings.php:1892
+msgid "Monthly"
+msgstr "Aylık"
+
+#: inc/settings.php:1894
+msgid ""
+"Schedule a routine optimization of your WordPress database based on the "
+"selected options above. This process runs in the background and starts "
+"immediately after saving."
+msgstr ""
+"Yukarıdaki seçili seçeneklere göre WordPress veritabanınızın rutin "
+"optimizasyonunu planlayın. Bu işlem arka planda çalışır ve kaydedildikten "
+"hemen sonra başlar."
+
+#: inc/settings.php:2096
+msgid "Plugins"
+msgstr "Eklentiler"
+
+#: inc/settings.php:2101
+msgid "Themes"
+msgstr "Temalar"
+
+#: inc/settings.php:2209
+msgid "Add New"
+msgstr "Yeni Ekle"
+
+#: inc/settings.php:2243
+msgid "Select Type"
+msgstr "Tür Seçiniz"
+
+#: inc/settings.php:2256 inc/settings.php:2302
+msgid "All Devices"
+msgstr "Tüm Cihazlar"
+
+#: inc/settings.php:2261 inc/settings.php:2307
+msgid "Location"
+msgstr "Konum"
+
+#: inc/settings.php:2287
+msgid "Select Priority"
+msgstr "Öncelik Seçin"
+
+#: inc/settings.php:2373
+msgid "Import Plugin Settings"
+msgstr "Eklenti Ayarlarını İçe Aktar"
+
+#: inc/settings.php:2463
+#, php-format
+msgid "Click %s to view documentation."
+msgstr "Belgeleri görüntülemek için %s tıklayın."
+
+#: inc/support.php:9 inc/support.php:12
+msgid "Documentation"
+msgstr "Dokümantasyon"
+
+#: inc/support.php:11
+msgid ""
+"Need help? Check out our in-depth documentation. Every feature has a step-by-"
+"step walkthrough."
+msgstr ""
+"Yardıma mı ihtiyacınız var? Ayrıntılı belgelerimize göz atın. Her özelliğin "
+"adım adım izlenecek yolu vardır."
+
+#: inc/support.php:18 inc/support.php:21
+msgid "Contact Us"
+msgstr "Bize Ulaşın"
+
+#: inc/support.php:20
+msgid ""
+"If you have questions or problems, please send us a message. We’ll get back "
+"to you as soon as possible."
+msgstr ""
+"Sorularınız veya problemleriniz varsa, lütfen bize bir mesaj gönderin. En "
+"kısa sürede size geri döneceğiz."
+
+#: inc/support.php:27
+msgid "Frequently Asked Questions"
+msgstr "Sıkça Sorulan Sorular"
+
+#: inc/support.php:31
+msgid "How do I license activate the plugin?"
+msgstr "Eklentiyi nasıl lisanslayıp etkinleştirebilirim?"
+
+#: inc/support.php:32
+msgid "How do I update the plugin?"
+msgstr "Eklentiyi nasıl güncelleyebilirim?"
+
+#: inc/support.php:33
+msgid "How do I upgrade my license?"
+msgstr "Lisansımı nasıl yükseltebilirim?"
+
+#: inc/support.php:34
+msgid "Where can I view the changelog?"
+msgstr "Değişiklik günlüğünü nerede görebilirim?"
+
+#: inc/support.php:35
+msgid "Where can I sign up for the affiliate program?"
+msgstr "Ortaklık programına nereden kaydolabilirim?"
+
+#: inc/support.php:38
+msgid "How do I disable scripts on a per post/page basis?"
+msgstr "Scriptleri yazı/sayfa bazında nasıl devre dışı bırakabilirim?"
+
+#: inc/support.php:39
+msgid "How do I delay JavaScript?"
+msgstr "JavaScript'i nasıl geciktirebilirim?"
+
+#: inc/support.php:40
+msgid "How do I remove unused CSS?"
+msgstr "Kullanılmayan CSS'yi nasıl kaldırabilirim?"
+
+#: inc/support.php:41
+msgid "How do I lazy load images and videos?"
+msgstr "Görüntüleri ve videoları nasıl tembel yükleyebilirim?"
+
+#: inc/support.php:42
+msgid "How do I host Google Analytics locally?"
+msgstr "Google Analytics'i yerel olarak nasıl barındırabilirim?"
+
+#: perfmatters.php:133
+msgid "Action failed."
+msgstr "İşlem başarısız."
+
+#: perfmatters.php:188
+msgid "Enter valid license key for automatic updates."
+msgstr "Otomatik güncellemeler için geçerli lisans anahtarını girin."
+
+#. Plugin Name of the plugin/theme
+msgid "Perfmatters"
+msgstr "Perfmatters"
+
+#. Plugin URI of the plugin/theme
+msgid "https://perfmatters.io/"
+msgstr "https://perfmatters.io/"
+
+#. Description of the plugin/theme
+msgid ""
+"Perfmatters is a lightweight performance plugin developed to speed up your "
+"WordPress site."
+msgstr ""
+"Perfmatters, WordPress sitenizi hızlandırmak için geliştirilmiş hafif bir "
+"performans eklentisidir."
+
+#. Author of the plugin/theme
+msgid "forgemedia"
+msgstr "forgemedia"
+
+#. Author URI of the plugin/theme
+msgid "https://forgemedia.io/"
+msgstr "https://forgemedia.io/"

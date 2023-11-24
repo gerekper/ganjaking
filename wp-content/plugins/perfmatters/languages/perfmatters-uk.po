@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-09-29 13:10-0700\n"
-"PO-Revision-Date: 2023-10-01 21:25+0300\n"
+"POT-Creation-Date: 2023-11-09 15:22-0800\n"
+"PO-Revision-Date: 2023-11-10 09:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk_UA\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: .\n"
 
 #. translators: the plugin name.
@@ -74,6 +74,14 @@ msgstr "Ліцензію вилучено!"
 #: inc/CLI.php:81
 msgid "License could not be removed."
 msgstr "Ліцензію не вдалося вилучити."
+
+#: inc/CLI.php:102
+msgid "Used CSS cleared for all network sites."
+msgstr "Використаний CSS очищено для всіх сайтів мережі."
+
+#: inc/CLI.php:106 inc/classes/CSS.php:643 inc/classes/CSS.php:683
+msgid "Used CSS cleared."
+msgstr "Використані CSS очищено."
 
 #: inc/admin.php:37 inc/settings.php:14
 msgid "General"
@@ -169,22 +177,18 @@ msgstr "Доступ заборонено."
 msgid "Nonce is invalid."
 msgstr "Nonce недійсний."
 
-#: inc/classes/CSS.php:615 inc/classes/Meta.php:85 inc/settings.php:837
+#: inc/classes/CSS.php:622 inc/classes/Meta.php:85 inc/settings.php:837
 #: inc/settings.php:846
 msgid "Clear Used CSS"
 msgstr "Очистити використані CSS"
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "Current"
 msgstr "Поточний"
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "All"
 msgstr "Всі"
-
-#: inc/classes/CSS.php:636 inc/classes/CSS.php:676
-msgid "Used CSS cleared."
-msgstr "Використані CSS очищено."
 
 #: inc/classes/DatabaseOptimizer.php:70
 msgid "Database optimization is running in the background."

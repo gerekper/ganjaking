@@ -477,9 +477,18 @@ function UCAssetsManager(){
 			return(false);		//allow init only once
 		
 		//init dropzone
-		Dropzone.autoDiscover = false;
-		var objDropzone = new Dropzone("#uc_form_dropzone");
-		
+		try{
+			Dropzone.autoDiscover = false;
+			var objDropzone = new Dropzone("#uc_form_dropzone");
+		}catch(error){
+			
+			var strError = error + " Some other plugin loading Dropzone in this page. <br> Please check the console wich of them, and turn it off. They should load dropzone library only in their page.";
+			
+			g_ucAdmin.showErrorMessage(strError);
+						
+			throw error;
+			
+		}
 		objDialog.data("dropzone", objDropzone);
 		
 		objDropzone.on("addedfile", function(file,second) {
@@ -731,7 +740,9 @@ function UCAssetsManager(){
 		g_ucAdmin.setErrorMessageID("uc_dialog_edit_file_error");
 		g_ucAdmin.setSuccessMessageID("uc_dialog_edit_file_success");
 		
-		assetsAjaxRequest("assets_save_file", data);
+    assetsAjaxRequest('assets_save_file', data, function () {
+      triggerEvent(events.UPDATE_FILES);
+    });
 		
 	}
 	

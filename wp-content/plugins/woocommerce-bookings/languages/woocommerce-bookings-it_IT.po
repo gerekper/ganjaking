@@ -7,11 +7,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-24T16:18:19+00:00\n"
-"PO-Revision-Date: 2023-08-07 14:43:20+0000\n"
+"POT-Creation-Date: 2023-11-20T16:11:19+00:00\n"
+"PO-Revision-Date: 2023-11-02 09:54:03+0000\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-bookings-google-calendar-connection.php:181
+msgid "Google Calendar was disconnected because authentication keys were changed. Please connect again."
+msgstr "Google Calendar è stato disconnesso perché le chiavi di autenticazione sono state modificate. Connettiti di nuovo."
 
 #: includes/booking-form/class-wc-booking-form.php:767
 msgid "left"
@@ -116,7 +120,7 @@ msgstr "Errore: risorsa non trovata, riprova"
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
-#: includes/class-wc-bookings-google-calendar-connection.php:886
+#: includes/class-wc-bookings-google-calendar-connection.php:911
 msgid "Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App."
 msgstr "Inserisci le credenziali di seguito per utilizzare un'app API di Google Calendar personalizzata. Disconnettere la connessione esistente per inserire le credenziali.%1$sAggiungi %2$s agli URI di reindirizzamento autorizzato della tua app Google Cloud."
 
@@ -213,15 +217,15 @@ msgstr "La durata della prenotazione è stata impostata su 24 poiché una durata
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "Una durata superiore a 24 ore non è consentita quando la disponibilità è \"non disponibile per impostazione predefinita\"."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:954
+#: includes/class-wc-bookings-google-calendar-connection.php:979
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
 msgstr "Quando l'opzione è attiva, qualsiasi modifica alla descrizione dell'evento deve essere effettuata dagli eventi di WooCommerce Bookings. Qualsiasi modifica apportata direttamente alla descrizione dell'evento in Google Calendar verrà persa in seguito alla sincronizzazione dei dati."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:952
+#: includes/class-wc-bookings-google-calendar-connection.php:977
 msgid "Enable overwrite"
 msgstr "Attiva sovrascrivi"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:950
+#: includes/class-wc-bookings-google-calendar-connection.php:975
 msgid "Overwrite Description"
 msgstr "Sovrascrivi descrizione"
 
@@ -280,15 +284,15 @@ msgstr "La durata minima è di %1$d %2$s"
 msgid "The maximum duration is %1$d %2$s"
 msgstr "La durata massima è di %1$d %2$s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:939
+#: includes/class-wc-bookings-google-calendar-connection.php:964
 msgid "Check this to delete an event from Google Calendar when the corresponding store availability is deleted."
 msgstr "Seleziona questa opzione per eliminare un evento da Google Calendar quando viene cancellata la disponibilità del negozio corrispondente. "
 
-#: includes/class-wc-bookings-google-calendar-connection.php:937
+#: includes/class-wc-bookings-google-calendar-connection.php:962
 msgid "Delete Events from Google Calendar"
 msgstr "Elimina gli eventi da Google Calendar"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:935
+#: includes/class-wc-bookings-google-calendar-connection.php:960
 msgid "Deletion Preference"
 msgstr "Preferenza di eliminazione"
 
@@ -305,48 +309,48 @@ msgstr "La data di inizio non può essere successiva alla data di fine."
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Il formato della \"data di inizio e di fine\" deve essere gg-mm-aaaa e non può essere vuoto."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1369
-#: includes/class-wc-bookings-google-calendar-connection.php:1378
+#: includes/class-wc-bookings-google-calendar-connection.php:1418
+#: includes/class-wc-bookings-google-calendar-connection.php:1427
 msgid "Invalid request!"
 msgstr "Richiesta non valida!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1137
+#: includes/class-wc-bookings-google-calendar-connection.php:1162
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
 msgstr "Per sincronizzare Google Calendar utilizzando un'app fornita da WooCommerce.com, fai clic sul pulsante \"Connetti con Google\" di seguito per autorizzare l'accesso a Google Calendar."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1026
+#: includes/class-wc-bookings-google-calendar-connection.php:1051
 msgid "Connect with custom Google app"
 msgstr "Connettiti con l'app Google personalizzata"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1024
+#: includes/class-wc-bookings-google-calendar-connection.php:1049
 msgid "Please fill out all required fields from above and save changes."
 msgstr "Compila tutti i campi sopra richiesti e salva le modifiche."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:916
+#: includes/class-wc-bookings-google-calendar-connection.php:941
 msgid "Select your Calendar."
 msgstr "Seleziona il tuo calendario."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:909
+#: includes/class-wc-bookings-google-calendar-connection.php:934
 msgid "Connected Calendar Settings"
 msgstr "Impostazioni del calendario connesso"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:899
+#: includes/class-wc-bookings-google-calendar-connection.php:924
 msgid "Enter the Google Client Secret associated with your Calendar API app."
 msgstr "Inserisci la chiave privata client Google associata all'app API del calendario."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:897
+#: includes/class-wc-bookings-google-calendar-connection.php:922
 msgid "Client Secret"
 msgstr "Chiave privata client"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:891
+#: includes/class-wc-bookings-google-calendar-connection.php:916
 msgid "Enter the Google Client ID associated with your Calendar API app."
 msgstr "Inserisci l'ID client Google associato all'app API del calendario."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:889
+#: includes/class-wc-bookings-google-calendar-connection.php:914
 msgid "Client ID"
 msgstr "ID client"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:883
+#: includes/class-wc-bookings-google-calendar-connection.php:908
 msgid "Connect with a custom Google Calendar App"
 msgstr "Connetti con un'app Google Calendar personalizzata"
 
@@ -1492,18 +1496,18 @@ msgstr "Descrizione prenotazione"
 msgid "Bookings from %s"
 msgstr "Prenotazioni da %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1515
+#: includes/class-wc-bookings-google-calendar-connection.php:1564
 #: includes/class-wc-bookings-init.php:101
 #: includes/class-wc-bookings-init.php:104
 msgid "Booking"
 msgstr "Prenotazione"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1483
+#: includes/class-wc-bookings-google-calendar-connection.php:1532
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr "NOTA: questo evento non può essere modificato in Google Calendar. Se hai bisogno di apportare cambiamenti, <a href=\"%s\" target=\"_blank\">modifica questa prenotazione su WooCommerce</a>."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1467
+#: includes/class-wc-bookings-google-calendar-connection.php:1516
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:64
 #: templates/emails/admin-new-booking.php:82
@@ -1515,7 +1519,7 @@ msgstr "NOTA: questo evento non può essere modificato in Google Calendar. Se ha
 msgid "Booking Type"
 msgstr "Tipo Prenotazione"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1466
+#: includes/class-wc-bookings-google-calendar-connection.php:1515
 #: templates/emails/admin-booking-cancelled.php:54
 #: templates/emails/admin-new-booking.php:72
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1526,94 +1530,94 @@ msgstr "Tipo Prenotazione"
 msgid "Booking ID"
 msgstr "ID Prenotazione"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1279
+#: includes/class-wc-bookings-google-calendar-connection.php:1307
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "Impossibile connettere il tuo account, per favore riprova, se il problema persiste, attiva l'opzione di Log Debug per vedere cosa sta succedendo."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1259
+#: includes/class-wc-bookings-google-calendar-connection.php:1284
 msgid "Account connected successfully!"
 msgstr "Account connesso correttamente!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1211
-#: includes/class-wc-bookings-google-calendar-connection.php:1317
-#: includes/class-wc-bookings-google-calendar-connection.php:1330
+#: includes/class-wc-bookings-google-calendar-connection.php:1236
+#: includes/class-wc-bookings-google-calendar-connection.php:1363
+#: includes/class-wc-bookings-google-calendar-connection.php:1376
 msgid "Permission denied!"
 msgstr "Permesso negato!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1177
+#: includes/class-wc-bookings-google-calendar-connection.php:1202
 msgid "Account not properly connected, reset successfully!"
 msgstr "Account non connesso in modo corretto, ripristinato con esito positivo."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1174
+#: includes/class-wc-bookings-google-calendar-connection.php:1199
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "Impossibile disconnettere il tuo account, per favore riprova, se il problema persiste, attiva l'opzione di Log Debug per vedere cosa sta succedendo."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1172
+#: includes/class-wc-bookings-google-calendar-connection.php:1197
 msgid "Account disconnected successfully!"
 msgstr "Account disconnesso correttamente."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1029
-#: includes/class-wc-bookings-google-calendar-connection.php:1125
+#: includes/class-wc-bookings-google-calendar-connection.php:1054
+#: includes/class-wc-bookings-google-calendar-connection.php:1150
 msgid "Disconnect"
 msgstr "Disconnetti"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1028
-#: includes/class-wc-bookings-google-calendar-connection.php:1124
+#: includes/class-wc-bookings-google-calendar-connection.php:1053
+#: includes/class-wc-bookings-google-calendar-connection.php:1149
 msgid "Successfully authenticated."
 msgstr "Autenticato correttamente."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1120
+#: includes/class-wc-bookings-google-calendar-connection.php:1145
 msgid "Connect with Google"
 msgstr "Connetti a Google"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1044
+#: includes/class-wc-bookings-google-calendar-connection.php:1069
 msgid "Select a calendar from the list"
 msgstr "Seleziona un calendario dall'elenco"
 
 #. translators: 1: log file path
-#: includes/class-wc-bookings-google-calendar-connection.php:947
+#: includes/class-wc-bookings-google-calendar-connection.php:972
 msgid "Log Google Calendar events, such as API requests, inside %s"
 msgstr "Logga eventi Google Calendar, come le richieste API, in %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:944
+#: includes/class-wc-bookings-google-calendar-connection.php:969
 msgid "Enable logging"
 msgstr "Abilita logging"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:942
+#: includes/class-wc-bookings-google-calendar-connection.php:967
 msgid "Debug Log"
 msgstr "Log Debug"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:929
+#: includes/class-wc-bookings-google-calendar-connection.php:954
 msgid "Manage the sync flow between your Store calendar and Google calendar."
 msgstr "Gestisci il flusso della sincronizzazione tra il calendario del negozio e Google Calendar."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:927
+#: includes/class-wc-bookings-google-calendar-connection.php:952
 msgid "Sync one way - from Store to Google"
 msgstr "Sincronizza in una sola direzione: dal negozio a Google"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:926
+#: includes/class-wc-bookings-google-calendar-connection.php:951
 msgid "Sync both ways - between Store and Google"
 msgstr "Sincronizza in entrambe le direzioni: dal negozio a Google e viceversa"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:924
+#: includes/class-wc-bookings-google-calendar-connection.php:949
 msgid "Sync Preference"
 msgstr "Preferenza di sincronizzazione"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:879
-#: includes/class-wc-bookings-google-calendar-connection.php:905
+#: includes/class-wc-bookings-google-calendar-connection.php:904
+#: includes/class-wc-bookings-google-calendar-connection.php:930
 msgid "Authorization"
 msgstr "Autorizzazione"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1172
-#: includes/class-wc-bookings-google-calendar-connection.php:1174
-#: includes/class-wc-bookings-google-calendar-connection.php:1177
-#: includes/class-wc-bookings-google-calendar-connection.php:1247
-#: includes/class-wc-bookings-google-calendar-connection.php:1259
-#: includes/class-wc-bookings-google-calendar-connection.php:1279
+#: includes/class-wc-bookings-google-calendar-connection.php:1197
+#: includes/class-wc-bookings-google-calendar-connection.php:1199
+#: includes/class-wc-bookings-google-calendar-connection.php:1202
+#: includes/class-wc-bookings-google-calendar-connection.php:1272
+#: includes/class-wc-bookings-google-calendar-connection.php:1284
+#: includes/class-wc-bookings-google-calendar-connection.php:1307
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:330
+#: includes/class-wc-bookings-google-calendar-connection.php:355
 msgid "Settings saved."
 msgstr "Impostazioni salvate"
 
@@ -2226,7 +2230,7 @@ msgid "Booking Data"
 msgstr "Dati Prenotazione"
 
 #: includes/admin/views/html-classic-availability-settings.php:247
-#: includes/class-wc-bookings-google-calendar-connection.php:346
+#: includes/class-wc-bookings-google-calendar-connection.php:371
 #: includes/class-wc-bookings-timezone-settings.php:213
 msgid "Save Changes"
 msgstr "Salva modifiche"
@@ -3183,7 +3187,7 @@ msgstr "Invia Notifica"
 #: includes/admin/class-wc-bookings-menus.php:137
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
-#: includes/class-wc-bookings-google-calendar-connection.php:914
+#: includes/class-wc-bookings-google-calendar-connection.php:939
 #: woocommerce-bookings.php:196
 msgid "Calendar"
 msgstr "Calendario"
@@ -3689,7 +3693,7 @@ msgstr "Prenotazione aggiornata."
 #: includes/admin/class-wc-bookings-admin.php:677
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:309
-#: includes/class-wc-bookings-google-calendar-connection.php:1468
+#: includes/class-wc-bookings-google-calendar-connection.php:1517
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr "Persone"

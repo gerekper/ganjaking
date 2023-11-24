@@ -94,7 +94,10 @@ class UniteCreatorTemplateEngine extends UniteCreatorTemplateEngineWork{
 			return(array());
 		}
 		
-		$arrTerms = UniteFunctionsWPUC::getPostSingleTerms($postID, $taxonomy);
+		if($taxonomy == "all" || $type == "all")
+			$arrTerms = UniteFunctionsWPUC::getPostAllSingleTerms($postID);
+		else
+			$arrTerms = UniteFunctionsWPUC::getPostSingleTerms($postID, $taxonomy);
 		
 		if($type == "last_level")
 			$arrTerms = UniteFunctionsWPUC::filterTermsLastLevel($arrTerms, $taxonomy);

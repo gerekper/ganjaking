@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.3.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_FORCE_SELLS_VERSION', '1.3.0' );
+		$this->define( 'WC_FORCE_SELLS_VERSION', '1.4.0' );
 		$this->define( 'WC_FORCE_SELLS_PATH', plugin_dir_path( WC_FORCE_SELLS_FILE ) );
 		$this->define( 'WC_FORCE_SELLS_URL', plugin_dir_url( WC_FORCE_SELLS_FILE ) );
 		$this->define( 'WC_FORCE_SELLS_BASENAME', plugin_basename( WC_FORCE_SELLS_FILE ) );
@@ -77,9 +77,11 @@ class Plugin {
 	 * @since 1.2.0
 	 */
 	public function declare_compatibility() {
-		// Compatible with the 'High-Performance Order Storage' feature.
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			// Compatible with the 'High-Performance Order Storage' feature.
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_FORCE_SELLS_FILE, true );
+			// Compatible with the Cart and Checkout blocks.
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_FORCE_SELLS_FILE, false );
 		}
 	}
 

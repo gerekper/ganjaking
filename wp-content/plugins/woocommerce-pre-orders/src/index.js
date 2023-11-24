@@ -17,7 +17,7 @@ import './index.scss';
  * additional information regarding if it is a preorder cart item type.
  *
  * @param {*} cart
- * @returns Boolean A boolean indicating the presence of a pre-order product in cart.
+ * @return {boolean} A boolean indicating the presence of a pre-order product in cart.
  */
 const cartContainsPreorders = ( cart ) => {
 	if ( cart.cartItemsCount > 0 ) {
@@ -34,7 +34,7 @@ const cartContainsPreorders = ( cart ) => {
  * cart item `extension` property.
  *
  * @param {*} cart
- * @returns String Returns the date in string format to be displayed.
+ * @return {string} Returns the date in string format to be displayed.
  */
 const getPreorderDate = ( cart ) => {
 	if ( cart.cartItemsCount > 0 ) {
@@ -47,21 +47,24 @@ const getPreorderDate = ( cart ) => {
  * total label on both cart and checkout blocks.
  *
  * @param {*} cart
- * @returns String Returns the sentence to be used with the total label.
+ * @return {string} Returns the sentence to be used with the total label.
  */
 const getPreorderAdditionalInformation = ( cart ) => {
-	const charged_upfront =
+	const chargedUpfront =
 		cart.cartItems[ 0 ].extensions.preorders.charged_upfront;
-	const charged_upon_release =
+	const chargedUponRelease =
 		cart.cartItems[ 0 ].extensions.preorders.charged_upon_release;
-	if ( charged_upfront ) {
+	if ( chargedUpfront ) {
 		return __( 'charged upfront.', 'woocommerce-pre-orders' );
-	} else if ( charged_upon_release ) {
+	} else if ( chargedUponRelease ) {
 		const preorderDate = getPreorderDate( cart );
-		return sprintf( __( 'charged %1$s', 'woocommerce-pre-orders' ), preorderDate );
-	} else {
-		return '';
+		return sprintf(
+			/* translators: 1:Pre-order product date */
+			__( 'charged %1$s', 'woocommerce-pre-orders' ),
+			preorderDate
+		);
 	}
+	return '';
 };
 
 /**
@@ -78,11 +81,15 @@ if ( settings.is_enabled ) {
 __experimentalRegisterCheckoutFilters( 'woocommerce-pre-order', {
 	totalLabel: ( label, extensions, { cart } ) => {
 		if ( cartContainsPreorders( cart ) ) {
-			const additionalInformation = getPreorderAdditionalInformation(
-				cart
-			);
+			const additionalInformation =
+				getPreorderAdditionalInformation( cart );
 			return sprintf(
-				_x( '%1$s %2$s', 'label and additional info', 'woocommerce-pre-orders' ),
+				/* translators: 1: Label, 2: Additional information */
+				_x(
+					'%1$s %2$s',
+					'label and additional info',
+					'woocommerce-pre-orders'
+				),
 				label,
 				additionalInformation
 			);

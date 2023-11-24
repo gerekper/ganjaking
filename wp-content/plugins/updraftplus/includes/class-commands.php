@@ -109,6 +109,15 @@ class UpdraftPlus_Commands {
 	
 	}
 	
+	/**
+	 * Perform a backup
+	 *
+	 * @param Array $params
+	 *
+	 * @uses die()
+	 *
+	 * @return WP_Error - or, may die()
+	 */
 	public function backupnow($params) {
 		
 		if (false === ($updraftplus_admin = $this->_load_ud_admin()) || false === ($updraftplus = $this->_load_ud())) return new WP_Error('no_updraftplus');

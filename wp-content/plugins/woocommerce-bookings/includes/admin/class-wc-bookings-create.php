@@ -28,7 +28,7 @@ class WC_Bookings_Create {
 			if ( ! empty( $_POST['create_booking'] ) ) {
 				$customer_id         = isset( $_POST['customer_id'] ) ? absint( $_POST['customer_id'] ) : 0;
 				$bookable_product_id = absint( $_POST['bookable_product_id'] );
-				$booking_order       = wc_clean( $_POST['booking_order'] );
+				$booking_order       = wc_clean( wp_unslash( $_POST['booking_order'] ) );
 
 				if ( ! $bookable_product_id ) {
 					throw new Exception( __( 'Please choose a bookable product', 'woocommerce-bookings' ) );
@@ -37,7 +37,7 @@ class WC_Bookings_Create {
 				if ( 'existing' === $booking_order ) {
 
 					if ( class_exists( 'WC_Seq_Order_Number_Pro' ) ) {
-						$order_id = WC_Seq_Order_Number_Pro::find_order_by_order_number( wc_clean( $_POST['booking_order_id'] ) );
+						$order_id = WC_Seq_Order_Number_Pro::find_order_by_order_number( wc_clean( wp_unslash( $_POST['booking_order_id'] ) ) );
 					} else {
 						$order_id = absint( $_POST['booking_order_id'] );
 					}
@@ -56,7 +56,7 @@ class WC_Bookings_Create {
 			} elseif ( ! empty( $_POST['create_booking_2'] ) ) {
 				$customer_id         = absint( $_POST['customer_id'] );
 				$bookable_product_id = absint( $_POST['bookable_product_id'] );
-				$booking_order       = wc_clean( $_POST['booking_order'] );
+				$booking_order       = wc_clean( wp_unslash( $_POST['booking_order'] ) );
 				$product             = wc_get_product( $bookable_product_id );
 				$booking_data        = wc_bookings_get_posted_data( $_POST, $product );
 				$cost                = WC_Bookings_Cost_Calculation::calculate_booking_cost( $booking_data, $product );

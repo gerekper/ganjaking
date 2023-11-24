@@ -181,8 +181,11 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				case IMAGETYPE_BMP:
 					$src_img = @imagecreatefromwbmp($filepath);
 				break;
+				case IMAGETYPE_WEBP:
+					$src_img = @imagecreatefromwebp($filepath);
+				break;
 				default:
-					$this->throwError("wrong image format, can't resize");
+					$this->throwError("wrong image format <b>$type</b> , can't resize");
 				break;
 			}
 			

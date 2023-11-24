@@ -1,4 +1,22 @@
 
+
+
+version 1.7.74
+
+-fixed the forceGallery bug
+
+version 1.7.73
+
+-redesign video gallery
+
+version 1.7.72
+
+-handle src change bugs to data-image:
+
+version 1.7.71
+
+-limit the scroll avia size
+
 version 1.7.70
 
 - added video close panel handle

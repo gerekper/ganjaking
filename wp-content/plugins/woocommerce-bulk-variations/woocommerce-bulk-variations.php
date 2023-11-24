@@ -4,18 +4,18 @@
  * Woo: 187872:aa3a54eef10ec085a1b1357375e86c2d
  * Plugin URI: https://www.elementstark.com/solutions/woocommerce-bulk-variation-forms/
  * Description: WooCommerce Bulk Variations allows your shoppers to add more than one variation at a time to the cart.  Great for wholesales, B2B sites, and for easing the process of adding more than one variation at a time for anyone.
- * Version: 1.7.1
+ * Version: 1.7.2
  * Author: Lucas Stark
  * Author URI: https://elementstark.com
  * Requires at least: 5.0
- * Tested up to: 6.1
+ * Tested up to: 6.2
  * Text Domain: woocommerce-bulk-variations
  * Domain Path: /i18n/languages/
  * Copyright: © 2009-2023 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 7.4
+ * WC tested up to: 8.2
  */
 
 

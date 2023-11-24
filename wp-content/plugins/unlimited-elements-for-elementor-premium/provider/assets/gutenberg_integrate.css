@@ -1,0 +1,10 @@
+.uc-gi-settings-error {
+	color: #f30d0d;
+	margin-top: 5px;
+}
+
+.uc-gi-widget-placeholder {
+	background: #eeeeee;
+	text-align: center;
+	padding: 10px;
+}

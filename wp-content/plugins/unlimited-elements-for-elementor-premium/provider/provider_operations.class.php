@@ -228,9 +228,9 @@ class ProviderOperationsUC extends UCOperations{
 		
 		$whereRegular = $where." and post_title like '%$search%'";
 		
-		$sqlStartWord = "select * from $tablePosts where $whereStartWord limit $limit";
+		$sqlStartWord = "select * from $tablePosts where $whereStartWord order by post_date desc limit $limit";
 		
-		$sql = "select * from $tablePosts where $whereRegular limit $limit";
+		$sql = "select * from $tablePosts where $whereRegular order by post_date desc limit $limit ";
 		
 		if($isStartWord == true){
 			
@@ -245,6 +245,7 @@ class ProviderOperationsUC extends UCOperations{
 			//regular only
 			$response = $db->fetchSql($sql);
 		}
+		
 		
 		if(empty($response))
 			return(array());

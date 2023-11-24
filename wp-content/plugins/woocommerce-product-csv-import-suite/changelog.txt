@@ -1,5 +1,18 @@
 *** Product CSV Import Suite Changelog ***
 
+2023-11-20 - version 1.10.66
+* Dev - Bump Woocommerce "tested up" version to 8.3.
+* Dev - Bump Woocommerce minimum supported version to 8.1.
+
+2023-11-09 - version 1.10.65
+* Dev - Bump WordPress "tested up to" version 6.4.
+* Dev - Bump WordPress minimum supported version to 6.2.
+* Dev - Add Playwright E2E tests to cover critical flows.
+
+2023-10-23 - version 1.10.64
+* Dev - Resolve PHP Coding Standards issues.
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
+
 2023-10-10 - version 1.10.62
 * Dev - Add end-to-end tests using Playwright.
 * Fix - Compatibility issue with PHP 8.1 that caused errors in exported CSV files.

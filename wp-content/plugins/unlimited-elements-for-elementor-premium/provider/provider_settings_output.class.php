@@ -73,11 +73,10 @@ class UniteSettingsOutputUC extends UniteSettingsOutputUCWork{
 		if(empty($placeholder))
 			$placeholder = __("Please type post title", "unlimited-elements-for-elementor");
 		
-		
 		$addHtml = $this->getDefaultAddHtml($setting);
 		
 		?>
-			<div class="unite-settings-postpicker-wrapper unite-setting-input-object" data-settingtype="post" id="<?php echo esc_attr($setting["id"])?>"  name="<?php echo esc_attr($setting["name"])?>" <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?>>
+			<div class="unite-settings-postpicker-wrapper unite-setting-input-object unite-settings-exclude" data-settingtype="post" id="<?php echo esc_attr($setting["id"])?>"  name="<?php echo esc_attr($setting["name"])?>" <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?>>
 				<select type="text" data-name="<?php echo esc_attr($setting["name"])?>" <?php echo UniteProviderFunctionsUC::escAddParam($class)?> data-placeholder="<?php echo esc_attr($placeholder)?>" data-postid="<?php echo esc_attr($value)?>" data-posttitle="<?php echo esc_attr($postTitle)?>"  style="width:220px;" ></select>				
 			</div>
 		<?php

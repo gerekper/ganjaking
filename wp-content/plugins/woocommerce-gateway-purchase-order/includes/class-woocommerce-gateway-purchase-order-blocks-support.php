@@ -10,7 +10,7 @@ use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodTyp
 /**
  * Purchase Order payment Gateway Blocks integration
  *
- * @since x.x.x
+ * @since 1.4.0
  */
 final class Woocommerce_Gateway_Purchase_Order_Blocks_Support extends AbstractPaymentMethodType {
 	/**

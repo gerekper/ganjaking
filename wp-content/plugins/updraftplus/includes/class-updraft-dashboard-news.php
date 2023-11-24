@@ -12,35 +12,35 @@ class Updraft_Dashboard_News {
 	 *
 	 * @var String
 	 */
-	private $feed_url;
+	protected $feed_url;
 	
 	/**
 	 * news page URL
 	 *
 	 * @var String
 	 */
-	private $link;
+	protected $link;
 	
 	/**
 	 * various translations to use in the UI
 	 *
 	 * @var Array
 	 */
-	private $translations;
+	protected $translations;
 	
 	/**
 	 * slug to use, where needed
 	 *
 	 * @var String
 	 */
-	private $slug;
+	protected $slug;
 	
 	/**
 	 * Valid ajax callback pages
 	 *
 	 * @var Array
 	 */
-	private $valid_callback_pages;
+	protected $valid_callback_pages;
 	
 	/**
 	 * constructor of class Updraft_Dashboard_News
@@ -145,7 +145,7 @@ class Updraft_Dashboard_News {
 	 *
 	 * @return Boolean True if an ajax for the WP dashboard news
 	 */
-	private function do_ajax_dashboard_news() {
+	protected function do_ajax_dashboard_news() {
 		$ajax_callback_page = !empty($_GET['pagenow']) ? $_GET['pagenow'] : '';
 		return (in_array($ajax_callback_page, $this->valid_callback_pages) && !empty($_GET['widget']) && 'dashboard_primary' == $_GET['widget']);
 	}
@@ -170,7 +170,7 @@ class Updraft_Dashboard_News {
 	 *
 	 * @return String - the resulting message
 	 */
-	private function get_dashboard_news_html() {
+	protected function get_dashboard_news_html() {
 	
 		$cache_key = $this->slug.'_dashboard_news';
 		if (false !== ($output = get_transient($cache_key))) return $output;

@@ -13,6 +13,13 @@ class WC_CSV_Parser {
 	var $allowed_product_types;	// Allowed product types
 
 	/**
+	 * Cache of term IDs.
+	 *
+	 * @var array
+	 */
+	private $inserted_terms = array();
+
+	/**
 	 * Constructor
 	 */
 	public function __construct( $post_type = 'product' ) {
@@ -886,7 +893,6 @@ class WC_CSV_Parser {
 						'material'                => '',
 						'pattern'                 => '',
 						'delivery_label'          => '',
-						'size'                    => '',
 						'custom_label_0'          => '',
 						'custom_label_1'          => '',
 						'custom_label_2'          => '',

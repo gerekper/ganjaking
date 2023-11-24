@@ -580,7 +580,7 @@ class UpdraftPlus_Admin {
 			$this->setup_all_admin_notices_global($service);
 		}
 		
-		if (!class_exists('Updraft_Dashboard_News')) updraft_try_include_file('includes/class-updraft-dashboard-news.php', 'include_once');
+		if (!class_exists('Updraft_Dashboard_News_Offer')) updraft_try_include_file('includes/class-updraft-dashboard-news-offer.php', 'include_once');
 
 		$news_translations = array(
 			'product_title' => 'UpdraftPlus',
@@ -592,7 +592,7 @@ class UpdraftPlus_Admin {
 		
 		add_filter('woocommerce_in_plugin_update_message', array($this, 'woocommerce_in_plugin_update_message'));
 		
-		new Updraft_Dashboard_News('https://feeds.feedburner.com/UpdraftPlus', 'https://updraftplus.com/news/', $news_translations);
+		new Updraft_Dashboard_News_Offer('https://feeds.feedburner.com/UpdraftPlus', 'https://updraftplus.com/news/', $news_translations);
 
 		// New-install admin tour
 		if ((!defined('UPDRAFTPLUS_ENABLE_TOUR') || UPDRAFTPLUS_ENABLE_TOUR) && (!defined('UPDRAFTPLUS_THIS_IS_CLONE') || !UPDRAFTPLUS_THIS_IS_CLONE)) {

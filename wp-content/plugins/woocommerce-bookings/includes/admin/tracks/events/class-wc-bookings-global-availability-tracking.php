@@ -24,7 +24,6 @@ class WC_Bookings_Global_Availability_Tracking {
 	 * @param object $availability The availability object.
 	 */
 	public function global_availability_on_save() {
-		// @codingStandardsIgnoreStart
 		if ( empty( $_POST ) || empty( $_POST['wc_booking_availability_type'] ) ) {
 			return;
 		}
@@ -106,6 +105,5 @@ class WC_Bookings_Global_Availability_Tracking {
 		}
 
 		WC_Bookings_Tracks::record_event( 'global_availability_saved_settings', $properties );
-		// @codingStandardsIgnoreEnd
 	}
 }

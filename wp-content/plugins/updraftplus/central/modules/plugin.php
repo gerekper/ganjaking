@@ -207,7 +207,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 								$error_message = end($messages);
 							} else {
 								$error_code = 'unable_to_connect_to_filesystem';
-								$error_message = __('Unable to connect to the filesystem.', 'updraftplus').' '.__('Please confirm your credentials.');
+								$error_message = __('Unable to connect to the filesystem.', 'updraftplus').' '.__('Please confirm your credentials.', 'updraftplus');
 							}
 						}
 					}

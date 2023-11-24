@@ -50,7 +50,6 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 			strftime( _x( '%b %d, %Y @ %I:%M %p', 'Booking date format parsed by strftime', 'woocommerce-bookings' ) )
 		);
 
-		// @codingStandardsIgnoreStart
 		$id = wp_insert_post( apply_filters( 'woocommerce_new_booking_data', array(
 			'post_date'     => date( 'Y-m-d H:i:s', $booking->get_date_created( 'edit' ) ),
 			'post_date_gmt' => get_gmt_from_date( date( 'Y-m-d H:i:s', $booking->get_date_created( 'edit' ) ) ),
@@ -61,7 +60,6 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 			'post_parent'   => $booking->get_order_id( 'edit' ),
 			'ping_status'   => 'closed',
 		) ), true );
-		// @codingStandardsIgnoreEnd
 
 		if ( $id && ! is_wp_error( $id ) ) {
 			$booking->set_id( $id );
@@ -86,7 +84,7 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 
 			/**
 			 * Filter the maximum number of bookings before scheduling the transient delete.
-			 * 
+			 *
 			 * @since 1.15.70
 			 *
 			 * @param int Number of maximum booklings.

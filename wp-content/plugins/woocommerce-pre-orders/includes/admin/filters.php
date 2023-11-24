@@ -6,7 +6,7 @@ add_filter(
 	/**
 	 * Should return date in mysql date format for "_wc_pre_orders_availability_datetime" meta key.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 *
 	 * @param string $meta_value Meta value.
 	 * @param WC_Meta_Data $meta Meta data object.
@@ -30,7 +30,7 @@ add_filter(
 	/**
 	 * Should return date in timestamp date format for "_wc_pre_orders_availability_datetime" meta key.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 *
 	 * @param array $parsed_data Array of csv row data.
 	 *

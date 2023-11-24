@@ -13,10 +13,130 @@ function UniteCreatorTestAddonNew(){
 	
 	
 	/**
+	 * on check settings values click
+	 */
+	function onCheckClick(){
+		
+		var values = g_settings.getSettingsValues();
+		
+		var selectorsCss = g_settings.getSelectorsCss();
+		
+		trace("Settings Values Are:");
+		
+		trace(values);
+		
+		if(selectorsCss){
+			
+			trace("Selectors Css:");
+			
+			trace(selectorsCss);
+			
+		}
+		
+	}
+	
+	
+	/**
+	 * on clear settings click
+	 */
+	function onClearClick(){
+		
+		trace("clear settings");
+		
+		g_settings.clearSettings();
+	}
+	
+	/**
+	 * delete slot data
+	 */
+	function onDeleteDataClick(){
+		
+		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_delete");
+		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_delete");
+		
+		var data = {"id":g_addonID,"slotnum":1};
+		
+		g_ucAdmin.ajaxRequest("delete_test_addon_data", data, function(response){
+
+			jQuery("#uc_testaddon_button_delete").show();
+			
+			jQuery("#uc_testaddon_slot1").hide();
+		});
+		
+		
+	}
+	
+	/**
+	 * on save data event
+	 */
+	function onSaveDataClick(){
+		
+		var objData = {};
+		objData["id"] = g_addonID;
+		
+		var values = g_settings.getSettingsValues();
+		
+		objData["settings_values"] = values;
+		
+		trace("Saving Settings...");
+		trace(values);
+		
+		
+		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_save");
+		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_save");
+		
+		g_ucAdmin.ajaxRequest("save_test_addon", objData, function(){
+			
+			jQuery("#uc_testaddon_slot1").show();
+			
+			jQuery("#uc_testaddon_button_save").show();
+			
+		});
+	}
+	
+	/**
+	 * restore data from saved slot
+	 */
+	function onRestoreDataClick(){
+		
+		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_restore");
+		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_restore");
+		
+		var data = {"id":g_addonID,"slotnum":1,"combine":true};
+		
+		trace("Restoring Settings...");
+		
+		g_ucAdmin.ajaxRequest("get_test_addon_data", data, function(response){
+			
+			jQuery("#uc_testaddon_button_restore").show();
+			
+			var objValues = g_ucAdmin.getVal(response,"settings_values");
+			
+			trace(objValues);
+			
+			if(!objValues){
+				trace("no settings found");
+				return(false);
+			}
+				
+			g_settings.setValues(objValues);
+			
+			setTimeout(function(){
+				
+				refreshPreview();
+				
+			},500);
+			
+		});
+		
+	}
+	
+	
+	/**
 	 * output preview
 	 */
 	function outputWidgetPreview(response){
-		
+				
 		var html = g_ucAdmin.getVal(response, "html");
 		var arrIncludes = g_ucAdmin.getVal(response, "includes");
 		
@@ -38,7 +158,8 @@ function UniteCreatorTestAddonNew(){
 				
 		var data = {
 			id:g_addonID,
-			settings: objValues
+			settings: objValues,
+			selectors:true
 		};
 		
 		g_ucAdmin.setAjaxLoaderID("uc_preview_loader");
@@ -58,6 +179,22 @@ function UniteCreatorTestAddonNew(){
 		
 	}
 	
+	/**
+	 * update settings selectors
+	 */
+	function updateSelectors(){
+		
+		var css = g_settings.getSelectorsCss();
+		
+		var objStyle = jQuery("[name=uc_selectors_css]");
+		
+		if(objStyle.length == 0)
+			throw new Error("No style element found, it should be in the styles");
+		
+		objStyle.text(css);
+		
+	}
+	
 	
 	/**
 	 * init the settings by it's html
@@ -73,6 +210,9 @@ function UniteCreatorTestAddonNew(){
 		g_settings.init(objSettingsContainer);
 		
 		g_settings.setEventOnChange(refreshPreview);
+		
+		g_settings.setEventOnSelectorsChange(updateSelectors);
+		
 	}
 	
 	
@@ -131,6 +271,24 @@ function UniteCreatorTestAddonNew(){
 	}
 	
 	/**
+	 * init events
+	 */
+	function initEvents(){
+		
+		jQuery("#uc_testaddon_button_save").on("click",onSaveDataClick);
+		
+		jQuery("#uc_testaddon_button_restore").on("click",onRestoreDataClick);
+	
+		jQuery("#uc_testaddon_button_clear").on("click",onClearClick);
+		
+		jQuery("#uc_testaddon_button_check").on("click",onCheckClick);
+	
+		jQuery("#uc_testaddon_button_delete").on("click",onDeleteDataClick);
+		
+	}
+	
+	
+	/**
 	 * init the testaddon class
 	 */
 	this.init = function(){
@@ -140,7 +298,10 @@ function UniteCreatorTestAddonNew(){
 		
 		g_objPreview = jQuery("#uc_preview_wrapper");
 		
+		initEvents();	
+		
 		loadSettings();
+		
 		
 	}
 	

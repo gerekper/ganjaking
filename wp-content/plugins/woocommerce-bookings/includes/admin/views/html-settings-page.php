@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$current_tab = isset( $_GET['tab'] ) && isset( $tabs_metadata[ $_GET['tab'] ] ) ? sanitize_title( $_GET['tab'] ) : 'availability';
+$current_tab = isset( $_GET['tab'] ) && isset( $tabs_metadata[ $_GET['tab'] ] ) ? sanitize_title( wp_unslash( $_GET['tab'] ) ) : 'availability';
 
 ?>
 <div class="wrap">

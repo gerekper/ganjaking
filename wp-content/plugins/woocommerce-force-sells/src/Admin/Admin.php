@@ -39,15 +39,15 @@ class Admin {
 
 		$links['docs'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/document/force-sells/' ),
+			esc_url( 'https://woo.com/document/force-sells/' ),
 			esc_attr_x( 'View WooCommerce Force Sells documentation', 'aria-label: documentation link', 'woocommerce-force-sells' ),
 			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-force-sells' )
 		);
 
 		$links['support'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=18678' ),
-			esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-force-sells' ),
+			esc_url( 'https://woo.com/my-account/create-a-ticket?select=18678' ),
+			esc_attr_x( 'Open a support ticket at Woo.com', 'aria-label: support link', 'woocommerce-force-sells' ),
 			esc_html_x( 'Support', 'plugin row link', 'woocommerce-force-sells' )
 		);
 

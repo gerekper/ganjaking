@@ -109,7 +109,7 @@ class Ajax
 
 	}
 
-	//import settings ajax action
+	//close cta ajax action
 	public static function close_cta() {
 		self::security_check();
 		if(update_option('perfmatters_close_cta', 1)) {

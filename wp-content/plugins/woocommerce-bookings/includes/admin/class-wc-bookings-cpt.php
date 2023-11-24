@@ -445,7 +445,7 @@ class WC_Bookings_CPT {
 			if ( ! empty( $_REQUEST['filter_bookings'] ) && empty( $query->query_vars['suppress_filters'] ) ) {
 				$query->query_vars['meta_query'] = array(
 					array(
-						'key'   => get_post_type( wc_clean( $_REQUEST['filter_bookings'] ) ) === 'bookable_resource' ? '_booking_resource_id' : '_booking_product_id',
+						'key'   => get_post_type( wc_clean( wp_unslash( $_REQUEST['filter_bookings'] ) ) ) === 'bookable_resource' ? '_booking_resource_id' : '_booking_product_id',
 						'value' => absint( $_REQUEST['filter_bookings'] ),
 					),
 				);
@@ -466,17 +466,17 @@ class WC_Bookings_CPT {
 		}
 
 		$booking_ids = array();
-		$term        = wc_clean( $_GET['s'] );
+		$term        = wc_clean( wp_unslash( $_GET['s'] ) );
 
 		if ( is_numeric( $term ) ) {
 			$booking_ids[] = $term;
 		}
 
-		$order_ids   = wc_order_search( wc_clean( $_GET['s'] ) );
+		$order_ids   = wc_order_search( wc_clean( wp_unslash( $_GET['s'] ) ) );
 		$booking_ids = array_merge(
 			$booking_ids,
 			$order_ids ? WC_Booking_Data_Store::get_booking_ids_from_order_id( $order_ids ) : array( 0 ),
-			wc_booking_search( wc_clean( $_GET['s'] ) )
+			wc_booking_search( wc_clean( wp_unslash( $_GET['s'] ) ) )
 		);
 
 		$wp->query_vars['s']              = false;
@@ -505,6 +505,6 @@ class WC_Bookings_CPT {
 			return $query;
 		}
 
-		return wc_clean( $_GET['s'] );
+		return wc_clean( wp_unslash( $_GET['s'] ) );
 	}
 }

@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
 Tested up to: 6.4
-Stable tag: 1.23.12
+Stable tag: 1.23.13
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -179,9 +179,22 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
-The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
+The [UpdraftPlus backup blog](https://updraftplus.com/news/) is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.23.1.x of the free version correspond to changes made in 2.23.1.x of the paid version.
+
+= 1.23.13 - 22/Nov/2023 =
+
+* FIX: An issue that prevented incremental backups from running via WP-CLI or Cron when the option to backup mu-plugins was enabled but no mu-plugins existed
+* FIX: OneDrive remote storage authentication was giving the error "Invalid input."
+* FIX: The option to back up additional, user-chosen files (i.e. the morefiles entity) was no longer present in the UI
+* TWEAK: Remove unused "migrator-lite.php" string during search and replace operations
+* TWEAK: Replace remaining hardcoded text domain with UPDRAFTCENTRAL_TEXT_DOMAIN placeholder within the central folder
+* TWEAK: LiteSpeed admin dashboard warning is now displayed upon completion of migration on the destination site, even after dismissing the message on the source site.
+* TWEAK: Do not show UpdraftPlus news in the WordPress events and news widget section without first gaining user consent
+* TWEAK: Change order of checks when seeing if cPanel is present/accessible for asking about disk quota in order to prevent unwanted an PHP notice when safe_mode is active
+* TWEAK: Prevent potential fatal error if something has modified an updates check's 'translation' property to be invalid before passing on to UpdraftPlus
+* TWEAK: Update bundled cacert.pem file
 
 = 1.23.12 - 08/Nov/2023 =
 
@@ -1843,9 +1856,9 @@ Older changes are found <a href="https://plugins.svn.wordpress.org/updraftplus/t
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-Reliance upon any non-English translation is at your own risk; UpdraftPlus can give no guarantees that translations from the original English are accurate.
+Non-English translators are provided by volunteers, and wordpress.org does not give plugin developers control over their translations; thus relying on them is at your own risk; UpdraftPlus cannot guarantee that translations from the original English are accurate.
 
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.12: Fixes an issue that prevented some database restores from completing due to a change in wpdb in WordPress 6.4. Various further tweaks. A recommended update for all.
+* 1.23.13: Fixes issues that prevented incremental backups from running via WP-CLI or Cron when the option to backup mu-plugins was enabled but no mu-plugins existed and prevented OneDrive authentication flow. Various further tweaks. A recommended update for all.

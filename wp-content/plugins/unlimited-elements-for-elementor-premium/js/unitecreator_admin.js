@@ -242,9 +242,7 @@ function UniteCreatorAdmin(){
 					var objTextArea = jQuery("#area_addon_html");
 				    var textArea = objTextArea[0];
 					  
-				      var mixedMode = {
-				    	        name: "htmlmixed"
-				      };
+				      var mixedMode = {name: "twig", base: "text/html"};
 				      
 				      var mode = objTextArea.data("mode");
 					  if(mode)  		
@@ -281,9 +279,12 @@ function UniteCreatorAdmin(){
 				g_codemirrorHtmlItem = true;
 				
 				setTimeout(function(){
+					
 				      var mixedMode = {
-				    	        name: "htmlmixed"
+						      name: "twig", base: "text/html"
+				    	       //name: "htmlmixed"
 				      };
+				      
 				      var optionsCM = {
 								mode: mixedMode,
 								lineNumbers: true
@@ -308,7 +309,7 @@ function UniteCreatorAdmin(){
 				
 				setTimeout(function(){
 				      var mixedMode = {
-				    	        name: "htmlmixed"
+						      name: "twig", base: "text/html"
 				      };
 				      var optionsCM = {
 								mode: mixedMode,
@@ -545,6 +546,10 @@ function UniteCreatorAdmin(){
 	 */
 	function showItemsRelated(){
 		
+		//don't show if items in posts mode
+		if(g_temp.isItemsAsPostsMode == true)
+			return(false);
+		
 		g_objWrapperItems.show();
 		jQuery(".uc-items-related").show();
 		
@@ -567,7 +572,7 @@ function UniteCreatorAdmin(){
 	function setItemsAsPostsMode(param){
 				
 		//---- items tab -----
-		
+				
 		//g_settingsItem.setValues({"enable_items":true});
 		
 		var itemsParamType = param["items_param_type"];
@@ -1291,6 +1296,90 @@ function UniteCreatorAdmin(){
 		
 	}
 	
+  /**
+   * init revisions tab
+   */
+  function initRevisionsTab() {
+      
+	  if (isRevisionsEnabled() === false)
+		  return(false);
+	  
+	  
+    g_objAssetsManager.eventOnUpdateFiles(function () {
+    	
+      g_ucAdmin.setSuccessMessageID('null'); // don't show success message
+      g_ucAdmin.ajaxRequest('create_addon_revision', { id: g_addonID });
+    });
+
+
+    jQuery(document).on('click', '.uc-revision-restore', function (event) {
+    	
+      var confirmed = confirm('Are you sure you want to restore the widget from this revision?');
+
+      if (confirmed === false)
+        return;
+
+      var id = getRevisionId(event.target);
+
+      g_ucAdmin.ajaxRequest('restore_addon_revision', { id: g_addonID, revision_id: id }, function () {
+        location.reload();
+      });
+    });
+
+    jQuery(document).on('click', '.uc-revision-download', function (event) {
+    
+	      var id = getRevisionId(event.target);
+	      var params = 'id=' + g_addonID + '&revision_id=' + id;
+	      var url = g_ucAdmin.getUrlAjax('download_addon_revision', params);
+	
+	      window.open(url);
+    });
+  }
+
+  /**
+   * load revisions
+   */
+  function loadRevisions() {
+	  
+    if (isRevisionsEnabled() === false)
+      return;
+
+    var objRevisions = jQuery('#uc_tab_revisions');
+    var objRevisionsLoader = objRevisions.find('.uc-revisions-loader');
+    var objRevisionsContent = objRevisions.find('.uc-revisions-content');
+
+    objRevisionsLoader.show();
+    objRevisionsContent.hide();
+
+    g_ucAdmin.ajaxRequest('get_addon_revisions', { addon_id: g_addonID }, function (response) {
+      objRevisionsLoader.hide();
+      objRevisionsContent.html(response.html).show();
+    });
+  }
+
+  /**
+   * check if revision enabled
+   */
+  function isRevisionsEnabled() {
+	  
+    var objRevisionsTab = jQuery('#uc_tablink_revisions');
+
+    if (objRevisionsTab.length === 0)
+      return false;
+
+    return true;
+  }
+
+  /**
+   * get revision id from click event
+   */
+  function getRevisionId(element) {
+    var $element = jQuery(element);
+    var $root = $element.closest('.uc-revision');
+    var id = $root.attr('data-id');
+
+    return id;
+  }
 	function ____________DYNAMIC____________(){};
 	
 	/**
@@ -1546,6 +1635,9 @@ function UniteCreatorAdmin(){
 				}
 				
 			break;
+	        case 'uc_tab_revisions':
+	          loadRevisions();
+	        break;
 		}
 		
 	}
@@ -1653,10 +1745,15 @@ function UniteCreatorAdmin(){
 		jQuery(".uc-tabcontent-link-expand").on("click",function(){
 			
 			var objLink = jQuery(this);
+			
 			var objRow = objLink.parents("tr");
-			objRow.addClass("uc-row-expanded");
+									
+			var rowClass = "uc-row-expanded";
+						
+			objRow.addClass(rowClass);
 			
 			objLink.hide();
+			
 			
 		});
 		
@@ -1675,13 +1772,28 @@ function UniteCreatorAdmin(){
 	 */
 	function initStickyButtonsPanel(){
 		
+		var offset = g_objButtonsPanel.offset();
+		
+		var adminBar = jQuery("#wpadminbar");
+		
+		var adminBarHeight = 0;
+		if(adminBar.length)
+			adminBarHeight = adminBar.height()+2;
+		
+		trace(adminBarHeight);
+		
+		var offsetTop = Math.round(offset.top) - adminBarHeight;
+		
+		
 		jQuery(window).scroll(function () {
+			
 			var desTop = jQuery(document).scrollTop();
 			
 			//clearTrace()
 			//trace(desTop);
+			//trace(offsetTop);
 			
-			if(desTop > 79){
+			if(desTop > offsetTop){
 				g_objButtonsPanel.addClass("uc-stick-top");
 			} else {
 				g_objButtonsPanel.removeClass("uc-stick-top");
@@ -1908,6 +2020,8 @@ function UniteCreatorAdmin(){
 		initParamsEditors(objParamsMain, objParamsItems, arrParamsCats);
 		
 		initAssetsTab();
+		
+		initRevisionsTab();
 		
 		initByOptions(arrOptions);
 		

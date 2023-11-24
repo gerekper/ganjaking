@@ -1,0 +1,481 @@
+.ue-dash-content {
+	display: flex;
+	gap: 16px;
+}
+
+.ue-content-main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.ue-social-content-wrapper {
+	display: flex;
+	gap: 16px;
+	flex: 1;
+}
+
+.ue-content-card {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	flex: 1;
+	padding: 24px;
+	border-radius: 12px;
+	background: #ffffff;
+	box-shadow: 0px 2px 40px 0px rgba(94, 95, 98, 0.04);
+}
+
+.ue-content-icon {
+	display: flex;
+	width: 62px;
+	height: 62px;
+	border-radius: 50px;
+	background: #f7f7fb;
+}
+
+.ue-content-icon svg {
+	fill: #334bf4;
+}
+
+.ue-content-title {
+	color: #07080f;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.3em;
+}
+
+.ue-social-content-wrapper .ue-content-title {
+	margin-bottom: -8px;
+}
+
+.ue-content-desc {
+	color: #5e5f62;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.6em;
+}
+
+.ue-content-btn {
+	color: #334bf4;
+	font-size: 14px;
+	font-weight: 700;
+	display: inline-flex;
+	padding: 16px 34px;
+	border-radius: 8px;
+	width: fit-content;
+	height: fit-content;
+	border: 1px solid #334bf4;
+	max-width: 100%;
+}
+
+.ue-content-btn:hover {
+	color: #ffffff;
+	background: #334bf4;
+}
+
+.ue-tutorials-header {
+	display: flex;
+	gap: 24px;
+}
+
+.ue-tmore-btn-1 {
+	display: inline-flex;
+}
+
+.ue-tmore-btn-2 {
+	display: none;
+}
+
+.ue-inner-content-wrapper-h {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex: 1;
+	gap: 4px;
+}
+
+.ue-video-wrapper {
+	display: flex;
+	justify-content: space-between;
+	gap: 17px;
+}
+
+.ue-video-item {
+	flex: 1;
+	position: relative;
+}
+
+.ue-video-item .ue-video {
+	display: flex;
+	flex-shrink: 0;
+	overflow: hidden;
+	position: relative;
+	aspect-ratio: 310/210;
+	border-radius: 6px;
+	background-color: #e7e7e7;
+}
+
+.ue-video-item .ue-video:before {
+	content: "";
+	max-width: 100%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: linear-gradient(180deg, rgba(7, 8, 15, 0.226) 11.60%, #07080fc4 94.17%), rgba(211, 211, 211, 0) 0px -7.673px / 124.39% 123.636% no-repeat;
+	transition: all 200ms;
+	opacity: 0.6;
+}
+
+.ue-video-item:hover .ue-video:before {
+	opacity: 0.8;
+}
+
+.ue-video-bg {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.ue-video-play-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 62px;
+	height: 62px;
+	border-radius: 50%;
+	z-index: 3;
+	background-color: rgba(7, 8, 15, 0.30);
+	transition: all 200ms;
+	pointer-events: none;
+}
+
+.ue-video-item:hover .ue-video-play-btn {
+	background-color: rgba(7, 8, 15, 0.438);
+}
+
+.ue-video-play-btn:after {
+	content: "";
+	display: block;
+	width: 36px;
+	height: 36px;
+	background: url("../images/dashboard/icon-play-white.svg") no-repeat;
+	background-size: contain;
+}
+
+.ue-video-title {
+	color: #07080f;
+	font-size: 16px;
+	font-weight: 700;
+	margin-top: 16px;
+	margin-bottom: 0;
+	transition: all 200ms;
+}
+
+.ue-video-item:hover .ue-video-title {
+	color: #334bf4;
+}
+
+.ue-full-card.ue-content-card {
+	flex-direction: row;
+	gap: 45px;
+	padding: 35px 24px;
+	height: auto;
+}
+
+.ue-full-card .ue-content-title {
+	margin-bottom: -8px;
+}
+
+.ue-full-card .ue-content-btn {
+	min-width: 150px;
+}
+
+.ue-inner-section-left {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	flex-shrink: 1;
+	flex-grow: 1;
+}
+
+.ue-inner-section-right {
+	display: flex;
+	width: 25%;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+img.ue-illustration {
+	max-width: 100%;
+	width: 200px;
+}
+
+.ue-features-list {
+	display: grid !important;
+	justify-content: start;
+	grid-template-columns: repeat(2, auto);
+	grid-auto-flow: row;
+	gap: 15px;
+	list-style: none;
+	margin-block: 0;
+	padding-inline-start: 0;
+}
+
+.ue-feature {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 14px;
+	font-style: normal;
+	color: #07080f;
+}
+
+.ue-feature:before {
+	content: "";
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url("../images/dashboard/icon-check-primary.svg") no-repeat;
+	background-size: contain;
+}
+
+.ue-sidebar {
+	display: flex;
+	flex-direction: column;
+	width: 26%;
+	height: 100%;
+	gap: 16px;
+
+}
+
+.ue-get-pro-cta {
+	position: relative;
+	background-color: #000000;
+	background-image: url("../images/dashboard/cta-bg.webp");
+	background-size: contain;
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.ue-get-pro-cta * {
+	z-index: 3;
+}
+
+.ue-cta-bg-overlay {
+	background: linear-gradient(210deg, #295af9fa 23.27%, #6011dff6 68.07%);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+
+.ue-cta-title {
+	color: #ffffff;
+}
+
+.ue-get-pro-cta .ue-content-icon {
+	width: 62px;
+	height: 62px;
+	border-radius: 50px;
+	background: #ffffff;
+}
+
+.ue-get-pro-cta .ue-content-icon svg {
+	fill: #eb4a9f;
+}
+
+.ue-get-pro-cta .ue-content-title {
+	color: #ffffff;
+}
+
+.ue-cta-desc {
+	color: rgba(255, 255, 255, 0.70);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	margin-top: -16px;
+}
+
+.ue-pro-cta-btn {
+	color: #ffffff;
+	border-radius: 8px;
+	background: #eb4a9f;
+	border: none;
+}
+
+.ue-pro-cta-btn:hover {
+	color: #2959f9;
+	background: #ffffff;
+}
+
+.ue-inner-section-left .ue-pro-cta-btn:hover {
+	color: #ffffff;
+	background: #2959f9;
+}
+
+.ue-cta-features-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	list-style: none;
+	margin-block: 0;
+	padding-inline-start: 0;
+}
+
+.ue-cta-feature {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.6em;
+}
+
+.ue-cta-feature:before {
+	content: "";
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url("../images/dashboard/icon-check-white.svg") no-repeat;
+	background-size: contain;
+}
+
+.ue-cta-link {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.6em;
+}
+
+.ue-cta-link:hover {
+	gap: 12px;
+	color: #ffffff;
+}
+
+.ue-cta-link svg {
+	fill: #ffffff;
+}
+
+.ue-cta-post-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.ue-post-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.ue-post {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.ue-post-img {
+	width: 88px;
+	height: 88px;
+	border-radius: 8px;
+	flex-shrink: 0;
+	background-color: #000000;
+	object-fit: cover;
+	object-position: center;
+}
+
+.ue-post-title {
+	color: #07080f;
+	font-size: 16px;
+	font-weight: 700;
+	flex-shrink: 1;
+	flex-grow: 1;
+	flex-basis: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	transition: all 200ms;
+}
+
+.ue-post:hover .ue-post-title {
+	color: #334bf4;
+}
+
+.ue-post-view-more {
+	margin-top: 8px;
+	width: 100% !important;
+}
+
+/* big landscape tablets, laptops, and desktops */
+@media (max-width: 1281px) {
+	.ue-dash-content {
+		flex-direction: column;
+	}
+
+	.ue-sidebar {
+		width: 100%;
+	}
+
+	.ue-cta-post-wrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 16px;
+	}
+
+	.ue-features-list {
+		grid-template-columns: repeat(1, auto);
+	}
+}
+
+@media (max-width: 600px) {
+	.ue-content-card {
+		width: 100%;
+	}
+
+	.ue-full-card.ue-content-card {
+		gap: 16px;
+	}
+
+	.ue-social-content-wrapper {
+		flex-direction: column;
+	}
+
+	.ue-cta-post-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.ue-tutorials-header {
+		flex-direction: column;
+	}
+
+	.ue-video-wrapper {
+		flex-direction: column;
+		gap: 30px;
+	}
+
+	.ue-tmore-btn-1 {
+		display: none;
+	}
+
+	.ue-tmore-btn-2 {
+		display: inline-flex;
+	}
+}

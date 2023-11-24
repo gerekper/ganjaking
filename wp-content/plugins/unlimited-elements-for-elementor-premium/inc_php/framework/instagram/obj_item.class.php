@@ -51,7 +51,6 @@ class InstaObjItemUC{
 	public $itemUser;
 	public $itemUserID;
 	
-	
 	/**
 	 * validate if the item is inited
 	 */
@@ -289,6 +288,10 @@ class InstaObjItemUC{
 		$arr["video_class"] = $class;
 		$arr["num_video_views"] = $this->getNumVideoViewsText();
 		$arr["url_video"] = $this->urlVideo;
+		$arr["date_stamp"] = $this->createdDateStamp;
+		$arr["date"] = $this->createdDateText;
+		$arr["time_passed"] = $this->getTimePassedText();
+		
 		
 		return($arr);
 	}
@@ -646,6 +649,15 @@ class InstaObjItemUC{
 		$this->id = UniteFunctionsUC::getVal($item, "id");
 
 		$this->link = UniteFunctionsUC::getVal($item, "permalink");
+		
+		$time = UniteFunctionsUC::getVal($item, "timestamp");
+		
+		$timeStamp = strtotime($time);
+		
+		$this->createdDateStamp = $timeStamp;
+		
+		if(!empty($this->createdDateStamp))
+			$this->createdDateText = HelperInstaUC::stampToDate($this->createdDateStamp);
 		
 		$this->isInited = true;
 		

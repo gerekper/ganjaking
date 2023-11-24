@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.4.1
-Stable tag: 2.1.9
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,16 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.2.0 - 11.22.2023 =
+* Added Delay JS quick exclusion and REST route exception for WS Form.
+* Adjusted built-in WooCommerce stylesheet exclusions for better compatibility.
+* Updated instant.page and FastClick script names for ad blocker compatibility.
+* Fixed a PHP 8.2 deprecated warning coming from the CSS class.
+* Fixed a Script Manager CSS issue where certain disable controls weren't hiding correctly in some cases.
+* Removed unnecessary .git directory from background processor library folder. 
+* Script Manager security updates to fix XSS vulnerability.
+* Translation updates.
 
 = 2.1.9 - 11.09.2023 =
 * Added Delay JS quick exclusions for Presto Player, Raptive Ads, Slickstream, and WP Recipe Maker.

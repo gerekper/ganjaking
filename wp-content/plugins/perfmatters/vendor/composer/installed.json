@@ -30,7 +30,7 @@
             },
             "time": "2023-07-18T10:22:06+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "classes/"

@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+
+.elementor-panel .uc-notip:after{
+	display:none !important;
+}
+
 .elementor-panel .uc-button-edit-html{
 	margin-top:5px;
 }
@@ -138,3 +143,33 @@
 	padding:10px;
 	line-height:1.4em;
 }
+
+.uc-notification-control.uc-dark-mode{
+	color:#ffffff;
+	background-color:#393e44;
+	border-left:2px solid #d5c5a6;
+	
+}
+
+.uc-notification-control.uc-dark-mode a{
+	color:#ffffff;
+}
+
+.uc-notification-control.uc-dark-mode a:hover{
+	color:blue;
+}
+
+.uc-edit-template-button{
+	position:relative;
+	padding-top:5px;
+}
+
+.uc-edit-template-button__link{
+	position:absolute;
+	top:-7px;
+	right:0px;
+	font-size:12px;
+	font-weight:normal !important;
+}
+
+

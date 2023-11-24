@@ -1,0 +1,134 @@
+.uc-admin-notice {
+	position: relative;
+}
+
+.uc-admin-notice.notice-doubly {
+	border-color: #ff6a00;
+}
+
+.uc-admin-notice .uc-notice-dismiss {
+	font-size: 13px;
+	line-height: 1em;
+	text-decoration: none;
+	padding: 12px 12px 12px 24px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 10;
+}
+
+.uc-admin-notice .uc-notice-dismiss:hover,
+.uc-admin-notice .uc-notice-dismiss:focus {
+	color: #cc0000;
+}
+
+.uc-admin-notice .uc-notice-dismiss::before {
+	content: "\f153";
+	width: 16px;
+	height: 16px;
+	font-family: dashicons;
+	font-size: 16px;
+	line-height: 16px;
+	text-align: center;
+	margin-top: -8px;
+	position: absolute;
+	top: 50%;
+	left: 4px;
+	transition: color 0.05s ease;
+}
+
+.uc-admin-notice .uc-notice-wrapper {
+	display: flex;
+	align-items: flex-start;
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.uc-admin-notice .uc-notice-logo {
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin-right: 12px;
+	object-fit: cover;
+}
+
+.uc-admin-notice .uc-notice-heading {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.25em;
+	margin: 0;
+	padding: 0;
+}
+
+.uc-admin-notice .uc-notice-content {
+	font-size: 14px;
+	line-height: 1.5em;
+	margin: 8px 0 0 0;
+	padding: 0;
+}
+
+.uc-admin-notice .uc-notice-actions {
+	margin: 16px 0 0 0;
+}
+
+.uc-admin-notice .uc-notice-actions .button + .button {
+	margin-left: 0.5em;
+}
+
+.uc-admin-notice .uc-notice-debug {
+	font-size: 12px;
+	line-height: 1.5em;
+	color: #757575;
+	margin: 16px 0 0 0;
+	padding: 0;
+}
+
+.uc-admin-notice--banner {
+	border: none;
+	padding: 0;
+}
+
+.uc-admin-notice--banner .uc-notice-dismiss {
+	text-indent: -9999em;
+}
+
+.uc-admin-notice--banner.uc-admin-notice--theme-dark .uc-notice-dismiss {
+	color: #ffffff;
+}
+
+.uc-admin-notice--banner.uc-admin-notice--theme-light .uc-notice-dismiss {
+	color: #1d2327;
+}
+
+.uc-admin-notice--banner .uc-notice-dismiss:hover,
+.uc-admin-notice--banner .uc-notice-dismiss:focus {
+	color: #ea3384;
+}
+
+.uc-admin-notice--banner .uc-notice-dismiss::before {
+	width: 24px;
+	height: 24px;
+	font-size: 24px;
+	line-height: 24px;
+	text-indent: 0;
+	margin-top: 0;
+	top: 8px;
+	left: 4px;
+}
+
+
+.uc-admin-notice--banner .uc-notice-link {
+	display: block;
+}
+
+.uc-admin-notice--banner .uc-notice-image {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+.uc-admin-notice--banner .uc-notice-debug {
+	margin: 0;
+	padding: 12px;
+}

@@ -198,11 +198,13 @@ function UniteCreatorParamsEditor(){
 					return(true);
 			}
 			
+			
 			if(paramsType == "control"){
 				switch(objParam.type){
 					case "uc_dropdown":
 					case "uc_radioboolean":
 					case "uc_checkbox":
+					case "uc_multiple_select":
 					break;
 					default:
 						return(true);

@@ -1,5 +1,11 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-11-20 - version 2.0.6
+* Dev - Bump WordPress "tested up to" version 6.4.
+* Dev - Bump WordPress minimum supported version to 6.2.
+* Dev - Add Playwright e2e tests for Critical Flows.
+* Dev - Resolve Coding Standards issues.
+
 2023-10-24 - version 2.0.5
 * Dev - Change docs and config files to indicate node 12 requirement.
 * Fix - Salt rotation issue for key encryption.

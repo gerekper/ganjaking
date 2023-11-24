@@ -1,5 +1,10 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2023-11-20 - version 2.0.6
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
+* Dev - Implement ESLint.
+* Add - Compatibility with WooPayments.
+
 2023-09-12 - version 2.0.5
 * Dev - Bump WooCommerce "tested up to" version 7.9.
 * Dev - Bump WooCommerce minimum supported version from 7.2 to 7.7.

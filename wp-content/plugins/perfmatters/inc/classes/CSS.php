@@ -106,8 +106,8 @@ class CSS
                     'dashicons.min.css', //core
                     '/uploads/elementor/css/post-', //elementor
                     'animations.min.css',
-                    'woocommerce-mobile.min.css', //woocommerce
-                    'woocommerce-smallscreen.css',
+                    'woocommerce-mobile', //woocommerce
+                    'woocommerce-smallscreen',
                     '/uploads/oxygen/css/', //oxygen
                     '/uploads/bb-plugin/cache/', //beaver builder
                     '/uploads/generateblocks/', //generateblocks
@@ -266,7 +266,6 @@ class CSS
         libxml_use_internal_errors($libxml_previous);
 
         if($result) {
-            $dom->xpath = new \DOMXPath($dom);
 
             //setup used selectors array
             self::$used_selectors = array('tags' => array(), 'ids' => array(), 'classes' => array());

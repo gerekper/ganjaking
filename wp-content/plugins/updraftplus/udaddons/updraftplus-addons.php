@@ -184,6 +184,13 @@ class UpdraftPlusAddons2 {
 	
 	}
 	
+	/**
+	 * Inject our translation information into the updates object. Runs upon the WP filter site_transient_update_plugins .
+	 *
+	 * @param Object $updates
+	 *
+	 * @return Object
+	 */
 	public function possibly_inject_translations($updates) {
 	
 		$slug = $this->slug;
@@ -199,6 +206,9 @@ class UpdraftPlusAddons2 {
 				foreach ($updates->translations as $k => $translation) {
 					if ('plugin' == $translation['type'] && $translation['slug'] == $slug) unset($updates->translations[$k]);
 				}
+				
+			} else {
+				$updates->translations = array();
 			}
 			
 			// Add our translation onto the array
@@ -218,6 +228,9 @@ class UpdraftPlusAddons2 {
 		return $opts;
 	}
 
+	/**
+	 * Print out update URL information
+	 */
 	public function updraftplus_showrawinfo() {
 		echo "<p>Updates URL: ".htmlspecialchars($this->url)."</p>";
 	}

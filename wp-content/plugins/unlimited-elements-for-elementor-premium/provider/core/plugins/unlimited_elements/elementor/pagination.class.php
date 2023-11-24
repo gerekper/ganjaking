@@ -112,6 +112,38 @@ class UniteCreatorElementorPagination{
 					'description'=>__('Choose the filters behaviour for the current grid. If third mode selected - after ajax it will remember the current grid and filters state in the url so you can get back to it later', 'unlimited-elements-for-elementor')
 				)
 			);
+
+			$widget->add_control(
+				$paramName.'_filtering_group',
+				[
+					'label' => __( 'Group', "unlimited-elements-for-elementor"),
+					'description' => __( 'Allow filtering group of widgets at once', "unlimited-elements-for-elementor"),
+					'type' => \Elementor\Controls_Manager::SELECT,
+					'default' => '',
+					'condition' => array($paramName.'_isajax'=>"true"),
+					'options' => [
+						'' => __( '[No Group]', "unlimited-elements-for-elementor"),
+						'group1' => __( 'Group1', "unlimited-elements-for-elementor"),
+						'group2' => __( 'Group2', "unlimited-elements-for-elementor"),
+						'group3' => __( 'Group3', "unlimited-elements-for-elementor"),
+						'group4' => __( 'Group4', "unlimited-elements-for-elementor"),
+						'group5' => __( 'Group5', "unlimited-elements-for-elementor")
+					],
+				]
+			);
+			
+			
+			$widget->add_control(
+				$paramName.'_disable_other_hooks',
+				array(
+					'label' => __( 'Disable Third Party Modifications', "unlimited-elements-for-elementor"),
+					'type' => \Elementor\Controls_Manager::SWITCHER,
+					'default' => '',
+					'return_value' => 'yes',
+					'condition' => array($paramName.'_isajax'=>"true"),
+					'description'=>__('Disable other themes or plugins hooks so their code so they will not influence on the query', 'unlimited-elements-for-elementor')
+				)
+			);
 			
 			
 		}
@@ -308,7 +340,7 @@ class UniteCreatorElementorPagination{
 	private function getArchivePageOptions($options){
 		
 		//output demo pagination
-		$isEditMode = UniteCreatorElementorIntegrate::$isEditMode;
+		$isEditMode = GlobalsProviderUC::$isInsideEditor;
 		if($isEditMode == true){
 			$options["total"] = 5;
 			$options["current"] = 2;
@@ -373,10 +405,10 @@ class UniteCreatorElementorPagination{
 	/**
 	 * get single page options
 	 */
-	private function getSinglePageOptions($options, $forceFormat = null){
+	private function getSinglePageOptions($options, $forceFormat = null, $isDebug = false){
 		
 		//output demo pagination
-		$isEditMode = UniteCreatorElementorIntegrate::$isEditMode;
+		$isEditMode = GlobalsProviderUC::$isInsideEditor;
 				
 		if($isEditMode == true){
 			
@@ -389,12 +421,29 @@ class UniteCreatorElementorPagination{
 			return($options);
 		}
 		
-		if(empty(GlobalsProviderUC::$lastPostQuery))
+		if(empty(GlobalsProviderUC::$lastPostQuery)){
+			
+			if($isDebug == true)
+				dmp("no last post query");
+				
 			return($options);
+		}
+		
 		
 		$numPages = GlobalsProviderUC::$lastPostQuery->max_num_pages;
-		if($numPages <= 1)
+		if($numPages <= 1){
+				
+			if($isDebug == true)
+				dmp("no pages found");
+			
 			return($options);
+		}
+		
+		if($isDebug == true){
+			dmp("pagination query:");
+			dmp(GlobalsProviderUC::$lastPostQuery->query);
+		}
+		
 		
 		global $wp_rewrite;
 		$isUsingPermalinks = $wp_rewrite->using_permalinks();
@@ -549,6 +598,11 @@ class UniteCreatorElementorPagination{
 		
 		if(self::SHOW_DEBUG == true)
 			$isDebug = true;
+		 
+		$isQueryDebug = HelperUC::hasPermissionsFromQuery("ucpaginationdebug");
+		
+		if($isQueryDebug == true)
+			$isDebug = true;
 		
 		$forceFormat = UniteFunctionsUC::getVal($args, "force_format");
 		if($forceFormat == "none")
@@ -666,7 +720,7 @@ class UniteCreatorElementorPagination{
 		}else{		//on single
 			
 			//skip for home pages
-			$options = $this->getSinglePageOptions($options, $forceFormat);
+			$options = $this->getSinglePageOptions($options, $forceFormat, $isDebug);
 			
 			if($isDebug == true){
 				

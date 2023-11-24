@@ -1,5 +1,4 @@
 
-
 .______________REMOVE_ELEMENTS____________{}
 
 .unite-view-addons_elementor{
@@ -35,7 +34,7 @@ body.unite-view-addons_elementor .ui-widget-overlay{
 
 
 .______________GENERAL_LINKS____________{}
-	
+
 a[href="admin.php?page=blox_page_builder"]{
 	color:#F04C40 !important;
 }
@@ -55,42 +54,302 @@ a.uc-link-gounlimited:hover{
 }
 */
 
+
+.______________HELPERS____________{}
+
+.ue-flex-center {
+	justify-content: center;
+	align-items: center;
+}
+
+
 .______________GENERAL____________{}
 
 .unite-div-debug{
 	padding-left:180px;
 }
 
-.unite-view-wrapper{
-	margin-top:15px;
+.unite-view-wrapper {
+	margin-top: 0;
+	margin-left: -20px;
 }
 
-body.uc-blank-preview .unite-view-wrapper{
-	margin-top:0px;	
+body.uc-blank-preview .unite-view-wrapper {
+	margin-top: 0;
 }
 
-body.uc-blank-preview .unite-div-debug{
-	padding-left:0px;
+body.uc-blank-preview .unite-div-debug {
+	padding-left: 0;
 }
 
-body.post-type-page .unite-div-debug{
-	padding-left:0px;
-	position:fixed;
-	top:50px;
-	left:180px;
-	width:600px;
-	height:200px;
-	overflow:auto;
-	background-color:#EEEEEE;
-	border:1px solid lightgray;
-	padding:5px;
-	z-index:999999;
+body.post-type-page .unite-div-debug {
+	position: fixed;
+	top: 50px;
+	left: 180px;
+	width: 600px;
+	height: 200px;
+	overflow: auto;
+	background-color: #eeeeee;
+	border: 1px solid lightgray;
+	padding: 5px;
+	z-index: 999999;
 }
 
 .uc-update-plugin-wrapper{
 	text-align:right;
 	padding-top:10px;
 }
+
+.ue-root {
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1.3em;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.ue-root * {
+	box-sizing: border-box;
+}
+
+.ue-root a {
+	text-decoration: none;
+	outline: none;
+	box-shadow: none;
+	transition: all 200ms;
+}
+
+.ue-content-wrapper {
+	padding: 20px;
+}
+
+/* @media (max-width: 600px) { */
+/* 	.ue-content-wrapper { */
+/* 		padding: 20px; */
+/* 	} */
+/* } */
+
+
+.______________BUTTONS____________{}
+
+.ue-btn {
+	display: inline-flex;
+	padding: 16px 28px;
+	border-radius: 8px;
+	gap: 8px;
+}
+
+.ue-btn:hover {
+	color: #ffffff;
+	background-color: #2959f9;
+}
+
+.ue-btn img {
+	width: 20px;
+	height: 20px;
+}
+
+@media (max-width: 600px) {
+	.ue-btn {
+		padding: 10px 15px;
+		font-size: 14px;
+	}
+}
+
+
+.______________HEADER____________{}
+
+.ue-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	background-color: #ffffff;
+	padding: 20px;
+	width: 100%;
+	position: relative;
+}
+
+.ue-header-logo {
+	width: 224px;
+	height: auto;
+}
+
+.ue-header-buttons {
+	display: inline-flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.ue-header-buttons .ue-view-demo-btn {
+	color: #2959f9;
+	border: 1px solid #2959f9;
+}
+
+.ue-header-buttons .ue-view-demo-btn:hover {
+	color: #ffffff;
+}
+
+.ue-header-buttons .ue-view-demo-btn svg {
+	width: 20px;
+	height: 20px;
+	fill: #2959f9;
+	transition: all 200ms;
+}
+
+.ue-header-buttons .ue-view-demo-btn:hover svg {
+	fill: #ffffff;
+}
+
+.ue-header-buttons .ue-go-pro-btn {
+	background: linear-gradient(196deg, #2959f9 20.27%, #6111df 73.21%);
+	color: #ffffff;
+	border-radius: 8px;
+}
+
+.ue-header-buttons .ue-go-pro-btn:hover {
+	background: linear-gradient(196deg, #2959f9 20.27%, #2959f9 73.21%);
+	color: #ffffff;
+}
+
+.ue-header-buttons .ue-go-pro-btn svg {
+	width: 20px;
+	height: 20px;
+	fill: #ffffff;
+}
+
+@media (max-width: 600px) {
+	.ue-header {
+		flex-wrap: wrap;
+		padding: 20px;
+	}
+
+	.ue-header-logo {
+		width: 150px;
+	}
+
+	.ue-header-buttons {
+		gap: 10px
+	}
+}
+
+.______________BLACK-FRIDAY____________{}
+
+
+.ue-header__bf{
+	background-color:#000000 !important;
+	
+	padding-top:10px;
+	padding-bottom:0px;
+	
+	align-items:stretch;
+}
+
+.ue-header__inner{
+	display:flex;
+	justify-content:space-between;
+	align-items:stretch;
+	width:100%;
+	
+	background-image:url('../../images/banner_bf2023_cut.png');
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:300px bottom;	
+	
+}
+
+.ue-header__bf .ue-header__logo{
+	
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.ue-header__bf .ue-go-pro-btn{
+	
+	background:linear-gradient(196deg, #ffffff 20.27%, #fafafa 73.21%);
+	color:#2959f9;
+}
+.ue-header__bf .ue-go-pro-btn svg path{
+	fill: #2959f9;
+}
+
+.ue-header__bf .ue-go-pro-btn:hover svg path{
+	fill: #ffffff;
+}
+
+.ue-header__bf .ue-view-demo-btn{
+	display:none;
+	border-color:#ffffff;
+	color:#ffffff;
+}
+
+.ue-header__bf .ue-view-demo-btn svg path{
+	fill: #ffffff;
+}
+
+
+
+.______________MENU____________{}
+
+.ue-menu {
+	display: flex;
+	justify-content: start;
+	gap: 16px;
+	padding: 14px;
+	border-radius: 12px;
+	background: #ffffff;
+	margin-bottom: 20px;
+	flex-wrap: wrap
+}
+
+.ue-menu-item {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 10px 12px;
+	font-size: 16px;
+	color: #797b80;
+	border-radius: 8px;
+	transition: all 200ms;
+	flex-shrink: 0;
+}
+
+.ue-menu-item svg {
+	width: 24px;
+	height: 24px;
+	fill: #797b80;
+	transition: all 200ms;
+}
+
+.ue-menu-item.ue-active {
+	color: #2959f9;
+	background-color: rgba(41, 89, 249, 0.04);
+}
+
+.ue-menu-item.ue-active svg {
+	fill: #2959f9;
+}
+
+.ue-menu-item:hover {
+	color: #07080f;
+	background: rgba(7, 8, 15, 0.02);
+}
+
+.ue-menu-item:hover svg {
+	fill: #07080f;
+}
+
+@media (max-width: 600px) {
+	.ue-menu {
+		flex-direction: column;
+		margin-bottom: 16px;
+	}
+}
+
 
 .______________DIALOG_IMAGE_SELECT____________{}
 
@@ -206,7 +465,7 @@ body.uc-blox-page .uc-edit-post-button-to-blox{
 	display:none !important;
 }
 
-body.uc-blox-page .uc-edit-post-blox-page-wrapper{ 
+body.uc-blox-page .uc-edit-post-blox-page-wrapper{
 	display:block;
 }
 
@@ -257,6 +516,3 @@ body.uc-blox-page .uc-edit-post-button-return-to-wp{
 .uc-dashboard-widget-release-log{
 	margin-top:10px;
 }
-
-
-

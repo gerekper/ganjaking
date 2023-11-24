@@ -543,7 +543,7 @@ class WC_Bookings_Details_Meta_Box {
 
 		// Get booking object.
 		$booking    = new WC_Booking( $post_id );
-		$product_id = isset( $_POST['product_or_resource_id'] ) ? wc_clean( $_POST['product_or_resource_id'] ) : $booking->get_product_id();
+		$product_id = isset( $_POST['product_or_resource_id'] ) ? wc_clean( wp_unslash( $_POST['product_or_resource_id'] ) ) : $booking->get_product_id();
 		if ( ! $product_id ) {
 			return $post_id;
 		}
@@ -554,8 +554,8 @@ class WC_Bookings_Details_Meta_Box {
 		// When that is patched in core we can use the above.
 		self::$saved_meta_box = true;
 
-		$start_date = isset( $_POST['booking_start_date'] ) ? wc_clean( $_POST['booking_start_date'] ) : null;
-		$end_date   = isset( $_POST['booking_end_date'] ) ? wc_clean( $_POST['booking_end_date'] ) : null;
+		$start_date = isset( $_POST['booking_start_date'] ) ? wc_clean( wp_unslash( $_POST['booking_start_date'] ) ) : null;
+		$end_date   = isset( $_POST['booking_end_date'] ) ? wc_clean( wp_unslash( $_POST['booking_end_date'] ) ) : null;
 
 		if ( strtotime( $end_date ) < strtotime( $start_date ) ) {
 			WC_Admin_Notices::add_custom_notice(
@@ -589,8 +589,8 @@ class WC_Bookings_Details_Meta_Box {
 			WC_Admin_Notices::remove_notice( 'bookings_invalid_date_range' );
 		}
 
-		$booking_start_time = isset( $_POST['booking_start_time'] ) ? wc_clean( $_POST['booking_start_time'] ) : null;
-		$booking_end_time   = isset( $_POST['booking_end_time'] ) ? wc_clean( $_POST['booking_end_time'] ) : null;
+		$booking_start_time = isset( $_POST['booking_start_time'] ) ? wc_clean( wp_unslash( $_POST['booking_start_time'] ) ) : null;
+		$booking_end_time   = isset( $_POST['booking_end_time'] ) ? wc_clean( wp_unslash( $_POST['booking_end_time'] ) ) : null;
 
 		if ( empty( $booking_start_time ) ) {
 			$booking_start_time = '00:00';
@@ -628,7 +628,7 @@ class WC_Bookings_Details_Meta_Box {
 			array(
 				'all_day'       => isset( $_POST['_booking_all_day'] ),
 				'customer_id'   => isset( $_POST['_booking_customer_id'] ) ? absint( $_POST['_booking_customer_id'] ) : '',
-				'date_created'  => empty( $_POST['booking_date'] ) ? current_time( 'timestamp' ) : strtotime( $_POST['booking_date'] . ' ' . (int) $_POST['booking_date_hour'] . ':' . (int) $_POST['booking_date_minute'] . ':00' ), // phpcs:ignore
+				'date_created'  => empty( $_POST['booking_date'] ) ? current_time( 'timestamp' ) : strtotime( wc_clean( wp_unslash( $_POST['booking_date'] ) ) . ' ' . (int) $_POST['booking_date_hour'] . ':' . (int) $_POST['booking_date_minute'] . ':00' ),
 				'end'           => $end,
 				'order_id'      => $booking_order_id,
 				'parent_id'     => isset( $_POST['_booking_parent_id'] ) ? absint( $_POST['_booking_parent_id'] ) : 0,
@@ -636,7 +636,7 @@ class WC_Bookings_Details_Meta_Box {
 				'product_id'    => absint( $product_id ),
 				'resource_id'   => absint( $resource_id ),
 				'start'         => $start,
-				'status'        => isset( $_POST['_booking_status'] ) ? wc_clean( $_POST['_booking_status'] ) : '',
+				'status'        => isset( $_POST['_booking_status'] ) ? wc_clean( wp_unslash( $_POST['_booking_status'] ) ) : '',
 			)
 		);
 

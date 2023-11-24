@@ -2,8 +2,6 @@
 
 if (!defined('UPDRAFTCENTRAL_CLIENT_DIR')) die('Security check');
 
-// Developer note: Please avoid using the 'updraftplus' string within the actual text unless it is being used as a translation domain (e.g. __('TEXT_THAT_NEEDS_TO_BE_TRANSLATED', 'updraftplus'))
-
 // Translations for UpdraftCentral
 return array(
 	'updraftcentral_connection' => __('UpdraftCentral Connection', 'updraftplus'),

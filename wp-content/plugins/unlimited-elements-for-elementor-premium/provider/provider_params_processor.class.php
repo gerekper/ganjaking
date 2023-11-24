@@ -279,6 +279,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function checkModifyQueryClauses($args,$showDebug){
 		
+		
 		$postType = UniteFunctionsUC::getVal($args, "post_type");
 		
 		if($postType != "product")
@@ -306,19 +307,26 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 * before get posts
 	 */
 	public function modifyWCQuery($arrClauses){
-		
+		 
 		if(empty(GlobalsProviderUC::$lastQueryArgs))
 			return($arrClauses);
 			
 		$args = GlobalsProviderUC::$lastQueryArgs;
+		
 		
 		$postType = UniteFunctionsUC::getVal($args, "post_type");
 		
 		if($postType != "product")
 			return($arrClauses);
 		
+		$isActive = UniteCreatorWooIntegrate::isWooActive();
+
+		if($isActive == false)
+			return($arrClauses);
+		
 		$orderBY = UniteFunctionsUC::getVal($args, "orderby");
 		$dir = UniteFunctionsUC::getVal($args, "order", "DESC");
+		
 		
 		if(empty($orderBY))
 			return($arrClauses);
@@ -332,18 +340,28 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		switch($orderBY){
 			case "price":
-				/*
-				if($dir == "DESC")
-					$arrClauses = $objQuery->order_by_price_desc_post_clauses($arrClauses);
-				else
-					$arrClauses = $objQuery->order_by_price_asc_post_clauses($arrClauses);
-				*/
+			
+				//if($dir == "DESC")
+					//$arrClauses = $objQuery->order_by_price_desc_post_clauses($arrClauses);
+				//else
+					//$arrClauses = $objQuery->order_by_price_asc_post_clauses($arrClauses);
+					
 			break;
 			case 'sales':
 				$arrClauses = $objQuery->order_by_popularity_post_clauses($arrClauses);
 			break;
 			case 'rating':
 				$arrClauses = $objQuery->order_by_rating_post_clauses($arrClauses);
+				
+				//change desc to ask
+				
+				if($dir == "ASC"){
+					$orderby = UniteFunctionsUC::getVal($arrClauses, "orderby");
+					$orderby = str_replace("DESC", "ASC", $orderby);
+					
+					$arrClauses["orderby"] = $orderby;
+				}
+				
 			break;
 		}
 		
@@ -479,7 +497,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$functionName = UniteFunctionsUC::getVal($value, $name."_includeby_function_name");
 		
 		$errorTextPrefix = "get post id's by PHP Function error: ";
-				
+		
 		if(empty($functionName)){
 			
 			if($showDebugQuery)
@@ -526,6 +544,9 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			dmp($arrIDs);
 		}
 		
+		if(empty($arrIDs))
+			$arrIDs = array(0);
+		
 		return($arrIDs);
 	}
 	
@@ -547,7 +568,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		}
 		
 		//for woo
-		if($postType == "product"){
+		if($postType == "product" && UniteCreatorWooIntegrate::isWooActive()){
 			$taxonomy = "product_cat";
 			self::$arrPostTypeTaxCache[$postType] = $taxonomy;
 			return($taxonomy);
@@ -668,7 +689,11 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 * get post featured images id
 	 */
 	private function getPostFeaturedImageID($postID, $content, $postType = null){
-
+		
+		if($postType == "attachment")
+			return($postID);
+		
+		
 		$featuredImageID = UniteFunctionsWPUC::getFeaturedImageID($postID);
 		
 		//try to get featured image from content
@@ -682,12 +707,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		
 		//get first gallery image
-		if(empty($featuredImageID) && $postType == "product"){
+		if(empty($featuredImageID) && $postType == "product" && UniteCreatorWooIntegrate::isWooActive()){
 			
-			$objWoo = new UniteCreatorWooIntegrate();
+			$objWoo = UniteCreatorWooIntegrate::getInstance();
 			$featuredImageID = $objWoo->getFirstGalleryImageID($postID);
+			
 		}
-		
 		
 		return($featuredImageID);
 	}
@@ -700,6 +725,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		try{
 			
+						
 			if(is_numeric($post))
 				$post = get_post($post);
 			
@@ -708,8 +734,10 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			
 			$postID = UniteFunctionsUC::getVal($arrPost, "ID");
 			
+			$postTitle = UniteFunctionsUC::getVal($arrPost, "post_title");
+			
 			$arrData["id"] = $postID;
-			$arrData["title"] = UniteFunctionsUC::getVal($arrPost, "post_title");
+			$arrData["title"] = $postTitle;
 			$arrData["alias"] = UniteFunctionsUC::getVal($arrPost, "post_name");
 			$arrData["author_id"] = UniteFunctionsUC::getVal($arrPost, "post_author");
 			$arrData["post_type"] = UniteFunctionsUC::getVal($arrPost, "post_type");
@@ -722,21 +750,72 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			
 			$arrData["link"] = $link;
 			
+			//link attributes
+			
+			$readMoreText = __("Read more about ","unlimited-elements-for-elementor").$postTitle;
+			$readMoreText = esc_attr($readMoreText);
+			
+			$linkAtrributes = "aria-label=\"{$readMoreText}\" ";
+			
+			$arrData["link_attributes"] = $linkAtrributes;
+			
+			
 			//dynamic popup
 			
-			if(!empty($this->dynamicPopupParam)){
-								
-				if($this->dynamicPopupEnabled == true){
-					$dynamicLinkAddClass = " uc-open-popup";
-					$dynamicLinkAttr = " href='javascrpit:void(0)' data-post-link='{$link}'";
-				}
-				else{
-					$dynamicLinkAddClass = "";
-					$dynamicLinkAttr = "href='{$link}'";
-				}			
+			$arrCustomFields = null;
+			
+			if(!empty($this->dynamicPopupParams)){
 				
-				$arrData["dynamic_popup_link_class"] = $dynamicLinkAddClass;
-				$arrData["dynamic_popup_link_attributes"] = $dynamicLinkAttr;
+				foreach($this->dynamicPopupParams as $paramDynamic){
+										
+					$isDynamicEnabled = UniteFunctionsUC::getVal($paramDynamic, "dynamic_popup_enabled");
+					$isDynamicEnabled = UniteFunctionsUC::strToBool($isDynamicEnabled);
+					
+					$dynamicSuffix = UniteFunctionsUC::getVal($paramDynamic, "dynamic_popup_suffix");
+					
+					if(!empty($dynamicSuffix))
+						$dynamicSuffix = "__{$dynamicSuffix}";
+							
+					if($isDynamicEnabled == true){
+						$dynamicLinkAddClass = " uc-open-popup";
+						$dynamicLinkAttr = " href='javascrpit:void(0)' data-post-link='{$link}'";
+					}
+					else{
+						
+						$dynamicPopupLink = $link;
+						
+						$linkType = UniteFunctionsUC::getVal($paramDynamic, "dynamic_popup_linktype");
+						
+						//empty link type
+						
+						if($linkType == "empty")
+							$dynamicPopupLink = "javascript:void(0)";
+						
+						//meta link type
+						if($linkType == "meta"){
+							
+							$dynamicPopupLink = "javascript:void(0)";
+							
+							$linkMetaField = UniteFunctionsUC::getVal($paramDynamic, "dynamic_popup_link_metafield");
+						 	
+							$arrCustomFields = UniteFunctionsWPUC::getPostCustomFields($postID);
+							
+							$dynamicPopupLink = UniteFunctionsUC::getVal($arrCustomFields, "cf_".$linkMetaField);
+							
+							if(is_string($dynamicPopupLink) == false)
+								$dynamicPopupLink = "javascript:void(0)";
+							else
+								$dynamicPopupLink = filter_var($dynamicPopupLink, FILTER_SANITIZE_URL);
+						}
+												
+						$dynamicLinkAddClass = "";
+						$dynamicLinkAttr = "href='{$dynamicPopupLink}'";
+					}
+					
+					$arrData["dynamic_popup_link_class{$dynamicSuffix}"] = $dynamicLinkAddClass;
+					$arrData["dynamic_popup_link_attributes{$dynamicSuffix}"] = $dynamicLinkAttr;
+				}
+				
 			}
 			
 			//get intro, intro from excerpt - tags not stripped
@@ -767,14 +846,17 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$strDateModified = UniteFunctionsUC::getVal($arrPost, "post_modified");
 			$arrData["date_modified"] = !empty($strDate)?strtotime($strDateModified):"";
 			
+			//add parent id
+			$arrData["parent_id"] = UniteFunctionsUC::getVal($arrPost, "post_parent");
+			
 			
 			//check woo commmerce data
 			$postType = UniteFunctionsUC::getVal($arrPost, "post_type");
 			
-			if($postType == "product"){
-				
+			if($postType == "product" && UniteCreatorWooIntegrate::isWooActive()){
+				 
 				$arrWooData = UniteCreatorWooIntegrate::getWooDataByType($postType, $postID);
-								
+				
 				if(!empty($arrWooData))
 					$arrData = $arrData + $arrWooData;
 			}
@@ -812,6 +894,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$arrData["image"] = $featuredImageID;
 			
 			
+			
 			if(is_array($arrPostAdditions) == false)
 				$arrPostAdditions = array();
 				
@@ -822,7 +905,8 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				switch($addition){
 					case GlobalsProviderUC::POST_ADDITION_CUSTOMFIELDS:
 						
-						$arrCustomFields = UniteFunctionsWPUC::getPostCustomFields($postID);
+						if(empty($arrCustomFields))
+							$arrCustomFields = UniteFunctionsWPUC::getPostCustomFields($postID);
 						
 						$arrData = array_merge($arrData, $arrCustomFields);
 					break;
@@ -843,9 +927,20 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		}catch(Exception $e){
 			
 			$message = $e->getMessage();
-			HelperUC::addDebug("Get Post Exception: ($postID) ".$message);
+			$trace = $e->getTraceAsString();
 			
-			return(null);
+			$errorMessage = "Get Post Exception: ($postID) ".$message;
+			
+			HelperUC::addDebug($errorMessage);
+			
+			$arrData = array(
+				"error"=>$errorMessage
+			);
+			
+			dmp($errorMessage);
+			//dmp($trace);
+			
+			return($arrData);
 		}
 			
 		return($arrData);
@@ -1076,6 +1171,20 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 										
 					$arrDateQuery['inclusive'] = true;
 				}
+				
+			break;
+			case "this_week":
+				
+				$after = "monday this week";
+				
+				$before = "sunday this week";
+				
+			break;
+			case "next_week":
+
+				$after = "monday next week";
+				
+				$before = "sunday next week";
 				
 			break;
 			case "past_from_today":
@@ -1331,7 +1440,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$category = null;
 		
 		if($isRelatedPosts == true){
-						
+			
 			$post = get_post();
 			$postType = $post->post_type;
 			
@@ -1352,6 +1461,8 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					dmp("Related Posts Query");
 				}
 				
+				$relatedMode = UniteFunctionsUC::getVal($value, $name."_related_mode");
+								
 				//prepare terms string
 				$arrTerms = UniteFunctionsWPUC::getPostTerms($post);
 				
@@ -1375,12 +1486,22 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				
 				//add terms
 				if(!empty($strTerms)){
+					
+					$relation = "OR";
+					if($relatedMode == "and")
+						$relation = "AND";
+					
+					if($relatedMode == "grouping")
+						$relation = "GROUP";
+					
 					$filters["category"] = $strTerms;
-					$filters["category_relation"] = "OR";				
+					$filters["category_relation"] = $relation;				
 				}
 				
 				$filters["exclude_current_post"] = true;
 			}
+			
+			
 			
 		}else{		//if not related posts
 						
@@ -1427,10 +1548,16 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$offset = null;
 		$isAvoidDuplicates = false;
 		$arrExcludeIDsDynamic = null;
+		$excludeOutofStockVariation = false;
 		
 		foreach($arrExcludeBy as $excludeBy){
 			
 			switch($excludeBy){
+				case "out_of_stock_variation":
+					
+					$excludeOutofStockVariation = true;
+					
+				break;
 				case "current_post":
 					$filters["exclude_current_post"] = true;					
 				break;
@@ -1682,12 +1809,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$arrTermIDs = array();
 		
 		$currentTaxQuery = null;
+		$termsFromCurrentQuery = null;
 		
 		$makePostINOrder = false;
-				
+		$arrQueryBase = null;
+		
 		
 		foreach($arrIncludeBy as $includeby){
-						
+					
 			switch($includeby){
 				case "sticky_posts":
 					$args["ignore_sticky_posts"] = false;
@@ -1726,7 +1855,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				 	
 					if(!empty($product)){
 						$arrProductsCrossSells = $product->get_cross_sell_ids();
-						if(empty($arrProductsUpSells))
+						if(empty($arrProductsCrossSells))
 							$arrProductsCrossSells = array("0");
 					}
 					
@@ -1966,8 +2095,13 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 										
 				break;
 				case "current_terms":
-									
+					
 					$currentTaxQuery = UniteFunctionsWPUC::getCurrentPageTaxQuery();
+					
+				break;
+				case "current_query_base":	//get current query as a query base
+					
+					$arrQueryBase = UniteFunctionsWPUC::getCurrentQueryVars();
 					
 				break;
 			}
@@ -2028,8 +2162,16 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		}
 				
 		
-		if(!empty($arrPostInIDs))
+		//exclude posts not in from posts in
+		$arrPostsNotInTest = UniteFunctionsUC::getVal($args, "post__not_in");
+		
+		if(!empty($arrPostInIDs) && !empty($arrPostsNotInTest) && is_array($arrPostsNotInTest))
+			$arrPostInIDs = array_diff($arrPostInIDs, $arrPostsNotInTest);
+		
+		
+		if(!empty($arrPostInIDs)){
 			$args["post__in"] = $arrPostInIDs;
+		}
 		
 		
 		//------ get woo  related products ------ 
@@ -2055,9 +2197,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				
 			}else{
 				
-				$arrRelatedProductIDs = wc_get_related_products($productID, $limit, $arrPostsNotIn);
+				if(empty($arrPostsNotIn))
+					$arrPostsNotIn = array();
+									
+				if(!empty($productID))
+					$arrRelatedProductIDs = wc_get_related_products($productID, $limit, $arrPostsNotIn);
 				
 			}
+			
 			if(empty($arrRelatedProductIDs))
 				$arrRelatedProductIDs = array("0");
 			
@@ -2082,8 +2229,13 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$arrStatuses = UniteFunctionsUC::getVal($value, "{$name}_status");
 		
 		//add inherit for attachment
-		if(is_array($postType) && in_array("attachment", $postType))
+		if(is_array($postType) && in_array("attachment", $postType)){
+			
+			if(is_string($arrStatuses))
+				$arrStatuses = array($arrStatuses);
+				
 			$arrStatuses[] = "inherit";
+		}
 		
 		if(empty($arrStatuses))
 			$arrStatuses = "publish";
@@ -2093,7 +2245,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		if(is_array($arrStatuses) && count($arrStatuses) == 1)
 			$arrStatuses = $arrStatuses[0];
-			
+		
 		$args["post_status"] = $arrStatuses;
 		
 		//add sticky posts only
@@ -2112,18 +2264,36 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			}
 		}
 		
+		
+		
 		//merge current tax query
 		if(!empty($currentTaxQuery))
 			$args = UniteFunctionsWPUC::mergeArgsTaxQuery($args, $currentTaxQuery);
+		
+		//merge the whole query
+		if(!empty($arrQueryBase))
+			$args = UniteFunctionsWPUC::mergeQueryVars($arrQueryBase, $args);
 		
 		
 		$args = $this->getPostListData_getPostGetFilters_pagination($args, $value, $name, $data, $param);
 		
 		$args = $this->getPostListData_getCustomQueryFilters($args, $value, $name, $data);
 		
+		
 		//update by post and get filters
 		$objFiltersProcess = new UniteCreatorFiltersProcess();
 		$args = $objFiltersProcess->processRequestFilters($args, $isFilterable);
+		
+		// process out of stock variation
+		
+		if($excludeOutofStockVariation == true){
+			
+			$objWoo = UniteCreatorWooIntegrate::getInstance();
+			
+			$arrVariationTerms = $objWoo->getVariationTermsFromQueryQrgs($args);
+		}
+
+		
 		
 		HelperUC::addDebug("Posts Query", $args);
 		
@@ -2132,17 +2302,35 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if($showDebugQuery == true){
 			echo "<div class='uc-debug-query-wrapper'>";	//start debug wrapper
 			
-			dmp("The Query Is:");
-			dmp($args);
+			$argsForDebug = $args;
+			if(!empty($arrQueryBase))
+				$argsForDebug = UniteFunctionsWPUC::cleanQueryArgsForDebug($argsForDebug);
+			
+			dmp("Custom Posts. The Query Is:");
+			dmp($argsForDebug);
 		}
-				
+
+		//disable other hooks: 
+		
+		$disableOtherHooks = UniteFunctionsUC::getVal($value, "{$name}_disable_other_hooks");
+		
+		if($disableOtherHooks === "yes" && GlobalsProviderUC::$isUnderAjax == true){
+			global $wp_filter;
+			$wp_filter = array();
+		
+			if($showDebugQuery == true){
+				dmp("disable third party hooks...");
+			}
+			
+		}
+		
+		
 		//remember last args
 		GlobalsProviderUC::$lastQueryArgs = $args;
 		
 		//check for modify orderby query clauses (for woo)
 		$this->checkModifyQueryClauses($args, $showDebugQuery);
-		
-		
+				
 		//skip run
 		if(GlobalsProviderUC::$skipRunPostQueryOnce == true){
 			GlobalsProviderUC::$skipRunPostQueryOnce = false;
@@ -2155,8 +2343,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$args["cache_results"] = true;
 		$args["update_post_meta_cache"] = true;
-		
-		
+				
 		$query->query($args);
 		
 		do_action("ue_after_custom_posts_query", $query);
@@ -2178,6 +2365,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			
 		}
 		
+		
 		/*
 	 	dmp("request debug output");
 	 	
@@ -2188,8 +2376,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		dmp($query->found_posts);
 		*/
 				
-		
 		$arrPosts = $query->posts;
+		
+		$numPosts = $query->found_posts;
+		
+		if(!empty($arrPosts) && $numPosts == 0)
+			$arrPosts = array();
 		
 		if(!$arrPosts)
 			$arrPosts = array();
@@ -2258,14 +2450,15 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		HelperUC::addDebug("posts found: ".count($arrPosts));
 		
 		if($showDebugQuery == true){
-			dmp("Found Posts: ".count($arrPosts));
 			
+			dmp("Found Posts: ".count($arrPosts));
+									
 			echo "</div>";
 		}
 		
 		//show debug meta if needed
 		$this->showPostsDebyMeta($arrPosts, $value, $name);
-		
+				
 		
 		return($arrPosts);
 	}
@@ -2313,10 +2506,17 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function saveLastQueryAndPage($query, $type, $initialOffset = null){
 		
+				
+		/* debug
+			dmp("save query");
+			dmp($query->query);
+			dmp($this->addon->getName());
+		*/
+		
 		GlobalsProviderUC::$lastPostQuery = $query;
 		GlobalsProviderUC::$lastPostQuery_page = 1;
 		GlobalsProviderUC::$lastPostQuery_type = $type;
-
+		
 		//set type for pagination, stay on current if exists
 		if(GlobalsProviderUC::$lastPostQuery_paginationType != GlobalsProviderUC::QUERY_TYPE_CURRENT)
 			GlobalsProviderUC::$lastPostQuery_paginationType = $type;
@@ -2408,12 +2608,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$currentQueryVars = $wp_query->query_vars;
 		
 		// ----- current query settings --------
-		
-		//--- set posts per page --- 
-		
+				
 		//--- set order --- 
-		if(!empty($orderBy))
-			$currentQueryVars["orderby"] = $orderBy;
+		if(!empty($orderBy)){
+			
+			$currentQueryVars = UniteFunctionsWPUC::updatePostArgsOrderBy($currentQueryVars, $orderBy);
+		}
 		
 		if($orderBy == "meta_value" || $orderBy == "meta_value_num")
 			$currentQueryVars["meta_key"] = $orderByMetaKey;
@@ -2421,6 +2621,10 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if(!empty($orderDir))
 			$currentQueryVars["order"] = $orderDir;
 		
+		
+		
+		//--- set posts per page --- 
+			
 		if(!empty($maxItems) && is_numeric($maxItems))
 			$currentQueryVars["posts_per_page"] = $maxItems;
 		
@@ -2464,7 +2668,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			echo "<div class='uc-debug-query-wrapper'>";	//start debug wrapper
 			
 			dmp("Current Posts. The Query Is:");
-						
+			
 			$argsForDebug = UniteFunctionsWPUC::cleanQueryArgsForDebug($currentQueryVars);
 			dmp($argsForDebug);
 			
@@ -2524,10 +2728,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$arrPosts = $query->posts;
 		
-		
 		if(empty($arrPosts))
 			$arrPosts = array();
-
+		
+		$numPosts = $query->found_posts;
+		
+		if(!empty($arrPosts) && $numPosts == 0)
+			$arrPosts = array();
+		
 		if($showDebugQuery == true && $debugType == "show_query"){
 			
 			$originalQueryVars = $query->query_vars;
@@ -2542,7 +2750,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$this->showPostsDebugCallbacks($isForWoo);
 			
 		}
-		
 		
 		if($showDebugQuery == true){
 			dmp("Found Posts: ".count($arrPosts));
@@ -2756,6 +2963,10 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if(empty($arrPosts))
 			$arrPosts = array();
 		
+		//save last posts 
+		GlobalsProviderUC::$arrFetchedPostsObjectsCache = UniteFunctionsUC::arrPostsToAssoc($arrPosts);
+		
+		
 		//cache post attachment and data queries
 		
 		UniteFunctionsWPUC::cachePostsAttachmentsQueries($arrPosts);
@@ -2798,13 +3009,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if($useForListing == true){
 			
 			//add filterable variables - dynamic
-			$data = $objFilters->addWidgetFilterableVarsFromData($data, $value, $nameListing);
+			$data = $objFilters->addWidgetFilterableVarsFromData($data, $value, $nameListing, $this->arrCurrentPostIDs);
 						
 			//add the settings
 			
 			$data[$nameListing."_settings"] = $value;
 			
 			$data[$nameListing."_items"] = $arrPosts;
+			
 			return($data);
 		}else{
 			
@@ -2819,12 +3031,13 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			//protection in case that post is id
 			if(is_numeric($post))
 				$post = get_post($post);
-						
-			$arrData[] = $this->getPostDataByObj($post, $arrPostAdditions, $arrImageSizes);
+
+			$postData = $this->getPostDataByObj($post, $arrPostAdditions, $arrImageSizes);
+			
+			$arrData[] = $postData;
 		}
 		
 		$data[$name] = $arrData;		
-		
 		
 		// remove me
 		if(self::SHOW_DEBUG_POSTLIST_QUERIES == true){
@@ -2995,14 +3208,60 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		return($item);
 	}
 	
+	/**
+	 * modify the item for video item
+	 */
+	private function getGalleryItem_checkHtml5VideoAttachment($item, $value){
+		
+		if(empty($value))
+			return($item);
+			
+		if(is_numeric($value) == false)
+			return($item);
+			
+		$post = get_post($value);
+		
+		$arrData = UniteFunctionsWPUC::getAttachmentData($value);
+			
+		dmp($arrData);
+		exit();
+	}
+	
 	
 	/**
 	 * check add post gallery video
 	 */
 	private function checkAddPostVideo($item, $arrParams, $post){
 		
-		$enableVideo = UniteFunctionsUC::getVal($arrParams, "enable_video");
+		$maybeVideo = UniteFunctionsUC::getVal($item, "maybe_video");
+		$maybeVideo = UniteFunctionsUC::strToBool($maybeVideo);
 		
+		if($maybeVideo == true){
+			
+			//look for video
+			
+			$attachmentID = UniteFunctionsUC::getVal($item, "imageid");
+			
+			$post = null;
+			
+			if(!empty($attachmentID))
+				$post = get_post($attachmentID);
+			
+			$post = (array)$post;
+			
+			$mimeType = UniteFunctionsUC::getVal($post, "post_mime_type");
+			
+			if($mimeType == "video/mp4"){
+				$urlVideo = UniteFunctionsUC::getVal($post, "guid");
+				
+				$item["type"] = "html5video";
+				$item["url_mp4"] = $urlVideo;
+			}
+			
+			return($item);
+		}
+		
+		$enableVideo = UniteFunctionsUC::getVal($arrParams, "enable_video");
 		$enableVideo = UniteFunctionsUC::strToBool($enableVideo);
 		
 		if($enableVideo == false)
@@ -3051,6 +3310,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function getGalleryItem($id, $url = null, $arrParams = null){
 		
+		
 		$data = array();
 				
 		$arrFilters = UniteFunctionsUC::getVal($arrParams, "size_filters");
@@ -3067,8 +3327,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$isAddItemsData = UniteFunctionsUC::strToBool($isAddItemsData);
 
 		$index = UniteFunctionsUC::getVal($arrParams, "index");
-
-				
+			
 		$name = "image";
 		
 		$param = array();
@@ -3092,6 +3351,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$item = array();
 		$item["type"] = "image";
+		
 		
 		if(empty($value)){
 			
@@ -3124,6 +3384,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$data = $this->getProcessedParamsValue_image($data, $value, $param);
 		
+		
 		$arrItem = array();
 		$keyThumb = "{$name}_thumb_$thumbSize";
 		$keyImage = "{$name}_thumb_$imageSize";
@@ -3137,9 +3398,25 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		//add extra data
 		if($isAddItemsData == true)
 			$item = $this->getGalleryItem_sourceItemData($item, $sourceItem);
-			
-		$item["image"] = UniteFunctionsUC::getVal($data, $keyImage);
-		$item["thumb"] = UniteFunctionsUC::getVal($data, $keyThumb);
+
+		$urlImage = UniteFunctionsUC::getVal($data, $keyImage);
+		$urlThumb = UniteFunctionsUC::getVal($data, $keyThumb);
+		
+		
+		if(empty($urlImage)){
+			$urlImage = GlobalsUC::$url_no_image_placeholder;
+			$item["maybe_video"] = true;
+		}
+		
+		if(empty($urlThumb)){
+			$urlThumb = $urlImage;
+			if(empty($urlThumb))
+				$urlThumb = GlobalsUC::$url_no_image_placeholder;
+		}
+		
+		
+		$item["image"] = $urlImage;
+		$item["thumb"] = $urlThumb;
 		
 		$item["image_width"] = UniteFunctionsUC::getVal($data, $keyImage."_width");
 		$item["image_height"] = UniteFunctionsUC::getVal($data, $keyImage."_height");
@@ -3266,13 +3543,13 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					$content = $item->post_content;
 					
 					$featuredImageID = $this->getPostFeaturedImageID($postID, $content, $item->post_type);
-										
+											
 					$params["post"] = $item;
 										
 					$galleryItem = $this->getGalleryItem($featuredImageID,null,$params);
 					
 					$galleryItem["postid"] = $postID;
-										
+									
 				break;
 				case "gallery":
 					
@@ -3403,6 +3680,197 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	
 	
 	
+	
+	
+	/**
+	 * get listing data
+	 */
+	private function getListingData($value, $name, $processType, $param, $data){
+		
+		if($processType != self::PROCESS_TYPE_OUTPUT && $processType != self::PROCESS_TYPE_OUTPUT_BACK)
+			return($data);
+	    
+		$useFor = UniteFunctionsUC::getVal($param, "use_for");
+		
+		switch($useFor){
+			case "remote":
+				
+				$data = $this->getRemoteSettingsData($value, $name, $processType, $param, $data);
+				
+				return($data);
+			break;
+			case "items":
+				
+				$data = $this->getMultisourceSettingsData($value, $name, $processType, $param, $data);
+				
+				return($data);
+			break;
+		}
+		
+		$isForGallery = ($useFor == "gallery");
+		
+		$source = UniteFunctionsUC::getVal($value, $name."_source", "posts");
+		
+		if(empty($source) && $isForGallery == true)
+			$source = "gallery";
+		
+		$templateID = UniteFunctionsUC::getVal($value, $name."_template_templateid");
+		
+		$data[$name."_source"] = $source;
+		$data[$name."_templateid"] = $templateID;
+		
+		unset($data[$name]);
+		
+		switch($source){
+			case "posts":
+				
+				$paramPosts = $param;
+				
+				$paramPosts["name"] = $paramPosts["name"]."_posts";
+				$paramPosts["name_listing"] = $name;
+				$paramPosts["use_for_listing"] = true;
+				
+				$data = $this->getPostListData($value, $paramPosts["name"], $processType, $paramPosts, $data);
+				
+				
+			break;
+			case "products":
+								
+				$paramProducts = $param;
+				
+				$paramProducts["name"] = $paramProducts["name"]."_products";
+				$paramProducts["name_listing"] = $name;
+				$paramProducts["use_for_listing"] = true;
+				$paramProducts["for_woocommerce_products"] = true;
+								
+				$data = $this->getPostListData($value, $paramProducts["name"], $processType, $paramProducts, $data);
+				
+			break;
+			case "terms":
+				
+				dmp("get terms");
+				$data[$name."_items"] = array();
+				
+			break;
+			case "gallery":
+				
+				$arrGalleryItems = UniteFunctionsUC::getVal($value, $name."_gallery");
+				
+				$data[$name."_items"] = $arrGalleryItems;
+				
+			break;
+			case "current_post_meta":		//meta field with image id's
+				
+				$data[$name."_items"] = $this->getGroupedData_getArrImageIDsFromMeta($value, $name);
+				
+			break;
+			case "image_video_repeater":
+				
+				$data[$name."_items"] = UniteFunctionsUC::getVal($value, $name."_items");
+				
+				//do nothing, convert later
+				
+			break;
+			case "instagram":
+								
+				$paramInstagram = $param;
+				$paramInstagram["name"] = $paramInstagram["name"]."_instagram";
+				
+				$arrInstagramData = $this->getInstagramData($value, $name."_instagram", $paramInstagram);
+				
+				$error = UniteFunctionsUC::getVal($arrInstagramData, "error");
+				if(!empty($error))
+					UniteFunctionsUC::throwError($error);
+								
+				$arrInstagramItems = UniteFunctionsUC::getVal($arrInstagramData, "items");
+				
+				
+				if(empty($arrInstagramItems))
+					$arrInstagramItems = array();
+				
+				$data[$name."_items"] = $arrInstagramItems;
+							
+			break;
+			default:
+				UniteFunctionsUC::throwError("Wrong dynamic content source: $source");
+			break;
+		}
+		
+		if($isForGallery == true){
+			
+			$arrItems = $data[$name."_items"];
+			
+			$data[$name."_items"] = $this->getGroupedData_convertForGallery($arrItems, $source, $value, $param);
+			
+			
+			return($data);
+		}
+		
+		//modify items output
+		$arrItems = UniteFunctionsUC::getVal($data, $name."_items");
+		
+		
+		if(empty($arrItems))
+			$arrItems = array();
+		
+		//convert listing items
+			
+		foreach($arrItems as $index => $item){
+			
+			$numItem = $index+1;
+			
+			switch($source){
+				case "posts":
+				case "products":
+					$title = $item->post_title;
+					
+					$newItem = array(
+						"index"=>$numItem,
+						"title"=>$title,
+						"object"=>$item
+					);
+					
+				$postData = $this->getPostDataByObj($item);
+				
+				$arrFields = array("id","alias","link","intro","intro_full","date","date_modified","image","image_thumb","image_thumb_large");
+				
+				
+				foreach($arrFields as $fieldKey){
+					
+					if(array_key_exists($fieldKey, $postData) == false)
+						continue;
+					
+					$value = UniteFunctionsUC::getVal($postData, $fieldKey);
+					
+					$newItem[$fieldKey] = $value;
+				}
+				
+				
+				break;
+				case "terms":
+				break;
+				case "gallery":
+					continue(2);
+				break;
+				default:
+					$key = $index++;
+					$title = "item_{$index}";					
+				break;
+			}
+			
+			$arrItems[$index] = $newItem;
+		}
+		
+		
+		$data[$name."_items"] = $arrItems;
+		
+		
+		
+		return($data);
+	}
+
+	protected function z_______________REMOTE____________(){}
+	
 	/**
 	 * get remote parent type data
 	 */
@@ -3410,7 +3878,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$arrOutput = array();
 		
-		$isInsideEditor = UniteCreatorElementorIntegrate::$isEditMode;
+		$isInsideEditor = GlobalsProviderUC::$isInsideEditor;
 		
 		$isEnable = UniteFunctionsUC::getVal($value, $name."_enable");
 		$isEnable = UniteFunctionsUC::strToBool($isEnable);
@@ -3619,193 +4087,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	
 	
 	
-	/**
-	 * get listing data
-	 */
-	private function getListingData($value, $name, $processType, $param, $data){
-		
-		if($processType != self::PROCESS_TYPE_OUTPUT && $processType != self::PROCESS_TYPE_OUTPUT_BACK)
-			return($data);
-	    
-		$useFor = UniteFunctionsUC::getVal($param, "use_for");
-		
-		switch($useFor){
-			case "remote":
-				
-				$data = $this->getRemoteSettingsData($value, $name, $processType, $param, $data);
-				
-				return($data);
-			break;
-			case "items":
-				
-				$data = $this->getMultisourceSettingsData($value, $name, $processType, $param, $data);
-				
-				return($data);
-			break;
-		}
-		
-		$isForGallery = ($useFor == "gallery");
-		
-		$source = UniteFunctionsUC::getVal($value, $name."_source", "posts");
-		
-		if(empty($source) && $isForGallery == true)
-			$source = "gallery";
-		
-		$templateID = UniteFunctionsUC::getVal($value, $name."_template_templateid");
-		
-		$data[$name."_source"] = $source;
-		$data[$name."_templateid"] = $templateID;
-		
-		unset($data[$name]);
-		
-		switch($source){
-			case "posts":
-				
-				$paramPosts = $param;
-				
-				$paramPosts["name"] = $paramPosts["name"]."_posts";
-				$paramPosts["name_listing"] = $name;
-				$paramPosts["use_for_listing"] = true;
-				
-				$data = $this->getPostListData($value, $paramPosts["name"], $processType, $paramPosts, $data);
-				
-				
-			break;
-			case "products":
-								
-				$paramProducts = $param;
-				
-				$paramProducts["name"] = $paramProducts["name"]."_products";
-				$paramProducts["name_listing"] = $name;
-				$paramProducts["use_for_listing"] = true;
-				$paramProducts["for_woocommerce_products"] = true;
-								
-				$data = $this->getPostListData($value, $paramProducts["name"], $processType, $paramProducts, $data);
-				
-			break;
-			case "terms":
-				
-				dmp("get terms");
-				$data[$name."_items"] = array();
-				
-			break;
-			case "gallery":
-				
-				$arrGalleryItems = UniteFunctionsUC::getVal($value, $name."_gallery");
-				
-				$data[$name."_items"] = $arrGalleryItems;
-				
-			break;
-			case "current_post_meta":		//meta field with image id's
-				
-				$data[$name."_items"] = $this->getGroupedData_getArrImageIDsFromMeta($value, $name);
-				
-			break;
-			case "image_video_repeater":
-				
-				$data[$name."_items"] = UniteFunctionsUC::getVal($value, $name."_items");
-				
-				//do nothing, convert later
-				
-			break;
-			case "instagram":
-								
-				$paramInstagram = $param;
-				$paramInstagram["name"] = $paramInstagram["name"]."_instagram";
-				
-				$arrInstagramData = $this->getInstagramData($value, $name."_instagram", $paramInstagram);
-				
-				$error = UniteFunctionsUC::getVal($arrInstagramData, "error");
-				if(!empty($error))
-					UniteFunctionsUC::throwError($error);
-								
-				$arrInstagramItems = UniteFunctionsUC::getVal($arrInstagramData, "items");
-				
-				
-				if(empty($arrInstagramItems))
-					$arrInstagramItems = array();
-				
-				$data[$name."_items"] = $arrInstagramItems;
-							
-			break;
-			default:
-				UniteFunctionsUC::throwError("Wrong dynamic content source: $source");
-			break;
-		}
-		
-		if($isForGallery == true){
-			
-			$arrItems = $data[$name."_items"];
-			
-			$data[$name."_items"] = $this->getGroupedData_convertForGallery($arrItems, $source, $value, $param);
-			
-			
-			return($data);
-		}
-		
-		//modify items output
-		$arrItems = UniteFunctionsUC::getVal($data, $name."_items");
-		
-		
-		if(empty($arrItems))
-			$arrItems = array();
-		
-		//convert listing items
-			
-		foreach($arrItems as $index => $item){
-			
-			$numItem = $index+1;
-			
-			switch($source){
-				case "posts":
-				case "products":
-					$title = $item->post_title;
-					
-					$newItem = array(
-						"index"=>$numItem,
-						"title"=>$title,
-						"object"=>$item
-					);
-					
-				$postData = $this->getPostDataByObj($item);
-				
-				
-				$arrFields = array("id","alias","link","intro","intro_full","date","date_modified","image","image_thumb","image_thumb_large");
-				
-				foreach($arrFields as $fieldKey){
-					
-					if(array_key_exists($fieldKey, $postData) == false)
-						continue;
-					
-					$value = UniteFunctionsUC::getVal($postData, $fieldKey);
-					
-					$newItem[$fieldKey] = $value;
-				}
-				
-				
-				break;
-				case "terms":
-				break;
-				case "gallery":
-					continue(2);
-				break;
-				default:
-					$key = $index++;
-					$title = "item_{$index}";					
-				break;
-			}
-			
-			$arrItems[$index] = $newItem;
-		}
-		
-		
-		$data[$name."_items"] = $arrItems;
-		
-		
-		
-		return($data);
-	}
-	
 	protected function z_______________MULTISOURCE____________(){}
 	
 	/**
@@ -3813,6 +4094,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function getMultisourceSettingsData($value, $name, $processType, $param, $data){
 		
+				
 		$objMultisourceProcessor = new UniteCreatetorParamsProcessorMultisource();
 		
 		$objMultisourceProcessor->init($this);
@@ -4202,7 +4484,9 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 			//set the default
 			if($orderBy == "default"){
+				
 				$orderBy = "name";
+				
 				if(!empty($arrIncludeTermIDs))
 					$orderBy = "include";
 			}
@@ -4216,7 +4500,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					$args["meta_key"] = $metaKey;
 				
 				if(empty($orderDir))
-					$orderDir = self::ORDER_DIRECTION_ASC;
+					$orderDir = UniteFunctionsWPUC::ORDER_DIRECTION_ASC;
 				
 				$args["order"] = $orderDir;
 			}
@@ -4590,10 +4874,21 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		if(empty($special))
 			return($data);
+					
+		if($this->processType == self::PROCESS_TYPE_CONFIG)
+			return($data);
 		
+		//skip backend editor
+					
 		switch($special){
 			case "post_filter":
 				$data = $this->modifyData_postFilterOptions($data, $specialData);
+			break;
+			case "ue_form":
+								
+				$objFrom = new UniteCreatorForm();
+				$objFrom->addFormIncludes();
+								
 			break;
 		}
 		

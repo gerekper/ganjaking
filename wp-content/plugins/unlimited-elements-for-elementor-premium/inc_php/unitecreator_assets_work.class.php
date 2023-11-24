@@ -345,7 +345,7 @@ class UniteCreatorAssetsWork extends UniteCreatorAssets{
 		$filename = UniteFunctionsUC::getVal($data, "filename");
 		
 		$this->unzipFile($path, $filename);
-		
+				
 		//set checked file
 		$this->setCheckedFiles($path, $filename);
 		
@@ -383,6 +383,8 @@ class UniteCreatorAssetsWork extends UniteCreatorAssets{
 
 		switch($action){
 			case "assets_upload_files":
+
+				HelperProviderUC::verifyAdminPermission();
 				
 				$this->validateInited();
 				
@@ -390,53 +392,64 @@ class UniteCreatorAssetsWork extends UniteCreatorAssets{
 			break;
 			case "assets_get_filelist":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$htmlFilelist = $this->getHtmlFilelistFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
 			break;
 			case "assets_delete_files":
+				
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$htmlFilelist = $this->deleteFilesFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
 			break;
 			case "assets_create_folder":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$htmlFilelist = $this->createFolderFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
 			break;
 			case "assets_create_file":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$htmlFilelist = $this->createFileFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
 			break;
 			case "assets_rename_file":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
+				
 				$htmlFilelist = $this->renameFileFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
 			break;
 			case "assets_get_file_content":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$content = $this->getContentFromData($data);
 				HelperUC::ajaxResponseData(array("content"=>$content));
 			break;
 			case "assets_save_file":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$this->saveFileFromData($data);
 				HelperUC::ajaxResponseSuccess(esc_html__("File Saved", "unlimited-elements-for-elementor"));
 			break;
 			case "assets_move_files":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$response = $this->moveFilesFromData($data);
 				HelperUC::ajaxResponseData($response);
 			break;
 			case "assets_unzip_file":
 				$this->validateInited();
+				HelperProviderUC::verifyAdminPermission();
 				
 				$htmlFilelist = $this->unzipFileFromData($data);
 				HelperUC::ajaxResponseData(array("html"=>$htmlFilelist));
@@ -444,6 +457,8 @@ class UniteCreatorAssetsWork extends UniteCreatorAssets{
 			default:
 				return(false);
 			break;
+			
+			
 		}
 		
 		return(true);

@@ -287,7 +287,7 @@ class JS
 			return;
 		}
 
-		echo '<script src="' . plugins_url('perfmatters/vendor/fastclick/fastclick.min.js') . '"></script>';
+		echo '<script src="' . plugins_url('perfmatters/vendor/fastclick/pmfastclick.min.js') . '"></script>';
 		echo '<script>"addEventListener"in document&&document.addEventListener("DOMContentLoaded",function(){FastClick.attach(document.body)},!1);</script>';
 	}
 
@@ -547,6 +547,28 @@ class JS
 	        			'wprm-public-js-extra',
 	        			'wprmp-public-js',
 	        			'wprmp-public-js-extra'
+	        		)
+	        	),
+	        	'ws-form' => array(
+	        		'id' => 'ws-form/ws-form.php',
+	        		'title' => 'WS Form Lite',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'jquery/ui',
+						'ws-form',
+						'wsf-wp-footer',
+						'quicktags-js-extra'
+	        		)
+	        	),
+	        	'ws-form-pro' => array(
+	        		'id' => 'ws-form-pro/ws-form.php',
+	        		'title' => 'WS Form Pro',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'jquery/ui',
+						'ws-form-pro',
+						'wsf-wp-footer',
+						'quicktags-js-extra'
 	        		)
 	        	)
 	        ),

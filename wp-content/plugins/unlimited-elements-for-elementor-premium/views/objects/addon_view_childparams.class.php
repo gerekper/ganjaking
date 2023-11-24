@@ -460,6 +460,27 @@ class UniteCreatorAddonViewChildParams{
 ";
 		
 		$arrParams[] = $this->createChildParam_code($key, $text);
+
+		//----- get custom field ------
+		
+		$key = "get_custom_field()";
+		$text = "
+{# get post or term custom field. use when you have term or post id #}
+
+{% set postMetaValue = ucfunc(\"get_post_custom_field\",post_id,\"fieldname\") %}
+
+{% set termMetaValue = ucfunc(\"get_term_custom_field\",term_id,\"fieldname\") %}
+
+{# also you can debug the fields #}
+
+{{ucfunc(\"put_terms_meta_debug\",taxonomy)}}
+
+{{ucfunc(\"put_post_meta_debug\",taxonomy)}}
+
+
+";
+		
+		$arrParams[] = $this->createChildParam_code($key, $text);
 		
 
 		//----- hide id's in css ------
@@ -541,7 +562,42 @@ console.log(arrItems);
 		";
 		
 		$arrParams[] = $this->createChildParam_code($key, $text);
-				
+
+		
+		//----- putAttrebutesJson() --------
+		
+		$key = "putAttributesJson()";
+		$text = "\n{# the options:  put_attributes_json(\"clean\"(optional),\"key\"(optional)) #}	\n
+		
+var strJsonAttr = {{put_attributes_json()}};
+var arrAttributes = JSON.parse(strJsonAttr);
+
+console.log(arrAttributes);
+
+
+//example with a single attribute
+
+var strJsonAttrSpecific = {{put_attributes_json(null, \"key\")}};
+var arrAttribute = JSON.parse(strJsonAttrSpecific);
+
+console.log(arrAttribute);
+
+		";
+		
+		$arrParams[] = $this->createChildParam_code($key, $text);
+
+		//----- putItemsJson() --------
+		
+		
+		$key = "csvToJson()";
+		$text = "
+{# converts csv attribute to javascript json output #}
+
+var json = {{ucfunc(\"csv_to_json\",yourattribute)}};
+		";
+		
+		$arrParams[] = $this->createChildParam_code($key, $text);
+		
 		
 		return($arrParams);
 	}
@@ -870,6 +926,30 @@ console.log(arrItems);
 		
 		return($arrParams);
 	}
+
+	
+	/**
+	 * add put post meta function params
+	 */
+	private function getChildParams_post_getImageFromMeta($arrParams){
+
+		$strText = "{# get image data from post meta field arg1: postID, arg2: post meta name #} \n\n";
+		
+		$strText .= "{% set image = ucfunc(\"get_post_image\",[param_prefix].id,\"myimageid\") %} \n\n";
+		
+		$strText .= "{{image.thumb}} \n\n";
+		
+		$strText .= "{# to print the return data #} \n";
+		$strText .= "{{printVar(image)}} \n\n";
+		
+		$strText .= "{# to debug the meta field write: \"debug\" in place of meta field #} \n";
+		$strText .= "{# set image = ucfunc(\"get_post_image\",current_post.id,\"debug\") #}\n\n";
+		
+		$arrParams[] = $this->createChildParam("getImageFromMeta", null, array("raw_insert_text"=>$strText));
+		
+		return($arrParams);
+	}
+	
 	
 	/**
 	 * put html data
@@ -953,7 +1033,7 @@ console.log(arrItems);
 	private function getChildParams_post_addTerms($arrParams){
 		
 		$strCode = "";
-		
+		$strCode .= "{# to show all terms for debug use: {{ ucfunc(\"put_post_terms_string\") }} #}\n\n";
 		$strCode .= "{# for get with custom fields write \"true\" in 3-th attribute: getPostTerms([param_prefix].id, \"post_tag\", true) #}\n\n";
 
 		$strCode .= "{% set terms = getPostTerms([param_prefix].id, \"post_tag\", false) %}\n\n";
@@ -980,7 +1060,6 @@ console.log(arrItems);
 		$strCode .= "{{printVar(single_term)}} \n";
 		$strCode .= "{{isExists}} \n\n";
 		
-				
 		
 	    $arrParams[] = $this->createChildParam("putPostTerms", null, array("raw_insert_text"=>$strCode));
 		
@@ -1297,6 +1376,8 @@ console.log(arrItems);
 		$arrParams[] = $this->createChildParam("intro_full",null,array("raw_insert_text"=>"{{[param_name]|truncate(100)}}"));
 		
 		$arrParams[] = $this->createChildParam("link");
+		$arrParams[] = $this->createChildParam("link_attributes",null,array("raw_insert_text"=>"{{[param_name]|raw"));
+		
 		$arrParams[] = $this->createChildParam("date",null,array("raw_insert_text"=>"{{[param_name]|ucdate(\"d F Y, H:i\")|raw}}"));
 		$arrParams[] = $this->createChildParam("date_modified",null,array("raw_insert_text"=>"{{[param_name]|ucdate(\"d F Y, H:i\")|raw}}"));
 		$arrParams[] = $this->createChildParam("post_type",null,array("raw_insert_text"=>"{{[param_name]}}\n\n{{ucfunc(\"put_post_type_title\",[param_name])}}\n"));
@@ -1306,6 +1387,7 @@ console.log(arrItems);
 		$arrParams = $this->getChildParams_post_addTerms($arrParams);
 		$arrParams = $this->getChildParams_post_addAuthor($arrParams);
 		$arrParams = $this->getChildParams_post_addPostMeta($arrParams);
+		$arrParams = $this->getChildParams_post_getImageFromMeta($arrParams);
 		$arrParams = $this->getChildParams_post_putHtmlData($arrParams);
 		$arrParams = $this->getChildParams_post_numComments($arrParams);
 		

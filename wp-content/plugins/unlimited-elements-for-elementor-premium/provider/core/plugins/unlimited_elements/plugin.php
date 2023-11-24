@@ -46,7 +46,6 @@ class UnlimitedElementsPluginUC extends UniteCreatorPluginBase{
 		require_once GlobalsUC::$pathPlugin . "unitecreator_admin.php";
 		require_once GlobalsUC::$pathProvider . "provider_admin.class.php";
 		require_once $this->pathPlugin . "provider_core_admin.class.php";
-		require_once $this->pathPlugin . "feedback.class.php";
 		require_once $this->pathPlugin . "dialog_param_elementor.class.php";
 		
 		$mainFilepath = GlobalsUC::$pathPlugin."unlimited_elements.php";

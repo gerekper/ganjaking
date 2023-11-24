@@ -32,13 +32,14 @@ class Product_Utils {
 	 * Gets the forced sells of a product.
 	 *
 	 * @since 1.3.0
+	 * @since 1.4.0 Renamed parameter `$return` to `$return_type`.
 	 *
-	 * @param int    $product_id Product ID.
-	 * @param string $type       Optional. Filter the forced sells by type. Default empty. Accepts: normal, synced.
-	 * @param string $return     Optional. What to return. Default: ids. Accepts: ids, objects.
+	 * @param int    $product_id  Product ID.
+	 * @param string $type        Optional. Filter the forced sells by type. Default empty. Accepts: normal, synced.
+	 * @param string $return_type Optional. What to return. Default: ids. Accepts: ids, objects.
 	 * @return array
 	 */
-	public static function get_force_sells( $product_id, $type = '', $return = 'ids' ) {
+	public static function get_force_sells( $product_id, $type = '', $return_type = 'ids' ) {
 		$allowed_types = array( 'normal', 'synced' );
 
 		if ( $type && ! in_array( $type, $allowed_types, true ) ) {
@@ -63,24 +64,25 @@ class Product_Utils {
 
 		$force_sell_ids = array_unique( $force_sell_ids );
 
-		return array_values( 'ids' === $return ? $force_sell_ids : array_filter( array_map( 'wc_get_product', $force_sell_ids ) ) );
+		return array_values( 'ids' === $return_type ? $force_sell_ids : array_filter( array_map( 'wc_get_product', $force_sell_ids ) ) );
 	}
 
 	/**
 	 * Gets the valid forced sells of a product.
 	 *
 	 * @since 1.3.0
+	 * @since 1.4.0 Renamed parameter `$return` to `$return_type`.
 	 *
 	 * @see Product_Utils::get_force_sells()
 	 * @see Product_Utils::force_sell_is_valid()
 	 *
-	 * @param int    $product_id Product ID.
-	 * @param string $type       Optional. Filter the forced sells by type. Default empty. Accepts: normal, synced.
-	 * @param string $return     Optional. What to return. Default: ids. Accepts: ids, objects.
+	 * @param int    $product_id  Product ID.
+	 * @param string $type        Optional. Filter the forced sells by type. Default empty. Accepts: normal, synced.
+	 * @param string $return_type Optional. What to return. Default: ids. Accepts: ids, objects.
 	 * @return array
 	 */
-	public static function get_valid_force_sells( $product_id, $type = '', $return = 'ids' ) {
-		$force_sells = self::get_force_sells( $product_id, $type, $return );
+	public static function get_valid_force_sells( $product_id, $type = '', $return_type = 'ids' ) {
+		$force_sells = self::get_force_sells( $product_id, $type, $return_type );
 
 		return array_values( array_filter( $force_sells, array( __CLASS__, 'force_sell_is_valid' ) ) );
 	}

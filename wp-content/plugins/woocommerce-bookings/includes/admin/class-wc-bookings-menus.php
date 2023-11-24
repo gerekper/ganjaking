@@ -207,8 +207,8 @@ class WC_Bookings_Menus {
 	public function notifications_page() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'send_booking_notification' ) ) {
 			$notification_product_id = absint( $_POST['notification_product_id'] );
-			$notification_subject    = wc_clean( stripslashes( $_POST['notification_subject'] ) );
-			$notification_message    = wp_kses_post( stripslashes( $_POST['notification_message'] ) );
+			$notification_subject    = wc_clean( wp_unslash( $_POST['notification_subject'] ) );
+			$notification_message    = wp_kses_post( wp_unslash( $_POST['notification_message'] ) );
 
 			try {
 				if ( ! $notification_product_id ) {
@@ -285,7 +285,7 @@ class WC_Bookings_Menus {
 
 						if ( defined( 'WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR' ) && WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR ) {
 							$saved_view = get_option( 'wc_bookings_store_availability_view_setting', 'calendar' );
-							$view = isset( $_GET['view'] ) ? wc_clean( $_GET['view'] ) : $saved_view;
+							$view = isset( $_GET['view'] ) ? wc_clean( wp_unslash( $_GET['view'] ) ) : $saved_view;
 
 							if ( 'classic' === $view ) {
 								// Save chosen view to db.

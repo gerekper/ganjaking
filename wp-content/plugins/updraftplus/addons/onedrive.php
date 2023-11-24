@@ -1150,7 +1150,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 			if ($return_instead_of_echo) {
 				return $this->show_authed_admin_warning($return_instead_of_echo);
 			} else {
-				header('Location: '.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraftmethod-onedrive-auth&state=success');
+				header('Location: '.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraftmethod-onedrive-auth&state=success:'.urlencode($this->get_instance_id()));
 			}
 
 		} else {

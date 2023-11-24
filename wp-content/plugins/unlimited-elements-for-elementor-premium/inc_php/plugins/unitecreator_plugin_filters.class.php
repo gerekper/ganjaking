@@ -67,6 +67,8 @@ class UniteCreatorFilters{
 	const ACTION_BEFORE_ADMIN_INIT = "addon_library_before_admin_init";
 	const ACTION_RUN_AFTER_INCLUDES = "addon_library_action_run_after_includes";
 	const ACTION_AFTER_INIT_GLOBALS = "addon_library_after_init_globals";
-	
-	
+
+	const ACTION_ADDON_AFTER_UPDATE = "uc_addon_after_update";
+	const ACTION_ADDON_AFTER_DELETE = "uc_addon_after_delete";
+
 }

@@ -16,7 +16,7 @@ class UCEmptyTemplate{
 		$this->init();
 	}
 	
-	/**
+	/** 
 	 * put error message
 	 */
 	private function putErrorMessage($message = null){
@@ -120,6 +120,7 @@ class UCEmptyTemplate{
 		
 		$content = HelperProviderCoreUC_EL::getElementorTemplate($this->templateID, true);
 		
+		
 		$this->renderHeaderPart();
 		
 		//$this->renderRegularBody();
@@ -148,7 +149,8 @@ class UCEmptyTemplate{
 			
 			if(is_singular() == false)
 				UniteFunctionsUC::throwError("not singlular");
-		
+
+			
 			$this->templateID = $renderTemplateID;
 				
 			$this->renderTemplate();

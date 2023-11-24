@@ -1,5 +1,13 @@
 ** WooCommerce Gateway Purchase Order Changelog **
 
+2023-11-20 - version 1.4.5
+* Dev - Added critical flows end-to-end tests.
+* Dev - Update default behavior to use a block-based cart and checkout in e2e tests.
+* Dev - Bump WooCommerce "tested up to" version 8.3.
+* Dev - Bump WooCommerce minimum supported version to 8.1.
+* Dev - Bump WordPress minimum supported version to 6.2.
+* Dev - Bump WordPress "tested up to" version 6.4.
+
 2023-09-18 - version 1.4.4
 * Dev - Bump WordPress "tested up to" version to 6.3.
 * Dev - Bump WooCommerce "tested up to" version 7.9.
@@ -15,8 +23,8 @@
 
 2023-05-25 - version 1.4.2
 * Dev - Resolve PHPCS warnings.
-* Dev - Bump WooCommerce "tested up to" version 7.6.  
-* Dev - Bump WordPress minimum supported version from 5.6 to 5.8.  
+* Dev - Bump WooCommerce "tested up to" version 7.6.
+* Dev - Bump WordPress minimum supported version from 5.6 to 5.8.
 * Dev - Bump WordPress "tested up to" version 6.2.
 
 2023-03-14 - version 1.4.1

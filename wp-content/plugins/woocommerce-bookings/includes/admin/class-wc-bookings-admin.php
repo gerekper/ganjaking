@@ -76,26 +76,26 @@ class WC_Bookings_Admin {
 		$availability = array();
 		$row_size     = isset( $_POST['wc_booking_availability_type'] ) ? sizeof( $_POST['wc_booking_availability_type'] ) : 0;
 		for ( $i = 0; $i < $row_size; $i ++ ) {
-			$availability[ $i ]['type']     = wc_clean( $_POST['wc_booking_availability_type'][ $i ] );
-			$availability[ $i ]['bookable'] = wc_clean( $_POST['wc_booking_availability_bookable'][ $i ] );
+			$availability[ $i ]['type']     = wc_clean( wp_unslash( $_POST['wc_booking_availability_type'][ $i ] ) );
+			$availability[ $i ]['bookable'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_bookable'][ $i ] ) );
 			$availability[ $i ]['priority'] = intval( $_POST['wc_booking_availability_priority'][ $i ] );
 
 			switch ( $availability[ $i ]['type'] ) {
 				case 'custom':
-					$availability[ $i ]['from'] = wc_clean( $_POST['wc_booking_availability_from_date'][ $i ] );
-					$availability[ $i ]['to']   = wc_clean( $_POST['wc_booking_availability_to_date'][ $i ] );
+					$availability[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_from_date'][ $i ] ) );
+					$availability[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_availability_to_date'][ $i ] ) );
 					break;
 				case 'months':
-					$availability[ $i ]['from'] = wc_clean( $_POST['wc_booking_availability_from_month'][ $i ] );
-					$availability[ $i ]['to']   = wc_clean( $_POST['wc_booking_availability_to_month'][ $i ] );
+					$availability[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_from_month'][ $i ] ) );
+					$availability[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_availability_to_month'][ $i ] ) );
 					break;
 				case 'weeks':
-					$availability[ $i ]['from'] = wc_clean( $_POST['wc_booking_availability_from_week'][ $i ] );
-					$availability[ $i ]['to']   = wc_clean( $_POST['wc_booking_availability_to_week'][ $i ] );
+					$availability[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_from_week'][ $i ] ) );
+					$availability[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_availability_to_week'][ $i ] ) );
 					break;
 				case 'days':
-					$availability[ $i ]['from'] = wc_clean( $_POST['wc_booking_availability_from_day_of_week'][ $i ] );
-					$availability[ $i ]['to']   = wc_clean( $_POST['wc_booking_availability_to_day_of_week'][ $i ] );
+					$availability[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_from_day_of_week'][ $i ] ) );
+					$availability[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_availability_to_day_of_week'][ $i ] ) );
 					break;
 				case 'time':
 				case 'time:1':
@@ -105,15 +105,15 @@ class WC_Bookings_Admin {
 				case 'time:5':
 				case 'time:6':
 				case 'time:7':
-					$availability[ $i ]['from'] = wc_booking_sanitize_time( $_POST['wc_booking_availability_from_time'][ $i ] );
-					$availability[ $i ]['to']   = wc_booking_sanitize_time( $_POST['wc_booking_availability_to_time'][ $i ] );
+					$availability[ $i ]['from'] = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_availability_from_time'][ $i ] ) );
+					$availability[ $i ]['to']   = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_availability_to_time'][ $i ] ) );
 					break;
 				case 'time:range':
 				case 'custom:daterange':
-					$availability[ $i ]['from']      = wc_booking_sanitize_time( $_POST['wc_booking_availability_from_time'][ $i ] );
-					$availability[ $i ]['to']        = wc_booking_sanitize_time( $_POST['wc_booking_availability_to_time'][ $i ] );
-					$availability[ $i ]['from_date'] = wc_clean( $_POST['wc_booking_availability_from_date'][ $i ] );
-					$availability[ $i ]['to_date']   = wc_clean( $_POST['wc_booking_availability_to_date'][ $i ] );
+					$availability[ $i ]['from']      = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_availability_from_time'][ $i ] ) );
+					$availability[ $i ]['to']        = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_availability_to_time'][ $i ] ) );
+					$availability[ $i ]['from_date'] = wc_clean( wp_unslash( $_POST['wc_booking_availability_from_date'][ $i ] ) );
+					$availability[ $i ]['to_date']   = wc_clean( wp_unslash( $_POST['wc_booking_availability_to_date'][ $i ] ) );
 					break;
 			}
 		}
@@ -132,29 +132,30 @@ class WC_Bookings_Admin {
 			return $pricing;
 		}
 
-		foreach ( array_keys( $_POST['wc_booking_pricing_type'] ) as $i ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$pricing[ $i ]['type']          = wc_clean( $_POST['wc_booking_pricing_type'][ $i ] );
-			$pricing[ $i ]['cost']          = wc_clean( $_POST['wc_booking_pricing_cost'][ $i ] );
-			$pricing[ $i ]['modifier']      = wc_clean( $_POST['wc_booking_pricing_cost_modifier'][ $i ] );
-			$pricing[ $i ]['base_cost']     = wc_clean( $_POST['wc_booking_pricing_base_cost'][ $i ] );
-			$pricing[ $i ]['base_modifier'] = wc_clean( $_POST['wc_booking_pricing_base_cost_modifier'][ $i ] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array keys can not be unslashed/sanitized as it lead to errors in the foreach loop.
+		foreach ( array_keys( $_POST['wc_booking_pricing_type'] ) as $i ) {
+			$pricing[ $i ]['type']          = wc_clean( wp_unslash( $_POST['wc_booking_pricing_type'][ $i ] ) );
+			$pricing[ $i ]['cost']          = wc_clean( wp_unslash( $_POST['wc_booking_pricing_cost'][ $i ] ) );
+			$pricing[ $i ]['modifier']      = wc_clean( wp_unslash( $_POST['wc_booking_pricing_cost_modifier'][ $i ] ) );
+			$pricing[ $i ]['base_cost']     = wc_clean( wp_unslash( $_POST['wc_booking_pricing_base_cost'][ $i ] ) );
+			$pricing[ $i ]['base_modifier'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_base_cost_modifier'][ $i ] ) );
 
 			switch ( $pricing[ $i ]['type'] ) {
 				case 'custom':
-					$pricing[ $i ]['from'] = wc_clean( $_POST['wc_booking_pricing_from_date'][ $i ] );
-					$pricing[ $i ]['to']   = wc_clean( $_POST['wc_booking_pricing_to_date'][ $i ] );
+					$pricing[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from_date'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to_date'][ $i ] ) );
 					break;
 				case 'months':
-					$pricing[ $i ]['from'] = wc_clean( $_POST['wc_booking_pricing_from_month'][ $i ] );
-					$pricing[ $i ]['to']   = wc_clean( $_POST['wc_booking_pricing_to_month'][ $i ] );
+					$pricing[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from_month'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to_month'][ $i ] ) );
 					break;
 				case 'weeks':
-					$pricing[ $i ]['from'] = wc_clean( $_POST['wc_booking_pricing_from_week'][ $i ] );
-					$pricing[ $i ]['to']   = wc_clean( $_POST['wc_booking_pricing_to_week'][ $i ] );
+					$pricing[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from_week'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to_week'][ $i ] ) );
 					break;
 				case 'days':
-					$pricing[ $i ]['from'] = wc_clean( $_POST['wc_booking_pricing_from_day_of_week'][ $i ] );
-					$pricing[ $i ]['to']   = wc_clean( $_POST['wc_booking_pricing_to_day_of_week'][ $i ] );
+					$pricing[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from_day_of_week'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to_day_of_week'][ $i ] ) );
 					break;
 				case 'time':
 				case 'time:1':
@@ -164,19 +165,19 @@ class WC_Bookings_Admin {
 				case 'time:5':
 				case 'time:6':
 				case 'time:7':
-					$pricing[ $i ]['from'] = wc_booking_sanitize_time( $_POST['wc_booking_pricing_from_time'][ $i ] );
-					$pricing[ $i ]['to']   = wc_booking_sanitize_time( $_POST['wc_booking_pricing_to_time'][ $i ] );
+					$pricing[ $i ]['from'] = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_pricing_from_time'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_pricing_to_time'][ $i ] ) );
 					break;
 				case 'time:range':
-					$pricing[ $i ]['from'] = wc_booking_sanitize_time( $_POST['wc_booking_pricing_from_time'][ $i ] );
-					$pricing[ $i ]['to']   = wc_booking_sanitize_time( $_POST['wc_booking_pricing_to_time'][ $i ] );
+					$pricing[ $i ]['from'] = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_pricing_from_time'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_booking_sanitize_time( wp_unslash( $_POST['wc_booking_pricing_to_time'][ $i ] ) );
 
-					$pricing[ $i ]['from_date'] = wc_clean( $_POST['wc_booking_pricing_from_date'][ $i ] );
-					$pricing[ $i ]['to_date']   = wc_clean( $_POST['wc_booking_pricing_to_date'][ $i ] );
+					$pricing[ $i ]['from_date'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from_date'][ $i ] ) );
+					$pricing[ $i ]['to_date']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to_date'][ $i ] ) );
 					break;
 				default:
-					$pricing[ $i ]['from'] = wc_clean( $_POST['wc_booking_pricing_from'][ $i ] );
-					$pricing[ $i ]['to']   = wc_clean( $_POST['wc_booking_pricing_to'][ $i ] );
+					$pricing[ $i ]['from'] = wc_clean( wp_unslash( $_POST['wc_booking_pricing_from'][ $i ] ) );
+					$pricing[ $i ]['to']   = wc_clean( wp_unslash( $_POST['wc_booking_pricing_to'][ $i ] ) );
 					break;
 			}
 		}
@@ -274,44 +275,44 @@ class WC_Bookings_Admin {
 			array(
 				'apply_adjacent_buffer'      => isset( $_POST['_wc_booking_apply_adjacent_buffer'] ),
 				'availability'               => $this->get_posted_availability(),
-				'block_cost'                 => wc_clean( $_POST['_wc_booking_block_cost'] ),
-				'buffer_period'              => wc_clean( $_POST['_wc_booking_buffer_period'] ),
-				'calendar_display_mode'      => wc_clean( $_POST['_wc_booking_calendar_display_mode'] ),
-				'cancel_limit_unit'          => wc_clean( $_POST['_wc_booking_cancel_limit_unit'] ),
-				'cancel_limit'               => wc_clean( $_POST['_wc_booking_cancel_limit'] ),
+				'block_cost'                 => wc_clean( wp_unslash( $_POST['_wc_booking_block_cost'] ) ),
+				'buffer_period'              => wc_clean( wp_unslash( $_POST['_wc_booking_buffer_period'] ) ),
+				'calendar_display_mode'      => wc_clean( wp_unslash( $_POST['_wc_booking_calendar_display_mode'] ) ),
+				'cancel_limit_unit'          => wc_clean( wp_unslash( $_POST['_wc_booking_cancel_limit_unit'] ) ),
+				'cancel_limit'               => wc_clean( wp_unslash( $_POST['_wc_booking_cancel_limit'] ) ),
 				'check_start_block_only'     => 'start' === $_POST['_wc_booking_check_availability_against'],
-				'cost'                       => wc_clean( $_POST['_wc_booking_cost'] ),
+				'cost'                       => wc_clean( wp_unslash( $_POST['_wc_booking_cost'] ) ),
 				'default_date_availability'  => wc_clean( $default_date_availability ),
-				'display_cost'               => wc_clean( $_POST['_wc_display_cost'] ),
-				'duration_type'              => wc_clean( $_POST['_wc_booking_duration_type'] ),
+				'display_cost'               => wc_clean( wp_unslash( $_POST['_wc_display_cost'] ) ),
+				'duration_type'              => wc_clean( wp_unslash( $_POST['_wc_booking_duration_type'] ) ),
 				'duration_unit'              => wc_clean( $duration_unit ),
 				'duration'                   => wc_clean( $duration ),
 				'enable_range_picker'        => isset( $_POST['_wc_booking_enable_range_picker'] ),
-				'first_block_time'           => wc_clean( $_POST['_wc_booking_first_block_time'] ),
+				'first_block_time'           => wc_clean( wp_unslash( $_POST['_wc_booking_first_block_time'] ) ),
 				'has_person_cost_multiplier' => isset( $_POST['_wc_booking_person_cost_multiplier'] ),
 				'has_person_qty_multiplier'  => isset( $_POST['_wc_booking_person_qty_multiplier'] ),
 				'has_person_types'           => isset( $_POST['_wc_booking_has_person_types'] ),
 				'has_persons'                => isset( $_POST['_wc_booking_has_persons'] ),
 				'has_resources'              => isset( $_POST['_wc_booking_has_resources'] ),
 				'has_restricted_days'        => isset( $_POST['_wc_booking_has_restricted_days'] ),
-				'max_date_unit'              => wc_clean( $_POST['_wc_booking_max_date_unit'] ),
-				'max_date_value'             => wc_clean( $_POST['_wc_booking_max_date'] ),
-				'max_duration'               => wc_clean( $_POST['_wc_booking_max_duration'] ),
-				'max_persons'                => wc_clean( $_POST['_wc_booking_max_persons_group'] ),
-				'min_date_unit'              => wc_clean( $_POST['_wc_booking_min_date_unit'] ),
-				'min_date_value'             => wc_clean( $_POST['_wc_booking_min_date'] ),
-				'min_duration'               => wc_clean( $_POST['_wc_booking_min_duration'] ),
-				'min_persons'                => wc_clean( $_POST['_wc_booking_min_persons_group'] ),
+				'max_date_unit'              => wc_clean( wp_unslash( $_POST['_wc_booking_max_date_unit'] ) ),
+				'max_date_value'             => wc_clean( wp_unslash( $_POST['_wc_booking_max_date'] ) ),
+				'max_duration'               => wc_clean( wp_unslash( $_POST['_wc_booking_max_duration'] ) ),
+				'max_persons'                => wc_clean( wp_unslash( $_POST['_wc_booking_max_persons_group'] ) ),
+				'min_date_unit'              => wc_clean( wp_unslash( $_POST['_wc_booking_min_date_unit'] ) ),
+				'min_date_value'             => wc_clean( wp_unslash( $_POST['_wc_booking_min_date'] ) ),
+				'min_duration'               => wc_clean( wp_unslash( $_POST['_wc_booking_min_duration'] ) ),
+				'min_persons'                => wc_clean( wp_unslash( $_POST['_wc_booking_min_persons_group'] ) ),
 				'person_types'               => $this->get_posted_person_types( $product ),
 				'pricing'                    => $this->get_posted_pricing(),
-				'qty'                        => wc_clean( $_POST['_wc_booking_qty'] ),
+				'qty'                        => wc_clean( wp_unslash( $_POST['_wc_booking_qty'] ) ),
 				'requires_confirmation'      => isset( $_POST['_wc_booking_requires_confirmation'] ),
-				'resource_label'             => wc_clean( $_POST['_wc_booking_resource_label'] ),
+				'resource_label'             => wc_clean( wp_unslash( $_POST['_wc_booking_resource_label'] ) ),
 				'resource_base_costs'        => wp_list_pluck( $resources, 'base_cost' ),
 				'resource_block_costs'       => wp_list_pluck( $resources, 'block_cost' ),
 				'resource_ids'               => array_keys( $resources ),
-				'resources_assignment'       => wc_clean( $_POST['_wc_booking_resources_assignment'] ),
-				'restricted_days'            => isset( $_POST['_wc_booking_restricted_days'] ) ? wc_clean( $_POST['_wc_booking_restricted_days'] ) : '',
+				'resources_assignment'       => wc_clean( wp_unslash( $_POST['_wc_booking_resources_assignment'] ) ),
+				'restricted_days'            => isset( $_POST['_wc_booking_restricted_days'] ) ? wc_clean( wp_unslash( $_POST['_wc_booking_restricted_days'] ) ) : '',
 				'user_can_cancel'            => isset( $_POST['_wc_booking_user_can_cancel'] ),
 			)
 		);

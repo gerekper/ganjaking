@@ -7,7 +7,7 @@
 
 $month = isset( $_REQUEST['calendar_month'] ) ? absint( $_REQUEST['calendar_month'] ) : current_time( 'n' );
 $year  = isset( $_REQUEST['calendar_year'] ) ? absint( $_REQUEST['calendar_year'] ) : current_time( 'Y' );
-$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : current_time( 'Y-m-d' );
+$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( wp_unslash( $_REQUEST['calendar_day'] ) ) : current_time( 'Y-m-d' );
 
 if ( $year < ( date( 'Y' ) - 10 ) || $year > 2100 ) {
 	$year = date( 'Y' );

@@ -150,7 +150,8 @@ function perfmatters_rest_authentication_errors($result) {
 		$exceptions = apply_filters('perfmatters_rest_api_exceptions', array(
 			'contact-form-7',
 			'wordfence',
-			'elementor'
+			'elementor',
+			'ws-form'
 		));
 		foreach($exceptions as $exception) {
 			if(strpos($rest_route, $exception) !== false) {
@@ -1048,7 +1049,7 @@ function perfmatters_enqueue_instant_page() {
 	$exclude_instant_page = Perfmatters\Utilities::get_post_meta('perfmatters_exclude_instant_page');
 
 	if(!$exclude_instant_page) {
-		wp_register_script('perfmatters-instant-page', plugins_url('vendor/instant-page/instantpage.js', dirname(__FILE__)), array(), PERFMATTERS_VERSION, true);
+		wp_register_script('perfmatters-instant-page', plugins_url('vendor/instant-page/pminstantpage.min.js', dirname(__FILE__)), array(), PERFMATTERS_VERSION, true);
 		wp_enqueue_script('perfmatters-instant-page');
 	}
 }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Perfmatters\n"
-"POT-Creation-Date: 2023-09-29 13:10-0700\n"
-"PO-Revision-Date: 2023-10-01 21:24+0300\n"
+"POT-Creation-Date: 2023-11-09 15:22-0800\n"
+"PO-Revision-Date: 2023-11-10 09:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: perfmatters.php\n"
@@ -84,6 +84,14 @@ msgstr "Лицензия удалена!"
 #: inc/CLI.php:81
 msgid "License could not be removed."
 msgstr "Не удалось удалить лицензию."
+
+#: inc/CLI.php:102
+msgid "Used CSS cleared for all network sites."
+msgstr "Используемый CSS очищен для всех сайтов сети."
+
+#: inc/CLI.php:106 inc/classes/CSS.php:643 inc/classes/CSS.php:683
+msgid "Used CSS cleared."
+msgstr "Используемые CSS очищены."
 
 #: inc/admin.php:37 inc/settings.php:14
 msgid "General"
@@ -178,22 +186,18 @@ msgstr "Доступ запрещен."
 msgid "Nonce is invalid."
 msgstr "Nonce недействителен."
 
-#: inc/classes/CSS.php:615 inc/classes/Meta.php:85 inc/settings.php:837
+#: inc/classes/CSS.php:622 inc/classes/Meta.php:85 inc/settings.php:837
 #: inc/settings.php:846
 msgid "Clear Used CSS"
 msgstr "Очистить используемые CSS"
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "Current"
 msgstr "Текущий"
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "All"
 msgstr "Все"
-
-#: inc/classes/CSS.php:636 inc/classes/CSS.php:676
-msgid "Used CSS cleared."
-msgstr "Используемые CSS очищены."
 
 #: inc/classes/DatabaseOptimizer.php:70
 msgid "Database optimization is running in the background."

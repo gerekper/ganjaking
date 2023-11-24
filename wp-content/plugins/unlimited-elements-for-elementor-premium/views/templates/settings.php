@@ -17,7 +17,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		<?php 
 			$isFirstTab = true;
 			foreach($arrSaps as $sap):
-				
+
+				$isHidden = UniteFunctionsUC::getVal($sap, "hidden");
+				$isHidden = UniteFunctionsUC::strToBool($isHidden);
+							
 				$sapName = $sap["name"];
 				$sapID = $sapIDPrefix.$sapName;
 				$class = "";
@@ -27,9 +30,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$text = $sap["text"];
 				
 				$isFirstTab = false;
+				
+				$style = "";
+				
+				if($isHidden == true)
+					$style = "style='display:none'";
+					
 		?>
 		
-			<a id="<?php echo esc_attr($sapID)?>_tablink" data-name="<?php echo esc_attr($sapName)?>" data-contentid="<?php echo esc_attr($sapID)?>" class="<?php echo esc_attr($class)?>" href="javascript:void(0)" onfocus="this.blur()"> <?php echo esc_html($text)?></a>
+			<a id="<?php echo esc_attr($sapID)?>_tablink" data-name="<?php echo esc_attr($sapName)?>" data-contentid="<?php echo esc_attr($sapID)?>" class="<?php echo esc_attr($class)?>" href="javascript:void(0)" onfocus="this.blur()" <?php echo $style?>> <?php echo esc_html($text)?></a>
 			
 		<?php endforeach?>
 		

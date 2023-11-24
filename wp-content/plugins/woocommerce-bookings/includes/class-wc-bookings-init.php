@@ -269,8 +269,8 @@ class WC_Bookings_Init {
 	 * that gateway in the admin, as it has no options to configure.
 	 */
 	public function include_gateway( $gateways ) {
-		$page = isset( $_GET['page'] ) ? wc_clean( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$tab  = isset( $_GET['tab'] ) ? wc_clean( $_GET['tab'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page = isset( $_GET['page'] ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$tab  = isset( $_GET['tab'] ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( is_admin() && 'wc-settings' === $page && 'checkout' === $tab ) {
 			return $gateways;
 		}

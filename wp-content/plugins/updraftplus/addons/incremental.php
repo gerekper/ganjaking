@@ -402,10 +402,14 @@ class UpdraftPlus_Addons_Incremental {
 		
 		$backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
 
+		if (!function_exists('get_mu_plugins')) include_once(ABSPATH.'wp-admin/includes/plugin.php');
+		$mu_plugins = get_mu_plugins();
+		
 		$entities = array();
 
 		foreach ($backupable_entities as $key => $info) {
 			if (UpdraftPlus_Options::get_updraft_option("updraft_include_$key", false)) {
+				if ('mu-plugins' == $key && !$mu_plugins) continue;
 				$entities[] = $key;
 			}
 		}

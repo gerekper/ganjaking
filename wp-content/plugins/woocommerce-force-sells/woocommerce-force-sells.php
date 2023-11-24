@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: WooCommerce Force Sells
- * Plugin URI: https://woocommerce.com/products/force-sells/
+ * Plugin URI: https://woo.com/products/force-sells/
  * Description: Allows you to select products which will be used as force-sells - items which get added to the cart along with other items.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: KoiLab
  * Author URI: https://koilab.com
  * Requires PHP: 5.6
  * Requires at least: 4.7
- * Tested up to: 6.3
+ * Tested up to: 6.4
  * Domain: woocommerce-force-sells
  * Domain Path: /languages
  *
  * WC requires at least: 3.5
- * WC tested up to: 8.1
+ * WC tested up to: 8.3
  * Woo: 18678:3ebddfc491ca168a4ea4800b893302b0
  *
  * License: GNU General Public License v3.0
@@ -275,16 +275,21 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 				return;
 			}
 
-			echo '<div class="clear"></div>';
-			echo '<div class="wc-force-sells">';
-			echo '<p>' . esc_html__( 'This will also add the following products to your cart:', 'woocommerce-force-sells' ) . '</p>';
-			echo '<ul>';
+			/**
+			 * Filters whether to show the force sell product price.
+			 *
+			 * @since 1.4.0
+			 *
+			 * @param bool $show_price Whether to show the price.
+			 */
+			$show_price = apply_filters( 'wc_force_sell_show_price', true );
 
-			foreach ( $force_sells as $force_sell ) {
-				echo '<li>' . esc_html( $force_sell->get_title() ) . '</li>';
-			}
+			$params = array(
+				'force_sells' => $force_sells,
+				'show_price'  => $show_price,
+			);
 
-			echo '</ul></div>';
+			wc_get_template( 'single-product/force-sells.php', $params, '', WC_FORCE_SELLS_PATH . 'templates/' );
 		}
 
 		/**

@@ -650,7 +650,7 @@ class UniteCreatorWebAPIWork{
 		
 		$this->addDebug("Updating catalog option: ".self::OPTION_CATALOG);
 		
-		UniteProviderFunctionsUC::updateOption(self::OPTION_CATALOG, $arrData);
+		UniteProviderFunctionsUC::updateOption(self::OPTION_CATALOG, $arrData,false, false);
 		
 		$arrSavedCatalog = UniteProviderFunctionsUC::getOption(self::OPTION_CATALOG);
 		

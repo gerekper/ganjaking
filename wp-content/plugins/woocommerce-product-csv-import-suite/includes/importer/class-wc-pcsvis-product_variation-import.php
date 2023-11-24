@@ -369,8 +369,6 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 
 		WC_Product_CSV_Import_Suite::log( __( 'Finished parsing product variations CSV.', 'woocommerce-product-csv-import-suite' ) );
 
-		unset( $import_data );
-
 		wp_defer_term_counting( true );
 		wp_defer_comment_counting( true );
 

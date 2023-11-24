@@ -58,13 +58,13 @@ global $wp_version;
 		<?php if ( ! WC_BOOKINGS_GUTENBERG_EXISTS ) { ?>
 			<div class="date_selector">
 				<div>
-					<a class="prev" href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 1 ? $year - 1 : $year, 'calendar_month' => $month === 1 ? 12 : $month - 1, ) ) ); //phpcs:ignore ?>">&larr;</a>
+					<a class="prev" href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 1 ? $year - 1 : $year, 'calendar_month' => $month === 1 ? 12 : $month - 1, ) ) ); ?>">&larr;</a>
 				</div>
 				<div>
 					<input type="text" name="calendar_day" class="calendar_day" placeholder="yyyy-mm-dd" value="<?php echo esc_attr( date_i18n( 'F', mktime( 0, 0, 0, $month, 10 ) ) . ' ' . $year ); ?>" />
 				</div>
 				<div>
-					<a class="next" href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 12 ? $year + 1 : $year, 'calendar_month' => $month === 12 ? 1 : $month + 1, ) ) ); //phpcs:ignore?>">&rarr;</a>
+					<a class="next" href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 12 ? $year + 1 : $year, 'calendar_month' => $month === 12 ? 1 : $month + 1, ) ) ); ?>">&rarr;</a>
 				</div>
 			</div>
 		<?php } else { ?>
@@ -77,7 +77,7 @@ global $wp_version;
 					<a class="change-date prev"
 						aria-label="<?php esc_attr_e( 'Previous Month', 'woocommerce-bookings' ); ?>"
 						title="<?php esc_attr_e( 'Previous Month', 'woocommerce-bookings' ); ?>"
-						href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 1 ? $year - 1 : $year, 'calendar_month' => $month === 1 ? 12 : $month - 1, ) ) ); //phpcs:ignore ?>">&larr;</a>
+						href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 1 ? $year - 1 : $year, 'calendar_month' => $month === 1 ? 12 : $month - 1, ) ) ); ?>">&larr;</a>
 				</div>
 				<div>
 					<?php
@@ -86,8 +86,8 @@ global $wp_version;
 							add_query_arg(
 								array(
 									'calendar_day'   => '',
-									'calendar_year'  => date( 'Y' ), // phpcs:ignore
-									'calendar_month' => date( 'm' ), // phpcs:ignore
+									'calendar_year'  => date( 'Y' ),
+									'calendar_month' => date( 'm' ),
 									'view'           => 'schedule',
 								)
 							)
@@ -103,13 +103,13 @@ global $wp_version;
 						);
 					}
 					?>
-					<a class="change-date today" href="<?php echo $change_date_url; // phpcs:ignore ?>"><?php esc_html_e( 'Today', 'woocommerce-bookings' ); ?></a>
+					<a class="change-date today" href="<?php echo $change_date_url;  ?>"><?php esc_html_e( 'Today', 'woocommerce-bookings' ); ?></a>
 				</div>
 				<div>
 					<a class="change-date next"
 						aria-label="<?php esc_attr_e( 'Next Month', 'woocommerce-bookings' ); ?>"
 						title="<?php esc_attr_e( 'Next Month', 'woocommerce-bookings' ); ?>"
-						href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 12 ? $year + 1 : $year, 'calendar_month' => $month === 12 ? 1 : $month + 1, ) ) ); // phpcs:ignore ?>">&rarr;</a>
+						href="<?php echo esc_url( add_query_arg( array( 'calendar_year'  => $month === 12 ? $year + 1 : $year, 'calendar_month' => $month === 12 ? 1 : $month + 1, ) ) ); ?>">&rarr;</a>
 				</div>
 			</div>
 		<?php } ?>
@@ -131,13 +131,13 @@ global $wp_version;
 					</div>
 				</div>
 				<div>
-					<a class="change-date prev" href="<?php echo esc_url( add_query_arg( 'calendar_day', date_i18n( 'Y-m-d', strtotime( '-1 day', strtotime( $day ) ) ) ) ); //phpcs:ignore ?>">&larr;</a>
+					<a class="change-date prev" href="<?php echo esc_url( add_query_arg( 'calendar_day', date_i18n( 'Y-m-d', strtotime( '-1 day', strtotime( $day ) ) ) ) ); ?>">&larr;</a>
 				</div>
 				<div>
-					<a class="change-date today" href="<?php echo esc_url( add_query_arg( array( 'calendar_day' => current_time( 'Y-m-d' ), 'view' => 'day', ) ) ); ?>"><?php esc_html_e( 'Today', 'woocommerce-bookings' ); //phpcs:ignore ?></a>
+					<a class="change-date today" href="<?php echo esc_url( add_query_arg( array( 'calendar_day' => current_time( 'Y-m-d' ), 'view' => 'day', ) ) ); ?>"><?php esc_html_e( 'Today', 'woocommerce-bookings' ); ?></a>
 				</div>
 				<div>
-					<a class="change-date next" href="<?php echo esc_url( add_query_arg( 'calendar_day', date_i18n( 'Y-m-d', strtotime( '+1 day', strtotime( $day ) ) ) ) ); //phpcs:ignore ?>">&rarr;</a>
+					<a class="change-date next" href="<?php echo esc_url( add_query_arg( 'calendar_day', date_i18n( 'Y-m-d', strtotime( '+1 day', strtotime( $day ) ) ) ) ); ?>">&rarr;</a>
 				</div>
 			</div>
 		<?php } ?>

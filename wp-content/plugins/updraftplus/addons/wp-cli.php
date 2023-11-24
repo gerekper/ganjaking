@@ -162,9 +162,14 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		global $updraftplus;
 		$default_include_files_array = array();
 		$backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
+		
+		if (!function_exists('get_mu_plugins')) include_once(ABSPATH.'wp-admin/includes/plugin.php');
+		$mu_plugins = get_mu_plugins();
+
 		// The true (default value if non-existent) here has the effect of forcing a default of on.
 		foreach ($backupable_entities as $key => $info) {
 			if (UpdraftPlus_Options::get_updraft_option("updraft_include_$key", apply_filters("updraftplus_defaultoption_include_".$key, true))) {
+				if ('mu-plugins' == $key && !$mu_plugins) continue;
 				$default_include_files_array[] = $key;
 			}
 		}

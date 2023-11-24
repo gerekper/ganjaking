@@ -22,15 +22,35 @@ class UniteHelperBaseUC extends HtmlOutputBaseUC{
 		$response["message"] = $message;
 	
 		if(!empty($arrData)){
-	
+		
 			if(gettype($arrData) == "string")
 				$arrData = array("data"=>$arrData);
 	
 			$response = array_merge($response,$arrData);
 		}
-	
+						
 		$json = json_encode($response);
-	
+		
+		
+		// clean the buffier, 
+		// but return the content if exists for showing the warnings
+		
+		if(ob_get_length() > 0) {
+			
+			$content = ob_get_contents();
+			ob_end_clean();
+			
+			echo $content;
+		}
+		
+		
+		$isJsonOutput = UniteFunctionsUC::getGetVar("json","",UniteFunctionsUC::SANITIZE_KEY);
+		$isJsonOutput = UniteFunctionsUC::strToBool($isJsonOutput);
+		
+		if($isJsonOutput == true)
+			header('Content-Type: application/json');
+		
+		
 		echo UniteProviderFunctionsUC::escCombinedHtml($json);
 		exit();
 	}

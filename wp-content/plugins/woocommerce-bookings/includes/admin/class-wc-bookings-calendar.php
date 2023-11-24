@@ -52,7 +52,7 @@ class WC_Bookings_Calendar {
 
 		$month = isset( $_REQUEST['calendar_month'] ) ? absint( $_REQUEST['calendar_month'] ) : current_time( 'n' );
 		$year  = isset( $_REQUEST['calendar_year'] ) ? absint( $_REQUEST['calendar_year'] ) : current_time( 'Y' );
-		$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : current_time( 'Y-m-d' );
+		$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( wp_unslash( $_REQUEST['calendar_day'] ) ) : current_time( 'Y-m-d' );
 
 		if ( 'day' === $view ) {
 			$day_start                         = strtotime( 'midnight', strtotime( $day ) );
@@ -154,7 +154,7 @@ class WC_Bookings_Calendar {
 		$calendar_params = array(
 			'default_month' => esc_html( date_i18n( 'F', mktime( 0, 0, 0, $month, 10 ) ) ),
 			'default_year'  => esc_html( $year ),
-			'default_day'   => esc_html( isset( $_REQUEST['calendar_day'] ) ? date( 'F d, Y', strtotime( wc_clean( $_REQUEST['calendar_day'] ) ) ) : current_time( 'F d, Y' ) ),
+			'default_day'   => esc_html( isset( $_REQUEST['calendar_day'] ) ? date( 'F d, Y', strtotime( wc_clean( wp_unslash( $_REQUEST['calendar_day'] ) ) ) ) : current_time( 'F d, Y' ) ),
 		);
 		// First day of currently selected year/month for datepicker default.
 		$default_date = "$year-$month-01";
@@ -623,7 +623,7 @@ class WC_Bookings_Calendar {
 	 */
 	protected function get_booking_data( $event, $check_date = null ) {
 		if ( is_null( $check_date ) ) {
-			$day = strtotime( isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : date( 'Y-m-d' ) );
+			$day = strtotime( isset( $_REQUEST['calendar_day'] ) ? wc_clean( wp_unslash( $_REQUEST['calendar_day'] ) ) : date( 'Y-m-d' ) );
 		} else {
 			$day = $check_date;
 		}

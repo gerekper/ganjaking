@@ -837,7 +837,7 @@ html, body {
     height: 32px;
 }
 #perfmatters-script-manager .pmsm-hide {
-	display: none;
+	display: none !important;
 }
 .pmsm-locked {
 	opacity: 0.5;

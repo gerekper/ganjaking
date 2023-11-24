@@ -12,7 +12,6 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
     
     private $isAccordion = true;
     private $accordionItemsSpaceBetween = 0;	//space between accoridion items
-    private $accordionTitleHeight = 30;
     private $showTips = true;
     private $showSapTitle = true;
     
@@ -42,6 +41,8 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		protected function drawSettingsAfter(){
 		
 			?></ul><?php
+			
+			parent::drawSettingsAfter();
 		}
      
 		/**
@@ -52,7 +53,6 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 			
 			$arrOptions = parent::getOptions();
 			$arrOptions["accordion_sap"] = $this->accordionItemsSpaceBetween;
-			$arrOptions["accordion_title_height"] = $this->accordionTitleHeight;
 			
 			return($arrOptions);
 		}
@@ -73,10 +73,13 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * draw before settings row
 		 */
 		protected function drawSettings_before(){
-						
+		  
+			parent::drawSettings_before();
+			
 		  ?>
 		  	  <ul class="unite-list-settings">
 		  <?php 
+		  
 		}
 		
 		/**
@@ -108,6 +111,8 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 			
 			<?php 
 		}
+		
+		
 		
 		/**
 		 * draw settings row
@@ -172,6 +177,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 				<li id="<?php echo esc_attr($settingID)?>_row" <?php echo $addAttr?>  <?php echo UniteProviderFunctionsUC::escAddParam($rowClass)?>>
 					
 					<?php if($toDrawText == true):?>
+										
 						<div class="unite-setting-text-wrapper">
 							<div id="<?php echo esc_attr($settingID)?>_text" class='unite-setting-text<?php echo esc_attr($textClassAdd)?>' title="<?php echo esc_attr($description)?>" <?php echo UniteProviderFunctionsUC::escAddParam($attribsText)?>><?php echo esc_html($text) ?></div>
 							<?php if($isResponsive)
@@ -202,7 +208,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * @param unknown_type $setting
 		 */
 		protected function drawTextRow($setting){
-		    
+		   	
 		    //set cell style
 		    $cellStyle = "";
 		    if(isset($setting["padding"]))
@@ -214,22 +220,26 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
             //set style
             $label = UniteFunctionsUC::getVal($setting, "label");
             
-            $rowClass = "";
-            
-            if(!empty($label))
              $rowClass = $this->drawSettingRow_getRowClass($setting);
                              
              $classAdd = UniteFunctionsUC::getVal($setting, UniteSettingsUC::PARAM_CLASSADD);
-				
+			
              if(!empty($classHidden))
 				$classAdd .= $classHidden;
 			
+			$isHeading = UniteFunctionsUC::getVal($setting, "is_heading");
+			$isHeading = UniteFunctionsUC::strToBool($isHeading);
+			
+			if($isHeading == true){
+				$classAdd .= " unite-settings-static-text__heading";
+			}
+			
              if(!empty($classAdd))
-                 $classAdd = " ".$classAdd;
-                
+             		
+                 	$classAdd = " ".$classAdd;
                     $settingID = $setting["id"];
-		                    ?>
-		                    
+                    
+			?>
     			  	<li id="<?php echo esc_attr($settingID)?>_row" <?php echo UniteProviderFunctionsUC::escAddParam($rowClass)?>>
     					
     					<?php if(!empty($label)):?>
@@ -251,74 +261,80 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * @param  $sap
 		 */
 		protected function drawSapBefore($sap, $key){
-		   	
+			
 		    //set class
 		    $class = "unite-postbox";
 		    if(!empty($this->addClass))
 		        $class .= " ".$this->addClass;
 		    
-		        //set accordion closed
-		        $style = "";
-		        if($this->isAccordion == false){
-		            $h3Class = " unite-no-accordion";
-		        }else{
-		            $h3Class = "";
-		            if($key>0){
-		                $style = "style='display:none;'";
-		                $h3Class = " unite-closed";
-		            }
-		        }
-		        
-		        //set text and icon class
-		        $text = UniteFunctionsUC::getVal($sap, "text");
-		        $classIcon = UniteFunctionsUC::getVal($sap, "icon");
-		        $text = esc_html__($text,"unlimited-elements-for-elementor");
-		    	
-		        $classIcon = null;	//disable icons for now
-		    	
-		        //postbox style
-		        $addStyle = "";
-		        
-		        if($key > 0)
-		        	$addStyle .= "margin-top:".$this->accordionItemsSpaceBetween."px";
-		        
-		        
-		        if(!empty($addStyle)){
-		        	$addStyle = esc_attr($addStyle);
-		        	$addStyle = " style='$addStyle'";
-		        }
-		        
-		        //title style
-		        $styleTitle = "";
-		        $styleTitle .= "height:".$this->accordionTitleHeight."px;";
-		        
-		        if(!empty($styleTitle)){
-		        	$styleTitle = esc_attr($styleTitle);
-		        	$styleTitle = " style='$styleTitle'";
-		        }
+		    $tab = UniteFunctionsUC::getVal($sap, "tab");
+		    
+		    if(empty($tab))
+		    	$tab = UniteSettingsUC::TAB_CONTENT;
+		    
+		    $class .= " uctab-$tab";
+		    
+	        //set accordion closed
+	        $style = "";
+	        if($this->isAccordion == false){
+	            $h3Class = " unite-no-accordion";
+	        }else{
+	            $h3Class = "";
+	            if($key>0){
+	                $style = "style='display:none;'";
+	                $h3Class = " unite-closed";
+	            }
+	        }
+	        
+	        //set text and icon class
+	        $text = UniteFunctionsUC::getVal($sap, "text");
+	        $classIcon = UniteFunctionsUC::getVal($sap, "icon");
+	        $text = esc_html__($text,"unlimited-elements-for-elementor");
+	    	
+	        $classIcon = null;	//disable icons for now
+	    	
+	        //postbox style
+	        $addStyle = "";
+	        
+	        if($key > 0)
+	        	$addStyle .= "margin-top:".$this->accordionItemsSpaceBetween."px";
+	        
+	        
+	        if(!empty($addStyle)){
+	        	$addStyle = esc_attr($addStyle);
+	        	$addStyle = " style='$addStyle'";
+	        }
+	        
+	        //title style
+	        $styleTitle = "";
+	        
+	        if(!empty($styleTitle)){
+	        	$styleTitle = esc_attr($styleTitle);
+	        	$styleTitle = " style='$styleTitle'";
+	        }
 		        
 		        ?>
-					<div class="<?php echo esc_attr($class)?>" <?php echo UniteProviderFunctionsUC::escAddParam($addStyle)?>>
-						
-						<?php if($this->showSapTitle == true): ?>
-						
-							<div class="unite-postbox-title<?php echo esc_attr($h3Class)?>" <?php echo UniteProviderFunctionsUC::escAddParam($styleTitle)?> >
-							
-							<?php if(!empty($classIcon)):?>
-							<i class="unite-postbox-icon <?php echo esc_attr($classIcon)?>"></i>
-							<?php endif?>
-							
-							<?php if($this->isAccordion == true):?>
-							    <div class="unite-postbox-arrow-wrapper">
-									<div class="unite-postbox-arrow"></div>
-								</div>
-							<?php endif?>
-							
-								<span><?php echo esc_html($text) ?></span>
-							</div>			
-						<?php endif?>
-						
-						<div class="unite-postbox-inside" <?php echo UniteProviderFunctionsUC::escAddParam($style)?> > 
+			<div class="<?php echo esc_attr($class)?>" <?php echo UniteProviderFunctionsUC::escAddParam($addStyle)?>>
+				
+				<?php if($this->showSapTitle == true): ?>
+				
+					<div class="unite-postbox-title<?php echo esc_attr($h3Class)?>" <?php echo UniteProviderFunctionsUC::escAddParam($styleTitle)?> >
+					
+					<?php if(!empty($classIcon)):?>
+					<i class="unite-postbox-icon <?php echo esc_attr($classIcon)?>"></i>
+					<?php endif?>
+					
+					<?php if($this->isAccordion == true):?>
+					    <div class="unite-postbox-arrow-wrapper">
+							<div class="unite-postbox-arrow"></div>
+						</div>
+					<?php endif?>
+					
+						<span><?php echo esc_html($text) ?></span>
+					</div>			
+				<?php endif?>
+				
+				<div class="unite-postbox-inside" <?php echo UniteProviderFunctionsUC::escAddParam($style)?> > 
 			<?php
 			
 		}

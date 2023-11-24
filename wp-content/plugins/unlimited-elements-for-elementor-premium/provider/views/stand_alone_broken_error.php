@@ -56,10 +56,10 @@ class UnlimitedAddonsMigraterUC{
 		$pathProvider = $pathPlugin."provider/";
 		$pathImporter = $pathProvider."ac_importer/";
 		
-		if(isset(GlobalsUC::$urlPlugin))
+		if(class_exists("GlobalsUC") && isset(GlobalsUC::$urlPlugin))
 			$urlPlugin = GlobalsUC::$urlPlugin;
 		else
-			plugins_url(self::PLUGIN_NAME)."/";
+			$urlPlugin = plugins_url(self::PLUGIN_NAME)."/";
 			
 		$urlProvider = $urlPlugin."provider/";
 		

@@ -1,4 +1,7 @@
 *** Catalog Visibility Options Changelog ***
+2023.11.11 - version 3.3.3
+    * Update: WP and WC version compatibility.
+
 2023.09.16 - version 3.3.2
     * Update: WP and WC version compatibility.
     * Update: Move clearing of transients into a separate class so it can be queued and called during shutdown.

@@ -438,7 +438,7 @@ class UpdraftPlus {
 	 * Presently, we only detect CPanel. If you know of others, then feel free to contribute!
 	 */
 	public function get_hosting_disk_quota_free() {
-		if (!@is_dir('/usr/local/cpanel') || $this->detect_safe_mode() || !function_exists('popen') || (!@is_executable('/usr/local/bin/perl') && !@is_executable('/usr/local/cpanel/3rdparty/bin/perl')) || (defined('UPDRAFTPLUS_SKIP_CPANEL_QUOTA_CHECK') && UPDRAFTPLUS_SKIP_CPANEL_QUOTA_CHECK)) return false;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		if ((defined('UPDRAFTPLUS_SKIP_CPANEL_QUOTA_CHECK') && UPDRAFTPLUS_SKIP_CPANEL_QUOTA_CHECK) || $this->detect_safe_mode() || !@is_dir('/usr/local/cpanel') || !function_exists('popen') || (!@is_executable('/usr/local/bin/perl') && !@is_executable('/usr/local/cpanel/3rdparty/bin/perl'))) return false;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$perl = (@is_executable('/usr/local/cpanel/3rdparty/bin/perl')) ? '/usr/local/cpanel/3rdparty/bin/perl' : '/usr/local/bin/perl';// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 

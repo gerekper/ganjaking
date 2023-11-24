@@ -54,9 +54,9 @@ class UniteCreatorAddonType_Elementor_Template extends UniteCreatorAddonType_Lay
 		
 		$responseAssets = UniteProviderFunctionsUC::setAssetsPath("ac_assets", true);
 		
-		$this->pathAssets = $responseAssets["path_assets"];
-		$this->urlAssets = $responseAssets["url_assets"];
-		
+		$this->pathAssets = UniteFunctionsUC::getVal($responseAssets, "path_assets");
+		$this->urlAssets = UniteFunctionsUC::getVal($responseAssets, "url_assets");
+				
 		$this->addonView_urlBack = HelperUC::getViewUrl(GlobalsUnlimitedElements::VIEW_TEMPLATES_ELEMENTOR);
 		
 		$this->hasParents = true;

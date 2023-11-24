@@ -156,6 +156,12 @@ function UERemoteGeneralAPI(){
 		if(num < 0)
 			num = 0;
 		
+		if(!num)
+			num = 0;
+		
+		if(typeof num == "undefined")
+			num = 0;
+		
 		return(num);
 	}
 	
@@ -225,7 +231,7 @@ function UERemoteGeneralAPI(){
 	this.doAction = function(action, arg1, arg2){
 		
 		validateInited();
-				
+		
 		if(g_isTypeEvents == true){
 			
 			var funcRunAction = getVal(g_options, "func_doAction");
@@ -267,7 +273,7 @@ function UERemoteGeneralAPI(){
 				
 				if(g_vars.enableDebug)
 					console.trace();
-					
+				
 				changeItem(arg1);
 				
 			break;
@@ -288,17 +294,26 @@ function UERemoteGeneralAPI(){
 		
 		var objItems = getObjItems();
 		
+		if(g_vars.enableDebug == true){
+			trace("generalAPI: listen class change: ");
+			trace(objItems);
+		}
+		
 		jQuery.each(objItems, function(index, item){
 			
 			var objItem = jQuery(item);
 			
 			var isSetObserver = objItem.data("uc_set_observer");
-			if(isSetObserver === true)
+			if(isSetObserver === true){
 				return(true);
-			
+			}
+						
 			var observer = new MutationObserver(function(records){
-							
+				
 				runWithTrashold(function(){
+					
+					if(g_vars.enableDebug == true)
+						trace("generalAPI: trigger item change");
 					
 					g_objParent.trigger("uc_change");
 					
@@ -322,24 +337,48 @@ function UERemoteGeneralAPI(){
 	 * add set active events
 	 */
 	function initEvents_setActive(){
-				
+		
+		if(g_vars.enableDebug == true)
+			trace("start initEvents_setActive")
+		
 		var objItems = getObjItems();
 		
-		if(objItems.length == 0)
+		if(objItems.length == 0){
+			
+			if(g_vars.enableDebug == true)
+				trace("no items, exit")
+			
 			return(false);
+		}
 		
 		//activate first item
 		
 		var objFirstItem = getItem(0);
 		
-		if(objFirstItem == null)
+		if(objFirstItem == null){
+			
+			if(g_vars.enableDebug == true)
+				trace("empty first item - exit")
+			
 			return(false);
+		}
 		
 		objFirstItem.addClass(g_vars.class_active);
 		
 		objItems.on(g_vars.trigger_event, function(event){
 			
 			var objItem = jQuery(this);
+			
+			//clicked element
+			var objElement = jQuery(event.target);
+			var isLink = objElement.is("a");
+			
+			//quit on link inside
+			if(isLink == true && objElement.hasClass(g_vars.class_items) == false){
+								
+				return(true);
+			}
+			
 			objItems.not(objItem).removeClass(g_vars.class_active);
 			
 			objItem.addClass(g_vars.class_active);
@@ -353,16 +392,25 @@ function UERemoteGeneralAPI(){
 				
 	}
 	
+	
 	/**
 	 * init obzerver events
 	 */
 	function initEvents(){
 		
+		if(g_vars.enableDebug == true){
+			trace("generalAPI: init events");
+			trace(g_objParent);
+		}
+		
 		if(g_vars.listen_class_change == true)
 			initEvents_listenClassChange();
 		
-		if(g_vars.add_set_active_code == true)
+		if(g_vars.add_set_active_code == true){
+			
 			initEvents_setActive();
+			
+		}
 		
 	}
 	
@@ -438,9 +486,14 @@ function UERemoteGeneralAPI(){
 		
 		var connectType = getVal(options, "connect_type");
 		if(connectType == "events")
-			g_isTypeEvents = true;
+			g_isTypeEvents = true;		//events allow to connect own functions
 		
 		g_options = options;
+		
+		var enableDebug = getVal(options, "trace_debug");
+		
+		if(enableDebug == true)
+			g_vars.enableDebug = true;
 		
 		if(g_vars.enableDebug == true){
 			trace("init general api");
@@ -463,7 +516,11 @@ function UERemoteGeneralAPI(){
 			else
 				initEvents();
 			
-			g_objParent.on("uc_ajax_refreshed", initEvents);
+			g_objParent.on("uc_ajax_refreshed", function(){
+				
+				setTimeout(initEvents,500)
+				
+			});
 			
 		}
 				
@@ -746,7 +803,7 @@ function UERemoteCarouselAPI(){
                                                         
             break;
 			case 'change_item':
-				
+					
 				var total = getTotalItems()
 				var currentItem = g_owl.relative(g_owl.current());
 				
@@ -942,6 +999,9 @@ function UESyncObject(){
 	 * get all ips except the given
 	 */
 	function mapAPIs(func, objElement){
+		
+		if(typeof ucRemoteDebugEnabled != "undefined")
+			g_vars.show_debug = true;
 		
 		var elementID = null;
 		
@@ -1202,7 +1262,6 @@ function UERemoteWidgets(){
 		widget_id:null,
 		init_options:null,
 		is_parent_mode: false,
-		is_debug: false,
 		syncid:null,
 		options_api:null,
 		show_connection_debug:false,
@@ -1521,6 +1580,10 @@ function UERemoteWidgets(){
 	 * init api variable
 	 */
 	function initAPI(){
+				
+		if(g_vars.trace_debug == true){
+			trace("start init api function");
+		}
 		
 		//set type and related objects
 		if(!g_api){
@@ -1575,7 +1638,12 @@ function UERemoteWidgets(){
 			g_vars.options_api = optionsFromData;
 		
 		if(g_vars.trace_debug == true){
-			trace(g_vars.options_api);
+			if(g_vars.options_api)
+				trace(g_vars.options_api);
+			else
+				g_vars.options_api = {};
+			
+			g_vars.options_api.trace_debug = true;
 		}
 		
 		var isInited = g_api.init(g_objParent, g_vars.options_api, isEditor);
@@ -1612,13 +1680,14 @@ function UERemoteWidgets(){
 		//init the debug related
 		
 		var isDebug = g_objWidget.data("debug");
-		if(isDebug === true){
+		if(isDebug === true || typeof ucRemoteDebugEnabled != "undefined"){
 			
 			if(g_vars.show_trace_when_debug_on == true)
 				g_vars.trace_debug = true;
 			
 			g_vars.show_connection_debug = true;
 		}
+				
 		
 		g_vars.is_inited = initParent();
 		
@@ -1672,6 +1741,11 @@ function UERemoteWidgets(){
 		objElement.data("uc-action", action);
 		
 		objElement.on("click",function(){
+			
+			var objElement = jQuery(this);
+			
+			if(objElement.hasClass("uc-disabled"))
+				return(true);
 			
 			t.doAction(action);
 			
@@ -2357,17 +2431,29 @@ function UERemoteWidgets(){
 		
 		var syncID = g_objParent.data("syncid");
 		
-		if(!syncID)
+		
+		if(g_vars.trace_debug == true){
+			trace("Start parent sync");
+			trace(g_objParent);
+		}
+		
+		if(!syncID){
+			
+			if(g_vars.trace_debug == true){
+				trace("no sync id");
+			}
+			
 			return(false);
+		}
 		
 		var objSync = g_remoteConnection.getSyncObject(syncID);
-				
+		
 		var isEditorMode = isInsideEditor();
 				
 		objSync.setOptions(syncID, isEditorMode);
-		
+				
 		var isInited = initAPI();
-		
+				
 		if(isInited == false){
 			
 			var widgetID = g_objParent.attr("id");
@@ -2390,7 +2476,7 @@ function UERemoteWidgets(){
 		g_vars.syncid = syncID;
 		
 		//add debug event listener
-		if(g_vars.is_debug === true)
+		if(g_vars.trace_debug === true)
 			objSync.on("update_debug", updateSyncDebug);
 		
 		g_objSync = objSync;
@@ -2430,8 +2516,11 @@ function UERemoteWidgets(){
 			
 			var isDebug = g_objParent.data("debug");
 			
-			g_vars.is_debug = isDebug;
-						
+			if(typeof ucRemoteDebugEnabled != "undefined")
+				isDebug = true;
+			
+			g_vars.trace_debug = isDebug;
+							
 			if(isDebug === true)
 				addParentDebug(objParent);
 			

@@ -23,10 +23,12 @@ class WC_PCSVIS_AJAX_Handler {
 			exit( -1 );
 		}
 
-		if ( ( $_REQUEST['import_page'] ?? '' ) === 'woocommerce_variation_csv' )
+		$import_page = wc_clean( wp_unslash( $_REQUEST['import_page'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( 'woocommerce_variation_csv' === $import_page ) {
 			WC_PCSVIS_Importer::variation_importer();
-		else
+		} else {
 			WC_PCSVIS_Importer::product_importer();
+		}
 	}
 
 	/**

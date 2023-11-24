@@ -1,5 +1,5 @@
 /**
-* Owl Carousel v2.3.8 - UE16
+* Owl Carousel v2.3.8 - UE19
 * Copyright 2013-2018 David Deutsch
 * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
 */
@@ -296,8 +296,11 @@
     shuffle: false,
     item_size_gap:0,		//size gap that should fix the 1px bug
     pixel_gap_fix:false,
+    delayBeforeLoad: 200,
     debug:false
   };
+  
+  //also - autoplay, autoplayDevice
   
   /**
   * Enumeration for width.
@@ -821,7 +824,7 @@
       
       carouselHandlers.onResize()
       
-    },200);
+    },this.settings.delayBeforeLoad);
     
     //protection agains lasy load       
     this.$stage.children().each(function(){	
@@ -829,20 +832,23 @@
       var objChild = jQuery(this);          
       var objChildImg = objChild.find('img');
       
-      if(objChildImg.hasClass("lazyloading") == false)
-      return(false);
-      
-      objChildImg.removeClass("lazyloading");
-      
-      var srcLazy = objChildImg.data("src");
-      
-      if(srcLazy)
-      objChildImg.attr("src", srcLazy);
-      
-      var keyLazy = "data-src";  	 
-      
-      if(keyLazy && keyLazy != "")
-      jQuery.removeData(objChildImg, keyLazy);
+      if(objChildImg.hasClass("lazyloading") == true || objChildImg.hasClass("lazy-loaded") == true || objChildImg.hasClass("lazy-hidden") == true){
+		  
+		  objChildImg.removeClass("lazyloading");
+		  objChildImg.removeClass("lazy-loaded");
+		  objChildImg.removeClass("lazy-hidden");
+
+		  var srcLazy = objChildImg.data("src");
+
+		  if(srcLazy)
+		  objChildImg.attr("src", srcLazy);
+
+		  var keyLazy = "data-src";  	 
+
+		  if(keyLazy && keyLazy != "")
+		  jQuery.removeData(objChildImg, keyLazy);
+		  
+	  }
       
     });
   };
@@ -1750,6 +1756,13 @@
       this.reset(this.isNumeric(this.settings.startPosition) ? this.settings.startPosition : 0);
       
       this.invalidate('items');
+
+      //go to start item
+      var startItemNum = this.settings.startPosition;
+      var objCarousel = $(this.$element);
+
+      objCarousel.trigger('to.owl.carousel', startItemNum);
+      
     };
     
     /**
@@ -3079,7 +3092,7 @@
           * @author Bartosz Wojciechowski
           * @author Artus Kolanowski
           * @author David Deutsch
-          * @author Tom De Caluw– ‚Äú–°‚Äô   – ‚Äú–°‚Äô – ‚Äú–°‚Äô– –Ü– ‚Äö – ‚Äú–°‚Äô – ‚Äú–°—õ– –Ü–≤–Ç—ô–í¬¨– ‚Ä¢– –ã– ‚Äú–°‚Äô– ‚Äô– –ã– ‚Äú–≤–Ç¬ò– –Ü–≤–Ç—õ–°—õ– ‚Äú–°‚Äô  – ‚Äú–°‚Äô– ‚Äô– ‚Ä – ‚Äú–°‚Äô– –Ü– ‚Äö–°‚Ñ¢– ‚Äú–°—õ– –Ü– ‚Äö–°‚Ä∫– ‚Äô–°—õ– ‚Äú–°‚Äô – ‚Äú–°—õ– –Ü–≤–Ç—ô–í¬¨– –Ü–≤–Ç—õ–°—õ– ‚Äú–°‚Äô– –Ü– ‚Äö–≤‚Äû—û– ‚Äú–≤–Ç—ô– ‚Äô–í¬©
+          * @author Tom De CaluwвЂ“ вЂљГ„ГєвЂ“В°вЂљГ„Гґ   вЂ“ вЂљГ„ГєвЂ“В°вЂљГ„Гґ вЂ“ вЂљГ„ГєвЂ“В°вЂљГ„ГґвЂ“ вЂ“ГњвЂ“ вЂљГ„Г¶ вЂ“ вЂљГ„ГєвЂ“В°вЂљГ„Гґ вЂ“ вЂљГ„ГєвЂ“В°вЂ”ГµвЂ“ вЂ“ГњвЂ“в‰¤вЂ“Г‡вЂ”ГґвЂ“Г­В¬ВЁвЂ“ вЂљГ„ВўвЂ“ вЂ“ГЈвЂ“ вЂљГ„ГєвЂ“В°вЂљГ„ГґвЂ“ вЂљГ„ГґвЂ“ вЂ“ГЈвЂ“ вЂљГ„ГєвЂ“в‰¤вЂ“Г‡В¬ГІвЂ“ вЂ“ГњвЂ“в‰¤вЂ“Г‡вЂ”ГµвЂ“В°вЂ”ГµвЂ“ вЂљГ„ГєвЂ“В°вЂљГ„Гґ  вЂ“ вЂљГ„ГєвЂ“В°вЂљГ„ГґвЂ“ вЂљГ„ГґвЂ“ вЂљГ„ вЂ“ вЂљГ„ГєвЂ“В°вЂљГ„ГґвЂ“ вЂ“ГњвЂ“ вЂљГ„Г¶вЂ“В°вЂљГ‘ВўвЂ“ вЂљГ„ГєвЂ“В°вЂ”ГµвЂ“ вЂ“ГњвЂ“ вЂљГ„Г¶вЂ“В°вЂљГ„в€«вЂ“ вЂљГ„ГґвЂ“В°вЂ”ГµвЂ“ вЂљГ„ГєвЂ“В°вЂљГ„Гґ вЂ“ вЂљГ„ГєвЂ“В°вЂ”ГµвЂ“ вЂ“ГњвЂ“в‰¤вЂ“Г‡вЂ”ГґвЂ“Г­В¬ВЁвЂ“ вЂ“ГњвЂ“в‰¤вЂ“Г‡вЂ”ГµвЂ“В°вЂ”ГµвЂ“ вЂљГ„ГєвЂ“В°вЂљГ„ГґвЂ“ вЂ“ГњвЂ“ вЂљГ„Г¶вЂ“в‰¤вЂљГ„Г»вЂ”Г»вЂ“ вЂљГ„ГєвЂ“в‰¤вЂ“Г‡вЂ”ГґвЂ“ вЂљГ„ГґвЂ“Г­В¬В©
           * @license The MIT License (MIT)
           */
           ;(function($, window, document, undefined) {
@@ -3221,7 +3234,8 @@
               autoplay: false,
               autoplayTimeout: 5000,
               autoplayHoverPause: false,
-              autoplaySpeed: false
+              autoplaySpeed: false,
+              autoplayDevice: 'both'  //both,desktop,mobile
             };
             
             /**
@@ -3301,6 +3315,8 @@
                 this._call = window.setTimeout($.proxy(this._next, this, speed), timeout - elapsed);
                 
                 this._core.trigger("play_autoplay");
+
+                this.autoplay_device();
                 
               };
               
@@ -3323,6 +3339,36 @@
                   this._core.trigger("stop_autoplay");
                   
                 }
+              };
+
+              /**
+              * Stops and plays autoplay on certain breakpoint
+              * works on resize and on load
+              */
+              Autoplay.prototype.autoplay_device = function() {
+
+                //onlu if autoplay is true
+                if(this._core.settings.autoplay == false)
+                return(false)
+                
+                var autoplayDevice = this._core.settings.autoplayDevice;
+                
+                //if autoplay device equal 'both' then autoplay as usual
+                if(autoplayDevice == 'both')
+                return(false);
+                
+                var viewportWidth = this._core.viewport();
+                var isMobileViewPort = viewportWidth <= 767;
+                var isDesktopViewPort = viewportWidth > 767;
+
+                //if on mobile device viewport and autoplay works only on desktop then stop autoplay
+                if(isMobileViewPort == true && autoplayDevice == 'desktop')
+                this.stop();
+
+                //if on desktop viewport and autoplay works only on mobile then stop
+                if(isDesktopViewPort == true && autoplayDevice == 'mobile')
+                this.stop();
+
               };
               
               /**

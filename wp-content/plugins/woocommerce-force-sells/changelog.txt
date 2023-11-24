@@ -1,5 +1,14 @@
 *** WooCommerce Force Sells ***
 
+2023-11-21 - version 1.4.0
+* Feature - Added template to customize the force sells content on the product page.
+* Feature - Show the prices of the force sells on the product page.
+* Tweak - Declared incompatibility with the Cart and Checkout blocks.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Tested compatibility up to WC 8.3.
+* Tweak - Tested compatibility up to WP 6.4.
+* Dev - Renamed function parameters with reserved keywords to improve the compatibility with PHP 8.0.
+
 2023-09-18 - version 1.3.0
 * Tweak - Added links to the documentation page, and to get support, in the plugin list.
 * Tweak - Sanitize input values before saving the product metadata.

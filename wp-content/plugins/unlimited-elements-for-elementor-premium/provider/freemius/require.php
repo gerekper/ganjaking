@@ -13,10 +13,13 @@
 	// Configuration should be loaded first.
 	require_once dirname( __FILE__ ) . '/config.php';
 	require_once WP_FS__DIR_INCLUDES . '/fs-core-functions.php';
+	require_once WP_FS__DIR_INCLUDES . '/fs-html-escaping-functions.php';
 
 	// Logger must be loaded before any other.
 	require_once WP_FS__DIR_INCLUDES . '/class-fs-logger.php';
 	require_once WP_FS__DIR_INCLUDES . '/debug/debug-bar-start.php';
+
+	require_once WP_FS__DIR_INCLUDES . '/class-fs-garbage-collector.php';
 
 //		require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-abstract-manager.php';
 	require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-option-manager.php';

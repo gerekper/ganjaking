@@ -23,6 +23,55 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	var $upsell_skus     = array();
 	var $crosssell_skus  = array();
 
+	/**
+	 * Import page name.
+	 *
+	 * @var string
+	 */
+	protected $import_page = '';
+
+	/**
+	 * Product datastore.
+	 *
+	 * @var WC_Product_Data_Store_CPT
+	 */
+	protected $data_store;
+
+	/**
+	 * CSV parser.
+	 *
+	 * @var WC_CSV_Parser
+	 */
+	protected $parser;
+
+	/**
+	 * Parsed data.
+	 *
+	 * @var array
+	 */
+	protected $parsed_data;
+
+	/**
+	 * Raw CSV headers.
+	 *
+	 * @var array
+	 */
+	public $raw_headers;
+
+	/**
+	 * Whether import by file URL is enabled.
+	 *
+	 * @var boolean
+	 */
+	protected $file_url_import_enabled = true;
+
+	/**
+	 * Whether to skip updating attachment metadata. Used internally during the import.
+	 *
+	 * @var boolean
+	 */
+	protected $skip_attachment_meta_update = false;
+
 	// Results
 	var $import_results  = array();
 
@@ -621,8 +670,6 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		list( $this->parsed_data, $this->raw_headers, $position ) = $this->parser->parse_data( $file, $this->delimiter, $mapping, $start_pos, $end_pos );
 
 		WC_Product_CSV_Import_Suite::log( __( 'Finished parsing products CSV.', 'woocommerce-product-csv-import-suite' ) );
-
-		unset( $import_data );
 
 		wp_defer_term_counting( true );
 		wp_defer_comment_counting( true );

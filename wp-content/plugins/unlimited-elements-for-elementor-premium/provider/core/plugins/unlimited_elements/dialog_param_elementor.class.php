@@ -18,6 +18,7 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 	 * add selector html to the params
 	 */
 	private function addHtmlSelector(){
+		
 		?>		
 		<div class="unite-inputs-sap"></div>
 		
@@ -391,8 +392,8 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 		$arrUnits["percent_px"] = __("%, PX","unlimited-elements-for-elementor");		
 		$arrUnits["px_percent"] = __("PX, %","unlimited-elements-for-elementor");
 		$arrUnits["px_percent_em"] = __("PX, %, EM","unlimited-elements-for-elementor");
-		$arrUnits["vh_px"] = __("VH, PX","unlimited-elements-for-elementor");
-		$arrUnits["px_vh"] = __("PX, VH","unlimited-elements-for-elementor");
+		$arrUnits["vh_px"] = __("VH, PX, REM","unlimited-elements-for-elementor");
+		$arrUnits["px_vh"] = __("PX, VH, REM","unlimited-elements-for-elementor");
 		$arrUnits["px_vh_percent"] = __("PX, VH, %","unlimited-elements-for-elementor");
 		$arrUnits["vw_px"] = __("VW, PX","unlimited-elements-for-elementor");
 		$arrUnits["px_vw"] = __("PX, VW","unlimited-elements-for-elementor");
@@ -468,7 +469,10 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 			</div>
 		
 		</div>
-				
+		<div class="unite-dialog-description-left">
+			<?php _e("* In case of multiple units, the min, max apply to px unit only.", "unlimited-elements-for-elementor")?>
+		</div>
+		
 		<?php 
 		
 		$this->addResponsiveInputs("slider");
@@ -897,7 +901,9 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 		$arrTypes["schema"] = __("Schema","unlimited-elements-for-elementor");
 		$arrTypes["dynamic_popup"] = __("Dynamic Popup","unlimited-elements-for-elementor");
 		$arrTypes["contact_form7"] = __("Contact Form 7","unlimited-elements-for-elementor");
-		
+		$arrTypes["ucform_conditions"] = __("Unite Form Conditions","unlimited-elements-for-elementor");
+		$arrTypes["sort_filter_fields"] = __("Sort Filter Fields","unlimited-elements-for-elementor");
+		$arrTypes["currency_api"] = __("Currency API Fields","unlimited-elements-for-elementor");
 		
 		$optionsClass = "uc-special-attribute-options";
 		
@@ -957,6 +963,21 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 	 		    
 				<div class="unite-dialog-description-left">
 					<?php _e("* If leave empty, then the image size chooser will affect the first item image attribute.", "unlimited-elements-for-elementor")?>
+				</div>
+	 		    
+	 		    
+			</div>
+
+ 		    <div class="<?php echo $optionsClass?>" data-control="dynamic_popup" style="display:none">
+				
+				<div class="unite-inputs-label">
+			 		    <?php _e("Attribute Suffix","unlimited-elements-for-elementor")?>		
+				</div>
+ 		    	
+ 		    	<input type="text" name="dynamic_popup_suffix" value="" placeholder="Example: title">
+	 		    
+				<div class="unite-dialog-description-left">
+					<?php _e("For the button leave it empty.", "unlimited-elements-for-elementor")?>
 				</div>
 	 		    
 	 		    

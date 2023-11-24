@@ -280,15 +280,13 @@ class UpdraftPlus_Addons_MoreFiles {
 	 * @return array              -  array of final entity list
 	 */
 	public function backupable_file_entities_final($arr, $full_info) {
-		$path = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path');
-		
-		if (!is_string($path) && !is_array($path)) return $arr;
-		$path = (array) $path;
-		$path = UpdraftPlus_Manipulation_Functions::remove_empties($path);
-		if (empty($path)) return $arr;
-		$path = array_map('untrailingslashit', $path);
-		if (1 == count($path)) $path = array_shift($path);
-
+		$path = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path', '');
+		if (is_array($path)) {
+			$path = array_map('untrailingslashit', $path);
+			if (1 == count($path)) $path = array_shift($path);
+		} else {
+			$path = untrailingslashit($path);
+		}
 		if ($full_info) {
 			$arr['more'] = array(
 				'path' => $path,

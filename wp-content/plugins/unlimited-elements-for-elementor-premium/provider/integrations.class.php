@@ -12,8 +12,17 @@ defined ('UNLIMITED_ELEMENTS_INC') or die ('restricted aceess');
 
 class UniteCreatorPluginIntegrations{
 	
+	private function ___________JET_ENGINE_________(){}
 	
-/* wp popular posts */
+	/**
+	 * check if the jet engin exists
+	 */
+	public static function isJetEngineExists(){
+							
+		$isExists = class_exists( 'Jet_Engine' );
+		
+		return($isExists);
+	}
 	
 	private function ___________WP_POPULAR_POSTS_________(){}
 	
@@ -295,6 +304,51 @@ class UniteCreatorPluginIntegrations{
 		return($arrForms);
 	}
 	
+	private function ___________JET_WISHLIST_________(){}
+	
+	/**
+	 * put woocommerce jet wishlist button if exist
+	 */
+	public static function putJetWooWishlistButton(){
+		
+		
+		if(GlobalsProviderUC::$isInsideEditor == true)
+			return(false);
+		
+		if(class_exists("Jet_CW") == false)
+			return(false);
+		
+		$objJetCW = Jet_CW();
+		
+		if(empty($objJetCW))
+			return(false);
+		
+		$isEnabled = $objJetCW->wishlist_enabled;
+		
+		if($isEnabled == false)
+			return(false);
+		
+		$objSettings = $objJetCW->settings;
+		
+		if(empty($objSettings))
+			return(false);
+		
+		$isAddDefault = $objSettings->get("add_default_wishlist_button");
+		
+		$isAddDefault = UniteFunctionsUC::strToBool($isAddDefault);
+		
+		if($isAddDefault == false)
+			return(false);
+					
+		if(empty($objJetCW->wishlist_integration))
+			return(false);
+		
+		if(method_exists($objJetCW->wishlist_integration,"add_wishlist_button_default") == false)
+			return(false);
+		
+		$objJetCW->wishlist_integration->add_wishlist_button_default();
+		
+	}
 	
 	
 }

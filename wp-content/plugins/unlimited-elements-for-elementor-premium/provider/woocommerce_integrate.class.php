@@ -54,9 +54,22 @@ class UniteCreatorWooIntegrate{
 		if(class_exists("BeRocket_products_label")){
 			do_action('berocket_apl_set_label', true, $productID);
 		}
-			
+
 		
 	}
+
+	
+	/**
+	 * bottom product integrations
+	 */
+	public static function onInsideEditorWooProductBottom($productID){
+		
+		//wishlist
+		
+		UniteCreatorPluginIntegrations::putJetWooWishlistButton();
+		
+	}
+	
 	
 	/**
 	 * init actions on start, run on "plugins_loaded" filter
@@ -64,6 +77,8 @@ class UniteCreatorWooIntegrate{
 	public static function initActions(){
 		
 		add_action("ue_woocommerce_product_integrations", array("UniteCreatorWooIntegrate", "onInsideEditorWooProduct"), 10, 1);
+		
+		add_action("ue_woocommerce_product_integrations_bottom", array("UniteCreatorWooIntegrate", "onInsideEditorWooProductBottom"), 10, 1);
 		
 	}
 	
@@ -90,6 +105,7 @@ class UniteCreatorWooIntegrate{
     	    	
     	$this->isInited = true;
 		
+    	
     	/*
 		global $wp;
 		echo home_url($wp->request);
@@ -159,15 +175,20 @@ class UniteCreatorWooIntegrate{
     	    	
     	//add html ajax add to cart
     	$addCartAttributes = "href=\"{$urlAddCart}\" data-quantity=\"1\" class=\"uc-button-addcart product_type_simple add_to_cart_button ajax_add_to_cart\" data-product_id=\"{$productID}\" data-product_sku=\"{$productSku}\" rel=\"nofollow\"";
-		
+    	
+    	$addCartAttributesButton = "onclick=\"location.href={$urlAddCart}\" data-quantity=\"1\" class=\"uc-button-addcart product_type_simple add_to_cart_button ajax_add_to_cart\" data-product_id=\"{$productID}\" data-product_sku=\"{$productSku}\" rel=\"nofollow\"";
+    	
     	if($type == self::PRODUCT_TYPE_VARIABLE){
     		
     		$urlProduct = get_permalink($productID);
     		
     		$addCartAttributes = "href=\"{$urlProduct}\" class=\"uc-button-addcart\" ";
+    		
+    		$addCartAttributesButton = "onclick=\"location.href={$urlProduct}\" data-quantity=\"1\" class=\"uc-button-addcart product_type_simple add_to_cart_button ajax_add_to_cart\" data-product_id=\"{$productID}\" data-product_sku=\"{$productSku}\" rel=\"nofollow\"";
     	}
     	
     	$arrProduct["woo_addcart_ajax_attributes"] = $addCartAttributes;
+    	$arrProduct["woo_addcart_ajax_attributes_button"] = $addCartAttributesButton;
     	
 		return($arrProduct);
 	}
@@ -213,24 +234,40 @@ class UniteCreatorWooIntegrate{
 			
 			if(empty($arrPriceNumbers)){
 				$arrProduct["woo_".$key."_from"] = 0;
-				$arrProduct["woo_".$key."_to"] = 0;				
+				$arrProduct["woo_".$key."_to"] = 0;
+								
+				$arrProduct["woo_".$key."_from_id"] = null;
+				$arrProduct["woo_".$key."_to_id"] = null;
 				continue;
 			}
 			
+			$arrIDs = array_keys($arrPriceNumbers);
+			
 			$from = array_shift($arrPriceNumbers);
-			if(empty($arrPriceNumbers))
+
+			$fromID = $arrIDs[0];
+			
+			if(empty($arrPriceNumbers)){
 				$to = $from;
-			else
+				$toID = $fromID;
+			}
+			else{
 				$to = $arrPriceNumbers[count($arrPriceNumbers) - 1];
+				$toID = $arrIDs[count($arrPriceNumbers) - 1];
+			}
 			
 			$from = (float)$from;
 			$to = (float)$to;
-						
+			
 			$from = $this->modifyPrice($from, $objProduct);
 			$to = $this->modifyPrice($to, $objProduct);
 			
 			$arrProduct["woo_".$key."_from"] = $from;
 			$arrProduct["woo_".$key."_to"] = $to;
+			
+			$arrProduct["woo_".$key."_from_id"] = $fromID;
+			$arrProduct["woo_".$key."_to_id"] = $toID;
+			
 		}
 		
 		//check and clear sale prices
@@ -251,9 +288,11 @@ class UniteCreatorWooIntegrate{
 			$arrProduct["woo_regular_price_from"] = $regularPriceFrom;
 			$arrProduct["woo_regular_price_to"] = $regularPriceTo;
 		}
-				
+		
+		
 		return($arrProduct);
 	}
+	
 	
 	/**
 	 * get array of property names
@@ -554,9 +593,11 @@ class UniteCreatorWooIntegrate{
 			
 		if($type != "variable")
 			return(array());
-
-		$variations = $product->get_available_variations();			
-				
+		
+		//variable data
+		
+		$variations = $product->get_available_variations();
+		
 		if(empty($variations) || is_array($variations) == false)
 			return(array());
 		
@@ -579,13 +620,13 @@ class UniteCreatorWooIntegrate{
 	public function getFirstGalleryImageID($productID){
 		
 		if(function_exists("wc_get_product") == false)
-			return(array());
+			return(null);
 		
 		$product = wc_get_product($productID);
 		
 		if(empty($product))
-			return(array());
-				
+			return(null);
+		
 		$arrAttachmentIDs = $product->get_gallery_image_ids();
 		
 		if(empty($arrAttachmentIDs))
@@ -596,6 +637,21 @@ class UniteCreatorWooIntegrate{
 		return($firstID);
 	}
 	
+	/**
+	 * get first gallery image
+	 */
+	public function getFirstGalleryImage($productID, $size){
+		
+		$imageID = self::getFirstGalleryImageID($productID);
+		
+		if(empty($imageID))
+			return(null);
+		
+		$urlImage = UniteFunctionsWPUC::getUrlAttachmentImage($imageID,$size);
+		
+		
+		return($urlImage);
+	}
 	
 	/**
 	 * 
@@ -728,18 +784,24 @@ class UniteCreatorWooIntegrate{
     	
     	$arrWooStars = HelperHtmlUC::getRatingArray($rating);
     	$arrProduct["woo_rating_stars"] = $arrWooStars;
+    	$arrProduct["woo_rating_num"] = $rating;
     	
     	//add prices of variations
     	
     	if($type == self::PRODUCT_TYPE_VARIABLE){
-    		
+    		    		
     		$arrPrices = $objInfo->get_variation_prices();
     		
     		$arrProduct = $this->addPricesFromTo($arrProduct, $arrPrices, $objInfo);
-    		
+    		    		
     		$arrProduct["woo_price"] = $arrProduct["woo_price_from"];
+    		$arrProduct["woo_price_id"] = $arrProduct["woo_price_from_id"];
+    		
     		$arrProduct["woo_regular_price"] = $arrProduct["woo_regular_price_from"];
+    		$arrProduct["woo_regular_price_id"] = $arrProduct["woo_regular_price_from_id"];
+    		
     		$arrProduct["woo_sale_price"] = $arrProduct["woo_sale_price_from"];
+    		$arrProduct["woo_sale_price_id"] = $arrProduct["woo_sale_price_from_id"];
     	}
     	
     	$finalPrice = UniteFunctionsUC::getVal($arrProduct, "woo_price");
@@ -935,65 +997,6 @@ class UniteCreatorWooIntegrate{
 	}
 	
 	
-	/**
-	 * put filters js
-	 */
-	private function putHtmlFiltersJS(){
-		
-		UniteProviderFunctionsUC::addjQueryInclude();
-		
-		$urlScriptFile = GlobalsUC::$url_assets_internal."js/uc_woocommerce.js";
-		
-		HelperUC::addScriptAbsoluteUrl($urlScriptFile, "uc_woo_integrate");
-	}
-	
-	
-	/**
-	 * put html filter - order
-	 */
-	private function putHtmlFilter_order($params){
-				
-		$arrOptions = array();
-		$arrOptions["name"] = __("Product Name","unlimited-elements-for-elementor");
-		$arrOptions["price"] = __("Price","unlimited-elements-for-elementor");
-				
-		$name = "uc_order";
-		
-		$value = UniteFunctionsUC::getPostGetVariable($name, "", UniteFunctionsUC::SANITIZE_KEY);
-		
-		
-		$htmlSelect = HelperHtmlUC::getHTMLSelect($arrOptions, $value, "name='{$name}' class='uc-woo-filter uc-woo-filter-order'", true);
-		
-		?>
-		<form class="uc-woocommerce-ordering" method="get">
-			
-			<?php echo $htmlSelect?>
-			
-		</form>
-		
-		<?php 
-		
-		$this->putHtmlFiltersJS();
-	}
-	
-	
-	/**
-	 * put html filter
-	 */
-	public function putHtmlFilter($filterName, $params = null){
-		
-		switch($filterName){
-			case "order":
-				$this->putHtmlFilter_order($params);
-			break;
-			default:
-				UniteFunctionsUC::throwError("putWooFilter error: filter $filterName not exists");
-			break;
-		}
-		
-	}
-	
-	
 	
 	/**
 	 * get product ids from current post content
@@ -1033,6 +1036,51 @@ class UniteCreatorWooIntegrate{
 		return($arrPostIDs);
 	}
 
+	private function __________VARIATIONS________(){}
+	
+	
+	/**
+	 * get variation terms from query args
+	 * todo: Finish this function
+	 */
+	public function getVariationTermsFromQueryQrgs($args){
+		
+		$postType = UniteFunctionsUC::getVal($args, "post_type");
+		
+		if($postType != "product")
+			return(array());
+		
+		$taxQuery = UniteFunctionsUC::getVal($args, "tax_query");
+		
+		if(empty($taxQuery))
+			return(array());
+		
+			
+		dmp("get terms array from terms query");
+		dmp($taxQuery);
+		exit();
+		
+	}
+	
+	/**
+	 * put product variation swatches html. used inside woo grid
+	 * todo: Finish this function
+	 */
+	public function putProductVariationSwatchesHTML($productID){
+		
+		$product = wc_get_product($productID);
+				
+		$attributes = $product->get_attributes();
+		
+		$available_variations = $product->get_available_variations();
+		
+		dmp($available_variations);
+		exit();
+		
+	}
+	
+	private function __________CART________(){}
+	
 	/**
 	 * get product id's in cart
 	 */
@@ -1061,6 +1109,41 @@ class UniteCreatorWooIntegrate{
 		return($arrIDs);
 	}
 	
+	/**
+	 * get total number of cart products - with the quantity
+	 */
+	public function getCartNumProducts(){
+		
+		$arrItems = WC()->cart->get_cart();
+
+		$numTotal = 0;
+		
+		foreach($arrItems as $item){
+			
+			$quantity = UniteFunctionsUC::getVal($item, "quantity");
+			
+			$numTotal += $quantity;
+		}
+		
+		
+		return($numTotal);
+	}
+	
+	
+	/**
+	 * get cart data
+	 */
+	public function getCartData(){
+		
+		$arrProducts = $this->getCartProductIDs();
+		
+		$numProducts = count($arrProducts);
+		
+		$output = array();
+		$output["num_products"] = $numProducts;
+		
+		return($output);
+	}
 	
 	/**
 	 * get related product id's from selected to cart products
@@ -1070,7 +1153,7 @@ class UniteCreatorWooIntegrate{
 		$isActive = self::isWooActive();
 		if($isActive == false)
 			return(array());
-			
+		
 		$arrIDs = $this->getCartProductIDs();
 		
 		if(empty($arrIDs))
@@ -1099,6 +1182,305 @@ class UniteCreatorWooIntegrate{
 		
 		return($arrRelatedTotal);
 	}
+	
+	
+	/**
+	 * remove from cart - from ajax request
+	 */
+	public function removeFromCartFromData(){
+		
+		try{
+
+			if(self::isWooActive() == false)
+				UniteFunctionsUC::throwError("woocommerce not active");
+			
+			$itemKey = UniteFunctionsUC::getGetVar("key","",UniteFunctionsUC::SANITIZE_KEY);
+			
+			UniteFunctionsUC::validateNotEmpty($itemKey,"cart item key");
+							
+			//remove from cart
+			
+			$cart = WC()->cart;
+			
+			//validate item exists
+			$item = $cart->get_cart_item($itemKey);
+			
+			if(empty($item))
+				UniteFunctionsUC::throwError("Cart Item not found");
+			
+			
+			$success = $cart->remove_cart_item($itemKey);
+	
+			if($success == false)
+				UniteFunctionsUC::throwError("Cart item not exists.");
+			
+			$cart->calculate_totals();
+			
+			//get the output
+			$strFragments = WC_AJAX::get_refreshed_fragments();
+		
+		}catch(Exception $e){
+			
+			$message = $e->getMessage();
+			
+			HelperUC::ajaxResponseError($message);
+		}
+		
+	}
+	
+	
+	/**
+	 * update cart quantity
+	 */
+	public function updateCartQuantityFromData(){
+		
+		try{
+		
+			if(self::isWooActive() == false)
+				UniteFunctionsUC::throwError("woocommerce not active");
+			
+			$itemKey = UniteFunctionsUC::getGetVar("key","",UniteFunctionsUC::SANITIZE_KEY);
+			
+			UniteFunctionsUC::validateNotEmpty($itemKey,"cart item key");
+			
+			$quantity = UniteFunctionsUC::getGetVar("quantity","",UniteFunctionsUC::SANITIZE_ID);
+			
+			UniteFunctionsUC::validateNotEmpty($itemKey,"cart quantity");
+			
+			if(empty($quantity))
+				$quantity = 0;
+			
+			if(is_numeric($quantity) == false)
+				UniteFunctionsUC::throwError("quantiy needs to be numeric");
+			
+			//update quantity
+			
+			$cart = WC()->cart;
+			
+			//validate item exists
+			$item = $cart->get_cart_item($itemKey);
+						
+			if(empty($item))
+				UniteFunctionsUC::throwError("Cart Item not found");
+			
+			$success = $cart->set_quantity( $itemKey, $quantity, true);
+					
+			if($success == false)
+				UniteFunctionsUC::throwError("Cart item not exists, or unable to update quantity.");
+			
+			//get the output
+			$strFragments = WC_AJAX::get_refreshed_fragments();
+			
+		}catch(Exception $e){
+			
+			$message = $e->getMessage();
+			
+			HelperUC::ajaxResponseError($message);
+		}
+	}
+	
+	private function __________CART_HTML________(){}
+	
+	/**
+	 * get cart html - use for mini cart for example
+	 */
+	public function getCartItemsHtml(){
+		
+		if(self::isWooActive() == false)
+			return("");
+		
+		$arrCartItems = WC()->cart->get_cart();
+		
+		if(empty($arrCartItems))
+			$arrCartItems = array();
+		
+		$html = "<div class='ue-mini-cart-items-holder'>";
+		
+		foreach($arrCartItems as $cart_item_key=>$cart_item){
+			
+		    $wc_product      = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+		    $wc_product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+		    $wc_product_link = apply_filters( 'woocommerce_cart_item_permalink', $wc_product->is_visible() ? $wc_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
+		    //$item_thumbnail  = $wc_product->get_image();
+		    $imageID  = $wc_product->get_image_id();
+			
+		    
+		    $urlImage = null;
+		    if(!empty($imageID))
+		    	$urlImage = wp_get_attachment_image_url( $imageID, UniteFunctionsWPUC::THUMB_SMALL );
+		    
+		    if(empty($urlImage))
+		    	$urlImage = GlobalsUC::$url_no_image_placeholder;
+		    
+		    
+		    $item_name       = $wc_product->get_name();
+		    $product_link    = apply_filters( 'woocommerce_cart_item_permalink', $wc_product->is_visible() ? $wc_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
+			
+		    $price = WC()->cart->get_product_price( $wc_product );
+		    
+			$quantity = $cart_item['quantity'];
+			
+			$priceHtml = wc_price( $cart_item['line_subtotal']+$cart_item['line_subtotal_tax'] );
+
+			$imageHTML = "";
+			
+			if(!empty($urlImage))
+				$imageHTML = "<img class=\"ue-mini-cart-item-image\" src=\"{$urlImage}\" >";
+		
+$htmlItem = "
+<div class=\"ue-mini-cart-item\" data-key=\"{$cart_item_key}\">
+  {$imageHTML}
+   <div class=\"ue-mini-cart-item-content\">
+      <div class=\"ue-mini-cart-content-wrapper\">
+         <div class=\"ue-mini-cart-item-title-text\">{$item_name}</div>
+         <div>
+            <span class=\"ue_mini_qty\">{$quantity} x</span>
+            <span class=\"ue_mini_price\">{$priceHtml}</span>
+         </div>
+         <div class=\"ue_mini_quantity_input\">
+            <span class=\"ue_mini_minus\">-</span>
+            <input class=\"ue_mini_input\" type=\"number\" value=\"{$quantity}\"/>
+            <span class=\"ue_mini_plus\">+</span>
+         </div>
+      </div>
+      <div class=\"ue-mini-cart-item-delete\"><i class=\"far fa-trash-alt\"></i></div>
+   </div>
+</div>
+
+";
+
+  
+			$html .= $htmlItem;
+		}
+		
+		$html .= "</div>";
+		
+		return($html);
+	}
+	
+	/**
+	 * get cart subtotal html
+	 */
+	public function getCartTotalsHtml($isSecond = false){
+		
+		$arrTotals = WC()->cart->get_totals();
+		
+		$subtotal = UniteFunctionsUC::getVal($arrTotals, "subtotal");
+		
+		$subtotalHTML = wc_price($subtotal);
+		
+		$strNum = "";
+		
+		if($isSecond)
+			$strNum = "2";
+		
+		$html = "
+<div class=\"ue-mini-cart-totals-holder{$strNum}\">
+	
+	<div class=\"uc-minicart-totals__subtotal\">{$subtotalHTML}</div>
+
+</div>";
+	
+	
+	return($html);
+}
+
+/*
+ * get cart number of products html
+ */
+public function getCartNumProductsHtml(){
+	
+	$numProducts = $this->getCartNumProducts();
+	
+	$addClass = "";
+	
+	if($numProducts == 0)
+		$addClass = "ue-mini-cart-numitems__empty";
+	
+		$html = "
+<div class=\"ue-mini-cart-numitems-holder\">
+	<div class=\"ue-mini-cart-numitems $addClass\">
+		$numProducts
+	</div>
+</div>
+";
+	
+   return($html);
+}
+	
+
+	
+	/**
+	 * check the cart fragment (on ajax or not)
+	 */
+	public static function onAddCartFragment($fragment){
+		
+		$objWoo = self::getInstance();
+		
+		$htmlItems = $objWoo->getCartItemsHtml();
+		$htmlTotals = $objWoo->getCartTotalsHtml();
+		$htmlTotals2 = $objWoo->getCartTotalsHtml(true);
+		$htmlNumItems = $objWoo->getCartNumProductsHtml();
+		
+		$fragment[".ue-mini-cart-items-holder"] = $htmlItems;
+		$fragment[".ue-mini-cart-totals-holder"] = $htmlTotals;
+		$fragment[".ue-mini-cart-totals-holder2"] = $htmlTotals2;
+		$fragment[".ue-mini-cart-numitems-holder"] = $htmlNumItems;
+		
+		return($fragment);
+				
+	}
+	
+	/**
+	 * echo some cart html
+	 */
+	public function putCartHtml($type){
+		
+		switch($type){
+			case "items":
+				
+				$html = $this->getCartItemsHtml();
+				
+			break;
+			case "total":
+				
+				$html = $this->getCartTotalsHtml();
+				
+			break;
+			case "total2":
+				
+				$html = $this->getCartTotalsHtml(true);
+				
+			break;
+			case "num_products":
+				
+				$html = $this->getCartNumProductsHtml();
+				
+			break;
+			default:
+				
+				$type = esc_html($type);
+				
+				$message = "Wrong cart html type: $type";
+				
+				$html = HelperHtmlUC::getErrorMessageHtml($message,"",true);
+			break;
+		}
+		
+		echo $html;
+	}
+	
+	
+	/**
+	 * init cart integration
+	 */
+	public static function initMiniCartIntegration(){
+		
+		add_filter( 'woocommerce_add_to_cart_fragments', array("UniteCreatorWooIntegrate", "onAddCartFragment") );
+		
+	}
+
+	
 	
 	
 }
