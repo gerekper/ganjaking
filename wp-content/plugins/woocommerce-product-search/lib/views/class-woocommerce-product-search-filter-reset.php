@@ -145,6 +145,8 @@ class WooCommerce_Product_Search_Filter_Reset extends Filter_Renderer {
 		$heading_id      = sprintf( 'product-search-filter-reset-heading-%d', $n );
 		$containers      = array();
 
+		$reset_url = self::get_reset_url();
+
 		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
 		if ( $render_cache ) {
 			$query_control = new Query_Control();
@@ -154,7 +156,7 @@ class WooCommerce_Product_Search_Filter_Reset extends Filter_Renderer {
 			$request_parameters = $query_control->get_request_parameters();
 			unset( $query_control );
 			$cache = Cache::get_instance();
-			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts ) ) );
+			$cache_key = md5( json_encode( array( $container_id, $request_parameters, $atts, $reset_url ) ) );
 			$data = $cache->get( $cache_key, __CLASS__ );
 			if ( $data !== null ) {
 
@@ -172,7 +174,7 @@ class WooCommerce_Product_Search_Filter_Reset extends Filter_Renderer {
 		}
 
 		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
-			$atts['heading']  = _x( 'Filters', 'product filter reset heading', 'woocommerce-product-search' );
+			$atts['heading'] = _x( 'Filters', 'product filter reset heading', 'woocommerce-product-search' );
 		}
 
 		$params = array();
@@ -255,8 +257,6 @@ class WooCommerce_Product_Search_Filter_Reset extends Filter_Renderer {
 			);
 		}
 		$output .= $heading_output;
-
-		$reset_url = self::get_reset_url();
 
 		$form_id = 'product-search-filter-reset-form-' . $n;
 		$output .= sprintf(

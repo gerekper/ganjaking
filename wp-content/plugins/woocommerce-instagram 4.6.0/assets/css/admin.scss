@@ -1,0 +1,309 @@
+/**
+ * admin.scss
+ * General admin styles.
+ *
+ * @package WC_Instagram/Assets/CSS
+ * @since   2.0.0
+ */
+
+@import "loading";
+
+/* stylelint-disable */
+@font-face {
+	font-family: "woocommerce_instagram";
+	src: url("../fonts/woocommerce_instagram.eot?80226821");
+	src:
+		url("../fonts/woocommerce_instagram.eot?80226821#iefix") format("embedded-opentype"),
+		url("../fonts/woocommerce_instagram.woff2?80226821") format("woff2"),
+		url("../fonts/woocommerce_instagram.woff?80226821") format("woff"),
+		url("../fonts/woocommerce_instagram.ttf?80226821") format("truetype"),
+		url("../fonts/woocommerce_instagram.svg?80226821#woocommerce_instagram") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+/* stylelint-enable */
+
+/**
+ * Edit product
+ */
+#woocommerce-product-data {
+
+	ul.wc-tabs {
+
+		li.instagram_options {
+
+			a {
+
+				&::before {
+					font-family: "woocommerce_instagram"; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
+					font-style: normal;
+					font-weight: normal; /* stylelint-disable-line font-weight-notation */
+					font-variant: normal;
+					text-transform: none;
+					speak: none;
+
+					display: inline-block;
+					text-decoration: inherit;
+
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+
+					content: "\f16d";
+				}
+			}
+		}
+	}
+}
+
+.woocommerce_options_panel .options_group_heading {
+	margin: 0;
+	padding: 0.75em 1em;
+	border-bottom: 1px solid #eee;
+	background-color: #fdfdfd;
+	font-size: 1em;
+}
+
+.woocommerce_options_panel .options_group_description {
+	padding: 0.5em 1em;
+}
+
+/**
+ * Settings
+ */
+.wc-instagram-product-catalog-delete {
+	color: #a00;
+
+	&:hover,
+	&:focus {
+		color: #f00;
+	}
+}
+
+.wc-instagram-field-table {
+	position: relative;
+
+	th,
+	td {
+		display: table-cell !important;
+		padding: 1em !important;
+		vertical-align: top;
+		line-height: 1.75em; /* stylelint-disable-line declaration-property-unit-allowed-list */
+	}
+
+	tbody {
+
+		tr {
+
+			&:nth-child(odd) {
+
+				td {
+					background-color: #f9f9f9;
+				}
+			}
+
+			.row-actions {
+				position: relative;
+			}
+
+			&:hover {
+
+				.row-actions {
+					position: static;
+				}
+			}
+		}
+	}
+
+	td.sort {
+		cursor: move;
+		font-size: 15px;
+		text-align: center;
+
+		&::before {
+			float: left;
+			display: block;
+			width: 17px;
+			font-family: dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
+			height: 100%;
+			content: "\f333";
+			text-align: center;
+			line-height: 1;
+			color: #999;
+		}
+	}
+
+	td.feeds {
+		white-space: nowrap;
+
+		.button {
+			display: inline-block;
+			margin: 2px 0 2px 4px;
+			overflow: hidden;
+			vertical-align: middle;
+		}
+	}
+}
+
+.wc-instagram-product-catalogs-blank-row {
+	padding: 1em 2em !important;
+}
+
+.wc-instagram-product-catalogs-tips {
+	margin-left: 1.5rem;
+
+	li {
+		list-style: disc;
+	}
+}
+
+.wc-instagram-product-catalog-feed {
+
+	&.wc-backbone-modal .wc-backbone-modal-content {
+		max-width: 600px;
+	}
+
+	.wc-backbone-modal-main {
+		padding-bottom: 0;
+
+		article {
+			margin-bottom: 60px;
+			padding: 2em;
+			text-align: center;
+
+			time {
+				font-weight: 600;
+			}
+
+			.data-feed-format {
+				font-weight: bold; /* stylelint-disable-line font-weight-notation */
+				text-transform: uppercase;
+			}
+		}
+
+		footer {
+
+			.wc-action-button-group {
+				display: inline-block;
+				float: left;
+			}
+		}
+	}
+}
+
+.wc-instagram-editable-url {
+	line-height: 1.5;
+
+	.woocommerce table.form-table & input[type="text"] {
+		width: 12em;
+		height: 30px;
+		vertical-align: baseline;
+	}
+
+	.editable-url-actions {
+
+		button {
+			margin-left: 5px;
+		}
+
+		.save {
+			margin-top: 5px;
+		}
+	}
+}
+
+.submit {
+
+	.wc-instagram-product-catalog-delete {
+		margin-left: 10px;
+		text-decoration: none;
+	}
+}
+
+.wc-instagram-gpc-selects-container {
+	margin-bottom: 8px;
+
+	.wc-instagram-gpc-select-wrapper {
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.woocommerce_options_panel {
+
+	.wc-instagram-gpc-selects-container {
+		float: left;
+		width: 50%;
+	}
+
+	.select2-container {
+		float: none !important;
+		width: 100% !important;
+	}
+}
+
+.term-google-product-category-wrap {
+
+	#addtag & {
+
+		.select2-container {
+			width: 95% !important;
+			max-width: 400px;
+		}
+	}
+
+	#edittag & {
+
+		.select2-container {
+			width: 100% !important;
+			max-width: 400px;
+		}
+	}
+}
+
+/**
+ * Notices.
+ */
+.wc-instagram-notice {
+	display: block;
+	padding: 1rem;
+
+	&.warning {
+		background-color: #fcf9e8;
+		border: 1px solid #dba617;
+	}
+
+	&.info {
+		background-color: #f0f6fc;
+		border: 1px solid #72aee6;
+	}
+
+	&.feature-not-available {
+		display: inline-block;
+	}
+}
+
+@media only screen and (max-width: 782px) {
+
+	.term-google-product-category-wrap {
+
+		#edittag & {
+
+			.select2-container {
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+
+	.woocommerce_options_panel {
+
+		.wc-instagram-gpc-selects-container {
+			width: 80%;
+		}
+	}
+}

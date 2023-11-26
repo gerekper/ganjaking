@@ -20,7 +20,7 @@ class ContentRestrictions extends Base {
 
         add_filter( 'betterdocs_terms_query_args', [$this, 'exclude_terms'], 11, 1 );
         add_filter( 'betterdocs_tag_tax_query', [$this, 'tag_template_tax_query'], 11, 1 );
-        add_filter( 'betterdocs_docs_tax_query_args', [$this, 'live_search_tax_query'], 11, 5 );
+        add_filter( 'betterdocs_docs_tax_query_args', [$this, 'live_search_tax_query'], 20, 5 );
         add_action( 'template_redirect', [$this, 'template_redirect'], 99 );
     }
 

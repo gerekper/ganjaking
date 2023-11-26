@@ -22,7 +22,7 @@
  * Plugin Name: WooCommerce Product Search
  * Plugin URI: https://woo.com/products/woocommerce-product-search/
  * Description: The best Search Engine and Search Experience for WooCommerce.
- * Version: 5.0.0
+ * Version: 5.0.3
  * Author: itthinx
  * Author URI: https://www.itthinx.com
  * WC requires at least: 7.9
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WOO_PS_PLUGIN_VERSION', '5.0.0' );
+define( 'WOO_PS_PLUGIN_VERSION', '5.0.3' );
 define( 'WOO_PS_PLUGIN_DOMAIN', 'woocommerce-product-search' );
 define( 'WOO_PS_FILE', __FILE__ );
 if ( !defined( 'WOO_PS_LOG' ) ) {
@@ -59,7 +59,7 @@ if ( !defined( 'WPS_CACHE_DEBUG' ) ) {
 	define( 'WPS_CACHE_DEBUG', false );
 }
 if ( !defined( 'WPS_RENDER_CACHE' ) ) {
-	define( 'WPS_RENDER_CACHE', true );
+	define( 'WPS_RENDER_CACHE', false );
 }
 if ( !defined( 'WPS_EXT_PDS' ) ) {
 	define( 'WPS_EXT_PDS', true );

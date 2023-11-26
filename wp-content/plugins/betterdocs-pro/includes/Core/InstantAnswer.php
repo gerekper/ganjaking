@@ -41,40 +41,40 @@ class InstantAnswer extends Base {
         $printed = true;
     }
 
-    private function is_page( $conditions = [] ){
-        return is_page() && ! empty( $conditions )  && ( in_array( "all", $conditions ) || is_page( $conditions ) );
+    private function is_page( $conditions = [] ) {
+        return is_page() && ! empty( $conditions ) && ( in_array( "all", $conditions ) || is_page( $conditions ) );
     }
 
-    private function is_post_type_archive( $conditions = [] ){
+    private function is_post_type_archive( $conditions = [] ) {
         return is_archive() && ! is_tax() && ! is_category() && ! is_tag() && ! empty( $conditions ) && (
             in_array( "all", $conditions ) || is_post_type_archive( $conditions )
         );
     }
-    private function is_other_archive( $conditions = [] ){
+    private function is_other_archive( $conditions = [] ) {
         return is_archive() && ! empty( $conditions ) && (
             in_array( "post", $conditions ) && is_date() || is_author() || is_day()
         );
     }
 
-    private function is_taxonomy( $conditions = [], $queried_object = null ){
+    private function is_taxonomy( $conditions = [], $queried_object = null ) {
         return ( is_tax() || is_category() || is_tag() ) && ! empty( $conditions ) && (
             in_array( "all", $conditions ) || in_array( $queried_object->taxonomy, $conditions )
         );
     }
 
-    private function is_home_archive( $conditions = [] ){
+    private function is_home_archive( $conditions = [] ) {
         return is_home() && ! empty( $conditions ) && (
             in_array( "all", $conditions ) || in_array( "post", $conditions )
         );
     }
 
-    private function is_post_type_product_archive( $conditions = [], $queried_object = null ){
+    private function is_post_type_product_archive( $conditions = [], $queried_object = null ) {
         return is_archive() && ! empty( $conditions ) && (
             in_array( "product", $conditions ) && get_taxonomy( $queried_object->taxonomy )->object_type[0] === 'product'
         );
     }
 
-    private function is_singular( $conditions = [] ){
+    private function is_singular( $conditions = [] ) {
         return ! is_page() && is_singular() && ! empty( $conditions ) && (
             in_array( "all", $conditions ) || is_singular( $conditions )
         );
@@ -87,19 +87,19 @@ class InstantAnswer extends Base {
         $display_ia_single   = $this->settings->get_raw_field( 'display_ia_single' );
         $queried_object      = get_queried_object();
 
-        if( $this->is_page( $display_ia_pages ) ) {
+        if ( $this->is_page( $display_ia_pages ) ) {
             return true;
-        } elseif( $this->is_taxonomy( $display_ia_texonomy, $queried_object ) ){
+        } elseif ( $this->is_taxonomy( $display_ia_texonomy, $queried_object ) ) {
             return true;
-        } elseif( $this->is_post_type_archive( $display_ia_archives ) ) {
+        } elseif ( $this->is_post_type_archive( $display_ia_archives ) ) {
             return true;
-        } elseif( $this->is_home_archive( $display_ia_archives ) ) {
+        } elseif ( $this->is_home_archive( $display_ia_archives ) ) {
             return true;
-        } elseif( $this->is_other_archive( $display_ia_archives ) ) {
+        } elseif ( $this->is_other_archive( $display_ia_archives ) ) {
             return true;
-        } elseif( $this->is_post_type_product_archive( $display_ia_archives, $queried_object ) ){
+        } elseif ( $this->is_post_type_product_archive( $display_ia_archives, $queried_object ) ) {
             return true;
-        } elseif( $this->is_singular( $display_ia_single ) ) {
+        } elseif ( $this->is_singular( $display_ia_single ) ) {
             return true;
         }
 
@@ -153,7 +153,7 @@ class InstantAnswer extends Base {
     }
 
     public function add_ia( $preview_visiable = null ) {
-        if( $preview_visiable === '' && ! $this->is_visible ) {
+        if ( $preview_visiable === '' && ! $this->is_visible ) {
             return;
         }
 
@@ -188,7 +188,7 @@ class InstantAnswer extends Base {
 
         $this->is_visible = $this->ia_conditions();
 
-        if( ! is_admin() && ! $this->is_visible ) {
+        if ( ! is_admin() && ! $this->is_visible ) {
             return;
         }
 
@@ -208,337 +208,682 @@ class InstantAnswer extends Base {
         $_all_settings = $settings->get_all();
         $css           = new CSSGenerator( $_all_settings );
 
+        /**
+         * Common Style Settings (Primary Color)
+         */
         $css->add_rule(
-            '.betterdocs-widget-container',
-            $css->properties( [
-                'z-index' => 'chat_zindex'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-conversation-container,
-            .betterdocs-footer-wrapper, .betterdocs-launcher, .betterdocs-ask-wrapper .betterdocs-ask-submit,
-            .betterdocs-footer-wrapper .bd-ia-feedback-wrap, .betterdocs-footer-wrapper .bd-ia-feedback-response',
-            $css->properties( [
-                'background-color' => 'ia_accent_color'
-            ] )
-        );
-
-        $css->add_rule(
-            'betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type > p,
-            .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type > p',
-            $css->properties( [
-                'color' => 'ia_accent_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type svg,
-            .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type svg',
-            $css->properties( [
-                'fill' => 'ia_accent_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-header .inner-container,
-            .betterdocs-footer-wrapper .betterdocs-footer-emo > div',
-            $css->properties( [
-                'background-color' => 'ia_sub_accent_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-launcher[type=button], .betterdocs-launcher[type=button]:focus ',
+            '.betterdocs-ia-launcher-wrapper .betterdocs-ia-launcher, .betterdocs-ia-common-header, .betterdocs-ia-common-header .betterdocs-ia-search .betterdocs-ia-search-icon, .betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-submit button, .betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-footer .betterdocs-ia-footer-feedback',
             $css->properties( [
                 'background-color' => 'ia_luncher_bg'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-widget-container .betterdocs-launcher[type=button]:hover ',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header , .betterdocs-ia-tabs .active p',
             $css->properties( [
-                'background-color' => 'ia_luncher_bg_hover'
-            ], ' !important' )
+                'color' => 'ia_luncher_bg'
+            ] )
         );
 
         $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3,
-            .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-expand svg path, .betterdocs-ia-docs-content .content-icon svg path, .betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-back svg path',
+            $css->properties( [
+                'fill' => 'ia_luncher_bg'
+            ] )
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-tabs li.active svg g path',
+            $css->properties( [
+                'fill' => 'ia_luncher_bg'
+            ] )
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-launcher-wrapper .betterdocs-ia-launcher:hover',
+            $css->properties( [
+                'background-color' => 'ia_luncher_bg_hover'
+            ] )
+        );
+
+        /**
+         * Header Style Settings (All Common Headers)
+         */
+
+        // $css->add_rule(
+        //     '.betterdocs-ia-common-header.home-page-header',
+        //     $css->properties( [
+        //         'background-color' => 'header_background_color'
+        //     ] )
+        // );
+
+        $css->add_rule(
+            '.betterdocs-ia-common-header .betterdocs-title:not(:last-child)',
             $css->properties( [
                 'color' => 'ia_heading_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3.bd-ia-subtitle,
-            .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3.bd-ia-subtitle ',
+            '.betterdocs-ia-common-header h2',
             $css->properties( [
-                'font-size' => 'ia_heading_font_size'
-            ], 'px' )
+                'color' => 'ia_heading_color'
+            ] )
         );
 
         $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > p,
-            .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > p',
+            '.betterdocs-ia-common-header .betterdocs-info',
             $css->properties( [
                 'color' => 'ia_sub_heading_color'
             ] )
         );
 
+        if ( isset( $_all_settings['header_background_image']['url'] ) ) {
+            $css->add_rule(
+                '.betterdocs-ia-common-header',
+                $css->properties( [
+                    'background-image' => $_all_settings['header_background_image']['url']
+                ] )
+            );
+        }
+
+        /**
+         * Card Style Settings (All Common Cards)
+         */
+
         $css->add_rule(
-            '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > p,
-            .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > p',
+            '.betterdocs-ia-docs .betterdocs-ia-docs-heading .doc-title',
             $css->properties( [
-                'font-size' => 'ia_sub_heading_size'
-            ], 'px' )
+                'color' => 'ia_card_title_color'
+            ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-content-wrapper .bdc-search-box,
-            .betterdocs-tab-content-wrapper .bdc-search-box .search-button,
-            .betterdocs-tab-content-wrapper .bdc-search-box input',
+            '.betterdocs-ia-docs .betterdocs-ia-docs-heading',
+            $css->properties( [
+                'background-color' => 'ia_card_title_background_color'
+            ] )
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-docs-content .content-item h4',
+            $css->properties( [
+                'color' => 'ia_card_title_list_color'
+            ] )
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-docs-content .content-item p',
+            $css->properties( [
+                'color' => 'ia_card_list_description_color'
+            ] )
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-docs-content',
+            $css->properties( [
+                'background-color' => 'ia_card_list_background_color'
+            ] )
+        );
+
+        // $css->add_rule(
+        //     '.betterdocs-ia-docs-content .content-icon i',
+        //     $css->properties( [
+        //         'color' => 'ia_card_list_arrow_color'
+        //     ] )
+        // );
+
+        /**
+         * Search Style Settings (All Common Search Box)
+         */
+        $css->add_rule(
+            '.betterdocs-ia-common-header .betterdocs-ia-search, .betterdocs-ia-common-header .betterdocs-ia-search .betterdocs-ia-search-field',
             $css->properties( [
                 'background-color' => 'ia_searchbox_bg'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-content-wrapper .bdc-search-box input',
+            '.betterdocs-ia-common-header .betterdocs-ia-search .betterdocs-ia-search-field::placeholder',
             $css->properties( [
-                'color' => 'ia_searchbox_text'
+                'color' => 'ia_search_box_placeholder_text_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-content-wrapper .bdc-search-box .search-button svg',
+            '.betterdocs-ia-common-header .betterdocs-ia-search .betterdocs-ia-search-field',
             $css->properties( [
-                'fill' => 'ia_searchbox_icon_color'
+                'color' => 'ia_search_box_input_text_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-card-link',
+            '.betterdocs-ia-common-header .betterdocs-ia-search .betterdocs-ia-search-icon svg',
             $css->properties( [
-                'background-color' => 'iac_article_bg'
+                'fill' => 'ia_searc_icon_color'
+            ] )
+        );
+
+        /**
+         * All Tabs Style Settings (All Common Tabs)
+         */
+
+        $css->add_rule(
+            '.betterdocs-ia-tabs',
+            $css->properties( [
+                'background-color' => 'ia_launcher_tabs_background_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title',
+            '.betterdocs-ia-tabs li p',
             $css->properties( [
-                'color' => 'iac_article_title'
+                'color' => 'ia_launcher_tabs_text_color'
+            ] )
+        );
+
+        /**
+         * Message Style Settings
+         */
+
+        $css->add_rule(
+            '.betterdocs-ia-tab-message-container .message__header .header__content h4',
+            $css->properties( [
+                'color' => 'ia_message_tab_title_font_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title',
+            '.betterdocs-ia-tab-message-container .message__header .header__content p',
             $css->properties( [
-                'font-size' => 'iac_article_title_size'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body',
-            $css->properties( [
-                'color' => 'iac_article_content'
+                'color' => 'ia_message_tab_subtitle_font_color'
             ] )
         );
 
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body',
-            $css->properties( [
-                'font-size' => 'iac_article_content_size'
-            ], 'px' )
-        );
+        // $css->add_rule(
+        //     '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-submit button',
+        //     $css->properties( [
+        //         'background-color' => 'ia_message_button_background_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-submit button',
+        //     $css->properties( [
+        //         'color' => 'ia_message_button_text_color'
+        //     ] )
+        // );
 
         $css->add_rule(
-            '.betterdocs-footer-wrapper .betterdocs-footer-label p',
-            $css->properties( [
-                'font-size' => 'ia_feedback_title_size'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .betterdocs-footer-label p',
-            $css->properties( [
-                'color' => 'ia_feedback_title_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .betterdocs-emo',
-            $css->properties( [
-                'fill' => 'ia_feedback_icon_color'
-            ] )
-        );
-
-        //Units are modified here (might create issue, removed similarity with the previous version for i/a styles)
-        if ( isset( $_all_settings['ia_feedback_icon_size'] ) && $_all_settings['ia_feedback_icon_size'] > 0 ) {
-            $width  = $_all_settings['ia_feedback_icon_size'] * 2;
-            $height = $_all_settings['ia_feedback_icon_size'] * 2;
-
-            $css->add_rule(
-                '.betterdocs-footer-wrapper .betterdocs-footer-emo > div',
-                $css->properties( [
-                    'width'  => $width,
-                    'height' => $height
-                ], 'px' )
-            );
-        }
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .betterdocs-emo',
-            $css->properties( [
-                'width'  => 'ia_feedback_icon_size',
-                'height' => 'ia_feedback_icon_size'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
-            $css->properties( [
-                'width' => 'ia_response_icon_size'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
-            $css->properties( [
-                'fill' => 'ia_response_icon_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
-            $css->properties( [
-                'font-size' => 'ia_response_title_size'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
-            $css->properties( [
-                'color' => 'ia_response_title_color'
-            ] )
-        );
-
-        $css->add_rule(
-            '.betterdocs-tab-ask .betterdocs-ask-wrapper input[type="text"],
-            .betterdocs-tab-ask .betterdocs-ask-wrapper input[type="email"],
-            .betterdocs-tab-ask .betterdocs-ask-wrapper textarea',
+            '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-group .ia-input, .betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-group > textarea',
             $css->properties( [
                 'background-color' => 'ia_ask_bg_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit',
+            '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-email-group p, .betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-name-group p, .betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-subject-group p, .betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-message-group p',
             $css->properties( [
-                'background-color' => 'ia_ask_send_button_bg'
+                'color' => 'ia_message_input_label_text_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit:hover',
+            '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-attachments-group button',
             $css->properties( [
-                'background-color' => 'ia_ask_send_button_hover_bg'
+                'background-color' => 'ia_message_upload_button_background_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit.betterdocs-disable-submit',
+            '.betterdocs-ia-tab-message-container .betterdocs-ia-feedback-form .betterdocs-ia-attachments-group p',
             $css->properties( [
-                'background-color' => 'ia_ask_send_disable_button_bg'
+                'color' => 'ia_message_upload_text_color'
+            ] )
+        );
+
+        /**
+         * Single Doc Style Settings
+         */
+
+        $css->add_rule(
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-content .doc-title',
+            $css->properties( [
+                'color' => 'ia_single_doc_title_font_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit.betterdocs-disable-submit:hover',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header.on-scroll h2',
+            $css->properties([
+                'color' => 'ia_single_title_header_font_color'
+            ])
+        );
+
+        $css->add_rule(
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header',
             $css->properties( [
-                'background-color' => 'ia_ask_send_disable_button_hover_bg'
+                'background-color' => 'ia_single_doc_title_header_bg_color'
+            ] )
+        );
+
+        // $css->add_rule(
+        //     '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-back i',
+        //     $css->properties( [
+        //         'color' => 'ia_single_doc_back_icon_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-expand i',
+        //     $css->properties( [
+        //         'color' => 'ia_single_expand_icon_color'
+        //     ] )
+        // );
+
+        $css->add_rule(
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-back, .betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-header .content-icon-expand',
+            $css->properties( [
+                'background-color' => 'ia_single_icons_bg_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h1',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-footer .betterdocs-ia-footer-feedback .betterdocs-ia-reaction-group .ia-reaction',
             $css->properties( [
-                'font-size' => 'iac_article_content_h1'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h2',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h2'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h3',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h3'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h4',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h4'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h5',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h5'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h6',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h6'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content,
-            .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content p,
-            .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content strong',
-            $css->properties( [
-                'font-size' => 'iac_article_content_h6'
-            ], 'px' )
-        );
-
-        $css->add_rule(
-            '.betterdocs-ask-wrapper input:not([type="submit"]),
-            .betterdocs-ask-wrapper textarea, .betterdocs-ask-wrapper .betterdocs-attach-button',
-            $css->properties( [
-                'color' => 'ia_ask_input_foreground'
-            ] )
-        );
-
-        $css->add_rule( '.betterdocs-ask-wrapper .betterdocs-attach-button',
-            $css->properties( [
-                'fill' => 'ia_ask_input_foreground'
+                'background-color' => 'ia_reaction_primary_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-ask-wrapper input:not([type="submit"])::placeholder,
-            .betterdocs-ask-wrapper textarea::placeholder',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-footer .betterdocs-ia-footer-feedback .betterdocs-ia-reaction-group .ia-reaction .betterdocs-emo',
             $css->properties( [
-                'color' => 'ia_ask_input_foreground'
+                'fill' => 'ia_reaction_secondary_color'
             ] )
         );
 
         $css->add_rule(
-            '.betterdocs-ask-wrapper input:not([type="submit"]), .betterdocs-ask-wrapper textarea',
+            '.betterdocs-ia-single-docs-wrapper .betterdocs-ia-singleDoc-footer .betterdocs-ia-footer-feedback p',
             $css->properties( [
-                'color' => 'ia_ask_input_foreground'
-            ], ' !important' )
+                'color' => 'ia_reaction_title_color'
+            ] )
         );
+
+        /**
+         * Position Css
+         */
+
+        if ( isset( $_all_settings['chat_position'] ) ) {
+            if ( $_all_settings['chat_position'] == 'right' ) {
+                $css->add_rule(
+                    '.betterdocs-ia-launcher-wrapper',
+                    $css->properties( [
+                        'right' => '20'
+                    ], 'px' )
+                );
+
+                $css->add_rule(
+                    '.betterdocs-ia-main-wrapper',
+                    $css->properties( [
+                        'right' => '20'
+                    ], 'px' )
+                );
+            }
+
+            if ( $_all_settings['chat_position'] == 'left' ) {
+                $css->add_rule(
+                    '.betterdocs-ia-launcher-wrapper',
+                    $css->properties( [
+                        'left' => '20'
+                    ], 'px' )
+                );
+
+                $css->add_rule(
+                    '.betterdocs-ia-main-wrapper',
+                    $css->properties( [
+                        'left' => '20'
+                    ], 'px' )
+                );
+            }
+        }
+        // $css->add_rule(
+        //     '.betterdocs-widget-container',
+        //     $css->properties( [
+        //         'z-index' => 'chat_zindex'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-conversation-container,
+        //     .betterdocs-footer-wrapper, .betterdocs-launcher, .betterdocs-ask-wrapper .betterdocs-ask-submit,
+        //     .betterdocs-footer-wrapper .bd-ia-feedback-wrap, .betterdocs-footer-wrapper .bd-ia-feedback-response',
+        //     $css->properties( [
+        //         'background-color' => 'ia_accent_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     'betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type > p,
+        //     .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type > p',
+        //     $css->properties( [
+        //         'color' => 'ia_accent_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type svg,
+        //     .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type svg',
+        //     $css->properties( [
+        //         'fill' => 'ia_accent_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-header .inner-container,
+        //     .betterdocs-footer-wrapper .betterdocs-footer-emo > div',
+        //     $css->properties( [
+        //         'background-color' => 'ia_sub_accent_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-launcher[type=button], .betterdocs-launcher[type=button]:focus ',
+        //     $css->properties( [
+        //         'background-color' => 'ia_luncher_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-widget-container .betterdocs-launcher[type=button]:hover ',
+        //     $css->properties( [
+        //         'background-color' => 'ia_luncher_bg_hover'
+        //     ], ' !important' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3,
+        //     .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3',
+        //     $css->properties( [
+        //         'color' => 'ia_heading_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3.bd-ia-subtitle,
+        //     .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3.bd-ia-subtitle ',
+        //     $css->properties( [
+        //         'font-size' => 'ia_heading_font_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > p,
+        //     .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > p',
+        //     $css->properties( [
+        //         'color' => 'ia_sub_heading_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > p,
+        //     .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > p',
+        //     $css->properties( [
+        //         'font-size' => 'ia_sub_heading_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-content-wrapper .bdc-search-box,
+        //     .betterdocs-tab-content-wrapper .bdc-search-box .search-button,
+        //     .betterdocs-tab-content-wrapper .bdc-search-box input',
+        //     $css->properties( [
+        //         'background-color' => 'ia_searchbox_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-content-wrapper .bdc-search-box input',
+        //     $css->properties( [
+        //         'color' => 'ia_searchbox_text'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-content-wrapper .bdc-search-box .search-button svg',
+        //     $css->properties( [
+        //         'fill' => 'ia_searc_icon_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-card-link',
+        //     $css->properties( [
+        //         'background-color' => 'iac_article_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title',
+        //     $css->properties( [
+        //         'color' => 'iac_article_title'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_title_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body',
+        //     $css->properties( [
+        //         'color' => 'iac_article_content'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .betterdocs-footer-label p',
+        //     $css->properties( [
+        //         'font-size' => 'ia_feedback_title_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .betterdocs-footer-label p',
+        //     $css->properties( [
+        //         'color' => 'ia_feedback_title_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .betterdocs-emo',
+        //     $css->properties( [
+        //         'fill' => 'ia_feedback_icon_color'
+        //     ] )
+        // );
+
+        // //Units are modified here (might create issue, removed similarity with the previous version for i/a styles)
+        // if ( isset( $_all_settings['ia_feedback_icon_size'] ) && $_all_settings['ia_feedback_icon_size'] > 0 ) {
+        //     $width  = $_all_settings['ia_feedback_icon_size'] * 2;
+        //     $height = $_all_settings['ia_feedback_icon_size'] * 2;
+
+        //     $css->add_rule(
+        //         '.betterdocs-footer-wrapper .betterdocs-footer-emo > div',
+        //         $css->properties( [
+        //             'width'  => $width,
+        //             'height' => $height
+        //         ], 'px' )
+        //     );
+        // }
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .betterdocs-emo',
+        //     $css->properties( [
+        //         'width'  => 'ia_feedback_icon_size',
+        //         'height' => 'ia_feedback_icon_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
+        //     $css->properties( [
+        //         'width' => 'ia_response_icon_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
+        //     $css->properties( [
+        //         'fill' => 'ia_response_icon_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
+        //     $css->properties( [
+        //         'font-size' => 'ia_response_title_size'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
+        //     $css->properties( [
+        //         'color' => 'ia_response_title_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-ask .betterdocs-ask-wrapper input[type="text"],
+        //     .betterdocs-tab-ask .betterdocs-ask-wrapper input[type="email"],
+        //     .betterdocs-tab-ask .betterdocs-ask-wrapper textarea',
+        //     $css->properties( [
+        //         'background-color' => 'ia_ask_bg_color'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit',
+        //     $css->properties( [
+        //         'background-color' => 'ia_ask_send_button_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit:hover',
+        //     $css->properties( [
+        //         'background-color' => 'ia_ask_send_button_hover_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit.betterdocs-disable-submit',
+        //     $css->properties( [
+        //         'background-color' => 'ia_ask_send_disable_button_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit.betterdocs-disable-submit:hover',
+        //     $css->properties( [
+        //         'background-color' => 'ia_ask_send_disable_button_hover_bg'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h1',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h1'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h2',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h2'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h3',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h3'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h4',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h4'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h5',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h5'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h6',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h6'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content,
+        //     .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content p,
+        //     .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content strong',
+        //     $css->properties( [
+        //         'font-size' => 'iac_article_content_h6'
+        //     ], 'px' )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ask-wrapper input:not([type="submit"]),
+        //     .betterdocs-ask-wrapper textarea, .betterdocs-ask-wrapper .betterdocs-attach-button',
+        //     $css->properties( [
+        //         'color' => 'ia_ask_input_foreground'
+        //     ] )
+        // );
+
+        // $css->add_rule( '.betterdocs-ask-wrapper .betterdocs-attach-button',
+        //     $css->properties( [
+        //         'fill' => 'ia_ask_input_foreground'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ask-wrapper input:not([type="submit"])::placeholder,
+        //     .betterdocs-ask-wrapper textarea::placeholder',
+        //     $css->properties( [
+        //         'color' => 'ia_ask_input_foreground'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ask-wrapper input:not([type="submit"]), .betterdocs-ask-wrapper textarea',
+        //     $css->properties( [
+        //         'color' => 'ia_ask_input_foreground'
+        //     ] )
+        // );
+
+        // $css->add_rule(
+        //     '.betterdocs-ask-wrapper .betterdocs-ask-submit button',
+        //     $css->properties( [
+        //         'color' => 'ia_ask_send_button_color'
+        //     ] )
+        // );
 
         return $css->get_output( true );
     }
@@ -546,8 +891,9 @@ class InstantAnswer extends Base {
     public static function snippet() {
         ob_start();
         betterdocs_pro()->views->get( 'admin/ia-snippet', [
-            'styles'  => self::inline_style( betterdocs()->settings ),
-            'scripts' => self::get_instance( betterdocs()->settings )->localize_settings()
+            'styles'       => self::inline_style( betterdocs()->settings ),
+            'scripts'      => self::get_instance( betterdocs()->settings )->localize_settings(),
+            // 'dependencies' => ['react', 'react-dom', 'wp-hooks', 'wp-i18n', 'wp-url', 'wp-api-fetch', 'wp-escape-html', 'wp-element', 'wp-html-entities']
         ] );
         return ob_get_clean();
     }
@@ -560,9 +906,7 @@ class InstantAnswer extends Base {
         /**
          * Chat Settings
          */
-        if ( $this->settings->get( 'chat_tab_visibility_switch', false ) ) {
-            $chat_settings['show'] = false;
-        }
+        $chat_settings['show'] = $this->settings->get( 'chat_tab_visibility_switch', false );
 
         $chat_tab_icon = $this->settings->get( 'chat_tab_icon', [] );
         if ( ! empty( $chat_tab_icon['url'] ) ) {
@@ -597,9 +941,7 @@ class InstantAnswer extends Base {
         /**
          * Search Settings
          */
-        if ( $this->settings->get( 'search_visibility_switch', false ) ) {
-            $search_settings['show'] = false;
-        }
+        $search_settings['show'] = $this->settings->get( 'search_visibility_switch', false );
 
         $search_settings['SEARCH_URL']         = $this->get_rest_url( true );
         $search_settings['SEARCH_PLACEHOLDER'] = stripslashes( $this->settings->get( 'search_placeholder_text', __( 'Search...', 'betterdocs-pro' ) ) );
@@ -617,34 +959,62 @@ class InstantAnswer extends Base {
         if ( $this->settings->get( 'disable_response', false ) ) {
             $response_settings['show'] = false;
         }
-        $response_settings['title'] = stripslashes( $this->settings->get( 'response_title', __( 'Thanks for the feedback', 'betterdocs-pro' ) ) );
+        // $response_settings['title'] = stripslashes( $this->settings->get( 'response_title', __( 'Thanks for the feedback', 'betterdocs-pro' ) ) );
 
         if ( $this->settings->get( 'disable_response_icon', false ) ) {
             $response_settings['icon']['show'] = false;
         }
 
         $instant_answer = [
-            'CHAT'     => $chat_settings,
-            'ANSWER'   => $answer_settings,
-            'URL'      => $url,
-            'SEARCH'   => $search_settings,
-            'FEEDBACK' => [
-                'DISPLAY' => ! $this->settings->get( 'disable_reaction', false ),
-                'SUCCESS' => __( 'Thanks for your feedback', 'betterdocs-pro' ),
+            'IA_NONCE'            => wp_create_nonce('rest-nonce'),
+            'BASE_URL'            => get_rest_url( null ),
+            'CHAT'                => $chat_settings,
+            'ANSWER'              => $answer_settings,
+            'URL'                 => $url,
+            'SEARCH'              => $search_settings,
+            'FEEDBACK'            => [
+                'DISPLAY' => $this->settings->get( 'ia_reaction', true ),
+                'SUCCESS' => stripslashes( $this->settings->get( 'response_title', __( 'Thanks for the feedback', 'betterdocs-pro' ) ) ),
                 'TEXT'    => stripslashes( $this->settings->get( 'reaction_title', __( 'How did you feel?', 'betterdocs-pro' ) ) ),
                 'URL'     => get_rest_url( null, '/betterdocs/v1/feedback' )
             ],
-            'RESPONSE' => $response_settings,
-            'ASKFORM'  => [
+            'RESPONSE'            => $response_settings,
+            'ASKFORM'             => [
                 'NAME'       => __( 'Name', 'betterdocs-pro' ),
                 'EMAIL'      => __( 'Email Address', 'betterdocs-pro' ),
                 'SUBJECT'    => __( 'Subject', 'betterdocs-pro' ),
                 'TEXTAREA'   => __( 'How can we help?', 'betterdocs-pro' ),
-                'ATTACHMENT' => __( 'Only supports .jpg, .png, .jpeg, .gif files', 'betterdocs-pro' ),
+                'ATTACHMENT' => __( 'Accepts .gif, .jpeg, png, pdf, jpg and .png', 'betterdocs-pro' ),
                 'SENDING'    => __( 'Sending', 'betterdocs-pro' ),
                 'SEND'       => __( 'Send', 'betterdocs-pro' )
             ],
-            'ASK_URL'  => get_rest_url( null, '/betterdocs/v1/ask' )
+            'ASK_URL'             => get_rest_url( null, '/betterdocs/v1/ask' ),
+            'FAQ'                 => [
+                'faq-title'        => $this->settings->get( 'ia_resources_faq_title' ),
+                'faq-switch'       => $this->settings->get( 'ia_resources_faq_switch' ),
+                'faq_content_type' => $this->settings->get( 'ia_resources_faq_content_type' ),
+                // 'faq-group-number' => $this->settings->get( 'ia_resources_faq_group_number' ),
+                // 'faq-list-number'  => $this->settings->get( 'ia_resources_faq_list_number' ),
+                'faq-terms'        => $this->settings->get( 'ia_resources_faq_group' ),
+                'faq-list'         => $this->settings->get( 'ia_resources_faq_list' )
+            ],
+            'DOC_CATEGORY'        => [
+                'doc-title'           => $this->settings->get( 'ia_resources_doc_category_title_text' ),
+                'doc-terms'           => $this->settings->get( 'ia_resources_doc_categories' ),
+                'doc-category-switch' => $this->settings->get( 'ia_resources_doc_categories_switch' )
+                // 'doc-categories-number' => $this->settings->get( 'ia_resources_doc_categories_number' )
+            ],
+            'HOME_TAB_TITLE'      => $this->settings->get( 'home_tab_title' ),
+            'HOME_CONTENT'        => $this->settings->get( 'content_type', 'docs' ),
+            'HOME_TITLE'          => $this->settings->get( 'home_content_title' ),
+            'HOME_SUBTITLE'       => $this->settings->get( 'home_content_subtitle' ),
+            'RESOURCES_TITLE'     => $this->settings->get( 'ia_resources_general_content_title' ),
+            'RESOURCES_TAB_TITLE' => $this->settings->get( 'ia_resource_general_tab_title' ),
+            'HEADER_ICON'         => $this->settings->get( 'header_background_image', [] ),
+            'HEADER_LOGO'         => $this->settings->get( 'upload_header_logo', [] ),
+            'TAB_HOME_ICON'       => $this->settings->get( 'upload_home_icon', [] ),
+            'TAB_MESSAGE_ICON'    => $this->settings->get( 'upload_sendmessage_icon', [] ),
+            'TAB_RESOURCE_ICON'   => $this->settings->get( 'upload_resource_icon', [] )
         ];
 
         /**
@@ -667,13 +1037,8 @@ class InstantAnswer extends Base {
         /**
          * Branding Settings
          */
-        if ( $this->settings->get( 'disable_branding', false ) ) {
-            $branding_settings['show'] = false;
-        }
-
-        if ( ! empty( $branding_settings ) ) {
-            $instant_answer = array_merge( $instant_answer, ['BRANDING' => $branding_settings] );
-        }
+        $branding_settings['show'] = $this->settings->get( 'ia_branding' );
+        $instant_answer            = array_merge( $instant_answer, ['BRANDING' => $branding_settings] );
 
         /**
          * Thanks Settings
@@ -710,8 +1075,11 @@ class InstantAnswer extends Base {
         switch ( $_content_type ) {
             case 'docs':
                 $_content_list = $this->settings->get( 'docs_list', [] );
-                if ( ! empty( $_content_list ) ) {
+                if ( ! empty( $_content_list ) && ! in_array( 'all', $_content_list ) ) {
                     $_query_strings_array['include'] = $_content_list;
+                }
+                if ( ! empty( $_content_list ) && in_array( 'all', $_content_list ) ) {
+                    $_query_strings_array['per_page'] = -1;
                 }
                 break;
             case 'docs_categories':
@@ -719,10 +1087,19 @@ class InstantAnswer extends Base {
                     $_base_url = get_rest_url( null, 'wp/v2/doc_category' );
                 }
                 $_content_list = $this->settings->get( 'doc_category_list', [] );
-                if ( ! empty( $_content_list ) ) {
+                if ( ! empty( $_content_list ) && ! in_array( 'all', $_content_list ) ) {
                     $_cats_list = implode( ',', $_content_list );
 
                     $_query_strings_array[$is_search ? 'doc_category' : 'include'] = $_cats_list;
+                }
+                if ( ! empty( $_content_list ) && in_array( 'all', $_content_list ) ) {
+                    $_cats_list = implode( ',', $_content_list );
+
+                    $_query_strings_array[$is_search ? 'doc_category' : 'per_page'] = -1;
+                }
+                if ( empty( $_content_list ) ) {
+                    $limit                            = $this->settings->get( 'doc_category_limit', 10 );
+                    $_query_strings_array['per_page'] = $limit;
                 }
                 break;
             default:

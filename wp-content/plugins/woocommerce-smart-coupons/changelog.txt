@@ -1,5 +1,15 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.11.22 - version 8.9.0
+* New: WordPress 6.4.1 compatible
+* New: WooCommerce 8.2.2 compatible
+* Fix: Auto apply does not work with WooCommerce Blocks
+* Fix: 'Internal server error' during renewal that uses store credit [WooCommerce Subscriptions]
+* Fix: Applied Store Credit amount shows in multiples in Cart & Checkout
+* Fix: Call to undefined method WC_Subscriptions_Plugin::get_library_version
+* Update: Add help text in empty 'Generated coupons' metabox on the Order edit admin page
+* Update: POT file
+
 2023.11.06 - version 8.8.0
 * New: Feature to 'Regenerate' and/or 'Resend' coupons from order edit admin page 
 * Update: POT file

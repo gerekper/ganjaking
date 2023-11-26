@@ -44,7 +44,7 @@ class Install {
             $this->container->get( Roles::class )->setup( true );
 
             // Save default settings.
-            $this->container->get( Settings::class )->save_default_settings();
+            // $this->container->get( Settings::class )->save_default_settings();
 
             $this->database->delete_transient( 'betterdocs_pro_activated' );
         }

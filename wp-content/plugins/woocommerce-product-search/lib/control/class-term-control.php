@@ -133,11 +133,13 @@ class Term_Control {
 	/**
 	 * Resolves the ixwpst for the current context.
 	 *
-	 * @param \WP_Query $wp_query
+	 * @param \WP_Query $query
 	 *
 	 * @return array ixwpst
 	 */
-	public static function get_ixwpst( $wp_query = null ) {
+	public static function get_ixwpst( $query = null ) {
+
+		global $wp_query;
 
 		$_ixwpst = self::get_request_ixwpst();
 
@@ -153,11 +155,15 @@ class Term_Control {
 			}
 		}
 
+		require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-context.php';
+		$context = \WooCommerce_Product_Search_Filter_Context::get_context();
+
 		$cache_context = array(
-			'wp_query' => $wp_query !== null && $wp_query instanceof \WP_Query ? $wp_query->query_vars : null,
+			'wp_query' => $query !== null && $query instanceof \WP_Query ? $query->query_vars : null,
 			'get'      => !empty( $_GET ) ? $_GET : null,
 			'post'     => !empty( $_POST ) ? $_POST : null,
-			'ixwpst'   => $ixwpst
+			'ixwpst'   => $ixwpst,
+			'context'  => $context
 		);
 		$cache_key = self::get_cache_key( $cache_context );
 		$cache = Cache::get_instance();
@@ -166,9 +172,8 @@ class Term_Control {
 			return $result;
 		}
 
-		if ( is_single() || is_page() ) {
+		if ( isset( $wp_query ) && ( is_single() || is_page() ) ) {
 
-			$context = \WooCommerce_Product_Search_Filter_Context::get_context();
 			if ( $context !== null ) {
 
 				if ( !empty( $context['taxonomy_terms'] ) && is_array( $context['taxonomy_terms'] ) ) {
@@ -210,13 +215,13 @@ class Term_Control {
 
 		}
 
-		if ( !empty( $wp_query ) && $wp_query->is_tax ) {
+		if ( !empty( $query ) && $query->is_tax ) {
 
 			$process_query      = false;
 			$product_taxonomies = array( 'product_cat', 'product_tag' );
 			$product_taxonomies = array_merge( $product_taxonomies, wc_get_attribute_taxonomy_names() );
 			$product_taxonomies = array_unique( $product_taxonomies );
-			$queried_object     = $wp_query->get_queried_object();
+			$queried_object     = $query->get_queried_object();
 			if ( is_object( $queried_object ) ) {
 				if ( in_array( $queried_object->taxonomy, $product_taxonomies ) ) {
 					$process_query = true;
@@ -232,7 +237,7 @@ class Term_Control {
 			if ( $get_terms_filter_priority !== false ) {
 				remove_filter( 'get_terms', array( '\WooCommerce_Product_Search_Service', 'get_terms' ), $get_terms_filter_priority );
 			}
-			$queried_object = $wp_query->get_queried_object();
+			$queried_object = $query->get_queried_object();
 			if ( $had_get_terms_args ) {
 				add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 );
 			}
@@ -242,17 +247,17 @@ class Term_Control {
 
 			if ( is_object( $queried_object ) ) {
 				if ( isset( $queried_object->taxonomy ) && isset( $queried_object->term_id ) ) {
-					if ( !empty( $wp_query->tax_query ) && !empty( $wp_query->tax_query->queried_terms ) ) {
+					if ( !empty( $query->tax_query ) && !empty( $query->tax_query->queried_terms ) ) {
 						$taxonomy_term_ids = array();
-						foreach ( $wp_query->tax_query->queried_terms as $tax_query_taxonomy => $query ) {
-							if ( !empty( $query['terms'] ) && !empty( $query['field'] ) ) {
-								switch ( $query['field'] ) {
+						foreach ( $query->tax_query->queried_terms as $tax_query_taxonomy => $queried_term ) {
+							if ( !empty( $queried_term['terms'] ) && !empty( $queried_term['field'] ) ) {
+								switch ( $queried_term['field'] ) {
 									case 'term_id':
-										$taxonomy_term_ids[$tax_query_taxonomy] = $query['terms'];
+										$taxonomy_term_ids[$tax_query_taxonomy] = $queried_term['terms'];
 										break;
 									default:
-										foreach ( $query['terms'] as $value ) {
-											$term = get_term_by( $query['field'], $value, $tax_query_taxonomy );
+										foreach ( $queried_term['terms'] as $value ) {
+											$term = get_term_by( $queried_term['field'], $value, $tax_query_taxonomy );
 											if ( $term instanceof \WP_Term ) {
 												$taxonomy_term_ids[$tax_query_taxonomy][] = $term->term_id;
 											}

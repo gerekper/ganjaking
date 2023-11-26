@@ -63,7 +63,7 @@ do_action( 'wp_smush_after_basic_settings' );
 		</span>
 		<span class="sui-description">
 			<?php
-			esc_html_e( 'Made a mistake? Use this feature to restore your image thumbnails to their original state.', 'wp-smushit' );		  						 		  		 			
+			esc_html_e( 'Made a mistake? Use this feature to restore your image thumbnails to their original state.', 'wp-smushit' );
 			?>
 		</span>
 	</div>

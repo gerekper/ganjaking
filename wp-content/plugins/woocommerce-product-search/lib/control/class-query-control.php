@@ -405,11 +405,12 @@ class Query_Control {
 
 		$use_engine = \WooCommerce_Product_Search_Service::use_engine();
 
+		$params = $this->get_request_parameters();
 		$is_filtering =
-			isset( $_REQUEST['ixwpss'] ) ||
-			isset( $_REQUEST['ixwpst'] ) ||
-			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] );
+			$params['ixwpss'] !== null ||
+			!empty( $params['ixwpst'] ) ||
+			$params['ixwpsp'] ||
+			$params['ixwpse'];
 
 		$process_query = false;
 		$post_type     = $wp_query->get( 'post_type' );
@@ -456,12 +457,15 @@ class Query_Control {
 			return;
 		}
 
+		$this->set_query( $wp_query );
+
 		if ( !$this->handle( $wp_query ) ) {
+
+			$this->set_query( null );
 			add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), self::PRE_GET_POSTS_ACTION_PRIORITY );
 			return;
 		}
 
-		$this->set_query( $wp_query );
 		$params = $this->get_request_parameters();
 		$params['offset'] = 0;
 		$params['page'] = null;

@@ -1,11 +1,5 @@
 *** WooCommerce Deposits Changelog ***
 
-2023-11-20 - version 2.2.3
-* Dev - Bump WooCommerce "tested up to" version 8.3.
-* Dev - Bump WooCommerce minimum supported version to 8.1.
-* Dev - Bump WordPress "tested up to" version 6.4.
-* Dev - Update default behavior to use a block-based cart and checkout in E2E tests.
-
 2023-10-30 - version 2.2.2
 * Fix - Compatibility with WooCommerce Payments multi-currency.
 

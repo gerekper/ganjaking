@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.8.0
+ * @version     3.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1981,6 +1981,64 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							'message'  => ( ! empty( $coupon_receiver_details['message_from_sender'] ) ) ? $coupon_receiver_details['message_from_sender'] : '',
 							'order_id' => ( ! empty( $order_id ) ) ? $order_id : 0,
 						);
+					}
+				}
+				if ( empty( $generated_coupon_data ) ) {
+					$order         = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+					$order_actions = array();
+					if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
+						include_once 'class-wc-sc-coupon-process.php';
+					}
+					$wc_sc_coupon_process = ( is_callable( 'WC_SC_Coupon_Process::get_instance' ) ) ? WC_SC_Coupon_Process::get_instance() : null;
+					if ( $this->is_callable( $wc_sc_coupon_process, 'order_actions' ) ) {
+						$order_actions = $wc_sc_coupon_process->order_actions( array(), $order );
+					}
+					?>
+					<p>
+						<?php
+							/* translators: 1. Link to jump to 'Order actions' metabox 2. Text 'Order actions' 3. Text 'arrow' */
+							echo sprintf( esc_html_x( 'Coupons are not generated for this order. You can regenerate it from %1$s. Select an appropriate action from the %2$s dropdown menu and hit the %3$s button next to it.', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ), '<strong><a href="#woocommerce-order-actions">' . esc_html_x( 'Order actions', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ) . '</a></strong>', '<strong>' . esc_html_x( 'Order actions', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ) . '</strong>', '<strong>' . esc_html_x( 'arrow', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ) . '</strong>' );
+						?>
+					</p>
+					<?php
+					if ( ! empty( $order_actions ) ) {
+						$target_actions   = array( 'wc_sc_regenerate_coupons', 'wc_sc_regenerate_resend_coupons' );
+						$all_actions      = array_keys( $order_actions );
+						$action_intersect = array_intersect( $target_actions, $all_actions );
+						if ( ! empty( $action_intersect ) ) {
+							?>
+							<div>
+								<ul class="ul-disc">
+									<?php
+									foreach ( $order_actions as $action => $label ) {
+										switch ( $action ) {
+											case 'wc_sc_regenerate_coupons':
+												?>
+												<li>
+													<?php
+														/* translators: 1. Label for Order action for regenerating coupons */
+														echo sprintf( esc_html_x( 'Select %s to only regenerate coupons. No email will be sent for this.', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ), '<strong>' . esc_html( $label ) . '</strong>' );
+													?>
+												</li>
+												<?php
+												break;
+											case 'wc_sc_regenerate_resend_coupons':
+												?>
+												<li>
+													<?php
+														/* translators: 1. Label for Order action for regenerating & resending coupons */
+														echo sprintf( esc_html_x( 'Select %s to regenerate as well as resend coupons to the recipients via email.', 'Generated coupons metabox - Order edit admin page', 'woocommerce-smart-coupons' ), '<strong>' . esc_html( $label ) . '</strong>' );
+													?>
+												</li>
+												<?php
+												break;
+										}
+									}
+									?>
+								</ul>
+							</div>
+							<?php
+						}
 					}
 				}
 			}

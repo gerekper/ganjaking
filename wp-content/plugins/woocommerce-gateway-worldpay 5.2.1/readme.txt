@@ -1,0 +1,1 @@
+Please view the documentation at http://docs.woothemes.com/document/worldpay/

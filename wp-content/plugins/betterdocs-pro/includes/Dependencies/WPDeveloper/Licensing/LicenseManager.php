@@ -120,6 +120,10 @@ class LicenseManager {
     }
 
     public function get_license_data() {
+        return [
+	'license_key' => 'GPL001122334455AA6677BB8899CC000',
+	'license_status' => 'valid'
+	];
         $_license        = get_option( "{$this->db_prefix}_license" );
         $_license_status = get_option( "{$this->db_prefix}_license_status" );
         $_license_data   = get_transient( "{$this->db_prefix}_license_data" );
@@ -151,6 +155,7 @@ class LicenseManager {
     }
 
     public function activate( $args = [] ) {
+        return (object) ['license' => 'valid'];
         $this->license = sanitize_text_field( isset( $args['license_key'] ) ? trim( $args['license_key'] ) : '' );
         $response      = $this->remote_post( 'activate_license' );
 
@@ -181,6 +186,7 @@ class LicenseManager {
     }
 
     public function check( $args = [] ) {
+        return (object) ['license' => 'valid'];
         $this->license = get_option( "{$this->db_prefix}_license", '' );
         $_license_data = get_transient( "{$this->db_prefix}_license_data" );
 

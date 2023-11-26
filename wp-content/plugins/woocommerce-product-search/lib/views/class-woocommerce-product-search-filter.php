@@ -211,10 +211,16 @@ class WooCommerce_Product_Search_Filter extends Filter_Renderer {
 		$results_id = 'product-filter-results-' . $n;
 		$ixwpss     = !empty( $_REQUEST['ixwpss'] ) ? $_REQUEST['ixwpss'] : '';
 
+		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$current_url = remove_query_arg( array( 'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'lang', 'paged' ), $current_url );
+		$href        = $current_url;
+
+		$reset_url  = WooCommerce_Product_Search_Filter_Reset::get_reset_url();
+
 		$render_cache = apply_filters( 'woocommerce_product_search_render_cache', WPS_RENDER_CACHE, __CLASS__, $atts );
 		if ( $render_cache ) {
 			$cache = Cache::get_instance();
-			$cache_key = md5( json_encode( array( $search_id, $atts, $ixwpss ) ) );
+			$cache_key = md5( json_encode( array( $search_id, $atts, $ixwpss, $href, $reset_url ) ) );
 			$data = $cache->get( $cache_key, __CLASS__ );
 			if ( $data !== null ) {
 				foreach ( $data['inline_scripts'] as $script_data ) {
@@ -370,12 +376,7 @@ class WooCommerce_Product_Search_Filter extends Filter_Renderer {
 		}
 		$output .= $heading_output;
 
-		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		$current_url = remove_query_arg( array( 'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'lang', 'paged' ), $current_url );
-		$href        = $current_url;
 		$add_post_type = false;
-
-		$reset_url = WooCommerce_Product_Search_Filter_Reset::get_reset_url();
 
 		$output .= '<div class="product-search-form">';
 		$output .= sprintf(

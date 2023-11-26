@@ -66,6 +66,8 @@ class WooCommerce_Product_Search_Filter_Context {
 	 */
 	public static function get_context( $post_id = null ) {
 
+		global $wp_query;
+
 		if ( self::$context !== null ) {
 			return self::$context;
 		}
@@ -73,11 +75,17 @@ class WooCommerce_Product_Search_Filter_Context {
 		$context = null;
 
 		if ( $post_id === null ) {
-			$object = get_queried_object();
-			if ( $object instanceof WP_Post ) {
-				$post_id = get_queried_object_id();
-				if ( !$post_id ) {
-					$post_id = null;
+			if (
+				isset( $wp_query ) &&
+				is_object( $wp_query ) &&
+				method_exists( $wp_query, 'get_queried_object' )
+			) {
+				$object = $wp_query->get_queried_object();
+				if ( $object instanceof WP_Post ) {
+					$post_id = $object->ID;
+					if ( !$post_id ) {
+						$post_id = null;
+					}
 				}
 			}
 		}

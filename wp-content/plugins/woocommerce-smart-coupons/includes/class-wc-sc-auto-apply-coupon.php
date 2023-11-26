@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_meta' ), 10, 2 );
 			add_filter( 'wc_sc_process_coupon_meta_value_for_import', array( $this, 'process_coupon_meta_value_for_import' ), 10, 2 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
-
+			add_filter( 'pre_render_block', array( $this, 'auto_apply_coupons_to_cart_checkout_block' ), 10, 3 );
 			// Action to auto apply coupons.
 			add_action( 'woocommerce_cart_is_empty', array( $this, 'auto_apply_coupons' ) );
 			add_action( 'woocommerce_shortcode_before_product_cat_loop', array( $this, 'auto_apply_coupons' ) );
@@ -277,7 +277,8 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		 */
 		public function get_auto_applied_coupons() {
 			$coupons = ( is_object( WC()->session ) && is_callable( array( WC()->session, 'get' ) ) ) ? WC()->session->get( 'wc_sc_auto_applied_coupons' ) : array();
-			return apply_filters( 'wc_sc_' . __FUNCTION__, ( ! empty( $coupons ) && is_array( $coupons ) ? $coupons : array() ), array( 'source' => $this ) );
+			$coupons = ( ! empty( $coupons ) && is_array( $coupons ) ) ? array_filter( array_unique( $coupons ) ) : array();
+			return apply_filters( 'wc_sc_' . __FUNCTION__, $coupons, array( 'source' => $this ) );
 		}
 
 		/**
@@ -573,6 +574,21 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Function to apply coupons for cart and checkout block.
+		 *
+		 * @param bool  $pre_render Is protected.
+		 * @param array $parsed_block The meta key.
+		 * @param array $parent_block The meta type.
+		 * @return bool
+		 */
+		public function auto_apply_coupons_to_cart_checkout_block( $pre_render = null, $parsed_block = array(), $parent_block = null ) {
+			if ( isset( $parsed_block['blockName'] ) && in_array( $parsed_block['blockName'], array( 'woocommerce/cart', 'woocommerce/checkout' ), true ) ) {
+				$this->auto_apply_coupons();
+			}
+			return $pre_render;
 		}
 
 	}

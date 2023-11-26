@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.6.0
+ * @version     6.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -148,6 +148,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			add_action( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'rest_api_prepare_shop_order_object' ), 10, 3 );
 
 			add_action( 'before_woocommerce_init', array( $this, 'hpos_compat_declaration' ) );
+			add_action( 'before_woocommerce_init', array( $this, 'blocks_compat_declaration' ) );
 
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'format_sc_meta_data' ), 99, 2 );
 			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hidden_order_itemmeta' ) );
@@ -2721,6 +2722,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 				}
 
+				$coupon_amount = $this->get_amount( $coupon, true );
+
 				if ( $cart_contains_subscription ) {
 					if ( WCS_SC_Compatibility::is_wcs_gte( '2.0.10' ) ) {
 						if ( $this->is_wc_greater_than( '3.1.2' ) ) {
@@ -2791,12 +2794,13 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				} else {
 					$smart_coupon_credit_used[ $coupon_code ] += $discount;
 				}
+				if ( floatval( $smart_coupon_credit_used[ $coupon_code ] ) > floatval( $coupon_amount ) ) {
+					$smart_coupon_credit_used[ $coupon_code ] = $coupon_amount;
+				}
 				WC()->cart->smart_coupon_credit_used = $smart_coupon_credit_used;
 
 			}
 		}
-
-
 
 		/**
 		 * Apply store credit discount in order during recalculation
@@ -7224,6 +7228,15 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function hpos_compat_declaration() {
 			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-smart-coupons/woocommerce-smart-coupons.php', true );
+			}
+		}
+
+		/**
+		 * Function to declare WooCommerce Blocks related compatibility status
+		 */
+		public function blocks_compat_declaration() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', 'woocommerce-smart-coupons/woocommerce-smart-coupons.php', false );
 			}
 		}
 

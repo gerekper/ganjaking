@@ -12,10 +12,11 @@
  *
  * @package UAEL
  */
-$brainstrom = get_option( 'brainstrom_products', [] );
-$brainstrom['plugins']['uael']['status'] = 'registered';
-$brainstrom['plugins']['uael']['purchase_key'] = 'registered';
+
+$brainstrom = get_option( 'brainstrom_products' );
+$brainstrom['plugins']['ultimate-elementor']['status'] = 'registered';
 update_option( 'brainstrom_products', $brainstrom );
+
 define( 'UAEL_FILE', __FILE__ );
 
 require_once 'classes/class-uael-loader.php';

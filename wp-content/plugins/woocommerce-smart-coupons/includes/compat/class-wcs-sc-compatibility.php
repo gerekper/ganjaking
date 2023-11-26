@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.0.0
+ * @version     2.1.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -438,6 +438,10 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		 */
 		public function smart_coupons_contribution( $order_id = 0 ) {
 
+			if ( did_action( 'woocommerce_update_order' ) > 1 ) {
+				return;
+			}
+
 			if ( self::is_wcs_gte( '2.0.0' ) ) {
 				$is_renewal_order = wcs_order_contains_renewal( $order_id );
 			} else {
@@ -467,7 +471,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 					if ( 'smart_coupon' === $discount_type ) {
 
-						$smart_coupon_credit_used = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
+						$smart_coupon_credit_used = ( $this->is_callable( $order, 'get_meta' ) ) ? $order->get_meta( 'smart_coupons_contribution' ) : $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
 
 						$cart_smart_coupon_credit_used = WC()->cart->smart_coupon_credit_used;
 
@@ -486,7 +490,11 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						}
 
 						if ( $update ) {
-							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used, true, $order );
+							if ( $this->is_callable( $order, 'update_meta_data' ) ) {
+								$order->update_meta_data( 'smart_coupons_contribution', $smart_coupon_credit_used );
+							} else {
+								$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used, true, $order );
+							}
 						}
 					}
 				}
@@ -1303,8 +1311,15 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			if ( ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 				return;
 			}
+			if ( ! is_callable( 'WC_Subscriptions_Core_Plugin::instance' ) ) {
+				return;
+			}
+			$wc_subscriptions_core_plugin_instance = WC_Subscriptions_Core_Plugin::instance();
 			// Get the script version.
-			$ver = WC_Subscriptions_Core_Plugin::instance()->get_library_version();
+			$ver = ( $this->is_callable( $wc_subscriptions_core_plugin_instance, 'get_library_version' ) ) ? $wc_subscriptions_core_plugin_instance->get_library_version() : false;
+			if ( empty( $ver ) ) {
+				$ver = ( $this->is_callable( $wc_subscriptions_core_plugin_instance, 'get_plugin_version' ) ) ? $wc_subscriptions_core_plugin_instance->get_plugin_version() : false;
+			}
 			// Get admin screen ID.
 			$screen    = get_current_screen();
 			$screen_id = isset( $screen->id ) ? $screen->id : '';

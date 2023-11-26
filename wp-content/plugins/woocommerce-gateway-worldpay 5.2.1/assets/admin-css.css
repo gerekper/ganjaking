@@ -1,0 +1,76 @@
+.widefat .column-worldpay_security {
+	width: 110px;
+}
+
+.widefat .column-worldpay_security span {
+	color: #FFFFFF;
+
+	width: 30px; 
+	height: 30px; 
+	-moz-border-radius: 15px; 
+	-webkit-border-radius: 15px; 
+	border-radius: 15px;
+
+	margin: 0 2px 0 0;
+	padding: 0 4px;
+}
+
+.widefat .column-worldpay_security span.worldpay-ok {
+	background: #73a724;
+}
+
+.widefat .column-worldpay_security span.worldpay-fail {
+	background: #a00;
+}
+
+.widefat .column-worldpay_security span.worldpay-check {
+	background: #ffba00;
+}
+
+#wc_gateway_worldpay_form::before, #worldpay-online::before {
+	font-family: FontAwesome;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 100%;
+	content: "\f05a";
+	position: absolute;
+	bottom: -.18em;
+	right: -.18em;
+	font-size: 4.5em;
+	width: auto;
+	color: #d6eebd;
+	-webkit-transform: rotate(-20deg);
+	-moz-transform: rotate(-20deg);
+	-ms-transform: rotate(-20deg);
+	-o-transform: rotate(-20deg);
+	transform: rotate(-20deg);
+	zoom: 1;
+}
+
+#wc_gateway_worldpay_form {
+	margin: 0 0 1.758em;
+	padding: 20px;
+	background: #ecf6fa;
+	border: 1px solid #bcdeed;
+	color: #424242;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+
+	border-color: #c9e8a9;
+	background: #eff8e6;
+	position: relative;
+	overflow: hidden;
+}
+
+#wc_gateway_worldpay_form a.submitdelete {
+	position:relative;
+	top:-10px;
+}
+
+#wc_gateway_worldpay_form p {
+	line-height: 200%;
+}
+
+.

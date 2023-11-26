@@ -1,5 +1,17 @@
 *** WooCommerce Product Search ***
 
+2023.11.22 - version 5.0.3
+* Update - Disables the render cache by default to avoid issues with inconsistent page content.
+
+2023.11.22 - version 5.0.2
+* Fix - Fixes a PHP Fatal error triggered on plugin activation due to a missing resource.
+* Fix - Fixes PHP Notices due to global $wp_query not set when invoking certain functions.
+* Fix - Resolves an issue when clearing filters and mixed protocols are used.
+* Fix - Fixes render cache issues when Product Filter Reset and Product Search Filter elements with different origins and targets are used on different pages.
+
+2023.11.21 - version 5.0.1
+* Fix - Solves issues with cases where predetermined context was not observed for products shown.
+
 2023.11.10 - version 5.0.0
 * Update - WordPress 6.4 compatible.
 * Update - WooCommerce 8.3 compatible.

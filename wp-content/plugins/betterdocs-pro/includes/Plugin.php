@@ -32,7 +32,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '2.5.7';
+    public $version = '3.0.0';
 
     /**
      * Plugin DB Version
@@ -151,7 +151,8 @@ final class Plugin {
         $this->define( 'BETTERDOCS_PRO_ABSPATH', dirname( BETTERDOCS_PRO_FILE ) . '/' );
         $this->define( 'BETTERDOCS_PRO_ABSURL', plugin_dir_url( BETTERDOCS_PRO_FILE ) );
         $this->define( 'BETTERDOCS_PRO_PLUGIN_BASENAME', plugin_basename( BETTERDOCS_PRO_FILE ) );
-        // $this->define( 'BETTERDOCS_PRO_BLOCKS_DIRECTORY', BETTERDOCS_PRO_ABSPATH . 'react-src/gutenberg/blocks/' );
+        $this->define( 'BETTERDOCS_PRO_BLOCKS_DIRECTORY', BETTERDOCS_PRO_ABSPATH . 'assets/blocks/' );
+        $this->define( 'BETTERDOCS_PRO_FSE_TEMPLATES_PATH', BETTERDOCS_PRO_ABSPATH . 'views/templates/fse/' );
 
         $this->define( 'BETTERDOCS_PRO_STORE_URL', 'https://api.wpdeveloper.com/' );
         $this->define( 'BETTERDOCS_PRO_SL_ITEM_ID', 342422 );
@@ -220,7 +221,7 @@ final class Plugin {
     }
 
     public function pro_shortcodes( $shortcodes ) {
-        $shortcodes = array_merge( $shortcodes, [
+        return array_merge( $shortcodes, [
             CategoryBoxTwo::class,
             ListView::class,
             MultipleKBTabGrid::class,
@@ -233,8 +234,6 @@ final class Plugin {
             SidebarList::class,
             RelatedCategories::class
         ] );
-
-        return $shortcodes;
     }
 
     /**

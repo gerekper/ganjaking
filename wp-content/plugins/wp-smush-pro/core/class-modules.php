@@ -10,6 +10,7 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Backups\Backups_Backward_Compatibility;
 use Smush\Core\Backups\Backups_Controller;
 use Smush\Core\Media\Media_Item_Controller;
 use Smush\Core\Media_Library\Ajax_Media_Library_Scanner;
@@ -149,6 +150,9 @@ class Modules {
 
 		$s3_controller = new S3_Controller();
 		$s3_controller->init();
+
+		$this->backward_compatibility = new Backups_Backward_Compatibility();
+		$this->backward_compatibility->init();
 
 		$backups_controller = new Backups_Controller();
 		$backups_controller->init();
