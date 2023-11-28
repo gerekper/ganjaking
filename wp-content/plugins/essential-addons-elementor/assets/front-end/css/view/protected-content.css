@@ -1,0 +1,36 @@
+.eael-password-protected-content-fields > form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.eael-password-protected-content-fields .eael-password {
+  padding: 10px 20px;
+  border-radius: 0;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.eael-password-protected-content-fields .eael-submit {
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid #333;
+  border-radius: 0;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.eael-protected-content-message {
+  padding: 10px;
+}
+
+.protected-content-error-msg {
+  color: #f00;
+}
+
+.rtl .eael-password-protected-content-fields > form {
+  direction: ltr;
+}

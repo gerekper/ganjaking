@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2023-11-23 - version 5.7.2
+* Add: PLUGINS-2375 - Trust Swiftly text updates.
+
 2023-11-16 - version 5.7.1
 * Fix: PLUGINS-2299 - Fix code that is causing memory limit in the Anti Fraud dashboard page.
 

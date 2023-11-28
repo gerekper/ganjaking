@@ -1,0 +1,351 @@
+<wpml-config>
+    <elementor-widgets>
+        <widget name="eael-content-timeline">
+            <conditions>
+                <condition key="widgetType">eael-content-timeline</condition>
+            </conditions>
+            <fields>
+                <field type="Content Timeline: Read More" editor_type="LINE">eael_show_custom_read_more_text</field>
+            </fields>
+            <fields-in-item items_of="eael_coustom_content_posts">
+                <field type="Content Timeline: Title" editor_type="LINE">eael_custom_title</field>
+                <field type="Content Timeline: Description" editor_type="VISUAL">eael_custom_excerpt</field>
+                <field type="Content Timeline: Post Date" editor_type="LINE">eael_custom_post_date</field>
+                <field type="Content Timeline: Read More" editor_type="LINE">eael_show_custom_read_more_text</field>
+                <field type="Content Timeline: Read More Link" key_of="eael_read_more_text_link" editor_type="LINE">url</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-counter">
+            <conditions>
+                <condition key="widgetType">eael-counter</condition>
+            </conditions>
+            <fields>
+                <field type="Counter: Number" editor_type="LINE">ending_number</field>
+                <field type="Counter: Number Prefix" editor_type="LINE">number_prefix</field>
+                <field type="Counter: Number Suffix" editor_type="LINE">number_suffix</field>
+                <field type="Counter: Title" editor_type="LINE">counter_title</field>
+            </fields>
+        </widget>
+        <widget name="eael-divider">
+            <conditions>
+                <condition key="widgetType">eael-divider</condition>
+            </conditions>
+            <fields>
+                <field type="Divider: Text" editor_type="LINE">divider_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-dynamic-filterable-gallery">
+            <conditions>
+                <condition key="widgetType">eael-dynamic-filterable-gallery</condition>
+            </conditions>
+            <fields>
+                <field type="Dynamic Gallery: Gallery All Label" editor_type="LINE">eael_fg_all_label_text</field>
+                <field type="Dynamic Gallery: Excerpt Read More" editor_type="LINE">eael_post_excerpt_read_more</field>
+                <field type="Dynamic Gallery: Button text" editor_type="LINE">eael_fg_loadmore_btn_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-flip-carousel">
+            <conditions>
+                <condition key="widgetType">eael-flip-carousel</condition>
+            </conditions>
+            <fields-in-item items_of="eael_flip_carousel_slides">
+                <field type="Flip Carousel: Slider Text" editor_type="LINE">eael_flip_carousel_slide_text</field>
+                <field type="Flip Carousel: Slider Link" key_of="eael_flip_carousel_enable_slide_link" editor_type="LINE">url</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-google-map">
+            <conditions>
+                <condition key="widgetType">eael-google-map</condition>
+            </conditions>
+            <fields>
+                <field type="Google Map: Title" editor_type="LINE">eael_google_map_marker_title</field>
+                <field type="Google Map: Content" editor_type="LINE">eael_google_map_marker_content</field>
+                <field type="Google Map: Overly Content" editor_type="AREA">eael_google_map_overlay_content</field>
+            </fields>
+            <fields-in-item items_of="eael_google_map_markers">
+                <field type="Google Map: Marker Title" editor_type="LINE">eael_google_map_marker_title</field>
+                <field type="Fancy Text: Marker Content" editor_type="LINE">eael_google_map_marker_content</field>
+            </fields-in-item>
+            <fields-in-item items_of="eael_google_map_polylines">
+                <field type="Google Map: Polyline Title" editor_type="LINE">eael_google_map_polyline_title</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-image-comparison">
+            <conditions>
+                <condition key="widgetType">eael-image-comparison</condition>
+            </conditions>
+            <fields>
+                <field type="Image Comparison: Before Label Text" editor_type="LINE">before_image_label</field>
+                <field type="Image Comparison: Before Image Alt Text" editor_type="LINE">before_image_alt</field>
+                <field type="Image Comparison: After Label Text" editor_type="LINE">after_image_label</field>
+                <field type="Image Comparison: After Image Alt Text" editor_type="LINE">after_image_alt</field>
+            </fields>
+        </widget>
+        <widget name="eael-image-hotspots">
+            <conditions>
+                <condition key="widgetType">eael-image-hotspots</condition>
+            </conditions>
+            <fields-in-item items_of="hot_spots">
+                <field type="Image HotSpot: Title" editor_type="LINE">hotspot_text</field>
+                <field type="Image HotSpot: Link" key_of="hotspot_link" editor_type="LINE">url</field>
+                <field type="Image HotSpot: Content" editor_type="VISUAL">tooltip_content</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-instafeed">
+            <conditions>
+                <condition key="widgetType">eael-instafeed</condition>
+            </conditions>
+            <fields>
+                <field type="Instafeed: Before Label Text" editor_type="LINE">before_image_label</field>
+                <field type="Instafeed: Load More Text" editor_type="LINE">loadmore_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-interactive-card">
+            <conditions>
+                <condition key="widgetType">eael-interactive-card</condition>
+            </conditions>
+            <fields>
+                <field type="Interactive Card: Counter" editor_type="LINE">eael_interactive_card_front_panel_counter</field>
+                <field type="Interactive Card: Title" editor_type="LINE">eael_interactive_card_front_panel_title</field>
+                <field type="Interactive Card: Content" editor_type="VISUAL">eael_interactive_card_front_panel_content</field>
+                <field type="Interactive Card: Front Button Text" editor_type="LINE">eael_interactive_card_front_panel_btn</field>
+                <field type="Interactive Card: Rear Text" editor_type="LINE">eael_interactive_card_rear_title</field>
+                <field type="Interactive Card: Rear Content" editor_type="VISUAL">eael_interactive_card_rear_content</field>
+                <field type="Interactive Card: Rear Button Text" editor_type="LINE">eael_interactive_card_rear_btn</field>
+                <field type="Interactive Card: Rear Button Link" key_of="eael_interactive_card_rear_btn_link" editor_type="LINE">url</field>
+                <field type="Interactive Card: Rear Custom Code" editor_type="VISUAL">eael_interactive_card_rear_custom_code</field>
+            </fields>
+        </widget>
+        <widget name="eael-interactive-promo">
+            <conditions>
+                <condition key="widgetType">eael-interactive-promo</condition>
+            </conditions>
+            <fields>
+                <field type="Interactive Promo: Image Alt" editor_type="LINE">promo_image_alt</field>
+                <field type="Interactive Promo: Promo Heading" editor_type="LINE">promo_heading</field>
+                <field type="Interactive Promo: Promo Content" editor_type="VISUAL">promo_content</field>
+                <field type="Interactive Promo: Promo Link" editor_type="LINE">promo_link_url</field>
+            </fields>
+        </widget>
+        <widget name="eael-lightbox">
+            <conditions>
+                <condition key="widgetType">eael-lightbox</condition>
+            </conditions>
+            <fields>
+                <field type="Lightbox and Modal: Title" editor_type="LINE">title</field>
+                <field type="Lightbox and Modal: Button Text" editor_type="LINE">eael_lightbox_open_btn</field>
+                <field type="Lightbox and Modal: Content" editor_type="VISUAL">eael_lightbox_type_content</field>
+                <field type="Lightbox and Modal: Custom HTML" editor_type="VISUAL">custom_html</field>
+                <field type="Lightbox and Modal: Link" key_of="eael_lightbox_type_url" editor_type="VISUAL">url</field>
+            </fields>
+        </widget>
+        <widget name="eael-mailchimp">
+            <conditions>
+                <condition key="widgetType">eael-mailchimp</condition>
+            </conditions>
+            <fields>
+                <field type="Mailchimp: Email Label" editor_type="LINE">eael_mailchimp_email_label_text</field>
+                <field type="Mailchimp: First Name Label" editor_type="LINE">eael_mailchimp_fname_label_text</field>
+                <field type="Mailchimp: last Name Label" editor_type="LINE">eael_mailchimp_lname_label_text</field>
+                <field type="Mailchimp: Button Text" editor_type="LINE">eael_section_mailchimp_button_text</field>
+                <field type="Mailchimp: Load Text" editor_type="LINE">eael_section_mailchimp_loading_text</field>
+                <field type="Mailchimp: Success Text" editor_type="LINE">eael_section_mailchimp_success_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-logo-carousel">
+            <conditions>
+                <condition key="widgetType">eael-logo-carousel</condition>
+            </conditions>
+            <fields-in-item items_of="carousel_slides">
+                <field type="Logo Carousel: Title" editor_type="LINE">logo_title</field>
+                <field type="Logo Carousel: Logo ALT" editor_type="LINE">logo_alt</field>
+                <field type="Logo Carousel: Link" key_of="link" editor_type="LINE">url</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-offcanvas">
+            <conditions>
+                <condition key="widgetType">eael-offcanvas</condition>
+            </conditions>
+            <fields>
+                <field type="Offcanvas: Title" editor_type="LINE">eael_offcanvas_title</field>
+                <field type="Offcanvas: Button Text" editor_type="LINE">button_text</field>
+            </fields>
+            <fields-in-item items_of="custom_content">
+                <field type="Offcanvas: Title" editor_type="LINE">title</field>
+                <field type="Offcanvas: description" editor_type="LINE">description</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-post-block">
+            <conditions>
+                <condition key="widgetType">eael-post-block</condition>
+            </conditions>
+            <fields>
+                <field type="Post Block: Load More Text" editor_type="LINE">show_load_more_text</field>
+                <field type="Post Block: Read More Text" editor_type="LINE">read_more_button_text</field>
+                <field type="Post Block: Expansion Indicator" editor_type="LINE">excerpt_expanison_indicator</field>
+            </fields>
+        </widget>
+        <widget name="eael-post-carousel">
+            <conditions>
+                <condition key="widgetType">eael-post-carousel</condition>
+            </conditions>
+            <fields>
+                <field type="Post Carousel: Expansion Indicator" editor_type="LINE">excerpt_expanison_indicator</field>
+                <field type="Post Carousel: Read More Text" editor_type="LINE">read_more_button_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-post-list">
+            <conditions>
+                <condition key="widgetType">eael-post-list</condition>
+            </conditions>
+            <fields>
+                <field type="Smart Post List: Title" editor_type="LINE">eael_post_list_topbar_title</field>
+                <field type="Smart Post List: All Label Text" editor_type="LINE">eael_post_list_topbar_term_all_text</field>
+                <field type="Smart Post List: Expansion Indicator" editor_type="LINE">eael_post_list_excerpt_expanison_indicator</field>
+                <field type="Smart Post List: Label Text" editor_type="LINE">eael_post_list_read_more_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-price-menu">
+            <conditions>
+                <condition key="widgetType">eael-price-menu</condition>
+            </conditions>
+            <fields-in-item items_of="menu_items">
+                <field type="Price Menu: Title" editor_type="LINE">menu_title</field>
+                <field type="Price Menu: Menu Description Text" editor_type="LINE">menu_description</field>
+                <field type="Price Menu: Menu Price" editor_type="LINE">menu_price</field>
+                <field type="Price Menu: Original Price Text" editor_type="LINE">original_price</field>
+                <field type="Price Menu: Link" key_of="link" editor_type="LINE">url</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-protected-content">
+            <conditions>
+                <condition key="widgetType">eael-protected-content</condition>
+            </conditions>
+            <fields>
+                <field type="Protected Content: Protected Content" editor_type="VISUAL">eael_protected_content_field</field>
+                <field type="Protected Content: Public Text" editor_type="VISUAL">eael_protected_content_message_text</field>
+                <field type="Protected Content: Message" editor_type="LINE">password_incorrect_message</field>
+            </fields>
+        </widget>
+        <widget name="eael-static-product">
+            <conditions>
+                <condition key="widgetType">eael-static-product</condition>
+            </conditions>
+            <fields>
+                <field type="Static Product: Heading" editor_type="LINE">eael_static_product_heading</field>
+                <field type="Static Product: Description" editor_type="VISUAL">eael_static_product_description</field>
+                <field type="Static Product: Price" editor_type="LINE">eael_static_product_price</field>
+                <field type="Static Product: Review" editor_type="LINE">eael_static_product_review</field>
+                <field type="Static Product: Demo Text" editor_type="LINE">eael_static_product_demo_text</field>
+                <field type="Static Product: Button Text" editor_type="LINE">eael_static_product_btn</field>
+                <field type="Static Product: Button Text" editor_type="LINE">eael_static_product_add_to_cart_btn</field>
+                <field type="Static Product: Link" key_of="link" editor_type="LINK">url</field>
+                <field type="Static Product: Demo Link" key_of="link" editor_type="LINK">url</field>
+            </fields>
+        </widget>
+        <widget name="eael-team-member-carousel">
+            <conditions>
+                <condition key="widgetType">eael-team-member-carousel</condition>
+            </conditions>
+            <fields-in-item items_of="team_member_details">
+                <field type="Team Member Carousel: Name" editor_type="LINE">team_member_name</field>
+                <field type="Team Member Carousel: Position" editor_type="LINE">team_member_position</field>
+                <field type="Team Member Carousel: Description" editor_type="AREA">team_member_description</field>
+                <field type="Team Member Carousel: Mail Address" editor_type="LINE">mail_address</field>
+                <field type="Team Member Carousel: Facebook" key_of="facebook_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Twitter" key_of="twitter_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Google Plus" key_of="google_plus_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Linkedin" key_of="linkedin_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Instagram" key_of="instagram_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Youtube" key_of="youtube_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Pinterest" key_of="pinterest_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Dribbble" key_of="dribbble_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Xing" key_of="xing_url" editor_type="LINE">url</field>
+                <field type="Team Member Carousel: Snapchat" key_of="snapchat_url" editor_type="LINE">url</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-testimonial-slider">
+            <conditions>
+                <condition key="widgetType">eael-testimonial-slider</condition>
+            </conditions>
+            <fields-in-item items_of="eael_testimonial_slider_item">
+                <field type="Team Member Carousel: Name" editor_type="LINE">eael_testimonial_name</field>
+                <field type="Team Member Carousel: Position" editor_type="LINE">eael_testimonial_company_title</field>
+                <field type="Team Member Carousel: Description" editor_type="VISUAL">eael_testimonial_description</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-toggle">
+            <conditions>
+                <condition key="widgetType">eael-toggle</condition>
+            </conditions>
+            <fields>
+                <field type="Toggle: Primary Label" editor_type="LINE">primary_label</field>
+                <field type="Toggle: Primary Content" editor_type="VISUAL">primary_content</field>
+                <field type="Toggle: Secondary Label" editor_type="LINE">secondary_label</field>
+                <field type="Toggle: Secondary Content" editor_type="VISUAL">secondary_content</field>
+            </fields>
+        </widget>
+        <widget name="eael-tooltip">
+            <conditions>
+                <condition key="widgetType">eael-tooltip</condition>
+            </conditions>
+            <fields>
+                <field type="Toggle: Primary Label" editor_type="VISUAL">eael_tooltip_content</field>
+                <field type="Toggle: Primary Content" editor_type="VISUAL">eael_tooltip_hover_content</field>
+            </fields>
+        </widget>
+        <widget name="eael-woo-collections">
+            <conditions>
+                <condition key="widgetType">eael-woo-collections</condition>
+            </conditions>
+            <fields>
+                <field type="Woo Collections: Subtitle" editor_type="LINE">eael_woo_collections_subtitle</field>
+            </fields>
+        </widget>
+        <widget name="eael-woo-product-slider">
+            <conditions>
+                <condition key="widgetType">eael-woo-product-slider</condition>
+            </conditions>
+            <fields>
+                <field type="Woo Product Slider: Expansion Indicator" editor_type="LINE">eael_product_slider_excerpt_expanison_indicator</field>
+                <field type="Woo Product Slider: Not Found Message" editor_type="LINE">eael_product_slider_not_found_msg</field>
+                <field type="Woo Product Slider: Sale Text" editor_type="LINE">eael_product_carousel_sale_text</field>
+                <field type="Woo Product Slider: Stock Out Text" editor_type="LINE">eael_product_carousel_stockout_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-one-page-nav">
+            <conditions>
+                <condition key="widgetType">eael-one-page-nav</condition>
+            </conditions>
+            <fields-in-item items_of="nav_dots">
+                <field type="One Page Navigation: Section Title" editor_type="LINE">section_title</field>
+            </fields-in-item>
+        </widget>
+        <widget name="eael-advanced-search">
+            <conditions>
+                <condition key="widgetType">eael-advanced-search</condition>
+            </conditions>
+            <fields>
+                <field type="Advanced Search: Placeholder Text" editor_type="LINE">search_field_placeholder_text</field>
+                <field type="Advanced Search: Category List Text" editor_type="LINE">category_list_text</field>
+                <field type="Advanced Search: Button Text" editor_type="LINE">search_field_button_text</field>
+                <field type="Advanced Search: Popular Search Text" editor_type="LINE">popular_search_text</field>
+                <field type="Advanced Search: Category Search Text" editor_type="LINE">category_search_text</field>
+                <field type="Advanced Search: Load More Text" editor_type="LINE">load_more_text</field>
+                <field type="Advanced Search: Total Results Text" editor_type="LINE">total_results_text</field>
+                <field type="Advanced Search: Not Found Text" editor_type="LINE">not_found_text</field>
+            </fields>
+        </widget>
+        <widget name="eael-woo-cross-sells">
+            <conditions>
+                <condition key="widgetType">eael-woo-cross-sells</condition>
+            </conditions>
+            <fields>
+                <field type="Cross Sells: Heading" editor_type="LINE">eael_woo_cross_sales_heading</field>
+                <field type="Cross Sells: Expansion Indicator" editor_type="LINE">eael_cross_sales_excerpt_expanison_indicator</field>
+                <field type="Cross Sells: View Product" editor_type="LINE">eael_woo_cross_sales_view_product_label</field>
+                <field type="Cross Sells: Add to Cart" editor_type="LINE">eael_woo_cross_sales_add_to_cart_label</field>
+            </fields>
+        </widget>
+    </elementor-widgets>
+</wpml-config>

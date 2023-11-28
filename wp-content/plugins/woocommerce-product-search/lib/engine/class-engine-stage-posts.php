@@ -103,7 +103,8 @@ class Engine_Stage_Posts extends Engine_Stage {
 						break;
 					case 'order':
 						if ( $value !== null ) {
-							$value = sanitize_text_field( trim( $value ) );
+
+							$value = strtolower( sanitize_text_field( trim( $value ) ) );
 						}
 						switch ( $value ) {
 							case 'asc':

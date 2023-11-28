@@ -1,5 +1,9 @@
 *** Coupon Referal Program ***
 
+2023-11-27 - version 1.7.2
+New : Latest WP( 6.4.1 ) and WC( 8.3.1 ) compatibility
+New : WC Cart and Checkout Block compatibility
+
 2023-10-27 - version 1.7.1
 New : Latest WP( 6.3.2 ) and WC( 8.2.1 ) compatibility
 New : HPOS compatibility

@@ -1,0 +1,22 @@
+.elementor-element.eael-prallax-multi {
+  overflow: hidden;
+}
+
+.elementor-element .eael-parallax-layer {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.elementor-section.eael-particles-section .elementor-container {
+  z-index: 1;
+}
+
+.elementor-section.eael-particles-section > canvas {
+  position: absolute;
+  top: 0;
+}

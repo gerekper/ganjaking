@@ -1,0 +1,107 @@
+.eael-toggle-container {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.eael-toggle-switch-inner {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.eael-toggle-center .eael-toggle-switch-inner {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.eael-toggle-right .eael-toggle-switch-inner {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.eael-toggle-switch-container {
+  display: inline-block;
+  font-size: 26px;
+  line-height: 1;
+  margin: 0 15px;
+  overflow: hidden;
+}
+
+.eael-toggle-switch-round {
+  border-radius: 1.31em;
+}
+
+.eael-toggle-switch-round .eael-toggle-slider:before {
+  border-radius: 50%;
+}
+
+.eael-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 2.31em;
+  height: 1.29em;
+  margin: 0;
+  vertical-align: middle;
+  font-size: inherit;
+}
+
+.eael-toggle-switch input {
+  display: none;
+}
+
+.eael-toggle-content-wrap.primary > .eael-toggle-secondary-wrap {
+  display: none;
+}
+
+.eael-toggle-content-wrap.secondary > .eael-toggle-primary-wrap {
+  display: none;
+}
+
+.eael-toggle-content-wrap .elementor-section-stretched {
+  left: 0 !important;
+  width: 100% !important;
+}
+
+.eael-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.eael-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  left: 0.16em;
+  bottom: 0.15em;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.eael-toggle-switch-on .eael-toggle-slider {
+  background-color: #2196f3;
+  -webkit-box-shadow: 0 0 1px #2196f3;
+          box-shadow: 0 0 1px #2196f3;
+}
+
+.eael-toggle-switch-on .eael-toggle-slider:before {
+  -webkit-transform: translateX(99%);
+  -ms-transform: translateX(99%);
+  transform: translateX(99%);
+}
+
+.rtl .eael-toggle-switch-inner {
+  direction: ltr;
+}

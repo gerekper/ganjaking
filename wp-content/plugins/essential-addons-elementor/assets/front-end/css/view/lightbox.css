@@ -1,0 +1,436 @@
+.eael-modal-popup-button,
+.eael-lightbox-btn > i,
+.eael-lightbox-btn > img {
+  cursor: pointer;
+}
+
+.eael-lightbox-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+/*--- For icon background shape ---*/
+
+.eael-lightbox-icon-bg-shape-square .eael-lightbox-btn,
+.eael-lightbox-icon-bg-shape-radius .eael-lightbox-btn,
+.eael-lightbox-icon-bg-shape-circle .eael-lightbox-btn {
+  width: 90px;
+  height: 90px;
+  text-align: center;
+}
+
+.eael-lightbox-icon-hover-bg-shape-square:hover .eael-lightbox-btn {
+  border-radius: 0;
+}
+
+.eael-lightbox-icon-bg-shape-radius .eael-lightbox-btn,
+.eael-lightbox-icon-hover-bg-shape-radius:hover .eael-lightbox-btn {
+  border-radius: 15px;
+}
+
+.eael-lightbox-icon-bg-shape-circle .eael-lightbox-btn,
+.eael-lightbox-icon-hover-bg-shape-circle:hover .eael-lightbox-btn {
+  border-radius: 50%;
+}
+
+.eael-lightbox-icon-bg-shape-square .eael-lightbox-btn .eael-trigger-svg-icon svg,
+.eael-lightbox-icon-bg-shape-radius .eael-lightbox-btn .eael-trigger-svg-icon svg,
+.eael-lightbox-icon-bg-shape-circle .eael-lightbox-btn .eael-trigger-svg-icon svg,
+.eael-lightbox-icon-bg-shape-square .eael-lightbox-btn .eael-trigger-icon i,
+.eael-lightbox-icon-bg-shape-radius .eael-lightbox-btn .eael-trigger-icon i,
+.eael-lightbox-icon-bg-shape-circle .eael-lightbox-btn .eael-trigger-icon i {
+  margin-top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+/*--- For icon background shape End ---*/
+
+button.mfp-close {
+  background: transparent;
+}
+
+.eael-lightbox-modal-window,
+.eael-lightbox-popup-window {
+  position: relative;
+  display: none;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0px auto;
+}
+
+.eael-lightbox-popup-standard .mfp-iframe-holder .mfp-content {
+  max-width: 100%;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1400px) {
+  .eael-lightbox-modal-window,
+  .eael-lightbox-popup-window {
+    max-width: 1200px;
+  }
+}
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .eael-lightbox-modal-window,
+  .eael-lightbox-popup-window {
+    max-width: 900px;
+  }
+}
+
+/* Mobile Layout: 320px. */
+
+@media only screen and (max-width: 767px) {
+  .eael-lightbox-modal-window,
+  .eael-lightbox-popup-window {
+    max-width: 300px;
+  }
+}
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .eael-lightbox-modal-window,
+  .eael-lightbox-popup-window {
+    max-width: 400px;
+  }
+}
+
+.eael-lightbox-popup-window.lightbox_type_content .eael-lightbox-container,
+.eael-lightbox-popup-window.lightbox_type_custom_html .eael-lightbox-container {
+  background-color: #fff;
+  padding: 15px;
+}
+
+.eael-lightbox-popup-window.lightbox_type_image {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.eael-lightbox-title {
+  margin: 0px;
+}
+
+.eael-lightbox-popup-window.lightbox_type_image .eael-lightbox-container {
+  text-align: center;
+  line-height: 0;
+  max-height: 100vh;
+}
+
+.eael-lightbox-popup-window.lightbox_type_image .eael-lightbox-container img {
+  max-height: 100vh;
+}
+
+.eael-lightbox-modal-window button.mfp-close {
+  text-align: center;
+  line-height: 1;
+  padding: 0;
+  height: auto;
+  width: auto;
+  opacity: 1;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.open-pop-up-button-icon-left {
+  margin-right: 5px;
+}
+
+.open-pop-up-button-icon-right {
+  margin-left: 5px;
+}
+
+.mfp-content .eael-lightbox-modal-window {
+  display: block;
+}
+
+.mfp-content .eael-lightbox-popup-window {
+  display: block;
+}
+
+.mfp-bg.eael-lightbox-no-overlay,
+.mfp-bg,
+.mfp-bg.eael-lightbox-no-overlay + .mfp-wrap {
+  background: none;
+}
+
+.eael-lightbox-popup-window .mfp-close {
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  width: auto;
+}
+
+.modal-popup-window-inner {
+  position: relative;
+}
+
+.eael-lightbox-popup-window .mfp-iframe-scaler iframe {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.mfp-zoom-in .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+}
+
+.mfp-zoom-in.mfp-bg {
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.mfp-zoom-in.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.mfp-zoom-in.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+  opacity: 0;
+}
+
+.mfp-zoom-in.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-zoom-out .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transform: scale(1.3);
+      -ms-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.mfp-zoom-out.mfp-bg {
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.mfp-zoom-out.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.mfp-zoom-out.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: scale(1.3);
+      -ms-transform: scale(1.3);
+          transform: scale(1.3);
+  opacity: 0;
+}
+
+.mfp-zoom-out.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-move-from-top .mfp-content {
+  vertical-align: middle;
+}
+
+.mfp-move-from-top .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-transform: translateY(-100px);
+      -ms-transform: translateY(-100px);
+          transform: translateY(-100px);
+}
+
+.mfp-move-from-top.mfp-bg {
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.mfp-move-from-top.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.mfp-move-from-top.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: translateY(-100px);
+      -ms-transform: translateY(-100px);
+          transform: translateY(-100px);
+  opacity: 0;
+}
+
+.mfp-move-from-top.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-3d-unfold .mfp-content {
+  -webkit-perspective: 2000px;
+          perspective: 2000px;
+}
+
+.mfp-3d-unfold .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateY(-60deg);
+          transform: rotateY(-60deg);
+}
+
+.mfp-3d-unfold.mfp-bg {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.mfp-3d-unfold.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+
+.mfp-3d-unfold.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: rotateY(60deg);
+          transform: rotateY(60deg);
+  opacity: 0;
+}
+
+.mfp-3d-unfold.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-move-right .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translateX(-100px);
+      -ms-transform: translateX(-100px);
+          transform: translateX(-100px);
+}
+
+.mfp-move-right.mfp-bg {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.mfp-move-right.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.mfp-move-right.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: translateX(100px);
+      -ms-transform: translateX(100px);
+          transform: translateX(100px);
+  opacity: 0;
+}
+
+.mfp-move-right.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-move-left .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translateX(100px);
+      -ms-transform: translateX(100px);
+          transform: translateX(100px);
+}
+
+.mfp-move-left.mfp-bg {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.mfp-move-left.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.mfp-move-left.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: translateX(-100px);
+      -ms-transform: translateX(-100px);
+          transform: translateX(-100px);
+  opacity: 0;
+}
+
+.mfp-move-left.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.mfp-newspaper .eael-lightbox-popup-window {
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: scale(0) rotate(500deg);
+      -ms-transform: scale(0) rotate(500deg);
+          transform: scale(0) rotate(500deg);
+}
+
+.mfp-newspaper.mfp-bg {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.mfp-newspaper.mfp-ready .eael-lightbox-popup-window {
+  opacity: 1;
+  -webkit-transform: scale(1) rotate(0deg);
+      -ms-transform: scale(1) rotate(0deg);
+          transform: scale(1) rotate(0deg);
+}
+
+.mfp-newspaper.mfp-removing .eael-lightbox-popup-window {
+  -webkit-transform: scale(0) rotate(500deg);
+      -ms-transform: scale(0) rotate(500deg);
+          transform: scale(0) rotate(500deg);
+  opacity: 0;
+}
+
+.eael-trigger-icon {
+  cursor: pointer;
+}
+
+.mfp-newspaper.mfp-removing.mfp-bg {
+  opacity: 0;
+}
+
+.eael-lightbox-button-svg-icon svg {
+  width: 18px;
+}
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  text-align: center;
+  padding-right: 0px;
+}
+
+.mfp-close:hover {
+  text-decoration: none;
+}
+
+button.mfp-close:not(.toggle) {
+  background: transparent;
+}

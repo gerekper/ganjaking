@@ -8,6 +8,7 @@
  * @package    coupon-referral-program
  * @subpackage coupon-referral-program/public
  */
+
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
@@ -872,7 +873,7 @@ class Coupon_Referral_Program_Public {
 				update_post_meta( $new_coupon_id, 'exclude_product_ids', $mwb_crp_get_exclude_pro );
 			}
 
-			// add exlucde/include categories data
+			// Add exlucde/include categories data.
 
 			$wps_crp_get_include_cat = $this->wps_crp_get_include_cat();
 
@@ -905,7 +906,7 @@ class Coupon_Referral_Program_Public {
 			}
 
 			update_post_meta( $new_coupon_id, 'coupon_created_to', $creation_id );
-			// add allowed email to customer.
+			// Add allowed email to customer.
 			$customer_email_array = array();
 			if ( isset( $customer_email ) && ! empty( $customer_email ) ) {
 				$customer_email_array[] = $customer_email;
@@ -1121,7 +1122,7 @@ class Coupon_Referral_Program_Public {
 				if ( $this->check_share_vai_referal_code() ) {
 					$this->mwb_crp_referal_purchase_discount_by_referal_coupon( $order );
 				}
-				// check if the minimum order limit exceed
+				// Check if the minimum order limit exceed.
 				if ( $this->wps_crp_minimum_order_total_limit( $order ) ) {
 					return;
 				}
@@ -2280,7 +2281,7 @@ class Coupon_Referral_Program_Public {
 			update_post_meta( $new_coupon_id, 'exclude_product_ids', $mwb_crp_get_exclude_pro );
 			}
 
-			// add exlucde/include categories data
+			// Add exlucde/include categories data.
 
 			$wps_crp_get_include_cat = $this->wps_crp_get_include_cat();
 
@@ -2863,7 +2864,7 @@ class Coupon_Referral_Program_Public {
 	}
 
 	/** 
-	 * function to get match current user roles and saved user roles
+	 * Function to get match current user roles and saved user roles.
 	 * 
 	 * @param string $type of the discount allowed for the user roles.
 	 * @param integer $user_id .

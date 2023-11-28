@@ -1,0 +1,52 @@
+.eael-flip-carousel .flip-custom-nav {
+  display: block;
+}
+.eael-flip-carousel.flipster--carousel {
+  overflow: hidden;
+}
+.eael-flip-carousel.show-active-only .flip-items .flipster__item.flipster__item--current .eael-flip-carousel-content,
+.eael-flip-carousel.show-active-only .flip-items .flipster__item.flipster__item--current .eael-flip-carousel-content-overlay {
+  display: block;
+}
+.eael-flip-carousel.show-active-only.hover .flip-items .flipster__item.flipster__item--current .eael-flip-carousel-content,
+.eael-flip-carousel.show-active-only.hover .flip-items .flipster__item.flipster__item--current .eael-flip-carousel-content-overlay {
+  display: none;
+}
+.eael-flip-carousel.show-active-only.hover .flip-items .flipster__item.flipster__item--current:hover .eael-flip-carousel-content,
+.eael-flip-carousel.show-active-only.hover .flip-items .flipster__item.flipster__item--current:hover .eael-flip-carousel-content-overlay {
+  display: block;
+}
+.eael-flip-carousel.show-all .flip-items .flipster__item .eael-flip-carousel-content,
+.eael-flip-carousel.show-all .flip-items .flipster__item .eael-flip-carousel-content-overlay {
+  display: block;
+}
+.eael-flip-carousel.show-all.hover .flip-items .flipster__item .eael-flip-carousel-content,
+.eael-flip-carousel.show-all.hover .flip-items .flipster__item .eael-flip-carousel-content-overlay {
+  display: none;
+}
+.eael-flip-carousel.show-all.hover .flip-items .flipster__item:hover .eael-flip-carousel-content,
+.eael-flip-carousel.show-all.hover .flip-items .flipster__item:hover .eael-flip-carousel-content-overlay {
+  display: block;
+}
+.eael-flip-carousel .flipster__item__content {
+  position: relative;
+}
+.eael-flip-carousel .flipster__item__content .eael-flip-carousel-content,
+.eael-flip-carousel .flipster__item__content .eael-flip-carousel-content-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  padding: 50px;
+  display: none;
+}
+.eael-flip-carousel .flipster__item__content .eael-flip-carousel-content {
+  padding: 50px;
+}
+.eael-flip-carousel .flipster__item__content .eael-flip-carousel-content-overlay {
+  background: #fff;
+  opacity: 0.6;
+}
+.rtl .eael-flip-carousel {
+  direction: ltr;
+}

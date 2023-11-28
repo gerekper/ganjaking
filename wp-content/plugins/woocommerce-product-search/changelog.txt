@@ -1,5 +1,8 @@
 *** WooCommerce Product Search ***
 
+2023.11.23 - version 5.0.4
+* Fix - Use the order determined for Product Search Field instances to sort results appropriately.
+
 2023.11.22 - version 5.0.3
 * Update - Disables the render cache by default to avoid issues with inconsistent page content.
 

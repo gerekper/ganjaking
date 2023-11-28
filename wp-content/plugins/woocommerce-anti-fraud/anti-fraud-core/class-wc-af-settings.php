@@ -93,7 +93,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					'minfraud_settings' => __( 'MinFraud Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'woocommerce-anti-fraud' ),
-					'trust_swiftly_settings' => __( 'TrustSwiftly Settings', 'woocommerce-anti-fraud' ),
+					'trust_swiftly_settings' => __( 'Trust Swiftly Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_recaptcha_settings' => __( 'reCAPTCHA', 'woocommerce-anti-fraud' ),
 					'need_support' => __( 'Need Support?', 'woocommerce-anti-fraud' ),
 				);
@@ -226,7 +226,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							array(
 								'name'     => __( 'Trust Swiftly Settings', 'woocommerce-anti-fraud' ),
 								'type'     => 'title',
-								'desc'     => __( '<hr/>', 'woocommerce-anti-fraud' ),
+								'desc'     => __( '<a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8" target="_blank" >Trust Swiftly</a> is a paid, external service that uses AI to verify the identity and payment of a customer. By using <a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8" target="_blank" >Trust Swiftly</a> you can decrease fraud by automatically verifying their information and later use the data to win any dispute cases. To sign up for Trust Swiftly, click this link: <a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8" target="_blank">trustswiftly.com</a><hr/>', 'woocommerce-anti-fraud' ),
 								'id'       => 'wc_af_trust_swiftly_settings',
 							),
 

@@ -1,0 +1,186 @@
+.eael-admin-block.eael-admin-block-license {
+    background: #fff;
+    width: 100%;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.eael-btn.eael-license-btn {
+	background-color: #0dc9c3;
+}
+.eael-btn.eael-license-btn:hover, .eael-btn.eael-license-btn:focus {
+	background-color: #08d1ca;
+}
+.eael-btn.eael-demo-btn, .eael-btn.eael-license-btn {
+	padding: 20px;
+	display: block;
+	max-width: 250px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 15px;
+}
+
+/* License activation */
+
+.eael-license-status {
+	color: #008000;
+	font-style: italic;
+}
+
+.eael-license-container {
+    position: relative;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: auto;
+    -webkit-box-shadow: 0px 5px 18px 0px rgba(16, 16, 16, 0.1);
+    box-shadow: 0px 5px 18px 0px rgba(16, 16, 16, 0.1);
+    padding: 20px 25px;
+	background: #fff;
+	border-radius: 5px;
+}
+
+.eael-license-container .eael-license-input {
+	flex: 1 1 auto;
+	padding: 0 5px;
+}
+.eael-license-container .eael-license-deactivation {
+	flex: 0 0 150px;
+}
+.eael-license-container .eael-license-input #essential-addons-elementor-license-key {
+	border: 0px solid;
+	box-shadow: none;
+	/* width: 100%;
+	height: 50px;
+	margin: 0;
+	padding: 10px 10px 10px 50px;
+	font-size: 19px;
+	color: #666;
+	border: 1px solid rgba(238,53,95, .25);
+	border-right: 0;
+	box-shadow: none;
+	line-height: 1; */
+}
+.eael-license-container .eael-license-input #essential-addons-elementor-license-key:disabled {
+	/* border-color: rgba(20,216,161, .25);
+	color: rgba(20,216,161, .5);
+	font-size: 17px; */
+}
+.eael-license-container .eael-license-buttons #submit {
+	line-height: 1;
+	border: none;
+	border-radius: 0;
+	background-color: #dc4444;
+	color: #ffffff;
+	font-size: 14px;
+	width: 150px;
+	height: 38px;
+	border-radius: 5px;
+	transition: all .3s;
+	text-shadow: none;
+	box-shadow: none;
+	margin: 0;
+}
+.eael-license-container .eael-license-buttons #submit.eael-license-activation-btn:hover {
+background-color: rgba(238,53,95, 1);	
+}
+
+.eael-license-container .eael-license-buttons #submit.eael-license-deactivation-btn:hover {
+	background-color: rgba(186,110,120, .75);
+}
+.eael-license-instruction {
+	padding: 10px;
+}
+.eael-license-icon,
+.eael-license-icon > svg {
+	width: 25px;
+}
+
+.eael-admin-block.eael-admin-block-license {
+	background: #fff;
+	width: 100%;
+	margin-bottom: 25px;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Lock screen */
+
+.eael-lockscreen{
+	max-width: 320px;
+	margin: 0 auto;
+	padding: 15px;
+}
+.eael-lockscreen-icons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.eael-lockscreen svg {
+	width: 60px;
+	margin: 0px auto;
+	padding: 10px;
+}
+.eael-lockscreen svg#arrow-right {
+	width: 36px;
+}
+.eael-validation-title {
+	margin: 15px auto;
+	font-size: 24px;
+	text-align: center;
+}
+.eael-admin-block.eael-admin-block-license {
+	background: #fff;
+	width: 100%;
+	margin-bottom: 25px;
+	-webkit-box-shadow: 0px 5px 18px 0px rgba(16, 16, 16, 0.1);
+	box-shadow: 0px 5px 18px 0px rgba(16, 16, 16, 0.1);
+}
+.validated-feature-list {
+	display: flex;
+	flex-flow: row wrap;
+	padding: 30px 0;
+}
+.validated-feature-list-item {
+	flex: 1 1 48%;
+	display: flex;
+	align-items: center;
+}
+.validated-feature-list-icon {
+    width: 22px;
+    margin-top: -15px;
+}
+.validated-feature-list-icon svg {
+	width: 100%;
+}
+.validated-feature-list-content h4 {
+	margin: 8px;
+	padding: 0;
+	font-size: 14px;
+}
+.validated-feature-list-content {
+	padding: 5px;
+}
+.validated-feature-list-content p {
+	margin: 8px;
+	padding: 0;
+	font-size: 13px;
+}
+.eael-admin-block.eael-admin-block-license .eael-admin-block-header {
+    padding: 6px 35px;
+    background: #f0f0f5;
+}
+
+.eael-admin-block.eael-admin-block-license .eael-admin-block-header-icon {
+    background: #ffffff;
+}
+
+.eael-admin-block.eael-admin-block-license .eael-admin-block-content {
+	padding-left: 40px;
+	padding-right: 50px;
+	padding-bottom: 60px;
+}
+
+.eael-admin-block.eael-admin-block-license .eael-admin-title {
+    margin: 1em 0;
+}

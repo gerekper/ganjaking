@@ -1,0 +1,18 @@
+.eael-particles-section {
+  position: relative;
+  z-index: 1;
+}
+.eael-particles-section[data-element_type=container] {
+  z-index: 1;
+}
+canvas.particles-js-canvas-el {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+@media (max-width: 767px) {
+  [data-particle-mobile-disabled=true] canvas.particles-js-canvas-el {
+    display: none;
+  }
+}
