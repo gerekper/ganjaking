@@ -1264,10 +1264,10 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 if ($options && $exposed) {
                     $form_action = '';
                     if (isset($_GET['page_id'])) {
-                        $form_action = '?page_id=' . sanitize_text_field($_GET['page_id']);
+                        $form_action = '?page_id=' . esc_attr($_GET['page_id']);
                     }
                     if (isset($_GET['p'])) {
-                        $form_action = '?p=' . sanitize_text_field($_GET['p']);
+                        $form_action = '?p=' . esc_attr($_GET['p']);
                     }
                     ?>
 					<div class="dce-view-exposed-sort-wrapper">
@@ -1284,7 +1284,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     if (isset($_GET['page_id'])) {
                         ?>
 										<input type="hidden" name="page_id" value="<?php 
-                        echo sanitize_text_field($_GET['page_id']);
+                        echo esc_attr($_GET['page_id']);
                         ?>">
 									<?php 
                     }
@@ -1293,7 +1293,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     if (isset($_GET['p'])) {
                         ?>
 										<input type="hidden" name="p" value="<?php 
-                        echo sanitize_text_field($_GET['p']);
+                        echo esc_attr($_GET['p']);
                         ?>">
 									<?php 
                     }
@@ -1340,7 +1340,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     if (isset($_GET['page_id'])) {
                         ?>
 										<input type="hidden" name="page_id" value="<?php 
-                        echo sanitize_text_field($_GET['page_id']);
+                        echo esc_attr($_GET['page_id']);
                         ?>">
 									<?php 
                     }
@@ -1349,7 +1349,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     if (isset($_GET['p'])) {
                         ?>
 										<input type="hidden" name="p" value="<?php 
-                        echo sanitize_text_field($_GET['p']);
+                        echo esc_attr($_GET['p']);
                         ?>">
 									<?php 
                     }
@@ -1374,10 +1374,10 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if (isset($settings['dce_views_where_form']) && !empty($settings['dce_views_where_form'])) {
             $form_action = '';
             if (isset($_GET['page_id'])) {
-                $form_action = '?page_id=' . sanitize_text_field($_GET['page_id']);
+                $form_action = '?page_id=' . esc_attr($_GET['page_id']);
             }
             if (isset($_GET['p'])) {
-                $form_action = '?p=' . sanitize_text_field($_GET['p']);
+                $form_action = '?p=' . esc_attr($_GET['p']);
             }
             ?>
 			<div class="dce-view-form-wrapper dce-view-exposed-form elementor-button-align-<?php 
@@ -1592,7 +1592,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         ?>" type="text" placeholder="<?php 
                         echo $afield['dce_views_where_form_placeholder'];
                         ?>" value="<?php 
-                        echo isset($_GET[$afield['dce_views_where_form_field']]) ? sanitize_text_field($_GET[$afield['dce_views_where_form_field']]) : $afield['dce_views_where_form_preselect'];
+                        echo isset($_GET[$afield['dce_views_where_form_field']]) ? esc_attr($_GET[$afield['dce_views_where_form_field']]) : $afield['dce_views_where_form_preselect'];
                         ?>" name="<?php 
                         echo $afield['dce_views_where_form_field'];
                         ?>" id="dce_view_<?php 
@@ -1668,7 +1668,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
             if (isset($_GET['page_id'])) {
                 ?>
 							<input type="hidden" name="page_id" value="<?php 
-                echo sanitize_text_field($_GET['page_id']);
+                echo esc_attr($_GET['page_id']);
                 ?>">
 						<?php 
             }
@@ -1677,7 +1677,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
             if (isset($_GET['p'])) {
                 ?>
 							<input type="hidden" name="p" value="<?php 
-                echo sanitize_text_field($_GET['p']);
+                echo esc_attr($_GET['p']);
                 ?>">
 						<?php 
             }
@@ -2117,7 +2117,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if (empty($settings['dce_views_pagination_type']) || $settings['dce_views_pagination_type'] == 'prev_next' || $settings['dce_views_pagination_type'] == 'numbers_and_prev_next') {
             /** Previous Post Link */
             if ($paged > 1) {
-                echo '<li><a class="page-numbers pagination__prev" href="' . $this->get_posts_link('prev') . '">';
+                echo '<li><a class="page-numbers pagination__prev" href="' . esc_url($this->get_posts_link('prev')) . '">';
                 if (empty($settings['dce_views_pagination_prev_label'])) {
                     echo '&lt;';
                 } else {
@@ -2160,7 +2160,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if (empty($settings['dce_views_pagination_type']) || $settings['dce_views_pagination_type'] == 'prev_next' || $settings['dce_views_pagination_type'] == 'numbers_and_prev_next' || $settings['dce_views_pagination_type'] == 'infinite_scroll') {
             /** Next Post Link */
             if ($paged < $max) {
-                echo '<li><a class="page-numbers pagination__next" href="' . $this->get_posts_link() . '">';
+                echo '<li><a class="page-numbers pagination__next" href="' . esc_url($this->get_posts_link()) . '">';
                 if (empty($settings['dce_views_pagination_next_label'])) {
                     echo '&gt;';
                 } else {
@@ -2217,7 +2217,7 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 echo $settings['dce_views_limit_scroll_last'];
                 ?></div>
 					<p class="infinite-scroll-error" style="display: none;"><a class="infinite__next" href="<?php 
-                echo $this->get_posts_link();
+                echo esc_url($this->get_posts_link());
                 ?>"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></p>
 				</div>
 				<?php 

@@ -164,6 +164,8 @@ class AI_Generator_Route implements Route_Interface {
 						'enum'        => [
 							'seo-title',
 							'meta-description',
+							'product-seo-title',
+							'product-meta-description',
 						],
 						'description' => 'The type of suggestion requested.',
 					],
@@ -244,7 +246,16 @@ class AI_Generator_Route implements Route_Interface {
 			$user = \wp_get_current_user();
 			$data = $this->ai_generator_action->get_suggestions( $user, $request['type'], $request['prompt_content'], $request['focus_keyphrase'], $request['language'], $request['platform'] );
 		} catch ( Bad_Request_Exception | Forbidden_Exception | Internal_Server_Error_Exception | Not_Found_Exception | Payment_Required_Exception | Request_Timeout_Exception | Service_Unavailable_Exception | Too_Many_Requests_Exception | Unauthorized_Exception $e ) {
-			return new WP_REST_Response( $e->getMessage(), $e->getCode() );
+			$message = [
+				'message' => $e->getMessage(),
+			];
+			if ( $e instanceof Payment_Required_Exception ) {
+				$message['missingLicenses'] = $e->get_missing_licenses();
+			}
+			return new WP_REST_Response(
+				$message,
+				$e->getCode()
+			);
 		} catch ( RuntimeException $e ) {
 			return new WP_REST_Response( 'Failed to get suggestions.', 500 );
 		}

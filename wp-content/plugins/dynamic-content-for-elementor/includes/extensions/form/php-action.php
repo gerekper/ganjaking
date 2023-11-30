@@ -86,7 +86,7 @@ class PhpAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
         if (!Helper::can_register_unsafe_controls()) {
             return;
         }
-        $widget->start_controls_section('section_dce_php_action', ['label' => '<span class="color-dce icon icon-dyn-logo-dce pull-right ml-1"></span> ' . __('PHP Action', 'dynamic-content-for-elementor'), 'condition' => ['submit_actions' => $this->get_name()]]);
+        $widget->start_controls_section('section_dce_php_action', ['label' => Helper::dce_logo() . $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
         $widget->add_control('dce_php_action_code', ['label' => __('PHP Action Code', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CODE, 'language' => 'php', 'default' => '', 'separator' => 'after', 'description' => __('Use the variable $fields to access fields values (eg $fields["field_id"]).', 'dynamic-content-for-elementor')]);
         $widget->end_controls_section();
     }

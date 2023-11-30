@@ -1,0 +1,320 @@
+td.wccs-payment-gateway-td {
+  position: relative;
+}
+.wccs_payment_gateways_container {
+  display: none;
+  background: #f5f5f5;
+  min-width: 180px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 47px;
+  left: 10px;
+  margin: 0 auto!important;
+  z-index: 99;
+  width: 100%;
+}
+.wccs_payment_gateways_container > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wccs_payment_gateways_container > ul > li {
+  padding: 5px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.8em;
+}
+.wccs_payment_gateways_container > ul > li:last-child {
+  border: none;
+  margin: 0;
+}
+.wccs-payment-gateway-td > button {
+  position: relative;
+  width: 115px;
+  text-align: left;
+  transition: all 0.5s ease 0s;
+}
+.wccs-payment-gateway-td > button:focus, 
+.wccs-payment-gateway-td > button:active,
+.wccs-payment-gateway-td > button:hover {
+  outline: none!important;
+  box-shadow: none!important;
+  -webkit-box-shadow: none!important;
+  -moz-box-shadow: none!important;
+  -o-box-shadow: none!important;
+  -ms-box-shadow: none!important;
+}
+.wccs-payment-gateway-td > button.wccs-close::after {
+  content: '';
+  position: absolute;
+  right: 6px;
+  top: 7px;
+  bottom: 0;
+  border-top: 6px solid #0071a1;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  margin: auto;
+  height: 0;
+  width: 0;
+}
+.wccs-payment-gateway-td > button.wccs-open::after {
+  content: '';
+  position: absolute;
+  right: 6px;
+  top: 0;
+  bottom: 4px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid #0071a1;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  margin: auto;
+  height: 0;
+  width: 0;
+}
+#wccs_add_currency,
+#wccs_update_all {
+    margin-bottom: 15px;
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+}
+
+#wccs_currencies_table th,
+#wccs_currencies_table td {
+    padding: 15px 10px;
+    width: auto;    
+}
+
+#wccs_currencies_table .wccs_actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#wccs_currencies_table .wccs_actions a {
+    margin: 5px;
+}
+
+#wccs_currencies_table .wccs_w_50 {
+    width: 50px;
+}
+
+#wccs_currencies_table .wccs_w_150 {
+    width: 150px;
+}
+
+#wccs_currencies_table .wccs_w_100 {
+    width: 100px;
+}
+
+.wccs_remove_currency {
+    color: darkred;
+}
+
+.wccs_remove_currency:hover {
+    color: red;
+}
+
+/* flags css */
+.prettydropdown {
+    min-width: 110px !important;
+}
+
+.prettydropdown > ul > li {
+    padding-left: 0.5rem;
+}
+
+.prettydropdown.classic > ul:not(.active) > li.selected:not(:first-child) {
+    display: flex;
+    align-items: center;
+}
+
+.prettydropdown.wccs_arrow > ul > li.selected:before, .prettydropdown.wccs_arrow > ul > li.selected:after {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  right: 8px;
+  height: 16px;
+  border: 6px solid transparent; /* Arrow size */
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  margin: auto;
+}
+.prettydropdown.wccs_arrow.small > ul > li.selected:before, .prettydropdown.wccs_arrow.small > ul > li.selected:after {
+  top: 4px;
+  height: 8px;
+  border-width: 4px;
+}
+.prettydropdown.wccs_arrow > ul > li.selected:before {
+  border-top-color: #555; /* Arrow color */  
+}
+.prettydropdown.wccs_arrow > ul > li.selected:after {
+  top: 4px; /* Chevron thickness */
+  border-top-color: #fff; /* Match background colour */
+}
+.prettydropdown.wccs_arrow.small > ul > li.selected:after {
+  top: 2px; /* Chevron thickness */
+}
+.prettydropdown.wccs_arrow.triangle > ul > li.selected:after {
+  content: none;
+}
+
+.prettydropdown > ul.active > li.selected:before,
+.prettydropdown > ul.active > li.selected:after {
+  border: none;
+}
+
+.prettydropdown > ul.active > li.selected {
+    background-color: #ddd !important;
+}
+.wccs_get_defined_currency, .wccs_add_single_currency, .wccs_add_all_currencies {
+  margin-right: 10px!important;
+}
+.wccs_fixed_coupon_settings {
+  padding: 15px;
+}
+.ml-10 {
+  margin-left: 10px!important;
+}
+span.wccs_form_control {
+  display: flex;
+  margin-bottom: 10px;
+}
+.wccs_zp_container {
+    display: flex;
+    width: 100%;
+}
+.wccs_zp_col_50 {
+    flex: 0 0 50%;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+}
+#wccs_add_zp {
+    background: #425CFB;
+    border: 1px solid #425CFB;
+    color: #FFF;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+}
+.wccs_form_control {
+  display: block;
+  margin-bottom: 20px;
+}
+.wccs_form_control label {
+  font-size: 14px;
+  color: #000;
+  display: inline-block;
+
+}
+.wccs_form_control input[type="text"], .wccs_form_control input[type="number"], .wccs_form_control select {
+    border: 2px solid #E1E1E1;
+    padding: 6px 15px;
+    min-width: 30em;
+    display: block;
+    margin: 5px 0;
+}
+.wccs-flex-line {
+    display: flex;
+    align-items: center;
+}
+.wccs_equal_to {
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.wccs-multiselect ~ span.select2-container {
+  display: block;
+  margin: 5px 0;  
+}
+.wccs-multiselect ~ span.select2-container .select2-selection {
+  border: 2px solid #E1E1E1;
+  padding: 2px 15px;
+}
+.wccs-multiselect ~ span.select2-container .select2-selection ul.select2-selection__rendered, 
+.wccs-multiselect ~ span.select2-container .select2-selection ul.select2-selection__rendered li input {
+  padding:  0;
+  margin:  0;
+  min-height: auto;
+  line-height: 1.9;
+}
+.wccs-multiselect ~ span.select2-container .select2-selection ul.select2-selection__rendered li:not(.select2-search.select2-search--inline) {
+  padding: 2px 6px;
+  margin: 5px 5px 0 0;
+  min-height: auto;
+  line-height: 1.9;
+}
+.wccs-multiselect ~ span.select2-container .select2-selection ul.select2-selection__rendered li.select2-search.select2-search--inline {
+    margin-top: 9px!important;
+    margin-bottom: 0!important;
+}
+.wccs-multiselect ~ span.select2-container .select2-selection ul.select2-selection__rendered span.select2-selection__clear {
+    position: absolute;
+    right: 0;
+}
+p.wccs-error {
+    margin: 0;
+    font-size: 13px;
+    color: #ff0000;
+    font-weight: bold;
+}
+table.wccs_zp_pricing_view {
+    width: 100%;
+    background: #fff;
+    border-spacing: 0;
+}
+table.wccs_zp_pricing_view thead tr th {
+    border-bottom: 2px solid #E1E1E1!important;
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 15px;
+}
+table.wccs_zp_pricing_view tbody tr td {
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 14px;
+}
+.wccs_zp_action {
+  visibility: hidden;
+}
+table.wccs_zp_pricing_view tbody tr:hover .wccs_zp_action {
+  visibility: visible;
+}
+table.wccs_zp_pricing_view tbody tr:hover {
+  background:  #f8f8f8;
+}
+.wccs_zp_action a.wccs_zp_edit {
+  text-decoration: none;
+  font-size:  12px;
+  color: #425CFB;
+}
+
+.wccs_zp_action a.wccs_zp_delete {
+  text-decoration: none;
+  font-size:  12px;
+  color: #ff0000;
+}
+#wccs_saved {
+  color: green;
+  font-size: 13px;
+}
+.wccs_zp_notice {    
+    padding: 10px!important;
+    font-size: 14px!important;
+}
+.wccs_form_control_flex {
+    display: flex;
+    align-items: center;
+    max-width: 250px;
+}
+.wccs_form_control_flex input {
+  min-width: 100px!important;
+  margin-left: 10px!important;
+}
+div#wccs_zp_pricing_view_for_product {
+    margin: 20px!important;
+}

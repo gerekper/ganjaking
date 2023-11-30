@@ -226,7 +226,7 @@ class WPML_Nav_Menu {
 		);
 		if ( ! empty( $untranslated_menu_items ) ) {
 			foreach ( $untranslated_menu_items as $item ) {
-				$sitepress->set_element_language_details( $item, 'post_nav_menu_item', null, $default_language );
+				$sitepress->set_element_language_details( $item, 'post_nav_menu_item', null, $default_language, null, true, true );
 			}
 		}
 	}

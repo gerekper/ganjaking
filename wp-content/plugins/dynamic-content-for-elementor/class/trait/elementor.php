@@ -553,4 +553,13 @@ trait Elementor
     {
         return \Elementor\Plugin::$instance->breakpoints->get_active_devices_list(['reverse' => \true]);
     }
+    /**
+     * DCE Logo
+     *
+     * @return string
+     */
+    public static function dce_logo()
+    {
+        return '<span class="color-dce icon-dyn-logo-dce pull-right ml-1"></span> ';
+    }
 }

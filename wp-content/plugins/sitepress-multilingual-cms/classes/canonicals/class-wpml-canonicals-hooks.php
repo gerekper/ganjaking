@@ -35,6 +35,7 @@ class WPML_Canonicals_Hooks {
 			 && ! empty( $urls['directory_for_default_language'] )
 		) {
 			add_action( 'template_redirect', array( $this, 'redirect_pages_from_root_to_default_lang_dir' ) );
+			add_action( 'template_redirect', [ $this, 'redirectArchivePageToDefaultLangDir' ] );
 		} elseif ( WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER === $lang_negotiation ) {
 			add_filter( 'redirect_canonical', array( $this, 'prevent_redirection_with_translated_paged_content' ) );
 		}
@@ -47,20 +48,65 @@ class WPML_Canonicals_Hooks {
 	public function redirect_pages_from_root_to_default_lang_dir() {
 		global $wp_query;
 
-		if ( ( $wp_query->is_page() || $wp_query->is_posts_page ) && ! call_user_func( $this->is_current_request_root_callback ) ) {
-			$lang           = $this->sitepress->get_current_language();
-			$current_uri    = $_SERVER['REQUEST_URI'];
-			$abs_home       = $this->url_converter->get_abs_home();
-			$install_subdir = wpml_parse_url( $abs_home, PHP_URL_PATH );
-			$actual_uri     = preg_replace( '#^' . $install_subdir . '#', '', $current_uri );
-			$actual_uri     = '/' . ltrim( $actual_uri, '/' );
-
-			if ( is_string( $install_subdir ) && 0 !== strpos( $actual_uri, '/' . $lang ) ) {
-				$canonical_uri = trailingslashit( $install_subdir ) . $lang . $actual_uri;
-				$canonical_uri = user_trailingslashit( $canonical_uri );
-				$this->sitepress->get_wp_api()->wp_safe_redirect( $canonical_uri, 301 );
-			}
+		if ( ! ( ( $wp_query->is_page() || $wp_query->is_posts_page ) && ! call_user_func( $this->is_current_request_root_callback ) ) ) {
+			return;
 		}
+
+		$lang           = $this->sitepress->get_current_language();
+		$current_uri    = $_SERVER['REQUEST_URI'];
+		$abs_home       = $this->url_converter->get_abs_home();
+		$install_subdir = wpml_parse_url( $abs_home, PHP_URL_PATH );
+
+		$actual_uri = is_string( $install_subdir )
+			? preg_replace( '#^' . $install_subdir . '#', '', $current_uri )
+			: $current_uri;
+		$actual_uri = '/' . ltrim( $actual_uri, '/' );
+
+		if ( 0 === strpos( $actual_uri, '/' . $lang ) ) {
+			return;
+		}
+
+		$canonical_uri = is_string( $install_subdir )
+			? trailingslashit( $install_subdir ) . $lang . $actual_uri
+			: '/' . $lang . $actual_uri;
+		$canonical_uri = user_trailingslashit( $canonical_uri );
+		$this->redirectTo( $canonical_uri );
+	}
+
+	/**
+	 * When :
+	 *
+	 * The current template that user tries to load is for archive page
+	 *
+	 * And the default language in a directory mode is active
+	 *
+	 * And the language code is not present in the current request URI
+	 *
+	 * Then: We make a redirect to the proper URI that contains the default language code as directory.
+	 */
+	public function redirectArchivePageToDefaultLangDir() {
+		global $wp_query;
+
+		$isValidForRedirect = $wp_query->is_archive() && ! call_user_func( $this->is_current_request_root_callback );
+
+		if ( ! $isValidForRedirect ) {
+			return;
+		}
+
+		$currentUri = $_SERVER['REQUEST_URI'];
+		$lang       = $this->sitepress->get_current_language();
+
+		if ( 0 !== strpos( $currentUri, '/' . $lang ) ) {
+			$canonicalUri = user_trailingslashit(
+				$this->url_converter->get_abs_home() . '/' . $lang . $currentUri
+			);
+
+			$this->redirectTo( $canonicalUri );
+		}
+	}
+
+	private function redirectTo( $uri ) {
+		$this->sitepress->get_wp_api()->wp_safe_redirect( $uri, 301 );
 	}
 
 	/**

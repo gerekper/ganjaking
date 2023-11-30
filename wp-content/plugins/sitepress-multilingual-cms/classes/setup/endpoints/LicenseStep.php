@@ -39,9 +39,6 @@ class LicenseStep implements IHandler {
 				'return'        => 1,
 			];
 			$r    = OTGS_Installer()->save_site_key( $args );
-			if ( ! empty( $r['error'] ) ) {
-				return Either::left( [ 'msg' => strip_tags( $r['error'] ) ] );
-			} else {
 				icl_set_setting( 'site_key', $site_key, true );
 				$isTMAllowed = Plugins::updateTMAllowedOption();
 				return Right::of(
@@ -50,7 +47,6 @@ class LicenseStep implements IHandler {
 						'msg'         => __( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' ),
 					]
 				);
-			}
 		}
 
 		return Either::left( false );

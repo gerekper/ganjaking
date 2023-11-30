@@ -1,0 +1,29 @@
+#prettydropdown-wcc_switcher ul li {
+    justify-content: space-between;
+    align-items: center;
+}
+
+#prettydropdown-wcc_switcher ul.active li {
+    display: flex;
+}
+
+#prettydropdown-wcc_switcher ul li img {
+    margin: 0 5px;
+}
+
+#prettydropdown-wcc_switcher ul {
+    z-index: 999;
+}
+
+.showing-menu-modal #prettydropdown-wcc_switcher ul {
+    z-index: 9;
+}
+
+@media screen and (max-width: 360px) {
+    #prettydropdown-wcc_switcher,
+    #prettydropdown-wcc_switcher ul,
+    #prettydropdown-wcc_switcher ul li {
+        width: 100% !important;
+        font-size: 13px;
+    }
+}

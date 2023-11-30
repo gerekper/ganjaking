@@ -32,6 +32,7 @@ use WPML\TM\ATE\Sync\Trigger;
 use WPML\TM\ATE\TranslateEverything\Pause\View as PauseTranslateEverything;
 use WPML\Core\WP\App\Resources;
 use WPML\UIPage;
+use WPML\TM\ATE\Retranslation\Scheduler;
 use function WPML\Container\make;
 use function WPML\FP\invoke;
 use function WPML\FP\pipe;
@@ -114,6 +115,9 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			Obj::values()
 		);
 
+		/** @var Scheduler */
+		$scheduler = make( Scheduler::class );
+
 		return [
 			'name' => 'ate_jobs_sync',
 			'data' => [
@@ -142,6 +146,8 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 				'ateConsole'                  => self::getAteData( Lst::pluck( 'ateJobId', $jobsToSync ) ),
 				'isAteActive'                 => $isAteActive,
 				'editorMode'                  => Settings::pathOr( false, [ 'translation-management', 'doc_translation_method' ] ),
+				'shouldCheckForRetranslation' => $scheduler->shouldRun(),
+				'ateCallbacks' => [], // Should be used to add any needed ATE callbacks in JS side, refer to 'src/js/ate/retranslation/index.js' for example
 			],
 		];
 	}
@@ -215,6 +221,7 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			'untranslatedCount'            => UntranslatedCount::class,
 			'countAutomaticJobsInProgress' => CountJobsInProgress::class,
 			'languages'                    => EndpointLanguages::class,
+			'assignToTranslation'          => \WPML\TM\ATE\Retranslation\Endpoint::class,
 		];
 	}
 

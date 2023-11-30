@@ -99,6 +99,8 @@ return [
 	'OTGS\Installer\Templates\Repository\RegisteredButtons'             => $baseDir . '/templates/repository-registered-buttons.php',
 	'OTGS\Installer\Rest\Push'                                          => $baseDir . '/includes/rest/Push.php',
 	'OTGS\Installer\Recommendations\RecommendationsManager'             => $baseDir . '/src/Recommendations/RecommendationsManager.php',
+	'OTGS\Installer\Recommendations\RecommendationsForInstallerPlugins' => $baseDir . '/src/Recommendations/RecommendationsForInstallerPlugins.php',
+	'OTGS\Installer\Recommendations\GluePluginData'                     => $baseDir . '/src/Recommendations/GluePluginData.php',
 	'OTGS\Installer\Recommendations\RecommendationsManagerFactory'      => $baseDir . '/src/Recommendations/RecommendationsManagerFactory.php',
 	'OTGS\Installer\Recommendations\Storage'                            => $baseDir . '/src/Recommendations/Storage.php',
 	'OTGS\Installer\AdminNotices\Notices\Recommendation'                => $baseDir . '/includes/admin-notices/notices/Recommendation.php',

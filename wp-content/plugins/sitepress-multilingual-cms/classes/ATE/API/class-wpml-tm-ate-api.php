@@ -549,21 +549,28 @@ class WPML_TM_ATE_API {
 	 */
 	public function get_remote_xliff_content( $xliff_url, $job = null ) {
 
-		$entry = $this->prepare_xliff_log_entry( $xliff_url, $job );
-
-		wpml_tm_ate_ams_log( $entry, true );
-
-		/** @var \WP_Error|array $response */
-		$response = $this->wp_http->get( $xliff_url, array(
-			'timeout' => min( 30, ini_get( 'max_execution_time' ) ?: 10 )
-		) );
-
-		wpml_tm_ate_ams_log_remove( $entry );
+		$avoidLogDuplication = false;
+		try {
+			/** @var \WP_Error|array $response */
+			$response = $this->wp_http->get($xliff_url, array(
+				'timeout' => min(30, ini_get('max_execution_time') ?: 10)
+			));
+		} catch ( \Error $e ) {
+			$response = new \WP_Error(
+				'ate_request_failed',
+				'Started attempt to download xliff file. The process did not finish.',
+				[ 'errorMessage' => $e->getMessage(), 'debugTrace' => $e->getTraceAsString() ]
+			);
+			$avoidLogDuplication = true;
+		}
 
 		if ( is_wp_error( $response ) ) {
 			throw new RequestException(
 				$response->get_error_message(),
-				$response->get_error_code()
+				$response->get_error_code(),
+				$response->get_error_data(),
+			0,
+				$avoidLogDuplication
 			);
 		}
 
@@ -603,6 +610,28 @@ class WPML_TM_ATE_API {
 
 		return null;
 	}
+
+	/**
+	 * @param int $page
+	 *
+	 * @return \WPML\FP\Left|\WPML\FP\Right
+	 */
+	public function get_jobs_to_retranslation( int $page = 1 ) {
+		try {
+			$result = $this->requestWithLog(
+				$this->endpoints->get_retranslate(),
+				[
+					'method' => 'GET',
+					'body'   => [ 'page_number' => $page ],
+				]
+			);
+		} catch ( \Exception $e ) {
+			$result = new \WP_Error( $e->getCode(), $e->getMessage() );
+		}
+
+		return WordPress::handleError( $result );
+	}
+
 
 	/**
 	 * @see https://bitbucket.org/emartini_crossover/ate/wiki/API/V1/sync/all
@@ -710,26 +739,5 @@ class WPML_TM_ATE_API {
 		}
 
 		return $response;
-	}
-
-	/**
-	 * @param string $xliff_url
-	 * @param array|\stdClass|false|null $job
-	 *
-	 * @return Entry
-	 */
-	private function prepare_xliff_log_entry( $xliff_url, $job ) {
-		$entry = new WPML\TM\ATE\Log\Entry();
-
-		if ( $job ) {
-			$entry->ateJobId    = Obj::prop('ateJobId', $job);
-			$entry->wpmlJobId   = Obj::prop('jobId', $job);
-		}
-
-		$entry->eventType = WPML\TM\ATE\Log\EventsTypes::SERVER_ATE;
-		$entry->description = 'Started attempt to download xliff file. The process did not finish.';
-		$entry->extraData = [ 'xliff_url' => $xliff_url ];
-
-		return $entry;
 	}
 }

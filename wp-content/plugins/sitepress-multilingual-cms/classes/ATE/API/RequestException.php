@@ -21,6 +21,13 @@ class RequestException extends \Exception {
 	protected $data;
 
 	/**
+	 * Whether to avoid logging the exception.
+	 *
+	 * @var bool
+	 */
+	protected $avoidLogDuplication;
+
+	/**
 	 * Create a new exception
 	 *
 	 * @param string     $message Exception message.
@@ -28,10 +35,12 @@ class RequestException extends \Exception {
 	 * @param mixed      $data Associated data.
 	 * @param int        $code Exception numerical code, if applicable.
 	 */
-	public function __construct( $message, $type, $data = null, $code = 0 ) {
+	public function __construct( $message, $type, $data = null, $code = 0, $avoidLogDuplication = false ) {
 		// Use type as code if code is not set.
 		// This is for backward compatibility.
 		$code = 0 === $code ? (int) $type : $code;
+
+		$this->avoidLogDuplication = $avoidLogDuplication;
 
 		parent::__construct( $message, $code );
 
@@ -55,5 +64,14 @@ class RequestException extends \Exception {
 	 */
 	public function getData() {
 		return $this->data;
+	}
+
+	/**
+	 * Whether to avoid logging the exception.
+	 *
+	 * @return bool
+	 */
+	public function shouldAvoidLogDuplication() {
+		return $this->avoidLogDuplication;
 	}
 }

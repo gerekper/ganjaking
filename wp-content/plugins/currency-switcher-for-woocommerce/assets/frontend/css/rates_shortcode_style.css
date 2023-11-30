@@ -1,0 +1,53 @@
+.wcc_rates_container {    
+  margin-bottom: 30px;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #ddd;
+  padding: 15px 15px 10px;
+  border-radius: 7px;
+}
+
+.wcc_rates_container h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.wcc_rates_list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+.wcc_rates_list li {
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.wcc_rates_list li + li {
+  padding-top: 5px;
+}
+
+.wcc_rates_list li .wcc-flag {
+  min-width: 1.33333333em;
+  margin-right: 7px;
+}
+
+.wcc_rates_list li .wcc-name,
+.wcc_rates_list li .wcc-symbol {
+  min-width: 40px
+}
+
+.wcc_rates_list li .wcc-dots {
+  min-width: 16px;
+  text-align: center;
+}
+
+.wcc_rates_base {
+  font-size: 14px;
+}

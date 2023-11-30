@@ -47,6 +47,45 @@ class Manual {
 		return $jobId ? $this->markJobAsManual( wpml_tm_load_job_factory()->get_translation_job_as_active_record( $jobId ) ) : null;
 	}
 
+	/**
+	 * @param array $params
+	 *
+	 * @return array{targetLanguageCode: string, translatedPostId: int, originalPostId: int, postType: string}|null
+	 */
+	public function maybeGetDataIfTranslationCreatedInNativeEditorViaConnection( array $params ) {
+		$jobId = (int) filter_var( Obj::propOr( 0, 'job_id', $params ), FILTER_SANITIZE_NUMBER_INT );
+		list( $jobId, $trid, , $targetLanguageCode ) = $this->get_job_data_for_restore( $jobId, $params );
+
+		if ( $trid && $targetLanguageCode && ! $jobId ) {
+			$originalPostId = $this->getOriginalPostId( $trid );
+			if ( $this->isDuplicate( $originalPostId, $targetLanguageCode ) ) {
+				return null;
+			}
+
+			$translatedPostId = (int) $this->getPostIdInLang( $trid, $targetLanguageCode );
+
+			if ( $translatedPostId ) {
+				$translatedPost = get_post( $translatedPostId );
+
+				if ( $translatedPost ) {
+					$enforcedNativeEditor = get_post_meta( $originalPostId, \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE, true );
+					if ( $enforcedNativeEditor === 'no' ) { // a user deliberately chose to use the WPML editor
+						return null;
+					}
+
+					return [
+						'targetLanguageCode' => $targetLanguageCode,
+						'translatedPostId'   => $translatedPostId,
+						'originalPostId'     => $originalPostId,
+						'postType'           => $translatedPost->post_type,
+					];
+				}
+			}
+		}
+
+		return null;
+	}
+
 	private function getOriginalPostId( $trid ) {
 		return Obj::prop( 'element_id', TranslationRecords::getSourceByTrid( $trid ) );
 	}
@@ -83,7 +122,7 @@ class Manual {
 
 		if ( is_object( $job ) ) {
 			return [
-				$jobId,
+				Obj::prop( 'job_id', $job ),
 				Obj::prop( 'trid', $job ),
 				Obj::prop( 'needs_update', $job ),
 				Obj::prop( 'language_code', $job ),
@@ -143,7 +182,7 @@ class Manual {
 
 	private function maybeSetJobStatus() {
 		return function ( $jobObject ) {
-			if ( $this->isDuplicate( $jobObject ) ) {
+			if ( $this->isDuplicate( $jobObject->get_original_element_id(), $jobObject->get_language_code() ) ) {
 				Jobs::setStatus( (int) $jobObject->get_id(), ICL_TM_DUPLICATE );
 			} elseif ( (int) $jobObject->get_status_value() !== ICL_TM_COMPLETE ) {
 				Jobs::setStatus( (int) $jobObject->get_id(), ICL_TM_IN_PROGRESS );
@@ -159,10 +198,16 @@ class Manual {
 		return $jobObject;
 	}
 
-	private function isDuplicate( \WPML_Translation_Job $jobObject ) {
-		return Maybe::of( $jobObject->get_original_element_id() )
+	/**
+	 * @param int $originalElementId
+	 * @param string $targetLanguageCode
+	 *
+	 * @return bool
+	 */
+	private function isDuplicate( $originalElementId, $targetLanguageCode ): bool {
+		return Maybe::of( $originalElementId )
 		            ->map( PostTranslations::get() )
-		            ->map( Obj::prop( $jobObject->get_language_code() ) )
+		            ->map( Obj::prop( $targetLanguageCode ) )
 		            ->map( Obj::prop( 'element_id' ) )
 		            ->map( [ wpml_get_post_status_helper(), 'is_duplicate' ] )
 		            ->getOrElse( false );

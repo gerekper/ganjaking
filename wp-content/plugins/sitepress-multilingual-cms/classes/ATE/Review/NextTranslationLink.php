@@ -120,6 +120,7 @@ class NextTranslationLink {
 	 */
 	private static function buildSearchParams( $sourceLang, array $targetLanguages ) {
 		return ( new \WPML_TM_Jobs_Search_Params() )
+			->set_custom_where_conditions( [ 'translations.element_type NOT LIKE "package_%"' ] )
 			->set_needs_review()
 			->set_source_language( $sourceLang )
 			->set_target_language( $targetLanguages );

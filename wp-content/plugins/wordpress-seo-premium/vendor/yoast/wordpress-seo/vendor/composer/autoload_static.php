@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
+class ComposerStaticInit3ab8038c35be43796b40becebb37bf45
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -877,13 +877,13 @@ class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\WPML_WPSEO_Notification' => __DIR__ . '/../..' . '/src/integrations/third-party/wpml-wpseo-notification.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Web_Stories' => __DIR__ . '/../..' . '/src/integrations/third-party/web-stories.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Web_Stories_Post_Edit' => __DIR__ . '/../..' . '/src/integrations/third-party/web-stories-post-edit.php',
-        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher' => __DIR__ . '/../..' . '/src/integrations/third-party/wincher.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/third-party/wincher.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher_Publish' => __DIR__ . '/../..' . '/src/integrations/third-party/wincher-publish.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\WooCommerce' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\WooCommerce_Post_Edit' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce-post-edit.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Woocommerce_Permalinks' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce-permalinks.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof' => __DIR__ . '/../..' . '/src/integrations/third-party/wordproof.php',
-        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle' => __DIR__ . '/../..' . '/src/integrations/third-party/wordproof-integration-toggle.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/third-party/wordproof-integration-toggle.php',
         'Yoast\\WP\\SEO\\Integrations\\Uninstall_Integration' => __DIR__ . '/../..' . '/src/integrations/uninstall-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Addon_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/addon-update-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Auto_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/auto-update-watcher.php',
@@ -909,6 +909,7 @@ class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Category_Quick_Edit_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/primary-category-quick-edit-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Term_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/primary-term-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Search_Engines_Discouraged_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/search-engines-discouraged-watcher.php',
+        'Yoast\\WP\\SEO\\Integrations\\Watchers\\Woocommerce_Beta_Editor_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/woocommerce-beta-editor-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\XMLRPC' => __DIR__ . '/../..' . '/src/integrations/xmlrpc.php',
         'Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell' => __DIR__ . '/../..' . '/src/introductions/application/ai-generate-titles-and-descriptions-introduction-upsell.php',
         'Yoast\\WP\\SEO\\Introductions\\Application\\Current_Page_Trait' => __DIR__ . '/../..' . '/src/introductions/application/current-page-trait.php',
@@ -918,8 +919,11 @@ class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
         'Yoast\\WP\\SEO\\Introductions\\Domain\\Introduction_Interface' => __DIR__ . '/../..' . '/src/introductions/domain/introduction-interface.php',
         'Yoast\\WP\\SEO\\Introductions\\Domain\\Introduction_Item' => __DIR__ . '/../..' . '/src/introductions/domain/introduction-item.php',
         'Yoast\\WP\\SEO\\Introductions\\Domain\\Introductions_Bucket' => __DIR__ . '/../..' . '/src/introductions/domain/introductions-bucket.php',
+        'Yoast\\WP\\SEO\\Introductions\\Domain\\Invalid_User_Id_Exception' => __DIR__ . '/../..' . '/src/introductions/domain/invalid-user-id-exception.php',
+        'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Introductions_Seen_Repository' => __DIR__ . '/../..' . '/src/introductions/infrastructure/introductions-seen-repository.php',
         'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository' => __DIR__ . '/../..' . '/src/introductions/infrastructure/wistia-embed-permission-repository.php',
         'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Integration' => __DIR__ . '/../..' . '/src/introductions/user-interface/introductions-integration.php',
+        'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Seen_Route' => __DIR__ . '/../..' . '/src/introductions/user-interface/introductions-seen-route.php',
         'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Wistia_Embed_Permission_Route' => __DIR__ . '/../..' . '/src/introductions/user-interface/wistia-embed-permission-route.php',
         'Yoast\\WP\\SEO\\Loadable_Interface' => __DIR__ . '/../..' . '/src/loadable-interface.php',
         'Yoast\\WP\\SEO\\Loader' => __DIR__ . '/../..' . '/src/loader.php',
@@ -964,6 +968,7 @@ class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Premium_Badge_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/premium-badge-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Search_Engines_Discouraged_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/search-engines-discouraged-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Sidebar_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/sidebar-presenter.php',
+        'Yoast\\WP\\SEO\\Presenters\\Admin\\Woocommerce_Beta_Editor_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/woocommerce-beta-editor-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Breadcrumbs_Presenter' => __DIR__ . '/../..' . '/src/presenters/breadcrumbs-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Canonical_Presenter' => __DIR__ . '/../..' . '/src/presenters/canonical-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Debug\\Marker_Close_Presenter' => __DIR__ . '/../..' . '/src/presenters/debug/marker-close-presenter.php',
@@ -1098,9 +1103,9 @@ class ComposerStaticInit6d012d762ffe27d222f7a5378beec354
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6d012d762ffe27d222f7a5378beec354::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6d012d762ffe27d222f7a5378beec354::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6d012d762ffe27d222f7a5378beec354::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3ab8038c35be43796b40becebb37bf45::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3ab8038c35be43796b40becebb37bf45::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3ab8038c35be43796b40becebb37bf45::$classMap;
 
         }, null, ClassLoader::class);
     }

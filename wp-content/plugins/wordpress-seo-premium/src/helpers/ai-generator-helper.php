@@ -193,7 +193,7 @@ class AI_Generator_Helper {
 			throw new Bad_Request_Exception( $response->get_error_message(), $response->get_error_code() );
 		}
 
-		[ $response_code, $response_message ] = $this->parse_response( $response );
+		[ $response_code, $response_message, $missing_licenses ] = $this->parse_response( $response );
 
 		switch ( $response_code ) {
 			case 200:
@@ -201,7 +201,7 @@ class AI_Generator_Helper {
 			case 401:
 				throw new Unauthorized_Exception( $response_message, $response_code );
 			case 402:
-				throw new Payment_Required_Exception( $response_message, $response_code );
+				throw new Payment_Required_Exception( $response_message, $response_code, null, $missing_licenses );
 			case 403:
 				throw new Forbidden_Exception( $response_message, $response_code );
 			case 404:
@@ -249,15 +249,19 @@ class AI_Generator_Helper {
 	public function parse_response( $response ) {
 		$response_code    = ( \wp_remote_retrieve_response_code( $response ) !== '' ) ? \wp_remote_retrieve_response_code( $response ) : 0;
 		$response_message = \esc_html( \wp_remote_retrieve_response_message( $response ) );
+		$missing_licenses = [];
 
 		if ( $response_code !== 200 && $response_code !== 0 ) {
 			$json_body = \json_decode( \wp_remote_retrieve_body( $response ) );
 			if ( $json_body !== null ) {
 				$response_message = isset( $json_body->error_code ) ? $json_body->error_code : $this->map_message_to_code( $json_body->message );
+				if ( $response_code === 402 ) {
+					$missing_licenses = isset( $json_body->missing_licenses ) ? (array) $json_body->missing_licenses : [];
+				}
 			}
 		}
 
-		return [ $response_code, $response_message ];
+		return [ $response_code, $response_message, $missing_licenses ];
 	}
 
 	/**

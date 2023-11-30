@@ -1,0 +1,102 @@
+2023-11-08 - version 1.6.3
+* update - Enhanced code optimization and strengthened security measures.
+
+2023-05-04 - version 1.6.2
+* new - Filter hook `wccs_hook_priorities` to modify woocommerce hooks priorities.
+* update - changed location of the hook `wp_footer` from wccs.php to wccs-core.php.
+* update - moved the session_start() to the `template_redirect` hook.
+
+2023-05-02 - version 1.6.1.1
+* update - WooCommerce Security issue.
+
+2023-04-10 - version 1.6.1
+* fix - Tested upto Php version 8.0
+* fix - Tested upto Woocommerce version 7.4.0
+* fix - Tested upto Wordpress version 6.1.1
+* new - Compatible with Role Based Pricing addon.
+* new - HPOS Compatible.
+
+2023-01-02 - version 1.6.0
+* fix - Error on Analytics reports admin area (WOOC-477).
+* new - add filters to surpass shipping conversion for shipping compatibility ( 'wccs_surpass_shipping_conversion' ).
+* fix - Default currency not passing properly in paypal.
+* fix - Shipping issue fixed for subscription product in cart.
+* new - Decimal in zone pricing.
+* new - Price Rounding.
+* new - Price Charming.
+* update - WooCommerce Security issue.
+
+2021-10-06 - version 1.5.6
+* new - use "wccs_change_default_currency_label" filter to change default currency label on menu.
+* IMRPOVEMENT - Added wp_doing_ajax() condition to work with ajax properly.
+
+2021-06-28 - version 1.5.5
+* new - Added Zone pricing.
+* update - Add settings into tabs.
+* fix - session_start issue fixed for REST API's.
+*update - Sticky switcher slider for mobile and desktop.
+
+2021-04-30 - version 1.5.0
+* fix - Conflicting with currency by location.
+* fix - removed css referring to body & .container elements.
+* new - Support with tiered Price Table for WooCommerce.
+* new - Support with Woocommerce discount coupons.
+* new - Change currency on billing country.
+* new - Change currency on Language (WPML).
+* new - Option to add location API to change currency by location.
+
+2021-03-29 - version 1.4.3
+* fix - Currency By Location conflicting with shortcode.
+* fix - Shipping charges calculation wrong when Pay in user selected currency option disabled.
+* fix - Favicon removed when sticky switcher is enabled.
+
+2021-02-24 - version 1.4.2
+* fix - Compatibility issue with All product Subscription plugin.
+
+2021-02-17 - version 1.4.1
+* fix - Currency switch according to user IP with sticky or menu switcher enable.
+* IMPROVEMENT | Remove (Default) from currency menu for default currency.
+
+2020-12-29 - version 1.4
+* fix - booking product price change on cart automatically if currency is switch.
+* fix - currency converter on menu conflict issue.
+* new - You can switch from setting whether to show currency symbol or currency ISO code.
+* new - You can add prefix before currency symbol.
+* new - Compatible with Wholesale for Woocommerce.
+* fix - Sticky switcher arrows fixed.
+* fix - Fixed issue for currency getting from location ip of user.
+* new - Introcude new filters to change urls to fetch value from location. "wc_currency_get_location_url", "wc_currency_location_data"
+* new - Compatible with All product Subscription plugin.
+* fix - Minicart update fixed.
+* new - use "wccs_change_default_currency_label" filter to change default currency label.
+
+2020-12-02 - version 1.3
+* fix - Sale price not converting with Euro.
+* fix - Switcher on menu.
+* fix - Added missing flags.
+* new - Currency switch according to user IP.
+* new - Hide payment gateway according to currency.
+* new - Compatible with Woocommerce Booking.
+* new - Compatible with Multisite.
+
+
+2020-10-21 - version 1.2.3
+* fix - Fixed signup fees on cart page.
+* new - European union flag for euro.
+* update - Sort currency array with Name in Asc.
+
+2020-10-09 - version 1.2.2
+* new - Compatible with Woocommerce Subscription.
+* new - Query string supported (?currency=USD).
+
+2020-10-08 - version 1.2.1
+* fix - Sale price.
+
+2020-09-30 - version 1.2
+* fix - Exchange Rate API.
+
+2020-09-23 - version 1.1
+* fix - default currency position.
+
+2020-08-11 - version 1.0
+* Initial release.

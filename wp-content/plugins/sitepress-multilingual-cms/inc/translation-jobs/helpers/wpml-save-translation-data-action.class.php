@@ -432,7 +432,32 @@ class WPML_Save_Translation_Data_Action extends WPML_Translation_Job_Helper_With
 	 * @param callable $decoder
 	 */
 	private static function save_external( $element_type_prefix, $job, $decoder ) {
-		do_action( 'wpml_save_external', $element_type_prefix, $job, $decoder );
+		/**
+		 * Wether we should save the external package or not.
+		 *
+		 * Since string packages are translated automatically, they might need to be reviewed
+		 * When we want to review the string package translation, we should not save it right away.
+		 *
+		 * @since 4.6.8
+		 *
+		 * @param bool   $shouldSave        Whether we should save the external package or not.
+		 * @param string $elementTypePrefix The external element type prefix. Could be 'package' or 'st-batch'.
+		 * @param object $job               The translation job to save.
+		 */
+		if ( apply_filters( 'wpml_should_save_external', true, $element_type_prefix, $job ) ) {
+			/**
+			 * Save the external job.
+			 *
+			 * String packages and string batches hooks into this action to save the strings translations.
+			 *
+			 * @since 4.4.0
+			 *
+			 * @param string   $elementTypePrefix The external element type prefix. Could be 'package' or 'st-batch'.
+			 * @param object   $job               The translation job to save.
+			 * @param callable $decoder           Function to decode translation values.
+			 */
+			do_action( 'wpml_save_external', $element_type_prefix, $job, $decoder );
+		}
 	}
 
 	/**

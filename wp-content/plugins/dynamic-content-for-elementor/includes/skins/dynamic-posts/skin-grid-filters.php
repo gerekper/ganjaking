@@ -186,8 +186,9 @@ class Skin_Grid_Filters extends \DynamicContentForElementor\Includes\Skins\Skin_
     protected function render_all_text($default)
     {
         $all_text = wp_kses_post($this->get_instance_value('alltext_filter'));
+        $this->get_parent()->set_render_attribute('filter-item', 'class', 'filters-item');
         if ($default) {
-            $this->get_parent()->set_render_attribute('filter-item', 'class', ['filters-item', 'filter-active']);
+            $this->get_parent()->add_render_attribute('filter-item', 'class', 'filter-active');
         }
         echo '<span ' . $this->get_parent()->get_render_attribute_string('filter-item') . '>';
         echo '<a href="#" data-filter="*">' . $all_text . '</a>';

@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Multilingual CMS
  * Plugin URI: https://wpml.org/
- * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-7/">WPML 4.6.7 release notes</a>
+ * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-8/">WPML 4.6.8 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 4.6.7
+ * Version: 4.6.8
  * Plugin Slug: sitepress-multilingual-cms
  *
  * @package WPML\Core
@@ -14,7 +14,17 @@
 use WPML\Container\Config;
 use function WPML\Container\share;
 use function WPML\FP\partial;
-
+$wpml_setup = get_option( 'WPML(setup)', [] );
+if ( isset( $wpml_setup['current-step'] ) ) {
+	if ( $wpml_setup['current-step'] == 'license' ) {
+		$wpml_setup['current-step'] = 'translation';
+		update_option( 'WPML(setup)', $wpml_setup );
+	}
+	if ( $wpml_setup['current-step'] == 'support' ) {
+		$wpml_setup['current-step'] = 'plugins';
+		update_option( 'WPML(setup)', $wpml_setup );
+	}
+}
 if ( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
@@ -29,7 +39,7 @@ if ( ! \WPML\Requirements\WordPress::checkMinimumRequiredVersion() ) {
 	return;
 }
 
-define( 'ICL_SITEPRESS_VERSION', '4.6.7' );
+define( 'ICL_SITEPRESS_VERSION', '4.6.8' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file

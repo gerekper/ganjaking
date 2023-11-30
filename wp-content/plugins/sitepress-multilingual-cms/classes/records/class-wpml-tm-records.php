@@ -61,7 +61,7 @@ class WPML_TM_Records {
 			if ( $translation_ids ) {
 				$translation_ids          = implode( ',', $translation_ids );
 				$this->preloaded_statuses = $this->wpdb->get_results(
-					"SELECT *
+					"SELECT status, translation_id
 					FROM {$this->wpdb->prefix}icl_translation_status
 					WHERE translation_id in ({$translation_ids})"
 				);

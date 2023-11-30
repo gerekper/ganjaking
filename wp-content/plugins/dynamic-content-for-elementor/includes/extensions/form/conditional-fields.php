@@ -23,7 +23,7 @@ class ConditionalFields extends \DynamicContentForElementor\Extensions\Extension
     public $has_action = \false;
     public $depended_scripts = ['dce-conditional-fields'];
     public $depended_styles = ['dce-conditional-fields'];
-    public $conditional_actions = ['activecampaign', 'mailchimp', 'webhook', 'mailerlite', 'mailpoet'];
+    public $conditional_actions = ['activecampaign', 'mailchimp', 'webhook', 'mailerlite', 'mailpoet', 'mailpoet3'];
     /**
      * @var ExpressionLanguage
      */

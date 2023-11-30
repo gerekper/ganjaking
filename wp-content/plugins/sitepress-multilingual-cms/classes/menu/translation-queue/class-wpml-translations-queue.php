@@ -51,7 +51,7 @@ class WPML_Translations_Queue {
 		if ( $this->must_open_the_editor() ) {
 			$response = $this->editor->open( $_GET );
 
-			if ( Relation::propEq( 'editor', WPML_TM_Editors::ATE, $response ) ) {
+			if ( in_array( Obj::prop( 'editor', $response ), [ \WPML_TM_Editors::ATE, \WPML_TM_Editors::WP ] ) ) {
 				wp_safe_redirect( Obj::prop('url', $response), 302, 'WPML' );
 				return;
 			} elseif (Relation::propEq( 'editor', WPML_TM_Editors::WPML, $response )) {

@@ -69,6 +69,7 @@
                 <field type="InfoWindow Custom text" editor_type="AREA">custom_infoWindow_wysiwig</field>
                 <field type="Geolocation Button Text" editor_type="LINE">geolocation_button_text</field>
                 <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+                <field type="Read More - InfoWindow" editor_type="LINE">infowindow_query_readmore_text</field>
             </fields>
         </widget>
         <widget name="dce-metabox-google-maps">
@@ -79,6 +80,7 @@
                 <field type="InfoWindow Custom text" editor_type="AREA">custom_infoWindow_wysiwig</field>
                 <field type="Geolocation Button Text" editor_type="LINE">geolocation_button_text</field>
                 <field type="Fallback Text" editor_type="LINE">fallback_text</field>
+                <field type="Read More - InfoWindow" editor_type="LINE">infowindow_query_readmore_text</field>
             </fields>
         </widget>
         <widget name="dce-dynamic-google-maps-directions">

@@ -546,7 +546,7 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	 */
 	private function getJobType( $translationJob, $translationModeSetInDashboard ) {
 		$document = $translationJob->get_original_document();
-		if ( ! $document || $document instanceof WPML_Package ) {
+		if ( ! $document ) {
 			return 'manual';
 		} elseif ( $translationModeSetInDashboard ) {
 			return $translationModeSetInDashboard;

@@ -53,4 +53,8 @@ class Manager extends Upgrades_Manager
     {
         return 'DynamicContentForElementor\\Core\\Upgrade\\Upgrades';
     }
+    public static function get_install_history_meta()
+    {
+        return 'dynamic_content_for_elementor_install_history';
+    }
 }

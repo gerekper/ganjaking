@@ -60,7 +60,7 @@ class FavoritesAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
      */
     public function get_label()
     {
-        return '<span class="color-dce icon-dyn-logo-dce pull-right ml-1"></span> ' . __('Favorites', 'dynamic-content-for-elementor');
+        return __('Favorites', 'dynamic-content-for-elementor');
     }
     /**
      * Register Settings Section
@@ -73,7 +73,7 @@ class FavoritesAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
      */
     public function register_settings_section($widget)
     {
-        $widget->start_controls_section('section_dce_form_favorites', ['label' => $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
+        $widget->start_controls_section('section_dce_form_favorites', ['label' => Helper::dce_logo() . $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
         if (!\DynamicContentForElementor\Helper::can_register_unsafe_controls()) {
             $widget->add_control('admin_notice', ['name' => 'admin_notice', 'type' => Controls_Manager::RAW_HTML, 'raw' => '<div class="elementor-panel-alert elementor-panel-alert-warning">' . __('You will need administrator capabilities to edit these settings.', 'dynamic-content-for-elementor') . '</div>']);
             $widget->end_controls_section();

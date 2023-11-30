@@ -55,7 +55,7 @@ class CookieAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
     }
     public function register_settings_section($widget)
     {
-        $widget->start_controls_section('dce_section_cookie', ['label' => esc_html__('Cookie Action', 'dynamic-content-for-elementor'), 'condition' => ['submit_actions' => $this->get_name()]]);
+        $widget->start_controls_section('dce_section_cookie', ['label' => Helper::dce_logo() . $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
         $widget->add_control('dce_cookie_name', ['label' => esc_html__('Cookie Name', 'dynamic-content-for-elementor'), 'type' => \Elementor\Controls_Manager::TEXT, 'placeholder' => esc_html__('Enter cookie name', 'dynamic-content-for-elementor')]);
         $widget->add_control('dce_cookie_unset', ['label' => esc_html__('Unset the cookie', 'dynamic-content-for-elementor'), 'type' => \Elementor\Controls_Manager::SWITCHER]);
         $widget->add_control('dce_cookie_value_has_field', ['label' => esc_html__('The Cookie value needs to include a Form Field', 'dynamic-content-for-elementor'), 'type' => \Elementor\Controls_Manager::SWITCHER, 'condition' => ['dce_cookie_unset!' => 'yes']]);

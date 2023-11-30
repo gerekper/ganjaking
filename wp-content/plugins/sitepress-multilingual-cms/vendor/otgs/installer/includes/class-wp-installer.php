@@ -15,6 +15,7 @@ class WP_Installer {
 
 	const TOOLSET_TYPES = 'Toolset Types';
 	const LEGACY_FREE_TYPES_SUBSCRIPTION_ID = 5495;
+    const GRACE_TIME = MONTH_IN_SECONDS;
 
 	protected static $_instance = null;
 
@@ -1812,10 +1813,8 @@ class WP_Installer {
 	}
 
 	public function repository_has_in_grace_subscription( $repository_id, $expiredForPeriod = 0 ) {
-		return $this->repository_has_subscription( $repository_id ) &&
-			   $this->repository_has_valid_subscription($repository_id, $expiredForPeriod) &&
-			   $this->repository_is_in_grace_period( $repository_id, $expiredForPeriod ) &&
-			   ! $this->repository_has_refunded_subscription( $repository_id );
+		return $this->repository_has_expired_subscription( $repository_id ) &&
+			    $this->repository_is_in_grace_period( $repository_id, $expiredForPeriod );
 	}
 
 	public function get_generic_product_name( $repository_id ) {
@@ -2597,7 +2596,13 @@ class WP_Installer {
 									) {
 										$display_subscription_notice = false;
 									} else {
-										if( $this->repository_has_expired_subscription( $repository_id ) ) {
+										if( $this->repository_has_in_grace_subscription( $repository_id, self::GRACE_TIME ) ) {
+											$display_subscription_notice = [
+												'type'    => 'in_grace',
+												'repo'    => $repository_id,
+												'product' => $repository['data']['product-name']
+											];
+										} elseif( $this->repository_has_expired_subscription( $repository_id ) ) {
 											$display_subscription_notice = [
 													'type' => 'expired',
 													'repo' => $repository_id,

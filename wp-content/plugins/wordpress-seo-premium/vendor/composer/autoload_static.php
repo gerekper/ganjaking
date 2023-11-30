@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201
+class ComposerStaticInit1c20e2dcace869b19e2a69d790d4660b
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -144,6 +144,7 @@ class ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => __DIR__ . '/../..' . '/src/conditionals/edd-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/inclusive-language-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => __DIR__ . '/../..' . '/src/conditionals/term-overview-or-ajax-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional' => __DIR__ . '/../..' . '/src/conditionals/yoast-admin-or-introductions-route-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => __DIR__ . '/../..' . '/src/deprecated/conditionals/zapier-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
@@ -227,6 +228,7 @@ class ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher' => __DIR__ . '/../..' . '/src/deprecated/integrations/watchers/premium-option-wpseo-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Prominent_Words_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/prominent-words-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => __DIR__ . '/../..' . '/src/deprecated/integrations/watchers/zapier-apikey-reset-watcher.php',
+        'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction' => __DIR__ . '/../..' . '/src/introductions/application/ai-generate-titles-and-descriptions-introduction.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Icons\\Checkmark_Icon_Presenter' => __DIR__ . '/../..' . '/src/presenters/icons/checkmark-icon-presenter.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Icons\\Cross_Icon_Presenter' => __DIR__ . '/../..' . '/src/presenters/icons/cross-icon-presenter.php',
@@ -250,9 +252,9 @@ class ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0c422f20871bcbf1c73c1006dcf06201::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1c20e2dcace869b19e2a69d790d4660b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1c20e2dcace869b19e2a69d790d4660b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1c20e2dcace869b19e2a69d790d4660b::$classMap;
 
         }, null, ClassLoader::class);
     }

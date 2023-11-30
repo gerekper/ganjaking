@@ -32,16 +32,18 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 			     ->then( Hooks::getArgs( [ 0 => 'post' ] ) )
 			     ->then( $this->handleTranslationReview() );
 
-			add_filter(
-				'init',
-				function () {
-					// This hook is only needed for the WP Autosaved revision preview.
-					// For Translation Review it can cause problems overwritting the post by an autosaved draft.
-					remove_filter( 'the_preview', '_set_preview' );
-					return true;
-				},
-				PHP_INT_MAX
-			);
+			if ( $this->isCurrentPageReview() ) {
+				add_filter(
+					'init',
+					function () {
+						// This hook is only needed for the WP Autosaved revision preview.
+						// For Translation Review it can cause problems overwritting the post by an autosaved draft.
+						remove_filter( 'the_preview', '_set_preview' );
+						return true;
+					},
+					PHP_INT_MAX
+				);
+			}
 		}
 
 		Hooks::onFilter( 'user_has_cap', 10, 3 )
@@ -108,13 +110,17 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		);
 	}
 
+	/**
+	 * @param int $jobId
+	 *
+	 * @return callable
+	 */
 	public function handleTranslationReview() {
 		return function ( $data ) {
 			$post  = Obj::prop( 'post', $data );
 			$jobId = filter_input( INPUT_GET, 'jobId', FILTER_SANITIZE_NUMBER_INT );
 			$filterTargetLanguages = Sanitize::stringProp('targetLanguages', $_GET)
 				? Str::split( ',', Sanitize::stringProp('targetLanguages', $_GET) ) : null;
-
 
 			if ( $jobId ) {
 				/**
@@ -128,13 +134,13 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 				do_action( 'wpml_tm_handle_translation_review', $jobId, $post );
 
 				Hooks::onFilter( 'wp_redirect' )
-				     ->then( [ __CLASS__, 'failGracefullyOnPreviewRedirection' ] );
+					 ->then( [ __CLASS__, 'failGracefullyOnPreviewRedirection' ] );
 
 				Hooks::onAction( 'template_redirect', PHP_INT_MAX )
-				     ->then( function () {
-					     Hooks::onAction( 'wp_footer' )
-					          ->then( [ __CLASS__, 'printReviewToolbarAnchor' ] );
-				     } );
+					 ->then( function () {
+						 Hooks::onAction( 'wp_footer' )
+							  ->then( [ __CLASS__, 'printReviewToolbarAnchor' ] );
+					 } );
 
 				show_admin_bar( false );
 
@@ -274,6 +280,19 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		}
 
 		return Obj::has( 'wpmlReviewPostType', $queryVars ) && 'wp_template' === $queryVars['wpmlReviewPostType'];
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isCurrentPageReview() {
+		$queryVars = [];
+		if ( isset( $_SERVER['QUERY_STRING'] ) ) {
+			parse_str( $_SERVER['QUERY_STRING'], $queryVars );
+		}
+
+		$jobId = filter_input( INPUT_GET, 'jobId', FILTER_SANITIZE_NUMBER_INT );
+		return !! $jobId || Obj::has( 'wpmlReviewPostType', $queryVars );
 	}
 
 	/**

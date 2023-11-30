@@ -118,6 +118,29 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '19.3-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_19_3' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '21.6-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_21_6' ], 12 );
+		}
+	}
+
+	/**
+	 * Enables the AI feature if it was not enabled before.
+	 *
+	 * @return void
+	 */
+	public function upgrade_21_6() {
+
+		if ( ! empty( WPSEO_Options::get( 'activation_redirect_timestamp' ) ) ) {
+			$is_ai_enabled = WPSEO_Options::get( 'enable_ai_generator' );
+
+			if ( $is_ai_enabled ) {
+				WPSEO_Options::set( 'ai_enabled_pre_default', true );
+
+				return;
+			}
+			WPSEO_Options::set( 'enable_ai_generator', true );
+		}
 	}
 
 	/**

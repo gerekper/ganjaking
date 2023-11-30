@@ -10,6 +10,7 @@ class WPML_Set_Language extends WPML_Full_Translation_API {
 	 * @param string        $language_code
 	 * @param null|string   $src_language_code
 	 * @param bool          $check_duplicates
+	 * @param bool          $check_null
 	 *
 	 * @return bool|int|null|string
 	 */
@@ -19,7 +20,8 @@ class WPML_Set_Language extends WPML_Full_Translation_API {
 		$trid,
 		$language_code,
 		$src_language_code = null,
-		$check_duplicates = true
+		$check_duplicates = true,
+		$check_null = false
 	) {
 		if ( strlen( $el_type ) > 60 ) {
 			return false;
@@ -39,7 +41,7 @@ class WPML_Set_Language extends WPML_Full_Translation_API {
 
 		$src_language_code = $src_language_code === $language_code ? null : $src_language_code;
 
-		if ( is_null( $trid ) ) {
+		if ( $check_null && is_null( $trid ) ) {
 			// Check if there are any existing translations after check_duplicate corrections.
 			$existing = $this->get_existing( $el_type, $el_id );
 

@@ -2,11 +2,11 @@
 
 namespace Yoast\WP\SEO\Premium\Initializers;
 
-use Yoast\WP\SEO\Conditionals\Admin\Yoast_Admin_Conditional;
 use Yoast\WP\SEO\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Initializers\Initializer_Interface;
 use Yoast\WP\SEO\Introductions\Application\Current_Page_Trait;
 use Yoast\WP\SEO\Introductions\Domain\Introduction_Interface;
+use Yoast\WP\SEO\Premium\Conditionals\Yoast_Admin_Or_Introductions_Route_Conditional;
 
 /**
  * Initializes Premium introductions.
@@ -47,7 +47,7 @@ class Introductions_Initializer implements Initializer_Interface {
 	 * In this case: when on an admin page.
 	 */
 	public static function get_conditionals() {
-		return [ Yoast_Admin_Conditional::class ];
+		return [ Yoast_Admin_Or_Introductions_Route_Conditional::class ];
 	}
 
 	/**

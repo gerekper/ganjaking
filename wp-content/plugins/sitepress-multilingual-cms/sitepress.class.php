@@ -1505,6 +1505,7 @@ class SitePress extends WPML_WPDB_User implements
 	 * @param string      $language_code
 	 * @param null|string $src_language_code
 	 * @param bool        $check_duplicates
+	 * @param bool        $check_null
 	 *
 	 * @return bool|int|null|string
 	 */
@@ -1514,7 +1515,8 @@ class SitePress extends WPML_WPDB_User implements
 		$trid,
 		$language_code,
 		$src_language_code = null,
-		$check_duplicates = true
+		$check_duplicates = true,
+		$check_null = false
 	) {
 		if ( ! $this->language_setter ) {
 			$this->language_setter = new WPML_Set_Language(
@@ -1531,7 +1533,8 @@ class SitePress extends WPML_WPDB_User implements
 			$trid,
 			$language_code,
 			$src_language_code,
-			$check_duplicates
+			$check_duplicates,
+			$check_null
 		);
 	}
 
@@ -2063,6 +2066,18 @@ class SitePress extends WPML_WPDB_User implements
 	 * @param WP_Post $post
 	 */
 	function meta_box( $post ) {
+
+		/**
+		 * The original purpose of this hook is to allow external plugins to hook into the $post and properly display WPML meta box in custom post type.
+		 *
+		 * @since 4.6.8
+		 *
+		 * @param int|WP_Post $post
+		 *
+		 * @see wpmldev-2347
+		 */
+		$post = apply_filters( 'wpml_meta_box_post', $post );
+
 		$post_edit_metabox = new WPML_Meta_Boxes_Post_Edit_HTML( $this, $this->post_translation );
 		$post_edit_metabox->render_languages( $post );
 		do_action( 'wpml_post_edit_languages', $post );
@@ -4075,13 +4090,6 @@ class SitePress extends WPML_WPDB_User implements
 				'file'      => false,
 				'plugin'    => false,
 				'slug'      => 'wpml-sticky-links',
-			),
-			'WPML Translation Management' => array(
-				'installed' => false,
-				'active'    => false,
-				'file'      => false,
-				'plugin'    => false,
-				'slug'      => 'wpml-translation-management',
 			),
 			'WPML Media'                  => array(
 				'installed' => false,

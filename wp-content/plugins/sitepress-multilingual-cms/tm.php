@@ -189,6 +189,7 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\ATE\Loader::class,
 			\WPML\TM\Jobs\Loader::class,
 			\WPML\TM\ATE\Review\ApplyJob::class,
+			\WPML\TM\ATE\Review\PackageJob::class,
 			\WPML\TM\ATE\Review\StatusIcons::class,
 			\WPML\TM\ATE\StatusIcons::class,
 			\WPML\TM\Editor\ManualJobCreationErrorNotice::class,

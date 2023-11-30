@@ -72,6 +72,8 @@ class Yoast_WooCommerce_SEO {
 
 			new WPSEO_WooCommerce_Yoast_Tab();
 			new WPSEO_WooCommerce_Yoast_Ids();
+
+			add_action( 'init', [ $this, 'initialize_translationspress' ] );
 		}
 		else {
 			// Initialize schema & OpenGraph.
@@ -144,6 +146,14 @@ class Yoast_WooCommerce_SEO {
 	public function initialize_slack() {
 		$slack = new WPSEO_WooCommerce_Slack();
 		$slack->register_hooks();
+	}
+
+	/**
+	 * Initializes the TranslationsPress functionality.
+	 */
+	public function initialize_translationspress() {
+		$translationspress = new Yoast_WooCommerce_TranslationsPress( YoastSEO()->helpers->date );
+		$translationspress->register_hooks();
 	}
 
 	/**
@@ -435,14 +445,17 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Loads CSS.
+	 * Loads CSS in Woocommerce SEO settings page.
 	 *
 	 * @since 1.0
 	 */
 	public function config_page_styles() {
 		global $pagenow;
 
-		$is_wpseo_woocommerce_page = ( $pagenow === 'admin.php' && filter_input( INPUT_GET, 'page' ) === 'wpseo_woo' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is not required here because we are purely doing a strict equals check.
+		$is_get_wpseo_woo = ( isset( $_GET['page'] ) && $_GET['page'] === 'wpseo_woo' );
+
+		$is_wpseo_woocommerce_page = ( $pagenow === 'admin.php' && $is_get_wpseo_woo );
 		if ( ! $is_wpseo_woocommerce_page ) {
 			return;
 		}

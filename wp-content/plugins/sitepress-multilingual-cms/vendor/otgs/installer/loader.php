@@ -62,10 +62,11 @@ if ( ! $is_cron_request && ! $is_wp_cli_request && ! is_admin() && ! otgs_is_res
 				) {
 
 					$showFrontendBanner = function () use ( $repository_id ) {
-					    $wpmlText = sprintf(
-                            __( 'This site is registered on %s as a development site.', 'installer' ),
-                            '<a href="https://wpml.org">wpml.org</a>'
-                        );
+						$removeFrontendBannerLink = 'https://wpml.org/faq/how-to-remove-the-this-site-is-registered-on-wpml-org-as-a-development-site-notice/';
+						$wpmlText = sprintf(
+							__( 'This site is registered on %s as a development site. Switch to a production site key to %s.', 'installer' ),
+							'<a href="https://wpml.org">wpml.org</a>', '<a href="' . $removeFrontendBannerLink . '">remove this banner</a>'
+						);
 						$message = $repository_id === 'wpml'
 							? $wpmlText
 							: __( 'This site is registered on Toolset.com as a development site.', 'installer' );
@@ -113,7 +114,7 @@ $wp_installer_instance = dirname( __FILE__ ) . '/installer.php';
 global $wp_installer_instances;
 $wp_installer_instances[ $wp_installer_instance ] = [
 	'bootfile' => $wp_installer_instance,
-	'version'  => '3.1.2'
+	'version'  => '3.1.3'
 ];
 
 /**

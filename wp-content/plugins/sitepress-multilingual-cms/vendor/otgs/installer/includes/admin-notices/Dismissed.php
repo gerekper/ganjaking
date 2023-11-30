@@ -33,8 +33,7 @@ class Dismissed {
 			if ( ! isset( $notices['plugin-activated'] ) ) {
 				continue;
 			}
-			$pluginRecommendationsToDisable = wpml_collect( $notices['plugin-activated'] )
-				->filter( $isPluginRecommendation );
+			$pluginRecommendationsToDisable = array_filter( $notices['plugin-activated'], $isPluginRecommendation );
 
 			foreach ( $pluginRecommendationsToDisable as $plugin => $recommendation ) {
 				self::dismissNoticeByTypeAndRepository( $repository, 'plugin-activated', $plugin );

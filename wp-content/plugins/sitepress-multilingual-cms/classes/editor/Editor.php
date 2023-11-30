@@ -81,6 +81,13 @@ class Editor {
 			return $jobObject;
 		};
 
+		$dataOfTranslationCreatedInNativeEditorViaConnection = $this->manualJobs->maybeGetDataIfTranslationCreatedInNativeEditorViaConnection( $params );
+		if ( $dataOfTranslationCreatedInNativeEditorViaConnection ) {
+			update_post_meta( $dataOfTranslationCreatedInNativeEditorViaConnection['originalPostId'], \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE, 'yes' );
+
+			return $this->displayWPNative( $dataOfTranslationCreatedInNativeEditorViaConnection );
+		}
+
 		return Either::of( $params )
 		             ->map( [ $this->manualJobs, 'createOrReuse' ] )
 		             ->filter( Logic::isTruthy() )
@@ -172,6 +179,25 @@ class Editor {
 		} );
 
 		return call_user_func_array( $fn, func_get_args() );
+	}
+
+	/**
+	 * @param array $dataOfTranslationCreatedInNativeEditorViaConnection
+	 *
+	 * @return array
+	 */
+	private function displayWPNative( array $dataOfTranslationCreatedInNativeEditorViaConnection ) {
+		$url = 'post.php?' . http_build_query(
+				[
+					'lang'      => $dataOfTranslationCreatedInNativeEditorViaConnection['targetLanguageCode'],
+					'action'    => 'edit',
+					'post_type' => str_replace( 'post_', '', $dataOfTranslationCreatedInNativeEditorViaConnection['postType'] ),
+					'post'      => $dataOfTranslationCreatedInNativeEditorViaConnection['translatedPostId']
+				]
+			);
+
+
+		return [ 'editor' => \WPML_TM_Editors::WP, 'jobObject' => null, 'url' => $url ];
 	}
 
 	/**

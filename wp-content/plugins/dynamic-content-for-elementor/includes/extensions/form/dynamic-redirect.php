@@ -43,7 +43,7 @@ class DynamicRedirect extends \ElementorPro\Modules\Forms\Classes\Action_Base
      */
     public function get_label()
     {
-        return '<span class="color-dce icon-dyn-logo-dce pull-right ml-1"></span> ' . __('Dynamic Redirect', 'dynamic-content-for-elementor');
+        return __('Dynamic Redirect', 'dynamic-content-for-elementor');
     }
     /**
      * Register Settings Section
@@ -55,7 +55,7 @@ class DynamicRedirect extends \ElementorPro\Modules\Forms\Classes\Action_Base
      */
     public function register_settings_section($widget)
     {
-        $widget->start_controls_section('section_dce_form_redirect', ['label' => $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
+        $widget->start_controls_section('section_dce_form_redirect', ['label' => Helper::dce_logo() . $this->get_label(), 'condition' => ['submit_actions' => $this->get_name()]]);
         if (!\DynamicContentForElementor\Helper::can_register_unsafe_controls()) {
             $widget->add_control('admin_notice', ['name' => 'admin_notice', 'type' => Controls_Manager::RAW_HTML, 'raw' => __('You will need administrator capabilities to edit these settings.', 'dynamic-content-for-elementor'), 'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning']);
             $widget->end_controls_section();

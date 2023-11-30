@@ -228,11 +228,18 @@
 			};
 		}
 
-		// Create Y axis Step Size
+		//Create Y axis Step Size
 		const min = Math.min(...data);
 		const max = Math.max(...data);
-		const range = Array.from(Array(max + 1 - min), (_, i) => i + min);
+		// check number of divisions
+		const divisions = 10;
+
+		const increment = (max - min) / divisions;
+
+		const range = Array.from({length: divisions + 1}, (_, i) => min + i * increment);
+
 		const tickValues = range.map(value => value.toString());
+		
 		yAxis= {
 			scale: {
 			  ticks: {
@@ -242,6 +249,7 @@
 			},
 		  },
 		$.extend(options, yAxis);
+	
 
 		scales = {
 			scales: {

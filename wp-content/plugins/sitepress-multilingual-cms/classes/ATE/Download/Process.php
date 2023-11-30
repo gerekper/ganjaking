@@ -83,6 +83,7 @@ class Process {
 	private function logException( Exception $e, $job = null ) {
 		$entry              = new Entry();
 		$entry->description = $e->getMessage();
+		$avoidDuplication = false;
 
 		if ( $job ) {
 			$entry->ateJobId  = Obj::prop('ateJobId', $job);
@@ -92,11 +93,15 @@ class Process {
 
 		if ( $e instanceof RequestException ) {
 			$entry->eventType = EventsTypes::SERVER_XLIFF;
+			if ( $e->getData() ) {
+				$entry->extraData += is_array( $e->getData() ) ? $e->getData() : [ $e->getData() ];
+			}
+			$avoidDuplication = $e->shouldAvoidLogDuplication();
 		} else {
 			$entry->eventType = EventsTypes::JOB_DOWNLOAD;
 		}
 
-		wpml_tm_ate_ams_log( $entry );
+		wpml_tm_ate_ams_log( $entry, $avoidDuplication );
 	}
 
 	/**

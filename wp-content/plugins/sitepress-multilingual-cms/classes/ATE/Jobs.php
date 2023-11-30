@@ -51,6 +51,7 @@ class Jobs {
 				AND jobs.editor = %s 
 				AND ( translation_status.status IN ({$statuses}) OR $needsReviewCondition )
 				AND translations.language_code IN ({$languages})
+				AND translations.source_language_code IS NOT NULL
 				AND ( posts.post_status IS NULL OR posts.post_status <> 'trash' )
 		";
 
@@ -93,11 +94,18 @@ class Jobs {
 		global $wpdb;
 
 		$sql = "
-			SELECT COUNT(jobs.job_id) 
-			FROM {$wpdb->prefix}icl_translate_job jobs		
-			INNER JOIN {$wpdb->prefix}icl_translation_status translation_status ON translation_status.rid = jobs.rid
-			INNER JOIN {$wpdb->prefix}icl_translations translations ON translations.translation_id = translation_status.translation_id
-			WHERE jobs.editor = %s AND jobs.automatic = 1 AND translation_status.status = %d AND translations.source_language_code = %s
+				SELECT COUNT(jobs.job_id)
+				FROM {$wpdb->prefix}icl_translate_job jobs
+				INNER JOIN {$wpdb->prefix}icl_translation_status translation_status ON translation_status.rid = jobs.rid
+				INNER JOIN {$wpdb->prefix}icl_translations translations ON translations.translation_id = translation_status.translation_id
+				WHERE jobs.job_id IN (
+					SELECT MAX(jobs.job_id) FROM {$wpdb->prefix}icl_translate_job jobs			
+					GROUP BY jobs.rid
+				) 
+				AND jobs.automatic = 1  
+				AND jobs.editor = %s
+				AND translation_status.status = %d				
+				AND translations.source_language_code = %s
 		";
 
 		return (int) $wpdb->get_var( $wpdb->prepare( $sql, \WPML_TM_Editors::ATE, ICL_TM_IN_PROGRESS, Languages::getDefaultCode() ) );

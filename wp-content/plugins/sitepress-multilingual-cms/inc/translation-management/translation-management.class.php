@@ -2194,7 +2194,7 @@ class TranslationManagement {
 		$default_language = $sitepress->get_default_language();
 
 		if ( ! $translation_id && ! $is_root_page && ! in_array( $post->post_status, array( 'auto-draft' ) ) ) {
-			$sitepress->set_element_language_details( $post->ID, 'post_' . $post->post_type, null, $default_language );
+			$sitepress->set_element_language_details( $post->ID, 'post_' . $post->post_type, null, $default_language, null, true, true );
 		} elseif ( $translation_id && $is_root_page ) {
 			$trid = $sitepress->get_element_trid( $post->ID, 'post_' . $post->post_type );
 			if ( $trid ) {
@@ -2248,7 +2248,7 @@ class TranslationManagement {
 		$tid_prepared = $wpdb->prepare( "SELECT translation_id FROM {$wpdb->prefix}icl_translations WHERE element_type=%s AND element_id=%d", 'tax_' . $taxonomy->taxonomy, $taxonomy->term_taxonomy_id );
 		$tid          = $wpdb->get_var( $tid_prepared );
 		if ( ! $tid ) {
-			$sitepress->set_element_language_details( $taxonomy->term_taxonomy_id, 'tax_' . $taxonomy->taxonomy, null, $sitepress->get_default_language() );
+			$sitepress->set_element_language_details( $taxonomy->term_taxonomy_id, 'tax_' . $taxonomy->taxonomy, null, $sitepress->get_default_language(), null, true, true );
 		}
 	}
 

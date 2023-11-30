@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '4.6.7',
-        'version' => '4.6.7.0',
+        'pretty_version' => '4.6.8',
+        'version' => '4.6.8.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '600bfec0e3641d50a68e137d51aad1b53e364661',
+        'reference' => '6dff313d589f2ab9944a07b8dc66f0885904a650',
         'name' => 'wpml/core',
         'dev' => false,
     ),
@@ -58,12 +58,12 @@
             'dev_requirement' => false,
         ),
         'otgs/installer' => array(
-            'pretty_version' => '3.1.2',
-            'version' => '3.1.2.0',
+            'pretty_version' => '3.1.3',
+            'version' => '3.1.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../otgs/installer',
             'aliases' => array(),
-            'reference' => '5e4ddc0eeb33bfc967a6c067242de470f1a2412d',
+            'reference' => '28573efd696d67866b49aa1dd74bf2eb33da7a66',
             'dev_requirement' => false,
         ),
         'otgs/ui' => array(
@@ -164,12 +164,12 @@
             'dev_requirement' => false,
         ),
         'wpml/core' => array(
-            'pretty_version' => '4.6.7',
-            'version' => '4.6.7.0',
+            'pretty_version' => '4.6.8',
+            'version' => '4.6.8.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '600bfec0e3641d50a68e137d51aad1b53e364661',
+            'reference' => '6dff313d589f2ab9944a07b8dc66f0885904a650',
             'dev_requirement' => false,
         ),
         'wpml/core-api' => array(
@@ -202,12 +202,12 @@
             'dev_requirement' => false,
         ),
         'wpml/wp' => array(
-            'pretty_version' => '0.1.14',
-            'version' => '0.1.14.0',
+            'pretty_version' => '0.1.15',
+            'version' => '0.1.15.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../wpml/wp',
             'aliases' => array(),
-            'reference' => '110abca596205634890610fa36063a5e52ac7422',
+            'reference' => '5f9b1cbb3a82cd38a5fe2598e022f1f84fe40c7f',
             'dev_requirement' => false,
         ),
         'yoast/whip' => array(

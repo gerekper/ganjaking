@@ -373,11 +373,12 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\integrations\\watchers\\primary_category_quick_edit_watcher' => 'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Category_Quick_Edit_Watcher',
             'yoast\\wp\\seo\\integrations\\watchers\\primary_term_watcher' => 'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Term_Watcher',
             'yoast\\wp\\seo\\integrations\\watchers\\search_engines_discouraged_watcher' => 'Yoast\\WP\\SEO\\Integrations\\Watchers\\Search_Engines_Discouraged_Watcher',
+            'yoast\\wp\\seo\\integrations\\watchers\\woocommerce_beta_editor_watcher' => 'Yoast\\WP\\SEO\\Integrations\\Watchers\\Woocommerce_Beta_Editor_Watcher',
             'yoast\\wp\\seo\\integrations\\xmlrpc' => 'Yoast\\WP\\SEO\\Integrations\\XMLRPC',
-            'yoast\\wp\\seo\\introductions\\application\\ai_generate_titles_and_descriptions_introduction_upsell' => 'Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell',
             'yoast\\wp\\seo\\introductions\\application\\introductions_collector' => 'Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector',
             'yoast\\wp\\seo\\introductions\\infrastructure\\wistia_embed_permission_repository' => 'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository',
             'yoast\\wp\\seo\\introductions\\user_interface\\introductions_integration' => 'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Integration',
+            'yoast\\wp\\seo\\introductions\\user_interface\\introductions_seen_route' => 'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Seen_Route',
             'yoast\\wp\\seo\\introductions\\user_interface\\wistia_embed_permission_route' => 'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Wistia_Embed_Permission_Route',
             'yoast\\wp\\seo\\loader' => 'Yoast\\WP\\SEO\\Loader',
             'yoast\\wp\\seo\\loggers\\logger' => 'Yoast\\WP\\SEO\\Loggers\\Logger',
@@ -396,8 +397,6 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\presentations\\indexable_static_posts_page_presentation' => 'Yoast\\WP\\SEO\\Presentations\\Indexable_Static_Posts_Page_Presentation',
             'yoast\\wp\\seo\\presentations\\indexable_term_archive_presentation' => 'Yoast\\WP\\SEO\\Presentations\\Indexable_Term_Archive_Presentation',
             'yoast\\wp\\seo\\promotions\\application\\promotion_manager' => 'Yoast\\WP\\SEO\\Promotions\\Application\\Promotion_Manager',
-            'yoast\\wp\\seo\\promotions\\domain\\black_friday_checklist_promotion' => 'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion',
-            'yoast\\wp\\seo\\promotions\\domain\\black_friday_promotion' => 'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion',
             'yoast\\wp\\seo\\repositories\\indexable_cleanup_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository',
             'yoast\\wp\\seo\\repositories\\indexable_hierarchy_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Hierarchy_Repository',
             'yoast\\wp\\seo\\repositories\\indexable_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository',
@@ -804,11 +803,12 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Category_Quick_Edit_Watcher' => 'getPrimaryCategoryQuickEditWatcherService',
             'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Term_Watcher' => 'getPrimaryTermWatcherService',
             'Yoast\\WP\\SEO\\Integrations\\Watchers\\Search_Engines_Discouraged_Watcher' => 'getSearchEnginesDiscouragedWatcherService',
+            'Yoast\\WP\\SEO\\Integrations\\Watchers\\Woocommerce_Beta_Editor_Watcher' => 'getWoocommerceBetaEditorWatcherService',
             'Yoast\\WP\\SEO\\Integrations\\XMLRPC' => 'getXMLRPCService',
-            'Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell' => 'getAiGenerateTitlesAndDescriptionsIntroductionUpsellService',
             'Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector' => 'getIntroductionsCollectorService',
             'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository' => 'getWistiaEmbedPermissionRepositoryService',
             'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Integration' => 'getIntroductionsIntegrationService',
+            'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Seen_Route' => 'getIntroductionsSeenRouteService',
             'Yoast\\WP\\SEO\\Introductions\\User_Interface\\Wistia_Embed_Permission_Route' => 'getWistiaEmbedPermissionRouteService',
             'Yoast\\WP\\SEO\\Loader' => 'getLoaderService',
             'Yoast\\WP\\SEO\\Loggers\\Logger' => 'getLoggerService',
@@ -827,8 +827,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Presentations\\Indexable_Static_Posts_Page_Presentation' => 'getIndexableStaticPostsPagePresentationService',
             'Yoast\\WP\\SEO\\Presentations\\Indexable_Term_Archive_Presentation' => 'getIndexableTermArchivePresentationService',
             'Yoast\\WP\\SEO\\Promotions\\Application\\Promotion_Manager' => 'getPromotionManagerService',
-            'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion' => 'getBlackFridayChecklistPromotionService',
-            'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion' => 'getBlackFridayPromotionService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => 'getIndexableCleanupRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Hierarchy_Repository' => 'getIndexableHierarchyRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
@@ -889,6 +887,7 @@ class Cached_Container extends Container
         $this->privates = [
             'YoastSEO_Vendor\\YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
             'Yoast\\WP\\SEO\\Content_Type_Visibility\\Application\\Content_Type_Visibility_Dismiss_Notifications' => true,
+            'Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector' => true,
         ];
         $this->aliases = [
             'YoastSEO_Vendor\\YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => 'service_container',
@@ -906,11 +905,17 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Analytics\\Domain\\To_Be_Cleaned_Indexable_Bucket' => true,
             'Yoast\\WP\\SEO\\Analytics\\Domain\\To_Be_Cleaned_Indexable_Count' => true,
             'Yoast\\WP\\SEO\\Content_Type_Visibility\\Application\\Content_Type_Visibility_Dismiss_Notifications' => true,
+            'Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell' => true,
+            'Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector' => true,
             'Yoast\\WP\\SEO\\Introductions\\Domain\\Introduction_Interface' => true,
             'Yoast\\WP\\SEO\\Introductions\\Domain\\Introduction_Item' => true,
             'Yoast\\WP\\SEO\\Introductions\\Domain\\Introductions_Bucket' => true,
+            'Yoast\\WP\\SEO\\Introductions\\Domain\\Invalid_User_Id_Exception' => true,
+            'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Introductions_Seen_Repository' => true,
             'Yoast\\WP\\SEO\\Presenters\\Robots_Txt_Presenter' => true,
             'Yoast\\WP\\SEO\\Promotions\\Application\\Promotion_Manager_Interface' => true,
+            'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion' => true,
+            'Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion' => true,
             'Yoast\\WP\\SEO\\Promotions\\Domain\\Time_Interval' => true,
         ];
     }
@@ -4407,9 +4412,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Wincher' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Wincher
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Wincher is deprecated since version 21.6!
      */
     protected function getWincherService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher is deprecated since version 21.6!', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher'] = new \Yoast\WP\SEO\Integrations\Third_Party\Wincher(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Wincher_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Wincher_Helper'] : $this->getWincherHelperService()) && false ?: '_'});
     }
 
@@ -4467,9 +4476,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Wordproof_Integration_Toggle' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Wordproof_Integration_Toggle
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Wordproof_Integration_Toggle is deprecated since version 21.6!
      */
     protected function getWordproofIntegrationToggleService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle is deprecated since version 21.6!', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle'] = new \Yoast\WP\SEO\Integrations\Third_Party\Wordproof_Integration_Toggle(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Wordproof_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Wordproof_Helper'] : $this->getWordproofHelperService()) && false ?: '_'});
     }
 
@@ -4724,6 +4737,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Integrations\Watchers\Woocommerce_Beta_Editor_Watcher' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Integrations\Watchers\Woocommerce_Beta_Editor_Watcher
+     */
+    protected function getWoocommerceBetaEditorWatcherService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Watchers\\Woocommerce_Beta_Editor_Watcher'] = new \Yoast\WP\SEO\Integrations\Watchers\Woocommerce_Beta_Editor_Watcher(${($_ = isset($this->services['Yoast_Notification_Center']) ? $this->services['Yoast_Notification_Center'] : $this->getYoastNotificationCenterService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Notification_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Notification_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Notification_Helper'] = new \Yoast\WP\SEO\Helpers\Notification_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper'] : $this->getShortLinkHelperService()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Integrations\XMLRPC' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\XMLRPC
@@ -4731,26 +4754,6 @@ class Cached_Container extends Container
     protected function getXMLRPCService()
     {
         return $this->services['Yoast\\WP\\SEO\\Integrations\\XMLRPC'] = new \Yoast\WP\SEO\Integrations\XMLRPC();
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Introductions\Application\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Introductions\Application\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell
-     */
-    protected function getAiGenerateTitlesAndDescriptionsIntroductionUpsellService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell'] = new \Yoast\WP\SEO\Introductions\Application\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] = new \Yoast\WP\SEO\Helpers\Product_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'});
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Introductions\Application\Introductions_Collector' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Introductions\Application\Introductions_Collector
-     */
-    protected function getIntroductionsCollectorService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector'] = new \Yoast\WP\SEO\Introductions\Application\Introductions_Collector(${($_ = isset($this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell']) ? $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell'] : $this->getAiGenerateTitlesAndDescriptionsIntroductionUpsellService()) && false ?: '_'});
     }
 
     /**
@@ -4771,6 +4774,18 @@ class Cached_Container extends Container
     protected function getIntroductionsIntegrationService()
     {
         return $this->services['Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Integration'] = new \Yoast\WP\SEO\Introductions\User_Interface\Introductions_Integration(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector']) ? $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector'] : $this->getIntroductionsCollectorService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] = new \Yoast\WP\SEO\Helpers\Product_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] = new \Yoast\WP\SEO\Helpers\User_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper'] : $this->getShortLinkHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository']) ? $this->services['Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository'] : $this->getWistiaEmbedPermissionRepositoryService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Introductions\User_Interface\Introductions_Seen_Route' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Introductions\User_Interface\Introductions_Seen_Route
+     */
+    protected function getIntroductionsSeenRouteService()
+    {
+        $a = ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] = new \Yoast\WP\SEO\Helpers\User_Helper())) && false ?: '_'};
+
+        return $this->services['Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Seen_Route'] = new \Yoast\WP\SEO\Introductions\User_Interface\Introductions_Seen_Route(new \Yoast\WP\SEO\Introductions\Infrastructure\Introductions_Seen_Repository($a), $a, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector']) ? $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector'] : $this->getIntroductionsCollectorService()) && false ?: '_'});
     }
 
     /**
@@ -4898,11 +4913,9 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Web_Stories_Post_Edit');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Web_Stories');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher_Publish');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Woocommerce_Permalinks');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\WooCommerce_Post_Edit');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\WooCommerce');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\WPML_WPSEO_Notification');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\WPML');
@@ -4931,8 +4944,10 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Category_Quick_Edit_Watcher');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Term_Watcher');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Watchers\\Search_Engines_Discouraged_Watcher');
+        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Watchers\\Woocommerce_Beta_Editor_Watcher');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\XMLRPC');
         $instance->register_integration('Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Integration');
+        $instance->register_route('Yoast\\WP\\SEO\\Introductions\\User_Interface\\Introductions_Seen_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Introductions\\User_Interface\\Wistia_Embed_Permission_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Routes\\Alert_Dismissal_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Routes\\First_Time_Configuration_Route');
@@ -5170,27 +5185,7 @@ class Cached_Container extends Container
      */
     protected function getPromotionManagerService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Promotions\\Application\\Promotion_Manager'] = new \Yoast\WP\SEO\Promotions\Application\Promotion_Manager(${($_ = isset($this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion']) ? $this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion'] : ($this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion'] = new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Checklist_Promotion())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion']) ? $this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion'] : ($this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion'] = new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Promotion())) && false ?: '_'});
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Promotions\Domain\Black_Friday_Checklist_Promotion' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Checklist_Promotion
-     */
-    protected function getBlackFridayChecklistPromotionService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Checklist_Promotion'] = new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Checklist_Promotion();
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Promotions\Domain\Black_Friday_Promotion' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Promotion
-     */
-    protected function getBlackFridayPromotionService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Promotions\\Domain\\Black_Friday_Promotion'] = new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Promotion();
+        return $this->services['Yoast\\WP\\SEO\\Promotions\\Application\\Promotion_Manager'] = new \Yoast\WP\SEO\Promotions\Application\Promotion_Manager(new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Checklist_Promotion(), new \Yoast\WP\SEO\Promotions\Domain\Black_Friday_Promotion());
     }
 
     /**
@@ -5693,7 +5688,7 @@ class Cached_Container extends Container
      */
     protected function getUserProfilesAdditionsUiService()
     {
-        return $this->services['Yoast\\WP\\SEO\\User_Profiles_Additions\\User_Interface\\User_Profiles_Additions_Ui'] = new \Yoast\WP\SEO\User_Profiles_Additions\User_Interface\User_Profiles_Additions_Ui();
+        return $this->services['Yoast\\WP\\SEO\\User_Profiles_Additions\\User_Interface\\User_Profiles_Additions_Ui'] = new \Yoast\WP\SEO\User_Profiles_Additions\User_Interface\User_Profiles_Additions_Ui(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] = new \Yoast\WP\SEO\Helpers\Product_Helper())) && false ?: '_'});
     }
 
     /**
@@ -5788,5 +5783,15 @@ class Cached_Container extends Container
     protected function getContentTypeVisibilityDismissNotificationsService()
     {
         return $this->services['Yoast\\WP\\SEO\\Content_Type_Visibility\\Application\\Content_Type_Visibility_Dismiss_Notifications'] = new \Yoast\WP\SEO\Content_Type_Visibility\Application\Content_Type_Visibility_Dismiss_Notifications(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'});
+    }
+
+    /**
+     * Gets the private 'Yoast\WP\SEO\Introductions\Application\Introductions_Collector' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Introductions\Application\Introductions_Collector
+     */
+    protected function getIntroductionsCollectorService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Introductions\\Application\\Introductions_Collector'] = new \Yoast\WP\SEO\Introductions\Application\Introductions_Collector(new \Yoast\WP\SEO\Introductions\Application\Ai_Generate_Titles_And_Descriptions_Introduction_Upsell(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Product_Helper'] = new \Yoast\WP\SEO\Helpers\Product_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'}));
     }
 }

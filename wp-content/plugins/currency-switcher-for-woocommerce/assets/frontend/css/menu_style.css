@@ -1,0 +1,9 @@
+li.wccs-menu-item a {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+li.wccs-menu-item a img {
+    margin-left: 5px;
+}

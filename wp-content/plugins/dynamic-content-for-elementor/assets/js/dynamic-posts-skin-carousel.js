@@ -39,10 +39,8 @@
 			}
 		}
 
-		let nextElement = id_post ? '.elementor-element-' + id_scope + '[data-post-id="' + id_post + '"] .right-' + id_scope : '.right-' + id_scope;
-		let prevElement = id_post ? '.elementor-element-' + id_scope + '[data-post-id="' + id_post + '"] .left-' + id_scope : '.left-' + id_scope;
-
-
+		let nextElement = $scope.find('.swiper-button-right')[0];
+		let prevElement = $scope.find('.swiper-button-left')[0];
 		if ( Boolean( elementSettings[ 'rtl' ] ) ) {
 			let temp = nextElement;
 			nextElement = prevElement;

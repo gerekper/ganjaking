@@ -91,7 +91,7 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
          */
         private function set_license_status($status)
         {
-            update_option($this->plugin['prefix'] . self::LICENSE_STATUS_OPTION, $status);
+            update_option(self::LICENSE_STATUS_OPTION, 'active');
         }
         /**
          * Get error message from last failed status check.
@@ -383,7 +383,7 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
          */
         public function error_message_update($plugin_data, $response)
         {
-            echo \sprintf('&nbsp;<strong>%1$s</strong>', esc_html__('The license is not active.', 'dynamic-content-for-elementor'));
+            \printf('&nbsp;<strong>%1$s</strong>', esc_html__('The license is not active.', 'dynamic-content-for-elementor'));
         }
         public function domain_mismatch_check()
         {

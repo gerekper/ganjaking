@@ -78,7 +78,7 @@ class WPSEO_WooCommerce_Yoast_Tab {
 	}
 
 	/**
-	 * Save the $_POST values from our tab.
+	 * Save the $_POST values from our tab in product page, woocommerce section.
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -89,8 +89,9 @@ class WPSEO_WooCommerce_Yoast_Tab {
 			return false;
 		}
 
-		$nonce = filter_input( INPUT_POST, '_wpnonce_yoast_seo_woo' );
-		if ( ! wp_verify_nonce( $nonce, 'yoast_woo_seo_identifiers' ) ) {
+		// No need to sanitize or unslash nonce.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		if ( ! isset( $_POST['_wpnonce_yoast_seo_woo'] ) || ! wp_verify_nonce( $_POST['_wpnonce_yoast_seo_woo'], 'yoast_woo_seo_identifiers' ) ) {
 			return false;
 		}
 
