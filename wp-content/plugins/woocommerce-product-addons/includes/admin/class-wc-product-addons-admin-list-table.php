@@ -19,7 +19,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * Adds a custom global add-ons list table.
  *
  * @class    WC_PAO_List_Table
- * @version  6.5.0
+ * @version  6.5.1
  */
 class WC_PAO_List_Table extends WP_List_Table {
 
@@ -248,7 +248,7 @@ class WC_PAO_List_Table extends WP_List_Table {
 
 		// Paginate items.
 		$offset      = $paged * $per_page;
-		$this->items = array_slice($this->items, $offset, $offset + $per_page );
+		$this->items = array_slice($this->items, $offset, $per_page );
 
 		// Order items.
 		$orderby_column = array_column( $this->items, $orderby );

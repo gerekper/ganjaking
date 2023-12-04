@@ -7,7 +7,9 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Control\RootStep;
 use MailPoet\Automation\Engine\Data\AutomationTemplate;
+use MailPoet\Automation\Engine\Data\AutomationTemplateCategory;
 use MailPoet\Automation\Engine\Data\Field;
+use MailPoet\Automation\Engine\Exceptions\InvalidStateException;
 use MailPoet\Automation\Engine\Integration\Action;
 use MailPoet\Automation\Engine\Integration\Filter;
 use MailPoet\Automation\Engine\Integration\Payload;
@@ -19,6 +21,9 @@ use MailPoet\Automation\Engine\Integration\Trigger;
 class Registry {
   /** @var array<string, AutomationTemplate> */
   private $templates;
+
+  /** @var array<string, AutomationTemplateCategory> */
+  private $templateCategories;
 
   /** @var array<string, Step> */
   private $steps = [];
@@ -53,9 +58,23 @@ class Registry {
   ) {
     $this->wordPress = $wordPress;
     $this->steps[$rootStep->getKey()] = $rootStep;
+
+    $this->templateCategories = [
+      'welcome' => new AutomationTemplateCategory('welcome', __('Welcome', 'mailpoet')),
+      'abandoned-cart' => new AutomationTemplateCategory('abandoned-cart', __('Abandoned Cart', 'mailpoet')),
+      'reengagement' => new AutomationTemplateCategory('reengagement', __('Re-engagement', 'mailpoet')),
+      'woocommerce' => new AutomationTemplateCategory('woocommerce', __('WooCommerce', 'mailpoet')),
+    ];
   }
 
   public function addTemplate(AutomationTemplate $template): void {
+    $category = $template->getCategory();
+    if (!isset($this->templateCategories[$category])) {
+      throw InvalidStateException::create()->withMessage(
+        sprintf("Category '%s' was not registered", $category)
+      );
+    }
+
     $this->templates[$template->getSlug()] = $template;
 
     // keep coming soon templates at the end
@@ -91,6 +110,11 @@ class Registry {
 
   public function removeTemplate(string $slug): void {
     unset($this->templates[$slug]);
+  }
+
+  /** @return array<string, AutomationTemplateCategory> */
+  public function getTemplateCategories(): array {
+    return $this->templateCategories;
   }
 
   /** @param Subject<Payload> $subject */

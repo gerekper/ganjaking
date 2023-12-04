@@ -63,14 +63,16 @@ class Ajax
         if (!current_user_can('administrator')) {
             wp_die();
         }
-        // The $_REQUEST contains all the data sent via ajax
+        if (!wp_verify_nonce($_REQUEST['nonce'], 'wpa_update_postmetas')) {
+            wp_die();
+        }
         $post_id = 0;
         if (isset($_REQUEST['post_id'])) {
             $post_id = \intval($_REQUEST['post_id']);
         }
         if ($post_id) {
             foreach ($_REQUEST as $key => $value) {
-                if ($key != 'action' && $key != 'post_id') {
+                if ($key != 'action' && $key != 'post_id' && $key != 'nonce') {
                     if ($value) {
                         $tmp = get_post_meta($post_id, $key, \true);
                         if (\is_array($value)) {
@@ -88,18 +90,18 @@ class Ajax
             return \false;
         }
         echo wp_json_encode($_REQUEST);
-        // Always die in functions echoing ajax content
         wp_die();
-        // this is required to terminate immediately and return a proper response
     }
     public function wpa_update_options()
     {
         if (!current_user_can('administrator')) {
             wp_die();
         }
-        // The $_REQUEST contains all the data sent via ajax
+        if (!wp_verify_nonce($_REQUEST['nonce'], 'wpa_update_options')) {
+            wp_die();
+        }
         foreach ($_REQUEST as $key => $value) {
-            if ($key != 'action') {
+            if ($key != 'action' && $key != 'nonce') {
                 if ($value) {
                     if (\is_array($value)) {
                         $tmp = get_option($key);
@@ -114,9 +116,7 @@ class Ajax
             }
         }
         echo wp_json_encode($_REQUEST);
-        // Always die in functions echoing ajax content
         wp_die();
-        // this is required to terminate immediately and return a proper response
     }
     public function dce_file_browser_hits()
     {

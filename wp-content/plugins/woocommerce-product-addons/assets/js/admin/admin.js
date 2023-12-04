@@ -130,38 +130,56 @@ jQuery( function( $ ) {
 			} );
 		},
 
-		validateSettings: function( context ) {
+		validateSettings: function( fields = 'all' ) {
 			$( '.wc-pao-error-message' ).remove();
 			$( '.updated' ).remove();
 
-			var shouldReturn     = true,
-				removeErrorBorder = true;
+			var shouldReturn      = true,
+				removeErrorBorder = true,
+				requiredError     = false,
+				maxLengthError    = false;
 
 			// Loop through all addons to validate them.
 			$( '.wc-pao-addons' ).find( '.wc-pao-addon' ).each( function( i ) {
-				if ( 0 === $( this ).find( '.wc-pao-addon-content-name' ).val().length ) {
-					$( this ).addClass( 'wc-pao-error' ).find( '.wc-pao-addon-content-name' ).addClass( 'wc-pao-error' );
 
-					shouldReturn     = false;
-					removeErrorBorder = false;
-				} else {
-					$( this ).find( '.wc-pao-addon-content-name' ).removeClass( 'wc-pao-error' );
+				if ( 'all' === fields || 'addon_title' === fields ) {
+					var titleLength = $( this ).find( '.wc-pao-addon-content-name' ).val().length;
+
+					if ( 0 === titleLength ) {
+						$( this ).addClass( 'wc-pao-error' ).find( '.wc-pao-addon-content-name' ).addClass( 'wc-pao-error' );
+
+						shouldReturn      = false;
+						removeErrorBorder = false;
+						requiredError     = true;
+					} else if ( titleLength > 255 ) {
+						$( this ).addClass( 'wc-pao-error' ).find( '.wc-pao-addon-content-name' ).addClass( 'wc-pao-error' );
+
+						shouldReturn      = false;
+						removeErrorBorder = false;
+						maxLengthError    = true;
+					} else {
+						$( this ).removeClass( 'wc-pao-error' ).find( '.wc-pao-addon-content-name' ).removeClass( 'wc-pao-error' );
+						$(this).find( '.wc-pao-addon-header .woocommerce-help-tip.addons-max-length-title' ).hide();
+					}
 				}
 
-				var type = $( this ).find( '.product_addon_type' ).val();
+				if ( 'all' === fields || 'addon_option_title' === fields ) {
+					var type = $( this ).find( '.product_addon_type' ).val();
 
-				$( this ).find( '.wc-pao-addon-option-row' ).each( function() {
-					if ( ( 'multiple_choice' === type || 'checkbox' === type ) && 0 === $( this ).find( '.wc-pao-addon-content-label input' ).val().length ) {
+					$( this ).find( '.wc-pao-addon-option-row' ).each( function() {
+						if ( ( 'multiple_choice' === type || 'checkbox' === type ) && 0 === $( this ).find( '.wc-pao-addon-content-label input' ).val().length ) {
 
-						$( this ).find( '.wc-pao-addon-content-label input' ).addClass( 'wc-pao-error' );
-						$( this ).parents( '.wc-pao-addon' ).eq( 0 ).addClass( 'wc-pao-error' );
+							$( this ).find( '.wc-pao-addon-content-label input' ).addClass( 'wc-pao-error' );
+							$( this ).parents( '.wc-pao-addon' ).eq( 0 ).addClass( 'wc-pao-error' );
 
-						shouldReturn     = false;
-						removeErrorBorder = false;
-					} else {
-						$( this ).find( '.wc-pao-addon-content-label input' ).removeClass( 'wc-pao-error' );
-					}
-				} );
+							shouldReturn      = false;
+							removeErrorBorder = false;
+							requiredError     = true;
+						} else {
+							$( this ).find( '.wc-pao-addon-content-label input' ).removeClass( 'wc-pao-error' );
+						}
+					} );
+				}
 
 				if ( removeErrorBorder ) {
 					$( this ).removeClass( 'wc-pao-error' );
@@ -169,13 +187,15 @@ jQuery( function( $ ) {
 			} );
 
 			if ( false === shouldReturn ) {
-				var errorMessage = $( '<div class="notice notice-error wc-pao-error-message"><p>' + wc_pao_params.i18n.required_fields + '</p></div>' );
+				var errorMessage;
 
-				if ( 'product' === context ) {
-					$( '.wc-pao-addons' ).before( errorMessage );
-				} else if ( 'global' === context ) {
-					$( '.global-addons-form' ).before( errorMessage );
+				if ( requiredError ) {
+					errorMessage = $( '<div class="notice notice-error wc-pao-error-message"><p>' + wc_pao_params.i18n.required_fields + '</p></div>' );
+				} else if ( maxLengthError ) {
+					errorMessage = $( '<div class="notice notice-error wc-pao-error-message"><p>' + wc_pao_params.i18n.max_title_length_exceeded + '</p></div>' );
 				}
+
+				$( '.wc-pao-addons' ).before( errorMessage );
 
 				$( 'html, body' ).animate( {
 					scrollTop: ( $( '.wc-pao-error-message' ).offset().top - 200 )
@@ -343,23 +363,24 @@ jQuery( function( $ ) {
 			$products_addons_data.append( $test_var );
 
 			$( '.post-type-product' ).on( 'click', '#publishing-action input[name="save"]', function() {
-				return wc_pao_admin.validateSettings( 'product' );
+				return wc_pao_admin.validateSettings( 'all' );
 			} );
 
 			$( '.product_page_addons' ).on( 'click', 'input[type="submit"]', function() {
-				return wc_pao_admin.validateSettings( 'global' );
+				return wc_pao_admin.validateSettings( 'all' );
 			} );
 
 			$products_addons_data
 				.on( 'keyup', '.wc-pao-addon-content-name', function() {
 					var self = $( this );
 
-					$( this ).removeClass( 'wc-pao-error' );
-					$( '.wc-pao-error-message' ).remove();
-
 					wc_pao_admin.delay( function() {
-						self.closest( '.wc-pao-addon' ).find( '.wc-pao-addon-name' ).text( self.val() );
+						var title = self.val();
+						self.closest( '.wc-pao-addon' ).find( '.wc-pao-addon-name' ).text( title );
 					}, 300 );
+				} )
+				.on( 'blur', '.wc-pao-addon-content-name', function() {
+					wc_pao_admin.validateSettings( 'addon_title' );
 				} )
 				.on( 'keyup', '.wc-pao-addon-content-label input', function() {
 					$( this ).removeClass( 'wc-pao-error' );

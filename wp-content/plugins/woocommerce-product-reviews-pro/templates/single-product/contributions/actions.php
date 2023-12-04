@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -29,17 +29,17 @@ defined( 'ABSPATH' ) or exit;
  * @type \WC_Contribution $contribution The contributions actions are for.
  *
  * @since 1.2.0
- * @version 1.7.0
+ * @version 1.19.0
  */
 ?>
 
 <p class="contribution-actions">
 
-	<a href="<?php echo esc_url( $contribution->get_vote_url( 'positive' ) ); ?>" class="vote vote-up js-tip <?php if ( 'positive' == $contribution->get_user_vote() ) : ?>done<?php endif; ?>" rel="nofollow" data-comment-id="<?php echo esc_attr( $contribution->get_id() ); ?>" title="<?php esc_attr_e( 'Upvote if this was helpful', 'woocommerce-product-reviews-pro' ); ?>"></a>
+	<a href="<?php echo esc_url( $contribution->get_vote_url( 'positive' ) ); ?>" class="vote vote-up js-tip <?php if ( 'positive' == $contribution->get_user_vote() ) : ?>done<?php endif; ?>" rel="nofollow" data-comment-id="<?php echo esc_attr( $contribution->get_id() ); ?>" title="<?php esc_attr_e( 'Upvote if this was helpful', 'woocommerce-product-reviews-pro' ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Upvote if this was helpful', 'woocommerce-product-reviews-pro' ); ?></span></a>
 	<span class="vote-count vote-count-positive">
 		(<span><?php echo absint( $contribution->get_positive_votes() ); ?></span>)
 	</span>
-	<a href="<?php echo esc_url( $contribution->get_vote_url( 'negative' ) ); ?>" class="vote vote-down js-tip <?php if ( 'negative' == $contribution->get_user_vote() ) : ?>done<?php endif; ?>" rel="nofollow" data-comment-id="<?php echo esc_attr( $contribution->get_id() ); ?>" title="<?php esc_attr_e( 'Downvote if this was not helpful', 'woocommerce-product-reviews-pro' ); ?>"></a>
+	<a href="<?php echo esc_url( $contribution->get_vote_url( 'negative' ) ); ?>" class="vote vote-down js-tip <?php if ( 'negative' == $contribution->get_user_vote() ) : ?>done<?php endif; ?>" rel="nofollow" data-comment-id="<?php echo esc_attr( $contribution->get_id() ); ?>" title="<?php esc_attr_e( 'Downvote if this was not helpful', 'woocommerce-product-reviews-pro' ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Downvote if this was not helpful', 'woocommerce-product-reviews-pro' ); ?></span></a>
 	<span class="vote-count vote-count-negative">
 		(<span><?php echo absint( $contribution->get_negative_votes() ); ?></span>)
 	</span>
@@ -64,6 +64,6 @@ defined( 'ABSPATH' ) or exit;
 
 	<span class="feedback"></span>
 
-	<a href="#flag-contribution-<?php echo esc_url( $contribution->get_id() ); ?>" class="flag js-toggle-flag-form js-tip <?php if ( $contribution->has_user_flagged() ) : ?>done<?php endif; ?>" data-comment-id="<?php echo esc_attr( $contribution->get_id() ) ?>" title="<?php _e( 'Flag for removal', 'woocommerce-product-reviews-pro' ); ?>"></a>
+	<a href="#flag-contribution-<?php echo esc_url( $contribution->get_id() ); ?>" class="flag js-toggle-flag-form js-tip <?php if ( $contribution->has_user_flagged() ) : ?>done<?php endif; ?>" data-comment-id="<?php echo esc_attr( $contribution->get_id() ) ?>" title="<?php _e( 'Flag for removal', 'woocommerce-product-reviews-pro' ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Flag for removal', 'woocommerce-product-reviews-pro' ); ?></span></a>
 
 </p>

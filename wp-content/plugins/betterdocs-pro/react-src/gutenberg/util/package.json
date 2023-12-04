@@ -1,0 +1,46 @@
+{
+  "name": "eb",
+  "version": "3.0.3",
+  "main": "Gruntfile.js",
+  "author": "WPDeveloper",
+  "scripts": {
+    "readme": "grunt readme",
+    "i18n": "grunt i18n",
+    "start": "set NODE_ENV=development && wp-scripts start",
+    "build": "set NODE_ENV=production && wp-scripts build",
+    "packages-update": "wp-scripts packages-update"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@webpack-cli/info": "^0.2.0",
+    "@wordpress/scripts": "^19.2.1",
+    "babel-loader": "^8.1.0",
+    "striptags": "^3.1.1",
+    "webpack": "^5.56.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  },
+  "dependencies": {
+    "@fonticonpicker/react-fonticonpicker": "hz-tyfoon/react-fonticonpicker#c5914813163490f98e1a1756a6e5a4479e777c34",
+    "@material/react-button": "^0.15.0",
+    "array-move": "^3.0.1",
+    "classnames": "^2.2.6",
+    "fslightbox-react": "^1.4.9",
+    "moment": "^2.24.0",
+    "prop-types": "^15.7.2",
+    "rc-switch": "^1.9.0",
+    "react": "^16.13.1",
+    "react-compare-image": "^3.1.0",
+    "react-dom": "^16.13.1",
+    "react-masonry-component": "^6.2.1",
+    "react-slick": "^0.27.1",
+    "react-sortable-hoc": "^1.11.0",
+    "react-transition-group": "^4.3.0",
+    "slick-carousel": "^1.8.1",
+    "typed.js": "^2.0.11",
+    "react-select": "^5.0.0"
+  }
+}

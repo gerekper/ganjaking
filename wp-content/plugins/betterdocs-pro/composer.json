@@ -1,0 +1,65 @@
+{
+    "name": "wpdeveloper/betterdocs-pro",
+    "version": "3.0.0",
+    "authors": [
+        {
+            "name": "WPDeveloper",
+            "email": "support@wpdeveloper.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WPDeveloper\\BetterDocsPro\\": "includes/"
+        },
+        "exclude-from-classmap": [
+            "CoenJacobs\\Mozart"
+        ]
+    },
+    "require-dev": {
+        "coenjacobs/mozart": "^0.7.1"
+    },
+    "require": {
+        "wpdeveloper/licensing": "dev-main"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:WPDevelopers/licensing.git"
+        }
+    ],
+    "extra": {
+        "mozart": {
+            "dep_namespace": "WPDeveloper\\BetterDocsPro\\Dependencies\\",
+            "dep_directory": "/includes/Dependencies/",
+            "classmap_directory": "/includes/classes/dependencies",
+            "classmap_prefix": "BetterDocsPro_",
+            "delete_vendor_directories": true
+        }
+    },
+    "scripts": {
+        "pre-install-cmd": [
+            "rm -Rf includes/Dependencies",
+            "rm -Rf includes/classes"
+        ],
+        "pre-update-cmd": [
+            "rm -Rf includes/Dependencies",
+            "rm -Rf includes/classes"
+        ],
+        "post-install-cmd": [
+            "./vendor/bin/mozart compose",
+            "rm -Rf vendor/bin",
+            "rm -Rf vendor/coenjacobs",
+            "rm -Rf vendor/league",
+            "rm -Rf vendor/symfony",
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "./vendor/bin/mozart compose",
+            "rm -Rf vendor/bin",
+            "rm -Rf vendor/coenjacobs",
+            "rm -Rf vendor/league",
+            "rm -Rf vendor/symfony",
+            "composer dump-autoload"
+        ]
+    }
+}

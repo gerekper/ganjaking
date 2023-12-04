@@ -2452,13 +2452,13 @@ class Twitter extends Common_Widget {
 
 				add_filter( 'https_ssl_verify', '__return_false' );
 
+				$twitter_api_url = 'https://api.twitter.com/2/tweets/search/recent?query=%23' . urlencode( $twitter_hashtag ) . '&max_results=100';
+
 				$response = wp_remote_get(
-					'https://api.twitter.com/1.1/search/tweets.json?q=%23' . $twitter_hashtag . '&count=999&result_type=recent&tweet_mode=extended',
+					$twitter_api_url,
 					array(
-						'httpversion' => '1.1',
-						'blocking'    => true,
-						'headers'     => array(
-							'Authorization' => "Bearer $token",
+						'headers' => array(
+							'Authorization' => 'Bearer ' . $token,
 						),
 					)
 				);
@@ -2467,24 +2467,26 @@ class Twitter extends Common_Widget {
 					return;
 				}
 
-				if ( ! empty( $response['response'] ) && 200 === $response['response']['code'] ) {
+				$response_code = wp_remote_retrieve_response_code( $response );
+
+				if ( 200 === $response_code ) {
 					$items = json_decode( wp_remote_retrieve_body( $response ), true );
 					set_transient( $cache_key, $items, $settings['uael_twitter_feed_data_cache_limit'] * HOUR_IN_SECONDS );
-					if ( empty( $items['statuses'] ) && $is_editor ) {
 
+					if ( empty( $items['data'] ) && $is_editor ) {
 						?>
-							<div class="uael-builder-msg elementor-alert elementor-alert-warning">
-								<span class="elementor-alert-title">
-									<?php esc_html_e( 'Twitter Feed - ID ', 'uael' ); ?><?php echo esc_html( $page_id ); ?>
-								</span>
-								<span class="elementor-alert-description">
-									<?php esc_html_e( 'To show Twitter Feed widget, please set the valid Hashtag from widget settings.', 'uael' ); ?><br>
-								</span>
-							</div>
-							<?php
-							return;
+						<div class="uael-builder-msg elementor-alert elementor-alert-warning">
+							<span class="elementor-alert-title">
+								<?php esc_html_e( 'Twitter Feed - ID ', 'uael' ); ?><?php echo esc_html( $page_id ); ?>
+							</span>
+							<span class="elementor-alert-description">
+								<?php esc_html_e( 'To show Twitter Feed widget, please set the valid Hashtag from widget settings.', 'uael' ); ?><br>
+							</span>
+						</div>
+						<?php
+						return;
 					}
-				}
+				}           
 			}
 
 			if ( empty( $items ) ) {
@@ -2617,8 +2619,17 @@ class Twitter extends Common_Widget {
 
 				add_filter( 'https_ssl_verify', '__return_false' );
 
+				$twitter_url = 'https://api.twitter.com/2/tweets';
+				$params      = array(
+					'screen_name' => '@' . $twitter_username,
+					'max_results' => 999,
+					'tweet_mode'  => 'extended',
+				);
+				
+				$request_url = add_query_arg( $params, $twitter_url );
+
 				$response = wp_remote_get(
-					'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=@' . $twitter_username . '&count=999&tweet_mode=extended',
+					$request_url,
 					array(
 						'httpversion' => '1.1',
 						'blocking'    => true,
@@ -2642,7 +2653,8 @@ class Twitter extends Common_Widget {
 							<?php esc_html_e( 'Twitter Feed - ID ', 'uael' ); ?><?php echo esc_html( $page_id ); ?>
 						</span>
 						<span class="elementor-alert-description">
-							<?php esc_html_e( 'To show Twitter Feed widget, please set the valid Username from widget settings.', 'uael' ); ?><br>
+							<?php esc_html_e( 'To show Twitter Feed widget, please set valid Consumer key and Consumer Secret Key.', 'uael' ); ?><br>
+							<?php esc_html_e( 'Navigate to Settings -> UAE -> Twitter Feed -> Settings.', 'uael' ); ?>
 						</span>
 					</div>
 					<?php

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.22.4\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.22.5\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-17T11:44:17+00:00\n"
+"POT-Creation-Date: 2023-11-29T11:10:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-product-bundles\n"
 
@@ -1284,7 +1284,7 @@ msgid "Edit item"
 msgstr ""
 
 #: includes/api/class-wc-pb-store-api.php:612
-#: includes/class-wc-pb-cart.php:1895
+#: includes/class-wc-pb-cart.php:1899
 msgid "This product is a mandatory part of a bundle and cannot be removed."
 msgstr ""
 
@@ -1423,20 +1423,20 @@ msgid "Cart update failed. The quantity of &quot;%1$s&quot; cannot be higher tha
 msgstr ""
 
 #. translators: Bundled product name
-#: includes/class-wc-pb-cart.php:1452
-#: includes/class-wc-pb-cart.php:1459
-#: includes/class-wc-pb-cart.php:1492
+#: includes/class-wc-pb-cart.php:1456
+#: includes/class-wc-pb-cart.php:1463
+#: includes/class-wc-pb-cart.php:1496
 msgid "The requested configuration of &quot;%s&quot; cannot be purchased at the moment."
 msgstr ""
 
 #. translators: %s: Bundle name.
-#: includes/class-wc-pb-cart.php:1774
+#: includes/class-wc-pb-cart.php:1778
 msgctxt "Bundle name in quotes"
 msgid "&ldquo;%s&rdquo;"
 msgstr ""
 
 #. translators: %1$s: Product title
-#: includes/class-wc-pb-cart.php:2180
+#: includes/class-wc-pb-cart.php:2184
 msgid "You have already added an identical &quot;%s&quot; to your cart. You cannot add another one."
 msgstr ""
 

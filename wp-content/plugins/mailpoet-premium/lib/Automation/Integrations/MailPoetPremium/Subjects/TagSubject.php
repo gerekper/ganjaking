@@ -35,6 +35,7 @@ class TagSubject implements Subject {
   }
 
   public function getName(): string {
+    // translators: automation subject (entity entering automation) title
     return __('MailPoet tag', 'mailpoet-premium');
   }
 

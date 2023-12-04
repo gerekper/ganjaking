@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
 Tested up to: 6.4
-Stable tag: 1.23.13
+Stable tag: 1.23.14
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -182,6 +182,14 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 The [UpdraftPlus backup blog](https://updraftplus.com/news/) is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.23.1.x of the free version correspond to changes made in 2.23.1.x of the paid version.
+
+= 1.23.14 - 30/Nov/2023 =
+
+* FIX: Resolved Google Cloud remote storage authentication flow
+* TWEAK: Changed updraftvault links functionality to open in different tab
+* TWEAK: Clarify significance of warnings in report emails
+* TWEAK: Make the news-consent's layer fit with the confirmation text thus removing empty space that can reveal some of the UpdraftPlus news
+* TWEAK: Declare a shim "php_uname" function when it's found to be undefined to prevent a fatal error in the phpseclib library (which calls it)
 
 = 1.23.13 - 22/Nov/2023 =
 
@@ -1861,4 +1869,4 @@ Non-English translators are provided by volunteers, and wordpress.org does not g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.13: Fixes issues that prevented incremental backups from running via WP-CLI or Cron when the option to backup mu-plugins was enabled but no mu-plugins existed and prevented OneDrive authentication flow. Various further tweaks. A recommended update for all.
+* 1.23.14: Fixes an issue that prevented Google cloud authentication flow. Various further tweaks. A recommended update for all.

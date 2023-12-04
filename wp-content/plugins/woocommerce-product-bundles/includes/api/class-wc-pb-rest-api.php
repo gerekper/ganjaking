@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.22.4
+ * @version  6.22.5
  */
 class WC_PB_REST_API {
 
@@ -1192,7 +1192,7 @@ class WC_PB_REST_API {
 			}
 
 			// 'WC_PB_Cart::validate_bundle_configuration expects' 'optional_selected' to be 'yes'|'no', not boolean.
-			if ( ! empty( $bundled_item_configuration[ 'optional_selected' ] ) ) {
+			if ( isset( $bundled_item_configuration[ 'optional_selected' ] ) ) {
 				$configuration[ $bundled_item_id ][ 'optional_selected' ] = true === $bundled_item_configuration[ 'optional_selected' ] ? 'yes' : 'no';
 			}
 

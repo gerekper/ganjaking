@@ -73,7 +73,6 @@ class Features {
 		return [
 			'COMMON' => __( 'for All Widgets', 'dynamic-content-for-elementor' ),
 			'FREE' => __( 'for Elementor Free', 'dynamic-content-for-elementor' ),
-			'PRO' => __( 'for Elementor Pro', 'dynamic-content-for-elementor' ),
 			'FORM' => __( 'for Elementor Pro Form', 'dynamic-content-for-elementor' ),
 		];
 	}
@@ -769,6 +768,17 @@ class Features {
 				'icon' => 'icon-dyn-js-amount',
 				'plugin_depends' => [ 'elementor-pro' ],
 				'doc_url' => 'https://www.dynamic.ooo/widget/js-field-elementor-pro-form/',
+			],
+			'ext_mirror_field' => [
+				'name' => 'dce_mirror_field',
+				'type' => 'extension',
+				'class' => 'Extensions\MirrorField',
+				'category' => 'FORM',
+				'title' => __( 'Mirror Field for Elementor Pro Form', 'dynamic-content-for-elementor' ),
+				'description' => __( 'A dynamic tool that can auto-fill your field values and yet allow user modification when needed', 'dynamic-content-for-elementor' ),
+				'icon' => 'icon-dce-mirror-field',
+				'plugin_depends' => [ 'elementor-pro' ],
+				'doc_url' => 'https://www.dynamic.ooo/widget/mirror-field-elementor-pro-form/',
 			],
 			'ext_formatted_number_field' => [
 				'name' => 'dce_formatted_number_field',

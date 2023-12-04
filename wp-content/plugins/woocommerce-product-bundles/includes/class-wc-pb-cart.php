@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.21.0
+ * @version  6.22.5
  */
 class WC_PB_Cart {
 
@@ -1446,6 +1446,10 @@ class WC_PB_Cart {
 
 			// The bundle.
 			$bundle = WC()->cart->cart_contents[ $bundle_cart_key ][ 'data' ];
+
+			if ( ! is_a( $bundle, 'WC_Product' ) || ! $bundle->is_type( 'bundle' ) ) {
+				return;
+			}
 
 			if ( empty( $cart_item_data[ 'stamp' ] ) ) {
 				/* translators: Bundled product name */

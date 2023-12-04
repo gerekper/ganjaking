@@ -1,0 +1,60 @@
+{
+    "name": "betterdocs-pro",
+    "version": "2.5.0",
+    "description": "A better documentation and knowledgebase plugin for WordPress",
+    "main": "webpack.config.js",
+    "scripts": {
+        "start": "wp-scripts start",
+        "build": "wp-scripts build",
+        "build:zip": "npm run build && wp dist-archive .",
+        "prebuild:zip": "npm run ia:build && wp i18n make-pot . languages/betterdocs-pro.pot --exclude='react-src'",
+        "ia:install": "cd react-src/instant-answer && npm install",
+        "ia:start": "cd react-src/instant-answer && npm start",
+        "ia:build": "cd react-src/instant-answer && npm run build",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/WPDevelopers/betterdocs-pro.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/WPDevelopers/betterdocs-pro/issues"
+    },
+    "homepage": "https://betterdocs.co",
+    "dependencies": {
+        "@fonticonpicker/react-fonticonpicker": "^1.2.0",
+        "@tanstack/react-query": "^4.0.9",
+        "@wordpress/api-fetch": "^6.22.0",
+        "@wordpress/components": "^25.11.0",
+        "@wordpress/hooks": "^3.45.0",
+        "@wordpress/i18n": "^4.5.0",
+        "apexcharts": "^3.35.0",
+        "classnames": "^2.3.1",
+        "date-fns": "^2.28.0",
+        "html-react-parser": "^4.2.9",
+        "moment": "^2.29.1",
+        "rc-pagination": "^3.1.15",
+        "react": "^18.1.0",
+        "react-apexcharts": "^1.4.0",
+        "react-content-loader": "^6.2.0",
+        "react-date-range": "^1.4.0",
+        "react-dates": "^21.8.0",
+        "react-select": "^5.6.1",
+        "react-tabs": "^4.0.1",
+        "react-transition-group": "^4.4.2",
+        "svg-url-loader": "^7.1.1",
+        "sweetalert2": "11.4.8"
+    },
+    "devDependencies": {
+        "@svgr/webpack": "^8.0.1",
+        "@wordpress/scripts": "26.6.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^11.0.0",
+        "mini-css-extract-plugin": "^2.6.0",
+        "url-loader": "^4.1.1",
+        "webpack-remove-empty-scripts": "^1.0.1"
+    }
+}

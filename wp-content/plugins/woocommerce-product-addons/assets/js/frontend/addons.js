@@ -969,13 +969,18 @@
 
 					if ( self.addons_price_data.length ) {
 						$.each( self.addons_price_data, function ( i, addon ) {
-							var cost, formatted_value;
+							var cost = addon.cost,
+								formatted_value;
+
+							if ( 0 === cost ) {
+								formatted_value = '-';
+							} else if ( cost > 0 ) {
+								formatted_value = self.formatMoney( cost );
+							} else {
+								formatted_value = '-' + self.formatMoney( Math.abs(cost) );
+							}
+
 							if ( 'quantity_based' === addon.price_type ) {
-								cost            = addon.cost;
-								formatted_value =
-									0 === cost
-									? '-'
-									: self.formatMoney( cost );
 
 								html =
 									html +
@@ -985,23 +990,14 @@
 									formatted_value +
 									'</span></div></li>';
 							} else {
-
-								cost = addon.cost;
-
-								formatted_value =
-									0 === cost
-										? '-'
-										: '<span class="amount">' +
-										self.formatMoney( cost ) +
-										'</span>';
-
+								
 								html =
 									html +
 									'<li><div class="wc-pao-col1"><strong>' +
 									addon.name +
-									'</strong></div><div class="wc-pao-col2">' +
+									'</strong></div><div class="wc-pao-col2"><span class="amount">' +
 									formatted_value +
-									'</div></li>';
+									'</span></div></li>';
 							}
 
 							if ( woocommerce_addons_params.tax_enabled && addon.is_custom_price ) {

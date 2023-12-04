@@ -808,11 +808,20 @@ abstract class Skin_Style {
 				$excerpt        = get_the_excerpt();
 				$words          = preg_split( '/\s+/', $excerpt );
 				$excerpt_length = (int) $_excerpt_length;
+				$excerpt_length = max( $excerpt_length, 25 );
 				$trim_excerpt   = implode( ' ', array_slice( $words, 0, $excerpt_length ) );
 			if ( count( $words ) > $excerpt_length ) {
 				$trim_excerpt .= apply_filters( 'excerpt_more', '...' );
-			}   
-				echo wp_kses_post( $trim_excerpt );
+			}
+			$allowed_tags           = wp_kses_allowed_html( 'post' );
+			$allowed_tags['iframe'] = array(
+				'src'             => true,
+				'width'           => true,
+				'height'          => true,
+				'frameborder'     => true,
+				'allowfullscreen' => true,
+			);
+			echo wp_kses( $trim_excerpt, $allowed_tags );
 			?>
 		</div>
 

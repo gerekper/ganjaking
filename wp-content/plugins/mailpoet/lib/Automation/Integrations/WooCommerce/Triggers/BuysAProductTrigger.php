@@ -57,6 +57,7 @@ class BuysAProductTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Customer buys a product', 'mailpoet');
   }
 

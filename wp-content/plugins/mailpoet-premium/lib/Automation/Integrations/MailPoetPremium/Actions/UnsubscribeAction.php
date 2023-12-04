@@ -46,6 +46,7 @@ class UnsubscribeAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Unsubscribe', 'mailpoet-premium');
   }
 

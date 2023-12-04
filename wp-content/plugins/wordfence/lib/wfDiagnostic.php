@@ -669,13 +669,17 @@ class wfDiagnostic
 		$detail = '';
 		if (is_wp_error($result)) {
 			$message = __('wp_remote_post() test back to this server failed! Response was: ', 'wordfence') . $result->get_error_message();
+			$messageTextOnly = __('wp_remote_post() test back to this server failed! Response was: ', 'wordfence') . $result->get_error_message();
 		}
 		else {
-			$message = __('wp_remote_post() test back to this server failed! Response was: ', 'wordfence') . '<br>' . $result['response']['code'] . " " . $result['response']['message'] . '<br><br>';
+			$message = __('wp_remote_post() test back to this server failed! Response was: ', 'wordfence') . '<br>' . $result['response']['code'] . ' ' . $result['response']['message'] . '<br><br>';
+			$messageTextOnly = __('wp_remote_post() test back to this server failed! Response was: ', 'wordfence') . "\n" . $result['response']['code'] . ' ' . $result['response']['message'] . "\n\n";
 			if ($this->_detectBlockedByCloudflare($result)) {
 				$message .= __('Cloudflare appears to be blocking your site from connecting to itself.', 'wordfence') . '<br>' . sprintf(' <a href="%s" target="_blank" rel="noopener noreferrer">', wfSupportController::esc_supportURL(wfSupportController::ITEM_DIAGNOSTICS_CLOUDFLARE_BLOCK)) . __('Get help with Cloudflare compatibility', 'wordfence') . '</a><br><br>';
+				$messageTextOnly .= __('Cloudflare appears to be blocking your site from connecting to itself.', 'wordfence') . "\n" . __('Get help with Cloudflare compatibility', 'wordfence') . ': ' . wfSupportController::esc_supportURL(wfSupportController::ITEM_DIAGNOSTICS_CLOUDFLARE_BLOCK) . "\n\n";
 			}
 			$message .= __('This additional info may help you diagnose the issue. The response headers we received were:', 'wordfence') . '<br><br>';
+			$messageTextOnly .= __('This additional info may help you diagnose the issue. The response headers we received were:', 'wordfence') . "\n\n";
 			if (isset($result['http_response']) && is_object($result['http_response']) && method_exists($result['http_response'], 'get_response_object') && is_object($result['http_response']->get_response_object()) && property_exists($result['http_response']->get_response_object(), 'raw')) {
 				$detail = str_replace("\r\n", "\n", $result['http_response']->get_response_object()->raw);
 			}
@@ -685,7 +689,7 @@ class wfDiagnostic
 		
 		return array(
 			'test' => false,
-			'message' => array('escaped' => $message),
+			'message' => array('escaped' => $message, 'textonly' => $messageTextOnly),
 			'detail' => $detail,
 		);
 	}
@@ -705,12 +709,13 @@ class wfDiagnostic
 					if ($errorNumber === 6 /* COULDNT_RESOLVE_HOST */) {
 						$detail = sprintf(/* translators: error message from failed request */ __('This likely indicates that the server either does not support IPv6 or does not have an IPv6 address assigned or associated with the domain. Original error message: %s', 'wordfence'), is_array($result['message']) ? $result['message']['escaped'] : $result['message']);
 						$detail = wp_kses($detail, array('a' => array('href' => array(), 'target' => array(), 'rel' => array()), 'span' => array('class' => array()), 'em' => array(), 'code' => array(), 'br' => array()));
+						$detailTextOnly = sprintf(/* translators: error message from failed request */ __('This likely indicates that the server either does not support IPv6 or does not have an IPv6 address assigned or associated with the domain. Original error message: %s', 'wordfence'), is_array($result['message']) ? $result['message']['textonly'] : strip_tags($result['message']));
 						
 						return array(
 							'test' => false,
 							'infoOnly' => true,
 							'message' => __('IPv6 DNS resolution failed', 'wordfence'),
-							'detail' => array('escaped' => $detail),
+							'detail' => array('escaped' => $detail, 'textonly' => $detailTextOnly),
 						);
 					}
 				}

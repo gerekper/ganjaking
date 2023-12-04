@@ -1,3 +1,10 @@
+Version 1.36.26, Thursday, 30th November 2023
+- Improvement: Compatibility with latest Elementor and Elementor Pro 3.18 version.
+- Improvement: Twitter Feed - Added support to Twitter version 2 API.
+- Fix: Posts - UI display issue for embedded iframe code in page block excerpts.
+- Fix: Video Gallery - Wistia video thumbnails now display correctly.
+- Fix: Video - Wistia video thumbnails now display correctly.
+
 Version 1.36.25, Thursday, 9th November 2023
 - Improvement: Compatibility with latest WordPress version 6.4
 - Improvement: User Registration Form - Accessibility support to the form label attribute.

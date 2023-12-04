@@ -5,25 +5,11 @@ namespace MailPoet\Automation\Engine\Data;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\RuntimeException;
-
 class AutomationTemplate {
   public const TYPE_DEFAULT = 'default';
   public const TYPE_FREE_ONLY = 'free-only';
   public const TYPE_PREMIUM = 'premium';
   public const TYPE_COMING_SOON = 'coming-soon';
-
-  public const CATEGORY_WELCOME = 'welcome';
-  public const CATEGORY_ABANDONED_CART = 'abandoned-cart';
-  public const CATEGORY_REENGAGEMENT = 'reengagement';
-  public const CATEGORY_WOOCOMMERCE = 'woocommerce';
-
-  public const ALL_CATEGORIES = [
-    self::CATEGORY_WELCOME,
-    self::CATEGORY_ABANDONED_CART,
-    self::CATEGORY_REENGAGEMENT,
-    self::CATEGORY_WOOCOMMERCE,
-  ];
 
   /** @var string */
   private $slug;
@@ -52,9 +38,6 @@ class AutomationTemplate {
     callable $automationFactory,
     string $type = self::TYPE_DEFAULT
   ) {
-    if (!in_array($category, self::ALL_CATEGORIES)) {
-      throw new RuntimeException("$category is not a valid category.");
-    }
     $this->slug = $slug;
     $this->category = $category;
     $this->name = $name;

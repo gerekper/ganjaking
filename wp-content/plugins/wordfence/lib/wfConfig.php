@@ -176,6 +176,7 @@ class wfConfig {
 			'wafAlertInterval' => array('value' => 600, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'wafAlertThreshold' => array('value' => 100, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'howGetIPs_trusted_proxies' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
+			'howGetIPs_trusted_proxy_preset' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'scanType' => array('value' => wfScanner::SCAN_TYPE_STANDARD, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'manualScanType' => array('value' => wfScanner::MANUAL_SCHEDULING_ONCE_DAILY, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'schedStartHour' => array('value' => -1, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
@@ -1309,6 +1310,21 @@ Options -ExecCGI
 					$checked = true;
 					break;
 				}
+				case 'howGetIPs_trusted_proxy_preset':
+				{
+					$presets = wfConfig::getJSON('ipResolutionList', array());
+					if (!is_array($presets)) {
+						$presets = array();
+					}
+					
+					if (!(empty($value) /* "None" */ || isset($presets[$value]))) {
+						$errors[] = array('option' => $key, 'error' => __('The selected trusted proxy preset is not valid: ', 'wordfence') . esc_html($value));
+					}
+					
+					$checked = true;
+					
+					break;
+				}
 				case 'apiKey':
 				{
 					$value = trim($value);
@@ -1830,7 +1846,7 @@ Options -ExecCGI
 				$api = new wfAPI($apiKey, wfUtils::getWPVersion());
 				try {
 					$keyType = wfLicense::KEY_TYPE_FREE;
-					$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', '')));
+					$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', ''), 'ipResolutionListHash' => wfConfig::get('ipResolutionListHash', '')));
 					if (isset($keyData['_isPaidKey'])) {
 						$keyType = wfConfig::get('keyType');
 					}
@@ -1849,6 +1865,10 @@ Options -ExecCGI
 					if (isset($keyData['_tldlist']) && isset($keyData['_tldlistHash'])) {
 						wfConfig::set('tldlist', $keyData['_tldlist']);
 						wfConfig::set('tldlistHash', $keyData['_tldlistHash']);
+					}
+					if (isset($keyData['_ipResolutionList']) && isset($keyData['_ipResolutionListHash'])) {
+						wfConfig::setJSON('ipResolutionList', $keyData['_ipResolutionList']);
+						wfConfig::set('ipResolutionListHash', $keyData['_ipResolutionListHash']);
 					}
 					if (isset($keyData['scanSchedule']) && is_array($keyData['scanSchedule'])) {
 						wfConfig::set_ser('noc1ScanSchedule', $keyData['scanSchedule']);
@@ -1910,6 +1930,7 @@ Options -ExecCGI
 					'email_summary_interval',
 					'email_summary_excluded_directories',
 					'howGetIPs_trusted_proxies',
+					'howGetIPs_trusted_proxy_preset',
 					'displayTopLevelOptions',
 				);
 				break;
@@ -2075,6 +2096,7 @@ Options -ExecCGI
 					'email_summary_interval',
 					'email_summary_excluded_directories',
 					'howGetIPs_trusted_proxies',
+					'howGetIPs_trusted_proxy_preset',
 					'firewallEnabled',
 					'autoBlockScanners',
 					'loginSecurityEnabled',

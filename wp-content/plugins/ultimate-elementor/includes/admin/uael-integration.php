@@ -451,18 +451,28 @@ if ( isset( $settings['yelp_api'] ) && ! empty( $settings['yelp_api'] ) ) {
 										<label class="uael-integration-heading"><?php esc_html_e( 'Twitter Feed', 'uael' ); ?></label>
 										<p class="install-help uael-p"><strong><?php esc_html_e( 'Note:', 'uael' ); ?></strong>
 											<?php
-											esc_attr_e( 'This setting is required if you want to show the Twitter Feed in your website.', 'uael' );
+											esc_attr_e( 'To display your Twitter Feed on your website,', 'uael' );
+
+											$a_tag_open_1  = '<a target="_blank" rel="noopener" href="https://developer.twitter.com/en/portal/products/basic">';
+											$a_tag_close_1 = '</a>';
+
+											printf(
+											/* translators: %1$s: a tag open. */
+												esc_attr__( ' you\'ll need to acquire %1$s Twitter\'s basic plan %2$s and obtain your Twitter Consumer Key and Consumer Secret Key.', 'uael' ),
+												wp_kses_post( $a_tag_open_1 ),
+												wp_kses_post( $a_tag_close_1 )
+											);
 
 											if ( UAEL_Helper::is_internal_links() ) {
 
-												$a_tag_open  = '<a target="_blank" rel="noopener" href="' . esc_url( UAEL_DOMAIN . 'docs/twitter-feed-widget/?utm_source=uael-pro-dashboard&utm_medium=uael-editor-screen&utm_campaign=uael-pro-plugin' ) . '">';
-												$a_tag_close = '</a>';
+												$a_tag_open_2  = '<a target="_blank" rel="noopener" href="' . esc_url( UAEL_DOMAIN . 'docs/twitter-feed-widget/?utm_source=uael-pro-dashboard&utm_medium=uael-editor-screen&utm_campaign=uael-pro-plugin' ) . '">';
+												$a_tag_close_2 = '</a>';
 
 												printf(
 												/* translators: %1$s: a tag open. */
-													esc_attr__( '  Need help to get Twitter Consumer key and Consumer Secret Key? Read %1$s this article %2$s.', 'uael' ),
-													wp_kses_post( $a_tag_open ),
-													wp_kses_post( $a_tag_close )
+													esc_attr__( ' For guidance on obtaining these keys, please refer to this %1$s article %2$s.', 'uael' ),
+													wp_kses_post( $a_tag_open_2 ),
+													wp_kses_post( $a_tag_close_2 )
 												);
 											}
 											?>

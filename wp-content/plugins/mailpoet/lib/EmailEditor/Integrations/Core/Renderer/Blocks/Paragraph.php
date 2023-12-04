@@ -10,14 +10,15 @@ use MailPoet\EmailEditor\Engine\SettingsController;
 
 class Paragraph implements BlockRenderer {
   public function render($blockContent, array $parsedBlock, SettingsController $settingsController): string {
-    $contentStyles = $settingsController->getEmailContentStyles();
-    return str_replace('{paragraph_content}', $blockContent, $this->getBlockWrapper($parsedBlock, $contentStyles));
+    return str_replace('{paragraph_content}', $blockContent, $this->getBlockWrapper($parsedBlock, $settingsController));
   }
 
   /**
    * Based on MJML <mj-text>
    */
-  private function getBlockWrapper(array $parsedBlock, array $contentStyles): string {
+  private function getBlockWrapper(array $parsedBlock, SettingsController $settingsController): string {
+    $contentStyles = $settingsController->getEmailContentStyles();
+
     $styles = [];
     foreach ($parsedBlock['email_attrs'] ?? [] as $property => $value) {
       $styles[$property] = $value;
@@ -36,7 +37,7 @@ class Paragraph implements BlockRenderer {
         border="0"
         cellpadding="0"
         cellspacing="0"
-        style="' . $this->convertStylesToString($styles) . '"
+        style="' . $settingsController->convertStylesToString($styles) . '"
       >
         <tr>
           <td>
@@ -45,13 +46,5 @@ class Paragraph implements BlockRenderer {
         </tr>
       </table>
     ';
-  }
-
-  private function convertStylesToString(array $styles): string {
-    $cssString = '';
-    foreach ($styles as $property => $value) {
-      $cssString .= $property . ':' . $value . '; ';
-    }
-    return trim($cssString); // Remove trailing space and return the formatted string
   }
 }

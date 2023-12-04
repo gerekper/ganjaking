@@ -27,6 +27,16 @@ class InstantAnswer extends Base {
             add_action( 'wp_enqueue_scripts', [$this, 'scripts'] );
             add_action( 'wp_footer', [$this, 'add_ia'] );
         }
+
+        //Added to whitelist I/A styles on Thrive Builder Theme(fix)
+        add_filter( 'tcb_lp_strip_css_whitelist', [$this, 'white_list_css_thrive_builder'], 10, 2 );
+    }
+
+    public function white_list_css_thrive_builder( $style_handles, $tcb_landing_page ) {
+        if ( ! in_array( 'betterdocs-instant-answer', $style_handles ) ) {
+            array_push( $style_handles, 'betterdocs-instant-answer' );
+        }
+        return $style_handles;
     }
 
     public function add_preview() {
@@ -1079,7 +1089,7 @@ class InstantAnswer extends Base {
                     $_query_strings_array['include'] = $_content_list;
                 }
                 if ( ! empty( $_content_list ) && in_array( 'all', $_content_list ) ) {
-                    $_query_strings_array['per_page'] = -1;
+                    $_query_strings_array['per_page'] = 100;
                 }
                 break;
             case 'docs_categories':

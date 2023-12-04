@@ -17,6 +17,20 @@ if (!function_exists('crypt_random_string')) {
 	}
 }
 
+if (!function_exists('php_uname')) {
+	/**
+	 * This function is used by phpseclib and should have been a native PHP function that returns information about the operating system PHP is running on, but some hosting providers consider environment discovery a security concern, and disable this function. (We consider this action pointless, since there are other ways to discover the same information, and there should not be anything on a server whose security depends only on the inability to know about the details that this function returns).
+	 *
+	 * @param String $mode - see https://www.php.net/manual/en/function.php-uname.php
+	 *
+	 * @return String empty
+	 */
+	function php_uname($mode = 'a') {
+		error_log("The php_uname() function (with parameter $mode) has been disabled by the server administrator on your web hosting setup. To prevent a fatal error due to this lack, a shim that simply returns an empty value has been used.");
+		return '';
+	}
+}
+
 if (!defined('CRYPT_RSA_SIGNATURE_PKCS1')) define('CRYPT_RSA_SIGNATURE_PKCS1', phpseclib\Crypt\RSA::SIGNATURE_PKCS1); // class-udrpc.php
 if (!defined('CRYPT_RSA_SIGNATURE_PSS')) define('CRYPT_RSA_SIGNATURE_PSS', phpseclib\Crypt\RSA::SIGNATURE_PSS); // class-udrpc.php
 if (!defined('CRYPT_AES_MODE_CBC')) define('CRYPT_AES_MODE_CBC', phpseclib\Crypt\Base::MODE_CBC); // class-udrpc.php

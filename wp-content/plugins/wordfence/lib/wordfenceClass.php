@@ -179,7 +179,7 @@ class wordfence {
 		wfRateLimit::trimData();
 		
 		wfCentral::checkForUnsentSecurityEvents();
-		
+
 		wfVersionCheckController::shared()->checkVersionsAndWarn();
 	}
 	private static function keyAlert($msg){
@@ -192,7 +192,7 @@ class wordfence {
 		$api = new wfAPI($apiKey, wfUtils::getWPVersion());
 		try {
 			$keyType = wfLicense::KEY_TYPE_FREE;
-			$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', '')));
+			$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', ''), 'ipResolutionListHash' => wfConfig::get('ipResolutionListHash', '')));
 			if (isset($keyData['_isPaidKey'])) {
 				$keyType = wfConfig::get('keyType');
 			}
@@ -250,6 +250,10 @@ class wordfence {
 			if (isset($keyData['_tldlist']) && isset($keyData['_tldlistHash'])) {
 				wfConfig::set('tldlist', $keyData['_tldlist']);
 				wfConfig::set('tldlistHash', $keyData['_tldlistHash']);
+			}
+			if (isset($keyData['_ipResolutionList']) && isset($keyData['_ipResolutionListHash'])) {
+				wfConfig::setJSON('ipResolutionList', $keyData['_ipResolutionList']);
+				wfConfig::set('ipResolutionListHash', $keyData['_ipResolutionListHash']);
 			}
 			if (isset($keyData['scanSchedule']) && is_array($keyData['scanSchedule'])) {
 				wfConfig::set_ser('noc1ScanSchedule', $keyData['scanSchedule']);
@@ -2168,6 +2172,7 @@ SQL
 										}
 										hash_update($scontext, $data);
 									}
+
 									fclose($sp);
 									if ($scontext !== false) {
 										$shash = hash_final($scontext, false);
@@ -2184,6 +2189,7 @@ SQL
 										}
 										hash_update($dcontext, $data);
 									}
+
 									fclose($dp);
 									if ($scontext !== false) {
 										$dhash = hash_final($dcontext, false);
@@ -2292,7 +2298,7 @@ SQL
 					'whitelistedIPs' => (string) wfConfig::get('whitelisted'),
 					'whitelistedServiceIPs' => @json_encode(wfUtils::whitelistedServiceIPs()),
 					'howGetIPs'      => (string) wfConfig::get('howGetIPs'),
-					'howGetIPs_trusted_proxies' => wfConfig::get('howGetIPs_trusted_proxies', ''),
+					'howGetIPs_trusted_proxies_unified' => implode("\n", wfUtils::unifiedTrustedProxies()),
 					'detectProxyRecommendation' => (string) wfConfig::get('detectProxyRecommendation'),
 					'other_WFNet'    => !!wfConfig::get('other_WFNet', true), 
 					'pluginABSPATH'	 => ABSPATH,
@@ -3232,10 +3238,9 @@ SQL
 		$threshold = wfConfig::get('lastBruteForceDataSendTime', 0);;
 		
 		$wfdb = new wfDB();
-		global $wpdb;
 		$table_wfHits = wfDB::networkTable('wfHits');
-		$rawBlocks = $wfdb->querySelect("SELECT SQL_CALC_FOUND_ROWS IP, ctime, actionData FROM {$table_wfHits} WHERE ctime > %f AND action = 'blocked:wfsnrepeat' ORDER BY ctime ASC LIMIT 100", sprintf('%.6f', $threshold));
-		$totalRows = $wpdb->get_var('SELECT FOUND_ROWS()');
+		$rawBlocks = $wfdb->querySelect("SELECT IP, ctime, actionData FROM {$table_wfHits} WHERE ctime > %f AND action = 'blocked:wfsnrepeat' ORDER BY ctime ASC LIMIT 100", sprintf('%.6f', $threshold));
+		$totalRows = $wfdb->querySingle("SELECT COUNT(*) FROM {$table_wfHits} WHERE ctime > %f AND action = 'blocked:wfsnrepeat'", sprintf('%.6f', $threshold));
 		$ipCounts = array();
 		$maxctime = 0;
 		foreach ($rawBlocks as $record) {
@@ -4076,6 +4081,7 @@ SQL
 		if (isset($_POST['page'])) {
 			$page = $_POST['page'];
 		}
+
 		
 		$keys = array(wfOnboardingController::TOUR_DASHBOARD, wfOnboardingController::TOUR_FIREWALL, wfOnboardingController::TOUR_SCAN, wfOnboardingController::TOUR_BLOCKING, wfOnboardingController::TOUR_LIVE_TRAFFIC, wfOnboardingController::TOUR_LOGIN_SECURITY);
 		if (in_array($page, $keys)) {
@@ -4658,9 +4664,22 @@ SQL
 		}
 		$trustedProxies = $validIPs;
 		
+		$preset = $_POST['howGetIPs_trusted_proxy_preset'];
+		$presets = wfConfig::getJSON('ipResolutionList', array());
+		if (is_array($presets) && isset($presets[$preset])) {
+			$testIPs = array_merge($presets[$preset]['ipv4'], $presets[$preset]['ipv6']);
+			foreach ($testIPs as $val) {
+				if (strlen($val) > 0) {
+					if (wfUtils::isValidIP($val) || wfUtils::isValidCIDRRange($val)) {
+						$trustedProxies[] = $val;
+					}
+				}
+			}
+		}
+		
 		$ipAll = wfUtils::getIPPreview($howGet, $trustedProxies);
 		$ip = wfUtils::getIPForField($howGet, $trustedProxies);
-		return array('ok' => 1, 'ip' => $ip, 'ipAll' => $ipAll);
+		return array('ok' => 1, 'ip' => $ip, 'ipAll' => $ipAll, 'resolvedProxies' => $trustedProxies);
 	}
 
 	public static function ajax_hideFileHtaccess_callback(){
@@ -6081,6 +6100,8 @@ HTML;
 			}
 		}
 		
+
+		
 		if (wfConfig::get('touppBypassNextCheck')) {
 			wfConfig::set('touppBypassNextCheck', 0);
 			wfConfig::set('touppPromptNeeded', 0);
@@ -6153,7 +6174,7 @@ HTML;
 			wp_enqueue_style('wordfence-global-style', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-global.css'), '', WORDFENCE_VERSION);
 			self::setupAdminVars();
 		}
-
+		
 		if (is_admin()) { //Back end only
 			if (wfOnboardingController::shouldShowAnyAttempt()) {
 				wp_enqueue_script('wordfenceOnboardingjs', wfUtils::getBaseURL() . wfUtils::versionedAsset('js/wfonboarding.js'), array('jquery', 'wordfenceAdminExtjs'), WORDFENCE_VERSION);
@@ -8699,13 +8720,25 @@ SQL;
 				$entry = bin2hex($packed);
 			}
 			$wafAlertWhitelist = array_filter($wafAlertWhitelist);
-			$attackData = $wpdb->get_results($wpdb->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM {$table_wfHits}
-	WHERE action = 'blocked:waf' " .
-	(count($wafAlertWhitelist) ? "AND HEX(IP) NOT IN (" . implode(", ", array_fill(0, count($wafAlertWhitelist), '%s')) . ")" : "") 
-	. "AND attackLogTime > %f
-	ORDER BY attackLogTime DESC
-	LIMIT 10", array_merge($wafAlertWhitelist, array(sprintf('%.6f', $cutoffTime)))));
-			$attackCount = $wpdb->get_var('SELECT FOUND_ROWS()');
+			$attackDataQuery = $wpdb->prepare(
+				"SELECT * FROM {$table_wfHits}
+				WHERE action = 'blocked:waf' " .
+				(count($wafAlertWhitelist) ? "AND HEX(IP) NOT IN (" . implode(", ", array_fill(0, count($wafAlertWhitelist), '%s')) . ")" : "")
+				. " AND attackLogTime > %f
+				ORDER BY attackLogTime DESC
+				LIMIT 10",
+			array_merge($wafAlertWhitelist, array(sprintf('%.6f', $cutoffTime))));
+			$attackDataCountQuery = str_replace(
+				array(
+					"SELECT * FROM",
+					"ORDER BY attackLogTime DESC",
+					"LIMIT 10",
+				),
+				array( "SELECT COUNT(*) FROM", "", "" ), $attackDataQuery
+			);
+			$attackData = $wpdb->get_results($attackDataQuery);
+			$attackCount = $wpdb->get_var($attackDataCountQuery);
+			unset( $attackDataQuery, $attackDataCountQuery );
 			$threshold = (int) wfConfig::get('wafAlertThreshold');
 			if ($threshold < 1) {
 				$threshold = 100;
@@ -8803,21 +8836,38 @@ SQL;
 					$lastSendTime = wfConfig::get('lastAttackDataSendTime');
 					$lastSendId = wfConfig::get('lastAttackDataSendId');
 					if($lastSendId===false){
-						$query=$wpdb->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM {$table_wfHits}
+						$query=$wpdb->prepare("SELECT * FROM {$table_wfHits}
 						WHERE action in ('blocked:waf', 'learned:waf', 'logged:waf', 'blocked:waf-always')
 						AND attackLogTime > %f
 						LIMIT %d", sprintf('%.6f', $lastSendTime), $limit);
+
+						$count_query = str_replace(
+							array(
+								"SELECT * FROM",
+								"LIMIT " . $limit,
+							),
+							array( "SELECT COUNT(*) FROM", "" ), $query
+						);
 					}
 					else{
-						$query=$wpdb->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM {$table_wfHits}
+						$query=$wpdb->prepare("SELECT * FROM {$table_wfHits}
 						WHERE action in ('blocked:waf', 'learned:waf', 'logged:waf', 'blocked:waf-always')
 						AND id > %d
 						ORDER BY id LIMIT %d", $lastSendId, $limit);
+
+						$count_query = str_replace(
+							array(
+								"SELECT * FROM",
+								"ORDER BY id LIMIT " . $limit,
+							),
+							array( "SELECT COUNT(*) FROM", "" ), $query
+						);
 					}
+
 					$params[]=$limit;
 					$attackData = $wpdb->get_results($query);
-					$totalRows = $wpdb->get_var('SELECT FOUND_ROWS()');
-			
+					$totalRows = $wpdb->get_var($count_query);
+
 					if ($attackData) { // Build JSON to send
 						$dataToSend = array();
 						$attackDataToUpdate = array();

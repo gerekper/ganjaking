@@ -2,7 +2,7 @@
 /**
  * The Template for displaying image swatches field.
  *
- * @version 6.4.0
+ * @version 6.5.1
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
@@ -33,7 +33,7 @@ foreach ( $addon['options'] as $i => $option ) {
 	$price_raw    = apply_filters( 'woocommerce_product_addons_option_price_raw', $price, $option );
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_tip     = $price_prefix . $price_raw . '%';
+		$price_tip     = $price_raw ? $price_prefix . $price_raw . '%' : '';
 		$price_display = apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
@@ -42,7 +42,7 @@ foreach ( $addon['options'] as $i => $option ) {
 			'image'
 		);
 	} else {
-		$price_tip     = $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) );
+		$price_tip     = $price_raw ? $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) : '';
 		$price_display = apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',

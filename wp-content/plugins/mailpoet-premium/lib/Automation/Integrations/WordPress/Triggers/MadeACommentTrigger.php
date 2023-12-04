@@ -51,6 +51,7 @@ class MadeACommentTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('User makes a comment', 'mailpoet-premium');
   }
 
@@ -113,7 +114,7 @@ class MadeACommentTrigger implements Trigger {
       if (!in_array($postId, $foundPostIds, true)) {
         throw ValidationException::create()
           // translators: %d is the ID of the post not found.
-          ->withError('post_ids', sprintf(__("Post with ID %d not found.", 'mailpoet-premium'), $postId));
+          ->withError('post_ids', sprintf(__("Post with ID '%d' not found.", 'mailpoet-premium'), $postId));
       }
     }
   }

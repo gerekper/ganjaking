@@ -1,3 +1,0 @@
-
-jQuery(document).ready(function($){$('.js-redsys-users').select2({placeholder:'Allowed  users'});});jQuery(document).ready(function($){$('.js-redsys-test-users-settings').select2({ajax:{placeholder:'Allowed  users',url:ajaxurl,dataType:'json',delay:250,data:function(params){return{q:params.term,action:'woo_pproducts_settings_search_users'};},processResults:function(data){var options=[];if(data){$.each(data,function(index,text){options.push({id:text[0],text:text[1]});});}
-return{results:options};},cache:true},minimumInputLength:3});});

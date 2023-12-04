@@ -23,6 +23,7 @@ class MultipleKB extends Base {
 
     public $is_enable = false;
 
+
     public function __construct( PostType $type, Settings $settings ) {
         $this->post_type = $type;
         $this->settings  = $settings;
@@ -69,7 +70,7 @@ class MultipleKB extends Base {
         }
         return $args;
     }
-    
+
     public function add_rest_orderby_params_on_knowledge_base( $params ) {
         $params['orderby']['enum'][] = 'kb_order';
         return $params;
@@ -109,6 +110,13 @@ class MultipleKB extends Base {
         if( $_kb_slug === null ) {
             $knowledgebase_terms = wp_get_object_terms($post->ID, 'knowledge_base');
             $_kb_slug = is_array( $knowledgebase_terms ) && count( $knowledgebase_terms ) > 0 ? $knowledgebase_terms[0]->slug : 'non-knowledgebase';
+        }
+
+        //WPML related compatibility, change slug %knowledge_base% from docs/%knowledge_base% from single doc, when this docs/%knowledge_base%/%doc_category%/ is set for single permalink
+        if( is_single() && taxonomy_exists('knowledge_base') && is_plugin_active('sitepress-multilingual-cms/sitepress.php') ) {
+            $term_data = get_term_by( 'slug', $_kb_slug, 'knowledge_base' );
+            $term_slug = isset( $term_data->slug ) ? $term_data->slug : '';
+            return str_replace( '%knowledge_base%', $term_slug, $url );
         }
 
         return str_replace( '%knowledge_base%', $_kb_slug, $url );

@@ -58,6 +58,7 @@ class ClicksEmailLinkTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Subscriber clicks a link in email', 'mailpoet-premium');
   }
 

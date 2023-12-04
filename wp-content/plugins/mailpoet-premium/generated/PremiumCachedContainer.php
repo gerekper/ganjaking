@@ -90,6 +90,18 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => 'getCustomTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => 'getTagAddedTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => 'getTagRemovedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\ContextFactory' => 'getContextFactory2Service',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Fields\\SubscriptionFields' => 'getSubscriptionFieldsService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionStatusChangeSubject' => 'getWooCommerceSubscriptionStatusChangeSubjectService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionSubject' => 'getWooCommerceSubscriptionSubjectService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionCreatedTrigger' => 'getSubscriptionCreatedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionExpiredTrigger' => 'getSubscriptionExpiredTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionPaymentFailedTrigger' => 'getSubscriptionPaymentFailedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionRenewedTrigger' => 'getSubscriptionRenewedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionStatusChangedTrigger' => 'getSubscriptionStatusChangedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialEndedTrigger' => 'getSubscriptionTrialEndedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialStartedTrigger' => 'getSubscriptionTrialStartedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\WooCommerceSubscriptionsIntegration' => 'getWooCommerceSubscriptionsIntegrationService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Subjects\\ReviewSubject' => 'getReviewSubjectService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\MadeAReviewTrigger' => 'getMadeAReviewTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => 'getWooCommerceIntegrationService',
@@ -116,6 +128,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Util\\License\\Features\\Subscribers' => 'getSubscribersService',
             'MailPoet\\WP\\Functions' => 'getFunctionsService',
             'MailPoet\\WooCommerce\\Helper' => 'getHelperService',
+            'MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper' => 'getHelper2Service',
         ];
 
         $this->aliases = [];
@@ -524,7 +537,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getEngineService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\WordPressIntegration'] ?? $this->getWordPressIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\WordPressIntegration'] ?? $this->getWordPressIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\WooCommerceSubscriptionsIntegration'] ?? $this->getWooCommerceSubscriptionsIntegrationService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
     }
 
     /**
@@ -765,6 +778,126 @@ class PremiumCachedContainer extends Container
     protected function getTagRemovedTriggerService()
     {
         return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\ContextFactory' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\ContextFactory
+     */
+    protected function getContextFactory2Service()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\ContextFactory'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\ContextFactory(($this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] ?? $this->getHelper2Service()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Fields\SubscriptionFields' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Fields\SubscriptionFields
+     */
+    protected function getSubscriptionFieldsService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Fields\\SubscriptionFields'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Fields\SubscriptionFields(($this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] ?? $this->getHelper2Service()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionStatusChangeSubject' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionStatusChangeSubject
+     */
+    protected function getWooCommerceSubscriptionStatusChangeSubjectService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionStatusChangeSubject'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionStatusChangeSubject();
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionSubject' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionSubject
+     */
+    protected function getWooCommerceSubscriptionSubjectService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionSubject'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionSubject(($this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] ?? $this->getHelper2Service()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Fields\\SubscriptionFields'] ?? $this->getSubscriptionFieldsService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionCreatedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionCreatedTrigger
+     */
+    protected function getSubscriptionCreatedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionCreatedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionCreatedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] ?? $this->getHelper2Service()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionExpiredTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionExpiredTrigger
+     */
+    protected function getSubscriptionExpiredTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionExpiredTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionExpiredTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionPaymentFailedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionPaymentFailedTrigger
+     */
+    protected function getSubscriptionPaymentFailedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionPaymentFailedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionPaymentFailedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionRenewedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionRenewedTrigger
+     */
+    protected function getSubscriptionRenewedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionRenewedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionRenewedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionStatusChangedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionStatusChangedTrigger
+     */
+    protected function getSubscriptionStatusChangedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionStatusChangedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionStatusChangedTrigger(($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialEndedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialEndedTrigger
+     */
+    protected function getSubscriptionTrialEndedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialEndedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialEndedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] ?? $this->getHelper2Service()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialStartedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialStartedTrigger
+     */
+    protected function getSubscriptionTrialStartedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialStartedTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialStartedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\WooCommerceSubscriptionsIntegration' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\WooCommerceSubscriptionsIntegration
+     */
+    protected function getWooCommerceSubscriptionsIntegrationService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\WooCommerceSubscriptionsIntegration'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\WooCommerceSubscriptionsIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\ContextFactory'] ?? $this->getContextFactory2Service()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionCreatedTrigger'] ?? $this->getSubscriptionCreatedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionStatusChangedTrigger'] ?? $this->getSubscriptionStatusChangedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialEndedTrigger'] ?? $this->getSubscriptionTrialEndedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionTrialStartedTrigger'] ?? $this->getSubscriptionTrialStartedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionRenewedTrigger'] ?? $this->getSubscriptionRenewedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionPaymentFailedTrigger'] ?? $this->getSubscriptionPaymentFailedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Triggers\\SubscriptionExpiredTrigger'] ?? $this->getSubscriptionExpiredTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionSubject'] ?? $this->getWooCommerceSubscriptionSubjectService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionStatusChangeSubject'] ?? ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerceSubscriptions\\Subjects\\WooCommerceSubscriptionStatusChangeSubject'] = new \MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionStatusChangeSubject())));
     }
 
     /**
@@ -1027,5 +1160,15 @@ class PremiumCachedContainer extends Container
     protected function getHelperService()
     {
         return $this->services['MailPoet\\WooCommerce\\Helper'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\WooCommerce\\Helper');
+    }
+
+    /**
+     * Gets the public 'MailPoet\WooCommerce\WooCommerceSubscriptions\Helper' shared service.
+     *
+     * @return \MailPoet\WooCommerce\WooCommerceSubscriptions\Helper
+     */
+    protected function getHelper2Service()
+    {
+        return $this->services['MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\WooCommerce\\WooCommerceSubscriptions\\Helper');
     }
 }

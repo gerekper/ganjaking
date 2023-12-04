@@ -20,6 +20,7 @@ class DelayAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return _x('Delay', 'noun', 'mailpoet');
   }
 

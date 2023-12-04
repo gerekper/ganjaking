@@ -732,6 +732,12 @@ class FileBrowser extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $settings = $this->get_settings_for_display();
         ?>
 		<script type="text/javascript" >
+			var updateOptionsNonce = "<?php 
+        echo wp_create_nonce('wpa_update_options');
+        ?>";
+			var updatePostMetasNonce = "<?php 
+        echo wp_create_nonce('wpa_update_postmetas');
+        ?>";
 			var lastHide = '';
 			jQuery(function () {
 				if (typeof ajaxurl === 'undefined') {
@@ -748,10 +754,12 @@ class FileBrowser extends \DynamicContentForElementor\Widgets\WidgetPrototype
 							var data = {}
 							if (jQuery(this).attr("data-post-id")) {
 								data['action'] = "wpa_update_postmetas";
+								data['nonce'] = updatePostMetasNonce;
 								data['post_id'] = jQuery(this).attr("data-post-id");
 								data['dce-file'] = {'description': jQuery(this).val()};
 							} else {
 								data['action'] = "wpa_update_options";
+								data['nonce'] = updateOptionsNonce;
 								data["dce-file-" + jQuery(this).attr("data-md5")] = {'description': jQuery(this).val()};
 							}
 							jQuery.post(ajaxurl, data, function (response) {
@@ -766,14 +774,17 @@ class FileBrowser extends \DynamicContentForElementor\Widgets\WidgetPrototype
 							if (jQuery(this).hasClass('dce-file-title')) {
 								if (jQuery(this).attr("data-post-id")) {
 									data['action'] = "wpa_update_postmetas";
+									data['nonce'] = updatePostMetasNonce;
 									data['post_id'] = jQuery(this).attr("data-post-id");
 									data['dce-file'] = {'title': jQuery(this).val()};
 								} else {
+									data['nonce'] = updateOptionsNonce;
 									data['action'] = "wpa_update_options";
 									data["dce-file-" + jQuery(this).attr("data-md5")] = {'title': jQuery(this).val()};
 								}
 							}
 							if (jQuery(this).hasClass('dce-dir-title')) {
+								data['nonce'] = updateOptionsNonce;
 								data['action'] = "wpa_update_options";
 								data["dce-dir-" + jQuery(this).attr("data-dir")] = {'title': jQuery(this).val()};
 							}
@@ -804,15 +815,18 @@ class FileBrowser extends \DynamicContentForElementor\Widgets\WidgetPrototype
 								}
 								if (jQuery(this).hasClass('dce-file-hide')) {
 									if (jQuery(this).attr("data-post-id")) {
+										data['nonce'] = updatePostMetasNonce;
 										data['action'] = "wpa_update_postmetas";
 										data['post_id'] = jQuery(this).attr("data-post-id");
 										data['dce-file'] = {'hidden': visible};
 									} else {
+										data['nonce'] = updateOptionsNonce;
 										data['action'] = "wpa_update_options";
 										data["dce-file-" + jQuery(this).attr("data-md5")] = {'hidden': visible};
 									}
 								}
 								if (jQuery(this).hasClass('dce-dir-hide')) {
+									data['nonce'] = updateOptionsNonce;
 									data['action'] = "wpa_update_options";
 									data["dce-dir-" + jQuery(this).attr("data-dir")] = {'hidden': visible};
 								}

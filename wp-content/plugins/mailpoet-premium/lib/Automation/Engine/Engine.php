@@ -11,6 +11,7 @@ use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndp
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration;
 use MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration;
+use MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\WooCommerceSubscriptionsIntegration;
 use MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -24,6 +25,9 @@ class Engine {
   /** @var WooCommerceIntegration */
   private $wooCommerceIntegration;
 
+  /** @var WooCommerceSubscriptionsIntegration */
+  private $wooCommerceSubscriptionsIntegration;
+
   /** @var WPFunctions */
   private $wp;
 
@@ -31,11 +35,13 @@ class Engine {
     MailPoetPremiumIntegration $mailpoetPremiumIntegration,
     WordPressIntegration $wordPressIntegration,
     WooCommerceIntegration $wooCommerceIntegration,
+    WooCommerceSubscriptionsIntegration $wooCommerceSubscriptionsIntegration,
     WPFunctions $wp
   ) {
     $this->mailpoetPremiumIntegration = $mailpoetPremiumIntegration;
     $this->wordPressIntegration = $wordPressIntegration;
     $this->wooCommerceIntegration = $wooCommerceIntegration;
+    $this->wooCommerceSubscriptionsIntegration = $wooCommerceSubscriptionsIntegration;
     $this->wp = $wp;
   }
 
@@ -50,6 +56,7 @@ class Engine {
       $this->mailpoetPremiumIntegration->register($registry);
       $this->wordPressIntegration->register($registry);
       $this->wooCommerceIntegration->register($registry);
+      $this->wooCommerceSubscriptionsIntegration->register($registry);
     });
   }
 

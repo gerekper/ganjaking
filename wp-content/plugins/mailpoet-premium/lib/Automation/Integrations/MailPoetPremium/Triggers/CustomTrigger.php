@@ -50,6 +50,7 @@ class CustomTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Custom trigger', 'mailpoet-premium');
   }
 

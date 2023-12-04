@@ -3487,10 +3487,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( $user_test ) {
 						$link_rear_card     = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-back.svg';
 						$link_calendar_card = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-calendar.svg';
-					} else {
-						$link_rear_card     = 'https://sis.redsys.es/sis/NC/assets/images/cc-back.svg';
-						$link_calendar_card = 'https://sis.redsys.es/sis/NC/assets/images/cc-calendar.svg';
 					}
+					$link_rear_card     = 'https://sis.redsys.es/sis/NC/assets/images/cc-back.svg';
+					$link_calendar_card = 'https://sis.redsys.es/sis/NC/assets/images/cc-calendar.svg';
 				}
 					echo '
 					// Listener
@@ -5782,12 +5781,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( ! empty( $ordermi ) ) {
 						WCRed()->update_order_meta( $order_id, '_payment_order_number_redsys', $ordermi );
 					}
-					if ( ! empty( $dscode ) ) {
-						WCRed()->update_order_meta( $order_id, '_payment_merchant_code_redsys', $dscode );
-					}
-					if ( ! empty( $dstermnal ) ) {
-						WCRed()->update_order_meta( $order_id, '_payment_terminal_redsys', $dstermnal );
-					}
 					if ( ! empty( $dsdate ) ) {
 						WCRed()->update_order_meta( $order_id, '_payment_date_redsys', $dsdate );
 					}
@@ -5895,16 +5888,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	public static function check_token_insite_from_action_checkout() {
 
-		$redsys_insite = new WC_Gateway_InSite_Redsys();
-
-		if ( 'yes' === $redsys_insite->debug ) {
-			$redsys_insite->log->add( 'insite', ' ' );
-			$redsys_insite->log->add( 'insite', '/*************************************************/' );
-			$redsys_insite->log->add( 'insite', '  Start check_token_insite_from_action_checkout()  ' );
-			$redsys_insite->log->add( 'insite', '/*************************************************/' );
-			$redsys_insite->log->add( 'insite', ' ' );
-		}
-
 		if ( ! isset( $_POST['redsysnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['redsysnonce'] ) ), 'redsys_insite_nonce' ) ) {
 			wp_die( 'Error - Verificación nonce no válida ✋' );
 		}
@@ -5922,6 +5905,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			wc_add_notice( __( 'Some Payments required fields are missing. Please, try again', 'woocommerce-redsys' ), 'error' );
 			wp_exit();
 		}
+
+		$redsys_insite = new WC_Gateway_InSite_Redsys();
 		$mi_obj        = new WooRedsysAPIWS();
 
 		if ( 'yes' === $redsys_insite->debug ) {
@@ -6234,11 +6219,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$redsys_insite->log->add( 'insite', '$insite_ds_merchant_cof_type: ' . $insite_ds_merchant_cof_type );
 			$redsys_insite->log->add( 'insite', '$ds_merchant_cof_ini: ' . $ds_merchant_cof_ini );
 			$redsys_insite->log->add( 'insite', '$insite_ds_merchant_excep_sca: ' . $insite_ds_merchant_excep_sca );
-			$redsys_insite->log->add( 'insite', ' ' );
-			$redsys_insite->log->add( 'insite', '/*************************************************/' );
-			$redsys_insite->log->add( 'insite', '  END check_token_insite_from_action_checkout()  ' );
-			$redsys_insite->log->add( 'insite', '/*************************************************/' );
-			$redsys_insite->log->add( 'insite', ' ' );
 		}
 		echo 'success';
 		wp_die();
@@ -6635,12 +6615,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 				if ( ! empty( $ordermi ) ) {
 					WCRed()->update_order_meta( $order->id, '_payment_order_number_redsys', $ordermi );
-				}
-				if ( ! empty( $customer ) ) {
-					WCRed()->update_order_meta( $order->id, '_payment_customer_redsys', $customer );
-				}
-				if ( ! empty( $terminal ) ) {
-					WCRed()->update_order_meta( $order->id, '_payment_terminal_redsys', $terminal );
 				}
 				if ( ! empty( $dsdate ) ) {
 					WCRed()->update_order_meta( $order->id, '_payment_date_redsys', $dsdate );

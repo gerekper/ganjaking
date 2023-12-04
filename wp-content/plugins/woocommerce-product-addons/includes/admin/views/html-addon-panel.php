@@ -19,7 +19,7 @@ $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? '
 				'value'         => ! $exclude_global ? 'yes' : 'no',
 				'label'         => __( 'Use Global Add-Ons?', 'woocommerce-product-addons' ),
 				/* translators: %s link to global add-ons tab */
-				'description'   => sprintf( __( 'Uncheck this option to exclude any <a href="%s">global add-ons</a> assigned to this product.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) )
+				'description'   => sprintf( __( 'Use this option to control if <a href="%s">global add-ons</a> are assigned to this product.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) )
 			) );
 
 			?>

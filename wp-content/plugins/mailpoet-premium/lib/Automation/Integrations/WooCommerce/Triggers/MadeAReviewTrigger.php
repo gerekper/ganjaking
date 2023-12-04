@@ -47,6 +47,7 @@ class MadeAReviewTrigger extends MadeACommentTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Made a review', 'mailpoet-premium');
   }
 

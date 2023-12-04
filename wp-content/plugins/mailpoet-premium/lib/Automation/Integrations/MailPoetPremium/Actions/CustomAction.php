@@ -33,6 +33,7 @@ class CustomAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Custom action', 'mailpoet-premium');
   }
 

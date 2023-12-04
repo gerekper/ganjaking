@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Grazie per aver installato Product Reviews Pro! Per favore, prima di "
 "cominciare dedica qualche minuto del tuo tempo per %1$sleggere la "
-"documentazione%2$s, configurare le %3$impostazioni%4$s o le %5$semail%6$s :) "
+"documentazione%2$s, configurare le %3$simpostazioni%4$s o le %5$semail%6$s :) "
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce Product Reviews Pro"

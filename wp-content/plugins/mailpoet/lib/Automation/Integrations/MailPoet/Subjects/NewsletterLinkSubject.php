@@ -42,6 +42,7 @@ class NewsletterLinkSubject implements Subject {
   }
 
   public function getName(): string {
+    // translators: automation subject (entity entering automation) title
     return __('Email link', 'mailpoet');
   }
 
@@ -59,7 +60,7 @@ class NewsletterLinkSubject implements Subject {
     $linkId = $subjectData->getArgs()['link_id'];
     $linkEntity = $this->newsletterLinkRepository->findOneById($linkId);
     if (!$linkEntity) {
-      throw NotFoundException::create()->withMessage(sprintf('Email link with ID %d not found', $linkId));
+      throw NotFoundException::create()->withMessage(sprintf("Email link with ID '%d' not found", $linkId));
     }
 
     return new NewsletterLinkPayload($linkEntity);

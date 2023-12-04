@@ -11,11 +11,12 @@ use MailPoet\EmailEditor\Engine\SettingsController;
 // We have to avoid using keyword `List`
 class ListBlock implements BlockRenderer {
   public function render($blockContent, array $parsedBlock, SettingsController $settingsController): string {
-    $contentStyles = $settingsController->getEmailContentStyles();
-    return str_replace('{list_content}', $blockContent, $this->getBlockWrapper($parsedBlock, $contentStyles));
+    return str_replace('{list_content}', $blockContent, $this->getBlockWrapper($parsedBlock, $settingsController));
   }
 
-  private function getBlockWrapper(array $parsedBlock, array $contentStyles): string {
+  private function getBlockWrapper(array $parsedBlock, SettingsController $settingsController): string {
+    $contentStyles = $settingsController->getEmailContentStyles();
+
     $styles = [];
     foreach ($parsedBlock['email_attrs'] ?? [] as $property => $value) {
       $styles[$property] = $value;
@@ -34,7 +35,7 @@ class ListBlock implements BlockRenderer {
         cellpadding="0"
         cellspacing="0"
         role="presentation"
-        style="' . $this->convertStylesToString($styles) . '"
+        style="' . $settingsController->convertStylesToString($styles) . '"
       >
         <tr>
           <td>
@@ -43,13 +44,5 @@ class ListBlock implements BlockRenderer {
         </tr>
       </table>
     ';
-  }
-
-  private function convertStylesToString(array $styles): string {
-    $cssString = '';
-    foreach ($styles as $property => $value) {
-      $cssString .= $property . ':' . $value . '; ';
-    }
-    return trim($cssString); // Remove trailing space and return the formatted string
   }
 }

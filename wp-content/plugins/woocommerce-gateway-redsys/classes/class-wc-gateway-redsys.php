@@ -26,8 +26,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	public function __construct() {
 		global $checkfor254;
 
-		$this->id        = 'redsys';
-		$all_redsys_data = WCRed()->get_redsys_option( 'all', 'redsys' );
+		$this->id = 'redsys';
 
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'redsys' ) ) ) {
 			$logo_url   = WCRed()->get_redsys_option( 'logo', 'redsys' );
@@ -52,63 +51,62 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->init_settings();
 		// Define user set variables.
 		$this->psd2                 = 'yes';
-		$this->all_data             = $all_redsys_data;
-		$this->multisitesttings     = $all_redsys_data['multisitesttings'];
-		$this->ownsetting           = $all_redsys_data['ownsetting'];
-		$this->hideownsetting       = $all_redsys_data['hideownsetting'];
-		$this->deletetoken          = $all_redsys_data['deletetoken'];
-		$this->bankingnetwork       = $all_redsys_data['bankingnetwork'];
-		$this->title                = $all_redsys_data['title'];
-		$this->description          = $all_redsys_data['description'];
-		$this->logo                 = $all_redsys_data['logo'];
-		$this->orderdo              = $all_redsys_data['orderdo'];
-		$this->customer             = $all_redsys_data['customer'];
-		$this->merchantgroup        = $all_redsys_data['merchantgroup'];
-		$this->commercename         = $all_redsys_data['commercename'];
-		$this->terminal             = $all_redsys_data['terminal'];
-		$this->secret               = $all_redsys_data['secret'];
-		$this->secretsha256         = $all_redsys_data['secretsha256'];
-		$this->customtestsha256     = $all_redsys_data['customtestsha256'];
-		$this->debug                = $all_redsys_data['debug'];
-		$this->hashtype             = $all_redsys_data['hashtype'];
-		$this->redsyslanguage       = $all_redsys_data['redsyslanguage'];
-		$this->redsysordertype      = $all_redsys_data['redsysordertype'];
-		$this->subfix               = $all_redsys_data['subfix'];
-		$this->wooredsysurlko       = $all_redsys_data['wooredsysurlko'];
-		$this->terminal2            = $all_redsys_data['terminal2'];
-		$this->useterminal2         = $all_redsys_data['useterminal2'];
-		$this->toamount             = $all_redsys_data['toamount'];
-		$this->usetokens            = $all_redsys_data['usetokens'];
-		$this->subsusetokensdisable = $all_redsys_data['subsusetokensdisable'];
-		$this->usetokensdirect      = $all_redsys_data['usetokensdirect'];
-		$this->bulkcharge           = $all_redsys_data['bulkcharge'];
-		$this->bulkrefund           = $all_redsys_data['bulkrefund'];
-		$this->sendemails           = $all_redsys_data['sendemails'];
-		$this->checkoutredirect     = $all_redsys_data['checkoutredirect'];
-		$this->showthankyourecipe   = $all_redsys_data['showthankyourecipe'];
-		$this->usebrowserreceipt    = $all_redsys_data['usebrowserreceipt'];
-		$this->lwvactive            = $all_redsys_data['lwvactive'];
-		$this->traactive            = $all_redsys_data['traactive'];
-		$this->traamount            = $all_redsys_data['traamount'];
-		$this->notiemail            = $all_redsys_data['notiemail'];
-		$this->hidegatewaychckout   = $all_redsys_data['hidegatewaychckout'];
+		$this->multisitesttings     = WCRed()->get_redsys_option( 'multisitesttings', 'redsys' );
+		$this->ownsetting           = WCRed()->get_redsys_option( 'ownsetting', 'redsys' );
+		$this->hideownsetting       = WCRed()->get_redsys_option( 'hideownsetting', 'redsys' );
+		$this->deletetoken          = WCRed()->get_redsys_option( 'deletetoken', 'redsys' );
+		$this->bankingnetwork       = WCRed()->get_redsys_option( 'bankingnetwork', 'redsys' );
+		$this->title                = WCRed()->get_redsys_option( 'title', 'redsys' );
+		$this->description          = WCRed()->get_redsys_option( 'description', 'redsys' );
+		$this->logo                 = WCRed()->get_redsys_option( 'logo', 'redsys' );
+		$this->orderdo              = WCRed()->get_redsys_option( 'orderdo', 'redsys' );
+		$this->customer             = WCRed()->get_redsys_option( 'customer', 'redsys' );
+		$this->merchantgroup        = WCRed()->get_redsys_option( 'merchantgroup', 'redsys' );
+		$this->commercename         = WCRed()->get_redsys_option( 'commercename', 'redsys' );
+		$this->terminal             = WCRed()->get_redsys_option( 'terminal', 'redsys' );
+		$this->secret               = WCRed()->get_redsys_option( 'secret', 'redsys' );
+		$this->secretsha256         = WCRed()->get_redsys_option( 'secretsha256', 'redsys' );
+		$this->customtestsha256     = WCRed()->get_redsys_option( 'customtestsha256', 'redsys' );
+		$this->debug                = WCRed()->get_redsys_option( 'debug', 'redsys' );
+		$this->hashtype             = WCRed()->get_redsys_option( 'hashtype', 'redsys' );
+		$this->redsyslanguage       = WCRed()->get_redsys_option( 'redsyslanguage', 'redsys' );
+		$this->redsysordertype      = WCRed()->get_redsys_option( 'redsysordertype', 'redsys' );
+		$this->subfix               = WCRed()->get_redsys_option( 'subfix', 'redsys' );
+		$this->wooredsysurlko       = WCRed()->get_redsys_option( 'wooredsysurlko', 'redsys' );
+		$this->terminal2            = WCRed()->get_redsys_option( 'terminal2', 'redsys' );
+		$this->useterminal2         = WCRed()->get_redsys_option( 'useterminal2', 'redsys' );
+		$this->toamount             = WCRed()->get_redsys_option( 'toamount', 'redsys' );
+		$this->usetokens            = WCRed()->get_redsys_option( 'usetokens', 'redsys' );
+		$this->subsusetokensdisable = WCRed()->get_redsys_option( 'subsusetokensdisable', 'redsys' );
+		$this->usetokensdirect      = WCRed()->get_redsys_option( 'usetokensdirect', 'redsys' );
+		$this->bulkcharge           = WCRed()->get_redsys_option( 'bulkcharge', 'redsys' );
+		$this->bulkrefund           = WCRed()->get_redsys_option( 'bulkrefund', 'redsys' );
+		$this->sendemails           = WCRed()->get_redsys_option( 'sendemails', 'redsys' );
+		$this->checkoutredirect     = WCRed()->get_redsys_option( 'checkoutredirect', 'redsys' );
+		$this->showthankyourecipe   = WCRed()->get_redsys_option( 'showthankyourecipe', 'redsys' );
+		$this->usebrowserreceipt    = WCRed()->get_redsys_option( 'usebrowserreceipt', 'redsys' );
+		$this->lwvactive            = WCRed()->get_redsys_option( 'lwvactive', 'redsys' );
+		$this->traactive            = WCRed()->get_redsys_option( 'traactive', 'redsys' );
+		$this->traamount            = WCRed()->get_redsys_option( 'traamount', 'redsys' );
+		$this->notiemail            = WCRed()->get_redsys_option( 'notiemail', 'redsys' );
+		$this->hidegatewaychckout   = WCRed()->get_redsys_option( 'hidegatewaychckout', 'redsys' );
 		$this->redsysdirectdeb      = 'T';
-		$this->privateproduct       = $all_redsys_data['privateproduct'];
-		$this->sentemailscustomers  = $all_redsys_data['sentemailscustomers'];
-		$this->sendemailthankyou    = $all_redsys_data['sendemailthankyou'];
-		$this->sendemailthankyoutxt = $all_redsys_data['sendemailthankyoutxt'];
-		$this->testforuser          = $all_redsys_data['testforuser'];
-		$this->testforuserid        = $all_redsys_data['testforuserid'];
-		$this->redsysbanktransfer   = $all_redsys_data['redsysbanktransfer'];
-		$this->redirectiontime      = $all_redsys_data['redirectiontime'];
-		$this->sendemailsdscard     = $all_redsys_data['sendemailsdscard'];
-		$this->buttoncheckout       = $all_redsys_data['buttoncheckout'];
-		$this->butonbgcolor         = $all_redsys_data['butonbgcolor'];
-		$this->butontextcolor       = $all_redsys_data['butontextcolor'];
-		$this->descripredsys        = $all_redsys_data['descripredsys'];
-		$this->markpending          = $all_redsys_data['markpending'];
-		$this->testshowgateway      = $all_redsys_data['testshowgateway'];
-		$this->disablesubscrippaid  = $all_redsys_data['disablesubscrippaid'];
+		$this->privateproduct       = WCRed()->get_redsys_option( 'privateproduct', 'redsys' );
+		$this->sentemailscustomers  = WCRed()->get_redsys_option( 'sentemailscustomers', 'redsys' );
+		$this->sendemailthankyou    = WCRed()->get_redsys_option( 'sendemailthankyou', 'redsys' );
+		$this->sendemailthankyoutxt = WCRed()->get_redsys_option( 'sendemailthankyoutxt', 'redsys' );
+		$this->testforuser          = WCRed()->get_redsys_option( 'testforuser', 'redsys' );
+		$this->testforuserid        = WCRed()->get_redsys_option( 'testforuserid', 'redsys' );
+		$this->redsysbanktransfer   = WCRed()->get_redsys_option( 'redsysbanktransfer', 'redsys' );
+		$this->redirectiontime      = WCRed()->get_redsys_option( 'redirectiontime', 'redsys' );
+		$this->sendemailsdscard     = WCRed()->get_redsys_option( 'sendemailsdscard', 'redsys' );
+		$this->buttoncheckout       = WCRed()->get_redsys_option( 'buttoncheckout', 'redsys' );
+		$this->butonbgcolor         = WCRed()->get_redsys_option( 'butonbgcolor', 'redsys' );
+		$this->butontextcolor       = WCRed()->get_redsys_option( 'butontextcolor', 'redsys' );
+		$this->descripredsys        = WCRed()->get_redsys_option( 'descripredsys', 'redsys' );
+		$this->markpending          = WCRed()->get_redsys_option( 'markpending', 'redsys' );
+		$this->testshowgateway      = WCRed()->get_redsys_option( 'testshowgateway', 'redsys' );
+		$this->disablesubscrippaid  = WCRed()->get_redsys_option( 'disablesubscrippaid', 'redsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -252,10 +250,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 */
 	public function init_form_fields() {
 
-		$all_redsys_data = WCRed()->get_redsys_option( 'all', 'redsys' );
-		$options         = array();
-		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'redsys' );
-		$logs            = new WC_Logger();
+		$options    = array();
+		$selections = (array) WCRed()->get_redsys_option( 'testforuserid', 'redsys' );
 
 		if ( count( $selections ) !== 0 ) {
 			foreach ( $selections as $user_id ) {
@@ -270,7 +266,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 
 		$options_show    = array();
-		$selections_show = (array) $all_redsys_data['testshowgateway'];
+		$selections_show = (array) WCRed()->get_redsys_option( 'testshowgateway', 'redsys' );
 		if ( count( $selections_show ) !== 0 ) {
 			foreach ( $selections_show as $user_id ) {
 				if ( ! empty( $user_id ) ) {
@@ -283,7 +279,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		$this->form_fields = array(
-			'esencial'              => array( // Customizations.
+			'esencial' => array( // Customizations.
 				'title'       => __( 'Essential', 'woocommerce-redsys' ),
 				'type'        => 'title',
 				'description' => __( 'This is the essential configuration, everything must be filled in. If something is not filled in or is filled in incorrectly, the payment will fail.', 'woocommerce-redsys' ),
@@ -796,30 +792,30 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			$transient = get_transient( $order_id . '_iframe' );
 			if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', '  $transient = get_transient( $order_id . "_iframe" );' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', '$transient: ' . $transient );
-			}
-			if ( 'yes' === $transient ) {
-			delete_transient( $order_id . '_iframe' );
-			$order      = WCRed()->get_order( $order_id );
-			$return_url = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-			// $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized
-			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', '  URL a redirigir por iFrame  ' );
+				$this->log->add( 'redsys', '  $transient = get_transient( $order_id . "_iframe" );' );
 				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', '$actual_link: ' . $return_url );
+				$this->log->add( 'redsys', '$transient: ' . $transient );
+			}
+			if ( 'yes' === $transient ) {
+				delete_transient( $order_id . '_iframe' );
+				$order      = WCRed()->get_order( $order_id );
+				$return_url = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+				// $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/****************************/' );
+					$this->log->add( 'redsys', '  URL a redirigir por iFrame  ' );
+					$this->log->add( 'redsys', '/****************************/' );
+					$this->log->add( 'redsys', '$actual_link: ' . $return_url );
 				}
-			/*
-			$current_url = str_replace( '#038;', '&', $actual_link );
-			$actual_link = str_replace( '&&', '&', $current_url );
-			*/
-			echo '<script>window.top.location.href = "' . esc_url( $return_url) . '"</script>';
-			exit();
+				/*
+				$current_url = str_replace( '#038;', '&', $actual_link );
+				$actual_link = str_replace( '&&', '&', $current_url );
+				*/
+				echo '<script>window.top.location.href = "' . esc_url( $return_url) . '"</script>';
+				exit();
 			}
 	}
 	/**
@@ -1640,18 +1636,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$user_id          = $order->get_user_id();
 		$secretsha256     = $redsys->get_redsys_sha256( $user_id );
 		$customer         = $redsys->customer;
-		if ( 'iframe' === $redsys->usebrowserreceipt ) {
-			$url_ok           = add_query_arg(
-				array(
-					'redsys-iframe'  => 'yes',
-					'order_id'       => $order->get_id(),
-					'utm_nooverride' => '1',
-				),
-				$final_notify_url
-			);
-		} else {
-			$url_ok = add_query_arg( 'utm_nooverride', '1', $redsys->get_return_url( $order ) );
-		}
+		$url_ok           = add_query_arg(
+			array(
+				'redsys-iframe'  => 'yes',
+				'order_id'       => $order->get_id(),
+				'utm_nooverride' => '1',
+			),
+			$final_notify_url
+		);
 		$url_ok_transient = add_query_arg( 'utm_nooverride', '1', $redsys->get_return_url( $order ) );
 		set_transient( $order_id . '_redsys_url_ok', $url_ok_transient, 300 * MINUTE_IN_SECONDS );
 		$product_description = WCRed()->product_description( $order, 'redsys' );
@@ -6792,27 +6784,33 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$need_token = 'no';
 					}
 				}
-				echo '<div>';
 				if ( $there_are_tokens ) {
+					echo '<div>';
 					echo '<ul>';
 					WCRed()->get_all_tokens_checkout( $user_id, $token_type_needed );
 					echo '<input class="input-radio" type="radio" id="new" name="token" value="add" checked>';
 					echo '<label for="new">' . esc_html__( 'Use a new payment method', 'woocommerce-redsys' ) . '</label>';
 					echo '<input type="hidden" id="_redsys_token_type" name="_redsys_token_type" value="' . esc_html( $token_type_needed ) . '"></>';
 					echo '</ul>';
+					echo '</div>';
 				}
 
 				if ( 'no' === $need_token ) {
-					echo '<div id="redsys_save_token">';
-					echo '<p><label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" value="yes"> ' . esc_html__( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label></p>';
-					echo '</div>';
+					echo '
+						<div id="redsys_save_token">
+							<label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" value="yes"> ' . esc_html__( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label>
+						</div>';
 				} else {
 					$text        = __( 'We need to store your credit card for future payments. It will be stored by our bank, so it is totally safe.', 'woocommerce-redsys' );
 					$text_filter = apply_filters( 'redsys_text_get_token', $text );
-					echo esc_html( $text_filter ) . '<input type="hidden" id="_redsys_save_token" name="_redsys_save_token" value="yes">';
+					echo '
+						<div id="redsys_save_token">
+							' . esc_html( $text_filter ) . '
+							<input type="hidden" id="_redsys_save_token" name="_redsys_save_token" value="yes">
+						</div>';
 				}
-				echo '</div>';
 			}
+
 			do_action( 'redsys_payment_fields' );
 
 			// Preauthotization.
@@ -9630,10 +9628,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$email_from = get_option( 'woocommerce_email_from_address' );
 				$headers[]  = 'Content-Type: text/html; charset=UTF-8';
 				$headers[]  = 'From: ' . $email_name . ' <' . $email_from . '>';
-				$order      = new wc_order( $order_id );
-				$message    = '<p>' . esc_html__( 'Thank you very much for shopping in our store.', 'woocommerce-redsys' ) . '</p>';
-				$message   .= '<p>' . esc_html__( 'There was a problem with the credit card payment.', 'woocommerce-redsys' ) . '</p>';
-				$message   .= '<p>' . esc_html__( 'If you don\'t know what the error was.', 'woocommerce-redsys' ) . '<br />';
+
+				$mailer = WC()->mailer();
+				$order  = new wc_order( $order_id );
+
+				$message  = '<p>' . esc_html__( 'Thank you very much for shopping in our store.', 'woocommerce-redsys' ) . '</p>';
+				$message .= '<p>' . esc_html__( 'There was a problem with the credit card payment.', 'woocommerce-redsys' ) . '</p>';
+				$message .= '<p>' . esc_html__( 'If you don\'t know what the error was.', 'woocommerce-redsys' ) . '<br />';
 
 				if ( ! empty( $ds_error_value ) ) {
 					$message .= __( 'The error was: ', 'woocommerce-redsys' ) . $ds_error_value . '</p>';
@@ -9647,7 +9648,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$message         = apply_filters( 'redsys_sent_email_customer_pay_error', $message, $ds_error_value, $ds_response_value );
 				$heading         = esc_html__( 'Credit Cart Payment Problem', 'woocommerce-redsys' );
 				$email           = $order->get_billing_email();
-				$mailer          = WC()->mailer();
 				$wrapped_message = $mailer->wrap_message( $heading, $message );
 				$wc_email        = new Redsys_Customer_Email_Order();
 				$html_message    = $wc_email->style_inline( $wrapped_message );

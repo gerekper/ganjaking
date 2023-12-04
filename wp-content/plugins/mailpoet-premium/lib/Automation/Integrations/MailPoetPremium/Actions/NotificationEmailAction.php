@@ -80,6 +80,7 @@ class NotificationEmailAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Send notification email', 'mailpoet-premium');
   }
 

@@ -3790,7 +3790,11 @@ class UpdraftPlus {
 		}
 		$warnings = (isset($jobdata['warnings'])) ? $jobdata['warnings'] : array();
 		if (is_array($warnings) && count($warnings) >0) {
-			$append_log .= __('Warnings encountered:', 'updraftplus')."\r\n";
+			if ('finished' == $jobdata['jobstatus'] && 0 == $this->error_count()) {
+				$append_log .= __('Warnings encountered (note: this is for information; the backup has completed successfully)', 'updraftplus')."\r\n";
+			} else {
+				$append_log .= __('Warnings encountered:', 'updraftplus')."\r\n";
+			}
 			$attachments[0] = $this->logfile_name;
 			foreach ($warnings as $err) {
 				$append_log .= "* ".rtrim($err)."\r\n";
@@ -4087,7 +4091,7 @@ class UpdraftPlus {
 	 * @param Array $backup_array An array of backup information
 	 */
 	private function save_last_backup($backup_array) {
-		$success = ($this->error_count() == 0) ? 1 : 0;
+		$success = (0 == $this->error_count()) ? 1 : 0;
 		$last_backup = UpdraftPlus_Options::get_updraft_option('updraft_last_backup', array());
 		if (empty($last_backup)) $last_backup = array();
 		if ('incremental' === $this->jobdata_get('job_type')) {

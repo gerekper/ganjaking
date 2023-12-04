@@ -1,5 +1,13 @@
 *** WooCommerce Product Reviews Pro Changelog ***
 
+2023.11.28 - version 1.19.1
+ * Fix - Address error when using Italian translations with PHP 8.0 or newer
+
+2023.06.29 - version 1.19.0
+ * Fix - Add screen reader text in empty anchor links to improve accessibility and avoid issues with SEO software
+ * Fix - Escape value in `render_reviews_list_table()` hidden input field
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.12.02 - version 1.18.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

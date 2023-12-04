@@ -1,0 +1,3 @@
+[submodule "react-src/instant-answer"]
+	path = react-src/instant-answer
+	url = git@github.com:WPDevelopers/instant-answer.git

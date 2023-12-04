@@ -572,6 +572,7 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 				'whitelistedIPs',
 				'howGetIPs',
 				'howGetIPs_trusted_proxies',
+				'howGetIPs_trusted_proxies_unified',
 				'other_WFNet',
 				'pluginABSPATH',
 				'serverIPs',

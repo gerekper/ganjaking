@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.5
 Tested up to: 6.4
-Stable tag: 7.10.7
+Stable tag: 7.11.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,16 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.11.0 - November 28, 2023 =
+* Improvement: Added new functionality for trusted proxy presets to support proxies such as Amazon CloudFront, Ezoic, and Quic.cloud
+* Improvement: WAF rule and malware signature updates are now signed with SHA-256 as well for hosts that no longer build SHA1 support
+* Improvement: Updated the bundled trusted CA certificates
+* Change: The WAF will no longer attempt to fetch rule or blocklist updates when run via WP-CLI
+* Fix: Removed uses of SQL_CALC_FOUND_ROWS, which is deprecated as of MySQL 8.0.17
+* Fix: Fixed an issue where final scan summary counts in some instances were not sent to Central
+* Fix: Fixed a deprecation notice for get_class in PHP 8.3.0
+* Fix: Corrected an output error in the connectivity section of Diagnostics in text mode
 
 = 7.10.7 - November 6, 2023 =
 * Fix: Compatibility fix for WordPress 6.4 on the login page styling

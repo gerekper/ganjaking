@@ -37,6 +37,7 @@ class RemoveFromListAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Remove from list', 'mailpoet-premium');
   }
 

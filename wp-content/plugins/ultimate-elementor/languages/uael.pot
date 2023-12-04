@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Elementor package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Elementor 1.36.25\n"
+"Project-Id-Version: Ultimate Addons for Elementor 1.36.26\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/ultimate-elementor\n"
-"POT-Creation-Date: 2023-11-09 05:02:24+00:00\n"
+"POT-Creation-Date: 2023-11-30 06:57:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1654,7 +1654,7 @@ msgstr ""
 msgid "Display internal help links in widget editor area."
 msgstr ""
 
-#: includes/admin/uael-branding.php:191 includes/admin/uael-integration.php:480
+#: includes/admin/uael-branding.php:191 includes/admin/uael-integration.php:490
 msgid "Save Changes"
 msgstr ""
 
@@ -1715,7 +1715,7 @@ msgstr ""
 #: modules/image-gallery/widgets/image-gallery.php:336
 #: modules/posts/skins/skin-base.php:824 modules/posts/skins/skin-feed.php:193
 #: modules/posts/template-blocks/skin-feed.php:186
-#: modules/posts/template-blocks/skin-style.php:1279
+#: modules/posts/template-blocks/skin-style.php:1288
 #: modules/video-gallery/widgets/video-gallery.php:691
 msgid "All"
 msgstr ""
@@ -2085,23 +2085,28 @@ msgid ""
 msgstr ""
 
 #: includes/admin/uael-integration.php:454
-msgid ""
-"This setting is required if you want to show the Twitter Feed in your "
-"website."
+msgid "To display your Twitter Feed on your website,"
 msgstr ""
 
-#: includes/admin/uael-integration.php:463
+#: includes/admin/uael-integration.php:461
 #. translators: %1$s: a tag open.
 msgid ""
-"  Need help to get Twitter Consumer key and Consumer Secret Key? Read %1$s "
-"this article %2$s."
+" you'll need to acquire %1$s Twitter's basic plan %2$s and obtain your "
+"Twitter Consumer Key and Consumer Secret Key."
 msgstr ""
 
-#: includes/admin/uael-integration.php:470
+#: includes/admin/uael-integration.php:473
+#. translators: %1$s: a tag open.
+msgid ""
+" For guidance on obtaining these keys, please refer to this %1$s article "
+"%2$s."
+msgstr ""
+
+#: includes/admin/uael-integration.php:480
 msgid "Consumer Key"
 msgstr ""
 
-#: includes/admin/uael-integration.php:474
+#: includes/admin/uael-integration.php:484
 msgid "Consumer Secret"
 msgstr ""
 
@@ -12713,7 +12718,7 @@ msgstr ""
 #: modules/posts/skins/skin-feed.php:549 modules/posts/skins/skin-news.php:309
 #: modules/posts/template-blocks/skin-feed.php:134
 #: modules/posts/template-blocks/skin-news.php:191
-#: modules/posts/template-blocks/skin-style.php:1010
+#: modules/posts/template-blocks/skin-style.php:1019
 #: modules/timeline/widgets/skin-style.php:225
 #: modules/woocommerce/widgets/woo-products.php:447
 #: modules/woocommerce/widgets/woo-products.php:877
@@ -13302,23 +13307,23 @@ msgid "Note: Number of columns <b>excludes</b> featured post."
 msgstr ""
 
 #: modules/posts/template-blocks/skin-feed.php:190
-#: modules/posts/template-blocks/skin-style.php:1283
+#: modules/posts/template-blocks/skin-style.php:1292
 msgid "Taxonomy Filter"
 msgstr ""
 
-#: modules/posts/template-blocks/skin-style.php:1517
+#: modules/posts/template-blocks/skin-style.php:1526
 msgid ""
 "Some posts do not have featured images. Please fill in all required fields "
 "to display posts schema properly."
 msgstr ""
 
-#: modules/posts/template-blocks/skin-style.php:1520
+#: modules/posts/template-blocks/skin-style.php:1529
 msgid ""
 "Some fields are empty under the posts schema section. Please fill in all "
 "required fields."
 msgstr ""
 
-#: modules/posts/template-blocks/skin-style.php:1521
+#: modules/posts/template-blocks/skin-style.php:1530
 msgid "Make sure all your posts do have a featured image."
 msgstr ""
 
@@ -14002,7 +14007,7 @@ msgstr ""
 #: modules/registration-form/widgets/registration-form.php:124
 #: modules/registration-form/widgets/registration-form.php:359
 #: modules/registration-form/widgets/registration-form.php:360
-#: modules/twitter/widgets/twitter.php:2858
+#: modules/twitter/widgets/twitter.php:2870
 msgid "Username"
 msgstr ""
 
@@ -15453,7 +15458,7 @@ msgstr ""
 
 #: modules/twitter/widgets/twitter.php:175
 #: modules/twitter/widgets/twitter.php:195
-#: modules/twitter/widgets/twitter.php:2858
+#: modules/twitter/widgets/twitter.php:2870
 msgid "Hashtag"
 msgstr ""
 
@@ -15651,62 +15656,63 @@ msgstr ""
 msgid " likes"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2478
-#: modules/twitter/widgets/twitter.php:2577
-#: modules/twitter/widgets/twitter.php:2642
-#: modules/twitter/widgets/twitter.php:2865
+#: modules/twitter/widgets/twitter.php:2480
+#: modules/twitter/widgets/twitter.php:2579
+#: modules/twitter/widgets/twitter.php:2653
 #: modules/twitter/widgets/twitter.php:2877
+#: modules/twitter/widgets/twitter.php:2889
 msgid "Twitter Feed - ID "
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2481
+#: modules/twitter/widgets/twitter.php:2483
 msgid ""
 "To show Twitter Feed widget, please set the valid Hashtag from widget "
 "settings."
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2580
+#: modules/twitter/widgets/twitter.php:2582
 msgid "Invalid Consumer key or Consumer Secret Key."
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2581
-#: modules/twitter/widgets/twitter.php:2868
+#: modules/twitter/widgets/twitter.php:2583
+#: modules/twitter/widgets/twitter.php:2657
+#: modules/twitter/widgets/twitter.php:2880
 msgid "Navigate to Settings -> UAE -> Twitter Feed -> Settings."
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2645
+#: modules/twitter/widgets/twitter.php:2656
 msgid ""
-"To show Twitter Feed widget, please set the valid Username from widget "
-"settings."
+"To show Twitter Feed widget, please set valid Consumer key and Consumer "
+"Secret Key."
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2756
+#: modules/twitter/widgets/twitter.php:2768
 msgid "Follow"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2771
+#: modules/twitter/widgets/twitter.php:2783
 msgid "Tweets"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2784
+#: modules/twitter/widgets/twitter.php:2796
 msgid "Following"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2797
+#: modules/twitter/widgets/twitter.php:2809
 msgid "Followers"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2819
+#: modules/twitter/widgets/twitter.php:2831
 msgid "Joined"
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2867
+#: modules/twitter/widgets/twitter.php:2879
 msgid ""
 "To show Twitter Feed widget, please set the Consumer key and Consumer "
 "Secret Key."
 msgstr ""
 
-#: modules/twitter/widgets/twitter.php:2882
+#: modules/twitter/widgets/twitter.php:2894
 #. translators: %s Twitter name
 msgid "To show Twitter Feed widget, please set the %s from widget settings."
 msgstr ""

@@ -440,10 +440,10 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		// Check if there is a client ID set if there is use it otherwise use ours
 		if ($use_master) {
 			$client_id = $this->client_id;
-			$token = 'token'.$this->redirect_uri();
+			$token = 'token'.(empty($instance_id) ? '' : ':' . $instance_id).$this->redirect_uri();
 		} else {
 			$client_id = $opts['clientid'];
-			$token = 'token'.(empty($instance_id) ? ':' . $instance_id : '');
+			$token = 'token'.(empty($instance_id) ? '' : ':' . $instance_id);
 		}
 
 		$params = array(
@@ -597,7 +597,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 					'code' => 'ud_googlecloud_code',
 					'user_id' => $user_id,
 				);
-				
+
 				$result = wp_remote_post($this->callback_url, array(
 					'timeout' => 60,
 					'headers' => apply_filters('updraftplus_auth_headers', ''),
@@ -1304,7 +1304,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 			'input_bucket_location_label' => __('Bucket location', 'updraftplus'),
 			'input_bucket_location_link_title' => __('Read more about bucket locations', 'updraftplus'),
 			'input_bucket_location_title' => __('This setting applies only when a new bucket is being created.', 'updraftplus'),
-			'authentication_label' => __('Authenticate with Google'),
+			'authentication_label' => __('Authenticate with Google', 'updraftplus'),
 			'authentication_label2' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
 			'authentication_link_text' => sprintf(__('Sign in with %s', 'updraftplus'), 'Google'),
 			'authentication_already_authenticated_label' => wp_kses(__("<strong>(You are already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem).", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
@@ -1359,7 +1359,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		
 		$id = $this->get_id();
 
-		return '<p>'. $text .'</p><br><a data-pretext="'.$text.'" class="button-ud-google updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&updraftplus_instance='.$instance_id.'" data-instance_id="'.$instance_id.'" data-remote_method="'.$id.'">'.sprintf(__('Sign in with %s', 'updraftplus'), 'Google').'</a>';
+		return '<p>'. $text .'</p><br><a data-pretext="'.$text.'" class="button-ud-google updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&nonce='.wp_create_nonce('storage_auth_nonce').'&updraftplus_instance='.$instance_id.'" data-instance_id="'.$instance_id.'" data-remote_method="'.$id.'">'.sprintf(__('Sign in with %s', 'updraftplus'), 'Google').'</a>';
 	}
 }
 

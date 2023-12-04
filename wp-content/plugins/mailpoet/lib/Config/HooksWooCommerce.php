@@ -12,6 +12,7 @@ use MailPoet\Segments\WooCommerce as WooCommerceSegment;
 use MailPoet\Statistics\Track\WooCommercePurchases;
 use MailPoet\Subscription\Registration;
 use MailPoet\WooCommerce\MailPoetTask;
+use MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelController;
 use MailPoet\WooCommerce\Settings as WooCommerceSettings;
 use MailPoet\WooCommerce\SubscriberEngagement;
 use MailPoet\WooCommerce\Subscription as WooCommerceSubscription;
@@ -42,6 +43,9 @@ class HooksWooCommerce {
   /** @var Tracker */
   private $tracker;
 
+  /** @var MPMarketingChannelController */
+  private $marketingChannelController;
+
   public function __construct(
     WooCommerceSubscription $woocommerceSubscription,
     WooCommerceSegment $woocommerceSegment,
@@ -50,7 +54,8 @@ class HooksWooCommerce {
     Registration $subscriberRegistration,
     LoggerFactory $loggerFactory,
     Tracker $tracker,
-    SubscriberEngagement $subscriberEngagement
+    SubscriberEngagement $subscriberEngagement,
+    MPMarketingChannelController $marketingChannelController
   ) {
     $this->woocommerceSubscription = $woocommerceSubscription;
     $this->woocommerceSegment = $woocommerceSegment;
@@ -60,6 +65,7 @@ class HooksWooCommerce {
     $this->subscriberRegistration = $subscriberRegistration;
     $this->tracker = $tracker;
     $this->subscriberEngagement = $subscriberEngagement;
+    $this->marketingChannelController = $marketingChannelController;
   }
 
   public function extendWooCommerceCheckoutForm() {
@@ -189,6 +195,14 @@ class HooksWooCommerce {
     } catch (\Throwable $e) {
       $this->logError($e, 'Unable to add MailPoet task to WooCommerce homepage');
     }
+  }
+
+  public function addMailPoetMarketingMultiChannel($registeredMarketingChannels) {
+    if (!is_array($registeredMarketingChannels)) {
+      return $registeredMarketingChannels;
+    }
+
+    return $this->marketingChannelController->registerMarketingChannel($registeredMarketingChannels);
   }
 
   private function logError(\Throwable $e, $name) {

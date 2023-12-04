@@ -1,15 +1,5 @@
 *** Redsys Gateway Change Log ***
 
-2023.11.06 - version 24.1.0
-
-* NEW: Virtual Subscriptions products Pay with one clic button compatibility.
-* UPDATED: Temporary removal of the specific code for WordPress Multisite to perform a refactoring that does not affect page load.
-* FIX: Fixed two save terminal numbers with InSite when the order is paid.
-
-2023.10.30 - version 24.0.1
-
-* FIX: Arrive to thank you page when modal is not active with redirection.
-
 2023.10.27 - version 24.0.0
 
 * NEW: Pay with one click from products. Only virtual products. It will be improved in next versions.

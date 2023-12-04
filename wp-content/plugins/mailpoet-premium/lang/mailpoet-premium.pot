@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.36.0\n"
+"Project-Id-Version: MailPoet Premium 4.38.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-14T17:36:29+00:00\n"
+"POT-Creation-Date: 2023-11-27T17:40:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -205,28 +205,31 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:45
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:46
 #: assets/dist/js/premium.js:2
 msgid "Add tag"
 msgstr ""
 
 #. translators: %d is the ID of the tag, which was not found.
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:59
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:60
 msgid "Tag %d was not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:37
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:38
 #: assets/dist/js/premium.js:2
 msgid "Add to list"
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:75
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:84
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:76
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:85
 msgid "Segment with ID '%s' not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/CustomAction.php:33
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/CustomAction.php:34
 msgid "Custom action"
 msgstr ""
 
@@ -235,40 +238,45 @@ msgstr ""
 msgid "Failed to send notification email: %s"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:80
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:81
 #: assets/dist/js/premium.js:2
 msgid "Send notification email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:93
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:94
 msgid "MailPoet Automation Notification"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:37
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:38
 #: assets/dist/js/premium.js:2
 msgid "Remove from list"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:43
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:44
 #: assets/dist/js/premium.js:2
 msgid "Remove tag"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:46
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:47
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:37
+#. translators: automation action title
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:38
 #: assets/dist/js/premium.js:2
 msgid "Update subscriber"
 msgstr ""
 
 #. translators: %d is the ID of the custom field
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:111
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:112
 msgid "Custom field with ID '%d' not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:119
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:120
 msgid "Custom field '%1$s' with ID '%2$d' expects type '%3$s' but type '%4$s' was provided."
 msgstr ""
 
@@ -297,16 +305,18 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php:24
+#. translators: automation subject (entity entering automation) title
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php:25
 msgid "Custom data"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:35
+#. translators: automation subject (entity entering automation) title
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:36
 msgid "MailPoet tag"
 msgstr ""
 
 #. translators: %d is the ID.
-#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:49
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:50
 msgid "Tag with ID '%d' not found."
 msgstr ""
 
@@ -364,75 +374,191 @@ msgstr ""
 msgid "Important information about your order"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:58
+#. translators: automation trigger title
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:59
 #: assets/dist/js/premium.js:2
 msgid "Subscriber clicks a link in email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:82
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:83
 msgid "Please select a newsletter."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:89
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:90
 msgid "Newsletter with ID '%d' not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:96
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:97
 msgid "Please select an operator."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:106
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/ClicksEmailLinkTrigger.php:107
 msgid "Link with ID '%d' not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php:50
+#. translators: automation trigger title
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php:51
 #: assets/dist/js/premium.js:2
 msgid "Custom trigger"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php:42
+#. translators: automation trigger title
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php:43
 msgid "Tag added"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php:42
+#. translators: automation trigger title
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php:43
 msgid "Tag removed"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:35
+#. translators: automation subject (entity entering automation) title
+#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:36
 msgid "Review"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:49
+#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:50
 msgid "Review rating"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:47
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:48
 msgid "Made a review"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:72
+#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:73
 msgid "The WooCommerce rating system is not enabled."
 msgstr ""
 
-#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:51
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:28
+msgid "Woo Subscription ID"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:36
+msgid "Woo Subscription created"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:44
+msgid "Woo Subscription modified date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:52
+msgid "Woo Subscription title"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:60
+msgid "Woo Subscription status"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:71
+msgid "Woo Subscription number of failed payments"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:79
+msgid "Woo Subscription number of payments"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:87
+msgid "The total amount charged at the outset of the Subscription"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:95
+msgid "Woo Subscription billing period"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:106
+msgid "Woo Subscription billing interval"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:114
+msgid "Woo Subscription requires manual renewal payments"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:122
+msgid "Woo Subscription cancel email sent"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Fields/SubscriptionFields.php:130
+msgid "Woo Subscription is in trial period"
+msgstr ""
+
+#. translators: automation subject (entity entering automation) title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Subjects/WooCommerceSubscriptionStatusChangeSubject.php:22
+msgid "WooCommerce subscription status change"
+msgstr ""
+
+#. translators: automation subject (entity entering automation) title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Subjects/WooCommerceSubscriptionSubject.php:43
+msgid "WooCommerce Subscription"
+msgstr ""
+
+#. translators: %d is the order ID.
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Subjects/WooCommerceSubscriptionSubject.php:62
+msgid "Subscription with ID '%d' not found."
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionCreatedTrigger.php:42
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription started"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionExpiredTrigger.php:36
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription expired"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionPaymentFailedTrigger.php:36
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription payment failed"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionRenewedTrigger.php:37
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription renewed"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionStatusChangedTrigger.php:38
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription status changed"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionTrialEndedTrigger.php:43
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription trial ended"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WooCommerceSubscriptions/Triggers/SubscriptionTrialStartedTrigger.php:37
+#: assets/dist/js/premium.js:2
+msgid "Woo Subscription trial started"
+msgstr ""
+
+#. translators: automation trigger title
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:52
 #: assets/dist/js/premium.js:2
 msgid "User makes a comment"
 msgstr ""
 
 #. translators: %s is the name of the post type.
-#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:90
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:91
 msgid "Post Type “%s” is not registered."
 msgstr ""
 
 #. translators: %d is the ID of the post not found.
-#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:113
-msgid "Post with ID %d not found."
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:114
+msgid "Post with ID '%d' not found."
 msgstr ""
 
 #. translators: %s is the name of the taxonomy
-#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:136
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:137
 msgid "The taxonomy “%s” is not registered."
 msgstr ""
 
@@ -1068,6 +1194,94 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "order"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Status changes to:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Status changes from:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when subscription changed to a specific status."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "subscriptions"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "status"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "changed"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscription is created."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "new"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "created"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "started"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscription trial ends."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "subscription"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "trial"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "ended"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscription trial started."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscription renewed."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "renewed"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a payment failed."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "payment"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "failed"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscription expires."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "expired"
 msgstr ""
 
 #: assets/dist/js/premium.js:2

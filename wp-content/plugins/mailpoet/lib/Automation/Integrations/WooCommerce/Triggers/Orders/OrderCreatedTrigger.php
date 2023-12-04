@@ -35,6 +35,7 @@ class OrderCreatedTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Order created', 'mailpoet');
   }
 

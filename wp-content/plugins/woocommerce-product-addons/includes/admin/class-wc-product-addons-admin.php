@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * Product Add-Ons admin.
  *
  * @class    WC_Product_Addons_Admin
- * @version  6.5.0
+ * @version  6.5.1
  */
 class WC_Product_Addons_Admin {
 
@@ -63,6 +63,9 @@ class WC_Product_Addons_Admin {
 		// Add add-ons settings under WooCommerce > Settings > Products.
 		add_filter( 'woocommerce_get_sections_products', array( $this, 'add_addons_section' ), 15 );
 		add_action( 'woocommerce_get_settings_products', array( $this, 'add_addons_settings' ), 10, 2 );
+
+		// Add a notice if an add-on title exceeds the 255 characters threshold.
+		add_action( 'admin_notices', array( $this, 'maybe_add_title_max_length_notice' ), 0 );
 	}
 
 	/**
@@ -374,7 +377,8 @@ class WC_Product_Addons_Admin {
 				'import_addons'     => wp_create_nonce( 'wc-pao-import-addons' ),
 			),
 			'i18n'     => array(
-				'required_fields'       => __( 'Please complete all highlighted fields before saving.', 'woocommerce-product-addons' ),
+				'required_fields'           => __( 'Please complete all highlighted fields before saving.', 'woocommerce-product-addons' ),
+				'max_title_length_exceeded' => __( 'Add-on titles must have maximum 255 characters. Please update the titles of the highlighted add-ons.', 'woocommerce-product-addons' ),
 				'limit_price_range'         => __( 'Limit price', 'woocommerce-product-addons' ),
 				'limit_quantity_range'      => __( 'Limit quantity', 'woocommerce-product-addons' ),
 				'limit_character_length'    => __( 'Limit character length', 'woocommerce-product-addons' ),
@@ -658,6 +662,32 @@ class WC_Product_Addons_Admin {
 	}
 
 	/**
+	 * Backwards compatibility: Add a notice if an add-on title exceeds the 255 characters threshold.
+	 *
+	 */
+	public function maybe_add_title_max_length_notice() {
+		global $post_id;
+
+		// Get admin screen ID.
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+
+		if ( 'product' !== $screen_id ) {
+			return;
+		}
+
+		$addons = get_post_meta( $post_id, '_product_addons', true );
+
+		foreach ( $addons as $addon ) {
+			if ( isset( $addon[ 'name' ] ) && strlen( $addon[ 'name' ] ) > 255 ) {
+				/* translators: %1$s: Product name */
+				$notice = sprintf( __( '<strong>%1$s</strong> has at least one add-on whose <strong>Title</strong> is longer than <strong>255</strong> characters. Please adjust its value and save your changes.', 'woocommerce-product-addons' ), get_the_title( $post_id ) );
+				$this->output_notice( $notice, 'warning' );
+			}
+		}
+	}
+
+	/**
 	 * Process meta box.
 	 *
 	 * @param int $post_id Post ID.
@@ -707,6 +737,8 @@ class WC_Product_Addons_Admin {
 		$product_addons     = array();
 		$current_addon_data = array();
 		$current_addon_ids  = array();
+		$empty_title_error  = false;
+		$long_title_error   = false;
 
 		// Product addons.
 		if ( ! empty( $post ) ) {
@@ -751,7 +783,13 @@ class WC_Product_Addons_Admin {
 
 			for ( $i = 0; $i < count( $addon_name ); $i++ ) {
 				if ( ! isset( $addon_name[ $i ] ) || ( '' == $addon_name[ $i ] ) ) {
-					continue;
+					$empty_title_error = true;
+					$addon_name[ $i ] = '-';
+				}
+
+				if ( strlen( $addon_name[ $i ] ) > 255 ) {
+					$long_title_error = true;
+					$addon_name[ $i ] = substr( $addon_name[ $i ], 0, 255 );
 				}
 
 				$addon_options = array();
@@ -807,6 +845,14 @@ class WC_Product_Addons_Admin {
 				// Add to array.
 				$product_addons[] = apply_filters( 'woocommerce_product_addons_save_data', $data, $i );
 			}
+		}
+
+		if ( $empty_title_error ) {
+			WC_PAO_Admin_Notices::add_notice( __( 'Some add-ons could not be saved correctly because their <strong>Title</strong> was not set. Please review your add-ons configuration and update this product.', 'woocommerce-product-addons' ), 'error', true );
+		}
+
+		if ( $long_title_error ) {
+			WC_PAO_Admin_Notices::add_notice( __( 'Some add-ons could not be saved correctly because their <strong>Title</strong> was longer than 255 characters. Please review your add-ons configuration and update this product.', 'woocommerce-product-addons' ), 'error', true );
 		}
 
 		uasort( $product_addons, array( $this, 'addons_cmp' ) );
@@ -974,5 +1020,18 @@ class WC_Product_Addons_Admin {
 		$this->generated_ids[] = $generated_id;
 
 		return $generated_id;
+	}
+
+	/**
+	 * Prints warning messages in the admin area.
+	 *
+	 * @param string $content
+	 * @param string $type
+	 * @return void
+	 */
+	public function output_notice( $content, $type ) {
+		echo '<div class="notice notice-' . esc_attr( $type ) . '">';
+		echo wpautop( wp_kses_post( $content ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo '</div>';
 	}
 }

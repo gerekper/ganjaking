@@ -45,6 +45,7 @@ class AddTagAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Add tag', 'mailpoet-premium');
   }
 

@@ -131,7 +131,7 @@ class wfWAFWordPressRequest extends wfWAFRequest {
 				continue; //This was an array so we can skip to the next item
 			}
 			$skipToNext = false;
-			$trustedProxyConfig = wfWAF::getInstance()->getStorageEngine()->getConfig('howGetIPs_trusted_proxies', null, 'synced');
+			$trustedProxyConfig = wfWAF::getInstance()->getStorageEngine()->getConfig('howGetIPs_trusted_proxies_unified', null, 'synced');
 			$trustedProxies = $trustedProxyConfig === null ? array() : explode("\n", $trustedProxyConfig);
 			foreach (array(',', ' ', "\t") as $char) {
 				if (strpos($item, $char) !== false) {

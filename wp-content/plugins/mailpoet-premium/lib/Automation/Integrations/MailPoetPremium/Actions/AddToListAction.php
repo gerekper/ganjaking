@@ -37,6 +37,7 @@ class AddToListAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Add to list', 'mailpoet-premium');
   }
 

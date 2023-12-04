@@ -1,5 +1,13 @@
 *** Product Addons Changelog ***
 
+2023-11-29 - version 6.5.1
+* Tweak - Introduced admin validation to ensure that add-on titles do not exceed 255 characters.
+* Tweak - Introduced the 'woocommerce_addons_product_page_container_classes' filter to add additional classes to the container add-on elements on the product page.
+* Tweak - Updated the description for the 'Use Global add-ons?' option.
+* Fix - Fixed the display of negative add-on prices.
+* Fix - Updated the image swatches template to display only the add-on name on hover when its price is 0.
+* Fix - Fixed a pagination issue with global add-ons.
+
 2023-10-24 - version 6.5.0
 * New - Added onboarding.
 * Tweak - Important: Re-designed Product Data > Add-ons and Products > Add-ons tabs. 

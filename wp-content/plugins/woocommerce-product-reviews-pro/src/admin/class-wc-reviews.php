@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu as Enhanced_Navigation_Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen as Enhanced_Navigation_Screen;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 /**
  * Reviews class
@@ -296,7 +296,7 @@ class WC_Reviews {
 
 			<form id="reviews-filter" method="get">
 
-				<input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" />
+				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
 
 				<?php $this->reviews_list_table->search_box( __( 'Search reviews', 'woocommerce-product-reviews-pro' ), 'reviews' ); ?>
 

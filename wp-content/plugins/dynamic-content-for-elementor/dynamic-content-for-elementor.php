@@ -8,7 +8,7 @@
  * Plugin Name: Dynamic.ooo - Dynamic Content for Elementor
  * Plugin URI: https://www.dynamic.ooo/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description: Building powerful websites by extending Elementor. We give you over 150 features that will save you time and money on achieving complex results. The only limit is your imagination.
- * Version: 2.12.4
+ * Version: 2.12.5
  * Requires at least: 5.2
  * Requires PHP: 7.2
  * Author: Dynamic.ooo

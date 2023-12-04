@@ -234,7 +234,12 @@ if (!isset($sendingDiagnosticEmail)) {
 					<?php endforeach ?>
 					<tr>
 						<td><?php esc_html_e('Trusted Proxies', 'wordfence'); ?></td>
-						<td><?php echo esc_html(implode(', ', explode("\n", wfConfig::get('howGetIPs_trusted_proxies', '')))); ?></td>
+						<td><?php $proxies = wfConfig::get('howGetIPs_trusted_proxies', ''); echo esc_html(implode(', ', explode("\n", empty($proxies) ? __('(not set)', 'wordfence') : $proxies))); ?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><?php esc_html_e('Trusted Proxy Preset', 'wordfence'); ?></td>
+						<td><?php $preset = wfConfig::get('howGetIPs_trusted_proxy_preset'); $presets = wfConfig::getJSON('ipResolutionList', array()); echo esc_html((is_array($presets) && isset($presets[$preset])) ? $presets[$preset]['name'] : __('(not set)', 'wordfence')); ?></td>
 						<td></td>
 					</tr>
 					</tbody>
@@ -524,8 +529,8 @@ if (!isset($sendingDiagnosticEmail)) {
 		global $wpdb;
 		$wfdb = new wfDB();
 		//This must be done this way because MySQL with InnoDB tables does a full regeneration of all metadata if we don't. That takes a long time with a large table count.
-		$tables = $wfdb->querySelect('SELECT SQL_CALC_FOUND_ROWS TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() ORDER BY TABLE_NAME ASC LIMIT 250');
-		$total = $wfdb->querySingle('SELECT FOUND_ROWS()');
+		$tables = $wfdb->querySelect('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() ORDER BY TABLE_NAME ASC LIMIT 250');
+		$total = $wfdb->querySingle('SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
 		foreach ($tables as &$t) {
 			$t = "'" . esc_sql($t['TABLE_NAME']) . "'";
 		}
@@ -548,7 +553,7 @@ if (!isset($sendingDiagnosticEmail)) {
 				</div>
 				<div class="wf-block-content wf-clearfix wf-padding-no-left wf-padding-no-right">
 					<ul class="wf-block-list wf-padding-add-left-large wf-padding-add-right-large">
-						<li style="border-bottom: 1px solid #e2e2e2;">
+						<li>
 							<div style="width: 75%; min-width: 300px;"><?php esc_html_e('Wordfence Table Check', 'wordfence'); ?></div>
 							<div class="wf-right">
 								<?php if ($total > 250): ?>
@@ -588,6 +593,12 @@ if (!isset($sendingDiagnosticEmail)) {
 											__('Tables missing (prefix %1$s, %2$s): %3$s', 'wordfence'), wfDB::networkPrefix(), wfSchema::usingLowercase() ? __('lowercase', 'wordfence') : __('regular case', 'wordfence'), implode(', ', $missingTables))); ?></div>
 									<?php endif; ?>
 								<?php endif; ?>
+							</div>
+						</li>
+						<li style="border-bottom: 1px solid #e2e2e2;">
+							<div style="width: 75%; min-width: 300px;"><?php esc_html_e('Number of Database Tables', 'wordfence'); ?></div>
+							<div class="wf-right">
+								<div class="wf-result-info"><?php echo esc_html( $total ); ?></div>
 							</div>
 						</li>
 					</ul>

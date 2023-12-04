@@ -44,7 +44,7 @@ class PremiumTemplatesFactory {
   private function createSubscriberWelcomeSeriesTemplate(): AutomationTemplate {
     return new AutomationTemplate(
       'subscriber-welcome-series',
-      AutomationTemplate::CATEGORY_WELCOME,
+      'welcome',
       __('Welcome series for new subscribers', 'mailpoet-premium'),
       __(
         "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going.",
@@ -71,7 +71,7 @@ class PremiumTemplatesFactory {
   private function createUserWelcomeSeriesTemplate(): AutomationTemplate {
     return new AutomationTemplate(
       'user-welcome-series',
-      AutomationTemplate::CATEGORY_WELCOME,
+      'welcome',
       __('Welcome series for new WordPress users', 'mailpoet-premium'),
       __(
         "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information.",
@@ -98,7 +98,7 @@ class PremiumTemplatesFactory {
   private function createPurchasedProductTemplate(): AutomationTemplate {
     return new AutomationTemplate(
       'purchased-product',
-      AutomationTemplate::CATEGORY_WOOCOMMERCE,
+      'woocommerce',
       __('Purchased a product', 'mailpoet-premium'),
       __(
         'Share care instructions or simply thank the customer for making an order.',
@@ -117,7 +117,7 @@ class PremiumTemplatesFactory {
   private function createPurchasedProductWithTagTemplate(): AutomationTemplate {
     return new AutomationTemplate(
       'purchased-product-with-tag',
-      AutomationTemplate::CATEGORY_WOOCOMMERCE,
+      'woocommerce',
       __('Purchased a product with a tag', 'mailpoet-premium'),
       __(
         'Share care instructions or simply thank the customer for making an order.',
@@ -136,7 +136,7 @@ class PremiumTemplatesFactory {
   private function createPurchasedInCategoryTemplate(): AutomationTemplate {
     return new AutomationTemplate(
       'purchased-in-category',
-      AutomationTemplate::CATEGORY_WOOCOMMERCE,
+      'woocommerce',
       __('Purchased in a category', 'mailpoet-premium'),
       __(
         'Share care instructions or simply thank the customer for making an order.',

@@ -80,6 +80,7 @@ class SendEmailAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Send email', 'mailpoet');
   }
 

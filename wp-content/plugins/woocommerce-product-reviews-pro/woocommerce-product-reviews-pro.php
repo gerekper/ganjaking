@@ -6,11 +6,11 @@
  * Description: Extend WooCommerce product reviews to add video, photo, comment, and question contribution types, as well as review filtering, voting, and flagging.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.18.0
+ * Version: 1.19.1
  * Text Domain: woocommerce-product-reviews-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Product-Reviews-Pro
  * @author    SkyVerge
  * @category  Reviews
- * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 570800:43662c2508f9242c6ba1da8c535510a0
  * WC requires at least: 3.9.4
- * WC tested up to: 7.1.0
+ * WC tested up to: 8.3.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -46,7 +46,7 @@ class WC_Product_Reviews_Pro_Loader {
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.3';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Product Reviews Pro';

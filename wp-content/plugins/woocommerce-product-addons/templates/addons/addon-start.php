@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.4.5
+ * @version 6.5.1
  * @package woocommerce-product-addons
  */
 
@@ -20,6 +20,17 @@ $has_per_person_pricing = ( isset( $addon['wc_booking_person_qty_multiplier'] ) 
 $has_per_block_pricing  = ( ( isset( $addon['wc_booking_block_qty_multiplier'] ) && 1 === $addon['wc_booking_block_qty_multiplier'] ) || ( isset( $addon['wc_accommodation_booking_block_qty_multiplier'] ) && 1 === $addon['wc_accommodation_booking_block_qty_multiplier'] ) ) ? true : false;
 $product_title          = $product->get_name();
 $is_taxable             = $product->is_taxable();
+
+/*
+ * 'woocommerce_addons_product_page_container_classes' filter.
+ *
+ * Use this filter to add additional classes to the container add-on element.
+ *
+ * @param array      $classes
+ * @param array      $addon
+ * @param WC_Product $product
+ */
+$additional_classes = apply_filters( 'woocommerce_addons_product_page_container_classes', array(), $addon, $product );
 
 if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_price' !== $addon_type ) {
 	$price_prefix = 0 < $addon_price ? '+' : '';
@@ -54,7 +65,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 }
 ?>
 
-<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?> <?php echo isset( $addon[ 'id' ] ) ? 'wc-pao-addon-id-' . esc_attr( sanitize_title( $addon[ 'id' ] ) ) : ''; ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>" data-product-tax-status="<?php echo $is_taxable ? 'taxable' : 'none'; ?>">
+<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?> <?php echo isset( $addon[ 'id' ] ) ? 'wc-pao-addon-id-' . esc_attr( sanitize_title( $addon[ 'id' ] ) ) : ''; ?> <?php echo is_array( $additional_classes ) && ! empty( $additional_classes ) ? esc_attr( implode( ' ', $additional_classes ) ) : '' ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>" data-product-tax-status="<?php echo $is_taxable ? 'taxable' : 'none'; ?>">
 
 	<?php do_action( 'wc_product_addon_start', $addon ); ?>
 

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * NYP Compatibility.
  *
- * @version  6.2.2
+ * @version  6.22.5
  */
 class WC_PB_NYP_Compatibility {
 
@@ -169,7 +169,7 @@ class WC_PB_NYP_Compatibility {
 		// Set nyp suffix.
 		self::$nyp_suffix = $bundled_item_id;
 
-		$bundled_product_id = $bundled_item_stamp[ 'product_id' ];
+		$bundled_product_id = ! empty( $bundled_item_stamp[ 'variation_id' ] ) ? $bundled_item_stamp[ 'variation_id' ] : $bundled_item_stamp[ 'product_id' ]; // This needs to match the variation ID as well. 
 
 		$nyp_data = WC_Name_Your_Price()->cart->add_cart_item_data( $nyp_data, $bundled_product_id, '' );
 

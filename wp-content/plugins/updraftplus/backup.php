@@ -2465,7 +2465,7 @@ class UpdraftPlus_Backup {
 		// If it has changed, then preserve it in the job for the next resumption (of this table)
 		if ($fetch_rows_at_start !== $fetch_rows || $is_first_fetch_for_table) $updraftplus->jobdata_set('fetch_rows', $fetch_rows);
 
-		return $fetch_rows;
+		return apply_filters('updraftplus_number_of_rows_to_fetch', $fetch_rows, $table, $allow_further_reductions, $is_first_fetch_for_table, $expected_rows, $expected_via_count);
 
 	}
 

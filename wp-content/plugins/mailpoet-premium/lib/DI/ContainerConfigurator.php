@@ -58,6 +58,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Subscribers\SubscriberSegmentRepository::class);
     $this->registerFreeService($container, \MailPoet\Subscribers\SubscribersRepository::class);
     $this->registerFreeService($container, \MailPoet\WooCommerce\Helper::class);
+    $this->registerFreeService($container, \MailPoet\WooCommerce\WooCommerceSubscriptions\Helper::class);
     $this->registerFreeService($container, \MailPoet\WP\Functions::class);
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
@@ -121,6 +122,21 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger::class)->setPublic(true);
+
+    // Automation - WooCommerce Subscriptions integration
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\WooCommerceSubscriptionsIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\ContextFactory::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionCreatedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionStatusChangedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialStartedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionRenewedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionExpiredTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionPaymentFailedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Triggers\SubscriptionTrialEndedTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionSubject::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Subjects\WooCommerceSubscriptionStatusChangeSubject::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerceSubscriptions\Fields\SubscriptionFields::class)->setPublic(true);
+
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

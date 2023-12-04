@@ -886,7 +886,7 @@ class wfUtils {
 			}
 			$skipToNext = false;
 			if ($trustedProxies === null) {
-				$trustedProxies = explode("\n", wfConfig::get('howGetIPs_trusted_proxies', ''));
+				$trustedProxies = self::unifiedTrustedProxies();
 			}
 			foreach(array(',', ' ', "\t") as $char){
 				if(strpos($item, $char) !== false){
@@ -943,6 +943,29 @@ class wfUtils {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Returns an array of all trusted proxies, combining both the user-entered ones and those from the selected preset.
+	 * 
+	 * @return string[]
+	 */
+	public static function unifiedTrustedProxies() {
+		$trustedProxies = explode("\n", wfConfig::get('howGetIPs_trusted_proxies', ''));
+		
+		$preset = wfConfig::get('howGetIPs_trusted_proxy_preset');
+		$presets = wfConfig::getJSON('ipResolutionList', array());
+		if (is_array($presets) && isset($presets[$preset])) {
+			$testIPs = array_merge($presets[$preset]['ipv4'], $presets[$preset]['ipv6']);
+			foreach ($testIPs as $val) {
+				if (strlen($val) > 0) {
+					if (wfUtils::isValidIP($val) || wfUtils::isValidCIDRRange($val)) {
+						$trustedProxies[] = $val;
+					}
+				}
+			}
+		}
+		return $trustedProxies;
 	}
 
 	/**

@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2023.11.29 - version 6.22.5
+* Fix - Resolved PHP notice triggered when using Product Bundles together with Payment Plugins for Stripe WooCommerce.
+* Fix - Fixed incorrect cart price for Name Your Price bundled variation.
+* Fix - Resolved an issue with adding Bundles with optional items to orders via the mobile app.
+
 2023.10.17 - version 6.22.4
 * Tweak - Re-designed Product Data > Shipping notice about Unassembled Bundles.
 * Tweak - Declared compatibility with the cart/checkout Blocks.

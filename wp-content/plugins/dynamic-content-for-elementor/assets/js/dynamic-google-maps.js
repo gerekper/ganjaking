@@ -27,6 +27,8 @@
 			var latitude = parseFloat( positions[0].lat ) || 0;
 			var longitude = parseFloat( positions[0].lng ) || 0;
 			var lastWindow = null;
+			var openInfoWindow = null;
+			var openInfoWindows = {};
 			var elementSettings = dceGetElementSettings($scope);
 			var markerWidth = elementSettings.marker_width || 0;
 			var markerHeight = elementSettings.marker_height || 0;
@@ -162,13 +164,26 @@
 
 							markers.push(marker);
 							bounds.extend(marker.position);
-
+							
 							if (elementSettings.enable_infoWindow) {
+								if (elementSettings.infoWindow_click_outside) {
+									document.body.addEventListener('click', function (e) {
+										var marker_clicked = e.target.tagName == "AREA";
+										var mouse_on_info_window = (e.target.className === 'gm-style-iw-d')
+										if (openInfoWindows.infoWindow && openInfoWindows.isOpen  && !marker_clicked ) {
+											openInfoWindows.infoWindow.close();
+											openInfoWindows.isOpen = false;		
+										}
+									});
+								}
 								google.maps.event.addListener(marker, 'click', (function (marker, k) {
-									return function () {
+									return function (e) {
+										
+										
 										if (elementSettings.infoWindow_click_to_post) {
 											window.location = positions[k]['link'];
 										} else {
+											
 											var iwOptions = {
 												content: positions[k]['infowindow'],
 											}
@@ -182,8 +197,12 @@
 											}
 											infoWindowMap.open(map, marker);
 											lastWindow = infoWindowMap;
+											openInfoWindows.isOpen = true;
+											openInfoWindows.infoWindow = lastWindow;
 										}
 									}
+
+									
 								})(marker, i));
 							}
 						}
@@ -239,6 +258,7 @@
 			}
 
 			function infoWindow(marker) {
+				marker.isMarker = true;
 				if (elementSettings.enable_infoWindow ) {
 					if( elementSettings.infoWindow_click_to_url && elementSettings.infoWindow_url ) {
 						marker.addListener('click', function () {
@@ -254,8 +274,22 @@
 						var infoWindowMap = new google.maps.InfoWindow(iwOptions);
 
 						marker.addListener('click', function () {
+							
 							infoWindowMap.open(map, marker);
+							openInfoWindow = infoWindowMap;
 						});
+						if (elementSettings.infoWindow_click_outside) {
+							document.body.addEventListener('click', function (e) {
+								if (openInfoWindow && marker.isMarker) {
+									marker.isMarker = false;
+								}else{
+									marker.isMarker = true;
+									openInfoWindow.close();
+									openInfoWindow = null;
+								}
+							});
+						}
+						
 					}
 				}
 			}

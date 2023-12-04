@@ -46,7 +46,22 @@ foreach ($diagnostic->getResults() as $title => $tests):
 			$message = '[FAIL] ';
 		}
 
-		$message .= strip_tags($result['message'] . (isset($result['detail']) && !empty($result['detail']) ? "\nAdditional Detail:\n" . $result['detail'] : ''));
+		if (is_array($result['message'])) {
+			$message .= $result['message']['textonly'];
+		}
+		else {
+			$message .= strip_tags($result['message']);
+		}
+		
+		if (isset($result['detail']) && !empty($result['detail'])) {
+			$message .= "\nAdditional Detail:\n";
+			if (is_array($result['detail'])) {
+				$message .= $result['detail']['textonly'];
+			}
+			else {
+				$message .= strip_tags($result['detail']);
+			}
+		}
 
 		$table[] = array(
 			strip_tags((is_array($result['label']) && isset($result['label']['raw']) && $result['label']['raw']) ? $result['label']['value'] : $result['label']),
@@ -104,9 +119,18 @@ foreach (wfUtils::getAllServerVariableIPs() as $variable => $ip) {
 	);
 }
 
+$proxies = wfConfig::get('howGetIPs_trusted_proxies', '');
 $table[] = array(
 	__('Trusted Proxies', 'wordfence'),
-	strip_tags(implode(', ', explode("\n", wfConfig::get('howGetIPs_trusted_proxies', '')))),
+	strip_tags(implode(', ', explode("\n", empty($proxies) ? __('(not set)', 'wordfence') : $proxies))),
+	'',
+);
+
+$preset = wfConfig::get('howGetIPs_trusted_proxy_preset'); 
+$presets = wfConfig::getJSON('ipResolutionList', array()); 
+$table[] = array(
+	__('Trusted Proxy Preset', 'wordfence'),
+	strip_tags((is_array($presets) && isset($presets[$preset])) ? $presets[$preset]['name'] : __('(not set)', 'wordfence')),
 	'',
 );
 
@@ -340,8 +364,8 @@ echo wfHelperString::plainTextTable($table) . "\n\n";
 global $wpdb;
 $wfdb = new wfDB();
 //This must be done this way because MySQL with InnoDB tables does a full regeneration of all metadata if we don't. That takes a long time with a large table count.
-$tables = $wfdb->querySelect('SELECT SQL_CALC_FOUND_ROWS TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() ORDER BY TABLE_NAME ASC LIMIT 250');
-$total = $wfdb->querySingle('SELECT FOUND_ROWS()');
+$tables = $wfdb->querySelect('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() ORDER BY TABLE_NAME ASC LIMIT 250');
+$total = $wfdb->querySingle('SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() LIMIT 250');
 foreach ($tables as &$t) {
 	$t = "'" . esc_sql($t['TABLE_NAME']) . "'";
 }
@@ -389,8 +413,11 @@ if ($q) {
 		} else {
 			printf(/* translators: 1. WordPress table prefix. 2. Wordfence tables. */ __('Tables missing (prefix %1$s, %2$s): %s', 'wordfence'), wfDB::networkPrefix(), wfSchema::usingLowercase() ? __('lowercase', 'wordfence') : __('regular case', 'wordfence'), implode(', ', $missingTables));
 		}
-		echo "\n";
 	}
+	
+	echo "\n";
+	printf(/* translators: 1. Number of tables */ _n('%1$s Table in Database', '%1$s Tables in Database', $total, 'wordfence' ), $total );
+	echo "\n";
 
 	$val = wfUtils::array_first($q);
 	$actualKeyOrder = array_keys($val);

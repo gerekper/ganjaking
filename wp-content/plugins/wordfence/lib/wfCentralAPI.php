@@ -567,6 +567,8 @@ class wfCentral {
 				$scan = array();
 			}
 		}
+		
+		wfScanner::shared()->flushSummaryItems();
 
 		$siteID = wfConfig::get('wordfenceCentralSiteID');
 		$running = wfScanner::shared()->isRunning();

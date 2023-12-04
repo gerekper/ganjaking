@@ -32,7 +32,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '3.0.0';
+    public $version = '3.0.1';
 
     /**
      * Plugin DB Version
@@ -172,7 +172,7 @@ final class Plugin {
         $_betterdocs_installed = Helper::get_plugins( $plugin );
         $button_text           = $_betterdocs_installed ? __( 'Activate Now', 'betterdocs-pro' ) : __( 'Install Now', 'betterdocs-pro' );
 
-        $button_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+        $button_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=betterdocs' ), 'install-plugin_betterdocs' );
         if ( $_betterdocs_installed ) {
             $button_url = wp_nonce_url(
                 'plugins.php?action=activate&amp;plugin=' . $plugin . '&amp;plugin_status=all&amp;paged=1&amp;s',

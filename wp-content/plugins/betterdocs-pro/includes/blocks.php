@@ -5,6 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use WPDeveloper\BetterDocsPro\Editors\BlockEditor\Blocks\MultipleKB;
+use WPDeveloper\BetterDocsPro\Editors\BlockEditor\Blocks\AdvancedSearch;
+
+add_filter('betterdocs_pro_blocks_config', function($blocks){
+    $blocks['searchform']['object'] = AdvancedSearch::class;
+    return $blocks;
+});
 
 return [
     'multiple-kb'       => [

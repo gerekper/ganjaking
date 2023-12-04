@@ -40,6 +40,7 @@ class OrderStatusChangedTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Order status changed', 'mailpoet');
   }
 

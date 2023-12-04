@@ -5,7 +5,7 @@ Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, 
 Requires at least: 4.0
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.0.1 - 03/12/2023 =
+
+- Fixed: Instant Answers Showing different color for Homepage and Docs page
+- Fixed: Instant Answers Select Docs - All not showing any docs
+- Fixed: Multiple KB translation URL doesn't work
+- Added: Advanced Search Block
+- Few minor bug fixes & improvements
 
 = 3.0.0 - 05/11/2023 =
 

@@ -26,6 +26,7 @@ $display_required_setting_class  = 'show';
 $display_restrictions_select_col = 'hide';
 $display_display_col             = 'show';
 $decimal_separator               = wc_get_price_decimal_separator();
+$max_length_warning              = __( 'Add-on title is too long. Please use up to 255 characters.', 'woocommerce-product-addons' );
 
 if ( 'multiple_choice' !== $addon_type && 'checkbox' !== $addon_type ) {
 	$display_option_rows_class     = 'hide';
@@ -43,12 +44,14 @@ if ( 'custom_text' === $addon_type ) {
 if ( 'heading' === $addon_type ) {
 	$show_heading_col = 'hide';
 }
+
 ?>
 <div class="wc-pao-addon wc-metabox closed">
 	<h3 class="wc-pao-addon-header">
 		<div class="wc-pao-col1">
 			<h2 class="wc-pao-addon-name"><?php echo esc_html( $addon_title ); ?></h2>
 			<small class="wc-pao-addon-type"><?php echo esc_html( $addon_type_formatted ); ?></small>
+			<?php echo ( strlen( $addon_title ) > 255 ) ? sprintf( '<div class="woocommerce-help-tip addons-max-length-title" data-tip="%s"></div>', esc_attr( $max_length_warning ) ) : ''; ?>
 		</div>
 		<div class="wc-pao-col2"><?php
 			if ( isset( $id ) && ! empty( $id ) ) {

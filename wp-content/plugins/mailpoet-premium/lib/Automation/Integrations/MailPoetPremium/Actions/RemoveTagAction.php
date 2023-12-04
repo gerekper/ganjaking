@@ -43,6 +43,7 @@ class RemoveTagAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Remove tag', 'mailpoet-premium');
   }
 

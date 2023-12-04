@@ -1,4 +1,0 @@
-
-jQuery(document).ready(function($){$('.js-woo-allowed-users-settings').select2({ajax:{placeholder:'Allowed  users',url:ajaxurl,dataType:'json',delay:250,data:function(params){return{q:params.term,action:'redsys_get_users_settings_search_users'};},processResults:function(data){var options=[];if(data){$.each(data,function(index,text){options.push({id:text[0],text:text[1]});});}
-return{results:options};},cache:true},minimumInputLength:3});$('.js-woo-show-gateway-test-settings').select2({ajax:{placeholder:'Allowed  users',url:ajaxurl,dataType:'json',delay:250,data:function(params){return{q:params.term,action:'redsys_get_users_settings_search_users_show_gateway'};},processResults:function(data){var options=[];if(data){$.each(data,function(index,text){options.push({id:text[0],text:text[1]});});}
-return{results:options};},cache:true},minimumInputLength:3});});

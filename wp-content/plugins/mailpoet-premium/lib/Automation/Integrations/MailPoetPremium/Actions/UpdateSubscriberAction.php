@@ -37,6 +37,7 @@ class UpdateSubscriberAction implements Action {
   }
 
   public function getName(): string {
+    // translators: automation action title
     return __('Update subscriber', 'mailpoet-premium');
   }
 

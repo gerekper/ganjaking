@@ -42,6 +42,7 @@ class TagRemovedTrigger implements Trigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Tag removed', 'mailpoet-premium');
   }
 

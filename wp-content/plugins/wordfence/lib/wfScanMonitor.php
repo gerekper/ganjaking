@@ -120,8 +120,8 @@ class wfScanMonitor {
 	}
 
 	public static function registerActions() {
-		add_filter('cron_schedules', array(get_class(), 'registerCronInterval'));
-		add_action(self::CRON_HOOK, array(get_class(), 'monitorScan'));
+		add_filter('cron_schedules', array(self::class, 'registerCronInterval'));
+		add_action(self::CRON_HOOK, array(self::class, 'monitorScan'));
 	}
 
 	public static function handleDeactivation() {

@@ -16,6 +16,7 @@ class OrderCompletedTrigger extends OrderStatusChangedTrigger {
   }
 
   public function getName(): string {
+    // translators: automation trigger title
     return __('Order completed', 'mailpoet');
   }
 

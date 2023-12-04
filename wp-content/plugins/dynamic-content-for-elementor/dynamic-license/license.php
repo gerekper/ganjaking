@@ -354,7 +354,7 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
         public function call_api(string $action, string $license_key, string $domain)
         {
             global $wp_version;
-            $args = ['woo_sl_action' => $action, 'licence_key' => $license_key, 'product_unique_id' => $this->plugin['product_unique_id'], 'domain' => $domain, 'api_version' => '1.1', 'wp-version' => $wp_version, 'version' => $this->plugin['version']];
+            $args = ['woo_sl_action' => $action, 'licence_key' => $license_key, 'product_unique_id' => $this->plugin['product_unique_id'], 'domain' => $domain, 'api_version' => '1.1', 'wp-version' => $wp_version, 'version' => $this->plugin['version'], 'is_multisite' => is_multisite(), 'php' => \PHP_VERSION];
             $request_uri = $this->plugin['license_url'] . '/api.php?' . \http_build_query($args);
             $data = wp_remote_get($request_uri);
             if (is_wp_error($data)) {

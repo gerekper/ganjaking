@@ -5,8 +5,8 @@ namespace WPDeveloper\BetterDocsPro\Core;
 use WPDeveloper\BetterDocs\Core\Scripts as FreeScripts;
 
 class Scripts extends FreeScripts {
-    public function init(){
-        $assets = parent::init();
+    public function init() {
+        $assets     = parent::init();
         $pro_assets = betterdocs_pro()->assets;
 
         // Shortcode CSS
@@ -18,5 +18,7 @@ class Scripts extends FreeScripts {
         $pro_assets->register( 'betterdocs-related-categories', 'public/js/related-categories.js' );
 
         $pro_assets->register( 'betterdocs-pro', 'public/js/betterdocs.js' );
+
+        $pro_assets->register( 'advanced-search', 'blocks/advanced-search/advanced-search.js', ['betterdocs-blocks-editor'] );
     }
 }

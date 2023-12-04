@@ -31,6 +31,7 @@ class CustomerSubject implements Subject {
   }
 
   public function getName(): string {
+    // translators: automation subject (entity entering automation) title
     return __('WooCommerce customer', 'mailpoet');
   }
 

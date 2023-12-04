@@ -80,6 +80,9 @@ class PageRenderer {
   /** @var WooCommerce\Helper */
   private $wooCommerceHelper;
 
+  /** @var WooCommerce\WooCommerceSubscriptions\Helper */
+  private $wooCommerceSubscriptionsHelper;
+
   public function __construct(
     Bridge $bridge,
     Renderer $renderer,
@@ -96,7 +99,8 @@ class PageRenderer {
     TransientCache $transientCache,
     WPFunctions $wp,
     AssetsController $assetsController,
-    WooCommerce\Helper $wooCommerceHelper
+    WooCommerce\Helper $wooCommerceHelper,
+    WooCommerce\WooCommerceSubscriptions\Helper $wooCommerceSubscriptionsHelper
   ) {
     $this->bridge = $bridge;
     $this->renderer = $renderer;
@@ -114,6 +118,7 @@ class PageRenderer {
     $this->wp = $wp;
     $this->assetsController = $assetsController;
     $this->wooCommerceHelper = $wooCommerceHelper;
+    $this->wooCommerceSubscriptionsHelper = $wooCommerceSubscriptionsHelper;
   }
 
   /**
@@ -163,6 +168,7 @@ class PageRenderer {
       'send_transactional_emails' => (bool)$this->settings->get('send_transactional_emails'),
       'transactional_emails_opt_in_notice_dismissed' => (bool)$this->userFlags->get('transactional_emails_opt_in_notice_dismissed'),
       'track_wizard_loaded_via_woocommerce' => (bool)$this->settings->get(WelcomeWizard::TRACK_LOADDED_VIA_WOOCOMMERCE_SETTING_NAME),
+      'track_wizard_loaded_via_woocommerce_marketing_dashboard' => (bool)$this->settings->get(WelcomeWizard::TRACK_LOADDED_VIA_WOOCOMMERCE_MARKETING_DASHBOARD_SETTING_NAME),
       'mail_function_enabled' => function_exists('mail') && is_callable('mail'),
       'admin_plugins_url' => WPFunctions::get()->adminUrl('plugins.php'),
 
@@ -203,6 +209,7 @@ class PageRenderer {
         ];
       }, $this->tagRepository->findAll()),
       'display_docsbot_widget' => $this->displayDocsBotWidget(),
+      'is_woocommerce_subscriptions_active' => $this->wooCommerceSubscriptionsHelper->isWooCommerceSubscriptionsActive(),
     ];
 
     if (!$defaults['premium_plugin_active']) {
