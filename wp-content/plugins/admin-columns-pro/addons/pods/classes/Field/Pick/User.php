@@ -7,8 +7,6 @@ use AC\Collection;
 use AC\Settings;
 use ACA\Pods\Editing;
 use ACA\Pods\Field;
-use ACA\Pods\Filtering;
-use ACA\Pods\Search;
 use ACP;
 use ACP\Sorting\FormatValue\SerializedSettingFormatter;
 use ACP\Sorting\FormatValue\SettingFormatter;
@@ -67,8 +65,10 @@ class User extends Field\Pick
             new Editing\Storage\Read\DbRaw($this->get_meta_key(), $this->get_meta_type())
         );
         $args = [];
-        if ($this->get_option('pick_user_role')) {
-            $args['role__in'] = $this->get_option('pick_user_role');
+
+        $user_roles = $this->get_user_roles();
+        if ($user_roles) {
+            $args['role__in'] = $user_roles;
         }
 
         $paginated = new ACP\Editing\PaginatedOptions\Users($args);
@@ -78,18 +78,11 @@ class User extends Field\Pick
             : new ACP\Editing\Service\User($view, $storage, $paginated);
     }
 
-    public function filtering()
+    public function get_user_roles(): array
     {
-        return new Filtering\PickUsers($this->column());
-    }
+        $roles = $this->get_option('pick_user_role');
 
-    public function search()
-    {
-        return new Search\PickUser(
-            $this->column()->get_meta_key(),
-            $this->column()->get_meta_type(),
-            $this->get_option('pick_user_role')
-        );
+        return $roles ? (array)$roles : [];
     }
 
     public function get_users($user_ids)

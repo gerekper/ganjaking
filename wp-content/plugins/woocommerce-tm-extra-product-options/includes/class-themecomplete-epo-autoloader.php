@@ -31,13 +31,13 @@ class THEMECOMPLETE_EPO_Autoloader {
 	/**
 	 * Take a class name and turn it into a file name
 	 *
-	 * @param string $class Class name.
-	 * @param boolean   $no_prepend Flag to indicate not to prepend the class name.
-	 * @param boolean   $no_replace Flag to indicate not to replace the class name.
+	 * @param string  $class_name Class name.
+	 * @param boolean $no_prepend Flag to indicate not to prepend the class name.
+	 * @param boolean $no_replace Flag to indicate not to replace the class name.
 	 *
 	 * @return string
 	 */
-	private function get_file_name_from_class( $class, $no_prepend = false, $no_replace = false ) {
+	private function get_file_name_from_class( $class_name, $no_prepend = false, $no_replace = false ) {
 
 		if ( $no_prepend ) {
 			$prepend = '';
@@ -46,11 +46,11 @@ class THEMECOMPLETE_EPO_Autoloader {
 		}
 
 		if ( $no_replace ) {
-			$replace = $class;
+			$replace = $class_name;
 		} else {
-			$replace = str_replace( '_', '-', $class );
+			$replace = str_replace( '_', '-', $class_name );
 		}
-		return $prepend . str_replace( '_', '-', $class ) . '.php';
+		return $prepend . str_replace( '_', '-', $class_name ) . '.php';
 	}
 
 	/**
@@ -58,7 +58,7 @@ class THEMECOMPLETE_EPO_Autoloader {
 	 *
 	 * @param  string $path File path.
 	 *
-	 * @return bool Successful or not.
+	 * @return boolean Successful or not.
 	 */
 	private function load_file( $path ) {
 		if ( $path && is_readable( $path ) ) {
@@ -73,28 +73,27 @@ class THEMECOMPLETE_EPO_Autoloader {
 	/**
 	 * Auto-load WC classes on demand to reduce memory consumption
 	 *
-	 * @param string $class Class name.
+	 * @param string $class_name Class name.
 	 * @return void
 	 */
-	public function autoload( $class ) {
-
+	public function autoload( $class_name ) {
 		$path           = null;
-		$original_class = $class;
-		$class          = strtolower( $class );
-		$file           = $this->get_file_name_from_class( $class );
+		$original_class = $class_name;
+		$class_name     = strtolower( $class_name );
+		$file           = $this->get_file_name_from_class( $class_name );
 
-		if ( 0 === strpos( $class, 'themecomplete_epo_fields' ) ) {
+		if ( 0 === strpos( $class_name, 'themecomplete_epo_fields' ) ) {
 			$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'fields/';
-		} elseif ( 0 === strpos( $class, 'themecomplete_epo_admin_' ) ) {
+		} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_admin_' ) ) {
 			$path = THEMECOMPLETE_EPO_ADMIN_PATH;
-		} elseif ( 0 === strpos( $class, 'themecomplete_extra_' ) ) {
+		} elseif ( 0 === strpos( $class_name, 'themecomplete_extra_' ) ) {
 			$path = THEMECOMPLETE_EPO_INCLUDES_PATH;
-		} elseif ( 0 === strpos( $class, 'themecomplete_epo_' ) ) {
-			if ( 0 === strpos( $class, 'themecomplete_epo_compatibility_base' ) ) {
+		} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_' ) ) {
+			if ( 0 === strpos( $class_name, 'themecomplete_epo_compatibility_base' ) ) {
 				$path = THEMECOMPLETE_EPO_COMPATIBILITY_PATH;
-			} elseif ( 0 === strpos( $class, 'themecomplete_epo_cp' ) ) {
+			} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_cp' ) ) {
 				$path = THEMECOMPLETE_EPO_COMPATIBILITY_PATH . 'classes/';
-			} elseif ( 0 === strpos( $class, 'themecomplete_epo_builder_element' ) ) {
+			} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_builder_element' ) ) {
 				$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'classes/builder/';
 			} else {
 				$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'classes/';
@@ -107,9 +106,7 @@ class THEMECOMPLETE_EPO_Autoloader {
 		if ( $path ) {
 			$this->load_file( $path . $file );
 		}
-
 	}
-
 }
 
 new THEMECOMPLETE_EPO_Autoloader();

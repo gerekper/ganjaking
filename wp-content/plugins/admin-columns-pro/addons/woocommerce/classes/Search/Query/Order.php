@@ -2,10 +2,10 @@
 
 namespace ACA\WC\Search\Query;
 
-use ACP\Search;
-use ACP\Search\Query\Bindings\QueryArguments;
+use ACP\Query;
+use ACP\Query\Bindings\QueryArguments;
 
-final class Order extends Search\Query
+final class Order extends Query
 {
 
     public function register(): void

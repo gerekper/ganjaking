@@ -19,13 +19,13 @@ class Checkbox extends ACP\Search\Comparison\Meta implements ACP\Search\Comparis
 	 */
 	private $value_is_array;
 
-	public function __construct( $meta_key, $meta_type, array $choices, $value_is_array ) {
+	public function __construct( $meta_key, array $choices, $value_is_array ) {
 		parent::__construct( new Operators( [
 			Operators::EQ,
 			Operators::NEQ,
 			Operators::IS_EMPTY,
 			Operators::NOT_IS_EMPTY,
-		] ), $meta_key, $meta_type );
+		] ), $meta_key );
 
 		$this->choices = $choices;
 		$this->value_is_array = (bool) $value_is_array;
@@ -47,7 +47,7 @@ class Checkbox extends ACP\Search\Comparison\Meta implements ACP\Search\Comparis
 	 *
 	 * @return array
 	 */
-	protected function get_meta_query( $operator, Value $value ) {
+	protected function get_meta_query( string $operator, Value $value ): array {
 		$operators = [
 			Operators::EQ  => 'LIKE',
 			Operators::NEQ => 'LIKE',
@@ -65,7 +65,7 @@ class Checkbox extends ACP\Search\Comparison\Meta implements ACP\Search\Comparis
 		return $comparison();
 	}
 
-	public function get_values() {
+	public function get_values(): Options {
 		return Options::create_from_array( $this->choices );
 	}
 

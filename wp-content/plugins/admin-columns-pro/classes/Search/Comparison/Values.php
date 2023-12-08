@@ -2,13 +2,10 @@
 
 namespace ACP\Search\Comparison;
 
-use AC;
+use AC\Helper\Select\Options;
 
 interface Values {
 
-	/**
-	 * @return AC\Helper\Select\Options
-	 */
-	public function get_values();
+	public function get_values(): Options;
 
 }

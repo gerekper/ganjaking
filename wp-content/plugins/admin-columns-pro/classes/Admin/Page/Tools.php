@@ -2,14 +2,16 @@
 
 namespace ACP\Admin\Page;
 
+use AC;
 use AC\Admin\RenderableHead;
+use AC\Admin\ScreenOptions;
 use AC\Asset;
 use AC\Asset\Assets;
 use AC\Asset\Location;
 use AC\Renderable;
 use AC\View;
 
-class Tools implements Asset\Enqueueables, Renderable, RenderableHead
+class Tools implements Asset\Enqueueables, Renderable, RenderableHead, ScreenOptions
 {
 
     public const NAME = 'import-export';
@@ -64,6 +66,9 @@ class Tools implements Asset\Enqueueables, Renderable, RenderableHead
                 'select_all' => __('Select / Deselect All', 'codepress-admin-columns'),
             ])
         );
+        $script->add_inline_variable('AC', [
+            '_ajax_nonce' => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+        ]);
 
         $assets = new Asset\Assets([
             new Asset\Style('acp-style-tools', $this->location->with_suffix('assets/core/css/admin-tools.css')),
@@ -79,15 +84,49 @@ class Tools implements Asset\Enqueueables, Renderable, RenderableHead
         return $assets;
     }
 
+    private function get_attr_class(): string
+    {
+        $classes = [];
+
+        if ($this->option_id()->is_active()) {
+            $classes[] = 'show-list-screen-id';
+        }
+
+        if ($this->option_source()->is_active()) {
+            $classes[] = 'show-list-screen-source';
+        }
+
+        return implode(' ', $classes);
+    }
+
     public function render(): string
     {
         $view = new View([
-            'sections' => $this->sections,
+            'sections'   => $this->sections,
+            'attr_class' => $this->get_attr_class(),
         ]);
 
         $view->set_template('admin/page/tools');
 
         return $view->render();
+    }
+
+    private function option_source(): AC\Admin\ScreenOption\ListScreenSource
+    {
+        return new AC\Admin\ScreenOption\ListScreenSource(new AC\Admin\Preference\ScreenOptions());
+    }
+
+    private function option_id(): AC\Admin\ScreenOption\ListScreenId
+    {
+        return new AC\Admin\ScreenOption\ListScreenId(new AC\Admin\Preference\ScreenOptions());
+    }
+
+    public function get_screen_options(): array
+    {
+        return [
+            $this->option_id(),
+            $this->option_source(),
+        ];
     }
 
 }

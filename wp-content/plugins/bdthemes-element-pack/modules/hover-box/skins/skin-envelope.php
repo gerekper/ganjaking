@@ -123,29 +123,12 @@ class Skin_Envelope extends Elementor_Skin_Base {
 					}
 
 					$this->parent->add_render_attribute( 'bdt-ep-hover-box-title', 'class', 'bdt-ep-hover-box-title', true );
-					$this->parent->add_render_attribute(
-						[
-							'title-link' => [
-								'class' => [
-									'bdt-ep-hover-box-title-link',
-								],
-								'href'   => $item['title_link']['url'] ? esc_url($item['title_link']['url']) : 'javascript:void(0);',
-								'target' => $item['title_link']['is_external'] ? '_blank' : '_self'
-							]
-						], '', '', true
-					);
 
-					$this->parent->add_render_attribute(
-						[
-							'button-link' => [
-								'class' => [
-									'bdt-ep-hover-box-title',
-								],
-								'href'   => $item['button_link']['url'] ? esc_url($item['button_link']['url']) : 'javascript:void(0);',
-								'target' => $item['button_link']['is_external'] ? '_blank' : '_self'
-							]
-						], '', '', true
-					);
+					$title_key = 'title_' . $index;
+					$button_key = 'button_' . $index;
+					$this->parent->add_render_attribute($title_key, 'class', 'bdt-ep-hover-box-title-link', true);
+					$this->parent->add_link_attributes($title_key, $item['title_link']);
+					$this->parent->add_link_attributes($button_key, $item['button_link']);
 					
 					?>
 					<div>
@@ -169,7 +152,7 @@ class Skin_Envelope extends Elementor_Skin_Base {
 									<<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->parent->get_render_attribute_string('bdt-ep-hover-box-title'); ?>>
 										
 										<?php if ( '' !== $item['title_link']['url'] ) : ?>
-											<a <?php echo $this->parent->get_render_attribute_string( 'title-link' ); ?>>
+											<a <?php echo $this->parent->get_render_attribute_string( $title_key ); ?>>
 										<?php endif; ?>
 											<?php echo wp_kses( $item['hover_box_title'], element_pack_allow_tags('title') ); ?>
 										<?php if ( '' !== $item['title_link']['url'] ) : ?>
@@ -187,7 +170,7 @@ class Skin_Envelope extends Elementor_Skin_Base {
 
 								<?php if ($item['hover_box_button'] && ( 'yes' == $settings['show_button'] )) : ?>
 									<div class="bdt-ep-hover-box-button">
-										<a <?php echo $this->parent->get_render_attribute_string( 'button-link' ); ?>>
+										<a <?php echo $this->parent->get_render_attribute_string( $button_key ); ?>>
 											<?php echo wp_kses_post($item['hover_box_button']); ?>
 										</a>
 									</div>

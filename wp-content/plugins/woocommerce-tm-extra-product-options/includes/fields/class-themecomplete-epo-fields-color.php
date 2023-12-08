@@ -20,12 +20,16 @@ class THEMECOMPLETE_EPO_FIELDS_color extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
-
+		$class_label = '';
+		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+			$class_label = ' fullwidth';
+		}
 		$display = [
 			'default_value'     => $this->get_value( $element, 'default_value', '' ),
 			'get_default_value' => $this->get_default_value( $element, $args ),
@@ -33,6 +37,7 @@ class THEMECOMPLETE_EPO_FIELDS_color extends THEMECOMPLETE_EPO_FIELDS {
 			'textafterprice'    => $this->get_value( $element, 'text_after_price', '' ),
 			'hide_amount'       => $this->get_value( $element, 'hide_amount', '' ),
 			'quantity'          => $this->get_value( $element, 'quantity', '' ),
+			'class_label'       => $class_label,
 		];
 
 		return apply_filters( 'wc_epo_display_field_color', $display, $this, $element, $args );
@@ -41,6 +46,7 @@ class THEMECOMPLETE_EPO_FIELDS_color extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -75,5 +81,4 @@ class THEMECOMPLETE_EPO_FIELDS_color extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

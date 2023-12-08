@@ -2,10 +2,11 @@
 
 namespace ACA\BbPress\Editing\Service\Topic;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing;
 use ACP\Editing\View;
 use ACP\Helper\Select;
+use ACP\Helper\Select\Post\PaginatedFactory;
 
 class Forum implements Editing\PaginatedOptions, Editing\Service {
 
@@ -30,17 +31,12 @@ class Forum implements Editing\PaginatedOptions, Editing\Service {
 		return ( new View\AjaxSelect() )->set_multiple( false )->set_clear_button( true );
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		$entities = new Select\Entities\Post( [
-			's'         => $s,
-			'paged'     => $paged,
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			's'         => $search,
+			'paged'     => $page,
 			'post_type' => 'forum',
 		] );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Formatter\PostTitle( $entities )
-		);
 	}
 
 }

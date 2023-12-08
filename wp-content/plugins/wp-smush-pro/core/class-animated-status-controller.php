@@ -33,7 +33,7 @@ class Animated_Status_Controller extends Controller {
 			$this,
 			'maybe_update_animated_status_on_upload',
 		) );
-		$this->register_action( 'wp_smush_before_smush_file', array(
+		$this->register_action( 'wp_smush_before_smush_attempt', array(
 			$this,
 			'maybe_update_animated_status_before_optimization',
 		) );

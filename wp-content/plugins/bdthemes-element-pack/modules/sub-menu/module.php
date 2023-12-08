@@ -49,7 +49,7 @@ class ep_sub_menu_menu_walker extends \Walker_Nav_Menu {
 		}
 
 		if ($item->current || $item->current_item_parent || $item->current_item_ancestor) {
-			// $classes[] = ' mm-active';
+			$classes[] = ' active';
 		}
 		if ($item->dropdown_child && $depth > 0) {
 			$classes[] = ' sub-dropdown';

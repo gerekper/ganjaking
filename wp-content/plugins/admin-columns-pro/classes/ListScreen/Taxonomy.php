@@ -13,13 +13,12 @@ use ACP\Column;
 use ACP\Editing;
 use ACP\Editing\BulkDelete\Deletable;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
 
 class Taxonomy extends AC\ListScreen
-    implements Editing\ListScreen, Export\ListScreen, Filtering\ListScreen, Sorting\ListScreen,
+    implements Editing\ListScreen, Export\ListScreen, Sorting\ListScreen,
                Editing\BulkDelete\ListScreen, AC\ListScreen\ManageValue, AC\ListScreen\ListTable
 {
 
@@ -33,8 +32,7 @@ class Taxonomy extends AC\ListScreen
 
         $this->taxonomy = $taxonomy;
         $this->group = 'taxonomy';
-
-        $this->set_meta_type(MetaType::TERM);
+        $this->meta_type = MetaType::TERM;
     }
 
     public function get_taxonomy(): string
@@ -126,14 +124,9 @@ class Taxonomy extends AC\ListScreen
         return new Editing\Strategy\Taxonomy();
     }
 
-    public function deletable()
+    public function deletable(): Deletable
     {
         return new Deletable\Taxonomy($this->taxonomy);
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\Taxonomy($model);
     }
 
     public function sorting(AbstractModel $model): Strategy

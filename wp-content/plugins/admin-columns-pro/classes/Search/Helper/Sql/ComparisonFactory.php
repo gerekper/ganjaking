@@ -6,55 +6,50 @@ use ACP\Search\Operators;
 use ACP\Search\Value;
 use LogicException;
 
-final class ComparisonFactory {
+final class ComparisonFactory
+{
 
-	/**
-	 * @param string $column
-	 * @param string $operator
-	 * @param Value  $value
-	 *
-	 * @return Comparison
-	 */
-	public static function create( $column, $operator, Value $value ) {
-		$operators = [
-			Operators::EQ           => '=',
-			Operators::NEQ          => '!=',
-			Operators::LT           => '<',
-			Operators::LTE          => '<=',
-			Operators::GT           => '>',
-			Operators::GTE          => '>=',
-			Operators::IS_EMPTY     => '=',
-			Operators::NOT_IS_EMPTY => '!=',
-		];
+    public static function create(string $column, string $operator, Value $value): Comparison
+    {
+        $operators = [
+            Operators::EQ           => '=',
+            Operators::NEQ          => '!=',
+            Operators::LT           => '<',
+            Operators::LTE          => '<=',
+            Operators::GT           => '>',
+            Operators::GTE          => '>=',
+            Operators::IS_EMPTY     => '=',
+            Operators::NOT_IS_EMPTY => '!=',
+        ];
 
-		if ( array_key_exists( $operator, $operators ) ) {
-			return new Comparison( $column, $operators[ $operator ], $value );
-		}
+        if (array_key_exists($operator, $operators)) {
+            return new Comparison($column, $operators[$operator], $value);
+        }
 
-		$operators = [
-			Operators::CONTAINS     => 'Contains',
-			Operators::NOT_CONTAINS => 'NotContains',
-			Operators::BEGINS_WITH  => 'BeginsWith',
-			Operators::ENDS_WITH    => 'EndsWith',
-			Operators::IN           => 'In',
-			Operators::NOT_IN       => 'NotIn',
-			Operators::BETWEEN      => 'Between',
-			Operators::TODAY        => 'Today',
-			Operators::FUTURE       => 'Future',
-			Operators::PAST         => 'Past',
-			Operators::LT_DAYS_AGO  => 'LtDaysAgo',
-			Operators::GT_DAYS_AGO  => 'GtDaysAgo',
-			Operators::WITHIN_DAYS  => 'WithinDays',
-			Operators::CURRENT_USER => 'CurrentUser',
-		];
+        $operators = [
+            Operators::CONTAINS     => Comparison\Contains::class,
+            Operators::NOT_CONTAINS => Comparison\NotContains::class,
+            Operators::BEGINS_WITH  => Comparison\BeginsWith::class,
+            Operators::ENDS_WITH    => Comparison\EndsWith::class,
+            Operators::IN           => Comparison\In::class,
+            Operators::NOT_IN       => Comparison\NotIn::class,
+            Operators::BETWEEN      => Comparison\Between::class,
+            Operators::TODAY        => Comparison\Today::class,
+            Operators::FUTURE       => Comparison\Future::class,
+            Operators::PAST         => Comparison\Past::class,
+            Operators::LT_DAYS_AGO  => Comparison\LtDaysAgo::class,
+            Operators::GT_DAYS_AGO  => Comparison\GtDaysAgo::class,
+            Operators::WITHIN_DAYS  => Comparison\WithinDays::class,
+            Operators::CURRENT_USER => Comparison\CurrentUser::class,
+            Operators::EQ_MONTH     => Comparison\EqMonth::class,
+            Operators::EQ_YEAR      => Comparison\EqYear::class,
+        ];
 
-		if ( ! array_key_exists( $operator, $operators ) ) {
-			throw new LogicException( 'Invalid operator found.' );
-		}
+        if ( ! array_key_exists($operator, $operators)) {
+            throw new LogicException('Invalid operator found.');
+        }
 
-		$class = __NAMESPACE__ . '\Comparison\\' . $operators[ $operator ];
-
-		return new $class( $column, $value );
-	}
+        return new $operators[$operator]($column, $value);
+    }
 
 }

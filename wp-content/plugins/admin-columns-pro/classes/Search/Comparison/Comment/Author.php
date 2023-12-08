@@ -2,53 +2,65 @@
 
 namespace ACP\Search\Comparison\Comment;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Helper\Select;
+use ACP\Helper\Select\User\LabelFormatter\UserName;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
 class Author extends Field
-	implements SearchableValues {
+    implements SearchableValues
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::CONTAINS,
-			Operators::NOT_CONTAINS,
-			Operators::BEGINS_WITH,
-			Operators::ENDS_WITH,
-			Operators::CURRENT_USER,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::CONTAINS,
+            Operators::NOT_CONTAINS,
+            Operators::BEGINS_WITH,
+            Operators::ENDS_WITH,
+            Operators::CURRENT_USER,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators);
+    }
 
-	protected function get_field() {
-		return 'user_id';
-	}
+    protected function get_field(): string
+    {
+        return 'user_id';
+    }
 
-	/**
-	 * @return array
-	 */
-	private function get_user_ids() {
-		global $wpdb;
+    private function get_user_ids(): array
+    {
+        global $wpdb;
 
-		return $wpdb->get_col( "SELECT DISTINCT user_id FROM {$wpdb->prefix}comments;" );
-	}
+        return $wpdb->get_col("SELECT DISTINCT user_id FROM $wpdb->comments;");
+    }
 
-	public function get_values( $search, $paged ) {
-		$args = compact( 'search', 'paged' );
+    private function get_label_formatter(): UserName
+    {
+        return new UserName();
+    }
 
-		$args['include'] = $this->get_user_ids();
+    public function format_label($value): string
+    {
+        $user = get_userdata($value);
 
-		$entities = new Select\Entities\User( $args );
+        return $user
+            ? $this->get_label_formatter()->format_label($user)
+            : '';
+    }
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Group\UserRole(
-				new Select\Formatter\UserName( $entities )
-			)
-		);
-	}
+    public function get_values(string $search, int $page): Paginated
+    {
+        return (new Select\User\PaginatedFactory())->create([
+            'search'  => $search,
+            'paged'   => $page,
+            'include' => $this->get_user_ids(),
+        ],
+            $this->get_label_formatter()
+        );
+    }
 
 }

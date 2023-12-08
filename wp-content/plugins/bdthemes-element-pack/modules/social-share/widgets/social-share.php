@@ -184,25 +184,6 @@ class Social_Share extends Module_Base {
 			]
 		);
 
-		// $this->add_responsive_control(
-		// 	'columns',
-		// 	[
-		// 		'label'   => esc_html__( 'Columns', 'bdthemes-element-pack' ),
-		// 		'type'    => Controls_Manager::SELECT,
-		// 		'default' => '0',
-		// 		'options' => [
-		// 			'0' => 'Auto',
-		// 			'1' => '1',
-		// 			'2' => '2',
-		// 			'3' => '3',
-		// 			'4' => '4',
-		// 			'5' => '5',
-		// 			'6' => '6',
-		// 		],
-		// 		'prefix_class' => 'bdt-ep-grid%s-',
-		// 	]
-		// );
-
 		$this->add_responsive_control(
 			'columns',
 			[
@@ -220,9 +201,6 @@ class Social_Share extends Module_Base {
 					'5' => '5',
 					'6' => '6',
 				],
-				// 'selectors' => [
-				// 	'{{WRAPPER}} .bdt-social-share' => 'grid-template-columns: repeat({{SIZE}}, 1fr); display: grid;',
-				// ],
 				'selectors_dictionary' => [
                     '0' => 'display: flex; flex-wrap: wrap;',
 					'1' => 'grid-template-columns: repeat(1, 1fr); display: grid;',
@@ -268,7 +246,7 @@ class Social_Share extends Module_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'alignment',
 			[
 				'label'   => esc_html__( 'Alignment', 'bdthemes-element-pack' ),
@@ -291,10 +269,19 @@ class Social_Share extends Module_Base {
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'prefix_class' => 'bdt-ss-btns-align-',
 				'condition'    => [
 					'columns' => '0',
 				],
+				'selectors_dictionary' => [
+                    'left'    => 'justify-content: flex-start;',
+					'center'  => 'justify-content: center;',
+					'right'   => 'justify-content: flex-end;',
+					'justify' => 'justify-content: space-between;',
+                ],
+				'selectors' => [
+                    '{{WRAPPER}} .bdt-social-share' => '{{VALUE}};',
+                ],
+                'render_type'     => 'template',
 			]
 		);
 

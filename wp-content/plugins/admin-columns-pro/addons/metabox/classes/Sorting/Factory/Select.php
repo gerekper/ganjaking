@@ -3,13 +3,12 @@
 namespace ACA\MetaBox\Sorting\Factory;
 
 use ACA\MetaBox\Column;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Model\MetaMappingFactory;
 
 final class Select extends Meta
 {
 
-    protected function create_default(Column $column): AbstractModel
+    protected function create_default(Column $column)
     {
         $options = $column->get_field_setting('options');
         natcasesort($options);

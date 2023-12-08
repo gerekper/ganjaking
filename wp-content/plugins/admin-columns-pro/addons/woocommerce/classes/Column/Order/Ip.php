@@ -3,6 +3,7 @@
 namespace ACA\WC\Column\Order;
 
 use AC;
+use ACA\WC\Scheme\Orders;
 use ACA\WC\Search;
 use ACA\WC\Sorting;
 use ACP;
@@ -33,7 +34,7 @@ class Ip extends AC\Column implements ACP\Search\Searchable, ACP\ConditionalForm
 
     public function sorting()
     {
-        return new Sorting\Order\OrderData('ip_address');
+        return new Sorting\Order\OrderData(Orders::IP_ADDRESSS);
     }
 
 }

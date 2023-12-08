@@ -8,7 +8,7 @@ use ACA\WC\Type\ProductAttribute;
 use ACP;
 
 class DefaultFormValues extends AC\Column
-    implements ACP\Export\Exportable, ACP\Search\Searchable, ACP\ConditionalFormat\Formattable
+    implements ACP\Export\Exportable, ACP\ConditionalFormat\Formattable
 {
 
     use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
@@ -16,7 +16,7 @@ class DefaultFormValues extends AC\Column
     public function __construct()
     {
         $this->set_type('column-wc-product_default_form_values')
-             ->set_label(__('Default Form Values', 'codepress-admin-columns'))
+             ->set_label(__('Variation Default', 'codepress-admin-columns'))
              ->set_group('woocommerce');
     }
 
@@ -31,9 +31,11 @@ class DefaultFormValues extends AC\Column
         $result = [];
 
         foreach ($default_attributes as $key => $default_value) {
-            $a = new ProductAttribute($key);
-
-            $result[] = sprintf('<strong>%s:</strong> %s', $a->get_label(), $default_value);
+            $result[] = sprintf(
+                '<strong>%s:</strong> %s',
+                (new ProductAttribute($key))->get_label(),
+                $default_value
+            );
         }
 
         return implode(', ', $result);
@@ -48,11 +50,6 @@ class DefaultFormValues extends AC\Column
         }
 
         return $product->get_default_attributes();
-    }
-
-    public function search()
-    {
-        return new Search\Product\Coupons();
     }
 
     public function export()

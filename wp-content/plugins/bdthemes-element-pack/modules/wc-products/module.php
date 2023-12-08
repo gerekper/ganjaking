@@ -192,8 +192,14 @@ class Module extends Element_Pack_Module_Base {
 
         $ajaxSettings = $_POST['settings'];
         $title_tags = $ajaxSettings['title_tags'];
-
         $ajaxposts = element_pack_ajax_load_query_args();
+
+        $query = $ajaxposts->query_vars;
+        $query['post_type'] = 'product';
+
+        $ajaxposts = new \WP_Query($query);
+
+      
         $markup    = '';
         if ($ajaxposts->have_posts()) {
             // $item_index = 1;
@@ -210,7 +216,7 @@ class Module extends Element_Pack_Module_Base {
                 }
 
 
-                if ('yes' === $ajaxSettings['show_filter_bar']) {
+                if (isset($ajaxSettings['show_filter_bar']) && ('yes' === $ajaxSettings['show_filter_bar'])) {
                     $terms = get_the_terms(get_the_ID(), 'product_cat');
                     $product_filter_cat = [];
                     if (!empty($terms)) {
@@ -226,7 +232,7 @@ class Module extends Element_Pack_Module_Base {
                 $markup .= '<div class="bdt-wc-product-inner">';
 
                 //show stock status & show sale
-                if ('yes' === $ajaxSettings['show_badge']) :
+                if (isset($ajaxSettings['show_badge']) && ('yes' === $ajaxSettings['show_badge'])) :
                     if (!$product->is_in_stock()) :
                         $markup .= '<div class="bdt-badge bdt-position-top-left bdt-position-small">';
                         $markup .= apply_filters('woocommerce_product_is_in_stock', '<span class="bdt-onsale">' . esc_html__('Out of Stock!', 'woocommerce') . '</span>', $post, $product);
@@ -246,7 +252,7 @@ class Module extends Element_Pack_Module_Base {
 
                 // quick view button
 
-                if ('yes' === $ajaxSettings['show_quick_view']) :
+                if (isset($ajaxSettings['show_quick_view']) && ('yes' === $ajaxSettings['show_quick_view'])) :
                     $markup .= '<div class="bdt-quick-view ' . esc_attr($ajaxSettings['quick_view_hide_mobile'] ? 'bdt-visible@s' : '') . '">';
                     // wp_nonce_field('ajax-ep-wc-product-nonce', 'bdt-wc-product-modal-sc');
                     $markup .= '<input type="hidden" class="bdt_modal_spinner_message" value="">';
@@ -258,7 +264,11 @@ class Module extends Element_Pack_Module_Base {
 
 
                 if ('yes' === $ajaxSettings['show_cart']) :
-                    $markup .= '<div class="bdt-wc-add-to-cart ' . esc_attr($ajaxSettings['cart_hide_mobile'] ? 'bdt-visible@s' : '') . '">';
+                    if (isset($ajaxSettings['cart_hide_mobile']) && ('yes' === $ajaxSettings['cart_hide_mobile'])) :
+                        $markup .= '<div class="bdt-wc-add-to-cart bdt-visible@s">';
+                    else :
+                        $markup .= '<div class="bdt-wc-add-to-cart">';
+                    endif;
                     ob_start();
                     $this->__render_add_to_cart();
                     $markup .= ob_get_clean();

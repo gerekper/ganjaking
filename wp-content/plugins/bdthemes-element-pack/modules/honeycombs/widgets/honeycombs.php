@@ -728,34 +728,23 @@ class Honeycombs extends Module_Base {
                     if (!Element_Pack_Loader::elementor()->editor->is_edit_mode()) {
 
                         if (!empty($item['honeycombs_link']['url'])) {
-
-                            $this->add_render_attribute('bdt-comb-link', 'href', $item['honeycombs_link']['url'], true);
-
-                            if ($item['honeycombs_link']['is_external']) {
-                                $this->add_render_attribute('bdt-comb-link', 'target', '_blank', true);
-                            } else {
-                                $this->add_render_attribute('bdt-comb-link', 'target', '_self', true);
-                            }
-
-                            if ($item['honeycombs_link']['nofollow']) {
-                                $this->add_render_attribute('bdt-comb-link', 'rel', 'nofollow', true);
-                            }
+                            $this->add_link_attributes('bdt-comb-link' . $index, $item['honeycombs_link']);
                         } else {
-                            $this->add_render_attribute('bdt-comb-link', 'href', 'javascript:void(0);', true);
-                            $this->add_render_attribute('bdt-comb-link', 'target', '_self', true);
+                            $this->add_render_attribute('bdt-comb-link' . $index, 'href', 'javascript:void(0);', true);
+                            $this->add_render_attribute('bdt-comb-link' . $index, 'target', '_self', true);
                         }
                     } else {
-                        $this->add_render_attribute('bdt-comb-link', 'href', 'javascript:void(0);', true);
+                        $this->add_render_attribute('bdt-comb-link' . $index, 'href', 'javascript:void(0);', true);
                     }
-                    $this->add_render_attribute('bdt-comb-link', 'class', 'bdt-comb elementor-repeater-item-' . esc_attr($item['_id']), true);
+                    $this->add_render_attribute('bdt-comb-link' . $index, 'class', 'bdt-comb elementor-repeater-item-' . esc_attr($item['_id']), true);
 
                     if ($item['item_invisible']) {
-                        $this->add_render_attribute('bdt-comb-link', 'class', 'bdt-invisible bdt-comb placeholder hide elementor-repeater-item-' . esc_attr($item['_id']), true);
+                        $this->add_render_attribute('bdt-comb-link' . $index, 'class', 'bdt-invisible bdt-comb placeholder hide elementor-repeater-item-' . esc_attr($item['_id']), true);
                     }
 
 
                     ?>
-                    <a <?php echo $this->get_render_attribute_string('bdt-comb-link'); ?>>
+                    <a <?php echo $this->get_render_attribute_string('bdt-comb-link' . $index); ?>>
                         <div class="bdt-front-content">
                             <?php if ($settings['icon_display'] == 'yes') : ?>
                                 <?php if (!empty($item['honeycombs_item_icon']['value'])) : ?>

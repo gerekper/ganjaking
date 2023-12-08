@@ -2,26 +2,20 @@
 
 namespace ACA\BP\Sorting\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class ActivityUpdates extends AbstractModel implements QueryBindings
+class ActivityUpdates implements QueryBindings
 {
 
-    /**
-     * @var string
-     */
     private $activity_type;
 
-    public function __construct($activity_type)
+    public function __construct(string $activity_type)
     {
-        parent::__construct();
-
-        $this->activity_type = (string)$activity_type;
+        $this->activity_type = $activity_type;
     }
 
     public function create_query_bindings(Order $order): Bindings

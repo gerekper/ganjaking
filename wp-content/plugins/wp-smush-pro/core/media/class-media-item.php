@@ -1126,12 +1126,13 @@ class Media_Item extends Smush_File {
 		return 'image/png' === $mime || 'image/x-png' === $mime;
 	}
 
-	public function backup_file_exists() {
+	public function can_be_restored() {
 		if ( ! $this->plugin_settings->is_backup_active() ) {
 			return false;
 		}
-		$backup_size = $this->get_default_backup_size();
-		return $backup_size && $backup_size->file_exists();
+
+		// Note that we don't check if file exists because the file might be on a remote server e.g. s3
+		return ! empty( $this->get_default_backup_size() );
 	}
 
 	public function is_large() {

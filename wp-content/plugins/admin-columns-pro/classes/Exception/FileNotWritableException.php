@@ -30,4 +30,11 @@ class FileNotWritableException extends RuntimeException
         );
     }
 
+    public static function from_removing_segment(ListScreenId $id): self
+    {
+        return new self(
+            sprintf('Failed to delete the file for ListScreen with id %s containing segments.', $id)
+        );
+    }
+
 }

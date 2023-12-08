@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace ACP\Sorting\Controller;
 
 use AC\ListScreen;
-use ACP\Search\QueryFactory;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\QueryFactory;
 use ACP\Sorting\ModelFactory;
 use ACP\Sorting\Type\Order;
 
@@ -37,16 +36,16 @@ class ManageQueryHandler
             return;
         }
 
-        $model = $this->model_factory->create($column);
+        $model = $this->model_factory->create_bindings($column);
 
-        if ( ! $model instanceof QueryBindings) {
+        if ( ! $model) {
             return;
         }
 
         $order = Order::create_by_string($_GET['order'] ?? '');
 
         QueryFactory::create(
-            $this->list_screen->get_meta_type(),
+            $this->list_screen->get_query_type(),
             [
                 $model->create_query_bindings($order),
             ]

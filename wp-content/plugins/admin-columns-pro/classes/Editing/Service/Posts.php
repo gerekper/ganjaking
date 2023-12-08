@@ -2,6 +2,7 @@
 
 namespace ACP\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\PaginatedOptionsFactory;
 use ACP\Editing\Service;
@@ -104,7 +105,7 @@ class Posts implements Service, PaginatedOptions {
 		return array_map( 'intval', array_unique( array_filter( $ids ) ) );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
 		return $this->options_factory->create( $search, $page, $id );
 	}
 

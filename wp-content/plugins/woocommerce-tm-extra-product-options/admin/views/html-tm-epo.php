@@ -97,7 +97,7 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 
 				include 'html-tm-epo-admin.php';
 
-				$loop ++;
+				++$loop;
 			}
 		}
 		?>

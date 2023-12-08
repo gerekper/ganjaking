@@ -3,6 +3,7 @@
  * by: Fatih Kadir Akın
  * https://github.com/f/jquery.resizestop
  * License is CC0, published to the public domain.
+ * @param {jQuery} $
  */
 // Used by datepicker when position is top or bottom of the screen
 ( function( $ ) {

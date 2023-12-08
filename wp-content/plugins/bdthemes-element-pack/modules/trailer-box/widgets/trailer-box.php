@@ -1981,7 +1981,6 @@ class Trailer_Box extends Module_Base {
 
 	public function render_button() {
 		$settings = $this->get_settings_for_display();
-		$target   = (isset($settings['button']['is_external']) && $settings['button']['is_external'] == 'on' ) ? '_blank' : '_self';
 
 		if ( ! isset( $settings['icon'] ) && ! Icons_Manager::is_migration_allowed() ) {
 			// add old default
@@ -1996,11 +1995,10 @@ class Trailer_Box extends Module_Base {
 		<?php if ('button' === $settings['link_type']) : ?>
 			<?php if (( '' !== $settings['button']['url'] ) and ('' !== $settings['button_text'] )) :
 
+				$this->add_link_attributes( 'trailer-box-button', $settings['button'] );
 				$this->add_render_attribute(
 					[
 						'trailer-box-button' => [
-							'href'   => esc_url($settings['button']['url']),
-							'target' => esc_attr($target),
 							'class'  => [
 								'bdt-trailer-box-button',
 								$settings['button_hover_animation'] ? 'elementor-animation-'.$settings['button_hover_animation'] : ''

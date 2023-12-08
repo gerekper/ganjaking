@@ -2,12 +2,17 @@
 
 namespace ACP\Filtering;
 
-interface Filterable {
+use ACP\Search\Comparison;
 
-	/**
-	 * Return the filtering model for this column
-	 * @return Model
-	 */
-	public function filtering();
+/**
+ * @depecated NEWVERSION
+ */
+interface Filterable
+{
+
+    /**
+     * @return Comparison|null
+     */
+    public function filtering();
 
 }

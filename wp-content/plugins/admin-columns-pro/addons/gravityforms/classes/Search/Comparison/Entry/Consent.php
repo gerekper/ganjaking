@@ -3,17 +3,20 @@
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACA\GravityForms\Search;
-use ACP;
+use ACP\Search\Operators;
+use ACP\Search\Value;
 
-class Consent extends Search\Comparison\Entry {
+class Consent extends Search\Comparison\Entry
+{
 
-	public function __construct( $field ) {
-		$operators = new ACP\Search\Operators( [
-			ACP\Search\Operators::IS_EMPTY,
-			ACP\Search\Operators::NOT_IS_EMPTY,
-		] );
+    public function __construct($field)
+    {
+        $operators = new Operators([
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $field, $operators, ACP\Search\Value::STRING );
-	}
+        parent::__construct($field, $operators, Value::STRING);
+    }
 
 }

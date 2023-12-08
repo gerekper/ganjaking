@@ -26,7 +26,7 @@ class NextPaymentDate extends AC\Column implements ACP\Search\Searchable, ACP\Ex
 
     public function search()
     {
-        return new Search\Meta\Date\ISO($this->get_meta_key(), 'order_subscription');
+        return new Search\OrderMeta\IsoDate($this->get_meta_key());
     }
 
     public function export()

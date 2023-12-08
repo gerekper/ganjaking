@@ -2,11 +2,13 @@
 
 namespace ACA\WC\Search\User;
 
-use AC;
-use ACA\WC;
+use AC\Helper\Select\Options\Paginated;
+use ACA\WC\Helper\Select\Product\GroupFormatter\ProductType;
+use ACA\WC\Helper\Select\Product\LabelFormatter\ProductTitle;
+use ACA\WC\Helper\Select\Product\PaginatedFactory;
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class Products extends Comparison
@@ -22,7 +24,7 @@ class Products extends Comparison
         parent::__construct($operators);
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 
@@ -42,18 +44,22 @@ class Products extends Comparison
         return $bindings->where($wpdb->users . '.ID IN( ' . $sub . ')');
     }
 
-    public function get_values($s, $paged)
+    public function get_values(string $search, int $page): Paginated
     {
-        $entities = new WC\Helper\Select\Entities\Product([
-            's'         => $s,
-            'paged'     => $paged,
+        return (new PaginatedFactory())->create([
+            's'         => $search,
+            'paged'     => $page,
             'post_type' => ['product', 'product_variation'],
-        ]);
+        ], null, new ProductType());
+    }
 
-        return new AC\Helper\Select\Options\Paginated(
-            $entities,
-            new WC\Helper\Select\Formatter\ProductTitleAndSKU($entities)
-        );
+    public function format_label($value): string
+    {
+        $product = wc_get_product($value);
+
+        return $product
+            ? (new ProductTitle())->format_label($product)
+            : '';
     }
 
 }

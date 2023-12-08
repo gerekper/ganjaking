@@ -4,6 +4,9 @@ namespace ACP\Sorting\Strategy;
 
 use ACP\Sorting\AbstractModel;
 
+/**
+ * @depecated 6.3
+ */
 final class Media extends Post
 {
 

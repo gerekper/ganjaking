@@ -6,39 +6,42 @@ use AC;
 use AC\Asset\Enqueueable;
 use AC\Registerable;
 
-class Settings
-	implements Registerable {
+class Settings implements Registerable
+{
 
-	/**
-	 * @var Enqueueable
-	 */
-	protected $assets;
+    /**
+     * @var Enqueueable
+     */
+    protected $assets;
 
-	public function __construct( array $assets ) {
-		$this->assets = $assets;
-	}
-
-	public function register(): void
+    public function __construct(array $assets)
     {
-		add_action( 'ac/column/settings', [ $this, 'column_settings' ] );
-		add_action( 'ac/admin_scripts/columns', [ $this, 'admin_scripts' ] );
-	}
+        $this->assets = $assets;
+    }
 
-	public function column_settings( AC\Column $column ) {
-		if ( ! $column instanceof Searchable || false === $column->search() ) {
-			return;
-		}
+    public function register(): void
+    {
+        add_action('ac/column/settings', [$this, 'column_settings']);
+        add_action('ac/admin_scripts/columns', [$this, 'admin_scripts']);
+    }
 
-		$setting = new Settings\Column( $column );
-		$setting->set_default( 'on' );
+    public function column_settings(AC\Column $column)
+    {
+        if ( ! $column instanceof Searchable || ! $column->search()) {
+            return;
+        }
 
-		$column->add_setting( $setting );
-	}
+        $setting = new Settings\Column($column);
+        $setting->set_default('on');
 
-	public function admin_scripts() {
-		foreach ( $this->assets as $asset ) {
-			$asset->enqueue();
-		}
-	}
+        $column->add_setting($setting);
+    }
+
+    public function admin_scripts()
+    {
+        foreach ($this->assets as $asset) {
+            $asset->enqueue();
+        }
+    }
 
 }

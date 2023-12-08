@@ -1,6 +1,7 @@
 #tc-admin-extra-product-options {
 	background: none repeat scroll 0 0 #fff;
 	border: 0 none !important;
+	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	border-radius: 0 !important;
 	margin: 0 !important;
@@ -8,6 +9,7 @@
 }
 
 #tc-admin-extra-product-options * {
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -30,23 +32,71 @@
 	overflow: visible !important;
 }
 
+.tmcp-pricing label {
+	width: 100%;
+}
+
+.tm-options > label {
+	width: 100%;
+	font-weight: 700;
+}
+
+/* !important for 2.3 compatibility */
+.tc-options-group label {
+	display: inline-block;
+	float: none !important;
+	margin: 0 !important;
+	max-width: 80% !important;
+	padding: 0 !important;
+	vertical-align: top;
+	width: auto !important;
+}
+
+.woocommerce-tmcp-attributes .form-row > label {
+	font-weight: 700;
+}
+
 #tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x2 {
 	width: auto;
-	-ms-flex: 0 0 34%;
-	flex: 0 0 auto;
-	max-width: 34%;
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 66%;
+	flex: 0 0 66%;
+	max-width: 66%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x2 label {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 calc(25% + 1px);
+	flex: 0 0 calc(25% + 1px);
+	max-width: calc(25% + 1px) !important;
+	margin-left: -1px !important;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.tm-epo-switch-wrapper .message2x2 label .tc-radio-text {
+	min-width: 100%;
 }
 
 #tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x3,
 #tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x4,
 #tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x5 {
 	width: auto;
-	-ms-flex: 0 0 15%;
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
 	flex: 0 0 auto;
-	margin-left: 1%;
+	margin-left: 34%;
 	max-width: 15%;
 	display: none;
 	position: relative;
+	margin-top: 2em;
+	min-width: 25%;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x4,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x5 {
+	margin-left: 4%;
 }
 
 #tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .tm-choice-from,
@@ -128,10 +178,6 @@
 	color: #fff;
 }
 
-.tmcp-pricing label {
-	width: 100%;
-}
-
 .wc-metaboxes-wrapper .wc-metabox select.tmcp-price-input-type {
 	position: relative;
 	top: -2px;
@@ -149,10 +195,12 @@
 }
 
 .tc-select-mode {
+	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	border-radius: 0 !important;
 	background: none repeat scroll 0 0 transparent !important;
 	border-color: #f5f5f4 !important;
+	-o-border-image: none !important;
 	border-image: none !important;
 	border-style: solid !important;
 	border-width: 0 0 1px !important;
@@ -187,17 +235,6 @@
 	width: 100% !important;
 }
 
-/* !important for 2.3 compatibility */
-.tc-options-group label {
-	display: inline-block;
-	float: none !important;
-	margin: 0 !important;
-	max-width: 80% !important;
-	padding: 0 !important;
-	vertical-align: top;
-	width: auto !important;
-}
-
 .tc-options-group .woocommerce-help-tip {
 	float: right;
 	top: 3px;
@@ -224,7 +261,6 @@
 	margin: 0;
 	padding: 20px 20px 0 20px;
 	display: -webkit-box;
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
 	border-bottom: 1px solid #c3c4c7;
@@ -321,16 +357,6 @@
 .tm-mode-local.tc-wrapper .toolbar a {
 	text-decoration: none;
 }
-
-.tm-options > label {
-	width: 100%;
-	font-weight: 700;
-}
-
-.woocommerce-tmcp-attributes .form-row > label {
-	font-weight: 700;
-}
-
 
 .tm-att-value {
 	color: #1e8cbe;

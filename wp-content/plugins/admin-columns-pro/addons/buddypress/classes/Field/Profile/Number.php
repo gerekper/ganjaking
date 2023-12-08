@@ -20,10 +20,6 @@ class Number extends Profile {
 		);
 	}
 
-	public function filtering() {
-		return new Filtering\Profile\Number( $this->column );
-	}
-
 	public function search() {
 		return new Search\Profile\Number( $this->column->get_buddypress_field_id() );
 	}

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Stock
  * @since    1.0.5
- * @version  2.4.0
+ * @version  2.5.1
  */
 
 // Exit if accessed directly.
@@ -22,14 +22,14 @@ class WC_Mix_and_Match_Stock_Manager {
 	/**
 	 * The collection of items in the container.
 	 *
-	 * @var str
+	 * @var array
 	 */
 	private $items;
 
 	/**
 	 * Total quantity of items in the container.
 	 *
-	 * @var str
+	 * @var int
 	 */
 	private $total_qty;
 
@@ -92,7 +92,6 @@ class WC_Mix_and_Match_Stock_Manager {
 	 * @return array
 	 */
 	public function get_total_quantity() {
-
 		return $this->total_qty;
 	}
 
@@ -254,6 +253,9 @@ class WC_Mix_and_Match_Stock_Manager {
 		$container_id    = $this->product->get_id();
 		$container_title = $this->product->get_title();
 
+		// Get quantities of items already in cart: returns array of IDs => quantity.
+		$quantities_in_cart = $this->get_quantities_in_cart();
+
 		foreach ( $managed_items as $managed_item_id => $managed_item ) {
 
 			try {
@@ -275,20 +277,39 @@ class WC_Mix_and_Match_Stock_Manager {
 				}
 
 				// Check if product is_sold_individually. @TODO - HOW DOES SOLD INDIVIDUALLY WORK WHEN MANAGED AT PARENT LEVEL vs MANAGED AT VARIATION LEVEL???
-				if ( $managed_product->is_sold_individually() && $quantity > 1 ) {
-					// translators: %s product title.
-					$reason = sprintf( _x( 'Only 1 &quot;%s&quot; may be purchased.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
+				if ( $managed_product->is_sold_individually() ) {
+					
+					if ( $quantity > 1 ) {
+						// translators: %s product title.
+						$reason = sprintf( _x( 'Only 1 &quot;%s&quot; may be purchased.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
 
-					if ( 'add-to-cart' === $context ) {
-						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						if ( 'add-to-cart' === $context ) {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 
-					} else {
-						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						} else {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						}
+
+						throw new Exception( $notice );
+
+					} elseif ( isset( $quantities_in_cart[ $managed_item_id ] ) ) {
+						
+						// translators: %1$s product title.
+						$reason = sprintf( _x( 'You cannot add another &quot;%s&quot; to the cart.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
+
+						if ( 'add-to-cart' === $context ) {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to the cart as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						} else {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						}
+
+						throw new Exception( $notice );
+
 					}
-
-					throw new Exception( $notice );
 				}
 
 				// In-stock check: a product may be marked as "Out of stock", but has_enough_stock() may still return a number.
@@ -325,16 +346,12 @@ class WC_Mix_and_Match_Stock_Manager {
 				}
 
 				// Stock check - this time accounting for whats already in-cart.
-				if ( $managed_product->managing_stock() || $managed_product->is_sold_individually() ) {
+				if ( $managed_product->managing_stock() ) {
 
-					// Get quantities of items already in cart: returns array of IDs => quantity.
-					$cart_quantities    = $this->get_quantities_in_cart();
-					$quantities_in_cart = $cart_quantities;
-
-					if ( isset( $cart_quantities[ $managed_item_id ] ) && ! $managed_product->has_enough_stock( $cart_quantities[ $managed_item_id ] + $quantity ) ) {
+					if ( isset( $quantities_in_cart[ $managed_item_id ] ) && ! $managed_product->has_enough_stock( $quantities_in_cart[ $managed_item_id ] + $quantity ) ) {
 
 						// translators: %1$s product title. %2$s quantity in stock. %3$s quantity in cart.
-						$reason = sprintf( _x( 'There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart).', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity(), $cart_quantities[ $managed_item_id ] );
+						$reason = sprintf( _x( 'There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart).', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity(), $quantities_in_cart[ $managed_item_id ] );
 
 						if ( 'add-to-cart' === $context ) {
 							// translators: %1$s product title. %2$s Error reason.
@@ -345,21 +362,6 @@ class WC_Mix_and_Match_Stock_Manager {
 						}
 
 						$notice = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), _x( 'View Cart', '[Frontend]', 'woocommerce-mix-and-match-products' ), $notice );
-
-						throw new Exception( $notice );
-
-					} elseif ( $managed_product->is_sold_individually() ) {
-
-						// translators: %1$s product title.
-						$reason = sprintf( _x( 'You cannot add another &quot;%s&quot; to the cart.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
-
-						if ( 'add-to-cart' === $context ) {
-							// translators: %1$s product title. %2$s Error reason.
-							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to the cart as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
-						} else {
-							// translators: %1$s product title. %2$s Error reason.
-							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
-						}
 
 						throw new Exception( $notice );
 

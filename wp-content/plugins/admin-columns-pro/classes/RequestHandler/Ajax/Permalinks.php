@@ -3,31 +3,33 @@
 namespace ACP\RequestHandler\Ajax;
 
 use AC;
-use ACP\RequestAjaxHandler;
+use AC\RequestAjaxHandler;
 
-class Permalinks implements RequestAjaxHandler {
+class Permalinks implements RequestAjaxHandler
+{
 
-	public function handle(): void {
-		$request = new AC\Request();
-		$search = $request->get( 'search', '' );
+    public function handle(): void
+    {
+        $request = new AC\Request();
+        $search = $request->get('search', '');
 
-		$posts = get_posts( [
-			's'         => $search,
-			'post_type' => [ 'any' ],
-		] );
+        $posts = get_posts([
+            's'         => $search,
+            'post_type' => ['any'],
+        ]);
 
-		$result = [];
+        $result = [];
 
-		foreach ( $posts as $post ) {
-			$result[] = [
-				'id'        => $post->ID,
-				'title'     => $post->post_title,
-				'post_type' => $post->post_type,
-				'permalink' => get_permalink( $post ),
-			];
-		}
+        foreach ($posts as $post) {
+            $result[] = [
+                'id'        => $post->ID,
+                'title'     => $post->post_title,
+                'post_type' => $post->post_type,
+                'permalink' => get_permalink($post),
+            ];
+        }
 
-		wp_send_json_success( $result );
-	}
+        wp_send_json_success($result);
+    }
 
 }

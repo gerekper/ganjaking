@@ -1563,7 +1563,7 @@ class Interactive_Tabs extends Module_Base {
 		$this->end_controls_section();
 	}
 
-	public function render_item_image($image) {
+	public function render_item_image($image, $element_key) {
 		$settings  = $this->get_settings_for_display();
 
 		$thumb_url = Group_Control_Image_Size::get_attachment_image_src($image['image']['id'], 'thumbnail_size', $settings);
@@ -1573,20 +1573,12 @@ class Interactive_Tabs extends Module_Base {
 		}
 
 		if (!empty($image['image_link']['url'])) {
-			$this->add_render_attribute('image-link', 'href', $image['image_link']['url'], true);
-
-			if ($image['image_link']['is_external']) {
-				$this->add_render_attribute('image-link', 'target', '_blank', true);
-			}
-
-			if ($image['image_link']['nofollow']) {
-				$this->add_render_attribute('image-link', 'rel', 'nofollow', true);
-			}
+			$this->add_link_attributes($element_key, $image['image_link']);
 		}
 
-?>
+		?>
 		<?php if (!empty($image['image_link']['url'])) : ?>
-			<a <?php echo $this->get_render_attribute_string('image-link'); ?>>
+			<a <?php echo $this->get_render_attribute_string($element_key); ?>>
 			<?php endif; ?>
 
 			<?php 
@@ -1652,7 +1644,7 @@ class Interactive_Tabs extends Module_Base {
 				if ('background' == $item['source']) { ?>
 					<div class="bdt-interactive-tabs-main-img">
 						<?php if (($item['background'] == 'image') && $item['image']) : ?>
-							<?php $this->render_item_image($item); ?>
+							<?php $this->render_item_image($item, 'link_to_' . $index); ?>
 						<?php elseif (($item['background'] == 'video') && $item['video_link']) : ?>
 							<?php $this->rendar_item_video($item); ?>
 						<?php elseif (($item['background'] == 'youtube') && $item['youtube_link']) : ?>

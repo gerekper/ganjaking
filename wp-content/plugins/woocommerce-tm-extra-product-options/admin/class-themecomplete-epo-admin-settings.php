@@ -3,7 +3,7 @@
  * Extra Product Options Settings class
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 	 * Add the plugin settings to the WooCommerce settings
 	 *
 	 * @package Extra Product Options/Admin
-	 * @version 6.0
+	 * @version 6.4
 	 */
 	class THEMECOMPLETE_EPO_ADMIN_SETTINGS extends WC_Settings_Page {
 
@@ -28,23 +28,30 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		public $id = '';
 
 		/**
+		 * The admin settings label
+		 *
+		 * @var string
+		 */
+		public $label = '';
+
+		/**
 		 * Options
 		 *
-		 * @var array
+		 * @var array<mixed>
 		 */
 		public $settings_options = [];
 
 		/**
 		 * Settings
 		 *
-		 * @var array
+		 * @var array<mixed>
 		 */
 		public $settings_array = [];
 
 		/**
 		 * Tab count
 		 *
-		 * @var int
+		 * @var integer
 		 */
 		private $tab_count = 0;
 
@@ -58,17 +65,16 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		/**
 		 * Ensures only one instance of the class is loaded or can be loaded.
 		 *
+		 * @return THEMECOMPLETE_EPO_ADMIN_SETTINGS
 		 * @since 1.0
 		 * @static
 		 */
 		public static function instance() {
-
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 			}
 
 			return self::$instance;
-
 		}
 
 		/**
@@ -87,64 +93,66 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 				$this->settings_array[ $key ] = THEMECOMPLETE_EPO_SETTINGS()->create_setting( $key, $value );
 			}
 
-			add_filter( 'woocommerce_settings_tabs_array', [ $this, 'add_settings_page' ], 20 );
-			add_action( 'woocommerce_settings_' . $this->id, [ $this, 'output' ] );
-			add_action( 'woocommerce_settings_save_' . $this->id, [ $this, 'save' ] );
+			if ( THEMECOMPLETE_EPO_ADMIN()->is_backend_enabled() ) {
+				add_filter( 'woocommerce_settings_tabs_array', [ $this, 'add_settings_page' ], 20 );
+				add_action( 'woocommerce_settings_' . $this->id, [ $this, 'output' ] );
+				add_action( 'woocommerce_settings_save_' . $this->id, [ $this, 'save' ] );
+				add_action( 'woocommerce_settings_' . $this->id, [ $this, 'tm_settings_hook_all_end' ] );
 
-			add_action( 'woocommerce_admin_field_tm_tabs_header', [ $this, 'tm_tabs_header_setting' ] );
-			add_action( 'woocommerce_admin_field_tm_title', [ $this, 'tm_title_setting' ] );
-			add_action( 'woocommerce_admin_field_tm_html', [ $this, 'tm_html_setting' ] );
-			add_action( 'woocommerce_admin_field_tm_sectionend', [ $this, 'tm_sectionend_setting' ] );
+				add_action( 'woocommerce_admin_field_tm_tabs_header', [ $this, 'tm_tabs_header_setting' ] );
+				add_action( 'woocommerce_admin_field_tm_title', [ $this, 'tm_title_setting' ] );
+				add_action( 'woocommerce_admin_field_tm_html', [ $this, 'tm_html_setting' ] );
+				add_action( 'woocommerce_admin_field_tm_sectionend', [ $this, 'tm_sectionend_setting' ] );
 
-			add_action( 'tm_woocommerce_settings_epo_page_options', [ $this, 'tm_settings_hook' ] );
-			add_action( 'tm_woocommerce_settings_epo_page_options_end', [ $this, 'tm_settings_hook_end' ] );
+				add_action( 'tm_woocommerce_settings_epo_page_options', [ $this, 'tm_settings_hook' ] );
+				add_action( 'tm_woocommerce_settings_epo_page_options_end', [ $this, 'tm_settings_hook_end' ] );
 
-			add_action( 'woocommerce_settings_' . $this->id, [ $this, 'tm_settings_hook_all_end' ] );
+				add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 
-			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
-
-			add_action( 'admin_footer', [ $this, 'script_templates' ] );
+				add_action( 'admin_footer', [ $this, 'script_templates' ] );
+			}
 		}
 
 		/**
 		 * Print script templates
 		 *
+		 * @return void
 		 * @since 1.0
 		 */
 		public function script_templates() {
 			// The check is required in case other plugin do things that don't load the wc_get_template function.
 			if ( function_exists( 'wc_get_template' ) ) {
-				wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+				wc_get_template( 'tc-js-admin-templates.php', [], '', THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
 			}
-
 		}
 
 		/**
 		 * Add admin body class
 		 *
 		 * @param string $classes classes.
+		 * @return string
 		 * @since 1.0
 		 */
 		public function admin_body_class( $classes ) {
-
 			if ( isset( $_GET['hidemenu'] ) || ( isset( $_GET['page'] ) && 'tcepo-settings' === $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$classes .= ' tc-hide-nav woocommerce_page_wc-settings';
 			}
 
 			return $classes;
-
 		}
 
 		/**
 		 * Prints a tab header
 		 *
 		 * @param integer $counter the counter.
-		 * @param string  $label the label array.
+		 * @param mixed   $label the label array.
+		 * @return void
 		 * @since 1.0
 		 */
-		public function tm_echo_header( $counter = 0, $label = '' ) { ?>
+		public function tm_echo_header( $counter = 0, $label = '' ) {
+			?>
 			<div class="tm-box">
-				<a tabindex="0" class="tab-header <?php echo( 1 === $counter ? 'open' : 'closed' ); ?>" data-id="tmsettings<?php echo esc_attr( $counter ); ?>-tab">
+				<a tabindex="0" class="tab-header <?php echo( 1 === $counter ? 'open' : 'closed' ); ?>" data-id="tmsettings<?php echo esc_attr( (string) $counter ); ?>-tab">
 					<?php
 					if ( is_array( $label ) ) {
 						echo '<i class="tab-header-icon ' . esc_attr( $label[0] ) . '"></i>';
@@ -162,11 +170,11 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		/**
 		 * Section tab start
 		 *
-		 * @param array $value the value array.
+		 * @param array<mixed> $value the value array.
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_title_setting( $value ) {
-
 			if ( ! empty( $value['id'] ) ) {
 				do_action( 'tm_woocommerce_settings_' . sanitize_title( $value['id'] ) );
 			}
@@ -200,17 +208,16 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 
 			echo '<div class="tm-table-wrap">';
 			echo '<table class="form-table">' . "\n\n";
-
 		}
 
 		/**
 		 * Setting row
 		 *
-		 * @param array $value the value array.
+		 * @param array<mixed> $value the value array.
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_html_setting( $value ) {
-
 			if ( ! isset( $value['id'] ) ) {
 				$value['id'] = '';
 			}
@@ -233,33 +240,31 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 				</td>
 			</tr>
 			<?php
-
 		}
 
 		/**
 		 * Section tab end
 		 *
-		 * @param array $value the value array.
+		 * @param array<mixed> $value the value array.
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_sectionend_setting( $value ) {
-
 			echo '</table>';
 			echo '</div>'; // .tm-table-wrap
 
 			if ( ! empty( $value['id'] ) ) {
 				do_action( 'tm_woocommerce_settings_' . sanitize_title( $value['id'] ) . '_end' );
 			}
-
 		}
 
 		/**
 		 * Right panel start
 		 *
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_tabs_header_setting() {
-
 			echo '<div class="tm-settings-wrap tc-wrapper">';
 			echo '<div class="transition tm-tabs">';
 			echo '<div class="transition tm-tab-headers tmsettings-tab">';
@@ -274,11 +279,11 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 					$_other_settings = THEMECOMPLETE_EPO_SETTINGS()->get_other_settings_headers();
 					foreach ( $_other_settings as $h_key => $h_label ) {
 						$this->tm_echo_header( $counter, $h_label );
-						$counter ++;
+						++$counter;
 					}
 				} else {
 					$this->tm_echo_header( $counter, $label );
-					$counter ++;
+					++$counter;
 				}
 			}
 
@@ -290,22 +295,23 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 			echo '&nbsp;<button type="submit" class="tc tc-button tc-save-button tm-flexcol" type="submit">' . esc_html__( 'Save changes', 'woocommerce-tm-extra-product-options' ) . '</button>';
 			echo '</div>';
 			echo '</div>';
-
 		}
 
 		/**
 		 * Section wrap start
 		 *
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_settings_hook() {
-			$this->tab_count ++;
-			echo '<div class="transition tm-tab tmsettings' . esc_attr( $this->tab_count ) . '-tab">';
+			++$this->tab_count;
+			echo '<div class="transition tm-tab tmsettings' . esc_attr( (string) $this->tab_count ) . '-tab">';
 		}
 
 		/**
 		 * Section wrap end
 		 *
+		 * @return void
 		 * @since 1.0
 		 */
 		public function tm_settings_hook_end() {
@@ -332,10 +338,10 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		/**
 		 * Get settings array
 		 *
+		 * @return array<mixed>
 		 * @since 1.0
 		 */
 		public function get_settings() {
-
 			$settings = [];
 			$settings = array_merge( $settings, [ [ 'type' => 'tm_tabs_header' ] ] );
 
@@ -347,7 +353,6 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 				'tm_' . $this->id . '_settings',
 				$settings
 			);
-
 		}
 	}
 

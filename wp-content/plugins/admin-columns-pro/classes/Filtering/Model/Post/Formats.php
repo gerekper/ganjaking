@@ -2,17 +2,18 @@
 
 namespace ACP\Filtering\Model\Post;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search;
 
-class Formats extends Model\Post\Taxonomy {
+/**
+ * @deprecated NEWVERSION
+ */
+class Formats extends Search\Comparison\Post\Taxonomy
+{
 
-	public function get_filtering_data() {
-		$options = $this->get_terms_list( $this->column->get_taxonomy() );
-		$options['cpac_empty'] = get_post_format_string( 'standard' );
-
-		return [
-			'options' => $options,
-		];
-	}
+    public function __construct(Column $column)
+    {
+        parent::__construct('post_format');
+    }
 
 }

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class CommentCount extends AbstractModel implements QueryBindings
+class CommentCount implements QueryBindings
 {
 
     public const STATUS_APPROVED = '1';
@@ -25,8 +24,6 @@ class CommentCount extends AbstractModel implements QueryBindings
 
     public function __construct(array $stati = [])
     {
-        parent::__construct();
-
         $this->stati = $stati;
     }
 

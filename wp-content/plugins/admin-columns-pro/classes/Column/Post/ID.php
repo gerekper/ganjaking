@@ -4,25 +4,23 @@ namespace ACP\Column\Post;
 
 use AC;
 use ACP\ConditionalFormat;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
 class ID extends AC\Column\Post\ID
-	implements Sorting\Sortable, Filtering\Filterable, Search\Searchable, ConditionalFormat\Formattable {
+    implements Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable
+{
 
-	use ConditionalFormat\IntegerFormattableTrait;
+    use ConditionalFormat\IntegerFormattableTrait;
 
-	public function sorting() {
-		return new Sorting\Model\OrderBy( 'ID' );
-	}
+    public function sorting()
+    {
+        return new Sorting\Model\OrderBy('ID');
+    }
 
-	public function filtering() {
-		return new Filtering\Model\Post\ID( $this );
-	}
-
-	public function search() {
-		return new Search\Comparison\Post\ID();
-	}
+    public function search()
+    {
+        return new Search\Comparison\Post\ID();
+    }
 
 }

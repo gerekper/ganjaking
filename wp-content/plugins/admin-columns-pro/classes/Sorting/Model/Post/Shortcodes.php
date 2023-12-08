@@ -2,23 +2,20 @@
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue\ShortCodeCount;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\Order;
 
-class Shortcodes extends AbstractModel implements WarningAware, QueryBindings
+class Shortcodes implements WarningAware, QueryBindings
 {
 
     use PostResultsTrait;
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->formatter = new ShortCodeCount();
     }
 

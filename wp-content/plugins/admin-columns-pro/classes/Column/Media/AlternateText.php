@@ -22,7 +22,7 @@ class AlternateText extends AC\Column\Media\AlternateText
 	}
 
 	public function search() {
-		return new Search\Comparison\Meta\Text( $this->get_meta_key(), AC\MetaType::POST );
+		return new Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 }

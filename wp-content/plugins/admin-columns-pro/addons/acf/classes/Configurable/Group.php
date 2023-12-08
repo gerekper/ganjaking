@@ -33,7 +33,7 @@ class Group implements Configurable {
 		return $parts[1];
 	}
 
-	public function create( $column_type ) {
+	public function create( string $column_type ): ?array {
 
 		$group_field_key = $this->get_group_field_key_by_type( $column_type );
 		$sub_field_key = $this->get_sub_field_key_by_type( $column_type );

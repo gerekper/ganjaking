@@ -3,7 +3,7 @@
  * Builder Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Divider Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DIVIDER extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DIVIDER extends THEMECOMPLETE_EPO_BUILDE
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = array_merge(

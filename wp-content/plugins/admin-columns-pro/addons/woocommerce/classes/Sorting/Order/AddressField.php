@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\Order;
 
 use ACA\WC\Type\AddressType;
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 use InvalidArgumentException;
 
-class AddressField extends AbstractModel implements QueryBindings
+class AddressField implements QueryBindings
 {
 
     private $address_field;
@@ -21,8 +20,6 @@ class AddressField extends AbstractModel implements QueryBindings
 
     public function __construct(string $address_field, AddressType $address_type)
     {
-        parent::__construct();
-
         $this->address_field = $address_field;
         $this->address_type = $address_type;
 

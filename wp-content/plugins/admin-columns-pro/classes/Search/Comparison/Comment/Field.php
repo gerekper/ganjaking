@@ -2,30 +2,27 @@
 
 namespace ACP\Search\Comparison\Comment;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
-abstract class Field extends Comparison {
+abstract class Field extends Comparison
+{
 
-	/**
-	 * @return string
-	 */
-	abstract protected function get_field();
+    abstract protected function get_field(): string;
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		global $wpdb;
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
 
-		$where = ComparisonFactory::create(
-			$wpdb->comments . '.' . $this->get_field(),
-			$operator,
-			$value
-		)->prepare();
+        $where = ComparisonFactory::create(
+            $wpdb->comments . '.' . $this->get_field(),
+            $operator,
+            $value
+        )->prepare();
 
-		$bindings = new Bindings();
-
-		return $bindings->where( $where );
-	}
+        return (new Bindings())->where($where);
+    }
 
 }

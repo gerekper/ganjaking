@@ -1039,23 +1039,12 @@ class Circle_Info extends Module_Base {
                         }
                         $this->add_render_attribute('sub_circle', 'data-circle-index', $i++, true);
 
-
                         $link_key_lg = 'link_' . $index;
                         if (!empty($item['circle_info_title_link']['url'])) {
-
-                            $this->add_render_attribute($link_key_lg, 'href', $item['circle_info_title_link']['url'], true);
-
-                            if ($item['circle_info_title_link']['is_external']) {
-                                $this->add_render_attribute($link_key_lg, 'target', '_blank', true);
-                            }
-
-                            if ($item['circle_info_title_link']['nofollow']) {
-                                $this->add_render_attribute($link_key_lg, 'rel', 'nofollow', true);
-                            }
+                            $this->add_link_attributes($link_key_lg, $item['circle_info_title_link']);
                         } else {
                             $this->add_render_attribute($link_key_lg, 'href', 'javascript:void(0);', true);
                         }
-
 
                     ?>
                         <div <?php echo $this->get_render_attribute_string('sub_circle'); ?>>
@@ -1089,18 +1078,9 @@ class Circle_Info extends Module_Base {
                         $this->add_render_attribute('circle_title_tags', 'class', 'bdt-ep-circle-info-title');
 
 
-                        $link_key = 'link_' . $index;
+                        $link_key = 'link_to_' . $index;
                         if (!empty($item['circle_info_title_link']['url'])) {
-
-                            $this->add_render_attribute($link_key, 'href', $item['circle_info_title_link']['url'], true);
-
-                            if ($item['circle_info_title_link']['is_external']) {
-                                $this->add_render_attribute($link_key, 'target', '_blank', true);
-                            }
-
-                            if ($item['circle_info_title_link']['nofollow']) {
-                                $this->add_render_attribute($link_key, 'rel', 'nofollow', true);
-                            }
+                            $this->add_link_attributes($link_key, $item['circle_info_title_link']);
                         } else {
                             $this->add_render_attribute($link_key, 'href', 'javascript:void(0);', true);
                         }

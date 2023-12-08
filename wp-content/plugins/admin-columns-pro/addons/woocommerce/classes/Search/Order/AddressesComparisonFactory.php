@@ -30,7 +30,7 @@ class AddressesComparisonFactory
             case 'company':
                 return new Search\Order\Addresses('company', $this->address_type);
             case 'country':
-                return new Search\Order\Addresses('country', $this->address_type);
+                return new Search\Order\Address\Country($this->address_type);
             case 'email':
                 return new Search\Order\Addresses('email', $this->address_type);
             case 'first_name':

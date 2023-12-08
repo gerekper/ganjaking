@@ -2,23 +2,18 @@
 
 namespace ACP\Filtering\Model\Comment;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search\Comparison\Comment\Email;
 
-class AuthorEmail extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class AuthorEmail extends Email
+{
 
-	public function get_filtering_vars( $vars ) {
-		$vars['author_email'] = $this->get_filter_value();
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		$data = [];
-		foreach ( $this->strategy->get_values_by_db_field( 'comment_author_email' ) as $_value ) {
-			$data['options'][ $_value ] = $_value;
-		}
-
-		return $data;
-	}
+    public function __construct(Column $column)
+    {
+        parent::__construct();
+    }
 
 }

@@ -27,9 +27,6 @@ class TotalSales extends AC\Column implements ACP\Sorting\Sortable, ACP\Export\E
         return new FormattableConfig(new ConditionalFormat\Formatter\User\TotalSalesFormatter());
     }
 
-    /**
-     * @return string[]
-     */
     private function get_order_statuses(): array
     {
         $setting = $this->get_setting(OrderStatuses::NAME);

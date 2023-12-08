@@ -34,7 +34,7 @@ class RequestHandlerFactory
 
     private function get_request_handler(): ?RequestHandler
     {
-        $action = $this->request->get('action');
+        $action = $this->request->get('action') ?: $this->request->get('ac_action');
 
         return $this->request_handlers[$action] ?? null;
     }

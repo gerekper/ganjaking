@@ -40,7 +40,7 @@ window.jQuery.jMaskGlobals = {
 };
 
 /**
- * 2. themeComplete plugin JS API
+ * 2. ThemeComplete plugin JS API
  */
 
 ( function( $ ) {
@@ -649,7 +649,7 @@ window.jQuery.jMaskGlobals = {
 }( window.jQuery ) );
 
 /**
- * 3. themeComplete jQuery extensions
+ * 3. ThemeComplete jQuery extensions
  *
  * @param {Object} $ The jQuery object.
  */

@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use AC;
-use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Model\Disabled;
 
 class LastModifiedAuthorFactory
 {
 
-    public function create(string $type): AbstractModel
+    public function create(string $type)
     {
         switch ($type) {
             case AC\Settings\Column\User::PROPERTY_FIRST_NAME :
@@ -28,7 +26,7 @@ class LastModifiedAuthorFactory
                 return new RelatedMeta\UserMeta('last_name', '_edit_last');
             case AC\Settings\Column\User::PROPERTY_ROLES :
             default:
-                return new Disabled();
+                return null;
         }
     }
 

@@ -11,10 +11,12 @@ use AC\Request;
 use AC\Response;
 use AC\Type\ListScreenId;
 use ACP\Controller;
+use ACP\ListScreenPreferences;
 use ACP\Search\Entity;
 use ACP\Search\SegmentCollection;
-use ACP\Search\SegmentRepository;
+use ACP\Search\SegmentRepository\Database;
 use ACP\Search\Type\SegmentKey;
+use Exception;
 
 final class Segment extends Controller
 {
@@ -26,7 +28,7 @@ final class Segment extends Controller
     public function __construct(
         ListScreenRepository\Storage $storage,
         Request $request,
-        SegmentRepository $segment_repository
+        Database $segment_repository
     ) {
         parent::__construct($request);
 
@@ -66,7 +68,7 @@ final class Segment extends Controller
             'key'    => (string)$segment->get_key(),
             'name'   => $segment->get_name(),
             'url'    => $url,
-            'global' => $segment->is_global(),
+            'userId' => $segment->has_user_id() ? $segment->get_user_id() : null,
         ];
     }
 
@@ -82,17 +84,15 @@ final class Segment extends Controller
                 ->error();
         }
 
-        $user_segments = $this->segment_repository->find_all_by_user(
+        $user_segments = $this->segment_repository->find_all_personal(
             get_current_user_id(),
             $list_screen->get_id()
         );
 
-        $global_segments = $this->segment_repository->find_all_global(
-            $list_screen->get_id()
-        );
+        $shared_segments = $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS);
 
         $segments = new SegmentCollection(
-            array_merge(iterator_to_array($user_segments), iterator_to_array($global_segments))
+            array_merge(iterator_to_array($user_segments, false), iterator_to_array($shared_segments, false))
         );
 
         $segments = apply_filters(
@@ -119,9 +119,8 @@ final class Segment extends Controller
         $list_screen = $this->get_list_screen();
 
         if ( ! $list_screen) {
-            $response
-                ->set_status_code(400)
-                ->error();
+            $response->set_status_code(400)
+                     ->error();
         }
 
         $data = filter_var_array(
@@ -150,13 +149,34 @@ final class Segment extends Controller
             ? null
             : get_current_user_id();
 
-        $segment = $this->segment_repository->create(
+        $segment = new Entity\Segment(
             $this->segment_repository->generate_key(),
-            $list_screen->get_id(),
             (string)$data['name'],
             $whitelisted_url_parameters,
+            $list_screen->get_id(),
             $user_id
         );
+
+        try {
+            if ($user_id) {
+                $this->segment_repository->save($segment);
+            } else {
+                if ($list_screen->is_read_only()) {
+                    $response->set_status_code(400)
+                             ->error();
+                }
+
+                /** @var SegmentCollection $segments */
+                $segments = $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS);
+                $segments->add($segment);
+
+                $this->list_screen_repository->save($list_screen);
+            }
+        } catch (Exception $e) {
+            $response->set_status_code(500)
+                     ->set_message($e->getMessage())
+                     ->error();
+        }
 
         $response
             ->set_parameters([
@@ -168,24 +188,35 @@ final class Segment extends Controller
     public function delete_action(): void
     {
         $response = new Response\Json();
-        $key = $this->request->filter('key', FILTER_SANITIZE_NUMBER_INT);
 
-        if ( ! $key) {
+        $segment_key_input = $this->request->filter('key');
+        $is_shared_input = (int)$this->request->filter('user_id', 0);
+        $list_screen = $this->get_list_screen();
+
+        if ( ! $segment_key_input || ! $list_screen) {
             $response->error();
         }
 
-        $segment_key = new SegmentKey($key);
-        $segment = $this->segment_repository->find(new SegmentKey($key));
+        $segment_key = new SegmentKey($segment_key_input);
 
-        if ( ! $segment) {
-            $response->error();
+        if ($is_shared_input === 0) {
+            if ( ! current_user_can(Capabilities::MANAGE) || $list_screen->is_read_only()) {
+                $response->error();
+            }
+
+            $segments = $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS);
+            $segments->remove($segment_key);
+
+            $this->list_screen_repository->save($list_screen);
+        } else {
+            $segment = $this->segment_repository->find($segment_key);
+
+            if ( ! $segment || ! $segment->has_user_id() || $segment->get_user_id() !== get_current_user_id()) {
+                $response->error();
+            }
+
+            $this->segment_repository->delete($segment->get_key());
         }
-
-        if ( ! current_user_can(Capabilities::MANAGE) && $segment->get_user_id() !== get_current_user_id()) {
-            $response->error();
-        }
-
-        $this->segment_repository->delete($segment_key);
 
         $response->success();
     }

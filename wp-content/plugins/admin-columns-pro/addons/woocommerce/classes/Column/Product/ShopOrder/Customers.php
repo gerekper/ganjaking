@@ -46,7 +46,7 @@ class Customers extends AC\Column
 
     public function get_value($id)
     {
-        return count($this->get_raw_value($id));
+        return count($this->get_raw_value($id)) ?: $this->get_empty_char();
     }
 
     public function sorting()

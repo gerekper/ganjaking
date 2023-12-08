@@ -3,7 +3,7 @@
  * Extra Product Options admin setup
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options admin lookup table setup
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 
@@ -26,6 +26,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Admin_LookupTable_Base
 	 * @since 6.1
 	 * @static
 	 */
@@ -53,7 +54,6 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 
 		// save meta data.
 		add_action( 'save_post', [ $this, 'tm_save_postdata' ], 1, 2 );
-
 	}
 
 	/**
@@ -61,6 +61,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 *
 	 * @param integer $post_id The post id.
 	 * @param object  $post_object The post object.
+	 * @return void
 	 * @since 6.1
 	 */
 	public function tm_save_postdata( $post_id, $post_object ) {
@@ -75,10 +76,10 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 *
 	 * @param integer $post_id The post id.
 	 * @param object  $post_object The post object.
+	 * @return void|integer
 	 * @since 6.1
 	 */
 	public function tm_save_postdata_do( $post_id, $post_object ) {
-
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id;
 		}
@@ -102,50 +103,48 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				$save     = themecomplete_save_post_meta( $post_id, $tm_metas, $old_data, 'lookuptable_meta' );
 			}
 		}
-
 	}
 
 	/**
 	 * Import a lookup table.
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public function import() {
-
 		$csv = new THEMECOMPLETE_EPO_ADMIN_CSV();
 		$csv->lookuptable_import();
-
 	}
 
 	/**
 	 * Export a lookup table.
 	 *
+	 * @return void
 	 * @since 6.3
 	 */
 	public function export() {
-
 		$csv = new THEMECOMPLETE_EPO_ADMIN_CSV();
 		$csv->export_lookuptable( 'metaserialized' );
-
 	}
 
 	/**
 	 * Print script templates
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public function script_templates() {
 		// The check is required in case other plugin do things that don't load the wc_get_template function.
 		if ( function_exists( 'wc_get_template' ) ) {
-			wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+			wc_get_template( 'tc-js-admin-templates.php', [], '', THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
 		}
-
 	}
 
 	/**
 	 * Load scripts
 	 *
 	 * @param string $hook_suffix The current admin page.
+	 * @return void
 	 * @since 6.1
 	 */
 	public function admin_enqueue_scripts( $hook_suffix ) {
@@ -160,6 +159,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	/**
 	 * Enqueue plugin scripts and dequeue unwanted woocommerce scripts
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public function register_admin_scripts() {
@@ -169,13 +169,13 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 			$ext = '';
 		}
 		THEMECOMPLETE_EPO_ADMIN_GLOBAL()->register_admin_styles( 1 );
-		wp_enqueue_style( 'themecomplete-lookuptable-admin', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-lookup-table-admin' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
+		wp_enqueue_style( 'themecomplete-lookuptable-admin', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-lookup-table-admin' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 
-		wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-		wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-		wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-		wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', '', '2.1.4', true );
+		wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', [], '2.1.4', true );
 		wp_register_script(
 			'themecomplete-epo-admin-lookuptable',
 			THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/tm-epo-admin-lookuptable' . $ext . '.js',
@@ -225,6 +225,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	/**
 	 * Submenu "Lookup Table"
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public function preload_lookuptable_settings() {
@@ -236,6 +237,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 * Lookup tables meta box
 	 *
 	 * @param object $post The post object.
+	 * @return void
 	 * @since 6.1
 	 */
 	public function tm_lookup_tables_meta_box( $post ) {
@@ -268,6 +270,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 * Generates the saved lookup table.
 	 *
 	 * @param integer $post_id The current post id.
+	 * @return void
 	 * @since  6.1
 	 * @access public
 	 */
@@ -312,7 +315,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				if ( isset( $lookup_tables[ $table_name ] ) && count( $lookup_tables[ $table_name ] ) > 1 ) {
 					echo '<div class="table-index">';
 					echo '<span class="table-index-label">' . esc_html__( 'Table index', 'woocommerce-tm-extra-product-options' ) . '</span>';
-					echo '<span class="table-index-value">' . esc_html( $table_index ) . '</span>';
+					echo '<span class="table-index-value">' . esc_html( (string) $table_index ) . '</span>';
 					echo '</div>';
 				}
 				echo '</div>';
@@ -323,11 +326,17 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				echo '<th class="ltcell column1" data-row="1" data-column="1"></th>';
 				$counter = 1;
 				foreach ( $data as $x => $y_data ) {
-					$counter++;
+					++$counter;
 					foreach ( $y_data as $y => $cell ) {
 						$rows[ $y ][] = $cell;
 					}
-					echo '<th contenteditable="true" class="ltcell column' . esc_attr( $counter ) . '" data-row="1" data-column="' . esc_attr( $counter ) . '">' . esc_html( str_replace( '.', $decimal_separator, $x ) ) . '</th>';
+					echo '<th contenteditable="true" class="ltcell column' . esc_attr( (string) $counter ) . '" data-row="1" data-column="' . esc_attr( (string) $counter ) . '">';
+					if ( is_numeric( $x ) ) {
+						echo esc_html( str_replace( '.', $decimal_separator, $x ) );
+					} else {
+						echo esc_html( $x );
+					}
+					echo '</th>';
 				}
 				echo '</tr>';
 				echo '</thead>';
@@ -335,12 +344,18 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				$row = 1;
 				foreach ( $rows as $row1 => $rown ) {
 					$counter = 1;
-					$row++;
-					echo '<tr class="row row' . esc_attr( $row ) . '">';
-					echo '<td contenteditable="true" class="ltcell column' . esc_attr( $counter ) . '" data-row="' . esc_attr( $row ) . '" data-column="' . esc_attr( $counter ) . '">' . esc_html( str_replace( '.', $decimal_separator, $row1 ) ) . '</td>';
+					++$row;
+					echo '<tr class="row row' . esc_attr( (string) $row ) . '">';
+					echo '<td contenteditable="true" class="ltcell column' . esc_attr( (string) $counter ) . '" data-row="' . esc_attr( (string) $row ) . '" data-column="' . esc_attr( (string) $counter ) . '">';
+					if ( is_numeric( $row1 ) ) {
+						echo esc_html( str_replace( '.', $decimal_separator, $row1 ) );
+					} else {
+						echo esc_html( $row1 );
+					}
+					echo '</td>';
 					foreach ( $rown as $cell_data ) {
-						$counter++;
-						echo '<td contenteditable="true" class="ltcell column' . esc_attr( $counter ) . '" data-row="' . esc_attr( $row ) . '" data-column="' . esc_attr( $counter ) . '">' . esc_html( str_replace( '.', $decimal_separator, $cell_data ) ) . '</td>';
+						++$counter;
+						echo '<td contenteditable="true" class="ltcell column' . esc_attr( (string) $counter ) . '" data-row="' . esc_attr( (string) $row ) . '" data-column="' . esc_attr( (string) $counter ) . '">' . esc_html( str_replace( '.', $decimal_separator, $cell_data ) ) . '</td>';
 					}
 					echo '</tr>';
 				}
@@ -358,10 +373,10 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 * Save imported CSV
 	 *
 	 * @param integer $post_id The post id.
+	 * @return void|false
 	 * @since 6.1
 	 */
 	public function save_imported_csv( $post_id ) {
-
 		if ( empty( $post_id ) ) {
 			return false;
 		}
@@ -380,6 +395,5 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				$this->print_saved_lookuptable( $post_id );
 			}
 		}
-
 	}
 }

@@ -2,8 +2,9 @@
 
 namespace ACA\JetEngine\Editing\Service\Relation;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA\JetEngine\Editing;
-use ACP;
+use ACP\Helper\Select\User\PaginatedFactory;
 
 class User extends Editing\Service\Relationship {
 
@@ -18,8 +19,11 @@ class User extends Editing\Service\Relationship {
 		return $value;
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new ACP\Helper\Select\Paginated\Users( $search, $page );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'paged'  => $page,
+			'search' => $search,
+		] );
 	}
 
 }

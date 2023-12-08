@@ -608,24 +608,24 @@ class Slinky_Vertical_Menu extends Module_Base {
 		$settings = $this->get_settings_for_display();
 	?>
 		<ul>
-			<?php foreach ($settings['menus'] as $item) : ?>
-
-				<?php
-				$target = (!empty($item['menu_link']['is_external'])) ? 'target="_blank"' : '';
-				$nofollow = (!empty($item['menu_link']['nofollow'])) ? ' rel="nofollow"' : '';
+			<?php foreach ($settings['menus'] as $index => $item) : 
+				$menu_link = 'link_' . $index;
 
 				if ($item['menu_type'] == 'child_start') {
-					$item_class = 'has-arrow';
+					$this->add_render_attribute($menu_link, 'class', 'has-arrow', true);
 				} else {
-					$item_class = '';
+					$this->add_render_attribute($menu_link, 'class', '', true);
+				}
+
+				if (!empty($item['menu_link']['url'])) {
+					$this->add_link_attributes($menu_link, $item['menu_link']);
 				}
 
 				?>
 
 				<?php if ($item['menu_type'] !== 'child_end') : ?>
 					<li class="bdt-menu-item">
-						<a class="<?php echo $item_class; ?>" href="<?php echo esc_url($item['menu_link']['url']); ?>" <?php echo wp_kses_post($target);
-																														echo wp_kses_post($nofollow); ?>>
+						<a <?php echo $this->get_render_attribute_string($menu_link); ?>>
 							<?php if (!empty($item['menu_icon']['value'])) : ?>
 								<span class="bdt-menu-icon">
 									<?php Icons_Manager::render_icon($item['menu_icon'], ['aria-hidden' => 'true']); ?>

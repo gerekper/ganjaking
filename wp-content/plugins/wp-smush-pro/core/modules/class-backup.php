@@ -57,7 +57,7 @@ class Backup extends Abstract_Module {
 	 */
 	public function backup_exists( $attachment_id, $file_path = false ) {
 		$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
-		return $media_item->backup_file_exists();
+		return $media_item->can_be_restored();
 	}
 
 	/**

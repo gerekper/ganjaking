@@ -200,8 +200,8 @@
                     var megamenu = $(this);
                     megamenu.find('.ep-menu-trigger-btn').length < 1 && $('.item-title', megamenu).append(
                         '<a id="bdthemes-element-pack-trigger-btn" class="ep-menu-trigger-btn" href="#bdt-ep-megamenu-modal">' +
-                        '<span class="ep-megeamenu">Mega Menu</span>' +
-                        '<span class="ep-megeamenu-edit">Edit Mega Menu</span>' +
+                        '<span class="ep-megeamenu">Edit</span>' +
+                        '<span class="ep-megeamenu-edit">Edit</span>' +
                         '</a>');
                 });
             });

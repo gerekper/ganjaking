@@ -33,6 +33,8 @@ class Operator extends Mapping
             Operators::GT_DAYS_AGO  => 'gt_days_ago',
             Operators::WITHIN_DAYS  => 'within_days',
             Operators::CURRENT_USER => 'current_user',
+            Operators::EQ_YEAR      => 'date_year',
+            Operators::EQ_MONTH     => 'date_month',
         ];
     }
 

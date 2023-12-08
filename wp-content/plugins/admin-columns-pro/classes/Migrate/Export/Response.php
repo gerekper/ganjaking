@@ -2,11 +2,9 @@
 
 namespace ACP\Migrate\Export;
 
-interface Response {
+interface Response
+{
 
-	/**
-	 * @return void
-	 */
-	public function send();
+    public function send(): void;
 
 }

@@ -102,10 +102,16 @@ $level_notices = array(
 				aria-describedby="<?php echo esc_attr( $name . '-desc' ); ?>"
 				value="<?php echo (int) $level_ultra; ?>"
 				<?php checked( $lossy_level_setting, $level_ultra, true ); ?> />
-		<?php else : ?>
-			<a href="#" class="sui-tab-item" data-modal-open="wp-smush-ultra-compression-modal__settings">
-				<?php echo esc_html( $settings->get_lossy_level_label( $level_ultra ) ); ?>
-				<span class="sui-tag sui-tag-pro"><?php esc_html_e( 'Pro', 'wp-smushit' ); ?></span>
+		<?php else :
+			$utm_link = $this->get_utm_link(
+				array(
+					'utm_campaign' => 'smush_ultra_bulksmush_radio',
+				)
+			);
+		?>
+			<a target="_blank" href="<?php echo esc_url( $utm_link ); ?>" class="sui-tab-item wp-smush-ultra-compression-link wp-smush-upsell-ultra-compression">
+				<?php esc_html_e( '🚀 Ultra - unlock 5x more compression', 'wp-smushit' ); ?>
+				<span class="sui-icon-open-new-window" aria-hidden="true"></span>
 			</a>
 		<?php endif; ?>
 	</div>
@@ -165,7 +171,3 @@ $level_notices = array(
 		</div>
 	</div>
 </div>
-<?php
-if ( ! WP_Smush::is_pro() ) {
-	$this->view( 'ultra-compression', array(), 'modals' );
-}

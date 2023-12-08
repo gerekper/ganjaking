@@ -32,7 +32,7 @@ class Products extends AC\Column
             : (new Helper\User())->get_sold_product_count($id);
 
         return $count
-            ? ac_helper()->html->get_ajax_modal_link($count, [
+            ? ac_helper()->html->get_ajax_modal_link((string)$count, [
                 'title' => sprintf(
                     '%s %s',
                     __('Products by', 'codepress-admin-columns'),
@@ -73,7 +73,12 @@ class Products extends AC\Column
         return new Search\User\Products();
     }
 
-    public function get_ajax_value($user_id)
+    /**
+     * @param int $user_id
+     *
+     * @return object[]
+     */
+    private function get_ordered_items(int $user_id): array
     {
         global $wpdb;
 
@@ -92,8 +97,20 @@ class Products extends AC\Column
             $user_id
         );
 
+        return $wpdb->get_results($sql);
+    }
+
+    public function get_ajax_value($user_id)
+    {
+        $products = $this->get_ordered_items((int)$user_id);
+
+        if (count($products) < 1) {
+            return false;
+        }
+
         $items = [];
-        foreach ($wpdb->get_results($sql) as $row) {
+
+        foreach ($products as $row) {
             $ids = explode('#', $row->pid);
             $variation_id = $ids[1] !== '0' ? $ids[1] : $ids[0];
 

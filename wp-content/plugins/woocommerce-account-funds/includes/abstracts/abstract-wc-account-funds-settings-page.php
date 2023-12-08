@@ -35,7 +35,6 @@ abstract class WC_Account_Funds_Settings_Page extends WC_Settings_Page {
 		add_filter( "woocommerce_get_sections_{$this->id}", array( $this, 'register_sections' ), 0 );
 
 		parent::__construct();
-
 	}
 
 	/**

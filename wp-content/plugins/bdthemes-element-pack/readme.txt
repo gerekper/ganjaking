@@ -2,7 +2,7 @@
 Contributors: bdthemes, selimmw
 Donate link: http://bdthemes.com/
 Tags: elementor addons, elementor widget, elementor extensions, elementor addon, addons, elementor, addons for elementor, addons pack, live copy, template library, bdthemes
-Stable tag: 7.6.4
+Stable tag: 7.7.0
 Requires PHP: 7.4.0
 Requires at least: 5.0.0
 Tested up to: 6.4.1
@@ -35,6 +35,51 @@ e.g.
 
 
 == Changelog ==
+
+= 7.7.0 [5th December 2023] =
+
+= Added =
+
+* Ripple effects extension added
+* Smooth scroller feature added
+* Shortcode, Tags in Cart, Orders Placed module added in visibility control extensions 
+* Ribbon border added in price table widget
+* Active item feature added in sub menu widget
+* Unlock badge options in mega menu widget
+* Custom attributes compatibility added in fancy card, fancy slider, fancy tabs, featured box, flip box, honeycombs, hover box, icon mobile menu, icon nav, image accordion, image expand, image stack, interactive card, interactive tabs, logo caroseul, logo grid, lottie icon box, lottie image, marker, panel slider, price table, product carousel, product grid, profile card, slideshow, slinky vertical menu, static carousel, static grid tab, svg image, trailer box, vertical menu widgets
+* Icon option added in reading timer widget
+
+= Fixed =
+
+* Live copy paste issue fixed
+* Alignment issue fixed in social share widget
+* Vertical offset issue fixed in mega menu widget
+* Hamburger menu alignment compatibility issue fixed
+* Ajax Load more not working in current query issue fixed in WC Products widget
+* Active Menu issue fixed in Sub Menu widget
+* Remove Dots from Menu in Offcanvas widget
+* Active item issue fixed in interactive tabs widget
+
+= Updated =
+
+* UIKit framework updated
+
+= Noted =
+
+* “Live Copy” and “Live Paste” functionality is deprecated, ""Use Elementor's built-in feature instead of the deprecated 'Live Copy' and 'Live Paste' functionality."
+
+= 7.6.5 [22th November 2023] =
+
+= Added =
+
+* Custom attributes compatibility added in advanced heading, animated card, animated heading, animated link, brand carousel, brand grid, call out, circle info, circle menu, comparison list, creative button & slider widgets
+* Custom attributes compatibility added in custom carousel, custom gallery, device slider, dual button, fancy icon, fancy list
+
+= Fixed =
+
+* Link target issue fixed in slider widget (Thanks to Meromora)
+* Icon issue fixed in Reading Progress widget
+* Linkable issue fixed in marquee widget
 
 = 7.6.4 [19th November 2023] =
 

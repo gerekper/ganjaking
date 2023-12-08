@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use AC\Settings\Column\Post;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Type\DataType;
 
 /**
@@ -14,7 +13,7 @@ use ACP\Sorting\Type\DataType;
 class MetaRelatedPostFactory
 {
 
-    public function create(string $post_property, string $meta_key): ?AbstractModel
+    public function create(string $post_property, string $meta_key)
     {
         switch ($post_property) {
             case Post::PROPERTY_TITLE :

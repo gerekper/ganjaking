@@ -9,11 +9,8 @@ use AC\DefaultColumnsRepository;
 use AC\Registerable;
 use AC\Services;
 use AC\Vendor\Psr\Container\ContainerInterface;
-use ACA\GravityForms\Search\Query;
 use ACA\GravityForms\Service\ColumnGroup;
 use ACA\GravityForms\Service\Scripts;
-use ACP\Search\QueryFactory;
-use ACP\Search\TableScreenFactory;
 use ACP\Service\IntegrationStatus;
 use GFCommon;
 
@@ -49,8 +46,9 @@ final class GravityForms implements Registerable
         $this->create_services()->register();
 
         // Enable Search
-        QueryFactory::register(MetaTypes::GRAVITY_FORMS_ENTRY, Query::class);
-        TableScreenFactory::register(ListScreen\Entry::class, Search\TableScreen\Entry::class);
+        // Disabled For now
+        //QueryFactory::register(MetaTypes::GRAVITY_FORMS_ENTRY, Query::class);
+        //TableScreenFactory::register(ListScreen\Entry::class, Search\TableScreen\Entry::class);
     }
 
     private function create_services(): Services

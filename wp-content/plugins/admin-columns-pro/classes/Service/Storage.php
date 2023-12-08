@@ -6,9 +6,14 @@ namespace ACP\Service;
 
 use AC;
 use AC\ListScreenRepository\Storage\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\Registerable;
 use ACP\ListScreenRepository\Callback;
+use ACP\ListScreenRepository\Database;
 use ACP\ListScreenRepository\FileFactory;
+use ACP\ListScreenRepository\Preset;
+use ACP\ListScreenRepository\Types;
+use ACP\Migrate\Preference\PreviewMode;
 use ACP\Storage\AbstractDecoderFactory;
 use ACP\Storage\Directory;
 
@@ -17,28 +22,48 @@ final class Storage implements Registerable
 
     private $storage;
 
+    private $database_list_screen_repository;
+
     private $decoder_factory;
 
     private $file_factory;
 
+    private $preset_repository;
+
+    private $preview_mode;
+
     public function __construct(
         AC\ListScreenRepository\Storage $storage,
+        Database $database_list_screen_repository,
         AbstractDecoderFactory $decoder_factory,
-        FileFactory $file_factory
+        FileFactory $file_factory,
+        Preset $preset_repository,
+        PreviewMode $preview_mode
     ) {
         $this->storage = $storage;
+        $this->database_list_screen_repository = $database_list_screen_repository;
         $this->decoder_factory = $decoder_factory;
         $this->file_factory = $file_factory;
+        $this->preset_repository = $preset_repository;
+        $this->preview_mode = $preview_mode;
     }
 
     public function register(): void
     {
         add_action('acp/ready', [$this, 'configure'], 20);
+
+        // Migrate can only run after post types have been initialised
+        add_action('init', [$this, 'migrate'], 300);
     }
 
     public function configure(): void
     {
         $repositories = $this->storage->get_repositories();
+
+        // Use the ACP version instead of the AC version
+        $repositories[AC\ListScreenRepository\Types::DATABASE] = new ListScreenRepository(
+            $this->database_list_screen_repository, true
+        );
 
         $this->configure_file_storage($repositories);
 
@@ -49,12 +74,16 @@ final class Storage implements Registerable
         );
 
         $callbacks = apply_filters('acp/storage/repositories/callback', []);
-        
+
         foreach ($callbacks as $key => $callback) {
-            $repositories['acp-callback-' . $key] = new ListScreenRepository(
+            $repositories['ac-callback-' . $key] = new ListScreenRepository(
                 new Callback($this->decoder_factory, $callback),
                 false
             );
+        }
+
+        if ($this->preview_mode->is_active()) {
+            $repositories[Types::PRESET] = new ListScreenRepository($this->preset_repository);
         }
 
         $this->storage->set_repositories($repositories);
@@ -74,7 +103,7 @@ final class Storage implements Registerable
 
         $directory = new Directory($path);
 
-        if ( ! $directory->exists() && $directory->has_path(WP_CONTENT_DIR)) {
+        if ( ! $directory->exists() || str_contains($path, WP_CONTENT_DIR)) {
             $directory->create();
         }
 
@@ -85,37 +114,43 @@ final class Storage implements Registerable
             (string)apply_filters('acp/storage/file/directory/i18n_text_domain', null)
         );
 
-        $repositories['acp-file'] = $file;
+        $repositories[Types::FILE] = $file;
 
-        if ( ! $file->is_writable() || ! $this->storage->has_repository('acp-database')) {
+        if ( ! $file->is_writable() || ! $this->storage->has_repository(Types::DATABASE)) {
             return;
         }
 
-        $database = $this->storage->get_repository('acp-database');
-
-        if (apply_filters('acp/storage/file/directory/migrate', false)) {
-            $this->run_migration($database, $file);
-        }
-
-        if (apply_filters('acp/storage/file/directory/copy', false)) {
-            $this->run_copy($database, $file);
-        }
-
-        $repositories['acp-database'] = $database->with_writable(false);
+        $repositories[Types::DATABASE] = $repositories[Types::DATABASE]->with_writable(false);
     }
 
-    private function run_migration(ListScreenRepository $from, ListScreenRepository $to): void
+    public function migrate(): void
     {
-        foreach ($from->with_writable(true)->find_all() as $list_screen) {
-            $to->save($list_screen);
-            $from->delete($list_screen);
-        }
-    }
+        $do_migrate = apply_filters('acp/storage/file/directory/migrate', false);
 
-    private function run_copy(ListScreenRepository $from, ListScreenRepository $to): void
-    {
-        foreach ($from->find_all() as $list_screen) {
-            $to->save($list_screen);
+        if ( ! $do_migrate) {
+            return;
+        }
+
+        if ( ! $this->storage->has_repository(Types::FILE) || ! $this->storage->has_repository(Types::DATABASE)) {
+            return;
+        }
+
+        $file = $this->storage
+            ->get_repository(Types::FILE)
+            ->get_list_screen_repository();
+
+        $database = $this->storage
+            ->get_repository(Types::DATABASE)
+            ->with_writable(true)
+            ->get_list_screen_repository();
+
+        if ( ! $database instanceof ListScreenRepositoryWritable || ! $file instanceof ListScreenRepositoryWritable) {
+            return;
+        }
+
+        foreach ($database->find_all() as $list_screen) {
+            $file->save($list_screen);
+            $database->delete($list_screen);
         }
     }
 

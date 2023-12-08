@@ -59,7 +59,7 @@
 					}
 				}
 
-				base.find( '.amount' ).after( '<span class="tmperiod' + is_hidden + '">' + subscription_period + '</span>' );
+				base.find( '.amount' ).not( '.amount .amount' ).after( '&nbsp;<span class="tmperiod' + is_hidden + '">' + subscription_period + '</span>' );
 
 				$this.find( '.tmperiod' ).remove();
 				$this
@@ -81,7 +81,11 @@
 						};
 						formatted_final_total = $.epoAPI.applyFilter( 'tc_formatPrice', $.epoAPI.math.format( tc_totals_ob.product_total_price, args ), args );
 					}
-					nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
+					if ( epoObject.is_associated ) {
+						nativeProductPriceSelector = epoObject.main_product.find( tcAPI.associatedNativeProductPriceSelector );
+					} else {
+						nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
+					}
 
 					if ( subscription_sign_up_fee && formatted_final_total ) {
 						nativeProductPriceSelector
@@ -92,16 +96,16 @@
 									} )
 								) + ' ' +
 									subscription_period +
-									TMEPOJS.i18n_and_a +
+									' ' + TMEPOJS.i18n_and_a + ' ' +
 									$.epoAPI.util.decodeHTML(
 										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
 											price: subscription_sign_up_fee
 										} )
-									) +
+									) + ' ' +
 									TMEPOJS.i18n_sign_up_fee
 							)
 							.show();
-					} else {
+					} else if ( formatted_final_total !== undefined ) {
 						nativeProductPriceSelector
 							.html(
 								$.epoAPI.util.decodeHTML(
@@ -128,6 +132,8 @@
 		var epoHolder = data.epoHolder;
 		var totalsHolder = data.totalsHolder;
 		var tm_set_price_totals = data.tm_set_price_totals;
+		var product_and_subscription_total = 0;
+		var formatted_product_and_subscription_total = '';
 
 		epoHolder
 			.find( '.tmcp-sub-fee-field' )
@@ -179,15 +185,26 @@
 				subscription_sign_up_fee = 0;
 			}
 			subscription_total = subscription_sign_up_fee + parseFloat( subscription_options_total );
+			if ( ! Number.isFinite( subscription_total ) ) {
+				subscription_total = 0;
+			}
 			if ( subscription_total ) {
 				show_sign_up_fee = true;
-				formatted_subscription_fee_total = tm_set_price_totals( subscription_total, totalsHolder, false, true );
 			}
+			formatted_subscription_fee_total = tm_set_price_totals( subscription_total, totalsHolder, false, true );
+
+			product_and_subscription_total = parseFloat( data.product_total_price ) + parseFloat( subscription_total );
+			if ( ! Number.isFinite( product_and_subscription_total ) ) {
+				product_and_subscription_total = 0;
+			}
+			formatted_product_and_subscription_total = tm_set_price_totals( product_and_subscription_total, totalsHolder, false, true );
 		}
 
 		tc_totals_ob.formatted_subscription_fee_total = formatted_subscription_fee_total;
 		tc_totals_ob.subscription_sign_up_fee = subscription_total;
 		tc_totals_ob.show_sign_up_fee = show_sign_up_fee;
+		tc_totals_ob.product_and_subscription_total = product_and_subscription_total;
+		tc_totals_ob.formatted_product_and_subscription_total = formatted_product_and_subscription_total;
 		tc_totals_ob.sign_up_fee = TMEPOJS.i18n_subscription_sign_up_fee;
 		tc_totals_ob.showTotal = showTotal;
 

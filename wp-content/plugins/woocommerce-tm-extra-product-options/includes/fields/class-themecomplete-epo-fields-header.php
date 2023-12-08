@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_header extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -32,6 +33,7 @@ class THEMECOMPLETE_EPO_FIELDS_header extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -40,5 +42,4 @@ class THEMECOMPLETE_EPO_FIELDS_header extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => false,
 		];
 	}
-
 }

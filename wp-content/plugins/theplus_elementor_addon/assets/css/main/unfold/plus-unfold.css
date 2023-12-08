@@ -1,0 +1,88 @@
+/*unfold*/
+.tp-unfold-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.tp-unfold-wrapper .tp-unfold-title {
+    position: relative;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+.tp-unfold-wrapper .tp-unfold-description {
+    position: relative;   
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 16px;
+    font-weight: 400;
+    text-align: justify;
+}
+.tp-unfold-wrapper:not(.fullview) .tp-unfold-description::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    z-index: 11;
+}
+.tp-unfold-wrapper .tp-unfold-last-toggle {
+    position: relative;
+    display: none;
+    margin-top: 15px;
+}
+.tp-unfold-wrapper .tp-unfold-toggle,.tp-unfold-wrapper .tp-unfold-toggle:active,.tp-unfold-wrapper .tp-unfold-toggle:focus, .tp-unfold-wrapper .tp-unfold-toggle-link,.tp-unfold-wrapper .tp-unfold-toggle-link:active,.tp-unfold-wrapper .tp-unfold-toggle-link:focus {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    background: #ff5a6e;
+    color: #fff;
+    border: 1px solid #ff5a6e;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+	transition:all 0.3s linear;
+}
+.tp-unfold-wrapper .tp-unfold-toggle-link,.tp-unfold-wrapper .tp-unfold-toggle-link:active,.tp-unfold-wrapper .tp-unfold-toggle-link:focus {
+    visibility: hidden;
+	position: absolute;
+	transition: none;
+}
+.tp-unfold-wrapper.fullview .tp-unfold-last-toggle.flex-end .tp-unfold-toggle-link {
+    margin-left: 0;
+    margin-right: 15px;
+}
+.tp-unfold-wrapper .tp-unfold-toggle-link,.tp-unfold-wrapper .tp-unfold-toggle-link:active,.tp-unfold-wrapper .tp-unfold-toggle-link:focus {
+    background: #8072fc;
+    border: 1px solid #8072fc;
+    transform: translateY(125px);
+    opacity: 0;
+}
+.tp-unfold-wrapper.fullview .tp-unfold-toggle-link,.tp-unfold-wrapper.fullview .tp-unfold-toggle-link:active,.tp-unfold-wrapper.fullview .tp-unfold-toggle-link:focus {
+    visibility: visible;
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+    padding: 10px 20px;
+    transition: all .9s linear;
+    transform: translateY(0);
+    opacity: 1;
+	position: relative;
+}
+.tp-unfold-wrapper .tp-unfold-last-toggle .tp-unfold-toggle i,.tp-unfold-wrapper .tp-unfold-last-toggle .tp-unfold-toggle-link i {
+    margin-right: 10px;
+}
+.tp-unfold-wrapper.tp-ca-center .tp-unfold-toggle-link, .tp-unfold-wrapper.tp-ca-center .tp-unfold-toggle-link:active, .tp-unfold-wrapper.tp-ca-center .tp-unfold-toggle-link:focus,
+.tp-unfold-wrapper.tp-ca-center.fullview .tp-unfold-toggle-link, .tp-unfold-wrapper.tp-ca-center.fullview .tp-unfold-toggle-link:active, .tp-unfold-wrapper.tp-ca-center.fullview .tp-unfold-toggle-link:focus{
+	transform: unset;
+}

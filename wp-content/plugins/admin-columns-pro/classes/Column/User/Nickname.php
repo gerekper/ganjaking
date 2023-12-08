@@ -25,6 +25,6 @@ class Nickname extends AC\Column\User\Nickname
 	}
 
 	public function search() {
-		return new Search\Comparison\Meta\Text( $this->get_meta_key(), AC\MetaType::USER );
+		return new Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 }

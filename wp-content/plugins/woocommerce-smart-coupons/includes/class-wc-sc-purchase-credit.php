@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.0
+ * @version     3.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -244,6 +244,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 					'size'         => '',
 					'step'         => 'any',
 					'width'        => '',
+					'class'        => 'input-text',
 				);
 
 				$input = apply_filters( 'wc_sc_call_for_credit_template_input', $input, array( 'source' => $this ) );

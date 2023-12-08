@@ -2,14 +2,13 @@
 
 namespace ACA\WC\Sorting\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class Ratings extends AbstractModel implements QueryBindings
+class Ratings implements QueryBindings
 {
 
     /**
@@ -19,8 +18,6 @@ class Ratings extends AbstractModel implements QueryBindings
 
     public function __construct(string $sort_type = null)
     {
-        parent::__construct();
-
         if (null === $sort_type) {
             $sort_type = 'COUNT';
         }

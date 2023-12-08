@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class Fields extends AbstractModel implements QueryBindings
+class Fields implements QueryBindings
 {
 
     use PostResultsTrait;
 
     public function __construct(array $db_columns, FormatValue $formatter = null)
     {
-        parent::__construct();
-
         $this->db_columns = $db_columns;
         $this->formatter = $formatter;
     }

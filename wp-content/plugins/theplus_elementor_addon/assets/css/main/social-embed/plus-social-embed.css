@@ -1,0 +1,49 @@
+/* Social Embed */
+.tp-social-embed {
+    text-align: center;
+}
+.tp-social-embed a {
+    text-decoration: none;
+}
+.tp-social-embed .tw-button{
+    color: #0073aa;
+}
+/* used in youtube */
+.social-embed-link{
+    color: #a4afb7;
+}
+.social-embed-link.select-down{
+    padding : 10px 0px 15px 0px;
+}
+.social-embed-link a{
+    color: #d30c5c;
+    text-decoration: none;
+    font-size: 11px;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: right;
+    font-weight: bold;
+}
+
+.tp-social-embed iframe.tp-frame-set {
+    border: none;
+}
+
+.tp-social-embed .fluidvids {
+    width: unset;
+    max-width: unset;
+    position: unset;
+    padding-top: 0% !important;
+}
+.tp-social-embed .fluidvids .fluidvids-item {
+    position: unset;
+    top: unset;
+    left: unset;
+    width: unset;
+    height: unset;
+}
+.tp-social-embed iframe.instagram-media.instagram-media-rendered {
+    width: 100%;
+    display: unset !important;
+}
+/* Social Embed */

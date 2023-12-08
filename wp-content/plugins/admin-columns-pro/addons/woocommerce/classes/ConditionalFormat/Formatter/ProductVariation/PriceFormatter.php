@@ -12,7 +12,7 @@ use WC_Product_Variation;
 class PriceFormatter extends Formatter\FloatFormatter
 {
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         if (ComparisonOperators::class === $operator_group) {
             $value = (new WC_Product_Variation($id))->get_price();

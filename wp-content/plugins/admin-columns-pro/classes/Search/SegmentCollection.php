@@ -7,12 +7,11 @@ namespace ACP\Search;
 use ACP\Search\Entity\Segment;
 use ACP\Search\Type\SegmentKey;
 use Countable;
+use InvalidArgumentException;
 use Iterator;
 
 final class SegmentCollection implements Iterator, Countable
 {
-
-    private $position;
 
     /**
      * @var Segment[]
@@ -21,54 +20,56 @@ final class SegmentCollection implements Iterator, Countable
 
     public function __construct(array $data = [])
     {
-        $this->rewind();
-
         array_map([$this, 'add'], $data);
     }
 
     public function add(Segment $item): void
     {
-        $this->data[] = $item;
+        $this->data[(string)$item->get_key()] = $item;
     }
 
     public function remove(SegmentKey $key): void
     {
-        $data = [];
+        unset($this->data[(string)$key]);
+    }
 
-        foreach ($this->data as $segment) {
-            if ( ! $segment->get_key()->equals($key)) {
-                $data[] = $segment;
-            }
+    public function contains(SegmentKey $segment_key): bool
+    {
+        return isset($this->data[(string)$segment_key]);
+    }
+
+    public function get(SegmentKey $segment_key): Segment
+    {
+        if ( ! $this->contains($segment_key)) {
+            throw new InvalidArgumentException(sprintf('No segment found for key %s.', $segment_key));
         }
 
-        $this->data = $data;
-
-        $this->rewind();
+        return $this->data[(string)$segment_key];
     }
 
     public function current(): Segment
     {
-        return $this->data[$this->position];
+        return current($this->data);
     }
 
     public function next(): void
     {
-        $this->position++;
+        next($this->data);
     }
 
-    public function key(): int
+    public function key(): SegmentKey
     {
-        return $this->position;
+        return new SegmentKey(key($this->data));
     }
 
     public function valid(): bool
     {
-        return isset($this->data[$this->position]);
+        return key($this->data) !== null;
     }
 
     public function rewind(): void
     {
-        $this->position = 0;
+        reset($this->data);
     }
 
     public function count(): int

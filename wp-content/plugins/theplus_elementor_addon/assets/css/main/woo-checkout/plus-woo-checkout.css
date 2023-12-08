@@ -1,0 +1,102 @@
+/*checkout page*/
+#add_payment_method #payment div.payment_box::before, .woocommerce-cart #payment div.payment_box::before, .woocommerce-checkout #payment div.payment_box::before{
+	content : none;
+}
+.tp-checkout-page-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.tp-checkout-page-wrapper .woocommerce .checkout_coupon.woocommerce-form-coupon .form-row {
+    float: left;
+    width: auto;
+}
+.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce .col2-set{    
+    float: left;
+    padding: 5px 10px;
+}
+.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce-checkout-review-order {    
+    float: left;
+    padding: 5px 10px;
+}
+.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce .col2-set .col-1,.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce-page .col2-set .col-1 {
+    width: 100%;
+}
+.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce .col2-set .col-2,.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce-page .col2-set .col-2 {
+    width: 100%;
+}
+.tp-checkout-page-wrapper.tp_co_l_2 #tp_order_review_heading {
+    display: inline-block;
+    padding: 5px 10px;
+}
+.tp-checkout-page-wrapper .checkout.woocommerce-checkout {
+    display: inline-block;
+}
+.select2-container--default .select2-selection--single{
+	border: none;
+}
+.tp-checkout-page-wrapper .woocommerce-checkout-review-order table tbody tr:hover>td,.tp-checkout-page-wrapper .woocommerce-checkout-review-order table tbody tr:hover>th,.tp-checkout-page-wrapper .woocommerce-checkout-review-order table tbody tr>td,.tp-checkout-page-wrapper .woocommerce-checkout-review-order table tbody tr>th  {
+    background-color: transparent;
+}
+.tp-checkout-page-wrapper .checkout #order_review_heading {
+    display: none;
+}
+.tp-checkout-page-wrapper .checkout .woocommerce-billing-fields h3:before,
+.tp-checkout-page-wrapper .checkout #tp_order_review_heading:before,
+.tp-checkout-page-wrapper .checkout_coupon .form-row.form-row-last .button:before,
+.tp-checkout-page-wrapper .checkout .woocommerce-checkout-payment button#place_order:before,
+.tp-checkout-page-wrapper .woocommerce-shipping-fields h3#ship-to-different-address span:before{
+	 font-family: "Font Awesome 5 free";
+	 font-weight: 600;
+    margin-right: 10px;
+}
+.tp-checkout-page-wrapper .woocommerce .woocommerce-form-login .woocommerce-form-login__rememberme {
+    width: 100%;
+}
+.tp-checkout-page-wrapper .woocommerce-checkout #payment .payment_method_stripe p:last-child{
+	display:flex;
+}
+.tp-checkout-page-wrapper .woocommerce-billing-fields__field-wrapper .select2-selection__rendered,
+.tp-checkout-page-wrapper .woocommerce-shipping-fields__field-wrapper .select2-selection__rendered {
+    min-height: 40px;
+    align-items: center;
+    display: flex;
+}
+.woocommerce-checkout form #order_review .woocommerce-checkout-review-order-table tbody::after, .woocommerce-checkout form #order_review_heading .woocommerce-checkout-review-order-table tbody::after{
+	content: unset;
+}
+@media only screen and (max-width: 425px) {
+	.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce .col2-set {
+		width: 100% !important;
+	}
+
+	.tp-checkout-page-wrapper.tp_co_l_2 #tp_order_review_heading {
+		display: block !important;
+	}
+
+	.tp-checkout-page-wrapper.tp_co_l_2 .woocommerce-checkout-review-order {
+		width: 100% !important;
+	}
+}
+.tp-checkout-page-wrapper .woocommerce td.product-name .wc-item-meta, .woocommerce td.product-name dl.variation {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+.tp-checkout-page-wrapper .woocommerce td.product-name .wc-item-meta, .woocommerce td.product-name dl.variation p {
+    margin: 0;
+}
+.tp-checkout-page-wrapper .woocommerce td.product-name .wc-item-meta, .woocommerce td.product-name dl.variation p {
+    margin: 0 5px 0 5px;
+}
+.tp-checkout-page-wrapper .woocommerce td.product-name .wc-item-meta, .woocommerce td.product-name dl.variation dd:last-child p {
+    margin: 0 0 0 5px;
+}
+
+.tp-checkout-page-wrapper .woocommerce td.product-name .wc-item-meta, .woocommerce td.product-name dl.variation {
+    margin-top: 5px;
+}

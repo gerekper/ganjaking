@@ -9,15 +9,36 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li class="tmcp-field-wrap">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
-	<label for="<?php echo esc_attr( $id ); ?>" class="tm-epo-field-label tm-epo-timepicker-label-container<?php echo esc_attr( $class_label ); ?>">
+if ( isset( $class_label, $element_id, $get_default_value, $input_type, $name, $button_style, $fieldtype, $rules, $original_rules, $time_mask, $time_placeholder, $min_time, $max_time, $time_format, $custom_time_format, $time_theme, $time_theme_size, $time_theme_position, $translation_hour, $translation_minute, $translation_second ) ) :
+	$class_label         = (string) $class_label;
+	$element_id          = (string) $element_id;
+	$get_default_value   = (string) $get_default_value;
+	$input_type          = (string) $input_type;
+	$name                = (string) $name;
+	$button_style        = (string) $button_style;
+	$fieldtype           = (string) $fieldtype;
+	$rules               = (string) $rules;
+	$original_rules      = (string) $original_rules;
+	$time_mask           = (string) $time_mask;
+	$time_placeholder    = (string) $time_placeholder;
+	$min_time            = (string) $min_time;
+	$max_time            = (string) $max_time;
+	$time_format         = (string) $time_format;
+	$custom_time_format  = (string) $custom_time_format;
+	$time_theme          = (string) $time_theme;
+	$time_theme_size     = (string) $time_theme_size;
+	$time_theme_position = (string) $time_theme_position;
+	$translation_hour    = (string) $translation_hour;
+	$translation_minute  = (string) $translation_minute;
+	$translation_second  = (string) $translation_second;
+	?>
+<li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
+	<label for="<?php echo esc_attr( $element_id ); ?>" class="tc-col tm-epo-field-label tm-epo-timepicker-label-container<?php echo esc_attr( $class_label ); ?>">
 	<?php
 	$input_args = [
 		'nodiv'      => 1,
@@ -25,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 		'type'       => 'input',
 		'input_type' => $input_type,
 		'tags'       => [
-			'id'                       => $id,
+			'id'                       => $element_id,
 			'name'                     => $name,
 			'class'                    => $fieldtype . $button_style . ' tm-epo-field tmcp-time',
 			'data-price'               => '',
@@ -40,9 +61,9 @@ defined( 'ABSPATH' ) || exit;
 			'data-time-theme'          => $time_theme,
 			'data-time-theme-size'     => $time_theme_size,
 			'data-time-theme-position' => $time_theme_position,
-			'data-tranlation-hour'     => $tranlation_hour,
-			'data-tranlation-minute'   => $tranlation_minute,
-			'data-tranlation-second'   => $tranlation_second,
+			'data-tranlation-hour'     => $translation_hour,
+			'data-tranlation-minute'   => $translation_minute,
+			'data-tranlation-second'   => $translation_second,
 			'inputmode'                => 'none',
 		],
 	];
@@ -71,6 +92,8 @@ defined( 'ABSPATH' ) || exit;
 	?>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div></li>
+	<?php
+endif;

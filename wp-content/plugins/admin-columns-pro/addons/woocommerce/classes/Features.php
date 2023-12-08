@@ -11,19 +11,21 @@ class Features
 
     private $features_controller;
 
-    public function __construct(FeaturesController $features_controller)
+    public function __construct(FeaturesController $features_controller = null)
     {
         $this->features_controller = $features_controller;
     }
 
     public function use_hpos(): bool
     {
-        return $this->features_controller->feature_is_enabled('custom_order_tables');
+        return $this->features_controller && $this->features_controller->feature_is_enabled('custom_order_tables');
     }
 
     public function declare_compatibility_hpos(string $plugin_basename): void
     {
-        $this->features_controller->declare_compatibility('custom_order_tables', $plugin_basename);
+        if ($this->features_controller) {
+            $this->features_controller->declare_compatibility('custom_order_tables', $plugin_basename);
+        }
     }
 
 }

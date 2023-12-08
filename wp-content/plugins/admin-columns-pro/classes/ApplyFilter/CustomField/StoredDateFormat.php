@@ -2,14 +2,14 @@
 
 namespace ACP\ApplyFilter\CustomField;
 
-use AC;
+use AC\Column\CustomField;
 
 class StoredDateFormat
 {
 
     private $column;
 
-    public function __construct(AC\Column\CustomField $column)
+    public function __construct(CustomField $column)
     {
         $this->column = $column;
     }

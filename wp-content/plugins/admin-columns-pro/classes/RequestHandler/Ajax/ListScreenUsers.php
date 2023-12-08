@@ -2,38 +2,34 @@
 
 namespace ACP\RequestHandler\Ajax;
 
-use AC;
+use AC\Helper\Select\Response;
 use AC\Nonce;
 use AC\Request;
+use AC\RequestAjaxHandler;
 use ACP\Helper\Select;
-use ACP\RequestAjaxHandler;
+use ACP\Helper\Select\User\PaginatedFactory;
 
-class ListScreenUsers implements RequestAjaxHandler {
+class ListScreenUsers implements RequestAjaxHandler
+{
 
-	public function handle(): void {
-		$request = new Request();
+    public function handle(): void
+    {
+        $request = new Request();
 
-		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
-			wp_send_json_error();
-		}
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            wp_send_json_error();
+        }
 
-		$entities = new Select\Entities\User( [
-			'search' => $request->get( 'search' ),
-			'paged'  => $request->get( 'page', 1 ),
-			'number' => 10,
-		] );
+        $options = (new PaginatedFactory())->create([
+            'search' => $request->get('search'),
+            'paged'  => $request->get('page', 1),
+            'number' => 10,
+        ]);
 
-		$options = new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Group\UserRole(
-				new Select\Formatter\UserName( $entities )
-			)
-		);
+        $has_more = ! $options->is_last_page();
 
-		$has_more = ! $options->is_last_page();
+        $response = new Response($options, $has_more);
 
-		$response = new AC\Helper\Select\Response( $options, $has_more );
-
-		wp_send_json_success( $response() );
-	}
+        wp_send_json_success($response());
+    }
 }

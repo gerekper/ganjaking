@@ -3,7 +3,7 @@
  * View for displaying saved Global EPOs
  *
  * @package Extra Product Options/Admin/Views
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -187,7 +187,7 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 							$tm_global_forms = ( isset( $tm_meta_cpf['global_forms'] ) && is_array( $tm_meta_cpf['global_forms'] ) ) ? in_array( $price->ID, $tm_meta_cpf['global_forms'] ) : false; // phpcs:ignore WordPress.PHP.StrictInArray
 							echo '<li><label>';
 							echo '<input type="checkbox" value="' . esc_attr( $price->ID ) . '" id="tm_meta_cpf_global_forms_' . esc_attr( $price->ID ) . '" name="tm_meta_cpf[global_forms][]" class="checkbox" ';
-							checked( $tm_global_forms, true, 1 );
+							checked( $tm_global_forms, true, true );
 							echo '>';
 							echo ' ' . esc_html( $price->post_title ) . '</label></li>';
 						}
@@ -265,7 +265,7 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 				);
 
 				// Ouput Override totals box.
-				$tm_override_final_total_box = isset( $tm_meta_cpf['override_final_total_box'] ) ? $tm_meta_cpf['override_final_total_box'] : '';
+				$tm_override_final_total_box = isset( $tm_meta_cpf['override_final_total_box'] ) ? THEMECOMPLETE_EPO_SETTINGS()->get_compatibility_value( 'override_final_total_box', $tm_meta_cpf['override_final_total_box'] ) : '';
 				THEMECOMPLETE_EPO_HTML()->create_field(
 					[
 						'type'    => 'select',
@@ -282,48 +282,20 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 								'text'  => esc_html__( 'Use global setting', 'woocommerce-tm-extra-product-options' ),
 							],
 							[
-								'value' => 'normal',
-								'text'  => esc_html__( 'Show Both Final and Options total box', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'options',
-								'text'  => esc_html__( 'Show only Options total', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'optionsiftotalnotzero',
-								'text'  => esc_html__( 'Show only Options total if total is not zero', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'final',
-								'text'  => esc_html__( 'Show only Final total', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'hideoptionsifzero',
-								'text'  => esc_html__( 'Show Final box and hide Options if zero', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'hideifoptionsiszero',
-								'text'  => esc_html__( 'Hide Final total box if Options total is zero', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'hideiftotaliszero',
-								'text'  => esc_html__( 'Hide Final total box if total is zero', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'hide',
-								'text'  => esc_html__( 'Hide Final total box', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'pxq',
-								'text'  => esc_html__( 'Always show only Final total (Price x Quantity)', 'woocommerce-tm-extra-product-options' ),
-							],
-							[
-								'value' => 'disable_change',
-								'text'  => esc_html__( 'Disable but change product prices', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'enable',
+								'text'  => esc_html__( 'Enable', 'woocommerce-tm-extra-product-options' ),
 							],
 							[
 								'value' => 'disable',
 								'text'  => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hideifoptionsiszero',
+								'text'  => esc_html__( 'Disable if Options total is zero', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hideiftotaliszero',
+								'text'  => esc_html__( 'Disable if total is zero', 'woocommerce-tm-extra-product-options' ),
 							],
 						],
 					],

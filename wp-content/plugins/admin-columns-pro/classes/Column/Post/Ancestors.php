@@ -7,15 +7,11 @@ use AC\Column;
 use AC\Settings;
 use ACP\ConditionalFormat;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 4.2
- */
 class Ancestors extends Column
-    implements Export\Exportable, Filtering\Filterable, Search\Searchable, Sorting\Sortable,
+    implements Export\Exportable, Search\Searchable, Sorting\Sortable,
                ConditionalFormat\Formattable
 {
 
@@ -69,9 +65,7 @@ class Ancestors extends Column
 
     public function get_raw_value($id)
     {
-        $post = get_post($id);
-
-        return $post->ancestors;
+        return get_post($id)->ancestors;
     }
 
     public function register_settings()
@@ -82,11 +76,6 @@ class Ancestors extends Column
     public function is_valid()
     {
         return is_post_type_hierarchical($this->get_post_type());
-    }
-
-    public function filtering()
-    {
-        return new Filtering\Model\Post\Ancestors($this);
     }
 
     public function export()

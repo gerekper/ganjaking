@@ -11,7 +11,7 @@ use ACP\Sorting\Type\DataType;
 final class ModelFactory
 {
 
-    public function create(Field $field, string $meta_type, array $args = []): ACP\Sorting\AbstractModel
+    public function create(Field $field, string $meta_type, array $args = [])
     {
         switch (true) {
             case $field instanceof Type\Media:

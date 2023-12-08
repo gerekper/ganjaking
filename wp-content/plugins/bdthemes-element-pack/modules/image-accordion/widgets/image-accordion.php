@@ -1387,7 +1387,7 @@ class Image_Accordion extends Module_Base {
 		<?php
 	}
 
-	public function render_accordion_content($item) {
+	public function render_accordion_content($item, $title_key, $button_key) {
         $settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'bdt-ep-image-accordion-title', 'class', 'bdt-ep-image-accordion-title', true );
@@ -1408,6 +1408,14 @@ class Image_Accordion extends Module_Base {
 			$this->add_render_attribute( 'bdt-ep-image-accordion-button', 'class', 'bdt-ep-image-accordion-button bdt-visible@s', true );
 		}
 
+		if (!empty($item['title_link']['url'])) {
+			$this->add_link_attributes( $title_key, $item['title_link'] );
+		}
+
+		if (!empty($item['button_link']['url'])) {
+			$this->add_link_attributes( $button_key, $item['button_link'] );
+		}
+
         ?>
         <div class="bdt-ep-image-accordion-content">
 			<?php if ( $item['image_accordion_sub_title'] && ( 'yes' == $settings['show_sub_title'] ) ) : ?>
@@ -1418,7 +1426,7 @@ class Image_Accordion extends Module_Base {
 
 			<?php if ( $item['image_accordion_title'] && ( 'yes' == $settings['show_title'] ) ) : ?>
 				<?php if ( '' !== $item['title_link']['url'] ) : ?>
-					<a href="<?php echo esc_url( $item['title_link']['url'] ); ?>">
+					<a <?php echo $this->get_render_attribute_string($title_key); ?>>
 				<?php endif; ?>
 					<<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->get_render_attribute_string('bdt-ep-image-accordion-title'); ?>>
 						<?php echo wp_kses( $item['image_accordion_title'], element_pack_allow_tags('title') ); ?>
@@ -1437,7 +1445,7 @@ class Image_Accordion extends Module_Base {
 			<?php if ($item['image_accordion_button'] && ( 'yes' == $settings['show_button'] )) : ?>
 				<div <?php echo $this->get_render_attribute_string('bdt-ep-image-accordion-button'); ?>>
 					<?php if ( '' !== $item['button_link']['url'] ) : ?>
-						<a href="<?php echo esc_url( $item['button_link']['url'] ); ?>">
+						<a <?php echo $this->get_render_attribute_string($button_key); ?>>
 					<?php endif; ?>
 						<?php echo wp_kses_post($item['image_accordion_button']); ?>
 					<?php if ( '' !== $item['button_link']['url'] ) : ?>
@@ -1518,6 +1526,9 @@ class Image_Accordion extends Module_Base {
 
 		<div <?php echo ( $this->get_render_attribute_string( 'image-accordion' ) ); ?>>
 			<?php foreach ( $settings['image_accordion_items'] as $index => $item ) : 
+
+				$title_key = 'title_to_' . $index;
+				$button_key = 'button_to_' . $index;
 				
                 $slide_image = Group_Control_Image_Size::get_attachment_image_src( $item['slide_image']['id'], 'thumbnail_size', $settings);
                 if ( ! $slide_image ) {
@@ -1529,12 +1540,12 @@ class Image_Accordion extends Module_Base {
 				<?php if( $settings['skin_type'] !== 'sliding-box' ) : ?>
 					<div <?php echo ( $this->get_render_attribute_string( 'image-accordion-item' ) ); ?> style="background-image: url('<?php echo esc_url( $slide_image); ?>');">
 						<?php $this->render_lightbox($item); ?>
-						<?php $this->render_accordion_content($item); ?>
+						<?php $this->render_accordion_content($item, $title_key, $button_key); ?>
 					</div>
 				<?php else: ?>
 					<div <?php echo ( $this->get_render_attribute_string( 'image-accordion-item' ) ); ?>>
 						<?php $this->render_image($item); ?>
-						<?php $this->render_accordion_content($item); ?>
+						<?php $this->render_accordion_content($item, $title_key, $button_key); ?>
 					</div>
 				<?php endif; ?>
 

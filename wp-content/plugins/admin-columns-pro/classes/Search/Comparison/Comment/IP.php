@@ -18,7 +18,7 @@ class IP extends Field {
 		parent::__construct( $operators );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'comment_author_IP';
 	}
 

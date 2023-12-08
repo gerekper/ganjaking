@@ -2,7 +2,6 @@
 
 namespace ACA\WC\Search\Product;
 
-use AC\MetaType;
 use ACA\WC\Helper\Select;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\MetaQuery\SerializedComparisonFactory;
@@ -13,6 +12,8 @@ class Crosssells extends Comparison\Meta
     implements Comparison\SearchableValues
 {
 
+    use Select\ProductValuesTrait;
+
     public function __construct()
     {
         $operators = new Operators([
@@ -21,10 +22,10 @@ class Crosssells extends Comparison\Meta
             Operators::NOT_IS_EMPTY,
         ]);
 
-        parent::__construct($operators, '_crosssell_ids', MetaType::POST);
+        parent::__construct($operators, '_crosssell_ids');
     }
 
-    protected function get_meta_query($operator, Value $value)
+    protected function get_meta_query(string $operator, Value $value): array
     {
         $comparison = SerializedComparisonFactory::create(
             $this->meta_key,
@@ -33,11 +34,6 @@ class Crosssells extends Comparison\Meta
         );
 
         return $comparison();
-    }
-
-    public function get_values($s, $paged)
-    {
-        return new Select\Paginated\Products((string)$s, (int)$paged);
     }
 
 }

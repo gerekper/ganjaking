@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://woocommerce.com/products/woocommerce-bookings/
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Bookings {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Bookings
 	 * @since 1.0
 	 * @static
 	 */
@@ -54,6 +55,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -87,9 +89,11 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 
 	/**
 	 * Adjust the booking cost display
+	 *
+	 * @return void
 	 */
 	public function filter_cost() {
-		if ( THEMECOMPLETE_EPO()->tm_epo_bookings_add_options_display_cost !== 'yes' ) {
+		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) && 'yes' !== THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) {
 			if ( ! defined( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT' ) ) {
 				define( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT', true );
 			}
@@ -104,10 +108,11 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * @param string $output The hml output.
 	 * @param string $display_price The displayed price.
 	 * @param object $product The product object.
+	 * @return void
 	 */
 	public function filter_output_cost( $output, $display_price, $product ) {
-		if ( isset( $_REQUEST['form'] ) ) {
-			parse_str( wp_unslash( $_REQUEST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( isset( $_REQUEST['form'] ) && class_exists( 'WC_Bookings_Cost_Calculation' ) && function_exists( 'wc_bookings_get_posted_data' ) ) {
+			parse_str( stripslashes_deep( $_REQUEST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			if ( ! defined( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT' ) ) {
 				define( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT', true );
 			}
@@ -127,7 +132,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Add setting in main THEMECOMPLETE_EPO class
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_get_settings( $settings = [] ) {
@@ -152,13 +158,13 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			$booking_has_person_cost_multiplier = is_callable( [ $product, 'get_has_person_cost_multiplier' ] ) && $product->get_has_person_cost_multiplier() ? 1 : 0;
 			$booking_has_person_qty_multiplier  = is_callable( [ $product, 'get_has_person_qty_multiplier' ] ) && $product->get_has_person_qty_multiplier() ? 1 : 0;
 
-			$tm_epo_bookings_person = isset( THEMECOMPLETE_EPO()->tm_epo_bookings_person );
-			$tm_epo_bookings_block  = isset( THEMECOMPLETE_EPO()->tm_epo_bookings_block );
+			$tm_epo_bookings_person = isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] : '';
+			$tm_epo_bookings_block  = isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] : '';
 
 			if ( $tm_epo_bookings_person ) {
-				if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_person ) {
+				if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) {
 					$tm_epo_bookings_person = 1;
-				} elseif ( 'own' === THEMECOMPLETE_EPO()->tm_epo_bookings_person ) {
+				} elseif ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'own' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) {
 					$tm_epo_bookings_person = $booking_has_person_cost_multiplier;
 				} else {
 					$tm_epo_bookings_person = 0;
@@ -167,9 +173,9 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 				$tm_epo_bookings_person = 0;
 			}
 			if ( $tm_epo_bookings_block ) {
-				if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_block ) {
+				if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) {
 					$tm_epo_bookings_block = 1;
-				} elseif ( 'own' === THEMECOMPLETE_EPO()->tm_epo_bookings_block ) {
+				} elseif ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'own' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) {
 					$tm_epo_bookings_block = $booking_has_person_qty_multiplier;
 				} else {
 					$tm_epo_bookings_block = 0;
@@ -184,7 +190,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 				'booking_block_qty_multiplier'         => $booking_has_person_qty_multiplier,
 				'wc_booking_person_qty_multiplier'     => $tm_epo_bookings_person,
 				'wc_booking_block_qty_multiplier'      => $tm_epo_bookings_block,
-				'wc_bookings_add_options_display_cost' => THEMECOMPLETE_EPO()->tm_epo_bookings_add_options_display_cost,
+				'wc_bookings_add_options_display_cost' => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] : '',
 			];
 			wp_localize_script( 'themecomplete-comp-bookings', 'TMEPOBOOKINGSJS', $args );
 		}
@@ -193,8 +199,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Add to cart item
 	 *
-	 * @param array $cart_item The cart item.
-	 * @return array
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 */
 	public function add_cart_item_data( $cart_item ) {
 		if ( ! isset( $cart_item['tc_booking_original_price'] ) && isset( $cart_item['booking'] ) && isset( $cart_item['booking']['_cost'] ) ) {
@@ -207,20 +213,20 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Set price for product in cart
 	 *
-	 * @param array  $cart_item The cart iterm.
-	 * @param string $key The cart key.
-	 * @param string $current_language Current language.
-	 * @return array
+	 * @param array<mixed> $cart_item The cart iterm.
+	 * @param string       $key The cart key.
+	 * @param string       $current_language Current language.
+	 * @return array<mixed>
 	 */
 	public function filter_bundled_product_in_cart_contents( $cart_item, $key, $current_language ) {
 		global $woocommerce_wpml;
 
-		if ( defined( 'WCML_MULTI_CURRENCIES_INDEPENDENT' ) && $cart_item['data'] instanceof WC_Product_Booking && isset( $cart_item['booking'] ) ) {
+		if ( defined( 'WCML_MULTI_CURRENCIES_INDEPENDENT' ) && class_exists( 'WC_Product_Booking' ) && $cart_item['data'] instanceof WC_Product_Booking && isset( $cart_item['booking'] ) ) {
 
 			$current_id      = apply_filters( 'translate_object_id', $cart_item['product_id'], 'product', true, $current_language );
 			$cart_product_id = $cart_item['product_id'];
 
-			if ( WCML_MULTI_CURRENCIES_INDEPENDENT === $woocommerce_wpml->settings['enable_multi_currency'] || (int) $current_id !== (int) $cart_product_id ) {
+			if ( WCML_MULTI_CURRENCIES_INDEPENDENT === $woocommerce_wpml->settings['enable_multi_currency'] || intval( $current_id ) !== intval( $cart_product_id ) ) {
 
 				$tm_epo_options_prices = floatval( $cart_item['tm_epo_options_prices'] );
 				$current_cost          = floatval( $cart_item['data']->get_price() );
@@ -236,7 +242,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Add plugin setting (header)
 	 *
-	 * @param array $headers Array of settings.
+	 * @param array<mixed> $headers Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_headers( $headers = [] ) {
@@ -248,7 +255,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Add plugin setting (setting)
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_settings( $settings = [] ) {
@@ -308,7 +316,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Set booking flag
 	 *
-	 * @param array $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_adjust_cart_item_before( $cart_item ) {
@@ -320,17 +329,19 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Set original product price in cart
 	 *
-	 * @param array $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_adjust_cart_item( $cart_item ) {
 
 		if (
-			isset( $cart_item['data'] )
+			empty( $cart_item['tc_epo_booking_original_price_adjustment'] )
+			&& isset( $cart_item['data'] )
 			&& is_object( $cart_item['data'] )
 			&& property_exists( $cart_item['data'], 'id' )
+			&& method_exists( $cart_item['data'], 'is_type' )
 			&& themecomplete_get_id( $cart_item['data'] )
-			&& empty( $cart_item['tc_epo_booking_original_price_adjustment'] )
 		) {
 			if ( $cart_item['data']->is_type( 'booking' ) ) {
 
@@ -347,8 +358,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Adjust price in cart
 	 *
-	 * @param boolean $adjust true or false.
-	 * @param array   $cart_item The cart item.
+	 * @param boolean      $adjust true or false.
+	 * @param array<mixed> $cart_item The cart item.
 	 * @return boolean
 	 * @since 1.0
 	 */
@@ -357,6 +368,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			isset( $cart_item['data'] )
 			&& is_object( $cart_item['data'] )
 			&& property_exists( $cart_item['data'], 'id' )
+			&& method_exists( $cart_item['data'], 'is_type' )
 			&& themecomplete_get_id( $cart_item['data'] )
 		) {
 			if ( $cart_item['data']->is_type( 'booking' ) ) {
@@ -370,13 +382,14 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Adjust options when adding to cart
 	 *
-	 * @param array $price The price to adjust.
-	 * @param array $cart_item The cart item.
+	 * @param mixed        $price The price to adjust.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function wc_epo_cart_options_prices_before( $price, $cart_item ) {
-		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_person ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_block ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
 
 		if (
 			( ! $wc_booking_person_qty_multiplier && ! $wc_booking_block_qty_multiplier )
@@ -400,19 +413,19 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			$c = $duration + $c;
 		}
 		if ( ! empty( $c ) ) {
-			$price = $c * $price;
+			$price = floatval( $c ) * floatval( $price );
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Adjust the final booking cost
 	 *
-	 * @param array  $booking_cost Booking cost.
-	 * @param object $product The product object.
-	 * @param array  $posted Posted data.
+	 * @param mixed        $booking_cost Booking cost.
+	 * @param object       $product The product object.
+	 * @param array<mixed> $posted Posted data.
+	 * @return mixed
 	 * @since 4.9.7
 	 */
 	public function adjust_booking_cost( $booking_cost, $product, $posted ) {
@@ -420,10 +433,10 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		if ( defined( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT' ) ) {
 			return $booking_cost;
 		}
-		if ( isset( $_POST ) ) {
+		if ( isset( $_POST ) ) { // @phpstan-ignore-line
 			if ( isset( $_POST['form'] ) ) {
 				$posted = [];
-				parse_str( wp_unslash( $_POST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				parse_str( stripslashes_deep( $_POST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$posted['cpf_product_price'] = $booking_cost;
 			} else {
 				$_POST['cpf_product_price'] = $booking_cost;
@@ -437,10 +450,10 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 
 		$epos         = THEMECOMPLETE_EPO_CART()->tm_add_cart_item_data( [], themecomplete_get_id( $product ), $posted );
 		$extra_price  = 0;
-		$booking_data = wc_bookings_get_posted_data( $posted, $product );
+		$booking_data = function_exists( 'wc_bookings_get_posted_data' ) ? wc_bookings_get_posted_data( $posted, $product ) : [];
 
-		$wc_booking_person_qty_multiplier = ( THEMECOMPLETE_EPO()->tm_epo_bookings_person === 'yes' ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( THEMECOMPLETE_EPO()->tm_epo_bookings_block === 'yes' ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
 		if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 			foreach ( $epos['tmcartepo'] as $key => $value ) {
 				if ( ! empty( $value['price'] ) ) {
@@ -476,9 +489,10 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	/**
 	 * Adjust the final booking cost
 	 *
-	 * @param array  $booking_cost Booking cost.
-	 * @param object $booking_form Booking form object.
-	 * @param array  $posted Posted data.
+	 * @param mixed        $booking_cost Booking cost.
+	 * @param object       $booking_form Booking form object.
+	 * @param array<mixed> $posted Posted data.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function adjust_booking_cost_old( $booking_cost, $booking_form, $posted ) {
@@ -489,8 +503,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		$extra_price  = 0;
 		$booking_data = $booking_form->get_posted_data( $posted );
 
-		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_person ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_block ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
 		if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 			foreach ( $epos['tmcartepo'] as $key => $value ) {
 				if ( ! empty( $value['price'] ) ) {

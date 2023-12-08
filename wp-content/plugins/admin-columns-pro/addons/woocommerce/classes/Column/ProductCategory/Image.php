@@ -3,6 +3,8 @@
 namespace ACA\WC\Column\ProductCategory;
 
 use AC;
+use AC\Meta\QueryMetaFactory;
+use AC\MetaType;
 use ACP;
 
 class Image extends AC\Column\Meta
@@ -31,13 +33,18 @@ class Image extends AC\Column\Meta
     {
         return new ACP\Editing\Service\Basic(
             new ACP\Editing\View\Image(),
-            new ACP\Editing\Storage\Meta($this->get_meta_key(), new AC\MetaType(AC\MetaType::TERM))
+            new ACP\Editing\Storage\Meta($this->get_meta_key(), new MetaType(MetaType::TERM))
         );
     }
 
     public function search()
     {
-        return new ACP\Search\Comparison\Meta\Image($this->get_meta_key(), $this->get_meta_type());
+        $query_meta_factory = new QueryMetaFactory();
+
+        return new ACP\Search\Comparison\Meta\Image(
+            $this->get_meta_key(),
+            $query_meta_factory->create($this->get_meta_key(), MetaType::TERM)
+        );
     }
 
 }

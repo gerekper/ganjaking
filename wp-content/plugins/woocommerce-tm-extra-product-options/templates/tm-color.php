@@ -9,22 +9,30 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li class="tmcp-field-wrap">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
-	<label class="tm-epo-field-label" for="<?php echo esc_attr( $id ); ?>">
+if ( isset( $element_id, $class_label, $get_default_value, $name, $fieldtype, $rules, $original_rules, $rules_type ) ) :
+	$element_id        = (string) $element_id;
+	$class_label       = (string) $class_label;
+	$get_default_value = (string) $get_default_value;
+	$name              = (string) $name;
+	$fieldtype         = (string) $fieldtype;
+	$rules             = (string) $rules;
+	$original_rules    = (string) $original_rules;
+	$rules_type        = (string) $rules_type;
+	?>
+<li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
+	<label class="tc-col tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $element_id ); ?>">
 	<?php
 	$input_args = [
 		'nodiv'   => 1,
 		'default' => $get_default_value,
 		'type'    => 'text',
 		'tags'    => [
-			'id'                         => $id,
+			'id'                         => $element_id,
 			'name'                       => $name,
 			'class'                      => $fieldtype . ' tm-color-picker tm-epo-field tmcp-textfield',
 			'data-price'                 => '',
@@ -62,6 +70,8 @@ defined( 'ABSPATH' ) || exit;
 	?>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div></li>
+	<?php
+	endif;

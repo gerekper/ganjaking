@@ -28,7 +28,7 @@ abstract class Sort
 
     protected function sort_by_callable(SegmentCollection $segment_collection, callable $sort): SegmentCollection
     {
-        $data = iterator_to_array($segment_collection);
+        $data = iterator_to_array($segment_collection, false);
 
         usort($data, $sort);
 

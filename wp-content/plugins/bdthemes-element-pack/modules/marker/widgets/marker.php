@@ -1181,71 +1181,63 @@ class Marker extends Module_Base
 
         echo Group_Control_Image_Size::get_attachment_image_html($settings);
 
-        foreach ($settings['markers'] as $marker) {
+        foreach ($settings['markers'] as $index => $marker) {
 
-            // $this->add_render_attribute('marker', 'class',  ['bdt-marker-item bdt-position-absolute bdt-transform-center bdt-marker bdt-icon'], true);
+            $element_key = 'marker_' . $index;
 
-            $this->add_render_attribute('marker', 'class', 'bdt-marker-item bdt-position-absolute bdt-marker bdt-icon elementor-repeater-item-' . esc_attr($marker['_id']), true);
+            $this->add_render_attribute($element_key, 'class', 'bdt-marker-item bdt-position-absolute bdt-marker bdt-icon elementor-repeater-item-' . esc_attr($marker['_id']), true);
 
             if (!empty($marker['css_classes'])) {
-                $this->add_render_attribute('marker', 'class', esc_attr($marker['css_classes']));
+                $this->add_render_attribute($element_key, 'class', esc_attr($marker['css_classes']));
             }
 
             if (!empty($marker['css_id'])) {
-                $this->add_render_attribute('marker', 'id', esc_attr($marker['css_id']), true);
+                $this->add_render_attribute($element_key, 'id', esc_attr($marker['css_id']), true);
             }
 
             if ('none' == $marker['select_type']) {
-                $this->add_render_attribute('marker', 'class', 'bdt-marker-invisible');
+                $this->add_render_attribute($element_key, 'class', 'bdt-marker-invisible');
             }
 
-            // $this->add_render_attribute('marker', 'style', 'left:' . $marker['marker_x_position']['size'] . '%;', true);
-            // $this->add_render_attribute('marker', 'style', 'top:' . $marker['marker_y_position']['size'] . '%;');
-            $this->add_render_attribute('marker', 'data-tippy-content', [$marker['marker_title']], true);
+            $this->add_render_attribute($element_key, 'data-tippy-content', [$marker['marker_title']], true);
 
             if ('lightbox' == $marker['link_to']) {
-                $this->add_render_attribute('marker', 'data-elementor-open-lightbox', 'no', true);
-                $this->add_render_attribute('marker', 'data-caption', $marker['marker_title'], true);
-                $this->add_render_attribute('marker', 'class', 'bdt-marker-lightbox-item');
-                $this->add_render_attribute('marker', 'href', $marker['image_link']['url'], true);
+                $this->add_render_attribute($element_key, 'data-elementor-open-lightbox', 'no', true);
+                $this->add_render_attribute($element_key, 'data-caption', $marker['marker_title'], true);
+                $this->add_render_attribute($element_key, 'class', 'bdt-marker-lightbox-item');
+                $this->add_render_attribute($element_key, 'href', $marker['image_link']['url'], true);
             } elseif ('custom' == $marker['link_to']) {
-                $this->add_render_attribute('marker', 'href', $marker['marker_link']['url'], true);
-                if (!empty($marker['marker_link']['is_external'])) {
-                    $this->add_render_attribute('marker', 'target', ['_blank'], true);
-                }
-                if (!empty($marker['marker_link']['nofollow'])) {
-                    $this->add_render_attribute('marker', 'rel', ['nofollow'], true);
-                }
+                $this->add_link_attributes($element_key, $marker['marker_link']);
             } else {
-                $this->add_render_attribute('marker', 'target', ['_self'], true);
-                $this->add_render_attribute('marker', 'href', 'javascript:void(0);', true);
+                $this->add_render_attribute($element_key, 'target', ['_self'], true);
+                $this->add_render_attribute($element_key, 'href', 'javascript:void(0);', true);
             }
 
             if ($marker['marker_title'] and $marker['marker_tooltip']) {
                 // Tooltip settings
-                $this->add_render_attribute('marker', 'class', 'bdt-tippy-tooltip');
-                $this->add_render_attribute('marker', 'data-tippy', '', true);
+                $this->add_render_attribute($element_key, 'class', 'bdt-tippy-tooltip');
+                $this->add_render_attribute($element_key, 'data-tippy', '', true);
 
                 if ($marker['marker_tooltip_placement']) {
-                    $this->add_render_attribute('marker', 'data-tippy-placement', $marker['marker_tooltip_placement'], true);
+                    $this->add_render_attribute($element_key, 'data-tippy-placement', $marker['marker_tooltip_placement'], true);
                 }
 
                 if ($settings['marker_tooltip_animation']) {
-                    $this->add_render_attribute('marker', 'data-tippy-animation', $settings['marker_tooltip_animation'], true);
+                    $this->add_render_attribute($element_key, 'data-tippy-animation', $settings['marker_tooltip_animation'], true);
                 }
 
                 if ($settings['marker_tooltip_x_offset']['size'] or $settings['marker_tooltip_y_offset']['size']) {
-                    $this->add_render_attribute('marker', 'data-tippy-offset', '[' . $settings['marker_tooltip_x_offset']['size'] . ',' . $settings['marker_tooltip_y_offset']['size'] . ']', true);
+                    $this->add_render_attribute($element_key, 'data-tippy-offset', '[' . $settings['marker_tooltip_x_offset']['size'] . ',' . $settings['marker_tooltip_y_offset']['size'] . ']', true);
                 }
 
                 if ('yes' == $settings['marker_tooltip_arrow']) {
-                    $this->add_render_attribute('marker', 'data-tippy-arrow', 'true', true);
+                    $this->add_render_attribute($element_key, 'data-tippy-arrow', 'true', true);
                 } else {
-                    $this->add_render_attribute('marker', 'data-tippy-arrow', 'false', true);
+                    $this->add_render_attribute($element_key, 'data-tippy-arrow', 'false', true);
                 }
 
                 if ('yes' == $settings['marker_tooltip_trigger']) {
-                    $this->add_render_attribute('marker', 'data-tippy-trigger', 'click', true);
+                    $this->add_render_attribute($element_key, 'data-tippy-trigger', 'click', true);
                 }
             }
 
@@ -1253,7 +1245,7 @@ class Marker extends Module_Base
             $is_new = empty($marker['marker_icon']) && Icons_Manager::is_migration_allowed();
 
             ?>
-				<a <?php echo $this->get_render_attribute_string('marker'); ?>>
+				<a <?php echo $this->get_render_attribute_string($element_key); ?>>
 
 					<?php if ($marker['select_type'] === 'icon') {?>
 						<?php if (($is_new or $migrated) and $marker['marker_select_icon']['value']):

@@ -6,8 +6,8 @@
  * This template is NOT meant to be overridden
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6,0
+ * @package Extra Product Options/Templates
+ * @version 6.0
  * phpcs:disable WordPress.Files.FileName
  */
 

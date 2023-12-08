@@ -2,19 +2,16 @@
 
 namespace ACP\Sorting\Model;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Type\Order;
 
-class OrderBy extends AbstractModel implements QueryBindings
+class OrderBy implements QueryBindings
 {
 
     protected $orderby;
 
     public function __construct(string $orderby)
     {
-        parent::__construct();
-
         $this->orderby = $orderby;
     }
 

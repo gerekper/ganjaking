@@ -2,10 +2,10 @@
 
 namespace ACA\WC\Search\User\ShopOrder;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class TotalSales extends Comparison
@@ -32,7 +32,7 @@ class TotalSales extends Comparison
     /**
      * @inheritDoc
      */
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 

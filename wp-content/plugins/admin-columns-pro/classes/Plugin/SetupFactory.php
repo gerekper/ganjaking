@@ -54,6 +54,7 @@ class SetupFactory extends AC\Plugin\SetupFactory
                     new Update\V6000($this->storage),
                     new Update\V6002(),
                     new Update\V6300($this->storage),
+                    new Update\V6400($this->storage),
                 ]);
 
                 break;

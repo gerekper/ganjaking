@@ -3,6 +3,7 @@
 namespace ACA\WC\Column\Order;
 
 use AC;
+use ACA\WC\Scheme\OrderOperationalData;
 use ACA\WC\Search;
 use ACA\WC\Sorting\Order\OperationalData;
 use ACP;
@@ -23,6 +24,7 @@ class CreatedVia extends AC\Column implements ACP\Search\Searchable, ACP\Export\
     public function get_value($id)
     {
         $order = wc_get_order($id);
+
         $created_via = $order
             ? $order->get_created_via()
             : null;
@@ -37,7 +39,7 @@ class CreatedVia extends AC\Column implements ACP\Search\Searchable, ACP\Export\
 
     public function sorting()
     {
-        return new OperationalData('created_via');
+        return new OperationalData(OrderOperationalData::CREATED_VIA);
     }
 
     public function export()

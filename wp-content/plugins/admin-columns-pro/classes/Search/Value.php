@@ -6,10 +6,10 @@ use LogicException;
 
 final class Value {
 
-	const INT = 'int';
-	const DECIMAL = 'decimal';
-	const STRING = 'string';
-	const DATE = 'date';
+	public const INT = 'int';
+	public const DECIMAL = 'decimal';
+	public const STRING = 'string';
+	public const DATE = 'date';
 
 	/**
 	 * @var string
@@ -39,7 +39,7 @@ final class Value {
 	private function validate_type() {
 		$types = [ self::INT, self::DECIMAL, self::STRING, self::DATE ];
 
-		if ( ! in_array( $this->type, $types ) ) {
+		if ( ! in_array( $this->type, $types, true ) ) {
 			throw new LogicException( 'Invalid type found.' );
 		}
 	}

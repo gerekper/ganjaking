@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
 
-class CommentCount extends AbstractModel implements QueryBindings
+class CommentCount implements QueryBindings
 {
 
     use SqlTrait;
@@ -27,8 +26,6 @@ class CommentCount extends AbstractModel implements QueryBindings
 
     public function __construct(array $status = [], array $post_types = [])
     {
-        parent::__construct();
-
         if (empty($status)) {
             $status = [self::STATUS_APPROVED, self::STATUS_PENDING];
         }

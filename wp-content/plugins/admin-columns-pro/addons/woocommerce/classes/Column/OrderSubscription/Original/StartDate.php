@@ -5,6 +5,7 @@ namespace ACA\WC\Column\OrderSubscription\Original;
 use AC;
 use ACA\WC;
 use ACA\WC\Editing;
+use ACA\WC\Search;
 use ACA\WC\Sorting;
 use ACP;
 
@@ -35,7 +36,7 @@ class StartDate extends AC\Column implements ACP\Search\Searchable, ACP\Export\E
 
     public function search()
     {
-        return new WC\Search\Meta\Date\ISO($this->get_meta_key(), 'order_subscription');
+        return new Search\OrderMeta\IsoDate($this->get_meta_key());
     }
 
     public function sorting()

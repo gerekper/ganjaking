@@ -7,13 +7,13 @@ use ACP\Search\Operators;
 
 class EmptyNotEmpty extends Meta {
 
-	public function __construct( $meta_key, $meta_type ) {
+	public function __construct( string $meta_key ) {
 		$operators = new Operators( [
 			Operators::IS_EMPTY,
 			Operators::NOT_IS_EMPTY,
 		] );
 
-		parent::__construct( $operators, $meta_key, $meta_type );
+		parent::__construct( $operators, $meta_key );
 	}
 
 }

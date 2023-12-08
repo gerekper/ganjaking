@@ -2,6 +2,9 @@
 
 namespace ACP\Sorting;
 
+/**
+ * @deprecated NEWVERSION
+ */
 interface ListScreen
 {
 

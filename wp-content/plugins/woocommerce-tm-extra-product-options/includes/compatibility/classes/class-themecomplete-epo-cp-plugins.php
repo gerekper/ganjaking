@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * various plugins
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Plugins {
 
@@ -30,6 +30,7 @@ final class THEMECOMPLETE_EPO_CP_Plugins {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Plugins
 	 * @since 6.0
 	 * @static
 	 */
@@ -53,26 +54,24 @@ final class THEMECOMPLETE_EPO_CP_Plugins {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public function add_compatibility() {
 		if ( defined( 'YITH_WC_Min_Max_Qty' ) ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'yith_wc_min_max_qty_wp_enqueue_scripts' ], 4 );
 		}
-
 	}
 
 	/**
 	 * Woodmart sticky add to cart
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public function yith_wc_min_max_qty_wp_enqueue_scripts() {
-
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-yith-wc-min-max-qty', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-yith-wc-min-max-qty.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 		}
-
 	}
-
 }

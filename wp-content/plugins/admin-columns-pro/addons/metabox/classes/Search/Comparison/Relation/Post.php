@@ -2,21 +2,41 @@
 
 namespace ACA\MetaBox\Search\Comparison\Relation;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA\MetaBox\Search;
-use ACP;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
 
-class Post extends Search\Comparison\Relation {
+class Post extends Search\Comparison\Relation
+{
 
-	public function get_values( $search, $page ) {
-		$related = $this->relation->get_related_field_settings();
+    private function get_label_formatter(): PostTitle
+    {
+        return new PostTitle();
+    }
 
-		$args = [];
+    public function format_label($value): string
+    {
+        $post = get_post($value);
 
-		if ( isset( $related['post_type'] ) && is_string( $related['post_type'] ) ) {
-			$args['post_type'] = $related['post_type'];
-		}
+        return $post
+            ? $this->get_label_formatter()->format_label($post)
+            : '';
+    }
 
-		return new ACP\Helper\Select\Paginated\Posts( $search, $page, $args );
-	}
+    public function get_values(string $search, int $page): Paginated
+    {
+        $related = $this->relation->get_related_field_settings();
+
+        $post_type = isset($related['post_type']) && is_string($related['post_type'])
+            ? $related['post_type']
+            : null;
+
+        return (new PaginatedFactory())->create([
+            'paged'     => $page,
+            's'         => $search,
+            'post_type' => $post_type,
+        ], $this->get_label_formatter());
+    }
 
 }

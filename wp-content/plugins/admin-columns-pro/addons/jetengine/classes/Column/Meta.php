@@ -33,7 +33,7 @@ class Meta extends AC\Column implements ACP\Export\Exportable
         $this->field = $field;
     }
 
-    protected function get_meta_key()
+    public function get_meta_key()
     {
         return $this->get_type();
     }

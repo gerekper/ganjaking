@@ -3,12 +3,12 @@
 namespace ACP\Sorting;
 
 use AC\Column;
-use ACP\Sorting\Model\Disabled;
+use ACP\Sorting\Model\QueryBindings;
 
 class ModelFactory
 {
 
-    public function create(Column $column): ?AbstractModel
+    public function create_model(Column $column): ?AbstractModel
     {
         if ( ! $column instanceof Sortable) {
             return null;
@@ -16,11 +16,20 @@ class ModelFactory
 
         $model = apply_filters('acp/sorting/model', $column->sorting(), $column);
 
-        if ($model instanceof Disabled) {
+        return $model instanceof AbstractModel
+            ? $model
+            : null;
+    }
+
+    public function create_bindings(Column $column): ?QueryBindings
+    {
+        if ( ! $column instanceof Sortable) {
             return null;
         }
 
-        return $model instanceof AbstractModel
+        $model = apply_filters('acp/sorting/model', $column->sorting(), $column);
+
+        return $model instanceof QueryBindings
             ? $model
             : null;
     }

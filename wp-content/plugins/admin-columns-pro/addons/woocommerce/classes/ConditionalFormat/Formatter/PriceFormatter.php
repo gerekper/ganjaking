@@ -9,7 +9,7 @@ use ACP\Expression\ComparisonOperators;
 class PriceFormatter extends Formatter\FloatFormatter
 {
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         if (ComparisonOperators::class === $operator_group) {
             $formatted_value = $column->get_raw_value($id);

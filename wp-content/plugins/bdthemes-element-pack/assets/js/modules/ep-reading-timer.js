@@ -28,9 +28,12 @@
           reading_seconds = Math.floor(
             (wordCount % averageReadingSpeed) / (averageReadingSpeed / 60)
           ),
-          minText = this.settings("minute_text") ? this.settings("minute_text") : "min read",
-          secText = this.settings("seconds_text") ? this.settings("seconds_text") : "sec read";
-
+          minText = this.settings("minute_text")
+            ? this.settings("minute_text")
+            : "min read",
+          secText = this.settings("seconds_text")
+            ? this.settings("seconds_text")
+            : "sec read";
 
         if (wordCount >= averageReadingSpeed) {
           return `${readingTime} ${minText}`;
@@ -43,20 +46,20 @@
         const widgetID = this.$element.data("id"),
           widgetContainer = `.elementor-element-${widgetID} .bdt-reading-timer`,
           contentSelector = this.settings("content_id");
-        let  minText = this.settings("minute_text") ? this.settings("minute_text") : "min read";
+        let minText = this.settings("minute_text")
+          ? this.settings("minute_text")
+          : "min read";
 
-          var editMode = Boolean(elementorFrontend.isEditMode());
-          if (editMode) {
-            $(widgetContainer).append('2 '+minText+'');
-            return;
-          }
+        var editMode = Boolean(elementorFrontend.isEditMode());
+        if (editMode) {
+          $(widgetContainer).append("2 " + minText + "");
+          return;
+        }
         if (contentSelector) {
           ReadingContent = $(document).find(`#${contentSelector}`).text();
           var readTime = this.calculateReadingTime(ReadingContent);
           $(widgetContainer).append(readTime);
-        }
-        else return;
-
+        } else return;
       },
     });
 

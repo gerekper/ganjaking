@@ -3,7 +3,7 @@
  * Extra Product Options Frontend Scripts
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Frontend Scripts
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_Scripts {
 
@@ -27,13 +27,14 @@ class THEMECOMPLETE_EPO_Scripts {
 	/**
 	 * Contains files to be defered
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	public $defered_files = [];
 
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Scripts
 	 * @since 1.0
 	 * @static
 	 */
@@ -51,7 +52,6 @@ class THEMECOMPLETE_EPO_Scripts {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		// Load js,css files.
 		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_scripts' ], 5 );
 		add_action( 'wp_head', [ $this, 'frontend_templates' ], 9999 );
@@ -63,16 +63,15 @@ class THEMECOMPLETE_EPO_Scripts {
 
 		// Custom CSS/JS support.
 		add_action( 'wp_enqueue_scripts', [ $this, 'print_extra_css_js' ], 99999 );
-
 	}
 
 	/**
 	 * Custom CSS/JS support
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function print_extra_css_js() {
-
 		if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_css_code ) ) {
 			wp_register_style( 'themecomplete-extra-css', false, [], THEMECOMPLETE_EPO_VERSION );
 			wp_add_inline_style( 'themecomplete-extra-css', THEMECOMPLETE_EPO()->tm_epo_css_code );
@@ -83,16 +82,15 @@ class THEMECOMPLETE_EPO_Scripts {
 			wp_add_inline_script( 'themecomplete-extra-js', THEMECOMPLETE_EPO()->tm_epo_js_code );
 			wp_enqueue_script( 'themecomplete-extra-js' );
 		}
-
 	}
 
 	/**
 	 * Load js,css files
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function frontend_scripts() {
-
 		global $product;
 
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
@@ -104,16 +102,15 @@ class THEMECOMPLETE_EPO_Scripts {
 			do_action( 'wc_epo_enqueue_scripts_after' );
 
 		}
-
 	}
 
 	/**
 	 * Load template files
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function frontend_templates() {
-
 		if ( ! THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			return;
 		}
@@ -223,31 +220,27 @@ class THEMECOMPLETE_EPO_Scripts {
 			THEMECOMPLETE_EPO_DISPLAY()->get_template_path(),
 			THEMECOMPLETE_EPO_DISPLAY()->get_default_path()
 		);
-
 	}
 
 	/**
 	 * Custom optional dequeue_scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function dequeue_scripts() {
-
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
-
 			do_action( 'wc_epo_dequeue_scripts' );
-
 		}
-
 	}
 
 	/**
 	 * Returns an array of the css scripts used
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function css_array() {
-
 		$ext = '.min';
 		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
 			$ext = '';
@@ -339,12 +332,12 @@ class THEMECOMPLETE_EPO_Scripts {
 		}
 
 		return $css_array;
-
 	}
 
 	/**
 	 * Trims zero from the WooCommerce price
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function woocommerce_price_trim_zeros() {
@@ -357,26 +350,25 @@ class THEMECOMPLETE_EPO_Scripts {
 	 * WordPress stores the locale information in an array with a alphanumeric index, and
 	 * the datepicker wants a numerical index. This function replaces the index with a number.
 	 *
-	 * @param array $array_to_strip The array to strip indices from.
+	 * @param array<mixed> $array_to_strip The array to strip indices from.
+	 * @return array<mixed>
 	 */
 	private function strip_array_indices( $array_to_strip = [] ) {
-
 		$new_array = [];
 		foreach ( $array_to_strip as $array_item ) {
 			$new_array[] = $array_item;
 		}
 
-		return ( $new_array );
-
+		return $new_array;
 	}
 
 	/**
 	 * Load js,css files
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function custom_frontend_scripts() {
-
 		$this->defered_files = [];
 		$ext                 = '.min';
 		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
@@ -412,18 +404,18 @@ class THEMECOMPLETE_EPO_Scripts {
 		if ( 'multiple' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode || 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
 
 			$dependencies[] = 'themecomplete-api';
-			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
 
 			$dependencies[] = 'jquery-tcfloatbox';
-			wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
 
 			$dependencies[] = 'jquery-tctooltip';
-			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
 
 			if ( $is_composite || ! is_product() || ( in_array( 'validation', THEMECOMPLETE_EPO()->current_option_features, true ) ) ) {
 				// This is a customized version of the jQuery Validation Plugin.
 				$dependencies[] = 'themecomplete-jquery-validate';
-				wp_register_script( 'themecomplete-jquery-validate', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.validate' . $ext . '.js', '', '1.19.0', true );
+				wp_register_script( 'themecomplete-jquery-validate', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.validate' . $ext . '.js', [], '1.19.0', true );
 			}
 
 			if ( $is_composite || ! is_product() || in_array( 'lazyload', THEMECOMPLETE_EPO()->current_option_features, true ) ) {
@@ -483,7 +475,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			}
 
 			// Not supported for composite products.
-			if ( ! is_product() || ( in_array( 'product', THEMECOMPLETE_EPO()->current_option_features, true ) ) ) {
+			if ( ! THEMECOMPLETE_EPO()->wc_vars['is_checkout'] && ( ! is_product() || ( in_array( 'product', THEMECOMPLETE_EPO()->current_option_features, true ) ) ) ) {
 				$dependencies[]        = 'themecomplete-epo-product';
 				$dependencies[]        = 'wc-add-to-cart-variation';
 				$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-epo-product' . $ext . '.js';
@@ -542,7 +534,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'i18n_file'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_file ) : esc_html__( 'file', 'woocommerce-tm-extra-product-options' ),
 			'i18n_files'                                  => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_files ) : esc_html__( 'files', 'woocommerce-tm-extra-product-options' ),
 
-			'currency_format_num_decimals'                => apply_filters( 'wc_epo_price_decimals', esc_attr( wc_get_price_decimals() ) ),
+			'currency_format_num_decimals'                => apply_filters( 'wc_epo_price_decimals', esc_attr( (string) wc_get_price_decimals() ) ),
 			'currency_format_symbol'                      => esc_attr( get_woocommerce_currency_symbol() ),
 			'currency_format_decimal_sep'                 => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) ) ),
 			'currency_format_thousand_sep'                => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_thousand_sep' ) ) ),
@@ -566,6 +558,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_global_displayed_decimal_separator'   => THEMECOMPLETE_EPO()->tm_epo_global_displayed_decimal_separator,
 			'tm_epo_remove_free_price_label'              => THEMECOMPLETE_EPO()->tm_epo_remove_free_price_label,
 			'tm_epo_global_product_image_selector'        => THEMECOMPLETE_EPO()->tm_epo_global_product_image_selector,
+			'tm_epo_global_image_recalculate'             => THEMECOMPLETE_EPO()->tm_epo_global_image_recalculate,
 			'tm_epo_upload_inline_image_preview'          => THEMECOMPLETE_EPO()->tm_epo_upload_inline_image_preview,
 			'tm_epo_global_product_element_scroll_offset' => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll_offset,
 			'tm_epo_global_product_element_scroll'        => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll,
@@ -606,7 +599,7 @@ class THEMECOMPLETE_EPO_Scripts {
 				'repeatermaxrows'          => esc_html__( 'Maximum number of rows is {0}', 'woocommerce-tm-extra-product-options' ),
 			],
 
-			'first_day'                                   => (int) get_option( 'start_of_week' ),
+			'first_day'                                   => intval( get_option( 'start_of_week' ) ),
 			'monthNames'                                  => $this->strip_array_indices( $wp_locale->month ),
 			'monthNamesShort'                             => $this->strip_array_indices( $wp_locale->month_abbrev ),
 			'dayNames'                                    => $this->strip_array_indices( $wp_locale->weekday ),
@@ -631,6 +624,9 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_show_unit_price'                      => THEMECOMPLETE_EPO()->tm_epo_show_unit_price,
 			'tm_epo_fees_on_unit_price'                   => THEMECOMPLETE_EPO()->tm_epo_fees_on_unit_price,
 			'tm_epo_total_price_as_unit_price'            => THEMECOMPLETE_EPO()->tm_epo_total_price_as_unit_price,
+			'tm_epo_hide_totals_until_any'                => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_any,
+			'tm_epo_hide_totals_until_all_required'       => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_all_required,
+			'tm_epo_hide_totals_until_all'                => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_all,
 			'tm_epo_enable_final_total_box_all'           => THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all,
 			'tm_epo_enable_original_final_total'          => THEMECOMPLETE_EPO()->tm_epo_enable_original_final_total,
 			'tm_epo_enable_vat_options_total'             => THEMECOMPLETE_EPO()->tm_epo_enable_vat_options_total,
@@ -653,14 +649,31 @@ class THEMECOMPLETE_EPO_Scripts {
 			'current_free_text'                           => esc_html( THEMECOMPLETE_EPO()->current_free_text ),
 			'assoc_current_free_text'                     => esc_html( THEMECOMPLETE_EPO()->assoc_current_free_text ),
 
-			'cart_total'                                  => ( function_exists( 'WC' ) && WC()->cart ) ? floatval( WC()->cart->get_cart_contents_total() ) : 0,
+			'cart_total'                                  => ( function_exists( 'WC' ) && ! empty( WC()->cart ) ) ? floatval( WC()->cart->get_cart_contents_total() ) : 0, // @phpstan-ignore-line
 
-			'quickview_container'                         => esc_html( wp_json_encode( apply_filters( 'wc_epo_js_quickview_container', [] ) ) ),
-			'quickview_array'                             => esc_html( wp_json_encode( apply_filters( 'wc_epo_get_quickview_containers', [] ) ) ),
+			'quickview_container'                         => esc_html( (string) wp_json_encode( apply_filters( 'wc_epo_js_quickview_container', [] ) ) ),
+			'quickview_array'                             => esc_html( (string) wp_json_encode( apply_filters( 'wc_epo_get_quickview_containers', [] ) ) ),
 			'tax_display_mode'                            => get_option( 'woocommerce_tax_display_shop' ),
 			'prices_include_tax'                          => wc_prices_include_tax(),
 
-			'lookupTables'                                => wp_json_encode( THEMECOMPLETE_EPO()->lookup_tables ),
+			'variation_price_before_price_text'           => apply_filters( 'wc_epo_variation_price_before_price_text', '' ),
+			'variation_price_after_price_text'            => apply_filters( 'wc_epo_variation_price_after_price_text', '' ),
+			'product_price_before_price_text'             => apply_filters( 'wc_epo_product_price_before_price_text', '' ),
+			'product_price_after_price_text'              => apply_filters( 'wc_epo_product_price_after_price_text', '' ),
+			'totals_box_before_unit_price'                => apply_filters( 'wc_epo_totals_box_before_unit_price', '' ),
+			'totals_box_after_unit_price'                 => apply_filters( 'wc_epo_totals_box_after_unit_price', '' ),
+			'totals_box_before_vat_options_totals_price'  => apply_filters( 'wc_epo_totals_box_before_vat_options_totals_price', '' ),
+			'totals_box_after_vat_options_totals_price'   => apply_filters( 'wc_epo_totals_box_after_vat_options_totals_price', '' ),
+			'totals_box_before_options_totals_price'      => apply_filters( 'wc_epo_totals_box_before_options_totals_price', '' ),
+			'totals_box_after_options_totals_price'       => apply_filters( 'wc_epo_totals_box_after_options_totals_price', '' ),
+			'totals_box_before_fee_totals_price'          => apply_filters( 'wc_epo_totals_box_before_fee_totals_price', '' ),
+			'totals_box_after_fee_totals_price'           => apply_filters( 'wc_epo_totals_box_after_fee_totals_price', '' ),
+			'totals_box_before_extra_fee_price'           => apply_filters( 'wc_epo_totals_box_before_extra_fee_price', '' ),
+			'totals_box_after_extra_fee_price'            => apply_filters( 'wc_epo_totals_box_after_extra_fee_price', '' ),
+			'totals_box_before_final_totals_price'        => apply_filters( 'wc_epo_totals_box_before_final_totals_price', '' ),
+			'totals_box_after_final_totals_price'         => apply_filters( 'wc_epo_totals_box_after_final_totals_price', '' ),
+
+			'lookupTables'                                => in_array( 'lookuptable', THEMECOMPLETE_EPO()->current_option_features, true ) ? wp_json_encode( THEMECOMPLETE_EPO()->fetch_lookuptables() ) : '',
 			'WP_DEBUG'                                    => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'theme_name'                                  => THEMECOMPLETE_EPO()->get_theme( 'Name' ),
 		];
@@ -668,7 +681,5 @@ class THEMECOMPLETE_EPO_Scripts {
 		$args = apply_filters( 'wc_epo_script_args', $args, $this );
 
 		wp_localize_script( 'themecomplete-epo', 'TMEPOJS', $args );
-
 	}
-
 }

@@ -1,4 +1,4 @@
-/*! bdtUIkit 3.17.0 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! bdtUIkit 3.17.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -189,7 +189,7 @@
     }
     function memoize(fn) {
       const cache = /* @__PURE__ */ Object.create(null);
-      return (key) => cache[key] || (cache[key] = fn(key));
+      return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
     }
 
     function attr(element, name, value) {
@@ -273,7 +273,7 @@
       }
     }
     function toClasses(str) {
-      return isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean);
+      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean) : [];
     }
 
     const voidElements = {
@@ -386,7 +386,7 @@
           let ctx = context;
           if (sel[0] === "!") {
             const selectors = sel.substr(1).trim().split(" ");
-            ctx = closest(parent(context), selectors[0]);
+            ctx = parent(context).closest(selectors[0]);
             sel = selectors.slice(1).join(" ").trim();
             if (!sel.length && split.length === 1) {
               return ctx;
@@ -502,7 +502,7 @@
     }
     function delegate(selector, listener) {
       return (e) => {
-        const current = selector[0] === ">" ? findAll(selector, e.currentTarget).reverse().filter((element) => within(e.target, element))[0] : closest(e.target, selector);
+        const current = selector[0] === ">" ? findAll(selector, e.currentTarget).reverse().find((element) => element.contains(e.target)) : e.target.closest(selector);
         if (current) {
           e.current = current;
           listener.call(this, e);
@@ -1184,8 +1184,8 @@
         return false;
       }
       return intersectRect(
-        ...overflowParents(element).map((parent) => {
-          const { top, left, bottom, right } = offsetViewport(parent);
+        ...overflowParents(element).map((parent2) => {
+          const { top, left, bottom, right } = offsetViewport(parent2);
           return {
             top: top - offsetTop,
             left: left - offsetLeft,
@@ -1225,16 +1225,17 @@
           const scroll = element2.scrollTop;
           const duration = getDuration(Math.abs(top));
           const start = Date.now();
-          const targetTop = offset(targetEl).top;
+          const isScrollingElement = scrollingElement(element2) === element2;
+          const targetTop = offset(targetEl).top + (isScrollingElement ? 0 : scroll);
           let prev = 0;
           let frames = 15;
           (function step() {
             const percent = ease(clamp((Date.now() - start) / duration));
             let diff = 0;
             if (parents2[0] === element2 && scroll + top < maxScroll) {
-              diff = offset(targetEl).top - targetTop;
-              const fixedEl = findFixedElement(targetEl);
-              diff -= fixedEl ? offset(fixedEl).height : 0;
+              diff = offset(targetEl).top + (isScrollingElement ? 0 : element2.scrollTop) - targetTop;
+              const coverEl = getCoveringElement(targetEl);
+              diff -= coverEl ? offset(coverEl).height : 0;
             }
             element2.scrollTop = Math[top + diff > 0 ? "max" : "min"](
               element2.scrollTop,
@@ -1254,11 +1255,6 @@
       }
       function ease(k) {
         return 0.5 * (1 - Math.cos(Math.PI * k));
-      }
-      function findFixedElement(target) {
-        return target.ownerDocument.elementsFromPoint(0, 0).find(
-          (el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target)
-        );
       }
     }
     function scrolledOver(element, startOffset = 0, endOffset = 0) {
@@ -1284,7 +1280,7 @@
       }
       return [scrollEl].concat(
         ancestors.filter(
-          (parent) => css(parent, "overflow").split(" ").some((prop) => includes(["auto", "scroll", ...props], prop)) && (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
+          (parent2) => css(parent2, "overflow").split(" ").some((prop) => includes(["auto", "scroll", ...props], prop)) && (!scrollable || parent2.scrollHeight > offsetViewport(parent2).height)
         )
       ).reverse();
     }
@@ -1325,6 +1321,19 @@
         rect[end] = rect[prop] + rect[start];
       }
       return rect;
+    }
+    function getCoveringElement(target) {
+      return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+        (el) => !el.contains(target) && (hasPosition(el, "fixed") && zIndex(
+          parents(target).reverse().find((parent2) => !parent2.contains(el) && !hasPosition(parent2, "static"))
+        ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target))
+      );
+    }
+    function zIndex(element) {
+      return toFloat(css(element, "zIndex"));
+    }
+    function hasPosition(element, position) {
+      return css(element, "position") === position;
     }
     function scrollingElement(element) {
       return toWindow(element).document.scrollingElement;
@@ -1451,7 +1460,7 @@
       return viewport;
     }
     function commonScrollParents(element, target) {
-      return overflowParents(target).filter((parent) => within(element, parent));
+      return overflowParents(target).filter((parent) => parent.contains(element));
     }
     function getIntersectionArea(...rects) {
       let area = {};
@@ -1545,6 +1554,7 @@
         findIndex: findIndex,
         flipPosition: flipPosition,
         fragment: fragment,
+        getCoveringElement: getCoveringElement,
         getEventPos: getEventPos,
         getIndex: getIndex,
         getTargetedElement: getTargetedElement,
@@ -1851,8 +1861,59 @@
       }
       return type ? type(value) : value;
     }
+    const listRe = /,(?![^(]*\))/;
     function toList(value) {
-      return isArray(value) ? value : isString(value) ? value.split(/,(?![^(]*\))/).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
+      return isArray(value) ? value : isString(value) ? value.split(listRe).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
+    }
+
+    function initUpdates(instance) {
+      instance._data = {};
+      instance._updates = [...instance.$options.update || []];
+    }
+    function prependUpdate(instance, update) {
+      instance._updates.unshift(update);
+    }
+    function clearUpdateData(instance) {
+      delete instance._data;
+    }
+    function callUpdate(instance, e = "update") {
+      if (!instance._connected) {
+        return;
+      }
+      if (!instance._updates.length) {
+        return;
+      }
+      if (!instance._queued) {
+        instance._queued = /* @__PURE__ */ new Set();
+        fastdom.read(() => {
+          if (instance._connected) {
+            runUpdates(instance, instance._queued);
+          }
+          delete instance._queued;
+        });
+      }
+      instance._queued.add(e.type || e);
+    }
+    function runUpdates(instance, types) {
+      for (const { read, write, events = [] } of instance._updates) {
+        if (!types.has("update") && !events.some((type) => types.has(type))) {
+          continue;
+        }
+        let result;
+        if (read) {
+          result = read.call(instance, instance._data, types);
+          if (result && isPlainObject(result)) {
+            assign(instance._data, result);
+          }
+        }
+        if (write && result !== false) {
+          fastdom.write(() => {
+            if (instance._connected) {
+              write.call(instance, instance._data, types);
+            }
+          });
+        }
+      }
     }
 
     function resize(options) {
@@ -1922,7 +1983,7 @@
       return {
         observe: observe2,
         handler() {
-          this.$emit(emit);
+          callUpdate(this, emit);
         },
         ...options
       };
@@ -2103,7 +2164,7 @@
       );
     }
     function getTransitionNodes(target) {
-      return getRows(children(target)).flat().filter(isInView);
+      return getRows(children(target)).flat().filter((node) => isVisible(node));
     }
     function awaitFrame$1() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
@@ -2247,12 +2308,8 @@
         duration: 250
       },
       computed: {
-        toggles({ attrItem }, $el) {
-          return $$(`[${attrItem}],[data-${attrItem}]`, $el);
-        },
-        children({ target }, $el) {
-          return $$(`${target} > *`, $el);
-        }
+        children: ({ target }, $el) => $$(`${target} > *`, $el),
+        toggles: ({ attrItem }, $el) => $$(`[${attrItem}],[data-${attrItem}]`, $el)
       },
       watch: {
         toggles(toggles) {
@@ -2283,7 +2340,7 @@
           if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
             return;
           }
-          if (closest(e.target, "a,button")) {
+          if (e.target.closest("a,button")) {
             e.preventDefault();
             this.apply(e.current);
           }
@@ -2449,12 +2506,8 @@
         clsLeave: "bdt-togglabe-leave"
       },
       computed: {
-        hasAnimation({ animation }) {
-          return !!animation[0];
-        },
-        hasTransition({ animation }) {
-          return ["slide", "reveal"].some((transition) => startsWith(animation[0], transition));
-        }
+        hasAnimation: ({ animation }) => !!animation[0],
+        hasTransition: ({ animation }) => ["slide", "reveal"].some((transition) => startsWith(animation[0], transition))
       },
       methods: {
         async toggleElement(targets, toggle, animate) {
@@ -2632,9 +2685,7 @@
         role: "dialog"
       },
       computed: {
-        panel({ selPanel }, $el) {
-          return $(selPanel, $el);
-        },
+        panel: ({ selPanel }, $el) => $(selPanel, $el),
         transitionElement() {
           return this.panel;
         },
@@ -2662,7 +2713,7 @@
           handler(e) {
             const { current, defaultPrevented } = e;
             const { hash } = current;
-            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !within(hash, this.$el) && $(hash, document.body)) {
+            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide();
             } else if (matches(current, this.selClose)) {
               e.preventDefault();
@@ -2797,14 +2848,14 @@
     }
     function preventBackgroundFocus(modal) {
       return on(document, "focusin", (e) => {
-        if (last(active$1) === modal && !within(e.target, modal.$el)) {
+        if (last(active$1) === modal && !modal.$el.contains(e.target)) {
           modal.$el.focus();
         }
       });
     }
     function listenForBackgroundClose$1(modal) {
       return on(document, pointerDown$1, ({ target }) => {
-        if (last(active$1) !== modal || modal.overlay && !within(target, modal.$el) || within(target, modal.panel)) {
+        if (last(active$1) !== modal || modal.overlay && !modal.$el.contains(target) || modal.panel.contains(target)) {
           return;
         }
         once(
@@ -3014,7 +3065,7 @@
             return `${this.selList} > *`;
           },
           handler(e) {
-            if (!this.draggable || !isTouch(e) && hasSelectableText(e.target) || closest(e.target, selInput) || e.button > 0 || this.length < 2) {
+            if (!this.draggable || !isTouch(e) && hasSelectableText(e.target) || e.target.closest(selInput) || e.button > 0 || this.length < 2) {
               return;
             }
             this.start(e);
@@ -3137,56 +3188,6 @@
       return css(el, "userSelect") !== "none" && toArray(el.childNodes).some((el2) => el2.nodeType === 3 && el2.textContent.trim());
     }
 
-    function initUpdates(instance) {
-      instance._data = {};
-      instance._updates = [...instance.$options.update || []];
-    }
-    function prependUpdate(instance, update) {
-      instance._updates.unshift(update);
-    }
-    function clearUpdateData(instance) {
-      delete instance._data;
-    }
-    function callUpdate(instance, e = "update") {
-      if (!instance._connected) {
-        return;
-      }
-      if (!instance._updates.length) {
-        return;
-      }
-      if (!instance._queued) {
-        instance._queued = /* @__PURE__ */ new Set();
-        fastdom.read(() => {
-          if (instance._connected) {
-            runUpdates(instance, instance._queued);
-          }
-          delete instance._queued;
-        });
-      }
-      instance._queued.add(e.type || e);
-    }
-    function runUpdates(instance, types) {
-      for (const { read, write, events = [] } of instance._updates) {
-        if (!types.has("update") && !events.some((type) => types.has(type))) {
-          continue;
-        }
-        let result;
-        if (read) {
-          result = read.call(instance, instance._data, types);
-          if (result && isPlainObject(result)) {
-            assign(instance._data, result);
-          }
-        }
-        if (write && result !== false) {
-          fastdom.write(() => {
-            if (instance._connected) {
-              write.call(instance, instance._data, types);
-            }
-          });
-        }
-      }
-    }
-
     function initWatches(instance) {
       instance._watches = [];
       for (const watches of instance.$options.watch || []) {
@@ -3297,11 +3298,7 @@
     function registerEvent(instance, event, key) {
       let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event) ? event : { name: key, handler: event };
       el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
-      if (isArray(el)) {
-        el.forEach((el2) => registerEvent(instance, { ...event, el: el2 }, key));
-        return;
-      }
-      if (!el || filter && !filter.call(instance)) {
+      if (!el || isArray(el) && !el.length || filter && !filter.call(instance)) {
         return;
       }
       instance._events.push(
@@ -3367,16 +3364,13 @@
     }
 
     function initProps(instance) {
-      const props = getProps(instance.$options);
-      for (let key in props) {
-        if (!isUndefined(props[key])) {
-          instance.$props[key] = props[key];
-        }
-      }
-      const exclude = [instance.$options.computed, instance.$options.methods];
-      for (let key in instance.$props) {
-        if (key in props && notIn(exclude, key)) {
-          instance[key] = instance.$props[key];
+      const { $options, $props } = instance;
+      const props = getProps($options);
+      assign($props, props);
+      const { computed, methods } = $options;
+      for (let key in $props) {
+        if (key in props && (!computed || !hasOwn(computed, key)) && (!methods || !hasOwn(methods, key))) {
+          instance[key] = $props[key];
         }
       }
     }
@@ -3407,17 +3401,18 @@
       }
       return data$1;
     }
-    function notIn(options, key) {
-      return options.every((arr) => !arr || !hasOwn(arr, key));
-    }
+    const getAttributes = memoize((id, props) => {
+      const attributes = Object.keys(props);
+      const filter = attributes.concat(id).map((key) => [hyphenate(key), `data-${hyphenate(key)}`]).flat();
+      return { attributes, filter };
+    });
     function initPropsObserver(instance) {
       const { $options, $props } = instance;
       const { id, props, el } = $options;
       if (!props) {
         return;
       }
-      const attributes = Object.keys(props);
-      const filter = attributes.map((key) => hyphenate(key)).concat(id);
+      const { attributes, filter } = getAttributes(id, props);
       const observer = new MutationObserver((records) => {
         const data = getProps($options);
         if (records.some(({ attributeName }) => {
@@ -3431,7 +3426,7 @@
       });
       observer.observe(el, {
         attributes: true,
-        attributeFilter: filter.concat(filter.map((key) => `data-${key}`))
+        attributeFilter: filter
       });
       registerObserver(instance, observer);
     }
@@ -3523,7 +3518,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.0";
+    App.version = "3.17.11";
 
     const PREFIX = "bdt-";
     const DATA = "__uikit__";
@@ -3642,7 +3637,7 @@
         const instance = this;
         attachToElement(el, instance);
         instance.$options.el = el;
-        if (within(el, document)) {
+        if (document.contains(el)) {
           callConnected(instance);
         }
       };
@@ -3679,15 +3674,9 @@
         $container: Object.getOwnPropertyDescriptor(App, "container")
       });
     }
-    function generateId(instance, el = instance.$el, postfix = "") {
-      if (el.id) {
-        return el.id;
-      }
-      let id = `${instance.$options.id}-${instance._uid}${postfix}`;
-      if ($(`#${id}`)) {
-        id = generateId(instance, el, `${postfix}-2`);
-      }
-      return id;
+    let id = 1;
+    function generateId(instance, el = null) {
+      return (el == null ? void 0 : el.id) || `${instance.$options.id}-${id++}`;
     }
 
     var SliderNav = {
@@ -3703,15 +3692,11 @@
         role: "region"
       },
       computed: {
-        nav({ selNav }, $el) {
-          return $(selNav, $el);
-        },
+        nav: ({ selNav }, $el) => $(selNav, $el),
         navChildren() {
           return children(this.nav);
         },
-        selNavItem({ attrItem }) {
-          return `[${attrItem}],[data-${attrItem}]`;
-        },
+        selNavItem: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
         navItems(_, $el) {
           return $$(this.selNavItem, $el);
         }
@@ -3740,7 +3725,7 @@
               const slide = this.slides[item];
               if (slide) {
                 if (!slide.id) {
-                  slide.id = generateId(this, slide, `-item-${cmd}`);
+                  slide.id = generateId(this, slide);
                 }
                 ariaControls = slide.id;
               }
@@ -3749,7 +3734,7 @@
             } else {
               if (this.list) {
                 if (!this.list.id) {
-                  this.list.id = generateId(this, this.list, "-items");
+                  this.list.id = generateId(this, this.list);
                 }
                 ariaControls = this.list.id;
               }
@@ -3802,7 +3787,7 @@
             return this.selNavItem;
           },
           handler(e) {
-            if (closest(e.target, "a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
+            if (e.target.closest("a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
               e.preventDefault();
               this.show(data(e.current, this.attrItem));
             }
@@ -3891,12 +3876,8 @@
         removeClass(this.slides, this.clsActive);
       },
       computed: {
-        duration({ velocity }, $el) {
-          return speedUp($el.offsetWidth / velocity);
-        },
-        list({ selList }, $el) {
-          return $(selList, $el);
-        },
+        duration: ({ velocity }, $el) => speedUp($el.offsetWidth / velocity),
+        list: ({ selList }, $el) => $(selList, $el),
         maxIndex() {
           return this.length - 1;
         },
@@ -4111,9 +4092,7 @@
         this.$mount(append(this.container, $el));
       },
       computed: {
-        caption({ selCaption }, $el) {
-          return $(selCaption, $el);
-        }
+        caption: ({ selCaption }, $el) => $(selCaption, $el)
       },
       events: [
         {
@@ -4326,9 +4305,7 @@
       props: { toggle: String },
       data: { toggle: "a" },
       computed: {
-        toggles({ toggle }, $el) {
-          return $$(toggle, $el);
-        }
+        toggles: ({ toggle }, $el) => $$(toggle, $el)
       },
       watch: {
         toggles(toggles) {
@@ -4401,9 +4378,7 @@
       },
       install: install$2,
       computed: {
-        marginProp({ pos }) {
-          return `margin${startsWith(pos, "top") ? "Top" : "Bottom"}`;
-        },
+        marginProp: ({ pos }) => `margin-${pos.match(/[a-z]+(?=-)/)[0]}`,
         startProps() {
           return { opacity: 0, [this.marginProp]: -this.$el.offsetHeight };
         }
@@ -4436,7 +4411,7 @@
       },
       events: {
         click(e) {
-          if (closest(e.target, 'a[href="#"],a[href=""]')) {
+          if (e.target.closest('a[href="#"],a[href=""]')) {
             e.preventDefault();
           }
           this.close();
@@ -4589,11 +4564,11 @@
           }
         },
         getCss(percent) {
-          const css2 = { transform: "", filter: "" };
+          const css2 = {};
           for (const prop in this.props) {
             this.props[prop](css2, clamp(percent));
           }
-          css2.willChange = Object.keys(css2).filter((key) => css2[key] !== "").map(propName).join(",");
+          css2.willChange = Object.keys(css2).map(propName).join(",");
           return css2;
         }
       }
@@ -4616,7 +4591,7 @@
       }
       stops = parseStops(stops, transformFn2);
       return (css2, percent) => {
-        css2.transform += ` ${prop}(${getValue(stops, percent)}${unit})`;
+        css2.transform = `${css2.transform || ""} ${prop}(${getValue(stops, percent)}${unit})`;
       };
     }
     function colorFn(prop, el, stops) {
@@ -4645,7 +4620,7 @@
       stops = parseStops(stops);
       return (css2, percent) => {
         const value = getValue(stops, percent);
-        css2.filter += ` ${prop}(${value + unit})`;
+        css2.filter = `${css2.filter || ""} ${prop}(${value + unit})`;
       };
     }
     function cssPropFn(prop, el, stops) {
@@ -4853,9 +4828,7 @@
         end: 0
       },
       computed: {
-        target({ target }, $el) {
-          return getOffsetElement(target && query(target, $el) || $el);
-        },
+        target: ({ target }, $el) => getOffsetElement(target && query(target, $el) || $el),
         start({ start }) {
           return toPx(start, "height", this.target, true);
         },
@@ -5547,17 +5520,15 @@
         handler: "init"
       },
       computed: {
-        target() {
-          return (this.$el.tBodies || [this.$el])[0];
-        },
+        target: (_, $el) => ($el.tBodies || [$el])[0],
         items() {
           return children(this.target);
         },
         isEmpty() {
           return isEmpty(this.items);
         },
-        handles({ handle }, el) {
-          return handle ? $$(handle, el) : this.items;
+        handles({ handle }, $el) {
+          return handle ? $$(handle, $el) : this.items;
         }
       },
       watch: {
@@ -5624,8 +5595,8 @@
       methods: {
         init(e) {
           const { target, button, defaultPrevented } = e;
-          const [placeholder] = this.items.filter((el) => within(target, el));
-          if (!placeholder || defaultPrevented || button > 0 || isInput(target) || within(target, `.${this.clsNoDrag}`) || this.handle && !within(target, this.handle)) {
+          const [placeholder] = this.items.filter((el) => el.contains(target));
+          if (!placeholder || defaultPrevented || button > 0 || isInput(target) || target.closest(`.${this.clsNoDrag}`) || this.handle && !target.closest(this.handle)) {
             return;
           }
           e.preventDefault();
@@ -5690,7 +5661,7 @@
           this.animate(insert);
         },
         remove(element) {
-          if (!within(element, this.target)) {
+          if (!this.target.contains(element)) {
             return;
           }
           this.animate(() => remove$1(element));
@@ -5887,43 +5858,40 @@
 
     var tooltip = {
       mixins: [Container, Togglable, Position],
-      args: "title",
-      props: {
-        delay: Number,
-        title: String
-      },
       data: {
         pos: "top",
-        title: "",
-        delay: 0,
         animation: ["bdt-animation-scale-up"],
         duration: 100,
         cls: "bdt-active"
       },
-      beforeConnect() {
-        this.id = generateId(this, {});
-        this._hasTitle = hasAttr(this.$el, "title");
-        attr(this.$el, {
-          title: "",
-          "aria-describedby": this.id
-        });
+      connected() {
         makeFocusable(this.$el);
       },
       disconnected() {
         this.hide();
-        if (!attr(this.$el, "title")) {
-          attr(this.$el, "title", this._hasTitle ? this.title : null);
-        }
       },
       methods: {
         show() {
-          if (this.isToggled(this.tooltip || null) || !this.title) {
+          if (this.isToggled(this.tooltip || null)) {
             return;
           }
+          const { delay = 0, title } = parseProps(this.$options);
+          if (!title) {
+            return;
+          }
+          const titleAttr = attr(this.$el, "title");
+          const off = on(this.$el, ["blur", pointerLeave], (e) => !isTouch(e) && this.hide());
+          this.reset = () => {
+            attr(this.$el, { title: titleAttr, "aria-describedby": null });
+            off();
+          };
+          const id = generateId(this);
+          attr(this.$el, { title: null, "aria-describedby": id });
           clearTimeout(this.showTimer);
-          this.showTimer = setTimeout(this._show, this.delay);
+          this.showTimer = setTimeout(() => this._show(title, id), delay);
         },
         async hide() {
+          var _a;
           if (matches(this.$el, "input:focus")) {
             return;
           }
@@ -5931,13 +5899,14 @@
           if (this.isToggled(this.tooltip || null)) {
             await this.toggleElement(this.tooltip, false, false);
           }
+          (_a = this.reset) == null ? void 0 : _a.call(this);
           remove$1(this.tooltip);
           this.tooltip = null;
         },
-        async _show() {
+        async _show(title, id) {
           this.tooltip = append(
             this.container,
-            `<div id="${this.id}" class="bdt-${this.$options.name}" role="tooltip"> <div class="bdt-${this.$options.name}-inner">${this.title}</div> </div>`
+            `<div id="${id}" class="bdt-${this.$options.name}" role="tooltip"> <div class="bdt-${this.$options.name}-inner">${title}</div> </div>`
           );
           on(this.tooltip, "toggled", (e, toggled) => {
             if (!toggled) {
@@ -5953,7 +5922,7 @@
                 `keydown ${pointerDown$1}`,
                 this.hide,
                 false,
-                (e2) => e2.type === pointerDown$1 && !within(e2.target, this.$el) || e2.type === "keydown" && e2.keyCode === keyMap.ESC
+                (e2) => e2.type === pointerDown$1 && !this.$el.contains(e2.target) || e2.type === "keydown" && e2.keyCode === keyMap.ESC
               ),
               on([document, ...overflowParents(this.$el)], "scroll", update, {
                 passive: true
@@ -5969,17 +5938,10 @@
         }
       },
       events: {
-        focus: "show",
-        blur: "hide",
-        [`${pointerEnter} ${pointerLeave}`](e) {
-          if (!isTouch(e)) {
-            this[e.type === pointerEnter ? "show" : "hide"]();
-          }
-        },
         // Clicking a button does not give it focus on all browsers and platforms
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
-        [pointerDown$1](e) {
-          if (isTouch(e)) {
+        [`focus ${pointerEnter} ${pointerDown$1}`](e) {
+          if (!isTouch(e)) {
             this.show();
           }
         }
@@ -6016,6 +5978,13 @@
         align = "center";
       }
       return [dir, align];
+    }
+    function parseProps(options) {
+      const { el, id, data: data$1 } = options;
+      return ["delay", "title"].reduce((obj, key) => ({ [key]: data(el, key), ...obj }), {
+        ...parseOptions(data(el, id), ["title"]),
+        ...data$1
+      });
     }
 
     var upload = {
@@ -6334,9 +6303,7 @@
         offset: 0
       },
       computed: {
-        items({ targets }, $el) {
-          return $$(targets, $el);
-        },
+        items: ({ targets }, $el) => $$(targets, $el),
         toggles({ toggle }) {
           return this.items.map((item) => $(toggle, item));
         },
@@ -6363,7 +6330,7 @@
         contents(items) {
           for (const el of items) {
             const isOpen = hasClass(
-              this.items.find((item) => within(el, item)),
+              this.items.find((item) => item.contains(el)),
               this.clsOpen
             );
             hide(el, !isOpen);
@@ -6409,8 +6376,8 @@
           if (!toggle || !content) {
             continue;
           }
-          toggle.id = generateId(this, toggle, `-title-${index2}`);
-          content.id = generateId(this, content, `-content-${index2}`);
+          toggle.id = generateId(this, toggle);
+          content.id = generateId(this, content);
           const active = includes(activeItems, this.items[index2]);
           attr(toggle, {
             role: isTag(toggle, "a") ? "button" : null,
@@ -6550,8 +6517,7 @@
         autoplay: true
       },
       connected() {
-        this.inView = this.autoplay === "inview";
-        if (this.inView && !hasAttr(this.$el, "preload")) {
+        if (this.autoplay === "inview" && !hasAttr(this.$el, "preload")) {
           this.$el.preload = "none";
         }
         if (isTag(this.$el, "iframe") && !hasAttr(this.$el, "allow")) {
@@ -6561,40 +6527,22 @@
           mute(this.$el);
         }
       },
-      observe: [intersection({ args: { intersecting: false } }), resize()],
-      update: {
-        read({ visible }) {
-          if (!isVideo(this.$el)) {
-            return false;
-          }
-          return {
-            prev: visible,
-            visible: isVisible(this.$el),
-            inView: this.inView && isInView(this.$el)
-          };
-        },
-        write({ prev, visible, inView }) {
-          if (!visible || this.inView && !inView) {
-            pause(this.$el);
-          } else if (this.autoplay === true && !prev || inView) {
-            play(this.$el);
-          }
-        },
-        events: ["resize"]
-      }
+      observe: [
+        intersection({
+          filter: ({ $el, autoplay }) => autoplay && isVideo($el),
+          handler([{ isIntersecting }]) {
+            if (isIntersecting) {
+              play(this.$el);
+            } else {
+              pause(this.$el);
+            }
+          },
+          args: { intersecting: false },
+          options: ({ $el, autoplay }) => ({ root: autoplay === "inview" ? null : parent($el) })
+        })
+      ]
     };
 
-    const coverProps = {
-      top: 0,
-      // resets the css from [bdt-cover]
-      left: 0,
-      // resets the css from [bdt-cover]
-      width: "100%",
-      height: "100%",
-      transform: "none",
-      objectFit: "cover",
-      objectPosition: "center"
-    };
     var cover = {
       mixins: [Video],
       props: {
@@ -6611,22 +6559,11 @@
       },
       observe: resize({
         target: ({ $el }) => [getPositionedParent($el) || parent($el)],
-        filter: ({ _useObjectFit }) => !_useObjectFit
+        filter: ({ $el }) => !useObjectFit($el)
       }),
-      connected() {
-        this._useObjectFit = isTag(this.$el, "img", "video");
-        if (this._useObjectFit) {
-          css(this.$el, coverProps);
-        }
-      },
-      disconnected() {
-        if (this._useObjectFit) {
-          attr(this.$el, "style", "");
-        }
-      },
       update: {
         read() {
-          if (this._useObjectFit) {
+          if (useObjectFit(this.$el)) {
             return;
           }
           const { ratio, cover } = Dimensions;
@@ -6667,6 +6604,9 @@
           return el;
         }
       }
+    }
+    function useObjectFit(el) {
+      return isTag(el, "img", "video");
     }
 
     let active;
@@ -6770,7 +6710,7 @@
           },
           handler({ defaultPrevented, current }) {
             const { hash } = current;
-            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !within(hash, this.$el)) {
+            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide(false);
             }
           }
@@ -6874,7 +6814,7 @@
           name: "hide",
           handler({ target }) {
             if (this.$el !== target) {
-              active = active === null && within(target, this.$el) && this.isToggled() ? this : active;
+              active = active === null && this.$el.contains(target) && this.isToggled() ? this : active;
               return;
             }
             active = this.isActive() ? null : active;
@@ -6906,7 +6846,7 @@
               return;
             }
             let prev;
-            while (active && prev !== active && !within(this.$el, active.$el)) {
+            while (active && prev !== active && !active.$el.contains(this.$el)) {
               prev = active;
               active.hide(false, false);
             }
@@ -7000,7 +6940,7 @@
       return result;
     }
     function getViewport$1(el, target) {
-      return offsetViewport(overflowParents(target).find((parent2) => within(el, parent2)));
+      return offsetViewport(overflowParents(target).find((parent2) => parent2.contains(el)));
     }
     function createToggleComponent(drop) {
       const { $el } = drop.$create("toggle", query(drop.toggle, drop.$el), {
@@ -7035,18 +6975,19 @@
     }
     function listenForBackgroundClose(drop) {
       return on(document, pointerDown$1, ({ target }) => {
-        if (!within(target, drop.$el)) {
-          once(
-            document,
-            `${pointerUp$1} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-              if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !(drop.targetEl && within(target, drop.targetEl))) {
-                drop.hide(false);
-              }
-            },
-            true
-          );
+        if (drop.$el.contains(target)) {
+          return;
         }
+        once(
+          document,
+          `${pointerUp$1} ${pointerCancel} scroll`,
+          ({ defaultPrevented, type, target: newTarget }) => {
+            if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !(drop.targetEl && within(target, drop.targetEl))) {
+              drop.hide(false);
+            }
+          },
+          true
+        );
       });
     }
 
@@ -7083,9 +7024,7 @@
         selNavItem: "> li > a, > ul > li > a"
       },
       computed: {
-        dropbarAnchor({ dropbarAnchor }, $el) {
-          return query(dropbarAnchor, $el) || $el;
-        },
+        dropbarAnchor: ({ dropbarAnchor }, $el) => query(dropbarAnchor, $el) || $el,
         dropbar({ dropbar }) {
           if (!dropbar) {
             return null;
@@ -7105,7 +7044,7 @@
           if (this.dropContainer !== $el) {
             for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
               const target = (_a = this.getDropdown(el)) == null ? void 0 : _a.targetEl;
-              if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+              if (!includes(dropdowns, el) && target && this.$el.contains(target)) {
                 dropdowns.push(el);
               }
             }
@@ -7145,7 +7084,7 @@
           },
           handler({ current }) {
             const active2 = this.getActive();
-            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !within(active2.targetEl, current) && !active2.isDelaying) {
+            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !current.contains(active2.targetEl) && !active2.isDelaying) {
               active2.hide(false);
             }
           }
@@ -7384,9 +7323,7 @@
         target: false
       },
       computed: {
-        input(_, $el) {
-          return $(selInput, $el);
-        },
+        input: (_, $el) => $(selInput, $el),
         state() {
           return this.input.nextElementSibling;
         },
@@ -7418,7 +7355,7 @@
         {
           name: "reset",
           el() {
-            return closest(this.$el, "form");
+            return this.$el.closest("form");
           },
           handler() {
             this.$emit();
@@ -7454,7 +7391,7 @@
       update: [
         {
           write({ rows }) {
-            toggleClass(this.$el, this.clsStack, !rows[0][1]);
+            toggleClass(this.$el, this.clsStack, !rows.some((row) => row.length > 1));
           },
           events: ["resize"]
         },
@@ -7597,12 +7534,10 @@
         row: true
       },
       computed: {
-        elements({ target }, $el) {
-          return $$(target, $el);
-        }
+        elements: ({ target }, $el) => $$(target, $el)
       },
       observe: resize({
-        target: ({ $el, elements }) => [$el, ...elements]
+        target: ({ $el, elements }) => elements.reduce((elements2, el) => elements2.concat(el, ...el.children), [$el])
       }),
       update: {
         read() {
@@ -7866,7 +7801,7 @@
       extends: IconComponent,
       beforeConnect() {
         const icon = this.$props.icon;
-        this.icon = closest(this.$el, ".bdt-nav-primary") ? `${icon}-large` : icon;
+        this.icon = this.$el.closest(".bdt-nav-primary") ? `${icon}-large` : icon;
       }
     };
     const Search = {
@@ -7882,7 +7817,7 @@
           const label = this.t("toggle");
           attr(this.$el, "aria-label", label);
         } else {
-          const button = closest(this.$el, "a,button");
+          const button = this.$el.closest("a,button");
           if (button) {
             const label = this.t("submit");
             attr(button, "aria-label", label);
@@ -7909,7 +7844,7 @@
       extends: IconComponent,
       mixins: [I18n],
       beforeConnect() {
-        const button = closest(this.$el, "a,button");
+        const button = this.$el.closest("a,button");
         attr(button, "role", this.role !== null && isTag(button, "a") ? "button" : this.role);
         const label = this.t("label");
         if (label && !hasAttr(button, "aria-label")) {
@@ -8123,9 +8058,7 @@
         attrFill: "data-fill"
       },
       computed: {
-        fill({ fill }) {
-          return fill || css(this.$el, "--bdt-leader-fill-content");
-        }
+        fill: ({ fill }, $el) => fill || css($el, "--bdt-leader-fill-content")
       },
       connected() {
         [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
@@ -8274,12 +8207,8 @@
         dropbarTransparentMode: false
       },
       computed: {
-        dropbarOffset() {
-          return this.dropbarTransparentMode === "behind" ? this.$el.offsetHeight : 0;
-        },
-        navbarContainer() {
-          return closest(this.$el, ".bdt-navbar-container");
-        }
+        navbarContainer: (_, $el) => $el.closest(".bdt-navbar-container"),
+        dropbarOffset: ({ dropbarTransparentMode }, $el) => dropbarTransparentMode === "behind" ? $el.offsetHeight : 0
       },
       watch: {
         items() {
@@ -8306,9 +8235,7 @@
       observe: [
         mutation({
           target: ({ navbarContainer }) => navbarContainer,
-          handler() {
-            this.registerColorListener();
-          },
+          handler: "registerColorListener",
           options: { attributes: true, attributeFilter: ["class"], attributeOldValue: true }
         }),
         intersection({
@@ -8472,21 +8399,11 @@
         swiping: true
       },
       computed: {
-        clsFlip({ flip, clsFlip }) {
-          return flip ? clsFlip : "";
-        },
-        clsOverlay({ overlay, clsOverlay }) {
-          return overlay ? clsOverlay : "";
-        },
-        clsMode({ mode, clsMode }) {
-          return `${clsMode}-${mode}`;
-        },
-        clsSidebarAnimation({ mode, clsSidebarAnimation }) {
-          return mode === "none" || mode === "reveal" ? "" : clsSidebarAnimation;
-        },
-        clsContainerAnimation({ mode, clsContainerAnimation }) {
-          return mode !== "push" && mode !== "reveal" ? "" : clsContainerAnimation;
-        },
+        clsFlip: ({ flip, clsFlip }) => flip ? clsFlip : "",
+        clsOverlay: ({ overlay, clsOverlay }) => overlay ? clsOverlay : "",
+        clsMode: ({ mode, clsMode }) => `${clsMode}-${mode}`,
+        clsSidebarAnimation: ({ mode, clsSidebarAnimation }) => mode === "none" || mode === "reveal" ? "" : clsSidebarAnimation,
+        clsContainerAnimation: ({ mode, clsContainerAnimation }) => mode !== "push" && mode !== "reveal" ? "" : clsContainerAnimation,
         transitionElement({ mode }) {
           return mode === "reveal" ? parent(this.panel) : this.panel;
         }
@@ -8593,12 +8510,8 @@
         minHeight: 150
       },
       computed: {
-        container({ selContainer }, $el) {
-          return closest($el, selContainer);
-        },
-        content({ selContent }, $el) {
-          return closest($el, selContent);
-        }
+        container: ({ selContainer }, $el) => $el.closest(selContainer),
+        content: ({ selContent }, $el) => $el.closest(selContent)
       },
       observe: resize({
         target: ({ container, content }) => [container, content]
@@ -8691,7 +8604,7 @@
         return;
       }
       for (const instance of instances) {
-        if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
+        if (instance.$el.contains(e.target) && isSameSiteAnchor(instance.$el)) {
           e.preventDefault();
           if (window.location.href !== instance.$el.href) {
             window.history.pushState({}, "", instance.$el.href);
@@ -8721,9 +8634,7 @@
         inViewClass: "bdt-scrollspy-inview"
       }),
       computed: {
-        elements({ target }, $el) {
-          return target ? $$(target, $el) : [$el];
-        }
+        elements: ({ target }, $el) => target ? $$(target, $el) : [$el]
       },
       watch: {
         elements(elements) {
@@ -8824,11 +8735,9 @@
         offset: 0
       },
       computed: {
-        links(_, $el) {
-          return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-        },
+        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
         elements({ closest: selector }) {
-          return this.links.map((el) => closest(el, selector || "*"));
+          return this.links.map((el) => el.closest(selector || "*"));
         }
       },
       watch: {
@@ -8856,7 +8765,7 @@
               active = length - 1;
             } else {
               for (let i = 0; i < targets.length; i++) {
-                const fixedEl = findFixedElement(targets[i]);
+                const fixedEl = getCoveringElement(targets[i]);
                 const offsetBy = this.offset + (fixedEl ? offset(fixedEl).height : 0);
                 if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                   break;
@@ -8883,9 +8792,6 @@
         }
       ]
     };
-    function findFixedElement(target) {
-      return target.ownerDocument.elementsFromPoint(1, 1).find((el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target));
-    }
 
     var sticky = {
       mixins: [Class, Media],
@@ -8924,9 +8830,7 @@
         targetOffset: false
       },
       computed: {
-        selTarget({ selTarget }, $el) {
-          return selTarget && $(selTarget, $el) || $el;
-        }
+        selTarget: ({ selTarget }, $el) => selTarget && $(selTarget, $el) || $el
       },
       connected() {
         this.start = coerce(this.start || this.top);
@@ -8992,7 +8896,7 @@
             }
             const hide = this.isFixed && !this.transitionInProgress;
             if (hide) {
-              preventTransition(this.selTarget);
+              preventTransition(this.$el);
               this.hide();
             }
             if (!this.active) {
@@ -9004,7 +8908,10 @@
             }
             const viewport2 = toPx("100vh", "height");
             const dynamicViewport = height(window);
-            const maxScrollHeight = document.scrollingElement.scrollHeight - viewport2;
+            const maxScrollHeight = Math.max(
+              0,
+              document.scrollingElement.scrollHeight - viewport2
+            );
             let position = this.position;
             if (this.overflowFlip && height$1 > viewport2) {
               position = position === "top" ? "bottom" : "top";
@@ -9053,7 +8960,7 @@
             }
             const { placeholder } = this;
             css(placeholder, { height, width, margin });
-            if (!within(placeholder, document)) {
+            if (!document.contains(placeholder)) {
               placeholder.hidden = true;
             }
             (sticky ? before : after)(this.$el, placeholder);
@@ -9181,15 +9088,12 @@
           if (!sticky) {
             let position = "fixed";
             if (scroll2 > end) {
-              offset += end - offsetParentTop;
+              offset += end - offsetParentTop + overflowScroll - overflow;
               position = "absolute";
             }
             css(this.$el, { position, width, marginTop: 0 }, "important");
           }
-          if (overflow) {
-            offset -= overflowScroll;
-          }
-          css(this.$el, "top", offset);
+          css(this.$el, "top", offset - overflowScroll);
           this.setActive(active);
           toggleClass(
             this.$el,
@@ -9219,7 +9123,7 @@
         return propOffset + toPx(value, "height", el, true);
       } else {
         const refElement = value === true ? parent(el) : query(value, el);
-        return offset(refElement).bottom - (padding && refElement && within(el, refElement) ? toFloat(css(refElement, "paddingBottom")) : 0);
+        return offset(refElement).bottom - (padding && (refElement == null ? void 0 : refElement.contains(el)) ? toFloat(css(refElement, "paddingBottom")) : 0);
       }
     }
     function coerce(value) {
@@ -9234,8 +9138,8 @@
       css(el, { position: "", top: "", marginTop: "", width: "" });
     }
     function preventTransition(el) {
-      css(el, "transition", "0s");
-      requestAnimationFrame(() => css(el, "transition", ""));
+      addClass(el, "bdt-transition-disable");
+      requestAnimationFrame(() => removeClass(el, "bdt-transition-disable"));
     }
 
     var svg = {
@@ -9361,18 +9265,14 @@
         swiping: true
       },
       computed: {
-        connects({ connect }, $el) {
-          return queryAll(connect, $el);
-        },
+        connects: ({ connect }, $el) => queryAll(connect, $el),
         connectChildren() {
           return this.connects.map((el) => children(el)).flat();
         },
-        toggles({ toggle }, $el) {
-          return $$(toggle, $el);
-        },
-        children() {
-          return children(this.$el).filter(
-            (child) => this.toggles.some((toggle) => within(toggle, child))
+        toggles: ({ toggle }, $el) => $$(toggle, $el),
+        children(_, $el) {
+          return children($el).filter(
+            (child) => this.toggles.some((toggle) => child.contains(toggle))
           );
         }
       },
@@ -9445,7 +9345,7 @@
             return `[${this.attrItem}],[data-${this.attrItem}]`;
           },
           handler(e) {
-            if (closest(e.target, "a,button")) {
+            if (e.target.closest("a,button")) {
               e.preventDefault();
               this.show(data(e.current, this.attrItem));
             }
@@ -9475,8 +9375,8 @@
           if (!item) {
             continue;
           }
-          toggle.id = generateId(this, toggle, `-tab-${index}`);
-          item.id = generateId(this, item, `-tabpanel-${index}`);
+          toggle.id = generateId(this, toggle);
+          item.id = generateId(this, item);
           attr(toggle, "aria-controls", item.id);
           attr(item, { role: "tabpanel", "aria-labelledby": toggle.id });
         }
@@ -9552,7 +9452,7 @@
       computed: {
         target({ target }, $el) {
           target = queryAll(target || $el.hash, $el);
-          return target.length && target || [$el];
+          return target.length ? target : [$el];
         }
       },
       connected() {
@@ -9583,7 +9483,7 @@
               pointerDown$1,
               () => trigger(this.$el, "blur"),
               true,
-              (e2) => !within(e2.target, this.$el)
+              (e2) => !this.$el.contains(e2.target)
             );
             if (includes(this.mode, "click")) {
               this._preventClick = true;
@@ -9635,7 +9535,7 @@
           },
           handler(e) {
             let link;
-            if (this._preventClick || closest(e.target, 'a[href="#"], a[href=""]') || (link = closest(e.target, "a[href]")) && (!this.isToggled(this.target) || link.hash && matches(this.target, link.hash))) {
+            if (this._preventClick || e.target.closest('a[href="#"], a[href=""]') || (link = e.target.closest("a[href]")) && (!this.isToggled(this.target) || link.hash && matches(this.target, link.hash))) {
               e.preventDefault();
             }
             if (!this._preventClick && includes(this.mode, "click")) {

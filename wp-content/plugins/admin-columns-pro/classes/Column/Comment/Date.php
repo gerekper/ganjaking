@@ -7,22 +7,27 @@ use ACP\Export;
 use ACP\Filtering;
 use ACP\Search;
 
-/**
- * @since 4.0
- */
 class Date extends AC\Column\Comment\Date
-	implements Filtering\Filterable, Export\Exportable, Search\Searchable {
+    implements Filtering\FilterableDateSetting, Export\Exportable, Search\Searchable
+{
 
-	public function filtering() {
-		return new Filtering\Model\Comment\Date( $this );
-	}
+    use Filtering\FilteringDateSettingTrait;
 
-	public function export() {
-		return new Export\Model\Comment\Date();
-	}
+    public function register_settings()
+    {
+        parent::register_settings();
 
-	public function search() {
-		return new Search\Comparison\Comment\Date\Date();
-	}
+        $this->add_setting(new Filtering\Settings\Date($this, ['future_past']));
+    }
+
+    public function export()
+    {
+        return new Export\Model\Comment\Date();
+    }
+
+    public function search()
+    {
+        return new Search\Comparison\Comment\Date\Date();
+    }
 
 }

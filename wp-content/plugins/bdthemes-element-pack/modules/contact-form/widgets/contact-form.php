@@ -12,8 +12,7 @@ use ElementPack\Element_Pack_Loader;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class Contact_Form extends Module_Base
-{
+class Contact_Form extends Module_Base {
 
 	protected $_has_template_content = false;
 

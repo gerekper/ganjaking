@@ -3,7 +3,7 @@
  * Textfield Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Textfield Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEXTFIELD extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEXTFIELD extends THEMECOMPLETE_EPO_BUIL
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(

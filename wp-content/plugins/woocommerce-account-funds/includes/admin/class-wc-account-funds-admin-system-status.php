@@ -45,7 +45,7 @@ class WC_Account_Funds_Admin_System_Status {
 			'discount_amount'       => ( ! empty( $discount_amount ) ? $discount_amount : '-' ),
 		);
 
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';
+		include_once __DIR__ . '/views/html-admin-status-report-settings.php';
 	}
 
 	/**

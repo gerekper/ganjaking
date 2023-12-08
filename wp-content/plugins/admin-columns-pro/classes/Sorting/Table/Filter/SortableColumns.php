@@ -33,7 +33,9 @@ class SortableColumns implements ColumnRepository\Filter
             return false;
         }
 
-        if ( ! $this->model_factory->create($column)) {
+        $has_model = $this->model_factory->create_model($column) || $this->model_factory->create_bindings($column);
+
+        if ( ! $has_model) {
             return false;
         }
 

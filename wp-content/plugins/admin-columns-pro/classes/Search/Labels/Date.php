@@ -17,6 +17,8 @@ class Date extends Labels {
 			Operators::LT_DAYS_AGO => __( 'is less than', 'codepress-admin-columns' ),
 			Operators::GT_DAYS_AGO => __( 'is more than', 'codepress-admin-columns' ),
 			Operators::WITHIN_DAYS => __( 'is within', 'codepress-admin-columns' ),
+			Operators::EQ_MONTH => __( 'in month', 'codepress-admin-columns' ),
+			Operators::EQ_YEAR => __( 'in year', 'codepress-admin-columns' ),
 		], $labels );
 
 		parent::__construct( $labels );

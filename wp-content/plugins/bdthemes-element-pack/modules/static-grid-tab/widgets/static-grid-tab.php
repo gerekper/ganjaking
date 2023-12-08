@@ -18,7 +18,8 @@ use ElementPack\Utils;
 use ElementPack\Traits\Global_Swiper_Controls;
 use ElementPack\Traits\Global_Mask_Controls;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+if (!defined('ABSPATH'))
+	exit; // Exit if accessed directly
 
 class Static_Grid_Tab extends Module_Base
 {
@@ -81,7 +82,7 @@ class Static_Grid_Tab extends Module_Base
 			'section_carousel_content',
 			[
 				'label' => __('Items', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_CONTENT,
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -90,10 +91,10 @@ class Static_Grid_Tab extends Module_Base
 		$repeater->add_control(
 			'image',
 			[
-				'label'       => __('Image', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::MEDIA,
+				'label' => __('Image', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::MEDIA,
 				'render_type' => 'template',
-				'dynamic'     => [
+				'dynamic' => [
 					'active' => true,
 				],
 				// 'default'     => [
@@ -108,9 +109,9 @@ class Static_Grid_Tab extends Module_Base
 		$repeater->add_control(
 			'title',
 			[
-				'label'       => __('Title', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => [
+				'label' => __('Title', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::TEXT,
+				'dynamic' => [
 					'active' => true,
 				],
 				'default' => __('This is a title', 'bdthemes-element-pack'),
@@ -122,12 +123,12 @@ class Static_Grid_Tab extends Module_Base
 		$repeater->add_control(
 			'text',
 			[
-				'label'       => __('Text', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::WYSIWYG,
-				'dynamic'     => [
+				'label' => __('Text', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::WYSIWYG,
+				'dynamic' => [
 					'active' => true,
 				],
-				'default'     => __('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'bdthemes-element-pack'),
+				'default' => __('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'bdthemes-element-pack'),
 				'placeholder' => __('Enter your text', 'bdthemes-element-pack'),
 			]
 		);
@@ -135,11 +136,11 @@ class Static_Grid_Tab extends Module_Base
 		$repeater->add_control(
 			'readmore_link',
 			[
-				'label'       => esc_html__('Link', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::URL,
-				'dynamic'     => ['active' => true],
+				'label' => esc_html__('Link', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::URL,
+				'dynamic' => ['active' => true],
 				'placeholder' => 'http://your-link.com',
-				'default'     => [
+				'default' => [
 					'url' => '#',
 				],
 			]
@@ -148,10 +149,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'static_tabs_item',
 			[
-				'show_label'  => false,
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater->get_controls(),
-				'default'     => [
+				'show_label' => false,
+				'type' => Controls_Manager::REPEATER,
+				'fields' => $repeater->get_controls(),
+				'default' => [
 					['image' => ['url' => BDTEP_ASSETS_URL . 'images/gallery/item-1.svg']],
 					['image' => ['url' => BDTEP_ASSETS_URL . 'images/gallery/item-2.svg']],
 					['image' => ['url' => BDTEP_ASSETS_URL . 'images/gallery/item-3.svg']],
@@ -170,20 +171,20 @@ class Static_Grid_Tab extends Module_Base
 			'section_carousel_additional_settings',
 			[
 				'label' => __('Additional Settings', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_CONTENT,
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'columns',
 			[
-				'label'          => esc_html__('Columns', 'bdthemes-element-pack'),
-				'type'           => Controls_Manager::SELECT,
-				'description'    => esc_html__('Note:- The changes will reflect on Preview Page.', 'bdthemes-element-pack'),
-				'default'        => 4,
+				'label' => esc_html__('Columns', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
+				'description' => esc_html__('Note:- The changes will reflect on Preview Page.', 'bdthemes-element-pack'),
+				'default' => 4,
 				'tablet_default' => 3,
 				'mobile_default' => 2,
-				'options'        => [
+				'options' => [
 					1 => '1',
 					2 => '2',
 					3 => '3',
@@ -197,12 +198,12 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'layout_type',
 			[
-				'label'   => esc_html__('Layout', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SELECT,
+				'label' => esc_html__('Layout', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'default' => 'grid',
 				'options' => [
 					'grid' => esc_html__('Grid', 'bdthemes-element-pack'),
-					'tab'  => esc_html__('Tab', 'bdthemes-element-pack'),
+					'tab' => esc_html__('Tab', 'bdthemes-element-pack'),
 				],
 			]
 		);
@@ -219,7 +220,7 @@ class Static_Grid_Tab extends Module_Base
 			'active_tab_no',
 			[
 				'label' => esc_html__('Active Tab Index', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::TEXT,
+				'type' => Controls_Manager::TEXT,
 			]
 		);
 
@@ -238,8 +239,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'show_close',
 			[
-				'label'   => esc_html__('Close Button', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Close Button', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -256,15 +257,15 @@ class Static_Grid_Tab extends Module_Base
 			'scroll_to_tab',
 			[
 				'label' => esc_html__('Scroll To Tab', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::SWITCHER,
+				'type' => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'grid_tab_type',
 			[
-				'label'   => esc_html__('Grid Tab Type', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SELECT,
+				'label' => esc_html__('Grid Tab Type', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'default' => 'image',
 				'options' => [
 					'image' => esc_html__('Image', 'bdthemes-element-pack'),
@@ -277,7 +278,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			[
-				'name'    => 'thumb_image_size',
+				'name' => 'thumb_image_size',
 				'default' => 'medium',
 				'condition' => [
 					'grid_tab_type' => 'image'
@@ -288,28 +289,28 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'tab_text_align',
 			[
-				'label'   => __('Text Align', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::CHOOSE,
+				'label' => __('Text Align', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::CHOOSE,
 				'default' => 'center',
 				'options' => [
-					'left'    => [
+					'left' => [
 						'title' => __('Left', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __('Center', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
 						'title' => __('Right', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 					'justify' => [
 						'title' => __('Justified', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-justify',
+						'icon' => 'eicon-text-align-justify',
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-title, {{WRAPPER}} .bdt-ep-static-grid-tab-thumbnail' => 'text-align: {{VALUE}};',
 				],
 				// 'condition' => [
@@ -321,8 +322,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'show_title',
 			[
-				'label'   => __('Show Title', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => __('Show Title', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'separator' => 'before',
 			]
@@ -331,8 +332,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'title_tag',
 			[
-				'label'   => __('Title HTML Tag', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SELECT,
+				'label' => __('Title HTML Tag', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'default' => 'h3',
 				'options' => element_pack_title_tags(),
 				'condition' => [
@@ -344,8 +345,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'show_text',
 			[
-				'label'   => __('Show Text', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => __('Show Text', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'separator' => 'before',
 			]
@@ -354,8 +355,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'show_readmore',
 			[
-				'label'   => esc_html__('Show Read More', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Show Read More', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -363,8 +364,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'show_image',
 			[
-				'label'   => __('Show Image', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => __('Show Image', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'separator' => 'before',
 			]
@@ -373,7 +374,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			[
-				'name'    => 'thumbnail_size',
+				'name' => 'thumbnail_size',
 				'default' => 'medium',
 				'condition' => [
 					'show_image' => 'yes'
@@ -384,8 +385,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'content_reverse',
 			[
-				'label'   => esc_html__('Content Reverse', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Content Reverse', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 				'prefix_class' => 'bdt-sgt-content-reverse--',
 				'render_type' => 'template',
 				'separator' => 'before',
@@ -396,24 +397,24 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'text_align',
 			[
-				'label'     => __('Alignment', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
+				'label' => __('Alignment', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
 						'title' => __('Left', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
-					'center'  => [
+					'center' => [
 						'title' => __('Center', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
-					'right'   => [
+					'right' => [
 						'title' => __('Right', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 					'justify' => [
 						'title' => __('Justified', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-justify',
+						'icon' => 'eicon-text-align-justify',
 					],
 				],
 				'selectors' => [
@@ -428,7 +429,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->start_controls_section(
 			'section_content_readmore',
 			[
-				'label'     => esc_html__('Read More', 'bdthemes-element-pack'),
+				'label' => esc_html__('Read More', 'bdthemes-element-pack'),
 				'condition' => [
 					'show_readmore' => 'yes',
 				],
@@ -438,9 +439,9 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'readmore_text',
 			[
-				'label'       => esc_html__('Read More Text', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__('Read More', 'bdthemes-element-pack'),
+				'label' => esc_html__('Read More Text', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::TEXT,
+				'default' => esc_html__('Read More', 'bdthemes-element-pack'),
 				'placeholder' => esc_html__('Read More', 'bdthemes-element-pack'),
 			]
 		);
@@ -448,8 +449,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'readmore_icon',
 			[
-				'label'       => esc_html__('Icon', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::ICONS,
+				'label' => esc_html__('Icon', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::ICONS,
 				'label_block' => false,
 				'skin' => 'inline'
 			]
@@ -458,11 +459,11 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'icon_align',
 			[
-				'label'   => esc_html__('Icon Position', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::CHOOSE,
+				'label' => esc_html__('Icon Position', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::CHOOSE,
 				'default' => 'right',
 				'toggle' => false,
-				'options'   => [
+				'options' => [
 					'left' => [
 						'title' => __('Left', 'bdthemes-element-pack'),
 						'icon' => 'eicon-h-align-left',
@@ -481,8 +482,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'icon_indent',
 			[
-				'label'   => esc_html__('Icon Spacing', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__('Icon Spacing', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 8,
 				],
@@ -496,7 +497,7 @@ class Static_Grid_Tab extends Module_Base
 				],
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore .bdt-button-icon-align-right' => is_rtl() ? 'margin-right: {{SIZE}}{{UNIT}};' : 'margin-left: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore .bdt-button-icon-align-left'  => is_rtl() ? 'margin-left: {{SIZE}}{{UNIT}};' : 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore .bdt-button-icon-align-left' => is_rtl() ? 'margin-left: {{SIZE}}{{UNIT}};' : 'margin-right: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -508,7 +509,7 @@ class Static_Grid_Tab extends Module_Base
 			'section_style_tab',
 			[
 				'label' => esc_html__('Tab', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -524,8 +525,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'item_tab_text_color',
 			[
-				'label'     => esc_html__('Text Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Text Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gridtab > dt .bdt-ep-static-grid-tab-title' => 'color: {{VALUE}};',
 				],
@@ -538,25 +539,25 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'item_tab_background',
-				'types'     => ['classic', 'gradient'],
+				'name' => 'item_tab_background',
+				'types' => ['classic', 'gradient'],
 				'exclude' => ['image'],
-				'selector'  => '{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt',
+				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt',
 			]
 		);
 
 		$this->add_control(
 			'item_border_width',
 			[
-				'label'   => esc_html__('Border Width', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__('Border Width', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 2,
 				],
 				'range' => [
 					'px' => [
-						'min'  => 1,
-						'max'  => 100,
+						'min' => 1,
+						'max' => 100,
 						'step' => 1,
 					],
 				],
@@ -566,9 +567,9 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'tab_border_color',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#fff',
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#fff',
 				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt, {{WRAPPER}} .bdt-static-grid-tab .gridtab > dd' => 'border-color: {{VALUE}};',
 				],
@@ -578,10 +579,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'tab_item_padding',
 			[
-				'label'      => __('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => __('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -590,8 +591,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'      => 'tab_text_typography',
-				'selector'  => '{{WRAPPER}} .bdt-ep-static-grid-tab-title',
+				'name' => 'tab_text_typography',
+				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-title',
 				'condition' => [
 					'grid_tab_type' => 'title',
 				],
@@ -610,8 +611,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'active_tab_text_color',
 			[
-				'label'     => esc_html__('Text Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Text Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gridtab > dt.is-active .bdt-ep-static-grid-tab-title' => 'color: {{VALUE}};',
 				],
@@ -624,10 +625,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'item_tab_active_background',
-				'types'     => ['classic', 'gradient'],
+				'name' => 'item_tab_active_background',
+				'types' => ['classic', 'gradient'],
 				'exclude' => ['image'],
-				'selector'  => '{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt.is-active',
+				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab > dt.is-active',
 			]
 		);
 
@@ -640,17 +641,17 @@ class Static_Grid_Tab extends Module_Base
 		$this->start_controls_section(
 			'section_style_tabs_content',
 			[
-				'label'     => esc_html__('Content', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__('Content', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'content_background_color',
-				'types'    => ['classic', 'gradient'],
-				'exclude'  => ['image'],
+				'name' => 'content_background_color',
+				'types' => ['classic', 'gradient'],
+				'exclude' => ['image'],
 				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab > dd',
 			]
 		);
@@ -658,10 +659,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'content_padding',
 			[
-				'label'      => __('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => __('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab > dd' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -670,8 +671,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'content_space_between',
 			[
-				'label'     => esc_html__('Space Between', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::SLIDER,
+				'label' => esc_html__('Space Between', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SLIDER,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-item' => 'grid-gap: {{SIZE}}{{UNIT}};',
 				],
@@ -684,7 +685,7 @@ class Static_Grid_Tab extends Module_Base
 			'section_style_image',
 			[
 				'label' => __('Image', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes'
 				]
@@ -694,7 +695,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'image_border',
+				'name' => 'image_border',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-image img'
 			]
 		);
@@ -702,10 +703,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'image_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -714,10 +715,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'image_padding',
 			[
-				'label'      => __('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => __('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-image img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -726,7 +727,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
 			[
-				'name'     => 'css_filters',
+				'name' => 'css_filters',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-image img',
 			]
 		);
@@ -734,7 +735,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'img_shadow',
+				'name' => 'img_shadow',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-image img'
 			]
 		);
@@ -745,7 +746,7 @@ class Static_Grid_Tab extends Module_Base
 			'section_style_title',
 			[
 				'label' => __('Title', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				]
@@ -755,8 +756,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => __('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-main-title' => 'color: {{VALUE}};',
 				],
@@ -766,10 +767,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'title_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Margin', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-main-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -778,7 +779,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'title_typography',
+				'name' => 'title_typography',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-main-title',
 			]
 		);
@@ -798,7 +799,7 @@ class Static_Grid_Tab extends Module_Base
 			'section_style_text',
 			[
 				'label' => __('Text', 'bdthemes-element-pack'),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_text' => 'yes',
 				]
@@ -808,8 +809,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => __('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-excerpt' => 'color: {{VALUE}};',
 				],
@@ -819,10 +820,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'text_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Margin', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-excerpt' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -831,7 +832,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'text_typography',
+				'name' => 'text_typography',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-excerpt',
 			]
 		);
@@ -841,8 +842,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->start_controls_section(
 			'section_style_readmore',
 			[
-				'label'     => esc_html__('Read More', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__('Read More', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_readmore' => 'yes',
 				],
@@ -861,8 +862,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'readmore_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore svg' => 'fill: {{VALUE}};',
@@ -873,30 +874,30 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'readmore_background',
-				'selector'  => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
+				'name' => 'readmore_background',
+				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'        => 'readmore_border',
-				'label'       => esc_html__('Border', 'bdthemes-element-pack'),
+				'name' => 'readmore_border',
+				'label' => esc_html__('Border', 'bdthemes-element-pack'),
 				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
-				'separator'   => 'before',
+				'default' => '1px',
+				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'readmore_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -905,7 +906,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'readmore_box_shadow',
+				'name' => 'readmore_box_shadow',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
 			]
 		);
@@ -913,10 +914,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'readmore_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -925,10 +926,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'readmore_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Margin', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -937,7 +938,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'readmore_typography',
+				'name' => 'readmore_typography',
 				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore',
 			]
 		);
@@ -954,8 +955,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'readmore_hover_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore:hover' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .bdt-ep-static-grid-tab-readmore:hover svg' => 'fill: {{VALUE}};',
@@ -966,16 +967,16 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'readmore_hover_background',
-				'selector'  => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore:hover',
+				'name' => 'readmore_hover_background',
+				'selector' => '{{WRAPPER}} .bdt-ep-static-grid-tab-readmore:hover',
 			]
 		);
 
 		$this->add_control(
 			'readmore_hover_border_color',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'condition' => [
 					'readmore_border_border!' => '',
 				],
@@ -989,7 +990,7 @@ class Static_Grid_Tab extends Module_Base
 			'readmore_hover_animation',
 			[
 				'label' => esc_html__('Animation', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::HOVER_ANIMATION,
+				'type' => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
 
@@ -1002,8 +1003,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->start_controls_section(
 			'section_style_close_button',
 			[
-				'label'     => esc_html__('Close Button', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__('Close Button', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_close' => 'yes',
 				],
@@ -1022,8 +1023,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'close_button_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab__close:before, {{WRAPPER}} .bdt-static-grid-tab .gridtab__close:after' => 'background: {{VALUE}};',
 				],
@@ -1033,9 +1034,9 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'close_button_background',
-				'types'    => ['classic', 'gradient'],
-				'exclude'  => ['image'],
+				'name' => 'close_button_background',
+				'types' => ['classic', 'gradient'],
+				'exclude' => ['image'],
 				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__close',
 			]
 		);
@@ -1043,22 +1044,22 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'        => 'close_button_border',
-				'label'       => esc_html__('Border', 'bdthemes-element-pack'),
+				'name' => 'close_button_border',
+				'label' => esc_html__('Border', 'bdthemes-element-pack'),
 				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__close',
-				'separator'   => 'before',
+				'default' => '1px',
+				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__close',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_responsive_control(
 			'close_button_border_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab__close' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1067,10 +1068,10 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_responsive_control(
 			'close_button_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab__close' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1079,7 +1080,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'close_button_shadow',
+				'name' => 'close_button_shadow',
 				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__close',
 			]
 		);
@@ -1096,8 +1097,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'close_button_hover_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-static-grid-tab .gridtab__close:hover::before, {{WRAPPER}} .bdt-static-grid-tab .gridtab__close:hover::after' => 'background: {{VALUE}};',
 				],
@@ -1107,9 +1108,9 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'close_button_hover_background',
-				'types'    => ['classic', 'gradient'],
-				'exclude'  => ['image'],
+				'name' => 'close_button_hover_background',
+				'types' => ['classic', 'gradient'],
+				'exclude' => ['image'],
 				'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__close:hover',
 			]
 		);
@@ -1117,8 +1118,8 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_control(
 			'close_button_hover_border_color',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'condition' => [
 					'close_button_border_border!' => '',
 				],
@@ -1134,148 +1135,13 @@ class Static_Grid_Tab extends Module_Base
 
 		$this->end_controls_section();
 
-		// $this->start_controls_section(
-		// 	'section_style_arrows',
-		// 	[
-		// 		'label'     => esc_html__( 'Arrows', 'bdthemes-element-pack' ),
-		// 		'tab'       => Controls_Manager::TAB_STYLE,
-		// 		'condition' => [
-		// 			'show_arrows' => 'yes',
-		// 		],
-		// 	]
-		// );
-
-		// $this->start_controls_tabs( 'tabs_arrows_style' );
-
-		// $this->start_controls_tab(
-		// 	'tab_arrows_normal',
-		// 	[
-		// 		'label' => esc_html__( 'Normal', 'bdthemes-element-pack' ),
-		// 	]
-		// );
-
-		// $this->add_control(
-		// 	'arrows_color',
-		// 	[
-		// 		'label'     => esc_html__( 'Color', 'bdthemes-element-pack' ),
-		// 		'type'      => Controls_Manager::COLOR,
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:before, {{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:after' => 'background: {{VALUE}};',
-		// 		],
-		// 	]
-		// );
-
-		// $this->add_group_control(
-		// 	Group_Control_Background::get_type(),
-		// 	[
-		// 		'name'     => 'arrows_background',
-		// 		'types'    => ['classic', 'gradient'],
-		// 		'exclude'  => ['image'],
-		// 		'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow',
-		// 	]
-		// );
-
-		// $this->add_group_control(
-		// 	Group_Control_Border::get_type(),
-		// 	[
-		// 		'name'        => 'arrows_border',
-		// 		'label'       => esc_html__( 'Border', 'bdthemes-element-pack' ),
-		// 		'placeholder' => '1px',
-		// 		'default'     => '1px',
-		// 		'selector'    => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow',
-		// 		'separator'   => 'before',
-		// 	]
-		// );
-
-		// $this->add_responsive_control(
-		// 	'arrows_border_radius',
-		// 	[
-		// 		'label'      => esc_html__( 'Border Radius', 'bdthemes-element-pack' ),
-		// 		'type'       => Controls_Manager::DIMENSIONS,
-		// 		'size_units' => [ 'px', '%' ],
-		// 		'selectors'  => [
-		// 			'{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		// 		],
-		// 	]
-		// );
-
-		// $this->add_responsive_control(
-		// 	'arrows_padding',
-		// 	[
-		// 		'label'      => esc_html__( 'Padding', 'bdthemes-element-pack' ),
-		// 		'type'       => Controls_Manager::DIMENSIONS,
-		// 		'size_units' => [ 'px', 'em', '%' ],
-		// 		'selectors'  => [
-		// 			'{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		// 		],
-		// 	]
-		// );
-
-		// $this->add_group_control(
-		// 	Group_Control_Box_Shadow::get_type(),
-		// 	[
-		// 		'name'     => 'arrows_shadow',
-		// 		'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow',
-		// 	]
-		// );
-
-		// $this->end_controls_tab();
-
-		// $this->start_controls_tab(
-		// 	'tab_arrows_hover',
-		// 	[
-		// 		'label' => esc_html__( 'Hover', 'bdthemes-element-pack' ),
-		// 	]
-		// );
-
-		// $this->add_control(
-		// 	'arrows_hover_color',
-		// 	[
-		// 		'label'     => esc_html__( 'Color', 'bdthemes-element-pack' ),
-		// 		'type'      => Controls_Manager::COLOR,
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:hover::before, {{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:hover::after' => 'background: {{VALUE}};',
-		// 		],
-		// 	]
-		// );
-
-		// $this->add_group_control(
-		// 	Group_Control_Background::get_type(),
-		// 	[
-		// 		'name'     => 'arrows_hover_background',
-		// 		'types'    => ['classic', 'gradient'],
-		// 		'exclude'  => ['image'],
-		// 		'selector' => '{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:hover',
-		// 	]
-		// );
-
-		// $this->add_control(
-		// 	'arrows_hover_border_color',
-		// 	[
-		// 		'label'     => esc_html__( 'Border Color', 'bdthemes-element-pack' ),
-		// 		'type'      => Controls_Manager::COLOR,
-		// 		'condition' => [
-		// 			'arrows_border_border!' => '',
-		// 		],
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .bdt-static-grid-tab .gridtab__arrow:hover' => 'border-color: {{VALUE}};',
-		// 		],
-		// 	]
-		// );
-
-		// $this->end_controls_tab();
-
-		// $this->end_controls_tabs();
-
-		// $this->end_controls_section();
-
 	}
 
 	//start here
 	public function render()
 	{
 		$settings = $this->get_settings_for_display();
-		$id       = 'bdt-ep-static-grid-tab-' . $this->get_id();
+		$id = 'bdt-ep-static-grid-tab-' . $this->get_id();
 
 		if (empty($settings['static_tabs_item'])) {
 			return;
@@ -1283,14 +1149,14 @@ class Static_Grid_Tab extends Module_Base
 
 		$this->render_header();
 
-?>
+		?>
 		<dl id="<?php echo esc_attr($id); ?>" class="gridtab">
-			<?php foreach ($settings['static_tabs_item'] as $item) : ?>
-				<?php $this->render_post($item); ?>
+			<?php foreach ($settings['static_tabs_item'] as $index => $item): ?>
+				<?php $this->render_post($item, 'link_'.$index); ?>
 			<?php endforeach; ?>
 		</dl>
 		</div>
-	<?php
+		<?php
 	}
 
 	public function render_content_image($item)
@@ -1302,29 +1168,31 @@ class Static_Grid_Tab extends Module_Base
 		}
 
 
-	?>
+		?>
 		<div class="bdt-ep-static-grid-tab-image">
 			<div class="bdt-ep-static-grid-tab-image-inner bdt-gt-mh bdt-cover-container">
-			
-			<?php 
-            $thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
-            if (!$thumb_url) {
-                printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['title']));
-            } else {
-                print(wp_get_attachment_image(
-                    $item['image']['id'],
-                    $settings['thumbnail_size_size'],
-                    false,
-                    [
-                        'alt' => esc_html($item['title'])
-                    ]
-                ));
-            }
-            ?>
+
+				<?php
+				$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
+				if (!$thumb_url) {
+					printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['title']));
+				} else {
+					print(
+						wp_get_attachment_image(
+							$item['image']['id'],
+							$settings['thumbnail_size_size'],
+							false,
+							[
+								'alt' => esc_html($item['title'])
+							]
+						)
+					);
+				}
+				?>
 
 			</div>
 		</div>
-	<?php
+		<?php
 	}
 
 	public function render_tab_image($item)
@@ -1335,11 +1203,11 @@ class Static_Grid_Tab extends Module_Base
 		if (!$thumb_url) {
 			$thumb_url = $item['image']['url'];
 		}
-	?>
+		?>
 		<div class="bdt-ep-static-grid-tab-thumbnail">
 			<img src="<?php echo esc_url($thumb_url); ?>" alt="<?php echo esc_html($item['title']); ?>">
 		</div>
-	<?php
+		<?php
 	}
 
 	public function render_title($item)
@@ -1352,9 +1220,10 @@ class Static_Grid_Tab extends Module_Base
 
 		$this->add_render_attribute('title-wrap', 'class', 'bdt-ep-static-grid-tab-main-title', true);
 
-	?>
-		<?php if ($item['title']) : ?>
-			<<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?> <?php echo $this->get_render_attribute_string('title-wrap'); ?>>
+		?>
+		<?php if ($item['title']): ?>
+			<<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>
+				<?php echo $this->get_render_attribute_string('title-wrap'); ?>>
 				<?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
 			</<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>>
 		<?php endif; ?>
@@ -1365,8 +1234,8 @@ class Static_Grid_Tab extends Module_Base
 	{
 		$settings = $this->get_settings_for_display();
 
-	?>
-		<?php if ($item['title']) : ?>
+		?>
+		<?php if ($item['title']): ?>
 			<div class="bdt-ep-static-grid-tab-title">
 				<?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
 			</div>
@@ -1382,8 +1251,8 @@ class Static_Grid_Tab extends Module_Base
 			return;
 		}
 
-	?>
-		<?php if ($item['text']) : ?>
+		?>
+		<?php if ($item['text']): ?>
 			<div class="bdt-ep-static-grid-tab-excerpt">
 				<?php echo wp_kses_post($item['text']); ?>
 			</div>
@@ -1391,7 +1260,7 @@ class Static_Grid_Tab extends Module_Base
 	<?php
 	}
 
-	public function render_readmore($item)
+	public function render_readmore($item, $readmore_key)
 	{
 		$settings = $this->get_settings_for_display();
 
@@ -1401,26 +1270,28 @@ class Static_Grid_Tab extends Module_Base
 
 		$this->add_render_attribute(
 			[
-				'readmore-link' => [
+				$readmore_key => [
 					'class' => [
 						'bdt-ep-static-grid-tab-readmore',
 						$settings['readmore_hover_animation'] ? 'elementor-animation-' . $settings['readmore_hover_animation'] : '',
 					],
-					'href'   => isset($item['readmore_link']['url']) ? esc_url($item['readmore_link']['url']) : '#',
-					'target' => isset($item['readmore_link']['is_external']) && ($item['readmore_link']['is_external'] == 'on') ? '_blank' : '_self'
 				]
 			],
 			'',
 			'',
 			true
 		);
+		//url
+		if (!empty($item['readmore_link']['url'])) {
+			$this->add_link_attributes($readmore_key, $item['readmore_link']);
+		}
 
-	?>
-		<?php if ((!empty($item['readmore_link']['url'])) && ($settings['show_readmore'])) : ?>
+		?>
+		<?php if ((!empty($item['readmore_link']['url'])) && ($settings['show_readmore'])): ?>
 			<div class="bdt-ep-static-grid-tab-readmore-wrap">
-				<a <?php echo $this->get_render_attribute_string('readmore-link'); ?>>
+				<a <?php echo $this->get_render_attribute_string($readmore_key); ?>>
 					<?php echo esc_html($settings['readmore_text']); ?>
-					<?php if ($settings['readmore_icon']['value']) : ?>
+					<?php if ($settings['readmore_icon']['value']): ?>
 						<span class="bdt-button-icon-align-<?php echo esc_attr($settings['icon_align']); ?>">
 							<?php Icons_Manager::render_icon($settings['readmore_icon'], ['aria-hidden' => 'true', 'class' => 'fa-fw']); ?>
 						</span>
@@ -1445,17 +1316,17 @@ class Static_Grid_Tab extends Module_Base
 					'static-grid-tab' => [
 						'data-settings' => [
 							wp_json_encode(array_filter([
-								'grid'           => $settings['columns'],
-								'borderWidth'    => $settings['item_border_width']['size'],
-								'config'         => [
-									'layout'      => $settings['layout_type'],
+								'grid' => $settings['columns'],
+								'borderWidth' => $settings['item_border_width']['size'],
+								'config' => [
+									'layout' => $settings['layout_type'],
 									// 'keepOpen'    => ( $settings['keep_open'] ) ? true : false,
-									'speed'       => $settings['speed'],
-									'activeTab'   => $settings['active_tab_no'],
-									'showClose'   => ($settings['show_close']) ? true : false,
+									'speed' => $settings['speed'],
+									'activeTab' => $settings['active_tab_no'],
+									'showClose' => ($settings['show_close']) ? true : false,
 									// 'showArrows'  => ( $settings['show_arrows'] ) ? true : false,
 									'scrollToTab' => ($settings['scroll_to_tab']) ? true : false,
-									'rtl'         => is_rtl() ? true : false,
+									'rtl' => is_rtl() ? true : false,
 								],
 							]))
 						]
@@ -1468,29 +1339,29 @@ class Static_Grid_Tab extends Module_Base
 					'static-grid-tab' => [
 						'data-settings' => [
 							wp_json_encode(array_filter([
-								'grid'           => $settings['columns'],
-								'borderWidth'    => $settings['item_border_width']['size'],
-								'config'         => [
-									'layout'      => $settings['layout_type'],
+								'grid' => $settings['columns'],
+								'borderWidth' => $settings['item_border_width']['size'],
+								'config' => [
+									'layout' => $settings['layout_type'],
 									// 'keepOpen'    => ( $settings['keep_open'] ) ? true : false,
-									'speed'       => $settings['speed'],
-									'activeTab'   => $settings['active_tab_no'],
-									'showClose'   => ($settings['show_close']) ? true : false,
+									'speed' => $settings['speed'],
+									'activeTab' => $settings['active_tab_no'],
+									'showClose' => ($settings['show_close']) ? true : false,
 									// 'showArrows'  => ( $settings['show_arrows'] ) ? true : false,
 									'scrollToTab' => ($settings['scroll_to_tab']) ? true : false,
-									'rtl'         => is_rtl() ? true : false,
+									'rtl' => is_rtl() ? true : false,
 								],
 								'responsive' => [
 									[
 										'breakpoint' => 1023,
-										'settings'   => [
-											'grid'   => $columns_tablet,
+										'settings' => [
+											'grid' => $columns_tablet,
 										]
 									],
 									[
 										'breakpoint' => 767,
-										'settings'   => [
-											'grid'   => $columns_mobile,
+										'settings' => [
+											'grid' => $columns_mobile,
 										]
 									]
 								]
@@ -1501,44 +1372,44 @@ class Static_Grid_Tab extends Module_Base
 			);
 		}
 
-	?>
+		?>
 		<div <?php echo $this->get_render_attribute_string('static-grid-tab'); ?>>
-		<?php
+			<?php
 	}
 
-	public function render_static_content($item)
+	public function render_static_content($item, $readmore_key)
 	{
 		$settings = $this->get_settings_for_display();
 
 		?>
-			<?php if ($settings['show_title'] == 'yes' or $settings['show_text'] == 'yes' or $settings['show_readmore'] == 'yes') : ?>
+			<?php if ($settings['show_title'] == 'yes' or $settings['show_text'] == 'yes' or $settings['show_readmore'] == 'yes'): ?>
 				<div class="bdt-ep-static-grid-tab-desc">
 					<div class="bdt-post-grid-desc-inner bdt-gt-mh">
 						<?php $this->render_title($item); ?>
 						<?php $this->render_excerpt($item); ?>
-						<?php $this->render_readmore($item); ?>
+						<?php $this->render_readmore($item, $readmore_key); ?>
 					</div>
 				</div>
 			<?php endif;
-		}
+	}
 
-		public function render_static_post_tab_item($item)
-		{
-			$settings = $this->get_settings_for_display();
+	public function render_static_post_tab_item($item, $readmore_key)
+	{
+		$settings = $this->get_settings_for_display();
 
-			$this->add_render_attribute('static-grid-tab-item', 'class', 'bdt-ep-static-grid-tab-item', true);
+		$this->add_render_attribute('static-grid-tab-item', 'class', 'bdt-ep-static-grid-tab-item', true);
 
-			?>
+		?>
 			<div <?php echo $this->get_render_attribute_string('static-grid-tab-item') ?>>
 				<?php $this->render_content_image($item); ?>
-				<?php $this->render_static_content($item); ?>
+				<?php $this->render_static_content($item, $readmore_key); ?>
 			</div>
-		<?php
-		}
+			<?php
+	}
 
-		public function render_post($item)
-		{
-			$settings = $this->get_settings_for_display();
+	public function render_post($item, $readmore_key)
+	{
+		$settings = $this->get_settings_for_display();
 
 		?>
 			<dt>
@@ -1550,7 +1421,9 @@ class Static_Grid_Tab extends Module_Base
 				}
 				?>
 			</dt>
-			<dd><?php $this->render_static_post_tab_item($item); ?></dd>
-	<?php
-		}
+			<dd>
+				<?php $this->render_static_post_tab_item($item, $readmore_key); ?>
+			</dd>
+			<?php
 	}
+}

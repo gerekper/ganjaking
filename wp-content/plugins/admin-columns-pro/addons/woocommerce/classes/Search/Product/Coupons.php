@@ -2,69 +2,76 @@
 
 namespace ACA\WC\Search\Product;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
-class Coupons extends Comparison {
+class Coupons extends Comparison
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators);
+    }
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		global $wpdb;
-		$ids = implode( ',', $this->get_products_with_coupon_applied() );
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
+        $ids = implode(',', $this->get_products_with_coupon_applied());
 
-		if ( Operators::NOT_IS_EMPTY === $operator ) {
-			$where = $wpdb->posts . '.ID IN( ' . $ids . ' )';
-		} else {
-			$where = $wpdb->posts . '.ID NOT IN( ' . $ids . ' )';
-		}
+        if (Operators::NOT_IS_EMPTY === $operator) {
+            $where = $wpdb->posts . '.ID IN( ' . $ids . ' )';
+        } else {
+            $where = $wpdb->posts . '.ID NOT IN( ' . $ids . ' )';
+        }
 
-		$bindings = new Bindings();
-		$bindings->where( $where );
+        $bindings = new Bindings();
 
-		return $bindings;
-	}
+        if ($ids) {
+            $bindings->where($where);
+        }
 
-	/**
-	 * @return array
-	 */
-	private function get_products_with_coupon_applied() {
-		$coupons = get_posts( [
-			'post_type'  => 'shop_coupon',
-			'fields'     => 'ids',
-			'meta_query' => [
-				[
-					'key'     => 'product_ids',
-					'value'   => '',
-					'compare' => '!=',
-				],
-			],
-		] );
+        return $bindings;
+    }
 
-		if ( ! $coupons ) {
-			return [];
-		}
+    /**
+     * @return array
+     */
+    private function get_products_with_coupon_applied()
+    {
+        $coupons = get_posts([
+            'post_type'  => 'shop_coupon',
+            'fields'     => 'ids',
+            'meta_query' => [
+                [
+                    'key'     => 'product_ids',
+                    'value'   => '',
+                    'compare' => '!=',
+                ],
+            ],
+        ]);
 
-		$products = [];
+        if ( ! $coupons) {
+            return [];
+        }
 
-		foreach ( $coupons as $coupon_id ) {
-			$product_ids = explode( ',', get_post_meta( $coupon_id, 'product_ids', true ) );
+        $products = [];
 
-			foreach ( $product_ids as $_id ) {
-				$products[] = $_id;
-			}
-		}
+        foreach ($coupons as $coupon_id) {
+            $product_ids = explode(',', get_post_meta($coupon_id, 'product_ids', true));
 
-		return array_unique( $products );
-	}
+            foreach ($product_ids as $_id) {
+                $products[] = $_id;
+            }
+        }
+
+        return array_unique($products);
+    }
 
 }

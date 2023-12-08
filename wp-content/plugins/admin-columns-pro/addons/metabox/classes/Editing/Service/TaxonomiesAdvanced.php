@@ -2,11 +2,12 @@
 
 namespace ACA\MetaBox\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA;
 use ACP;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\View;
-use ACP\Helper\Select\Paginated\Terms;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 use WP_Term;
 
 class TaxonomiesAdvanced implements ACP\Editing\Service, PaginatedOptions {
@@ -54,8 +55,12 @@ class TaxonomiesAdvanced implements ACP\Editing\Service, PaginatedOptions {
 		$this->storage->update( $id, implode( ',', $data ?? [] ) );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new Terms( $search, $page, $this->taxonomy );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'   => $search,
+			'page'     => $page,
+			'taxonomy' => $this->taxonomy,
+		] );
 	}
 
 }

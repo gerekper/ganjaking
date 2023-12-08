@@ -4,10 +4,12 @@ namespace ACA\WC\Column\Order;
 
 use AC;
 use ACA\WC\ConditionalFormat\Formatter\PriceFormatter;
+use ACA\WC\Scheme\OrderOperationalData;
 use ACA\WC\Search;
 use ACA\WC\Sorting\Order\OperationalData;
 use ACP;
 use ACP\ConditionalFormat\FormattableConfig;
+use ACP\Sorting\Type\DataType;
 
 class Discount extends AC\Column implements ACP\Search\Searchable, ACP\Export\Exportable,
                                             ACP\ConditionalFormat\Formattable, ACP\Sorting\Sortable
@@ -16,7 +18,7 @@ class Discount extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
     public function __construct()
     {
         $this->set_type('column-order_discount')
-             ->set_label(__('Discount', 'codepress-admin-columns'))
+             ->set_label(__('Discount Total', 'codepress-admin-columns'))
              ->set_group('woocommerce');
     }
 
@@ -31,7 +33,9 @@ class Discount extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_total_discount() : false;
+        return $order
+            ? $order->get_total_discount()
+            : false;
     }
 
     public function search()
@@ -42,8 +46,8 @@ class Discount extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
     public function sorting()
     {
         return new OperationalData(
-            'discount_total_amount',
-            new ACP\Sorting\Type\DataType(ACP\Sorting\Type\DataType::NUMERIC)
+            OrderOperationalData::DISCOUNT_TOTAL_AMOUNT,
+            new DataType(DataType::NUMERIC)
         );
     }
 

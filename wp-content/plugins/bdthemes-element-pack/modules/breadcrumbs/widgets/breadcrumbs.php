@@ -96,9 +96,10 @@ class Breadcrumbs extends Module_Base {
 				'type' => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'render_type'  => 'template',
+				'skin'         => 'inline',
+				'label_block'  => false,
 			]
 		);
-
 
 		$this->end_controls_section();
 

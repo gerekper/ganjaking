@@ -1,0 +1,54 @@
+.wpb-tta-toggle {
+  appearance: none;
+  border: none;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin: 0 15px;
+  border-radius: 3em;
+  transition: background 0.2s ease-in-out, border-color 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.wpb-tta-toggle:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: inherit;
+  transition: left 0.25s ease-in-out;
+}
+
+.wpb-tta-toggle.wpb-tta-toggle-active:before {
+  left: 34px;
+}
+
+.wpb-wrapper-tta-toggle .vc_pagination.vc_pagination-style-outline.vc_pagination-shape-square {
+  padding: 0;
+  margin: 0;
+  height: 0;
+  width: 0;
+  text-align: left;
+}
+
+.wpb-tta-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wpb-tta-toggle-wrapper .vc_custom_heading {
+  display: inline;
+}
+
+.wpb-wrapper-tta-toggle .vc_tta-tabs.vc_tta-has-pagination.vc_tta-tabs-position-bottom {
+  padding-top: 10px;
+}
+
+.compose-mode .wpb-wrapper-tta-toggle.wpb-toggle-position-top .vc_controls > .vc_controls-out-tr {
+  top: -70px;
+}

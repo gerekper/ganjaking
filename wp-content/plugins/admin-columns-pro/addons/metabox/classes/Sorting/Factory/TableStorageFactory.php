@@ -4,13 +4,12 @@ namespace ACA\MetaBox\Sorting\Factory;
 
 use ACA\MetaBox\Column;
 use ACA\MetaBox\Sorting;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Type\DataType;
 
 final class TableStorageFactory
 {
 
-    public function create_table_storage(Column $column, DataType $data_type = null): ?AbstractModel
+    public function create_table_storage(Column $column, DataType $data_type = null)
     {
         switch ($column->get_meta_type()) {
             case 'user':

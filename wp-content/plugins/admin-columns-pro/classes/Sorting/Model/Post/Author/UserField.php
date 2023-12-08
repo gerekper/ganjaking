@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post\Author;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class UserField extends AbstractModel implements QueryBindings
+class UserField implements QueryBindings
 {
 
     private $user_field;
 
     public function __construct(string $user_field)
     {
-        parent::__construct();
-
         $this->user_field = $user_field;
     }
 

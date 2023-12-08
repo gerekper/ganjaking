@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
@@ -14,7 +13,7 @@ use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class FeaturedImageSize extends AbstractModel implements WarningAware, QueryBindings
+class FeaturedImageSize implements WarningAware, QueryBindings
 {
 
     use PostRequestTrait;
@@ -25,8 +24,6 @@ class FeaturedImageSize extends AbstractModel implements WarningAware, QueryBind
 
     public function __construct(string $meta_key, string $post_type)
     {
-        parent::__construct();
-
         $this->meta_key = $meta_key;
         $this->post_type = $post_type;
     }

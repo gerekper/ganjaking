@@ -7,27 +7,29 @@ use ACP\Editing\BulkDelete\Deletable;
 use ACP\Editing\RequestHandler;
 use WP_Post_Type;
 
-class Post implements Deletable {
+class Post implements Deletable
+{
 
-	/**
-	 * @var WP_Post_Type
-	 */
-	protected $post_type;
+    protected $post_type;
 
-	public function __construct( WP_Post_Type $post_type ) {
-		$this->post_type = $post_type;
-	}
+    public function __construct(WP_Post_Type $post_type)
+    {
+        $this->post_type = $post_type;
+    }
 
-	public function user_can_delete(): bool {
-		return current_user_can( $this->post_type->cap->delete_posts );
-	}
+    public function user_can_delete(): bool
+    {
+        return current_user_can($this->post_type->cap->delete_posts);
+    }
 
-	public function get_delete_request_handler(): RequestHandler {
-		return new BulkDelete\RequestHandler\Post( $this->post_type );
-	}
+    public function get_delete_request_handler(): RequestHandler
+    {
+        return new BulkDelete\RequestHandler\Post($this->post_type);
+    }
 
-	public function get_query_request_handler(): RequestHandler {
-		return new RequestHandler\Query\Post();
-	}
+    public function get_query_request_handler(): RequestHandler
+    {
+        return new RequestHandler\Query\Post();
+    }
 
 }

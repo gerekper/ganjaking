@@ -14,17 +14,17 @@ class WC_Account_Funds_Requirements {
 	/**
 	 * Minimum PHP version required.
 	 */
-	const MINIMUM_PHP_VERSION = '5.6';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/**
 	 * Minimum WordPress version required.
 	 */
-	const MINIMUM_WP_VERSION = '4.9';
+	const MINIMUM_WP_VERSION = '5.0';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 */
-	const MINIMUM_WC_VERSION = '3.7';
+	const MINIMUM_WC_VERSION = '4.0';
 
 	/**
 	 * Requirements errors.
@@ -64,7 +64,7 @@ class WC_Account_Funds_Requirements {
 				self::MINIMUM_WP_VERSION,
 				get_bloginfo( 'version' )
 			);
-		} elseif ( ! is_woocommerce_active() ) {
+		} elseif ( ! self::is_wc_active() ) {
 			self::$errors[] = _x( '<strong>WooCommerce Account Funds</strong> requires WooCommerce to be activated to work.', 'admin notice', 'woocommerce-account-funds' );
 		} elseif ( ! self::is_wc_compatible() ) {
 			self::$errors[] = sprintf(
@@ -107,6 +107,21 @@ class WC_Account_Funds_Requirements {
 	 */
 	public static function is_wc_compatible() {
 		return ( version_compare( get_option( 'woocommerce_db_version' ), self::MINIMUM_WC_VERSION, '>=' ) );
+	}
+
+	/**
+	 * Gets if the WooCommerce plugin is active.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool
+	 */
+	public static function is_wc_active() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
 
 	/**

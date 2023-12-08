@@ -57,6 +57,8 @@
             readMore: readMore,
             per_page: settings.ajax_item_load,
             offset: currentItemCount,
+            paged: settings.paged,
+            nonce: settings.nonce,
           };
           jQuery.ajax({
             url: window.ElementPackConfig.ajaxurl,
@@ -65,6 +67,10 @@
             success: function (response) {
               $(grid).append(response.markup);
               currentItemCount += settings.ajax_item_load;
+
+              // if(settings.paged === "yes") {
+                settings.paged += 1;
+              // }
               loading = false;
               if (settingsLoadmore === "yes") {
                 loadButton.html("Load More");

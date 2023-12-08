@@ -25,7 +25,7 @@ class Post extends Strategy
     {
         add_action('pre_get_posts', [$this, 'modify_posts_query'], 16);
         add_filter('the_posts', [$this, 'catch_posts'], 10, 2);
-        add_filter('posts_clauses', [$this, 'filter_ids'], 10, 2);
+        add_filter('posts_clauses', [$this, 'filter_ids'], 20, 2);
     }
 
     public function filter_ids($clauses, WP_Query $query)

@@ -1,5 +1,28 @@
 == Changelog ==
 
+= 6.4 =
+Release Date: December 6th, 2023
+
+* [Added] New User Column: Admin Color Scheme
+* [Added] New Media Columns: Aspect Ratio & Orientation (Landscape, Portrait, or Square)
+* [Added] New Wrapping setting: Allows to clip the column values to create more compact views
+* [Added] New Preset feature: Added the option to create column presets (column templates) and store them with your theme or plugin
+* [Fixed] When editing a column on the Media page, the value was not updated in the colum itself
+* [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
+* [Updated] Smart Filtering has been rebuilt from scratch and no longer relies on third-party plugins
+* [Updated] It is now possible to search for Saved Filters in the drop down on the table page
+* [Updated] The standard filtering dropdowns are optimised and no longer rely on caching. They are now populated with AJAX. Some filtering dropdowns have been replaced with open text fields.
+* [Improved] It is now possible to choose how dates are stored in the Custom Field column
+* [Improved] Added "Select" Custom Field Type with UI for option input and new filter `acp/column/settings/select_options`
+* [Improved] Webp images are not recognized for the custom field column
+* [GravityForms] Remove Smart Filtering and Filtering from support
+* [JetEngine] More operators for the Relationship Smart Filter
+* [JetEngine] Better Support for fields that use the Glossary options
+* [WooCommerce] Sorting and Filtering support for HPOS Shipping Method column
+* [WooCommerce] New HPOS column: Returning Customer
+* [WooCommerce] New HPOS column: Order Meta
+* [Updated] Admin Columns Core to version 4.7
+
 = 6.3.5 =
 Release Date: October 2nd, 2023
 

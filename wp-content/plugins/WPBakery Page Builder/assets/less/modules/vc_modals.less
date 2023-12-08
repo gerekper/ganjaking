@@ -1,0 +1,245 @@
+/** VC Modal block popup */
+.add_element_size(@counter, @max_width: 1330px) when (@counter >= 0) {
+  .add_element_size((@counter - 1), (@max_width - @vc_add_element_button_width));
+  @media (min-width: @max_width) {
+    .vc_modal-dialog {
+      width: (10px + @vc_add_element_width + @counter * @vc_add_element_button_width);
+    }
+  }
+}
+
+.vc_modal {
+  display: none;
+  overflow: auto;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0 !important;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-overflow-scrolling: touch;
+  width: auto !important;
+  margin-left: 0 !important;
+  background-color: transparent !important;
+  z-index: @vc_zindex_modal !important;
+  &.fade .vc_modal-dialog {
+    .translate(0, -25%);
+    .transition-transform(~"0.3s ease-out");
+  }
+  &.in .vc_modal-dialog {
+    .translate(0, 0)
+  }
+  *, & {
+    .box-sizing(border-box);
+  }
+  &.vc_active {
+    display: flex;
+  }
+  &.vc_modal-ai {
+    width: 500px !important;
+  }
+}
+
+.vc_modal-popup-container {
+  background: rgba(0, 0, 0, 0.5) !important;
+
+  .vc_column + .vc_column {
+    padding-top: 15px;
+  }
+}
+
+.vc_modal-popup-content {
+  width: 600px;
+  height: 90%;
+  margin: 30px auto;
+  overflow: hidden;
+
+  .vc_ui-panel-window-inner {
+    height: 100%;
+  }
+}
+.vc_ui-modal-ai-loading {
+  overflow: hidden;
+}
+
+.vc_ui-panel-content-container {
+  &.vc_ui-hidden {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    z-index: -9999;
+  }
+}
+
+#vc_ui-helper-promo-popup {
+  .vc_modal-popup-content {
+    max-height: 750px;
+    margin: auto;
+  }
+
+  .vc_ui-panel-content-container {
+    .vc_ui-panel-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 600px;
+      padding: 20px;
+    }
+
+    .vc-featured-img {
+      display: block;
+      margin: 0 auto;
+      width: 85%;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .vc-feature-text {
+      h3 {
+        color: #1d2327;
+        font-size: 21px;
+        line-height: 1.5;
+      }
+    }
+
+    .vc-feature-text,
+    p {
+      color: #3c434a;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    ul {
+      list-style: disc;
+      padding: 0 0 0 25px;
+    }
+
+    li::marker {
+      color: #0772CE;
+      font-size: 16px;
+    }
+  }
+
+  .vc_ui-panel-footer-container {
+    background: #fff;
+    text-align: center;
+  }
+}
+
+.vc_modal-ai-container--promo {
+  .vc_modal-popup-content {
+    max-height: 550px;
+  }
+}
+
+.vc_ui-helper-popup-promo,
+.vc_ui-helper-modal-ai-preloader {
+  position: absolute;
+  top: 51px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  z-index: 1;
+  overflow-y: auto;
+
+  &.vc_ui-hidden {
+    display: none;
+  }
+
+  .vc_heading,
+  .vc_description,
+  .vc_ui-ai-promo {
+    margin: 0 0 30px;
+    text-align: center;
+  }
+}
+
+.vc_ui-helper-popup-promo--inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  background: #fff;
+  z-index: 1;
+}
+
+.vc_ui-helper-modal-ai-placeholder {
+  .vc_ui-ai-promo {
+    margin: 0 0 15px;
+  }
+
+  .vc_description {
+    margin: 0;
+    font-weight: 500;
+    color: #939393;
+    font-style: italic;
+  }
+}
+
+.add_element_size(4);
+
+.vc_modal-content {
+  position: relative;
+  background-color: @modal-content-bg;
+  .box-shadow(0 3px 9px rgba(0, 0, 0, .5));
+  background-clip: padding-box;
+  // Remove focus outline from opened modal
+  outline: 0;
+  -webkit-border-radius: @vc_modal_content_radius;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid @vc_modal_content_border_color;
+}
+
+.vc_modal-header {
+  .vc_box-heading;
+}
+
+.vc_modal-title {
+  .modal-title;
+  .vc_heading(16px);
+  cursor: default;
+  border: 0 !important;
+}
+
+.vc_modal-body {
+  .modal-body;
+  overflow-y: auto;
+}
+
+.vc_modal-footer {
+  .modal-footer;
+}
+
+// Default bootstrap classes for modal box
+.modal-open {
+  .modal-open;
+}
+
+.clousus {
+  z-index: @zindex-modal-background;
+}
+
+.modal-backdrop {
+  .modal-backdrop;
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+.modal-scrollbar-measure {
+  .modal-scrollbar-measure;
+}

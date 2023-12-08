@@ -18,10 +18,10 @@ class Post extends Column\Meta
     implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable
 {
 
-    use SearchableTrait;
-    use EditableTrait;
-    use DefaultValueFormatterTrait;
-    use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
+    use SearchableTrait,
+        EditableTrait,
+        DefaultValueFormatterTrait,
+        ACP\ConditionalFormat\FilteredHtmlFormatTrait;
 
     protected function register_settings()
     {

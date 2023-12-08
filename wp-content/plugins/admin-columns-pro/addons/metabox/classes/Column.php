@@ -123,7 +123,7 @@ class Column extends AC\Column\Meta
             case 'post':
                 return rwmb_get_object_fields($this->get_post_type());
             case 'term':
-                return rwmb_get_object_fields($this->get_taxonomy(), 'term');
+                return rwmb_get_object_fields($this->get_list_screen()->get_taxonomy(), 'term');
             default:
                 return [];
         }

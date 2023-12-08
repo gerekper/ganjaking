@@ -3,7 +3,6 @@
 namespace ACA\WC\Column\ProductVariation;
 
 use AC;
-use AC\MetaType;
 use ACA\WC\Editing;
 use ACP;
 use ACP\Search\Comparison;
@@ -39,7 +38,7 @@ class Description extends AC\Column\Meta
 	}
 
 	public function search() {
-		return new Comparison\Meta\Text( $this->get_meta_key(), MetaType::POST );
+		return new Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 }

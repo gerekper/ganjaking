@@ -17,6 +17,8 @@ use AC\ListScreenFactory\Aggregate;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\Version;
 use AC\Request;
+use AC\RequestAjaxHandlers;
+use AC\RequestAjaxParser;
 use AC\Services;
 use AC\Storage\KeyValueFactory;
 use AC\Storage\NetworkOptionFactory;
@@ -44,8 +46,8 @@ use ACP\Access\Rule\LocalServer;
 use ACP\Admin\NetworkPageFactory;
 use ACP\Admin\PageFactory;
 use ACP\Plugin\SetupFactory;
-use ACP\Search\SegmentRepository;
 use ACP\Service\ListScreens;
+use ACP\Service\Presets;
 use ACP\Storage\Decoder\Version510Factory;
 use ACP\Storage\Decoder\Version630Factory;
 use ACP\Storage\EncoderFactory;
@@ -95,6 +97,7 @@ final class AdminColumnsPro
         $request_ajax_handlers = new RequestAjaxHandlers();
         $request_ajax_handlers
             ->add('acp-ajax-activate', $container->get(RequestHandler\Ajax\LicenseActivate::class))
+            ->add('acp-list-screen-create', $container->get(RequestHandler\Ajax\ListScreenCreate::class))
             ->add('acp-daily-subscription-update', $container->get(RequestHandler\Ajax\SubscriptionUpdate::class))
             ->add('acp-update-plugins-check', $container->get(RequestHandler\Ajax\UpdatePlugins::class))
             ->add('acp-layout-get-users', $container->get(RequestHandler\Ajax\ListScreenUsers::class))
@@ -107,6 +110,7 @@ final class AdminColumnsPro
             ->add('acp-user-column-width-reset', $container->get(RequestHandler\Ajax\ColumnWidthUserReset::class))
             ->add('acp-user-list-order', $container->get(RequestHandler\Ajax\ListScreenOrderUser::class))
             ->add('acp-table-save-preference', $container->get(RequestHandler\Ajax\ListScreenTable::class))
+            ->add('acp-filtering-comparison-request', $container->get(Filtering\RequestHandler\Comparison::class))
             ->add(
                 'acp-user-conditional-formatting',
                 $container->get(ConditionalFormat\RequestHandler\SaveRules::class)
@@ -114,12 +118,16 @@ final class AdminColumnsPro
 
         $request_handler_factory = new RequestHandlerFactory(new Request());
         $request_handler_factory
+            ->add('acp-export', $container->get(RequestHandler\Export::class))
+            ->add('acp-import-upload', $container->get(RequestHandler\ImportUpload::class))
+            ->add('acp-import-file', $container->get(RequestHandler\Import::class))
             ->add('acp-license-activate', $container->get(RequestHandler\LicenseActivate::class))
             ->add('acp-license-deactivate', $container->get(RequestHandler\LicenseDeactivate::class))
             ->add('acp-license-update', $container->get(RequestHandler\LicenseUpdate::class))
             ->add('acp-force-plugin-updates', $container->get(RequestHandler\ForcePluginUpdates::class))
             ->add('create-layout', $container->get(RequestHandler\ListScreenCreate::class))
-            ->add('delete-layout', $container->get(RequestHandler\ListScreenDelete::class));
+            ->add('delete-layout', $container->get(RequestHandler\ListScreenDelete::class))
+            ->add('acp-preview-mode', $container->get(RequestHandler\PreviewMode::class));
 
         $setup_factory = $container->get(SetupFactory::class);
         $is_network_active = $container->get(Plugin::class)->is_network_active();
@@ -145,8 +153,6 @@ final class AdminColumnsPro
             NativeTaxonomies::class,
             IconPicker::class,
             TermQueryInformation::class,
-            Migrate\Export\Request::class,
-            Migrate\Import\Request::class,
             PeriodicUpdateCheck::class,
             PluginActionLinks::class,
             Check\Activation::class,
@@ -159,10 +165,12 @@ final class AdminColumnsPro
             Service\Templates::class,
             Service\Banner::class,
             Service\PluginNotice::class,
+            Service\Presets::class,
             ScreenTools::class,
             PrimaryColumn::class,
             Service\Storage::class,
             Service\Permissions::class,
+            Service\TableCellWrapping::class,
         ];
         if ($is_network_active) {
             $services_fqn[] = AdminNetwork::class;
@@ -211,12 +219,14 @@ final class AdminColumnsPro
         ];
 
         $definitions = [
+            'config.presets'                         => static function (Plugin $plugin): array {
+                return require $plugin->get_dir() . 'config/presets.php';
+            },
             AC\ListScreenRepository\Storage::class   => static function () {
                 return AC\Container::get_storage();
             },
             AddonFactory::class                      => autowire()
                 ->constructorParameter(0, $addons),
-            SegmentRepository::class                 => autowire(SegmentRepository\Storage::class),
             PhpSerializer\File::class                => static function (PhpSerializer $serializer) {
                 return new PhpSerializer\File($serializer);
             },
@@ -277,6 +287,7 @@ final class AdminColumnsPro
             Admin\MenuFactory::class                 => autowire()
                 ->constructorParameter(0, admin_url('options-general.php'))
                 ->constructorParameter(1, $location_core),
+            Presets::class                           => autowire()->constructorParameter(3, DI\get('config.presets')),
         ];
 
         return (new ContainerBuilder())

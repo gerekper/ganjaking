@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * http://www.rcreators.com/woocommerce-ajax-add-to-cart-variable-products
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_WATCAFVP {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_WATCAFVP {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_WATCAFVP
 	 * @since 1.0
 	 * @static
 	 */
@@ -55,6 +56,7 @@ final class THEMECOMPLETE_EPO_CP_WATCAFVP {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -62,5 +64,4 @@ final class THEMECOMPLETE_EPO_CP_WATCAFVP {
 			remove_action( 'wp_enqueue_scripts', 'ajax_add_to_cart_script', 99 );
 		}
 	}
-
 }

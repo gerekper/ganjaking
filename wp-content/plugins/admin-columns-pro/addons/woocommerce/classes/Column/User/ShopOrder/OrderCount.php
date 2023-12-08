@@ -51,7 +51,7 @@ class OrderCount extends AC\Column implements ACP\Sorting\Sortable, ACP\Search\S
 
     public function search()
     {
-        return new Search\User\ShopOrder\OrderCount($this->get_order_status() ? [$this->get_order_status()] : []);
+        return new Search\User\ShopOrder\OrderCount($this->get_order_status() ? $this->get_order_status() : []);
     }
 
     public function export()

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Chained Products 3.2.0\n"
+"Project-Id-Version: WooCommerce Chained Products 3.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-chained-products\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-03T09:50:11+00:00\n"
+"POT-Creation-Date: 2023-11-30T14:48:26+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-chained-products\n"
 
 #. Plugin Name of the plugin
@@ -529,22 +529,22 @@ msgctxt "Description for removing duplicate item option"
 msgid "This will remove the main item from the chained items while manually adding an order"
 msgstr ""
 
-#: includes/class-wc-chained-products.php:868
+#: includes/class-wc-chained-products.php:871
 msgid "Included Products"
 msgstr ""
 
-#: includes/class-wc-chained-products.php:869
+#: includes/class-wc-chained-products.php:872
 msgid "When you order this product, you get all the following products for free!!"
 msgstr ""
 
 #. translators: 1: Chained item name(s)
-#: includes/class-wc-chained-products.php:2021
+#: includes/class-wc-chained-products.php:2024
 msgctxt "out of stock availability text"
 msgid "Out of stock"
 msgstr ""
 
 #. translators: 1: Chained item name(s)
-#: includes/class-wc-chained-products.php:2021
+#: includes/class-wc-chained-products.php:2024
 msgctxt "chained products backorder message"
 msgid ": %s does not have sufficient quantity in stock."
 msgid_plural ": %s do not have sufficient quantity in stock."
@@ -552,13 +552,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: Chained item name(s)
-#: includes/class-wc-chained-products.php:2025
+#: includes/class-wc-chained-products.php:2028
 msgctxt "backorder availability text"
 msgid "Available on backorder"
 msgstr ""
 
 #. translators: 1: Chained item name(s)
-#: includes/class-wc-chained-products.php:2025
+#: includes/class-wc-chained-products.php:2028
 msgctxt "chained products backorder message"
 msgid ": %s is available on backorder."
 msgid_plural ": %s are available on backorder."
@@ -566,31 +566,31 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: Parent product name 2: Chained item name(s)
-#: includes/class-wc-chained-products.php:2309
+#: includes/class-wc-chained-products.php:2312
 msgctxt "cart validation notice"
 msgid "Can not add %1$s to cart as %2$s doesn't have sufficient quantity in stock."
 msgstr ""
 
-#: includes/class-wc-chained-products.php:2311
-#: includes/class-wc-chained-products.php:2379
-#: includes/class-wc-chained-products.php:2415
+#: includes/class-wc-chained-products.php:2314
+#: includes/class-wc-chained-products.php:2382
+#: includes/class-wc-chained-products.php:2418
 msgctxt "chained products title"
 msgid "Chained products"
 msgstr ""
 
 #. translators: 1: Parent product name 2: Chained item name(s)
-#: includes/class-wc-chained-products.php:2377
+#: includes/class-wc-chained-products.php:2380
 msgctxt "cart validation message"
 msgid "Can not increase quantity of %1$s because %2$s doesn't have sufficient quantity in stock."
 msgstr ""
 
 #. translators: 1: Parent product name 2: Chained item name(s)
-#: includes/class-wc-chained-products.php:2413
+#: includes/class-wc-chained-products.php:2416
 msgctxt "out of stock notice"
 msgid "Can not add %1$s to cart as %2$s doesn't have sufficient quantity in stock."
 msgstr ""
 
-#: includes/class-wc-chained-products.php:2650
+#: includes/class-wc-chained-products.php:2653
 msgctxt "load more text"
 msgid "Load more"
 msgstr ""

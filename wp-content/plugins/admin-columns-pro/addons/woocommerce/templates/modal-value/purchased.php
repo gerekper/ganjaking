@@ -1,51 +1,49 @@
 <?php
-/** @global WC_Order_Item[] $this- >items */
+
+/**
+ * @global WC_Order_Item[] $items
+ */
+$items = $this->items;
 ?>
-<table class="ac-table-items -purchased">
+<table class="ac-table-items -clean -purchased">
 	<thead>
 	<tr>
-		<th class="col-product"><?= __( 'Product', 'codepress-admin-columns' ) ?></th>
-		<th class="col-qty"><?= __( 'Quantity', 'codepress-admin-columns' ) ?></th>
+		<th class="col-product"><?= __('Product', 'codepress-admin-columns') ?></th>
+		<th class="col-qty"><?= __('Quantity', 'codepress-admin-columns') ?></th>
+		<th class="col-total"><?= __('Tax', 'codepress-admin-columns') ?></th>
+		<th class="col-total"><?= __('Total', 'codepress-admin-columns') ?></th>
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ( $this->items as $item ) : ?>
+    <?php
+    foreach ($this->items as $item) : ?>
+		<tr>
+			<td class="col-product">
+				<div class="col-product__name">
+                    <?= $item['name'] ?>
 
-		<?php if ( $item instanceof WC_Order_Item_Product ) : ?>
+                    <?php
+                    if ($item['sku']) : ?>
+						<span class="ac-badge"><?= $item['sku'] ?></span>
+                    <?php
+                    endif; ?>
+				</div>
+				<div class="col-product__meta">
+                    <?= $item['meta'] ?>
+				</div>
 
-			<?php
-			$product = $item->get_product();
-			$meta = $item->get_formatted_meta_data();
-			?>
-
-			<tr>
-				<td class="col-product">
-					<div class="col-product__name">
-						<?php if ( $product ): ?>
-
-							<?= ac_helper()->html->link( get_edit_post_link( $product->get_id() ), $item->get_name() ) ?>
-
-							<?php if ( wc_product_sku_enabled() && $product->get_sku() ): ?>
-								<span class="ac-badge"><?= $product->get_sku() ?></span>
-							<?php endif; ?>
-
-						<?php else: ?>
-							<?= $item->get_name() ?>
-						<?php endif; ?>
-					</div>
-					<div class="col-product__meta">
-						<?php foreach ( $meta as $meta_item ): ?>
-							<strong><?= $meta_item->display_key ?> :</strong>
-							<?= $meta_item->value ?><br>
-						<?php endforeach; ?>
-					</div>
-
-				</td>
-				<td class="col-qty">
-					<?php echo $item->get_quantity(); ?>x
-				</td>
-			</tr>
-		<?php endif; ?>
-	<?php endforeach; ?>
+			</td>
+			<td class="col-qty">
+                <?= $item['qty'] ?>
+			</td>
+			<td class="col-tax">
+                <?= $item['tax'] ?>
+			</td>
+			<td class="col-total">
+                <?= $item['total'] ?>
+			</td>
+		</tr>
+    <?php
+    endforeach; ?>
 	</tbody>
 </table>

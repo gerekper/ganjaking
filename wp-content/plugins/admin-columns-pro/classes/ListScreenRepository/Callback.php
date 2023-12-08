@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace ACP\ListScreenRepository;
 
-use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
-use AC\ListScreenRepository\Filter;
-use AC\Type\ListScreenId;
 use ACP\Exception\DecoderNotFoundException;
+use ACP\ListScreenPreferences;
+use ACP\Search\SegmentCollection;
 use ACP\Storage\AbstractDecoderFactory;
 use ACP\Storage\Decoder\ListScreenDecoder;
+use ACP\Storage\Decoder\SegmentsDecoder;
 use Closure;
 
 final class Callback implements ListScreenRepository
 {
 
     use ListScreenRepository\ListScreenRepositoryTrait;
+    use FilteredListScreenRepositoryTrait;
 
     private $decoder_factory;
 
@@ -30,15 +31,6 @@ final class Callback implements ListScreenRepository
     {
         $this->decoder_factory = $decoder_factory;
         $this->callback = Closure::fromCallable($callback);
-    }
-
-    protected function find_from_source(ListScreenId $id): ?ListScreen
-    {
-        $list_screens = (new Filter\ListId($id))->filter(
-            $this->find_all()
-        );
-
-        return $list_screens->get_first() ?: null;
     }
 
     protected function find_all_from_source(): ListScreenCollection
@@ -57,17 +49,18 @@ final class Callback implements ListScreenRepository
                 continue;
             }
 
-            $collection->add($decoder->get_list_screen());
+            $list_screen = $decoder->get_list_screen();
+
+            $segments = $decoder instanceof SegmentsDecoder && $decoder->has_segments()
+                ? $decoder->get_segments()
+                : new SegmentCollection();
+
+            $list_screen->set_preference(ListScreenPreferences::SHARED_SEGMENTS, $segments);
+
+            $collection->add($list_screen);
         }
 
         return $collection;
-    }
-
-    protected function find_all_by_key_from_source(string $key): ListScreenCollection
-    {
-        return (new Filter\ListKey($key))->filter(
-            $this->find_all()
-        );
     }
 
 }

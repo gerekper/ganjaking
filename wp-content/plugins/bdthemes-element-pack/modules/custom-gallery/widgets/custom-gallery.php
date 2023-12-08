@@ -1146,24 +1146,24 @@ class Custom_Gallery extends Module_Base {
 
 		if ($content['image_link_type']) {
 			if ('google-map' == $content['image_link_type'] and '' != $content['image_link_google_map']) {
-				$this->add_render_attribute($element_key, 'href', $content['image_link_google_map']['url']);
+				$this->add_link_attributes($element_key, $content['image_link_google_map']);
 				$this->add_render_attribute($element_key, 'data-type', 'iframe');
 			} elseif ('video' == $content['image_link_type'] and '' != $content['image_link_video']) {
-				$this->add_render_attribute($element_key, 'href', $content['image_link_video']['url']);
+				$this->add_link_attributes($element_key, $content['image_link_video']);
 				$this->add_render_attribute($element_key, 'data-type', 'video');
 			} elseif ('youtube' == $content['image_link_type'] and '' != $content['image_link_youtube']) {
-				$this->add_render_attribute($element_key, 'href', $content['image_link_youtube']['url']);
+				$this->add_link_attributes($element_key, $content['image_link_youtube']);
 				$this->add_render_attribute($element_key, 'data-type', false);
 			} elseif ('vimeo' == $content['image_link_type'] and '' != $content['image_link_vimeo']) {
-				$this->add_render_attribute($element_key, 'href', $content['image_link_vimeo']['url']);
+				$this->add_link_attributes($element_key, $content['image_link_vimeo']);
 				$this->add_render_attribute($element_key, 'data-type', false);
 			} else {
-				$this->add_render_attribute($element_key, 'href', $content['image_link_website']['url']);
+				$this->add_link_attributes($element_key, $content['image_link_website']);
 				$this->add_render_attribute($element_key, 'data-type', 'iframe');
 			}
 		} else {
 			if (!$image_url) {
-				$this->add_render_attribute($element_key, 'href', $content['gallery_image']['url']);
+				$this->add_link_attributes($element_key, $content['gallery_image']);
 			} else {
 				$this->add_render_attribute($element_key, 'href', $image_url[0]);
 			}

@@ -3,7 +3,7 @@
  * Builder Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Date picker Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DATE extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -44,16 +44,16 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DATE extends THEMECOMPLETE_EPO_BUILDER_E
 	 *
 	 * @since 6.0
 	 * @access public
+	 * @return void
 	 */
 	public function get_weekdays() {
-
 		echo '<div class="tm-weekdays-picker-wrap">';
 		// load wp translations.
 		if ( function_exists( 'wp_load_translations_early' ) ) {
 			wp_load_translations_early();
 			global $wp_locale;
-			for ( $day_index = 0; $day_index <= 6; $day_index ++ ) {
-				echo '<span class="tm-weekdays-picker"><label><input class="tm-weekday-picker" type="checkbox" value="' . esc_attr( $day_index ) . '"><span>' . esc_html( $wp_locale->get_weekday( $day_index ) ) . '</span></label></span>';
+			for ( $day_index = 0; $day_index <= 6; $day_index++ ) {
+				echo '<span class="tm-weekdays-picker"><label><input class="tm-weekday-picker" type="checkbox" value="' . esc_attr( (string) $day_index ) . '"><span>' . esc_html( $wp_locale->get_weekday( $day_index ) ) . '</span></label></span>';
 			}
 			// in case something goes wrong.
 		} else {
@@ -71,12 +71,11 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DATE extends THEMECOMPLETE_EPO_BUILDER_E
 				esc_html__( 'Friday', 'default' );
 			$weekday[6] = /* translators: weekday Saturday */
 				esc_html__( 'Saturday', 'default' );
-			for ( $day_index = 0; $day_index <= 6; $day_index ++ ) {
-				echo '<span class="tm-weekdays-picker"><label><input class="tm-weekday-picker" type="checkbox" value="' . esc_attr( $day_index ) . '"><span>' . esc_html( $weekday[ $day_index ] ) . '</span></label></span>';
+			for ( $day_index = 0; $day_index <= 6; $day_index++ ) {
+				echo '<span class="tm-weekdays-picker"><label><input class="tm-weekday-picker" type="checkbox" value="' . esc_attr( (string) $day_index ) . '"><span>' . esc_html( $weekday[ $day_index ] ) . '</span></label></span>';
 			}
 		}
 		echo '</div>';
-
 	}
 
 	/**
@@ -84,16 +83,16 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DATE extends THEMECOMPLETE_EPO_BUILDER_E
 	 *
 	 * @since 6.0
 	 * @access public
+	 * @return void
 	 */
 	public function get_months() {
-
 		echo '<div class="tm-months-picker-wrap">';
 		// load wp translations.
 		if ( function_exists( 'wp_load_translations_early' ) ) {
 			wp_load_translations_early();
 			global $wp_locale;
-			for ( $month_index = 1; $month_index <= 12; $month_index ++ ) {
-				echo '<span class="tm-months-picker"><label><input class="tm-month-picker" type="checkbox" value="' . esc_attr( $month_index ) . '"><span>' . esc_html( $wp_locale->get_month( $month_index ) ) . '</span></label></span>';
+			for ( $month_index = 1; $month_index <= 12; $month_index++ ) {
+				echo '<span class="tm-months-picker"><label><input class="tm-month-picker" type="checkbox" value="' . esc_attr( (string) $month_index ) . '"><span>' . esc_html( $wp_locale->get_month( $month_index ) ) . '</span></label></span>';
 			}
 			// in case something goes wrong.
 		} else {
@@ -121,18 +120,18 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_DATE extends THEMECOMPLETE_EPO_BUILDER_E
 				esc_html__( 'November', 'default' );
 			$month[11] = /* translators: month December */
 				esc_html__( 'December', 'default' );
-			for ( $month_index = 1; $month_index <= 12; $month_index ++ ) {
-				echo '<span class="tm-months-picker"><label><input class="tm-month-picker" type="checkbox" value="' . esc_attr( $month_index ) . '"><span>' . esc_html( $month[ $month_index ] ) . '</span></label></span>';
+			for ( $month_index = 1; $month_index <= 12; $month_index++ ) {
+				echo '<span class="tm-months-picker"><label><input class="tm-month-picker" type="checkbox" value="' . esc_attr( (string) $month_index ) . '"><span>' . esc_html( $month[ $month_index ] ) . '</span></label></span>';
 			}
 		}
 		echo '</div>';
-
 	}
 
 	/**
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(

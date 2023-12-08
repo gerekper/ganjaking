@@ -2,10 +2,14 @@
  * Owl Carousel v2.3.4
  * Copyright 2013-2018 David Deutsch
  * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
+ * reformatted code by ThemeComplete
  */
 /**
  * Owl carousel
  *
+ * @param {jQuery}   $
+ * @param {Window}   window
+ * @param {Document} document
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -15,7 +19,6 @@
  * @todo itemsScaleUp
  * @todo Test Zepto
  * @todo stagePadding calculate wrong active classes
- * reformatted code by themeComplete
  */
 ( function( $, window, document ) {
 	'use strict';
@@ -25,8 +28,8 @@
 	 *
 	 * @class The Owl Carousel.
 	 * @public
-	 * @param {HTMLElement|jQuery} element - The element to create the carousel for.
-	 * @param {Object} [options] - The options
+	 * @param {HTMLElement|jQuery} element   - The element to create the carousel for.
+	 * @param {Object}             [options] - The options
 	 */
 	function Owl( element, options ) {
 		/**
@@ -658,13 +661,13 @@
 	};
 
 	/**
-		* Prepares an item before add.
+	 * Prepares an item before add.
 	 *
-		* @param item
-		* @todo Rename event parameter `content` to `item`.
-		* @protected
-		* @returns {jQuery|HTMLElement} - The item container.
-		*/
+	 * @param {mixed} item
+	 * @todo Rename event parameter `content` to `item`.
+	 * @protected
+	 * @returns {jQuery|HTMLElement} - The item container.
+	 */
 	Owl.prototype.prepare = function( item ) {
 		var event = this.trigger( 'prepare', { content: item } );
 
@@ -980,7 +983,7 @@
 	 * @todo Setting `freeDrag` makes `closest` not reusable. See #165.
 	 * @protected
 	 * @param {number} coordinate - The coordinate in pixel.
-	 * @param {string} direction - The direction to check for the closest item. Ether `left` or `right`.
+	 * @param {string} direction  - The direction to check for the closest item. Ether `left` or `right`.
 	 * @return {number} - The absolute position of the closest item.
 	 */
 	Owl.prototype.closest = function( coordinate, direction ) {
@@ -1154,7 +1157,7 @@
 	 * Normalizes an absolute or a relative position of an item.
 	 *
 	 * @public
-	 * @param {number} position - The absolute or relative position to normalize.
+	 * @param {number}  position         - The absolute or relative position to normalize.
 	 * @param {boolean} [relative=false] - Whether the given position is relative or not.
 	 * @returns {number} - The normalized position.
 	 */
@@ -1353,8 +1356,8 @@
 	 * Calculates the speed for a translation.
 	 *
 	 * @protected
-	 * @param {number} from - The absolute position of the start item.
-	 * @param {number} to - The absolute position of the target item.
+	 * @param {number} from               - The absolute position of the start item.
+	 * @param {number} to                 - The absolute position of the target item.
 	 * @param {number} [factor=undefined] - The time factor in milliseconds.
 	 * @returns {number} - The time in milliseconds for the translation.
 	 */
@@ -1371,7 +1374,7 @@
 	 *
 	 * @public
 	 * @param {number} position - The position of the item.
-	 * @param {number} [speed] - The time in milliseconds for the transition.
+	 * @param {number} [speed]  - The time in milliseconds for the transition.
 	 */
 	Owl.prototype.to = function( position, speed ) {
 		var current = this.current(),
@@ -1515,8 +1518,8 @@
 	 *
 	 * @todo Use `item` instead of `content` for the event arguments.
 	 * @public
-	 * @param {HTMLElement|jQuery|string} content - The item content to add.
-	 * @param {number} [position] - The relative position at which to insert the item otherwise the item will be added to the end.
+	 * @param {HTMLElement|jQuery|string} content    - The item content to add.
+	 * @param {number}                    [position] - The relative position at which to insert the item otherwise the item will be added to the end.
 	 */
 	Owl.prototype.add = function( content, position ) {
 		var current = this.relative( this._current );
@@ -1578,12 +1581,12 @@
 	};
 
 	/**
-		* Preloads images with auto width.
+	 * Preloads images with auto width.
 	 *
-		* @param images
-		* @todo Replace by a more generic approach
-		* @protected
-		*/
+	 * @param {mixed} images
+	 * @todo Replace by a more generic approach
+	 * @protected
+	 */
 	Owl.prototype.preloadAutoWidthImages = function( images ) {
 		images.each(
 			$.proxy( function( i, element ) {
@@ -1674,10 +1677,10 @@
 	 * Attaches to an internal event.
 	 *
 	 * @protected
-	 * @param {HTMLElement} element - The event source.
-	 * @param {string} event - The event name.
-	 * @param {Function} listener - The event handler to attach.
-	 * @param {boolean} capture - Wether the event should be handled at the capturing phase or not.
+	 * @param {HTMLElement} element  - The event source.
+	 * @param {string}      event    - The event name.
+	 * @param {Function}    listener - The event handler to attach.
+	 * @param {boolean}     capture  - Wether the event should be handled at the capturing phase or not.
 	 */
 	Owl.prototype.on = function( element, event, listener, capture ) {
 		if ( element.addEventListener ) {
@@ -1691,10 +1694,10 @@
 	 * Detaches from an internal event.
 	 *
 	 * @protected
-	 * @param {HTMLElement} element - The event source.
-	 * @param {string} event - The event name.
-	 * @param {Function} listener - The attached event handler to detach.
-	 * @param {boolean} capture - Wether the attached event handler was registered as a capturing listener or not.
+	 * @param {HTMLElement} element  - The event source.
+	 * @param {string}      event    - The event name.
+	 * @param {Function}    listener - The attached event handler to detach.
+	 * @param {boolean}     capture  - Wether the attached event handler was registered as a capturing listener or not.
 	 */
 	Owl.prototype.off = function( element, event, listener, capture ) {
 		if ( element.removeEventListener ) {
@@ -1709,8 +1712,8 @@
 	 *
 	 * @todo Remove `status`, `relatedTarget` should be used instead.
 	 * @protected
-	 * @param {string} name - The event name.
-	 * @param {*} [data=null] - The event data.
+	 * @param {string} name                 - The event name.
+	 * @param {*}      [data=null]          - The event data.
 	 * @param {string} [namespace=carousel] - The event namespace.
 	 * @returns {Event} - The event arguments.
 	 */
@@ -1749,7 +1752,7 @@
 	/**
 	 * Enters a state.
 	 *
-	 * @param name - The state name.
+	 * @param {mixed} name - The state name.
 	 */
 	Owl.prototype.enter = function( name ) {
 		$.each(
@@ -1767,7 +1770,7 @@
 	/**
 	 * Leaves a state.
 	 *
-	 * @param name - The state name.
+	 * @param {mixed} name - The state name.
 	 */
 	Owl.prototype.leave = function( name ) {
 		$.each(
@@ -1848,14 +1851,13 @@
 	};
 
 	/**
-		* Gets unified pointer coordinates from event.
-		*
-		* @todo #261
-		* @param event
-		* @protected
-		* @param {Event} - The `mousedown` or `touchstart` event.
-		* @returns {Object} - Contains `x` and `y` coordinates of current pointer position.
-		*/
+	 * Gets unified pointer coordinates from event.
+	 *
+	 * @todo #261
+	 * @protected
+	 * @param {Event} event The `mousedown` or `touchstart` event.
+	 * @returns {Object} - Contains `x` and `y` coordinates of current pointer position.
+	 */
 	Owl.prototype.pointer = function( event ) {
 		var result = { x: null, y: null };
 
@@ -1875,28 +1877,25 @@
 	};
 
 	/**
-		* Determines if the input is a Number or something that can be coerced to a Number
+	 * Determines if the input is a Number or something that can be coerced to a Number
 	 *
-		* @protected
-		* @param number
-		* @param {number|string|Object|Array|boolean|RegExp|Function|symbol} - The input to be tested
-		* @returns {boolean} - An indication if the input is a Number or can be coerced to a Number
-		*/
+	 * @protected
+	 * @param {number|string|Object|Array|boolean|RegExp|Function|symbol} number The input to be tested
+	 * @returns {boolean} - An indication if the input is a Number or can be coerced to a Number
+	 */
 	Owl.prototype.isNumeric = function( number ) {
 		return ! isNaN( parseFloat( number ) );
 	};
 
 	/**
-		* Gets the difference of two vectors.
+	 * Gets the difference of two vectors.
 	 *
-		* @todo #261
-		* @protected
-		* @param first
-		* @param second
-		* @param {Object} - The first vector.
-		* @param {Object} - The second vector.
-		* @returns {Object} - The difference.
-		*/
+	 * @todo #261
+	 * @protected
+	 * @param {Object} first  The first vector.
+	 * @param {Object} second The second vector.
+	 * @returns {Object} - The difference.
+	 */
 	Owl.prototype.difference = function( first, second ) {
 		return {
 			x: first.x - second.x,
@@ -1905,12 +1904,12 @@
 	};
 
 	/**
-		* The jQuery Plugin for the Owl Carousel
+	 * The jQuery Plugin for the Owl Carousel
 	 *
-		* @param option
-		* @todo Navigation plugin `next` and `prev`
-		* @public
-		*/
+	 * @param {mixed} option
+	 * @todo Navigation plugin `next` and `prev`
+	 * @public
+	 */
 	$.fn.tmowlCarousel = function( option ) {
 		var args = Array.prototype.slice.call( arguments, 1 );
 
@@ -1954,6 +1953,8 @@
 /**
  * AutoRefresh Plugin
  *
+ * @param {jQuery} $
+ * @param {Window} window
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -2078,6 +2079,8 @@
 /**
  * Lazy Plugin
  *
+ * @param {jQuery} $
+ * @param {Window} window
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2263,6 +2266,8 @@
 /**
  * AutoHeight Plugin
  *
+ * @param {jQuery} $
+ * @param {Window} window
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2400,6 +2405,9 @@
 /**
  * Video Plugin
  *
+ * @param {jQuery}   $
+ * @param {Window}   window
+ * @param {Document} document
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2512,7 +2520,7 @@
 	 *
 	 * @protected
 	 * @param {jQuery} target - The target containing the video data.
-	 * @param {jQuery} item - The item containing the video.
+	 * @param {jQuery} item   - The item containing the video.
 	 */
 	Video.prototype.fetch = function( target, item ) {
 		var type = ( function() {
@@ -2573,14 +2581,13 @@
 	};
 
 	/**
-		* Creates video thumbnail.
+	 * Creates video thumbnail.
 	 *
-		* @protected
-		* @param {jQuery} target - The target containing the video data.
-		* @param video
-		* @param {Object} info - The video info object.
-		* @see `fetch`
-		*/
+	 * @protected
+	 * @param {jQuery} target The target containing the video data.
+	 * @param {Object} video  The video info object.
+	 * @see `fetch`
+	 */
 	Video.prototype.thumbnail = function( target, video ) {
 		var tnLink,
 			icon,
@@ -2750,6 +2757,7 @@
 /**
  * Animate Plugin
  *
+ * @param {jQuery} $
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2875,6 +2883,9 @@
 /**
  * Autoplay Plugin
  *
+ * @param {jQuery}   $
+ * @param {Window}   window
+ * @param {Document} document
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author Artus Kolanowski
@@ -2885,12 +2896,11 @@
 ( function( $, window, document ) {
 	'use strict';
 	/**
-		* Creates the autoplay plugin.
+	 * Creates the autoplay plugin.
 	 *
-		* @class The Autoplay Plugin
-		* @param carousel
-		* @param {Owl} scope - The Owl Carousel
-		*/
+	 * @class The Autoplay Plugin
+	 * @param {Owl} carousel The Owl Carousel
+	 */
 	var Autoplay = function( carousel ) {
 		/**
 		 * Reference to the core.
@@ -3036,7 +3046,7 @@
 	 *
 	 * @public
 	 * @param {number} [timeout] - The interval before the next animation starts.
-	 * @param {number} [speed] - The animation speed for the animations.
+	 * @param {number} [speed]   - The animation speed for the animations.
 	 */
 	Autoplay.prototype.play = function( timeout, speed ) {
 		var elapsed;
@@ -3124,6 +3134,7 @@
 /**
  * Navigation Plugin
  *
+ * @param {jQuery} $
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -3490,12 +3501,12 @@
 	};
 
 	/**
-		* Gets the current succesor/predecessor position.
+	 * Gets the current succesor/predecessor position.
 	 *
-		* @param successor
-		* @protected
-		* @returns {number}
-		*/
+	 * @param {mixed} successor
+	 * @protected
+	 * @returns {number}
+	 */
 	Navigation.prototype.getPosition = function( successor ) {
 		var position,
 			length,
@@ -3547,8 +3558,8 @@
 	 * Slides to the specified item or page.
 	 *
 	 * @public
-	 * @param {number} position - The position of the item or page.
-	 * @param {number} [speed] - The time in milliseconds for the transition.
+	 * @param {number}  position         - The position of the item or page.
+	 * @param {number}  [speed]          - The time in milliseconds for the transition.
 	 * @param {boolean} [standard=false] - Whether to use the standard behaviour or not.
 	 */
 	Navigation.prototype.to = function( position, speed, standard ) {
@@ -3568,6 +3579,8 @@
 /**
  * Hash Plugin
  *
+ * @param {jQuery} $
+ * @param {Window} window
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -3708,6 +3721,7 @@
 /**
  * Support Plugin
  *
+ * @param {jQuery} $
  * @version 2.3.4
  * @author Vivid Planet Software GmbH
  * @author Artus Kolanowski

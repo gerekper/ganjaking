@@ -1,0 +1,1 @@
+jQuery.fn.parallax=function(a,b){$el=jQuery(this),TweenLite.to($el,.2,{x:-((b.clientX-window.innerWidth/2)/a),y:-((b.clientY-window.innerHeight/2)/a)})};

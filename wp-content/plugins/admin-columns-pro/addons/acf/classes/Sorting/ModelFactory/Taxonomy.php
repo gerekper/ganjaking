@@ -10,14 +10,14 @@ use ACP;
 class Taxonomy implements Sorting\SortingModelFactory
 {
 
-    public function create(Field $field, $meta_key, Column $column)
+    public function create(Field $field, string $meta_key, Column $column)
     {
         if ( ! $field instanceof Field\Type\Taxonomy) {
-            return new ACP\Sorting\Model\Disabled();
+            return null;
         }
 
         if ($field->uses_native_term_relation()) {
-            return new ACP\Sorting\Model\Disabled();
+            return null;
         }
 
         return (new ACP\Sorting\Model\MetaFormatFactory())->create(

@@ -2,14 +2,14 @@
 
 namespace ACP\Sorting\Model\Post\Author;
 
-use ACP;
-use ACP\Search\Query\Bindings;
+use ACP\Query\Bindings;
+use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class UserMeta extends ACP\Sorting\AbstractModel implements ACP\Sorting\Model\QueryBindings
+class UserMeta implements QueryBindings
 {
 
     private $meta_key;
@@ -18,8 +18,6 @@ class UserMeta extends ACP\Sorting\AbstractModel implements ACP\Sorting\Model\Qu
 
     public function __construct(string $meta_key, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->meta_key = $meta_key;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }

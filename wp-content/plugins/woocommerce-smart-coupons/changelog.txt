@@ -1,5 +1,10 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.12.02 - version 8.10.0
+* Update: Use native WooCommerce hook 'woocommerce_loop_add_to_cart_link' to replace 'Add to cart' button in 'loop' (archive pages like 'shop' page)
+* Update: Replace 'woocommerce.com' with 'woo.com'
+* Update: POT, PO & MO file
+
 2023.11.22 - version 8.9.0
 * New: WordPress 6.4.1 compatible
 * New: WooCommerce 8.2.2 compatible
@@ -80,7 +85,7 @@
 * Fix: Refund amount blocked on the order edit page, even when store credit is not applied to that order
 * Fix: When bulk generating coupons with multiple values for 'Exclude products', only the first value is getting saved
 * Fix: When importing coupons with multiple values for 'Exclude products' via CSV file, only the first value is getting saved
-* Fix: 'Fixed cart discount' coupon amount changed when a coupon is applied to an order and when the plugin [WooCommerce Multi-Currency](https://woocommerce.com/products/multi-currency/) OR the plugin [Price Based on Country for WooCommerce](https://wordpress.org/plugins/woocommerce-product-price-based-on-countries/) is active
+* Fix: 'Fixed cart discount' coupon amount changed when a coupon is applied to an order and when the plugin [WooCommerce Multi-Currency](https://woo.com/products/multi-currency/) OR the plugin [Price Based on Country for WooCommerce](https://wordpress.org/plugins/woocommerce-product-price-based-on-countries/) is active
 * Update: POT file
 
 2023.06.16 - version 8.0.0

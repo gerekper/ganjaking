@@ -61,12 +61,12 @@ final class Formatter implements Registerable
      * We use this hook callback to ensure we can use te format method with correct property types
      *
      * @param string    $value
-     * @param int       $id
+     * @param           $id
      * @param AC\Column $column
      *
      * @return string
      */
-    public function format_value($value, int $id, AC\Column $column)
+    public function format_value($value, $id, AC\Column $column)
     {
         if ( ! is_scalar($value)) {
             return $value;
@@ -78,7 +78,7 @@ final class Formatter implements Registerable
     /**
      * Comparisons are done case-insensitive
      */
-    public function format(string $value, int $id, AC\Column $column): string
+    public function format(string $value, $id, AC\Column $column): string
     {
         if ( ! $column->get_list_screen()->has_id()) {
             return $value;

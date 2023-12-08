@@ -1,0 +1,176 @@
+// block that regulates visibility of elements on a page
+// depending on selected layout or not
+// begin
+.vc_selected-post-custom-layout-visible-ne {
+  display: inherit;
+}
+
+.vc_selected-post-custom-layout-visible-e {
+  display: none;
+}
+
+.vc_not-empty {
+  .vc_selected-post-custom-layout-visible-e {
+    display: inherit;
+  }
+}
+
+.vc_not-empty {
+  .vc_selected-post-custom-layout-visible-ne {
+    display: none;
+  }
+}
+
+.vc_post-custom-layout-selected {
+  .vc_selected-post-custom-layout-visible-e {
+    display: inherit;
+  }
+}
+
+.vc_post-custom-layout-selected {
+  .vc_selected-post-custom-layout-visible-ne {
+    display: none;
+  }
+}
+
+.vc_post-custom-layout-selected.vc_selected-post-custom-layout-visible-e {
+  display: inherit;
+}
+
+.vc_post-custom-layout-selected.vc_selected-post-custom-layout-visible-ne {
+  display: none;
+}
+
+#wpb_wpbakery .vc_navbar:not(.vc_post-custom-layout-selected) {
+  a {
+    pointer-events: none;
+    opacity: 0.2;
+  }
+}
+
+#wpb_wpbakery .vc_navbar:not(.vc_post-custom-layout-selected) {
+  a#vc_logo {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+#wpb_wpbakery .vc_navbar.vc_not-empty {
+  a {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+.vc_navbar.vc_navbar-frontend:not(.vc_post-custom-layout-selected) {
+  #vc_add-new-element,
+  #vc_templates-editor-button,
+  #vc_post-settings-button,
+  #vc_screen-size-control,
+  #vc_button-save-draft,
+  #vc_button-update {
+    pointer-events: none;
+    opacity: 0.2;
+  }
+}
+
+.vc_navbar.vc_navbar-frontend.vc_not-empty {
+  #vc_add-new-element,
+  #vc_templates-editor-button,
+  #vc_post-settings-button,
+  #vc_screen-size-control,
+  #vc_button-save-draft,
+  #vc_button-update {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+// end
+
+.vc_post-custom-layout-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 30px;
+}
+
+a.vc_post-custom-layout {
+  all: unset;
+}
+
+a:focus.vc_post-custom-layout {
+  box-shadow: none;
+}
+
+a.vc_post-custom-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 60px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: none;
+  border: none;
+
+  svg path {
+    transition: fill .2s ease-in-out;
+  }
+}
+
+#vc_ui-panel-post-settings .vc_post-custom-layout {
+  margin: 0 15px;
+}
+
+#vc_ui-panel-post-settings .vc_post-custom-layout-wrapper {
+  justify-content: left;
+}
+
+.vc-active-post-custom-layout {
+  cursor: auto;
+}
+
+
+a.vc-active-post-custom-layout:where(:not(.wp-element-button)) {
+    text-decoration: none;
+}
+
+.vc-active-post-custom-layout .vc_layout-label {
+    color: @vc_main_color;
+}
+
+.vc-active-post-custom-layout svg path {
+    fill: @vc_main_color;
+}
+
+.vc_layout-label:hover {
+  color: @vc_main_color;
+}
+
+.vc_post-custom-layout:hover svg path {
+  fill: @vc_main_color;
+}
+
+.vc_layout-label {
+  margin: 12px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #939393;
+  transition: color .2s ease-in-out;
+}
+
+.vc_editor.compose-mode {
+  .vc_welcome.vc_select-post-custom-layout-frontend-editor {
+    margin-top: 10%;
+  }
+}
+
+.vc_layout-description {
+  font-size: 13px;
+  font-weight: 500;
+  color: #939393;
+  transition: color 0.2s ease-in-out;
+  max-width: 180px;
+  text-align: center;
+  font-style: italic;
+  margin-top: 8px;
+}

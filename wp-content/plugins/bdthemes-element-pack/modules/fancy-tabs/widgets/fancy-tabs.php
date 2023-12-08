@@ -1493,16 +1493,11 @@ class Fancy_Tabs extends Module_Base {
 					<?php if ($item['tabs_button'] && ('yes' == $settings['show_button'])) : ?>
 						<div class="bdt-ep-fancy-tabs-button">
 							<?php if ('' !== $item['button_link']['url']) : ?>
-								<?php
-								if ($item['button_link']['is_external']) {
-									$this->add_render_attribute('link_key', 'target', '_blank');
-								}
-
-								if ($item['button_link']['nofollow']) {
-									$this->add_render_attribute('link_key', 'rel', 'nofollow');
-								}
+								<?php 
+								$link_key = 'link_key_' . $index;
+								$this->add_link_attributes($link_key, $item['button_link']);
 								?>
-								<a <?php echo $this->get_render_attribute_string('link_key'); ?> href="<?php echo esc_url($item['button_link']['url']); ?>">
+								<a <?php echo $this->get_render_attribute_string($link_key); ?>>
 								<?php endif; ?>
 								<?php echo wp_kses_post($item['tabs_button']); ?>
 								<?php if ('' !== $item['button_link']['url']) : ?>

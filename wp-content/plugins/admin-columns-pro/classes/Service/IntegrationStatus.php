@@ -17,7 +17,7 @@ class IntegrationStatus implements Registerable
 
     public function register(): void
     {
-        add_filter('acp/integration/active', [$this, 'is_active'], 10, 2);
+        add_filter('ac/integration/active', [$this, 'is_active'], 10, 2);
     }
 
     public function is_active(bool $active, Integration $integration): bool

@@ -1,0 +1,1184 @@
+/*--advertisement Banner Start--*/
+.pt_plus_addbanner {
+    position: relative;
+    display: block;
+    width: 100%
+}
+
+.pt_plus_addbanner .addbanner_title {
+    -webkit-transition: .8s;
+    -moz-transition: .8s;
+    -o-transition: .8s;
+    -ms-transition: .8s;
+    transition: .8s
+}
+
+.pt_plus_addbanner .addbanner_subtitle {
+    -webkit-transition: .8s;
+    -moz-transition: .8s;
+    -o-transition: .8s;
+    -ms-transition: .8s;
+    transition: .8s
+}
+
+.pt_plus_addbanner.addbanner-image-blur:hover .addbanner_inner_img img {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    -o-filter: blur(5px);
+    filter: blur(5px)
+}
+
+.pt_plus_addbanner.addbanner-image-vertical:hover .addbanner_inner_img img {
+    -webkit-transform: scale(1.1) rotate(2deg);
+    -moz-transform: scale(1.1) rotate(2deg);
+    -o-transform: scale(1.1) rotate(2deg);
+    -ms-transform: scale(1.1) rotate(2deg);
+    transform: scale(1.1) rotate(2deg)
+}
+
+.pt_plus_addbanner.box_saddow_addbanner {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+
+.pt_plus_addbanner .addbanner_inner {
+    position: relative;
+    line-height: 0;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    z-index: 999
+}
+
+.pt_plus_addbanner .addbanner-block {
+    display: block;
+    position: relative;
+    width: 100%
+}
+
+.pt_plus_addbanner.hover-tilt .addbanner-block {
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease
+}
+
+.content_hover_effect {
+    z-index: 999;
+}
+
+/*<----style 1 Start-->*/
+
+.pt_plus_addbanner .add-banner-style-1 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-1 .top-left {
+    top: 18px;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0)
+}
+
+.add-banner-style-1 .top-left {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-1 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-1 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-1:hover .addbanner_subtitle {
+    color: #fff
+}
+
+.add-banner-style-1 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-1 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-1:hover .addbanner_title {
+    color: #fff
+}
+
+.add-banner-style-1 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-1 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out
+}
+
+.add-banner-style-1 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.entry-thumb {
+    position: relative;
+    display: block
+}
+
+.add-banner-style-1.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-1 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-1 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+
+.add-banner-style-1.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 1 End -->*/
+
+
+/*<----style 2 Start-->*/
+
+.add-banner-style-2 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-2 .center-left {
+    height: 100%
+}
+
+.add-banner-style-2 .center-left {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-2 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-2 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-2 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-2 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-2 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-2 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -ms-filter: blur(0);
+    -o-filter: blur(0);
+    filter: blur(0);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out
+}
+
+.add-banner-style-2 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-2.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-2 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-2 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-2.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 2 End -->*/
+
+
+/*<----style 3 Start -->*/
+
+.add-banner-style-3 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-3 .bottom-left {
+    top: initial;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    bottom: 30px
+}
+
+.add-banner-style-3 .bottom-left {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-3 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-3 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-3 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-3 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-3 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-3 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out
+}
+
+.add-banner-style-3 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-3.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-3 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-3 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-3.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 3 End -->*/
+
+
+/*<----style 4 Start-->*/
+
+.add-banner-style-4 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-4 .top-right {
+    top: 18px;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: scale(1);
+    -o-transform: translateY(0);
+    transform: translateY(0)
+}
+
+.add-banner-style-4 .top-right {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-4 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-4 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-4 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-4 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-4 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-4 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out
+}
+
+.add-banner-style-4 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-4.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-4 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-4 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-4.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+
+/*<----style 4 End -->*/
+
+
+/*<----style 5 Start-->*/
+
+.add-banner-style-5 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-5 .center-right {
+    height: 100%
+}
+
+.add-banner-style-5 .center-right {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-5 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-5 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-5 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-5 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-5 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-5 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -ms-filter: blur(0);
+    -o-filter: blur(0);
+    filter: blur(0);
+    -webkit-transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out
+}
+
+.add-banner-style-5 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-5.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-5 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-5 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-5.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 5 End -->*/
+
+
+/*<----style 6 Start -->*/
+
+.add-banner-style-6 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-6 .right-content {
+    text-align: right
+}
+
+.add-banner-style-6 .bottom-right {
+    top: initial;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    bottom: 30px
+}
+
+.add-banner-style-6 .bottom-right {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-6 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-6 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-6 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-6 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-6 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-6 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out
+}
+
+.add-banner-style-6 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-6.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-6 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-6 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-6.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 6 End -->*/
+
+
+/*<----style 7 Start-->*/
+
+.add-banner-style-7 {
+    position: relative;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 100%
+}
+
+.add-banner-style-7 .left-content {
+    text-align: left
+}
+
+.add-banner-style-7 .center-left {
+    height: 100%
+}
+
+.add-banner-style-7 .center-left {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    display: block;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-7 .content-level2 {
+    display: table;
+    height: 100%;
+    width: 100%
+}
+
+.add-banner-style-7 .content-level2 .content-level3 {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.add-banner-style-7 .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-7 .addbanner_title {
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900
+}
+
+.add-banner-style-7 .addbanner_inner_img {
+    line-height: 0;
+    overflow: hidden;
+    width: 100%;
+    display: block
+}
+
+.add-banner-style-7 .addbanner_inner_img img {
+    width: 100%;
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -ms-filter: blur(0);
+    -o-filter: blur(0);
+    filter: blur(0);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out
+}
+
+.add-banner-style-7 .addbanner-block .entry-thumb {
+    position: absolute!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important
+}
+
+.add-banner-style-7.addbanner-fade-out .entry-thumb .entry-hover {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -moz-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -o-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    -ms-transition: opacity .3s ease .3s, visibility .3s ease .3s;
+    transition: opacity .3s ease .3s, visibility .3s ease .3s
+}
+
+.add-banner-style-7 .entry-thumb .entry-hover {
+    position: absolute;
+    text-align: inherit
+}
+
+.add-banner-style-7 .entry-thumb .entry-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .7)
+}
+
+.add-banner-style-7.addbanner-fade-out:hover .entry-thumb .entry-hover {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    -moz-transition: opacity .3s ease, visibility .3s ease;
+    -o-transition: opacity .3s ease, visibility .3s ease;
+    -ms-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease
+}
+
+
+/*<----style 7 End -->*/
+
+
+/*-------style-8 Start-----------*/
+
+.add-banner-style-8 .addbanner_product_box * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.add-banner-style-8 .ad-banner-img-hide {
+    opacity: 0
+}
+
+.add-banner-style-8 .addbanner_product_box_wrapper {
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;
+    min-height: 180px;
+    width: 100%;
+    padding: 20px;
+    font-size: 16px;
+    color: #fff;
+    transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out
+}
+
+.add-banner-style-8 .addbanner_product_box:hover .addbanner_product_box_wrapper {
+    transform: translateY(-70px);
+    -webkit-transform: translateY(-70px);
+    -ms-transform: translateY(-70px);
+    -moz-transform: translateY(-70px);
+    -o-transform: translateY(-70px)
+}
+
+.add-banner-style-8 .addbanner_product_box:hover .ab_btn_back {
+    transform: rotateX(0);
+    -webkit-transform: rotateX(0);
+    -ms-transform: rotateX(0);
+    -moz-transform: rotateX(0);
+    -o-transform: rotateX(0);
+    -webkit-transform: translateY(-70px);
+    -ms-transform: translateY(-70px);
+    -moz-transform: translateY(-70px);
+    -o-transform: translateY(-70px);
+    transform: translateY(-70px)
+}
+
+.add-banner-style-8 .addbanner_product_box .adbanner_title {
+    margin: 10px 0 0 -20px;
+    padding: 15px 10px 15px 20px;
+    position: relative;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 700;
+    color: #fff;
+    position: relative
+}
+
+.add-banner-style-8 .addbanner_product_box .adbanner_title span {
+    position: relative;
+    z-index: 2;
+    display: block
+}
+
+.add-banner-style-8 .addbanner_product_box .addbanner_subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+    line-height: 28px
+}
+
+.add-banner-style-8 .addbanner_product_box h5 {
+    font-size: 16px;
+    margin: 20px 0 50px
+}
+
+.add-banner-style-8 .addbanner_product_box .ab_btn_back {
+    transform: rotateX(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -ms-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform-origin: center top 0;
+    -webkit-transform-origin: center top 0;
+    -moz-transform-origin: center top 0;
+    -ms-transform-origin: center top 0;
+    -o-transform-origin: center top 0;
+    transform-style: preserve-3d;
+    width: 100%;
+    top: 100%;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    position: absolute
+}
+
+.add-banner-style-8 .addbanner_product_box .ab_btn_back {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    padding: .7em 1.6em;
+    min-height: 70px
+}
+
+.add-banner-style-8 .addbanner_product_box .ab_btn_back a:hover {
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    color: #fff
+}
+
+.add-banner-style-8 .addbanner_product_box {
+    width: 100%;
+    min-height: 180px;
+    position: relative
+}
+
+.add-banner-style-8 .ab_btn_back {
+    display: flex!important;
+    align-items: center
+}
+
+
+/*-------style-8 End-----------*/
+
+
+/*--advertisement Banner end--*/

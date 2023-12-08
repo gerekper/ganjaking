@@ -4,14 +4,11 @@ namespace ACP\Column\Taxonomy;
 
 use AC;
 use ACP\ConditionalFormat;
-use ACP\Filtering;
+use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 2.0.0
- */
 class ID extends AC\Column
-    implements Sorting\Sortable, Filtering\Filterable, ConditionalFormat\Formattable
+    implements Sorting\Sortable, ConditionalFormat\Formattable, Search\Searchable
 {
 
     use ConditionalFormat\IntegerFormattableTrait;
@@ -37,9 +34,9 @@ class ID extends AC\Column
         return new Sorting\Model\OrderBy('ID');
     }
 
-    public function filtering()
+    public function search()
     {
-        return new Filtering\Model\Taxonomy\ID($this);
+        return new Search\Comparison\Taxonomy\ID();
     }
 
 }

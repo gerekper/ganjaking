@@ -13,24 +13,12 @@ use ACP\ConditionalFormat\RuleCollection;
 final class Table extends Script
 {
 
-    /**
-     * @var Absolute
-     */
     private $root_location;
 
-    /**
-     * @var Operators
-     */
     private $operators;
 
-    /**
-     * @var RuleCollection
-     */
     private $rules;
 
-    /**
-     * @var array
-     */
     private $columns;
 
     public function __construct(

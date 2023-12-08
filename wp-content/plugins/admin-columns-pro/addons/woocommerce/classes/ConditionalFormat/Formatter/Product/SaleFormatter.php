@@ -16,7 +16,7 @@ class SaleFormatter implements Formatter
         return self::FLOAT;
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         if (ComparisonOperators::class === $operator_group) {
             return (string)get_post_meta($id, '_sale_price', true);

@@ -3,8 +3,8 @@
  * The template for displaying the product element add button
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates/Products
- * @version 6.0
+ * @package Extra Product Options/Templates/Products
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ $button_class = ' alt';
 $text_add     = ! empty( THEMECOMPLETE_EPO()->tm_epo_add_button_text_associated_products ) ? THEMECOMPLETE_EPO()->tm_epo_add_button_text_associated_products : esc_html__( 'Add', 'woocommerce-tm-extra-product-options' );
 $text_remove  = ! empty( THEMECOMPLETE_EPO()->tm_epo_remove_button_text_associated_products ) ? THEMECOMPLETE_EPO()->tm_epo_remove_button_text_associated_products : esc_html__( 'Remove', 'woocommerce-tm-extra-product-options' );
 $button_text  = $text_add;
-if ( $input_value > 0 ) {
+if ( isset( $input_value ) && $input_value > 0 ) {
 	$button_class = '';
 	$button_text  = $text_remove;
 }

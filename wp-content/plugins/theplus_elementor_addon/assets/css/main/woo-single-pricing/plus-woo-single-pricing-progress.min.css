@@ -1,0 +1,76 @@
+.tp-woo-stock-progress {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.tp-woo-stock-progress .tp-progress-bar {
+    background: #f1f6fa;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #ccd6dd;
+    height: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    display: flex;
+    }
+
+.tp-woo-stock-progress .tp-progress-bar .tp-progress-bar-inner {
+    background: green;
+    border-radius: 10px;
+    height: 10px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    min-height: 10px;
+}
+.tp-woo-stock-progress .tp-progress-bar-ab-text {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    align-items: center;
+}
+.tp-woo-stock-progress .tp-progress-bar-ab-text .tp-progress-bar-ab-text-qty {
+    position: relative;
+    display: flex;
+    margin-right: 2px;
+}
+.tp-woo-stock-progress .tp-progress-bar .tp-progress-bar-inner{ 
+    height: 100%;
+}
+.tp-woo-stock-progress.layout-2 .tp-progress-bar .tp-progress-bar-inner,
+.tp-woo-stock-progress.layout-4 .tp-progress-bar .tp-progress-bar-inner{
+    -webkit-animation: tp-sp-st2 2s linear infinite;
+    animation: tp-sp-st2 2s linear infinite;
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.125) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.125) 50%, rgba(255, 255, 255, 0.125) 75%, transparent 75%, transparent) !important;
+    background-size: 35px 35px !important;
+}
+@keyframes tp-sp-st2 {
+
+0% {
+    background-position: 0 0;
+}
+100% {
+    background-position: 25px 35px;
+}
+}
+.tp-woo-stock-progress.layout-3 .tp-progress-bar-ab-text-wrap1,.tp-progress-bar-ab-text-wrap2,
+.tp-woo-stock-progress.layout-4 .tp-progress-bar-ab-text-wrap1,.tp-progress-bar-ab-text-wrap2 {
+    position: relative;
+    display: inline-flex;
+}
+
+.tp-woo-stock-progress.layout-3 .tp-progress-bar-ab-text,
+.tp-woo-stock-progress.layout-4 .tp-progress-bar-ab-text {
+    justify-content: space-between;
+}
+
+.tp-woo-stock-progress.layout-3 .tp-progress-bar-ab-text-wrap1 span.tp-progress-bar-ab-text-qty,
+.tp-woo-stock-progress.layout-3 .tp-progress-bar-ab-text-wrap2 span.tp-progress-bar-ab-text-qty,
+.tp-woo-stock-progress.layout-4 .tp-progress-bar-ab-text-wrap1 span.tp-progress-bar-ab-text-qty,
+.tp-woo-stock-progress.layout-4 .tp-progress-bar-ab-text-wrap2 span.tp-progress-bar-ab-text-qty {
+    margin-left: 3px;
+}

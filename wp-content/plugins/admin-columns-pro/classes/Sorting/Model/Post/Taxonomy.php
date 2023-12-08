@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class Taxonomy extends AbstractModel implements QueryBindings
+class Taxonomy implements QueryBindings
 {
 
     private $taxonomy;
 
     public function __construct(string $taxonomy)
     {
-        parent::__construct();
-
         $this->taxonomy = $taxonomy;
     }
 

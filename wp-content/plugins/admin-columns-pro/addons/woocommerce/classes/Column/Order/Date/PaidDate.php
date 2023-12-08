@@ -3,6 +3,7 @@
 namespace ACA\WC\Column\Order\Date;
 
 use AC;
+use ACA\WC\Column\Order\FilterableDateTrait;
 use ACA\WC\Search;
 use ACA\WC\Sorting;
 use ACP;
@@ -11,6 +12,8 @@ use ACP\ConditionalFormat\FormattableConfig;
 class PaidDate extends AC\Column implements ACP\Search\Searchable, ACP\ConditionalFormat\Formattable,
                                             ACP\Sorting\Sortable
 {
+
+    use FilterableDateTrait;
 
     public function __construct()
     {
@@ -32,6 +35,7 @@ class PaidDate extends AC\Column implements ACP\Search\Searchable, ACP\Condition
     public function register_settings()
     {
         $this->add_setting(new AC\Settings\Column\Date($this));
+        $this->add_setting(new ACP\Filtering\Settings\Date($this, ['future_past']));
     }
 
     public function search()

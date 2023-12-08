@@ -117,6 +117,16 @@ class SqlOrderByFactory
         return self::create($field, $order, $args);
     }
 
+    /**
+     * Reserved keywords needs to be wrapped in backticks (e.g. when a field is named 'key')
+     */
+    private static function wrap_backticks(string $field): string
+    {
+        return str_contains($field, '`')
+            ? $field
+            : sprintf("`%s`", $field);
+    }
+
     public static function create(string $field, string $order, array $args = []): string
     {
         $empty_values = new EmptyValues($args['empty_values'] ?? [null, '']);

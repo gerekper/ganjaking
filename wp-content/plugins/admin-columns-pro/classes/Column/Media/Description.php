@@ -7,12 +7,11 @@ use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Editing\Settings\EditableType;
 use ACP\Editing\Storage;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
 class Description extends AC\Column\Media\Description
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+	implements Editing\Editable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
 
 	use ConditionalFormat\ConditionalFormatTrait;
 
@@ -31,10 +30,6 @@ class Description extends AC\Column\Media\Description
 			$view,
 			new Storage\Post\Field( 'post_content' )
 		);
-	}
-
-	public function filtering() {
-		return new Filtering\Model\Post\Content( $this );
 	}
 
 	public function sorting() {

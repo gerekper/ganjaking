@@ -6,10 +6,7 @@ use ACA\WC\Field\ShopOrder\OrderDate;
 use ACP;
 use WC_Order;
 
-/**
- * @since 3.0
- */
-class Created extends OrderDate implements ACP\Sorting\Sortable, ACP\Search\Searchable, ACP\Filtering\Filterable
+class Created extends OrderDate implements ACP\Sorting\Sortable, ACP\Search\Searchable
 {
 
     public function set_label()
@@ -30,14 +27,9 @@ class Created extends OrderDate implements ACP\Sorting\Sortable, ACP\Search\Sear
         );
     }
 
-    public function filtering()
-    {
-        return new ACP\Filtering\Model\Post\Date($this->column);
-    }
-
     public function search()
     {
-        return new ACP\Search\Comparison\Post\Date\PostDate();
+        return new ACP\Search\Comparison\Post\Date\PostDate('shop_order');
     }
 
 }

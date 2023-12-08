@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * various themes
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Themes {
 
@@ -30,6 +30,7 @@ final class THEMECOMPLETE_EPO_CP_Themes {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Themes
 	 * @since 5.0.12.4
 	 * @static
 	 */
@@ -53,6 +54,7 @@ final class THEMECOMPLETE_EPO_CP_Themes {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 5.0.12.4
 	 */
 	public function add_compatibility() {
@@ -63,40 +65,37 @@ final class THEMECOMPLETE_EPO_CP_Themes {
 			add_action( 'woodmart_before_wp_footer', [ $this, 'woodmart_after_footer2' ], 1000 );
 			add_action( 'wp_enqueue_scripts', [ $this, 'woodmart_wp_enqueue_scripts' ], 11 );
 		}
-
 	}
 
 	/**
 	 * Woodmart sticky add to cart
 	 *
+	 * @return void
 	 * @since 5.0.12.4
 	 */
 	public function woodmart_after_footer() {
 		THEMECOMPLETE_EPO_DISPLAY()->block_epo = true;
-
 	}
 
 	/**
 	 * Woodmart sticky add to cart
 	 *
+	 * @return void
 	 * @since 5.0.12.4
 	 */
 	public function woodmart_after_footer2() {
 		THEMECOMPLETE_EPO_DISPLAY()->block_epo = false;
-
 	}
 
 	/**
 	 * Woodmart sticky add to cart
 	 *
+	 * @return void
 	 * @since 5.0.12.4
 	 */
 	public function woodmart_wp_enqueue_scripts() {
-
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-woodmart', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-woodmart.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 		}
-
 	}
-
 }

@@ -5,8 +5,30 @@ Author: Brian Grinstead
 License: MIT
 ***/
 
+/* stylelint-disable no-descending-specificity */
+
+/* Don't allow text selection */
+.epo.sp-container,
+.sp-replacer.epo,
+.epo .sp-preview,
+.sp-dragger,
+.sp-slider,
+.sp-alpha,
+.sp-clear,
+.sp-alpha-handle,
+.epo.sp-container.sp-dragging .sp-input,
+.epo.sp-container button {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	font: inherit;
+}
+
 .sp-original-input-container {
 	position: relative;
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
 	display: inline-flex;
 }
 
@@ -43,8 +65,11 @@ input.spectrum.with-add-on {
 /* Fix for * { box-sizing: border-box; } */
 .epo.sp-container,
 .epo.sp-container * {
+
+
 	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
+
+
 	box-sizing: content-box;
 }
 
@@ -80,6 +105,8 @@ input.spectrum.with-add-on {
 	width: 12px;
 	height: 100%;
 	left: initial !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f00), color-stop(17%, #f00), color-stop(33%, #0f0), color-stop(50%, #0ff), color-stop(67%, #00f), color-stop(83%, #f0f), to(#f00));
+	background: linear-gradient(to bottom, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
 }
 
 .epo .sp-clear-enabled .sp-hue {
@@ -104,10 +131,6 @@ input.spectrum.with-add-on {
 	margin-bottom: 28px !important;
 }
 
-.epo .sp-alpha-enabled .sp-alpha {
-	display: block;
-}
-
 .epo .sp-alpha-handle {
 	position: absolute;
 	top: -3px;
@@ -119,6 +142,7 @@ input.spectrum.with-add-on {
 	left: -2px;
 	right: 0;
 	background: #f9f9f9;
+	-webkit-box-shadow: 0 0 2px 0 #3a3a3a;
 	box-shadow: 0 0 2px 0 #3a3a3a;
 }
 
@@ -129,6 +153,10 @@ input.spectrum.with-add-on {
 	right: 0;
 	left: 0;
 	height: 10px;
+}
+
+.epo .sp-alpha-enabled .sp-alpha {
+	display: block;
 }
 
 .epo .sp-alpha-inner {
@@ -153,24 +181,6 @@ input.spectrum.with-add-on {
 	left: initial;
 	height: 12px;
 	width: 12px;
-}
-
-/* Don't allow text selection */
-.epo.sp-container,
-.sp-replacer.epo,
-.epo .sp-preview,
-.sp-dragger,
-.sp-slider,
-.sp-alpha,
-.sp-clear,
-.sp-alpha-handle,
-.epo.sp-container.sp-dragging .sp-input,
-.epo.sp-container button {
-	-webkit-user-select: none;
-	-moz-user-select: -moz-none;
-	-o-user-select: none;
-	user-select: none;
-	font: inherit;
 }
 
 .epo.sp-container.sp-input-disabled .sp-input-container {
@@ -202,35 +212,18 @@ input.spectrum.with-add-on {
    Not pretty... but it works
 */
 .epo .sp-sat {
-	background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#fff), to(rgba(204, 154, 129, 0)));
-	background-image: -webkit-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-	background-image: -moz-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-	background-image: -o-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-	background-image: -ms-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
+	background-image: -webkit-gradient(linear, left top, right top, from(#fff), to(rgba(204, 154, 129, 0)));
 	background-image: linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr=#FFFFFFFF, endColorstr=#00CC9A81)";
+
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr="#FFFFFFFF", endColorstr="#00CC9A81");
 }
 
 .epo .sp-val {
 	border-radius: 4px;
-	background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#000), to(rgba(204, 154, 129, 0)));
-	background-image: -webkit-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-	background-image: -moz-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-	background-image: -o-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-	background-image: -ms-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#000), to(rgba(204, 154, 129, 0)));
 	background-image: linear-gradient(to top, #000, rgba(204, 154, 129, 0));
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00CC9A81, endColorstr=#FF000000)";
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CC9A81", endColorstr="#FF000000");
-}
 
-.epo .sp-hue {
-	background: -moz-linear-gradient(top, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-	background: -ms-linear-gradient(top, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-	background: -o-linear-gradient(top, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-	background: -webkit-gradient(linear, left top, left bottom, from(#f00), color-stop(0.17, #f00), color-stop(0.33, #0f0), color-stop(0.5, #0ff), color-stop(0.67, #00f), color-stop(0.83, #f0f), to(#f00));
-	background: -webkit-linear-gradient(top, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-	background: linear-gradient(to bottom, #f00 0%, #f00 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CC9A81", endColorstr="#FF000000");
 }
 
 /* IE filters do not support multiple color stops.
@@ -313,6 +306,7 @@ input.spectrum.with-add-on {
 	left: 0;
 	margin-left: 3px;
 	margin-top: 3px;
+	-webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 	background: none;
 }
@@ -326,12 +320,14 @@ input.spectrum.with-add-on {
 	width: 16px;
 	left: -2px;
 	background: #f9f9f9;
+	-webkit-box-shadow: 0 0 2px 0 #3a3a3a;
 	box-shadow: 0 0 2px 0 #3a3a3a;
 	margin-top: 8px;
 	right: auto;
 	border: 0;
 	opacity: 1;
 }
+
 
 /*
 Theme authors:
@@ -347,12 +343,15 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	/* https://github.com/seballot/spectrum/issues/40 */
 	z-index: 9999994;
 	overflow: hidden;
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
 	display: inline-flex;
 	border: 0;
 	background-color: #fff;
 	padding: 0;
 	border-radius: 4px;
 	color: #000;
+	-webkit-box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16), 0 8px 16px rgba(27, 39, 51, 0.08);
 	box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16), 0 8px 16px rgba(27, 39, 51, 0.08);
 }
 
@@ -364,8 +363,6 @@ Here are the basic themeable display options (colors, fonts, global widths)
 .sp-clear {
 	font-size: 12px;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -407,6 +404,7 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	padding: 0 5px !important;
 	margin: 0;
 	width: 100%;
+	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	height: 100% !important;
 	background: transparent;
@@ -517,19 +515,16 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	border-radius: 3px;
 	border: 1px solid #aaa;
 	color: #666;
+	-webkit-transition: border-color 0.3s;
 	transition: border-color 0.3s;
 	vertical-align: middle;
 	width: 3.5rem;
 	height: 2rem;
 	margin: 0;
 	padding: 3px;
-	background: none;
-}
-
-.sp-replacer.epo:hover,
-.sp-replacer.epo.sp-active {
-	border: 1px solid #666;
-	color: #000;
+	background: #fff;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 .sp-replacer.epo.sp-disabled {
@@ -545,7 +540,7 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	top: 0;
 	bottom: 0;
 	padding: 3px;
-	line-height: calc(2rem - 5px);
+	line-height: calc(2rem - 5px); /* stylelint-disable-line */
 	background-color: #fff;
 	height: auto;
 	float: none;
@@ -563,6 +558,7 @@ Here are the basic themeable display options (colors, fonts, global widths)
 }
 
 .epo .sp-preview-inner {
+	-webkit-transition: background-color 0.2s;
 	transition: background-color 0.2s;
 }
 

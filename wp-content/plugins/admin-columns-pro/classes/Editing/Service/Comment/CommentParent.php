@@ -2,34 +2,36 @@
 
 namespace ACP\Editing\Service\Comment;
 
-use AC;
-use ACP;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
-use ACP\Helper\Select\Entities;
+use ACP\Helper\Select;
+use ACP\Helper\Select\Comment\PaginatedFactory;
 
-class CommentParent extends Service\BasicStorage implements PaginatedOptions {
+class CommentParent extends Service\BasicStorage implements PaginatedOptions
+{
 
-	public function __construct() {
-		parent::__construct( new Storage\Comment\Field( 'comment_parent' ) );
-	}
+    public function __construct()
+    {
+        parent::__construct(new Storage\Comment\Field('comment_parent'));
+    }
 
-	public function get_view( string $context ): ?View {
-		$view = new View\AjaxSelect( );
-		$view->set_multiple( false );
+    public function get_view(string $context): ?View
+    {
+        $view = new View\AjaxSelect();
+        $view->set_multiple(false);
 
-		return $view;
-	}
+        return $view;
+    }
 
-	public function get_paginated_options( $search, $paged, $id = null ) {
-		$entities = new Entities\Comment( compact( 'search', 'paged' ) );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Formatter\CommentSummary( $entities )
-		);
-	}
+    public function get_paginated_options(string $search, int $page, $id = null): Paginated
+    {
+        return (new PaginatedFactory())->create([
+            'search' => $search,
+            'paged'  => $page,
+        ]);
+    }
 
 }

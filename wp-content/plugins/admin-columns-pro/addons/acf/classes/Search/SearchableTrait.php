@@ -12,7 +12,8 @@ trait SearchableTrait {
 	 */
 	protected $search_factory;
 
-	public function set_search_comparison_factory( SearchComparisonFactory $factory ) {
+	public function set_search_comparison_factory( SearchComparisonFactory $factory ): void
+    {
 		$this->search_factory = $factory;
 	}
 
@@ -25,7 +26,7 @@ trait SearchableTrait {
 			throw new LogicException( sprintf( 'Trait can only be used in a %s class', Column::class ) );
 		}
 
-		return $this->search_factory->create( $this->get_field(), $this->get_meta_key(), $this->get_meta_type() );
+		return $this->search_factory->create( $this->get_field(), $this->get_meta_key(), $this->get_meta_type(), $this );
 	}
 
 }

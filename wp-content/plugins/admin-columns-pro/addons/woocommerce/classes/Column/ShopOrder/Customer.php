@@ -3,15 +3,15 @@
 namespace ACA\WC\Column\ShopOrder;
 
 use AC;
-use ACA\WC\Filtering;
 use ACA\WC\Search;
 use ACA\WC\Settings;
 use ACP;
 use ACP\Editing\View\AjaxSelect;
+use ACP\Sorting\Model\Post\MetaRelatedUserFactory;
 use WP_Roles;
 
 class Customer extends AC\Column\Meta
-    implements ACP\Export\Exportable, ACP\Filtering\Filterable, ACP\Search\Searchable, ACP\Sorting\Sortable,
+    implements ACP\Export\Exportable, ACP\Search\Searchable, ACP\Sorting\Sortable,
                ACP\Editing\Editable, ACP\ConditionalFormat\Formattable
 {
 
@@ -32,7 +32,6 @@ class Customer extends AC\Column\Meta
     public function register_settings()
     {
         $this->add_setting(new Settings\ShopOrder\Customer($this));
-        //$this->add_setting(new Settings\ShopOrder\CustomerLink($this));
     }
 
     public function export()
@@ -46,19 +45,6 @@ class Customer extends AC\Column\Meta
             (new AjaxSelect())->set_clear_button(true),
             new ACP\Editing\Storage\Post\Meta($this->get_meta_key())
         );
-    }
-
-    /**
-     * @return ACP\Filtering\Model
-     */
-    public function filtering()
-    {
-        switch ($this->get_user_property()) {
-            case 'roles':
-                return new Filtering\ShopOrder\CustomerRole($this);
-            default:
-                return new ACP\Filtering\Model\Disabled($this);
-        }
     }
 
     public function search()
@@ -81,27 +67,22 @@ class Customer extends AC\Column\Meta
     {
         $setting = $this->get_setting(AC\Settings\Column\User::NAME);
 
-        return (new ACP\Sorting\Model\Post\MetaRelatedUserFactory())->create(
+        return (new MetaRelatedUserFactory())->create(
             $setting->get_value(),
             $this->get_meta_key()
         );
     }
 
-    /**
-     * @return string
-     */
-    public function get_user_property()
+    public function get_user_property(): string
     {
         $setting = $this->get_setting('user');
 
-        if ( ! $setting instanceof Settings\ShopOrder\Customer) {
-            return false;
-        }
-
-        return $setting->get_display_author_as();
+        return $setting instanceof Settings\ShopOrder\Customer
+            ? $setting->get_display_author_as()
+            : '';
     }
 
-    private function get_roles()
+    private function get_roles(): array
     {
         $options = [];
         $roles = new WP_Roles();
@@ -113,7 +94,7 @@ class Customer extends AC\Column\Meta
         return $options;
     }
 
-    public function get_related_meta_key()
+    public function get_related_meta_key(): ?string
     {
         if ('custom_field' === $this->get_user_property()) {
             /** @var ACP\Settings\Column\UserCustomField $setting */
@@ -122,7 +103,7 @@ class Customer extends AC\Column\Meta
             return $setting->get_field();
         }
 
-        return false;
+        return null;
     }
 
 }

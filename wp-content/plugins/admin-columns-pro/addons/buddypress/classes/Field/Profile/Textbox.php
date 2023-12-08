@@ -6,14 +6,12 @@ use ACA\BP\Field\Profile;
 use ACA\BP\Filtering;
 use ACA\BP\Search;
 
-class Textbox extends Profile {
+class Textbox extends Profile
+{
 
-	public function filtering() {
-		return new Filtering\Profile( $this->column );
-	}
-
-	public function search() {
-		return new Search\Profile\Text( $this->column->get_buddypress_field_id() );
-	}
+    public function search()
+    {
+        return new Search\Profile\Text($this->column->get_buddypress_field_id());
+    }
 
 }

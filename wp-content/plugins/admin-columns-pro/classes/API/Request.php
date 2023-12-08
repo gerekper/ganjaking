@@ -2,95 +2,39 @@
 
 namespace ACP\API;
 
-class Request {
+class Request
+{
 
-	/**
-	 * @var array
-	 */
-	protected $args;
+    protected $args = [];
 
-	/**
-	 * @var string
-	 */
-	protected $format;
+    public function __construct(array $body)
+    {
+        $this->set_body($body)
+             ->set_timeout(15);
+    }
 
-	/**
-	 * @param array $body
-	 */
-	public function __construct( array $body = [] ) {
-		$this->set_body( $body )
-		     ->set_format( 'json' )
-		     ->set_arg( 'timeout', 15 );
-	}
+    public function get_body(): array
+    {
+        return $this->args['body'];
+    }
 
-	/**
-	 * @return array
-	 */
-	public function get_body() {
-		return $this->args['body'];
-	}
+    public function set_body(array $value): self
+    {
+        $this->args['body'] = $value;
 
-	/**
-	 * @param array $value
-	 *
-	 * @return $this
-	 */
-	public function set_body( array $value ) {
-		$this->args['body'] = $value;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function set_timeout(int $value): self
+    {
+        $this->args['timeout'] = $value;
 
-	/**
-	 * @return string
-	 */
-	public function get_format() {
-		return $this->format;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $format
-	 *
-	 * @return $this
-	 */
-	public function set_format( $format ) {
-		$this->format = $format;
-
-		return $this;
-	}
-
-	public function get_args() {
-		return $this->args;
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return $this
-	 */
-	public function set_args( array $args ) {
-		$this->args = $args;
-
-		return $this;
-	}
-
-	/**
-	 * @param string $key
-	 * @param mixed  $value
-	 *
-	 * @return $this
-	 */
-	public function set_arg( $key, $value ) {
-		switch ( $key ) {
-			case 'body':
-				$this->set_body( $value );
-
-				break;
-			default:
-				$this->args[ $key ] = $value;
-		}
-
-		return $this;
-	}
+    public function get_args(): array
+    {
+        return $this->args;
+    }
 
 }

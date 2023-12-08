@@ -3,7 +3,7 @@
 namespace ACP\Search\Comparison\Post;
 
 use AC;
-use AC\MetaType;
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
@@ -15,7 +15,7 @@ class PageTemplate extends Comparison\Meta
 	 */
 	private $templates;
 
-	public function __construct( $templates ) {
+	public function __construct( array $templates ) {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::IS_EMPTY,
@@ -24,11 +24,11 @@ class PageTemplate extends Comparison\Meta
 
 		$this->templates = $templates;
 
-		parent::__construct( $operators, '_wp_page_template', MetaType::POST );
+		parent::__construct( $operators, '_wp_page_template' );
 	}
 
-	public function get_values() {
-		return AC\Helper\Select\Options::create_from_array( array_flip( (array) $this->templates ) );
+	public function get_values(): Options {
+		return AC\Helper\Select\Options::create_from_array( array_flip( $this->templates ) );
 	}
 
 }

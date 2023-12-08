@@ -3,7 +3,7 @@
  * Extra Product Options WPML class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options WPML class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_WPML_Base {
 
@@ -34,7 +34,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * The $sitepress object from WPML
 	 *
-	 * @var object|boolean
+	 * @var mixed
 	 */
 	private $sitepress = false;
 
@@ -105,7 +105,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Cache for is_original_product function
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	public $is_original_cache = [];
 
@@ -119,6 +119,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_WPML_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -146,7 +147,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Check is WPML is active
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
 	public function is_active() {
 		return $this->is_wpml;
@@ -155,13 +156,12 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Check is WPML Multi Currency is active
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
 	public function is_multi_currency() {
 		global $woocommerce_wpml;
-		$this_is_wpml                = $this->is_active();
-		$is_wpml_multi_currency_old  = $this_is_wpml && $woocommerce_wpml && property_exists( $woocommerce_wpml, 'multi_currency' ) && $woocommerce_wpml->multi_currency;
-		$is_wpml_multi_currency      = $this_is_wpml && $woocommerce_wpml && property_exists( $woocommerce_wpml, 'settings' ) && WCML_MULTI_CURRENCIES_INDEPENDENT === $woocommerce_wpml->settings['enable_multi_currency'];
+		$is_wpml_multi_currency_old  = $woocommerce_wpml && property_exists( $woocommerce_wpml, 'multi_currency' ) && $woocommerce_wpml->multi_currency;
+		$is_wpml_multi_currency      = $woocommerce_wpml && property_exists( $woocommerce_wpml, 'settings' ) && defined( 'WCML_MULTI_CURRENCIES_INDEPENDENT' ) && WCML_MULTI_CURRENCIES_INDEPENDENT === $woocommerce_wpml->settings['enable_multi_currency'];
 		$this_is_wpml_multi_currency = $is_wpml_multi_currency_old || $is_wpml_multi_currency;
 
 		return $this_is_wpml_multi_currency;
@@ -169,6 +169,8 @@ class THEMECOMPLETE_EPO_WPML_Base {
 
 	/**
 	 * Returns WPML instance
+	 *
+	 * @return mixed
 	 */
 	public function sitepress_instance() {
 		return $this->sitepress;
@@ -178,11 +180,11 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * Gets a flag image tag
 	 *
 	 * @param string  $lang The language code.
-	 * @param integer $echo If to return or print the result.
+	 * @param integer $output If to return or print the result.
 	 *
 	 * @return mixed
 	 */
-	public function get_flag( $lang = 'all', $echo = 0 ) {
+	public function get_flag( $lang = 'all', $output = 0 ) {
 		ob_start();
 
 		if ( $this->is_wpml ) {
@@ -190,26 +192,26 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			echo '<img src="' . esc_url( $url ) . '"/>';
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
-
 	}
 
 	/**
 	 * Returns the url of a flag image
 	 *
 	 * @param string $lang The language code.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function get_flag_url( $lang = 'all' ) {
 		$url = '';
-		if ( $this->is_wpml ) {
+		if ( $this->is_wpml && defined( 'ICL_PLUGIN_URL' ) ) {
 			if ( empty( $lang ) ) {
 				$url = $this->sitepress->get_flag_url( $this->get_default_lang() );
-			} elseif ( empty( $lang ) || 'all' === $lang ) {
+			} elseif ( 'all' === $lang ) {
 				$url = ICL_PLUGIN_URL . '/res/img/icon.png';
 			} else {
 				$url = $this->sitepress->get_flag_url( $lang );
@@ -225,9 +227,10 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Get original post id
 	 *
-	 * @param integer      $id The product id.
+	 * @param mixed        $id The product id.
 	 * @param string       $post_type The post type.
 	 * @param string|false $basetype The post type to check against for the given $id.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_original_id( $id = 0, $post_type = 'product', $basetype = false ) {
@@ -238,11 +241,11 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$basetype = THEMECOMPLETE_ECO_GLOBAL_POST_TYPE;
 			}
 		}
-		if ( $this->is_wpml ) {
+		if ( $this->is_wpml && function_exists( 'icl_object_id' ) ) {
 			$check_post = get_post( $id );
 			if ( $check_post && property_exists( $check_post, 'ID' ) && property_exists( $check_post, 'post_type' ) ) {
 				if ( ( 'auto-draft' === $check_post->post_status && 'AUTO-DRAFT' === $check_post->post_title ) || ! ( 'product' === $check_post->post_type || $check_post->post_type === $basetype ) ) {
-					return (float) $id;
+					return $id;
 				}
 			}
 			if ( 'product' === $post_type ) {
@@ -271,28 +274,27 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				}
 				foreach ( $translations as $key => $value ) {
 					if ( null === $value->source_language_code ) {
-						return (float) $value->element_id;
+						return absint( $value->element_id );
 					}
 				}
 
-				return (float) icl_object_id( $id, 'any', true, $this->get_default_lang() );
+				return absint( icl_object_id( $id, 'any', true, $this->get_default_lang() ) );
 			} elseif ( $post_type === $basetype ) {
 				if ( ! empty( $_GET['tmparentpostid'] ) && ! empty( $_GET['tmaddlang'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					&& ( isset( $_REQUEST['action'] ) && 'add' === $_REQUEST['action'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				) {
-					return (float) $_GET['tmparentpostid']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					return absint( $_GET['tmparentpostid'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				} else {
 					$tm_meta_parent_post_id = themecomplete_get_post_meta( $id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true );
 					if ( $tm_meta_parent_post_id && (float) $tm_meta_parent_post_id !== (float) $id ) {
-						return $tm_meta_parent_post_id;
+						return absint( $tm_meta_parent_post_id );
 					}
 
-					return (float) $id;
+					return $id;
 				}
 			}
-		} else {
-			return (float) $id;
 		}
+		return $id;
 	}
 
 	/**
@@ -302,6 +304,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * @param string       $post_type The post type.
 	 * @param string       $lang The language code.
 	 * @param string|false $basetype The post type to check against for the given $id.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_current_id( $id = 0, $post_type = 'product', $lang = null, $basetype = false ) {
@@ -311,7 +314,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$basetype = THEMECOMPLETE_ECO_GLOBAL_POST_TYPE;
 			}
 		}
-		if ( $this->is_wpml ) {
+		if ( $this->is_wpml && function_exists( 'icl_object_id' ) ) {
 			if ( null === $lang ) {
 				$lang = $this->get_lang();
 			}
@@ -347,24 +350,22 @@ class THEMECOMPLETE_EPO_WPML_Base {
 					$translations = $this->sitepress->get_element_translations( $trid, 'post_' . $post_type );
 				}
 				if ( isset( $translations[ $lang ] ) ) {
-					return $translations[ $lang ]->element_id;
+					return absint( $translations[ $lang ]->element_id );
 				}
 
-				return icl_object_id( $id, 'any', false, $lang );
-			} else {
-				return $id;
+				return absint( icl_object_id( $id, 'any', false, $lang ) );
 			}
-		} else {
-			return $id;
 		}
+		return $id;
 	}
 
 	/**
 	 * Check if original product
 	 *
-	 * @param integer      $product_id The product id.
+	 * @param mixed        $product_id The product id.
 	 * @param string       $post_type The post type.
 	 * @param string|false $basetype The post type to check against for the given $id.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function is_original_product( $product_id, $post_type = 'product', $basetype = false ) {
@@ -418,6 +419,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Remove sql filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function remove_sql_filter() {
@@ -430,6 +432,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Restore sql filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function restore_sql_filter() {
@@ -443,6 +446,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Removes WPML term filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function remove_term_filters() {
@@ -467,6 +471,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Restores WPML term filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function restore_term_filters() {
@@ -492,23 +497,24 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * Applies the 'wp_terms_checklist_args' filter
 	 *
 	 * @param integer $post_id The post id.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function apply_wp_terms_checklist_args_filter( $post_id ) {
 		if ( $this->is_wpml ) {
 			$this->tmparentpostid_for_filter = $post_id;
-			add_filter( 'wp_terms_checklist_args', [ $this, 'wp_terms_checklist_args_filter' ], 10, 2 );
+			add_filter( 'wp_terms_checklist_args', [ $this, 'wp_terms_checklist_args_filter' ], 10, 1 );
 		}
 	}
 
 	/**
 	 * Wp_terms_checklist_args filter
 	 *
-	 * @param array   $args Array of arguments.
-	 * @param integer $post_id The post id.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function wp_terms_checklist_args_filter( $args, $post_id ) {
+	public function wp_terms_checklist_args_filter( $args ) {
 		if ( $this->is_wpml ) {
 			$args['selected_cats'] = wp_get_object_terms( $this->tmparentpostid_for_filter, 'product_cat', array_merge( $args, [ 'fields' => 'ids' ] ) );
 			foreach ( $args['selected_cats'] as $key => $term ) {
@@ -522,6 +528,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Applies the 'request' filter
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function apply_query_filter() {
@@ -529,7 +536,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			add_filter( 'request', [ $this, 'request_filter' ] );
 			global $wpml_query_filter;
 			if ( has_filter( 'posts_where', [ $wpml_query_filter, 'posts_where_filter' ] ) ) {
-				remove_filter( 'posts_where', [ $wpml_query_filter, 'posts_where_filter' ], 10, 2 );
+				remove_filter( 'posts_where', [ $wpml_query_filter, 'posts_where_filter' ], 10 );
 				$this->removed_posts_filter = 1;
 			}
 		}
@@ -538,6 +545,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Removes the 'request' filter
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function remove_query_filter() {
@@ -553,7 +561,8 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * 'request' filter: adds meta args to query_vars
 	 *
-	 * @param array $query_vars Array of request query variables.
+	 * @param array<mixed> $query_vars Array of request query variables.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function request_filter( $query_vars ) {
@@ -571,8 +580,9 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Order terms
 	 *
-	 * @param array $t1 Current terms.
-	 * @param array $t2 Default terms.
+	 * @param array<mixed> $t1 Current terms.
+	 * @param array<mixed> $t2 Default terms.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function order_terms( $t1, $t2 ) {
@@ -601,8 +611,9 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Merge terms
 	 *
-	 * @param array $t1 Current terms.
-	 * @param array $t2 Default terms.
+	 * @param array<mixed> $t1 Current terms.
+	 * @param array<mixed> $t2 Default terms.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function merge_terms( $t1, $t2 ) {
@@ -630,12 +641,14 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Merge term slugs
 	 *
-	 * @param array $t1 Current terms.
-	 * @param array $t2 Default terms.
+	 * @param array<mixed> $t1 Current terms.
+	 * @param array<mixed> $t2 Default terms.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function merge_terms_slugs( $t1, $t2 ) {
 		$t2_slug = [];
+		$o       = [];
 		if ( ! $this->is_wpml ) {
 			foreach ( $t1 as $key => $value ) {
 				$o[ $value->trid ] = $value;
@@ -647,7 +660,6 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			return $t2_slug;
 		}
 		$d       = [];
-		$o       = [];
 		$t1_slug = [];
 
 		foreach ( $t1 as $key => $value ) {
@@ -675,17 +687,19 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Get taxonomy terms without WPML filters if lang is null (use to get all terms for all languages)
 	 *
-	 * @param string|null $lang The language code.
-	 * @param string      $taxonomy The taxonomy.
-	 * @param array       $args Array of arguments.
-	 * @param integer     $post_id The post id.
+	 * @param string|null  $lang The language code.
+	 * @param string       $taxonomy The taxonomy.
+	 * @param array<mixed> $args Array of arguments.
+	 * @param integer      $post_id The post id.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_terms( $lang = null, $taxonomy = '', $args = [], $post_id = 0 ) {
+		$term_args = array_merge( $args, [ 'taxonomy' => $taxonomy ] );
 		if ( ! $this->is_wpml ) {
 			if ( ! empty( $post_id ) ) {
 				$terms     = [];
-				$all_terms = get_terms( $taxonomy, $args );
+				$all_terms = get_terms( $term_args );
 				foreach ( $all_terms as $term ) {
 					if ( has_term( absint( $term->term_id ), $taxonomy, $post_id ) ) {
 						$terms[] = $term;
@@ -694,13 +708,14 @@ class THEMECOMPLETE_EPO_WPML_Base {
 
 				return $terms;
 			} else {
-				return get_terms( $taxonomy, $args );
+				return get_terms( $term_args );
 			}
 		}
+		$terms = [];
 		if ( null === $lang ) {
 			$this->remove_term_filters();
 
-			$all_terms = get_terms( $taxonomy, $args );
+			$all_terms = get_terms( $term_args );
 			if ( ! empty( $post_id ) ) {
 				$terms = [];
 				foreach ( $all_terms as $term ) {
@@ -712,7 +727,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$terms = $all_terms;
 			}
 			$this->restore_term_filters();
-		} else {
+		} elseif ( class_exists( 'WPML_Taxonomy_Translation_Screen_Data' ) ) {
 			$terms      = [];
 			$terms_data = new WPML_Taxonomy_Translation_Screen_Data( $this->sitepress, $taxonomy );
 			$terms_data = $terms_data->terms();
@@ -740,6 +755,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * Sets WPML active language
 	 *
 	 * @param string $lang The language code.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function set_lang( $lang = '' ) {
@@ -751,6 +767,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Gets WPML current displayed language
 	 *
+	 * @return string
 	 * @since 1.0
 	 */
 	public function get_lang() {
@@ -764,6 +781,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Gets WPML default language
 	 *
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_default_lang() {
@@ -778,6 +796,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	/**
 	 * Returns all WPML languages
 	 *
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_active_languages() {
@@ -792,6 +811,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * Sets WPML current language depending on displayed global epo
 	 *
 	 * @param string|false $basetype The post type for our language meta box.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function set_post_lang( $basetype = false ) {
@@ -970,13 +990,13 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 *
 	 * @param integer      $post_id The current post id.
 	 * @param string       $lang The language code.
-	 * @param array        $v Language data array from WPML.
+	 * @param array<mixed> $v Language data array from WPML.
 	 * @param string|false $basetypehook The post type hook for our language meta box.
-	 * @param integer      $echo If the result should be returned or printed.
+	 * @param integer      $output If the result should be returned or printed.
+	 * @return string|void
 	 * @since 1.0
 	 */
-	public function add_lang_link( $post_id, $lang, $v, $basetypehook = false, $echo = 0 ) {
-
+	public function add_lang_link( $post_id, $lang, $v, $basetypehook = false, $output = 0 ) {
 		ob_start();
 		if ( false === $basetypehook ) {
 			$basetypehook = THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK;
@@ -999,7 +1019,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			echo '<a title="' . esc_attr( $alt ) . '" alt="' . esc_attr( wp_strip_all_tags( $alt ) ) . '" class="tmwpmllink" href="' . esc_url( $post_new_file ) . '"><i class="tcfa tcfa-plus"></i></a>';
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
@@ -1013,15 +1033,15 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 *
 	 * @param integer      $post_id The current post id.
 	 * @param string       $lang The language code.
-	 * @param array        $v Language data array from WPML.
+	 * @param array<mixed> $v Language data array from WPML.
 	 * @param integer      $main_post_id The main post id..
 	 * @param boolean      $noadd Add the url link arguments or not.
 	 * @param string|false $basetypehook The post type hook for our language meta box.
-	 * @param integer      $echo If the result should be returned or printed.
+	 * @param integer      $output If the result should be returned or printed.
+	 * @return string|void
 	 * @since 1.0
 	 */
-	public function edit_lang_link( $post_id, $lang, $v, $main_post_id, $noadd = false, $basetypehook = false, $echo = 0 ) {
-
+	public function edit_lang_link( $post_id, $lang, $v, $main_post_id, $noadd = false, $basetypehook = false, $output = 0 ) {
 		ob_start();
 
 		if ( false === $basetypehook ) {
@@ -1050,12 +1070,11 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			echo '<a title="' . esc_attr( $alt ) . '" alt="' . esc_attr( wp_strip_all_tags( $alt ) ) . '" class="tmwpmllink" href="' . esc_url( $post_new_file ) . '"><i class="tcfa tcfa-edit"></i></a>';
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
-
 	}
 
 	/**
@@ -1063,6 +1082,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 *
 	 * @param string|false $basetype The post type for our language meta box.
 	 * @param string|false $basetypehook The post type hook for our language meta box.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_meta_box( $basetype = false, $basetypehook = false ) {
@@ -1083,6 +1103,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * Displayes WPML meta box
 	 *
 	 * @param object $post The post object.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function meta_box( $post ) {
@@ -1112,31 +1133,25 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$is_original = true;
 			}
 
-			if ( ! empty( $_GET['tmparentpostid'] ) && ! empty( $_GET['tmaddlang'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				&& ( isset( $_REQUEST['action'] ) && 'add' === $_REQUEST['action'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			) {
-
-				$tmparentpostid       = (int) $_GET['tmparentpostid']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$tmaddlang            = sanitize_text_field( wp_unslash( $_GET['tmaddlang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$is_added_translation = true;
-				$is_original_lang     = themecomplete_get_post_meta( $tmparentpostid, THEMECOMPLETE_EPO_WPML_LANG_META, true );
-				if ( empty( $is_original_lang ) ) {
-					$is_original_lang = $this->get_default_lang();
-				}
-				if ( $is_original_lang !== $tmaddlang ) {
-					$is_original = false;
-				}
-				$is_add = true;
-
-			} else {
-				if ( ( isset( $_REQUEST['action'] ) && 'add' === $_REQUEST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					if ( empty( $_GET['tmparentpostid'] ) || empty( $_GET['tmaddlang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-						$is_original      = true;
-						$is_original_lang = $this->get_lang();
-						$tm_meta_lang     = $is_original_lang;
-						$tmaddlang        = $is_original_lang;
-						$is_new           = true;
+			if ( ( isset( $_REQUEST['action'] ) && 'add' === $_REQUEST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( ! empty( $_GET['tmparentpostid'] ) && ! empty( $_GET['tmaddlang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$tmparentpostid       = (int) $_GET['tmparentpostid']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$tmaddlang            = sanitize_text_field( wp_unslash( $_GET['tmaddlang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$is_added_translation = true;
+					$is_original_lang     = themecomplete_get_post_meta( $tmparentpostid, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+					if ( empty( $is_original_lang ) ) {
+						$is_original_lang = $this->get_default_lang();
 					}
+					if ( $is_original_lang !== $tmaddlang ) {
+						$is_original = false;
+					}
+					$is_add = true;
+				} elseif ( empty( $_GET['tmparentpostid'] ) || empty( $_GET['tmaddlang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$is_original      = true;
+					$is_original_lang = $this->get_lang();
+					$tm_meta_lang     = $is_original_lang;
+					$tmaddlang        = $is_original_lang;
+					$is_new           = true;
 				}
 			}
 
@@ -1302,6 +1317,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 *
 	 * @param integer $current_product_id The product id.
 	 * @param boolean $override If the check should be overriden.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_wpml_translation_by_id( $current_product_id = 0, $override = false ) {
@@ -1336,6 +1352,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 *
 	 * @param float  $price The price to convert.
 	 * @param string $currency The currency to convert the price to.
+	 * @return float
 	 */
 	public function get_price_in_currency( $price = 0, $currency = '' ) {
 		global $woocommerce_wpml;
@@ -1346,6 +1363,6 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$price = $woocommerce_wpml->multi_currency->prices->convert_price_amount( $price, $currency );
 			}
 		}
-		return $price;
+		return (float) $price;
 	}
 }

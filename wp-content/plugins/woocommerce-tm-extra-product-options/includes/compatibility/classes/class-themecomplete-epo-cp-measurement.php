@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://woocommerce.com/products/measurement-price-calculator/
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Measurement {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Measurement
 	 * @since 1.0
 	 * @static
 	 */
@@ -57,10 +58,10 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
-
 		if ( ! class_exists( 'WC_Measurement_Price_Calculator' ) ) {
 			return;
 		}
@@ -70,35 +71,34 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 		add_filter( 'wc_epo_add_cart_item_original_price', [ $this, 'wc_epo_add_cart_item_original_price' ], 10, 2 );
 		add_filter( 'wc_epo_option_price_correction', [ $this, 'wc_epo_option_price_correction' ], 10, 2 );
 		add_filter( 'wc_epo_price_on_cart', [ $this, 'wc_epo_price_on_cart' ], 10, 2 );
-
 	}
 
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 4.9.12
 	 */
 	public function add_compatibility2() {
-
 		if ( class_exists( 'WC_Measurement_Price_Calculator' ) || class_exists( 'WC_Measurement_Price_Calculator_Loader' ) ) {
 			add_filter( 'wc_epo_get_settings', [ $this, 'wc_epo_get_settings' ], 10, 1 );
 			add_filter( 'tm_epo_settings_headers', [ $this, 'tm_epo_settings_headers' ], 10, 1 );
 			add_filter( 'tm_epo_settings_settings', [ $this, 'tm_epo_settings_settings' ], 10, 1 );
 		}
-
 	}
 
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wp_enqueue_scripts() {
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-measurement', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-measurement.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			$args = [
-				'wc_measurement_qty_multiplier' => isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && ( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode === 'yes' ) ? 1 : 0,
-				'wc_measurement_divide'         => isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && ( THEMECOMPLETE_EPO()->tm_epo_measurement_divide === 'yes' ) ? 1 : 0,
+				'wc_measurement_qty_multiplier' => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) ? 1 : 0,
+				'wc_measurement_divide'         => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) ? 1 : 0,
 			];
 			wp_localize_script( 'themecomplete-comp-measurement', 'TMEPOMEASUREMENTJS', $args );
 		}
@@ -107,6 +107,7 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Disable EPO price filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function template_redirect() {
@@ -117,7 +118,8 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Add plugin setting (header)
 	 *
-	 * @param array $headers Array of settings.
+	 * @param array<mixed> $headers Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_headers( $headers = [] ) {
@@ -129,7 +131,8 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Add plugin setting (setting)
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_settings( $settings = [] ) {
@@ -169,32 +172,32 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	/**
 	 * Add setting in main THEMECOMPLETE_EPO class
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_get_settings( $settings = [] ) {
-
 		if ( class_exists( 'WC_Measurement_Price_Calculator' ) ) {
 			$settings['tm_epo_measurement_calculate_mode'] = 'no';
 			$settings['tm_epo_measurement_divide']         = 'no';
 		}
 
 		return $settings;
-
 	}
 
 	/**
 	 * Alter price on cart
 	 *
 	 * @param float|string $price The price to alter.
-	 * @param array        $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return float|string
 	 * @since 1.0
 	 */
 	public function wc_epo_price_on_cart( $price = '', $cart_item = [] ) {
-		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) {
+		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) {
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_quantity'] ) ) {
-				$new_quantity   = $cart_item['quantity'] / $cart_item['pricing_item_meta_data']['_quantity'];
-				$original_price = $price;
+				$new_quantity   = (float) $cart_item['quantity'] / $cart_item['pricing_item_meta_data']['_quantity'];
+				$original_price = (float) $price;
 				$original_price = $original_price * $new_quantity;
 
 				$price = $original_price;
@@ -202,23 +205,23 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Alter option prices
 	 *
 	 * @param float|string $price The price to alter.
-	 * @param array        $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return float|string
 	 * @since 1.0
 	 */
 	public function wc_epo_option_price_correction( $price = '', $cart_item = [] ) {
 
-		if ( isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && THEMECOMPLETE_EPO()->tm_epo_measurement_divide === 'yes' ) {
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) {
 			$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 		}
 
-		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode === 'yes' ) {
+		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) {
 
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
 				$price = floatval( $price ) * floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
@@ -232,19 +235,19 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	 * Set original price
 	 *
 	 * @param float|string $price The price to alter.
-	 * @param array        $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return float|string
 	 * @since 1.0
 	 */
 	public function wc_epo_add_cart_item_original_price( $price = '', $cart_item = [] ) {
 
 		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) ) {
 			$price = floatval( $cart_item['pricing_item_meta_data']['_price'] );
-			if ( ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && THEMECOMPLETE_EPO()->tm_epo_measurement_divide === 'yes' ) {
+			if ( ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) {
 				$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 			}
 		}
 
 		return $price;
 	}
-
 }

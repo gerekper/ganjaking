@@ -20,14 +20,15 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
 
 		$saved_value = '';
-		if ( isset( $element ) && ( ! empty( THEMECOMPLETE_EPO_CART()->last_added_cart_key ) || ( THEMECOMPLETE_EPO()->is_edit_mode() && THEMECOMPLETE_EPO()->cart_edit_key ) ) ) {
+		if ( ! empty( THEMECOMPLETE_EPO_CART()->last_added_cart_key ) || ( THEMECOMPLETE_EPO()->is_edit_mode() && THEMECOMPLETE_EPO()->cart_edit_key ) ) {
 			$cart_item_key = THEMECOMPLETE_EPO()->is_edit_mode() ? THEMECOMPLETE_EPO()->cart_edit_key : THEMECOMPLETE_EPO_CART()->last_added_cart_key;
 			$cart_item     = WC()->cart->get_cart_item( $cart_item_key );
 
@@ -75,6 +76,10 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 		/* translators: %s file size */
 		$max_file_size_text = sprintf( esc_html__( '(max file size %s)', 'woocommerce-tm-extra-product-options' ), size_format( wp_max_upload_size() ) );
 
+		$class_label = '';
+		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+			$class_label = ' fullwidth';
+		}
 		$display = [
 			'max_size'           => size_format( wp_max_upload_size() ),
 			'style'              => $style,
@@ -86,6 +91,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			'upload_text'        => $upload_text,
 			'max_file_size_text' => $max_file_size_text,
 			'allowed_mimes'      => implode( ', ', THEMECOMPLETE_EPO()->get_allowed_mimes() ),
+			'class_label'        => $class_label,
 		];
 
 		return apply_filters( 'wc_epo_display_field_upload', $display, $this, $element, $args );
@@ -94,13 +100,14 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
 
 		$passed  = true;
 		$message = [];
-		$files   = $_FILES;
+		$files   = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
 
 		foreach ( $this->field_names as $attribute ) {
 			if ( isset( $files[ $attribute ] ) ) {
@@ -147,10 +154,11 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Add field data to cart (single type fields)
 	 *
+	 * @return false|array<mixed>
 	 * @since 1.0
 	 */
 	public function add_cart_item_data_single() {
-		$files  = $_FILES;
+		$files  = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
 		$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, 1, $this->key_id, $this->keyvalue_id, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
 		if ( empty( $this->key ) ) {
 			$_price = 0;
@@ -196,28 +204,39 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
 		}
 
+		if ( ! isset( $value ) ) {
+			$value = '';
+		}
+
 		if ( $can_be_added ) {
 			return apply_filters(
 				'wc_epo_add_cart_item_data_single',
 				[
-					'mode'                => 'builder',
-					'cssclass'            => $this->element['class'],
-					'hidelabelincart'     => $this->element['hide_element_label_in_cart'],
-					'hidevalueincart'     => $this->element['hide_element_value_in_cart'],
-					'hidelabelinorder'    => $this->element['hide_element_label_in_order'],
-					'hidevalueinorder'    => $this->element['hide_element_value_in_order'],
-					'element'             => $this->order_saved_element,
-					'name'                => $this->element['label'],
-					'value'               => $value,
-					'display'             => THEMECOMPLETE_EPO_ORDER()->display_meta_value( $value, 1 ),
-					'price'               => $_price,
-					'section'             => $this->element['uniqid'],
-					'section_label'       => $this->element['label'],
-					'percentcurrenttotal' => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
-					'fixedcurrenttotal'   => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
-					'currencies'          => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
-					'price_per_currency'  => $this->fill_currencies( 1 ),
-					'quantity'            => 1,
+					'mode'                             => 'builder',
+					'cssclass'                         => $this->element['class'],
+					'hidelabelincart'                  => $this->element['hide_element_label_in_cart'],
+					'hidevalueincart'                  => $this->element['hide_element_value_in_cart'],
+					'hidelabelinorder'                 => $this->element['hide_element_label_in_order'],
+					'hidevalueinorder'                 => $this->element['hide_element_value_in_order'],
+					'shippingmethodsenable'            => $this->element['shipping_methods_enable'],
+					'shippingmethodsenablelogicrules'  => $this->element['shipping_methods_enable_logicrules'],
+					'shippingmethodsdisable'           => $this->element['shipping_methods_disable'],
+					'shippingmethodsdisablelogicrules' => $this->element['shipping_methods_disable_logicrules'],
+					'element'                          => $this->order_saved_element,
+					'name'                             => $this->element['label'],
+					'value'                            => $value,
+					'post_name'                        => $this->attribute,
+					'display'                          => THEMECOMPLETE_EPO_ORDER()->display_meta_value( $value, 1 ),
+					'price'                            => $_price,
+					'section'                          => $this->element['uniqid'],
+					'section_label'                    => $this->element['label'],
+					'percentcurrenttotal'              => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
+					'fixedcurrenttotal'                => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
+					'currencies'                       => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
+					'price_per_currency'               => $this->fill_currencies( 1 ),
+					'quantity'                         => 1,
+					'quantity_selector'                => '',
+					'file'                             => isset( $upload ) && isset( $upload['file'] ) ? $upload : '',
 				],
 				$this
 			);
@@ -229,10 +248,11 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Add field data to cart (fees single)
 	 *
+	 * @return false|array<mixed>
 	 * @since 1.0
 	 */
 	public function add_cart_item_data_cart_fees_single() {
-		$files = $_FILES;
+		$files = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
 		if ( ! empty( $files[ $this->attribute ] ) && ! empty( $files[ $this->attribute ]['name'] ) ) {
 			$upload = THEMECOMPLETE_EPO()->upload_file( $files[ $this->attribute ], $this->key_id, $this->keyvalue_id );
 			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
@@ -246,33 +266,37 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 				}
 
 				return [
-					'mode'                           => 'builder',
-					'cssclass'                       => $this->element['class'],
-					'include_tax_for_fee_price_type' => $this->element['include_tax_for_fee_price_type'],
-					'tax_class_for_fee_price_type'   => $this->element['tax_class_for_fee_price_type'],
-					'hidelabelincart'                => $this->element['hide_element_label_in_cart'],
-					'hidevalueincart'                => $this->element['hide_element_value_in_cart'],
-					'hidelabelinorder'               => $this->element['hide_element_label_in_order'],
-					'hidevalueinorder'               => $this->element['hide_element_value_in_order'],
-					'element'                        => $this->order_saved_element,
-					'name'                           => $this->element['label'],
-					'value'                          => $value,
-					'display'                        => THEMECOMPLETE_EPO_ORDER()->display_meta_value( $value, 0 ),
-					'price'                          => THEMECOMPLETE_EPO_CART()->calculate_fee_price( $_price, $this->product_id, $this->element, $this->attribute ),
-					'section'                        => $this->element['uniqid'],
-					'section_label'                  => $this->element['label'],
-					'percentcurrenttotal'            => 0,
-					'fixedcurrenttotal'              => 0,
-					'currencies'                     => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
-					'price_per_currency'             => $this->fill_currencies( 1 ),
-					'quantity'                       => 1,
+					'mode'                             => 'builder',
+					'cssclass'                         => $this->element['class'],
+					'include_tax_for_fee_price_type'   => $this->element['include_tax_for_fee_price_type'],
+					'tax_class_for_fee_price_type'     => $this->element['tax_class_for_fee_price_type'],
+					'hidelabelincart'                  => $this->element['hide_element_label_in_cart'],
+					'hidevalueincart'                  => $this->element['hide_element_value_in_cart'],
+					'hidelabelinorder'                 => $this->element['hide_element_label_in_order'],
+					'hidevalueinorder'                 => $this->element['hide_element_value_in_order'],
+					'shippingmethodsenable'            => $this->element['shipping_methods_enable'],
+					'shippingmethodsenablelogicrules'  => $this->element['shipping_methods_enable_logicrules'],
+					'shippingmethodsdisable'           => $this->element['shipping_methods_disable'],
+					'shippingmethodsdisablelogicrules' => $this->element['shipping_methods_disable_logicrules'],
+					'element'                          => $this->order_saved_element,
+					'name'                             => $this->element['label'],
+					'value'                            => $value,
+					'post_name'                        => $this->attribute,
+					'display'                          => THEMECOMPLETE_EPO_ORDER()->display_meta_value( $value, 0 ),
+					'price'                            => THEMECOMPLETE_EPO_CART()->calculate_fee_price( $_price, $this->product_id, $this->element ),
+					'section'                          => $this->element['uniqid'],
+					'section_label'                    => $this->element['label'],
+					'percentcurrenttotal'              => 0,
+					'fixedcurrenttotal'                => 0,
+					'currencies'                       => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
+					'price_per_currency'               => $this->fill_currencies( 1 ),
+					'quantity'                         => 1,
 
-					'cart_fees'                      => 'single',
+					'cart_fees'                        => 'single',
 				];
 			}
 		}
 
 		return false;
 	}
-
 }

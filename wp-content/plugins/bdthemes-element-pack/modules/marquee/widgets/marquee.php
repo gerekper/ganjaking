@@ -721,9 +721,10 @@ class Marquee extends Module_Base {
         $link_end = '';
 
         if (!empty($link['url'])) {
-            $this->add_link_attributes('marquee-link', $link);
+            // $this->add_link_attributes('marquee-link', $link, null, true);
+            $this->add_link_attributes('marquee-link', $link, true);
 
-            $link_attributes = 'class="marquee-link"';
+            $link_attributes = 'class="marquee-link marquee-content marquee-image"';
             $link_attributes .= ' ' . $this->get_render_attribute_string('marquee-link');
             $link_start = '<a ' . $link_attributes . '>';
             $link_end = '</a>';
@@ -762,7 +763,7 @@ class Marquee extends Module_Base {
 
                         <?php
                         if (!empty($list['marquee_link']['url'])) {
-                            $this->add_link_attributes('marquee-link', $list['marquee_link']);
+                            $this->add_link_attributes('marquee-link', $list['marquee_link'], true);
                             $link_attributes = 'class="marquee-title"';
                             $link_attributes .= ' ' . $this->get_render_attribute_string('marquee-link');
                             printf('<a %1$s %3$s>%2$s</a>', $link_attributes, $list['marquee_content'], $this->get_render_attribute_string($single_color));

@@ -3,7 +3,6 @@
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
-use ACP\Sorting\AbstractModel;
 
 /**
  * Sort a user list table on the number of times the meta_key is used by an object.
@@ -11,7 +10,7 @@ use ACP\Sorting\AbstractModel;
 class MetaCountFactory
 {
 
-    public function create(string $meta_type, string $meta_key): AbstractModel
+    public function create(string $meta_type, string $meta_key)
     {
         switch ($meta_type) {
             case MetaType::POST :
@@ -23,7 +22,7 @@ class MetaCountFactory
             case MetaType::TERM :
                 return new Taxonomy\MetaCount($meta_key);
             default :
-                return new Disabled();
+                return null;
         }
     }
 

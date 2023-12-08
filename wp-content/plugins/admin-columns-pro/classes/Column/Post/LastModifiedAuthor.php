@@ -6,13 +6,11 @@ use AC;
 use ACP;
 use ACP\ConditionalFormat;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
 class LastModifiedAuthor extends AC\Column\Post\LastModifiedAuthor
-    implements Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable,
-               ConditionalFormat\Formattable
+    implements Sorting\Sortable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable
 {
 
     use ConditionalFormat\ConditionalFormatTrait;
@@ -22,11 +20,6 @@ class LastModifiedAuthor extends AC\Column\Post\LastModifiedAuthor
         return (new Sorting\Model\Post\LastModifiedAuthorFactory())->create($this->get_user_setting_display());
     }
 
-    public function filtering()
-    {
-        return new Filtering\Model\Post\LastModifiedAuthor($this);
-    }
-
     public function export()
     {
         return new Export\Model\Post\LastModifiedAuthor($this);
@@ -34,7 +27,7 @@ class LastModifiedAuthor extends AC\Column\Post\LastModifiedAuthor
 
     public function search()
     {
-        return new Search\Comparison\Post\LastModifiedAuthor();
+        return new Search\Comparison\Post\LastModifiedAuthor($this->get_post_type());
     }
 
     public function register_settings()

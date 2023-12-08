@@ -5,28 +5,31 @@ namespace ACP\QuickAdd\Table\Script;
 use AC\Asset\Location;
 use AC\Asset\Script;
 
-class AddNewInline extends Script {
+class AddNewInline extends Script
+{
 
-	/**
-	 * @var string
-	 */
-	private $label;
+    /**
+     * @var string
+     */
+    private $label;
 
-	public function __construct( string $label, string $handle, Location $location = null, array $dependencies = [] ) {
-		parent::__construct( $handle, $location, $dependencies );
+    public function __construct(string $label, string $handle, Location $location = null, array $dependencies = [])
+    {
+        parent::__construct($handle, $location, $dependencies);
 
-		$this->label = $label;
-	}
+        $this->label = $label;
+    }
 
-	public function register(): void {
-		parent::register();
+    public function register(): void
+    {
+        parent::register();
 
-		wp_localize_script( $this->get_handle(), 'ACP_ADD_NEW_INLINE', [
-				'i18n' => [
-					'add_new' => $this->label,
-				],
-			]
-		);
-	}
+        $this->localize(
+            'acp_quick_add_i18n',
+            new Script\Localize\Translation([
+                'add_new' => $this->label,
+            ])
+        );
+    }
 
 }

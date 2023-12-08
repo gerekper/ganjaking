@@ -1,5 +1,6 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace ACP\Editing\BulkDelete;
 
@@ -8,48 +9,50 @@ use AC\Response;
 use ACP;
 use Exception;
 
-abstract class RequestHandler implements ACP\Editing\RequestHandler {
+abstract class RequestHandler implements ACP\Editing\RequestHandler
+{
 
-	const STATUS_FAILED = 'failed';
-	const STATUS_SUCCESS = 'success';
+    private const STATUS_FAILED = 'failed';
+    private const STATUS_SUCCESS = 'success';
 
-	abstract protected function delete( $id, array $args = [] ): void;
+    abstract protected function delete($id, array $args = []): void;
 
-	public function handle( Request $request ) {
-		$response = new Response\Json();
+    public function handle(Request $request)
+    {
+        $response = new Response\Json();
 
-		$ids = $request->filter( 'ids', false, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
+        $ids = $request->filter('ids', false, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
-		if ( $ids === false ) {
-			$response->error();
-		}
+        if ($ids === false) {
+            $response->error();
+        }
 
-		$args = $request->get( 'arguments', [] );
+        $args = $request->get('arguments', []);
 
-		$results = [];
+        $results = [];
 
-		foreach ( $ids as $id ) {
-			$error = null;
-			$status = self::STATUS_SUCCESS;
+        foreach ($ids as $id) {
+            $error = null;
+            $status = self::STATUS_SUCCESS;
 
-			try {
-				$this->delete( $id, $args );
-			} catch ( Exception $e ) {
-				$error = $e->getMessage();
-				$status = self::STATUS_FAILED;
-			}
+            try {
+                $this->delete($id, $args);
+            } catch (Exception $e) {
+                $error = $e->getMessage();
+                $status = self::STATUS_FAILED;
+            }
 
-			$results[] = [
-				'id'     => $id,
-				'error'  => $error,
-				'status' => $status,
-			];
-		}
+            $results[] = [
+                'id'     => $id,
+                'error'  => $error,
+                'status' => $status,
+            ];
+        }
 
-		$response
-			->set_parameter( 'results', $results )
-			->set_parameter( 'total', count( $results ) )
-			->success();
-	}
+        $response
+            ->set_parameter('results', $results)
+            ->set_parameter('total', count($results))
+            ->success();
+    }
 
 }

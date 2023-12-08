@@ -93,7 +93,7 @@ class WC_Account_Funds_My_Account {
 		if ( false === $index_for_adding ) {
 			$menu_items[ $key_to_add ] = $value_to_add;
 		} else {
-			$index_for_adding++;
+			++$index_for_adding;
 			$menu_items = array_merge(
 				array_slice( $menu_items, 0, intval( $index_for_adding ) ),
 				array( $key_to_add => $value_to_add ),
@@ -306,21 +306,6 @@ class WC_Account_Funds_My_Account {
 
 			wc_account_funds_get_template( 'myaccount/account-funds/deposit-item-data.php', $vars );
 		}
-	}
-
-	/**
-	 * Adds endpoint breadcrumb when viewing account funds.
-	 *
-	 * @since 2.0.12
-	 * @deprecated 2.2.0
-	 *
-	 * @param array $crumbs Already assembled breadcrumb data.
-	 * @return array $crumbs if we're on a account funds page, then augmented breadcrumb data
-	 */
-	public function add_breadcrumb( $crumbs ) {
-		wc_deprecated_function( __FUNCTION__, '2.2' );
-
-		return $crumbs;
 	}
 }
 

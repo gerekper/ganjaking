@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_range extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -54,6 +55,7 @@ class THEMECOMPLETE_EPO_FIELDS_range extends THEMECOMPLETE_EPO_FIELDS {
 	 * Field validation
 	 *
 	 * @since 1.0
+	 * @return array<mixed>
 	 */
 	public function validate() {
 
@@ -91,6 +93,7 @@ class THEMECOMPLETE_EPO_FIELDS_range extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Add field data to cart (single type fields)
 	 *
+	 * @return false|array<mixed>
 	 * @since 1.0
 	 */
 	public function add_cart_item_data_single() {
@@ -110,26 +113,29 @@ class THEMECOMPLETE_EPO_FIELDS_range extends THEMECOMPLETE_EPO_FIELDS {
 			return apply_filters(
 				'wc_epo_add_cart_item_data_single',
 				[
-					'mode'                => 'builder',
-
-					'cssclass'            => $this->element['class'],
-					'hidelabelincart'     => $this->element['hide_element_label_in_cart'],
-					'hidevalueincart'     => $this->element['hide_element_value_in_cart'],
-					'hidelabelinorder'    => $this->element['hide_element_label_in_order'],
-					'hidevalueinorder'    => $this->element['hide_element_value_in_order'],
-
-					'element'             => $this->order_saved_element,
-
-					'name'                => $this->element['label'],
-					'value'               => $this->key,
-					'price'               => $_price,
-					'section'             => $this->element['uniqid'],
-					'section_label'       => $this->element['label'],
-					'currencies'          => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
-					'price_per_currency'  => $this->fill_currencies( $attribute_quantity ),
-					'percentcurrenttotal' => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
-					'fixedcurrenttotal'   => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
-					'quantity'            => $attribute_quantity,
+					'mode'                             => 'builder',
+					'cssclass'                         => $this->element['class'],
+					'hidelabelincart'                  => $this->element['hide_element_label_in_cart'],
+					'hidevalueincart'                  => $this->element['hide_element_value_in_cart'],
+					'hidelabelinorder'                 => $this->element['hide_element_label_in_order'],
+					'hidevalueinorder'                 => $this->element['hide_element_value_in_order'],
+					'shippingmethodsenable'            => $this->element['shipping_methods_enable'],
+					'shippingmethodsenablelogicrules'  => $this->element['shipping_methods_enable_logicrules'],
+					'shippingmethodsdisable'           => $this->element['shipping_methods_disable'],
+					'shippingmethodsdisablelogicrules' => $this->element['shipping_methods_disable_logicrules'],
+					'element'                          => $this->order_saved_element,
+					'name'                             => $this->element['label'],
+					'value'                            => $this->key,
+					'post_name'                        => $this->attribute,
+					'price'                            => $_price,
+					'section'                          => $this->element['uniqid'],
+					'section_label'                    => $this->element['label'],
+					'currencies'                       => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
+					'price_per_currency'               => $this->fill_currencies( $attribute_quantity ),
+					'percentcurrenttotal'              => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
+					'fixedcurrenttotal'                => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
+					'quantity'                         => $attribute_quantity,
+					'quantity_selector'                => isset( $this->element['quantity'] ) ? $this->element['quantity'] : '',
 				],
 				$this
 			);

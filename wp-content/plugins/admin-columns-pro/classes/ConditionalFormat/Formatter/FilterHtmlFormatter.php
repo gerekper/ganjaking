@@ -23,7 +23,7 @@ final class FilterHtmlFormatter implements Formatter
         return $this->formatter->get_type();
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         $value = trim(strip_tags($value));
 

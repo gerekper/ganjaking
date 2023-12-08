@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * with various quick view plugins
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Quickview {
 
@@ -30,13 +30,14 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 	/**
 	 * WooCommerce Quick View Pro REST route flag
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $routes = [];
 
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Quickview
 	 * @since 1.0
 	 * @static
 	 */
@@ -54,14 +55,13 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		add_action( 'wc_epo_add_compatibility', [ $this, 'add_compatibility' ] );
-
 	}
 
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -75,23 +75,22 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public function wp_enqueue_scripts() {
-
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-quickview', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-quickview.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 		}
-
 	}
 
 	/**
 	 * Get html containers
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_get_quickview_containers() {
-
 		$quickview_array = $this->get_epo_quickview_array();
 		$qv              = [];
 
@@ -100,16 +99,15 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 		}
 
 		return $qv;
-
 	}
 
 	/**
 	 * Get supported quickviews
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_epo_quickview_array() {
-
 		$quickview_array = [
 			// WooCommerce Quick View (https://woocommerce.com/products/woocommerce-quick-view/).
 			'woothemes_quick_view'        => [
@@ -243,7 +241,7 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 				'is'        => ( isset( $this->routes['wc-quick-view-pro'] ) && ( true === $this->routes['wc-quick-view-pro'] ) ),
 			],
 
-			// WooFood (https://www.wpslash.com/plugin/woofood/).
+			// WooFood plugin (https://www.wpslash.com/plugin/woofood/).
 			'woofood'                     => [
 				'container' => '.wf_product_view',
 				'is'        => ( isset( $_POST['action'] ) && ( 'woofood_quickview_ajax' === $_POST['action'] ) ),
@@ -309,20 +307,25 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 				'is'        => ( isset( $_REQUEST['action'] ) && ( 'blocsky_get_woo_quick_view' === $_REQUEST['action'] ) ),
 			],
 
+			// Quick View for Goya theme (https://themeforest.net/item/goya-modern-woocommerce-theme/25175097).
+			'goya_product_ajax'           => [
+				'container' => '#et-quickview',
+				'is'        => ( isset( $_REQUEST['action'] ) && ( 'goya_product_ajax' === $_REQUEST['action'] ) ),
+			],
+
 		];
 
 		return apply_filters( 'wc_epo_quickview_array', $quickview_array );
-
 	}
 
 	/**
 	 * Check if we are in a supported quickview
 	 *
+	 * @return boolean
 	 * @param boolean $qv if we are in a supported quick view.
 	 * @since 1.0
 	 */
 	public function woocommerce_tm_quick_view( $qv ) {
-
 		$quickview_array = $this->get_epo_quickview_array();
 
 		foreach ( $quickview_array as $key => $value ) {
@@ -332,7 +335,6 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 		}
 
 		return apply_filters( 'wc_epo_is_quickview', $qv );
-
 	}
 
 	/**
@@ -340,12 +342,12 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 	 *
 	 * @param WP_REST_Response|WP_HTTP_Response|WP_Error|mixed $response Result to send to the client.
 	 *                                                                   Usually a WP_REST_Response or WP_Error.
-	 * @param array                                            $handler  Route handler used for the request.
-	 * @param WP_REST_Request                                  $request  Request used to generate the response.
+	 * @param array<mixed>                                     $handler  Route handler used for the request.
+	 * @param mixed                                            $request  Request used to generate the response.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function rest_request_before_callbacks( $response, $handler, $request ) {
-
 		if ( $request instanceof WP_REST_Request ) {
 			$route = $request->get_route();
 			$route = explode( '/', $route );
@@ -356,7 +358,5 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 		}
 
 		return $response;
-
 	}
-
 }

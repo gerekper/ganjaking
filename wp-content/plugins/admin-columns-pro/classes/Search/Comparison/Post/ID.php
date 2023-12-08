@@ -11,14 +11,16 @@ class ID extends PostField {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::GT,
+			Operators::GTE,
 			Operators::LT,
+			Operators::LTE,
 			Operators::BETWEEN,
 		] );
 
 		parent::__construct( $operators, Value::INT );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'ID';
 	}
 

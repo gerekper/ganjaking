@@ -16,29 +16,36 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
-class Vertical_Menu extends Module_Base {
+class Vertical_Menu extends Module_Base
+{
 
-	public function get_name() {
+	public function get_name()
+	{
 		return 'bdt-vertical-menu';
 	}
 
-	public function get_title() {
+	public function get_title()
+	{
 		return BDTEP . esc_html__('Vertical Menu', 'bdthemes-element-pack');
 	}
 
-	public function get_icon() {
+	public function get_icon()
+	{
 		return 'bdt-wi-vertical-menu';
 	}
 
-	public function get_categories() {
+	public function get_categories()
+	{
 		return ['element-pack'];
 	}
 
-	public function get_keywords() {
+	public function get_keywords()
+	{
 		return ['navbar', 'menu', 'vertical'];
 	}
 
-	public function get_style_depends() {
+	public function get_style_depends()
+	{
 		if ($this->ep_is_edit_mode()) {
 			return ['ep-styles'];
 		} else {
@@ -46,7 +53,8 @@ class Vertical_Menu extends Module_Base {
 		}
 	}
 
-	public function get_script_depends() {
+	public function get_script_depends()
+	{
 		if ($this->ep_is_edit_mode()) {
 			return ['metis-menu', 'ep-scripts'];
 		} else {
@@ -54,33 +62,35 @@ class Vertical_Menu extends Module_Base {
 		}
 	}
 
-	public function get_custom_help_url() {
+	public function get_custom_help_url()
+	{
 		return 'https://youtu.be/ezZBOistuF4';
 	}
 
-	protected function register_controls() {
+	protected function register_controls()
+	{
 
 		$this->start_controls_section(
 			'section_static_menu',
 			[
-				'label'     => __('Vertical Menu', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => __('Vertical Menu', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'dynamic_menu',
 			[
-				'label'   => esc_html__('Dynamic Menu', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Dynamic Menu', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'navbar',
 			[
-				'label'   => esc_html__('Select Menu', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SELECT,
+				'label' => esc_html__('Select Menu', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'options' => element_pack_get_menu(),
 				'default' => 0,
 				'condition' => ['dynamic_menu' => 'yes'],
@@ -92,9 +102,9 @@ class Vertical_Menu extends Module_Base {
 		$repeater->add_control(
 			'menu_title',
 			[
-				'label'       => __('Menu Title', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::TEXT,
-				'dynamic'     => ['active' => true],
+				'label' => __('Menu Title', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::TEXT,
+				'dynamic' => ['active' => true],
 				'label_block' => true,
 				'condition' => [
 					'menu_type!' => 'child_end'
@@ -105,14 +115,14 @@ class Vertical_Menu extends Module_Base {
 		$repeater->add_control(
 			'menu_type',
 			[
-				'label'       => __('Select Item Type', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::SELECT,
-				'dynamic'     => ['active' => true],
+				'label' => __('Select Item Type', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
+				'dynamic' => ['active' => true],
 				'label_block' => true,
-				'options' 	  => [
-					'item'      => 'Item',
+				'options' => [
+					'item' => 'Item',
 					'child_start' => 'Child Start',
-					'child_end'   => 'Child End',
+					'child_end' => 'Child End',
 				],
 				'default' => 'item',
 			]
@@ -121,9 +131,9 @@ class Vertical_Menu extends Module_Base {
 		$repeater->add_control(
 			'menu_link',
 			[
-				'label'       => __('Link', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::URL,
-				'dynamic'     => ['active' => true],
+				'label' => __('Link', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::URL,
+				'dynamic' => ['active' => true],
 				'default' => [
 					'url' => '#',
 				],
@@ -149,55 +159,55 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menus',
 			[
-				'label'   => __('Menu Items', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::REPEATER,
-				'fields'  => $repeater->get_controls(),
+				'label' => __('Menu Items', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::REPEATER,
+				'fields' => $repeater->get_controls(),
 				'condition' => ['dynamic_menu' => ''],
 				'separator' => 'before',
 				'default' => [
 					[
-						'menu_title'   => __('About', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('About', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
-						'menu_title'   => __('Gallery', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Gallery', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 						'menu_type' => 'child_start'
 					],
 					[
-						'menu_title'   => __('Gallery 01', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Gallery 01', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
-						'menu_title'   => __('Gallery 02', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Gallery 02', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 						'menu_type' => 'child_start'
 					],
 					[
-						'menu_title'   => __('Sub Gallery 01', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Sub Gallery 01', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
-						'menu_title'   => __('Sub Gallery 02', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Sub Gallery 02', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
-						'menu_title'   => __('Sub Gallery 03', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Sub Gallery 03', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
 						'menu_type' => 'child_end'
 					],
 					[
-						'menu_title'   => __('Gallery 03', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Gallery 03', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 					[
 						'menu_type' => 'child_end'
 					],
 					[
-						'menu_title'   => __('Contacts', 'bdthemes-element-pack'),
-						'menu_link'    => '#',
+						'menu_title' => __('Contacts', 'bdthemes-element-pack'),
+						'menu_link' => '#',
 					],
 				],
 				'title_field' => '{{{ elementor.helpers.renderIcon( this, menu_icon, {}, "i", "panel" ) || \'<i class="{{ icon }}" aria-hidden="true"></i>\' }}} <# print( (menu_type == "child_start" ) ? "<b>[ Child Start:</b> " + menu_title : menu_title ) #><# print( (menu_type == "child_end" ) ? "<b>Child End ]</b>" : "" ) #>',
@@ -207,42 +217,42 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'hr_divider',
 			[
-				'type'    => Controls_Manager::DIVIDER,
+				'type' => Controls_Manager::DIVIDER,
 			]
 		);
 
 		$this->add_control(
 			'additional_heading',
 			[
-				'label'   => esc_html__('Additional Settings', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::HEADING,
+				'label' => esc_html__('Additional Settings', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::HEADING,
 			]
 		);
 
 		$this->add_control(
 			'hr2_divider',
 			[
-				'type'    => Controls_Manager::DIVIDER,
+				'type' => Controls_Manager::DIVIDER,
 			]
 		);
 
 		$this->add_control(
 			'show_sticky',
 			[
-				'label'   => esc_html__('Show Sticky', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Show Sticky', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'submenu_type',
 			[
-				'label'   => esc_html__('Submenu Type', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SELECT,
+				'label' => esc_html__('Submenu Type', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'default' => 'outer',
 				'options' => [
-					'outer'    => esc_html__('Outer', 'bdthemes-element-pack'),
-					'inner'   => esc_html__('Inner', 'bdthemes-element-pack'),
+					'outer' => esc_html__('Outer', 'bdthemes-element-pack'),
+					'inner' => esc_html__('Inner', 'bdthemes-element-pack'),
 				],
 				'prefix_class' => 'bdt-submenu-type-',
 			]
@@ -251,11 +261,11 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'columns',
 			[
-				'label'          => esc_html__('Sub Menu Columns', 'bdthemes-element-pack'),
-				'type'           => Controls_Manager::SELECT,
+				'label' => esc_html__('Sub Menu Columns', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SELECT,
 				'description' => esc_html__('It\'s just work for Desktop Device.', 'bdthemes-element-pack'),
-				'default'        => '1',
-				'options'        => [
+				'default' => '1',
+				'options' => [
 					'1' => '1',
 					'2' => '2',
 					'3' => '3',
@@ -271,12 +281,12 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'menu_width',
 			[
-				'label'   => esc_html__('Menu Width', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__('Menu Width', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
-						'min'  => 100,
-						'max'  => 1200,
+						'min' => 100,
+						'max' => 1200,
 						'step' => 10,
 					],
 				],
@@ -289,12 +299,12 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_width',
 			[
-				'label'   => esc_html__('Sub Menu Width', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__('Sub Menu Width', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
-						'min'  => 100,
-						'max'  => 1000,
+						'min' => 100,
+						'max' => 1000,
 						'step' => 10,
 					],
 				],
@@ -310,20 +320,20 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'menu_alignment',
 			[
-				'label'   => __('Menu Alignment', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::CHOOSE,
+				'label' => __('Menu Alignment', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::CHOOSE,
 				'options' => [
-					'left'    => [
+					'left' => [
 						'title' => __('Left', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __('Center', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'flex-end' => [
 						'title' => __('Right', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 				],
 				'selectors' => [
@@ -335,20 +345,20 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'menu_text_alignment',
 			[
-				'label'   => __('Text Alignemnt', 'bdthemes-element-pack'),
-				'type'    => Controls_Manager::CHOOSE,
+				'label' => __('Text Alignemnt', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::CHOOSE,
 				'options' => [
-					'left'    => [
+					'left' => [
 						'title' => __('Left', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __('Center', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
 						'title' => __('Right', 'bdthemes-element-pack'),
-						'icon'  => 'eicon-text-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 				],
 				'selectors' => [
@@ -360,8 +370,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'remove_parent_link',
 			[
-				'label'     => esc_html__('Remove Parent Link', 'bdthemes-element-pack') . BDTEP_NC,
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__('Remove Parent Link', 'bdthemes-element-pack') . BDTEP_NC,
+				'type' => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
@@ -372,8 +382,8 @@ class Vertical_Menu extends Module_Base {
 		$this->start_controls_section(
 			'vertical_menu_style',
 			[
-				'label'     => __('Main Menu', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => __('Main Menu', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -388,7 +398,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'main_menu_bg_border',
+				'name' => 'main_menu_bg_border',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu',
 			]
 		);
@@ -396,10 +406,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'main_menu_bg_border_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -408,10 +418,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'main_menu_bg_link_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -429,8 +439,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_link_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a' => 'color: {{VALUE}};',
 				],
@@ -440,8 +450,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_icon_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a .bdt-menu-icon' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a .bdt-menu-icon svg' => 'fill: {{VALUE}};',
@@ -455,8 +465,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_link_background',
 			[
-				'label'     => esc_html__('Background', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a' => 'background-color: {{VALUE}};',
 				],
@@ -468,8 +478,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_parent_arrow_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .metismenu > li > .has-arrow::after' => 'border-color: {{VALUE}};',
 				]
@@ -479,7 +489,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'menu_border',
+				'name' => 'menu_border',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a',
 			]
 		);
@@ -487,10 +497,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'menu_border_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -499,10 +509,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'menu_link_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -512,14 +522,14 @@ class Vertical_Menu extends Module_Base {
 			'menu_spacing',
 			[
 				'label' => esc_html__('Item Gap', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -529,14 +539,14 @@ class Vertical_Menu extends Module_Base {
 			'menu_icon_spacing',
 			[
 				'label' => esc_html__('Icon Spacing', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a .bdt-menu-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
@@ -548,7 +558,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'menu_typography_normal',
+				'name' => 'menu_typography_normal',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a',
 			]
 		);
@@ -565,8 +575,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_link_color_hover',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a:hover' => 'color: {{VALUE}};',
 				],
@@ -576,8 +586,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'link_background_hover',
 			[
-				'label'     => esc_html__('Background Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a:hover' => 'background-color: {{VALUE}};',
 				],
@@ -587,8 +597,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_border_color_hover',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a:hover' => 'border-color: {{VALUE}};',
 				],
@@ -601,8 +611,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_icon_hover_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a:hover .bdt-menu-icon' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > a:hover .bdt-menu-icon svg' => 'fill: {{VALUE}};',
@@ -616,8 +626,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_parent_arrow_hover_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .metismenu > li > .has-arrow:hover:after' => 'border-color: {{VALUE}};',
 				]
@@ -636,8 +646,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_hover_color_active',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li.mm-active > a' => 'color: {{VALUE}};',
 				],
@@ -647,8 +657,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_hover_background_color_active',
 			[
-				'label'     => esc_html__('Background', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li.mm-active > a' => 'background-color: {{VALUE}};',
 				],
@@ -658,8 +668,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_border_color_active',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li.mm-active > a' => 'border-color: {{VALUE}};',
 				],
@@ -672,8 +682,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_icon_active_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li.mm-active > a .bdt-menu-icon' => 'color: {{VALUE}};',
 				],
@@ -686,8 +696,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'menu_parent_arrow_active_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .metismenu > li.mm-active > .has-arrow:after' => 'border-color: {{VALUE}};',
 				]
@@ -704,8 +714,8 @@ class Vertical_Menu extends Module_Base {
 		$this->start_controls_section(
 			'vertical_sub_menu_style',
 			[
-				'label'     => __('Sub Menu', 'bdthemes-element-pack'),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => __('Sub Menu', 'bdthemes-element-pack'),
+				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -720,7 +730,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'sub_menu_bg_border',
+				'name' => 'sub_menu_bg_border',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul',
 			]
 		);
@@ -728,10 +738,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'sub_menu_bg_border_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -740,10 +750,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'sub_menu_bg_link_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -761,8 +771,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_link_color',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a' => 'color: {{VALUE}};',
 				],
@@ -772,8 +782,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_link_background',
 			[
-				'label'     => esc_html__('Background', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a' => 'background-color: {{VALUE}};',
 				],
@@ -783,8 +793,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_icon_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a .bdt-menu-icon' => 'color: {{VALUE}};',
 				],
@@ -797,8 +807,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_parent_arrow_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li .has-arrow::after' => 'border-color: {{VALUE}};',
 				]
@@ -808,7 +818,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'sub_menu_border',
+				'name' => 'sub_menu_border',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a',
 			]
 		);
@@ -816,10 +826,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'sub_menu_border_radius',
 			[
-				'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Border Radius', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -828,10 +838,10 @@ class Vertical_Menu extends Module_Base {
 		$this->add_responsive_control(
 			'sub_menu_link_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'label' => esc_html__('Padding', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -841,14 +851,14 @@ class Vertical_Menu extends Module_Base {
 			'sub_menu_spacing',
 			[
 				'label' => esc_html__('Item Gap', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -858,14 +868,14 @@ class Vertical_Menu extends Module_Base {
 			'sub_menu_icon_spacing',
 			[
 				'label' => esc_html__('Icon Spacing', 'bdthemes-element-pack'),
-				'type'  => Controls_Manager::SLIDER,
+				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a .bdt-menu-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
@@ -877,7 +887,7 @@ class Vertical_Menu extends Module_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'sub_menu_typography_normal',
+				'name' => 'sub_menu_typography_normal',
 				'selector' => '{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a',
 			]
 		);
@@ -894,8 +904,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_link_color_hover',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a:hover' => 'color: {{VALUE}};',
 				],
@@ -905,8 +915,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_link_background_hover',
 			[
-				'label'     => esc_html__('Background Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a:hover' => 'background-color: {{VALUE}};',
 				],
@@ -916,8 +926,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_border_color_hover',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a:hover' => 'border-color: {{VALUE}};',
 				],
@@ -930,8 +940,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_icon_hover_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li  a:hover .bdt-menu-icon' => 'color: {{VALUE}};',
 				],
@@ -944,8 +954,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_parent_arrow_hover_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li .has-arrow:hover:after' => 'border-color: {{VALUE}};',
 				]
@@ -964,8 +974,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_hover_color_active',
 			[
-				'label'     => esc_html__('Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li.mm-active > a' => 'color: {{VALUE}};',
 				],
@@ -975,8 +985,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_hover_background_color_active',
 			[
-				'label'     => esc_html__('Background', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Background', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li.mm-active > a' => 'background-color: {{VALUE}};',
 				],
@@ -986,8 +996,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_border_color_active',
 			[
-				'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Border Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li.mm-active > a' => 'border-color: {{VALUE}};',
 				],
@@ -1000,8 +1010,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_icon_active_color',
 			[
-				'label'     => esc_html__('Icon Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Icon Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li.mm-active a .bdt-menu-icon' => 'color: {{VALUE}};',
 				],
@@ -1014,8 +1024,8 @@ class Vertical_Menu extends Module_Base {
 		$this->add_control(
 			'sub_menu_parent_arrow_active_color',
 			[
-				'label'     => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__('Parent Indicator Color', 'bdthemes-element-pack'),
+				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .bdt-vertical-menu .sidebar-nav .metismenu > li > ul > li.mm-active .has-arrow:after' => 'border-color: {{VALUE}};',
 				]
@@ -1029,7 +1039,8 @@ class Vertical_Menu extends Module_Base {
 		$this->end_controls_section();
 	}
 
-	protected function render() {
+	protected function render()
+	{
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute('vertical_menu', 'class', 'bdt-vertical-menu');
@@ -1043,7 +1054,7 @@ class Vertical_Menu extends Module_Base {
 				'vertical_menu' => [
 					'data-settings' => [
 						wp_json_encode(array_filter([
-							'id'                 => 'bdt-metismenu-' . $this->get_id(),
+							'id' => 'bdt-metismenu-' . $this->get_id(),
 							'removeParentLink' => ('yes' == $settings['remove_parent_link']) ? 'yes' : 'no',
 						]))
 					]
@@ -1051,46 +1062,47 @@ class Vertical_Menu extends Module_Base {
 			]
 		);
 
-?>
+		?>
 		<div <?php echo ($this->get_render_attribute_string('vertical_menu')); ?>>
 
-			<?php if ('yes' == $settings['dynamic_menu']) : ?>
+			<?php if ('yes' == $settings['dynamic_menu']): ?>
 				<?php $this->dynamic_menu(); ?>
-			<?php else : ?>
+			<?php else: ?>
 				<?php $this->static_menu(); ?>
 			<?php endif; ?>
 
 		</div>
-	<?php
+		<?php
 	}
 
-	protected function static_menu() {
+	protected function static_menu()
+	{
 		$settings = $this->get_settings_for_display();
 
 
-	?>
+		?>
 		<nav class="sidebar-nav">
 			<ul class="metismenu" id="<?php echo 'bdt-metismenu-' . $this->get_id(); ?>">
 
-				<?php foreach ($settings['menus'] as $item) : ?>
-
-					<?php
-					$target = (!empty($item['menu_link']['is_external'])) ? 'target="_blank"' : '';
-					$nofollow = (!empty($item['menu_link']['nofollow'])) ? ' rel="nofollow"' : '';
+				<?php foreach ($settings['menus'] as $index => $item): 
+					$menu_link = 'link_' . $index;
 
 					if ($item['menu_type'] == 'child_start') {
-						$item_class = 'has-arrow';
+						$this->add_render_attribute($menu_link, 'class', 'has-arrow', true);
 					} else {
-						$item_class = '';
+						$this->add_render_attribute($menu_link, 'class', '', true);
+					}
+
+					if (!empty($item['menu_link']['url'])) {
+						$this->add_link_attributes($menu_link, $item['menu_link']);
 					}
 
 					?>
 
-					<?php if ($item['menu_type'] !== 'child_end') : ?>
+					<?php if ($item['menu_type'] !== 'child_end'): ?>
 						<li class="bdt-menu-item">
-							<a class="<?php echo $item_class; ?>" href="<?php echo esc_url($item['menu_link']['url']); ?>" <?php echo wp_kses_post($target);
-																															echo wp_kses_post($nofollow); ?>>
-								<?php if (!empty($item['menu_icon']['value'])) : ?>
+							<a <?php echo $this->get_render_attribute_string($menu_link); ?>>
+								<?php if (!empty($item['menu_icon']['value'])): ?>
 									<span class="bdt-menu-icon">
 										<?php Icons_Manager::render_icon($item['menu_icon'], ['aria-hidden' => 'true']); ?>
 									</span>
@@ -1099,29 +1111,30 @@ class Vertical_Menu extends Module_Base {
 							</a>
 						<?php endif; ?>
 
-						<?php if ($item['menu_type'] == 'child_start') : ?>
+						<?php if ($item['menu_type'] == 'child_start'): ?>
 							<ul>
 							<?php endif; ?>
 
-							<?php if ($item['menu_type'] == 'child_end') : ?>
+							<?php if ($item['menu_type'] == 'child_end'): ?>
 							</ul>
 						</li>
 					<?php endif; ?>
 
-					<?php if ($item['menu_type'] == 'item') : ?>
+					<?php if ($item['menu_type'] == 'item'): ?>
 						</li>
 					<?php endif; ?>
 
 				<?php endforeach; ?>
 			</ul>
 		</nav>
-	<?php
+		<?php
 	}
 
-	protected function dynamic_menu() {
+	protected function dynamic_menu()
+	{
 
 		$settings = $this->get_settings_for_display();
-		$id       = 'bdt-metismenu-' . $this->get_id();
+		$id = 'bdt-metismenu-' . $this->get_id();
 
 		if (!$settings['navbar']) {
 			element_pack_alert(__('Please select a Menu From Setting!', 'bdthemes-element-pack'));
@@ -1134,23 +1147,23 @@ class Vertical_Menu extends Module_Base {
 		}
 
 		$nav_menu_args = array(
-			'fallback_cb'    => false,
-			'container'      => false,
-			'menu_id'        => $id,
-			'menu_class'     => 'metismenu',
+			'fallback_cb' => false,
+			'container' => false,
+			'menu_id' => $id,
+			'menu_class' => 'metismenu',
 			'theme_location' => 'default_navmenu', // creating a fake location for better functional control
-			'menu'           => $nav_menu,
-			'echo'           => true,
-			'depth'          => 0,
-			'walker'         => new ep_vertical_menu_walker
+			'menu' => $nav_menu,
+			'echo' => true,
+			'depth' => 0,
+			'walker' => new ep_vertical_menu_walker
 		);
 
-	?>
+		?>
 
 		<nav class="sidebar-nav">
 			<?php wp_nav_menu(apply_filters('widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings)); ?>
 		</nav>
 
-<?php
+		<?php
 	}
 }

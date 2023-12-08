@@ -1396,7 +1396,6 @@ class Flip_Box extends Module_Base {
 		$animation   = ($settings['button_hover_animation']) ? ' elementor-animation-' . $settings['button_hover_animation'] : '';
 		$wrapper_tag = 'div';
 		$button_tag  = 'a';
-		$link_url    = empty($settings['link']['url']) ? '#' : $settings['link']['url'];
 
 		$this->add_render_attribute(
 			'button',
@@ -1411,17 +1410,13 @@ class Flip_Box extends Module_Base {
 
 		$this->add_render_attribute('wrapper', 'class', 'bdt-flip-box-layer bdt-flip-box-back');
 
-		if ('box' === $settings['link_click']) {
-			$wrapper_tag = 'a';
-			$button_tag = 'button';
-			$this->add_render_attribute('wrapper', 'href', $link_url);
-			if ($settings['link']['is_external']) {
-				$this->add_render_attribute('wrapper', 'target', '_blank');
-			}
-		} else {
-			$this->add_render_attribute('button', 'href', $link_url);
-			if ($settings['link']['is_external']) {
-				$this->add_render_attribute('button', 'target', '_blank');
+		if (!empty($settings['link']['url'])) {
+			if ('box' === $settings['link_click']) {
+				$wrapper_tag = 'a';
+				$button_tag = 'button';
+				$this->add_link_attributes('wrapper', $settings['link']);
+			} else {
+				$this->add_link_attributes('button', $settings['link']);
 			}
 		}
 

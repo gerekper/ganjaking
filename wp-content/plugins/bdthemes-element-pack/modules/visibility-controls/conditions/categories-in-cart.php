@@ -4,7 +4,6 @@
 	
 	use ElementPack\Base\Condition;
 	use Elementor\Controls_Manager;
-	use ElementPack\Includes\Controls\SelectInput\Dynamic_Select;
 	
 	if ( ! defined( 'ABSPATH' ) ) {
 		exit; // Exit if accessed directly
@@ -27,7 +26,7 @@
 		 * @since  6.6.0
 		 */
 		public function get_title() {
-			return esc_html__( 'Categories in Cart', 'bdthemes-element-pack' );
+			return esc_html__( 'Cart: Categories', 'bdthemes-element-pack' );
 		}
 
 		/**

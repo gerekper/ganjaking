@@ -2,9 +2,9 @@
 
 namespace ACA\ACF\Search\Comparison;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Helper\Select;
-use ACP\Helper\Select\Formatter;
+use ACP\Helper\Select\Taxonomy\LabelFormatter;
 use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
@@ -12,12 +12,9 @@ use ACP\Search\Operators;
 class Taxonomy extends Meta
 	implements SearchableValues {
 
-	/**
-	 * @var string
-	 */
 	private $taxonomy;
 
-	public function __construct( $meta_key, $meta_type, $taxonomy ) {
+	public function __construct( string $meta_key, string $taxonomy ) {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::NEQ,
@@ -25,22 +22,29 @@ class Taxonomy extends Meta
 			Operators::NOT_IS_EMPTY,
 		] );
 
-		$this->taxonomy = (string) $taxonomy;
+		$this->taxonomy = $taxonomy;
 
-		parent::__construct( $operators, $meta_key, $meta_type );
+		parent::__construct( $operators, $meta_key );
 	}
 
-	public function get_values( $search, $paged ) {
-		$entities = new Select\Entities\Taxonomy( [
-			'page'     => $paged,
+	public function format_label( $value ): string {
+		$term = get_term( $value );
+
+		return $term
+			? $this->formatter()->format_label( $term )
+			: '';
+	}
+
+	private function formatter(): LabelFormatter\TermName {
+		return new LabelFormatter\TermName();
+	}
+
+	public function get_values( string $search, int $page ): Paginated {
+		return ( new Select\Taxonomy\PaginatedFactory() )->create( [
+			'page'     => $page,
 			'search'   => $search,
 			'taxonomy' => $this->taxonomy,
-		] );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Formatter\TermName( $entities )
-		);
+		], $this->formatter() );
 	}
 
 }

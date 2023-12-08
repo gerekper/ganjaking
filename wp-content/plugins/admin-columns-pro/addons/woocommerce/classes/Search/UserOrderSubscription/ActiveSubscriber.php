@@ -3,8 +3,8 @@
 namespace ACA\WC\Search\UserOrderSubscription;
 
 use ACP;
+use ACP\Query\Bindings;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class ActiveSubscriber extends ACP\Search\Comparison
@@ -19,7 +19,7 @@ class ActiveSubscriber extends ACP\Search\Comparison
         parent::__construct($operators);
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 

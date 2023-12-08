@@ -1,6 +1,6 @@
 <?php
 /**
- * Select Box Multiple Field class
+ * Multi-Select Field class
  *
  * @package Extra Product Options/Fields
  * @version 6.0
@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Select Box Multiple Field class
+ * Multi-Select Field class
  *
  * @package Extra Product Options/Fields
  * @version 6.0
@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -87,12 +88,10 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 						$selected = true;
 					}
 				}
-			} else {
-				if ( $default_value && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
-					$selected = true;
-				} elseif ( is_array( $selected_value ) && in_array( esc_attr( $value ), array_map( 'esc_attr', array_map( 'stripcslashes', $selected_value ) ), true ) ) {
-					$selected = true;
-				}
+			} elseif ( $default_value && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
+				$selected = true;
+			} elseif ( is_array( $selected_value ) && in_array( esc_attr( $value ), array_map( 'esc_attr', array_map( 'stripcslashes', $selected_value ) ), true ) ) {
+				$selected = true;
 			}
 			if ( $selected ) {
 				$display['default_value_counter'] = $value;
@@ -153,7 +152,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 				'label'            => apply_filters( 'woocommerce_tm_epo_option_name', $label, $element, $_default_value_counter, $value, $label ),
 			];
 
-			$_default_value_counter ++;
+			++$_default_value_counter;
 		}
 
 		$display['element'] = $element;
@@ -175,6 +174,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -209,5 +209,4 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

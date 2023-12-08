@@ -3,7 +3,7 @@
  * Extra Product Options Order Functionality
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Order Functionality
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_Order {
 
@@ -41,6 +41,7 @@ class THEMECOMPLETE_EPO_Order {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Order
 	 * @since 1.0
 	 * @static
 	 */
@@ -58,9 +59,8 @@ class THEMECOMPLETE_EPO_Order {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		// Gets the stored cart data for the order again functionality.
-		add_filter( 'woocommerce_order_again_cart_item_data', [ $this, 'woocommerce_order_again_cart_item_data' ], 50, 3 );
+		add_filter( 'woocommerce_order_again_cart_item_data', [ $this, 'woocommerce_order_again_cart_item_data' ], 50, 2 );
 
 		// Alter the product thumbnail in order.
 		add_filter( 'woocommerce_order_item_thumbnail', [ $this, 'woocommerce_order_item_thumbnail' ], 50, 2 );
@@ -125,19 +125,17 @@ class THEMECOMPLETE_EPO_Order {
 
 		add_action( 'woocommerce_checkout_order_review', [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_add_inline_style' ], 99999 );
 		add_action( 'woocommerce_order_details_after_order_table', [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_add_inline_style' ], 99999 );
-
 	}
 
 	/**
 	 * Gets the stored cart data for the order again functionality
 	 *
-	 * @param array  $cart_item_meta The cart item meta.
-	 * @param array  $item The order item.
-	 * @param object $order The order object.
+	 * @param array<mixed> $cart_item_meta The cart item meta.
+	 * @param mixed        $item The order item.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function woocommerce_order_again_cart_item_data( $cart_item_meta, $item, $order ) {
-
+	public function woocommerce_order_again_cart_item_data( $cart_item_meta, $item ) {
 		global $woocommerce;
 
 		// Disable validation.
@@ -220,23 +218,22 @@ class THEMECOMPLETE_EPO_Order {
 		}
 
 		return $cart_item_meta;
-
 	}
 
 	/**
 	 * Return image thumbnail
 	 *
-	 * @param string $image The image url.
-	 * @param array  $item_meta The order item meta data.
+	 * @param string       $image The image url.
+	 * @param array<mixed> $item_meta The order item meta data.
+	 * @return string
 	 * @since 6.0
 	 */
 	private function get_order_item_thumbnail( $image = '', $item_meta = [] ) {
-
 		$_image = [];
 		$_alt   = [];
 
 		$has_epo     = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
-		$has_epo_fee = isset( $item_meta ) && isset( $item_meta['_tmcartfee_data'] ) && isset( $item_meta['_tmcartfee_data'][0] );
+		$has_epo_fee = isset( $item_meta['_tmcartfee_data'] ) && isset( $item_meta['_tmcartfee_data'][0] );
 
 		if ( $has_epo ) {
 			$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
@@ -290,9 +287,9 @@ class THEMECOMPLETE_EPO_Order {
 			}
 		}
 
-		if ( count( $_image ) > 0 ) {
+		if ( count( $_image ) > 0 && count( $_alt ) > 0 ) {
 			$current = 0;
-			for ( $i = count( $_image ); $i > 0; $i -- ) {
+			for ( $i = count( $_image ); $i > 0; $i-- ) {
 				if ( ! empty( $_image[ $i ] ) ) {
 					$current = $i;
 				}
@@ -314,26 +311,26 @@ class THEMECOMPLETE_EPO_Order {
 		}
 
 		return $image;
-
 	}
 
 	/**
 	 * Alter the product thumbnail in order email
 	 *
 	 * @param string $image The image url.
-	 * @param object $item The order item object.
+	 * @param mixed  $item The order item object.
+	 * @return string
 	 * @since 6.0
 	 */
-	public function woocommerce_order_item_thumbnail( $image = '', $item = '' ) {
+	public function woocommerce_order_item_thumbnail( $image = '', $item = false ) {
+		if ( $item ) {
+			$order     = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
+			$item_id   = $item->get_id();
+			$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
-		$order     = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
-		$item_id   = $item->get_id();
-		$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
-
-		$image = $this->get_order_item_thumbnail( $image, $item_meta );
+			$image = $this->get_order_item_thumbnail( $image, $item_meta );
+		}
 
 		return $image;
-
 	}
 
 	/**
@@ -341,30 +338,31 @@ class THEMECOMPLETE_EPO_Order {
 	 *
 	 * @param string  $image The image url.
 	 * @param integer $item_id The item id.
-	 * @param object  $item The order item object.
+	 * @param mixed   $item The order item object.
+	 * @return string
 	 * @since 1.0
 	 */
-	public function woocommerce_admin_order_item_thumbnail( $image = '', $item_id = 0, $item = '' ) {
+	public function woocommerce_admin_order_item_thumbnail( $image = '', $item_id = 0, $item = false ) {
+		if ( $item ) {
+			$order     = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
+			$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
-		$order     = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
-		$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
-
-		$image = $this->get_order_item_thumbnail( $image, $item_meta );
+			$image = $this->get_order_item_thumbnail( $image, $item_meta );
+		}
 
 		return $image;
-
 	}
 
 	/**
 	 * Adds meta data to the order - WC >= 2.7 (crud)
 	 *
-	 * @param object $item The order item object.
-	 * @param string $cart_item_key The cart item key.
-	 * @param array  $values Array of values.
+	 * @param WC_Order_Item $item The order item object.
+	 * @param string        $cart_item_key The cart item key.
+	 * @param array<mixed>  $values Array of values.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_checkout_create_order_line_item( $item, $cart_item_key, $values ) {
-
 		do_action( 'wc_epo_order_item_meta_before', $item, $cart_item_key, $values );
 		if ( ! empty( $values['tmcartepo'] ) ) {
 			$item->add_meta_data( '_tmcartepo_data', $values['tmcartepo'] );
@@ -382,12 +380,12 @@ class THEMECOMPLETE_EPO_Order {
 			$item->add_meta_data( '_tmpost_data', [ $values['tmpost_data'] ] );
 		}
 		do_action( 'wc_epo_order_item_meta', $item, $cart_item_key, $values );
-
 	}
 
 	/**
 	 * Check if an attribute is included in the attributes area of a variation name
 	 *
+	 * @return false
 	 * @since 1.0
 	 */
 	public function woocommerce_is_attribute_in_product_name() {
@@ -397,17 +395,17 @@ class THEMECOMPLETE_EPO_Order {
 	/**
 	 * Disable custom woocommerce_is_attribute_in_product_name filter
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_order_items_table() {
-
 		remove_filter( 'woocommerce_is_attribute_in_product_name', [ $this, 'woocommerce_is_attribute_in_product_name' ], 10 );
-
 	}
 
 	/**
 	 * Adds options to the array of items/products of an order
 	 *
+	 * @return void
 	 * @since 5.0.12.11
 	 */
 	public function woocommerce_order_item_meta_start() {
@@ -417,13 +415,14 @@ class THEMECOMPLETE_EPO_Order {
 	/**
 	 * Adds options to the array of items/products of an order
 	 *
-	 * @param array  $formatted_meta The formatted meta data.
-	 * @param object $item The order item object.
+	 * @param array<mixed> $formatted_meta The formatted meta data.
+	 * @param mixed        $item The order item object.
+	 * @return array<mixed>
 	 * @since 4.9.12
 	 */
 	public function woocommerce_order_item_get_formatted_meta_data( $formatted_meta = [], $item = false ) {
-
 		if ( apply_filters( 'wc_epo_no_order_get_items', false ) ||
+			false === $item ||
 			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_disable_sending_options_in_order && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
 			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_prevent_options_from_emails ) ||
 			( isset( $_POST['action'] ) && 'woocommerce_calc_line_taxes' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
@@ -445,13 +444,13 @@ class THEMECOMPLETE_EPO_Order {
 			return $formatted_meta;
 		}
 
-		$order_currency = is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency();
+		$order_currency = $order->get_currency();
 		$currency_arg   = [ 'currency' => $order_currency ];
 		$mt_prefix      = $order_currency;
 
 		$return_items = [];
 
-		$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+		$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
 		$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
@@ -479,13 +478,16 @@ class THEMECOMPLETE_EPO_Order {
 					if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
 						$epo['name'] = $wpml_translation_by_id[ $epo['section'] ];
 					}
+					if ( isset( $epo['repeater'] ) ) {
+						$epo['name'] = (int) ( $epo['key_id'] + 1 ) . '. ' . $epo['name'];
+					}
 					if ( ! empty( $epo['multiple'] ) && ! empty( $epo['key'] ) ) {
 						$pos = strrpos( $epo['key'], '_' );
 						if ( false !== $pos ) {
 							if ( isset( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) && is_array( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) ) {
 								$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
-								if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
-									$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+								if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
+									$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 								}
 							}
 						}
@@ -548,7 +550,7 @@ class THEMECOMPLETE_EPO_Order {
 										$tax_string = ' <small>' . apply_filters( 'wc_epo_ex_tax_or_vat_string', WC()->countries->ex_tax_or_vat() ) . '</small>';
 									}
 									if ( (float) 0 !== floatval( $price ) ) {
-										$price = themecomplete_get_price_excluding_tax(
+										$price = (float) themecomplete_get_price_excluding_tax(
 											$product,
 											[
 												'qty'   => 10000,
@@ -562,7 +564,7 @@ class THEMECOMPLETE_EPO_Order {
 										$tax_string = ' <small>' . apply_filters( 'inc_tax_or_vat', WC()->countries->inc_tax_or_vat() ) . '</small>';
 									}
 									if ( (float) 0 !== floatval( $price ) ) {
-										$price = themecomplete_get_price_including_tax(
+										$price = (float) themecomplete_get_price_including_tax(
 											$product,
 											[
 												'qty'   => 10000,
@@ -576,7 +578,7 @@ class THEMECOMPLETE_EPO_Order {
 
 						$epovalue .= ' ' . ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( $price, $currency_arg ) . $tax_string ) : '' );
 					}
-					if ( $epo['quantity'] > 1 ) {
+					if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 						$epovalue .= ' &times; ' . $epo['quantity'];
 					}
 
@@ -586,11 +588,7 @@ class THEMECOMPLETE_EPO_Order {
 						$epo['value'] .= ' <small>' . $epovalue . '</small>';
 					}
 
-					if ( is_array( $epo['value'] ) ) {
-						$epo['value'] = array_map( [ THEMECOMPLETE_EPO_HELPER(), 'html_entity_decode' ], $epo['value'] );
-					} else {
-						$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
-					}
+					$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
 
 					if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_strip_html_from_emails ) {
 						$epo['value'] = wp_strip_all_tags( $epo['value'] );
@@ -602,11 +600,17 @@ class THEMECOMPLETE_EPO_Order {
 											. '" /></span>';
 							$epo['value']  = $display_value . $epo['value'];
 						} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+							$color_hex     = $epo['color'];
+							$color_no_hash = $epo['color'];
+							if ( 'transparent' !== $color_hex ) {
+								$color_hex     = themecomplete_sanitize_hex_color( $color_hex );
+								$color_no_hash = themecomplete_sanitize_hex_color_no_hash( $color_no_hash );
+							}
 							$display_value = '<span class="cpf-colors-on-cart"><span class="cpf-color-on-cart backgroundcolor'
-											. esc_attr( sanitize_hex_color_no_hash( $epo['color'] ) ) . '"></span> '
+											. esc_attr( (string) $color_no_hash ) . '"></span> '
 											. '</span>';
 							$epo['value']  = $display_value . $epo['value'];
-							THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $epo['color'] ) ) . '{background-color:' . esc_attr( sanitize_hex_color( $epo['color'] ) ) . ';}' );
+							THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( (string) $color_no_hash ) . '{background-color:' . esc_attr( (string) $color_hex ) . ';}' );
 						}
 
 						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_order && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
@@ -631,11 +635,8 @@ class THEMECOMPLETE_EPO_Order {
 						$epo_value = trim( $epo['value'] );
 
 						$epo_value = str_replace( [ "\r\n", "\r" ], "\n", $epo_value );
-
 						$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-						$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
+						$epo_value = array_map( 'strval', array_map( 'wc_clean', explode( "\n", $epo_value ) ) );
 						$epo_value = implode( "\r\n", $epo_value );
 
 						$epo['value'] = $epo_value;
@@ -650,7 +651,7 @@ class THEMECOMPLETE_EPO_Order {
 								case 'price':
 									$_value = ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( (float) $epo['price'] / (float) $epo['quantity'], $currency_arg ) ) : '' );
 
-									if ( $epo['quantity'] > 1 ) {
+									if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 										$_value .= ' &times; ' . $epo['quantity'];
 									}
 									break;
@@ -659,6 +660,9 @@ class THEMECOMPLETE_EPO_Order {
 									break;
 								case 'noprice':
 									$_value = $epo['value'];
+									if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+										$_value .= ' &times; ' . $epo['quantity'];
+									}
 									break;
 								default:
 									$_value = $epo['value'];
@@ -686,7 +690,7 @@ class THEMECOMPLETE_EPO_Order {
 				foreach ( $element as $key => $value ) {
 
 					if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_unique_meta_values && is_array( $value ) ) {
-						$value = implode( ', ', $value );
+						$value = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
 					}
 					if ( '' === $value ) {
 						$value = ' ';
@@ -696,7 +700,7 @@ class THEMECOMPLETE_EPO_Order {
 					if ( is_array( $value ) ) {
 						if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_always_unique_values ) {
 							foreach ( $value as $currentvalue ) {
-								$current_meta_key ++;
+								++$current_meta_key;
 								if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
 									$formatted_meta[ $current_meta_key ] = (object) [
 										'key'           => $current_meta_key,
@@ -707,7 +711,7 @@ class THEMECOMPLETE_EPO_Order {
 								}
 							}
 						} else {
-							$current_meta_key ++;
+							++$current_meta_key;
 							if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
 								$value                               = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
 								$formatted_meta[ $current_meta_key ] = (object) [
@@ -719,7 +723,7 @@ class THEMECOMPLETE_EPO_Order {
 							}
 						}
 					} else {
-						$current_meta_key ++;
+						++$current_meta_key;
 						if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
 							$formatted_meta[ $current_meta_key ] = (object) [
 								'key'           => $key,
@@ -739,14 +743,15 @@ class THEMECOMPLETE_EPO_Order {
 	/**
 	 * Adds options to the array of items/products of an order
 	 *
-	 * @param array  $items The order items array.
-	 * @param object $order The order object.
+	 * @param array<mixed> $items The order items array.
+	 * @param mixed        $order The order object.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function woocommerce_order_get_items( $items = [], $order = false ) {
-
 		if ( apply_filters( 'wc_epo_no_order_get_items', false ) ||
 			! is_array( $items ) ||
+			false === $order ||
 			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_disable_sending_options_in_order && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
 			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_prevent_options_from_emails ) ||
 			( isset( $_POST['action'] ) && 'woocommerce_calc_line_taxes' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
@@ -764,11 +769,12 @@ class THEMECOMPLETE_EPO_Order {
 
 		add_action( 'woocommerce_order_details_after_order_table_items', [ $this, 'woocommerce_order_items_table' ], 10 );
 
-		$order_currency = is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency();
+		$order_currency = $order->get_currency();
 		$currency_arg   = [ 'currency' => $order_currency ];
 		$mt_prefix      = $order_currency;
 
 		$return_items = [];
+		$cached_items = [];
 
 		global $woocommerce;
 
@@ -785,12 +791,12 @@ class THEMECOMPLETE_EPO_Order {
 				continue;
 			}
 
-			if ( isset( $item->tc_added_meta ) && ! empty( $item->tc_added_meta ) ) {
+			if ( ! empty( $cached_items[ $item_id ] ) ) {
 				$return_items[ $item_id ] = $item;
 				continue;
 			}
 
-			$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+			$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
 			$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
@@ -818,13 +824,16 @@ class THEMECOMPLETE_EPO_Order {
 						if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
 							$epo['name'] = $wpml_translation_by_id[ $epo['section'] ];
 						}
+						if ( isset( $epo['repeater'] ) ) {
+							$epo['name'] = (int) ( $epo['key_id'] + 1 ) . '. ' . $epo['name'];
+						}
 						if ( ! empty( $epo['multiple'] ) && ! empty( $epo['key'] ) ) {
 							$pos = strrpos( $epo['key'], '_' );
 							if ( false !== $pos ) {
 								if ( isset( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) && is_array( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) ) {
 									$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
-									if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
-										$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+									if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
+										$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 									}
 								}
 							}
@@ -887,7 +896,7 @@ class THEMECOMPLETE_EPO_Order {
 											$tax_string = ' <small>' . apply_filters( 'wc_epo_ex_tax_or_vat_string', WC()->countries->ex_tax_or_vat() ) . '</small>';
 										}
 										if ( (float) 0 !== floatval( $price ) ) {
-											$price = themecomplete_get_price_excluding_tax(
+											$price = (float) themecomplete_get_price_excluding_tax(
 												$product,
 												[
 													'qty' => 10000,
@@ -901,7 +910,7 @@ class THEMECOMPLETE_EPO_Order {
 											$tax_string = ' <small>' . apply_filters( 'inc_tax_or_vat', WC()->countries->inc_tax_or_vat() ) . '</small>';
 										}
 										if ( (float) 0 !== floatval( $price ) ) {
-											$price = themecomplete_get_price_including_tax(
+											$price = (float) themecomplete_get_price_including_tax(
 												$product,
 												[
 													'qty' => 10000,
@@ -915,7 +924,7 @@ class THEMECOMPLETE_EPO_Order {
 
 							$epovalue .= ' ' . ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( $price, $currency_arg ) . $tax_string ) : '' );
 						}
-						if ( $epo['quantity'] > 1 ) {
+						if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 							$epovalue .= ' &times; ' . $epo['quantity'];
 						}
 
@@ -925,11 +934,7 @@ class THEMECOMPLETE_EPO_Order {
 							$epo['value'] .= ' <small>' . $epovalue . '</small>';
 						}
 
-						if ( is_array( $epo['value'] ) ) {
-							$epo['value'] = array_map( [ THEMECOMPLETE_EPO_HELPER(), 'html_entity_decode' ], $epo['value'] );
-						} else {
-							$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
-						}
+						$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
 
 						if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_strip_html_from_emails ) {
 							$epo['value'] = wp_strip_all_tags( $epo['value'] );
@@ -941,11 +946,17 @@ class THEMECOMPLETE_EPO_Order {
 												. '" /></span>';
 								$epo['value']  = $display_value . $epo['value'];
 							} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+								$color_hex     = $epo['color'];
+								$color_no_hash = $epo['color'];
+								if ( 'transparent' !== $color_hex ) {
+									$color_hex     = themecomplete_sanitize_hex_color( $color_hex );
+									$color_no_hash = themecomplete_sanitize_hex_color_no_hash( $color_no_hash );
+								}
 								$display_value = '<span class="cpf-colors-on-cart"><span class="cpf-color-on-cart backgroundcolor'
-												. esc_attr( sanitize_hex_color_no_hash( $epo['color'] ) ) . '"></span> '
+												. esc_attr( $color_no_hash ) . '"></span> '
 												. '</span>';
 								$epo['value']  = $display_value . $epo['value'];
-								THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $epo['color'] ) ) . '{background-color:' . esc_attr( sanitize_hex_color( $epo['color'] ) ) . ';}' );
+								THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( (string) $color_no_hash ) . '{background-color:' . esc_attr( (string) $color_hex ) . ';}' );
 							}
 
 							if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
@@ -964,11 +975,8 @@ class THEMECOMPLETE_EPO_Order {
 							$epo_value = trim( $epo['value'] );
 
 							$epo_value = str_replace( [ "\r\n", "\r" ], "\n", $epo_value );
-
 							$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-							$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
+							$epo_value = array_map( 'strval', array_map( 'wc_clean', explode( "\n", $epo_value ) ) );
 							$epo_value = implode( "\r\n", $epo_value );
 
 							$epo['value'] = $epo_value;
@@ -983,7 +991,7 @@ class THEMECOMPLETE_EPO_Order {
 									case 'price':
 										$_value = ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( (float) $epo['price'] / (float) $epo['quantity'], $currency_arg ) ) : '' );
 
-										if ( $epo['quantity'] > 1 ) {
+										if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 											$_value .= ' &times; ' . $epo['quantity'];
 										}
 										break;
@@ -992,6 +1000,9 @@ class THEMECOMPLETE_EPO_Order {
 										break;
 									case 'noprice':
 										$_value = $epo['value'];
+										if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+											$_value .= ' &times; ' . $epo['quantity'];
+										}
 										break;
 									default:
 										$_value = $epo['value'];
@@ -1047,7 +1058,7 @@ class THEMECOMPLETE_EPO_Order {
 					foreach ( $element as $key => $value ) {
 
 						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_unique_meta_values && is_array( $value ) ) {
-							$value = implode( ', ', $value );
+							$value = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
 						}
 						if ( '' === $value ) {
 							$value = ' ';
@@ -1074,7 +1085,7 @@ class THEMECOMPLETE_EPO_Order {
 
 							if ( is_array( $value ) ) {
 								foreach ( $value as $currentvalue ) {
-									$current_meta_key ++;
+									++$current_meta_key;
 									if ( ! isset( $current_meta[ $current_meta_key ] ) ) {
 										$current_meta[] = (object) [
 											'id'          => $current_meta_key,
@@ -1085,7 +1096,7 @@ class THEMECOMPLETE_EPO_Order {
 									}
 								}
 							} else {
-								$current_meta_key ++;
+								++$current_meta_key;
 								if ( ! isset( $current_meta[ $current_meta_key ] ) ) {
 									$current_meta[] = (object) [
 										'id'    => $current_meta_key,
@@ -1100,7 +1111,7 @@ class THEMECOMPLETE_EPO_Order {
 
 				if ( $current_meta_key > 0 && $added ) {
 					$item->set_meta_data( $current_meta );
-					$item->tc_added_meta = true;
+					$cached_items[ $item_id ] = true;
 				}
 			}
 			$return_items[ $item_id ] = $item;
@@ -1111,49 +1122,45 @@ class THEMECOMPLETE_EPO_Order {
 		}
 
 		return $return_items;
-
 	}
 
 	/**
 	 * Flag WooCommerce admin order page
 	 *
-	 * @param array $type The type of line item.
+	 * @param string $type The type of line item.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function woocommerce_admin_order_item_types( $type ) {
-
 		$this->is_in_woocommerce_admin_order_page = true;
-
 		return $type;
-
 	}
 
 	/**
 	 * Flag WooCommerce admin order page
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_admin_order_data_after_order_details() {
-
 		$this->is_in_woocommerce_admin_order_page = true;
-
 	}
 
 	/**
 	 * Flag WooCommerce orde checkout
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_checkout_order_processed() {
-
 		define( 'TM_CHECKOUT_ORDER_PROCESSED', 1 );
-
 	}
 
 	/**
 	 * For hiding uploaded file path
 	 *
 	 * @param string $value The meta value to display.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function woocommerce_order_item_display_meta_value( $value = '' ) {
@@ -1164,13 +1171,13 @@ class THEMECOMPLETE_EPO_Order {
 	 * Display meta value
 	 * Mainly used for hiding uploaded file path
 	 *
-	 * @param string  $value The meta value to display.
-	 * @param integer $override Override default behavior.
-	 * @param string  $check The placement where the meta value is displayed.
+	 * @param mixed  $value The meta value to display.
+	 * @param mixed  $override Override default behavior.
+	 * @param string $check The placement where the meta value is displayed.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function display_meta_value( $value = '', $override = 0, $check = 'cart' ) {
-
 		$original_value = $value;
 
 		$canbeallowed = true;
@@ -1246,31 +1253,30 @@ class THEMECOMPLETE_EPO_Order {
 			}
 		}
 		if ( is_array( $value ) ) {
-			$value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $value, ',' );
+			$value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $value, THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text );
 		}
 
 		return $value;
-
 	}
 
 	/**
 	 * Helper to determine when the email is about to be sent
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function change_is_about_to_sent_email() {
 		$this->is_about_to_sent_email = true;
-
 	}
 
 	/**
 	 * Attach upload files to emails
 	 *
-	 * @param array  $attachments The email attachments.
-	 * @param string $emailmethodid The Email method ID.
-	 * @param object $order The order object.
+	 * @param array<mixed> $attachments The email attachments.
+	 * @param string       $emailmethodid The Email method ID.
+	 * @param mixed        $order The order object.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public function woocommerce_email_attachments( $attachments, $emailmethodid, $order ) {
 		if ( $order && is_callable( [ $order, 'get_items' ] ) ) {
@@ -1303,7 +1309,7 @@ class THEMECOMPLETE_EPO_Order {
 			$base_url = THEMECOMPLETE_EPO_HELPER()->to_ssl( $base_url );
 			foreach ( $items as $item_id => $item ) {
 
-				$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+				$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
 				$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
@@ -1353,8 +1359,6 @@ class THEMECOMPLETE_EPO_Order {
 				}
 			}
 		}
-
 		return $attachments;
 	}
-
 }

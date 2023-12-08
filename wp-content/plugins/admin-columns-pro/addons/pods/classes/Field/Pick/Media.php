@@ -30,10 +30,6 @@ class Media extends Field\Pick {
 		return new Export\File( $this->column() );
 	}
 
-	public function search() {
-		return new Comparison\Meta\Media( $this->column()->get_meta_key(), $this->column()->get_meta_type() );
-	}
-
 	public function get_dependent_settings() {
 		return [
 			new Settings\Column\Image( $this->column() ),

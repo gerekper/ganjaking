@@ -6,158 +6,151 @@ use AC;
 use AC\View;
 
 class Settings extends AC\Settings\Column
-	implements AC\Settings\Header {
+    implements AC\Settings\Header
+{
 
-	/**
-	 * @var string 'On' or 'Off'
-	 */
-	private $filter;
+    public const NAME = 'filter';
 
-	/**
-	 * @var string Top Label
-	 */
-	private $filter_label;
+    /**
+     * @var string 'On' or 'Off'
+     */
+    private $filter;
 
-	protected function set_name() {
-		$this->name = 'filter';
-	}
+    /**
+     * @var string Top Label
+     */
+    private $filter_label;
 
-	protected function define_options() {
-		return [
-			'filter' => 'off', // default Off
-			'filter_label',
-		];
-	}
+    protected function set_name()
+    {
+        $this->name = self::NAME;
+    }
 
-	/**
-	 * @return string
-	 */
-	private function get_instruction() {
-		$view = new View();
-		$view->set_template( 'tooltip/filtering' );
+    protected function define_options()
+    {
+        return [
+            'filter' => 'off', // default Off
+            'filter_label',
+        ];
+    }
 
-		return $view->render();
-	}
+    private function get_instruction(): string
+    {
+        $view = new View();
+        $view->set_template('tooltip/filtering');
 
-	public function create_header_view() {
-		$filter = $this->get_filter();
+        return $view->render();
+    }
 
-		$view = new View( [
-			'title'    => __( 'Enable Filtering', 'codepress-admin-columns' ),
-			'dashicon' => 'dashicons-filter',
-			'state'    => $filter,
-		] );
+    public function create_header_view()
+    {
+        $filter = $this->get_filter();
 
-		$view->set_template( 'settings/header-icon' );
+        $view = new View([
+            'title'    => __('Enable Filtering', 'codepress-admin-columns'),
+            'dashicon' => 'dashicons-filter',
+            'state'    => $filter,
+        ]);
 
-		return $view;
-	}
+        $view->set_template('settings/header-icon');
 
-	public function create_view() {
-		$filter = new AC\Form\Element\Toggle( 'filter', '', $this->get_value( 'filter' ) === 'on', 'on', 'off' );
-		$filter->add_class( 'ac-setting-input_filter' );
+        return $view;
+    }
 
-		// Main settings
-		$view = new View();
-		$view->set( 'label', __( 'Filtering', 'codepress-admin-columns' ) )
-		     ->set( 'instructions', $this->get_instruction() )
-		     ->set( 'setting', $filter );
+    public function create_view()
+    {
+        $filter = new AC\Form\Element\Toggle('filter', '', $this->get_value('filter') === 'on', 'on', 'off');
+        $filter->add_class('ac-setting-input_filter');
 
-		$filter_label = $this->create_element( 'text', 'filter_label' )
-		                     ->set_attribute( 'data-default-translation', $this->get_default_translation_string() )
-		                     ->set_attribute( 'placeholder', $this->get_filter_label_default() );
+        // Main settings
+        $view = new View();
+        $view->set('label', __('Filtering', 'codepress-admin-columns'))
+             ->set('instructions', $this->get_instruction())
+             ->set('setting', $filter);
 
-		// Sub settings
-		$label_view = new View();
-		$label_view->set( 'label', __( 'Top label', 'codepress-admin-columns' ) )
-		           ->set( 'tooltip', __( "Set the name of the label in the filter menu", 'codepress-admin-columns' ) )
-		           ->set( 'setting', $filter_label )
-		           ->set( 'for', $filter_label->get_id() );
+        $filter_label = $this->create_element('text', 'filter_label')
+                             ->set_attribute('data-default-translation', $this->get_default_translation_string())
+                             ->set_attribute('placeholder', $this->get_filter_label_default());
 
-		$view->set( 'sections', [ $label_view ] );
+        // Sub settings
+        $label_view = new View();
+        $label_view->set('label', __('Top label', 'codepress-admin-columns'))
+                   ->set('tooltip', __("Set the name of the label in the filter menu", 'codepress-admin-columns'))
+                   ->set('setting', $filter_label)
+                   ->set('for', $filter_label->get_id());
 
-		return $view;
-	}
+        $view->set('sections', [$label_view]);
 
-	/**
-	 * @return string
-	 */
-	protected function get_label_from_column() {
-		$label = $this->sanitize_label( $this->column->get_setting( 'label' )->get_value() );
+        return $view;
+    }
 
-		if ( ! $label ) {
-			$label = $this->sanitize_label( $this->column->get_label() );
-		}
+    public function get_filter_label_default(): string
+    {
+        $label = $this->sanitize_label($this->column->get_setting('label')->get_value());
 
-		return $label;
-	}
+        if ( ! $label) {
+            $label = $this->sanitize_label($this->column->get_label());
+        }
 
-	/**
-	 * @return string
-	 */
-	public function get_filter_label_default() {
-		$label = $this->sanitize_label( $this->column->get_setting( 'label' )->get_value() );
+        return sprintf($this->get_default_translation_string(), $label);
+    }
 
-		if ( ! $label ) {
-			$label = $this->sanitize_label( $this->column->get_label() );
-		}
+    private function get_default_translation_string(): string
+    {
+        return __("Any %s", 'codepress-admin-columns');
+    }
 
-		if ( $this->column instanceof Filterable && ! $this->column->filtering()->is_ranged() ) {
-			$label = sprintf( $this->get_default_translation_string(), $label );
-		}
+    /**
+     * @return string
+     */
+    public function get_filter()
+    {
+        return $this->filter;
+    }
 
-		return $label;
-	}
+    /**
+     * @param string $filter
+     *
+     * @return $this
+     */
+    public function set_filter($filter)
+    {
+        $this->filter = $filter;
 
-	private function get_default_translation_string() {
-		return __( "Any %s", 'codepress-admin-columns' );
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_filter() {
-		return $this->filter;
-	}
+    /**
+     * @return bool True when filter is selected
+     */
+    public function is_active()
+    {
+        return 'on' === $this->filter;
+    }
 
-	/**
-	 * @param string $filter
-	 *
-	 * @return $this
-	 */
-	public function set_filter( $filter ) {
-		$this->filter = $filter;
+    protected function sanitize_label($label)
+    {
+        return trim(strip_tags($label));
+    }
 
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    public function get_filter_label()
+    {
+        return $this->sanitize_label((string)$this->filter_label);
+    }
 
-	/**
-	 * @return bool True when filter is selected
-	 */
-	public function is_active() {
-		return 'on' === $this->filter;
-	}
+    /**
+     * @param string $filter_label
+     *
+     * @return $this
+     */
+    public function set_filter_label($filter_label)
+    {
+        $this->filter_label = $filter_label;
 
-	protected function sanitize_label( $label ) {
-		return trim( strip_tags( $label ) );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_filter_label() {
-		return $this->sanitize_label( (string) $this->filter_label );
-	}
-
-	/**
-	 * @param string $filter_label
-	 *
-	 * @return $this
-	 */
-	public function set_filter_label( $filter_label ) {
-		$this->filter_label = $filter_label;
-
-		return $this;
-	}
+        return $this;
+    }
 
 }

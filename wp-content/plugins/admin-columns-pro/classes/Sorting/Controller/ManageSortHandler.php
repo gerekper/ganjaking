@@ -4,7 +4,6 @@ namespace ACP\Sorting\Controller;
 
 use AC\ListScreen;
 use ACP\Sorting;
-use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\ModelFactory;
 
 /**
@@ -44,14 +43,9 @@ class ManageSortHandler
             return;
         }
 
-        $model = $this->model_factory->create($column);
+        $model = $this->model_factory->create_model($column);
 
         if ( ! $model) {
-            return;
-        }
-
-        // these are handled by a different controller
-        if ($model instanceof QueryBindings) {
             return;
         }
 

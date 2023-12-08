@@ -15,13 +15,12 @@ final class Media extends TableRows
 
     public function pre_handle_request(WP_Query $query): void
     {
-        remove_action('pre_get_posts', [$this, __FUNCTION__]);
-
         if ( ! $query->is_main_query()) {
             return;
         }
 
         $this->handle_request();
+        remove_action('pre_get_posts', [$this, __FUNCTION__]);
     }
 
 }

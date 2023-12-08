@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\Order;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACA\WC\Scheme\Orders;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class OrderData extends AbstractModel implements QueryBindings
+class OrderData implements QueryBindings
 {
 
     private $field;
 
+    private $data_type;
+
     public function __construct(string $field, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->field = $field;
         $this->data_type = $data_type;
     }
@@ -30,7 +30,7 @@ class OrderData extends AbstractModel implements QueryBindings
 
         $bindings = new Bindings();
 
-        $field = sprintf('%s.%s', $wpdb->prefix . 'wc_orders', $this->field);
+        $field = sprintf('%s.%s', $wpdb->prefix . Orders::TABLE, $this->field);
 
         $bindings->order_by(
             SqlOrderByFactory::create(

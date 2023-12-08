@@ -24,7 +24,9 @@ class CreatedVersion extends AC\Column implements ACP\Search\Searchable, ACP\Con
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_version() : false;
+        return $order
+            ? $order->get_version()
+            : false;
     }
 
     public function search()

@@ -2,12 +2,13 @@
 
 namespace ACP\Editing\Service\Post;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 use ACP\Helper\Select;
+use ACP\Helper\Select\Post\PaginatedFactory;
 
 class PostParent extends BasicStorage implements PaginatedOptions {
 
@@ -23,22 +24,15 @@ class PostParent extends BasicStorage implements PaginatedOptions {
 	}
 
 	public function get_view( string $context ): ?View {
-		$view = new View\AjaxSelect();
-
-		return $view->set_clear_button( true );
+		return ( new View\AjaxSelect() )->set_clear_button( true );
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		$entities = new Select\Entities\Post( [
-			's'         => $s,
-			'paged'     => $paged,
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			's'         => $search,
+			'paged'     => $page,
 			'post_type' => $this->post_type,
 		] );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Formatter\PostTitle( $entities )
-		);
 	}
 
 	public function get_value( int $id ) {

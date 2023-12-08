@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class TotalSales extends AbstractModel implements QueryBindings
+class TotalSales implements QueryBindings
 {
 
     public function create_query_bindings(Order $order): Bindings

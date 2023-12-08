@@ -3,7 +3,7 @@
  * Extra Product Options functions
  *
  * @package Extra Product Options/Functions
- * @version 6.0
+ * @version 6.4
  * phpcs:disable WordPress.NamingConventions.ValidFunctionName
  */
 
@@ -79,6 +79,15 @@ function THEMECOMPLETE_EPO_CHECK() {
  */
 function THEMECOMPLETE_EPO_BUILDER() {
 	return THEMECOMPLETE_EPO_BUILDER_Base::instance();
+}
+
+/**
+ * Admin Field builder.
+ *
+ * @return THEMECOMPLETE_EPO_ADMIN_BUILDER_Base
+ */
+function THEMECOMPLETE_EPO_ADMIN_BUILDER() {
+	return THEMECOMPLETE_EPO_ADMIN_BUILDER_Base::instance();
 }
 
 /**
@@ -180,6 +189,24 @@ function THEMECOMPLETE_EPO_API() {
 	return THEMECOMPLETE_EPO_API_Base::instance();
 }
 
+/**
+ * Conditional Logic Interface.
+ *
+ * @return THEMECOMPLETE_EPO_Conditional_Logic_Base
+ */
+function THEMECOMPLETE_EPO_CONDITIONAL_LOGIC() {
+	return THEMECOMPLETE_EPO_Conditional_Logic_Base::instance();
+}
+
+/**
+ * Actions Interface.
+ *
+ * @return THEMECOMPLETE_EPO_Actions_Base
+ */
+function THEMECOMPLETE_EPO_ACTIONS() {
+	return THEMECOMPLETE_EPO_Actions_Base::instance();
+}
+
 if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 	/**
 	 * Convert local decimal separator to PHP dot
@@ -199,7 +226,7 @@ if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 		foreach ( $decimals as $decimal ) {
 			if ( '.' !== $decimal && '' !== $decimal ) {
 				$input = preg_replace_callback(
-					'~if\(.*?\)(*SKIP)(*F)|lookuptable\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d+~',
+					'~if\(.*?\)(*SKIP)(*F)|lookuptable\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|(?<!\bif\s\()\d+\\' . $decimal . '\d+(?![^\(]*?\))~',
 					function ( $m ) use ( $decimal ) {
 						return str_replace( $decimal, '.', $m[0] );
 					},
@@ -219,7 +246,7 @@ if ( ! function_exists( 'themecomplete_woocommerce_check' ) ) {
 	/**
 	 * Check if WooCommerce is active
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
 	function themecomplete_woocommerce_check() {
 		return ! ( THEMECOMPLETE_EPO_CHECK()->tc_needs_wc_db_update() ) && THEMECOMPLETE_EPO_CHECK()->themecomplete_woocommerce_check_only();
@@ -230,7 +257,7 @@ if ( ! function_exists( 'themecomplete_woocommerce_subscriptions_check' ) ) {
 	/**
 	 * Check if Subscriptions is active
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
 	function themecomplete_woocommerce_subscriptions_check() {
 		$active_plugins = (array) get_option( 'active_plugins', [] );
@@ -246,8 +273,8 @@ if ( ! function_exists( 'themecomplete_get_roles' ) ) {
 	/**
 	 * Get available roles
 	 *
-	 * @param array $disable Disable roles from showing.
-	 * @return array
+	 * @param array<string> $disable Disable roles from showing.
+	 * @return array<string>
 	 */
 	function themecomplete_get_roles( $disable = [] ) {
 		$result = [];
@@ -281,8 +308,8 @@ if ( ! function_exists( 'themecomplete_price' ) ) {
 	/**
 	 * Format the price with a currency symbol
 	 *
-	 * @param float $price the price.
-	 * @param array $args (default: []).
+	 * @param mixed        $price the price.
+	 * @param array<mixed> $args (default: []).
 	 *
 	 * @return string
 	 */
@@ -360,23 +387,19 @@ if ( ! function_exists( 'themecomplete_get_tax_rate' ) ) {
 	 *
 	 * @param string $classes Tax class.
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	function themecomplete_get_tax_rate( $classes ) {
-
 		$tax_rate = 0;
 
 		if ( class_exists( 'WC_Tax' ) && version_compare( get_option( 'woocommerce_version' ), '2.4', '>=' ) ) {
-			$tax_rates    = WC_Tax::get_rates( $classes );
-			$precision    = wc_get_rounding_precision();
-			$price_of_one = 1 * ( pow( 10, $precision ) );
-			$taxes_of_one = array_sum( WC_Tax::calc_tax( $price_of_one, $tax_rates, wc_prices_include_tax() ) );
-			$taxes_of_one = $taxes_of_one / ( pow( 10, $precision ) );
-			$tax_rate     = 100 * $taxes_of_one;
+			$tax_rates = WC_Tax::get_rates( $classes );
+			foreach ( $tax_rates as $key => $value ) {
+				$tax_rate = $tax_rate + floatval( $value['rate'] );
+			}
 		}
 
 		return $tax_rate;
-
 	}
 }
 
@@ -398,7 +421,6 @@ if ( ! function_exists( 'themecomplete_do_shortcode' ) ) {
 	 * @return string Content with shortcodes filtered out.
 	 */
 	function themecomplete_do_shortcode( $content, $ignore_html = false ) {
-
 		global $wp_embed;
 
 		// The < character when used in math formulas conflicts with the
@@ -406,16 +428,145 @@ if ( ! function_exists( 'themecomplete_do_shortcode' ) ) {
 		// workaround to fix it.
 		$content = str_replace( '<', '<>THEMECOMPLETEDIDREPLACE', $content );
 
+		// Disable acf ajax filter in order to get correct prices.
+		add_filter( 'acf/ajax/shortcode_capability', '__return_false' );
 		if ( $wp_embed ) {
-			$content = do_shortcode( $wp_embed->run_shortcode( $content ) );
+			$content = do_shortcode( $wp_embed->run_shortcode( $content ), $ignore_html );
 		} else {
-			$content = do_shortcode( $content );
+			$content = do_shortcode( $content, $ignore_html );
 		}
+		remove_filter( 'acf/ajax/shortcode_capability', '__return_false' );
 
 		$content = str_replace( '<>THEMECOMPLETEDIDREPLACE', '<', $content );
 
 		return $content;
-
 	}
 }
 
+/**
+ * Convert a number to locale independent string
+ * without E notation and without loosing precision.
+ *
+ * @param integer|float|double $number The number to convert.
+ * @param integer              $scale This optional parameter is used to set the number of digits after the decimal place in the result.
+ * @return string The locale independent converted number.
+ */
+function themecomplete_bcconv( $number, $scale = -1 ) {
+	$append   = '';
+	$decimals = $scale;
+	if ( -1 === $decimals ) {
+		$decimals = ini_get( 'precision' ) - floor( log10( abs( $number ) ) );
+	}
+	if ( 0 > $decimals ) {
+		$number  *= pow( 10, $decimals );
+		$append   = str_repeat( '0', -$decimals );
+		$decimals = 0;
+	}
+	return number_format( $number, $decimals, '.', '' ) . $append;
+}
+
+/**
+ * Computes the factoral (x!).
+ *
+ * @param mixed   $fact The number to convert.
+ * @param integer $scale This optional parameter is used to set the number of digits after the decimal place in the result.
+ * @return string The factoral (x!).
+ */
+function themecomplete_bcfact( $fact, $scale = 100 ) {
+	return '1' === (string) $fact ? 1 : bcmul( (string) $fact, themecomplete_bcfact( bcsub( (string) $fact, '1' ), $scale ), $scale );
+}
+
+/**
+ * Computes e^x, where e is Euler's constant.
+ *
+ * @param mixed   $x The number to e is raised to.
+ * @param integer $iters The number of itterations to use.
+ * @param integer $scale This optional parameter is used to set the number of digits after the decimal place in the result.
+ * @return string The e^x.
+ */
+function themecomplete_bcexp( $x, $iters = 50, $scale = 100 ) {
+	$res = bcadd( '1.0', (string) $x, $scale );
+	for ( $i = 0; $i < $iters; $i++ ) {
+		$res += bcdiv( bcpow( (string) $x, strval( $i + 2 ), $scale ), themecomplete_bcfact( ( $i + 2 ), $scale ), $scale );
+	}
+	return $res;
+}
+
+/**
+ * Computes ln(x).
+ *
+ * @param mixed   $x The number to get the ln(x).
+ * @param integer $iters The number of itterations to use.
+ * @param integer $scale This optional parameter is used to set the number of digits after the decimal place in the result.
+ * @return string The ln(x).
+ */
+function themecomplete_bcln( $x, $iters = 50, $scale = 100 ) {
+	$result = '0.0';
+	for ( $i = 0; $i < $iters; $i++ ) {
+		$pow      = bcadd( '1.0', bcmul( (string) $i, '2.0', $scale ), $scale );
+		$mul      = bcdiv( '1.0', (string) $pow, $scale );
+		$fraction = bcmul( $mul, bcpow( bcdiv( bcsub( (string) $x, '1.0', $scale ), bcadd( (string) $x, '1.0', $scale ), $scale ), $pow, $scale ), $scale );
+		$result   = bcadd( $fraction, $result, $scale );
+	}
+	$res = bcmul( '2.0', $result, $scale );
+	return $res;
+}
+
+/**
+ * Computes a^b, where a and b can have decimal digits, be negative and/or very large.
+ * Also works for 0^0. Only able to calculate up to 10 digits. Quite slow.
+ *
+ * @param string  $a The base, as a string.
+ * @param string  $b The exponent, as a string.
+ * @param integer $iters The number of itterations to use.
+ * @param integer $scale This optional parameter is used to set the number of digits after the decimal place in the result.
+ * @return string The ln(x).
+ */
+function themecomplete_bcpow( $a, $b, $iters = 50, $scale = 100 ) {
+	if ( ctype_digit( $b ) ) { // Check if $b is integer.
+		return bcpow( (string) $a, (string) $b );
+	}
+	$ln = themecomplete_bcln( $a, $iters, $scale );
+	return themecomplete_bcexp( bcmul( $ln, $b, $scale ), $iters, $scale );
+}
+
+/**
+ * Sanitizes a hex color.
+ *
+ * Returns either '', a 3 or 6 digit hex color (with #), or nothing.
+ * For sanitizing values without a #, see sanitize_hex_color_no_hash().
+ *
+ * @since 6.4
+ *
+ * @param string $color The hex color.
+ * @return string
+ */
+function themecomplete_sanitize_hex_color( $color ) {
+	$color = sanitize_hex_color( $color );
+	if ( ! is_string( $color ) ) {
+		$color = '';
+	}
+	return $color;
+}
+
+/**
+ * Sanitizes a hex color without a hash. Use sanitize_hex_color() when possible.
+ *
+ * Saving hex colors without a hash puts the burden of adding the hash on the
+ * UI, which makes it difficult to use or upgrade to other color types such as
+ * rgba, hsl, rgb, and HTML color names.
+ *
+ * Returns either '', a 3 or 6 digit hex color (without a #), or null.
+ *
+ * @since 6.4
+ *
+ * @param string $color The hex color without a hash.
+ * @return string
+ */
+function themecomplete_sanitize_hex_color_no_hash( $color ) {
+	$color = sanitize_hex_color_no_hash( $color );
+	if ( ! is_string( $color ) ) {
+		$color = '';
+	}
+	return $color;
+}

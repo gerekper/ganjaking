@@ -1469,35 +1469,11 @@ class DualButton extends Module_Base {
 		$this->add_render_attribute( 'wrapper', 'class', 'bdt-dual-button bdt-ep-button-wrapper bdt-element' );
 
 		if ( ! empty( $settings['button_a_link']['url'] ) ) {
-			$this->add_render_attribute( 'button_a', 'href', $settings['button_a_link']['url'] );
-
-			if ( $settings['button_a_link']['is_external'] ) {
-				$this->add_render_attribute( 'button_a', 'target', '_blank' );
-			}
-
-			if ( $settings['button_a_link']['nofollow'] ) {
-				$this->add_render_attribute( 'button_a', 'rel', 'nofollow' );
-			}
+			$this->add_link_attributes( 'button_a', $settings['button_a_link'] );
 		}
 
 		if ( ! empty( $settings['button_b_link']['url'] ) ) {
-			$this->add_render_attribute( 'button_b', 'href', $settings['button_b_link']['url'] );
-
-			if ( $settings['button_b_link']['is_external'] ) {
-				$this->add_render_attribute( 'button_b', 'target', '_blank' );
-			}
-
-			if ( $settings['button_b_link']['nofollow'] ) {
-				$this->add_render_attribute( 'button_b', 'rel', 'nofollow' );
-			}
-		}
-
-		if ( $settings['button_a_link']['nofollow'] ) {
-			$this->add_render_attribute( 'button_a', 'rel', 'nofollow' );
-		}
-
-		if ( $settings['button_b_link']['nofollow'] ) {
-			$this->add_render_attribute( 'button_b', 'rel', 'nofollow' );
+			$this->add_link_attributes( 'button_b', $settings['button_b_link'] );
 		}
 
 		if ( 'yes' === $settings['button_a_onclick'] ) {
@@ -1508,7 +1484,7 @@ class DualButton extends Module_Base {
 			$this->add_render_attribute( 'button_b', 'onclick', $settings['button_b_onclick_event'] );
 		}
 
-		$this->add_render_attribute( 'button_a', 'class', 'bdt-btn-a bdt-ep-button' );		
+		$this->add_render_attribute( 'button_a', 'class', 'bdt-btn-a bdt-ep-button' );
 		$this->add_render_attribute( 'button_a', 'class', 'bdt-effect-' . esc_attr($settings['button_a_effect']) );
 		$this->add_render_attribute( 'button_a', 'class', 'bdt-ep-button-size-' . esc_attr($settings['dual_button_size']) );
 

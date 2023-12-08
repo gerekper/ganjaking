@@ -2862,7 +2862,7 @@ class Slider extends Module_Base {
 	?>
 		<div class="swiper-wrapper">
 			<?php $counter = 1; ?>
-			<?php foreach ($settings['tabs'] as $item) : ?>
+			<?php foreach ($settings['tabs'] as $index => $item) : ?>
 
 				<?php
 					$image_src = isset($item['tab_image']['id']) ? wp_get_attachment_image_src($item['tab_image']['id'], 'full') : '';
@@ -2882,22 +2882,25 @@ class Slider extends Module_Base {
 						'',
 						true
 					);
-
+					
+					$link_key = 'link_' . $index;
 					$this->add_render_attribute(
 						[
-							'slider-link' => [
+							$link_key => [
 								'class' => [
 									'bdt-slide-link',
 									$settings['button_hover_animation'] ? 'elementor-animation-' . $settings['button_hover_animation'] : '',
 								],
-								'href'   => isset($item['tab_link']['url']) ? esc_url($item['tab_link']['url']) : '#',
-								'target' => isset($item['tab_link']['is_external']) ? '_blank' : '_self'
 							]
 						],
 						'',
 						'',
 						true
 					);
+					
+					if ('custom' == $item['source']) {
+						$this->add_link_attributes($link_key, $item['tab_link']);
+					}
 
 					if (!isset($settings['icon']) && !Icons_Manager::is_migration_allowed()) {
 						// add old default
@@ -2947,7 +2950,7 @@ class Slider extends Module_Base {
 
 							<?php if ((!empty($item['tab_link']['url'])) && ($settings['show_button'])) : ?>
 								<div class="bdt-slide-link-wrapper">
-									<a <?php echo $this->get_render_attribute_string('slider-link'); ?>>
+									<a <?php echo $this->get_render_attribute_string($link_key); ?>>
 
 										<?php echo esc_html($settings['button_text']); ?>
 

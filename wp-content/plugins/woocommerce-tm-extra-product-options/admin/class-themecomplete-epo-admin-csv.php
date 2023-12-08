@@ -3,7 +3,7 @@
  * Extra Product Options CSV Importer/Exporter
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  * phpcs:disable Generic.Files.OneObjectStructurePerFile
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options CSV import/export class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_ADMIN_CSV {
 
@@ -27,7 +27,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * If mb_detect_encoding is supported
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	private $is_active = true;
 
@@ -37,18 +37,17 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		if ( ! function_exists( 'mb_detect_encoding' ) ) {
 			$this->error_loading_string = '<p>' . esc_html__( 'The php functions mb_detect_encoding and mb_convert_encoding are required to import and export CSV files. Please ask your hosting provider to enable this function.', 'woocommerce-tm-extra-product-options' ) . '</p>';
 			$this->is_active            = false;
 		}
-
 	}
 
 	/**
 	 * Check if the system supports mb_detect_encoding
 	 *
 	 * @param string $type Action type.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function check_if_active( $type = '' ) {
@@ -58,7 +57,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				case 'export_by_id':
 				case 'export_by_product_id':
 					wp_die( wp_kses_post( $this->error_loading_string ) );
-					break;
+					break; // @phpstan-ignore-line
 
 				default:
 					// $this->error_loading_string is escaped
@@ -68,7 +67,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 							'message' => $this->error_loading_string,
 						]
 					);
-					break;
+					break; // @phpstan-ignore-line
 			}
 		}
 	}
@@ -76,7 +75,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Removes utf-8 BOM
 	 *
-	 * @param string $text Text to remove BOM from.
+	 * @param mixed $text Text to remove BOM from.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function remove_utf8_bom( $text ) {
@@ -91,15 +91,17 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	 *
 	 * @param string $data Data to check.
 	 * @param string $enc Encoding.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function format_data_from_csv( $data, $enc ) {
-		return ( 'UTF-8' === $enc ) ? $data : utf8_encode( $data );
+		return ( 'UTF-8' === $enc ) ? $data : THEMECOMPLETE_EPO_HELPER()->utf8_encode( $data );
 	}
 
 	/**
 	 * Import option data
 	 *
+	 * @return array<mixed>
 	 * @since 6.1
 	 */
 	public function do_options_import() {
@@ -118,7 +120,11 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				$csv = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
 
 				$start_pos = 0;
-				while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+				while ( true ) {
+					$header = fgetcsv( $handle, 0, $csv->delimiter );
+					if ( false === $header ) {
+						break; // Exit the loop when no more lines are available.
+					}
 					$header = $this->remove_utf8_bom( $header );
 
 					$position = ftell( $handle );
@@ -133,7 +139,11 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 					fseek( $handle, $start_pos );
 				}
 
-				while ( ( $postmeta = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+				while ( true ) {
+					$postmeta = fgetcsv( $handle, 0, $csv->delimiter );
+					if ( false === $postmeta ) {
+						break; // Exit the loop when no more lines are available.
+					}
 					$row = [];
 					foreach ( $header as $key => $heading ) {
 						$heading   = $this->remove_utf8_bom( trim( $heading ) );
@@ -165,6 +175,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Import lookup table data
 	 *
+	 * @return array<mixed>
 	 * @since 6.1
 	 */
 	public function do_lookuptable_import() {
@@ -181,31 +192,53 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 
 			$handle = fopen( $file['tmp_name'], 'r' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 			if ( false !== $handle ) {
-				$csv        = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
-				$table_name = '';
-				while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+				$csv          = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
+				$table_name   = '';
+				$can_be_table = 1;
+				$table_rows   = 0;
+				while ( true ) {
+					$header = fgetcsv( $handle, 0, $csv->delimiter );
+					if ( false === $header ) {
+						break; // Exit the loop when no more lines are available.
+					}
 					$header = $this->remove_utf8_bom( $header );
-					if ( ! empty( $header[0] ) && ! is_numeric( $header[0] ) && 'max' !== strtolower( $header[0] ) ) {
-						$table_name = $this->remove_utf8_bom( trim( $header[0] ) );
-						$table_name = $this->format_data_from_csv( $table_name, $enc );
+
+					$is_header_empty = array_reduce(
+						$header,
+						function ( $carry, $element ) {
+							return $carry && ( '' === $element );
+						},
+						true
+					);
+
+					if ( $is_header_empty ) {
+						$can_be_table = 1;
+					}
+
+					if ( $can_be_table && ! empty( $header[0] ) && ! is_numeric( $header[0] ) ) {
+						$table_name   = $this->remove_utf8_bom( trim( $header[0] ) );
+						$table_name   = $this->format_data_from_csv( $table_name, $enc );
+						$can_be_table = 0;
+						$table_rows   = 0;
 					}
 					if ( $table_name ) {
 						$row = [];
 						foreach ( $header as $key => $heading ) {
 							$heading = $this->remove_utf8_bom( trim( $heading ) );
 							$heading = $this->format_data_from_csv( $heading, $enc );
-							if ( 'max' !== $heading && $table_name !== $heading ) {
+							if ( 0 < $table_rows && 0 < $key ) {
 								$heading = wc_format_decimal( $heading, false, true );
 							}
 							$row[ $key ] = $heading;
 						}
 						$raw_data[ $table_name ][] = $row;
+						++$table_rows;
 					}
 				}
 
 				foreach ( $raw_data as $raw_name => $data ) {
-					foreach ( $data[0] as $x ) {
-						if ( '' === $x || ( ! is_numeric( $x ) && 'max' !== $x ) ) {
+					foreach ( $data[0] as $key_x => $x ) {
+						if ( '' === $x || 0 === $key_x ) {
 							continue;
 						}
 						$headers[ $raw_name ][] = $x;
@@ -247,10 +280,11 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Check if there is data to be imported
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function check_for_import() {
-		$files   = $_FILES;
+		$files   = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
 		$data    = [];
 		$message = esc_html__( 'Invalid CSV file.', 'woocommerce-tm-extra-product-options' );
 		if ( isset( $files['builder_import_file'] ) ) {
@@ -293,7 +327,6 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				if ( $enc ) {
 					setlocale( LC_ALL, 'en_US.' . $enc );
 				}
-				ini_set( 'auto_detect_line_endings', true );
 
 				$data['file'] = $file;
 				$data['enc']  = $enc;
@@ -311,6 +344,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Parse imported data (for options)
 	 *
+	 * @return array<mixed>
 	 * @since 6.1
 	 */
 	public function parse_imported_data() {
@@ -368,6 +402,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Parse imported data (for options)
 	 *
+	 * @return array<mixed>
 	 * @since 6.1
 	 */
 	public function parse_imported_lookuptable() {
@@ -411,7 +446,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Cleans the csv data
 	 *
-	 * @param array $import Import array.
+	 * @param array<mixed> $import Import array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function clean_csv_data( $import ) {
@@ -451,10 +487,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 						if ( ! in_array( $k, $remove_keys ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
 							$clean_import[ $key ][ $k ] = $v;
 						}
-					} else {
-						if ( isset( $element_keys[ $element_key ] ) && in_array( $k, $element_keys[ $element_key ] ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-							$clean_import[ $key ][ $k ] = $v;
-						}
+					} elseif ( isset( $element_keys[ $element_key ] ) && in_array( $k, $element_keys[ $element_key ] ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
+						$clean_import[ $key ][ $k ] = $v;
 					}
 				}
 			}
@@ -468,6 +502,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Import csv
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function import() {
@@ -501,7 +536,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				$json_result = [
 					'result'   => 1,
 					'message'  => $message,
-					'jsobject' => THEMECOMPLETE_EPO_BUILDER()->jsbuilder,
+					'jsobject' => THEMECOMPLETE_EPO_ADMIN_BUILDER()->jsbuilder,
 				];
 
 				if ( $options ) {
@@ -520,12 +555,12 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				'message' => $message,
 			]
 		);
-
 	}
 
 	/**
 	 * Debug post_max_size
 	 *
+	 * @return string
 	 * @since 6.1
 	 */
 	public function debug_post_max_size() {
@@ -533,7 +568,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		$this->check_if_active( 'import' );
 
 		$message  = '';
-		$post_max = ini_get( 'post_max_size' );
+		$post_max = (float) wc_let_to_num( ini_get( 'post_max_size' ) );
 
 		if ( empty( $_FILES )
 			&& empty( $_POST )
@@ -561,6 +596,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	/**
 	 * Import lookup table csv
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public function lookuptable_import() {
@@ -604,12 +640,25 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		$import_message = $import['message'];
 		$import         = $import['data'];
 
+		if ( empty( $message ) ) {
+			$message = $import_message;
+		}
+
 		if ( ! empty( $import ) ) {
 			$message = $import_message;
 			$table   = false;
 			if ( isset( $_REQUEST['post_id'] ) ) {
 				$post_id = absint( wp_unslash( $_REQUEST['post_id'] ) );
-				set_transient( 'tc_lookuptable_import_csv_' . $post_id, $import, DAY_IN_SECONDS );
+				$set     = set_transient( 'tc_lookuptable_import_csv_' . $post_id, $import, DAY_IN_SECONDS );
+
+				if ( false === $set ) {
+					wp_send_json(
+						[
+							'result'  => 0,
+							'message' => esc_html__( 'There was an error saving the csv data. Please check the encoding of your csv file!', 'woocommerce-tm-extra-product-options' ),
+						]
+					);
+				}
 
 				$builder = themecomplete_get_post_meta( $post_id, 'lookuptable_meta', true );
 				if ( is_array( $builder ) ) {
@@ -647,11 +696,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			}
 
 			wp_send_json( $json_result );
-		} else {
-			if ( empty( $message ) ) {
-				$message = $import_message;
-			}
 		}
+
 		// $message is escaped
 		wp_send_json(
 			[
@@ -659,25 +705,24 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				'message' => $message,
 			]
 		);
-
 	}
 
 	/**
 	 * Export lookup table csv
 	 *
-	 * @param string $var Variable to use.
+	 * @param string $variable Variable to use.
+	 * @return void
 	 * @since 6.3
 	 */
-	public function export_lookuptable( $var = '' ) {
-
+	public function export_lookuptable( $variable = '' ) {
 		$this->check_if_active( 'export' );
 		check_ajax_referer( 'export-nonce', 'security' );
 
 		$tm_meta = '';
 		$json    = [];
-		if ( ! empty( $var ) && isset( $_REQUEST[ $var ] ) ) {
+		if ( ! empty( $variable ) && isset( $_REQUEST[ $variable ] ) ) {
 
-			$tm_metas = json_decode( nl2br( wp_unslash( $_REQUEST[ $var ] ) ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$tm_metas = json_decode( nl2br( wp_unslash( $_REQUEST[ $variable ] ) ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( ! empty( $tm_metas )
 				&& is_array( $tm_metas )
@@ -709,25 +754,24 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		wp_send_json(
 			$json
 		);
-
 	}
 
 	/**
 	 * Export csv
 	 *
-	 * @param string $var Variable to use.
+	 * @param string $variable Variable to use.
+	 * @return void
 	 * @since 1.0
 	 */
-	public function export( $var = '' ) {
-
+	public function export( $variable = '' ) {
 		$this->check_if_active( 'export' );
 		check_ajax_referer( 'export-nonce', 'security' );
 
 		$tm_meta  = '';
 		$sendback = '';
-		if ( ! empty( $var ) && isset( $_REQUEST[ $var ] ) ) {
+		if ( ! empty( $variable ) && isset( $_REQUEST[ $variable ] ) ) {
 
-			$tm_metas = json_decode( nl2br( wp_unslash( $_REQUEST[ $var ] ) ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$tm_metas = json_decode( nl2br( wp_unslash( $_REQUEST[ $variable ] ) ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( ! empty( $tm_metas )
 				&& is_array( $tm_metas )
@@ -757,19 +801,18 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		wp_send_json(
 			[ 'result' => $sendback ]
 		);
-
 	}
 
 	/**
 	 * Export builder
 	 *
-	 * @param array   $tm_meta Builder meta data.
-	 * @param boolean $recreate If the internal element ids should be recreated.
-	 * @param integer $post_id The post id.
+	 * @param array<mixed> $tm_meta Builder meta data.
+	 * @param boolean      $recreate If the internal element ids should be recreated.
+	 * @param integer      $post_id The post id.
+	 * @return void
 	 * @since 6.0
 	 */
 	private function export_builder( $tm_meta = [], $recreate = true, $post_id = 0 ) {
-
 		if ( ! empty( $tm_meta )
 			&& is_array( $tm_meta )
 			&& isset( $tm_meta['tmfbuilder'] )
@@ -794,13 +837,13 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			$this->download( $filename );
 
 		}
-
 	}
 
 	/**
 	 * Export csv by product id
 	 *
 	 * @param integer $post_id The post id.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function export_by_product_id( $post_id = 0 ) {
@@ -832,30 +875,27 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		}
 
 		$this->export_builder( $tm_meta, false, $post_id );
-
 	}
 
 	/**
 	 * Export csv by form id
 	 *
 	 * @param integer $post_id The post id.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function export_by_id( $post_id = 0 ) {
 		$this->check_if_active( 'export_by_id' );
-
 		check_ajax_referer( 'tmexport_form_nonce_' . $post_id, 'security' );
-
 		$tm_meta = themecomplete_get_post_meta( $post_id, 'tm_meta', true );
-
 		$this->export_builder( $tm_meta, true, $post_id );
-
 	}
 
 	/**
 	 * Download csv
 	 *
 	 * @param string $filename The file name.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function download( $filename = '' ) {
@@ -868,9 +908,9 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			set_time_limit( 0 );
 		}
 		if ( function_exists( 'apache_setenv' ) ) {
-			apache_setenv( 'no-gzip', 1 ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+			apache_setenv( 'no-gzip', '1' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
 		}
-		ini_set( 'zlib.output_compression', 0 ); // phpcs:ignore WordPress.PHP.IniSet
+		ini_set( 'zlib.output_compression', '0' ); // phpcs:ignore WordPress.PHP.IniSet
 
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Disposition: attachment; filename=' . $filename );
@@ -881,15 +921,17 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				delete_transient( 'tc_export_' . $filename );
 				// fix for Excel both on Windows and OS X.
 				$csv = mb_convert_encoding( $csv, 'UTF-8' );
-				$csv = pack( 'H*', 'EFBBBF' ) . $csv;
-
-				// No escape required or allowed here.
-				die( wp_check_invalid_utf8( apply_filters( 'wc_epo_download_csv', $csv ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+				if ( false !== $csv ) {
+					if ( is_string( $csv ) ) {
+						$csv = pack( 'H*', 'EFBBBF' ) . $csv;
+					}
+					// No escape required or allowed here.
+					die( wp_check_invalid_utf8( apply_filters( 'wc_epo_download_csv', $csv ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+				}
 			}
 		}
 		die();
 	}
-
 }
 
 
@@ -949,6 +991,7 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 	 * Replaces the data
 	 *
 	 * @param string $data Data to replace.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function replace_data( $data = '' ) {
@@ -961,12 +1004,13 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 	 * Formats the data
 	 *
 	 * @param string $data Data to format.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function format_data( $data = '' ) {
 		$data = (string) ( $data );
 		$enc  = mb_detect_encoding( $data, 'UTF-8, ISO-8859-1', true );
-		$data = ( 'UTF-8' === $enc ) ? $data : utf8_encode( $data );
+		$data = ( 'UTF-8' === $enc ) ? $data : THEMECOMPLETE_EPO_HELPER()->utf8_encode( $data );
 
 		return $data;
 	}
@@ -974,7 +1018,8 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 	/**
 	 * Converts the data
 	 *
-	 * @param array $input Data array to convert.
+	 * @param array<mixed> $input Data array to convert.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function convert( $input = [] ) {
@@ -1029,7 +1074,8 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 	/**
 	 * Converts the lookuptable data
 	 *
-	 * @param array $input Data array to convert.
+	 * @param array<mixed> $input Data array to convert.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function convert_lookuptable( $input = [] ) {
@@ -1037,7 +1083,7 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 		$input_length  = count( $input );
 		$input_counter = 0;
 		foreach ( $input as $table_name => $table_data ) {
-			$input_counter++;
+			++$input_counter;
 
 			$lines  = [];
 			$y_axis = [];
@@ -1056,7 +1102,7 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 			$counter = 1;
 			foreach ( $y_axis as $y_data_key => $y_data ) {
 				$lines[ $counter ] = $y_data;
-				$counter ++;
+				++$counter;
 			}
 
 			foreach ( $lines as $key => $value ) {
@@ -1093,6 +1139,7 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 	 * Convert a single line
 	 *
 	 * @param mixed $line Line to convert.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	private function convertline( $line ) {

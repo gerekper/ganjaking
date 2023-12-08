@@ -1536,7 +1536,7 @@
 			
 		}
 
-		public function render_image($item) {
+		public function render_image($item, $image_key) {
 			$settings = $this->get_settings_for_display();
 	
 			if ( ! $settings['show_image'] ) {
@@ -1548,17 +1548,10 @@
 				$thumb_url = $item['image']['url'];
 			}
 
-			$this->add_render_attribute(
-				[
-					'readmore-link' => [
-						'class' => [
-							'bdt-ep-product-carousel-image-link bdt-position-z-index',
-						],
-						'href'   => isset($item['readmore_link']['url']) ? esc_url($item['readmore_link']['url']) : '#',
-						'target' => $item['readmore_link']['is_external'] ? '_blank' : '_self'
-					]
-				], '', '', true
-			);
+			$this->add_render_attribute( $image_key, 'class', 'bdt-ep-product-carousel-image-link bdt-position-z-index', true );
+			if (!empty($item['readmore_link'])) {
+				$this->add_link_attributes($image_key, $item['readmore_link']);
+			}
 
 			$image_mask = $settings['image_mask_popover'] == 'yes' ? ' bdt-image-mask' : '';
 			$this->add_render_attribute('image-wrap', 'class', 'bdt-ep-product-carousel-image' . $image_mask);
@@ -1583,30 +1576,23 @@
 				?>
 
 				<?php if($settings['readmore_link_to'] == 'image') : ?>
-				<a <?php echo $this->get_render_attribute_string( 'readmore-link' ); ?>></a>
+				<a <?php echo $this->get_render_attribute_string( $image_key ); ?>></a>
 				<?php endif; ?>
 			</div>
 			<?php
 		}
 	
-		public function render_title($item) {
+		public function render_title($item, $title_key) {
 			$settings = $this->get_settings_for_display();
 	
 			if ( ! $settings['show_title'] ) {
 				return;
 			}
 
-			$this->add_render_attribute(
-				[
-					'readmore-link' => [
-						'class' => [
-							'bdt-ep-product-carousel-title-link',
-						],
-						'href'   => isset($item['readmore_link']['url']) ? esc_url($item['readmore_link']['url']) : '#',
-						'target' => $item['readmore_link']['is_external'] ? '_blank' : '_self'
-					]
-				], '', '', true
-			);
+			$this->add_render_attribute( $title_key, 'class', 'bdt-ep-product-carousel-title-link', true );
+			if (!empty($item['readmore_link'])) {
+				$this->add_link_attributes($title_key, $item['readmore_link']);
+			}
 	
 			$this->add_render_attribute('title-wrap', 'class', 'bdt-ep-product-carousel-title', true);
 	
@@ -1615,7 +1601,7 @@
 				<<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?> <?php echo $this->get_render_attribute_string('title-wrap'); ?>>
 					<?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
 					<?php if($settings['readmore_link_to'] == 'title') : ?>
-					<a <?php echo $this->get_render_attribute_string( 'readmore-link' ); ?>></a>
+					<a <?php echo $this->get_render_attribute_string( $title_key ); ?>></a>
 					<?php endif; ?>
 				</<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>>
 			<?php endif; ?>
@@ -1675,30 +1661,27 @@
 			<?php
 		}
 	
-		public function render_readmore($item) {
+		public function render_readmore($item, $readmore_key) {
 			$settings = $this->get_settings_for_display();
-	
-			// if ( ! $settings['show_readmore'] ) {
-			// 	return;
-			// }
-	
+
 			$this->add_render_attribute(
 				[
-					'readmore-link' => [
+					$readmore_key => [
 						'class' => [
 							'bdt-ep-product-carousel-readmore',
 							$settings['readmore_hover_animation'] ? 'elementor-animation-' . $settings['readmore_hover_animation'] : '',
 						],
-						'href'   => isset($item['readmore_link']['url']) ? esc_url($item['readmore_link']['url']) : '#',
-						'target' => $item['readmore_link']['is_external'] ? '_blank' : '_self'
 					]
 				], '', '', true
 			);
+			if (!empty($item['readmore_link'])) {
+				$this->add_link_attributes($readmore_key, $item['readmore_link']);
+			}
 	
 			?>
 			<?php if (( ! empty( $item['readmore_link']['url'] )) && ( $settings['readmore_link_to'] == 'button' )): ?>
 				<div class="bdt-ep-product-carousel-readmore-wrap">
-					<a <?php echo $this->get_render_attribute_string( 'readmore-link' ); ?>>
+					<a <?php echo $this->get_render_attribute_string( $readmore_key ); ?>>
 						<?php echo esc_html($settings['readmore_text']); ?>
 						<?php if ($settings['readmore_icon']['value']) : ?>
 							<span class="bdt-button-icon-align-<?php echo esc_attr($settings['icon_align']); ?>">
@@ -1778,28 +1761,23 @@
 
 			<?php foreach ( $settings['product_items'] as $index => $item ) : 
 				
-				$this->add_render_attribute(
-					[
-						'readmore-item-link' => [
-							'class' => [
-								'bdt-ep-product-carousel-item-link bdt-position-z-index',
-							],
-							'href'   => isset($item['readmore_link']['url']) ? esc_url($item['readmore_link']['url']) : '#',
-							'target' => $item['readmore_link']['is_external'] ? '_blank' : '_self'
-						]
-					], '', '', true
-				);
+				$item_key = 'item_' . $index;
+				$this->add_render_attribute( $item_key, 'class', 'bdt-ep-product-carousel-item-link bdt-position-z-index', true );
+
+				if (!empty($item['readmore_link'])) {
+					$this->add_link_attributes($item_key, $item['readmore_link']);
+				}
 				
 				?>
 				<div <?php echo $this->get_render_attribute_string('item-wrap'); ?>>
-					<?php $this->render_image($item); ?>
+					<?php $this->render_image($item, 'image_'.$index); ?>
 					<div class="bdt-ep-product-carousel-content">
 						<div class="bdt-ep-product-carousel-title-price bdt-flex bdt-flex-middle bdt-flex-between">
-							<?php $this->render_title($item); ?>
+							<?php $this->render_title($item, 'title_'.$index); ?>
 							<?php $this->render_price($item); ?>
 						</div>
 						<?php $this->render_text($item); ?>
-						<?php $this->render_readmore($item); ?>
+						<?php $this->render_readmore($item, 'link_'.$index); ?>
 						<div class="bdt-ep-product-carousel-rating-time bdt-flex bdt-flex-middle bdt-flex-between">
 							<?php $this->render_review_rating($item); ?>
 							<?php $this->render_time($item); ?>
@@ -1808,7 +1786,7 @@
 					<?php $this->render_badge($item); ?>
 
 					<?php if($settings['readmore_link_to'] == 'item') : ?>
-					<a <?php echo $this->get_render_attribute_string( 'readmore-item-link' ); ?>></a>
+					<a <?php echo $this->get_render_attribute_string( $item_key ); ?>></a>
 					<?php endif; ?>
 
 				</div>

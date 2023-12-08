@@ -917,16 +917,9 @@ class Icon_Mobile_Menu extends Module_Base {
 
 					if ($item['link']['url']) {
 						$tag = 'a ';
-						$this->add_render_attribute($repeater_key, 'href', esc_url($item['link']['url']));
 						$this->add_render_attribute($repeater_key, 'class', 'bdt-icon-mobile-menu-link', true);
-						if ( $item['link']['is_external'] ) {
-							$this->add_render_attribute( $repeater_key, 'target', '_blank' );
-						} else {
-							$this->add_render_attribute( $repeater_key, 'target', '_self' );
-						}
-						if ( $item['link']['nofollow'] ) {
-							$this->add_render_attribute( $repeater_key, 'rel', 'nofollow' );
-						}
+
+						$this->add_link_attributes($repeater_key, $item['link']);
 					}
 
 					if ($item['menu_text'] and $settings['menu_tooltip']) {

@@ -1622,8 +1622,8 @@
 	/**
 	 * Public utility to format the time.
 	 *
-	 * @param {string} format format of the time
-	 * @param {Object} time Object not a Date for timezones
+	 * @param {string} format    format of the time
+	 * @param {Object} time      Object not a Date for timezones
 	 * @param {Object} [options] essentially the regional[].. amNames, pmNames, ampm
 	 * @returns {string} the formatted time
 	 */
@@ -2225,8 +2225,8 @@
 	/**
 	 * Get the timezone offset as string from a date object (eg '+0530' for UTC+5.5)
 	 *
-	 * @param {number} tzMinutes if not a number, less than -720 (-1200), or greater than 840 (+1400) this value is returned
-	 * @param {boolean} iso8601 if true formats in accordance to iso8601 "+12:45"
+	 * @param {number}  tzMinutes if not a number, less than -720 (-1200), or greater than 840 (+1400) this value is returned
+	 * @param {boolean} iso8601   if true formats in accordance to iso8601 "+12:45"
 	 * @return {string} timezone Offset
 	 */
 	$.tm_timepicker.timezoneOffsetString = function( tzMinutes, iso8601 ) {
@@ -2251,7 +2251,7 @@
 	/**
 	 * Get the number in minutes that represents a timezone string
 	 *
-	 * @param  {string} tzString formatted like "+0500", "-1245", "Z"
+	 * @param {string} tzString formatted like "+0500", "-1245", "Z"
 	 * @return {number} the offset minutes or the original string if it doesn't match expectations
 	 */
 	$.tm_timepicker.timezoneOffsetNumber = function( tzString ) {
@@ -2278,9 +2278,9 @@
 	 * No way to set timezone in js Date, so we must adjust the minutes to compensate.
 	 * (think setDate, getDate)
 	 *
-	 * @param  {Date} date
-	 * @param  {string} fromTimezone formatted like "+0500", "-1245"
-	 * @param  {string} toTimezone formatted like "+0500", "-1245"
+	 * @param {Date}   date
+	 * @param {string} fromTimezone formatted like "+0500", "-1245"
+	 * @param {string} toTimezone   formatted like "+0500", "-1245"
 	 * @return {Date} Date
 	 */
 	$.tm_timepicker.timezoneAdjust = function( date, fromTimezone, toTimezone ) {
@@ -2297,9 +2297,9 @@
 	 * enforce date range limits.
 	 * n.b. The input value must be correctly formatted (reformatting is not supported)
 	 *
-	 * @param  {Element} startTime
-	 * @param  {Element} endTime
-	 * @param  {Object} options Options for the tm_timepicker() call
+	 * @param {Element} startTime
+	 * @param {Element} endTime
+	 * @param {Object}  options   Options for the tm_timepicker() call
 	 * @return {jQuery} time range
 	 */
 	$.tm_timepicker.timeRange = function( startTime, endTime, options ) {
@@ -2310,10 +2310,10 @@
 	 * Calls `datetimepicker` on the `startTime` and `endTime` elements, and configures them to
 	 * enforce date range limits.
 	 *
-	 * @param  {Element} startTime
-	 * @param  {Element} endTime
-	 * @param  {Object} options Options for the `tm_timepicker()` call. Also supports `reformat`,
-	 *   a boolean value that can be used to reformat the input values to the `dateFormat`.
+	 * @param {Element} startTime
+	 * @param {Element} endTime
+	 * @param {Object}  options   Options for the `tm_timepicker()` call. Also supports `reformat`,
+	 *                            a boolean value that can be used to reformat the input values to the `dateFormat`.
 	 */
 	$.tm_timepicker.datetimeRange = function( startTime, endTime, options ) {
 		$.tm_timepicker.handleRange( 'tm_datetimepicker', startTime, endTime, options );
@@ -2323,10 +2323,10 @@
 	 * Calls `tm_datepicker` on the `startTime` and `endTime` elements, and configures them to
 	 * enforce date range limits.
 	 *
-	 * @param  {Element} startTime
-	 * @param  {Element} endTime
-	 * @param  {Object} options Options for the `tm_timepicker()` call. Also supports `reformat`,
-	 *   a boolean value that can be used to reformat the input values to the `dateFormat`.
+	 * @param {Element} startTime
+	 * @param {Element} endTime
+	 * @param {Object}  options   Options for the `tm_timepicker()` call. Also supports `reformat`,
+	 *                            a boolean value that can be used to reformat the input values to the `dateFormat`.
 	 */
 	$.tm_timepicker.dateRange = function( startTime, endTime, options ) {
 		$.tm_timepicker.handleRange( 'tm_datepicker', startTime, endTime, options );
@@ -2336,11 +2336,11 @@
 	 * Calls `method` on the `startTime` and `endTime` elements, and configures them to
 	 * enforce date range limits.
 	 *
-	 * @param  {string} method Can be used to specify the type of picker to be added
-	 * @param  {Element} startTime
-	 * @param  {Element} endTime
-	 * @param  {Object} options Options for the `tm_timepicker()` call. Also supports `reformat`,
-	 *   a boolean value that can be used to reformat the input values to the `dateFormat`.
+	 * @param {string}  method    Can be used to specify the type of picker to be added
+	 * @param {Element} startTime
+	 * @param {Element} endTime
+	 * @param {Object}  options   Options for the `tm_timepicker()` call. Also supports `reformat`,
+	 *                            a boolean value that can be used to reformat the input values to the `dateFormat`.
 	 * @return {jQuery} range
 	 */
 	$.tm_timepicker.handleRange = function( method, startTime, endTime, options ) {

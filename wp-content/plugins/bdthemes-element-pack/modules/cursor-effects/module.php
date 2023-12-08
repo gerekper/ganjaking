@@ -27,7 +27,7 @@ class Module extends Element_Pack_Module_Base {
             'element_pack_cursor_effects_section',
             [
                 'tab'   => Controls_Manager::TAB_ADVANCED,
-                'label' => BDTEP_CP . esc_html__('Cursor Effects', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => BDTEP_CP . esc_html__('Cursor Effects', 'bdthemes-element-pack'),
             ]
         );
         $element->end_controls_section();

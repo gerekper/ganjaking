@@ -78,7 +78,10 @@ class TableScreen implements Registerable
         $prefix = 'ac_related_filter_';
 
         $input = filter_input_array(INPUT_GET, [
-            $prefix . 'value' => FILTER_SANITIZE_NUMBER_INT,
+            $prefix . 'value'      => FILTER_SANITIZE_NUMBER_INT,
+            $prefix . 'post_type'  => FILTER_DEFAULT,
+            $prefix . 'date'       => FILTER_DEFAULT,
+            $prefix . 'return_url' => FILTER_DEFAULT,
         ]);
 
         foreach ($input as $k => $v) {

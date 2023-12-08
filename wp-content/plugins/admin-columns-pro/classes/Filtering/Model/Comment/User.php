@@ -2,23 +2,16 @@
 
 namespace ACP\Filtering\Model\Comment;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search;
 
-class User extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class User extends Search\Comparison\Comment\User {
 
-	public function get_filtering_vars( $vars ) {
-		$vars['user_id'] = $this->get_filter_value();
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		$data = [];
-		foreach ( $this->strategy->get_values_by_db_field( 'user_id' ) as $_value ) {
-			$data['options'][ $_value ] = ac_helper()->user->get_display_name( $_value );
-		}
-
-		return $data;
+	public function __construct( Column $column ) {
+		parent::__construct();
 	}
 
 }

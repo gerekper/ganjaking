@@ -183,12 +183,8 @@ class Renewal
 
     /**
      * Get the current interval compared to the license state. Returns false when no interval matches
-     *
-     * @param int $remaining_days
-     *
-     * @return false|int
      */
-    protected function get_current_interval(int $remaining_days)
+    protected function get_current_interval(int $remaining_days): ?int
     {
         foreach ($this->intervals as $k => $interval) {
             if ($interval >= $remaining_days) {
@@ -196,7 +192,7 @@ class Renewal
             }
         }
 
-        return false;
+        return null;
     }
 
     private function localize_date(DateTime $date): string

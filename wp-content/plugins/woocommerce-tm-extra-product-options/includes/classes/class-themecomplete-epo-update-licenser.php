@@ -28,6 +28,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_UPDATE_Licenser
 	 * @since 1.0
 	 * @static
 	 */
@@ -52,31 +53,34 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Get api url
 	 *
-	 * @param array $array The array with the api filename.
+	 * @param array<mixed> $data The array with the api filename.
+	 * @return string
 	 * @since 1.0
 	 */
-	public static function api_url( $array ) {
+	public static function api_url( $data ) {
 		$array1 = [
 			'https://themecomplete.com/api/activation/',
 		];
 
-		return implode( '', array_merge( $array1, $array ) );
+		return implode( '', array_merge( $array1, $data ) );
 	}
 
 	/**
 	 * Get posted variable
 	 *
 	 * @param string      $param The name of the variable to fetch.
-	 * @param string|null $default The default value to return.
+	 * @param string|null $default_value The default value to return.
+	 * @return mixed
 	 * @since 1.0
 	 */
-	private function get_ajax_var( $param, $default = null ) {
-		return isset( $_POST[ $param ] ) ? wp_unslash( $_POST[ $param ] ) : $default; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	private function get_ajax_var( $param, $default_value = null ) {
+		return isset( $_POST[ $param ] ) ? map_deep( stripslashes_deep( $_POST[ $param ] ), 'sanitize_text_field' ) : $default_value; // phpcs:ignore WordPress.Security.NonceVerification
 	}
 
 	/**
 	 * Get saved license
 	 *
+	 * @return string
 	 * @since 1.0
 	 */
 	public function get_license() {
@@ -86,6 +90,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Check license
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function check_license() {
@@ -105,6 +110,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Activate license
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function activate() {
@@ -114,6 +120,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Deactivate license
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function deactivate() {
@@ -123,7 +130,8 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 	/**
 	 * Perform a request
 	 *
-	 * @param string $action The type of action to perform..
+	 * @param string $action The type of action to perform.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function request( $action = '' ) {
@@ -153,7 +161,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 					),
 				]
 			);
-			die();
 		}
 
 		$result = json_decode( $response['body'] );
@@ -169,7 +176,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 					),
 				]
 			);
-			die();
 		}
 
 		if ( true === (bool) $result->result && $result->key && $result->code && '200' === (string) $result->code ) {
@@ -273,7 +279,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 								),
 							]
 						);
-						exit;
+						exit; // @phpstan-ignore-line
 					case '15':
 						$status  = 'updated';
 						$message = esc_html__( 'Cannot deactivate. Purchase code is not valid for your saved license key!', 'woocommerce-tm-extra-product-options' );
@@ -291,7 +297,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 					),
 				]
 			);
-			die();
 		}
 		wp_send_json(
 			[
@@ -303,7 +308,5 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 				),
 			]
 		);
-		die();
 	}
-
 }

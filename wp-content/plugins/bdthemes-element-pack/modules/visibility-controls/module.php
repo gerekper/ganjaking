@@ -32,7 +32,7 @@ class Module extends Element_Pack_Module_Base
             'section_visibility_control_controls',
             [
                 'tab' => Controls_Manager::TAB_ADVANCED,
-                'label' => BDTEP_CP . esc_html__('Visibility Controls', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => BDTEP_CP . esc_html__('Visibility Controls', 'bdthemes-element-pack') . BDTEP_UC,
             ]
         );
 
@@ -51,6 +51,7 @@ class Module extends Element_Pack_Module_Base
     const POST_GROUP            = 'post';
     const WOOCOMMERCE_GROUP     = 'woocommerce';
     const ACF_GROUP             = 'acf';
+    const MISC_GROUP             = 'misc';
 
     public function get_groups() {
         return [
@@ -74,6 +75,9 @@ class Module extends Element_Pack_Module_Base
             ],
             self::ACF_GROUP => [
                 'label' => __( 'Advanced Custom Fields', 'bdthemes-element-pack' ),
+            ],
+            self::MISC_GROUP => [
+                'label' => __( 'Misc', 'bdthemes-element-pack' ),
             ],
         ];
     }
@@ -101,17 +105,20 @@ class Module extends Element_Pack_Module_Base
             'visit_count',
             'session_count',
             'language',
-            'country'
+            'country',
+            'shortcode'
         ];
 
         if ( class_exists( 'WooCommerce' ) ) {				
             array_push($included_conditions,
                 'products_in_cart',
                 'categories_in_cart',
+                'tags_in_cart',
                 'cart_item_number',
                 'cart_subtotal_price',
                 'last_purchased_date',
                 'purchased_item_number',
+                'orders_placed',
 				'single_product_price',
 				'single_product_stock',
 				'single_product_category',
@@ -185,6 +192,7 @@ class Module extends Element_Pack_Module_Base
             $val            = $condition['ep_condition_' . $key . '_value'];
 
             $custom_page_id = $condition['ep_condition_custom_page_id'];
+            $addition_operator = $condition['ep_condition_addition_operator'];
             $extra          = isset($condition['ep_condition_' . $key . '_name']) ? $condition['ep_condition_' . $key . '_name'] : ''; 
 
             $_condition = $this->get_conditions($key);
@@ -195,7 +203,7 @@ class Module extends Element_Pack_Module_Base
 
             $_condition->set_element_id($id);
 
-            $check = $_condition->check($relation, $val, $custom_page_id, $extra);
+            $check = $_condition->check($relation, $val, $custom_page_id, $extra, $addition_operator);
 
             $this->conditions[$id][$key . '_' . $condition['_id']] = $check;
         }
@@ -273,6 +281,22 @@ class Module extends Element_Pack_Module_Base
                 'options' => [
                     'is' => esc_html__('Is', 'bdthemes-element-pack'),
                     'not' => esc_html__('Is not', 'bdthemes-element-pack'),
+                ],
+            ]
+        );
+
+        $this->_conditional_repeater->add_control(
+            'ep_condition_addition_operator',
+            [
+                'type'        => Controls_Manager::SELECT,
+                'default'     => 'equal',
+                'options' => [
+                    'equal' => esc_html__('Equal to', 'bdthemes-element-pack'),
+                    'greater_or_equal' => esc_html__('Greater than or Equal to', 'bdthemes-element-pack'),
+                ],
+                'label_block' => true,
+                'condition' => [
+                    'ep_condition_key'               => 'orders_placed',
                 ],
             ]
         );

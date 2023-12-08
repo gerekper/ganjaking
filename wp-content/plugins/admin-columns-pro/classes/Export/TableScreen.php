@@ -22,7 +22,7 @@ class TableScreen implements Registerable
     public function register(): void
     {
         add_action('ac/table/list_screen', [$this, 'load_list_screen']);
-        //add_filter( 'ac/table/body_class', [ $this, 'add_hide_export_button_class' ], 10, 2 );
+        add_filter('ac/table/body_class', [$this, 'add_hide_export_button_class'], 10, 2);
     }
 
     /**

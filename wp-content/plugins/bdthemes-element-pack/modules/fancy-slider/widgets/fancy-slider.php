@@ -953,8 +953,16 @@ class Fancy_Slider extends Module_Base {
 				}
 			}
 
-			protected function rendar_item_content($content) {
+			protected function rendar_item_content($content, $title_key, $button_key) {
 				$settings = $this->get_settings_for_display();
+
+				if (!empty($content['title_link']['url'])) {
+					$this->add_link_attributes($title_key, $content['title_link']);
+				}
+				
+				if (!empty($content['button_link']['url'])) {
+					$this->add_link_attributes($button_key, $content['button_link']);
+				}
 
 				$this->add_render_attribute('fancy_title_tags', 'class', 'bdt-ep-fancy-slider-title', true);
 
@@ -979,7 +987,7 @@ class Fancy_Slider extends Module_Base {
 						<?php if ($content['title'] && ('yes' == $settings['show_title'])) : ?>
 							<<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->get_render_attribute_string('fancy_title_tags'); ?>>
 								<?php if ('' !== $content['title_link']['url']) : ?>
-									<a href="<?php echo esc_url($content['title_link']['url']); ?>">
+									<a <?php echo $this->get_render_attribute_string($title_key); ?>>
 									<?php endif; ?>
 									<?php echo wp_kses_post($content['title']); ?>
 									<?php if ('' !== $content['title_link']['url']) : ?>
@@ -997,7 +1005,7 @@ class Fancy_Slider extends Module_Base {
 						<?php if ($content['slide_button'] && ('yes' == $settings['show_button'])) : ?>
 							<div class="bdt-ep-fancy-slider-button">
 								<?php if ('' !== $content['button_link']['url']) : ?>
-									<a href="<?php echo esc_url($content['button_link']['url']); ?>">
+									<a <?php echo $this->get_render_attribute_string($button_key); ?>>
 									<?php endif; ?>
 									<?php echo wp_kses_post($content['slide_button']); ?>
 									<?php if ('' !== $content['button_link']['url']) : ?>
@@ -1015,15 +1023,15 @@ class Fancy_Slider extends Module_Base {
 
 					$this->render_header();
 
-					foreach ($settings['slides'] as $slide) : ?>
+					foreach ($settings['slides'] as $index => $slide) : ?>
 
 						<div class="swiper-slide bdt-ep-fancy-slider-item elementor-repeater-item-<?php echo esc_attr($slide['_id']); ?>">
 
-							<?php $this->rendar_item_content($slide); ?>
+							<?php $this->rendar_item_content($slide, 'title_link' . $index, 'button_link' . $index); ?>
 
 						</div>
 
-			<?php endforeach;
+					<?php endforeach;
 
 					$this->render_footer();
 				}

@@ -38,7 +38,7 @@
 
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
 // https://github.com/umdjs/umd/blob/master/templates/jqueryPlugin.js
-// reformatted code by themeComplete
+// reformatted code by ThemeComplete
 ( function( factory, jQuery, Zepto ) {
 	'use strict';
 

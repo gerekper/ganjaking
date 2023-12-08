@@ -2,11 +2,15 @@
 
 namespace ACA\WC\Search\Order;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACA\WC\Search;
 use ACP;
+use ACP\Helper\Select\Taxonomy\LabelFormatter\TermName;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
+use ACP\Query\Bindings;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use WP_Term;
 
 class ProductTaxonomy extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues
 {
@@ -25,41 +29,38 @@ class ProductTaxonomy extends ACP\Search\Comparison implements ACP\Search\Compar
         $this->taxonomy = $taxonomy;
     }
 
-    public function get_values($s, $paged)
+    public function format_label($value): string
     {
-        $entities = new ACP\Helper\Select\Entities\Taxonomy([
-            's'        => $s,
-            'page'     => $paged,
-            'taxonomy' => [$this->taxonomy],
-        ]);
+        $term = get_term($value);
 
-        return new AC\Helper\Select\Options\Paginated(
-            $entities,
-            new ACP\Helper\Select\Formatter\TermName($entities)
-        );
+        return $term instanceof WP_Term
+            ? (new TermName())->format_label($term)
+            : '';
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    public function get_values(string $search, int $page): Paginated
     {
-        $bindings = new ACP\Search\Query\Bindings\QueryArguments();
+        return (new PaginatedFactory())->create([
+            'search'   => $search,
+            'page'     => $page,
+            'taxonomy' => $this->taxonomy,
+        ]);
+    }
+
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
+        $bindings = new Bindings\QueryArguments();
 
         $ids = $this->get_orders_ids_by_product_cat((int)$value->get_value());
-        $ids = empty($ids) ? [0] : $ids;
+        $ids = empty($ids) ? [0] : array_map('absint', $ids);
 
-        $bindings->query_arguments([
-            'field_query' => [
-                [
-                    'field'   => 'id',
-                    'value'   => $ids,
-                    'compare' => 'IN',
-                ],
-            ],
-        ]);
+        $bindings->where(sprintf('%s IN(%s)', $wpdb->prefix . 'wc_orders.id', implode(',', $ids)));
 
         return $bindings;
     }
 
-    protected function get_orders_ids_by_product_cat($term_id)
+    protected function get_orders_ids_by_product_cat(int $term_id): array
     {
         global $wpdb;
 
@@ -75,7 +76,9 @@ class ProductTaxonomy extends ACP\Search\Comparison implements ACP\Search\Compar
             ],
         ]);
 
-        $product_ids = ! empty($product_ids) ? implode(',', $product_ids) : 0;
+        $product_ids = ! empty($product_ids)
+            ? implode(',', $product_ids)
+            : 0;
 
         $sql = sprintf(
             "SELECT DISTINCT( order_id )

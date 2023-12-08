@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACP\ConditionalFormat\Formatter\DateFormatter;
@@ -20,7 +21,7 @@ class FormatFormatter extends DateFormatter
         $this->format = $format;
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         $value = parent::format($value, $id, $column, $operator_group);
 

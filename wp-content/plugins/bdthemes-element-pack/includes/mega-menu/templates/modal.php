@@ -18,15 +18,15 @@ defined('ABSPATH') || exit;
             <!-- sm ENABLE/DISABLE SWITCHER -->
             <div id="ep-megamenu-toggler">
                 <div class="ep-dashboard-widgets">
-                    <label for="bdt-item-enable"><?php esc_html_e('Enable Mega Menu', 'bdthemes-element-pack'); ?></label>
+                    <label for="bdt-item-enable"><?php esc_html_e('Enable Dropdown', 'bdthemes-element-pack'); ?></label>
                     <input id="bdt-item-enable" type="checkbox" class="ep-item-toggle" value="1">
                 </div>
-                <a id="ep-content-trigger" class="elementor bdt-button bdt-button-default bdt-margin-small-right" href="javascript:void(0) "><?php echo esc_html__('Edit Mega Menu Content'); ?></a>
+                <a id="ep-content-trigger" class="elementor bdt-button bdt-button-default bdt-margin-small-right" href="javascript:void(0) "><?php echo esc_html__('Edit Dropdown Content'); ?></a>
             </div>
 
             <!-- sm BUILDER CONTAINER -->
             <div class="ep-content-width">
-                <label for="ep-content-width-type"><?php esc_html_e('Content Width Type', 'bdthemes-element-pack'); ?></label>
+                <label for="ep-content-width-type"><?php esc_html_e('Dropdown Width', 'bdthemes-element-pack'); ?></label>
                 <select id="ep-content-width-type">
                     <option value="default_width">
                         <?php esc_html_e('Default', 'bdthemes-element-pack'); ?>
@@ -134,7 +134,7 @@ defined('ABSPATH') || exit;
             <input type="hidden" id="ep-has-child">
             <span class='spinner'></span>
             <span class='ep-save-notice'></span>
-            <?php echo get_submit_button(esc_html__('Save Mega Menu', 'bdthemes-element-pack'), 'ep-item-save', '', false); ?>
+            <?php echo get_submit_button(esc_html__('Save Options', 'bdthemes-element-pack'), 'ep-item-save', '', false); ?>
         </div>
     </div>
 </div>

@@ -9,12 +9,15 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! isset( $tm_product_id ) ) {
+	$tm_product_id = 0;
+}
 $tm_product = false;
 // Ensure product is valid and that variations are customized.
 if ( ! empty( $tm_product_id ) ) {
@@ -26,7 +29,7 @@ if (
 	is_object( $tm_product ) &&
 	is_callable( [ $tm_product, 'get_available_variations' ] )
 	&& ! empty( $builder )
-	&& isset( $builder['variations_options'] )
+	&& isset( $builder['variations_options'], $form_prefix, $args, $field_counter, $epo_template_path, $epo_default_path, $variations_builder_element_end_args )
 ) {
 	$variations_options = $builder['variations_options'];
 	$parse              = false;
@@ -39,7 +42,7 @@ if (
 		$parse                = ! empty( $available_variations );
 	}
 
-	$attributes     = $tm_product->get_variation_attributes();
+	$attributes     = $tm_product->get_variation_attributes(); // @phpstan-ignore-line
 	$all_attributes = $tm_product->get_attributes();
 	if ( $attributes ) {
 		foreach ( $attributes as $key => $value ) {
@@ -48,7 +51,7 @@ if (
 			}
 		}
 	}
-	$selected_attributes = is_callable( [ $tm_product, 'get_default_attributes' ] ) ? $tm_product->get_default_attributes() : $tm_product->get_variation_default_attributes();
+	$selected_attributes = $tm_product->get_default_attributes();
 
 	$variations_builder_element_start_args_class = '';
 	if ( isset( $variations_builder_element_start_args['class'] ) ) {
@@ -60,7 +63,7 @@ if (
 
 		foreach ( $attributes as $name => $options ) {
 
-			$loop ++;
+			++$loop;
 			// name - wc_attribute_label( $name )
 			// id - sanitize_title($name)
 			// select box name 'attribute_'.sanitize_title( $name )
@@ -161,7 +164,7 @@ if (
 					if ( isset( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						$asscociated_cart_data = wp_unslash( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 						$selected_value        =
-								isset( $asscociated_cart_data ) && isset( $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ] )
+								is_array( $asscociated_cart_data ) && isset( $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ] ) // @phpstan-ignore-line
 									? $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ]
 									: $selected_value;
 					}
@@ -178,91 +181,87 @@ if (
 						$terms = wc_get_product_terms( $tm_product_id, $name, [ 'fields' => 'all' ] );
 					} else {
 						$taxorderby = wc_attribute_orderby( $taxonomy_name );
-
+						$term_args  = [
+							'taxonomy'   => $name,
+							'hide_empty' => false,
+						];
 						switch ( $taxorderby ) {
 							case 'name':
-								$args = [
-									'orderby'    => 'name',
-									'hide_empty' => false,
-									'menu_order' => false,
-								];
+								$term_args['orderby']    = 'name';
+								$term_args['menu_order'] = false;
 								break;
 							case 'id':
-								$args = [
-									'orderby'    => 'id',
-									'order'      => 'ASC',
-									'menu_order' => false,
-									'hide_empty' => false,
-								];
+								$term_args['orderby']    = 'id';
+								$term_args['order']      = 'ASC';
+								$term_args['menu_order'] = false;
 								break;
 							case 'menu_order':
-								$args = [
-									'menu_order' => 'ASC',
-									'hide_empty' => false,
-								];
+								$term_args['menu_order'] = 'ASC';
 								break;
 						}
 
-						$terms = get_terms( $name, $args );
+						$terms = get_terms( $term_args );
 					}
 
 					$flipped_haystack = array_flip( $options );
 					$_index           = 0;
-					foreach ( $terms as $_term ) {
-						$option = THEMECOMPLETE_EPO_HELPER()->sanitize_key( $_term->slug );
-						if ( ! isset( $flipped_haystack[ $option ] ) ) {
-							continue;
-						}
+					if ( is_array( $terms ) ) {
+						foreach ( $terms as $_term ) {
+							$option = THEMECOMPLETE_EPO_HELPER()->sanitize_key( $_term->slug );
+							if ( ! isset( $flipped_haystack[ $option ] ) ) {
+								continue;
+							}
 
-						$original_options_array[ esc_attr( $option ) ] = $option;
-						$options_array[ esc_attr( $option ) ]          = apply_filters( 'woocommerce_variation_option_name', $_term->name );
-						if ( sanitize_title( $selected_value ) === sanitize_title( $option ) ) {
-							$default_value = $_index;
-						}
-						if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_imagep'] ) ) {
-							if ( ! empty( $variations_options[ $att_id ]['variations_imagep'][ $option ] ) ) {
-								$imagesp[ $_index ] = $variations_options[ $att_id ]['variations_imagep'][ $option ];
-							} else {
-								$ov = '';
-								if ( is_array( $variations_options[ $att_id ]['variations_imagep'] ) ) {
-									$ak = array_keys( $variations_options[ $att_id ]['variations_imagep'] );
-									if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_imagep'][ $ak[ $_index ] ] ) ) {
-										$ov = $variations_options[ $att_id ]['variations_imagep'][ $ak[ $_index ] ];
-									}
-								}
-								$imagesp[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_product_image', $ov, $option, $options, $available_variations );
+							$original_options_array[ esc_attr( $option ) ] = $option;
+							$options_array[ esc_attr( $option ) ]          = apply_filters( 'woocommerce_variation_option_name', $_term->name );
+							if ( sanitize_title( $selected_value ) === sanitize_title( $option ) ) {
+								$default_value = $_index;
 							}
-						}
-						if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_image'] ) ) {
-							if ( ! empty( $variations_options[ $att_id ]['variations_image'][ $option ] ) ) {
-								$images[ $_index ] = $variations_options[ $att_id ]['variations_image'][ $option ];
-							} else {
-								$ov = '';
-								if ( is_array( $variations_options[ $att_id ]['variations_image'] ) ) {
-									$ak = array_keys( $variations_options[ $att_id ]['variations_image'] );
-									if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_image'][ $ak[ $_index ] ] ) ) {
-										$ov = $variations_options[ $att_id ]['variations_image'][ $ak[ $_index ] ];
+							if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_imagep'] ) ) {
+								if ( ! empty( $variations_options[ $att_id ]['variations_imagep'][ $option ] ) ) {
+									$imagesp[ $_index ] = $variations_options[ $att_id ]['variations_imagep'][ $option ];
+								} else {
+									$ov = '';
+									if ( is_array( $variations_options[ $att_id ]['variations_imagep'] ) ) {
+										$ak = array_keys( $variations_options[ $att_id ]['variations_imagep'] );
+										if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_imagep'][ $ak[ $_index ] ] ) ) {
+											$ov = $variations_options[ $att_id ]['variations_imagep'][ $ak[ $_index ] ];
+										}
 									}
+									$imagesp[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_product_image', $ov, $option, $options, $available_variations );
 								}
-								$images[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_image', $ov, $option, $options, $available_variations );
 							}
-						}
-						if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_color'] ) ) {
-							if ( ! empty( $variations_options[ $att_id ]['variations_color'][ $option ] ) ) {
-								$color[ $_index ] = $variations_options[ $att_id ]['variations_color'][ $option ];
-							} else {
-								$ov = '';
-								if ( is_array( $variations_options[ $att_id ]['variations_color'] ) ) {
-									$ak = array_keys( $variations_options[ $att_id ]['variations_color'] );
-									if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_color'][ $ak[ $_index ] ] ) ) {
-										$ov = $variations_options[ $att_id ]['variations_color'][ $ak[ $_index ] ];
+							if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_image'] ) ) {
+								if ( ! empty( $variations_options[ $att_id ]['variations_image'][ $option ] ) ) {
+									$images[ $_index ] = $variations_options[ $att_id ]['variations_image'][ $option ];
+								} else {
+									$ov = '';
+									if ( is_array( $variations_options[ $att_id ]['variations_image'] ) ) {
+										$ak = array_keys( $variations_options[ $att_id ]['variations_image'] );
+										if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_image'][ $ak[ $_index ] ] ) ) {
+											$ov = $variations_options[ $att_id ]['variations_image'][ $ak[ $_index ] ];
+										}
 									}
+									$images[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_image', $ov, $option, $options, $available_variations );
 								}
-								$color[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_color', $ov, $option, $options, $available_variations );
 							}
-						}
+							if ( isset( $variations_options[ $att_id ] ) && isset( $variations_options[ $att_id ]['variations_color'] ) ) {
+								if ( ! empty( $variations_options[ $att_id ]['variations_color'][ $option ] ) ) {
+									$color[ $_index ] = $variations_options[ $att_id ]['variations_color'][ $option ];
+								} else {
+									$ov = '';
+									if ( is_array( $variations_options[ $att_id ]['variations_color'] ) ) {
+										$ak = array_keys( $variations_options[ $att_id ]['variations_color'] );
+										if ( isset( $ak[ $_index ] ) && ! empty( $variations_options[ $att_id ]['variations_color'][ $ak[ $_index ] ] ) ) {
+											$ov = $variations_options[ $att_id ]['variations_color'][ $ak[ $_index ] ];
+										}
+									}
+									$color[ $_index ] = apply_filters( 'woocommerce_tm_epo_variation_color', $ov, $option, $options, $available_variations );
+								}
+							}
 
-						$_index ++;
+							++$_index;
+						}
 					}
 				} else {
 
@@ -324,7 +323,7 @@ if (
 							}
 						}
 
-						$_index ++;
+						++$_index;
 					}
 				}
 
@@ -378,12 +377,12 @@ if (
 							if ( is_array( $display ) ) {
 
 								$field_args = [
-									'name'      => 'tm_attribute_' . $att_id . $form_prefix,
-									'id'        => 'tm_attribute_id_' . $att_id . $form_prefix,
-									'class'     => $variations_class . ' tm-epo-variation-element',
-									'tabindex'  => '',
-									'amount'    => '',
-									'fieldtype' => 'tmcp-field ' . $variations_class . ' tm-epo-variation-element',
+									'name'       => 'tm_attribute_' . $att_id . $form_prefix,
+									'element_id' => 'tm_attribute_id_' . $att_id . $form_prefix,
+									'class'      => $variations_class . ' tm-epo-variation-element',
+									'tabindex'   => '',
+									'amount'     => '',
+									'fieldtype'  => 'tmcp-field ' . $variations_class . ' tm-epo-variation-element',
 								];
 
 								$field_args = array_merge( $field_args, $display );
@@ -395,7 +394,7 @@ if (
 								$variations_builder_element_start_args['label']                    = ! empty( $variations_label ) ? $variations_label : wc_attribute_label( $name );
 								$variations_builder_element_start_args['class_id']                 = 'tm-variation-ul-' . $variations_display_as . ' variation-element-' . $loop . $form_prefix;
 								$variations_builder_element_start_args['tm_variation_undo_button'] = '';
-								$variations_builder_element_start_args['tm_product_id']            = isset( $tm_product_id ) ? $tm_product_id : 0;
+								$variations_builder_element_start_args['tm_product_id']            = $tm_product_id;
 								wc_get_template(
 									'tm-builder-element-start.php',
 									$variations_builder_element_start_args,
@@ -445,13 +444,7 @@ if (
 							} else {
 								$variations_builder_element_start_args['tm_variation_undo_button'] = '';
 							}
-							$variations_builder_element_start_args['tm_product_id'] = isset( $tm_product_id ) ? $tm_product_id : 0;
-							wc_get_template(
-								'tm-builder-element-start.php',
-								$variations_builder_element_start_args,
-								$epo_template_path,
-								$epo_default_path
-							);
+							$variations_builder_element_start_args['tm_product_id'] = $tm_product_id;
 
 							$v_field_counter  = 0;
 							$replacement_mode = 'none';
@@ -521,8 +514,17 @@ if (
 									'tabindex'        => $v_field_counter,
 									'form_prefix'     => $form_prefix,
 									'field_counter'   => $v_field_counter,
-									'product_id'      => isset( $tm_product_id ) ? $tm_product_id : 0,
+									'product_id'      => $tm_product_id,
 								]
+							);
+
+							$variations_builder_element_start_args['field_obj'] = $element_display;
+
+							wc_get_template(
+								'tm-builder-element-start.php',
+								$variations_builder_element_start_args,
+								$epo_template_path,
+								$epo_default_path
 							);
 
 							foreach ( $options_array as $value => $label ) {
@@ -536,7 +538,7 @@ if (
 								$display = $element_display->display_field(
 									$fake_element,
 									[
-										'id'              => 'tm_attribute_id_' . $att_id . '_' . $loop . '_' . $v_field_counter . '_' . (int) ( $v_field_counter + $loop ) . $form_prefix, // doesn't actually gets that value.
+										'element_id'      => 'tm_attribute_id_' . $att_id . '_' . $loop . '_' . $v_field_counter . '_' . intval( $v_field_counter + $loop ) . $form_prefix, // doesn't actually gets that value.
 										'name'            => 'tm_attribute_' . $att_id . '_' . $loop . $form_prefix,
 										'name_inc'        => 'tm_attribute_' . $att_id . '_' . $loop . $form_prefix,
 										'value'           => isset( $original_options_array[ $value ] ) ? $original_options_array[ $value ] : $value,
@@ -555,7 +557,7 @@ if (
 
 									$field_args = [
 										'tm_element_settings' => $fake_element,
-										'id'             => 'tm_attribute_id_' . $att_id . '_' . $loop . '_' . $v_field_counter . '_' . (int) ( $v_field_counter + $loop ) . $form_prefix, // doesn't actually gets that value.
+										'element_id'     => 'tm_attribute_id_' . $att_id . '_' . $loop . '_' . $v_field_counter . '_' . intval( $v_field_counter + $loop ) . $form_prefix, // doesn't actually gets that value.
 										'name'           => 'tm_attribute_' . $att_id . '_' . $loop . $form_prefix,
 										'class'          => $variations_class . ' tm-epo-variation-element',
 										'tabindex'       => $v_field_counter,
@@ -578,7 +580,7 @@ if (
 									);
 								}
 
-								$v_field_counter ++;
+								++$v_field_counter;
 							}
 
 							wc_get_template(
@@ -592,8 +594,8 @@ if (
 				}
 			}
 
-			if ( count( $attributes ) === (int) $loop ) {
-				echo '<a class="reset_variations tc-cell tcwidth-100" href="#reset">' . ( ( ! empty( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) : esc_html__( 'Reset options', 'woocommerce-tm-extra-product-options' ) ) . '</a>';
+			if ( count( $attributes ) === intval( $loop ) ) {
+				echo '<a class="reset_variations tc-cell tcwidth tcwidth-100" href="#reset">' . ( ( ! empty( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) : esc_html__( 'Reset options', 'woocommerce-tm-extra-product-options' ) ) . '</a>';
 			}
 		}
 	}

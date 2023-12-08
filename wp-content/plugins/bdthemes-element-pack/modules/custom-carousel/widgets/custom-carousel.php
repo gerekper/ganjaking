@@ -1165,22 +1165,12 @@ class Custom_Carousel extends Module_Base {
 
 			if ( $image_link_to ) {
 
-				if ( ( 'video' !== $slide['type'] ) && ( '' !== isset( $slide['video']['url'] ) ) ) {
-					$this->add_render_attribute( $element_key . '_link', 'href', $image_link_to );
-				}
-
 				$image_mask = $settings['image_mask_popover'] == 'yes' ? ' bdt-image-mask' : '';
 
 				if ( 'custom' === $slide['image_link_to_type'] ) {
 					$this->add_render_attribute( $element_key . '_link', 'class', $image_mask );
 
-					if ( $slide['image_link_to']['is_external'] ) {
-						$this->add_render_attribute( $element_key . '_link', 'target', '_blank' );
-					}
-
-					if ( $slide['image_link_to']['nofollow'] ) {
-						$this->add_render_attribute( $element_key . '_link', 'nofollow', '' );
-					}
+					$this->add_link_attributes( $element_key . '_link', $slide['image_link_to'] );
 				} else {
 					$this->add_render_attribute( $element_key . '_link', [ 
 						'class'                        => 'bdt-ep-custom-carousel-lightbox-item' . $image_mask,
@@ -1190,7 +1180,7 @@ class Custom_Carousel extends Module_Base {
 				}
 
 				if ( 'video' === $slide['type'] && $slide['video']['url'] ) {
-					$this->add_render_attribute( $element_key . '_link', 'href', $slide['video']['url'] );
+					$this->add_link_attributes( $element_key . '_link', $slide['video'] );
 				}
 
 				echo '<a ' . $this->get_render_attribute_string( $element_key . '_link' ) . '>';

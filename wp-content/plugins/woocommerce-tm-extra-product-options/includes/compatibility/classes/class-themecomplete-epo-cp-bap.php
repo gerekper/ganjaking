@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_BAP {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_BAP
 	 * @since 1.0
 	 * @static
 	 */
@@ -54,6 +55,7 @@ final class THEMECOMPLETE_EPO_CP_BAP {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -78,14 +80,12 @@ final class THEMECOMPLETE_EPO_CP_BAP {
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wp_enqueue_scripts() {
-
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-bap', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-bap.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 		}
-
 	}
-
 }

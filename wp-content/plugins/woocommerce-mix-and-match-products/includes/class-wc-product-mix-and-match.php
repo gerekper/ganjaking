@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.5.0
+ * @version  2.5.1
  */
 
 // Exit if accessed directly.
@@ -1734,6 +1734,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 				'base_regular_price'  => wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ),
 				'price_data'          => json_encode( $this->get_container_price_data() ),
 				'input_name'          => wc_mnm_get_child_input_name( $this->get_id() ),
+				'validation_context'  => isset( $_GET['update-container'] ) ? 'edit' : 'add-to-cart',
 			)
 		);
 

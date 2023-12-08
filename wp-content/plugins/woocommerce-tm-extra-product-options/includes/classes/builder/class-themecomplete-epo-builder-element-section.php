@@ -3,7 +3,7 @@
  * Builder Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Section
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = array_merge(
@@ -316,14 +317,16 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 								'value' => 'popup',
 							],
 							[
-								'text'  => esc_html__( 'Slider (wizard)', 'woocommerce-tm-extra-product-options' ),
-								'value' => 'slider',
-								'class' => 'builder-remove-for-variations',
+								'text'        => esc_html__( 'Slider (wizard)', 'woocommerce-tm-extra-product-options' ),
+								'value'       => 'slider',
+								'class'       => 'builder-remove-for-variations',
+								'label_class' => 'builder-remove-for-variations',
 							],
 							[
-								'text'  => esc_html__( 'Tabs', 'woocommerce-tm-extra-product-options' ),
-								'value' => 'tabs',
-								'class' => 'builder-remove-for-variations',
+								'text'        => esc_html__( 'Tabs', 'woocommerce-tm-extra-product-options' ),
+								'value'       => 'tabs',
+								'class'       => 'builder-remove-for-variations',
+								'label_class' => 'builder-remove-for-variations',
 							],
 						],
 						'label'            => esc_html__( 'Section type', 'woocommerce-tm-extra-product-options' ),
@@ -400,8 +403,9 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 			$this->append_div( 'section1' ),
 			$this->prepend_div( 'section2' ),
 			[
-				'sectionclogic' => [
+				'sectionclogic'     => [
 					'id'      => 'sections_clogic',
+					'clogic ' => true,
 					'default' => '',
 					'nodiv'   => 1,
 					'type'    => 'hidden',
@@ -413,7 +417,21 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 					'label'   => '',
 					'desc'    => '',
 				],
-				'sectionlogic'  => [
+				'sectionlogicrules' => [
+					'id'         => 'sections_logicrules',
+					'logicrules' => true,
+					'default'    => '',
+					'nodiv'      => 1,
+					'type'       => 'hidden',
+					'tags'       => [
+						'class' => 'tm-builder-logicrules',
+						'name'  => 'tm_meta[tmfbuilder][sections_logicrules][]',
+						'value' => '',
+					],
+					'label'      => '',
+					'desc'       => '',
+				],
+				'sectionlogic'      => [
 					'id'        => 'sections_logic',
 					'default'   => '',
 					'leftclass' => 'align-self-start',

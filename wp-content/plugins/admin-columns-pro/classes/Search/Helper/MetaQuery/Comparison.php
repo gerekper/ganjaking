@@ -4,61 +4,47 @@ namespace ACP\Search\Helper\MetaQuery;
 
 use ACP\Search\Value;
 
-class Comparison {
+class Comparison
+{
 
-	/**
-	 * @var string
-	 */
-	protected $key;
+    protected $key;
 
-	/**
-	 * @var string
-	 */
-	protected $operator;
+    protected $operator;
 
-	/**
-	 * @var mixed
-	 */
-	protected $value;
+    protected $value;
 
-	/**
-	 * @param string $key
-	 * @param string $operator
-	 * @param Value  $value
-	 */
-	public function __construct( $key, $operator, Value $value ) {
-		$this->key = $key;
-		$this->operator = $operator;
-		$this->value = $value;
-	}
+    public function __construct(string $key, string $operator, Value $value)
+    {
+        $this->key = $key;
+        $this->operator = $operator;
+        $this->value = $value;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function __invoke() {
-		switch ( $this->value->get_type() ) {
-			case Value::INT:
-				$type = 'NUMERIC';
+    public function __invoke(): array
+    {
+        switch ($this->value->get_type()) {
+            case Value::INT:
+                $type = 'NUMERIC';
 
-				break;
-			case Value::DECIMAL:
-				$type = 'DECIMAL';
+                break;
+            case Value::DECIMAL:
+                $type = 'DECIMAL';
 
-				break;
-			case Value::DATE:
-				$type = 'DATE';
+                break;
+            case Value::DATE:
+                $type = 'DATE';
 
-				break;
-			default:
-				$type = 'CHAR';
-		}
+                break;
+            default:
+                $type = 'CHAR';
+        }
 
-		return [
-			'key'     => $this->key,
-			'value'   => $this->value->get_value(),
-			'compare' => $this->operator,
-			'type'    => $type,
-		];
-	}
+        return [
+            'key'     => $this->key,
+            'value'   => $this->value->get_value(),
+            'compare' => $this->operator,
+            'type'    => $type,
+        ];
+    }
 
 }

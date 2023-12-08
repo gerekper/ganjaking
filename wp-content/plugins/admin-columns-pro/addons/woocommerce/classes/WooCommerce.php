@@ -11,6 +11,7 @@ use AC\Registerable;
 use AC\Services;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
+use ACA\WC\Service\Presets;
 use ACA\WC\Service\TableScreen;
 use ACP;
 use ACP\Service\IntegrationStatus;
@@ -81,8 +82,11 @@ final class WooCommerce implements Registerable
             );
         }
 
-        ACP\Search\QueryFactory::register('wc_order', Search\Query\Order::class);
+        ACP\QueryFactory::register('wc_order', Search\Query\Order::class);
+
         ACP\Search\TableScreenFactory::register(ListScreen\Order::class, Search\TableScreen\Order::class);
+        ACP\Filtering\TableScreenFactory::register(ListScreen\Order::class, Filtering\Table\Order::class);
+        ACP\Filtering\TableScreenFactory::register(ListScreen\OrderSubscription::class, Filtering\Table\Order::class);
 
         $this->create_services($container)
              ->register();
@@ -94,6 +98,9 @@ final class WooCommerce implements Registerable
             'use.hpos'               => static function (Features $features): bool {
                 return $features->use_hpos();
             },
+            'config.presets'         => static function (Absolute $location): array {
+                return require $location->get_path() . '/config/presets.php';
+            },
             Absolute::class          => autowire()->constructorParameter(0, $this->location->get_url())
                                                   ->constructorParameter(1, $this->location->get_path()),
             TableScreen::class       => autowire()->constructorParameter(1, $this->use_product_variations()),
@@ -103,8 +110,11 @@ final class WooCommerce implements Registerable
             },
             Features::class          => autowire()->constructorParameter(
                 0,
-                wc_get_container()->get(FeaturesController::class)
+                wc_get_container()->has(FeaturesController::class)
+                    ? wc_get_container()->get(FeaturesController::class)
+                    : null
             ),
+            Presets::class           => autowire()->constructorParameter(1, DI\get('config.presets')),
         ];
 
         return (new ContainerBuilder())->addDefinitions($definitions)
@@ -118,10 +128,6 @@ final class WooCommerce implements Registerable
             : require $this->location->with_suffix('config/columns/shoporder/users.php')->get_path();
 
         $services = new Services([
-            new Service\Columns(
-                'wp-comments',
-                require $this->location->with_suffix('config/columns/comments.php')->get_path()
-            ),
             new Service\Columns('wp-users', $user_column_config),
         ]);
 
@@ -137,6 +143,7 @@ final class WooCommerce implements Registerable
             Service\TableRows::class,
             Service\TableScreen::class,
             ACP\Service\Templates::class,
+            Service\Presets::class,
         ];
 
         if ($container->get('use.hpos')) {

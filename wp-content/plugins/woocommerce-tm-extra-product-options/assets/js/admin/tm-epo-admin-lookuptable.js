@@ -45,19 +45,20 @@
 					var dataRow = $cell.attr( 'data-row' );
 					var dataColumn = $cell.attr( 'data-column' );
 					var cellValue = $cell.text();
-					var h;
+					var h = cellValue.replace( /,/g, '.' );
 					var f;
 					if ( dataRow === '1' && dataColumn === '1' ) {
 						return;
 					}
-					h = cellValue.replace( /,/g, '.' );
-					f = $.epoAPI.math.toFloat( h );
-					if ( h === 'max' ) {
-						cellValue = h;
-					} else if ( isNaN( f ) ) {
-						cellValue = 0;
-					} else {
-						cellValue = h;
+					if ( ! $cell.is( '.head .ltcell, .column1' ) || String( h ).isNumeric() ) {
+						f = $.epoAPI.math.toFloat( h );
+						if ( h === 'max' ) {
+							cellValue = h;
+						} else if ( isNaN( f ) ) {
+							cellValue = 0;
+						} else {
+							cellValue = h;
+						}
 					}
 
 					if ( dataColumn === '1' ) {
@@ -126,7 +127,7 @@
 					ismodal: true,
 					refresh: 'fixed',
 					width: '50%',
-					height: '300px',
+					minHeight: '300px',
 					classname: 'flasho tc-wrapper',
 					data: $_html
 				} );
@@ -308,7 +309,7 @@
 								ismodal: true,
 								refresh: 'fixed',
 								width: '50%',
-								height: '300px',
+								minHeight: '300px',
 								classname: 'flasho tc-wrapper tm-error',
 								data: $_html
 							} );
@@ -353,7 +354,40 @@
 				var $this = $( this );
 				$this.attr( 'data-value', $this.text() );
 			} );
-			$( document ).on( 'blur', '[contenteditable="true"]', function() {
+			$( document ).on( 'blur', '.head [contenteditable="true"], .column1[contenteditable="true"]', function() {
+				var $this = $( this );
+				var h = $this.text();
+				var args;
+				var dataRow = $this.attr( 'data-row' );
+				var dataColumn = $this.attr( 'data-column' );
+				var dataValue = $this.attr( 'data-value' );
+				if ( dataValue === undefined ) {
+					dataValue = 0;
+				}
+				if ( h === '' ) {
+					if ( dataColumn === '1' || dataRow === '1' ) {
+						$this.html( dataValue );
+						return;
+					}
+				} else {
+					if ( h !== '' ) {
+						if ( String( h ).isNumeric() ) {
+							h = $this.text().replace( /,/g, '.' );
+							args = {
+								symbol: '',
+								format: '',
+								decimal: getLocalDecimalSeparator(),
+								thousand: '',
+								precision: countDecimals( $.epoAPI.math.toFloat( h ) )
+							};
+							h = $.epoAPI.math.format( h, args );
+						}
+					}
+					$this.html( h );
+				}
+				changedLookupTable = createTable();
+			} );
+			$( document ).on( 'blur', '[contenteditable="true"]:not(.head [contenteditable="true"], .column1)', function() {
 				var $this = $( this );
 				var h = $this.text().replace( /,/g, '.' );
 				var f = $.epoAPI.math.toFloat( h );

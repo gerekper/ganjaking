@@ -2,41 +2,50 @@
 
 namespace ACA\WC\Search\Product;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
+use ACP\Search\Labels;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
-class ReviewsEnabled extends Comparison {
+class ReviewsEnabled extends Comparison
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        $labels = new Labels([
+            Operators::NOT_IS_EMPTY   => __('Open'),
+            Operators::IS_EMPTY => __('Closed'),
+        ]);
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		global $wpdb;
+        parent::__construct($operators, null, $labels);
+    }
 
-		$value = new Value(
-			( Operators::IS_EMPTY === $operator ) ? 'closed' : 'open',
-			$value->get_type()
-		);
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
 
-		$where = ComparisonFactory::create(
-			"{$wpdb->posts}.comment_status",
-			$operator,
-			$value
-		);
+        $value = new Value(
+            (Operators::IS_EMPTY === $operator) ? 'closed' : 'open',
+            $value->get_type()
+        );
 
-		$bindings = new Bindings();
-		$bindings->where( $where() );
+        $where = ComparisonFactory::create(
+            "{$wpdb->posts}.comment_status",
+            Operators::EQ,
+            $value
+        );
 
-		return $bindings;
-	}
+        $bindings = new Bindings();
+        $bindings->where($where());
+
+        return $bindings;
+    }
 
 }

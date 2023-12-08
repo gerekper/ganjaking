@@ -38,14 +38,19 @@ class S3_Media_Item_Size extends Media_Item_Size {
 			: $local_file_path;
 	}
 
+	public function get_local_path() {
+		return parent::get_file_path();
+	}
+
 	/**
 	 * Because for some reason WP Offload media removes the size {@see \DeliciousBrains\WP_Offload_Media\Items\Media_Library_Item::update_filesize_after_download_local}
 	 *
 	 * @return int
 	 */
 	public function get_filesize() {
-		if ( is_null( $this->file_size ) || $this->file_size === 0 ) {
-			$this->file_size = $this->fs->filesize( $this->get_file_path() );
+		$file_path = $this->get_file_path();
+		if ( empty( $this->file_size ) && $this->fs->file_exists( $file_path ) ) {
+			$this->file_size = $this->fs->filesize( $file_path );
 		}
 
 		return $this->file_size;

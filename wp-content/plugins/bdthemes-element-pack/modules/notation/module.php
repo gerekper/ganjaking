@@ -25,7 +25,7 @@ class Module extends Element_Pack_Module_Base {
         $element->start_controls_section(
             'section_element_pack_notation_controls',
             [
-                'label' => BDTEP_CP . esc_html__('Notation', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => BDTEP_CP . esc_html__('Notation', 'bdthemes-element-pack'),
                 'tab'   => Controls_Manager::TAB_CONTENT,
             ]
         );

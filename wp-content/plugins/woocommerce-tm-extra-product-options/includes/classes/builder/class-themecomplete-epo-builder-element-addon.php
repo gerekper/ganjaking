@@ -19,15 +19,15 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_ADDON extends THEMECOMPLETE_EPO_BUILDER_
 	/**
 	 * Addon element arguments
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $args;
 
 	/**
 	 * Class Constructor
 	 *
-	 * @param string $options Addon element name.
-	 * @param array  $args Addon element attributes.
+	 * @param array<mixed> $options Addon element name.
+	 * @param array<mixed> $args Addon element attributes.
 	 * @since 6.0
 	 */
 	public function __construct( $options = [], $args = [] ) {
@@ -77,12 +77,12 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_ADDON extends THEMECOMPLETE_EPO_BUILDER_
 		foreach ( $options as $property => $value ) {
 			$this->{$property} = $value;
 		}
-
 	}
 
 	/**
 	 * Initialize element properties
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public function set_properties() {
@@ -90,7 +90,8 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_ADDON extends THEMECOMPLETE_EPO_BUILDER_
 			$this->element_name,
 			$this->args['settings'],
 			true,
-			isset( $this->args['tabs_override'] ) ? $this->args['tabs_override'] : []
+			isset( $this->args['tabs_override'] ) ? $this->args['tabs_override'] : [],
+			isset( $this->args['extra_tabs'] ) ? $this->args['extra_tabs'] : []
 		);
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACP\ConditionalFormat;
@@ -15,6 +16,6 @@ interface Formatter
 
     public function get_type(): string;
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string;
+    public function format(string $value, $id, Column $column, string $operator_group): string;
 
 }

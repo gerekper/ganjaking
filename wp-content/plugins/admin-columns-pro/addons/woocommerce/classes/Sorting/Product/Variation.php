@@ -2,15 +2,14 @@
 
 namespace ACA\WC\Sorting\Product;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\Order;
 
-class Variation extends AbstractModel implements WarningAware, QueryBindings
+class Variation implements WarningAware, QueryBindings
 {
 
     public function create_query_bindings(Order $order): Bindings

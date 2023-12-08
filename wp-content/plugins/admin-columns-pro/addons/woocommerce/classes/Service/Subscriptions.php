@@ -30,7 +30,7 @@ final class Subscriptions implements Registerable
         add_action('ac/column_types', [$this, 'add_user_columns']);
         add_action('ac/table/list_screen', [$this, 'register_table_rows']);
 
-        ACP\Search\QueryFactory::register('wc_order_subscription', Search\Query\Order::class);
+        ACP\QueryFactory::register('wc_order_subscription', Search\Query\Order::class);
         ACP\Search\TableScreenFactory::register(
             ListScreen\OrderSubscription::class,
             Search\TableScreen\OrderSubscription::class

@@ -1,0 +1,117 @@
+.composer-switch {
+  // WPBakery Page Builder/Classic Editor switch
+  cursor: default;
+  .box-sizing(border-box);
+  display: inline-block;
+  padding: 0;
+  font-size: 14px;
+  line-height: 27px;
+  border-radius: 4px;
+
+  a, a:visited {
+    transition: background-color .2s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+    color: #ffffff;
+    display: inline-block;
+    line-height: 28px;
+    height: 28px;
+    padding: 8px 13px;
+    background-color: @vc_main_color;
+    outline: none;
+    box-shadow: none;
+
+    &.wpb_switch-to-composer,
+    &.wpb_switch-to-front-composer{
+      &:hover {
+        background-color: @vc_main_color_hover;
+      }
+    }
+
+    &.wpb_switch-to-gutenberg {
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      background-color: #bcbcbc;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #afafaf;
+      }
+    }
+  }
+
+  .logo-icon {
+    background: @vc_main_color   url(../vc/logo/wpb-logo-white.svg) no-repeat center center;
+    background-size: 16px;
+    width: 16px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 8px 10px 8px 13px;
+  }
+  .vc_spacer {
+    display: inline-block;
+    width: 1px;
+    background-color: #1f5b8c;
+    margin: 0;
+    height: 28px;
+    padding: 4px 0;
+    vertical-align: top;
+    position: relative;
+  }
+
+  > :nth-last-child(2) {
+    margin-right: 10px;
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.composer-inner-switch {
+  white-space: nowrap;
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  vertical-align: top;
+
+  > :first-child {
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  > :last-child {
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.edit-post-header-toolbar {
+  .composer-switch {
+    font-size: 12px;
+    margin-top: 2px;
+
+    .wpb_switch-to-gutenberg {
+      margin-top: 0;
+    }
+
+    .composer-inner-switch {
+      margin-top: 0;
+    }
+
+    a, a:visited {
+      padding: 1px 7px;
+    }
+  }
+}

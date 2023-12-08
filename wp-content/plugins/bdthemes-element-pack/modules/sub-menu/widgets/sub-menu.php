@@ -43,7 +43,7 @@ class Sub_Menu extends Module_Base {
         if ($this->ep_is_edit_mode()) {
             return ['ep-styles'];
         } else {
-            return [ 'ep-font', 'ep-sub-menu'];
+            return ['ep-font', 'ep-sub-menu'];
         }
     }
 
@@ -977,16 +977,17 @@ class Sub_Menu extends Module_Base {
         $this->start_controls_tab(
             'submenu_title_tab_hover',
             [
-                'label' => __('Hover', 'bdthemes-element-pack'),
+                'label' => __('Hover/Active', 'bdthemes-element-pack'),
             ]
         );
         $this->add_control(
             'submenu_title_h_color',
             [
-                'label'     => esc_html__('Hover Color', 'bdthemes-element-pack'),
+                'label'     => esc_html__('Color', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item.active .ep-title' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -996,30 +997,10 @@ class Sub_Menu extends Module_Base {
                 'name'     => 'submenu_title_hover_background',
                 'label'    => __('Background', 'bdthemes-element-pack'),
                 'types'    => ['classic', 'gradient'],
-                'selector' => '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-title',
+                'selector' => '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-title, {{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item.active .ep-title',
             ]
         );
 
-        // $this->add_group_control(
-
-        //     Group_Control_Border::get_type(),
-
-        //     [
-
-        //         'name'      => 'submenu_title_hover_border',
-
-        //         'label'     => __('Border', 'bdthemes-element-pack'),
-
-        //         'selector'  => '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-title',
-
-        //         'conditon' => [
-
-        //             ''
-
-        //         ]
-
-        //     ]
-        // );
         $this->add_control(
             'submenu_title_hover_border',
             [

@@ -2,23 +2,18 @@
 
 namespace ACP\Filtering\Model\Post;
 
-use ACP\Filtering\Helper;
-use ACP\Filtering\Model;
+use AC;
+use ACP\Search;
 
-class PostParent extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class PostParent extends Search\Comparison\Post\PostParent
+{
 
-	public function get_filtering_vars( $vars ) {
-		$vars['post_parent'] = $this->get_filter_value();
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		$parents = $this->strategy->get_values_by_db_field( 'post_parent' );
-
-		return [
-			'options' => ( new Helper() )->get_post_titles( $parents ),
-		];
-	}
+    public function __construct(AC\Column $column)
+    {
+        parent::__construct($column->get_post_type());
+    }
 
 }

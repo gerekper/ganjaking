@@ -1,0 +1,187 @@
+.tp-lazyload,.tp-lazyload.tp-lazy-start {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tp-lazyload.tp-lazy-loading {
+    opacity: 0;
+	visibility: hidden;
+}
+
+.tp-lazyload.tp-lazy-loaded {
+	transition: opacity 0.5s ease-in;
+    opacity: 1;
+	visibility: visible;
+}
+
+.tp-lazyload + .tp-loader-dbl-circle, .tp-lazyload + .tp-loader-circle, .tp-lazyload + .tp-loader-skeleton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    transition: all .3s ease;
+}
+.tp-lazyload.tp-lazy-loading + .tp-loader-dbl-circle,
+.tp-lazyload.tp-lazy-loading + .tp-loader-circle,
+.tp-lazyload.tp-lazy-loading + .tp-loader-skeleton {
+	z-index: auto;
+	opacity: 1;
+	visibility:visible;
+}
+.tp-lazyload.tp-lazy-loaded + .tp-loader-dbl-circle, .tp-lazyload.tp-lazy-loaded + .tp-loader-circle, .tp-lazyload.tp-lazy-loaded + .tp-loader-skeleton {
+	z-index: auto;
+	opacity: 0;
+	visibility:hidden;
+}
+.lazy-background {
+    background-image: none !important;
+}
+
+/*double circle*/
+.tp-loader-dbl-circle:before, .tp-loader-dbl-circle:after {
+    content: "";
+    left: -19px;
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    background-color: #505050;
+    -webkit-animation: tp-move-cirlce 2s infinite ease-in-out;
+    animation: tp-move-cirlce 2s infinite ease-in-out;
+}
+
+.tp-loader-dbl-circle:after {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+    background-color: #505050;
+    opacity: 0.4;
+}
+
+@-webkit-keyframes tp-move-cirlce {
+	0% {
+		z-index: 1;
+		transform: translate(0, 0);
+	}
+	50% {
+		z-index: 1;
+		transform: translate(120%, 0);
+	}
+	50.1% {
+		z-index: 0;
+		transform: translate(120%, 0);
+	}
+	100% {
+		z-index: 0;
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes tp-move-cirlce {
+	0% {
+		z-index: 1;
+		transform: translate(0, 0);
+	}
+	50% {
+		z-index: 1;
+		transform: translate(120%, 0);
+	}
+	50.1% {
+		z-index: 0;
+		transform: translate(120%, 0);
+	}
+	100% {
+		z-index: 0;
+		transform: translate(0, 0);
+	}
+}
+/*double circle*/
+/*circle*/
+.tp-lazyload + .tp-loader-circle {
+    width: 2em;
+    height: 2em;
+}
+.tp-loader-circle:before, .tp-loader-circle:after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: 50%;
+	color: rgba(14, 95, 118, 0.25);
+	background-color: rgb(80 80 80 / 50%);
+	-webkit-animation: tp-bubble-disks 2s infinite cubic-bezier(0.55, 0.15, 0.45, 0.85) alternate;
+	animation: tp-bubble-disks 2s infinite cubic-bezier(0.55, 0.15, 0.45, 0.85) alternate;
+}
+
+.tp-loader-circle:after {
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+}
+
+@-webkit-keyframes tp-bubble-disks {
+  0% {
+    z-index: 1;
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    z-index: 2;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes tp-bubble-disks {
+  0% {
+    z-index: 1;
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    z-index: 2;
+    transform: scale3d(1, 1, 1);
+  }
+}
+/*circle*/
+/*blur-image*/
+.tp-lazyload[data-tp-lazy="blur-img"],.tp-lazyload.tp-lazy-start[data-tp-lazy="blur-img"],.tp-lazyload.tp-lazy-loading[data-tp-lazy="blur-img"] {
+	filter: blur(2vw);
+	opacity:1;
+	visibility:visible;
+}
+.tp-lazyload.tp-lazy-loaded[data-tp-lazy="blur-img"] {
+	filter: initial;
+}
+/*blur-image*/
+/*skeleton*/
+.tp-lazyload + .tp-loader-skeleton {
+    width: 100%;
+    height: 100%;
+    background-color: #DDDBDD;
+}
+.tp-lazyload[data-tp-lazy="skeleton"],.tp-lazyload.tp-lazy-start[data-tp-lazy="skeleton"] {
+	opacity:1;
+	visibility:visible;
+}
+.tp-loader-skeleton:after{
+position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+    -webkit-animation: tp-load-skeleton 5s infinite;
+    animation: tp-load-skeleton 3s infinite;
+    content: "";
+}
+@-webkit-keyframes tp-load-skeleton {
+	100% {
+		transform: translateX(100%);
+	}
+}
+@keyframes tp-load-skeleton {
+	100% {
+		transform: translateX(100%);
+	}
+}
+/*skeleton*/

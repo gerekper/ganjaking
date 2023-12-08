@@ -1,0 +1,154 @@
+/*CountDown*/
+.tp-countdown {
+	position:relative;
+	display:block
+}
+/*style-1*/
+.tp-countdown .pt_plus_countdown {
+    display: block;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    text-align: center;
+}
+.tp-countdown .pt_plus_countdown li {
+    border: 4px solid #736e6e;
+    padding: 5px 17px;
+    margin: 0 10px;
+}
+.tp-countdown .pt_plus_countdown li {
+    display: inline-block;
+}
+.tp-countdown .pt_plus_countdown li span {
+    font-weight: 300;
+    line-height: 80px;
+    padding: 0 13px;
+    padding-bottom: 0;
+    display: block;
+}
+.tp-countdown .pt_plus_countdown li h6 {
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-top: 10px;
+    font-weight: 600;
+    border-top: 2px solid;
+    margin: 0;
+}
+.tp-countdown .pt_plus_countdown.count-inline-style {
+    margin: 0;
+}
+.tp-countdown .pt_plus_countdown.count-inline-style li span {
+    padding-left: 0;
+    padding-right: 2px;
+    height: auto;
+    line-height: 1;
+}
+.tp-countdown .pt_plus_countdown.count-inline-style li h6 {
+    border-top: 0;
+    padding-top: 0;
+}
+.tp-countdown .pt_plus_countdown.count-inline-style li {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    margin: 0;
+}
+/*style-1 end*/
+/*style 2*/
+.countdown-style-2.flipdown,
+.tp-scarcity-flipdown.flipdown {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+/*style 2 end*/
+/*style 3*/
+.tp-countdown.countdown-style-3 .tp-countdown-counter {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+}
+.tp-countdown.countdown-style-3 .tp-countdown-counter .counter-part {
+    position: relative;
+    display: flex;
+    width: calc(100% /4.2);
+    align-items: center;
+    justify-content: space-around;
+}
+.tp-countdown.countdown-style-3 .progressbar-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media only screen and (max-width: 350px) {
+	.countdown-style-3 .tp-countdown-counter span.number {
+		font-size: 20px;
+	}
+	.countdown-style-3 .tp-countdown-counter span.label {
+		font-size: 10px;
+	}
+}
+/*style 3 end*/
+/* FakeNumber */
+.tp-countdown .tp-fake-number,
+.tp-countdown .tp-fake-visiblecounter {
+    position: relative;
+    display: flex;
+	align-items:center;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear
+}
+.tp-countdown .tp-fake-visiblecounter {
+    padding: 0 5px;
+}
+/*FakeNumber end*/
+
+.tp-countdown .tp-hide{
+    display: none;
+    visibility: hidden;
+}
+.tp-countdown .tp-show{
+    display: block;
+    visibility: visible;
+}
+/*expiry text*/
+.tp-countdown .tp-countdown-expiry{
+    display: flex;
+    justify-content: center;
+}
+
+/* Clear button */
+.tp-countdown .tp-clear-button{
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+}
+.tp-countdown .tp-clear-button button{
+    width: 10%;
+    background: #FFF;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid rgba(0,0,0,.1);
+    box-shadow: rgb(0 0 0 / 2%) 0 1px 3px 0;
+}
+.tp-countdown .tp-clear-button button:hover{
+    transform: translateY(-1px);
+    box-shadow: rgb(0 0 0 / 10%) 0 4px 12px;
+    color: rgba(0,0,0,.65);
+}
+
+.tp-search-filter .tp-clear-button button.active{
+    color: #fff;
+    background-color: #000;
+}
+.tp-countdown.countdown-style-2 .rotor-group:first-child::after{content:'';position:absolute;bottom:50px;left:115px;width:10px;height:10px;border-radius:50%;background-color:#151515}.tp-countdown.countdown-style-2 .rotor-group:first-child::before{content:'';position:absolute;bottom:20px;left:115px;width:10px;height:10px;border-radius:50%;background-color:#151515}@media (max-width:550px){.tp-countdown.countdown-style-2 .rotor-group:first-child::after{left:69px;bottom:29px;height:8px;width:8px}.tp-countdown.countdown-style-2 .rotor-group:first-child::before{left:69px;bottom:13px;height:8px;width:8px}}

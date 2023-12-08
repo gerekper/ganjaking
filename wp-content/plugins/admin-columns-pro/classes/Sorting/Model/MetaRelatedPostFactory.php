@@ -4,12 +4,11 @@ namespace ACP\Sorting\Model;
 
 use AC\MetaType;
 use ACP\Sorting;
-use ACP\Sorting\AbstractModel;
 
 class MetaRelatedPostFactory
 {
 
-    public function create(string $meta_type, string $post_property, string $meta_key): ?AbstractModel
+    public function create(string $meta_type, string $post_property, string $meta_key)
     {
         switch ($meta_type) {
             case MetaType::POST :

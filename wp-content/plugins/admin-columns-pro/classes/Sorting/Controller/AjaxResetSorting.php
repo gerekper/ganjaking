@@ -50,7 +50,7 @@ class AjaxResetSorting implements Registerable
         } elseif ($list_key && $this->list_screen_factory->can_create($list_key)) {
             $list_screen = $this->list_screen_factory->create($list_key);
         }
-        
+
         if ( ! $list_screen) {
             wp_send_json_error();
         }

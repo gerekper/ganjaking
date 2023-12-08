@@ -2,14 +2,13 @@
 
 namespace ACA\WC\Sorting\User\ShopOrder;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
 
-class ProductCountUnique extends AbstractModel implements QueryBindings
+class ProductCountUnique implements QueryBindings
 {
 
     use SqlTrait;
@@ -18,8 +17,6 @@ class ProductCountUnique extends AbstractModel implements QueryBindings
 
     public function __construct(array $status = null)
     {
-        parent::__construct();
-
         if (null === $status) {
             $status = ['wc-completed'];
         }

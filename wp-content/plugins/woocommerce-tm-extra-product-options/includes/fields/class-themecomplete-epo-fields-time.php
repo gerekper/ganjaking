@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -33,8 +34,11 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 
 		$custom_time_format = $this->get_value_no_empty( $element, 'custom_time_format', '' );
 		$time_format        = $this->get_value_no_empty( $element, 'time_format', 'HH:mm' );
-		$time_placeholder   = $time_format;
-		$time_mask          = $time_format;
+		if ( ! is_string( $time_format ) ) {
+			$time_format = 'HH:mm';
+		}
+		$time_placeholder = $time_format;
+		$time_mask        = $time_format;
 		if ( '' !== $custom_time_format ) {
 			$time_mask = $custom_time_format;
 		}
@@ -46,6 +50,10 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 		$time_mask = str_replace( 'S', '0', $time_mask );
 		$time_mask = str_replace( 't', 'S', $time_mask );
 		$time_mask = str_replace( 'T', 'S', $time_mask );
+
+		if ( ! is_string( $time_mask ) ) {
+			$time_mask = '00:00';
+		}
 
 		if ( apply_filters( 'wc_epo_display_rtl', is_rtl() ) ) {
 			$time_mask = strrev( $time_mask );
@@ -70,9 +78,9 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 			'hide_amount'         => $this->get_value( $element, 'hide_amount', '' ),
 			'min_time'            => $this->get_value( $element, 'min_time', '' ),
 			'max_time'            => $this->get_value( $element, 'max_time', '' ),
-			'tranlation_hour'     => $this->get_value_no_empty( $element, 'tranlation_hour', '' ),
-			'tranlation_minute'   => $this->get_value_no_empty( $element, 'tranlation_minute', '' ),
-			'tranlation_second'   => $this->get_value_no_empty( $element, 'tranlation_second', '' ),
+			'translation_hour'    => $this->get_value_no_empty( $element, 'translation_hour', '' ),
+			'translation_minute'  => $this->get_value_no_empty( $element, 'translation_minute', '' ),
+			'translation_second'  => $this->get_value_no_empty( $element, 'translation_second', '' ),
 			'quantity'            => $this->get_value( $element, 'quantity', '' ),
 			'time_format'         => $time_format,
 			'custom_time_format'  => $custom_time_format,
@@ -92,6 +100,7 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -100,13 +109,13 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 		$message = [];
 
 		$quantity_once = false;
-		$min_quantity  = isset( $this->element['quantity_min'] ) ? (int) $this->element['quantity_min'] : 0;
+		$min_quantity  = isset( $this->element['quantity_min'] ) ? intval( $this->element['quantity_min'] ) : 0;
 		if ( apply_filters( 'wc_epo_field_min_quantity_greater_than_zero', true ) && $min_quantity < 0 ) {
 			$min_quantity = 0;
 		}
 		foreach ( $this->field_names as $attribute ) {
 			$attribute_quantity = $attribute . '_quantity';
-			if ( ! $quantity_once && isset( $this->epo_post_fields[ $attribute ] ) && '' !== $this->epo_post_fields[ $attribute ] && isset( $this->epo_post_fields[ $attribute_quantity ] ) && ! ( (int) array_sum( (array) $this->epo_post_fields[ $attribute_quantity ] ) >= $min_quantity ) ) {
+			if ( ! $quantity_once && isset( $this->epo_post_fields[ $attribute ] ) && '' !== $this->epo_post_fields[ $attribute ] && isset( $this->epo_post_fields[ $attribute_quantity ] ) && ! ( intval( array_sum( (array) $this->epo_post_fields[ $attribute_quantity ] ) ) >= $min_quantity ) ) {
 				$passed        = false;
 				$quantity_once = true;
 				/* translators: %1 element label %2 quantity value. */
@@ -127,5 +136,4 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

@@ -7,13 +7,12 @@ use ACP\Column;
 use ACP\Editing;
 use ACP\Editing\BulkDelete\Deletable;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
 
 class Media extends AC\ListScreen\Media
-    implements Sorting\ListScreen, Editing\ListScreen, Filtering\ListScreen, Export\ListScreen,
+    implements Sorting\ListScreen, Editing\ListScreen, Export\ListScreen,
                Editing\BulkDelete\ListScreen
 {
 
@@ -22,7 +21,7 @@ class Media extends AC\ListScreen\Media
         return new Sorting\Strategy\Media($model);
     }
 
-    public function deletable()
+    public function deletable(): Deletable
     {
         return new Deletable\Post(get_post_type_object($this->get_post_type()));
     }
@@ -30,11 +29,6 @@ class Media extends AC\ListScreen\Media
     public function editing()
     {
         return new Editing\Strategy\Post(get_post_type_object($this->get_post_type()));
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\Post($model);
     }
 
     public function export()
@@ -55,6 +49,7 @@ class Media extends AC\ListScreen\Media
             Column\Media\Album::class,
             Column\Media\AlternateText::class,
             Column\Media\Artist::class,
+            Column\Media\AspectRatio::class,
             Column\Media\Author::class,
             Column\Media\AuthorName::class,
             Column\Media\AvailableSizes::class,
@@ -70,6 +65,7 @@ class Media extends AC\ListScreen\Media
             Column\Media\FileSize::class,
             Column\Media\Height::class,
             Column\Media\ID::class,
+            Column\Media\Orientation::class,
             Column\Media\MediaParent::class,
             Column\Media\Menu::class,
             Column\Media\MimeType::class,

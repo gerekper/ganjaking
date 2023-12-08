@@ -73,7 +73,7 @@ class ProductTaxonomy extends AC\Column implements ACP\Search\Searchable, ACP\Ex
         $setting = $this->get_setting('taxonomy');
 
         return $setting instanceof AC\Settings\Column\Taxonomy
-            ? $setting->get_taxonomy()
+            ? $setting->get_taxonomy() ?? false
             : false;
     }
 
@@ -88,9 +88,11 @@ class ProductTaxonomy extends AC\Column implements ACP\Search\Searchable, ACP\Ex
     {
         $taxonomy = $this->get_taxonomy();
 
-        return $taxonomy !== false
-            ? new WC\Search\Order\ProductTaxonomy($taxonomy)
-            : false;
+        if (false === $taxonomy) {
+            return null;
+        }
+
+        return new WC\Search\Order\ProductTaxonomy($taxonomy);
     }
 
     public function export()

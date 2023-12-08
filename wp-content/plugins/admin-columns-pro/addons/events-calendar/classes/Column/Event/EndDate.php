@@ -4,39 +4,53 @@ namespace ACA\EC\Column\Event;
 
 use AC;
 use ACA\EC\Editing;
-use ACA\EC\Filtering;
 use ACP;
 use ACP\Search;
 
 class EndDate extends AC\Column\Meta
-	implements ACP\Filtering\Filterable, ACP\Editing\Editable, ACP\Search\Searchable {
+    implements ACP\Editing\Editable, ACP\Search\Searchable,
+               ACP\Filtering\FilterableDateSetting
+{
 
-	public function __construct() {
-		$this->set_type( 'end-date' )
-		     ->set_original( true );
-	}
+    use ACP\Filtering\FilteringDateSettingTrait;
 
-	public function get_meta_key() {
-		return '_EventEndDate';
-	}
+    public function __construct()
+    {
+        $this->set_type('end-date')
+             ->set_original(true);
+    }
 
-	public function get_value( $id ) {
-		return '';
-	}
+    protected function register_settings()
+    {
+        parent::register_settings();
 
-	public function filtering() {
-		return new Filtering\Event\Date( $this );
-	}
+        $this->add_setting(new ACP\Filtering\Settings\Date($this));
+    }
 
-	public function editing() {
-		return new ACP\Editing\Service\Basic(
-			new ACP\Editing\View\DateTime(),
-			new Editing\Storage\Event\EndDate()
-		);
-	}
+    public function get_meta_key()
+    {
+        return '_EventEndDate';
+    }
 
-	public function search() {
-		return new Search\Comparison\Meta\DateTime\ISO( $this->get_meta_key(), $this->get_meta_type() );
-	}
+    public function get_value($id)
+    {
+        return '';
+    }
+
+    public function editing()
+    {
+        return new ACP\Editing\Service\Basic(
+            new ACP\Editing\View\DateTime(),
+            new Editing\Storage\Event\EndDate()
+        );
+    }
+
+    public function search()
+    {
+        return new Search\Comparison\Meta\DateTime\ISO(
+            $this->get_meta_key(),
+            (new AC\Meta\QueryMetaFactory())->create_by_meta_column($this)
+        );
+    }
 
 }

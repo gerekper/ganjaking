@@ -203,18 +203,10 @@ class AnimatedLink extends Module_Base {
 		$this->add_render_attribute('link-wrap', 'class', 'bdt-ep-animated-link bdt-ep-animated-link--' . esc_attr($settings['link_style']));
 
 		if (!empty($settings['link_url']['url'])) {
-			$this->add_render_attribute('link-wrap', 'href', $settings['link_url']['url']);
-
-			if ($settings['link_url']['is_external']) {
-				$this->add_render_attribute('link-wrap', 'target', '_blank');
-			}
-
-			if ($settings['link_url']['nofollow']) {
-				$this->add_render_attribute('link-wrap', 'rel', 'nofollow');
-			}
+			$this->add_link_attributes( 'link-wrap', $settings['link_url'] );
 		}
 
-?>
+		?>
 		<?php if ($settings['link_style'] == 'leda' or $settings['link_style'] == 'elara' or $settings['link_style'] == 'ersa' or $settings['link_style'] == 'eirene' or $settings['link_style'] == 'helike') : ?>
 			<a <?php echo ($this->get_render_attribute_string('link-wrap')); ?>>
 				<span><?php echo esc_html($settings['link_text']); ?></span>

@@ -2,17 +2,10 @@
 
 namespace ACP\Editing;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 
 interface PaginatedOptionsFactory {
 
-	/**
-	 * @param string   $search
-	 * @param int      $page
-	 * @param int|null $id
-	 *
-	 * @return AC\Helper\Select\Options\Paginated
-	 */
-	public function create( $search, $page, $id = null );
+	public function create( string $search, int $page, int $id = null ): Paginated;
 
 }

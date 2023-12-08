@@ -38,20 +38,21 @@ class WC_Account_Funds_Autoloader {
 	}
 
 	/**
-	 * Auto-load classes on demand to reduce memory consumption.
+	 * Autoload classes on demand to reduce memory consumption.
 	 *
 	 * @since 2.5.0
+	 * @since 3.0.0 Renamed parameter `$class` to `$classname`.
 	 *
-	 * @param string $class The class to load.
+	 * @param string $classname The class to load.
 	 */
-	public function autoload( $class ) {
-		$class = strtolower( $class );
+	public function autoload( $classname ) {
+		$classname = strtolower( $classname );
 
-		if ( 0 !== strpos( $class, 'wc_account_funds_' ) ) {
+		if ( 0 !== strpos( $classname, 'wc_account_funds_' ) ) {
 			return;
 		}
 
-		$file = $this->get_file_name_from_class( $class );
+		$file = $this->get_file_name_from_class( $classname );
 
 		/**
 		 * Filters the autoload classes.
@@ -70,7 +71,7 @@ class WC_Account_Funds_Autoloader {
 		);
 
 		foreach ( $autoload as $prefix => $path ) {
-			if ( 0 === strpos( $class, $prefix ) && $this->load_file( $path . $file ) ) {
+			if ( 0 === strpos( $classname, $prefix ) && $this->load_file( $path . $file ) ) {
 				break;
 			}
 		}
@@ -80,12 +81,13 @@ class WC_Account_Funds_Autoloader {
 	 * Take a class name and turn it into a file name.
 	 *
 	 * @since 2.5.0
+	 * @since 3.0.0 Renamed parameter `$class` to `$classname`.
 	 *
-	 * @param  string $class The class name.
+	 * @param  string $classname The class name.
 	 * @return string The file name.
 	 */
-	private function get_file_name_from_class( $class ) {
-		return 'class-' . str_replace( '_', '-', $class ) . '.php';
+	private function get_file_name_from_class( $classname ) {
+		return 'class-' . str_replace( '_', '-', $classname ) . '.php';
 	}
 
 	/**

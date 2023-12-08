@@ -33,26 +33,21 @@
                 // start video stop
                 var stopVideos = function () {
                     var videos = document.querySelectorAll($settings.id + ' .bdt-interactive-tabs-iframe');
-                    //console.log(videos);
                     Array.prototype.forEach.call(videos, function (video) {
                         var src = video.src;
-                        // video.src = src.replace("?autoplay=1", "");
-                        // video.src = src.replace("autoplay=1", "");
                         video.src = src;
                     });
                 };
                 // end video stop
 
-                $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
+                // $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
+                $tabs.find('.bdt-interactive-tabs-item:first').addClass('bdt-active');
+                console.log(swiper.realIndex);
                 swiper.on('slideChange', function () {
                     $tabs.find('.bdt-interactive-tabs-item').removeClass('bdt-active');
                     $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
-                    //console.log('changed today'); 
-
 
                     stopVideos();
-
-
 
                 });
 
@@ -62,13 +57,8 @@
                     swiper.slideTo(slideno + 1);
                 });
             };
-
-
     };
-
-  
-
-
+    
     jQuery(window).on('elementor/frontend/init', function() {
         elementorFrontend.hooks.addAction('frontend/element_ready/bdt-interactive-tabs.default', widgetInteractiveTabs);
     });

@@ -15,11 +15,17 @@ class TotalSalesFormatter extends Formatter\FloatFormatter
         return self::FLOAT;
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         $totals = $column->get_raw_value($id);
 
-        return (string)reset($totals);
+        if (is_array($totals)) {
+            return (string)reset($totals);
+        }
+
+        return is_scalar($totals)
+            ? (string)$totals
+            : '';
     }
 
 }

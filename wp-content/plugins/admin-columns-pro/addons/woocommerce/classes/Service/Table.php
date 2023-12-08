@@ -4,6 +4,7 @@ namespace ACA\WC\Service;
 
 use AC\ListScreen;
 use AC\Registerable;
+use ACA\WC\ListScreen\Order;
 use ACA\WC\ListScreen\Product;
 use ACP\ListScreen\Post;
 
@@ -23,6 +24,16 @@ class Table implements Registerable
             2
         );
         add_filter('acp/sticky_header/enable', [$this, 'disable_sticky_headers']);
+        add_filter('acp/table/query_args_whitelist', [$this, 'add_query_arg_customer_to_whitelist'], 10, 2);
+    }
+
+    public function add_query_arg_customer_to_whitelist(array $args, ListScreen $list_screen): array
+    {
+        if ($list_screen instanceof Order) {
+            $args[] = '_customer_user';
+        }
+
+        return $args;
     }
 
     public function fix_manual_product_sort(ListScreen $list_screen): void

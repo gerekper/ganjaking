@@ -379,7 +379,6 @@ abstract class Abstract_Page {
 	private function prepare_modals() {
 		$this->prepare_onboarding_modal();
 		$this->prepare_upgrade_modal();
-		$this->prepare_ultra_compression_modal();
 	}
 
 	/**
@@ -455,17 +454,6 @@ abstract class Abstract_Page {
 		$cta_url                 = $this->settings->has_bulk_smush_page() ? Helper::get_page_url( 'smush-bulk' ) : '';
 		$this->modals['updated'] = array(
 			'cta_url' => $cta_url,
-		);
-	}
-
-	private function prepare_ultra_compression_modal() {
-		if ( WP_Smush::is_pro() ) {
-			return;
-		}
-
-		$is_dashboard_page                 = 'smush' === $this->get_slug();
-		$this->modals['ultra-compression'] = array(
-			'location' => $is_dashboard_page ? 'dashboard_summary' : 'summary_box',
 		);
 	}
 

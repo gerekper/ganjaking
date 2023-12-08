@@ -29,6 +29,7 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_COMPATIBILITY_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -46,20 +47,17 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		$this->add_compatibility();
-
 		do_action( 'wc_epo_add_compatibility' );
-
 	}
 
 	/**
 	 * Add compatibility classes
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
-
 		// Aelia Currency Switcher.
 		THEMECOMPLETE_EPO_CP_Aelia_Currency_Switcher::instance();
 		// WPML Currency.
@@ -68,10 +66,10 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 		THEMECOMPLETE_EPO_CP_WOOCS::instance();
 		// WooCommerce Currency 3rd Party plugins.
 		THEMECOMPLETE_EPO_CP_Currency_3rd_Party::instance();
-		// WPML Multilingual CMS.
-		THEMECOMPLETE_EPO_CP_WPML::instance();
 		// WooCommerce Subscriptions.
 		THEMECOMPLETE_EPO_CP_Subscriptions::instance();
+		// WPML Multilingual CMS.
+		THEMECOMPLETE_EPO_CP_WPML::instance();
 		// WooCommerce Composite Products.
 		THEMECOMPLETE_EPO_CP_Composite::instance();
 		// WooCommerce Bookings.
@@ -98,8 +96,6 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 		THEMECOMPLETE_EPO_CP_TheSeoFramework::instance();
 		// Woocommerce Add to cart Ajax for variable products.
 		THEMECOMPLETE_EPO_CP_WATCAFVP::instance();
-		// WooDeposits - Woocommerce partial payments and deposits plugin.
-		THEMECOMPLETE_EPO_CP_Woodeposits::instance();
 		// Name Your Price.
 		THEMECOMPLETE_EPO_CP_NYP::instance();
 		// Fancy Product Designer.
@@ -116,7 +112,7 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 		THEMECOMPLETE_EPO_CP_Themes::instance();
 		// Plugins (various).
 		THEMECOMPLETE_EPO_CP_Plugins::instance();
-
+		// WooCommerce B2B by Code4Life.
+		THEMECOMPLETE_EPO_CP_B2B_Code4Life::instance();
 	}
-
 }

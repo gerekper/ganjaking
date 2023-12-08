@@ -6,20 +6,15 @@ use ACP\Search\Helper\MetaQuery;
 use ACP\Search\Helper\UserValueFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
-use Exception;
 
-class CurrentUser extends MetaQuery\Comparison {
+class CurrentUser extends MetaQuery\Comparison
+{
 
-	/**
-	 * @param string $key
-	 * @param Value  $value
-	 *
-	 * @throws Exception
-	 */
-	public function __construct( $key, Value $value ) {
-		$factory = new UserValueFactory();
+    public function __construct(string $key, Value $value)
+    {
+        $factory = new UserValueFactory();
 
-		parent::__construct( $key, Operators::EQ, $factory->create_current_user() );
-	}
+        parent::__construct($key, Operators::EQ, $factory->create_current_user());
+    }
 
 }

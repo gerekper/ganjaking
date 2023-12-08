@@ -3,7 +3,7 @@
  * Extra Product Options admin setup
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  * phpcs:disable WordPress.DB.DirectDatabaseQuery
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options admin setup
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_Admin_Base {
 
@@ -27,6 +27,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Admin_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -44,7 +45,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		// Add Admin tab in products.
 		add_filter( 'woocommerce_product_data_tabs', [ $this, 'register_data_tab' ] );
 		add_action( 'woocommerce_product_data_panels', [ $this, 'register_data_panels' ] );
@@ -122,21 +122,22 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		add_action( 'woocommerce_order_item_visible', [ $this, 'woocommerce_order_item_visible' ], 10, 2 );
 
 		// Enable shortcodes on various properties.
-		add_filter( 'wc_epo_enable_shortocde', [ $this, 'enable_shortcodes' ], 10, 3 );
-
+		add_filter( 'wc_epo_enable_shortocde', [ $this, 'enable_shortcodes' ], 10, 1 );
 	}
 
 	/**
 	 * Enable shortcodes on an element property
 	 *
-	 * @param mixed   $property The option property.
-	 * @param mixed   $original_property The original option property.
-	 * @param integer $post_id The post id where the filter was used.
+	 * @param mixed $property The option property.
+	 * @return mixed
 	 *
 	 * @since 6.0.4
+	 *
+	 * The function has two more shadow parameters:
+	 * param mixed   $original_property The original option property.
+	 * param integer $post_id The post id where the filter was used.
 	 */
-	public function enable_shortcodes( $property = '', $original_property = '', $post_id = 0 ) {
-
+	public function enable_shortcodes( $property = '' ) {
 		if ( is_array( $property ) ) {
 			foreach ( $property as $key => $value ) {
 				$property[ $key ] = themecomplete_do_shortcode( $value );
@@ -145,30 +146,29 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			$property = themecomplete_do_shortcode( $property );
 		}
 		return $property;
-
 	}
 
 	/**
 	 * Hide associated products in the order
 	 *
-	 * @param boolean $visible If the product should be visible.
-	 * @param array   $order_item The order item object.
+	 * @param boolean      $visible If the product should be visible.
+	 * @param array<mixed> $order_item The order item object.
+	 * @return boolean
 	 * @since 6.2
 	 */
 	public function woocommerce_order_item_visible( $visible, $order_item ) {
-
 		if ( isset( $order_item['_associated_hidden'] ) && ! empty( $order_item['_associated_hidden'] ) ) {
 			$visible = false;
 		}
 
 		return $visible;
-
 	}
 
 	/**
 	 * Filter product rearch results in the builder
 	 *
 	 * @param object $product The product object.
+	 * @return object
 	 * @since 5.0
 	 */
 	public function woocommerce_json_search_found_products( $product ) {
@@ -185,9 +185,10 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	/**
 	 * Returns the provided raw value
 	 *
-	 * @param string $value The value.
-	 * @param array  $option Array of options.
-	 * @param string $raw_value The raw value.
+	 * @param string       $value The value.
+	 * @param array<mixed> $option Array of options.
+	 * @param string       $raw_value The raw value.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function tm_return_raw( $value, $option, $raw_value ) {
@@ -198,12 +199,12 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	/**
 	 * Update option date on the order upon saving the order on admin Order page
 	 *
-	 * @param integer $order_id The order id.
-	 * @param array   $items The items array.
+	 * @param integer      $order_id The order id.
+	 * @param array<mixed> $items The items array.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function tm_woocommerce_saved_order_items( $order_id = 0, $items = [] ) {
-
 		if ( apply_filters( 'wc_epo_no_saved_order_items', false ) ) {
 			return;
 		}
@@ -216,7 +217,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		if ( is_array( $items ) && isset( $items['tm_epo'] ) ) {
 
 			$order              = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
-			$order_currency     = is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency();
+			$order_currency     = $order->get_currency();
 			$mt_prefix          = $order_currency;
 			$order_items        = $order->get_items();
 			$order_taxes        = $order->get_taxes();
@@ -224,7 +225,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			foreach ( $items['tm_epo'] as $item_id => $epos ) {
 
-				$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+				$item_meta = themecomplete_get_order_item_meta( $item_id, '', false );
 
 				$qty           = (float) $item_meta['_qty'][0];
 				$line_total    = floatval( $item_meta['_line_total'][0] );
@@ -276,7 +277,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 								$new_currency = true;
 
 							}
-							if ( isset( $epo['quantity'] ) && $epo['quantity'] !== $original_saved_epos[ $key ]['quantity'] ) {
+							if ( isset( $epo['quantity'] ) && is_array( $original_saved_epos ) && isset( $original_saved_epos[ $key ] ) && isset( $original_saved_epos[ $key ]['quantity'] ) && $epo['quantity'] !== $original_saved_epos[ $key ]['quantity'] ) {
 								$epo_qty = $saved_epos[ $key ]['quantity'];
 
 								$option_price_before = $this->order_price_exluding_tax( $saved_epos[ $key ]['price'], $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
@@ -354,7 +355,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 									$current_product_id  = isset( $item_meta['_product_id'][0] ) ? $item_meta['_product_id'][0] : null;
 									$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $current_product_id, 'product' ) );
 
-									if ( THEMECOMPLETE_EPO_WPML()->get_lang() === THEMECOMPLETE_EPO_WPML()->get_default_lang() && (int) $original_product_id !== (int) $current_product_id ) {
+									if ( THEMECOMPLETE_EPO_WPML()->get_lang() === THEMECOMPLETE_EPO_WPML()->get_default_lang() && intval( $original_product_id ) !== intval( $current_product_id ) ) {
 										$current_product_id = $original_product_id;
 									}
 
@@ -394,7 +395,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -402,20 +402,19 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * $price must be without tax
 	 *
-	 * @param float   $price The price.
-	 * @param boolean $prices_include_tax The order id.
-	 * @param object  $order The order object.
-	 * @param array   $order_taxes The order taxes.
-	 * @param array   $order_items The order items.
-	 * @param integer $item_id The item id.
+	 * @param float        $price The price.
+	 * @param boolean      $prices_include_tax The order id.
+	 * @param object       $order The order object.
+	 * @param array<mixed> $order_taxes The order taxes.
+	 * @param array<mixed> $order_items The order items.
+	 * @param integer      $item_id The item id.
+	 * @return float
 	 * @since 1.0
 	 */
 	public function order_price_including_tax( $price, $prices_include_tax, $order, $order_taxes, $order_items, $item_id ) {
-
 		$tax_price = $this->order_get_tax_price( $price, false, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
 
 		return (float) $price + (float) $tax_price;
-
 	}
 
 	/**
@@ -423,33 +422,32 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * $price must be with tax
 	 *
-	 * @param float   $price The price.
-	 * @param boolean $prices_include_tax The order id.
-	 * @param object  $order The order object.
-	 * @param array   $order_taxes The order taxes.
-	 * @param array   $order_items The order items.
-	 * @param integer $item_id The item id.
-	 *
+	 * @param float        $price The price.
+	 * @param boolean      $prices_include_tax The order id.
+	 * @param object       $order The order object.
+	 * @param array<mixed> $order_taxes The order taxes.
+	 * @param array<mixed> $order_items The order items.
+	 * @param integer      $item_id The item id.
+	 * @return float
 	 * @since 1.0
 	 */
 	public function order_price_exluding_tax( $price, $prices_include_tax, $order, $order_taxes, $order_items, $item_id ) {
-
 		$tax_price = $this->order_get_tax_price( $price, true, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
 
 		return (float) $price - (float) $tax_price;
-
 	}
 
 	/**
 	 * Get the tax price
 	 *
-	 * @param float   $price The price.
-	 * @param boolean $price_has_tax If the price has tax included.
-	 * @param boolean $prices_include_tax The order id.
-	 * @param object  $order The order object.
-	 * @param array   $order_taxes The order taxes.
-	 * @param array   $order_items The order items.
-	 * @param integer $item_id The item id.
+	 * @param float        $price The price.
+	 * @param boolean      $price_has_tax If the price has tax included.
+	 * @param boolean      $prices_include_tax The order id.
+	 * @param object       $order The order object.
+	 * @param array<mixed> $order_taxes The order taxes.
+	 * @param array<mixed> $order_items The order items.
+	 * @param integer      $item_id The item id.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function order_get_tax_price( $price, $price_has_tax, $prices_include_tax, $order, $order_taxes, $order_items, $item_id ) {
@@ -517,8 +515,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	/**
 	 * Display options on admin Order page
 	 *
-	 * @param integer $item_id The item id.
-	 * @param array   $item The item array.
+	 * @param integer      $item_id The item id.
+	 * @param array<mixed> $item The item array.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function tm_woocommerce_order_item_line_item_html( $item_id = 0, $item = [] ) {
@@ -536,14 +535,14 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		$order = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
 		if ( $order ) {
-			$order_currency = is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency();
+			$order_currency = $order->get_currency();
 		} else {
 			$order_currency = get_woocommerce_currency();
 		}
 		$mt_prefix = $order_currency;
 
 		$_product    = themecomplete_get_product_from_item( $item, $order );
-		$item_meta   = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+		$item_meta   = themecomplete_get_order_item_meta( $item_id, '', false );
 		$order_taxes = $order->get_taxes();
 
 		$has_epo = is_array( $item_meta )
@@ -554,6 +553,8 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		$has_fee = is_array( $item_meta )
 				&& isset( $item_meta['_tmcartfee_data'] )
 				&& isset( $item_meta['_tmcartfee_data'][0] );
+
+		$wpml_translation_by_id = [];
 
 		if ( $has_epo || $has_fee ) {
 			$current_product_id  = $item['product_id'];
@@ -623,9 +624,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 								$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
 
-								if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
+								if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
 
-									$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+									$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 
 								}
 							}
@@ -663,13 +664,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 						if ( isset( $epo['element'] ) && 'textarea' === $epo['element']['type'] ) {
 							$epo_value = trim( $epo_value );
-
 							$epo_value = str_replace( [ "\r\n", "\r" ], "\n", $epo_value );
-
 							$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-							$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
+							$epo_value = array_map( 'strval', array_map( 'wc_clean', explode( "\n", $epo_value ) ) );
 							$epo_value = implode( "\n", $epo_value );
 
 							$epo_value = wpautop( $epo_value );
@@ -728,8 +725,8 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 							$pos = strrpos( $epo['key'], '_' );
 							if ( false !== $pos ) {
 								$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
-								if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
-									$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+								if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
+									$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 									if ( ! empty( $epo['use_images'] ) && ! empty( $epo['images'] ) && 'images' === $epo['use_images'] ) {
 										$epo['value'] = '<div class="cpf-img-on-cart"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' . apply_filters( 'tm_image_url', $epo['images'] ) . '" /></div>' . $epo['value'];
 									}
@@ -755,7 +752,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -763,16 +759,14 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * @param mixed $links Plugin Action links.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public static function plugin_action_links( $links ) {
-
 		$action_links = [
 			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=' . THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID ) ) . '" aria-label="' . esc_attr__( 'View Extra Product Options settings', 'woocommerce-tm-extra-product-options' ) . '">' . esc_html__( 'Settings', 'woocommerce-tm-extra-product-options' ) . '</a>',
 		];
 
 		return array_merge( $action_links, $links );
-
 	}
 
 	/**
@@ -781,12 +775,10 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 * @param mixed $links Plugin Row Meta.
 	 * @param mixed $file  Plugin Base file.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public static function plugin_row_meta( $links, $file ) {
-
 		if ( THEMECOMPLETE_EPO_PLUGIN_NAME_HOOK === $file ) {
-
 			$plugin_name = esc_html__( 'Extra Product Options & Add-Ons for WooCommerce', 'woocommerce-tm-extra-product-options' );
 			$row_meta    = [
 				'view-details' => sprintf(
@@ -802,11 +794,8 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			];
 
 			return array_merge( $links, $row_meta );
-
 		}
-
 		return (array) $links;
-
 	}
 
 	/**
@@ -818,12 +807,11 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * @param mixed $id The product id.
 	 *
-	 * @return WP_Post|bool
+	 * @return WP_Post|boolean
 	 * @todo   Returning false? Need to check for it in...
 	 * @see    duplicate_product
 	 */
 	private function get_product_to_duplicate( $id ) {
-
 		$id = absint( $id );
 
 		if ( ! $id ) {
@@ -835,33 +823,31 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		$post = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID=%d", $id ) );
 
 		if ( isset( $post->post_type ) && 'revision' === $post->post_type ) {
-			$id   = iseet( $post->post_parent ) ? $post->post_parent : 0;
+			$id   = isset( $post->post_parent ) ? $post->post_parent : 0;
 			$post = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID=%d", $id ) );
 		}
 
 		return $post[0];
-
 	}
 
 	/**
 	 * Function to create the duplicate of the product.
 	 *
 	 * @param mixed   $post The post object.
-	 * @param integer $parent The parent post id.
+	 * @param integer $parent_post_id The parent post id.
 	 * @param string  $post_status The post status.
 	 *
-	 * @return int
+	 * @return integer
 	 */
-	public function cloned_duplicate_product( $post, $parent = 0, $post_status = '' ) {
-
+	public function cloned_duplicate_product( $post, $parent_post_id = 0, $post_status = '' ) {
 		global $wpdb;
 
 		$new_post_author   = wp_get_current_user();
 		$new_post_date     = current_time( 'mysql' );
 		$new_post_date_gmt = get_gmt_from_date( $new_post_date );
 
-		if ( $parent > 0 ) {
-			$post_parent = $parent;
+		if ( $parent_post_id > 0 ) {
+			$post_parent = $parent_post_id;
 			$post_status = $post_status ? $post_status : 'publish';
 			$suffix      = '';
 			$post_title  = $post->post_title;
@@ -902,7 +888,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		// Set title for variations.
 		if ( 'product_variation' === $post->post_type ) {
-			/* translators: %1 variation id %2 parent product title*/
+			/* translators: %1 variation id %2 parent product title */
 			$post_title = sprintf( esc_html__( 'Variation #%1$s of %2$s', 'woocommerce' ), absint( $new_post_id ), esc_html( get_the_title( $post_parent ) ) );
 			$wpdb->update(
 				$wpdb->posts,
@@ -951,7 +937,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		clean_post_cache( $new_post_id );
 
 		return $new_post_id;
-
 	}
 
 	/**
@@ -960,9 +945,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 * @param mixed $id The ID(s) of the object(s) to retrieve.
 	 * @param mixed $new_id The object to relate to.
 	 * @param mixed $post_type The post type.
+	 * @return void
 	 */
 	private function cloned_duplicate_post_taxonomies( $id, $new_id, $post_type ) {
-
 		$exclude    = array_filter( apply_filters( 'woocommerce_duplicate_product_exclude_taxonomies', [] ) );
 		$taxonomies = array_diff( get_object_taxonomies( $post_type ), $exclude );
 
@@ -970,11 +955,10 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			$post_terms       = wp_get_object_terms( $id, $taxonomy );
 			$post_terms_count = count( $post_terms );
 
-			for ( $i = 0; $i < $post_terms_count; $i ++ ) {
+			for ( $i = 0; $i < $post_terms_count; $i++ ) {
 				wp_set_object_terms( $new_id, $post_terms[ $i ]->slug, $taxonomy, true );
 			}
 		}
-
 	}
 
 	/**
@@ -982,13 +966,13 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * @param mixed $id The post id.
 	 * @param mixed $new_id The new post id.
+	 * @return void
 	 */
 	private function cloned_duplicate_post_meta( $id, $new_id ) {
-
 		global $wpdb;
 
 		$sql     = "SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = %d";
-		$exclude = array_map( 'esc_sql', array_filter( apply_filters( 'woocommerce_duplicate_product_exclude_meta', [ 'total_sales', '_wc_average_rating', '_wc_rating_count', '_wc_review_count', '_sku' ] ) ) );
+		$exclude = array_map( 'strval', array_map( 'esc_sql', array_filter( apply_filters( 'woocommerce_duplicate_product_exclude_meta', [ 'total_sales', '_wc_average_rating', '_wc_rating_count', '_wc_review_count', '_sku' ] ) ) ) );
 
 		if ( count( $exclude ) ) {
 			$sql .= " AND meta_key NOT IN ( '" . implode( "','", $exclude ) . "' )";
@@ -1007,7 +991,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			$sql_query .= implode( ' UNION ALL ', $sql_query_sel );
 			$wpdb->query( $sql_query ); // phpcs:ignore WordPress.DB.PreparedSQL
 		}
-
 	}
 
 	/**
@@ -1015,10 +998,10 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 *
 	 * @param mixed $new_id The new post id.
 	 * @param mixed $post The post object.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function duplicate_product( $new_id, $post ) {
-
 		$post_id     = themecomplete_get_id( $post );
 		$tm_meta     = themecomplete_get_post_meta( $post_id, 'tm_meta', true );
 		$tm_meta_cpf = themecomplete_get_post_meta( $post_id, 'tm_meta_cpf', true );
@@ -1126,16 +1109,15 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				}
 			}
 		}
-
 	}
 
 	/**
-	 * Add Admin tab in products
+	 * Check if the current user can see backend elements
 	 *
-	 * @param array $tabs The tabs array.
-	 * @since 1.0
+	 * @return boolean
+	 * @since 6.4
 	 */
-	public function register_data_tab( $tabs = [] ) {
+	public function is_backend_enabled() {
 		$enable        = false;
 		$enabled_roles = get_option( 'tm_epo_global_hide_product_enabled' );
 		if ( false !== $enabled_roles ) {
@@ -1163,7 +1145,19 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			// does not exist.
 			$enable = true;
 		}
-		if ( $enable ) {
+
+		return $enable;
+	}
+
+	/**
+	 * Add Admin tab in products
+	 *
+	 * @param array<mixed> $tabs The tabs array.
+	 * @return array<mixed>
+	 * @since 1.0
+	 */
+	public function register_data_tab( $tabs = [] ) {
+		if ( $this->is_backend_enabled() ) {
 			// Adds the new tab.
 			$tabs['tc-admin-extra-product-options'] = [
 				'label'  => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
@@ -1173,41 +1167,39 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		return $tabs;
-
 	}
 
 	/**
 	 * Add data panel in products
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function register_data_panels() {
-
 		global $post, $post_id, $tm_is_ajax;
 		$tm_is_ajax = false;
 		include 'views/html-tm-global-epo.php';
-
 	}
 
 	/**
 	 * Check if we are in a product screen
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function in_product() {
-
 		$screen = get_current_screen();
 		if ( in_array( $screen->id, apply_filters( 'wc_epo_admin_in_product', [ 'product', 'edit-product', 'shop_order' ] ), true ) ) {
 			return true;
 		}
 
 		return false;
-
 	}
 
 	/**
 	 * Check if we are in a shop order
 	 *
+	 * @return boolean
 	 * @since 5.0.2
 	 */
 	public function in_shop_order() {
@@ -1221,35 +1213,37 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		return apply_filters( 'wc_epo_admin_in_shop_order', $in_shop_order );
-
 	}
 
 	/**
 	 * Check if we are in settings page
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function in_settings_page() {
+		// This may run outside of the admin screen in which case get_current_screen does not exist.
+		if ( function_exists( 'get_current_screen' ) ) {
+			$wc_screen_id = sanitize_title( esc_attr__( 'WooCommerce', 'woocommerce' ) );
+			$screen       = get_current_screen();
+			$wcsids       = $wc_screen_id . '_page_wc-settings';
 
-		$wc_screen_id = sanitize_title( esc_attr__( 'WooCommerce', 'woocommerce' ) );
-		$screen       = get_current_screen();
-		$wcsids       = $wc_screen_id . '_page_wc-settings';
+			if ( isset( $_GET['tab'] ) && THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID === $_GET['tab'] && in_array( $screen->id, [ $wcsids ], true ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				return true;
+			}
 
-		if ( isset( $_GET['tab'] ) && THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID === $_GET['tab'] && in_array( $screen->id, [ $wcsids ], true ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			return true;
-		}
-
-		if ( sanitize_title( esc_attr__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ) ) . '_page_tcepo-settings' === $screen->id ) {
-			return true;
+			if ( $screen && sanitize_title( esc_attr__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ) ) . '_page_tcepo-settings' === $screen->id ) {
+				return true;
+			}
 		}
 
 		return false;
-
 	}
 
 	/**
 	 * Register css styles
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function register_admin_styles() {
@@ -1261,9 +1255,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		if ( $this->in_shop_order() ) {
-			wp_enqueue_style( 'themecomplete-epo-admin-order', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-order' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
+			wp_enqueue_style( 'themecomplete-epo-admin-order', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-order' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 		} elseif ( $this->in_product() ) {
-			wp_enqueue_style( 'themecomplete-epo-admin', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
+			wp_enqueue_style( 'themecomplete-epo-admin', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 			THEMECOMPLETE_EPO_ADMIN_GLOBAL()->register_admin_styles( 1 );
 		} elseif ( $this->in_settings_page() ) {
 			remove_all_actions( 'admin_notices' );
@@ -1271,21 +1265,21 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				WC_Admin_Notices::remove_all_notices();
 			}
 			// The version of the fontawesome is customized.
-			wp_enqueue_style( 'themecomplete-fontawesome', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/fontawesome' . $ext . '.css', false, '5.12', 'screen' );
-			wp_enqueue_style( 'themecomplete-animate', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/animate' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
-			wp_enqueue_style( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/toastr' . $ext . '.css', false, '2.1.4', 'screen' );
+			wp_enqueue_style( 'themecomplete-fontawesome', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/fontawesome' . $ext . '.css', [], '5.12', 'screen' );
+			wp_enqueue_style( 'themecomplete-animate', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/animate' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
+			wp_enqueue_style( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/toastr' . $ext . '.css', [], '2.1.4', 'screen' );
 			wp_enqueue_style( 'themecomplete-epo-admin-font', THEMECOMPLETE_EPO_ADMIN_GLOBAL()->admin_font_url(), [], '1.0.0' );
-			wp_enqueue_style( 'themecomplete-epo-admin-settings', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-settings' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
+			wp_enqueue_style( 'themecomplete-epo-admin-settings', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-settings' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 		}
 	}
 
 	/**
 	 * Add scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function register_admin_scripts() {
-
 		global $wp_query, $post;
 
 		$ext = '.min';
@@ -1323,11 +1317,11 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			THEMECOMPLETE_EPO_ADMIN_GLOBAL()->register_admin_scripts( 1 );
 		} elseif ( $this->in_settings_page() ) {
-			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-			wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-			wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-			wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', '', '2.1.4', true );
+			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', [], '2.1.4', true );
 			wp_register_script(
 				'themecomplete-epo-admin-settings',
 				THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/tm-epo-admin-settings' . $ext . '.js',
@@ -1365,13 +1359,13 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			wp_localize_script( 'themecomplete-epo-admin-settings', 'TMEPOADMINSETTINGSJS', $params );
 			wp_enqueue_script( 'themecomplete-epo-admin-settings' );
 		}
-
 	}
 
 	/**
 	 * Delete normal mode options when a product is deleted
 	 *
 	 * @param integer $id The post id.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function delete_post( $id ) {
@@ -1404,10 +1398,10 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	/**
 	 * Remove Extra Product Options via remove button
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function remove_price() {
-
 		if ( ! current_user_can( 'delete_posts' ) ) {
 			return;
 		}
@@ -1424,16 +1418,15 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		die();
-
 	}
 
 	/**
 	 * Remove Extra Product Options via remove button
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function remove_prices() {
-
 		if ( ! current_user_can( 'delete_posts' ) ) {
 			return;
 		}
@@ -1444,7 +1437,8 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			$tmcpids = (array) wp_unslash( $_POST['tmcpids'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			foreach ( $tmcpids as $tmcpid ) {
-				$tmcp = get_post( $tmcpid );
+				$tmcpid = absint( $tmcpid );
+				$tmcp   = get_post( $tmcpid );
 				if ( $tmcp && THEMECOMPLETE_EPO_LOCAL_POST_TYPE === $tmcp->post_type ) {
 					wp_delete_post( $tmcpid );
 				}
@@ -1452,16 +1446,15 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		die();
-
 	}
 
 	/**
 	 * Load Extra Product Options
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function load_prices() {
-
 		check_ajax_referer( 'load-tm-epo', 'security' );
 
 		global $post, $post_id, $tm_is_ajax;
@@ -1474,31 +1467,15 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		die();
-
-	}
-
-	/**
-	 * Get Attributes
-	 *
-	 * @param string $value The currentvalue.
-	 * @param string $key The current key.
-	 * @param array  $attributes The attributes array.
-	 * @see   add_price
-	 * @since 4.8.6
-	 */
-	public function alter_attributes( &$value, $key, $attributes ) {
-		if ( $attributes[ $value ]['is_variation'] ) {
-			$value = '';
-		}
 	}
 
 	/**
 	 * Add Extra Product Options via add button
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_price() {
-
 		check_ajax_referer( 'add-tm-epo', 'security' );
 
 		if ( isset( $_POST['post_id'] ) && isset( $_POST['loop'] ) && isset( $_POST['att_id'] ) ) {
@@ -1508,7 +1485,15 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			$attributes  = themecomplete_get_attributes( $post_id );
 			$_attributes = array_keys( $attributes );
-			array_walk( $_attributes, [ $this, 'alter_attributes' ], $attributes );
+			array_walk(
+				$_attributes,
+				function ( &$value, $key, $attributes ) {
+					if ( is_array( $attributes ) && isset( $attributes[ $value ] ) && $attributes[ $value ]['is_variation'] ) {
+						$value = '';
+					}
+				},
+				$attributes
+			);
 
 			// $_attributes holds the number of all available attributes we can use.
 			$_attributes = array_diff( $_attributes, [ '' ] );
@@ -1533,7 +1518,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			$tmepos = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
-			if ( is_array( $tmepos ) && is_array( $_attributes ) && count( $tmepos ) >= count( $_attributes ) ) {
+			if ( is_array( $tmepos ) && is_array( $_attributes ) && count( $tmepos ) >= count( $_attributes ) ) { // @phpstan-ignore-line
 				die( 'max' );
 			}
 
@@ -1583,13 +1568,13 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		}
 
 		die();
-
 	}
 
 	/**
 	 * Save Extra Product Options meta data
 	 *
-	 * @param integer $post_id The post id.
+	 * @param mixed $post_id The post id.
+	 * @return void|WP_Error
 	 * @since 1.0
 	 */
 	public function save_meta( $post_id ) {
@@ -1664,13 +1649,13 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			if ( ! empty( $_post_id ) ) {
 				global $wpdb;
-				if ( ! is_array( $_post_id ) ) {
+				if ( ! is_array( $_post_id ) ) { // @phpstan-ignore-line
 					$_post_id = [ $_post_id ];
 				}
 				$max_loop = max( array_keys( $_post_id ) );
-				for ( $i = 0; $i <= $max_loop; $i ++ ) {
+				for ( $i = 0; $i <= $max_loop; $i++ ) {
 
-					if ( ! isset( $_post_id[ $i ] ) ) {
+					if ( ! isset( $_post_id[ $i ] ) ) { // @phpstan-ignore-line
 						continue;
 					}
 
@@ -1700,7 +1685,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 						// Price handling.
 						$clean_prices      = [];
 						$clean_prices_type = [];
-						if ( isset( $tmcp_regular_price[ $i ] ) ) {
+						if ( isset( $tmcp_regular_price[ $i ] ) && is_array( $tmcp_regular_price[ $i ] ) ) { // @phpstan-ignore-line
 							foreach ( $tmcp_regular_price[ $i ] as $key => $value ) {
 								foreach ( $value as $k => $v ) {
 									if ( '' !== $v ) {
@@ -1709,7 +1694,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 								}
 							}
 						}
-						if ( isset( $tmcp_regular_price_type[ $i ] ) ) {
+						if ( isset( $tmcp_regular_price_type[ $i ] ) && is_array( $tmcp_regular_price_type[ $i ] ) ) { // @phpstan-ignore-line
 							foreach ( $tmcp_regular_price_type[ $i ] as $key => $value ) {
 								foreach ( $value as $k => $v ) {
 									$clean_prices_type[ $key ][ $k ] = $v;

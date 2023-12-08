@@ -2,8 +2,9 @@
 
 namespace ACP\Editing\PaginatedOptions;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptionsFactory;
-use ACP\Helper;
+use ACP\Helper\Select\PaginatedFactory;
 
 class Users implements PaginatedOptionsFactory {
 
@@ -16,8 +17,13 @@ class Users implements PaginatedOptionsFactory {
 		$this->args = $args;
 	}
 
-	public function create( $search, $page, $id = null ) {
-		return new Helper\Select\Paginated\Users( $search, $page, $this->args );
+	public function create( string $search, int $page, int $id = null ): Paginated {
+		$args = array_merge( [
+			'paged'  => $page,
+			'search' => $search,
+		], $this->args );
+
+		return ( new \ACP\Helper\Select\User\PaginatedFactory() )->create( $args );
 	}
 
 }

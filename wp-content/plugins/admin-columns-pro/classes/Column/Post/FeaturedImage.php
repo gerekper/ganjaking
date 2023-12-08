@@ -5,16 +5,12 @@ namespace ACP\Column\Post;
 use AC;
 use ACP\Editing;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Settings;
 use ACP\Sorting;
 
-/**
- * @since 2.0
- */
 class FeaturedImage extends AC\Column\Post\FeaturedImage
-    implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable
+    implements Editing\Editable, Sorting\Sortable, Export\Exportable, Search\Searchable
 {
 
     public function sorting()
@@ -24,15 +20,6 @@ class FeaturedImage extends AC\Column\Post\FeaturedImage
         }
 
         return new Sorting\Model\Post\Meta($this->get_meta_key());
-    }
-
-    public function filtering()
-    {
-        if ('filesize' === $this->get_display_value()) {
-            return new Filtering\Model\Disabled($this);
-        }
-
-        return new Filtering\Model\Post\FeaturedImage($this);
     }
 
     public function editing()
@@ -47,6 +34,10 @@ class FeaturedImage extends AC\Column\Post\FeaturedImage
 
     public function search()
     {
+        if ('filesize' === $this->get_display_value()) {
+            return null;
+        }
+
         return new Search\Comparison\Post\FeaturedImage($this->get_post_type());
     }
 

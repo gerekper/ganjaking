@@ -6,16 +6,13 @@ use AC\ListScreen;
 
 class FieldRepository {
 
-	/**
-	 * @var FieldGroup\QueryFactory
-	 */
 	private $query_factory;
 
 	public function __construct( FieldGroup\QueryFactory $query_factory ) {
 		$this->query_factory = $query_factory;
 	}
 
-	public function find_by_list_screen( ListScreen $list_screen ) {
+	public function find_by_list_screen( ListScreen $list_screen ): array {
 		$group_query = $this->query_factory->create( $list_screen );
 
 		if ( ! $group_query instanceof FieldGroup\Query ) {

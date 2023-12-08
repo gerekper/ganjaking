@@ -84,6 +84,74 @@
 		}
 	}
 
+	function tm_final_total_box_settings( select ) {
+		var val = select.val();
+		var row1 = $( '#tm_epo_show_options_total' ).closest( 'tr' );
+		var row2 = $( '#tm_epo_show_final_total' ).closest( 'tr' );
+		var row3 = $( '#tm_epo_enable_final_total_box_all' ).closest( 'tr' );
+		var row4 = $( '#tm_epo_enable_original_final_total' ).closest( 'tr' );
+		var row5 = $( '#tm_epo_enable_vat_options_total' ).closest( 'tr' );
+		var row6 = $( '#tm_epo_show_unit_price' ).closest( 'tr' );
+		var row7 = $( '#tm_epo_fees_on_unit_price' ).closest( 'tr' );
+		var row8 = $( '#tm_epo_total_price_as_unit_price' ).closest( 'tr' );
+		var row9 = $( '#tm_epo_hide_totals_until_any' ).closest( 'tr' );
+		var row10 = $( '#tm_epo_hide_totals_until_all_required' ).closest( 'tr' );
+		var row11 = $( '#tm_epo_hide_totals_until_all' ).closest( 'tr' );
+
+		if ( val === 'disable' ) {
+			row1.hide();
+			row2.hide();
+			row3.hide();
+			row4.hide();
+			row5.hide();
+			row6.hide();
+			row7.hide();
+			row8.hide();
+			row9.hide();
+			row10.hide();
+			row11.hide();
+		} else {
+			row1.show();
+			row2.show();
+			row3.show();
+			row4.show();
+			row5.show();
+			row6.show();
+			row7.show();
+			row8.show();
+			row9.show();
+			row10.show();
+			row11.show();
+			tm_show_options_total_settings( $( '#tm_epo_show_options_total' ) );
+			tm_show_final_total_settings( $( '#tm_epo_show_final_total' ) );
+		}
+	}
+
+	function tm_show_options_total_settings( select ) {
+		var val = select.val();
+		var row1 = $( '#tm_epo_enable_vat_options_total' ).closest( 'tr' );
+
+		if ( val === 'hide' ) {
+			row1.hide();
+		} else {
+			row1.show();
+		}
+	}
+
+	function tm_show_final_total_settings( select ) {
+		var val = select.val();
+		var row1 = $( '#tm_epo_enable_original_final_total' ).closest( 'tr' );
+		var row2 = $( '#tm_epo_total_price_as_unit_price' ).closest( 'tr' );
+
+		if ( val === 'hide' ) {
+			row1.hide();
+			row2.hide();
+		} else {
+			row1.show();
+			row2.show();
+		}
+	}
+
 	function tm_display_settings( select ) {
 		var val = select.val();
 		var row1 = $( '#tm_epo_options_placement' ).closest( 'tr' );
@@ -171,7 +239,7 @@
 		var val = select.val();
 		var label = $( '.tm-epo-field-label' );
 
-		label.find( '.tc-epo-style-wrapper, .tm-epo-style' ).removeClass( 'square square2 round round2' ).addClass( val );
+		label.find( '.tc-epo-style-wrapper, .tm-epo-style' ).removeClass( 'circle circle 2 square square2 round round2' ).addClass( val );
 	}
 
 	function tm_css_styles_settings( select ) {
@@ -192,7 +260,7 @@
 		var val = select.val();
 		var border = $( '.tm-border-type' );
 
-		border.removeClass( 'square round shadow thinline' ).addClass( val );
+		border.removeClass( 'square circle round shadow thinline' ).addClass( val );
 	}
 
 	function tc_find_row( obj ) {
@@ -526,6 +594,15 @@
 				tm_license_check( 'deactivate' );
 			} );
 
+			$( '#tm_epo_final_total_box' ).on( 'change', function() {
+				tm_final_total_box_settings( $( this ) );
+			} );
+			$( '#tm_epo_show_options_total' ).on( 'change', function() {
+				tm_show_options_total_settings( $( this ) );
+			} );
+			$( '#tm_epo_show_final_total' ).on( 'change', function() {
+				tm_show_final_total_settings( $( this ) );
+			} );
 			$( '#tm_epo_display' ).on( 'change', function() {
 				tm_display_settings( $( this ) );
 			} );
@@ -557,6 +634,9 @@
 				tm_epo_show_hide_uploaded_file_url_cart_settings( $( this ) );
 			} );
 
+			tm_final_total_box_settings( $( '#tm_epo_final_total_box' ) );
+			tm_show_options_total_settings( $( '#tm_epo_show_options_total' ) );
+			tm_show_final_total_settings( $( '#tm_epo_show_final_total' ) );
 			tm_display_settings( $( '#tm_epo_display' ) );
 			tm_options_placement_settings( $( '#tm_epo_options_placement' ) );
 			tm_totals_box_placement_settings( $( '#tm_epo_totals_box_placement' ) );
@@ -634,7 +714,7 @@
 									refresh: 'fixed',
 									width: '50%',
 									height: '300px',
-									classname: 'flasho tc-wrapper tm-error',
+									classname: 'flasho tc-wrapper tm-error tc-color-error',
 									data: $_html
 								} );
 							}

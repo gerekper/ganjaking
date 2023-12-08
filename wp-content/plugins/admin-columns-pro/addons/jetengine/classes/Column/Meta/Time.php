@@ -8,8 +8,9 @@ use ACA\JetEngine\Sorting;
 use ACP;
 
 class Time extends Column\Meta
-	implements ACP\Search\Searchable, ACP\Sorting\Sortable {
+    implements ACP\Search\Searchable, ACP\Sorting\Sortable
+{
 
-	use Search\SearchableTrait,
-		Sorting\SortableTrait;
+    use Search\SearchableTrait,
+        Sorting\SortableTrait;
 }

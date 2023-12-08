@@ -5,11 +5,9 @@ namespace ACA\ACF;
 class FieldsFactory {
 
 	/**
-	 * @param array $field
-	 *
-	 * @return array All fields (incl. subfields from grouped or cloned)
+	 * All fields (incl. subfields from grouped or cloned)
 	 */
-	public function create( array $field ) {
+	public function create( array $field ): array {
 		switch ( $field['type'] ) {
 			case FieldType::TYPE_GROUP:
 				return $this->get_fields_from_group( $field );
@@ -22,7 +20,7 @@ class FieldsFactory {
 		}
 	}
 
-	private function get_fields_from_group( array $field ) {
+	private function get_fields_from_group( array $field ): array {
 		$fields = [];
 
 		foreach ( $field['sub_fields'] as $sub_field ) {

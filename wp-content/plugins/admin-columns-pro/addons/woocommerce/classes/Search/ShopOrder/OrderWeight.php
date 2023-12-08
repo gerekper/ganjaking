@@ -3,57 +3,62 @@
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP;
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
-class OrderWeight extends Comparison {
+class OrderWeight extends Comparison
+{
 
-	public function __construct() {
-		$operators = new ACP\Search\Operators(
-			[
-				ACP\Search\Operators::LT,
-				ACP\Search\Operators::GT,
-				ACP\Search\Operators::BETWEEN,
-			]
-		);
+    public function __construct()
+    {
+        $operators = new ACP\Search\Operators(
+            [
+                ACP\Search\Operators::LT,
+                ACP\Search\Operators::GT,
+                ACP\Search\Operators::BETWEEN,
+            ]
+        );
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators);
+    }
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		$bindings = new Bindings();
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        $bindings = new Bindings();
 
-		return $bindings->where( $this->get_where( $operator, $value ) );
-	}
+        return $bindings->where($this->get_where($operator, $value));
+    }
 
-	public function get_where( $operator, $value ) {
-		global $wpdb;
+    public function get_where($operator, $value)
+    {
+        global $wpdb;
 
-		$order_ids = $this->get_order_ids( $operator, $value );
-		$order_ids = array_filter( $order_ids, 'is_numeric' );
+        $order_ids = $this->get_order_ids($operator, $value);
+        $order_ids = array_filter($order_ids, 'is_numeric');
 
-		// Force empty results when not IDs are found
-		if ( empty( $order_ids ) ) {
-			$order_ids = [ 0 ];
-		}
+        // Force empty results when not IDs are found
+        if (empty($order_ids)) {
+            $order_ids = [0];
+        }
 
-		return sprintf( "{$wpdb->posts}.ID IN( %s )", implode( ',', $order_ids ) );
-	}
+        return sprintf("{$wpdb->posts}.ID IN( %s )", implode(',', $order_ids));
+    }
 
-	public function get_order_ids( $operator, Value $value ) {
-		global $wpdb;
+    public function get_order_ids($operator, Value $value)
+    {
+        global $wpdb;
 
-		switch ( $operator ) {
-			case ACP\Search\Operators::BETWEEN:
-				$where = $wpdb->prepare( 'total BETWEEN %d AND %d', $value->get_value()[0], $value->get_value()[1] );
-				break;
-			default:
-				$where = $wpdb->prepare( "total {$operator} %d", $value->get_value() );
-		}
+        switch ($operator) {
+            case ACP\Search\Operators::BETWEEN:
+                $where = $wpdb->prepare('total BETWEEN %d AND %d', $value->get_value()[0], $value->get_value()[1]);
+                break;
+            default:
+                $where = $wpdb->prepare("total {$operator} %d", $value->get_value());
+        }
 
-		// The sub query needs a limit in order to sort the subquery before grouping it, which is necessary in this case
-		$sql = "
+        // The sub query needs a limit in order to sort the subquery before grouping it, which is necessary in this case
+        $sql = "
 		SELECT ID, SUM(total) AS total
 		FROM (
 			SELECT woi.order_id AS ID, woim2.meta_value*pm.meta_value AS total
@@ -75,7 +80,7 @@ class OrderWeight extends Comparison {
 		HAVING {$where}
 		";
 
-		return $wpdb->get_col( $sql );
-	}
+        return $wpdb->get_col($sql);
+    }
 
 }

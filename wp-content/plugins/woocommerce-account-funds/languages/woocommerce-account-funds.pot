@@ -1,17 +1,17 @@
-# Copyright (C) 2023 Themesquad
+# Copyright (C) 2023 KoiLab
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Account Funds 2.9.1\n"
-"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Project-Id-Version: WooCommerce Account Funds 3.0.0\n"
+"Report-Msgid-Bugs-To: https://woo.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-12T09:11:37+00:00\n"
+"POT-Creation-Date: 2023-11-30T09:26:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: woocommerce-account-funds\n"
 
 #. Plugin Name of the plugin
@@ -19,7 +19,7 @@ msgid "WooCommerce Account Funds"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://woocommerce.com/products/account-funds/"
+msgid "https://woo.com/products/account-funds/"
 msgstr ""
 
 #. Description of the plugin
@@ -27,15 +27,15 @@ msgid "Allow customers to deposit funds into their accounts and pay with account
 msgstr ""
 
 #. Author of the plugin
-msgid "Themesquad"
+msgid "KoiLab"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://themesquad.com/"
+msgid "https://koilab.com/"
 msgstr ""
 
 #. translators: %s the form field title
-#: includes/abstracts/abstract-wc-account-funds-settings-api.php:353
+#: includes/abstracts/abstract-wc-account-funds-settings-api.php:351
 msgctxt "settings error"
 msgid "The field \"%s\" is required."
 msgstr ""
@@ -104,7 +104,7 @@ msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin.php:123
 msgctxt "aria-label: support link"
-msgid "View WooCommerce Account Funds support"
+msgid "Open a support ticket at Woo.com"
 msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin.php:124
@@ -283,18 +283,6 @@ msgstr ""
 msgid "%1$s (with tax, discount, and %2$s applied)"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:665
-msgid "Use Account Funds"
-msgstr ""
-
-#: includes/class-wc-account-funds-cart-manager.php:666
-msgid "You have <strong>%s</strong> worth of funds on your account."
-msgstr ""
-
-#: includes/class-wc-account-funds-cart-manager.php:668
-msgid "Use your account funds and get a %s discount on your order."
-msgstr ""
-
 #: includes/class-wc-account-funds-deposits-by-date.php:92
 msgid "%s average daily deposits"
 msgstr ""
@@ -338,13 +326,13 @@ msgid "The maximum amount that can be topped up is %s"
 msgstr ""
 
 #. translators: 1: funds amount, 2: funds name, 3: customer ID
-#: includes/class-wc-account-funds-order-manager.php:237
+#: includes/class-wc-account-funds-order-manager.php:238
 msgctxt "order note"
 msgid "Restored %1$s of %2$s to user #%3$s"
 msgstr ""
 
 #. translators: 1: funds amount, 2: funds name, 3: customer ID
-#: includes/class-wc-account-funds-order-manager.php:302
+#: includes/class-wc-account-funds-order-manager.php:303
 msgctxt "order note"
 msgid "Added %1$s of %2$s to user #%3$s"
 msgstr ""
@@ -434,7 +422,7 @@ msgid "This value is defined by the %s setting."
 msgstr ""
 
 #: includes/class-wc-gateway-account-funds.php:222
-#: includes/class-wc-gateway-account-funds.php:246
+#: includes/class-wc-gateway-account-funds.php:239
 msgid "Payment error:"
 msgstr ""
 
@@ -442,41 +430,19 @@ msgstr ""
 msgid "You must be logged in to use this payment method"
 msgstr ""
 
-#. translators: %s funds name
-#: includes/class-wc-gateway-account-funds.php:242
-msgctxt "payment error"
-msgid "Insufficient %s amount."
-msgstr ""
-
-#: includes/class-wc-gateway-account-funds.php:284
-msgid "Customer not found."
-msgstr ""
-
-#. translators: 1: funds name, 2: amount required, 3: amount available
-#: includes/class-wc-gateway-account-funds.php:293
-msgctxt "payment error"
-msgid "Insufficient %1$s amount. Required: %2$s; Available: %3$s)."
-msgstr ""
-
-#. translators: 1: Payment gateway title, 2: Funds used
-#: includes/class-wc-gateway-account-funds.php:311
-msgctxt "order note"
-msgid "%1$s payment applied: %2$s"
-msgstr ""
-
 #. translators: 1: Refund amount, 2: Payment gateway title
-#: includes/class-wc-gateway-account-funds.php:351
+#: includes/class-wc-gateway-account-funds.php:303
 msgctxt "order note"
 msgid "Refunded %1$s via %2$s."
 msgstr ""
 
 #. translators: %s: Payment gateway title
-#: includes/class-wc-gateway-account-funds.php:414
+#: includes/class-wc-gateway-account-funds.php:366
 msgid "Via %s"
 msgstr ""
 
 #. translators: %s: funds name
-#: includes/class-wc-product-topup.php:61
+#: includes/class-wc-product-topup.php:44
 msgid "%s Top-up"
 msgstr ""
 
@@ -493,18 +459,18 @@ msgid "This email is sent to the customer when the %s amount is manually increas
 msgstr ""
 
 #. translators: %s: funds name
-#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:105
+#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:90
 msgctxt "email heading"
 msgid "%s increased"
 msgstr ""
 
 #. translators: %s: funds name
-#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:120
+#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:105
 msgctxt "email text"
 msgid "Your %s amount has increased to:"
 msgstr ""
 
-#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:146
+#: includes/emails/class-wc-account-funds-email-account-funds-increase.php:131
 msgctxt "email field title"
 msgid "Message"
 msgstr ""
@@ -512,6 +478,22 @@ msgstr ""
 #: includes/updates/class-wc-account-funds-updater-2.3.7.php:158
 msgctxt "admin notice"
 msgid "WooCommerce Account Funds update completed."
+msgstr ""
+
+#: includes/wc-account-funds-order-functions.php:67
+msgid "Customer not found."
+msgstr ""
+
+#. translators: %s funds name
+#: includes/wc-account-funds-order-functions.php:81
+msgctxt "payment error"
+msgid "Insufficient %s amount."
+msgstr ""
+
+#. translators: 1: Payment gateway title, 2: Funds used
+#: includes/wc-account-funds-order-functions.php:97
+msgctxt "order note"
+msgid "%1$s payment applied: %2$s"
 msgstr ""
 
 #: templates/myaccount/account-funds/topup-in-cart-notice.php:13

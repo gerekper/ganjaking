@@ -55,7 +55,7 @@ class WC_Report_Deposits_By_Date extends WC_Admin_Report {
 				$product = $item->get_product();
 
 				if ( $product && ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) ) {
-					$this->report_data->deposit_count            ++;
+					++$this->report_data->deposit_count;
 					$this->report_data->deposit_amount += $order->get_line_total( $item );
 
 					if ( ! isset( $this->report_data->deposit_counts[ $time ] ) ) {
@@ -69,7 +69,7 @@ class WC_Report_Deposits_By_Date extends WC_Admin_Report {
 						);
 					}
 
-					$this->report_data->deposit_counts[ $time ]->value ++;
+					++$this->report_data->deposit_counts[ $time ]->value;
 					$this->report_data->deposit_amounts[ $time ]->value += $order->get_line_total( $item );
 				}
 			}

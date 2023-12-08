@@ -3,6 +3,7 @@
 namespace ACP\Search\Comparison\Post;
 
 use AC;
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
@@ -17,14 +18,14 @@ class CommentStatus extends PostField
 		parent::__construct( $operators );
 	}
 
-	public function get_values() {
+	public function get_values(): Options {
 		return AC\Helper\Select\Options::create_from_array( [
 			'open'   => __( 'Open', 'codepress-admin-columns' ),
 			'closed' => __( 'Closed', 'codepress-admin-columns' ),
 		] );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'comment_status';
 	}
 

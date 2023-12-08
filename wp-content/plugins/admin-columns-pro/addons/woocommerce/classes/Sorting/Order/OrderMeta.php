@@ -4,23 +4,22 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\Order;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class OrderMeta extends AbstractModel implements QueryBindings
+class OrderMeta implements QueryBindings
 {
 
     private $meta_field;
 
+    private $data_type;
+
     public function __construct(string $meta_field, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->meta_field = $meta_field;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }

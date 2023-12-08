@@ -9,7 +9,7 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
+ * @package Extra Product Options/Templates
  * @version 6.0
  */
 

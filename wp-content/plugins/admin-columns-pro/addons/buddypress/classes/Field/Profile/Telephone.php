@@ -8,10 +8,6 @@ use ACA\BP\Search;
 
 class Telephone extends Profile {
 
-	public function filtering() {
-		return new Filtering\Profile( $this->column );
-	}
-
 	public function search() {
 		return new Search\Profile\Text( $this->column->get_buddypress_field_id() );
 	}

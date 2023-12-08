@@ -11,9 +11,6 @@ class Taxonomy extends TableScreen {
     {
 		add_action( 'in_admin_footer', [ $this, 'filters_markup' ], 1 );
 
-		$filter_button = FilterButtonFactory::create( FilterButtonFactory::SCREEN_TAXONOMY );
-		$filter_button->register();
-
 		parent::register();
 	}
 

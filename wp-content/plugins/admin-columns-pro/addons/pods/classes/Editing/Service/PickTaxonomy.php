@@ -2,10 +2,12 @@
 
 namespace ACA\Pods\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 
 class PickTaxonomy implements ACP\Editing\Service, PaginatedOptions {
 
@@ -57,8 +59,12 @@ class PickTaxonomy implements ACP\Editing\Service, PaginatedOptions {
 		$this->storage->update( $id, $data );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new ACP\Helper\Select\Paginated\Terms( $search, $page, (array) $this->taxonomy );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'   => $search,
+			'page'     => $page,
+			'taxonomy' => $this->taxonomy,
+		] );
 	}
 
 }

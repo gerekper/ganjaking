@@ -94,6 +94,15 @@ jQuery(
 											// Launch the Mix and Match validation scrtips. Share the current script source with mini-extensions.
 											$( this ).trigger( 'wc-mnm-initialize.' + type ).data( 'source', 'metabox' );
 
+											const initEvent = new CustomEvent( `wc-mnm-initialize.${type}`, {
+												detail: {
+													source: 'metabox',
+													target: this,
+												},
+											});
+
+											document.dispatchEvent(initEvent);
+
 										}
 									);
 
@@ -129,7 +138,7 @@ jQuery(
 						dataType: 'json',
 						order_id: woocommerce_admin_meta_boxes.post_id,
 						security: wc_mnm_admin_order_params.edit_container_nonce,
-						config  : 'undefined' !== typeof Form ? Form.api.get_container_config() : [],
+						config  : Form ? Form.api.get_container_config() : [],
 						source  : 'metabox'
 					},
 					extra_data

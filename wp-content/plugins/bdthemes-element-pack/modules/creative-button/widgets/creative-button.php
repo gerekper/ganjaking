@@ -634,15 +634,7 @@ class Creative_Button extends Module_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['link']['url'] ) ) {
-			$this->add_render_attribute( 'creative_button', 'href', $settings['link']['url'] );
-
-			if ( $settings['link']['is_external'] ) {
-				$this->add_render_attribute( 'creative_button', 'target', '_blank' );
-			}
-
-			if ( $settings['link']['nofollow'] ) {
-				$this->add_render_attribute( 'creative_button', 'rel', 'nofollow' );
-			}
+			$this->add_link_attributes( 'creative_button', $settings['link'] );
 		}
 
 		if ( $settings['link']['nofollow'] ) {

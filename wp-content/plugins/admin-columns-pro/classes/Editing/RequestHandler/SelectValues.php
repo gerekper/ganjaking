@@ -33,21 +33,22 @@ class SelectValues implements RequestHandler
             $response->error();
         }
 
-        switch (true) {
-            case $service instanceof RemoteOptions:
-                $options = $service->get_remote_options(
-                    $request->filter('item_id', null, FILTER_SANITIZE_NUMBER_INT)
-                );
 
-                $select = new AC\Helper\Select\Response($options, false);
-                break;
-            case $service instanceof PaginatedOptions:
-                $options = $service->get_paginated_options(
-                    $request->filter('searchterm'),
-                    $request->filter('page', 1, FILTER_SANITIZE_NUMBER_INT),
-                    $request->filter('item_id', null, FILTER_SANITIZE_NUMBER_INT)
-                );
-                $has_more = ! $options->is_last_page();
+		switch ( true ) {
+			case $service instanceof RemoteOptions:
+				$options = $service->get_remote_options(
+					$request->filter( 'item_id', null, FILTER_VALIDATE_INT ) ?: null
+				);
+
+				$select = new AC\Helper\Select\Response( $options, false );
+				break;
+			case $service instanceof PaginatedOptions:
+				$options = $service->get_paginated_options(
+					(string) $request->filter( 'searchterm' ),
+					(int) $request->filter( 'page', 1, FILTER_SANITIZE_NUMBER_INT ),
+					$request->filter( 'item_id', null, FILTER_VALIDATE_INT ) ?: null
+				);
+				$has_more = ! $options->is_last_page();
 
                 $select = new AC\Helper\Select\Response($options, $has_more);
                 break;

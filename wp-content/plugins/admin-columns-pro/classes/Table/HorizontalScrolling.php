@@ -117,7 +117,7 @@ class HorizontalScrolling implements Registerable
         );
         $script->enqueue();
 
-        wp_localize_script('ac-horizontal-scrolling', 'ACP_Horizontal_Scrolling', [
+        wp_localize_script('ac-horizontal-scrolling', 'acp_horizontal_scrolling', [
             'indicator_enabled' => apply_filters('acp/horizontal_scrolling/show_indicator', true),
         ]);
     }

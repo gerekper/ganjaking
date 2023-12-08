@@ -14,23 +14,33 @@ use ACP\ConditionalFormat\FormattableConfig;
 /**
  * @property Field\Type\DateTime $field
  */
-class DateTime extends Column\Meta implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable {
+class DateTime extends Column\Meta implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable,
+                                              ACP\ConditionalFormat\Formattable,
+                                              ACP\Filtering\FilterableDateSetting
+{
 
-	use Search\SearchableTrait,
-		Sorting\SortableTrait,
-		Editing\EditableTrait,
-		DefaultValueFormatterTrait;
+    use Search\SearchableTrait,
+        ACP\Filtering\FilteringDateSettingTrait,
+        Sorting\SortableTrait,
+        Editing\EditableTrait,
+        DefaultValueFormatterTrait;
 
-	protected function register_settings() {
-		$this->add_setting( new \AC\Settings\Column\Date( $this ) );
-	}
+    protected function register_settings()
+    {
+        $this->add_setting(new \AC\Settings\Column\Date($this));
 
-	public function conditional_format(): ?FormattableConfig {
-		$formatter = $this->field->is_timestamp()
-			? new ACP\ConditionalFormat\Formatter\DateFormatter\FormatFormatter( 'U' )
-			: new ACP\ConditionalFormat\Formatter\DateFormatter\FormatFormatter( 'Y-m-d\TH:i' );
+        if ($this->field->is_timestamp()) {
+            $this->add_setting(new ACP\Filtering\Settings\Date($this));
+        }
+    }
 
-		return new FormattableConfig( $formatter );
-	}
+    public function conditional_format(): ?FormattableConfig
+    {
+        $formatter = $this->field->is_timestamp()
+            ? new ACP\ConditionalFormat\Formatter\DateFormatter\FormatFormatter('U')
+            : new ACP\ConditionalFormat\Formatter\DateFormatter\FormatFormatter('Y-m-d\TH:i');
+
+        return new FormattableConfig($formatter);
+    }
 
 }

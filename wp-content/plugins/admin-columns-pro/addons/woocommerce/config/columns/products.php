@@ -34,6 +34,7 @@ return [
     Column\Product\SoldIndividually::class,
     Column\Product\Stock::class,
     Column\Product\StockStatus::class,
+    Column\Product\StockThreshold::class,
     Column\Product\TaxClass::class,
     Column\Product\TaxStatus::class,
     Column\Product\Thumb::class,

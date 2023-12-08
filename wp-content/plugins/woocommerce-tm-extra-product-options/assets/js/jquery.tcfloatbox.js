@@ -2,12 +2,12 @@
  * jquery.tcfloatbox.js
  *
  * @param {Object} $ The jQuery object
- * @version: v1.1
+ * @version: v1.2
  * @author: ThemeComplete
  *
  * Created by ThemeComplete
  *
- * Copyright (c) 2022 themeComplete http://themecomplete.com
+ * Copyright (c) 2023 themeComplete http://themecomplete.com
  */
 ( function( $ ) {
 	'use strict';
@@ -319,6 +319,18 @@
 					height: settings.height
 				} );
 
+				if ( settings.minWidth ) {
+					$( settings.floatboxID ).css( {
+						'min-width': settings.minWidth
+					} );
+				}
+
+				if ( settings.minHeight ) {
+					$( settings.floatboxID ).css( {
+						'min-height': settings.minHeight
+					} );
+				}
+
 				h = parseInt(
 					scroll.left +
 						( ( size.visibleWidth - $( settings.floatboxID ).width() ) / 2 ),
@@ -418,6 +430,8 @@
 		data: '',
 		width: '500px',
 		height: 'auto',
+		minWidth: 0,
+		minHeight: 0,
 		closefadeouttime: 1000,
 		animationBaseClass: 'tm-animated',
 		animateIn: 'fadein',

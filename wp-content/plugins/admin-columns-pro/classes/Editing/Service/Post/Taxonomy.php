@@ -2,11 +2,11 @@
 
 namespace ACP\Editing\Service\Post;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
-use ACP\Helper\Select\Paginated\Terms;
 
 class Taxonomy implements Service, PaginatedOptions {
 
@@ -56,8 +56,12 @@ class Taxonomy implements Service, PaginatedOptions {
 		return $view;
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new Terms( $search, $page, [ $this->taxonomy ] );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new \ACP\Helper\Select\Taxonomy\PaginatedFactory() )->create( [
+			'search'   => $search,
+			'page'     => $page,
+			'taxonomy' => $this->taxonomy,
+		] );
 	}
 
 }

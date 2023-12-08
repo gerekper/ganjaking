@@ -24,7 +24,9 @@ class Currency extends AC\Column implements ACP\Search\Searchable, ACP\Condition
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_currency() : $this->get_empty_char();
+        return $order
+            ? $order->get_currency()
+            : $this->get_empty_char();
     }
 
     public function search()

@@ -6,18 +6,12 @@ namespace ACP\Column\Comment;
 
 use AC;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
 class Response extends AC\Column\Comment\Response
-    implements Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable
+    implements Sorting\Sortable, Export\Exportable, Search\Searchable
 {
-
-    public function filtering()
-    {
-        return new Filtering\Model\Comment\Response($this);
-    }
 
     public function sorting()
     {

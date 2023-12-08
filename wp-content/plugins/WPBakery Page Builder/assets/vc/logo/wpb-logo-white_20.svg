@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="17px" viewBox="0 0 20 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>wpbakery-favico@2x</title>
+    <desc>Created with Sketch.</desc>
+    <g id="WPB-Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-124.000000, -132.000000)" fill="#FFFFFF">
+            <g id="wpb-switch" transform="translate(107.000000, 121.000000)">
+                <g id="wpbakery-favico" transform="translate(17.000000, 11.000000)">
+                    <path d="M7.27272727,0 C9.99707025,0 12.3715444,1.49668028 13.6174319,3.71199139 C13.9190013,3.66015342 14.2290825,3.63324176 14.5454545,3.63324176 C17.5579168,3.63324176 20,6.07322837 20,9.0831044 C20,12.0628817 17.6065143,14.4841103 14.6356554,14.5322369 L14.375,14.532967 L14.375,15.1648352 C14.375,15.8627774 13.8153559,16.4285714 13.125,16.4285714 L6.875,16.4285714 C6.18464406,16.4285714 5.625,15.8627774 5.625,15.1648352 L5.62541232,14.345771 C2.40230396,13.6000429 0,10.7135664 0,7.26648352 C0,3.25331549 3.25611091,0 7.27272727,0 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

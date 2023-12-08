@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Migrate\Admin\Table;
 
 use AC;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use ACP\ListScreenPreferences;
+use ACP\ListScreenRepository\SourceAware;
+use ACP\ListScreenRepository\Types;
 use ACP\Search\SegmentCollection;
-use ACP\Search\SegmentRepository;
 
 class Export extends AC\Admin\Table
 {
@@ -15,19 +19,15 @@ class Export extends AC\Admin\Table
 
     private $list_keys_factory;
 
-    private $segment_repository;
-
     private $is_network;
 
     public function __construct(
         AC\ListScreenRepository\Storage $storage,
         AC\Table\ListKeysFactoryInterface $list_keys_factory,
-        SegmentRepository\Storage $segment_repository,
         bool $is_network = false
     ) {
         $this->storage = $storage;
         $this->list_keys_factory = $list_keys_factory;
-        $this->segment_repository = $segment_repository;
         $this->is_network = $is_network;
     }
 
@@ -41,7 +41,7 @@ class Export extends AC\Admin\Table
             }
 
             $list_screens[] = $this->storage->find_all_by_key(
-                $list_key,
+                (string)$list_key,
                 new AC\ListScreenRepository\Sort\Label()
             )->get_copy();
         }
@@ -60,45 +60,47 @@ class Export extends AC\Admin\Table
         return $list_screens;
     }
 
-    private function get_segments(AC\Type\ListScreenId $list_screen_id): SegmentCollection
+    private function get_segments(ListScreen $list_screen): SegmentCollection
     {
-        return $this->segment_repository->find_all_global($list_screen_id);
+        return $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS);
     }
 
-    public function get_column(string $key, $data): string
+    public function get_column(string $key, $list_screen): string
     {
-        if ( ! $data instanceof ListScreen) {
+        if ( ! $list_screen instanceof ListScreen) {
             return '';
         }
+
+        $list_id = $list_screen->has_id() ? (string)$list_screen->get_id() : '';
 
         switch ($key) {
             case 'check-column' :
                 return sprintf(
                     '<input name="list_screen_ids[]" type="checkbox" id="export-%1$s" value="%1$s">',
-                    $data->get_layout_id()
+                    $list_id
                 );
             case 'name' :
                 return sprintf(
                     '<a href="%s">%s</a>',
-                    esc_url((string)$data->get_editor_url()),
-                    $data->get_title() ?: $data->get_label()
+                    esc_url((string)$list_screen->get_editor_url()),
+                    $list_screen->get_title() ?: $list_screen->get_label()
                 );
             case 'list-table' :
                 return sprintf(
                     '<label for="export-%s"><strong>%s</strong></label>',
-                    $data->get_layout_id(),
-                    $data->get_label()
+                    $list_id,
+                    $list_screen->get_label()
                 );
             case 'id' :
-                return sprintf('<small>%s</small>', $data->get_layout_id());
+                return sprintf('<small>%s</small>', $list_id);
             case 'source' :
-                return $this->get_source($data);
+                return $this->get_source($list_screen);
             case 'segments':
-                return $this->column_segments($this->get_segments($data->get_id()));
+                return $this->column_segments($this->get_segments($list_screen));
             case 'actions' :
                 return sprintf(
-                    '<button data-download="%s">%s</button>',
-                    $data->get_layout_id(),
+                    '<button class="button" data-download="%s">%s</button>',
+                    $list_id,
                     __('Export', 'codepress-admin-columns')
                 );
         }
@@ -138,8 +140,8 @@ class Export extends AC\Admin\Table
     private function get_repository_label($repository_name)
     {
         $labels = [
-            'acp-database' => __('Database', 'codepress-admin-columns'),
-            'acp-file'     => __('File', 'codepress-admin-columns'),
+            Types::DATABASE => __('Database', 'codepress-admin-columns'),
+            Types::FILE     => __('File', 'codepress-admin-columns'),
         ];
 
         return $labels[$repository_name] ?? $repository_name;
@@ -147,17 +149,26 @@ class Export extends AC\Admin\Table
 
     private function get_source(ListScreen $list_screen)
     {
-        foreach (array_reverse($this->storage->get_repositories()) as $name => $repo) {
-            if ( ! $repo->find($list_screen->get_id())) {
+        foreach (array_reverse($this->storage->get_repositories()) as $name => $repository) {
+            if ( ! $repository->get_list_screen_repository()->find($list_screen->get_id())) {
                 continue;
             }
 
+            $list_screen_repository = $repository->get_list_screen_repository();
+
             $label = $this->get_repository_label($name);
 
-            if ($repo->has_source($list_screen->get_id())) {
+            if (
+                $list_screen_repository instanceof SourceAware
+                && $list_screen_repository->get_sources()->contains($list_screen->get_id())
+            ) {
                 return sprintf(
                     '<span data-ac-tip="%s">%s</span>',
-                    sprintf('%s: %s', __('Path', 'codepress-admin-columns'), $repo->get_source($list_screen->get_id())),
+                    sprintf(
+                        '%s: %s',
+                        __('Path', 'codepress-admin-columns'),
+                        $list_screen_repository->get_sources()->get($list_screen->get_id())
+                    ),
                     $label
                 );
             }

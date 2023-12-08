@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Account_Funds {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Account_Funds
 	 * @since 5.0.12.9
 	 * @static
 	 */
@@ -54,32 +55,29 @@ final class THEMECOMPLETE_EPO_CP_Account_Funds {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 5.0.12.9
 	 */
 	public function add_compatibility() {
-
 		if ( ! class_exists( 'WC_Account_Funds' ) ) {
 			return;
 		}
 
 		add_filter( 'wc_epo_update_cart_action_cart_updated', [ $this, 'wc_epo_update_cart_action_cart_updated' ], 10, 1 );
-
 	}
 
 	/**
 	 * Skip altering cart update action
 	 *
 	 * @param boolean $ret If cart was updated.
+	 * @return boolean
 	 * @since 5.0.12.9
 	 */
 	public function wc_epo_update_cart_action_cart_updated( $ret ) {
-
 		if ( ! empty( $_POST['wc_account_funds_apply'] ) || ! empty( $_GET['remove_account_funds'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return true;
 		}
 
 		return $ret;
-
 	}
-
 }

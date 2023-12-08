@@ -3,7 +3,8 @@ declare( strict_types=1 );
 
 namespace ACA\WC\Editing;
 
-use ACA\WC\Helper\Select;
+use AC\Helper\Select\Options\Paginated;
+use ACA\WC\Helper\Select\Product\PaginatedFactory;
 use ACP;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
@@ -90,8 +91,11 @@ abstract class ProductRelations implements Service, PaginatedOptions {
 		return $view;
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		return new Select\Paginated\Products( (string) $s, (int) $paged );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			's'     => $search,
+			'paged' => $page,
+		] );
 	}
 
 }

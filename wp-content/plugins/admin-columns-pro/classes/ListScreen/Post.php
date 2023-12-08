@@ -5,13 +5,13 @@ namespace ACP\ListScreen;
 use AC;
 use ACP\Column;
 use ACP\Editing;
+use ACP\Editing\BulkDelete\Deletable;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
 
-class Post extends AC\ListScreen\Post implements Sorting\ListScreen, Editing\ListScreen, Filtering\ListScreen,
+class Post extends AC\ListScreen\Post implements Sorting\ListScreen, Editing\ListScreen,
                                                  Export\ListScreen, Editing\BulkDelete\ListScreen
 {
 
@@ -20,7 +20,7 @@ class Post extends AC\ListScreen\Post implements Sorting\ListScreen, Editing\Lis
         return new Sorting\Strategy\Post($model, $this->get_post_type());
     }
 
-    public function deletable()
+    public function deletable(): Deletable
     {
         return new Editing\BulkDelete\Deletable\Post(get_post_type_object($this->get_post_type()));
     }
@@ -28,11 +28,6 @@ class Post extends AC\ListScreen\Post implements Sorting\ListScreen, Editing\Lis
     public function editing()
     {
         return new Editing\Strategy\Post(get_post_type_object($this->get_post_type()));
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\Post($model);
     }
 
     public function export()

@@ -5,8 +5,6 @@ namespace ACA\Pods\Field\Pick;
 use AC;
 use ACA\Pods\Editing;
 use ACA\Pods\Field;
-use ACA\Pods\Filtering;
-use ACA\Pods\Search;
 use ACP\Sorting\FormatValue\SerializedSettingFormatter;
 use ACP\Sorting\FormatValue\SettingFormatter;
 use ACP\Sorting\Model\MetaFormatFactory;
@@ -64,20 +62,6 @@ class Taxonomy extends Field\Pick
             ),
             'multi' === $this->get_option('pick_format_type'),
             $this->get_taxonomy()
-        );
-    }
-
-    public function filtering()
-    {
-        return new Filtering\PickTaxonomy($this->column());
-    }
-
-    public function search()
-    {
-        return new Search\PickTaxonomy(
-            $this->column()->get_meta_key(),
-            $this->column()->get_meta_type(),
-            (array)$this->get_taxonomy()
         );
     }
 

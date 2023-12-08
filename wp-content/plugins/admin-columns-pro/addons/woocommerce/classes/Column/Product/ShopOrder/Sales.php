@@ -4,13 +4,9 @@ namespace ACA\WC\Column\Product\ShopOrder;
 
 use AC;
 use ACA\WC\Settings\OrderStatuses;
-use ACA\WC\Settings\Product\NumberOfDays;
 use ACP\ConditionalFormat\Formattable;
 use ACP\ConditionalFormat\IntegerFormattableTrait;
 
-/**
- * @since 3.0.3
- */
 class Sales extends AC\Column implements Formattable
 {
 

@@ -564,30 +564,24 @@ class Fancy_Icons extends Module_Base {
             <div class="bdt-grid bdt-grid-collapse bdt-child-width-1-<?php echo esc_attr($mobile_cols); ?> bdt-child-width-1-<?php echo esc_attr($tablet_cols); ?>@s bdt-child-width-1-<?php echo esc_attr($desktop_cols); ?>@l" data-bdt-grid>
 
                 <?php
-                foreach ($settings['share_items'] as $item) :
+                foreach ($settings['share_items'] as $index => $item) :
+                    $link_key = 'link_' . $index;
 
                     $this->add_render_attribute('share-item', 'class', 'bdt-fancy-icons-item bdt-flex bdt-flex-middle bdt-flex-center elementor-repeater-item-' . esc_attr($item['_id']), true);
 
-                    $this->add_render_attribute('share-link', 'class', [esc_attr($item['social_type'])], true);
+                    $this->add_render_attribute($link_key, 'class', [esc_attr($item['social_type'])], true);
 
                     $has_icon = !empty($item['social_icon']);
                     $has_text = !empty($item['social_name']);
 
+
                     if (!empty($item['social_link']['url'])) {
-                        $this->add_render_attribute('share-link', 'href', $item['social_link']['url'], true);
-
-                        if ($item['social_link']['is_external']) {
-                            $this->add_render_attribute('share-link', 'target', '_blank', true);
-                        }
-
-                        if ($item['social_link']['nofollow']) {
-                            $this->add_render_attribute('share-link', 'rel', 'nofollow', true);
-                        }
+                        $this->add_link_attributes($link_key, $item['social_link']);
                     }
 
                 ?>
                     <div <?php echo $this->get_render_attribute_string('share-item'); ?>>
-                        <a <?php echo $this->get_render_attribute_string('share-link'); ?>>
+                        <a <?php echo $this->get_render_attribute_string($link_key); ?>>
 
                             <?php if ($has_icon or $has_text) : ?>
                                 <span class="bdt-icon-wrapper">

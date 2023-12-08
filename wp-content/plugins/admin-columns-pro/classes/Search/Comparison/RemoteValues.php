@@ -2,13 +2,12 @@
 
 namespace ACP\Search\Comparison;
 
-use AC;
+use AC\Helper\Select\Options;
 
 interface RemoteValues {
 
-	/**
-	 * @return AC\Helper\Select\Options
-	 */
-	public function get_values();
+	public function format_label( string $value ): string;
+
+	public function get_values(): Options;
 
 }

@@ -15,7 +15,7 @@ class TaxFormatter implements Formatter
         return self::STRING;
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         $taxes = [];
 

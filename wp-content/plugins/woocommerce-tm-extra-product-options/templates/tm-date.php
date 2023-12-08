@@ -9,15 +9,38 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-
-?>
-<li class="tmcp-field-wrap">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+if ( isset( $picker_html, $class_label, $element_id, $get_default_value, $input_type, $name, $fieldtype, $rules, $original_rules, $showon, $defaultdate, $start_year, $end_year, $min_date, $max_date, $disabled_dates, $enabled_only_dates, $exlude_disabled, $disabled_weekdays, $disabled_months, $date_format, $date_theme, $date_theme_size, $date_theme_position ) ) :
+	$picker_html         = (string) $picker_html;
+	$class_label         = (string) $class_label;
+	$element_id          = (string) $element_id;
+	$get_default_value   = (string) $get_default_value;
+	$input_type          = (string) $input_type;
+	$name                = (string) $name;
+	$fieldtype           = (string) $fieldtype;
+	$rules               = (string) $rules;
+	$original_rules      = (string) $original_rules;
+	$showon              = (string) $showon;
+	$defaultdate         = (string) $defaultdate;
+	$start_year          = (string) $start_year;
+	$end_year            = (string) $end_year;
+	$min_date            = (string) $min_date;
+	$max_date            = (string) $max_date;
+	$disabled_dates      = (string) $disabled_dates;
+	$enabled_only_dates  = (string) $enabled_only_dates;
+	$exlude_disabled     = (string) $exlude_disabled;
+	$disabled_weekdays   = (string) $disabled_weekdays;
+	$disabled_months     = (string) $disabled_months;
+	$date_format         = (string) $date_format;
+	$date_theme          = (string) $date_theme;
+	$date_theme_size     = (string) $date_theme_size;
+	$date_theme_position = (string) $date_theme_position;
+	?>
+<li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
 	<?php
 	// $picker_html contains internal generated HTML code
 	// that is already escaped where needed
@@ -47,14 +70,14 @@ defined( 'ABSPATH' ) || exit;
 		false
 	);
 	?>
-	<label for="<?php echo esc_attr( $id ); ?>" class="tm-epo-field-label tm-epo-datepicker-label-container<?php echo esc_attr( $class_label ); ?>">
+	<label for="<?php echo esc_attr( $element_id ); ?>" class="tc-col tm-epo-field-label tm-epo-datepicker-label-container<?php echo esc_attr( $class_label ); ?>">
 	<?php
 	$input_args = [
 		'nodiv'   => 1,
 		'default' => $get_default_value,
 		'type'    => $input_type,
 		'tags'    => [
-			'id'                       => $id,
+			'id'                       => $element_id,
 			'name'                     => $name,
 			'class'                    => $fieldtype . ' tm-epo-field tmcp-date tm-epo-datepicker',
 			'data-price'               => '',
@@ -105,6 +128,8 @@ defined( 'ABSPATH' ) || exit;
 	?>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div></li>
+	<?php
+endif;

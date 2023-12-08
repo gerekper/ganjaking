@@ -596,20 +596,23 @@
 				}
 
 				$attachment = array();
+                $attachment_images_to_email = [];
+                $attachment_images_to_email2 = [];
 
 				$not_allowed_extensions = array('php', 'phpt', 'php5', 'php7', 'exe');
 
 				if( !empty($_FILES) ) {
 					foreach ($_FILES as $key=>$file) {
 						
-						for ($i=0; $i < count($file['name']); $i++) { 
-							$file_extension = pathinfo( $file['name'][$i], PATHINFO_EXTENSION );
+						for ($i=0; $i < count($file['name']); $i++) {
+							$file_name_san = sanitize_file_name($file['name'][$i]);
+							$file_extension = pathinfo( $file_name_san, PATHINFO_EXTENSION );
 
 							if(in_array(strtolower($file_extension), $not_allowed_extensions)){
 								wp_die();
 							}
 
-							$filename_goc = str_replace( '.' . $file_extension, '', $file['name'][$i]);
+							$filename_goc = str_replace( '.' . $file_extension, '', $file_name_san);
 							$filename = $filename_goc . '-' . uniqid() . '.' . $file_extension;
 							$filename = wp_unique_filename( $upload_dir, $filename );
 							$filename = apply_filters( 'pafe/form_builder/upload_dir/file_name', $filename );
@@ -629,10 +632,10 @@
 											if ($fields[$key_field]['attach-files'] == 1) {
 												$attachment[] = WP_CONTENT_DIR . '/uploads/piotnet-addons-for-elementor/' . $filename;
 											} else {
-												if($fields[$key_field]['value'] == '' && in_array($file['name'][$i], $field['file_name'])){
+												if($fields[$key_field]['value'] == '' && in_array($file_name_san, $field['file_name'])){
 													$fields[$key_field]['value'] = $file_url;
 												}else{
-													if(in_array($file['name'][$i], $field['file_name']) && $i != (count($file['name']) - 1)){
+													if(in_array($file_name_san, $field['file_name']) && $i != (count($file['name']) - 1)){
 														$fields[$key_field]['value'] .= ', ' . $file_url;
 													}
 												}
@@ -658,6 +661,20 @@
 					}
 
 					if (isset($fields[$key_field]['attach-files'])) {
+                        if ( $fields[$key_field]['type'] == 'text' ) {
+                            $images = explode( ',', $fields[$key_field]['value'] );
+                            $attachment_images_to = json_decode($fields[$key_field]['attach-files']);
+                            foreach ( $images as $image ) {
+                                $image_name = basename( $image );
+                                if(in_array('email', $attachment_images_to)){
+                                    $attachment_images_to_email[] = wp_get_upload_dir()['path'] . '/'. $image_name;
+                                }
+                                if(in_array('email2', $attachment_images_to)){
+                                    $attachment_images_to_email2[] = wp_get_upload_dir()['path'] . '/'. $image_name;
+                                }
+                            }
+                            $fields[$key_field]['attach-files'] = 1;
+                        }
 						if ($fields[$key_field]['attach-files'] == 1) {
 							if (isset($fields[$key_field])) {
 								unset($fields[$key_field]);
@@ -4268,14 +4285,8 @@
 								unset($attachment[$key]);
 							}
 						}
-						$status = wp_mail( $to, $subject, $message . $meta_content, $headers, $attachment );
 
-						// if ( ! empty( $form['settings']['email_to_bcc'] ) ) {
-						// 	$bcc_emails = explode( ',', replace_email($form['settings']['email_to_bcc'], $fields, '', '', '', '', '', $form_database_post_id ) );
-						// 	foreach ( $bcc_emails as $bcc_email ) {
-						// 		wp_mail( trim( $bcc_email ), $subject, $message . $meta_content, $headers, $attachment );
-						// 	}
-						// }
+						$status = wp_mail( $to, $subject, $message . $meta_content, $headers, array_merge($attachment, $attachment_images_to_email) );
 
 					}
 
@@ -4357,22 +4368,17 @@
 								$message = str_replace([$field_rm.'<br />', $field_rm.'<br>', $field_rm], '', $message);
 							}
 						}
-						$status = wp_mail( $to, $subject, $message . $meta_content_2, $headers_email, $attachment );
-
-						// if ( ! empty( $form['settings']['email_to_bcc_2'] ) ) {
-						// 	$bcc_emails = explode( ',', replace_email($form['settings']['email_to_bcc_2'], $fields, '', '', '', '', '', $form_database_post_id ) );
-						// 	foreach ( $bcc_emails as $bcc_email ) {
-						// 		wp_mail( trim( $bcc_email ), $subject, $message, $headers, $attachment );
-						// 	}
-						// }
+						$status = wp_mail( $to, $subject, $message . $meta_content_2, $headers_email, array_merge($attachment, $attachment_images_to_email2) );
 
 					}
+
+                    $attachment = array_merge($attachment, $attachment_images_to_email, $attachment_images_to_email2);
 					foreach ($attachment as $attachment_item) {
 						if(empty($form['settings']['pdfgenerator_save_file'])){
-							unlink($attachment_item);
+							pafe_delete_acttachment($attachment_item);
 						}else{
 							if($pdf_file_name . '.pdf' != basename($attachment_item)){
-								unlink($attachment_item);
+								pafe_delete_acttachment($attachment_item);
 							}
 						}
 					}
@@ -4607,5 +4613,14 @@
 		} else {
 			return $message;
 		}
+	}
+    function pafe_delete_acttachment( $acttachment ) {
+		$img_id = attachment_url_to_postid( ( wp_get_upload_dir()['url'] . '/' . basename( $acttachment ) ) );
+		if ( $img_id ) {
+			wp_delete_attachment( $img_id, true );
+		} else {
+			unlink( $acttachment );
+		}
+		return;
 	}
 ?>

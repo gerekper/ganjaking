@@ -26,7 +26,7 @@ class Module extends Element_Pack_Module_Base {
         $widget->add_control(
             'ep_parallax_effects_show',
             [
-                'label'              => BDTEP_CP . esc_html__('Parallax/Scrolling Effects', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'              => BDTEP_CP . esc_html__('Parallax/Scrolling Effects', 'bdthemes-element-pack'),
                 'type'               => Controls_Manager::SWITCHER,
                 'default'            => '',
                 'return_value'       => 'yes',

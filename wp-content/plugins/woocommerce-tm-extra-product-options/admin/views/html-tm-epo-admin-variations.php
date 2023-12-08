@@ -2,11 +2,6 @@
 /**
  * View for displaying the variation select box
  *
- * Variables used:
- *
- * @required   $variations
- * @required   $loop
- *
  * @package Extra Product Options/Admin/Views
  * @version 4.8.5
  */

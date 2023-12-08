@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACP\ConditionalFormat\Formatter;
@@ -32,7 +33,7 @@ final class SanitizedFormatter implements Formatter
         ]);
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         if ( ! in_array($operator_group, $this->ignored_operator_groups, true)) {
             $value = $this->sanitize($value);

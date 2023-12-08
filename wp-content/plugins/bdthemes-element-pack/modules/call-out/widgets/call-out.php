@@ -118,31 +118,7 @@ class Call_Out extends Module_Base {
 				'placeholder' => 'http://your-link.com',
 				'default'     => [
 					'url'         => '#',
-					'is_external' => '',
 				],
-			]
-		);
-
-		$this->add_control(
-			'add_custom_attributes',
-			[
-				'label'     => __( 'Add Custom Attributes', 'bdthemes-element-pack' ),
-				'type'      => Controls_Manager::SWITCHER,
-			]
-		);
-
-		$this->add_control(
-			'custom_attributes',
-			[
-				'label' => __( 'Custom Attributes', 'bdthemes-element-pack' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'dynamic' => [
-					'active' => true,
-				],
-				'placeholder' => __( 'key|value', 'bdthemes-element-pack' ),
-				'description' => sprintf( __( 'Set custom attributes for the price table button tag. Each attribute in a separate line. Separate attribute key from the value using %s character.', 'bdthemes-element-pack' ), '<code>|</code>' ),
-				'classes' => 'elementor-control-direction-ltr',
-				'condition' => ['add_custom_attributes' => 'yes']
 			]
 		);
 
@@ -634,8 +610,6 @@ class Call_Out extends Module_Base {
 	public function render() {
 		$settings  = $this->get_settings_for_display();
 		
-		$external  = ($settings['link']['is_external']) ? "_blank" : "_self";
-		$link_url  = empty( $settings['link']['url'] ) ? '#' : $settings['link']['url'];
 		$animation = ($settings['button_hover_animation']) ? ' elementor-animation-'.$settings['button_hover_animation'] : '';
 		$attention = ($settings['attention_button']) ? ' bdt-ep-attention-button' : '';
 
@@ -655,28 +629,15 @@ class Call_Out extends Module_Base {
 			$this->add_render_attribute( 'callout-button', 'class', 'bdt-flex bdt-flex-middle' );
 		}
 
-		if ( $settings['add_custom_attributes'] and ! empty( $settings['custom_attributes'] ) ) {
-			$attributes = explode( "\n", $settings['custom_attributes'] );
-
-			$reserved_attr = [ 'href', 'target' ];
-
-			foreach ( $attributes as $attribute ) {
-				if ( ! empty( $attribute ) ) {
-					$attr = explode( '|', $attribute, 2 );
-					if ( ! isset( $attr[1] ) ) {
-						$attr[1] = '';
-					}
-
-					if ( ! in_array( strtolower( $attr[0] ), $reserved_attr ) ) {
-						$this->add_render_attribute( 'custom-button', trim( $attr[0] ), trim( $attr[1] ) );
-					}
-				}
-			}
-		}
-
 		if ( ! empty( $settings['button_css_id'] ) ) {
 			$this->add_render_attribute( 'custom-button', 'id', $settings['button_css_id'] );
 		}
+
+		if (!empty($settings['link']['url'])) {
+			$this->add_link_attributes( 'custom-button', $settings['link'] );
+		}
+
+		$this->add_render_attribute( 'custom-button', 'class', 'bdt-ep-callout-button' . $animation.$attention );
 		
 		if ( ! isset( $settings['icon'] ) && ! Icons_Manager::is_migration_allowed() ) {
 			// add old default
@@ -700,7 +661,7 @@ class Call_Out extends Module_Base {
            </div>
 
             <div class="bdt-width-auto@m">
-                <a <?php echo $this->get_render_attribute_string( 'custom-button' ); ?> class="bdt-ep-callout-button<?php echo esc_html($animation.$attention); ?>" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($external); ?>">
+                <a <?php echo $this->get_render_attribute_string( 'custom-button' ); ?> >
 
 	                <span <?php echo $this->get_render_attribute_string( 'callout-button' ); ?>>
 
@@ -725,56 +686,4 @@ class Call_Out extends Module_Base {
 		<?php
 	}
 
-	public function content_template() {
-		?>
-
-		<#
-			var animation  = ( settings.button_hover_animation ) ? ' elementor-animation-' + settings.button_hover_animation : '';
-			var attention  = ( settings.attention_button ) ? ' bdt-ep-attention-button' : '';
-			var grid_class = ( 'center' !== settings.button_align ) ? ' bdt-grid bdt-grid-large bdt-flex-middle' : '';
-
-			if (settings.icon_align == 'left' || settings.icon_align == 'right') {
-				view.addRenderAttribute( 'callout-button', 'class', 'bdt-flex bdt-flex-middle' );
-			}
-
-			iconHTML = elementor.helpers.renderIcon( view, settings.callout_icon, { 'aria-hidden': true }, 'i' , 'object' );
-
-			migrated = elementor.helpers.isIconMigrated( settings, 'callout_icon' );
-
-		#>
-
-        <div class="bdt-ep-callout bdt-ep-callout-button-align-{{ settings.button_align }}{{ grid_class }}">
-            <div class="bdt-width-expand bdt-first-column">
-            	<# 
-	            	if ('' !== settings.title) { 
-	                	print('<' + elementor.helpers.validateHTMLTag(settings.title_size) + ' class="bdt-ep-callout-title">' + settings.title +'</'+ elementor.helpers.validateHTMLTag(settings.title_size) +'>');
-	            	}
-					if ('' !== settings.description) {
-	                	print('<div class="bdt-ep-callout-description">' + settings.description + '</div>');
-					}
-				#>
-           </div>
-
-            <div class="bdt-width-auto@m">
-                <a id="{{ settings.button_css_id }}" class="bdt-ep-callout-button{{animation}}{{attention}}" href="{{ settings.link }}" target="{{ settings.link.is_external }}">
-					<span {{{ view.getRenderAttributeString( 'callout-button' ) }}}>
-                	{{ settings.button_text }}
-						<# if (settings.callout_icon.value) { #>
-							<span class="bdt-ep-callout-button-icon bdt-flex-align-{{settings.icon_align}}">
-
-								<# if ( iconHTML && iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>
-									{{{ iconHTML.value }}}
-								<# } else { #>
-									<i class="{{ settings.icon }}" aria-hidden="true"></i>
-								<# } #>
-
-							</span>
-						<# } #>
-					</span>
-
-                </a>
-            </div>
-        </div>
-        <?php
-	}
 }

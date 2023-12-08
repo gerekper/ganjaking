@@ -7,16 +7,13 @@ use ACA\ACF\FieldFactory;
 
 final class Column implements Configurable {
 
-	/**
-	 * @var FieldFactory
-	 */
 	private $field_factory;
 
 	public function __construct( FieldFactory $field_factory ) {
 		$this->field_factory = $field_factory;
 	}
 
-	public function create( $column_type ) {
+	public function create( string $column_type ): ?array {
 		$settings = acf_get_field( $column_type );
 
 		if ( ! $settings ) {

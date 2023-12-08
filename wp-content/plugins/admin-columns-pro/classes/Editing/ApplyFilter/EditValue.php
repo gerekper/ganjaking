@@ -4,27 +4,24 @@ namespace ACP\Editing\ApplyFilter;
 
 use AC;
 
-class EditValue {
+class EditValue
+{
 
-	/**
-	 * @var int
-	 */
-	private $id;
+    private $id;
 
-	/**
-	 * @var AC\Column
-	 */
-	private $column;
+    private $column;
 
-	public function __construct( int $id, AC\Column $column ) {
-		$this->id = $id;
-		$this->column = $column;
-	}
+    public function __construct(int $id, AC\Column $column)
+    {
+        $this->id = $id;
+        $this->column = $column;
+    }
 
-	public function apply_filters( $value ) {
-		$value = apply_filters( 'acp/editing/value', $value, $this->id, $this->column );
+    public function apply_filters($value)
+    {
+        $value = apply_filters('acp/editing/value', $value, $this->id, $this->column);
 
-		return apply_filters( 'acp/editing/value/' . $this->column->get_type(), $value, $this->id, $this->column );
-	}
+        return apply_filters('acp/editing/value/' . $this->column->get_type(), $value, $this->id, $this->column);
+    }
 
 }

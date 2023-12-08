@@ -16,21 +16,6 @@ class WC_Product_Topup extends WC_Product {
 		$this->product_type = 'topup';
 	}
 
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $key Key name.
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( 'tax_status' === $key ) {
-			wc_doing_it_wrong( 'WC_Product_Topup->tax_status', 'Accessing this property is deprecated. Use WC_Product_Topup->get_tax_status() instead', '2.8.0' );
-			return $this->get_tax_status();
-		}
-	}
-
 	/** Exists */
 	public function exists() {
 		return true;
@@ -45,8 +30,6 @@ class WC_Product_Topup extends WC_Product {
 	 * Product type.
 	 *
 	 * @since 2.1.3
-	 *
-	 * @version 2.1.3
 	 *
 	 * @return string Type of product.
 	 */

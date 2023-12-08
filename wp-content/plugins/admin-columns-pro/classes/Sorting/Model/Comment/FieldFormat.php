@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Comment;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
@@ -13,7 +12,7 @@ use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class FieldFormat extends AbstractModel implements QueryBindings
+class FieldFormat implements QueryBindings
 {
 
     protected $field;
@@ -22,14 +21,14 @@ class FieldFormat extends AbstractModel implements QueryBindings
 
     protected $value_length;
 
+    protected $data_type;
+
     public function __construct(
         string $field,
         FormatValue $formatter,
         DataType $data_type = null,
         int $value_length = null
     ) {
-        parent::__construct();
-
         $this->field = $field;
         $this->formatter = $formatter;
         $this->value_length = $value_length;

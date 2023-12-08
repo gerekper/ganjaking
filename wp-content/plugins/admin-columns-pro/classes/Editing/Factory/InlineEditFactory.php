@@ -15,9 +15,6 @@ use ACP\Editing\Settings;
 class InlineEditFactory
 {
 
-    /**
-     * @var AC\ListScreen;
-     */
     private $list_screen;
 
     public function __construct(AC\ListScreen $list_screen)
@@ -28,14 +25,14 @@ class InlineEditFactory
     /**
      * @return AC\Column[]
      */
-    public function create()
+    public function create(): array
     {
         return $this->is_list_screen_editable()
             ? array_filter($this->list_screen->get_columns(), [$this, 'is_column_inline_editable'])
             : [];
     }
 
-    private function is_list_screen_editable()
+    private function is_list_screen_editable(): bool
     {
         if ( ! $this->list_screen instanceof ListScreen || ! $this->list_screen->has_id()) {
             return false;
@@ -52,7 +49,7 @@ class InlineEditFactory
         return ! $option->is_hidden($this->list_screen);
     }
 
-    public function is_column_inline_editable(AC\Column $column)
+    public function is_column_inline_editable(AC\Column $column): bool
     {
         if ( ! $column instanceof Editable) {
             return false;

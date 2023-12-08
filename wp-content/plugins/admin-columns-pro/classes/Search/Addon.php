@@ -1,47 +1,31 @@
 <?php
 
-declare(strict_types=1);
-
 namespace ACP\Search;
 
 use AC;
 use AC\Asset\Location;
-use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
-use ACP;
+use AC\Services;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 use ACP\Type\HideOnScreen\Group;
 
 final class Addon implements Registerable
 {
 
-    use ACP\Search\DefaultSegmentTrait;
+    use DefaultSegmentTrait;
 
     /**
      * @var Storage
      */
     private $storage;
 
-    /**
-     * @var Location
-     */
     private $location;
 
-    /**
-     * @var Preferences\SmartFiltering
-     */
     private $table_preference;
 
-    /**
-     * @var Settings\HideOnScreen\SmartFilters
-     */
     private $hide_smart_filters;
 
-    /**
-     * @var ListScreenFactory
-     */
     private $list_screen_factory;
 
     private $request;
@@ -49,8 +33,8 @@ final class Addon implements Registerable
     public function __construct(
         Storage $storage,
         Location\Absolute $location,
-        SegmentRepository $segment_repository,
-        ListScreenFactory $list_screen_factory,
+        SegmentRepository\Database $segment_repository,
+        AC\ListScreenFactory $list_screen_factory,
         AC\Request $request
     ) {
         $this->storage = $storage;
@@ -73,18 +57,28 @@ final class Addon implements Registerable
 
     public function register(): void
     {
-        $this->get_column_settings()->register();
-        $this->get_table_screen_options()->register();
+        $services = new Services();
+        $services->add($this->get_table_screen_options())
+                 ->add($this->get_column_settings());
+        $services->register();
 
         add_action('ac/table/list_screen', [$this, 'table_screen_request']);
         add_action('wp_ajax_acp_search_comparison_request', [$this, 'comparison_request']);
+        add_action('wp_ajax_acp_enable_smart_filtering_button', [$this, 'update_smart_filtering_preference']);
         add_action('acp/admin/settings/hide_on_screen', [$this, 'add_hide_on_screen'], 10, 2);
-
         add_action('wp_ajax_acp_search_segment_request', [$this, 'segment_request']);
-
         add_action('ac/table/list_screen', [$this, 'request_setter']);
         add_action('acp/list_screen/deleted', [$this, 'delete_segments_after_list_screen_deleted']);
         add_action('deleted_user', [$this, 'delete_segments_after_user_deleted']);
+    }
+
+    public function update_smart_filtering_preference(): void
+    {
+        check_ajax_referer('ac-ajax');
+
+        $is_active = ('true' === filter_input(INPUT_POST, 'value')) ? 1 : 0;
+
+        (new Preferences\SmartFiltering())->set(filter_input(INPUT_POST, 'list_screen'), $is_active);
     }
 
     private function get_column_settings(): Settings
@@ -97,13 +91,7 @@ final class Addon implements Registerable
     private function get_table_screen_options(): TableScreenOptions
     {
         return new TableScreenOptions(
-            [
-                new AC\Asset\Script(
-                    'acp-search-table-screen-options',
-                    $this->location->with_suffix('assets/search/js/screen-options.bundle.js'),
-                    ['ac-table']
-                ),
-            ],
+            $this->location,
             $this->table_preference,
             $this->hide_smart_filters
         );
@@ -123,18 +111,22 @@ final class Addon implements Registerable
     {
         check_ajax_referer('ac-ajax');
 
+        $request = new AC\Request();
+
         $comparison = new RequestHandler\Comparison(
             $this->storage,
-            $this->request,
+            $request,
             $this->list_screen_factory
         );
 
-        $comparison->dispatch($this->request->get('method'));
+        $comparison->dispatch($request->get('method'));
     }
 
     public function table_screen_request(AC\ListScreen $list_screen): void
     {
-        if ( ! $this->is_active($list_screen)) {
+        if ( ! $list_screen->has_id() ||
+             ! $this->is_active($list_screen) ||
+             ! TableScreenSupport::is_searchable($list_screen)) {
             return;
         }
 
@@ -148,18 +140,12 @@ final class Addon implements Registerable
             return;
         }
 
+        $table_factory = new TableScriptFactory($this->location);
+
         $assets = [
             new AC\Asset\Style('aca-search-table', $this->location->with_suffix('assets/search/css/table.css')),
-            new AC\Asset\Script('aca-search-moment', $this->location->with_suffix('assets/search/js/moment.min.js')),
-            new AC\Asset\Script(
-                'aca-search-querybuilder',
-                $this->location->with_suffix('assets/search/js/query-builder.standalone.min.js'),
-                ['jquery', 'jquery-ui-datepicker']
-            ),
-            new Asset\Script\Table(
-                'aca-search-table',
-                $this->location->with_suffix('assets/search/js/table.bundle.js'),
-                $this->get_filters($list_screen),
+            $table_factory->create(
+                $list_screen,
                 $this->request,
                 $this->get_default_segment_key($list_screen)
             ),
@@ -175,72 +161,7 @@ final class Addon implements Registerable
         }
     }
 
-    private function get_filters(AC\ListScreen $list_screen): array
-    {
-        $filters = [];
-
-        foreach ($list_screen->get_columns() as $column) {
-            $setting = $column->get_setting('search');
-
-            if ( ! $setting instanceof Settings\Column) {
-                continue;
-            }
-
-            $is_active = apply_filters_deprecated(
-                'acp/search/smart-filtering-active',
-                [$setting->is_active(), $setting],
-                '5.2',
-                'Smart filtering can be disabled using the UI.'
-            );
-
-            if ( ! $is_active) {
-                continue;
-            }
-
-            if ( ! $column instanceof Searchable || ! $column->search()) {
-                continue;
-            }
-
-            $filter = new Middleware\Filter(
-                $column->get_name(),
-                $column->search(),
-                $this->get_filter_label($column)
-            );
-
-            $filters[] = apply_filters('acp/search/filters', $filter(), $column);
-        }
-
-        return $filters;
-    }
-
-    private function get_filter_label(AC\Column $column): string
-    {
-        $label = $this->sanitize_label($column->get_custom_label());
-
-        if ( ! $label) {
-            $label = $this->sanitize_label($column->get_label());
-        }
-
-        if ( ! $label) {
-            $label = $column->get_type();
-        }
-
-        return $label;
-    }
-
-    /**
-     * Allow dashicons as label, all the rest is parsed by 'strip_tags'
-     */
-    private function sanitize_label(string $label): string
-    {
-        if (false === strpos($label, 'dashicons')) {
-            $label = strip_tags($label);
-        }
-
-        return trim($label);
-    }
-    
-    public function request_setter(ListScreen $list_screen): void
+    public function request_setter(AC\ListScreen $list_screen): void
     {
         $search_setter = new RequestHandler\RequestSetter(
             $list_screen,
@@ -262,16 +183,14 @@ final class Addon implements Registerable
         $controller->dispatch($this->request->get('method'));
     }
 
-    public function delete_segments_after_list_screen_deleted(ListScreen $list_screen): void
+    public function delete_segments_after_list_screen_deleted(AC\ListScreen $list_screen): void
     {
-        foreach ($this->segment_repository->find_all($list_screen->get_id()) as $segment) {
-            $this->segment_repository->delete($segment->get_key());
-        }
+        $this->segment_repository->delete_all($list_screen->get_id());
     }
 
     public function delete_segments_after_user_deleted(int $user_id): void
     {
-        foreach ($this->segment_repository->find_all_by_user($user_id) as $segment) {
+        foreach ($this->segment_repository->find_all_personal($user_id) as $segment) {
             $this->segment_repository->delete($segment->get_key());
         }
     }

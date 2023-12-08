@@ -6,7 +6,7 @@ use AC\Capabilities;
 use AC\Entity\Plugin;
 use AC\Nonce;
 use AC\Request;
-use ACP\RequestAjaxHandler;
+use AC\RequestAjaxHandler;
 
 class Feedback implements RequestAjaxHandler
 {

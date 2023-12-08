@@ -21,7 +21,7 @@ class ContentWysiwyg extends BasicStorage
 
     public function get_value(int $id)
     {
-        return nl2br(parent::get_value($id));
+        return wpautop(parent::get_value($id));
     }
 
 }

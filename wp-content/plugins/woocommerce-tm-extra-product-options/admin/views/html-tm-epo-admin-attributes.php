@@ -2,11 +2,6 @@
 /**
  * View for displaying the attributes select box
  *
- * Variables used:
- *
- * @required   $parent_data
- * @required   $loop
- *
  * @package Extra Product Options/Admin/Views
  * @version 4.8.5
  */
@@ -26,10 +21,16 @@ if ( isset( $parent_data ) && isset( $tmcp_attribute_selected_value ) && isset( 
 			<?php
 			// Get terms for attribute taxonomy or value if its a custom attribute.
 			if ( $attribute['is_taxonomy'] ) {
-				$all_terms = get_terms( $attribute['name'], 'orderby=name&hide_empty=0' );
+				$all_terms = get_terms(
+					[
+						'taxonomy'   => $attribute['name'],
+						'orderby'    => 'name',
+						'hide_empty' => false,
+					]
+				);
 				if ( $all_terms ) {
 					foreach ( $all_terms as $_term ) {
-						$has_term = has_term( (int) $_term->term_id, $attribute['name'], $parent_data['id'] ) ? 1 : 0;
+						$has_term = has_term( intval( $_term->term_id ), $attribute['name'], $parent_data['id'] ) ? 1 : 0;
 						if ( $has_term ) {
 							?>
 							<option value="<?php echo esc_attr( $_term->slug ); ?>"><?php echo esc_html( apply_filters( 'woocommerce_tm_epo_option_name', $_term->name, null, null ) ); ?></option>
@@ -38,7 +39,7 @@ if ( isset( $parent_data ) && isset( $tmcp_attribute_selected_value ) && isset( 
 					}
 				}
 			} else {
-				$options = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) ); // @phpstan-ignore-line
+				$options = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) );
 				foreach ( $options as $option ) {
 					?>
 					<option value="<?php echo esc_attr( sanitize_title( $option ) ); ?>"><?php echo esc_html( apply_filters( 'woocommerce_tm_epo_option_name', $option, null, null ) ); ?></option>

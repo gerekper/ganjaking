@@ -7,23 +7,18 @@ use ACP\Search\Helper\MetaQuery;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 use DateTime;
-use Exception;
 
-class GtDaysAgo extends MetaQuery\Date {
+class GtDaysAgo extends MetaQuery\Comparison
+{
 
-	/**
-	 * @param string $key
-	 * @param Value  $value
-	 *
-	 * @throws Exception
-	 */
-	public function __construct( $key, Value $value ) {
-		$date = new DateTime();
-		$date->modify( sprintf( '-%s days', $value->get_value() ) );
+    public function __construct(string $key, Value $value)
+    {
+        $date = new DateTime();
+        $date->modify(sprintf('-%s days', $value->get_value()));
 
-		$value_factory = new DateValueFactory( $value->get_type() );
+        $value_factory = new DateValueFactory($value->get_type());
 
-		parent::__construct( $key, Operators::LT, $value_factory->create_single_day( $date ) );
-	}
+        parent::__construct($key, Operators::LT, $value_factory->create_single_day($date));
+    }
 
 }

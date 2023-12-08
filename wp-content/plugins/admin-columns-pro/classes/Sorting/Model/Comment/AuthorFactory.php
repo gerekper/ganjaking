@@ -4,14 +4,12 @@ namespace ACP\Sorting\Model\Comment;
 
 use AC;
 use AC\Column;
-use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Model\Disabled;
 use LogicException;
 
 class AuthorFactory
 {
 
-    public function create(string $type, Column $column = null): AbstractModel
+    public function create(string $type, Column $column = null)
     {
         switch ($type) {
             case AC\Settings\Column\User::PROPERTY_FIRST_NAME :
@@ -33,7 +31,7 @@ class AuthorFactory
 
                 return new Author($column->get_setting('user'));
             default:
-                return new Disabled();
+                return null;
         }
     }
 

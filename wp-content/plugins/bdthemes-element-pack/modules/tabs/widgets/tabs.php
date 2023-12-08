@@ -1347,11 +1347,7 @@ class Tabs extends Module_Base
             $this->add_render_attribute('tabs', 'class', 'fullwidth-on-mobile');
         }
 
-
-
-
-?>
-
+        ?>
 
         <div class="bdt-tabs-area">
 
@@ -1422,11 +1418,9 @@ class Tabs extends Module_Base
                             } elseif ("elementor" == $item['source'] and !empty($item['template_id'])) {
                                 element_pack_template_on_modal_with_iframe($item['template_id'], $tabId);
                                 echo Element_Pack_Loader::elementor()->frontend->get_builder_content_for_display($item['template_id']);
-                                //echo element_pack_template_edit_link($item['template_id']);
                             } elseif ('anywhere' == $item['source'] and !empty($item['anywhere_id'])) {
                                 element_pack_template_on_modal_with_iframe($item['anywhere_id'], $tabId);
                                 echo Element_Pack_Loader::elementor()->frontend->get_builder_content_for_display($item['anywhere_id']);
-                                //echo element_pack_template_edit_link($item['anywhere_id']);
                             }
                             ?>
                         </div>

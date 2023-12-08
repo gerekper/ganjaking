@@ -372,7 +372,6 @@ class Circle_Menu extends Module_Base {
                     'right'        => esc_html__('Right', 'bdthemes-element-pack'),
                     'bottom'       => esc_html__('Bottom', 'bdthemes-element-pack'),
                     'left'         => esc_html__('Left', 'bdthemes-element-pack'),
-                    'top'          => esc_html__('Top', 'bdthemes-element-pack'),
                     'full'         => esc_html__('Full', 'bdthemes-element-pack'),
                     'top-left'     => esc_html__('Top-Left', 'bdthemes-element-pack'),
                     'top-right'    => esc_html__('Top-Right', 'bdthemes-element-pack'),
@@ -837,17 +836,6 @@ class Circle_Menu extends Module_Base {
             ]
         );
 
-        // $this->add_responsive_control(
-        //     'circle_menu_icon_padding',
-        //     [
-        //         'label' => esc_html__('Padding', 'bdthemes-element-pack'),
-        //         'type' => Controls_Manager::DIMENSIONS,
-        //         'selectors' => [
-        //             '{{WRAPPER}} .bdt-circle-menu li.bdt-menu-icon' => 'padding: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
-        //         ],
-        //     ]
-        // );
-
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
@@ -1081,40 +1069,22 @@ class Circle_Menu extends Module_Base {
         $this->end_controls_section();
     }
 
-    public function render_loop_iconnav_list($settings, $list) {
+    public function render_loop_iconnav_list() {
+        $settings = $this->get_settings_for_display();
 
-        $this->add_render_attribute(
-            [
-                'iconnav-link' => [
-                    'class' => [
-                        'bdt-position-center',
-                    ],
-                    'target' => [
-                        $list['iconnav_link']['is_external'] ? '_blank' : '_self',
-                    ],
-                    'rel' => [
-                        $list['iconnav_link']['nofollow'] ? 'nofollow' : '',
-                    ],
-                    // 'title' => [
-                    //     esc_html($list['title']),
-                    // ],
-                    'href' => [
-                        esc_url($list['iconnav_link']['url']),
-                    ],
-                ],
-            ],
-            '',
-            '',
-            true
-        );
+        foreach ($settings['circle_menu'] as $index => $list) : 
+
+        $link_key = 'link_' . $index;
+        if (!empty($list['iconnav_link']['url'])) {
+            $this->add_link_attributes($link_key, $list['iconnav_link']);
+        }
+
+        $this->add_render_attribute($link_key, 'class', 'bdt-position-center', true);
 
         if (isset($settings['tooltip_on_trigger']) && $settings['tooltip_on_trigger'] == 'yes') {
             $this->add_render_attribute(
                 [
-                    'iconnav-link' => [
-                        // 'title' => [
-                        //     esc_html($list['title']),
-                        // ],
+                    $link_key => [
                         'class' => 'bdt-tippy-tooltip',
                         'data-tippy' => '',
                         'data-tippy-content' => $list['title'],
@@ -1125,22 +1095,19 @@ class Circle_Menu extends Module_Base {
                 true
             );
             if ($settings['tooltip_x_offset']['size'] or $settings['tooltip_y_offset']['size']) {
-                $this->add_render_attribute('iconnav-link', 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']', true);
+                $this->add_render_attribute($link_key, 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']', true);
             }
             if ('yes' == $settings['tooltip_arrow']) {
-                $this->add_render_attribute('iconnav-link', 'data-tippy-arrow', 'true', true);
+                $this->add_render_attribute($link_key, 'data-tippy-arrow', 'true', true);
             } else {
-                $this->add_render_attribute('iconnav-link', 'data-tippy-arrow', 'false', true);
+                $this->add_render_attribute($link_key, 'data-tippy-arrow', 'false', true);
             }
             if ($settings['tooltip_animation']) {
-                $this->add_render_attribute('iconnav-link', 'data-tippy-animation', $settings['tooltip_animation'], true);
+                $this->add_render_attribute($link_key, 'data-tippy-animation', $settings['tooltip_animation'], true);
             }
             if ('yes' == $settings['tooltip_trigger']) {
-                $this->add_render_attribute('iconnav-link', 'data-tippy-trigger', 'click', true);
+                $this->add_render_attribute($link_key, 'data-tippy-trigger', 'click', true);
             }
-            // if ($item['tooltip_placement']) {
-            //     $this->add_render_attribute($repeater_key, 'data-tippy-placement', $item['tooltip_placement'], true);
-            // }
         }
 
         if (!isset($settings['icon']) && !Icons_Manager::is_migration_allowed()) {
@@ -1153,9 +1120,9 @@ class Circle_Menu extends Module_Base {
 
         $this->add_render_attribute('menu-item', 'class', 'bdt-menu-icon elementor-repeater-item-' . esc_attr($list['_id']), true);
 
-?>
+        ?>
         <li <?php echo ($this->get_render_attribute_string('menu-item')); ?>>
-            <a <?php echo $this->get_render_attribute_string('iconnav-link'); ?>>
+            <a <?php echo $this->get_render_attribute_string($link_key); ?>>
                 <?php if ($list['circle_menu_icon']['value']) : ?>
                     <span>
 
@@ -1170,7 +1137,8 @@ class Circle_Menu extends Module_Base {
                 <?php endif; ?>
             </a>
         </li>
-    <?php
+        <?php
+        endforeach;
     }
 
     protected function render() {
@@ -1226,9 +1194,6 @@ class Circle_Menu extends Module_Base {
             $this->add_render_attribute(
                 [
                     'toggle-icon' => [
-                        // 'title' => [
-                        //     esc_html__('Click me to show menus.', 'bdthemes-element-pack'),
-                        // ],
                         'class' => 'bdt-tippy-tooltip',
                         'data-tippy' => '',
                         'data-tippy-content' => $settings['tooltip_text'],
@@ -1249,9 +1214,6 @@ class Circle_Menu extends Module_Base {
             if ('yes' == $settings['tooltip_trigger']) {
                 $this->add_render_attribute('toggle-icon', 'data-tippy-trigger', 'click', true);
             }
-            // if ($item['tooltip_placement']) {
-            //     $this->add_render_attribute($repeater_key, 'data-tippy-placement', $item['tooltip_placement'], true);
-            // }
         }
 
         $circle_menu_settings = wp_json_encode(
@@ -1270,7 +1232,7 @@ class Circle_Menu extends Module_Base {
 
         $this->add_render_attribute('circle-menu-settings', 'data-settings', $circle_menu_settings);
 
-    ?>
+        ?>
         <div <?php echo $this->get_render_attribute_string('circle-menu-container'); ?>>
             <ul class="bdt-circle-menu" <?php echo $this->get_render_attribute_string('circle-menu-settings'); ?>>
                 <li class="bdt-toggle-icon">
@@ -1286,13 +1248,9 @@ class Circle_Menu extends Module_Base {
                     <?php } ?>
 
                 </li>
-                <?php
-                foreach ($settings['circle_menu'] as $key => $nav) :
-                    $this->render_loop_iconnav_list($settings, $nav);
-                endforeach;
-                ?>
+                <?php $this->render_loop_iconnav_list(); ?>
             </ul>
         </div>
-<?php
+        <?php
     }
 }

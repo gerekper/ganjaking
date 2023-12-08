@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class OrderCount extends AbstractModel implements QueryBindings
+class OrderCount implements QueryBindings
 {
 
     private $status;
 
     public function __construct(array $status = [])
     {
-        parent::__construct();
-
         $this->status = $status;
     }
 

@@ -2,15 +2,14 @@
 
 namespace ACA\WC\Sorting\User\ShopOrder;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\Order;
 
-class OrderCount extends AbstractModel implements QueryBindings
+class OrderCount implements QueryBindings
 {
 
     use SqlTrait;
@@ -19,8 +18,6 @@ class OrderCount extends AbstractModel implements QueryBindings
 
     public function __construct(array $status = [])
     {
-        parent::__construct();
-
         $this->status = $status;
     }
 

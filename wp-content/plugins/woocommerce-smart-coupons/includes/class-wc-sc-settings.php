@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.3.0
+ * @version     2.4.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -206,9 +206,9 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 
 					});
 
-					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a class="thickbox smart_coupons_storewide_offer_coupon_code" href="https://woocommerce.com/wp-content/uploads/2012/08/smart-coupons-enable-store-notice-for-coupon.png?TB_iframe=true"><small>[<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
+					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a class="thickbox smart_coupons_storewide_offer_coupon_code" href="https://woo.com/wp-content/uploads/2012/08/smart-coupons-enable-store-notice-for-coupon.png?TB_iframe=true"><small>[<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
 
-					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a target="_blank" class="smart_coupons_storewide_offer_coupon_code" href="https://woocommerce.com/document/smart-coupons/how-to-display-a-coupon-code-notice-sitewide/#section-4"><small>[<?php echo esc_html__( 'See coupon search limitations', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
+					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a target="_blank" class="smart_coupons_storewide_offer_coupon_code" href="https://woo.com/document/smart-coupons/how-to-display-a-coupon-code-notice-sitewide/#section-4"><small>[<?php echo esc_html__( 'See coupon search limitations', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
 
 					jQuery('body .forminp-wc_sc_radio_with_html').on('click', '.wc_sc_setting_coupon_design_colors li', function(){
 						let color_string = jQuery(this).find('input[type="radio"]').val();
@@ -498,7 +498,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				array(
 					'name'          => __( 'Displaying coupons', 'woocommerce-smart-coupons' ),
 					/* translators: %s: Preview link */
-					'desc'          => sprintf( __( 'Include coupon details on product\'s page, for products that issue coupons %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-associated-coupons.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
+					'desc'          => sprintf( __( 'Include coupon details on product\'s page, for products that issue coupons %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-associated-coupons.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
 					'id'            => 'smart_coupons_is_show_associated_coupons',
 					'type'          => 'checkbox',
 					'default'       => 'no',
@@ -507,7 +507,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					/* translators: %s: Preview link */
-					'desc'          => sprintf( __( 'Show coupons available to customers on their My Account > Coupons page %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-myaccount.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
+					'desc'          => sprintf( __( 'Show coupons available to customers on their My Account > Coupons page %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-myaccount.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
 					'id'            => 'woocommerce_smart_coupon_show_my_account',
 					'type'          => 'checkbox',
 					'default'       => 'yes',
@@ -516,7 +516,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					/* translators: %s: Preview link */
-					'desc'          => sprintf( __( 'Include coupons received from other people on My Account > Coupons page %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-coupon-received.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
+					'desc'          => sprintf( __( 'Include coupons received from other people on My Account > Coupons page %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-coupon-received.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
 					'id'            => 'show_coupon_received_on_my_account',
 					'type'          => 'checkbox',
 					'default'       => 'no',
@@ -525,7 +525,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					/* translators: %s: Preview link */
-					'desc'          => sprintf( __( 'Show invalid or used coupons in My Account > Coupons %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-invalid-used-coupons.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
+					'desc'          => sprintf( __( 'Show invalid or used coupons in My Account > Coupons %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-invalid-used-coupons.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
 					'id'            => 'smart_coupons_show_invalid_coupons_on_myaccount',
 					'type'          => 'checkbox',
 					'default'       => 'no',
@@ -534,7 +534,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					/* translators: %s: Preview link */
-					'desc'          => sprintf( __( 'Display coupon description along with coupon code (on site as well as in emails) %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-coupon-description.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
+					'desc'          => sprintf( __( 'Display coupon description along with coupon code (on site as well as in emails) %s', 'woocommerce-smart-coupons' ), '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-coupon-description.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>' ),
 					'id'            => 'smart_coupons_show_coupon_description',
 					'type'          => 'checkbox',
 					'default'       => 'no',
@@ -562,7 +562,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'          => __( 'Printing coupons', 'woocommerce-smart-coupons' ),
-					'desc'          => __( 'Enable feature to allow printing of coupons', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-print-coupons/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'          => __( 'Enable feature to allow printing of coupons', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-print-coupons/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'            => 'smart_coupons_is_print_coupon',
 					'type'          => 'checkbox',
 					'default'       => 'yes',
@@ -573,7 +573,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					/* translators: %s: Label for store credit */
 					'name'          => sprintf( __( 'Sell %s at less price?', 'woocommerce-smart-coupons' ), strtolower( $plural ) ),
 					/* translators: %s: Label for store credit, 1: : Label for store credit, 2: Label for store credit, 3: Label for store credit */
-					'desc'          => sprintf( __( 'Allow selling %s at discounted price', 'woocommerce-smart-coupons' ), strtolower( $plural ) ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-sell-gift-card-at-less-price/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a><span class="woocommerce-help-tip" data-tip="' . esc_attr( sprintf( __( 'When selling %1$s, if Regular and Sale price is found for the product, then coupon will be created with product\'s Regular Price but customer will pay product\'s Sale price. This setting will also make sure if any discount coupon is applied on the %2$s while purchasing, then customer will get %3$s in their picked price', 'woocommerce-smart-coupons' ), strtolower( $singular ), strtolower( $singular ), strtolower( $singular ) ) ) . '"></span>',
+					'desc'          => sprintf( __( 'Allow selling %s at discounted price', 'woocommerce-smart-coupons' ), strtolower( $plural ) ) . ' <a href="https://woo.com/document/smart-coupons/how-to-sell-gift-card-at-less-price/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a><span class="woocommerce-help-tip" data-tip="' . esc_attr( sprintf( __( 'When selling %1$s, if Regular and Sale price is found for the product, then coupon will be created with product\'s Regular Price but customer will pay product\'s Sale price. This setting will also make sure if any discount coupon is applied on the %2$s while purchasing, then customer will get %3$s in their picked price', 'woocommerce-smart-coupons' ), strtolower( $singular ), strtolower( $singular ), strtolower( $singular ) ) ) . '"></span>',
 					'id'            => 'smart_coupons_sell_store_credit_at_less_price',
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
@@ -588,12 +588,12 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				array(
 					'title' => __( 'Labels', 'woocommerce-smart-coupons' ),
 					'type'  => 'title',
-					'desc'  => __( 'Call it something else! Use these to quickly change text labels through your store. <a href="https://woocommerce.com/document/smart-coupons/how-to-translate-smart-coupons/" target="_blank">Use translations</a> for complete control.', 'woocommerce-smart-coupons' ),
+					'desc'  => __( 'Call it something else! Use these to quickly change text labels through your store. <a href="https://woo.com/document/smart-coupons/how-to-translate-smart-coupons/" target="_blank">Use translations</a> for complete control.', 'woocommerce-smart-coupons' ),
 					'id'    => 'sc_setting_labels',
 				),
 				array(
 					'name'        => __( 'Store Credit / Gift Certificate', 'woocommerce-smart-coupons' ),
-					'desc'        => '<a href="https://woocommerce.com/document/smart-coupons/how-to-rename-store-credit/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a href="https://woo.com/document/smart-coupons/how-to-rename-store-credit/" target="_blank"><small>' . __( '[Read More]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'sc_store_credit_singular_text',
 					'type'        => 'text',
 					'placeholder' => __( 'Singular name', 'woocommerce-smart-coupons' ),
@@ -612,7 +612,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				array(
 					/* translators: %s: Label for store credit */
 					'name'        => sprintf( __( '%s product CTA', 'woocommerce-smart-coupons' ), ucfirst( $singular ) ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-purchase-credit-shop-text.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-purchase-credit-shop-text.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'sc_gift_certificate_shop_loop_button_text',
 					'type'        => 'text',
 					/* translators: %s: Label for store credit */
@@ -624,7 +624,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				array(
 					/* translators: %s: Label for store credit */
 					'name'        => sprintf( __( 'While purchasing %s', 'woocommerce-smart-coupons' ), strtolower( $plural ) ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-purchase-credit-product-page-text.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-purchase-credit-product-page-text.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'smart_coupon_store_gift_page_text',
 					'type'        => 'text',
 					/* translators: %s: Label for store credit */
@@ -635,7 +635,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'        => __( '"Coupons with Product" description', 'woocommerce-smart-coupons' ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-associated-coupon-description-front.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-associated-coupon-description-front.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'smart_coupon_product_page_text',
 					'type'        => 'text',
 					'desc_tip'    => __( 'This is the heading above coupon details displayed on products that issue coupons.', 'woocommerce-smart-coupons' ),
@@ -645,7 +645,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'        => __( 'On Cart/Checkout pages', 'woocommerce-smart-coupons' ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-coupon-cart-checkout-title.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-coupon-cart-checkout-title.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'smart_coupon_cart_page_text',
 					'type'        => 'text',
 					'desc_tip'    => __( 'This is the title for the list of available coupons, shown on Cart and Checkout pages.', 'woocommerce-smart-coupons' ),
@@ -655,7 +655,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'        => __( 'My Account page', 'woocommerce-smart-coupons' ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-myaccount-title.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-myaccount-title.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'smart_coupon_myaccount_page_text',
 					'type'        => 'text',
 					'desc_tip'    => __( 'Title of available coupons list on My Account page.', 'woocommerce-smart-coupons' ),
@@ -676,7 +676,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'     => __( 'Allow sending of coupons to others', 'woocommerce-smart-coupons' ),
-					'desc'     => __( 'Allow the buyer to send coupons to someone else.', 'woocommerce-smart-coupons' ) . ' <a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-coupon-receiver-details-form.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'     => __( 'Allow the buyer to send coupons to someone else.', 'woocommerce-smart-coupons' ) . ' <a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-coupon-receiver-details-form.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'       => 'smart_coupons_display_coupon_receiver_details_form',
 					'type'     => 'checkbox',
 					'default'  => 'yes',
@@ -685,7 +685,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'        => __( 'Title', 'woocommerce-smart-coupons' ),
-					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-title-coupon-receiver-form.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'        => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-title-coupon-receiver-form.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'          => 'smart_coupon_gift_certificate_form_page_text',
 					'type'        => 'text',
 					'desc_tip'    => __( 'The title for coupon receiver details block.', 'woocommerce-smart-coupons' ),
@@ -695,7 +695,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'     => __( 'Description', 'woocommerce-smart-coupons' ),
-					'desc'     => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/sc-coupon-receiver-form-description.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
+					'desc'     => '<a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/sc-coupon-receiver-form-description.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a>',
 					'id'       => 'smart_coupon_gift_certificate_form_details_text',
 					'type'     => 'text',
 					'desc_tip' => __( 'Additional text below the title.', 'woocommerce-smart-coupons' ),
@@ -704,7 +704,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'          => __( 'Allow schedule sending of coupons?', 'woocommerce-smart-coupons' ),
-					'desc'          => __( 'Enable this to allow buyers to select date & time for delivering the coupon.', 'woocommerce-smart-coupons' ) . ' <a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woocommerce.com/wp-content/uploads/2012/08/schedule-delivery-of-coupon.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a><span class="woocommerce-help-tip" data-tip="' . esc_attr__( 'The coupons will be sent to the recipients via email on the selected date & time', 'woocommerce-smart-coupons' ) . '"></span>',
+					'desc'          => __( 'Enable this to allow buyers to select date & time for delivering the coupon.', 'woocommerce-smart-coupons' ) . ' <a class="thickbox" href="' . add_query_arg( array( 'TB_iframe' => 'true' ), 'https://woo.com/wp-content/uploads/2012/08/schedule-delivery-of-coupon.png' ) . '"><small>' . __( '[Preview]', 'woocommerce-smart-coupons' ) . '</small></a><span class="woocommerce-help-tip" data-tip="' . esc_attr__( 'The coupons will be sent to the recipients via email on the selected date & time', 'woocommerce-smart-coupons' ) . '"></span>',
 					'id'            => 'smart_coupons_schedule_store_credit',
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',

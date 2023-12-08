@@ -18,7 +18,7 @@ class ListTable implements AC\ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         ob_start();
         $this->table->column_default(GFAPI::get_entry($id), $column);
@@ -31,7 +31,7 @@ class ListTable implements AC\ListTable
         return $this->table->get_pagination_arg('total_items');
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         ob_start();
         $this->table->single_row(GFAPI::get_entry($id));

@@ -2,9 +2,10 @@
 
 namespace ACA\WC\Search\User;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
+use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class OrderCount extends Comparison
@@ -20,73 +21,45 @@ class OrderCount extends Comparison
         $operators = new Operators([
             Operators::EQ,
             Operators::GT,
+            Operators::GTE,
             Operators::LT,
+            Operators::LTE,
             Operators::IS_EMPTY,
             Operators::BETWEEN,
         ]);
 
         $this->status = $status;
 
-        parent::__construct($operators);
+        parent::__construct($operators, Value::INT);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
 
-        if (Operators::IS_EMPTY === $operator || (Operators::EQ === $operator && 0 === (int)$value->get_value())) {
+        $where = $this->status
+            ? sprintf("AND status IN ( '%s' )", implode("','", array_map('esc_sql', $this->status)))
+            : "AND `status` NOT IN( 'trash' )";
+
+        if (Operators::IS_EMPTY === $operator) {
             return $bindings->where(
-                $wpdb->users . ".ID NOT IN( SELECT meta_value FROM wp_postmeta WHERE meta_key = '_customer_user' )"
+                "$wpdb->users.ID NOT IN( SELECT DISTINCT(customer_id) FROM {$wpdb->prefix}wc_orders WHERE type='shop_order' $where)"
             );
         }
 
-        switch ($operator) {
-            case Operators::LT;
-                $having = sprintf('HAVING orders < %d', $value->get_value());
-                break;
-            case Operators::GT;
-                $having = sprintf('HAVING orders > %d', $value->get_value());
-                break;
-            case Operators::BETWEEN:
-                $values = $value->get_value();
-                $having = sprintf('HAVING orders >= %d AND orders <= %s', $values[0], $values[1]);
+        $comparison = ComparisonFactory::create('order_count', $operator, $value);
+        $having = $comparison();
 
-                break;
-            default:
-                $having = sprintf('HAVING orders = %d', $value->get_value());
-        }
+        $alias = $bindings->get_unique_alias('sq');
+        $table = $wpdb->prefix . 'wc_orders';
 
-        $where = $this->status
-            ? sprintf("AND p.post_status IN ( '%s' )", implode("','", array_map('esc_sql', $this->status)))
-            : '';
+        $subquery = "SELECT customer_id,COUNT(id) as order_count FROM $table WHERE type = 'shop_order' $where GROUP BY customer_id HAVING $having";
 
-        $sql = "SELECT pm.meta_value as user_id, count(*) as orders
-				FROM {$wpdb->posts} as p
-				INNER JOIN {$wpdb->postmeta} as pm 
-					ON p.ID = pm.post_id
-				WHERE post_type = 'shop_order'
-					AND pm.meta_key = '_customer_user'
-					AND p.post_status <> 'trash'
-					AND p.post_status <> 'auto-draft'
-					{$where}
-				GROUP BY pm.meta_value
-				{$having}";
+        $bindings->join("JOIN( $subquery ) AS $alias ON $wpdb->users.ID = $alias.customer_id");
 
-        $user_ids = $wpdb->get_col($sql);
-
-        if (empty($user_ids)) {
-            $user_ids = [0];
-        }
-
-        $user_ids = array_filter($user_ids, 'is_numeric');
-        $where = $wpdb->users . '.ID IN( ' . implode(',', $user_ids) . ')';
-
-        return $bindings->where($where);
+        return $bindings;
     }
 
 }

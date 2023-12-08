@@ -7,49 +7,55 @@ use ACP\Search\Value;
 use LogicException;
 
 class In extends Comparison
-	implements Negatable {
+    implements Negatable
+{
 
-	/**
-	 * @param string $column
-	 * @param Value  $value
-	 */
-	public function __construct( $column, Value $value ) {
-		$operator = 'IN';
+    /**
+     * @param string $column
+     * @param Value  $value
+     */
+    public function __construct($column, Value $value)
+    {
+        $operator = 'IN';
 
-		if ( $this->is_negated() ) {
-			$operator = 'NOT ' . $operator;
-		}
+        if ($this->is_negated()) {
+            $operator = 'NOT ' . $operator;
+        }
 
-		parent::__construct( $column, $operator, $value );
-	}
+        parent::__construct($column, $operator, $value);
+    }
 
-	public function get_statement() {
-		return $this->column . ' ' . $this->operator . ' (?)';
-	}
+    public function get_statement(): string
+    {
+        return sprintf('%s %s (?)', $this->column, $this->operator);
+    }
 
-	public function is_negated() {
-		return false;
-	}
+    public function is_negated()
+    {
+        return false;
+    }
 
-	public function bind_value( Value $value ) {
-		if ( ! is_array( $value->get_value() ) ) {
-			throw new LogicException( 'Value can only be an array.' );
-		}
+    public function bind_value(Value $value)
+    {
+        if ( ! is_array($value->get_value())) {
+            throw new LogicException('Value can only be an array.');
+        }
 
-		$type = $value->get_type();
-		$values = $value->get_value();
+        $type = $value->get_type();
+        $values = $value->get_value();
 
-		foreach ( $values as $new_value ) {
-			parent::bind_value( new Value( $new_value, $type ) );
-		}
+        foreach ($values as $new_value) {
+            parent::bind_value(new Value($new_value, $type));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function prepare() {
-		$this->statement = str_replace( '?', implode( ', ', array_fill( 0, count( $this->values ), '?' ) ), $this->statement );
+    public function prepare()
+    {
+        $this->statement = str_replace('?', implode(', ', array_fill(0, count($this->values), '?')), $this->statement);
 
-		return parent::prepare();
-	}
+        return parent::prepare();
+    }
 
 }

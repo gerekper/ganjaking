@@ -6,8 +6,6 @@ use ACA\MetaBox;
 use ACA\MetaBox\Column;
 use ACA\MetaBox\Sorting;
 use ACP;
-use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Model\Disabled;
 use ACP\Sorting\Type\DataType;
 
 final class Date extends Sorting\Factory implements MetaBox\Sorting\CloneableFactory, Sorting\TableStorageFactory
@@ -23,10 +21,10 @@ final class Date extends Sorting\Factory implements MetaBox\Sorting\CloneableFac
             return (new TableStorageFactory())->create_table_storage($column, $data_type);
         }
 
-        return new Disabled();
+        return null;
     }
 
-    protected function create_default(Column $column): AbstractModel
+    protected function create_default(Column $column)
     {
         /**
          * @var Column\Date $column
@@ -42,9 +40,9 @@ final class Date extends Sorting\Factory implements MetaBox\Sorting\CloneableFac
         return (new ACP\Sorting\Model\MetaFactory())->create($column->get_meta_type(), $column->get_meta_key());
     }
 
-    public function create_cloneable(Column $column): Disabled
+    public function create_cloneable(Column $column)
     {
-        return new Disabled();
+        return null;
     }
 
 }

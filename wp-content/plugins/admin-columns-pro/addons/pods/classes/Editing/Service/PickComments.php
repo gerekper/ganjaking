@@ -2,12 +2,12 @@
 
 namespace ACA\Pods\Editing\Service;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
-use ACP\Helper\Select\Entities;
+use ACP\Helper\Select\Comment\PaginatedFactory;
 
 class PickComments implements ACP\Editing\Service, PaginatedOptions {
 
@@ -52,13 +52,11 @@ class PickComments implements ACP\Editing\Service, PaginatedOptions {
 		$this->storage->update( $id, $data );
 	}
 
-	public function get_paginated_options( $search, $paged, $id = null ) {
-		$entities = new Entities\Comment( compact( 'search', 'paged' ) );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Formatter\CommentSummary( $entities )
-		);
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search' => $search,
+			'paged'  => $page,
+		] );
 	}
 
 }

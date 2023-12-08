@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model;
 
-use ACP\Search\Query\Bindings;
+use ACP\Query\Bindings;
 use ACP\Sorting\Type\Order;
 
 interface QueryBindings

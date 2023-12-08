@@ -2,10 +2,13 @@
 
 namespace ACP\Search\Comparison\Comment;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Helper\Select;
+use ACP\Helper\Select\User\LabelFormatter\UserName;
+use ACP\Helper\Select\User\PaginatedFactory;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
+use WP_User;
 
 class User extends Field
 	implements SearchableValues {
@@ -21,22 +24,36 @@ class User extends Field
 		parent::__construct( $operators );
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'user_id';
 	}
 
-	public function get_values( $search, $paged ) {
-		$entities = new Select\Entities\User( compact( 'search', 'paged' ) );
+	private function formatter(): UserName {
+		return new UserName();
+	}
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Group\UserRole(
-				new Select\Formatter\UserName( $entities )
-			)
+	public function format_label( $value ): string {
+		$user = get_user_by( 'id', $value );
+
+		return $user instanceof WP_User
+			? $this->formatter()->format_label( $user )
+			: '';
+	}
+
+	public function get_values( string $search, int $page ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'  => $search,
+			'paged'   => $page,
+			'include' => $this->get_user_ids(),
+		],
+			$this->formatter()
 		);
+	}
+
+	private function get_user_ids(): array {
+		global $wpdb;
+
+		return $wpdb->get_col( "SELECT DISTINCT user_id FROM $wpdb->comments;" );
 	}
 
 }

@@ -1,0 +1,26 @@
+/*post title*/
+.tp-post-title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.tp-post-title .tp-entry-title{
+	display:inline-block;
+}
+.tp-post-title .tp-entry-title {
+    margin: 0;
+}
+.tp-post-title > a,.tp-post-title > .tp-entry-title{
+	margin: 0;
+    padding: 0;
+    -webkit-transition:all 0.3s linear;
+	-o-transition:all 0.3s linear;
+	transition:all 0.3s linear;
+}
+.tp-post-title .tp-post-title-prepost.tp-prefix {
+    margin-right: 10px;
+}
+
+.tp-post-title .tp-post-title-prepost.tp-postfix {
+    margin-left: 10px;
+}

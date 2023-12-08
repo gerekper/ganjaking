@@ -76,17 +76,10 @@ class Skin_Flexure extends Elementor_Skin_Base {
 						$this->parent->add_render_attribute( 'box-item', 'class', 'bdt-ep-hover-box-item', true );
 						
 						$this->parent->add_render_attribute( 'bdt-ep-hover-box-title', 'class', 'bdt-ep-hover-box-title', true );
-						$this->parent->add_render_attribute(
-							[
-								'title-link' => [
-									'class' => [
-										'bdt-ep-hover-box-title-link',
-									],
-									'href'   => $item['title_link']['url'] ? esc_url($item['title_link']['url']) : 'javascript:void(0);',
-									'target' => $item['title_link']['is_external'] ? '_blank' : '_self'
-								]
-							], '', '', true
-						);
+
+						$title_key = 'title_' . $index;
+						$this->parent->add_render_attribute($title_key, 'class', 'bdt-ep-hover-box-title-link', true);
+						$this->parent->add_link_attributes($title_key, $item['title_link']);
 						
 						?>
                         <div <?php echo ( $this->parent->get_render_attribute_string( 'box-item' ) ); ?> data-id="<?php echo esc_attr($tab_id); ?>">
@@ -94,7 +87,7 @@ class Skin_Flexure extends Elementor_Skin_Base {
                             <?php if ( $item['hover_box_title'] && ( 'yes' == $settings['show_title'] ) ) : ?>
                                 <<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->parent->get_render_attribute_string('bdt-ep-hover-box-title'); ?>>
 									<?php if ( '' !== $item['title_link']['url'] ) : ?>
-										<a <?php echo $this->parent->get_render_attribute_string( 'title-link' ); ?>>
+										<a <?php echo $this->parent->get_render_attribute_string( $title_key ); ?>>
 									<?php endif; ?>
 										<?php echo wp_kses( $item['hover_box_title'], element_pack_allow_tags('title') ); ?>
 									<?php if ( '' !== $item['title_link']['url'] ) : ?>

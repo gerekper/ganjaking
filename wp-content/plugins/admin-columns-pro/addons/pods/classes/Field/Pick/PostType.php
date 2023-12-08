@@ -7,8 +7,6 @@ use AC\Settings;
 use AC\Settings\Column\Post;
 use ACA\Pods\Editing;
 use ACA\Pods\Field;
-use ACA\Pods\Filtering;
-use ACA\Pods\Search;
 use ACP;
 use ACP\Editing\PaginatedOptions\Posts;
 use ACP\Sorting\FormatValue\SerializedSettingFormatter;
@@ -54,20 +52,6 @@ class PostType extends Field\Pick
                 $storage,
                 $paginated
             );
-    }
-
-    public function filtering()
-    {
-        return new Filtering\PickPosts($this->column);
-    }
-
-    public function search()
-    {
-        return new Search\PickPost(
-            $this->column()->get_meta_key(),
-            $this->column()->get_meta_type(),
-            (array)$this->get('pick_val')
-        );
     }
 
     public function sorting()

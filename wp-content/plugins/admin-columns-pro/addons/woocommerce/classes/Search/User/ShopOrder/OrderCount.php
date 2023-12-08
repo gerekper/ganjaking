@@ -2,9 +2,9 @@
 
 namespace ACA\WC\Search\User\ShopOrder;
 
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class OrderCount extends Comparison
@@ -27,13 +27,10 @@ class OrderCount extends Comparison
 
         $this->status = $status;
 
-        parent::__construct($operators);
+        parent::__construct($operators, Value::INT);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 
@@ -66,16 +63,17 @@ class OrderCount extends Comparison
             : '';
 
         $sql = "SELECT pm.meta_value as user_id, count(*) as orders
-				FROM {$wpdb->posts} as p
-				INNER JOIN {$wpdb->postmeta} as pm 
+				FROM $wpdb->posts as p
+				INNER JOIN $wpdb->postmeta as pm 
 					ON p.ID = pm.post_id
-				WHERE post_type = 'shop_order'
+				WHERE p.post_type = 'shop_order'
 					AND pm.meta_key = '_customer_user'
 					AND p.post_status <> 'trash'
 					AND p.post_status <> 'auto-draft'
-					{$where}
+					$where
 				GROUP BY pm.meta_value
-				{$having}";
+				$having
+				";
 
         $user_ids = $wpdb->get_col($sql);
 

@@ -2,17 +2,14 @@
 
 namespace ACP\Editing\View;
 
-trait MultipleTrait {
+trait MultipleTrait
+{
 
-	/**
-	 * @param bool $multiple
-	 *
-	 * @return $this
-	 */
-	public function set_multiple( $multiple ) {
-		$this->set( 'multiple', (bool) $multiple );
+    public function set_multiple(bool $multiple): self
+    {
+        $this->set('multiple', $multiple);
 
-		return $this;
-	}
+        return $this;
+    }
 
 }

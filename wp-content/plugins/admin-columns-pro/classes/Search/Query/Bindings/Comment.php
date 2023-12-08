@@ -2,23 +2,12 @@
 
 namespace ACP\Search\Query\Bindings;
 
-use ACP\Search\Query\Bindings;
+use ACP;
 
-class Comment extends Bindings
+/**
+ * @depecated 6.4
+ */
+class Comment extends ACP\Query\Bindings\Comment
 {
-
-    protected $parent = 0;
-
-    public function get_parent(): int
-    {
-        return $this->parent;
-    }
-
-    public function parent(int $id): self
-    {
-        $this->parent = $id;
-
-        return $this;
-    }
 
 }

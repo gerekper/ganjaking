@@ -11,7 +11,7 @@ use ACP;
 class ModelFactory implements SortingModelFactory
 {
 
-    public function create(Field $field, $meta_key, Column $column)
+    public function create(Field $field, string $meta_key, Column $column)
     {
         $meta_type = $column->get_meta_type();
 
@@ -116,7 +116,7 @@ class ModelFactory implements SortingModelFactory
                 return (new Sorting\ModelFactory\Taxonomy())->create($field, $meta_key, $column);
 
             default:
-                return new ACP\Sorting\Model\Disabled();
+                return null;
         }
     }
 

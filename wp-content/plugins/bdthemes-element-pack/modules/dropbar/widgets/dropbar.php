@@ -168,6 +168,8 @@ class Dropbar extends Module_Base {
 				'label'       => esc_html__('Icon', 'bdthemes-element-pack'),
 				'type'        => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
+				'skin'        => 'inline',
+				'label_block' => false
 			]
 		);
 

@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://wordpress.org/plugins/woocommerce-easy-booking-system/
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Easy_Bookings
 	 * @since 1.0
 	 * @static
 	 */
@@ -54,6 +55,7 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -75,13 +77,13 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 
 		// >=2.09
 		add_filter( 'easy_booking_booking_price_details', [ $this, 'easy_booking_booking_price_details' ], 10, 3 );
-
 	}
 
 	/**
 	 * Add setting in main THEMECOMPLETE_EPO class
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_get_settings( $settings = [] ) {
@@ -95,15 +97,15 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Alter cart fragments.
 	 *
-	 * @param array $fragments the cart fragments.
-	 * @return array
+	 * @param array<mixed> $fragments the cart fragments.
+	 * @return array<mixed>
 	 */
 	public function easy_booking_fragments( $fragments ) {
-		$epo_price                   = floatval( THEMECOMPLETE_EPO()->easy_bookings_epo_price );
+		$epo_price                   = floatval( THEMECOMPLETE_EPO()->data_store['easy_bookings_epo_price'] );
 		$booking_price               = $fragments['booking_price'] + $epo_price;
 		$fragments['booking_price']  = $booking_price;
 		$fragments['epo_price']      = $epo_price;
-		$fragments['epo_duration']   = THEMECOMPLETE_EPO()->easy_bookings_duration;
+		$fragments['epo_duration']   = THEMECOMPLETE_EPO()->data_store['easy_bookings_duration'];
 		$fragments['epo_base_price'] = $booking_price;
 		if ( 'disable' === THEMECOMPLETE_EPO()->tm_epo_final_total_box ) {
 			$fragments['epo_base_price'] = $booking_price - $epo_price;
@@ -115,25 +117,26 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Alter booking details
 	 *
-	 * @param string $details The booking details.
-	 * @param object $product The product object.
-	 * @param array  $booking_data The booking data array.
+	 * @param string       $details The booking details.
+	 * @param object       $product The product object.
+	 * @param array<mixed> $booking_data The booking data array.
 	 * @return string
 	 */
 	public function easy_booking_booking_price_details( $details, $product, $booking_data ) {
 		$extra_price = 0;
 		if ( isset( $_REQUEST['epo_data'] ) && 'disable' === THEMECOMPLETE_EPO()->tm_epo_final_total_box ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$posted = [];
-			parse_str( wp_unslash( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			parse_str( stripslashes_deep( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$epos = THEMECOMPLETE_EPO_CART()->tm_add_cart_item_data( [], themecomplete_get_id( $product ), $posted );
 
-			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0;
+			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) ? 1 : 0;
 			if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 				foreach ( $epos['tmcartepo'] as $key => $value ) {
 					if ( ! empty( $value['price'] ) ) {
 
 						$price        = floatval( $value['price'] );
 						$option_price = 0;
+						$duration     = $booking_data['duration'];
 
 						if ( ! empty( $wc_booking_block_qty_multiplier ) && ! empty( $duration ) ) {
 							$option_price += $price * $duration;
@@ -147,8 +150,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 			}
 		}
 
-		THEMECOMPLETE_EPO()->easy_bookings_duration  = $booking_data['duration'];
-		THEMECOMPLETE_EPO()->easy_bookings_epo_price = $extra_price;
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_duration']  = $booking_data['duration'];
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_epo_price'] = $extra_price;
 
 		return $details;
 	}
@@ -156,20 +159,21 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Save booking data
 	 *
-	 * @param float  $booking_price The booking price.
-	 * @param object $product The product object.
-	 * @param object $_product The child product object.
-	 * @param array  $data The booking data.
+	 * @param float        $booking_price The booking price.
+	 * @param object       $product The product object.
+	 * @param object       $_product The child product object.
+	 * @param array<mixed> $data The booking data.
+	 * @return float
 	 */
 	public function easy_booking_one_two_date_price( $booking_price, $product, $_product, $data ) {
 		$extra_price = 0;
+		$duration    = $data['duration'];
 		if ( isset( $_REQUEST['epo_data'] ) && 'disable' === THEMECOMPLETE_EPO()->tm_epo_final_total_box ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$posted   = [];
-			$duration = $data['duration'];
-			parse_str( wp_unslash( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$posted = [];
+			parse_str( stripslashes_deep( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$epos = THEMECOMPLETE_EPO_CART()->tm_add_cart_item_data( [], themecomplete_get_id( $_product ), $posted );
 
-			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0;
+			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) ? 1 : 0;
 			if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 				foreach ( $epos['tmcartepo'] as $key => $value ) {
 					if ( ! empty( $value['price'] ) ) {
@@ -189,8 +193,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 			}
 		}
 
-		THEMECOMPLETE_EPO()->easy_bookings_duration  = $duration;
-		THEMECOMPLETE_EPO()->easy_bookings_epo_price = $extra_price;
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_duration']  = $duration;
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_epo_price'] = $extra_price;
 
 		return $booking_price;
 	}
@@ -202,15 +206,16 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	 * @param object  $product The product object.
 	 * @param object  $_product The child product object.
 	 * @param integer $duration The booking duration.
+	 * @return float
 	 */
 	public function easy_booking_get_new_item_price( $booking_price, $product, $_product, $duration ) {
 		$extra_price = 0;
 		if ( isset( $_REQUEST['epo_data'] ) && 'disable' === THEMECOMPLETE_EPO()->tm_epo_final_total_box ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$posted = [];
-			parse_str( wp_unslash( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			parse_str( stripslashes_deep( $_REQUEST['epo_data'] ), $posted ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$epos = THEMECOMPLETE_EPO_CART()->tm_add_cart_item_data( [], themecomplete_get_id( $_product ), $posted );
 
-			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0;
+			$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) ? 1 : 0;
 			if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 				foreach ( $epos['tmcartepo'] as $key => $value ) {
 					if ( ! empty( $value['price'] ) ) {
@@ -230,8 +235,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 			}
 		}
 
-		THEMECOMPLETE_EPO()->easy_bookings_duration  = $duration;
-		THEMECOMPLETE_EPO()->easy_bookings_epo_price = $extra_price;
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_duration']  = $duration;
+		THEMECOMPLETE_EPO()->data_store['easy_bookings_epo_price'] = $extra_price;
 
 		return $booking_price;
 	}
@@ -239,13 +244,14 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wp_enqueue_scripts() {
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-easy-bookings', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-easy-bookings.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			$args = [
-				'wc_booking_block_qty_multiplier' => isset( THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) && ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0,
+				'wc_booking_block_qty_multiplier' => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) && ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) ? 1 : 0,
 			];
 			wp_localize_script( 'themecomplete-comp-easy-bookings', 'TMEPOEASYBOOKINGSJS', $args );
 		}
@@ -254,7 +260,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Add plugin setting (header)
 	 *
-	 * @param array $headers Array of settings.
+	 * @param array<mixed> $headers Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_headers( $headers = [] ) {
@@ -266,7 +273,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Add plugin setting (setting)
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_settings( $settings = [] ) {
@@ -303,8 +311,9 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Sets custom price to the cart item
 	 *
-	 * @param float $booking_price The booking price.
-	 * @param array $cart_item The cart item.
+	 * @param float        $booking_price The booking price.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return float
 	 * @since 1.0
 	 */
 	public function easy_booking_set_booking_price( $booking_price, $cart_item ) {
@@ -318,7 +327,8 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Set product original price in cart
 	 *
-	 * @param array $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_adjust_cart_item( $cart_item ) {
@@ -342,12 +352,13 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	/**
 	 * Adjust options when adding to cart
 	 *
-	 * @param array $price The price to adjust.
-	 * @param array $cart_item The cart item.
+	 * @param mixed        $price The price to adjust.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function wc_epo_cart_options_prices_before( $price, $cart_item ) {
-		$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_easy_bookings_block'] ) ? 1 : 0;
 
 		if (
 			! $wc_booking_block_qty_multiplier
@@ -367,7 +378,5 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 		$price = $c * $price;
 
 		return $price;
-
 	}
-
 }

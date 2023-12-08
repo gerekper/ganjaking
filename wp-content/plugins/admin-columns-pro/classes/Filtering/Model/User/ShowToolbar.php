@@ -2,28 +2,18 @@
 
 namespace ACP\Filtering\Model\User;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search;
 
-class ShowToolbar extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class ShowToolbar extends Search\Comparison\User\TrueFalse
+{
 
-	public function get_filtering_vars( $vars ) {
-		$vars['meta_query'][] = [
-			[
-				'key'   => 'show_admin_bar_front',
-				'value' => '1' === $this->get_filter_value() ? 'true' : 'false',
-			],
-		];
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		return [
-			'options' => [
-				0 => __( 'No' ),
-				1 => __( 'Yes' ),
-			],
-		];
-	}
+    public function __construct(Column $column)
+    {
+        parent::__construct('show_admin_bar_front');
+    }
 
 }

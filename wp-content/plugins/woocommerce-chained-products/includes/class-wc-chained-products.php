@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- * @version     1.3.2
+ * @version     1.3.3
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -160,6 +160,9 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			// Action for WooCommerce v7.1 custom order tables related compatibility.
 			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
+			// Action to declare WooCommerce Cart & Checkout blocks incompatibility.
+			add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
 		}
 
 		/**
@@ -2891,6 +2894,15 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		public function declare_hpos_compatibility() {
 			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-chained-products/woocommerce-chained-products.php', true );
+			}
+		}
+
+		/**
+		 * Declare WooCommerce Cart & Checkout blocks incompatibility.
+		 */
+		public function declare_blocks_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', 'woocommerce-chained-products/woocommerce-chained-products.php', false );
 			}
 		}
 	}//end class

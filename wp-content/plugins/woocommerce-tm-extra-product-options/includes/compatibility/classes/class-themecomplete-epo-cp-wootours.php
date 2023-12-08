@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://codecanyon.net/item/wootour-woocommerce-travel-tour-and-appointment-booking/19404740
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Wootours {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Wootours {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Wootours
 	 * @since 1.0
 	 * @static
 	 */
@@ -48,29 +49,27 @@ final class THEMECOMPLETE_EPO_CP_Wootours {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		add_action( 'init', [ $this, 'add_compatibility' ] );
-
 	}
 
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
-
 		if ( ! class_exists( 'EX_WooTour' ) ) {
 			return;
 		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
-
 	}
 
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wp_enqueue_scripts() {
@@ -78,5 +77,4 @@ final class THEMECOMPLETE_EPO_CP_Wootours {
 			wp_enqueue_script( 'themecomplete-comp-wootours', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-wootours.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 		}
 	}
-
 }

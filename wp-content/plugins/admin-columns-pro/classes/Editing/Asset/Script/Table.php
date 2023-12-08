@@ -60,9 +60,9 @@ final class Table extends Script
         parent::register();
 
         // Allow JS to access the column data for this list screen on the edit page
-        wp_localize_script($this->get_handle(), 'ACP_Editing_Columns', $this->editable_data_factory->create());
+        wp_localize_script($this->get_handle(), 'acp_editing_columns', $this->editable_data_factory->create());
 
-        wp_localize_script($this->get_handle(), 'ACP_Editing', [
+        wp_localize_script($this->get_handle(), 'acp_editing', [
             'inline_edit' => [
                 'active'       => $this->active_states['inline_edit'],
                 'toggle_state' => $this->edit_state->is_active($this->list_screen->get_key()),
@@ -83,7 +83,10 @@ final class Table extends Script
                 'reassign_user_id'          => $this->get_reassign_user()->ID,
                 'reassign_user_name'        => $this->get_reassign_user_name(),
             ],
-            'i18n'        => [
+        ]);
+        $this->localize(
+            'acp_editing_i18n',
+            new Script\Localize\Translation([
                 'select_author'  => __('Select author', 'codepress-admin-columns'),
                 'edit'           => __('Edit'),
                 'redo'           => __('Redo', 'codepress-admin-columns'),
@@ -213,8 +216,8 @@ final class Table extends Script
                         ),
                     ],
                 ],
-            ],
-        ]);
+            ])
+        );
     }
 
     private function get_bulk_selection_labels(): array

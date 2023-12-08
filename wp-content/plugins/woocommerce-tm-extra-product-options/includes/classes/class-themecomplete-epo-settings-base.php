@@ -27,6 +27,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_SETTINGS_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -51,6 +52,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function create_setting( $setting, $label ) {
@@ -72,12 +74,12 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 		}
 
 		return [];
-
 	}
 
 	/**
 	 * Set settings categories
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function settings_options() {
@@ -103,6 +105,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Get plugin settings
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function plugin_settings() {
@@ -127,6 +130,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Get "other" settings header
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_other_settings_headers() {
@@ -138,6 +142,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Get "other" settings
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_other_settings() {
@@ -149,6 +154,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Populate order post types setting
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	private function get_order_post_types() {
@@ -167,10 +173,65 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	}
 
 	/**
+	 * Get a compatibley default value
+	 *
+	 * @param string $setting The name of the setting.
+	 * @param mixed  $default_value The default value of the setting.
+	 * @return mixed
+	 * @since 6.4
+	 */
+	public function get_compatibility_value( $setting, $default_value ) {
+		switch ( $setting ) {
+			case 'tm_epo_change_original_price':
+				$tm_epo_final_total_box = get_option( 'tm_epo_final_total_box' );
+				if ( 'disable_change' === $tm_epo_final_total_box ) {
+					$default_value = 'yes';
+				}
+				break;
+			case 'override_final_total_box':
+				if ( in_array( $default_value, [ 'disable', 'disable_change', 'hide' ], true ) ) {
+					$default_value = 'disable';
+				} elseif ( in_array( $default_value, [ 'normal', 'options', 'optionsiftotalnotzero', 'final', 'hideoptionsifzero', 'pxq' ], true ) ) {
+					$default_value = 'enable';
+				}
+				break;
+			case 'tm_epo_final_total_box':
+				$tm_epo_final_total_box = get_option( 'tm_epo_final_total_box' );
+				if ( in_array( $tm_epo_final_total_box, [ 'disable', 'disable_change', 'hide' ], true ) ) {
+					$default_value = 'disable';
+				} elseif ( in_array( $tm_epo_final_total_box, [ 'normal', 'options', 'optionsiftotalnotzero', 'final', 'hideoptionsifzero', 'pxq' ], true ) ) {
+					$default_value = 'enable';
+				}
+				break;
+			case 'tm_epo_show_final_total':
+				$tm_epo_final_total_box = get_option( 'tm_epo_final_total_box' );
+				if ( in_array( $tm_epo_final_total_box, [ 'disable', 'disable_change', 'optionsiftotalnotzero', 'options', 'hide' ], true ) ) {
+					$default_value = 'hide';
+				} elseif ( in_array( $tm_epo_final_total_box, [ 'hideiftotaliszero', 'hideifoptionsiszero', 'pxq', 'final', 'hideoptionsifzero', 'normal', 'hideifoptionsiszero', 'hideiftotaliszero' ], true ) ) {
+					$default_value = 'show';
+				}
+				break;
+			case 'tm_epo_show_options_total':
+				$tm_epo_final_total_box = get_option( 'tm_epo_final_total_box' );
+				if ( in_array( $tm_epo_final_total_box, [ 'hideoptionsifzero', 'optionsiftotalnotzero' ], true ) ) {
+					$default_value = 'showtgz';
+				} elseif ( in_array( $tm_epo_final_total_box, [ 'options', 'normal', 'hideifoptionsiszero', 'hideiftotaliszero' ], true ) ) {
+					$default_value = 'show';
+				} elseif ( in_array( $tm_epo_final_total_box, [ 'disable', 'disable_change', 'pxq', 'final', 'hide' ], true ) ) {
+					$default_value = 'hide';
+				}
+				break;
+
+		}
+		return $default_value;
+	}
+
+	/**
 	 * General settings
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_general( $setting, $label ) {
@@ -184,7 +245,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title' => $label,
 			],
 			[
-				'title'   => esc_html__( 'Enable front-end for roles', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Enable Frontend Access for Selected Roles', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Select the roles that will have access to the extra options.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_roles_enabled',
 				'class'   => 'tcinit chosen_select',
@@ -194,7 +255,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'options' => themecomplete_get_roles(),
 			],
 			[
-				'title'   => esc_html__( 'Disable front-end for roles', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Disable Frontend Access for Selected Roles', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Select the roles that will not have access to the extra options.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_roles_disabled',
 				'class'   => 'tcinit chosen_select',
@@ -221,25 +282,68 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'        => 'text',
 			],
 			[
-				'title'   => esc_html__( 'Final total box', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Select when to show the final total box', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Plugin Loading Areas', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Specify the areas where the plugin will be activated.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_loading_areas',
+				'class'   => 'tcinit chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => 'woocommerce',
+				'type'    => 'multiselect',
+				'options' => [
+					'everywhere'          => esc_html__( 'Everywhere', 'woocommerce-tm-extra-product-options' ),
+					'shop'                => esc_html__( 'Shop', 'woocommerce-tm-extra-product-options' ),
+					'product_category'    => esc_html__( 'Product Categories', 'woocommerce-tm-extra-product-options' ),
+					'product_taxonomy'    => esc_html__( 'Product Taxonomies', 'woocommerce-tm-extra-product-options' ),
+					'product_tag'         => esc_html__( 'Product Tags', 'woocommerce-tm-extra-product-options' ),
+					'product'             => esc_html__( 'Product', 'woocommerce-tm-extra-product-options' ),
+					'cart'                => esc_html__( 'Cart', 'woocommerce-tm-extra-product-options' ),
+					'checkout'            => esc_html__( 'Checkout', 'woocommerce-tm-extra-product-options' ),
+					'order_received_page' => esc_html__( 'Order Received Page', 'woocommerce-tm-extra-product-options' ),
+					'account_page'        => esc_html__( 'My Account Page', 'woocommerce-tm-extra-product-options' ),
+					'woocommerce'         => esc_html__( 'WooCommerce Pages', 'woocommerce-tm-extra-product-options' ),
+					'quickview'           => esc_html__( 'Supported Quickview Solutions', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Final Total Box', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable this setting to display a Final Total Box on the product page, allowing customers to view the total cost of their order, or disable it for a simplified product page.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_final_total_box',
 				'class'   => 'tcftb chosen_select',
 				'css'     => 'min-width:300px;',
-				'default' => 'normal',
+				'default' => $this->get_compatibility_value( 'tm_epo_show_final_total', 'enable' ),
 				'type'    => 'select',
 				'options' => [
-					'normal'                => esc_html__( 'Show Both Final and Options total box', 'woocommerce-tm-extra-product-options' ),
-					'options'               => esc_html__( 'Show only Options total', 'woocommerce-tm-extra-product-options' ),
-					'optionsiftotalnotzero' => esc_html__( 'Show only Options total if total is not zero', 'woocommerce-tm-extra-product-options' ),
-					'final'                 => esc_html__( 'Show only Final total', 'woocommerce-tm-extra-product-options' ),
-					'hideoptionsifzero'     => esc_html__( 'Show Final total and hide Options total if zero', 'woocommerce-tm-extra-product-options' ),
-					'hideifoptionsiszero'   => esc_html__( 'Hide Final total box if Options total is zero', 'woocommerce-tm-extra-product-options' ),
-					'hideiftotaliszero'     => esc_html__( 'Hide Final total box if total is zero', 'woocommerce-tm-extra-product-options' ),
-					'hide'                  => esc_html__( 'Hide Final total box', 'woocommerce-tm-extra-product-options' ),
-					'pxq'                   => esc_html__( 'Always show only Final total (Price x Quantity)', 'woocommerce-tm-extra-product-options' ),
-					'disable_change'        => esc_html__( 'Disable but change product prices', 'woocommerce-tm-extra-product-options' ),
-					'disable'               => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+					'enable'              => esc_html__( 'Enable', 'woocommerce-tm-extra-product-options' ),
+					'disable'             => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+					'hideifoptionsiszero' => esc_html__( 'Disable if Options total is zero', 'woocommerce-tm-extra-product-options' ),
+					'hideiftotaliszero'   => esc_html__( 'Disable if total is zero', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Show Options Total', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to display the total specifically for selected product options.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_show_options_total',
+				'class'   => 'tcftb chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => $this->get_compatibility_value( 'tm_epo_show_options_total', 'show' ),
+				'type'    => 'select',
+				'options' => [
+					'show'    => esc_html__( 'Show', 'woocommerce-tm-extra-product-options' ),
+					'hide'    => esc_html__( 'Hide', 'woocommerce-tm-extra-product-options' ),
+					'showtgz' => esc_html__( 'Show when the total is greater than zero', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Show Final Total', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to display the comprehensive product total, providing customers with a clear overview of the overall cost.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_show_final_total',
+				'class'   => 'tcftb chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => $this->get_compatibility_value( 'tm_epo_show_final_total', 'show' ),
+				'type'    => 'select',
+				'options' => [
+					'show' => esc_html__( 'Show', 'woocommerce-tm-extra-product-options' ),
+					'hide' => esc_html__( 'Hide', 'woocommerce-tm-extra-product-options' ),
 				],
 			],
 			[
@@ -292,6 +396,30 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'    => 'checkbox',
 			],
 			[
+				'title'   => esc_html__( 'Hide Final total box until an element is chosen', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the Final total box only when at least one option is filled.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_hide_totals_until_any',
+				'class'   => 'tcftb',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Hide Final total box until all required elements are chosen', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the Final total box only when all required visible options are filled.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_hide_totals_until_all_required',
+				'class'   => 'tcftb',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Hide Final total box until all elements are chosen', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the Final total box only when all visible options are filled.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_hide_totals_until_all',
+				'class'   => 'tcftb',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
 				'title'   => esc_html__( 'Disable lazy load images', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable this to disable lazy loading images.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_no_lazy_load',
@@ -335,6 +463,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_display( $setting, $label ) {
@@ -346,6 +475,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 						'<span tabindex="0" data-menu="tcplacement" class="tm-section-menu-item">' . esc_html__( 'Placement', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcprice" class="tm-section-menu-item">' . esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcftbox" class="tm-section-menu-item">' . esc_html__( 'Floating Totals box', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcaddtocartbutton" class="tm-section-menu-item">' . esc_html__( 'Add to cart button', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcanimation" class="tm-section-menu-item">' . esc_html__( 'Animation', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcvarious2" class="tm-section-menu-item">' . esc_html__( 'Various', 'woocommerce-tm-extra-product-options' ) . '</span>',
 
@@ -498,7 +628,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Change original product price', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check to overwrite the original product price when the price is changing.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_change_original_price',
-				'default' => 'no',
+				'default' => $this->get_compatibility_value( 'tm_epo_change_original_price', 'no' ),
 				'class'   => 'tcprice',
 				'type'    => 'checkbox',
 			],
@@ -572,7 +702,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Hide add-to-cart button until an element is chosen', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to show the add to cart button only when at least one option is filled.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_add_cart_button',
-				'class'   => 'tcdisplay',
+				'class'   => 'tcaddtocartbutton',
 				'default' => 'no',
 				'type'    => 'checkbox',
 			],
@@ -580,7 +710,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Hide add-to-cart button until all required elements are chosen', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to show the add to cart button only when all required visible options are filled.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_required_add_cart_button',
-				'class'   => 'tcdisplay',
+				'class'   => 'tcaddtocartbutton',
 				'default' => 'no',
 				'type'    => 'checkbox',
 			],
@@ -588,7 +718,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Hide add-to-cart button until all elements are chosen', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to show the add to cart button only when all visible options are filled.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_all_add_cart_button',
-				'class'   => 'tcdisplay',
+				'class'   => 'tcaddtocartbutton',
 				'default' => 'no',
 				'type'    => 'checkbox',
 			],
@@ -636,30 +766,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Hide element price html when hide price setting is enabled', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this if you use Google Merchant Center. It will hide the price html of the element when you enable its hide price setting.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_price_html',
-				'class'   => 'tcprice',
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Show prices inside select box choices', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check this to show the price of the select box options if the price type is fixed.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_show_price_inside_option',
-				'class'   => 'tcprice',
-				'default' => 'no',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Show prices inside select box choices even if the prices are hidden', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check this to show the price of the select box options if the price type is fixed and even if the element hides the price.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_show_price_inside_option_hidden_even',
-				'class'   => 'tcprice',
-				'default' => 'no',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Multiply prices inside select box choices with its quantity selector', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check this to multiply the prices of the select box options with its quantity selector if any.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_multiply_price_inside_option',
 				'class'   => 'tcprice',
 				'default' => 'yes',
 				'type'    => 'checkbox',
@@ -728,6 +834,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_cart( $setting, $label ) {
@@ -860,6 +967,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 4.8
 	 */
 	public function get_setting_order( $setting, $label ) {
@@ -956,6 +1064,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_string( $setting, $label ) {
@@ -971,19 +1080,19 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title' => $label,
 			],
 			[
-				'title'   => esc_html__( 'Cart field/value separator', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter the field/value separator for the cart.', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Field Label/value separator', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter the character that will be used to separate field labels from field values in the cart and order.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_separator_cart_text',
 				'default' => ':',
-				'class'   => 'tcscart',
+				'class'   => 'tcsgeneral',
 				'type'    => 'text',
 			],
 			[
-				'title'   => esc_html__( 'Option multiple value separator in cart', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter the value separator for the option that have multiple values like checkboxes.', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Multiple field values separator', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter the string that will be used to separate multiple values for a field that allows multiple selections in the cart and order.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_multiple_separator_cart_text',
-				'default' => ' ',
-				'class'   => 'tcscart',
+				'default' => ', ',
+				'class'   => 'tcsgeneral',
 				'type'    => 'text',
 			],
 			[
@@ -1114,7 +1223,8 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 			],
 			[
 				'title'       => esc_html__( 'Popup section button text replacement', 'woocommerce-tm-extra-product-options' ),
-				'desc'        => esc_html__( 'Enter a text to replace the topup section button text.', 'woocommerce-tm-extra-product-options' ),
+				/* translators: %s code text */
+				'desc'        => sprintf( esc_html__( 'Enter a text to replace the topup section button text. Setting this to %s will make it so that the button text has the section title.', 'woocommerce-tm-extra-product-options' ), '<code>%auto%</code>' ),
 				'id'          => 'tm_epo_popup_section_button_text',
 				'placeholder' => esc_html__( 'Open', 'woocommerce-tm-extra-product-options' ),
 				'default'     => '',
@@ -1269,6 +1379,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_style( $setting, $label ) {
@@ -1293,9 +1404,11 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'      => 'tm_epo_css_styles_style',
 				'class'   => 'chosen_select',
 				'css'     => 'min-width:300px;',
-				'default' => 'round',
+				'default' => 'circle',
 				'type'    => 'select',
 				'options' => [
+					'circle'  => esc_html__( 'Circle', 'woocommerce-tm-extra-product-options' ),
+					'circle2' => esc_html__( 'Circle 2', 'woocommerce-tm-extra-product-options' ),
 					'round'   => esc_html__( 'Round', 'woocommerce-tm-extra-product-options' ),
 					'round2'  => esc_html__( 'Round 2', 'woocommerce-tm-extra-product-options' ),
 					'square'  => esc_html__( 'Square', 'woocommerce-tm-extra-product-options' ),
@@ -1314,6 +1427,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'options' => [
 					''         => esc_html__( 'Default', 'woocommerce-tm-extra-product-options' ),
 					'square'   => esc_html__( 'Square', 'woocommerce-tm-extra-product-options' ),
+					'circle'   => esc_html__( 'Circle', 'woocommerce-tm-extra-product-options' ),
 					'round'    => esc_html__( 'Round', 'woocommerce-tm-extra-product-options' ),
 					'shadow'   => esc_html__( 'Shadow', 'woocommerce-tm-extra-product-options' ),
 					'thinline' => esc_html__( 'Thin line', 'woocommerce-tm-extra-product-options' ),
@@ -1333,6 +1447,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_global( $setting, $label ) {
@@ -1437,6 +1552,23 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				],
 			],
 			[
+				'title'       => esc_html__( 'Maximum number of combinations for price calcualtions', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'This setting controls the maximum number of combinations that the plugin will use to calculate minimum and maximum prices. A higher number of combinations will result in more accurate prices, but it will also take longer to calculate them. For products that can have many choice combinations, it is recommended to set a lower number of combinations to improve performance.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_global_max_combinations',
+				'default'     => '10',
+				'placeholder' => esc_html__( 'Default value is 10', 'woocommerce-tm-extra-product-options' ),
+				'class'       => 'tcglobal6',
+				'type'        => 'text',
+			],
+			[
+				'title'   => esc_html__( 'Calculate the Precise Maximum Price', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This setting influences how the plugin calculates the maximum price of a product. Enabling this setting will provide a more precise result at the cost of processing speed.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_max_real',
+				'default' => 'no',
+				'class'   => 'tcglobal6',
+				'type'    => 'checkbox',
+			],
+			[
 				'title'   => esc_html__( 'Reset option values after the product is added to the cart', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'This will revert the option values to the default ones after adding the product to the cart', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_reset_options_after_add',
@@ -1522,7 +1654,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'      => 'tm_epo_global_required_indicator_position',
 				'class'   => 'tcglobal7 chosen_select',
 				'css'     => 'min-width:300px;',
-				'default' => 'left',
+				'default' => 'right',
 				'type'    => 'select',
 				'options' => [
 					'left'  => esc_html__( 'Left of the label', 'woocommerce-tm-extra-product-options' ),
@@ -1568,7 +1700,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 			],
 			[
 				'title'   => esc_html__( 'Move out of stock message', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'This is moves the out of stock message when styled variations are used just below them.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This moves the out of stock message when styled variations are used just below them.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_move_out_of_stock',
 				'default' => 'no',
 				'class'   => 'tcglobal3',
@@ -1576,15 +1708,15 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 			],
 			[
 				'title'   => esc_html__( 'Use internal variation price', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Use this if your variable products have a lot of options to improve performance. Note that this may cause issues with discount or currency plugins.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable this if your variable products have a lot of options to improve performance. Note that this may cause issues with discount or currency plugins.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_no_variation_prices_array',
 				'default' => 'no',
 				'class'   => 'tcglobal3',
 				'type'    => 'checkbox',
 			],
 			[
-				'title'   => esc_html__( 'Enable plugin interface on product edit page for roles', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Select the roles that will have access to the plugin interface while on the edit product page. The Admininstrator role always has access.', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Enable plugin backend interface', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the roles that will have access to the plugin settings and the plugin interface while on the edit product page. The Admininstrator role always has access.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_hide_product_enabled',
 				'class'   => 'tcglobal2 chosen_select',
 				'css'     => 'min-width:300px;',
@@ -1647,6 +1779,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_elements( $setting, $label ) {
@@ -1656,6 +1789,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'    => 'epo_page_options',
 				'desc'  => '<span tabindex="0" data-menu="tcelements1" class="tm-section-menu-item">' . esc_html__( 'General', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcelements2" class="tm-section-menu-item">' . esc_html__( 'Radio buttons', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements7" class="tm-section-menu-item">' . esc_html__( 'Select box', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcelements3" class="tm-section-menu-item">' . esc_html__( 'Datepicker', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcelements4" class="tm-section-menu-item">' . esc_html__( 'Text', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcelements5" class="tm-section-menu-item">' . esc_html__( 'Upload', 'woocommerce-tm-extra-product-options' ) . '</span>' .
@@ -1684,11 +1818,51 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				],
 			],
 			[
+				'title'   => esc_html__( 'Recalculate image on changes', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This is required on several gallery solutions that change the image html dynamically or if you want to control the image dynamically.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_image_recalculate',
+				'class'   => 'tcelements1',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
 				'title'   => esc_html__( 'Retrieve image sizes for image replacements', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Disable this for slow servers or large amounts of images.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_retrieve_image_sizes',
 				'default' => 'no',
 				'class'   => 'tcelements1',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Show quantity 1', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to show the quantity string even when the quantity is 1 and when the quantity selector is enabled.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_quantity_one',
+				'default' => 'no',
+				'class'   => 'tcelements1',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Show prices inside select box choices', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the price of the select box options if the price type is fixed.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_show_price_inside_option',
+				'class'   => 'tcelements7',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Show prices inside select box choices even if the prices are hidden', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the price of the select box options if the price type is fixed and even if the element hides the price.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_show_price_inside_option_hidden_even',
+				'class'   => 'tcelements7',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Multiply prices inside select box choices with its quantity selector', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to multiply the prices of the select box options with its quantity selector if any.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_multiply_price_inside_option',
+				'class'   => 'tcelements7',
+				'default' => 'yes',
 				'type'    => 'checkbox',
 			],
 			[
@@ -1778,7 +1952,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Scroll to the product element upon selection', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable to scroll the viewport to the product element.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_product_element_scroll',
-				'default' => 'yes',
+				'default' => 'no',
 				'class'   => 'tcelements6',
 				'type'    => 'checkbox',
 			],
@@ -1811,10 +1985,10 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 * Other settings
 	 *
 	 * @param string $setting The name of the setting.
-	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function get_setting_other( $setting, $label ) {
+	public function get_setting_other( $setting ) {
 		$settings = [];
 		$other    = $this->get_other_settings();
 		foreach ( $other as $key => $setting ) {
@@ -1827,6 +2001,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Envato token url
 	 *
+	 * @return string
 	 * @since 1.0
 	 */
 	private function get_generate_token_url() {
@@ -1855,10 +2030,11 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_license( $setting, $label ) {
-		$is_active         = THEMECOMPLETE_EPO_LICENSE()->get_license();
+		$is_active         = THEMECOMPLETE_EPO_ADMIN()->in_settings_page() ? THEMECOMPLETE_EPO_LICENSE()->get_license() : false;
 		$is_hidden         = defined( 'TC_CLIENT_MODE' );
 		$_license_settings = ( ! defined( 'TM_DISABLE_LICENSE' ) ) ?
 			[
@@ -1890,12 +2066,12 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 					'desc'    => '<p>' . sprintf( esc_html__( 'To find out how to access your purchase code you can %s', 'woocommerce-tm-extra-product-options' ), '<a href="' . esc_url( 'https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-' ) . '" target="_blank">' . esc_html__( 'click this link', 'woocommerce-tm-extra-product-options' ) . '</a>' ) . '</p>'
 								. '<span class="tm-license-button">'
 
-								. '<button type="button" class="' . ( THEMECOMPLETE_EPO_LICENSE()->get_license() ? '' : 'tm-hidden ' ) . 'tc tc-button tm-deactivate-license" id="tm_deactivate_license">' . esc_html__( 'Deactivate License', 'woocommerce-tm-extra-product-options' ) . '</button>'
-								. '<button type="button" class="' . ( THEMECOMPLETE_EPO_LICENSE()->get_license() ? 'tm-hidden ' : '' ) . 'tc tc-button tm-activate-license" id="tm_activate_license">' . esc_html__( 'Activate License', 'woocommerce-tm-extra-product-options' ) . '</button>'
+								. '<button type="button" class="' . ( $is_active ? '' : 'tm-hidden ' ) . 'tc tc-button tm-deactivate-license" id="tm_deactivate_license">' . esc_html__( 'Deactivate License', 'woocommerce-tm-extra-product-options' ) . '</button>'
+								. '<button type="button" class="' . ( $is_active ? 'tm-hidden ' : '' ) . 'tc tc-button tm-activate-license" id="tm_activate_license">' . esc_html__( 'Activate License', 'woocommerce-tm-extra-product-options' ) . '</button>'
 
 								. '</span>'
 								. '<span class="tm-license-result">'
-								. ( ( THEMECOMPLETE_EPO_LICENSE()->get_license() ) ?
+								. ( $is_active ?
 							"<div class='activated'><p>" . esc_html__( 'License activated.', 'woocommerce-tm-extra-product-options' ) . '</p></div>'
 							: ''
 								)
@@ -1925,6 +2101,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	/**
 	 * Get allowed file types
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_allowed_types() {
@@ -1946,6 +2123,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_upload( $setting, $label ) {
@@ -2022,6 +2200,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_setting_code( $setting, $label ) {
@@ -2059,6 +2238,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 *
 	 * @param string $setting The name of the setting.
 	 * @param string $label The label for the section.
+	 * @return array<mixed>
 	 * @since 6.0
 	 */
 	public function get_setting_math( $setting, $label ) {

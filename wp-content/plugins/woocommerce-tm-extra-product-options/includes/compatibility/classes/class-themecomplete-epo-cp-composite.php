@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://woocommerce.com/products/composite-products/
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_Composite {
 
@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Composite
 	 * @since 1.0
 	 * @static
 	 */
@@ -48,14 +49,13 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		add_action( 'plugins_loaded', [ $this, 'add_compatibility' ] );
-
 	}
 
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
@@ -64,10 +64,10 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
-		add_action( 'woocommerce_composited_product_add_to_cart', [ $this, 'tm_composited_display_support' ], 11, 3 );
+		add_action( 'woocommerce_composited_product_add_to_cart', [ $this, 'tm_composited_display_support' ], 11, 2 );
 		add_filter( 'woocommerce_composite_button_behaviour', [ $this, 'tm_woocommerce_composite_button_behaviour' ], 50, 1 );
 		add_action( 'woocommerce_composite_products_remove_product_filters', [ $this, 'tm_woocommerce_composite_products_remove_product_filters' ], 99999 );
-		add_filter( 'woocommerce_composite_cart_permalink_args', [ $this, 'woocommerce_composite_cart_permalink_args' ], 99, 3 );
+		add_filter( 'woocommerce_composite_cart_permalink_args', [ $this, 'woocommerce_composite_cart_permalink_args' ], 99, 2 );
 		add_filter( 'wc_epo_tm_post_class_no_options', [ $this, 'wc_epo_tm_post_class_no_options' ], 10, 2 );
 		add_filter( 'wc_epo_options_min_price', [ $this, 'wc_epo_options_min_price' ], 10, 2 );
 		add_filter( 'wc_epo_options_max_price', [ $this, 'wc_epo_options_max_price' ], 10, 2 );
@@ -78,6 +78,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 * Override woocommerce_available_variation check
 	 *
 	 * @param boolean $ret To run the check or not.
+	 * @return boolean
 	 * @since 6.1
 	 */
 	public function wc_epo_woocommerce_available_variation_check( $ret = true ) {
@@ -93,6 +94,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 *
 	 * @param string|float  $price The price to alter.
 	 * @param string|Object $product The prodcut object.
+	 * @return float
 	 * @since 5.0.12.11
 	 */
 	public function wc_epo_options_min_price( $price = '', $product = '' ) {
@@ -102,7 +104,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 			$price = floatval( $price ) + floatval( $regular_price_min );
 		}
 
-		return $price;
+		return (float) $price;
 	}
 
 	/**
@@ -110,6 +112,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 *
 	 * @param string|float  $price The price to alter.
 	 * @param string|Object $product The prodcut object.
+	 * @return float
 	 * @since 5.0.12.11
 	 */
 	public function wc_epo_options_max_price( $price = '', $product = '' ) {
@@ -118,17 +121,18 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 
 			$price = floatval( $price ) + floatval( $regular_price_max );
 		}
-		return $price;
+		return (float) $price;
 	}
 
 	/**
 	 * Search composite products for extra options
 	 *
-	 * @param array    $array Array of classes.
-	 * @param int|null $post_id The post id.
+	 * @param array<mixed> $classes Array of classes.
+	 * @param integer|null $post_id The post id.
+	 * @return array<mixed>
 	 * @since 5.0.12.9
 	 */
-	public function wc_epo_tm_post_class_no_options( $array = [], $post_id = null ) {
+	public function wc_epo_tm_post_class_no_options( $classes = [], $post_id = null ) {
 
 		$terms        = get_the_terms( $post_id, 'product_type' );
 		$product_type = ! empty( $terms ) && isset( current( $terms )->name ) ? sanitize_title( current( $terms )->name ) : 'simple';
@@ -147,44 +151,42 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 
 					$component_options = [];
 
-					if ( class_exists( 'WC_CP_Component' ) && method_exists( 'WC_CP_Component', 'query_component_options' ) ) {
+					if ( class_exists( 'WC_CP_Component' ) && method_exists( 'WC_CP_Component', 'query_component_options' ) ) { // @phpstan-ignore-line
 						$component_options = WC_CP_Component::query_component_options( $component_data );
 					} elseif ( function_exists( 'WC_CP' ) ) {
 						$component_options = WC_CP()->api->get_component_options( $component_data );
 					} else {
 						global $woocommerce_composite_products;
-						if ( is_object( $woocommerce_composite_products ) && function_exists( 'WC_CP' ) ) {
+						if ( is_object( $woocommerce_composite_products ) && function_exists( 'WC_CP' ) ) { // @phpstan-ignore-line
 							$component_options = WC_CP()->api->get_component_options( $component_data );
-						} else {
-							if ( isset( $component_data['assigned_ids'] ) && is_array( $component_data['assigned_ids'] ) ) {
-								$component_options = $component_data['assigned_ids'];
-							}
+						} elseif ( isset( $component_data['assigned_ids'] ) && is_array( $component_data['assigned_ids'] ) ) {
+							$component_options = $component_data['assigned_ids'];
 						}
 					}
 
 					foreach ( $component_options as $key => $pid ) {
 						$has_options = THEMECOMPLETE_EPO_API()->has_options( $pid );
 						if ( THEMECOMPLETE_EPO_API()->is_valid_options_or_variations( $has_options ) ) {
-							$array[] = 'tm-no-options-composite';
+							$classes[] = 'tm-no-options-composite';
 
-							return $array;
+							return $classes;
 						}
 					}
 				}
 			}
 		}
 
-		return $array;
+		return $classes;
 	}
 	/**
 	 * Enable options when editing cart for composite products
 	 *
-	 * @param array  $args Array of arguments.
-	 * @param array  $cart_item The cart item.
-	 * @param object $composite_product The composite product.
+	 * @param array<mixed> $args Array of arguments.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 5.0
 	 */
-	public function woocommerce_composite_cart_permalink_args( $args, $cart_item, $composite_product ) {
+	public function woocommerce_composite_cart_permalink_args( $args, $cart_item ) {
 		if ( isset( $cart_item['tmcartepo_bto'] ) && count( $cart_item['tmcartepo_bto'] ) ) {
 			$args = array_merge( $args, $cart_item['tmcartepo_bto'] );
 		}
@@ -195,6 +197,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	/**
 	 * Enqueue scripts
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wp_enqueue_scripts() {
@@ -231,11 +234,10 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 *
 	 * @param object|boolean $product The product.
 	 * @param string         $component_id The component id.
-	 * @param object|null    $composite_product The composite product.
 	 * @return void
 	 * @since 1.0
 	 */
-	public function tm_composited_display_support( $product = false, $component_id = '', $composite_product = null ) {
+	public function tm_composited_display_support( $product = false, $component_id = '' ) {
 		if ( $product ) {
 			THEMECOMPLETE_EPO()->set_tm_meta( themecomplete_get_id( $product ) );
 			THEMECOMPLETE_EPO()->is_bto = true;

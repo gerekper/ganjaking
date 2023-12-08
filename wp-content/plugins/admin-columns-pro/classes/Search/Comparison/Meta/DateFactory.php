@@ -2,31 +2,28 @@
 
 namespace ACP\Search\Comparison\Meta;
 
+use AC\Meta\Query;
 use ACP\Search\Comparison;
 
-class DateFactory {
+class DateFactory
+{
 
-	const FORMAT_UNIX_TIMESTAMP = 'U';
-	const FORMAT_DATETIME = 'Y-m-d H:i:s';
-	const FORMAT_DATE = 'Y-m-d';
+    public const FORMAT_UNIX_TIMESTAMP = 'U';
+    public const FORMAT_DATETIME = 'Y-m-d H:i:s';
+    public const FORMAT_DATE = 'Y-m-d';
 
-	/**
-	 * @param string $date_format
-	 * @param string $meta_key
-	 * @param string $meta_type
-	 *
-	 * @return Comparison
-	 */
-	public static function create( $date_format, $meta_key, $meta_type ) {
-		switch ( $date_format ) {
-			case self::FORMAT_UNIX_TIMESTAMP :
-				return new DateTime\Timestamp( $meta_key, $meta_type );
-			case self::FORMAT_DATETIME :
-			case self::FORMAT_DATE :
-				return new DateTime\ISO( $meta_key, $meta_type );
-			default:
-				return new Text( $meta_key, $meta_type );
-		}
-	}
+    public static function create(string $date_format, string $meta_key, Query $query): Comparison
+    {
+        switch ($date_format) {
+            case self::FORMAT_UNIX_TIMESTAMP :
+                return new DateTime\Timestamp($meta_key, $query);
+            case self::FORMAT_DATETIME :
+                return new DateTime\ISO($meta_key, $query);
+            case self::FORMAT_DATE :
+                return new Date($meta_key, $query);
+            default:
+                return new Text($meta_key);
+        }
+    }
 
 }

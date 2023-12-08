@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search;
 
-use ACP\Search\Query\Bindings;
+use ACP\Query\Bindings;
 use LogicException;
 
 abstract class Comparison
@@ -50,30 +52,21 @@ abstract class Comparison
         ];
 
         if ( ! in_array($this->value_type, $value_types, true)) {
-            throw new LogicException('Unsupported value type found.');
+            throw new LogicException(sprintf('Unsupported value type found: %s', $this->value_type));
         }
     }
 
-    /**
-     * @return Operators
-     */
-    public function get_operators()
+    public function get_operators(): Operators
     {
         return $this->operators;
     }
 
-    /**
-     * @return string
-     */
-    public function get_value_type()
+    public function get_value_type(): string
     {
         return $this->value_type;
     }
 
-    /**
-     * @return array
-     */
-    public function get_labels()
+    public function get_labels(): array
     {
         $labels = [];
 
@@ -84,16 +77,12 @@ abstract class Comparison
         return $labels;
     }
 
-    /**
-     * @param string $operator
-     * @param Value  $value
-     *
-     * @return Bindings
-     */
-    final public function get_query_bindings($operator, Value $value)
+    final public function get_query_bindings(string $operator, Value $value): Bindings
     {
         if ($this->operators->search($operator) === false) {
-            throw new LogicException('Unsupported operator found.');
+            throw new LogicException(
+                sprintf('Unsupported operator %s found.', sprintf('"%s"', $operator))
+            );
         }
 
         if ($this->value_type !== $value->get_type()) {
@@ -103,12 +92,6 @@ abstract class Comparison
         return $this->create_query_bindings($operator, $value);
     }
 
-    /**
-     * @param string $operator
-     * @param Value  $value
-     *
-     * @return Bindings
-     */
-    abstract protected function create_query_bindings($operator, Value $value);
+    abstract protected function create_query_bindings(string $operator, Value $value): Bindings;
 
 }

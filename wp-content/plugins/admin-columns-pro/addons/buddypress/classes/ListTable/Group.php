@@ -17,12 +17,12 @@ class Group implements ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         return (string)apply_filters('bp_groups_admin_get_group_custom_column', '', $column, $this->get_group($id));
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         ob_start();
 

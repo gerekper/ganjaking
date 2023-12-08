@@ -618,7 +618,7 @@ class Brand_Grid extends Module_Base {
 
 		$this->add_render_attribute('brand-grid', 'class', 'bdt-ep-brand-grid');
 
-?>
+		?>
 		<div <?php $this->print_render_attribute_string('brand-grid'); ?>>
 			<?php foreach ($settings['brand_items'] as $index => $item) :
 
@@ -630,18 +630,9 @@ class Brand_Grid extends Module_Base {
 
 				$this->add_render_attribute('name-wrap', 'class', 'bdt-ep-brand-grid-name', true);
 
-				$this->add_render_attribute(
-					[
-						'website-link' => [
-							'class' => 'bdt-ep-brand-grid-link',
-							'href'   => isset($item['link']['url']) ? esc_url($item['link']['url']) : '#',
-							'target' => $item['link']['is_external'] ? '_blank' : '_self'
-						]
-					],
-					'',
-					'',
-					true
-				);
+				$link_key = 'link_' . $index;
+				$this->add_render_attribute($link_key, 'class', 'bdt-ep-brand-grid-link', true);
+				$this->add_link_attributes($link_key, $item['link']);
 
 			?>
 				<div <?php echo $this->get_render_attribute_string('item-wrap'); ?>>
@@ -678,7 +669,7 @@ class Brand_Grid extends Module_Base {
 
 							<?php if (!empty($item['link']['url']) && $settings['show_website_link']) : ?>
 								<div class="bdt-ep-brand-grid-text">
-									<a <?php echo $this->get_render_attribute_string('website-link'); ?>>
+									<a <?php echo $this->get_render_attribute_string($link_key); ?>>
 										<?php echo esc_html($item['website_link_text']); ?>
 									</a>
 								</div>

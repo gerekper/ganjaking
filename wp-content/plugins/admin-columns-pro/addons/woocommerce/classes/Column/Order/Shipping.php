@@ -7,6 +7,7 @@ use ACA\WC;
 use ACA\WC\ConditionalFormat\Formatter\PriceFormatter;
 use ACP;
 use ACP\ConditionalFormat\FormattableConfig;
+use ACP\Sorting\Type\DataType;
 
 class Shipping extends AC\Column implements ACP\Search\Searchable, ACP\Export\Exportable,
                                             ACP\ConditionalFormat\Formattable, ACP\Sorting\Sortable
@@ -43,7 +44,7 @@ class Shipping extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
     {
         return new WC\Sorting\Order\OperationalData(
             'shipping_total_amount',
-            new ACP\Sorting\Type\DataType(ACP\Sorting\Type\DataType::NUMERIC)
+            new DataType(DataType::NUMERIC)
         );
     }
 

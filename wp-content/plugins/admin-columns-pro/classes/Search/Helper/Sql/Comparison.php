@@ -4,47 +4,38 @@ namespace ACP\Search\Helper\Sql;
 
 use ACP\Search\Value;
 
-class Comparison extends Statement {
+class Comparison extends Statement
+{
 
-	/**
-	 * @var string
-	 */
-	protected $column;
+    protected $column;
 
-	/**
-	 * @var string
-	 */
-	protected $operator;
+    protected $operator;
 
-	/**
-	 * @param string $column
-	 * @param string $operator
-	 * @param Value  $value
-	 */
-	public function __construct( $column, $operator, Value $value ) {
-		$this->column = $column;
-		$this->operator = $operator;
+    public function __construct(string $column, string $operator, Value $value)
+    {
+        $this->column = $column;
+        $this->operator = $operator;
 
-		$this->bind_value( $value );
+        $this->bind_value($value);
 
-		parent::__construct( $this->get_statement() );
-	}
+        parent::__construct($this->get_statement());
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function get_statement() {
-		return sprintf( '%s %s ?',
-			$this->column,
-			$this->operator
-		);
-	}
+    protected function get_statement(): string
+    {
+        return sprintf(
+            '%s %s ?',
+            $this->column,
+            $this->operator
+        );
+    }
 
-	/**
-	 * @return string
-	 */
-	public function __invoke() {
-		return $this->prepare();
-	}
+    /**
+     * @return string
+     */
+    public function __invoke()
+    {
+        return $this->prepare();
+    }
 
 }

@@ -3,7 +3,7 @@
  * Plugin Name: Piotnet Addons For Elementor Pro
  * Description: Piotnet Addons For Elementor Pro (PAFE Pro) adds many new features for Elementor
  * Plugin URI:  https://pafe.piotnet.com/
- * Version:     7.1.17
+ * Version:     7.1.19
  * Author:      Piotnet Team
  * Author URI:  https://piotnet.com/
  * Text Domain: pafe
@@ -24,7 +24,7 @@ update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => t
 ] ] );
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'PAFE_PRO_VERSION', '7.1.17' );
+define( 'PAFE_PRO_VERSION', '7.1.19' );
 define( 'PAFE_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 final class Piotnet_Addons_For_Elementor_Pro {
@@ -330,7 +330,7 @@ final class Piotnet_Addons_For_Elementor_Pro {
         
         wp_enqueue_script(
             'purify',
-            plugin_dir_url( __FILE__ ) . 'assets/js/libs/purify.min.js',
+            plugin_dir_url( __FILE__ ) . 'assets/js/minify/purify.min.js',
             [],
             PAFE_PRO_VERSION,
             true
@@ -338,7 +338,7 @@ final class Piotnet_Addons_For_Elementor_Pro {
 
         wp_enqueue_script(
             'pafe-custom-css-script',
-            plugin_dir_url( __FILE__ ) . 'assets/js/libs/custom-css.js',
+            plugin_dir_url( __FILE__ ) . 'assets/js/minify/custom-css.js',
             ['elementor-frontend', 'purify'],
             PAFE_PRO_VERSION,
             true

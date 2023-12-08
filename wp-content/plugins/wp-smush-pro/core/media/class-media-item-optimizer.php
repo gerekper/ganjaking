@@ -186,7 +186,7 @@ class Media_Item_Optimizer {
 
 		$media_item = $this->media_item;
 		do_action(
-			'wp_smush_before_smush_file',
+			'wp_smush_before_smush_attempt',
 			$media_item->get_id(),
 			$media_item->get_wp_metadata()
 		);
@@ -196,6 +196,12 @@ class Media_Item_Optimizer {
 
 			return false;
 		}
+
+		do_action(
+			'wp_smush_before_smush_file',
+			$media_item->get_id(),
+			$media_item->get_wp_metadata()
+		);
 
 		$this->set_in_progress_transient();
 

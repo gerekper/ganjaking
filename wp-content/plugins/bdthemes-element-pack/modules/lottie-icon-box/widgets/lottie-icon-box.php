@@ -2388,15 +2388,7 @@ class Lottie_Icon_Box extends Module_Base {
 		$this->add_render_attribute('readmore', 'class', ['bdt-lottie-icon-box-readmore', 'bdt-display-inline-block']);
 
 		if (!empty($settings['readmore_link']['url'])) {
-			$this->add_render_attribute('readmore', 'href', $settings['readmore_link']['url']);
-
-			if ($settings['readmore_link']['is_external']) {
-				$this->add_render_attribute('readmore', 'target', '_blank');
-			}
-
-			if ($settings['readmore_link']['nofollow']) {
-				$this->add_render_attribute('readmore', 'rel', 'nofollow');
-			}
+			$this->add_link_attributes('readmore', $settings['readmore_link']);
 		}
 
 		if ($settings['readmore_attention']) {

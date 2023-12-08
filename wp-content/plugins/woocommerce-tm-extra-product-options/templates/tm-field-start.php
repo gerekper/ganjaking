@@ -9,20 +9,28 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
+if ( isset( $required, $field_id, $label, $original_rules, $rules, $rules_type, $field_type ) ) :
+	$required       = (string) $required;
+	$field_id       = (string) $field_id;
+	$label          = (string) $label;
+	$original_rules = (string) $original_rules;
+	$rules          = (string) $rules;
+	$rules_type     = (string) $rules_type;
+	$field_type     = (string) $field_type;
 
-$extraliclass = '';
-if ( $required ) {
-	$extraliclass .= ' tm-epo-has-required';
-}
-if ( isset( $li_class ) ) {
-	$extraliclass .= ' ' . $li_class;
-}
-?>
+	$extraliclass = '';
+	if ( $required ) {
+		$extraliclass .= ' tm-epo-has-required';
+	}
+	if ( isset( $li_class ) ) {
+		$extraliclass .= ' ' . $li_class;
+	}
+	?>
 <li id="<?php echo esc_attr( $field_id ); ?>" class="cpf-element tm-extra-product-options-field tc-row tc-cell<?php echo esc_attr( $extraliclass ); ?>">
 	<span class="tc-epo-label tm-epo-element-label">
 	<?php
@@ -34,4 +42,6 @@ if ( isset( $li_class ) ) {
 	?>
 	</span>
 	<div class="tc-element-container">
-		<ul data-original-rules="<?php echo esc_attr( $original_rules ); ?>" data-rules="<?php echo esc_attr( $rules ); ?>" data-rulestype="<?php echo esc_attr( $rules_type ); ?>" class="tmcp-ul-wrap tmcp-attributes tm-extra-product-options-<?php echo esc_attr( $type ); ?>">
+		<ul data-original-rules="<?php echo esc_attr( $original_rules ); ?>" data-rules="<?php echo esc_attr( $rules ); ?>" data-rulestype="<?php echo esc_attr( $rules_type ); ?>" class="tmcp-ul-wrap tmcp-attributes tm-extra-product-options-<?php echo esc_attr( $field_type ); ?>">
+		<?php
+endif;

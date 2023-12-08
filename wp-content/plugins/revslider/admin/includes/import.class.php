@@ -245,7 +245,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		$animations		 = ($wp_filesystem->exists($this->download_path.'custom_animations.txt')) ? $wp_filesystem->get_contents($this->download_path.'custom_animations.txt') : '';
 		$json_animations = @json_decode($animations, true);
 		$animations		 = (empty($json_animations)) ? $this->rs_unserialize($animations) : $json_animations;
-		if(empty($animations)) return;
+		if(empty($animations) || (is_object($animations) && get_class($animations) === "__PHP_Incomplete_Class")) return;
 
 		foreach($animations as $animation){
 			$exist = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_LAYER_ANIMATIONS." WHERE handle = %s", $animation['handle']), ARRAY_A);
@@ -343,23 +343,22 @@ class RevSliderSliderImport extends RevSliderSlider {
 		$styles = ($wp_filesystem->exists($this->download_path.'styles.txt')) ? $wp_filesystem->get_contents($this->download_path.'styles.txt') : '';
 		$json_styles = @json_decode($styles, true);
 		$styles		 = (empty($json_styles)) ? $this->rs_unserialize($styles) : $json_styles;
-		
-		if(!empty($styles)){
-			foreach($styles as $style){
-				foreach($style as $v => $s){
-					if(is_array($s) || is_object($s)){
-						$style[$v] = json_encode($s);
-					}
+		if(empty($styles) || (is_object($styles) && get_class($styles) === "__PHP_Incomplete_Class")) return;
+
+		foreach($styles as $style){
+			foreach($style as $v => $s){
+				if(is_array($s) || is_object($s)){
+					$style[$v] = json_encode($s);
 				}
-				
-				$exist = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_CSS." WHERE handle = %s", $this->get_val($style, 'handle')), ARRAY_A);
-				if(!empty($exist)){
-					$rh = $this->get_val($style, 'handle');
-					unset($style['handle']);
-					$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_CSS, $style, array('handle' => $rh));
-				}else{
-					$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_CSS, $style);
-				}
+			}
+
+			$exist = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_CSS." WHERE handle = %s", $this->get_val($style, 'handle')), ARRAY_A);
+			if(!empty($exist)){
+				$rh = $this->get_val($style, 'handle');
+				unset($style['handle']);
+				$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_CSS, $style, array('handle' => $rh));
+			}else{
+				$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_CSS, $style);
 			}
 		}
 	}
@@ -376,67 +375,66 @@ class RevSliderSliderImport extends RevSliderSlider {
 		$navigations		= ($wp_filesystem->exists($this->download_path.'navigation.txt')) ? $wp_filesystem->get_contents($this->download_path.'navigation.txt') : '';
 		$json_navigations	= @json_decode($navigations, true);
 		$navigations		= (empty($json_navigations)) ? $this->rs_unserialize($navigations) : $json_navigations;
-		
-		if(!empty($navigations)){
-			foreach($navigations as $navigation){
-				$_navigations[] = $navigation;
-				
-				if(!isset($navigation['type'])){ //translate navigations to v6 if they are v5
-					$_navigations = array();
-					$navigation['css'] = json_decode($navigation['css'], true);
-					$navigation['markup'] = json_decode($navigation['markup'], true);
-					$navigation['settings'] = json_decode($navigation['settings'], true);
-					
-					foreach($upd->navtypes as $navtype){
-						if(isset($navigation['css'][$navtype]) && !empty($navigation['css'][$navtype]) || isset($navigation['markup'][$navtype]) && !empty($navigation['markup'][$navtype])){
-							$_navigations[] = $upd->create_new_navigation_6_0($navigation, $navtype);
-						}
+		if(empty($navigations) || (is_object($navigations) && get_class($navigations) === "__PHP_Incomplete_Class")) return;
+
+		foreach($navigations as $navigation){
+			$_navigations[] = $navigation;
+
+			if(!isset($navigation['type'])){ //translate navigations to v6 if they are v5
+				$_navigations = array();
+				$navigation['css'] = json_decode($navigation['css'], true);
+				$navigation['markup'] = json_decode($navigation['markup'], true);
+				$navigation['settings'] = json_decode($navigation['settings'], true);
+
+				foreach($upd->navtypes as $navtype){
+					if(isset($navigation['css'][$navtype]) && !empty($navigation['css'][$navtype]) || isset($navigation['markup'][$navtype]) && !empty($navigation['markup'][$navtype])){
+						$_navigations[] = $upd->create_new_navigation_6_0($navigation, $navtype);
 					}
 				}
-				
-				if(!empty($_navigations)){
-					foreach($_navigations as $_navigation){
-						$exist = $wpdb->get_row($wpdb->prepare("SELECT id FROM ".$wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS." WHERE handle = %s AND type = %s", array($this->get_val($_navigation, 'handle'), $this->get_val($_navigation, 'type'))), ARRAY_A);
-						
-						$old_nav_id = $this->get_val($_navigation, 'id', false);
-						
-						if($old_nav_id !== false){
-							unset($_navigation['id']);
+			}
+
+			if(!empty($_navigations)){
+				foreach($_navigations as $_navigation){
+					$exist = $wpdb->get_row($wpdb->prepare("SELECT id FROM ".$wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS." WHERE handle = %s AND type = %s", array($this->get_val($_navigation, 'handle'), $this->get_val($_navigation, 'type'))), ARRAY_A);
+
+					$old_nav_id = $this->get_val($_navigation, 'id', false);
+
+					if($old_nav_id !== false){
+						unset($_navigation['id']);
+					}
+
+					foreach($_navigation as $v => $s){
+						if(is_array($s) || is_object($s)){
+							$_navigation[$v] = json_encode($s);
 						}
-						
-						foreach($_navigation as $v => $s){
-							if(is_array($s) || is_object($s)){
-								$_navigation[$v] = json_encode($s);
-							}
-						}
-						
-						$rh = $_navigation['handle'];
-						$rt = $_navigation['type'];
-						if(!empty($exist)){ //create new navigation, get the ID
-							if($update_navigation){ //overwrite navigation if exists
-								unset($_navigation['handle']);
-								$upd = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation, array('handle' => $rh, 'type' => $rt));
-								
-								$insert_id = $this->get_val($exist, 'id', $wpdb->insert_id);
-							}else{
-								//insert with new handle
-								$_navigation['handle'] = $_navigation['handle'].'-'.date('is');
-								$_navigation['name'] = $_navigation['name'].'-'.date('is');
-								//for prior to version 6.0 sliders, the next line needs to stay
-								$this->slider_raw_data	= str_replace($rh.'"', $_navigation['handle'].'"', $this->slider_raw_data);
-								//for prior to version 6.0 sliders end
-								$_navigation['css'] = str_replace('.'.$rh, '.'.$_navigation['handle'], $_navigation['css']); //change css class to the correct new class
-								$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation);
-								$insert_id = $wpdb->insert_id;
-							}
+					}
+
+					$rh = $_navigation['handle'];
+					$rt = $_navigation['type'];
+					if(!empty($exist)){ //create new navigation, get the ID
+						if($update_navigation){ //overwrite navigation if exists
+							unset($_navigation['handle']);
+							$upd = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation, array('handle' => $rh, 'type' => $rt));
+
+							$insert_id = $this->get_val($exist, 'id', $wpdb->insert_id);
 						}else{
+							//insert with new handle
+							$_navigation['handle'] = $_navigation['handle'].'-'.date('is');
+							$_navigation['name'] = $_navigation['name'].'-'.date('is');
+							//for prior to version 6.0 sliders, the next line needs to stay
+							$this->slider_raw_data	= str_replace($rh.'"', $_navigation['handle'].'"', $this->slider_raw_data);
+							//for prior to version 6.0 sliders end
+							$_navigation['css'] = str_replace('.'.$rh, '.'.$_navigation['handle'], $_navigation['css']); //change css class to the correct new class
 							$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation);
 							$insert_id = $wpdb->insert_id;
 						}
-						
-						if($old_nav_id !== false){
-							$this->navigation_map[$old_nav_id] = $insert_id;
-						}
+					}else{
+						$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation);
+						$insert_id = $wpdb->insert_id;
+					}
+
+					if($old_nav_id !== false){
+						$this->navigation_map[$old_nav_id] = $insert_id;
 					}
 				}
 			}
@@ -485,6 +483,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		if(empty($this->slider_data)){ //pre 6.0 Slider
 			$this->slider_raw_data	= preg_replace_callback('!s:(\d+):"(.*?)";!', array('RevSliderSliderImport', 'clear_error_in_string') , $this->slider_raw_data); //clear errors in string
 			$this->slider_data		= $this->rs_unserialize($this->slider_raw_data);
+			if(is_object($this->slider_data) && get_class($this->slider_data) === "__PHP_Incomplete_Class") $this->slider_data = '';
 			$this->process_slider_raw_data_pre_6();
 		}else{
 			$this->process_slider_raw_data_post_6();
@@ -1868,7 +1867,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 * @return mixed
 	 */
 	public function rs_unserialize($string){
-		return @unserialize($string);
+		return @unserialize($string, array('allowed_classes' => false));
 	}
 
 	/**

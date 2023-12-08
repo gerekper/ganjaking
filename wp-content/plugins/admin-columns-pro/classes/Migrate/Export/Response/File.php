@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ACP\Migrate\Export\Response;
 
 use AC\ListScreenCollection;
+use ACP\ListScreenPreferences;
 use ACP\Migrate\Export\Response;
 use ACP\Migrate\MessageTrait;
-use ACP\Search\SegmentCollection;
 use ACP\Storage\EncoderFactory;
 use ACP\Storage\Serializer\JsonSerializer;
 
@@ -22,22 +22,19 @@ final class File implements Response
 
     private $json_serializer;
 
+    private $segment_collection;
+
     public function __construct(
         ListScreenCollection $list_screens,
-        SegmentCollection $segment_collection,
         EncoderFactory $encoder_factory,
         JsonSerializer $json_serializer
     ) {
         $this->list_screens = $list_screens;
         $this->encoder_factory = $encoder_factory;
         $this->json_serializer = $json_serializer;
-        $this->segment_collection = $segment_collection;
     }
 
-    /**
-     * @return void
-     */
-    public function send()
+    public function send(): void
     {
         if ( ! $this->list_screens->count()) {
             $this->set_message(__('No screens selected for export.', 'codepress-admin-columns'));
@@ -45,25 +42,14 @@ final class File implements Response
             return;
         }
 
-        $segments = [];
-
-        foreach ($this->segment_collection as $segment) {
-            $segments[(string)$segment->get_list_screen_id()][] = $segment;
-        }
-
         $output = [];
 
         foreach ($this->list_screens as $list_screen) {
-            $encoder = $this->encoder_factory->create();
-            $encoder->set_list_screen($list_screen);
-
-            if (array_key_exists($list_screen->get_id()->get_id(), $segments)) {
-                $encoder->set_segments(
-                    new SegmentCollection($segments[(string)$list_screen->get_id()])
-                );
-            }
-
-            $output[] = $encoder->encode();
+            $output[] = $this->encoder_factory->create()
+                                              ->set_list_screen($list_screen)
+                                              ->set_segments(
+                                                  $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS)
+                                              )->encode();
         }
 
         $headers = [
@@ -80,7 +66,7 @@ final class File implements Response
         exit;
     }
 
-    private function get_file_name()
+    private function get_file_name(): string
     {
         return sprintf(
             '%s-%s.%s',

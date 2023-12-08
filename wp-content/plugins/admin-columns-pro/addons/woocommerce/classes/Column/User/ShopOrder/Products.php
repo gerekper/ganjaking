@@ -29,20 +29,17 @@ class Products extends AC\Column
         $this->add_setting(new Settings\User\Products($this));
     }
 
-    /**
-     * @param int $id
-     *
-     * @return int
-     */
     public function get_raw_value($id)
     {
+        $products = $this->get_products((int)$id);
+
         if ($this->is_uniquely_purchased()) {
-            return count($this->get_products($id));
+            return count($products);
         }
 
         $count = 0;
 
-        foreach ($this->get_products($id) as $product) {
+        foreach ($products as $product) {
             $count += $product->qty;
         }
 
@@ -54,7 +51,7 @@ class Products extends AC\Column
      *
      * @return stdClass[] [ $product_id, $order_id, $qty ]
      */
-    private function get_products($id)
+    private function get_products(int $id): array
     {
         global $wpdb;
 
@@ -63,10 +60,10 @@ class Products extends AC\Column
             'select' => '
 				SELECT DISTINCT oim.meta_value AS product_id',
             'from'   => "
-				FROM {$wpdb->postmeta} AS pm",
+				FROM $wpdb->postmeta AS pm",
             'joins'  => [
                 "
-				INNER JOIN {$wpdb->posts} AS p 
+				INNER JOIN $wpdb->posts AS p 
 					ON p.ID = pm.post_id 
 					AND p.post_status = 'wc-completed'",
                 "
@@ -104,12 +101,7 @@ class Products extends AC\Column
         return $results;
     }
 
-    /**
-     * @param array $parts
-     *
-     * @return string
-     */
-    private function built_sql($parts)
+    private function built_sql(array $parts): string
     {
         $sql = '';
 
@@ -124,10 +116,7 @@ class Products extends AC\Column
         return $sql;
     }
 
-    /**
-     * @return bool
-     */
-    private function is_uniquely_purchased()
+    private function is_uniquely_purchased(): bool
     {
         $setting = $this->get_setting(Settings\User\Products::NAME);
 

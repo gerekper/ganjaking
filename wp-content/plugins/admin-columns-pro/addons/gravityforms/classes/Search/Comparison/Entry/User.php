@@ -2,37 +2,33 @@
 
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
-use AC;
 use ACA\GravityForms\Search\Query\Bindings;
 use ACP;
+use ACP\Search\Operators;
+use ACP\Search\UserValuesTrait;
 use ACP\Search\Value;
 
-class User extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues {
+class User extends ACP\Search\Comparison
+    implements ACP\Search\Comparison\SearchableValues
+{
 
-	public function __construct() {
-		$operators = new ACP\Search\Operators( [
-			ACP\Search\Operators::EQ,
-			ACP\Search\Operators::CURRENT_USER,
-		] );
+    use UserValuesTrait;
 
-		parent::__construct( $operators, ACP\Search\Value::STRING );
-	}
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::CURRENT_USER,
+        ]);
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		$comparison = ACP\Search\Helper\Sql\ComparisonFactory::create( 'created_by', $operator, $value );
+        parent::__construct($operators, Value::STRING);
+    }
 
-		return ( new Bindings )->where( $comparison() );
-	}
+    protected function create_query_bindings(string $operator, Value $value): ACP\Query\Bindings
+    {
+        $comparison = ACP\Search\Helper\Sql\ComparisonFactory::create('created_by', $operator, $value);
 
-	public function get_values( $search, $paged ) {
-		$entities = new ACP\Helper\Select\Entities\User( compact( 'search', 'paged' ) );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Group\UserRole(
-				new ACP\Helper\Select\Formatter\UserName( $entities )
-			)
-		);
-	}
+        return (new Bindings())->where($comparison());
+    }
 
 }

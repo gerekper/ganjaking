@@ -10,8 +10,10 @@ use AC\Message\Notice;
 use AC\Request;
 use AC\Storage\ListScreenOrder;
 use AC\Type\ListScreenId;
+use ACP\ListScreenPreferences;
 use ACP\Nonce;
 use ACP\RequestHandler;
+use ACP\Search\SegmentCollection;
 
 class ListScreenCreate implements RequestHandler
 {
@@ -78,13 +80,17 @@ class ListScreenCreate implements RequestHandler
             if ($clone_list_screen) {
                 $settings['columns'] = $clone_list_screen->get_settings();
                 $settings['preferences'] = $clone_list_screen->get_preferences();
+                $settings['preferences'][ListScreenPreferences::SHARED_SEGMENTS] = new SegmentCollection([]);
             }
         }
 
         $list_screen = $this->list_screen_factory->create($list_key, $settings);
 
         $this->storage->save($list_screen);
-        $this->order->add($list_screen->get_key(), $list_screen->get_layout_id());
+
+        if ($list_screen->has_id()) {
+            $this->order->add($list_screen->get_key(), (string)$list_screen->get_id());
+        }
 
         wp_redirect((string)$list_screen->get_editor_url());
         exit;

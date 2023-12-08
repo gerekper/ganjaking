@@ -2,24 +2,16 @@
 
 namespace ACP\Filtering\Model\Comment;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search;
 
-class ReplyTo extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class ReplyTo extends Search\Comparison\Comment\ReplyTo {
 
-	public function get_filtering_vars( $vars ) {
-		$vars['parent'] = $this->get_filter_value();
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		$data = [];
-
-		foreach ( $this->strategy->get_values_by_db_field( 'comment_parent' ) as $_value ) {
-			$data['options'][ $_value ] = get_comment_author( $_value ) . ' (' . $_value . ')';
-		}
-
-		return $data;
+	public function __construct( Column $column ) {
+		parent::__construct();
 	}
 
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Pricing table</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-413, -60)">
+            <g id="pricing-table" transform="translate(413, 60)">
+                <rect id="Rectangle" fill="#ECECEC" x="0" y="0" width="32" height="32" rx="3"></rect>
+                <rect id="Rectangle" fill="#4CAD6C" x="8" y="18" width="16" height="5" rx="2.5"></rect>
+                <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" x="12.5" y="25.5" width="7" height="1"></rect>
+                <path d="M17.0666667,5.9 L18.8666667,5.9 L18.8666667,7.7 L15.2666667,7.7 L15.2666667,8.6 L17.9666667,8.6 C18.4637229,8.6 18.8666667,9.00294373 18.8666667,9.5 L18.8666667,12.2 C18.8666667,12.6970563 18.4637229,13.1 17.9666667,13.1 L17.0666667,13.1 L17.0666667,14 L15.2666667,14 L15.2666667,13.1 L13.4666667,13.1 L13.4666667,11.3 L17.0666667,11.3 L17.0666667,10.4 L14.3666667,10.4 C13.8696104,10.4 13.4666667,9.99705627 13.4666667,9.5 L13.4666667,6.8 C13.4666667,6.30294373 13.8696104,5.9 14.3666667,5.9 L15.2666667,5.9 L15.2666667,5 L17.0666667,5 L17.0666667,5.9 Z" id="Path" fill="#979797" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

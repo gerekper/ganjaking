@@ -2,21 +2,12 @@
 
 namespace ACP\Search\Query\Bindings;
 
-class Media extends Post
+use ACP;
+
+/**
+ * @depecated 6.4
+ */
+class Media extends ACP\Query\Bindings\Media
 {
-
-    protected $mime_types = [];
-
-    public function get_mime_types(): array
-    {
-        return $this->mime_types;
-    }
-
-    public function mime_types(array $mime_types): self
-    {
-        $this->mime_types = $mime_types;
-
-        return $this;
-    }
 
 }

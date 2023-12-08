@@ -20,18 +20,19 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Register local post type
 	 * (This is used in Normal mode)
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public static function register_local_post_type() {
-
 	}
 
 	/**
 	 * Shortcode tc_epo_show
 	 * (Used for echoing a custom action)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @param mixed        $content Shortcode content.
+	 * @return mixed
 	 * @since 4.8
 	 */
 	public static function tc_epo_show( $atts, $content = null ) {
@@ -53,11 +54,11 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Shortcode tc_epo_action
 	 * (Used for echoing a custom action)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @return string
 	 * @since 4.8
 	 */
-	public static function tc_epo_action( $atts, $content = null ) {
+	public static function tc_epo_action( $atts ) {
 		$vars                                       = shortcode_atts(
 			[
 				'action' => '',
@@ -75,8 +76,9 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Shortcode tc_epo
 	 * (Used for echoing options)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @param mixed        $content Shortcode content.
+	 * @return mixed
 	 * @since 4.8
 	 */
 	public static function tc_epo( $atts, $content = null ) {
@@ -105,8 +107,9 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Shortcode tc_current_epo
 	 * (Used for echoing options)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @param mixed        $content Shortcode content.
+	 * @return mixed
 	 * @since 4.8
 	 */
 	public static function tc_current_epo( $atts, $content = null ) {
@@ -136,8 +139,9 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Shortcode tc_current_epo_totals
 	 * (Used for echoing options totals)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @param mixed        $content Shortcode content.
+	 * @return mixed
 	 * @since 4.8
 	 */
 	public static function tc_current_epo_totals( $atts, $content = null ) {
@@ -166,8 +170,9 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * Shortcode tc_epo_totals
 	 * (Used for echoing options totals)
 	 *
-	 * @param array $atts Shortcode settings.
-	 * @param mixed $content Shortcode content.
+	 * @param array<mixed> $atts Shortcode settings.
+	 * @param mixed        $content Shortcode content.
+	 * @return mixed
 	 * @since 4.8
 	 */
 	public static function tc_epo_totals( $atts, $content = null ) {
@@ -195,17 +200,15 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	/**
 	 * Add shortcodes
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public static function add() {
-
 		add_shortcode( 'tc_epo_show', __CLASS__ . '::tc_epo_show' );
 		add_shortcode( 'tc_epo_action', __CLASS__ . '::tc_epo_action' );
 		add_shortcode( 'tc_epo', __CLASS__ . '::tc_epo' );
 		add_shortcode( 'tc_current_epo', __CLASS__ . '::tc_current_epo' );
 		add_shortcode( 'tc_current_epo_totals', __CLASS__ . '::tc_current_epo_totals' );
 		add_shortcode( 'tc_epo_totals', __CLASS__ . '::tc_epo_totals' );
-
 	}
-
 }

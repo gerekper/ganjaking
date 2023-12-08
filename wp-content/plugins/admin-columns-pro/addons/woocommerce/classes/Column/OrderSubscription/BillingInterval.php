@@ -36,7 +36,6 @@ class BillingInterval extends AC\Column implements ACP\Search\Searchable, ACP\So
     {
         return new ACP\Search\Comparison\Meta\Select(
             '_billing_interval',
-            'order_subscription',
             wcs_get_subscription_period_interval_strings()
         );
     }

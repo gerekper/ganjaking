@@ -52,7 +52,7 @@
         <custom-field action="copy">tmcp_type</custom-field>
         <custom-field action="ignore">tm_meta</custom-field>
         <custom-field action="copy">tm_meta_cpf</custom-field>
-        <custom-field action="copy">tm_meta_disable_categories</custom-field>
+        <custom-field action="copy">tm_meta_apply_mode</custom-field>
         <custom-field action="ignore">tm_meta_lang</custom-field>
         <custom-field action="ignore">tm_meta_parent_post_id</custom-field>
         <custom-field action="ignore">tm_meta_product_ids</custom-field>

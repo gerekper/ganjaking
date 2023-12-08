@@ -30,7 +30,7 @@ class TwitterDescription extends AC\Column\Meta
 	}
 
 	public function search() {
-		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), AC\MetaType::POST );
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 	public function sorting() {

@@ -1,4 +1,4 @@
-<table class="ac-table-items -purchased">
+<table class="ac-table-items -clean -purchased">
 	<thead>
 	<tr>
 		<th class="col-product"><?= __('Product', 'codepress-admin-columns') ?></th>

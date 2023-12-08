@@ -8,107 +8,99 @@ use ACA\WC\Settings;
 use ACA\WC\Sorting;
 use ACP;
 
-/**
- * @since 3.0
- */
-class OrderDate extends AC\Column\Meta
-	implements ACP\Export\Exportable, ACP\Sorting\Sortable, ACP\Filtering\Filterable, ACP\Search\Searchable {
+class OrderDate extends AC\Column
+    implements ACP\Export\Exportable, ACP\Sorting\Sortable, ACP\Search\Searchable,
+               ACP\Filtering\FilterableDateSetting
+{
 
-	/**
-	 * @var ShopOrder\OrderDate
-	 */
-	private $field;
+    /**
+     * @var ShopOrder\OrderDate|null
+     */
+    private $field;
 
-	public function __construct() {
-		$this->set_label( 'Date' )
-		     ->set_type( 'column-wc-order_date' )
-		     ->set_group( 'woocommerce' );
-	}
+    public function __construct()
+    {
+        $this->set_label('Date')
+             ->set_type('column-wc-order_date')
+             ->set_group('woocommerce');
+    }
 
-	public function register_settings() {
-		$this->add_setting( new Settings\ShopOrder\OrderDate( $this ) );
-	}
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\ShopOrder\OrderDate($this));
+        $this->add_setting(new ACP\Filtering\Settings\Date($this, ['future_past']));
+    }
 
-	public function get_meta_key() {
-		if ( ! $this->get_field() ) {
-			return false;
-		}
+    public function export()
+    {
+        $field = $this->get_field();
 
-		return $this->get_field()->get_meta_key();
-	}
+        if ($field instanceof ACP\Export\Exportable) {
+            return $field->export();
+        }
 
-	public function export() {
-		$field = $this->get_field();
+        return false;
+    }
 
-		if ( $field instanceof ACP\Export\Exportable ) {
-			return $field->export();
-		}
+    public function sorting()
+    {
+        $field = $this->get_field();
 
-		return false;
-	}
+        if ($field instanceof ACP\Sorting\Sortable) {
+            return $field->sorting();
+        }
 
-	public function sorting() {
-		$field = $this->get_field();
+        return null;
+    }
 
-		if ( $field instanceof ACP\Sorting\Sortable ) {
-			return $field->sorting();
-		}
+    public function get_filtering_date_setting(): ?string
+    {
+        return $this->options['filter_format'] ?? null;
+    }
 
-		return new ACP\Sorting\Model\Disabled();
-	}
+    public function search()
+    {
+        $field = $this->get_field();
 
-	public function filtering() {
-		$field = $this->get_field();
+        if ($field instanceof ACP\Search\Searchable) {
+            return $field->search();
+        }
 
-		if ( $field instanceof ACP\Filtering\Filterable ) {
-			return $field->filtering();
-		}
+        return false;
+    }
 
-		return new ACP\Filtering\Model\Disabled( $this );
-	}
+    private function set_field()
+    {
+        $type = $this->get_setting('date_type')->get_value();
 
-	public function search() {
-		$field = $this->get_field();
+        foreach ($this->get_fields() as $field) {
+            if ($field->get_key() === $type) {
+                $this->field = $field;
+                break;
+            }
+        }
+    }
 
-		if ( $field instanceof ACP\Search\Searchable ) {
-			return $field->search();
-		}
+    public function get_field(): ?ShopOrder\OrderDate
+    {
+        if (null === $this->field) {
+            $this->set_field();
+        }
 
-		return false;
-	}
+        return $this->field;
+    }
 
-	private function set_field() {
-		$type = $this->get_setting( 'date_type' )->get_value();
-
-		foreach ( $this->get_fields() as $field ) {
-			/** @var ShopOrder\OrderDate $field */
-			if ( $field->get_key() === $type ) {
-				$this->field = $field;
-			}
-		}
-	}
-
-	/**
-	 * @return ShopOrder\OrderDate|false
-	 */
-	public function get_field() {
-		if ( null === $this->field ) {
-			$this->set_field();
-		}
-
-		return $this->field;
-	}
-
-	/**
-	 * @return OrderDate[]
-	 */
-	public function get_fields() {
-		return [
-			new ShopOrder\OrderDate\Completed( $this ),
-			new ShopOrder\OrderDate\Created( $this ),
-			new ShopOrder\OrderDate\Modified( $this ),
-			new ShopOrder\OrderDate\Paid( $this ),
-		];
-	}
+    /**
+     * @return ShopOrder\OrderDate[]
+     */
+    public function get_fields(): array
+    {
+        return [
+            new ShopOrder\OrderDate\Completed($this),
+            new ShopOrder\OrderDate\Created($this),
+            new ShopOrder\OrderDate\Modified($this),
+            new ShopOrder\OrderDate\Paid($this),
+        ];
+    }
 
 }

@@ -15,14 +15,14 @@ use AC\ListScreenPost;
 use AC\ListScreenRepository\Sort\ManualOrder;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
-use AC\Type\ListScreenId;
 use AC\Type\Url;
 use AC\View;
 use ACP\Admin\ScriptFactory\SettingsFactory;
 use ACP\ListScreen\Comment;
 use ACP\ListScreen\Media;
 use ACP\ListScreen\User;
-use ACP\Search\SegmentRepository;
+use ACP\ListScreenPreferences;
+use ACP\ListScreenRepository\Preset;
 use ACP\Search\TableScreenFactory;
 use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
@@ -37,16 +37,16 @@ class Settings implements Registerable
 
     private $location;
 
-    private $bookmark_repository;
+    private $preset_repository;
 
     public function __construct(
         Storage $storage,
         Location\Absolute $location,
-        SegmentRepository $bookmark_repository
+        Preset $preset_repository
     ) {
         $this->storage = $storage;
         $this->location = $location;
-        $this->bookmark_repository = $bookmark_repository;
+        $this->preset_repository = $preset_repository;
     }
 
     public function register(): void
@@ -71,17 +71,25 @@ class Settings implements Registerable
             return;
         }
 
+        $current_list_id = $current_list_screen->has_id()
+            ? (string)$current_list_screen->get_id()
+            : '';
+
         ob_start();
-        foreach ($list_screens as $list_screen) :?>
-			<li data-screen="<?= esc_attr($list_screen->get_layout_id()) ?>">
+        foreach ($list_screens as $list_screen) :
+            $list_id = $list_screen->has_id()
+                ? (string)$list_screen->get_id()
+                : '';
+            ?>
+			<li data-screen="<?= esc_attr($list_id) ?>">
                 <?php
 
-                $class = $list_screen->get_layout_id() === $current_list_screen->get_layout_id()
+                $class = $list_id === $current_list_id
                     ? 'current'
                     : '';
 
                 $url = $current_list_screen->get_editor_url();
-                $url = $url->with_arg('layout_id', $list_screen->get_layout_id());
+                $url = $url->with_arg('layout_id', $list_id);
 
                 ?>
 				<a class="<?= $class ?>" href="<?= esc_url((string)$url) ?>">
@@ -128,18 +136,9 @@ class Settings implements Registerable
         echo $view->render();
     }
 
-    public function render_sidebar(ListScreen $current_list_screen): void
+    public function render_sidebar(): void
     {
-        $list_screens = $this->get_list_screens($current_list_screen->get_key());
-
-        $sidebar = new View([
-            'list_screen'  => $current_list_screen,
-            'list_screens' => $list_screens,
-        ]);
-
-        $sidebar->set_template('admin/list-screens-sidebar');
-
-        echo $sidebar->render();
+        echo '<div data-component="acp-layouts"></div>';
     }
 
     public function admin_scripts($page): void
@@ -166,7 +165,9 @@ class Settings implements Registerable
         $factory = new SettingsFactory(
             $this->location,
             $this->get_hide_on_screen_collection($list_screen),
-            $list_screen
+            $list_screen,
+            $this->storage,
+            $this->preset_repository
         );
 
         $factory
@@ -204,7 +205,7 @@ class Settings implements Registerable
             'location' => $this->location,
         ]);
 
-        $content->set_template('admin/tooltip/preferred-bookmark');
+        $content->set_template('admin/tooltip/preferred-segment');
 
         return new Tooltip('preferred_bookmark', [
             'content'    => $content,
@@ -226,6 +227,22 @@ class Settings implements Registerable
             'content'    => $content,
             'link_label' => $this->get_tooltip_link_label(),
             'title'      => __('Primary Column', 'codepress-admin-columns'),
+            'position'   => 'right_bottom',
+        ]);
+    }
+
+    private function tooltip_wrapping(): Tooltip
+    {
+        $content = new View([
+            'location' => $this->location,
+        ]);
+
+        $content->set_template('admin/tooltip/wrapping');
+
+        return new Tooltip('wrapping', [
+            'content'    => $content,
+            'link_label' => $this->get_tooltip_link_label(),
+            'title'      => __('Wrapping', 'codepress-admin-columns'),
             'position'   => 'right_bottom',
         ]);
     }
@@ -256,9 +273,7 @@ class Settings implements Registerable
             'select_users'           => $this->select_users($users, $list_screen->is_read_only()),
             'tooltip_hs'             => $this->tooltip_horizontal_scrolling(),
             'tooltip_filters'        => $this->tooltip_filters(),
-            'segments'               => $list_screen->has_id() ? $this->get_segments_for_list_screen_id(
-                $list_screen->get_id()
-            ) : [],
+            'segments'               => $this->get_segments_for_list_screen_id($list_screen),
             'can_horizontal_scroll'  => true,
             'can_sort'               => $list_screen instanceof Sorting\ListScreen,
             'can_bookmark'           => $this->can_bookmark($list_screen),
@@ -266,6 +281,8 @@ class Settings implements Registerable
             'primary_column'         => $list_screen->get_preference('primary_column') ?: '',
             'primary_columns'        => $this->get_primary_column_options($list_screen),
             'tooltip_primary_column' => $this->tooltip_primary_column(),
+            'wrapping'               => $list_screen->get_preference('wrapping') ?: 'wrap',
+            'wrapping_tooltip'       => $this->tooltip_wrapping(),
         ]);
 
         $view->set_template('admin/list-screen-settings');
@@ -273,11 +290,10 @@ class Settings implements Registerable
         echo $view->render();
     }
 
-    private function get_segments_for_list_screen_id(ListScreenId $list_screen_id): array
+    private function get_segments_for_list_screen_id(ListScreen $list_screen): array
     {
         $result = [];
-
-        $segments = $this->bookmark_repository->find_all($list_screen_id);
+        $segments = $list_screen->get_preference(ListScreenPreferences::SHARED_SEGMENTS) ?? [];
 
         foreach ($segments as $segment) {
             $result[(string)$segment->get_key()] = $segment->get_name();
@@ -432,7 +448,7 @@ class Settings implements Registerable
                 return [];
             }
 
-            $options[$column->get_name()] = trim(strip_tags($column->get_custom_label()));
+            $options[$column->get_name()] = trim(strip_tags($column->get_custom_label())) ?: $column->get_label();
         }
 
         return ['' => __('Default', 'codepress-admin-columns')] + $options;

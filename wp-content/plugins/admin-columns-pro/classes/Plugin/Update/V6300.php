@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ACP\Plugin\Update;
 
 use AC\ListScreenRepository\Storage;
+use AC\ListScreenRepositoryWritable;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
@@ -77,11 +78,13 @@ final class V6300 extends Update
 
         // Update all list screens to reflect keys now instead of a local primary key
         foreach ($this->storage->get_repositories() as $repository) {
-            if ( ! $repository->is_writable()) {
+            $list_screen_repository = $repository->get_list_screen_repository();
+
+            if ( ! $list_screen_repository instanceof ListScreenRepositoryWritable || ! $repository->is_writable()) {
                 continue;
             }
 
-            foreach ($repository->find_all() as $list_screen) {
+            foreach ($list_screen_repository->find_all() as $list_screen) {
                 $preferences = $list_screen->get_preferences();
 
                 if ( ! isset($preferences['filter_segment'], $mapping[$preferences['filter_segment']])) {
@@ -92,7 +95,7 @@ final class V6300 extends Update
 
                 $list_screen->set_preferences($preferences);
 
-                $repository->save($list_screen);
+                $list_screen_repository->save($list_screen);
             }
         }
     }

@@ -32,12 +32,35 @@ class Customer extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_customer_id() : false;
+        return $order
+            ? $order->get_customer_id()
+            : false;
     }
 
     public function search()
     {
-        return new Search\Order\Customer();
+        switch ($this->get_display_property()) {
+            case AC\Settings\Column\User::PROPERTY_FIRST_NAME:
+                return new Search\Order\Customer\UserMeta('first_name');
+            case AC\Settings\Column\User::PROPERTY_LAST_NAME:
+                return new Search\Order\Customer\UserMeta('last_name');
+            case AC\Settings\Column\User::PROPERTY_NICKNAME :
+                return new Search\Order\Customer\UserMeta('nickname');
+
+            case AC\Settings\Column\User::PROPERTY_NICENAME :
+            case AC\Settings\Column\User::PROPERTY_LOGIN :
+            case AC\Settings\Column\User::PROPERTY_URL :
+            case AC\Settings\Column\User::PROPERTY_EMAIL :
+            case AC\Settings\Column\User::PROPERTY_DISPLAY_NAME :
+                return new Search\Order\Customer\UserField($this->get_display_property());
+
+            case AC\Settings\Column\User::PROPERTY_ID :
+                return new Search\Order\Customer\UserId();
+            case AC\Settings\Column\User::PROPERTY_FULL_NAME :
+
+            default:
+                return null;
+        }
     }
 
     public function export()

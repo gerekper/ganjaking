@@ -414,7 +414,7 @@
 						if ( $a.isNumeric() && $b.isNumeric() ) {
 							return floatval( $a ) !== floatval( $b ) ? 1 : 0;
 						}
-						return 0 === strcmp( $a, $b ) ? 1 : 0;
+						return 0 !== strcmp( $a, $b ) ? 1 : 0;
 					},
 					140,
 					false
@@ -666,10 +666,10 @@
 								tableNum = 0;
 							}
 							if ( Array.isArray( field ) ) {
-								x = field[ 0 ];
-								y = field[ 1 ];
+								x = String( field[ 0 ] );
+								y = String( field[ 1 ] );
 							} else {
-								x = field;
+								x = String( field );
 								y = '';
 							}
 
@@ -680,7 +680,7 @@
 									table = table.data;
 									xColumn = table[ x ];
 									if ( xColumn === undefined && x && x !== undefined ) {
-										if ( floatval( x ) === 0 ) {
+										if ( x.isNumeric() && floatval( x ) === 0 ) {
 											xColumn = table[ Object.keys( table )[ 0 ] ];
 										} else if ( x ) {
 											x = $this.find_lookup_table_index( x, table );
@@ -721,38 +721,49 @@
 		find_lookup_table_index: function( value, table ) {
 			var r;
 			var keys = Object.keys( table );
-			value = floatval( value );
+			var hasNumericValuesOrMaxLast = function( arr ) {
+				var lastElement = arr[ arr.length - 1 ];
+				var areAllNumericValues = arr.every( function( val ) {
+					return String( val ).isNumeric();
+				} );
+				return areAllNumericValues || lastElement === 'max';
+			};
 
-			r = keys.map( function( n ) {
-				return n === 'max' ? n : floatval( n );
-			} ).reduce( function( a, b ) {
-				if ( b === 'max' && value > a ) {
-					return b;
-				}
-				if ( a === 'max' && value > b ) {
-					return a;
-				}
-				if ( a < b ) {
-					if ( value > a && value <= b ) {
+			if ( hasNumericValuesOrMaxLast( keys ) ) {
+				value = String( value ).isNumeric() ? floatval( value ) : value;
+				r = keys.map( function( n ) {
+					return String( n ).isNumeric() ? floatval( n ) : n;
+				} ).reduce( function( a, b ) {
+					if ( b === 'max' && value > a ) {
 						return b;
 					}
-				} else {
-					if ( ( value > b && value <= a ) || ( value > a || b === 'max' ) ) {
+					if ( a === 'max' && value > b ) {
 						return a;
 					}
-					return b;
-				}
-				if ( value > b ) {
-					return b;
-				}
-				return a;
-			} );
-			keys = keys.map( function( n ) {
-				return n === 'max' ? n : floatval( n );
-			} );
+					if ( a < b ) {
+						if ( value > a && value <= b ) {
+							return b;
+						}
+					} else {
+						if ( ( value > b && value <= a ) || ( value > a || b === 'max' ) ) {
+							return a;
+						}
+						return b;
+					}
+					if ( value > b ) {
+						return b;
+					}
+					return a;
+				} );
+				keys = keys.map( function( n ) {
+					return String( n ).isNumeric() ? floatval( n ) : n;
+				} );
 
-			if ( value > Math.max( ...keys ) || value < Math.min( ...keys ) ) {
-				return false;
+				if ( value > Math.max( ...keys ) || value < Math.min( ...keys ) ) {
+					return false;
+				}
+			} else {
+				r = value;
 			}
 
 			return r;

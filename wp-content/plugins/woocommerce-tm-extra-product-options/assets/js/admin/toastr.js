@@ -9,7 +9,7 @@
  * ARIA Support: Greta Krafsig
  *
  * Project: https://github.com/CodeSeven/toastr
- * reformatted code by themeComplete
+ * reformatted code by ThemeComplete
  */
 /* global define */
 ( function( define ) {

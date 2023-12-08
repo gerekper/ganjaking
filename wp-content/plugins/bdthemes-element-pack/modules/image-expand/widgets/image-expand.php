@@ -1341,7 +1341,7 @@ class Image_Expand extends Module_Base {
 		<?php
 	}
 
-	public function render_expand_content($item) {
+	public function render_expand_content($item, $title_key, $button_key) {
 		$settings = $this->get_settings_for_display();
 
 		$text_hide_on_setup = '';
@@ -1362,7 +1362,14 @@ class Image_Expand extends Module_Base {
 
 		$this->add_render_attribute('bdt-ep-image-expand-title', 'class', 'bdt-ep-image-expand-title', true);
 
-	?>
+		if(!empty($item['title_link']['url'])) {
+			$this->add_link_attributes($title_key, $item['title_link']);
+		}
+		if (!empty($item['button_link']['url'])) {
+			$this->add_link_attributes($button_key, $item['button_link']);
+		}
+
+		?>
 		<div class="bdt-ep-image-expand-content">
 			<?php if ($item['image_expand_sub_title'] && ('yes' == $settings['show_sub_title'])) : ?>
 				<div class="bdt-ep-image-expand-sub-title">
@@ -1373,7 +1380,7 @@ class Image_Expand extends Module_Base {
 			<?php if ($item['image_expand_title'] && ('yes' == $settings['show_title'])) : ?>
 				<<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->get_render_attribute_string('bdt-ep-image-expand-title'); ?>>
 					<?php if ('' !== $item['title_link']['url']) : ?>
-						<a href="<?php echo esc_url($item['title_link']['url']); ?>">
+						<a <?php echo $this->get_render_attribute_string($title_key); ?>>
 						<?php endif; ?>
 						<?php echo wp_kses($item['image_expand_title'], element_pack_allow_tags('title')); ?>
 						<?php if ('' !== $item['title_link']['url']) : ?>
@@ -1391,13 +1398,7 @@ class Image_Expand extends Module_Base {
 			<?php if ($item['image_expand_button'] && ('yes' == $settings['show_button'])) : ?>
 				<div class="bdt-ep-image-expand-button">
 					<?php if ('' !== $item['button_link']['url']) : ?>
-						<a href="<?php
-									if ($item['button_link']['url'] == '#') {
-										echo 'javascript:void(0);';
-									} else {
-										echo esc_url($item['button_link']['url']);
-									}
-									?>">
+						<a <?php echo $this->get_render_attribute_string($button_key); ?>>
 						<?php endif; ?>
 						<?php echo wp_kses_post($item['image_expand_button']); ?>
 						<?php if ('' !== $item['button_link']['url']) : ?>
@@ -1501,7 +1502,9 @@ class Image_Expand extends Module_Base {
 	?>
 
 		<div <?php echo ($this->get_render_attribute_string('image-expand')); ?>>
-			<?php foreach ($settings['image_expand_items'] as $index => $item) :
+			<?php foreach ($settings['image_expand_items'] as $index => $item) : 
+				$title_key = 'title_link_' . $index;
+				$button_key = 'button_link_' . $index;
 
 				$slide_image = Group_Control_Image_Size::get_attachment_image_src($item['slide_image']['id'], 'thumbnail_size', $settings);
 				if (!$slide_image) {
@@ -1517,12 +1520,12 @@ class Image_Expand extends Module_Base {
 				<?php if ($settings['skin_type'] !== 'sliding-box') : ?>
 					<div <?php echo $this->get_render_attribute_string('image-expand-item'); ?> style="background-image: url('<?php echo esc_url($slide_image); ?>');">
 						<?php $this->render_lightbox($item); ?>
-						<?php $this->render_expand_content($item); ?>
+						<?php $this->render_expand_content($item, $title_key, $button_key); ?>
 					</div>
 				<?php else : ?>
 					<div <?php echo ($this->get_render_attribute_string('image-expand-item')); ?>>
 						<?php $this->render_image($item); ?>
-						<?php $this->render_expand_content($item); ?>
+						<?php $this->render_expand_content($item, $title_key, $button_key); ?>
 					</div>
 				<?php endif; ?>
 

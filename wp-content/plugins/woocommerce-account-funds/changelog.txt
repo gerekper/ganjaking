@@ -1,5 +1,17 @@
 *** WooCommerce Account Funds ***
 
+2023-11-30 - version 3.0.0
+* Feature - Use funds as a payment method on orders manually created.
+* Tweak - Declared incompatibility with the WooCommerce Cart and Checkout blocks.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.3.
+* Tweak - Tested compatibility up to WP 6.4.
+* Dev - Dropped `woo-includes/` files.
+* Dev - Dropped deprecated code from versions 2.x.
+* Dev - Dropped deprecated filter hook `woocommerce_account_funds_get_settings`.
+* Dev - Updated the minimum requirements to WC 4.0, WP 5.0, and PHP 7.0.
+
 2023-04-12 - version 2.9.1
 * Tweak - Display the "Refund via Account Funds" button for orders paid with a different payment gateway only on WC 6.8+.
 
@@ -232,14 +244,14 @@
 * Fix - Fixed 'text domain' for some translatable strings.
 
 2018-09-25 - version 2.1.12
-* Tweak  - Hide Account Funds payment gateway when there are not enough funds.
+* Tweak - Hide Account Funds payment gateway when there are not enough funds.
 * Update - WC 3.5 compatibility.
 
 2018-05-23 - version 2.1.11
 * Update - Privacy policy notification.
 * Update - Export/erasure hooks added.
 * Update - WC 3.4 compatibility.
-* Tweak  - Add filters for add/remove funds, `woocommerce_account_funds_add_funds` and `woocommerce_account_funds_remove_funds` respectively.
+* Tweak - Add filters for add/remove funds, `woocommerce_account_funds_add_funds` and `woocommerce_account_funds_remove_funds` respectively.
 
 2018-01-30 - version 2.1.10
 * Fix - Order page edits affect order total.
@@ -290,20 +302,20 @@
 * Fix - Stripe Partial account funds not applied on the gateway side.
 
 2016-07-15 - version 2.0.15
-* Fix - Revert applied tax to top-up product that's added in 2.0.14
-* Tweak - Provide filter `woocommerce_account_funds_topup_get_tax_status` to change the tax status of top-up product
+* Fix - Revert applied tax to top-up product that's added in 2.0.14.
+* Tweak - Provide filter `woocommerce_account_funds_topup_get_tax_status` to change the tax status of top-up product.
 
 2016-07-05 - version 2.0.14
-* Fix - Double navigation displayed under Account Funds of My Account page
+* Fix - Double navigation displayed under Account Funds of My Account page.
 * Fix - Tax was not respected when adding the funds via top-up.
 
 2016-06-09 - version 2.0.13
 * Fix - Partial payments with Sage Pay Form now sending correct amount.
 
 2016-05-31 - version 2.0.12
-* Tweak - New UI in my account, with menu and breadcrumb, when WooCommerce 2.6 is being used
-* Fix - Issue where calculation for partial payments with multiple quantities was incorrect
-* Fix - Issue where topup funds were not getting added into user funds
+* Tweak - New UI in my account, with menu and breadcrumb, when WooCommerce 2.6 is being used.
+* Fix - Issue where calculation for partial payments with multiple quantities was incorrect.
+* Fix - Issue where topup funds were not getting added into user funds.
 
 2016-03-07 - version 2.0.11
 * Fix - Account funds not applied to PayPal Standard items.

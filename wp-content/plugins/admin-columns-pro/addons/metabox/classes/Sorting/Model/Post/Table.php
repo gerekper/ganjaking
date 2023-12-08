@@ -3,13 +3,12 @@
 namespace ACA\MetaBox\Sorting\Model\Post;
 
 use ACA\MetaBox\Sorting\TableOrderByFactory;
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class Table extends AbstractModel implements QueryBindings
+class Table implements QueryBindings
 {
 
     private $table_name;
@@ -20,8 +19,6 @@ class Table extends AbstractModel implements QueryBindings
 
     public function __construct(string $table_name, string $meta_key, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->table_name = $table_name;
         $this->meta_key = $meta_key;
         $this->data_type = $data_type;

@@ -1987,6 +1987,8 @@ $(window).on('elementor/frontend/init', function () {
             readMore: readMore,
             per_page: settings.ajax_item_load,
             offset: currentItemCount,
+            paged: settings.paged,
+            nonce: settings.nonce,
           };
           jQuery.ajax({
             url: window.ElementPackConfig.ajaxurl,
@@ -1995,6 +1997,10 @@ $(window).on('elementor/frontend/init', function () {
             success: function (response) {
               $(grid).append(response.markup);
               currentItemCount += settings.ajax_item_load;
+
+              // if(settings.paged === "yes") {
+                settings.paged += 1;
+              // }
               loading = false;
               if (settingsLoadmore === "yes") {
                 loadButton.html("Load More");
@@ -2086,6 +2092,10 @@ $(window).on('elementor/frontend/init', function () {
                 if (!$container.length) {
                     return;
                 }
+
+                //initial breking issue fixed
+                $container.find('.megamenu-header-mobile').removeAttr('style');
+                $container.removeClass('initialized');
 
                var dropMenu =  $($container).find('.ep-megamenu-vertical-dropdown');
 
@@ -6694,26 +6704,21 @@ var widgetVideoAccordion = function ($scope, $) {
                 // start video stop
                 var stopVideos = function () {
                     var videos = document.querySelectorAll($settings.id + ' .bdt-interactive-tabs-iframe');
-                    //console.log(videos);
                     Array.prototype.forEach.call(videos, function (video) {
                         var src = video.src;
-                        // video.src = src.replace("?autoplay=1", "");
-                        // video.src = src.replace("autoplay=1", "");
                         video.src = src;
                     });
                 };
                 // end video stop
 
-                $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
+                // $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
+                $tabs.find('.bdt-interactive-tabs-item:first').addClass('bdt-active');
+                console.log(swiper.realIndex);
                 swiper.on('slideChange', function () {
                     $tabs.find('.bdt-interactive-tabs-item').removeClass('bdt-active');
                     $tabs.find('.bdt-interactive-tabs-item').eq(swiper.realIndex).addClass('bdt-active');
-                    //console.log('changed today'); 
-
 
                     stopVideos();
-
-
 
                 });
 
@@ -6723,13 +6728,8 @@ var widgetVideoAccordion = function ($scope, $) {
                     swiper.slideTo(slideno + 1);
                 });
             };
-
-
     };
-
-  
-
-
+    
     jQuery(window).on('elementor/frontend/init', function() {
         elementorFrontend.hooks.addAction('frontend/element_ready/bdt-interactive-tabs.default', widgetInteractiveTabs);
     });
@@ -10054,9 +10054,12 @@ jQuery(window).on('elementor/frontend/init', function() {
           reading_seconds = Math.floor(
             (wordCount % averageReadingSpeed) / (averageReadingSpeed / 60)
           ),
-          minText = this.settings("minute_text") ? this.settings("minute_text") : "min read",
-          secText = this.settings("seconds_text") ? this.settings("seconds_text") : "sec read";
-
+          minText = this.settings("minute_text")
+            ? this.settings("minute_text")
+            : "min read",
+          secText = this.settings("seconds_text")
+            ? this.settings("seconds_text")
+            : "sec read";
 
         if (wordCount >= averageReadingSpeed) {
           return `${readingTime} ${minText}`;
@@ -10069,20 +10072,20 @@ jQuery(window).on('elementor/frontend/init', function() {
         const widgetID = this.$element.data("id"),
           widgetContainer = `.elementor-element-${widgetID} .bdt-reading-timer`,
           contentSelector = this.settings("content_id");
-        let  minText = this.settings("minute_text") ? this.settings("minute_text") : "min read";
+        let minText = this.settings("minute_text")
+          ? this.settings("minute_text")
+          : "min read";
 
-          var editMode = Boolean(elementorFrontend.isEditMode());
-          if (editMode) {
-            $(widgetContainer).append('2 '+minText+'');
-            return;
-          }
+        var editMode = Boolean(elementorFrontend.isEditMode());
+        if (editMode) {
+          $(widgetContainer).append("2 " + minText + "");
+          return;
+        }
         if (contentSelector) {
           ReadingContent = $(document).find(`#${contentSelector}`).text();
           var readTime = this.calculateReadingTime(ReadingContent);
           $(widgetContainer).append(readTime);
-        }
-        else return;
-
+        } else return;
       },
     });
 
@@ -10156,6 +10159,98 @@ jQuery(window).on('elementor/frontend/init', function() {
 
         elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope) {
             elementorFrontend.elementsHandler.addHandler(RevealFX, {
+                $element: $scope
+            });
+        });
+    });
+
+}(jQuery, window.elementorFrontend));
+(function ($, elementor) {
+    'use strict';
+    $(window).on('elementor/frontend/init', function () {
+        var ModuleHandler = elementorModules.frontend.handlers.Base,
+            RippleEffects;
+
+        RippleEffects = ModuleHandler.extend({
+            bindEvents: function () {
+                this.run();
+            },
+            getDefaultSettings: function () {
+                return {
+                    // debug: true,
+                    multi: true,
+                };
+            },
+            onElementChange: debounce(function (prop) {
+                if (prop.indexOf('ep_ripple_') !== -1) {
+                    this.run();
+                }
+            }, 400),
+            settings: function (key) {
+                return this.getElementSettings('ep_ripple_' + key);
+            },
+            run: function () {
+                if (this.settings('enable') !== 'yes') {
+                    return;
+                }
+
+                var $element = this.$element,
+                    options = this.getDefaultSettings(),
+                    $widgetId = 'ep-' + this.getID(),
+                    $widgetClassSelect = '.elementor-element-' + this.getID(),
+                    $selector = '';
+
+                if (this.settings('selector') === 'widgets') {
+                    $selector = $widgetClassSelect + ' .elementor-widget-container';
+                }
+                if (this.settings('selector') === 'images') {
+                    $selector = $widgetClassSelect + ' img';
+                }
+                if (this.settings('selector') === 'buttons') {
+                    $selector = $widgetClassSelect + ' a';
+                }
+                if (this.settings('selector') === 'both') {
+                    $selector = $widgetClassSelect + ' a,' + $widgetClassSelect + ' img';
+                }
+                if (this.settings('selector') === 'custom' && this.settings('custom_selector')) {
+                    $selector = $widgetClassSelect + ' ' + this.settings('custom_selector');
+                }
+
+                if ('' === $selector ) {
+                    return;
+                }
+
+                $(document).on('click', '[href="#"]', function (e) { e.preventDefault(); });
+                if (this.settings('on')) {
+                    options.on = this.settings('on');
+                }
+                if (this.settings('easing')) {
+                    options.easing = this.settings('easing');
+                }
+                if (this.settings('duration.size')) {
+                    options.duration = this.settings('duration.size');
+                }
+                if (this.settings('opacity.size')) {
+                    options.opacity = this.settings('opacity.size');
+                }
+                if (this.settings('color')) {
+                    options.color = this.settings('color');
+                }
+
+                document.querySelectorAll($selector).forEach(function (el) {
+                    if ('IMG' == el.tagName) {
+                        var $image = $(el);
+                        $image.wrap('<div id="bdt-ripple-effect-img-wrapper-' + $widgetId + '"></div>');
+                        window.rippler = $.ripple('#bdt-ripple-effect-img-wrapper-' + $widgetId, options);
+                    } else {
+                        window.rippler = $.ripple($selector, options);
+                    }
+                });
+            }
+        });
+
+        elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope) {
+            elementorFrontend.elementsHandler.addHandler(RippleEffects, {
                 $element: $scope
             });
         });
@@ -13596,6 +13691,7 @@ $(window).on('elementor/frontend/init', function () {
             per_page: settings.ajax_item_load,
             offset: currentItemCount,
             nonce: settings.nonce,
+            paged: settings.paged,
           };
 
           $.ajax({
@@ -13605,6 +13701,7 @@ $(window).on('elementor/frontend/init', function () {
             success: (response) => {
               $(products).append(response.markup);
               currentItemCount += settings.ajax_item_load;
+              settings.paged += 1;
               loading = false;
 
               if (settingsLoadmore === "yes") {

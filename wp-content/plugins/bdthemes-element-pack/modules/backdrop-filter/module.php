@@ -23,7 +23,7 @@ class Module extends Element_Pack_Module_Base {
         $widget->add_control(
             'element_pack_backdrop_filter',
             [
-                'label'         => BDTEP_CP . esc_html__('Backdrop Filter', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'         => BDTEP_CP . esc_html__('Backdrop Filter', 'bdthemes-element-pack'),
                 'type'          => Controls_Manager::POPOVER_TOGGLE,
                 'return_value'  => 'yes',
                 'separator'    => 'before',

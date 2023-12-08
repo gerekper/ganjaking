@@ -3,7 +3,7 @@
  * Extra Product Options API class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,14 +12,14 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options API class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_API_Base {
 
 	/**
 	 * Cache for the has_options method
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $cpf = [];
 
@@ -35,6 +35,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
 	 * @since 1.0
+	 * @return THEMECOMPLETE_EPO_API_Base
 	 * @static
 	 */
 	public static function instance() {
@@ -56,17 +57,17 @@ final class THEMECOMPLETE_EPO_API_Base {
 	/**
 	 * Checks if the product with id=$product_id has options
 	 *
-	 * @param integer $product_id The product id.
+	 * @param mixed $product_id The product id.
 	 *
-	 * @return array|bool
+	 * @return array<mixed>|boolean
 	 */
 	public function has_options( $product_id = 0 ) {
-
-		$post_id = get_the_ID();
-
-		if ( $product_id && $product_id !== $post_id ) {
+		if ( $product_id && 0 !== $product_id && is_numeric( $product_id ) ) {
 			$post_id = $product_id;
+		} else {
+			$post_id = get_the_ID();
 		}
+
 		if ( ! empty( $this->cpf[ $post_id ] ) ) {
 			return $this->cpf[ $post_id ];
 		}
@@ -105,18 +106,17 @@ final class THEMECOMPLETE_EPO_API_Base {
 		$this->cpf[ $post_id ] = $has_epo;
 
 		return $has_epo;
-
 	}
 
 	/**
 	 * Checks if the array for has_options has options
 	 *
-	 * @param mixed $array Options array.
+	 * @param mixed $epos Options array.
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
-	public function is_valid_options( $array = false ) {
-		if ( false !== $array && is_array( $array ) && ( isset( $array['global'] ) || isset( $array['local'] ) ) ) {
+	public function is_valid_options( $epos = false ) {
+		if ( false !== $epos && is_array( $epos ) && ( isset( $epos['global'] ) || isset( $epos['local'] ) ) ) {
 			return true;
 		}
 
@@ -126,12 +126,12 @@ final class THEMECOMPLETE_EPO_API_Base {
 	/**
 	 * Checks if the array for has_options has options or visible styled variations
 	 *
-	 * @param mixed $array Options array.
+	 * @param mixed $epos Options array.
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
-	public function is_valid_options_or_variations( $array = false ) {
-		if ( false !== $array && is_array( $array ) && ( isset( $array['global'] ) || isset( $array['local'] ) || ( ! empty( $array['variations'] ) && empty( $array['variations_disabled'] ) ) ) ) {
+	public function is_valid_options_or_variations( $epos = false ) {
+		if ( false !== $epos && is_array( $epos ) && ( isset( $epos['global'] ) || isset( $epos['local'] ) || ( ! empty( $epos['variations'] ) && empty( $epos['variations_disabled'] ) ) ) ) {
 			return true;
 		}
 
@@ -143,7 +143,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 	 *
 	 * @param integer $order_id The Order id.
 	 *
-	 * @return array|bool|mixed
+	 * @return array|boolean|mixed
 	 */
 	public function get_all_options( $order_id ) {
 
@@ -151,19 +151,29 @@ final class THEMECOMPLETE_EPO_API_Base {
 	}
 
 	/**
-	 * Undocumented function
+	 * This is mainly used for the WP all Export plugin as a custom function
 	 *
-	 * @param array  $epos The saved epo data taken from an order.
-	 * @param string $option_id  The option unique id or 'all'.
-	 * @param array  $return How the data should be returned.
-	 * @param string $mt_prefix The order currency.
+	 * @param array<mixed> $epos The saved epo data taken from an order.
+	 * @param string       $option_id  The option unique id or 'all'.
+	 * @param string       $output_format How the data should be returned.
+	 * @param string       $mt_prefix The order currency.
+	 * @param integer      $product_id The product if associated with the saved $epos if known.
+	 * @return array<mixed>
 	 */
-	public function get_epos( $epos = [], $option_id = 'all', $return = 'array', $mt_prefix = '' ) {
-
+	public function get_epos( $epos = [], $option_id = 'all', $output_format = 'array', $mt_prefix = '', $product_id = 0 ) {
 		$all_epos = [];
 		$epos     = themecomplete_maybe_unserialize( $epos );
 
 		$wpml_translation_by_id = []; // no translation possible at this function.
+
+		if ( ! empty( $product_id ) ) {
+			$current_product_id  = $product_id;
+			$original_product_id = intval( THEMECOMPLETE_EPO_WPML()->get_original_id( $current_product_id, 'product' ) );
+			if ( THEMECOMPLETE_EPO_WPML()->get_lang() === THEMECOMPLETE_EPO_WPML()->get_default_lang() && $original_product_id !== $current_product_id ) {
+				$current_product_id = $original_product_id;
+			}
+			$wpml_translation_by_id = THEMECOMPLETE_EPO_WPML()->get_wpml_translation_by_id( $current_product_id );
+		}
 
 		if ( $epos && is_array( $epos ) ) {
 
@@ -220,9 +230,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 
 							$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
 
-							if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
+							if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
 
-								$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+								$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 
 							}
 						}
@@ -259,13 +269,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 					$epo_value = make_clickable( $display_value );
 					if ( 'textarea' === $epo['element']['type'] ) {
 						$epo_value = trim( $epo_value );
-
 						$epo_value = str_replace( [ "\r\n", "\r" ], "\n", $epo_value );
-
 						$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-						$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
+						$epo_value = array_map( 'strval', array_map( 'wc_clean', explode( "\n", $epo_value ) ) );
 						$epo_value = implode( "\n", $epo_value );
 					}
 					$epo_edit_value    = true;
@@ -280,37 +286,27 @@ final class THEMECOMPLETE_EPO_API_Base {
 			}
 		}
 
-		if ( 'json' === $return ) {
+		if ( 'json' === $output_format ) {
 			$all_epos = wp_json_encode( $all_epos );
-		} elseif ( 'implode' === $return ) {
-			$all_epos = implode( ', ', $all_epos );
-		} elseif ( 'implode_space' === $return ) {
-			$all_epos = implode( ' ', $all_epos );
-		} elseif ( 'implode_multi' === $return ) {
-			$all_epos = implode(
-				', ',
-				array_map(
-					function ( $entry ) {
-						return ( $entry[ key( $entry ) ] );
-					},
-					$all_epos
-				)
-			);
+		} elseif ( 'implode' === $output_format ) {
+			$all_epos = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $all_epos, ', ', ':' );
+		} elseif ( 'implode_space' === $output_format ) {
+			$all_epos = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $all_epos, ' ', ':' );
 		}
 
 		return $all_epos;
-
 	}
 
 	/**
 	 * Undocumented function
 	 *
-	 * @param array  $item The order item.
-	 * @param array  $item_meta The item meta.
-	 * @param string $option_id  The option unique id or 'all'.
-	 * @param mixed  $_product The product object.
-	 * @param string $mt_prefix The order currency.
-	 * @param array  $wpml_translation_by_id The translated options values.
+	 * @param mixed        $item The order item.
+	 * @param array<mixed> $item_meta The item meta.
+	 * @param string       $option_id  The option unique id or 'all'.
+	 * @param mixed        $_product The product object.
+	 * @param string       $mt_prefix The order currency.
+	 * @param array<mixed> $wpml_translation_by_id The translated options values.
+	 * @return array<mixed>
 	 */
 	public function get_epos_data( $item = [], $item_meta = [], $option_id = 'all', $_product = false, $mt_prefix = '', $wpml_translation_by_id = [] ) {
 
@@ -318,7 +314,6 @@ final class THEMECOMPLETE_EPO_API_Base {
 		$epos     = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 
 		if ( $epos && is_array( $epos ) ) {
-
 			foreach ( $epos as $key => $epo ) {
 				if ( $epo && is_array( $epo ) ) {
 					if ( $epo['section'] !== $option_id && 'all' !== $option_id ) {
@@ -372,9 +367,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 
 							$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
 
-							if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
+							if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
 
-								$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+								$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 
 							}
 						}
@@ -411,13 +406,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 					$epo_value = make_clickable( $display_value );
 					if ( 'textarea' === $epo['element']['type'] ) {
 						$epo_value = trim( $epo_value );
-
 						$epo_value = str_replace( [ "\r\n", "\r" ], "\n", $epo_value );
-
 						$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-						$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
+						$epo_value = array_map( 'strval', array_map( 'wc_clean', explode( "\n", $epo_value ) ) );
 						$epo_value = implode( "\n", $epo_value );
 					}
 					$epo_quantity         = ( $epo['quantity'] * (float) $item_meta['_qty'][0] ) . ' <small>(' . $epo['quantity'] . '&times;' . (float) $item_meta['_qty'][0] . ')</small>';
@@ -436,24 +427,23 @@ final class THEMECOMPLETE_EPO_API_Base {
 		}
 
 		return $all_epos;
-
 	}
 
 	/**
-	 * Returns a saved option (this must be used after the 'woocommerce_init' hook)
+	 * Returns a saved option.
+	 * (this must be used after the 'woocommerce_init' hook)
 	 *
 	 * @param integer $order_id The Order id.
 	 * @param string  $option_id The option unique id or 'all'.
-	 * @param string  $return The type of data to return..
-	 * @return array|bool|mixed
+	 * @param string  $return_type The type of data to return.
+	 * @return array|boolean|mixed
 	 */
-	public function get_option( $order_id, $option_id = '', $return = 'array' ) {
-
+	public function get_option( $order_id, $option_id = '', $return_type = 'array' ) {
 		$order = wc_get_order( $order_id );
-		if ( ! $order ) {
+		if ( is_bool( $order ) ) {
 			return false;
 		}
-		$order_currency = is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency();
+		$order_currency = $order->get_currency();
 		$mt_prefix      = $order_currency;
 
 		$line_items = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
@@ -462,7 +452,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 		foreach ( $line_items as $item_id => $item ) {
 
 			$_product    = themecomplete_get_product_from_item( $item, $order );
-			$item_meta   = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
+			$item_meta   = themecomplete_get_order_item_meta( $item_id, '', false );
 			$order_taxes = $order->get_taxes();
 
 			$check_box_html = ( version_compare( WC()->version, '2.6', '>=' ) ) ? '' : '<td class="check-column">&nbsp;</td>';
@@ -479,7 +469,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 			$wpml_translation_by_id = [];
 			if ( $has_epo || $has_fee ) {
 				$current_product_id  = $item['product_id'];
-				$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $current_product_id, 'product' ) );
+				$original_product_id = intval( THEMECOMPLETE_EPO_WPML()->get_original_id( $current_product_id, 'product' ) );
 				if ( THEMECOMPLETE_EPO_WPML()->get_lang() === THEMECOMPLETE_EPO_WPML()->get_default_lang() && $original_product_id !== $current_product_id ) {
 					$current_product_id = $original_product_id;
 				}
@@ -515,8 +505,8 @@ final class THEMECOMPLETE_EPO_API_Base {
 								$pos = strrpos( $epo['key'], '_' );
 								if ( false !== $pos ) {
 									$av = array_values( $wpml_translation_by_id[ 'options_' . $epo['section'] ] );
-									if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
-										$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+									if ( isset( $av[ (int) substr( $epo['key'], $pos + 1 ) ] ) ) {
+										$epo['value'] = $av[ (int) substr( $epo['key'], $pos + 1 ) ];
 										if ( ! empty( $epo['use_images'] ) && ! empty( $epo['images'] ) && 'images' === $epo['use_images'] ) {
 											$epo['value'] = '<div class="cpf-img-on-cart"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' . apply_filters( 'tm_image_url', $epo['images'] ) . '" /></div>' . $epo['value'];
 										}
@@ -543,9 +533,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 			}
 		}
 
-		if ( 'json' === $return ) {
+		if ( 'json' === $return_type ) {
 			$all_epos = wp_json_encode( $all_epos );
-		} elseif ( 'array_multi' === $return ) {
+		} elseif ( 'array_multi' === $return_type ) {
 			$all_epos = array_map(
 				function ( $entry ) {
 					return ( $entry[ key( $entry ) ] );
@@ -555,7 +545,5 @@ final class THEMECOMPLETE_EPO_API_Base {
 		}
 
 		return $all_epos;
-
 	}
-
 }

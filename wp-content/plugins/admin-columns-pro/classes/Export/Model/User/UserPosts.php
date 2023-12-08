@@ -1,22 +1,27 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace ACP\Export\Model\User;
 
 use ACP;
 
-class UserPosts implements ACP\Export\Service {
+class UserPosts implements ACP\Export\Service
+{
 
-	private $column;
+    private $post_types;
 
-	public function __construct( ACP\Column\User\UserPosts $column ) {
-		$this->column = $column;
-	}
+    private $post_stati;
 
-	public function get_value( $id ) {
-		$ids = $this->column->get_raw_value( $id );
+    public function __construct(array $post_types, array $post_stati)
+    {
+        $this->post_types = $post_types;
+        $this->post_stati = $post_stati;
+    }
 
-		return (string) count( $ids );
-	}
+    public function get_value($id)
+    {
+        return ac_helper()->post->count_user_posts((int)$id, $this->post_types, $this->post_stati);
+    }
 
 }

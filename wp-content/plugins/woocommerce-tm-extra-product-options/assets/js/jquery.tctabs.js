@@ -36,7 +36,7 @@
 
 		set: function( options ) {
 			this.options = $.extend( {}, this.options, options );
-			this.init();
+			this.init( true );
 		},
 
 		addHeaderEvents: function( t, index, tc, header, theaderswrap, theaders, scrollLeftButton, scrollRightButton, state ) {
@@ -615,7 +615,7 @@
 			}
 		},
 
-		init: function() {
+		init: function( nobackup ) {
 			var ithis = this;
 			this.elements.each( function( index ) {
 				var t = $( this );
@@ -623,7 +623,7 @@
 				var state = {};
 				var backup = t.html();
 
-				if ( ithis.backup[ index ] ) {
+				if ( ! nobackup && ithis.backup[ index ] ) {
 					t.html( ithis.backup[ index ] );
 				} else {
 					ithis.backup[ index ] = backup;

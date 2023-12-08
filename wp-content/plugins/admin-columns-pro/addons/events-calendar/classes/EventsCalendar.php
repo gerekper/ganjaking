@@ -35,6 +35,7 @@ final class EventsCalendar implements Registerable
             new Service\ListScreens(),
             new Service\Scripts($this->location),
             new Service\TableScreen($this->location),
+            new Service\Presets($this->location),
             new IntegrationStatus('ac-addon-events-calendar'),
         ]);
     }

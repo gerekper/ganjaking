@@ -979,20 +979,15 @@ class Iconnav extends Module_Base {
 
 	}
 
-	public function render_loop_iconnav_list($list) {
+	public function render_loop_iconnav_list($list, $element_key) {
 		$settings      = $this->get_settings_for_display();
 		
 		$scroll_active = (preg_match("/(#\s*([a-z]+)\s*)/", $list['iconnav_link']['url'])) ? 'bdt-scroll' : '';
 
-		$this->add_render_attribute( 'iconnav-item-link', 'class', 'bdt-icon-nav-icon-wrapper bdt-flex-middle bdt-flex-center', true );
-		$this->add_render_attribute( 'iconnav-item-link', 'href', $list['iconnav_link']['url'], true );
-		
-		if ( $list['iconnav_link']['is_external'] ) {
-			$this->add_render_attribute( 'iconnav-item-link', 'target', '_blank', true );
-		}
+		$this->add_render_attribute( $element_key, 'class', 'bdt-icon-nav-icon-wrapper bdt-flex-middle bdt-flex-center', true );
 
-		if ( $list['iconnav_link']['nofollow'] ) {
-			$this->add_render_attribute( 'iconnav-item-link', 'rel', 'nofollow', true );
+		if (!empty($list['iconnav_link']['url'])) {
+			$this->add_link_attributes( $element_key, $list['iconnav_link'] );
 		}
 
 		$this->add_render_attribute( 'iconnav-item', 'class', 'bdt-icon-nav-item' );
@@ -1013,7 +1008,7 @@ class Iconnav extends Module_Base {
 			}
 			$this->add_render_attribute( 'iconnav-item', 'data-tippy-placement', 'left', true );
 		} else {
-			$this->add_render_attribute( 'iconnav-item-link', 'title', $list["iconnav_title"], true );
+			$this->add_render_attribute( $element_key, 'title', $list["iconnav_title"], true );
 		}
 
 		if ( ! isset( $settings['icon'] ) && ! Icons_Manager::is_migration_allowed() ) {
@@ -1026,7 +1021,7 @@ class Iconnav extends Module_Base {
 
 		?>
 	    <li <?php echo $this->get_render_attribute_string( 'iconnav-item' ); ?>>
-			<a <?php echo $this->get_render_attribute_string( 'iconnav-item-link' ); ?> <?php echo esc_url($scroll_active); ?>>
+			<a <?php echo $this->get_render_attribute_string( $element_key ); ?> <?php echo esc_url($scroll_active); ?>>
 
 				<?php if ($list['iconnav_icon']['value']) : ?>
 					<span class="bdt-icon-nav-icon">
@@ -1092,7 +1087,7 @@ class Iconnav extends Module_Base {
 
 					<?php
 					foreach ($settings['iconnavs'] as $key => $nav) : 
-						$this->render_loop_iconnav_list($nav);
+						$this->render_loop_iconnav_list($nav, 'link_to_'.$key);
 					endforeach;
 					?>
 				</ul>
@@ -1171,109 +1166,4 @@ class Iconnav extends Module_Base {
 		<?php
 	}
 
-	protected function content_template_delete() {
-		$id = $this->get_id();
-		?>
-
-		<#
-		view.addRenderAttribute( 'icon-nav', 'class', 'bdt-icon-nav' );
-		view.addRenderAttribute( 'nav-container', 'class', ['bdt-icon-nav-container', 'bdt-icon-nav-' + settings.iconnav_position] );
-
-		var iconHTML = {},
-			migrated = {};
-		
-		#>
-		<div <# print(view.getRenderAttributeString( 'icon-nav')); #>>
-			<div <# print(view.getRenderAttributeString( 'nav-container')); #>>
-				<div class="bdt-icon-nav-branding">
-					<# if ( settings.show_branding) { #>
-						<# if ( settings.branding_image.url ) { #>
-							<div class="bdt-logo-image"><img src="{{{settings.branding_image.url}}}"></div>
-						<# } else { #>
-							<#
-								var letters = 'EP';
-							#>
-							<div><div class="bdt-logo-txt">
-								<a href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">{{{letters}}}</a></div></div>
-						<# } #>
-					<# } #>
-
-				</div>
-				<ul class="bdt-icon-nav bdt-icon-nav-vertical">
-					<# if ( 0 != settings.navbar ) { #>
-						<li>
-							<a class="bdt-icon-nav-icon-wrapper" href="#" data-bdt-toggle="target: #bdt-offcanvas<?php echo esc_attr($id); ?>">
-								<span class="bdt-icon-nav-icon">
-									<i class="ep-icon-menu"></i>
-								</span>
-							</a>
-						</li>
-					<# } #>
-
-					<# _.each( settings.iconnavs, function( item, index ) { 
-
-					view.addRenderAttribute( 'iconnav-item-link', 'class', 'bdt-icon-nav-icon-wrapper bdt-flex-middle bdt-flex-center', true );
-					view.addRenderAttribute( 'iconnav-item-link', 'href', item.iconnav_link.url, true );
-					
-					if ( item.iconnav_link.is_external ) {
-						view.addRenderAttribute( 'iconnav-item-link', 'target', '_blank', true );
-					}
-
-					if ( item.iconnav_link.nofollow ) {
-						view.addRenderAttribute( 'iconnav-item-link', 'rel', 'nofollow', true );
-					}
-
-					view.addRenderAttribute( 'iconnav-item', 'class', 'bdt-icon-nav-item' );
-
-					if ( 'show_as_tooltip' == settings.menu_text ) {
-						view.addRenderAttribute( 'iconnav-item', 'class', 'bdt-tippy-tooltip', true );
-						view.addRenderAttribute( 'iconnav-item', 'data-tippy', '', true );
-						view.addRenderAttribute( 'iconnav-item', 'title', item.iconnav_title, true );
-
-						if (settings.tooltip_animation) {
-							view.addRenderAttribute( 'iconnav-item', 'data-tippy-animation', settings.tooltip_animation, true );
-						}
-						if (settings.tooltip_size) {
-							view.addRenderAttribute( 'iconnav-item', 'data-tippy-size', settings.tooltip_size, true );
-						}
-						if (settings.iconnav_tooltip_spacing.size) {
-							view.addRenderAttribute( 'iconnav-item', 'data-tippy-distance', settings.iconnav_tooltip_spacing.size, true );
-						}
-						view.addRenderAttribute( 'iconnav-item', 'data-tippy-placement', 'left', true );
-					} else {
-						view.addRenderAttribute( 'iconnav-item-link', 'title', item.iconnav_title, true );
-					}		
-
-					iconHTML[ index ] = elementor.helpers.renderIcon( view, item.iconnav_icon, { 'aria-hidden': true }, 'i' , 'object' );
-
-					migrated[ index ] = elementor.helpers.isIconMigrated( item, 'iconnav_icon' );
-
-					#>
-				    <li <# print(view.getRenderAttributeString( 'iconnav-item' )); #>>
-						<a <# print(view.getRenderAttributeString( 'iconnav-item-link' )); #>>
-							<# if (item.iconnav_icon.value) { #>
-								<span class="bdt-icon-nav-icon">
-									
-									<# if ( iconHTML[ index ] && iconHTML[ index ].rendered && ( ! item.icon || migrated[ index ] ) ) { #>
-										{{{ iconHTML[ index ].value }}}
-									<# } else { #>
-										<i class="{{ item.icon }}" aria-hidden="true"></i>
-									<# } #>
-
-								</span>
-							<# } #>
-							
-							<# if ('show_under_icon' == settings.menu_text) { #>
-								<span class="bdt-menu-text bdt-display-block bdt-text-small">{{{item.iconnav_title}}}</span>
-							<# } #>
-						</a>
-					</li>
-				<# }); #>
-
-				</ul>
-			</div>
-		</div>
-
-	   <?php
-	}
 }

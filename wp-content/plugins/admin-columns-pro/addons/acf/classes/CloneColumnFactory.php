@@ -4,7 +4,7 @@ namespace ACA\ACF;
 
 class CloneColumnFactory {
 
-	const CLONE_PREFIX = 'acfclone__';
+	public const CLONE_PREFIX = 'acfclone__';
 
 	/**
 	 * @var ColumnFactory
@@ -15,12 +15,7 @@ class CloneColumnFactory {
 		$this->column_factory = $column_factory;
 	}
 
-	/**
-	 * @param array $settings
-	 *
-	 * @return Column|null
-	 */
-	public function create( array $settings ) {
+	public function create( array $settings ): ?Column {
 		$clone_setting = acf_get_field( $settings['__key'] );
 
 		if ( $clone_setting['type'] === 'group' ) {
@@ -42,14 +37,14 @@ class CloneColumnFactory {
 		return $this->create_prefixed_clone( $settings );
 	}
 
-	private function create_seamless_clone( array $clone_setting, $label ) {
+	private function create_seamless_clone( array $clone_setting, $label ): ?Column {
 		$clone_setting['key'] = $clone_setting['name'];
 		$clone_setting['label'] = $label;
 
 		return $this->column_factory->create( $clone_setting );
 	}
 
-	private function create_prefixed_clone( array $settings ) {
+	private function create_prefixed_clone( array $settings ): ?Column {
 		$settings['key'] = self::CLONE_PREFIX . $settings['key'];
 
 		foreach ( [ '_clone', '_name', '_valid', '__name', '__label', '__key' ] as $key ) {

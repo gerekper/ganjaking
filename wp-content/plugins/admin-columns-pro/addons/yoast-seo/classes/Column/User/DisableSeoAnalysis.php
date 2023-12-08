@@ -24,7 +24,7 @@ class DisableSeoAnalysis extends AC\Column\Meta
 	}
 
 	public function search() {
-		return new ACP\Search\Comparison\Meta\Checkmark( $this->get_meta_key(), $this->get_meta_type() );
+		return new ACP\Search\Comparison\Meta\Checkmark( $this->get_meta_key() );
 	}
 
 	public function editing() {

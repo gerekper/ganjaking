@@ -16,6 +16,10 @@
 					.on( 'priceChange.cpf', function( evt, sp, tp ) {
 						var v = tp;
 
+						if ( undefined === v && undefined !== window.fancyProductDesigner ) {
+							v = window.fancyProductDesigner.currentPrice;
+						}
+
 						if ( totalsHolder.data( 'fpdprice' ) === undefined ) {
 							totalsHolder.data( 'fpdprice', parseFloat( v ) );
 						} else {

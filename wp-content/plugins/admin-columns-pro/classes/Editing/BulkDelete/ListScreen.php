@@ -2,11 +2,9 @@
 
 namespace ACP\Editing\BulkDelete;
 
-interface ListScreen {
+interface ListScreen
+{
 
-	/**
-	 * @return Deletable
-	 */
-	public function deletable();
+    public function deletable(): Deletable;
 
 }

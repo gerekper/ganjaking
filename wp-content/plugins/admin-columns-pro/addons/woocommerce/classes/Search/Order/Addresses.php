@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ACA\WC\Search\Order;
 
 use ACA\WC\Type\AddressType;
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class Addresses extends Comparison
@@ -37,7 +37,7 @@ class Addresses extends Comparison
         $this->address_type = $address_type;
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 

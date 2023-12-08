@@ -3,7 +3,6 @@
 namespace ACA\WC\Column\ShopOrder;
 
 use AC;
-use ACA\WC\Filtering;
 use ACA\WC\Search;
 use ACA\WC\Sorting;
 use ACP;
@@ -11,8 +10,8 @@ use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
 use WC_Order_Item_Product;
 use WP_Term;
 
-abstract class ProductTaxonomy extends AC\Column implements ACP\Export\Exportable, ACP\Filtering\Filterable,
-                                                            ACP\Search\Searchable, ACP\ConditionalFormat\Formattable
+abstract class ProductTaxonomy extends AC\Column implements ACP\Export\Exportable, ACP\Search\Searchable,
+                                                            ACP\ConditionalFormat\Formattable
 {
 
     use FilteredHtmlFormatTrait;
@@ -65,9 +64,9 @@ abstract class ProductTaxonomy extends AC\Column implements ACP\Export\Exportabl
         return new ACP\Export\Model\StrippedValue($this);
     }
 
-    public function filtering()
+    public function search()
     {
-        return new Filtering\ShopOrder\ProductTaxonomy($this, $this->get_taxonomy());
+        return new Search\ShopOrder\ProductTaxonomy((string)$this->get_taxonomy());
     }
 
 }

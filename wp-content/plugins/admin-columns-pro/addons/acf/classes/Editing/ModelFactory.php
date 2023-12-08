@@ -96,7 +96,7 @@ class ModelFactory implements EditingModelFactory {
 				return new ACP\Editing\Service\Posts(
 					$this->view_factory->create( $field ),
 					$this->storage_factory->create( $column ),
-					new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ], [ 'tax_query' => $tax_query ] )
+					new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_types() : [ 'any' ], [ 'tax_query' => $tax_query ] )
 				);
 
 			case FieldType::TYPE_POST:
@@ -105,7 +105,7 @@ class ModelFactory implements EditingModelFactory {
 					? $this->get_related_tax_query( $field->get_taxonomies() )
 					: [];
 
-				$paginated = new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ], [ 'tax_query' => $tax_query ] );
+				$paginated = new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_types() : [ 'any' ], [ 'tax_query' => $tax_query ] );
 				$view = $this->view_factory->create( $field );
 				$storage = $this->storage_factory->create( $column );
 

@@ -3,6 +3,7 @@
 /* -------- WPMU DEV Dashboard Notice - Aaron Edwards (Incsub) ------- */
 /* This provides notices of available updates for our premium products */
 if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
+	return;
 	class WPMUDEV_Dashboard_Notice4 {
 		var $version        = '4.2.4';
 		var $screen_id      = false;

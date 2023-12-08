@@ -67,21 +67,6 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 	}
 
 	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $key Key name.
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( 'current_funds' === $key ) {
-			_doing_it_wrong( 'WC_Account_Funds_Email_Account_Funds_Increase->current_funds', 'This property is deprecated and will be removed in future versions.', '2.8.0' );
-			return $this->previous_funds;
-		}
-	}
-
-	/**
 	 * Gets the default email subject.
 	 *
 	 * @since 2.8.0

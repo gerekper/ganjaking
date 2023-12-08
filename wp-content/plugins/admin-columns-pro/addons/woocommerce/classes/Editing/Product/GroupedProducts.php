@@ -2,9 +2,10 @@
 
 namespace ACA\WC\Editing\Product;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA\WC\Editing\PostTrait;
 use ACA\WC\Editing\Storage;
-use ACA\WC\Helper\Select;
+use ACA\WC\Helper\Select\Product\PaginatedFactory;
 use ACP;
 use ACP\Editing\View;
 
@@ -17,8 +18,11 @@ class GroupedProducts implements ACP\Editing\Service, ACP\Editing\Service\Editab
 		return ( new ACP\Editing\View\AjaxSelect() )->set_multiple( true )->set_clear_button( true );
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		return new Select\Paginated\Products( (string) $s, (int) $paged );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			's'     => $search,
+			'paged' => $page,
+		] );
 	}
 
 	public function is_editable( int $id ): bool {

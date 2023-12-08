@@ -4,157 +4,137 @@ namespace ACA\WC\Column\ShopOrder;
 
 use AC;
 use ACA\WC\ConditionalFormat\Formatter\PriceFormatter;
-use ACA\WC\Filtering;
 use ACA\WC\Settings;
 use ACP;
 use ACP\ConditionalFormat\FormattableConfig;
 use WC_Order;
 
-/**
- * @since 3.0
- */
-class Totals extends AC\Column\Meta
-	implements ACP\Filtering\Filterable, ACP\Sorting\Sortable, ACP\Search\Searchable, ACP\ConditionalFormat\Formattable {
+class Totals extends AC\Column
+    implements ACP\Sorting\Sortable, ACP\Search\Searchable, ACP\ConditionalFormat\Formattable
+{
 
-	/**
-	 * @var WC_Order[]
-	 */
-	private $orders;
+    /**
+     * @var WC_Order[]
+     */
+    private $orders;
 
-	public function __construct() {
-		$this->set_type( 'column-wc-order_totals' )
-		     ->set_label( __( 'Totals', 'codepress-admin-columns' ) )
-		     ->set_group( 'woocommerce' );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-wc-order_totals')
+             ->set_label(__('Totals', 'codepress-admin-columns'))
+             ->set_group('woocommerce');
+    }
 
-	public function conditional_format(): ?FormattableConfig {
-		return new FormattableConfig( new PriceFormatter() );
-	}
+    public function conditional_format(): ?FormattableConfig
+    {
+        return new FormattableConfig(new PriceFormatter());
+    }
 
-	public function get_meta_key() {
-		switch ( $this->get_setting_total_property() ) {
-			case 'total' :
-				$key = '_order_total';
+    public function get_meta_key()
+    {
+        switch ($this->get_setting_total_property()) {
+            case 'total' :
+                return '_order_total';
+            case 'discount' :
+                return '_cart_discount';
+            case 'shipping' :
+                return '_order_shipping';
+            default:
+                return null;
+        }
+    }
 
-				break;
-			case 'discount' :
-				$key = '_cart_discount';
+    public function get_value($id)
+    {
+        $price = $this->get_raw_value($id);
 
-				break;
-			case 'shipping' :
-				$key = '_order_shipping';
+        if ( ! $price) {
+            return $this->get_empty_char();
+        }
 
-				break;
-			default:
-				$key = false;
-		}
+        return wc_price(
+            $this->get_raw_value($id),
+            [
+                'currency' => $this->get_order($id)->get_currency(),
+            ]
+        );
+    }
 
-		return $key;
-	}
+    public function get_raw_value($id)
+    {
+        switch ($this->get_setting_total_property()) {
+            case 'fees' :
+                return $this->get_order($id)->get_fees();
+            case 'subtotal' :
+                return $this->get_order($id)->get_subtotal();
+            case 'discount' :
+                return $this->get_order($id)->get_total_discount();
+            case 'refunded' :
+                return $this->get_order($id)->get_total_refunded();
+            case 'tax' :
+                return $this->get_order($id)->get_total_tax();
+            case 'shipping' :
+                return $this->get_order($id)->get_shipping_total();
+            case 'paid' :
+                if ($this->get_order($id)->is_paid()) {
+                    return $this->get_order($id)->get_total() - $this->get_order($id)->get_total_refunded();
+                }
 
-	public function get_value( $id ) {
-		$price = $this->get_raw_value( $id );
+                return 0;
+            default :
+                return $this->get_order($id)->get_total();
+        }
+    }
 
-		if ( ! $price ) {
-			return $this->get_empty_char();
-		}
+    /**
+     * @param int $id
+     *
+     * @return WC_Order
+     */
+    private function get_order($id)
+    {
+        if ( ! isset($this->orders[$id])) {
+            $this->orders[$id] = wc_get_order($id);
+        }
 
-		return wc_price( $this->get_raw_value( $id ), [ 'currency' => $this->get_order( $id )->get_currency() ] );
-	}
+        return $this->orders[$id];
+    }
 
-	public function get_raw_value( $id ) {
+    /**
+     * @return string|false
+     */
+    private function get_setting_total_property()
+    {
+        $setting = $this->get_setting('order_total_property');
 
-		switch ( $this->get_setting_total_property() ) {
-			case 'fees' :
-				$value = $this->get_order( $id )->get_fees();
+        if ( ! $setting instanceof Settings\ShopOrder\Totals) {
+            return false;
+        }
 
-				break;
-			case 'subtotal' :
-				$value = $this->get_order( $id )->get_subtotal();
+        return $setting->get_order_total_property();
+    }
 
-				break;
-			case 'discount' :
-				$value = $this->get_order( $id )->get_total_discount();
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\ShopOrder\Totals($this));
+    }
 
-				break;
-			case 'refunded' :
-				$value = $this->get_order( $id )->get_total_refunded();
+    public function search()
+    {
+        if ( ! $this->get_meta_key()) {
+            return false;
+        }
 
-				break;
-			case 'tax' :
-				$value = $this->get_order( $id )->get_total_tax();
+        return new ACP\Search\Comparison\Meta\Decimal($this->get_meta_key());
+    }
 
-				break;
-			case 'shipping' :
-				$value = $this->get_order( $id )->get_shipping_total();
+    public function sorting()
+    {
+        if ( ! $this->get_meta_key()) {
+            return null;
+        }
 
-				break;
-			case 'paid' :
-				$value = 0;
-
-				if ( $this->get_order( $id )->is_paid() ) {
-					$value = $this->get_order( $id )->get_total() - $this->get_order( $id )->get_total_refunded();
-				}
-				break;
-			default :
-				$value = $this->get_order( $id )->get_total();
-		}
-
-		return $value;
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return WC_Order
-	 */
-	private function get_order( $id ) {
-		if ( ! isset( $this->orders[ $id ] ) ) {
-			$this->orders[ $id ] = wc_get_order( $id );
-		}
-
-		return $this->orders[ $id ];
-	}
-
-	/**
-	 * @return string|false
-	 */
-	private function get_setting_total_property() {
-		$setting = $this->get_setting( 'order_total_property' );
-
-		if ( ! $setting instanceof Settings\ShopOrder\Totals ) {
-			return false;
-		}
-
-		return $setting->get_order_total_property();
-	}
-
-	public function register_settings() {
-		$this->add_setting( new Settings\ShopOrder\Totals( $this ) );
-	}
-
-	public function filtering() {
-		if ( $this->get_meta_key() ) {
-			return new Filtering\Number( $this );
-		}
-
-		return new ACP\Filtering\Model\Disabled( $this );
-	}
-
-	public function search() {
-		if ( ! $this->get_meta_key() ) {
-			return false;
-		}
-
-		return new ACP\Search\Comparison\Meta\Decimal( $this->get_meta_key(), AC\MetaType::POST );
-	}
-
-	public function sorting() {
-		if ( $this->get_meta_key() ) {
-			return new ACP\Sorting\Model\Post\Meta( $this->get_meta_key() );
-		}
-
-		return new ACP\Sorting\Model\Disabled();
-	}
+        return new ACP\Sorting\Model\Post\Meta($this->get_meta_key());
+    }
 
 }

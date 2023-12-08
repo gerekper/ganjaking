@@ -3,201 +3,175 @@
 namespace ACA\WC\Column\Product;
 
 use AC;
+use AC\View;
 use ACA\WC\Export;
 use ACA\WC\Sorting;
 use ACP;
+use WC_Product_Attribute;
 use WC_Product_Variable;
 use WC_Product_Variation;
 
-/**
- * @since 1.3
- */
 class Variation extends AC\Column
-	implements AC\Column\AjaxValue, ACP\Sorting\Sortable, ACP\Export\Exportable, ACP\ConditionalFormat\Formattable {
+    implements AC\Column\AjaxValue, ACP\Sorting\Sortable, ACP\Export\Exportable, ACP\ConditionalFormat\Formattable
+{
 
-	use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
+    use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
 
-	public function __construct() {
-		$this->set_type( 'column-wc-variation' )
-		     ->set_label( __( 'Variations', 'woocommerce' ) )
-		     ->set_group( 'woocommerce' );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-wc-variation')
+             ->set_label(__('Variations', 'woocommerce'))
+             ->set_group('woocommerce');
+    }
 
-	public function get_value( $id ) {
-		$variations = $this->get_raw_value( $id );
+    public function get_value($id)
+    {
+        $id = (int)$id;
 
-		if ( ! $variations ) {
-			return $this->get_empty_char();
-		}
+        $count = count($this->get_variations($id));
 
-		$count = sprintf( _n( '%s item', '%s items', count( $variations ) ), count( $variations ) );
+        if ($count < 1) {
+            return $this->get_empty_char();
+        }
 
-		return ac_helper()->html->get_ajax_toggle_box_link( $id, $count, $this->get_name() );
-	}
+        return ac_helper()->html->get_ajax_modal_link(
+            sprintf(_n('%d variation', '%d variations', $count, 'codepress-admin-columns'), $count),
+            [
+                'title'     => strip_tags(get_the_title($id)) ?: $id,
+                'edit_link' => get_edit_post_link($id),
+                'id'        => $id,
+                'class'     => '-w-large -nopadding',
+            ]
+        );
+    }
 
-	public function get_raw_value( $post_id ) {
-		return $this->get_variations( $post_id );
-	}
+    public function get_raw_value($post_id)
+    {
+        return $this->get_variations($post_id);
+    }
 
-	public function get_ajax_value( $id ) {
-		$value = false;
+    private function get_variation_items(int $id): array
+    {
+        $items = [];
 
-		$variations = $this->get_variations( $id );
+        foreach ($this->get_variations($id) as $variation) {
+            $name = $variation->get_name();
+            $edit = get_edit_post_link($id);
 
-		if ( $variations ) {
-			$values = [];
+            if ($edit) {
+                $name = sprintf('<a target="_blank" href="%s#variation_%d">%s</a>', $edit, $variation->get_id(), $name);
+            }
 
-			foreach ( $variations as $variation ) {
+            $items[] = [
+                'name'       => $name,
+                'sku'        => $variation->get_sku(),
+                'attributes' => implode(
+                    '&nbsp;&nbsp;-&nbsp;&nbsp;',
+                    $this->get_attributes($id, $variation->get_attributes())
+                ),
+                'stock'      => $this->get_stock($variation),
+            ];
+        }
 
-				$html = $this->get_variation_label( $variation );
-				$html .= $this->get_variation_stock_status( $variation );
-				$html .= $this->get_variation_price( $variation );
+        return $items;
+    }
 
-				$values[] = '<div class="variation">' . $html . '</div>';
-			}
+    private function get_attributes(int $product_id, array $attributes): array
+    {
+        $labels = [];
 
-			$value = implode( $values );
-		}
+        $attribute_objects = wc_get_product($product_id)->get_attributes();
 
-		return $value;
-	}
+        foreach ($attributes as $name => $value) {
+            $attribute = $attribute_objects[$name] ?? null;
 
-	/**
-	 * @param WC_Product_Variation $variation
-	 *
-	 * @return string
-	 */
-	protected function get_variation_label( WC_Product_Variation $variation ) {
-		$label = $variation->get_id();
+            if ( ! $attribute instanceof WC_Product_Attribute) {
+                continue;
+            }
 
-		$attributes = $variation->get_variation_attributes();
+            $label = $attribute->get_name();
 
-		if ( $attributes ) {
-			$label = implode( ' | ', array_filter( $attributes ) );
-		}
+            if ($attribute->is_taxonomy()) {
+                $term = get_term_by('slug', $value, $attribute->get_taxonomy());
+                $label = $attribute->get_taxonomy_object()->attribute_label;
 
-		return '<span class="label" ' . ac_helper()->html->get_tooltip_attr( $this->get_tooltip_variation( $variation ) ) . '">' . $label . '</span>';
-	}
+                if ($term) {
+                    $value = $term->name;
+                }
+            }
 
-	/**
-	 * @param WC_Product_Variation $variation
-	 *
-	 * @return string
-	 */
-	protected function get_variation_stock_status( WC_Product_Variation $variation ) {
-		if ( ! $variation->is_in_stock() ) {
-			return '<span class="stock outofstock">' . __( 'Out of stock', 'woocommerce' ) . '</span>';
-		}
+            $labels[] = sprintf('<strong>%s</strong>: %s', $label, $value);
+        }
 
-		$stock = __( 'In stock', 'woocommerce' );
+        return $labels;
+    }
 
-		$qty = $variation->get_stock_quantity();
+    public function get_ajax_value($id): string
+    {
+        $id = (int)$id;
 
-		if ( $qty ) {
-			$stock .= ' <span class="qty">' . $qty . '</span>';
-		}
+        $view = new View([
+            'items' => $this->get_variation_items($id),
+        ]);
 
-		return '<span class="stock instock">' . $stock . '</span>';
-	}
+        return $view->set_template('modal-value/variations')
+                    ->render();
+    }
 
-	/**
-	 * @param WC_Product_Variation $variation
-	 *
-	 * @return bool|string
-	 */
-	protected function get_variation_price( WC_Product_Variation $variation ) {
-		$price = $variation->get_price_html();
+    private function get_stock(WC_Product_Variation $variation): string
+    {
+        if ( ! $variation->managing_stock()) {
+            return sprintf('<mark class="instock">%s</mark>', __('In stock', 'woocommerce'));
+        }
 
-		if ( ! $price ) {
-			return false;
-		}
+        $qty = $variation->get_stock_quantity();
 
-		return '<span class="price">' . $variation->get_price_html() . '</span>';
-	}
+        if ( ! $variation->is_in_stock() || $qty < 1) {
+            return sprintf('<mark class="outofstock">%s</mark>', __('Out of stock', 'woocommerce'));
+        }
 
-	/**
-	 * @param WC_Product_Variation $variation
-	 *
-	 * @return string
-	 */
-	protected function get_tooltip_variation( $variation ) {
-		$tooltip = [];
+        return sprintf('<mark class="instock">%s</mark> (%d)', __('In stock', 'woocommerce'), $qty);
+    }
 
-		if ( $variation->get_sku() ) {
-			$tooltip[] = __( 'SKU', 'woocommerce' ) . ' ' . $variation->get_sku();
-		}
+    private function get_variation_ids(int $product_id): array
+    {
+        $product = wc_get_product($product_id);
 
-		if ( $variation->get_weight() ) {
-			$tooltip[] = (float) $variation->get_weight() . get_option( 'woocommerce_weight_unit' );
-		}
+        if ( ! $product instanceof WC_Product_Variable) {
+            return [];
+        }
 
-		$tooltip[] = $this->get_dimensions( $variation );
-		$tooltip[] = $variation->get_shipping_class();
+        return $product->get_children();
+    }
 
-		$tooltip[] = '#' . $variation->get_id();
+    /**
+     * @param int $product_id
+     *
+     * @return WC_Product_Variation[]
+     */
+    private function get_variations(int $product_id): array
+    {
+        $variations = [];
 
-		return implode( ' | ', array_filter( $tooltip ) );
-	}
+        foreach ($this->get_variation_ids($product_id) as $variation_id) {
+            $variation = wc_get_product($variation_id);
 
-	/**
-	 * @param WC_Product_Variation $variation
-	 *
-	 * @return bool|string
-	 */
-	protected function get_dimensions( $variation ) {
-		$dimensions = [
-			'length' => $variation->get_length(),
-			'width'  => $variation->get_width(),
-			'height' => $variation->get_height(),
-		];
+            if ($variation instanceof WC_Product_Variation && $variation->exists()) {
+                $variations[] = $variation;
+            }
+        }
 
-		if ( count( array_filter( $dimensions ) ) <= 0 ) {
-			return false;
-		}
+        return $variations;
+    }
 
-		return implode( ' x ', $dimensions ) . ' ' . get_option( 'woocommerce_dimension_unit' );
-	}
+    public function sorting()
+    {
+        return new Sorting\Product\Variation();
+    }
 
-	/**
-	 * @param $product_id
-	 *
-	 * @return array
-	 */
-	public function get_variation_ids( $product_id ) {
-		$product = wc_get_product( $product_id );
-
-		if ( ! $product instanceof WC_Product_Variable ) {
-			return [];
-		}
-
-		return $product->get_children();
-	}
-
-	/**
-	 * @param int $product_id
-	 *
-	 * @return WC_Product_Variation[]
-	 */
-	protected function get_variations( $product_id ) {
-		$variations = [];
-
-		foreach ( $this->get_variation_ids( $product_id ) as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
-
-			if ( $variation && $variation->exists() ) {
-				$variations[] = $variation;
-			}
-		}
-
-		return $variations;
-	}
-
-	public function sorting() {
-		return new Sorting\Product\Variation();
-	}
-
-	public function export() {
-		return new Export\Product\Variation( $this );
-	}
+    public function export()
+    {
+        return new Export\Product\Variation($this);
+    }
 
 }

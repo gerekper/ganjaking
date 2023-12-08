@@ -6,7 +6,6 @@ use AC;
 use ACA\MetaBox\Column;
 use ACA\MetaBox\Sorting;
 use ACP;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue\SettingFormatter;
 use ACP\Sorting\Model\MetaFormatFactory;
 
@@ -18,7 +17,7 @@ final class User extends Sorting\Factory implements Sorting\TableStorageFactory
         return (new TableStorageFactory)->create_table_storage($column);
     }
 
-    public function create_default(Column $column): AbstractModel
+    public function create_default(Column $column)
     {
         $setting = $column->get_setting(AC\Settings\Column\User::NAME);
 

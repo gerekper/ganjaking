@@ -4,31 +4,32 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Comment;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
+use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
 /**
  * Sorts a comment list table on a meta key. The meta value may contain mixed values, as long
  * as the supplied formatter can process them into a string.
  */
-class MetaFormat extends AbstractModel implements QueryBindings
+class MetaFormat implements QueryBindings
 {
 
     private $meta_key;
 
     private $formatter;
 
-    public function __construct(FormatValue $formatter, string $meta_key)
-    {
-        parent::__construct();
+    private $data_type;
 
+    public function __construct(FormatValue $formatter, string $meta_key, DataType $data_type = null)
+    {
         $this->meta_key = $meta_key;
         $this->formatter = $formatter;
+        $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }
 
     public function create_query_bindings(Order $order): Bindings

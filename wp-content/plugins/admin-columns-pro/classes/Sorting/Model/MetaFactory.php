@@ -3,7 +3,6 @@
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Type\DataType;
 
 /**
@@ -12,7 +11,7 @@ use ACP\Sorting\Type\DataType;
 class MetaFactory
 {
 
-    public function create(string $meta_type, string $meta_key, DataType $data_type = null): AbstractModel
+    public function create(string $meta_type, string $meta_key, DataType $data_type = null)
     {
         switch ($meta_type) {
             case MetaType::POST :
@@ -24,7 +23,7 @@ class MetaFactory
             case MetaType::TERM :
                 return new Taxonomy\Meta($meta_key, $data_type);
             default :
-                return new Disabled();
+                return null;
         }
     }
 

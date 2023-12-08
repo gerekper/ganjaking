@@ -2,44 +2,62 @@
 
 namespace ACA\MetaBox\Search\Comparison\Table;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
+use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Post extends TableStorage implements ACP\Search\Comparison\SearchableValues {
+class Post extends TableStorage implements ACP\Search\Comparison\SearchableValues
+{
 
-	/**
-	 * @var mixed
-	 */
-	private $post_type;
+    /**
+     * @var mixed
+     */
+    private $post_type;
 
-	/**
-	 * @var array
-	 */
-	private $query_args;
+    /**
+     * @var array
+     */
+    private $query_args;
 
-	public function __construct( $operators, $table, $column, $post_type, $query_args = [] ) {
-		$this->post_type = $post_type;
-		$this->query_args = $query_args;
+    public function __construct(
+        Operators $operators,
+        string $table,
+        string $column,
+        array $post_type = [],
+        array $query_args = []
+    ) {
+        $this->post_type = $post_type;
+        $this->query_args = $query_args;
 
-		parent::__construct( $operators, $table, $column, Value::INT );
-	}
+        parent::__construct($operators, $table, $column, Value::INT);
+    }
 
-	public function get_values( $search, $page ) {
-		$args = wp_parse_args( $this->query_args, [
-			's'         => $search,
-			'paged'     => $page,
-			'post_type' => $this->post_type,
-		] );
+    public function format_label($value): string
+    {
+        $post = get_post($value);
 
-		$entities = new ACP\Helper\Select\Entities\Post( $args );
+        return $post
+            ? $this->formatter()->format_label($post)
+            : '';
+    }
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Group\PostType(
-				new ACP\Helper\Select\Formatter\PostTitle( $entities )
-			)
-		);
-	}
+    private function formatter(): PostTitle
+    {
+        return new PostTitle();
+    }
+
+    public function get_values(string $search, int $page): Paginated
+    {
+        $args = wp_parse_args($this->query_args, [
+            's'         => $search,
+            'paged'     => $page,
+            'post_type' => $this->post_type,
+        ]);
+
+        return (new PaginatedFactory())->create($args, $this->formatter());
+    }
 
 }

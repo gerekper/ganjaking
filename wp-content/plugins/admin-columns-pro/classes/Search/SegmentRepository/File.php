@@ -12,7 +12,7 @@ use ACP\Exception\FailedToSaveSegmentException;
 use ACP\Exception\FileNotWritableException;
 use ACP\Search\Entity\Segment;
 use ACP\Search\SegmentCollection;
-use ACP\Search\SegmentRepository;
+use ACP\Search\SegmentRepositoryWritable;
 use ACP\Search\Storage;
 use ACP\Search\Type\SegmentKey;
 use ACP\Storage\AbstractDecoderFactory;
@@ -20,9 +20,10 @@ use ACP\Storage\Decoder;
 use ACP\Storage\Directory;
 use ACP\Storage\EncoderFactory;
 use ACP\Storage\Serializer;
+use DirectoryIterator;
 use SplFileInfo;
 
-final class File implements SegmentRepository
+final class File implements SegmentRepositoryWritable
 {
 
     use OpCacheInvalidateTrait;
@@ -42,7 +43,7 @@ final class File implements SegmentRepository
         Directory $directory,
         AbstractDecoderFactory $decoder_factory,
         EncoderFactory $encoder_factory,
-        Serializer\PhpSerializer\File $serializer
+        Serializer $serializer
     ) {
         $this->directory = $directory;
         $this->decoder_factory = $decoder_factory;
@@ -61,23 +62,37 @@ final class File implements SegmentRepository
         return null;
     }
 
-    public function find_all(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    /**
+     * @param ListScreenId|null $list_screen_id
+     *
+     * @return array
+     */
+    private function load_segments(ListScreenId $list_screen_id = null): array
     {
-        if (null === $sort) {
-            $sort = new Sort\Name();
-        }
-
         $segments = [];
 
-        /** @var SplFileInfo $file */
-        foreach ($this->directory->get_iterator() as $file) {
+        /**
+         * @var SplFileInfo $file
+         */
+        foreach ((new DirectoryIterator($this->directory->get_path())) as $file) {
             if ( ! $file->isReadable() ||
                  ! $file->isFile() ||
                  ! $file->getSize() ||
-                 ! str_contains($file->getBasename(), self::SUFFIX) ||
                  $file->getExtension() !== $this->get_file_extension() ||
-                 ($list_screen_id !== null && 0 !== strpos($file->getBasename(), (string)$list_screen_id))
+                 ! str_contains($file->getBasename(), self::SUFFIX)
             ) {
+                continue;
+            }
+
+            $list_id = str_replace(sprintf('%s.%s', self::SUFFIX, $file->getExtension()), '', $file->getBasename());
+
+            if ( ! ListScreenId::is_valid_id($list_id)) {
+                continue;
+            }
+
+            $list_id = new ListScreenId($list_id);
+
+            if ($list_screen_id && ! $list_screen_id->equals($list_id)) {
                 continue;
             }
 
@@ -94,67 +109,82 @@ final class File implements SegmentRepository
             }
 
             foreach ($decoder->get_segments() as $segment) {
-                $segments[] = $segment;
+                $segments[] = [
+                    'segment' => $segment,
+                    'file'    => $file->getRealPath(),
+                    'list_id' => $list_id,
+                ];
             }
+        }
+
+        return $segments;
+    }
+
+    public function find_all(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    {
+        if (null === $sort) {
+            $sort = new Sort\Name();
+        }
+
+        $segments = [];
+
+        foreach ($this->load_segments($list_screen_id) as $segment_data) {
+            $segments[] = $segment_data['segment'];
         }
 
         return $sort->sort(new SegmentCollection($segments));
     }
 
-    public function find_all_by_user(
+    public function find_all_personal(
         int $user_id,
         ListScreenId $list_screen_id = null,
         Sort $sort = null
     ): SegmentCollection {
-        return new SegmentCollection([]);
+        return new SegmentCollection();
     }
 
-    public function find_all_global(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    public function find_all_shared(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
     {
         return $this->find_all($list_screen_id, $sort);
     }
 
     /**
+     * @throws FileNotWritableException
+     * @throws DirectoryNotWritableException
      * @throws FailedToSaveSegmentException
      * @throws FailedToCreateDirectoryException
-     * @throws DirectoryNotWritableException
-     * @throws FileNotWritableException
      */
-    public function create(
-        SegmentKey $segment_key,
-        ListScreenId $list_screen_id,
-        string $name,
-        array $url_parameters,
-        int $user_id = null
-    ): Segment {
+    public function save(Segment $segment): void
+    {
         if ( ! $this->directory->exists()) {
             $this->directory->create();
         }
 
-        if ( ! $this->directory->get_info()->isWritable()) {
+        if ( ! $this->directory->is_writable()) {
             throw new DirectoryNotWritableException($this->directory->get_path());
         }
 
-        if ($this->find($segment_key)) {
-            throw  FailedToSaveSegmentException::from_duplicate_key($segment_key);
+        if ($this->find($segment->get_key())) {
+            throw FailedToSaveSegmentException::from_duplicate_key($segment->get_key());
         }
 
-        $file = $this->create_file_name($list_screen_id);
-
-        $segment = new Segment(
-            $segment_key,
-            $list_screen_id,
-            $name,
-            $url_parameters,
-            $user_id
-        );
+        $file = $this->get_file_name($segment->get_list_id());
 
         $segments = $this->get_segments_from_file($file);
         $segments->add($segment);
 
-        $this->update_file($segments, $file, $list_screen_id);
+        $this->update_file($segments, $file, $segment->get_list_id());
+    }
 
-        return $segment;
+    private function find_segment_data_by_key(SegmentKey $key): ?array
+    {
+        foreach ($this->load_segments() as $segment_data) {
+            if ($key->equals($segment_data['segment']->get_key())) {
+                return $segment_data;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -162,22 +192,51 @@ final class File implements SegmentRepository
      */
     public function delete(SegmentKey $key): void
     {
-        $segment = $this->find($key);
+        $segment_data = $this->find_segment_data_by_key($key);
 
-        if ( ! $segment) {
+        if ( ! $segment_data) {
             return;
         }
 
-        $file = $this->create_file_name($segment->get_list_screen_id());
+        $file = $segment_data['file'];
+        $list_id = $segment_data['list_id'];
 
         $segments = $this->get_segments_from_file($file);
         $segments->remove($key);
 
+        if ($segments->count() < 1) {
+            $this->delete_file($file, $list_id);
+
+            return;
+        }
+
         $this->update_file(
             $segments,
             $file,
-            $segment->get_list_screen_id()
+            $list_id
         );
+    }
+
+    /**
+     * @throws FileNotWritableException
+     */
+    public function delete_all(ListScreenId $list_screen_id): void
+    {
+        $file = $this->get_file_name(
+            $list_screen_id
+        );
+
+        if (file_exists($file)) {
+            $this->delete_file($file, $list_screen_id);
+        }
+    }
+
+    /**
+     * @throws FileNotWritableException
+     */
+    public function delete_all_shared(ListScreenId $list_screen_id): void
+    {
+        $this->delete_all($list_screen_id);
     }
 
     private function get_segments_from_file(string $file): SegmentCollection
@@ -222,13 +281,26 @@ final class File implements SegmentRepository
         $this->opcache_invalidate($file);
     }
 
-    private function create_file_name(ListScreenId $id): string
+    /**
+     * @throws FileNotWritableException
+     */
+    private function delete_file(string $file, ListScreenId $list_screen_id): void
+    {
+        $this->opcache_invalidate($file);
+
+        $result = unlink($file);
+
+        if ($result === false) {
+            throw FileNotWritableException::from_removing_segment($list_screen_id);
+        }
+    }
+
+    private function get_file_name(ListScreenId $list_screen_id): string
     {
         return sprintf(
-            '%s/%s%s.%s',
+            '%s/%s.%s',
             $this->directory->get_path(),
-            $id,
-            self::SUFFIX,
+            $list_screen_id . self::SUFFIX,
             $this->get_file_extension()
         );
     }

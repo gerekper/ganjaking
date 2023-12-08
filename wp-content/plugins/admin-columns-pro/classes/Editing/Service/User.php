@@ -2,6 +2,7 @@
 
 namespace ACP\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\PaginatedOptionsFactory;
 use ACP\Editing\Service;
@@ -72,8 +73,8 @@ class User implements Service, PaginatedOptions {
 		];
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		return $this->options_factory->create( $s, $paged, $id );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return $this->options_factory->create( $search, $page, $id );
 	}
 
 }

@@ -26,7 +26,7 @@ class Module extends Element_Pack_Module_Base {
             'section_element_pack_sound_effects_controls',
             [
                 'tab'   => Controls_Manager::TAB_CONTENT,
-                'label' => BDTEP_CP . esc_html__('Sound Effects', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => BDTEP_CP . esc_html__('Sound Effects', 'bdthemes-element-pack'),
             ]
         );
         $element->end_controls_section();

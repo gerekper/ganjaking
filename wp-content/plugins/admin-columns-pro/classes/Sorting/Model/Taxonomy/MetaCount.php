@@ -2,22 +2,19 @@
 
 namespace ACP\Sorting\Model\Taxonomy;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class MetaCount extends AbstractModel implements QueryBindings
+class MetaCount implements QueryBindings
 {
 
     protected $meta_key;
 
     public function __construct(string $meta_key)
     {
-        parent::__construct();
-
         $this->meta_key = $meta_key;
     }
 

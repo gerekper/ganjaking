@@ -1,7 +1,10 @@
-/*! nouislider - 14.5.0 - 5/11/2020 */
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-duplicate-selectors */
+
+/*! nouislider - 15.7.1 - 6/14/2023 */
 
 /* Functional styling;
- * These styles are required for nouiSlider to function.
+ * These styles are required for noUiSlider to function.
  * You don't need to change these rules to apply your design.
  */
 .noui-target,
@@ -14,16 +17,12 @@
 	-ms-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
-	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 .noui-target {
 	position: relative;
-	background: #cdcdcd;
-	border-radius: 4px;
-	border: 0;
-	box-shadow: none;
 }
 
 .noui-base,
@@ -35,11 +34,10 @@
 }
 
 /* Wrapper for all connect elements.
- */
+  */
 .noui-connects {
 	overflow: hidden;
 	z-index: 0;
-	border-radius: 3px;
 }
 
 .noui-connect,
@@ -49,32 +47,27 @@
 	z-index: 1;
 	top: 0;
 	right: 0;
+	height: 100%;
+	width: 100%;
 	-ms-transform-origin: 0 0;
 	-webkit-transform-origin: 0 0;
-	-webkit-transform-style: preserve-3d;
 	transform-origin: 0 0;
+	-webkit-transform-style: flat;
 	transform-style: flat;
 }
 
-/* Styling;
- * Giving the connect element a border radius causes
- * issues with using transform: scale
- */
-.noui-connect {
-	height: 100%;
-	width: 100%;
-	background: #3fb8af;
-}
-
-.noui-origin {
-	height: 10%;
-	width: 10%;
+/* Offset direction
+  */
+.noui-txt-dir-rtl.noui-horizontal .noui-origin {
+	left: 0;
+	right: auto;
 }
 
 /* Give origins 0 height/width so they don't interfere with clicking the
- * connect elements.
- */
+  * connect elements.
+  */
 .noui-vertical .noui-origin {
+	top: -100%;
 	width: 0;
 }
 
@@ -86,13 +79,6 @@
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	position: absolute;
-	border: 0;
-	border-radius: 50%;
-	background: #3fb8af;
-	cursor: pointer;
-	box-shadow: none;
-	outline: none !important;
-	transition: all 0.1s ease-out, border-color 0.2s ease-out;
 }
 
 .noui-touch-area {
@@ -103,43 +89,27 @@
 .noui-state-tap .noui-connect,
 .noui-state-tap .noui-origin {
 	-webkit-transition: transform 0.3s;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
+	transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
 .noui-state-drag * {
 	cursor: inherit !important;
 }
 
-/* Offset direction
- */
-.noui-txt-dir-rtl.noui-horizontal .noui-origin {
-	left: 0;
-	right: auto;
-}
-
-/* Disabled state;
- */
-[disabled] .noui-connect {
-	background: #b8b8b8;
-}
-
-[disabled].noui-target,
-[disabled].noui-handle,
-[disabled] .noui-handle {
-	cursor: not-allowed;
-}
-
 /* Slider size and handle placement;
- */
+  */
 .noui-horizontal {
-	height: 3px;
+	height: 18px;
 }
 
 .noui-horizontal .noui-handle {
-	width: 14px;
-	height: 14px;
-	right: -7px;
-	top: -5px;
+	width: 34px;
+	height: 28px;
+	right: -17px;
+	top: -6px;
 }
 
 .noui-vertical {
@@ -150,16 +120,36 @@
 	width: 28px;
 	height: 34px;
 	right: -6px;
-	top: -17px;
+	bottom: -17px;
 }
 
 .noui-txt-dir-rtl.noui-horizontal .noui-handle {
-	left: -8px;
+	left: -17px;
 	right: auto;
 }
 
+/* Styling;
+  * Giving the connect element a border radius
+  * causes issues with using transform: scale
+  */
+.noui-target {
+	background: #fafafa;
+	border-radius: 4px;
+	border: 1px solid #d3d3d3;
+	-webkit-box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+	box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+}
+
+.noui-connects {
+	border-radius: 3px;
+}
+
+.noui-connect {
+	background: #3fb8af;
+}
+
 /* Handles and cursors;
- */
+  */
 .noui-draggable {
 	cursor: ew-resize;
 }
@@ -168,44 +158,36 @@
 	cursor: ns-resize;
 }
 
-.noui-horizontal .noui-active.noui-handle {
-	box-shadow: none;
-	width: 16px;
-	height: 16px;
-	right: -8px;
-	top: -6px;
+.noui-handle {
+	border: 1px solid #d9d9d9;
+	border-radius: 3px;
+	background: #fff;
+	cursor: default;
+	-webkit-box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+	box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
 }
 
-.noui-txt-dir-rtl.noui-horizontal .noui-active.noui-handle {
-	left: -8px;
-	right: auto;
+.noui-active {
+	-webkit-box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
+	box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
 }
 
-.noui-handle::before {
-	width: 2em;
-	height: 2em;
-	background-color: rgba(1, 164, 211, 0.2);
-	content: "";
-	display: block !important;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	transition: all 0.1s ease-out, border-color 0.2s ease-out;
-	border-radius: 50%;
-	will-change: transform;
-}
-
+/* Handle stripes;
+  */
 .noui-handle::before,
 .noui-handle::after {
-
-	/* Handle stripes; */
-	display: none;
+	content: "";
+	display: block;
+	position: absolute;
+	height: 14px;
+	width: 1px;
+	background: #e8e7e6;
+	left: 14px;
+	top: 6px;
 }
 
-.noui-handle:hover::before,
-.noui-active.noui-handle::before {
-	transform: translate(-50%, -50%) scale(1);
+.noui-handle::after {
+	left: 17px;
 }
 
 .noui-vertical .noui-handle::before,
@@ -220,12 +202,24 @@
 	top: 17px;
 }
 
+/* Disabled state;
+  */
+[disabled] .noui-connect {
+	background: #b8b8b8;
+}
+
+[disabled].noui-target,
+[disabled].noui-handle,
+[disabled] .noui-handle {
+	cursor: not-allowed;
+}
+
 /* Base;
- *
- */
+  *
+  */
 .noui-pips,
 .noui-pips * {
-	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -235,25 +229,22 @@
 }
 
 /* Values;
- *
- */
+  *
+  */
 .noui-value {
 	position: absolute;
 	white-space: nowrap;
 	text-align: center;
-	font-size: 0.8em;
-	margin-top: 0.8em;
 }
 
 .noui-value-sub {
 	color: #ccc;
 	font-size: 10px;
-	margin-top: 0.6em;
 }
 
 /* Markings;
- *
- */
+  *
+  */
 .noui-marker {
 	position: absolute;
 	background: #ccc;
@@ -268,8 +259,8 @@
 }
 
 /* Horizontal layout;
- *
- */
+  *
+  */
 .noui-pips-horizontal {
 	padding: 10px 0;
 	height: 80px;
@@ -290,7 +281,7 @@
 
 .noui-marker-horizontal.noui-marker {
 	margin-left: -1px;
-	width: 1px;
+	width: 2px;
 	height: 5px;
 }
 
@@ -303,8 +294,8 @@
 }
 
 /* Vertical layout;
- *
- */
+  *
+  */
 .noui-pips-vertical {
 	padding: 0 10px;
 	height: 100%;
@@ -338,7 +329,7 @@
 }
 
 .noui-tooltip {
-	display: none;
+	display: block;
 	position: absolute;
 	border: 1px solid #d9d9d9;
 	border-radius: 3px;
@@ -351,13 +342,9 @@
 
 .noui-horizontal .noui-tooltip {
 	-webkit-transform: translate(-50%, 0);
-	-webkit-transform: translate(-50%, 0);
-	transform: translate(-50%, 0%);
+	transform: translate(-50%, 0);
 	left: 50%;
-	background: #3fb8af;
 	bottom: 120%;
-	color: #fff;
-	border: 2px solid #fff;
 }
 
 .noui-vertical .noui-tooltip {
@@ -365,11 +352,6 @@
 	transform: translate(0, -50%);
 	top: 50%;
 	right: 120%;
-}
-
-.noui-show-tooltip .noui-tooltip,
-.noui-show-tooltip .noui-active .noui-tooltip {
-	display: block;
 }
 
 .noui-horizontal .noui-origin > .noui-tooltip {
@@ -386,7 +368,151 @@
 	right: 28px;
 }
 
-.noui-show-tooltip .noui-handle:hover .noui-tooltip {
-	display: block;
+/* Styling;
+ * Giving the connect element a border radius
+ * causes issues with using transform: scale
+ */
+.tm-range-picker.noui-target {
+	background: var(--slider-background);
+	border-radius: 4px;
+	border: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
+.tm-range-picker .noui-connects {
+	border-radius: 3px;
+}
+
+.tm-range-picker .noui-connect {
+	background: var(--slider-active-background);
+}
+
+/* Style resets */
+.tm-range-picker,
+.tm-range-picker .noui-handle {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.tm-range-picker .noui-tooltip {
+	display: none;
+}
+
+/* Hide markers on slider handles */
+.tm-range-picker .noui-handle::before,
+.tm-range-picker .noui-handle::after {
+	display: none;
+}
+
+.noui-marker {
+	background: var(--marker-color);
+	opacity: 0.8;
+}
+
+.noui-marker-sub {
+	opacity: 0.5;
+	background: var(--marker-color);
+}
+
+.noui-marker-large {
+	opacity: 1;
+	background: var(--marker-color);
+}
+
+/* Style resets */
+
+
+/* Styling the touch area */
+.tm-range-picker .noui-handle .noui-touch-area::before {
+	content: "";
+	position: absolute;
+	top: calc(-0.5 * var(--size) + 0.5 * 1em);
+	left: calc(-0.5 * var(--size) + 0.5 * 1em);
+	right: calc(-0.5 * var(--size) + 0.5 * 1em);
+	bottom: calc(-0.5 * var(--size) + 0.5 * 1em);
+	width: var(--size);
+	height: var(--size);
+	border-radius: 100%;
+	background: var(--handle-background);
+	z-index: -1;
+	opacity: 0.2;
+	will-change: transform;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+	-webkit-transition: all 0.1s ease-out, border-color 0.2s ease-out;
+	transition: all 0.1s ease-out, border-color 0.2s ease-out;
+	display: block;
+	--size: calc(var(--handle-size) * 1.8);
+}
+
+/* Show a border when hovering the area the handle responds to */
+.tm-range-picker .noui-handle:hover .noui-touch-area::before {
+	border: 0;
+	-webkit-transform: scale(0.9);
+	transform: scale(0.9);
+}
+
+.tm-range-picker .noui-active.noui-handle:hover .noui-touch-area::before {
+	border: 0;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+/* Styling the touch area */
+
+/* Values */
+.tm-range-picker .noui-value {
+	position: absolute;
+	white-space: nowrap;
+	text-align: center;
+	font-size: 0.8em;
+	margin-top: 0.8em;
+}
+
+.tm-range-picker .noui-value-sub {
+	color: inherit;
+	font-size: 10px;
+	margin-top: 0.6em;
+	opacity: 0.5;
+}
+
+.tm-range-picker .noui-marker-horizontal.noui-marker {
+	margin-left: -1px;
+	width: 1px;
+}
+
+/* Values */
+
+/* Styling round slider */
+.tm-range-picker {
+	--handle-size: 14px;
+	--slider-height: 3px;
+	--handle-radius: calc(var(--handle-size) / 2);
+	--handle-background: #3fb8af;
+	--slider-active-background: #3fb8af;
+	--slider-background: #cdcdcd;
+	--marker-color: #aaa;
+	height: var(--slider-height);
+}
+
+.tm-range-picker .noui-handle {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	border: 0;
+	background: var(--handle-background);
+	cursor: pointer;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	outline: none !important;
+
+	height: var(--handle-size);
+	width: var(--handle-size);
+	top: calc((var(--handle-size) - var(--slider-height)) / -2);
+	right: calc(var(--handle-size) / -2);
+
+	/* half the width */
+	border-radius: var(--handle-radius);
+}
+
+/* Styling round slider */

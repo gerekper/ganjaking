@@ -31,7 +31,6 @@ class BillingPeriod extends AC\Column implements ACP\Search\Searchable, ACP\Sort
     {
         return new ACP\Search\Comparison\Meta\Select(
             '_billing_period',
-            'order_subscription',
             wcs_get_available_time_periods()
         );
     }

@@ -3,7 +3,7 @@
  * Extra Product Options Associated Products Functionality
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Associated Products Functionality
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_Associated_Products {
 
@@ -48,6 +48,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Associated_Products
 	 * @since 5.0
 	 * @static
 	 */
@@ -65,7 +66,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @since 5.0
 	 */
 	public function __construct() {
-
 		// Modify cart.
 		add_filter( 'woocommerce_add_cart_item', [ $this, 'woocommerce_add_cart_item' ], 11, 1 );
 		// Modifies the cart item.
@@ -73,7 +73,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		// Modify option prices for discounts.
 		add_filter( 'associated_tmcp_static_prices', [ $this, 'associated_tmcp_static_prices' ], 10, 2 );
 		// Load cart data on every page load.
-		add_filter( 'woocommerce_get_cart_item_from_session', [ $this, 'woocommerce_get_cart_item_from_session' ], 9998, 3 );
+		add_filter( 'woocommerce_get_cart_item_from_session', [ $this, 'woocommerce_get_cart_item_from_session' ], 9998, 2 );
 		// Add associated products (from elements) to the cart.
 		add_action( 'woocommerce_add_to_cart', [ $this, 'associated_woocommerce_add_to_cart' ], 8, 6 );
 		// Remove associated products when the parent gets removed.
@@ -88,9 +88,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		add_filter( 'woocommerce_cart_item_quantity', [ $this, 'associated_woocommerce_cart_item_quantity' ], 10, 2 );
 		// Sync associated products quantity with main product.
 		add_action( 'woocommerce_after_cart_item_quantity_update', [ $this, 'woocommerce_after_cart_item_quantity_update' ], 1, 2 );
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.7', '<' ) ) {
-			add_action( 'woocommerce_before_cart_item_quantity_zero', [ $this, 'woocommerce_after_cart_item_quantity_update' ] );
-		}
 		// Make sure products marked as associated have a parent.
 		add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'associated_woocommerce_cart_loaded_from_session' ], 99999 );
 
@@ -99,30 +96,30 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		// Associated product table item classes.
 		add_filter( 'woocommerce_cart_item_class', [ $this, 'associated_woocommerce_cart_item_class' ], 10, 2 );
 		// Wrap associated products name in cart.
-		add_filter( 'woocommerce_cart_item_name', [ $this, 'associated_woocommerce_cart_item_name' ], 99999, 3 );
+		add_action( 'woocommerce_after_cart_item_name', [ $this, 'woocommerce_after_cart_item_name' ], 99999, 1 );
 		// Wrap associated products price in cart.
-		add_filter( 'woocommerce_cart_item_price', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 3 );
+		add_filter( 'woocommerce_cart_item_price', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 2 );
 		// Wrap associated products subtotal in cart.
-		add_filter( 'woocommerce_cart_item_subtotal', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 3 );
+		add_filter( 'woocommerce_cart_item_subtotal', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 2 );
 		// Wrap associated products subtotal in checkout.
-		add_filter( 'woocommerce_checkout_item_subtotal', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 3 );
+		add_filter( 'woocommerce_checkout_item_subtotal', [ $this, 'associated_woocommerce_cart_item_price' ], 99999, 2 );
 		// Associated product table item classes in mini cart.
 		add_filter( 'woocommerce_mini_cart_item_class', [ $this, 'associated_woocommerce_cart_item_class' ], 99999, 2 );
 		// Wrap associated products price in mini cart.
-		add_filter( 'woocommerce_widget_cart_item_quantity', [ $this, 'associated_woocommerce_widget_cart_item_quantity' ], 99999, 3 );
+		add_filter( 'woocommerce_widget_cart_item_quantity', [ $this, 'associated_woocommerce_widget_cart_item_quantity' ], 99999, 2 );
 		// Make cart item count not count associated products.
 		add_filter( 'woocommerce_cart_contents_count', [ $this, 'associated_woocommerce_cart_contents_count' ] );
 
 		// Edit cart functionality.
-		add_action( 'woocommerce_add_to_cart', [ $this, 'woocommerce_add_to_cart' ], 10, 6 );
+		add_action( 'woocommerce_add_to_cart', [ $this, 'woocommerce_add_to_cart' ], 10, 3 );
 
 		// Add meta to order.
 		add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'woocommerce_checkout_create_order_line_item' ], 50, 3 );
 
 		// Wrap associated products subtotal in order.
-		add_filter( 'woocommerce_order_formatted_line_subtotal', [ $this, 'associated_woocommerce_order_formatted_line_subtotal' ], 10, 3 );
+		add_filter( 'woocommerce_order_formatted_line_subtotal', [ $this, 'associated_woocommerce_order_formatted_line_subtotal' ], 10, 2 );
 		// Add table item classes.
-		add_filter( 'woocommerce_order_item_class', [ $this, 'woocommerce_order_item_class' ], 10, 3 );
+		add_filter( 'woocommerce_order_item_class', [ $this, 'woocommerce_order_item_class' ], 10, 2 );
 		// Add the label name to associated products at the order-details template.
 		add_filter( 'woocommerce_order_item_name', [ $this, 'woocommerce_order_item_name' ], 10, 2 );
 		// Delete associated product quantity from order-details template.
@@ -140,27 +137,25 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		add_action( 'woocommerce_update_cart_action_cart_updated', [ $this, 'woocommerce_update_cart_action_cart_updated' ], 9999, 1 );
 
 		// Hide associated products in the cart.
-		add_action( 'woocommerce_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 3 );
-		add_action( 'woocommerce_widget_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 3 );
+		add_action( 'woocommerce_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 2 );
+		add_action( 'woocommerce_widget_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 2 );
 
 		// Hide associated products in the checkout.
-		add_action( 'woocommerce_checkout_cart_item_visible', [ $this, 'woocommerce_checkout_cart_item_visible' ], 10, 3 );
-
+		add_action( 'woocommerce_checkout_cart_item_visible', [ $this, 'woocommerce_checkout_cart_item_visible' ], 10, 2 );
 	}
 
 	/**
 	 * Returns the price in html format of the associated product.
 	 * This is used for the initial prices of the product elements.
 	 *
-	 * @param object $product The product object.
-	 * @param string $discount The product discount.
-	 * @param string $discount_type The product discount type.
-	 * @param bool   $discount_applied If the discount is already applied.
+	 * @param object  $product The product object.
+	 * @param string  $discount The product discount.
+	 * @param string  $discount_type The product discount type.
+	 * @param boolean $discount_applied If the discount is already applied.
 	 * @return string
 	 * @since 6.2
 	 */
 	public function get_associated_price_html( $product, $discount, $discount_type, $discount_applied = false ) {
-
 		$price_html = $product->get_price_html();
 		$type       = themecomplete_get_product_type( $product );
 		$free_text  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_remove_free_price_label ) ? ( '' !== THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text ? THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text : '' ) : esc_attr__( 'Free!', 'woocommerce' );
@@ -204,8 +199,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			if ( $product->is_on_sale() || $price !== $original_price ) {
 				$displayed_price = $min_price !== $max_price
 				? ( function_exists( 'wc_get_price_to_display' )
-					? wc_format_sale_price( $max_price, $min_price )
-					: '<del>' . ( is_numeric( $max_price ) ? wc_price( $max_price ) : $max_price ) . '</del> <ins>' . ( is_numeric( $min_price ) ? wc_price( $min_price ) : $min_price ) . '</ins>'
+					? wc_format_sale_price( (string) $max_price, (string) $min_price )
+					: '<del>' . wc_price( $max_price ) . '</del> <ins>' . wc_price( $min_price ) . '</ins>'
 				)
 				: themecomplete_price( $min_price );
 
@@ -302,8 +297,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					if ( $use_from && ( $max_price > 0 || $max_price > $min_price ) ) {
 
 						$displayed_price = ( function_exists( 'wc_get_price_to_display' )
-							? wc_format_sale_price( $display_regular_price, $display_price )
-							: '<del>' . ( is_numeric( $display_regular_price ) ? wc_price( $display_regular_price ) : $display_regular_price ) . '</del> <ins>' . ( is_numeric( $display_price ) ? wc_price( $display_price ) : $display_price ) . '</ins>'
+							? wc_format_sale_price( (string) $display_regular_price, $display_price )
+							: '<del>' . wc_price( $display_regular_price ) . '</ins>'
 						);
 						$price_html     .= ( function_exists( 'wc_get_price_html_from_text' )
 								? wc_get_price_html_from_text()
@@ -311,7 +306,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 											. $displayed_price;
 						$price_html     .= $product->get_price_suffix();
 					} else {
-						$price_html .= wc_format_sale_price( $display_regular_price, $display_price );
+						$price_html .= wc_format_sale_price( (string) $display_regular_price, $display_price );
 					}
 				} else {
 					if ( $use_from && ( $max_price > 0 || $max_price > $min_price ) ) {
@@ -333,7 +328,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 						$price_html = apply_filters( 'woocommerce_free_sale_price_html', $price_html, $product );
 					}
-				} else {
+				} elseif ( ! $product->is_on_sale() ) {
 					if ( $use_from && ( $max_price > 0 || $max_price > $min_price ) ) {
 						$price_html .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( ( $min_price > 0 ) ? $min_price : 0 );
 					} else {
@@ -347,62 +342,57 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $price_html;
-
 	}
 
 	/**
 	 * Hide associated products in the cart
 	 *
-	 * @param boolean $visible If the product should be visible.
-	 * @param array   $cart_item The cart item.
-	 * @param string  $cart_item_key The cart item key.
+	 * @param boolean      $visible If the product should be visible.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return boolean
 	 * @since 6.2
 	 */
-	public function woocommerce_cart_item_visible( $visible, $cart_item, $cart_item_key ) {
-
+	public function woocommerce_cart_item_visible( $visible, $cart_item ) {
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) && isset( $cart_item['hiddenin'] ) && is_array( $cart_item['hiddenin'] ) && in_array( 'cart', $cart_item['hiddenin'], true ) ) {
 			$visible = false;
 		}
 
 		return $visible;
-
 	}
 
 	/**
 	 * Hide associated products in the checkout
 	 *
-	 * @param boolean $visible If the product should be visible.
-	 * @param array   $cart_item The cart item.
-	 * @param string  $cart_item_key The cart item key.
+	 * @param boolean      $visible If the product should be visible.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return boolean
 	 * @since 6.2
 	 */
-	public function woocommerce_checkout_cart_item_visible( $visible, $cart_item, $cart_item_key ) {
-
+	public function woocommerce_checkout_cart_item_visible( $visible, $cart_item ) {
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) && isset( $cart_item['hiddenin'] ) && is_array( $cart_item['hiddenin'] ) && in_array( 'checkout', $cart_item['hiddenin'], true ) ) {
 			$visible = false;
 		}
 
 		return $visible;
-
 	}
 
 	/**
 	 * Include variation attributes
 	 *
-	 * @param boolean $should_include_attributes If the variation title should include attrbiutes.
+	 * @return boolean
 	 * @since 6.0
 	 */
-	public function woocommerce_product_variation_title_include_attributes( $should_include_attributes ) {
+	public function woocommerce_product_variation_title_include_attributes() {
 		return true;
 	}
 
 	/**
 	 * Hook for displaying extra options
 	 *
+	 * @return void
 	 * @since 5.0
 	 */
 	public function wc_epo_get_associated_product_html() {
-
 		global $tm_is_ajax;
 
 		$tm_is_ajax  = true;
@@ -446,10 +436,16 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				if ( 'variable' === $type ) {
 					if ( is_callable( [ $product, 'get_variation_attributes' ] ) ) {
 						// workaround to get discounts shownn in the product for variable products.
-						$isset_discount_type = false;
+						$isset_discount_type           = false;
+						$isset_discount                = false;
+						$isset_discount_exclude_addons = false;
 						if ( isset( $_REQUEST['discount_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-							$isset_discount_type           = sanitize_text_field( wp_unslash( $_REQUEST['discount_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-							$isset_discount                = sanitize_text_field( wp_unslash( $_REQUEST['discount'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+							$isset_discount_type = sanitize_text_field( wp_unslash( $_REQUEST['discount_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						}
+						if ( isset( $_REQUEST['isset_discount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+							$isset_discount = sanitize_text_field( wp_unslash( $_REQUEST['discount'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						}
+						if ( isset( $_REQUEST['isset_discount_exclude_addons'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 							$isset_discount_exclude_addons = sanitize_text_field( wp_unslash( $_REQUEST['discount_exclude_addons'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						}
 						$_REQUEST['discount_type']           = $discount_type;
@@ -457,7 +453,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						$_REQUEST['discount_exclude_addons'] = $discount_exclude_addons;
 						$attributes                          = $product->get_variation_attributes();
 						$get_variations                      = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-						$available_variations                = $get_variations ? $product->get_available_variations() : false;
+						$available_variations                = $get_variations ? $product->get_available_variations() : false; // @phpstan-ignore-line
 
 						$product_list[ $product_id ] = $attributes;
 
@@ -465,9 +461,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						$variations_attr                                  = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', true );
 						$product_list_available_variations[ $product_id ] = $variations_attr;
 						if ( $isset_discount_type ) {
-							$_REQUEST['discount_type']           = $isset_discount_type;
-							$_REQUEST['discount']                = $isset_discount;
-							$_REQUEST['discount_exclude_addons'] = $isset_discount_exclude_addons;
+							$_REQUEST['discount_type'] = $isset_discount_type;
+							if ( $isset_discount ) {
+								$_REQUEST['discount'] = $isset_discount;
+							}
+							if ( $isset_discount_exclude_addons ) {
+								$_REQUEST['discount_exclude_addons'] = $isset_discount_exclude_addons;
+							}
 						} else {
 							unset( $_REQUEST['discount_type'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 							unset( $_REQUEST['discount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -485,9 +485,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				if ( '' !== $__min_value ) {
 					$__min_value = floatval( $__min_value );
 				} else {
-					$__min_value = 0;
-				}
-				if ( '' === $__min_value ) {
 					$__min_value = 0;
 				}
 				if ( '' !== $__max_value ) {
@@ -544,35 +541,32 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		wp_send_json( $json_result );
-		die();
-
 	}
 
 	/**
 	 * Modify option prices for discounts
 	 *
-	 * @param mixed $tmcp_static_prices The option static prices.
-	 * @param array $cart_item The cart item.
+	 * @param mixed        $tmcp_static_prices The option static prices.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return mixed
 	 * @since 5.0.12.4
 	 */
 	public function associated_tmcp_static_prices( $tmcp_static_prices = '', $cart_item = [] ) {
-
 		if ( empty( $cart_item['associated_discount_exclude_addons'] ) && ! empty( $cart_item['associated_discount'] ) && isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
 			$tmcp_static_prices = $this->get_discounted_price( $tmcp_static_prices, $cart_item['associated_discount'], $cart_item['associated_discount_type'] );
 		}
 
 		return $tmcp_static_prices;
-
 	}
 
 	/**
 	 * Apply discount to the option price
 	 *
 	 * @param mixed $price The current product price.
-	 * @param mixed $original_price The original product price.
+	 * @return mixed
 	 * @since 5.0.8
 	 */
-	public function wc_epo_apply_discount( $price = '', $original_price = '' ) {
+	public function wc_epo_apply_discount( $price = '' ) {
 		if ( empty( $this->discount_exclude_addons ) ) {
 			if ( ! is_array( $price ) ) {
 				return $this->get_discounted_price( $price, $this->discount, $this->discount_type );
@@ -585,13 +579,12 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Hook for displaying extra options
 	 *
-	 * @param object  $product The product object.
+	 * @param mixed   $product The product object.
 	 * @param string  $uniqid The id to use for the epo container.
 	 * @param boolean $disable_epo If the addons are disabled, true or false.
 	 * @param boolean $per_product_pricing If the product has pricing, true or false.
@@ -600,6 +593,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @param string  $discount_exclude_addons If the addons should be excluded fro mthe discount.
 	 * @param mixed   $counter The option counter.
 	 * @param string  $element_uniqid The product element unique id.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function wc_epo_associated_product_display( $product, $uniqid, $disable_epo = false, $per_product_pricing = false, $discount = '', $discount_type = '', $discount_exclude_addons = '', $counter = '', $element_uniqid = '' ) {
@@ -619,13 +613,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$uniqid = THEMECOMPLETE_EPO_HELPER()->normalize_data( $uniqid );
 			$epo_id = $uniqid;
 			?>
-			<div class="tc-extra-product-options-inline" data-epo-id="<?php echo esc_attr( $epo_id ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>">
+			<div class="tc-extra-product-options-inline" data-epo-id="<?php echo esc_attr( (string) $epo_id ); ?>" data-product-id="<?php echo esc_attr( (string) $product_id ); ?>">
 			<?php
 			if ( empty( $discount_exclude_addons ) && $discount ) {
 				$this->discount                = $discount;
 				$this->discount_type           = $discount_type;
 				$this->discount_exclude_addons = $discount_exclude_addons;
-				add_filter( 'wc_epo_apply_discount', [ $this, 'wc_epo_apply_discount' ], 10, 2 );
+				add_filter( 'wc_epo_apply_discount', [ $this, 'wc_epo_apply_discount' ], 10, 1 );
 			}
 
 			$not_isset_global_post = false;
@@ -682,10 +676,11 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Validates in-cart component quantity changes.
 	 *
-	 * @param boolean $passed The current passed status.
-	 * @param string  $cart_item_key The cart item key.
-	 * @param array   $cart_item The cart item.
-	 * @param integer $quantity The product quantity.
+	 * @param boolean      $passed The current passed status.
+	 * @param string       $cart_item_key The cart item key.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @param integer      $quantity The product quantity.
+	 * @return boolean
 	 * @since 5.0
 	 */
 	public function woocommerce_update_cart_validation( $passed, $cart_item_key, $cart_item, $quantity ) {
@@ -724,7 +719,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				return false;
 
-			} elseif ( 0 != $quantity % $parent_quantity ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+			} elseif ( 0 != $quantity % $parent_quantity ) { // phpcs:ignore
 				/* translators: %1 Product title %2 Parent product quantity. */
 				wc_add_notice( sprintf( __( 'The quantity of &quot;%1$s&quot; must be entered in multiples of %2$d.', 'woocommerce-tm-extra-product-options' ), $cart_item['data']->get_title(), $parent_quantity ), 'error' );
 
@@ -750,6 +745,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @param integer $count The count or order items that are of $type.
 	 * @param string  $type The item type.
 	 * @param object  $order The order object.
+	 * @return integer
 	 * @since 5.0
 	 */
 	public function woocommerce_get_item_count( $count, $type, $order ) {
@@ -772,8 +768,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 *
 	 * Quantity is inserted into the product name by 'woocommerce_order_item_name'.
 	 *
-	 * @param string $content The content html.
-	 * @param array  $item The order item.
+	 * @param string       $content The content html.
+	 * @param array<mixed> $item The order item.
+	 * @return string
 	 * @since 5.0
 	 */
 	public function woocommerce_order_item_quantity_html( $content, $item ) {
@@ -788,32 +785,30 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Add the label name to associated products at the order-details template.
 	 *
-	 * @param string $class The item class.
-	 * @param array  $item The order item.
-	 * @param object $order The order object.
+	 * @param string       $class_name The item class.
+	 * @param array<mixed> $item The order item.
+	 * @return string
 	 * @since 5.0
 	 */
-	public function woocommerce_order_item_class( $class, $item, $order ) {
-
+	public function woocommerce_order_item_class( $class_name, $item ) {
 		if ( isset( $item['_associated_key'] ) && '' !== $item['_associated_key'][0] ) {
-			$class .= ' tc-associated-table-product';
+			$class_name .= ' tc-associated-table-product';
 		} elseif ( isset( $item['_tmproducts'] ) && '' !== $item['_tmproducts'][0] ) {
-			$class .= ' tc-container-table-product';
+			$class_name .= ' tc-container-table-product';
 		}
 
-		return $class;
-
+		return $class_name;
 	}
 
 	/**
 	 * Add the label name to associated products at the order-details template.
 	 *
-	 * @param string $content The content html.
-	 * @param array  $item The order item.
+	 * @param string       $content The content html.
+	 * @param array<mixed> $item The order item.
+	 * @return string
 	 * @since 5.0
 	 */
 	public function woocommerce_order_item_name( $content, $item ) {
-
 		if ( isset( $item['_associated_key'] ) && '' !== $item['_associated_key'][0] ) {
 
 			$qty = '';
@@ -837,19 +832,18 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $content;
-
 	}
 
 	/**
 	 * Adds meta data to the order - WC >= 2.7 (crud)
 	 *
-	 * @param object $item The item object.
-	 * @param string $cart_item_key The cart item key.
-	 * @param array  $values Cart item values.
+	 * @param object       $item The item object.
+	 * @param string       $cart_item_key The cart item key.
+	 * @param array<mixed> $values Cart item values.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function woocommerce_checkout_create_order_line_item( $item, $cart_item_key, $values ) {
-
 		if ( isset( $values['associated_parent'] ) && ! empty( $values['associated_parent'] ) ) {
 
 			$item->add_meta_data( '_associated_name', [ $values['tmproducts'][ $values['associated_key'] ]['name'] ] );
@@ -877,23 +871,21 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				);
 			}
 		}
-
 	}
 
 	/**
 	 * Wrap associated products in cart
 	 *
-	 * @param string $subtotal The subtotal html.
-	 * @param array  $item The order item.
-	 * @param object $order The order object.
+	 * @param string                     $subtotal The subtotal html.
+	 * @param array<mixed>|WC_Order_Item $item The order item.
+	 * @return string
 	 * @since 5.0
 	 */
-	public function associated_woocommerce_order_formatted_line_subtotal( $subtotal, $item, $order ) {
-
+	public function associated_woocommerce_order_formatted_line_subtotal( $subtotal, $item ) {
 		if ( isset( $item['_associated_key'] ) && '' !== $item['_associated_key'][0] ) {
 			$priced_individually = isset( $item['_priced_individually'] ) ? $item['_priced_individually'][0] : '';
 
-			if ( empty( $priced_individually ) && empty( $item->get_subtotal( 'edit' ) ) ) {
+			if ( empty( $priced_individually ) && method_exists( $item, 'get_subtotal' ) && empty( $item->get_subtotal( 'edit' ) ) ) {
 				$subtotal = '';
 			} elseif ( $subtotal ) {
 				$subtotal = '<span class="tc-associated-table-product-price">' . $subtotal . '</span>';
@@ -901,14 +893,14 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $subtotal;
-
 	}
 
 	/**
 	 * Modifies the cart item
 	 * Add associated product weights to the main product
 	 *
-	 * @param array $cart_object The cart object.
+	 * @param WC_Cart $cart_object The cart object.
+	 * @return void
 	 *
 	 * @since 6.1
 	 */
@@ -954,17 +946,16 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		} else {
 			$cart_object->cart_contents = $cart_contents;
 		}
-
 	}
 
 	/**
 	 * Make sure products marked as associated have a parent
 	 *
-	 * @param object $cart The cart object.
+	 * @param WC_Cart $cart The cart object.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_cart_loaded_from_session( $cart ) {
-
 		$cart_contents = $cart->cart_contents;
 
 		if ( ! empty( $cart_contents ) ) {
@@ -987,13 +978,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 			}
 		}
-
 	}
 
 	/**
 	 * Make cart item count not count associated products
 	 *
 	 * @param integer $count Number of items in the cart.
+	 * @return integer
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_cart_contents_count( $count ) {
@@ -1013,13 +1004,12 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Wrap associated products in mini cart
 	 *
-	 * @param string $html The string HTML.
-	 * @param array  $cart_item The cart item.
-	 * @param string $cart_item_key The cart item key.
+	 * @param string       $html The string HTML.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return string
 	 * @since 5.0
 	 */
-	public function associated_woocommerce_widget_cart_item_quantity( $html, $cart_item, $cart_item_key ) {
-
+	public function associated_woocommerce_widget_cart_item_quantity( $html, $cart_item ) {
 		remove_filter( 'woocommerce_cart_item_price', [ $this, 'associated_woocommerce_cart_item_price' ], 99999 );
 
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
@@ -1031,19 +1021,17 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $html;
-
 	}
 
 	/**
 	 * Wrap associated products in cart
 	 *
-	 * @param string $price The price HTML.
-	 * @param array  $cart_item The cart item.
-	 * @param string $cart_item_key The cart item key.
+	 * @param string       $price The price HTML.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return string
 	 * @since 5.0
 	 */
-	public function associated_woocommerce_cart_item_price( $price, $cart_item, $cart_item_key ) {
-
+	public function associated_woocommerce_cart_item_price( $price, $cart_item ) {
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
 
 			if ( empty( $cart_item['associated_priced_individually'] ) && empty( $cart_item['line_subtotal'] ) ) {
@@ -1054,31 +1042,21 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Wrap associated products in cart
 	 *
-	 * @param string $title The title HTML.
-	 * @param array  $cart_item The cart item.
-	 * @param string $cart_item_key The cart item key.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return void
 	 * @since 5.0
 	 */
-	public function associated_woocommerce_cart_item_name( $title = '', $cart_item = [], $cart_item_key = '' ) {
-
+	public function woocommerce_after_cart_item_name( $cart_item = [] ) {
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
-
 			if ( isset( $cart_item['associated_label'] ) && '' !== $cart_item['associated_label'] ) {
-				$title = '<div class="tc-associated-table-product-name">' . $cart_item['associated_label'] . '</div>' . $title;
+				echo wp_kses_post( '<div class="tc-associated-table-product-name">' . $cart_item['associated_label'] . '</div>' );
 			}
-
-			$title = '<div class="tc-associated-table-product-indent">' . $title . '</div>';
-
 		}
-
-		return $title;
-
 	}
 
 	/**
@@ -1086,6 +1064,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 *
 	 * @param string $link The link HTML.
 	 * @param string $cart_item_key The cart item key.
+	 * @return string
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_cart_item_remove_link( $link, $cart_item_key ) {
@@ -1106,10 +1085,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * Fix internal associated data
 	 *
 	 * @param boolean $cart_updated The current cart_updated status.
+	 * @return boolean
 	 * @since 5.1
 	 */
 	public function woocommerce_update_cart_action_cart_updated( $cart_updated = false ) {
-
 		if ( apply_filters( 'wc_epo_update_cart_action_cart_updated', false, $cart_updated ) ) {
 			return $cart_updated;
 		}
@@ -1122,7 +1101,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $cart_updated;
-
 	}
 
 	/**
@@ -1130,10 +1108,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 *
 	 * @param string  $cart_item_key The cart item key.
 	 * @param integer $quantity The product quantity.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function woocommerce_after_cart_item_quantity_update( $cart_item_key, $quantity = 0 ) {
-
 		if ( THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync === 'no' ) {
 			return;
 		}
@@ -1186,7 +1164,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -1194,6 +1171,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 *
 	 * @param integer $quantity The product quantity.
 	 * @param string  $cart_item_key The cart item key.
+	 * @return integer
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_cart_item_quantity( $quantity, $cart_item_key ) {
@@ -1256,33 +1234,34 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Associated product table item classes
 	 *
-	 * @param string $class The item class.
-	 * @param array  $cart_item The cart item.
+	 * @param string       $class_name The item class.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return string
 	 * @since 5.0
 	 */
-	public function associated_woocommerce_cart_item_class( $class, $cart_item ) {
+	public function associated_woocommerce_cart_item_class( $class_name, $cart_item ) {
 
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
-			$class .= ' tc-associated-table-product';
+			$class_name .= ' tc-associated-table-product';
 		} elseif ( isset( $cart_item['associated_products'] ) && ! empty( $cart_item['associated_products'] ) ) {
-			$class .= ' tc-container-table-product';
+			$class_name .= ' tc-container-table-product';
 		}
 
-		return $class;
+		return $class_name;
 	}
 
 	/**
 	 * Clear notices
 	 *
+	 * @return void
 	 * @since 5.0
 	 */
 	public function associated_clear_removed_notice() {
-
 		if ( is_admin() || ! function_exists( 'WC' ) ) {
 			return;
 		}
 
-		$notices = isset( WC()->session ) ? WC()->session->get( 'wc_notices', [] ) : [];
+		$notices = ! empty( WC()->session ) ? WC()->session->get( 'wc_notices', [] ) : []; // @phpstan-ignore-line
 
 		if ( isset( $notices['EPO_REMOVED_REQUIRED_ASSOCIATED_PRODUCT'] ) ) {
 			if ( isset( $notices['success'] ) && is_array( $notices['success'] ) ) {
@@ -1298,14 +1277,14 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 			WC()->session->set( 'wc_notices', $notices );
 		}
-
 	}
 
 	/**
 	 * Fetch associated product cart keys
 	 *
-	 * @param array $cart_item The cart item.
-	 * @param array $cart_contents The cart contents.
+	 * @param array<mixed>       $cart_item The cart item.
+	 * @param array<mixed>|false $cart_contents The cart contents.
+	 * @return array<mixed>
 	 * @since 5.0
 	 */
 	public function get_associated_cart_keys( $cart_item, $cart_contents = false ) {
@@ -1335,8 +1314,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Remove associated products when the parent gets removed.
 	 *
-	 * @param string $cart_item_key The cart item key.
-	 * @param object $cart The cart object.
+	 * @param string  $cart_item_key The cart item key.
+	 * @param WC_Cart $cart The cart object.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_remove_cart_item( $cart_item_key, $cart ) {
@@ -1384,11 +1364,15 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 			// This is a parent product.
 		} elseif ( isset( $cart->removed_cart_contents[ $cart_item_key ]['associated_products'] ) && ! empty( $cart->removed_cart_contents[ $cart_item_key ]['associated_products'] ) && is_array( $cart->removed_cart_contents[ $cart_item_key ]['associated_products'] ) ) {
-
+			/**
+			 * Cart form data
+			 *
+			 * @var array<mixed> $cart_totals
+			 */
 			$cart_totals = isset( $_POST['cart'] ) ? wp_unslash( $_POST['cart'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
 			$quantity    = -1;
-			if ( $cart_totals ) {
-				$quantity = apply_filters( 'woocommerce_stock_amount_cart_item', wc_stock_amount( preg_replace( '/[^0-9\.]/', '', $cart_totals[ $cart_item_key ]['qty'] ) ), $cart_item_key );
+			if ( $cart_totals && isset( $cart_totals[ $cart_item_key ] ) && isset( $cart_totals[ $cart_item_key ]['qty'] ) ) {
+				$quantity = apply_filters( 'woocommerce_stock_amount_cart_item', wc_stock_amount( (int) preg_replace( '/[^0-9\.]/', '', $cart_totals[ $cart_item_key ]['qty'] ) ), $cart_item_key );
 			}
 
 			$associated_cart_keys = $this->get_associated_cart_keys( $cart->removed_cart_contents[ $cart_item_key ], $cart->cart_contents );
@@ -1412,8 +1396,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Restore associated products when the parent gets restored.
 	 *
-	 * @param string $cart_item_key The cart item key.
-	 * @param object $cart The cart object.
+	 * @param string  $cart_item_key The cart item key.
+	 * @param WC_Cart $cart The cart object.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_restore_cart_item( $cart_item_key, $cart ) {
@@ -1451,16 +1436,16 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	/**
 	 * Add associated products (from elements) to the cart.
 	 *
-	 * @param string  $parent_cart_key The parent cart key.
-	 * @param integer $parent_id The parent product id.
-	 * @param integer $parent_quantity Contains the quantity of the parent product to add.
-	 * @param integer $variation_id ID of the parent variation being added to the cart.
-	 * @param array   $variation Attribute values.
-	 * @param array   $cart_item_data Extra cart item data we want to pass into the item.
+	 * @param string       $parent_cart_key The parent cart key.
+	 * @param integer      $parent_id The parent product id.
+	 * @param integer      $parent_quantity Contains the quantity of the parent product to add.
+	 * @param integer      $variation_id ID of the parent variation being added to the cart.
+	 * @param array<mixed> $variation Attribute values.
+	 * @param array<mixed> $cart_item_data Extra cart item data we want to pass into the item.
+	 * @return void
 	 * @since 5.0
 	 */
 	public function associated_woocommerce_add_to_cart( $parent_cart_key, $parent_id, $parent_quantity, $variation_id, $variation, $cart_item_data ) {
-
 		if ( ! did_action( 'woocommerce_cart_loaded_from_session' ) ) {
 			return;
 		}
@@ -1496,7 +1481,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					$form_prefix_counter = $key; // failsafe.
 					if ( isset( $associated_data['form_prefix_counter'] ) ) {
 						$form_prefix_counter = $associated_data['form_prefix_counter'];
-					};
+					}
 
 					if ( '' !== $form_prefix_counter ) {
 						if ( isset( $associated_data_form_prefix[ $form_prefix_counter ] ) ) {
@@ -1540,7 +1525,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 
 				// Only allow simple or variable products.
-				if ( apply_filters( 'wc_epo_associated_add_to_cart', true, $associated_product, $associated_item_cart_data ) && ( ! ( $associated_product->is_type( 'simple' ) || $associated_product->is_type( 'variable' ) || $associated_product->is_type( 'variation' ) ) ) ) {
+				if ( apply_filters( 'wc_epo_associated_add_to_cart', false, $associated_product, $associated_item_cart_data ) && ( ! ( $associated_product->is_type( 'simple' ) || $associated_product->is_type( 'variable' ) || $associated_product->is_type( 'variation' ) ) ) ) {
 					continue;
 				}
 
@@ -1566,7 +1551,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						$associated_item_cart_data['associated_variation_id'] = $variation_id;
 						$variations           = [];
 						$parent_data          = wc_get_product( $associated_product->get_parent_id() );
-						$variation_attributes = $associated_product->get_variation_attributes();
+						$variation_attributes = $associated_product->get_variation_attributes(); // @phpstan-ignore-line
 						// Filter out 'any' variations, which are empty, as they need to be explicitly specified while adding to cart.
 						$variation_attributes = array_filter( $variation_attributes );
 					} else {
@@ -1598,10 +1583,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 								if ( isset( $variation_attributes[ $attribute_key ] ) ) {
 									$value = $variation_attributes[ $attribute_key ];
 								}
-							} else {
-								if ( isset( $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ] ) ) {
-									$value = $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ];
-								}
+							} elseif ( isset( $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ] ) ) {
+								$value = $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ];
 							}
 							if ( false === $value ) {
 								continue;
@@ -1635,18 +1618,18 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 			}
 		}
-
 	}
 
 	/**
 	 * Add an associated product to the cart.
 	 *
-	 * @param integer $parend_id The parent product id.
-	 * @param object  $product The associated product object.
-	 * @param integer $quantity Contains the quantity of the associated product to add.
-	 * @param integer $variation_id ID of the associated variation being added to the cart.
-	 * @param array   $variation Attribute values.
-	 * @param array   $cart_item_data Extra cart item data we want to pass into the item.
+	 * @param integer             $parend_id The parent product id.
+	 * @param object              $product The associated product object.
+	 * @param integer             $quantity Contains the quantity of the associated product to add.
+	 * @param string|integer      $variation_id ID of the associated variation being added to the cart.
+	 * @param string|array<mixed> $variation Attribute values.
+	 * @param array<mixed>        $cart_item_data Extra cart item data we want to pass into the item.
+	 * @return string|false
 	 * @since 5.0
 	 */
 	private function add_associated_to_cart( $parend_id, $product, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = [] ) {
@@ -1735,42 +1718,42 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @param mixed  $current_price The current prodcut price.
 	 * @param string $discount The product discount.
 	 * @param string $discount_type The product discount type.
+	 * @return mixed
 	 * @since 5.0.8
 	 */
 	public function get_discounted_price( $current_price = 0, $discount = '', $discount_type = '' ) {
-
 		$discount = wc_format_decimal( (float) $discount, wc_get_price_decimals() );
 
-		if ( $current_price && $discount ) {
+		if ( $current_price && $discount && $discount_type ) {
 			if ( is_numeric( $current_price ) ) {
-				$price = wc_format_decimal( (float) $current_price, wc_get_price_decimals() );
+				$price    = floatval( wc_format_decimal( (float) $current_price, wc_get_price_decimals() ) );
+				$discount = floatval( $discount );
 				if ( 'fixed' === $discount_type ) {
 					$current_price = max( $price - $discount, 0 );
-				} else {
+				} elseif ( 'percent' === $discount_type ) {
 					$current_price = max( $price * ( ( 100 - $discount ) / 100 ), 0 );
 				}
 			} else { // math formula.
 				$price = '(' . $current_price . ')';
 				if ( 'fixed' === $discount_type ) {
 					$current_price = $price . ' - ' . $discount;
-				} else {
+				} elseif ( 'percent' === $discount_type ) {
 					$current_price = $price . ' * ( ( 100 - ' . $discount . ' ) / 100 )';
 				}
 			}
 		}
 
 		return $current_price;
-
 	}
 
 	/**
 	 * Modify cart item
 	 *
-	 * @param array $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 5.0
 	 */
 	public function modify_cart_item( $cart_item = [] ) {
-
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
 
 			if ( empty( $cart_item['associated_priced_individually'] ) ) {
@@ -1805,8 +1788,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 					}
 
-					$cart_item['data']->associated_value = $cart_item['data']->get_price( 'edit' );
-
 					$cart_item['data']->set_virtual( 'yes' );
 					$cart_item['data']->set_weight( '' );
 
@@ -1815,33 +1796,29 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		}
 
 		return $cart_item;
-
 	}
 
 	/**
 	 * Modify cart
 	 *
-	 * @param array $cart_item The cart item.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @return array<mixed>
 	 * @since 5.0
 	 */
 	public function woocommerce_add_cart_item( $cart_item = [] ) {
-
 		$cart_item = $this->modify_cart_item( $cart_item );
-
 		return $cart_item;
-
 	}
 
 	/**
 	 * Gets the cart from session.
 	 *
-	 * @param array  $cart_item The cart item.
-	 * @param array  $values Cart item values.
-	 * @param string $cart_item_key The cart item key.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @param array<mixed> $values Cart item values.
+	 * @return array<mixed>
 	 * @since 5.0
 	 */
-	public function woocommerce_get_cart_item_from_session( $cart_item = [], $values = [], $cart_item_key = '' ) {
-
+	public function woocommerce_get_cart_item_from_session( $cart_item = [], $values = [] ) {
 		if ( isset( $values['tmproducts'] ) ) {
 			$cart_item['tmproducts'] = $values['tmproducts'];
 		}
@@ -1884,7 +1861,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		$cart_item = $this->modify_cart_item( $cart_item );
 
 		return $cart_item;
-
 	}
 
 
@@ -1892,16 +1868,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * Edit cart functionality
 	 * This serves as edit cart regardless if the product has associated products.
 	 *
-	 * @param string  $cart_item_key The cart item key.
-	 * @param integer $product_id Contains the id of the product to add to the cart.
-	 * @param integer $quantity Contains the quantity of the item to add.
-	 * @param integer $variation_id ID of the variation being added to the cart.
-	 * @param array   $variation Attribute values.
-	 * @param array   $cart_item_data Extra cart item data we want to pass into the item.
+	 * @param string         $cart_item_key The cart item key.
+	 * @param string|integer $product_id Contains the id of the product to add to the cart.
+	 * @param string|integer $quantity Contains the quantity of the item to add.
+	 * @return void
 	 * @since 5.0
 	 */
-	public function woocommerce_add_to_cart( $cart_item_key = '', $product_id = '', $quantity = '', $variation_id = '', $variation = [], $cart_item_data = '' ) {
-
+	public function woocommerce_add_to_cart( $cart_item_key = '', $product_id = '', $quantity = '' ) {
 		if ( THEMECOMPLETE_EPO()->cart_edit_key ) {
 
 			$original_key = THEMECOMPLETE_EPO()->cart_edit_key;
@@ -1958,7 +1931,5 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 			}
 		}
-
 	}
-
 }

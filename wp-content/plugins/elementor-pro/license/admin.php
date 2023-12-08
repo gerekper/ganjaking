@@ -149,7 +149,7 @@ class Admin {
 	}
 
 	public function register_page() {
-	    return;
+		return;
 		$menu_text = esc_html__( 'License', 'elementor-pro' );
 
 		add_submenu_page(
@@ -174,6 +174,16 @@ class Admin {
 				),
 				'manage_options',
 				'elementor_pro_renew_license_menu_link'
+			);
+		}
+
+		if ( ! API::is_license_expired() && API::is_need_to_show_upgrade_promotion() ) {
+			add_submenu_page(
+				Settings::PAGE_ID,
+				'',
+				esc_html__( 'Upgrade', 'elementor-pro' ),
+				'manage_options',
+				'elementor_pro_upgrade_license_menu_link'
 			);
 		}
 	}

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
@@ -17,7 +16,7 @@ use ACP\Sorting\Type\Order;
  * Sorts a post list table on a meta key. The meta value may contain mixed values, as long
  * as the supplied formatter can process them into a string.
  */
-class MetaFormat extends AbstractModel implements QueryBindings
+class MetaFormat implements QueryBindings
 {
 
     protected $meta_key;
@@ -28,8 +27,6 @@ class MetaFormat extends AbstractModel implements QueryBindings
 
     public function __construct(FormatValue $formatter, string $meta_key, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->formatter = $formatter;
         $this->meta_key = $meta_key;
         $this->data_type = $data_type;

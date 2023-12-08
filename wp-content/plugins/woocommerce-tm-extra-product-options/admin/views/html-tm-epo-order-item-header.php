@@ -2,22 +2,18 @@
 /**
  * Shows an order item header
  *
- * @var object $item The item being displayed.
- * @var int    $item_id The id of the item being displayed.
- * @var object $order The order object.
- * @var string $header_title The header title.
- * @var object $_product The productt object.
- *
  * @package Extra Product Options/Admin/Views
- * @version 4.8
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-
-$tax_data  = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
-$row_class = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $class ) && ! empty( $class ) ? $class : '', $item, $order );
-?>
-<tr class="tm-order-line <?php echo esc_attr( $row_class ); ?>" data-order_item_id="<?php echo esc_attr( $item_id ); ?>">
+if ( isset( $item, $item_id, $order, $header_title, $_product ) ) :
+	$item_id      = intval( $item_id );
+	$header_title = (string) $header_title;
+	$tax_data     = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+	$row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $class ) && ! empty( $class ) ? $class : '', $item, $order );
+	?>
+<tr class="tm-order-line <?php echo esc_attr( (string) $row_class ); ?>" data-order_item_id="<?php echo esc_attr( (string) $item_id ); ?>">
 	<?php echo ( version_compare( WC()->version, '2.6', '>=' ) ) ? '' : '<td class="check-column">&nbsp;</td>'; ?>
 	<td class="thumb">&nbsp;</td>
 	<td class="tm-c name" data-sort-value="<?php echo esc_attr( $item['name'] ); ?>">
@@ -31,7 +27,7 @@ $row_class = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $c
 	</td>
 	<?php
 
-	do_action( 'woocommerce_admin_order_item_values', $_product, $item, 0 );
+	do_action( 'wc_epo_admin_order_item_header', $order, $_product, $item, $item_id );
 
 	?>
 	<td class="item_cost" width="1%" data-sort-value="<?php echo esc_attr( $order->get_item_subtotal( $item, false, true ) ); ?>">
@@ -59,4 +55,5 @@ $row_class = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $c
 		&nbsp;
 	</td>
 </tr>
-
+	<?php
+endif;

@@ -25,7 +25,7 @@ class RawValueFormatter implements Formatter
         return $this->type;
     }
 
-    public function format(string $value, int $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, Column $column, string $operator_group): string
     {
         return (string)$column->get_raw_value($id);
     }

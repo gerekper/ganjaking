@@ -1,0 +1,181 @@
+.tp-woo-hidden {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+.tp-woo-swatches {
+	padding: 0;
+}
+
+.tp-woo-swatches .tp-swatches:not(.tp-swatches-image),.tp-woo-swatches .tp-swatches img {
+	position: relative;
+	display: inline-flex;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+    align-items: center;
+	margin-right: 20px;
+	cursor: pointer;
+	border: 2px solid transparent;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;	
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+	white-space: nowrap;
+	list-style: none;
+}
+
+.tp-woo-swatches .tp-swatches.selected:not(.tp-swatches-image),.tp-woo-swatches .tp-swatches.selected img {
+	border-color: #a79898;
+}
+
+.tp-woo-swatches .tp-swatches.disabled {
+	cursor: default;
+	opacity: 0.1 !important;
+}
+.tp-woo-swatches .tp-swatches-color {
+	text-indent: -999999em;
+	border: 2px solid #928282;
+}
+
+.tp-woo-swatches .tp-swatches-color.selected {
+	border-color: #312e2e;
+}
+.tp-woo-swatches .tp-swatches-label {
+	font-size: 14px;
+	background-color: #f1f1f1;
+}
+
+.tp-woo-swatches .tp-swatches-image {
+	font-size: 0;
+}
+
+.swatchesstyletooltip .tp-woo-swatches .tp-swatches-tooltip{
+    position: absolute;
+    margin: 0;
+    margin-top: -10px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 400;
+    top: 0;
+    left: 50%;
+    color: #fff;
+    background: #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    z-index: 10;
+    text-indent: initial;
+    opacity: 0;
+    visibility: hidden;
+    user-select: none;
+    -webkit-transform: translate(-50%, -100%);
+    -moz-transform: translate(-50%, -100%);
+    transform: translate(-50%, -100%);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.swatchesstyletooltip .tp-woo-swatches .tp-swatches-tooltip:after {	
+	content: "";
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	background: #000;
+	bottom: -5px;
+	left: 50%;
+	margin-left: -5px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.swatchesstyletooltip .tp-woo-swatches .tp-swatches:hover .tp-swatches-tooltip{
+    opacity: 1;
+    visibility: visible;
+    user-select: auto;
+}
+.swatchesstylewithtitle .tp-woo-swatches .tp-swatches-tooltip{
+    position: relative;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    text-indent: initial;
+    bottom: -30px;
+}
+.tp-woo-swatches .tp-swatches.tp-swatches-image {
+    display: inline-block;
+	margin-right: 15px;
+}
+.tp-woo-swatches .tp-swatches.tp-swatches-image {
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    white-space: nowrap;
+    list-style: none;
+}
+.tp-woo-swatches .tp-swatches img {
+    margin-right: 0;
+}
+.swatchesstylewithtitle .tp-woo-swatches .tp-swatches-image .tp-swatches-tooltip {
+    bottom: 15px;
+    text-align: center;
+}
+.swatcheslayoutdefault .variations tr {
+    display: flex;
+    flex-direction: column;
+}
+.swatchesstyledefault .variations .value .tp-swatches.tp-swatches-color,
+.swatchesstyletooltip .variations .value .tp-swatches.tp-swatches-color{
+    margin-bottom: 15px;
+}
+.swatchesstylewithtitle .variations .value .tp-swatches.tp-swatches-color {
+    margin-bottom: 30px;
+}
+.tp-woo-add-to-cart.variable.swatchesstyledefault li.tp-swatches.tp-swatches-button .tp-swatches-tooltip {
+    margin-right: 5px;
+}
+.tp-woo-add-to-cart.variable.swatcheslayoutinline.swatchesstylewithtitle .tp-swatches.tp-swatches-button{
+    flex-direction: column;
+}
+.tp-woo-add-to-cart.variable.swatchesstylewithtitle .tp-swatches.tp-swatches-button .tp-swatches-tooltip {
+    bottom: -10px;
+}
+.tp-woo-add-to-cart.variable.swatcheslayoutdefault.swatchesstylewithtitle .tp-swatches.tp-swatches-button.tp-swatches.tp-swatches-button {
+    display: inline-block;
+}
+.tp-woo-add-to-cart.variable.swatchesstyledefault .tp-woo-swatches .tp-swatches:not(.tp-swatches-image){
+    font-size: 12px;
+    justify-content: center;
+}
+
+.tp-woo-add-to-cart.variable.swatchesstyledefault .tp-woo-swatches .tp-swatches:not(.tp-swatches-image) span {
+    display: none;
+}
+
+.tp-woo-swatches .tp-swatches.tp-swatches-button {border-color: #a798984d;}
+.tp-woo-add-to-cart.variable.swatchesstyletooltip .tp-swatches.tp-swatches-button {
+    justify-content: center;
+}
+
+.tp-woo-add-to-cart.variable.swatchesstylewithtitle .tp-swatches.tp-swatches-button{
+    line-height:1.5;
+}
+body.page .tp-woo-single-pricing .tp-woo-add-to-cart.variable .variations_form .variations tbody tr th{
+    vertical-align: text-bottom;
+    min-width: 50px;
+}

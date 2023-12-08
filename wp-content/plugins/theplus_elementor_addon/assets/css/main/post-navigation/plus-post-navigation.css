@@ -1,0 +1,292 @@
+/*post navigation*/
+.tp-post-navigation{
+	position:relative;
+	display:block;
+}
+/*Style 1*/
+.tp-nav-style-1 .tp-post-nav .post-prev,.tp-nav-style-1 .tp-post-nav .post-next {
+    padding: 0;
+}
+.tp-nav-style-1 .tp-post-nav {
+    list-style: none;
+    font-size: 13px;
+	margin: 0;
+    text-transform: capitalize;
+}
+.tp-nav-style-1 .post_nav_link {
+	position: relative;
+	display: table;
+    vertical-align: middle;
+    font-size: 15px;
+    padding: 15px 0;
+	height: auto;
+}
+.tp-nav-style-1 .prev-post-content, .tp-nav-style-1 .next-post-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+.tp-nav-style-1 .post_nav_link a {
+    color: #868686;
+}
+.tp-nav-style-1 .post_nav_link.prev {
+    background: #f4f4f4;
+    padding: 35px 7%;
+    text-align: left;
+    width: 100%;
+    min-height: 160px;
+}
+.tp-post-navigation .post-image {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.tp-post-navigation .post_nav_link.prev .post-image {
+    padding-right: 20px;
+}
+.tp-nav-trans,.tp-post-nav .post_nav_link b,.tp-post-nav .post_nav_link span{
+	-moz-transition: all 0.25s cubic-bezier(.37,.31,.2,.85);
+    -o-transition: all 0.25s cubic-bezier(.37,.31,.2,.85);
+    -webkit-transition: all 0.25s cubic-bezier(.37,.31,.2,.85);
+    -ms-transition: all 0.25s cubic-bezier(.37,.31,.2,.85);
+    transition: all 0.25s cubic-bezier(.37,.31,.2,.85);
+}
+.tp-nav-style-1 img {
+	border-radius: 4px;
+}
+.tp-post-nav .post_nav_link b {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+    color: #777;
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+.tp-post-nav .post_nav_link span {
+    font-size: 18px;
+    line-height: 28px;
+    color: #313131;
+    display: inline-block;
+    font-weight: 600;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+/*Next*/
+.tp-nav-style-1 .post-next{
+	text-align: right;
+}
+.tp-nav-style-1 .post_nav_link.next {
+    text-align: right;
+    background: #fff;
+    padding: 35px 7%;
+    box-shadow: 0 5px 20px 1px rgba(0,0,0,.1);
+    float: right;
+    width: 100%;
+    min-height: 160px;
+}
+.tp-post-navigation .post_nav_link.next .post-image {
+    padding-left: 20px;
+}
+/*Style 1*/
+
+/*Style 2*/
+.tp-post-navigation.tp-nav-style-2 .tp-post-nav-hover-con {
+    position: absolute;
+    opacity: 0;
+    z-index: 99;
+    visibility: hidden;
+	max-width: 215px;
+}
+.tp-post-navigation.tp-nav-style-2 .post-prev {
+    margin-right: 5px;
+}
+.tp-post-navigation.tp-nav-style-2 .post-prev:hover .tp-post-nav-hover-con,
+.tp-post-navigation.tp-nav-style-2 .post-next:hover .tp-post-nav-hover-con {
+    opacity: 1;
+    visibility: visible;
+}
+.tp-post-navigation.tp-nav-style-2 .tp-post-nav-hover-con .prev-post-content,.tp-post-navigation.tp-nav-style-2 .tp-post-nav-hover-con .next-post-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tp-post-navigation.tp-nav-style-2 .post-prev a i, .tp-post-navigation.tp-nav-style-2 .post-next a i {
+    color: #cebbbbb5;
+	font-size: 24px;
+	-moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+	margin-bottom: 10px;
+}
+.tp-post-navigation.tp-nav-style-2 .post-prev:hover a i, .tp-post-navigation.tp-nav-style-2 .post-next:hover a i {
+    color: #000;
+}
+.tp-post-navigation.tp-nav-style-2 .tp-post-nav-hover-con {
+    padding: 15px;
+    background: lightgrey;
+    border-radius: 5px;
+}
+.tp-post-navigation.tp-nav-style-2 .post-image {
+    padding: 0 !important;
+}
+/*Style 2*/
+
+/*Style 3*/
+.tp-post-navigation.tp-nav-trans.tp-nav-style-3 .tp-post-nav-hover-con {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 1px solid #efe5e5;
+}
+.tp-post-navigation.tp-nav-trans.tp-nav-style-3 .post_nav_link .tp-post-nav-hover-con:before {
+	content: '';
+	background: #fff8f8;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;}
+
+.tp-post-navigation.tp-nav-trans.tp-nav-style-3 .post_nav_link .prev-post-content,
+.tp-post-navigation.tp-nav-trans.tp-nav-style-3 .post_nav_link .next-post-content {
+    z-index: 99;
+	text-align: center;
+    padding: 15px;
+}
+.tp-post-navigation.tp-nav-trans.tp-nav-style-3 .post_nav_link:hover .tp-post-nav-hover-con:before {
+    background: #00000094;
+}
+/*Style 3*/
+
+/*Style 4*/
+.tp-post-navigation.tp-nav-style-4 .post-prev,
+.tp-post-navigation.tp-nav-style-4 .post-next {
+    display: flex;
+    position: fixed;
+    z-index: 111;
+    top: 50%;
+    width: 260px;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-top: -64px !important;
+    transition: right 0.3s cubic-bezier(1,1,1,1),left 0.3s cubic-bezier(1,1,1,1),opacity 0.3s;
+    color: #fff!important;
+}
+.tp-post-navigation.tp-nav-style-4 .post-prev {      
+        left: -230px;
+        text-align: left;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-next {
+   flex-direction: row-reverse;
+   right: -230px;
+   text-align: right;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-image{
+    flex-shrink: 0;
+    height: 130px;
+    width: 130px;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-image .tp-nav-trans.wp-post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.tp-post-navigation.tp-nav-style-4 .tp-post-nav-hover-arrow {
+    flex-shrink: 0;
+    text-align: center;
+    height: 130px;
+    width: 130px;
+    background: rgb(0 0 0);
+    color: #fff;
+    position: relative;
+    transition: background 0.3s cubic-bezier(.78,.13,.15,.80);
+    z-index: 1;
+}
+.tp-post-navigation.tp-nav-style-4 .post-prev .tp-post-nav-hover-arrow:before,
+.tp-post-navigation.tp-nav-style-4 .post-next .tp-post-nav-hover-arrow:before {
+    content: '<';
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    font-size: 29px;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(.78,.13,.15,.80);
+    transform: translate(23px,-50%);
+}
+.tp-post-navigation.tp-nav-style-4 .post-next .tp-post-nav-hover-arrow:before{
+     content: '>';
+     transform: translate(-70px,-50%);
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-prev:hover .tp-post-nav-hover-arrow:before,
+.tp-post-navigation.tp-nav-style-4 .post-next:hover .tp-post-nav-hover-arrow:before {
+    transform: translate(-100%,-50%);
+}
+
+.tp-post-navigation.tp-nav-style-4 .prev-post-content,
+.tp-post-navigation.tp-nav-style-4 .next-post-content {
+    font-size: 12px;
+    line-height: 16px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    display: block;
+    padding:10px 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: #21252966;
+    opacity: 0;
+    transform: translate(0,-100%);
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+.tp-post-navigation.tp-nav-style-4 .post-prev:hover .prev-post-content,
+.tp-post-navigation.tp-nav-style-4 .post-next:hover .next-post-content {
+    opacity: 1;
+    transform: translate(0,0);
+    transition-delay: 0.1s;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post_nav_link.tp-nav-trans {
+    position: relative;
+    display: flex;
+    width: auto;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-prev:hover {
+    left: 0;
+}
+.tp-post-navigation.tp-nav-style-4 .post-next:hover {
+    right: 0;
+}
+.tp-post-navigation.tp-nav-style-4 .post-prev:hover .tp-post-nav-hover-arrow,
+.tp-post-navigation.tp-nav-style-4 .post-next:hover .tp-post-nav-hover-arrow {
+    background: #ff5a6e;
+}
+
+.tp-post-navigation.tp-nav-style-4 .post-next a {
+    flex-direction: row-reverse;
+}
+/*Style 4*/

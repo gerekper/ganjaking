@@ -326,7 +326,7 @@ class Mega_menu extends Module_Base {
                 'label'     => esc_html__('Alignment', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::CHOOSE,
                 'options'   => [
-                    'left'   => [
+                    'flex-start'   => [
                         'title' => esc_html__('Left', 'bdthemes-element-pack'),
                         'icon'  => 'eicon-h-align-left',
                     ],
@@ -334,14 +334,14 @@ class Mega_menu extends Module_Base {
                         'title' => esc_html__('Center', 'bdthemes-element-pack'),
                         'icon'  => 'eicon-h-align-center',
                     ],
-                    'right'  => [
+                    'flex-end'  => [
                         'title' => esc_html__('Right', 'bdthemes-element-pack'),
                         'icon'  => 'eicon-h-align-right',
                     ]
                 ],
-                'default'   => 'left',
+                'default'   => 'flex-start',
                 'selectors' => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-mobile' => 'text-align: {{VALUE}}; display:block;',
+                    '{{WRAPPER}} .ep-megamenu .megamenu-header-mobile' => 'justify-content: {{VALUE}};',
                 ],
             ]
         );
@@ -1190,17 +1190,43 @@ class Mega_menu extends Module_Base {
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
+
         $this->add_responsive_control(
-            'badge_position',
+            'badge_position_x',
             [
-                'label'     => esc_html__('Position', 'bdthemes-element-pack'),
+                'label'     => esc_html__('Offset (X)', 'bdthemes-element-pack') . BDTEP_NC,
                 'type'      => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range'     => [
+                    'px'    => [
+                        'min'   => -100,
+                        'max'   => 100,
+                        'step'  => 1,
+                    ],
+                ],
                 'selectors' => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'top: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'margin-left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
-
+        $this->add_responsive_control(
+            'badge_position',
+            [
+                'label'     => esc_html__('Offset (Y)', 'bdthemes-element-pack') . BDTEP_NC,
+                'type'      => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range'     => [
+                    'px'    => [
+                        'min'   => -100,
+                        'max'   => 100,
+                        'step'  => 1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'margin-top: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
         $this->add_responsive_control(
             'badge_padding',
             [
@@ -1210,12 +1236,13 @@ class Mega_menu extends Module_Base {
                 'selectors'  => [
                     '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
+                'separator' => 'before'
             ]
         );
         $this->add_responsive_control(
             'badge_margin',
             [
-                'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
+                'label'      => esc_html__('Margin (Deprecated)', 'bdthemes-element-pack'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
@@ -1242,6 +1269,15 @@ class Mega_menu extends Module_Base {
                 ],
             ]
         );
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'      => 'badge_typography',
+                'label'     => esc_html__('Typography', 'bdthemes-element-pack'),
+                'selector'  => '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label',
+            ]
+        );
+
         $this->end_controls_section();
     }
 
@@ -1288,7 +1324,7 @@ class Mega_menu extends Module_Base {
             $this->add_render_attribute(
                 'ep-megamenu',
                 [
-                    'class' => ['ep-megamenu', 'ep-megamenu-' . $settings['ep_megamenu_direction'] . '']
+                    'class' => ['ep-megamenu', 'initialized', 'ep-megamenu-' . $settings['ep_megamenu_direction'] . '']
                 ],
                 null,
                 true
@@ -1332,7 +1368,7 @@ class Mega_menu extends Module_Base {
                     } ?>
 
                 </div>
-                <div class="megamenu-header-mobile">
+                <div class="megamenu-header-mobile" style="display: none;">
                     <a class="bdt-navbar-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />

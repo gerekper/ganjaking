@@ -1,0 +1,91 @@
+/*Mouse Cursor*/
+.plus-cursor-pointer-follow, .plus-cursor-pointer-follow-text{
+	position: fixed;
+	z-index: 123;
+	display: inline-block;
+	padding-left: 10px;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+.plus-cursor-pointer-follow-text{
+  padding-left: 0px;
+  font-size:16px;
+  font-weight:400;
+  color:#000;
+}
+.plus-cursor-follow-circle { 
+	position: fixed;
+	display:inline-block; 
+	width:50px;
+	height:50px;  
+	margin:20px;
+	background: #eeeeee59; 
+	border-radius:50%; 
+	overflow:hidden;    
+	opacity: 0;
+	visibility: hidden;
+	z-index: 999;
+}
+.cursor-active .plus-cursor-pointer-follow,.cursor-active .plus-cursor-pointer-follow-text,.cursor-active .plus-cursor-follow-circle{
+  opacity: 1;
+  visibility: visible;
+}
+/*style-1*/
+.plus-cursor-follow-circle.plus-percent-circle {
+	font-size: unset;
+	width: unset;
+	height: unset;
+	background: unset;
+	border-radius:unset;
+	overflow: unset;
+	display: unset;
+	z-index: 999;
+	margin: 0 auto;
+	justify-content: center;
+	position:fixed;
+}
+
+.plus-cursor-follow-circle.plus-percent-circle:before {
+  content: "";
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 125vmax;
+  height: 125vmax;
+  border-radius: 100%;
+  box-shadow: 0 0 20px pink;
+  transition: all 500ms cubic-bezier(.49,.23,0,.99) ;
+  opacity: 0;
+}
+
+.mc-circle-process-done:before{
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.5;
+}
+
+.plus-mc-svg-circle {
+  position: sticky;
+  transform: rotate(-90deg);
+}
+
+circle.plus-mc-circle-st1 {
+  stroke: #0000001a;
+  stroke-width: 10px;
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+.plus-mc-circle-progress-bar {
+  stroke: #000;
+  transition: stroke-dashoffset 0 ease-in-out; 
+  filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+}
+/*style-1*/
+[data-plus-mc-settings] .elementor-widget-tp-mouse-cursor circle{    
+	-webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+}

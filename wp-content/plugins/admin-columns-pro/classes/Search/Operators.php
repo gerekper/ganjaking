@@ -26,6 +26,8 @@ final class Operators extends Config
     public const TODAY = 'TODAY';
     public const PAST = 'PAST';
     public const FUTURE = 'FUTURE';
+    public const EQ_YEAR = 'EQ_YEAR';
+    public const EQ_MONTH = 'EQ_MONTH';
     public const LT_DAYS_AGO = 'LT_DAYS_AGO';
     public const GT_DAYS_AGO = 'GT_DAYS_AGO';
     public const WITHIN_DAYS = 'WITHIN_DAYS';
@@ -61,6 +63,8 @@ final class Operators extends Config
             self::TODAY,
             self::PAST,
             self::FUTURE,
+            self::EQ_YEAR,
+            self::EQ_MONTH,
             self::LT_DAYS_AGO,
             self::GT_DAYS_AGO,
             self::WITHIN_DAYS,

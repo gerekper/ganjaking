@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\Order;
 
-class Permalink extends AbstractModel implements WarningAware, QueryBindings
+class Permalink implements WarningAware, QueryBindings
 {
 
     use PostRequestTrait;
@@ -20,8 +19,6 @@ class Permalink extends AbstractModel implements WarningAware, QueryBindings
 
     public function __construct(string $post_type)
     {
-        parent::__construct();
-
         $this->post_type = $post_type;
     }
 

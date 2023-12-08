@@ -2,12 +2,15 @@
 
 namespace ACA\ACF\Search\Comparison;
 
+use ACA\ACF\Search\UnserializedValuesTrait;
 use ACP;
 
 class Users extends User {
 
-	protected function get_meta_query( $operator, ACP\Search\Value $value ) {
-		if( ACP\Search\Operators::CURRENT_USER === $operator ){
+	use UnserializedValuesTrait;
+
+	protected function get_meta_query( string $operator, ACP\Search\Value $value ): array {
+		if ( ACP\Search\Operators::CURRENT_USER === $operator ) {
 			$value = ( new ACP\Search\Helper\UserValueFactory() )->create_current_user( ACP\Search\Value::STRING );
 		}
 
@@ -18,6 +21,10 @@ class Users extends User {
 		);
 
 		return $comparison();
+	}
+
+	public function get_used_user_ids(): array {
+		return $this->get_unserialized_values( $this->query->get() );
 	}
 
 }

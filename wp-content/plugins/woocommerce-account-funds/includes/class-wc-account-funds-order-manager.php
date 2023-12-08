@@ -31,7 +31,7 @@ class WC_Account_Funds_Order_Manager {
 		add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'admin_order_account_funds' ) );
 		add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'after_calculate_totals' ), 10, 2 );
 
-		add_filter( 'wcs_subscription_meta_query', array( $this, 'copy_order_meta_query' ), 10, 3 );
+		add_filter( 'wcs_subscription_meta_query', array( $this, 'copy_order_meta_query' ), 10, 2 );
 	}
 
 	/**
@@ -188,6 +188,7 @@ class WC_Account_Funds_Order_Manager {
 		if ( in_array( $to, array( 'processing', 'completed' ), true ) ) {
 			$this->maybe_increase_funds( $order_id );
 			$this->maybe_remove_funds( $order_id );
+			$this->maybe_pay_with_funds( $order_id );
 		} elseif ( 'on-hold' === $to ) {
 			$this->maybe_remove_funds( $order_id );
 		} elseif ( 'cancelled' === $to ) {
@@ -305,6 +306,38 @@ class WC_Account_Funds_Order_Manager {
 					$customer_id
 				)
 			);
+		}
+	}
+
+	/**
+	 * Pays the order with funds if possible.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int $order_id Order ID.
+	 */
+	public function maybe_pay_with_funds( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		if (
+			! $order || ! $order->get_customer_id() || // No order or customer.
+			'accountfunds' !== $order->get_payment_method() || // Not paying with funds.
+			wc_string_to_bool( $order->get_meta( '_funds_removed' ) ) // Already processed.
+		) {
+			return;
+		}
+
+		$funds_used = $order->get_meta( '_funds_used' );
+
+		if ( $funds_used && floatval( $funds_used > 0 ) ) {
+			return;
+		}
+
+		$result = wc_account_funds_pay_order_with_funds( $order );
+
+		if ( is_wp_error( $result ) ) {
+			$order->add_order_note( $result->get_error_message() );
+			$order->update_status( 'failed' );
 		}
 	}
 
@@ -448,10 +481,9 @@ class WC_Account_Funds_Order_Manager {
 	 *
 	 * @param string   $meta_query The meta query string.
 	 * @param WC_Order $to_order   The order to copy the metadata.
-	 * @param WC_Order $from_order The order from which the metadata is copied.
 	 * @return string
 	 */
-	public function copy_order_meta_query( $meta_query, $to_order, $from_order ) {
+	public function copy_order_meta_query( $meta_query, $to_order ) {
 		// Copying the metadata from an order to a subscription.
 		if ( $to_order instanceof WC_Subscription ) {
 			// Exclude funds metadata.

@@ -1,5 +1,10 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.12.01 - version 2.5.1
+* Fix: Incorrect validation always preventing packs containing any sold individually child item from being added to cart. #516.
+* Tweak: Use wc_mnm_is_product_container_type() in store API class for future extensibility.
+* Tweak: Always add the validation context as data attribute on to the form.
+
 2023.09.27 - version 2.5.0
 * Update: Tested up to WooCommerce 8.2.0.
 * Fix: Update all templates for safer string escaping.

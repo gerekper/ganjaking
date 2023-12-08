@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class for topup data store.
  *
@@ -17,8 +16,6 @@ class WC_Product_Topup_Data_Store extends WC_Product_Data_Store_CPT {
 	 * method.
 	 *
 	 * @since 2.1.3
-	 *
-	 * @version 2.1.3
 	 *
 	 * @param mixed $product This value is ignored.
 	 */

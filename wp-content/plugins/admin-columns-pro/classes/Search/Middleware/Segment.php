@@ -17,7 +17,7 @@ final class Segment implements Middleware
 
     private $list_screen;
 
-    public function __construct(AC\ListScreen $list_screen, SegmentRepository $segment_repository)
+    public function __construct(AC\ListScreen $list_screen, SegmentRepository\Database $segment_repository)
     {
         $this->list_screen = $list_screen;
         $this->segment_repository = $segment_repository;

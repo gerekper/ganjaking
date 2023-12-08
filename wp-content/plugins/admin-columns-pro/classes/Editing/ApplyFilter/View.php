@@ -9,19 +9,10 @@ use ACP\Editing\Service;
 class View
 {
 
-    /**
-     * @var AC\Column
-     */
     private $column;
 
-    /**
-     * @var string
-     */
     private $context;
 
-    /**
-     * @var Service
-     */
     private $service;
 
     public function __construct(AC\Column $column, string $context, Service $service)

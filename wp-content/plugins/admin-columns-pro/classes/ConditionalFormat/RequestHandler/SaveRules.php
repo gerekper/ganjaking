@@ -1,17 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACP\ConditionalFormat\RequestHandler;
 
 use AC\Nonce;
 use AC\Request;
+use AC\RequestAjaxHandler;
 use AC\Type\ListScreenId;
 use AC\Type\UserId;
 use ACP\ConditionalFormat\Entity\Rule;
 use ACP\ConditionalFormat\RuleCollection;
 use ACP\ConditionalFormat\RulesRepositoryFactory;
 use ACP\ConditionalFormat\Type\Format;
-use ACP\RequestAjaxHandler;
 
 class SaveRules implements RequestAjaxHandler
 {

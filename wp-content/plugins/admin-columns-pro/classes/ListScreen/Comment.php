@@ -7,8 +7,8 @@ namespace ACP\ListScreen;
 use AC;
 use ACP\Column;
 use ACP\Editing;
+use ACP\Editing\BulkDelete\Deletable;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
@@ -16,7 +16,6 @@ use ACP\Sorting\Strategy;
 class Comment extends AC\ListScreen\Comment implements
     Sorting\ListScreen,
     Editing\ListScreen,
-    Filtering\ListScreen,
     Export\ListScreen,
     Editing\BulkDelete\ListScreen
 {
@@ -26,24 +25,19 @@ class Comment extends AC\ListScreen\Comment implements
         return new Sorting\Strategy\Comment($model);
     }
 
-    public function deletable()
+    public function deletable(): Deletable
     {
         return new Editing\BulkDelete\Deletable\Comment();
-    }
-
-    public function editing()
-    {
-        return new Editing\Strategy\Comment();
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\Comment($model);
     }
 
     public function export()
     {
         return new Export\Strategy\Comment($this);
+    }
+
+    public function editing()
+    {
+        return new Editing\Strategy\Comment();
     }
 
     protected function register_column_types(): void

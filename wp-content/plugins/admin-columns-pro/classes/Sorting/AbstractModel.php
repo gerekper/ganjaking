@@ -6,7 +6,7 @@ use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Type\DataType;
 
 /**
- * Backwards compatible model for version older then 6.3
+ * Backwards compatible model for version older than 6.3
  * @deprecated 6.3
  */
 class AbstractModel
@@ -14,6 +14,7 @@ class AbstractModel
 
     public function __construct()
     {
+        _deprecated_constructor(self::class, 'NEWVERSION', QueryBindings::class);
     }
 
     /**
@@ -55,9 +56,6 @@ class AbstractModel
         return $this->order;
     }
 
-    /**
-     * @depecated 6.3
-     */
     public function set_order(string $order): void
     {
         _deprecated_function(__FUNCTION__, '6.3');

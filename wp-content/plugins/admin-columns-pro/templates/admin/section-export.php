@@ -1,7 +1,7 @@
 <?php
 
 use AC\Type\Url\Documentation;
-use ACP\Migrate\Export;
+use ACP\Nonce\ExportNonce;
 
 ?>
 <div class="ac-tool-section -export">
@@ -15,13 +15,9 @@ use ACP\Migrate\Export;
 	</p>
 
 	<form method="post">
-        <?php
+        <?= (new ExportNonce())->create_field() ?>
 
-        wp_nonce_field(Export\Request::ACTION, Export\Request::NONCE_NAME);
-
-        ?>
-
-		<input type="hidden" name="action" value="<?= Export\Request::ACTION ?>">
+		<input type="hidden" name="action" value="acp-export">
 
         <?= $this->table->render() ?>
 

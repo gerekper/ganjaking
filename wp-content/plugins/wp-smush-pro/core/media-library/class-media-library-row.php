@@ -292,7 +292,7 @@ class Media_Library_Row {
 		switch ( $this->errors->get_error_code() ) {
 			case 'file_not_found':
 			case 'no_file_meta':
-				if ( $this->media_item->backup_file_exists() ) {
+				if ( $this->media_item->can_be_restored() ) {
 					$error_suggestion['message'] = esc_html__( 'We recommend using the restore image function to regenerate the thumbnails.', 'wp-smushit' );
 				} else {
 					$error_suggestion['message'] = esc_html__( 'We recommend regenerating the thumbnails.', 'wp-smushit' );
@@ -602,7 +602,7 @@ class Media_Library_Row {
 	 * @return string|void
 	 */
 	private function get_restore_link() {
-		if ( ! $this->media_item->backup_file_exists() ) {
+		if ( ! $this->media_item->can_be_restored() ) {
 			return;
 		}
 

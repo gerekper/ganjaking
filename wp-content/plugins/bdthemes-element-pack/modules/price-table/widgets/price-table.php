@@ -2721,6 +2721,18 @@ class Price_Table extends Module_Base {
 		);
 
 		$this->add_control(
+			'ribbon_text_color',
+			[
+				'label'     => __('Text Color', 'bdthemes-element-pack'),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .bdt-price-table-ribbon-inner' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
 			'ribbon_bg_color',
 			[
 				'label'     => __('Background Color', 'bdthemes-element-pack'),
@@ -2732,15 +2744,26 @@ class Price_Table extends Module_Base {
 			]
 		);
 
-		$this->add_control(
-			'ribbon_text_color',
+		//border group control
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			[
-				'label'     => __('Text Color', 'bdthemes-element-pack'),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
-				'separator' => 'before',
-				'selectors' => [
-					'{{WRAPPER}} .bdt-price-table-ribbon-inner' => 'color: {{VALUE}}',
+				'name'        => 'ribbon_border',
+				'label'       => __('Border', 'bdthemes-element-pack'),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} .bdt-price-table-ribbon-inner',
+			]
+		);
+
+		$this->add_responsive_control(
+			'ribbon_border_radius',
+			[
+				'label'      => __('Border Radius', 'bdthemes-element-pack'),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => ['px', '%'],
+				'selectors'  => [
+					'{{WRAPPER}} .bdt-price-table-ribbon-inner' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -2753,18 +2776,6 @@ class Price_Table extends Module_Base {
 				'size_units' => ['px', '%', 'em'],
 				'selectors'  => [
 					'{{WRAPPER}} .bdt-price-table-ribbon-inner' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'ribbon_border_radius',
-			[
-				'label'      => __('Border Radius', 'bdthemes-element-pack'),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px', '%'],
-				'selectors'  => [
-					'{{WRAPPER}} .bdt-price-table-ribbon-inner' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -3263,11 +3274,7 @@ class Price_Table extends Module_Base {
 		}
 
 		if (!empty($settings['link']['url'])) {
-			$this->add_render_attribute('button', 'href', $settings['link']['url']);
-
-			if (!empty($settings['link']['is_external'])) {
-				$this->add_render_attribute('button', 'target', '_blank');
-			}
+			$this->add_link_attributes('button', $settings['link']);
 		}
 
 		if (!empty($settings['button_hover_animation'])) {

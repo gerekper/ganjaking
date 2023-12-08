@@ -113,6 +113,8 @@ class Backups {
 	 * @return bool
 	 */
 	public function restore_backup( $media_item ) {
+		do_action( 'wp_smush_before_restore_backup_attempt', $media_item->get_id() );
+
 		return $this->restore_backup_to_file_path(
 			$media_item,
 			$media_item->get_original_image_path() // Directly using the path here because the size object is not available when the file doesn't exist on the disk

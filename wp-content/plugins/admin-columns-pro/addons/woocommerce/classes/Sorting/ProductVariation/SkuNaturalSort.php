@@ -2,14 +2,13 @@
 
 namespace ACA\WC\Sorting\ProductVariation;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\Post\PostRequestTrait;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class SkuNaturalSort extends AbstractModel implements QueryBindings
+class SkuNaturalSort implements QueryBindings
 {
 
     use PostRequestTrait;

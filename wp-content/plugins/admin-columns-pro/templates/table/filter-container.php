@@ -1,0 +1,1 @@
+<div class="acp-filter-container" data-component="acp-filtering" data-column="<?= esc_attr( $this->column_name ) ?>"></div>

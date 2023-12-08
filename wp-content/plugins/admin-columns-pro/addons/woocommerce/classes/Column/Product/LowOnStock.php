@@ -3,66 +3,72 @@
 namespace ACA\WC\Column\Product;
 
 use AC;
+use ACA\WC\Export;
 use ACA\WC\Search;
 use ACP;
 
-class LowOnStock extends AC\Column\Meta
-	implements ACP\Editing\Editable, ACP\Search\Searchable, ACP\ConditionalFormat\Formattable {
+class LowOnStock extends AC\Column
+    implements ACP\Search\Searchable, ACP\ConditionalFormat\Formattable, ACP\Export\Exportable
+{
 
-	use ACP\ConditionalFormat\IntegerFormattableTrait;
+    use ACP\ConditionalFormat\IntegerFormattableTrait;
 
-	public function __construct() {
-		$this->set_type( 'column-wc-low_on_stock' )
-		     ->set_label( __( 'Low on Stock', 'codepress-admin-columns' ) )
-		     ->set_group( 'woocommerce' );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-wc-low_on_stock')
+             ->set_label(__('Low on Stock', 'codepress-admin-columns'))
+             ->set_group('woocommerce');
+    }
 
-	public function get_value( $id ) {
-		$product = wc_get_product( $id );
-		$stock = $product->get_stock_quantity();
+    public function get_value($id)
+    {
+        $product = wc_get_product($id);
 
-		if ( ! $stock ) {
-			return $this->get_empty_char();
-		}
+        $is_managing_stock = $product->managing_stock();
 
-		$stock_treshold = $this->get_low_on_stock_amount( $id );
-		$threshold_display = ac_helper()->html->tooltip( $stock_treshold, __( 'Low stock threshold', 'woocommerce' ) );
+        if ( ! $is_managing_stock) {
+            return $this->get_empty_char();
+        }
 
-		if ( $stock > $stock_treshold ) {
-			return $threshold_display;
-		}
+        $threshold_product = (int)$product->get_low_stock_amount();
+        $threshold_global = (int)get_option('woocommerce_notify_low_stock_amount', 0);
+        $has_threshold = $threshold_product > 0 || $threshold_global > 0;
 
-		$low_on_stock = ac_helper()->icon->dashicon( [
-			'icon'    => 'warning',
-			'tooltip' => sprintf( __( 'Current stock of %s is lower than the set threshold of  %s', 'codepress-admin-columns' ), $stock, $stock_treshold ),
-		] );
+        if ( ! $has_threshold) {
+            return $this->get_empty_char();
+        }
 
-		return sprintf( '%s %s', $threshold_display, $low_on_stock );
-	}
+        $threshold = $threshold_product ?: $threshold_global;
+        $stock = (int)$product->get_stock_quantity();
 
-	public function get_meta_key() {
-		return '_low_stock_amount';
-	}
+        $label = sprintf(
+            '<strong style="color: #eaa600">%s</strong> (%d)',
+            __('Low On Stock', 'codepress-admin-columns'),
+            $product->get_stock_quantity()
+        );
 
-	private function get_low_on_stock_amount( $post_id ) {
-		$amount = $this->get_raw_value( $post_id );
+        if ($stock <= $threshold) {
+            return ac_helper()->html->tooltip(
+                $label,
+                sprintf(
+                    __('Current stock (%d) is below threshold (%d).', 'codepress-admnin-columns'),
+                    $stock,
+                    $threshold
+                )
+            );
+        }
 
-		if ( ! $amount ) {
-			$amount = get_option( 'woocommerce_notify_low_stock_amount' );
-		}
+        return $this->get_empty_char();
+    }
 
-		return $amount;
-	}
+    public function export()
+    {
+        return new Export\Product\LowOnStock();
+    }
 
-	public function editing() {
-		return new ACP\Editing\Service\Basic(
-			new ACP\Editing\View\Number(),
-			new ACP\Editing\Storage\Post\Meta( $this->get_meta_key() )
-		);
-	}
-
-	public function search() {
-		return new Search\Product\LowOnStock();
-	}
+    public function search()
+    {
+        return new Search\Product\LowOnStock();
+    }
 
 }

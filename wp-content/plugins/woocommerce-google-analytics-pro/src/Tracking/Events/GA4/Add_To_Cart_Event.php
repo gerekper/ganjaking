@@ -115,7 +115,7 @@ class Add_To_Cart_Event extends GA4_Event {
 		$this->record_via_api( [
 			'category'       => 'Products',
 			'currency'       => get_woocommerce_currency(),
-			'value'          => $quantity * $product->get_price(),
+			'value'          => $quantity * (float) $product->get_price(),
 			'items'          => [ ( new Product_Item_Event_Data_Adapter( $product ) )->convert_from_source( $quantity, (array) $variation ) ],
 		] );
 	}

@@ -4,23 +4,15 @@ namespace ACA\ACF;
 
 class GroupColumnFactory {
 
-	const GROUP_PREFIX = 'acfgroup__';
+	public const GROUP_PREFIX = 'acfgroup__';
 
-	/**
-	 * @var ColumnFactory
-	 */
 	private $column_factory;
 
 	public function __construct( ColumnFactory $column_factory ) {
 		$this->column_factory = $column_factory;
 	}
 
-	/**
-	 * @param array $settings
-	 *
-	 * @return Column|null
-	 */
-	public function create( array $settings ) {
+	public function create( array $settings ): ?Column {
 		$parts = explode( '-', $settings['key'] );
 		$group_field = acf_get_field( $parts[0] );
 		$sub_field = acf_get_field( $parts[1] );

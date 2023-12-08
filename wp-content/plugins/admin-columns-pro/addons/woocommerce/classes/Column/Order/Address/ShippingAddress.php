@@ -3,6 +3,7 @@
 namespace ACA\WC\Column\Order\Address;
 
 use AC;
+use ACA\WC\ColumnValue\OrderAddress;
 use ACA\WC\Editing;
 use ACA\WC\Search;
 use ACA\WC\Settings;
@@ -23,40 +24,15 @@ class ShippingAddress extends AC\Column implements ACP\Search\Searchable, ACP\Ed
              ->set_group('woocommerce');
     }
 
-    public function sorting()
-    {
-        $display_property = $this->get_display_property();
-
-        switch ($display_property) {
-            case 'address_1':
-            case 'address_2':
-            case 'city':
-            case 'company':
-            case 'country':
-            case 'first_name':
-            case 'last_name':
-            case 'postcode':
-            case 'phone':
-            case 'state':
-                return new Sorting\Order\AddressField($display_property, $this->get_address_type());
-            case 'full_name':
-                return new Sorting\Order\FullNameAddress($this->get_address_type());
-            default:
-                return false;
-        }
-    }
-
     public function get_value($id)
     {
-        $order = wc_get_order($id);
+        $value = new OrderAddress(
+            $this->get_address_type(),
+            $this->get_display_property(),
+            $this->get_empty_char()
+        );
 
-        $method = $this->get_address_map($this->get_display_property());
-
-        $value = method_exists($order, $method)
-            ? $order->$method()
-            : false;
-
-        return $value ?: $this->get_empty_char();
+        return $value->render($id);
     }
 
     private function get_display_property(): string
@@ -66,26 +42,6 @@ class ShippingAddress extends AC\Column implements ACP\Search\Searchable, ACP\Ed
         return $setting instanceof Settings\Address
             ? $setting->get_address_property()
             : '';
-    }
-
-    private function get_address_map(string $property): string
-    {
-        $mapping = [
-            'address_1'  => 'get_shipping_address_1',
-            'address_2'  => 'get_shipping_address_2',
-            'city'       => 'get_shipping_city',
-            'company'    => 'get_shipping_company',
-            'country'    => 'get_shipping_country',
-            'first_name' => 'get_shipping_first_name',
-            'last_name'  => 'get_shipping_last_name',
-            'full_name'  => 'get_formatted_shipping_full_name',
-            'postcode'   => 'get_shipping_postcode',
-            'state'      => 'get_shipping_state',
-            'email'      => 'get_shipping_email',
-            'phone'      => 'get_shipping_phone',
-        ];
-
-        return $mapping[$property] ?? 'get_formatted_billing_address';
     }
 
     protected function register_settings()
@@ -107,11 +63,18 @@ class ShippingAddress extends AC\Column implements ACP\Search\Searchable, ACP\Ed
         );
     }
 
+    public function sorting()
+    {
+        return (new Sorting\Order\AddressesFactory($this->get_address_type()))->create(
+            $this->get_display_property()
+        );
+    }
+
     public function editing()
     {
-        $factory = new Editing\Order\AddressServiceFactory($this->get_address_type());
-
-        return $factory->create($this->get_display_property());
+        return (new Editing\Order\AddressServiceFactory($this->get_address_type()))->create(
+            $this->get_display_property()
+        );
     }
 
     public function export()

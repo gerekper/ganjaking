@@ -1160,6 +1160,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			}
 
 			//only do this to styles prior 5.0
+			if(empty($attr['settings'])) $attr['settings'] = ''; //PHP 8.3 fix for null
 			$settings = json_decode($attr['settings'], true);
 			if(!empty($settings) && isset($settings['translated'])){
 				if(version_compare($settings['translated'], 5.0, '>=')){
@@ -1168,6 +1169,8 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 
 			}
 
+			if(empty($attr['params'])) $attr['params'] = ''; //PHP 8.3 fix for null
+			if(empty($attr['hover'])) $attr['hover'] = ''; //PHP 8.3 fix for null
 			$idle = json_decode($attr['params'], true);
 			$hover = json_decode($attr['hover'], true);
 

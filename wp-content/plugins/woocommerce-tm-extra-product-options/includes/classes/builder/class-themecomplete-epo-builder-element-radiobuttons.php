@@ -3,7 +3,7 @@
  * Builder Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Radio buttons Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_RADIOBUTTONS extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_RADIOBUTTONS extends THEMECOMPLETE_EPO_B
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(
@@ -58,10 +59,10 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_RADIOBUTTONS extends THEMECOMPLETE_EPO_B
 				'use_url',
 				'replacement_mode',
 				'swatch_position',
+				'items_per_row',
 				'use_lightbox',
 				'show_tooltip',
 				'changes_product_image',
-				'items_per_row',
 				'clear_options',
 				'options',
 			]

@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 .tm-order-line-option .edit {
 	display: none;
 }

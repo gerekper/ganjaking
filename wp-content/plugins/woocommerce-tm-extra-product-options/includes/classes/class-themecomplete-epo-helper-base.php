@@ -3,7 +3,7 @@
  * Extra Product Options Helper class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Helper class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_HELPER_Base {
 
@@ -25,8 +25,17 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	protected static $instance = null;
 
 	/**
+	 * Cache for sum_array_values
+	 *
+	 * @var array<mixed>
+	 * @since 6.4
+	 */
+	private $sum_array_values_cache = [];
+
+	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_HELPER_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -50,6 +59,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Serialize an array
 	 *
 	 * @param mixed $a Input array.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function array_serialize( $a ) {
@@ -75,6 +85,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Used in export csv
 	 *
 	 * @param mixed $a Input array.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function array_unserialize( $a ) {
@@ -92,11 +103,12 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param integer $attachment_id Attachment post ID.
 	 * @param string  $attachment_url Attachment URL.
+	 * @return mixed
 	 * @since 5.1
 	 */
 	public function get_attachment_sizes( $attachment_id = 0, $attachment_url = '' ) {
 		$meta = wp_get_attachment_metadata( $attachment_id );
-		if ( $meta && isset( $meta['sizes'] ) && is_array( $meta['sizes'] ) ) {
+		if ( $meta && isset( $meta['sizes'] ) && is_array( $meta['sizes'] ) ) { // @phpstan-ignore-line
 			foreach ( $meta['sizes'] as $key => $value ) {
 				if ( false !== strpos( $attachment_url, $value['file'] ) ) {
 					return [ $value['width'], $value['height'] ];
@@ -111,6 +123,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Gets attachement id from attachement url
 	 *
 	 * @param string $attachment_url Attachment URL.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_attachment_id( $attachment_url = '' ) {
@@ -121,7 +134,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			return $attachment_id;
 		}
 
-		$attachment_id = get_transient( 'get_attachment_id_' . $attachment_url );
+		$original_attachment_url = $attachment_url;
+
+		$attachment_id = get_transient( 'get_attachment_id_' . $original_attachment_url );
 		if ( false !== $attachment_id ) {
 			return $attachment_id;
 		}
@@ -140,8 +155,12 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 				// Get the upload directory paths.
 				$upload_dir_paths = wp_upload_dir();
+				$upload_url       = $upload_dir_paths['baseurl'];
+				if ( is_ssl() ) {
+					$upload_url = set_url_scheme( $upload_url, 'https' );
+				}
 
-				if ( false !== strpos( $attachment_url, $upload_dir_paths['baseurl'] ) ) {
+				if ( false !== strpos( $attachment_url, $upload_url ) ) {
 
 					// If this is the URL of an auto-generated thumbnail, get the URL of the original image.
 					$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $attachment_url );
@@ -165,7 +184,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			}
 		}
 
-		set_transient( 'get_attachment_id_' . $attachment_url, $attachment_id, DAY_IN_SECONDS );
+		set_transient( 'get_attachment_id_' . $original_attachment_url, $attachment_id, DAY_IN_SECONDS );
 
 		return $attachment_id;
 	}
@@ -173,9 +192,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Generate image array
 	 *
-	 * @param array  $image_variations The image array.
-	 * @param string $image_link The image link.
-	 * @param string $image_type the image type of the array.
+	 * @param array<mixed> $image_variations The image array.
+	 * @param string       $image_link The image link.
+	 * @param string       $image_type the image type of the array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function generate_image_array( $image_variations = [], $image_link = '', $image_type = '' ) {
@@ -223,7 +243,6 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		];
 
 		return $image_variations;
-
 	}
 
 	/**
@@ -232,6 +251,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * This is used for the select box creation
 	 *
 	 * @param mixed $a Input array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function convert_to_select_options( $a = [] ) {
@@ -250,7 +270,8 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Generates a new set of IDs for use in recreate_element_ids
 	 *
-	 * @param array $meta Meta data.
+	 * @param mixed $meta Meta data.
+	 * @return mixed
 	 * @since 4.8.5
 	 */
 	public function generate_recreate_element_ids( $meta = [] ) {
@@ -262,12 +283,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		if ( isset( $meta['tmfbuilder'] ) ) {
 			$original_meta = true;
 			$builder       = $meta['tmfbuilder'];
+		} elseif ( isset( $meta['element_type'] ) ) {
+			$parsed_meta = true;
 		} else {
-			if ( isset( $meta['element_type'] ) ) {
-				$parsed_meta = true;
-			} else {
-				$invalid = true;
-			}
+			$invalid = true;
 		}
 
 		if ( $invalid ) {
@@ -294,8 +313,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Recreate the element IDs of the options meta data
 	 *
-	 * @param array       $meta Meta data.
-	 * @param array|false $new_ids Array with new ids..
+	 * @param mixed              $meta Meta data.
+	 * @param array<mixed>|false $new_ids Array with new ids.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function recreate_element_ids( $meta = [], $new_ids = false ) {
@@ -307,12 +327,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		if ( isset( $meta['tmfbuilder'] ) ) {
 			$original_meta = true;
 			$builder       = $meta['tmfbuilder'];
+		} elseif ( isset( $meta['element_type'] ) ) {
+			$parsed_meta = true;
 		} else {
-			if ( isset( $meta['element_type'] ) ) {
-				$parsed_meta = true;
-			} else {
-				$invalid = true;
-			}
+			$invalid = true;
 		}
 
 		if ( $invalid ) {
@@ -322,8 +340,11 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		if ( isset( $builder ) ) {
 			$ids             = $this->array_contains_key( $builder, '_uniqid' );
 			$logics          = $this->array_contains_key( $builder, '_clogic' );
+			$logicrules      = $this->array_contains_key( $builder, '_logicrules' );
 			$math_price      = $this->array_keys_end_with( $builder, '_price', [ '_before_price', '_after_price', '_sale_price' ] );
 			$math_sale_price = $this->array_keys_end_with( $builder, '_sale_price', [ '_before_price', '_after_price' ] );
+			$lookuptable_x   = $this->array_contains_key( $builder, '_lookuptable_x' );
+			$lookuptable_y   = $this->array_contains_key( $builder, '_lookuptable_y' );
 
 			if ( false === $new_ids ) {
 				$new_ids = [];
@@ -346,6 +367,31 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 					}
 					$logic                = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $logic );
 					$logics[ $lx ][ $ly ] = $logic;
+				}
+			}
+
+			foreach ( $logicrules as $lx => $logicelement ) {
+				foreach ( $logicelement as $ly => $logic ) {
+					if ( 'string' !== gettype( $logic ) ) {
+						$logic = wp_json_encode( $logic );
+					}
+					$logic                    = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $logic );
+					$logicrules[ $lx ][ $ly ] = $logic;
+				}
+			}
+
+			foreach ( $lookuptable_x as $lxidx => $lxidelement ) {
+				foreach ( $lxidelement as $lxidy => $lxid ) {
+					if ( isset( $new_ids[ $lxid ] ) ) {
+						$lookuptable_x[ $lxidx ][ $lxidy ] = $new_ids[ $lxid ];
+					}
+				}
+			}
+			foreach ( $lookuptable_y as $lyidx => $lyidelement ) {
+				foreach ( $lyidelement as $lyidy => $lyid ) {
+					if ( isset( $new_ids[ $lyid ] ) ) {
+						$lookuptable_y[ $lyidx ][ $lyidy ] = $new_ids[ $lyid ];
+					}
 				}
 			}
 
@@ -381,8 +427,11 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 			$builder = array_merge( $builder, $ids );
 			$builder = array_merge( $builder, $logics );
+			$builder = array_merge( $builder, $logicrules );
 			$builder = array_merge( $builder, $math_price );
 			$builder = array_merge( $builder, $math_sale_price );
+			$builder = array_merge( $builder, $lookuptable_x );
+			$builder = array_merge( $builder, $lookuptable_y );
 
 			if ( $original_meta ) {
 				$meta['tmfbuilder'] = $builder;
@@ -397,10 +446,11 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Check if current request is made via AJAX
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function is_ajax_request() {
-		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( filter_var( wp_unslash( $_SERVER['HTTP_X_REQUESTED_WITH'] ), FILTER_SANITIZE_STRING ) ) ) {
+		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( filter_var( stripslashes_deep( $_SERVER['HTTP_X_REQUESTED_WITH'] ), FILTER_SANITIZE_STRING ) ) ) {
 			return true;
 		}
 
@@ -410,437 +460,46 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Create min/max values for the provided options
 	 *
-	 * @param array   $epos Option data array.
+	 * @param integer $product_id The product id.
 	 * @param boolean $include_variation_prices If variation prices are included.
-	 * @param string  $minkey The key 'min' or 'max'.
+	 * @param string  $minkey The key 'min' or 'minall'. The minall does not include the field required status.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function sum_array_values( $epos = [], $include_variation_prices = false, $minkey = 'min' ) {
-		$r = [];
+	public function sum_array_values( $product_id = 0, $include_variation_prices = false, $minkey = 'min' ) {
 
-		if ( is_array( $epos ) ) {
-			$input                = $epos['price'];
-			$variation_section_id = $epos['variation_section_id'];
-			$variations_max       = [];
-			$variations_min       = [];
-			$variations_all       = 0;
+		if ( isset( $this->sum_array_values_cache[ $product_id ] ) ) {
+			return $this->sum_array_values_cache[ $product_id ];
+		}
+		$sum = [];
 
-			$logictree            = [];
-			$logictree_helper     = [];
-			$logictree_max        = [];
-			$logictree_helper_max = [];
-			$section_ids          = [];
+		$fields = THEMECOMPLETE_EPO_CONDITIONAL_LOGIC()->generate_fields( $product_id );
 
-			$add_logic_prices     = 0;
-			$add_logic_prices_max = 0;
-
-			foreach ( $input as $key => $value ) {
-				if ( is_array( $value ) ) {
-
-					$j         = json_decode( $value['clogic'] );
-					$has_logic = json_decode( $value['logic'] );
-
-					if ( '1' === (string) $value['required'] ) {
-						if ( ! isset( $section_ids[ $value['section_uniqueid'] ] ) ) {
-							$section_ids[ $value['section_uniqueid'] ] = [];
-						}
-						$section_ids[ $value['section_uniqueid'] ][ $value['element'] ] = $value['uniqueid'];
-					}
-					foreach ( $value as $key2 => $value2 ) {
-						if ( ! ( $key2 === $minkey || 'max' === $key2 ) ) {
-							continue;
-						}
-						$a = 0;
-						if ( isset( $r[ $key2 ] ) ) {
-							$a = $r[ $key2 ];
-						}
-
-						if ( $j ) {
-							foreach ( $j->rules as $jkey => $rules ) {
-								if ( $rules ) {
-									$section = $rules->section;
-									$element = $rules->element;
-									if ( property_exists( $rules, 'value' ) ) {
-										$lvalue = $rules->value;
-									} else {
-										$lvalue = '';
-									}
-
-									$operator = $rules->operator;
-
-									if ( $section == $variation_section_id && 0 == $element ) { // phpcs:ignore WordPress.PHP.StrictComparisons
-										if ( 'max' === $key2 ) {
-
-											if ( ! $has_logic ) {
-												$variations_all = $variations_all + floatval( $value2 );
-											}
-											if ( $has_logic && in_array( $operator, [ 'is', 'isnotempty' ], true ) ) {
-												if ( ! isset( $variations_max[ $lvalue ] ) ) {
-													$variations_max[ $lvalue ] = 0;
-												}
-												$variations_max[ $lvalue ] = $variations_max[ $lvalue ] + floatval( $value2 );
-											}
-										}
-										if ( $key2 === $minkey ) {
-											if ( ! isset( $variations_min[ $lvalue ] ) ) {
-												$variations_min[ $lvalue ] = 0;
-											}
-											$variations_min[ $lvalue ] = $variations_min[ $lvalue ] + floatval( $value2 );
-										}
-									} else {
-
-										if ( $has_logic ) {
-											if ( $key2 === $minkey ) {
-												if ( ! isset( $logictree[ $section ] ) ) {
-													$logictree[ $section ] = [];
-												}
-												if ( ! isset( $logictree[ $section ][ $element ] ) ) {
-													$logictree[ $section ][ $element ] = [];
-												}
-												if ( ! isset( $logictree[ $section ][ $element ][ $value['uniqueid'] ] ) ) {
-													$logictree[ $section ][ $element ][ $value['uniqueid'] ] = 0;
-												}
-												if ( ! isset( $logictree_helper[ $section ] ) ) {
-													$logictree_helper[ $section ] = [];
-												}
-												if ( ! isset( $logictree_helper[ $section ][ $element ] ) ) {
-													$logictree_helper[ $section ][ $element ] = [];
-												}
-												if ( ! isset( $logictree_helper[ $section ][ $element ][ $value['uniqueid'] ] ) ) {
-													$logictree_helper[ $section ][ $element ][ $value['uniqueid'] ] = $j;
-												}
-												$logictree[ $section ][ $element ][ $value['uniqueid'] ] = floatval( $value2 );
-
-											}
-
-											if ( 'max' === $key2 ) {
-												if ( ! isset( $logictree_max[ $section ] ) ) {
-													$logictree_max[ $section ] = [];
-												}
-												if ( ! isset( $logictree_max[ $section ][ $element ] ) ) {
-													$logictree_max[ $section ][ $element ] = [];
-												}
-												if ( ! isset( $logictree_max[ $section ][ $element ][ $value['uniqueid'] ] ) ) {
-													$logictree_max[ $section ][ $element ][ $value['uniqueid'] ] = 0;
-												}
-												if ( ! isset( $logictree_helper_max[ $section ] ) ) {
-													$logictree_helper_max[ $section ] = [];
-												}
-												if ( ! isset( $logictree_helper_max[ $section ][ $element ] ) ) {
-													$logictree_helper_max[ $section ][ $element ] = [];
-												}
-												if ( ! isset( $logictree_helper_max[ $section ][ $element ][ $value['uniqueid'] ] ) ) {
-													$logictree_helper_max[ $section ][ $element ][ $value['uniqueid'] ] = $j;
-												}
-												$logictree_max[ $section ][ $element ][ $value['uniqueid'] ] = floatval( $value2 );
-
-											}
-										}
-									}
-								}
-							}
-						}
-
-						if ( $key2 === $minkey ) {
-							if ( ! $value['section_logic'] && ! $value['logic'] ) {
-								$r[ $key2 ] = floatval( $value2 ) + $a;
-							}
-						}
-						if ( 'max' === $key2 ) {
-							$r[ $key2 ] = floatval( $value2 ) + $a;
-						}
-					}
-				}
-			}
-
-			$logic_prices       = [];
-			$required_not_found = [];
-
-			$checkmultiple = [];
-
-			foreach ( $logictree as $section_id => $section ) {
-
-				foreach ( $section as $element => $element_ids ) {
-
-					foreach ( $element_ids as $id => $price ) {
-
-						if ( ! isset( $required_not_found[ $id ] ) && isset( $section_ids[ $section_id ] ) && isset( $section_ids[ $section_id ][ $element ] ) ) {
-
-							if ( ! isset( $logic_prices[ $section_id ] ) ) {
-								$logic_prices[ $section_id ] = [];
-							}
-							if ( ! isset( $logic_prices[ $section_id ][ $element ] ) ) {
-								$logic_prices[ $section_id ][ $element ] = [];
-							}
-
-							$rules = $logictree_helper[ $section_id ][ $element ][ $id ];
-
-							foreach ( $rules->rules as $jkey => $rule ) {
-								if ( $rule ) {
-									$isection  = $rule->section;
-									$ielement  = $rule->element;
-									$ilvalue   = rawurlencode( apply_filters( 'tm_translate', rawurldecode( $rule->value ) ) );
-									$ioperator = $rule->operator;
-
-									foreach ( $epos['global'] as $priority => $pid ) {
-										foreach ( $pid as $keydata => $data ) {
-											foreach ( $data['sections'] as $epo_section ) {
-												if ( $section_id === $epo_section['sections_uniqid'] ) {
-													if ( isset( $epo_section['elements'][ $ielement ] ) ) {
-														$el = $epo_section['elements'][ $ielement ];
-														foreach ( $el['options'] as $xk => $xv ) {
-															$el['options'][ $xk ] = rawurlencode( apply_filters( 'tm_translate', rawurldecode( $xv ) ) );
-														}
-														switch ( $el['type'] ) {
-															case 'radio':
-															case 'select':
-																if ( count( $el['options'] ) > 1 ) {
-																	if ( ! isset( $checkmultiple[ $el['uniqid'] ] ) ) {
-																		$checkmultiple[ $el['uniqid'] ] = [
-																			'options' => array_flip( $el['options'] ),
-																			'found'   => [],
-																		];
-																	}
-																	$checkmultiple[ $el['uniqid'] ]['found'][] = [
-																		'value' => $ilvalue,
-																		'price' => $price,
-																	];
-																} else {
-																	$logic_prices[ $section_id ][ $element ][] = $price;
-																}
-
-																break;
-
-															default:
-																// code...
-																break;
-														}
-													}
-												} else {
-													continue;
-												}
-											}
-										}
-									}
-								}
-							}
-						} else {
-							if ( isset( $logictree_helper[ $section_id ] ) && isset( $logictree_helper[ $section_id ][ $element ] ) && isset( $logictree_helper[ $section_id ][ $element ][ $id ] ) ) {
-								$rules = $logictree_helper[ $section_id ][ $element ][ $id ];
-								if ( 'show' === $rules->toggle ) {
-									if ( 'all' === $rules->what ) {
-										$required_not_found[ $id ] = $id;
-									}
-								} elseif ( 'hide' === $rules->toggle ) {
-									// not enough information so we just add it.
-									$required_not_found[ $id ] = $id;
-								}
-							} else {
-								$required_not_found[ $id ] = $id;
-							}
-						}
-					}
-				}
-			}
-
-			foreach ( $checkmultiple as $idata ) {
-
-				$min_max = [];
-
-				foreach ( $idata['found'] as $price_data ) {
-					$ivalue = $price_data['value'];
-					if ( isset( $idata['options'][ $ivalue ] ) ) {
-
-						if ( ! isset( $min_max[ $ivalue ] ) || ! is_array( $min_max[ $ivalue ] ) ) {
-							$min_max[ $ivalue ] = [];
-						}
-						$min_max[ $ivalue ][] = floatval( $price_data['price'] );
-
-					}
-				}
-				$min_max_n = count( $min_max );
-				$idata_n   = count( $idata['options'] );
-
-				if ( $min_max_n >= $idata_n ) {
-					$all_min_max = [];
-					foreach ( $min_max as $key => $price_min_max ) {
-						$all_min_max[ $key ] = array_sum( $price_min_max );
-					}
-					if ( ! empty( $all_min_max ) ) {
-						$add_logic_prices = $add_logic_prices + min( $all_min_max );
-					}
-				}
-			}
-
-			foreach ( $logic_prices as $key => $section_id ) {
-				foreach ( $section_id as $prices ) {
-					foreach ( $prices as $price ) {
-						$add_logic_prices = $add_logic_prices + $price;
-					}
-				}
-			}
-
-			// MAX.
-
-			$logic_prices       = [];
-			$required_not_found = [];
-			$checkmultiple      = [];
-
-			foreach ( $logictree_max as $section_id => $section ) {
-
-				foreach ( $section as $element => $element_ids ) {
-
-					foreach ( $element_ids as $id => $price ) {
-
-						if ( ! isset( $required_not_found[ $id ] ) && isset( $section_ids[ $section_id ] ) && isset( $section_ids[ $section_id ][ $element ] ) ) {
-
-							if ( ! isset( $logic_prices[ $section_id ] ) ) {
-								$logic_prices[ $section_id ] = [];
-							}
-							if ( ! isset( $logic_prices[ $section_id ][ $element ] ) ) {
-								$logic_prices[ $section_id ][ $element ] = [];
-							}
-
-							$rules = $logictree_helper_max[ $section_id ][ $element ][ $id ];
-
-							foreach ( $rules->rules as $jkey => $rule ) {
-								if ( $rule ) {
-									$isection  = $rule->section;
-									$ielement  = $rule->element;
-									$ilvalue   = $rule->value;
-									$ioperator = $rule->operator;
-
-									foreach ( $epos['global'] as $priority => $pid ) {
-										foreach ( $pid as $keydata => $data ) {
-											foreach ( $data['sections'] as $epo_section ) {
-												if ( $section_id === $epo_section['sections_uniqid'] ) {
-													if ( isset( $epo_section['elements'][ $ielement ] ) ) {
-														$el = $epo_section['elements'][ $ielement ];
-
-														switch ( $el['type'] ) {
-															case 'radio':
-															case 'select':
-																if ( count( $el['options'] ) > 1 ) {
-																	if ( ! isset( $checkmultiple[ $el['uniqid'] ] ) ) {
-																		$checkmultiple[ $el['uniqid'] ] = [
-																			'options' => array_flip( $el['options'] ),
-																			'found'   => [],
-																		];
-																	}
-																	$checkmultiple[ $el['uniqid'] ]['found'][] = [
-																		'value' => $ilvalue,
-																		'price' => $price,
-																	];
-																} else {
-																	$logic_prices[ $section_id ][ $element ][] = $price;
-																}
-
-																break;
-
-															default:
-																// code...
-																break;
-														}
-													}
-												} else {
-													continue;
-												}
-											}
-										}
-									}
-								}
-							}
-						} else {
-							if ( isset( $logictree_helper_max[ $section_id ] ) && isset( $logictree_helper_max[ $section_id ][ $element ] ) && isset( $logictree_helper_max[ $section_id ][ $element ][ $id ] ) ) {
-								$rules = $logictree_helper_max[ $section_id ][ $element ][ $id ];
-								if ( 'show' === $rules->toggle ) {
-									if ( 'all' === $rules->what ) {
-										$required_not_found[ $id ] = $id;
-									}
-								} elseif ( 'hide' === $rules->toggle ) {
-									// not enough information so we just add it.
-									$required_not_found[ $id ] = $id;
-								}
-							} else {
-								$required_not_found[ $id ] = $id;
-							}
-						}
-					}
-				}
-			}
-
-			foreach ( $checkmultiple as $idata ) {
-
-				$min_max = [];
-
-				foreach ( $idata['found'] as $price_data ) {
-					$ivalue = $price_data['value'];
-					if ( isset( $idata['options'][ $ivalue ] ) ) {
-
-						if ( ! isset( $min_max[ $ivalue ] ) || ! is_array( $min_max[ $ivalue ] ) ) {
-							$min_max[ $ivalue ] = [];
-						}
-						$min_max[ $ivalue ][] = floatval( $price_data['price'] );
-
-					}
-				}
-
-				$all_min_max = [];
-				foreach ( $min_max as $key => $price_min_max ) {
-					$all_min_max[ $key ] = array_sum( $price_min_max );
-				}
-				if ( ! empty( $all_min_max ) ) {
-					$add_logic_prices_max = $add_logic_prices_max + min( $all_min_max );
-				}
-			}
-
-			foreach ( $logic_prices as $key => $section_id ) {
-				foreach ( $section_id as $prices ) {
-					foreach ( $prices as $price ) {
-						$add_logic_prices_max = $add_logic_prices_max + $price;
-					}
-				}
-			}
+		if ( false === $fields ) {
+			return $sum;
 		}
 
-		if ( ! empty( $variations_max ) ) {
-			foreach ( $variations_max as $key => $value ) {
-				$variations_max[ $key ] = $value + $variations_all;
-			}
-			$r['max'] = ( $include_variation_prices ) ? $variations_max : max( $variations_max );
-		}
-		if ( ! empty( $variations_min ) ) {
-			$check = min( $variations_min );
-			if ( ! empty( $check ) ) {
-				$r[ $minkey ] = ( $include_variation_prices ) ? $variations_min : min( $variations_min );
-			}
+		$is_real_max = THEMECOMPLETE_EPO()->tm_epo_global_max_real;
+
+		$sum[ $minkey ] = THEMECOMPLETE_EPO_CONDITIONAL_LOGIC()->calculate_minimum_price( $fields, $include_variation_prices ? $product_id : false, $minkey );
+		if ( 'yes' === $is_real_max ) {
+			$sum['max'] = THEMECOMPLETE_EPO_CONDITIONAL_LOGIC()->calculate_real_maximum_price( $fields, $include_variation_prices ? $product_id : false );
+		} else {
+			$sum['max'] = THEMECOMPLETE_EPO_CONDITIONAL_LOGIC()->calculate_maximum_price( $fields );
 		}
 
-		if ( isset( $r['max'] ) ) {
+		$this->sum_array_values_cache[ $product_id ] = $sum;
 
-			if ( is_array( $r['max'] ) ) {
-				array_walk( $r['max'], [ $this, 'add_values_walker' ], $add_logic_prices );
-			} else {
-				$r['max'] = $r['max'] + $add_logic_prices_max;
-			}
-		}
-		if ( isset( $r[ $minkey ] ) ) {
-			if ( $include_variation_prices && is_array( $r[ $minkey ] ) ) {
-				array_walk( $r[ $minkey ], [ $this, 'add_values_walker' ], $add_logic_prices );
-			} else {
-				$r[ $minkey ] = $r[ $minkey ] + $add_logic_prices;
-			}
-		}
-
-		return $r;
+		return $sum;
 	}
 
 	/**
 	 * Walker for adding values
 	 *
-	 * @param array $value Input array.
-	 * @param array $key Array.
-	 * @param array $num Value to add.
+	 * @param array<mixed> $value Input array.
+	 * @param array<mixed> $key Array key.
+	 * @param array<mixed> $num Value to add.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_values_walker( $value, $key, $num ) {
@@ -850,8 +509,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Add array values
 	 *
-	 * @param array $input Input array.
-	 * @param array $add Input array.
+	 * @param mixed $input Input array.
+	 * @param mixed $add Input array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function add_array_values( $input = [], $add = [] ) {
@@ -876,6 +536,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param mixed $a Input array.
 	 * @param mixed $b Input array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function merge_price_array( $a = [], $b = [] ) {
@@ -903,6 +564,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param mixed $a Override array.
 	 * @param mixed $b Base Input array.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function build_array( $a = [], $b = [] ) {
@@ -910,25 +572,17 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			return $a;
 		}
 
-		$r = [];
+		$result = [];
 
 		foreach ( $b as $key => $value ) {
 			if ( is_array( $value ) ) {
-				if ( isset( $a[ $key ] ) ) {
-					$r[ $key ] = $value;
-				} else {
-					$r[ $key ] = $this->build_array( $a[ $key ], $b[ $key ] );
-				}
+				$result[ $key ] = isset( $a[ $key ] ) ? $value : $this->build_array( $a[ $key ], $value );
 			} else {
-				if ( isset( $a[ $key ] ) ) {
-					$r[ $key ] = $a[ $key ];
-				} else {
-					$r[ $key ] = $value;
-				}
+				$result[ $key ] = isset( $a[ $key ] ) ? $a[ $key ] : $value;
 			}
 		}
 
-		return $r;
+		return $result;
 	}
 
 	/**
@@ -937,6 +591,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @param mixed  $input Input array.
 	 * @param string $what String to search.
 	 * @param string $where Placement where to search 'start' or 'end'.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function array_filter_key( $input, $what = 'tmcp_', $where = 'start' ) {
@@ -966,15 +621,16 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Array_map_deep functionality
 	 *
-	 * @param mixed    $array Input array.
+	 * @param mixed    $input_array Input array.
 	 * @param mixed    $array2 Input array.
 	 * @param callable $callback Callback function.
+	 * @return mixed
 	 * @since 1.0
 	 */
-	public function array_map_deep( $array, $array2, $callback ) {
+	public function array_map_deep( $input_array, $array2, $callback ) {
 		$new = [];
-		if ( is_array( $array ) && is_array( $array2 ) ) {
-			foreach ( $array as $key => $val ) {
+		if ( is_array( $input_array ) && is_array( $array2 ) ) {
+			foreach ( $input_array as $key => $val ) {
 				if ( is_array( $val ) && is_array( $array2[ $key ] ) ) {
 					$new[ $key ] = $this->array_map_deep( $val, $array2[ $key ], $callback );
 				} else {
@@ -982,35 +638,35 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 				}
 			}
 		} else {
-			$new = call_user_func( $callback, $array, $array2 );
+			$new = call_user_func( $callback, $input_array, $array2 );
 		}
 
 		return $new;
-
 	}
 
 	/**
 	 * Applies the callback to the elements of the given arrays, recursively
 	 *
 	 * @param  callable $callback Callback function to run for each element in each array.
-	 * @param  array    $array    An array to run through the callback function.
-	 * @return array Applies the callback to the elements of the given array.
+	 * @param  mixed    $input_array    An array to run through the callback function.
+	 * @return mixed Applies the callback to the elements of the given array.
 	 */
-	public function array_map_recursive( $callback, $array ) {
-		if ( is_array( $array ) ) {
+	public function array_map_recursive( $callback, $input_array ) {
+		if ( is_array( $input_array ) ) {
 			return array_map(
-				function ( $array ) use ( $callback ) {
-					return $this->array_map_recursive( $callback, $array );
+				function ( $input_array ) use ( $callback ) {
+					return $this->array_map_recursive( $callback, $input_array );
 				},
-				$array
+				$input_array
 			);
 		}
-		return $callback( $array );
+		return $callback( $input_array );
 	}
 
 	/**
 	 * Gets the site domain
 	 *
+	 * @return string
 	 * @since 5.1
 	 */
 	public function get_site_domain() {
@@ -1033,6 +689,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Get ID from URL
 	 *
 	 * @param string $url Permalink to check.
+	 * @return integer
 	 * @since 1.0
 	 */
 	public function get_url_to_postid( $url ) {
@@ -1044,70 +701,57 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
-	 * Checks for WordPress meta mode
-	 *
-	 * This will be removed in a future version when support
-	 * for WordPress version lower than 4 will be removed
-	 *
-	 * @since 1.0
-	 */
-	public function new_meta() {
-		global $wp_version;
-
-		return version_compare( $wp_version, '4.0.1', '>' );
-	}
-
-	/**
 	 * Count number of words
 	 *
-	 * @param string $string Input string.
+	 * @param string $str Input string.
+	 * @return integer
 	 * @since 6.0
 	 */
-	public function count_words( $string ) {
-
-		return preg_match_all( '/[\pL\d!@#$%^\&*()_+=\{[\}\]|\\"\':;?\/>.<,-]+/u', $string );
-
+	public function count_words( $str ) {
+		return preg_match_all( '/[\pL\d!@#$%^\&*()_+=\{[\}\]|\\"\':;?\/>.<,-]+/u', $str );
 	}
 
 	/**
 	 * Build custom meta query
 	 *
-	 * @param string $relation The query relation.
-	 * @param string $meta_key The meta key.
-	 * @param string $meta_value The meta value.
-	 * @param string $compare Compare operator.
-	 * @param string $exists Exists operator.
+	 * @param string  $relation The query relation.
+	 * @param string  $meta_key The meta key.
+	 * @param mixed   $meta_value The meta value.
+	 * @param string  $compare Compare operator.
+	 * @param string  $exists Exists operator.
+	 * @param boolean $use_double_check Check the value with quotes and without quotes.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function build_meta_query( $relation = 'OR', $meta_key = '', $meta_value = '', $compare = '!=', $exists = 'NOT EXISTS' ) {
+	public function build_meta_query( $relation = 'OR', $meta_key = '', $meta_value = '', $compare = '!=', $exists = 'NOT EXISTS', $use_double_check = false ) {
 		$meta_array = [
 			'relation' => $relation,
-			[
-				'key'     => $meta_key, // get only enabled global extra options.
-				'value'   => $meta_value,
-				'compare' => $compare,
-			],
-			[
-				'key'     => $meta_key, // backwards compatibility.
-				'value'   => $meta_value,
-				'compare' => $exists,
-			],
 		];
-		if ( $this->new_meta() ) {
-			$meta_array = [
-				'relation' => $relation,
+		if ( $use_double_check ) {
+			$meta_array[] = [
+				'relation' => 'AND',
 				[
 					'key'     => $meta_key, // get only enabled global extra options.
-					'value'   => $meta_value,
+					'value'   => ':' . $meta_value . ';',
 					'compare' => $compare,
 				],
 				[
-					'key'     => $meta_key, // backwards compatibility.
-					'compare' => $exists,
+					'key'     => $meta_key, // get only enabled global extra options.
+					'value'   => ':"' . $meta_value . '";',
+					'compare' => $compare,
 				],
 			];
-
+		} else {
+			$meta_array[] = [
+				'key'     => $meta_key, // get only enabled global extra options.
+				'value'   => $meta_value,
+				'compare' => $compare,
+			];
 		}
+		$meta_array[] = [
+			'key'     => $meta_key, // backwards compatibility.
+			'compare' => $exists,
+		];
 
 		return $meta_array;
 	}
@@ -1116,6 +760,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Create a uniqe ID
 	 *
 	 * @param string $prefix Specifies a prefix to the unique ID.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function tm_uniqid( $prefix = '' ) {
@@ -1126,11 +771,12 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Create uniqe IDs for provided array length
 	 *
 	 * @param integer $s Array length.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_temp_uniqid( $s ) {
 		$a = [];
-		for ( $m = 0; $m < $s; $m ++ ) {
+		for ( $m = 0; $m < $s; $m++ ) {
 			$a[] = $this->tm_uniqid();
 		}
 
@@ -1141,6 +787,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * EncodeURIComponent functioanlity
 	 *
 	 * @param string $str Input string.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function encode_uri_component( $str = '' ) {
@@ -1164,6 +811,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @param string  $haystack The string to search in.
 	 * @param string  $needle The needle.
 	 * @param integer $trail Trailing character to include.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function reverse_strrchr( $haystack, $needle, $trail = 0 ) {
@@ -1176,6 +824,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $type Post type to retrieve count. Default 'post'.
 	 * @param string $perm 'readable' or empty. Default empty.
+	 * @return string
 	 * @since 1.0
 	 */
 	private function count_posts_cache_key( $type = 'post', $perm = '' ) {
@@ -1196,6 +845,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $type Post type to retrieve count. Default 'post'.
 	 * @param string $perm 'readable' or empty. Default empty.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function wp_count_posts( $type = 'post', $perm = '' ) {
@@ -1241,19 +891,18 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Get base currecny
 	 *
+	 * @return string
 	 * @since 1.0
 	 */
 	public function wc_base_currency() {
-
 		$from_currency = get_option( 'woocommerce_currency' );
-
 		return $from_currency;
-
 	}
 
 	/**
 	 * Get enabled currencies
 	 *
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_currencies() {
@@ -1263,6 +912,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Get additional currencies
 	 *
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_additional_currencies() {
@@ -1281,6 +931,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Get additional currencies count
 	 *
+	 * @return integer
 	 * @since 1.0
 	 */
 	public function wc_num_enabled_currencies() {
@@ -1295,8 +946,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Get currency prefix
 	 *
-	 * @param string|null $currency Input currency.
-	 * @param string      $prefix The prefix to add.
+	 * @param mixed  $currency Input currency.
+	 * @param string $prefix The prefix to add.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function get_currency_price_prefix( $currency = null, $prefix = '_' ) {
@@ -1318,6 +970,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param mixed   $bytes The number of bytes.
 	 * @param integer $precision The format precision.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function format_bytes( $bytes, $precision = 2 ) {
@@ -1337,6 +990,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $label The label.
 	 * @param string $icon The icon id.
+	 * @return string
 	 * @since 1.0
 	 */
 	private function convert_to_right_icon( $label = '', $icon = 'tcfa-angle-right' ) {
@@ -1352,6 +1006,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @param string $url The url.
 	 * @param string $main_path The main path.
 	 * @param string $main_path_label The main path label.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function url_to_links( $url = '', $main_path = '', $main_path_label = '' ) {
@@ -1381,6 +1036,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Inits WordPress filesystem
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function init_filesystem() {
@@ -1388,12 +1044,12 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			$access_type = get_filesystem_method();
 			if ( 'direct' === $access_type ) {
 				// you can safely run request_filesystem_credentials() without any issues and don't need to worry about passing in a URL.
-				$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, false, [] );
+				$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, '', [] );
 
 				// initialize the API.
 				if ( ! WP_Filesystem( $creds ) ) {
 					// any problems and we exit.
-					return '';
+					return false;
 				}
 
 				return true;
@@ -1407,6 +1063,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Remove directory
 	 *
 	 * @param string $file The file path.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function file_rmdir( $file = '' ) {
@@ -1425,6 +1082,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Delete a file
 	 *
 	 * @param string $file The file path.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function file_delete( $file = '' ) {
@@ -1444,6 +1102,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $main_path The main path.
 	 * @param string $todir The directory.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function file_manager( $main_path = '', $todir = '' ) {
@@ -1503,7 +1162,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			$html .= '</div>';
 			foreach ( $directories as $key => $value ) {
 				$filetype    = wp_check_filetype( $value['name'] );
-				$img         = '<img class="tm-mime" src="' . esc_attr( wp_mime_type_icon( $filetype['type'] ) ) . '" /> ';
+				$img         = '<img class="tm-mime" src="' . esc_attr( (string) wp_mime_type_icon( $filetype['type'] ) ) . '" /> ';
 				$html       .= '<div class="tm-mn-wrap-dir tc-row nopadding nomargin">';
 				$data_tm_dir = ( empty( $todir ) ) ? $value['name'] : $todir . '/' . $value['name'];
 				$html       .= '<div class="tm-mn-name tc-cell tc-col-6">' . $img . '<a class="tm-mn-movetodir" data-tm-dir="' . esc_attr( $data_tm_dir ) . '" href="' . esc_url( $param['url'] . $value['name'] ) . '">' . esc_html( $value['name'] ) . '</a></div>';
@@ -1515,7 +1174,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			}
 			foreach ( $files as $key => $value ) {
 				$filetype = wp_check_filetype( $value['name'] );
-				$img      = '<img class="tm-mime" src="' . esc_attr( wp_mime_type_icon( $filetype['type'] ) ) . '" /> ';
+				$img      = '<img class="tm-mime" src="' . esc_attr( (string) wp_mime_type_icon( $filetype['type'] ) ) . '" /> ';
 
 				$html       .= '<div class="tm-mn-wrap-file tc-row nopadding nomargin">';
 				$data_tm_dir = $todir;
@@ -1535,6 +1194,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Get saved unique ids for elements in the order
 	 *
 	 * @param integer $product_id The product id.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function get_saved_order_multiple_keys( $product_id = 0 ) {
@@ -1565,6 +1225,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Get the WooCommerce order object
 	 *
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function tm_get_order_object() {
@@ -1599,6 +1260,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $source The source file name.
 	 * @param string $target The target file name.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function upload_to_png( $source, $target ) {
@@ -1643,6 +1305,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $source The string to search in.
 	 * @param string $prefix The string search for.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function str_startswith( $source, $prefix ) {
@@ -1654,6 +1317,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @param string $source The string to search in.
 	 * @param string $suffix The string search for.
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function str_endsswith( $source, $suffix ) {
@@ -1665,13 +1329,13 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * See https://gist.github.com/steve-todorov/3671626
 	 *
-	 * @param array   $input_array The input array.
-	 * @param string  $search_value The value to search.
-	 * @param boolean $case_sensitive if search is case sensitive.
+	 * @param array<mixed> $input_array The input array.
+	 * @param string       $search_value The value to search.
+	 * @param boolean      $case_sensitive if search is case sensitive.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
-	public function array_contains_key( array $input_array, $search_value, $case_sensitive = true ) {
+	public function array_contains_key( $input_array, $search_value, $case_sensitive = true ) {
 		if ( $case_sensitive ) {
 			$preg_match = '/' . $search_value . '/';
 		} else {
@@ -1691,13 +1355,13 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Search through an array for a matching key that ends with a string.
 	 *
-	 * @param array  $input_array The input array.
-	 * @param string $search_value The value to search.
-	 * @param array  $excludes The values to exclude.
+	 * @param array<mixed> $input_array The input array.
+	 * @param string       $search_value The value to search.
+	 * @param array<mixed> $excludes The values to exclude.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
-	public function array_keys_end_with( array $input_array = [], $search_value = '', $excludes = [] ) {
+	public function array_keys_end_with( $input_array = [], $search_value = '', $excludes = [] ) {
 		$return_array = [];
 		$keys         = array_keys( $input_array );
 		foreach ( $keys as $k ) {
@@ -1721,6 +1385,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Sanitize array key
 	 *
 	 * @param string $source The input string.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function sanitize_key( $source ) {
@@ -1730,30 +1395,33 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Recursively implodes an array with optional key inclusion
 	 *
-	 * Example of $include_keys output: key, value, key, value, key, value
-	 * https://gist.github.com/jimmygle/2564610
+	 * Adapted from https://gist.github.com/jimmygle/2564610
 	 *
-	 * @access  public
+	 * @access public
 	 *
-	 * @param array   $array        multi-dimensional array to recursively implode.
-	 * @param string  $glue         value that glues elements together.
-	 * @param boolean $include_keys include keys before their values.
-	 * @param boolean $trim_all     trim ALL whitespace from string.
+	 * @param array<mixed>   $input_array    multi-dimensional array to recursively implode.
+	 * @param string         $glue     value that glues elements together.
+	 * @param string|boolean $key_glue include keys before their values.
+	 * @param boolean        $trim_all trim ALL whitespace from string.
 	 *
-	 * @return string  imploded array
+	 * @return string imploded array
 	 */
-	public function recursive_implode( $array = [], $glue = ',', $include_keys = false, $trim_all = false ) {
-		if ( ! is_array( $array ) ) {
-			return $array;
+	public function recursive_implode( $input_array = [], $glue = ',', $key_glue = false, $trim_all = false ) {
+		if ( ! is_array( $input_array ) ) {
+			return $input_array;
+		}
+
+		if ( true === $key_glue ) {
+			$key_glue = $glue;
 		}
 
 		$glued_string = '';
 		// Recursively iterates array and adds key/value to glued string.
 		array_walk_recursive(
-			$array,
-			function ( $value, $key ) use ( $glue, $include_keys, &$glued_string ) {
-				if ( $include_keys ) {
-					$glued_string .= $key . $glue;
+			$input_array,
+			function ( $value, $key ) use ( $glue, $key_glue, &$glued_string ) {
+				if ( false !== $key_glue ) {
+					$glued_string .= $key . $key_glue;
 				}
 				$glued_string .= $value . $glue;
 			}
@@ -1774,9 +1442,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * Computes the intersection of arrays using keys for comparison
 	 * with wildcart support
 	 *
-	 * @param array $arr The array with master keys to check.
-	 * @param array $arr2 Array to compare keys against.
-	 * @return array
+	 * @param array<mixed> $arr The array with master keys to check.
+	 * @param array<mixed> $arr2 Array to compare keys against.
+	 * @return array<mixed>
 	 */
 	public function array_intersect_key_wildcard( $arr, $arr2 ) {
 		$ret = [];
@@ -1808,40 +1476,41 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @param mixed   $data The data to normalize.
 	 * @param boolean $normalize_key If the array keys should be normalized.
 	 * @param boolean $implode_value If the array values should be joined.
+	 * @return mixed
 	 * @since 6.0
 	 */
 	public function normalize_data( $data = [], $normalize_key = false, $implode_value = true ) {
 		if ( class_exists( 'Normalizer' ) ) {
 			if ( is_array( $data ) ) {
 				foreach ( $data as $post_data_key => $post_data_value ) {
-					if ( is_array( $post_data_key ) ) {
+					if ( is_array( $post_data_key ) ) { // @phpstan-ignore-line
 						$post_data_key = $this->recursive_implode( $post_data_key, '' );
 					}
 					if ( is_array( $post_data_value ) ) {
 						if ( $implode_value ) {
 							$post_data_value = $this->recursive_implode( $post_data_value, '' );
-							$post_data_value = Normalizer::normalize( $post_data_value );
+							$post_data_value = Normalizer::normalize( (string) $post_data_value );
 						} else {
 							foreach ( $post_data_value as $key => $value ) {
 								if ( is_array( $value ) || is_object( $value ) ) {
 									$post_data_value[ $key ] = $value;
 								} else {
-									$post_data_value[ $key ] = Normalizer::normalize( $value );
+									$post_data_value[ $key ] = Normalizer::normalize( (string) $value );
 								}
 							}
 						}
 					} else {
-						$post_data_value = Normalizer::normalize( $post_data_value );
+						$post_data_value = Normalizer::normalize( (string) $post_data_value );
 					}
 					if ( $normalize_key ) {
-						$post_data_key = Normalizer::normalize( $post_data_key );
+						$post_data_key = Normalizer::normalize( (string) $post_data_key );
 					}
-					$data[ Normalizer::normalize( $post_data_key ) ] = $post_data_value;
+					$data[ Normalizer::normalize( (string) $post_data_key ) ] = $post_data_value;
 				}
-			} elseif ( is_object( $data ) ) {
+			} elseif ( is_object( $data ) || is_bool( $data ) ) {
 				return $data;
 			} else {
-				$data = Normalizer::normalize( $data );
+				$data = Normalizer::normalize( (string) $data );
 			}
 		}
 		return $data;
@@ -1850,15 +1519,16 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Array map for keys
 	 *
-	 * @param callable $callback The function callback.
-	 * @param array    $array The input array.
-	 * @param array    $args Array of arguments.
+	 * @param callable     $callback The function callback.
+	 * @param array<mixed> $input_array The input array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 6.0
 	 */
-	public function array_map_key( $callback, $array, $args = [] ) {
+	public function array_map_key( $callback, $input_array, $args = [] ) {
 		$out = [];
 
-		foreach ( $array as $key => $value ) {
+		foreach ( $input_array as $key => $value ) {
 			$mapkey         = call_user_func_array( $callback, array_merge( [ $key ], $args ) );
 			$out[ $mapkey ] = $value;
 		}
@@ -1869,17 +1539,19 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Safe html_entity_decode
 	 *
-	 * @param string $string The value to decode.
+	 * @param string $str The value to decode.
+	 * @return string
 	 * @since 1.0
 	 */
-	public function html_entity_decode( $string = '' ) {
-		return html_entity_decode( $string, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
+	public function html_entity_decode( $str = '' ) {
+		return html_entity_decode( $str, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
 	}
 
 	/**
 	 * Array map with html_entity_decode
 	 *
 	 * @param mixed $value The value to decode.
+	 * @return mixed
 	 * @since 6.0
 	 */
 	public function entity_decode( $value ) {
@@ -1897,9 +1569,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * parameter array. If there's nothing in the cache, a fresh query is made.
 	 * https://wordpress.stackexchange.com/questions/162703/cache-get-posts
 	 *
-	 * @param array $args The parameters to pass to get_posts().
+	 * @param array<mixed> $args The parameters to pass to get_posts().
 	 *
-	 * @return array List of posts matching $args.
+	 * @return array<mixed> List of posts matching $args.
 	 */
 	public static function get_cached_posts( $args = [] ) {
 		$post_list_name = 'tm_get_posts' . md5( wp_json_encode( $args ) );
@@ -1977,7 +1649,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 				$decimal = stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) );
 			} elseif ( class_exists( 'NumberFormatter' ) ) {
 				$locale = get_locale();
-				if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+				if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) { // @phpstan-ignore-line
 					$locale = explode( ',', wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 					$locale = $locale[0];
 					$locale = str_replace( '-', '_', $locale );
@@ -2004,17 +1676,14 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 		$unformatted = (float) $unformatted;
 
-		if ( 'integer' === gettype( $unformatted ) || 'double' === gettype( $unformatted ) ) {
-			return $unformatted;
-		}
-
-		return 0;
+		return $unformatted;
 	}
 
 	/**
 	 * Convert url to ssl if it applies
 	 *
-	 * @param string $url The url.
+	 * @param mixed $url The url.
+	 * @return string
 	 * @since 6.1
 	 */
 	public function to_ssl( $url = '' ) {
@@ -2037,14 +1706,15 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Array some functionality
 	 *
-	 * @param array    $array The array.
-	 * @param callable $fn The callable function.
+	 * @param array<mixed> $input_array The array.
+	 * @param mixed        $func The callable function.
+	 * @return boolean
 	 * @since 6.1
 	 */
-	public function array_some( $array, $fn ) {
-		if ( is_array( $array ) && $fn ) {
-			foreach ( $array as $value ) {
-				if ( $fn( $value ) ) {
+	public function array_some( $input_array, $func ) {
+		if ( is_array( $input_array ) && $func ) {
+			foreach ( $input_array as $value ) {
+				if ( $func( $value ) ) {
 					return true;
 				}
 			}
@@ -2055,14 +1725,15 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	/**
 	 * Convert user input to number
 	 *
-	 * @param string  $val The value to convert.
+	 * @param mixed   $val The value to convert.
 	 * @param boolean $noformat If a number should be returned for PHP calculations.
+	 * @return mixed
 	 * @since 6.3
 	 */
 	public function convert_to_number( $val = '', $noformat = false ) {
 		if ( function_exists( 'numfmt_create' ) ) {
 			$locale = get_locale();
-			if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+			if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) { // @phpstan-ignore-line
 				$locale = explode( ',', wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$locale = $locale[0];
 				$locale = str_replace( '-', '_', $locale );
@@ -2073,6 +1744,166 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			$val = numfmt_format( $fmt, $val );
 
 			if ( $noformat ) {
+				// format Arabic numbers to English numbers.
+				$arabic_numbers = [
+					'٠' => '0',
+					'١' => '1',
+					'٢' => '2',
+					'٣' => '3',
+					'٤' => '4',
+					'٥' => '5',
+					'٦' => '6',
+					'٧' => '7',
+					'٨' => '8',
+					'٩' => '9',
+				];
+
+				$val = str_replace( array_keys( $arabic_numbers ), array_values( $arabic_numbers ), $val );
+
+				// format Persian numbers to English numbers.
+				$persian = [
+					'۰' => '0',
+					'۱' => '1',
+					'۲' => '2',
+					'۳' => '3',
+					'۴' => '4',
+					'۵' => '5',
+					'۶' => '6',
+					'۷' => '7',
+					'۸' => '8',
+					'۹' => '9',
+				];
+
+				$val = str_replace( array_keys( $persian ), array_values( $persian ), $val );
+
+				// format Chinese numbers to English numbers.
+				$chinese_numbers = [
+					'零' => '0',
+					'一' => '1',
+					'二' => '2',
+					'三' => '3',
+					'四' => '4',
+					'五' => '5',
+					'六' => '6',
+					'七' => '7',
+					'八' => '8',
+					'九' => '9',
+				];
+
+				$val = str_replace( array_keys( $chinese_numbers ), array_values( $chinese_numbers ), $val );
+
+				// format Japanese numbers to English numbers.
+				$japanese_numbers = [
+					'零' => '0',
+					'一' => '1',
+					'二' => '2',
+					'三' => '3',
+					'四' => '4',
+					'五' => '5',
+					'六' => '6',
+					'七' => '7',
+					'八' => '8',
+					'九' => '9',
+				];
+
+				$val = str_replace( array_keys( $japanese_numbers ), array_values( $japanese_numbers ), $val );
+
+				// format Korean numbers to English numbers.
+				$korean_numbers = [
+					'영' => '0',
+					'일' => '1',
+					'이' => '2',
+					'삼' => '3',
+					'사' => '4',
+					'오' => '5',
+					'육' => '6',
+					'칠' => '7',
+					'팔' => '8',
+					'구' => '9',
+				];
+
+				$val = str_replace( array_keys( $korean_numbers ), array_values( $korean_numbers ), $val );
+
+				// format Hindi numbers to English numbers.
+				$hindi_numbers = [
+					'०' => '0',
+					'१' => '1',
+					'२' => '2',
+					'३' => '3',
+					'४' => '4',
+					'५' => '5',
+					'६' => '6',
+					'७' => '7',
+					'८' => '8',
+					'९' => '9',
+				];
+
+				$val = str_replace( array_keys( $hindi_numbers ), array_values( $hindi_numbers ), $val );
+
+				// format Thai numbers to English numbers.
+				$thai_numbers = [
+					'๐' => '0',
+					'๑' => '1',
+					'๒' => '2',
+					'๓' => '3',
+					'๔' => '4',
+					'๕' => '5',
+					'๖' => '6',
+					'๗' => '7',
+					'๘' => '8',
+					'๙' => '9',
+				];
+
+				$val = str_replace( array_keys( $thai_numbers ), array_values( $thai_numbers ), $val );
+
+				// format Mayan numbers to English numbers.
+				$mayan_numbers = [
+					'๐' => '0',
+					'๑' => '1',
+					'๒' => '2',
+					'๓' => '3',
+					'๔' => '4',
+					'๕' => '5',
+					'๖' => '6',
+					'๗' => '7',
+					'๘' => '8',
+					'๙' => '9',
+				];
+
+				$val = str_replace( array_keys( $mayan_numbers ), array_values( $mayan_numbers ), $val );
+
+				// format Babylonian numbers to English numbers.
+				$babylonian_numbers = [
+					'٠' => '0',
+					'١' => '1',
+					'٢' => '2',
+					'٣' => '3',
+					'٤' => '4',
+					'٥' => '5',
+					'٦' => '6',
+					'٧' => '7',
+					'٨' => '8',
+					'٩' => '9',
+				];
+
+				$val = str_replace( array_keys( $babylonian_numbers ), array_values( $babylonian_numbers ), $val );
+
+				// format Greek numbers to English numbers.
+				$greek_numbers = [
+					'⁰' => '0',
+					'¹' => '1',
+					'²' => '2',
+					'³' => '3',
+					'⁴' => '4',
+					'⁵' => '5',
+					'⁶' => '6',
+					'⁷' => '7',
+					'⁸' => '8',
+					'⁹' => '9',
+				];
+
+				$val = str_replace( array_keys( $greek_numbers ), array_values( $greek_numbers ), $val );
+
 				$thousand_separator_symbol = numfmt_get_symbol( $fmt, NumberFormatter::GROUPING_SEPARATOR_SYMBOL );
 				$decimal_separator_symbol  = numfmt_get_symbol( $fmt, NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
 
@@ -2081,5 +1912,39 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			}
 		}
 		return $val;
+	}
+
+	/**
+	 * Converts a string from UTF-8 to ISO-8859-1, replacing invalid or unrepresentable characters
+	 *
+	 * @param string $str A UTF-8 encoded string.
+	 * @return string
+	 * @since 6.4
+	 */
+	public function utf8_decode( $str = '' ) {
+		if ( function_exists( 'mb_convert_encoding' ) && function_exists( 'mb_detect_encoding' ) ) {
+			$source_encoding = mb_detect_encoding( $str, 'UTF-8, ISO-8859-1, ISO-8859-15, Windows-1252' );
+			if ( $source_encoding ) {
+				// Convert to ISO-8859-1 (Latin-1).
+				return mb_convert_encoding( $str, 'ISO-8859-1', $source_encoding );
+			}
+		}
+
+		return $str;
+	}
+
+	/**
+	 * Converts a string from ISO-8859-1 to UTF-8
+	 *
+	 * @param string $str An ISO-8859-1 string.
+	 * @return string
+	 * @since 6.4
+	 */
+	public function utf8_encode( $str = '' ) {
+		if ( function_exists( 'mb_convert_encoding' ) && function_exists( 'mb_list_encodings' ) ) {
+			return mb_convert_encoding( $str, 'UTF-8', mb_list_encodings() );
+		}
+
+		return $str;
 	}
 }

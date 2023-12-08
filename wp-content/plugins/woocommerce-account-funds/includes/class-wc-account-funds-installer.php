@@ -88,24 +88,20 @@ class WC_Account_Funds_Installer {
 	/**
 	 * Install the plugin. Called by handler of register_activation_hook.
 	 *
-	 * @since 2.3.7 Deprecated parameter `$version`.
-	 *
-	 * @param null $deprecated No longer used.
+	 * @since 2.3.7 Deprecated argument `$version`.
+	 * @since 3.0.0 Removed argument `$version`.
 	 */
-	public static function install( $deprecated = null ) {
+	public static function install() {
 		self::_set_options();
 	}
 
 	/**
 	 * Set options used by this plugin.
 	 *
-	 * @see self::install
-	 *
-	 * @since 2.3.7 Deprecated parameter `$version`.
-	 *
-	 * @param null $deprecated No longer used.
+	 * @since 2.3.7 Deprecated argument `$version`.
+	 * @since 3.0.0 Removed argument `$version`.
 	 */
-	protected static function _set_options( $deprecated = null ) {
+	protected static function _set_options() {
 		$old_settings = get_option(
 			'wcaf_settings',
 			array(
@@ -168,20 +164,6 @@ class WC_Account_Funds_Installer {
 		$endpoint = get_option( 'woocommerce_myaccount_account_funds_endpoint', 'account-funds' );
 		add_rewrite_endpoint( $endpoint, EP_ROOT | EP_PAGES );
 		flush_rewrite_rules();
-	}
-
-	/**
-	 * Check for update based on current plugin's version versus installed
-	 * version. Perform update routine if version mismatches.
-	 *
-	 * @param string $current_version Plugin's version.
-	 *
-	 * @deprecated 2.3.7
-	 */
-	public static function update_check( $current_version ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
-
-		self::check_version();
 	}
 }
 

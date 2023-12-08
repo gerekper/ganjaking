@@ -36,6 +36,7 @@ class Filter extends Search\Filter {
 			'operators'       => array_keys( $labels ),
 			'operator_labels' => $labels,
 			'label'           => $this->label,
+			'options'         => false,
 			'values'          => false,
 			'use_ajax'        => false,
 			'use_pagination'  => false,
@@ -51,7 +52,9 @@ class Filter extends Search\Filter {
 					$values[ $value->get_value() ] = $value->get_label();
 				}
 
+				// remove once options is implements
 				$filter['values'] = (object) $values;
+				$filter['options'] = AC\Helper\Select\ArrayMapper::map( $comparison->get_values() );
 
 				break;
 			case $comparison instanceof Comparison\SearchableValues :

@@ -17,7 +17,7 @@ final class TableRowsFactory
 
     private static $list_screens = [
         Post::class     => TableRows\Post::class,
-        Media::class    => TableRows\Post::class,
+        Media::class    => TableRows\Media::class,
         Comment::class  => TableRows\Comment::class,
         User::class     => TableRows\User::class,
         MSUser::class   => TableRows\User::class,

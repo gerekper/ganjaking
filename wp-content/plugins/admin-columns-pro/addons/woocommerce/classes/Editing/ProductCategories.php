@@ -2,19 +2,15 @@
 
 namespace ACA\WC\Editing;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
-use ACP\Helper\Select;
 use InvalidArgumentException;
 
 class ProductCategories implements Service, PaginatedOptions {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
@@ -98,17 +94,12 @@ class ProductCategories implements Service, PaginatedOptions {
 		}
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		$entities = new Select\Entities\Taxonomy( [
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new \ACP\Helper\Select\Taxonomy\PaginatedFactory() )->create( [
 			'search'   => (string) $search,
 			'page'     => (int) $page,
 			'taxonomy' => 'product_cat',
 		] );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Formatter\TermName( $entities )
-		);
 	}
 
 }

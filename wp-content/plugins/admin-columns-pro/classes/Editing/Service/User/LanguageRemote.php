@@ -3,6 +3,7 @@
 namespace ACP\Editing\Service\User;
 
 use AC;
+use AC\Helper\Select\Options;
 use ACP\Editing;
 use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\View;
@@ -17,7 +18,7 @@ class LanguageRemote extends BasicStorage implements Editing\RemoteOptions {
 		return new View\RemoteSelect();
 	}
 
-	public function get_remote_options( $id = null ) {
+	public function get_remote_options( int $id = null ): Options {
 		$translations = ( new AC\Helper\User() )->get_translations_remote();
 
 		$options = [
@@ -30,7 +31,7 @@ class LanguageRemote extends BasicStorage implements Editing\RemoteOptions {
 			}
 		}
 
-		return AC\Helper\Select\Options::create_from_array( $options );
+		return Options::create_from_array( $options );
 	}
 
 }

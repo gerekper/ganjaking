@@ -3,7 +3,7 @@
 namespace ACA\WC\Search\Product;
 
 use AC;
-use AC\MetaType;
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
@@ -24,10 +24,10 @@ class TaxStatus extends Comparison\Meta implements Comparison\Values {
 
 		$this->statuses = $statuses;
 
-		parent::__construct( $operators, '_tax_status', MetaType::POST );
+		parent::__construct( $operators, '_tax_status' );
 	}
 
-	public function get_values() {
+	public function get_values(): Options {
 		return AC\Helper\Select\Options::create_from_array( $this->statuses );
 	}
 

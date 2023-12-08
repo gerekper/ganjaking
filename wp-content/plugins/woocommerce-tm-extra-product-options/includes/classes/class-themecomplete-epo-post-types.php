@@ -3,7 +3,7 @@
  * Extra Product Options Post Types
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,28 +12,28 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Post Types
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_POST_TYPES {
 
 	/**
 	 * The global post type
 	 *
-	 * @var string
+	 * @var string|WP_Post_Type|null
 	 */
 	public static $global_type;
 
 	/**
 	 * The template post type
 	 *
-	 * @var string
+	 * @var string|WP_Post_Type|null
 	 */
 	public static $template_type;
 
 	/**
 	 * The lookup table post type
 	 *
-	 * @var string
+	 * @var string|WP_Post_Type|null
 	 */
 	public static $lookuptable_type;
 
@@ -48,6 +48,7 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_POST_TYPES
 	 * @since 6.0
 	 * @static
 	 */
@@ -63,10 +64,10 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 	 * Register local post type
 	 * (This is used in Normal mode)
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public static function register_local_post_type() {
-
 		register_post_type(
 			THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 			[
@@ -79,21 +80,20 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 				'show_in_nav_menus'   => false,
 				'public'              => false,
 				'hierarchical'        => false,
-				'supports'            => false,
+				'supports'            => [],
 				'_edit_link'          => 'post.php?post=%d', // WordPress 4.4 fix.
 			]
 		);
-
 	}
 
 	/**
 	 * Register global post type
 	 * (This is used in Global builder forms mode)
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public static function register_global_post_type() {
-
 		register_post_type(
 			THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 			[
@@ -139,17 +139,16 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 				register_taxonomy_for_object_type( $tax, THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
 			}
 		}
-
 	}
 
 	/**
 	 * Register template post type
 	 * (This is for the Option Templates)
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public static function register_template_post_type() {
-
 		register_post_type(
 			THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE,
 			[
@@ -187,16 +186,15 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 				'_edit_link'           => 'post.php?post=%d', // WordPress 4.4 fix.
 			]
 		);
-
 	}
 
 	/**
 	 * Register lookup table post type
 	 *
+	 * @return void
 	 * @since 6.1
 	 */
 	public static function register_lookuptable_post_type() {
-
 		register_post_type(
 			THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE,
 			[
@@ -234,16 +232,15 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 				'_edit_link'           => 'post.php?post=%d', // WordPress 4.4 fix.
 			]
 		);
-
 	}
 
 	/**
 	 * Register post types
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public static function register() {
-
 		self::register_local_post_type();
 		self::register_global_post_type();
 		self::register_template_post_type();
@@ -252,7 +249,5 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 		self::$global_type      = get_post_type_object( THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
 		self::$template_type    = get_post_type_object( THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE );
 		self::$lookuptable_type = get_post_type_object( THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE );
-
 	}
-
 }

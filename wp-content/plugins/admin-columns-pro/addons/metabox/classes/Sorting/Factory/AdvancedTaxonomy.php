@@ -6,8 +6,6 @@ use ACA\MetaBox;
 use ACA\MetaBox\Column;
 use ACA\MetaBox\Sorting;
 use ACP;
-use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Model\Disabled;
 
 final class AdvancedTaxonomy extends Sorting\Factory implements MetaBox\Sorting\CloneableFactory,
                                                                 Sorting\TableStorageFactory
@@ -18,7 +16,7 @@ final class AdvancedTaxonomy extends Sorting\Factory implements MetaBox\Sorting\
         return (new TableStorageFactory())->create_table_storage($column);
     }
 
-    protected function create_default(Column $column): AbstractModel
+    protected function create_default(Column $column)
     {
         return (new ACP\Sorting\Model\MetaFormatFactory())->create(
             $column->get_meta_type(),
@@ -32,9 +30,9 @@ final class AdvancedTaxonomy extends Sorting\Factory implements MetaBox\Sorting\
         );
     }
 
-    public function create_cloneable(Column $column): Disabled
+    public function create_cloneable(Column $column)
     {
-        return new Disabled();
+        return null;
     }
 
 }

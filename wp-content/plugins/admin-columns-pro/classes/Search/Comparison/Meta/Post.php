@@ -2,92 +2,107 @@
 
 namespace ACP\Search\Comparison\Meta;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
+use AC\Meta\Query;
 use ACP\Helper\Select;
-use ACP\Helper\Select\Formatter;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\SearchableValues;
+use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 use WP_Term;
 
 class Post extends Meta
-	implements SearchableValues {
+    implements SearchableValues
+{
 
-	/**
-	 * @var string|array
-	 */
-	private $post_type = 'any';
+    protected $post_types;
 
-	/**
-	 * @var WP_Term[]
-	 */
-	private $terms = [];
+    /**
+     * @var WP_Term[]
+     */
+    protected $terms;
 
-	public function __construct( $meta_key, $meta_type, $post_type = false, array $terms = [], $labels = null ) {
-		$this->set_post_type( $post_type );
-		$this->set_terms( $terms );
+    protected $query;
 
-		parent::__construct( $this->get_meta_operators(), $meta_key, $meta_type, Value::STRING, $labels );
-	}
+    public function __construct(
+        string $meta_key,
+        array $post_types = [],
+        array $terms = [],
+        Labels $labels = null,
+        Query $query = null
+    ) {
+        $this->post_types = $post_types;
+        $this->terms = $terms;
+        $this->query = $query;
 
-	protected function get_meta_operators() {
-		return new Operators( [
-			Operators::EQ,
-			Operators::NEQ,
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
-	}
+        parent::__construct($this->get_meta_operators(), $meta_key, Value::STRING, $labels);
+    }
 
-	public function get_values( $search, $page ) {
-		$entities = new Select\Entities\Post( [
-			's'             => $search,
-			'paged'         => $page,
-			'post_type'     => $this->post_type,
-			'tax_query'     => $this->get_tax_query(),
-			'search_fields' => [ 'post_title', 'ID' ],
-		] );
+    protected function get_meta_operators(): Operators
+    {
+        return new Operators([
+            Operators::EQ,
+            Operators::NEQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
+    }
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Group\PostType(
-				new Formatter\PostTitle( $entities )
-			)
-		);
-	}
+    private function formatter(): PostTitle
+    {
+        return new PostTitle();
+    }
 
-	/**
-	 * @param string|array $post_type
-	 */
-	private function set_post_type( $post_type ) {
-		if ( $post_type ) {
-			$this->post_type = $post_type;
-		}
-	}
+    public function format_label($value): string
+    {
+        $post = get_post($value);
 
-	/**
-	 * @param WP_Term[] $terms
-	 */
-	private function set_terms( array $terms ) {
-		$this->terms = $terms;
-	}
+        return $post
+            ? $this->formatter()->format_label($post)
+            : '';
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function get_tax_query() {
-		$tax_query = [];
-		
-		foreach ( $this->terms as $term ) {
-			$tax_query[] = [
-				'taxonomy' => $term->taxonomy,
-				'field'    => 'slug',
-				'terms'    => $term->slug,
-			];
-		}
+    protected function get_post__in(): array
+    {
+        return $this->query->get();
+    }
 
-		return $tax_query;
-	}
+    public function get_values(string $search, int $page): Paginated
+    {
+        $args = [
+            's'             => $search,
+            'paged'         => $page,
+            'post_type'     => $this->post_types ?: ['any'],
+            'tax_query'     => $this->get_tax_query(),
+            'search_fields' => ['post_title', 'ID'],
+        ];
+
+        if ($this->query) {
+            $args['post__in'] = $this->get_post__in();
+        }
+
+        return (new PaginatedFactory())->create(
+            $args,
+            $this->formatter()
+        );
+    }
+
+    protected function get_tax_query(): array
+    {
+        $tax_query = [];
+
+        foreach ($this->terms as $term) {
+            $tax_query[] = [
+                'taxonomy' => $term->taxonomy,
+                'field'    => 'slug',
+                'terms'    => $term->slug,
+            ];
+        }
+
+        return $tax_query;
+    }
 
 }

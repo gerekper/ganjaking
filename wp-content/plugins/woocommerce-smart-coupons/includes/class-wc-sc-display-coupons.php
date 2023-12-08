@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.9.0
+ * @version     4.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			add_action( 'wp_ajax_nopriv_sc_get_available_coupons', array( $this, 'get_available_coupons_html' ) );
 
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'show_attached_gift_certificates' ) );
-			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'remove_add_to_cart_button_from_shop_page' ) );
+			add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'override_add_to_cart_button' ), 10, 3 );
 
 			add_action( 'woocommerce_after_cart_table', array( $this, 'show_available_coupons_after_cart_table' ) );
 			add_action( 'woocommerce_before_checkout_form', array( $this, 'show_available_coupons_before_checkout_form' ), 11 );
@@ -694,39 +694,32 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 		/**
 		 * Replace Add to cart button with Select Option button for products which are created for purchasing credit, on shop page
+		 *
+		 * @param string           $html Original add to cart button HTML.
+		 * @param mixed|WC_Product $product The product object.
+		 * @param array            $args Additional arguments.
+		 * @return string HTML of add to cart button
 		 */
-		public function remove_add_to_cart_button_from_shop_page() {
-			global $product;
+		public function override_add_to_cart_button( $html = '', $product = null, $args = array() ) {
 
-			if ( ! is_a( $product, 'WC_Product' ) ) {
-				return;
+			if ( is_null( $product ) || empty( $product ) || ! $product instanceof WC_Product ) {
+				return $html;
 			}
-
-			if ( $this->is_wc_gte_30() ) {
-				$product_id = ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0;
-			} else {
-				$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
-			}
-
 			$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
-
-			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $product->get_price() > 0 ) ) {
-
-				$js = "
-						var target_class = 'wc_sc_loop_button_" . $product_id . "';
-						var wc_sc_loop_button = jQuery('.' + target_class);
-						var wc_sc_old_element = jQuery(wc_sc_loop_button).siblings('a[data-product_id=" . $product_id . "]');
-						var wc_sc_loop_button_classes = wc_sc_old_element.attr('class');
-						wc_sc_loop_button.removeClass( target_class ).addClass( wc_sc_loop_button_classes ).show();
-						wc_sc_old_element.remove();
-					";
-
-				wc_enqueue_js( $js );
-
-				?>
-				<a href="<?php echo esc_url( the_permalink() ); ?>" class="wc_sc_loop_button_<?php echo esc_attr( $product_id ); ?>" style="display: none;"><?php echo esc_html( get_option( 'sc_gift_certificate_shop_loop_button_text', __( 'Select options', 'woocommerce-smart-coupons' ) ) ); ?></a>
-				<?php
+			if ( empty( $coupons ) ) {
+				return $html;
 			}
+			if ( $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $product->get_price() > 0 ) ) {
+
+				$html = sprintf(
+					'<a href="%s" class="%s">%s</a>',
+					esc_url( $product->get_permalink() ),
+					esc_attr( ! empty( $args['class'] ) ? $args['class'] : 'button' ),
+					esc_html( get_option( 'sc_gift_certificate_shop_loop_button_text', __( 'Select options', 'woocommerce-smart-coupons' ) ) )
+				);
+
+			}
+			return $html;
 		}
 
 		/**

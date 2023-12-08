@@ -2,16 +2,12 @@
 
 namespace ACP\Search\Comparison;
 
-use ACP\Helper\Select\Options;
+use AC\Helper\Select\Options\Paginated;
 
 interface SearchableValues {
 
-	/**
-	 * @param string $search
-	 * @param int    $page
-	 *
-	 * @return Options\Paginated
-	 */
-	public function get_values( $search, $page );
+	public function format_label( $value ): string;
+
+	public function get_values( string $search, int $page ): Paginated;
 
 }

@@ -2,10 +2,12 @@
 
 namespace ACA\YoastSeo\Editing\Service\Post;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 use ACP\Helper\Select;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 
 class PrimaryTaxonomy implements Editing\Service, Editing\PaginatedOptions {
 
@@ -50,8 +52,11 @@ class PrimaryTaxonomy implements Editing\Service, Editing\PaginatedOptions {
 		return self::CONTEXT_SINGLE === $context ? new Editing\View\AjaxSelect() : null;
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new Select\Paginated\Terms( $search, $page, [ $this->taxonomy ], [
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'     => $search,
+			'page'       => $page,
+			'taxonomy'   => $this->taxonomy,
 			'object_ids' => [ $id ],
 		] );
 	}

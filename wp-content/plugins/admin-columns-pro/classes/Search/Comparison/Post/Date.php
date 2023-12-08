@@ -6,15 +6,9 @@ use ACP\Search\Comparison;
 
 abstract class Date extends Comparison\Date {
 
-	/**
-	 * @return string
-	 */
-	abstract protected function get_field();
+	abstract protected function get_field(): string;
 
-	/**
-	 * @return string
-	 */
-	protected function get_column() {
+	protected function get_column(): string {
 		global $wpdb;
 
 		return sprintf( '%s.%s', $wpdb->posts, $this->get_field() );

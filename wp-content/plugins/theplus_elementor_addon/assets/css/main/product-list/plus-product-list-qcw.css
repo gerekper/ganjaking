@@ -1,0 +1,27 @@
+a.tp-quick-view-wrap {
+	position: relative;
+	display: flex;
+	padding: 5px;
+	background: #000;	
+	justify-content: center;
+	border: 1px solid #000;
+	border-radius: 5px;
+	cursor: pointer;
+	align-items: center;
+	font-size:0;
+}
+
+.tp-quick-view-wrap .tp-pro-view-spinner{
+	display: flex;
+	width: 15px;
+	height: 15px;
+	border: 3px solid #ffffff2e;
+	border-radius: 50%;
+	border-top-color: #000;
+	animation: spin 1s ease-in-out infinite;
+	-webkit-animation: spin 1s ease-in-out infinite;
+	margin-left: 5px;
+}
+a.tp-quick-view-wrap:hover .tp-pro-view-spinner{
+	border-top-color: #fff;
+}

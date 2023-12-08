@@ -8,12 +8,12 @@ use AC\Type\ListScreenId;
 use ACP\Exception\FailedToSaveSegmentException;
 use ACP\Search\Entity\Segment;
 use ACP\Search\SegmentCollection;
-use ACP\Search\SegmentRepository;
+use ACP\Search\SegmentRepositoryWritable;
 use ACP\Search\Storage;
 use ACP\Search\Type\SegmentKey;
 use DateTime;
 
-final class Database implements SegmentRepository
+final class Database implements SegmentRepositoryWritable
 {
 
     use KeyGeneratorTrait;
@@ -55,7 +55,6 @@ final class Database implements SegmentRepository
 
         return new Segment(
             new SegmentKey((string)$row[$this->table::KEY]),
-            new ListScreenId($row[$this->table::LIST_SCREEN_ID]),
             $row[$this->table::NAME],
             unserialize(
                 $row[$this->table::URL_PARAMETERS],
@@ -63,7 +62,9 @@ final class Database implements SegmentRepository
                     'allowed_classes' => false,
                 ]
             ),
-            $user_id
+            new ListScreenId($row[$this->table::LIST_SCREEN_ID]),
+            $user_id,
+            new DateTime($row[$this->table::DATE_CREATED])
         );
     }
 
@@ -110,7 +111,7 @@ final class Database implements SegmentRepository
         );
     }
 
-    public function find_all_by_user(
+    public function find_all_personal(
         int $user_id,
         ListScreenId $list_screen_id = null,
         Sort $sort = null
@@ -122,7 +123,7 @@ final class Database implements SegmentRepository
         );
     }
 
-    public function find_all_global(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    public function find_all_shared(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
     {
         return $this->fetch_results(
             $list_screen_id,
@@ -134,29 +135,22 @@ final class Database implements SegmentRepository
     /**
      * @throws FailedToSaveSegmentException
      */
-    public function create(
-        SegmentKey $segment_key,
-        ListScreenId $list_screen_id,
-        string $name,
-        array $url_parameters,
-        int $user_id = null
-    ): Segment {
+    public function save(Segment $segment): void
+    {
         global $wpdb;
 
-        $global = $user_id === null;
-
-        if ($this->find($segment_key) !== null) {
-            throw FailedToSaveSegmentException::from_duplicate_key($segment_key);
+        if ($this->find($segment->get_key()) !== null) {
+            throw FailedToSaveSegmentException::from_duplicate_key($segment->get_key());
         }
 
         $inserted = $wpdb->insert(
             $this->table->get_name(),
             [
-                $this->table::KEY => (string)$segment_key,
-                $this->table::LIST_SCREEN_ID => $list_screen_id->get_id(),
-                $this->table::USER_ID => $global ? 0 : $user_id,
-                $this->table::NAME => $name,
-                $this->table::URL_PARAMETERS => serialize($url_parameters),
+                $this->table::KEY => (string)$segment->get_key(),
+                $this->table::LIST_SCREEN_ID => (string)$segment->get_list_id(),
+                $this->table::USER_ID => $segment->has_user_id() ? $segment->get_user_id() : 0,
+                $this->table::NAME => $segment->get_name(),
+                $this->table::URL_PARAMETERS => serialize($segment->get_url_parameters()),
                 $this->table::DATE_CREATED => (new DateTime())->format($this->table->get_timestamp_format()),
             ],
             [
@@ -172,14 +166,6 @@ final class Database implements SegmentRepository
         if ($inserted !== 1) {
             throw new FailedToSaveSegmentException();
         }
-
-        return new Segment(
-            $segment_key,
-            $list_screen_id,
-            $name,
-            $url_parameters,
-            $user_id
-        );
     }
 
     public function delete(SegmentKey $key): void
@@ -193,6 +179,38 @@ final class Database implements SegmentRepository
             ],
             [
                 '%s',
+            ]
+        );
+    }
+
+    public function delete_all(ListScreenId $list_screen_id): void
+    {
+        global $wpdb;
+
+        $wpdb->delete(
+            $this->table->get_name(),
+            [
+                $this->table::LIST_SCREEN_ID => (string)$list_screen_id,
+            ],
+            [
+                '%s',
+            ]
+        );
+    }
+
+    public function delete_all_shared(ListScreenId $list_screen_id): void
+    {
+        global $wpdb;
+
+        $wpdb->delete(
+            $this->table->get_name(),
+            [
+                $this->table::LIST_SCREEN_ID => (string)$list_screen_id,
+                $this->table::USER_ID        => 0,
+            ],
+            [
+                '%s',
+                '%d',
             ]
         );
     }

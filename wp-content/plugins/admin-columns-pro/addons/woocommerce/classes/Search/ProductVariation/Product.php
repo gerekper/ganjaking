@@ -2,8 +2,9 @@
 
 namespace ACA\WC\Search\ProductVariation;
 
-use AC;
-use ACP;
+use AC\Helper\Select\Options\Paginated;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
@@ -18,14 +19,22 @@ class Product extends Comparison\Post\PostField
 		parent::__construct( $operators );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'post_parent';
 	}
 
-	public function get_values( $s, $paged ) {
-		$entities = new ACP\Helper\Select\Entities\Post( [
-			's'         => $s,
-			'paged'     => $paged,
+	public function format_label( $value ): string {
+		$post = get_post( $value );
+
+		return $post
+			? ( new PostTitle() )->format_label( $post )
+			: '';
+	}
+
+	public function get_values( string $search, int $page ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			's'         => $search,
+			'paged'     => $page,
 			'post_type' => 'product',
 			'tax_query' => [
 				[
@@ -35,11 +44,6 @@ class Product extends Comparison\Post\PostField
 				],
 			],
 		] );
-
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Formatter\PostTitle( $entities )
-		);
 	}
 
 }

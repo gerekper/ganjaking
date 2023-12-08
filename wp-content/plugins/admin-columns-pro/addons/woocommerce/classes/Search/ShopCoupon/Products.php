@@ -2,60 +2,51 @@
 
 namespace ACA\WC\Search\ShopCoupon;
 
-use AC;
-use AC\MetaType;
-use ACA\WC\Helper\Select;
+use ACA\WC\Helper\Select\ProductValuesTrait;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
 class Products extends Comparison\Meta
-	implements Comparison\SearchableValues {
+    implements Comparison\SearchableValues
+{
 
-	public function __construct( $meta_key ) {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+    use ProductValuesTrait;
 
-		parent::__construct( $operators, $meta_key, MetaType::POST );
-	}
+    public function __construct($meta_key)
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-	public function get_values( $s, $paged ) {
-		$entities = new Select\Entities\Product( [
-			's'     => $s,
-			'paged' => $paged,
-		] );
+        parent::__construct($operators, $meta_key);
+    }
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Formatter\ProductIDTitleAndSKU( $entities )
-		);
-	}
+    protected function get_meta_query(string $operator, Value $value): array
+    {
+        if (Operators::EQ === $operator) {
+            return [
+                'relation' => 'OR',
+                [
+                    'key'     => $this->get_meta_key(),
+                    'value'   => '^' . $value->get_value(),
+                    'compare' => 'REGEXP',
+                ],
+                [
+                    'key'     => $this->get_meta_key(),
+                    'value'   => '$' . $value->get_value(),
+                    'compare' => 'REGEXP',
+                ],
+                [
+                    'key'     => $this->get_meta_key(),
+                    'value'   => sprintf(',%s,', $value->get_value()),
+                    'compare' => 'LIKE',
+                ],
+            ];
+        }
 
-	protected function get_meta_query( $operator, Value $value ) {
-		if ( Operators::EQ === $operator ) {
-			return [
-				'relation' => 'OR',
-				[
-					'key'     => $this->get_meta_key(),
-					'value'   => '^' . $value->get_value(),
-					'compare' => 'REGEXP',
-				],
-				[
-					'key'     => $this->get_meta_key(),
-					'value'   => '$' . $value->get_value(),
-					'compare' => 'REGEXP',
-				],
-				[
-					'key'     => $this->get_meta_key(),
-					'value'   => sprintf( ',%s,', $value->get_value() ),
-					'compare' => 'LIKE',
-				],
-			];
-		}
-
-		return parent::get_meta_query( $operator, $value );
-	}
+        return parent::get_meta_query($operator, $value);
+    }
 }

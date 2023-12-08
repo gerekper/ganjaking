@@ -2,49 +2,57 @@
 
 namespace ACP\Search\Comparison\Comment;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP\Helper\Select;
+use ACP\Helper\Select\Comment\LabelFormatter;
+use ACP\Helper\Select\Comment\PaginatedFactory;
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
+use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
-class ReplyTo extends Comparison
-    implements Comparison\SearchableValues
+class ReplyTo extends Comparison implements SearchableValues
 {
 
     public function __construct()
     {
-        $operators = new Operators([
-            Operators::EQ,
-        ]);
-
-        parent::__construct($operators);
-    }
-
-    protected function create_query_bindings($operator, Value $value)
-    {
-        return (new Bindings\Comment())->parent((int)$value->get_value());
-    }
-
-    public function get_values($search, $paged)
-    {
-        $args = compact('search', 'paged');
-
-        $args['comment__in'] = $this->get_parents();
-
-        $entities = new Select\Entities\Comment($args);
-
-        return new AC\Helper\Select\Options\Paginated(
-            $entities,
-            new Select\Formatter\CommentSummary($entities)
+        parent::__construct(
+            new Operators([
+                Operators::EQ,
+            ])
         );
     }
 
-    /**
-     * @return array|false
-     */
-    private function get_parents()
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        return (new Bindings\Comment())->parent($value->get_value());
+    }
+
+    private function formatter(): LabelFormatter\CommentTitle
+    {
+        return new LabelFormatter\CommentTitle();
+    }
+
+    public function format_label($value): string
+    {
+        $comment = get_comment($value);
+
+        return $comment
+            ? $this->formatter()->format_label($comment)
+            : '';
+    }
+
+    public function get_values(string $search, int $page): Paginated
+    {
+        return (new PaginatedFactory())->create([
+            'search'      => $search,
+            'paged'       => $page,
+            'comment__in' => $this->get_parents(),
+        ]);
+    }
+
+    private function get_parents(): ?array
     {
         global $wpdb;
 
@@ -53,14 +61,14 @@ class ReplyTo extends Comparison
         $results = $wpdb->get_col(
             "
 			SELECT DISTINCT( comment_parent )
-			FROM {$wpdb->comments}
+			FROM $wpdb->comments
 			WHERE comment_parent != '' 
-			LIMIT {$limit}
+			LIMIT $limit
 		"
         );
 
         if ( ! $results || $limit <= count($results)) {
-            return false;
+            return null;
         }
 
         return $results;

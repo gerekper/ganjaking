@@ -6,10 +6,11 @@ use AC\Helper\Select\Options\Paginated;
 use ACA\EC\Editing;
 use ACP;
 use ACP\Editing\View;
+use ACP\Helper\Select\Post\PaginatedFactory;
 
 class Venue implements ACP\Editing\Service, ACP\Editing\PaginatedOptions {
 
-	const META_KEY = '_EventVenueID';
+	private const META_KEY = '_EventVenueID';
 
 	public function get_view( string $context ): ?View {
 		return ( new ACP\Editing\View\AjaxSelect() )->set_clear_button( true );
@@ -27,8 +28,10 @@ class Venue implements ACP\Editing\Service, ACP\Editing\PaginatedOptions {
 		update_post_meta( $id, self::META_KEY, $data );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ): Paginated {
-		return new ACP\Helper\Select\Paginated\Posts( $search, $page, [
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'paged'     => $page,
+			's'         => $search,
 			'post_type' => 'tribe_venue',
 		] );
 	}

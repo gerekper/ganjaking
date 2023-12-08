@@ -47,7 +47,7 @@ class Statement {
 	public function prepare() {
 		global $wpdb;
 
-		if ( substr_count( $this->statement, '?' ) != count( $this->values ) ) {
+		if ( substr_count( $this->statement, '?' ) !== count( $this->values ) ) {
 			throw new LogicException( 'Amount of parameters and variables must be the same.' );
 		}
 

@@ -6,7 +6,7 @@ use ACA\ACF\Field\Type;
 
 class FieldFactory {
 
-	public function create( array $settings ) {
+	public function create( array $settings ): Field {
 
 		switch ( $settings['type'] ) {
 			case FieldType::TYPE_BOOLEAN:

@@ -40,6 +40,10 @@
                     return;
                 }
 
+                //initial breking issue fixed
+                $container.find('.megamenu-header-mobile').removeAttr('style');
+                $container.removeClass('initialized');
+
                var dropMenu =  $($container).find('.ep-megamenu-vertical-dropdown');
 
                 bdtUIkit.drop(dropMenu, {

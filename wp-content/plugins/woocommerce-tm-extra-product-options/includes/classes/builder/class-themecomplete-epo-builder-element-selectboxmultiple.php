@@ -1,18 +1,18 @@
 <?php
 /**
- * Select box Multiple Element
+ * Multi-Select Field Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Select box Multiple Element
+ * Multi-Select Field Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SELECTBOXMULTIPLE extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -26,7 +26,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SELECTBOXMULTIPLE extends THEMECOMPLETE_
 		$this->element_name     = $name;
 		$this->is_addon         = false;
 		$this->namespace        = $this->elements_namespace;
-		$this->name             = esc_html__( 'Select Box Multiple', 'woocommerce-tm-extra-product-options' );
+		$this->name             = esc_html__( 'Multi-Select Field', 'woocommerce-tm-extra-product-options' );
 		$this->description      = '';
 		$this->width            = 'w100';
 		$this->width_display    = '100%';
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SELECTBOXMULTIPLE extends THEMECOMPLETE_
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(

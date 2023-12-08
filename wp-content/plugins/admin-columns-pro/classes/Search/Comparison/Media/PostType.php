@@ -2,58 +2,74 @@
 
 namespace ACP\Search\Comparison\Media;
 
-use AC;
+use AC\Helper\Select\Options;
+use ACP\Helper\Select\PostType\LabelFormatter;
+use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
-use ACP\Search\Query\Bindings;
 use ACP\Search\Value;
 
 class PostType extends Comparison
-	implements Comparison\RemoteValues {
+    implements Comparison\RemoteValues
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators);
+    }
 
-	protected function create_query_bindings( $operator, Value $value ) {
-		global $wpdb;
+    private function get_formatter(): LabelFormatter\Name
+    {
+        return new LabelFormatter\Name();
+    }
 
-		$sub_query = $wpdb->prepare( "SELECT ID from {$wpdb->posts} WHERE post_type = %s", $value->get_value() );
+    public function format_label(string $value): string
+    {
+        $post_type = get_post_type_object($value);
 
-		$bindings = new Bindings();
-		$bindings->where( "{$wpdb->posts}.post_parent IN({$sub_query})" );
+        return $post_type
+            ? $this->get_formatter()->format_label($post_type)
+            : $value;
+    }
 
-		return $bindings;
-	}
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
 
-	public function get_values() {
-		$options = [];
+        $sub_query = $wpdb->prepare("SELECT ID from $wpdb->posts WHERE post_type = %s", $value->get_value());
 
-		foreach ( $this->get_post_types() as $post_type ) {
-			$post_type_object = get_post_type_object( $post_type );
+        $bindings = new Bindings();
+        $bindings->where("$wpdb->posts.post_parent IN($sub_query)");
 
-			if ( $post_type_object ) {
-				$options[] = new AC\Helper\Select\Option( $post_type_object->name, $post_type_object->labels->singular_name );
-			}
-		}
+        return $bindings;
+    }
 
-		return new AC\Helper\Select\Options( $options );
-	}
+    public function get_values(): Options
+    {
+        $options = [];
 
-	/**
-	 * Get values by post field
-	 * @return array
-	 */
-	public function get_post_types() {
-		global $wpdb;
+        foreach ($this->get_post_types() as $post_type) {
+            $post_type_object = get_post_type_object($post_type);
 
-		$sql = "
+            if ($post_type_object) {
+                $options[$post_type_object->name] = $this->get_formatter()->format_label($post_type_object);
+            }
+        }
+
+        return Options::create_from_array($options);
+    }
+
+    public function get_post_types(): array
+    {
+        global $wpdb;
+
+        $sql = "
 			SELECT DISTINCT posts.post_type
-			FROM {$wpdb->posts} AS attachments
+			FROM $wpdb->posts AS attachments
 			INNER JOIN $wpdb->posts AS posts ON attachments.post_parent = posts.ID
 			WHERE attachments.post_type = %s
 			AND posts.post_type != %s
@@ -61,13 +77,13 @@ class PostType extends Comparison
 			ORDER BY 1
 		";
 
-		$values = $wpdb->get_col( $wpdb->prepare( $sql, 'attachment', 'attachment' ) );
+        $values = $wpdb->get_col($wpdb->prepare($sql, 'attachment', 'attachment'));
 
-		if ( empty( $values ) ) {
-			return [];
-		}
+        if (empty($values)) {
+            return [];
+        }
 
-		return $values;
-	}
+        return $values;
+    }
 
 }

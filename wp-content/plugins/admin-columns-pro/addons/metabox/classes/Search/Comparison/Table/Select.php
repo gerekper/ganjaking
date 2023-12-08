@@ -18,7 +18,7 @@ class Select extends TableStorage implements ACP\Search\Comparison\Values {
 		parent::__construct( $operators, $table, $column );
 	}
 
-	public function get_values() {
+	public function get_values(): Options {
 		$options = empty( $this->choices ) ? [] : $this->choices;
 
 		return Options::create_from_array( $options );

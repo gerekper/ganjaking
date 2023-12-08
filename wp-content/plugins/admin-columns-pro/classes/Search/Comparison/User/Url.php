@@ -18,7 +18,8 @@ class Url extends UserField {
 		parent::__construct( $operators );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string
+    {
 		return 'user_url';
 	}
 

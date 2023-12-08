@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post\RelatedMeta;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class PostField extends AbstractModel implements QueryBindings
+class PostField implements QueryBindings
 {
 
     private $post_field;
@@ -19,8 +18,6 @@ class PostField extends AbstractModel implements QueryBindings
 
     public function __construct(string $post_field, string $meta_key)
     {
-        parent::__construct();
-
         $this->post_field = $post_field;
         $this->meta_key = $meta_key;
     }

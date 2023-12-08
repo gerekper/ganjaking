@@ -1812,6 +1812,10 @@ class Profile_Card extends Module_Base {
 	public function render_custom_card() {
 		$settings = $this->get_settings_for_display();
 
+		$this->add_render_attribute( 'follow_link', 'class', 'bdt-button bdt-button-secondary' );
+		if (!empty($settings['follow_link']['url'])) {
+			$this->add_link_attributes( 'follow_link', $settings['follow_link'] );
+		}
 		?>
 
 		<div class="bdt-profile-card">
@@ -1902,7 +1906,7 @@ class Profile_Card extends Module_Base {
 
 					<?php if ( $settings['show_button'] ) : ?>
 						<div class="bdt-profile-card-button bdt-margin-medium-top bdt-margin-medium-bottom">
-							<a class="bdt-button bdt-button-secondary" href="<?php echo $settings['follow_link']['url'] ?>">
+							<a <?php echo $this->get_render_attribute_string('follow_link'); ?>>
 								<?php echo $settings['profile_button_text']; ?>
 							</a>
 						</div>

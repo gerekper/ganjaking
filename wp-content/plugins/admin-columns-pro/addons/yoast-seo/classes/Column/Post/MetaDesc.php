@@ -32,7 +32,7 @@ class MetaDesc extends AC\Column
 	}
 
 	public function search() {
-		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), AC\MetaType::POST );
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 }

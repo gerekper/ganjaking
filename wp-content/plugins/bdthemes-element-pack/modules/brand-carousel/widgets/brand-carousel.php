@@ -722,18 +722,9 @@ class Brand_Carousel extends Module_Base {
 
 						$this->add_render_attribute('name-wrap', 'class', 'bdt-ep-brand-carousel-name', true);
 
-						$this->add_render_attribute(
-							[
-								'website-link' => [
-									'class' => 'bdt-ep-brand-carousel-link',
-									'href'   => isset($item['link']['url']) ? esc_url($item['link']['url']) : '#',
-									'target' => $item['link']['is_external'] ? '_blank' : '_self'
-								]
-							],
-							'',
-							'',
-							true
-						);
+						$link_key = 'link_' . $index;
+						$this->add_render_attribute($link_key, 'class', 'bdt-ep-brand-carousel-link', true);
+						$this->add_link_attributes($link_key, $item['link']);
 
 					?>
 						<div <?php echo $this->get_render_attribute_string('item-wrap'); ?>>
@@ -770,7 +761,7 @@ class Brand_Carousel extends Module_Base {
 
 									<?php if (!empty($item['link']['url']) && $settings['show_website_link']) : ?>
 										<div class="bdt-ep-brand-carousel-text">
-											<a <?php echo $this->get_render_attribute_string('website-link'); ?>>
+											<a <?php echo $this->get_render_attribute_string($link_key); ?>>
 												<?php echo esc_html($item['website_link_text']); ?>
 											</a>
 										</div>

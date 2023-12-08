@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -48,7 +49,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 
 		$_default_value_counter           = 0;
 		$display['default_value_counter'] = false;
-		if ( ! isset( $element['placeholder'] ) || ( isset( $element['placeholder'] ) && '' !== $element['placeholder'] ) ) {
+		if ( ! isset( $element['placeholder'] ) || '' !== $element['placeholder'] ) {
 			$placeholdertext      = apply_filters( 'woocommerce_tm_epo_option_name', $element['placeholder'], $element, $_default_value_counter );
 			$display['options'][] = [
 				'value_to_show'  => '',
@@ -94,12 +95,10 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 						$selected = true;
 					}
 				}
-			} else {
-				if ( $default_value && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
-					$selected = true;
-				} elseif ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value ) ) {
-					$selected = true;
-				}
+			} elseif ( $default_value && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
+				$selected = true;
+			} elseif ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value ) ) {
+				$selected = true;
 			}
 			if ( $selected ) {
 				$display['default_value_counter'] = $value;
@@ -112,12 +111,19 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 				$css_class = ' ' . $css_class;
 			}
 
+			$imagep = isset( $element['imagesp'][ $_default_value_counter ] ) ? $element['imagesp'][ $_default_value_counter ] : '';
+			if ( THEMECOMPLETE_EPO()->tm_epo_global_image_mode === 'relative' ) {
+				if ( strpos( $imagep, get_site_url() ) !== false ) {
+					$imagep = wp_make_link_relative( $imagep );
+				}
+			}
+
 			$image_variations = [];
 			if ( $changes_product_image ) {
 				$image_link       = '';
 				$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'image' );
 
-				$image_link       = isset( $element['imagesp'][ $_default_value_counter ] ) ? $element['imagesp'][ $_default_value_counter ] : '';
+				$image_link       = $imagep;
 				$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'imagep' );
 			}
 
@@ -131,7 +137,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 				'value_to_show'       => $value_to_show,
 				'css_class'           => $css_class,
 				'data_url'            => $data_url,
-				'data_imagep'         => isset( $element['imagesp'][ $_default_value_counter ] ) ? $element['imagesp'][ $_default_value_counter ] : '',
+				'data_imagep'         => $imagep,
 				'data_price'          => isset( $element['rules_filtered'][ $value ][0] ) ? $element['rules_filtered'][ $value ][0] : 0,
 				'tm_tooltip_html'     => ( isset( $element['cdescription'] ) && isset( $element['cdescription'][ $_default_value_counter ] ) ) ? apply_filters( 'wc_epo_kses', $element['cdescription'][ $_default_value_counter ], $element['cdescription'][ $_default_value_counter ] ) : '',
 				'image_variations'    => wp_json_encode( $image_variations ),
@@ -159,7 +165,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 				'label'            => apply_filters( 'woocommerce_tm_epo_option_name', $label, $element, $_default_value_counter, $value, $label ),
 			];
 
-			$_default_value_counter ++;
+			++$_default_value_counter;
 		}
 
 		$display['element'] = $element;
@@ -181,6 +187,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -215,5 +222,4 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

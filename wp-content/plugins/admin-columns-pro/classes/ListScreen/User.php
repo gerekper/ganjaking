@@ -5,14 +5,14 @@ namespace ACP\ListScreen;
 use AC;
 use ACP\Column;
 use ACP\Editing;
+use ACP\Editing\BulkDelete\Deletable;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
 
 class User extends AC\ListScreen\User
-    implements Sorting\ListScreen, Editing\ListScreen, Filtering\ListScreen, Export\ListScreen,
+    implements Sorting\ListScreen, Editing\ListScreen, Export\ListScreen,
                Editing\BulkDelete\ListScreen
 {
 
@@ -21,7 +21,7 @@ class User extends AC\ListScreen\User
         return new Sorting\Strategy\User($model);
     }
 
-    public function deletable()
+    public function deletable(): Deletable
     {
         return new Editing\BulkDelete\Deletable\User();
     }
@@ -29,11 +29,6 @@ class User extends AC\ListScreen\User
     public function editing()
     {
         return new Editing\Strategy\User();
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\User($model);
     }
 
     public function export()
@@ -48,6 +43,7 @@ class User extends AC\ListScreen\User
         $this->register_column_types_from_list([
             Column\CustomField::class,
             Column\Actions::class,
+            Column\User\AdminColorScheme::class,
             Column\User\CommentCount::class,
             Column\User\Description::class,
             Column\User\DisplayName::class,

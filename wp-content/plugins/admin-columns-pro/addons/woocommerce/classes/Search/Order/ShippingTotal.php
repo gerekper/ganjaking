@@ -3,41 +3,26 @@
 namespace ACA\WC\Search\Order;
 
 use ACA\WC\Search;
-use ACP;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class ShippingTotal extends ACP\Search\Comparison
+class ShippingTotal extends OperationalDataField
 {
 
     public function __construct()
     {
         parent::__construct(
+            'shipping_total_amount',
             new Operators([
                 Operators::EQ,
                 Operators::LT,
+                Operators::LTE,
                 Operators::GT,
+                Operators::GTE,
                 Operators::BETWEEN,
             ]),
             Value::DECIMAL
         );
-    }
-
-    protected function create_query_bindings($operator, Value $value)
-    {
-        $bindings = new ACP\Search\Query\Bindings\QueryArguments();
-
-        $bindings->query_arguments([
-            'field_query' => [
-                [
-                    'field'   => 'shipping_total',
-                    'value'   => $value->get_value(),
-                    'compare' => $operator,
-                ],
-            ],
-        ]);
-
-        return $bindings;
     }
 
 }

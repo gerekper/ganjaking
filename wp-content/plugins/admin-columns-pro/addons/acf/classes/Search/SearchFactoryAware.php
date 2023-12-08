@@ -6,6 +6,6 @@ use ACP;
 
 interface SearchFactoryAware extends ACP\Search\Searchable {
 
-	public function set_search_comparison_factory( SearchComparisonFactory $factory );
+	public function set_search_comparison_factory( SearchComparisonFactory $factory ): void;
 
 }

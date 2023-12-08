@@ -10,15 +10,17 @@ use ACA\JetEngine\Sorting;
 use ACP;
 
 class Wysiwyg extends Column\Meta
-	implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable {
+    implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable
+{
 
-	use Search\SearchableTrait,
-		Sorting\SortableTrait,
-		Editing\EditableTrait,
-		ACP\ConditionalFormat\FilteredHtmlFormatTrait;
+    use Search\SearchableTrait,
+        Sorting\SortableTrait,
+        Editing\EditableTrait,
+        ACP\ConditionalFormat\FilteredHtmlFormatTrait;
 
-	protected function register_settings() {
-		$this->add_setting( new WordLimit( $this ) );
-	}
+    protected function register_settings()
+    {
+        $this->add_setting(new WordLimit($this));
+    }
 
 }

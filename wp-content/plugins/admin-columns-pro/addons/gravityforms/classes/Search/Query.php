@@ -2,10 +2,7 @@
 
 namespace ACA\GravityForms\Search;
 
-use ACP\Search;
-use GFFormsModel;
-
-final class Query extends Search\Query
+final class Query extends \ACP\Query
 {
 
     /**
@@ -34,23 +31,6 @@ final class Query extends Search\Query
 
     public function parse_search_query(array $query): array
     {
-        global $wpdb;
-
-        $entry_table = GFFormsModel::get_entry_table_name();
-
-        $where = sprintf(
-            'WHERE %s.form_id = %s AND %s.status = %s',
-            $entry_table,
-            $wpdb->prepare('%d', $this->form_id),
-            $entry_table,
-            $wpdb->prepare('%s', $this->status)
-        );
-
-        $query['select'] = sprintf('SELECT SQL_CALC_FOUND_ROWS DISTINCT %s.id', $entry_table);
-        $query['from'] = sprintf('FROM %s', $entry_table);
-        $query['where'] = $where;
-        $query['order'] = sprintf('ORDER BY %s.id DESC', $entry_table);
-
         foreach ($this->bindings as $binding) {
             if ($binding->get_where()) {
                 $query['where'] .= "\nAND " . $binding->get_where();

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ACP\Storage;
 
 use ACP\Exception\FailedToCreateDirectoryException;
-use DirectoryIterator;
 use SplFileInfo;
 
 final class Directory
@@ -20,17 +19,17 @@ final class Directory
 
     public function exists(): bool
     {
-        return $this->info->getRealPath() !== false;
+        return $this->info->isDir();
     }
 
     public function is_readable(): bool
     {
-        return $this->info->isReadable();
+        return $this->exists() && $this->info->isReadable();
     }
 
-    public function get_info(): SplFileInfo
+    public function is_writable(): bool
     {
-        return $this->info;
+        return $this->exists() && $this->info->isWritable();
     }
 
     /**
@@ -50,22 +49,12 @@ final class Directory
         }
     }
 
-    public function has_path(string $path): bool
-    {
-        return false !== strpos($this->get_path(), $path);
-    }
-
     /**
      * Proxy method to get the (real) path from the directory
      */
     public function get_path(): string
     {
         return $this->info->getRealPath() ?: '';
-    }
-
-    public function get_iterator(): DirectoryIterator
-    {
-        return new DirectoryIterator($this->get_path());
     }
 
 }

@@ -1017,27 +1017,28 @@ class Panel_Slider extends Module_Base {
 		?>
 
 					<?php
-					foreach ( $settings['tabs'] as $item ) :
+					foreach ( $settings['tabs'] as $index=> $item ) : 
+
+						$element_key = 'item_' . $index;
 
 						$image_src = Group_Control_Image_Size::get_attachment_image_src( $item['tab_image']['id'], 'thumbnail_size', $settings );
 						$image_url = $image_src ?: BDTEP_ASSETS_URL . '/images/panel-slider.svg';
 
 						$this->add_render_attribute(
 							[ 
-								'button-attr' => [ 
+								$element_key => [ 
 									'class'  => [ 
 										'bdt-panel-slide-link',
 										'bdt-transition-slide-bottom',
 										$settings['button_hover_animation'] ? 'elementor-animation-' . $settings['button_hover_animation'] : ''
 									],
-									'href'   => $item['tab_link']['url'] ? esc_url( $item['tab_link']['url'] ) : '',
-									'target' => $item['tab_link']['is_external'] ? '_blank' : '_self',
 								]
 							],
 							'',
 							'',
 							true
 						);
+						$this->add_link_attributes( $element_key, $item['tab_link'] );
 
 						$this->add_render_attribute( 'panel-slide-item', 'class', [ 'bdt-panel-slide-item', 'swiper-slide', 'bdt-transition-toggle' ], true );
 
@@ -1082,7 +1083,7 @@ class Panel_Slider extends Module_Base {
 
 								<?php if ( ! empty( $item['tab_link']['url'] ) ) : ?>
 									<?php if ( $settings['button'] == 'yes' and 'bdt-middle' != $settings['_skin'] ) : ?>
-										<a <?php echo $this->get_render_attribute_string( 'button-attr' ); ?>>
+										<a <?php echo $this->get_render_attribute_string( $element_key ); ?>>
 											<span>
 												<?php echo esc_html( $settings['button_text'] ); ?>
 											</span>

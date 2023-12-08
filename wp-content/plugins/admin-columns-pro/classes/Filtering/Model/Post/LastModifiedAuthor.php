@@ -2,22 +2,18 @@
 
 namespace ACP\Filtering\Model\Post;
 
-use ACP\Filtering\Model;
+use AC\Column;
+use ACP\Search;
 
-class LastModifiedAuthor extends Model\Meta {
+/**
+ * @deprecated NEWVERSION
+ */
+class LastModifiedAuthor extends Search\Comparison\Post\LastModifiedAuthor
+{
 
-	public function get_filtering_data() {
-		$data = [];
-
-		if ( $values = $this->get_meta_values() ) {
-			foreach ( $values as $user_id ) {
-				$data['options'][ $user_id ] = ac_helper()->user->get_display_name( $user_id );
-			}
-		}
-
-		$data['empty_option'] = $this->get_empty_labels();
-
-		return $data;
-	}
+    public function __construct(Column $column)
+    {
+        parent::__construct($column->get_post_type());
+    }
 
 }

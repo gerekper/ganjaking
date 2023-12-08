@@ -48,7 +48,6 @@ final class AdvancedCustomFields implements Registerable
             new Search\ComparisonFactory(),
             new Sorting\ModelFactory(),
             new Editing\ModelFactory(),
-            new Filtering\ModelFactory(),
             new FieldFormattableFactory()
         );
 

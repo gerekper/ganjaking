@@ -27,7 +27,7 @@ class Mega_Menu_Walker extends Walker_Nav_Menu {
             "menu_id"               => null,
             "menu_enable"           => 0,
             'menu_width_type'       => 'default',
-            'menu_badge_label'      => 'Mega Menu',
+            'menu_badge_label'      => '',
             'megamenu_badge_color'  => '#f0f0f0',
             'megamenu_icon_color'   => '#f0f0f0',
             'megamenu_icon_library' => 'fa-solid',
@@ -216,7 +216,7 @@ class Mega_Menu_Walker extends Walker_Nav_Menu {
                 $item_output .= ob_get_clean();
             }
         }
-        if ($this->is_megamenu($args->menu) == 1 && $item_meta['menu_enable'] == 1) {
+        if ($this->is_megamenu($args->menu) == 1) {
 
             // add badge text
             if ($item_meta['menu_badge_label'] != '') {
@@ -226,7 +226,9 @@ class Mega_Menu_Walker extends Walker_Nav_Menu {
                 }
                 $item_output .= '<span class="ep-badge-label" ' . $badge_style . ' >' . $item_meta['menu_badge_label'] . '</span>';
             }
-            $submenu_indicator .= '<i class="bdt-megamenu-indicator ep-icon-arrow-down-3"></i>';
+            if ($item_meta['menu_enable'] == 1) {
+                $submenu_indicator .= '<i class="bdt-megamenu-indicator ep-icon-arrow-down-3"></i>';
+            }
         }
 
 
@@ -275,7 +277,6 @@ class Mega_Menu_Walker extends Walker_Nav_Menu {
                     } else {
                         $page_got_by_title = null;
                     }
-                    // $builder_post       = get_page_by_title($builder_post_title, OBJECT, 'ep_megamenu_content');
                     $builder_post       = $page_got_by_title;
                     $output             .= '<ul class="ep-megamenu-panel bdt-drop">';
                     if ($builder_post != null) {

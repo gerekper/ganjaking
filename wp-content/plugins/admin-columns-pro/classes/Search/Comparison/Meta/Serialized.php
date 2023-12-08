@@ -9,7 +9,7 @@ use ACP\Search\Value;
 
 class Serialized extends Meta {
 
-	public function __construct( $meta_key, $meta_type ) {
+	public function __construct( string $meta_key ) {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::NEQ,
@@ -17,18 +17,12 @@ class Serialized extends Meta {
 			Operators::NOT_IS_EMPTY,
 		] );
 
-		parent::__construct( $operators, $meta_key, $meta_type );
+		parent::__construct( $operators, $meta_key );
 	}
 
-	/**
-	 * @param string $operator
-	 * @param Value  $value
-	 *
-	 * @return array
-	 */
-	protected function get_meta_query( $operator, Value $value ) {
+	protected function get_meta_query( string $operator, Value $value ): array {
 		$comparison = SerializedComparisonFactory::create(
-			$this->get_meta_key(),
+			$this->meta_key,
 			$operator,
 			$value
 		);

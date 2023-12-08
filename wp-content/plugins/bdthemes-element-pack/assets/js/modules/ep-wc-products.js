@@ -48,6 +48,7 @@
             per_page: settings.ajax_item_load,
             offset: currentItemCount,
             nonce: settings.nonce,
+            paged: settings.paged,
           };
 
           $.ajax({
@@ -57,6 +58,7 @@
             success: (response) => {
               $(products).append(response.markup);
               currentItemCount += settings.ajax_item_load;
+              settings.paged += 1;
               loading = false;
 
               if (settingsLoadmore === "yes") {

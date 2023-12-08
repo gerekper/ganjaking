@@ -6,12 +6,12 @@
  * Author: ThemeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 6.3
+ * Version: 6.4
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Tested up to: 7.0
  * WC requires at least: 4.1
- * WC tested up to: 8.0
+ * WC tested up to: 9.0
  * Copyright: © 2023 THEMECOMPLETE LTD
  *
  * @package  Extra Product Options & Add-Ons for WooCommerce
@@ -32,7 +32,7 @@ if ( class_exists( 'Themecomplete_Extra_Product_Options_Setup' ) ) {
 }
 
 // Include the main Extra Product Options Setup class.
-require_once dirname( __FILE__ ) . '/includes/class-themecomplete-extra-product-options-setup.php';
+require_once __DIR__ . '/includes/class-themecomplete-extra-product-options-setup.php';
 
 /**
  * Main instance of Themecomplete_Extra_Product_Options_Setup.

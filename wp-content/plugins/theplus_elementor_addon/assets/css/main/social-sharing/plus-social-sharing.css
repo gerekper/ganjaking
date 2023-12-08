@@ -1,0 +1,443 @@
+/*social sharing
+* CSS for both Frontend+Backend.
+*/
+.tp-social-sharing{
+    display: block;
+    position: relative;
+    padding: 0;
+}
+
+.tp-social-sharing .tp-social-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    list-style: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+/* horizontal & vertical */
+.tp-social-sharing .tp-social-list.column-auto{
+    width: 100%;
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-2 .tp-social-list .share-btn{
+    flex-direction: column;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.tp-social-sharing.sharing-vertical.sharing-style-1 .tp-social-list , .tp-social-sharing.sharing-vertical.sharing-style-2 .tp-social-list , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list {
+    flex-direction: column;
+    flex-wrap: unset;
+    align-items: flex-start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    -ms-align-items: flex-start;
+}
+.tp-social-sharing.sharing-vertical.sharing-style-1 .tp-social-list , .tp-social-sharing.sharing-vertical.sharing-style-2 .tp-social-list , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list{
+    width: max-content;
+}
+
+.tp-social-sharing .tp-social-list .tp-social-menu {
+    display: flex;
+    position: relative;
+    width: max-content;
+    padding: 5px;
+    margin: 0;
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .share-btn , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .share-btn , .tp-social-sharing.sharing-vertical.sharing-style-2 .tp-social-list .share-btn{
+    flex-direction: column;
+    justify-content: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .social-btn-icon , .tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .social-btn-title, .tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .social-count-number , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .social-btn-icon , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .social-btn-title, .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .social-count-number {
+    transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition: all 0.4s ease-in-out 0.2s;
+    -webkit-transition: all 0.4s ease-in-out 0.2s;
+    -moz-transition: all 0.4s ease-in-out 0.2s;
+    -o-transition: all 0.4s ease-in-out 0.2s;
+    -ms-transition: all 0.4s ease-in-out 0.2s;
+}
+
+.tp-social-sharing.sharing-horizontal.sharing-style-2 .tp-social-list .social-count-number , .tp-social-sharing.sharing-vertical.sharing-style-2 .tp-social-list .social-count-number{
+    flex-direction: column;
+}
+
+.tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .social-count-number , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .social-count-number {
+    flex-direction: column;
+    position: absolute;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    -ms-transform: scale(0);
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .share-btn:hover .social-btn-icon, .tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .share-btn:hover .social-btn-title , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .share-btn:hover .social-btn-icon, .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .share-btn:hover .social-btn-title {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    -ms-transform: scale(0);
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-3 .tp-social-list .share-btn:hover .social-count-number , .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .share-btn:hover .social-count-number {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -ms-transform: scale(1);
+}
+/*style-3 end*/
+/*....toggle......*/
+.tp-social-sharing.sharing-toggle.sharing-style-1 .toggle-share{
+    position: relative;
+    width: 120px;
+    height: 50px;
+    border-radius: 30px;
+    background: #2A4870;
+    cursor: pointer;
+    display: flex;
+    margin: 0 auto;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    transition: all .5s ease;
+    box-shadow: 3px 5px 10px rgba(42, 72, 112, 0.5);
+    transition: all .3s ease-in-out;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .toggle-share.menu-active {
+    background: #6fc784;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .toggle-icon {
+    position: relative;
+    color: #D0D8DB;
+    display: flex;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    font-size: 16px;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .toggle-icon .toggle-label{
+    text-transform: uppercase;
+    position: relative;
+    margin-right: 3px;
+    display: inline-block;
+}
+
+.tp-social-sharing.sharing-toggle.sharing-style-1 .toggle-icon .toggle-btn{
+    position: relative;
+    display: inline-block;
+    background: rgba(208, 216, 219, 0.9);
+    color: #2A4870;
+    border-radius: 50%;
+    width: 25px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 3px;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .tp-social-list{
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+}
+.tp-social-sharing .tp-social-list .totalcount{
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    width: max-content;
+    padding: 0;
+    margin: 5px;
+}
+.tp-social-sharing.sharing-vertical.sharing-style-1 .tp-social-list .totalcount, .tp-social-sharing.sharing-vertical.sharing-style-2 .tp-social-list .totalcount, .tp-social-sharing.sharing-vertical.sharing-style-3 .tp-social-list .totalcount{
+    width: 100%;
+}
+.totalcount .totalcount-item{
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+}
+.totalcount .totalcount-item .total-count-number{
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 0;
+    color: #888;
+}
+.totalcount .totalcount-item .total-number-label{
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #444;
+    display: inline-block;
+    position: relative;
+    line-height: 0;
+    margin-top: 20px;
+}
+.tp-social-sharing .tp-social-list .share-btn{
+    font-size: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    cursor: pointer;
+    text-decoration: none;
+    background: #313131;
+    color: #fff;
+    width: 100%;
+    border-radius: 4px;
+}
+.social-btn-icon{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: stretch;
+    align-self: auto;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    width: 41px;
+    height: 41px;
+    line-height: 41px;
+}
+.tp-social-list .tp-social-menu .social-btn-title , .tp-social-sharing .social-count-number{
+    -ms-flex-item-align: stretch;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+.tp-social-sharing.sharing-horizontal .social-btn-title , .tp-social-sharing.sharing-horizontal .tp-social-list .social-count ,.tp-social-sharing.sharing-horizontal .tp-social-list .count-label ,.tp-social-sharing.sharing-horizontal .tp-social-list .social-button ,.tp-social-sharing.sharing-vertical .tp-social-list .social-btn-title , .tp-social-sharing.sharing-vertical .tp-social-list .social-count ,.tp-social-sharing.sharing-vertical .tp-social-list .count-label{
+    margin: 5px 10px;
+}
+/* toggle */
+.tp-social-sharing.sharing-toggle.sharing-style-1 .tp-social-list{
+    display: none;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .tp-social-list.active{
+    display:flex;
+    opacity: 1;
+    transition: all .3s ease-in-out;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-1 .tp-social-list .share-btn{
+    width: 100%;
+    height: auto;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list {
+    display: inline-flex;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: auto;
+    z-index: 1;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li.tp-main-menu {
+    display: inline-block;
+    -webkit-transition: all 1000ms ease 0s;
+    -moz-transition: all 1000ms ease 0s;
+    -o-transition: all 1000ms ease 0s;
+    transition: all 1000ms ease 0s;
+}
+
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li.tp-main-menu {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li.tp-main-menu a.tp-share-btn {
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    cursor: pointer;
+    display: flex;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    background: #8072fc;
+    border-color: #8072fc;
+    box-shadow: 0 5px 20px -4px #00000085;
+    -webkit-transition: all .3s ease 0s;
+    -moz-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    border-radius: 50%;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li{
+    padding: 0;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li.tp-social-menu{
+    position: absolute;
+    display: inline-block;
+    transition-duration: 1000ms;
+    transition-timing-function: ease;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.right li.tp-social-menu{
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.left li.tp-social-menu{
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.top li.tp-social-menu{
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.bottom li.tp-social-menu{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li.tp-social-menu a.share-btn {
+    transition-duration: 1000ms;
+    transition-timing-function: ease;
+    width: auto;
+    height: auto;
+    line-height: initial;
+    padding: 0;
+    position: relative;
+    color: #fff;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    -webkit-transition: all .3s ease 0s;
+    -moz-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+}
+
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list li:not(:first-child){
+    opacity: 0;
+    visibility: hidden;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.active li.tp-main-menu a.tp-share-btn{
+    background: #6fc784;
+    color: #fff;
+    border-color: #6fc784;
+    box-shadow: 0 7px 25px -3px #00000085;
+}
+.tp-social-sharing.sharing-toggle.sharing-style-2 .tp-social-list.active li:not(:first-child){
+    opacity: 1;
+    visibility: visible;
+}
+
+.tp-social-sharing .tp-social-list .share-btn ,.share-btn .social-icon , .tp-social-sharing .social-btn-title ,.tp-social-sharing .social-count{
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+/*align css */
+.tp-social-sharing .tp-social-list .text-left{
+    -webkit-justify-content: flex-start!important;
+    -moz-justify-content: flex-start!important;
+    -ms-justify-content: flex-start!important;
+    justify-content: flex-start!important
+}
+.tp-social-sharing .tp-social-list .text-center{
+    -webkit-justify-content: center!important;
+    -moz-justify-content: center!important;
+    -ms-justify-content: center!important;
+    justify-content: center!important
+}
+.tp-social-sharing .tp-social-list .text-right{
+    -webkit-justify-content: flex-end!important;
+    -moz-justify-content: flex-end!important;
+    -ms-justify-content: flex-end!important;
+    justify-content: flex-end!important
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-4 .social-count-number {
+    right: 0;
+    position: absolute;
+}
+.tp-social-sharing.sharing-horizontal.sharing-style-4 .tp-social-list .social-btn-icon i {
+    width: 35px;
+    border-right: 1px solid rgba(255,255,255,.1);
+    padding: 2px;
+    margin: 0px 5px;
+    text-align: center;
+    align-items: center;
+}
+
+.tp-social-sharing.sharing-horizontal.sharing-style-4 .tp-social-list .social-button {
+   
+    border-left: 1px solid rgba(255,255,255,.1);
+    padding: 0 14px;
+    text-transform: uppercase;
+    align-items: center;
+}
+
+
+
+.tp-social-sharing.sharing-horizontal.sharing-style-5 .tp-social-list .social-count-number {
+    flex-direction: column;
+}
+
+/*social sharing
+* CSS for both Frontend+Backend.
+*/

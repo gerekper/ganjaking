@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
- * @version  2.5.0
+ * @version  2.5.1
  */
 
 // Exit if accessed directly.
@@ -199,7 +199,7 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_prices( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) || ! $cart_item['data']->is_priced_per_product() ) {
+		if ( ! wc_mnm_is_product_container_type( $cart_item['data'] ) || ! $cart_item['data']->is_priced_per_product() ) {
 			return;
 		}
 
@@ -216,7 +216,7 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_totals( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) || ! $cart_item['data']->is_priced_per_product() ) {
+		if ( ! wc_mnm_is_product_container_type( $cart_item['data'] ) || ! $cart_item['data']->is_priced_per_product() ) {
 			return;
 		}
 
@@ -236,7 +236,7 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_quantity_limits( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) ) {
+		if ( ! wc_mnm_is_product_container_type( $cart_item['data'] ) ) {
 			return;
 		}
 
@@ -274,7 +274,7 @@ class WC_MNM_Store_API {
 
 			$container = $cart_item['data'];
 
-			if ( ! $container->is_type( 'mix-and-match' ) ) {
+			if ( ! wc_mnm_is_product_container_type( $container ) ) {
 				return;
 			}
 
@@ -328,9 +328,7 @@ class WC_MNM_Store_API {
 
 		if ( $container_item ) {
 
-			$container = $container_item['data'];
-
-			if ( ! $container->is_type( 'mix-and-match' ) ) {
+			if ( ! wc_mnm_is_product_container_type( $cart_item['data'] ) ) {
 				return;
 			}
 

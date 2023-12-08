@@ -1,7 +1,7 @@
 // TinyColor v1.4.1
 // https://github.com/bgrins/TinyColor
 // Brian Grinstead, MIT License
-// reformatted code by themeComplete
+// reformatted code by ThemeComplete
 ( function( Math ) {
 	'use strict';
 
@@ -1262,7 +1262,7 @@
 	}
 }( Math ) );
 
-// Spectrum Colorpicker v2.0.8
+// Spectrum Colorpicker v2.0.10
 // https://github.com/seballot/spectrum
 // Author: Brian Grinstead
 // License: MIT
@@ -1347,7 +1347,12 @@
 			style.cssText = 'background-color:rgba(0,0,0,.5)';
 			return contains( style.backgroundColor, 'rgba' ) || contains( style.backgroundColor, 'hsla' );
 		}() ),
-		replaceInput = [ "<div class='sp-replacer'>", "<div class='sp-preview'><div class='sp-preview-inner'></div></div>", "<div class='sp-dd'>&#9660;</div>", '</div>' ].join( '' ),
+		replaceInput = [
+			'<button type="button" class="sp-replacer">',
+			'<span class="sp-preview"><span class="sp-preview-inner"></span></span>',
+			'<span class="sp-dd">&#9660;</span>',
+			'</button>'
+		].join( '' ),
 		markup = ( function() {
 			var i;
 			// IE does not support gradients with multiple stops, so we need to simulate
@@ -1374,25 +1379,25 @@
 				"<div class='sp-color'>",
 				"<div class='sp-sat'>",
 				"<div class='sp-val'>",
-				"<div class='sp-dragger'></div>",
+				"<div class='sp-dragger' tabindex='0'></div>",
 				'</div>',
 				'</div>',
 				'</div>',
 				"<div class='sp-clear sp-clear-display'>",
 				'</div>',
 				"<div class='sp-hue'>",
-				"<div class='sp-slider'></div>",
+				"<div class='sp-slider' tabindex='0'></div>",
 				gradientFix,
 				'</div>',
 				'</div>',
-				"<div class='sp-alpha'><div class='sp-alpha-inner'><div class='sp-alpha-handle'></div></div></div>",
+				"<div class='sp-alpha'><div class='sp-alpha-inner'><div class='sp-alpha-handle' tabindex='0'></div></div></div>",
 				'</div>',
 				"<div class='sp-input-container sp-cf'>",
 				"<input class='sp-input' type='text' spellcheck='false'>",
 				'</div>',
 				"<div class='sp-initial sp-thumb sp-cf'></div>",
 				"<div class='sp-button-container sp-cf'>",
-				"<button class='sp-cancel' href='#'></button>",
+				"<button type='button' class='sp-cancel'></button>",
 				"<button type='button' class='sp-choose'></button>",
 				'</div>',
 				'</div>',
@@ -1416,9 +1421,9 @@
 				c += tinycolor.equals( color, current ) ? ' sp-thumb-active' : '';
 				formattedString = tiny.toString( opts.preferredFormat || 'rgb' );
 				swatchStyle = rgbaSupport ? 'background-color:' + tiny.toRgbString() : 'filter:' + tiny.toFilter();
-				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';"></span></span>' );
+				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '" role="button" tabindex="0"><span class="sp-thumb-inner" style="' + swatchStyle + ';"></span></span>' );
 			} else {
-				html.push( '<span class="sp-thumb-el sp-clear-display"><span class="sp-clear-palette-only" style="background-color: transparent;"></span></span>' );
+				html.push( '<span class="sp-thumb-el sp-clear-display" role="button" tabindex="0"><span class="sp-clear-palette-only" style="background-color: transparent;"></span></span>' );
 			}
 		}
 		return "<div class='sp-cf " + className + "'>" + html.join( '' ) + '</div>';
@@ -1657,6 +1662,13 @@
 
 			// Prevent clicks from bubbling up to document.  This would cause it to be hidden.
 			container.on( 'click', stopPropagation );
+
+			container.on( 'keydown', 'div[role="button"]', function( e ) {
+				if ( e.keyCode === 13 ) {
+					e.preventDefault();
+					$( this ).click();
+				}
+			} );
 
 			// Handle user typed input
 			[ textInput, boundElement ].forEach( function( input ) {
@@ -2005,6 +2017,7 @@
 			$( doc ).on( 'keydown.spectrum', onkeydown );
 			$( doc ).on( 'click.spectrum', clickout );
 			$( window ).on( 'resize.spectrum', resize );
+			replacer.attr( 'aria-expanded', true );
 			replacer.addClass( 'sp-active' );
 			container.removeClass( 'sp-hidden' );
 
@@ -2056,6 +2069,7 @@
 			$( doc ).off( 'click.spectrum', clickout );
 			$( window ).off( 'resize.spectrum', resize );
 
+			replacer.attr( 'aria-expanded', false );
 			replacer.removeClass( 'sp-active' );
 			container.addClass( 'sp-hidden' );
 
@@ -2291,6 +2305,7 @@
 			alphaSlideHelperWidth = alphaSlideHelper.width();
 
 			if ( ! flat ) {
+				container.attr( 'aria-haspopup', true );
 				container.css( 'position', 'absolute' );
 				if ( opts.offset ) {
 					container.offset( opts.offset );

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Taxonomy;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
@@ -13,7 +12,7 @@ use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class MetaFormat extends AbstractModel implements QueryBindings
+class MetaFormat implements QueryBindings
 {
 
     private $taxonomy;
@@ -26,8 +25,6 @@ class MetaFormat extends AbstractModel implements QueryBindings
 
     public function __construct(string $taxonomy, FormatValue $formatter, string $meta_key, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->taxonomy = $taxonomy;
         $this->formatter = $formatter;
         $this->meta_key = $meta_key;

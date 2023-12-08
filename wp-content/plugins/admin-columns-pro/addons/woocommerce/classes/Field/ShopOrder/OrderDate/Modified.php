@@ -6,9 +6,6 @@ use ACA\WC\Field\ShopOrder\OrderDate;
 use ACP;
 use WC_Order;
 
-/**
- * @since 3.0
- */
 class Modified extends OrderDate implements ACP\Sorting\Sortable, ACP\Search\Searchable
 {
 
@@ -32,7 +29,7 @@ class Modified extends OrderDate implements ACP\Sorting\Sortable, ACP\Search\Sea
 
     public function search()
     {
-        return new ACP\Search\Comparison\Post\Date\PostModified();
+        return new ACP\Search\Comparison\Post\Date\PostModified('shop_order');
     }
 
 }

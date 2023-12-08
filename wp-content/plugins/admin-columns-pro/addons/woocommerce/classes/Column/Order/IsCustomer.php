@@ -3,9 +3,11 @@
 namespace ACA\WC\Column\Order;
 
 use AC;
+use ACA\WC\Scheme\Orders;
 use ACA\WC\Search;
 use ACA\WC\Sorting\Order\OrderData;
 use ACP;
+use ACP\Sorting\Type\DataType;
 
 class IsCustomer extends AC\Column implements ACP\Search\Searchable, ACP\Sorting\Sortable
 {
@@ -28,14 +30,16 @@ class IsCustomer extends AC\Column implements ACP\Search\Searchable, ACP\Sorting
 
     public function get_raw_value($id)
     {
-        return $this->get_customer_id($id) !== 0;
+        return $this->get_customer_id((int)$id) !== 0;
     }
 
-    private function get_customer_id($id)
+    private function get_customer_id(int $id): int
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_customer_id() : 0;
+        return $order
+            ? $order->get_customer_id()
+            : 0;
     }
 
     public function search()
@@ -45,7 +49,10 @@ class IsCustomer extends AC\Column implements ACP\Search\Searchable, ACP\Sorting
 
     public function sorting()
     {
-        return new OrderData('customer_id', new ACP\Sorting\Type\DataType(ACP\Sorting\Type\DataType::NUMERIC));
+        return new OrderData(
+            Orders::CUSTOMER_ID,
+            new DataType(DataType::NUMERIC)
+        );
     }
 
 }

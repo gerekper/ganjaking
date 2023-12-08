@@ -9,23 +9,33 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates/Products
- * @version 6.0
+ * @package Extra Product Options/Templates/Products
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-$checked_option = [];
-?>
-<li class="tmcp-field-wrap tc-product-hidden">
+if ( isset( $layout_mode, $class_label, $element_id, $name, $fieldtype, $placeholder, $priced_individually, $options, $quantity_min ) ) :
+	$layout_mode         = (string) $layout_mode;
+	$class_label         = (string) $class_label;
+	$element_id          = (string) $element_id;
+	$name                = (string) $name;
+	$fieldtype           = (string) $fieldtype;
+	$placeholder         = (string) $placeholder;
+	$quantity_min        = (string) $quantity_min;
+	$priced_individually = (bool) $priced_individually;
+
+	$checked_option = [];
+	?>
+<li class="tmcp-field-wrap tc-product-hidden"><div class="tmcp-field-wrap-inner">
 	<div class="tc-epo-element-product-holder tc-epo-element-product-<?php echo esc_attr( $layout_mode ); ?>">
-		<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
+		<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $element_id ); ?>">
 		<?php
 		$input_args = [
 			'nodiv'      => 1,
 			'type'       => 'input',
 			'input_type' => 'checkbox',
 			'tags'       => [
-				'id'                   => $id,
+				'id'                   => $element_id,
 				'name'                 => $name,
 				'class'                => $fieldtype . ' tc-epo-field-product tc-epo-field-product-hidden tm-epo-field tmcp-checkbox',
 				'data-price'           => '',
@@ -45,6 +55,9 @@ $checked_option = [];
 			foreach ( $options as $option ) {
 
 				$input_args['default'] = $option['value_to_show'];
+				if ( ! empty( $option['tax_obj'] ) ) {
+					$input_args['tags']['data-tax-obj'] = $option['tax_obj'];
+				}
 
 				$checked = false;
 				if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
@@ -106,10 +119,12 @@ $checked_option = [];
 		require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php';
 		?>
 	</div>
-</li>
+</div></li>
 <li class="tc-epo-element-product-li-container tm-hidden">
-<?php
+	<?php
 	require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variation.php';
 	require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-container.php';
-?>
+	?>
 </li>
+	<?php
+endif;

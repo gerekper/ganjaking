@@ -3410,14 +3410,23 @@ class WC_Products extends Module_Base {
 			$this->add_render_attribute('wc-products', 'data-bdt-filter', 'animation: false; target: #bdt-wc-product-' . $this->get_id());
 		}
 
+
+		if ($settings['posts_source'] === 'current_query') :
+			global $wp_query;
+			$posts_per_page = $wp_query->query_vars['posts_per_page'];
+			$item_load = $posts_per_page;
+		else :
+			$posts_per_page = $settings['posts_per_page'];
+			$item_load = $settings['wc_products_enable_ajax_loadmore_items'];
+		endif;
 		$this->add_render_attribute(
 			[
 				'wc-products' => [
 					'data-settings' => [
 						wp_json_encode(array_filter([
 							'posts_source' => isset($settings['posts_source']) ? $settings['posts_source'] : 'product',
-							'posts_per_page' => isset($settings['posts_per_page']) ? $settings['posts_per_page'] : 6,
-							'ajax_item_load' => isset($settings['wc_products_enable_ajax_loadmore_items']) ? $settings['wc_products_enable_ajax_loadmore_items'] : 4,
+							'posts_per_page' => isset($posts_per_page) ? $posts_per_page : 8,
+							'ajax_item_load' => isset($item_load) ? $item_load : 4,
 							'posts_selected_ids' => isset($settings['posts_selected_ids']) ? $settings['posts_selected_ids'] : '',
 							'posts_include_by' => isset($settings['posts_include_by']) ? $settings['posts_include_by'] : '',
 							'posts_include_author_ids' => isset($settings['posts_include_author_ids']) ? $settings['posts_include_author_ids'] : '',
@@ -3434,10 +3443,8 @@ class WC_Products extends Module_Base {
 							'posts_order' => isset($settings['posts_order']) ? $settings['posts_order'] : 'desc',
 							'posts_ignore_sticky_posts' => isset($settings['posts_ignore_sticky_posts']) ? $settings['posts_ignore_sticky_posts'] : '',
 							'posts_only_with_featured_image' => isset($settings['posts_only_with_featured_image']) ? $settings['posts_only_with_featured_image'] : '',
-							// 'totalPages' => $totalPages,
-							'nonce' => wp_create_nonce('ajax-ep-wc-product-nonce'),
 							// show hide options
-							'show_filter_bar' => $settings['show_filter_bar'],
+							'show_filter_bar' => isset($settings['show_filter_bar']) ? $settings['show_filter_bar'] : '',
 							'hide_out_stock' => $settings['product_hide_out_stock'],
 							'show_badge' => $settings['show_badge'],
 							'show_title' => $settings['show_title'],
@@ -3448,14 +3455,8 @@ class WC_Products extends Module_Base {
 							'cart_hide_mobile' => $settings['cart_hide_mobile'],
 							'show_quick_view' => $settings['show_quick_view'],
 							'quick_view_hide_mobile' => $settings['quick_view_hide_mobile'],
-							// 'show_pagination' => $settings['show_pagination'],
-							// 'show_title' => $settings['show_title'],
-							// 'show_image' => $settings['show_image'],
-							// 'show_categories' => $settings['show_categories'],
-							// 'show_tags' => $settings['show_tags'],
-
-
-
+							'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+							'nonce' => wp_create_nonce('ajax-ep-wc-product-nonce'),
 						]))
 					]
 				]
@@ -3480,14 +3481,20 @@ class WC_Products extends Module_Base {
 		public function render_query($posts_per_page) {
 			$settings = $this->get_settings();
 			$args    = [];
-			if ($posts_per_page) {
-				$args['posts_per_page'] = $posts_per_page;
 
-				if ($settings['show_pagination']) {
-					$args['paged']  = max(1, get_query_var('paged'), get_query_var('page'));
+			if ($settings['posts_source']  === 'current_query') {
+				$args['posts_per_page'] = $GLOBALS['wp_query']->query_vars['posts_per_page'];
+			} else {
+				if ($posts_per_page) {
+					$args['posts_per_page'] = $posts_per_page;
+
+					if ($settings['show_pagination']) {
+						$args['paged']  = max(1, get_query_var('paged'), get_query_var('page'));
+					}
 				}
 			}
-			$args['post_type'] = 'product';
+
+			// $args['post_type'] = 'product';
 			$product_visibility_term_ids = wc_get_product_visibility_term_ids();
 			if ('yes' == $settings['product_hide_free']) {
 				$args['meta_query'][] = [
@@ -3612,11 +3619,10 @@ class WC_Products extends Module_Base {
 		}
 
 		public function render_loop_item() {
+
+
 			$settings = $this->get_settings_for_display();
 			$id       = 'bdt-wc-product-' . $this->get_id();
-			// $wp_query = $this->render_query($settings['posts_per_page']);
-
-
 
 			$this->render_query($settings['posts_per_page']);
 
@@ -3759,8 +3765,7 @@ class WC_Products extends Module_Base {
 		<?php if ($settings['wc_products_show_loadmore'] == 'yes' || $settings['wc_products_show_infinite_scroll'] == 'yes') { ?>
 			<div class="bdt-loadmore-container bdt-text-center">
 				<?php if ($settings['wc_products_show_infinite_scroll'] == 'yes') : ?>
-					<span class="bdt-loadmore" bdt-spinner></span>
-					<!-- <span class="bdt-loadmore" bdt-spinner style="display:none;"></span> -->
+					<span class="bdt-loadmore" bdt-spinner style="display:none;"></span>
 				<?php else : ?>
 					<span class="bdt-loadmore bdt-button bdt-button-primary"><?php esc_html_e('Load More', 'bdthemes-element-pack'); ?></span>
 				<?php endif; ?>

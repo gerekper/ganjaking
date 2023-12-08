@@ -1,6 +1,8 @@
 /**
  * jquery.tctooltip.js
  *
+ * @param {Window} window - The window object representing the browser window.
+ * @param {jQuery} $      - The jQuery object.
  * @version: v1.1
  * @author: themeComplete
  *
@@ -264,6 +266,7 @@
 					var get_img_src;
 					var findlabel;
 					var is_hide_label;
+					var findlabelText;
 
 					target = $( element );
 					tip = settings.tip || undefined;
@@ -315,6 +318,7 @@
 						label = findlabel;
 
 						findlabel = $( label );
+						findlabelText = findlabel.find( '.tc-label-text' );
 
 						is_hide_label = target.attr( 'data-tm-hide-label' ) === 'yes' || target.attr( 'data-tm-hide-label' ) === undefined || findlabel.is( '.tm-tip-html' );
 
@@ -332,33 +336,35 @@
 
 						if ( tip === undefined ) {
 							if ( is_swatch ) {
-								tip = findlabel.html();
+								tip = findlabelText.html();
 							} else if ( is_swatch_desc && descHTML !== '' ) {
 								tip = '<aside>' + descHTML + '</aside>';
-							} else if ( is_swatch_lbl_desc && ( findlabel.html() !== '' || descHTML !== '' ) ) {
-								tip = '<aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
+							} else if ( is_swatch_lbl_desc && ( findlabelText.html() !== '' || descHTML !== '' ) ) {
+								tip = '<aside>' + findlabelText.html() + '</aside><aside>' + descHTML + '</aside>';
 							} else if ( is_swatch_img && get_img_src !== '' ) {
 								tip = '<img src="' + get_img_src + '">';
-							} else if ( is_swatch_img_lbl && ( findlabel.html() !== '' || get_img_src !== '' ) ) {
-								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside>';
+							} else if ( is_swatch_img_lbl && ( findlabelText.html() !== '' || get_img_src !== '' ) ) {
+								tip = '<img src="' + get_img_src + '"><aside>' + findlabelText.html() + '</aside>';
 							} else if ( is_swatch_img_desc && ( get_img_src !== '' || descHTML !== '' ) ) {
 								tip = '<img src="' + get_img_src + '"><aside>' + descHTML + '</aside>';
-							} else if ( is_swatch_img_lbl_desc && ( findlabel.html() !== '' || get_img_src !== '' || descHTML !== '' ) ) {
-								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
+							} else if ( is_swatch_img_lbl_desc && ( findlabelText.html() !== '' || get_img_src !== '' || descHTML !== '' ) ) {
+								tip = '<img src="' + get_img_src + '"><aside>' + findlabelText.html() + '</aside><aside>' + descHTML + '</aside>';
 							}
 
 							if ( tip !== undefined ) {
 								target.data( 'tm-tip-html', tip );
 								if ( is_hide_label ) {
+									findlabel.find( '.tm-tooltip' ).remove();
 									findlabel.hide();
 								}
 							}
-
-							// The following two methods are here for dynamic tooltip support
-							if ( target.attr( 'data-tm-tooltip-html' ) ) {
-								tip = target.attr( 'data-tm-tooltip-html' );
-							} else {
-								tip = target.attr( 'title' );
+							if ( tip === undefined ) {
+								// The following two methods are here for dynamic tooltip support
+								if ( target.attr( 'data-tm-tooltip-html' ) ) {
+									tip = target.attr( 'data-tm-tooltip-html' );
+								} else {
+									tip = target.attr( 'title' );
+								}
 							}
 						} else {
 							target.data( 'tm-tip-html', tip );
@@ -372,7 +378,9 @@
 							}
 						} );
 
-						target.closest( 'label' ).on( 'mouseenter tmshowtooltip', that.show.bind( that, target ) );
+						if ( target.is( 'img' ) ) {
+							target.closest( 'label' ).on( 'mouseenter tmshowtooltip', that.show.bind( that, target ) );
+						}
 						target.on( 'mouseenter.tc tmshowtooltip.tc', that.show.bind( that, target ) );
 
 						if ( settings.trigger ) {

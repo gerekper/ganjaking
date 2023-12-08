@@ -20,7 +20,7 @@ class Orders implements AC\ListTable
         return $this->table->get_pagination_arg('total_items');
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         ob_start();
 
@@ -29,7 +29,7 @@ class Orders implements AC\ListTable
         return ob_get_clean();
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         ob_start();
 

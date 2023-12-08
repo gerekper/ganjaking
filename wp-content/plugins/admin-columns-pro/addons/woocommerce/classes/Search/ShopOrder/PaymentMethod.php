@@ -3,42 +3,51 @@
 namespace ACA\WC\Search\ShopOrder;
 
 use AC;
-use AC\MetaType;
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use WC_Payment_Gateway;
 
-class PaymentMethod extends Comparison\Meta implements Comparison\Values {
+class PaymentMethod extends Comparison\Meta implements Comparison\Values
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $operators, '_payment_method_title', MetaType::POST );
-	}
+        parent::__construct($operators, '_payment_method_title');
+    }
 
-	public function get_values() {
-		$enabled = [];
-		$disabled = [];
+    public function get_values(): Options
+    {
+        $enabled = [];
+        $disabled = [];
 
-		foreach ( WC()->payment_gateways()->payment_gateways() as $gateway ) {
-			/**
-			 * @var WC_Payment_Gateway $gateway
-			 */
-			if ( 'yes' === $gateway->enabled ) {
-				$enabled[ $gateway->get_title() ] = $gateway->get_title();
-			} else {
-				$disabled[ $gateway->get_title() ] = sprintf( '%s (%s)', $gateway->get_title(), __( 'disabled', 'codepress-admin-columns' ) );
-			}
-		}
+        foreach (WC()->payment_gateways()->payment_gateways() as $gateway) {
+            /**
+             * @var WC_Payment_Gateway $gateway
+             */
+            if ('yes' === $gateway->enabled) {
+                $enabled[$gateway->get_title()] = $gateway->get_title();
+            } else {
+                $disabled[$gateway->get_title()] = sprintf(
+                    '%s (%s)',
+                    $gateway->get_title(),
+                    __('disabled', 'codepress-admin-columns')
+                );
+            }
+        }
 
-		natcasesort( $enabled );
-		natcasesort( $disabled );
+        natcasesort($enabled);
+        natcasesort($disabled);
 
-		$options = array_merge( $enabled, $disabled );
+        $options = array_merge($enabled, $disabled);
 
-		return AC\Helper\Select\Options::create_from_array( $options );
-	}
+        return AC\Helper\Select\Options::create_from_array($options);
+    }
 
 }

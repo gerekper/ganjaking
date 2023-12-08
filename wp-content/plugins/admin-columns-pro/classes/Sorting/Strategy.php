@@ -2,6 +2,9 @@
 
 namespace ACP\Sorting;
 
+/**
+ * @deprecated 6.3
+ */
 abstract class Strategy
 {
 

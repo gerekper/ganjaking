@@ -1368,21 +1368,13 @@ class AdvancedHeading extends Module_Base {
 
 
 		if ( ! empty( $settings['link']['url'] ) ) {
-			$this->add_render_attribute( 'url', 'href', $settings['link']['url'] );
 
-			if ( $settings['link']['is_external'] ) {
-				$this->add_render_attribute( 'url', 'target', '_blank' );
-			}
-
-			if ( ! empty( $settings['link']['nofollow'] ) ) {
-				$this->add_render_attribute( 'url', 'rel', 'nofollow' );
-			}
+			$this->add_link_attributes( 'url', $settings['link'] );
 
 			$main_heading = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $main_heading );
 		}
 
 		$heading_html[] = '<div id ="'.$id.'" class="bdt-ep-advanced-heading" '.$this->get_render_attribute_string('advanced_heading_data').'>';
-
 
 		$heading_html[] = $advanced_heading;
 		$heading_html[] = $this->render_sub_heading();

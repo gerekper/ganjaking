@@ -20,7 +20,8 @@ class EndDate extends SubscriptionDate {
 		return $date ? new WC_DateTime( $date ) : null;
 	}
 
-	public function get_meta_key() {
+	public function get_meta_key(): string
+    {
 		return '_schedule_end';
 	}
 

@@ -8,7 +8,6 @@ use ACA\ACF\Field;
 use ACA\ACF\Sorting\SortingModelFactory;
 use ACP\Sorting\FormatValue\SerializedSettingFormatter;
 use ACP\Sorting\FormatValue\SettingFormatter;
-use ACP\Sorting\Model\Disabled;
 use ACP\Sorting\Model\MetaFormatFactory;
 use ACP\Sorting\Model\MetaRelatedPostFactory;
 
@@ -25,7 +24,7 @@ class Relation implements SortingModelFactory
         $this->meta_format_factory = new MetaFormatFactory();
     }
 
-    public function create(Field $field, $meta_key, Column $column)
+    public function create(Field $field, string $meta_key, Column $column)
     {
         return $field instanceof Field\Multiple && $field->is_multiple()
             ? $this->create_multiple_relation_model($column, $meta_key)
@@ -37,7 +36,7 @@ class Relation implements SortingModelFactory
         $setting = $column->get_setting(AC\Settings\Column\Post::NAME);
 
         if ( ! $setting) {
-            return new Disabled();
+            return null;
         }
 
         $model = (new MetaRelatedPostFactory())->create(

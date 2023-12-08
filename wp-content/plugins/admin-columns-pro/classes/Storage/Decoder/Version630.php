@@ -9,6 +9,7 @@ use AC\ListScreenFactory;
 use AC\Plugin\Version;
 use AC\Type\ListScreenId;
 use ACP\Exception\NonDecodableDataException;
+use ACP\ListScreenPreferences;
 use ACP\Search\Entity\Segment;
 use ACP\Search\SegmentCollection;
 use ACP\Search\Type\SegmentKey;
@@ -47,12 +48,18 @@ final class Version630 extends BaseDecoder implements SegmentsDecoder, ListScree
         $segments = [];
 
         foreach ($this->encoded_data['segments'] as $encoded_segment) {
+            // Backwards compatibility for segments that have not stored their creation date
+            $date_created = isset($encoded_segment['date_created'])
+                ? DateTime::createFromFormat('U', (string)$encoded_segment['date_created'])
+                : new DateTime();
+
             $segments[] = new Segment(
                 new SegmentKey($encoded_segment['key']),
-                new ListScreenId($encoded_segment['list_screen_id']),
                 $encoded_segment['name'],
                 $encoded_segment['url_parameters'],
-                $encoded_segment['user_id']
+                new ListScreenId($encoded_segment['list_screen_id']),
+                null,
+                $date_created
             );
         }
 
@@ -80,12 +87,18 @@ final class Version630 extends BaseDecoder implements SegmentsDecoder, ListScree
             throw new NonDecodableDataException($this->encoded_data);
         }
 
+        $preferences = $this->encoded_data['list_screen']['settings'] ?? [];
+
+        if ($this->has_segments()) {
+            $preferences[ListScreenPreferences::SHARED_SEGMENTS] = $this->get_segments();
+        }
+
         return $this->list_screen_factory->create(
             $this->encoded_data['list_screen']['type'],
             [
                 'list_id' => $this->encoded_data['list_screen']['id'],
                 'columns' => $this->encoded_data['list_screen']['columns'] ?? [],
-                'preferences' => $this->encoded_data['list_screen']['settings'] ?? [],
+                'preferences' => $preferences,
                 'title' => $this->encoded_data['list_screen']['title'] ?? '',
                 'date' => DateTime::createFromFormat('U', (string)$this->encoded_data['list_screen']['updated']),
             ]

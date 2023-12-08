@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '2.0.13';
+	public const VERSION = '2.0.14';
 
 	/** @var Plugin the singleton instance of the plugin */
 	protected static $instance;

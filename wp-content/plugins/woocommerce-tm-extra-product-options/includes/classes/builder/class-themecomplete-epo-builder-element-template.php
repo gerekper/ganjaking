@@ -3,7 +3,7 @@
  * Template Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Template Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -44,7 +44,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILD
 	 * for use in a select box
 	 *
 	 * @since  5.0
-	 * @access public
+	 * @return array<mixed>
 	 */
 	public function fetch_template_array() {
 		$list = [];
@@ -82,35 +82,29 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILD
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(
 			$this->element_name,
 			[
-				'_tabs' =>
-					[
-						'general_options' =>
-							[
-								'enabled',
+				'enabled',
 
-								[
-									'id'          => 'template_templateids',
-									'wpmldisable' => 1,
-									'default'     => '',
-									'type'        => 'select',
-									'tags'        => [
-										'data-placeholder' => esc_attr__( 'Select a template ...', 'woocommerce-tm-extra-product-options' ),
-										'class'            => 'wc-template-search template-templates-selector',
-										'id'               => 'builder_template_templateids',
-										'name'             => 'tm_meta[tmfbuilder][template_templateids][]',
-									],
-									'options'     => $this->fetch_template_array(),
-									'label'       => esc_html__( 'Select template', 'woocommerce-tm-extra-product-options' ),
-									'desc'        => esc_html__( 'Add the template you want to display.', 'woocommerce-tm-extra-product-options' ),
-								],
-
-							],
+				[
+					'id'          => 'template_templateids',
+					'wpmldisable' => 1,
+					'default'     => '',
+					'type'        => 'select',
+					'tags'        => [
+						'data-placeholder' => esc_attr__( 'Select a template ...', 'woocommerce-tm-extra-product-options' ),
+						'class'            => 'wc-template-search template-templates-selector',
+						'id'               => 'builder_template_templateids',
+						'name'             => 'tm_meta[tmfbuilder][template_templateids][]',
 					],
+					'options'     => $this->fetch_template_array(),
+					'label'       => esc_html__( 'Select template', 'woocommerce-tm-extra-product-options' ),
+					'desc'        => esc_html__( 'Add the template you want to display.', 'woocommerce-tm-extra-product-options' ),
+				],
 			],
 			false,
 			[

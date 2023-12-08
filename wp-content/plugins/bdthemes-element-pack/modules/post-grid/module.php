@@ -31,7 +31,10 @@ class Module extends Element_Pack_Module_Base {
 
 
 	public function callback_ajax_loadmore_posts() {
-		// $grid_icon = $_POST['readMore']['post_grid_icon'];
+
+		if (!isset($_POST['settings']['nonce']) || !wp_verify_nonce($_POST['settings']['nonce'], 'bdt-post-grid-load-more-nonce')) {
+			exit;
+		}
 		$ajaxposts = element_pack_ajax_load_query_args();
 		$markup    = '';
 		if ($ajaxposts->have_posts()) {
@@ -132,7 +135,6 @@ class Module extends Element_Pack_Module_Base {
 		wp_reset_postdata();
 		$result = [
 			'markup' => $markup,
-			// 'max'    => $ajaxposts->max_num_pages,
 		];
 		wp_send_json($result);
 		exit;

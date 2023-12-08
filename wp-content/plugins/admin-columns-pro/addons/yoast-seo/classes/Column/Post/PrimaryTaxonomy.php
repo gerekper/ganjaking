@@ -5,12 +5,11 @@ namespace ACA\YoastSeo\Column\Post;
 use AC;
 use ACA\YoastSeo;
 use ACA\YoastSeo\Editing;
-use ACA\YoastSeo\Filtering;
 use ACP;
 use WP_Term;
 
 class PrimaryTaxonomy extends AC\Column\Meta
-    implements ACP\Editing\Editable, ACP\Filtering\Filterable, ACP\Export\Exportable, ACP\ConditionalFormat\Formattable
+    implements ACP\Editing\Editable, ACP\Export\Exportable, ACP\ConditionalFormat\Formattable, ACP\Search\Searchable
 {
 
     use ACP\ConditionalFormat\FilteredHtmlFormatTrait;
@@ -64,14 +63,18 @@ class PrimaryTaxonomy extends AC\Column\Meta
         return new Editing\Service\Post\PrimaryTaxonomy($this->get_taxonomy());
     }
 
-    public function filtering()
-    {
-        return new Filtering\Post\PrimaryTaxonomy($this);
-    }
-
     public function export()
     {
         return new ACP\Export\Model\StrippedValue($this);
+    }
+
+    public function search()
+    {
+        return new YoastSeo\Search\Post\PrimaryTaxonomy(
+            $this->get_meta_key(),
+            $this->get_taxonomy(),
+            (new AC\Meta\QueryMetaFactory())->create_with_post_type($this->get_meta_key(), $this->get_post_type())
+        );
     }
 
     /**

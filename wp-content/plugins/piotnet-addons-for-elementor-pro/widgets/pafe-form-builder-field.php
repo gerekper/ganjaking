@@ -2513,6 +2513,40 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
                 ]
             ]
         );
+        $this->add_control(
+			'image_upload_attach_to_email',
+			[
+				'label' => esc_html__( 'Attach files to email, do not upload to upload folder', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Yes', 'pafe' ),
+				'label_off' => esc_html__( 'No', 'pafe' ),
+				'return_value' => 'yes',
+				'default' => '',
+				'condition' => [
+                    'field_type' => 'image_upload'
+                ]
+			]
+		);
+        $this->add_control(
+			'image_upload_attach_to',
+			[
+				'label' => __( 'Attach to', 'pafe' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
+				'multiple' => true,
+				'options' => [
+					'email' => 'Email',
+					'email2' => 'Email 2',
+				],
+				'default' => [
+					'email',
+                    'email2'
+				],
+                'condition' => [
+                    'field_type' => 'image_upload',
+                    'image_upload_attach_to_email' => 'yes'
+                ]
+			]
+		);
 
 		$this->end_controls_section();
 
@@ -6246,6 +6280,11 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 						echo "</label>";
 						$this->add_render_attribute( 'input' . $item_index, 'data-pafe-form-builder-form-id', $form_id );
 						$this->add_render_attribute( 'input' . $item_index, 'data-pafe-field-type', 'image_upload' );
+
+                        if(!empty($item['image_upload_attach_to_email'])){
+                            $this->add_render_attribute( 'input' . $item_index, 'data-pafe-attach-files', json_encode($item['image_upload_attach_to']) );
+                        }
+
 						echo '<div style="display: none">';
 						echo '<input type="text" ' . $item_index . ' ' . $this->get_render_attribute_string( 'input' . $item_index ) . '>';
 						echo '</div>';

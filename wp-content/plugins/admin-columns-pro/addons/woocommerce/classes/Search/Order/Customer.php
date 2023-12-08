@@ -2,14 +2,16 @@
 
 namespace ACA\WC\Search\Order;
 
-use AC;
 use ACA\WC\Search;
 use ACP;
+use ACP\Query\Bindings;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
 class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues
 {
+
+    use ACP\Search\UserValuesTrait;
 
     public function __construct()
     {
@@ -22,9 +24,9 @@ class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
         );
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): Bindings
     {
-        $bindings = new ACP\Search\Query\Bindings\QueryArguments();
+        $bindings = new Bindings\QueryArguments();
 
         $compare = '=';
         $customer_id = $value->get_value();
@@ -49,18 +51,6 @@ class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
         ]);
 
         return $bindings;
-    }
-
-    public function get_values($search, $paged)
-    {
-        $entities = new ACP\Helper\Select\Entities\User(compact('search', 'paged'));
-
-        return new AC\Helper\Select\Options\Paginated(
-            $entities,
-            new ACP\Helper\Select\Group\UserRole(
-                new ACP\Helper\Select\Formatter\UserName($entities)
-            )
-        );
     }
 
 }

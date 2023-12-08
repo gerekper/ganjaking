@@ -9,27 +9,41 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li class="tmcp-field-wrap <?php echo esc_attr( ( ! empty( $show_picker_value ) ) ? ' tm-show-picker-' . $show_picker_value : '' ); ?>">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+if ( isset( $min, $max, $step, $pips, $noofpips, $show_picker_value, $element_id, $get_default_value, $name, $fieldtype, $rules, $original_rules, $rules_type ) ) :
+	$min               = (string) $min;
+	$max               = (string) $max;
+	$step              = (string) $step;
+	$pips              = (string) $pips;
+	$noofpips          = (string) $noofpips;
+	$show_picker_value = (string) $show_picker_value;
+	$element_id        = (string) $element_id;
+	$get_default_value = (string) $get_default_value;
+	$name              = (string) $name;
+	$fieldtype         = (string) $fieldtype;
+	$rules             = (string) $rules;
+	$original_rules    = (string) $original_rules;
+	$rules_type        = (string) $rules_type;
+	$liclass           = 'tmcp-field-wrap' . ( ( ! empty( $show_picker_value ) ) ? ' tm-show-picker-' . $show_picker_value : '' );
+	?>
+<li class="<?php echo esc_attr( $liclass ); ?>"><div class="tmcp-field-wrap-inner">
 	<?php
 	$input_args = [
 		'nodiv' => 1,
 		'type'  => 'div',
 		'tags'  => [
-			'class'                  => 'tm-range-picker',
+			'class'                  => 'tc-col tm-range-picker',
 			'data-min'               => $min,
 			'data-max'               => $max,
 			'data-step'              => $step,
 			'data-pips'              => $pips,
 			'data-noofpips'          => $noofpips,
 			'data-show-picker-value' => $show_picker_value,
-			'data-field-id'          => $id,
+			'data-field-id'          => $element_id,
 			'data-start'             => $get_default_value,
 		],
 	];
@@ -49,14 +63,14 @@ defined( 'ABSPATH' ) || exit;
 
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
-	<label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>"></label>
+	<label class="tc-col tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $element_id ); ?>"></label>
 	<?php
 	$input_args = [
 		'nodiv'   => 1,
 		'default' => $get_default_value,
 		'type'    => 'hidden',
 		'tags'    => [
-			'id'                  => $id,
+			'id'                  => $element_id,
 			'name'                => $name,
 			'class'               => $fieldtype . ' tm-epo-field tmcp-textfield tmcp-range',
 			'data-price'          => '',
@@ -74,6 +88,8 @@ defined( 'ABSPATH' ) || exit;
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div></li>
+	<?php
+endif;

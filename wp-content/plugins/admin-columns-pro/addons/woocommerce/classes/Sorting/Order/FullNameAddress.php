@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\Order;
 
 use ACA\WC\Type\AddressType;
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class FullNameAddress extends AbstractModel implements QueryBindings
+class FullNameAddress implements QueryBindings
 {
 
     private $address_type;
 
     public function __construct(AddressType $address_type)
     {
-        parent::__construct();
-
         $this->address_type = $address_type;
     }
 

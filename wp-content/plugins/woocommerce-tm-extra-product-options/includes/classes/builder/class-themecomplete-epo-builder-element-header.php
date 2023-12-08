@@ -3,7 +3,7 @@
  * Builder Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_HEADER extends THEMECOMPLETE_EPO_BUILDER
 	 * Class Constructor
 	 *
 	 * @param string $name The element name.
-	 * @since 6.0
+	 * @since 6.4
 	 */
 	public function __construct( $name = '' ) {
 		$this->element_name     = $name;
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_HEADER extends THEMECOMPLETE_EPO_BUILDER
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = array_merge(
@@ -128,15 +129,15 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_HEADER extends THEMECOMPLETE_EPO_BUILDER
 					],
 					'options'     => [
 						[
-							'text'  => esc_html__( 'Above field', 'woocommerce-tm-extra-product-options' ),
+							'text'  => esc_html__( 'Default', 'woocommerce-tm-extra-product-options' ),
 							'value' => '',
 						],
 						[
-							'text'  => esc_html__( 'Left of the field', 'woocommerce-tm-extra-product-options' ),
+							'text'  => esc_html__( 'Left of the Content', 'woocommerce-tm-extra-product-options' ),
 							'value' => 'left',
 						],
 						[
-							'text'  => esc_html__( 'Right of the field', 'woocommerce-tm-extra-product-options' ),
+							'text'  => esc_html__( 'Right of the Content', 'woocommerce-tm-extra-product-options' ),
 							'value' => 'right',
 						],
 						[
@@ -197,12 +198,12 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_HEADER extends THEMECOMPLETE_EPO_BUILDER
 					],
 					'options'     => [
 						[
-							'text'  => esc_html__( 'Above field', 'woocommerce-tm-extra-product-options' ),
+							'text'  => esc_html__( 'Default', 'woocommerce-tm-extra-product-options' ),
 							'value' => '',
 						],
 						[
-							'text'  => esc_html__( 'Below field', 'woocommerce-tm-extra-product-options' ),
-							'value' => 'below',
+							'text'  => esc_html__( 'Above Header', 'woocommerce-tm-extra-product-options' ),
+							'value' => 'above',
 						],
 						[
 							'text'  => esc_html__( 'Tooltip', 'woocommerce-tm-extra-product-options' ),

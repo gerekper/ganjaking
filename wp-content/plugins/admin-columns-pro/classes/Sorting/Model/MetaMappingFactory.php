@@ -3,7 +3,6 @@
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
-use ACP\Sorting\AbstractModel;
 
 /**
  * Sorts a list table by pre sorted fields that are associated with the supplied meta key.
@@ -11,7 +10,7 @@ use ACP\Sorting\AbstractModel;
 class MetaMappingFactory
 {
 
-    public function create(string $meta_type, string $meta_key, array $fields): AbstractModel
+    public function create(string $meta_type, string $meta_key, array $fields)
     {
         switch ($meta_type) {
             case MetaType::POST :
@@ -23,7 +22,7 @@ class MetaMappingFactory
             case MetaType::TERM :
                 return new Taxonomy\MetaMapping($meta_key, $fields);
             default :
-                return new Disabled();
+                return null;
         }
     }
 

@@ -950,15 +950,7 @@ class Fancy_List extends Module_Base {
                         if (!empty($item['link']['url'])) {
                             $link_key = 'link_' . $index;
 
-                            $this->add_render_attribute($link_key, 'href', $item['link']['url']);
-
-                            if ($item['link']['is_external']) {
-                                $this->add_render_attribute($link_key, 'target', '_blank');
-                            }
-
-                            if ($item['link']['nofollow']) {
-                                $this->add_render_attribute($link_key, 'rel', 'nofollow');
-                            }
+                            $this->add_link_attributes($link_key, $item['link']);
 
                             echo '<a class="bdt-fancy-list-wrap" ' . $this->get_render_attribute_string($link_key) . '>';
                         } else {

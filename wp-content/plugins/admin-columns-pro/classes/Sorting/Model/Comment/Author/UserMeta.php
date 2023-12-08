@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Comment\Author;
 
 use ACP;
-use ACP\Search\Query\Bindings;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class UserMeta extends ACP\Sorting\AbstractModel implements ACP\Sorting\Model\QueryBindings
+class UserMeta implements ACP\Sorting\Model\QueryBindings
 {
 
     private $meta_field;
 
     public function __construct(string $meta_field)
     {
-        parent::__construct();
-
         $this->meta_field = $meta_field;
     }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use AC;
-use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Type\DataType;
 
 /**
@@ -14,7 +13,7 @@ use ACP\Sorting\Type\DataType;
 class MetaRelatedUserFactory
 {
 
-    public function create(string $user_property, string $meta_key): ?AbstractModel
+    public function create(string $user_property, string $meta_key)
     {
         switch ($user_property) {
             case AC\Settings\Column\User::PROPERTY_ID :

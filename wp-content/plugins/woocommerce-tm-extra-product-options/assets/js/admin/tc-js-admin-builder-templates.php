@@ -6,7 +6,7 @@
  *
  * @see     https://codex.wordpress.org/Javascript_Reference/wp.template
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
+ * @package Extra Product Options/Templates
  * @version 4.8.5
  */
 
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'THEMECOMPLETE_EPO_BUILDER' ) || ! function_exists( 'THEMECOMPLETE_EPO_ADMIN_GLOBAL' ) || ! function_exists( 'THEMECOMPLETE_EPO_WPML' ) ) {
+if ( ! function_exists( 'THEMECOMPLETE_EPO_ADMIN_BUILDER' ) || ! function_exists( 'THEMECOMPLETE_EPO_ADMIN_GLOBAL' ) || ! function_exists( 'THEMECOMPLETE_EPO_WPML' ) ) {
 	return;
 }
 
@@ -40,5 +40,5 @@ $wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $the_
 
 // The template_elements and template_section_elements functions contain HTML code generated internally.
 ?>
-<script class="tm-hidden" type="text/template" id="tmpl-tc-builder-elements"><?php THEMECOMPLETE_EPO_BUILDER()->template_elements(); ?></script>
-<script class="tm-hidden" type="text/template" id="tmpl-tc-builder-section"><?php THEMECOMPLETE_EPO_BUILDER()->template_section_elements( $wpml_is_original_product ); ?></script>
+<script class="tm-hidden" type="text/template" id="tmpl-tc-builder-elements"><?php THEMECOMPLETE_EPO_ADMIN_BUILDER()->template_elements(); ?></script>
+<script class="tm-hidden" type="text/template" id="tmpl-tc-builder-section"><?php THEMECOMPLETE_EPO_ADMIN_BUILDER()->template_section_elements( $wpml_is_original_product ); ?></script>

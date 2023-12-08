@@ -2,60 +2,71 @@
 
 namespace ACA\MetaBox\Search\Comparison\Table;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP;
+use ACP\Helper\Select\Post\GroupFormatter\MimeType;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
+use ACP\Search\Comparison\SearchableValues;
+use ACP\Search\Labels;
+use ACP\Search\Operators;
+use ACP\Search\Value;
 
 class Media extends TableStorage
-	implements ACP\Search\Comparison\SearchableValues {
+    implements SearchableValues
+{
 
-	use MultiMapTrait;
+    use MultiMapTrait;
 
-	/**
-	 * @var
-	 */
-	private $mime_type;
+    private $mime_type;
 
-	public function __construct(
-		$operators,
-		$table,
-		$column,
-		$mime_type = [],
-		$value_type = null,
-		ACP\Search\Labels $labels = null
-	) {
-		$this->mime_type = $mime_type;
+    public function __construct(
+        Operators $operators,
+        string $table,
+        string $column,
+        array $mime_type = [],
+        string $value_type = null,
+        Labels $labels = null
+    ) {
+        $this->mime_type = $mime_type;
 
-		parent::__construct( $operators, $table, $column, $value_type, $labels );
-	}
+        parent::__construct($operators, $table, $column, $value_type, $labels);
+    }
 
-	public function get_values( $s, $paged ) {
-		$args = [
-			's'         => $s,
-			'paged'     => $paged,
-			'post_type' => 'attachment',
-			'orderby'   => 'date',
-			'order'     => 'DESC',
-		];
+    public function format_label($value): string
+    {
+        $post = get_post($value);
 
-		if ( $this->mime_type ) {
-			$args['post_mime_type'] = $this->mime_type;
-		}
+        return $post
+            ? (new PostTitle())->format_label($post)
+            : '';
+    }
 
-		$entities = new ACP\Helper\Select\Entities\Post( $args );
+    public function get_values(string $search, int $page): Paginated
+    {
+        $args = [
+            's'         => $search,
+            'paged'     => $page,
+            'post_type' => 'attachment',
+            'orderby'   => 'date',
+            'order'     => 'DESC',
+        ];
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Group\MimeType( new ACP\Helper\Select\Formatter\PostTitle( $entities ) )
-		);
-	}
+        if ($this->mime_type) {
+            $args['post_mime_type'] = $this->mime_type;
+        }
 
-	protected function get_subquery( $operator, ACP\Search\Value $value ) {
-		$_operator = $this->map_operator( $operator );
-		$_value = $this->map_value( $value, $operator );
+        return (new PaginatedFactory())->create($args, new PostTitle(), new MimeType());
+    }
 
-		$where = ACP\Search\Helper\Sql\ComparisonFactory::create( $this->column, $_operator, $_value );
+    protected function get_subquery(string $operator, Value $value): string
+    {
+        $_operator = $this->map_operator($operator);
+        $_value = $this->map_value($value, $operator);
 
-		return "SELECT ID FROM {$this->table} WHERE " . $where->prepare();
-	}
+        $where = ACP\Search\Helper\Sql\ComparisonFactory::create($this->column, $_operator, $_value);
+
+        return "SELECT ID FROM $this->table WHERE " . $where->prepare();
+    }
 
 }

@@ -7,7 +7,7 @@
  * Released under the MIT license
  *
  * Renamed methods for compatibility
- * reformatted code by themeComplete
+ * reformatted code by ThemeComplete
  */
 ( function( factory ) {
 	'use strict';

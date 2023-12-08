@@ -12,26 +12,39 @@ use ACP\Search;
 use ACP\Sorting;
 
 class Modified extends AC\Column\Post\Modified
-	implements Sorting\Sortable, Editing\Editable, Filtering\Filterable, Search\Searchable, ConditionalFormat\Formattable {
+    implements Sorting\Sortable, Editing\Editable, Filtering\FilterableDateSetting,
+               Search\Searchable, ConditionalFormat\Formattable
+{
 
-	public function sorting() {
-		return new Sorting\Model\OrderBy( 'modified' );
-	}
+    use Filtering\FilteringDateSettingTrait;
 
-	public function editing() {
-		return new Editing\Service\Post\Modified();
-	}
+    public function register_settings()
+    {
+        parent::register_settings();
 
-	public function filtering() {
-		return new Filtering\Model\Post\Modified( $this );
-	}
+        $this->add_setting(
+            new Filtering\Settings\Date($this)
+        );
+    }
 
-	public function search() {
-		return new Search\Comparison\Post\Date\PostModified();
-	}
+    public function sorting()
+    {
+        return new Sorting\Model\OrderBy('modified');
+    }
 
-	public function conditional_format(): ?FormattableConfig {
-		return new ConditionalFormat\FormattableConfig( new Formatter\DateFormatter\FormatFormatter() );
-	}
+    public function editing()
+    {
+        return new Editing\Service\Post\Modified();
+    }
+
+    public function search()
+    {
+        return new Search\Comparison\Post\Date\PostModified($this->get_post_type());
+    }
+
+    public function conditional_format(): ?FormattableConfig
+    {
+        return new ConditionalFormat\FormattableConfig(new Formatter\DateFormatter\FormatFormatter());
+    }
 
 }

@@ -249,7 +249,7 @@ class Resize_Optimization extends Media_Item_Optimization {
 		}
 
 		// Delete intermediate file.
-		$this->delete_file( $new_path );
+		$this->maybe_delete_file( $new_path );
 
 		// Update media item.
 		$size_to_resize->set_filesize( $new_filesize );
@@ -268,6 +268,20 @@ class Resize_Optimization extends Media_Item_Optimization {
 		do_action( 'wp_smush_image_resized', $id, $stats->to_array() );
 
 		return true;
+	}
+
+	private function maybe_delete_file( $file_path ) {
+		$should_delete_file = true;
+		foreach ( $this->media_item->get_sizes() as $size ) {
+			if ( $size->get_file_path() === $file_path ) {
+				$should_delete_file = false;
+				break;
+			}
+		}
+
+		if ( $should_delete_file ) {
+			$this->delete_file( $file_path );
+		}
 	}
 
 	private function delete_file( $file_path ) {

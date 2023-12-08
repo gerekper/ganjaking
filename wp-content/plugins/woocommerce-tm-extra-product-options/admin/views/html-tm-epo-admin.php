@@ -2,20 +2,6 @@
 /**
  * View for displaying single TM EPO record
  *
- * Variables used:
- *
- * @required   $variations
- * @required   $parent_data['attributes']
- * @required   $tmcp_data
- * @required   $tmcp_id
- * @required   $loop
- * @required   $tmcp_post_status
- * @required   $tmcp_required
- * @required   $tmcp_hide_price
- * @required   $tmcp_limit
- *
- * @optional   $_regular_price
- *
  * @package Extra Product Options/Admin/Views
  * @version 4.8
  */
@@ -196,7 +182,7 @@ if ( isset( $variations )
 								<input type="text" name="tmcp_regular_price[<?php echo esc_attr( $loop ); ?>][<?php echo esc_attr( $key_attribute ); ?>][<?php echo esc_attr( $key_variation ); ?>]" value="<?php echo esc_attr( $price ); ?>" class="wc_input_price tmcp-price-input tmcp-price-input-variation-<?php echo esc_attr( $key_variation ); ?>" data-price-input-attribute="<?php echo esc_attr( $key_attribute ); ?>" placeholder="<?php esc_html_e( 'Custom price (required)', 'woocommerce-tm-extra-product-options' ); ?>"/>
 								<select class="tmcp-price-input-type tmcp-price-input-variation-<?php echo esc_attr( $key_variation ); ?>" data-price-input-attribute="<?php echo esc_attr( $key_attribute ); ?>" name="tmcp_regular_price_type[<?php echo esc_attr( $loop ); ?>][<?php echo esc_attr( $key_attribute ); ?>][<?php echo esc_attr( $key_variation ); ?>]">
 									<option <?php selected( $_regular_price_type[ $key_attribute ][ $key_variation ], '' ); ?> value=""><?php esc_html_e( 'Fixed amount', 'woocommerce-tm-extra-product-options' ); ?></option>
-									<option <?php selected( $_regular_price_type[ $key_attribute ][ $key_variation ], 'percent' ); ?> value="percent"><?php esc_html_e( 'Percent of the orignal price', 'woocommerce-tm-extra-product-options' ); ?></option>
+									<option <?php selected( $_regular_price_type[ $key_attribute ][ $key_variation ], 'percent' ); ?> value="percent"><?php esc_html_e( 'Percent of the origιnal price', 'woocommerce-tm-extra-product-options' ); ?></option>
 								</select>
 								<?php
 							}
@@ -206,7 +192,7 @@ if ( isset( $variations )
 						<input type="text" name="tmcp_regular_price[<?php echo esc_attr( $loop ); ?>][0][0]" value="" class="wc_input_price tmcp-price-input tmcp-price-input-variation-0 tmcp-price-input-attribute-0" data-price-input-attribute="0" placeholder="<?php esc_html_e( 'Custom price', 'woocommerce-tm-extra-product-options' ); ?>"/>
 						<select class="tmcp-price-input-type tmcp-price-input-variation-0 tmcp-price-input-attribute-0" data-price-input-attribute="0" name="tmcp_regular_price_type[<?php echo esc_attr( $loop ); ?>][0][0]">
 							<option value=""><?php esc_html_e( 'Fixed amount', 'woocommerce-tm-extra-product-options' ); ?></option>
-							<option value="percent"><?php esc_html_e( 'Percent of the orignal price', 'woocommerce-tm-extra-product-options' ); ?></option>
+							<option value="percent"><?php esc_html_e( 'Percent of the origιnal price', 'woocommerce-tm-extra-product-options' ); ?></option>
 						</select>
 						<?php
 					}

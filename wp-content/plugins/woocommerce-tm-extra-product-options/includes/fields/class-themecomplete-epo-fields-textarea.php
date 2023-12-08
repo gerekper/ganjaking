@@ -20,8 +20,9 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
@@ -57,6 +58,7 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -114,7 +116,7 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 				}
 
 				foreach ( $val as $val_value ) {
-					if ( '' !== $val_value && ( false !== $val_value && strlen( utf8_decode( $val_value ) ) > (int) $this->element['max_chars'] ) ) {
+					if ( '' !== $val_value && ( false !== $val_value && strlen( THEMECOMPLETE_EPO_HELPER()->utf8_decode( $val_value ) ) > (int) $this->element['max_chars'] ) ) {
 						$passed = false;
 						/* translators: %1 number of characters %2 element label. */
 						$message[] = sprintf( esc_html__( 'You cannot enter more than %1$s characters for "%2$s".', 'woocommerce-tm-extra-product-options' ), (int) $this->element['max_chars'], $this->element['label'] );
@@ -129,5 +131,4 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

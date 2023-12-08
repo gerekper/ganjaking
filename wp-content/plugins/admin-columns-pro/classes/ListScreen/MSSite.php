@@ -24,8 +24,7 @@ class MSSite extends AC\ListScreen
         $this->label = __('Network Sites');
         $this->singular_label = __('Network Site');
         $this->group = __('network');
-
-        $this->set_meta_type(MetaType::SITE);
+        $this->meta_type = MetaType::SITE;
     }
 
     public function manage_value(): AC\Table\ManageValue

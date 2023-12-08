@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 use InvalidArgumentException;
 
-class OrderExtrema extends AbstractModel implements QueryBindings
+class OrderExtrema implements QueryBindings
 {
 
     private $extrema;
@@ -21,8 +20,6 @@ class OrderExtrema extends AbstractModel implements QueryBindings
 
     public function __construct(string $extrema = 'min', array $status = ['wc-completed'])
     {
-        parent::__construct();
-
         $this->extrema = $extrema;
         $this->status = $status;
         $this->validate();

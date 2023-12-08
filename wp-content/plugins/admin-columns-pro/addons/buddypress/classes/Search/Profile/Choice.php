@@ -3,6 +3,7 @@
 namespace ACA\BP\Search\Profile;
 
 use AC;
+use AC\Helper\Select\Options;
 use ACA\BP\Helper\Select;
 use ACA\BP\Search;
 use ACP\Search\Comparison\Values;
@@ -28,7 +29,7 @@ class Choice extends Search\Profile
 		parent::__construct( $operators, $meta_key, Value::STRING );
 	}
 
-	public function get_values() {
+	public function get_values(): Options {
 		return AC\Helper\Select\Options::create_from_array( $this->options );
 	}
 

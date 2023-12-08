@@ -2,13 +2,12 @@
 
 namespace ACA\WC\Sorting\ShopOrder;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class ShippingMethod extends AbstractModel implements QueryBindings
+class ShippingMethod implements QueryBindings
 {
 
     public function create_query_bindings(Order $order): Bindings

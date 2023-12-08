@@ -1,3 +1,8 @@
 <?php
-// Direct access security.
+/**
+ * Direct access security.
+ *
+ * @package Extra Product Options
+ */
+
 die();

@@ -2399,12 +2399,10 @@ class Fancy_Card extends Module_Base {
 						<?php Icons_Manager::render_icon($settings['selected_icon'], ['aria-hidden' => 'true']); ?>
 
 					<?php } elseif ($has_image and 'image' == $settings['icon_type']) { ?>
-						<!-- <img <?php //echo $this->get_render_attribute_string( 'image-icon' ); 
-									?>> -->
+
 						<?php
 						if ($has_image and 'image' == $settings['icon_type']) {
-							// $this->add_render_attribute( 'image-icon', 'src', $settings['image']['url'] );
-							// $this->add_render_attribute( 'image-icon', 'alt', $settings['title_text'] );
+
 							$thumb_url = Group_Control_Image_Size::get_attachment_image_src($settings['image']['id'], 'thumbnail', $settings);
 							if (!$thumb_url) {
 								printf('<img src="%1$s" alt="%2$s">', $settings['image']['url'], esc_html($settings['title_text']));
@@ -2475,15 +2473,7 @@ class Fancy_Card extends Module_Base {
 		$this->add_render_attribute('readmore', 'class', ['bdt-ep-fancy-card-readmore', 'bdt-display-inline-block']);
 
 		if (!empty($settings['readmore_link']['url'])) {
-			$this->add_render_attribute('readmore', 'href', $settings['readmore_link']['url']);
-
-			if ($settings['readmore_link']['is_external']) {
-				$this->add_render_attribute('readmore', 'target', '_blank');
-			}
-
-			if ($settings['readmore_link']['nofollow']) {
-				$this->add_render_attribute('readmore', 'rel', 'nofollow');
-			}
+			$this->add_link_attributes('readmore', $settings['readmore_link']);
 		}
 
 		if ($settings['readmore_attention']) {

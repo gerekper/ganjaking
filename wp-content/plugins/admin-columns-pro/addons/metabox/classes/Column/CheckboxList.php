@@ -9,58 +9,70 @@ use ACA\MetaBox\Search;
 use ACP;
 
 class CheckboxList extends Column
-	implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\ConditionalFormat\Formattable {
+    implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\ConditionalFormat\Formattable
+{
 
-	use ACP\ConditionalFormat\ConditionalFormatTrait;
+    use ACP\ConditionalFormat\ConditionalFormatTrait;
 
-	public function get_raw_value( $id ) {
-		$value = $this->get_meta_value( $id, $this->get_meta_key(), false );
+    public function get_raw_value($id)
+    {
+        $value = $this->get_meta_value($id, $this->get_meta_key(), false);
 
-		return $value ?: false;
-	}
+        return $value ?: false;
+    }
 
-	public function format_single_value( $value, $id = null ) {
-		if ( ! $value ) {
-			return $this->get_empty_char();
-		}
+    public function format_single_value($value, $id = null)
+    {
+        if ( ! $value) {
+            return $this->get_empty_char();
+        }
 
-		// MetaBox sometimes stores extra empty options, not need to show them
-		$value = array_filter( $value );
-		$values = [];
-		foreach ( $value as $key ) {
-			$values[] = $this->get_label_for_option( $key );
-		}
+        // MetaBox sometimes stores extra empty options, not need to show them
+        $value = array_filter($value);
+        $values = [];
+        foreach ($value as $key) {
+            $values[] = $this->get_label_for_option($key);
+        }
 
-		$setting_limit = $this->get_setting( 'number_of_items' );
+        $setting_limit = $this->get_setting('number_of_items');
 
-		return ac_helper()->html->more( $values, $setting_limit ? $setting_limit->get_value() : false );
-	}
+        return ac_helper()->html->more($values, $setting_limit ? $setting_limit->get_value() : false);
+    }
 
-	protected function get_label_for_option( $key ) {
-		$options = $this->get_field_options();
+    protected function get_label_for_option($key)
+    {
+        $options = $this->get_field_options();
 
-		return isset( $options[ $key ] ) ? $options[ $key ] : $key;
-	}
+        return isset($options[$key]) ? $options[$key] : $key;
+    }
 
-	public function get_field_options() {
-		return $this->get_field_setting( 'options' );
-	}
+    public function get_field_options(): array
+    {
+        $options = $this->get_field_setting('options');
 
-	protected function register_settings() {
-		$this->add_setting( new NumberOfItems( $this ) );
-	}
+        return $options
+            ? (array)$options
+            : [];
+    }
 
-	public function editing() {
-		return $this->is_clonable()
-			? false
-			: new ACP\Editing\Service\Basic(
-				( new ACP\Editing\View\CheckboxList( $this->get_field_setting( 'options' ) ) )->set_clear_button( true ),
-				( new StorageFactory() )->create( $this, false )
-			);
-	}
+    protected function register_settings()
+    {
+        $this->add_setting(new NumberOfItems($this));
+    }
 
-	public function search() {
-		return ( new Search\Factory\CheckboxList() )->create( $this );
-	}
+    public function editing()
+    {
+        return $this->is_clonable()
+            ? false
+            : new ACP\Editing\Service\Basic(
+                (new ACP\Editing\View\CheckboxList($this->get_field_setting('options')))->set_clear_button(true),
+                (new StorageFactory())->create($this, false)
+            );
+    }
+
+    public function search()
+    {
+        return (new Search\Factory\CheckboxList())->create($this);
+    }
 
 }

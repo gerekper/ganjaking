@@ -2,8 +2,9 @@
 
 namespace ACA\MetaBox\Editing\Service\Relation;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA;
-use ACP;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 
 class Term extends ACA\MetaBox\Editing\Service\Relation {
 
@@ -17,8 +18,12 @@ class Term extends ACA\MetaBox\Editing\Service\Relation {
 		return $results;
 	}
 
-	public function get_paginated_options( $s, $paged, $id = null ) {
-		return new ACP\Helper\Select\Paginated\Terms( $s, $paged, [ $this->relation->get_related_field_settings()['taxonomy'] ] );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'   => $search,
+			'page'     => $page,
+			'taxonomy' => $this->relation->get_related_field_settings()['taxonomy'],
+		] );
 	}
 
 }

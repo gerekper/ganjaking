@@ -21,10 +21,10 @@ class MetaData extends Comparison\Meta {
 
 		$this->sub_key = (string) $sub_key;
 
-		parent::__construct( $operators, '_wp_attachment_metadata', 'post' );
+		parent::__construct( $operators, '_wp_attachment_metadata' );
 	}
 
-	protected function get_meta_query( $operator, Value $value ) {
+	protected function get_meta_query( string $operator, Value $value ): array {
 		if ( Operators::EQ === $operator ) {
 			$operator = Operators::CONTAINS;
 			$value = new Value(

@@ -1,0 +1,233 @@
+/*Breadcrumbs Bar*/
+.pt_plus_breadcrumbs_bar {
+    position: relative;
+    display: flex !important;
+    vertical-align: middle;
+    z-index: 1
+}
+.pt_plus_breadcrumbs_bar  #breadcrumbs {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.pt_plus_breadcrumbs_bar #breadcrumbs > span:not(.del) {
+    margin: 0 5px;
+}
+.pt_plus_breadcrumbs_bar #breadcrumbs > span:not(.del):first-child{
+	margin-left: 0;
+}
+.pt_plus_breadcrumbs_bar #breadcrumbs > span:not(.del):last-child{
+    margin-right: 0;
+}
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner {
+    position: relative;
+    padding: 0;
+    vertical-align: middle
+}
+
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner #breadcrumbs a {
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-decoration: none;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease;
+}
+
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner #breadcrumbs i {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle
+}
+
+.pt_plus_breadcrumbs_bar #breadcrumbs .current .current_tab_sec {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease
+}
+
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner #breadcrumbs .current_active .current_tab_sec {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease
+}
+
+.pt_plus_breadcrumbs_bar_inner i:before {
+    position: relative;
+    display: flex;
+    vertical-align: middle;
+    align-items: center
+}
+
+.pt_plus_breadcrumbs_bar_inner i.bread-sep-icon {
+    vertical-align: middle
+}
+
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner a.home_bread_tab.on-off-home,.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner a.parent_sub_bread_tab.on-off-parent,.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner .current.on-off-current,.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner .current_active.on-off-current {
+    display: none!important
+}
+
+.pt_plus_breadcrumbs_bar img.bread-home-img {
+    max-width: 40px;
+    position: relative;
+    padding-right: 10px
+}
+
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner .bred_style_1 span.current {
+    position: relative;
+    vertical-align: middle
+}
+
+.pt_plus_breadcrumbs_bar_inner img.bread-sep-icon {
+    max-width: 20px;
+    height: auto
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_1 {
+    padding: .5rem 1rem;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2);
+    background-color: #8072fc;
+    color: #fff;
+    width: auto;
+    height: auto;
+    border-radius: 2px;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease;
+    border-radius: 50px
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_1 #breadcrumbs {
+    --breadcrumbsTextColor:#D1C4E9;--breadcrumbsTextColorActive:#fff}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_1 a.home_bread_tab {
+    display: inline-block;
+    position: relative;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_1 a.parent_sub_bread_tab {
+    display: inline-block;
+    position: relative;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_1 i {
+    font-size: 16px;
+    margin-right: 5px
+}
+.pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner.bred_style_2 {
+    width: 100%
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 #breadcrumbs {
+    list-style: none;
+    overflow: hidden;
+    width: 100%;
+    vertical-align: middle;
+    position: relative;
+    align-items: center;
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 a,.pt_plus_breadcrumbs_bar_inner.bred_style_2 .current_tab_sec {
+    background: hsla(34,85%,35%,1);
+    padding: 10px;
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 .current .current_tab_sec {
+    color: #fff;
+    text-decoration: none;
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 .current_active .current_tab_sec {
+    color: white;
+    text-decoration: none;
+    padding: 10px 10px 10px 40px;
+    background: brown;
+    background: hsla(34,85%,35%,1);
+    position: relative;
+    display: block
+}
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 #breadcrumbs > span:not(.del):before {
+    content: " ";
+    display: inline-block;
+    width: auto;
+    height: auto;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid #a5630cbf;
+    position: absolute;
+    z-index: 1;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease;
+    position: absolute;
+    left: calc(100% - 30px);
+}
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 .current_active .current_tab_sec:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 i {
+    padding-right: 5px
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 i.bread-sep-icon {
+    color: transparent
+}
+
+.pt_plus_breadcrumbs_bar_inner.bred_style_2 #breadcrumbs > span:not(.del){	
+	position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    padding-right: 30px;
+	margin-right:0;
+}

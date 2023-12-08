@@ -9,38 +9,94 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
+if ( isset( $sections_class, $haslogic, $column, $uniqid, $logic, $sections_popupbutton, $style, $description_position, $label_position, $label_size, $divider, $labelbgclass, $descriptionclass, $sectionbgcolorclass ) ) :
+	$sections_class       = (string) $sections_class;
+	$haslogic             = (string) $haslogic;
+	$column               = (string) $column;
+	$uniqid               = (string) $uniqid;
+	$logic                = (string) $logic;
+	$sections_popupbutton = (string) $sections_popupbutton;
+	$style                = (string) $style;
+	$description_position = (string) $description_position;
+	$label_position       = (string) $label_position;
+	$label_size           = (string) $label_size;
+	$divider              = (string) $divider;
+	$labelbgclass         = (string) $labelbgclass;
+	$descriptionclass     = (string) $descriptionclass;
+	$sectionbgcolorclass  = (string) $sectionbgcolorclass;
 
-if ( isset( $sections_type ) && 'popup' === $sections_type ) {
-	$sections_class .= ' section_popup';
-}
-if ( ! $haslogic ) {
-	$logic = '';
-}
-$tm_product_id_class = '';
-if ( ! empty( $tm_product_id ) ) {
-	$tm_product_id_class = ' tm-product-id-' . $tm_product_id;
-}
-if ( 'slider' === $sections_type ) {
-	$column .= ' tm-owl-slider-section';
-}
-if ( 'tabs' === $sections_type ) {
-	$column .= ' tc-tabs-section';
-}
-?>
+	if ( ! isset( $label ) ) {
+		$label = '';
+	}
+	if ( ! isset( $sections_type ) ) {
+		$sections_type = '';
+	}
+	if ( 'popup' === $sections_type ) {
+		$sections_class .= ' section_popup';
+	}
+	if ( ! $haslogic ) {
+		$logic = '';
+	}
+	$tm_product_id_class = '';
+	if ( ! empty( $tm_product_id ) ) {
+		$tm_product_id_class = ' tm-product-id-' . $tm_product_id;
+	}
+	if ( 'slider' === $sections_type ) {
+		$column .= ' tm-owl-slider-section';
+	}
+	if ( 'tabs' === $sections_type ) {
+		$column .= ' tc-tabs-section';
+	}
+	?>
 <div data-uniqid="<?php echo esc_attr( $uniqid ); ?>"
 	data-logic="<?php echo esc_attr( $logic ); ?>"
 	data-haslogic="<?php echo esc_attr( $haslogic ); ?>"
 	class="cpf-section tc-cell <?php echo esc_attr( $column ); ?> <?php echo esc_attr( $sections_class . $tm_product_id_class ); ?>">
-	<div class="tc-section-inner-wrap"><div class="tc-row">
+	<div class="tc-section-inner-wrap">
 	<?php
 
-	if ( isset( $sections_type ) && 'popup' === $sections_type ) {
-		$_popuplinkitle = ( ! empty( THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text ) ) ? THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text : esc_html__( 'Open', 'woocommerce-tm-extra-product-options' );
+	$row_classes = [];
+	$icon        = false;
+	$toggler     = '';
+
+	if ( 'box' === $style ) {
+		$row_classes[] = 'tm-box';
+		$row_classes[] = $sectionbgcolorclass;
+	}
+	if ( 'collapse' === $style || 'collapseclosed' === $style || 'accordion' === $style ) {
+		$row_classes[] = 'tm-collapse';
+		$row_classes[] = $sectionbgcolorclass;
+		if ( 'accordion' === $style ) {
+			$row_classes[] = 'tmaccordion';
+		}
+		$icon    = true;
+		$toggler = ' tm-toggle';
+		if ( '' === $label ) {
+			$label = '&nbsp;';
+		}
+	}
+
+	$row_classes = trim( join( ' ', $row_classes ) );
+	if ( ! empty( $row_classes ) ) {
+		$row_classes = ' ' . $row_classes;
+	}
+
+	echo '<div class="tc-row' . esc_attr( $row_classes ) . '">';
+
+	if ( 'popup' === $sections_type ) {
+		$_popuplinkitle = esc_html__( 'Open', 'woocommerce-tm-extra-product-options' );
+		if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text ) ) {
+			if ( '%auto%' !== THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text ) {
+				$_popuplinkitle = THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text;
+			} elseif ( '%auto%' === THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text && '' !== $label ) {
+				$_popuplinkitle = $label;
+			}
+		}
 		if ( isset( $sections_popupbuttontext ) && '' !== $sections_popupbuttontext ) {
 			$_popuplinkitle = $sections_popupbuttontext;
 		}
@@ -90,7 +146,7 @@ if ( 'tabs' === $sections_type ) {
 							'href'           => '#',
 							'data-title'     => $label,
 							'data-sectionid' => $uniqid,
-							'class'          => 'tc-cell tcwidth-100 tm-section-link',
+							'class'          => 'tc-cell tcwidth tcwidth-100 tm-section-link',
 						],
 					],
 					true
@@ -98,81 +154,51 @@ if ( 'tabs' === $sections_type ) {
 				break;
 		}
 
-		echo '<div class="tm-section-pop tc-cell tcwidth-100">';
-	}
-
-	$icon                = false;
-	$toggler             = '';
-	$css                 = '';
-	$descriptionclass    = '';
-	$sectionbgcolorclass = '';
-	if ( ! empty( $label_color ) ) {
-		$css .= '.color-' . esc_attr( sanitize_hex_color_no_hash( $label_color ) ) . '{color:' . esc_attr( sanitize_hex_color( $label_color ) ) . ';}';
-	}
-	if ( ! empty( $label_background_color ) ) {
-		$css .= '.bgcolor-' . esc_attr( sanitize_hex_color_no_hash( $label_background_color ) ) . '{background:' . esc_attr( sanitize_hex_color( $label_background_color ) ) . ';}';
-	}
-	if ( ! empty( $description_color ) ) {
-		$css              .= '.color-' . esc_attr( sanitize_hex_color_no_hash( $description_color ) ) . '{color:' . esc_attr( sanitize_hex_color( $description_color ) ) . ';}';
-		$descriptionclass .= ' color-' . sanitize_hex_color_no_hash( $description_color );
-	}
-	if ( ! empty( $description_background_color ) ) {
-		$css              .= '.bgcolor-' . esc_attr( sanitize_hex_color_no_hash( $description_background_color ) ) . '{background:' . esc_attr( sanitize_hex_color( $description_background_color ) ) . ';}';
-		$descriptionclass .= ' bgcolor-' . sanitize_hex_color_no_hash( $description_background_color );
-	}
-	if ( '' !== $style && ! empty( $sections_background_color ) ) {
-		$css                .= '.bgcolor-' . esc_attr( sanitize_hex_color_no_hash( $sections_background_color ) ) . '{background:' . esc_attr( sanitize_hex_color( $sections_background_color ) ) . ';}';
-		$sectionbgcolorclass = ' bgcolor-' . sanitize_hex_color_no_hash( $sections_background_color );
-	}
-
-	THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css );
-
-	if ( 'box' === $style ) {
-		echo '<div class="tm-box' . esc_attr( $sectionbgcolorclass ) . '">';
-	}
-	if ( 'collapse' === $style || 'collapseclosed' === $style || 'accordion' === $style ) {
-		echo '<div class="tm-collapse' . ( 'accordion' === $style ? ' tmaccordion' : '' ) . esc_attr( $sectionbgcolorclass ) . '">';
-		$icon    = true;
-		$toggler = ' tm-toggle';
-		if ( '' === $label ) {
-			$label = '&nbsp;';
-		}
+		echo '<div class="tm-section-pop tc-cell tcwidth tcwidth-100">';
 	}
 
 	if ( ( ! empty( $label ) && 'disable' !== $label_position ) || ( ! empty( $description ) && ( 'icontooltipright' === $description_position || 'icontooltipleft' === $description_position ) ) ) {
 		echo '<' . esc_attr( $label_size );
 
 		$class = '';
-		if ( ! empty( $description ) && 'tooltip' === $description_position ) {
-			$class = ' tm-tooltip';
-		}
-		if ( ! empty( $label_position ) ) {
-			$class .= ' tc-col-auto tm-' . $label_position;
+		if ( ( ! empty( $label_position ) && 'disable' !== $label_position ) || 'tooltip' === $description_position ) {
+			$class .= ' tc-col-auto';
+			if ( ! empty( $label_position ) ) {
+				$class .= ' tc-' . $label_position;
+			}
 		} else {
-			$class .= ' tcwidth-100';
+			$class .= ' tcwidth tcwidth-100';
 		}
 		if ( ! empty( $label_color ) ) {
-			$class .= ' color-' . sanitize_hex_color_no_hash( $label_color );
+			$class .= ' color-' . themecomplete_sanitize_hex_color_no_hash( $label_color );
 		}
-		if ( ! empty( $label_background_color ) ) {
-			$class .= ' bgcolor-' . sanitize_hex_color_no_hash( $label_background_color );
+		if ( ! empty( $labelbgclass ) ) {
+			$class .= $labelbgclass;
 		}
+		echo ' class="tc-cell tc-epo-label tm-section-label' . esc_attr( $toggler . $class ) . '">';
+
+		// Icon tooltip.
+		if ( 'icontooltipleft' === $description_position || 'icontooltipright' === $description_position ) {
+			echo '<i data-tm-tooltip-swatch="on" class="tc-' . esc_attr( $description_position ) . ' tm-tooltip tc-tooltip tcfa tcfa-question-circle tc-epo-style-space"></i>';
+		}
+
+		// Label text.
+		$section_label_text_class = 'tc-section-label-text';
+		if ( ! empty( $description ) && 'tooltip' === $description_position ) {
+			$section_label_text_class .= ' tm-tooltip';
+		}
+		echo '<span class="' . esc_attr( $section_label_text_class ) . '"';
 		if ( ! empty( $description ) && ! empty( $description_position ) && 'tooltip' === $description_position ) {
 			echo ' data-tm-tooltip-swatch="on"';
 		}
-		echo ' class="tc-cell tc-col-auto tc-epo-label tm-section-label' . esc_attr( $toggler . $class ) . '">';
-		if ( 'icontooltipleft' === $description_position ) {
-			echo '<i data-tm-tooltip-swatch="on" class="tm-tooltip tc-tooltip tc-tooltip-left tcfa tcfa-question-circle"></i>';
-		}
+		echo '>';
 		if ( ! empty( $label ) && 'disable' !== $label_position ) {
 			// $label may contain HTML code
 			echo apply_filters( 'wc_epo_kses', wp_kses_post( $label ), $label ); // phpcs:ignore WordPress.Security.EscapeOutput
 		} else {
 			echo '&nbsp;';
 		}
-		if ( 'icontooltipright' === $description_position ) {
-			echo '<i data-tm-tooltip-swatch="on" class="tm-tooltip tc-tooltip tc-tooltip-right tcfa tcfa-question-circle"></i>';
-		}
+		echo '</span>';
 
 		if ( $icon ) {
 			echo '<span class="tcfa tcfa-angle-down tm-arrow"></span>';
@@ -181,14 +207,34 @@ if ( 'tabs' === $sections_type ) {
 		echo '</' . esc_attr( $label_size ) . '>';
 	}
 
-	echo '<div class="tc-cell tc-col">';
-
-	if ( ! empty( $description ) && ( empty( $description_position ) || 'tooltip' === $description_position || 'icontooltipright' === $description_position || 'icontooltipleft' === $description_position ) ) {
-		echo '<div class="tm-section-description tm-description' . ( 'tooltip' === $description_position || 'icontooltipright' === $description_position || 'icontooltipleft' === $description_position ? ' tm-tip-html' : '' ) . esc_attr( $descriptionclass ) . '">';
+	if ( ! empty( $description ) ) {
+		$descriptionclass = 'tc-cell tm-section-description tm-description' . $descriptionclass;
+		if ( ! empty( $label_position ) && ! empty( $description_position ) && 'below' !== $description_position ) {
+			$descriptionclass .= ' tc-col';
+		} else {
+			$descriptionclass .= ' tcwidth tcwidth-100';
+			if ( 'below' !== $description_position && ( 'left' === $label_position || 'right' === $label_position ) ) {
+				$descriptionclass .= ' tc-first';
+			}
+		}
+		if ( 'tooltip' === $description_position || 'icontooltipright' === $description_position || 'icontooltipleft' === $description_position ) {
+			$descriptionclass .= ' tm-tip-html';
+		}
+		if ( ! empty( $description_position ) && 'tooltip' !== $description_position ) {
+			$descriptionclass .= ' tc-' . $description_position;
+		}
+		echo '<div class="' . esc_attr( $descriptionclass ) . '">';
 		// $description contains HTML code
 		echo apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description ); // phpcs:ignore WordPress.Security.EscapeOutput
 		echo '</div>';
 	}
+
+	if ( ! empty( $label_position ) && 'disable' !== $label_position ) {
+		$fields_class = 'tc-cell tc-col';
+	} else {
+		$fields_class = 'tc-cell tcwidth tcwidth-100';
+	}
+	echo '<div class="' . esc_attr( $fields_class ) . '">';
 
 	switch ( $divider ) {
 		case 'hr':
@@ -213,3 +259,5 @@ if ( 'tabs' === $sections_type ) {
 	}
 
 	echo '<div class="tc-row">';
+
+endif;

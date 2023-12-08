@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use AC;
-use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Model\Disabled;
 
 class AuthorFactory
 {
 
-    public function create(string $type): AbstractModel
+    public function create(string $type)
     {
         switch ($type) {
             case AC\Settings\Column\User::PROPERTY_FIRST_NAME :
@@ -30,7 +28,7 @@ class AuthorFactory
             case AC\Settings\Column\User::PROPERTY_ROLES :
                 return new Author\Roles();
             default:
-                return new Disabled();
+                return null;
         }
     }
 

@@ -2,13 +2,12 @@
 
 namespace ACA\WC\Sorting\ProductVariation;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class SKU extends AbstractModel implements QueryBindings
+class SKU implements QueryBindings
 {
 
     public function create_query_bindings(Order $order): Bindings

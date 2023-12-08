@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_DPD {
 
@@ -39,6 +39,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_DPD
 	 * @since 1.0
 	 * @static
 	 */
@@ -60,7 +61,6 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		add_filter( 'plugins_loaded', [ $this, 'add_compatibility_settings' ], 2, 1 );
 		add_filter( 'wc_epo_autoload_path', [ $this, 'wc_epo_autoload_path' ], 10, 2 );
 		add_filter( 'wc_epo_autoload_file', [ $this, 'wc_epo_autoload_file' ], 10, 2 );
-
 	}
 
 	/**
@@ -86,7 +86,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add setting in main THEMECOMPLETE_EPO class
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_get_settings( $settings = [] ) {
@@ -105,8 +106,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	}
 
 	/**
-	 * Check if  WooCommerce Dynamic Pricing & Discounts is enabled
+	 * Check if WooCommerce Dynamic Pricing & Discounts is enabled
 	 *
+	 * @return boolean
 	 * @since 1.0
 	 */
 	public function is_dpd_enabled() {
@@ -116,19 +118,19 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
-
 		if ( ! class_exists( 'RP_WCDPD' ) ) {
 			return;
 		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
 
-		if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable ) {
+		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) && 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) {
 			add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'cart_loaded_from_session_2' ], 2 );
-			if ( version_compare( RP_WCDPD_VERSION, '2.3.4', '>=' ) ) {
+			if ( defined( 'RP_WCDPD_VERSION' ) && version_compare( RP_WCDPD_VERSION, '2.3.4', '>=' ) ) {
 				add_filter( 'woocommerce_product_get_price', [ $this, 'woocommerce_product_get_price_99999' ], 99999, 2 );
 				add_filter( 'woocommerce_product_variation_get_price', [ $this, 'woocommerce_product_get_price_99999' ], 99999, 2 );
 				// Using woocommerce_before_mini_cart_contents instead of woocommerce_before_mini_cart
@@ -138,11 +140,11 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				add_action( 'woocommerce_mini_cart_contents', [ $this, 'woocommerce_after_mini_cart' ] );
 			} else {
 				add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'cart_loaded_from_session_99999' ], 99999 );
-				add_filter( 'rightpress_product_price_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
+				add_filter( 'rightpress_product_price_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10 );
 			}
 		}
 		// This is needed in order for our hooks like woocommerce_cart_item_price to work correctly.
-		add_filter( 'rightpress_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
+		add_filter( 'rightpress_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10 );
 
 		add_filter( 'wc_epo_adjust_price_before_calculate_totals', [ $this, 'wc_epo_adjust_price_before_calculate_totals' ] );
 		add_filter( 'woocommerce_cart_item_price', [ $this, 'cart_item_price' ], 99999, 3 );
@@ -162,43 +164,45 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		add_filter( 'epo_can_show_order_price', [ $this, 'epo_can_show_order_price' ], 10, 2 );
 
 		add_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
-
 	}
 
 	/**
 	 * Select correct original price type mode
 	 *
-	 * @param boolean $ret true or false.
+	 * @return false
 	 * @since 5.0.12.9
 	 */
-	public function wc_epo_adjust_price_before_calculate_totals( $ret ) {
-
+	public function wc_epo_adjust_price_before_calculate_totals() {
 		return false;
-
 	}
 
 	/**
 	 * Select correct original price type mode
 	 *
 	 * @param float|string $price The price to convert.
-	 * @param array        $post_data The posted data.
+	 * @param array<mixed> $post_data The posted data.
+	 * @return mixed
 	 * @since 5.0.6
 	 */
 	public function wc_epo_original_price_type_mode( $price = '', $post_data = [] ) {
-
-		if ( THEMECOMPLETE_EPO()->tm_epo_dpd_original_price_base === 'undiscounted' && isset( $post_data['tcaddtocart'] ) ) {
+		if ( 'undiscounted' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_original_price_base'] && isset( $post_data['tcaddtocart'] ) ) {
+			if ( class_exists( 'RightPress_Product_Price' ) ) {
+				RightPress_Product_Price::get_instance()->start_running_custom_calculations();
+			}
 			$product = wc_get_product( $post_data['tcaddtocart'] );
 			$type    = themecomplete_get_product_type( $product );
 			if ( 'variable' === $type || 'variable-subscription' === $type ) {
-				remove_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
+				remove_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1 );
 				$product = wc_get_product( $post_data['variation_id'] );
-				remove_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
+				add_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
 			}
 			$price = $product->get_price();
+			if ( class_exists( 'RightPress_Product_Price' ) ) {
+				RightPress_Product_Price::get_instance()->stop_running_custom_calculations();
+			}
 		}
 
 		return $price;
-
 	}
 
 	/**
@@ -206,6 +210,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @access public
 	 *
+	 * @return void
 	 * @since 5.0
 	 */
 	public function woocommerce_before_mini_cart() {
@@ -225,6 +230,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @access public
 	 *
+	 * @return void
 	 * @since  5.0
 	 */
 	public function woocommerce_after_mini_cart() {
@@ -243,9 +249,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @param integer $price The price to convert.
 	 * @param object  $product The product object.
+	 * @return mixed
 	 *
 	 * @since  4.9.12
-	 * @return bool
 	 */
 	public function woocommerce_product_get_price_99999( $price, $product ) {
 		if ( is_cart() || is_checkout() || ! empty( $product->tc_in_mini_cart ) ) {
@@ -268,24 +274,23 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Change late hook priority
 	 *
-	 * @param integer $priority The priority to alter..
+	 * @return integer
 	 *
 	 * @since  4.9.6
-	 * @return bool
 	 */
-	public function rightpress_product_price_late_hook_priority( $priority ) {
+	public function rightpress_product_price_late_hook_priority() {
 		return 99990;
 	}
 
 	/**
 	 * Check if we can show option prices in the order
 	 *
-	 * @param boolean $can true or false.
-	 * @param array   $item_meta The item meta.
+	 * @param boolean      $can true or false.
+	 * @param array<mixed> $item_meta The item meta.
 	 * @return boolean
 	 * @since  4.8.4
 	 */
-	public function epo_can_show_order_price( $can = TURE, $item_meta = [] ) {
+	public function epo_can_show_order_price( $can = true, $item_meta = [] ) {
 		$order_flag = isset( $item_meta[ $this->order_flag ] ) ? $item_meta[ $this->order_flag ] : ( isset( $item_meta[ '_' . $this->order_flag ] ) ? $item_meta[ '_' . $this->order_flag ] : [] );
 		if ( is_array( $order_flag ) && count( $order_flag ) > 0 ) {
 			$order_flag = $order_flag[0];
@@ -294,7 +299,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		if ( is_array( $order_flag ) && count( $order_flag ) > 0 ) {
 			$order_flag = $order_flag[0];
 		}
-		if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_show_option_prices_in_order && ! empty( $order_flag ) ) {
+		if ( 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_show_option_prices_in_order'] && ! empty( $order_flag ) ) {
 			$can = false;
 		}
 
@@ -306,10 +311,10 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @access public
 	 *
-	 * @param integer $from The from range.
-	 * @param integer $to The to range.
+	 * @param mixed $from The from range.
+	 * @param mixed $to The to range.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public static function get_missing_range( $from, $to ) {
 		return [
@@ -326,55 +331,57 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @access public
 	 *
-	 * @param array  $quantity_ranges Array of ranges.
-	 * @param object $product The product object.
+	 * @param array<mixed> $quantity_ranges Array of ranges.
+	 * @param object       $product The product object.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public static function add_missing_ranges( $quantity_ranges, $product ) {
 		$fixed = [];
 
-		// Check if product uses decimal quantities.
-		$decimal_quantities = RP_WCDPD_Settings::get( 'decimal_quantities' ) && RightPress_Helper::wc_product_uses_decimal_quantities( $product );
+		if ( class_exists( 'RP_WCDPD_Settings' ) && class_exists( 'RightPress_Helper' ) ) {
+			// Check if product uses decimal quantities.
+			$decimal_quantities = RP_WCDPD_Settings::get( 'decimal_quantities' ) && RightPress_Helper::wc_product_uses_decimal_quantities( $product );
 
-		// Get quantity step.
-		$quantity_step = $decimal_quantities ? RightPress_Helper::get_wc_product_quantity_step( $product ) : 1;
+			// Get quantity step.
+			$quantity_step = $decimal_quantities ? RightPress_Helper::get_wc_product_quantity_step( $product ) : 1;
 
-		$last_from = null;
-		$last_to   = null;
+			$last_from = null;
+			$last_to   = null;
 
-		$count = count( $quantity_ranges );
-		$i     = 1;
+			$count = count( $quantity_ranges );
+			$i     = 1;
 
-		foreach ( $quantity_ranges as $quantity_range ) {
+			foreach ( $quantity_ranges as $quantity_range ) {
 
-			// Get from and to.
-			$from = $quantity_range['from'];
-			$to   = $quantity_range['to'];
+				// Get from and to.
+				$from = $quantity_range['from'];
+				$to   = $quantity_range['to'];
 
-			// Maybe add first range.
-			if ( null === $last_from && $from > $quantity_step ) {
-				$fixed[] = self::get_missing_range( $quantity_step, ( $from - $quantity_step ) );
+				// Maybe add first range.
+				if ( null === $last_from && $from > $quantity_step ) {
+					$fixed[] = self::get_missing_range( $quantity_step, ( $from - $quantity_step ) );
+				}
+
+				// Gap between last to and current from.
+				if ( null !== $last_to && ( $from - $last_to ) > $quantity_step ) {
+					$fixed[] = self::get_missing_range( ( $last_to + $quantity_step ), ( $from - $quantity_step ) );
+				}
+
+				// Add current range.
+				$fixed[] = $quantity_range;
+
+				// Set last from and to.
+				$last_from = $from;
+				$last_to   = $to;
+
+				++$i;
 			}
 
-			// Gap between last to and current from.
-			if ( null !== $last_to && ( $from - $last_to ) > $quantity_step ) {
-				$fixed[] = self::get_missing_range( ( $last_to + $quantity_step ), ( $from - $quantity_step ) );
+			// Add closing range.
+			if ( null !== $last_to ) {
+				$fixed[] = self::get_missing_range( ( $last_to + $quantity_step ), null );
 			}
-
-			// Add current range.
-			$fixed[] = $quantity_range;
-
-			// Set last from and to.
-			$last_from = $from;
-			$last_to   = $to;
-
-			$i ++;
-		}
-
-		// Add closing range.
-		if ( null !== $last_to ) {
-			$fixed[] = self::get_missing_range( ( $last_to + $quantity_step ), null );
 		}
 
 		return $fixed;
@@ -383,46 +390,39 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Alter product price
 	 *
-	 * @param integer $price The price to convert.
-	 * @param object  $product The product object.
+	 * @param mixed  $price The price to convert.
+	 * @param object $product The product object.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function woocommerce_tm_epo_price_compatibility( $price, $product ) {
-
-		if ( class_exists( 'RP_WCDPD_Settings' ) && class_exists( 'RP_WCDPD_Promotion_Display_Price_Override' ) && RP_WCDPD_Settings::get( 'promo_display_price_override' ) ) {
-
-			if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
-				RP_WCDPD_Promotion_Display_Price_Override::get_instance()->remove_all_price_hooks();
-				$price = $product->get_base_price();
-				RP_WCDPD_Promotion_Display_Price_Override::get_instance()->add_all_price_hooks();
-			} else {
-				if ( class_exists( 'RP_WCDPD_Settings' ) && RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
+		if ( class_exists( 'RP_WCDPD_Settings' ) && defined( 'RP_WCDPD_VERSION' ) ) {
+			if ( class_exists( 'RP_WCDPD_Promotion_Display_Price_Override' ) && RP_WCDPD_Settings::get( 'promo_display_price_override' ) ) {
+				if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
+					RP_WCDPD_Promotion_Display_Price_Override::get_instance()->remove_all_price_hooks();
+					$price = $product->get_base_price();
+					RP_WCDPD_Promotion_Display_Price_Override::get_instance()->add_all_price_hooks();
+				} elseif ( RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
 					RP_WCDPD_Promotion_Display_Price_Override::get_instance()->remove_all_price_hooks();
 					$price = $product->get_price();
 					RP_WCDPD_Promotion_Display_Price_Override::get_instance()->add_all_price_hooks();
 				}
-			}
-		} elseif ( version_compare( RP_WCDPD_VERSION, '2.3', '>=' ) && class_exists( 'RightPress_Product_Price_Shop' ) ) {
-
-			if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
-				RightPress_Product_Price_Shop::start_observation();
-				$price = $product->get_base_price();
-				RightPress_Product_Price_Shop::get_observed();
-			} else {
-				if ( class_exists( 'RP_WCDPD_Settings' ) && RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
+			} elseif ( version_compare( RP_WCDPD_VERSION, '2.3', '>=' ) && class_exists( 'RightPress_Product_Price_Shop' ) ) {
+				if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
+					RightPress_Product_Price_Shop::start_observation();
+					$price = $product->get_base_price();
+					RightPress_Product_Price_Shop::get_observed();
+				} elseif ( RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
 					RightPress_Product_Price_Shop::start_observation();
 					$price = $product->get_price();
 					RightPress_Product_Price_Shop::get_observed();
 				}
-			}
-		} elseif ( version_compare( RP_WCDPD_VERSION, '2.2', '>=' ) && class_exists( 'RP_WCDPD_Product_Price_Override' ) ) {
-
-			if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
-				RP_WCDPD_Product_Price_Override::get_instance()->remove_all_price_hooks();
-				$price = $product->get_base_price();
-				RP_WCDPD_Product_Price_Override::get_instance()->add_all_price_hooks();
-			} else {
-				if ( class_exists( 'RP_WCDPD_Settings' ) && RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
+			} elseif ( version_compare( RP_WCDPD_VERSION, '2.2', '>=' ) && class_exists( 'RP_WCDPD_Product_Price_Override' ) ) {
+				if ( function_exists( 'WC_CP' ) && version_compare( WC_CP()->version, '3.8', '<' ) && 'composite' === themecomplete_get_product_type( $product ) && is_callable( [ $product, 'get_base_price' ] ) ) {
+					RP_WCDPD_Product_Price_Override::get_instance()->remove_all_price_hooks();
+					$price = $product->get_base_price();
+					RP_WCDPD_Product_Price_Override::get_instance()->add_all_price_hooks();
+				} elseif ( RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
 					RP_WCDPD_Product_Price_Override::get_instance()->remove_all_price_hooks();
 					$price = $product->get_price();
 					RP_WCDPD_Product_Price_Override::get_instance()->add_all_price_hooks();
@@ -436,7 +436,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add extra html data attributes
 	 *
-	 * @param array $args Array or arguments.
+	 * @param array<mixed> $args Array or arguments.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function wc_epo_template_tm_totals( $args ) {
@@ -472,20 +473,21 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add extra arguments to the totals template
 	 *
-	 * @param array  $args Array or arguments.
-	 * @param object $product The product object.
+	 * @param array<mixed> $args Array or arguments.
+	 * @param object       $product The product object.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_template_args_tm_totals( $args, $product ) {
-		$args['tm_epo_dpd_suffix']               = THEMECOMPLETE_EPO()->tm_epo_dpd_suffix;
-		$args['tm_epo_dpd_prefix']               = THEMECOMPLETE_EPO()->tm_epo_dpd_prefix;
-		$args['tm_epo_dpd_enable_pricing_table'] = THEMECOMPLETE_EPO()->tm_epo_dpd_enable_pricing_table;
-		$args['tm_epo_dpd_enable']               = THEMECOMPLETE_EPO()->tm_epo_dpd_enable;
-		$args['tm_epo_dpd_string_placement']     = THEMECOMPLETE_EPO()->tm_epo_dpd_string_placement;
-		$args['tm_epo_dpd_label_css_selector']   = THEMECOMPLETE_EPO()->tm_epo_dpd_label_css_selector;
-		$args['tm_epo_dpd_original_price_base']  = THEMECOMPLETE_EPO()->tm_epo_dpd_original_price_base;
+		$args['tm_epo_dpd_suffix']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_suffix'];
+		$args['tm_epo_dpd_prefix']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_prefix'];
+		$args['tm_epo_dpd_enable_pricing_table'] = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable_pricing_table'];
+		$args['tm_epo_dpd_enable']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'];
+		$args['tm_epo_dpd_string_placement']     = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_string_placement'];
+		$args['tm_epo_dpd_label_css_selector']   = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_label_css_selector'];
+		$args['tm_epo_dpd_original_price_base']  = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_original_price_base'];
 
-		$args['fields_price_rules'] = ( 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable ) ? $args['fields_price_rules'] : 1;
+		$args['fields_price_rules'] = ( 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) ? $args['fields_price_rules'] : 1;
 
 		if ( '1' === $args['price_override'] ) {
 			$args['fields_price_rules'] = 1;
@@ -503,15 +505,13 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				$terms = wp_get_post_terms( $pid, $attkey, [ 'fields' => 'all' ] );
 				if ( ! is_wp_error( $terms ) ) {
 					foreach ( $terms as $term ) {
-						if ( $term ) {
-							$attributes_to_id[ 'attribute_' . $attkey ][ $term->slug ] = $term->term_id;
-						}
+						$attributes_to_id[ 'attribute_' . $attkey ][ $term->slug ] = $term->term_id;
 					}
 				}
 			}
 		}
 
-		$args['attributes_to_id'] = esc_html( wp_json_encode( (array) $attributes_to_id ) );
+		$args['attributes_to_id'] = esc_html( (string) wp_json_encode( (array) $attributes_to_id ) );
 
 		return $args;
 	}
@@ -519,8 +519,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Get product price rules
 	 *
-	 * @param array       $price Price array.
-	 * @param object|null $product The product object.
+	 * @param array<mixed> $price Price array.
+	 * @param object|null  $product The product object.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function wc_epo_product_price_rules( $price = [], $product = null ) {
@@ -561,14 +562,14 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add order item meta
 	 *
-	 * @param integer $item_id The item id.
-	 * @param string  $cart_item_key The cart item key.
-	 * @param array   $values Array of value.
+	 * @param WC_Order_Item $item The order item object.
+	 * @param string        $cart_item_key The cart item key.
+	 * @param array<mixed>  $values Array of value.
+	 * @return void
 	 * @since 1.0
 	 */
-	public function wc_epo_order_item_meta( $item_id, $cart_item_key, $values ) {
+	public function wc_epo_order_item_meta( $item, $cart_item_key, $values ) {
 		if ( ! empty( $values['tmcartepo'] ) ) {
-			$item = $item_id;
 			$item->add_meta_data( '_' . $this->order_flag, [ 1 ] );
 		}
 	}
@@ -578,6 +579,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @param string $path The filat path.
 	 * @param string $original_class The class name.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function wc_epo_autoload_path( $path, $original_class ) {
@@ -594,6 +596,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @param string $file The file name.
 	 * @param string $original_class The class name.
+	 * @return string
 	 * @since 1.0
 	 */
 	public function wc_epo_autoload_file( $file, $original_class ) {
@@ -608,7 +611,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add plugin setting (header)
 	 *
-	 * @param array $headers Array of settings.
+	 * @param array<mixed> $headers Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_headers( $headers = [] ) {
@@ -620,7 +624,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Add plugin setting (setting)
 	 *
-	 * @param array $settings Array of settings.
+	 * @param array<mixed> $settings Array of settings.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function tm_epo_settings_settings( $settings = [] ) {
@@ -725,10 +730,10 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Alter cart contents
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function cart_loaded_from_session_2() {
-
 		$cart_contents = WC()->cart->cart_contents;
 
 		if ( is_array( $cart_contents ) ) {
@@ -739,16 +744,15 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				}
 			}
 		}
-
 	}
 
 	/**
 	 * Alter cart contents
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function cart_loaded_from_session_99999() {
-
 		$cart_contents = WC()->cart->cart_contents;
 		if ( is_array( $cart_contents ) ) {
 			foreach ( $cart_contents as $cart_item_key => $cart_item ) {
@@ -761,7 +765,6 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -769,14 +772,13 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @access public
 	 *
-	 * @param string $item_price The item price.
-	 * @param array  $cart_item The cart item.
-	 * @param string $cart_item_key The cart item key.
+	 * @param string       $item_price The item price.
+	 * @param array<mixed> $cart_item The cart item.
+	 * @param string       $cart_item_key The cart item key.
 	 *
 	 * @return string
 	 */
-	public function cart_item_price( $item_price = '', $cart_item = '', $cart_item_key = '' ) {
-
+	public function cart_item_price( $item_price = '', $cart_item = [], $cart_item_key = '' ) {
 		if ( ! isset( $cart_item['tmcartepo'] ) ) {
 			return $item_price;
 		}
@@ -801,7 +803,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		if ( 'advanced' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display ) {
 			$original_price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $cart_item['tm_epo_product_original_price'], $cart_item, '', 1 );
 			$float_original_price_to_display = floatval( $cart_item['tm_epo_product_original_price'] );
-			if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable ) {
+			if ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) {
 				$price                  = $this->get_rp_wcdpd( $cart_item['tm_epo_product_original_price'], wc_get_product( themecomplete_get_id( $cart_item['data'] ) ), $cart_item_key );
 				$price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $price, $cart_item, '', 1 );
 				$float_price_to_display = floatval( $price );
@@ -819,10 +821,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			$float_original_price_to_display = floatval( $cart_item['tm_epo_product_price_with_options'] );
 		}
 
-		if ( isset( $float_price_to_display ) &&
-			isset( $float_original_price_to_display ) &&
-			( strval( $float_price_to_display ) === strval( $float_original_price_to_display ) )
-		) {
+		if ( (string) $float_price_to_display === (string) $float_original_price_to_display ) {
 			return $item_price;
 		}
 
@@ -835,28 +834,29 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * Get WooCommerce Dynamic Pricing & Discounts price for options
 	 * modified from get version from Pricing class
 	 *
-	 * @param float       $field_price The field price.
-	 * @param string      $cart_item_key The cart item key.
-	 * @param object|null $pricing The pricing object.
-	 * @param boolean     $force true or false.
+	 * @param float   $field_price The field price.
+	 * @param string  $cart_item_key The cart item key.
+	 * @param mixed   $pricing The pricing object.
+	 * @param boolean $force true or false.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	private function get_rp_wcdpd_single( $field_price, $cart_item_key, $pricing = null, $force = false ) {
 
-		if ( empty( $cart_item_key ) || 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable && ! $force ) {
+		if ( empty( $cart_item_key ) || 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] && ! $force ) {
 			return $field_price;
 		}
 
 		$price          = $field_price;
 		$original_price = $price;
 
-		if ( ! $pricing ) {
+		if ( ! $pricing && class_exists( 'RP_WCDPD_Settings' ) ) {
 			// This runs on versions >=2.
 			$product_pricing = RP_WCDPD_Settings::get( 'product_pricing' );
 			$cart_item       = WC()->cart->cart_contents[ $cart_item_key ];
 
 			if ( ! isset( $cart_item['rp_wcdpd_data'] ) ) {
-				if ( class_exists( 'RightPress_Product_Price_Cart' ) && method_exists( 'RightPress_Product_Price_Cart', 'get_cart_item_price_changes' ) ) {
+				if ( class_exists( 'RightPress_Product_Price_Cart' ) && method_exists( 'RightPress_Product_Price_Cart', 'get_cart_item_price_changes' ) ) { // @phpstan-ignore-line
 					$price_changes = RightPress_Product_Price_Cart::get_cart_item_price_changes( $cart_item_key );
 					if ( ! isset( $price_changes['original_price'] ) ) {
 						return $field_price;
@@ -872,9 +872,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			if ( (float) $initial_product_price > 0 ) {
 
 				$product_price = $initial_product_price;
-				if ( class_exists( 'RP_WCDPD_WC_Cart' ) && method_exists( 'RP_WCDPD_WC_Cart', 'get_cart_item_price_for_display' ) ) {
+				if ( class_exists( 'RP_WCDPD_WC_Cart' ) && method_exists( 'RP_WCDPD_WC_Cart', 'get_cart_item_price_for_display' ) ) { // @phpstan-ignore-line
 					$product_price = RP_WCDPD_WC_Cart::get_cart_item_price_for_display( $cart_item );
-				} elseif ( class_exists( 'RightPress_Product_Price_Display' ) && method_exists( 'RightPress_Product_Price_Display', 'prepare_product_price_for_display' ) ) {
+				} elseif ( class_exists( 'RightPress_Product_Price_Display' ) && method_exists( 'RightPress_Product_Price_Display', 'prepare_product_price_for_display' ) ) { // @phpstan-ignore-line
 					$product_price = (float) RightPress_Product_Price_Display::prepare_product_price_for_display( $cart_item['data'], null, true );
 				}
 
@@ -886,9 +886,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 					$tax_display_cart = get_option( 'woocommerce_tax_display_cart' );
 
 					if ( 'excl' === $tax_display_cart ) {
-
 						if ( (float) 0 !== floatval( $initial_product_price ) ) {
-							$initial_product_price = themecomplete_get_price_excluding_tax(
+							$initial_product_price = (float) themecomplete_get_price_excluding_tax(
 								$cart_item['data'],
 								[
 									'qty'   => 10000,
@@ -896,10 +895,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 								]
 							) / 10000;
 						}
-					} else {
-
+					} elseif ( 'incl' === $tax_display_cart ) {
 						if ( (float) 0 !== floatval( $initial_product_price ) ) {
-							$initial_product_price = themecomplete_get_price_including_tax(
+							$initial_product_price = (float) themecomplete_get_price_including_tax(
 								$cart_item['data'],
 								[
 									'qty'   => 10000,
@@ -916,12 +914,27 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			if ( ! isset( $pricing->items[ $cart_item_key ] ) ) {
 				return $field_price;
 			}
+			if ( method_exists( $pricing, 'apply_rule_to_item' ) && isset( $pricing->applied ) && isset( $pricing->apply ) && isset( $pricing->pricing_settings ) ) {
+				if ( in_array( $pricing->pricing_settings['apply_multiple'], [ 'all', 'first' ] ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
+					foreach ( $pricing->apply['global'] as $rule_key => $apply ) {
+						$deduction = $pricing->apply_rule_to_item( $rule_key, $apply, $cart_item_key, $pricing->items[ $cart_item_key ], false, $price );
+						if ( $deduction ) {
 
-			if ( in_array( $pricing->pricing_settings['apply_multiple'], [ 'all', 'first' ] ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
+							if ( 'other' === $apply['if_matched'] && isset( $pricing->applied['global'] ) ) {
+								if ( count( $pricing->applied['global'] ) > 1 || ! isset( $pricing->applied['global'][ $rule_key ] ) ) {
+									continue;
+								}
+							}
 
-				foreach ( $pricing->apply['global'] as $rule_key => $apply ) {
-					$deduction = $pricing->apply_rule_to_item( $rule_key, $apply, $cart_item_key, $pricing->items[ $cart_item_key ], false, $price );
-					if ( $deduction ) {
+							$pricing->applied['global'][ $rule_key ] = 1;
+							$price                                   = $price - $deduction;
+						}
+					}
+				} elseif ( 'biggest' === $pricing->pricing_settings['apply_multiple'] ) {
+
+					$price_deductions = [];
+
+					foreach ( $pricing->apply['global'] as $rule_key => $apply ) {
 
 						if ( 'other' === $apply['if_matched'] && isset( $pricing->applied ) && isset( $pricing->applied['global'] ) ) {
 							if ( count( $pricing->applied['global'] ) > 1 || ! isset( $pricing->applied['global'][ $rule_key ] ) ) {
@@ -929,33 +942,18 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 							}
 						}
 
-						$pricing->applied['global'][ $rule_key ] = 1;
-						$price                                   = $price - $deduction;
-					}
-				}
-			} elseif ( 'biggest' === $pricing->pricing_settings['apply_multiple'] ) {
-
-				$price_deductions = [];
-
-				foreach ( $pricing->apply['global'] as $rule_key => $apply ) {
-
-					if ( 'other' === $apply['if_matched'] && isset( $pricing->applied ) && isset( $pricing->applied['global'] ) ) {
-						if ( count( $pricing->applied['global'] ) > 1 || ! isset( $pricing->applied['global'][ $rule_key ] ) ) {
-							continue;
+						$deduction = $pricing->apply_rule_to_item( $rule_key, $apply, $cart_item_key, $pricing->items[ $cart_item_key ], false );
+						if ( $deduction ) {
+							$price_deductions[ $rule_key ] = $deduction;
 						}
 					}
 
-					$deduction = $pricing->apply_rule_to_item( $rule_key, $apply, $cart_item_key, $pricing->items[ $cart_item_key ], false );
-					if ( $deduction ) {
-						$price_deductions[ $rule_key ] = $deduction;
+					if ( ! empty( $price_deductions ) ) {
+						$max_deduction                           = max( $price_deductions );
+						$rule_key                                = array_search( $max_deduction, $price_deductions ); // phpcs:ignore WordPress.PHP.StrictInArray
+						$pricing->applied['global'][ $rule_key ] = 1;
+						$price                                   = $price - $max_deduction;
 					}
-				}
-
-				if ( ! empty( $price_deductions ) ) {
-					$max_deduction                           = max( $price_deductions );
-					$rule_key                                = array_search( $max_deduction, $price_deductions ); // phpcs:ignore WordPress.PHP.StrictInArray
-					$pricing->applied['global'][ $rule_key ] = 1;
-					$price                                   = $price - $max_deduction;
 				}
 			}
 		}
@@ -971,7 +969,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * Get WooCommerce Dynamic Pricing & Discounts price rules
 	 *
 	 * @param float|null  $field_price The field price.
-	 * @param object|null $product The product object.
+	 * @param mixed       $product The product object.
 	 * @param string|null $cart_item_key The cart item key.
 	 * @param boolean     $force true or false.
 	 * @return mixed
@@ -985,8 +983,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 			$selected_rule = null;
 
-			$dpd_version_compare  = version_compare( RP_WCDPD_VERSION, '1.0.13', '<' );
-			$dpd_version_compare2 = version_compare( RP_WCDPD_VERSION, '2.0', '>=' );
+			$dpd_version_compare  = defined( 'RP_WCDPD_VERSION' ) && version_compare( RP_WCDPD_VERSION, '1.0.13', '<' );
+			$dpd_version_compare2 = defined( 'RP_WCDPD_VERSION' ) && version_compare( RP_WCDPD_VERSION, '2.0', '>=' );
 
 			if ( null !== $field_price && null !== $cart_item_key ) {
 				if ( $dpd_version_compare2 ) {
@@ -1002,7 +1000,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			) {
 				foreach ( $tm_rp_wcdpd->opt['pricing']['sets'] as $rule_key => $rule ) {
 					$validated_rule = RP_WCDPD_Pricing::validate_rule( $rule );
-					if ( 'quantity' === $rule['method'] && $validated_rule ) {
+					if ( 'quantity' === $rule['method'] && $validated_rule && method_exists( $tm_rp_wcdpd, 'user_matches_rule' ) && method_exists( $tm_rp_wcdpd, 'get_product_categories' ) ) {
 						if ( $dpd_version_compare ) {
 							if ( 'all' === $validated_rule['selection_method'] && $tm_rp_wcdpd->user_matches_rule( $validated_rule['user_method'], $validated_rule['roles'] ) ) {
 								$selected_rule = $validated_rule;
@@ -1053,113 +1051,111 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			if ( $dpd_version_compare2 ) {
 				$price = [];
 
-				$all_rules = [];
-				if ( ! $product->is_type( 'variable' ) && ! $product->is_type( 'variation' ) ) {
+				$all_rules  = [];
+				$table_data = [];
+				if ( class_exists( 'RP_WCDPD_Product_Pricing' ) && class_exists( 'RP_WCDPD_Settings' ) ) {
+					if ( ! $product->is_type( 'variable' ) && ! $product->is_type( 'variation' ) ) {
 
-					$price['is_multiprice'] = false;
+						$price['is_multiprice'] = false;
 
-					$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $product, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
+						$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $product, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
 
-					if ( ! $product_rules ) {
-						$product_rules = [];
-					}
-					$all_rules = [];
-					foreach ( $product_rules as $k => $rule ) {
-						$apply_this_rule = true;
-						if ( isset( $rule['group_products'] ) && is_array( $rule['group_products'] ) && isset( $rule['method'] ) && ( 'group_repeat' === $rule['method'] || 'group' === $rule['method'] ) ) {
-							$this_product_id = themecomplete_get_id( $product );
-							foreach ( $rule['group_products'] as $grouprule ) {
-								if ( 'product__product' === $grouprule['type'] ) {
-									$method_option = $grouprule['method_option'];
-									$products      = $grouprule['products'];
-
-									if ( 'in_list' === $method_option ) {
-										if ( ! in_array( $this_product_id, $products ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-											$apply_this_rule = false;
-											break;
-										}
-									}
-								} else {
-									$apply_this_rule = false;
-								}
-							}
-						}
-						if ( $apply_this_rule ) {
-							$all_rules[] = [
-								'product' => $product,
-								'rule'    => $rule,
-							];
-						}
-					}
-				} else {
-
-					if ( $product->is_type( 'variation' ) ) {
-						$product = wc_get_product( $product->get_parent_id() );
-					}
-
-					$variation_rules = [];
-					foreach ( $product->get_available_variations() as $variation_data ) {
-						$variation = wc_get_product( $variation_data['variation_id'] );
-
-						$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $variation, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
 						if ( ! $product_rules ) {
 							$product_rules = [];
 						}
+						$all_rules = [];
 						foreach ( $product_rules as $k => $rule ) {
-							$variation_rules[ $variation_data['variation_id'] ][] = [
-								'product' => $variation,
-								'rule'    => $rule,
-							];
+							$apply_this_rule = true;
+							if ( isset( $rule['group_products'] ) && is_array( $rule['group_products'] ) && isset( $rule['method'] ) && ( 'group_repeat' === $rule['method'] || 'group' === $rule['method'] ) ) {
+								$this_product_id = themecomplete_get_id( $product );
+								foreach ( $rule['group_products'] as $grouprule ) {
+									if ( 'product__product' === $grouprule['type'] ) {
+										$method_option = $grouprule['method_option'];
+										$products      = $grouprule['products'];
+
+										if ( 'in_list' === $method_option ) {
+											if ( ! in_array( $this_product_id, $products ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
+												$apply_this_rule = false;
+												break;
+											}
+										}
+									} else {
+										$apply_this_rule = false;
+									}
+								}
+							}
+							if ( $apply_this_rule ) {
+								$all_rules[] = [
+									'product' => $product,
+									'rule'    => $rule,
+								];
+							}
 						}
+					} else {
+
+						if ( $product->is_type( 'variation' ) ) {
+							$product = wc_get_product( $product->get_parent_id() );
+						}
+
+						$variation_rules = [];
+						foreach ( $product->get_available_variations() as $variation_data ) {
+							$variation = wc_get_product( $variation_data['variation_id'] );
+
+							$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $variation, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
+							if ( ! $product_rules ) {
+								$product_rules = [];
+							}
+							foreach ( $product_rules as $k => $rule ) {
+								$variation_rules[ $variation_data['variation_id'] ][] = [
+									'product' => $variation,
+									'rule'    => $rule,
+								];
+							}
+						}
+
+						$all_rules              = $variation_rules;
+						$price['is_multiprice'] = true;
 					}
 
-					$all_rules              = $variation_rules;
-					$price['is_multiprice'] = true;
-				}
-				$table_data = [];
-				if ( ! $price['is_multiprice'] ) {
-					foreach ( $all_rules as $single ) {
-						$_product = $single['product'];
-						$_rule    = $single['rule'];
-						if ( ! $_rule ) {
-							continue;
-						}
-
-						$original_price = $_product->get_price();
-						if ( isset( $_rule['quantity_ranges'] ) ) {
-							$quantity_ranges = $_rule['quantity_ranges'];
-							if ( RP_WCDPD_Settings::get( 'promo_volume_pricing_table_missing_ranges' ) === 'display' ) {
-								$quantity_ranges = $this->add_missing_ranges( $quantity_ranges, $_product );
+					if ( ! $price['is_multiprice'] ) {
+						foreach ( $all_rules as $single ) {
+							$_product = $single['product'];
+							$_rule    = $single['rule'];
+							if ( ! $_rule ) {
+								continue;
 							}
 
-							foreach ( $quantity_ranges as $quantity_range ) {
-
-								switch ( $quantity_range['pricing_method'] ) {
-									case 'discount__percentage':
-										$quantity_range['pricing_method'] = 'percentage';
-										break;
-									case 'discount__amount':
-										$quantity_range['pricing_method'] = 'price';
-										break;
-									case 'fixed__price':
-										$quantity_range['pricing_method'] = 'fixed';
-										break;
-
-									default:
-										// code...
-										break;
+							$original_price = $_product->get_price();
+							if ( isset( $_rule['quantity_ranges'] ) ) {
+								$quantity_ranges = $_rule['quantity_ranges'];
+								if ( RP_WCDPD_Settings::get( 'promo_volume_pricing_table_missing_ranges' ) === 'display' ) {
+									$quantity_ranges = $this->add_missing_ranges( $quantity_ranges, $_product );
 								}
-								$table_data[] = [
-									'min'        => $quantity_range['from'],
-									'max'        => $quantity_range['to'],
-									'type'       => $quantity_range['pricing_method'],
-									'value'      => $quantity_range['pricing_value'],
-									'conditions' => isset( $_rule['conditions'] ) ? $_rule['conditions'] : [],
-								];
+								foreach ( $quantity_ranges as $quantity_range ) {
+									switch ( $quantity_range['pricing_method'] ) {
+										case 'discount__percentage':
+											$quantity_range['pricing_method'] = 'percentage';
+											break;
+										case 'discount__amount':
+											$quantity_range['pricing_method'] = 'price';
+											break;
+										case 'fixed__price':
+											$quantity_range['pricing_method'] = 'fixed';
+											break;
 
-							}
-						} else {
-							if ( isset( $_rule['pricing_method'] ) && isset( $_rule['pricing_value'] ) ) {
+										default:
+											// code...
+											break;
+									}
+									$table_data[] = [
+										'min'        => $quantity_range['from'],
+										'max'        => $quantity_range['to'],
+										'type'       => $quantity_range['pricing_method'],
+										'value'      => $quantity_range['pricing_value'],
+										'conditions' => isset( $_rule['conditions'] ) ? $_rule['conditions'] : [],
+									];
+								}
+							} elseif ( isset( $_rule['pricing_method'] ) && isset( $_rule['pricing_value'] ) ) {
 								$table_data[] = [
 									'min'        => 1,
 									'max'        => '',
@@ -1177,53 +1173,49 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 								];
 							}
 						}
-					}
-				} else {
-					foreach ( $all_rules as $vid => $vidsingle ) {
+					} else {
+						foreach ( $all_rules as $vid => $vidsingle ) {
 
-						foreach ( $vidsingle as $single ) {
+							foreach ( $vidsingle as $single ) {
 
-							$_product = $single['product'];
-							$_rule    = $single['rule'];
-							if ( ! $_rule ) {
-								continue;
-							}
-
-							$original_price = $_product->get_price();
-							if ( isset( $_rule['quantity_ranges'] ) ) {
-								$quantity_ranges = $_rule['quantity_ranges'];
-								if ( RP_WCDPD_Settings::get( 'promo_volume_pricing_table_missing_ranges' ) === 'display' ) {
-									$quantity_ranges = $this->add_missing_ranges( $quantity_ranges, $_product );
+								$_product = $single['product'];
+								$_rule    = $single['rule'];
+								if ( ! $_rule ) {
+									continue;
 								}
 
-								foreach ( $quantity_ranges as $quantity_range ) {
-
-									switch ( $quantity_range['pricing_method'] ) {
-										case 'discount__percentage':
-											$quantity_range['pricing_method'] = 'percentage';
-											break;
-										case 'discount__amount':
-											$quantity_range['pricing_method'] = 'price';
-											break;
-										case 'fixed__price':
-											$quantity_range['pricing_method'] = 'fixed';
-											break;
-
-										default:
-											// code...
-											break;
+								$original_price = $_product->get_price();
+								if ( isset( $_rule['quantity_ranges'] ) ) {
+									$quantity_ranges = $_rule['quantity_ranges'];
+									if ( RP_WCDPD_Settings::get( 'promo_volume_pricing_table_missing_ranges' ) === 'display' ) {
+										$quantity_ranges = $this->add_missing_ranges( $quantity_ranges, $_product );
 									}
-									$table_data[ $vid ][] = [
-										'min'        => $quantity_range['from'],
-										'max'        => $quantity_range['to'],
-										'type'       => $quantity_range['pricing_method'],
-										'value'      => $quantity_range['pricing_value'],
-										'conditions' => isset( $_rule['conditions'] ) ? $_rule['conditions'] : [],
-									];
+									foreach ( $quantity_ranges as $quantity_range ) {
+										switch ( $quantity_range['pricing_method'] ) {
+											case 'discount__percentage':
+												$quantity_range['pricing_method'] = 'percentage';
+												break;
+											case 'discount__amount':
+												$quantity_range['pricing_method'] = 'price';
+												break;
+											case 'fixed__price':
+												$quantity_range['pricing_method'] = 'fixed';
+												break;
 
-								}
-							} else {
-								if ( isset( $_rule['pricing_method'] ) && isset( $_rule['pricing_value'] ) ) {
+											default:
+												// code...
+												break;
+										}
+										$table_data[ $vid ][] = [
+											'min'        => $quantity_range['from'],
+											'max'        => $quantity_range['to'],
+											'type'       => $quantity_range['pricing_method'],
+											'value'      => $quantity_range['pricing_value'],
+											'conditions' => isset( $_rule['conditions'] ) ? $_rule['conditions'] : [],
+										];
+
+									}
+								} elseif ( isset( $_rule['pricing_method'] ) && isset( $_rule['pricing_value'] ) ) {
 									$table_data[ $vid ][] = [
 										'min'        => 1,
 										'max'        => '',
@@ -1274,7 +1266,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 						}
 					}
 
-					if ( $multiprice_variable_product ) {
+					if ( $multiprice_variable_product && ! empty( $product_variations ) ) {
 						$variation_table_data = [];
 
 						foreach ( $product_variations as $variation ) {
@@ -1285,7 +1277,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 						$price['is_multiprice'] = true;
 						$price['rules']         = $variation_table_data;
 					} else {
-						if ( 'variable' === themecomplete_get_product_type( $product ) && ! empty( $product_variations ) ) {
+						if ( 'variable' === themecomplete_get_product_type( $product ) && ! empty( $last_product_variation ) ) {
 							$variation_product = wc_get_product( $last_product_variation[0]['variation_id'] );
 							$table_data        = $tm_rp_wcdpd->pricing_table_calculate_adjusted_prices( $selected_rule['pricing'], $variation_product->get_price() );
 						} else {
@@ -1304,5 +1296,4 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 		return $price;
 	}
-
 }

@@ -2,52 +2,56 @@
 
 namespace ACA\WC\Column\ShopOrder;
 
+use AC;
+use AC\MetaType;
 use ACA\WC\Search;
 use ACA\WC\Settings;
 use ACP;
-use ACP\Filtering;
 
-/**
- * @since 3.0
- */
-class IP extends ACP\Column\Meta
-	implements ACP\Search\Searchable, ACP\ConditionalFormat\Formattable {
+class IP extends AC\Column
+    implements ACP\Search\Searchable, ACP\ConditionalFormat\Formattable, ACP\Editing\Editable, ACP\Sorting\Sortable
+{
 
-	use ACP\ConditionalFormat\ConditionalFormatTrait;
+    use ACP\ConditionalFormat\ConditionalFormatTrait;
 
-	public function __construct() {
-		$this->set_type( 'column-wc-order_ip' )
-		     ->set_label( __( 'Customer IP address', 'codepress-admin-columns' ) )
-		     ->set_group( 'woocommerce' );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-wc-order_ip')
+             ->set_label(__('Customer IP address', 'codepress-admin-columns'))
+             ->set_group('woocommerce');
+    }
 
-	public function get_meta_key() {
-		switch ( $this->get_setting( 'ip_property' )->get_value() ) {
-			case 'country':
-				$key = '_customer_ip_country';
+    public function get_meta_key(): string
+    {
+        switch ($this->get_setting('ip_property')->get_value()) {
+            case 'country':
+                return '_customer_ip_country';
+            default:
+                return '_customer_ip_address';
+        }
+    }
 
-				break;
-			default:
-				$key = '_customer_ip_address';
-		}
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\ShopOrder\IP($this));
+    }
 
-		return $key;
-	}
+    public function editing()
+    {
+        return new ACP\Editing\Service\Basic(
+            (new ACP\Editing\View\Text())->set_clear_button(true),
+            new ACP\Editing\Storage\Meta($this->get_meta_key(), new MetaType(MetaType::POST))
+        );
+    }
 
-	public function register_settings() {
-		$this->add_setting( new Settings\ShopOrder\IP( $this ) );
-	}
+    public function sorting()
+    {
+        return new ACP\Sorting\Model\Post\Meta($this->get_meta_key());
+    }
 
-	public function filtering() {
-		if ( '_customer_ip_address' === $this->get_meta_key() ) {
-			return new Filtering\Model\Disabled( $this );
-		}
-
-		return parent::filtering();
-	}
-
-	public function search() {
-		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
-	}
+    public function search()
+    {
+        return new ACP\Search\Comparison\Meta\Text($this->get_meta_key());
+    }
 
 }

@@ -42,7 +42,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
-	 * @var THEMECOMPLETE_EPO_UPDATE_Updater|null
+	 * @return THEMECOMPLETE_EPO_UPDATE_Updater
 	 * @since 1.0
 	 * @static
 	 */
@@ -60,6 +60,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	 * @since 1.0
 	 */
 	public function __construct() {
+		$this->title = esc_attr( $this->title );
 		$this->setup();
 		add_filter( 'upgrader_pre_download', [ $this, 'upgrade_filter_from_envato' ], 10, 4 );
 		add_action( 'upgrader_process_complete', [ $this, 'remove_temporary_dir' ] );
@@ -68,6 +69,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	/**
 	 * Setup the manager class
 	 *
+	 * @return void
 	 * @since 1.0
 	 * @static
 	 */
@@ -78,6 +80,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	/**
 	 * Get url with timestamp
 	 *
+	 * @return string
 	 * @since 1.0
 	 * @static
 	 */
@@ -91,11 +94,12 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	 * @param boolean     $reply Whether to bail without returning the package. Default false.
 	 * @param string      $package The package file name.
 	 * @param WP_Upgrader $updater The WP_Upgrader instance.
+	 * @return mixed
 	 * @since 1.0
 	 * @static
 	 */
 	public function upgrade_filter_from_envato( $reply, $package, $updater ) {
-
+		global $wp_filesystem;
 		if ( ( isset( $updater->skin->plugin ) && THEMECOMPLETE_EPO_PLUGIN_SLUG === $updater->skin->plugin ) ||
 			( isset( $updater->skin->plugin_info ) && isset( $updater->skin->plugin_info['Name'] ) && $updater->skin->plugin_info['Name'] === $this->title )
 		) {
@@ -110,7 +114,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 			$purchase_code = get_option( 'tm_epo_envato_purchasecode' );
 
 			if ( ! THEMECOMPLETE_EPO_LICENSE()->check_license() ) {
-				return new WP_Error( 'no_credentials', esc_html__( 'To receive automatic updates license activation is required.', 'woocommerce-tm-extra-product-options' ) . sprintf( '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=' . THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID ) ) . '">%s</a>', esc_html__( 'Please activate WooCommerce Extra Product Options.', 'woocommerce-tm-extra-product-options' ) ) );
+				return new WP_Error( 'no_credentials', esc_html__( 'To receive automatic updates license activation is required.', 'woocommerce-tm-extra-product-options' ) . sprintf( '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=' . THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID ) ) . '">%s</a>', esc_html__( 'Please activate Extra Product Options.', 'woocommerce-tm-extra-product-options' ) ) );
 			}
 
 			$result = $this->envato_download_purchase_url( $envato_token, $purchase_code );
@@ -138,20 +142,20 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 				$plugin_directory_name = 'woocommerce-tm-extra-product-options';
 				if ( basename( $download_file, '.zip' ) !== $plugin_directory_name ) {
 					$new_archive_name = dirname( $download_file ) . '/' . $plugin_directory_name . time() . '.zip';
-					if ( rename( $download_file, $new_archive_name ) ) {
+					// The third parameter is to overwrite if the destination file already exists.
+					if ( $wp_filesystem->move( $download_file, $new_archive_name, true ) ) {
 						$download_file = $new_archive_name;
 					}
 				}
 
 				return $download_file;
 			} else {
-				global $wp_filesystem;
 				$upgrade_folder = $wp_filesystem->wp_content_dir() . 'uploads/woocommerce-tm-extra-product-options-envato-package';
 				if ( is_dir( $upgrade_folder ) ) {
 					$wp_filesystem->delete( $upgrade_folder );
 				}
 				$result = unzip_file( $download_file, $upgrade_folder );
-				if ( $result && is_file( $upgrade_folder . '/' . $package_filename ) ) {
+				if ( true === $result && is_file( $upgrade_folder . '/' . $package_filename ) ) {
 					return $upgrade_folder . '/' . $package_filename;
 				}
 			}
@@ -167,6 +171,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	 *
 	 * @param string $envato_token The Envato token.
 	 * @param string $purchase_code The purchase code.
+	 * @return object
 	 * @since 1.0
 	 * @static
 	 */
@@ -204,6 +209,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	/**
 	 * Remove temp directory
 	 *
+	 * @return void
 	 * @since 1.0
 	 * @static
 	 */
@@ -213,7 +219,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 			$wp_filesystem->delete( $wp_filesystem->wp_content_dir() . 'uploads/woocommerce-tm-extra-product-options-envato-package', true );
 		}
 	}
-
 }
 
 /**
@@ -280,29 +285,29 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 	 * @param string                           $update_path The API url.
 	 * @param string                           $plugin_slug The plugin slug.
 	 * @param THEMECOMPLETE_EPO_UPDATE_Updater $instance The THEMECOMPLETE_EPO_UPDATE_Updater instance.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function __construct( $current_version, $update_path, $plugin_slug, $instance ) {
-
 		$this->updater_instance = $instance;
 		$this->plugin_envato_id = THEMECOMPLETE_EPO_PLUGIN_ID;
 		$this->current_version  = $current_version;
 		$this->plugin_slug      = $plugin_slug;
 		$this->update_path      = $update_path;
-		$this->slug             = explode( '/', $plugin_slug );
-		$this->slug             = str_replace( '.php', '', $this->slug[1] );
+		$parts                  = explode( '/', $plugin_slug );
+		$this->slug             = str_replace( '.php', '', $parts[1] );
 
 		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'tm_update_plugins' ] );
 		add_filter( 'plugins_api', [ $this, 'tm_plugins_api' ], 10, 3 );
 		add_action( 'in_plugin_update_message-' . $this->plugin_slug, [ $this, 'tm_update_message' ] );
-
 	}
 
 	/**
 	 * Fill plugin update details when WordPress runs its update checker
 	 *
-	 * @param string $transient The WordPress update object.
+	 * @param object $transient The update_plugins transient object.
 	 * @since 1.0
+	 * @return object The same or a modified version of the transient.
 	 */
 	public function tm_update_plugins( $transient ) {
 
@@ -336,6 +341,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 	 *
 	 * @param string  $action Type of action to perform.
 	 * @param boolean $is_serialized If the response is serialized.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function remote_api_call( $action = '', $is_serialized = false ) {
@@ -361,9 +367,10 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 	/**
 	 * Get plugin data for update
 	 *
-	 * @param false|object|array $result The result object or array. Default false.
-	 * @param string             $action The type of information being requested from the Plugin Installation API.
-	 * @param object             $args Plugin API arguments.
+	 * @param false|object|array<mixed> $result The result object or array. Default false.
+	 * @param string                    $action The type of information being requested from the Plugin Installation API.
+	 * @param object                    $args Plugin API arguments.
+	 * @return mixed
 	 * @since 1.0
 	 */
 	public function tm_plugins_api( $result, $action, $args ) {
@@ -387,6 +394,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 	/**
 	 * Print update message
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function tm_update_message() {
@@ -395,5 +403,4 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 			echo '<br /><a href="' . esc_url( $this->url ) . '">' . esc_html__( 'Download new version from CodeCanyon', 'woocommerce-tm-extra-product-options' ) . '</a> ' . esc_html__( 'or register the plugin to receive automatic updates.', 'woocommerce-tm-extra-product-options' );
 		}
 	}
-
 }

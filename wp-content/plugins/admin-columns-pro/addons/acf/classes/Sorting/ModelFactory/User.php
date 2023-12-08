@@ -22,7 +22,7 @@ class User implements SortingModelFactory
         $this->meta_format_factory = new ACP\Sorting\Model\MetaFormatFactory();
     }
 
-    public function create(Field $field, $meta_key, Column $column)
+    public function create(Field $field, string $meta_key, Column $column)
     {
         return $field instanceof Field\Multiple && $field->is_multiple()
             ? $this->create_multiple_relation_model($column, $meta_key)

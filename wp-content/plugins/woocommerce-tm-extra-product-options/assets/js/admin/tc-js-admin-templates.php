@@ -6,8 +6,8 @@
  *
  * @see     https://codex.wordpress.org/Javascript_Reference/wp.template
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 4.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div id="{{{ data.id }}}" class="float-editbox">{{{ data.html }}}</div>
 	<div class="footer">
 		<div class="inner">
-			<button type="button" class="tc tc-button floatbox-update">{{{ data.update }}}</button>&nbsp;
-			<button type="button" class="tc tc-button alt floatbox-cancel">{{{ data.cancel }}}</button>
+		<button type="button" class="tc tc-button alt floatbox-cancel">{{{ data.cancel }}}</button>&nbsp;
+		<button type="button" class="tc tc-button floatbox-update">{{{ data.update }}}</button>
 		</div>
 	</div>
 </script>
@@ -36,8 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div id="{{{ data.id }}}" class="float-editbox">{{{ data.html }}}</div>
 	<div class="footer">
 		<div class="inner">
-			<button type="button" class="tc tc-button floatbox-edit-update">{{{ data.update }}}</button>&nbsp;
 			<button type="button" class="tc tc-button alt floatbox-edit-cancel">{{{ data.cancel }}}</button>
+			<button type="button" class="tc tc-button floatbox-edit-update">{{{ data.update }}}</button>&nbsp;
 		</div>
 	</div>
 </script>

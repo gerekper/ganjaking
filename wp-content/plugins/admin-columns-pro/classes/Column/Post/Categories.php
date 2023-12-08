@@ -5,15 +5,11 @@ namespace ACP\Column\Post;
 use AC;
 use ACP\Editing;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 4.0
- */
 class Categories extends AC\Column\Post\Categories
-	implements Sorting\Sortable, Editing\Editable, Filtering\Filterable, Export\Exportable, Search\Searchable {
+	implements Sorting\Sortable, Editing\Editable, Export\Exportable, Search\Searchable {
 
 	// Overwrite the Edit setting with a new dependent setting
 	public function register_settings() {
@@ -28,10 +24,6 @@ class Categories extends AC\Column\Post\Categories
 
 	public function editing() {
 		return new Editing\Service\Post\Taxonomy( $this->get_taxonomy(), 'on' === $this->get_option( 'enable_term_creation' ) );
-	}
-
-	public function filtering() {
-		return new Filtering\Model\Delegated( $this, 'cat' );
 	}
 
 	public function export() {

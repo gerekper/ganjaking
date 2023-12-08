@@ -2,13 +2,12 @@
 
 namespace ACA\WC\Sorting\User\ShopOrder;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
 
-abstract class OrderDate extends AbstractModel implements QueryBindings
+abstract class OrderDate implements QueryBindings
 {
 
     use SqlTrait;
@@ -17,8 +16,6 @@ abstract class OrderDate extends AbstractModel implements QueryBindings
 
     public function __construct(array $status = ['wc-completed'])
     {
-        parent::__construct();
-
         $this->status = $status;
     }
 
@@ -52,5 +49,5 @@ abstract class OrderDate extends AbstractModel implements QueryBindings
     }
 
     abstract protected function get_order_by(Order $order): string;
-    
+
 }

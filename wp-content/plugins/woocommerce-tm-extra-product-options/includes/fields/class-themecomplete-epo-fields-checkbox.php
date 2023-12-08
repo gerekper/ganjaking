@@ -3,7 +3,7 @@
  * Checkbox Field class
  *
  * @package Extra Product Options/Fields
- * @version 6.0
+ * @version 6.4
  * phpcs:disable PEAR.NamingConventions.ValidClassName
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * Checkbox Field class
  *
  * @package Extra Product Options/Fields
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 
@@ -32,13 +32,6 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 	public $items_per_row_r;
 
 	/**
-	 * The percentage of the item width
-	 *
-	 * @var float
-	 */
-	public $percent;
-
-	/**
 	 * The number of columns
 	 *
 	 * @var float
@@ -55,14 +48,14 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Pre display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
 	 * @since 1.0
+	 * @return void
 	 */
 	public function display_field_pre( $element = [], $args = [] ) {
 		$this->items_per_row   = $element['items_per_row'];
 		$this->items_per_row_r = isset( $element['items_per_row_r'] ) ? $element['items_per_row_r'] : [];
-		$this->percent         = 100;
 		$this->columns         = 0;
 		$container_css_id      = 'element_';
 		if ( isset( $element['container_css_id'] ) ) {
@@ -73,18 +66,18 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		if ( ! empty( $this->items_per_row ) ) {
-			if ( 'auto' === $this->items_per_row || ! is_numeric( $this->items_per_row ) || floatval( $this->items_per_row ) === 0 ) {
+			if ( 'auto' === $this->items_per_row || ! is_numeric( $this->items_per_row ) || intval( $this->items_per_row ) === 0 ) {
 				$this->items_per_row = 0;
 			} else {
 				$this->items_per_row = (float) $this->items_per_row;
-				$this->percent       = (float) ( 100 / $this->items_per_row );
-				$css_string          = '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $this->percent . '% !important;flex: 0 0 ' . $this->percent . '% !important;max-width:' . $this->percent . '% !important;}';
+				$calc                = 'calc((100% / var(--items-per-row)) - (((var(--items-per-row) - 1) / var(--items-per-row)) * var(--tcgap)))';
+				$flex_items          = '--items-per-row: ' . $this->items_per_row . ';';
+				$css_string          = '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $calc . ' !important;flex: 0 0 ' . $calc . ' !important;max-width:' . $calc . ' !important;' . $flex_items . '}';
+				$css_string          = str_replace( [ "\r", "\n" ], '', $css_string );
+				THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
 			}
-
-			$css_string = str_replace( [ "\r", "\n" ], '', $css_string );
-			THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
 		} else {
-			$this->items_per_row = (float) $element['items_per_row'];
+			$this->items_per_row = 1;
 		}
 
 		foreach ( $this->items_per_row_r as $key => $value ) {
@@ -124,7 +117,9 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 					}
 					$thisitems_per_row = (float) $value;
 					$this_percent      = (float) ( 100 / $thisitems_per_row );
-					$css_string        = $before . '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $this_percent . '% !important;flex: 0 0 ' . $this_percent . '% !important;max-width:' . $this_percent . '% !important;}' . $after;
+					$calc              = 'calc((100% / var(--items-per-row)) - (((var(--items-per-row) - 1) / var(--items-per-row)) * var(--tcgap)))';
+					$flex_items        = '--items-per-row: ' . $thisitems_per_row . ';';
+					$css_string        = $before . '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $calc . ' !important;flex: 0 0 ' . $calc . ' !important;max-width:' . $calc . ' !important;' . $flex_items . '}' . $after;
 					$css_string        = str_replace( [ "\r", "\n" ], '', $css_string );
 					THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
 				}
@@ -137,13 +132,13 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
 	 * @since 1.0
+	 * @return array<mixed>
 	 */
 	public function display_field( $element = [], $args = [] ) {
-
-		$this->columns ++;
+		++$this->columns;
 		$default_value = isset( $element['default_value'] )
 			?
 			( ( is_array( $element['default_value'] ) )
@@ -161,10 +156,8 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		if ( isset( $element['color'] ) ) {
 			if ( ! is_array( $element['color'] ) ) {
 				$search_for_color = $element['color'];
-			} else {
-				if ( isset( $element['color'][ $this->default_value_counter ] ) ) {
-					$search_for_color = $element['color'][ $this->default_value_counter ];
-				}
+			} elseif ( isset( $element['color'][ $this->default_value_counter ] ) ) {
+				$search_for_color = $element['color'][ $this->default_value_counter ];
 			}
 			if ( empty( $search_for_color ) ) {
 				$search_for_color = 'transparent';
@@ -174,37 +167,43 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		$unique_indentifier = $args['element_counter'] . '-' . $args['field_counter'] . '-' . $args['tabindex'] . $args['form_prefix'] . uniqid();
 
 		if ( ( 'image' === $element['replacement_mode'] || 'color' === $element['replacement_mode'] ) && ( 'transparent' === $search_for_color || preg_match( '/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $search_for_color ) ) ) {
-
+			$css_string   = '';
 			$tmhexcolor   = 'tmhexcolor_' . $unique_indentifier;
 			$litmhexcolor = 'tm-li-unique-' . $unique_indentifier;
-			$hexclass     = $tmhexcolor;
-			$css_string   = '.' . $tmhexcolor . ' .tmhexcolorimage{background-color:' . $search_for_color . ' !important;}';
+			if ( 'color' === $element['replacement_mode'] ) {
+				$hexclass   = $tmhexcolor;
+				$css_string = '.' . $tmhexcolor . ' .tmhexcolorimage .tc-image{background-color:' . $search_for_color . ' !important;}';
+			}
 			if ( ! empty( $element['item_width'] ) ) {
 				if ( is_numeric( $element['item_width'] ) ) {
 					$element['item_width'] .= 'px';
 				}
 				$css_string .= '.' . $tmhexcolor . ' img{display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
-				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage{padding: 1px !important;display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
+				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage .tc-image{padding: 1px !important;display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
 			}
 			if ( ! empty( $element['item_height'] ) ) {
 				if ( is_numeric( $element['item_height'] ) ) {
 					$element['item_height'] .= 'px';
 				}
 				$css_string .= '.' . $tmhexcolor . ' img{display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
-				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage{padding: 1px !important;display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
+				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage .tc-image{padding: 1px !important;display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
 			}
 			if ( ! empty( $element['item_width'] ) || ! empty( $element['item_height'] ) ) {
-				$css_string .= '.tmhexcolorimage-li.tm-li-unique-' . $unique_indentifier . '{display: inline-block;width:auto !important;overflow:hidden;}';
-				$li_class   .= 'tmhexcolorimage-li tm-li-unique-' . $unique_indentifier;
+				$css_string .= '.tmhexcolorimage-li' . $litmhexcolor . '{display: inline-block;width:auto !important;overflow:hidden;}';
+				$li_class   .= 'tmhexcolorimage-li ' . $litmhexcolor;
 			} else {
 				$li_class .= 'tmhexcolorimage-li-nowh';
 			}
-			$css_string = str_replace( [ "\r", "\n" ], '', $css_string );
-			THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
+			if ( ! empty( $css_string ) ) {
+				$css_string = str_replace( [ "\r", "\n" ], '', $css_string );
+				THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
+			}
 		}
-
-		$_css_class = ! empty( $element['class'] ) ? $element['class'] . ' ' . $hexclass : '' . $hexclass;
-		$css_class  = apply_filters( 'wc_epo_multiple_options_css_class', '', $element, $this->default_value_counter );
+		$_css_class = '';
+		if ( ! empty( $hexclass ) ) {
+			$_css_class = ! empty( $element['class'] ) ? $element['class'] . ' ' . $hexclass : '' . $hexclass;
+		}
+		$css_class = apply_filters( 'wc_epo_multiple_options_css_class', '', $element, $this->default_value_counter );
 		if ( '' !== $css_class ) {
 			$css_class = ' ' . $css_class;
 		}
@@ -260,12 +259,12 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 
-			} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( isset( $args['posted_name'] ) && ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = -1;
 			}
 		}
 
-		$selected_value = apply_filters( 'wc_epo_default_value', $selected_value, isset( $element ) ? $element : [], esc_attr( $args['value'] ) );
+		$selected_value = apply_filters( 'wc_epo_default_value', $selected_value, $element, esc_attr( $args['value'] ) );
 
 		if ( is_array( $selected_value ) ) {
 
@@ -279,15 +278,13 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		$checked = false;
 
 		if ( -1 === $selected_value ) {
-			if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ( ! isset( $this->post_data['quantity'] ) || ( isset( $args['posted_name'] ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) && ! isset( $this->post_data['tm-epo-counter'] ) ) ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ( ! isset( $this->post_data['quantity'] ) || ( isset( $args['posted_name'] ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) && ! isset( $this->post_data['tm-epo-counter'] ) ) ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( $default_value && ! THEMECOMPLETE_EPO()->is_edit_mode() ) {
 					$checked = true;
 				}
 			}
-		} else {
-			if ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( ( $args['value'] ) ) ) {
-				$checked = true;
-			}
+		} elseif ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( ( $args['value'] ) ) ) {
+			$checked = true;
 		}
 		if ( empty( $exactlimit ) ) {
 			$exactlimit = '';
@@ -365,37 +362,32 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				}
 
 				if ( 'no' === $tm_epo_no_lazy_load ) {
+					$altsrc = [
+						'src'           => '',
+						'data-original' => $image,
+					];
+					if ( $image_info ) {
+						$altsrc['width']  = $image_info[0];
+						$altsrc['height'] = $image_info[1];
+					}
 					if ( $checked && ! empty( $imagec ) ) {
-						$altsrc = [
-							'src'           => '',
-							'data-original' => $imagec,
-						];
+						$altsrc['data-original'] = $imagec;
 						if ( $imagec_info ) {
 							$altsrc['width']  = $imagec_info[0];
 							$altsrc['height'] = $imagec_info[1];
-						}
-					} else {
-						$altsrc = [
-							'src'           => '',
-							'data-original' => $image,
-						];
-						if ( $image_info ) {
-							$altsrc['width']  = $image_info[0];
-							$altsrc['height'] = $image_info[1];
 						}
 					}
 				} else {
+					$altsrc = [ 'src' => $image ];
+					if ( $image_info ) {
+						$altsrc['width']  = $image_info[0];
+						$altsrc['height'] = $image_info[1];
+					}
 					if ( $checked && ! empty( $imagec ) ) {
-						$altsrc = [ 'src' => $imagec ];
+						$altsrc['src'] = $imagec;
 						if ( $imagec_info ) {
 							$altsrc['width']  = $imagec_info[0];
 							$altsrc['height'] = $imagec_info[1];
-						}
-					} else {
-						$altsrc = [ 'src' => $image ];
-						if ( $image_info ) {
-							$altsrc['width']  = $image_info[0];
-							$altsrc['height'] = $image_info[1];
 						}
 					}
 				}
@@ -409,10 +401,8 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				if ( isset( $color ) ) {
 					if ( ! is_array( $color ) ) {
 						$search_for_color = $color;
-					} else {
-						if ( isset( $color[ $choice_counter ] ) ) {
-							$search_for_color = $color[ $choice_counter ];
-						}
+					} elseif ( isset( $color[ $choice_counter ] ) ) {
+						$search_for_color = $color[ $choice_counter ];
 					}
 					if ( empty( $search_for_color ) ) {
 						$search_for_color = 'transparent';
@@ -457,6 +447,8 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 
 		if ( ! empty( $this->items_per_row ) ) {
 			$li_class .= ' tm-per-row';
+		} else {
+			$li_class .= ' tm-auto-row';
 		}
 
 		$image_variations = [];
@@ -481,6 +473,10 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		if ( $is_separator ) {
 			$li_class .= ' is-separator';
 		}
+		$class_label = '';
+		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+			$class_label = ' fullwidth';
+		}
 		$display = [
 			'is_separator'          => $is_separator,
 			'hexclass'              => $hexclass,
@@ -499,7 +495,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			'class'                 => $css_class,
 			'label'                 => $label,
 			'value'                 => $args['value'],
-			'id'                    => 'tmcp_choice_' . str_replace( '-', '_', $unique_indentifier ),
+			'element_id'            => 'tmcp_choice_' . str_replace( '-', '_', $unique_indentifier ),
 			'textbeforeprice'       => isset( $element['text_before_price'] ) ? $element['text_before_price'] : '',
 			'textafterprice'        => isset( $element['text_after_price'] ) ? $element['text_after_price'] : '',
 			'hide_amount'           => $this->get_value( $element, 'hide_amount', '' ),
@@ -509,7 +505,6 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			'use_url'               => $element['use_url'],
 			'items_per_row'         => $this->items_per_row,
 			'items_per_row_r'       => $this->items_per_row_r,
-			'percent'               => $this->percent,
 			'image'                 => $image,
 			'imagec'                => $imagec,
 			'imagep'                => $imagep,
@@ -524,6 +519,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			'default_value'         => $default_value,
 			'quantity'              => isset( $element['quantity'] ) ? $element['quantity'] : '',
 			'choice_counter'        => $choice_counter,
+			'class_label'           => $class_label,
 		];
 
 		if ( isset( $color ) ) {
@@ -544,16 +540,16 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			$display['element_data_attr'] = [];
 		}
 
-		$this->default_value_counter ++;
+		++$this->default_value_counter;
 
 		return apply_filters( 'wc_epo_display_field_checkbox', $display, $this, $element, $args );
-
 	}
 
 	/**
 	 * Field validation
 	 *
 	 * @since 1.0
+	 * @return array<mixed>
 	 */
 	public function validate() {
 
@@ -627,7 +623,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		if ( '' !== $limit ) {
 			if ( $checked > $limit ) {
 				$passed = false;
-				if ( '1' === $limit || 1 === $limit ) {
+				if ( '1' === (string) $limit ) {
 					/* translators: %1 number of choice (1 singlular) %2 element name. */
 					$message[] = sprintf( esc_html__( 'You can only select up to %1$s choice for %2$s.', 'woocommerce-tm-extra-product-options' ), $limit, $this->element['label'] );
 				} else {
@@ -640,7 +636,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		if ( '' !== $exactlimit ) {
 			if ( $checked !== $exactlimit ) {
 				$passed = false;
-				if ( '1' === $exactlimit || 1 === $exactlimit ) {
+				if ( '1' === (string) $exactlimit ) {
 					/* translators: %1 number of choice (1 singlular) %2 element name. */
 					$message[] = sprintf( esc_html__( 'You must select exactly %1$s choice for %2$s.', 'woocommerce-tm-extra-product-options' ), $exactlimit, $this->element['label'] );
 				} else {
@@ -653,7 +649,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		if ( '' !== $minimumlimit ) {
 			if ( $checked < $minimumlimit ) {
 				$passed = false;
-				if ( '1' === $minimumlimit || 1 === $minimumlimit ) {
+				if ( '1' === (string) $minimumlimit ) {
 					/* translators: %1 number of choice (1 singlular) %2 element name. */
 					$message[] = sprintf( esc_html__( 'You must select at least %1$s choice for %2$s.', 'woocommerce-tm-extra-product-options' ), $minimumlimit, $this->element['label'] );
 				} else {
@@ -667,8 +663,8 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			$check1 = array_intersect( $this->tmcp_attributes, array_keys( $this->epo_post_fields ) );
 			$check2 = array_intersect( $this->tmcp_attributes_fee, array_keys( $this->epo_post_fields ) );
 
-			$fail1 = empty( $check1 ) || 0 === count( $check1 );
-			$fail2 = empty( $check2 ) || 0 === count( $check2 );
+			$fail1 = empty( $check1 );
+			$fail2 = empty( $check2 );
 
 			$fail = apply_filters( 'wc_epo_validate_checkbox', $fail1 && $fail2, $this );
 
@@ -683,5 +679,4 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			'message' => $message,
 		];
 	}
-
 }

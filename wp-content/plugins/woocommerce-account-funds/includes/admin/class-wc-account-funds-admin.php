@@ -105,138 +105,26 @@ class WC_Account_Funds_Admin {
 
 		$links['docs'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-			esc_url( 'https://woocommerce.com/document/account-funds/' ),
+			esc_url( 'https://woo.com/document/account-funds/' ),
 			esc_attr_x( 'View WooCommerce Account Funds documentation', 'aria-label: documentation link', 'woocommerce-account-funds' ),
 			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-account-funds' )
 		);
 
 		$links['changelog'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-			esc_url( 'https://woocommerce.com/changelogs/woocommerce-account-funds/changelog.txt' ),
+			esc_url( 'https://woo.com/changelogs/woocommerce-account-funds/changelog.txt' ),
 			esc_attr_x( 'View WooCommerce Account Funds changelog', 'aria-label: changelog link', 'woocommerce-account-funds' ),
 			esc_html_x( 'Changelog', 'plugin row link', 'woocommerce-account-funds' )
 		);
 
 		$links['support'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=18728' ),
-			esc_attr_x( 'View WooCommerce Account Funds support', 'aria-label: support link', 'woocommerce-account-funds' ),
+			esc_url( 'https://woo.com/my-account/create-a-ticket?select=18728' ),
+			esc_attr_x( 'Open a support ticket at Woo.com', 'aria-label: support link', 'woocommerce-account-funds' ),
 			esc_html_x( 'Support', 'plugin row link', 'woocommerce-account-funds' )
 		);
 
 		return $links;
-	}
-
-	/**
-	 * Adds custom columns to the users' table.
-	 *
-	 * @deprecated 2.7.0
-	 *
-	 * @param array $columns Table columns.
-	 * @return array
-	 */
-	public function manage_users_columns( $columns ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->add_columns()' );
-
-		return $columns;
-	}
-
-	/**
-	 * Gets the content for the custom column of the users table.
-	 *
-	 * @deprecated 2.7.0
-	 *
-	 * @param string $content Column content.
-	 * @param string $column  Column name.
-	 * @param int    $user_id User ID.
-	 * @return string
-	 */
-	public function manage_users_custom_column( $content, $column, $user_id ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->get_column_content()' );
-
-		return $content;
-	}
-
-	/**
-	 * Shows custom fields on the edit user pages.
-	 *
-	 * @deprecated 2.7.0
-	 *
-	 * @param WP_User $user User object.
-	 */
-	public function user_meta_fields( $user ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->user_meta_fields()' );
-	}
-
-	/**
-	 * Save meta fields.
-	 *
-	 * @version 2.1.6
-	 * @deprecated 2.7.0
-	 *
-	 * @param int $user_id User ID.
-	 */
-	public function save_user_meta_fields( $user_id ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->save_user_meta_fields()' );
-	}
-
-	/**
-	 * Returns settings array.
-	 *
-	 * @deprecated 2.6.0
-	 *
-	 * @return array
-	 */
-	public function get_settings() {
-		$settings = array();
-
-		if ( has_filter( 'woocommerce_account_funds_get_settings' ) ) {
-			wc_deprecated_hook( 'woocommerce_account_funds_get_settings', '2.6.0' );
-
-			/**
-			 * The plugin settings.
-			 *
-			 * @since 2.0.0
-			 * @deprecated 2.6.0
-			 *
-			 * @param array $settings An array with the settings.
-			 */
-			$settings = apply_filters( 'woocommerce_account_funds_get_settings', $settings );
-		}
-
-		return $settings;
-	}
-
-	/**
-	 * Add settings tab to woocommerce
-	 *
-	 * @deprecated 2.6.0
-	 *
-	 * @param array $settings_tabs An array with the settings tabs.
-	 * @return array
-	 */
-	public function add_woocommerce_settings_tab( $settings_tabs ) {
-		wc_deprecated_function( __FUNCTION__, '2.6.0' );
-
-		return $settings_tabs;
-	}
-
-	/**
-	 * Do this when viewing our custom settings tab(s). One function for all tabs.
-	 *
-	 * @deprecated 2.6.0
-	 */
-	public function woocommerce_settings_tab_action() {
-		wc_deprecated_function( __FUNCTION__, '2.6.0' );
-	}
-
-	/**
-	 * Save settings in a single field in the database for each tab's fields (one field per tab).
-	 *
-	 * @deprecated 2.6.0
-	 */
-	public function woocommerce_settings_save() {
-		wc_deprecated_function( __FUNCTION__, '2.6.0' );
 	}
 }
 

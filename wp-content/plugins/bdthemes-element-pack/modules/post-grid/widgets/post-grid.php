@@ -653,6 +653,7 @@ class Post_Grid extends Module_Base {
 					'show_pagination!' => 'yes',
 					'post_grid_ajax_loadmore' => 'yes',
 					'_skin' => '',
+					'posts_source!' => 'current_query',
 				],
 				// 'frontend_available' => true,
 			]
@@ -2784,10 +2785,13 @@ class Post_Grid extends Module_Base {
 		$settings = $this->get_settings();
 
 		$args = [];
-		if ($posts_per_page) {
-			$args['posts_per_page'] = $posts_per_page;
-			if ($settings['show_pagination']) { // fix query offset
-				$args['paged']  = max(1, get_query_var('paged'), get_query_var('page'));
+
+		if ($settings['posts_source'] !== 'current_query') {
+			if ($posts_per_page) {
+				$args['posts_per_page'] = $posts_per_page;
+				if ($settings['show_pagination']) { // fix query offset
+					$args['paged']  = max(1, get_query_var('paged'), get_query_var('page'));
+				}
 			}
 		}
 
@@ -3025,19 +3029,28 @@ class Post_Grid extends Module_Base {
 			return;
 		}
 
+
+		if ($settings['posts_source'] == 'current_query') {
+			$posts_per_page = $GLOBALS['wp_query']->get('posts_per_page');
+			$item_load = $posts_per_page;
+		} else {
+			$posts_per_page = $settings['default_item_limit']['size'];
+			$item_load = $settings['post_grid_ajax_loadmore_items'];
+		}
+
+
+
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$this->add_render_attribute('bdt-post-grid', 'id', 'bdt-post-grid-' . esc_html($id) . '', true);
 		$this->add_render_attribute('bdt-post-grid', 'class', ['bdt-post-grid', 'bdt-post-grid-skin-default'], true);
-		// $this->add_render_attribute('bdt-post-grid', 'class', ['bdt-post-grid', 'bdt-post-grid-skin-default'], true);
-		// if ($settings['post_grid_show_loadmore'] == 'yes') {
 		$this->add_render_attribute(
 			[
 				'bdt-post-grid' => [
 					'data-settings' => [
 						wp_json_encode(array_filter([
 							'posts_source' => $settings['posts_source'],
-							'posts_per_page' => $settings['default_item_limit']['size'],
-							'ajax_item_load' => isset($settings['post_grid_ajax_loadmore_items']) ? $settings['post_grid_ajax_loadmore_items'] : 3,
-							// 'ajax_item_load' => $settings['ajax_item_load'],
+							'posts_per_page' => $posts_per_page,
+							'ajax_item_load' => isset($item_load) ? $item_load : 3,
 							'posts_selected_ids' => $settings['posts_selected_ids'],
 							'posts_include_by' => $settings['posts_include_by'],
 							'posts_include_author_ids' => $settings['posts_include_author_ids'],
@@ -3056,6 +3069,8 @@ class Post_Grid extends Module_Base {
 							'posts_only_with_featured_image' => $settings['posts_only_with_featured_image'],
 							// 'totalPages' => $totalPages,
 							'show_readmore' => $settings['show_readmore'],
+							'paged' => $paged,
+							'nonce' => wp_create_nonce('bdt-post-grid-load-more-nonce'),
 
 						]))
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -195,7 +195,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 							);
 						?>
 						<a href="<?php echo esc_url( $settings_tab_url ); ?>" class="button button-primary" target="_blank"><?php echo esc_html__( 'Settings', 'woocommerce-smart-coupons' ); ?></a>
-						<a href="<?php echo esc_url( apply_filters( 'smart_coupons_docs_url', 'https://woocommerce.com/document/smart-coupons/', 'woocommerce-smart-coupons' ) ); ?>" class="docs button button-primary" target="_blank"><?php echo esc_html__( 'Docs', 'woocommerce-smart-coupons' ); ?></a>
+						<a href="<?php echo esc_url( apply_filters( 'smart_coupons_docs_url', 'https://woo.com/document/smart-coupons/', 'woocommerce-smart-coupons' ) ); ?>" class="docs button button-primary" target="_blank"><?php echo esc_html__( 'Docs', 'woocommerce-smart-coupons' ); ?></a>
 					</p>
 				</div>
 			</div>
@@ -272,7 +272,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 							<p>
 								<?php
 									/* translators: WooCommerce Subscriptions product link */
-									echo sprintf( esc_html__( 'If your store is using %s and your customer has purchased a subscription using a Store Credit. If that store credit has balance left in it, store will automatically use it for renewing that subscription.', 'woocommerce-smart-coupons' ), '<a href="https://woocommerce.com/products/woocommerce-subscriptions/?aff=5475">' . esc_html__( 'WooCommerce Subscriptions', 'woocommerce-smart-coupons' ) . '</a>' );
+									echo sprintf( esc_html__( 'If your store is using %s and your customer has purchased a subscription using a Store Credit. If that store credit has balance left in it, store will automatically use it for renewing that subscription.', 'woocommerce-smart-coupons' ), '<a href="https://woo.com/products/woocommerce-subscriptions/?aff=5475">' . esc_html__( 'WooCommerce Subscriptions', 'woocommerce-smart-coupons' ) . '</a>' );
 								?>
 							</p>
 						</div>
@@ -284,20 +284,20 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 							<p>
 								<?php
 									/* translators: 1: Affiliate For WooCommerce 2: Smart Manager 3: Smart Offers */
-									echo sprintf( esc_html__( 'Let customers purchase gift cards from you or you issue store credit that your users can redeem on the current or next purchase. See how: %1$s or %2$s', 'woocommerce-smart-coupons' ), ' <a href="https://woocommerce.com/document/smart-coupons/how-to-sell-gift-card-of-any-amount/" target="_blank">' . esc_html__( 'any amount', 'woocommerce-smart-coupons' ) . '</a>', '<a href="https://woocommerce.com/document/smart-coupons/how-to-sell-gift-card-of-variable-but-a-fixed-amount/" target="_blank">' . esc_html__( 'variable but fixed amount', 'woocommerce-smart-coupons' ) . '</a>.' );
+									echo sprintf( esc_html__( 'Let customers purchase gift cards from you or you issue store credit that your users can redeem on the current or next purchase. See how: %1$s or %2$s', 'woocommerce-smart-coupons' ), ' <a href="https://woo.com/document/smart-coupons/how-to-sell-gift-card-of-any-amount/" target="_blank">' . esc_html__( 'any amount', 'woocommerce-smart-coupons' ) . '</a>', '<a href="https://woo.com/document/smart-coupons/how-to-sell-gift-card-of-variable-but-a-fixed-amount/" target="_blank">' . esc_html__( 'variable but fixed amount', 'woocommerce-smart-coupons' ) . '</a>.' );
 								?>
 							</p>
 						</div>
 						<div class="column col">
 							<h4><?php echo esc_html__( 'Bulk create unique coupons & email them', 'woocommerce-smart-coupons' ); ?></h4>
 							<p>
-								<?php echo esc_html__( 'Import and export unique coupons in bulk via CSV. Share coupon codes to deal sites or email them to your customers.', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-bulk-generate-coupons/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
+								<?php echo esc_html__( 'Import and export unique coupons in bulk via CSV. Share coupon codes to deal sites or email them to your customers.', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-bulk-generate-coupons/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
 							</p>
 						</div>
 						<div class="column col last-feature">
 							<h4><?php echo esc_html__( 'Gift a product via coupon', 'woocommerce-smart-coupons' ); ?></h4>
 							<p>
-								<?php echo esc_html__( 'Attach a gift of any value (free or paid product) to a particular coupon. Here, instead of a discount, a product is redeemed for the coupon code.', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-gift-a-product-via-coupon/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
+								<?php echo esc_html__( 'Attach a gift of any value (free or paid product) to a particular coupon. Here, instead of a discount, a product is redeemed for the coupon code.', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-gift-a-product-via-coupon/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
 							</p>
 						</div>
 					</div>
@@ -305,7 +305,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						<div class="column col">
 							<h4><?php echo esc_html__( 'Give discounts to customers for next purchase', 'woocommerce-smart-coupons' ); ?></h4>
 							<p>
-								<?php echo esc_html__( 'You can give a coupon to your customer after every purchase, which can encourage them to purchase again from you.', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-give-coupons-with-products-for-next-order/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
+								<?php echo esc_html__( 'You can give a coupon to your customer after every purchase, which can encourage them to purchase again from you.', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-give-coupons-with-products-for-next-order/" target="_blank">' . esc_html__( 'See how', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
 							</p>
 						</div>
 						<div class="column col">
@@ -366,11 +366,11 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'How to translate texts from Smart Coupons?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'Simplest method is by installing', 'woocommerce-smart-coupons' ) . ' <a href="https://wordpress.org/plugins/loco-translate/" target="_blank">' . esc_html__( 'Loco Translate', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( 'plugin and then following steps listed ', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-translate-smart-coupons/" target="_blank">' . __( 'here', 'woocommerce-smart-coupons' ) . '</a>.',
+							'ans' => esc_html__( 'Simplest method is by installing', 'woocommerce-smart-coupons' ) . ' <a href="https://wordpress.org/plugins/loco-translate/" target="_blank">' . esc_html__( 'Loco Translate', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( 'plugin and then following steps listed ', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-translate-smart-coupons/" target="_blank">' . __( 'here', 'woocommerce-smart-coupons' ) . '</a>.',
 						),
 						array(
 							'que' => esc_html__( 'How to change texts of the emails sent from Smart Coupons?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'You can do this by overriding the email template.', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-change-replace-and-override-email-template/" target="_blank">' . esc_html__( 'How to override email template', 'woocommerce-smart-coupons' ) . '</a>.',
+							'ans' => esc_html__( 'You can do this by overriding the email template.', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-change-replace-and-override-email-template/" target="_blank">' . esc_html__( 'How to override email template', 'woocommerce-smart-coupons' ) . '</a>.',
 						),
 						array(
 							'que' => esc_html__( 'Can coupon code have any spaces in the name? / My Store Credit/Gift Certificate is not working (not generating new coupon code).', 'woocommerce-smart-coupons' ),
@@ -379,7 +379,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						array(
 							'que' => esc_html__( 'What\'s the URL to a coupon, so it\'s automatically inserted when visiting?', 'woocommerce-smart-coupons' ),
 							/* translators: Documentation link for 'How to Apply Single or Multiple Coupons on Click of a Link' */
-							'ans' => esc_html__( 'URL of coupon should be like this:', 'woocommerce-smart-coupons' ) . ' <code>https://www.mysite.com/?coupon-code=discount5&sc-page=shop</code> ' . esc_html__( '. Replace www.mysite.com with your own site URL and replace discount5 with the your coupon code.', 'woocommerce-smart-coupons' ) . ' ' . sprintf( esc_html__( 'For more details you can refer to this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woocommerce.com/document/smart-coupons/how-to-apply-single-or-multiple-coupons-on-click-of-a-link/" target="_blank">' . esc_html__( 'How to Apply Single or Multiple Coupons on Click of a Link', 'woocommerce-smart-coupons' ) . '</a>' ),
+							'ans' => esc_html__( 'URL of coupon should be like this:', 'woocommerce-smart-coupons' ) . ' <code>https://www.mysite.com/?coupon-code=discount5&sc-page=shop</code> ' . esc_html__( '. Replace www.mysite.com with your own site URL and replace discount5 with the your coupon code.', 'woocommerce-smart-coupons' ) . ' ' . sprintf( esc_html__( 'For more details you can refer to this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woo.com/document/smart-coupons/how-to-apply-single-or-multiple-coupons-on-click-of-a-link/" target="_blank">' . esc_html__( 'How to Apply Single or Multiple Coupons on Click of a Link', 'woocommerce-smart-coupons' ) . '</a>' ),
 						),
 						array(
 							'que' => esc_html__( 'Do not want to tie store credit to be used by only one customer? / Can a customer send a gift certificate to themselves to pass on to someone else?', 'woocommerce-smart-coupons' ),
@@ -400,7 +400,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'How can I resend gift card coupon bought by customers?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'You can resend them from order admin edit page.', 'woocommerce-smart-coupons' ) . ' <a href="https://woocommerce.com/document/smart-coupons/how-to-resend-coupons-generated-from-an-order-to-the-buyer/" target="_blank">' . __( 'See how', 'woocommerce-smart-coupons' ) . '</a>.',
+							'ans' => esc_html__( 'You can resend them from order admin edit page.', 'woocommerce-smart-coupons' ) . ' <a href="https://woo.com/document/smart-coupons/how-to-resend-coupons-generated-from-an-order-to-the-buyer/" target="_blank">' . __( 'See how', 'woocommerce-smart-coupons' ) . '</a>.',
 						),
 						array(
 							'que' => esc_html__( 'Uncheck "Auto-generate" option in Store Credit is not saving? Is it always checked?', 'woocommerce-smart-coupons' ),
@@ -417,7 +417,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						array(
 							'que' => esc_html__( 'Does Smart Coupons allow printing of coupon as Gift Card?', 'woocommerce-smart-coupons' ),
 							/* translators: Documentation link for 'How to Print Coupons' */
-							'ans' => sprintf( esc_html__( 'Yes, Smart Coupons does provide a feature for printing coupons. For more details, check this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woocommerce.com/document/smart-coupons/how-to-print-coupons/" target="_blank">' . esc_html__( 'How to Print Coupons', 'woocommerce-smart-coupons' ) . '</a>' ),
+							'ans' => sprintf( esc_html__( 'Yes, Smart Coupons does provide a feature for printing coupons. For more details, check this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woo.com/document/smart-coupons/how-to-print-coupons/" target="_blank">' . esc_html__( 'How to Print Coupons', 'woocommerce-smart-coupons' ) . '</a>' ),
 						),
 						array(
 							'que' => esc_html__( 'Is it possible to have a coupon for each variation of the variable product?', 'woocommerce-smart-coupons' ),
@@ -473,7 +473,7 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 					<h3>
 						<?php
 							/* translators: WooCommerce My Account support link */
-							echo sprintf( __( 'If you are facing any issues, please %s from your WooCommerce account.', 'woocommerce-smart-coupons' ), '<a target="_blank" href="https://woocommerce.com/my-account/create-a-ticket/">' . esc_html__( 'submit a ticket', 'woocommerce-smart-coupons' ) . '</a>' ); // phpcs:ignore
+							echo sprintf( __( 'If you are facing any issues, please %s from your WooCommerce account.', 'woocommerce-smart-coupons' ), '<a target="_blank" href="https://woo.com/my-account/create-a-ticket/">' . esc_html__( 'submit a ticket', 'woocommerce-smart-coupons' ) . '</a>' ); // phpcs:ignore
 						?>
 					</h3>
 				</div>

@@ -25,30 +25,15 @@ class ConfigFactory {
 		$this->default_config = new Configurable\Column( $field_factory );
 	}
 
-	/**
-	 * @param string $column
-	 *
-	 * @return bool
-	 */
-	private function is_clone( $column_type ) {
+	private function is_clone( string $column_type ): bool {
 		return 0 === strpos( $column_type, CloneColumnFactory::CLONE_PREFIX );
 	}
 
-	/**
-	 * @param string $column
-	 *
-	 * @return bool
-	 */
-	private function is_group( $column_type ) {
+	private function is_group( string $column_type ): bool {
 		return 0 === strpos( $column_type, GroupColumnFactory::GROUP_PREFIX );
 	}
 
-	/**
-	 * @param string $column_type
-	 *
-	 * @return array|null
-	 */
-	public function create( $column_type ) {
+	public function create( string $column_type ): ?array {
 
 		if ( $this->is_clone( $column_type ) ) {
 			return $this->clone_prefixed_config->create( $column_type );

@@ -1,0 +1,58 @@
+.vc_message {
+  display: none;
+  position: fixed;
+  .box-sizing(border-box);
+  padding: 10px;
+  text-align: center;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  background: #CCCCCC;
+  color: #000000;
+  &.success, &.type-success {
+    background: @vc_success_frontend_editor;
+    border-bottom: 1px solid #cae1b7;
+    color: #ffffff;
+  }
+  &.error, &.type-error {
+    background: @state-danger-bg;
+    border-bottom: 1px solid @state-danger-border;
+    color: @state-danger-text;
+  }
+}
+
+.vc_editor .vc_message.error {
+  padding: 10px;
+  margin: 0;
+}
+
+.vc_panel-message {
+  display: none;
+  z-index: 100000;
+  position: absolute;
+  .box-sizing(border-box);
+  padding: 10px;
+  text-align: center;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  background: #CCCCCC;
+  color: #000000;
+  &.type-success {
+    background: @vc_success_frontend_editor;
+    border-bottom: 1px solid #cae1b7;
+    color: #ffffff;
+  }
+  &.type-error {
+    background: #EBE4C7;
+    border-bottom: 1px solid #DDD2B3;
+    color: #938D7C;
+  }
+}
+
+#vc_ui-helper-modal-ai .vc_message {
+  position: absolute;
+  top: 50px;
+  margin: 0;
+  padding: 10px;
+}

@@ -11,7 +11,6 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use ACP\Asset\Script\Table;
-use ACP\Search\SegmentRepository;
 
 class Scripts implements Registerable
 {
@@ -24,20 +23,16 @@ class Scripts implements Registerable
 
     private $storage;
 
-    private $segment_repository;
-
     public function __construct(
         Asset\Location\Absolute $location,
         ColumnSize\UserStorage $user_storage,
         ColumnSize\ListStorage $list_storage,
-        Storage $storage,
-        SegmentRepository $segment_repository
+        Storage $storage
     ) {
         $this->location = $location;
         $this->user_storage = $user_storage;
         $this->list_storage = $list_storage;
         $this->storage = $storage;
-        $this->segment_repository = $segment_repository;
     }
 
     public function register(): void
@@ -56,7 +51,6 @@ class Scripts implements Registerable
             new Table(
                 $this->location->with_suffix('assets/core/js/table.js'),
                 $list_screen,
-                $this->segment_repository,
                 $this->user_storage,
                 $this->list_storage,
                 $this->storage

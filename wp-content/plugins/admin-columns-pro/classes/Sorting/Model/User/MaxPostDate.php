@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\User;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class MaxPostDate extends AbstractModel implements QueryBindings
+class MaxPostDate implements QueryBindings
 {
 
     use SqlTrait;
@@ -25,8 +24,6 @@ class MaxPostDate extends AbstractModel implements QueryBindings
 
     public function __construct(string $post_type, array $post_stati = [], bool $oldest_post = false)
     {
-        parent::__construct();
-
         $this->post_type = $post_type;
         $this->post_stati = $post_stati;
         $this->oldest_post = $oldest_post;

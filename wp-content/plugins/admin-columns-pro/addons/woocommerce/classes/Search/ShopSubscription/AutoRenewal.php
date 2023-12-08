@@ -3,24 +3,26 @@
 namespace ACA\WC\Search\ShopSubscription;
 
 use AC\Helper\Select\Options;
-use AC\MetaType;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
 class AutoRenewal extends Comparison\Meta
-	implements Comparison\Values {
+    implements Comparison\Values
+{
 
-	public function __construct() {
-		$operators = new Operators( [ Operators::EQ ] );
+    public function __construct()
+    {
+        $operators = new Operators([Operators::EQ]);
 
-		parent::__construct( $operators, '_requires_manual_renewal', MetaType::POST );
-	}
+        parent::__construct($operators, '_requires_manual_renewal');
+    }
 
-	public function get_values() {
-		return Options::create_from_array( [
-			'false' => __( 'True' ),
-			'true'  => __( 'False' ),
-		] );
-	}
+    public function get_values(): Options
+    {
+        return Options::create_from_array([
+            'false' => __('True'),
+            'true'  => __('False'),
+        ]);
+    }
 
 }

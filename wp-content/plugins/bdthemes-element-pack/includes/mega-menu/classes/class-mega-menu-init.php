@@ -73,7 +73,6 @@ class Mega_Menu_Init {
         foreach ($items->posts as $item) {
             $data = get_post_meta($item, Mega_Menu_Init::$menu_item_settings_key, true);
             $data = (array) json_decode($data);
-
             if (isset($data['menu_enable']) && $data['menu_enable'] == 1) {
                 $menuItems[] = "#menu-item-" . $item;
             }

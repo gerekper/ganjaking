@@ -233,27 +233,12 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			);
 		}
 
-		$order_total     = $this->get_order_total();
-		$available_funds = WC_Account_Funds::get_account_funds( $order->get_customer_id(), false, $order_id );
+		$result = wc_account_funds_pay_order_with_funds( $order, $this->get_order_total() );
 
-		if ( $available_funds < $order_total ) {
-			$message = sprintf(
-				/* translators: %s funds name */
-				_x( 'Insufficient %s amount.', 'payment error', 'woocommerce-account-funds' ),
-				wc_get_account_funds_name()
-			);
-
-			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . $message, 'error' );
+		if ( is_wp_error( $result ) ) {
+			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . $result->get_error_message(), 'error' );
 			return array( 'result' => 'error' );
 		}
-
-		// Update account funds.
-		WC_Account_Funds_Manager::decrease_user_funds( $order->get_customer_id(), $order_total );
-
-		$order->update_meta_data( '_funds_used', $order_total );
-		$order->update_meta_data( '_funds_removed', 1 );
-		$order->update_meta_data( '_funds_version', WC_ACCOUNT_FUNDS_VERSION );
-		$order->save_meta_data();
 
 		// Payment complete.
 		$order->payment_complete();
@@ -277,48 +262,15 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 * @param WC_Order $order       Renewal order.
 	 */
 	public function process_subscription_payment( $order_total, $order ) {
-		try {
-			$user_id = $order->get_customer_id();
+		$result = wc_account_funds_pay_order_with_funds( $order, $order_total );
 
-			if ( ! $user_id ) {
-				throw new Exception( __( 'Customer not found.', 'woocommerce-account-funds' ) );
-			}
-
-			$funds = WC_Account_Funds::get_account_funds( $user_id, false );
-
-			if ( $order_total > $funds ) {
-				throw new Exception(
-					sprintf(
-						/* translators: 1: funds name, 2: amount required, 3: amount available */
-						_x( 'Insufficient %1$s amount. Required: %2$s; Available: %3$s).', 'payment error', 'woocommerce-account-funds' ),
-						wc_get_account_funds_name(),
-						wc_account_funds_format_order_price( $order, $order_total ),
-						wc_account_funds_format_order_price( $order, $funds )
-					)
-				);
-			}
-
-			WC_Account_Funds_Manager::decrease_user_funds( $user_id, $order_total );
-
-			$order->update_meta_data( '_funds_used', $order_total );
-			$order->update_meta_data( '_funds_removed', 1 );
-			$order->update_meta_data( '_funds_version', WC_ACCOUNT_FUNDS_VERSION );
-			$order->save_meta_data();
-
-			$order->add_order_note(
-				sprintf(
-					/* translators: 1: Payment gateway title, 2: Funds used */
-					_x( '%1$s payment applied: %2$s', 'order note', 'woocommerce-account-funds' ),
-					$this->get_method_title(),
-					wc_account_funds_format_order_price( $order, $order_total )
-				)
-			);
-
-			$order->payment_complete();
-		} catch ( Exception $e ) {
-			$order->add_order_note( $e->getMessage() );
+		if ( is_wp_error( $result ) ) {
+			$order->add_order_note( $result->get_error_message() );
 			$this->payment_failed_for_subscriptions_on_order( $order );
+			return;
 		}
+
+		$order->payment_complete();
 	}
 
 	/**
@@ -464,47 +416,5 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		$subscription->set_requires_manual_renewal( false );
 		$subscription->delete_meta_data( '_restore_auto_renewal' );
 		$subscription->save();
-	}
-
-	/**
-	 * Set renewal order meta.
-	 *
-	 * Set the total to zero as it will be replaced by `_funds_used`.
-	 *
-	 * @deprecated 2.3.5
-	 *
-	 * @param WC_Order $renewal_order Order from renewal payment
-	 */
-	public function set_renewal_order_meta( $renewal_order ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.5' );
-	}
-
-	/**
-	 * Complete subscriptions payments in a given order.
-	 *
-	 * @since 2.1.7
-	 * @deprecated 2.3.9
-	 *
-	 * @param int|WC_Order $order Order ID or order object.
-	 */
-	protected function complete_payment_for_subscriptions_on_order( $order ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.9' );
-	}
-
-	/**
-	 * Process scheduled subscription payment.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 2.4.0 Use WC_Gateway_Account_Funds->process_subscription_payment()
-	 *
-	 * @see WC_Gateway_Account_Funds->process_subscription_payment()
-	 *
-	 * @param float    $amount Renewal order amount.
-	 * @param WC_Order $order  Renewal order.
-	 */
-	public function scheduled_subscription_payment( $amount, $order ) {
-		wc_deprecated_function( __FUNCTION__, '2.4.0', 'WC_Gateway_Account_Funds->process_subscription_payment()' );
-
-		$this->process_subscription_payment( $amount, $order );
 	}
 }

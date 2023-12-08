@@ -257,78 +257,6 @@ class Lottie_Image extends Module_Base {
             ]
         );
 
-        // $this->add_control(
-        //  'lottie_trigger',
-        //  [
-        //      'label'   => __( 'Trigger', 'bdthemes-element-pack' ),
-        //      'type'    => Controls_Manager::SELECT,
-        //      'default' => 'arriving_to_viewport',
-        //      'options' => [
-        //          'arriving_to_viewport' => __( 'Viewport', 'bdthemes-element-pack' ),
-        //          'bind_to_scroll'       => __( 'Scroll', 'bdthemes-element-pack' ),
-        //          'none'                 => __( 'None', 'bdthemes-element-pack' ),
-        //      ],
-        //      'frontend_available' => true,
-        //      'separator'          => 'before',
-        //  ]
-        // );
-
-        // $this->add_control(
-        //  'lottie_viewport',
-        //  [
-        //      'label' => __( 'Viewport', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SLIDER,
-        //      'render_type' => 'none',
-        //      'conditions' => [
-        //          'relation' => 'or',
-        //          'terms' => [
-        //              [
-        //                  'name' => 'lottie_trigger',
-        //                  'operator' => '===',
-        //                  'value' => 'arriving_to_viewport',
-        //              ],
-        //              [
-        //                  'name' => 'lottie_trigger',
-        //                  'operator' => '===',
-        //                  'value' => 'bind_to_scroll',
-        //              ],
-        //          ],
-        //      ],
-        //      'default' => [
-        //          'sizes' => [
-        //              'start' => 0,
-        //              'end' => 100,
-        //          ],
-        //          'unit' => '%',
-        //      ],
-        //      'labels' => [
-        //          __( 'Bottom', 'bdthemes-element-pack' ),
-        //          __( 'Top', 'bdthemes-element-pack' ),
-        //      ],
-        //      'scales' => 1,
-        //      'handles' => 'range',
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
-        // $this->add_control(
-        //  'lottie_effects_relative_to',
-        //  [
-        //      'label' => __( 'Effects Relative To', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SELECT,
-        //      'render_type' => 'none',
-        //      'condition' => [
-        //          'lottie_trigger' => 'bind_to_scroll',
-        //      ],
-        //      'default' => 'lottie_viewport',
-        //      'options' => [
-        //          'lottie_viewport' => __( 'Viewport', 'bdthemes-element-pack' ),
-        //          'page' => __( 'Entire Page', 'bdthemes-element-pack' ),
-        //      ],
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
         $this->add_control(
             'loop',
             [
@@ -344,21 +272,6 @@ class Lottie_Image extends Module_Base {
                 'label' => __('Times', 'bdthemes-element-pack'),
                 'type' => Controls_Manager::NUMBER,
                 'render_type' => 'content',
-                // 'conditions' => [
-                //  'relation' => 'and',
-                //  'terms' => [
-                //      [
-                //          'name' => 'lottie_trigger',
-                //          'operator' => '!==',
-                //          'value' => 'bind_to_scroll',
-                //      ],
-                //      [
-                //          'name' => 'loop',
-                //          'operator' => '===',
-                //          'value' => 'yes',
-                //      ],
-                //  ],
-                // ],
                 'min' => 0,
                 'step' => 1,
                 'frontend_available' => true,
@@ -385,81 +298,6 @@ class Lottie_Image extends Module_Base {
                 ],
             ]
         );
-
-
-
-        // $this->add_control(
-        //  'lottie_link_timeout',
-        //  [
-        //      'label' => __( 'Link Timeout', 'bdthemes-element-pack' ) . ' (ms)',
-        //      'type' => Controls_Manager::NUMBER,
-        //      'render_type' => 'none',
-        //      'conditions' => [
-        //          'relation' => 'and',
-        //          'terms' => [
-        //              [
-        //                  'name' => 'link_to',
-        //                  'operator' => '===',
-        //                  'value' => 'custom',
-        //              ],
-        //              [
-        //                  'name' => 'lottie_trigger',
-        //                  'operator' => '===',
-        //                  'value' => 'on_click',
-        //              ],
-        //              [
-        //                  'name' => 'custom_link[url]',
-        //                  'operator' => '!==',
-        //                  'value' => '',
-        //              ],
-        //          ],
-        //      ],
-        //      'description' => __( 'Redirect to link after selected timeout', 'bdthemes-element-pack' ),
-        //      'min' => 0,
-        //      'max' => 5000,
-        //      'step' => 1,
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
-        // $this->add_control(
-        //  'lottie_on_hover_out',
-        //  [
-        //      'label' => __( 'On Hover Out', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SELECT,
-        //      'render_type' => 'none',
-        //      'condition' => [
-        //          'lottie_trigger' => 'on_hover',
-        //      ],
-        //      'default' => 'default',
-        //      'options' => [
-        //          'default' => __( 'Default', 'bdthemes-element-pack' ),
-        //          'reverse' => __( 'Reverse', 'bdthemes-element-pack' ),
-        //          'pause' => __( 'Pause', 'bdthemes-element-pack' ),
-        //      ],
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
-        // $this->add_control(
-        //  'lottie_hover_area',
-        //  [
-        //      'label' => __( 'Hover Area', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SELECT,
-        //      'render_type' => 'none',
-        //      'condition' => [
-        //          'lottie_trigger' => 'on_hover',
-        //      ],
-        //      'default' => 'animation',
-        //      'options' => [
-        //          'animation' => __( 'Animation', 'bdthemes-element-pack' ),
-        //          'column' => __( 'Column', 'bdthemes-element-pack' ),
-        //          'section' => __( 'Section', 'bdthemes-element-pack' ),
-        //      ],
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
 
         $this->add_control(
             'lottie_start_point',
@@ -491,33 +329,6 @@ class Lottie_Image extends Module_Base {
             ]
         );
 
-        // $this->add_control(
-        //  'lottie_reverse_animation',
-        //  [
-        //      'label' => __( 'Reverse', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SWITCHER,
-        //      'render_type' => 'none',
-        //      'conditions' => [
-        //          'relation' => 'and',
-        //          'terms' => [
-        //              [
-        //                  'name' => 'lottie_trigger',
-        //                  'operator' => '!==',
-        //                  'value' => 'bind_to_scroll',
-        //              ],
-        //              [
-        //                  'name' => 'lottie_trigger',
-        //                  'operator' => '!==',
-        //                  'value' => 'on_hover',
-        //              ],
-        //          ],
-        //      ],
-        //      'return_value' => 'yes',
-        //      'default' => '',
-        //      'frontend_available' => true,
-        //  ]
-        // );
-
         $this->add_control(
             'lottie_renderer',
             [
@@ -531,17 +342,6 @@ class Lottie_Image extends Module_Base {
                 'separator' => 'before',
             ]
         );
-
-        // $this->add_control(
-        //  'lottie_lazyload',
-        //  [
-        //      'label' => __( 'Lazy Load', 'bdthemes-element-pack' ),
-        //      'type' => Controls_Manager::SWITCHER,
-        //      'return_value' => 'yes',
-        //      'default' => '',
-        //      'frontend_available' => true,
-        //  ]
-        // );
 
         $this->end_controls_section();
 
@@ -909,21 +709,13 @@ class Lottie_Image extends Module_Base {
 
         if ($link) {
 
-            $this->add_render_attribute('link', 'href', $link['url']);
-
             if (Element_Pack_Loader::elementor()->editor->is_edit_mode()) {
                 $this->add_render_attribute('link', [
                     'class' => 'elementor-clickable',
                 ]);
             }
 
-            if (!empty($link['is_external'])) {
-                $this->add_render_attribute('link', 'target', '_blank');
-            }
-
-            if (!empty($link['nofollow'])) {
-                $this->add_render_attribute('link', 'rel', 'nofollow');
-            }
+            $this->add_link_attributes('link', $link);
         }
         $lottie_start_point = (!empty($settings['lottie_start_point']['size']) ? $settings['lottie_start_point']['size'] : 0);
         $lottie_end_point   = (isset($settings['lottie_end_point']['size'])) ? $settings['lottie_end_point']['size'] : 0;

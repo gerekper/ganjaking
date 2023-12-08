@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: WooCommerce Account Funds
- * Plugin URI: https://woocommerce.com/products/account-funds/
+ * Plugin URI: https://woo.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.9.1
- * Author: Themesquad
- * Author URI: https://themesquad.com/
- * Requires PHP: 5.6
- * Requires at least: 4.9
- * Tested up to: 6.2
+ * Version: 3.0.0
+ * Author: KoiLab
+ * Author URI: https://koilab.com/
+ * Requires PHP: 7.0
+ * Requires at least: 5.0
+ * Tested up to: 6.4
  * Text Domain: woocommerce-account-funds
  * Domain Path: /languages/
  *
- * WC requires at least: 3.7
- * WC tested up to: 7.6
+ * WC requires at least: 4.0
+ * WC tested up to: 8.3
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
  * License: GNU General Public License v3.0
@@ -26,22 +26,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Required functions.
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once dirname( __FILE__ ) . '/woo-includes/woo-functions.php';
-}
-
-/**
- * Plugin updates.
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'a6fcf35d3297c328078dfe822e00bd06', '18728' );
-
-/**
  * Plugin requirements.
  */
 if ( ! class_exists( 'WC_Account_Funds_Requirements', false ) ) {
-	require_once dirname( __FILE__ ) . '/includes/class-wc-account-funds-requirements.php';
+	require_once __DIR__ . '/includes/class-wc-account-funds-requirements.php';
 }
 
 if ( ! WC_Account_Funds_Requirements::are_satisfied() ) {
@@ -63,7 +51,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.9.1';
+	public $version = '3.0.0';
 
 	/**
 	 * Constructor.
@@ -181,6 +169,7 @@ class WC_Account_Funds {
 	public function declare_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_ACCOUNT_FUNDS_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_ACCOUNT_FUNDS_FILE, false );
 		}
 	}
 
@@ -247,7 +236,7 @@ class WC_Account_Funds {
 					'limit'       => -1,
 					'return'      => 'ids',
 					'customer_id' => $user_id,
-					'funds_query'  => array(
+					'funds_query' => array(
 						array(
 							'key'   => '_funds_removed',
 							'value' => '0',
@@ -291,10 +280,7 @@ class WC_Account_Funds {
 	 *
 	 * @since 2.1.3
 	 *
-	 * @version 2.1.3
-	 *
 	 * @param array $data_stores Data stores.
-	 *
 	 * @return array Data stores.
 	 */
 	public function add_data_stores( $data_stores ) {
@@ -305,94 +291,6 @@ class WC_Account_Funds {
 		$data_stores['product-topup'] = 'WC_Product_Topup_Data_Store';
 
 		return $data_stores;
-	}
-
-	/**
-	 * Add funds to user account.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.7.0
-	 *
-	 * @param int   $customer_id Customer ID.
-	 * @param float $amount      Amount of funds to add.
-	 */
-	public static function add_funds( $customer_id, $amount ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Manager::increase_user_funds()' );
-		WC_Account_Funds_Manager::increase_user_funds( $customer_id, $amount );
-	}
-
-	/**
-	 * Remove funds from user account.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.7.0
-	 *
-	 * @param int   $customer_id Customer ID.
-	 * @param float $amount      Amount of funds to remove.
-	 */
-	public static function remove_funds( $customer_id, $amount ) {
-		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Manager::decrease_user_funds()' );
-		WC_Account_Funds_Manager::decrease_user_funds( $customer_id, $amount );
-	}
-
-	/**
-	 * Classes that need to be loaded early.
-	 *
-	 * @since 2.0.12
-	 * @deprecated 2.2.0
-	 */
-	public function init_early() {
-		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds->includes()' );
-	}
-
-	/**
-	 * Add custom action links on the plugin screen.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.2.0
-	 *
-	 * @param mixed $actions Plugin Actions Links.
-	 * @return array
-	 */
-	public function plugin_action_links( $actions ) {
-		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Admin->action_links()' );
-
-		return $actions;
-	}
-
-	/**
-	 * Add scripts to checkout process
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.2.0
-	 */
-	public function checkout_scripts() {
-		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Checkout->enqueue_scripts()' );
-	}
-
-	/**
-	 * Perform version check. Update routine will be performed if current
-	 * plugin's version doesn't match with installed version.
-	 *
-	 * @deprecated 2.3.7
-	 */
-	public function version_check() {
-		wc_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
-	}
-
-	/**
-	 * Registers custom emails classes.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.8.0
-	 *
-	 * @param array $emails The email classes.
-	 * @return array
-	 */
-	public function add_email_classes( $emails ) {
-		wc_deprecated_function( __FUNCTION__, '2.8.0', 'WC_Account_Funds_Emails->email_classes()' );
-
-		return $emails;
 	}
 }
 

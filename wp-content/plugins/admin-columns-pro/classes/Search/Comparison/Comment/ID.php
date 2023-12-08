@@ -3,22 +3,26 @@
 namespace ACP\Search\Comparison\Comment;
 
 use ACP\Search\Operators;
+use ACP\Search\Value;
 
-class ID extends Field {
+class ID extends Field
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::GT,
-			Operators::LT,
-			Operators::BETWEEN,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::GT,
+            Operators::LT,
+            Operators::BETWEEN,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators, Value::INT);
+    }
 
-	protected function get_field() {
-		return 'comment_ID';
-	}
+    protected function get_field(): string
+    {
+        return 'comment_ID';
+    }
 
 }

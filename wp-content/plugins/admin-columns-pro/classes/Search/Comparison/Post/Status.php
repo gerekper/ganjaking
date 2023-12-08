@@ -2,49 +2,30 @@
 
 namespace ACP\Search\Comparison\Post;
 
-use AC;
-use ACP\Helper\Select;
-use ACP\Search\Comparison\RemoteValues;
+use AC\Helper\Select\Options;
+use ACP\Helper\Select\OptionsFactory;
+use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
-class Status extends PostField
-	implements RemoteValues {
+class Status extends PostField implements Values {
 
-	/** @var string */
 	private $post_type;
 
-	public function __construct( $post_type ) {
-		$operators = new Operators( [
+	public function __construct( string $post_type ) {
+		parent::__construct( new Operators( [
 			Operators::EQ,
 			Operators::NEQ,
-		] );
+		] ) );
 
 		$this->post_type = $post_type;
-
-		parent::__construct( $operators );
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'post_status';
 	}
 
-	/**
-	 * @return AC\Helper\Select\Options
-	 */
-	public function get_values() {
-		$entities = new Select\Entities\PostStatus( [
-			'post_type' => $this->post_type,
-		] );
-
-		$results = [];
-		foreach ( $entities as $value => $entity ) {
-			$results[] = new AC\Helper\Select\Option( $value, $entity->label );
-		}
-
-		return new AC\Helper\Select\Options( $results );
+	public function get_values(): Options {
+		return ( new OptionsFactory\PostStatus() )->create( $this->post_type );
 	}
 
 }

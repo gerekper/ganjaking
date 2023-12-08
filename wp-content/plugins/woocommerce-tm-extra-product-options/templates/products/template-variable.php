@@ -3,14 +3,17 @@
  * The template for displaying the product element variation table for the builder mode
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates/Products
+ * @package Extra Product Options/Templates/Products
  * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
+if ( ! isset( $attributes ) ) {
+	$attributes = [];
+}
 $attribute_keys = array_keys( $attributes );
 
-if ( count( $attributes ) > 0 ) :
+if ( count( $attributes ) > 0 && isset( $name ) && isset( $option ) && isset( $current_product ) ) :
 
 	$this_name = $name;
 	if ( isset( $layout_mode ) ) {
@@ -41,7 +44,7 @@ if ( count( $attributes ) > 0 ) :
 							isset( $cart_data ) && isset( $cart_data[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] )
 								? $cart_data[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ]
 								: ( isset( $_REQUEST[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-								? wp_unslash( $_REQUEST[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+								? stripslashes_deep( $_REQUEST[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 								: false );
 						wc_dropdown_variation_attribute_options(
 							[

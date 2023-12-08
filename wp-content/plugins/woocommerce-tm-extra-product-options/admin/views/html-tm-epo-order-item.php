@@ -2,28 +2,39 @@
 /**
  * Shows an order item
  *
- * @var object $item    The item being displayed
- * @var int    $item_id The id of the item being displayed
- *
  * @package Extra Product Options/Admin/Views
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
+if ( isset( $item, $item_id, $order, $_product, $item_meta, $epo, $key, $epo_name, $epo_value, $epo_edit_value, $edit_buttons, $epo_edit_cost, $epo_edit_quantity, $epo_is_fee, $epo_quantity, $order_taxes ) ) :
+	$item_id           = intval( $item_id );
+	$key               = (string) $key;
+	$epo_name          = (string) $epo_name;
+	$epo_value         = (string) $epo_value;
+	$epo_quantity      = (string) $epo_quantity;
+	$epo_edit_value    = (bool) $epo_edit_value;
+	$edit_buttons      = (bool) $edit_buttons;
+	$epo_edit_cost     = (bool) $epo_edit_cost;
+	$epo_edit_quantity = (bool) $epo_edit_quantity;
+	$epo_is_fee        = (bool) $epo_is_fee;
+	$order_taxes       = (array) $order_taxes;
+	$item_meta         = (array) $item_meta;
+	$epo               = (array) $epo;
 
-$input_type = ( is_callable( [ $order, 'is_editable' ] ) && $order->is_editable() ) ? 'number' : 'text';
+	$input_type = ( is_callable( [ $order, 'is_editable' ] ) && $order->is_editable() ) ? 'number' : 'text';
 
-$product_link  = $_product ? admin_url( 'post.php?post=' . absint( themecomplete_get_id( $_product ) ) . '&action=edit' ) : '';
-$thumbnail     = '';
-$tax_data      = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
-$item_total    = ( isset( $item['line_total'] ) ) ? esc_attr( wc_format_localized_price( $item['line_total'] ) ) : '';
-$item_subtotal = ( isset( $item['line_subtotal'] ) ) ? esc_attr( wc_format_localized_price( $item['line_subtotal'] ) ) : '';
+	$product_link  = $_product ? admin_url( 'post.php?post=' . absint( themecomplete_get_id( $_product ) ) . '&action=edit' ) : '';
+	$thumbnail     = '';
+	$tax_data      = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+	$item_total    = ( isset( $item['line_total'] ) ) ? esc_attr( wc_format_localized_price( $item['line_total'] ) ) : '';
+	$item_subtotal = ( isset( $item['line_subtotal'] ) ) ? esc_attr( wc_format_localized_price( $item['line_subtotal'] ) ) : '';
 
-$currency_arg             = [ 'currency' => ( is_callable( [ $order, 'get_currency' ] ) ? $order->get_currency() : $order->get_order_currency() ) ];
-$epo_can_show_order_price = apply_filters( 'epo_can_show_order_price', true, $item_meta );
-$row_class                = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $class ) && ! empty( $class ) ? $class : '', $item, $order );
-?>
-<tr class="tm-order-line-option item <?php echo esc_attr( $row_class ); ?>" data-order_item_id="<?php echo esc_attr( $item_id ); ?>" data-tm_item_id="<?php echo esc_attr( $item_id ); ?>" data-tm_key_id="<?php echo esc_attr( $key ); ?>">
+	$currency_arg             = [ 'currency' => $order->get_currency() ];
+	$epo_can_show_order_price = apply_filters( 'epo_can_show_order_price', true, $item_meta );
+	$row_class                = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $class ) && ! empty( $class ) ? $class : '', $item, $order );
+	?>
+<tr class="tm-order-line-option item <?php echo esc_attr( (string) $row_class ); ?>" data-order_item_id="<?php echo esc_attr( (string) $item_id ); ?>" data-tm_item_id="<?php echo esc_attr( (string) $item_id ); ?>" data-tm_key_id="<?php echo esc_attr( (string) $key ); ?>">
 	<?php echo ( version_compare( WC()->version, '2.6', '>=' ) ) ? '' : '<td class="check-column">&nbsp;</td>'; ?>
 	<td class="thumb">
 		<?php
@@ -56,7 +67,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 						$textarea_value = $epo['value'];
 					}
 					?>
-					<textarea novalidate name="tm_epo[<?php echo esc_attr( $item_id ); ?>][<?php echo esc_attr( $key ); ?>][value]" class="value"><?php echo esc_textarea( $textarea_value ); ?></textarea>
+					<textarea novalidate name="tm_epo[<?php echo esc_attr( (string) $item_id ); ?>][<?php echo esc_attr( (string) $key ); ?>][value]" class="value"><?php echo esc_textarea( $textarea_value ); ?></textarea>
 				</div>
 			</div>
 		<?php } ?>
@@ -65,6 +76,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 	<?php
 
 	do_action( 'woocommerce_admin_order_item_values', $_product, $item, 0 );
+	do_action( 'wc_epo_admin_order_item', $order, $_product, $item, $item_id, $epo, $key );
 
 	?>
 
@@ -76,7 +88,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 				echo '<div class="view">' . wc_price( 0, $currency_arg ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			if ( $epo_can_show_order_price && $epo_edit_cost ) {
-				echo '<div class="edit"><input novalidate type="' . esc_attr( $input_type ) . '" name="tm_epo[' . esc_attr( $item_id ) . '][' . esc_attr( $key ) . '][price]" placeholder="0" value="0" data-qty="0" class="price"></div>';
+				echo '<div class="edit"><input novalidate type="' . esc_attr( (string) $input_type ) . '" name="tm_epo[' . esc_attr( (string) $item_id ) . '][' . esc_attr( $key ) . '][price]" placeholder="0" value="0" data-qty="0" class="price"></div>';
 			}
 		} else {
 			echo '<div class="view">';
@@ -102,16 +114,16 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 
 			echo '</div>';
 			if ( $epo_can_show_order_price && $epo_edit_cost ) {
-				echo '<div class="edit"><input novalidate type="' . esc_attr( $input_type ) . '" name="tm_epo[' . esc_attr( $item_id ) . '][' . esc_attr( $key ) . '][price]" placeholder="0" value="' .
+				echo '<div class="edit"><input novalidate type="' . esc_attr( (string) $input_type ) . '" name="tm_epo[' . esc_attr( (string) $item_id ) . '][' . esc_attr( (string) $key ) . '][price]" placeholder="0" value="' .
 				esc_attr(
-					themecomplete_order_get_price_excluding_tax(
+					(string) ( themecomplete_order_get_price_excluding_tax(
 						$order,
 						$item_id,
 						[
 							'qty'   => 1,
 							'price' => $epo['price'],
 						]
-					) / $epo['quantity']
+					) / $epo['quantity'] )
 				) .
 				'" data-qty="' .
 				esc_attr(
@@ -133,7 +145,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 			<div class="edit">
 				<?php $item_qty = esc_attr( $item['qty'] ); ?>
 				<input novalidate type="<?php echo esc_attr( $input_type ); ?>" step="1" min="0" autocomplete="off" name="tm_epo[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $key ); ?>][quantity]" placeholder="0" value="<?php echo esc_attr( $epo['quantity'] ); ?>" data-qty="<?php echo esc_attr( $epo['quantity'] ); ?>" class="quantity">
-				<small>&times;<?php echo esc_html( (float) $item_meta['_qty'][0] ); ?></small>
+				<small>&times;<?php echo esc_html( (string) $item_meta['_qty'][0] ); ?></small>
 			</div>
 		<?php } ?>
 	</td>
@@ -167,6 +179,10 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 	<?php
 	if ( ! empty( $tax_data ) ) {
 		$tax_based_on = get_option( 'woocommerce_tax_based_on' );
+
+		$state    = '';
+		$postcode = '';
+		$city     = '';
 
 		if ( 'billing' === $tax_based_on ) {
 			$country  = $order->get_billing_country();
@@ -236,3 +252,5 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 		</div>
 	</td>
 </tr>
+	<?php
+endif;

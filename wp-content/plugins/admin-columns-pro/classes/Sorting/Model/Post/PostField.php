@@ -2,22 +2,21 @@
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class PostField extends AbstractModel implements QueryBindings
+class PostField implements QueryBindings
 {
 
     protected $field;
 
+    protected $data_type;
+
     public function __construct(string $field, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->field = $field;
         $this->data_type = $data_type;
     }

@@ -248,8 +248,6 @@ abstract class Strategy
      */
     public function export(array $ids): void
     {
-        $ids = array_map('intval', $ids);
-
         $csv = '';
 
         $columns = $this->get_requested_columns();

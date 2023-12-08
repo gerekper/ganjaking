@@ -14,10 +14,11 @@ use ACP;
  * @property Field\Type\Radio $field
  */
 class Radio extends Column\Meta
-	implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable {
+    implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable
+{
 
-	use Search\SearchableTrait,
-		Sorting\SortableTrait,
-		Editing\EditableTrait,
-		Value\DefaultValueFormatterTrait;
+    use Search\SearchableTrait,
+        Sorting\SortableTrait,
+        Editing\EditableTrait,
+        Value\DefaultValueFormatterTrait;
 }

@@ -3,7 +3,7 @@
  * Extra Product Options HTML creation class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options HTML creation class
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_HTML_Base {
 
@@ -27,6 +27,7 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_HTML_Base
 	 * @since 1.0
 	 * @static
 	 */
@@ -50,11 +51,11 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 	 * Ouputs a fontawesome icon
 	 *
 	 * @param string          $id The icon identifier.
-	 * @param integer|boolean $echo If we should echo the result or not.
+	 * @param integer|boolean $output If we should echo the result or not.
+	 * @return string|void|false
 	 * @since 1.0
 	 */
-	public function create_icon( $id = '', $echo = 1 ) {
-
+	public function create_icon( $id = '', $output = 1 ) {
 		ob_start();
 
 		echo wp_kses(
@@ -64,18 +65,18 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			]
 		);
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
-
 	}
 
 	/**
 	 * Displays attributes list from an array
 	 *
-	 * @param array $element_data_attr Element data attributes.
+	 * @param array<mixed> $element_data_attr Element data attributes.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function create_attribute_list( $element_data_attr = [] ) {
@@ -95,12 +96,12 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 	/**
 	 * Creates a button
 	 *
-	 * @param array           $args Array of arguments.
-	 * @param integer|boolean $echo If the result should be displayed or retuned.
+	 * @param array<mixed>    $args Array of arguments.
+	 * @param integer|boolean $output If the result should be displayed or retuned.
+	 * @return string|void|false
 	 * @since 1.0
 	 */
-	public function create_button( $args = [], $echo = 0 ) {
-
+	public function create_button( $args = [], $output = 0 ) {
 		if ( empty( $args ) || ! is_array( $args ) ) {
 			return;
 		}
@@ -134,18 +135,18 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			echo '</button>';
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
-
 	}
 
 	/**
 	 * Creates field attributes
 	 *
-	 * @param array $atts Array of arguments.
+	 * @param array<mixed> $atts Array of arguments.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function create_field_attributes( $atts = [] ) {
@@ -165,15 +166,15 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 	/**
 	 * Creates a select box
 	 *
-	 * @param array           $select_array Array of arguments.
-	 * @param array           $option_array Array of choices.
-	 * @param string          $selected_value The selecte value.
-	 * @param integer|boolean $label If the label should be displayed.
-	 * @param integer|boolean $echo If the result should be displayed or retuned.
+	 * @param array<mixed>        $select_array Array of arguments.
+	 * @param array<mixed>        $option_array Array of choices.
+	 * @param string|array<mixed> $selected_value The selecte value.
+	 * @param integer|boolean     $label If the label should be displayed.
+	 * @param integer|boolean     $output If the result should be displayed or retuned.
+	 * @return string|void|false
 	 * @since 1.0
 	 */
-	public function create_dropdown( $select_array, $option_array, $selected_value = '/n', $label = 1, $echo = 1 ) {
-
+	public function create_dropdown( $select_array, $option_array, $selected_value = '/n', $label = 1, $output = 1 ) {
 		if ( ! is_array( $select_array ) ) {
 			return '';
 		}
@@ -184,7 +185,11 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 		ob_start();
 
 		if ( ! empty( $select_array['id'] ) && ! empty( $label ) ) {
-			echo "<label for='" . esc_attr( $select_array['id'] ) . "'>";
+			echo '<label for="' . esc_attr( $select_array['id'] ) . '"';
+			if ( ! empty( $select_array['label_class'] ) ) {
+				echo ' class="' . esc_attr( $select_array['label_class'] ) . '"';
+			}
+			echo '>';
 		}
 
 		echo '<select';
@@ -223,42 +228,46 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 		echo '>';
 
 		$count_option_array = count( $option_array );
-		for ( $i = 0; $i < $count_option_array; $i ++ ) {
-			$sel = false;
-			if ( isset( $option_array[ $i ]['selected'] ) && true === $option_array[ $i ]['selected'] ) {
-				$sel = true;
-			} elseif ( '/n' !== $selected_value && ! is_array( $selected_value ) ) {
-				if ( (string) $selected_value === (string) $option_array[ $i ]['value'] ) {
-					$sel = true;
-				}
+		for ( $i = 0; $i < $count_option_array; $i++ ) {
+			if ( isset( $option_array[ $i ]['optgroupstart'] ) ) {
+				echo '<optgroup label="' . esc_attr( $option_array[ $i ]['optgroupstart'] ) . '">';
+			} elseif ( isset( $option_array[ $i ]['optgroupend'] ) ) {
+				echo '</optgroup>';
 			} else {
-				if ( is_array( $selected_value ) && in_array( $option_array[ $i ]['value'], $selected_value ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
+				$sel = false;
+				if ( isset( $option_array[ $i ]['selected'] ) && true === $option_array[ $i ]['selected'] ) {
+					$sel = true;
+				} elseif ( '/n' !== $selected_value && ! is_array( $selected_value ) ) {
+					if ( (string) $selected_value === (string) $option_array[ $i ]['value'] ) {
+						$sel = true;
+					}
+				} elseif ( is_array( $selected_value ) && in_array( $option_array[ $i ]['value'], $selected_value ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
 					$sel = true;
 				}
-			}
 
-			echo '<option';
+				echo '<option';
 
-			if ( isset( $option_array[ $i ]['title'] ) ) {
-				echo ' title="' . esc_attr( $option_array[ $i ]['title'] ) . '"';
-			}
-			if ( isset( $option_array[ $i ]['id'] ) ) {
-				echo ' id="' . esc_attr( $option_array[ $i ]['id'] ) . '"';
-			}
-			if ( isset( $option_array[ $i ]['class'] ) ) {
-				echo ' class="' . esc_attr( $option_array[ $i ]['class'] ) . '"';
-			}
-			if ( $sel ) {
-				echo ' selected="selected"';
-			}
+				if ( isset( $option_array[ $i ]['title'] ) ) {
+					echo ' title="' . esc_attr( $option_array[ $i ]['title'] ) . '"';
+				}
+				if ( isset( $option_array[ $i ]['id'] ) ) {
+					echo ' id="' . esc_attr( $option_array[ $i ]['id'] ) . '"';
+				}
+				if ( isset( $option_array[ $i ]['class'] ) ) {
+					echo ' class="' . esc_attr( $option_array[ $i ]['class'] ) . '"';
+				}
+				if ( $sel ) {
+					echo ' selected="selected"';
+				}
 
-			if ( isset( $option_array[ $i ]['atts'] ) && is_array( $option_array[ $i ]['atts'] ) ) {
-				$this->create_field_attributes( $option_array[ $i ]['atts'] );
-			}
+				if ( isset( $option_array[ $i ]['atts'] ) && is_array( $option_array[ $i ]['atts'] ) ) {
+					$this->create_field_attributes( $option_array[ $i ]['atts'] );
+				}
 
-			echo ' value="' . esc_attr( $option_array[ $i ]['value'] ) . '">';
-			echo esc_html( wp_strip_all_tags( $option_array[ $i ]['text'] ) );
-			echo '</option>';
+				echo ' value="' . esc_attr( $option_array[ $i ]['value'] ) . '">';
+				echo esc_html( $option_array[ $i ]['text'] );
+				echo '</option>';
+			}
 		}
 
 		echo '</select>';
@@ -267,22 +276,22 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			echo '</label>';
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
-
 	}
 
 	/**
 	 * Creates a form field
 	 *
-	 * @param array           $args Array of arguments.
-	 * @param integer|boolean $echo If the result should be displayed or retuned.
+	 * @param array<mixed>    $args Array of arguments.
+	 * @param integer|boolean $output If the result should be displayed or retuned.
+	 * @return string|void|false
 	 * @since 1.0
 	 */
-	public function create_field( $args, $echo = 0 ) {
+	public function create_field( $args, $output = 0 ) {
 
 		if ( ! is_array( $args ) ) {
 			return;
@@ -341,7 +350,7 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 						echo ' id="' . esc_attr( $args['divid'] ) . '"';
 					}
 					if ( isset( $args['required'] ) ) {
-						echo ' data-required="' . esc_attr( wp_json_encode( $args['required'] ) ) . '"';
+						echo ' data-required="' . esc_attr( (string) wp_json_encode( $args['required'] ) ) . '"';
 					}
 					echo ' class="message0x0 tc-clearfix';
 					if ( isset( $args['message0x0_class'] ) ) {
@@ -379,10 +388,8 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 					}
 					echo '</div>';
 				}
-			} else {
-				if ( isset( $args['tags'] ) && isset( $args['tags']['id'] ) && isset( $args['label'] ) ) {
-					echo '<label for="' . esc_attr( $args['tags']['id'] ) . '"><span>' . esc_html( $args['label'] ) . '</span></label>';
-				}
+			} elseif ( isset( $args['tags'] ) && isset( $args['tags']['id'] ) && isset( $args['label'] ) ) {
+				echo '<label for="' . esc_attr( $args['tags']['id'] ) . '"><span>' . esc_html( $args['label'] ) . '</span></label>';
 			}
 		}
 
@@ -473,9 +480,21 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 						$tags          = $tags_original;
 						$tags['id']    = $tags_original['id'] . $tx;
 						$tags['value'] = $vl['value'];
+						if ( ! empty( $vl['class'] ) ) {
+							if ( ! empty( $vl['class'] ) ) {
+								$tags['class'] .= ' ' . $vl['class'];
+							} else {
+								$tags['class'] = $vl['class'];
+							}
+						}
 						$this->create_field_attributes( $tags );
 						echo ' type="radio">';
-						echo "<label for='" . esc_attr( $args['tags']['id'] ) . esc_attr( $tx ) . "'><span class='tc-radio-text'>" . esc_html( $vl['text'] ) . '</span></label>';
+						echo '<label for="' . esc_attr( $args['tags']['id'] ) . esc_attr( $tx ) . '"';
+						if ( ! empty( $vl['label_class'] ) ) {
+							$this->create_field_attributes( [ 'class' => $vl['label_class'] ] );
+						}
+						echo '>';
+						echo '<span class="tc-radio-text">' . esc_html( $vl['text'] ) . '</span></label>';
 					}
 					break;
 				case 'select':
@@ -547,7 +566,7 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			echo '</div>';
 			if ( isset( $args['extra_fields'] ) && is_array( $args['extra_fields'] ) ) {
 				foreach ( $args['extra_fields'] as $k => $extra_field ) {
-					echo '<div class="message2x' . esc_attr( $k + 3 ) . '">';
+					echo '<div class="message2x' . esc_attr( strval( $k + 3 ) ) . '">';
 					$this->create_field( $extra_field, true );
 					echo '</div>';
 				}
@@ -560,11 +579,10 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			}
 		}
 
-		if ( $echo ) {
+		if ( $output ) {
 			ob_end_flush();
 		} else {
 			return ob_get_clean();
 		}
 	}
-
 }

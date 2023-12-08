@@ -2,22 +2,40 @@
 
 namespace ACP\Search\Comparison\User;
 
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
+use ACP\Search\Helper\Select\User\DateOptionsFactory;
+use ACP\Search\Operators;
 
-abstract class Date extends Comparison\Date {
+abstract class Date extends Comparison\Date implements Comparison\RemoteValues
+{
 
-	/**
-	 * @return string
-	 */
-	abstract protected function get_field();
+    private $value_factory;
 
-	/**
-	 * @return string
-	 */
-	protected function get_column() {
-		global $wpdb;
+    public function __construct(Operators $operators)
+    {
+        parent::__construct($operators);
 
-		return sprintf( '%s.%s', $wpdb->users, $this->get_field() );
-	}
+        $this->value_factory = new DateOptionsFactory();
+    }
+
+    abstract protected function get_field(): string;
+
+    protected function get_column(): string
+    {
+        global $wpdb;
+
+        return sprintf('%s.%s', $wpdb->users, $this->get_field());
+    }
+
+    public function format_label(string $value): string
+    {
+        return $this->value_factory->create_label($value);
+    }
+
+    public function get_values(): Options
+    {
+        return $this->value_factory->create_options($this->get_field());
+    }
 
 }

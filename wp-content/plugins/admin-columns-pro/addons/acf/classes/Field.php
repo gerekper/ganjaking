@@ -6,9 +6,6 @@ use http\Exception\InvalidArgumentException;
 
 class Field {
 
-	/**
-	 * @var array
-	 */
 	protected $settings;
 
 	public function __construct( array $settings ) {
@@ -17,17 +14,17 @@ class Field {
 		$this->validate();
 	}
 
-	public function validate() {
+	public function validate(): void {
 		if ( ! isset( $this->settings['label'], $this->settings['type'], $this->settings['name'], $this->settings['key'] ) ) {
 			throw new InvalidArgumentException( 'Missing field argument.' );
 		}
 	}
 
-	public function is_required() {
+	public function is_required(): bool {
 		return isset( $this->settings['required'] ) && $this->settings['required'];
 	}
 
-	public function get_settings() {
+	public function get_settings(): array {
 		return $this->settings;
 	}
 

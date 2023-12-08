@@ -20,7 +20,7 @@ class RequestSetter
 
     private $list_screen;
 
-    public function __construct(ListScreen $list_screen, Search\SegmentRepository $segment_repository)
+    public function __construct(ListScreen $list_screen, Search\SegmentRepository\Database $segment_repository)
     {
         $this->list_screen = $list_screen;
         $this->segment_repository = $segment_repository;

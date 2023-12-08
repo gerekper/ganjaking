@@ -3,25 +3,22 @@
 namespace ACA\BP\Sorting;
 
 use ACA\BP\Column;
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
 
-class Profile extends AbstractModel implements QueryBindings
+class Profile implements QueryBindings
 {
 
     protected $column;
 
-    protected $datatype;
+    protected $data_type;
 
     public function __construct(Column\Profile $column, DataType $data_type = null)
     {
-        parent::__construct();
-
         $this->column = $column;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }

@@ -559,7 +559,6 @@ class WC_Account_Funds_Cart_Manager {
 		}
 
 		return $paypal_args;
-
 	}
 
 	/**
@@ -618,102 +617,6 @@ class WC_Account_Funds_Cart_Manager {
 		$suffix = wc_account_funds_get_scripts_suffix();
 
 		wp_enqueue_script( 'wc-account-funds-cart', WC_ACCOUNT_FUNDS_URL . "assets/js/frontend/cart{$suffix}.js", array( 'jquery' ), WC_ACCOUNT_FUNDS_VERSION, true );
-	}
-
-	/**
-	 * Calculated total.
-	 *
-	 * @deprecated 2.3.5
-	 *
-	 * @param float $total
-	 * @return float
-	 */
-	public function calculated_total( $total ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.5' );
-
-		return $total;
-	}
-
-	/**
-	 * Calculated total.
-	 *
-	 * @deprecated 2.3.5
-	 *
-	 * @param string $total
-	 * @return string
-	 */
-	public function display_total( $total ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.5' );
-
-		return $total;
-	}
-
-	/**
-	 * Show a notice to apply points towards your purchase
-	 *
-	 * @deprecated 2.3.0
-	 */
-	public function output_use_funds_notice() {
-		wc_deprecated_function( __FUNCTION__, '2.3.0' );
-
-		if ( ! self::can_use_funds() || self::using_funds() ) {
-			return;
-		}
-
-		$message  = '<div class="woocommerce-info wc-account-funds-apply-notice">';
-		$message .= '<form class="wc-account-funds-apply" method="post">';
-		$message .= '<input type="submit" class="button wc-account-funds-apply-button" name="wc_account_funds_apply" value="' . __( 'Use Account Funds', 'woocommerce-account-funds' ) . '" />';
-		$message .= sprintf( __( 'You have <strong>%s</strong> worth of funds on your account.', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
-		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$message .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $this->display_discount_amount() ) . '</em>';
-		}
-		$message .= '</form>';
-		$message .= '</div>';
-
-		echo $message;
-	}
-
-	/**
-	 * Can the user actually apply funds to this cart?
-	 *
-	 * @deprecated 2.3.0
-	 *
-	 * @return bool
-	 */
-	public static function can_apply_funds() {
-		wc_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
-
-		return self::can_use_funds();
-	}
-
-	/**
-	 * Filters the available payment gateways.
-	 *
-	 * @since 2.3.0
-	 * @deprecated 2.3.11
-	 *
-	 * @param array $gateways The available gateways.
-	 * @return array
-	 */
-	public function available_payment_gateways( $gateways ) {
-		wc_deprecated_function( __FUNCTION__, '2.3.11' );
-
-		return $gateways;
-	}
-
-	/**
-	 * Filters whether the cart needs payment.
-	 *
-	 * @since 2.3.0
-	 * @deprecated 2.4.4
-	 *
-	 * @param bool $needs_payment Whether the cart needs payment.
-	 * @return bool
-	 */
-	public function cart_needs_payment( $needs_payment ) {
-		wc_deprecated_function( __FUNCTION__, '2.4.4' );
-
-		return $needs_payment;
 	}
 }
 

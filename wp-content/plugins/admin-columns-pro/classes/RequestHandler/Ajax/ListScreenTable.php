@@ -6,9 +6,9 @@ use AC\Capabilities;
 use AC\ColumnSize;
 use AC\Nonce;
 use AC\Request;
+use AC\RequestAjaxHandler;
 use AC\Storage;
 use AC\Type\ListScreenId;
-use ACP\RequestAjaxHandler;
 use LogicException;
 
 class ListScreenTable implements RequestAjaxHandler

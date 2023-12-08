@@ -20,9 +20,8 @@ class Template extends ACP\ListScreen\Post
 
         $this->template_page = $template_page;
         $this->custom_label = $label;
-
-        $this->set_group('beaver_builder')
-             ->set_label($label);
+        $this->label = $label;
+        $this->group = 'beaver_builder';
     }
 
     public function get_label(): ?string

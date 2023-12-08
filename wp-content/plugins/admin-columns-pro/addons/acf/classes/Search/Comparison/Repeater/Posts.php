@@ -2,50 +2,66 @@
 
 namespace ACA\ACF\Search\Comparison\Repeater;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACA\ACF\Search\Comparison;
-use ACP\Helper\Select;
+use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
+use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
 class Posts extends Comparison\Repeater
-	implements SearchableValues {
+    implements SearchableValues
+{
 
-	/**
-	 * @var array
-	 */
-	private $post_type;
+    /**
+     * @var array
+     */
+    private $post_type;
 
-	public function __construct( $meta_type, $parent_key, $sub_key, $post_type, $multiple = false ) {
-		if ( null === $post_type ) {
-			$post_type = [ 'any' ];
-		}
+    public function __construct(
+        string $meta_type,
+        string $parent_key,
+        string $sub_key,
+        array $post_types = null,
+        bool $multiple = false
+    ) {
+        if (null === $post_types) {
+            $post_types = ['any'];
+        }
 
-		$this->post_type = (array) $post_type;
+        $this->post_type = $post_types;
 
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $meta_type, $parent_key, $sub_key, $operators, null, $multiple );
-	}
+        parent::__construct($meta_type, $parent_key, $sub_key, $operators, null, $multiple);
+    }
 
-	public function get_values( $search, $page ) {
-		$entities = new Select\Entities\Post( [
-			's'             => $search,
-			'paged'         => $page,
-			'post_type'     => $this->post_type,
-			'search_fields' => [ 'post_title', 'ID' ],
-		] );
+    public function format_label($value): string
+    {
+        $post = get_post($value);
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Select\Group\PostType(
-				new Select\Formatter\PostTitle( $entities )
-			)
-		);
-	}
+        return $post
+            ? $this->formatter()->format_label($post)
+            : '';
+    }
+
+    private function formatter(): PostTitle
+    {
+        return new PostTitle();
+    }
+
+    public function get_values(string $search, int $page): Paginated
+    {
+        return (new PaginatedFactory())->create([
+            's'             => $search,
+            'paged'         => $page,
+            'post_type'     => $this->post_type,
+            'search_fields' => ['post_title', 'ID'],
+        ], $this->formatter());
+    }
 
 }

@@ -91,8 +91,6 @@
 				[
 					'label'         => __( 'Website Url', 'bdthemes-element-pack' ),
 					'type'          => Controls_Manager::URL,
-					'show_external' => false,
-					'label_block'   => false,
 				]
 			);
 			
@@ -952,12 +950,8 @@
 				
 				if ( $item['link']['url'] ) {
 					$tag = 'a ';
-					$target = ($item['link']['is_external']) ? '_blank' : '_self';
 					$this->add_render_attribute( $repeater_key, 'class', 'bdt-logo-grid-link' );
-					$this->add_render_attribute( $repeater_key, 'target', $target );
-
-					$this->add_render_attribute( $repeater_key, 'rel', 'noopener' );
-					$this->add_render_attribute( $repeater_key, 'href', esc_url( $item['link']['url'] ) );
+					$this->add_link_attributes( $repeater_key, $item['link'] );
 				}
 				
 				if ( $item['name'] and $item['description'] and $item['logo_tooltip'] ) {

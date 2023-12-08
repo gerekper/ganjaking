@@ -10,11 +10,12 @@ use ACA\JetEngine\Value;
 use ACP;
 
 class Media extends Column\Meta
-	implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable {
+    implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable
+{
 
-	use Search\SearchableTrait,
-		Editing\EditableTrait,
-		Sorting\SortableTrait,
-		Value\DefaultValueFormatterTrait,
-		ACP\ConditionalFormat\FilteredHtmlFormatTrait;
+    use Search\SearchableTrait,
+        Editing\EditableTrait,
+        Sorting\SortableTrait,
+        Value\DefaultValueFormatterTrait,
+        ACP\ConditionalFormat\FilteredHtmlFormatTrait;
 }

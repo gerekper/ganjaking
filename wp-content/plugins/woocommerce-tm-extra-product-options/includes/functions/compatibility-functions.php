@@ -16,7 +16,7 @@ if ( ! function_exists( 'mb_basename' ) ) {
 	/**
 	 * Creates mb_basename functionality if missing.
 	 *
-	 * @param array|string $path The path to check.
+	 * @param array<mixed>|string $path The path to check.
 	 * @return string
 	 */
 	function mb_basename( $path = '' ) {
@@ -53,10 +53,10 @@ if ( ! function_exists( 'themecomplete_get_price_excluding_tax' ) ) {
 	 * Get product price excluding tax
 	 * For a given product, and optionally price/qty, work out the price with tax excluded, based on store settings.
 	 *
-	 * @param  WC_Product $product WC_Product object.
-	 * @param  array      $args    Optional arguments to pass product quantity and price.
+	 * @param  WC_Product   $product WC_Product object.
+	 * @param  array<mixed> $args    Optional arguments to pass product quantity and price.
 	 *
-	 * @return float
+	 * @return float|string
 	 */
 	function themecomplete_get_price_excluding_tax( $product, $args = [] ) {
 		if ( function_exists( 'wc_get_price_excluding_tax' ) ) {
@@ -68,14 +68,14 @@ if ( ! function_exists( 'themecomplete_get_price_excluding_tax' ) ) {
 						'price' => '',
 					]
 				);
-				$qty  = (int) $args['qty'] ? $args['qty'] : 1;
+				$qty  = intval( $args['qty'] ) ? $args['qty'] : 1;
 
 				return apply_filters( 'woocommerce_get_price_excluding_tax', 0, $qty, $product );
 			}
 			if ( (float) $args['price'] < 0 ) {
 				$args['price'] = - $args['price'];
 
-				return - wc_get_price_excluding_tax( $product, $args );
+				return - floatval( wc_get_price_excluding_tax( $product, $args ) );
 			}
 
 			return wc_get_price_excluding_tax( $product, $args );
@@ -100,10 +100,10 @@ if ( ! function_exists( 'themecomplete_get_price_including_tax' ) ) {
 	 * Get product price including tax
 	 * For a given product, and optionally price/qty, work out the price with tax included, based on store settings.
 	 *
-	 * @param  WC_Product $product WC_Product object.
-	 * @param  array      $args    Optional arguments to pass product quantity and price.
+	 * @param  WC_Product   $product WC_Product object.
+	 * @param  array<mixed> $args    Optional arguments to pass product quantity and price.
 	 *
-	 * @return float
+	 * @return float|string
 	 */
 	function themecomplete_get_price_including_tax( $product, $args = [] ) {
 		if ( function_exists( 'wc_get_price_including_tax' ) ) {
@@ -115,14 +115,14 @@ if ( ! function_exists( 'themecomplete_get_price_including_tax' ) ) {
 						'price' => '',
 					]
 				);
-				$qty  = (int) $args['qty'] ? $args['qty'] : 1;
+				$qty  = intval( $args['qty'] ) ? $args['qty'] : 1;
 
 				return apply_filters( 'woocommerce_get_price_including_tax', 0, $qty, $product );
 			}
 			if ( (float) $args['price'] < 0 ) {
 				$args['price'] = - $args['price'];
 
-				return - wc_get_price_including_tax( $product, $args );
+				return - floatval( wc_get_price_including_tax( $product, $args ) );
 			}
 
 			return wc_get_price_including_tax( $product, $args );
@@ -146,7 +146,7 @@ if ( ! function_exists( 'themecomplete_get_product_type' ) ) {
 	/**
 	 * Get product type
 	 *
-	 * @param WC_Product|null $product Product object.
+	 * @param mixed $product Product object.
 	 * @return mixed
 	 */
 	function themecomplete_get_product_type( $product = null ) {
@@ -167,8 +167,8 @@ if ( ! function_exists( 'themecomplete_get_id' ) ) {
 	/**
 	 * Get product ID
 	 *
-	 * @param WC_Product $product Product object.
-	 * @return int
+	 * @param mixed $product Product object.
+	 * @return integer
 	 */
 	function themecomplete_get_id( $product ) {
 		if ( is_callable( [ $product, 'get_id' ] ) && is_callable( [ $product, 'get_parent_id' ] ) ) {
@@ -202,8 +202,8 @@ if ( ! function_exists( 'themecomplete_get_variation_id' ) ) {
 	/**
 	 * Get variation ID
 	 *
-	 * @param WC_Product $product Product object.
-	 * @return int
+	 * @param mixed $product Product object.
+	 * @return integer
 	 */
 	function themecomplete_get_variation_id( $product ) {
 		if ( is_callable( [ $product, 'get_id' ] ) ) {
@@ -219,8 +219,8 @@ if ( ! function_exists( 'themecomplete_get_tax_class' ) ) {
 	/**
 	 * Get product tax class
 	 *
-	 * @param WC_Product $product Product object.
-	 * @param string     $context view, edit, or unfiltered.
+	 * @param mixed $product Product object.
+	 * @param mixed $context view, edit, or unfiltered.
 	 * @return string
 	 */
 	function themecomplete_get_tax_class( $product, $context = false ) {
@@ -252,7 +252,6 @@ if ( ! function_exists( 'themecomplete_get_woocommerce_currency' ) ) {
 		}
 
 		return $currency;
-
 	}
 }
 
@@ -261,8 +260,9 @@ if ( ! function_exists( 'themecomplete_maybe_unserialize' ) ) {
 	 * UnSerialize String Fixer
 	 * https://stackoverflow.com/questions/3148712/regex-code-to-fix-corrupt-serialized-php-data
 	 *
-	 * @param string $serialized_string The stringto fix.
-	 * @return string
+	 * @param mixed $serialized_string The string to unserialize.
+	 *
+	 * @return mixed
 	 */
 	function themecomplete_maybe_unserialize( $serialized_string = '' ) {
 		// at first, check if "fixing" is really needed at all. After that, security checkup.
@@ -270,7 +270,7 @@ if ( ! function_exists( 'themecomplete_maybe_unserialize' ) ) {
 		if ( false === $unserialized_string && preg_match( '/^[aOs]:/', $serialized_string ) ) {
 			$serialized_string = preg_replace_callback(
 				'/s\:(\d+)\:\"(.*?)\";/s',
-				function( $matches ) {
+				function ( $matches ) {
 					return 's:' . strlen( $matches[2] ) . ':"' . $matches[2] . '";';
 				},
 				$serialized_string
@@ -287,7 +287,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 	/**
 	 * Get post meta
 	 *
-	 * @param integer $post_id The id of the post to search.
+	 * @param mixed   $post_id The id of the post to search.
 	 * @param string  $meta_key The meta key to retrieve.
 	 * @param boolean $single Whether to return a single value.
 	 *
@@ -296,7 +296,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 	function themecomplete_get_post_meta( $post_id, $meta_key = '', $single = false ) {
 		$meta = false;
 
-		if ( $post_id instanceof WC_PRODUCT && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
+		if ( $post_id instanceof WC_Product && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
 			return $post_id->get_meta( $meta_key, $single );
 		} elseif ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && 'product' !== $post_id->post_type ) ) {
 			$meta = get_post_meta( $post_id->ID, $meta_key, $single );
@@ -347,18 +347,17 @@ if ( ! function_exists( 'themecomplete_update_post_meta' ) ) {
 	/**
 	 * Updates a post meta field based on the given post ID.
 	 *
-	 * @param integer $post_id    Post ID.
-	 * @param string  $meta_key   Metadata key.
-	 * @param mixed   $meta_value Metadata value. Must be serializable if non-scalar.
-	 * @param mixed   $prev_value Optional. Previous value to check before updating.
+	 * @param mixed  $post_id    Post ID.
+	 * @param string $meta_key   Metadata key.
+	 * @param mixed  $meta_value Metadata value. Must be serializable if non-scalar.
+	 * @param mixed  $prev_value Optional. Previous value to check before updating.
 	 *                            If specified, only update existing metadata entries with
 	 *                            this value. Otherwise, update all entries. Default empty.
-	 * @return int|bool Meta ID if the key didn't exist, true on successful update,
+	 * @return integer|boolean Meta ID if the key didn't exist, true on successful update,
 	 *                  false on failure or if the value passed to the function
 	 *                  is the same as the one that is already in the database.
 	 */
 	function themecomplete_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
-
 		if ( is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
 			if ( is_object( $product ) ) {
@@ -367,12 +366,11 @@ if ( ! function_exists( 'themecomplete_update_post_meta' ) ) {
 
 				return true;
 			} else {
-				return update_post_meta( $post_id, $meta_key, $meta_value );
+				return update_post_meta( $post_id, $meta_key, $meta_value, $prev_value );
 			}
 		}
 
 		return false;
-
 	}
 }
 
@@ -381,15 +379,14 @@ if ( ! function_exists( 'themecomplete_delete_post_meta' ) ) {
 	/**
 	 * Deletes a post meta field for the given post ID.
 	 *
-	 * @param integer $post_id    Post ID.
-	 * @param string  $meta_key   Metadata name.
-	 * @param mixed   $meta_value Optional. Metadata value. If provided,
+	 * @param mixed  $post_id    Post ID.
+	 * @param string $meta_key   Metadata name.
+	 * @param mixed  $meta_value Optional. Metadata value. If provided,
 	 *                            rows will only be removed that match the value.
 	 *                            Must be serializable if non-scalar. Default empty.
-	 * @return bool True on success, false on failure.
+	 * @return boolean True on success, false on failure.
 	 */
 	function themecomplete_delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
-
 		if ( is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
 			if ( is_object( $product ) ) {
@@ -403,7 +400,6 @@ if ( ! function_exists( 'themecomplete_delete_post_meta' ) ) {
 		}
 
 		return false;
-
 	}
 }
 
@@ -412,15 +408,14 @@ if ( ! function_exists( 'themecomplete_add_post_meta' ) ) {
 	/**
 	 * Adds a meta field to the given post.
 	 *
-	 * @param integer $post_id    Post ID.
+	 * @param mixed   $post_id    Post ID.
 	 * @param string  $meta_key   Metadata name.
 	 * @param mixed   $meta_value Metadata value. Must be serializable if non-scalar.
 	 * @param boolean $unique     Optional. Whether the same key should not be added.
 	 *                            Default false.
-	 * @return int|false Meta ID on success, false on failure.
+	 * @return integer|boolean Meta ID or true on success, false on failure.
 	 */
 	function themecomplete_add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
-
 		if ( is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
 			if ( is_object( $product ) ) {
@@ -434,7 +429,6 @@ if ( ! function_exists( 'themecomplete_add_post_meta' ) ) {
 		}
 
 		return false;
-
 	}
 }
 
@@ -449,12 +443,11 @@ if ( ! function_exists( 'themecomplete_save_post_meta' ) ) {
 	 * @param string  $meta_name The meta name.
 	 * @since 6.1
 	 *
-	 * @return int|bool Meta ID if the key didn't exist, true on successful update,
+	 * @return integer|boolean Meta ID if the key didn't exist, true on successful update,
 	 *                  false on failure or if the value passed to the function
 	 *                  is the same as the one that is already in the database.
 	 */
 	function themecomplete_save_post_meta( $post_id = 0, $new_data = false, $old_data = false, $meta_name = '' ) {
-
 		$save = false;
 		if ( empty( $old_data ) && '' === $old_data ) {
 			$save = themecomplete_add_post_meta( $post_id, $meta_name, $new_data, true );
@@ -468,7 +461,6 @@ if ( ! function_exists( 'themecomplete_save_post_meta' ) ) {
 		}
 
 		return $save;
-
 	}
 }
 
@@ -477,10 +469,10 @@ if ( ! function_exists( 'themecomplete_get_attributes' ) ) {
 	/**
 	 * Get product attributes
 	 *
-	 * @param integer $post_id Post ID.
+	 * @param mixed $post_id Post ID.
+	 * @return mixed
 	 */
 	function themecomplete_get_attributes( $post_id ) {
-
 		$product = false;
 		if ( is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
@@ -495,7 +487,6 @@ if ( ! function_exists( 'themecomplete_get_attributes' ) ) {
 		}
 
 		return $attributes;
-
 	}
 }
 
@@ -510,7 +501,6 @@ if ( ! function_exists( 'themecomplete_order_get_att' ) ) {
 	 * @return mixed
 	 */
 	function themecomplete_order_get_att( $order, $att ) {
-
 		$ret        = null;
 		$att_method = 'get_' . $att;
 
@@ -521,7 +511,6 @@ if ( ! function_exists( 'themecomplete_order_get_att' ) ) {
 		}
 
 		return $ret;
-
 	}
 }
 
@@ -530,13 +519,12 @@ if ( ! function_exists( 'themecomplete_get_product_from_item' ) ) {
 	/**
 	 * Get product from item
 	 *
-	 * @param WC_Order_Item $item Order Item.
-	 * @param WC_Order      $order Order object.
+	 * @param mixed $item Order Item.
+	 * @param mixed $order Order object.
 	 *
-	 * @return WC_Product
+	 * @return WC_Product|false
 	 */
 	function themecomplete_get_product_from_item( $item, $order = false ) {
-
 		$product = false;
 		if ( is_object( $item ) && is_callable( [ $item, 'get_product' ] ) ) {
 			$product = $item->get_product();
@@ -545,7 +533,6 @@ if ( ! function_exists( 'themecomplete_get_product_from_item' ) ) {
 		}
 
 		return $product;
-
 	}
 }
 
@@ -554,9 +541,10 @@ if ( ! function_exists( 'themecomplete_order_get_price_excluding_tax' ) ) {
 	/**
 	 * Get product price in order with tax excluded
 	 *
-	 * @param WC_Order $order Order object.
-	 * @param integer  $item_id Item ID.
-	 * @param array    $args Array of args to pass.
+	 * @param WC_Order     $order Order object.
+	 * @param integer      $item_id Item ID.
+	 * @param array<mixed> $args Array of args to pass.
+	 * @return float
 	 */
 	function themecomplete_order_get_price_excluding_tax( $order, $item_id, $args = [] ) {
 		$args = wp_parse_args(
@@ -643,5 +631,26 @@ if ( ! function_exists( 'themecomplete_order_get_price_excluding_tax' ) ) {
 		}
 
 		return apply_filters( 'wc_epo_order_get_price_excluding_tax', $price, $order, $item_id, $args );
+	}
+}
+
+if ( ! function_exists( 'themecomplete_get_order_item_meta' ) ) {
+
+	/**
+	 * WooCommerce Order Item Meta API - Get term meta.
+	 *
+	 * @param integer $item_id Item ID.
+	 * @param string  $key     Meta key.
+	 * @param boolean $single  Whether to return a single value. (default: true).
+	 *
+	 * @throws Exception      When `WC_Data_Store::load` validation fails.
+	 * @return mixed
+	 */
+	function themecomplete_get_order_item_meta( $item_id, $key, $single = true ) {
+		if ( function_exists( 'wc_get_order_item_meta' ) ) {
+			return wc_get_order_item_meta( $item_id, $key, $single );
+		}
+
+		return [];
 	}
 }

@@ -16,9 +16,6 @@ use ACP\Editing\Settings;
 class BulkEditFactory
 {
 
-    /**
-     * @var AC\ListScreen;
-     */
     private $list_screen;
 
     public function __construct(AC\ListScreen $list_screen)

@@ -28,7 +28,7 @@ class Description extends AC\Column\User\Description
 	}
 
 	public function search() {
-		return new Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
+		return new Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 }

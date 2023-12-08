@@ -84,4 +84,10 @@ class Media_Item_Cache {
 			? $array[ $key ]
 			: null;
 	}
+
+	public function reset_all() {
+		foreach ( $this->media_items as $media_item ) {
+			$media_item->reset();
+		}
+	}
 }

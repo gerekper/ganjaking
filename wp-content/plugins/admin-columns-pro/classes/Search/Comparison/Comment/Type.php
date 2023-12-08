@@ -3,50 +3,51 @@
 namespace ACP\Search\Comparison\Comment;
 
 use AC;
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
 class Type extends Field
-	implements Values {
+    implements Values
+{
 
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::NEQ,
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+    public function __construct()
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::NEQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		parent::__construct( $operators );
-	}
+        parent::__construct($operators);
+    }
 
-	protected function get_field() {
-		return 'comment_type';
-	}
+    protected function get_field(): string
+    {
+        return 'comment_type';
+    }
 
-	public function get_values() {
-		$options = [];
+    public function get_values(): Options
+    {
+        $options = [];
 
-		foreach ( $this->get_comment_types() as $type ) {
-			$label = $type;
+        foreach ($this->get_comment_types() as $type) {
+            if (null === $type) {
+                continue;
+            }
 
-			if ( null === $type ) {
-				continue;
-			}
+            $options[] = new AC\Helper\Select\Option($type, $type);
+        }
 
-			$options[] = new AC\Helper\Select\Option( $type, $label );
-		}
+        return new AC\Helper\Select\Options($options);
+    }
 
-		return new AC\Helper\Select\Options( $options );
-	}
+    private function get_comment_types(): array
+    {
+        global $wpdb;
 
-	/**
-	 * @return array
-	 */
-	private function get_comment_types() {
-		global $wpdb;
-
-		return $wpdb->get_col( "SELECT DISTINCT( comment_type ) FROM {$wpdb->comments} WHERE comment_type != ''" );
-	}
+        return $wpdb->get_col("SELECT DISTINCT( comment_type ) FROM $wpdb->comments WHERE comment_type != ''");
+    }
 
 }

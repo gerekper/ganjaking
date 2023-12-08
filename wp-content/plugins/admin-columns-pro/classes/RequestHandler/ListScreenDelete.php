@@ -10,39 +10,46 @@ use AC\Type\ListScreenId;
 use ACP\Nonce;
 use ACP\RequestHandler;
 
-class ListScreenDelete implements RequestHandler {
+class ListScreenDelete implements RequestHandler
+{
 
-	/**
-	 * @var Storage
-	 */
-	private $storage;
+    /**
+     * @var Storage
+     */
+    private $storage;
 
-	public function __construct( Storage $storage ) {
-		$this->storage = $storage;
-	}
-
-	public function handle( Request $request ): void
+    public function __construct(Storage $storage)
     {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
+        $this->storage = $storage;
+    }
 
-		if ( ! ( new Nonce\LayoutNonce() )->verify( $request ) ) {
-			return;
-		}
+    public function handle(Request $request): void
+    {
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
 
-		$list_screen = $this->storage->find( new ListScreenId( $request->get( 'ac_delete_layout_id' ) ) );
+        if ( ! (new Nonce\LayoutNonce())->verify($request)) {
+            return;
+        }
 
-		if ( ! $list_screen ) {
-			return;
-		}
+        $list_screen = $this->storage->find(new ListScreenId($request->get('ac_delete_layout_id')));
 
-		$this->storage->delete( $list_screen );
+        if ( ! $list_screen) {
+            return;
+        }
 
-		$notice = new Notice( sprintf( __( 'Table view %s successfully deleted.', 'codepress-admin-columns' ), sprintf( '<strong>"%s"</strong>', esc_html( $list_screen->get_title() ) ) ) );
-		$notice->register();
+        $this->storage->delete($list_screen);
 
-		do_action( 'acp/list_screen/deleted', $list_screen );
-	}
+        $notice = new Notice(
+            sprintf(
+                __('Table view %s successfully deleted.', 'codepress-admin-columns'),
+                sprintf('<strong>"%s"</strong>', esc_html($list_screen->get_title()))
+            )
+        );
+        $notice->register();
+
+        do_action('acp/list_screen/deleted', $list_screen);
+    }
 
 }

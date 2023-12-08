@@ -15,7 +15,7 @@ use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ColumnWidth;
 use AC\Type\Uri;
-use ACP\Search;
+use ACP\Search\DefaultSegmentTrait;
 use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\Option\LayoutStyle;
 use WP_User;
@@ -23,7 +23,7 @@ use WP_User;
 class Table extends Script
 {
 
-    use Search\DefaultSegmentTrait;
+    use DefaultSegmentTrait;
 
     private $list_screen;
 
@@ -36,7 +36,6 @@ class Table extends Script
     public function __construct(
         Absolute $location,
         ListScreen $list_screen,
-        Search\SegmentRepository $segment_repository,
         ColumnSize\UserStorage $user_storage,
         ColumnSize\ListStorage $list_storage,
         Storage $storage
@@ -44,7 +43,6 @@ class Table extends Script
         parent::__construct('acp-table', $location, [Script\GlobalTranslationFactory::HANDLE, 'jquery-ui-sortable']);
 
         $this->list_screen = $list_screen;
-        $this->segment_repository = $segment_repository;
         $this->user_storage = $user_storage;
         $this->list_storage = $list_storage;
         $this->storage = $storage;
@@ -95,8 +93,8 @@ class Table extends Script
         ]);
 
         $this
-            ->add_inline_variable('ACP_TABLE', [
-                'column_sets'          => $this->get_column_sets($user),
+            ->add_inline_variable('acp_table', [
+                'column_sets'          => $this->get_table_views($user),
                 'column_sets_style'    => $this->get_column_set_style(),
                 'column_screen_option' => [
                     'has_manage_admin_cap' => current_user_can(Capabilities::MANAGE),
@@ -112,11 +110,20 @@ class Table extends Script
                     'column_sizes_current_user' => $this->get_column_sizes_by_user($this->list_screen),
                     'column_sizes'              => $this->get_column_sizes($this->list_screen),
                 ],
-            ])->localize('ACP_TABLE_I18N', $translation);
+            ])->localize('acp_table_i18n', $translation);
     }
 
-    private function get_column_sets(WP_User $user): array
+    private function is_table_views_active(): bool
     {
+        return (bool)apply_filters('acp/table/views/active', true);
+    }
+
+    private function get_table_views(WP_User $user): array
+    {
+        if ( ! $this->is_table_views_active()) {
+            return [];
+        }
+
         return array_values(
             array_map(
                 [$this, 'create_column_set_vars'],
@@ -211,7 +218,7 @@ class Table extends Script
             'label'              => $list_screen->get_title()
                 ? htmlspecialchars_decode($list_screen->get_title())
                 : $list_screen->get_label(),
-            'url'                => (string)$this->add_filter_args_to_url($list_screen->get_table_url()),
+            'url'                => (string)$this->add_filter_args_to_url($list_screen->get_table_url(), $list_screen),
             'pre_filtered'       => false,
             'pre_filtered_label' => null,
         ];
@@ -228,18 +235,34 @@ class Table extends Script
         return $column_set;
     }
 
-    private function add_filter_args_to_url(Uri $url): Uri
+    private function add_filter_args_to_url(Uri $url, ListScreen $list_screen): Uri
     {
-        $post_status = filter_input(INPUT_GET, 'post_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $args = [
+            'post_status',
+            'author',
+        ];
 
-        if ($post_status) {
-            $url = $url->with_arg('post_status', $post_status);
+        switch (true) {
+            case $list_screen instanceof ListScreen\User :
+                $args[] = 'role';
+                break;
+            case $list_screen instanceof ListScreen\Comment :
+                $args[] = 'comment_status';
+                break;
         }
 
-        $author = filter_input(INPUT_GET, 'author', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $args = (array)apply_filters(
+            'acp/table/query_args_whitelist',
+            $args,
+            $list_screen
+        );
 
-        if ($author) {
-            $url = $url->with_arg('author', $author);
+        foreach ($args as $arg) {
+            $value = filter_input(INPUT_GET, $arg, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($value) {
+                $url = $url->with_arg($arg, $value);
+            }
         }
 
         return $url;

@@ -3,7 +3,7 @@
  * Time Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Time Element
  *
  * @package Extra Product Options/Classes/Builder
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
@@ -43,6 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 	 * Initialize element properties
 	 *
 	 * @since 6.0
+	 * @return void
 	 */
 	public function set_properties() {
 		$this->properties = $this->add_element(
@@ -59,7 +60,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 				'text_before_price',
 				'text_after_price',
 				'quantity',
-				THEMECOMPLETE_EPO_BUILDER()->add_setting_button_type(
+				THEMECOMPLETE_EPO_ADMIN_BUILDER()->add_setting_button_type(
 					'time',
 					[
 						'message0x0_class' => 'tm-epo-switch-wrapper',
@@ -83,7 +84,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 						'label'            => esc_html__( 'Time picker style', 'woocommerce-tm-extra-product-options' ),
 					]
 				),
-				THEMECOMPLETE_EPO_BUILDER()->add_setting_time_format(
+				THEMECOMPLETE_EPO_ADMIN_BUILDER()->add_setting_time_format(
 					'time',
 					[
 						'required' => [
@@ -94,7 +95,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 						],
 					]
 				),
-				THEMECOMPLETE_EPO_BUILDER()->add_setting_custom_time_format(
+				THEMECOMPLETE_EPO_ADMIN_BUILDER()->add_setting_custom_time_format(
 					'time',
 					[
 						'required' => [
@@ -105,7 +106,6 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 						],
 					]
 				),
-
 				[
 					'id'          => 'time_min_time',
 					'wpmldisable' => 1,
@@ -283,7 +283,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TIME extends THEMECOMPLETE_EPO_BUILDER_E
 					'nowrap_end'           => 1,
 					'tags'                 => [
 						'class' => 't',
-						'id'    => 'builder_time_tranlation_month',
+						'id'    => 'builder_time_tranlation_minute',
 						'name'  => 'tm_meta[tmfbuilder][time_tranlation_minute][]',
 						'value' => '',
 					],

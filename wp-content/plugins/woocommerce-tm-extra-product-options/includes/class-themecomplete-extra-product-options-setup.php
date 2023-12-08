@@ -3,7 +3,7 @@
  * Extra Product Options Setup
  *
  * @package Extra Product Options
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,10 +15,9 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Extra Product Options
  * @author  ThemeComplete
- * @version 6.0
+ * @version 6.4
  */
 final class Themecomplete_Extra_Product_Options_Setup {
-
 	/**
 	 * The single instance of the class
 	 *
@@ -33,7 +32,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 *
 	 * @since 4.8
 	 * @static
-	 * @return Themecomplete_Extra_Product_Options_Setup - Main instance
+	 * @return Themecomplete_Extra_Product_Options_Setup
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -67,7 +66,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @since 4.8
 	 */
 	public function __construct() {
-
 		// Declare HPOS compatiblity.
 		add_action( 'before_woocommerce_init', [ $this, 'before_woocommerce_init' ], 10 );
 
@@ -80,27 +78,25 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$this->init_hooks();
 
 		do_action( 'epo_loaded' );
-
 	}
 
 	/**
 	 * Declare HPOS compatiblity
 	 *
 	 * @since 6.2
+	 * @return void
 	 */
 	public function before_woocommerce_init() {
-
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', THEMECOMPLETE_EPO_PLUGIN_FILE, true );
 		}
-
 	}
 
 	/**
 	 * Define constant if not already set
 	 *
-	 * @param string      $name  Constant name.
-	 * @param string|bool $value Constant value.
+	 * @param string         $name  Constant name.
+	 * @param string|boolean $value Constant value.
 	 *
 	 * @since 4.8
 	 * @return void
@@ -114,10 +110,10 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	/**
 	 * What type of request is this?
 	 *
-	 * @param  string $type admin, ajax, cron or frontend.
+	 * @param string $type admin, ajax, cron or frontend.
 	 *
 	 * @since 4.8
-	 * @return bool
+	 * @return boolean
 	 */
 	private function is_request( $type ) {
 		$ret = false;
@@ -143,7 +139,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return void
 	 */
 	private function define_constants() {
-
 		$version = get_file_data(
 			THEMECOMPLETE_EPO_PLUGIN_FILE,
 			[
@@ -183,7 +178,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$this->define( 'THEMECOMPLETE_SUPPORTED_ECO_VERSION', '2.0' );
 		$this->define( 'THEMECOMPLETE_EPO_NAMESPACE', 'tm-extra-product-options' );
 		$this->define( 'THEMECOMPLETE_EPO_ELEMENTS_NAMESPACE', 'TM Extra Product Options' );
-
 	}
 
 	/**
@@ -193,7 +187,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return void
 	 */
 	public function includes() {
-
 		// Class autoloader.
 		include_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'class-themecomplete-epo-autoloader.php';
 
@@ -202,7 +195,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 
 		// Plugin compatibility functions.
 		require_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/compatibility-functions.php';
-
 	}
 
 	/**
@@ -212,7 +204,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return void
 	 */
 	private function init_hooks() {
-
 		// Check if the plugin can be activated.
 		register_activation_hook( THEMECOMPLETE_EPO_PLUGIN_FILE, [ 'THEMECOMPLETE_EPO_CHECK_Base', 'activation_check' ] );
 
@@ -224,9 +215,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		THEMECOMPLETE_EPO_LICENSE();
 		THEMECOMPLETE_EPO_UPDATER();
 
-		// Load missing WooCommere functions if any.
-		add_action( 'plugins_loaded', [ $this, 'wc_functions' ], 10 );
-
 		// Load plugin textdomain.
 		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ], 10 );
 
@@ -236,7 +224,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			// The priority is 100 for compatibility with JetWooBuilder Custom Taxonomy Template.
 			$priority = 100;
 		} else {
-			$priority = (int) $priority;
+			$priority = intval( $priority );
 		}
 		add_action( 'init', [ 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ], $priority );
 
@@ -270,17 +258,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 
 		// Main plugin interface.
 		THEMECOMPLETE_EPO();
-
-	}
-
-	/**
-	 * Required WooCommerce functions
-	 *
-	 * @since 4.8
-	 * @return void
-	 */
-	public function wc_functions() {
-		include_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/wc-functions.php';
 	}
 
 	/**
@@ -309,7 +286,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			// (wp-content/plugins/plugin-name/languages/plugin-name-$locale.mo).
 			load_plugin_textdomain( 'woocommerce-tm-extra-product-options', false, $domain . '/languages/' );
 		}
-
 	}
 
 	/**
@@ -320,7 +296,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @since 4.8
 	 */
 	public function wc_admin_settings_page( $settings = [] ) {
-
 		if ( class_exists( 'WC_Settings_Page' ) ) {
 
 			$_setting = new THEMECOMPLETE_EPO_ADMIN_SETTINGS();
@@ -331,7 +306,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		}
 
 		return $settings;
-
 	}
 
 	/**
@@ -346,5 +320,4 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			wp_dequeue_script( 'woocommerce_bundle_rate_shipping_admin_js' );
 		}
 	}
-
 }

@@ -3,7 +3,7 @@
  * Extra Product Options Field List Table class
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php';
  * Original WordPress class : class-wp-posts-list-table.php
  *
  * @package Extra Product Options/Admin
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 
@@ -28,11 +28,26 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 	protected $editlink;
 
 	/**
+	 * Holds the number of posts for this user.
+	 *
+	 * @var integer
+	 */
+	private $user_posts_count;
+
+	/**
+	 * Holds the number of posts which are sticky.
+	 *
+	 * @var integer
+	 */
+	private $sticky_posts_count = 0;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param array $args An associative array of arguments.
+	 * @param array<mixed> $args An associative array of arguments.
 	 */
 	public function __construct( $args = [] ) {
+		global $wpdb;
 
 		$this->editlink = 'edit.php?post_type=product&page=' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK;
 
@@ -46,6 +61,32 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			]
 		);
 
+		$exclude_states = get_post_stati(
+			[
+				'show_in_admin_all_list' => false,
+			]
+		);
+
+		$post_type = $this->screen->post_type;
+
+		$user_posts_count_sql = "SELECT COUNT( 1 ) FROM $wpdb->posts WHERE post_type = %s AND post_status NOT IN ( '" . implode( "','", $exclude_states ) . "' ) AND post_author = %d";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$this->user_posts_count = (int) $wpdb->get_var(
+			$wpdb->prepare( $user_posts_count_sql, $post_type, get_current_user_id() ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		);
+
+		$sticky_posts = get_option( 'sticky_posts' );
+
+		if ( 'post' === $post_type && $sticky_posts ) {
+			$sticky_posts = implode( ', ', array_map( 'absint', (array) $sticky_posts ) );
+
+			$sticky_posts_count_sql = "SELECT COUNT( 1 ) FROM $wpdb->posts WHERE post_type = %s AND post_status NOT IN ('trash', 'auto-draft') AND ID IN ($sticky_posts)";
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$this->sticky_posts_count = (int) $wpdb->get_var(
+				$wpdb->prepare( $sticky_posts_count_sql, $post_type ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			);
+		}
 	}
 
 	/**
@@ -55,38 +96,38 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 	 * @param string $type Post type to retrieve count. Default 'post'.
 	 * @param string $perm 'readable' or empty. Default empty.
 	 * @since 1.0
+	 * @return object
 	 */
 	public function wp_count_posts( $counts, $type, $perm ) {
-
 		if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
 			$counts = THEMECOMPLETE_EPO_HELPER()->wp_count_posts( $type, $perm );
 		}
 
 		return $counts;
-
 	}
 
 	/**
 	 * Get an associative array ( id => link ) with the list
 	 * of views available on this table.
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	protected function get_views() {
 		global $locked_post_status, $avail_post_stati;
+
+		$views = [];
 
 		$link_post_type = 'product';
 
 		$post_type = $this->screen->post_type;
 
 		if ( ! empty( $locked_post_status ) ) {
-			return [];
+			return $views;
 		}
 
-		$status_links = [];
-		$num_posts    = wp_count_posts( $post_type, 'readable' );
-		$total_posts  = array_sum( (array) $num_posts );
-		$class        = '';
+		$num_posts   = wp_count_posts( $post_type, 'readable' );
+		$total_posts = array_sum( (array) $num_posts );
+		$class       = '';
 
 		$current_user_id = get_current_user_id();
 		$all_args        = [
@@ -100,8 +141,8 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			$total_posts -= $num_posts->$state;
 		}
 
-		if ( $this->return_user_posts_count() && $this->return_user_posts_count() !== $total_posts ) {
-			if ( isset( $_GET['author'] ) && ( $current_user_id === (int) $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( $this->user_posts_count && $this->user_posts_count !== $total_posts ) {
+			if ( isset( $_GET['author'] ) && ( intval( $_GET['author'] ) === $current_user_id ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$class = 'current';
 			}
 
@@ -125,7 +166,7 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			$mine = [
 				'url'     => esc_url( add_query_arg( $mine_args, 'edit.php' ) ),
 				'label'   => $mine_inner_html,
-				'current' => isset( $_GET['author'] ) && ( $current_user_id === (int) $_GET['author'] ), // phpcs:ignore WordPress.Security.NonceVerification
+				'current' => isset( $_GET['author'] ) && ( intval( $_GET['author'] ) === $current_user_id ), // phpcs:ignore WordPress.Security.NonceVerification
 			];
 
 			$all_args['all_posts'] = 1;
@@ -143,20 +184,22 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			number_format_i18n( $total_posts )
 		);
 
-		$status_links['all'] = [
-			'url'     => esc_url( add_query_arg( $all_args, 'edit.php' ) ),
-			'label'   => $all_inner_html,
-			'current' => $this->is_base_request() || isset( $_REQUEST['all_posts'] ), // phpcs:ignore WordPress.Security.NonceVerification
+		$status_links = [
+			'all' => [
+				'url'     => esc_url( add_query_arg( $all_args, 'edit.php' ) ),
+				'label'   => $all_inner_html,
+				'current' => $this->is_base_request() || isset( $_REQUEST['all_posts'] ), // phpcs:ignore WordPress.Security.NonceVerification
+			],
 		];
 
-		if ( $mine ) {
+		if ( is_array( $mine ) ) {
 			$status_links['mine'] = $mine;
 		}
 
 		foreach ( get_post_stati( [ 'show_in_admin_status_list' => true ], 'objects' ) as $status ) {
 			$class = '';
 
-			$status_name = $status->name;
+			$status_name = (string) $status->name;
 
 			if ( ! in_array( $status_name, $avail_post_stati, true ) || empty( $num_posts->$status_name ) ) {
 				continue;
@@ -217,7 +260,9 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			$status_links = array_merge( array_slice( $status_links, 0, $split ), $sticky_link, array_slice( $status_links, $split ) );
 		}
 
-		$views = parent::get_views_links( $status_links );
+		if ( method_exists( get_parent_class(), 'get_views_links' ) ) {
+			$views = parent::get_views_links( $status_links ); // @phpstan-ignore-line
+		}
 
 		return $views;
 	}
@@ -227,24 +272,24 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 	 *
 	 * @param string[] $args  Associative array of URL parameters for the link.
 	 * @param string   $label Link text.
-	 * @param string   $class Optional. Class attribute. Default empty string.
+	 * @param string   $class_name Optional. Class attribute. Default empty string.
 	 *
 	 * @return string The formatted link string.
 	 */
-	protected function get_edit_link( $args, $label, $class = '' ) {
+	protected function get_edit_link( $args, $label, $class_name = '' ) {
 
 		unset( $args['post_type'] );
 
 		$url          = add_query_arg( $args, $this->editlink );
 		$class_html   = '';
 		$aria_current = '';
-		if ( ! empty( $class ) ) {
+		if ( ! empty( $class_name ) ) {
 			$class_html = sprintf(
 				' class="%s"',
-				esc_attr( $class )
+				esc_attr( $class_name )
 			);
 
-			if ( 'current' === $class ) {
+			if ( 'current' === $class_name ) {
 				$aria_current = ' aria-current="page"';
 			}
 		}
@@ -259,21 +304,9 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 	}
 
 	/**
-	 * Wrapper to access private property.
-	 */
-	public function return_user_posts_count() {
-		return $this->user_posts_count;
-	}
-
-	/**
-	 * Wrapper to access private property.
-	 */
-	public function return_sticky_posts_count() {
-		return $this->sticky_posts_count;
-	}
-
-	/**
 	 * Prepares the list of items for displaying.
+	 *
+	 * @return void
 	 */
 	public function prepare_items() {
 
@@ -302,11 +335,11 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			$post_counts = (array) wp_count_posts( $post_type, 'readable' );
 
 			if ( isset( $_REQUEST['post_status'] ) && in_array( $_REQUEST['post_status'], $avail_post_stati, true ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$total_items = $post_counts[ sanitize_text_field( wp_unslash( $_REQUEST['post_status'] ) ) ]; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			} elseif ( isset( $_REQUEST['show_sticky'] ) && sanitize_text_field( wp_unslash( $_REQUEST['show_sticky'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$total_items = $this->return_sticky_posts_count();
-			} elseif ( isset( $_GET['author'] ) && get_current_user_id() === (int) $_GET['author'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$total_items = $this->return_user_posts_count();
+				$total_items = $post_counts[ sanitize_text_field( stripslashes_deep( $_REQUEST['post_status'] ) ) ]; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			} elseif ( isset( $_REQUEST['show_sticky'] ) && sanitize_text_field( stripslashes_deep( $_REQUEST['show_sticky'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$total_items = $this->sticky_posts_count;
+			} elseif ( isset( $_GET['author'] ) && get_current_user_id() === intval( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$total_items = $this->user_posts_count;
 			} else {
 				$total_items = array_sum( $post_counts );
 
@@ -331,5 +364,4 @@ class THEMECOMPLETE_EPO_ADMIN_Global_List_Table extends WP_Posts_List_Table {
 			]
 		);
 	}
-
 }

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class LatestComment extends AbstractModel implements QueryBindings
+class LatestComment implements QueryBindings
 {
 
     public const STATUS_APPROVED = '1';
@@ -23,8 +22,6 @@ class LatestComment extends AbstractModel implements QueryBindings
 
     public function __construct(array $stati = [])
     {
-        parent::__construct();
-
         if (empty($stati)) {
             $stati = [self::STATUS_APPROVED, self::STATUS_PENDING];
         }

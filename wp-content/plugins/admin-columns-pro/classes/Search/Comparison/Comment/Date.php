@@ -2,38 +2,54 @@
 
 namespace ACP\Search\Comparison\Comment;
 
+use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
+use ACP\Search\Helper\Select\Comment\DateOptionsFactory;
 use ACP\Search\Operators;
 
-abstract class Date extends Comparison\Date {
+abstract class Date extends Comparison\Date implements Comparison\RemoteValues
+{
 
-	/**
-	 * @return string
-	 */
-	abstract protected function get_field();
+    private $value_factory;
 
-	/**
-	 * @return Operators
-	 */
-	public function operators() {
-		return new Operators( [
-			Operators::EQ,
-			Operators::GT,
-			Operators::LT,
-			Operators::BETWEEN,
-			Operators::TODAY,
-			Operators::GT_DAYS_AGO,
-			Operators::LT_DAYS_AGO,
-		] );
-	}
+    public function __construct()
+    {
+        parent::__construct(
+            new Operators([
+                Operators::EQ,
+                Operators::GT,
+                Operators::LT,
+                Operators::GTE,
+                Operators::LTE,
+                Operators::BETWEEN,
+                Operators::TODAY,
+                Operators::EQ_MONTH,
+                Operators::EQ_YEAR,
+                Operators::GT_DAYS_AGO,
+                Operators::LT_DAYS_AGO,
+            ])
+        );
 
-	/**
-	 * @return string
-	 */
-	protected function get_column() {
-		global $wpdb;
+        $this->value_factory = new DateOptionsFactory();
+    }
 
-		return sprintf( '%s.%s', $wpdb->comments, $this->get_field() );
-	}
+    abstract protected function get_field(): string;
+
+    protected function get_column(): string
+    {
+        global $wpdb;
+
+        return sprintf('%s.%s', $wpdb->comments, $this->get_field());
+    }
+
+    public function format_label(string $value): string
+    {
+        return $this->value_factory->create_label($value);
+    }
+
+    public function get_values(): Options
+    {
+        return $this->value_factory->create_options($this->get_column());
+    }
 
 }

@@ -4,9 +4,6 @@ namespace ACA\ACF\Field;
 
 interface PostTypeFilterable {
 
-	/**
-	 * @return array
-	 */
-	public function get_post_type();
+	public function get_post_types(): array;
 
 }

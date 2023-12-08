@@ -1,5 +1,10 @@
 *** WooCommerce Chained Products Changelog ***
 
+2023-11-30 - version 3.3.0
+* New: WooCommerce 8.2.2 compatible
+* New: WordPress 6.4.1 compatible
+* Update: POT file
+
 2023.11.03 - version 3.2.0
 * New: WooCommerce 8.2.1 Compatible
 * Fix: Unsupported operand types: string * int

@@ -33,14 +33,14 @@ if ( isset( $post_type_object )
 			$messages[] = sprintf( $bulk_messages[ $post_type ][ $message ], number_format_i18n( $count ) );
 		}
 		if ( 'trashed' === $message && isset( $_REQUEST['ids'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$ids = preg_replace( '/[^0-9,]/', '', sanitize_text_field( wp_unslash( $_REQUEST['ids'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$ids = preg_replace( '/[^0-9,]/', '', sanitize_text_field( stripslashes_deep( $_REQUEST['ids'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_REQUEST['from_bulk'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$tm_nonce = 'bulk-posts';
 				$tm_bulk  = '&tm_bulk=1';
 			} elseif ( isset( $_REQUEST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$tm_nonce = sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) . '-post_' . $ids; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$tm_nonce = sanitize_text_field( stripslashes_deep( $_REQUEST['action'] ) ) . '-post_' . $ids; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$tm_bulk  = '';
-			} elseif ( isset( $_REQUEST['trashed'] ) && 1 === (int) $_REQUEST['trashed'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			} elseif ( isset( $_REQUEST['trashed'] ) && 1 === intval( $_REQUEST['trashed'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$tm_nonce = 'untrash-post_' . $ids;
 				$tm_bulk  = '';
 			}
@@ -51,7 +51,7 @@ if ( isset( $post_type_object )
 	}
 	$error_messages = [];
 	if ( isset( $_REQUEST['message'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$error_messages[] = $general_messages[ $post_type ][ sanitize_text_field( wp_unslash( $_REQUEST['message'] ) ) ]; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$error_messages[] = $general_messages[ $post_type ][ sanitize_text_field( stripslashes_deep( $_REQUEST['message'] ) ) ]; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 	if ( $messages ) {
 		echo '<div id="message" class="updated"><p>' . wp_kses_post( join( ' ', $messages ) ) . '</p></div>';
@@ -62,7 +62,7 @@ if ( isset( $post_type_object )
 	}
 	unset( $error_messages );
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-		$_SERVER['REQUEST_URI'] = esc_url_raw( remove_query_arg( [ 'locked', 'skipped', 'updated', 'deleted', 'trashed', 'untrashed' ], esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
+		$_SERVER['REQUEST_URI'] = esc_url_raw( remove_query_arg( [ 'locked', 'skipped', 'updated', 'deleted', 'trashed', 'untrashed' ], esc_url_raw( stripslashes_deep( $_SERVER['REQUEST_URI'] ) ) ) );
 	}
 	?>
 	<?php do_action( 'tm_list_table_action', 'views' ); ?>
@@ -80,7 +80,7 @@ if ( isset( $post_type_object )
 		);
 		?>
 		<input type="hidden" name="tm_bulk" class="post_is_bulk" value="1"/>
-		<input type="hidden" name="post_status" class="post_status_page" value="<?php echo ! empty( $_REQUEST['post_status'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['post_status'] ) ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>"/>
+		<input type="hidden" name="post_status" class="post_status_page" value="<?php echo ! empty( $_REQUEST['post_status'] ) ? esc_attr( sanitize_text_field( stripslashes_deep( $_REQUEST['post_status'] ) ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>"/>
 		<input type="hidden" name="post_type" class="post_type_page" value="product"/>
 		<input type="hidden" name="page" class="page_page" value="<?php echo esc_attr( THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK ); ?>"/>
 		<?php if ( ! empty( $_REQUEST['show_sticky'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>

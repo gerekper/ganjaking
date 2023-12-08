@@ -2,6 +2,7 @@
 
 namespace ACP\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACP\Editing;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Storage;
@@ -66,7 +67,7 @@ class Post implements Editing\Service, PaginatedOptions {
 		$this->storage->update( $id, $this->sanitize_post_id( $data ) );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
 		return $this->options_factory->create( $search, $page, $id );
 	}
 

@@ -8,8 +8,7 @@ use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
 use ACP;
 use ACP\Admin\Page;
-use ACP\Migrate\Admin\Section\Export;
-use ACP\Migrate\Admin\Section\Import;
+use ACP\Migrate\Admin\Section;
 
 class Tools implements PageFactoryInterface
 {
@@ -22,20 +21,20 @@ class Tools implements PageFactoryInterface
 
     private $list_keys_factory;
 
-    private $segment_storage;
+    private $preset_repository;
 
     public function __construct(
         Location\Absolute $location,
         Storage $storage,
         ACP\Admin\MenuFactory $menu_factory,
         AC\Table\ListKeysFactoryInterface $list_keys_factory,
-        ACP\Search\SegmentRepository\Storage $segment_storage
+        ACP\ListScreenRepository\Preset $preset_repository
     ) {
         $this->location = $location;
         $this->storage = $storage;
         $this->menu_factory = $menu_factory;
         $this->list_keys_factory = $list_keys_factory;
-        $this->segment_storage = $segment_storage;
+        $this->preset_repository = $preset_repository;
     }
 
     public function create()
@@ -44,8 +43,10 @@ class Tools implements PageFactoryInterface
             $this->location,
             new AC\Admin\View\Menu($this->menu_factory->create('import-export'))
         );
-        $page->add_section(new Export($this->storage, $this->list_keys_factory, $this->segment_storage))
-             ->add_section(new Import());
+
+        $page->add_section(new Section\Export($this->storage, $this->list_keys_factory))
+             ->add_section(new Section\Import())
+             ->add_section(new Section\Presets($this->preset_repository, false));
 
         return $page;
     }

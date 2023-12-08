@@ -1936,19 +1936,7 @@ class Comparison_List extends Module_Base {
 								printf( '<div class="bdt-comparison-sub-title">%s</div>', esc_html( $items['header_sub_title'] ) );
 							}
 							if ( ! empty( $items['header_link']['url'] ) ) {
-								$this->add_render_attribute( 'comparison_header_link' . $index, 'href', $items['header_link']['url'] );
-
-								if ( $items['header_link']['is_external'] ) {
-									$this->add_render_attribute( 'comparison_header_link' . $index, 'target', '_blank' );
-								}
-
-								if ( ! empty( $items['header_link']['nofollow'] ) ) {
-									$this->add_render_attribute( 'comparison_header_link' . $index, 'rel', 'nofollow' );
-								}
-
-								if ( ! empty( $items['header_link']['custom_attributes'] ) ) {
-									$this->add_render_attribute( 'comparison_header_link' . $index, $items['header_link']['custom_attributes'] );
-								}
+								$this->add_link_attributes( 'comparison_header_link' . $index, $items['header_link'] );
 							}
 
 							if ( ! empty( $items['header_link']['url'] ) ) {

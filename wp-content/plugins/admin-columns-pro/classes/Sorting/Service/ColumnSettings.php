@@ -30,9 +30,9 @@ class ColumnSettings implements Registerable
 
     public function register_column_settings(Column $column): void
     {
-        $model = $this->model_factory->create($column);
+        $has_model = $this->model_factory->create_model($column) || $this->model_factory->create_bindings($column);
 
-        if ($model) {
+        if ($has_model) {
             $column->add_setting(new Settings($column));
         }
 

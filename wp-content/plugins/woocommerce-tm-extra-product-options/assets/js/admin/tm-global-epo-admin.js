@@ -21,6 +21,7 @@
 	var JSON = window.JSON;
 	var TCBUILDER;
 	var wcEnhancedSelectParams;
+	var emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
 	function tcArrayValues( input ) {
 		var tmpArr = [];
@@ -37,6 +38,7 @@
 		variationsCheckForChanges: 0,
 		elementLogicObject: {},
 		sectionLogicObject: {},
+		elementShippingLogicObject: {},
 		logicOperators: {
 			is: TMEPOGLOBALADMINJS.i18n_is,
 			isnot: TMEPOGLOBALADMINJS.i18n_is_not,
@@ -178,6 +180,8 @@
 		variationSectionIndex: false,
 		variationFieldIndex: false,
 
+		checkboxStates: {},
+
 		canTakeLogic: [ 'product', 'color', 'range', 'radiobuttons', 'checkboxes', 'selectbox', 'selectboxmultiple', 'textfield', 'textarea', 'variations' ],
 
 		addSortables: function() {
@@ -236,7 +240,6 @@
 			var uploadmeta;
 			var mouseupEvent;
 			var keydownEvent;
-			var observer;
 			var tagchecklist = $( '.tagchecklist' );
 
 			if ( $.tmEPOAdmin.addEventsDone === 1 ) {
@@ -541,6 +544,8 @@
 			$( document ).on( 'click.cpf', '.bitem .bitem-settings .edit', $.tmEPOAdmin.builder_item_onClick );
 			// Element clone button
 			$( document ).on( 'click.cpf', '.bitem .bitem-settings .clone', $.tmEPOAdmin.builder_clone_onClick );
+			// Element change button
+			$( document ).on( 'click.cpf', '.bitem .bitem-settings .change', $.tmEPOAdmin.builder_change_onClick );
 			// Element plus button
 			$( document ).on( 'click.cpf', '.bitem .bitem-settings .plus', $.tmEPOAdmin.builder_plus_onClick );
 			// Element minus button
@@ -831,6 +836,7 @@
 
 			$( document ).on( 'click.cpf', '.cpf-add-rule', $.tmEPOAdmin.cpf_add_rule );
 			$( document ).on( 'click.cpf', '.cpf-delete-rule', $.tmEPOAdmin.cpf_delete_rule );
+			$( document ).on( 'click.cpf', '.tm-logic-add-rule-set', $.tmEPOAdmin.cpf_add_rule_set );
 
 			// Variation attribute terms fold button
 			$( document ).on( 'click.cpf', '.tma-handle-wrap .tma-handle', $.tmEPOAdmin.builder_fold_onClick );
@@ -973,7 +979,7 @@
 			$( document ).on( 'change.cpf', '.product-products-selector', function() {
 				var element = $( this );
 				var productDefaultValue = $( '.product-default-value-search' );
-				var temp = element.find( ':selected' ).clone().removeAttr( 'selected' ).removeAttr( 'data-select2-id' );
+				var temp = element.find( ':selected' ).clone().prop( 'selected', false ).removeAttr( 'data-select2-id' );
 
 				productDefaultValue.removeData( 'action' );
 				productDefaultValue.find( 'option' ).remove();
@@ -1058,22 +1064,39 @@
 				}
 			} );
 
-			$( document ).on( 'click.cpf', '.meta-disable-categories', function() {
-				$.tmEPOAdmin.disableCategories();
-			} );
 			$( document ).on(
 				'change.cpf',
-				'.product_page_tm-global-epo #product_catdiv input:checkbox, .product_page_tm-global-epo #tm_product_ids, .product_page_tm-global-epo #tc-enabled-options, .product_page_tm-global-epo #tc-disabled-options',
+				'.apply-mode, .product_page_tm-global-epo #product_catdiv input:checkbox, .product_page_tm-global-epo #tm_product_ids, .product_page_tm-global-epo #tc-enabled-options, .product_page_tm-global-epo #tc-disabled-options',
 				function() {
-					$.tmEPOAdmin.checkIfApplied();
+					setTimeout( function() {
+						$.tmEPOAdmin.checkIfApplied();
+					}, 100 );
 				}
 			);
 
+			$( document ).on(
+				'change.cpf',
+				'.apply-mode',
+				function() {
+					$.tmEPOAdmin.applyMode( $( this ) );
+				}
+			);
+
+			$( '#product_catchecklist input[type="checkbox"]' ).on( 'change', function() {
+				$.tmEPOAdmin.checkboxStates[ this.id ] = $( this ).prop( 'checked' );
+				setTimeout( function() {
+					$.tmEPOAdmin.applyMode( $( '.apply-mode:checked' ) );
+				}, 100 );
+			} );
+
 			if ( tagchecklist.length ) {
-				observer = new MutationObserver( function() {
-					$.tmEPOAdmin.checkIfApplied();
+				tagchecklist.toArray().forEach( function( list ) {
+					var observer;
+					observer = new MutationObserver( function() {
+						$.tmEPOAdmin.checkIfApplied();
+					} );
+					observer.observe( list, { attributes: true, childList: true, subtree: true } );
 				} );
-				observer.observe( tagchecklist[ 0 ], { attributes: true, childList: true, subtree: true } );
 			}
 			$.tmEPOAdmin.addEventsDone = 1;
 		},
@@ -1111,14 +1134,15 @@
 				$.tmEPOAdmin.createSlider( bw );
 			} );
 
-			// Move disabled categories checkbox
-			$( '#taxonomy-product_cat' ).before( $( '#tc-disabled-categories' ).removeClass( 'hidden' ) );
-			$.tmEPOAdmin.disableCategories();
-
-			$( '#product_catdiv' ).before( $( '<div class="tc-info-box hidden"></div>' ) );
+			$( '#side-sortables' ).prepend( $( '<div class="tc-info-box hidden"></div>' ) );
 
 			$( function() {
 				$.tmEPOAdmin.checkIfApplied();
+				$.tmEPOAdmin.applyModeInit();
+				$.tmEPOAdmin.checkboxStates = {};
+				$( '#product_catchecklist input[type="checkbox"]' ).each( function() {
+					$.tmEPOAdmin.checkboxStates[ this.id ] = $( this ).prop( 'checked' );
+				} );
 			} );
 
 			$.tmEPOAdmin.initSectionsCheck();
@@ -1338,6 +1362,9 @@
 			var select;
 			var selectoperator;
 			var value;
+			var hideValues;
+			var hideValuesSection;
+			var disabledClass = 'tc-hidden-no-events';
 
 			if ( e instanceof $ ) {
 				$this = e;
@@ -1353,6 +1380,8 @@
 
 			if ( ! ison ) {
 				logic = $.tmEPOAdmin.sectionLogicObject;
+			} else if ( 2 === ison ) {
+				logic = $.tmEPOAdmin.elementShippingLogicObject;
 			} else {
 				logic = $.tmEPOAdmin.elementLogicObject;
 			}
@@ -1376,55 +1405,43 @@
 			select = $this.closest( '.tm-logic-rule' ).find( '.tm-logic-value' );
 			selectoperator = $this.closest( '.tm-logic-rule' ).find( '.cpf-logic-operator' );
 			value = selectoperator.val();
+			hideValues = [ 'startswith', 'endswith', 'greaterthan', 'lessthan', 'greaterthanequal', 'lessthanequal' ];
+			hideValuesSection = hideValues.concat( 'is', 'isnot' );
 
 			if ( cpfLogicValue ) {
 				cpfLogicValue = $( cpfLogicValue );
 
 				select.empty().append( cpfLogicValue );
 
-				selectoperator.find( "[value='is']" ).show();
-				selectoperator.find( "[value='isnot']" ).show();
+				selectoperator.children().filter( function( a, b ) {
+					return -1 !== $.inArray( $( b ).val(), [ 'is', 'isnot' ] );
+				} ).removeClass( disabledClass );
+
 				if ( type === 'variation' || type === 'multiple' ) {
-					if ( value === 'startswith' || value === 'endswith' || value === 'greaterthan' || value === 'lessthan' || value === 'greaterthanequal' || value === 'lessthanequal' ) {
+					if ( -1 !== $.inArray( value, hideValues ) ) {
 						selectoperator.val( 'isempty' );
 					}
-					selectoperator.find( "[value='startswith']" ).hide();
-					selectoperator.find( "[value='endswith']" ).hide();
-					selectoperator.find( "[value='greaterthan']" ).hide();
-					selectoperator.find( "[value='lessthan']" ).hide();
-					selectoperator.find( "[value='greaterthanequal']" ).hide();
-					selectoperator.find( "[value='lessthanequal']" ).hide();
+					selectoperator.children().filter( function( a, b ) {
+						return -1 !== $.inArray( $( b ).val(), hideValues );
+					} ).addClass( disabledClass );
 					selectoperator.trigger( 'change.cpf' );
 				} else {
-					selectoperator.find( "[value='startswith']" ).show();
-					selectoperator.find( "[value='endswith']" ).show();
-					selectoperator.find( "[value='greaterthan']" ).show();
-					selectoperator.find( "[value='lessthan']" ).show();
-					selectoperator.find( "[value='greaterthanequal']" ).show();
-					selectoperator.find( "[value='lessthanequal']" ).show();
+					selectoperator.children().filter( function( a, b ) {
+						return -1 !== $.inArray( $( b ).val(), hideValues );
+					} ).removeClass( disabledClass );
 				}
 			} else if ( element === section ) {
-				if ( value === 'is' || value === 'isnot' || value === 'startswith' || value === 'endswith' || value === 'greaterthan' || value === 'lessthan' ) {
+				if ( -1 !== $.inArray( value, hideValuesSection ) ) {
 					selectoperator.val( 'isempty' );
 				}
-				selectoperator.find( "[value='is']" ).hide();
-				selectoperator.find( "[value='isnot']" ).hide();
-				selectoperator.find( "[value='startswith']" ).hide();
-				selectoperator.find( "[value='endswith']" ).hide();
-				selectoperator.find( "[value='greaterthan']" ).hide();
-				selectoperator.find( "[value='lessthan']" ).hide();
-				selectoperator.find( "[value='greaterthanequal']" ).hide();
-				selectoperator.find( "[value='lessthanequal']" ).hide();
+				selectoperator.children().filter( function( a, b ) {
+					return -1 !== $.inArray( $( b ).val(), hideValuesSection );
+				} ).addClass( disabledClass );
 				selectoperator.trigger( 'change.cpf' );
 			} else {
-				selectoperator.find( "[value='is']" ).show();
-				selectoperator.find( "[value='isnot']" ).show();
-				selectoperator.find( "[value='startswith']" ).show();
-				selectoperator.find( "[value='endswith']" ).show();
-				selectoperator.find( "[value='greaterthan']" ).show();
-				selectoperator.find( "[value='lessthan']" ).show();
-				selectoperator.find( "[value='greaterthanequal']" ).show();
-				selectoperator.find( "[value='lessthanequal']" ).show();
+				selectoperator.children().filter( function( a, b ) {
+					return -1 !== $.inArray( $( b ).val(), hideValuesSection );
+				} ).removeClass( disabledClass );
 			}
 		},
 
@@ -1511,6 +1528,7 @@
 				afterdeletetab: function() {
 					var slides;
 					var bwindex = bw.index();
+					var tabs;
 					if ( ! bw.is( '.tm-slider-wizard' ) ) {
 						slides = '';
 					} else {
@@ -1523,9 +1541,12 @@
 							.join( ',' );
 					}
 					if ( bw.is( '.is-slider' ) ) {
+						tabs = [];
 						bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
-							$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
+							$( el ).find( '.tab-text' ).html( $( el ).closest( '.tm-box' ).index() + 1 );
 						} );
+						tabs = JSON.stringify( tabs );
+						TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
 					}
 					TCBUILDER[ bwindex ].section.sections_slides.default = slides;
 					$.tmEPOAdmin.builder_reorder_multiple();
@@ -1598,9 +1619,14 @@
 					$.tmEPOAdmin.initSectionsCheck();
 
 					if ( bw.is( '.is-slider' ) ) {
+						tabs = [];
 						bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
-							$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
+							var currentIndex = $( el ).closest( '.tm-box' ).index() + 1;
+							$( el ).find( '.tab-text' ).html( currentIndex );
+							tabs.push( currentIndex );
 						} );
+						tabs = JSON.stringify( tabs );
+						TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
 					}
 				},
 
@@ -1625,7 +1651,6 @@
 						ismodal: false,
 						refresh: 'fixed',
 						width: '50%',
-						height: '50%',
 						top: '25%',
 						left: '25%',
 						classname: 'flasho tc-wrapper',
@@ -1683,7 +1708,7 @@
 					builderWrapper.removeClass( 'is-slider' ).addClass( 'is-tabs' ).tcTabs( 'set', { editbutton: true } );
 					TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = add;
 				} else if ( builderWrapper.is( '.is-tabs' ) && style === 'slider' ) {
-					builderWrapper.removeClass( 'is-tabs' ).addClass( 'is-slider' ).tcTabs( 'set', { editbutton: false } );
+					builderWrapper.removeClass( 'is-tabs has-add-button' ).addClass( 'is-slider' ).tcTabs( 'set', { editbutton: false } );
 					builderWrapper.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
 						var $el = $( el );
 						var $tabtext = $el.find( '.tab-text' );
@@ -1722,7 +1747,10 @@
 				builderWrapper.find( '.tmtemp' ).addClass( 'bitem-wrapper' ).removeClass( 'tmtemp' );
 				$.tmEPOAdmin.builder_items_sortable( builderWrapper.find( '.bitem-wrapper' ) );
 				builderWrapper.find( '.tm-slider-wizard-headers' ).remove();
-				builderWrapper.removeClass( 'tm-slider-wizard' );
+				builderWrapper.find( '.tc-tab-headers-wrap' ).remove();
+				builderWrapper.removeClass( 'tm-slider-wizard is-tabs is-slider has-add-button' );
+
+				builderWrapper.removeData( 'tctabs' ).removeData( 'tmHasTmtabs' );
 
 				TCBUILDER[ sectionIndex ].section.sections_slides.default = '';
 				TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = '';
@@ -1821,7 +1849,7 @@
 						$.tmEPOAdmin.var_is( 'tm-style-variation-added', true );
 
 						variationElement.addClass( 'tma-nomove' );
-						variationElement.find( '.bitem-settings .size,.bitem-settings .clone,.tm-label-move,.bitem-settings .plus,.bitem-settings .minus,.tm-label-delete' ).remove();
+						variationElement.find( '.bitem-settings .size,.bitem-settings .clone,.tm-label-move,.bitem-settings .plus,.change,.bitem-settings .minus,.tm-label-delete' ).remove();
 
 						if ( isForced ) {
 							$.tmEPOAdmin.setFieldValue( $.tmEPOAdmin.variationSectionIndex, $.tmEPOAdmin.variationFieldIndex, 'variations_disabled', '1' );
@@ -2100,45 +2128,174 @@
 			}
 		},
 
-		disableCategories: function() {
-			if ( $( '.meta-disable-categories' ).is( ':checked' ) ) {
-				$( '#taxonomy-product_cat' ).slideUp();
+		applyModeInit: function() {
+			setTimeout( function() {
+				$.tmEPOAdmin.applyMode( $( '.apply-mode:checked' ) );
+			}, 100 );
+		},
+
+		applyMode: function( obj ) {
+			var $this = obj;
+			var value = $this.val();
+			var check = value === 'disable-form' || ( value === 'customize-selection' && ! $( '#product_catchecklist :checkbox:checked' ).length ) ? 1 : 0;
+			var id;
+			var $include = $( '#tm_product_ids' );
+			var $exclude = $( '#tm_product_exclude_ids' );
+			var $enabled = $( '#tc-enabled-options' );
+			var $disabled = $( '#tc-disabled-options' );
+			var savedOptions;
+
+			if ( value === 'apply-to-all-products' ) {
+				$( '#product_catchecklist' ).find( ':checkbox' ).prop( 'checked', false );
 			} else {
-				$( '#taxonomy-product_cat' ).slideDown();
+				for ( id in $.tmEPOAdmin.checkboxStates ) {
+					$( '#' + id ).prop( 'checked', $.tmEPOAdmin.checkboxStates[ id ] );
+				}
 			}
+
+			if ( value === 'apply-to-all-products' || value === 'customize-selection' ) {
+				savedOptions = $exclude.data( 'saved-exclude-ids' );
+				if ( savedOptions && savedOptions.length ) {
+					$exclude.html( $.map( savedOptions, function( optionData ) {
+						return optionData.html;
+					} ).join( '' ) );
+					$exclude.find( 'option' ).each( function( i ) {
+						if ( savedOptions[ i ].checked ) {
+							$( this ).prop( 'selected', true );
+						}
+					} );
+					$exclude.removeData( 'saved-exclude-ids' );
+				}
+
+				savedOptions = $enabled.data( 'saved-enabled-roles' );
+				if ( savedOptions && savedOptions.length ) {
+					$enabled.html( $.map( savedOptions, function( optionData ) {
+						return optionData.html;
+					} ).join( '' ) );
+					$enabled.find( 'option' ).each( function( i ) {
+						if ( savedOptions[ i ].checked ) {
+							$( this ).prop( 'selected', true );
+						}
+					} );
+					$enabled.removeData( 'saved-enabled-roles' );
+				}
+
+				savedOptions = $disabled.data( 'saved-disabled-roles' );
+				if ( savedOptions && savedOptions.length ) {
+					$disabled.html( $.map( savedOptions, function( optionData ) {
+						return optionData.html;
+					} ).join( '' ) );
+					$disabled.find( 'option' ).each( function( i ) {
+						if ( savedOptions[ i ].checked ) {
+							$( this ).prop( 'selected', true );
+						}
+					} );
+					$disabled.removeData( 'saved-disabled-roles' );
+				}
+			} else if ( value === 'disable-form' ) {
+				savedOptions = $exclude.find( 'option' ).map( function() {
+					return {
+						html: $( this ).prop( 'outerHTML' ),
+						checked: $( this ).prop( 'selected' )
+					};
+				} ).get();
+				$exclude.data( 'saved-exclude-ids', savedOptions );
+				$exclude.html( '' );
+
+				savedOptions = $enabled.find( 'option' ).map( function() {
+					return {
+						html: $( this ).prop( 'outerHTML' ),
+						checked: $( this ).prop( 'selected' )
+					};
+				} ).get();
+				$enabled.data( 'saved-enabled-roles', savedOptions );
+				$enabled.html( '' );
+
+				savedOptions = $disabled.find( 'option' ).map( function() {
+					return {
+						html: $( this ).prop( 'outerHTML' ),
+						checked: $( this ).prop( 'selected' )
+					};
+				} ).get();
+				$disabled.data( 'saved-disabled-roles', savedOptions );
+				$disabled.html( '' );
+			}
+
+			if ( value === 'customize-selection' ) {
+				savedOptions = $include.data( 'saved-include-ids' );
+				if ( savedOptions && savedOptions.length ) {
+					$include.html( $.map( savedOptions, function( optionData ) {
+						return optionData.html;
+					} ).join( '' ) );
+					$include.find( 'option' ).each( function( i ) {
+						if ( savedOptions[ i ].checked ) {
+							$( this ).prop( 'selected', true );
+						}
+					} );
+					$include.removeData( 'saved-include-ids' );
+				}
+			} else if ( value === 'apply-to-all-products' || value === 'disable-form' ) {
+				savedOptions = $include.data( 'saved-include-ids' );
+				if ( ! ( savedOptions && savedOptions.length ) ) {
+					savedOptions = $include.find( 'option' ).map( function() {
+						return {
+							html: $( this ).prop( 'outerHTML' ),
+							checked: $( this ).prop( 'selected' )
+						};
+					} ).get();
+					$include.data( 'saved-include-ids', savedOptions );
+					$include.html( '' );
+				}
+			}
+
+			if ( value === 'apply-to-all-products' ) {
+				$( '#product_catdiv' ).hide();
+				$( '.postbox[id^="tagsdiv-"]' ).hide();
+				$( '#tc-product-search' ).hide();
+				$( '#tc-product-exclude' ).show();
+				$( '#tc-product-roles' ).show();
+			} else if ( value === 'customize-selection' ) {
+				$( '#product_catdiv' ).show();
+				$( '.postbox[id^="tagsdiv-"]' ).show();
+				$( '#tc-product-search' ).show();
+				$( '#tc-product-exclude' ).show();
+				$( '#tc-product-roles' ).show();
+			} else if ( value === 'disable-form' ) {
+				$( '#product_catdiv' ).hide();
+				$( '.postbox[id^="tagsdiv-"]' ).hide();
+				$( '#tc-product-search' ).hide();
+				$( '#tc-product-exclude' ).hide();
+				$( '#tc-product-roles' ).hide();
+			}
+			$( '#tm_meta_disable_categories' ).val( check );
 		},
 
 		checkIfApplied: function() {
-			var nocat;
+			var applyMode;
 			var cat;
 			var tmProductIds;
 			var tmEnabledOptions;
-			var tmDisabledOptions;
 			var tagCheckList;
 
 			if ( ! $( 'body' ).is( '.product_page_tm-global-epo' ) ) {
 				return;
 			}
 
-			nocat = $( '#tm_meta_disable_categories:checked' ).length > 0;
-			cat = $( '#product_catdiv input:checkbox' ).not( $( '#tm_meta_disable_categories' ) ).filter( ':checked' ).length > 0;
-			tagCheckList = $( '.tagchecklist' ).children( 'li' ).length;
+			applyMode = $( '.apply-mode:checked' ).val();
+
+			cat = $( '#product_catdiv input:checkbox' ).filter( ':checked' ).length > 0;
+			tagCheckList = $( '.tagchecklist' ).children( 'li' ).length > 0;
 			tmProductIds = $( '#tm_product_ids' ).val();
 			tmEnabledOptions = $( '#tc-enabled-options' ).val();
-			tmDisabledOptions = $( '#tc-disabled-options' ).val();
 			tmProductIds = tmProductIds && tmProductIds !== null ? tmProductIds.length > 0 : false;
 			tmEnabledOptions = tmEnabledOptions && tmEnabledOptions !== null ? tmEnabledOptions.length > 0 : false;
-			tmDisabledOptions = tmDisabledOptions && tmDisabledOptions !== null ? tmDisabledOptions.length > 0 : false;
-			if ( nocat ) {
-				if ( tmProductIds || tmEnabledOptions || tmDisabledOptions || tagCheckList ) {
-					$( '.tc-info-box' ).removeClass( 'tc-error tc-all-products' ).addClass( 'hidden' ).html( '' );
-				} else {
-					$( '.tc-info-box' ).removeClass( 'hidden tc-all-products' ).addClass( 'tc-error' ).html( TMEPOGLOBALADMINJS.i18n_form_not_applied_to_all );
-				}
-			} else if ( cat ) {
+
+			if ( applyMode === 'apply-to-all-products' ) {
+				$( '.tc-info-box' ).removeClass( 'hidden error' ).addClass( 'tc-all-products' ).html( TMEPOGLOBALADMINJS.i18n_form_is_applied_to_all );
+			} else if ( applyMode === 'customize-selection' && ( cat || tagCheckList || tmProductIds || tmEnabledOptions ) ) {
 				$( '.tc-info-box' ).removeClass( 'tc-error tc-all-products' ).addClass( 'hidden' ).html( '' );
 			} else {
-				$( '.tc-info-box' ).removeClass( 'hidden error' ).addClass( 'tc-all-products' ).html( TMEPOGLOBALADMINJS.i18n_form_is_applied_to_all );
+				$( '.tc-info-box' ).removeClass( 'hidden tc-all-products' ).addClass( 'tc-error' ).html( TMEPOGLOBALADMINJS.i18n_form_not_applied_to_all );
 			}
 		},
 
@@ -2249,14 +2406,13 @@
 			Object.keys( sections ).forEach( function( i ) {
 				$.tmEPOAdmin.section_logic_init( i );
 				try {
-					rules = sections[ i ].section.sections_clogic.default || 'null';
+					rules = sections[ i ].section.sections_logicrules.default || 'null';
 					rules = $.epoAPI.util.parseJSON( rules );
 					rules = $.tmEPOAdmin.logic_check_section_rules( rules );
 
-					TCBUILDER[ i ].section.sections_clogic.default = JSON.stringify( rules );
+					TCBUILDER[ i ].section.sections_logicrules.default = JSON.stringify( rules );
 
 					TCBUILDER[ i ].section.rules_toggle = rules.toggle;
-					TCBUILDER[ i ].section.rules_what = rules.what;
 				} catch ( err ) {
 
 				}
@@ -2294,14 +2450,14 @@
 						try {
 							elementType = $.tmEPOAdmin.getFieldValue( field, 'element_type' );
 							logic = $.tmEPOAdmin.getFieldValue( field, 'logic', elementType ) || 'null';
-							rules = $.tmEPOAdmin.getFieldValue( field, 'clogic', elementType ) || 'null';
+							rules = $.tmEPOAdmin.getFieldValue( field, 'logicrules', elementType ) || 'null';
 							rules = $.epoAPI.util.parseJSON( rules );
 
 							// This check is to not print wrong rules when not required.
 							if ( logic && logic !== 'null' ) {
 								rules = $.tmEPOAdmin.logic_check_element_rules( rules, i, ii );
 							}
-							$.tmEPOAdmin.setFieldValue( i, ii, 'clogic', JSON.stringify( rules ), elementType );
+							$.tmEPOAdmin.setFieldValue( i, ii, 'logicrules', JSON.stringify( rules ), elementType );
 						} catch ( err ) {
 
 						}
@@ -2459,10 +2615,14 @@
 
 				if ( len !== 0 ) {
 					if ( len === 1 ) {
-						line[ 1 ] = 0;
+						line[ 1 ] = '';
 					}
 					line[ 0 ] = $.epoAPI.util.trim( line[ 0 ] );
-					line[ 1 ] = parseFloat( $.epoAPI.util.trim( line[ 1 ] ) );
+					if ( line[ 1 ] !== undefined && line[ 1 ] !== '' ) {
+						line[ 1 ] = parseFloat( $.epoAPI.util.trim( line[ 1 ] ) );
+					} else {
+						line[ 1 ] = '';
+					}
 					if ( ! Number.isFinite( line[ 1 ] ) ) {
 						line[ 1 ] = '';
 					}
@@ -2524,7 +2684,7 @@
 				_clone.addClass( 'separator' );
 				_clone.find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).addClass( 'tm-hidden' );
 				_clone.find( '[name]' ).val( '' );
-				_clone.find( '.tm_option_value' ).removeClass( 'tm_option_value' ).val( '-1' );
+				_clone.find( '.tc-cell-value input' ).removeClass( 'tm_option_value' ).val( '-1' );
 				_clone.find( '.tm_upload_image img' ).attr( 'src', '' );
 				_clone.find( 'input.tm_option_image' ).val( '' );
 				_clone.find( '.tm-default-radio,.tm-default-checkbox' ).prop( 'checked', false ).val( _last.length );
@@ -2981,11 +3141,9 @@
 				}
 			}
 
-			//if (field !== undefined){
 			value = field.find( function( y ) {
 				return y.id === type;
 			} );
-			//}
 
 			if ( value !== undefined && typeof value === 'object' ) {
 				return value.default;
@@ -3046,14 +3204,14 @@
 				}
 			}
 			field = TCBUILDER[ sectionIndex ].fields[ fieldIndex ];
-			//if (field !== undefined){
-			field.find( function( y, index ) {
-				if ( y.id === type ) {
-					foundIndex = index;
-				}
-				return y.id === type;
-			} );
-			//}
+			if ( Array.isArray( field ) ) {
+				field.find( function( y, index ) {
+					if ( y.id === type ) {
+						foundIndex = index;
+					}
+					return y.id === type;
+				} );
+			}
 
 			if ( foundIndex !== undefined ) {
 				TCBUILDER[ sectionIndex ].fields[ fieldIndex ][ foundIndex ].default = value;
@@ -3247,6 +3405,12 @@
 							if ( elementType === 'variations' ) {
 								field_values = [];
 								$( globalVariationObject.variations ).each( function( index, variation ) {
+									var variationStatus = variation.status || 'invalid';
+									if ( variationStatus === 'publish' ) {
+										variationStatus = '';
+									} else {
+										variationStatus = ' (' + variationStatus + ')';
+									}
 									tm_title = [];
 									$( variation.attributes ).each( function( iii, sel ) {
 										var arr = $.map( sel, function( el ) {
@@ -3264,7 +3428,7 @@
 									} catch ( err ) {
 										tm_title_label = tm_title;
 									}
-									field_values.push( '<option value="' + $.tmEPOAdmin.tm_escape( variation.variation_id ) + '">' + tm_title_label + '</option>' );
+									field_values.push( '<option value="' + $.tmEPOAdmin.tm_escape( variation.variation_id ) + '">' + tm_title_label + variationStatus + '</option>' );
 								} );
 
 								values[ field_index ] = '<select data-element="' + field_index + '" data-section="' + section_id + '" class="cpf-logic-value">' + field_values.join( '' ) + '</select>';
@@ -3296,9 +3460,12 @@
 		element_logic_init: function( element, section, append ) {
 			var field_index;
 			var fieldsNoDisabled;
+			var options_this = [];
 			var options = [];
 			var section_id;
 			var logicobj;
+			var shippinglogicobj = {};
+			var options_pre_this;
 			var options_pre;
 			var elementIndex;
 			var uniqid;
@@ -3327,11 +3494,23 @@
 			$.tmEPOAdmin.check_element_logic( elementIndex, section );
 
 			logicobj = $.extend( true, {}, $.tmEPOAdmin.get_element_logic_init() );
+			shippinglogicobj = $.extend( true, {}, logicobj );
 			options_pre = $.extend( true, {}, $.tmEPOAdmin.get_element_logic_options_init() );
+			options_pre_this = $.extend( true, {}, $.tmEPOAdmin.get_element_logic_options_init() );
 
 			section_id = TCBUILDER[ section ].section.sections_uniqid.default;
 
 			if ( section_id && logicobj[ section_id ] && logicobj[ section_id ].values[ field_index ] ) {
+				shippinglogicobj[ section_id ] = {
+					values: shippinglogicobj[ section_id ].values
+				};
+				shippinglogicobj[ section_id ].values.forEach(
+					function( e, i ) {
+						if ( field_index !== i ) {
+							delete shippinglogicobj[ section_id ].values[ i ];
+						}
+					}
+				);
 				delete logicobj[ section_id ].values[ field_index ];
 				delete options_pre[ section_id ][ field_index + 1 ];
 				delete options_pre[ section_id ][ 0 ];
@@ -3347,13 +3526,30 @@
 					} );
 				}
 			} );
+			$.each( options_pre_this, function( i, c ) {
+				if ( i === section_id ) {
+					$.each( c, function( ii, d ) {
+						if ( ii === field_index + 1 ) {
+							options_this.push( d );
+						}
+					} );
+				}
+			} );
+
 			if ( ! $.tmEPOAdmin.elementLogicObject.init ) {
 				$.tmEPOAdmin.elementLogicObject.init = true;
 			}
 			$.tmEPOAdmin.elementLogicObject = $.extend( $.tmEPOAdmin.elementLogicObject, logicobj );
 
+			if ( ! $.tmEPOAdmin.elementShippingLogicObject.init ) {
+				$.tmEPOAdmin.elementShippingLogicObject.init = true;
+			}
+			$.tmEPOAdmin.elementShippingLogicObject = $.extend( $.tmEPOAdmin.elementShippingLogicObject, shippinglogicobj );
+
 			if ( append ) {
 				$.tmEPOAdmin.logic_append( append, options, 'element', section, elementIndex );
+				$.tmEPOAdmin.shipping_logic_append( append, options_this, 'element', section, elementIndex, 'enable' );
+				$.tmEPOAdmin.shipping_logic_append( append, options_this, 'element', section, elementIndex, 'disable' );
 			}
 		},
 
@@ -3419,18 +3615,27 @@
 			if ( rules.toggle === undefined ) {
 				rules.toggle = 'show';
 			}
-			if ( rules.what === undefined ) {
-				rules.what = 'any';
-			}
 			if ( rules.rules === undefined ) {
 				rules.rules = [];
 			}
+
+			// backwards compatibility conversion.
+			rules = $.tmEPOAdmin.convert_rules( rules );
+
 			copy = $.epoAPI.util.deepCopyArray( rules );
 			_logic = $.tmEPOAdmin.sectionLogicObject;
 
 			$.each( rules.rules, function( i, _rule ) {
-				if ( ! ( ( _logic[ _rule.section ] !== undefined && _logic[ _rule.section ].values[ _rule.element ] !== undefined ) || _rule.section === _rule.element ) ) {
-					delete copy.rules[ i ];
+				if ( Array.isArray( _rule ) ) {
+					$.each( _rule, function( ii, __rule ) {
+						if ( ! ( ( _logic[ __rule.section ] !== undefined && _logic[ __rule.section ].values[ __rule.element ] !== undefined ) || __rule.section === __rule.element ) ) {
+							delete copy.rules[ i ][ ii ];
+						}
+					} );
+					if ( copy.rules[ i ].length === 0 ) {
+						delete copy.rules[ i ];
+					}
+					copy.rules[ i ] = tcArrayValues( copy.rules[ i ] );
 				}
 			} );
 			copy.rules = tcArrayValues( copy.rules );
@@ -3442,6 +3647,7 @@
 			var copy;
 			var _logic;
 			var bitem;
+			var foundError = false;
 
 			if ( typeof rules !== 'object' || ! rules ) {
 				rules = {};
@@ -3449,25 +3655,35 @@
 			if ( rules.toggle === undefined ) {
 				rules.toggle = 'show';
 			}
-			if ( rules.what === undefined ) {
-				rules.what = 'any';
-			}
 			if ( rules.rules === undefined ) {
 				rules.rules = [];
 			}
+
+			// backwards compatibility conversion.
+			rules = $.tmEPOAdmin.convert_rules( rules );
+
 			copy = $.epoAPI.util.deepCopyArray( rules );
 			_logic = $.tmEPOAdmin.elementLogicObject;
 			$.each( rules.rules, function( i, _rule ) {
-				if ( ! ( ( _logic[ _rule.section ] !== undefined && _logic[ _rule.section ].values[ _rule.element ] !== undefined ) || _rule.section === _rule.element ) ) {
-					if ( sectionIndex !== undefined && fieldIndex !== undefined ) {
-						bitem = $( '.builder-layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
-
-						bitem = bitem.find( '.bitem' ).eq( fieldIndex );
-
-						bitem.addClass( 'tm-wrong-rule' );
+				if ( Array.isArray( _rule ) ) {
+					$.each( _rule, function( ii, __rule ) {
+						if ( ! ( ( _logic[ __rule.section ] !== undefined && _logic[ __rule.section ].values[ __rule.element ] !== undefined ) || __rule.section === __rule.element ) ) {
+							delete copy.rules[ i ][ ii ];
+							foundError = true;
+						}
+					} );
+					if ( copy.rules[ i ].length === 0 ) {
+						delete copy.rules[ i ];
+					} else {
+						copy.rules[ i ] = tcArrayValues( copy.rules[ i ] );
 					}
+				}
+				if ( foundError && sectionIndex !== undefined && fieldIndex !== undefined ) {
+					bitem = $( '.builder-layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
 
-					delete copy.rules[ i ];
+					bitem = bitem.find( '.bitem' ).eq( fieldIndex );
+
+					bitem.addClass( 'tm-wrong-rule' );
 				}
 			} );
 			copy.rules = tcArrayValues( copy.rules );
@@ -3475,70 +3691,74 @@
 			return copy;
 		},
 
-		logic_append: function( el, options, type, sectionIndex, fieldIndex ) {
+		shipping_logic_check_element_rules: function( rules ) {
+			if ( typeof rules !== 'object' || ! rules ) {
+				rules = {};
+			}
+			if ( rules.toggle === undefined ) {
+				rules.toggle = 'show';
+			}
+			if ( rules.rules === undefined ) {
+				rules.rules = [];
+			}
+
+			return rules;
+		},
+
+		convert_rules: function( rules ) {
+			if ( rules.what ) {
+				if ( rules.what === 'all' ) {
+					rules.rules = [ rules.rules ];
+				} else if ( rules.what === 'any' ) {
+					rules.rules = rules.rules.reduce( function( accumulator, elrule ) {
+						accumulator.push( [ elrule ] );
+						return accumulator;
+					}, [] );
+				}
+				delete rules.what;
+			}
+			return rules;
+		},
+
+		shipping_logic_append: function( el, options, type, sectionIndex, fieldIndex, shippingtype ) {
 			var logic;
 			var rawrules;
 			var rulesobj;
 			var h;
+			var fieldseth;
+			var fieldsethtml;
 			var rule;
 			var tm_logic_element;
 			var operators;
 			var ruleshtml;
-			var current_rule;
-			var set_select;
 			var rules;
-			var elementDoesItHaveLogic;
 
 			el = $( el );
-			logic = $( el ).find( '.tm-logic-wrapper' );
+			logic = $( el ).find( '.tm-shipping-' + shippingtype + '-logicrules + .shipping-logic-div .tm-logic-wrapper' );
 
-			if ( ! options || options.length === 0 ) {
-				logic.html( '<div class="errortitle"><p>' + TMEPOGLOBALADMINJS.i18n_cannot_apply_rules + '</p></div>' );
+			if ( ! options || options.length !== 1 ) {
+				logic.html( '<div class="errortitle"><p>' + TMEPOGLOBALADMINJS.i18n_cannot_apply_shippingrules + '</p></div>' );
 				return false;
 			}
 
 			try {
-				if ( type === 'element' ) {
-					elementDoesItHaveLogic = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'logic', true ) || '';
-				} else {
-					elementDoesItHaveLogic = TCBUILDER[ sectionIndex ].section.sections_logic.default || '';
-				}
-				if ( elementDoesItHaveLogic === '1' ) {
-					if ( type === 'element' ) {
-						rawrules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'clogic', true ) || 'null';
-					} else {
-						rawrules = TCBUILDER[ sectionIndex ].section.sections_clogic.default || 'null';
-					}
-				} else {
-					rawrules = 'null';
-				}
+				rawrules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'shipping_methods_' + shippingtype + '_logicrules', true ) || 'null';
 				rulesobj = $.epoAPI.util.parseJSON( rawrules );
-				if ( type === 'element' ) {
-					rules = $.tmEPOAdmin.logic_check_element_rules( rulesobj );
-				} else {
-					rules = $.tmEPOAdmin.logic_check_section_rules( rulesobj );
-				}
-				if ( type === 'element' ) {
-					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'clogic', JSON.stringify( rules ), true );
-				} else {
-					TCBUILDER[ sectionIndex ].section.sections_clogic.default = JSON.stringify( rules );
-				}
+				rules = $.tmEPOAdmin.shipping_logic_check_element_rules( rulesobj );
+				$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'shipping_methods_' + shippingtype + '_logicrules', JSON.stringify( rules ), true );
 			} catch ( err ) {
 				rules = false;
 			}
 			logic.empty();
-			h = '';
+			fieldseth = '<fieldset class="tm-logic-rule-set"><legend>OR</legend><div class="tm-logic-rule-wrap"></div></fieldset>';
 			h =
 				'<div class="tc-row tm-logic-rule">' +
-				'<div class="tc-cell tc-col-4 tm-logic-element">' +
-				'</div>' +
-				'<div class="tc-cell tc-col-2 tm-logic-operator">' +
-				'</div>' +
-				'<div class="tc-cell tc-col-4 tm-logic-value">' +
-				'</div>' +
-				'<div class="tc-cell tc-col-2 tm-logic-func">' +
+				'<div class="tc-cell tc-col-auto tm-logic-element"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-operator"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-value"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-func">' +
 				'<button type="button" class="tmicon tcfa tcfa-plus add cpf-add-rule"></button>' +
-				' <button type="button" class="tmicon tcfa tcfa-times delete cpf-delete-rule"></button>' +
+				' <button type="button" class="tmicon tcfa tcfa-trash delete cpf-delete-rule"></button>' +
 				'</div>' +
 				'</div>';
 			rule = $( h );
@@ -3555,30 +3775,140 @@
 			rule.find( '.tm-logic-operator' ).append( operators );
 
 			if ( ! rules || rules.rules === undefined || ! rules.rules.length ) {
-				rule.appendTo( logic );
-				rule.find( '.cpf-logic-element' ).trigger( 'change.cpf', [ type === 'element' ] );
-				rule.find( '.cpf-logic-operator' ).trigger( 'change.cpf', [ type === 'element' ] );
+				ruleshtml = $( '<div class="temp" />' );
+				fieldsethtml = $( fieldseth );
+				fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( {}, rule, type, true ) );
+				ruleshtml.append( fieldsethtml );
+				ruleshtml = ruleshtml.children();
+				logic.append( ruleshtml );
+				ruleshtml.find( '.cpf-logic-element' ).trigger( 'change.cpf', [ type === 'element' ] );
+				ruleshtml.find( '.cpf-logic-operator' ).val( ruleshtml.find( '.cpf-logic-operator' ).children( ':not(.tc-hidden-no-events)' ).eq( 0 ).val() ).trigger( 'change.cpf', [ type === 'element' ] );
+				logic.addClass( 'tc-hidden' );
 			} else {
-				ruleshtml = $( '<div class="temp">' );
+				ruleshtml = $( '<div class="temp" />' );
 				$.each( rules.rules, function( i, _rule ) {
+					fieldsethtml = $( fieldseth );
 					if ( _rule && typeof _rule === 'object' ) {
-						current_rule = rule.clone();
-						set_select = current_rule.find( '.cpf-logic-element' ).find( 'option[data-section="' + _rule.section + '"][value="' + _rule.element + '"]' );
-
-						if ( $( set_select ).length ) {
-							$( set_select )[ 0 ].selected = true;
+						if ( Array.isArray( _rule ) ) {
+							if ( _rule.length ) {
+								$.each( _rule, function( ii, __rule ) {
+									fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( __rule, rule, type, true ) );
+								} );
+							} else {
+								fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( {}, rule, type, true ) );
+							}
 						}
-						$.tmEPOAdmin.cpf_logic_element_onchange( current_rule.find( '.cpf-logic-element' ), type === 'element' );
+						ruleshtml.append( fieldsethtml );
+					}
+				} );
+				ruleshtml = ruleshtml.children();
+				logic.append( ruleshtml ).removeClass( 'tc-hidden' );
+			}
+		},
 
-						current_rule.find( '.cpf-logic-operator' ).val( _rule.operator );
-						$.tmEPOAdmin.cpf_logic_operator_onchange( current_rule.find( '.cpf-logic-operator' ), type === 'element' );
+		logic_append: function( el, options, type, sectionIndex, fieldIndex ) {
+			var logic;
+			var rawrules;
+			var rulesobj;
+			var h;
+			var fieldseth;
+			var fieldsethtml;
+			var rule;
+			var tm_logic_element;
+			var operators;
+			var ruleshtml;
+			var rules;
+			var elementDoesItHaveLogic;
 
-						if ( current_rule.find( '.cpf-logic-value' ).is( 'select' ) ) {
-							current_rule.find( '.cpf-logic-value' ).val( $.tmEPOAdmin.tm_escape( $.tmEPOAdmin.tm_unescape( _rule.value ) ) );
-						} else {
-							current_rule.find( '.cpf-logic-value' ).val( $.tmEPOAdmin.tm_unescape( _rule.value ) );
+			el = $( el );
+			logic = $( el ).find( '.builder-logic-div .tm-logic-wrapper' );
+
+			if ( ! options || options.length === 0 ) {
+				logic.html( '<div class="errortitle"><p>' + TMEPOGLOBALADMINJS.i18n_cannot_apply_rules + '</p></div>' );
+				return false;
+			}
+
+			try {
+				if ( type === 'element' ) {
+					elementDoesItHaveLogic = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'logic', true ) || '';
+				} else {
+					elementDoesItHaveLogic = TCBUILDER[ sectionIndex ].section.sections_logic.default || '';
+				}
+				if ( elementDoesItHaveLogic === '1' ) {
+					if ( type === 'element' ) {
+						rawrules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'logicrules', true ) || 'null';
+					} else {
+						rawrules = TCBUILDER[ sectionIndex ].section.sections_logicrules.default || 'null';
+					}
+				} else {
+					rawrules = 'null';
+				}
+				rulesobj = $.epoAPI.util.parseJSON( rawrules );
+				if ( type === 'element' ) {
+					rules = $.tmEPOAdmin.logic_check_element_rules( rulesobj );
+				} else {
+					rules = $.tmEPOAdmin.logic_check_section_rules( rulesobj );
+				}
+				if ( type === 'element' ) {
+					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'logicrules', JSON.stringify( rules ), true );
+				} else {
+					TCBUILDER[ sectionIndex ].section.sections_logicrules.default = JSON.stringify( rules );
+				}
+			} catch ( err ) {
+				rules = false;
+			}
+			logic.empty();
+			fieldseth = '<fieldset class="tm-logic-rule-set"><legend>OR</legend><div class="tm-logic-rule-wrap"></div></fieldset>';
+			h =
+				'<div class="tc-row tm-logic-rule">' +
+				'<div class="tc-cell tc-col-auto tm-logic-element"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-operator"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-value"></div>' +
+				'<div class="tc-cell tc-col-auto tm-logic-func">' +
+				'<button type="button" class="tmicon tcfa tcfa-plus add cpf-add-rule"></button>' +
+				' <button type="button" class="tmicon tcfa tcfa-trash delete cpf-delete-rule"></button>' +
+				'</div>' +
+				'</div>';
+			rule = $( h );
+			tm_logic_element = $( '<select class="cpf-logic-element">' + options.join( '' ) + '</select>' );
+			operators = '';
+
+			Object.keys( $.tmEPOAdmin.logicOperators ).forEach( function( i ) {
+				operators = operators + '<option value="' + i + '">' + $.tmEPOAdmin.logicOperators[ i ] + '</option>';
+			} );
+
+			operators = $( '<select class="cpf-logic-operator">' + operators + '</select>' );
+
+			rule.find( '.tm-logic-element' ).append( tm_logic_element );
+			rule.find( '.tm-logic-operator' ).append( operators );
+
+			if ( ! rules || rules.rules === undefined || ! rules.rules.length ) {
+				ruleshtml = $( '<div class="temp" />' );
+				fieldsethtml = $( fieldseth );
+				fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( {}, rule, type ) );
+				ruleshtml.append( fieldsethtml );
+				ruleshtml = ruleshtml.children();
+				logic.append( ruleshtml );
+				ruleshtml.find( '.cpf-logic-element' ).trigger( 'change.cpf', [ type === 'element' ] );
+				ruleshtml.find( '.cpf-logic-operator' ).val( ruleshtml.find( '.cpf-logic-operator' ).children( ':not(.tc-hidden-no-events)' ).eq( 0 ).val() ).trigger( 'change.cpf', [ type === 'element' ] );
+			} else {
+				// backwards compatibility conversion.
+				rules = $.tmEPOAdmin.convert_rules( rules );
+
+				ruleshtml = $( '<div class="temp" />' );
+				$.each( rules.rules, function( i, _rule ) {
+					fieldsethtml = $( fieldseth );
+					if ( _rule && typeof _rule === 'object' ) {
+						if ( Array.isArray( _rule ) ) {
+							if ( _rule.length ) {
+								$.each( _rule, function( ii, __rule ) {
+									fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( __rule, rule, type ) );
+								} );
+							} else {
+								fieldsethtml.find( '.tm-logic-rule-wrap' ).append( $.tmEPOAdmin.logic_append_rule( {}, rule, type ) );
+							}
 						}
-						ruleshtml.append( current_rule );
+						ruleshtml.append( fieldsethtml );
 					}
 				} );
 				ruleshtml = ruleshtml.children();
@@ -3586,11 +3916,35 @@
 			}
 		},
 
+		logic_append_rule: function( rule, rulehtml, type, isShipping ) {
+			var current_rule;
+			var set_select;
+			current_rule = rulehtml.clone();
+			set_select = current_rule.find( '.cpf-logic-element' ).find( 'option[data-section="' + rule.section + '"][value="' + rule.element + '"]' );
+			if ( $( set_select ).length ) {
+				$( set_select )[ 0 ].selected = true;
+			}
+			$.tmEPOAdmin.cpf_logic_element_onchange( current_rule.find( '.cpf-logic-element' ), isShipping ? 2 : type === 'element' );
+
+			current_rule.find( '.cpf-logic-operator' ).val( rule.operator );
+			$.tmEPOAdmin.cpf_logic_operator_onchange( current_rule.find( '.cpf-logic-operator' ), type === 'element' );
+
+			if ( undefined === rule.value ) {
+				rule.value = '';
+			}
+			if ( current_rule.find( '.cpf-logic-value' ).is( 'select' ) ) {
+				current_rule.find( '.cpf-logic-value' ).val( $.tmEPOAdmin.tm_escape( $.tmEPOAdmin.tm_unescape( rule.value ) ) );
+			} else {
+				current_rule.find( '.cpf-logic-value' ).val( $.tmEPOAdmin.tm_unescape( rule.value ) );
+			}
+
+			return current_rule;
+		},
+
 		logic_get_JSON: function( s, type, thisId ) {
 			var rules = $( s ).find( '.builder-logic-div' );
 			var logic = {};
 			var _toggle = rules.find( '.epo-rule-toggle' ).val();
-			var _what = rules.find( '.epo-rule-what' ).val();
 			var $cpf_logic_element;
 			var cpf_logic_section;
 			var cpf_logic_element;
@@ -3599,43 +3953,127 @@
 
 			logic[ type ] = thisId;
 			logic.toggle = _toggle;
-			logic.what = _what;
 			logic.rules = [];
 
 			rules
 				.find( '.tm-logic-wrapper' )
-				.children( '.tm-logic-rule' )
-				.each( function( i, el ) {
-					el = $( el );
-					$cpf_logic_element = el.find( '.cpf-logic-element' );
-					cpf_logic_section = $cpf_logic_element.children( 'option:selected' ).attr( 'data-section' );
-					cpf_logic_element = $cpf_logic_element.val();
-					cpf_logic_operator = el.find( '.cpf-logic-operator' ).val();
-					cpfLogicValue = el.find( '.cpf-logic-value' ).val();
+				.children( '.tm-logic-rule-set' )
+				.each( function( iset, elset ) {
+					var setRules = [];
+					elset = $( elset );
 
-					if ( ! el.find( '.cpf-logic-value' ).is( 'select' ) ) {
-						cpfLogicValue = $.tmEPOAdmin.tm_escape( cpfLogicValue );
-					}
+					elset.find( '.tm-logic-rule-wrap' ).children( '.tm-logic-rule' ).each( function( i, el ) {
+						el = $( el );
+						$cpf_logic_element = el.find( '.cpf-logic-element' );
+						cpf_logic_section = $cpf_logic_element.children( 'option:selected' ).attr( 'data-section' );
+						cpf_logic_element = $cpf_logic_element.val();
+						cpf_logic_operator = el.find( '.cpf-logic-operator' ).val();
+						cpfLogicValue = el.find( '.cpf-logic-value' ).val();
 
-					logic.rules.push( {
-						section: cpf_logic_section,
-						element: cpf_logic_element,
-						operator: cpf_logic_operator,
-						value: cpfLogicValue
+						if ( cpfLogicValue === undefined ) {
+							cpfLogicValue = '';
+						}
+
+						if ( ! el.find( '.cpf-logic-value' ).is( 'select' ) ) {
+							cpfLogicValue = $.tmEPOAdmin.tm_escape( cpfLogicValue );
+						}
+
+						setRules.push( {
+							section: cpf_logic_section,
+							element: cpf_logic_element,
+							operator: cpf_logic_operator,
+							value: cpfLogicValue
+						} );
 					} );
+
+					logic.rules.push( setRules );
+				} );
+
+			return JSON.stringify( logic );
+		},
+
+		shipping_logic_get_JSON: function( s, type, thisId, shippingtype ) {
+			var rules = $( s ).find( '.tm-shipping-' + shippingtype + '-logicrules + .shipping-logic-div' );
+			var logic = {};
+			var $cpf_logic_element;
+			var cpf_logic_section;
+			var cpf_logic_element;
+			var cpf_logic_operator;
+			var cpfLogicValue;
+			var logicwrapper = rules.find( '.tm-logic-wrapper' );
+
+			if ( logicwrapper.is( '.tc-hidden' ) ) {
+				return '';
+			}
+
+			logic[ type ] = thisId;
+			logic.toggle = 'show';
+			logic.rules = [];
+
+			logicwrapper
+				.children( '.tm-logic-rule-set' )
+				.each( function( iset, elset ) {
+					var setRules = [];
+					elset = $( elset );
+
+					elset.find( '.tm-logic-rule-wrap' ).children( '.tm-logic-rule' ).each( function( i, el ) {
+						el = $( el );
+						$cpf_logic_element = el.find( '.cpf-logic-element' );
+						cpf_logic_section = $cpf_logic_element.children( 'option:selected' ).attr( 'data-section' );
+						cpf_logic_element = $cpf_logic_element.val();
+						cpf_logic_operator = el.find( '.cpf-logic-operator' ).val();
+						cpfLogicValue = el.find( '.cpf-logic-value' ).val();
+
+						if ( cpfLogicValue === undefined ) {
+							cpfLogicValue = '';
+						}
+
+						if ( ! el.find( '.cpf-logic-value' ).is( 'select' ) ) {
+							cpfLogicValue = $.tmEPOAdmin.tm_escape( cpfLogicValue );
+						}
+
+						setRules.push( {
+							section: cpf_logic_section,
+							element: cpf_logic_element,
+							operator: cpf_logic_operator,
+							value: cpfLogicValue
+						} );
+					} );
+
+					logic.rules.push( setRules );
 				} );
 
 			return JSON.stringify( logic );
 		},
 
 		section_logic_get_JSON: function( s ) {
-			var this_section_id = s.find( '.tm-builder-sections-uniqid' ).val();
-			return $.tmEPOAdmin.logic_get_JSON( s, 'section', this_section_id );
+			var hasLogic = s.find( '.activate-sections-logic' ).is( ':checked' );
+			var logic = '';
+			var this_section_id;
+			if ( hasLogic ) {
+				this_section_id = s.find( '.tm-builder-sections-uniqid' ).val();
+				logic = $.tmEPOAdmin.logic_get_JSON( s, 'section', this_section_id );
+			}
+			return logic;
 		},
 
 		element_logic_get_JSON: function( s ) {
-			var this_element_id = s.find( '.tm-builder-element-uniqid' ).val();
-			return $.tmEPOAdmin.logic_get_JSON( s, 'element', this_element_id );
+			var hasLogic = s.find( '.activate-element-logic' ).is( ':checked' );
+			var logic = '';
+			var this_element_id;
+			if ( hasLogic ) {
+				this_element_id = s.find( '.tm-builder-element-uniqid' ).val();
+				logic = $.tmEPOAdmin.logic_get_JSON( s, 'element', this_element_id );
+			}
+			return logic;
+		},
+
+		element_shipping_logic_get_JSON: function( s, shippingtype ) {
+			var logic = '';
+			var this_element_id;
+			this_element_id = s.find( '.tm-builder-element-uniqid' ).val();
+			logic = $.tmEPOAdmin.shipping_logic_get_JSON( s, 'element', this_element_id, shippingtype );
+			return logic;
 		},
 
 		cpf_add_rule: function( e ) {
@@ -3648,14 +4086,38 @@
 			}
 		},
 
+		cpf_add_rule_set: function( e ) {
+			var element = $( this );
+			var mainDiv = element.closest( '.builder-logic-div, .shipping-logic-div' );
+			var logicWrapper = mainDiv.find( '.tm-logic-wrapper' );
+			var _last = logicWrapper.find( '.tm-logic-rule-set:last()' );
+			var _clone;
+
+			e.preventDefault();
+
+			if ( logicWrapper.is( '.tc-hidden' ) ) {
+				logicWrapper.removeClass( 'tc-hidden' );
+			} else {
+				_clone = _last.tcClone( true );
+				if ( _clone ) {
+					_clone.find( '.tm-logic-rule:not(:first)' ).remove();
+					_last.after( _clone );
+					_clone.find( '.tm-logic-rule:first .cpf-logic-element' ).prop( 'selectedIndex', 0 ).trigger( 'change.cpf' );
+				}
+			}
+		},
+
 		cpf_delete_rule: function( e ) {
 			var element = $( this );
-			var _wrapper = element.closest( '.tm-logic-wrapper' );
+			var logicWrapper = element.closest( '.tm-logic-wrapper' );
+			var _wrapper = element.closest( '.tm-logic-rule-set' );
+			var shouldDeleteSet = logicWrapper.children( '.tm-logic-rule-set' ).length > 1;
+			var rulesLength = _wrapper.find( '.tm-logic-rule-wrap' ).children( '.tm-logic-rule' ).length;
 
 			e.preventDefault();
 			element.trigger( 'hideTtooltip' );
 
-			if ( _wrapper.children().length > 1 ) {
+			if ( rulesLength > 1 || shouldDeleteSet ) {
 				element
 					.closest( '.tm-logic-rule' )
 					.css( {
@@ -3669,9 +4131,15 @@
 						},
 						300,
 						function() {
-							$( this ).remove();
+							if ( shouldDeleteSet && rulesLength === 1 ) {
+								_wrapper.remove();
+							} else {
+								$( this ).remove();
+							}
 						}
 					);
+			} else {
+				logicWrapper.addClass( 'tc-hidden' );
 			}
 		},
 
@@ -3681,7 +4149,7 @@
 			Object.keys( TCBUILDER ).forEach( function( sectionIndex ) {
 				var section_eq = sectionIndex;
 				var copy_rules = [];
-				var section_rules = TCBUILDER[ sectionIndex ].section.sections_clogic.default || 'null';
+				var section_rules = TCBUILDER[ sectionIndex ].section.sections_logicrules.default || 'null';
 				var copy;
 
 				if ( ! TCBUILDER[ sectionIndex ].section.sections_logic.default ) {
@@ -3694,17 +4162,26 @@
 					return true; // skip
 				}
 
+				// backwards compatibility conversion.
+				section_rules = $.tmEPOAdmin.convert_rules( section_rules );
+
 				// Element is dragged on this section
 				if ( l.end.section_eq === section_eq ) {
 					// Getting here means that an element from another section
 					// is being dragged on this section
 					$.each( section_rules.rules, function( i, rule ) {
-						copy = $.epoAPI.util.deepCopyArray( rule );
-						if ( rule.element > l.start.element && rule.secion === l.start.section ) {
-							copy.element = parseInt( copy.element, 10 ) - 1;
-							copy_rules[ i ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
-						} else {
-							copy_rules[ i ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
+						if ( Array.isArray( rule ) ) {
+							copy_rules[ i ] = [];
+							$.each( rule, function( ii, __rule ) {
+								copy = $.epoAPI.util.deepCopyArray( __rule );
+								if ( __rule.element > l.start.element && __rule.section === l.start.section ) {
+									copy.element = parseInt( copy.element, 10 ) - 1;
+									copy_rules[ i ][ ii ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
+								} else {
+									copy_rules[ i ][ ii ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
+								}
+							} );
+							copy_rules[ i ] = tcArrayValues( copy_rules[ i ] );
 						}
 					} );
 					copy_rules = tcArrayValues( copy_rules );
@@ -3712,46 +4189,52 @@
 						TCBUILDER[ sectionIndex ].section.sections_logic.default = '';
 					}
 					section_rules.rules = copy_rules;
-					TCBUILDER[ sectionIndex ].section.sections_clogic.default = JSON.stringify( section_rules );
+					TCBUILDER[ sectionIndex ].section.sections_logicrules.default = JSON.stringify( section_rules );
 
 					// Element is not dragged on this section
 				} else {
 					// Getting here means that an element from another section
 					// is being dragged on another section that is not the current section
 					$.each( section_rules.rules, function( i, rule ) {
-						copy = $.epoAPI.util.deepCopyArray( rule );
-						if ( l.start.section !== 'check' ) {
-							// Element is not changing sections
-							if ( rule.section === l.start.section && rule.section === l.end.section ) {
-								// Element belonging to a rule is being dragged
-								if ( rule.element === l.start.element ) {
-									copy.section = l.end.section;
-									copy.element = l.end.element;
-								} else if ( parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
-									// Element not belonging to a rule is being dragged
-									// and breaks the rule
-									copy.element = parseInt( copy.element, 10 ) - 1;
-								} else if ( parseInt( rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
-									copy.element = parseInt( copy.element, 10 ) + 1;
+						if ( Array.isArray( rule ) ) {
+							copy_rules[ i ] = [];
+							$.each( rule, function( ii, __rule ) {
+								copy = $.epoAPI.util.deepCopyArray( __rule );
+								if ( l.start.section !== 'check' ) {
+									// Element is not changing sections
+									if ( __rule.section === l.start.section && __rule.section === l.end.section ) {
+										// Element belonging to a rule is being dragged
+										if ( __rule.element === l.start.element ) {
+											copy.section = l.end.section;
+											copy.element = l.end.element;
+										} else if ( parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
+											// Element not belonging to a rule is being dragged
+											// and breaks the rule
+											copy.element = parseInt( copy.element, 10 ) - 1;
+										} else if ( parseInt( __rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+											copy.element = parseInt( copy.element, 10 ) + 1;
+										}
+									} else if ( __rule.section === l.start.section && __rule.section !== l.end.section ) { // Element is getting dragged off this section
+										// Element belonging to a rule is being dragged
+										if ( __rule.element === l.start.element ) {
+											copy.section = l.end.section;
+											copy.element = l.end.element;
+										} else if ( parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
+										// Element not belonging to a rule is being dragged
+										// and breaks the rule
+											copy.element = parseInt( copy.element, 10 ) - 1;
+										}
+									} else if ( __rule.section !== l.start.section && __rule.section === l.end.section ) { // Element is getting dragged on this section
+										if ( parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+											copy.element = parseInt( copy.element, 10 ) + 1;
+										}
+									}
 								}
-							} else if ( rule.section === l.start.section && rule.section !== l.end.section ) { // Element is getting dragged off this section
-								// Element belonging to a rule is being dragged
-								if ( rule.element === l.start.element ) {
-									copy.section = l.end.section;
-									copy.element = l.end.element;
-								} else if ( parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
-								// Element not belonging to a rule is being dragged
-								// and breaks the rule
-									copy.element = parseInt( copy.element, 10 ) - 1;
+								if ( ! ( l.end.section === 'delete' && copy.element === 'delete' ) ) {
+									copy_rules[ i ][ ii ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
 								}
-							} else if ( rule.section !== l.start.section && rule.section === l.end.section ) { // Element is getting dragged on this section
-								if ( parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
-									copy.element = parseInt( copy.element, 10 ) + 1;
-								}
-							}
-						}
-						if ( ! ( l.end.section === 'delete' && copy.element === 'delete' ) ) {
-							copy_rules[ i ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
+							} );
+							copy_rules[ i ] = tcArrayValues( copy_rules[ i ] );
 						}
 					} );
 					copy_rules = tcArrayValues( copy_rules );
@@ -3759,17 +4242,14 @@
 						TCBUILDER[ sectionIndex ].section.sections_logic.default = '';
 					}
 					section_rules.rules = copy_rules;
-					TCBUILDER[ sectionIndex ].section.sections_clogic.default = JSON.stringify( section_rules );
+					TCBUILDER[ sectionIndex ].section.sections_logicrules.default = JSON.stringify( section_rules );
 				}
 			} );
 		},
 
 		element_logic_reindex: function() {
 			var l = $.tmEPOAdmin.builderItemsSortableObj;
-			var copy;
 			var field;
-			var copy_rules;
-			var element_rules;
 			var disabledFieldIndex;
 			var elementType;
 
@@ -3787,74 +4267,180 @@
 					field = TCBUILDER[ sectionIndex ].fields[ fieldIndex ];
 					elementType = $.tmEPOAdmin.getFieldValue( field, 'element_type' );
 
-					if ( ! $.tmEPOAdmin.getFieldValue( field, 'logic', elementType ) ) {
-						return true; // skip
-					}
+					$.tmEPOAdmin.do_element_logic_reindex( field, elementType, sectionIndex, fieldIndex, l );
+					$.tmEPOAdmin.do_element_shipping_logic_reindex( field, elementType, sectionIndex, fieldIndex, l, 'enable' );
+					$.tmEPOAdmin.do_element_shipping_logic_reindex( field, elementType, sectionIndex, fieldIndex, l, 'disable' );
+				} );
+			} );
+		},
 
-					copy_rules = [];
-					element_rules = $.tmEPOAdmin.getFieldValue( field, 'clogic', elementType );
+		do_element_logic_reindex: function( field, elementType, sectionIndex, fieldIndex, l ) {
+			var copy_rules;
+			var element_rules;
+			var copy;
 
-					element_rules = $.epoAPI.util.parseJSON( element_rules );
+			if ( ! $.tmEPOAdmin.getFieldValue( field, 'logic', elementType ) ) {
+				return true; // skip
+			}
 
-					if ( ! ( element_rules && element_rules.rules !== undefined && element_rules.rules.length > 0 ) ) {
-						return true; // skip
-					}
+			copy_rules = [];
+			element_rules = $.tmEPOAdmin.getFieldValue( field, 'logicrules', elementType );
 
-					$.each( element_rules.rules, function( i, rule ) {
-						copy = $.epoAPI.util.deepCopyArray( rule );
-						if ( rule.element === undefined ) {
+			element_rules = $.epoAPI.util.parseJSON( element_rules );
+
+			// backwards compatibility conversion.
+			element_rules = $.tmEPOAdmin.convert_rules( element_rules );
+
+			if ( ! ( element_rules && element_rules.rules !== undefined && element_rules.rules.length > 0 ) ) {
+				return true; // skip
+			}
+
+			$.each( element_rules.rules, function( i, rule ) {
+				if ( Array.isArray( rule ) ) {
+					copy_rules[ i ] = [];
+					$.each( rule, function( ii, __rule ) {
+						copy = $.epoAPI.util.deepCopyArray( __rule );
+						if ( __rule.element === undefined ) {
 							return true;
 						}
-						rule.element = rule.element.toString();
+						__rule.element = __rule.element.toString();
 
 						if ( l.start.section !== 'check' ) {
 							// Element is not changing sections
-							if ( rule.section === l.start.section && rule.section === l.end.section ) {
+							if ( __rule.section === l.start.section && __rule.section === l.end.section ) {
 								// Element belonging to a rule is being dragged
-								if ( rule.element === l.start.element ) {
+								if ( __rule.element === l.start.element ) {
 									//copy.section=l.end.section;
 									copy.element = l.end.element;
 								// rule.section !== rule.element means that we only want to alter elements, not sections
-								} else if ( rule.section !== rule.element && parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
+								} else if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
 									// Element not belonging to a rule is being dragged
 									// and breaks the rule
 									copy.element = parseInt( copy.element, 10 ) - 1;
-								} else if ( rule.section !== rule.element && parseInt( rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+								} else if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
 									// rule.section !== rule.element means that we only want to alter elements, not sections
 									copy.element = parseInt( copy.element, 10 ) + 1;
 								}
-							} else if ( rule.section === l.start.section && rule.section !== l.end.section ) { // Element is getting dragged off its section
+							} else if ( __rule.section === l.start.section && __rule.section !== l.end.section ) { // Element is getting dragged off its section
 								// Element belonging to a rule is being dragged
-								if ( rule.element === l.start.element ) {
+								if ( __rule.element === l.start.element ) {
 									copy.section = l.end.section;
 									copy.element = l.end.element;
 								// rule.section !== rule.element means that we only want to alter elements, not sections
-								} else if ( rule.section !== rule.element && ! $.tmEPOAdmin.builderItemsSortableObj.start.disabled && parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
+								} else if ( __rule.section !== __rule.element && ! $.tmEPOAdmin.builderItemsSortableObj.start.disabled && parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
 									// Element not belonging to a rule is being dragged
 									// and breaks the rule
 									copy.element = parseInt( copy.element, 10 ) - 1;
 								}
-							// rule.section !== rule.element means that we only want to alter elements, not sections
-							} else if ( rule.section !== l.start.section && rule.section === l.end.section ) { // Element is getting dragged on this rule's section
-								if ( rule.section !== rule.element && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+							// __rule.section !== __rule.element means that we only want to alter elements, not sections
+							} else if ( __rule.section !== l.start.section && __rule.section === l.end.section ) { // Element is getting dragged on this rule's section
+								if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
 									copy.element = parseInt( copy.element, 10 ) + 1;
 								}
 							}
 						}
 						if ( ! ( l.end.section === 'delete' && copy.element === 'delete' ) ) {
-							copy_rules[ i ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex, fieldIndex );
+							copy_rules[ i ][ ii ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex, fieldIndex );
 						}
 					} );
-
-					copy_rules = tcArrayValues( copy_rules );
-					if ( copy_rules.length === 0 ) {
-						$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'logic', '', elementType );
+					if ( copy_rules[ i ].length === 0 ) {
+						delete copy_rules[ i ];
+					} else {
+						copy_rules[ i ] = tcArrayValues( copy_rules[ i ] );
 					}
-					element_rules.rules = copy_rules;
-
-					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'clogic', JSON.stringify( element_rules ), elementType );
-				} );
+				}
 			} );
+
+			copy_rules = tcArrayValues( copy_rules );
+			if ( copy_rules.length === 0 ) {
+				$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'logic', '', elementType );
+			}
+			element_rules.rules = copy_rules;
+
+			$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'logicrules', JSON.stringify( element_rules ), elementType );
+		},
+
+		do_element_shipping_logic_reindex: function( field, elementType, sectionIndex, fieldIndex, l, shippingtype ) {
+			var copy_rules;
+			var copy;
+			var shippingField = 'shipping_methods_' + shippingtype + '_logicrules';
+			var element_rules = $.tmEPOAdmin.getFieldValue( field, shippingField, elementType );
+
+			if ( ! element_rules ) {
+				return true; // skip
+			}
+
+			copy_rules = [];
+
+			element_rules = $.epoAPI.util.parseJSON( element_rules );
+
+			if ( ! ( element_rules && element_rules.rules !== undefined && element_rules.rules.length > 0 ) ) {
+				return true; // skip
+			}
+
+			$.each( element_rules.rules, function( i, rule ) {
+				if ( Array.isArray( rule ) ) {
+					copy_rules[ i ] = [];
+					$.each( rule, function( ii, __rule ) {
+						copy = $.epoAPI.util.deepCopyArray( __rule );
+						if ( __rule.element === undefined ) {
+							return true;
+						}
+						__rule.element = __rule.element.toString();
+
+						if ( l.start.section !== 'check' ) {
+							// Element is not changing sections
+							if ( __rule.section === l.start.section && __rule.section === l.end.section ) {
+								// Element belonging to a rule is being dragged
+								if ( __rule.element === l.start.element ) {
+									//copy.section=l.end.section;
+									copy.element = l.end.element;
+								// rule.section !== rule.element means that we only want to alter elements, not sections
+								} else if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
+									// Element not belonging to a rule is being dragged
+									// and breaks the rule
+									copy.element = parseInt( copy.element, 10 ) - 1;
+								} else if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+									// rule.section !== rule.element means that we only want to alter elements, not sections
+									copy.element = parseInt( copy.element, 10 ) + 1;
+								}
+							} else if ( __rule.section === l.start.section && __rule.section !== l.end.section ) { // Element is getting dragged off its section
+								// Element belonging to a rule is being dragged
+								if ( __rule.element === l.start.element ) {
+									copy.section = l.end.section;
+									copy.element = l.end.element;
+								// rule.section !== rule.element means that we only want to alter elements, not sections
+								} else if ( __rule.section !== __rule.element && ! $.tmEPOAdmin.builderItemsSortableObj.start.disabled && parseInt( __rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
+									// Element not belonging to a rule is being dragged
+									// and breaks the rule
+									copy.element = parseInt( copy.element, 10 ) - 1;
+								}
+							// __rule.section !== __rule.element means that we only want to alter elements, not sections
+							} else if ( __rule.section !== l.start.section && __rule.section === l.end.section ) { // Element is getting dragged on this rule's section
+								if ( __rule.section !== __rule.element && parseInt( __rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+									copy.element = parseInt( copy.element, 10 ) + 1;
+								}
+							}
+						}
+						if ( ! ( l.end.section === 'delete' && copy.element === 'delete' ) ) {
+							copy_rules[ i ][ ii ] = copy;
+						}
+					} );
+					if ( copy_rules[ i ].length === 0 ) {
+						delete copy_rules[ i ];
+					} else {
+						copy_rules[ i ] = tcArrayValues( copy_rules[ i ] );
+					}
+				}
+			} );
+
+			copy_rules = tcArrayValues( copy_rules );
+			if ( copy_rules.length === 0 ) {
+				$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, shippingField, '', elementType );
+			} else {
+				element_rules.rules = copy_rules;
+				$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, shippingField, JSON.stringify( element_rules ), elementType );
+			}
 		},
 
 		validate_rule: function( rule, sectionIndex, fieldIndex ) {
@@ -3944,6 +4530,71 @@
 			return []; //false
 		},
 
+		logic_check_rules_reindex: function( el, rules, true_field_index, new_field_index, section_id, new_enabled, new_logic ) {
+			var copy;
+
+			if ( typeof rules !== 'object' || rules === null ) {
+				rules = {};
+			}
+			if ( rules.toggle === undefined ) {
+				rules.toggle = 'show';
+			}
+			if ( rules.rules === undefined ) {
+				rules.rules = [];
+			}
+
+			// backwards compatibility conversion.
+			rules = $.tmEPOAdmin.convert_rules( rules );
+
+			copy = $.epoAPI.util.deepCopyArray( rules );
+
+			true_field_index = parseInt( true_field_index, 10 );
+			new_field_index = parseInt( new_field_index, 10 );
+			new_enabled = parseInt( new_enabled, 10 );
+			new_logic = parseInt( new_logic, 10 );
+
+			$.each( rules.rules, function( i, _rule ) {
+				var section;
+				var element;
+				if ( Array.isArray( _rule ) ) {
+					$.each( _rule, function( ii, __rule ) {
+						section = __rule.section;
+						element = __rule.element;
+
+						if ( section === section_id && element.toString().isNumeric() ) {
+							element = parseInt( element, 10 );
+							if ( true_field_index === element ) {
+								if ( new_logic && new_enabled === 0 ) {
+									delete copy.rules[ i ][ ii ];
+									el.addClass( 'tm-wrong-rule' );
+								} else if ( new_enabled === 1 ) {
+									element += 1;
+									copy.rules[ i ][ ii ].element = element.toString();
+								}
+							} else if ( true_field_index < element ) {
+								if ( new_enabled === 0 ) {
+									element -= 1;
+									copy.rules[ i ][ ii ].element = element.toString();
+								} else if ( new_enabled === 1 ) {
+									element += 1;
+									copy.rules[ i ][ ii ].element = element.toString();
+								}
+							}
+						}
+					} );
+					if ( copy.rules[ i ].length === 0 ) {
+						delete copy.rules[ i ];
+					} else {
+						copy.rules[ i ] = tcArrayValues( copy.rules[ i ] );
+					}
+				}
+			} );
+
+			copy.rules = tcArrayValues( copy.rules );
+
+			return copy;
+		},
+
 		logic_reindex: function() {
 			var l = $.tmEPOAdmin.builderItemsSortableObj;
 
@@ -3975,7 +4626,7 @@
 
 			obj.sortable( {
 				handle: '.move',
-				cursor: 'move',
+				cursor: 'grabbing',
 				items: '.bitem',
 				start: function( e, ui ) {
 					var builderWrapper;
@@ -4372,7 +5023,7 @@
 
 					$.tmEPOAdmin.changeBuilder( content, sectionIndex );
 
-					TCBUILDER[ sectionIndex ].section.sections_clogic.default = $.tmEPOAdmin.section_logic_get_JSON( content );
+					TCBUILDER[ sectionIndex ].section.sections_logicrules.default = $.tmEPOAdmin.section_logic_get_JSON( content );
 
 					$.tmEPOAdmin.sections_type_onChange( sectionIndex );
 
@@ -4390,11 +5041,10 @@
 
 			setTimeout( function() {
 				var rules;
-				rules = content.find( '.tm-builder-clogic' ).val() || 'null';
+				rules = content.find( '.tm-builder-logicrules' ).val() || 'null';
 				rules = $.epoAPI.util.parseJSON( rules );
 				rules = $.tmEPOAdmin.logic_check_element_rules( rules );
 				content.find( '.epo-rule-toggle' ).val( rules.toggle );
-				content.find( '.epo-rule-what' ).val( rules.what );
 			}, 1 );
 
 			$.tmEPOAdmin.set_fields_logic( content );
@@ -4436,7 +5086,6 @@
 
 				sectionField.is_slider = TCBUILDER[ sectionIndex ].section.is_slider;
 				sectionField.rules_toggle = TCBUILDER[ sectionIndex ].section.rules_toggle;
-				sectionField.rules_what = TCBUILDER[ sectionIndex ].section.rules_what;
 
 				TCBUILDER[ sectionIndex ].section = sectionField;
 			}
@@ -4553,7 +5202,7 @@
 							builder[ i ].options.forEach( function( x ) {
 								element.append( $( '<option selected="selected" value="' + x.value + '">' + x.text + '</option>' ) );
 							} );
-							element.attr( 'data-exclude', TMEPOGLOBALADMINJS.post_id + ',' + TMEPOGLOBALADMINJS.original_post_id );
+							element.attr( 'data-exclude', TMEPOGLOBALADMINJS.original_post_id === TMEPOGLOBALADMINJS.post_id ? TMEPOGLOBALADMINJS.post_id : TMEPOGLOBALADMINJS.post_id + ',' + TMEPOGLOBALADMINJS.original_post_id );
 						}
 					}
 					if ( builder[ i ].fill === 'category' ) {
@@ -4569,7 +5218,7 @@
 					if ( element.is( '.product-default-value-search' ) ) {
 						if ( content.find( '.product-mode:checked' ).val() === 'products' || content.find( '.product-mode:checked' ).val() === 'product' ) {
 							element.removeClass( 'wc-product-search' ).addClass( 'enhanced-dropdown' );
-							temp = content.find( '.product-products-selector' ).find( ':selected' ).clone().removeAttr( 'selected' ).removeAttr( 'data-select2-id' );
+							temp = content.find( '.product-products-selector' ).find( ':selected' ).clone().prop( 'selected', false ).removeAttr( 'data-select2-id' );
 							element.find( 'option' ).remove();
 							element.append( temp );
 						} else if ( value !== '' ) {
@@ -4731,7 +5380,9 @@
 
 					$.tmEPOAdmin.changeBuilder( content, sectionIndex, fieldIndex );
 
-					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'clogic', $.tmEPOAdmin.element_logic_get_JSON( content ), elementType );
+					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'logicrules', $.tmEPOAdmin.element_logic_get_JSON( content ), elementType );
+					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'shipping_methods_enable_logicrules', $.tmEPOAdmin.element_shipping_logic_get_JSON( content, 'enable' ), elementType );
+					$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'shipping_methods_disable_logicrules', $.tmEPOAdmin.element_shipping_logic_get_JSON( content, 'disable' ), elementType );
 
 					$.tmEPOAdmin.set_field_title( bitem, sectionIndex, fieldIndex );
 
@@ -4750,26 +5401,26 @@
 						new_field_index = $.tmEPOAdmin.find_index( is_slider, bitem, '.bitem', '.element-is-disabled' );
 
 						Object.keys( TCBUILDER[ sectionIndex ].fields ).forEach( function( i ) {
-							rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ i ], 'clogic', true ) || 'null';
+							rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ i ], 'logicrules', true ) || 'null';
 							rules = $.epoAPI.util.parseJSON( rules );
 							rules = $.tmEPOAdmin.logic_check_rules_reindex( bitem, rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
-							$.tmEPOAdmin.setFieldValue( sectionIndex, i, 'clogic', JSON.stringify( rules ), true );
+							$.tmEPOAdmin.setFieldValue( sectionIndex, i, 'logicrules', JSON.stringify( rules ), true );
 						} );
 
 						// needs check if element in rule is from the section above, otherwise no need to change the rule.
 						Object.keys( TCBUILDER ).forEach( function( i ) {
 							i = parseInt( i, 10 );
 							if ( i !== sectionIndex ) {
-								section_rules = TCBUILDER[ i ].section.sections_clogic.default || 'null';
+								section_rules = TCBUILDER[ i ].section.sections_logicrules.default || 'null';
 								section_rules = $.epoAPI.util.parseJSON( section_rules );
 								section_rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ), section_rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
-								TCBUILDER[ i ].section.sections_clogic.default = JSON.stringify( section_rules );
+								TCBUILDER[ i ].section.sections_logicrules.default = JSON.stringify( section_rules );
 
 								Object.keys( TCBUILDER[ i ].fields ).forEach( function( ii ) {
-									rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ i ].fields[ ii ], 'clogic', true ) || 'null';
+									rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ i ].fields[ ii ], 'logicrules', true ) || 'null';
 									rules = $.epoAPI.util.parseJSON( rules );
 									rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ).find( '.bitem' ).eq( ii ), rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
-									$.tmEPOAdmin.setFieldValue( i, ii, 'clogic', JSON.stringify( rules ), true );
+									$.tmEPOAdmin.setFieldValue( i, ii, 'logicrules', JSON.stringify( rules ), true );
 								} );
 							}
 						} );
@@ -4798,11 +5449,10 @@
 				content.find( '.activate-element-logic' ).trigger( 'change' );
 				content.find( '.tm_option_enabled' ).trigger( 'changechoice' );
 
-				rules = content.find( '.tm-builder-clogic' ).val() || 'null';
+				rules = content.find( '.tm-builder-logicrules' ).val() || 'null';
 				rules = $.epoAPI.util.parseJSON( rules );
 				rules = $.tmEPOAdmin.logic_check_element_rules( rules );
 				content.find( '.epo-rule-toggle' ).val( rules.toggle );
-				content.find( '.epo-rule-what' ).val( rules.what );
 
 				content.find( ':radio:checked' ).not( '.panels_wrap :radio' ).trigger( 'change' );
 				if ( elementType === 'variations' ) {
@@ -4920,60 +5570,6 @@
 				} );
 		},
 
-		logic_check_rules_reindex: function( el, rules, true_field_index, new_field_index, section_id, new_enabled, new_logic ) {
-			var copy;
-
-			if ( typeof rules !== 'object' || rules === null ) {
-				rules = {};
-			}
-			if ( rules.toggle === undefined ) {
-				rules.toggle = 'show';
-			}
-			if ( rules.what === undefined ) {
-				rules.what = 'any';
-			}
-			if ( rules.rules === undefined ) {
-				rules.rules = [];
-			}
-
-			copy = $.epoAPI.util.deepCopyArray( rules );
-
-			true_field_index = parseInt( true_field_index, 10 );
-			new_field_index = parseInt( new_field_index, 10 );
-			new_enabled = parseInt( new_enabled, 10 );
-			new_logic = parseInt( new_logic, 10 );
-
-			$.each( rules.rules, function( i, _rule ) {
-				var section = _rule.section;
-				var element = _rule.element;
-
-				if ( section === section_id && element.toString().isNumeric() ) {
-					element = parseInt( element, 10 );
-					if ( true_field_index === element ) {
-						if ( new_logic && new_enabled === 0 ) {
-							delete copy.rules[ i ];
-							el.addClass( 'tm-wrong-rule' );
-						} else if ( new_enabled === 1 ) {
-							element += 1;
-							copy.rules[ i ].element = element.toString();
-						}
-					} else if ( true_field_index < element ) {
-						if ( new_enabled === 0 ) {
-							element -= 1;
-							copy.rules[ i ].element = element.toString();
-						} else if ( new_enabled === 1 ) {
-							element += 1;
-							copy.rules[ i ].element = element.toString();
-						}
-					}
-				}
-			} );
-
-			copy.rules = tcArrayValues( copy.rules );
-
-			return copy;
-		},
-
 		getFieldObject: function( _clone ) {
 			var fieldObject = [];
 			var name;
@@ -5030,6 +5626,14 @@
 							}
 						}
 
+						if ( el.is( '.product-categories-selector' ) ) {
+							tempObject.fill = 'category';
+							tempObject.options = [];
+						} else if ( el.is( '.product-products-selector' ) ) {
+							tempObject.fill = 'product';
+							tempObject.options = [];
+						}
+
 						if ( el.attr( 'data-builder' ) ) {
 							builder = $.epoAPI.util.parseJSON( el.attr( 'data-builder' ) );
 							if ( builder.fill === 'product' || builder.fill === 'category' || el.is( '.product-products-selector' ) || el.is( '.product-categories-selector' ) ) {
@@ -5040,11 +5644,7 @@
 										return { text: $( option ).text(), value: $( option ).val() };
 									} );
 							}
-							if ( el.is( '.product-categories-selector' ) ) {
-								tempObject.fill = 'category';
-							} else if ( el.is( '.product-products-selector' ) ) {
-								tempObject.fill = 'product';
-							}
+
 							if ( builder ) {
 								tempObject = Object.assign( builder, tempObject );
 							}
@@ -5128,13 +5728,16 @@
 		},
 
 		// Add Element to sortable via Add button
-		builder_clone_element: function( element, wrapper_selector, append_or_prepend ) {
+		builder_clone_element: function( element, wrapper_selector, append_or_prepend, _bitem, retainData ) {
 			var _template = $.epoAPI.template.html( templateEngine.tc_builder_elements, {} );
 			var _clone;
 			var is_slider;
 			var field_index;
 			var sectionIndex;
 			var fieldObject;
+			var newFieldObject;
+			var previousElement;
+			var title;
 
 			if ( ! _template ) {
 				return;
@@ -5148,15 +5751,25 @@
 				.tcClone( true );
 
 			if ( _clone ) {
-				_clone.find( '.tm-builder-element-uniqid' ).val( $.epoAPI.math.uniqueid( '', true ) );
+				sectionIndex = wrapper_selector.index();
+				is_slider = TCBUILDER[ sectionIndex ].section.is_slider;
+
+				if ( append_or_prepend === 'replace' && _bitem && retainData ) {
+					previousElement = _bitem.find( '.tm-for-bitem' ).attr( 'data-element' );
+					_clone.find( '.tm-builder-element-uniqid' ).val( $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ $.tmEPOAdmin.find_index( is_slider, _bitem ) ], 'uniqid', previousElement ) );
+				} else {
+					_clone.find( '.tm-builder-element-uniqid' ).val( $.epoAPI.math.uniqueid( '', true ) );
+				}
 				if ( $( '.builder-wrapper' ).length <= 0 ) {
 					$.tmEPOAdmin.builder_add_section_onClick();
 					wrapper_selector = $( '.builder-wrapper' ).first();
 				}
 
-				sectionIndex = wrapper_selector.index();
+				fieldObject = $.tmEPOAdmin.getFieldObject( _clone );
 
-				if ( wrapper_selector.find( '.bitem-wrapper' ).find( '.ditem' ).length > 0 ) {
+				if ( append_or_prepend === 'replace' && _bitem && retainData ) {
+					_bitem.replaceWith( _clone );
+				} else if ( wrapper_selector.find( '.bitem-wrapper' ).find( '.ditem' ).length > 0 ) {
 					wrapper_selector.find( '.bitem-wrapper' ).find( '.ditem' ).replaceWith( _clone );
 				} else {
 					if ( append_or_prepend === 'append' ) {
@@ -5165,24 +5778,92 @@
 					if ( append_or_prepend === 'prepend' ) {
 						wrapper_selector.find( '.bitem-wrapper' ).not( '.tm-hide' ).prepend( _clone );
 					}
+
+					TCBUILDER[ sectionIndex ].section.sections.default = parseInt( TCBUILDER[ sectionIndex ].section.sections.default, 10 ) + 1;
+					TCBUILDER[ sectionIndex ].section.sections.default = TCBUILDER[ sectionIndex ].section.sections.default.toString();
 				}
 
-				TCBUILDER[ sectionIndex ].section.sections.default = parseInt( TCBUILDER[ sectionIndex ].section.sections.default, 10 ) + 1;
-				TCBUILDER[ sectionIndex ].section.sections.default = TCBUILDER[ sectionIndex ].section.sections.default.toString();
+				field_index = $.tmEPOAdmin.find_index( is_slider, _clone );
 
-				is_slider = TCBUILDER[ sectionIndex ].section.is_slider;
-				if ( is_slider ) {
-					TCBUILDER[ sectionIndex ].section.sections_slides.default = wrapper_selector
-						.find( '.bitem-wrapper' )
-						.map( function( i, e ) {
-							return $( e ).children( '.bitem' ).not( '.pl2' ).length;
-						} )
-						.get()
-						.join( ',' );
-				}
+				if ( append_or_prepend === 'replace' && _bitem && retainData ) {
+					if ( retainData === 'yes' ) {
+						newFieldObject = fieldObject.map( function( replacement ) {
+							var mergedObject = {};
+							var existingObject = TCBUILDER[ sectionIndex ].fields[ field_index ].find( function( book ) {
+								var headerProperties = [ 'header_size', 'header_title', 'header_title_position', 'header_title_color', 'header_subtitle', 'header_subtitle_color', 'header_subtitle_position' ];
+								var id = ( book.id === 'div_size' || book.id === 'element_type' || book.id === 'multiple' ) ? book.id : element + book.id.slice( previousElement.length );
+								if ( previousElement === 'header' && headerProperties.includes( book.id ) ) {
+									id = element + '_' + book.id;
+								} else if ( element === 'header' && id.toString().startsWith( element + '_header' ) ) {
+									id = book.id.slice( element.length - 1 );
+								}
+								return replacement.id !== 'element_type' && replacement.id !== element + '_internal_name' && id === replacement.id;
+							} );
 
-				if ( append_or_prepend === 'prepend' || append_or_prepend === 'append' ) {
-					field_index = $.tmEPOAdmin.find_index( is_slider, _clone );
+							if ( existingObject ) {
+								Object.keys( replacement ).forEach( function( key ) {
+									if ( key !== 'id' && key !== 'tags' && existingObject.hasOwnProperty( key ) ) {
+										if ( key === 'multiple' ) {
+											mergedObject[ key ] = existingObject[ key ].map( function( subArray ) {
+												return subArray.map( function( obj ) {
+													// Replace previousElement with element in the 'id' property
+													var modifiedId = obj.id.replace( '_' + previousElement + '_', '_' + element + '_' );
+
+													// Find the existingObj that matches the modifiedId
+													var matchingExistingObj = replacement[ key ][ 0 ].find( function( existingObj ) {
+														return existingObj.id === modifiedId;
+													} );
+
+													if ( matchingExistingObj && obj.tags ) {
+														if ( obj.tags.name ) {
+															obj.tags.name = obj.tags.name.replace( '_' + previousElement + '_', '_' + element + '_' );
+														}
+														if ( obj.tags.id ) {
+															obj.tags.id = obj.tags.id.replace( '_' + previousElement + '_', '_' + element + '_' );
+														}
+													}
+
+													// If the modified 'id' exists in existingArray, include it in the new array
+													return matchingExistingObj ? Object.assign( {}, obj, { id: modifiedId } ) : null;
+												} );
+											} );
+											mergedObject[ key ] = mergedObject[ key ].map( function( subArray ) {
+												return subArray.filter( function( obj ) {
+													return obj !== null;
+												} );
+											} );
+										} else {
+											mergedObject[ key ] = existingObject[ key ];
+										}
+									} else {
+										mergedObject[ key ] = replacement[ key ];
+									}
+								} );
+								return mergedObject;
+							}
+							return replacement;
+						} );
+						TCBUILDER[ sectionIndex ].fields[ field_index ] = newFieldObject;
+
+						title = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ field_index ], element === 'header' ? 'title' : 'header_title', element );
+						if ( title === undefined || title === '' ) {
+							_clone.find( '.tm-label' ).html( TMEPOGLOBALADMINJS.i18n_no_title );
+						} else {
+							_clone.find( '.tm-label' ).html( title );
+						}
+					} else {
+						TCBUILDER[ sectionIndex ].fields[ field_index ] = fieldObject;
+					}
+				} else if ( append_or_prepend === 'prepend' || append_or_prepend === 'append' ) {
+					if ( is_slider ) {
+						TCBUILDER[ sectionIndex ].section.sections_slides.default = wrapper_selector
+							.find( '.bitem-wrapper' )
+							.map( function( i, e ) {
+								return $( e ).children( '.bitem' ).not( '.pl2' ).length;
+							} )
+							.get()
+							.join( ',' );
+					}
 
 					$.tmEPOAdmin.builderItemsSortableObj.start.section = 'drag';
 					$.tmEPOAdmin.builderItemsSortableObj.start.section_eq = 'drag';
@@ -5191,11 +5872,9 @@
 					$.tmEPOAdmin.builderItemsSortableObj.end.section = TCBUILDER[ sectionIndex ].section.sections_uniqid.default;
 					$.tmEPOAdmin.builderItemsSortableObj.end.section_eq = wrapper_selector.index().toString();
 					$.tmEPOAdmin.builderItemsSortableObj.end.element = field_index.toString();
+
+					TCBUILDER[ sectionIndex ].fields.splice( field_index, 0, fieldObject );
 				}
-
-				fieldObject = $.tmEPOAdmin.getFieldObject( _clone );
-
-				TCBUILDER[ sectionIndex ].fields.splice( field_index, 0, fieldObject );
 
 				_clone.find( '.builder-element-wrap' ).empty();
 				_clone.find( '.builder_element_type' ).remove();
@@ -5211,11 +5890,13 @@
 			}
 		},
 
-		doConfirm: function( title, func, funcThis, funcArgs ) {
+		doConfirm: function( data, func, funcThis, funcArgs, forceOnCancel ) {
+			var title = ( typeof data === 'object' && data !== null ) ? data.title : data;
+			var html = ( typeof data === 'object' && data !== null ) ? '<div class="tm-inner">' + data.html + '</div>' : '';
 			var $_html = $.epoAPI.template.html( wp.template( 'tc-floatbox' ), {
 				id: 'tc-floatbox-content',
 				title: title,
-				html: '',
+				html: html,
 				uniqid: '',
 				update: TMEPOGLOBALADMINJS.i18n_yes,
 				cancel: TMEPOGLOBALADMINJS.i18n_no
@@ -5231,15 +5912,19 @@
 				refresh: 'fixed',
 				width: '50%',
 				height: 'auto',
-				classname: 'flasho tc-wrapper tc-question',
+				classname: 'flasho tc-wrapper' + ( html === '' ? ' tc-question' : '' ),
 				data: $_html,
 				cancelEvent: function( inst ) {
 					if ( clicked ) {
 						return;
 					}
 					clicked = true;
-
 					inst.destroy();
+
+					if ( forceOnCancel ) {
+						funcArgs.push( 'no' );
+						func.apply( funcThis, funcArgs );
+					}
 				},
 				cancelClass: '.floatbox-cancel',
 				updateEvent: function( inst ) {
@@ -5248,9 +5933,11 @@
 					}
 					clicked = true;
 
-					func.apply( funcThis, funcArgs );
-
+					if ( forceOnCancel ) {
+						funcArgs.push( 'yes' );
+					}
 					inst.destroy();
+					func.apply( funcThis, funcArgs );
 				},
 				updateClass: '.floatbox-update',
 				isconfirm: true
@@ -5316,6 +6003,49 @@
 			$.tmEPOAdmin.doConfirm( TMEPOGLOBALADMINJS.i18n_builder_clone, $.tmEPOAdmin.builder_clone_do, this, [ $( this ) ] );
 		},
 
+		builder_change_do: function( $this, retainData ) {
+			var $_html = $.tmEPOAdmin.builder_floatbox_template_import( {
+				id: 'tc-floatbox-content',
+				html: '<div class="tm-inner">' + TMEPOGLOBALADMINJS.element_data + '</div>',
+				title: TMEPOGLOBALADMINJS.i18n_change_element
+			} );
+			var popup = $.tcFloatBox( {
+				closefadeouttime: 0,
+				animateOut: '',
+				fps: 1,
+				ismodal: false,
+				refresh: 'fixed',
+				width: '70%',
+				height: '70%',
+				top: '15%',
+				left: '15%',
+				classname: 'flasho tc-wrapper tc-builder-add-element',
+				data: $_html
+			} );
+
+			var _bitem = $this.closest( '.bitem' );
+			var currentElement = _bitem.find( '.tm-for-bitem' ).attr( 'data-element' );
+			$( '.tm-elements-container' ).find( '.element-' + currentElement ).closest( '.tm-element-button' ).remove();
+
+			$( '.tc-builder-add-element .tc-element-button' ).on( 'click.cpf', function( ev ) {
+				var new_section = $this.closest( '.builder-wrapper' );
+				var el = $( this ).attr( 'data-element' );
+
+				ev.preventDefault();
+
+				$.tmEPOAdmin.builder_clone_element( el, new_section, 'replace', _bitem, retainData );
+
+				$.tmEPOAdmin.logic_reindex();
+				popup.destroy();
+			} );
+		},
+
+		// Element change button
+		builder_change_onClick: function( e ) {
+			e.preventDefault();
+			$.tmEPOAdmin.doConfirm( { title: TMEPOGLOBALADMINJS.i18n_builder_change_ask_title, html: TMEPOGLOBALADMINJS.i18n_builder_change_ask }, $.tmEPOAdmin.builder_change_do, this, [ $( this ) ], true );
+		},
+
 		// Section clone button
 		builder_section_clone_do: function() {
 			var builderWrapper;
@@ -5351,8 +6081,6 @@
 				$.tmEPOAdmin.check_section_logic( _clonesectionIndex );
 				$.tmEPOAdmin.check_element_logic();
 				$.tmEPOAdmin.section_logic_init( _clonesectionIndex );
-				//_clone.addClass("appear");
-
 				$.tmEPOAdmin.makeResizables( _clone );
 				$.tmEPOAdmin.makeResizables( _clone.find( '.bitem' ) );
 			}
@@ -5652,7 +6380,7 @@
 			_clone
 				.find( 'select' )
 				.filter( ':not(.enhanced, .enhanced-dropdown, .wc-category-search, .wc-product-search)' )
-				.not( '.builder-logic-div select, .panels_wrap select, .options-wrap select' )
+				.not( '.shipping-logic-div select, .builder-logic-div select, .panels_wrap select, .options-wrap select' )
 				.each( function() {
 					var select2_args = {
 						allowClear: $( this ).is( '.wc-template-search' ) ? true : false,
@@ -5891,7 +6619,7 @@
 			var image = $( this ).nextAll( '.tm_upload_image' ).first().find( '.tm_upload_image_img' );
 
 			$( input ).val( '' );
-			$( image ).attr( 'src', '' );
+			$( image ).attr( 'src', emptyImage );
 		},
 
 		variations_display_as: function( e ) {
@@ -5978,21 +6706,18 @@
 				.find( '.tm_option_image' )
 				.not( '.tm_option_imagep' )
 				.each( function( i ) {
-					$this.find( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+					$this.find( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 				} );
 			$this.find( '.tm_option_imagep' ).each( function( i ) {
-				$this.find( '.tm_upload_image' ).not( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+				$this.find( '.tm_upload_image' ).not( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 			} );
 		},
 
 		floatbox_content_js: function() {
 			var $this = $( '#tc-floatbox-content' );
 			var $replacementMode = $this.find( '.replacement-mode:checked' );
-			var $swatchPositionDiv = $this.find( '.tm-swatch-position' );
 			var $changesProductImage = $this.find( '.tm-changes-product-image' );
 			var $showTooltip = $this.find( '.show-tooltip' );
-			var $use_lightbox = $( '#tc-floatbox-content .tm-show-when-use-images' );
-			var $show_when_use_color = $( '#tc-floatbox-content .tm-show-when-use-color' );
 			var tm_upload = $this.find( '.builder-element-wrap' ).find( '.tc-upload-button' ).not( '.tc-upload-buttonp,.tc-upload-buttonl' );
 			var tm_upload_image = $this.find( '.builder-element-wrap' ).find( '.tm_upload_image' ).not( '.tm_upload_imagep,.tm_upload_imagel' );
 			var tm_uploadp = $this.find( '.builder-element-wrap' ).find( '.tc-upload-buttonp' );
@@ -6004,7 +6729,6 @@
 			var tm_option_image;
 			var tm_option_imagep;
 			var tm_upload_imagep_img;
-			var emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
 			tm_upload.hide();
 			tm_upload_image.hide();
@@ -6015,12 +6739,6 @@
 			tm_cell_images.hide();
 			tm_color_picker.hide();
 
-			if ( $replacementMode.val() === 'none' || $replacementMode.val() === 'text' ) {
-				$swatchPositionDiv.hide();
-			} else {
-				$swatchPositionDiv.show();
-			}
-
 			if ( $changesProductImage.val() === 'images' && ( $replacementMode.val() === 'none' || $replacementMode.val() === 'text' ) ) {
 				tm_option_image = $this.find( '.tm_option_image' ).not( '.tm_option_imagep' );
 				tm_option_imagep = $this.find( '.tm_option_imagep' );
@@ -6028,7 +6746,7 @@
 				$changesProductImage.val( 'custom' );
 				tm_option_image.each( function( i ) {
 					tm_option_imagep.eq( i ).val( $( this ).val() );
-					tm_upload_imagep_img.attr( 'src', $( this ).val() );
+					tm_upload_imagep_img.attr( 'src', $( this ).val() || emptyImage );
 				} );
 			}
 
@@ -6056,16 +6774,12 @@
 				tm_cell_images.show();
 			}
 			if ( $replacementMode.val() === 'image' ) {
-				$use_lightbox.show();
 				if ( $( '#tc-floatbox-content .tm-use-lightbox' ).is( ':checked' ) ) {
 					tm_uploadl.show();
 					tm_upload_imagel.show();
 				}
-			} else {
-				$use_lightbox.hide();
 			}
 			if ( $replacementMode.val() === 'color' ) {
-				$show_when_use_color.show();
 				if ( $showTooltip.val() === 'swatch_img' || $showTooltip.val() === 'swatch_img_lbl' || $showTooltip.val() === 'swatch_img_desc' || $showTooltip.val() === 'swatch_img_lbl_desc' ) {
 					$showTooltip.val( '' );
 				}
@@ -6078,10 +6792,6 @@
 				$showTooltip.find( "option[value='swatch_img_lbl']" ).prop( 'disabled', false ).show();
 				$showTooltip.find( "option[value='swatch_img_desc']" ).prop( 'disabled', false ).show();
 				$showTooltip.find( "option[value='swatch_img_lbl_desc']" ).prop( 'disabled', false ).show();
-
-				if ( $replacementMode.val() !== 'image' ) {
-					$show_when_use_color.hide();
-				}
 			}
 
 			setTimeout( function() {

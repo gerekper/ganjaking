@@ -6,13 +6,12 @@ use AC;
 use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Search;
 use ACP\Settings;
 use ACP\Sorting;
 
 class User extends AC\Column\Comment\User
-    implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable,
+    implements Editing\Editable, Sorting\Sortable, Export\Exportable, Search\Searchable,
                ConditionalFormat\Formattable
 {
 
@@ -29,11 +28,6 @@ class User extends AC\Column\Comment\User
     public function editing()
     {
         return new Editing\Service\Comment\User();
-    }
-
-    public function filtering()
-    {
-        return new Filtering\Model\Comment\User($this);
     }
 
     public function export()

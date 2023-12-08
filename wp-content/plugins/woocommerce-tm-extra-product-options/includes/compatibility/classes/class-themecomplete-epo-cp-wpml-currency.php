@@ -3,7 +3,7 @@
  * Compatibility class
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * WPML Currency
  *
  * @package Extra Product Options/Compatibility
- * @version 6.0
+ * @version 6.4
  */
 final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 
@@ -28,19 +28,19 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	/**
 	 * Flag to check in WPML Multi Currency is enabled
 	 *
-	 * @var int|null
+	 * @var integer|null|boolean
 	 */
 	public $is_wpml_multi_currency = false;
 	/**
 	 * Cache for the default currency
 	 *
-	 * @var int|null
+	 * @var string|null|boolean
 	 */
 	public $default_to_currency = false;
 	/**
 	 * Cache for the default from currency
 	 *
-	 * @var int|null
+	 * @var string|null|boolean
 	 */
 	public $default_from_currency = false;
 
@@ -54,6 +54,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_WPML_Currency
 	 * @since 1.0
 	 * @static
 	 */
@@ -72,49 +73,87 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	 */
 	public function __construct() {
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
+		add_action( 'plugins_loaded', [ $this, 'plugins_loaded_standalone' ], 10001 );
 	}
 
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
 
-		if ( ! $this->is_wpml ) {
+		if ( ! $this->is_wpml_multi_currency ) {
 			return;
 		}
 
+		add_filter( 'wc_epo_enabled_currencies', [ $this, 'wc_epo_enabled_currencies' ], 10, 1 );
 		add_filter( 'wc_epo_convert_to_currency', [ $this, 'wc_epo_convert_to_currency' ], 10, 3 );
 		add_filter( 'wc_epo_get_current_currency_price', [ $this, 'wc_epo_get_current_currency_price' ], 10, 6 );
-		add_filter( 'wc_epo_remove_current_currency_price', [ $this, 'wc_epo_remove_current_currency_price' ], 10, 9 );
-		add_filter( 'wc_epo_get_currency_price', [ $this, 'tm_wc_epo_get_currency_price' ], 10, 7 );
-
+		add_filter( 'wc_epo_remove_current_currency_price', [ $this, 'wc_epo_remove_current_currency_price' ], 10, 6 );
+		add_filter( 'wc_epo_get_currency_price', [ $this, 'tm_wc_epo_get_currency_price' ], 10, 6 );
 	}
 
 	/**
 	 * Setup initial variables
 	 *
+	 * @return void
 	 * @since 6.0
 	 */
 	public function plugins_loaded() {
+		$this->is_wpml                = THEMECOMPLETE_EPO_WPML()->is_active();
+		$this->is_wpml_multi_currency = THEMECOMPLETE_EPO_WPML()->is_multi_currency();
+
+		$this->add_compatibility();
+	}
+
+	/**
+	 * Setup initial variables as a standalone plugin
+	 *
+	 * @return void
+	 * @since 6.0
+	 */
+	public function plugins_loaded_standalone() {
+		// Exit if already defined from priority 1.
+		if ( $this->is_wpml_multi_currency ) {
+			return;
+		}
 
 		$this->is_wpml                = THEMECOMPLETE_EPO_WPML()->is_active();
 		$this->is_wpml_multi_currency = THEMECOMPLETE_EPO_WPML()->is_multi_currency();
 
 		$this->add_compatibility();
+	}
 
+	/**
+	 * Alter enabled currencies
+	 *
+	 * @param array<mixed> $currencies Array of currencies.
+	 * @return array<mixed>
+	 * @since 6.4
+	 */
+	public function wc_epo_enabled_currencies( $currencies = [] ) {
+		global $woocommerce_wpml;
+		if ( $woocommerce_wpml ) {
+			if ( $this->is_wpml_multi_currency ) {
+				$currencies = array_keys( $woocommerce_wpml->settings['currency_options'] );
+			}
+		}
+
+		return $currencies;
 	}
 
 	/**
 	 * Get current currency price
 	 *
-	 * @param string     $price The price to convert.
-	 * @param string     $type The option price type.
-	 * @param array|null $currencies Array of currencies.
-	 * @param boolean    $currency The currency to get the price.
-	 * @param boolean    $product_price The product price (for precent price type).
-	 * @param boolean    $tc_added_in_currency The currenct the product was added in.
+	 * @param string            $price The price to convert.
+	 * @param mixed             $type The option price type.
+	 * @param array<mixed>|null $currencies Array of currencies.
+	 * @param string|false      $currency The currency to get the price.
+	 * @param mixed             $product_price The product price (for percent price type).
+	 * @param string|false      $tc_added_in_currency The current the product was added in.
+	 * @return mixed
 	 *
 	 * @since 6.0
 	 */
@@ -128,7 +167,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 			// Replaces any number between curly braces with the current currency.
 			$price = preg_replace_callback(
 				'/\{(\d+)\}/',
-				function( $matches ) {
+				function ( $matches ) {
 					return apply_filters( 'wc_epo_get_currency_price', $matches[1], false, '' );
 				},
 				$price
@@ -157,37 +196,35 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 					$product_price = $woocommerce_wpml->multi_currency->prices->convert_price_amount( $product_price, $tc_added_in_currency );
 				}
 
-				$price = $product_price * ( $price / 100 );
+				$price = floatval( $product_price ) * ( floatval( $price ) / 100 );
 
 			} else {
 
 				$product_price = $this->get_price_in_currency( $product_price, $tc_added_in_currency, null, $currencies, '' );
-				$price         = $product_price * ( $price / 100 );
+				$price         = floatval( $product_price ) * ( floatval( $price ) / 100 );
 
 			}
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Get current currency price
 	 *
-	 * @param string      $price The price to convert.
-	 * @param boolean     $currency The currency to get the price.
-	 * @param string      $price_type The option price type.
-	 * @param boolean     $current_currency The current currency.
-	 * @param array|null  $price_per_currencies Array of price per currency.
-	 * @param string|null $key The option key.
-	 * @param string|null $attribute The option attribute.
+	 * @param string            $price The price to convert.
+	 * @param string|false      $currency The currency to get the price.
+	 * @param string            $price_type The option price type.
+	 * @param string|false      $current_currency The current currency.
+	 * @param array<mixed>|null $price_per_currencies Array of price per currency.
+	 * @param string|null       $key The option key.
+	 * @return mixed
 	 *
 	 * @since 6.0
 	 */
-	public function tm_wc_epo_get_currency_price( $price = '', $currency = false, $price_type = '', $current_currency = false, $price_per_currencies = null, $key = null, $attribute = null ) {
-
+	public function tm_wc_epo_get_currency_price( $price = '', $currency = false, $price_type = '', $current_currency = false, $price_per_currencies = null, $key = null ) {
 		if ( ! $currency ) {
-			return $this->wc_epo_get_current_currency_price( $price, $price_type, $currency );
+			return $this->wc_epo_get_current_currency_price( $price, $price_type );
 		}
 		$tc_get_default_currency = apply_filters( 'tc_get_default_currency', get_option( 'woocommerce_currency' ) );
 
@@ -200,28 +237,26 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 
 		} else {
 
-			$price = $this->get_price_in_currency( $price, $currency, null, $price_per_currencies, $price_type, $key, $attribute );
+			$price = $this->get_price_in_currency( $price, $currency, null, $price_per_currencies, $price_type, $key );
 
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Remove current currency price
 	 *
-	 * @param string      $price The price to convert.
-	 * @param string      $type The option price type.
-	 * @param string      $to_currency The currency to convert to.
-	 * @param string      $from_currency The currency to convert from.
-	 * @param array|null  $currencies Array of currencies.
-	 * @param string|null $key The option key.
-	 * @param string|null $attribute The option attribute.
-	 * @param array       $cart_item The cart item.
+	 * @param string            $price The price to convert.
+	 * @param string            $type The option price type.
+	 * @param string            $to_currency The currency to convert to.
+	 * @param string            $from_currency The currency to convert from.
+	 * @param array<mixed>|null $currencies Array of currencies.
+	 * @param string|null       $key The option key.
+	 * @return mixed
 	 * @since 6.0
 	 */
-	public function wc_epo_remove_current_currency_price( $price = '', $type = '', $to_currency = null, $from_currency = null, $currencies = null, $key = null, $attribute = null, $cart_item = [] ) {
+	public function wc_epo_remove_current_currency_price( $price = '', $type = '', $to_currency = null, $from_currency = null, $currencies = null, $key = null ) {
 
 		if ( $this->is_wpml_multi_currency ) {
 			global $woocommerce_wpml;
@@ -231,7 +266,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 				$price = $woocommerce_wpml->multi_currency->prices->unconvert_price_amount( $price );
 			}
 		} else {
-			$price = $this->get_price_in_currency( $price, $to_currency, $from_currency, $currencies, $type, $key, $attribute );
+			$price = $this->get_price_in_currency( $price, $to_currency, $from_currency, $currencies, $type, $key );
 		}
 
 		return $price;
@@ -243,11 +278,11 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	 * @param string       $price The price to convert.
 	 * @param string|false $from_currency The currency to convert from.
 	 * @param string|false $to_currency The currency to convert to.
+	 * @return mixed
 	 *
 	 * @since 6.0
 	 */
 	public function wc_epo_convert_to_currency( $price = '', $from_currency = false, $to_currency = false ) {
-
 		if ( ! $from_currency || ! $to_currency || $from_currency === $to_currency ) {
 			return $price;
 		}
@@ -259,7 +294,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 			if ( is_callable( [ $woocommerce_wpml->multi_currency, 'convert_price_amount_by_currencies' ] ) ) {
 				$price = $woocommerce_wpml->multi_currency->convert_price_amount_by_currencies( $price, $from_currency, $to_currency );
 			} elseif ( property_exists( $woocommerce_wpml->multi_currency, 'prices' ) && is_callable( [ $woocommerce_wpml->multi_currency->prices, 'convert_price_amount' ] ) ) {
-				$price = $woocommerce_wpml->multi_currency->prices->convert_price_amount_by_currencies( $price, $from_currency, $to_currency );
+				$price = $woocommerce_wpml->multi_currency->prices->convert_price_amount( $price, $from_currency, $to_currency );
 			}
 		} else {
 			// todo: if needed extend this as the whole method is only used for fixed conversions.
@@ -268,12 +303,12 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 		}
 
 		return $price;
-
 	}
 
 	/**
 	 * Helper function
 	 *
+	 * @return string
 	 * @see get_price_in_currency
 	 */
 	public function get_default_from_currency() {
@@ -287,6 +322,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	/**
 	 * Helper function
 	 *
+	 * @return string
 	 * @see get_price_in_currency
 	 */
 	public function get_default_to_currency() {
@@ -300,18 +336,18 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	/**
 	 * Return prices converted to the active currency
 	 *
-	 * @param double $price The source price.
-	 * @param string $to_currency The target currency. If empty, the active currency
-	 *               will be taken.
-	 * @param string $from_currency The source currency. If empty, WooCommerce base
-	 *               currency will be taken.
-	 * @param array  $currencies Array of currencies.
-	 * @param string $type The price type.
-	 * @param string $key The option key.
-	 * @param string $attribute The option attribute.
-	 * @return double The price converted from source to destination currency.
+	 * @param mixed        $price The source price.
+	 * @param string       $to_currency The target currency. If empty, the active currency
+	 *                     will be taken.
+	 * @param string       $from_currency The source currency. If empty, WooCommerce base
+	 *                     currency will be taken.
+	 * @param array<mixed> $currencies Array of currencies.
+	 * @param string       $type The price type.
+	 * @param string       $key The option key.
+	 *
+	 * @return mixed The price converted from source to destination currency.
 	 */
-	protected function get_price_in_currency( $price, $to_currency = null, $from_currency = null, $currencies = null, $type = null, $key = null, $attribute = null ) {
+	protected function get_price_in_currency( $price, $to_currency = null, $from_currency = null, $currencies = null, $type = null, $key = null ) {
 
 		if ( empty( $from_currency ) ) {
 			$from_currency = $this->get_default_from_currency();
@@ -343,5 +379,4 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 
 		return apply_filters( 'wc_epo_cs_convert', $price, $from_currency, $to_currency );
 	}
-
 }

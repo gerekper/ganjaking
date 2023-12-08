@@ -7,73 +7,76 @@ use ACA\EC\Column;
 use ACA\EC\Export\Strategy;
 use ACP;
 
-class Event extends ACP\ListScreen\Post {
+class Event extends ACP\ListScreen\Post
+{
 
-	public function __construct() {
-		parent::__construct( 'tribe_events' );
-
-		$this->set_group( 'events-calendar' );
-	}
-
-	protected function register_column_types(): void
+    public function __construct()
     {
-		parent::register_column_types();
+        parent::__construct('tribe_events');
 
-		$this->register_column_types_from_list( [
-			Column\Event\AllDayEvent::class,
-			Column\Event\Categories::class,
-			Column\Event\Costs::class,
-			Column\Event\DisplayDate::class,
-			Column\Event\Duration::class,
-			Column\Event\EndDate::class,
-			Column\Event\Featured::class,
-			Column\Event\Field::class,
-			Column\Event\HideFromUpcoming::class,
-			Column\Event\Organizer::class,
-			Column\Event\ParentEvent::class,
-			Column\Event\Recurring::class,
-			Column\Event\StartDate::class,
-			Column\Event\Sticky::class,
-			Column\Event\Venue::class,
-			Column\Event\Website::class,
-		] );
+        $this->group = 'events-calendar';
+    }
 
-		if ( API::is_pro() ) {
-			$fields = API::get_additional_fields();
+    protected function register_column_types(): void
+    {
+        parent::register_column_types();
 
-			foreach ( $fields as $field ) {
-				$column = $this->get_column_by_field_type( $field['type'] );
+        $this->register_column_types_from_list([
+            Column\Event\AllDayEvent::class,
+            Column\Event\Categories::class,
+            Column\Event\Costs::class,
+            Column\Event\DisplayDate::class,
+            Column\Event\Duration::class,
+            Column\Event\EndDate::class,
+            Column\Event\Featured::class,
+            Column\Event\Field::class,
+            Column\Event\HideFromUpcoming::class,
+            Column\Event\Organizer::class,
+            Column\Event\ParentEvent::class,
+            Column\Event\Recurring::class,
+            Column\Event\StartDate::class,
+            Column\Event\Sticky::class,
+            Column\Event\Venue::class,
+            Column\Event\Website::class,
+        ]);
 
-				if ( ! $column ) {
-					continue;
-				}
+        if (API::is_pro()) {
+            $fields = API::get_additional_fields();
 
-				$column->set_label( $field['label'] )
-				       ->set_type( 'column' . $field['name'] );
+            foreach ($fields as $field) {
+                $column = $this->get_column_by_field_type($field['type']);
 
-				$this->register_column_type( $column );
-			}
+                if ( ! $column) {
+                    continue;
+                }
 
-		}
-	}
+                $column->set_label($field['label'])
+                       ->set_type('column' . $field['name']);
 
-	public function get_column_by_field_type( string $type ): ?Column\Event\Field {
-		$mapping = [
-			'checkbox' => Column\Event\Field\Checkbox::class,
-			'dropdown' => Column\Event\Field\Dropdown::class,
-			'radio'    => Column\Event\Field\Radio::class,
-			'text'     => Column\Event\Field\Text::class,
-			'textarea' => Column\Event\Field\Textarea::class,
-			'url'      => Column\Event\Field\Url::class,
-		];
+                $this->register_column_type($column);
+            }
+        }
+    }
 
-		return array_key_exists( $type, $mapping )
-			? new $mapping[ $type ]
-			: null;
-	}
+    public function get_column_by_field_type(string $type): ?Column\Event\Field
+    {
+        $mapping = [
+            'checkbox' => Column\Event\Field\Checkbox::class,
+            'dropdown' => Column\Event\Field\Dropdown::class,
+            'radio'    => Column\Event\Field\Radio::class,
+            'text'     => Column\Event\Field\Text::class,
+            'textarea' => Column\Event\Field\Textarea::class,
+            'url'      => Column\Event\Field\Url::class,
+        ];
 
-	public function export() {
-		return new Strategy\Event( $this );
-	}
+        return array_key_exists($type, $mapping)
+            ? new $mapping[$type]()
+            : null;
+    }
+
+    public function export()
+    {
+        return new Strategy\Event($this);
+    }
 
 }

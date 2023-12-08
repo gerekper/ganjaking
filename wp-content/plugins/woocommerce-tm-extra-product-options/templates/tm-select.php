@@ -9,19 +9,24 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li class="tmcp-field-wrap">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
-	<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
+if ( isset( $class_label, $element_id, $fieldtype, $name, $placeholder, $options ) ) :
+	$class_label = (string) $class_label;
+	$element_id  = (string) $element_id;
+	$fieldtype   = (string) $fieldtype;
+	$name        = (string) $name;
+	$placeholder = (string) $placeholder;
+	?>
+<li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
+	<label class="tc-col tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $element_id ); ?>">
 	<?php
 	$select_array = [
 		'class' => $fieldtype . ' tm-epo-field tmcp-select',
-		'id'    => $id,
+		'id'    => $element_id,
 		'name'  => $name,
 		'atts'  => [
 			'data-price'          => '',
@@ -118,6 +123,8 @@ defined( 'ABSPATH' ) || exit;
 	?>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div><?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php'; ?></li>
+	<?php
+endif;

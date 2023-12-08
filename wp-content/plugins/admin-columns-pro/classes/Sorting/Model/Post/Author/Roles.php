@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post\Author;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\Post\PostRequestTrait;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class Roles extends AbstractModel implements QueryBindings
+class Roles implements QueryBindings
 {
 
     use PostRequestTrait;
@@ -21,8 +20,6 @@ class Roles extends AbstractModel implements QueryBindings
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->formatter = new FormatValue\Roles();
     }
 

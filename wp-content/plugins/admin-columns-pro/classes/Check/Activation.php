@@ -12,6 +12,7 @@ use AC\Message;
 use AC\Registerable;
 use AC\Screen;
 use AC\Storage;
+use AC\Type\Uri;
 use AC\Type\Url;
 use ACP\Access\ActivationStorage;
 use ACP\Access\Permissions;
@@ -51,10 +52,7 @@ class Activation
         $this->get_ajax_handler()->register();
     }
 
-    /**
-     * @return Ajax\Handler
-     */
-    private function get_ajax_handler()
+    private function get_ajax_handler(): Ajax\Handler
     {
         $handler = new Ajax\Handler();
         $handler
@@ -64,10 +62,7 @@ class Activation
         return $handler;
     }
 
-    /**
-     * @param Screen $screen
-     */
-    public function register_notice(Screen $screen)
+    public function register_notice(Screen $screen): void
     {
         if ( ! $screen->has_screen() || ! current_user_can(Capabilities::MANAGE)) {
             return;
@@ -104,10 +99,7 @@ class Activation
         }
     }
 
-    /**
-     * @return bool
-     */
-    private function show_message()
+    private function show_message(): bool
     {
         // We send a different (locked) message when a use has no usage permissions
         $has_usage = $this->permission_storage->retrieve()->has_permission(Permissions::USAGE);
@@ -131,28 +123,19 @@ class Activation
         return ! $activation->is_active();
     }
 
-    /**
-     * @return Url
-     */
-    private function get_license_page_url()
+    private function get_license_page_url(): Uri
     {
         return $this->plugin->is_network_active()
             ? new Url\EditorNetwork('license')
             : new Url\Editor('license');
     }
 
-    /**
-     * @return Url
-     */
-    private function get_account_url()
+    private function get_account_url(): Url\UtmTags
     {
         return new Url\UtmTags(new Url\Site(Url\Site::PAGE_ACCOUNT_SUBSCRIPTIONS), 'license-activation');
     }
 
-    /**
-     * @return string
-     */
-    private function get_message()
+    private function get_message(): string
     {
         return sprintf(
             '%s %s',
@@ -175,17 +158,14 @@ class Activation
         );
     }
 
-    /**
-     * @return Storage\Timestamp
-     */
-    private function get_dismiss_option()
+    private function get_dismiss_option(): Storage\Timestamp
     {
         return new Storage\Timestamp(
             new Storage\UserMeta('ac_notice_dismiss_activation')
         );
     }
 
-    public function ajax_dismiss_notice()
+    public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
         $this->get_dismiss_option()->save(time() + (MONTH_IN_SECONDS * 2));

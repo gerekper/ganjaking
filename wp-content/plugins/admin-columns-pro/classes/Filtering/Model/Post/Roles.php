@@ -2,20 +2,18 @@
 
 namespace ACP\Filtering\Model\Post;
 
-use ACP\Filtering\Model;
+use AC;
+use ACP\Search;
 
-class Roles extends Model {
+/**
+ * @deprecated NEWVERSION
+ */
+class Roles extends Search\Comparison\Post\AuthorRole
+{
 
-	public function get_filtering_vars( $vars ) {
-		$vars['author'] = implode( ',', get_users( [ 'role' => $this->get_filter_value(), 'fields' => 'id' ] ) );
-
-		return $vars;
-	}
-
-	public function get_filtering_data() {
-		return [
-			'options' => ac_helper()->user->get_roles(),
-		];
-	}
+    public function __construct(AC\Column $column)
+    {
+        parent::__construct();
+    }
 
 }

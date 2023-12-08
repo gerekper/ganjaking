@@ -1,6 +1,7 @@
 <?php
 namespace ElementorPro;
 
+use ElementorPro\Core\PHP_Api;
 use ElementorPro\Core\Admin\Admin;
 use ElementorPro\Core\App\App;
 use ElementorPro\Core\Connect;
@@ -85,6 +86,11 @@ class Plugin {
 	 * @var \ElementorPro\License\Updater
 	 */
 	public $updater;
+
+	/**
+	 * @var PHP_Api
+	 */
+	public $php_api;
 
 	/**
 	 * Throw error on object clone
@@ -414,6 +420,11 @@ class Plugin {
 			$settings['library_connect']['current_access_level'] = API::get_library_access_level();
 		}
 
+		// Core >= 3.18.0
+		if ( isset( $settings['library_connect']['current_access_tier'] ) ) {
+			$settings['library_connect']['current_access_tier'] = API::get_access_tier();
+		}
+
 		return $settings;
 	}
 
@@ -430,6 +441,10 @@ class Plugin {
 		add_action( 'elementor/document/save_version', [ $this, 'on_document_save_version' ] );
 
 		add_filter( 'elementor/editor/localize_settings', function ( $settings ) {
+			return $this->add_subscription_template_access_level_to_settings( $settings );
+		}, 11 /** After Elementor Core (Library) */ );
+
+		add_filter( 'elementor/common/localize_settings', function ( $settings ) {
 			return $this->add_subscription_template_access_level_to_settings( $settings );
 		}, 11 /** After Elementor Core (Library) */ );
 	}
@@ -487,6 +502,8 @@ class Plugin {
 		$this->app = new App();
 
 		$this->license_admin = new License\Admin();
+
+		$this->php_api = new PHP_Api();
 
 		if ( is_user_logged_in() ) {
 			$this->integrations = new Integrations_Manager(); // TODO: This one is safe to move out of the condition.

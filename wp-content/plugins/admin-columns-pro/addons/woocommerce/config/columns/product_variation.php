@@ -14,6 +14,7 @@ return [
     ACP\Column\Post\TitleRaw::class,
 
     Column\Product\ShippingClass::class,
+    Column\Product\Sales::class,
 
     Column\ProductVariation\Attribute::class,
     Column\ProductVariation\Description::class,
@@ -25,6 +26,7 @@ return [
     Column\ProductVariation\Order::class,
     Column\ProductVariation\Price::class,
     Column\ProductVariation\Product::class,
+    Column\ProductVariation\ParentProduct::class,
     Column\ProductVariation\ShippingClass::class,
     Column\ProductVariation\SKU::class,
     Column\ProductVariation\Stock::class,
@@ -34,5 +36,5 @@ return [
     Column\ProductVariation\Variation::class,
     Column\ProductVariation\Virtual::class,
     Column\ProductVariation\Weight::class,
-    Column\Product\Sales::class,
+
 ];

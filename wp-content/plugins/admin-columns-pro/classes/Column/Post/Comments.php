@@ -7,14 +7,17 @@ use ACP\Export;
 use ACP\Search;
 
 class Comments extends AC\Column\Post\Comments
-	implements Export\Exportable, Search\Searchable {
+    implements Export\Exportable, Search\Searchable
+{
 
-	public function export() {
-		return new Export\Model\Post\Comments();
-	}
+    public function export()
+    {
+        return new Export\Model\Post\Comments();
+    }
 
-	public function search() {
-		return new Search\Comparison\Post\CommentCount();
-	}
+    public function search()
+    {
+        return new Search\Comparison\Post\CommentCount();
+    }
 
 }

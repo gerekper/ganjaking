@@ -40,11 +40,11 @@ class THEMECOMPLETE_EPO_Widget_Action extends WP_Widget {
 	/**
 	 * Echoes the widget content
 	 *
-	 * @param array $args widget arguments.
-	 * @param array $instance The settings for the particular instance of the widget.
+	 * @param array<mixed> $args widget arguments.
+	 * @param array<mixed> $instance The settings for the particular instance of the widget.
+	 * @return void
 	 */
 	public function widget( $args, $instance ) {
-
 		$title  = empty( $instance['title'] ) ? '' : $instance['title'];
 		$action = empty( $instance['action'] ) ? 'tc_show_epo' : $instance['action'];
 
@@ -53,17 +53,16 @@ class THEMECOMPLETE_EPO_Widget_Action extends WP_Widget {
 		do_action( $action );
 
 		echo wp_kses_post( $args['after_widget'] );
-
 	}
 
 	/**
 	 * Updates a particular instance of a widget
 	 *
-	 * @param array $new_instance New settings for this instance as input by the user via
+	 * @param array<mixed> $new_instance New settings for this instance as input by the user via
 	 *                            WP_Widget::form().
-	 * @param array $old_instance Old settings for this instance.
+	 * @param array<mixed> $old_instance Old settings for this instance.
 	 *
-	 * @return array Settings to save or bool false to cancel saving.
+	 * @return array<mixed> Settings to save or bool false to cancel saving.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance           = $old_instance;
@@ -76,8 +75,8 @@ class THEMECOMPLETE_EPO_Widget_Action extends WP_Widget {
 	/**
 	 * Outputs the settings update form
 	 *
-	 * @param array $instance Current settings.
-	 * @return string Default return is 'noform'.
+	 * @param array<mixed> $instance Current settings.
+	 * @return string      Default return is 'noform'.
 	 */
 	public function form( $instance ) {
 		$title  = isset( $instance['title'] ) ? $instance['title'] : '';

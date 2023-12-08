@@ -2,10 +2,12 @@
 
 namespace ACA\MetaBox\Editing\Service;
 
+use AC\Helper\Select\Options\Paginated;
 use ACA;
 use ACP;
 use ACP\Editing\View;
 use ACP\Editing\View\AjaxSelect;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 
 class Taxonomies implements ACP\Editing\Service, ACP\Editing\PaginatedOptions {
 
@@ -36,8 +38,12 @@ class Taxonomies implements ACP\Editing\Service, ACP\Editing\PaginatedOptions {
 		return $this->storage->get( $id );
 	}
 
-	public function get_paginated_options( $search, $page, $id = null ) {
-		return new ACP\Helper\Select\Paginated\Terms( $search, $page, (array) $this->taxonomy );
+	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
+		return ( new PaginatedFactory() )->create( [
+			'search'   => $search,
+			'page'     => $page,
+			'taxonomy' => $this->taxonomy,
+		] );
 	}
 
 }

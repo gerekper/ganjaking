@@ -37,7 +37,7 @@ final class ClonePrefixedField implements Configurable {
 		return sprintf( '%s_%s', $key_parts[2], $key_parts[3] );
 	}
 
-	public function create( $column_type ) {
+	public function create( string $column_type ): ?array {
 		$clone_hash = $this->get_clone_hash( $column_type );
 		$field_hash = $this->get_field_hash( $column_type );
 

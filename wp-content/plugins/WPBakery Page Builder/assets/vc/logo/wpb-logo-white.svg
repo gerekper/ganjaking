@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32px" height="26px" viewBox="0 0 32 26" version="1.1">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="WPB-Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-127.000000, -939.000000)" fill="#FFFFFF">
+            <g id="wpb-navbar-frontend" transform="translate(107.000000, 923.000000)">
+                <g id="wpb-logo" transform="translate(20.000000, 16.000000)">
+                    <path d="M11.6363636,0 C15.9953124,0 19.7944711,2.36865923 21.787891,5.87462985 C22.2704021,5.79259063 22.7665319,5.75 23.2727273,5.75 C28.0926669,5.75 32,9.61154403 32,14.375 C32,19.0908214 28.1704228,22.9226789 23.4170487,22.9988445 L23,23 L23,24 C23,25.1045695 22.1045695,26 21,26 L11,26 C9.8954305,26 9,25.1045695 9,24 L9.00065971,22.703742 C3.84368634,21.5235461 0,16.9553834 0,11.5 C0,5.14872538 5.20977746,0 11.6363636,0 Z" id="Path"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

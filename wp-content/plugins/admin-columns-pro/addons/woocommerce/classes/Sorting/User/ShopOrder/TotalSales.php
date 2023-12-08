@@ -2,14 +2,13 @@
 
 namespace ACA\WC\Sorting\User\ShopOrder;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
 
-class TotalSales extends AbstractModel implements QueryBindings
+class TotalSales implements QueryBindings
 {
 
     use SqlTrait;
@@ -18,8 +17,6 @@ class TotalSales extends AbstractModel implements QueryBindings
 
     public function __construct(array $status = ['wc-completed'])
     {
-        parent::__construct();
-
         $this->status = $status;
     }
 

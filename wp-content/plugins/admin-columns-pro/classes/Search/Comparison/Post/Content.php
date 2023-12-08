@@ -2,6 +2,7 @@
 
 namespace ACP\Search\Comparison\Post;
 
+use ACP\Search\Labels;
 use ACP\Search\Operators;
 
 class Content extends PostField {
@@ -16,10 +17,15 @@ class Content extends PostField {
 			Operators::NOT_IS_EMPTY,
 		] );
 
-		parent::__construct( $operators );
+		$labels = new Labels( [
+			Operators::IS_EMPTY     => __( 'has no content', 'codepress-admin-columns' ),
+			Operators::NOT_IS_EMPTY => __( 'has content', 'codepress-admin-columns' ),
+		] );
+
+		parent::__construct( $operators, null, $labels );
 	}
 
-	protected function get_field() {
+	protected function get_field(): string {
 		return 'post_content';
 	}
 

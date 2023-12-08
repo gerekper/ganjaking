@@ -26,7 +26,7 @@
 		 * @since  6.6.0
 		 */
 		public function get_title() {
-			return esc_html__( 'Products in Cart', 'bdthemes-element-pack' );
+			return esc_html__( 'Cart: Products', 'bdthemes-element-pack' );
 		}
 
 		/**

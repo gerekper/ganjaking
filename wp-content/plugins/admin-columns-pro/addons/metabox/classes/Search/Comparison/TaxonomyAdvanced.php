@@ -2,41 +2,55 @@
 
 namespace ACA\MetaBox\Search\Comparison;
 
-use AC;
+use AC\Helper\Select\Options\Paginated;
 use ACP;
+use ACP\Helper\Select\Taxonomy\PaginatedFactory;
+use ACP\Search\Operators;
 
 class TaxonomyAdvanced extends ACP\Search\Comparison\Meta
-	implements ACP\Search\Comparison\SearchableValues {
+    implements ACP\Search\Comparison\SearchableValues
+{
 
-	/**
-	 * @var string
-	 */
-	protected $taxonomy;
+    /**
+     * @var string
+     */
+    protected $taxonomy;
 
-	public function __construct( $taxonomy, $meta_key, $meta_type ) {
-		$operators = new ACP\Search\Operators( [
-			ACP\Search\Operators::EQ,
-			ACP\Search\Operators::NEQ,
-			ACP\Search\Operators::IS_EMPTY,
-			ACP\Search\Operators::NOT_IS_EMPTY,
-		] );
+    public function __construct(array $taxonomy, string $meta_key)
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::NEQ,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-		$this->taxonomy = $taxonomy;
+        $this->taxonomy = $taxonomy;
 
-		parent::__construct( $operators, $meta_key, $meta_type );
-	}
+        parent::__construct($operators, $meta_key);
+    }
 
-	public function get_values( $search, $page ) {
-		$entities = new ACP\Helper\Select\Entities\Taxonomy( [
-			'search'   => $search,
-			'page'     => $page,
-			'taxonomy' => $this->taxonomy,
-		] );
+    private function get_label_formatter(): ACP\Helper\Select\Taxonomy\LabelFormatter
+    {
+        return new ACP\Helper\Select\Taxonomy\LabelFormatter\TermName();
+    }
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new ACP\Helper\Select\Formatter\TermName( $entities )
-		);
-	}
+    public function format_label($value): string
+    {
+        $term = get_term($value);
+
+        return $term instanceof \WP_Term
+            ? $this->get_label_formatter()->format_label($term)
+            : $value;
+    }
+
+    public function get_values(string $search, int $page): Paginated
+    {
+        return (new PaginatedFactory())->create([
+            'search'   => $search,
+            'page'     => $page,
+            'taxonomy' => $this->taxonomy,
+        ], $this->get_label_formatter());
+    }
 
 }

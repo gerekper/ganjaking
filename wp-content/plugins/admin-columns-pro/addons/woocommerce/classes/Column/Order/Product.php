@@ -79,7 +79,7 @@ class Product extends AC\Column implements ACP\Search\Searchable, ACP\Conditiona
 
     public function register_settings(): void
     {
-        $this->add_setting(new Settings\ShopOrder\Product($this))
+        $this->add_setting(new Settings\Product($this))
              ->add_setting(new AC\Settings\Column\NumberOfItems($this))
              ->add_setting(new AC\Settings\Column\Separator($this));
     }

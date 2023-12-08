@@ -10,120 +10,160 @@ use ACA\WC\Settings\ShopOrder\NoteType;
 use ACP;
 use DateTime;
 
-class Notes extends AC\Column implements ACP\Editing\Editable {
+class Notes extends AC\Column implements ACP\Editing\Editable, AC\Column\AjaxValue
+{
 
-	public function __construct() {
-		$this->set_type( 'column-order_note' )
-		     ->set_label( __( 'Order Notes', 'woocommerce' ) )
-		     ->set_group( 'woocommerce' );
-	}
+    use OrderTitle;
 
-	public function get_value( $id ) {
-		switch ( $this->get_display_property() ) {
-			case Settings\ShopOrder\Notes::LATEST_VALUE:
-				$value = $this->get_latest_value( $id );
-				break;
-			case Settings\ShopOrder\Notes::COUNT_VALUE :
-			default:
-				$value = $this->get_count_value( $id );
-		}
+    public function __construct()
+    {
+        $this->set_type('column-order_note')
+             ->set_label(__('Order Notes', 'woocommerce'))
+             ->set_group('woocommerce');
+    }
 
-		return $value ?: $this->get_empty_char();
-	}
+    public function get_value($id)
+    {
+        $id = (int)$id;
 
-	public function get_last_order_note( $id ) {
-		$notes = $this->get_order_notes( $id );
+        if (Settings\ShopOrder\Notes::LATEST_VALUE === $this->get_display_property()) {
+            return $this->get_latest_value($id);
+        }
 
-		return count( $notes ) > 0 ? reset( $notes ) : null;
-	}
+        $count = count($this->get_order_notes($id));
 
-	private function get_count_value( int $id ): string {
-		$notes = $this->get_order_notes( $id );
+        if ($count < 1) {
+            return $this->get_empty_char();
+        }
 
-		if ( ! $notes ) {
-			return '';
-		}
+        $order = wc_get_order($id);
 
-		$content = [];
+        return ac_helper()->html->get_ajax_modal_link(
+            sprintf(_n('%d note', '%d notes', $count, 'codepress-admin-columns'), $count),
+            [
+                'title'     => $this->get_order_title($order),
+                'edit_link' => $order->get_edit_order_url(),
+                'class'     => "-nopadding -w-large",
+            ]
+        );
+    }
 
-		foreach ( $notes as $note ) {
-			$content[] = sprintf( '<small>%s</small><br>%s', DateTime::createFromFormat( 'Y-m-d H:i:s', $note->date )->format( 'F j, Y - H:i' ), $note->content );
-		}
+    public function get_ajax_value($id)
+    {
+        $items = [];
 
-		array_map( 'strip_tags', $content );
+        foreach ($this->get_order_notes($id) as $note) {
+            $type = $class = null;
 
-		return ac_helper()->html->tooltip( ac_helper()->html->rounded( count( $content ) ), implode( '<br><br>', $content ) );
-	}
+            if ($this->is_customer_note($note)) {
+                $class = '-customer-note';
+                $type = __('Note To Customer', 'codepress-admin-columns');
+            } elseif ($this->is_system_note($note)) {
+                $class = '-system-note';
+                $type = __('System', 'codepress-admin-columns');
+            } elseif ($this->is_private_note($note)) {
+                $class = '-private-note';
+                $type = __('Private', 'codepress-admin-columns');
+            }
 
-	private function get_latest_value( int $id ): string {
-		$note = $this->get_last_order_note( (int) $id );
+            $items[] = [
+                'date'  => $note->date_created->format('F j, Y - H:i'),
+                'note'  => $note->content,
+                'type'  => $type,
+                'class' => $class,
+            ];
+        }
 
-		return $note
-			? sprintf( '<small>%s</small><br>%s', DateTime::createFromFormat( 'Y-m-d H:i:s', $note->date )->format( 'F j, Y - H:i' ), $note->content )
-			: $this->get_empty_char();
-	}
+        $view = new AC\View([
+            'items' => $items,
+        ]);
 
-	private function get_order_notes( int $order_id ) {
-		global $wpdb;
+        return $view->set_template('modal-value/order-notes')->render();
+    }
 
-		$sql = $wpdb->prepare( "
-			SELECT cc.comment_content AS content, cc.comment_ID AS id, cc.comment_date AS date, cc.comment_author AS author, cm.meta_value AS is_customer_note 
-			FROM $wpdb->comments AS cc
-			LEFT JOIN $wpdb->commentmeta AS cm ON cc.comment_ID = cm.comment_id AND cm.meta_key = 'is_customer_note'
-			WHERE cc.comment_post_ID = %d
-			ORDER BY cc.comment_date DESC
-		", $order_id );
+    public function get_last_order_note($id)
+    {
+        $notes = $this->get_order_notes($id);
 
-		$notes = $wpdb->get_results( $sql );
+        return count($notes) > 0 ? reset($notes) : null;
+    }
 
-		switch ( $this->get_note_type() ) {
-			case Settings\ShopOrder\NoteType::CUSTOMER_NOTE :
-				return array_filter( $notes, [ $this, 'is_customer_note' ] );
-			case Settings\ShopOrder\NoteType::PRIVATE_NOTE :
-				return array_filter( $notes, [ $this, 'is_private_note' ] );
-			case Settings\ShopOrder\NoteType::SYSTEM_NOTE :
-				return array_filter( $notes, [ $this, 'is_system_note' ] );
-			default :
-				return $notes;
-		}
-	}
+    private function get_latest_value(int $id): string
+    {
+        $note = $this->get_last_order_note($id);
 
-	public function register_settings(): void {
-		$this->add_setting( new Settings\ShopOrder\NoteType( $this ) );
-		$this->add_setting( new Settings\ShopOrder\Notes( $this ) );
-	}
+        return $note
+            ? sprintf(
+                '<small>%s</small><br>%s',
+                DateTime::createFromFormat('Y-m-d H:i:s', $note->date)->format('F j, Y - H:i'),
+                $note->content
+            )
+            : $this->get_empty_char();
+    }
 
-	private function is_private_note( $note ): bool {
-		return ! $this->is_customer_note( $note ) && ! $this->is_system_note( $note );
-	}
+    private function get_order_notes(int $order_id): array
+    {
+        $args = [
+            'order_id' => $order_id,
+        ];
 
-	private function is_system_note( $note ): bool {
-		return __( 'WooCommerce', 'woocommerce' ) === $note->author;
-	}
+        $notes = wc_get_order_notes($args);
 
-	private function is_customer_note( $note ): bool {
-		return '1' === $note->is_customer_note;
-	}
+        switch ($this->get_note_type()) {
+            case Settings\ShopOrder\NoteType::CUSTOMER_NOTE :
+                return array_filter($notes, [$this, 'is_customer_note']);
+            case Settings\ShopOrder\NoteType::PRIVATE_NOTE :
+                return array_filter($notes, [$this, 'is_private_note']);
+            case Settings\ShopOrder\NoteType::SYSTEM_NOTE :
+                return array_filter($notes, [$this, 'is_system_note']);
+            default :
+                return $notes;
+        }
+    }
 
-	private function get_note_type(): string {
-		return $this->get_setting( Settings\ShopOrder\NoteType::NAME )->get_value();
-	}
+    public function register_settings(): void
+    {
+        $this->add_setting(new Settings\ShopOrder\NoteType($this));
+        $this->add_setting(new Settings\ShopOrder\Notes($this));
+    }
 
-	private function get_display_property(): string {
-		return $this->get_setting( Settings\ShopOrder\Notes::NAME )->get_value();
-	}
+    private function is_private_note($note): bool
+    {
+        return ! $this->is_customer_note($note) && ! $this->is_system_note($note);
+    }
 
-	public function editing() {
-		switch ( $this->get_note_type() ) {
-			case NoteType::PRIVATE_NOTE :
-				return new Editing\ShopOrder\NotesPrivate();
-			case NoteType::CUSTOMER_NOTE :
-				return new Editing\ShopOrder\NotesToCustomer();
-			case NoteType::SYSTEM_NOTE :
-				return new Editing\ShopOrder\NotesSystem();
-			default:
-				return false;
-		}
-	}
+    private function is_system_note($note): bool
+    {
+        return 'system' === $note->added_by;
+    }
+
+    private function is_customer_note($note): bool
+    {
+        return (bool)$note->customer_note;
+    }
+
+    private function get_note_type(): string
+    {
+        return $this->get_setting(Settings\ShopOrder\NoteType::NAME)->get_value();
+    }
+
+    private function get_display_property(): string
+    {
+        return $this->get_setting(Settings\ShopOrder\Notes::NAME)->get_value();
+    }
+
+    public function editing()
+    {
+        switch ($this->get_note_type()) {
+            case NoteType::PRIVATE_NOTE :
+                return new Editing\ShopOrder\NotesPrivate();
+            case NoteType::CUSTOMER_NOTE :
+                return new Editing\ShopOrder\NotesToCustomer();
+            case NoteType::SYSTEM_NOTE :
+                return new Editing\ShopOrder\NotesSystem();
+            default:
+                return false;
+        }
+    }
 
 }

@@ -6,20 +6,15 @@ use ACP\Search\Helper\DateValueFactory;
 use ACP\Search\Helper\MetaQuery;
 use ACP\Search\Operators;
 use ACP\Search\Value;
-use Exception;
 
-class Future extends MetaQuery\Date {
+class Future extends MetaQuery\Comparison
+{
 
-	/**
-	 * @param string $key
-	 * @param Value  $value
-	 *
-	 * @throws Exception
-	 */
-	public function __construct( $key, Value $value ) {
-		$value_factory = new DateValueFactory( $value->get_type() );
+    public function __construct(string $key, Value $value)
+    {
+        $value_factory = new DateValueFactory($value->get_type());
 
-		parent::__construct( $key, Operators::GT, $value_factory->create_today() );
-	}
+        parent::__construct($key, Operators::GT, $value_factory->create_today());
+    }
 
 }

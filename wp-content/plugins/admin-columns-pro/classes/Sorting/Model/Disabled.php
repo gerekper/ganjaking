@@ -2,9 +2,10 @@
 
 namespace ACP\Sorting\Model;
 
-use ACP\Sorting\AbstractModel;
-
-class Disabled extends AbstractModel
+/**
+ * @deprecated NEWVERSION
+ */
+class Disabled
 {
 
 }

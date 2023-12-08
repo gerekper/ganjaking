@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace ACA\WC\Sorting\Product;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class Dimensions extends AbstractModel implements WarningAware, QueryBindings
+class Dimensions implements WarningAware, QueryBindings
 {
 
     public function create_query_bindings(Order $order): Bindings

@@ -20,28 +20,29 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Display field array
 	 *
-	 * @param array $element The element array.
-	 * @param array $args Array of arguments.
+	 * @param array<mixed> $element The element array.
+	 * @param array<mixed> $args Array of arguments.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
 
 		$name = $args['posted_name'];
-		$id   = $args['id'];
+		$id   = $args['element_id'];
 
 		$tm_epo_global_datepicker_theme    = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme : ( isset( $element['theme'] ) ? $element['theme'] : 'epo' );
 		$tm_epo_global_datepicker_size     = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size : ( isset( $element['theme_size'] ) ? $element['theme_size'] : 'medium' );
 		$tm_epo_global_datepicker_position = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position : ( isset( $element['theme_position'] ) ? $element['theme_position'] : 'normal' );
 
-		$tranlation_day   = ! empty( $element['tranlation_day'] ) ? $element['tranlation_day'] : '';
-		$tranlation_month = ! empty( $element['tranlation_month'] ) ? $element['tranlation_month'] : '';
-		$tranlation_year  = ! empty( $element['tranlation_year'] ) ? $element['tranlation_year'] : '';
+		$translation_day   = ! empty( $element['translation_day'] ) ? $element['translation_day'] : '';
+		$translation_month = ! empty( $element['translation_month'] ) ? $element['translation_month'] : '';
+		$translation_year  = ! empty( $element['translation_year'] ) ? $element['translation_year'] : '';
 
 		$style       = isset( $element['button_type'] ) ? $element['button_type'] : '';
 		$defaultdate = isset( $element['default_value'] ) ? $element['default_value'] : '';
 		$format      = ! empty( $element['format'] ) ? $element['format'] : 0;
 
-		$end_year   = ! empty( $element['end_year'] ) ? $element['end_year'] : ( gmdate( 'Y' ) + 10 );
+		$end_year   = ! empty( $element['end_year'] ) ? $element['end_year'] : ( intval( gmdate( 'Y' ) ) + 10 );
 		$start_year = ! empty( $element['start_year'] ) ? $element['start_year'] : 1900;
 		$end_year   = absint( $end_year );
 		$start_year = absint( $start_year );
@@ -73,7 +74,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		$picker_html = '';
 		if ( 'picker' !== $style ) {
 			if ( isset( $_REQUEST[ $name ] ) && empty( $this->post_data ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$value = str_replace( '.', '-', wp_unslash( $_REQUEST[ $name ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$value = str_replace( '.', '-', map_deep( stripslashes_deep( $_REQUEST[ $name ] ), 'sanitize_text_field' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$value = str_replace( '/', '-', $value );
 				$value = explode( '-', $value );
 				if ( ! isset( $value[0] ) ) {
@@ -104,15 +105,16 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			}
 
 			$select_array     = [
-				'class' => 'tmcp-date-select tmcp-date-day',
-				'id'    => $id . '_day',
-				'name'  => $name . '_day' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
-				'atts'  => [ 'data-tm-date' => $id ],
+				'label_class' => 'tc-col',
+				'class'       => 'tmcp-date-select tmcp-date-day',
+				'id'          => $id . '_day',
+				'name'        => $name . '_day' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
+				'atts'        => [ 'data-tm-date' => $id ],
 			];
 			$select_options   = [];
-			$tranlation_day   = ( ! empty( $tranlation_day ) ) ? $tranlation_day : esc_html__( 'Day', 'woocommerce-tm-extra-product-options' );
+			$translation_day  = ( ! empty( $translation_day ) ) ? $translation_day : esc_html__( 'Day', 'woocommerce-tm-extra-product-options' );
 			$select_options[] = [
-				'text'  => $tranlation_day,
+				'text'  => $translation_day,
 				'value' => '',
 			];
 			for ( $i = 1; 31 + 1 !== $i; ++$i ) {
@@ -121,7 +123,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 					'value' => $i,
 				];
 			}
-			$selectedvalue = isset( $_REQUEST[ $name . '_day' ] ) ? wp_unslash( $_REQUEST[ $name . '_day' ] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$selectedvalue = isset( $_REQUEST[ $name . '_day' ] ) ? map_deep( stripslashes_deep( $_REQUEST[ $name . '_day' ] ), 'sanitize_text_field' ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( is_array( $selectedvalue ) ) {
 				if ( isset( $selectedvalue[ $args['get_posted_key'] ] ) ) {
 					$selectedvalue = $selectedvalue[ $args['get_posted_key'] ];
@@ -129,27 +131,28 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			}
 			$day_html = THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, $selectedvalue, 1, 0 );
 
-			$select_array     = [
-				'class' => 'tmcp-date-select tmcp-date-month',
-				'id'    => $id . '_month',
-				'name'  => $name . '_month' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
-				'atts'  => [ 'data-tm-date' => $id ],
+			$select_array      = [
+				'label_class' => 'tc-col',
+				'class'       => 'tmcp-date-select tmcp-date-month',
+				'id'          => $id . '_month',
+				'name'        => $name . '_month' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
+				'atts'        => [ 'data-tm-date' => $id ],
 			];
-			$select_options   = [];
-			$tranlation_month = ( ! empty( $tranlation_month ) ) ? $tranlation_month : esc_html__( 'Month', 'woocommerce-tm-extra-product-options' );
-			$select_options[] = [
-				'text'  => $tranlation_month,
+			$select_options    = [];
+			$translation_month = ( ! empty( $translation_month ) ) ? $translation_month : esc_html__( 'Month', 'woocommerce-tm-extra-product-options' );
+			$select_options[]  = [
+				'text'  => $translation_month,
 				'value' => '',
 			];
 
 			global $wp_locale;
-			for ( $i = 1; 12 + 1 !== $i; ++ $i ) {
+			for ( $i = 1; 12 + 1 !== $i; ++$i ) {
 				$select_options[] = [
 					'text'  => $wp_locale->get_month( $i ),
 					'value' => $i,
 				];
 			}
-			$selectedvalue = isset( $_REQUEST[ $name . '_month' ] ) ? wp_unslash( $_REQUEST[ $name . '_month' ] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$selectedvalue = isset( $_REQUEST[ $name . '_month' ] ) ? map_deep( stripslashes_deep( $_REQUEST[ $name . '_month' ] ), 'sanitize_text_field' ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( is_array( $selectedvalue ) ) {
 				if ( isset( $selectedvalue[ $args['get_posted_key'] ] ) ) {
 					$selectedvalue = $selectedvalue[ $args['get_posted_key'] ];
@@ -158,24 +161,25 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			$month_html = THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, $selectedvalue, 1, 0 );
 
 			$select_array     = [
-				'class' => 'tmcp-date-select tmcp-date-year',
-				'id'    => $id . '_year',
-				'name'  => $name . '_year' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
-				'atts'  => [ 'data-tm-date' => $id ],
+				'label_class' => 'tc-col',
+				'class'       => 'tmcp-date-select tmcp-date-year',
+				'id'          => $id . '_year',
+				'name'        => $name . '_year' . ( ! empty( $args['repeater'] ) ? '[' . $args['get_posted_key'] . ']' : '' ),
+				'atts'        => [ 'data-tm-date' => $id ],
 			];
 			$select_options   = [];
-			$tranlation_year  = ( ! empty( $tranlation_year ) ) ? $tranlation_year : esc_html__( 'Year', 'woocommerce-tm-extra-product-options' );
+			$translation_year = ( ! empty( $translation_year ) ) ? $translation_year : esc_html__( 'Year', 'woocommerce-tm-extra-product-options' );
 			$select_options[] = [
-				'text'  => $tranlation_year,
+				'text'  => $translation_year,
 				'value' => '',
 			];
-			for ( $i = $end_year; $i !== $start_year - 1; -- $i ) {
+			for ( $i = $end_year; $i !== $start_year - 1; --$i ) {
 				$select_options[] = [
 					'text'  => $i,
 					'value' => $i,
 				];
 			}
-			$selectedvalue = isset( $_REQUEST[ $name . '_year' ] ) ? wp_unslash( $_REQUEST[ $name . '_year' ] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$selectedvalue = isset( $_REQUEST[ $name . '_year' ] ) ? map_deep( stripslashes_deep( $_REQUEST[ $name . '_year' ] ), 'sanitize_text_field' ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( is_array( $selectedvalue ) ) {
 				if ( isset( $selectedvalue[ $args['get_posted_key'] ] ) ) {
 					$selectedvalue = $selectedvalue[ $args['get_posted_key'] ];
@@ -208,27 +212,24 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		$get_default_value = '';
-		if ( ! isset( $defaultdate ) ) {
-			$defaultdate       = null;
+
+		if ( '' !== $defaultdate ) {
 			$get_default_value = $defaultdate;
-		} else {
-			if ( '' !== $defaultdate ) {
-				$get_default_value = $defaultdate;
-				if ( is_numeric( $defaultdate ) ) {
-					$get_default_value = new DateTime( 'now' );
-					if ( floatval( $defaultdate ) > 0 ) {
-						$get_default_value->add( new DateInterval( 'P' . abs( floatval( $defaultdate ) ) . 'D' ) );
-					} else {
-						$get_default_value->sub( new DateInterval( 'P' . abs( floatval( $defaultdate ) ) . 'D' ) );
-					}
-					$get_default_value = $get_default_value->format( str_ireplace( 'dd', 'd', str_ireplace( 'mm', 'm', str_ireplace( 'yy', 'Y', $date_format ) ) ) );
-					$date_errors       = DateTime::getLastErrors();
-					if ( ! empty( $date_errors['error_count'] ) ) {
-						$get_default_value = $defaultdate;
-					}
+			if ( is_numeric( $defaultdate ) ) {
+				$get_default_value = new DateTime( 'now' );
+				if ( floatval( $defaultdate ) > 0 ) {
+					$get_default_value->add( new DateInterval( 'P' . abs( floatval( $defaultdate ) ) . 'D' ) );
+				} else {
+					$get_default_value->sub( new DateInterval( 'P' . abs( floatval( $defaultdate ) ) . 'D' ) );
+				}
+				$get_default_value = $get_default_value->format( str_ireplace( 'dd', 'd', str_ireplace( 'mm', 'm', str_ireplace( 'yy', 'Y', $date_format ) ) ) );
+				$date_errors       = DateTime::getLastErrors();
+				if ( ! empty( $date_errors['error_count'] ) ) {
+					$get_default_value = $defaultdate;
 				}
 			}
 		}
+		$get_default_value = $this->get_default_value( $element, $args, false, $get_default_value );
 
 		$class_label = '';
 		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
@@ -258,12 +259,12 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 				'exlude_disabled'     => isset( $element['exlude_disabled'] ) ? $element['exlude_disabled'] : '',
 				'disabled_weekdays'   => isset( $element['disabled_weekdays'] ) ? $element['disabled_weekdays'] : '',
 				'disabled_months'     => isset( $element['disabled_months'] ) ? $element['disabled_months'] : '',
-				'tranlation_day'      => $tranlation_day,
-				'tranlation_month'    => $tranlation_month,
-				'tranlation_year'     => $tranlation_year,
+				'translation_day'     => $translation_day,
+				'translation_month'   => $translation_month,
+				'translation_year'    => $translation_year,
 				'quantity'            => $this->get_value( $element, 'quantity', '' ),
 				'defaultdate'         => $defaultdate,
-				'get_default_value'   => $this->get_default_value( $element, $args ),
+				'get_default_value'   => $get_default_value,
 				'date_theme'          => $tm_epo_global_datepicker_theme,
 				'date_theme_size'     => $tm_epo_global_datepicker_size,
 				'date_theme_position' => $tm_epo_global_datepicker_position,
@@ -278,6 +279,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 	/**
 	 * Field validation
 	 *
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
 	public function validate() {
@@ -375,10 +377,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 						}
 					}
 
-					if ( checkdate( $_month, $_day, $_year ) ) {
+					if ( checkdate( (int) $_month, (int) $_day, (int) $_year ) ) {
 						// valid date.
-						$start_year         = (int) $this->element['start_year'] || 1900;
-						$end_year           = (int) $this->element['end_year'] || ( gmdate( 'Y' ) + 10 );
+						$start_year         = is_numeric( $this->element['start_year'] ) ? (int) $this->element['start_year'] : 1900;
+						$end_year           = is_numeric( $this->element['end_year'] ) ? (int) $this->element['end_year'] : ( intval( gmdate( 'Y' ) ) + 10 );
 						$min_date           = ( '' !== $this->element['min_date'] ) ? ( $this->element['min_date'] ) : false;
 						$max_date           = ( '' !== $this->element['max_date'] ) ? ( $this->element['max_date'] ) : false;
 						$exlude_disabled    = ( '' !== $this->element['exlude_disabled'] ) ? ( $this->element['exlude_disabled'] ) : false;
@@ -424,10 +426,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 								$value    = date_format( $value_to_date, $date_format );
 								$temp     = DateTime::createFromFormat( $date_format, $value );
 								$interval = $temp->diff( $date );
-								$sign     = floatval( $interval->format( '%d%m%Y' ) );
+								$sign     = intval( $interval->format( '%d%m%Y' ) );
 								if ( empty( $sign ) ) {
 									$_pass = true;
-									break 2;
+									break;
 								}
 							}
 							$passed = $_pass;
@@ -618,13 +620,13 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 					}
 					if ( $sign > 0 ) {
 						$test_date->add( new DateInterval( 'P' . abs( $sign ) . 'D' ) );
-					} elseif ( $sign < 0 ) {
+					} else { // $sign < 0
 						$test_date->sub( new DateInterval( 'P' . abs( $sign ) . 'D' ) );
 					}
-					$added++;
+					++$added;
 					$get_day = (int) $test_date->format( 'w' );
 					if ( 0 !== $get_day && 6 !== $get_day ) {
-						$count++;
+						++$count;
 					}
 				}
 				if ( false !== $added ) {
@@ -634,5 +636,4 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		}
 		return $days;
 	}
-
 }

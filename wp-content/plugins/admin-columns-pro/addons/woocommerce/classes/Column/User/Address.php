@@ -2,7 +2,6 @@
 
 namespace ACA\WC\Column\User;
 
-use AC\MetaType;
 use ACA\WC\Settings;
 use ACP;
 
@@ -50,7 +49,7 @@ class Address extends ACP\Column\Meta
             return false;
         }
 
-        return new ACP\Search\Comparison\Meta\Text($this->get_meta_key(), MetaType::USER);
+        return new ACP\Search\Comparison\Meta\Text($this->get_meta_key());
     }
 
     public function editing()
@@ -80,28 +79,30 @@ class Address extends ACP\Column\Meta
     /**
      * @return string e.g. billing or shipping
      */
-    private function get_address_type()
+    private function get_address_type(): string
     {
-        return $this->get_setting('address_type')->get_value();
+        $setting = $this->get_setting('address_type');
+
+        return $setting instanceof Settings\User\AddressType
+            ? $setting->get_address_type()
+            : '';
     }
 
-    /**
-     * @return string e.g. city, country etc.
-     */
-    private function get_address_property()
+    private function get_address_property(): string
     {
-        return $this->get_setting_address_property()->get_value();
+        $setting = $this->get_setting_address_property();
+
+        return $setting
+            ? $setting->get_address_property()
+            : '';
     }
 
-    /**
-     * @return Settings\Address|false
-     */
-    public function get_setting_address_property()
+    public function get_setting_address_property(): ?Settings\Address
     {
         $setting = $this->get_setting('address_property');
 
         if ( ! $setting instanceof Settings\Address) {
-            return false;
+            return null;
         }
 
         return $setting;

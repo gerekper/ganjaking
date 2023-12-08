@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
-use ACP\Search\Query\Bindings;
-use ACP\Sorting\AbstractModel;
+use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
@@ -13,15 +12,13 @@ use ACP\Sorting\Type\Order;
 /**
  * Sort a user list table on the number of times the meta_key is used by a user.
  */
-class MetaCount extends AbstractModel implements QueryBindings
+class MetaCount implements QueryBindings
 {
 
     protected $meta_key;
 
     public function __construct(string $meta_key)
     {
-        parent::__construct();
-
         $this->meta_key = $meta_key;
     }
 

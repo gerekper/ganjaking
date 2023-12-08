@@ -9,10 +9,15 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li id="<?php echo esc_attr( $field_id ); ?>" class="tm-extra-product-options-field tc-row">
+if ( isset( $field_id ) ) :
+
+	$field_id = (string) $field_id;
+	?>
+<li id="<?php echo esc_attr( $field_id ); ?>" class="tm-extra-product-options-field tc-row tc-cell tcwidth tcwidth-100">
+	<?php
+endif;

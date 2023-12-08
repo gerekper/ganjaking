@@ -31,6 +31,7 @@ final class THEMECOMPLETE_EPO_CP_Atum {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_CP_Atum
 	 * @since 5.0.12.3
 	 * @static
 	 */
@@ -54,28 +55,28 @@ final class THEMECOMPLETE_EPO_CP_Atum {
 	/**
 	 * Add compatibility hooks and filters
 	 *
+	 * @return void
 	 * @since 5.0.12.3
 	 */
 	public function add_compatibility() {
-
 		if ( ! defined( 'ATUM_VERSION' ) ) {
 			return;
 		}
 
 		add_filter( 'wc_epo_no_order_get_items', [ $this, 'wc_epo_no_order_get_items' ], 10, 1 );
-
 	}
 
 	/**
 	 * Skip altering order get_items
 	 *
 	 * @param boolean $ret if order get_items should be skipped.
+	 * @return boolean
 	 * @since 5.0.12.3
 	 */
 	public function wc_epo_no_order_get_items( $ret ) {
 		global $post;
 
-		if ( isset( $_REQUEST['action'] ) && THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), 'atum_' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['action'] ) && THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( stripslashes_deep( $_REQUEST['action'] ) ), 'atum_' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$ret = true;
 		}
 
@@ -84,7 +85,5 @@ final class THEMECOMPLETE_EPO_CP_Atum {
 		}
 
 		return $ret;
-
 	}
-
 }

@@ -59,11 +59,23 @@ class Element_Pack_Admin_Feeds {
 	 * Element Pack dashboard overview fetch remote data
 	 */
 	public function bdthemes_element_pack_get_feeds_remote_data() {
-		$source      = wp_remote_get('https://dashboard.bdthemes.io/wp-json/bdthemes/v1/product-feed/?product_category=element-pack');
-		$reponse_raw = wp_remote_retrieve_body($source);
-		$reponse     = json_decode($reponse_raw);
 
-		return $reponse;
+		$get_transient = get_transient('bdthemes_ep_product_feeds');
+		if (!empty($get_transient)) {
+			$response = json_decode($get_transient);
+		} else {
+			$source      = wp_remote_get('https://dashboard.bdthemes.io/wp-json/bdthemes/v1/product-feed/?product_category=element-pack');
+			if (is_wp_error($source)) {
+				return [];
+			}
+
+			$response_raw = wp_remote_retrieve_body($source);
+			$response     = json_decode($response_raw);
+			set_transient('bdthemes_ep_product_feeds', $response_raw, 60 * 60 * 6);
+		}
+
+
+		return $response;
 	}
 
 	/**
@@ -140,4 +152,7 @@ class Element_Pack_Admin_Feeds {
 	}
 }
 
-new Element_Pack_Admin_Feeds();
+if (!function_exists('element_pack_pro_activated')) {
+	new Element_Pack_Admin_Feeds();
+}
+

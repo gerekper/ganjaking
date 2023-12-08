@@ -869,15 +869,6 @@ class Svg_Image extends Module_Base {
 		$this->add_render_attribute('svg-image', 'data-bdt-svg', '');
 
 		if ($settings['image']['id']) {
-			// print(wp_get_attachment_image(
-			// 	$settings['image']['id'],
-			// 	'full',
-			// 	false,
-			// 	[
-			// 		'alt' => esc_html(get_the_title()),
-			// 		$this->get_render_attribute_string('svg-image'),
-			// 	]
-			// ));
 			$image = wp_get_attachment_image_src($settings['image']['id'], 'full');
 			printf('<img %3$s src="%1$s" alt="%2$s">', esc_url($image[0]), esc_html(get_the_title()), $this->get_render_attribute_string('svg-image'));
 		} else {
@@ -909,7 +900,6 @@ class Svg_Image extends Module_Base {
 		$link = $this->get_link_url($settings);
 		if ($link) {
 
-			$this->add_render_attribute('link', 'href', $link['url']);
 			$this->add_render_attribute('link', 'data-elementor-open-lightbox', 'no');
 
 			if ('yes' == $settings['open_lightbox']) {
@@ -922,15 +912,9 @@ class Svg_Image extends Module_Base {
 				]);
 			}
 
-			if (!empty($link['is_external'])) {
-				$this->add_render_attribute('link', 'target', '_blank');
-			}
-
-			if (!empty($link['nofollow'])) {
-				$this->add_render_attribute('link', 'rel', 'nofollow');
-			}
+			$this->add_link_attributes('link', $link);
 		}
-?>
+		?>
 		<div <?php echo $this->get_render_attribute_string('wrapper'); ?>>
 			<?php if ($has_caption) : ?>
 				<figure class="wp-caption">

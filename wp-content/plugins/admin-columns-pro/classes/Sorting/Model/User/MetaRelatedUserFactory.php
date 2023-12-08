@@ -3,7 +3,6 @@
 namespace ACP\Sorting\Model\User;
 
 use AC;
-use ACP\Sorting\AbstractModel;
 
 /**
  * For sorting a user list table on a meta_key that holds a User ID (single).
@@ -11,7 +10,7 @@ use ACP\Sorting\AbstractModel;
 class MetaRelatedUserFactory
 {
 
-    public function create(string $user_property, string $meta_key): ?AbstractModel
+    public function create(string $user_property, string $meta_key)
     {
         switch ($user_property) {
             case AC\Settings\Column\User::PROPERTY_ID :

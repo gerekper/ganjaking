@@ -1131,7 +1131,7 @@ class Image_Stack extends Module_Base {
 
 		?>
 		<div class="bdt-image-stack">
-			<?php foreach ( $settings['image_stack_items'] as $item ) : 
+			<?php foreach ( $settings['image_stack_items'] as $index => $item ) : 
 				
 				$this->add_render_attribute('stack-item', 'class', 'bdt-ep-image-stack-item elementor-repeater-item-' . esc_attr($item['_id']), true);
 
@@ -1148,20 +1148,14 @@ class Image_Stack extends Module_Base {
 				}
 
 				if ( !empty( $item['link_url']['url'] ) ) {
-					$this->add_render_attribute( 'link-wrap', 'href', $item['link_url']['url'], true );
-					if ( $item['link_url']['is_external'] ) {
-						$this->add_render_attribute( 'link-wrap', 'target', '_blank', true );
-					}
-					if ( $item['link_url']['nofollow'] ) {
-						$this->add_render_attribute( 'link-wrap', 'rel', 'nofollow', true );
-					}
+					$this->add_link_attributes( 'link-wrap' . $index, $item['link_url'] );
                 }
 
 				?>
 				
 				<div <?php echo($this->get_render_attribute_string('stack-item')); ?>>
 				<?php if( !empty( $item['link_url']['url'] ) ) : ?>
-					<a <?php echo($this->get_render_attribute_string('link-wrap')); ?>>
+					<a <?php echo($this->get_render_attribute_string('link-wrap' . $index)); ?>>
 						<?php $this->render_media($item); ?>
 					</a>
 				<?php else: ?>

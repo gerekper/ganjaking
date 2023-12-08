@@ -14,11 +14,12 @@ use ACP;
  * @property Field\Type\Select $field
  */
 class Select extends Column\Meta
-	implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable {
+    implements ACP\Search\Searchable, ACP\Editing\Editable, ACP\Sorting\Sortable, ACP\ConditionalFormat\Formattable
+{
 
-	use Search\SearchableTrait,
-		Sorting\SortableTrait,
-		Editing\EditableTrait,
-		Value\DefaultValueFormatterTrait,
-		ACP\ConditionalFormat\ConditionalFormatTrait;
+    use Search\SearchableTrait,
+        Sorting\SortableTrait,
+        Editing\EditableTrait,
+        Value\DefaultValueFormatterTrait,
+        ACP\ConditionalFormat\ConditionalFormatTrait;
 }

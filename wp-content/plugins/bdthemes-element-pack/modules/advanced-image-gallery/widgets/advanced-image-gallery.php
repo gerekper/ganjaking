@@ -362,6 +362,8 @@ class Advanced_Image_Gallery extends Module_Base {
 					'link_type'		=> 'icon',
 					'_skin!'		=> 'bdt-hidden',
 				],
+				'skin' => 'inline',
+				'label_block' => false
 			]
 		);
 

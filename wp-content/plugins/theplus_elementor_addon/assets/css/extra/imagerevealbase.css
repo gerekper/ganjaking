@@ -1,0 +1,53 @@
+.pt_plus_adv_typo_block .typo_on_hover_img_reveal {
+    cursor: pointer;
+}
+.block[data-fx="1"] a::after,
+a.content__text-link[data-fx="1"]::after,
+.block[data-fx="2"] a::after,
+a.content__text-link[data-fx="2"]::after {
+	content: '';
+	z-index: -1;
+	width: 100%;
+	bottom: 0.25rem;
+	left: 0;
+	position: absolute;
+	height: 2px;	
+	transform: scale3d(0,1,1);
+	transform-origin: 0% 50%;
+	transition: transform 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+
+a.content__text-link[data-fx="1"]::after,
+a.content__text-link[data-fx="2"]::after {
+	bottom: 0;
+}
+
+.block[data-fx="1"] a:hover::after,
+a.content__text-link[data-fx="1"]:hover::after,
+.block[data-fx="2"] a:hover::after,
+a.content__text-link[data-fx="2"]:hover::after {
+	transform: scale3d(1,1,1)
+}
+
+.hover-reveal {
+	position: fixed;
+	width: 200px;
+	height: 150px;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.hover-reveal__inner,
+.hover-reveal__img {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.hover-reveal__img {
+	background-size: cover;
+	background-position: 50% 50%;
+}

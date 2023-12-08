@@ -4,6 +4,7 @@ namespace ACA\WC\Search\OrderSubscription;
 
 use AC\Helper\Select\Options;
 use ACA\GravityForms\Search\Query\Bindings;
+use ACP;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
@@ -20,7 +21,7 @@ class AutoRenewal extends Comparison implements Comparison\Values
         parent::__construct($operators);
     }
 
-    public function get_values()
+    public function get_values(): Options
     {
         return Options::create_from_array([
             'true'  => __('Manual Renewal', 'woocommerce-subscriptions'),
@@ -28,7 +29,7 @@ class AutoRenewal extends Comparison implements Comparison\Values
         ]);
     }
 
-    protected function create_query_bindings($operator, Value $value)
+    protected function create_query_bindings(string $operator, Value $value): ACP\Query\Bindings
     {
         $bindings = new Bindings();
         $bindings->meta_query([

@@ -7,7 +7,7 @@ use ACP\Search\Value;
 
 class Taxonomies extends Taxonomy {
 
-	protected function get_meta_query( $operator, Value $value ) {
+	protected function get_meta_query( string $operator, Value $value ): array {
 		$comparison = SerializedComparisonFactory::create(
 			$this->get_meta_key(),
 			$operator,

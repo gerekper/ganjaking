@@ -347,13 +347,10 @@ abstract class WC_Account_Funds_Settings_API extends WC_Settings_API {
 		if ( ! $value ) {
 			$field = $this->get_form_field( $key );
 
-			throw new Exception(
-				sprintf(
-					/* translators: %s the form field title */
-					_x( 'The field "%s" is required.', 'settings error', 'woocommerce-account-funds' ),
-					$field['title']
-				)
-			);
+			/* translators: %s the form field title */
+			$message = sprintf( _x( 'The field "%s" is required.', 'settings error', 'woocommerce-account-funds' ), $field['title'] );
+
+			throw new Exception( esc_html( $message ) );
 		}
 
 		return $value;

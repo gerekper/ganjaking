@@ -9,15 +9,24 @@
  * to your theme or plugin to maintain compatibility.
  *
  * @author  ThemeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @package Extra Product Options/Templates
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li class="tmcp-field-wrap">
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
-	<label class="tm-epo-field-label<?php echo esc_attr( $style ); ?>" for="<?php echo esc_attr( $id ); ?>">
+if ( isset( $element_id, $class_label, $style, $name, $fieldtype, $rules, $original_rules, $rules_type, $saved_value, $allowed_mimes, $max_file_size_text ) ) :
+	$element_id     = (string) $element_id;
+	$class_label    = (string) $class_label;
+	$style          = (string) $style;
+	$name           = (string) $name;
+	$fieldtype      = (string) $fieldtype;
+	$rules          = (string) $rules;
+	$original_rules = (string) $original_rules;
+	$rules_type     = (string) $rules_type;
+	$saved_value    = (string) $saved_value;
+	?>
+<li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
+	<label class="tc-col tm-epo-field-label<?php echo esc_attr( $style ); ?><?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $element_id ); ?>">
 		<span class="cpf-upload-wrap">
 		<?php
 		if ( ! empty( $upload_text ) ) {
@@ -28,7 +37,7 @@ defined( 'ABSPATH' ) || exit;
 			'default' => '',
 			'type'    => 'file',
 			'tags'    => [
-				'id'                  => $id,
+				'id'                  => $element_id,
 				'name'                => $name,
 				'class'               => $fieldtype . ' tm-epo-field tmcp-upload',
 				'data-price'          => '',
@@ -59,9 +68,11 @@ defined( 'ABSPATH' ) || exit;
 		THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 		?>
 		</span>
-		<small class="tc-max-file-size"><?php echo esc_html( $max_file_size_text ); ?></small>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
-	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
+	<small class="tc-max-file-size"><?php echo esc_html( $max_file_size_text ); ?></small>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</li>
+</div></li>
+	<?php
+endif;

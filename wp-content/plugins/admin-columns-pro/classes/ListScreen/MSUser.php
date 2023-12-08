@@ -4,6 +4,8 @@ namespace ACP\ListScreen;
 
 use AC;
 use AC\ColumnRepository;
+use AC\ListScreen\ListTable;
+use AC\ListScreen\ManageValue;
 use AC\MetaType;
 use AC\Type\Uri;
 use AC\Type\Url;
@@ -12,12 +14,11 @@ use AC\WpListTableFactory;
 use ACP\Column;
 use ACP\Editing;
 use ACP\Export;
-use ACP\Filtering;
 use ACP\Sorting;
 
 class MSUser extends AC\ListScreen implements Sorting\ListScreen, Editing\ListScreen, Export\ListScreen,
-                                              Filtering\ListScreen, AC\ListScreen\ManageValue,
-                                              AC\ListScreen\ListTable
+                                              ManageValue,
+                                              ListTable
 {
 
     public function __construct()
@@ -27,8 +28,7 @@ class MSUser extends AC\ListScreen implements Sorting\ListScreen, Editing\ListSc
         $this->label = __('Network Users');
         $this->singular_label = __('Network User');
         $this->group = 'network';
-
-        $this->set_meta_type(MetaType::USER);
+        $this->meta_type = MetaType::USER;
     }
 
     public function sorting(Sorting\AbstractModel $model): Sorting\Strategy
@@ -39,11 +39,6 @@ class MSUser extends AC\ListScreen implements Sorting\ListScreen, Editing\ListSc
     public function editing()
     {
         return new Editing\Strategy\User();
-    }
-
-    public function filtering($model)
-    {
-        return new Filtering\Strategy\User($model);
     }
 
     public function export()

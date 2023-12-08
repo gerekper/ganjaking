@@ -17,7 +17,9 @@ class Billing extends AC\Column implements ACP\Search\Searchable
 
     public function search()
     {
-        return new WC\Search\Order\Address\FullAddress(new WC\Type\AddressType(WC\Type\AddressType::BILLING));
+        return new WC\Search\Order\Address\FullAddress(
+            new WC\Type\AddressType(WC\Type\AddressType::BILLING)
+        );
     }
 
 }

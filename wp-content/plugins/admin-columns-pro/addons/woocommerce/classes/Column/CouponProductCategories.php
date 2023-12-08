@@ -15,7 +15,6 @@ abstract class CouponProductCategories extends Column\Meta
 
 	public function __construct() {
 		$this->set_group( 'woocommerce' );
-		$this->set_serialized( true );
 	}
 
 	public function get_taxonomy() {

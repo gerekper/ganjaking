@@ -2,41 +2,34 @@
 
 namespace ACP\Search\Comparison\Meta;
 
-use AC;
+use AC\Meta\Query;
 use ACP\Helper\Select;
-use ACP\Helper\Select\Formatter;
-use ACP\Helper\Select\Group;
 use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
+use ACP\Search\UserValuesTrait;
 use ACP\Search\Value;
 
 class User extends Meta
-	implements SearchableValues {
+    implements SearchableValues
+{
 
-	public function __construct( $meta_key, $meta_type ) {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::CURRENT_USER,
-			Operators::IS_EMPTY,
-			Operators::NOT_IS_EMPTY,
-		] );
+    use UserValuesTrait;
+    
+    private $query;
 
-		parent::__construct( $operators, $meta_key, $meta_type, Value::INT );
-	}
+    public function __construct(string $meta_key, Query $query = null)
+    {
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::CURRENT_USER,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
+        ]);
 
-	public function get_values( $s, $paged ) {
-		$entities = new Select\Entities\User( [
-			'search' => $s,
-			'paged'  => $paged,
-		] );
+        parent::__construct($operators, $meta_key, Value::INT);
 
-		return new AC\Helper\Select\Options\Paginated(
-			$entities,
-			new Group\UserRole(
-				new Formatter\UserName( $entities )
-			)
-		);
-	}
+        $this->query = $query;
+    }
 
 }

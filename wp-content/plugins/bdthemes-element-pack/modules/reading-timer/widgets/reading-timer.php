@@ -13,29 +13,28 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class Reading_Timer extends Module_Base {
 
-    public function get_name()
-    {
+    public function get_name() {
         return 'bdt-reading-timer';
     }
 
-    public function get_title()
-    {
+    public function get_title() {
         return BDTEP . esc_html__('Reading Timer', 'bdthemes-element-pack');
     }
 
-    public function get_icon()
-    {
+    public function get_icon() {
         return 'bdt-wi-reading-timer';
     }
 
-    public function get_categories()
-    {
+    public function get_categories() {
         return ['element-pack'];
     }
 
-    public function get_keywords()
-    {
+    public function get_keywords() {
         return ['reading', 'timer', 'reading timer'];
+    }
+
+    public function get_style_depends() {
+        return ['ep-font'];
     }
 
     public function get_script_depends() {
@@ -59,13 +58,25 @@ class Reading_Timer extends Module_Base {
         );
 
         $this->add_control(
+            'ignore_element_notes',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => esc_html__('Note: This widget\'s functionality may not be available in editor mode (dummy text, 2 min read), but rest assured, it works seamlessly when you switch to the perview mode/frontend perspective.', 'bdthemes-element-pack'),
+                'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+            ]
+        );
+
+
+        $this->add_control(
             'reading_timer_content_id',
             [
                 'label'       => esc_html__('Selector ID', 'bdthemes-element-pack'),
                 'type'        => Controls_Manager::TEXT,
-                'description' => esc_html__( "Just write the content selector ID here such 'my-id'. N.B: No need to add '#'.", 'bdthemes-element-pack' ),
+                'description' => esc_html__("Just write the content selector ID here such 'my-id'. N.B: No need to add '#'.", 'bdthemes-element-pack'),
                 'frontend_available' => true,
                 'render_type' => 'none',
+                'separator'       => 'before',
+
             ]
         );
         $this->add_control(
@@ -90,38 +101,35 @@ class Reading_Timer extends Module_Base {
             ]
         );
 
-        $this-> add_control(
-           'reading_timer_minute_text',
-           [
-               'label'       => __( 'Minute Text', 'bdthemes-element-pack' ),
-               'type'        => Controls_Manager::TEXT,
-               'placeholder' => __( 'min read', 'bdthemes-element-pack' ),
-               'frontend_available' => true,
-                'render_type' => 'none',
-           ]
-        );
-
-        $this-> add_control(
-           'reading_timer_seconds_text',
-           [
-               'label'       => __( 'Seconds Text', 'bdthemes-element-pack' ),
-               'type'        => Controls_Manager::TEXT,
-               'placeholder' => __( 'sec read', 'bdthemes-element-pack' ),
-                'frontend_available' => true,
-                 'render_type' => 'none',
-           ]
-        );
-
         $this->add_control(
-            'ignore_element_notes',
+            'reading_timer_minute_text',
             [
-                'type'            => Controls_Manager::RAW_HTML,
-                'raw'             => esc_html__('Note: This widget won\'t function at the editor mode at all. It will work just fine on frontend perspective.', 'bdthemes-element-pack'),
-                'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-                'separator'       => 'before',
+                'label'       => __('Minute Text', 'bdthemes-element-pack'),
+                'type'        => Controls_Manager::TEXT,
+                'placeholder' => __('min read', 'bdthemes-element-pack'),
+                'frontend_available' => true,
+                'render_type' => 'none',
             ]
         );
 
+        $this->add_control(
+            'reading_timer_seconds_text',
+            [
+                'label'       => __('Seconds Text', 'bdthemes-element-pack'),
+                'type'        => Controls_Manager::TEXT,
+                'placeholder' => __('sec read', 'bdthemes-element-pack'),
+                'frontend_available' => true,
+                'render_type' => 'none',
+            ]
+        );
+
+        $this->add_control(
+            'show_icon',
+            [
+                'label' => __('Show Icon', 'bdthemes-element-pack') . BDTEP_NC,
+                'type'  => Controls_Manager::SWITCHER,
+            ]
+        );
         $this->end_controls_section();
         $this->start_controls_section(
             'section_style',
@@ -149,7 +157,7 @@ class Reading_Timer extends Module_Base {
                 'selector'  => '{{WRAPPER}} .bdt-reading-timer',
             ]
         );
-        
+
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
@@ -189,6 +197,31 @@ class Reading_Timer extends Module_Base {
                 'size_units' => ['px', '%'],
                 'selectors'  => [
                     '{{WRAPPER}} .bdt-reading-timer' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        //space between
+        $this->add_responsive_control(
+            'reading_space_between',
+            [
+                'label'      => __('Space Between', 'bdthemes-element-pack') . BDTEP_NC,
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range'      => [
+                    'px'     => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'default'    => [
+                    'unit' => 'px',
+                    'size' => 5,
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .bdt-reading-timer i' => 'margin-right: {{SIZE}}{{UNIT}};',
+                ],
+                'condition'  => [
+                    'show_icon' => 'yes',
                 ],
             ]
         );
@@ -240,9 +273,12 @@ class Reading_Timer extends Module_Base {
         $this->end_controls_section();
     }
 
-    public function render()
-    { ?>
-        <div class="bdt-reading-timer bdt-inline"></div>
-    <?php
+    public function render() { ?>
+        <div class="bdt-reading-timer bdt-inline">
+            <?php if ($this->get_settings('show_icon')) : ?>
+                <i class="ep-icon-clock-o" aria-hidden="true"></i>
+            <?php endif; ?>
+        </div>
+<?php
     }
 }

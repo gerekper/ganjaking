@@ -24,7 +24,9 @@ class OrderNumber extends AC\Column implements ACP\Search\Searchable, ACP\Condit
     {
         $order = wc_get_order($id);
 
-        return $order ? $order->get_order_number() : $this->get_empty_char();
+        return $order
+            ? $order->get_order_number()
+            : $this->get_empty_char();
     }
 
     public function search()

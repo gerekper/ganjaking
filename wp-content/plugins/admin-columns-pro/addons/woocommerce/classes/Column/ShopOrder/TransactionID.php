@@ -38,7 +38,7 @@ class TransactionID extends AC\Column\Meta
 	}
 
 	public function search() {
-		return new Search\Comparison\Meta\Text( $this->get_meta_key(), AC\MetaType::POST );
+		return new Search\Comparison\Meta\Text( $this->get_meta_key() );
 	}
 
 }

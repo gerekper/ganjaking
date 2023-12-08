@@ -5,7 +5,6 @@ namespace ACA\EC\Column\Event;
 use AC;
 use ACA\EC\Column\Meta;
 use ACA\EC\Editing;
-use ACA\EC\Filtering;
 use ACA\EC\Search;
 use ACA\EC\Settings;
 use ACP;
@@ -13,7 +12,7 @@ use ACP\ConditionalFormat;
 use ACP\Sorting\Model\MetaFormatFactory;
 
 class Organizer extends Meta
-    implements AC\Column\Relation, ACP\Export\Exportable, ACP\Search\Searchable, ConditionalFormat\Formattable
+    implements AC\Column\Relation, ACP\Export\Exportable, ConditionalFormat\Formattable
 {
 
     use ConditionalFormat\FilteredHtmlFormatTrait;
@@ -78,11 +77,6 @@ class Organizer extends Meta
         return new Editing\Service\Event\Organizer();
     }
 
-    public function filtering()
-    {
-        return new Filtering\RelatedPost($this);
-    }
-
     public function sorting()
     {
         return (new MetaFormatFactory())->create(
@@ -104,7 +98,7 @@ class Organizer extends Meta
 
     public function search()
     {
-        return new Search\Event\Relation($this->get_meta_key(), $this->get_meta_type(), $this->get_relation_object());
+        return new Search\Event\Relation($this->get_meta_key(), $this->get_relation_object());
     }
 
 }

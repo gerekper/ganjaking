@@ -3,7 +3,7 @@
  * Extra Product Options Frontend Display
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Extra Product Options Frontend Display
  *
  * @package Extra Product Options/Classes
- * @version 6.0
+ * @version 6.4
  */
 class THEMECOMPLETE_EPO_Display {
 
@@ -23,21 +23,21 @@ class THEMECOMPLETE_EPO_Display {
 	 *
 	 * @var boolean
 	 */
-	private $tm_options_have_been_displayed = false;
+	public $tm_options_have_been_displayed = false;
 
 	/**
 	 * If the options has been displayed or not
 	 *
 	 * @var boolean
 	 */
-	private $tm_options_single_have_been_displayed = false;
+	public $tm_options_single_have_been_displayed = false;
 
 	/**
 	 * If the totals box has been displayed or not
 	 *
 	 * @var boolean
 	 */
-	private $tm_options_totals_have_been_displayed = false;
+	public $tm_options_totals_have_been_displayed = false;
 
 	/**
 	 * The id of the current set of options
@@ -59,7 +59,7 @@ class THEMECOMPLETE_EPO_Display {
 	/**
 	 * Array of the $epo_internal_counter
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $epo_internal_counter_check = [];
 
@@ -82,7 +82,7 @@ class THEMECOMPLETE_EPO_Display {
 	/**
 	 * Array of the $current_product_id_to_be_displayed
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $current_product_id_to_be_displayed_check = [];
 
@@ -126,7 +126,7 @@ class THEMECOMPLETE_EPO_Display {
 	 *
 	 * @var string
 	 */
-	private $discount_exclude_addons = '';
+	public $discount_exclude_addons = '';
 
 	/**
 	 * Flag to blocking option display
@@ -147,6 +147,7 @@ class THEMECOMPLETE_EPO_Display {
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
+	 * @return THEMECOMPLETE_EPO_Display
 	 * @since 1.0
 	 * @static
 	 */
@@ -164,7 +165,6 @@ class THEMECOMPLETE_EPO_Display {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		$this->inline_styles      = '';
 		$this->inline_styles_head = '';
 
@@ -191,6 +191,22 @@ class THEMECOMPLETE_EPO_Display {
 		// Alter the array of data for a variation. Used in the add to cart form.
 		add_filter( 'woocommerce_available_variation', [ $this, 'woocommerce_available_variation' ], 10, 3 );
 
+		// Add support for WooCommerce shortcodes on custom pages.
+		add_filter( 'woocommerce_loop_add_to_cart_args', [ $this, 'woocommerce_loop_add_to_cart_args' ], 10, 1 );
+	}
+
+	/**
+	 * Add support for WooCommerce shortcodes on custom pages
+	 *
+	 * @param array<mixed> $args Array of arguements.
+	 * @since 6.4
+	 * @return array<mixed>
+	 */
+	public function woocommerce_loop_add_to_cart_args( $args = [] ) {
+		if ( $this->epo_id > 0 ) {
+			$args['attributes']['data-epo-id'] = $this->epo_id;
+		}
+		return $args;
 	}
 
 	/**
@@ -199,6 +215,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param string $discount Associated product discount.
 	 * @param string $discount_type Associated product discount type.
 	 * @param string $discount_exclude_addons If the associated product discount is applied to the addons.
+	 * @return void
 	 * @since 5.0.8
 	 */
 	public function set_discount( $discount = '', $discount_type = '', $discount_exclude_addons = '' ) {
@@ -212,6 +229,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * Currently used for associated products
 	 *
 	 * @param integer $counter The value to set for the internal epo counter.
+	 * @return void
 	 * @since 5.0.8
 	 */
 	public function set_epo_internal_counter( $counter = 0 ) {
@@ -223,6 +241,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * Restore internal epo counter
 	 * Currently used for associated products
 	 *
+	 * @return void
 	 * @since 5.0.8
 	 */
 	public function restore_epo_internal_counter() {
@@ -232,6 +251,7 @@ class THEMECOMPLETE_EPO_Display {
 	/**
 	 * Returns the path for overriding the templates
 	 *
+	 * @return string
 	 * @since 6.0
 	 */
 	public function get_template_path() {
@@ -241,6 +261,7 @@ class THEMECOMPLETE_EPO_Display {
 	/**
 	 * Returns the default path for the templates
 	 *
+	 * @return string
 	 * @since 6.0
 	 */
 	public function get_default_path() {
@@ -253,22 +274,19 @@ class THEMECOMPLETE_EPO_Display {
 	 *
 	 * @param string $classes Tax class.
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function get_tax_rate( $classes ) {
-
 		return themecomplete_get_tax_rate( $classes );
-
 	}
 
 	/**
 	 * Add validation rules
 	 *
-	 * @param array $element The element array.
-	 * @return array
+	 * @param array<mixed> $element The element array.
+	 * @return array<mixed>
 	 */
 	public function get_tm_validation_rules( $element ) {
-
 		$rules = [];
 		if ( $element['required'] ) {
 			$rules['required'] = true;
@@ -296,25 +314,24 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		return $rules;
-
 	}
 
 	/**
 	 * Alter the array of data for a variation.
 	 * Used in the add to cart form.
 	 *
-	 * @param array               $array Array of variation arguments.
-	 * @param WC_Product_Variable $class The WC_Product_Variable class.
+	 * @param array<mixed>        $args Array of variation arguments.
+	 * @param WC_Product_Variable $class_obj The WC_Product_Variable class.
 	 * @param WC_Product          $variation Variation product object or ID.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function woocommerce_available_variation( $array, $class, $variation ) {
-
+	public function woocommerce_available_variation( $args, $class_obj, $variation ) {
 		if ( apply_filters( 'wc_epo_woocommerce_available_variation_check', true ) && ! ( THEMECOMPLETE_EPO()->can_load_scripts() || wp_doing_ajax() ) && ! ( isset( $_REQUEST['wc-ajax'] ) && 'get_variation' === $_REQUEST['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			return $array;
+			return $args;
 		}
 
-		if ( is_array( $array ) ) {
+		if ( is_array( $args ) ) {
 
 			$tax_rate = $this->get_tax_rate( themecomplete_get_tax_class( $variation ) );
 
@@ -333,7 +350,7 @@ class THEMECOMPLETE_EPO_Display {
 					$base_tax_rate = $base_tax_rate + floatval( $value['rate'] );
 				}
 
-				$non_base_location_prices = true === ( $tax_rates !== $base_tax_rates && apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) ? 1 : 0;
+				$non_base_location_prices = true === ( $tax_rates !== $base_tax_rates && apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) ? '1' : '0';
 
 				$precision    = wc_get_rounding_precision();
 				$price_of_one = 1 * ( pow( 10, $precision ) );
@@ -353,31 +370,28 @@ class THEMECOMPLETE_EPO_Display {
 				$modded_taxes_of_one = $modded_taxes_of_one / ( pow( 10, $precision ) );
 			}
 
-			$array['tc_tax_rate']                 = $tax_rate;
-			$array['tc_is_taxable']               = $variation->is_taxable();
-			$array['tc_base_tax_rate']            = $base_tax_rate;
-			$array['tc_base_taxes_of_one']        = $base_taxes_of_one;
-			$array['tc_taxes_of_one']             = $taxes_of_one;
-			$array['tc_modded_taxes_of_one']      = $modded_taxes_of_one;
-			$array['tc_non_base_location_prices'] = $non_base_location_prices;
-			$array['tc_is_on_sale']               = $variation->is_on_sale();
+			$args['tc_tax_rate']                 = $tax_rate;
+			$args['tc_is_taxable']               = $variation->is_taxable();
+			$args['tc_base_tax_rate']            = $base_tax_rate;
+			$args['tc_base_taxes_of_one']        = $base_taxes_of_one;
+			$args['tc_taxes_of_one']             = $taxes_of_one;
+			$args['tc_modded_taxes_of_one']      = $modded_taxes_of_one;
+			$args['tc_non_base_location_prices'] = $non_base_location_prices;
+			$args['tc_is_on_sale']               = $variation->is_on_sale();
 			if ( isset( $_REQUEST['discount_type'] ) && isset( $_REQUEST['discount'] ) && ! empty( $_REQUEST['discount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
 				$current_price = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $variation->get_price(), sanitize_text_field( wp_unslash( $_REQUEST['discount'] ) ), sanitize_text_field( wp_unslash( $_REQUEST['discount_type'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$variation->set_sale_price( $current_price );
 				$variation->set_price( $current_price );
 
 				// See if prices should be shown for each variation after selection.
-				$show_variation_price = apply_filters( 'woocommerce_show_variation_price', $variation->get_price() === '' || $class->get_variation_sale_price( 'min' ) !== $class->get_variation_sale_price( 'max' ) || $class->get_variation_regular_price( 'min' ) !== $class->get_variation_regular_price( 'max' ), $class, $variation );
+				$show_variation_price = apply_filters( 'woocommerce_show_variation_price', $variation->get_price() === '' || $class_obj->get_variation_sale_price( 'min' ) !== $class_obj->get_variation_sale_price( 'max' ) || $class_obj->get_variation_regular_price( 'min' ) !== $class_obj->get_variation_regular_price( 'max' ), $class_obj, $variation );
 
-				$array['display_price'] = wc_get_price_to_display( $variation );
-				$array['price_html']    = $show_variation_price ? '<span class="price">' . $variation->get_price_html() . '</span>' : '';
-
+				$args['display_price'] = wc_get_price_to_display( $variation );
+				$args['price_html']    = $show_variation_price ? '<span class="price">' . $variation->get_price_html() . '</span>' : '';
 			}
 		}
 
-		return $array;
-
+		return $args;
 	}
 
 	/**
@@ -385,42 +399,40 @@ class THEMECOMPLETE_EPO_Display {
 	 * and on the ajax request of composite bundles
 	 * and it is required in order to show custom styles
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public function tm_add_inline_style_qv() {
-
 		if ( ! empty( $this->inline_styles ) ) {
 			global $wp_scripts;
 			$wp_scripts = new WP_Scripts(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 			$this->tm_add_inline_style_reg();
 			wp_print_footer_scripts();
 		}
-
 	}
 
 	/**
 	 * Register inline styles
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public function tm_add_inline_style_reg() {
-
 		if ( ! empty( $this->inline_styles ) ) {
 			wp_register_style( 'themecomplete-styles-footer', false, [], THEMECOMPLETE_EPO_VERSION );
 			wp_add_inline_style( 'themecomplete-styles-footer', $this->inline_styles );
 			wp_enqueue_style( 'themecomplete-styles-footer' );
 			$this->inline_styles = '';
 		}
-
 	}
 
 	/**
 	 * Handles any extra styling associated with the fields
 	 *
+	 * @return void
 	 * @since 4.8
 	 */
 	public function tm_add_inline_style() {
-
 		if ( ! empty( $this->inline_styles ) ) {
 			if ( THEMECOMPLETE_EPO()->is_quick_view() || ( wp_doing_ajax() && ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) ) {
 				$this->tm_add_inline_style_qv();
@@ -428,31 +440,29 @@ class THEMECOMPLETE_EPO_Display {
 				$this->tm_add_inline_style_reg();
 			}
 		}
-
 	}
 
 	/**
 	 * Handles any extra styling associated with the fields
 	 *
+	 * @return void
 	 * @param string $css_string CSS code to add.
 	 * @since 4.8.5
 	 */
 	public function add_inline_style( $css_string = '' ) {
-
 		$this->inline_styles = $this->inline_styles . $css_string;
-
 	}
 
 	/**
 	 * Add custom inline css
 	 * Used to hide the native variations
 	 *
-	 * @param integer $echo If the result should be displayed or retuned.
+	 * @param integer $output If the result should be displayed or retuned.
 	 * @param integer $product_id The product id.
+	 * @return void
 	 * @since 1.0
 	 */
-	public function tm_variation_css_check( $echo = 0, $product_id = 0 ) {
-
+	public function tm_variation_css_check( $output = 0, $product_id = 0 ) {
 		if ( ! is_product() ) {
 			return;
 		}
@@ -481,42 +491,37 @@ class THEMECOMPLETE_EPO_Display {
 			}
 
 			$this->inline_styles_head = $this->inline_styles_head . $css_string;
-			if ( $echo ) {
+			if ( $output ) {
 				$this->tm_variation_css_check_do();
 			} else {
-				add_action( 'wp_head', [ $this, 'tm_variation_css_check_do' ] );
+				add_action( 'wp_enqueue_scripts', [ $this, 'tm_variation_css_check_do' ], 6 );
 			}
 		}
-
 	}
 
 	/**
 	 * Print inline css
 	 *
-	 * @see   tm_variation_css_check
+	 * @return void
+	 * @see tm_variation_css_check
 	 * @since 1.0
 	 */
 	public function tm_variation_css_check_do() {
-
 		if ( ! empty( $this->inline_styles_head ) ) {
 			wp_register_style( 'themecomplete-styles-header', false, [], THEMECOMPLETE_EPO_VERSION );
 			wp_add_inline_style( 'themecomplete-styles-header', $this->inline_styles_head );
 			wp_enqueue_style( 'themecomplete-styles-header' );
 		}
-
 	}
 
 	/**
 	 * Internal variables
 	 *
 	 * @param integer|false $product_id The product id.
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_before_add_to_cart_button( $product_id = false ) {
-
-		$this->epo_id ++;
-		echo '<input type="hidden" class="tm-epo-counter" name="tm-epo-counter" value="' . esc_attr( $this->epo_id ) . '">';
-
 		if ( $product_id ) {
 			$pid = $product_id;
 		} else {
@@ -524,19 +529,32 @@ class THEMECOMPLETE_EPO_Display {
 			$pid = themecomplete_get_id( $product );
 		}
 
-		if ( ! empty( $pid ) ) {
-			echo '<input type="hidden" data-epo-id="' . esc_attr( $this->epo_id ) . '" class="tc-add-to-cart" name="tcaddtocart" value="' . esc_attr( $pid ) . '">';
+		$print_inputs = false;
+		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all ) {
+			$print_inputs = true;
+		} else {
+			$has_epo = THEMECOMPLETE_EPO_API()->has_options( $pid );
+			if ( false !== $has_epo && is_array( $has_epo ) ) {
+				$print_inputs = true;
+			}
 		}
 
+		if ( $print_inputs ) {
+			++$this->epo_id;
+			echo '<input type="hidden" class="tm-epo-counter" name="tm-epo-counter" value="' . esc_attr( (string) $this->epo_id ) . '">';
+			if ( ! empty( $pid ) ) {
+				echo '<input type="hidden" data-epo-id="' . esc_attr( (string) $this->epo_id ) . '" class="tc-add-to-cart" name="tcaddtocart" value="' . esc_attr( (string) $pid ) . '">';
+			}
+		}
 	}
 
 	/**
 	 * Ensures the correct display order of options when multiple products are displayed
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_before_single_product() {
-
 		global $woocommerce;
 		if ( ! property_exists( $woocommerce, 'product_factory' ) || null === $woocommerce->product_factory ) {
 			return;// bad function call.
@@ -549,19 +567,17 @@ class THEMECOMPLETE_EPO_Display {
 			$this->current_product_id_to_be_displayed = themecomplete_get_id( $product );
 			$this->current_product_id_to_be_displayed_check[ 'tc-' . count( $this->current_product_id_to_be_displayed_check ) . '-' . $this->current_product_id_to_be_displayed ] = $this->current_product_id_to_be_displayed;
 		}
-
 	}
 
 	/**
 	 * Ensures the correct display order of options when multiple prodcuts are displayed
 	 *
+	 * @return void
 	 * @since 1.0
 	 */
 	public function woocommerce_after_single_product() {
-
 		$this->current_product_id_to_be_displayed = 0;
 		$this->unique_form_prefix                 = '';
-
 	}
 
 	/**
@@ -573,9 +589,9 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param integer $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $dummy_prefix If we should use the form prefix.
+	 * @return void
 	 */
 	public function frontend_display( $product_id = 0, $form_prefix = '', $dummy_prefix = false ) {
-
 		if ( $this->block_epo ) {
 			return;
 		}
@@ -594,7 +610,6 @@ class THEMECOMPLETE_EPO_Display {
 		if ( ! THEMECOMPLETE_EPO()->is_bto ) {
 			$this->tm_options_have_been_displayed = true;
 		}
-
 	}
 
 	/**
@@ -602,9 +617,9 @@ class THEMECOMPLETE_EPO_Display {
 	 *
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $dummy_prefix If we should use the form prefix.
+	 * @return void
 	 */
 	private function tm_epo_fields_batch( $form_prefix = '', $dummy_prefix = false ) {
-
 		foreach ( $this->current_product_id_to_be_displayed_check as $key => $product_id ) {
 			if ( ! empty( $product_id ) ) {
 				$this->inline_styles      = '';
@@ -617,10 +632,8 @@ class THEMECOMPLETE_EPO_Display {
 
 				if ( THEMECOMPLETE_EPO()->tm_epo_options_placement === THEMECOMPLETE_EPO()->tm_epo_totals_box_placement ) {
 					$this->tm_epo_totals( $product_id, $form_prefix );
-				} else {
-					if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
-						unset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] );
-					}
+				} elseif ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
+					unset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] );
 				}
 			}
 		}
@@ -630,19 +643,18 @@ class THEMECOMPLETE_EPO_Display {
 				$this->epo_internal_counter_check = [];
 			}
 		}
-
 	}
 
 	/**
 	 * Display the options in the frontend
 	 *
-	 * @param integer $product_id The product id.
+	 * @param mixed   $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $is_from_shortcode If we are in a shortcode.
 	 * @param boolean $dummy_prefix If we should use the form prefix.
+	 * @return void
 	 */
 	public function tm_epo_fields( $product_id = 0, $form_prefix = '', $is_from_shortcode = false, $dummy_prefix = false ) {
-
 		if ( $this->block_epo ) {
 			return;
 		}
@@ -660,18 +672,16 @@ class THEMECOMPLETE_EPO_Display {
 			return;// bad function call.
 		}
 
-		if ( $product_id instanceof WC_PRODUCT ) {
+		if ( $product_id instanceof WC_Product ) {
 			$product    = $product_id;
 			$product_id = themecomplete_get_id( $product );
-		} else {
-			if ( ! $product_id ) {
-				global $product;
-				if ( $product ) {
-					$product_id = themecomplete_get_id( $product );
-				}
-			} else {
-				$product = wc_get_product( $product_id );
+		} elseif ( ! $product_id ) {
+			global $product;
+			if ( $product ) {
+				$product_id = themecomplete_get_id( $product );
 			}
+		} else {
+			$product = wc_get_product( $product_id );
 		}
 
 		if ( ! $product_id || empty( $product ) ) {
@@ -718,7 +728,7 @@ class THEMECOMPLETE_EPO_Display {
 					$temp_this_epo_internal_counter = $this->epo_internal_counter;
 					if ( empty( $temp_this_epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $temp_this_epo_internal_counter ] ) ) {
 						// First time displaying the fields and totals haven't been displayed.
-						$temp_this_epo_internal_counter ++;
+						++$temp_this_epo_internal_counter;
 					}
 					$temp_epo_internal_counter = $temp_this_epo_internal_counter;
 				} else {
@@ -743,7 +753,7 @@ class THEMECOMPLETE_EPO_Display {
 			if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 				if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
 					// First time displaying the fields and totals haven't been displayed.
-					$this->epo_internal_counter ++;
+					++$this->epo_internal_counter;
 					$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 				} else {
 					// Totals have already been displayed.
@@ -785,7 +795,7 @@ class THEMECOMPLETE_EPO_Display {
 		if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 			if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
 				// First time displaying the fields and totals haven't been displayed.
-				$this->epo_internal_counter ++;
+				++$this->epo_internal_counter;
 				$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 			} else {
 				// Totals have already been displayed.
@@ -795,12 +805,10 @@ class THEMECOMPLETE_EPO_Display {
 				$this->unique_form_prefix                 = '';
 			}
 			$_epo_internal_counter = $this->epo_internal_counter;
+		} elseif ( THEMECOMPLETE_EPO()->is_inline_epo && $this->epo_internal_counter ) {
+			$_epo_internal_counter = $this->epo_internal_counter;
 		} else {
-			if ( THEMECOMPLETE_EPO()->is_inline_epo && $this->epo_internal_counter ) {
-				$_epo_internal_counter = $this->epo_internal_counter;
-			} else {
-				$_epo_internal_counter = 0;
-			}
+			$_epo_internal_counter = 0;
 		}
 
 		$forcart   = 'main';
@@ -837,12 +845,11 @@ class THEMECOMPLETE_EPO_Display {
 		);
 
 		if ( ( ! empty( THEMECOMPLETE_EPO()->cart_edit_key ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'tm-edit' ) ) || ( ! empty( THEMECOMPLETE_EPO()->cart_edit_key ) && isset( $_REQUEST['update-composite'] ) ) ) {
-			$_cart = WC()->cart;
-			if ( isset( $_cart->cart_contents ) && isset( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ] ) ) {
-				if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata'] ) ) {
-					if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) && is_array( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) ) {
-						$tmcp_post_fields  = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'];
-						$saved_form_prefix = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['form_prefix'];
+			if ( isset( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ] ) ) {
+				if ( ! empty( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata'] ) ) {
+					if ( ! empty( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) && is_array( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) ) {
+						$tmcp_post_fields  = WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'];
+						$saved_form_prefix = WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['form_prefix'];
 						foreach ( $tmcp_post_fields as $posted_name => $posted_value ) {
 							if ( '' !== $saved_form_prefix ) {
 								$posted_name = str_replace( $saved_form_prefix, '', $posted_name );
@@ -855,7 +862,7 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		// global options before local.
-		foreach ( $global_prices['before'] as $priorities ) {
+		foreach ( $global_prices['before'] as $prio => $priorities ) {
 			foreach ( $priorities as $gid => $field ) {
 				$args    = [
 					'tabindex'        => $tabindex,
@@ -927,52 +934,51 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		$this->tm_options_single_have_been_displayed = true;
-
 	}
 
 	/**
 	 * Displays the option created from the builder mode
 	 *
-	 * @param integer $post_id The post id.
-	 * @param array   $field The field options array.
-	 * @param string  $where The field placement 'before' or 'after'.
-	 * @param array   $args The variable arguemnts..
-	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should use the form prefix.
+	 * @param integer      $post_id The post id.
+	 * @param array<mixed> $field The field options array.
+	 * @param string       $where The field placement 'before' or 'after'.
+	 * @param array<mixed> $vars The variable arguemnts.
+	 * @param string       $form_prefix The form prefix.
+	 * @param boolean      $dummy_prefix If we should use the form prefix.
+	 * @return array<mixed>
 	 * @since 1.0
 	 */
-	public function get_builder_display( $post_id, $field, $where, $args, $form_prefix = '', $dummy_prefix = false ) {
-
+	public function get_builder_display( $post_id, $field, $where, $vars, $form_prefix = '', $dummy_prefix = false ) {
 		if ( ! $post_id ) {
 			$post_id = 0;
 		}
 		$columns = [];
 		for ( $x = 1; $x <= 100; $x++ ) {
-			$columns[ 'w' . $x ] = [ 'tcwidth-' . $x, $x ];
+			$columns[ 'w' . $x ] = [ 'tcwidth tcwidth-' . $x, $x ];
 		}
-		$columns['w12-5'] = [ 'tcwidth-12-5', 12.5 ];
-		$columns['w37-5'] = [ 'tcwidth-37-5', 37.5 ];
-		$columns['w62-5'] = [ 'tcwidth-62-5', 62.5 ];
-		$columns['w87-5'] = [ 'tcwidth-87-5', 87.5 ];
+		$columns['w12-5'] = [ 'tcwidth tcwidth-12-5', 12.5 ];
+		$columns['w37-5'] = [ 'tcwidth tcwidth-37-5', 37.5 ];
+		$columns['w62-5'] = [ 'tcwidth tcwidth-62-5', 62.5 ];
+		$columns['w87-5'] = [ 'tcwidth tcwidth-87-5', 87.5 ];
 
-		$tabindex        = $args['tabindex'];
-		$unit_counter    = $args['unit_counter'];
-		$field_counter   = $args['field_counter'];
-		$element_counter = $args['element_counter'];
-		$_currency       = $args['_currency'];
-		$product_id      = $args['product_id'];
-		$gid             = isset( $args['gid'] ) ? $args['gid'] : '0';
+		$tabindex        = $vars['tabindex'];
+		$unit_counter    = $vars['unit_counter'];
+		$field_counter   = $vars['field_counter'];
+		$element_counter = $vars['element_counter'];
+		$_currency       = $vars['_currency'];
+		$product_id      = $vars['product_id'];
+		$gid             = isset( $vars['gid'] ) ? $vars['gid'] : '0';
 
 		$element_type_counter = [];
 
 		if ( isset( $field['sections'] ) && is_array( $field['sections'] ) ) {
 
-			$args = [
+			$vars = [
 				'field_id' => 'tc-epo-form-' . $gid . '-' . $unit_counter,
 			];
 			wc_get_template(
 				'tm-builder-start.php',
-				$args,
+				$vars,
 				$this->get_template_path(),
 				$this->get_default_path()
 			);
@@ -986,7 +992,7 @@ class THEMECOMPLETE_EPO_Display {
 				if ( isset( $section['sections_size'] ) && isset( $columns[ $section['sections_size'] ] ) ) {
 					$size = $columns[ $section['sections_size'] ][0];
 				} else {
-					$size = 'tcwidth-100';
+					$size = 'tcwidth tcwidth-100';
 				}
 
 				$_section_totals = $_section_totals + $columns[ $section['sections_size'] ][1];
@@ -1033,7 +1039,7 @@ class THEMECOMPLETE_EPO_Display {
 					'column'                       => $size,
 					'style'                        => $section['sections_style'],
 					'uniqid'                       => $section['sections_uniqid'],
-					'logic'                        => wp_json_encode( (array) json_decode( stripslashes_deep( $section['sections_clogic'] ) ) ),
+					'logic'                        => wp_json_encode( (array) json_decode( stripslashes_deep( $section['sections_logicrules'] ) ) ),
 					'haslogic'                     => $section['sections_logic'],
 					'sections_class'               => $section['sections_class'],
 					'sections_type'                => $section['sections_type'],
@@ -1052,7 +1058,35 @@ class THEMECOMPLETE_EPO_Display {
 					'divider'                      => $divider,
 				];
 
-				// custom variations check.
+				$css                 = '';
+				$labelbgclass        = '';
+				$descriptionclass    = '';
+				$sectionbgcolorclass = '';
+				if ( ! empty( $section_args['label_color'] ) ) {
+					$css .= '.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $section_args['label_color'] ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $section_args['label_color'] ) ) . ';}';
+				}
+				if ( '' !== $section_args['style'] && ! empty( $section_args['label_background_color'] ) ) {
+					$css          .= '.bgcolor-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $section_args['label_background_color'] ) ) . '{background:' . esc_attr( themecomplete_sanitize_hex_color( $section_args['label_background_color'] ) ) . ';}';
+					$labelbgclass .= ' bgcolor-' . themecomplete_sanitize_hex_color_no_hash( $section_args['label_background_color'] );
+				}
+				if ( ! empty( $section_args['description_color'] ) ) {
+					$css              .= '.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $section_args['description_color'] ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $section_args['description_color'] ) ) . ';}';
+					$descriptionclass .= ' color-' . themecomplete_sanitize_hex_color_no_hash( $section_args['description_color'] );
+				}
+				if ( '' !== $section_args['style'] && ! empty( $section_args['description_background_color'] ) ) {
+					$css              .= '.bgcolor-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $section_args['description_background_color'] ) ) . '{background:' . esc_attr( themecomplete_sanitize_hex_color( $section_args['description_background_color'] ) ) . ';}';
+					$descriptionclass .= ' bgcolor-' . themecomplete_sanitize_hex_color_no_hash( $section_args['description_background_color'] );
+				}
+				if ( '' !== $section_args['style'] && ! empty( $section_args['sections_background_color'] ) ) {
+					$css                .= '.bgcolor-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $section_args['sections_background_color'] ) ) . '{background:' . esc_attr( themecomplete_sanitize_hex_color( $section_args['sections_background_color'] ) ) . ';}';
+					$sectionbgcolorclass = 'bgcolor-' . themecomplete_sanitize_hex_color_no_hash( $section_args['sections_background_color'] );
+				}
+				THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css );
+				$section_args['labelbgclass']        = $labelbgclass;
+				$section_args['descriptionclass']    = $descriptionclass;
+				$section_args['sectionbgcolorclass'] = $sectionbgcolorclass;
+
+				// Custom variations check.
 				if (
 					isset( $section['elements'] )
 					&& is_array( $section['elements'] )
@@ -1061,7 +1095,7 @@ class THEMECOMPLETE_EPO_Display {
 					&& isset( $section['elements'][0]['type'] )
 					&& 'variations' === $section['elements'][0]['type']
 				) {
-					if ( THEMECOMPLETE_EPO()->associated_type === 'variation' ) {
+					if ( 'variation' === THEMECOMPLETE_EPO()->associated_type ) {
 						continue;
 					}
 					$section_args['sections_class'] = $section_args['sections_class'] . ' tm-epo-variation-section tc-clearfix';
@@ -1113,15 +1147,15 @@ class THEMECOMPLETE_EPO_Display {
 								$sections_slides = '';
 								$use_slides      = false;
 							} else {
-								echo '<div class="tc-tabs tc-container"><div class="tc-tabs-wrap tcwidth-100">';
-								echo '<div class="tc-tab-headers tcwidth-100">';
+								echo '<div class="tc-tabs"><div class="tc-tabs-wrap tcwidth tcwidth-100">';
+								echo '<div class="tc-tab-headers tcwidth tcwidth-100">';
 								foreach ( $sections_tabs_labels as $tab_index => $tab_label ) {
-									echo '<div class="tc-tab-header tma-tab-label"><h4 tabindex="0" data-id="tc-tab-slide' . esc_attr( $tab_index ) . '" data-tab="tab' . esc_attr( $tab_index ) . '" class="tab-header' . ( 0 === $tab_index ? ' open' : '' ) . '"><span class="tab-header-label">';
+									echo '<div class="tc-tab-header tma-tab-label"><div tabindex="0" data-id="tc-tab-slide' . esc_attr( $tab_index ) . '" data-tab="tab' . esc_attr( $tab_index ) . '" class="tab-header' . ( 0 === $tab_index ? ' open' : '' ) . '"><span class="tab-header-label">';
 									echo apply_filters( 'wc_epo_kses', wp_kses_post( $tab_label ), $tab_label, false ); // phpcs:ignore WordPress.Security.EscapeOutput
-									echo '</span></h4></div>';
+									echo '</span></div></div>';
 								}
 								echo '</div>';
-								echo '<div class="tc-tab-content tcwidth-100">';
+								echo '<div class="tc-tab-content tcwidth tcwidth-100">';
 							}
 						} elseif ( 'slider' === $section['sections_type'] ) {
 							echo '<div class="tc-slider-content">';
@@ -1150,14 +1184,14 @@ class THEMECOMPLETE_EPO_Display {
 						if ( isset( $element['size'] ) && isset( $columns[ $element['size'] ] ) ) {
 							$size = $columns[ $element['size'] ][0];
 						} else {
-							$size = 'tcwidth-100';
+							$size = 'tcwidth tcwidth-100';
 						}
 						$test_for_first_slide = false;
 						if ( $use_slides && isset( $sections_slides[ $slide_counter ] ) ) {
 							$sections_slides[ $slide_counter ] = (int) $sections_slides[ $slide_counter ];
 
 							if ( $sections_slides[ $slide_counter ] > 0 && ! $doing_slides ) {
-								echo '<div class="tc-tab-slide tc-tab-slide' . esc_attr( $slide_counter ) . ' tc-row">';
+								echo '<div class="tc-tab-slide tc-tab-slide' . esc_attr( (string) $slide_counter ) . ' tc-row">';
 								$doing_slides         = true;
 								$test_for_first_slide = true;
 							}
@@ -1238,7 +1272,6 @@ class THEMECOMPLETE_EPO_Display {
 								'divider'              => $divider,
 								'divider_class'        => $divider_class,
 								'required'             => $element['required'],
-								'type'                 => $element['type'],
 								'replacement_mode'     => $element['replacement_mode'],
 								'swatch_position'      => $element['swatch_position'],
 								'use_url'              => $element['use_url'],
@@ -1246,10 +1279,10 @@ class THEMECOMPLETE_EPO_Display {
 								'rules'                => $empty_rules,
 								'original_rules'       => $empty_original_rules,
 								'rules_type'           => $empty_rules_type,
-								'element'              => $element['type'],
+								'element_type'         => $element['type'],
 								'class_id'             => 'tm-element-ul-' . $element['type'] . ' element_' . $element_counter . $form_prefix, // this goes on ul.
 								'uniqid'               => $element['uniqid'],
-								'logic'                => wp_json_encode( (array) json_decode( stripslashes_deep( $element['clogic'] ) ) ),
+								'logic'                => wp_json_encode( (array) json_decode( stripslashes_deep( $element['logicrules'] ) ) ),
 								'haslogic'             => $element['logic'],
 								'clear_options'        => empty( $element['clear_options'] ) ? '' : $element['clear_options'],
 								'limit'                => empty( $element['limit'] ) ? '' : 'tm-limit',
@@ -1266,12 +1299,23 @@ class THEMECOMPLETE_EPO_Display {
 							$element_counter,
 							$form_prefix
 						);
+						if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+							$args['class'] = ( empty( $args['class'] ) ? '' : $args['class'] . ' ' ) . 'fullwidth';
+						}
 
 						if ( 'product' === $element['type'] ) {
-							$args['extra_class']       = 'cpf-type-product-' . $element['layout_mode'] . ' cpf-type-product-mode-' . $element['mode'];
+							$layout_mode = isset( $element['layout_mode'] ) ? $element['layout_mode'] : '';
+							if ( 'product' === $element['mode'] ) {
+								$layout_mode = 'single';
+							}
+							$disable_epo         = isset( $element['disable_epo'] ) ? $element['disable_epo'] : '';
+							$args['extra_class'] = 'cpf-type-product-' . $layout_mode . ' cpf-type-product-mode-' . $element['mode'];
+							if ( ! empty( $disable_epo ) ) {
+								$args['extra_class'] .= ' no-epo';
+							}
 							$args['element_data_attr'] = [
 								'data-mode'                => isset( $element['mode'] ) ? $element['mode'] : '',
-								'data-product-layout-mode' => isset( $element['layout_mode'] ) ? $element['layout_mode'] : '',
+								'data-product-layout-mode' => $layout_mode,
 								'data-quantity-min'        => isset( $element['quantity_min'] ) ? $element['quantity_min'] : '',
 								'data-quantity-max'        => isset( $element['quantity_max'] ) ? $element['quantity_max'] : '',
 								'data-priced-individually' => isset( $element['priced_individually'] ) ? $element['priced_individually'] : '',
@@ -1283,10 +1327,10 @@ class THEMECOMPLETE_EPO_Display {
 								'data-show-price'          => isset( $element['show_price'] ) ? $element['show_price'] : '1',
 								'data-show-description'    => isset( $element['show_description'] ) ? $element['show_description'] : '1',
 								'data-show-meta'           => isset( $element['show_meta'] ) ? $element['show_meta'] : '1',
-								'data-disable-epo'         => isset( $element['disable_epo'] ) ? $element['disable_epo'] : '',
+								'data-disable-epo'         => $disable_epo,
 							];
 							if ( 'product' !== $element['mode'] ) {
-								if ( 'radio' === $element['layout_mode'] || 'thumbnail' === $element['layout_mode'] ) {
+								if ( 'radio' === $layout_mode || 'thumbnail' === $layout_mode ) {
 									$args['clear_options'] = '1';
 								}
 							}
@@ -1327,7 +1371,7 @@ class THEMECOMPLETE_EPO_Display {
 
 										$get_posted_name = [ '' ];
 										if ( isset( $_REQUEST[ $posted_name ] ) ) {
-											$get_posted_name = wp_unslash( $_REQUEST[ $posted_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+											$get_posted_name = map_deep( stripslashes_deep( $_REQUEST[ $posted_name ] ), 'sanitize_text_field' );
 											if ( ! is_array( $get_posted_name ) ) {
 												$get_posted_name = [ $get_posted_name ];
 											}
@@ -1347,7 +1391,7 @@ class THEMECOMPLETE_EPO_Display {
 											$fieldtype .= ' ' . $element['class'];
 										}
 
-										if ( THEMECOMPLETE_EPO()->get_element_price_type( '', $element, 0, 1, 0 ) === 'math' ) {
+										if ( THEMECOMPLETE_EPO()->get_element_price_type( '', $element, 0, true, 0 ) === 'math' ) {
 											$fieldtype .= ' tc-is-math';
 										}
 
@@ -1367,12 +1411,12 @@ class THEMECOMPLETE_EPO_Display {
 												}
 											}
 											$args['get_posted_key'] = $get_posted_key;
-											$tabindex ++;
+											++$tabindex;
 											$field_obj = new $init_class();
 											$display   = $field_obj->display_field(
 												$element,
 												[
-													'id'   => 'tmcp_' . $element_object->post_name_prefix . '_' . $tabindex . $form_prefix . $uniqid_suffix,
+													'element_id' => 'tmcp_' . $element_object->post_name_prefix . '_' . $tabindex . $form_prefix . $uniqid_suffix,
 													'get_posted_key' => $get_posted_key,
 													'repeater' => $repeater,
 													'name' => $html_name,
@@ -1393,15 +1437,18 @@ class THEMECOMPLETE_EPO_Display {
 												if ( isset( $element['original_rules_filtered'][0] ) && isset( $element['original_rules_filtered'][0][0] ) ) {
 													$original_amount = $element['original_rules_filtered'][0][0];
 												} else {
-													$selected_index = 0;
-													if ( isset( $element['default_value'] ) && '' !== $element['default_value'] && isset( $selected_index[ $element['default_value'] ] ) ) {
+													if ( isset( $element['default_value'] ) && ! is_array( $element['default_value'] ) && '' !== $element['default_value'] ) {
 														$selected_index = array_keys( $element['options'] );
-														$selected_index = $selected_index[ $element['default_value'] ];
+														if ( isset( $selected_index[ $element['default_value'] ] ) ) {
+															$selected_index = $selected_index[ $element['default_value'] ];
+														} else {
+															$selected_index = current( $selected_index );
+														}
 													} else {
 														$selected_index = array_keys( $element['options'] );
 														$selected_index = $selected_index[0];
 													}
-													$original_amount = $element['original_rules_filtered'][ esc_attr( $selected_index ) ];
+													$original_amount = $element['original_rules_filtered'][ esc_attr( (string) $selected_index ) ];
 													if ( isset( $original_amount[0] ) ) {
 														$original_amount = $original_amount[0];
 													} else {
@@ -1416,15 +1463,18 @@ class THEMECOMPLETE_EPO_Display {
 												if ( isset( $element['rules_filtered'][0] ) && isset( $element['rules_filtered'][0][0] ) ) {
 													$amount = $element['rules_filtered'][0][0];
 												} else {
-													$selected_index = 0;
-													if ( isset( $element['default_value'] ) && '' !== $element['default_value'] && isset( $selected_index[ $element['default_value'] ] ) ) {
+													if ( isset( $element['default_value'] ) && ! is_array( $element['default_value'] ) && '' !== $element['default_value'] ) {
 														$selected_index = array_keys( $element['options'] );
-														$selected_index = $selected_index[ $element['default_value'] ];
+														if ( isset( $selected_index[ $element['default_value'] ] ) ) {
+															$selected_index = $selected_index[ $element['default_value'] ];
+														} else {
+															$selected_index = current( $selected_index );
+														}
 													} else {
 														$selected_index = array_keys( $element['options'] );
 														$selected_index = $selected_index[0];
 													}
-													$amount = $element['rules_filtered'][ esc_attr( $selected_index ) ];
+													$amount = $element['rules_filtered'][ esc_attr( (string) $selected_index ) ];
 													if ( isset( $amount[0] ) ) {
 														$amount = $amount[0];
 													} else {
@@ -1441,7 +1491,7 @@ class THEMECOMPLETE_EPO_Display {
 												}
 
 												$element_args = [
-													'id'   => 'tmcp_' . $element_object->post_name_prefix . '_' . $tabindex . $form_prefix . $uniqid_suffix,
+													'element_id' => 'tmcp_' . $element_object->post_name_prefix . '_' . $tabindex . $form_prefix . $uniqid_suffix,
 													'name' => $html_name,
 													'get_posted_key' => $get_posted_key,
 													'posted_name' => $posted_name,
@@ -1515,7 +1565,7 @@ class THEMECOMPLETE_EPO_Display {
 																'get_posted_key' => $get_posted_key,
 																'get_posted_key_count' => $args['get_posted_key_count'],
 																'tm_element_settings' => $element,
-																'element'     => $element['type'],
+																'element_type' => $element['type'],
 																'enabled'     => $element['enabled'],
 																'description' => ! empty( $element['description'] ) ? $element['description'] : '',
 																'description_color' => ! empty( $element['description_color'] ) ? $element['description_color'] : '',
@@ -1530,7 +1580,7 @@ class THEMECOMPLETE_EPO_Display {
 											unset( $field_obj );
 										}
 
-										$element_type_counter[ $element['type'] ] ++;
+										++$element_type_counter[ $element['type'] ];
 
 									} elseif ( 'multipleall' === $element_object->type || 'multiple' === $element_object->type ) {
 
@@ -1543,13 +1593,9 @@ class THEMECOMPLETE_EPO_Display {
 										if ( 'multipleall' === $element_object->type ) {
 											$_field_counter = 0;
 											foreach ( $element['options'] as $value => $label ) {
-
-												$name_inc = $element['raw_name_inc'][ $_field_counter ] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][ $_field_counter ] );
-
+												$name_inc    = $element['raw_name_inc'][ $_field_counter ] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][ $_field_counter ] );
 												$is_cart_fee = ! empty( $element['is_cart_fee_multiple'][ $_field_counter ] );
-
 												$posted_name = 'tmcp_' . $name_inc;
-
 												if ( isset( $_REQUEST[ $posted_name ] ) && is_array( $_REQUEST[ $posted_name ] ) ) {
 													$get_posted_name = array_replace( $get_posted_name, wp_unslash( $_REQUEST[ $posted_name ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 													if ( ! is_array( $get_posted_name ) ) {
@@ -1562,22 +1608,16 @@ class THEMECOMPLETE_EPO_Display {
 														ksort( $get_posted_name );
 													}
 												}
-
-												$_field_counter ++;
-
+												++$_field_counter;
 											}
 										} else {
-											if ( ! isset( $element['raw_name_inc'] ) ) {
-												$name_inc        = '';
-												$posted_name     = '';
-												$get_posted_name = [];
-											} else {
-												$name_inc = $element['raw_name_inc'][0] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][0] );
-
+											$name_inc        = '';
+											$posted_name     = '';
+											$get_posted_name = [];
+											if ( isset( $element['raw_name_inc'] ) ) {
+												$name_inc    = $element['raw_name_inc'][0] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][0] );
 												$is_cart_fee = ! empty( $element['is_cart_fee_multiple'][0] );
-
 												$posted_name = 'tmcp_' . $name_inc;
-
 												if ( isset( $_REQUEST[ $posted_name ] ) && is_array( $_REQUEST[ $posted_name ] ) ) {
 													$get_posted_name = wp_unslash( $_REQUEST[ $posted_name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 													if ( ! is_array( $get_posted_name ) ) {
@@ -1603,17 +1643,6 @@ class THEMECOMPLETE_EPO_Display {
 											$field_counter          = 0;
 											$args['get_posted_key'] = $get_posted_key;
 
-											if ( 'variations' !== $element['type'] ) {
-												if ( $element['enabled'] ) {
-													wc_get_template(
-														'tm-builder-element-start.php',
-														$args,
-														$this->get_template_path(),
-														$this->get_default_path()
-													);
-												}
-											}
-
 											$field_obj = new $init_class();
 											$field_obj->display_field_pre(
 												$element,
@@ -1626,11 +1655,24 @@ class THEMECOMPLETE_EPO_Display {
 												]
 											);
 
+											$args['field_obj'] = $field_obj;
+
+											if ( 'variations' !== $element['type'] ) {
+												if ( $element['enabled'] ) {
+													wc_get_template(
+														'tm-builder-element-start.php',
+														$args,
+														$this->get_template_path(),
+														$this->get_default_path()
+													);
+												}
+											}
+
 											$choice_counter = 0;
 
 											foreach ( $element['options'] as $value => $label ) {
 
-												$tabindex ++;
+												++$tabindex;
 
 												$name_inc = $element['raw_name_inc'][ $field_counter ] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][ $field_counter ] );
 
@@ -1643,10 +1685,9 @@ class THEMECOMPLETE_EPO_Display {
 												$html_quantity_name = $posted_name . '_quantity' . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
 
 												if ( ! empty( THEMECOMPLETE_EPO()->cart_edit_key ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'tm-edit' ) ) {
-													$_cart = WC()->cart;
-													if ( isset( $_cart->cart_contents ) && isset( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ] ) ) {
-														if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartepo'] ) ) {
-															$saved_epos = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartepo'];
+													if ( isset( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ] ) ) {
+														if ( ! empty( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartepo'] ) ) {
+															$saved_epos = WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartepo'];
 															foreach ( $saved_epos as $key => $val ) {
 																if ( $element['uniqid'] === $val['section'] && (string) $value === (string) $val['key'] ) {
 																	if ( isset( $val['quantity'] ) ) {
@@ -1659,8 +1700,8 @@ class THEMECOMPLETE_EPO_Display {
 																}
 															}
 														}
-														if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartfee'] ) ) {
-															$saved_fees = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartfee'];
+														if ( ! empty( WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartfee'] ) ) {
+															$saved_fees = WC()->cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmcartfee'];
 															foreach ( $saved_fees as $key => $val ) {
 																if ( $element['uniqid'] === $val['section'] && (string) $value === (string) $val['key'] ) {
 																	if ( isset( $val['quantity'] ) ) {
@@ -1686,7 +1727,7 @@ class THEMECOMPLETE_EPO_Display {
 													$fieldtype .= ' ' . $element['class'];
 												}
 
-												if ( THEMECOMPLETE_EPO()->get_element_price_type( '', $element, $value, 1, 0 ) === 'math' ) {
+												if ( THEMECOMPLETE_EPO()->get_element_price_type( '', $element, $value, true, 0 ) === 'math' ) {
 													$fieldtype .= ' tc-is-math';
 												}
 
@@ -1695,7 +1736,7 @@ class THEMECOMPLETE_EPO_Display {
 												$display = $field_obj->display_field(
 													$element,
 													[
-														'id'   => 'tmcp_' . $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix . $uniqid_suffix,
+														'element_id' => 'tmcp_' . $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix . $uniqid_suffix,
 														'get_posted_key' => $get_posted_key,
 														'repeater' => $repeater,
 														'name' => $html_name,
@@ -1725,7 +1766,7 @@ class THEMECOMPLETE_EPO_Display {
 													}
 
 													$element_args = [
-														'id'   => 'tmcp_' . $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix . $uniqid_suffix,
+														'element_id' => 'tmcp_' . $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix . $uniqid_suffix,
 														'name' => $html_name,
 														'get_posted_key' => $get_posted_key,
 														'posted_name' => $posted_name,
@@ -1779,9 +1820,9 @@ class THEMECOMPLETE_EPO_Display {
 													}
 												}
 
-												$choice_counter ++;
+												++$choice_counter;
 
-												$field_counter ++;
+												++$field_counter;
 
 											}
 
@@ -1798,7 +1839,7 @@ class THEMECOMPLETE_EPO_Display {
 															'get_posted_key' => $get_posted_key,
 															'get_posted_key_count' => $args['get_posted_key_count'],
 															'tm_element_settings' => $element,
-															'element'     => $element['type'],
+															'element_type' => $element['type'],
 															'enabled'     => $element['enabled'],
 															'description' => ! empty( $element['description'] ) ? $element['description'] : '',
 															'description_color' => ! empty( $element['description_color'] ) ? $element['description_color'] : '',
@@ -1810,15 +1851,16 @@ class THEMECOMPLETE_EPO_Display {
 												}
 											}
 
+											unset( $args['field_obj'] );
 											unset( $field_obj );
 
 										}
 
-										$element_type_counter[ $element['type'] ] ++;
+										++$element_type_counter[ $element['type'] ];
 
 									}
 
-									$element_counter ++;
+									++$element_counter;
 
 								} elseif ( 'display' === $element_object->is_post ) {
 									$field_obj = new $init_class();
@@ -1857,7 +1899,7 @@ class THEMECOMPLETE_EPO_Display {
 												'get_posted_key' => '',
 												'get_posted_key_count' => '',
 												'tm_element_settings' => $element,
-												'element'  => $element['type'],
+												'element_type' => $element['type'],
 												'description' => ! empty( $element['description'] ) ? $element['description'] : '',
 												'description_color' => ! empty( $element['description_color'] ) ? $element['description_color'] : '',
 												'description_position' => ! empty( $element['description_position'] ) ? $element['description_position'] : '',
@@ -1911,7 +1953,7 @@ class THEMECOMPLETE_EPO_Display {
 														'get_posted_key' => isset( $get_posted_key ) ? $get_posted_key : 0,
 														'get_posted_key_count' => isset( $args['get_posted_key_count'] ) ? $args['get_posted_key_count'] : 0,
 														'tm_element_settings' => $element,
-														'element'     => $element['type'],
+														'element_type' => $element['type'],
 														'enabled'     => $element['enabled'],
 														'description' => ! empty( $element['description'] ) ? $element['description'] : '',
 														'description_color' => ! empty( $element['description_color'] ) ? $element['description_color'] : '',
@@ -1934,7 +1976,7 @@ class THEMECOMPLETE_EPO_Display {
 
 							if ( $sections_slides[ $slide_counter ] <= 0 ) {
 								echo '</div>';
-								$slide_counter ++;
+								++$slide_counter;
 								$doing_slides = false;
 							}
 						}
@@ -1942,7 +1984,7 @@ class THEMECOMPLETE_EPO_Display {
 
 					if ( '' !== $section['sections_slides'] && ( 'slider' === $section['sections_type'] || 'tabs' === $section['sections_type'] ) ) {
 						if ( 'tabs' === $section['sections_type'] ) {
-							if ( is_array( $sections_tabs_labels ) ) {
+							if ( isset( $sections_tabs_labels ) && is_array( $sections_tabs_labels ) ) {
 								echo '</div>';
 								echo '</div></div>';
 							}
@@ -1968,7 +2010,7 @@ class THEMECOMPLETE_EPO_Display {
 				$this->get_default_path()
 			);
 
-			$unit_counter ++;
+			++$unit_counter;
 
 		}
 
@@ -1979,20 +2021,19 @@ class THEMECOMPLETE_EPO_Display {
 			'element_counter' => $element_counter,
 			'_currency'       => $_currency,
 		];
-
 	}
 
 	/**
 	 * Displays the option created from the normal (local) mode
 	 *
-	 * @param array   $local_price_array The normal options array.
-	 * @param array   $args The variable arguemnts..
-	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should use the form prefix.
+	 * @param array<mixed> $local_price_array The normal options array.
+	 * @param array<mixed> $args The variable arguemnts..
+	 * @param string       $form_prefix The form prefix.
+	 * @param boolean      $dummy_prefix If we should use the form prefix.
+	 * @return array<mixed>
 	 * @since 4.8
 	 */
 	public function get_normal_display( $local_price_array = [], $args = [], $form_prefix = null, $dummy_prefix = null ) {
-
 		$tabindex        = $args['tabindex'];
 		$unit_counter    = $args['unit_counter'];
 		$field_counter   = $args['field_counter'];
@@ -2035,7 +2076,7 @@ class THEMECOMPLETE_EPO_Display {
 								: wc_attribute_label( $field['name'] ),
 							'required'       => wc_attribute_label( $field['required'] ),
 							'field_id'       => 'tc-epo-field-' . $unit_counter,
-							'type'           => $field['type'],
+							'field_type'     => $field['type'],
 							'rules'          => $empty_rules,
 							'original_rules' => $empty_rules,
 							'rules_type'     => $empty_rules_type,
@@ -2055,33 +2096,28 @@ class THEMECOMPLETE_EPO_Display {
 
 							$orderby    = wc_attribute_orderby( $attribute['name'] );
 							$order_args = 'orderby=name&hide_empty=0';
+							$order_args = [
+								'taxonomy'   => $attribute['name'],
+								'hide_empty' => false,
+							];
 							switch ( $orderby ) {
 								case 'name':
-									$order_args = [
-										'orderby'    => 'name',
-										'hide_empty' => false,
-										'menu_order' => false,
-									];
+									$order_args['orderby']    = 'name';
+									$order_args['menu_order'] = false;
 									break;
 								case 'id':
-									$order_args = [
-										'orderby'    => 'id',
-										'order'      => 'ASC',
-										'menu_order' => false,
-										'hide_empty' => false,
-									];
+									$order_args['orderby']    = 'id';
+									$order_args['order']      = 'ASC';
+									$order_args['menu_order'] = false;
 									break;
 								case 'menu_order':
-									$order_args = [
-										'menu_order' => 'ASC',
-										'hide_empty' => false,
-									];
+									$order_args['menu_order'] = 'ASC';
 									break;
 							}
 
 							// Terms in current lang.
 							$_current_terms  = THEMECOMPLETE_EPO_WPML()->get_terms( THEMECOMPLETE_EPO_WPML()->get_lang(), $attribute['name'], $order_args );
-							$_current_terms2 = get_terms( $attribute['name'], $order_args );
+							$_current_terms2 = get_terms( $order_args );
 							$_current_terms  = THEMECOMPLETE_EPO_WPML()->order_terms( $_current_terms, $_current_terms2 );
 
 							$current_language = apply_filters( 'wpml_current_language', false );
@@ -2090,7 +2126,7 @@ class THEMECOMPLETE_EPO_Display {
 
 							// Terms in default WPML lang.
 							$_default_terms  = THEMECOMPLETE_EPO_WPML()->get_terms( THEMECOMPLETE_EPO_WPML()->get_lang(), $attribute['name'], $order_args );
-							$_default_terms2 = get_terms( $attribute['name'], $order_args );
+							$_default_terms2 = get_terms( $order_args );
 							$_default_terms  = THEMECOMPLETE_EPO_WPML()->order_terms( $_default_terms, $_default_terms2 );
 
 							do_action( 'wpml_switch_language', $current_language );
@@ -2103,10 +2139,10 @@ class THEMECOMPLETE_EPO_Display {
 
 								case 'select':
 									$name_inc = 'select_' . $element_counter;
-									$tabindex ++;
+									++$tabindex;
 
 									$args = [
-										'id'              => 'tmcp_select_' . $tabindex . $form_prefix,
+										'element_id'      => 'tmcp_select_' . $tabindex . $form_prefix,
 										'name'            => 'tmcp_' . $name_inc . ( $dummy_prefix ? '' : $form_prefix_onform ),
 										'amount'          => '',
 										'original_amount' => '',
@@ -2131,10 +2167,10 @@ class THEMECOMPLETE_EPO_Display {
 											if ( ! isset( $slugs[ $term->slug ] ) ) {
 												$slugs[ $term->slug ] = $term->slug;
 											}
-											$has_term = has_term( (int) $term->term_id, $attribute['name'], floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $product_id ) ) ) ? 1 : 0;
+											$has_term = has_term( (int) $term->term_id, $attribute['name'], absint( THEMECOMPLETE_EPO_WPML()->get_original_id( $product_id ) ) ) ? 1 : 0;
 
 											if ( $has_term ) {
-												$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() ? icl_object_id( $term->term_id, $attribute['name'], false ) : false;
+												$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() && function_exists( 'icl_object_id' ) ? icl_object_id( $term->term_id, $attribute['name'], false ) : false;
 												if ( $wpml_term_id ) {
 													$wpml_term = get_term( $wpml_term_id, $attribute['name'] );
 												} else {
@@ -2179,7 +2215,7 @@ class THEMECOMPLETE_EPO_Display {
 										$this->get_template_path(),
 										$this->get_default_path()
 									);
-									$element_counter ++;
+									++$element_counter;
 									break;
 
 								case 'radio':
@@ -2199,20 +2235,19 @@ class THEMECOMPLETE_EPO_Display {
 												$slugs[ $term->slug ] = $term->slug;
 											}
 
-											$has_term = has_term( (int) $term->term_id, $attribute['name'], floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $product_id ) ) ) ? 1 : 0;
+											$has_term = has_term( (int) $term->term_id, $attribute['name'], absint( THEMECOMPLETE_EPO_WPML()->get_original_id( $product_id ) ) ) ? 1 : 0;
 
 											if ( $has_term ) {
 
-												$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() ? icl_object_id( $term->term_id, $attribute['name'], false ) : false;
+												$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() && function_exists( 'icl_object_id' ) ? icl_object_id( $term->term_id, $attribute['name'], false ) : false;
 
 												if ( $wpml_term_id ) {
 													$wpml_term = get_term( $wpml_term_id, $attribute['name'] );
 												} else {
-													;
 													$wpml_term = $term;
 												}
 
-												$tabindex ++;
+												++$tabindex;
 
 												if ( 'radio' === $field['type'] ) {
 													$name_inc = 'radio_' . $element_counter;
@@ -2229,7 +2264,6 @@ class THEMECOMPLETE_EPO_Display {
 												$checked = false;
 												$value   = sanitize_title( $term->slug );
 												switch ( $field['type'] ) {
-
 													case 'radio':
 														$selected_value = '';
 														$name           = 'tmcp_' . $name_inc . ( $dummy_prefix ? '' : $form_prefix_onform );
@@ -2260,8 +2294,8 @@ class THEMECOMPLETE_EPO_Display {
 														break;
 												}
 												$args = [
-													'id'   => 'tmcp_choice_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix,
-													'name' => $name,
+													'element_id' => 'tmcp_choice_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix,
+													'name' => isset( $name ) ? $name : '',
 													'amount' => '',
 													'original_amount' => '',
 													'tabindex' => $tabindex,
@@ -2299,7 +2333,6 @@ class THEMECOMPLETE_EPO_Display {
 													'value' => $value,
 													'replacement_mode' => 'none',
 													'swatch_position' => 'center',
-													'percent' => '',
 													'limit' => empty( $field['limit'] ) ? '' : $field['limit'],
 
 												];
@@ -2310,12 +2343,12 @@ class THEMECOMPLETE_EPO_Display {
 													$this->get_default_path()
 												);
 
-												$field_counter ++;
+												++$field_counter;
 											}
 										}
 									}
 
-									$element_counter ++;
+									++$element_counter;
 									break;
 
 							}
@@ -2328,10 +2361,10 @@ class THEMECOMPLETE_EPO_Display {
 
 								case 'select':
 									$name_inc = 'select_' . $element_counter;
-									$tabindex ++;
+									++$tabindex;
 
 									$args = [
-										'id'              => 'tmcp_select_' . $tabindex . $form_prefix,
+										'element_id'      => 'tmcp_select_' . $tabindex . $form_prefix,
 										'name'            => 'tmcp_' . $name_inc . ( $dummy_prefix ? '' : $form_prefix_onform ),
 										'amount'          => '',
 										'original_amount' => '',
@@ -2377,7 +2410,7 @@ class THEMECOMPLETE_EPO_Display {
 										$this->get_template_path(),
 										$this->get_default_path()
 									);
-									$element_counter ++;
+									++$element_counter;
 									break;
 
 								case 'radio':
@@ -2392,7 +2425,7 @@ class THEMECOMPLETE_EPO_Display {
 									}
 
 									foreach ( $options as $k => $option ) {
-										$tabindex ++;
+										++$tabindex;
 
 										if ( 'radio' === $field['type'] ) {
 											$name_inc = 'radio_' . $element_counter;
@@ -2443,8 +2476,8 @@ class THEMECOMPLETE_EPO_Display {
 										$label = apply_filters( 'woocommerce_tm_epo_option_name', isset( $wpml_options[ $k ] ) ? $wpml_options[ $k ] : $option, null, null );
 
 										$args = [
-											'id'           => 'tmcp_choice_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix,
-											'name'         => $name,
+											'element_id'   => 'tmcp_choice_' . $element_counter . '_' . $field_counter . '_' . $tabindex . $form_prefix,
+											'name'         => isset( $name ) ? $name : '',
 											'amount'       => '',
 											'original_amount' => '',
 											'tabindex'     => $tabindex,
@@ -2482,7 +2515,6 @@ class THEMECOMPLETE_EPO_Display {
 											'value'        => $value,
 											'replacement_mode' => 'none',
 											'swatch_position' => 'center',
-											'percent'      => '',
 											'limit'        => empty( $field['limit'] ) ? '' : $field['limit'],
 										];
 										wc_get_template(
@@ -2491,9 +2523,9 @@ class THEMECOMPLETE_EPO_Display {
 											$this->get_template_path(),
 											$this->get_default_path()
 										);
-										$field_counter ++;
+										++$field_counter;
 									}
-									$element_counter ++;
+									++$element_counter;
 									break;
 
 							}
@@ -2506,7 +2538,7 @@ class THEMECOMPLETE_EPO_Display {
 							$this->get_default_path()
 						);
 
-						$unit_counter ++;
+						++$unit_counter;
 					}
 				}
 			}
@@ -2519,18 +2551,17 @@ class THEMECOMPLETE_EPO_Display {
 			'element_counter' => $element_counter,
 			'_currency'       => $_currency,
 		];
-
 	}
 
 	/**
 	 * Display totals box
 	 *
-	 * @param integer $product_id The product id.
+	 * @param mixed   $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $is_from_shortcode If we are in a shortcode.
+	 * @return void
 	 */
 	public function tm_epo_totals( $product_id = 0, $form_prefix = '', $is_from_shortcode = false ) {
-
 		if ( $this->block_epo ) {
 			return;
 		}
@@ -2548,16 +2579,15 @@ class THEMECOMPLETE_EPO_Display {
 		if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) && ! $is_from_shortcode ) {
 			$this->tm_options_totals_have_been_displayed = true;
 		}
-
 	}
 
 	/**
 	 * Batch displayh totals box
 	 *
 	 * @param string $form_prefix The form prefix.
+	 * @return void
 	 */
 	private function tm_epo_totals_batch( $form_prefix = '' ) {
-
 		foreach ( $this->current_product_id_to_be_displayed_check as $key => $product_id ) {
 			if ( ! empty( $product_id ) ) {
 				$this->print_price_fields( $product_id, $form_prefix );
@@ -2574,19 +2604,18 @@ class THEMECOMPLETE_EPO_Display {
 				$this->epo_internal_counter_check = [];
 			}
 		}
-
 	}
 
 	/**
 	 * Display totals box
 	 *
-	 * @param integer $product_id The product id.
+	 * @param mixed   $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $is_from_shortcode If we are in a shortcode.
+	 * @return void
 	 */
 	private function print_price_fields( $product_id = 0, $form_prefix = '', $is_from_shortcode = false ) {
-
-		if ( $product_id instanceof WC_PRODUCT ) {
+		if ( $product_id instanceof WC_Product ) {
 			$product    = $product_id;
 			$product_id = themecomplete_get_id( $product );
 		} else {
@@ -2626,14 +2655,14 @@ class THEMECOMPLETE_EPO_Display {
 			return;
 		}
 
-		if ( THEMECOMPLETE_EPO()->is_associated === false && $cpf_price_array && 'no' === THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all ) {
+		if ( THEMECOMPLETE_EPO()->is_associated === false && 'no' === THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all ) {
 			$global_price_array = $cpf_price_array['global'];
 			$local_price_array  = $cpf_price_array['local'];
 			if ( empty( $global_price_array ) && empty( $local_price_array ) ) {
 				if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 					if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
 						// First time displaying totals and fields haven't been displayed.
-						$this->epo_internal_counter ++;
+						++$this->epo_internal_counter;
 						$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 					} else {
 						// Fields have already been displayed.
@@ -2648,10 +2677,6 @@ class THEMECOMPLETE_EPO_Display {
 
 				return;
 			}
-		}
-
-		if ( THEMECOMPLETE_EPO()->is_associated === false && ! $cpf_price_array && 'no' === THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all ) {
-			return;
 		}
 
 		THEMECOMPLETE_EPO()->set_tm_meta( $product_id );
@@ -2676,7 +2701,7 @@ class THEMECOMPLETE_EPO_Display {
 		if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 			if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
 				// First time displaying totals and fields haven't been displayed.
-				$this->epo_internal_counter ++;
+				++$this->epo_internal_counter;
 				$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 			} else {
 				// Fields have already been displayed.
@@ -2685,12 +2710,10 @@ class THEMECOMPLETE_EPO_Display {
 				$this->unique_form_prefix                 = '';
 			}
 			$_epo_internal_counter = $this->epo_internal_counter;
+		} elseif ( THEMECOMPLETE_EPO()->is_inline_epo && $this->epo_internal_counter ) {
+			$_epo_internal_counter = $this->epo_internal_counter;
 		} else {
-			if ( THEMECOMPLETE_EPO()->is_inline_epo && $this->epo_internal_counter ) {
-				$_epo_internal_counter = $this->epo_internal_counter;
-			} else {
-				$_epo_internal_counter = 0;
-			}
+			$_epo_internal_counter = 0;
 		}
 
 		if ( ! $form_prefix && THEMECOMPLETE_EPO()->wc_vars['is_page'] ) {
@@ -2771,15 +2794,13 @@ class THEMECOMPLETE_EPO_Display {
 					$atts = 0;
 					foreach ( $variation['attributes'] as $att => $value_att ) {
 						if ( isset( $_REQUEST[ $att ] ) && (string) $_REQUEST[ $att ] === (string) $value_att ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-							$atts++;
+							++$atts;
 						}
 					}
 					if ( count( $variation['attributes'] ) === $atts ) {
 						$price['price'] = apply_filters( 'wc_epo_product_price', $variation_price ); // product price.
 					}
 				}
-
-				$variation = wc_get_product( $child_id );
 
 				do_action( 'wc_epo_print_price_fields_in_variation_loop', $product_variation, $child_id );
 
@@ -2829,7 +2850,7 @@ class THEMECOMPLETE_EPO_Display {
 			foreach ( $tax_rates as $key => $value ) {
 				$tax_rate = $tax_rate + floatval( $value['rate'] );
 			}
-			$is_vat_exempt            = true === ( ! empty( WC()->customer ) && WC()->customer->is_vat_exempt() ) ? 1 : 0;
+			$is_vat_exempt            = true === ( WC()->customer instanceof WC_Customer && WC()->customer->is_vat_exempt() ) ? 1 : 0;
 			$non_base_location_prices = ( $tax_rates !== $base_tax_rates && true === apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) ? 1 : 0;
 
 			$precision    = wc_get_rounding_precision();
@@ -2881,6 +2902,10 @@ class THEMECOMPLETE_EPO_Display {
 		if ( THEMECOMPLETE_EPO()->is_associated === true && ! THEMECOMPLETE_EPO_API()->has_options( $product_id ) ) {
 			$tm_epo_final_total_box = 'disable';
 		}
+		$tm_epo_final_total_box = THEMECOMPLETE_EPO_SETTINGS()->get_compatibility_value( 'tm_epo_final_total_box', $tm_epo_final_total_box );
+
+		$tm_epo_show_final_total   = THEMECOMPLETE_EPO()->tm_epo_show_final_total;
+		$tm_epo_show_options_total = THEMECOMPLETE_EPO()->tm_epo_show_options_total;
 
 		$tc_form_prefix_name = 'tc_form_prefix';
 		if ( THEMECOMPLETE_EPO()->is_associated ) {
@@ -2896,44 +2921,46 @@ class THEMECOMPLETE_EPO_Display {
 				'wc_epo_template_args_tm_totals',
 				[
 
-					'classcart'                => $classcart,
-					'forcart'                  => $forcart,
-					'classtotalform'           => $classtotalform,
-					'is_on_sale'               => $product->is_on_sale(),
+					'classcart'                 => $classcart,
+					'forcart'                   => $forcart,
+					'classtotalform'            => $classtotalform,
+					'is_on_sale'                => $product->is_on_sale(),
 
-					'variations'               => wp_json_encode( (array) $variations ),
+					'variations'                => wp_json_encode( (array) $variations ),
 
-					'is_sold_individually'     => $product->is_sold_individually(),
-					'hidden'                   => ( THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ( ( 'hide' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable_change' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ' hidden' : '' ) : ( ( 'hide' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable_change' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ' hidden' : '' ),
-					'price_override'           => ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
+					'is_sold_individually'      => $product->is_sold_individually(),
+					'hidden'                    => 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ? ' hidden' : '',
+					'price_override'            => ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
 						? 0
 						: ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
 							? 1
 							: ( ! empty( THEMECOMPLETE_EPO()->tm_meta_cpf['price_override'] ) ? 1 : 0 ) ),
-					'form_prefix'              => $form_prefix_id,
-					'tc_form_prefix_name'      => $tc_form_prefix_name,
-					'tc_form_prefix_class'     => ( THEMECOMPLETE_EPO()->is_associated ) ? 'tc_form_prefix_assoc' : 'tc_form_prefix',
-					'type'                     => themecomplete_get_product_type( $product ),
-					'price'                    => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $price['price'], $product ) : '' ),
-					'regular_price'            => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $regular_price['price'], $product ) : '' ),
-					'is_vat_exempt'            => $is_vat_exempt,
-					'non_base_location_prices' => $non_base_location_prices,
-					'taxable'                  => $taxable,
-					'tax_display_mode'         => $tax_display_mode,
-					'prices_include_tax'       => wc_prices_include_tax(),
-					'tax_rate'                 => $tax_rate,
-					'base_tax_rate'            => $base_tax_rate,
-					'base_taxes_of_one'        => $base_taxes_of_one,
-					'taxes_of_one'             => $taxes_of_one,
-					'modded_taxes_of_one'      => $modded_taxes_of_one,
-					'tax_string'               => $tax_string,
-					'product_price_rules'      => wp_json_encode( (array) $price['product'] ),
-					'fields_price_rules'       => 0,
-					'force_quantity'           => $force_quantity,
-					'product_id'               => $product_id,
-					'epo_internal_counter'     => $_epo_internal_counter,
-					'is_from_shortcode'        => $is_from_shortcode,
-					'tm_epo_final_total_box'   => $tm_epo_final_total_box,
+					'form_prefix'               => $form_prefix_id,
+					'tc_form_prefix_name'       => $tc_form_prefix_name,
+					'tc_form_prefix_class'      => ( THEMECOMPLETE_EPO()->is_associated ) ? 'tc_form_prefix_assoc' : 'tc_form_prefix',
+					'product_type'              => themecomplete_get_product_type( $product ),
+					'price'                     => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $price['price'], $product ) : '' ),
+					'regular_price'             => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $regular_price['price'], $product ) : '' ),
+					'is_vat_exempt'             => $is_vat_exempt,
+					'non_base_location_prices'  => $non_base_location_prices,
+					'taxable'                   => $taxable,
+					'tax_display_mode'          => $tax_display_mode,
+					'prices_include_tax'        => wc_prices_include_tax(),
+					'tax_rate'                  => $tax_rate,
+					'base_tax_rate'             => $base_tax_rate,
+					'base_taxes_of_one'         => $base_taxes_of_one,
+					'taxes_of_one'              => $taxes_of_one,
+					'modded_taxes_of_one'       => $modded_taxes_of_one,
+					'tax_string'                => $tax_string,
+					'product_price_rules'       => wp_json_encode( (array) $price['product'] ),
+					'fields_price_rules'        => 0,
+					'force_quantity'            => $force_quantity,
+					'product_id'                => $product_id,
+					'epo_internal_counter'      => $_epo_internal_counter,
+					'is_from_shortcode'         => $is_from_shortcode,
+					'tm_epo_final_total_box'    => $tm_epo_final_total_box,
+					'tm_epo_show_final_total'   => $tm_epo_show_final_total,
+					'tm_epo_show_options_total' => $tm_epo_show_options_total,
 
 				],
 				$product
@@ -2950,7 +2977,5 @@ class THEMECOMPLETE_EPO_Display {
 				'is_from_shortcode' => $is_from_shortcode,
 			]
 		);
-
 	}
-
 }

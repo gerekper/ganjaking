@@ -3237,7 +3237,7 @@ li.slide_list_child_element { margin-bottom: 0px }
 - VALUE SLIDERS -
 *******************/
 .withvalslider { position: relative; display: inline-block;}
-.rs_vswrap {border-radius:4px; height:5px; padding:10px 0px; width:100%; bottom:-2px; position:absolute; display: block; opacity:0; left:0px;box-sizing: border-box;}
+.rs_vswrap {border-radius:4px; height:5px; padding:10px 0px; width:100%; bottom:-2px; position:absolute; display: block; opacity:0; left:0px;box-sizing: border-box; cursor: pointer}
 .rs_vsdone { width: 0px; height: 2px; border-radius: 4px; background: #006dd2;position: absolute; left: 0px;top: 10px; }
 .rs_vsrail { width: 100%; pointer-events:none; height:2px; border-radius: 4px; background: #2a2c2f;position: absolute; left: 0px;top: 10px; }
 .rs_vspin { width: 9px; height: 9px; position: absolute; left: -2px;top: 6px; border-radius: 5px; background: #b7bbc0; cursor: pointer}
