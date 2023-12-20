@@ -78,6 +78,7 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'id'            => '_wc_deposit_enabled' . $id_suffix,
 				'name'          => '_wc_deposit_enabled' . $name_suffix,
 				'label'         => __( 'Enable Deposits', 'woocommerce-deposits' ),
+				'class'         => 'wc-enhanced-select select _wc_deposit_enabled',
 				/* translators: Link to storewide settings */
 				'description'   => ! isset( $loop ) ? sprintf( __( 'Allow customers to pay a deposit for this product. <br> <a href="%s" target="_blank">Manage storewide settings</a>', 'woocommerce-deposits' ), admin_url( 'admin.php?page=wc-settings&tab=products&section=deposits' ) ) : '',
 				'options'       => array(
@@ -89,7 +90,6 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'style'         => 'min-width:50%;',
 				'desc_tip'      => false,
 				'wrapper_class' => '_wc_deposit_enabled_field',
-				'class'         => 'select _wc_deposit_enabled',
 				'value'         => get_post_meta( $product->ID, '_wc_deposit_enabled', true ),
 			)
 		);
@@ -99,6 +99,7 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'id'            => '_wc_deposit_type' . $id_suffix,
 				'name'          => '_wc_deposit_type' . $name_suffix,
 				'label'         => __( 'Deposit Type', 'woocommerce-deposits' ),
+				'class'         => 'wc-enhanced-select select _wc_deposit_type',
 				'description'   => __( 'Choose how customers can pay for this product using a deposit.', 'woocommerce-deposits' ),
 				'options'       => array(
 					''        => $inherit_wc_deposit_type,
@@ -109,7 +110,6 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'style'         => 'min-width:50%;',
 				'desc_tip'      => true,
 				'wrapper_class' => '_wc_deposit_type_field',
-				'class'         => 'select _wc_deposit_type',
 				'value'         => get_post_meta( $product->ID, '_wc_deposit_type', true ),
 			)
 		);
@@ -146,6 +146,7 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'id'            => '_wc_deposit_selected_type' . $id_suffix,
 				'name'          => '_wc_deposit_selected_type' . $name_suffix,
 				'label'         => __( 'Default Deposit Selected Type', 'woocommerce-deposits' ),
+				'class'         => 'wc-enhanced-select select _wc_deposit_selected_type',
 				'description'   => __( 'Choose the default selected type of payment on page load.', 'woocommerce-deposits' ),
 				'options'       => array(
 					''        => $inherit_wc_deposit_selected_type,
@@ -155,7 +156,6 @@ if ( isset( $loop ) && isset( $variation ) ) {
 				'style'         => 'min-width:50%;',
 				'desc_tip'      => true,
 				'wrapper_class' => '_wc_deposit_selected_type_field',
-				'class'         => 'select _wc_deposit_selected_type',
 				'value'         => get_post_meta( $product->ID, '_wc_deposit_selected_type', true ),
 			)
 		);

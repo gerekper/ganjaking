@@ -1,11 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 // if uninstall not called from WordPress exit
-if (!defined('WP_UNINSTALL_PLUGIN')) {
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
@@ -144,11 +144,11 @@ $options_installed = array(
 	'i13_recapcha_woo_jetpack_score_threshold_v3',
 	'i13_recapcha_woo_jetpack_method_action_v3',
 	'i13_recapcha_wp_disable_submit_token_generation_v3_woo_jetpack',
-	'i13_recaptcha_fresh_install'
-	
+	'i13_recaptcha_fresh_install',
+
 );
 
-foreach ($options_installed as $opt) {
+foreach ( $options_installed as $opt ) {
 
-	delete_option($opt);
+	delete_option( $opt );
 }

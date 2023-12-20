@@ -46,6 +46,10 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 		return esc_url($DocUrl);
 	}
 
+	public function get_keywords() {
+		return ['testimonial', 'feedback', 'customer review', 'client comment', 'tp', 'theplus'];
+	}
+
     protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',
@@ -1451,7 +1455,19 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);	
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);	
 		$this->add_control(
             'slide_speed',
             [
@@ -2834,6 +2850,20 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 		$animated_columns='';
 		include THEPLUS_PATH. 'modules/widgets/theplus-widget-animation-attr.php';
 
+		/** slide_direction */
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//columns
 		$desktop_class=$tablet_class=$mobile_class='';
 		if($layout!='carousel'){
@@ -2907,7 +2937,7 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 		if(!empty($tlContentFrom) && $tlContentFrom == 'tlrepeater'){
 			if(!empty($testiAllList)) {
 				$index=1;
-				$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_3_layout).' '.esc_attr($animated_class).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+				$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_3_layout).' '.esc_attr($animated_class).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
 					$output .= '<div class="tp-row post-inner-loop '.esc_attr($uid).' '.esc_attr($content_alignment_4).'">';
 						foreach($testiAllList as $item) {
 							$testiAuthor = !empty($item['testiAuthor']) ? $item['testiAuthor'] : '';
@@ -2938,7 +2968,7 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 			if ( ! $query->have_posts() ) {
 				$output .='<h3 class="theplus-posts-not-found">'.esc_html__( "Posts not found", "theplus" ).'</h3>';
 			}else{
-				$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_3_layout).' '.esc_attr($animated_class).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+				$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_3_layout).' '.esc_attr($animated_class).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
 				
 				
 					$output .= '<div class="tp-row post-inner-loop '.esc_attr($uid).' '.esc_attr($content_alignment_4).'">';

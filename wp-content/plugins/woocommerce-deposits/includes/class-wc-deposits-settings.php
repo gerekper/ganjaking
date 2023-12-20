@@ -107,6 +107,7 @@ class WC_Deposits_Settings {
 				array(
 					'name'     => __( 'Enable Deposits by Default', 'woocommerce-deposits' ),
 					'type'     => 'select',
+					'class'    => 'wc-enhanced-select',
 					'desc'     => __( 'You must set a default amount below if setting this option to "yes".', 'woocommerce-deposits' ),
 					'default'  => 'no',
 					'id'       => 'wc_deposits_default_enabled',
@@ -121,6 +122,7 @@ class WC_Deposits_Settings {
 				array(
 					'name'     => esc_html__( 'Default Deposit Type', 'woocommerce-deposits' ),
 					'type'     => 'select',
+					'class'    => 'wc-enhanced-select',
 					'desc'     => esc_html__( 'The default way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
 					'default'  => 'percent',
 					'desc_tip' => true,
@@ -146,6 +148,7 @@ class WC_Deposits_Settings {
 				array(
 					'name'     => esc_html__( 'Default Deposit Selected Type', 'woocommerce-deposits' ),
 					'type'     => 'select',
+					'class'    => 'wc-enhanced-select',
 					'desc'     => esc_html__( 'The default selected way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
 					'default'  => 'deposit',
 					'desc_tip' => true,

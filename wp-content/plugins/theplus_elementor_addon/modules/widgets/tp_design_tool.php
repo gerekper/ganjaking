@@ -56,7 +56,7 @@ class ThePlus_Design_Tool extends Widget_Base {
 		$this->add_control(
 			'grid_stystem_opt',
 			[
-				'label' => esc_html__( 'Grid Stystem', 'theplus' ),
+				'label' => esc_html__( 'Grid System', 'theplus' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'gs_default',
 				'options' => [

@@ -47,6 +47,11 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 		return esc_url($DocUrl);
 	}
 
+	public function get_keywords() {
+		return [ 'gallery', 'image', 'image carousel', 'image listing', 'tp', 'theplus'];
+	}
+
+
     protected function register_controls() {
 
 		$this->start_controls_section(
@@ -2000,6 +2005,18 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 			]
 		);		
 		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
+		$this->add_control(
             'slide_speed',
             [
                 'type' => Controls_Manager::SLIDER,
@@ -3483,6 +3500,19 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 			$move_parallax_attr .= ' data-move_speed_y="' . esc_attr($parallax_speed_y) . '" ';
 		}
 		
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//columns
 		$desktop_class=$tablet_class=$mobile_class='';
 		if($layout!='carousel' && $layout!='metro'){
@@ -3563,7 +3593,7 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 			if(!empty($settings['display_box_link']) && $settings['display_box_link']=='yes'){
 				$gal_fc_class='tp-gal-fc';
 			}
-			$output .= '<div id="pt-plus-gallery-list" class="gallery-list '.esc_attr($uid).' '.esc_attr($data_class).' '.$animated_class.' '.$gal_fc_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+			$output .= '<div id="pt-plus-gallery-list" class="gallery-list '.esc_attr($uid).' '.esc_attr($data_class).' '.$animated_class.' '.$gal_fc_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
 			
 			//category filter
 			if($settings['filter_category']=='yes'  && $layout!='carousel'){				

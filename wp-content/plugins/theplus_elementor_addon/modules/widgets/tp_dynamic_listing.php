@@ -42,7 +42,7 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return ['custom query', 'acf', 'WooCommerce', 'Products', 'tp', 'theplus'];
+		return ['post', 'custom query', 'acf', 'WooCommerce', 'Products', 'tp', 'theplus'];
 	}
 
 	public function is_reload_preview_required() {
@@ -4415,7 +4415,19 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);	
 		$this->add_control(
             'slide_speed',
             [
@@ -5867,7 +5879,20 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
 		$button_icon_style = $settings['button_icon_style'];
 		$button_icon = $settings['button_icon'];
 		$button_icons_mind = $settings['button_icons_mind'];
+
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
 		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//animation load
 		/*--On Scroll View Animation ---*/
 		$Plus_Listing_block = "Plus_Listing_block";
@@ -6234,9 +6259,7 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
 					$data_attr .=' data-templateqcw="'.$settings['custom_template_select'].'"';								
 				}
 			}
-
-			$output .= '<div id="pt-plus-dynamic-listing" class="dynamic-listing '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_layout).' '.$animated_class.' '.$child_filter_class.' tp-dy-l-type-'.esc_attr($settings["blogs_post_listing"]).' '.esc_attr($SearchGrid).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
-			
+			$output .= '<div id="pt-plus-dynamic-listing" class="dynamic-listing '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_layout).' '.$animated_class.' '.$child_filter_class.' tp-dy-l-type-'.esc_attr($settings["blogs_post_listing"]).' '.esc_attr($SearchGrid).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';			
 			//category filter
 			if($settings['filter_category']=='yes'){
 				$output .= $this->get_filter_category();

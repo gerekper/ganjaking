@@ -74,9 +74,11 @@
                 $($megamenu_items).each(function (index, item) {
                     var $drop = $(item).find('.ep-megamenu-panel');
                     var widthType = $(item).data('width-type');
+
                     var defaltWidthSelector = $(item).closest('.elementor-container');
                     if (defaltWidthSelector.length <= 0){
-                        var defaltWidthSelector = $(item).closest('.e-container__inner');
+                        var defaltWidthSelector =
+                          $(item).closest(".e-con-inner");
                     }
 
                     if ('horizontal' === $this.settings('direction')) {

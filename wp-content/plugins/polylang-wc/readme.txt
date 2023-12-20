@@ -2,9 +2,9 @@
 Contributors: Chouby, manooweb, sebastienserre, greglone, hugod, marianne38
 Tags: multilingual, woocommerce
 Requires at least: 5.9
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.9
+Stable tag: 1.9.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,20 @@ Some popular extensions such as WooCommerce Subscriptions, Dynamic Pricing, Tabl
 This extension can be used either with the free version of Polylang or in combination with Polylang Pro.
 
 == Changelog ==
+
+= 1.9.2 (2023-12-12) =
+
+* Fix broken shop rewrite rules when saving WooCommerce settings.
+* Fix wrong terms shown after product attributes have been updated with the button "Save attributes".  
+* Fix countries list translation when the language is set from the content.
+* Fix a fatal error in cart with Composite products.
+* Fix variable products not copied when translating a product bundle.
+* Fix resources not shown when bulk translating bookable products.
+
+= 1.9.1 (2023-11-14) =
+
+* Add compatibility cart and checkout blocks in WC 8.3
+* Fix product page for themes not decalring support to WooCommerce when the language is set from the content
 
 = 1.9 (2023-10-09) =
 

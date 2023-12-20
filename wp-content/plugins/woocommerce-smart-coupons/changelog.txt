@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.12.08 - version 8.11.0
+* New: WordPress 6.4.2 compatible
+* Fix: Coupon applied via Coupon Shareable link was not reflecting in Side Cart [WooCommerce Side Cart Premium by XootiX]
+* Fix: Exponential notation in custom price was not getting processed correctly for store credit of any amount, causing generation of store credit of higher value
+* Fix: Undefined variable: $calculated_product_price
+* Update: POT, PO & MO file
+
 2023.12.02 - version 8.10.0
 * Update: Use native WooCommerce hook 'woocommerce_loop_add_to_cart_link' to replace 'Add to cart' button in 'loop' (archive pages like 'shop' page)
 * Update: Replace 'woocommerce.com' with 'woo.com'

@@ -1,5 +1,8 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.12.09 - version 2.5.2
+* Fix: Properly close markup after edit in cart link.
+
 2023.12.01 - version 2.5.1
 * Fix: Incorrect validation always preventing packs containing any sold individually child item from being added to cart. #516.
 * Tweak: Use wc_mnm_is_product_container_type() in store API class for future extensibility.
@@ -111,7 +114,7 @@
 2022.10.24 - version 2.2.0
 * Important: mnm-add-to-cart-wrap.php template is deprecated.
 * Update: Tested up to WooCommerce 7.0.0.
-* Update - Declared compatibility with the new Custom Order Tables.
+* Update: Declare compatibility with High Performance Order Tables (HPOS).
 * New: Convert container order item editing to use reuasable ajax callbacks and templates. Fixes display issues in admin and allows for extensibility.
 * New: Add get_permalink() and get_title() methods/filters to WC_MNM_Child_Item class.
 * New: 2nd parameter to WC_Product_MNM_Data_Store_CPT::query_child_items_by_container() to optionally change format of returned data.

@@ -271,8 +271,9 @@
   font-size: 85%; }
 
 .shop_table .mnm_table_container a.edit_container_in_cart_text {
-  margin-top: 1.5em;
-  font-size: .75em; }
+  margin-top: 1em;
+  font-size: .75em;
+  display: inline-block; }
 
 .shop_table .mnm_table_item {
   border-bottom: none !important;

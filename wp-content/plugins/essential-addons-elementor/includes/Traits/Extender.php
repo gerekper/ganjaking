@@ -1976,16 +1976,25 @@ endif;
 
         //return do_shortcode('[table id=1 /]');
         if (!empty($results)) {
-            if (!empty($table_settings) && isset($table_settings['table_head']) && $table_settings['table_head'] == true) {
-                $html .= '<thead><tr>';
-                foreach ($results[0] as $key => $th) {
-                    $style = isset($settings['ea_adv_data_table_dynamic_th_width']) && isset($settings['ea_adv_data_table_dynamic_th_width'][$key]) ? ' style="width:' . $settings['ea_adv_data_table_dynamic_th_width'][$key] . '"' : '';
-	                $html .= '<th' . $style . '>' . nl2br( $th ) . '</th>';
-                }
-                $html .= '</tr></thead>';
+	        if ( ! empty( $table_settings ) && isset( $table_settings['table_head'] ) && $table_settings['table_head'] == true ) {
+		        $html .= '<thead><tr>';
+		        foreach ( $results[0] as $key => $th ) {
+			        $style   = isset( $settings['ea_adv_data_table_dynamic_th_width'] ) && isset( $settings['ea_adv_data_table_dynamic_th_width'][ $key ] ) ? ' style="width:' . $settings['ea_adv_data_table_dynamic_th_width'][ $key ] . '"' : '';
+			        $colspan = 1;
+			        while ( ! empty( $results[0][ $key + $colspan ] ) && $results[0][ $key + $colspan ] == '#colspan#' ) {
+				        $colspan ++;
+			        }
 
-                array_shift($results);
-            }
+			        if ( $th == '#colspan#' ) {
+				        continue;
+			        }
+			        $combine_cells = $colspan > 1 ? " colspan={$colspan} " : '';
+			        $html          .= '<th' . $combine_cells . $style . '>' . nl2br( $th ) . '</th>';
+		        }
+		        $html .= '</tr></thead>';
+
+		        array_shift( $results );
+	        }
 
             $html .= '<tbody>';
             foreach ($results as $index =>  $tr) {
@@ -2002,18 +2011,18 @@ endif;
 		            }
 	            }
 
-	            foreach ($tr as $key => $td) {
-	                $combine_cells = '';
-
-	                if($col){
-		                $col = false;
-	                    continue;
-	                }
-
-		            if ( ! empty( $tr[ $key + 1 ] ) && $tr[ $key + 1 ]=='#colspan#' ) {
-			            $combine_cells = 'colspan=2';
-			            $col = true;
+	            foreach ( $tr as $key => $td ) {
+		            if ( $col ) {
+			            $col = ! empty( $tr[ $key + 1 ] ) && $tr[ $key + 1 ] == '#colspan#';
+			            continue;
 		            }
+
+		            $colspan = 1;
+		            while ( ! empty( $tr[ $key + $colspan ] ) && $tr[ $key + $colspan ] == '#colspan#' ) {
+			            $colspan ++;
+		            }
+		            $combine_cells = $colspan > 1 ? " colspan={$colspan} " : '';
+		            $col           = ! empty( $tr[ $key + 1 ] ) && $tr[ $key + 1 ] == '#colspan#';
 
 		            if ( in_array( $key, $row ) ) {
 			            $combine_cells = 'rowspan=2';
@@ -2043,10 +2052,13 @@ endif;
         $default_attr = EVO()->calendar->get_supported_shortcode_atts();
         $default_attr['event_count'] = $settings['eael_eventon_calendar_max_result'];
 
-        if ($settings['eael_eventon_calendar_fetch'] == 'date_range') {
-            $default_attr['focus_end_date_range'] = strtotime($settings['eael_eventon_calendar_end_date']);
-            $default_attr['focus_start_date_range'] = strtotime($settings['eael_eventon_calendar_start_date']);
-        }
+	    if ( $settings['eael_eventon_calendar_fetch'] == 'date_range' ) {
+		    $default_attr['focus_start_date_range'] = strtotime( $settings['eael_eventon_calendar_start_date'] );
+		    $default_attr['focus_end_date_range']   = strtotime( $settings['eael_eventon_calendar_end_date'] );
+	    } else {
+		    $default_attr['focus_start_date_range'] = strtotime( "-6 years", current_time( 'timestamp', 0 ) );
+		    $default_attr['focus_end_date_range']   = strtotime( "+6 years", current_time( 'timestamp', 0 ) );
+	    }
 
         $cat_arr = Helper::get_taxonomies_by_post(['object_type' => 'ajde_events']);
 
@@ -2068,45 +2080,45 @@ endif;
 
         if (!empty($events)) {
             $data = [];
-            foreach ($events as $key => $event) {
-                $event_id = $event['ID'];
-                $date_format = 'Y-m-d';
-                $all_day = 'yes';
-                $featured = get_post_meta($event_id, '_featured', true);
+	        foreach ( $events as $key => $event ) {
+		        $event_id    = $event['ID'];
+		        $date_format = 'Y-m-d';
+		        $all_day     = 'yes';
+		        $featured    = get_post_meta( $event_id, '_featured', true );
 
-                $end = date($date_format, ($event['event_end_unix'] + 86400));
-                if (get_post_meta($event_id, 'evcal_allday', true) === 'no') {
-                    $date_format .= ' H:i';
-                    $all_day = '';
-                    $end = date($date_format, $event['event_end_unix']);
-                }
+		        $end = date( $date_format, ( $event['event_end_unix'] + 86400 ) );
+		        if ( get_post_meta( $event_id, 'evcal_allday', true ) === 'no' ) {
+			        $date_format .= ' H:i';
+			        $all_day     = '';
+			        $end         = date( $date_format, $event['event_end_unix'] );
+		        }
 
-                $start = date($date_format, $event['event_start_unix']);
-                
-                if( !empty( $settings['eael_old_events_hide'] ) && 'yes' === $settings['eael_old_events_hide'] ){
-                    $is_old_event = $this->is_old_event_pro($start);
-                    if($is_old_event) {
-                        continue;
-                    }
-                }
+		        $start = date( $date_format, $event['event_start_unix'] );
 
-                $data[] = [
-                    'id' => $event_id,
-                    'title' => !empty($event['event_title']) ? html_entity_decode($event['event_title'], ENT_QUOTES) : __('No Title', 'essential-addons-for-elementor'),
-                    'description' => $content = get_post_field('post_content', $event_id),
-                    'start' => $start,
-                    'end' => $end,
-                    'borderColor' => '#6231FF',
-                    'textColor' => $settings['eael_event_global_text_color'],
-                    'color' => ($featured == 'yes') ? $settings['eael_event_on_featured_color'] : $settings['eael_event_global_bg_color'],
-                    'url' => ($settings['eael_event_details_link_hide'] !== 'yes') ? get_the_permalink($key) : '',
-                    'allDay' => $all_day,
-                    'external' => 'on',
-                    'nofollow' => 'on',
-                    'eventHasComplete' => get_post_meta($event_id, '_completed', true),
-                    'hideEndDate' => get_post_meta($event_id, 'evo_hide_endtime', true),
-                ];
-            }
+		        if ( ! empty( $settings['eael_old_events_hide'] ) && 'yes' === $settings['eael_old_events_hide'] ) {
+			        $is_old_event = $this->is_old_event_pro( $start );
+			        if ( $is_old_event ) {
+				        continue;
+			        }
+		        }
+
+		        $data[] = [
+			        'id'               => $event_id,
+			        'title'            => ! empty( $event['event_title'] ) ? html_entity_decode( $event['event_title'], ENT_QUOTES ) : __( 'No Title', 'essential-addons-for-elementor' ),
+			        'description'      => $content = get_post_field( 'post_content', $event_id ),
+			        'start'            => $start,
+			        'end'              => $end,
+			        'borderColor'      => '#6231FF',
+			        'textColor'        => $settings['eael_event_global_text_color'],
+			        'color'            => ( $featured == 'yes' ) ? $settings['eael_event_on_featured_color'] : $settings['eael_event_global_bg_color'],
+			        'url'              => ( $settings['eael_event_details_link_hide'] !== 'yes' ) ? get_the_permalink( $event_id ) : '',
+			        'allDay'           => $all_day,
+			        'external'         => 'on',
+			        'nofollow'         => 'on',
+			        'eventHasComplete' => get_post_meta( $event_id, '_completed', true ),
+			        'hideEndDate'      => get_post_meta( $event_id, 'evo_hide_endtime', true ),
+		        ];
+	        }
         }
 
         return $data;
@@ -2118,13 +2130,14 @@ endif;
      * @since 5.1.2
      */
     public function is_old_event_pro($start_date){
-        $today    = strtotime(current_time( 'Y-m-d' ));
-        $start_date_timestamp = strtotime($start_date);
+	    $today                = strtotime( current_time( 'Y-m-d' ) );
+	    $start_date_timestamp = strtotime( $start_date );
 
-        if($start_date_timestamp < $today){
-            return true;
-        }
-        return false;
+	    if ( $start_date_timestamp < $today ) {
+		    return true;
+	    }
+
+	    return false;
     }
 
     /**

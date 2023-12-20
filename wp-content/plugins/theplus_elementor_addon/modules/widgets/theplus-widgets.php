@@ -937,7 +937,7 @@ if ( ! class_exists( 'Theplus_Elements_Widgets' ) ) {
 				'effeNotice',
 				array(
 					'type'        => Controls_Manager::RAW_HTML,
-					'raw'         => '<p class="tp-hsnotice"><i>These effects will exclusively work with our Horizontal Scroll. This enables you to custom animate widgets based on the scroll viewport during scrolling.
+					'raw'         => '<p class="tp-controller-notice"><i>These effects will exclusively work with our Horizontal Scroll. This enables you to custom animate widgets based on the scroll viewport during scrolling.
 					</i></p>',
 					'label_block' => true,
 				)

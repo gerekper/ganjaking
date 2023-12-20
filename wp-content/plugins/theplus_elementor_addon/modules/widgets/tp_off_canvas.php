@@ -1900,6 +1900,18 @@ class ThePlus_Off_Canvas extends Widget_Base {
 			]
 		);
 		$this->add_control(
+            'close_icon_color',
+            [
+                'label' => esc_html__( 'Close Icon Color', 'theplus' ),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#000',  
+                'selectors' => [
+                    '.plus-canvas-content-wrap.plus-{{ID}} .plus-offcanvas-close:before, .plus-canvas-content-wrap.plus-{{ID}} .plus-offcanvas-close:after' => 'border-color: {{VALUE}};',
+                ],
+                
+            ],
+        );
+		$this->add_control(
 			'open_close_icon_sticky',
 			[
 				'label' => esc_html__( 'Sticky/Fixed Close Icon', 'theplus' ),

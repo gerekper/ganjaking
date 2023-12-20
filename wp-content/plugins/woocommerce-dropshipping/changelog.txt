@@ -1,5 +1,10 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-12-12 - version 5.0.2
+* Fix: PLUGINS-2372 - HPOS adjustment.
+* Fix: PLUGINS-2211 - Fix postcode field type.
+* Update: PLUGINS-2278 - Improvement on the Order list page of suppliers.
+
 2023-11-15 - version 5.0.1
 * Fix: PLUGINS-2270 - Don't send on-hold cancellation orders to suppliers.
 * Fix: PLUGINS-2277 - Fix page redirects to 404 not found after clicking the mark as shipped link at supplier's email.

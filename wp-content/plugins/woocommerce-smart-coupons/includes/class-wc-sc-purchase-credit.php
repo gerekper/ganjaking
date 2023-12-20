@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.0.0
+ * @version     3.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -365,7 +365,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			foreach ( $cart_object->cart_contents as $key => $value ) {
 
 				$product       = $value['data'];
-				$credit_amount = ( ! empty( $value['credit_amount'] ) ) ? $value['credit_amount'] : 0;
+				$credit_amount = ( ! empty( $value['credit_amount'] ) ) ? floatval( $value['credit_amount'] ) : 0;
 
 				if ( $this->is_wc_gte_30() ) {
 					$product_type  = ( is_object( $product ) && is_callable( array( $product, 'get_type' ) ) ) ? $product->get_type() : '';
@@ -380,7 +380,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 				if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $product_price > 0 ) ) {
 
-					$price = ( ! empty( $credit_called[ $key ] ) ) ? $credit_called[ $key ] : $credit_amount;
+					$price = ( ! empty( $credit_called[ $key ] ) ) ? floatval( $credit_called[ $key ] ) : $credit_amount;
 
 					if ( $price <= 0 ) {
 						WC()->cart->set_quantity( $key, 0 );    // Remove product from cart if price is not found either in session or in product.

@@ -2279,7 +2279,7 @@ Example: 14, 25, 35, 9, 55', 'essential-addons-elementor' ),
 
 	protected function eael_fancy_chart_new_array_set( $csv_slice_array ) {
 		$new_array = [];
-		for ( $i = 0; $i < count( $csv_slice_array[0] ); $i ++ ) {
+		for ( $i = 0; $i < count( (array) $csv_slice_array[0] ); $i ++ ) {
 			$sub_array = [];
 			for ( $j = 0; $j < count( $csv_slice_array ); $j ++ ) {
 				$sub_array[] = $csv_slice_array[ $j ][ $i ];

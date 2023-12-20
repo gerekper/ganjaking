@@ -47,6 +47,10 @@ class ThePlus_Carousel_Anything extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+
+	public function get_keywords() {
+		return ['carousel', 'carousel anything', 'tp', 'theplus'];
+	}
  
     protected function register_controls() {
  
@@ -187,6 +191,18 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 				'options' => [
 					'horizontal'  => esc_html__( 'Horizontal', 'theplus' ),
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
+				],
+			]
+		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
 				],
 			]
 		);
@@ -1323,7 +1339,18 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 		$slider_autoplay= ($settings["slider_autoplay"]=='yes') ? 'true' : 'false';
 		$data_slider .=' data-slider_autoplay="'.esc_attr($slider_autoplay).'"';
 		$data_slider .=' data-autoplay_speed="'.(isset($settings["autoplay_speed"]["size"]) ? esc_attr($settings["autoplay_speed"]["size"]) : 3000).'"';
- 
+		$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+		$carousel_slider='';
+		
+		if ( !empty($carousel_direction) ) {
+			$carousel_data = array(
+				'carousel_direction' => $carousel_direction,
+			);
+
+			$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+		}
+
 		//tablet
 		$data_slider .=' data-slider_tablet_column="'.(isset($settings['slider_tablet_column']) ? esc_attr($settings['slider_tablet_column']) : 3).'"';
 		$data_slider .=' data-tablet_steps_slide="'.(isset($settings['tablet_steps_slide']) ? esc_attr($settings['tablet_steps_slide']) : 1).'"';
@@ -1423,8 +1450,8 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 		}
 		?>
  
-		<div id="<?php echo esc_attr($uid); ?>" class="theplus-carousel-anything-wrapper <?php echo esc_attr($isotope); ?> <?php echo esc_attr($arrow_class); ?> <?php echo esc_attr($data_carousel); ?> <?php echo esc_attr($uid); ?> <?php echo esc_attr($animated_class); ?>" data-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($tab_id); ?>" <?php echo $animation_attr; ?> <?php echo $data_slider; ?> <?php echo $carousel_bg_conn; ?>>
-			<div class="plus-carousel-inner post-inner-loop">
+		<div id="<?php echo esc_attr($uid); ?>" class="theplus-carousel-anything-wrapper <?php echo esc_attr($isotope); ?> <?php echo esc_attr($arrow_class); ?> <?php echo esc_attr($data_carousel); ?> <?php echo esc_attr($uid); ?>  <?php echo esc_attr($animated_class); ?>  "data-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($tab_id); ?>" <?php echo $animation_attr; ?> <?php echo $carousel_slider; ?> <?php echo $data_slider; ?> <?php echo $carousel_bg_conn; ?>>
+			<div class="plus-carousel-inner post-inner-loop" dir= <?php echo esc_attr($carousel_direction) ?>>
 			<?php
 			if(!empty($settings['carousel_content'])){
 				if(!empty($settings['slide_random_order']) && $settings['slide_random_order']== 'yes' ){

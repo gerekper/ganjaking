@@ -3786,7 +3786,19 @@ class ThePlus_Social_Feed extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);	
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);	
 		$this->add_control(
             'slide_speed',
             [
@@ -6574,6 +6586,19 @@ class ThePlus_Social_Feed extends Widget_Base {
 			$data_class .=' list-isotope';
 		}
 
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//columns
 		$desktop_class=$tablet_class=$mobile_class='';
 		if($layout != 'carousel'){
@@ -6619,7 +6644,7 @@ class ThePlus_Social_Feed extends Widget_Base {
 		$Fancyboxids = json_encode( array( $WidgetId, $uid_sfeed ) );
 		$data_attr .=' data-id="'.esc_attr($uid_sfeed).'"';
 		$data_attr .=' data-style="'.esc_attr($style).'"';
-        $output .= '<div id="'.esc_attr($uid_sfeed).'" class="'.esc_attr($uid_sfeed).' tp-social-feed '.esc_attr($data_class).'" '.$layout_attr.' '.$data_attr.' data-fancy-option=\''.$fancybox_settings.'\' data-scroll-normal=\''.esc_attr($NormalScroll).'\' data-feed-data=\''.esc_attr($NormalShomore).'\' data-ids=\''.$Fancyboxids.'\' data-enable-isotope="1" >';
+        $output .= '<div id="'.esc_attr($uid_sfeed).'" class="'.esc_attr($uid_sfeed).' tp-social-feed '.esc_attr($data_class).'" '.$layout_attr.' '.$data_attr.' data-fancy-option=\''.$fancybox_settings.'\' data-scroll-normal=\''.esc_attr($NormalScroll).'\' data-feed-data=\''.esc_attr($NormalShomore).'\' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-ids=\''.$Fancyboxids.'\' data-enable-isotope="1" >';
 
 			$FancyBoxJS = '';
 			if($PopupOption == 'OnFancyBox'){

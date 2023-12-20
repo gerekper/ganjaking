@@ -1,10 +1,21 @@
+## 7.7.1 [10th December 2023]
+
+### Added
+
+- Purchased Date, First Purchased Date module added in Visibility Controls extension
+
+### Fixed
+
+- Elementor container default width issue fixed in Mega menu widget
+- Image size & RTL issue fixed in Slider widget (Thanks to Reza)
+
 ## 7.7.0 [5th December 2023]
 
 ### Added
 
 - Ripple effects extension added
 - Smooth scroller feature added
-- Shortcode, Tags in Cart, Orders Placed module added in visibility control extensions 
+- Shortcode, Tags in Cart, Orders Placed module added in visibility control extensions
 - Ribbon border added in price table widget
 - Active item feature added in sub menu widget
 - Unlock badge options in mega menu widget

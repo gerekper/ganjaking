@@ -26,7 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 
-	public $TpDoc = THEPLUS_TPDOC;
+	/**
+	 * Link path for document.
+	 *
+	 * @var THEPLUS_TPDOC
+	 */
+	public $tp_doc = THEPLUS_TPDOC;
 
 	/**Widget name*/
 	public function get_name() {
@@ -48,10 +53,11 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		return array( 'plus-essential' );
 	}
 
+	/**Need Help URL*/
 	public function get_custom_help_url() {
-		$DocUrl = $this->TpDoc . "horizontal-scroll";
+		$doc_url = $this->tp_doc . 'horizontal-scroll';
 
-		return esc_url($DocUrl);
+		return esc_url( $doc_url );
 	}
 
 	/**Widget search key words*/
@@ -113,7 +119,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 			'tempNotice',
 			array(
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<p class="tp-hsnotice"><i>Select the page template you want to convert into a horizontal scroll. All sections on this page will slide horizontally.</i></p>',
+				'raw'         => '<p class="tp-controller-notice"><i>Select the page template you want to convert into a horizontal scroll. All sections on this page will slide horizontally.</i></p>',
 				'label_block' => true,
 			)
 		);
@@ -130,7 +136,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$this->add_control(
 			'scroll_effects',
 			array(
-				'label' => wp_kses_post( "Slide Scroll Effects <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "add-page-transition-effect-in-elementor-horizontal-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'   => wp_kses_post( "Slide Scroll Effects <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-page-transition-effect-in-elementor-horizontal-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'normal',
 				'options' => array(
@@ -194,7 +200,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$this->add_control(
 			'bg_transition',
 			array(
-				'label' => wp_kses_post( "Background Transition <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "change-background-image-on-horizontal-page-scroll-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'     => wp_kses_post( "Background Transition <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "change-background-image-on-horizontal-page-scroll-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'On', 'theplus' ),
 				'label_off' => esc_html__( 'Off', 'theplus' ),
@@ -214,7 +220,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$repeater->add_control(
 			'bg_color',
 			array(
-				'label' => wp_kses_post( "Color <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "change-background-colour-on-horizontal-page-scroll-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'     => wp_kses_post( "Color <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "change-background-colour-on-horizontal-page-scroll-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'.tp-bg-hscroll-{{ID}}.tp-bg-hscroll .bg-scroll{{CURRENT_ITEM}}' => 'background-color: {{VALUE}}',
@@ -329,7 +335,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$this->add_control(
 			'fixBgtitle',
 			array(
-				'label' => wp_kses_post( "Sticky Section <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "make-a-section-sticky-on-scroll-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'     => wp_kses_post( "Sticky Section <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "make-a-section-sticky-on-scroll-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'On', 'theplus' ),
 				'label_off' => esc_html__( 'Off', 'theplus' ),
@@ -484,13 +490,15 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '100',
 				'description' => esc_html__(
-					'Use the \'|\' symbol to set custom widths for each slide within the Horizontal Scroll. For Example \'100 | 50 | 100\' add width like this for each slide.', 'theplus' ),
+					'Use the \'|\' symbol to set custom widths for each slide within the Horizontal Scroll. For Example \'100 | 50 | 100\' add width like this for each slide.',
+					'theplus'
+				),
 			)
 		);
 		$this->add_control(
 			'section_id',
 			array(
-				'label' => wp_kses_post( "Section ID <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "add-dots-navigation-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'       => wp_kses_post( "Section ID <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-dots-navigation-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
 				'description' => esc_html__( 'Create an anchor link for a specific section using the \' | \' symbol to define CSS IDs', 'theplus' ),
@@ -500,7 +508,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$this->add_control(
 			'URLParameter',
 			array(
-				'label' => wp_kses_post( "URL Parameter <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "link-to-a-specific-section-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'        => wp_kses_post( "URL Parameter <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "link-to-a-specific-section-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => esc_html__( 'On', 'theplus' ),
 				'label_off'    => esc_html__( 'Off', 'theplus' ),
@@ -513,7 +521,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		$this->add_control(
 			'horizontal_unique_id',
 			array(
-				'label' => wp_kses_post( "Unique Connection ID <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "add-next-previous-button-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'       => wp_kses_post( "Unique Connection ID <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-next-previous-button-in-elementor-horizontal-page-scroll/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'description' => esc_html__(
@@ -559,7 +567,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
+		include THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**Widget render html*/

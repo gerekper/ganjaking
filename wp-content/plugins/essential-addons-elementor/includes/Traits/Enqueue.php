@@ -45,11 +45,12 @@ trait Enqueue
     public function admin_scripts($hook)
     {
         if ($hook == 'toplevel_page_eael-settings') {
-            wp_enqueue_script(
-                'eael-pro-admin-script',
-                EAEL_PRO_PLUGIN_URL . 'assets/admin/js/admin.js',
-                ['jquery']
-            );
+	        wp_enqueue_script(
+		        'eael-pro-admin-script',
+		        EAEL_PRO_PLUGIN_URL . 'assets/admin/js/admin.js',
+		        [ 'jquery' ],
+		        EAEL_PRO_PLUGIN_VERSION
+	        );
 
             wp_localize_script(
                 'eael-pro-admin-script',

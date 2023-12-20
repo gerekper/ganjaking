@@ -1134,7 +1134,14 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$new_current_month = date( 'm' );
 
-				$date_paid = get_post_meta( $order_id, '_date_paid', true );
+				// $date_paid = get_post_meta( $order_id, '_date_paid', true );
+				$date_paid_temp = opmc_hpos_get_post_meta( $order_id, '_date_paid', true );
+
+				if(is_object($date_paid_temp)){
+					$date_paid = strtotime($date_paid_temp);	
+				}else{
+					$date_paid = $date_paid_temp; 	
+				}
 
 				$date_paid = intval( $date_paid );
 

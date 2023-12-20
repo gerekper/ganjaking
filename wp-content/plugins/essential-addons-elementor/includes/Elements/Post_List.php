@@ -382,6 +382,14 @@ class Post_List extends Widget_Base
                         'max' => 100,
                     ],
                 ],
+				'tablet_default' => [
+					'size' => 100,
+					'unit' => '%',
+				],
+				'mobile_default' => [
+					'size' => 100,
+					'unit' => '%',
+				],
                 'selectors' => [
                     '{{WRAPPER}} .eael-post-list-featured-wrap' => 'flex: 0 0 {{SIZE}}%;',
                 ],
@@ -400,6 +408,14 @@ class Post_List extends Widget_Base
                         'max' => 100,
                     ],
                 ],
+				'tablet_default' => [
+					'size' => 100,
+					'unit' => '%',
+				],
+				'mobile_default' => [
+					'size' => 100,
+					'unit' => '%',
+				],
                 'selectors' => [
                     '{{WRAPPER}} .eael-post-list-posts-wrap' => 'flex: 0 0 {{SIZE}}%;',
                 ],
@@ -466,12 +482,16 @@ class Post_List extends Widget_Base
                 'type'        => Controls_Manager::SELECT,
                 'default'     => '2',
                 'label_block' => false,
-                'options' => [
+                'options'     => [
                     '1' => esc_html__('1 Column', 'essential-addons-elementor'),
                     '2' => esc_html__('2 Columns', 'essential-addons-elementor'),
                     '3' => esc_html__('3 Columns', 'essential-addons-elementor'),
                     '4' => esc_html__('4 Columns', 'essential-addons-elementor'),
                 ],
+				'widescreen_default'   => 3,
+				'tablet_extra_default' => 2,
+				'tablet_default'       => 1,
+				'mobile_default'       => 1,
                 'selectors' => [
                     '{{WRAPPER}} .eael-post-list-posts-wrap' => 'grid-template-columns: repeat({{VALUE}}, 1fr)',
                 ],

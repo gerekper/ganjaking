@@ -251,6 +251,18 @@ class Advanced_Search extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'show_search_button',
+			[
+				'label'        => esc_html__( 'Show Search Button', 'essential-addons-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'essential-addons-elementor' ),
+				'label_off'    => __( 'Hide', 'essential-addons-elementor' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -762,6 +774,9 @@ class Advanced_Search extends Widget_Base {
 			[
 				'label' => esc_html__( 'Search Button', 'essential-addons-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+                'condition' => [
+                        'show_search_button' => 'yes'
+                ]
 			]
 		);
 
@@ -2005,7 +2020,9 @@ class Advanced_Search extends Widget_Base {
 							<?php echo $this->cate_list_render(); ?>
                         </div>
 					<?php endif; ?>
-                    <button class="eael-advanced-search-button"><?php echo esc_html( $settings[ 'search_field_button_text' ] ); ?></button>
+                    <?php if ( $settings['show_search_button'] === 'yes' ): ?>
+                        <button class="eael-advanced-search-button"><?php echo esc_html( $settings[ 'search_field_button_text' ] ); ?></button>
+                    <?php endif; ?>
                 </form>
 
 				<?php $this->render_popular_keyword( $settings ); ?>

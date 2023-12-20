@@ -20,7 +20,7 @@ class PLLWC_Frontend {
 			$this->init();
 		} else {
 			add_action( 'pll_language_defined', array( $this, 'init' ), 1 );
-			add_action( 'pll_translate_labels', array( $this, 'reset_translations' ) );
+			add_action( 'woocommerce_init', array( $this, 'override_countries' ), 1 );
 
 			// Set the language early if a form has been posted with a language value.
 			if ( ! empty( $_REQUEST['lang'] ) && $lang = PLL()->model->get_language( sanitize_key( $_REQUEST['lang'] ) ) ) {  // phpcs:ignore WordPress.Security.NonceVerification
@@ -39,6 +39,8 @@ class PLLWC_Frontend {
 	 * @return void
 	 */
 	public function init() {
+		PLLWC_Filter_WC_Pages::init();
+
 		// Filters the product search form.
 		if ( is_callable( array( PLL()->filters_search, 'get_search_form' ) ) ) {
 			add_filter( 'get_product_search_form', array( PLL()->filters_search, 'get_search_form' ), 99 );
@@ -95,14 +97,14 @@ class PLLWC_Frontend {
 	}
 
 	/**
-	 * Resets countries, continents and states translations when the language is set from the content.
+	 * Replaces WooCommerce countries class by our own when language is set from the content.
 	 *
-	 * @since 1.2.3
+	 * @since 1.9.2
 	 *
 	 * @return void
 	 */
-	public function reset_translations() {
-		unset( WC()->countries->countries, WC()->countries->continents, WC()->countries->states );
+	public function override_countries() {
+		WC()->countries = new PLLWC_Countries();
 	}
 
 	/**

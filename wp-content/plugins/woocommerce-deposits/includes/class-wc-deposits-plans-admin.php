@@ -53,7 +53,7 @@ class WC_Deposits_Plans_Admin {
 				'i18n_delete_plan' => __( 'Are you sure you want to delete this plan? This action cannot be undone.', 'woocommerce-deposits' ),
 			)
 		);
-		wp_enqueue_style( 'wc-deposits-admin', plugins_url( '/assets/css/admin.css', WC_DEPOSITS_FILE ), array(), WC_DEPOSITS_VERSION );
+		wp_enqueue_style( 'wc-deposits-admin', plugins_url( '/assets/css/admin.css', WC_DEPOSITS_FILE ), array( 'wc-admin-layout' ), WC_DEPOSITS_VERSION );
 	}
 
 	/**

@@ -459,7 +459,7 @@ class WC_Dropshipping_Admin {
 					<input type="text" class="td_address" size="40"  name="country_state" value="' . $data['country_state'] . '" /></br></br>
 
 					<label for="postcode_zip" >Postcode/ZIP</label>
-					<input type="number" class="td_address" size="40"  name="postcode_zip" value="' . $data['postcode_zip'] . '"/></br></br>
+					<input type="text" class="td_address" size="40"  name="postcode_zip" value="' . $data['postcode_zip'] . '"/></br></br>
 
 				</div>';
 
@@ -555,7 +555,7 @@ class WC_Dropshipping_Admin {
 
 						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
 							<th><label for="postcode_zip" >Postcode/ZIP</label></th>
-							<td><input type="number" class="td_address" size="40" name="postcode_zip" value="' . $data['postcode_zip'] . '"  /></td></br></br>
+							<td><input type="text" class="td_address" size="40" name="postcode_zip" value="' . $data['postcode_zip'] . '"  /></td></br></br>
 
 						</tr>';
 

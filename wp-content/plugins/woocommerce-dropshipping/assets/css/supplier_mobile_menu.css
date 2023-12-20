@@ -23,3 +23,22 @@
 	width: 15%;
    } */
 
+   .wp-core-ui .button, .wp-core-ui .button-primary, .wp-core-ui .button-secondary{ 
+    font-size: .7rem !important;
+    line-height: 25px !important;
+    text-align: center !important;
+	/* white-space: pre-wrap !important; */
+    padding: 0.2rem 0.5rem !important;
+  }
+
+
+  .table-bordered{
+	width: 100%;
+    border-spacing: 0;
+  }
+
+  table.table.table-bordered tr th, td {
+    padding: 0.3rem;
+    border: 1px solid #dddddd;
+    /* margin: 0; */
+}

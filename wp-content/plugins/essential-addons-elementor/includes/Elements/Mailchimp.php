@@ -987,7 +987,9 @@ class Mailchimp extends Widget_Base
 				</form>
 			</div>
 		<?php else : ?>
-			<p class="eael-mailchimp-error"><?php echo esc_html__('Please insert your api key', 'essential-addons-elementor'); ?></p>
+			<p class="eael-mailchimp-error alert-warning">
+                <?php echo __('Whoops! It seems like you didn\'t set Mailchimp API key. You can set from <strong>WordPress Dashboard > Essential Addons > Elements > Form Styler Elements > Mailchimp (Settings)</strong>', 'essential-addons-elementor'); ?>
+            </p>
 		<?php endif; ?>
 
 <?php

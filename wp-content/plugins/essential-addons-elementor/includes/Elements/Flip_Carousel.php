@@ -883,29 +883,15 @@ class Flip_Carousel extends Widget_Base {
 			]
 		);
 
-		if( isset($nav_prev['url']) ) {
-			ob_start();
-			Icons_Manager::render_icon( $settings['eael_flip_carousel_custom_nav_prev_new'], [ 'aria-hidden' => 'true' ] );
-			$nav_prev_icon = ob_get_clean();
+		ob_start();
+		Icons_Manager::render_icon( $settings['eael_flip_carousel_custom_nav_prev_new'], [ 'aria-hidden' => 'true' ] );
+		$nav_prev_icon = ob_get_clean();
+		$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-buttonprev', $nav_prev_icon );
 
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-buttonprev', $nav_prev_icon );
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-icon', 'svg' );
-		} else {
-			$this->add_render_attribute('eael-flip-carousel-wrap', 'data-buttonprev', $nav_prev );
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-icon', 'icon' );
-		}
-
-		if( isset($nav_next['url']) ) {
-			ob_start();
-			Icons_Manager::render_icon( $settings['eael_flip_carousel_custom_nav_next_new'], [ 'aria-hidden' => 'true' ] );
-			$nav_next_icon = ob_get_clean();
-
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-buttonnext', $nav_next_icon );
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-nexticon', 'svg' );
-		}else {
-			$this->add_render_attribute('eael-flip-carousel-wrap', 'data-buttonnext', $nav_next );
-			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-nexticon', 'icon' );
-		}
+		ob_start();
+		Icons_Manager::render_icon( $settings['eael_flip_carousel_custom_nav_next_new'], [ 'aria-hidden' => 'true' ] );
+		$nav_next_icon = ob_get_clean();
+		$this->add_render_attribute( 'eael-flip-carousel-wrap', 'data-buttonnext', $nav_next_icon );
 
 		if ( $settings['eael_flip_carousel_content_active_only'] === 'yes' ){
 			$this->add_render_attribute( 'eael-flip-carousel-wrap', 'class', 'show-active-only' );

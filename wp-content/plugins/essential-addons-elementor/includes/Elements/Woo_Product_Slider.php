@@ -138,6 +138,7 @@ class Woo_Product_Slider extends Widget_Base {
             'best-selling-products' => esc_html__( 'Best Selling Products', 'essential-addons-elementor' ),
             'sale-products'         => esc_html__( 'Sale Products', 'essential-addons-elementor' ),
             'top-products'          => esc_html__( 'Top Rated Products', 'essential-addons-elementor' ),
+            'related-products' 		=> esc_html__('Related Products', 'essential-addons-for-elementor-lite'),
         ] );
     }
 
@@ -784,7 +785,19 @@ class Woo_Product_Slider extends Widget_Base {
             'default' => 'recent-products',
             'options' => $this->eael_get_product_filterby_options(),
         ] );
-        
+
+        $this->add_control(
+            'eael_global_related_products_warning_text',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => __( 'This filter will only affect in <strong>Single Product</strong> page of <strong>Elementor Theme Builder</strong> dynamically.', 'essential-addons-for-elementor-lite' ),
+                'content_classes' => 'eael-warning',
+                'condition'       => [
+                    'eael_product_slider_product_filter' => 'related-products',
+                ],
+            ]
+        );
+
         $this->add_control( 'orderby', [
             'label'   => __( 'Order By', 'essential-addons-elementor' ),
             'type'    => Controls_Manager::SELECT,
@@ -834,6 +847,9 @@ class Woo_Product_Slider extends Widget_Base {
 				    'multiple' => true,
 				    'object_type' => $taxonomy,
 				    'options' => wp_list_pluck(get_terms($taxonomy), 'name', 'term_id'),
+                    'condition'       => [
+                        'eael_product_slider_product_filter!' => 'related-products',
+                    ],
 			    ]
 		    );
 	    }
@@ -3299,6 +3315,7 @@ class Woo_Product_Slider extends Widget_Base {
 		    'posts_per_page' => $settings[ 'eael_product_slider_products_count' ] ?: 4,
 		    //'order'          => $settings[ 'order' ],
 		    'offset'         => $settings[ 'product_offset' ],
+            'post__not_in'   => array( get_the_ID() ),
 		    'tax_query'      => [
 			    'relation' => 'AND',
 			    [
@@ -3349,6 +3366,27 @@ class Woo_Product_Slider extends Widget_Base {
 
 	    if ( $filter == 'sale-products' ) {
 			$args['post__in']  = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
+	    }
+
+        if ( $filter == 'related-products' ) {
+		    $current_product_id = get_the_ID();
+            $product_categories = wp_get_post_terms( $current_product_id, 'product_cat', array( 'fields' => 'ids' ) );
+            $product_tags       = wp_get_post_terms( $current_product_id, 'product_tag', array('fields' => 'names' ) );
+            $args['tax_query'] = array(
+                'relation' => 'OR',
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => $product_categories,
+                    'operator' => 'IN',
+                ),
+                array(
+                    'taxonomy' => 'product_tag',
+                    'field'    => 'name',
+                    'terms'    => $product_tags,
+                    'operator' => 'IN',
+                ),
+            );
 	    }
 
 	    $taxonomies      = get_taxonomies( [ 'object_type' => [ 'product' ] ], 'objects' );

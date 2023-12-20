@@ -21,6 +21,8 @@ use TheplusAddons\Theplus_Element_Load;
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class ThePlus_Navigation_Menu_Lite extends Widget_Base {
+
+	public $TpDoc = THEPLUS_TPDOC;
 		
 	public function get_name() {
 		return 'tp-navigation-menu-lite';
@@ -37,6 +39,12 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
     public function get_categories() {
         return array('plus-header');
     }
+
+	public function get_custom_help_url() {
+		$DocUrl = $this->TpDoc . "navigation-menu-lite";
+
+		return esc_url($DocUrl);
+	}
 
 	public function get_keywords() {
 		return [ 'menu', 'navigation', 'header','menu bar','nav' ];
@@ -63,6 +71,15 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
 				],
 			]
 		);
+		$this->add_control('how_it_works_vertical',
+			[
+				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "create-a-vertical-navigation-menu-in-elementor-for-free/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> How it works <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'type' => Controls_Manager::HEADING,
+				 'condition' => [
+					'navbar_menu_type' => ['vertical']
+				],
+			]
+		);
 		$this->add_control(
 			'navbar',
 			[
@@ -81,6 +98,24 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
 				'options' => [
 					'hover'  => __( 'Hover Sub-Menu', 'theplus' ),					
 					'click' => __( 'Click Sub-Menu', 'theplus' ),
+				],
+			]
+		);
+		$this->add_control('how_it_works_hovermenu',
+			[
+				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "open-elementor-submenu-dropdown-on-hover-for-free/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> How it works <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'type' => Controls_Manager::HEADING,
+				'condition' => [
+					'menu_hover_click' => ['hover']
+				],
+			]
+		);
+		$this->add_control('how_it_works_clickmenu',
+			[
+				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "open-elementor-submenu-dropdown-on-click-for-free/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> How it works <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'type' => Controls_Manager::HEADING,
+				'condition' => [
+					'menu_hover_click' => ['click']
 				],
 			]
 		);
@@ -143,7 +178,7 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
 		$this->add_control(
 			'show_mobile_menu',
 			[
-				'label' => __( 'Responsive Mobile Menu', 'theplus' ),
+				 'label' => wp_kses_post( "Responsive Mobile Menu <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "create-an-elementor-hamburger-toggle-menu-for-mobile-for-free/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type' => Controls_Manager::SWITCHER,
 				'label_on' => __( 'Show', 'theplus' ),
 				'label_off' => __( 'Hide', 'theplus' ),				
@@ -1583,7 +1618,7 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
 			]
 		);
 		$this->end_controls_section();
-		
+		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
 	}
 	
 	 protected function render() {

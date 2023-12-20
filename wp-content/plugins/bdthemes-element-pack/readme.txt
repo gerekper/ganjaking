@@ -2,14 +2,14 @@
 Contributors: bdthemes, selimmw
 Donate link: http://bdthemes.com/
 Tags: elementor addons, elementor widget, elementor extensions, elementor addon, addons, elementor, addons for elementor, addons pack, live copy, template library, bdthemes
-Stable tag: 7.7.0
+Stable tag: 7.7.1
 Requires PHP: 7.4.0
 Requires at least: 5.0.0
-Tested up to: 6.4.1
+Tested up to: 6.4.2
 License: GPL3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.17.3
+Elementor tested up to: 3.18.2
 
 The all-new Element Pack Pro brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support, risk-free! Get a full-refund if you’re not 100% satisfied.*
 
@@ -35,6 +35,17 @@ e.g.
 
 
 == Changelog ==
+
+= 7.7.1 [10th December 2023] =
+
+= Added =
+
+* Purchased Date, First Purchased Date module added in Visibility Controls extension
+
+= Fixed =
+
+* Elementor container default width issue fixed in Mega menu widget
+* Image size & RTL issue fixed in Slider widget (Thanks to Reza)
 
 = 7.7.0 [5th December 2023] =
 

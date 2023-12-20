@@ -1714,7 +1714,6 @@ function theplus_filter_post(){
 									array_push( $AllData, $PCat );
 								}
 
-								// Old
 								// array_push( $AllData, $GTitle, $Gcontent, $Gexcerpt, $Gname, $PTag, $PCat );
 
 								if( !empty($AllData) ){
@@ -2212,7 +2211,6 @@ function theplus_filter_post(){
             $result[$key]['options'] = $Options;
 		}else{
 			$totalcount='';
-			
 			ob_start();
 				$loop = new WP_Query($args);
 				$totalcount = $loop->found_posts;
@@ -2859,7 +2857,7 @@ function tp_search_bar(){
 			}else{
 				$DType = " AND post_type IN ('post','page','product')";
 			}
-		
+			
 			if(!empty($GFilter['GFEnable'])){
 				if(!empty($GFilter['GFTitle'])){ 
 					$GTitle = $wpdb->get_results($wpdb->prepare("SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} WHERE {$wpdb->posts}.post_title LIKE %s {$Publish} {$DType}", $Result));
@@ -2900,28 +2898,60 @@ function tp_search_bar(){
 				if(!empty($GFilter['GFTags']) && $PostType != 'page') { 
 					$TagTaxonomy=$TagType='';
 					$TagPT=$PostType;
-					if($PostType == 'post'){
-						$TagTaxonomy = 'post_tag';
-						$TagType = 'tag';
-					}else if($PostType == 'product'){
-						$TagTaxonomy = 'product_tag';
-						$TagType = 'product_tag';
-					}else{
-						/**static tag Taxonomy*/
-						$TagTaxonomy = 'post_tag';
-						$TagType = 'tag';
-					}
+					$ArrayData=[];
+					if( is_array($PostType) ){
+						foreach ($PostType as $key => $value) {
+							if( $value == 'post' ){
+								$TagTaxonomy = 'post_tag';
+								$TagType = 'tag';
+							}else if( $value == 'product' ){
+								$TagTaxonomy = 'product_tag';
+								$TagType = 'product_tag';
+							}else{
+								/**static tag Taxonomy*/
+								$TagTaxonomy = 'post_tag';
+								$TagType = 'tag';
+							}
+							
+							$ArrayData = array(
+								'taxonomy' 		=> $TagTaxonomy,
+								'post_type'		=> $value,
+								$TagType		=> $sqlContent,
+								'post_status' 	=> 'publish',
+								'posts_per_page' => -1,
+								'orderby' 		=> 'name',
+								'order'			=> 'ASC',
+								'hide_empty' 	=> 0,
+							);
 
-					$PTag = query_posts( array(
-						'taxonomy' 		=> $TagTaxonomy,
-						'post_type'		=> $TagPT,
-						$TagType		=> $sqlContent,
-						'post_status' 	=> 'publish',
-						'posts_per_page' => -1,
-						'orderby' 		=> 'name',
-						'order'			=> 'ASC',
-						'hide_empty' 	=> 0,
-					) );
+							$Gettags = query_posts( $ArrayData );
+
+							$PTag = array_merge( $PTag, $Gettags );
+						}
+					}else{
+						if($PostType == 'post'){
+							$TagTaxonomy = 'post_tag';
+							$TagType = 'tag';
+						}else if($PostType == 'product'){
+							$TagTaxonomy = 'product_tag';
+							$TagType = 'product_tag';
+						}else{
+							/**static tag Taxonomy*/
+							$TagTaxonomy = 'post_tag';
+							$TagType = 'tag';
+						}
+	
+						$PTag = query_posts( array(
+							'taxonomy' 		=> $TagTaxonomy,
+							'post_type'		=> $TagPT,
+							$TagType		=> $sqlContent,
+							'post_status' 	=> 'publish',
+							'posts_per_page' => -1,
+							'orderby' 		=> 'name',
+							'order'			=> 'ASC',
+							'hide_empty' 	=> 0,
+						) );
+					}
 				}
 			}
 			
@@ -2965,7 +2995,8 @@ function tp_search_bar(){
 			if( !empty($TmpPostID) ){
 				$query_args['post__in'] = $TmpPostID;
 			}else{
-				$query_args['post__in'] = [0];
+				$query_args['s'] = $sqlContent;
+				// $query_args['post__in'] = [0];
 			}
 		}else{
 			$query_args['s'] = $sqlContent;
@@ -3011,7 +3042,7 @@ function tp_search_bar(){
 	}else{
 		$query_args['posts_per_page'] = $postper;
 	}
-
+	
 	$seaposts = new WP_Query($query_args);
 	$response['posts']  = array();
 	$response['limit_query'] = $postper;

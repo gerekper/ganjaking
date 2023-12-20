@@ -3710,6 +3710,18 @@ class ThePlus_Dynamic_Smart_Showcase extends Widget_Base {
 			]
 		);		
 		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
+		$this->add_control(
             'slide_speed',
             [
                 'type' => Controls_Manager::SLIDER,
@@ -4874,6 +4886,19 @@ class ThePlus_Dynamic_Smart_Showcase extends Widget_Base {
 		}
 		$output=$data_attr='';
 		
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//carousel
 		if($layout=='carousel'){
 			if(!empty($settings["hover_show_dots"]) && $settings["hover_show_dots"]=='yes'){
@@ -4997,8 +5022,8 @@ class ThePlus_Dynamic_Smart_Showcase extends Widget_Base {
 			}
 			/*ticker end*/
 			
-			$output .= '<div id="pt-plus-bss-list" class="bss-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($magazine_style).' '.$animated_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
-			
+			$output .= '<div id="pt-plus-bss-list" class="bss-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($magazine_style).' '.$animated_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
+				
 				//category filter
 				if($settings['filter_category']=='yes'){
 					$output .= $this->get_filter_category();

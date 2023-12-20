@@ -2521,6 +2521,18 @@ class ThePlus_Social_Reviews extends Widget_Base {
 			]
 		);		
 		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
+		$this->add_control(
             'slide_speed',
             [
                 'type' => Controls_Manager::SLIDER,
@@ -5779,6 +5791,19 @@ class ThePlus_Social_Reviews extends Widget_Base {
 			$data_class .= ' list-isotope';
 		}
 
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//columns
 		$desktop_class=$tablet_class=$mobile_class='';
 		if($layout != 'carousel'){
@@ -5842,7 +5867,7 @@ class ThePlus_Social_Reviews extends Widget_Base {
 		   $txtlimitData = json_encode($txtlimitDataa, true);
 		}
 		
-		$output .= '<div id="'.esc_attr($uid_socirw).'" class="'.esc_attr($uid_socirw).' tp-social-reviews '.esc_attr($data_class).'" '.$layout_attr.' '.$data_attr.' data-enable-isotope="1"  data-scroll-normal="'.esc_attr($NormalScroll).'" data-textlimit="'.esc_attr($txtlimitData).'">';
+		$output .= '<div id="'.esc_attr($uid_socirw).'" class="'.esc_attr($uid_socirw).' tp-social-reviews '.esc_attr($data_class).'" '.$layout_attr.' '.$data_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1"  data-scroll-normal="'.esc_attr($NormalScroll).'" data-textlimit="'.esc_attr($txtlimitData).'">';
 
 		    if($RType == "review"){
 				$FinalData = [];

@@ -1,5 +1,13 @@
 # Changelog
 ======
+1.9.32
+======
+- NEW:	Replaced Invisible Recaptcha Integration with Captcha By BestWebForms
+		https://imgur.com/a/wYkygoV
+- FIX:	Font awesome 5 media credits icon not showing
+- FIX:	Moved invisible Recaptcha integration to expert as "deprecated"
+
+======
 1.9.31
 ======
 - NEW:	Save privacy Settings

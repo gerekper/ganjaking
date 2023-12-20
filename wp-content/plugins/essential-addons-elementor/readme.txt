@@ -2,7 +2,7 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul, manzurahammed
 Tags: elementor, elements, widgets, page builder, builder, visual editor, wordpress page builder
 Tested up to: 6.4
-Stable tag: 5.8.3
+Stable tag: 5.8.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -88,6 +88,24 @@ List of Extensions :
 * Conditional Display
 
 == Changelog ==
+
+= 5.8.4 - 14/12/2023 =
+
+- Fixed: EA Event Calendar | Event Details link is showing wrong for EventON source
+- Fixed: EA Testimonial Slider | Read more button is not expanding fully
+- Fixed: EA Post Block | Unable to full-width post block section
+- Fixed: EA Login/Register Form | Using Elementor Flex container, when enabling "Show Field Icons" the facebook icon shifts
+- Fixed: EA Image Comparison | Image Comparison Widget space issue
+- Fixed: EA Woo Checkout | Woo Commerce 'don't allow PO box feature' isn't working with Split/Multi-step layouts
+- Fixed: EA Flip Carousel | Arrows aren't showing the same on all pages
+- Fixed: EA Advanced Tooltip | Inside Elementor Popup tooltip not working
+- Fixed: EA Content Timeline | Horizontal timeline does not scroll properly on mobile view.
+- Fixed: EA Smart Post List | Post Columns default value not present in responsive
+- Improved: EA Advanced Search | Add option to hide the "Search" Button
+- Improved: EA Advanced Data Table | colspan for Header rows are not implemented
+- Improved: EA Smart Post List | Most Visited posts option
+- Improved: EA Dynamic Gallery | Prevent multiple clicks for Load More
+- Few minor bug fixes & improvements
 
 = 5.8.3 - 27/11/2023 =
 

@@ -2883,7 +2883,7 @@ class Theplus_Widgets_Rules extends Elementor\Widget_Base {
 
 			$mode = !empty($rule['tp_rule_woo_items_mode']) ? $rule['tp_rule_woo_items_mode'] : '';
 
-			$shortcodeoutput = !empty($rule['tp_rule_tp_shortcode_output']) ? $rule['tp_rule_tp_shortcode_output'] : '';
+			$shortcodeoutput = isset($rule['tp_rule_tp_shortcode_output']) ? $rule['tp_rule_tp_shortcode_output'] : '';
 			$dateendoutput = !empty($rule['tp_rule_timerange_output']) ? $rule['tp_rule_timerange_output'] : '';
 			
 			$key_name =null;

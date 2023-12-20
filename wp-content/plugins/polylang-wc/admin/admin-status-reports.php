@@ -27,6 +27,7 @@ class PLLWC_Admin_Status_Reports {
 
 	/**
 	 * Retrieves the status of the WooCommerce pages.
+	 * Partially copied from {@see WC_REST_System_Status_V2_Controller::get_pages()}.
 	 *
 	 * @since 1.3
 	 *
@@ -120,8 +121,22 @@ class PLLWC_Admin_Status_Reports {
 							continue;
 						}
 
-						$has_shortcode = ! empty( $values['shortcode'] ) && has_shortcode( $_page->post_content, $values['shortcode'] );
-						$has_block     = ! empty( $values['block'] ) && has_block( $values['block'], $_page->post_content );
+						// Shortcode checks.
+						$has_shortcode = false;
+						if ( $values['shortcode'] && strstr( $_page->post_content, $values['shortcode'] ) ) {
+							$has_shortcode = true;
+						}
+
+						// Block checks.
+						$has_block = false;
+						if ( $values['block'] ) {
+							$has_block = WC_Blocks_Utils::has_block_in_page( $_page, $values['block'] );
+
+							// Compatibility with the classic shortcode block which can be used instead of shortcodes.
+							if ( ! $has_block ) {
+								$has_block = WC_Blocks_Utils::has_block_in_page( $_page, 'woocommerce/classic-shortcode' );
+							}
+						}
 
 						if ( ! $has_shortcode && ! $has_block ) {
 							$wrong_translations[] = PLL()->model->get_language( $lang )->name;

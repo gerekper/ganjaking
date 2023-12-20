@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 2.2.2\n"
+"Project-Id-Version: WooCommerce Deposits 2.2.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2023-10-27 19:35:35+00:00\n"
+"POT-Creation-Date: 2023-12-07 15:16:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -83,9 +83,9 @@ msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:1082
 #: includes/class-wc-deposits-plans-admin.php:181
-#: includes/class-wc-deposits-settings.php:132
+#: includes/class-wc-deposits-settings.php:134
 #: includes/list-tables/class-wc-deposits-plans-table.php:29
-#: includes/views/html-deposit-data.php:107
+#: includes/views/html-deposit-data.php:108
 #: includes/views/html-payment-plan-form.php:13
 msgid "Payment Plan"
 msgstr ""
@@ -374,105 +374,105 @@ msgstr ""
 msgid "Enable Deposits by Default"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:110
+#: includes/class-wc-deposits-settings.php:111
 msgid "You must set a default amount below if setting this option to \"yes\"."
-msgstr ""
-
-#: includes/class-wc-deposits-settings.php:115
-#: includes/views/html-deposit-data.php:85
-msgid "Yes - deposits are optional"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:116
 #: includes/views/html-deposit-data.php:86
-msgid "Yes - deposits are required"
+msgid "Yes - deposits are optional"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:117
 #: includes/views/html-deposit-data.php:87
+msgid "Yes - deposits are required"
+msgstr ""
+
+#: includes/class-wc-deposits-settings.php:118
+#: includes/views/html-deposit-data.php:88
 msgid "No"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:122
+#: includes/class-wc-deposits-settings.php:123
 msgid "Default Deposit Type"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:124
+#: includes/class-wc-deposits-settings.php:126
 msgid "The default way for customers to pay for this product using a deposit."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:129
+#: includes/class-wc-deposits-settings.php:131
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:130
-#: includes/views/html-deposit-data.php:105
+#: includes/class-wc-deposits-settings.php:132
+#: includes/views/html-deposit-data.php:106
 msgid "Percentage"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:131
-#: includes/views/html-deposit-data.php:106
+#: includes/class-wc-deposits-settings.php:133
+#: includes/views/html-deposit-data.php:107
 msgid "Fixed Amount"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:137
+#: includes/class-wc-deposits-settings.php:139
 msgid "Default Deposit Amount"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:139
+#: includes/class-wc-deposits-settings.php:141
 msgid "The default deposit amount."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:141
+#: includes/class-wc-deposits-settings.php:143
 msgid "n/a"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:147
+#: includes/class-wc-deposits-settings.php:149
 #: includes/views/html-deposit-data.php:148
 msgid "Default Deposit Selected Type"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:149
+#: includes/class-wc-deposits-settings.php:152
 msgid ""
 "The default selected way for customers to pay for this product using a "
 "deposit."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:154
-#: includes/views/html-deposit-data.php:152 templates/deposit-form.php:25
+#: includes/class-wc-deposits-settings.php:157
+#: includes/views/html-deposit-data.php:153 templates/deposit-form.php:25
 msgid "Pay Deposit"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:155
-#: includes/views/html-deposit-data.php:153 templates/deposit-form.php:31
+#: includes/class-wc-deposits-settings.php:158
+#: includes/views/html-deposit-data.php:154 templates/deposit-form.php:31
 msgid "Pay in Full"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:160
+#: includes/class-wc-deposits-settings.php:163
 msgid "Default Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:164
+#: includes/class-wc-deposits-settings.php:167
 msgid "The default payment plans to use."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:175
+#: includes/class-wc-deposits-settings.php:178
 msgid "Disable Payment Gateways"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:179
+#: includes/class-wc-deposits-settings.php:182
 msgid "Select payment gateways that should be disabled when accepting deposits."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:187
+#: includes/class-wc-deposits-settings.php:190
 msgid "Order again behavior"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:188
+#: includes/class-wc-deposits-settings.php:191
 msgid "Use original order's deposit settings on a reorder."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:189
+#: includes/class-wc-deposits-settings.php:192
 msgid ""
 "With this enabled, if a customer places a reorder, the same deposit "
 "settings as the original order will automatically be applied."
@@ -566,7 +566,7 @@ msgstr ""
 msgid "Enable Deposits"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:82
+#: includes/views/html-deposit-data.php:83
 #. translators: Link to storewide settings
 msgid ""
 "Allow customers to pay a deposit for this product. <br> <a href=\"%s\" "
@@ -577,7 +577,7 @@ msgstr ""
 msgid "Deposit Type"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:102
+#: includes/views/html-deposit-data.php:103
 msgid "Choose how customers can pay for this product using a deposit."
 msgstr ""
 
@@ -597,7 +597,7 @@ msgstr ""
 msgid "The amount of deposit needed. Do not include currency or percent symbols."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:149
+#: includes/views/html-deposit-data.php:150
 msgid "Choose the default selected type of payment on page load."
 msgstr ""
 

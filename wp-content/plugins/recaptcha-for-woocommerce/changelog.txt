@@ -1,11 +1,19 @@
 *** Changelog ***
 
+2023-12-07 - version 2.50
+
+* Fixed compatibility issue with WooCommerce Square digital wallets (GPay/Apple Pay) on checkout
+
+2023-12-02 - version 2.49
+
+* Added fallback token mechanism in checkout section for reCaptcha V3 in case of token failed to generate.
+* Fixed request button (Gpay/Apple Pay) reCaptcha error on checkout form
+
 2023-10-07 - version 2.48
 
 * Fixed issue of sensei lms login/signup with reCaptcha
 
-
-2023-08-31 - version 2.47
+2023-09-30 - version 2.47
 
 * Fixed issue of "nonce verification failed" error replying Comment/review in admin reply.
 

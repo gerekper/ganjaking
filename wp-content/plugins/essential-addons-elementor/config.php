@@ -1057,7 +1057,7 @@ $config = [
                         'context' => 'view',
                     ],
                     [
-                        'file'    => EAEL_PRO_PLUGIN_PATH . 'assets/front-end/js/view/advanced-tooltip.min.js',
+                        'file'    => EAEL_PRO_PLUGIN_PATH . 'assets/front-end/js/edit/advanced-tooltip.min.js',
                         'type'    => 'self',
                         'context' => 'view',
                     ],

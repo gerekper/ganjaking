@@ -39,7 +39,11 @@ class ThePlus_Dynamic_Categories extends Widget_Base {
 
     public function get_categories() {
         return array('plus-listing');
-    }	
+    }
+	
+	public function get_keywords() {
+		return [ 'category list', 'dynamic category', 'category', 'tp', 'theplus'];
+	}
 	
     protected function register_controls() {
 		
@@ -1602,7 +1606,19 @@ class ThePlus_Dynamic_Categories extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);	
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);	
 		$this->add_control(
             'slide_speed',
             [
@@ -3652,6 +3668,19 @@ class ThePlus_Dynamic_Categories extends Widget_Base {
 			$move_parallax_attr .= ' data-move_speed_y="' . esc_attr($parallax_speed_y) . '" ';
 		}
 		
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		//columns
 		$desktop_class=$tablet_class=$mobile_class='';
 		if($layout!='carousel' && $layout!='metro'){
@@ -3726,7 +3755,7 @@ class ThePlus_Dynamic_Categories extends Widget_Base {
 			$output .='<h3 class="theplus-posts-not-found">'.esc_html__( "Terms are not found", "theplus" ).'</h3>';
 		}else{
 		  if( !is_object($dynamic_categories) ){ 
-			$output .= '<div id="pt-plus-dynamic-cat-list" class="dynamic-cat-list '.esc_attr($uid).' '.esc_attr($data_class).' '.$animated_class.' '.esc_attr($onhoverbgclass).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+			$output .= '<div id="pt-plus-dynamic-cat-list" class="dynamic-cat-list '.esc_attr($uid).' '.esc_attr($data_class).' '.$animated_class.' '.esc_attr($onhoverbgclass).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
 			
 			
 			$output .= '<div id="'.esc_attr($uid).'" class="tp-row post-inner-loop '.esc_attr($uid).' ">';

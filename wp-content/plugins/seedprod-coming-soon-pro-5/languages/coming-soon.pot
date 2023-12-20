@@ -1,0 +1,1047 @@
+# Copyright (C) 2023 SeedProd
+# This file is distributed under the same license as the SeedProd package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SeedProd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: SeedProd <support@seedprod.com>\n"
+"Last-Translator: John Turner <john@seedprod.com>\n"
+"Report-Msgid-Bugs-To: https://seedprod.com/contact/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: build/coming-soon/app/admin-bar-menu.php:49
+msgid "Coming Soon Mode Active"
+msgstr ""
+
+#: build/coming-soon/app/admin-bar-menu.php:51
+msgid "Maintenance Mode Active"
+msgstr ""
+
+#: build/coming-soon/app/admin-bar-menu.php:53
+msgid "Theme Preview Mode Active"
+msgstr ""
+
+#. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org coming-soon plugin review
+#: build/coming-soon/app/bootstrap.php:562
+msgid "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:100
+msgid "Are you enjoying SeedProd?"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:102, build/coming-soon/languages/seedprod-lite.php:74
+msgid "Yes"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:103
+msgid "Not Really"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:107
+msgid "We're sorry to hear you aren't enjoying SeedProd. We would love a chance to improve. Could you take a minute and let us know what we can do better?"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:109
+msgid "Give Feedback"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:110
+msgid "No thanks"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:114
+msgid "That’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:115
+msgid "~ John Turner<br>Co-Founder of SeedProd"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:117
+msgid "Ok, you deserve it"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:118
+msgid "Nope, maybe later"
+msgstr ""
+
+#: build/coming-soon/app/class-seedprod-review.php:119
+msgid "I already did"
+msgstr ""
+
+#: build/coming-soon/app/edit_with_seedprod.php:233
+msgid "Edit with SeedProd"
+msgstr ""
+
+#: build/coming-soon/app/edit_with_seedprod.php:234
+msgid "Switch Back to WordPress Editor"
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:113
+msgid "Plugin deactivated."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:115
+msgid "Addon deactivated."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:119
+msgid "Could not deactivate the addon. Please deactivate from the Plugins page."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:133
+msgid "Could not activate addon. Please check user permissions."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:147
+msgid "Plugin activated."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:149
+msgid "Addon activated."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:154
+msgid "Could not activate addon. Please activate from the Plugins page."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:157
+msgid "Could not activate addon. Please refresh page and try again."
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:211, build/coming-soon/app/functions-addons.php:280
+msgid "Active"
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:216, build/coming-soon/app/functions-addons.php:285
+msgid "Inactive"
+msgstr ""
+
+#: build/coming-soon/app/functions-addons.php:222, build/coming-soon/app/functions-addons.php:291
+msgid "Not Installed"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:52
+msgid "SuperAdmin"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:54
+msgid "Anyone Logged In"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:115
+msgid "Column"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:133
+msgid "Headline"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:145
+msgid "Text"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:153
+msgid "List"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:162
+msgid "Button"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:170
+msgid "Image"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:178
+msgid "Video"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:186
+msgid "Divider"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:195
+msgid "Spacer"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:204
+msgid " Payment Button"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:214
+msgid "Giveaway"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:225
+msgid "Contact Form"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:234
+msgid "Custom HTML"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:244
+msgid "Optin Form"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:253
+msgid "Tabs"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:262
+msgid "Countdown"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:271
+msgid "Social Profiles"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:280
+msgid "Social Sharing"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:290
+msgid "Video Pop Up"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:301
+msgid "Animated Headline"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:311
+msgid "Progress Bar"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:320
+msgid "Icon"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:329
+msgid "Testimonials"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:339
+msgid "Image Carousel"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:352
+msgid "Image Box"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:362
+msgid "Before After Toggle"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:375
+msgid "Icon Box"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:385
+msgid "Nav Menu"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:393
+msgid "Content Toggle"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:405
+msgid "Pricing Table"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:417
+msgid "Business Reviews"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:436
+msgid "Anchor"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:445
+msgid "Star Rating"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:454
+msgid "Accordion"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:463
+msgid "Shortcode"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:472
+msgid "Login Form"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:482
+msgid "Google Maps"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:492
+msgid "Search Form"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:502
+msgid "Facebook Like"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:516
+msgid "Facebook Comments"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:528
+msgid "Facebook Page"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:540
+msgid "Facebook Embed"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:553
+msgid "X (Twitter) Embed Tweet"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:565
+msgid "X (Twitter) Embed Timeline"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:577
+msgid "X (Twitter) Tweet Button"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:589
+msgid "X (Twitter) Follow Button"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:601
+msgid "Advanced Gallery"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:612
+msgid "Gallery"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:623
+msgid "Business Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:631
+msgid "Team Member"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:642
+msgid "Price List"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:651, build/coming-soon/app/functions-utils.php:991
+msgid "Add To Cart"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:661, build/coming-soon/app/functions-utils.php:1189
+msgid "Checkout"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:673, build/coming-soon/app/functions-utils.php:1177
+msgid "Cart"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:686
+msgid "Products Grid"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:698
+msgid "Recent Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:709
+msgid "Sale Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:720
+msgid "Best Selling Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:729
+msgid "Featured Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:738
+msgid "Top Rated Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:748, build/coming-soon/app/functions-utils.php:759
+msgid "Posts"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:770
+msgid "Alert"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:786
+msgid "Post Title"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:798
+msgid "Post Content"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:810
+msgid "Post Excerpt"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:822
+msgid "Featured Image"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:834
+msgid "Author Box"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:846
+msgid "Author Bio"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:859
+msgid "Post Comments"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:871
+msgid "Post Navigation"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:884
+msgid "Post Info"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:896
+msgid "Archive Title"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:918
+msgid "Site Logo"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:931, build/coming-soon/app/functions-utils.php:1325
+msgid "Template Parts"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:943
+msgid "Menu Cart"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:955
+msgid "Product Title"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:967
+msgid "Product Featured Image"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:979
+msgid "Product Price"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1002
+msgid "Product Meta"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1013
+msgid "Product Content"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1024
+msgid "Short Description"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1037
+msgid "Additional Information"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1048
+msgid "Products Related"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1060
+msgid "Upsells"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1072
+msgid "Product Rating"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1085
+msgid "Product Stock"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1097
+msgid "Archive Products"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1108
+msgid "Product Data Tabs"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1121
+msgid "Hotspot"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1140
+msgid "Counter"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1153
+msgid "Product Gallery Images"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1166
+msgid "Downloads Grid"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1200
+msgid "Buy Now Button"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1218
+msgid "Download Title"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1229
+msgid "Download Featured Image"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1240
+msgid "Download Price"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1251
+msgid "Download Content"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1262
+msgid "Download Add To Cart"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1273
+msgid "Download Excerpt"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1284
+msgid "Download Instructions"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1366
+msgid "Select Time"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:1999
+msgid "1 Hour"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2000
+msgid "2 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2001
+msgid "3 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2002
+msgid "4 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2003
+msgid "5 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2004
+msgid "6 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2005
+msgid "7 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2006
+msgid "8 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2007
+msgid "9 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2008
+msgid "10 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2009
+msgid "11 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2010
+msgid "12 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2011
+msgid "13 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2012
+msgid "14 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2013
+msgid "15 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2014
+msgid "16 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2015
+msgid "17 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2016
+msgid "18 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2017
+msgid "19 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2018
+msgid "20 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2019
+msgid "21 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2020
+msgid "22 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2021
+msgid "23 Hours"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2022
+msgid "1 Day"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2023
+msgid "2 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2024
+msgid "3 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2025
+msgid "4 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2026
+msgid "5 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2027
+msgid "6 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2028
+msgid "7 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2029
+msgid "8 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2030
+msgid "9 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2031
+msgid "10 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2032
+msgid "11 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2033
+msgid "12 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2034
+msgid "13 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2035
+msgid "14 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2036
+msgid "15 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2037
+msgid "16 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2038
+msgid "17 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2039
+msgid "18 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2040
+msgid "19 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2041
+msgid "20 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2042
+msgid "21 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2043
+msgid "22 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2044
+msgid "23 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2045
+msgid "24 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2046
+msgid "25 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2047
+msgid "26 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2048
+msgid "27 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2049
+msgid "28 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2050
+msgid "29 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2051
+msgid "30 Days"
+msgstr ""
+
+#: build/coming-soon/app/functions-utils.php:2052
+msgid "1 Year"
+msgstr ""
+
+#: build/coming-soon/app/license.php:17
+msgid "The minimum required version of PHP to run this plugin is PHP Version 5.3.3. Please contact your hosting company and ask them to upgrade this site's php verison."
+msgstr ""
+
+#: build/coming-soon/app/license.php:17
+msgid "Upgrade PHP"
+msgstr ""
+
+#. translators: 1. License name.
+#: build/coming-soon/app/license.php:154, build/coming-soon/languages/seedprod-lite.php:38
+msgid "You currently have the <strong>%s</strong> license."
+msgstr ""
+
+#: build/coming-soon/app/license.php:159
+msgid "Invalid License Key."
+msgstr ""
+
+#: build/coming-soon/app/lpage.php:193, build/coming-soon/app/lpage.php:195, build/coming-soon/app/setup-wizard.php:197, build/coming-soon/app/setup-wizard.php:199
+msgid "New Page"
+msgstr ""
+
+#: build/coming-soon/app/lpage.php:812
+msgid "Starts in"
+msgstr ""
+
+#: build/coming-soon/app/lpage.php:814
+msgid "Ended"
+msgstr ""
+
+#: build/coming-soon/app/lpage.php:975, build/coming-soon/app/theme-templates.php:809
+msgid "<br><br>Please enter a valid license key to access the themes. You can still proceed to create a page with the default theme.<br> <a class='seedprod_no_themes' href='?theme=0'>Click to continue &#8594;</a>"
+msgstr ""
+
+#: build/coming-soon/app/render-csp-mm.php:266
+msgid "Please create your Maintenance Page in the plugin settings."
+msgstr ""
+
+#: build/coming-soon/app/render-csp-mm.php:278
+msgid "Please create enter your redirect url in the plugin settings."
+msgstr ""
+
+#: build/coming-soon/app/render-csp-mm.php:283
+msgid "Please create your Coming Soon Page in the plugin settings."
+msgstr ""
+
+#: build/coming-soon/app/routes.php:53
+msgid "SeedProd"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:54
+msgid "Landing Pages"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:62, build/coming-soon/app/routes.php:63, build/coming-soon/app/routes.php:216, build/coming-soon/app/routes.php:217
+msgid "Theme Builder"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:71, build/coming-soon/app/routes.php:72
+msgid "Setup"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:91, build/coming-soon/app/routes.php:92, build/coming-soon/app/subscriber.php:69
+msgid "Subscribers"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:101, build/coming-soon/app/routes.php:102
+msgid "Pop-ups"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:111, build/coming-soon/app/routes.php:112
+msgid "Settings"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:120, build/coming-soon/app/routes.php:121
+msgid "Growth Tools"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:129, build/coming-soon/app/routes.php:130
+msgid "About Us"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:138, build/coming-soon/app/routes.php:139
+msgid "Request a Feature"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:148, build/coming-soon/app/routes.php:149
+msgid "Import / Export"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:159, build/coming-soon/app/routes.php:160
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:180, build/coming-soon/app/routes.php:181
+msgid "Templates"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:189, build/coming-soon/app/routes.php:190
+msgid "Builder"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:198, build/coming-soon/app/routes.php:199
+msgid "Import/Export"
+msgstr ""
+
+#: build/coming-soon/app/routes.php:207, build/coming-soon/app/routes.php:208
+msgid "Debug"
+msgstr ""
+
+#: build/coming-soon/app/settings.php:67
+msgid "Settings Updated"
+msgstr ""
+
+#: build/coming-soon/app/settings.php:72
+msgid "Error Updating Settings"
+msgstr ""
+
+#: build/coming-soon/app/settings.php:130
+msgid "App Settings Updated"
+msgstr ""
+
+#: build/coming-soon/app/settings.php:136
+msgid "Error Updating App Settings"
+msgstr ""
+
+#: build/coming-soon/app/subscriber.php:69
+msgid "Year"
+msgstr ""
+
+#: build/coming-soon/app/theme-templates.php:587
+msgid "Global CSS"
+msgstr ""
+
+#: build/coming-soon/app/theme-templates.php:665
+msgid "You're using the <a href=\"%s\">SeedProd</a> Theme to build your web site, which disables the WordPress theme system."
+msgstr ""
+
+#: build/coming-soon/app/theme-templates.php:936
+msgid "This page was auto-generated and is a placeholder page for the SeedProd theme. To manage the contents of this page please visit SeedProd > Theme Builder in the left menu in WordPress. "
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:5
+msgid "License"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:8
+msgid "Your license key provides access to updates and addons."
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:11
+msgid "You're using <strong>SeedProd Lite</strong> - No License needed. Enjoy!"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:14
+msgid "To unlock more features consider <a href='%s' target='_blank'>upgrading to PRO</a> . As a valued SeedProd Lite user you'll receive <strong>a discount off the regular price</strong>, automatically applied at checkout! "
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:17
+msgid "If you already have a license key for <a href='%s' target='_blank'>SeedProd Lite</a>, please enter it to Upgrade to the Pro Features. SeedProd.com will be used to verify and connect you to SeedProd."
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:20
+msgid "License Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:23
+msgid "Enter Your License Key Here"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:26
+msgid "Recheck Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:29
+msgid "Verify Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:32
+msgid "Deactivate Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:35
+msgid "Connect to SeedProd to Install the Pro Version"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:41
+msgid "Debug Information"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:44
+msgid "Facebook APP ID"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:47
+msgid "Global Settings"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:50
+msgid "Save Settings"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:53
+msgid "Disable Edit with SeedProd Button"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:56
+msgid "Enable Usage Tracking"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:59
+msgid "Google Places API Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:62
+msgid "Yelp API Key"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:65
+msgid "View Debug Information"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:68
+msgid "Learn More"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:71
+msgid "Disable SeedProd Notifications"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:77
+msgid "No"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:80
+msgid "Could not be saved. Please contact Support if you continue to experience this issue."
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:83
+msgid "Saved!"
+msgstr ""
+
+#: build/coming-soon/languages/seedprod-lite.php:86
+msgid "Looks like you don't have permission to save."
+msgstr ""
+
+#: build/coming-soon/app/backwards/csp4-functions.php:10
+msgid "Please enter your settings."
+msgstr ""
+
+#: build/coming-soon/app/includes/skin.php:82, build/coming-soon/app/includes/skin53.php:82
+msgid "There was an error installing the addon. Please try again."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:11
+msgid "You are not allowed to install plugins."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:24, build/coming-soon/app/includes/upgrade.php:158
+msgid "You are not licensed."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:43
+msgid "Pro version is already installed."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:89
+msgid "Could not install upgrade. Please download from seedprod.com and install manually."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:121, build/coming-soon/app/includes/upgrade.php:127, build/coming-soon/app/includes/upgrade.php:178
+msgid "Plugin installed & activated."
+msgstr ""
+
+#: build/coming-soon/app/includes/upgrade.php:182
+msgid "Pro version installed but needs to be activated from the Plugins page inside your WordPress admin."
+msgstr ""
+
+#: build/coming-soon/resources/views/debug.php:1
+msgid "System Information"
+msgstr ""
+
+#: build/coming-soon/resources/views/debug.php:27
+msgid "Debug Tools"
+msgstr ""
+
+#: build/coming-soon/resources/views/seedprod-preview.php:468
+msgid "The content for this page is empty or has not been saved. Please edit this page and \"Save\" the contents in the builder."
+msgstr ""

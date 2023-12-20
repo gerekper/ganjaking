@@ -42,6 +42,10 @@ class ThePlus_Blog_ListOut extends Widget_Base {
 
 		return esc_url($DocUrl);
 	}
+	
+	public function get_keywords() {
+		return ['blog', 'blog post', 'blog list', 'tp', 'theplus'];
+	}
 
     public function get_categories() {
         return array('plus-listing');
@@ -3411,7 +3415,19 @@ class ThePlus_Blog_ListOut extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
 		$this->add_control(
             'slide_speed',
             [
@@ -4790,7 +4806,21 @@ class ThePlus_Blog_ListOut extends Widget_Base {
 		
 		$content_alignment=($settings["content_alignment"]!='') ? 'text-'.$settings["content_alignment"] : '';
 		$style_layout=($settings["style_layout"]!='') ? 'layout-'.$settings["style_layout"] : '';
+
+		$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
 		
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
 		
 		$button_style = $settings['button_style'];
 		$before_after = $settings['before_after'];
@@ -4879,7 +4909,7 @@ class ThePlus_Blog_ListOut extends Widget_Base {
 		if ( ! $query->have_posts() ) {
 			$output .='<h3 class="theplus-posts-not-found">'.esc_html__( "Posts not found", "theplus" ).'</h3>';
 		}else{
-			$output .= '<div id="pt-plus-blog-post-list" class="blog-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_layout).' '.$animated_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+			$output .= '<div id="pt-plus-blog-post-list" class="blog-list '.esc_attr($uid).' '.esc_attr($data_class).' '.esc_attr($style_layout).' '.$animated_class.'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' '.$carousel_slider.'dir='.esc_attr($carousel_direction).' data-enable-isotope="1" >';
 			
 			//category filter
 			if($settings['filter_category']=='yes'){

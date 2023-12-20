@@ -130,7 +130,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
 
             echo '<input type="hidden" name="wordpress_gdpr_form_type" value="' . $this->type . '">';
 
-            $this->get_recaptcha();
+            
 
             $this->get_firstname_field(); 
             $this->get_lastname_field(); 
@@ -140,6 +140,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
                 $this->get_message_field();     
             }
             $this->get_accept_conditions_field(); 
+            $this->get_recaptcha();
             $this->get_submit_button(); 
 
         echo '</form>';
@@ -177,6 +178,14 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
             $is_valid = apply_filters('google_invre_is_valid_request_filter', true);
             
             if(!$is_valid) {
+                $this->errors[] = __('Recaptcha not passed!', 'wordpress-gdpr');
+            }
+        }
+
+        if($this->get_option('enableCaptchaBestWebSoft')) {
+            $is_valid = apply_filters( 'cptch_verify', true );
+
+            if($is_valid !== true) {
                 $this->errors[] = __('Recaptcha not passed!', 'wordpress-gdpr');
             }
         }
@@ -326,6 +335,10 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
 
     private function get_recaptcha()
     {
+        if($this->get_option('enableCaptchaBestWebSoft')) {
+            echo apply_filters( 'cptch_display', '' );
+        }
+
         if($this->get_option('enableRecaptcha')) {
             do_action('google_invre_render_widget_action');
         }

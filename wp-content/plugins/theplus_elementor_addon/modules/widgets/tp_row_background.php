@@ -4651,7 +4651,8 @@ class ThePlus_Row_Background extends Widget_Base {
 							$output .= '<div id="wrapper-'.esc_attr($uniqid2).'" class="pt-plus-columns-bg-wrap columns-video-bg columns-vimeo-bg tp-loading '.esc_attr($video_responsive_poster).'" style="background-image: url('.esc_js($poster_url).');" '.esc_attr($responsive_video_image).'>
 								<div class="video-js columns_vc_hidden-md columns_vc_hidden-sm columns_vc_hidden-xs">';
 								if(!$detect->isMobile()){
-									$output .= '<iframe id="'.esc_attr($uniqid2).'"  '.$data_atts2.' src="//player.vimeo.com/video/'.esc_attr($settings["columns_vimeo_video_id"]).'?api=1&amp;autoplay=1;portrait=0&amp;rel=0'.esc_attr($extra_url_prop).'" width="100%" height="100%" frameborder="0" class="pt-plus-bg-video columns-bg-frame"></iframe>';
+									// $output .= '<iframe id="'.esc_attr($uniqid2).'"  '.$data_atts2.' src="//player.vimeo.com/video/'.esc_attr($settings["columns_vimeo_video_id"]).'?api=1&amp;autoplay=1;portrait=0&amp;rel=0'.esc_attr($extra_url_prop).'" width="100%" height="100%" frameborder="0" class="pt-plus-bg-video columns-bg-frame"></iframe>';
+									$output .= '<iframe id="'.esc_attr($uniqid2).'"  '.$data_atts2.' src="https://player.vimeo.com/video/'.esc_attr($settings["columns_vimeo_video_id"]).'?autoplay=1&amp;playsinline=1&amp;color&amp;autopause=0&amp;'.esc_attr($extra_url_prop).';muted=1&amp;controls=0&amp;title=1&amp;portrait=1&amp;byline=1#t=" width="100%" height="100%" frameborder="0" class="pt-plus-bg-video columns-bg-frame"></iframe>';
 								}
 								$output .= '</div>
 							</div>';

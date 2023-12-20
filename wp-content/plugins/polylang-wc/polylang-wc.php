@@ -10,7 +10,7 @@
  * Plugin name:          Polylang for WooCommerce
  * Plugin URI:           https://polylang.pro
  * Description:          Adds multilingual capability to WooCommerce
- * Version:              1.9
+ * Version:              1.9.2
  * Requires at least:    5.9
  * Requires PHP:         7.0
  * Author:               WP SYNTEX
@@ -21,7 +21,7 @@
  * License URI:          https://www.gnu.org/licenses/gpl-3.0.txt
  *
  * WC requires at least: 6.2
- * WC tested up to:      8.1
+ * WC tested up to:      8.4
  *
  * Copyright 2016-2020 Frédéric Demarle
  * Copyright 2020-2023 WP SYNTEX
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Don't access directly.
 }
 
-define( 'PLLWC_VERSION', '1.9' );
+define( 'PLLWC_VERSION', '1.9.2' );
 define( 'PLLWC_MIN_PLL_VERSION', '3.4' );
 
 define( 'PLLWC_FILE', __FILE__ ); // This file.
@@ -52,6 +52,8 @@ define( 'PLLWC_BASENAME', plugin_basename( PLLWC_FILE ) ); // Plugin name as kno
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/include/functions.php';
+
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
  * Plugin controller.
@@ -200,11 +202,6 @@ class Polylang_Woocommerce {
 	public $translation_import;
 
 	/**
-	 * @var PLLWC_HPOS_Feature|null
-	 */
-	public $hpos_feature;
-
-	/**
 	 * @var PLLWC_HPOS_Orders_Query|null
 	 */
 	public $hpos_orders_query;
@@ -317,8 +314,18 @@ class Polylang_Woocommerce {
 		add_action( 'admin_init', array( $this, 'maybe_install' ) );
 
 		// Declare compatibility with custom order tables for WooCommerce (HPOS).
-		$this->hpos_feature = new PLLWC_HPOS_Feature();
-		$this->hpos_feature->declare_compatibility_with_feature();
+		$hpos_feature = new PLLWC_Feature(
+			'custom_order_tables',
+			// Note: `Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()` is introduced in WC 6.9.
+			class_exists( OrderUtil::class ) ? array( OrderUtil::class, 'custom_orders_table_usage_is_enabled' ) : '__return_false'
+		);
+		$hpos_feature->declare_compatibility();
+
+		$cart_checkout_blocks_feature = new PLLWC_Feature(
+			'cart_checkout_blocks',
+			'__return_true'
+		);
+		$cart_checkout_blocks_feature->declare_compatibility();
 
 		// Bail early if no language has been defined yet.
 		if ( ! pll_languages_list() ) {
@@ -326,7 +333,7 @@ class Polylang_Woocommerce {
 		}
 
 		// Custom order tables for WooCommerce (HPOS).
-		if ( $this->hpos_feature->is_feature_enabled() ) {
+		if ( $hpos_feature->is_enabled() ) {
 			$this->hpos_orders_query = ( new PLLWC_HPOS_Orders_Query() )->init();
 		}
 
@@ -349,13 +356,6 @@ class Polylang_Woocommerce {
 		if ( defined( 'POLYLANG_PRO' ) && POLYLANG_PRO ) {
 			$this->rest_api     = new PLLWC_REST_API();
 			$this->sync_content = new PLLWC_Sync_Content();
-		}
-
-		/*
-		 * Translate WC pages only on frontend or in REST.
-		 */
-		if ( PLL() instanceof PLL_Frontend || PLL() instanceof PLL_REST_Request ) {
-			PLLWC_Filter_WC_Pages::init();
 		}
 
 		/*
@@ -384,7 +384,7 @@ class Polylang_Woocommerce {
 				$this->admin_taxonomies        = new PLLWC_Admin_Taxonomies();
 				$this->admin_products          = new PLLWC_Admin_Products();
 				$this->admin_product_duplicate = new PLLWC_Admin_Product_Duplicate();
-				$this->admin_orders            = $this->hpos_feature->is_feature_enabled() ? new PLLWC_Admin_Orders_HPOS() : new PLLWC_Admin_Orders_Legacy();
+				$this->admin_orders            = $hpos_feature->is_enabled() ? new PLLWC_Admin_Orders_HPOS() : new PLLWC_Admin_Orders_Legacy();
 				$this->admin_reports           = new PLLWC_Admin_Reports();
 				$this->admin_menus             = new PLLWC_Admin_Menus();
 				$this->coupons                 = new PLLWC_Admin_Coupons();

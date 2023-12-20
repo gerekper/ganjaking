@@ -171,7 +171,7 @@ class WordPress_GDPR_Public extends WordPress_GDPR
                     'desc' => __('Learn about our ownership and authorship.', 'wordpress-gdpr'),
                 ),
                 'mediaCredits' => array(
-                    'icon' => 'fa-file-image-o',
+                    'icon' => 'fa-file-image',
                     'title' => __('Media Credits', 'wordpress-gdpr'),
                     'desc' => __('Get to know the Credits of our Media.', 'wordpress-gdpr'),
                 ),

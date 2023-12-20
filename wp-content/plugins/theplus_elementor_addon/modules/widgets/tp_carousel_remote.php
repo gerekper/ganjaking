@@ -164,9 +164,14 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'vw' ),
 				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					),
 					'vw' => array(
 						'min'  => 0,
-						'max'  => 200,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),
@@ -190,9 +195,14 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'vh' ),
 				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					),
 					'vh' => array(
 						'min'  => 0,
-						'max'  => 200,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),
@@ -392,9 +402,14 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'vw' ),
 				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					),
 					'vw' => array(
 						'min'  => 0,
-						'max'  => 200,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),
@@ -418,9 +433,14 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'vh' ),
 				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					),
 					'vh' => array(
 						'min'  => 0,
-						'max'  => 200,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),
@@ -1845,7 +1865,7 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 			array(
 				'type'        => Controls_Manager::SLIDER,
 				'label'       => esc_html__( 'Size', 'theplus' ),
-				'size_units'  => array( 'px' ),
+				'size_units'  => array( 'px','%' ),
 				'range'       => array(
 					'px' => array(
 						'min'  => 1,
@@ -1868,7 +1888,7 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 				'range'       => array(
 					'px' => array(
 						'min'  => 1,
-						'max'  => 100,
+						'max'  => 1000,
 						'step' => 1,
 					),
 				),
@@ -1884,11 +1904,16 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 			array(
 				'type'        => Controls_Manager::SLIDER,
 				'label'       => esc_html__( 'Icon Size', 'theplus' ),
-				'size_units'  => array( 'px' ),
+				'size_units'  => array( 'px','%' ),
 				'range'       => array(
 					'px' => array(
 						'min'  => 1,
 						'max'  => 300,
+						'step' => 1,
+					),
+					'%' => array(
+						'min'  => 1,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),
@@ -2315,6 +2340,11 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 						'max'  => 1000,
 						'step' => 1,
 					),
+					'vw' => array(
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					),
 				),
 				'default'    => array(
 					'unit' => 'px',
@@ -2339,6 +2369,11 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 					'px' => array(
 						'min'  => 0,
 						'max'  => 1000,
+						'step' => 1,
+					),
+					'vh' => array(
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
 					),
 				),

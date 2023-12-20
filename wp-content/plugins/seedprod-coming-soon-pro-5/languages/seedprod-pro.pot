@@ -1,0 +1,1231 @@
+# Copyright (C) 2023 SeedProd
+# This file is distributed under the same license as the SeedProd package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SeedProd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: SeedProd <support@seedprod.com>\n"
+"Last-Translator: John Turner <john@seedprod.com>\n"
+"Report-Msgid-Bugs-To: https://seedprod.com/contact/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/admin-bar-menu.php:49
+msgid "Coming Soon Mode Active"
+msgstr ""
+
+#: app/admin-bar-menu.php:51
+msgid "Maintenance Mode Active"
+msgstr ""
+
+#: app/admin-bar-menu.php:53
+msgid "Theme Preview Mode Active"
+msgstr ""
+
+#. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org coming-soon plugin review
+#: app/bootstrap.php:600
+msgid "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
+msgstr ""
+
+#: app/class-seedprod-review.php:100
+msgid "Are you enjoying SeedProd?"
+msgstr ""
+
+#: app/class-seedprod-review.php:102, languages/seedprod-pro.php:74
+msgid "Yes"
+msgstr ""
+
+#: app/class-seedprod-review.php:103
+msgid "Not Really"
+msgstr ""
+
+#: app/class-seedprod-review.php:107
+msgid "We're sorry to hear you aren't enjoying SeedProd. We would love a chance to improve. Could you take a minute and let us know what we can do better?"
+msgstr ""
+
+#: app/class-seedprod-review.php:109
+msgid "Give Feedback"
+msgstr ""
+
+#: app/class-seedprod-review.php:110
+msgid "No thanks"
+msgstr ""
+
+#: app/class-seedprod-review.php:114
+msgid "That’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+
+#: app/class-seedprod-review.php:115
+msgid "~ John Turner<br>Co-Founder of SeedProd"
+msgstr ""
+
+#: app/class-seedprod-review.php:117
+msgid "Ok, you deserve it"
+msgstr ""
+
+#: app/class-seedprod-review.php:118
+msgid "Nope, maybe later"
+msgstr ""
+
+#: app/class-seedprod-review.php:119
+msgid "I already did"
+msgstr ""
+
+#: app/class-updater.php:325, app/license.php:159
+msgid "Invalid License Key."
+msgstr ""
+
+#: app/edit_with_seedprod.php:239
+msgid "Edit with SeedProd"
+msgstr ""
+
+#: app/edit_with_seedprod.php:240
+msgid "Switch Back to WordPress Editor"
+msgstr ""
+
+#: app/functions-addons.php:113
+msgid "Plugin deactivated."
+msgstr ""
+
+#: app/functions-addons.php:115
+msgid "Addon deactivated."
+msgstr ""
+
+#: app/functions-addons.php:119
+msgid "Could not deactivate the addon. Please deactivate from the Plugins page."
+msgstr ""
+
+#: app/functions-addons.php:133
+msgid "Could not activate addon. Please check user permissions."
+msgstr ""
+
+#: app/functions-addons.php:147
+msgid "Plugin activated."
+msgstr ""
+
+#: app/functions-addons.php:149
+msgid "Addon activated."
+msgstr ""
+
+#: app/functions-addons.php:154
+msgid "Could not activate addon. Please activate from the Plugins page."
+msgstr ""
+
+#: app/functions-addons.php:157
+msgid "Could not activate addon. Please refresh page and try again."
+msgstr ""
+
+#: app/functions-addons.php:211, app/functions-addons.php:280
+msgid "Active"
+msgstr ""
+
+#: app/functions-addons.php:216, app/functions-addons.php:285
+msgid "Inactive"
+msgstr ""
+
+#: app/functions-addons.php:222, app/functions-addons.php:291
+msgid "Not Installed"
+msgstr ""
+
+#: app/functions-business-reviews.php:427, app/functions-business-reviews.php:471
+msgid "No Reviews found."
+msgstr ""
+
+#: app/functions-posts-block.php:371, app/functions-posts-block.php:652, app/functions-posts-block.php:918
+msgid "No posts were found"
+msgstr ""
+
+#: app/functions-seedprod-gallery.php:94
+msgid "All"
+msgstr ""
+
+#: app/functions-utils.php:52
+msgid "SuperAdmin"
+msgstr ""
+
+#: app/functions-utils.php:54
+msgid "Anyone Logged In"
+msgstr ""
+
+#: app/functions-utils.php:115
+msgid "Column"
+msgstr ""
+
+#: app/functions-utils.php:133
+msgid "Headline"
+msgstr ""
+
+#: app/functions-utils.php:145
+msgid "Text"
+msgstr ""
+
+#: app/functions-utils.php:153
+msgid "List"
+msgstr ""
+
+#: app/functions-utils.php:162
+msgid "Button"
+msgstr ""
+
+#: app/functions-utils.php:170
+msgid "Image"
+msgstr ""
+
+#: app/functions-utils.php:178
+msgid "Video"
+msgstr ""
+
+#: app/functions-utils.php:186
+msgid "Divider"
+msgstr ""
+
+#: app/functions-utils.php:195
+msgid "Spacer"
+msgstr ""
+
+#: app/functions-utils.php:204
+msgid " Payment Button"
+msgstr ""
+
+#: app/functions-utils.php:214
+msgid "Giveaway"
+msgstr ""
+
+#: app/functions-utils.php:225
+msgid "Contact Form"
+msgstr ""
+
+#: app/functions-utils.php:234
+msgid "Custom HTML"
+msgstr ""
+
+#: app/functions-utils.php:244
+msgid "Optin Form"
+msgstr ""
+
+#: app/functions-utils.php:253
+msgid "Tabs"
+msgstr ""
+
+#: app/functions-utils.php:262
+msgid "Countdown"
+msgstr ""
+
+#: app/functions-utils.php:271
+msgid "Social Profiles"
+msgstr ""
+
+#: app/functions-utils.php:280
+msgid "Social Sharing"
+msgstr ""
+
+#: app/functions-utils.php:290
+msgid "Video Pop Up"
+msgstr ""
+
+#: app/functions-utils.php:301
+msgid "Animated Headline"
+msgstr ""
+
+#: app/functions-utils.php:311
+msgid "Progress Bar"
+msgstr ""
+
+#: app/functions-utils.php:320
+msgid "Icon"
+msgstr ""
+
+#: app/functions-utils.php:329
+msgid "Testimonials"
+msgstr ""
+
+#: app/functions-utils.php:339
+msgid "Image Carousel"
+msgstr ""
+
+#: app/functions-utils.php:352
+msgid "Image Box"
+msgstr ""
+
+#: app/functions-utils.php:362
+msgid "Before After Toggle"
+msgstr ""
+
+#: app/functions-utils.php:375
+msgid "Icon Box"
+msgstr ""
+
+#: app/functions-utils.php:385
+msgid "Nav Menu"
+msgstr ""
+
+#: app/functions-utils.php:393
+msgid "Content Toggle"
+msgstr ""
+
+#: app/functions-utils.php:405
+msgid "Pricing Table"
+msgstr ""
+
+#: app/functions-utils.php:417
+msgid "Business Reviews"
+msgstr ""
+
+#: app/functions-utils.php:436
+msgid "Anchor"
+msgstr ""
+
+#: app/functions-utils.php:445
+msgid "Star Rating"
+msgstr ""
+
+#: app/functions-utils.php:454
+msgid "Accordion"
+msgstr ""
+
+#: app/functions-utils.php:463
+msgid "Shortcode"
+msgstr ""
+
+#: app/functions-utils.php:472
+msgid "Login Form"
+msgstr ""
+
+#: app/functions-utils.php:482
+msgid "Google Maps"
+msgstr ""
+
+#: app/functions-utils.php:492
+msgid "Search Form"
+msgstr ""
+
+#: app/functions-utils.php:502
+msgid "Facebook Like"
+msgstr ""
+
+#: app/functions-utils.php:516
+msgid "Facebook Comments"
+msgstr ""
+
+#: app/functions-utils.php:528
+msgid "Facebook Page"
+msgstr ""
+
+#: app/functions-utils.php:540
+msgid "Facebook Embed"
+msgstr ""
+
+#: app/functions-utils.php:553
+msgid "X (Twitter) Embed Tweet"
+msgstr ""
+
+#: app/functions-utils.php:565
+msgid "X (Twitter) Embed Timeline"
+msgstr ""
+
+#: app/functions-utils.php:577
+msgid "X (Twitter) Tweet Button"
+msgstr ""
+
+#: app/functions-utils.php:589
+msgid "X (Twitter) Follow Button"
+msgstr ""
+
+#: app/functions-utils.php:601
+msgid "Advanced Gallery"
+msgstr ""
+
+#: app/functions-utils.php:612
+msgid "Gallery"
+msgstr ""
+
+#: app/functions-utils.php:623
+msgid "Business Hours"
+msgstr ""
+
+#: app/functions-utils.php:631
+msgid "Team Member"
+msgstr ""
+
+#: app/functions-utils.php:642
+msgid "Price List"
+msgstr ""
+
+#: app/functions-utils.php:651, app/functions-utils.php:991
+msgid "Add To Cart"
+msgstr ""
+
+#: app/functions-utils.php:661, app/functions-utils.php:1189
+msgid "Checkout"
+msgstr ""
+
+#: app/functions-utils.php:673, app/functions-utils.php:1177
+msgid "Cart"
+msgstr ""
+
+#: app/functions-utils.php:686
+msgid "Products Grid"
+msgstr ""
+
+#: app/functions-utils.php:698
+msgid "Recent Products"
+msgstr ""
+
+#: app/functions-utils.php:709
+msgid "Sale Products"
+msgstr ""
+
+#: app/functions-utils.php:720
+msgid "Best Selling Products"
+msgstr ""
+
+#: app/functions-utils.php:729
+msgid "Featured Products"
+msgstr ""
+
+#: app/functions-utils.php:738
+msgid "Top Rated Products"
+msgstr ""
+
+#: app/functions-utils.php:748, app/functions-utils.php:759, app/functions-utils.php:2653, app/functions-utils.php:2656
+msgid "Posts"
+msgstr ""
+
+#: app/functions-utils.php:770
+msgid "Alert"
+msgstr ""
+
+#: app/functions-utils.php:786
+msgid "Post Title"
+msgstr ""
+
+#: app/functions-utils.php:798
+msgid "Post Content"
+msgstr ""
+
+#: app/functions-utils.php:810
+msgid "Post Excerpt"
+msgstr ""
+
+#: app/functions-utils.php:822
+msgid "Featured Image"
+msgstr ""
+
+#: app/functions-utils.php:834
+msgid "Author Box"
+msgstr ""
+
+#: app/functions-utils.php:846
+msgid "Author Bio"
+msgstr ""
+
+#: app/functions-utils.php:859
+msgid "Post Comments"
+msgstr ""
+
+#: app/functions-utils.php:871
+msgid "Post Navigation"
+msgstr ""
+
+#: app/functions-utils.php:884
+msgid "Post Info"
+msgstr ""
+
+#: app/functions-utils.php:896
+msgid "Archive Title"
+msgstr ""
+
+#: app/functions-utils.php:918
+msgid "Site Logo"
+msgstr ""
+
+#: app/functions-utils.php:931, app/functions-utils.php:1325
+msgid "Template Parts"
+msgstr ""
+
+#: app/functions-utils.php:943
+msgid "Menu Cart"
+msgstr ""
+
+#: app/functions-utils.php:955
+msgid "Product Title"
+msgstr ""
+
+#: app/functions-utils.php:967
+msgid "Product Featured Image"
+msgstr ""
+
+#: app/functions-utils.php:979
+msgid "Product Price"
+msgstr ""
+
+#: app/functions-utils.php:1002
+msgid "Product Meta"
+msgstr ""
+
+#: app/functions-utils.php:1013
+msgid "Product Content"
+msgstr ""
+
+#: app/functions-utils.php:1024
+msgid "Short Description"
+msgstr ""
+
+#: app/functions-utils.php:1037
+msgid "Additional Information"
+msgstr ""
+
+#: app/functions-utils.php:1048
+msgid "Products Related"
+msgstr ""
+
+#: app/functions-utils.php:1060
+msgid "Upsells"
+msgstr ""
+
+#: app/functions-utils.php:1072
+msgid "Product Rating"
+msgstr ""
+
+#: app/functions-utils.php:1085
+msgid "Product Stock"
+msgstr ""
+
+#: app/functions-utils.php:1097
+msgid "Archive Products"
+msgstr ""
+
+#: app/functions-utils.php:1108
+msgid "Product Data Tabs"
+msgstr ""
+
+#: app/functions-utils.php:1121
+msgid "Hotspot"
+msgstr ""
+
+#: app/functions-utils.php:1140
+msgid "Counter"
+msgstr ""
+
+#: app/functions-utils.php:1153
+msgid "Product Gallery Images"
+msgstr ""
+
+#: app/functions-utils.php:1166
+msgid "Downloads Grid"
+msgstr ""
+
+#: app/functions-utils.php:1200
+msgid "Buy Now Button"
+msgstr ""
+
+#: app/functions-utils.php:1218
+msgid "Download Title"
+msgstr ""
+
+#: app/functions-utils.php:1229
+msgid "Download Featured Image"
+msgstr ""
+
+#: app/functions-utils.php:1240
+msgid "Download Price"
+msgstr ""
+
+#: app/functions-utils.php:1251
+msgid "Download Content"
+msgstr ""
+
+#: app/functions-utils.php:1262
+msgid "Download Add To Cart"
+msgstr ""
+
+#: app/functions-utils.php:1273
+msgid "Download Excerpt"
+msgstr ""
+
+#: app/functions-utils.php:1284
+msgid "Download Instructions"
+msgstr ""
+
+#: app/functions-utils.php:1366
+msgid "Select Time"
+msgstr ""
+
+#: app/functions-utils.php:1999
+msgid "1 Hour"
+msgstr ""
+
+#: app/functions-utils.php:2000
+msgid "2 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2001
+msgid "3 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2002
+msgid "4 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2003
+msgid "5 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2004
+msgid "6 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2005
+msgid "7 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2006
+msgid "8 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2007
+msgid "9 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2008
+msgid "10 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2009
+msgid "11 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2010
+msgid "12 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2011
+msgid "13 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2012
+msgid "14 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2013
+msgid "15 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2014
+msgid "16 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2015
+msgid "17 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2016
+msgid "18 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2017
+msgid "19 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2018
+msgid "20 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2019
+msgid "21 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2020
+msgid "22 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2021
+msgid "23 Hours"
+msgstr ""
+
+#: app/functions-utils.php:2022
+msgid "1 Day"
+msgstr ""
+
+#: app/functions-utils.php:2023
+msgid "2 Days"
+msgstr ""
+
+#: app/functions-utils.php:2024
+msgid "3 Days"
+msgstr ""
+
+#: app/functions-utils.php:2025
+msgid "4 Days"
+msgstr ""
+
+#: app/functions-utils.php:2026
+msgid "5 Days"
+msgstr ""
+
+#: app/functions-utils.php:2027
+msgid "6 Days"
+msgstr ""
+
+#: app/functions-utils.php:2028
+msgid "7 Days"
+msgstr ""
+
+#: app/functions-utils.php:2029
+msgid "8 Days"
+msgstr ""
+
+#: app/functions-utils.php:2030
+msgid "9 Days"
+msgstr ""
+
+#: app/functions-utils.php:2031
+msgid "10 Days"
+msgstr ""
+
+#: app/functions-utils.php:2032
+msgid "11 Days"
+msgstr ""
+
+#: app/functions-utils.php:2033
+msgid "12 Days"
+msgstr ""
+
+#: app/functions-utils.php:2034
+msgid "13 Days"
+msgstr ""
+
+#: app/functions-utils.php:2035
+msgid "14 Days"
+msgstr ""
+
+#: app/functions-utils.php:2036
+msgid "15 Days"
+msgstr ""
+
+#: app/functions-utils.php:2037
+msgid "16 Days"
+msgstr ""
+
+#: app/functions-utils.php:2038
+msgid "17 Days"
+msgstr ""
+
+#: app/functions-utils.php:2039
+msgid "18 Days"
+msgstr ""
+
+#: app/functions-utils.php:2040
+msgid "19 Days"
+msgstr ""
+
+#: app/functions-utils.php:2041
+msgid "20 Days"
+msgstr ""
+
+#: app/functions-utils.php:2042
+msgid "21 Days"
+msgstr ""
+
+#: app/functions-utils.php:2043
+msgid "22 Days"
+msgstr ""
+
+#: app/functions-utils.php:2044
+msgid "23 Days"
+msgstr ""
+
+#: app/functions-utils.php:2045
+msgid "24 Days"
+msgstr ""
+
+#: app/functions-utils.php:2046
+msgid "25 Days"
+msgstr ""
+
+#: app/functions-utils.php:2047
+msgid "26 Days"
+msgstr ""
+
+#: app/functions-utils.php:2048
+msgid "27 Days"
+msgstr ""
+
+#: app/functions-utils.php:2049
+msgid "28 Days"
+msgstr ""
+
+#: app/functions-utils.php:2050
+msgid "29 Days"
+msgstr ""
+
+#: app/functions-utils.php:2051
+msgid "30 Days"
+msgstr ""
+
+#: app/functions-utils.php:2052
+msgid "1 Year"
+msgstr ""
+
+#: app/functions-utils.php:2609
+msgid "Post Type"
+msgstr ""
+
+#: app/functions-utils.php:2614
+msgid "General"
+msgstr ""
+
+#: app/functions-utils.php:2617
+msgid "Entire Site"
+msgstr ""
+
+#: app/functions-utils.php:2621
+msgid "Front Page"
+msgstr ""
+
+#: app/functions-utils.php:2625
+msgid "Blog Page"
+msgstr ""
+
+#: app/functions-utils.php:2629
+msgid "Pages"
+msgstr ""
+
+#: app/functions-utils.php:2633
+msgid "Pages and Posts"
+msgstr ""
+
+#: app/functions-utils.php:2637
+msgid "Is Child of"
+msgstr ""
+
+#: app/functions-utils.php:2641
+msgid "Is Attachment"
+msgstr ""
+
+#: app/functions-utils.php:2645
+msgid "Is 404"
+msgstr ""
+
+#: app/functions-utils.php:2649
+msgid "Is Author"
+msgstr ""
+
+#: app/functions-utils.php:2660
+msgid "Has Category"
+msgstr ""
+
+#: app/functions-utils.php:2664
+msgid "Has Tag"
+msgstr ""
+
+#: app/functions-utils.php:2668
+msgid "Post Types"
+msgstr ""
+
+#: app/functions-utils.php:2669
+msgid "Archives"
+msgstr ""
+
+#: app/functions-utils.php:2672
+msgid "All Archives"
+msgstr ""
+
+#: app/functions-utils.php:2676
+msgid "Date Archives"
+msgstr ""
+
+#: app/functions-utils.php:2680
+msgid "Search Results"
+msgstr ""
+
+#: app/functions-utils.php:2685
+msgid "Post Type Archive"
+msgstr ""
+
+#: app/functions-utils.php:2689
+msgid "Post Type Taxonomy"
+msgstr ""
+
+#: app/functions-utils.php:2720
+msgid "Product Page"
+msgstr ""
+
+#: app/functions-utils.php:2724
+msgid "Product Category"
+msgstr ""
+
+#: app/functions-utils.php:2728
+msgid "Product Tag"
+msgstr ""
+
+#: app/functions-utils.php:2732
+msgid "Shop Page"
+msgstr ""
+
+#: app/license.php:17
+msgid "The minimum required version of PHP to run this plugin is PHP Version 5.3.3. Please contact your hosting company and ask them to upgrade this site's php verison."
+msgstr ""
+
+#: app/license.php:17
+msgid "Upgrade PHP"
+msgstr ""
+
+#. translators: 1. License name.
+#: app/license.php:154, languages/seedprod-pro.php:38
+msgid "You currently have the <strong>%s</strong> license."
+msgstr ""
+
+#: app/license.php:236
+msgid "License Key is Required."
+msgstr ""
+
+#: app/license.php:281
+msgid "There was an issue deactivating this license. Please log into the members area to deactivate."
+msgstr ""
+
+#: app/lpage.php:193, app/lpage.php:195, app/setup-wizard.php:197, app/setup-wizard.php:199
+msgid "New Page"
+msgstr ""
+
+#: app/lpage.php:942
+msgid "Starts in"
+msgstr ""
+
+#: app/lpage.php:944
+msgid "Ended"
+msgstr ""
+
+#: app/lpage.php:1105, app/theme-templates.php:809
+msgid "<br><br>Please enter a valid license key to access the themes. You can still proceed to create a page with the default theme.<br> <a class='seedprod_no_themes' href='?theme=0'>Click to continue &#8594;</a>"
+msgstr ""
+
+#: app/render-404.php:85
+msgid "Your 404 page needs to be setup."
+msgstr ""
+
+#: app/render-csp-mm.php:589, app/backwards/cspv5-functions.php:602
+msgid "Please create your Maintenance Page in the plugin settings."
+msgstr ""
+
+#: app/render-csp-mm.php:601, app/backwards/cspv5-functions.php:618
+msgid "Please create enter your redirect url in the plugin settings."
+msgstr ""
+
+#: app/render-csp-mm.php:606, app/backwards/cspv5-functions.php:623
+msgid "Please create your Coming Soon Page in the plugin settings."
+msgstr ""
+
+#: app/render-edd-template-tags.php:228
+msgid "Free"
+msgstr ""
+
+#: app/render-post-info.php:191
+msgid "Comment(s)"
+msgstr ""
+
+#: app/render-theme-template.php:671
+msgid "404 - Page Not Found"
+msgstr ""
+
+#: app/render-theme-template.php:674
+msgid "No Template Found"
+msgstr ""
+
+#: app/render-theme-template.php:1254
+msgid "Previous"
+msgstr ""
+
+#: app/render-theme-template.php:1260
+msgid "Next"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:292
+msgid "N/A"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:295
+msgid "Categories"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:295
+msgid "Category"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:298
+msgid "Tags"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:298
+msgid "Tag"
+msgstr ""
+
+#: app/render-woocommerce-template-tags.php:305
+msgid "SKU"
+msgstr ""
+
+#: app/routes.php:64
+msgid "SeedProd"
+msgstr ""
+
+#: app/routes.php:65
+msgid "Landing Pages"
+msgstr ""
+
+#: app/routes.php:73, app/routes.php:74, app/routes.php:227, app/routes.php:228
+msgid "Theme Builder"
+msgstr ""
+
+#: app/routes.php:82, app/routes.php:83
+msgid "Setup"
+msgstr ""
+
+#: app/routes.php:102, app/routes.php:103, app/subscriber.php:119
+msgid "Subscribers"
+msgstr ""
+
+#: app/routes.php:112, app/routes.php:113
+msgid "Pop-ups"
+msgstr ""
+
+#: app/routes.php:122, app/routes.php:123
+msgid "Settings"
+msgstr ""
+
+#: app/routes.php:131, app/routes.php:132
+msgid "Growth Tools"
+msgstr ""
+
+#: app/routes.php:140, app/routes.php:141
+msgid "About Us"
+msgstr ""
+
+#: app/routes.php:149, app/routes.php:150
+msgid "Request a Feature"
+msgstr ""
+
+#: app/routes.php:159, app/routes.php:160
+msgid "Import / Export"
+msgstr ""
+
+#: app/routes.php:170, app/routes.php:171
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: app/routes.php:191, app/routes.php:192
+msgid "Templates"
+msgstr ""
+
+#: app/routes.php:200, app/routes.php:201
+msgid "Builder"
+msgstr ""
+
+#: app/routes.php:209, app/routes.php:210
+msgid "Import/Export"
+msgstr ""
+
+#: app/routes.php:218, app/routes.php:219
+msgid "Debug"
+msgstr ""
+
+#: app/settings.php:67
+msgid "Settings Updated"
+msgstr ""
+
+#: app/settings.php:72
+msgid "Error Updating Settings"
+msgstr ""
+
+#: app/settings.php:130
+msgid "App Settings Updated"
+msgstr ""
+
+#: app/settings.php:136
+msgid "Error Updating App Settings"
+msgstr ""
+
+#: app/subscriber.php:119
+msgid "Year"
+msgstr ""
+
+#: app/theme-templates.php:587
+msgid "Global CSS"
+msgstr ""
+
+#: app/theme-templates.php:665
+msgid "You're using the <a href=\"%s\">SeedProd</a> Theme to build your web site, which disables the WordPress theme system."
+msgstr ""
+
+#: app/theme-templates.php:936
+msgid "This page was auto-generated and is a placeholder page for the SeedProd theme. To manage the contents of this page please visit SeedProd > Theme Builder in the left menu in WordPress. "
+msgstr ""
+
+#: languages/seedprod-pro.php:5
+msgid "License"
+msgstr ""
+
+#: languages/seedprod-pro.php:8
+msgid "Your license key provides access to updates and addons."
+msgstr ""
+
+#: languages/seedprod-pro.php:11
+msgid "You're using <strong>SeedProd Lite</strong> - No License needed. Enjoy!"
+msgstr ""
+
+#: languages/seedprod-pro.php:14
+msgid "To unlock more features consider <a href='%s' target='_blank'>upgrading to PRO</a> . As a valued SeedProd Lite user you'll receive <strong>a discount off the regular price</strong>, automatically applied at checkout! "
+msgstr ""
+
+#: languages/seedprod-pro.php:17
+msgid "If you already have a license key for <a href='%s' target='_blank'>SeedProd Pro</a>, please enter it to Upgrade to the Pro Features. SeedProd.com will be used to verify and connect you to SeedProd."
+msgstr ""
+
+#: languages/seedprod-pro.php:20
+msgid "License Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:23
+msgid "Enter Your License Key Here"
+msgstr ""
+
+#: languages/seedprod-pro.php:26
+msgid "Recheck Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:29
+msgid "Verify Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:32
+msgid "Deactivate Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:35
+msgid "Connect to SeedProd to Install the Pro Version"
+msgstr ""
+
+#: languages/seedprod-pro.php:41
+msgid "Debug Information"
+msgstr ""
+
+#: languages/seedprod-pro.php:44
+msgid "Facebook APP ID"
+msgstr ""
+
+#: languages/seedprod-pro.php:47
+msgid "Global Settings"
+msgstr ""
+
+#: languages/seedprod-pro.php:50
+msgid "Save Settings"
+msgstr ""
+
+#: languages/seedprod-pro.php:53
+msgid "Disable Edit with SeedProd Button"
+msgstr ""
+
+#: languages/seedprod-pro.php:56
+msgid "Enable Usage Tracking"
+msgstr ""
+
+#: languages/seedprod-pro.php:59
+msgid "Google Places API Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:62
+msgid "Yelp API Key"
+msgstr ""
+
+#: languages/seedprod-pro.php:65
+msgid "View Debug Information"
+msgstr ""
+
+#: languages/seedprod-pro.php:68
+msgid "Learn More"
+msgstr ""
+
+#: languages/seedprod-pro.php:71
+msgid "Disable SeedProd Notifications"
+msgstr ""
+
+#: languages/seedprod-pro.php:77
+msgid "No"
+msgstr ""
+
+#: languages/seedprod-pro.php:80
+msgid "Could not be saved. Please contact Support if you continue to experience this issue."
+msgstr ""
+
+#: languages/seedprod-pro.php:83
+msgid "Saved!"
+msgstr ""
+
+#: languages/seedprod-pro.php:86
+msgid "Looks like you don't have permission to save."
+msgstr ""
+
+#: app/includes/skin.php:82, app/includes/skin53.php:82
+msgid "There was an error installing the addon. Please try again."
+msgstr ""
+
+#: app/includes/tracking.php:194
+msgid "Once Weekly"
+msgstr ""
+
+#: app/includes/upgrade.php:11
+msgid "You are not allowed to install plugins."
+msgstr ""
+
+#: app/includes/upgrade.php:24, app/includes/upgrade.php:158
+msgid "You are not licensed."
+msgstr ""
+
+#: app/includes/upgrade.php:43
+msgid "Pro version is already installed."
+msgstr ""
+
+#: app/includes/upgrade.php:89
+msgid "Could not install upgrade. Please download from seedprod.com and install manually."
+msgstr ""
+
+#: app/includes/upgrade.php:121, app/includes/upgrade.php:127, app/includes/upgrade.php:178
+msgid "Plugin installed & activated."
+msgstr ""
+
+#: app/includes/upgrade.php:182
+msgid "Pro version installed but needs to be activated from the Plugins page inside your WordPress admin."
+msgstr ""
+
+#: resources/theme-template-views/comments.php:26
+msgid "Comment navigation"
+msgstr ""
+
+#: resources/theme-template-views/comments.php:27
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: resources/theme-template-views/comments.php:28
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: resources/theme-template-views/comments.php:33
+msgid "Comments are closed."
+msgstr ""
+
+#: resources/views/debug.php:1
+msgid "System Information"
+msgstr ""
+
+#: resources/views/debug.php:27
+msgid "Debug Tools"
+msgstr ""
+
+#: resources/views/seedprod-preview.php:657
+msgid "The content for this page is empty or has not been saved. Please edit this page and \"Save\" the contents in the builder."
+msgstr ""

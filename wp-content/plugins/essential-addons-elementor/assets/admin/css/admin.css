@@ -184,3 +184,58 @@ background-color: rgba(238,53,95, 1);
 .eael-admin-block.eael-admin-block-license .eael-admin-title {
     margin: 1em 0;
 }
+
+/* License New Design */
+button.eael-button.button__themeColor.--verification-required {
+	background: #fc0;
+	border-color: #fc0;
+}
+
+.eael-verification-msg {
+	margin-top: 20px;
+}
+
+.eael-verification-msg a {
+	color: #5E2EFF;
+}
+
+.eael-verification-msg span.eael-customer-email {
+	color: #3c434a;
+	font-weight: 600;
+}
+
+.eael-verification-msg .short-description {
+	padding: 10px;
+	background: #f2f2f2;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.eael-verification-msg .eael-verification-input-container {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	background: #f9f9fb;
+}
+
+.eael-verification-msg .eael-verification-input-container button {
+	width: 150px;
+}
+
+.eael-verification-msg .eael-verification-input-container p {
+	margin-top: 20px;
+	color: #3c434a;
+}
+
+.eael-license-error-msg {
+	background-color: #fceff1;
+	font-weight: 400;
+	color: #2c3438;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.eael-license-error-msg.notice-message {
+	background: #fdf9e8;
+}

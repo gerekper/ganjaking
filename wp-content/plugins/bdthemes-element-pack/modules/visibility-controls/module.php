@@ -116,6 +116,8 @@ class Module extends Element_Pack_Module_Base
                 'tags_in_cart',
                 'cart_item_number',
                 'cart_subtotal_price',
+                'first_purchased_date',
+                'purchased_date',
                 'last_purchased_date',
                 'purchased_item_number',
                 'orders_placed',

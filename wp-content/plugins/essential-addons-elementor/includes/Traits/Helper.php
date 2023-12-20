@@ -323,15 +323,25 @@ trait Helper
      */
     public function eael_woo_checkout_post_code_validate()
     {
-        $data = $_POST['data'];
-        $validate = true;
-        if (isset($data['postcode'])) {
+	    $data     = $_POST['data'];
+	    $validate = [
+		    'message' => __( 'Billing Postcode is not a valid postcode / ZIP', '' ),
+		    'valid'   => true
+	    ];
+	    if ( isset( $data['postcode'] ) ) {
 
-            $format = wc_format_postcode($data['postcode'], $data['country']);
-            if ('' !== $format && !\WC_Validation::is_postcode($data['postcode'], $data['country'])) {
-                $validate = false;
-            }
-        }
+		    $format = wc_format_postcode( $data['postcode'], $data['country'] );
+		    if ( '' !== $format && ! \WC_Validation::is_postcode( $data['postcode'], $data['country'] ) ) {
+			    $validate['valid'] = false;
+		    }
+
+		    if ( $err_message = apply_filters( 'eael_woocommerce_validate_postcode_error_message', false, $data['postcode'] ) ) {
+			    $validate = [
+				    'message' => $err_message,
+				    'valid'   => false
+			    ];
+		    }
+	    }
         wp_send_json($validate);
     }
 

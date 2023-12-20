@@ -4,6 +4,8 @@
 	var WidgetAccordionHandler = function($scope, $) {
         let container = $scope[0].querySelectorAll('.theplus-accordion-wrapper'),
 		    AccordionType = container[0].dataset.accordionType,
+            parsedData = container[0] && container[0].dataset && container[0].dataset.accordiannew ? JSON.parse(container[0].dataset.accordiannew) : '',
+            highlight = parsedData?.search_text_highlight ? true : false,
             Connection = container[0].dataset.connection,
             RBGConnection = container[0].dataset.rowBgConn,
             accrodionList = container[0].querySelectorAll('.theplus-accordion-item'),
@@ -23,7 +25,7 @@
             hash = window.location.hash;
             
             if(accrodionList.length > 0){
-                accrodionList.forEach(function(self){
+                accrodionList.forEach(function(self, index){
                     let AccHeader = self.querySelector('.plus-accordion-header');
                         if( AccHeader.classList.contains('active-default') ) {
                             let AdContent = self.querySelectorAll('.plus-accordion-content');
@@ -233,9 +235,10 @@
             }
             
 			let aecbutton = container[0].querySelectorAll(".tp-aec-button");
-            let tpLivesearch = container[0].querySelectorAll('.tpacsearchinput');   
-
+            let tpLivesearch = container[0].querySelectorAll('.tpacsearchinput'); 
+   
 			if(aecbutton.length > 0){
+                
                 aecbutton[0].querySelector(".tp-toggle-accordion").addEventListener("click", function(e){
                 var ecbtn = this,
                     ectitle = container[0].querySelectorAll(".elementor-tab-title"),
@@ -246,6 +249,7 @@
                 if(tpLivesearch.length > 0){
                     tpLivesearch.forEach(function(search){
                         if(search.value.length > 0){
+                          
                             ectitle.forEach(function(self){
                                 if(self.style.display == 'flex'){
                                     ecClassList("tpTitle",ecbtn,self)
@@ -361,18 +365,22 @@
 			}
 
             if(container[0].classList.contains('tp-seachaccr')){
-                
+
                 jQuery.expr[':'].containsCaseInsensitive = function (con, b, ser) {
                     return jQuery(con).text().toUpperCase().indexOf(ser[3].toUpperCase()) >= 0;
                 };
-                let liveserach = container[0].querySelectorAll('#tpsb'+AccordionId);
-                    if( liveserach.length > 0 ){
-                        liveserach[0].addEventListener("change", tp_live_search);
-                        liveserach[0].addEventListener("keyup", tp_live_search);
-                        liveserach[0].addEventListener("click", tp_live_search);
-                        liveserach[0].addEventListener("paste", tp_live_search);
-                    }
+
+                let liveserach = container[0].querySelectorAll('#tpsb' + AccordionId);
+            
+                if( liveserach.length > 0 ){
+                    liveserach[0].addEventListener("change", tp_live_search);
+                    liveserach[0].addEventListener("keyup", tp_live_search);
+                    liveserach[0].addEventListener("click", tp_live_search);
+                    liveserach[0].addEventListener("paste", tp_live_search);
+                }
             }
+
+
 
             var AutoplaysetIn;
             if(container[0].classList.contains('tp-tab-playloop') && $TabAutoplay == "yes"){
@@ -743,9 +751,10 @@
                 }
             }   
 
-
             function tp_live_search() {
+               
                 let searchTerm = this.value,
+
                     plusContent = container[0].querySelectorAll(".theplus-accordion-item .plus-accordion-content"),
                     plusHeader = container[0].querySelectorAll(".theplus-accordion-item .plus-accordion-header");
                     
@@ -834,7 +843,21 @@
                             });
                         }	 
                     }
-                    tp_active_classes()
+                    tp_active_classes();
+
+                    if(highlight){
+                    
+                        let search_text = this.value;
+                        let findstring = container[0].querySelectorAll('.theplus-accordion-item');
+
+                            findstring.forEach(function(self){
+                                let content_editor = self.querySelector('.elementor-tab-content .plus-content-editor');
+                                let searchRegex = new RegExp(search_text, 'gi');
+                                
+                                content_editor.innerHTML = content_editor.outerText.replace(searchRegex,  `<mark class="highlight">$&</mark>`)
+                             });
+                    }
+
             }
 
 			function tp_fadeIn(element, duration=600) {

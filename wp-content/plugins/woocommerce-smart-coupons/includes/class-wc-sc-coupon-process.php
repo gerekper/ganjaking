@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.3.0
+ * @version     4.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -908,7 +908,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 								'wc_sc_auto_generated_coupon_pick_price_of_product',
 								$amount,
 								array(
-									'calculated_product_price' => $calculated_product_price,
+									'calculated_product_price' => $amount,
 									'order_item' => $order_item,
 								)
 							);

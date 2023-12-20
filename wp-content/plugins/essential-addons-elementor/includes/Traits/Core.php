@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
-use \Essential_Addons_Elementor\Pro\Classes\License\EAELicense;
+use \Essential_Addons_Elementor\Pro\Classes\License\LicenseManager;
 
 trait Core
 {
@@ -112,15 +112,27 @@ trait Core
      *
      * @since v1.0.0
      */
-    public function plugin_licensing()
-    {
-        if (is_admin()) {
-            // Setup the settings page and validation
-            new EAELicense(
-                EAEL_SL_ITEM_SLUG,
-                EAEL_SL_ITEM_NAME,
-                'essential-addons-elementor'
-            );
-        }
-    }
+	public function plugin_licensing() {
+		if ( is_admin() ) {
+			// Setup the settings page and validation
+			LicenseManager::get_instance( [
+				'plugin_file'    => EAEL_PRO_PLUGIN_FILE,
+				'version'        => EAEL_PRO_PLUGIN_VERSION,
+				'item_id'        => EAEL_SL_ITEM_ID,
+				'item_name'      => EAEL_SL_ITEM_NAME,
+				'item_slug'      => EAEL_SL_ITEM_SLUG,
+				'storeURL'       => EAEL_STORE_URL,
+				'textdomain'     => 'essential-addons-elementor',
+				'db_prefix'      => EAEL_SL_ITEM_SLUG,
+				'page_slug'      => 'eael-settings',
+				'scripts_handle' => 'eael-pro-admin-script',
+				'screen_id'      => [ "toplevel_page_eael-settings" ],
+				'api'            => 'ajax',
+				'ajax'           => [
+					'textdomain'    => 'essential-addons-elementor',
+					'action_prefix' => 'essential-addons-elementor'
+				]
+			] );
+		}
+	}
 }

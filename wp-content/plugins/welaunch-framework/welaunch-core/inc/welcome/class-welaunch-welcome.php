@@ -111,27 +111,6 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 				}
 			}
 
-			if(isset($_POST['action']) && !empty($_POST['action']) && $_POST['action'] == 'welaunch_remove_license') {
-				if(isset($_POST['item']) && !empty($_POST['item'])) {
-					if(is_multisite()) {
-
-						$existingLicenses = get_network_option(0, 'welaunch_licenses');
-						if(isset($existingLicenses[$_POST['item']])) {
-							unset($existingLicenses[$_POST['item']]);
-						}
-						update_network_option(0, 'welaunch_licenses', $existingLicenses);
-
-					} else {
-
-						$existingLicenses = get_option('welaunch_licenses');
-						if(isset($existingLicenses[$_POST['item']])) {
-							unset($existingLicenses[$_POST['item']]);
-						}
-						update_option('welaunch_licenses', $existingLicenses);
-					}
-				}
-			}
-
 			$this->welaunch_loaded = true;
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
 

@@ -315,6 +315,7 @@ jQuery(document).ready(function($) {
 			$('.dynamic_profit_margin_section').hide();
 			$('#profit_percent_value').prop('disabled', false);
 			$('#profit_doller_value').prop('disabled', false);
+			$('.requiredClass').prop('required', false);
 	   }
 
 	});
@@ -551,63 +552,31 @@ jQuery(document).ready(function(){
     });
 });
 
-// $(document).ready(function(){
-// 	alert('Hiiiii');	$('#hide_client_info_Suppliers').click(function (){
-// 		if($('#hide_client_info_Suppliers').is(':checked')){
-// 		$('.hide_contact_info_Suppliers').disabled = true;
-// 		}else{
-// 		$('.hide_contact_info_Suppliers').disabled = false;
-// 		}
-// 	});
-// });
+jQuery(document).ready(function () {
+	// jQuery("#myDataTable").DataTable();
+	document.getElementById('searchInput').addEventListener('input', function () {
+		let filter, table, tr, td, i, j, txtValue;
+		filter = this.value.toUpperCase();
+		table = document.getElementById('the-list');
+		tr = table.getElementsByTagName('tr');
 
+		for (i = 0; i < tr.length; i++) {
+			let rowVisible = false;
+			td = tr[i].getElementsByTagName('td');
 
-// function ckChange() {
-// 	var ckName = document.getElementsByClass(".progress");
-// 	alert('Hiiiiii');
-// 	if (checked.checked) {
-// 	  for (var i = 0; i < ckName.length; i++) {
-// 		if(!ckName[i].checked){
-// 			ckName[i].disabled = true;
-// 		}else{
-// 			ckName[i].disabled = false;
-// 		}
-// 	  }
-// 	} else {
-// 	  for (var i = 0; i < ckName.length; i++) {
-// 		ckName[i].disabled = false
-// 	  }
-// 	}
+			for (j = 0; j < td.length; j++) {
+				txtValue = td[j].textContent || td[j].innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					rowVisible = true;
+					break;
+				}
+			}
 
-//   }
-
-//   $(function() {
-//     enable_cb();
-//     $(".progress").click(enable_cb);
-// });
-
-// function enable_cb() {
-//     $("input.progress").prop("disabled", !this.checked);
-// }
-
-/*jQuery(document).ready(function() {
-   jQuery("#opmc_ali_place_order").click(function () {
-	   var order_id = jQuery('#order_id').val();
-	   var	$ = jQuery;
-	   var ajaxurl = jQuery("#opmc_ali_place_order").attr("url");
-	    data = { action: 'get_order_data', id: order_id};
-	    $.ajax({
-	        url: ajaxurl,
-	        data:data,
-	        type: 'post',
-	        dataType: 'json',
-	        success: function(response) {
-	    		for (var i = 0; i < response.length; i++) {
-
-	                window.open(response[i], '_blank');
-	        	}
-		    }
-
-		});
+			if (rowVisible) {
+				tr[i].style.display = '';
+			} else {
+				tr[i].style.display = 'none';
+			}
+		}
 	});
-});*/
+});

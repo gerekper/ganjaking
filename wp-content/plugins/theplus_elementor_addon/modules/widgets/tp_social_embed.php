@@ -2162,36 +2162,56 @@ class ThePlus_Social_Embed extends Widget_Base {
 				],
 			]
 		);
-		$this->add_control('GMwidth',
+		$this->add_responsive_control('GMwidth',
+		[
+			'label'=>__('Width','theplus'),
+			'type'=>Controls_Manager::SLIDER,
+			'size_units' => ['px','%','vw'],
+			'range' => [
+				'px' => [
+					'min' => 0,
+					'max' => 1000,
+					'step' => 5,
+				],
+				'%' => [
+					'min' => 1,
+					'max' => 100,
+					'step' => 5,
+				],
+				'vw' => [
+					'min' => 1,
+					'max' => 100,
+					'step' => 5,
+				],
+			],
+			'default' => [
+				'unit'=>'px',
+				'size'=>600,
+			],
+			'selectors' => [
+				'{{WRAPPER}} .tp-social-embed iframe' => 'width:{{SIZE}}{{UNIT}}',
+			],
+		]
+		);
+		$this->add_responsive_control('GMHeight',
 			[
-				'label'=>__('Width','theplus'),
+				'label'=>__('Height','theplus'),
 				'type'=>Controls_Manager::SLIDER,
-				'size_units' => ['px'],
+				'size_units' => ['px','%','vh'],
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 1000,
 						'step' => 5,
 					],
-				],
-				'default' => [
-					'unit'=>'px',
-					'size'=>600,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .tp-social-embed iframe' => 'width:{{SIZE}}{{UNIT}}',
-				],
-			]
-		);
-		$this->add_control('GMHeight',
-			[
-				'label'=>__('Height','theplus'),
-				'type'=>Controls_Manager::SLIDER,
-				'size_units' => ['px'],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 1000,
+					'%' => [
+						'min' => 1,
+						'max' => 100,
+						'step' => 5,
+					],
+					'vh' => [
+						'min' => 1,
+						'max' => 100,
 						'step' => 5,
 					],
 				],

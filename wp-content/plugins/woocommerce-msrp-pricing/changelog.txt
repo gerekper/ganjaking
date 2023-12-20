@@ -1,36 +1,42 @@
 *** WooCommerce MSRP Pricing ***
 
+2023.12.11 - version 3.4.24
+* Update: Compatibility with Cart & Checkout blocks
+
+2023.12.06 - version 3.4.23
+* Update: WooCommerce compatibility up to 8.4
+
 2023.10.02 - version 3.4.22
-* New: WooCommerce 8.2 compatibility
+* Update: WooCommerce 8.2 compatibility
 
 2023.09.11 - version 3.4.21
-* New: WooCommerce 8.1 compatibility
+* Update: WooCommerce 8.1 compatibility
 
 2023.07.26 - version 3.4.20
-* New: WooCommerce 8.0 compatibility
+* Update: WooCommerce 8.0 compatibility
 
 2023.07.05 - version 3.4.19
-* New: WooCommerce 7.9 compatibility
+* Update: WooCommerce 7.9 compatibility
 * Change: Ensure plugin strings are correctly escaped
 
 2023.06.05 - version 3.4.18
-* New: WooCommerce 7.8 compatibility
+* Update: WooCommerce 7.8 compatibility
 
 2023.05.03 - version 3.4.17
-* New: WooCommerce 7.7 compatibility
+* Update: WooCommerce 7.7 compatibility
 
 2023.04.05 - version 3.4.16
-* New: WooCommerce 7.6 compatibility
+* Update: WooCommerce 7.6 compatibility
 
 2023.03.06 - version 3.4.15
-* New: WooCommerce compatibility up to 7.5
-* New: Support for High Performance Order Storage
+* Update: WooCommerce compatibility up to 7.5
+* Update: Support for High Performance Order Storage
 
 2023.02.10 - version 3.4.14
-* New: WooCommerce compatibility up to 7.4
+* Update: WooCommerce compatibility up to 7.4
 
 2023.01.05 - version 3.4.13
-* New: WooCommerce compatibility up to 7.3
+* Update: WooCommerce compatibility up to 7.3
  
 2022.11.30 - version 3.4.12
 * New: WooCommerce compatibility up to 7.2

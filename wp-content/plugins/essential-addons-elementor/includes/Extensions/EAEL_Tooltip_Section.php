@@ -437,7 +437,7 @@ class EAEL_Tooltip_Section
             ?>
 
             <script>
-                jQuery(window).on('elementor/frontend/init', function() {
+                jQuery(window).on('elementor/frontend/init elementor/popup/show', function() {
                     var $currentTooltip = '#eael-section-tooltip-<?php echo $element->get_id(); ?>';
 
                     if (typeof tippy !== 'undefined') {
@@ -458,7 +458,7 @@ class EAEL_Tooltip_Section
                             interactive: true,
                             flipBehavior: <?php echo $flip == 'yes' ? "'flip'" : esc_js( '[]' ); ?>,
                             maxWidth: <?php echo $width['size']; ?>,
-                            zIndex: 999,
+                            zIndex: 99999,
                             followCursor: <?php if ($followCursor !== 'false') {
 				                echo "'$followCursor'";
 			                } else { ?> false <?php } ?>,

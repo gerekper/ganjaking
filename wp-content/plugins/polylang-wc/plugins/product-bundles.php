@@ -82,55 +82,68 @@ class PLLWC_Product_Bundles {
 
 		foreach ( $from->get_bundled_data_items() as $item ) {
 			$tr_id = $data_store->get( $item->get_product_id(), $lang );
-			if ( $tr_id ) {
-				$tr_ids[] = $tr_id;
+			if ( empty( $tr_id ) ) {
+				continue;
+			}
 
-				// Meta data.
-				$meta_data = $item->get_meta_data();
-				$meta_data['bundled_id'] = $to->get_id();
+			$tr_ids[] = $tr_id;
 
-				if ( ! empty( $meta_data['allowed_variations'] ) ) {
-					foreach ( $meta_data['allowed_variations'] as $k => $variation_id ) {
-						$meta_data['allowed_variations'][ $k ] = $data_store->get( $variation_id, $lang );
+			// Meta data.
+			$meta_data = $item->get_meta_data();
+			$meta_data['bundled_id'] = $to->get_id();
+
+			if ( ! empty( $meta_data['allowed_variations'] ) ) {
+				foreach ( $meta_data['allowed_variations'] as $k => $variation_id ) {
+					$meta_data['allowed_variations'][ $k ] = $data_store->get( $variation_id, $lang );
+				}
+			}
+
+			if ( ! empty( $meta_data['default_variation_attributes'] ) ) {
+				// FIXME Copy paste of PLLWC_Admin_Products::copy_default_attributes().
+				foreach ( $meta_data['default_variation_attributes'] as $k => $v ) {
+					if ( ! taxonomy_exists( $k ) ) {
+						continue;
+					}
+					$terms = get_terms( array( 'taxonomy' => $k, 'slug' => $v, 'lang' => '' ) ); // Don't use get_term_by filtered by language since WP 4.7.
+					if ( ! is_array( $terms ) ) {
+						continue;
+					}
+
+					$term = reset( $terms );
+					if ( ! $term ) {
+						continue;
+					}
+
+					$tr_term_id = pll_get_term( $term->term_id, $lang );
+					if ( ! empty( $tr_term_id ) ) {
+						$term = get_term( $tr_term_id, $k );
+						$meta_data['default_variation_attributes'][ $k ] = $term->slug;
 					}
 				}
+			}
 
-				if ( ! empty( $meta_data['default_variation_attributes'] ) ) {
-					// FIXME Copy paste of PLLWC_Admin_Products::copy_default_attributes().
-					foreach ( $meta_data['default_variation_attributes'] as $k => $v ) {
-						if ( taxonomy_exists( $k ) ) {
-							$terms = get_terms( array( 'taxonomy' => $k, 'slug' => $v, 'lang' => '' ) ); // Don't use get_term_by filtered by language since WP 4.7.
-							if ( is_array( $terms ) && ( $term = reset( $terms ) ) && $tr_id = pll_get_term( $term->term_id, $lang ) ) {
-								$term = get_term( $tr_id, $k );
-								$meta_data['default_variation_attributes'][ $k ] = $term->slug;
-							}
-						}
-					}
-				}
+			if ( $sync ) {
+				$meta_data = array_diff_key( $meta_data, array_flip( array( 'title', 'description' ) ) ); // Copy, don't sync.
+			}
 
-				if ( $sync ) {
-					$meta_data = array_diff_key( $meta_data, array_flip( array( 'title', 'description' ) ) ); // Copy, don't sync.
-				}
-
-				// Copy or update.
-				if ( isset( $_translated_bundle_item_ids[ $tr_id ] ) ) {
-					WC_PB_DB::update_bundled_item(
-						$_translated_bundle_item_ids[ $tr_id ],
-						array(
-							'menu_order' => $item->get_menu_order(),
-							'meta_data'  => $meta_data,
-						)
-					);
-				} else {
-					WC_PB_DB::add_bundled_item(
-						array(
-							'bundle_id'  => $to->get_id(),
-							'product_id' => $tr_id,
-							'menu_order' => $item->get_menu_order(),
-							'meta_data'  => $meta_data,
-						)
-					);
-				}
+			// Copy or update.
+			if ( isset( $_translated_bundle_item_ids[ $tr_id ] ) ) {
+				WC_PB_DB::update_bundled_item(
+					$_translated_bundle_item_ids[ $tr_id ],
+					array(
+						'menu_order' => $item->get_menu_order(),
+						'meta_data'  => $meta_data,
+					)
+				);
+			} else {
+				WC_PB_DB::add_bundled_item(
+					array(
+						'bundle_id'  => $to->get_id(),
+						'product_id' => $tr_id,
+						'menu_order' => $item->get_menu_order(),
+						'meta_data'  => $meta_data,
+					)
+				);
 			}
 		}
 

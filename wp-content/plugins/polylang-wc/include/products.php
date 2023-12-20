@@ -521,7 +521,9 @@ class PLLWC_Products {
 						$tr_ids[] = $tr_id;
 					}
 
+					$v = clone $v; // Avoid original attribute to be modified.
 					$v->set_options( $tr_ids );
+					$attributes[ $k ] = $v;
 					break;
 			}
 		}

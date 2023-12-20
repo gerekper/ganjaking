@@ -308,8 +308,8 @@ class PLLWC_Bookings {
 	 *
 	 * @since 0.6
 	 *
-	 * @param int    $from ID of the product from which we copy informations.
-	 * @param int    $to   ID of the product to which we paste informations.
+	 * @param int    $from ID of the product from which we copy information.
+	 * @param int    $to   ID of the product to which we paste information.
 	 * @param string $lang Language slug.
 	 * @return void
 	 */
@@ -325,6 +325,10 @@ class PLLWC_Bookings {
 				$relationship['product_id']  = $to;
 				$relationship['resource_id'] = $tr_resource_id;
 				$wpdb->insert( "{$wpdb->prefix}wc_booking_relationships", $relationship );
+
+				if ( class_exists( WC_Bookings_Cache::class ) ) {
+					WC_Bookings_Cache::delete_booking_resources_transient( $to );
+				}
 			}
 		}
 	}

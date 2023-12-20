@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.7.0
+ * @version     6.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -192,6 +192,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
 			include_once 'compat/class-wc-sc-kco-compatibility.php';
 			include_once 'compat/class-wc-sc-pnr-compatibility.php';
+			include_once 'compat/class-wc-sc-wscp-compatibility.php';
 
 			include_once 'class-wc-sc-admin-welcome.php';
 			include_once 'class-wc-sc-background-coupon-importer.php';

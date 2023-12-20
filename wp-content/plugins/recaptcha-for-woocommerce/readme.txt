@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:6.3
-Version:2.48
-Stable tag:2.48
+Tested up to:6.4
+Version:2.50
+Stable tag:2.50
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,17 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.50 =
+
+* Fixed compatibility issue with WooCommerce Square digital wallets (GPay/Apple Pay) on checkout
+
+
+= 2.49 =
+
+* Added fallback token mechanism in checkout section for reCaptcha V3 in case of token failed to generate.
+* Fixed request button (Gpay/Apple Pay) reCaptcha error on checkout form
+
 
 = 2.48 =
 

@@ -2744,7 +2744,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 													<label id="title_dynamic" for="title_from" >From:</label>
 
 													<fieldset>
-														<input name="dynamic_from_value[1]" class="dynamic_from_value clone_tds from_val" id="dynamic_from_value_1" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" required="required" />
+														<input name="dynamic_from_value[1]" class="dynamic_from_value clone_tds from_val requiredClass" id="dynamic_from_value_1" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" required />
 													</fieldset>
 												</td>
 
@@ -2753,7 +2753,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 													<fieldset>
 
-														<input name="dynamic_to_value[1]" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_1" type="number" data="vto" min="0" step="0.01" style="width:100px;" required="required" />
+														<input name="dynamic_to_value[1]" class="dynamic_to_value clone_tds to_val requiredClass" id="dynamic_to_value_1" type="number" data="vto" min="0" step="0.01" style="width:100px;" required />
 													</fieldset>
 												</td>
 												<td>
@@ -2761,7 +2761,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 													<fieldset>
 
-														<input name="dynamic_profit_percent_value[1]" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_1" data="vpercent" type="number" min="0" step="0.01" style="width:100px;" required="required" />
+														<input name="dynamic_profit_percent_value[1]" class="dynamic_profit_percent_value clone_tds requiredClass" id="dynamic_profit_percent_value_1" data="vpercent" type="number" min="0" step="0.01" style="width:100px;" required />
 													</fieldset>
 												</td>
 
@@ -2770,7 +2770,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 													<fieldset>
 
-														<input name="dynamic_profit_doller_value[1]" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_1" data="vfixed" type="number" min="0" step="0.01"  style="width:100px;" required="required" />
+														<input name="dynamic_profit_doller_value[1]" class="dynamic_profit_doller_value clone_tds requiredClass" id="dynamic_profit_doller_value_1" data="vfixed" type="number" min="0" step="0.01"  style="width:100px;" required />
 													</fieldset>
 												</td>
 												</div>
@@ -2816,25 +2816,25 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												switch ( $tdCount ) {
 													case 1:
 														$elementsHtml .= '
-													<td><label id="title_dynamic" for="title_from" >From:</label><fieldset><input name="dynamic_from_value[' . $rowCount . ']" class="dynamic_from_value clone_tds from_val " id="dynamic_from_value_' . $rowCount . '" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
+													<td><label id="title_dynamic" for="title_from" >From:</label><fieldset><input name="dynamic_from_value[' . $rowCount . ']" class="dynamic_from_value clone_tds from_val requiredClass" id="dynamic_from_value_' . $rowCount . '" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" value="' . $td . '" required /></fieldset></td>
 												';
 														break;
 													case 2:
 														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_to" >To:</label>
-													<fieldset><input name="dynamic_to_value[' . $rowCount . ']" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_' . $rowCount . '" type="number" data="vto" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
+													<fieldset><input name="dynamic_to_value[' . $rowCount . ']" class="dynamic_to_value clone_tds to_val requiredClass" id="dynamic_to_value_' . $rowCount . '" type="number" data="vto" min="0" step="0.01" style="width:100px;" value="' . $td . '" required /></fieldset></td>
 												';
 														break;
 													case 3:
 														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_profit_percent" >% Profit</label>
-													<fieldset><input name="dynamic_profit_percent_value[' . $rowCount . ']" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_' . $rowCount . '" type="number" data="vpercent" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
+													<fieldset><input name="dynamic_profit_percent_value[' . $rowCount . ']" class="dynamic_profit_percent_value clone_tds requiredClass" id="dynamic_profit_percent_value_' . $rowCount . '" type="number" data="vpercent" min="0" step="0.01" style="width:100px;" value="' . $td . '" required /></fieldset></td>
 												';
 														break;
 													case 4:
 														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_profit_doller" >$ Profit</label>
-													<fieldset><input name="dynamic_profit_doller_value[' . $rowCount . ']" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_' . $rowCount . '" type="number" min="0" step="0.01" data="vfixed" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
+													<fieldset><input name="dynamic_profit_doller_value[' . $rowCount . ']" class="dynamic_profit_doller_value clone_tds requiredClass" id="dynamic_profit_doller_value_' . $rowCount . '" type="number" min="0" step="0.01" data="vfixed" style="width:100px;" value="' . $td . '" required /></fieldset></td>
 												';
 														break;
 												} // switch($tdCount)

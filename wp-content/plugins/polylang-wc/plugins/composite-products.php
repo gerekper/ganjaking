@@ -129,7 +129,7 @@ class PLLWC_Composite_Products {
 				foreach ( $value as $component_id => $component ) {
 					if ( isset( $component['assigned_ids'] ) ) {
 						foreach ( $component['assigned_ids'] as $k => $product_id ) {
-							$value[ $component_id ]['assigned_ids'][ $k ] = $data_store->get( $product_id, $lang );
+							$value[ $component_id ]['assigned_ids'][ $k ] = $data_store->get( (int) $product_id, $lang );
 						}
 					}
 
@@ -140,7 +140,7 @@ class PLLWC_Composite_Products {
 					}
 
 					if ( isset( $component['default_id'] ) ) {
-						$value[ $component_id ]['default_id'] = $data_store->get( $component['default_id'], $lang );
+						$value[ $component_id ]['default_id'] = $data_store->get( (int) $component['default_id'], $lang );
 					}
 				}
 				break;
@@ -152,7 +152,7 @@ class PLLWC_Composite_Products {
 					foreach ( $scenario['component_data'] as $component_id => $products_in_scenario ) {
 						foreach ( $products_in_scenario as $k => $product_id ) {
 							if ( ! empty( $product_id ) ) {
-								$value[ $scenario_id ]['component_data'][ $component_id ][ $k ] = $data_store->get( $product_id, $lang );
+								$value[ $scenario_id ]['component_data'][ $component_id ][ $k ] = $data_store->get( (int) $product_id, $lang );
 							}
 						}
 					}
@@ -177,8 +177,8 @@ class PLLWC_Composite_Products {
 			$data_store = PLLWC_Data_Store::load( 'product_language' );
 
 			foreach ( array_keys( $composite ) as $key ) {
-				$composite[ $key ]['product_id']   = $data_store->get( $composite[ $key ]['product_id'] );
-				$composite[ $key ]['composite_id'] = $data_store->get( $composite[ $key ]['composite_id'] );
+				$composite[ $key ]['product_id']   = $data_store->get( (int) $composite[ $key ]['product_id'] );
+				$composite[ $key ]['composite_id'] = $data_store->get( (int) $composite[ $key ]['composite_id'] );
 
 				$product = wc_get_product( $composite[ $key ]['composite_id'] );
 				if ( $product && $product instanceof WC_Product_Composite ) {

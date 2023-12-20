@@ -43,9 +43,9 @@ defined('ABSPATH') || exit;
             <div id="ep-megamenu-custom-content">
                 <div id="ep-custom-width-valueb">
                     <div class="ep-custom-width">
-                        <label for="ep-custom-width-value"><?php esc_html_e('Custom Width', 'bdthemes-element-pack'); ?></label>
+                        <label for="ep-custom-width-value"><?php esc_html_e('Custom Width (px, em, rem)', 'bdthemes-element-pack'); ?></label>
                         <div class="form-control">
-                            <input type="text" placeholder="750px;" id="ep-custom-width-value" />
+                            <input type="text" placeholder="750px" id="ep-custom-width-value" />
                         </div>
                     </div>
                 </div>

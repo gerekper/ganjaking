@@ -357,7 +357,8 @@ class ThePlus_Product_ListOut extends Widget_Base {
 				'label'       => esc_html__( 'Exclude Product(s)', 'theplus' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder'     => 'product_id',
-				'label_block' => true,				
+				'label_block' => true,	
+				'separator' => 'after',			
 				'condition' => [					
 					'product_post_listing!' => ['archive_listing','related_product','upsell','cross_sells'],
 				],
@@ -372,7 +373,6 @@ class ThePlus_Product_ListOut extends Widget_Base {
 				'max' => 200,
 				'step' => 1,
 				'default' => 8,
-				'separator' => 'before',
 			]
 		);
 		$this->add_control(
@@ -3588,7 +3588,19 @@ class ThePlus_Product_ListOut extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'rtl',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
 		$this->add_control(
             'slide_speed',
             [
@@ -4940,6 +4952,19 @@ class ThePlus_Product_ListOut extends Widget_Base {
 		$display_theplus_quickview=$settings['display_theplus_quickview'];
 		$MorePostOptions = !empty($settings['post_extra_option']) ? $settings['post_extra_option'] : "none";
 
+		$carousel_direction=$carousel_slider='';
+		if($layout=='carousel'){
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
 		$temp_array=array();
 		if($style=='custom' && !empty($settings['skin_template'])){
 			$temp_array[]=$settings['skin_template'];
@@ -5097,7 +5122,7 @@ class ThePlus_Product_ListOut extends Widget_Base {
 				$SearchGrid = "tp-searchlist";
 			}
 
-			$output .= '<div id="pt-plus-product-list" class="product-list '.esc_attr($uid).' tp-pro-l-type-'.esc_attr($product_post_listing).' '.esc_attr($data_class).' '.$animated_class.' '.esc_attr($SearchGrid).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' data-enable-isotope="1">';
+			$output .= '<div id="pt-plus-product-list" class="product-list '.esc_attr($uid).' tp-pro-l-type-'.esc_attr($product_post_listing).' '.esc_attr($data_class).' '.$animated_class.' '.esc_attr($SearchGrid).'" '.$layout_attr.' '.$data_attr.' '.$animation_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).'  data-enable-isotope="1">';
 
 			//category filter
 			if($settings['filter_category']=='yes'){

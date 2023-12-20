@@ -1,17 +1,5 @@
 # Changelog
 ======
-1.0.4
-======
-- NEW:	Support for agency licenses
-- NEW:	Remove google font loading
-
-======
-1.0.3
-======
-- NEW:	Remove license option
-		PLEASE REMOVE and READD your store locator license
-
-======
 1.0.2
 ======
 - FIX:	Updater now centralized in this plugin

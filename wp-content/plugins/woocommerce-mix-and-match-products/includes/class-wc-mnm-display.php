@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
- * @version  2.5.0
+ * @version  2.5.2
  */
 
 // Exit if accessed directly.
@@ -382,7 +382,7 @@ class WC_Mix_and_Match_Display {
 				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
 				$edit_in_cart_text = esc_html_x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' );
 				$button_class      = esc_attr( WC_MNM_Core_Compatibility::wp_theme_get_element_class_name( 'button' ) );
-				printf( '<div class="actions"><a class="button edit_container_in_cart_text edit_in_cart_text %1$s" href="%2$s">%3$s</a>', $button_class, $edit_in_cart_link, $edit_in_cart_text ); // phpcs:ignore WordPress.Security.EscapeOutput
+				printf( '<div class="actions"><a class="button edit_container_in_cart_text edit_in_cart_text %1$s" href="%2$s">%3$s</a></div>', $button_class, $edit_in_cart_link, $edit_in_cart_text ); // phpcs:ignore WordPress.Security.EscapeOutput
 
 			}
 		}

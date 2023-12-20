@@ -19,7 +19,6 @@ function theplus_carousel_list(data_widget=''){
 	var $=jQuery;
 	$('.list-carousel-slick').each(function() {
 			var $self=$(this);
-            
             //flexbox mobile
             var responsive_Device = $("body").data("elementor-device-mode");
             if("mobile" === responsive_Device){
@@ -98,11 +97,15 @@ function theplus_carousel_list(data_widget=''){
 			var testimonial_style=$self.data("testimonial-style");
 			var slide_mouse_scroll=$self.data("slide_mouse_scroll");
 			
-			var rtl_crl=false;
-			if (document.dir == "rtl" && slider_direction!=true){
-				rtl_crl=true;
+			let data = $self[0].dataset;
+			parsedData =  data && data.result ? JSON.parse(data.result) : '';
+
+			var getDIrection = parsedData.carousel_direction,
+				rtlVal = false;
+			if( 'rtl' === getDIrection ){
+				rtlVal = true;
 			}
-	
+
 			if(steps_slide=='1'){
 				steps_slide=='1';
 			}else{
@@ -175,6 +178,7 @@ function theplus_carousel_list(data_widget=''){
 				default_active_slide=0;
 			}
 			
+
 			var args = {dots: slider_dots,
 					vertical: slider_direction,	
 					fade:slide_fade_inout,
@@ -197,55 +201,18 @@ function theplus_carousel_list(data_widget=''){
 					swipeToSlide:multi_drag,
 					dotsClass:slider_dots_style,
 					rows : slider_rows,
-					rtl : rtl_crl,
-					responsive: [
-						{
-							breakpoint: 1024,
-							settings: {
-								dots: tablet_slider_dots,
-								arrows: tablet_slider_arrows,
-								infinite: tablet_slider_infinite,
-								autoplay: tablet_slider_autoplay,
-								cssEase: slider_animation,
-								autoplaySpeed: tablet_autoplay_speed,
-								draggable:tablet_slider_draggable,
-                                swipe: tablet_slider_draggable,
-								rows : tablet_slider_rows,
-								slidesToShow: slider_tablet_column,
-								slidesToScroll: tablet_steps_slide,
-								centerMode: tablet_center_mode,
-								centerPadding: tablet_center_padding+'px',
-							}
-						},
-						{
-							breakpoint: 768,
-							settings: {
-								dots: mobile_slider_dots,								
-								arrows: mobile_slider_arrows,
-								infinite: mobile_slider_infinite,
-								autoplay: mobile_slider_autoplay,
-								cssEase: slider_animation,
-								autoplaySpeed: mobile_autoplay_speed,
-								draggable:mobile_slider_draggable,
-                                swipe: mobile_slider_draggable,
-								rows : mobile_slider_rows,
-								slidesToShow: slider_mobile_column,
-								slidesToScroll: mobile_steps_slide,
-								centerMode: mobile_center_mode,
-								centerPadding: mobile_center_padding+'px',
-							}
-						}
-					]
+					rtl: rtlVal,
 			}
+            
 			if(!$(this).hasClass("done-carousel") && !$self.hasClass('theplus-insta-grid')){
 				$('> .post-inner-loop',this).slick(args);
-				setTimeout(function(){
+				// setTimeout(function(){
 					$(".slick-dots.style-2 li").each(function(){
 						if($(this).find("svg").length==0){
 							$(this).append('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" preserveAspectRatio="none"><circle cx="8" cy="8" r="6.215"></circle></svg>');
 						}
 					});
-				}, 1000);
+				// }, 1000);
 				$(this).addClass("done-carousel");
 				if(slide_mouse_scroll==true && slide_mouse_scroll!=undefined){
 					

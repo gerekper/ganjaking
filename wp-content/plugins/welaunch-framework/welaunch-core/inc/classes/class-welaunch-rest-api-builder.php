@@ -14,10 +14,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class weLaunch_Rest_Api_Builder
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class weLaunch_Rest_Api_Builder {
 
 	const ENDPOINT = 'welaunch/descriptors';

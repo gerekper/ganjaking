@@ -663,6 +663,21 @@ class ThePlus_Accordion extends Widget_Base {
 			]
 		);
 		$this->add_control(
+			'search_text_highlight',
+			[
+				'label' => wp_kses_post( "Search Text Highlight", 'theplus' ),
+				'type'    =>  Controls_Manager::SWITCHER,
+				'default' => '',
+				'condition'    => [
+					'search_accordion' => 'yes',
+				],
+				'label_on' => esc_html__( 'Enable', 'theplus' ),
+				'label_off' => esc_html__( 'Disable', 'theplus' ),
+				'separator' => 'before',
+			]
+		);
+		
+		$this->add_control(
 			'search_accordion_length',
 			[
 				'label' => esc_html__( 'Length', 'theplus' ),
@@ -1578,7 +1593,113 @@ class ThePlus_Accordion extends Widget_Base {
 		$this->end_controls_tab();
 		$this->end_controls_tabs();	
 		$this->end_controls_section();
-		/*title style*/
+
+		/*Highlight Background*/
+		$this->start_controls_section(
+            'highlight_background',
+            [
+                'label' => esc_html__('Text Highlight Background', 'theplus'),
+                'tab' => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'search_text_highlight' => 'yes',
+				]
+			]
+        );
+		$this->add_group_control(
+				Group_Control_Typography::get_type(),
+			[
+				'name' => 'content_typography',
+				'selector' => '{{WRAPPER}} .theplus-accordion-wrapper .highlight',
+			]
+	    );
+
+		$this->start_controls_tabs(
+			'style_tabs'
+		);
+		
+		$this->start_controls_tab(
+			'text_highlight_tab',
+			[
+				'label' => esc_html__( 'Normal', 'theplus' ),
+			]
+		);
+
+		$this->add_control(
+			'highlight_bg_color',
+			[
+				'label' => esc_html__( 'Background Color', 'theplus' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#FFFF33',
+				'condition' => [
+					'search_text_highlight' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .theplus-accordion-wrapper .highlight' => 'background-color: {{value}};',
+				],
+			]
+		);
+		$this->add_control(
+			'highlight_text_color',
+			[
+				'label' => esc_html__( 'Text Color', 'theplus' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#000',
+				'condition' => [
+					'search_text_highlight' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .theplus-accordion-wrapper .highlight' => 'color: {{value}};',
+				],
+			]
+		);
+
+		
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'hover_highlight_tab',
+			[
+				'label' => esc_html__( 'Hover', 'theplus' ),
+			]
+		);
+
+		$this->add_control(
+			'hover_bg_color',
+			[
+				'label' => esc_html__( 'Highlight Background Color', 'theplus' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#FFFF33',
+				'condition' => [
+					'search_text_highlight' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .theplus-accordion-wrapper .highlight:hover' => 'background-color: {{value}};',
+				],
+				
+				
+			]
+		);
+		$this->add_control(
+			'hover_text_color',
+			[
+				'label' => esc_html__( 'Highlight Text Color', 'theplus' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ff0000',
+				'condition' => [
+					'search_text_highlight' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .theplus-accordion-wrapper .highlight:hover' => 'color: {{value}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+		$this->end_controls_section();
+        /*Highlight Background end*/
+		
 		/*Title style*/
 		$this->start_controls_section(
             'section_accordion_styling',
@@ -3206,6 +3327,15 @@ class ThePlus_Accordion extends Widget_Base {
 		$uid=uniqid("accordion");
 		
 		$search_accordion = isset($settings['search_accordion']) ? $settings['search_accordion'] : '';
+		
+		$search_text_highlight = !empty($settings['search_text_highlight']) ? true : false;
+       
+		$accordiannew='';
+		if( !empty($search_text_highlight) ){
+			$highlight_data = array( 'search_text_highlight' => (bool) $search_text_highlight);
+			$accordiannew = 'data-accordiannew="' . htmlspecialchars( wp_json_encode( $highlight_data, true ), ENT_QUOTES, 'UTF-8' ) . '"';
+		}
+
 		$search_accordion_length = !empty($settings['search_accordion_length']) ? $settings['search_accordion_length'] : 3;
 		
 		$accordion_stager = isset($settings['accordion_stager']) ? $settings['accordion_stager'] : '';
@@ -3224,6 +3354,7 @@ class ThePlus_Accordion extends Widget_Base {
 		
 		$markupSch = isset($settings['schema_accordion']) ? $settings['schema_accordion'] : false;		
 		$mainschema = $schemaAttr = $schemaAttr1 = $schemaAttr2 = $schemaAttr3 = '';
+
 		if(isset($markupSch) && $markupSch=='yes') {
 			$mainschema = 'itemscope itemtype="https://schema.org/FAQPage"';
 			$schemaAttr = 'itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"';
@@ -3305,7 +3436,7 @@ class ThePlus_Accordion extends Widget_Base {
 		
 		echo $before_content;
 		?>
-		<div class="theplus-accordion-wrapper elementor-accordion <?php echo esc_attr($sattrclasss); ?> <?php echo esc_attr($settings['hover_style']); ?> <?php echo esc_attr($animated_class); ?>" id="<?php echo esc_attr($uid); ?>" data-accordion-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($connect_carousel); ?>" data-accordion-type="<?php echo esc_attr($on_hover_accordion); ?>" <?php echo $animation_attr; ?> <?php echo $row_bg_conn; ?> <?php echo $sattr; ?> role="tablist" <?php echo $mainschema; ?>> 
+		<div class="theplus-accordion-wrapper elementor-accordion <?php echo esc_attr($sattrclasss); ?> <?php echo esc_attr($settings['hover_style']); ?> <?php echo esc_attr($animated_class); ?>" id="<?php echo esc_attr($uid); ?>" data-accordion-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($connect_carousel); ?>" data-accordion-type="<?php echo esc_attr($on_hover_accordion); ?>" data-heightlight-text<?php echo $animation_attr; ?> <?php echo $row_bg_conn; ?> <?php echo $accordiannew; ?> <?php echo $sattr; ?> role="tablist" <?php echo $mainschema; ?>> 
 		
 		<?php
 			if($search_accordion==='yes' && !empty($search_accordion_length)){ ?>
