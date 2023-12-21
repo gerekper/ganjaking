@@ -3109,7 +3109,6 @@ class ThePlus_Advanced_Typography extends Widget_Base {
 				'selectors'  => [
 					'{{WRAPPER}} .pt-plus-adv-typo-wrapper .pt_plus_adv_typo_block .text-content-block' => 'animation-duration: {{VALUE}}s;-webkit-animation-duration: {{VALUE}}s;',
 				],
-				'separator' => 'after',
 			]
 		);		
 		$this->end_controls_section();

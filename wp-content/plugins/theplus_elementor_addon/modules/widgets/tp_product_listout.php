@@ -829,7 +829,6 @@ class ThePlus_Product_ListOut extends Widget_Base {
 					"grid" => esc_html__("Grid Image", 'theplus'),
 					"custom" => esc_html__("Custom", 'theplus'),
 				],
-				'separator' => 'after',
 				'condition' => [
 					'layout' => ['carousel']
 				],
@@ -1003,8 +1002,10 @@ class ThePlus_Product_ListOut extends Widget_Base {
 					'ajaxbased' => esc_html__('Ajax Based', 'theplus'),
 				],
 				'separator' => 'before',
-				'condition' => [
-					'post_extra_option' => 'pagination',
+				'condition'   => [
+					'layout!' => ['carousel'],
+					'product_post_listing!' => ['related_product','upsell','cross_sells'],
+					'post_extra_option'    => 'pagination',
 				],
 			]
 		);
@@ -1564,6 +1565,7 @@ class ThePlus_Product_ListOut extends Widget_Base {
 					'product_post_listing!' => ['related_product','upsell','cross_sells'],
 					'post_extra_option'    => 'load_more',
 				],
+				'separator' => 'after',
 			]
 		);
 		$this->end_controls_tab();
@@ -1573,7 +1575,6 @@ class ThePlus_Product_ListOut extends Widget_Base {
             [
                 'label' => __('No Posts Message', 'theplus'),
                 'type'  => Controls_Manager::TEXTAREA,
-                'separator' => 'before',
 				'default' => esc_html__( 'Products not found', 'theplus' ),
                 'description'   => '',
             ]
@@ -3594,7 +3595,7 @@ class ThePlus_Product_ListOut extends Widget_Base {
 			[
 				'label' => esc_html__( 'Slide Direction', 'theplus' ),
 				'type' => Controls_Manager::SELECT,
-				'default' => 'rtl',
+				'default' => 'ltr',
 				'options' => [
 					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
 					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
@@ -4954,7 +4955,7 @@ class ThePlus_Product_ListOut extends Widget_Base {
 
 		$carousel_direction=$carousel_slider='';
 		if($layout=='carousel'){
-			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'ltr';
 		
 			if ( !empty($carousel_direction) ) {
 				$carousel_data = array(

@@ -10,7 +10,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons' ) ) {
 /**
  * Main WC_Free_Gift_Coupons Class
  *
- * @version	3.4.0
+ * @version	3.5.0
  */
 class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
@@ -19,7 +19,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.4.5';
+	public static $version = '3.5.0';
 
 	/**
 	 * The required WooCommerce version
@@ -244,7 +244,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	public static function admin_notice() {
 		wc_deprecated_function( 'WC_Free_Gift_Coupons::admin_notice()', '1.6.0', 'Function is no longer used.' );
 		/* translators: %s: Required version of WooCommerce */
-		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Free Gift Coupons requires at least WooCommerce %s in order to function. Please upgrade WooCommerce.', 'wc_free_gift_coupons' ), self::$required_woo ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Free Gift Coupons requires at least WooCommerce %s in order to function. Please upgrade WooCommerce.', 'wc_free_gift_coupons' ), esc_html( self::$required_woo ) ) . '</p></div>';
 	}
 
 

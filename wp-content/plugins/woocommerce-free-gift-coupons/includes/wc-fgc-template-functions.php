@@ -6,6 +6,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Functions
  * @since    3.1.1
+ * @version  3.5.0
  */
 
 // Exit if accessed directly.
@@ -48,7 +49,7 @@ function wc_fgc_cancel_edit_link() {
 		$product->get_title(),
 		'</span>'
 	);
-	echo '<a href="" class="wc-fgc-close-link">' . $cancel_text . '</a>';
+	echo '<a href="" class="wc-fgc-close-link">' . wp_kses_post( $cancel_text ) . '</a>';
 }
 
 /**

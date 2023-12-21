@@ -10,7 +10,7 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woo.com/document/template-structure/
  * @package WooCommerce Free Gift Coupons\Templates
  * @since 3.1.0
  * @version 1.0.0

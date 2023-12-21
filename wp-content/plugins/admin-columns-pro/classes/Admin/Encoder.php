@@ -50,7 +50,7 @@ class Encoder
                 $user = get_userdata($users[0]);
 
                 if ($user instanceof WP_User) {
-                    $description[] = ucfirst(ac_helper()->user->get_display_name($user, 'full_name'))
+                    $description[] = ucfirst((string)ac_helper()->user->get_display_name($user, 'full_name'))
                         ?: __('User', 'codepress-admin-columns');
                 }
             } else {

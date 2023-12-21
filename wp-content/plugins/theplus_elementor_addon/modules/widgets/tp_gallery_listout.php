@@ -2009,7 +2009,7 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 			[
 				'label' => esc_html__( 'Slide Direction', 'theplus' ),
 				'type' => Controls_Manager::SELECT,
-				'default' => 'rtl',
+				'default' => 'ltr',
 				'options' => [
 					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
 					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
@@ -3502,7 +3502,7 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 		
 		$carousel_direction=$carousel_slider='';
 		if($layout=='carousel'){
-			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'ltr';
 		
 			if ( !empty($carousel_direction) ) {
 				$carousel_data = array(

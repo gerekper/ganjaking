@@ -1,0 +1,100 @@
+#happy_addons_news_update .ha-setup--wrap {
+	margin: -12px -12px 0;
+	padding: 12px;
+	border-bottom: 1px solid #eee;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .progress-wrapper {
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 2px 8px 2px 8px;
+	border: 1px solid #757575;
+	border-radius: 16px;
+	font-size: .9em;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .progress-wrapper span {
+	position: relative;
+	top: -3px;
+	color: #757575;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display:         flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-ms-flex-align: center;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description h4 {
+	font-weight: bold;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description p {
+	margin-top: 0;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description div {
+	float: left;
+	width: 70%;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description img {
+	float: right;
+	padding-left: 26px;
+	width: 25%;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description a {
+	border: none;
+	background: #e2498a;
+	color: #fff;
+}
+#happy_addons_news_update .ha-setup--wrap .setup-wizard-finish-setup .description a:hover {
+	background: #d6226e;
+}
+#happy_addons_news_update .ha-overview__feed > a {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display:         flex;
+}
+#happy_addons_news_update .ha-overview--banner {
+	width: 100%;
+}
+#happy_addons_news_update .ha-divider-bottom {
+	margin: 0 -12px;
+	border-bottom: 1px solid #eee;
+}
+#happy_addons_news_update .ha-instruction {
+	padding: 10px 10px;
+}
+#happy_addons_news_update .ha-overview__post {
+	margin-bottom: 10px;
+}
+#happy_addons_news_update .ha-overview__post:hover {
+	text-decoration: underline;
+}
+#happy_addons_news_update .ha-overview__post-link {
+	font-weight: 500;
+}
+#happy_addons_news_update .ha-divider-top {
+	margin: 0 -12px;
+	border-top: 1px solid #eee;
+}
+#happy_addons_news_update .ha-overview__footer {
+	padding: 10px 6px 0 8px;
+}
+#happy_addons_news_update .ha-overview__footer ul {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display:         flex;
+	margin: 0;
+	list-style: none;
+}
+#happy_addons_news_update .ha-overview__footer ul li:not(:first-of-type) {
+	margin-right: 4px;
+	padding-left: 4px;
+	border-left: 1px solid #ddd;
+}
+#happy_addons_news_update .ha-overview__footer ul li:first-of-type {
+	margin-right: 4px;
+}

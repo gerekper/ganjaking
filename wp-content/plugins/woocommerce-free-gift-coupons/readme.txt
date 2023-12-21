@@ -1,8 +1,8 @@
 === WooCommerce Free Gift Coupons ===
 Contributors: helgatheviking
 Requires at least: 4.4.0
-Tested up to: 6.1.0
-Stable tag: 3.4.5
+Tested up to: 6.3.0
+Stable tag: 3.5.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,11 +40,11 @@ You can sync your free gift product(s)'s quantity with a product in the cart. Go
 
 = Free Shipping for Gifts =
 
-This setting allows the customer to not incur shipping for the gift product.  A [free shipping method](https://docs.woocommerce.com/document/free-shipping/) must be enabled.
+This setting allows the customer to not incur shipping for the gift product.  A [free shipping method](https://woo.com/document/free-shipping/) must be enabled.
 
 = Usage Restrictions and Limits =
 
-Free Gift coupons follow all the same Usage Restriction and Usage Limits as other Discount Types, such as by email address, minimum cart total, etc. Read more about [Coupon Management](https://docs.woocommerce.com/document/coupon-management).
+Free Gift coupons follow all the same Usage Restriction and Usage Limits as other Discount Types, such as by email address, minimum cart total, etc. Read more about [Coupon Management](https://woo.com/document/coupon-management).
 
 The sole exception to this is if you set a product to <em>sync</em> your gift quantities to. This product will be added to the required products list.
 

@@ -22,6 +22,8 @@ use TheplusAddons\Theplus_Element_Load;
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class ThePlus_Post_Title extends Widget_Base {
+
+	public $TpDoc = THEPLUS_TPDOC;
 		
 	public function get_name() {
 		return 'tp-post-title';
@@ -38,6 +40,12 @@ class ThePlus_Post_Title extends Widget_Base {
     public function get_categories() {
         return array('plus-builder');
     }
+
+	public function get_custom_help_url() {
+		$DocUrl = $this->TpDoc . "customize-post-title-in-elementor-blog-post";
+
+		return esc_url($DocUrl);
+	}
 
     protected function register_controls() {
 		/*Post Title*/
@@ -493,6 +501,7 @@ class ThePlus_Post_Title extends Widget_Base {
 		);
 		$this->end_controls_section();
 		/*Post Prefix postfix*/
+		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
 	}
 	protected function render() {
 		$settings = $this->get_settings_for_display();

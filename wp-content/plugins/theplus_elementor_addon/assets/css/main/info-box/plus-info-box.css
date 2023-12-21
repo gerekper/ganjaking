@@ -47,3 +47,22 @@
 .pt-plus-button-wrapper {
     z-index: 1;
 }
+
+.pt_plus_info_box.info-box-style_1[dir=rtl] .service-media,.pt_plus_info_box.info-box-style_2[dir=rtl] .service-media,.pt_plus_info_box.info-box-style_7[dir=rtl] .service-media {
+    flex-direction: row-reverse
+}
+
+.pt_plus_info_box.info-box-style_1[dir=rtl] .service-content,.pt_plus_info_box.info-box-style_7[dir=rtl] .service-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end
+}
+
+.pt_plus_info_box.info-box-style_11[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_1[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_2[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_3[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_4[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_5[dir=rtl] .service-desc,.pt_plus_info_box.info-box-style_7[dir=rtl] .service-desc {
+    direction: ltr
+}
+
+.pt_plus_info_box.info-box-style_4[dir=rtl] .service-desc {
+    display: flex;
+    justify-content: flex-end
+}

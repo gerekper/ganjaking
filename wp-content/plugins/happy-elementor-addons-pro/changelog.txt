@@ -1,0 +1,478 @@
+# v2.10.0 - 19 December 2023 =
+- Fix: Security improvement for Shipping Bar widget.
+- Fix: Security improvement for EDD Cart widget.
+- Fix: Security improvement for Smart Post List widget.
+- Fix: Security improvement for Post Grid widget.
+- Fix: Security improvement for Instagram Feed widget.
+- Fix: Security improvement for Facebook Feed widget.
+- Fix: Security improvement for Mega Menu.
+- Fix: Security improvement for Live Copy.
+- Fix: Security improvement for EDD Single Product.
+- Fix: Security improvement for Single Product.
+- Fix: Replaced the deprecated function "get_page_by_title" in the Mega Menu.
+- Fix: Resolved a warning regarding default icons in the Creative Slider Next/Prev.
+- Fix: An issue where external links weren't working in the Scrolling Image.
+- Fix: Addressed a cross-domain double paste issue.
+- Tweak: Added support for widget container templates in the Advanced Tab.
+
+# v2.9.1 - 2 November 2023 =
+- Update: Made Compatible with Elementor Free 3.17.x & Elementor Pro 3.17.x
+
+# v2.9.0 - 23 October 2023 =
+- Fix: Cross Domain Copy Paste & Live Copy
+- Fix : Made compatible with latest Elementor & WordPress versions.
+- Fix : Bug fixes and performance improvements.
+
+# v2.8.3 - 13 September 2023 =
+- Update: Made Compatible with Elementor Free 3.16.x & Elementor Pro 3.16.x
+
+# v2.8.2 - 13 September 2023 =
+- Update: Made Compatible with Elementor Free 3.16.1 & Elementor Pro 3.16.0.
+
+# v2.8.1 - 4 September 2023 =
+- Tweak: Pricing Table button width adjust and list icon color controller added.
+- Fix: Post Grid Loadmore issue.
+- Fix: Use Global Primary Typography for controls.
+- Fix: Use Global Primary Color for controls.
+- Fix: Cross-domain copy-paste deprecations fixed.
+- Fix: Free shipping bar JavaScript errors.
+
+# v2.8.0 - 7 August 2023 =
+- New: Shipping Bar widget
+- New: Creative Slider widget
+- Fix: Issue with Thumbnail Navigation Image size of Advanced Slider
+- Update: Made Compatible with Elementor Free 3.15.1 & Elementor Pro 3.15.0.
+
+# v2.7.2 - 11 April 2023 =
+- New: Reworked the preset feature improving its UI and UX.
+- New: Live copy-paste, cross-domain copy-paste, and section feature compatibility with the container.
+- Tweak: Added country option in display condition.
+- Fix: Unfold widget minor issue.
+- Fix: Sticky video AutoPlay issue.
+
+# v2.7.1 - 11 January 2023 =
+- Tweak: Removed `elementor/widgets/widgets_registered` deprecated hook
+- Fix: HappyMenu Mobile editing panel is not showing.
+- Fix: Advanced Data Table Double header issue in the 'Table Press' table
+
+# v2.7.0 - 26 December 2022 =
+- New: Theme Builder feature (With Extra Conditions).
+- New: Remote Carousel widget.
+- Tweak: Flip Box widget flip on touch.
+- Fix: Pricing Table's Feature title is not working with <br> tag.
+- Fix: Advanced Tabs Stretch Alignment Issue.
+- Fix: Off-Canvas widgets with Close Bar link issue.
+- Fix: Display Condition issue.
+- Fix: Smart Post List thumbnail image is not working properly.
+
+# v2.6.1 - 18 October 2022 =
+- Tweak: Advance Post Queries & Query ID integration with the Post Grid Widgets, Smart Post List Widgets & Tiles Post Widgets.
+- Tweak: Word Break Option Introduce on Advance Data Table.
+- Tweak: Advance slider arrow outside section.
+- Tweak: Price Table widget's title tag changing option added.
+- Tweak: Allow html tag in advance table text.
+- Fix: Advance heading redundant tag remove.
+- Fix: Post Grid widget not showing current post issue.
+- Fix: Advance Data Table default column sort issue.
+- Fix: One Page Navigation SVG icon control issue.
+- Fix: Mega Menu warning handling.
+- Fix: Stop indexing Mega Menu by search engine.
+
+# v2.6.0 - 30 August 2022 =
+- New: Table Of Content - Widget
+- Tweak: Introduce `elementor/widgets/register` hook for making it compatible with elementor 3.7.x
+
+# v2.5.1 - 10 August 2022 =
+- Update: Advance tab link support added on tab button
+- Update: Advance map on mouseout infowindow close
+- Tweak: Removed `Elementor\DB::is_built_with_elementor` deprecated method from Elementor 3.7.0.
+- Fix: unwanted placeholder image remove from Image Scrolling
+- Fix: Megamenu overflow issue
+- Fix: One Page Nav issue
+
+# v2.5.0 - 18 July 2022 =
+- New: Image Swap widget
+
+# v2.4.0 - 16 June 2022 =
+- New: Easy Digital Downloads - Cart widget
+- New: Easy Digital Downloads - Checkout widget
+- New: Easy Digital Downloads - Login widget
+- New: Easy Digital Downloads - Registration widget
+- New: Easy Digital Downloads - Purchase widget
+- New: Easy Digital Downloads - Download widget
+- Tweak: Dynamic date format set for smart post list and post carousel widget
+- Fix: Mini Cart js issue
+- Fix: Happy Menu fix for non redirection of parent menu items.
+- Fix: List group item's individual color set as "transparent".
+- Fix: Smart Post List ajax error issue.
+
+# v2.3.3 - 2 May 2022
+- Fix: EDD widgets syntax error
+
+# v2.3.2 - 26 April 2022
+- New: Easy Digital Downloads - Product Grid Widget
+- New: Easy Digital Downloads - Product Carousel Widget
+- New: Easy Digital Downloads - Single Product Widget
+- New: Easy Digital Downloads - Category Grid Widget
+- New: Easy Digital Downloads - Category Carousel Widget
+- Update: plyr.js 3rd party library update.
+- Tweak: Lower animation speed input option enables for all carousel widgets
+- Fix: One Page Nav adjust section height by section threshold
+- Fix: Slider effect "Cube" was temporary removed from Advanced Slider for some browser compatibility issue.
+
+# v2.3.1 - 28 March 2022
+- Fix: Hotspots widget wrong position issue.
+- Improve: Elementor compatibility.
+
+# v2.3.0 - 23 March 2022
+- Tweak: Removed `_register_skins` deprecated method.
+- Fix: live copy button not showing on Frontend.
+
+# v2.2.6 - 1 March 2022
+- Improve: Elementor compatibility
+
+# v2.2.5 - 27 February 2022
+- Tweak: Improve Team Carousel on load behavior
+- Tweak: Improve Testimonial Carousel on load behavior
+- Tweak: Improve Logo Carousel on load behavior
+- Fix: One Page Navigation by mouse wheel issue
+- Fix: Post Carousel Condition for Featured Image
+- Fix: HappyMenu responsive arrow position
+
+# v2.2.4 - 17 February 2022
+- New: Gmaps Widget
+- Tweak: HappyMenu Dropdown indicator hover color control
+- Tweak: ListGroup widget item direction custom control added
+- Fix: ListGroup widget item description hover color fix
+- Fix: Advance Slider Flicker Issue
+
+# v2.2.3 - 31 January 2022
+
+- Tweak: Enhancement Show the author display name instead of username over the Post Carousel widget
+- Tweak: HappyLocalTimeZone set based on display condition enable
+- Tweak: HappyMenu Dropdown indicator picker new ui
+- Tweak: HappyMenu Default Style Enhancement
+- Tweak: HappyMenu Admin Menu Item list indicator added.
+- Fix: Post Grid widget's Badge color not working
+- Fix: Advanced tabs don't load section elements
+- Fix: HappyMenu recursion
+- Fix: Advanced toggle nested opening-closing icon issue
+- Fix: Modal popup video stop playing after closing
+- Fix: Unfold is not showing the end of the line on a long string.
+- Fix: Advanced slider content hides on Elementor template.
+- Fix: HappyMenu Spacing issue with submenu indicator
+- Fix: ListGroup widget item hover color fix
+
+# v2.2.2 - 22 December 2021
+
+- Fix: Advanced slider arrow according to vertical and horizontal slide.
+- Fix: Advanced slider pagination bullets according to vertical and horizontal slide.
+- Fix: Advanced slider scrollbar according to vertical and horizontal slide.
+- Fix: Advanced slider ProgressBar according to vertical and horizontal slide.
+- Fix: Advanced slider pagination numbers according to vertical and horizontal slide.
+- Fix: Advanced slider responsive issue fix.
+- Fix: Advanced slider compatibility with Elementor Improved Asset Loading.
+- Fix: Grammatical Mistake in one page nav widget.
+- Fix: Off-Canvas null Check.
+- Fix: Modal popup null Check.
+- Fix: Manual Selection query issue.
+- Fix: HappyMenu flush rewrite issue.
+- Fix: ListGroup Unindetified index error.
+- Fix: Scroll Image Unindetified index error.
+
+# v2.2.1 - 31 October 2021
+
+- Fix: Failed to open stream issue in particle feature
+- Fix: Syntax error in unfold widget
+- Fix: Hover Box default background image issue
+- Fix: Preset reset button style issue
+- Fix: Unfold widget JS corner case issue
+
+# v2.2.0 - 28 October 2021
+
+- New: Unfold Widget.
+- Tweak: Post Grid widget optimization
+- Tweak: Single Product widget optimization
+- Tweak: Product Grid widget optimization
+- Tweak: Product Carousel widget optimization
+- Tweak: Product Category Grid widget optimization
+- Tweak: Product Category Carousel widget optimization
+- Tweak: Replace `_content_template` function with `content_template`.
+
+# v2.1.1 - 23 September 2021
+
+- Tweak: Improved performance
+
+# v2.1.0 - 25 August 2021 =
+
+- New: Added disbale option for Widget Preset feature
+- New: Added compatibility with PHP 8.0
+
+# v2.0.0  - 3 August 2021 =
+
+- New: One Page Navigation Widget
+- New: Off Canvas Widget
+- New: Added Flip Box Frontend & Backend Title HTML Tag control option
+- New: Added List Group Title HTML Tag control option
+- New: Added Price Menu Title HTML Tag control option
+- New: Added Post Tiles Title HTML Tag control option
+- New: Added Product Carousel Title HTML Tag control option
+- New: Added Product Category Carousel Title HTML Tag control option
+- New: Added Single Product Title HTML Tag control option
+- New: Added Global credential key dashboard. User can set credentials in settings pannel and use it globally (Advanced Data Table Widget, Facebook Feed Widget, Instagram Feed Widget)
+- Tweak: Happy Particle Effects code improved & loading perfermonce optimiation.
+- Tweak: List Group Widget control improved and added simple HTML support for both title and description.
+- Update: Update Hover Box Title HTML Tag control option
+- Update: All widgets Coding stractrue update
+
+# v1.19.2  - 14 July 2021
+- Fix: Happy Menu last nav item padding issue;
+- Fix: HappyMenu tab layout glitch
+
+# v1.19.1  - 8 July 2021
+- Tweak: Mini cart widget popup body offset option added.
+- Tweak: Advanced slider style control improved.
+- Fix: Advanced slider animation issue fix.
+- Fix: Advanced Tabs nav responsive issue
+- Fix: Mini Cart alignment issue
+
+# v1.19.0  - 23 June 2021
+
+- New: Advanced Slider widget
+- New: Link Target option added to Twitter Feed Carousel widget
+- New: Link Target option added to Facebook Feed widget
+- Fix: Happy Menu Off-canvas background color
+
+# v1.18.1  - 15 June 2021
+
+- Tweak: Happy Menu
+
+# v1.18.0  - 9 June 2021
+
+- New: Happy Menu widget
+- New: Pricing Table Currency side position change option added
+- New: Button Border radius control added to Timeline widget
+- Fix: Pagination previous and next improvement on Post Grid widget
+
+# v1.17.1  - 20 May 2021
+
+- Tweak: Single Image Scroll image dynamic tag enable
+- Tweak: Team Carousel title html tag option increased
+- Fix: Single Image anchor tag issue
+
+# v1.17.0 - 25 April 2021
+
+- Tweak: Image Masking map rearrange
+- Tweak: Removed `Elementor\Scheme_Typography` deprecated function
+- Tweak: Happy Elementor Addons not active when Elementor doesn’t meet minimum version requirements
+- Fix: Feature List svg icon color issue
+- Fix: Source Code widget issue
+- Fix: Security patches
+
+# v1.16.0 - 11 April 2021
+
+- New: Single Image Scroll widget
+- New: WC Checkout Coupon Box style control added
+- New: Modal popup trigger type control added
+- Fix: WC Cart & WC Checkout style issue
+- Fix: Post Grid Pagination issue
+
+# v1.15.0 - 24 March 2021
+
+- New: WC Cart widget
+- New: WC Checkout widget
+- Update: List Group widget style control enhancement
+- Fix: Facebook Feed blank issue
+
+# v1.14.0 - 24 February 2021
+
+- New: Mini Cart widget
+- New: Single Product widget
+- New: `happyaddons/extensions/happy_particle_effects` filter hook to disable happy particle effects
+- Update: Added dots nav size control in Logo carousel widget
+- Update: Added dots nav size control in Post carousel widget
+- Update: Added dots nav size control in Team widget
+- Update: Added dots nav size control in Testimonial widget
+- Update: Added dots nav size control in Twitter carousel widget
+- Fix: Timeline block rtl issue
+- Fix: All Slider loop issue
+- Fix: Post Grid Stylica shape divider issue
+- Fix: Scrolling Image console error issue
+- Fix: Chart Widgets console error
+
+# v1.13.1 - 15 December 2020
+
+- Fix: Pricing table JS error in editor
+
+# v1.13.0 - 6 December 2020
+
+- New: Modal popup widget
+- New: Particle effect extension
+- New: Advanced data table widget
+- New: Minimal skin for Product category carousel
+- Update: Product category carousel markup
+- Update: Context menu label and UX
+- Fix: Product grid buttons alignment
+- Fix: Product category grid counter number alignment
+
+# v1.12.0 - 23 November 2020
+
+- New: Product Grid widget
+- New: Product Carousel widget
+- New: Product Category Grid widget
+- New: Product Category Carousel widget
+- Update: Post Grid loadmore animation.
+- Update: Instagram user ID option remove
+- Update: Instagram data cache system update
+- Update: Support custom HTML tags for pricing menu description.
+- Fix: Post Grid Meta last child margin issue.
+- Fix: Post Grid Outbox skin author background color change issue.
+
+# v1.11.1 - 26 October 2020
+
+- Fix: Smart Post List compatibility with WPML
+- Fix: Post Carousel compatibility with WPML
+- Fix: On Demand Assets Loading compatibility with WPML
+- Fix: Pricing Table long feature text breaks into 2nd line issue
+- Fix: Pricing Table default style and content issue
+
+# v1.11.0 - 22 October 2020
+
+- New: Post Grid widget
+- New: Sticky Video widget
+- New: Author List widget
+- New: All Content (Full Page) Cross Domain Copy Paste
+- New: `happyaddons/extensions/image_masking` filter hook to disable image masking
+- New: `happyaddons/extensions/display_condition` filter hook to disable display condition
+- Fix: Post Carousel author name issue
+- Fix: Post Carousel link issue
+- Fix: Updated Elementor JS api compatibility with 3.x.x
+
+# v1.10.0 - 29 September 2020
+
+- New: Smart Post List widget
+- New: Post Tiles widget
+- New: Post Carousel widget
+- Tweak: Instagram data cache system update
+- Fix: Correct Spelling Mistake in Instagram
+- Fix: WPML Link Issue
+- Fix: SVG Icon Color Issue
+- Fix: Scrolling image duplicate link issue
+- Fix: Instagram Video Image Blank issue
+
+# v1.9.0 - 30 June 2020
+
+- New: Twitter Feed Carousel widget
+- New: Breadcrumb New widget
+- New: Instagram New API integration
+- Fix: Column padding issue on editor
+
+# v1.8.0 - 22 June 2020
+
+- New: Facebook feed widget
+- New: Section template inline editing
+- Fix: SVG sizing issues in all widgets
+- Fix: WPML file loading issue
+- Fix: Self Hosted Live Copy button on/off issue
+
+# v1.7.0 - 18 May 2020
+
+- New: WPML support for all widgets
+- Fix: Animated Text alignment issue
+- Fix: Logo Carousel image issue on ios and safari
+
+# v1.6.1 - 28 April 2020
+
+- Fix: Heading widget style tab issue
+
+# v1.6.0 - 22 April 2020
+
+- New: Self Hosted Live Copy
+- Fix: SVG missing issue on cross paste and live paste
+- Fix: Select2 visual issue
+- Fix: Removed unnecessary scripts
+
+# v1.5.1 - 5 April 2020
+
+- Tweak: Custom attribute output support for all links
+- Fix: Elementor popup link not working in HappyAddons Pro widgets
+- Fix: Timeline widget date alignment with icon top issue
+- Fix: Testimonial Carousel padding issue
+
+# v1.5.0 - 4 March 2020
+
+- New: Pie & Doughnut Chart Widget
+- New: Line Chart Widget
+- New: Rader Chart Widget
+- New: Polar Area Chart Widget
+- Update: Added badget text in Pricing Menu
+- Update: Added server time in Display Condition
+- Fix: Display Condition cookie issue
+
+# v1.4.3 - 1 March 2020
+
+- Fix: Timeline widget missing editing panel issue
+- Fix: Dynamic tags support compatibility
+- Fix: preview.min.js - 404 issue
+
+# v1.4.2 - 27 February 2020
+
+- Update: Dynamic tags support for Accordion widget
+- Update: Dynamic tags support for Pricing Table widget
+- Update: Dynamic tags support for Advanced Tabs widget
+- Update: Dynamic tags support for Animated Text widget
+- Update: Dynamic tags support for Feature List widget
+- Update: Dynamic tags support for Hotspots widget
+- Update: Dynamic tags support for List Group widget
+- Update: Dynamic tags support for Logo Carousel widget
+- Update: Dynamic tags support for Price Menu widget
+- Update: Dynamic tags support for Promo Box widget
+- Update: Dynamic tags support for Scrolling Image widget
+- Update: Dynamic tags support for Team Carousel widget
+- Update: Dynamic tags support for Testimonial Carousel widget
+- Update: Dynamic tags support for Toggle widget
+- Fix: Pricing Table php warning
+
+# v1.4.1 - 18 February 2020
+- Fix: Conflict with Rank Math
+- Fix: Hotspots widget id conflict
+
+# v1.4.0 - 21 January 2020
+- New: HotSpots widget
+- New: Price Menu widget
+- New: Display condition global feature (Works with all widgets, section and column. Available inside advanced tab)
+- Tweak: Improved attachment import procedure on cross paste and live paste
+
+# v1.3.0 - 31 December 2019
+- New: Promo Box widget
+- New: CSS Image Masking (Supported widgets: Card, Info Box, Promo Box, Member, Image, Image Box)
+- Update: Cross Domain Copy Paste UX improved
+- Update: Cross Domain Copy Paste performance improved
+- Update: Live Copy Paste UX improved
+- Update: Live Copy Paste performance improved
+- Update: Context menu items are moved to upper position
+- Fix: Unlimited Section Nesting compatibility issue with Elementor 2.8.*
+
+# v1.2.0 - 22 December 2019
+- New: Timeline scroll animation
+- Fix: Live Copy Paste compatibility issue with Elementor 2.8.*
+- Fix: Cross Domain Copy Paste compatibility issue with Elementor 2.8.*
+- Fix: Preset compatibility issue with Elementor 2.8.*
+
+# v1.1.0 - 25 November 2019
+- New: Added Live Copy feature (Check context menu for Live Paste option)
+- Tweak: Animated Text widget max limit increased
+- Fix: Countdown widget redirect issue
+- Fix: Featured List widget link issue
+- Fix: Malware false warning issue
+
+# v1.0.2 - 8 November 2019
+- Fix: Plugin auto updater initialization
+
+# v1.0.1 - 7 November 2019
+- Tweak: Widgets default styles
+- Fix: Image border radius style issue
+- Fix: Unexpected preset calls
+
+# v1.0.0 - 22 October 2019
+- Initial release

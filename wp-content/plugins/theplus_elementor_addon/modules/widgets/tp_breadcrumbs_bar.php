@@ -294,7 +294,6 @@ class ThePlus_Breadcrumbs_Bar extends Widget_Base {
 				'name' => 'sep_icons_image_thumbnail',
 				'default' => 'full',
 				'separator' => 'none',
-				'separator' => 'after',
 				'condition' => [
 					'sep_select_icon' => 'sep_icon',
 					'sep_icon_font_style' => 'sep_icon_image',
@@ -945,7 +944,6 @@ class ThePlus_Breadcrumbs_Bar extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .pt_plus_breadcrumbs_bar .pt_plus_breadcrumbs_bar_inner nav#breadcrumbs img.bread-sep-icon' => 'max-width: {{SIZE}}{{UNIT}};height: auto;'
 				],
-				'separator' => 'after',
 				'condition' => [
 					'sep_icon_font_style' => 'sep_icon_image',
 				],
@@ -1009,7 +1007,6 @@ class ThePlus_Breadcrumbs_Bar extends Widget_Base {
 				'max' => 100,
 				'step' => 1,
 				'default' => 10,
-				'separator' => 'after',
 				'condition' => [
 					'letter_limit_current_switch' => 'yes',
 				],				

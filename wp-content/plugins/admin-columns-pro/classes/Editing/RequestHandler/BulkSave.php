@@ -9,6 +9,7 @@ use AC\Response;
 use AC\Type\ListScreenId;
 use ACP\Editing\ApplyFilter;
 use ACP\Editing\Editable;
+use ACP\Editing\ListScreen;
 use ACP\Editing\Model;
 use ACP\Editing\RequestHandler;
 use ACP\Editing\RequestHandler\Exception\InvalidUserPermissionException;
@@ -25,9 +26,6 @@ class BulkSave implements RequestHandler
     private const SAVE_SUCCESS = 'success';
     private const SAVE_NOTICE = 'not_editable';
 
-    /**
-     * @var Storage
-     */
     private $storage;
 
     public function __construct(Storage $storage)
@@ -55,6 +53,10 @@ class BulkSave implements RequestHandler
         $list_screen = $this->storage->find(new ListScreenId($list_id));
 
         if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+            $response->error();
+        }
+
+        if ( ! $list_screen instanceof ListScreen) {
             $response->error();
         }
 

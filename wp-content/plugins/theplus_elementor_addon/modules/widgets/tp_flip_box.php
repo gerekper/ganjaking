@@ -2492,6 +2492,18 @@ class ThePlus_Flip_Box extends Widget_Base {
 				],
 			]
 		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'ltr',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
 		$this->add_responsive_control('carousel_margin',
 			[
 				'label' => esc_html__( 'Margin', 'theplus' ),
@@ -3816,6 +3828,7 @@ class ThePlus_Flip_Box extends Widget_Base {
 		
 		//carousel option
 		$isotope=$data_slider=$arrow_class=$data_carousel='';
+		$carousel_direction=$carousel_slider='';
 		if($info_box_layout == 'carousel_layout'){
 			$slider_direction = ($settings['slider_direction'] == 'vertical') ? 'true' : 'false';
 			$data_slider .=' data-slider_direction="'.esc_attr($slider_direction).'"';
@@ -3919,6 +3932,16 @@ class ThePlus_Flip_Box extends Widget_Base {
 			}
 			if(!empty($settings["outer_section_arrow"]) && $settings["outer_section_arrow"] == 'yes' && ($settings["slider_arrows_style"] == 'style-1' || $settings["slider_arrows_style"] == 'style-2' || $settings["slider_arrows_style"] == 'style-5' || $settings["slider_arrows_style"] == 'style-6')){
 				$data_carousel .=' outer-slider-arrow';
+			}
+
+			$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'ltr';
+		
+			if ( !empty($carousel_direction) ) {
+				$carousel_data = array(
+					'carousel_direction' => $carousel_direction,
+				);
+	
+				$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
 			}
 
 		}
@@ -4172,7 +4195,7 @@ class ThePlus_Flip_Box extends Widget_Base {
 			$carousel_bg = ' data-carousel-bg-conn="bgcarousel'.esc_attr($settings["carousel_unique_id"]).'"';
 		}
 		
-		$info_box ='<div class="pt_plus_info_box '.esc_attr($isotope).' '.esc_attr($arrow_class).' '.esc_attr($data_carousel).' '.esc_attr($uid).' info-box-'.esc_attr($main_style).' '.esc_attr($animated_class).'  '.esc_attr($service_space).'"  data-id="'.esc_attr($uid).'" '.$animation_attr.' '.$data_slider.' '.esc_attr($visiblity_hide).' '.$carousel_bg.'>';
+		$info_box ='<div class="pt_plus_info_box '.esc_attr($isotope).' '.esc_attr($arrow_class).' '.esc_attr($data_carousel).' '.esc_attr($uid).' info-box-'.esc_attr($main_style).' '.esc_attr($animated_class).'  '.esc_attr($service_space).'" '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-id="'.esc_attr($uid).'" '.$animation_attr.' '.$data_slider.' '.esc_attr($visiblity_hide).' '.$carousel_bg.'>';
 			$info_box .= '<div class="post-inner-loop">';
 				$info_box .= $output;
 			$info_box .='</div>';

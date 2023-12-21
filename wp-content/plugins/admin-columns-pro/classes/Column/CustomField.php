@@ -215,7 +215,7 @@ class CustomField extends AC\Column\CustomField
             case CustomFieldType::TYPE_TEXT :
             case CustomFieldType::TYPE_URL :
             default :
-                return new Search\Comparison\Meta\Text($this->get_meta_key());
+                return new Search\Comparison\Meta\SearchableText($this->get_meta_key(), $this->create_query());
         }
     }
 

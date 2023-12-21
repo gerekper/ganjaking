@@ -22,6 +22,8 @@ use TheplusAddons\Theplus_Element_Load;
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class ThePlus_Post_Meta extends Widget_Base {
+
+	public $TpDoc = THEPLUS_TPDOC;
 		
 	public function get_name() {
 		return 'tp-post-meta';
@@ -38,6 +40,12 @@ class ThePlus_Post_Meta extends Widget_Base {
     public function get_categories() {
         return array('plus-builder');
     }
+
+	public function get_custom_help_url() {
+		$DocUrl = $this->TpDoc . "add-post-meta-in-elementor-blog-post";
+
+		return esc_url($DocUrl);
+	}
 
     protected function register_controls() {
 		
@@ -1473,7 +1481,9 @@ class ThePlus_Post_Meta extends Widget_Base {
 		$this->end_controls_tab();
 		$this->end_controls_tabs();		
 		$this->end_controls_section();
-		/*Content Background*/		
+		/*Content Background*/	
+		
+		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
 	}
 	
     protected function render() {

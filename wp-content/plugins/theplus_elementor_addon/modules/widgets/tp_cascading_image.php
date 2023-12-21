@@ -1592,7 +1592,7 @@ class ThePlus_Cascading_Image extends Widget_Base {
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'no',
 				'separator' => 'before',
-				'description' => esc_html__('You can setup over flow hidden option if your section is going our and having unwanted scrollbar.','theplus'),
+				'description' => esc_html__('You can setup over flow hidden option if your section is going out and having unwanted scrollbar.','theplus'),
 			]
 		);
 		$this->add_control(

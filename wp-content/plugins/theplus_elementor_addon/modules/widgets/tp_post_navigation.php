@@ -21,6 +21,8 @@ use TheplusAddons\Theplus_Element_Load;
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class ThePlus_Post_Navigation extends Widget_Base {
+
+	public $TpDoc = THEPLUS_TPDOC;
 		
 	public function get_name() {
 		return 'tp-post-navigation';
@@ -37,6 +39,12 @@ class ThePlus_Post_Navigation extends Widget_Base {
     public function get_categories() {
         return array('plus-builder');
     }
+
+	public function get_custom_help_url() {
+		$DocUrl = $this->TpDoc . "add-post-next-previous-button-in-elementor-blog-post";
+
+		return esc_url($DocUrl);
+	}
 
     protected function register_controls() {
 		
@@ -374,6 +382,24 @@ class ThePlus_Post_Navigation extends Widget_Base {
 				],
             ]
         );
+		$this->add_responsive_control('space_between',
+			[
+				'label' => esc_html__( 'Space Between', 'theplus' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => ['px'],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 5,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .tp-nav-style-1 .tp-post-nav .post-prev' => 'padding-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .tp-nav-style-1 .tp-post-nav .post-next' => 'padding-left: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
@@ -1076,6 +1102,7 @@ class ThePlus_Post_Navigation extends Widget_Base {
 		);
 		$this->end_controls_section();
 		/*Post Content Style*/
+		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
 	}
 
     protected function render() {

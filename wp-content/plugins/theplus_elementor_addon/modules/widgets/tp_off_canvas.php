@@ -1756,7 +1756,7 @@ class ThePlus_Off_Canvas extends Widget_Base {
 		$this->add_control(
 			'showXTimes',
 			[
-				'label'   => esc_html__( 'Number of Timesr', 'theplus' ),
+				'label'   => esc_html__( 'Number of Times', 'theplus' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'min' => 1,
 				'max' => 50,

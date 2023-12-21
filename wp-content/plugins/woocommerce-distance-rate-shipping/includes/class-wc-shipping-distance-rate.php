@@ -353,7 +353,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				'api_key' => array(
 					'title'       => __( 'API Key', 'woocommerce-distance-rate-shipping' ),
 					'type'        => 'text',
-					'description' => __( 'Your <a href="https://docs.woocommerce.com/document/woocommerce-distance-rate-shipping/#section-3">Google API Key</a>', 'woocommerce-distance-rate-shipping' ),
+					'description' => __( 'Your <a href="https://woo.com/document/woocommerce-distance-rate-shipping/#obtain-a-google-api-key">Google API Key</a>', 'woocommerce-distance-rate-shipping' ),
 				),
 				'debug' => array(
 					'title'   => __( 'Debug Mode', 'woocommerce-distance-rate-shipping' ),

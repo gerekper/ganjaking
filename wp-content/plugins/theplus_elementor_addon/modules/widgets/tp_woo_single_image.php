@@ -639,7 +639,19 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 					'vertical' => esc_html__( 'Vertical', 'theplus' ),
 				],
 			]
-		);		
+		);
+		$this->add_control(
+			'carousel_direction',
+			[
+				'label' => esc_html__( 'Slide Direction', 'theplus' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'ltr',
+				'options' => [
+					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
+					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+				],
+			]
+		);
 		$this->add_control(
             'slide_speed',
             [
@@ -2318,6 +2330,7 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 							}
 							
 							$output=$data_attr=$outputvideo='';
+							$carousel_direction=$carousel_slider='';
 							
 							//carousel
 							if($layout=='carousel'){
@@ -2337,6 +2350,16 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 								if(($settings["slider_rows"] > 1) || ($settings["tablet_slider_rows"] > 1) || ($settings["mobile_slider_rows"] > 1)){
 									$data_class .= ' multi-row';
 								}
+
+								$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'ltr';
+							
+								if ( !empty($carousel_direction) ) {
+									$carousel_data = array(
+										'carousel_direction' => $carousel_direction,
+									);
+						
+									$carousel_slider = 'data-result="' . htmlspecialchars(wp_json_encode($carousel_data, true), ENT_QUOTES, 'UTF-8') . '"';
+								}
 							}
 
 							$ji=1;$ij='';
@@ -2347,7 +2370,7 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 							$data_attr .=' data-id="'.esc_attr($uid).'"';
 							$tablet_metro_class=$tablet_ij='';
 
-							$output .= '<div id="tp-woo-gallery" class="tp-woo-gallery '.esc_attr($uid).' '.esc_attr($data_class).' " '.$layout_attr.' '.$data_attr.'  data-enable-isotope="1">';
+							$output .= '<div id="tp-woo-gallery" class="tp-woo-gallery '.esc_attr($uid).' '.esc_attr($data_class).' " '.$layout_attr.' '.$data_attr.' '.$carousel_slider.' dir='.esc_attr($carousel_direction).' data-enable-isotope="1">';
 								$output .= '<div id="'.esc_attr($uid).'" class="tp-row post-inner-loop '.esc_attr($uid).' ">';
 								
 								/*video*/
@@ -2591,7 +2614,6 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 			$data_slider .=' data-slider_dots="'.esc_attr($slider_dots).'"';
 			$data_slider .=' data-slider_dots_style="slick-dots '.esc_attr($settings["slider_dots_style"]).'"';
 			
-			
 			$slider_arrows= ($settings["slider_arrows"]=='yes') ? 'true' : 'false';
 			$data_slider .=' data-slider_arrows="'.esc_attr($slider_arrows).'"';
 			$data_slider .=' data-slider_arrows_style="'.esc_attr($settings["slider_arrows_style"]).'" ';
@@ -2609,6 +2631,7 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
 			$data_slider .=' data-opacity_normal_slide="'.esc_attr((!empty($settings["opacity_normal_slide"]["size"])) ? $settings["opacity_normal_slide"]["size"] : 0.7).'" ';
 			
 			$data_slider .=' data-slider_rows="'.esc_attr($settings["slider_rows"]).'" ';
+
 		return $data_slider;
 	}
 }

@@ -6,6 +6,8 @@
  *
  * @since 3.0.0
  * @package  WooCommerce Free Gift Coupons/Edit in Cart
+ *
+ * @version  3.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -220,9 +222,9 @@ class WC_FGC_Update_Variation_Cart {
 					data-cart_item_key="<?php echo esc_attr( $cart_item_key );?>"
 					data-product_id="<?php echo esc_attr( $product_id );?>"
 					data-variation_id="<?php echo esc_attr( $variation_id );?>"
-					data-pre_selected_attributes="<?php echo htmlspecialchars( wp_json_encode( $pre_selected_attributes ) );?>"
+					data-pre_selected_attributes="<?php echo wc_esc_json( wp_json_encode( $pre_selected_attributes ) );?>"
 					href="<?php esc_url( $edit_in_cart_link ); ?>">
-					<?php echo $edit_in_cart_text; ?>
+					<?php echo wp_kses_post( $edit_in_cart_text ); ?>
 				</button>
 			</div>
 			<?php

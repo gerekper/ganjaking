@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons
  * @since    2.0.0
- * @version  3.4.4
+ * @version  3.5.0
  */
 
 // Exit if accessed directly.
@@ -105,7 +105,7 @@ class WC_Free_Gift_Coupons_Admin_Notices {
 
 				$dismiss_class = $notice[ 'dismiss_class' ] ? $notice[ 'dismiss_class' ] . ' is-persistent' : 'is-dismissible';
 
-				echo '<div class="wc_fgc_notice woocommerce-message notice-' . $notice[ 'type' ] . ' notice ' . $dismiss_class . '">';
+				echo '<div class="wc_fgc_notice woocommerce-message notice-' . esc_attr( $notice[ 'type' ] ) . ' notice ' . esc_attr( $dismiss_class ) . '">';
 
 				if ( $notice[ 'dismiss_class' ] ) {
 					printf( '<a class="wc-fgc-dismiss-notice woocommerce-message-close notice-dismiss" href="%s">%s</a>',
@@ -260,11 +260,11 @@ class WC_Free_Gift_Coupons_Admin_Notices {
 
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			if ( ! wp_verify_nonce( $_GET[ '_wc_fgc_admin_nonce' ], 'wc_fgc_dismiss_notice_nonce' ) ) {
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'wc_free_gift_coupons' ) );
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'wc_free_gift_coupons' ) );
 			}
 
 			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( __( 'You do not have permission to dismiss this notice.', 'wc_free_gift_coupons' ) );
+				wp_die( esc_html__( 'You do not have permission to dismiss this notice.', 'wc_free_gift_coupons' ) );
 			}
 
 			$notice = sanitize_text_field( $_GET[ 'dismiss_wc_fgc_notice' ] );

@@ -72,18 +72,3 @@ const registerCheckoutFilters =
 
 
 } );
-
-
- document.addEventListener( 'click', function( event ) {
-
-    let editButton = event.target.closest( '.wc-block-cart-item__edit-link' );
-
-    if ( ! editButton ) {
-        return;
-    }
-
-    console.time('bubbling');
-    event.preventDefault();
-    console.timeEnd('bubbling');
-});
- 

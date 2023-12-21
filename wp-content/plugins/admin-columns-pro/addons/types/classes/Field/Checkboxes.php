@@ -16,21 +16,21 @@ class Checkboxes extends Field
     {
         $labels = $this->get_values_as_labels($id);
 
-        return ac_helper()->html->small_block($labels);
+        return $labels ? ac_helper()->html->small_block($labels) : false;
     }
 
-    public function get_values_as_labels($id)
+    public function get_values_as_labels($id): ?array
     {
         $raw = $this->get_raw_value($id);
 
         if ( ! $raw) {
-            return false;
+            return null;
         }
 
         $options = $this->get('options');
 
         if ( ! $options) {
-            return false;
+            return null;
         }
 
         // Checkbox keys

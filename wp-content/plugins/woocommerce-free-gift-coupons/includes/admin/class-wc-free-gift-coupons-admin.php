@@ -11,7 +11,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons_Admin' ) ) {
  * Main Admin Class
  *
  * @class WC_Free_Gift_Coupons_Admin
- * @version	3.3.2
+ * @version	3.5.0
  */
 class WC_Free_Gift_Coupons_Admin {
 
@@ -107,6 +107,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * @return HTML
 	 * @since 1.0.0
 	 * @since 3.1.0 Added custom hooks for display from 3rd party.
+	 * @since 3.5.0 Fixed Security escaping issue.
 	 */
 	public static function coupon_options( $coupon_id, $coupon ) {
 		self::load_scripts( $coupon_id );
@@ -163,7 +164,7 @@ class WC_Free_Gift_Coupons_Admin {
 					foreach ( $product_ids as $row => $product_id ) {
 						$product = wc_get_product( $product_id );
 						if ( is_object( $product ) ) {
-							echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) . '</option>';
+							echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( wp_strip_all_tags( $product->get_formatted_name() ) ) . '</option>';
 						}
 					}
 				}
@@ -435,8 +436,8 @@ class WC_Free_Gift_Coupons_Admin {
 
 		if ( $file === WC_FGC_PLUGIN_NAME ) {
 			$row_meta = array(
-				'docs'    => '<a target="_blank" href="https://docs.woocommerce.com/document/free-gift-coupons/">' . __( 'Documentation', 'wc_free_gift_coupons' ) . '</a>',
-				'support' => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/my-account/marketplace-ticket-form/' ) . '">' . __( 'Support', 'wc_free_gift_coupons' ) . '</a>',
+				'docs'    => '<a target="_blank" href="https://woo.com/document/free-gift-coupons/">' . __( 'Documentation', 'wc_free_gift_coupons' ) . '</a>',
+				'support' => '<a target="_blank" href="' . esc_url( 'https://woo.com/my-account/marketplace-ticket-form/' ) . '">' . __( 'Support', 'wc_free_gift_coupons' ) . '</a>',
 			);
 
 			return array_merge( $links, $row_meta );

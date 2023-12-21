@@ -3,7 +3,7 @@
 * Plugin Name: The Plus Addons for Elementor - Pro
 * Plugin URI: https://theplusaddons.com/
 * Description: Highly Customisable 120+ Advanced Elementor Widgets & Extensions for Performance Driven Website. Keep the free version active to access all of its features.
-* Version: 5.3.1
+* Version: 5.3.2
 * Author: POSIMYTH
 * Author URI: https://posimyth.com/
 * Text Domain: theplus
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 update_option( 'theplus_verified', [ 'expire' => 'lifetime', 'license' => 'valid', 'verify' => 1 ] );
 update_option( 'theplus_purchase_code', ['tp_api_key' => '********************'] );
 
-defined( 'THEPLUS_VERSION' ) or define( 'THEPLUS_VERSION', '5.3.1' );
+defined( 'THEPLUS_VERSION' ) or define( 'THEPLUS_VERSION', '5.3.2' );
 define( 'THEPLUS_FILE__', __FILE__ );
 
 define( 'THEPLUS_PATH', plugin_dir_path( __FILE__ ) );

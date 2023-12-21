@@ -1,5 +1,11 @@
 === WooCommerce Free Gift Coupons ===
 
+2023.12.11 - version 3.5.0
+* IMPORTANT: Requires WC 3.6.0+.
+* Update: Tested up to WooCommerce 8.2.0.
+* Fix: Update all templates for safer string escaping.
+* Fix: Remove script that interferes with other Backcourt brand plugins' behavior in cart block.
+
 2023.07.11 - version 3.4.5
 * Fix: Misspelling of update_option()
 

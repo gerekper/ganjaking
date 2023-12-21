@@ -199,7 +199,7 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 			[
 				'label' => esc_html__( 'Slide Direction', 'theplus' ),
 				'type' => Controls_Manager::SELECT,
-				'default' => 'rtl',
+				'default' => 'ltr',
 				'options' => [
 					'rtl'  => esc_html__( 'Right to Left', 'theplus' ),
 					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
@@ -1339,7 +1339,8 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 		$slider_autoplay= ($settings["slider_autoplay"]=='yes') ? 'true' : 'false';
 		$data_slider .=' data-slider_autoplay="'.esc_attr($slider_autoplay).'"';
 		$data_slider .=' data-autoplay_speed="'.(isset($settings["autoplay_speed"]["size"]) ? esc_attr($settings["autoplay_speed"]["size"]) : 3000).'"';
-		$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'rtl';
+		
+		$carousel_direction = !empty($settings['carousel_direction']) ? $settings['carousel_direction'] : 'ltr';
 		
 		$carousel_slider='';
 		
@@ -1450,8 +1451,8 @@ class ThePlus_Carousel_Anything extends Widget_Base {
 		}
 		?>
  
-		<div id="<?php echo esc_attr($uid); ?>" class="theplus-carousel-anything-wrapper <?php echo esc_attr($isotope); ?> <?php echo esc_attr($arrow_class); ?> <?php echo esc_attr($data_carousel); ?> <?php echo esc_attr($uid); ?>  <?php echo esc_attr($animated_class); ?>  "data-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($tab_id); ?>" <?php echo $animation_attr; ?> <?php echo $carousel_slider; ?> <?php echo $data_slider; ?> <?php echo $carousel_bg_conn; ?>>
-			<div class="plus-carousel-inner post-inner-loop" dir= <?php echo esc_attr($carousel_direction) ?>>
+		<div id="<?php echo esc_attr($uid); ?>" class="theplus-carousel-anything-wrapper <?php echo esc_attr($isotope); ?> <?php echo esc_attr($arrow_class); ?> <?php echo esc_attr($data_carousel); ?> <?php echo esc_attr($uid); ?>  <?php echo esc_attr($animated_class); ?>  "data-id="<?php echo esc_attr($uid); ?>" data-connection="<?php echo esc_attr($tab_id); ?>" <?php echo $animation_attr; ?> <?php echo $carousel_slider; ?> dir=<?php echo esc_attr($carousel_direction) ?> <?php echo $data_slider; ?> <?php echo $carousel_bg_conn; ?>>
+			<div class="plus-carousel-inner post-inner-loop">
 			<?php
 			if(!empty($settings['carousel_content'])){
 				if(!empty($settings['slide_random_order']) && $settings['slide_random_order']== 'yes' ){

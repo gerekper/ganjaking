@@ -19,6 +19,8 @@ use TheplusAddons\Theplus_Element_Load;
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 class ThePlus_Featured_Image extends Widget_Base {
+
+	public $TpDoc = THEPLUS_TPDOC;
 		
 	public function get_name() {
 		return 'tp-post-featured-image';
@@ -35,6 +37,12 @@ class ThePlus_Featured_Image extends Widget_Base {
     public function get_categories() {
         return array('plus-builder');
     }
+
+	public function get_custom_help_url() {
+		$DocUrl = $this->TpDoc . "show-post-featured-image-in-elementor-blog-post";
+
+		return esc_url($DocUrl);
+	}
 
     protected function register_controls() {
 		$this->start_controls_section(
@@ -322,6 +330,8 @@ class ThePlus_Featured_Image extends Widget_Base {
 		$this->end_controls_tabs();		
 		$this->end_controls_section();
 		/*image as background*/
+
+		include THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
 	}
 	protected function render() {
 		$settings = $this->get_settings_for_display();

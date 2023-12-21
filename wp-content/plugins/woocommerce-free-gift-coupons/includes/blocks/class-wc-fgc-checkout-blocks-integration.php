@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Blocks
  * @since    3.4.0
- * @version  3.4.1
+ * @version  3.5.0
  */
 
 use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
@@ -45,14 +45,14 @@ class WC_FGC_Checkout_Blocks_Integration implements IntegrationInterface {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'wc_free_gift_coupons', 'woocommerce-free-gift-coupons' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning this object is forbidden.', 'wc_free_gift_coupons' ), '3.5.0' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'wc_free_gift_coupons', 'woocommerce-free-gift-coupons' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'wc_free_gift_coupons' ),'3.5.0' );
 	}
 
 	/**

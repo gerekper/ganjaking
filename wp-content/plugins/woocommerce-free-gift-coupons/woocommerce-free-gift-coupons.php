@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: WooCommerce Free Gift Coupons
- * Plugin URI: http://www.woocommerce.com/products/free-gift-coupons/
+ * Plugin URI: http://www.woo.com/products/free-gift-coupons/
  * Description: Add a free product to the cart when a coupon is entered
- * Version: 3.4.5
+ * Version: 3.5.0
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com
  * Woo: 414577:e1c4570bcc412b338635734be0536062
  * Requires at least: 4.4
- * Tested up to: 6.2.0
- * WC requires at least: 3.1.0
- * WC tested up to: 7.8.0
+ * Tested up to: 6.3.0
+ * WC requires at least: 3.6.0
+ * WC tested up to: 8.3.0
  *
  * Text Domain: wc_free_gift_coupons
  * Domain Path: /languages/
@@ -53,7 +53,7 @@ if ( ! function_exists( 'wc_free_gift_coupons_init') ) {
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), $required_php, '<' ) ) {
 			/* translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required version of PHP */
-			$notice = sprintf( __( 'WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'wc_free_gift_coupons' ), $required_php, 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
+			$notice = sprintf( __( 'WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'wc_free_gift_coupons' ), $required_php, 'https://woo.com/document/how-to-update-your-php-version/' );
 			include_once  'includes/admin/class-wc-free-gift-coupons-admin-notices.php' ;
 			WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
