@@ -18,8 +18,6 @@ class Depth implements QueryBindings
 
     public function __construct(string $post_type)
     {
-        parent::__construct();
-
         $this->post_type = $post_type;
     }
 

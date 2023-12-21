@@ -846,7 +846,7 @@ class UniteCreatorManager{
 				
 				echo "<div class='unite-color-red'>".esc_html($message)."</div>";
 				
-				if(GlobalsUC::SHOW_TRACE == true)
+				if(GlobalsUC::$SHOW_TRACE == true)
 					dmp($e->getTraceAsString());
 			}
 			

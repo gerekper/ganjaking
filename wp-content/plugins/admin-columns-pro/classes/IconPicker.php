@@ -15,7 +15,7 @@ class IconPicker implements Registerable
     }
 
     /**
-     * Replace the default label setting with a pro version that includes an iconpicker
+     * Replace the default label setting with a pro version that includes an icon picker
      */
     public function register_column_settings(Column $column): void
     {

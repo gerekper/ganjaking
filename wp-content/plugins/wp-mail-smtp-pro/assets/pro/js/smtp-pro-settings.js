@@ -88,6 +88,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			app.license.bindActions();
 			app.amazonses.bindActions();
 			app.amazonses.loadIdentities();
+			app.gmail.bindActions();
 			app.multisite.bindActions();
 			app.webhooks.bindActions();
 			app.additionalConnections.bindActions();
@@ -192,7 +193,11 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						$licenseKey.prop( 'disabled', false );
 					}
 
-					app.license.displayModal( message, icon, type );
+					var actionCallback = function() {
+						window.location.reload();
+					};
+
+					app.license.displayModal( message, icon, type, actionCallback );
 
 					$btn.prop( 'disabled', false );
 
@@ -309,7 +314,11 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						$( '#wp-mail-smtp-setting-license-key', $row ).prop( 'disabled', false );
 					}
 
-					app.license.displayModal( message, icon, type );
+					var actionCallback = function() {
+						window.location.reload();
+					};
+
+					app.license.displayModal( message, icon, type, actionCallback );
 
 					$btn.prop( 'disabled', false );
 
@@ -327,9 +336,10 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			 * @param {string} message The message to be displayed in the modal.
 			 * @param {string} icon    The icon name from /assets/images/font-awesome/ to be used in modal.
 			 * @param {string} type    The type of the message (red, green, orange, blue, purple, dark).
+			 * @param {Function} actionCallback The action callback function.
 			 */
-			displayModal: function( message, icon, type ) {
-				app.displayModal( message, icon, type );
+			displayModal: function( message, icon, type, actionCallback ) {
+				app.displayModal( message, icon, type, actionCallback );
 			}
 		},
 
@@ -892,6 +902,45 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 							.fadeIn( 200 );
 					} );
 			}
+		},
+
+		/**
+		 * Gmail specific methods.
+		 *
+		 * @since 3.11.0
+		 *
+		 * @type {object}
+		 */
+		gmail: {
+
+			/**
+			 * Process all Gmail actions/events.
+			 *
+			 * @since 3.11.0
+			 */
+			bindActions: function() {
+
+				$( document ).on( 'change', '#wp-mail-smtp-setting-gmail-one_click_setup_enabled', this.processOneClickSetupToggling );
+			},
+
+			/**
+			 * Switch between one-click and custom app setup.
+			 *
+			 * @since 3.11.0
+			 */
+			processOneClickSetupToggling: function() {
+
+				var $oneClickSetup = $( '.wp-mail-smtp-mailer-option__group--gmail-one_click_setup' ),
+					$customSetup = $( '.wp-mail-smtp-mailer-option__group--gmail-custom' );
+
+				if ( $( this ).is( ':checked' ) ) {
+					$oneClickSetup.show();
+					$customSetup.hide();
+				} else {
+					$oneClickSetup.hide();
+					$customSetup.show();
+				}
+			},
 		},
 
 		/**

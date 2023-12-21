@@ -11,10 +11,12 @@ use AC\Registerable;
 use AC\Services;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
-use ACA\WC\Service\Presets;
 use ACA\WC\Service\TableScreen;
+use ACA\WC\Service\TableTemplates;
 use ACP;
 use ACP\Service\IntegrationStatus;
+use ACP\Service\Storage\TemplateFiles;
+use ACP\Service\View;
 use Automattic;
 use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
 use Automattic\WooCommerce\Internal\Features\FeaturesController;
@@ -98,9 +100,6 @@ final class WooCommerce implements Registerable
             'use.hpos'               => static function (Features $features): bool {
                 return $features->use_hpos();
             },
-            'config.presets'         => static function (Absolute $location): array {
-                return require $location->get_path() . '/config/presets.php';
-            },
             Absolute::class          => autowire()->constructorParameter(0, $this->location->get_url())
                                                   ->constructorParameter(1, $this->location->get_path()),
             TableScreen::class       => autowire()->constructorParameter(1, $this->use_product_variations()),
@@ -114,7 +113,9 @@ final class WooCommerce implements Registerable
                     ? wc_get_container()->get(FeaturesController::class)
                     : null
             ),
-            Presets::class           => autowire()->constructorParameter(1, DI\get('config.presets')),
+            TemplateFiles::class     => static function (): TemplateFiles {
+                return TemplateFiles::from_directory(__DIR__ . '/../config/storage/template');
+            },
         ];
 
         return (new ContainerBuilder())->addDefinitions($definitions)
@@ -142,8 +143,8 @@ final class WooCommerce implements Registerable
             Service\ListScreenGroups::class,
             Service\TableRows::class,
             Service\TableScreen::class,
-            ACP\Service\Templates::class,
-            Service\Presets::class,
+            View::class,
+            TemplateFiles::class,
         ];
 
         if ($container->get('use.hpos')) {

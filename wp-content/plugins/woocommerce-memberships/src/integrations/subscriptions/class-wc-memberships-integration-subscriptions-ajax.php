@@ -136,47 +136,69 @@ class WC_Memberships_Integration_Subscriptions_Ajax {
 			die;
 		}
 
-		// query for subscription id
-		if ( is_numeric( $keyword ) ) {
+		$integration = wc_memberships()->get_integrations_instance()->get_subscriptions_instance();
 
-			$query_args = ['post_in' => [ (int) $keyword ] ];
+		// query for subscription id
+		if ( is_numeric( $keyword ) || '' === trim( $keyword ) ) {
+
+			$id            = (int) $keyword;
+			$subscription  = $id > 0 ? wcs_get_subscription( $id ) : null;
+			$subscriptions = $subscription ? [ $subscription->get_id() => $subscription ] : [];
 
 		// query for subscription holder name
 		} else {
 
-			$query_args = [
-				'meta_query' => [
-					[
-						'key'     => '_billing_first_name',
-						'value'   => $keyword,
-						'compare' => 'LIKE',
+			if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+				$query_args = [
+					'field_query' => [
+						'relation' => 'OR',
+						[
+							'key'     => '_billing_first_name',
+							'value'   => $keyword,
+							'compare' => 'LIKE',
+						],
+						[
+							'key'     => '_billing_last_name',
+							'value'   => $keyword,
+							'compare' => 'LIKE',
+						],
 					],
-					[
-						'key'     => '_billing_last_name',
-						'value'   => $keyword,
-						'compare' => 'LIKE',
+				];
+
+			} else {
+
+				$query_args = [
+					'meta_query_relation' => 'OR',
+					'meta_query'          => [
+						[
+							'key'     => '_billing_first_name',
+							'value'   => $keyword,
+							'compare' => 'LIKE',
+						],
+						[
+							'key'     => '_billing_last_name',
+							'value'   => $keyword,
+							'compare' => 'LIKE',
+						],
 					],
-					'relation' => 'OR',
-				],
-			];
+				];
+			}
+
+			$subscriptions = $integration->get_subscriptions( $query_args );
 		}
 
-		$integration   = wc_memberships()->get_integrations_instance()->get_subscriptions_instance();
-		$results       = $integration->get_subscriptions_ids( $query_args );
-		$subscriptions = [];
+		$results = [];
 
-		if ( ! empty( $results ) ) {
+		if ( ! empty( $subscriptions ) ) {
 
-			foreach ( $results as $subscription_id ) {
+			foreach ( $subscriptions as $subscription ) {
 
-				if ( $subscription = wcs_get_subscription( $subscription_id ) ) {
-
-					$subscriptions[ $subscription->get_id() ] = $integration->get_formatted_subscription_id_holder_name( $subscription );
-				}
+				$results[ $subscription->get_id() ] = $integration->get_formatted_subscription_id_holder_name( $subscription );
 			}
 		}
 
-		wp_send_json( $subscriptions );
+		wp_send_json( $results );
 	}
 
 

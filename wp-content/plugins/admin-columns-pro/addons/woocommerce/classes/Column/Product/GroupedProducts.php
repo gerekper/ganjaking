@@ -3,6 +3,7 @@
 namespace ACA\WC\Column\Product;
 
 use AC;
+use ACA\WC;
 use ACA\WC\Editing;
 use ACA\WC\Search;
 use ACA\WC\Sorting;
@@ -47,7 +48,7 @@ class GroupedProducts extends AC\Column\Meta
 
     public function register_settings()
     {
-        $this->add_setting(new AC\Settings\Column\Post($this));
+        $this->add_setting(new WC\Settings\Product($this));
     }
 
     public function editing()

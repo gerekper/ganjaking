@@ -452,6 +452,20 @@
 			tm_settings_wrap_checkbox.wrap( '<span class="tm-epo-switch-wrapper tc"></span>' );
 			tm_settings_wrap_checkbox.after( '<span class="tc-label tm-epo-switch tc"></span>' );
 
+			tm_settings_wrap.find( 'input.tm-color-picker' ).spectrum( {
+				showInput: true,
+				showInitial: true,
+				allowEmpty: true,
+				showAlpha: true,
+				showPalette: true,
+				clickoutFiresChange: false,
+				type: 'color',
+				preferredFormat: 'hex',
+				theme: 'epo',
+				chooseText: TMEPOADMINSETTINGSJS.i18n_close,
+				cancelText: TMEPOADMINSETTINGSJS.i18n_cancel
+			} );
+
 			$( '.forminp .description' )
 				.toArray()
 				.forEach( function( el ) {

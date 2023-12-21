@@ -13,7 +13,7 @@ use AC\Asset\ScriptFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Sort\ManualOrder;
 use ACP\Admin\Encoder;
-use ACP\ListScreenRepository\Preset;
+use ACP\ListScreenRepository\Template;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 use ACP\Type\HideOnScreen\Group;
 
@@ -30,20 +30,20 @@ class SettingsFactory implements ScriptFactory
 
     private $storage;
 
-    private $preset_repository;
+    private $template_repository;
 
     public function __construct(
         Location $location,
         HideOnScreenCollection $elements,
         ListScreen $list_screen,
         AC\ListScreenRepository\Storage $storage,
-        Preset $preset_repository
+        Template $template_repository
     ) {
         $this->location = $location;
         $this->elements = $elements;
         $this->list_screen = $list_screen;
         $this->storage = $storage;
-        $this->preset_repository = $preset_repository;
+        $this->template_repository = $template_repository;
     }
 
     public function create(): Script
@@ -65,7 +65,7 @@ class SettingsFactory implements ScriptFactory
                 'cancel'            => __('Cancel', 'codepress-admin-columns'),
                 'create_label'      => __('Create a new view for the %s list table.', 'codepress-admin-columns'),
                 'group_table_views' => __('Table Views', 'codepress-admin-columns'),
-                'group_presets'     => __('Presets', 'codepress-admin-columns'),
+                'group_presets'     => __('Templates', 'codepress-admin-columns'),
                 'current'           => __('current', 'codepress-admin-columns'),
                 'name'              => __('Name', 'codepress-admin-columns'),
                 'enter_name'        => __('Enter Name', 'codepress-admin-columns'),
@@ -115,7 +115,7 @@ class SettingsFactory implements ScriptFactory
             $inline_vars['table_elements'][] = $group;
             $inline_vars['read_only'] = $this->list_screen->is_read_only();
             $inline_vars['table_views'] = $this->get_table_views($this->list_screen->get_key());
-            $inline_vars['presets'] = $this->get_presets($this->list_screen->get_key());
+            $inline_vars['presets'] = $this->get_templates($this->list_screen->get_key());
             $inline_vars['list_screen_label'] = $this->list_screen->get_label();
             $inline_vars['confirm_delete'] = apply_filters('ac/delete_confirmation', true);
         }
@@ -123,14 +123,14 @@ class SettingsFactory implements ScriptFactory
         return $script->add_inline_variable('acp_settings', $inline_vars);
     }
 
-    private function get_presets(string $key): array
+    private function get_templates(string $key): array
     {
-        $presets = [];
-        foreach ($this->preset_repository->find_all_by_key($key) as $list_screen) {
-            $presets[] = (new Encoder($list_screen))->encode();
+        $templates = [];
+        foreach ($this->template_repository->find_all_by_key($key) as $list_screen) {
+            $templates[] = (new Encoder($list_screen))->encode();
         }
 
-        return $presets;
+        return $templates;
     }
 
     private function get_table_views(string $key): array

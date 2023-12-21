@@ -47,7 +47,7 @@ use ACP\Admin\NetworkPageFactory;
 use ACP\Admin\PageFactory;
 use ACP\Plugin\SetupFactory;
 use ACP\Service\ListScreens;
-use ACP\Service\Presets;
+use ACP\Service\Storage\TemplateFiles;
 use ACP\Storage\Decoder\Version510Factory;
 use ACP\Storage\Decoder\Version630Factory;
 use ACP\Storage\EncoderFactory;
@@ -162,13 +162,14 @@ final class AdminColumnsPro
             Admin\Scripts::class,
             Service\Addon::class,
             Service\ForcePluginUpdate::class,
-            Service\Templates::class,
+            Service\View::class,
             Service\Banner::class,
             Service\PluginNotice::class,
-            Service\Presets::class,
             ScreenTools::class,
             PrimaryColumn::class,
             Service\Storage::class,
+            Service\Storage\Template::class,
+            Service\Storage\TemplateFiles::class,
             Service\Permissions::class,
             Service\TableCellWrapping::class,
         ];
@@ -219,8 +220,8 @@ final class AdminColumnsPro
         ];
 
         $definitions = [
-            'config.presets'                         => static function (Plugin $plugin): array {
-                return require $plugin->get_dir() . 'config/presets.php';
+            'config.templates'                       => static function (Plugin $plugin): array {
+                return require $plugin->get_dir() . 'config/templates.php';
             },
             AC\ListScreenRepository\Storage::class   => static function () {
                 return AC\Container::get_storage();
@@ -287,7 +288,9 @@ final class AdminColumnsPro
             Admin\MenuFactory::class                 => autowire()
                 ->constructorParameter(0, admin_url('options-general.php'))
                 ->constructorParameter(1, $location_core),
-            Presets::class                           => autowire()->constructorParameter(3, DI\get('config.presets')),
+            TemplateFiles::class                     => static function (): TemplateFiles {
+                return TemplateFiles::from_directory(__DIR__ . '/../config/storage/template');
+            },
         ];
 
         return (new ContainerBuilder())

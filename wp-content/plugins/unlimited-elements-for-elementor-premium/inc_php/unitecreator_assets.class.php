@@ -1153,7 +1153,7 @@ class UniteCreatorAssets{
 			
 			echo esc_html($e->getMessage());
 			
-			if(GlobalsUC::SHOW_TRACE == true)
+			if(GlobalsUC::$SHOW_TRACE == true)
 				echo($e->getTraceAsString());
 		}
 		
@@ -1477,7 +1477,7 @@ class UniteCreatorAssets{
 			}catch(Exception $e){
 				$message = $e->getMessage();
 				$trace = "";
-				if(GlobalsUC::SHOW_TRACE == true)
+				if(GlobalsUC::$SHOW_TRACE == true)
 					$trace = $e->getTraceAsString();
 			
 				$htmlError = HelperUC::getHtmlErrorMessage($message,$trace, "Assets Manager Error: ");
@@ -1534,7 +1534,7 @@ class UniteCreatorAssets{
 		}catch(Exception $e){
 			$message = $e->getMessage();
 			$trace = "";
-			if(GlobalsUC::SHOW_TRACE == true)
+			if(GlobalsUC::$SHOW_TRACE == true)
 				$trace = $e->getTraceAsString();
 				
 			$htmlError = HelperUC::getHtmlErrorMessage($message,$trace, "Assets Manager Error: ");

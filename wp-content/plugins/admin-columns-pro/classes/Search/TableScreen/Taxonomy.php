@@ -2,16 +2,16 @@
 
 namespace ACP\Search\TableScreen;
 
-use ACP\Helper\FilterButtonFactory;
 use ACP\Search\TableScreen;
 
-class Taxonomy extends TableScreen {
+class Taxonomy extends TableScreen
+{
 
-	public function register(): void
+    public function register(): void
     {
-		add_action( 'in_admin_footer', [ $this, 'filters_markup' ], 1 );
+        add_action('in_admin_footer', [$this, 'filters_markup'], 1);
 
-		parent::register();
-	}
+        parent::register();
+    }
 
 }

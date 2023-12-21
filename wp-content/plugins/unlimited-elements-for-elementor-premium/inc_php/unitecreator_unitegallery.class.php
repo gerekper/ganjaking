@@ -767,6 +767,14 @@ class UniteCreatorUniteGallery{
 						$html .= $nl."    data-videomp4=\"$urlMp4\"";
 					
 				break;
+				case "iframe":
+					
+					$urlVideo = UniteFunctionsUC::getVal($item, "url_video");
+					
+					if(!empty($urlVideo))
+						$html .= $nl."    data-videourl=\"$urlVideo\"";
+						
+				break;
 			}
 				
 			$html .= ">";	//image end

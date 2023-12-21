@@ -1,0 +1,152 @@
+[
+    {
+        "version": "6.4",
+        "list_screen": {
+            "title": "📷 Images",
+            "type": "wp-media",
+            "id": "654b88717a3d3",
+            "updated": 1699449280,
+            "columns": {
+                "title": {
+                    "type": "title",
+                    "label": "File",
+                    "width": "345",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "title"
+                },
+                "62554a90c9ba60": {
+                    "type": "column-preview",
+                    "label": "Preview",
+                    "width": "100",
+                    "width_unit": "px",
+                    "export": "on",
+                    "name": "62554a90c9ba60"
+                },
+                "624c01340c49bc": {
+                    "type": "column-file_size",
+                    "label": "File Size",
+                    "width": "120",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "624c01340c49bc"
+                },
+                "624c0139b645a0": {
+                    "type": "column-dimensions",
+                    "label": "Dimensions",
+                    "width": "120",
+                    "width_unit": "px",
+                    "before": "",
+                    "after": "",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "624c0139b645a0"
+                },
+                "6d82abc56872b0": {
+                    "type": "column-aspect-ratio",
+                    "label": "Aspect Ratio",
+                    "width": "120",
+                    "width_unit": "px",
+                    "export": "on",
+                    "name": "6d82abc56872b0"
+                },
+                "624c09eed43958": {
+                    "type": "column-full_path",
+                    "label": "Path",
+                    "width": "280",
+                    "width_unit": "px",
+                    "path_scope": "relative-uploads",
+                    "export": "on",
+                    "name": "624c09eed43958"
+                },
+                "624c019afd2f1c": {
+                    "type": "column-alternate_text",
+                    "label": "Alternative Text",
+                    "width": "193",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "624c019afd2f1c"
+                },
+                "date": {
+                    "type": "date",
+                    "label": "Date",
+                    "width": "137",
+                    "width_unit": "px",
+                    "filter": "off",
+                    "filter_label": "",
+                    "filter_format": "",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "name": "date"
+                },
+                "60da8a52f3b644": {
+                    "type": "column-actions",
+                    "label": "Actions",
+                    "width": "234",
+                    "width_unit": "px",
+                    "use_icons": "1",
+                    "name": "60da8a52f3b644"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_filter_media_type": "off",
+                "hide_filter_post_date": "on",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": "654b88717a3d9",
+                "wrapping": "clip"
+            }
+        },
+        "segments": [
+            {
+                "key": "654b88717a3d9",
+                "list_screen_id": "654b88717a3d3",
+                "name": "Images Only",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "attachment-filter": "post_mime_type:image",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1699448945"
+            }
+        ]
+    }
+]

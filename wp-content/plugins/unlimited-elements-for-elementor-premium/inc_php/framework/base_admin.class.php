@@ -168,7 +168,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				
 				echo "<div id='uc_view_error_message'> <br><br>View ($view) Error: <b>".$message."</b>";
 				
-				if(GlobalsUC::SHOW_TRACE == true)
+				if(GlobalsUC::$SHOW_TRACE == true)
 					dmp($e->getTraceAsString());
 				echo "</div>";
 				?>

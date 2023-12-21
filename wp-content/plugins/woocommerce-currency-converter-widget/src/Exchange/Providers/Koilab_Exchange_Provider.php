@@ -32,7 +32,7 @@ class Koilab_Exchange_Provider extends Base_Exchange_Provider implements Exchang
 	public function __construct() {
 		$this->id          = 'koilab_exchange';
 		$this->name        = 'KoiLab Exchange Rates';
-		$this->privacy_url = 'https://woocommerce.com/document/currency-converter-widget/privacy-policy/';
+		$this->privacy_url = 'https://woo.com/document/currency-converter-widget/privacy-policy/';
 	}
 
 	/**

@@ -1414,8 +1414,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$addParentType = null;
 		$addParentIDs = null;
 		
-		
-		if(is_single() == false)
+		if(is_singular() == false)
 			$isRelatedPosts = false;
 		
 		if($isForWoo == true && function_exists("is_checkout") && is_checkout() && $source == "related"){
@@ -1658,7 +1657,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					
 					//get term id's
 					
-					if($type == "terms_from_dynamic"){
+					if($includeby == "terms_from_dynamic"){
 						
 						$arrTermIDs = UniteFunctionsUC::getIDsArray($strTermIDs);
 						
@@ -3133,6 +3132,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$item["url_mp4"] = $urlMp4;
 								
 			break;
+			case "iframe":
+				
+				$urlIframe = UniteFunctionsUC::getVal($sourceItem, "url_iframe");
+				
+				$item["type"] = "iframe";
+				$item["url_video"] = $urlIframe;
+				
+			break;
 			case "vimeo":
 				
 				$videoID = UniteFunctionsUC::getVal($sourceItem, "vimeo_id");
@@ -3251,12 +3258,24 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			
 			$mimeType = UniteFunctionsUC::getVal($post, "post_mime_type");
 			
+			//set video
+			
 			if($mimeType == "video/mp4"){
 				$urlVideo = UniteFunctionsUC::getVal($post, "guid");
 				
 				$item["type"] = "html5video";
 				$item["url_mp4"] = $urlVideo;
+				
+				$urlImage = UniteFunctionsUC::getVal($item, "image");
+				$urlThumb = UniteFunctionsUC::getVal($item, "thumb");
+				
+				if($urlImage == GlobalsUC::$url_no_image_placeholder)
+					$item["image"] = GlobalsUC::$url_video_thumbnail;
+				
+				if($urlThumb == GlobalsUC::$url_no_image_placeholder)
+					$item["thumb"] = GlobalsUC::$url_video_thumbnail;
 			}
+			
 			
 			return($item);
 		}
@@ -3611,7 +3630,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function getGroupedData_getArrImageIDsFromMeta($value, $name){
 		
-		if(is_single() == false)
+		if(is_singular() == false)
 			return(array());
 			
 		$post = get_post();

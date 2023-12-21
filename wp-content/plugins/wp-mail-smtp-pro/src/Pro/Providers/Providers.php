@@ -9,6 +9,7 @@ use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Pro\Providers\AmazonSES\Auth as SESAuth;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
+use WPMailSMTP\Pro\Providers\Gmail\Provider as GmailProvider;
 use WPMailSMTP\Pro\Providers\Outlook\Auth as MSAuth;
 use WPMailSMTP\WP;
 
@@ -46,7 +47,10 @@ class Providers {
 
 		add_action( 'wp_mail_smtp_mailcatcher_pre_send_before', [ $this, 'update_php_mailer_properties' ] );
 
-		add_action( 'admin_notices', [ $this, 'display_notices' ] );
+		add_action( 'admin_notices', [ $this, 'display_notices' ], 5 );
+
+		// Init Gmail provider.
+		( new GmailProvider() )->hooks();
 	}
 
 	/**
@@ -157,7 +161,7 @@ class Providers {
 	 */
 	private function allow_auth_request() {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			return false;
 		}
 

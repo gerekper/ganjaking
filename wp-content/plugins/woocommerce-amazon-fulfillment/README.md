@@ -68,6 +68,10 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-15-05 - version 4.1.9.4
+* Fix issues with Kint debugger.
+* Improve installation notice message.
+
 ### 2023-11-09 - version 4.1.9.3
 * Fix issues with shipping cost calculations.
 * Add logging for shipping calculation errors.

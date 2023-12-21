@@ -8,10 +8,10 @@
  * Text Domain: woocommerce-multilingual
  * Requires at least: 4.7
  * Tested up to: 6.4
- * Version: 5.3.0
+ * Version: 5.3.2
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.9
- * WC tested up to: 8.3
+ * WC tested up to: 8.4
  *
  * @package WCML
  * @author  OnTheGoSystems
@@ -37,7 +37,7 @@ if ( ! $wpml_php_version_check->is_ok() ) {
 	return;
 }
 
-define( 'WCML_VERSION', '5.3.0' );
+define( 'WCML_VERSION', '5.3.2' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -125,7 +125,6 @@ function wcml_loader() {
 		\WCML\Importer\Products::class,
 		\WCML\COT\Hooks::class,
 		\WCML\DisplayAsTranslated\FrontendHooksFactory::class,
-		\WCML\OrderNotes\Hooks::class,
 		\WCML\User\Hooks::class,
 		\WCML\Exporter\AllLanguagesHooks::class,
 		\WCML\Exporter\AttributeHeadersHooks::class,

@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.8.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_CURRENCY_CONVERTER_VERSION', '2.1.1' );
+		$this->define( 'WC_CURRENCY_CONVERTER_VERSION', '2.2.0' );
 		$this->define( 'WC_CURRENCY_CONVERTER_PATH', plugin_dir_path( WC_CURRENCY_CONVERTER_FILE ) );
 		$this->define( 'WC_CURRENCY_CONVERTER_URL', plugin_dir_url( WC_CURRENCY_CONVERTER_FILE ) );
 		$this->define( 'WC_CURRENCY_CONVERTER_BASENAME', plugin_basename( WC_CURRENCY_CONVERTER_FILE ) );

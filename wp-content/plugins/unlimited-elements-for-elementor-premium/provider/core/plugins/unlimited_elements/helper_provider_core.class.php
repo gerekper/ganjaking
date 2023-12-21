@@ -724,6 +724,9 @@ class HelperProviderCoreUC_EL{
 	 */
 	public static function putElementorTemplate($templateID, $mode = null){
 		
+		if(empty($templateID))
+			return(false);
+		 
 		$numTemplates = 250;
 		
 		$isWpmlExists = UniteCreatorWpmlIntegrate::isWpmlExists();

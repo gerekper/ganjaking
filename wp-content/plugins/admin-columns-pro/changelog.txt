@@ -1,5 +1,19 @@
 == Changelog ==
 
+= 6.4.2 =
+Release Date: December 19th, 2023
+
+* [Improved] Filtering dropdowns for Custom Field text fields are back instead of open text fields
+* [Fixed] Fixed a fatal error when a user was selected as conditional but had no first or last name
+* [ToolsetTypes] Fixed an Uncaught TypeError in the Checkbox field column
+
+= 6.4.1 =
+Release Date: December 8th, 2023
+
+* [Fixed] The update script triggered a fatal error
+* [JetEngine] Meta Boxes for Media Post Type are now supported
+* [WooCommerce] It is now possible to select more Product properties for the Grouped by column
+
 = 6.4 =
 Release Date: December 6th, 2023
 

@@ -1,0 +1,207 @@
+[
+    {
+        "version": "6.3.5",
+        "list_screen": {
+            "title": "🎵 Audio",
+            "type": "wp-media",
+            "id": "65391d4b76c02",
+            "updated": 1698242379,
+            "columns": {
+                "title": {
+                    "type": "title",
+                    "label": "File",
+                    "width": "326",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "title"
+                },
+                "625525d4410624": {
+                    "type": "column-meta_album",
+                    "label": "Album",
+                    "width": "136",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "625525d4410624"
+                },
+                "625527d5bcac08": {
+                    "type": "column-meta_artist",
+                    "label": "Artist",
+                    "width": "",
+                    "width_unit": "%",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "625527d5bcac08"
+                },
+                "6254090eb43958": {
+                    "type": "column-meta_audio",
+                    "label": "Bitrate",
+                    "width": "101",
+                    "width_unit": "px",
+                    "media_meta_key": "bitrate",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "6254090eb43958"
+                },
+                "62540be891a9fc": {
+                    "type": "column-meta_audio",
+                    "label": "Channelmode",
+                    "width": "128",
+                    "width_unit": "px",
+                    "media_meta_key": "channelmode",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540be891a9fc"
+                },
+                "62540bebb22d10": {
+                    "type": "column-meta_audio",
+                    "label": "Channels",
+                    "width": "104",
+                    "width_unit": "px",
+                    "media_meta_key": "channels",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540bebb22d10"
+                },
+                "62540bef4c8b44": {
+                    "type": "column-meta_audio",
+                    "label": "Compression",
+                    "width": "127",
+                    "width_unit": "px",
+                    "media_meta_key": "compression_ratio",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540bef4c8b44"
+                },
+                "62540c0cde3540": {
+                    "type": "column-meta_audio",
+                    "label": "Format",
+                    "width": "96",
+                    "width_unit": "px",
+                    "media_meta_key": "dataformat",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c0cde3540"
+                },
+                "62540c27f26e98": {
+                    "type": "column-meta_audio",
+                    "label": "Sample Rate",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "sample_rate",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c27f26e98"
+                },
+                "62540c109fbe78": {
+                    "type": "column-meta_audio",
+                    "label": "Encoder",
+                    "width": "117",
+                    "width_unit": "px",
+                    "media_meta_key": "encoder_options",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c109fbe78"
+                },
+                "62540c16f43958": {
+                    "type": "column-meta_audio",
+                    "label": "Filesize",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "filesize",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c16f43958"
+                },
+                "62540c1a4c49bc": {
+                    "type": "column-meta_audio",
+                    "label": "Length",
+                    "width": "89",
+                    "width_unit": "px",
+                    "media_meta_key": "length",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c1a4c49bc"
+                },
+                "62540c237ae148": {
+                    "type": "column-meta_audio",
+                    "label": "Mime Type",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "mime_type",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540c237ae148"
+                },
+                "62540bdfe49ba4": {
+                    "type": "column-meta_audio",
+                    "label": "Bitrate Mode",
+                    "width": "127",
+                    "width_unit": "px",
+                    "media_meta_key": "bitrate_mode",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62540bdfe49ba4"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_filter_media_type": "off",
+                "hide_filter_post_date": "on",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": "65391dad5a4b9"
+            }
+        },
+        "segments": [
+            {
+                "key": "65391dad5a4b9",
+                "list_screen_id": "65391d4b76c02",
+                "name": "Audio Only",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "attachment-filter": "post_mime_type:audio",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1698241965"
+            }
+        ]
+    }
+]

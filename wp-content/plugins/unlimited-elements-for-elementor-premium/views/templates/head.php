@@ -9,7 +9,6 @@
 
 defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
-
 $isProVersion = GlobalsUC::$isProVersion;
 
 $showFreeVersion = UniteFunctionsUC::getGetVar("showfreeversion", "", UniteFunctionsUC::SANITIZE_TEXT_FIELD);
@@ -27,7 +26,7 @@ $logoImage = ($isProVersion === true)
 $logoUrl = GlobalsUC::URL_SITE;
 $logoTitle = GlobalsUC::URL_SITE;
 
-$isBFMode = true;
+$isBFMode = false;
 
 if($isProVersion == true)
 	$isBFMode = false;

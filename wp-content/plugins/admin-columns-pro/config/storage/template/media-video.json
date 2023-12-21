@@ -1,0 +1,173 @@
+[
+    {
+        "version": "6.3.5",
+        "list_screen": {
+            "title": "🎥 Video",
+            "type": "wp-media",
+            "id": "65391f9b53959",
+            "updated": 1698244321,
+            "columns": {
+                "62542f35b89374": {
+                    "type": "column-video_player",
+                    "label": "Video",
+                    "width": "236",
+                    "width_unit": "px",
+                    "video_display": "embed",
+                    "export": "on",
+                    "name": "62542f35b89374"
+                },
+                "6254354d774bc8": {
+                    "type": "column-file_name",
+                    "label": "Filename",
+                    "width": "167",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "6254354d774bc8"
+                },
+                "6254226e4ac084": {
+                    "type": "column-meta_video",
+                    "label": "Dataformat",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "dataformat",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "6254226e4ac084"
+                },
+                "62542271f1a9fc": {
+                    "type": "column-meta_video",
+                    "label": "Format",
+                    "width": "98",
+                    "width_unit": "px",
+                    "media_meta_key": "fileformat",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62542271f1a9fc"
+                },
+                "6254378966a7f0": {
+                    "type": "column-video_player",
+                    "label": "Preview",
+                    "width": "",
+                    "width_unit": "%",
+                    "video_display": "modal",
+                    "export": "on",
+                    "name": "6254378966a7f0"
+                },
+                "625422763d70a4": {
+                    "type": "column-meta_video",
+                    "label": "Height",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "height",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "625422763d70a4"
+                },
+                "625422830ed918": {
+                    "type": "column-meta_video",
+                    "label": "Width",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "width",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "625422830ed918"
+                },
+                "62542279f0624c": {
+                    "type": "column-meta_video",
+                    "label": "Length",
+                    "width": "",
+                    "width_unit": "%",
+                    "media_meta_key": "length",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "62542279f0624c"
+                },
+                "62542648526e98": {
+                    "type": "column-full_path",
+                    "label": "Path",
+                    "width": "244",
+                    "width_unit": "px",
+                    "path_scope": "relative-uploads",
+                    "export": "on",
+                    "name": "62542648526e98"
+                },
+                "625422525645a0": {
+                    "type": "column-meta_video",
+                    "label": "Created Date",
+                    "width": "221",
+                    "width_unit": "px",
+                    "media_meta_key": "created_timestamp",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "625422525645a0"
+                },
+                "62557beff33334": {
+                    "type": "column-description",
+                    "label": "Description",
+                    "width": "250",
+                    "width_unit": "px",
+                    "string_limit": "word_limit",
+                    "excerpt_length": "20",
+                    "before": "",
+                    "after": "",
+                    "edit": "on",
+                    "editable_type": "textarea",
+                    "export": "on",
+                    "sort": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "62557beff33334"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_filter_media_type": "off",
+                "hide_filter_post_date": "on",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "6254354d774bc8",
+                "filter_segment": "653925e88b191"
+            }
+        },
+        "segments": [
+            {
+                "key": "653925e88b191",
+                "list_screen_id": "65391f9b53959",
+                "name": "Video Only",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "acp_filter": {
+                        "62557beff33334": ""
+                    },
+                    "attachment-filter": "post_mime_type:video",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1698244072"
+            }
+        ]
+    }
+]

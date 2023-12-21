@@ -123,6 +123,7 @@ class FreeCachedContainer extends Container
             'MailPoet\\Automation\\Engine\\Control\\SubjectLoader' => 'getSubjectLoaderService',
             'MailPoet\\Automation\\Engine\\Control\\SubjectTransformerHandler' => 'getSubjectTransformerHandlerService',
             'MailPoet\\Automation\\Engine\\Control\\TriggerHandler' => 'getTriggerHandlerService',
+            'MailPoet\\Automation\\Engine\\Endpoints\\Automations\\AutomationTemplateGetEndpoint' => 'getAutomationTemplateGetEndpointService',
             'MailPoet\\Automation\\Engine\\Endpoints\\Automations\\AutomationTemplatesGetEndpoint' => 'getAutomationTemplatesGetEndpointService',
             'MailPoet\\Automation\\Engine\\Endpoints\\Automations\\AutomationsCreateFromTemplateEndpoint' => 'getAutomationsCreateFromTemplateEndpointService',
             'MailPoet\\Automation\\Engine\\Endpoints\\Automations\\AutomationsDeleteEndpoint' => 'getAutomationsDeleteEndpointService',
@@ -490,6 +491,7 @@ class FreeCachedContainer extends Container
             'MailPoet\\WooCommerce\\Helper' => 'getHelperService',
             'MailPoet\\WooCommerce\\Integrations\\AutomateWooHooks' => 'getAutomateWooHooksService',
             'MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelController' => 'getMPMarketingChannelControllerService',
+            'MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelDataController' => 'getMPMarketingChannelDataControllerService',
             'MailPoet\\WooCommerce\\Settings' => 'getSettings3Service',
             'MailPoet\\WooCommerce\\SubscriberEngagement' => 'getSubscriberEngagementService',
             'MailPoet\\WooCommerce\\Subscription' => 'getSubscription2Service',
@@ -1551,6 +1553,16 @@ class FreeCachedContainer extends Container
     protected function getTriggerHandlerService()
     {
         return $this->services['MailPoet\\Automation\\Engine\\Control\\TriggerHandler'] = new \MailPoet\Automation\Engine\Control\TriggerHandler(($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] ?? ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] = new \MailPoet\Automation\Engine\Storage\AutomationStorage())), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] = new \MailPoet\Automation\Engine\Storage\AutomationRunStorage())), ($this->services['MailPoet\\Automation\\Engine\\Control\\SubjectLoader'] ?? $this->getSubjectLoaderService()), new \MailPoet\Automation\Engine\Control\SubjectTransformerHandler(($this->services['MailPoet\\Automation\\Engine\\Registry'] ?? $this->getRegistryService())), ($this->services['MailPoet\\Automation\\Engine\\Control\\FilterHandler'] ?? $this->getFilterHandlerService()), ($this->services['MailPoet\\Automation\\Engine\\Control\\StepScheduler'] ?? $this->getStepSchedulerService()), ($this->services['MailPoet\\Automation\\Engine\\Control\\StepRunLoggerFactory'] ?? $this->getStepRunLoggerFactoryService()), ($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Automation\Engine\Endpoints\Automations\AutomationTemplateGetEndpoint' shared autowired service.
+     *
+     * @return \MailPoet\Automation\Engine\Endpoints\Automations\AutomationTemplateGetEndpoint
+     */
+    protected function getAutomationTemplateGetEndpointService()
+    {
+        return $this->services['MailPoet\\Automation\\Engine\\Endpoints\\Automations\\AutomationTemplateGetEndpoint'] = new \MailPoet\Automation\Engine\Endpoints\Automations\AutomationTemplateGetEndpoint(($this->services['MailPoet\\Automation\\Engine\\Mappers\\AutomationMapper'] ?? $this->getAutomationMapperService()), ($this->services['MailPoet\\Automation\\Engine\\Validation\\AutomationValidator'] ?? $this->getAutomationValidatorService()), ($this->services['MailPoet\\Automation\\Engine\\Registry'] ?? $this->getRegistryService()));
     }
 
     /**
@@ -3516,7 +3528,7 @@ class FreeCachedContainer extends Container
      */
     protected function getLogRepositoryService()
     {
-        return $this->services['MailPoet\\Logging\\LogRepository'] = new \MailPoet\Logging\LogRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
+        return $this->services['MailPoet\\Logging\\LogRepository'] = new \MailPoet\Logging\LogRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()), ($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions())));
     }
 
     /**
@@ -3526,7 +3538,7 @@ class FreeCachedContainer extends Container
      */
     protected function getLoggerFactoryService()
     {
-        return $this->services['MailPoet\\Logging\\LoggerFactory'] = new \MailPoet\Logging\LoggerFactory(($this->services['MailPoet\\Logging\\LogRepository'] ?? $this->getLogRepositoryService()), ($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()), ($this->services['MailPoet\\Doctrine\\EntityManagerFactory'] ?? $this->getEntityManagerFactoryService()), ($this->services['MailPoet\\Settings\\SettingsController'] ?? $this->getSettingsController2Service()));
+        return $this->services['MailPoet\\Logging\\LoggerFactory'] = new \MailPoet\Logging\LoggerFactory(($this->services['MailPoet\\Logging\\LogRepository'] ?? $this->getLogRepositoryService()), ($this->services['MailPoet\\Settings\\SettingsController'] ?? $this->getSettingsController2Service()));
     }
 
     /**
@@ -5387,7 +5399,17 @@ class FreeCachedContainer extends Container
      */
     protected function getMPMarketingChannelControllerService()
     {
-        return $this->services['MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelController'] = new \MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelController(($this->services['MailPoet\\Util\\CdnAssetUrl'] ?? $this->getCdnAssetUrlService()), ($this->services['MailPoet\\Features\\FeaturesController'] ?? $this->getFeaturesControllerService()), ($this->services['MailPoet\\Settings\\SettingsController'] ?? $this->getSettingsController2Service()));
+        return $this->services['MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelController'] = new \MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelController(($this->services['MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelDataController'] ?? $this->getMPMarketingChannelDataControllerService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelDataController' shared autowired service.
+     *
+     * @return \MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelDataController
+     */
+    protected function getMPMarketingChannelDataControllerService()
+    {
+        return $this->services['MailPoet\\WooCommerce\\MultichannelMarketing\\MPMarketingChannelDataController'] = new \MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelDataController(($this->services['MailPoet\\Util\\CdnAssetUrl'] ?? $this->getCdnAssetUrlService()), ($this->services['MailPoet\\Settings\\SettingsController'] ?? $this->getSettingsController2Service()), ($this->services['MailPoet\\Services\\Bridge'] ?? $this->getBridgeService()), ($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService()), ($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService()), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] ?? ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] = new \MailPoet\Automation\Engine\Storage\AutomationStorage())), ($this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] ?? $this->getNewsletterStatisticsRepositoryService()), ($this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Analytics\\Controller\\OverviewStatisticsController'] ?? $this->getOverviewStatisticsControllerService()));
     }
 
     /**

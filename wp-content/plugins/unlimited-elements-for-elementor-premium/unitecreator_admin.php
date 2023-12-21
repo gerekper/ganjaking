@@ -42,7 +42,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			UniteProviderFunctionsUC::addScriptsFramework($specialSettings);
 			
 			//add color picker scripts
-			$colorPickerType = HelperUC::getGeneralSetting("color_picker_type");
+			$colorPickerType = GlobalsUC::$colorPickerType;
+			
 			switch($colorPickerType){
 				case "spectrum":
 					HelperUC::addScript("spectrum","unite-spectrum","js/spectrum");

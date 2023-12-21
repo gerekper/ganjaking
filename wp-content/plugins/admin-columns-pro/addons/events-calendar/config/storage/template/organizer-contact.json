@@ -1,0 +1,117 @@
+[
+    {
+        "version": "6.3.5",
+        "list_screen": {
+            "title": "📔 Organizer Contact",
+            "type": "tribe_organizer",
+            "id": "653b9e6d605de",
+            "updated": 1698406181,
+            "columns": {
+                "title": {
+                    "type": "title",
+                    "label": "Organizer",
+                    "width": "232",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "title"
+                },
+                "4a8c4d6aae147c": {
+                    "type": "column-ec-organizer_email",
+                    "label": "Email",
+                    "width": "204",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "4a8c4d6aae147c"
+                },
+                "210d4db9f89374": {
+                    "type": "column-ec-organizer_phone",
+                    "label": "Phone",
+                    "width": "135",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "210d4db9f89374"
+                },
+                "196504146b4396": {
+                    "type": "column-ec-organizer_website",
+                    "label": "Website",
+                    "width": "",
+                    "width_unit": "%",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "196504146b4396"
+                },
+                "dce61083958108": {
+                    "type": "column-ec-organizer_events",
+                    "label": "Events",
+                    "width": "",
+                    "width_unit": "%",
+                    "show_filter_link": "off",
+                    "event_display": "all",
+                    "export": "on",
+                    "name": "dce61083958108"
+                },
+                "3e03a7138d0e56": {
+                    "type": "column-ec-organizer_upcoming_event",
+                    "label": "Upcoming Event",
+                    "width": "",
+                    "width_unit": "%",
+                    "post_link_to": "view_post",
+                    "show_event_date": "on",
+                    "export": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "3e03a7138d0e56"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "hide_new_inline": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_filter_post_date": "off",
+                "hide_submenu": "off",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": ""
+            }
+        }
+    }
+]

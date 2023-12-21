@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ACP\Plugin\Update;
 
 use AC\ListScreenRepository\Storage;
+use AC\ListScreenRepositoryWritable;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
@@ -32,7 +33,9 @@ class V6000 extends Update
                 continue;
             }
 
-            foreach ($repository->find_all() as $list_screen) {
+            $_repository = $repository->get_list_screen_repository();
+
+            foreach ($_repository->find_all() as $list_screen) {
                 $settings = $list_screen->get_settings();
                 $updated = false;
 
@@ -52,10 +55,10 @@ class V6000 extends Update
                     }
                 }
 
-                if ($updated) {
+                if ($updated && $_repository instanceof ListScreenRepositoryWritable) {
                     $list_screen->set_settings($settings);
 
-                    $repository->save($list_screen);
+                    $_repository->save($list_screen);
                 }
             }
         }

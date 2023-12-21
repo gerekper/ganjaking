@@ -8,6 +8,7 @@ use AC;
 use AC\Registerable;
 use AC\Services;
 use ACP\Service\IntegrationStatus;
+use ACP\Service\Storage\TemplateFiles;
 
 final class EventsCalendar implements Registerable
 {
@@ -35,7 +36,7 @@ final class EventsCalendar implements Registerable
             new Service\ListScreens(),
             new Service\Scripts($this->location),
             new Service\TableScreen($this->location),
-            new Service\Presets($this->location),
+            TemplateFiles::from_directory(__DIR__ . '/../config/storage/template'),
             new IntegrationStatus('ac-addon-events-calendar'),
         ]);
     }

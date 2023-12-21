@@ -64,7 +64,13 @@ if ( ! class_exists( 'NS_MCF_Logs' ) ) {
 		 */
 		public function add_entry( $content = '', string $mode = 'test', string $file = '' ) {
 			// Ensure we have enough depth in Kint levels to record values for Amazon requests and responses.
-			Kint::$max_depth = 12;
+			
+
+			if ( property_exists( '\Kint\Kint', 'max_depth' ) ) {
+				Kint::$max_depth = 12;
+			} else if ( property_exists( '\Kint\Kint', 'depth_limit' ) ) {
+				Kint::$depth_limit = 12;
+			}
 
 			// TODO: Define the exact modes we want to implement and how the logging for each should implement.
 			switch ( $mode ) {

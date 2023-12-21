@@ -1,6 +1,6 @@
 "use strict";
 
-//version: 1.9
+//version: 1.10
 
 function UnlimitedElementsForm(){
   
@@ -157,18 +157,29 @@ function UnlimitedElementsForm(){
         
       }
       
-      var inputValue = objInpput.val();      
-      
-      //add parentheses if valus is less then 0
-      if(inputValue < 0)
-      inputValue = "("+inputValue+")";
+      var inputValue = objInpput.val();  
       
       //if input is empty then count it as 0
       if(inputValue.length == 0)
       inputValue = 0;
       
-      //make sure value is number type (usefull for separating thousand option)
-      inputValue = Number(inputValue.replace(/,/g, ''));
+      //see if input value is round number, if so - make sure the number is unformatted
+      var dataSeparateThousandsFormat =  objInpput.data("separate-thousands-format");
+   		
+      if(dataSeparateThousandsFormat == "de-DE"){
+
+        inputValue = Number(inputValue.replace(".", "").replace(",", ""));
+       
+      }else{
+        
+        //make sure value is number type (usefull for separating thousand option)
+        inputValue = Number(inputValue.toString().replace(",", ''));
+     	
+      }      		
+		
+      //add parentheses if valus is less then 0
+      if(inputValue < 0)
+      inputValue = "("+inputValue+")";	
       
       expr = expr.replace(name, inputValue);
       expr = expr.replace('[', '');
@@ -306,7 +317,7 @@ function UnlimitedElementsForm(){
   */
   function getValueWithSeparatedThousands(val, objCalcInput){
     
-    //input can be "text" or "number" type (some old version of Text Field widget has calculation mode)
+    //input can be "text" or "number" type (some old versions of Text Field widget has calculation mode)
     
     var dataSeparateThousands = objCalcInput.data("separate-thousands");
     
@@ -324,12 +335,18 @@ function UnlimitedElementsForm(){
     if(inputType != "text")
     objCalcInput.attr("type", "text");
     
+    var dataSeparateThousandsFormat = objCalcInput.data("separate-thousands-format");
+    
+    if(!dataSeparateThousandsFormat)
+    dataSeparateThousandsFormat = "en-US";
+    
     val = val.toString().split(".");
     
-    if(val.length > 1)
-    val = parseFloat(val[0]).toLocaleString("en-US") + '.' + val[1];
+    //different format available only for round numbers, if number isn't round then format only with coma
+    if(val.length > 1 && dataSeparateThousandsFormat == "en-US")
+    val = parseFloat(val[0]).toLocaleString(dataSeparateThousandsFormat) + '.' + val[1];
     else
-    val = parseFloat(val[0]).toLocaleString("en-US")
+    val = parseFloat(val[0]).toLocaleString(dataSeparateThousandsFormat)
     
     return(val);
     
@@ -702,7 +719,7 @@ function UnlimitedElementsForm(){
     
     var hiddenHtml = "<div class="+classError+">Unlimited Field is hidden due to Visibility Condition Options. <br> This message shows only in editor.</div>";
     var objError = objFieldWidget.find("."+classError);
-        
+    
     if(objFieldWidget.hasClass(classHidden) == true){
       
       if(!objError || !objError.length)
@@ -811,8 +828,9 @@ function UnlimitedElementsForm(){
       var id = conditionArray._id;
       
       var objField = jQuery(ueInputFieldSelector+'[name="'+fieldName+'"]');
+
       var objFieldValue = parseInt(objField.val());
-      
+            
       //sets the condition: "==", ">", "<" ...
       var visibilityCondition = getConditions(visibilityCondition, condition, objFieldValue, fieldValue);
       
@@ -840,16 +858,16 @@ function UnlimitedElementsForm(){
     if(eval(totalVisibilityCondition) == true){
       
       showField(objFieldWidget, classHidden);
-
+      
       if(isInEditor == "yes")
       setVisibilityInEditor(objFieldWidget, classError, classHidden);
-
+      
     }
     
     if(eval(totalVisibilityCondition) == false){      
       
       hideField(objFieldWidget, classHidden);
-
+      
       if(isInEditor == "yes")
       setVisibilityInEditor(objFieldWidget, classError, classHidden);
       

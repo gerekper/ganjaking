@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.11.0] - 2023-12-12
+### Added:
+- One-click setup for Gmail mailer (the easiest way to set up Gmail mailer).
+- Filter to customize the capability required for managing the plugin.
+
+### Changed:
+- Hide test tab movement notice for new users.
+- Improved keyboard navigation styles for the Setup Wizard.
+- Removed `WPMailSMTP\Admin\PluginsInstallUpgrader` class and switched to the WordPress Core `Plugin_Upgrader` class.
+
+### Fixed:
+- Fatal error in the Pro Site Health module if the Lite module was not loaded.
+- PHP deprecation notices in the Setup Wizard on WordPress 6.4 and above.
+- PHP deprecation notice for `mb_convert_encoding` function on PHP 8.2 and above.
+
+## [3.10.1] - 2023-11-15
+### Added:
+- Cleanup of duplicate Action Scheduler tasks.
+
+### Fixed:
+- Compatibility issue with Action Scheduler lower than 3.3.0.
+
 ## [3.10.0] - 2023-11-07
 ### Added:
 - Connection (mailer) selector for single and bulk emails resend.

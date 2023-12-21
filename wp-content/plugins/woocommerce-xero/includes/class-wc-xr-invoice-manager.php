@@ -1,12 +1,22 @@
 <?php
+/**
+ * WC_XR_Invoice_Manager class.
+ *
+ * @package WooCommerce_Xero
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
+/**
+ * WC_XR_Invoice_Manager class.
+ */
 class WC_XR_Invoice_Manager {
 
 	/**
+	 * Xero Settings object.
+	 *
 	 * @var WC_XR_Settings
 	 */
 	protected $settings;
@@ -14,7 +24,7 @@ class WC_XR_Invoice_Manager {
 	/**
 	 * WC_XR_Invoice_Manager constructor.
 	 *
-	 * @param WC_XR_Settings $settings
+	 * @param WC_XR_Settings $settings Xero Settings object.
 	 */
 	public function __construct( WC_XR_Settings $settings ) {
 		$this->settings = $settings;
@@ -25,10 +35,12 @@ class WC_XR_Invoice_Manager {
 	 */
 	public function setup_hooks() {
 
-		// Check if we need to send invoices when they're completed automatically
+		// Check if we need to send invoices when they're completed automatically.
 		$option = $this->settings->get_option( 'send_invoices' );
 		if ( 'creation' === $option ) {
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'send_invoice_if_no_changes' ) );
+			// Send invoice for block checkout.
+			add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'send_invoice_if_no_changes' ) );
 		} elseif ( 'completion' === $option || 'on' === $option ) {
 			add_action( 'woocommerce_order_status_completed', array( $this, 'send_invoice_if_no_changes' ) );
 		} elseif ( 'payment_completion' === $option ) {
@@ -58,6 +70,11 @@ class WC_XR_Invoice_Manager {
 		// Try to perform instant API request.
 		$result = $this->send_invoice_core( $order_id, $force );
 
+		/**
+		 * Filter to modify the delay in seconds before retrying the request.
+		 *
+		 * @since 1.7.56
+		 */
 		$delay_in_seconds = apply_filters( 'woocommerce_xero_api_queue_delay', 1 * MINUTE_IN_SECONDS );
 
 		// Schedule for later if rate limit error received.
@@ -85,6 +102,11 @@ class WC_XR_Invoice_Manager {
 		// Try to perform instant API request.
 		$result = $this->maybe_void_invoice( $order_id );
 
+		/**
+		 * Filter to modify the delay in seconds before retrying the request.
+		 *
+		 * @since 1.7.56
+		 */
 		$delay_in_seconds = apply_filters( 'woocommerce_xero_api_queue_delay', 1 * MINUTE_IN_SECONDS );
 
 		// Schedule for later if rate limit error received.
@@ -108,48 +130,52 @@ class WC_XR_Invoice_Manager {
 	 *
 	 * @return bool
 	 */
-    public function send_invoice( $order_id ) {
-        return $this->maybe_queue_invoice( $order_id, true );
-    }
+	public function send_invoice( $order_id ) {
+		return $this->maybe_queue_invoice( $order_id, true );
+	}
 
-    /**
-     * Send invoice to XERO API, but only if there aren't changes since the last time it was sent.
-     *
-     * @param int $order_id Id of the order to send an invoice to.
-     * @return bool
-     */
-    public function send_invoice_if_no_changes( $order_id ) {
-        return $this->maybe_queue_invoice( $order_id, false );
-    }
+	/**
+	 * Send invoice to XERO API, but only if there aren't changes since the last time it was sent.
+	 *
+	 * @param int|WC_Order $order_id Id of the order to send an invoice to.
+	 * @return bool
+	 */
+	public function send_invoice_if_no_changes( $order_id ) {
+		if ( $order_id instanceof WC_Order ) {
+			$order_id = $order_id->get_id();
+		}
 
-    /**
-     * Send invoice to XERO API.
-     * Optionally, the invoice won't be sent if there are no changes since the last time it was sent.
-     *
-     * @param int $order_id Id of the order to send an invoice to.
-     * @param bool $force If false, the invoice won't be sent if there are no changes since the last time it was sent.
-     * @return bool|WP_Error
-     */
+		return $this->maybe_queue_invoice( $order_id, false );
+	}
+
+	/**
+	 * Send invoice to XERO API.
+	 * Optionally, the invoice won't be sent if there are no changes since the last time it was sent.
+	 *
+	 * @param int  $order_id Id of the order to send an invoice to.
+	 * @param bool $force If false, the invoice won't be sent if there are no changes since the last time it was sent.
+	 * @return bool|WP_Error
+	 */
 	private function send_invoice_core( $order_id, $force = true ) {
-		// Get the order
+		// Get the order.
 		$order = wc_get_order( $order_id );
 
 		$xero_invoice_id = $this->get_order_meta( $order, '_xero_invoice_id', true );
 
 		try {
-			// Write exception message to log
+			// Write exception message to log.
 			$logger = new WC_XR_Logger( $this->settings );
 
-			// Get the invoice
+			// Get the invoice.
 			$invoice = $this->get_invoice_by_order( $order );
 
-			$xero_invoice_hash = hash('sha1', $invoice->to_xml());
+			$xero_invoice_hash          = hash( 'sha1', $invoice->to_xml() );
 			$previous_xero_invoice_hash = $this->get_order_meta( $order, '_xero_invoice_hash', true );
-			if( $xero_invoice_id && ! $force && ( $previous_xero_invoice_hash === $xero_invoice_hash ) ) {
+			if ( $xero_invoice_id && ! $force && ( $previous_xero_invoice_hash === $xero_invoice_hash ) ) {
 
 				$logger->write( 'INVOICE HAS NOT CHANGED, NOT SENDING ORDER WITH ID ' . $order_id );
 
-				$order->add_order_note( __( "Skipping sending Xero Invoice update since there are no changes. Invoice ID: " . $xero_invoice_id, 'woocommerce-xero' ) );
+				$order->add_order_note( __( 'Skipping sending Xero Invoice update since there are no changes. Invoice ID: ' . $xero_invoice_id, 'woocommerce-xero' ) );
 
 				return false;
 			}
@@ -165,59 +191,53 @@ class WC_XR_Invoice_Manager {
 				return false;
 			}
 
-			// Invoice Request
+			// Invoice Request.
 			$invoice_request = new WC_XR_Request_Invoice( $this->settings, $invoice );
 
-			// Logging
-			if( $xero_invoice_id ) {
+			// Logging.
+			if ( $xero_invoice_id ) {
 				$logger->write( 'START INVOICE UPDATE. order_id=' . $order_id . ' xero_invoice_id=' . $xero_invoice_id );
 			} else {
 				$logger->write( 'START XERO NEW INVOICE. order_id=' . $order_id );
 			}
 
-			// Do the request
+			// Do the request.
 			$invoice_request->do_request();
 
-			// Parse XML Response
+			// Parse XML Response.
 			$xml_response = $invoice_request->get_response_body_xml();
 
-			// Check response status
+			// Check response status.
 			if ( 'OK' == $xml_response->Status ) {
 
-				// Add order meta data
-				$this->update_order_meta( $order,'_xero_invoice_id', (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
-				$this->update_order_meta( $order,'_xero_currencyrate', (string) $xml_response->Invoices->Invoice[0]->CurrencyRate );
-				$this->update_order_meta( $order,'_xero_invoice_hash', $xero_invoice_hash );
+				// Add order meta data.
+				$this->update_order_meta( $order, '_xero_invoice_id', (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
+				$this->update_order_meta( $order, '_xero_currencyrate', (string) $xml_response->Invoices->Invoice[0]->CurrencyRate );
+				$this->update_order_meta( $order, '_xero_invoice_hash', $xero_invoice_hash );
 				$this->save_order_meta( $order );
 
-				// Log response
+				// Log response.
 				$logger->write( 'XERO RESPONSE:' . "\n" . $invoice_request->get_response_body() );
 
-				// Add Order Note
-				if( $xero_invoice_id ) {
+				// Add Order Note.
+				if ( $xero_invoice_id ) {
 					$order->add_order_note( __( 'Xero Invoice updated.  ', 'woocommerce-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
 				} else {
 					$order->add_order_note( __( 'Xero Invoice created.  ', 'woocommerce-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
 				}
+			} else { // XML reponse is not OK.
 
-			} else { // XML reponse is not OK
-
-				// Log reponse
+				// Log reponse.
 				$logger->write( 'XERO ERROR RESPONSE:' . "\n" . $invoice_request->get_response_body() );
 
-				// Format error message
+				// Format error message.
 				$error_message = $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message ? $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message : __( 'None', 'woocommerce-xero' );
 
-				// Add order note
-				$order->add_order_note( __( 'ERROR creating Xero invoice: ', 'woocommerce-xero' ) .
-				                        __( ' ErrorNumber: ', 'woocommerce-xero' ) . $xml_response->ErrorNumber .
-				                        __( ' ErrorType: ', 'woocommerce-xero' ) . $xml_response->Type .
-				                        __( ' Message: ', 'woocommerce-xero' ) . $xml_response->Message .
-				                        __( ' Detail: ', 'woocommerce-xero' ) . $error_message );
+				// Add order note.
+				$order->add_order_note( __( 'ERROR creating Xero invoice: ', 'woocommerce-xero' ) . __( ' ErrorNumber: ', 'woocommerce-xero' ) . $xml_response->ErrorNumber . __( ' ErrorType: ', 'woocommerce-xero' ) . $xml_response->Type . __( ' Message: ', 'woocommerce-xero' ) . $xml_response->Message . __( ' Detail: ', 'woocommerce-xero' ) . $error_message );
 			}
-
 		} catch ( Exception $e ) {
-			// Add Exception as order note
+			// Add Exception as order note.
 			$order->add_order_note( $e->getMessage() );
 
 			$logger->write( $e->getMessage() );
@@ -228,7 +248,7 @@ class WC_XR_Invoice_Manager {
 
 			return false;
 		}
-		if( $xero_invoice_id ) {
+		if ( $xero_invoice_id ) {
 			$logger->write( 'END XERO INVOICE UPDATE' );
 		} else {
 			$logger->write( 'END XERO NEW INVOICE' );
@@ -241,7 +261,7 @@ class WC_XR_Invoice_Manager {
 	 * Maybe void the invoice and return the XML string.
 	 *
 	 * @since 1.7.20
-	 * @param int $order_id
+	 * @param int $order_id Id of the order to void an invoice.
 	 * @return bool|WP_Error
 	 */
 	public function maybe_void_invoice( $order_id ) {
@@ -285,7 +305,7 @@ class WC_XR_Invoice_Manager {
 			// Parse XML Response.
 			$xml_response = $void_request->get_response_body_xml();
 
-			if ( 'OK' == $xml_response->Status ) {	
+			if ( 'OK' == $xml_response->Status ) {
 				$order->add_order_note( 'Fully refunded - voided Xero invoice' );
 				$logger->write( 'XERO RESPONSE:' . "\n" . $void_request->get_response_body() );
 			} else {
@@ -316,7 +336,7 @@ class WC_XR_Invoice_Manager {
 	/**
 	 * Get invoice by order
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order $order Order object.
 	 *
 	 * @return WC_XR_Invoice
 	 */
@@ -324,27 +344,27 @@ class WC_XR_Invoice_Manager {
 
 		$order_date = $order->get_date_created()->date( 'Y-m-d H:i:s' );
 		$date_parts = explode( ' ', $order_date );
-		$order_ymd = $date_parts[0];
+		$order_ymd  = $date_parts[0];
 
-		// Line Item manager
+		// Line Item manager.
 		$line_item_manager = new WC_XR_Line_Item_Manager( $this->settings );
 
-		// Contact Manager
+		// Contact Manager.
 		$contact_manager = new WC_XR_Contact_Manager( $this->settings );
 
-		// Cart Tax
+		// Cart Tax.
 		$cart_tax = floatval( $order->get_cart_tax() );
 
-		// Shipping Tax
+		// Shipping Tax.
 		$shipping_tax = floatval( $order->get_shipping_tax() );
 
-		// Order Total
+		// Order Total.
 		$order_total = floatval( $order->get_total() );
 
-		// Order Currency
+		// Order Currency.
 		$order_currency = $order->get_currency();
 
-		// Create invoice
+		// Create invoice.
 		$invoice = new WC_XR_Invoice(
 			$this->settings,
 			$contact_manager->get_contact_by_order( $order ),
@@ -359,18 +379,40 @@ class WC_XR_Invoice_Manager {
 
 		$invoice->set_order( $order );
 
-		// Return invoice
+		// Return invoice.
 		return $invoice;
 	}
 
+	/**
+	 * Get order meta data.
+	 *
+	 * @param WC_Order $order  Order object.
+	 * @param string   $key    Key to get.
+	 * @param boolean  $single Is single?.
+	 * @return mixed Meta data value.
+	 */
 	private function get_order_meta( $order, $key, $single = false ) {
 		return $order->get_meta( $key, $single );
 	}
 
+	/**
+	 * Update order meta data.
+	 *
+	 * @param WC_Order $order Order object.
+	 * @param string   $key   Key to update.
+	 * @param mixed    $value Value to save.
+	 * @return void
+	 */
 	private function update_order_meta( $order, $key, $value ) {
 		$order->update_meta_data( $key, $value );
 	}
 
+	/**
+	 * Save order meta data.
+	 *
+	 * @param WC_Order $order Order object.
+	 * @return void
+	 */
 	private function save_order_meta( $order ) {
 		$order->save_meta_data();
 	}

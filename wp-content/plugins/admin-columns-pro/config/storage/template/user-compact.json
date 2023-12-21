@@ -1,0 +1,200 @@
+[
+    {
+        "version": "6.4",
+        "list_screen": {
+            "title": "👤 Compact View",
+            "type": "wp-users",
+            "id": "6549025e48aeb",
+            "updated": 1699428691,
+            "columns": {
+                "5d71dfbe595810": {
+                    "type": "column-gravatar",
+                    "label": "<span class=\"dashicons dashicons-format-image\"></span>",
+                    "width": "66",
+                    "width_unit": "px",
+                    "image_size": "cpac-custom",
+                    "image_size_w": "34",
+                    "image_size_h": "34",
+                    "export": "on",
+                    "name": "5d71dfbe595810"
+                },
+                "63eee0a051a9fc": {
+                    "type": "column-display_name",
+                    "label": "Name",
+                    "width": "312",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "name": "63eee0a051a9fc"
+                },
+                "1683917b68b439": {
+                    "type": "column-first_name",
+                    "label": "First Name",
+                    "width": "130",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "1683917b68b439"
+                },
+                "3ccb38e2f1eb86": {
+                    "type": "column-last_name",
+                    "label": "Last Name",
+                    "width": "130",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "3ccb38e2f1eb86"
+                },
+                "email": {
+                    "type": "email",
+                    "label": "<span class=\"dashicons dashicons-email\"></span>",
+                    "width": "260",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "email"
+                },
+                "3b7b5eae049ba6": {
+                    "type": "column-roles",
+                    "label": "Roles",
+                    "width": "130",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "3b7b5eae049ba6"
+                },
+                "3791d3b3c3126e": {
+                    "type": "column-user_posts",
+                    "label": "Posts",
+                    "width": "100",
+                    "width_unit": "px",
+                    "post_type": "any",
+                    "post_status": [
+                        "publish",
+                        "private"
+                    ],
+                    "export": "on",
+                    "sort": "on",
+                    "name": "3791d3b3c3126e"
+                },
+                "b34708970a3d70": {
+                    "type": "column-user_url",
+                    "label": "Website",
+                    "width": "229",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "b34708970a3d70"
+                },
+                "4549f0f934fdf4": {
+                    "type": "column-user_registered",
+                    "label": "Registered",
+                    "width": "",
+                    "width_unit": "px",
+                    "filter": "off",
+                    "filter_label": "",
+                    "filter_format": "",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "name": "4549f0f934fdf4"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_submenu": "off",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "63eee0a051a9fc",
+                "filter_segment": "",
+                "wrapping": "clip"
+            }
+        },
+        "segments": [
+            {
+                "key": "6549025e48aef",
+                "list_screen_id": "6549025e48aeb",
+                "name": "Missing Full Name",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"57fc69ca89fbe8\",\"id\":\"1683917b68b439\",\"operator\":\"is_empty\",\"value\":null},{\"uid\":\"45a3d602f60418\",\"id\":\"3ccb38e2f1eb86\",\"operator\":\"is_empty\",\"value\":null}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "acp_filter": {
+                        "1683917b68b439": "",
+                        "3ccb38e2f1eb86": "",
+                        "email": "",
+                        "b34708970a3d70": ""
+                    },
+                    "acp_filter_action": "Filter"
+                },
+                "date_created": "1699283550"
+            },
+            {
+                "key": "6549025e48af2",
+                "list_screen_id": "6549025e48aeb",
+                "name": "Registered within 365 days",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"297ed2b2a5e354\",\"id\":\"4549f0f934fdf4\",\"operator\":\"lt_days_ago\",\"value\":365}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "acp_filter": {
+                        "1683917b68b439": "",
+                        "3ccb38e2f1eb86": "",
+                        "email": "",
+                        "b34708970a3d70": ""
+                    },
+                    "acp_filter_action": "Filter"
+                },
+                "date_created": "1699283550"
+            }
+        ]
+    }
+]

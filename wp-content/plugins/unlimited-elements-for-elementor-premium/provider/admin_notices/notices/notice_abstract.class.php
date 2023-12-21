@@ -42,7 +42,7 @@ abstract class UCAdminNoticeAbstract{
 	 * check if the notice is in the debug mode
 	 */
 	public function isDebug(){
-
+		
 		if(GlobalsUnlimitedElements::$debugAdminNotices === true)
 			return true;
 

@@ -230,7 +230,7 @@ class Options extends OptionsAbstract {
 	 */
 	public function process_provider_remove() {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			return;
 		}
 

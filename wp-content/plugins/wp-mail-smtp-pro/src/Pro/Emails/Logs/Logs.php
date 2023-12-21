@@ -457,7 +457,10 @@ class Logs {
 		 *
 		 * @param string  $capability Email logs page manage capability.
 		 */
-		return apply_filters( 'wp_mail_smtp_pro_emails_logs_logs_get_manage_capability', 'manage_options' );
+		return apply_filters(
+			'wp_mail_smtp_pro_emails_logs_logs_get_manage_capability',
+			wp_mail_smtp()->get_capability_manage_options()
+		);
 	}
 
 	/**

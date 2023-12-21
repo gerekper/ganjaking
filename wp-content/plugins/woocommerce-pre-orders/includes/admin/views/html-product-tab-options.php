@@ -54,6 +54,7 @@ global $post, $woocommerce;
 		woocommerce_wp_select(
 			array(
 				'id'          => '_wc_pre_orders_when_to_charge',
+				'class'       => 'wc-enhanced-select',
 				'label'       => __( 'When to Charge', 'woocommerce-pre-orders' ),
 				'description' => __( 'Select "Upon Release" to charge the entire pre-order amount (the product price + pre-order fee if applicable) when the pre-order becomes available. Select "Upfront" to charge the pre-order amount during the initial checkout.', 'woocommerce-pre-orders' ),
 				'desc_tip'    => true,

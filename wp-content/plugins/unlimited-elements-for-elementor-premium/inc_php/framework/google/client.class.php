@@ -8,9 +8,21 @@ abstract class UEGoogleAPIClient{
 
 	const PARAM_QUERY = "__query__";
 
+	private $accessToken;
 	private $apiKey;
 	private $cacheTime = 0; // in seconds
-	private $useCredentials = false;
+
+	/**
+	 * Set the access token.
+	 *
+	 * @param string $token
+	 *
+	 * @return void
+	 */
+	public function setAccessToken($token){
+
+		$this->accessToken = $token;
+	}
 
 	/**
 	 * Set the API key.
@@ -34,16 +46,6 @@ abstract class UEGoogleAPIClient{
 	public function setCacheTime($seconds){
 
 		$this->cacheTime = $seconds;
-	}
-
-	/**
-	 * Use the saved credentials.
-	 *
-	 * @return void
-	 */
-	public function useCredentials(){
-
-		$this->useCredentials = true;
 	}
 
 	/**
@@ -156,13 +158,13 @@ abstract class UEGoogleAPIClient{
 			if($response === null)
 				throw new Exception("Unable to parse the response (status code $code).", $code);
 
-			if(isset($response["error"])){
+			if(empty($response["error"]) === false){
 				$error = $response["error"];
 				$message = $error["message"];
 				$status = isset($error["status"]) ? $error["status"] : $error["code"];
 
 				throw new Exception("$message ($status)");
-			}elseif(isset($response["error_message"])){
+			}elseif(empty($response["error_message"]) === false){
 				$message = $response["error_message"];
 				$status = isset($response["status"]) ? $response["status"] : $response["code"];
 
@@ -197,21 +199,13 @@ abstract class UEGoogleAPIClient{
 	 */
 	private function getAuthParams(){
 
-		$params = array();
+		if(empty($this->accessToken) === false)
+			return array("access_token" => $this->accessToken);
 
-		if($this->useCredentials === true){
-			$params["access_token"] = UEGoogleAPIHelper::getFreshAccessToken();
+		if(empty($this->apiKey) === false)
+			return array("key" => $this->apiKey);
 
-			return $params;
-		}
-
-		if($this->apiKey){
-			$params["key"] = $this->apiKey;
-
-			return $params;
-		}
-
-		return $params;
+		throw new Exception("Either an access token or an API key must be specified.");
 	}
 
 }

@@ -77,11 +77,11 @@ class WCML_Payment_Gateway_Stripe extends WCML_Payment_Gateway {
 
 		if ( $gateway_settings && isset( $gateway_settings[ $client_currency ] ) ) {
 			$gateway_setting = $gateway_settings[ $client_currency ];
-			if ( isset( $gateway_setting['publishable_key'] ) && isset( $gateway_setting['secret_key'] ) ) {
+			if ( ! empty( $gateway_setting['publishable_key'] ) && ! empty( $gateway_setting['secret_key'] ) ) {
 				$settings['publishable_key'] = $gateway_setting['publishable_key'];
 				$settings['secret_key']      = $gateway_setting['secret_key'];
 			}
-			if ( isset( $gateway_setting['test_publishable_key'] ) && isset( $gateway_setting['test_secret_key'] ) ) {
+			if ( ! empty( $gateway_setting['test_publishable_key'] ) && ! empty( $gateway_setting['test_secret_key'] ) ) {
 				$settings['test_publishable_key'] = $gateway_setting['test_publishable_key'];
 				$settings['test_secret_key']      = $gateway_setting['test_secret_key'];
 			}

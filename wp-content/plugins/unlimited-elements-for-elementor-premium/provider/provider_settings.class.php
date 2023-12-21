@@ -815,7 +815,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params = array();
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_TEXTFIELD;
 		$params["placeholder"] = "Example: cat1,cat2";
-		$params["description"] = "To exclude, enter comma saparated term slugs";
+		$params["description"] = "To exclude, enter comma separated term slugs";
 		$params["label_block"] = true;
 		$params["elementor_condition"] = $conditionQuery;
 		
@@ -1508,7 +1508,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		
 		$params = array();
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
-		$params["description"] = __("Get only those terms that has the meta key/value. For IN, NOT IN, BETWEEN, NOT BETWEEN compares, use coma saparated values","unlimited-elements-for-elementor");
+		$params["description"] = __("Get only those terms that has the meta key/value. For IN, NOT IN, BETWEEN, NOT BETWEEN compares, use coma separated values","unlimited-elements-for-elementor");
 		$params["elementor_condition"] = $arrConditionIncludeMeta;
 		
 		$arrItems = HelperProviderUC::getArrMetaCompareSelect();

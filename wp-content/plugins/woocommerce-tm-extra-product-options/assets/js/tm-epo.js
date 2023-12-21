@@ -9556,9 +9556,7 @@
 					if ( $this.is( '.tc-epo-field-product-hidden' ) ) {
 						if ( $this.is( ':checked' ) ) {
 							if ( qtyalt.val() === '0' ) {
-								if ( qtyalt.attr( 'min' ) === '0' ) {
-									qtyalt.val( 1 ).trigger( 'change' );
-								} else {
+								if ( qtyalt.attr( 'min' ) !== '0' ) {
 									qtyalt.val( qtyalt.attr( 'min' ) ).trigger( 'change' );
 								}
 							}
@@ -9574,9 +9572,7 @@
 				} else if ( $this.is( ':radio' ) ) {
 					if ( $this.val() && ! $this.data( 'set_initial' ) ) {
 						if ( qtyalt.val() === '0' ) {
-							if ( qtyalt.attr( 'min' ) === '0' ) {
-								qtyalt.val( 1 ).trigger( 'change' );
-							} else {
+							if ( qtyalt.attr( 'min' ) !== '0' ) {
 								qtyalt.val( qtyalt.attr( 'min' ) ).trigger( 'change' );
 							}
 							$this.data( 'set_initial', 1 );
@@ -9585,9 +9581,7 @@
 				} else if ( $this.is( 'select' ) ) {
 					if ( $this.val() && ! $this.data( 'set_initial' ) ) {
 						if ( qtyalt.val() === '0' ) {
-							if ( qtyalt.attr( 'min' ) === '0' ) {
-								// qtyalt.val( 1 ).trigger( 'change' );
-							} else {
+							if ( qtyalt.attr( 'min' ) !== '0' ) {
 								qtyalt.val( qtyalt.attr( 'min' ) ).trigger( 'change' );
 							}
 							$this.data( 'set_initial', 1 );
@@ -10644,8 +10638,11 @@
 
 			if ( formatted_final_total && product_total_price >= 0 ) {
 				_fprice = formatPrice( product_total_price );
-
-				_f_regular_price = parseFloat( parseFloat( rawProductRegularPrice * cartQty ) + raw_original_total_plus_fee + extraFee );
+				if ( priceOverrideMode === '1' && parseFloat( total ) > 0 ) {
+					_f_regular_price = parseFloat( raw_original_total_plus_fee + extraFee );
+				} else {
+					_f_regular_price = parseFloat( parseFloat( rawProductRegularPrice * cartQty ) + raw_original_total_plus_fee + extraFee );
+				}
 
 				if ( customerPriceFormat ) {
 					_fprice = customerPriceFormat.replace( '__PRICE__', _fprice ).replace( '__CODE__', TMEPOJS.current_currency );
@@ -10659,7 +10656,7 @@
 				_f_regular_price = formatPrice( _f_regular_price );
 				_f_regular_price = $.epoAPI.applyFilter( 'tc_adjust_native_regular_price', _f_regular_price, product_total_price );
 
-				if ( TMEPOJS.tm_epo_enable_original_final_total === 'yes' && ( totalsHolder.data( 'is-on-sale' ) || _f_regular_price !== _fprice ) ) {
+				if ( TMEPOJS.tm_epo_enable_original_final_total === 'yes' && ( ( totalsHolder.data( 'is-on-sale' ) && priceOverrideMode !== '1' ) || _f_regular_price !== _fprice ) ) {
 					tc_totals_ob.formatted_final_total = $.epoAPI.util.decodeHTML(
 						$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_sale_price, {
 							price: _f_regular_price,

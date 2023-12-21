@@ -18,8 +18,8 @@ class UniteCreatorElementorIntegrate{
 	
 	public static $enableLowMemoryCheck = false;
 	
-	private $enableImportTemplate = true;
-	private $enableExportTemplate = true;
+	private $enableImportTemplate = false;
+	private $enableExportTemplate = false;
 	private $enableBackgroundWidgets = false;
 	private $enableDynamicVisibility = false;
 	
@@ -54,7 +54,7 @@ class UniteCreatorElementorIntegrate{
 	private $objBackgroundWidget;
 	private $objDynamicVisibility;
 	
-	public static $enableEditHTMLButton = true;
+	public static $enableEditHTMLButton = null;
 	
 	public static $showWidgetPreviews = true;
 	public static $arrWidgetIcons = array();		//fill by the widgets
@@ -1703,10 +1703,7 @@ class UniteCreatorElementorIntegrate{
     	
     	//consolidation always false
     	self::$isConsolidated = false;
-    	
-    	$enableExportImport = HelperProviderCoreUC_EL::getGeneralSetting("enable_import_export");
-    	$enableExportImport = UniteFunctionsUC::strToBool($enableExportImport);
-		
+    			
     	$enableBackgrounds = HelperProviderCoreUC_EL::getGeneralSetting("enable_backgrounds");
     	$enableBackgrounds = UniteFunctionsUC::strToBool($enableBackgrounds);
     	
@@ -1718,11 +1715,6 @@ class UniteCreatorElementorIntegrate{
 	    	$enableDynamicVisibility = UniteFunctionsUC::strToBool($enableDynamicVisibility);
     	}
     	    	
-    	if($enableExportImport == false){
-    		$this->enableExportTemplate = false;
-    		$this->enableImportTemplate = false;
-    	}
-
     	//disable post_content filtering (in functionsWP)
     	
 	    GlobalsProviderUC::$disablePostContentFiltering = HelperProviderCoreUC_EL::getGeneralSetting("disable_post_content_filters");

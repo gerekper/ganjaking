@@ -1,6 +1,9 @@
-*** WooCommerce Order Barcodes Changelog ***	       	    		       
-   	  	  	      	     	     	       	     	 
-2023-09-18 - version 1.7.2	
+*** WooCommerce Order Barcodes Changelog ***
+
+2023-12-11 - version 1.7.3
+* Add - Declared cart/checkout blocks compatibility.
+
+2023-09-18 - version 1.7.2
 * Tweak  - Applying WordPress Coding Standards.
 
 2023-09-05 - version 1.7.1

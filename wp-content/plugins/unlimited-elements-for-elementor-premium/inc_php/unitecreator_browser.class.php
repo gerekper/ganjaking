@@ -1176,7 +1176,7 @@ class UniteCreatorBrowserWork extends HtmlOutputBaseUC{
 			$message = $e->getMessage();
 			
 			$trace = "";
-			if(GlobalsUC::SHOW_TRACE == true)
+			if(GlobalsUC::$SHOW_TRACE == true)
 				$trace = $e->getTraceAsString();
 			
 			$htmlError = HelperUC::getHtmlErrorMessage($message, $trace);

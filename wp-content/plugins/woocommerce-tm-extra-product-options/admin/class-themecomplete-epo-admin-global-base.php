@@ -1274,6 +1274,10 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			case 'product_cat':
 				$tm_meta_apply_mode = themecomplete_get_post_meta( $post_id, 'tm_meta_apply_mode', true );
 				$tm_meta            = themecomplete_get_post_meta( $post_id, 'tm_meta_disable_categories', true );
+				$tm_meta_id         = apply_filters( 'wc_epo_tm_meta_product_ids', themecomplete_get_post_meta( $post_id, 'tm_meta_product_ids', true ), $post_id );
+				if ( is_array( $tm_meta_id ) && 1 === count( $tm_meta_id ) && empty( $tm_meta_id[0] ) ) {
+					$tm_meta_id = false;
+				}
 
 				if ( $tm_meta_apply_mode ) {
 					switch ( $tm_meta_apply_mode ) {
@@ -1287,12 +1291,16 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 							$terms = get_the_term_list( $post_id, 'product_cat', '', ' , ', '' );
 							if ( is_string( $terms ) ) {
 								echo wp_kses_post( $terms );
+							} elseif ( empty( $tm_meta_id ) || ! is_array( $tm_meta_id ) ) {
+								echo '<span class="tc-color-error">' . esc_html__( 'None', 'woocommerce-tm-extra-product-options' ) . '</span>';
 							}
 							break;
 					}
 				} elseif ( ! $tm_meta_apply_mode ) {
 					if ( $tm_meta ) {
-						echo '<span class="tc-color-error">' . esc_html__( 'Disabled', 'woocommerce-tm-extra-product-options' ) . '</span>';
+						if ( empty( $tm_meta_id ) || ! is_array( $tm_meta_id ) ) {
+							echo '<span class="tc-color-error">' . esc_html__( 'Disabled', 'woocommerce-tm-extra-product-options' ) . '</span>';
+						}
 					} else {
 						$terms = get_the_term_list( $post_id, 'product_cat', '', ' , ', '' );
 						if ( is_string( $terms ) ) {
@@ -1319,7 +1327,9 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 				break;
 
 			case 'product_ids':
-				$tm_meta = apply_filters( 'wc_epo_tm_meta_product_ids', themecomplete_get_post_meta( $post_id, 'tm_meta_product_ids', true ), $post_id );
+				$tm_meta_apply_mode = themecomplete_get_post_meta( $post_id, 'tm_meta_apply_mode', true );
+				$tm_meta_cat        = themecomplete_get_post_meta( $post_id, 'tm_meta_disable_categories', true );
+				$tm_meta            = apply_filters( 'wc_epo_tm_meta_product_ids', themecomplete_get_post_meta( $post_id, 'tm_meta_product_ids', true ), $post_id );
 				if ( is_array( $tm_meta ) && 1 === count( $tm_meta ) && empty( $tm_meta[0] ) ) {
 					$tm_meta = false;
 				}
@@ -1342,8 +1352,31 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 							}
 						}
 					}
-				} else {
-					echo '<span class="tc-color-error">' . esc_html__( 'None', 'woocommerce-tm-extra-product-options' ) . '</span>';
+				} elseif ( empty( $tm_meta ) ) {
+					if ( $tm_meta_apply_mode ) {
+						switch ( $tm_meta_apply_mode ) {
+							case 'apply-to-all-products':
+								echo '<span class="tc-color-active">' . esc_html__( 'ALL products', 'woocommerce-tm-extra-product-options' ) . '</span>';
+								break;
+							case 'disable-form':
+							case 'customize-selection':
+								echo '<span class="tc-color-error">' . esc_html__( 'None', 'woocommerce-tm-extra-product-options' ) . '</span>';
+								break;
+						}
+					} elseif ( ! $tm_meta_apply_mode ) {
+						if ( $tm_meta_cat ) {
+							if ( empty( $tm_meta_id ) || ! is_array( $tm_meta_id ) ) {
+								echo '<span class="tc-color-error">' . esc_html__( 'None', 'woocommerce-tm-extra-product-options' ) . '</span>';
+							}
+						} else {
+							$terms = get_the_term_list( $post_id, 'product_cat', '', ' , ', '' );
+							if ( ! $terms ) {
+								echo '<span class="tc-color-active">' . esc_html__( 'ALL products', 'woocommerce-tm-extra-product-options' ) . '</span>';
+							}
+						}
+					} else {
+						echo '<span class="tc-color-error">' . esc_html__( 'None', 'woocommerce-tm-extra-product-options' ) . '</span>';
+					}
 				}
 				break;
 

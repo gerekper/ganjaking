@@ -132,7 +132,7 @@ final class WC_Pre_Orders_Blocks_Gateway extends AbstractPaymentMethodType {
 		return array(
 			'title'             => __( 'Pay later', 'woocommerce-pre-orders' ),
 			'description'       => __( 'You will receive an email when the pre-order is available along with instructions on how to complete your order.', 'woocommerce-pre-orders' ),
-			'order_button_text' => __( 'Place pre-order now', 'woocommerce-pre-orders' ),
+			'order_button_text' => get_option( 'wc_pre_orders_place_order_button_text', __( 'Place pre-order now', 'woocommerce-pre-orders' ) ),
 			'supports'          => $this->get_supported_features(),
 			'is_enabled'        => WC_Pre_Orders_Blocks_Integration::is_pre_order_and_charged_upon_release(),
 		);

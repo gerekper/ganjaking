@@ -28,7 +28,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 	/**
 	 * Custom data
-	 * This is used in places where we need to add a custom settings
+	 * This is used in places where we need to add custom settings
 	 *
 	 * @var array<mixed>
 	 */
@@ -63,9 +63,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	/**
 	 * Flag for loading scripts
 	 *
-	 * @var null|boolean
+	 * @var array<mixed>
 	 */
-	public $hasoptions = null;
+	public $hasoptions = [];
 
 	/**
 	 * Product custom settings options
@@ -1928,26 +1928,21 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	}
 
 	/**
-	 * Gets all of the plugin settings
+	 * Stores a setting key/value pair
 	 *
+	 * @param string $key The setting name.
+	 * @param mixed  $value The setting value.
 	 * @since 1.0
 	 * @return void
 	 */
-	public function get_plugin_settings() {
-		foreach ( apply_filters( 'wc_epo_get_settings', [] ) as $key => $value ) {
-			if ( is_array( $value ) && 3 === count( $value ) ) {
-				$method    = $value[2];
-				$classname = $value[1];
-				if ( is_object( $classname ) && call_user_func( [ $classname, $method ] ) ) {
-					$this->data_store[ $key ] = get_option( $key );
-					if ( false === $this->data_store[ $key ] ) {
-						$this->data_store[ $key ] = $value[0];
-					}
-				} else {
-					$this->data_store[ $key ] = get_option( $key );
-					if ( false === $this->data_store[ $key ] ) {
-						$this->data_store[ $key ] = $value;
-					}
+	private function set_setting( $key, $value ) {
+		if ( is_array( $value ) && 3 === count( $value ) ) {
+			$method    = $value[2];
+			$classname = $value[1];
+			if ( is_object( $classname ) && call_user_func( [ $classname, $method ] ) ) {
+				$this->data_store[ $key ] = get_option( $key );
+				if ( false === $this->data_store[ $key ] ) {
+					$this->data_store[ $key ] = $value[0];
 				}
 			} else {
 				$this->data_store[ $key ] = get_option( $key );
@@ -1955,7 +1950,24 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$this->data_store[ $key ] = $value;
 				}
 			}
-			$this->data_store[ $key ] = wp_unslash( $this->data_store[ $key ] );
+		} else {
+			$this->data_store[ $key ] = get_option( $key );
+			if ( false === $this->data_store[ $key ] ) {
+				$this->data_store[ $key ] = $value;
+			}
+		}
+		$this->data_store[ $key ] = wp_unslash( $this->data_store[ $key ] );
+	}
+
+	/**
+	 * Gets all of the plugin settings
+	 *
+	 * @since 1.0
+	 * @return void
+	 */
+	public function get_plugin_settings() {
+		foreach ( apply_filters( 'wc_epo_get_settings', [] ) as $key => $value ) {
+			$this->set_setting( $key, $value );
 		}
 
 		foreach ( $this->tm_plugin_settings as $key => $value ) {
@@ -2850,31 +2862,31 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @return void
 	 */
 	public function hasoptions() {
-		if ( null === $this->hasoptions ) {
-			$post_id = get_the_ID();
+		$post_id = get_the_ID();
+		if ( ! isset( $this->hasoptions[ $post_id ] ) ) {
 			if ( $post_id && ( $this->wc_vars['is_product'] || 'product' === get_post_type( $post_id ) ) ) {
 				$has_epo = THEMECOMPLETE_EPO_API()->has_options( $post_id );
 
 				// Product has extra options.
 				if ( THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo ) ) {
-					$this->hasoptions = true;
+					$this->hasoptions[ $post_id ] = true;
 
 					// Product doesn't have extra options but the final total box is enabled for all products.
 				} elseif ( 'yes' === $this->tm_epo_enable_final_total_box_all ) {
 
-					$this->hasoptions = true;
+					$this->hasoptions[ $post_id ] = true;
 
 					// Search for composite products extra options.
 					// Product has styled variations.
 				} elseif ( isset( $has_epo['variations'] ) && ! empty( $has_epo['variations'] ) && isset( $has_epo['variations_disabled'] ) && empty( $has_epo['variations_disabled'] ) ) {
-					$this->hasoptions = true;
+					$this->hasoptions[ $post_id ] = true;
 				} else {
-					$this->hasoptions = false;
+					$this->hasoptions[ $post_id ] = false;
 				}
 			}
 		}
 
-		$this->hasoptions = apply_filters( 'wc_epo_hasoptions', $this->hasoptions );
+		$this->hasoptions[ $post_id ] = apply_filters( 'wc_epo_hasoptions', $this->hasoptions[ $post_id ], $post_id );
 	}
 
 	/**
@@ -2939,7 +2951,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( $can_load_scripts && THEMECOMPLETE_EPO()->wc_vars['is_product'] ) {
 			$this->hasoptions();
 
-			if ( ! $this->hasoptions ) {
+			if ( ! $this->hasoptions[ get_the_ID() ] ) {
 				return false;
 			}
 		}
@@ -2993,6 +3005,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo ) ) {
 			echo '<div class="tm-has-options tc-after-shop-loop"><form class="cart">';
 			THEMECOMPLETE_EPO_DISPLAY()->frontend_display( $post_id, 'tc_' . $post_id, false );
+			THEMECOMPLETE_EPO_DISPLAY()->woocommerce_before_add_to_cart_button( $post_id );
 			echo '</form></div>';
 		}
 	}
@@ -3581,7 +3594,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				} else {
 					$classes[] = 'tm-no-options';
 
-					$this->hasoptions = false;
+					$this->hasoptions[ $post_id ] = false;
 				}
 			}
 		}
@@ -6763,7 +6776,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													if ( ! ( isset( $thisbuilder[ 'multiple_' . $current_element . '_options_price_' . $currency ] ) && isset( $thisbuilder[ 'multiple_' . $current_element . '_options_price_' . $currency ][ $current_counter ] ) ) ) {
 														if ( is_array( $_current_currency_price ) ) {
 															foreach ( $_current_currency_price as $_k => $_v ) {
-																if ( '' !== $_v ) {
+																if ( isset( $_prices_type[ $_k ] ) && 'math' === $_prices_type[ $_k ] ) {
+																	$_current_currency_price[ $_k ] = $_v;
+																} elseif ( '' !== $_v ) {
 																	$_current_currency_price[ $_k ] = THEMECOMPLETE_EPO_WPML()->get_price_in_currency( $_v, $currency );
 																}
 															}
@@ -6772,7 +6787,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													if ( ! ( isset( $thisbuilder[ 'multiple_' . $current_element . '_options_sale_price_' . $currency ] ) && isset( $thisbuilder[ 'multiple_' . $current_element . '_options_sale_price_' . $currency ][ $current_counter ] ) ) ) {
 														if ( is_array( $_current_currency_sale_price ) ) {
 															foreach ( $_current_currency_sale_price as $_k => $_v ) {
-																if ( '' !== $_v ) {
+																if ( isset( $_prices_type[ $_k ] ) && 'math' === $_prices_type[ $_k ] ) {
+																	$_current_currency_sale_price[ $_k ] = $_v;
+																} elseif ( '' !== $_v ) {
 																	$_current_currency_sale_price[ $_k ] = THEMECOMPLETE_EPO_WPML()->get_price_in_currency( $_v, $currency );
 																}
 															}
@@ -6847,15 +6864,15 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->is_multi_currency() ) {
 											global $woocommerce_wpml;
 											if ( '' === $_current_currency_original_price && $mt_prefix !== $woocommerce_wpml->multi_currency->get_default_currency() ) {
-												$_current_currency_original_price = isset( $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_default_currency() ] ) ? $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_default_currency() ][0][0] : '';
+												$_current_currency_original_price = isset( $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_client_currency() ] ) ? $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_client_currency() ][0][0] : '';
 												if ( '' !== $_current_currency_original_price && 'math' !== $this_price_type && 'lookuptable' !== $this_price_type ) {
-													$_current_currency_original_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_original_price, $this_price_type );
+													$_current_currency_original_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_original_price, $this_price_type, null, $woocommerce_wpml->multi_currency->get_client_currency() );
 												}
 											}
 											if ( '' === $_current_currency_price && $mt_prefix !== $woocommerce_wpml->multi_currency->get_default_currency() ) {
-												$_current_currency_price = isset( $price_per_currencies[ $woocommerce_wpml->multi_currency->get_default_currency() ] ) ? $price_per_currencies[ $woocommerce_wpml->multi_currency->get_default_currency() ][0][0] : '';
+												$_current_currency_price = isset( $price_per_currencies[ $woocommerce_wpml->multi_currency->get_client_currency() ] ) ? $price_per_currencies[ $woocommerce_wpml->multi_currency->get_client_currency() ][0][0] : '';
 												if ( '' !== $_current_currency_price && 'math' !== $this_price_type && 'lookuptable' !== $this_price_type ) {
-													$_current_currency_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_price, $this_price_type );
+													$_current_currency_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_price, $this_price_type, null, $woocommerce_wpml->multi_currency->get_client_currency() );
 												}
 											}
 										}
@@ -6869,8 +6886,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										}
 
 										if ( ! $new_currency ) {
-											$_price                           = apply_filters( 'wc_epo_get_current_currency_price', $_price, $_for_filter_price_type );
-											$_original_regular_price_filtered = apply_filters( 'wc_epo_get_current_currency_price', $_original_regular_price_filtered, $_for_filter_price_type );
+											$_price                           = apply_filters( 'wc_epo_get_current_currency_price', $_price, $_for_filter_price_type, null, $mt_prefix );
+											$_original_regular_price_filtered = apply_filters( 'wc_epo_get_current_currency_price', $_original_regular_price_filtered, $_for_filter_price_type, null, $mt_prefix );
 										}
 
 										$_price                           = apply_filters( 'wc_epo_price', $_price, $_for_filter_price_type, $post_id );
@@ -7057,7 +7074,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														if ( ! ( isset( $thisbuilder[ 'multiple_' . $current_element . '_options_price_' . $currency ] ) && isset( $thisbuilder[ 'multiple_' . $current_element . '_options_price_' . $currency ][ $current_counter ] ) ) ) {
 															if ( is_array( $_current_currency_price ) ) {
 																foreach ( $_current_currency_price as $_k => $_v ) {
-																	if ( '' !== $_v ) {
+																	if ( isset( $_prices_type[ $_k ] ) && 'math' === $_prices_type[ $_k ] ) {
+																		$_current_currency_price[ $_k ] = $_v;
+																	} elseif ( '' !== $_v ) {
 																		$_current_currency_price[ $_k ] = THEMECOMPLETE_EPO_WPML()->get_price_in_currency( $_v, $currency );
 																	}
 																}
@@ -7066,7 +7085,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														if ( ! ( isset( $thisbuilder[ 'multiple_' . $current_element . '_options_sale_price_' . $currency ] ) && isset( $thisbuilder[ 'multiple_' . $current_element . '_options_sale_price_' . $currency ][ $current_counter ] ) ) ) {
 															if ( is_array( $_current_currency_sale_price ) ) {
 																foreach ( $_current_currency_sale_price as $_k => $_v ) {
-																	if ( '' !== $_v ) {
+																	if ( isset( $_prices_type[ $_k ] ) && 'math' === $_prices_type[ $_k ] ) {
+																		$_current_currency_sale_price[ $_k ] = $_v;
+																	} elseif ( '' !== $_v ) {
 																		$_current_currency_sale_price[ $_k ] = THEMECOMPLETE_EPO_WPML()->get_price_in_currency( $_v, $currency );
 																	}
 																}
@@ -7317,8 +7338,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_for_filter_price_type                                        = isset( $_prices_type[ $_n ] ) ? $_prices_type[ $_n ] : '';
 
 												if ( ! $new_currency ) {
-													$_price                  = apply_filters( 'wc_epo_get_current_currency_price', $_price, $_for_filter_price_type );
-													$_original_prices[ $_n ] = apply_filters( 'wc_epo_get_current_currency_price', $_original_prices[ $_n ], $_for_filter_price_type );
+													$_price                  = apply_filters( 'wc_epo_get_current_currency_price', $_price, $_for_filter_price_type, null, $mt_prefix );
+													$_original_prices[ $_n ] = apply_filters( 'wc_epo_get_current_currency_price', $_original_prices[ $_n ], $_for_filter_price_type, null, $mt_prefix );
 												}
 												$_price                  = apply_filters( 'wc_epo_price', $_price, $_for_filter_price_type, $post_id );
 												$_original_prices[ $_n ] = apply_filters( 'wc_epo_price', $_original_prices[ $_n ], $_for_filter_price_type, $post_id );

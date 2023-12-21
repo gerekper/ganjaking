@@ -154,6 +154,8 @@ class WooCommerce_Order_Barcodes {
 
 		// Declare HPOS Compatibility.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		// Declare Cart/Checkout Blocks Compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_cart_checkout_blocks_compatibility' ) );
 
 		// Register JS.
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_assets' ) );
@@ -227,6 +229,19 @@ class WooCommerce_Order_Barcodes {
 	public function declare_hpos_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-order-barcodes/woocommerce-order-barcodes.php' );
+		}
+	}
+
+	/**
+	 * Declare Cart/Checkout Blocks compatibility
+	 * 
+	 * @see https://developer.woocommerce.com/2023/08/18/cart-and-checkout-blocks-becoming-the-default-experience/
+	 * 
+	 * @return void
+	 */
+	public function declare_cart_checkout_blocks_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', 'woocommerce-order-barcodes/woocommerce-order-barcodes.php', true );
 		}
 	}
 

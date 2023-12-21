@@ -1919,7 +1919,7 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 
 			$message = "Error in widget $title, ".$message;
 
-			if(GlobalsUC::SHOW_TRACE == true){
+			if(GlobalsUC::$SHOW_TRACE == true){
 
 				dmp($message);
 				UniteFunctionsUC::throwError($e);

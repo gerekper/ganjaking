@@ -21,20 +21,20 @@ class Tools implements PageFactoryInterface
 
     private $list_keys_factory;
 
-    private $preset_repository;
+    private $template_repository;
 
     public function __construct(
         Location\Absolute $location,
         Storage $storage,
         ACP\Admin\MenuFactory $menu_factory,
         AC\Table\ListKeysFactoryInterface $list_keys_factory,
-        ACP\ListScreenRepository\Preset $preset_repository
+        ACP\ListScreenRepository\Template $template_repository
     ) {
         $this->location = $location;
         $this->storage = $storage;
         $this->menu_factory = $menu_factory;
         $this->list_keys_factory = $list_keys_factory;
-        $this->preset_repository = $preset_repository;
+        $this->template_repository = $template_repository;
     }
 
     public function create()
@@ -46,7 +46,7 @@ class Tools implements PageFactoryInterface
 
         $page->add_section(new Section\Export($this->storage, $this->list_keys_factory))
              ->add_section(new Section\Import())
-             ->add_section(new Section\Presets($this->preset_repository, false));
+             ->add_section(new Section\Templates($this->template_repository, false));
 
         return $page;
     }

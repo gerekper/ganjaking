@@ -1,4 +1,4 @@
-//Unite Gallery, Version: 1.7.74, released 15 November 2023
+//Unite Gallery, Version: 1.7.75, released 30 November 2023
 
 //------ ug-common-libraries.js------ 
 
@@ -15148,6 +15148,9 @@ function UGSlider(){
 			break;			
 			case "wistia":
 				g_objVideoPlayer.playWistia(objItem.videoid);
+			break;		
+			case "iframe":
+				g_objVideoPlayer.playIframe(objItem.videoUrl);
 			break;			
 		}
 		
@@ -18504,6 +18507,120 @@ function UGWistiaAPI(){
 	
 }
 
+/** -------------- Iframe API ---------------------*/
+
+function UGIframeAPI(){
+	
+	this.isAPILoaded = false;
+	var t = this, g_objThis = jQuery(this), g_intHandle;
+	var g_player, g_isPlayerReady = false;
+	
+	this.events = {
+			START_PLAYING: "start_playing",
+			STOP_PLAYING: "stop_playing",
+			VIDEO_ENDED: "video_ended"
+	};
+	
+	/**
+	 * load iframe API
+	 */
+	this.loadAPI = function(isExternalLoad){
+	
+		if(g_ugIframeAPI.isAPILoaded == true)
+		return(true);	
+	
+		g_ugIframeAPI.isAPILoaded = true;		
+	}
+
+	
+	/**
+	 * actually put the video
+	 */
+	function putVideoActually(divID, width, height, src){
+	
+		g_player = null;
+		g_isPlayerReady = false;
+		
+		var htmlID = divID + "_video";
+		
+		var html = "<iframe id='"+htmlID+"' class='iframe_embed' src='"+src+"' style='width:"+width+";height:"+height+";' data-video-width='"+width+"' data-video-height='"+height+"' frameborder='0' scrolling='no' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+				
+		jQuery("#"+divID).html(html);
+		
+		g_isPlayerReady = true;
+				
+	}	
+	
+	/**
+	 * do some command
+	 */
+	this.doCommand = function(command){
+
+		
+		if(g_player == null)
+			return(false);
+		
+		if(g_isPlayerReady == false)
+			return(false);
+		
+		switch(command){
+			case "play":
+				g_player.play();
+			break;
+			case "pause":
+				g_player.pause();
+			break;		
+		}
+		
+	}
+	
+	/**
+	 * do pause command
+	 */
+	this.pause = function(){
+		t.doCommand("pause");
+	}
+	
+	/**
+	 * do play command
+	 */
+	this.play = function(){
+		t.doCommand("play");
+	}
+		
+	/**
+	 * put the vimeo video
+	 */
+	this.putVideo = function(divID, width, height, src){
+
+		
+		//if no API present, wait for the API being ready
+		this.loadAPI();
+		g_intHandle = setInterval(function(){
+			
+				putVideoActually(divID, width, height, src);
+				clearInterval(g_intHandle);
+			
+			
+		}, 500);
+		
+	}
+	
+	
+	/**
+	 * get if the player is ready
+	 */
+	this.isPlayerReady = function(){
+		
+		if(g_ugIframeAPI.isAPILoaded == true)
+			return(true);
+	
+		return(false);
+	}	
+	
+	
+}
+
 /** -------------- Sound Cloud API ---------------------*/
 
 function UGSoundCloudAPI(){
@@ -19436,8 +19553,8 @@ function UGVideoPlayer(){
 	
 	var t = this, g_galleryID, g_objThis = jQuery(this), g_functions = new UGFunctions();
 	var g_youtubeAPI = new UGYoutubeAPI(), g_vimeoAPI = new UGVimeoAPI();
-	var g_html5API = new UGHtml5MediaAPI(), g_soundCloudAPI = new UGSoundCloudAPI(), g_wistiaAPI = new UGWistiaAPI();
-	var g_objPlayer, g_objYoutube, g_objVimeo, g_objHtml5, g_objButtonClose, g_objSoundCloud, g_objWistia;
+	var g_html5API = new UGHtml5MediaAPI(), g_soundCloudAPI = new UGSoundCloudAPI(), g_wistiaAPI = new UGWistiaAPI(), g_iframeAPI = new UGIframeAPI();
+	var g_objPlayer, g_objYoutube, g_objVimeo, g_objHtml5, g_objButtonClose, g_objSoundCloud, g_objWistia, g_objIframe;
 	var g_activePlayerType = null;
 	
 	var g_options = {
@@ -19458,6 +19575,7 @@ function UGVideoPlayer(){
 			vimeoPlayerID:"",
 			html5PlayerID:"",
 			wistiaPlayerID:"",
+			iframePlayerID:"",
 			soundCloudPlayerID:""
 	};
 	
@@ -19490,6 +19608,7 @@ function UGVideoPlayer(){
 		g_temp.vimeoPlayerID = g_galleryID + "_videoplayer_vimeo";
 		g_temp.html5PlayerID = g_galleryID + "_videoplayer_html5";
 		g_temp.wistiaPlayerID = g_galleryID + "_videoplayer_wistia";
+		g_temp.iframePlayerID = g_galleryID + "_videoplayer_iframe";
 		g_temp.soundCloudPlayerID = g_galleryID + "_videoplayer_soundcloud";
 		
 		
@@ -19499,6 +19618,7 @@ function UGVideoPlayer(){
 		html += "<div id='"+g_temp.html5PlayerID+"' class='ug-videoplayer-wrapper ug-videoplayer-html5'></div>";
 		html += "<div id='"+g_temp.soundCloudPlayerID+"' class='ug-videoplayer-wrapper ug-videoplayer-soundcloud'></div>";
 		html += "<div id='"+g_temp.wistiaPlayerID+"' class='ug-videoplayer-wrapper ug-videoplayer-wistia'></div>";
+		html += "<div id='"+g_temp.iframePlayerID+"' class='ug-videoplayer-wrapper ug-videoplayer-iframe'></div>";
 		
 		if(g_temp.standAloneMode == false && g_options.video_enable_closebutton == true)
 			html += "<div class='ug-videoplayer-button-close'></div>";
@@ -19513,6 +19633,7 @@ function UGVideoPlayer(){
 		g_objHtml5 = g_objPlayer.children(".ug-videoplayer-html5");
 		g_objSoundCloud = g_objPlayer.children(".ug-videoplayer-soundcloud");
 		g_objWistia = g_objPlayer.children(".ug-videoplayer-wistia");
+		g_objIframe = g_objPlayer.children(".ug-videoplayer-iframe");
 		
 		if(g_temp.standAloneMode == false && g_options.video_enable_closebutton == true)
 			g_objButtonClose = g_objPlayer.children(".ug-videoplayer-button-close")
@@ -19595,6 +19716,10 @@ function UGVideoPlayer(){
 		jQuery(g_wistiaAPI).on(g_wistiaAPI.events.STOP_PLAYING, onPlayStop);
 		jQuery(g_wistiaAPI).on(g_wistiaAPI.events.VIDEO_ENDED, onVideoEnded);
 		
+		jQuery(g_iframeAPI).on(g_iframeAPI.events.START_PLAYING, onPlayStart);
+		jQuery(g_iframeAPI).on(g_iframeAPI.events.STOP_PLAYING, onPlayStop);
+		jQuery(g_iframeAPI).on(g_iframeAPI.events.VIDEO_ENDED, onVideoEnded);
+		
 	}
 	
 	
@@ -19625,6 +19750,9 @@ function UGVideoPlayer(){
 		
 		jQuery(g_wistiaAPI).off(g_wistiaAPI.events.START_PLAYING, onPlayStart);
 		jQuery(g_wistiaAPI).off(g_wistiaAPI.events.STOP_PLAYING, onPlayStop);
+		
+		jQuery(g_iframeAPI).off(g_iframeAPI.events.START_PLAYING, onPlayStart);
+		jQuery(g_iframeAPI).off(g_iframeAPI.events.STOP_PLAYING, onPlayStop);
 		
 		g_activePlayerType = null;
 	}
@@ -19720,6 +19848,9 @@ function UGVideoPlayer(){
 			case "wistia":
 				return g_wistiaAPI;
 			break;
+			case "iframe":
+				return g_iframeAPI;
+			break;
 			case "soundcloud":
 				return g_soundCloudAPI;
 			break;
@@ -19762,7 +19893,7 @@ function UGVideoPlayer(){
 	 */
 	function stopAndHidePlayers(except){
 		
-		var arrPlayers = ["youtube", "vimeo", "html5", "soundcloud", "wistia"];
+		var arrPlayers = ["youtube", "vimeo", "html5", "soundcloud", "wistia", "iframe"];
 		for(var index in arrPlayers){
 			var player = arrPlayers[index];
 			if(player == except)
@@ -19790,6 +19921,10 @@ function UGVideoPlayer(){
 				case "wistia":
 					g_wistiaAPI.pause();
 					g_objWistia.hide();
+				break;
+				case "iframe":
+					g_iframeAPI.pause();
+					g_objIframe.hide();
 				break;
 			}
 		}
@@ -19912,12 +20047,27 @@ function UGVideoPlayer(){
 			var isAutoplay = true;
 		
 		stopAndHidePlayers("wistia");
-		
+
 		g_objWistia.show();
 		
 		g_wistiaAPI.putVideo(g_temp.wistiaPlayerID, videoID, "100%", "100%", isAutoplay);
 	
 		g_activePlayerType = "wistia";
+
+	}
+	
+	/**
+	 * play sound cloud
+	 */
+	this.playIframe = function(src){
+		
+		stopAndHidePlayers("iframe");
+	
+		g_objIframe.show();
+						
+		g_iframeAPI.putVideo(g_temp.iframePlayerID, "100%", "100%", src);
+	
+		g_activePlayerType = "iframe";
 
 	}
 	
@@ -19929,6 +20079,7 @@ var g_ugVimeoAPI = new UGVimeoAPI();
 var g_ugHtml5MediaAPI = new UGHtml5MediaAPI();
 var g_ugSoundCloudAPI = new UGSoundCloudAPI();
 var g_ugWistiaAPI = new UGWistiaAPI();
+var g_ugIframeAPI = new UGIframeAPI();
 //------ ug-gallery.js------ 
 
 	/**
@@ -20123,6 +20274,7 @@ function UniteGalleryMain(){
 		isYoutubePresent:false,			//flag if present youtube items
 		isVimeoPresent:false,			//flag if present vimeo items
 		isHtml5VideoPresent:false,		//flag if present html5 video items
+		isIframeVideoPresent:false,		//flag if present iframe video items
 		isSoundCloudPresent:false,		//flag if present soundcloud items
 		isWistiaPresent: false,			//flag if some wistia movie present
 		resizeDelay: 100,
@@ -20759,6 +20911,7 @@ function UniteGalleryMain(){
 									
 				g_temp.isVimeoPresent = true;
 		 	break;
+		
 		 	case "html5video":
 		 		objItem.videoogv = objChild.data("videoogv");
 		 		objItem.videowebm = objChild.data("videowebm");
@@ -20771,9 +20924,13 @@ function UniteGalleryMain(){
 		 		g_temp.isSoundCloudPresent = true;
 		 	break;
 		 	case "wistia":
-				 objItem.videoid = objChild.data("videoid");
-				 g_temp.isWistiaPresent = true;
+				objItem.videoid = objChild.data("videoid");
+				g_temp.isWistiaPresent = true;
 		 	break;
+			case "iframe":		 		
+				objItem.videoUrl = objChild.data("videourl");			 
+				g_temp.isIframeVideoPresent = true;		 
+			break;
 		 	case "custom":
 				var objChildImage = objChild.children("img");
 		 		
@@ -20869,6 +21026,9 @@ function UniteGalleryMain(){
 		
 		if(g_temp.isWistiaPresent)
 			g_ugWistiaAPI.loadAPI(isLoadExternally);
+		
+		if(g_temp.isIframeVideoPresent)
+		  g_ugIframeAPI.loadAPI(isLoadExternally);
 		
 	}
 	
@@ -21624,7 +21784,7 @@ function UniteGalleryMain(){
 			index = index.index;
 		
 		var nextIndex = index + 1;
-				
+		
 		if(forceCarousel !== true && g_numItems == 1)
 			return(null);
 		

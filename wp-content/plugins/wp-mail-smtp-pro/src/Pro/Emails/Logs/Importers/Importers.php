@@ -111,7 +111,10 @@ class Importers {
 		 *
 		 * @param string  $capability Import logs manage capability.
 		 */
-		return apply_filters( 'wp_mail_smtp_pro_emails_logs_importers_get_manage_capability', 'manage_options' );
+		return apply_filters(
+			'wp_mail_smtp_pro_emails_logs_importers_get_manage_capability',
+			wp_mail_smtp()->get_capability_manage_options()
+		);
 	}
 
 	/**

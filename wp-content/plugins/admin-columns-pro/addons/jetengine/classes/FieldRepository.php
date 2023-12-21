@@ -48,6 +48,7 @@ final class FieldRepository
     {
         switch (true) {
             case $this->list_screen instanceof ListScreen\Post:
+            case $this->list_screen instanceof ListScreen\Media:
                 return $this->map_meta_types(
                     Api::MetaBox()->get_fields_for_context('post_type', $this->list_screen->get_post_type())
                 );

@@ -54,6 +54,7 @@ class Multisite {
 
 		// Change Gmail auth redirect URL for network admin (WPMS).
 		add_filter( 'wp_mail_smtp_gmail_get_plugin_auth_url', [ $this, 'change_gmail_auth_redirect_url' ] );
+		add_filter( 'wp_mail_smtp_pro_providers_gmail_auth_get_plugin_auth_url', [ $this, 'change_gmail_auth_redirect_url' ] );
 
 		// Change Outlook auth redirect URL for network admin (WPMS).
 		add_filter( 'wp_mail_smtp_outlook_get_plugin_auth_url', [ $this, 'change_outlook_auth_redirect_url' ] );
@@ -685,7 +686,7 @@ class Multisite {
 
 		check_ajax_referer( 'wp-mail-smtp-pro-admin' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 

@@ -8,26 +8,30 @@ if (!defined('ABSPATH')) exit;
 use Automattic\WooCommerce\Admin\Marketing\MarketingCampaign;
 use Automattic\WooCommerce\Admin\Marketing\MarketingCampaignType;
 use Automattic\WooCommerce\Admin\Marketing\MarketingChannelInterface;
+use Automattic\WooCommerce\Admin\Marketing\Price;
 use MailPoet\Config\Menu;
-use MailPoet\Settings\SettingsController;
-use MailPoet\Util\CdnAssetUrl;
 
 class MPMarketingChannel implements MarketingChannelInterface {
 
-  /** @var CdnAssetUrl */
-  private $cdnAssetUrl;
+  /**
+   * @var MarketingCampaignType[]
+   */
+  private $campaignTypes;
 
   /**
-   * @var SettingsController
+   * @var MPMarketingChannelDataController
    */
-  private $settings;
+  private $channelDataController;
+
+  const CAMPAIGN_TYPE_NEWSLETTERS = 'mailpoet-newsletters';
+  const CAMPAIGN_TYPE_POST_NOTIFICATIONS = 'mailpoet-post-notifications';
+  const CAMPAIGN_TYPE_AUTOMATIONS = 'mailpoet-automations';
 
   public function __construct(
-    CdnAssetUrl $cdnAssetUrl,
-    SettingsController $settings
+    MPMarketingChannelDataController $channelDataController
   ) {
-    $this->cdnAssetUrl = $cdnAssetUrl;
-    $this->settings = $settings;
+    $this->channelDataController = $channelDataController;
+    $this->campaignTypes = $this->generateCampaignTypes();
   }
 
   /**
@@ -45,7 +49,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return string
    */
   public function get_name(): string { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return __( 'MailPoet', 'mailpoet' );
+    return __('MailPoet', 'mailpoet');
   }
 
   /**
@@ -54,7 +58,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return string
    */
   public function get_description(): string { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return __( 'Create and send newsletters, post notifications and welcome emails from your WordPress.', 'mailpoet' );
+    return __('Create and send newsletters, post notifications and welcome emails from your WordPress.', 'mailpoet');
   }
 
   /**
@@ -63,7 +67,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return string
    */
   public function get_icon_url(): string { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return $this->cdnAssetUrl->generateCdnUrl('icon-white-123x128.png');
+    return $this->channelDataController->getIconUrl();
   }
 
   /**
@@ -72,7 +76,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return bool
    */
   public function is_setup_completed(): bool { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return $this->isMPSetupComplete();
+    return $this->channelDataController->isMPSetupComplete();
   }
 
   /**
@@ -81,7 +85,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return string
    */
   public function get_setup_url(): string { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    if ($this->isMPSetupComplete()) {
+    if ($this->channelDataController->isMPSetupComplete()) {
       return admin_url('admin.php?page=' . Menu::MAIN_PAGE_SLUG);
     }
 
@@ -94,7 +98,18 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return string
    */
   public function get_product_listings_status(): string { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return self::PRODUCT_LISTINGS_NOT_APPLICABLE; // will be updated in MAILPOET-5696
+    if (!$this->channelDataController->isMailPoetSendingServiceEnabled()) {
+      return self::PRODUCT_LISTINGS_NOT_APPLICABLE;
+    }
+
+    // Check for error status. It's null by default when there isn't an error
+    $sendingStatus = $this->channelDataController->getMailPoetSendingStatus();
+
+    if ($sendingStatus) {
+      return self::PRODUCT_LISTINGS_SYNC_FAILED;
+    }
+
+    return self::PRODUCT_LISTINGS_SYNCED;
   }
 
   /**
@@ -103,7 +118,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return int The number of issues to resolve, or 0 if there are no issues with the channel.
    */
   public function get_errors_count(): int { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return 0; // will be updated in MAILPOET-5696
+    return $this->channelDataController->getErrorCount();
   }
 
   /**
@@ -112,7 +127,7 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return MarketingCampaignType[] Array of marketing campaign type objects.
    */
   public function get_supported_campaign_types(): array { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return []; // will be updated in MAILPOET-5697
+    return $this->campaignTypes;
   }
 
   /**
@@ -121,17 +136,77 @@ class MPMarketingChannel implements MarketingChannelInterface {
    * @return MarketingCampaign[]
    */
   public function get_campaigns(): array { // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    return []; // will be updated in MAILPOET-5698
+      $allCampaigns = $this->generateCampaigns();
+
+    if (empty($allCampaigns)) {
+        return [];
+    }
+
+    return $allCampaigns;
   }
 
   /**
-   * Whether the task is completed.
-   * If the setting 'version' is not null it means the welcome wizard
-   * was already completed so we mark this task as completed as well.
+   * Generate the marketing channel campaign types
+   *
+   * @return MarketingCampaignType[]
    */
-  protected function isMPSetupComplete(): bool {
-    $version = $this->settings->get('version');
+  protected function generateCampaignTypes(): array {
+    return [
+      self::CAMPAIGN_TYPE_NEWSLETTERS => new MarketingCampaignType(
+        'mailpoet-newsletters',
+        $this,
+        __('MailPoet Newsletters', 'mailpoet'),
+        __(
+          'Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email.',
+          'mailpoet',
+        ),
+        admin_url('admin.php?page=' . Menu::EMAILS_PAGE_SLUG . '&loadedvia=woo_multichannel_dashboard#/new/standard'),
+        $this->get_icon_url()
+      ),
+      self::CAMPAIGN_TYPE_POST_NOTIFICATIONS => new MarketingCampaignType(
+        'mailpoet-post-notifications',
+        $this,
+        __('MailPoet Post Notifications', 'mailpoet'),
+        __(
+          'Let MailPoet email your subscribers with your latest content. You can send daily, weekly, monthly, or even immediately after publication.',
+          'mailpoet',
+        ),
+        admin_url('admin.php?page=' . Menu::EMAILS_PAGE_SLUG . '&loadedvia=woo_multichannel_dashboard#/new/notification'),
+        $this->get_icon_url()
+      ),
+      self::CAMPAIGN_TYPE_AUTOMATIONS => new MarketingCampaignType(
+        'mailpoet-automations',
+        $this,
+        __('MailPoet Automations', 'mailpoet'),
+        __('Set up automations to send abandoned cart reminders, welcome new subscribers, celebrate first-time buyers, and much more.', 'mailpoet'),
+        admin_url('admin.php?page=' . Menu::AUTOMATION_TEMPLATES_PAGE_SLUG . '&loadedvia=woo_multichannel_dashboard'),
+        $this->get_icon_url()
+      ),
+    ];
+  }
 
-    return $version !== null;
+  protected function generateCampaigns(): array {
+      return array_map(
+          function (array $data) {
+              $cost = null;
+
+            if (isset( $data['price'] )) {
+                $cost = new Price( (string)$data['price']['amount'], $data['price']['currency'] );
+            }
+
+              return new MarketingCampaign(
+                  $data['id'],
+                  $data['campaignType'],
+                  $data['name'],
+                  $data['url'],
+                  $cost,
+              );
+          },
+          array_merge(
+              $this->channelDataController->getAutomations($this->campaignTypes[self::CAMPAIGN_TYPE_AUTOMATIONS]),
+              $this->channelDataController->getPostNotificationNewsletters($this->campaignTypes[self::CAMPAIGN_TYPE_POST_NOTIFICATIONS]),
+              $this->channelDataController->getStandardNewsletterList($this->campaignTypes[self::CAMPAIGN_TYPE_NEWSLETTERS])
+          )
+      );
   }
 }

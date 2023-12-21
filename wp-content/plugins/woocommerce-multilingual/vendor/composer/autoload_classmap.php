@@ -151,7 +151,6 @@ return array(
     'WCML\\Multicurrency\\UI\\Factory' => $baseDir . '/classes/Multicurrency/UI/Factory.php',
     'WCML\\Multicurrency\\UI\\Hooks' => $baseDir . '/classes/Multicurrency/UI/Hooks.php',
     'WCML\\Options\\WPML' => $baseDir . '/classes/Options/WPML.php',
-    'WCML\\OrderNotes\\Hooks' => $baseDir . '/classes/OrderNotes/Hooks.php',
     'WCML\\Orders\\Helper' => $baseDir . '/classes/Orders/Helper.php',
     'WCML\\Orders\\Legacy\\Helper' => $baseDir . '/classes/Orders/Legacy/Helper.php',
     'WCML\\PaymentGateways\\BlockHooks' => $baseDir . '/classes/PaymentGateways/BlockHooks.php',

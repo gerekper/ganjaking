@@ -1220,7 +1220,7 @@ class UniteCreatorDialogParamElementor extends UniteCreatorDialogParam{
 		<input type="text" name="add_units" value="">
 		
 		<div class="unite-dialog-description-left">
-			* <?php esc_html_e("Here you can specify additional units comma saparated like vw, vh etc.", "unlimited-elements-for-elementor")?>
+			* <?php esc_html_e("Here you can specify additional units comma separated like vw, vh etc.", "unlimited-elements-for-elementor")?>
 		</div>
 		
 		

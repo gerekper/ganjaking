@@ -1241,7 +1241,7 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 		}catch(Exception $e){
 			$message = $e->getMessage();
 
-			$errorMessage = HelperUC::getHtmlErrorMessage($message, GlobalsUC::SHOW_TRACE_FRONT);
+			$errorMessage = HelperUC::getHtmlErrorMessage($message, GlobalsUC::$SHOW_TRACE_FRONT);
 
 			echo UniteProviderFunctionsUC::escCombinedHtml($errorMessage);
 		}

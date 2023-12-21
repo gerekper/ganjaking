@@ -65,7 +65,7 @@ class Menu implements QueryBindings
             $values[$id] = implode(' ', $_values);
         }
 
-        return (new Sorter())->sort($values, $this->data_type);
+        return (new Sorter())->sort($values);
     }
 
     private function get_menu_label(int $menu_item_id): string

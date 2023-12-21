@@ -470,6 +470,7 @@ class WC_XR_Settings {
 		add_action( 'admin_menu', array( $this, 'add_menu_item_oauth' ) );
 		add_action( 'admin_notices', array( $this, 'key_migration_notice' ) );
 		add_action( 'admin_notices', array( $this, 'oauth20_migration_notice' ) );
+		add_action( 'admin_notices', array( $this, 'show_auth_keys_changed_notice' ) );
 
 		// Register menu items in the new WooCommerce navigation.
 		add_action( 'admin_menu', array( $this, 'register_navigation_items' ) );
@@ -692,6 +693,10 @@ class WC_XR_Settings {
 				// From now on OAuth20 will be used exclusively.
 				WC_XR_OAuth20::mark_successful_connection();
 
+				$wc_xr_data_encryption = new WC_XR_Data_Encryption();
+				if ( $wc_xr_data_encryption->are_custom_xero_auth_keys_set() ) {
+					update_option( 'wc_xero_auth_key_updated', true );
+				}
 			} catch ( \League\OAuth2\Client\Provider\Exception\IdentityProviderException $e ) {
 				if ( 'invalid_grant' === $e->getResponseBody()['error'] ) {
 					$this->print_xero_connection_status( array( 'errorMessage' => 'invalid_grant' ) );
@@ -1096,6 +1101,31 @@ class WC_XR_Settings {
 			<p><?php echo esc_html( __( 'Unable to fetch the Branding Theme details. Please ensure your Xero connection is properly authenticated.', 'woocommerce-xero' ) ); ?></p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Show warning to reconnect if the `XERO_ENCRYPTION_KEY` and `XERO_ENCRYPTION_SALT` constants
+	 * are newly added.
+	 *
+	 * @since 1.8.2
+	 */
+	public function show_auth_keys_changed_notice() {
+		$keys_updated          = get_option( 'wc_xero_auth_key_updated', false );
+		$wc_xr_data_encryption = new WC_XR_Data_Encryption();
+		$auth_keys_set         = $wc_xr_data_encryption->are_custom_xero_auth_keys_set();
+		$show_message          = ( $auth_keys_set && ! $keys_updated ) || ( ! $auth_keys_set && $keys_updated );
+
+		if ( $show_message ) {
+			?>
+			<div class="notice notice-error">
+				<p><?php echo esc_html__( 'Xero account was disconnected because authentication keys were changed. Please connect again.', 'woocommerce-xero' ); ?></p>
+			</div>
+			<?php
+		}
+
+		if ( ! $auth_keys_set && $keys_updated ) {
+			delete_option( 'wc_xero_auth_key_updated' );
+		}
 	}
 
 	/**

@@ -1,0 +1,241 @@
+[
+    {
+        "version": "6.4",
+        "list_screen": {
+            "title": "📝 Compact View",
+            "type": "post",
+            "id": "6544f0ca2f4a4",
+            "updated": 1699017037,
+            "columns": {
+                "412208ccc624dc": {
+                    "type": "column-featured_image",
+                    "label": "<span class=\"dashicons dashicons-format-image\"></span>",
+                    "width": "60",
+                    "width_unit": "px",
+                    "featured_image_display": "image",
+                    "image_size": "cpac-custom",
+                    "image_size_w": "30",
+                    "image_size_h": "30",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "412208ccc624dc"
+                },
+                "28ce0ca4789374": {
+                    "type": "column-title_raw",
+                    "label": "Title",
+                    "width": "",
+                    "width_unit": "px",
+                    "character_limit": "",
+                    "post_link_to": "edit_post",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "28ce0ca4789374"
+                },
+                "137248bf2e147b": {
+                    "type": "column-date_published",
+                    "label": "<span class=\"dashicons dashicons-clock\"></span>",
+                    "width": "129",
+                    "width_unit": "px",
+                    "date_format": "wp_default",
+                    "filter": "off",
+                    "filter_label": "",
+                    "filter_format": "",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "name": "137248bf2e147b"
+                },
+                "5fa8dc89641894": {
+                    "type": "column-word_count",
+                    "label": "Words",
+                    "width": "100",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "5fa8dc89641894"
+                },
+                "39ef7a3289374c": {
+                    "type": "column-slug",
+                    "label": "Slug",
+                    "width": "360",
+                    "width_unit": "px",
+                    "character_limit": "",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "39ef7a3289374c"
+                },
+                "5b0bd01103d70c": {
+                    "type": "column-taxonomy",
+                    "label": "Categories",
+                    "width": "",
+                    "width_unit": "%",
+                    "taxonomy": "category",
+                    "term_link_to": "filter",
+                    "number_of_items": "10",
+                    "separator": "comma",
+                    "edit": "on",
+                    "enable_term_creation": "off",
+                    "export": "on",
+                    "sort": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "5b0bd01103d70c"
+                },
+                "4aa64ccc3c28f4": {
+                    "type": "column-author_name",
+                    "label": "Author",
+                    "width": "160",
+                    "width_unit": "px",
+                    "display_author_as": "first_last_name",
+                    "user_link_to": "edit_user",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "4aa64ccc3c28f4"
+                },
+                "4267e55ad3f7d0": {
+                    "type": "column-status",
+                    "label": "Status",
+                    "width": "100",
+                    "width_unit": "px",
+                    "use_icon": "",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "4267e55ad3f7d0"
+                },
+                "2971b85656c8b4": {
+                    "type": "column-actions",
+                    "label": "Actions",
+                    "width": "170",
+                    "width_unit": "px",
+                    "use_icons": "1",
+                    "name": "2971b85656c8b4"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "hide_new_inline": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "on",
+                "hide_filter_post_date": "on",
+                "hide_filter_category": "on",
+                "hide_filter_post_format": "on",
+                "hide_submenu": "off",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": "",
+                "wrapping": "clip"
+            }
+        },
+        "segments": [
+            {
+                "key": "6544f0ca2f4a9",
+                "list_screen_id": "6544f0ca2f4a4",
+                "name": "Missing Content",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"1c945bff791687\",\"id\":\"5fa8dc89641894\",\"operator\":\"is_empty\",\"value\":null}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "all",
+                    "comment_status": "",
+                    "layout": "6540e98f2f4d7",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1699016906"
+            },
+            {
+                "key": "6544f0ca2f4ab",
+                "list_screen_id": "6544f0ca2f4a4",
+                "name": "Missing Featured Image",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"cdc8496efdf3b8\",\"id\":\"412208ccc624dc\",\"operator\":\"is_empty\",\"value\":null}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "all",
+                    "comment_status": "",
+                    "layout": "6540e98f2f4d7",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1699016906"
+            },
+            {
+                "key": "6544f0ca2f4ac",
+                "list_screen_id": "6544f0ca2f4a4",
+                "name": "Missing Title",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"64a81106476c8c\",\"id\":\"28ce0ca4789374\",\"operator\":\"is_empty\",\"value\":null}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "all",
+                    "comment_status": "",
+                    "layout": "6540e98f2f4d7",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1699016906"
+            },
+            {
+                "key": "6544f0ca2f4ad",
+                "list_screen_id": "6544f0ca2f4a4",
+                "name": "Not Published",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"34e5dff4639582\",\"id\":\"4267e55ad3f7d0\",\"operator\":\"not_equal\",\"value\":\"publish\"}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "all",
+                    "comment_status": "",
+                    "layout": "6540e98f2f4d7",
+                    "filter_action": "Filter"
+                },
+                "date_created": "1699016906"
+            }
+        ]
+    }
+]

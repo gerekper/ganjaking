@@ -388,7 +388,7 @@ class UniteCreatorLayoutsExporterWork extends UniteCreatorExporterBase{
 	
 			echo esc_html($message);
 			
-			if(GlobalsUC::SHOW_TRACE == true)			
+			if(GlobalsUC::$SHOW_TRACE == true)			
 				dmp($e->getTraceAsString());
 			
 			exit();

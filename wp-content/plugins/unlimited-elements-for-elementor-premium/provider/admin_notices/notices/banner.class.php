@@ -27,7 +27,8 @@ class UCAdminNoticeBanner extends UCAdminNoticeAbstract{
 		
 		$linkUrl = 'https://unlimited-elements.com/pricing/';
 		$linkTarget = '_blank';
-		$imageUrl = GlobalsUC::$urlPluginImages . 'banner_bf2023.png'; // 'https://placehold.co/1280x320';
+		//$imageUrl = GlobalsUC::$urlPluginImages . 'bannerimage.jpg';
+		$imageUrl = 'http://via.placeholder.com/1360x110';
 		
 		$builder = $this->createBannerBuilder();
 		$builder->dismissible();

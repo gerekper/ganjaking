@@ -1883,7 +1883,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 							<p>' .
 							__(
 								'Automatic migration from MWS to LWA and the new Amazon Selling Partner API failed. 
-							Please manually migrate by using the "Login with Amazon" button before July 31, 2022 to
+							Please manually migrate by using the "Login with Amazon" button to
 							ensure uninterrupted integration with Amazon FBA / MCF and to access new features like 
 							Amazon Shipping methods for WooCommerce, real-time shipping costs, and estimated 
 								delivery timeframes for your customers.',

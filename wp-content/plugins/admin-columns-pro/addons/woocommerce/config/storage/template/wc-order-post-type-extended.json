@@ -1,0 +1,152 @@
+[
+    {
+        "version": "6.4",
+        "list_screen": {
+            "title": "🛒 Extended View",
+            "type": "shop_order",
+            "id": "654a2668b29f8",
+            "updated": 1699359140,
+            "columns": {
+                "order_number": {
+                    "type": "order_number",
+                    "label": "Order",
+                    "width": "261",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "order_number"
+                },
+                "order_date": {
+                    "type": "order_date",
+                    "label": "Date",
+                    "width": "133",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "order_date"
+                },
+                "2a2ca16f36c8b4": {
+                    "type": "column-wc-purchased",
+                    "label": "Purchased",
+                    "width": "141",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "2a2ca16f36c8b4"
+                },
+                "order_status": {
+                    "type": "order_status",
+                    "label": "Status",
+                    "width": "142",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "order_status"
+                },
+                "billing_address": {
+                    "type": "billing_address",
+                    "label": "Billing",
+                    "width": "389",
+                    "width_unit": "px",
+                    "export": "on",
+                    "name": "billing_address"
+                },
+                "29b77a150d9168": {
+                    "type": "column-wc-order_weight",
+                    "label": "Total Order Weight",
+                    "width": "176",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "29b77a150d9168"
+                },
+                "475eff4c05a1cc": {
+                    "type": "column-wc-product_categories",
+                    "label": "Product Categories",
+                    "width": "",
+                    "width_unit": "%",
+                    "export": "on",
+                    "search": "on",
+                    "filter": "on",
+                    "filter_label": "",
+                    "name": "475eff4c05a1cc"
+                },
+                "order_total": {
+                    "type": "order_total",
+                    "label": "Total",
+                    "width": "132",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "order_total"
+                },
+                "wc_actions": {
+                    "type": "wc_actions",
+                    "label": "Actions",
+                    "width": "146",
+                    "width_unit": "px",
+                    "name": "wc_actions"
+                },
+                "3322d729595810": {
+                    "type": "column-wc-order_shipping_method",
+                    "label": "Shipping Method",
+                    "width": "",
+                    "width_unit": "%",
+                    "shipping_method_type": "method_title",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "3322d729595810"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_filter_post_date": "off",
+                "hide_filter_order_customer": "off",
+                "hide_submenu": "off",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": "",
+                "wrapping": "clip"
+            }
+        }
+    }
+]

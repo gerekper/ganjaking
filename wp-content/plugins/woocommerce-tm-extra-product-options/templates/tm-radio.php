@@ -206,16 +206,31 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 					break;
 			}
 		}
+		$desc_inline          = 'yes' === THEMECOMPLETE_EPO()->tm_epo_description_inline;
+		$tc_label_inner_class = 'tc-label-inner tcwidth tcwidth-100';
+		if ( $desc_inline ) {
+			$tc_label_inner_class .= ' desc-inline';
+		} else {
+			$has_desc = isset( $tm_element_settings ) && isset( $tm_element_settings['cdescription'] ) && isset( $field_counter ) && ! empty( $tm_element_settings['cdescription'][ $field_counter ] );
+			if ( ! $has_desc ) {
+				$tc_label_inner_class .= ' no-desc';
+			}
+		}
 		echo '<span class="tc-col tc-label ' . esc_attr( $text_label_class ) . '">';
-		echo '<span class="tc-label-inner tcwidth tcwidth-100">';
+		echo '<span class="' . esc_attr( $tc_label_inner_class ) . '">';
 		if ( ! empty( $label_to_display ) ) {
 			echo '<span class="tc-label-text">';
 			echo apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ); // phpcs:ignore WordPress.Security.EscapeOutput
 			echo '</span>';
 		}
+		if ( ! $desc_inline ) {
+			require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php';
+		}
 		require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php';
 		echo '</span>';
-		require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php';
+		if ( $desc_inline ) {
+			require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php';
+		}
 		echo '</span>';
 
 		echo '</span>';

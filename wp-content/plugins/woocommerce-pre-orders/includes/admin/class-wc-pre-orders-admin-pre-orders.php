@@ -601,6 +601,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'default'           => ' ',
 					'options'           => $products,
 					'type'              => 'select',
+					'class'             => 'wc-enhanced-select',
 					'custom_attributes' => array(
 						'required' => 'required',
 					),
@@ -641,6 +642,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'default'           => ( ! empty( $_GET['action_default_product'] ) ) ? absint( $_GET['action_default_product'] ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					'options'           => $products,
 					'type'              => 'select',
+					'class'             => 'wc-enhanced-select',
 					'custom_attributes' => array(
 						'required' => 'required',
 					),
@@ -697,6 +699,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'default'           => ' ',
 					'options'           => $products,
 					'type'              => 'select',
+					'class'             => 'wc-enhanced-select',
 					'custom_attributes' => array(
 						'required' => 'required',
 					),
@@ -741,6 +744,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'default'           => ' ',
 					'options'           => $products,
 					'type'              => 'select',
+					'class'             => 'wc-enhanced-select',
 					'custom_attributes' => array(
 						'required' => 'required',
 					),

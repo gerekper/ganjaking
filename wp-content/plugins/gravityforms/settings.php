@@ -417,8 +417,6 @@ class GFSettings {
 						'label'               => esc_html__( 'Paste Your License Key Here', 'gravityforms' ),
 						'type'                => 'text',
 						'input_type'          => 'password',
-						'value'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
-						'placeholder'         => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
 						'callback'            => array( 'GFSettings', 'license_key_render_callback' ),
 						'class'               => 'gform-admin-input',
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
@@ -486,25 +484,6 @@ class GFSettings {
 						'name' => 'license_key_details',
 						'type' => 'html',
 						'html' => array( 'GFSettings', 'license_key_details_callback' ),
-					),
-				),
-			),
-
-			'css'                 => array(
-				'id'          => 'section_default_css',
-				'title'       => esc_html__( 'Output Default CSS', 'gravityforms' ),
-				'description' => esc_html__( 'Enable this option to output the default form CSS. Disable it if you plan to create your own CSS in a child theme.', 'gravityforms' ),
-				'class'       => 'gform-settings-panel--half',
-				'fields'      => array(
-					array(
-						'name'          => 'disable_css',
-						'type'          => 'toggle',
-						'toggle_label'  => esc_html__( 'Disable CSS', 'gravityforms' ),
-						'save_callback' => function( $field, $value ) {
-							update_option( 'rg_gforms_disable_css', ! (bool) $value );
-
-							return $value;
-						},
 					),
 				),
 			),
@@ -661,19 +640,19 @@ class GFSettings {
 				),
 			);
 
-        $fields['html5'] = array(
-				'id'            => 'section_enable_html5',
-				'title'         => esc_html__( 'Output HTML5', 'gravityforms' ),
-				'description'   => esc_html__( 'Gravity Forms outputs HTML5 form fields by default. Disable this option if you would like to prevent the plugin from outputting HTML5 form fields.', 'gravityforms' ),
+        $fields['telemetry'] = array(
+				'id'            => 'section_enable_telemetry_collection',
+				'title'         => esc_html__( 'Data Collection', 'gravityforms' ),
+				'description'   => sprintf( __( 'We love improving the form building experience for everyone in our community. By enabling data collection, you can help us learn more about how our customers use Gravity Forms. %1$sLearn more...%2$s', 'gravityforms' ), '<a target="_blank" href="https://docs.gravityforms.com/about-additional-data-collection/">', '</a>' ),
 				'class'         => 'gform-settings-panel--half',
-				'default_value' => true,
 				'fields'        => array(
 					array(
-						'name'          => 'enable_html5',
+						'name'          => 'rg_gforms_dataCollection',
 						'type'          => 'toggle',
-						'toggle_label'  => esc_html__( 'Output HTML5', 'gravityforms' ),
+						'default_value' => get_option( 'rg_gforms_dataCollection', 0 ),
+						'toggle_label'  => esc_html__( 'Enable Data Collection', 'gravityforms' ),
 						'save_callback' => function( $field, $value ) {
-							update_option( 'rg_gforms_enable_html5', (bool) $value ? 1 : 0 );
+							update_option( 'rg_gforms_dataCollection', (bool) $value ? 1 : 0 );
 
 							return $value;
 						},
@@ -681,7 +660,54 @@ class GFSettings {
 				),
 			);
 
-		$display_license_details = true;
+		/**
+		 * Allows forcing the display of the disable CSS setting.
+		 *
+		 * @since 2.8
+		 *
+		 * @param bool $gform_display_disable_css_setting Indicates if the disable CSS setting should be displayed or not.
+		 */
+		$gform_display_disable_css_setting = apply_filters( 'gform_display_disable_css_setting', (bool) get_option( 'rg_gforms_disable_css' ) );
+
+		if ( $gform_display_disable_css_setting ) {
+			$fields['css'] = array(
+				'id'          => 'section_default_css',
+				'title'       => esc_html__( 'Output Default CSS', 'gravityforms' ),
+				'description' => sprintf(
+						esc_html__( 'Enable this option to output the default form CSS. Disable it if you plan to create your own CSS in a child theme. Note: after Gravity Forms 2.8, this setting will no longer appear on the settings page. If you previously had it enabled, you will need to use the %sgform_disable_css%s filter to disable it.', 'gravityforms' ),
+						'<a href="https://docs.gravityforms.com/gform_disable_css/" target="_blank">',
+						'</a>'
+						),
+
+				'class'       => 'gform-settings-panel--half',
+				'fields'      => array(
+					array(
+						'name'          => 'disable_css',
+						'type'          => 'toggle',
+						'toggle_label'  => esc_html__( 'Disable CSS', 'gravityforms' ),
+						'save_callback' => function( $field, $value ) {
+							update_option( 'rg_gforms_disable_css', ! (bool) $value );
+
+							return $value;
+						},
+					),
+				),
+			);
+		}
+
+		// Check if user has hidden license details in the installation wizard.
+		$hide_license_option = get_option( 'rg_gforms_' . GF_Setup_Wizard_Endpoint_Save_Prefs::PARAM_HIDE_LICENSE, false );
+
+		// Cast license option to bool.
+		if ( $hide_license_option === 'true' ) {
+			$hide_license_option = true;
+		}
+
+		if ( $hide_license_option === 'false' ) {
+			$hide_license_option = false;
+		}
+
+		$display_license_details = ! $hide_license_option;
 
 		/**
 		 * Allows display of the license details panel to be disabled.
@@ -705,8 +731,8 @@ class GFSettings {
 	}
 
 	public static function license_key_details_callback() {
-		$key          = '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP';
-		$empty_string = '<div class="gform-p-16">' . __( 'Lifetime', 'gravityforms' ) . '</div>';
+		$key          = GFCommon::get_key();
+		$empty_string = '<div class="gform-p-16">' . __( 'Please enter a valid license key to see details.', 'gravityforms' ) . '</div>';
 
 		if ( empty( $key ) ) {
 			return $empty_string;
@@ -722,7 +748,9 @@ class GFSettings {
 			return $empty_string;
 		}
 
-		
+		$cta              = $license_info->get_cta();
+		$days_left_header = $cta['type'] === 'text' ? __( 'Days Left', 'gravityforms' ) : '';
+
 		ob_start();
 		?>
 		<table class="gform-table gform-table--responsive gform-table--no-outer-border gform-table--license-ui">
@@ -732,13 +760,14 @@ class GFSettings {
 					<th scope="col"><?php esc_html_e( 'License Status', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Purchase Date', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'License Activations', 'gravityforms' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Days Left', 'gravityforms' ); ?></th>
+					<th scope="col"><?php echo esc_html( $license_info->renewal_text() ); ?></th>
+					<th scope="col"><?php echo esc_html( $days_left_header ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td data-header="<?php esc_html_e( 'License Type', 'gravityforms' ); ?>">
-						<p><?php echo 'Basic'; ?></p>
+						<p><?php echo esc_html( trim( str_replace( 'Gravity Forms', '', $license_info->get_data_value( 'product_name' ) ) ) ); ?></p>
 					</td>
 					<td data-header="<?php esc_html_e( 'License Status', 'gravityforms' ); ?>">
 						<p>
@@ -752,19 +781,36 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php esc_attr_e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo '15th March 2023'; ?></p>
+						<p><?php echo esc_html( gmdate( 'M d, Y', strtotime( $license_info->get_data_value( 'date_created' ) ) ) ); ?></p>
 					</td>
 					<td data-header="<?php esc_attr_e( 'License Activations', 'gravityforms' ); ?>">
 						<p>
 							<?php $activation_class = $license_info->max_seats_exceeded() ? 'gform-c-error-text' : ''; ?>
 							<span class="<?php echo esc_attr( $activation_class ); ?>">
-								<?php echo esc_html( sprintf( '1 of 1', $license_info->get_data_value( 'active_sites' ), $license_info->get_data_value( 'max_sites' ) ) ); ?>
+								<?php echo esc_html( sprintf( '%s of %s', $license_info->get_data_value( 'active_sites' ), $license_info->get_data_value( 'max_sites' ) ) ); ?>
 							</span>
 						</p>
 					</td>
-					<td data-header="<?php echo esc_attr( 'Days Left', 'gravityforms' ); ?>">
-												<p><?php echo '365 Days'; ?></p>
-										</td>
+					<td data-header="<?php echo esc_attr( $license_info->renewal_text() ); ?>">
+						<p><?php echo esc_html( $license_info->renewal_date() ); ?></p>
+					</td>
+					<td data-header="<?php echo esc_attr( $days_left_header ); ?>">
+						<p>
+							<?php if ( $cta['type'] === 'button' ) : ?>
+								<a
+									class="gform-button gform-button--white gform-button--icon-leading gform-button--size-xs"
+									href="<?php echo esc_url( $cta['link'] ); ?>"
+									target="_blank"
+									rel="noopener"
+								>
+									<i class="gform-button__icon gform-icon gform-icon--<?php echo esc_attr( $cta['class'] ); ?>"></i>
+									<?php echo esc_html( $cta['label'] ); ?>
+								</a>
+							<?php elseif ( $cta['type'] === 'text' ) : ?>
+								<?php echo esc_html( $cta['content'] ); ?>
+							<?php endif; ?>
+						</p>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -834,8 +880,9 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function license_key_validation_callback( $field, $value ) {
-		return true;
-		
+		if ( is_null( $value ) ) {
+			return;
+		}
 
 		$field->do_validation( $value );
 	}
@@ -850,11 +897,10 @@ class GFSettings {
 		require_once( GFCommon::get_base_path() . '/tooltips.php' );
 
 		$initial_values = array(
-			'license_key'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
+			'license_key'               => GFCommon::get_key(),
 			'default_theme'             => get_option( 'rg_gforms_default_theme', 'gravity-theme' ),
 			'currency'                  => GFCommon::get_currency(),
 			'disable_css'               => ! (bool) get_option( 'rg_gforms_disable_css' ),
-			'enable_html5'              => (bool) get_option( 'rg_gforms_enable_html5', false ),
 			'enable_noconflict'         => (bool) get_option( 'gform_enable_noconflict' ),
 			'enable_akismet'            => (bool) get_option( 'rg_gforms_enable_akismet', true ),
 			'enable_background_updates' => (bool) get_option( 'gform_enable_background_updates' ),

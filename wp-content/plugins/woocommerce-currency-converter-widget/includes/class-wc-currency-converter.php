@@ -68,24 +68,6 @@ class WC_Currency_Converter extends Plugin {
 	}
 
 	/**
-	 * Files to be included.
-	 *
-	 * @deprecated 2.1.0
-	 */
-	public function includes() {
-		wc_deprecated_function( __FUNCTION__, '2.1.0' );
-	}
-
-	/**
-	 * Display admin notices.
-	 *
-	 * @deprecated 2.0.0
-	 */
-	public function admin_notice_wrong_key() {
-		wc_deprecated_function( __FUNCTION__, '2.0.0' );
-	}
-
-	/**
 	 * Looks at how a currency should be formatted and returns the currency's correct position for the symbol
 	 *
 	 * @param string $currency Currency characters.
@@ -151,26 +133,15 @@ class WC_Currency_Converter extends Plugin {
 	 *
 	 * @since  1.4.0
 	 *
-	 * @param array $instance Arguments.
+	 * @param array $instance The widget instance.
 	 * @param bool  $echo     Whether to display or return the output.
-	 *
 	 * @return string
 	 */
 	public function get_converter_form( $instance, $echo = true ) {
-		wp_enqueue_script( 'wc_currency_converter' );
-		wp_enqueue_script( 'wc_currency_converter_inline' );
-
-		$html  = '<form method="post" id="currency_converter" action="">' . "\n";
-		$html .= '<div>' . "\n";
-
-		if ( ! empty( $instance['message'] ) ) {
-			$html .= wpautop( wp_kses_post( $instance['message'] ) );
-		}
-
-		$currencies = $this->get_currencies_from_instance( $instance );
+		$currencies       = $this->get_currencies_from_instance( $instance );
+		$symbol_positions = array();
 
 		// Figure out where the currency symbols should be displayed.
-		$symbol_positions = array();
 		foreach ( $currencies as $key => $currency ) {
 			$display_currency                      = trim( str_replace( '*', '', $currency ) );
 			$symbol_positions[ $display_currency ] = $this->get_symbol_position( $currency );
@@ -179,52 +150,12 @@ class WC_Currency_Converter extends Plugin {
 			}
 		}
 
-		if ( $currencies ) {
-			// Mark currencies in instance as required for this page.
-			$this->currencies_in_page = array_merge( $this->currencies_in_page, $currencies );
-
-			if ( ! empty( $instance['currency_display'] ) && 'select' === $instance['currency_display'] ) {
-				$html .= '<label for="currency_switcher" class="currency_switcher_label">' . esc_html__( 'Choose a Currency', 'woocommerce-currency-converter-widget' ) . '</label>';
-				$html .= '<select id="currency_switcher" class="currency_switcher select" data-default="' . get_woocommerce_currency() . '">';
-
-				foreach ( $currencies as $currency ) {
-					$label = empty( $instance['show_symbols'] ) ? $currency : $currency . ' (' . get_woocommerce_currency_symbol( $currency ) . ')';
-					$html .= '<option value="' . esc_attr( $currency ) . '">' . esc_html( $label ) . '</option>';
-				}
-
-				$html .= '</select>';
-
-				if ( ! empty( $instance['show_reset'] ) ) {
-					$html .= ' <a href="#" class="wc-currency-converter-reset reset">' . __( 'Reset', 'woocommerce-currency-converter-widget' ) . '</a>';
-				}
-
-			} else {
-				$html .= '<ul class="currency_switcher">';
-
-				foreach ( $currencies as $currency ) {
-					$class = get_woocommerce_currency() === $currency ? 'default currency-' . $currency : 'currency-' . $currency;
-					$label = empty( $instance['show_symbols'] ) ? $currency : $currency . ' (' . get_woocommerce_currency_symbol( $currency ) . ')';
-
-					$html .= '<li><a href="#" class="' . esc_attr( $class ) . '" data-currencycode="' . esc_attr( $currency ) . '">' . esc_html( $label ) . '</a></li>';
-				}
-
-				if ( ! empty( $instance['show_reset'] ) ) {
-					$html .= '<li><a href="#" class="wc-currency-converter-reset reset">' . __( 'Reset', 'woocommerce-currency-converter-widget' ) . '</a></li>';
-				}
-
-				$html .= '</ul>';
-			}
-		}
-
-		$html .= '</div>' . "\n";
-		$html .= '</form>' . "\n";
-
-		// The current currency to use.
-		$current_currency = null;
+		// Mark currencies in instance as required for this page.
+		$this->currencies_in_page = array_merge( $this->currencies_in_page, $currencies );
 
 		// Is location based currency enabled or disabled?
-		$disable_location_based_currency = isset( $instance['disable_location'] ) ? $instance['disable_location'] : false;
-		$disable_location_based_currency = apply_filters( 'woocommerce_disable_location_based_currency', $disable_location_based_currency );
+		$disable_location = isset( $instance['disable_location'] ) ? $instance['disable_location'] : false;
+		$disable_location = apply_filters( 'woocommerce_disable_location_based_currency', $disable_location );
 
 		// Assume default currency from WooCommerce.
 		$current_currency = get_woocommerce_currency();
@@ -232,24 +163,27 @@ class WC_Currency_Converter extends Plugin {
 		if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
 			// If a cookie is set then use that.
 			$current_currency = sanitize_text_field( wp_unslash( $_COOKIE['woocommerce_current_currency'] ) );
-		} elseif ( ! $disable_location_based_currency ) {
+		} elseif ( ! $disable_location ) {
 			// If location detection is enabled, get the users local currency based on their location.
 			$users_default_currency = self::get_users_default_currency();
-			// If its an allowed currency, then use it.
+			// If it's an allowed currency, then use it.
 			if ( isset( $users_default_currency ) && is_array( $currencies ) && in_array( $users_default_currency, $currencies ) ) {
 				$current_currency = $users_default_currency;
 			}
 		}
 
-		$wc_currency_converter_inline_params = array(
-			'current_currency' => esc_js( $current_currency ),
-			'symbol_positions' => $symbol_positions,
-		);
-
 		// Scripts are registered later in block themes.
 		if ( ! wp_script_is( 'wc_currency_converter_inline' ) ) {
 			$this->enqueue_assets();
 		}
+
+		wp_enqueue_script( 'wc_currency_converter' );
+		wp_enqueue_script( 'wc_currency_converter_inline' );
+
+		$wc_currency_converter_inline_params = array(
+			'current_currency' => esc_js( $current_currency ),
+			'symbol_positions' => $symbol_positions,
+		);
 
 		wp_localize_script(
 			'wc_currency_converter_inline',
@@ -257,9 +191,17 @@ class WC_Currency_Converter extends Plugin {
 			apply_filters( 'wc_currency_converter_inline_params', $wc_currency_converter_inline_params )
 		);
 
+		$params = array(
+			'currencies' => $currencies,
+			'instance'   => $instance,
+		);
+
+		ob_start();
+		wc_get_template( 'content-widget-currency-converter.php', $params, '', WC_CURRENCY_CONVERTER_PATH . 'templates/' );
+		$html = ob_get_clean();
+
 		if ( $echo ) {
 			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 		}
 
 		return $html;
@@ -272,12 +214,20 @@ class WC_Currency_Converter extends Plugin {
 	 *
 	 * @param array  $atts    Arguments.
 	 * @param string $content The contents, if this is a wrapping shortcode.
-	 *
 	 * @return string
 	 */
 	public function shortcode( $atts, $content = null ) {
-		$defaults = array( 'currency_codes' => '', 'message' => '', 'show_symbols' => '0', 'show_reset' => '0', 'currency_display' => '', 'disable_location' => '0' );
-		$settings = shortcode_atts( $defaults, $atts );
+		$settings = shortcode_atts(
+			array(
+				'currency_codes'   => '',
+				'message'          => '',
+				'show_symbols'     => '0',
+				'show_reset'       => '0',
+				'currency_display' => '',
+				'disable_location' => '0',
+			),
+			$atts
+		);
 
 		return $this->get_converter_form( $settings, false );
 	}
@@ -382,6 +332,7 @@ class WC_Currency_Converter extends Plugin {
 
 	/**
 	 * Returns an array of currencies that are being used by the widget
+	 *
 	 * @return array of currencies being used by the widget
 	 */
 	private function get_currencies_in_widget() {
@@ -398,20 +349,6 @@ class WC_Currency_Converter extends Plugin {
 	}
 
 	/**
-	 * Returns an array of rates for the given currencies
-	 *
-	 * @deprecated 2.0.0
-	 *
-	 * @param array $currencies A list of currency codes.
-	 * @return array of rates
-	 */
-	private function get_currencies_rates( $currencies ) {
-		wc_deprecated_function( __FUNCTION__, '2.0.0' );
-
-		return ( new Rates() )->get_rates( $currencies );
-	}
-
-	/**
 	 * Return a string with decimal separator and 0s for how many decimal places should be used
 	 *
 	 * @return string
@@ -420,7 +357,7 @@ class WC_Currency_Converter extends Plugin {
 		$zero_replace = get_option( 'woocommerce_price_decimal_sep', '.' );
 		$decimals     = absint( get_option( 'woocommerce_price_num_decimals' ) );
 
-		for ( $i = 0; $i < $decimals; $i ++ ) {
+		for ( $i = 0; $i < $decimals; $i++ ) {
 			$zero_replace .= '0';
 		}
 
@@ -437,21 +374,27 @@ class WC_Currency_Converter extends Plugin {
 	private function get_locale_info( $currencies ) {
 		$locale_info = L10n_Utils::get_locales();
 
-		$locale_info = array_filter( $locale_info, function ( $element ) use ( $currencies ) {
-			return in_array( $element['currency_code'], $currencies );
-		} );
+		$locale_info = array_filter(
+			$locale_info,
+			function ( $element ) use ( $currencies ) {
+				return in_array( $element['currency_code'], $currencies );
+			}
+		);
 
-		return array_map( function ( $element ) {
-			return [
-				'currency_code' => $element['currency_code'],
-				'thousand_sep'  => $element['thousand_sep'],
-				'decimal_sep'   => $element['decimal_sep']
-			];
-		}, $locale_info );
+		return array_map(
+			function ( $element ) {
+				return array(
+					'currency_code' => $element['currency_code'],
+					'thousand_sep'  => $element['thousand_sep'],
+					'decimal_sep'   => $element['decimal_sep'],
+				);
+			},
+			$locale_info
+		);
 	}
 
 	/**
-	 * Function to return a the users default currency code
+	 * Function to return the users default currency code.
 	 *
 	 * @since  1.4.1
 	 *

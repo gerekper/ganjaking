@@ -320,6 +320,18 @@ class UCFormEntriesView extends WP_List_Table{
 		$label = $item["main"]["value"];
 		$status = $this->getFilter(self::FILTER_STATUS);
 
+		$form = new UniteCreatorForm();
+		$files = array();
+
+		foreach($item["fields"] as $field){
+			if($field["type"] === UniteCreatorForm::TYPE_FILES && empty($field["value"]) === false){
+				$urls = $form->decodeFilesFieldValue($field["value"]);
+				$names = array_map("basename", $urls);
+
+				$files = array_merge($files, $names);
+			}
+		}
+
 		if($status === self::STATUS_TRASH){
 			$content = $label;
 
@@ -340,6 +352,9 @@ class UCFormEntriesView extends WP_List_Table{
 			else
 				$actions[self::ACTION_READ] = $this->getActionLink(self::ACTION_READ, $id, __("Mark as Read", "unlimited-elements-for-elementor"));
 		}
+
+		if(empty($files) === false)
+			$content = '<span class="dashicons dashicons-paperclip" title="' . esc_attr(implode(", ", $files)) . '" style="width: 1em; height: 1em; font-size: 1em; vertical-align: middle"></span> ' . $content;
 
 		return $content . '<div style="font-weight: normal">' . $this->row_actions($actions) . '</div>';
 	}
@@ -741,7 +756,7 @@ class UCFormEntriesView extends WP_List_Table{
 		$url["action"] = $action;
 		$url[self::FILTER_ID] = $id;
 
-		if (empty($_REQUEST["view"]) === false)
+		if(empty($_REQUEST["view"]) === false)
 			$url["view"] = $_REQUEST["view"];
 
 		if($action !== self::ACTION_VIEW)

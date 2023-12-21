@@ -20,6 +20,11 @@ final class QueryFactory
         self::$queries[$query_type] = $class_fqn;
     }
 
+    public static function can_create(string $query_type): bool
+    {
+        return isset(self::$queries[$query_type]);
+    }
+
     public static function create(string $query_type, array $bindings): Query
     {
         $class = self::$queries[$query_type] ?? null;

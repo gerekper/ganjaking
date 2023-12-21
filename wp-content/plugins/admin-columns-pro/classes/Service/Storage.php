@@ -11,7 +11,7 @@ use AC\Registerable;
 use ACP\ListScreenRepository\Callback;
 use ACP\ListScreenRepository\Database;
 use ACP\ListScreenRepository\FileFactory;
-use ACP\ListScreenRepository\Preset;
+use ACP\ListScreenRepository\Template;
 use ACP\ListScreenRepository\Types;
 use ACP\Migrate\Preference\PreviewMode;
 use ACP\Storage\AbstractDecoderFactory;
@@ -28,7 +28,7 @@ final class Storage implements Registerable
 
     private $file_factory;
 
-    private $preset_repository;
+    private $template_repository;
 
     private $preview_mode;
 
@@ -37,14 +37,14 @@ final class Storage implements Registerable
         Database $database_list_screen_repository,
         AbstractDecoderFactory $decoder_factory,
         FileFactory $file_factory,
-        Preset $preset_repository,
+        Template $template_repository,
         PreviewMode $preview_mode
     ) {
         $this->storage = $storage;
         $this->database_list_screen_repository = $database_list_screen_repository;
         $this->decoder_factory = $decoder_factory;
         $this->file_factory = $file_factory;
-        $this->preset_repository = $preset_repository;
+        $this->template_repository = $template_repository;
         $this->preview_mode = $preview_mode;
     }
 
@@ -83,7 +83,7 @@ final class Storage implements Registerable
         }
 
         if ($this->preview_mode->is_active()) {
-            $repositories[Types::PRESET] = new ListScreenRepository($this->preset_repository);
+            $repositories[Types::TEMPLATE] = new ListScreenRepository($this->template_repository);
         }
 
         $this->storage->set_repositories($repositories);

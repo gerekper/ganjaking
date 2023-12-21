@@ -319,6 +319,9 @@
 
 						findlabel = $( label );
 						findlabelText = findlabel.find( '.tc-label-text' );
+						if ( ! findlabelText.length ) {
+							findlabelText = findlabel;
+						}
 
 						is_hide_label = target.attr( 'data-tm-hide-label' ) === 'yes' || target.attr( 'data-tm-hide-label' ) === undefined || findlabel.is( '.tm-tip-html' );
 
@@ -355,7 +358,7 @@
 								target.data( 'tm-tip-html', tip );
 								if ( is_hide_label ) {
 									findlabel.find( '.tm-tooltip' ).remove();
-									findlabel.hide();
+									findlabelText.hide();
 								}
 							}
 							if ( tip === undefined ) {

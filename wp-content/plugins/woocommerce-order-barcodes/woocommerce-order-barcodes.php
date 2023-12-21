@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Order Barcodes
- * Version: 1.7.2
+ * Version: 1.7.3
  * Plugin URI: https://woocommerce.com/products/woocommerce-order-barcodes/
  * Description: Generates unique barcodes for your orders - perfect for e-tickets, packing slips, reservations and a variety of other uses.
  * Author: WooCommerce
@@ -10,7 +10,7 @@
  * Requires at least: 4.0
  * Tested up to: 6.3
  * WC requires at least: 3.0
- * WC tested up to: 8.1
+ * WC tested up to: 8.2
  * Woo: 391708:889835bb29ee3400923653e1e44a3779
  *
  * @package woocommerce-order-barcodes
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_ORDER_BARCODES_VERSION', '1.7.2' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ORDER_BARCODES_VERSION', '1.7.3' ); // WRCS: DEFINED_VERSION.
 define( 'WC_ORDER_BARCODES_FILE', __FILE__ );
 define( 'WC_ORDER_BARCODES_DIR_PATH', untrailingslashit( plugin_dir_path( WC_ORDER_BARCODES_FILE ) ) );
 define( 'WC_ORDER_BARCODES_DIR_URL', untrailingslashit( plugins_url( '/', WC_ORDER_BARCODES_FILE ) ) );

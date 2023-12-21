@@ -11,7 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The best package of Free Elementor Addons. +100 Free Elementor Widgets, +10 Free Animated Backgrounds, +30 Free Elementor Templates, WooCommerce Widgets, Full Screen Menu Addons, Testimonial Slider, Post Grid, Carousel Widgets, Event Widgets, Button Effects for Elementor, Instagram Addons, Icon Boxes, Flipbox, Image Accordion, Timeline Widget, Video Galleries Dynamic Loop Builder, Whatsapp Chat, Price List Addons. Including the one and only Widget Creator Elementor Website Builder and Editor for Elementor to create custom.
 
 
-
 == Description ==
 
 
@@ -1238,7 +1237,27 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
-version 1.5.85: 2021-11-15
+
+version 1.5.88: 2023-12-11:
+
+* Feature: added "iframe" gallery type to the gallery items
+* Fix: fixed the "show/hide edit html button" option from general settings
+* Fix: fixed the general_settings.xml php error
+* Fix: fixed some issue with gallery loading on pages and current meta keys
+* Fix: fixed default value in datetime control
+* Change: added some improvements for the form 
+* Change: set video placeholder to dynamic galleries in case of video item
+
+
+version 1.5.87: 2023-11-21:
+
+* Change: updated freemius sdk to 2.6.0 version
+* Change: added some protection against double background widgets output
+* Feature: enabled form functionality
+* Feature: enabled currency exchange functionality
+
+
+version 1.5.85: 2023-11-15
 
 * Feature: added woo_addcart_ajax_attributes_button in twig for the button
 * Feature: added option to show original settings values in widget debug
@@ -1252,12 +1271,12 @@ version 1.5.85: 2021-11-15
 * Change: updated instagram data with date released field
 
 
-version 1.5.85: 2021-09-20
+version 1.5.85: 2023-09-20
 
 * Fix: fixed a small bug with multisource image param message
 
 
-version 1.5.84: 2021-09-20
+version 1.5.84: 2023-09-20
 
 * Feature: added twig function csv to json
 * Feature: changed the admin view to new design (added designed header and menu)

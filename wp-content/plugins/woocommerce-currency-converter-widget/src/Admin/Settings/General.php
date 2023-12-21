@@ -95,7 +95,7 @@ class General extends Settings_API {
 			$provider = new \KoiLab\WC_Currency_Converter\Exchange\Providers\Open_Exchange_Provider( $value );
 
 			if ( ! $provider->validate_credentials() ) {
-				throw new Exception( __( 'Invalid App ID.', 'woocommerce-currency-converter-widget' ) );
+				throw new Exception( esc_html__( 'Invalid App ID.', 'woocommerce-currency-converter-widget' ) );
 			}
 		}
 

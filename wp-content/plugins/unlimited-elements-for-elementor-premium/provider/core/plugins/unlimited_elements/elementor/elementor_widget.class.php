@@ -1639,6 +1639,8 @@ class UniteCreatorElementorWidget extends Widget_Base {
     			$arrControl["ue_date_mode"] = $mode;
     			
     			$arrControl["picker_options"] = $pickerOptions;
+
+    			$arrControl["default"] = UniteFunctionsUC::getVal($param, "default");
     			
     			//if(!empty($mode) && $mode == "time"){dmp($arrControl);exit();}
     			
@@ -2259,6 +2261,13 @@ class UniteCreatorElementorWidget extends Widget_Base {
     		"label"=>__("Advanced", 'unlimited-elements-for-elementor'),
     		"tab"=>"general"));
     	
+       //update button if loaded from ajax
+       
+       if(UniteCreatorElementorIntegrate::$enableEditHTMLButton === null){
+	    	UniteCreatorElementorIntegrate::$enableEditHTMLButton = HelperProviderCoreUC_EL::getGeneralSetting("show_edit_html_button");
+	    	UniteCreatorElementorIntegrate::$enableEditHTMLButton = UniteFunctionsUC::strToBool(UniteCreatorElementorIntegrate::$enableEditHTMLButton);
+       }
+	   
        if(UniteCreatorElementorIntegrate::$enableEditHTMLButton == true)
           $this->addEditAddonControl();
     	

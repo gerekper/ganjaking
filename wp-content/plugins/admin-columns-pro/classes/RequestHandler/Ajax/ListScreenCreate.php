@@ -14,7 +14,7 @@ use AC\Storage\ListScreenOrder;
 use AC\Type\ListScreenId;
 use ACP\Admin\Encoder;
 use ACP\ListScreenFactory\PrototypeFactory;
-use ACP\ListScreenRepository\Preset;
+use ACP\ListScreenRepository\Template;
 use ACP\Search\SegmentRepository\KeyGeneratorTrait;
 use ACP\Storage\EncoderFactory;
 
@@ -29,21 +29,21 @@ class ListScreenCreate implements RequestAjaxHandler
 
     private $order_storage;
 
-    private $preset_repository;
+    private $template_repository;
 
     private $encoder_factory;
 
     public function __construct(
         Storage $storage,
         PrototypeFactory $list_screen_factory,
-        Preset $preset_repository,
+        Template $template_repository,
         ListScreenOrder $order_storage,
         EncoderFactory $encoder
     ) {
         $this->list_screen_factory = $list_screen_factory;
         $this->storage = $storage;
         $this->order_storage = $order_storage;
-        $this->preset_repository = $preset_repository;
+        $this->template_repository = $template_repository;
         $this->encoder_factory = $encoder;
     }
 
@@ -79,8 +79,8 @@ class ListScreenCreate implements RequestAjaxHandler
         if (ListScreenId::is_valid_id($list_id)) {
             $list_id = new ListScreenId($list_id);
 
-            $list_screen_from = $this->preset_repository->exists($list_id)
-                ? $this->preset_repository->find($list_id)
+            $list_screen_from = $this->template_repository->exists($list_id)
+                ? $this->template_repository->find($list_id)
                 : $this->storage->find($list_id);
 
             if ( ! $list_screen_from) {

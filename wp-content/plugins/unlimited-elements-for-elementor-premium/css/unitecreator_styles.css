@@ -68,6 +68,13 @@
 	boackground-size: contain;
 }
 
+.instagram-error-message{
+	color:red;
+	padding-bottom:20px;
+	line-height:30px;
+}
+
+
 .----------------OBJECTS_LIST------------- {
 }
 
@@ -1888,37 +1895,44 @@ ul.uc-list-pages-thumbs li a i {
 	padding-bottom: 10px;
 }
 
-#---------------PREVIEW-ADDON-NEW--------------------- {
-}
+
+#---------------PREVIEW-ADDON-NEW--------------------- {}
 
 .uc-preview-addon-wrapper {
 	display: flex;
-	padding-top: 20px;
+	background: var(--ue-color-light);
+	margin-top: 16px;
 }
 
 .uc-preview-addon-left {
-	width: 450px;
-	padding: 20px;
+	flex-shrink: 0;
+	width: 300px;
+	border-right: 1px solid var(--ue-color-gray-light);
 }
 
 .uc-preview-addon-right {
-	width: calc(100% - 450px);
-	xborder: 1px solid gray;
-	margin-right: 20px;
-	padding: 20px;
-	box-sizing: border-box;
+	flex-grow: 1;
 	position: relative;
 }
 
-.uc-preview-addon-loader {
-
-	position: absolute;
-	top: 40px;
-	left: 115px;
+.uc-settings-loader,
+.uc-preview-loader {
+	font-size: var(--ue-font-size);
+	line-height: 1.5em;
+	text-align: center;
+	padding: 16px;
+	z-index: 1;
 }
 
-.uc-preview-loading {
+.uc-preview-loader {
+	background: rgba(var(--ue-color-light-rgb), 0.6);
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
 
-	opacity: 0.4;
-
+.uc-preview-wrapper {
+	padding: 16px;
 }

@@ -259,6 +259,7 @@ class UCFormEntryService{
 
 			if($isEmailField === true){
 				$main = $field;
+
 				break;
 			}
 
@@ -266,13 +267,16 @@ class UCFormEntryService{
 
 			if($isValidEmail === true){
 				$main = $field;
+
 				break;
 			}
 		}
 
-		if($main === null){
+		if($main === null)
 			$main = reset($fields); // fallback to the first field
-		}
+
+		if($main["value"] === "")
+			$main["value"] = __("(empty)", "unlimited-elements-for-elementor");
 
 		return $main;
 	}

@@ -176,7 +176,7 @@ class WC_Pre_Orders_Email_New_Pre_Order extends WC_Email {
 				'type'        => 'select',
 				'description' => __( 'Choose which format of email to send.', 'woocommerce-pre-orders' ),
 				'default'     => 'html',
-				'class'       => 'email_type',
+				'class'       => 'email_type wc-enhanced-select',
 				'options'     => array(
 					'plain'     => __( 'Plain text', 'woocommerce-pre-orders' ),
 					'html'      => __( 'HTML', 'woocommerce-pre-orders' ),

@@ -51,7 +51,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * Enter description here ...
 		 */
 		public static function validatePluginStartup(){
-
+			
 			if(function_exists("simplexml_load_file") == false)
 				UniteFunctionsUC::throwError("Your php missing SimpleXML Extension. The plugin can't work without this extension because it has many xml files to load. Please enable this extension in php.ini");
 
@@ -521,31 +521,6 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			return($value);
 		}
 
-
-		/**
-		 * print general settings and exit all
-		 */
-		public static function printGeneralSettings(){
-			$arrSettings = self::$operations->getGeneralSettings();
-			dmp($arrSettings);
-			exit();
-		}
-
-		/**
-		 * get general setting value
-		 */
-		public static function getGeneralSetting($name){
-
-			$arrSettings = self::$operations->getGeneralSettings();
-			//dmp($arrSettings);exit();
-
-			if(array_key_exists($name,$arrSettings) == false)
-				UniteFunctionsUC::throwError("General setting: {$name} don't exists");
-
-			$value = $arrSettings[$name];
-
-			return($value);
-		}
 
 
 		public static function a________URL_AND_PATH_________(){}

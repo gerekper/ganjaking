@@ -19,15 +19,12 @@ class UniteFunctionsUC{
 	private static $serial = 0;
 	private static $arrCache = array();
 
-
 	/**
 	 * throw error
 	 */
-	public static function throwError($message,$code=null){
-		if(!empty($code))
-			throw new Exception($message);
-		else
-			throw new Exception($message);
+	public static function throwError($message, $code = 0){
+
+		throw new Exception($message, $code);
 	}
 
 	/**
@@ -78,43 +75,86 @@ class UniteFunctionsUC{
 	/**
 	 * get post or get variable
 	 */
-	public static function getPostGetVariable($name,$initVar = "", $sanitizeType=""){
+	public static function getPostGetVariable($name, $initVar = "", $sanitizeType = ""){
+
 		$var = $initVar;
 
-		if(isset($_POST[$name])) $var = $_POST[$name];
-		else if(isset($_GET[$name])) $var = $_GET[$name];
+		if(isset($_POST[$name]))
+			$var = $_POST[$name];
+		elseif(isset($_GET[$name]))
+			$var = $_GET[$name];
 
 		$var = UniteProviderFunctionsUC::sanitizeVar($var, $sanitizeType);
 
-		return($var);
+		return ($var);
 	}
-
 
 	/**
 	 * get post variable
 	 */
-	public static function getPostVariable($name,$initVar = "",$sanitizeType=""){
+	public static function getPostVariable($name, $initVar = "", $sanitizeType = ""){
+
 		$var = $initVar;
-		if(isset($_POST[$name])) $var = $_POST[$name];
+
+		if(isset($_POST[$name]))
+			$var = $_POST[$name];
 
 		$var = UniteProviderFunctionsUC::sanitizeVar($var, $sanitizeType);
 
-		return($var);
+		return ($var);
 	}
-
 
 	/**
 	 * get get variable
 	 */
-	public static function getGetVar($name, $initVar = "", $sanitizeType=""){
+	public static function getGetVar($name, $initVar = "", $sanitizeType = ""){
 
 		$var = $initVar;
+
 		if(isset($_GET[$name]))
 			$var = $_GET[$name];
 
 		$var = UniteProviderFunctionsUC::sanitizeVar($var, $sanitizeType);
 
-		return($var);
+		return ($var);
+	}
+
+	/**
+	 * get files variable
+	 */
+	public static function getFilesVariable($name){
+
+		$files = array();
+
+		if(isset($_FILES[$name]))
+			$files = $_FILES[$name];
+
+		$keys = array(
+			"name",
+			"type",
+			"size",
+			"error",
+			"tmp_name",
+		);
+
+		$var = array();
+
+		foreach($files as $key => $file){
+			if(in_array($key, $keys) === false)
+				continue;
+
+			foreach($file as $name => $value){
+				if(is_array($value) === true){
+					foreach($value as $index => $inner){
+						$var[$name][$index][$key] = $inner;
+					}
+				}else{
+					$var[$name][0][$key] = $value;
+				}
+			}
+		}
+
+		return ($var);
 	}
 
 
@@ -2827,7 +2867,73 @@ class UniteFunctionsUC{
 
 
 	public static function z___________OTHERS__________(){}
+	
+	
+	/**
+	 * load xml file, get simplexml object back. 
+	 * if not loaded - print the error
+	 */
+	public static function loadXMLFile($filepath){
+		
+		if(file_exists($filepath) == false)
+			UniteFunctionsUC::throwError("xml file not found: ".$filepath);
 
+		if(function_exists("simplexml_load_file") == false)
+			UniteFunctionsUC::throwError("Your php missing SimpleXML Extension. The plugin can't work without this extension because it has many xml files to load. Please enable this extension in php.ini");
+		
+		$showErrors = false;
+		
+		if(function_exists("libxml_use_internal_errors")){
+			$showErrors = true;
+			libxml_use_internal_errors(true);			
+			libxml_clear_errors();			
+		}
+		
+		$obj = simplexml_load_file($filepath);
+		
+		if(empty($obj)){
+			
+			$xmlString = file_get_contents($filepath);
+			
+			if(empty($xmlString))
+				UniteFunctionsUC::throwError("xml load: No content found in: ".$filepath);
+			
+			$obj = simplexml_load_string($xmlString);
+		}
+		
+		/**
+		 * throw the error
+		 */
+		if(empty($obj)){
+			
+			$errorsHTML = "Wrong xml file format: $filepath <br>";
+			
+			if($showErrors == true){
+				
+				$arrErrors = libxml_get_errors();
+				
+				if(empty($arrErrors))
+					$arrErrors = array();
+								
+				foreach($arrErrors as $error){
+					
+					$line = $error->line;
+					$column = $error->column;
+					$message = $error->message;
+					
+		        	$errorsHTML .= "$message ($line, $column)  <br>\n";
+				}
+				
+			}
+			
+			UniteFunctionsUC::throwError($errorsHTML);
+		}
+		
+		
+		return($obj);
+	}
+	
+	
 	/**
 	 * disable deprecated warnings in php
 	 */

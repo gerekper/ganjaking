@@ -381,14 +381,16 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		$objServices = new UniteServicesUC();
 		$objServices->includeGoogleAPI();
 
-		$error = UniteFunctionsUC::getGetVar("google_connect_error", "", UniteFunctionsUC::SANITIZE_NOTHING);
+		$error = "";
 
 		try{
 			$accessToken = UEGoogleAPIHelper::getFreshAccessToken();
 		}catch(Exception $exception){
 			if(UEGoogleAPIHelper::getAccessToken())
-				$error = sprintf(__("Unable to refresh the access token (%s). Please connect to Google again.", "unlimited-elements-for-elementor"), $exception->getMessage());
+				$error = sprintf(__("Unable to refresh the access token. Please connect to Google again. (Reason: \"%s\")", "unlimited-elements-for-elementor"), $exception->getMessage());
 		}
+
+		$error = UniteFunctionsUC::getGetVar("google_connect_error", $error, UniteFunctionsUC::SANITIZE_NOTHING);
 
 		if(empty($accessToken) === false){
 			?>

@@ -3,7 +3,7 @@
  * Handles encryption of stored tokens.
  *
  * @package    WooCommerce Xero
- * @since      x.x.x
+ * @since      1.7.51
  */
 
 // Exit if accessed directly.

@@ -12,7 +12,7 @@ if(!defined('UNLIMITED_ELEMENTS_INC'))
 defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 if(!defined("UNLIMITED_ELEMENTS_VERSION"))
-	define("UNLIMITED_ELEMENTS_VERSION", "1.5.87");
+	define("UNLIMITED_ELEMENTS_VERSION", "1.5.89");
 
 $currentFile = __FILE__;
 $currentFolder = dirname($currentFile);

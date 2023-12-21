@@ -3,17 +3,27 @@
 class UEGoogleAPIHelper{
 
 	const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-	//const AUTH_CLIENT_ID = "852030113875-d858hv695ki288ha3qk2s3qifng6ra9e.apps.googleusercontent.com"; 
-	//const AUTH_REDIRECT_URL = "https://dev.unlimited-elements.com/google-connect/connect.php"; 
-	
-	const AUTH_CLIENT_ID = "916742274008-sji12chck4ahgqf7c292nfg2ofp10qeo.apps.googleusercontent.com";
-	
-	const AUTH_REDIRECT_URL = "https://unlimited-elements.com/google-connect/connect.php"; 
-	
+	const AUTH_CLIENT_ID = "852030113875-d858hv695ki288ha3qk2s3qifng6ra9e.apps.googleusercontent.com"; // TODO: Replace with a real one
+	const AUTH_REDIRECT_URL = "https://dev.unlimited-elements.com/google-connect/connect.php"; // TODO: Replace with a real one
+
+	const SCOPE_CALENDAR_EVENTS = "https://www.googleapis.com/auth/calendar.events.readonly";
 	const SCOPE_SHEETS_ALL = "https://www.googleapis.com/auth/spreadsheets";
 	const SCOPE_USER_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
+	const SCOPE_YOUTUBE = "https://www.googleapis.com/auth/youtube.readonly";
 
 	private static $credentials = array();
+
+	/**
+	 * Get the API key.
+	 *
+	 * @return string
+	 */
+	public static function getApiKey(){
+
+		$apiKey = HelperProviderCoreUC_EL::getGeneralSetting("google_api_key");
+
+		return $apiKey;
+	}
 
 	/**
 	 * Get the access token.
@@ -176,6 +186,12 @@ class UEGoogleAPIHelper{
 			self::SCOPE_USER_EMAIL,
 		);
 
+		if(GlobalsUnlimitedElements::$enableGoogleCalendarScopes === true)
+			$scopes[] = self::SCOPE_CALENDAR_EVENTS;
+
+		if(GlobalsUnlimitedElements::$enableGoogleYoutubeScopes === true)
+			$scopes[] = self::SCOPE_YOUTUBE;
+
 		return $scopes;
 	}
 
@@ -322,7 +338,7 @@ class UEGoogleAPIHelper{
 			UniteFunctionsUC::throwError("Unable to parse the response (status code $code).");
 
 		if(empty($response["error"]) === false)
-			UniteFunctionsUC::throwError("Unable to refresh access token: {$response["error"]}");
+			UniteFunctionsUC::throwError("Unable to refresh the access token: {$response["error"]}");
 
 		$accessToken = UniteFunctionsUC::getVal($response, "access_token");
 		$expiresAt = UniteFunctionsUC::getVal($response, "expires_at", 0);

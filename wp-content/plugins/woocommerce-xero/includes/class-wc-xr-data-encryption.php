@@ -3,7 +3,7 @@
  * Handle sensitive data encryption and decryption.
  *
  * @package    WooCommerce Xero
- * @since      x.x.x
+ * @since      1.7.51
  */
 
 // Exit if accessed directly.
@@ -45,11 +45,48 @@ class WC_XR_Data_Encryption {
 	}
 
 	/**
+	 * Returns true if `XERO_ENCRYPTION_KEY` constant is set.
+	 *
+	 * @since 1.8.2
+	 *
+	 * @return boolean
+	 */
+	public function is_custom_xero_enc_key_set() {
+		return defined( 'XERO_ENCRYPTION_KEY' ) && '' !== XERO_ENCRYPTION_KEY;
+	}
+
+	/**
+	 * Returns true if `XERO_ENCRYPTION_SALT` constant is set.
+	 *
+	 * @since 1.8.2
+	 *
+	 * @return boolean
+	 */
+	public function is_custom_xero_salt_key_set() {
+		return defined( 'XERO_ENCRYPTION_SALT' ) && '' !== XERO_ENCRYPTION_SALT;
+	}
+
+	/**
+	 * Returns true if both `XERO_ENCRYPTION_KEY` and `XERO_ENCRYPTION_SALT` constants are set.
+	 *
+	 * @since 1.8.2
+	 *
+	 * @return boolean
+	 */
+	public function are_custom_xero_auth_keys_set() {
+		return $this->is_custom_xero_enc_key_set() && $this->is_custom_xero_salt_key_set();
+	}
+
+	/**
 	 * Get the Logged-in key for encryption.
 	 *
 	 * @since 1.7.51
 	 */
 	private function get_default_key(): string {
+		if ( $this->is_custom_xero_enc_key_set() ) {
+			return XERO_ENCRYPTION_KEY;
+		}
+
 		if ( '' !== wp_salt( 'logged_in' ) ) {
 			return wp_salt( 'logged_in' );
 		}
@@ -64,6 +101,10 @@ class WC_XR_Data_Encryption {
 	 * @since 1.7.51
 	 */
 	private function get_default_salt(): string {
+		if ( $this->is_custom_xero_salt_key_set() ) {
+			return XERO_ENCRYPTION_SALT;
+		}
+
 		if ( defined( 'LOGGED_IN_SALT' ) && '' !== LOGGED_IN_SALT ) {
 			return LOGGED_IN_SALT;
 		}

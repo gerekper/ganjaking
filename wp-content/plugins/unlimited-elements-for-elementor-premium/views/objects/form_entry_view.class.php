@@ -126,7 +126,21 @@ class UCFormEntryView{
 									<?php foreach($this->entry["fields"] as $field): ?>
 										<tr>
 											<td><?php echo esc_html($field["title"]); ?></td>
-											<td><?php echo esc_html($field["value"]); ?></td>
+											<td>
+												<?php
+
+												switch($field["type"]){
+													case UniteCreatorForm::TYPE_FILES:
+														$form = new UniteCreatorForm();
+														echo $form->getFilesFieldLinksHtml($field["value"], "<br />", true);
+													break;
+
+													default:
+														echo esc_html($field["value"]);
+												}
+
+												?>
+											</td>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>

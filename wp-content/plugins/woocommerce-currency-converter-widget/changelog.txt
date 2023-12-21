@@ -1,5 +1,12 @@
 *** Currency Converter Changelog ***
 
+2023-12-12 - version 2.2.0
+* Feature - Added template to customize the widget content.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Tested compatibility up to WC 8.4.
+* Dev - Dropped deprecated code up to version 2.1.0.
+* Dev - Dropped deprecated `WC_Currency_Converter_Privacy` class.
+
 2023-10-26 - version 2.1.1
 * Tweak - Sanitize the cookie value before using it.
 * Tweak - Tested compatibility up to WP 6.4.

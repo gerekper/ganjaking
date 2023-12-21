@@ -22,7 +22,6 @@ class UniteCreatorAPIIntegrations{
 	const TYPE_WEATHER_FORECAST = "weather_forecast";
 	const TYPE_YOUTUBE_PLAYLIST = "youtube_playlist";
 
-	const SETTINGS_GOOGLE_API_KEY = "google_api_key";
 	const SETTINGS_OPEN_WEATHER_API_KEY = "openweather_api_key";
 	const SETTINGS_EXCHANGE_RATE_API_KEY = "exchangerate_api_key";
 
@@ -36,7 +35,7 @@ class UniteCreatorAPIIntegrations{
 	const CURRENCY_EXCHANGE_DEFAULT_PRECISION = 2;
 	const CURRENCY_EXCHANGE_DEFAULT_CACHE_TIME = 60;
 
-	const GOOGLE_EVENTS_FIELD_EMPTY_API_KEY = "google_events:empty_api_key";
+	const GOOGLE_EVENTS_FIELD_EMPTY_CREDENTIALS = "google_events:empty_credentials";
 	const GOOGLE_EVENTS_FIELD_CALENDAR_ID = "google_events:calendar_id";
 	const GOOGLE_EVENTS_FIELD_RANGE = "google_events:range";
 	const GOOGLE_EVENTS_FIELD_ORDER = "google_events:order";
@@ -57,7 +56,7 @@ class UniteCreatorAPIIntegrations{
 	const GOOGLE_REVIEWS_FIELD_CACHE_TIME = "google_reviews:cache_time";
 	const GOOGLE_REVIEWS_DEFAULT_CACHE_TIME = 10;
 
-	const GOOGLE_SHEETS_FIELD_EMPTY_API_KEY = "google_sheets:empty_api_key";
+	const GOOGLE_SHEETS_FIELD_EMPTY_CREDENTIALS = "google_sheets:empty_credentials";
 	const GOOGLE_SHEETS_FIELD_ID = "google_sheets:id";
 	const GOOGLE_SHEETS_FIELD_SHEET_ID = "google_sheets:sheet_id";
 	const GOOGLE_SHEETS_FIELD_CACHE_TIME = "google_sheets:cache_time";
@@ -72,7 +71,7 @@ class UniteCreatorAPIIntegrations{
 	const WEATHER_FORECAST_UNITS_METRIC = "metric";
 	const WEATHER_FORECAST_UNITS_IMPERIAL = "imperial";
 
-	const YOUTUBE_PLAYLIST_FIELD_EMPTY_API_KEY = "youtube_playlist:empty_api_key";
+	const YOUTUBE_PLAYLIST_FIELD_EMPTY_CREDENTIALS = "youtube_playlist:empty_credentials";
 	const YOUTUBE_PLAYLIST_FIELD_ID = "youtube_playlist:id";
 	const YOUTUBE_PLAYLIST_FIELD_ORDER = "youtube_playlist:order";
 	const YOUTUBE_PLAYLIST_FIELD_LIMIT = "youtube_playlist:limit";
@@ -152,7 +151,6 @@ class UniteCreatorAPIIntegrations{
 	public function getData($type, $params){
 
 		// add api keys
-		$params[self::SETTINGS_GOOGLE_API_KEY] = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_GOOGLE_API_KEY);
 		$params[self::SETTINGS_OPEN_WEATHER_API_KEY] = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_OPEN_WEATHER_API_KEY);
 		$params[self::SETTINGS_EXCHANGE_RATE_API_KEY] = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_EXCHANGE_RATE_API_KEY);
 
@@ -383,13 +381,63 @@ class UniteCreatorAPIIntegrations{
 	}
 
 	/**
-	 * get google api key
+	 * authorize google service
 	 */
-	private function getGoogleApiKey(){
+	private function authorizeGoogleService($service){
 
-		$key = $this->getRequiredParam(self::SETTINGS_GOOGLE_API_KEY, "Google API key");
+		try{
+			$service->setAccessToken(UEGoogleAPIHelper::getFreshAccessToken());
+		}catch(Exception $exception){
+			$this->authorizeGoogleServiceWithApiKey($service);
+		}
+	}
 
-		return $key;
+	/**
+	 * authorize google service with api key
+	 */
+	private function authorizeGoogleServiceWithApiKey($service){
+
+		$service->setApiKey(UEGoogleAPIHelper::getApiKey());
+	}
+
+	/**
+	 * has google credentials
+	 */
+	private function hasGoogleCredentials(){
+
+		try{
+			$token = UEGoogleAPIHelper::getFreshAccessToken();
+
+			$hasCredentials = empty($token) === false;
+		}catch(Exception $exception){
+			$key = UEGoogleAPIHelper::getApiKey();
+
+			$hasCredentials = empty($key) === false;
+		}
+
+		return $hasCredentials;
+	}
+
+	/**
+	 * validate google api key
+	 */
+	private function validateGoogleApiKey(){
+
+		$key = UEGoogleAPIHelper::getApiKey();
+
+		if(empty($key) === true)
+			UniteFunctionsUC::throwError("Google API key is missing.");
+	}
+
+	/**
+	 * validate google credentials
+	 */
+	private function validateGoogleCredentials(){
+
+		$hasCredentials = $this->hasGoogleCredentials();
+
+		if($hasCredentials === false)
+			UniteFunctionsUC::throwError("Google credentials are missing.");
 	}
 
 	/**
@@ -461,14 +509,17 @@ class UniteCreatorAPIIntegrations{
 
 		$fields = array();
 
-		$fields = $this->addGoogleEmptyApiKeyField($fields, self::GOOGLE_EVENTS_FIELD_EMPTY_API_KEY);
+		if(GlobalsUnlimitedElements::$enableGoogleCalendarScopes === true)
+			$fields = $this->addGoogleEmptyCredentialsField($fields, self::GOOGLE_EVENTS_FIELD_EMPTY_CREDENTIALS);
+		else
+			$fields = $this->addGoogleEmptyApiKeyField($fields, self::GOOGLE_EVENTS_FIELD_EMPTY_CREDENTIALS);
 
 		$fields = array_merge($fields, array(
 			array(
 				"id" => self::GOOGLE_EVENTS_FIELD_CALENDAR_ID,
 				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
 				"text" => __("Calendar ID", "unlimited-elements-for-elementor"),
-				"desc" => sprintf(__("You can find the calendar ID on a calendar's \"Settings\" page under \"Integrate Calendar\".<br />The calendar must be <a href='%s' target='_blank'>public</a>.", "unlimited-elements-for-elementor"), "https://support.google.com/calendar/answer/37082"),
+				"desc" => __("You can find the calendar ID on a calendar's \"Settings\" page under \"Integrate Calendar\".", "unlimited-elements-for-elementor"),
 			),
 			array(
 				"id" => self::GOOGLE_EVENTS_FIELD_RANGE,
@@ -547,14 +598,14 @@ class UniteCreatorAPIIntegrations{
 
 		$fields = array();
 
-		$fields = $this->addGoogleEmptyApiKeyField($fields, self::GOOGLE_SHEETS_FIELD_EMPTY_API_KEY);
+		$fields = $this->addGoogleEmptyCredentialsField($fields, self::GOOGLE_SHEETS_FIELD_EMPTY_CREDENTIALS);
 
 		$fields = array_merge($fields, array(
 			array(
 				"id" => self::GOOGLE_SHEETS_FIELD_ID,
 				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
 				"text" => __("Spreadsheet ID", "unlimited-elements-for-elementor"),
-				"desc" => sprintf(__("You can find the spreadsheet ID in a Google Sheets URL: %s<br />The spreadsheet must be <a href='%s' target='_blank'>public</a>.", "unlimited-elements-for-elementor"), "https://docs.google.com/spreadsheets/d/<b>[YOUR_SPREADSHEET_ID]</b>/edit#gid=0", "https://support.google.com/drive/answer/2494822"),
+				"desc" => sprintf(__("You can find the spreadsheet ID in a Google Sheets URL: %s", "unlimited-elements-for-elementor"), "https://docs.google.com/spreadsheets/d/<b>[YOUR_SPREADSHEET_ID]</b>/edit#gid=0"),
 			),
 			array(
 				"id" => self::GOOGLE_SHEETS_FIELD_SHEET_ID,
@@ -626,14 +677,17 @@ class UniteCreatorAPIIntegrations{
 
 		$fields = array();
 
-		$fields = $this->addGoogleEmptyApiKeyField($fields, self::YOUTUBE_PLAYLIST_FIELD_EMPTY_API_KEY);
+		if(GlobalsUnlimitedElements::$enableGoogleYoutubeScopes === true)
+			$fields = $this->addGoogleEmptyCredentialsField($fields, self::YOUTUBE_PLAYLIST_FIELD_EMPTY_CREDENTIALS);
+		else
+			$fields = $this->addGoogleEmptyApiKeyField($fields, self::YOUTUBE_PLAYLIST_FIELD_EMPTY_CREDENTIALS);
 
 		$fields = array_merge($fields, array(
 			array(
 				"id" => self::YOUTUBE_PLAYLIST_FIELD_ID,
 				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
 				"text" => __("Playlist ID", "unlimited-elements-for-elementor"),
-				"desc" => sprintf(__("You can find the playlist ID in a YouTube URL: <br />— %s<br />— %s<br />The playlist must be <a href='%s' target='_blank'>public</a>.", "unlimited-elements-for-elementor"), "https://youtube.com/playlist?list=<b>[YOUR_PLAYLIST_ID]</b>", "https://youtube.com/watch?v=aBC-123xYz&list=<b>[YOUR_PLAYLIST_ID]</b>", "https://support.google.com/youtube/answer/3127309"),
+				"desc" => sprintf(__("You can find the playlist ID in a YouTube URL: <br />— %s<br />— %s", "unlimited-elements-for-elementor"), "https://youtube.com/playlist?list=<b>[YOUR_PLAYLIST_ID]</b>", "https://youtube.com/watch?v=aBC-123xYz&list=<b>[YOUR_PLAYLIST_ID]</b>"),
 			),
 			array(
 				"id" => self::YOUTUBE_PLAYLIST_FIELD_ORDER,
@@ -745,6 +799,11 @@ class UniteCreatorAPIIntegrations{
 
 		$data = array();
 
+		if(GlobalsUnlimitedElements::$enableGoogleCalendarScopes === true)
+			$this->validateGoogleCredentials();
+		else
+			$this->validateGoogleApiKey();
+
 		$calendarId = $this->getRequiredParam(self::GOOGLE_EVENTS_FIELD_CALENDAR_ID, "Calendar ID");
 		$eventsRange = $this->getParam(self::GOOGLE_EVENTS_FIELD_RANGE);
 		$eventsRange = $this->getGoogleEventsDatesRange($eventsRange);
@@ -767,8 +826,12 @@ class UniteCreatorAPIIntegrations{
 		$orderDirection = isset($orderDirectionMap[$eventsOrder]) ? $orderDirectionMap[$eventsOrder] : null;
 
 		$calendarService = new UEGoogleAPICalendarService();
-		$calendarService->setApiKey($this->getGoogleApiKey());
 		$calendarService->setCacheTime($cacheTime);
+
+		if(GlobalsUnlimitedElements::$enableGoogleCalendarScopes === true)
+			$this->authorizeGoogleService($calendarService);
+		else
+			$this->authorizeGoogleServiceWithApiKey($calendarService);
 
 		$eventsParams = array(
 			"singleEvents" => "true",
@@ -852,12 +915,15 @@ class UniteCreatorAPIIntegrations{
 
 		$data = array();
 
+		$this->validateGoogleApiKey();
+
 		$placeId = $this->getRequiredParam(self::GOOGLE_REVIEWS_FIELD_PLACE_ID, "Place ID");
 		$cacheTime = $this->getCacheTimeParam(self::GOOGLE_REVIEWS_FIELD_CACHE_TIME, self::GOOGLE_REVIEWS_DEFAULT_CACHE_TIME);
 
 		$placesService = new UEGoogleAPIPlacesService();
-		$placesService->setApiKey($this->getGoogleApiKey());
 		$placesService->setCacheTime($cacheTime);
+
+		$this->authorizeGoogleServiceWithApiKey($placesService);
 
 		$place = $placesService->getDetails($placeId, array(
 			"fields" => "reviews",
@@ -885,14 +951,17 @@ class UniteCreatorAPIIntegrations{
 
 		$data = array();
 
+		$this->validateGoogleCredentials();
+
 		$spreadsheetId = $this->getRequiredParam(self::GOOGLE_SHEETS_FIELD_ID, "Spreadsheet ID");
 		$sheetId = $this->getParam(self::GOOGLE_SHEETS_FIELD_SHEET_ID, 0);
 		$sheetId = intval($sheetId);
 		$cacheTime = $this->getCacheTimeParam(self::GOOGLE_SHEETS_FIELD_CACHE_TIME, self::GOOGLE_SHEETS_DEFAULT_CACHE_TIME);
 
 		$sheetsService = new UEGoogleAPISheetsService();
-		$sheetsService->setApiKey($this->getGoogleApiKey());
 		$sheetsService->setCacheTime($cacheTime);
+
+		$this->authorizeGoogleService($sheetsService);
 
 		// get sheet title for the range
 		$spreadsheet = $sheetsService->getSpreadsheet($spreadsheetId);
@@ -981,6 +1050,11 @@ class UniteCreatorAPIIntegrations{
 
 		$data = array();
 
+		if(GlobalsUnlimitedElements::$enableGoogleYoutubeScopes === true)
+			$this->validateGoogleCredentials();
+		else
+			$this->validateGoogleApiKey();
+
 		$playlistId = $this->getRequiredParam(self::YOUTUBE_PLAYLIST_FIELD_ID, "Playlist ID");
 		$itemsOrder = $this->getParam(self::YOUTUBE_PLAYLIST_FIELD_ORDER);
 		$itemsLimit = $this->getParam(self::YOUTUBE_PLAYLIST_FIELD_LIMIT, self::YOUTUBE_PLAYLIST_DEFAULT_LIMIT);
@@ -1009,8 +1083,12 @@ class UniteCreatorAPIIntegrations{
 		$orderDirection = isset($orderDirectionMap[$itemsOrder]) ? $orderDirectionMap[$itemsOrder] : null;
 
 		$youtubeService = new UEGoogleAPIYouTubeService();
-		$youtubeService->setApiKey($this->getGoogleApiKey());
 		$youtubeService->setCacheTime($cacheTime);
+
+		if(GlobalsUnlimitedElements::$enableGoogleYoutubeScopes === true)
+			$this->authorizeGoogleService($youtubeService);
+		else
+			$this->authorizeGoogleServiceWithApiKey($youtubeService);
 
 		$items = $youtubeService->getPlaylistItems($playlistId, array("maxResults" => $itemsLimit));
 
@@ -1082,14 +1160,11 @@ class UniteCreatorAPIIntegrations{
 	 */
 	private function addEmptyApiKeyField($fields, $key, $id, $name){
 
-		$settingsUrl = HelperUC::getViewUrl(GlobalsUnlimitedElements::VIEW_SETTINGS_ELEMENTOR, "#tab=integrations");
-		$settingsLabel = esc_html__("General Settings", "unlimited-elements-for-elementor");
-
 		if(empty($key) === true){
 			$fields[] = array(
 				"id" => $id,
 				"type" => UniteCreatorDialogParam::PARAM_STATIC_TEXT,
-				"text" => sprintf(__("%s key is missing. Please add the key in the <a href='%s' target='_blank'>%s</a>.", "unlimited-elements-for-elementor"), $name, $settingsUrl, $settingsLabel),
+				"text" => sprintf(__("%s key is missing. Please add the key in the \"General Settings > Integrations\".", "unlimited-elements-for-elementor"), $name),
 			);
 		}
 
@@ -1101,9 +1176,27 @@ class UniteCreatorAPIIntegrations{
 	 */
 	private function addGoogleEmptyApiKeyField($fields, $id){
 
-		$key = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_GOOGLE_API_KEY);
+		$key = UEGoogleAPIHelper::getApiKey();
 
 		$fields = $this->addEmptyApiKeyField($fields, $key, $id, "Google API");
+
+		return $fields;
+	}
+
+	/**
+	 * add google empty credentials field
+	 */
+	private function addGoogleEmptyCredentialsField($fields, $id){
+
+		$hasCredentials = $this->hasGoogleCredentials();
+
+		if($hasCredentials === false){
+			$fields[] = array(
+				"id" => $id,
+				"type" => UniteCreatorDialogParam::PARAM_STATIC_TEXT,
+				"text" => __("Google credentials are missing. Please connect to Google or add an API key in the \"General Settings > Integrations\".", "unlimited-elements-for-elementor"),
+			);
+		}
 
 		return $fields;
 	}

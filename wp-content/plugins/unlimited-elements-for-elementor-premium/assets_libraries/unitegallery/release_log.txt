@@ -1,5 +1,8 @@
 
 
+version 1.7.75
+
+-added iframe video type
 
 version 1.7.74
 

@@ -130,10 +130,6 @@ class AutomaticEmailScheduler {
           $this->sendingQueuesRepository->remove($queue);
         }
         $this->scheduledTaskSubscribersRepository->deleteByScheduledTask($task);
-        // In case any of task associated SchedulesTaskSubscriberEntity was loaded we need to detach them
-        foreach ($task->getSubscribers() as $taskSubscriber) {
-          $this->scheduledTaskSubscribersRepository->detach($taskSubscriber);
-        }
         $this->scheduledTasksRepository->remove($task);
         $this->scheduledTasksRepository->flush();
       }
@@ -156,6 +152,9 @@ class AutomaticEmailScheduler {
     $sendingQueue = new SendingQueueEntity();
     $sendingQueue->setNewsletter($newsletter);
     $sendingQueue->setTask($scheduledTask);
+    // Because we changed the way how to updateCounts after sending we need to set initial counts
+    $sendingQueue->setCountTotal($subscriber ? 1 : 0);
+    $sendingQueue->setCountToProcess($subscriber ? 1 : 0);
     $scheduledTask->setSendingQueue($sendingQueue);
 
     if ($meta) {

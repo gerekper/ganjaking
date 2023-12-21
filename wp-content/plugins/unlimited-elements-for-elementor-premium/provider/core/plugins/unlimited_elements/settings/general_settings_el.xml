@@ -34,8 +34,8 @@
     <field name="js_saparate"
       type="boolean"
       default="false"
-      label="		Each JS in saparate tag"
-      description="if yes, each js will be put in saparate tag with it's own id. good for optimization plugins">
+      label="		Each JS in separate tag"
+      description="if yes, each js will be put in separate tag with it's own id. good for optimization plugins">
     </field>
 
     <field type="control" parent="js_in_footer" child="js_saparate" ctype="show" value="true" />
@@ -54,13 +54,6 @@
       default="true"
       label="		Output Wrapping HTML Comments"
       description="Output comments before and after widgets in source html output">
-    </field>
-
-    <field name="enable_import_export"
-      type="boolean"
-      default="true"
-      label="		Show Import and Export Buttons In Templates"
-      description="Show special import and export buttons (import and export with images) in elementor saved templates screen">
     </field>
 
     <field name="enable_backgrounds"
@@ -142,17 +135,20 @@
     <field name="instagram_access_token"
       type="text"
       label="Instagram Access Token"
-      default="">
+      default=""
+      hidden="true"
+      >
     </field>
 
     <field name="instagram_user_id"
-      type="text"
+      type="hidden"
       label="Instagram User ID"
-      default="">
+      default=""
+      >
     </field>
 
     <field name="instagram_username"
-      type="text"
+      type="hidden"
       label="Instagram Username"
       default="">
     </field>
@@ -173,8 +169,10 @@
 
     <field name="google_connect_desc"
       type="statictext"
-      label="Used in Google services (Sheets etc.) related widgets for reading and writing data.">
+      label="Used in Google services (Google Sheets) related widgets for reading and writing data.">
     </field>
+
+<!--        label="Used in Google services (Calendar, Sheets, YouTube etc.) related widgets for reading and writing data."> */ -->
 
     <field name="google_connect_integration"
       type="custom"
@@ -187,6 +185,18 @@
       label="Google Credentials">
     </field>
 
+    <field name="google_api_heading"
+      type="statictext"
+      label="&lt;b&gt;Google API&lt;/b&gt;">
+    </field>
+
+    <field name="google_api_key"
+      type="text"
+      label="Google API Key"
+      description="Used in Google services (Calendar, Places, Sheets, YouTube etc.) related widgets for reading data. &lt;a href='https://support.google.com/googleapi/answer/6158862' target='_blank'&gt;Read this article&lt;/a&gt; for instructions."
+      default="">
+    </field>
+
     <field name="google_map_heading"
       type="statictext"
       label="&lt;b&gt;Google Maps&lt;/b&gt;">
@@ -196,18 +206,6 @@
       type="text"
       label="Google Map API Key"
       description="Used to output a map in Google Maps related widgets. &lt;a href='https://unlimited-elements.com/docs/google-map-api-key/' target='_blank'&gt;Read this article&lt;/a&gt; for instructions."
-      default="">
-    </field>
-
-    <field name="google_api_heading"
-      type="statictext"
-      label="&lt;b&gt;Google API&lt;/b&gt;">
-    </field>
-
-    <field name="google_api_key"
-      type="text"
-      label="Google API Key"
-      description="Used in Google services (Places, Sheets, YouTube etc.) related widgets for reading data. &lt;a href='https://support.google.com/googleapi/answer/6158862' target='_blank'&gt;Read this article&lt;/a&gt; for instructions."
       default="">
     </field>
 

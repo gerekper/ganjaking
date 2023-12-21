@@ -421,35 +421,6 @@ class HelperProviderUC{
 
 
 	/**
-	 * set general settings
-	 */
-	public static function setGeneralSettings(UniteCreatorSettings $objSettings){
-
-		//add general settings
-
-		//add platform related settings
-
-		$arrSettingsFilepaths = array();
-
-		$filepathGeneral = GlobalsUC::$pathProvider."settings/general_settings.xml";
-		UniteFunctionsUC::validateFilepath($filepathGeneral, "Provider general settings");
-
-		$arrSettingsFilepaths[] = $filepathGeneral;
-
-		$arrSettingsFilepaths = UniteProviderFunctionsUC::applyFilters(UniteCreatorFilters::FILTER_GET_GENERAL_SETTINGS_FILEPATH, $arrSettingsFilepaths);
-
-		foreach($arrSettingsFilepaths as $filepath){
-			UniteFunctionsUC::validateFilepath($filepath, "plugin related settings xml file");
-			$objSettings->addFromXmlFile($filepath);
-		}
-
-		$objSettings = self::modifyGeneralSettings($objSettings);
-
-		return($objSettings);
-	}
-
-
-	/**
 	 * check if layout editor plugin exists, or exists addons for it
 	 */
 	public static function isLayoutEditorExists(){
@@ -461,15 +432,6 @@ class HelperProviderUC{
 		return(false);
 	}
 
-
-	/**
-	 * register widgets
-	 */
-	public static function registerWidgets(){
-
-		//register_widget("Blox_WidgetLayout");
-
-	}
 
 	/**
 	 * on plugins loaded, load textdomains
@@ -536,10 +498,7 @@ class HelperProviderUC{
 
 		if($disableDeprecated == true)
 			UniteFunctionsUC::disableDeprecatedWarnings();
-
-		add_filter(UniteCreatorFilters::FILTER_MODIFY_GENERAL_SETTINGS, array("HelperProviderUC", "setGeneralSettings"));
-
-		//add_action("widgets_init", array("HelperProviderUC", "registerWidgets"));
+		
 		add_action("plugins_loaded", array("HelperProviderUC", "onPluginsLoaded"));
 
 		$showPHPError = HelperProviderCoreUC_EL::getGeneralSetting("show_php_error");

@@ -67,7 +67,7 @@ class DashboardWidget {
 	public function init() {
 
 		// This widget should be displayed for certain high-level users only.
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			return;
 		}
 
@@ -937,7 +937,7 @@ class DashboardWidget {
 	 */
 	public function get_email_stats_count_by_date_sql( $date_start = null, $date_end = null ) {
 
-		if ( ! current_user_can( 'manage_options' ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 			return [];
 		}
 
@@ -1003,7 +1003,7 @@ class DashboardWidget {
 			'delivered' => 0,
 		];
 
-		if ( ! current_user_can( 'manage_options' ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 			return $data;
 		}
 
@@ -1100,7 +1100,7 @@ class DashboardWidget {
 
 		check_admin_referer( 'wp_mail_smtp_' . static::SLUG . '_nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 
@@ -1120,7 +1120,7 @@ class DashboardWidget {
 
 		check_admin_referer( 'wp_mail_smtp_' . static::SLUG . '_nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 
@@ -1141,7 +1141,7 @@ class DashboardWidget {
 
 		check_admin_referer( 'wp_mail_smtp_' . static::SLUG . '_nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 

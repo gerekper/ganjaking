@@ -3190,8 +3190,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		return ($alt);
 	}
 
-	public static function a___________USER_DATA__________(){}
-	
+	public static function a___________USER_DATA__________(){
+	}
+
 	/**
 	 *
 	 * validate permission that the user is admin, and can manage options.
@@ -3874,7 +3875,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	 */
 	public static function isArchiveLocation(){
 
-		if(is_single())
+		if(is_singular())
 			return (false);
 
 		if((is_archive() || is_tax() || is_home() || is_search()))

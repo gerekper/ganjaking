@@ -6,7 +6,7 @@
  * Author: ThemeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 6.4
+ * Version: 6.4.0.1
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Tested up to: 7.0

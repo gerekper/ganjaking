@@ -139,7 +139,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$isNeedCheckCatalog = $objWebAPI->isTimeToCheckCatalog();
 			
 			$arrGeneralSettings = array();
-			$arrGeneralSettings["color_picker_type"] = HelperUC::getGeneralSetting("color_picker_type");
+			$arrGeneralSettings["color_picker_type"] = GlobalsUC::$colorPickerType;
 			
 			$arrGeneralSettings = UniteProviderFunctionsUC::applyFilters(UniteCreatorFilters::FILTER_CLIENTSIDE_GENERAL_SETTINGS, $arrGeneralSettings);
 			
@@ -642,7 +642,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			
 			dmp($message);
 			
-			if(GlobalsUC::SHOW_TRACE == true || $forceTrace === true)
+			if(GlobalsUC::$SHOW_TRACE == true || $forceTrace === true)
 				dmp($trace);
 			else
 				if($e instanceof Error)
@@ -674,10 +674,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			
 			$trace = "";
 			
-			$showTrace = GlobalsUC::SHOW_TRACE_FRONT;
+			$showTrace = GlobalsUC::$SHOW_TRACE_FRONT;
 			if(UniteProviderFunctionsUC::isAdmin() == true)
-				$showTrace = GlobalsUC::SHOW_TRACE;
-				
+				$showTrace = GlobalsUC::$SHOW_TRACE;
+			
 			if($showTrace)
 				$trace = $e->getTraceAsString();
 			
@@ -1075,7 +1075,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		/**
 		 * put hide id's css
-		 * iput id1,id2 - comma saparated id's list
+		 * iput id1,id2 - comma separated id's list
 		 */
 		public static function putHideIdsCss($strIDs){
 			

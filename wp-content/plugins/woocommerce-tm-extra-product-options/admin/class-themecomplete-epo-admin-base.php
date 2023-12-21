@@ -334,11 +334,17 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 									$saved_epos[ $key ]['price_per_currency'][ $mt_prefix ] = $saved_epos[ $key ]['price'] + $tax_price;
 								}
 								$option_price_after = $saved_epos[ $key ]['price'];
+								if ( ! $new_currency ) {
+									$option_price_after = apply_filters( 'wc_epo_get_current_currency_price', $option_price_after, THEMECOMPLETE_EPO()->get_saved_element_price_type( $epo ), null, $order_currency, $_product->get_price() );
+								}
 
 								$line_total    = $line_total + ( $option_price_after * $qty );
 								$line_subtotal = $line_subtotal + ( $option_price_after * $qty );
 
 								$saved_epos[ $key ]['price'] = $saved_epos[ $key ]['price'] + $tax_price;
+								if ( ! $new_currency ) {
+									$saved_epos[ $key ]['price'] = apply_filters( 'wc_epo_get_current_currency_price', $saved_epos[ $key ]['price'], THEMECOMPLETE_EPO()->get_saved_element_price_type( $epo ), null, $order_currency, $_product->get_price() );
+								}
 								if ( $new_currency ) {
 									$saved_epos[ $key ]['price_per_currency'][ $mt_prefix ] = $saved_epos[ $key ]['price'];
 								}
@@ -594,7 +600,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 							}
 						}
 						if ( ! $new_currency ) {
-							$epo['price'] = apply_filters( 'wc_epo_get_current_currency_price', $epo['price'], $type, null, $order_currency );
+							$epo['price'] = apply_filters( 'wc_epo_get_current_currency_price', $epo['price'], $type, null, $order_currency, false, $order_currency );
 						}
 
 						if ( ! isset( $epo['quantity'] ) ) {
@@ -1268,6 +1274,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			wp_enqueue_style( 'themecomplete-fontawesome', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/fontawesome' . $ext . '.css', [], '5.12', 'screen' );
 			wp_enqueue_style( 'themecomplete-animate', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/animate' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 			wp_enqueue_style( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/toastr' . $ext . '.css', [], '2.1.4', 'screen' );
+			wp_enqueue_style( 'spectrum', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/spectrum' . $ext . '.css', [], '2.0', 'screen' );
 			wp_enqueue_style( 'themecomplete-epo-admin-font', THEMECOMPLETE_EPO_ADMIN_GLOBAL()->admin_font_url(), [], '1.0.0' );
 			wp_enqueue_style( 'themecomplete-epo-admin-settings', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-settings' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION );
 		}
@@ -1322,6 +1329,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
 			wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
 			wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', [], '2.1.4', true );
+			wp_register_script( 'spectrum', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/spectrum' . $ext . '.js', [ 'jquery' ], '2.0', true );
 			wp_register_script(
 				'themecomplete-epo-admin-settings',
 				THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/tm-epo-admin-settings' . $ext . '.js',
@@ -1330,6 +1338,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 					'json2',
 					'themecomplete-api',
 					'toastr',
+					'spectrum',
 					'themecomplete-tabs',
 					'jquery-tcfloatbox',
 					'jquery-tctooltip',
@@ -1351,6 +1360,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				'i18n_yes'              => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
 				'i18n_no'               => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ),
 				'i18n_cancel'           => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
+				'i18n_close'            => esc_html__( 'Close', 'woocommerce-tm-extra-product-options' ),
 				'i18n_constant_name'    => esc_html__( 'Constant name', 'woocommerce-tm-extra-product-options' ),
 				'i18n_constant_value'   => esc_html__( 'Constant value', 'woocommerce-tm-extra-product-options' ),
 				'i18n_must_concent'     => esc_html__( 'Please check the consent checkbox to give your permission to send your data to the server and try again.', 'woocommerce-tm-extra-product-options' ),

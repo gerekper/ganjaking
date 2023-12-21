@@ -116,7 +116,7 @@ class WoocommerceProductFeedsFeedManagerListTable extends WP_List_Table {
 	protected function column_default( $item, $column_name ) {
 		$callable = apply_filters( 'woocommerce_gpf_feed_list_column_callback', null, $column_name );
 		if ( ! is_callable( $callable ) ) {
-			echo esc_html( htmlspecialchars( $column_name ) );
+			echo esc_html( $column_name );
 			return;
 		}
 		call_user_func( $callable, $item, $column_name );

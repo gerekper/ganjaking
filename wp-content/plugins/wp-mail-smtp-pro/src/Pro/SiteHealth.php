@@ -4,6 +4,7 @@ namespace WPMailSMTP\Pro;
 
 use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
+use WPMailSMTP\SiteHealth as SiteHealthLite;
 
 /**
  * Class SiteHealth adds the plugin status and information to the WP Site Health admin page.
@@ -75,6 +76,10 @@ class SiteHealth {
 	 */
 	public function register_pro_debug_information( $debug_info ) {
 
+		if ( ! isset( $debug_info[ SiteHealthLite::DEBUG_INFO_SLUG ] ) ) {
+			return $debug_info;
+		}
+
 		$pro_fields = [];
 
 		// Install date.
@@ -95,8 +100,8 @@ class SiteHealth {
 			);
 		}
 
-		$debug_info[ \WPMailSMTP\SiteHealth::DEBUG_INFO_SLUG ]['fields'] = array_merge(
-			$debug_info[ \WPMailSMTP\SiteHealth::DEBUG_INFO_SLUG ]['fields'],
+		$debug_info[ SiteHealthLite::DEBUG_INFO_SLUG ]['fields'] = array_merge(
+			$debug_info[ SiteHealthLite::DEBUG_INFO_SLUG ]['fields'],
 			$pro_fields
 		);
 
@@ -121,7 +126,7 @@ class SiteHealth {
 			'status'      => 'good',
 			'badge'       => array(
 				'label' => wp_mail_smtp()->get_site_health()->get_label(),
-				'color' => \WPMailSMTP\SiteHealth::BADGE_COLOR,
+				'color' => SiteHealthLite::BADGE_COLOR,
 			),
 			'description' => '',
 			'actions'     => sprintf(
@@ -137,21 +142,9 @@ class SiteHealth {
 		$result['description'] = $license_status['message'];
 
 		if ( $license_status['valid'] === false ) {
-			$result = array(
-'label' => esc_html__( 'WP Mail SMTP Pro license is active and valid', 'wp-mail-smtp-pro' ),
-'status' => 'good',
-'badge' => array(
-'label' => wp_mail_smtp()->get_site_health()->get_label(),
-'color' => \WPMailSMTP\SiteHealth::BADGE_COLOR,
-),
-'description' => '',
-'actions' => sprintf(
-'<p><a href="%s">%s</a></p>',
-esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
-esc_html__( 'View license setting', 'wp-mail-smtp-pro' )
-),
-'test' => 'wp_mail_smtp_pro_license_check',
-);
+			$result['label']          = esc_html__( 'WP Mail SMTP Pro license is invalid', 'wp-mail-smtp-pro' );
+			$result['badge']['color'] = 'orange';
+			$result['status']         = 'recommended';
 		}
 
 		wp_send_json_success( $result );
@@ -175,7 +168,7 @@ esc_html__( 'View license setting', 'wp-mail-smtp-pro' )
 			'status'      => 'good',
 			'badge'       => array(
 				'label' => wp_mail_smtp()->get_site_health()->get_label(),
-				'color' => \WPMailSMTP\SiteHealth::BADGE_COLOR,
+				'color' => SiteHealthLite::BADGE_COLOR,
 			),
 			'description' => sprintf(
 				'<p>%s</p>',

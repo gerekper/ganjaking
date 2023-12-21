@@ -516,35 +516,12 @@ class WC_XR_Line_Item {
 		$tax_type = '';
 		$tax_name = '';
 
-		// Find all matches for rate and report tax type.
+		// Find all matches for rate and report tax type OR rate and exact tax name.
 		$matches = array();
 		foreach ( $tax_rates as $tax_rate ) {
-			if ( abs( $rate_to_find - $tax_rate['effective_rate'] ) <= 0.0001 && $report_tax_type === $tax_rate['report_tax_type'] ) {
+			if ( abs( $rate_to_find - $tax_rate['effective_rate'] ) <= 0.0001 && ( $report_tax_type === $tax_rate['report_tax_type'] || strcasecmp( $tax_rate['name'], $label_to_find ) === 0 ) ) {
 				$logger->write( " - Found match: Name ({$tax_rate['name']}), Rate ({$tax_rate[ 'effective_rate' ]}), TaxType ({$tax_rate[ 'tax_type' ]}) ReportTaxType ({$tax_rate[ 'report_tax_type' ]})" );
 				$matches[] = $tax_rate;
-			}
-		}
-
-		/**
-		 * Check for exact label match for Zero tax rate
-		 * Only search for exact label match IF.
-		 *  - Tax rate is Zero.
-		 *  - No matches found by Rate && ReportTaxType.
-		 *
-		 * @see https://github.com/woocommerce/woocommerce-xero/issues/266.
-		 */
-		if ( empty( $matches ) && $rate_to_find <= 0 ) {
-			$zero_tax_type = false;
-			$logger->write( 'No tax rates found for given Rate and ReportTaxType. Searching zero tax rates by exact label match' );
-			foreach ( $tax_rates as $tax_rate ) {
-				if ( abs( $rate_to_find - $tax_rate['effective_rate'] ) <= 0.0001 && strcasecmp( $tax_rate['name'], $label_to_find ) === 0 ) {
-					$logger->write( " - Found Zero tax rate match: Name ({$tax_rate['name']}), Rate ({$tax_rate['effective_rate']}), TaxType ({$tax_rate['tax_type']}) ReportTaxType ({$tax_rate['report_tax_type']})" );
-					$zero_tax_type = $tax_rate['tax_type'];
-					break;
-				}
-			}
-			if ( false !== $zero_tax_type ) {
-				return $zero_tax_type;
 			}
 		}
 

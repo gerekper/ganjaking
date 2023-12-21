@@ -158,6 +158,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Automation\Engine\WordPress::class)->setPublic(true);
     // Automation - API endpoints
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Automations\AutomationsGetEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\Automations\AutomationTemplateGetEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Automations\AutomationTemplatesGetEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Automations\AutomationsCreateFromTemplateEndpoint::class)->setPublic(true);
@@ -628,6 +629,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\WooCommerce\WooSystemInfo::class)->setPublic(true);
     $container->autowire(\MailPoet\WooCommerce\WooSystemInfoController::class)->setPublic(true);
     $container->autowire(\MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelController::class)->setPublic(true);
+    $container->autowire(\MailPoet\WooCommerce\MultichannelMarketing\MPMarketingChannelDataController::class)->setPublic(true);
 
     // WooCommerce Subscriptions
     $container->autowire(\MailPoet\WooCommerce\WooCommerceSubscriptions\Helper::class)->setPublic(true);

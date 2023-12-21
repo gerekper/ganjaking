@@ -1,0 +1,192 @@
+[
+    {
+        "version": "6.4",
+        "list_screen": {
+            "title": "🛒 Customer View",
+            "type": "wp-users",
+            "id": "6542182b81449",
+            "updated": 1698832424,
+            "columns": {
+                "username": {
+                    "type": "username",
+                    "label": "Username",
+                    "width": "257",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "username"
+                },
+                "800c328e978d50": {
+                    "type": "column-wc-user-address",
+                    "label": "Address",
+                    "width": "225",
+                    "width_unit": "px",
+                    "address_type": "billing",
+                    "address_property": "address_1",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "800c328e978d50"
+                },
+                "a4e4c99d0e5608": {
+                    "type": "column-wc-user-address",
+                    "label": "Postcode",
+                    "width": "141",
+                    "width_unit": "px",
+                    "address_type": "billing",
+                    "address_property": "postcode",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "a4e4c99d0e5608"
+                },
+                "3e1561f763126e": {
+                    "type": "column-wc-user-address",
+                    "label": "City",
+                    "width": "188",
+                    "width_unit": "px",
+                    "address_type": "billing",
+                    "address_property": "city",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "3e1561f763126e"
+                },
+                "9c823b791eb850": {
+                    "type": "column-wc-user-address",
+                    "label": "Company",
+                    "width": "180",
+                    "width_unit": "px",
+                    "address_type": "billing",
+                    "address_property": "company",
+                    "export": "on",
+                    "sort": "on",
+                    "edit": "on",
+                    "bulk_edit": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "9c823b791eb850"
+                },
+                "57a26d1790624c": {
+                    "type": "column-wc-user-customer_since",
+                    "label": "Customer Since",
+                    "width": "",
+                    "width_unit": "%",
+                    "date_format": "wp_default",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "57a26d1790624c"
+                },
+                "1e5b663039999a": {
+                    "type": "column-wc-user-total-sales",
+                    "label": "Total Sales",
+                    "width": "142",
+                    "width_unit": "px",
+                    "export": "on",
+                    "sort": "on",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "1e5b663039999a"
+                },
+                "4eea2d7d604188": {
+                    "type": "column-wc-user-first_order",
+                    "label": "First Order",
+                    "width": "222",
+                    "width_unit": "px",
+                    "order_display": "date",
+                    "date_format": "wp_default",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "4eea2d7d604188"
+                },
+                "368be47ae3126e": {
+                    "type": "column-wc-user-last_order",
+                    "label": "Last Order",
+                    "width": "180",
+                    "width_unit": "px",
+                    "order_status": [
+                        "wc-completed"
+                    ],
+                    "order_display": "date",
+                    "date_format": "wp_default",
+                    "export": "on",
+                    "sort": "on",
+                    "name": "368be47ae3126e"
+                },
+                "33d6af2c20c49c": {
+                    "type": "column-wc-user-order_count",
+                    "label": "# Orders",
+                    "width": "",
+                    "width_unit": "%",
+                    "order_status": [
+                        "wc-completed"
+                    ],
+                    "export": "on",
+                    "sort": "off",
+                    "search": "on",
+                    "filter": "off",
+                    "filter_label": "",
+                    "name": "33d6af2c20c49c"
+                }
+            },
+            "settings": {
+                "roles": [],
+                "users": [],
+                "sorting": "0",
+                "sorting_order": "asc",
+                "hide_inline_edit": "off",
+                "hide_bulk_edit": "off",
+                "hide_bulk_delete": "off",
+                "hide_smart_filters": "off",
+                "hide_segments": "off",
+                "hide_export": "off",
+                "hide_conditional_formatting": "off",
+                "resize_columns": "off",
+                "column_order": "off",
+                "hide_filters": "off",
+                "hide_submenu": "off",
+                "hide_search": "off",
+                "hide_bulk_actions": "off",
+                "hide_row_actions": "off",
+                "horizontal_scrolling": "on",
+                "primary_column": "",
+                "filter_segment": "65421c9ec73d1",
+                "wrapping": "clip"
+            }
+        },
+        "segments": [
+            {
+                "key": "65421c9ec73d1",
+                "list_screen_id": "6542182b81449",
+                "name": "Customer with orders",
+                "url_parameters": {
+                    "ac-rules": "{\"condition\":\"AND\",\"rules\":[{\"uid\":\"59cb8625189374\",\"id\":\"33d6af2c20c49c\",\"operator\":\"greater\",\"value\":0}]}",
+                    "orderby": "",
+                    "order": "",
+                    "s": "",
+                    "post_status": "",
+                    "comment_status": "",
+                    "acp_filter_action": "Filter"
+                },
+                "date_created": "1698831518"
+            }
+        ]
+    }
+]

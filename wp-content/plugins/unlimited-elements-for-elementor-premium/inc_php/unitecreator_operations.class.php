@@ -19,18 +19,6 @@ class UCOperations extends UniteElementsBaseUC{
 	private function a_______GENERAL_SETTING________(){
 	}
 
-	/**
-	 * get general settings
-	 */
-	public function getGeneralSettings(){
-
-		if(self::$arrGeneralSettings === null){
-			$objSettings = $this->getGeneralSettingsObject();
-			self::$arrGeneralSettings = $objSettings->getArrValues();
-		}
-
-		return (self::$arrGeneralSettings);
-	}
 
 	/**
 	 * get general settings values based on custom object
@@ -64,25 +52,6 @@ class UCOperations extends UniteElementsBaseUC{
 		return ($key);
 	}
 
-	/**
-	 * get general settings object
-	 */
-	public function getGeneralSettingsObject(){
-
-		$filepathSettings = GlobalsUC::$pathSettings . "general_settings.xml";
-
-		$objSettings = new UniteCreatorSettings();
-		$objSettings->loadXMLFile($filepathSettings);
-
-		$objSettings = UniteProviderFunctionsUC::applyFilters(UniteCreatorFilters::FILTER_MODIFY_GENERAL_SETTINGS, $objSettings);
-
-		$arrValues = UniteProviderFunctionsUC::getOption(self::GENERAL_SETTINGS_OPTION);
-
-		if(!empty($arrValues))
-			$objSettings->setStoredValues($arrValues);
-
-		return ($objSettings);
-	}
 
 	/**
 	 * update general settings
@@ -165,32 +134,6 @@ class UCOperations extends UniteElementsBaseUC{
 		}
 	}
 
-	/**
-	 * get google fonts from general settings
-	 */
-	public function getGeneralSettingsGoogleFonts(){
-
-		$arrSettings = $this->getGeneralSettings();
-		$arrFonts = array();
-		$numFonts = 4;
-		for($i = 0; $i < $numFonts; $i++){
-			$fontName = UniteFunctionsUC::getVal($arrSettings, "google_font{$i}_name");
-			$fontName = trim($fontName);
-			if(empty($fontName))
-				continue;
-			$fontLink = UniteFunctionsUC::getVal($arrSettings, "google_font{$i}_link");
-			if(empty($fontLink))
-				continue;
-			$fontLink = trim($fontLink);
-			$fontLink = str_replace("https://fonts.googleapis.com/css?family=", "", $fontLink);
-			$fontLink = str_replace("http://fonts.googleapis.com/css?family=", "", $fontLink);
-			if(empty($fontLink))
-				continue;
-			$arrFonts[$fontName] = $fontLink;
-		}
-
-		return ($arrFonts);
-	}
 
 	private function a_________CUSTOM_SETTINGS___________(){
 	}

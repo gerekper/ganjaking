@@ -71,12 +71,17 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 
 		if ( $should_encode ) {
 			// Include polyfill if mbstring PHP extension is not enabled.
-			if ( ! function_exists( 'mb_convert_encoding' ) ) {
+			if (
+				! function_exists( 'mb_detect_encoding' ) ||
+				! function_exists( 'mb_encode_numericentity' )
+			) {
 				Helpers::include_mbstring_polyfill();
 			}
 
 			// Convert non-ascii code into html-readable stuff.
-			$encoded_html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'auto' );
+			$encoding     = mb_detect_encoding( $html, 'auto', true );
+			$encoding     = $encoding === false ? 'UTF-8' : $encoding;
+			$encoded_html = mb_encode_numericentity( $html, [ 0x80, 0x10FFFF, 0, ~0 ], $encoding );
 
 			if ( ! empty( $encoded_html ) ) {
 				$html = $encoded_html;

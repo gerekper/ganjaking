@@ -38,6 +38,13 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 	private $current_element_to_check = [];
 
 	/**
+	 * Current field that is being checked if it is visible
+	 *
+	 * @var array<mixed>
+	 */
+	private $current_field_to_check = [];
+
+	/**
 	 * The single instance of the class
 	 *
 	 * @var THEMECOMPLETE_EPO_Conditional_Logic_Base|null
@@ -115,18 +122,20 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 						$jrules = [ $jrules ];
 					}
 					foreach ( $jrules as $jjkey => $jjrules ) {
-						if ( $variation_section_id === $jjrules['section'] && '0' === (string) $jjrules['element'] ) {
-							$rules['rules'][ $jkey ][ $jjkey ] = [
-								'element'  => $variation_section_id,
-								'operator' => $jjrules['operator'],
-								'value'    => $jjrules['value'],
-							];
-						} elseif ( isset( $section_ids[ $jjrules['section'] ][ $jjrules['element'] ] ) ) {
-							$rules['rules'][ $jkey ][ $jjkey ] = [
-								'element'  => $section_ids[ $jjrules['section'] ][ $jjrules['element'] ],
-								'operator' => $jjrules['operator'],
-								'value'    => $jjrules['value'],
-							];
+						if ( isset( $jjrules['section'] ) && isset( $jjrules['element'] ) ) {
+							if ( $variation_section_id === $jjrules['section'] && '0' === (string) $jjrules['element'] ) {
+								$rules['rules'][ $jkey ][ $jjkey ] = [
+									'element'  => $variation_section_id,
+									'operator' => $jjrules['operator'],
+									'value'    => $jjrules['value'],
+								];
+							} elseif ( isset( $section_ids[ $jjrules['section'] ][ $jjrules['element'] ] ) ) {
+								$rules['rules'][ $jkey ][ $jjkey ] = [
+									'element'  => $section_ids[ $jjrules['section'] ][ $jjrules['element'] ],
+									'operator' => $jjrules['operator'],
+									'value'    => $jjrules['value'],
+								];
+							}
 						} else {
 							unset( $rules['rules'][ $jkey ][ $jjkey ] );
 						}
@@ -285,7 +294,7 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 	}
 
 	/**
-	 * Check if the field is visible in the given combination
+	 * Check if the logic is visible in the given combination
 	 *
 	 * @param string               $logic_type The logic type to check (logicrules or section_logicrules).
 	 * @param string               $field_name The field name.
@@ -316,10 +325,16 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 		$group_visible = false;
 		foreach ( $condition_groups as $conditions_key => $conditions ) {
 			$conditions_met = false;
+
 			foreach ( $conditions as $condition_key => $condition ) {
 				$element  = $condition['element'];
 				$operator = $condition['operator'];
 				$value    = $condition['value'];
+
+				if ( $element === $field_name ) {
+					$conditions_met = false;
+					break; // Stop checking conditions for this group.
+				}
 
 				if ( $element === $variation_section_id ) {
 					$element_value = [ intval( $current_variation ) ];
@@ -386,6 +401,14 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 	 * @return array<mixed>|boolean
 	 */
 	public function is_field_visible( $field_name = '', $combination = [], $fields = [], $consider_visible = false, $variation_section_id = false, $current_variation = false ) {
+		if ( in_array( $field_name, $this->current_field_to_check, true ) ) {
+			return false;
+		}
+
+		$id = uniqid();
+
+		$this->current_field_to_check[ $id ] = $field_name;
+
 		// This should only happen if the field_name is the variation id.
 		if ( ! isset( $fields[ $field_name ] ) ) {
 			return false;
@@ -402,7 +425,7 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 
 		$logicrules         = $this->is_logic_visible( 'logicrules', $field_name, $combination, $fields, $consider_visible, $variation_section_id, $current_variation );
 		$section_logicrules = $this->is_logic_visible( 'section_logicrules', $field_name, $combination, $fields, $consider_visible, $variation_section_id, $current_variation );
-
+		unset( $this->current_field_to_check[ $id ] );
 		return $logicrules && $section_logicrules;
 	}
 

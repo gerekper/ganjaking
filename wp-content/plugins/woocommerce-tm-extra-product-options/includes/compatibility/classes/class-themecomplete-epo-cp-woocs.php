@@ -415,7 +415,7 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	 * @param array<mixed>|null $currencies Array of currencies.
 	 * @param string|false      $currency The currency to get the price.
 	 * @param mixed             $product_price The product price (for percent price type).
-	 * @param string|false      $tc_added_in_currency The current the product was added in.
+	 * @param string|false      $tc_added_in_currency The current currency the product was added in.
 	 * @return mixed
 	 *
 	 * @since 6.0
@@ -437,12 +437,15 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	 * @param array<mixed>|null $currencies Array of currencies.
 	 * @param string|false      $currency The currency to get the price.
 	 * @param mixed             $product_price The product price (for percent price type).
-	 * @param string|false      $tc_added_in_currency The current the product was added in.
+	 * @param string|false      $tc_added_in_currency The current currency the product was added in.
 	 * @return mixed
 	 *
 	 * @since 6.0
 	 */
 	public function wc_epo_get_current_currency_price( $price = '', $type = '', $currencies = null, $currency = false, $product_price = false, $tc_added_in_currency = false ) {
+		if ( $currency === $tc_added_in_currency ) {
+			return $price;
+		}
 		if ( is_array( $type ) ) {
 			$type = '';
 		}

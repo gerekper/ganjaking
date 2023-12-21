@@ -22,11 +22,11 @@ use ACP\ListScreen\Comment;
 use ACP\ListScreen\Media;
 use ACP\ListScreen\User;
 use ACP\ListScreenPreferences;
-use ACP\ListScreenRepository\Preset;
+use ACP\ListScreenRepository\Template;
+use ACP\QueryFactory;
 use ACP\Search\TableScreenFactory;
 use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
-use ACP\Sorting;
 use ACP\Type\HideOnScreen\Group;
 use WP_User;
 
@@ -37,16 +37,16 @@ class Settings implements Registerable
 
     private $location;
 
-    private $preset_repository;
+    private $template_repository;
 
     public function __construct(
         Storage $storage,
         Location\Absolute $location,
-        Preset $preset_repository
+        Template $template_repository
     ) {
         $this->storage = $storage;
         $this->location = $location;
-        $this->preset_repository = $preset_repository;
+        $this->template_repository = $template_repository;
     }
 
     public function register(): void
@@ -167,7 +167,7 @@ class Settings implements Registerable
             $this->get_hide_on_screen_collection($list_screen),
             $list_screen,
             $this->storage,
-            $this->preset_repository
+            $this->template_repository
         );
 
         $factory
@@ -275,7 +275,7 @@ class Settings implements Registerable
             'tooltip_filters'        => $this->tooltip_filters(),
             'segments'               => $this->get_segments_for_list_screen_id($list_screen),
             'can_horizontal_scroll'  => true,
-            'can_sort'               => $list_screen instanceof Sorting\ListScreen,
+            'can_sort'               => $this->can_sort($list_screen),
             'can_bookmark'           => $this->can_bookmark($list_screen),
             'can_primary_column'     => true,
             'primary_column'         => $list_screen->get_preference('primary_column') ?: '',
@@ -288,6 +288,11 @@ class Settings implements Registerable
         $view->set_template('admin/list-screen-settings');
 
         echo $view->render();
+    }
+
+    private function can_sort(ListScreen $list_screen): bool
+    {
+        return QueryFactory::can_create($list_screen->get_query_type());
     }
 
     private function get_segments_for_list_screen_id(ListScreen $list_screen): array

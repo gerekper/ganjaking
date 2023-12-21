@@ -74,6 +74,23 @@ class License {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
+		$options = new Options();
+		$all_opt = $options->get_all();
+		$all_opt['license']['key'] = '*******';
+		$all_opt['license']['type'] = 'pro';
+		$all_opt['license']['is_expired'] = false;
+		$all_opt['license']['is_disabled'] = false;
+		$all_opt['license']['is_invalid'] = false;
+		$options->set( $all_opt );
+		add_filter( 'wp_mail_smtp_admin_get_pages', function ( $pages ) {
+		remove_action( 'wp_mail_smtp_admin_pages_settings_license_key', array(
+		\WPMailSMTP\Admin\Pages\SettingsTab::class,
+		'display_license_key_field_content',
+		) );
+		add_action( 'wp_mail_smtp_admin_pages_settings_license_key', array( $this, 'display_settings_license_key_field_content' ) );
+		return $pages;
+		} );
+		return;
 
 		$this->register_updater();
 
@@ -153,7 +170,7 @@ class License {
 			wp_send_json_error( $generic_error );
 		}
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error( $generic_error );
 		}
 
@@ -187,15 +204,15 @@ class License {
 	 * Redefine admin area Settings page License Key field content.
 	 *
 	 * @since 1.5.0
+	 * @since 3.11.0 Removed name attribute of license key input element.
 	 *
 	 * @param Options $options The plugin options.
 	 * @param bool    $echo    Whether to output HTML.
 	 */
 	public function display_settings_license_key_field_content( $options, $echo = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
-		$type = 'Pro';
-
+		$key         = wp_mail_smtp()->get_license_key();
+		$type        = wp_mail_smtp()->get_license_type();
 		$license     = $options->get_group( 'license' );
 		$is_expired  = isset( $license['is_expired'] ) && $license['is_expired'] === true;
 		$is_disabled = isset( $license['is_disabled'] ) && $license['is_disabled'] === true;
@@ -217,7 +234,7 @@ class License {
 
 			<div class="wp-mail-smtp-setting-field-row">
 				<input type="password" id="wp-mail-smtp-setting-license-key"
-							 value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"
+							 value="<?php echo esc_attr( $key ); ?>"
 							 class="wp-mail-smtp-setting-license-key<?php echo ! empty( $input_class ) ? ' ' . esc_attr( $input_class ) : ''; ?>"
 							 <?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				/>
@@ -229,7 +246,9 @@ class License {
 				<?php endif; ?>
 
 				<?php if ( empty( $key ) ) : ?>
-					
+					<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
+						<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
+					</button>
 				<?php else : ?>
 					<button type="button" id="wp-mail-smtp-setting-license-key-deactivate" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey">
 						<?php esc_html_e( 'Remove Key', 'wp-mail-smtp-pro' ); ?>
@@ -501,16 +520,9 @@ class License {
 	 *
 	 * @return string|bool
 	 */
-	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { return;
 
-$options = new Options();
-		$all_opt = $options->get_all();
-		$all_opt['license']['type'] = 'pro';
-		$all_opt['license']['is_expired'] = false;
-		$all_opt['license']['is_disabled'] = false;
-		$all_opt['license']['is_invalid'] = false;
-		$options->set( $all_opt );
-		return;
+		// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();
@@ -695,11 +707,9 @@ $options = new Options();
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
-		return;
-
 
 		// Only users with sufficient capability can see the notices.
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			return;
 		}
 
@@ -959,6 +969,20 @@ $options = new Options();
 			empty( $saved_license['is_expired'] ) &&
 			empty( $saved_license['is_disabled'] ) &&
 			empty( $saved_license['is_invalid'] );
+	}
+
+	/**
+	 * Check whether the license is expired.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_expired() {
+
+		$saved_license = Options::init()->get_group( 'license' );
+
+		return ! empty( $saved_license['is_expired'] );
 	}
 
 	/**

@@ -408,6 +408,13 @@ class WC_XR_Invoice {
 		if ( ! empty( $transaction_id ) ) {
 			$reference_pieces[] = $transaction_id;
 		}
+		if ( $order ) {
+			$reference_pieces[] = sprintf(
+				/* translators: %d: order id */
+				__( 'Order %d', 'woocommerce-xero' ),
+				(int) $order->get_id()
+			);
+		}
 		if ( 0 < count( $reference_pieces ) ) {
 			$xml .= '<Reference>' . implode( ' ', $reference_pieces ) . '</Reference>';
 		}

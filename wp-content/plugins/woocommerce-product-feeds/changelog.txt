@@ -1,18 +1,28 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.12.11 - version 10.11.4
+* Update: Declare compatibility with WooCommerce cart checkout blocks
+
+2023.12.06 - version 10.11.3
+* Update: WooCommerce compatibility up to 8.4
+
+2023.12.04 - version 10.11.2
+* New: Allow parent image to be disabled on variations via woocommerce_gpf_include_parent_image_on_variation filter
+* Update: Improvements to reliability when pre-populating from custom meta values
+
 2023.10.11 - version 10.11.1
-* Change: Do not trigger errors on hosts that have disabled some PHP functions
+* Fix: Do not trigger errors on hosts that have disabled some PHP functions
 
 2023.10.02 - version 10.11.0
 * New: WooCommerce compatibility up to 8.2
 * New: Allow WooCommerce add-to-cart URLs to work with product IDs from the feed
-* Change: Various performance optimisations
+* Update: Various performance optimisations
 
 2023.09.11 - version 10.10.6
 * New: WooCommerce compatibility up to 8.1
-* Change: Performance improvement - only calculate prepopulations required by active fields
-* Change: Avoid deprecated call to get_terms()
-* Change: Minor change to XML format for product feed
+* Update: Performance improvement - only calculate prepopulations required by active fields
+* Update: Avoid deprecated call to get_terms()
+* Update: Minor change to XML format for product feed
 
 2023.07.26 - version 10.10.5
 * New: WooCommerce compatibility up to 8.0
@@ -20,11 +30,11 @@
 
 2023.07.05 - version 10.10.4
 * New: WooCommerce compatibility up to 7.9
-* Change: Internal cleanup to remove unused code
+* Dev: Internal cleanup to remove unused code
 * Fix: Resolve issue where warning could be thrown on PHP 8.2 and later
 
 2023.06.13 - version 10.10.3
-* Change: Allow filtering of lifestyle_image in Google feed
+* New: Allow filtering of lifestyle_image in Google feed
 
 2023.06.05 - version 10.10.2
 * New: WooCommerce compatibility up to 7.8
@@ -38,16 +48,16 @@
 * New: Add support for 'lifestyle_image_link' attribute
 * New: Add support for 'expiration date' attribute
 * New: Add support for 'disclosure date' attribute
-* Change: Re-organise fields in settings into groups to make it easier to manage standard settings
+* Update: Re-organise fields in settings into groups to make it easier to manage standard settings
 
 2023.04.05 - version 10.9.1
 * New: WooCommerce compatibility up to 7.6
-* Change: Improvements to feed debug output
+* Dev: Improvements to feed debug output
 
 2023.03.06 - version 10.9.0
 * New: Support for High Performance Order Storage
-* Change: Improve information about category restrictions in status report
-* Change: Improve information available on product queries in debug mode
+* Update: Improve information about category restrictions in status report
+* Update: Improve information available on product queries in debug mode
 * Fix: No longer throw warnings if Currency Switcher integration is active
 * Fix: Resolve issue where Currency Switcher integration could be incorrectly triggered by presence of some other extensions
 * Fix: Resolve issue where some structured data elements weren't added for Bundled products
@@ -55,13 +65,13 @@
 2023.01.30 - version 10.8.3
 * New: WooCommerce 7.4 compatibility
 * Fix: Product Type could send more values than Google expects. It now limits down to the allowed amount of values.
-* Change: Styling changes to some settings forms for wider compatibility
-* Change: PHP 8.2 compatibility
-* Change: "Condition" is no longer forcibly included in the feed
-* Change: Enable "condition" by default on new installs
+* Update: Styling changes to some settings forms for wider compatibility
+* Update: PHP 8.2 compatibility
+* Update: "Condition" is no longer forcibly included in the feed
+* Update: Enable "condition" by default on new installs
 
 2023.01.05 - version 10.8.2
-* Change: WooCommerce 7.3 compatibility
+* Update: WooCommerce 7.3 compatibility
 * Fix: Resolve issue where multiple short titles could be output against spec
 * Fix: Resolve issue where warnings could be generated with certain ACF taxonomy mappings
 * Fix: Resolve issue where some analytics multicurrency reports would error

@@ -8,16 +8,16 @@
 defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 	class GlobalsUC{
-
+		
 		public static $inDev = false;
 		
 		public static $debugAjaxErrors = false;
 		
 		const DEBUG_ALLOW_SHOWVARS = false;		//keep it false
 
-		const SHOW_TRACE = false;
-		const SHOW_TRACE_FRONT = false;
-
+		public static $SHOW_TRACE = false;
+		public static $SHOW_TRACE_FRONT = false;
+		
 		const ENABLE_TRANSLATIONS = false;
 
 		const PLUGIN_TITLE = "Unlimited Elements";
@@ -98,7 +98,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		const ENABLE_CATALOG_SHORTPIXEL = true;
 		const SHORTPIXEL_PREFIX = "https://cdn.shortpixel.ai/spai/q_glossy+w_323+to_auto+ret_img/";
-
+				
 		public static $permisison_add = false;
 		public static $blankWindowMode = false;
 
@@ -134,6 +134,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $url_images;
 		public static $url_images_screenshots;
 		public static $url_no_image_placeholder;
+		public static $url_video_thumbnail;
 
 		public static $url_component_client;
 		public static $url_component_admin;
@@ -180,7 +181,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $isProVersion = false;
 		public static $isAdminRTL = false;
 		public static $enableInsideWidgetFreeVersionNotifiaction = true;
-
+		public static $colorPickerType = "spectrum";
 		
 		
 		/**
@@ -240,7 +241,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			self::$urlPluginImages = self::$urlPlugin."images/";
 
 			self::$url_no_image_placeholder = self::$urlPluginImages."placeholder.png";
-
+			
+			self::$url_video_thumbnail = self::$urlPluginImages."video_thumbnail.png";
+						
 			self::$pathLibrary = self::$pathPlugin."assets_libraries/";
 
 			//check for wp version
@@ -267,7 +270,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					GlobalsUC::printVars();
 
 			}
-
+			
+			
+			
 			//GlobalsUC::printVars();
 		}
 
@@ -301,8 +306,18 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$webAPI->setProduct($product);
 
 			self::$isProductActive = $webAPI->isProductActive();
-
+			
+			//show trace by get url
+			
+			$isShowTrace = HelperUC::hasPermissionsFromQuery("uctrace");
+			
+			if($isShowTrace == true){
+				GlobalsUC::$SHOW_TRACE_FRONT = true;
+				GlobalsUC::$SHOW_TRACE = true;				
+			}
+			
 		}
+		
 
 		/**
 		 * init globals after admin init

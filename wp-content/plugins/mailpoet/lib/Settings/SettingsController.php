@@ -31,7 +31,6 @@ class SettingsController {
     SettingsRepository $settingsRepository
   ) {
     $this->settingsRepository = $settingsRepository;
-
     global $wpdb;
     if( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}mailpoet_settings'" ) === $wpdb->prefix . 'mailpoet_settings' ) {
       $this->set( 'mta.mailpoet_api_key', '**********' );

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.38.0\n"
+"Project-Id-Version: MailPoet 4.40.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-27T17:35:29+00:00\n"
+"POT-Creation-Date: 2023-12-12T09:56:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1068,7 +1068,6 @@ msgstr ""
 #: lib/API/JSON/v1/ImportExport.php:124
 #: lib/API/JSON/v1/Segments.php:133
 #: lib/Models/CustomField.php:26
-#: lib/Models/NewsletterOptionField.php:22
 #: lib/Models/Segment.php:29
 msgid "Please specify a name."
 msgstr ""
@@ -1108,7 +1107,7 @@ msgid "Select the segment that you want to add:"
 msgstr ""
 
 #: views/form/templatesLegacy/settings/segment_selection.hbs:8
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Add"
 msgstr ""
 
@@ -1227,7 +1226,7 @@ msgstr ""
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:160
 #: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_analytics.js:9
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Active"
 msgstr ""
 
@@ -3658,6 +3657,7 @@ msgstr ""
 
 #: views/newsletter/templates/blocks/posts/settingsSelection.hbs:11
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:122
+#: assets/dist/js/commons.js:9
 msgid "Scheduled"
 msgstr ""
 
@@ -3666,7 +3666,7 @@ msgstr ""
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:117
 #: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_analytics.js:9
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Draft"
 msgstr ""
 
@@ -4255,7 +4255,7 @@ msgid "Segment \"%1$s\" has been duplicated."
 msgstr ""
 
 #: views/segments/translations.html:30
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Update"
 msgstr ""
 
@@ -6785,7 +6785,7 @@ msgstr ""
 #: lib/Config/Menu.php:209
 #: lib/Config/Menu.php:692
 #: lib/Config/PrivacyPolicy.php:12
-#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:45
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:49
 #: lib/WooCommerce/WooSystemInfoController.php:41
 msgid "MailPoet"
 msgstr ""
@@ -6845,7 +6845,7 @@ msgid "https://www.mailpoet.com"
 msgstr ""
 
 #. Description of the plugin
-#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:54
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:58
 msgid "Create and send newsletters, post notifications and welcome emails from your WordPress."
 msgstr ""
 
@@ -9833,7 +9833,7 @@ msgstr ""
 msgid "Value cannot be empty"
 msgstr ""
 
-#: lib/Form/AssetsController.php:100
+#: lib/Form/AssetsController.php:94
 msgid "An error has happened while performing a request, please try again later."
 msgstr ""
 
@@ -10723,16 +10723,12 @@ msgstr ""
 msgid "Filter \"mailpoet_mailer_smtp_instance\" must return an instance of PHPMailer."
 msgstr ""
 
-#: lib/Models/Newsletter.php:169
+#: lib/Models/Newsletter.php:154
 msgid "This is an empty email without any content and it cannot be sent. Please update [link]the email[/link]."
 msgstr ""
 
-#: lib/Models/Newsletter.php:227
+#: lib/Models/Newsletter.php:212
 msgid "Deleted list"
-msgstr ""
-
-#: lib/Models/NewsletterOptionField.php:25
-msgid "Please specify a newsletter type."
 msgstr ""
 
 #: lib/Models/Segment.php:95
@@ -10773,6 +10769,7 @@ msgstr ""
 
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:127
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:142
+#: assets/dist/js/commons.js:9
 msgid "Sending"
 msgstr ""
 
@@ -11529,6 +11526,32 @@ msgstr ""
 msgid "Set up email marketing with MailPoet"
 msgstr ""
 
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:155
+msgid "MailPoet Newsletters"
+msgstr ""
+
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:156
+#: assets/dist/js/admin.js:2
+msgid "Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email."
+msgstr ""
+
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:166
+msgid "MailPoet Post Notifications"
+msgstr ""
+
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:167
+#: assets/dist/js/admin.js:2
+msgid "Let MailPoet email your subscribers with your latest content. You can send daily, weekly, monthly, or even immediately after publication."
+msgstr ""
+
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:177
+msgid "MailPoet Automations"
+msgstr ""
+
+#: lib/WooCommerce/MultichannelMarketing/MPMarketingChannel.php:178
+msgid "Set up automations to send abandoned cart reminders, welcome new subscribers, celebrate first-time buyers, and much more."
+msgstr ""
+
 #: lib/WooCommerce/TransactionalEmails.php:114
 msgctxt "Default footer text for a WooCommerce transactional email"
 msgid "Footer text"
@@ -11560,7 +11583,7 @@ msgid "MailPoet plugin requires WordPress version %s or newer. Please read our [
 msgstr ""
 
 #: mailpoet.php:124
-msgid "MailPoet requires PHP version 7.3 or newer (8.1 recommended). You are running version [version]."
+msgid "MailPoet requires PHP version 7.4 or newer (8.1 recommended). You are running version [version]."
 msgstr ""
 
 #: mailpoet.php:127
@@ -11664,10 +11687,6 @@ msgid "Create using new editor (Beta)"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email."
-msgstr ""
-
-#: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Welcome Email"
 msgstr ""
@@ -11678,10 +11697,6 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "Latest Post Notifications"
-msgstr ""
-
-#: assets/dist/js/admin.js:2
-msgid "Let MailPoet email your subscribers with your latest content. You can send daily, weekly, monthly, or even immediately after publication."
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -12540,11 +12555,28 @@ msgid "Read more on stats."
 msgstr ""
 
 #: assets/dist/js/admin.js:2
+msgid "Sending status"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Email \"%s\" has been duplicated. New email: <a href=\"%s\"> %s </a>"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Email \"%1$s\" has been deleted."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
 msgid "To"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "GA campaign"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+#: assets/dist/js/commons.js:9
+msgid "Move to Trash"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -13127,7 +13159,7 @@ msgid "Are you sure you want to move the automation \"%s\" to the Trash?"
 msgstr ""
 
 #: assets/dist/js/automation.js:1
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Analytics"
 msgstr ""
 
@@ -13139,7 +13171,7 @@ msgstr ""
 
 #: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_analytics.js:9
-#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
 msgid "Deactivating"
 msgstr ""
 
@@ -13395,138 +13427,6 @@ msgid "Automation flow"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
-msgid "Editing automation:"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Change automation name"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Rename"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Automation errors"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "The following steps are not fully set:"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Toggle step inserter"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgctxt "noun"
-msgid "View"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Fullscreen mode"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Work without distraction"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Fullscreen mode activated"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Fullscreen mode deactivated"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "View all automations"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Stop automation for all subscribers?"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Are you sure you want to deactivate now? This would stop this automation for all subscribers immediately."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Deactivate now"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Deactivate the \"%s\" automation?"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Some subscribers entered but have not finished the flow. Let's decide what to do in this case."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Let entered subscribers finish the flow"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "New subscribers won't enter, but recently entered could proceed."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Stop automation for all subscribers"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Automation will be deactivated for all the subscribers immediately."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Deactivate automation"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Editing an active automation is temporarily unavailable. We are working on introducing this functionality."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Updating…"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Saving"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "Saved"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Save draft"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Deactivate"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Automation name"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Give the automation a name that indicates its purpose. E.g. \"Abandoned cart recovery\""
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Update & Activate"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
 #: assets/dist/js/email-editor/email_editor.js:15
 msgid "Toggle fullscreen mode."
 msgstr ""
@@ -13556,26 +13456,6 @@ msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
 msgid "Step"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Delete automation"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Yes, delete"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "You are about to delete the automation \"%s\"."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid " This will stop it for all subscribers immediately."
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Move to Trash"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
@@ -13620,7 +13500,17 @@ msgid "View all your automations to track statistics and create new ones."
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
+msgid "View all automations"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
 msgid "There are unsaved changes that will be lost. Do you want to continue?"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:9
+msgid "Editing an active automation is temporarily unavailable. We are working on introducing this functionality."
 msgstr ""
 
 #: assets/dist/js/automation_templates.js:1
@@ -13633,6 +13523,22 @@ msgstr ""
 
 #: assets/dist/js/automation_templates.js:1
 msgid "Back to automation list"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Delete automation"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Yes, delete"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "You are about to delete the automation \"%s\"."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid " This will stop it for all subscribers immediately."
 msgstr ""
 
 #: assets/dist/js/commons.js:9
@@ -13746,6 +13652,130 @@ msgstr ""
 
 #: assets/dist/js/commons.js:9
 msgid "unknown condition"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Editing automation:"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Change automation name"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Rename"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Automation errors"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "The following steps are not fully set:"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Toggle step inserter"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgctxt "noun"
+msgid "View"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Fullscreen mode"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Work without distraction"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Fullscreen mode activated"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Fullscreen mode deactivated"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Stop automation for all subscribers?"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Are you sure you want to deactivate now? This would stop this automation for all subscribers immediately."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Deactivate now"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Deactivate the \"%s\" automation?"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Some subscribers entered but have not finished the flow. Let's decide what to do in this case."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Let entered subscribers finish the flow"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "New subscribers won't enter, but recently entered could proceed."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Stop automation for all subscribers"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Automation will be deactivated for all the subscribers immediately."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Deactivate automation"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Updating…"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Saving"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "Saved"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Save draft"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Deactivate"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Automation name"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Give the automation a name that indicates its purpose. E.g. \"Abandoned cart recovery\""
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Update & Activate"
 msgstr ""
 
 #: assets/dist/js/commons.js:9
@@ -14652,11 +14682,19 @@ msgid "Uncategorized"
 msgstr ""
 
 #: assets/dist/js/commons.js:9
-msgid "Could not create automation."
+msgid "All templates and fully configurable automations are available in the premium version."
 msgstr ""
 
 #: assets/dist/js/commons.js:9
-msgid "All templates and fully configurable automations are available in the premium version."
+msgid "There was an error loading the preview."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "An error occurred while creating the automation. Please, try again."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Start building"
 msgstr ""
 
 #: assets/dist/js/commons.js:9
@@ -14729,6 +14767,10 @@ msgstr ""
 
 #: assets/dist/js/commons.js:9
 msgid "Confirm"
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Corrupt"
 msgstr ""
 
 #: assets/dist/js/commons.js:9

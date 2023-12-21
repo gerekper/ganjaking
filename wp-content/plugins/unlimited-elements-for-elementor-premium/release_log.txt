@@ -1,5 +1,25 @@
 
 
+version 1.5.89:
+
+-bug fix: fixed some post filters detection issues on the page
+-bug fix: fixed some "$type not found" message in php
+-bug fix: fixed some "infinite template found: " message in php (emtpy template load protection)
+-change: added instagram api access error message
+-change: removed "import with images" functionality. replaced by doubly plugin.
+
+
+version 1.5.88:
+
+-feature: added "iframe" gallery type to the gallery items
+-bug fix: fixed the "show/hide edit html button" option from general settings
+-bug fix: fixed the general_settings.xml php error
+-bug fix: fixed some issue with gallery loading on pages and current meta keys
+-change: added some improvements for the form 
+-change: set video placeholder to dynamic galleries in case of video item
+-bug fix: fixed default value in datetime control
+
+
 version 1.5.87:
 
 - change: updated freemius sdk to 2.6.0 version

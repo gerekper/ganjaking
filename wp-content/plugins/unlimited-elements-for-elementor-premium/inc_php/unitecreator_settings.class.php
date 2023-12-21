@@ -139,8 +139,8 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 		return($arrParams);
 	}
-	
-	
+
+
 	/**
 	* get multiple params creator format from one param
 	*/
@@ -148,11 +148,11 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 		if(!empty($this->arrSettings))
 			UniteFunctionsUC::throwError("the settings should be empty for this operation");
-		
+
 		$this->addByCreatorParam($param);
 
 		$arrParams = $this->getSettingsCreatorFormat();
-		
+
 		return($arrParams);
 	}
 
@@ -167,7 +167,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 			UniteCreatorDialogParam::PARAM_NUMBER,
 			"uc_textarea",
 			"uc_editor",
-			"uc_radioboolean",
+			UniteCreatorDialogParam::PARAM_RADIOBOOLEAN,
 			"uc_checkbox",
 			"uc_dropdown",
 			"uc_colorpicker",
@@ -196,12 +196,12 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	 * add base url for image settings if needed
 	 */
 	public function addImage($name,$defaultValue = "",$text = "",$arrParams = array()){
-		
+
 		if(empty($defaultValue))
 			$defaultValue = GlobalsUC::$url_no_image_placeholder;
-		
+
 		parent::addImage($name, $defaultValue, $text, $arrParams);
-		
+
 		//check the source param
 		$lastIndex = count($this->arrSettings)-1;
 		$this->arrSettings[$lastIndex] = $this->checkParamsSource($this->arrSettings[$lastIndex]);
@@ -325,7 +325,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		$accessData = HelperInstaUC::getInstagramSavedAccessData();
 		$accessToken = UniteFunctionsUC::getVal($accessData, "access_token");
 		$username = UniteFunctionsUC::getVal($accessData, "username");
-
+		
 		if(!empty($accessToken)){
 
 			$params = array();
@@ -475,10 +475,10 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	public function setCurrentAddon(UniteCreatorAddon $addon){
 
 		$this->currentAddon = $addon;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * if the source == "addon" add url base
 	 */
@@ -586,7 +586,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 			break;
 			case "items_image_size":
-				
+
 				$this->addItemsImageSizeSetting($name, $param);
 
 			break;
@@ -814,30 +814,30 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 
 	/**
-	 * Test addon settings - inside addon use and gutenberg. 
+	 * Test addon settings - inside addon use and gutenberg.
 	 * Not for elementor
 	 */
 	private function a__________TEST_ADDON_SETTINGS_________(){}
-	
+
 	/**
 	 * check and add images sizes chooser
 	 */
 	private function checkAddImageSizes($paramImage){
-		
+
 		$isAddSizes = UniteFunctionsUC::getVal($paramImage, "add_image_sizes");
 		$isAddSizes = UniteFunctionsUC::strToBool($isAddSizes);
-		
+
 		if($isAddSizes == false)
 			return(false);
-			
+
     	$type = UniteFunctionsUC::getVal($paramImage, "type");
     	$title = UniteFunctionsUC::getVal($paramImage, "title");
     	$name = UniteFunctionsUC::getVal($paramImage, "name");
-		    	
+
     	$arrSizes = UniteFunctionsWPUC::getArrThumbSizes();
-    	
+
     	$arrSizes = array_flip($arrSizes);
-    	    	
+
     	if($type == UniteCreatorDialogParam::PARAM_POSTS_LIST){
 	    	$paramTitle = $title .= " ".__("Image Size","unlimited-elements-for-elementor");
 	    	$paramName = $name .= "_imagesize";
@@ -845,27 +845,27 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	    	$paramTitle = $title .= " ".__("Size","unlimited-elements-for-elementor");
     		$paramName = $name .= "_size";
     	}
-		
+
     	// add the new setting
-    	
+
     	$arrOptions = array();
     	$this->addSelect($paramName, $arrSizes, $paramTitle, "medium_large", $arrOptions);
-    	
-    	
+
+
     	//handle new param conditions
-    	
+
     	$newParam = $paramImage;
-    	
+
     	$newParam["name"] = $paramName;
     	$newParam["type"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
-    	
+
 		$this->addByCreatorParam_handleConditions($newParam);
-    	    	
-    	
+
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 * add setting by creator param
 	 */
@@ -967,10 +967,10 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 				}
 
 			break;
-			case "uc_radioboolean":
+			case UniteCreatorDialogParam::PARAM_RADIOBOOLEAN:
 				$arrItems = array();
-				$arrItems[$param["true_name"]] = $param["true_value"];
 				$arrItems[$param["false_name"]] = $param["false_value"];
+				$arrItems[$param["true_name"]] = $param["true_value"];
 				$extra["special_design"] = true;
 
 				$this->addRadio($name, $arrItems, $title, $value, $extra);
@@ -1024,11 +1024,11 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 				$this->addAddonPicker($name, $value, $title, $extra);
 			break;
 			case UniteCreatorDialogParam::PARAM_IMAGE:
-								
+
 				$this->addImage($name,$value,$title,$extra);
-				
+
 				$this->checkAddImageSizes($param);
-								
+
 			break;
 			case "uc_mp3":
 				$this->addMp3($name,$value,$title,$extra);
@@ -1061,9 +1061,9 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 				$isUpdateValue = false;
 			break;
 			case UniteCreatorDialogParam::PARAM_HEADING:
-				
+
 				$extra["is_heading"] = true;
-				
+
 				$this->addStaticText($value,$name,$extra);
 
 			break;
@@ -1305,8 +1305,8 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 
 	}
-	
-	
+
+
     /**
      * sort params by categories
      */
@@ -1414,99 +1414,99 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		}
 
 	}
-	
+
 	/**
 	 * add edit widget button to advanced settings - if allowed
 	 */
 	private function addEditWidgetButton(){
-		
+
     	if(is_admin() == false)
     		return(false);
-		
+
     	if(class_exists("UniteProviderAdminUC") == false)
     		return(false);
 
     	if(UniteProviderAdminUC::$isUserHasCapability == false)
     		return(false);
-    		
+
     	$addonID =  $this->currentAddon->getID();
-    	
+
     	$urlEditAddon = HelperUC::getViewUrl_EditAddon($addonID, "", "tab=uc_tablink_html");
 
     	$arrParams = array();
     	$arrParams["url"] = $urlEditAddon;
     	$arrParams["newwindow"] = true;
-    	
+
     	$this->addButton("html_button_gotoaddon", __("Edit Widget HTML","unlimited-elements-for-elementor"), self::PARAM_NOTEXT, $arrParams);
-    	
+
 	}
 
-	
+
 	/**
 	 * add advanced settings section
 	 */
 	private function addAdvancedSection(){
-		
+
 		$params = array();
-		
+
 		$this->addSap(__("Advanced", "unlimited-elements-for-elementor"), $params);
-		
+
 		$params = array('description'=>__('Show widget data for debugging purposes. Please turn off this option when you releasing the widget', 'unlimited-elements-for-elementor'));
-				
+
 		$this->addRadioBoolean("show_widget_debug_data", __("Show Widget Data For Debug","unlimited-elements-for-elementor"), false, "Yes","No", $params);
-		
+
 		$isItemsEnabled = $this->currentAddon->isHasItems();
-					          			
+
 		$hasPostsList = $this->currentAddon->isParamTypeExists(UniteCreatorDialogParam::PARAM_POSTS_LIST);
-		
+
 		//--------- debug type options ---------
-		
-		
+
+
 		$debugTypeOptions = array();
 		$debugTypeOptions["default"] = __( 'Default', 'unlimited-elements-for-elementor' );
-		
+
 		if($hasPostsList == true)
 			$isItemsEnabled = true;
-		
+
 		if($isItemsEnabled == true)
 			$debugTypeOptions["items_only"] = __( 'Items Only', 'unlimited-elements-for-elementor' );
-		
+
 		if($hasPostsList == true){
 			$debugTypeOptions["post_titles"] = __( 'Posts Titles', 'unlimited-elements-for-elementor' );
 			$debugTypeOptions["post_meta"] = __( 'Posts Titles and Meta', 'unlimited-elements-for-elementor' );
 		}
-		
+
 		$debugTypeOptions["current_post_data"] = __( 'Current Post Data', 'unlimited-elements-for-elementor' );
 		$debugTypeOptions["settings_values"] = __( 'Show Settings Values', 'unlimited-elements-for-elementor' );
-		
+
 		$hasDebugType = (count($debugTypeOptions) > 1);
-		
+
 		if($hasDebugType == true){
-			
+
 			$params = array();
-			
+
 			$debugTypeOptions = array_flip($debugTypeOptions);
-			
-			$this->addSelect("widget_debug_data_type", $debugTypeOptions, 
+
+			$this->addSelect("widget_debug_data_type", $debugTypeOptions,
 						     __("Debug Data Type","unlimited-elements-for-elementor"), "default", $params);
-		 	
+
 		}
-		
+
 		$this->addControl("show_widget_debug_data", "widget_debug_data_type", "show", "true");
-		
-		
+
+
 		$this->addEditWidgetButton();
-		
-		
+
+
 	}
-	
-	
+
+
 	/**
 	 * add settings by creator params - works for single widget only
 	 * not for elementor
 	 */
 	public function initByCreatorParams($arrParams, $arrCats = array()){
-		
+
 		if(empty($arrCats)){
 
 			foreach($arrParams as $param)
@@ -1514,7 +1514,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 			return(false);
 		}
-		
+
 		//put params with cats
 
 		$arrParamsWithCats = $this->sortParamsByCats($arrCats, $arrParams);
@@ -1527,9 +1527,9 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 	     $hasListing = false;
          $listingParam = null;
-		
+
 		foreach($arrParamsWithCats as $catID => $arrCat){
-			
+
 			$title = UniteFunctionsUC::getVal($arrCat, "title");
 			$tab = UniteFunctionsUC::getVal($arrCat, "tab");
 
@@ -1547,13 +1547,13 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
           			$showImageSizes = UniteFunctionsUC::getVal($postListParam, "show_image_sizes");
           			$showImageSizes = UniteFunctionsUC::strToBool($showImageSizes);
-				
+
           			//if($showImageSizes == true)
           				//$this->addImageSizesParam($postListParam);
 
           			continue;
           		}
-			
+
           		if($type == UniteCreatorDialogParam::PARAM_LISTING){
 
           			$useFor = UniteFunctionsUC::getVal($param, "use_for");
@@ -1591,15 +1591,15 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 			$this->addSap($labelPosts, "section_query");
 
 			$this->addByCreatorParam($postListParam);
-		
+
         }
-		
+
         $this->addAdvancedSection();
-        
+
           //add control by elementor conditions - from post list, terms list etc.
-		
+
        $this->addControls_byElementorConditions();
-       
+
 	}
 
 	/**
@@ -1610,6 +1610,6 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		$this->addStaticText("$settingName setting will be visible in elementor");
 
 	}
-	
-	
+
+
 }

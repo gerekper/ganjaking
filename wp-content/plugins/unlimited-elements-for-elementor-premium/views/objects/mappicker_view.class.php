@@ -25,7 +25,8 @@ class UniteCreatorMappickerView{
 	 */
 	public function __construct(){
 		
-		$this->apiKey = HelperUC::getGeneralSetting("google_map_key");
+		$this->apiKey = "yourkey";	//get from general settings later
+		
 		$this->apiKey = trim($this->apiKey);
 		if(empty($this->apiKey))
 			$this->apiKey = null;

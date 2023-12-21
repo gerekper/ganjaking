@@ -691,7 +691,7 @@ class UniteCreatorActions{
 		}catch(Exception $e){
 			$errorMessage = $e->getMessage();
 
-			if(GlobalsUC::SHOW_TRACE === true){
+			if(GlobalsUC::$SHOW_TRACE === true){
 				$trace = $e->getTraceAsString();
 				$errorMessage .= "<pre>" . $trace . "</pre>";
 			}
@@ -723,7 +723,7 @@ class UniteCreatorActions{
 			$message = $e->getMessage();
 			$errorMessage = $message;
 
-			if(GlobalsUC::SHOW_TRACE == true){
+			if(GlobalsUC::$SHOW_TRACE == true){
 				$trace = $e->getTraceAsString();
 				$errorMessage = $message . "<pre>" . $trace . "</pre>";
 			}

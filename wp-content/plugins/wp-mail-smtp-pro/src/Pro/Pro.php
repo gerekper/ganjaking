@@ -72,6 +72,7 @@ class Pro {
 	 * Initialize the main Pro logic.
 	 *
 	 * @since 1.5.0
+	 * @since 3.11.0 Init SiteHealth module only in admin context.
 	 */
 	public function init() {
 
@@ -103,11 +104,14 @@ class Pro {
 		$this->get_logs();
 		$this->get_providers();
 		$this->get_license();
-		$this->get_site_health()->init();
 		$this->get_additional_connections();
 		$this->get_backup_connections();
 		$this->get_importers();
 		$this->get_translations();
+
+		if ( is_admin() ) {
+			$this->get_site_health()->init();
+		}
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
 			$this->get_logs_export()->init();
@@ -692,7 +696,7 @@ class Pro {
 			return;
 		}
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			return;
 		}
 
@@ -748,6 +752,13 @@ class Pro {
 					WP::ADMIN_NOTICE_ERROR
 				);
 				break;
+
+			case 'google_one_click_setup_unsuccessful_oauth':
+				WP::add_admin_notice(
+					esc_html__( 'There was an error while processing the authentication request.', 'wp-mail-smtp-pro' ),
+					WP::ADMIN_NOTICE_ERROR
+				);
+				break;
 		}
 
 		switch ( $success ) {
@@ -761,6 +772,13 @@ class Pro {
 			case 'zoho_site_linked':
 				WP::add_admin_notice(
 					esc_html__( 'You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail.', 'wp-mail-smtp-pro' ),
+					WP::ADMIN_NOTICE_SUCCESS
+				);
+				break;
+
+			case 'google_one_click_setup_site_linked':
+				WP::add_admin_notice(
+					esc_html__( 'You have successfully connected your site with your Gmail account. This site will now send emails via your Gmail account.', 'wp-mail-smtp-pro' ),
 					WP::ADMIN_NOTICE_SUCCESS
 				);
 				break;
@@ -934,6 +952,7 @@ class Pro {
 	 * This data is passed via `wp_localize_script` before the Vue app is initialized.
 	 *
 	 * @since 2.6.0
+	 * @since 3.11.0 Handle WPMS_AMAZONSES_DISPLAY_IDENTITIES constant.
 	 *
 	 * @param array $data The default mailer options data.
 	 *
@@ -941,18 +960,25 @@ class Pro {
 	 */
 	public function setup_wizard_prepare_mailer_options( $data ) {
 
-		if ( key_exists( 'amazonses', $data ) && empty( $data['amazonses']['disabled'] ) ) {
-			$amazon_regions   = \WPMailSMTP\Pro\Providers\AmazonSES\Auth::get_regions_names();
-			$prepared_regions = [];
+		if ( key_exists( 'amazonses', $data ) ) {
+			if ( empty( $data['amazonses']['disabled'] ) ) {
+				$amazon_regions   = \WPMailSMTP\Pro\Providers\AmazonSES\Auth::get_regions_names();
+				$prepared_regions = [];
 
-			foreach ( $amazon_regions as $value => $label ) {
-				$prepared_regions[] = [
-					'label' => $label,
-					'value' => $value,
-				];
+				foreach ( $amazon_regions as $value => $label ) {
+					$prepared_regions[] = [
+						'label' => $label,
+						'value' => $value,
+					];
+				}
+
+				$data['amazonses']['region_options'] = $prepared_regions;
 			}
 
-			$data['amazonses']['region_options'] = $prepared_regions;
+			$data['amazonses']['display_identities'] = (
+				! defined( 'WPMS_AMAZONSES_DISPLAY_IDENTITIES' ) ||
+				WPMS_AMAZONSES_DISPLAY_IDENTITIES === true
+			);
 		}
 
 		if ( key_exists( 'outlook', $data ) && empty( $data['outlook']['disabled'] ) ) {
@@ -990,7 +1016,7 @@ class Pro {
 
 		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 
@@ -1034,7 +1060,7 @@ class Pro {
 
 		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error();
 		}
 
@@ -1123,7 +1149,7 @@ class Pro {
 
 		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_options() ) ) {
 			wp_send_json_error( esc_html__( 'You don\'t have the permission to perform this action.', 'wp-mail-smtp-pro' ) );
 		}
 

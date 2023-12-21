@@ -892,7 +892,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$disabled = 'disabled="disabled"';
 			}
 
-			$pickerType = HelperUC::getGeneralSetting("color_picker_type");
+			$pickerType = GlobalsUC::$colorPickerType;
 
 			$bgcolor = $setting["value"];
 			$bgcolor = str_replace("0x","#",$bgcolor);
@@ -1237,6 +1237,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			}
 
 			$value = $setting["value"];
+			
+			if(is_array($value))
+				$value = json_encode($value);
+			
 			$value = htmlspecialchars($value);
 
 			$typePass = UniteFunctionsUC::getVal($setting, "ispassword");
@@ -1255,7 +1259,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			if($typePass === true){
 				$inputType = "password";
 			}
-
+			
 			?>
 				<input type="<?php echo esc_attr($inputType)?>" <?php echo UniteProviderFunctionsUC::escAddParam($class)?> <?php echo UniteProviderFunctionsUC::escAddParam($style)?> <?php echo UniteProviderFunctionsUC::escAddParam($disabled)?><?php echo UniteProviderFunctionsUC::escAddParam($readonly)?> id="<?php echo esc_attr($setting["id"])?>" name="<?php echo esc_attr($setting["name"])?>" value="<?php echo esc_attr($value)?>" <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?> />
 			<?php
@@ -1346,6 +1350,63 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				echo "<br>";	//break line on big textareas.
 		}
 
+		/**
+		 * draw switcher
+		 */
+		private function drawSwitcher($setting){
+
+			$items = $setting["items"];
+			$counter = 0;
+			$settingID = $setting["id"];
+			$settingName = $setting["name"];
+			$value = $setting["value"];
+
+
+			$class = $this->getInputClassAttr($setting);
+
+			if(count($items) != 2)
+				UniteFunctionsUC::throwError("switcher require 2 items");
+
+			$uncheckValue = null;
+			$checkValue = null;
+
+			foreach($items as $itemTitle=>$itemValue){
+
+				if($uncheckValue === null)
+					$uncheckValue = $itemValue;
+				else
+					$checkValue = $itemValue;
+			}
+
+			$isChecked = false;
+			if($checkValue === $value)
+				$isChecked = true;
+
+			$addHtml = $this->getDefaultAddHtml($setting);
+
+			$class = $this->getInputClassAttr($setting);
+
+			$checkedClass = "";
+			if($isChecked == true)
+				$checkedClass = " uc-checked";
+
+			?>
+
+			<div id="<?php echo esc_attr($setting["id"])?>" class="unite-setting-switcher unite-setting-input-object unite-settings-exclude <?php echo $class?> <?php echo $checkedClass?>"
+				data-settingtype="switcher"
+				data-uncheckedvalue="<?php echo $uncheckValue?>"
+				data-checkedvalue="<?php echo $checkValue?>"
+				data-name="<?php echo esc_attr($settingName)?>"
+				data-value="<?php echo esc_attr($value)?>"
+				<?php echo $addHtml?>>
+
+				<div class="unite-setting-switcher__object"></div>
+
+			</div>
+
+			<?php
+
+		}
 
 		/**
 		 * draw radio input
@@ -1369,13 +1430,19 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			if($this->isSidebar == false)
 				$specialDesign = false;
 
+
 			$addClass = "";
+			$addAttr = "";
+
 			if($specialDesign == true){
 				$addClass = " unite-radio-special";
 				$numItems = count($items);
 				switch($numItems){
 					case 2:
-						$addClass .= " split-two-columns";
+
+						$this->drawSwitcher($setting);
+						return(false);
+
 					break;
 					case 3:
 						$addClass .= " split-three-columns";
@@ -1395,7 +1462,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			}
 
 			?>
-			<span id="<?php echo esc_attr($settingID) ?>" class="radio_wrapper<?php echo esc_attr($addClass)?>">
+			<div id="<?php echo esc_attr($settingID) ?>" <?php echo $addAttr?> class="radio_wrapper<?php echo esc_attr($addClass)?>">
 
 			<?php
 
@@ -1434,8 +1501,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			endforeach;
 
 			?>
-			</span>
+			</div>
 			<?php
+
 		}
 
 
@@ -2050,10 +2118,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			?>
 			<div class="unite-settings-accordion-saps-tabs">
-
-				<a href="javascript:void(0)" class="unite-settings-tab unite-settings-tab__content unite-tab-selected"><?php _e("Content","unlimited-elements-for-elementor")?></a>
-				<a href="javascript:void(0)" class="unite-settings-tab unite-settings-tab__style"><?php _e("Style","unlimited-elements-for-elementor")?></a>
-
+				<a href="javascript:void(0)" class="unite-settings-tab unite-active" data-id="content"><?php _e("Content","unlimited-elements-for-elementor"); ?></a>
+				<a href="javascript:void(0)" class="unite-settings-tab" data-id="style"><?php _e("Style","unlimited-elements-for-elementor"); ?></a>
 			</div>
 			<?php
 		}

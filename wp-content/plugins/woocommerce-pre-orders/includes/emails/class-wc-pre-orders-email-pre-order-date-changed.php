@@ -47,7 +47,7 @@ class WC_Pre_Orders_Email_Pre_Order_Date_Changed extends WC_Email {
 		$this->template_plain = 'emails/plain/customer-pre-order-date-changed.php';
 
 		// Triggers for this email
-		add_action( 'wc_pre_orders_pre_order_date_changed_notification', array( $this, 'trigger' ) );
+		add_action( 'wc_pre_orders_pre_order_date_changed_notification', array( $this, 'trigger' ), 10 );
 
 		// Call parent constructor
 		parent::__construct();
@@ -57,38 +57,49 @@ class WC_Pre_Orders_Email_Pre_Order_Date_Changed extends WC_Email {
 	/**
 	 * Dispatch the email
 	 *
+	 * @since 2.0.7 Update logic to handle function first argument as array.
+	 *              First argument is same as for wc_pre_orders_pre_order_date_changed action hook.
 	 * @since 1.0
 	 */
-	public function trigger( $order_id, $message ) {
-
-		if ( $order_id ) {
-			$this->object            = new WC_Order( $order_id );
-			$this->recipient         = $this->object->get_billing_email();
-			$this->message           = $message;
-			$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) );
-
-			$this->placeholders = array_merge(
-				array(
-					'{order_date}'   => date_i18n(
-						wc_date_format(),
-						strtotime( (
-						$this->object->get_date_created() ?
-							gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() )
-							: ''
-						) )
-					),
-					'{release_date}' => WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) ),
-					'{order_number}' => $this->object->get_order_number()
-				),
-				$this->placeholders
-			);
-		}
-
-		if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
+	public function trigger( array $args ) {
+		if (
+			! array_key_exists( 'order', $args )
+			|| ! array_key_exists( 'message', $args )
+			|| ! $this->is_enabled()
+		) {
 			return;
 		}
 
-		$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+		$this->object            = $args['order'];
+		$this->recipient         = $this->object->get_billing_email();
+		$this->message           = $args['message'];
+		$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) );
+
+		$this->placeholders = array_merge(
+			array(
+				'{order_date}'   => date_i18n(
+					wc_date_format(),
+					strtotime(
+						$this->object->get_date_created()
+						? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() )
+						: ''
+					)
+				),
+				'{release_date}' => WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) ),
+				'{order_number}' => $this->object->get_order_number(),
+			),
+			$this->placeholders
+		);
+
+		if ( $this->get_recipient() ) {
+			$this->send(
+				$this->get_recipient(),
+				$this->get_subject(),
+				$this->get_content(),
+				$this->get_headers(),
+				$this->get_attachments()
+			);
+		}
 	}
 
 

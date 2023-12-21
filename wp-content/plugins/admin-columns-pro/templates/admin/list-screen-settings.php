@@ -125,7 +125,7 @@ if ( ! defined('ABSPATH')) {
 							</div>
 							<div class="ac-setbox__row__fields">
 								<div class="ac-setbox__row__fields__inner">
-									<div class="radio-labels radio-labels">
+									<div class="radio-labels">
                                         <?php
                                         $select = new Select(PreferredSort::FIELD_SORTING, [
                                             0 => __('Default'),
@@ -202,7 +202,7 @@ if ( ! defined('ABSPATH')) {
 								<div class="ac-setbox__row__fields__inner">
                                     <?php
                                     if ($this->primary_columns) : ?>
-										<div class="radio-labels radio-labels">
+										<div class="radio-labels">
                                             <?php
                                             $select = new Select('primary_column', $this->primary_columns);
 
@@ -234,7 +234,7 @@ if ( ! defined('ABSPATH')) {
 						</div>
 						<div class="ac-setbox__row__fields">
 							<div class="ac-setbox__row__fields__inner">
-								<div class="radio-labels radio-labels">
+								<div class="radio-labels">
                                     <?php
                                     $select = new Select('wrapping', [
                                         'wrap' => sprintf(

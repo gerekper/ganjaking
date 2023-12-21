@@ -107,21 +107,18 @@ class UniteCreatorLibraryWork{
 	 * load library from xml file
 	 */
 	private function loadLibrary(){
+		
 		$filepathLibrary = GlobalsUC::$pathSettings."library.xml";
 		UniteFunctionsUC::validateFilepath($filepathLibrary);
 		
 		$arrLibrary = array();
-		
-		$obj = simplexml_load_file($filepathLibrary);
-		
-		if(empty($obj))
-			UniteFunctionsUC::throwError("Wrong xml file format: $filepathLibrary");
+			
+		$obj = UniteFunctionsUC::loadXMLFile($filepathLibrary);
 		
 		$items = $obj->item;
 		if(!@count($obj->item)){
 			$items = array($items);
 		}
-		
 		
 		foreach($items as $objItem){
 			$attribs = $objItem->attributes();
@@ -164,7 +161,7 @@ class UniteCreatorLibraryWork{
 	
 	
 	/**
-	 * output urls in array of js and css saparately
+	 * output urls in array of js and css separately
 	 */
 	public function getLibraryIncludes($name){
 			

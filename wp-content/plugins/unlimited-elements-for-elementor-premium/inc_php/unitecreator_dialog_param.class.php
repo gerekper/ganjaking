@@ -171,7 +171,7 @@ class UniteCreatorDialogParamWork{
 
 		$this->addParam("uc_textfield", esc_html__("Text Field", "unlimited-elements-for-elementor"));
 		$this->addParam("uc_number", esc_html__("Number", "unlimited-elements-for-elementor"));
-		$this->addParam("uc_radioboolean", esc_html__("Radio Boolean", "unlimited-elements-for-elementor"));
+		$this->addParam(self::PARAM_RADIOBOOLEAN, esc_html__("Radio Boolean", "unlimited-elements-for-elementor"));
 		$this->addParam(self::PARAM_TEXTAREA, esc_html__("Text Area", "unlimited-elements-for-elementor"));
 		$this->addParam(self::PARAM_EDITOR, esc_html__("Editor", "unlimited-elements-for-elementor"));
 		$this->addParam("uc_checkbox", esc_html__("Checkbox", "unlimited-elements-for-elementor"));
@@ -1466,7 +1466,7 @@ class UniteCreatorDialogParamWork{
 			case "uc_number":
 				$this->putNumberParam();
 			break;
-			case "uc_radioboolean":
+			case self::PARAM_RADIOBOOLEAN:
 				$this->putRadioBooleanParam();
 			break;
 			case self::PARAM_TEXTAREA:

@@ -927,6 +927,8 @@ class WoocommerceGpfFeedItem {
 	 */
 	private function get_images() {
 
+		$image_link = '';
+
 		// Grab the variation thumbnail if available.
 		if ( $this->is_variation ) {
 			$image_id           = $this->get_the_product_thumbnail_id( $this->specific_product );
@@ -936,11 +938,22 @@ class WoocommerceGpfFeedItem {
 			}
 		}
 
-		// Grab the "product image" from main / parent product.
-		$image_id            = $this->get_the_product_thumbnail_id( $this->general_product );
-		list ( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
-		if ( ! empty( $image_link ) ) {
-			$this->register_image_source( $image_id, $image_link, 'product_image' );
+		// Grab the "product image" from main / parent product next.
+		// This can be disabled via a filter iff this is a variation *and* we have a variation image already
+		$include_parent_image = true;
+		if ( $this->is_variation && ! empty( $image_link ) ) {
+			$include_parent_image = apply_filters(
+				'woocommerce_gpf_include_parent_image_on_variation',
+				$include_parent_image,
+				$this->specific_product
+			);
+		}
+		if ( $include_parent_image ) {
+			$image_id            = $this->get_the_product_thumbnail_id( $this->general_product );
+			list ( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
+			if ( ! empty( $image_link ) ) {
+				$this->register_image_source( $image_id, $image_link, 'product_image' );
+			}
 		}
 
 		// Get the product ID to inspect for additional images.
@@ -1408,13 +1421,19 @@ class WoocommerceGpfFeedItem {
 		}
 
 		$values = get_post_meta( $product_id, $meta_key, false );
-		foreach ( $values as $key => $value ) {
-			if ( empty( $value ) ) {
-				unset( $values[ $key ] );
-			}
-		}
 
-		return $values;
+		$return_values = [];
+		foreach ( $values as $value ) {
+			if ( empty( $value ) ) {
+				continue;
+			}
+			if ( is_array( $value ) ) {
+				$return_values = array_merge( $return_values, $value );
+				continue;
+			}
+			$return_values[] = $value;
+		}
+		return $return_values;
 	}
 
 	/**

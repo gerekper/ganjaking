@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.9.3
+ * Version: 4.1.9.4
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -75,7 +75,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.9.3';
+			public $version = '4.1.9.4';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -589,7 +589,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					<div class="notice notice-error is-dismissible">
 						<p>
 							Amazon Fulfillment (MCF) for WooCommerce is not configured properly to communicate with Amazon.
-							Please use the new "Login with Amazon" button before July 31, 2022 on the settings screen (link
+							Please use the new "Login with Amazon" button on the settings screen (link
 							below) to connect to and authorize Amazon to integrate with WooCommerce.
 							<a href="<?php printf( esc_html( $url ) ); ?>">Authorize and Configure Amazon Fulfillment</a>
 						</p>

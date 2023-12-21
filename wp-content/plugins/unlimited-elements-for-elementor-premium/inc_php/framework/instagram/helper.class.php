@@ -162,18 +162,26 @@ class HelperInstaUC{
 		
 		$expiresAt = UniteFunctionsUC::getVal($data, "expires");
 		
+		
 		if(!empty($accessToken)){
 		
+			$username = UniteFunctionsUC::getVal($data, "username");
+			
 			$expiresHTML = self::getHTMLExpires($expiresAt);
-
+			
 			$urlTestView = HelperUC::getViewUrl("instagram-test");
 			$linkTest = HelperHtmlUC::getHtmlLink($urlTestView, "Test Instagram Data");
 			
+			$text = __("The instagram access token are already set up", "unlimited-elements-for-elementor");
+			
+			if(!empty($username))
+				$text .= __(" for user: ", "unlimited-elements-for-elementor")."<b>$username</b>";
+			
 			?>
 			<div id="uc_instagram_reconnect_message" class="instagram-reconnect-message">
-				<?php _e("The instagram access token are already set up", "unlimited-elements-for-elementor")?>. 
+				<?php echo $text?> 
 				<a id="uc_button_delete_insta_data" href="javascript:void(0)" class="unite-button-secondary"> <?php _e("Clear Access Data","unlimited-elements-for-elementor")?></a>
-					
+				
 				<br>
 				&nbsp;<?php echo $linkTest?>							
 				
@@ -185,6 +193,22 @@ class HelperInstaUC{
 			<div class="uc-instagram-message-expire"><?php echo $expiresHTML?></div>
 			<?php
 		}else{
+			
+			//put error message
+			
+			if(GlobalsUnlimitedElements::$enableInstagramErrorMessage == true){
+				?>
+				<div class="instagram-error-message">
+					
+					Our app is currently restricted to access the Instagram API due to recent requirements in Facebook's policies. 
+					<br>
+					Our team is actively working to find solution to restore the functionality. 
+					<br>
+					We appreciate your patience and understanding during this time.				
+				</div>
+				<?php 
+			}
+			
 			echo $htmlButton;		
 			
 		}

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'awesomemotive/wp-mail-smtp',
-        'pretty_version' => 'dev-3.10.0-release',
-        'version' => 'dev-3.10.0-release',
-        'reference' => 'c75f7c8a753c1719b4a60018a317e0f1c9f6b307',
+        'pretty_version' => 'dev-3.11.0-release',
+        'version' => 'dev-3.11.0-release',
+        'reference' => 'f39d2431cd40a7ad09725608f5e33c516a2b293b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'awesomemotive/wp-mail-smtp' => array(
-            'pretty_version' => 'dev-3.10.0-release',
-            'version' => 'dev-3.10.0-release',
-            'reference' => 'c75f7c8a753c1719b4a60018a317e0f1c9f6b307',
+            'pretty_version' => 'dev-3.11.0-release',
+            'version' => 'dev-3.11.0-release',
+            'reference' => 'f39d2431cd40a7ad09725608f5e33c516a2b293b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'aws/aws-crt-php' => array(
-            'pretty_version' => 'v1.2.3',
-            'version' => '1.2.3.0',
-            'reference' => '5545a4fa310aec39f54279fdacebcce33b3ff382',
+            'pretty_version' => 'v1.2.4',
+            'version' => '1.2.4.0',
+            'reference' => 'eb0c6e4e142224a10b08f49ebf87f32611d162b2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-crt-php',
             'aliases' => array(),

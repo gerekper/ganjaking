@@ -31,7 +31,7 @@ try{
 		$trace = $e->getTraceAsString();
 		echo "Error: <b>".$message."</b>";
 		
-		if(GlobalsUC::SHOW_TRACE == true)
+		if(GlobalsUC::$SHOW_TRACE == true)
 			dmp($trace);
 	}
 	

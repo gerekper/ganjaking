@@ -83,7 +83,8 @@ class UniteCreatorElementorControls{
 								'youtube' => __( 'Youtube', 'unlimited-elements-for-elementor' ),
 								'vimeo' => __( 'Vimeo', 'unlimited-elements-for-elementor' ),
 								'wistia' => __( 'Wistia', 'unlimited-elements-for-elementor' ),
-								'html5' => __( 'HTML5 Video', 'unlimited-elements-for-elementor' )
+								'html5' => __( 'HTML5 Video', 'unlimited-elements-for-elementor' ),
+								'iframe' => __( 'Iframe', 'unlimited-elements-for-elementor' )
 							)
 						)
 				);	    
@@ -148,6 +149,23 @@ class UniteCreatorElementorControls{
 					'condition'=>array('item_type'=>'html5')
 				)
 			);
+			
+			
+			//--------- iframe video --------
+			
+			$repeater->add_control(
+				'url_iframe',
+				array(
+					'label' => __( 'Iframe URL', 'unlimited-elements-for-elementor' ),
+					'type' => Controls_Manager::TEXT,
+					'default' => __( 'https://google.com', 'unlimited-elements-for-elementor' ),
+					'description'=>__('Enter any url, that the iframe will load','unlimited-elements-for-elementor'),
+					'separator'=>'before',
+					'label_block'=>true,
+					'condition'=>array('item_type'=>'iframe')
+				)
+			);
+			
 			
 	        endif;	//enable video
 			

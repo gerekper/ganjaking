@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-12-06 10:06+0000\n"
+"POT-Creation-Date: 2023-12-19 09:42+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/MenuFactory.php:39, admin-columns-pro/classes/Service/Presets.php:120
+#: admin-columns-pro/classes/Admin/MenuFactory.php:39, admin-columns-pro/classes/Service/Storage/Template.php:99
 msgid "Tools"
 msgstr ""
 
@@ -56,35 +56,35 @@ msgstr ""
 msgid "Wrapping"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:359, admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:62, admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:67
+#: admin-columns-pro/classes/Admin/Settings.php:364, admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:62, admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:67
 msgid "Table Views"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:363
+#: admin-columns-pro/classes/Admin/Settings.php:368
 msgid "Table views allow users to switch between different views on the list table."
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:370
+#: admin-columns-pro/classes/Admin/Settings.php:375
 msgid "Available views are selectable from the list table."
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:381
+#: admin-columns-pro/classes/Admin/Settings.php:386
 msgid "Online documentation"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:416
+#: admin-columns-pro/classes/Admin/Settings.php:421
 msgid "Other"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:420, admin-columns-pro/classes/Admin/Settings.php:454, admin-columns-pro/addons/gravityforms/classes/TableScreen/Entry.php:138
+#: admin-columns-pro/classes/Admin/Settings.php:425, admin-columns-pro/classes/Admin/Settings.php:459, admin-columns-pro/addons/gravityforms/classes/TableScreen/Entry.php:138
 msgid "Default"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:492
+#: admin-columns-pro/classes/Admin/Settings.php:497
 msgid "You can make an editable copy of this set by clicking %s on the right."
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Settings.php:496
+#: admin-columns-pro/classes/Admin/Settings.php:501
 msgid "+ Add set"
 msgstr ""
 
@@ -410,18 +410,6 @@ msgstr ""
 msgid "This integration add-on is no longer required by %s and can be safely removed."
 msgstr ""
 
-#: admin-columns-pro/classes/Service/Presets.php:115
-msgid "This is a preview of %s."
-msgstr ""
-
-#: admin-columns-pro/classes/Service/Presets.php:119
-msgid "Return to the %s page to import this view."
-msgstr ""
-
-#: admin-columns-pro/classes/Service/Presets.php:125
-msgid "Leave preview mode"
-msgstr ""
-
 #: admin-columns-pro/classes/Sorting/Settings.php:40
 msgid "Enable Sorting"
 msgstr ""
@@ -544,7 +532,7 @@ msgid "Create a new view for the %s list table."
 msgstr ""
 
 #: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:68
-msgid "Presets"
+msgid "Templates"
 msgstr ""
 
 #: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:69
@@ -720,7 +708,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/NetworkSite/Path.php:13, admin-columns-pro/classes/Migrate/Admin/Section/Presets.php:119, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:169
+#: admin-columns-pro/classes/Column/NetworkSite/Path.php:13, admin-columns-pro/classes/Migrate/Admin/Section/Templates.php:119, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:169
 msgid "Path"
 msgstr ""
 
@@ -897,7 +885,7 @@ msgstr ""
 msgid "Current user has no delete permissions."
 msgstr ""
 
-#: admin-columns-pro/classes/Editing/RequestHandler/BulkSave.php:126
+#: admin-columns-pro/classes/Editing/RequestHandler/BulkSave.php:128
 msgid "Missing id"
 msgstr ""
 
@@ -1107,6 +1095,18 @@ msgstr ""
 
 #: admin-columns-pro/classes/Search/Settings/Column.php:26
 msgid "Enable Smart Filtering"
+msgstr ""
+
+#: admin-columns-pro/classes/Service/Storage/Template.php:94
+msgid "This is a preview of %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Service/Storage/Template.php:98
+msgid "Return to the %s page to import this table view."
+msgstr ""
+
+#: admin-columns-pro/classes/Service/Storage/Template.php:104
+msgid "Leave preview mode"
 msgstr ""
 
 #: admin-columns-pro/classes/Settings/Column/CustomFieldType.php:75
@@ -2111,11 +2111,11 @@ msgctxt "export"
 msgid "This will affect {0}"
 msgstr ""
 
-#: admin-columns-pro/classes/Migrate/Admin/Section/Presets.php:102
+#: admin-columns-pro/classes/Migrate/Admin/Section/Templates.php:102
 msgid "and"
 msgstr ""
 
-#: admin-columns-pro/classes/Migrate/Admin/Section/Presets.php:122, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:144
+#: admin-columns-pro/classes/Migrate/Admin/Section/Templates.php:122, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:144
 msgid "File"
 msgstr ""
 
@@ -2687,7 +2687,7 @@ msgstr ""
 msgid "Total Revenue"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ProductParent.php:17
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ProductParent.php:20
 msgid "Grouped By"
 msgstr ""
 

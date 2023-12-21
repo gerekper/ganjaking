@@ -339,12 +339,12 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	public static function add_missing_ranges( $quantity_ranges, $product ) {
 		$fixed = [];
 
-		if ( class_exists( 'RP_WCDPD_Settings' ) && class_exists( 'RightPress_Helper' ) ) {
+		if ( class_exists( 'RP_WCDPD_Settings' ) && class_exists( 'RightPress_Help' ) ) {
 			// Check if product uses decimal quantities.
-			$decimal_quantities = RP_WCDPD_Settings::get( 'decimal_quantities' ) && RightPress_Helper::wc_product_uses_decimal_quantities( $product );
+			$decimal_quantities = RP_WCDPD_Settings::get( 'decimal_quantities' ) && RightPress_Help::wc_product_uses_decimal_quantities( $product );
 
 			// Get quantity step.
-			$quantity_step = $decimal_quantities ? RightPress_Helper::get_wc_product_quantity_step( $product ) : 1;
+			$quantity_step = $decimal_quantities ? RightPress_Help::get_wc_product_quantity_step( $product ) : 1;
 
 			$last_from = null;
 			$last_to   = null;

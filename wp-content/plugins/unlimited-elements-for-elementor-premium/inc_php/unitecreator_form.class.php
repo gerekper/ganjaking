@@ -14,7 +14,9 @@ class UniteCreatorForm{
 	const LOGS_OPTIONS_KEY = "unlimited_elements_form_logs";
 	const LOGS_MAX_COUNT = 10;
 
-	const HOOK_NAMESPACE = "unlimited_elements/form";
+	const FOLDER_NAME = "unlimited_elements_form";
+	const HOOK_NAMESPACE = "ue_form";
+	const VALIDATION_ERROR_CODE = -1;
 
 	const ACTION_SAVE = "save";
 	const ACTION_EMAIL = "email";
@@ -23,11 +25,14 @@ class UniteCreatorForm{
 	const ACTION_WEBHOOK2 = "webhook2";
 	const ACTION_REDIRECT = "redirect";
 	const ACTION_GOOGLE_SHEETS = "google_sheets";
+	const ACTION_HOOK = "hook";
 
 	const PLACEHOLDER_ADMIN_EMAIL = "admin_email";
 	const PLACEHOLDER_EMAIL_FIELD = "email_field";
 	const PLACEHOLDER_FORM_FIELDS = "form_fields";
 	const PLACEHOLDER_SITE_NAME = "site_name";
+
+	const TYPE_FILES = "files";
 
 	private static $isFormIncluded = false;    //indicator that the form included once
 
@@ -143,30 +148,39 @@ class UniteCreatorForm{
 	/**
 	 * get the form values
 	 */
-	private function getFieldsData($arrContent, $arrFields){
+	private function getFieldsData($arrContent, $arrFields, $arrFiles){
 
 		$arrOutput = array();
 
 		foreach($arrFields as $arrField){
 			// get field input
-			$fieldID = UniteFunctionsUC::getVal($arrField, "id");
+			$fieldId = UniteFunctionsUC::getVal($arrField, "id");
+			$fieldType = UniteFunctionsUC::getVal($arrField, "type");
 			$fieldValue = UniteFunctionsUC::getVal($arrField, "value");
+			$fieldParams = array();
 
 			// get saved settings from layout
-			$arrFieldSettings = HelperProviderCoreUC_EL::getAddonValuesWithDataFromContent($arrContent, $fieldID);
+			$fieldSettings = HelperProviderCoreUC_EL::getAddonValuesWithDataFromContent($arrContent, $fieldId);
+
+			if($fieldType === self::TYPE_FILES){
+				$fieldValue = UniteFunctionsUC::getVal($arrFiles, $fieldId, array());
+				$fieldParams["allowed_types"] = $this->prepareFilesFieldAllowedTypes($fieldSettings);
+			}
 
 			// get values that we'll use in the form
-			// note - not all the fields will have a name/title
-			$name = UniteFunctionsUC::getVal($arrFieldSettings, "field_name");
-			$title = UniteFunctionsUC::getVal($arrFieldSettings, "label");
-			$required = UniteFunctionsUC::getVal($arrFieldSettings, "required");
+			// note: not all the fields will have a name/title
+			$name = UniteFunctionsUC::getVal($fieldSettings, "field_name");
+			$title = UniteFunctionsUC::getVal($fieldSettings, "label");
+			$required = UniteFunctionsUC::getVal($fieldSettings, "required");
 			$required = UniteFunctionsUC::strToBool($required);
 
 			$arrFieldOutput = array();
 			$arrFieldOutput["title"] = $title;
 			$arrFieldOutput["name"] = $name;
+			$arrFieldOutput["type"] = $fieldType;
 			$arrFieldOutput["value"] = $fieldValue;
 			$arrFieldOutput["required"] = $required;
+			$arrFieldOutput["params"] = $fieldParams;
 
 			$arrOutput[] = $arrFieldOutput;
 		}
@@ -179,7 +193,8 @@ class UniteCreatorForm{
 	 */
 	public function submitFormFront(){
 
-		$formData = UniteFunctionsUC::getPostGetVariable("formdata", null, UniteFunctionsUC::SANITIZE_NOTHING);
+		$formData = UniteFunctionsUC::getPostGetVariable("formData", null, UniteFunctionsUC::SANITIZE_NOTHING);
+		$formFiles = UniteFunctionsUC::getFilesVariable("formFiles");
 		$formID = UniteFunctionsUC::getPostGetVariable("formId", null, UniteFunctionsUC::SANITIZE_KEY);
 		$layoutID = UniteFunctionsUC::getPostGetVariable("postId", null, UniteFunctionsUC::SANITIZE_ID);
 
@@ -199,7 +214,7 @@ class UniteCreatorForm{
 		// here can add some validation next...
 
 		$arrFormSettings = $addonForm->getProcessedMainParamsValues();
-		$arrFieldsData = $this->getFieldsData($arrContent, $formData);
+		$arrFieldsData = $this->getFieldsData($arrContent, $formData, $formFiles);
 
 		$this->doSubmitActions($arrFormSettings, $arrFieldsData);
 	}
@@ -213,123 +228,158 @@ class UniteCreatorForm{
 		$this->formFields = $formFields;
 
 		$data = array();
+		$errors = array();
+		$debugData = array();
 		$debugMessages = array();
-
-		$debugData = array(
-			"settings" => $formSettings,
-			"fields" => $formFields,
-			"errors" => array(),
-		);
 
 		try{
 			$debugMessages[] = "Form has been received.";
 
-			$formErrors = $this->validateFormSettings($formSettings);
+			// Validate form settings
+			$formErrors = $this->validateFormSettings($this->formSettings);
 
 			if(empty($formErrors) === false){
-				$debugData["errors"] = array_merge($debugData["errors"], $formErrors);
+				$errors = array_merge($errors, $formErrors);
 
 				$formErrors = implode(" ", $formErrors);
 
 				UniteFunctionsUC::throwError("Form settings validation failed ($formErrors).");
 			}
 
-			$fieldsErrors = $this->validateFormFields($formFields);
+			// Validate form fields
+			$fieldsErrors = $this->validateFormFields($this->formFields);
 
 			if(empty($fieldsErrors) === false){
-				$debugData["errors"] = array_merge($debugData["errors"], $fieldsErrors);
+				$errors = array_merge($errors, $fieldsErrors);
 
-				$fieldsErrors = implode(" ", $fieldsErrors);
+				$validationError = $this->getValidationErrorMessage($fieldsErrors);
 
-				UniteFunctionsUC::throwError("Form validation failed ($fieldsErrors).");
+				UniteFunctionsUC::throwError($validationError, self::VALIDATION_ERROR_CODE);
 			}
 
-			$formActions = UniteFunctionsUC::getVal($formSettings, "form_actions");
+			// Upload form files
+			$filesErrors = $this->uploadFormFiles();
+
+			if(empty($filesErrors) === false){
+				$errors = array_merge($errors, $filesErrors);
+
+				UniteFunctionsUC::throwError("Form upload failed.");
+			}
+
+			// Process form actions
+			$formActions = UniteFunctionsUC::getVal($this->formSettings, "form_actions");
+			$actionsErrors = array();
 
 			foreach($formActions as $action){
-				do_action(self::HOOK_NAMESPACE . "/before_{$action}_action", $formFields, $formSettings);
+				try{
+					$this->executeFormAction("before_{$action}_action");
 
-				switch($action){
-					case self::ACTION_SAVE:
-						$this->createFormEntry();
+					switch($action){
+						case self::ACTION_SAVE:
+							$this->createFormEntry();
 
-						$debugMessages[] = "Form entry has been successfully created.";
-					break;
+							$debugMessages[] = "Form entry has been successfully created.";
+						break;
 
-					case self::ACTION_EMAIL:
-					case self::ACTION_EMAIL2:
-						$emailFields = $this->getEmailFields($action);
+						case self::ACTION_EMAIL:
+						case self::ACTION_EMAIL2:
+							$emailFields = $this->getEmailFields($action);
 
-						$debugData[$action] = $emailFields;
+							$debugData[$action] = $emailFields;
 
-						$this->sendEmail($emailFields);
+							$this->sendEmail($emailFields);
 
-						$emails = implode(", ", $emailFields["to"]);
+							$emails = implode(", ", $emailFields["to"]);
 
-						$debugMessages[] = "Email has been successfully sent to $emails.";
-					break;
+							$debugMessages[] = "Email has been successfully sent to $emails.";
+						break;
 
-					case self::ACTION_WEBHOOK:
-					case self::ACTION_WEBHOOK2:
-						$webhookFields = $this->getWebhookFields($action);
+						case self::ACTION_WEBHOOK:
+						case self::ACTION_WEBHOOK2:
+							$webhookFields = $this->getWebhookFields($action);
 
-						$debugData[$action] = $webhookFields;
+							$debugData[$action] = $webhookFields;
 
-						$this->sendWebhook($webhookFields);
+							$this->sendWebhook($webhookFields);
 
-						$debugMessages[] = "Webhook has been successfully sent to {$webhookFields["url"]}.";
-					break;
+							$debugMessages[] = "Webhook has been successfully sent to {$webhookFields["url"]}.";
+						break;
 
-					case self::ACTION_REDIRECT:
-						$redirectUrl = UniteFunctionsUC::getVal($formSettings, "redirect_url");
-						$redirectUrl = esc_url_raw($redirectUrl);
-						$validUrl = UniteFunctionsUC::isUrlValid($redirectUrl);
+						case self::ACTION_REDIRECT:
+							$redirectFields = $this->getRedirectFields();
 
-						if($validUrl === true){
-							$data["redirect"] = $redirectUrl;
+							$data["redirect"] = $redirectFields["url"];
+							$debugData[$action] = $redirectFields["url"];
 
-							$debugMessages[] = "Redirecting to $redirectUrl...";
-						}
-					break;
+							$debugMessages[] = "Redirecting to {$redirectFields["url"]}.";
+						break;
 
-					case self::ACTION_GOOGLE_SHEETS:
-						$spreadsheetFields = $this->getGoogleSheetsFields();
+						case self::ACTION_GOOGLE_SHEETS:
+							$spreadsheetFields = $this->getGoogleSheetsFields();
 
-						$debugData[$action] = $spreadsheetFields;
+							$debugData[$action] = $spreadsheetFields;
 
-						$this->sendToGoogleSheets($spreadsheetFields);
+							$this->sendToGoogleSheets($spreadsheetFields);
 
-						$debugMessages[] = "Data has been successfully sent to Google Sheets.";
-					break;
+							$debugMessages[] = "Data has been successfully sent to Google Sheets.";
+						break;
 
-					default:
-						UniteFunctionsUC::throwError("Form action \"$action\" is not implemented.");
+						case self::ACTION_HOOK:
+							$hookFields = $this->getHookFields();
+
+							$debugData[$action] = $hookFields;
+
+							$this->executeFormAction("custom/{$hookFields["name"]}");
+
+							$debugMessages[] = "Hook has been successfully executed.";
+						break;
+
+						default:
+							UniteFunctionsUC::throwError("Form action \"$action\" is not implemented.");
+					}
+
+					$this->executeFormAction("after_{$action}_action");
+				}catch(Exception $exception){
+					$actionsErrors[] = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
 				}
+			}
 
-				do_action(self::HOOK_NAMESPACE . "/after_{$action}_action", $formFields, $formSettings);
+			if(empty($actionsErrors) === false){
+				$errors = array_merge($errors, $actionsErrors);
+
+				$actionsErrors = implode(" ", $actionsErrors);
+
+				UniteFunctionsUC::throwError("Form actions failed ($actionsErrors).");
 			}
 
 			$success = true;
-			$message = esc_html__("Form has been successfully submitted.", "unlimited-elements-for-elementor");
-		}catch(Exception $e){
+			$message = $this->getFormSuccessMessage();
+		}catch(Exception $exception){
 			$success = false;
-			$message = esc_html__("Unable to submit form.", "unlimited-elements-for-elementor");
+			$message = $this->getFormErrorMessage();
 
-			$debugMessages[] = $e->getMessage();
+			if($exception->getCode() === self::VALIDATION_ERROR_CODE)
+				$message = $exception->getMessage();
+
+			$debugMessages[] = $exception->getMessage();
 		}
 
 		$this->createFormLog($debugMessages);
 
-		$isDebug = UniteFunctionsUC::getVal($formSettings, "debug_mode");
+		$isDebug = UniteFunctionsUC::getVal($this->formSettings, "debug_mode");
 		$isDebug = UniteFunctionsUC::strToBool($isDebug);
 
 		if($isDebug === true){
 			$debugMessage = implode(" ", $debugMessages);
-			$debugType = UniteFunctionsUC::getVal($formSettings, "debug_type");
+			$debugType = UniteFunctionsUC::getVal($this->formSettings, "debug_type");
 
 			$data["debug"] = "<p><b>DEBUG:</b> $debugMessage</p>";
 
 			if($debugType === "full"){
+				$debugData["errors"] = $errors;
+				$debugData["fields"] = $this->formFields;
+				$debugData["settings"] = $this->formSettings;
+
 				$debugData = json_encode($debugData, JSON_PRETTY_PRINT);
 				$debugData = esc_html($debugData);
 
@@ -351,9 +401,11 @@ class UniteCreatorForm{
 		$formValidations = $this->getFormSettingsValidations();
 
 		foreach($formValidations as $validation){
-			foreach($validation["actions"] as $actionKey => $actionTitle){
+			foreach($validation["actions"] as $actionKey){
 				if(in_array($actionKey, $formActions) === false)
 					continue;
+
+				$actionTitle = $this->getActionTitle($actionKey);
 
 				foreach($validation["rules"] as $fieldName => $rules){
 					$fieldKey = $this->getFieldKey($fieldName, $actionKey);
@@ -438,10 +490,7 @@ class UniteCreatorForm{
 		$validations = array(
 
 			array(
-				"actions" => array(
-					self::ACTION_EMAIL => __("Email", "unlimited-elements-for-elementor"),
-					self::ACTION_EMAIL2 => __("Email 2", "unlimited-elements-for-elementor"),
-				),
+				"actions" => array(self::ACTION_EMAIL, self::ACTION_EMAIL2),
 				"rules" => array(
 					"to" => array(
 						"required" => true,
@@ -482,10 +531,7 @@ class UniteCreatorForm{
 			),
 
 			array(
-				"actions" => array(
-					self::ACTION_WEBHOOK => __("Webhook", "unlimited-elements-for-elementor"),
-					self::ACTION_WEBHOOK2 => __("Webhook 2", "unlimited-elements-for-elementor"),
-				),
+				"actions" => array(self::ACTION_WEBHOOK, self::ACTION_WEBHOOK2),
 				"rules" => array(
 					"url" => array(
 						"required" => true,
@@ -498,9 +544,7 @@ class UniteCreatorForm{
 			),
 
 			array(
-				"actions" => array(
-					self::ACTION_REDIRECT => __("Redirect", "unlimited-elements-for-elementor"),
-				),
+				"actions" => array(self::ACTION_REDIRECT),
 				"rules" => array(
 					"url" => array(
 						"required" => true,
@@ -513,9 +557,7 @@ class UniteCreatorForm{
 			),
 
 			array(
-				"actions" => array(
-					self::ACTION_GOOGLE_SHEETS => __("Google Sheets", "unlimited-elements-for-elementor"),
-				),
+				"actions" => array(self::ACTION_GOOGLE_SHEETS),
 				"rules" => array(
 					"credentials" => array(
 						"google_connect" => true,
@@ -527,6 +569,18 @@ class UniteCreatorForm{
 				"titles" => array(
 					"credentials" => "",
 					"id" => __("Spreadsheet ID", "unlimited-elements-for-elementor"),
+				),
+			),
+
+			array(
+				"actions" => array(self::ACTION_HOOK),
+				"rules" => array(
+					"name" => array(
+						"required" => true,
+					),
+				),
+				"titles" => array(
+					"name" => __("Name", "unlimited-elements-for-elementor"),
 				),
 			),
 
@@ -543,8 +597,30 @@ class UniteCreatorForm{
 		$errors = array();
 
 		foreach($formFields as $field){
-			if($field["required"] === true && $field["value"] === "")
-				$errors[] = sprintf(esc_html__("%s field is empty.", "unlimited-elements-for-elementor"), $this->getFieldTitle($field));
+			$value = $field["value"];
+
+			if($field["required"] === true)
+				if($value === "" || (is_array($value) === true && empty($value) === true))
+					$errors[] = $this->formatFieldError($field, $this->getFieldEmptyErrorMessage());
+
+			if($field["type"] === self::TYPE_FILES){
+				foreach($value as $file){
+					if($file["error"] !== UPLOAD_ERR_OK){
+						$errors[] = $this->formatFieldError($field, $this->getFileUploadErrorMessage());
+
+						break;
+					}
+
+					$result = wp_check_filetype_and_ext($file["tmp_name"], $file["name"], $field["params"]["allowed_types"]);
+					$allowedExtensions = array_keys($field["params"]["allowed_types"]);
+
+					if($result["ext"] === false || $result["type"] === false){
+						$errors[] = $this->formatFieldError($field, $this->getFileTypeErrorMessage($allowedExtensions));
+
+						break;
+					}
+				}
+			}
 		}
 
 		return $errors;
@@ -573,9 +649,8 @@ class UniteCreatorForm{
 
 				$isEntryCreated = $wpdb->insert($entriesTable, $entriesData);
 
-				if($isEntryCreated === false){
-					throw new Exception($wpdb->last_error);
-				}
+				if($isEntryCreated === false)
+					UniteFunctionsUC::throwError($wpdb->last_error);
 
 				$entryId = $wpdb->insert_id;
 
@@ -586,14 +661,14 @@ class UniteCreatorForm{
 						"entry_id" => $entryId,
 						"title" => $this->getFieldTitle($field),
 						"name" => $field["name"],
+						"type" => $field["type"],
 						"value" => $field["value"],
 					);
 
 					$isFieldCreated = $wpdb->insert($entryFieldsTable, $entryFieldsData);
 
-					if($isFieldCreated === false){
-						throw new Exception($wpdb->last_error);
-					}
+					if($isFieldCreated === false)
+						UniteFunctionsUC::throwError($wpdb->last_error);
 				}
 			});
 		}catch(Exception $e){
@@ -622,6 +697,62 @@ class UniteCreatorForm{
 		$logs = array_slice($logs, -self::LOGS_MAX_COUNT);
 
 		update_option(self::LOGS_OPTIONS_KEY, $logs);
+	}
+
+	/**
+	 * upload form files
+	 */
+	private function uploadFormFiles(){
+
+		// Create upload folder
+		$folderName = self::FOLDER_NAME . "/"
+			. date("Y") . "/"
+			. date("m") . "/"
+			. date("d") . "/";
+
+		$folderPath = GlobalsUC::$path_images . $folderName;
+
+		$created = wp_mkdir_p($folderPath);
+
+		if($created === false)
+			UniteFunctionsUC::throwError("Unable to create upload folder: $folderPath");
+
+		// Process files upload
+		$errors = array();
+
+		foreach($this->formFields as &$field){
+			if($field["type"] !== self::TYPE_FILES)
+				continue;
+
+			$urls = array();
+
+			foreach($field["value"] as $file){
+				$fileName = wp_unique_filename($folderPath, $file["name"]);
+				$filePath = $folderPath . "/" . $fileName;
+
+				$moved = move_uploaded_file($file["tmp_name"], $filePath);
+
+				if($moved === false){
+					$errors[] = "Unable to move uploaded file: $filePath";
+
+					continue;
+				}
+
+				$chmoded = chmod($filePath, 0644);
+
+				if($chmoded === false){
+					$errors[] = "Unable to change file permissions: $filePath";
+
+					continue;
+				}
+
+				$urls[] = GlobalsUC::$url_images . $folderName . $fileName;
+			}
+
+			$field["value"] = $this->encodeFilesFieldValue($urls);
+		}
+
+		return $errors;
 	}
 
 	/**
@@ -722,7 +853,13 @@ class UniteCreatorForm{
 		$formFieldsReplace = array();
 
 		foreach($this->formFields as $field){
-			$formFieldsReplace[] = "{$this->getFieldTitle($field)}: {$field["value"]}";
+			$title = $this->getFieldTitle($field);
+			$value = $field["value"];
+
+			if($field["type"] === self::TYPE_FILES)
+				$value = $this->getFilesFieldLinksHtml($value);
+
+			$formFieldsReplace[] = "$title: $value";
 		}
 
 		$formFieldsReplace = implode("<br />", $formFieldsReplace);
@@ -746,7 +883,7 @@ class UniteCreatorForm{
 	 */
 	private function prepareEmailHeaders($emailFields){
 
-		$headers = array();
+		$headers = array("Content-Type: text/html; charset=utf-8");
 
 		if(empty($emailFields["from"]) === false){
 			$from = $emailFields["from"];
@@ -830,6 +967,21 @@ class UniteCreatorForm{
 	}
 
 	/**
+	 * get redirect fields
+	 */
+	private function getRedirectFields(){
+
+		$url = UniteFunctionsUC::getVal($this->formSettings, "redirect_url");
+		$url = esc_url_raw($url);
+
+		$redirectFields = array(
+			"url" => $url,
+		);
+
+		return $redirectFields;
+	}
+
+	/**
 	 * send to google sheets
 	 */
 	private function sendToGoogleSheets($spreadsheetFields){
@@ -838,7 +990,7 @@ class UniteCreatorForm{
 		$services->includeGoogleAPI();
 
 		$sheetsService = new UEGoogleAPISheetsService();
-		$sheetsService->useCredentials();
+		$sheetsService->setAccessToken(UEGoogleAPIHelper::getFreshAccessToken());
 
 		$headersRow = array();
 		$emptyRow = array();
@@ -929,6 +1081,28 @@ class UniteCreatorForm{
 	}
 
 	/**
+	 * get hook fields
+	 */
+	private function getHookFields(){
+
+		$name = UniteFunctionsUC::getVal($this->formSettings, "hook_name");
+
+		$hookFields = array(
+			"name" => $name,
+		);
+
+		return $hookFields;
+	}
+
+	/**
+	 * execute form action
+	 */
+	private function executeFormAction($name){
+
+		do_action(self::HOOK_NAMESPACE . "/$name", $this->formFields, $this->formSettings);
+	}
+
+	/**
 	 * apply action fields filter
 	 */
 	private function applyActionFieldsFilter($action, $fields){
@@ -966,6 +1140,90 @@ class UniteCreatorForm{
 	}
 
 	/**
+	 * get form message
+	 */
+	private function getFormMessage($key, $fallback){
+
+		$message = UniteFunctionsUC::getVal($this->formSettings, $key);
+
+		if(empty($message) === true)
+			$message = $fallback;
+
+		return $message;
+	}
+
+	/**
+	 * get form success message
+	 */
+	private function getFormSuccessMessage(){
+
+		$fallback = __("Your submission has been received!", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("success_message", $fallback);
+		$message = esc_html($message);
+
+		return $message;
+	}
+
+	/**
+	 * get form error message
+	 */
+	private function getFormErrorMessage(){
+
+		$fallback = __("Oops! Something went wrong, please try again later.", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("error_message", $fallback);
+		$message = esc_html($message);
+
+		return $message;
+	}
+
+	/**
+	 * get validation error message
+	 */
+	private function getValidationErrorMessage($errors){
+
+		$fallback = __("Please correct the following errors:", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("validation_error_message", $fallback);
+		$message = esc_html($message);
+		$message .= "<br />- " . implode("<br />- ", $errors);
+
+		return $message;
+	}
+
+	/**
+	 * get field empty error message
+	 */
+	private function getFieldEmptyErrorMessage(){
+
+		$fallback = __("The field is empty.", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("field_empty_error_message", $fallback);
+
+		return $message;
+	}
+
+	/**
+	 * get file upload error message
+	 */
+	private function getFileUploadErrorMessage(){
+
+		$fallback = __("The file upload failed.", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("file_upload_error_message", $fallback);
+
+		return $message;
+	}
+
+	/**
+	 * get file type error message
+	 */
+	private function getFileTypeErrorMessage($extensions){
+
+		$fallback = __("The file must be of type: %s.", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("file_type_error_message", $fallback);
+		$message = sprintf($message, implode(", ", $extensions));
+
+		return $message;
+	}
+
+	/**
 	 * get field key
 	 */
 	private function getFieldKey($fieldName, $fieldPrefix){
@@ -981,6 +1239,32 @@ class UniteCreatorForm{
 	private function getFieldTitle($field){
 
 		return $field["title"] ?: __("Untitled", "unlimited-elements-for-elementor");
+	}
+
+	/**
+	 * get field error
+	 */
+	private function formatFieldError($field, $error){
+
+		return sprintf(esc_html("%s: %s"), $this->getFieldTitle($field), $error);
+	}
+
+	/**
+	 * get action title
+	 */
+	private function getActionTitle($key){
+
+		$titles = array(
+			self::ACTION_EMAIL => __("Email", "unlimited-elements-for-elementor"),
+			self::ACTION_EMAIL2 => __("Email 2", "unlimited-elements-for-elementor"),
+			self::ACTION_WEBHOOK => __("Webhook", "unlimited-elements-for-elementor"),
+			self::ACTION_WEBHOOK2 => __("Webhook 2", "unlimited-elements-for-elementor"),
+			self::ACTION_REDIRECT => __("Redirect", "unlimited-elements-for-elementor"),
+			self::ACTION_GOOGLE_SHEETS => __("Google Sheets", "unlimited-elements-for-elementor"),
+			self::ACTION_HOOK => __("WordPress Hook", "unlimited-elements-for-elementor"),
+		);
+
+		return UniteFunctionsUC::getVal($titles, $key, $key);
 	}
 
 	/**
@@ -1053,6 +1337,100 @@ class UniteCreatorForm{
 		$value = str_replace("{{$placeholder}}", $replace, $value);
 
 		return $value;
+	}
+
+	/**
+	 * prepare files field allowed types
+	 */
+	private function prepareFilesFieldAllowedTypes($fieldSettings){
+
+		$allowedTypes = UniteFunctionsUC::getVal($fieldSettings, "allowed_types", array());
+		$customAllowedTypes = UniteFunctionsUC::getVal($fieldSettings, "custom_allowed_types");
+		$customAllowedTypes = strtolower($customAllowedTypes);
+		$customAllowedTypes = explode(",", $customAllowedTypes);
+		$customAllowedTypes = array_map("trim", $customAllowedTypes);
+		$customAllowedTypes = array_filter($customAllowedTypes);
+		$customAllowedTypes = array_unique($customAllowedTypes);
+
+		$typesMap = array(
+			"archives" => array("tar", "zip", "gz", "gzip", "rar", "7z"),
+			"audios" => array("mp3", "aac", "wav", "ogg", "flac", "wma"),
+			"documents" => array("txt", "csv", "tsv", "pdf", "doc", "docx", "pot", "potx", "pps", "ppsx", "ppt", "pptx", "xls", "xlsx", "odt", "odp", "ods", "key", "pages"),
+			"images" => array("jpeg", "jpg", "png", "tif", "tiff", "svg", "webp", "gif", "bmp", "ico", "heic"),
+			"videos" => array("wmv", "avi", "flv", "mov", "mpeg", "mp4", "ogv", "webm", "3gp", "3gpp"),
+			"custom" => $customAllowedTypes,
+		);
+
+		// merge wp mime types with the plugin mimes (in case of missing one)
+		// format: extension => mime
+		$mimes = array_merge(wp_get_mime_types(), array(
+			"svg" => "image/svg+xml",
+		));
+
+		$types = array();
+
+		foreach($allowedTypes as $type){
+			if(isset($typesMap[$type]) === false)
+				UniteFunctionsUC::throwError("File type \"$type\" is not implemented.");
+
+			foreach($typesMap[$type] as $extension){
+				$result = wp_check_filetype("temp.$extension", $mimes);
+
+				if($result["ext"] !== false && $result["type"] !== false)
+					$types[$result["ext"]] = $result["type"];
+			}
+		}
+
+		return $types;
+	}
+
+	/**
+	 * encode files field value
+	 */
+	private function encodeFilesFieldValue($urls){
+
+		$value = implode(", ", $urls);
+
+		return $value;
+	}
+
+	/**
+	 * decode files field value
+	 */
+	public function decodeFilesFieldValue($value){
+
+		$urls = explode(", ", $value);
+		$urls = array_filter($urls);
+
+		return $urls;
+	}
+
+	/**
+	 * get files field links html
+	 */
+	public function getFilesFieldLinksHtml($value, $separator = ", ", $withDownload = false){
+
+		$urls = $this->decodeFilesFieldValue($value);
+
+		if(empty($urls) === true)
+			return "";
+
+		$links = array();
+
+		foreach($urls as $url){
+			$href = esc_attr($url);
+			$label = esc_html(basename($url));
+			$link = "<a href=\"$href\" target=\"_blank\">$label</a>";
+
+			if ($withDownload === true)
+				$link .= "<a href=\"$href\" target=\"_blank\" download><i class=\"dashicons dashicons-download\"></i></a>";
+
+			$links[] = $link;
+		}
+
+		$links = implode($separator, $links);
+
+		return $links;
 	}
 
 }

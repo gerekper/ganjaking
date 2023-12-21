@@ -285,7 +285,6 @@ final class THEMECOMPLETE_EPO_Actions_Base {
 			$free_shipping        = false;
 			$free_shipping_key    = false;
 			$all_shipping_methods = $shipping_zone->get_shipping_methods( false );
-
 			foreach ( $all_shipping_methods as $shipping_key => $shipping_method ) {
 				$id      = $shipping_method->id;
 				$method  = $shipping_method;
@@ -306,8 +305,10 @@ final class THEMECOMPLETE_EPO_Actions_Base {
 				}
 
 				if ( $disable ) {
-					$method->enabled                             = 'no';
-					$shipping->shipping_methods[ $shipping_key ] = $method;
+					if ( isset( $shipping->shipping_methods[ $shipping_key ] ) ) {
+						$method->enabled                             = 'no';
+						$shipping->shipping_methods[ $shipping_key ] = $method;
+					}
 				} else {
 					foreach ( $enable_ids as $enable_id ) {
 						$rk = $this->get_rate_and_key( $enable_id );

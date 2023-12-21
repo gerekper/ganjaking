@@ -4,7 +4,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteProviderAdminUC extends UniteCreatorAdmin{
 
-	private $dbVersion = "3";    //used for upgrade db on plugin update
+	private $dbVersion = "4";    //used for upgrade db on plugin update
 	private static $arrMenuPages = array();
 	private static $arrSubMenuPages = array();
 	protected $capability = "manage_options";
@@ -215,6 +215,7 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 					entry_id BIGINT(20) UNSIGNED NOT NULL,
 					title VARCHAR(128) NULL,
 					name VARCHAR(64) NULL,
+					type VARCHAR(32) NULL,
   				value LONGTEXT NULL,
 					PRIMARY KEY (id),
 					INDEX entry_id_index (entry_id)
@@ -694,7 +695,7 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 
 		$htmlBody = $this->getAdminPageBody();
 		$title = UniteFunctionsWPUC::getAdminTitle(self::$adminTitle);
-		
+
 		HelperUC::addStyle("blank_page_preview", "uc_blank_page_preview");
 
 		$arrCustomStyles = UniteProviderFunctionsUC::getCustomStyles();
@@ -949,33 +950,33 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 	 * modify admin title
 	 */
 	public function modifyAdminTitle($title){
-				
+
 		switch(self::$view){
 			case "addon":
 
 				$addonID = UniteFunctionsUC::getGetVar("id", "", UniteFunctionsUC::SANITIZE_ID);
-				
+
 				if(empty($addonID))
 					return ($title);
-								
+
 				try{
-					
+
 					$addon = new UniteCreatorAddon();
 					$addon->initByID($addonID);
-				
-					
+
+
 				}catch(Exception $e){
 					return ($title);
 				}
 
 				$addonTitle = $addon->getTitle();
-				
+
 				$title = $addonTitle . " | Edit < Unlimited Elements";
-				
+
 			break;
 		}
-		
-		
+
+
 		return ($title);
 	}
 
@@ -1008,7 +1009,7 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 
 		//if not inside plugin don't continue
 		if($this->isInsidePlugin() == true){
-						
+
 			$this->addAction(self::ACTION_ADD_SCRIPTS, "onAddScripts", true, 1, 9999);
 			$this->addLocalFilter("admin_body_class", "addAdminBodyClass");
 			$this->addLocalFilter("admin_title", "modifyAdminTitle");

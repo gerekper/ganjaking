@@ -1,5 +1,13 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2023-12-11 - version 2.0.7
+* Dev - Add Playwright end-to-end tests.
+* Dev - Bump WooCommerce "tested up to" version 8.3.
+* Dev - Bump WooCommerce minimum supported version to 8.1.
+* Dev - Bump WordPress "tested up to" version 6.4.
+* Dev - Bump WordPress minimum supported version to 6.2.
+* Tweak - Admin settings colour to match admin theme colour scheme.
+
 2023-11-20 - version 2.0.6
 * Dev - Update PHPCS and PHPCompatibility GitHub Actions.
 * Dev - Implement ESLint.

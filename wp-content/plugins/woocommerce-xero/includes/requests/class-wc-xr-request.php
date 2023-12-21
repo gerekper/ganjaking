@@ -409,7 +409,7 @@ abstract class WC_XR_Request {
 
 			// Do the request.
 			$this->response = wp_remote_request(
-				esc_url_raw( $this->get_url() ),
+				$this->get_url(),
 				array(
 					'method'     => $this->get_method(),
 					'headers'    => array(

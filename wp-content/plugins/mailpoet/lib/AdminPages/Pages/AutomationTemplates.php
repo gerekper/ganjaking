@@ -63,7 +63,72 @@ class AutomationTemplates {
           },
           array_values($this->registry->getTemplateCategories())
         ),
+        'registry' => $this->buildRegistry(),
+        'context' => $this->buildContext(),
       ]
     );
+  }
+
+  private function buildRegistry(): array {
+    $steps = [];
+    foreach ($this->registry->getSteps() as $key => $step) {
+      $steps[$key] = [
+        'key' => $step->getKey(),
+        'name' => $step->getName(),
+        'args_schema' => $step->getArgsSchema()->toArray(),
+      ];
+    }
+
+    $subjects = [];
+    foreach ($this->registry->getSubjects() as $key => $subject) {
+      $subjects[$key] = [
+        'key' => $subject->getKey(),
+        'name' => $subject->getName(),
+        'args_schema' => $subject->getArgsSchema()->toArray(),
+        'field_keys' => array_map(function ($field) {
+          return $field->getKey();
+        }, $subject->getFields()),
+      ];
+    }
+
+    $fields = [];
+    foreach ($this->registry->getFields() as $key => $field) {
+      $fields[$key] = [
+        'key' => $field->getKey(),
+        'type' => $field->getType(),
+        'name' => $field->getName(),
+        'args' => $field->getArgs(),
+      ];
+    }
+
+    $filters = [];
+    foreach ($this->registry->getFilters() as $fieldType => $filter) {
+      $conditions = [];
+      foreach ($filter->getConditions() as $key => $label) {
+        $conditions[] = [
+          'key' => $key,
+          'label' => $label,
+        ];
+      }
+      $filters[$fieldType] = [
+        'field_type' => $filter->getFieldType(),
+        'conditions' => $conditions,
+      ];
+    }
+
+    return [
+      'steps' => $steps,
+      'subjects' => $subjects,
+      'fields' => $fields,
+      'filters' => $filters,
+    ];
+  }
+
+  private function buildContext(): array {
+    $data = [];
+    foreach ($this->registry->getContextFactories() as $key => $factory) {
+      $data[$key] = $factory();
+    }
+    return $data;
   }
 }

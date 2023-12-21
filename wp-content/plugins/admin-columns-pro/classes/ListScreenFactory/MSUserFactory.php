@@ -29,7 +29,7 @@ class MSUserFactory extends AC\ListScreenFactory\BaseFactory
 
     protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
     {
-        return $this->create_list_screen('wp-ms-users');
+        return $this->create_list_screen('wp-ms_users');
     }
 
 }

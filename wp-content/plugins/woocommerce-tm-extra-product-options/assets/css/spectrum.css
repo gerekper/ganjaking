@@ -155,8 +155,12 @@ input.spectrum.with-add-on {
 	height: 10px;
 }
 
-.epo .sp-alpha-enabled .sp-alpha {
+.epo.sp-alpha-enabled .sp-alpha {
 	display: block;
+}
+
+.epo.sp-alpha-enabled .sp-picker-container .sp-top {
+	margin-bottom: 26px;
 }
 
 .epo .sp-alpha-inner {

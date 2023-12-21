@@ -1433,7 +1433,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 					'thinline' => esc_html__( 'Thin line', 'woocommerce-tm-extra-product-options' ),
 				],
 			],
-
+			// [
+			// 	'title'   => esc_html__( 'Swatch Border Color', 'woocommerce-tm-extra-product-options' ),
+			// 	'desc'    => esc_html__( 'Set the border color for the selected border when using image replacements or swatches.', 'woocommerce-tm-extra-product-options' ),
+			// 	'id'      => 'tm_epo_swatch_border_color',
+			// 	'class'   => 'tm-color-picker',
+			// 	'default' => '',
+			// 	'type'    => 'text',
+			// ],
 			[
 				'type' => 'tm_sectionend',
 				'id'   => 'epo_page_options',

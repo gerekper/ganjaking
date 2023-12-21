@@ -4,10 +4,10 @@
  * Plugin URI: https://woocommerce.com/products/google-product-feed/
  * Description: WooCommerce extension that allows you to more easily populate advanced attributes into the Google Merchant Centre feed
  * Author: Ademti Software Ltd.
- * Version: 10.11.1
+ * Version: 10.11.4
  * Woo: 18619:d55b4f852872025741312839f142447e
- * WC requires at least: 7.8
- * WC tested up to: 8.2
+ * WC requires at least: 8.0
+ * WC tested up to: 8.4
  * Requires PHP: 7.4.0
  * Author URI: https://www.ademti-software.co.uk/
  * License: GPLv3
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'WOOCOMMERCE_GPF_DB_VERSION', 16 );
 
 // The current version.
-define( 'WOOCOMMERCE_GPF_VERSION', '10.11.1' );
+define( 'WOOCOMMERCE_GPF_VERSION', '10.11.4' );
 
 $woocommerce_gpf_dirname = __DIR__ . '/';
 require_once $woocommerce_gpf_dirname . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
@@ -41,13 +41,14 @@ $woocommerce_product_feeds_main->run();
 
 
 /**
- * Declare support for High Performance Order Storage.
+ * Declare support for WooCommerce features.
  */
 add_action(
 	'before_woocommerce_init',
 	function () {
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 		}
 	}
 );

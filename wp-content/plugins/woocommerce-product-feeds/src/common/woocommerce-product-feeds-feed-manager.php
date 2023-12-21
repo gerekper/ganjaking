@@ -162,7 +162,7 @@ class WoocommerceProductFeedsFeedManager {
 			'feed'            => $feed,
 			'feed_id'         => $feed_id,
 			'page_header'     => $page_header,
-			'name'            => $feed['name'] ?? '',
+			'name'            => esc_attr( $feed['name'] ) ?? '',
 			'type'            => $feed['type'] ?? '',
 			'types'           => $this->common->get_feed_types(),
 			'categories'      => $categories,
@@ -239,7 +239,7 @@ class WoocommerceProductFeedsFeedManager {
 		unset( $feed_config['_wp_http_referer'] );
 		unset( $feed_config['save'] );
 		unset( $feed_config['feed_id'] );
-
+		$feed_config = stripslashes_deep( $feed_config );
 		$this->repository->save( $feed_config, $feed_id );
 
 		if ( ! empty( $feed_id ) ) {

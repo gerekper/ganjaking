@@ -170,7 +170,6 @@ function UEDynamicFilters(){
 			throw new Error("get closest by offset error - grids not found");
 		}
 		
-		
 		if(g_showDebug == true){
 			
 			trace("get closest grids for");
@@ -201,13 +200,14 @@ function UEDynamicFilters(){
 			}
 			
 			var parentOffset = objParent.offset();
-			
+						
 			if(isVertical == true){
 				
 				var offsetY = elementOffset.top;
 				var parentY = parentOffset.top;
 				
 				//get bottom of the parent
+				
 				if(parentY < offsetY)
 					parentY += objParent.height();
 				
@@ -216,7 +216,7 @@ function UEDynamicFilters(){
 			}else{
 				
 				var parentOffset = objParent.offset();
-
+				
 				var distance = getOffsetsDistance(parentOffset, elementOffset);
 			}
 			
@@ -266,18 +266,25 @@ function UEDynamicFilters(){
 
     var objParents = objSource.parents();
     var objGrid = null;
-
+	
+    if(g_showDebug == true){
+		
+		trace("get from parent containers");
+		trace(objParents);
+	}
+    
     objParents.each(function(){
-
+      
       var objParent = jQuery(this);
       
       objGrid = objParent.find("."+ g_vars.CLASS_GRID);
 
       //if grid found return it and exit loop 
-      if(objGrid.length == 1)
+      if(objGrid.length >= 1)
         return(false);
       
-    });	
+    });
+    
     
     return(objGrid);
   }
@@ -320,6 +327,9 @@ function UEDynamicFilters(){
 		
 		//get closest by offset
 		
+	    if(objGrid && objGrid.length > 1)
+	    	objGrids = objGrid;
+	    
 		var objSingleGrid = getClosestByOffset(objGrids, objSource, true);
 		
 		if(objSingleGrid && objSingleGrid.length == 1)

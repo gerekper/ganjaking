@@ -1178,15 +1178,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * load settings from xml file
 		 */
 		public function loadXMLFile($filepath, $loadedSettingsType = null){
-
-			if(!file_exists($filepath))
-				UniteFunctionsUC::throwError("File: '$filepath' not exists!!!");
-
-			if(function_exists("simplexml_load_file") == false)
-				UniteFunctionsUC::throwError("Your php missing SimpleXML Extension. The plugin can't work without this extension because it has many xml files to load. Please enable this extension in php.ini");
-
-			$obj = simplexml_load_file($filepath);
-
+			
+			
+			$obj = UniteFunctionsUC::loadXMLFile($filepath);
+			
 			if(empty($obj))
 				UniteFunctionsUC::throwError("Wrong xml file format: $filepath");
 
