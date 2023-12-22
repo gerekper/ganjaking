@@ -1,5 +1,9 @@
 *** WooCommerce Instagram Changelog ***
 
+2023-12-05 - version 4.6.1
+* Tweak - Tested compatibility up to WC 8.4.
+* Fix - Fixed Google Attribute save in the custom product attributes.
+
 2023-11-22 - version 4.6.0
 * Feature - Declare compatibility with WooCommerce Cart and Checkout blocks.
 * Tweak - Check if the catalogs directory is writable in the System Status Report.

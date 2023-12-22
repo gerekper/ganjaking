@@ -33,13 +33,17 @@
         "title": "<u>Customise Ad Choices</u>",
         "description": "<p>We and <a href='#' class='jsOpenPartnersList'>our partners [partners_count]</a> use cookies and other data to store, access and/or process your device information and personal data, like unique identifiers and browsing history. Advertising and content can be personalised based on your profile. Your activity on this service can be used to build or improve a profile about you for personalised advertising and content. Advertising and content performance can be measured. Reports can be generated based on your activity and those of others. Your activity on this service can help develop and improve products and services. You can agree to this, get more information, and then decide.</p><p>Remember, that data processing based on legitimate interests doesn't need your approval, but you can still choose to opt out by clicking on <a href='#' class='jsOpenLiPartnersList'>details</a> under 'Partners (Legitimate interest)'. Your choices only affect this website. You can change your mind anytime by clicking the icon in bottom-right corner of the website that will open Ad Choices popup, where you can always adjust your choices.</p>"
       },
+      "tab2": {
+        "description": "<p>You can manage your cookie settings for our website. We use different types of cookies to enhance your browsing experience, analyze site traffic, and personalize content and ads. While necessary cookies are always active, you have control over the other categories. Please note that changing these settings may affect your experience on our site.</p>"
+      },
       "purposes": {
         "purposes": "Purposes",
         "special_purposes": "Special Purposes",
         "features": "Features",
         "special_features": "Special Features",
         "partners": "Partners",
-        "li_partners": "Partners (Legitimate Interest)"
+        "li_partners": "Partners (Legitimate Interest)",
+        "cookies": "Cookie Preferences"
       }
     }
   },

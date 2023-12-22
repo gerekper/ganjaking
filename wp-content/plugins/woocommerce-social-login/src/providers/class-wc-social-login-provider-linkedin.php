@@ -128,15 +128,54 @@ class WC_Social_Login_Provider_LinkedIn extends \WC_Social_Login_Provider {
 				'title'    => __( 'API Version', 'woocommerce-social-login' ),
 				'type'     => 'select',
 				'desc_tip' => __( 'Select which API version your application uses.', 'woocommerce-social-login' ),
+				'description' => __( 'Login via API v2 now uses the OpenID Connect standard. If you are using an existing v2 app, we recommend following our <a href="https://woo.com/document/woocommerce-social-login-create-social-apps/#linkedin" target="_blank">setup instructions</a> to connect a new app using OpenID Connect.', 'woocommerce-social-login' ),
 				'options'  => [
-					'v1' => 'v1',
-					'v2' => 'v2',
+					'v1'    => 'v1',
+					'v2'    => 'v2',
+					'v2oid' => 'v2 (Open ID)',
 				],
-				'default'  => 'v2',
+				'default'  => 'v2oid',
 			],
 		] );
 	}
 
+	/**
+	 * Generate the HTML for the fields on the "settings" screen.
+	 *
+	 * Override parent to display API Version description conditionally
+	 * 
+	 * @see \WC_Settings_API::generate_settings_html()
+	 * 
+	 * @since  2.14.0
+	 * 
+	 * @param array $form_fields (default: array()) Array of form fields.
+	 * @param bool  $echo Echo or return.
+	 * @return string the html for the settings
+	 */
+	public function generate_settings_html( $form_fields = array(), $echo = true ){
+
+		$html = parent::generate_settings_html($form_fields, $echo);
+
+		if ( isset( $this->form_fields['api_version'] ) ) {
+
+			// add inline javascript to show/hide api description warning as needed
+			ob_start();
+			?>
+				$( '#<?php echo $this->plugin_id . $this->get_id(); ?>_api_version' ).on( 'change', function(){
+					if ( $( this ).find( ":selected" ).val() === 'v2' ) {
+						$( this ).siblings( 'p.description' ).show();
+					} else {
+						$( this ).siblings( 'p.description' ).hide();
+					}
+				}).change();
+			<?php
+
+			wc_enqueue_js( ob_get_clean() );
+
+		}
+
+		return $html;
+	}
 
 	/**
 	 * Return the default login button text
@@ -186,7 +225,7 @@ class WC_Social_Login_Provider_LinkedIn extends \WC_Social_Login_Provider {
 	 *
 	 * @since 2.6.4
 	 *
-	 * @return string v1 or v2
+	 * @return string one of v1, v2 or v2oid (which is v2 with Open ID support)
 	 */
 	public function get_api_version() {
 
@@ -195,12 +234,12 @@ class WC_Social_Login_Provider_LinkedIn extends \WC_Social_Login_Provider {
 		 *
 		 * @since 2.6.4
 		 *
-		 * @param string $api_version should be either v1 or v2
+		 * @param string $api_version should be either v1 or v2 (or v2oid when using Open ID - added in 2.14.0)
 		 * @param \WC_Social_Login_Provider_LinkedIn $linkedin provider instance
 		 */
-		$api_version = (string) apply_filters( 'wc_social_login_linkedin_api_version', $this->get_option( 'api_version', 'v2' ), $this );
+		$api_version = (string) apply_filters( 'wc_social_login_linkedin_api_version', $this->get_option( 'api_version', 'v2oid' ), $this );
 
-		return in_array( $api_version, [ 'v1', 'v2' ], true ) ? $api_version : 'v2';
+		return in_array( $api_version, [ 'v1', 'v2', 'v2oid' ], true ) ? $api_version : 'v2oid';
 	}
 
 
@@ -218,8 +257,11 @@ class WC_Social_Login_Provider_LinkedIn extends \WC_Social_Login_Provider {
 				$scope = 'r_basicprofile r_emailaddress';
 			break;
 			case 'v2' :
-			default :
 				$scope = 'r_liteprofile r_emailaddress w_member_social';
+			break;
+			case 'v2oid' :
+			default :
+				$scope = 'openid profile email';
 			break;
 		}
 

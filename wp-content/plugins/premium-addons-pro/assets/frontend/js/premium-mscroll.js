@@ -1150,6 +1150,8 @@
                                 // immediateRender: true,
                                 onUpdate: function () {
 
+                                    $(target).find("img").removeAttr('decoding');
+
                                     //To change only when the image URL is changed.
                                     if (lastIndex != obj.curImg) {
                                         $(target).find("img").attr("src", images[obj.curImg]); // set the image source

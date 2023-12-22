@@ -2,7 +2,7 @@
 /**
  * WC_PAO_List_Table class
  *
- * @package  WooCommerce Product Add-ons
+ * @package  Woo Product Add-ons
  * @since    6.5.0
  */
 

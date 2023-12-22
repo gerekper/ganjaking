@@ -403,6 +403,9 @@ jQuery(document).ready(function ($) {
     }
 
     function acceptConcent() {
+        if (typeof ct_ultimate_gdpr_service_gtm === "undefined") {
+            return;
+        }
         if(ct_ultimate_gdpr_service_gtm.id) {
             let consent = {};
             $('body').find('li input.ct-ultimate-gdpr-cookie-modal-single-item.ct-cookie-item-selected:checked').each(function (e) {

@@ -1,3 +1,9 @@
+Version 1.36.27, Wednesday, 20th December 2023
+- Improvement: Video - Added missing timezone to 'uploadDate' datetime property.
+- Improvement: Twitter Feed - Updated the Logo.
+- Fix: Woo - Checkout -  Clicking "Next" scrolls the page to the bottom for Multistep layout.
+- Fix: Cross Site Copy Paste not working on cross domains.
+
 Version 1.36.26, Thursday, 30th November 2023
 - Improvement: Compatibility with latest Elementor and Elementor Pro 3.18 version.
 - Improvement: Twitter Feed - Added support to Twitter version 2 API.

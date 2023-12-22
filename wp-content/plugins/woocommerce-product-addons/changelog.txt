@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2023-12-20 - version 6.5.2
+* New - Introduced the 'woocommerce_addons_cloned_product_with_filtered_price' to allow plugins to not discount add-on prices. 
+* Fix - Resolved a styling issue with quantity-based add-on prices on the single product page. 
+
 2023-11-29 - version 6.5.1
 * Tweak - Introduced admin validation to ensure that add-on titles do not exceed 255 characters.
 * Tweak - Introduced the 'woocommerce_addons_product_page_container_classes' filter to add additional classes to the container add-on elements on the product page.

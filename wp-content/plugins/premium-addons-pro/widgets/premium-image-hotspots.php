@@ -1097,8 +1097,8 @@ class Premium_Image_Hotspots extends Widget_Base {
 					'unit' => '%',
 				),
 				'selectors'  => array(
-					'body:not(.rtl) {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'left: {{SIZE}}{{UNIT}}  ',
-					'body.rtl {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'right: {{SIZE}}{{UNIT}} ',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'left: {{SIZE}}{{UNIT}}',
+					// 'body.rtl {{WRAPPER}} {{CURRENT_ITEM}}.premium-image-hotspots-main-icons'    => 'right: {{SIZE}}{{UNIT}} ',
 				),
 			)
 		);
@@ -2898,9 +2898,13 @@ class Premium_Image_Hotspots extends Widget_Base {
 					<?php endif; ?>
 
 					<div class="premium-image-hotspots-tooltips-wrapper">
-						<div id="tooltip_content" class="premium-image-hotspots-tooltips-text">
+						<?php
+							$has_template = 'elementor_templates' === $item['premium_image_hotspots_content'];
+							$text_cls = $has_template ? '' : 'pa-tooltip-text-inherit';
+ 						?>
+						<div id="tooltip_content" class="premium-image-hotspots-tooltips-text <?php echo esc_attr( $text_cls ); ?>">
 							<?php
-							if ( 'elementor_templates' === $item['premium_image_hotspots_content'] ) {
+							if ( $has_template ) {
 								$template = empty( $item['premium_image_hotspots_tooltips_temp'] ) ? $item['live_temp_content'] : $item['premium_image_hotspots_tooltips_temp'];
 
 								echo $this->getTemplateInstance()->get_template_content( $template );
@@ -2995,7 +2999,7 @@ class Premium_Image_Hotspots extends Widget_Base {
 
 			view.addRenderAttribute( 'tooltip_content', {
 				'id': 'tooltip_content',
-				'class': 'premium-image-hotspots-tooltips-text'
+				'class': 'premium-image-hotspots-tooltips-text pa-tooltip-text-inherit'
 			});
 
 			view.addRenderAttribute( 'image_wrap', 'class', 'premium-image-hotspots-img-wrap' );

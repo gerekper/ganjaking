@@ -38,39 +38,13 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
         {
             //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $tab_license = isset($_GET['page']) && $_GET['page'] === $this->plugin['admin_license_page'];
-            if (is_admin() && !$tab_license && current_user_can('administrator') && !$this->is_license_active(\false)) {
+            if (is_admin() && !$tab_license && current_user_can('manage_options') && !$this->is_license_active(\false)) {
                 // translators: %1$s: Open URL. %2$s: Close URL. %3$s: Open URL. %4$s: Close URL.
                 $message = \sprintf($this->messages['buy'], '<a href="' . admin_url() . 'admin.php?page=' . $this->plugin['admin_license_page'] . '">', '</a>', '<a href="' . $this->plugin['pricing_page'] . '" target="blank">', '</a>');
                 $this->notices->error($message);
                 add_filter('plugin_action_links_' . $this->plugin['plugin_base'], [$this, 'plugin_action_links_license']);
                 add_action('in_plugin_update_message-' . $this->plugin['plugin_base'], [$this, 'error_message_update'], 10, 2);
             }
-        }
-        /**
-         * Define the upgrader_pre_download callback
-         */
-        public function filter_upgrader_pre_download($false, $package, $instance)
-        {
-            $plugin = \false;
-            if (\property_exists($instance, 'skin')) {
-                if ($instance->skin) {
-                    if (\property_exists($instance->skin, 'plugin')) {
-                        // Update from page
-                        if ($instance->skin->plugin) {
-                            $plugin = \explode('/', $instance->skin->plugin)[0];
-                        }
-                    }
-                    // Update via Ajax
-                    if (!$plugin && isset($instance->skin->plugin_info['TextDomain'])) {
-                        $plugin = $instance->skin->plugin_info['TextDomain'];
-                    }
-                }
-            }
-            //phpcs:ignore WordPress.Security.NonceVerification.Missing
-            if ($this->plugin['slug'] === $plugin || isset($_POST[$this->plugin['prefix'] . '_version'])) {
-                return $this->upgrader_pre_download($package, $instance);
-            }
-            return $false;
         }
         /**
          * @param bool $fresh false gets cache version, true checks remote status
@@ -381,6 +355,7 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
          * @param object $response
          * @return void
          */
+        //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
         public function error_message_update($plugin_data, $response)
         {
             \printf('&nbsp;<strong>%1$s</strong>', esc_html__('The license is not active.', 'dynamic-content-for-elementor'));

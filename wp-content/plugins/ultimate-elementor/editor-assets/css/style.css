@@ -1,12 +1,12 @@
 @font-face {
-	font-family: 'uael';
-	src:  url('../fonts/uael.eot?aa491i');
-	src:  url('../fonts/uael.eot?aa491i#iefix') format('embedded-opentype'),
-	url('../fonts/uael.ttf?aa491i') format('truetype'),
-	url('../fonts/uael.woff?aa491i') format('woff'),
-	url('../fonts/uael.svg?aa491i#uael') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'uael';
+  src:  url('../fonts/uael.eot?x1wnzb');
+  src:  url('../fonts/uael.eot?x1wnzb#iefix') format('embedded-opentype'),
+    url('../fonts/uael.ttf?x1wnzb') format('truetype'),
+    url('../fonts/uael.woff?x1wnzb') format('woff'),
+    url('../fonts/uael.svg?x1wnzb#uael') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 [class^="uael-icon-"], [class*=" uael-icon-"] {
@@ -102,7 +102,7 @@
   content: "\e917";
 }
 .uael-icon-social-share:before {
-	content: "\e902";
+  content: "\e903";
 }
 .uael-icon-gravity-form-styler:before {
   content: "\e919";
@@ -210,13 +210,13 @@
   content: "\e93b";
 }
 .uael-icon-welcome-music:before {
-	content: "\e903";
+  content: "\e904";
 }
 .uael-icon-instagram-feed:before {
-	content: "\e900";
+  content: "\e901";
 }
 .uael-icon-twitter-feed-icon:before {
-	content: "\e901";
+  content: "\e900";
 }
 
 .uael-editor-doc {
@@ -229,4 +229,75 @@
 /* Video Document style */
 .elementor-control-raw-html.uael-editor-doc {
   word-break: break-word;
+}
+
+/* Copy Paste functionality */
+#uae-paste-area-dialog{
+  text-align: center;
+}
+#uae-paste-area-dialog .dialog-header{
+  -webkit-padding-before: 60px;
+  padding-block-start: 60px;
+  font-size: 30px;
+}
+#uae-paste-area-dialog .dialog-message{
+  padding: 0 15px 15px;
+  font-size: 15px;
+  position: relative;
+}
+#uae-paste-area-dialog #uae-paste-area-dialog__input{
+  background: transparent;
+  color: transparent;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+  height: 100px;
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+}
+#uae-paste-area-dialog #uae-paste-area-dialog__input:focus{
+  border-color: transparent;
+  outline: none;
+}
+#uae-paste-area-dialog .dialog-widget-content{
+  width: 400px;
+}
+#uae-paste-area-dialog .dialog-widget-content .eicon-loading{
+  display: none;
+}
+#uae-paste-area-dialog .dialog-widget-content.e-state-loading .eicon-loading{
+  display: block;
+  -webkit-margin-before: 15px;
+  margin-block-start: 15px;
+}
+#uae-paste-area-dialog .dialog-widget-content{
+  padding: 25px;
+}
+#uae-paste-area-dialog .dialog-close-button{
+  margin-top: 0;
+  z-index: 11;
+}
+#uae-paste-area-dialog .dialog-header{
+  font-size: 23px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+#uae-paste-area-dialog .dialog-message{
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+#uae-paste-area-dialog input#uae-paste-area-input{
+  background: transparent;
+  color: transparent;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }

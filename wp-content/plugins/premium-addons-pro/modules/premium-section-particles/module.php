@@ -8,6 +8,7 @@
 namespace PremiumAddonsPro\Modules\PremiumSectionParticles;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Settings\Manager;
 
 use PremiumAddons\Admin\Includes\Admin_Helper;
 use PremiumAddons\Includes\Helper_Functions;
@@ -56,18 +57,19 @@ class Module extends Module_Base {
 		add_action( 'elementor/section/print_template', array( $this, '_print_template' ), 10, 2 );
 		add_action( 'elementor/column/print_template', array( $this, '_print_template' ), 10, 2 );
 
+		// Creates Premium Global Particles tab at the page settings menu.
+		add_action( 'elementor/documents/register_controls', array( $this, 'register_controls' ) );
+
 		// Insert data before Section/Column rendering.
 		add_action( 'elementor/frontend/section/before_render', array( $this, 'before_render' ), 10, 1 );
 		add_action( 'elementor/frontend/column/before_render', array( $this, 'before_render' ), 10, 1 );
 
-		add_action( 'elementor/frontend/column/before_render', array( $this, 'check_script_enqueue' ) );
-		add_action( 'elementor/frontend/section/before_render', array( $this, 'check_script_enqueue' ) );
+		add_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
 
 		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
 			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
 			add_action( 'elementor/container/print_template', array( $this, '_print_template' ), 10, 2 );
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
-			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
 		}
 
 	}
@@ -117,11 +119,17 @@ class Module extends Module_Base {
 	 */
 	public function register_controls( $element ) {
 
+		$elem_type = $element->get_name();
+
+		$is_document = ! in_array( $elem_type, array( 'section', 'column', 'common', 'container' ), true );
+
+		$tab = $is_document ? Controls_Manager::TAB_SETTINGS : Controls_Manager::TAB_LAYOUT;
+
 		$element->start_controls_section(
 			'section_premium_particles',
 			array(
 				'label' => sprintf( '<i class="pa-extension-icon pa-dash-icon"></i> %s', __( 'Particles', 'premium-addons-pro' ) ),
-				'tab'   => Controls_Manager::TAB_LAYOUT,
+				'tab'   => $tab,
 			)
 		);
 
@@ -133,6 +141,7 @@ class Module extends Module_Base {
 				'return_value' => 'yes',
 				'prefix_class' => 'premium-particles-',
 				'render_type'  => 'template',
+				'frontend_available' => true,
 			)
 		);
 
@@ -142,6 +151,7 @@ class Module extends Module_Base {
 				'label'   => __( 'Z-index', 'premium-addons-pro' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 0,
+				'frontend_available' => true,
 			)
 		);
 
@@ -152,6 +162,7 @@ class Module extends Module_Base {
 				'type'        => Controls_Manager::CODE,
 				'description' => __( 'Particles has been updated with many new features. You can now generate the JSON config from <a href="https://premiumaddons.com/docs/how-to-use-tsparticles-in-elementor-particles-section-addon/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank">here</a> or <a href="http://vincentgarreau.com/particles.js/#default" target="_blank">here</a>', 'premium-addons-pro' ),
 				'render_type' => 'template',
+				'frontend_available' => true,
 			)
 		);
 
@@ -177,6 +188,7 @@ class Module extends Module_Base {
 				'default'     => array( 'desktop', 'tablet', 'mobile' ),
 				'multiple'    => true,
 				'label_block' => true,
+				'frontend_available' => true,
 			)
 		);
 
@@ -224,6 +236,7 @@ class Module extends Module_Base {
 			return $template;
 	}
 
+
 	/**
 	 * Render Particles output on the frontend.
 	 *
@@ -261,6 +274,12 @@ class Module extends Module_Base {
 					)
 				);
 
+				if ( 'widget' === $type && \Elementor\Plugin::instance()->editor->is_edit_mode() ) {
+					?>
+					<div id='premium-particles-<?php echo esc_html( $id ); ?>' data-particles='<?php echo wp_json_encode( $particles_settings ); ?>'></div>
+					<?php
+				}
+
 			}
 		}
 	}
@@ -281,7 +300,9 @@ class Module extends Module_Base {
 			return;
 		}
 
-		if ( 'yes' == $element->get_settings_for_display( 'premium_particles_switcher' ) ) {
+		$pg_particles_enabled   = $this->check_page_particles();
+
+		if ( $pg_particles_enabled || 'yes' == $element->get_settings_for_display( 'premium_particles_switcher' ) ) {
 
 			$this->enqueue_styles();
 
@@ -289,10 +310,34 @@ class Module extends Module_Base {
 
 			$this->load_assets = true;
 
-			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_script_enqueue' ) );
-			remove_action( 'elementor/frontend/column/before_render', array( $this, 'check_script_enqueue' ) );
-			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
+			remove_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
 		}
 
+	}
+
+	/**
+	 * Checks if particles is enabled for the whole page.
+	 *
+	 * @since 2.8.0
+	 * @access public
+	 * @link https://developers.elementor.com/elementor-document-settings/
+	 *
+	 * @return bool
+	 */
+	public function check_page_particles() {
+
+		// Get the current post id.
+		$post_id = get_the_ID();
+
+		// Get the page settings manager.
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+
+		// Get the settings model for current post.
+		$page_settings_model = $page_settings_manager->get_model( $post_id );
+
+		// Retrieve the option we want.
+		$is_particles_enabled = 'yes' === $page_settings_model->get_settings( 'premium_particles_switcher' ) ? true : false;
+
+		return $is_particles_enabled;
 	}
 }

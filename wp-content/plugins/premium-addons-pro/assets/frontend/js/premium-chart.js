@@ -29,7 +29,7 @@
             bindEvents: function () {
                 //Fix conflict with tabs widget.
                 var _this = this,
-                    $closestTab = this.elements.$chartElem.closest(".premium-tabs-content-section"),
+                    $closestTab = this.elements.$chartElem.closest(".premium-tabs-content-section, .elementor-tab-content"),
                     closestTabID = this.elements.$chartElem.closest(".premium-tabs").attr('id'),
                     isHScrollWidget = this.elements.$chartElem.closest(".premium-hscroll-temp");
 
@@ -68,6 +68,27 @@
                             _this.run();
                         }
                     });
+
+                    if ($closestTab.hasClass('elementor-tab-content')) {
+
+                        var elementorTabID = $closestTab.attr('id').replace('elementor-tab-content-', ''),
+                            isRendered = false;
+
+                        if (!isRendered) {
+
+                            isRendered = true;
+                            $(document).on('click', "#elementor-tab-title-" + elementorTabID, function () {
+                                setTimeout(function () {
+                                    if (!_this.elements.$chartElem.hasClass("chart-rendered")) {
+                                        console.log("render");
+                                        _this.run();
+                                    }
+                                }, 300);
+
+                            });
+                        }
+
+                    }
                 }
 
             },
@@ -193,7 +214,8 @@
 
             getGlobalOptions: function (ctx) {
 
-                var settings = this.getElementSettings(),
+                var _this = this,
+                    settings = this.getElementSettings(),
                     type = settings.type,
                     currentDevice = elementorFrontend.getCurrentDeviceMode(),
                     eventsArray = ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
@@ -284,12 +306,13 @@
 
                                 var percentage = ((currentValue / total) * 100).toPrecision(3);
 
-                                return (
-                                    prefixString +
-                                    (settings.tool_tips_percent ?
-                                        percentage + "%" :
-                                        currentValue)
-                                );
+                                if (_this.$element.hasClass('extend-tooltips')) {
+                                    return [prefixString, (settings.tool_tips_percent ? percentage + "%" : currentValue)];
+                                } else {
+                                    return (prefixString + (settings.tool_tips_percent ? percentage + "%" : currentValue));
+                                }
+
+
                             }
                         }
                     },

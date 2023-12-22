@@ -229,6 +229,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
         // Metabox
         $repeater->add_control('metabox_key', ['label' => __('Meta Box Field', 'dynamic-content-for-elementor'), 'type' => 'ooo_query', 'placeholder' => __('Field name or key', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'metabox', 'dynamic' => ['active' => \false], 'conditions' => ['terms' => [['name' => 'item_id', 'value' => 'item_metabox']]]]);
         $repeater->add_control('metafield_type', ['label' => __('Field type', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'default' => 'text', 'options' => ['image' => __('Image', 'dynamic-content-for-elementor'), 'date' => __('Date', 'dynamic-content-for-elementor'), 'text' => __('Text', 'dynamic-content-for-elementor'), 'textarea' => __('Textarea', 'dynamic-content-for-elementor'), 'button' => __('Button (URL)', 'dynamic-content-for-elementor'), 'url' => __('URL', 'dynamic-content-for-elementor')], 'condition' => ['item_id' => ['item_custommeta', 'item_jetengine', 'item_metabox']]]);
+        $repeater->add_control('metafield_url_target', ['label' => __('Open in a new window', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'condition' => ['item_id' => ['item_custommeta'], 'metafield_type' => ['button', 'url']]]);
         $repeater->add_control('html_tag_item', ['label' => __('Wrapper HTML Tag', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'default' => 'div', 'options' => Helper::get_html_tags([], \true), 'condition' => ['item_id' => ['item_custommeta', 'item_jetengine', 'item_metabox'], 'metafield_type' => 'text']]);
         $repeater->add_group_control(Group_Control_Image_Size::get_type(), ['name' => 'image_size', 'label' => __('Image Format', 'dynamic-content-for-elementor'), 'default' => 'large', 'conditions' => ['terms' => [['name' => 'item_id', 'operator' => 'IN', 'value' => ['item_custommeta', 'item_jetengine', 'item_metabox']], ['name' => 'metafield_type', 'value' => 'image']]]]);
         $repeater->add_control('metafield_date_format_source', ['label' => __('Date Format - Source', 'dynamic-content-for-elementor'), 'description' => '<a target="_blank" href="https://www.php.net/manual/en/function.date.php">' . __('Use standard PHP format characters', 'dynamic-content-for-elementor') . '</a>', 'type' => Controls_Manager::TEXT, 'default' => 'F j, Y, g:i a', 'placeholder' => 'YmdHis, d/m/Y, m-d-y', 'label_block' => \true, 'conditions' => ['terms' => [['name' => 'item_id', 'operator' => 'in', 'value' => ['item_custommeta', 'item_jetengine', 'item_metabox']], ['name' => 'metafield_type', 'value' => 'date']]]]);
@@ -1224,8 +1225,14 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
                     }
                 } elseif ('dynamicstring' === $settings['term_from']) {
                     // Dynamic String
+                    if (empty($settings['taxonomy'])) {
+                        return $this->query = '';
+                    }
                     if ($settings['term_field_meta_string']) {
-                        $args['tax_query'][] = ['operator' => 'IN', 'taxonomy' => $settings['taxonomy'], 'field' => 'slug', 'terms' => sanitize_text_field($settings['term_field_meta_string'])];
+                        $args['tax_query'] = array('relation' => $settings['taxonomies_operator']);
+                        foreach ($settings['taxonomy'] as $taxonomy) {
+                            $args['tax_query'][] = array('operator' => 'IN', 'taxonomy' => $taxonomy, 'field' => 'slug', 'terms' => sanitize_text_field($settings['term_field_meta_string']));
+                        }
                     }
                 }
             }

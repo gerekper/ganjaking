@@ -2,7 +2,7 @@
 /**
  * WC_PAO_Notices class
  *
- * @package  WooCommerce Product Add-ons
+ * @package  Woo Product Add-ons
  * @since    6.0.0
  */
 

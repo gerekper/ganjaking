@@ -546,7 +546,7 @@ class Premium_Divider extends Widget_Base {
 				'label'      => __( 'Draw Pattern', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SWITCHER,
 				'classes'    => $draw_icon ? '' : 'editor-pa-control-disabled',
-				'conditions' => $sep_conditions,
+				// 'conditions' => $sep_conditions,
 				'conditions' => array(
 					'terms' => array(
 						$sep_conditions,
@@ -645,25 +645,18 @@ class Premium_Divider extends Widget_Base {
 			Helper_Functions::get_draw_svg_notice(
 				$this,
 				'divider',
-				// array(
-				// 'element_sw'               => 'yes',
-				// 'content_inside_separator' => array( 'font_awesome_icon', 'svg' ),
-				// 'divider_icon[library]!'   => 'svg',
-				// )
-				array(
+				 array(
 					'terms' => array(
-						array(
-							'name'  => 'sep_draw_svg',
-							'value' => 'yes',
-						),
+						$sep_conditions,
 						array(
 							'name'     => 'left_and_right_separator_type',
 							'operator' => '!in',
 							'value'    => $solid_shapes,
 						),
-						$sep_conditions,
 					),
-				)
+				),
+				'01',
+				'conditions'
 			);
 		}
 
@@ -933,6 +926,7 @@ class Premium_Divider extends Widget_Base {
 					'value'   => 'fas fa-star',
 					'library' => 'fa-solid',
 				),
+                'exclude_inline_options' => array( 'svg' ),
 				'skin'        => 'inline',
 				'label_block' => false,
 				'condition'   => array(
@@ -1150,7 +1144,6 @@ class Premium_Divider extends Widget_Base {
 				)
 			);
 		} elseif ( method_exists( 'PremiumAddons\Includes\Helper_Functions', 'get_draw_svg_notice' ) ) {
-
 			Helper_Functions::get_draw_svg_notice(
 				$this,
 				'divider',
@@ -1158,7 +1151,8 @@ class Premium_Divider extends Widget_Base {
 					'element_sw'               => 'yes',
 					'content_inside_separator' => array( 'font_awesome_icon', 'svg' ),
 					'divider_icon[library]!'   => 'svg',
-				)
+				),
+				'11'
 			);
 		}
 

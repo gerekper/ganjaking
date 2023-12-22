@@ -72,7 +72,6 @@ class DynamicCharts extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $colors->add_control('color', ['label' => __('Color', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'frontend_available' => \true, 'default' => '#E52600']);
         $this->add_control('background_data', ['label' => __('Colors', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::REPEATER, 'title_field' => '{{{ color }}}', 'fields' => $colors->get_controls(), 'frontend_available' => \true, 'condition' => ['background_random_colors' => '']]);
         $this->add_control('border_width_data', ['label' => __('Border Width', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::NUMBER, 'frontend_available' => \true, 'default' => 1, 'min' => 0]);
-        $this->add_control('border_data', ['label' => __('Border Color', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'frontend_available' => \true, 'default' => '#C62100', 'condition' => ['border_width_data!' => 0, 'background_random_colors' => '']]);
         $this->end_controls_section();
     }
     public function safe_render()

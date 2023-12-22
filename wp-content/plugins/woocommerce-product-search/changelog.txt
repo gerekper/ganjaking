@@ -1,5 +1,14 @@
 *** WooCommerce Product Search ***
 
+2023.12.18 - version 5.1.1
+* Dev - Revised coherency tests in the query control on incoming request values to prevent odd values from causing errors.
+* Dev - Made our query control less restrictive for backend taxonomy term requests like wp-admin/edit.php?pa_example=foo&post_type=product where we would previously filter out variable products with no variations related to a requested term.
+* Dev - Revised query control to pagination conditions.
+
+2023.12.15 - version 5.1.0
+* Update - WooCommerce 8.4 compatible.
+* Fix - Resolves an issue where products out of stock are not shown in the administrative section when the setting to "Hide out of stock items from the catalog" is enabled.
+
 2023.11.23 - version 5.0.4
 * Fix - Use the order determined for Product Search Field instances to sort results appropriately.
 

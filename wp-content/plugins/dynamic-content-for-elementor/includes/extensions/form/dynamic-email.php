@@ -6,6 +6,7 @@ use Elementor\Controls_Manager;
 use DynamicContentForElementor\ExtensionInfo;
 use DynamicContentForElementor\Helper;
 use DynamicContentForElementor\Tokens;
+use ElementorPro\Core\Utils;
 if (!\defined('ABSPATH')) {
     exit;
     // Exit if accessed directly
@@ -79,7 +80,7 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
         $default_message = \sprintf(__('New message from "%s"', 'dynamic-content-for-elementor'), get_option('blogname'));
         $repeater_fields->add_control('dce_form_email_subject', ['label' => __('Subject', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => $default_message, 'placeholder' => $default_message, 'label_block' => \true, 'render_type' => 'none', 'separator' => 'before']);
         $repeater_fields->add_control('dce_form_email_to', ['label' => __('To', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => get_option('admin_email'), 'placeholder' => get_option('admin_email'), 'label_block' => \true, 'title' => __('Separate emails with commas', 'dynamic-content-for-elementor'), 'render_type' => 'none', 'separator' => 'before']);
-        $site_domain = Helper::get_site_domain();
+        $site_domain = Utils::get_site_domain();
         $repeater_fields->add_control('dce_form_email_from', ['label' => __('From Email', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => 'email@' . $site_domain, 'render_type' => 'none']);
         $repeater_fields->add_control('dce_form_email_from_name', ['label' => __('From Name', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => get_bloginfo('name'), 'render_type' => 'none']);
         $repeater_fields->add_control('dce_form_email_reply_to', ['label' => __('Reply-To', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'render_type' => 'none']);
@@ -188,7 +189,7 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
                     'dce_form_email_content' => '[all-fields]',
                     'dce_form_email_from_name' => get_bloginfo('name'),
                     'dce_form_email_from' => get_bloginfo('admin_email'),
-                    'dce_form_email_reply_to' => 'no-reply@' . Helper::get_site_domain(),
+                    'dce_form_email_reply_to' => 'no-reply@' . Utils::get_site_domain(),
                     'dce_form_email_to_cc' => '',
                     'dce_form_email_to_bcc' => '',
                 ];

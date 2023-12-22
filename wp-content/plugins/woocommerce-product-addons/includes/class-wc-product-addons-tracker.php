@@ -2,7 +2,7 @@
 /**
  * WC_PAO_Tracker class
  *
- * @package  WooCommerce Product Add-Ons
+ * @package  Woo Product Add-Ons
  * @since    6.1.3
  */
 

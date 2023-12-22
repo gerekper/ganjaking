@@ -114,7 +114,7 @@ class CT_Ultimate_GDPR_Controller_Terms extends CT_Ultimate_GDPR_Controller_Abst
 		// get all user metas
 		$sql = $wpdb->prepare(
 			"
-				SELECT user_id, meta_value 
+				SELECT user_id, meta_value
 				FROM {$wpdb->usermeta}
 				WHERE meta_key = %s
 			",
@@ -397,9 +397,9 @@ class CT_Ultimate_GDPR_Controller_Terms extends CT_Ultimate_GDPR_Controller_Abst
 	 */
 	public function decline_consent() {
 
-		setcookie( $this->get_id(), '', 1, '/' );
+        ct_ultimate_gdpr_set_cookie( $this->get_id(), '', 1, '/' );
 		//for wp-rocket caching
-		setcookie( $this->get_id() . '-level', '', 1 );
+        ct_ultimate_gdpr_set_cookie( $this->get_id() . '-level', '', 1 );
 
 		if ( is_user_logged_in() ) {
 			delete_user_meta( $this->user->get_current_user_id(), $this->get_id() );

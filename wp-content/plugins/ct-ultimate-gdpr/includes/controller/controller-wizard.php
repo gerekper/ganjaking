@@ -94,9 +94,9 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
                     if (isset($_COOKIE[$cookie_key])) {
                         unset($_COOKIE[$cookie_key]);
                         // empty value and expiration one hour before
-                        $res = setcookie($cookie_key, '', time() - 3600, '/');
+                        $res = ct_ultimate_gdpr_set_cookie($cookie_key, '', time() - 3600, '/');
                     }
-                    
+
                 }
             }
         } );
@@ -142,7 +142,7 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
         if (strpos($hook_suffix, $this->get_id()) === false) {
             return;
         }
-    
+
         wp_enqueue_style('ct-ultimate-gdpr-wizard-bs-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css', ct_ultimate_gdpr_get_plugin_version());
         wp_enqueue_style('ct-ultimate-gdpr-wizard-bs', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', ct_ultimate_gdpr_get_plugin_version());
 

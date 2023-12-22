@@ -227,6 +227,18 @@
 
                         $('<div class="premium-color-transition-layer elementor-repeater-item-' + itemsIDs[index] + '" data-direction="up"></div>').prependTo($('#premium-color-transition-' + _this.settings.id));
 
+                        if (-1 !== downColors[index].indexOf('//')) {
+
+                            $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="down"]').css('background-image', 'url(' + downColors[index] + ')');
+
+                        }
+
+                        if (-1 !== _this.settings.upColors[index].indexOf('//')) {
+
+                            $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="up"]').css('background-image', 'url(' + _this.settings.upColors[index] + ')');
+
+                        }
+
                         if (_this.visible($('#' + element), true)) {
                             $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="down"]').addClass('layer-active');
                             currentActiveIndex = index;

@@ -23,7 +23,7 @@ class WC_Instagram_Meta_Box_Product_Data {
 	public function __construct() {
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
-		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ) );
+		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ), 10, 2 );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 15 );
 		add_action( 'woocommerce_admin_process_product_object', array( $this, 'save_product' ) );
 		add_action( 'wp_ajax_woocommerce_save_attributes', array( $this, 'save_attributes' ), 5 );
@@ -78,8 +78,9 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @since 3.7.0
 	 *
 	 * @param WC_Product_Attribute $attribute Attribute object.
+	 * @param int                  $index     Attribute index.
 	 */
-	public function product_attribute_settings( $attribute ) {
+	public function product_attribute_settings( $attribute, $index ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		$google_pa = '';
 
 		if ( $attribute->get_id() ) {

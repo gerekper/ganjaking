@@ -1867,7 +1867,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 * @return mixed
 	 */
 	public function rs_unserialize($string){
-		return @unserialize($string, array('allowed_classes' => false));
+		return @unserialize($string, array('allowed_classes' => array('stdClass')));
 	}
 
 	/**

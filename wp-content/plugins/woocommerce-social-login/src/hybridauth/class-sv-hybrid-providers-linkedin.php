@@ -54,18 +54,23 @@ class SV_Hybrid_Providers_Linkedin extends \Hybrid_Provider_Model_OAuth2 {
 			$api_version = $provider->get_api_version();
 			$scope       = $provider->get_scope();
 		} else {
-			$api_version = 'v2';
-			$scope       = 'r_liteprofile r_emailaddress w_member_social';
+			$api_version = 'v2oid';
+			$scope       = 'openid profile email';
 		}
 
 		$this->scope = $scope;
 
 		switch ( $api_version ) {
+
 			case 'v1' :
-				return $this->initialize_api_v1();
+				$this->initialize_api_v1();
+			break;
+
 			case 'v2' :
+			case 'v2oid' :
 			default :
-				return $this->initialize_api_v2();
+				$this->initialize_api_v2();
+			break;
 		}
 	}
 
@@ -105,6 +110,8 @@ class SV_Hybrid_Providers_Linkedin extends \Hybrid_Provider_Model_OAuth2 {
 	/**
 	 * Initializes the provider assuming app is using API v2.
 	 *
+	 * This should be used also when the app is using OpenID Connect.
+	 *
 	 * @since 2.6.4
 	 */
 	private function initialize_api_v2() {
@@ -143,12 +150,17 @@ class SV_Hybrid_Providers_Linkedin extends \Hybrid_Provider_Model_OAuth2 {
 
 		$provider = wc_social_login()->get_provider( 'linkedin' );
 
-		if ( $provider instanceof \WC_Social_Login_Provider_LinkedIn && 'v1' === $provider->get_api_version() ) {
-
-			return $this->get_api_v1_user_profile();
+		if ( $provider instanceof \WC_Social_Login_Provider_LinkedIn ) {
+			switch ( $provider->get_api_version() ) {
+				case 'v1' :
+					return $this->get_api_v1_user_profile();
+				case 'v2' :
+					return $this->get_api_v2_user_profile();
+				case 'v2oid' :
+				default :
+					return $this->get_v2_oid_user_profile();
+				}
 		}
-
-		return $this->get_api_v2_user_profile();
 	}
 
 
@@ -230,6 +242,38 @@ class SV_Hybrid_Providers_Linkedin extends \Hybrid_Provider_Model_OAuth2 {
 
 		return $this->user->profile;
 	}
+
+
+	/**
+	 * Gets the user profile according to OpenID Connect.
+	 *
+	 * @see https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin-v2
+	 *
+	 * @since 2.13.2-dev.1
+	 *
+	 * @return \Hybrid_User_Profile
+	 * @throws \Exception
+	 */
+	private function get_v2_oid_user_profile() {
+
+		$profile_data = $this->api->get( 'userinfo' );
+
+			// if the provider identifier is not received, we assume the auth has failed
+			if ( ! isset( $profile_data->sub ) ) {
+
+				throw new \Exception( "User profile request failed! {$this->providerId} api returned an invalid response: " . \Hybrid_Logger::dumpData( $profile_data ), 6 );
+			}
+
+			// store the user profile
+			$this->user->profile->identifier    = isset( $profile_data->sub )                ? $profile_data->sub         : '';
+			$this->user->profile->firstName     = isset( $profile_data->given_name )         ? $profile_data->given_name  : '';
+			$this->user->profile->lastName      = isset( $profile_data->family_name  )       ? $profile_data->family_name : '';
+			$this->user->profile->email         = isset( $profile_data->email)               ? $profile_data->email       : '';
+			$this->user->profile->emailVerified = ( $profile_data->email_verified === true ) ? $profile_data->email       : '';
+			$this->user->profile->displayName   = trim( $this->user->profile->firstName . ' ' . $this->user->profile->lastName );
+
+			return $this->user->profile;
+		}
 
 
 }

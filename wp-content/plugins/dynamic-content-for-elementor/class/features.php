@@ -244,7 +244,7 @@ class Features {
 				'description' => __( 'Shows information from a map created with Dynamic Google Maps Directions', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-google-maps-directions-info',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-map-info',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-map-info',
 			],
 			'ext_tag_dynamic_google_maps_directions_instructions' => [
 				'activated_by' => 'wdg_google_maps_directions',
@@ -257,7 +257,7 @@ class Features {
 				'description' => __( 'Shows the road information of a map created with Dynamic Google Maps Directions', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-google-maps-directions-instructions',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-map-instructions',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-map-instructions',
 			],
 		];
 	}
@@ -279,7 +279,7 @@ class Features {
 				'description' => __( 'Predefined CSS-Animations with keyframe', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-animations',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/loop-animations/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/loop-animations/',
 			],
 			'ext_copypaste' => [
 				'name' => 'dce_extension_copypaste',
@@ -292,7 +292,7 @@ class Features {
 				'description' => __( 'Copy and Paste any element from one site to another', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-copy-paste',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/copy-paste-cross-site/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/copy-paste-cross-site/',
 			],
 			'ext_masking' => [
 				'name' => 'dce_extension_masking',
@@ -303,7 +303,7 @@ class Features {
 				'description' => __( 'Advanced Masking features for Image, Image-box and Video Widgets', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-advanced-masking',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/advanced-masking/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/advanced-masking/',
 			],
 			'ext_rellax' => [
 				'name' => 'dce_extension_rellax',
@@ -314,7 +314,7 @@ class Features {
 				'description' => __( 'Rellax Parallax rules for widgets and rows', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-rellax',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/rellax-parallax/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/rellax-parallax/',
 			],
 			'ext_reveal' => [
 				'name' => 'dce_extension_reveal',
@@ -325,7 +325,7 @@ class Features {
 				'description' => __( 'Reveal animation on-scroll for widgets', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-reveal',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/scroll-reveals/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/scroll-reveals/',
 			],
 			'ext_transforms' => [
 				'name' => 'dce_extension_transforms',
@@ -336,7 +336,7 @@ class Features {
 				'description' => __( 'Apply CSS Transforms to Element', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-transforms',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/transforms/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/transforms/',
 			],
 			'ext_unwrap' => [
 				'name' => 'dce_extension_unwrap',
@@ -348,7 +348,7 @@ class Features {
 				'description' => __( 'Remove extra Elementor wrapper divs', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-unwrap',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/unwrap/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/unwrap/',
 			],
 			'ext_video' => [
 				'name' => 'dce_extension_video',
@@ -359,7 +359,7 @@ class Features {
 				'description' => __( 'Advanced Video features for Elementor Video Widget', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-advanced-video-controls',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/advanced-video-controls/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/advanced-video-controls/',
 			],
 			'ext_visibility' => [
 				'name' => 'dce_extension_visibility',
@@ -370,7 +370,7 @@ class Features {
 				'description' => __( 'Visibility rules for widgets, rows, columns, and sections', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-visibility',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-visibility-for-elementor/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-visibility-for-elementor/',
 			],
 			'ext_form_address_autocomplete' => [
 				'name' => 'dce_extension_form_address_autocomplete',
@@ -382,7 +382,7 @@ class Features {
 				'description' => __( 'Use autocomplete to give your form fields the type-ahead-search behaviour of the Google Maps search field. The autocomplete service can match on full words and substrings, resolving place names and addresses', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-autocomplete-address',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/address-autocomplete-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/address-autocomplete-for-elementor-pro-form/',
 			],
 			'ext_form_amount' => [
 				'name' => 'dce_extension_form_amount',
@@ -393,7 +393,7 @@ class Features {
 				'description' => __( 'Add an Amount Field to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-amount',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/amount-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/amount-elementor-pro-form/',
 			],
 			'ext_form_range' => [
 				'name' => 'dce_extension_form_range',
@@ -404,7 +404,7 @@ class Features {
 				'description' => __( 'Add a Range Field to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-range',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/range-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/range-field-elementor-pro-form/',
 			],
 			'ext_form_description' => [
 				'name' => 'dce_extension_form_description',
@@ -416,7 +416,7 @@ class Features {
 				'description' => __( 'Describe your form field to help users better understand each field. You can add a tooltip or insert text', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-description',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/field-description-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/field-description-elementor-pro-form/',
 			],
 			'ext_form_email' => [
 				'name' => 'dce_extension_form_email',
@@ -427,7 +427,7 @@ class Features {
 				'description' => __( 'Add Dynamic Email action to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-email',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-email-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-email-for-elementor-pro-form/',
 			],
 			'ext_form_favorites_action' => [
 				'name' => 'dce_extension_form_favorites_action',
@@ -438,7 +438,7 @@ class Features {
 				'description' => __( 'Add favorites via Elementor forms. Useful to use in combination with the "Add to Favorites" and "Favorites" widgets', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-favorites-action',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/favorites-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/favorites-elementor-pro-form/',
 			],
 			'ext_form_export' => [
 				'name' => 'dce_extension_form_export',
@@ -449,7 +449,7 @@ class Features {
 				'description' => __( 'Add Export action to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-export',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/export-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/export-for-elementor-pro-form/',
 			],
 			'ext_form_icons' => [
 				'name' => 'dce_extension_form_icons',
@@ -461,7 +461,7 @@ class Features {
 				'description' => __( 'Add icons on the label or inside the input of form fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-icons',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/icons-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/icons-for-elementor-pro-form/',
 			],
 			'ext_form_inline_align' => [
 				'name' => 'dce_extension_form_inline_align',
@@ -473,7 +473,7 @@ class Features {
 				'description' => __( 'Choose the inline align type for checkbox and radio fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-inline-align',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/inline-align-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/inline-align-for-elementor-pro-form/',
 			],
 			'ext_form_length' => [
 				'name' => 'dce_extension_form_length',
@@ -485,7 +485,7 @@ class Features {
 				'description' => __( 'Choose a minimum and maximum characters length for your text and textarea fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-field-length',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/field-length-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/field-length-for-elementor-pro-form/',
 			],
 			'ext_form_message' => [
 				'name' => 'dce_extension_form_message',
@@ -496,7 +496,7 @@ class Features {
 				'description' => __( 'Options to customize the Elementor Pro Form success message', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-message-generator',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/message-generator-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/message-generator-for-elementor-pro-form/',
 			],
 			'ext_form_method' => [
 				'name' => 'dce_extension_form_method',
@@ -507,7 +507,7 @@ class Features {
 				'description' => __( 'Add a different method attribute on your forms that specifies how to send form-data', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-method',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/method-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/method-for-elementor-pro-form/',
 			],
 			'ext_form_password_visibility' => [
 				'name' => 'dce_extension_form_password_visibility',
@@ -519,7 +519,7 @@ class Features {
 				'description' => __( 'Allow your users to show or hide their password on Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-password-visibility',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/password-visibility-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/password-visibility-for-elementor-pro-form/',
 			],
 			'ext_form_unique_id' => [
 				'name' => 'dce_form_unique_id',
@@ -530,7 +530,7 @@ class Features {
 				'description' => __( 'With this hidden field you can generate a unique ID to be used in PDF Generator or Dynamic Email', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-unique-id',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/unique-id-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/unique-id-elementor-pro-form/',
 			],
 			'ext_form_counter' => [
 				'name' => 'dce_form_counter',
@@ -541,7 +541,7 @@ class Features {
 				'description' => __( 'Perfect for keeping track of submissions or the sum of another form field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-counter',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/counter-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/counter-elementor-pro-form/',
 			],
 			'ext_form_pdf' => [
 				'name' => 'dce_extension_form_pdf',
@@ -552,7 +552,7 @@ class Features {
 				'description' => __( 'Add PDF creation action to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-pdf-generator',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/pdf-generator-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pdf-generator-for-elementor-pro-form/',
 			],
 			'ext_form_php_action' => [
 				'name' => 'php_action',
@@ -563,7 +563,7 @@ class Features {
 				'description' => __( 'Add PHP code to the actions of a form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-form-php-action',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/php-action-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/php-action-elementor-pro-form/',
 			],
 			'ext_form_cookie_action' => [
 				'name' => 'dce_cookie_action',
@@ -574,7 +574,7 @@ class Features {
 				'description' => __( 'Set cookies after submitting the form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-cookie-action',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/cookie-action-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/cookie-action-elementor-pro-form/',
 			],
 			'ext_form_redirect' => [
 				'name' => 'dce_extension_form_redirect',
@@ -585,7 +585,7 @@ class Features {
 				'description' => __( 'Redirect your users to different URLs based on their choice on submitted form fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-redirect',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-redirect-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-redirect-for-elementor-pro-form/',
 			],
 			'ext_form_regex' => [
 				'name' => 'dce_extension_form_regex',
@@ -597,7 +597,7 @@ class Features {
 				'description' => __( 'Validate form fields using a regular expression', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-regex',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/regex-field-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/regex-field-for-elementor-pro-form/',
 			],
 			'ext_form_reset' => [
 				'name' => 'dce_extension_form_reset',
@@ -608,7 +608,7 @@ class Features {
 				'description' => __( 'Add a reset button which resets all form fields to their initial values', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-reset',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/reset-button-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/reset-button-for-elementor-pro-form/',
 			],
 			'ext_form_save' => [
 				'name' => 'dce_extension_form_save',
@@ -619,7 +619,7 @@ class Features {
 				'description' => __( 'Save the form data submitted by your client as posts, users or terms', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-save',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/save-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/save-elementor-pro-form/',
 			],
 			'ext_form_select2' => [
 				'name' => 'dce_extension_form_select2',
@@ -631,7 +631,7 @@ class Features {
 				'description' => __( 'Add Select2 to your select fields to gives a customizable select box with support for searching', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-select2',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/select2-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/select2-for-elementor-pro-form/',
 			],
 			'ext_form_signature' => [
 				'name' => 'dce_extension_form_signature',
@@ -642,7 +642,7 @@ class Features {
 				'description' => __( 'Add a signature field to Elementor Pro Form and it will be included in your PDF', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-signature',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/signature-field-for-elementor-pro-form',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/signature-field-for-elementor-pro-form',
 			],
 			'ext_form_step' => [
 				'name' => 'dce_extension_form_step',
@@ -653,7 +653,7 @@ class Features {
 				'description' => __( 'Add features to Elementor Pro Multi-Step: label as a legend, show all steps, scroll to top on step change and step summary', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-multistep',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/enhanced-multi-step-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/enhanced-multi-step-elementor-pro-form/',
 				'legacy' => true,
 			],
 			'ext_form_submit_on_change' => [
@@ -666,7 +666,7 @@ class Features {
 				'description' => __( 'Submit the form automatically when the user chooses a radio button or a select field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-submit-on-change',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/submit-on-change-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/submit-on-change-for-elementor-pro-form/',
 			],
 			'ext_form_submit' => [
 				'name' => 'dce_extension_form_submit',
@@ -677,7 +677,7 @@ class Features {
 				'description' => __( 'Add another submit button on your forms', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-submit',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/submit-button-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/submit-button-for-elementor-pro-form/',
 			],
 			'ext_form_telegram' => [
 				'name' => 'dce_extension_form_telegram',
@@ -688,7 +688,7 @@ class Features {
 				'description' => __( 'Send the content of your Elementor Pro Form to Telegram', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-telegram',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/telegram-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/telegram-for-elementor-pro-form/',
 			],
 			'ext_form_visibility' => [
 				'name' => 'dce_extension_form_visibility',
@@ -701,7 +701,7 @@ class Features {
 				'description' => __( 'Conditionally display fields based on form field values', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-conditional-fields',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/conditional-fields-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/conditional-fields-for-elementor-pro-form/',
 			],
 			'ext_conditional_fields_v2' => [
 				'name' => 'dce_conditional_fields_v2',
@@ -712,7 +712,7 @@ class Features {
 				'description' => __( 'Contains the extensions: Conditional Fields, Conditional Validation, Conditional Mailchimp, Conditional Active Campaign, Conditional Webhook, Conditional MailerLite, and Max Submissions for Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-conditional-fields',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/conditional-fields-v2-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/conditional-fields-v2-for-elementor-pro-form/',
 			],
 			'ext_form_wysiwyg' => [
 				'name' => 'ext_form_wysiwyg',
@@ -723,7 +723,7 @@ class Features {
 				'description' => __( 'Add a WYSIWYG Field to your forms', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-wysiwyg',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/wysiwyg-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/wysiwyg-field-elementor-pro-form/',
 			],
 			'ext_form_paypal' => [
 				'name' => 'dce_extension_form_paypal',
@@ -734,7 +734,7 @@ class Features {
 				'description' => __( 'Add a PayPal field for simple payments to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-paypal',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/paypal-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/paypal-for-elementor-pro-form/',
 			],
 			'ext_form_stripe' => [
 				'name' => 'dce_extension_form_stripe',
@@ -745,7 +745,7 @@ class Features {
 				'description' => __( 'Add a Stripe field for simple payments to Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-stripe',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/stripe-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/stripe-for-elementor-pro-form/',
 			],
 			'ext_custom_validation' => [
 				'name' => 'dce_custom_validation',
@@ -756,7 +756,7 @@ class Features {
 				'description' => __( 'Add PHP code to validate a whole form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-custom-validation',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/php-validation-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/php-validation-for-elementor-pro-form/',
 			],
 			'ext_js_field' => [
 				'name' => 'dce_js_field',
@@ -767,7 +767,7 @@ class Features {
 				'description' => __( 'Take advantage of JS full power to set the value of a field on Elementor Pro Form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-js-amount',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/js-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/js-field-elementor-pro-form/',
 			],
 			'ext_mirror_field' => [
 				'name' => 'dce_mirror_field',
@@ -778,7 +778,7 @@ class Features {
 				'description' => __( 'A dynamic tool that can auto-fill your field values and yet allow user modification when needed', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-mirror-field',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/mirror-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/mirror-field-elementor-pro-form/',
 			],
 			'ext_formatted_number_field' => [
 				'name' => 'dce_formatted_number_field',
@@ -789,7 +789,7 @@ class Features {
 				'description' => __( 'A number field that is displayed formatted on blur', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-formatted-number',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/formatted-number-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/formatted-number-elementor-pro-form/',
 			],
 			'ext_live_html' => [
 				'name' => 'dce_live_html',
@@ -800,7 +800,7 @@ class Features {
 				'description' => __( 'Insert the values of your fields in an HTML Field and those changes will be updated live as they happen', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-live-html',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/live-html-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/live-html-field-elementor-pro-form/',
 			],
 			'ext_hidden_label' => [
 				'name' => 'dce_hidden_label',
@@ -811,7 +811,7 @@ class Features {
 				'description' => __( 'Get the label corresponding to the value of another Radio, Select or Checkbox field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-hidden-label',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/hidden-label-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/hidden-label-elementor-pro-form/',
 			],
 			'ext_dynamic_select' => [
 				'name' => 'dce_dynamic_select',
@@ -822,7 +822,7 @@ class Features {
 				'description' => __( 'Insert a select field where the list of options changes dynamically according to the value of another field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-dynamic-select',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-select-field-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-select-field-elementor-pro-form/',
 			],
 			'ext_tooltip' => [
 				'name' => 'dce_tooltip',
@@ -833,7 +833,7 @@ class Features {
 				'description' => __( 'Add a tooltip to any widget', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tooltip',
 				'plugin_depends' => [],
-				'doc_url' => 'https://www.dynamic.ooo/widget/tooltip-elementor',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/tooltip-elementor',
 			],
 			'ext_dynamic_countdown' => [
 				'name' => 'dce_dynamic_countdown',
@@ -846,7 +846,7 @@ class Features {
 				'description' => __( 'Add a Dynamic Due Date field on Elementor Countdown widget to permit dynamic values', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-dynamic-countdown',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-due-date-for-elementor-countdown/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-due-date-for-elementor-countdown/',
 			],
 			'ext_confirm_dialog' => [
 				'name' => 'dce_confirm_dialog',
@@ -857,7 +857,7 @@ class Features {
 				'description' => __( 'An easy-to-use component that allows you to use Confirm/Cancel style dialogs on your form', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-confirm-dialog',
 				'plugin_depends' => [ 'elementor-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/confirm-dialog-for-elementor-pro-form/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/confirm-dialog-for-elementor-pro-form/',
 			],
 
 			///  Dynamic Tags ///
@@ -872,7 +872,7 @@ class Features {
 				'description' => __( 'The perfect way to use cryptocurrency on all widgets', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-crypto',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-cryptocurrency',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-cryptocurrency',
 			],
 			'ext_tag_posts' => [
 				'name' => 'ext_tag_posts',
@@ -932,7 +932,7 @@ class Features {
 				'description' => __( 'Add support for Favorites in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-favorites',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-favorites',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-favorites',
 			],
 			'ext_tag_wishlist' => [
 				'name' => '',
@@ -944,7 +944,7 @@ class Features {
 				'description' => __( 'Add support for Woo Wishlist in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-woo-wishlist',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-woo-wishlist',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-woo-wishlist',
 			],
 			'ext_tag_acf_relationship' => [
 				'name' => 'ext_tag_acf_relationship',
@@ -956,7 +956,7 @@ class Features {
 				'description' => __( 'Add support to show ACF Relationships in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-acf-relationship',
 				'plugin_depends' => [ 'acf' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-acf-relationship',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-acf-relationship',
 			],
 			'ext_tag_metabox_relationship' => [
 				'name' => 'ext_tag_metabox_relationship',
@@ -968,7 +968,7 @@ class Features {
 				'description' => __( 'Add support to show Meta Box Relationships in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-metabox-relationship',
 				'plugin_depends' => [ 'meta-box' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-meta-box-relationship',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-meta-box-relationship',
 			],
 			'ext_tag_terms' => [
 				'name' => 'ext_tag_terms',
@@ -980,7 +980,7 @@ class Features {
 				'description' => __( 'Add support to show terms in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-terms',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-terms',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-terms',
 			],
 			'ext_tag_tags' => [
 				'name' => 'ext_tag_tags',
@@ -992,7 +992,7 @@ class Features {
 				'description' => __( 'Add support to show tags in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-tags',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-tags',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-tags',
 			],
 			'ext_tag_woo_product_categories' => [
 				'name' => 'ext_tag_woo_product_categories',
@@ -1004,7 +1004,7 @@ class Features {
 				'description' => __( 'Add support to show WooCommerce Product Categories in Dynamic Tag for text settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-woo-product-categories',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-woo-product-categories',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-woo-product-categories',
 			],
 			'ext_template' => [
 				'name' => 'dce_extension_template',
@@ -1016,7 +1016,7 @@ class Features {
 				'description' => __( 'Add support for Template in Dynamic Tag for text, HTML and textarea settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-template',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-template',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-template',
 			],
 			'ext_token' => [
 				'name' => 'dce_extension_token',
@@ -1028,7 +1028,7 @@ class Features {
 				'description' => __( 'Add support for Tokens in Dynamic Tag for all settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tokens',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-token/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-token/',
 			],
 			'dynamic_tag_php' => [
 				'name' => 'dce_dynamic_tag_php',
@@ -1040,7 +1040,7 @@ class Features {
 				'description' => __( 'Add support for PHP Code in Dynamic Tag for all settings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-tag-php',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-php/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-php/',
 			],
 			'dynamic_tag_image_token' => [
 				'name' => 'dce_dynamic_image_token',
@@ -1052,7 +1052,7 @@ class Features {
 				'description' => __( 'A Dynamic Tag for Tokens that return Images and Media content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tokens',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-tag-image-token/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-image-token/',
 			],
 
 			/// Widgets ///
@@ -1066,7 +1066,7 @@ class Features {
 				'description' => __( 'Add a custom field created with Advanced Custom Fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-acffields',
 				'plugin_depends' => [ 'acf' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-fields/',
 				'keywords' => [ 'Advanced Custom Fields' ],
 			],
 			'wdg_gallery' => [
@@ -1078,7 +1078,7 @@ class Features {
 				'description' => __( 'Use images from an ACF Gallery field and display them in a variety of formats', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-grid',
 				'plugin_depends' => [ 'advanced-custom-fields-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-gallery/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-gallery/',
 				'keywords' => [ 'Advanced Custom Fields', 'gallery', 'fields', 'images', 'image' ],
 			],
 			'wdg_relationship' => [
@@ -1093,7 +1093,7 @@ class Features {
 				'description' => __( 'Use the ACF Relationship field to easily display related content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-relation',
 				'plugin_depends' => [ 'acf' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-relationship-old-version/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-relationship-old-version/',
 				'keywords' => [ 'Advanced Custom Fields', 'fields' ],
 			],
 			'wdg_acf_relationship' => [
@@ -1107,7 +1107,7 @@ class Features {
 				'description' => __( 'Use the ACF Relationship field to easily display related content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-relation',
 				'plugin_depends' => [ 'acf' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-relationship-new-version/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-relationship-new-version/',
 				'keywords' => [ 'Advanced Custom Fields', 'fields' ],
 			],
 			'wdg_repeater' => [
@@ -1122,7 +1122,7 @@ class Features {
 				'description' => __( 'Take advantage of the power and flexibility of the ACF Repeater field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-repeater',
 				'plugin_depends' => [ 'advanced-custom-fields-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-repeater-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-repeater-fields/',
 				'keywords' => [ 'Advanced Custom Fields' ],
 			],
 			'wdg_acf_repeater_v2' => [
@@ -1135,7 +1135,7 @@ class Features {
 				'description' => __( 'Take advantage of the power and flexibility of the ACF Repeater field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-repeater',
 				'plugin_depends' => [ 'advanced-custom-fields-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-repeater-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-repeater-fields/',
 				'keywords' => [ 'Advanced Custom Fields' ],
 			],
 			'wdg_acf_flexible_content' => [
@@ -1148,7 +1148,7 @@ class Features {
 				'description' => __( 'Insert a Flexible Content field using layouts and sub fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-flexiblecontent',
 				'plugin_depends' => [ 'advanced-custom-fields-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-flexible-content/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-flexible-content/',
 				'keywords' => [ 'Advanced Custom Fields' ],
 			],
 			'wdg_slider' => [
@@ -1160,7 +1160,7 @@ class Features {
 				'description' => __( 'Use images from an ACF Gallery field to create an image carousel', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-slider',
 				'plugin_depends' => [ 'advanced-custom-fields-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/acf-slider/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/acf-slider/',
 				'keywords' => [ 'Advanced Custom Fields', 'gallery', 'images', 'carousel' ],
 			],
 			'wdg_barcode' => [
@@ -1172,7 +1172,7 @@ class Features {
 				'description' => __( 'Quick creation for 1D and 2D barcodes, like EAN and QR Codes', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-qrcode',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/qr-and-bars-code/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/qr-and-bars-code/',
 				'keywords' => [ 'barcode', 'qr' ],
 			],
 			'wdg_calendar' => [
@@ -1184,7 +1184,7 @@ class Features {
 				'description' => __( 'Add an event to Google Calendar, iOS, Outlook, Outlook.com or Yahoo', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-buttoncalendar',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/button-calendar/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/button-calendar/',
 				'keywords' => [ 'date', 'calendar', 'ics', 'reminder' ],
 			],
 			'wdg_clipboard' => [
@@ -1196,7 +1196,7 @@ class Features {
 				'description' => __( 'Copy the specified text to the User Clipboard', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-buttoncopy',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/button-copy-to-clipboard/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/button-copy-to-clipboard/',
 			],
 			'wdg_dyncookie' => [
 				'class' => 'Widgets\\DynamicCookie',
@@ -1208,7 +1208,7 @@ class Features {
 				'description' => __( 'Create and manage cookies using dynamic content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-cookie',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-cookie',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-cookie',
 			],
 			'wdg_favorites' => [
 				'class' => 'Widgets\\AddToFavorites',
@@ -1219,7 +1219,7 @@ class Features {
 				'description' => __( 'Create a favorite list for your users', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-like',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/add-to-favorites/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/add-to-favorites/',
 				'keywords' => [ 'favourites' ],
 			],
 			'wdg_wishlist' => [
@@ -1231,7 +1231,7 @@ class Features {
 				'description' => __( 'Quickly and easily add WooCommerce products to the wishlist', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-woo-wishlist',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/woocommerce-woo-add-to-wishlist/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/woocommerce-woo-add-to-wishlist/',
 				'keywords' => [ 'woocommerce', 'favourites', 'favorites', 'wishlist' ],
 			],
 			'wdg_modal_window' => [
@@ -1243,7 +1243,7 @@ class Features {
 				'description' => __( 'Add a Modal Window button to your pages to create a popup window', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-modal',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/fire-modalwindow/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/fire-modalwindow/',
 				'keywords' => [ 'popup', 'pop-up', 'modal' ],
 			],
 			'wdg_pdf' => [
@@ -1256,7 +1256,7 @@ class Features {
 				'description' => __( 'Dynamically generate a PDF document using your content and styles', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-buttonpdf',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/pdf-button/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pdf-button/',
 				'keywords' => [ 'generate pdf', 'pdfs' ],
 			],
 			'wdg_popup' => [
@@ -1268,7 +1268,7 @@ class Features {
 				'description' => __( 'Add a modal window to your page', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-popups',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/popups/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/popups/',
 				'keywords' => [ 'popup', 'pop-up' ],
 			],
 			'wdg_charts' => [
@@ -1280,7 +1280,7 @@ class Features {
 				'description' => __( 'Create beautiful charts in no time at all. Plus, you can easily insert data into your charts or use a CSV file', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-charts',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-charts/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-charts/',
 				'keywords' => [ 'chart', 'radar', 'doughtnut', 'pie', 'line', 'bar' ],
 			],
 			'wdg_template' => [
@@ -1292,7 +1292,7 @@ class Features {
 				'description' => __( 'Insert an existing template and dynamically assign its content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-layout',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-template/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-template/',
 			],
 			'wdg_tokens' => [
 				'class' => 'Widgets\\TextEditorWithTokens',
@@ -1304,7 +1304,7 @@ class Features {
 				'description' => __( 'Add Tokens to show values from posts, users, terms, custom fields, options and others', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tokens',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/tokens/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/tokens/',
 			],
 			'wdg_discover_tokens' => [
 				'class' => 'Widgets\\DiscoverTokens',
@@ -1316,7 +1316,7 @@ class Features {
 				'description' => __( 'Discover a multitude of tokens on your site to better understand its full power', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-discover-tokens',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/discover-tokens',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/discover-tokens',
 				'keywords' => [ 'tokens', 'list', 'examples' ],
 			],
 			'wdg_text_timber' => [
@@ -1329,7 +1329,7 @@ class Features {
 				'description' => __( 'Write using the Twig Template Engine thanks to integration with Timber', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-text-editor-timber',
 				'plugin_depends' => [ 'timber' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/text-editor-timber-twig-elementor',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/text-editor-timber-twig-elementor',
 				'keywords' => [ 'twig' ],
 			],
 			'wdg_animate_text' => [
@@ -1341,7 +1341,7 @@ class Features {
 				'description' => __( 'Advanced animation for your text', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-animate_text',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/animated-text/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/animated-text/',
 				'keywords' => [ 'animations' ],
 			],
 			'wdg_parallax' => [
@@ -1353,7 +1353,7 @@ class Features {
 				'description' => __( 'Manage parallax movements with your mouse on desktop or device orientation on mobile', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-parallax',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/parallax/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/parallax/',
 			],
 			'wdg_threesixty_slider' => [
 				'class' => 'Widgets\\ThreesixtySlider',
@@ -1365,7 +1365,7 @@ class Features {
 				'description' => __( 'Generate a rotation through a series of images', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-360',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/360-slider/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/360-slider/',
 				'keywords' => [ 'images', 'products' ],
 			],
 			'wdg_tilt' => [
@@ -1377,7 +1377,7 @@ class Features {
 				'description' => __( 'Parallax hover tilt effect applied to a template', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tilt',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/tilt/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/tilt/',
 				'keywords' => [ 'parallax' ],
 			],
 			'wdg_twentytwenty' => [
@@ -1389,7 +1389,7 @@ class Features {
 				'description' => __( 'Display an image with a before - after effect, ideal for comparing differences between two images', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-afterbefore',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/before-after/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/before-after/',
 				'keywords' => [ 'images', 'image' ],
 			],
 			'wdg_doshortcode' => [
@@ -1402,7 +1402,7 @@ class Features {
 				'description' => __( 'Apply a WordPress shortcode using Tokens', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-doshortc',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/shortcode-with-tokens/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/shortcode-with-tokens/',
 				'keywords' => [ 'shortcode', 'tokens', 'token' ],
 			],
 			'wdg_includefile' => [
@@ -1415,7 +1415,7 @@ class Features {
 				'description' => __( 'Directly include files from a path in root as if you were writing in a theme', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-incfile',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/file-include/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/file-include/',
 			],
 			'wdg_rawphp' => [
 				'class' => 'Widgets\\PhpRaw',
@@ -1427,7 +1427,7 @@ class Features {
 				'description' => __( 'Add PHP code directly in Elementor', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-php-raw',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/php-raw/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/php-raw/',
 				'keywords' => [ 'code' ],
 			],
 			'wdg_remotecontent' => [
@@ -1440,7 +1440,7 @@ class Features {
 				'description' => __( 'Dynamically read any type of content from the web, incorporate text blocks, pictures and more from external sources. Compatible with REST APIs, including the native ones from WordPress. Option to format the resulting values in JSON', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-remotecontent',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/remote-content/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/remote-content/',
 				'keywords' => [ 'iframe', 'json', 'api' ],
 			],
 			'wdg_iframe' => [
@@ -1453,7 +1453,7 @@ class Features {
 				'description' => __( 'Insert an iFrame', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-iframe',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/iframe/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/iframe/',
 				'keywords' => [ 'iframe', 'i-frame' ],
 			],
 			'wdg_google_doc_preview' => [
@@ -1466,7 +1466,7 @@ class Features {
 				'description' => __( 'Display a preview of your document. For example: PDF, MS Office documents, Google docs, sheets, slides, forms and drawings', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-google-document-preview',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/document-viewer/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/document-viewer/',
 				'keywords' => [ 'document, preview, docs' ],
 			],
 			'wdg_dynamicposts' => [
@@ -1481,7 +1481,7 @@ class Features {
 				'description' => __( 'Create archives from lists of articles with different query source options. You can display the list with different skins and use templates to control item content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-posts',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-posts/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-posts/',
 				'keywords' => [ 'list', 'articles', 'carousel', 'slider', 'timeline', 'archive' ],
 			],
 			'wdg_dynamicposts_v2' => [
@@ -1496,7 +1496,7 @@ class Features {
 				'description' => __( 'Create archives from lists of items with different query source options. You can display the list with various skins and you can choose which items to display', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-posts',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-posts-v2',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-posts-v2',
 				'keywords' => [ 'grid', '3d', 'skin', 'list', 'articles', 'carousel', 'slider', 'timeline', 'archive', 'custom', 'dynamic posts v2', 'custom post type', 'cpt', 'item', 'loop', 'v2', 'pods', 'acf', 'fields' ],
 			],
 			'wdg_dynamic_woo_products' => [
@@ -1511,7 +1511,7 @@ class Features {
 				'description' => __( 'Display your WooCommerce products with different skins and choose the items you want to display', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-woo-products',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-products/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-products/',
 				'keywords' => [ 'woocommerce', 'woo', 'product', 'list', 'carousel', 'slider', 'timeline', 'loop' ],
 			],
 			'wdg_dynamic_woo_products_on_sale' => [
@@ -1526,7 +1526,7 @@ class Features {
 				'description' => __( 'Display your WooCommerce products on sale with different skins and choose the items you want to display', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-woo-products-on-sale',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-products-on-sale/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-products-on-sale/',
 				'keywords' => [ 'woocommerce', 'woo', 'product', 'list', 'carousel', 'slider', 'timeline', 'loop', 'sale' ],
 			],
 			'wdg_woo_products_cart' => [
@@ -1541,7 +1541,7 @@ class Features {
 				'description' => __( 'Show your customers the WooCommerce products they have in their cart', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-woo-products-cart',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/products-in-the-cart/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/products-in-the-cart/',
 				'keywords' => [ 'woocommerce', 'woo', 'product', 'list', 'carousel', 'slider', 'basket', 'loop' ],
 			],
 			'wdg_woo_product_upsells' => [
@@ -1556,7 +1556,7 @@ class Features {
 				'description' => __( 'Show upsells products for a WooCommerce product', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-woo-product-upsells',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/product-upsells/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/product-upsells/',
 				'keywords' => [ 'woocommerce', 'woo', 'products', 'list', 'carousel', 'slider', 'loop' ],
 			],
 			'wdg_woo_product_crosssells' => [
@@ -1571,7 +1571,7 @@ class Features {
 				'description' => __( 'Show cross-sells products for a WooCommerce product', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-woo-product-crosssells',
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/product-cross-sells/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/product-cross-sells/',
 				'keywords' => [ 'woocommerce', 'woo', 'products', 'related', 'list', 'carousel', 'slider', 'basket', 'loop' ],
 			],
 			'wdg_show_favorites' => [
@@ -1586,7 +1586,7 @@ class Features {
 				'title' => __( 'Favorites', 'dynamic-content-for-elementor' ),
 				'description' => __( 'Show your customers the favorites they have. Works in combination with the "Add to Favorites" widget', 'dynamic-content-for-elementor' ),
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/favorites/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/favorites/',
 				'keywords' => [ 'favourites', 'list', 'carousel', 'slider', 'loop', 'add to favorites' ],
 			],
 			'wdg_show_wishlist' => [
@@ -1601,7 +1601,7 @@ class Features {
 				'title' => __( 'Woo Wishlist', 'dynamic-content-for-elementor' ),
 				'description' => __( 'Show your customers their wishlist automatically, excluding bought products. Works in combination with the "Add to Woo Wishlist" widget', 'dynamic-content-for-elementor' ),
 				'plugin_depends' => [ 'woocommerce' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/woocommerce-woo-wishlist/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/woocommerce-woo-wishlist/',
 				'keywords' => [ 'woocommerce', 'woo', 'favourites', 'product', 'list', 'carousel', 'slider', 'basket', 'loop' ],
 			],
 			'wdg_stick_yposts' => [
@@ -1616,7 +1616,7 @@ class Features {
 				'description' => __( 'Display Sticky Posts with different skins and choose the items you want to display', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-sticky-posts',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/sticky-posts/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/sticky-posts/',
 				'keywords' => [ 'grid', '3d', 'skin', 'list', 'articles', 'carousel', 'slider' ],
 			],
 			'wdg_search_results' => [
@@ -1631,7 +1631,7 @@ class Features {
 				'description' => __( 'Display Search Results with different skins and choose the items you want to display', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-search-results',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/search-results/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/search-results/',
 				'keywords' => [ 'grid', '3d', 'skin', 'list', 'articles', 'carousel', 'slider', 'searching' ],
 			],
 			'wdg_my_posts' => [
@@ -1646,7 +1646,7 @@ class Features {
 				'description' => __( 'Show your logged-in customers posts written by them', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-my-posts',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/my-posts/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/my-posts/',
 				'keywords' => [ 'grid', '3d', 'skin', 'list', 'articles', 'carousel', 'slider', 'searching', 'current author', 'author' ],
 			],
 			'wdg_metabox_relationship' => [
@@ -1661,7 +1661,7 @@ class Features {
 				'description' => __( 'Use Meta Box Relationships to easily display related content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-metabox-relationship',
 				'plugin_depends' => [ 'meta-box' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/meta-box-relationship-elementor/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/meta-box-relationship-elementor/',
 				'keywords' => [ 'metabox' ],
 			],
 			'wdg_google_maps' => [
@@ -1674,7 +1674,7 @@ class Features {
 				'description' => __( 'Build a map using data from ACF Google Map fields, Meta Box Google Map fields, addresses or latitude and longitude', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-map',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-google-maps/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-google-maps/',
 				'keywords' => [ 'Advanced Custom Fields', 'fields' ],
 			],
 			'wdg_google_maps_directions' => [
@@ -1686,7 +1686,7 @@ class Features {
 				'description' => __( 'Show the map and calculate the direction between two locations. Can be used in conjunction with its Dynamic Tags to show distance info and directions', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-google-maps-directions',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-google-maps-directions',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-google-maps-directions',
 				'keywords' => [ 'distance' ],
 			],
 			'wdg_metabox_google_maps' => [
@@ -1698,7 +1698,7 @@ class Features {
 				'description' => __( 'Build a map using data from Meta Box Google Map fields', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-metabox-google-maps',
 				'plugin_depends' => [ 'meta-box' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/meta-box-google-maps-elementor/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/meta-box-google-maps-elementor/',
 				'keywords' => [ 'metabox', 'fields' ],
 			],
 			'wdg_dynamic_users' => [
@@ -1712,7 +1712,7 @@ class Features {
 				'description' => __( 'Create an archive based on User profiles', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-users',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-users/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-users/',
 				'keywords' => [ 'list', 'users', 'archive' ],
 			],
 			'wdg_animated_offcanvas_menu' => [
@@ -1724,7 +1724,7 @@ class Features {
 				'description' => __( 'An off-canvas menu is positioned outside of the viewport and slides in when activated', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-animatedoffcanvasmenu',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/animated-offcanvas-menu/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/animated-offcanvas-menu/',
 				'keywords' => [ 'menu', 'animations' ],
 			],
 			'wdg_cursor_tracker' => [
@@ -1736,7 +1736,7 @@ class Features {
 				'description' => __( 'An element that follows the cursor and indicates the level of scrolling', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-cursor-tracker',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/cursor-tracker/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/cursor-tracker/',
 			],
 			'wdg_file_browser' => [
 				'class' => 'Widgets\\FileBrowser',
@@ -1748,7 +1748,7 @@ class Features {
 				'description' => __( 'Display a list of files you uploaded. This is particularly useful when you need to make pictures or documents available in a simple and intuitive way', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-filebrowser',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/file-browser/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/file-browser/',
 				'keywords' => [ 'list', 'file', 'download', 'archive' ],
 			],
 			'wdg_parent_child_menu' => [
@@ -1760,7 +1760,7 @@ class Features {
 				'description' => __( 'Build a list of entries in horizontal or vertical mode where a parent element can be considered as a menu', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-parentchild',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/widget-parent-child-menu/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/widget-parent-child-menu/',
 			],
 			'wdg_search_filter' => [
 				'class' => 'Widgets\\AdvancedFilteringSearchAndFilterPro',
@@ -1771,7 +1771,7 @@ class Features {
 				'description' => __( 'The Ultimate WordPress filter plugin that uses Ajax with Elementor', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-search-filter',
 				'plugin_depends' => [ 'search-filter-pro' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/search-filter-pro-elementor',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/search-filter-pro-elementor',
 				'keywords' => [ 'filters', 'Search and Filter Pro' ],
 			],
 			'wdg_single_posts_menu' => [
@@ -1783,7 +1783,7 @@ class Features {
 				'description' => __( 'Create a custom menu from single pages', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-listsingle',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/single-posts-list/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/single-posts-list/',
 			],
 			'wdg_taxonomy_terms_menu' => [
 				'class' => 'Widgets\\TaxonomyTermsList',
@@ -1794,7 +1794,7 @@ class Features {
 				'description' => __( 'Create an archive type navigation menu based on a taxonomy. It generates a list of the terms that belong to a specific taxonomy so that each item can be clicked to easily access to the term archive', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-parenttax',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/taxonomy-terms-list/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/taxonomy-terms-list/',
 				'keywords' => [ 'list', 'menu' ],
 			],
 			'wdg_views' => [
@@ -1808,7 +1808,7 @@ class Features {
 				'description' => __( 'Create a custom list from query results', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-views',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/views/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/views/',
 				'keywords' => [ 'list', 'articles', 'search', 'archive', 'cpt' ],
 			],
 			'wdg_pods' => [
@@ -1820,7 +1820,7 @@ class Features {
 				'description' => __( 'Add a custom field created with Pods', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-acffields',
 				'plugin_depends' => [ 'pods' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/pods-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pods-fields/',
 			],
 			'wdg_pods_gallery' => [
 				'class' => 'Widgets\\PodsGallery',
@@ -1831,7 +1831,7 @@ class Features {
 				'description' => __( 'Use a list of images from a Pods Image field with various display options', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-grid',
 				'plugin_depends' => [ 'pods' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/pods-gallery/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pods-gallery/',
 				'keywords' => [ 'images', 'fields' ],
 			],
 			'wdg_pods_relationship' => [
@@ -1845,7 +1845,7 @@ class Features {
 				'description' => __( 'Display related posts linked using the Pods Relationship field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-relation',
 				'plugin_depends' => [ 'pods' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/pods-relationship/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pods-relationship/',
 			],
 			'wdg_breadcrumbs' => [
 				'class' => 'Widgets\\Breadcrumbs',
@@ -1856,7 +1856,7 @@ class Features {
 				'description' => __( 'Insert breadcrumbs and generate paths inside your page automatically', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-breadcrumbs',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/breadcrumbs/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/breadcrumbs/',
 			],
 			'wdg_content' => [
 				'class' => 'Widgets\\Content',
@@ -1867,7 +1867,7 @@ class Features {
 				'description' => __( 'Retrieve the post content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-content',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/content/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/content/',
 			],
 			'wdg_date' => [
 				'class' => 'Widgets\\Date',
@@ -1878,7 +1878,7 @@ class Features {
 				'description' => __( 'Display the published or modified date', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-date',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/date/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/date/',
 			],
 			'wdg_excerpt' => [
 				'class' => 'Widgets\\Excerpt',
@@ -1889,7 +1889,7 @@ class Features {
 				'description' => __( 'Display a short section from the beginning of the content', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-excerpt',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/excerpt/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/excerpt/',
 				'keywords' => [ 'content' ],
 			],
 			'wdg_featured_image' => [
@@ -1901,7 +1901,7 @@ class Features {
 				'description' => __( 'Retrieve the featured image', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-featured-image',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/featured-image/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/featured-image/',
 			],
 			'wdg_icon_format' => [
 				'class' => 'Widgets\\IconFormat',
@@ -1912,7 +1912,7 @@ class Features {
 				'description' => __( 'Add an icon for your post format and identify its type', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-formats',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/icon-format/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/icon-format/',
 			],
 			'wdg_meta' => [
 				'class' => 'Widgets\\PostMeta',
@@ -1924,7 +1924,7 @@ class Features {
 				'description' => __( 'Display any post meta saved in the database', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-customfields',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/post-meta/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/post-meta/',
 				'legacy' => true,
 			],
 			'wdg_next_prev' => [
@@ -1936,7 +1936,7 @@ class Features {
 				'description' => __( 'Display navigation links to adjacent posts based on a category/taxonomy or tag', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-prevnext',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/prevnext/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/prevnext/',
 				'keywords' => [ 'previous', 'list' ],
 			],
 			'wdg_read_more' => [
@@ -1948,7 +1948,7 @@ class Features {
 				'description' => __( 'Add a "Read More" button below your post or on the block in the archive, create a call-to-action.', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-readmore',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/read-more-button/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/read-more-button/',
 			],
 			'wdg_terms' => [
 				'class' => 'Widgets\\TermsAndTaxonomy',
@@ -1959,7 +1959,7 @@ class Features {
 				'description' => __( 'Insert your post taxonomies', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-terms',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/terms-and-taxonomy/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/terms-and-taxonomy/',
 				'keywords' => [ 'taxonomies' ],
 			],
 			'wdg_title' => [
@@ -1971,7 +1971,7 @@ class Features {
 				'description' => __( 'It automatically recognises the object among Posts, Archives and Users and gives you the title', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-title',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/title/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/title/',
 			],
 			'wdg_title_type' => [
 				'class' => 'Widgets\\PostType',
@@ -1982,7 +1982,7 @@ class Features {
 				'description' => __( 'Retrieve the post type', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-title-type',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/title-type/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/title-type/',
 				'keywords' => [ 'cpt', 'Custom Post Type' ],
 			],
 			'wdg_user' => [
@@ -1995,7 +1995,7 @@ class Features {
 				'description' => __( 'Display any user field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-userfields',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/user-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/user-fields/',
 			],
 			'wdg_title_taxonomy' => [
 				'class' => 'Widgets\\TaxonomyTitle',
@@ -2006,7 +2006,7 @@ class Features {
 				'description' => __( 'Use the current Taxonomy term as the Archive title', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-title-taxonomy',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/title-taxonomy/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/title-taxonomy/',
 			],
 			'wdg_svg_blob' => [
 				'class' => 'Widgets\\SvgBlob',
@@ -2018,7 +2018,7 @@ class Features {
 				'description' => __( 'Create a shape using an SVG path and make it move!', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-svgblob',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-blob/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-blob/',
 				'keywords' => [ 'animations' ],
 			],
 			'wdg_svg_distortion' => [
@@ -2031,7 +2031,7 @@ class Features {
 				'description' => __( 'The SVG Distortion widget operates by calculating the displacement map based on a source image', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-distortion',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-distortion/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-distortion/',
 				'keywords' => [ 'animations' ],
 			],
 			'wdg_svg_filter_effects' => [
@@ -2044,7 +2044,7 @@ class Features {
 				'description' => __( 'The widget operates using primitive SVG filters', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-svgfe',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-fe-filtereffects/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-fe-filtereffects/',
 			],
 			'wdg_svg_imagemask' => [
 				'class' => 'Widgets\\SvgImageMask',
@@ -2056,7 +2056,7 @@ class Features {
 				'description' => __( 'The SVG Image Mask widget operates through the mask attribute of the SVG', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-svgmask',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-mask/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-mask/',
 				'keywords' => [ 'masking', 'images' ],
 			],
 			'wdg_svg_morphing' => [
@@ -2069,7 +2069,7 @@ class Features {
 				'description' => __( 'You can transpose SVG paths to morph from one shape to another ', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-svgmorph',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-morphing/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-morphing/',
 				'keywords' => [ 'animations' ],
 			],
 			'wdg_svg_path_text' => [
@@ -2082,7 +2082,7 @@ class Features {
 				'description' => __( 'Write out text along a source based on an SVG path line', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-svgtextpath',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/svg-text-path/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/svg-text-path/',
 			],
 			'wdg_toolset' => [
 				'class' => 'Widgets\\ToolsetFields',
@@ -2093,7 +2093,7 @@ class Features {
 				'description' => __( 'Display a Toolset custom field', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-acffields',
 				'plugin_depends' => [ 'types' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/toolset-fields/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/toolset-fields/',
 			],
 			'wdg_toolset_relationship' => [
 				'class' => 'Widgets\\ToolsetRelationship',
@@ -2106,7 +2106,7 @@ class Features {
 				'description' => __( 'Display related posts defined by Toolset Relationships', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-relation',
 				'plugin_depends' => [ 'types' ],
-				'doc_url' => 'https://www.dynamic.ooo/widget/toolset-relationship/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/toolset-relationship/',
 				'keywords' => [ 'fields' ],
 			],
 			'wdg_bg_canvas' => [
@@ -2118,7 +2118,7 @@ class Features {
 				'description' => __( 'Easily integrate WebGL with Canvas for Shader effects', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-canvas',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/webgl-threejs-background-canvas/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/webgl-threejs-background-canvas/',
 				'keywords' => [ 'bg', 'images' ],
 			],
 			'wdg_distortion_image' => [
@@ -2130,7 +2130,7 @@ class Features {
 				'description' => __( 'Special rollover effects based on WebGL, Three.js, and transformation shaders', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-distortion',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/webgl-threejs-images-distortions-hover/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/webgl-threejs-images-distortions-hover/',
 				'keywords' => [ 'animations' ],
 			],
 			'wdg_panorama' => [
@@ -2142,7 +2142,7 @@ class Features {
 				'description' => __( 'Display a 360 degree spherical image through VR mode', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-panorama',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/panorama/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/panorama/',
 				'keywords' => [ 'images' ],
 			],
 			'wdg_osm_map' => [
@@ -2154,7 +2154,7 @@ class Features {
 				'description' => __( 'A map widget that does not need a key thanks to OpenStreetMap!', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-osm',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/openstreetmap-elementor/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/openstreetmap-elementor/',
 				'keywords' => [ 'map', 'open street map', 'google maps', 'osm', 'address' ],
 			],
 			'wdg_dynamic_osm_map' => [
@@ -2166,7 +2166,7 @@ class Features {
 				'description' => __( 'Display and customize multiple points of interest on OpenStreetMap', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-dynamic-openstreetmap',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/dynamic-openstreetmap/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-openstreetmap/',
 				'keywords' => [ 'map', 'open street map', 'google maps', 'osm', 'address' ],
 			],
 			'wdg_cryptocoin_badge' => [
@@ -2178,7 +2178,7 @@ class Features {
 				'description' => __( 'Perfect for showing your customers the realtime value of your favorite cryptocoin', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-crypto-badge',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/cryptocoin-badge',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/cryptocoin-badge',
 				'keywords' => [ 'realtime', 'bitcoin', 'crypto' ],
 			],
 			'wdg_pdf_viewer' => [
@@ -2190,7 +2190,7 @@ class Features {
 				'description' => __( 'Show a PDF file', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dce-pdf-viewer',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/pdf-viewer/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/pdf-viewer/',
 				'keywords' => [ 'pdf', 'viewer', 'preview' ],
 			],
 
@@ -2204,7 +2204,7 @@ class Features {
 				'description' => __( 'Turn sections into scrolling steps and minimize pagination using either scroll, snap, or inertia effects', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-page-scroll',
 				'plugin_depends' => '',
-				'doc_url' => 'https://www.dynamic.ooo/widget/page-scroll-document/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/page-scroll-document/',
 			],
 
 			// Global Settings
@@ -2217,7 +2217,7 @@ class Features {
 				'description' => __( 'Provides a smooth animated transition between pages', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-smooth-transition',
 				'plugin_depends' => [],
-				'doc_url' => 'https://www.dynamic.ooo/widget/global-settings-smooth-transition/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/global-settings-smooth-transition/',
 				'legacy' => true,
 			],
 			'gst_tracker_header' => [
@@ -2228,7 +2228,7 @@ class Features {
 				'description' => __( 'Tracker header will fix the header of your site to the top of the page. The header will disappear while scrolling but will reappear with a small swipe upward. This will help to optimize available spaces, especially on mobile devices', 'dynamic-content-for-elementor' ),
 				'icon' => 'icon-dyn-tracker-header',
 				'plugin_depends' => [],
-				'doc_url' => 'https://www.dynamic.ooo/widget/global-settings-tracker-header/',
+				'doc_url' => 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/global-settings-tracker-header/',
 			],
 		];
 	}

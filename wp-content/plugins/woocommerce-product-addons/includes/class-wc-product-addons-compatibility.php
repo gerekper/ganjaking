@@ -2,7 +2,7 @@
 /**
  * WC_PAO_Compatibility class
  *
- * @package  WooCommerce Product Add-Ons
+ * @package  Woo Product Add-Ons
  */
 
 // Exit if accessed directly.
@@ -172,8 +172,8 @@ class WC_PAO_Compatibility {
 			$required_version = $this->required[ 'pb' ];
 			if ( version_compare( WC_PB()->version, $required_version ) < 0 ) {
 				$extension      = __( 'Product Bundles', 'woocommerce-product-addons' );
-				$extension_full = __( 'WooCommerce Product Bundles', 'woocommerce-product-addons' );
-				$extension_url  = 'https://woocommerce.com/products/product-bundles/';
+				$extension_full = __( 'Woo Product Bundles', 'woocommerce-product-addons' );
+				$extension_url  = 'https://woo.com/products/product-bundles/';
 				/* translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version. */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Add-ons</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-addons' ), $extension, $extension_url, $extension_full, $required_version );
 				WC_PAO_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'pb_lt_' . $required_version, 'type' => 'warning' ) );
@@ -185,8 +185,8 @@ class WC_PAO_Compatibility {
 			$required_version = $this->required[ 'cp' ];
 			if ( version_compare( WC_CP()->version, $required_version ) < 0 ) {
 				$extension      = __( 'Composite Products', 'woocommerce-product-addons' );
-				$extension_full = __( 'WooCommerce Composite Products', 'woocommerce-product-addons' );
-				$extension_url  = 'https://woocommerce.com/products/composite-products/';
+				$extension_full = __( 'Woo Composite Products', 'woocommerce-product-addons' );
+				$extension_url  = 'https://woo.com/products/composite-products/';
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Add-ons</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-addons' ), $extension, $extension_url, $extension_full, $required_version );
 				WC_PAO_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'cp_lt_' . $required_version, 'type' => 'warning' ) );
 			}
@@ -197,8 +197,8 @@ class WC_PAO_Compatibility {
 			$required_version = $this->required[ 'blocks' ];
 			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) < 0 ) {
 
-				$plugin     = __( 'WooCommerce Blocks', 'woocommerce-product-addons' );
-				$plugin_url = 'https://woocommerce.com/products/woocommerce-gutenberg-products-block/';
+				$plugin     = __( 'Woo Blocks', 'woocommerce-product-addons' );
+				$plugin_url = 'https://woo.com/products/woocommerce-gutenberg-products-block/';
 				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
 				$notice = sprintf( __( 'The installed version of <strong>%1$s</strong> does not support <strong>Product Add-ons</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-addons' ), $plugin, $plugin_url, $plugin, $required_version );
 

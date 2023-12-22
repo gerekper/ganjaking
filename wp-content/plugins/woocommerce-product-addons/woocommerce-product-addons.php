@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Product Add-ons
- * Plugin URI: https://woocommerce.com/products/product-add-ons/
+ * Plugin Name: Woo Product Add-ons
+ * Plugin URI: https://woo.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 6.5.1
- * Author: WooCommerce
- * Author URI: https://woocommerce.com
+ * Version: 6.5.2
+ * Author: Woo
+ * Author URI: https://woo.com
  *
  * Requires PHP: 7.0
  *
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function woocommerce_product_addons_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Product Add-ons requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-product-addons' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Product Add-ons requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-product-addons' ), '<a href="https://woo.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
 }
 
 register_activation_hook( __FILE__, 'woocommerce_product_addons_activation' );
@@ -95,7 +95,7 @@ function woocommerce_product_addons_init() {
 	// PHP version check.
 	if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
 		/* translators: %1$s: Version %, %2$s: Update PHP doc URL */
-		$notice = sprintf( __( 'WooCommerce Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-addons' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
+		$notice = sprintf( __( 'Woo Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-addons' ), '7.0.0', 'https://woo.com/document/how-to-update-your-php-version/' );
 		require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin-notices.php';
 		WC_PAO_Admin_Notices::add_notice( $notice, 'error' );
 		return false;
@@ -103,7 +103,7 @@ function woocommerce_product_addons_init() {
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
 
-		define( 'WC_PRODUCT_ADDONS_VERSION', '6.5.1' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '6.5.2' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -246,8 +246,8 @@ function woocommerce_product_addons_init() {
 
 				if ( $file === plugin_basename( __FILE__ ) ) {
 					$plugin_links = array(
-						'<a href="https://docs.woocommerce.com/document/product-add-ons/">' . esc_html__( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
-						'<a href="https://woocommerce.com/my-account/tickets/">' . esc_html__( 'Support', 'woocommerce-product-addons' ) . '</a>',
+						'<a href="https://woo.com/document/product-add-ons/">' . esc_html__( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
+						'<a href="https://woo.com/my-account/tickets/">' . esc_html__( 'Support', 'woocommerce-product-addons' ) . '</a>',
 					);
 					return array_merge( $links, $plugin_links );
 				}
@@ -262,7 +262,7 @@ function woocommerce_product_addons_init() {
 				$show_activate_notice = get_transient( 'wc_pao_activation_notice' );
 
 				if ( $show_activate_notice ) {
-					$thank_you_message            = __( 'Thank you for installing WooCommerce Product Add-ons.', 'woocommerce-product-addons' );
+					$thank_you_message            = __( 'Thank you for installing Woo Product Add-ons.', 'woocommerce-product-addons' );
 					$onboarding_message           = sprintf(
 						__( 'Ready to make your products unique? Use <a href="%1$s" target="_blank">global add-ons</a> to add free or paid options to multiple products, or create custom <a href="%2$s" target="_blank">add-ons for individual products</a>.', 'woocommerce-product-addons' ),
 						$this->get_resource_url( 'global-addons' ), $this->get_resource_url( 'per-product-addons' )
@@ -389,9 +389,9 @@ function woocommerce_product_addons_init() {
 				$resource = false;
 
 				if ( 'per-product-addons' === $handle ) {
-					$resource = 'https://woocommerce.com/document/product-add-ons/#per-product-add-ons';
+					$resource = 'https://woo.com/document/product-add-ons/#per-product-add-ons';
 				} elseif ( 'global-addons' === $handle ) {
-					$resource = 'https://woocommerce.com/document/product-add-ons/#global-addons';
+					$resource = 'https://woo.com/document/product-add-ons/#global-addons';
 				}
 
 				return $resource;

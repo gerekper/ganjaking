@@ -69,7 +69,14 @@ jQuery(document).ready(function ($) {
 
             content = btoa(JSON.stringify(content));
             var js_expire_time = new Date(1000 * consent_expire_time).toUTCString();
-            document.cookie = "ct-ultimate-gdpr-age=" + content + "; expires=" + js_expire_time + "; path=/";
+
+            // Check if the site is accessed via HTTPS
+            var cookieSecureFlag = '';
+            if (window.location.protocol === 'https:') {
+                cookieSecureFlag = '; Secure';
+            }
+
+            document.cookie = "ct-ultimate-gdpr-age=" + content + "; expires=" + js_expire_time + "; path=/" + cookieSecureFlag;
 
         } catch (e) {
 

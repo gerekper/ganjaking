@@ -4,7 +4,7 @@ Tags: search, search engine, product search, woocommerce, ajax, ajax search, dis
 Requires at least: 6.0
 Requires PHP: 7.3
 Tested up to: 6.4
-Stable tag: 5.0.4
+Stable tag: 5.1.1
 
 The best Search Engine and Search Experience for WooCommerce.
 

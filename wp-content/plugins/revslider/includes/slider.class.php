@@ -1270,6 +1270,8 @@ class RevSliderSlider extends RevSliderFunctions {
 			$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, $slider_data, array('id' => $slider_id));
 		}
 		
+		do_action('revslider_save_slider', $slider_id);
+
 		return $slider_id;
 	}
 	

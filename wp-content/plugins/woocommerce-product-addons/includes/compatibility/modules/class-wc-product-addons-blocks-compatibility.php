@@ -2,7 +2,7 @@
 /**
  * WC_Product_Addons_Blocks_Compatibility class
  *
- * @package  WooCommerce Product Add-Ons
+ * @package  Woo Product Add-Ons
  * @since    6.4.0
  */
 

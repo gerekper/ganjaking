@@ -66,10 +66,10 @@
   -ms-flex-align: center;
   align-items: center; }
 
-.tooltipster-box div.premium-image-hotspots-tooltips-text {
+.tooltipster-box div.premium-image-hotspots-tooltips-text.pa-tooltip-text-inherit {
   border-color: #000;
   overflow: hidden; }
-  .tooltipster-box div.premium-image-hotspots-tooltips-text * {
+  .tooltipster-box div.premium-image-hotspots-tooltips-text.pa-tooltip-text-inherit * {
     color: inherit;
     font: inherit; }
 

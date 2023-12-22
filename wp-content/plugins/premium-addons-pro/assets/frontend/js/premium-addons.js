@@ -635,7 +635,7 @@
             bindEvents: function () {
                 //Fix conflict with tabs widget.
                 var _this = this,
-                    $closestTab = this.elements.$chartElem.closest(".premium-tabs-content-section"),
+                    $closestTab = this.elements.$chartElem.closest(".premium-tabs-content-section, .elementor-tab-content"),
                     closestTabID = this.elements.$chartElem.closest(".premium-tabs").attr('id'),
                     isHScrollWidget = this.elements.$chartElem.closest(".premium-hscroll-temp");
 
@@ -674,6 +674,27 @@
                             _this.run();
                         }
                     });
+
+                    if ($closestTab.hasClass('elementor-tab-content')) {
+
+                        var elementorTabID = $closestTab.attr('id').replace('elementor-tab-content-', ''),
+                            isRendered = false;
+
+                        if (!isRendered) {
+
+                            isRendered = true;
+                            $(document).on('click', "#elementor-tab-title-" + elementorTabID, function () {
+                                setTimeout(function () {
+                                    if (!_this.elements.$chartElem.hasClass("chart-rendered")) {
+                                        console.log("render");
+                                        _this.run();
+                                    }
+                                }, 300);
+
+                            });
+                        }
+
+                    }
                 }
 
             },
@@ -2892,10 +2913,16 @@
         // Content Switcher Handler
         var PremiumContentToggleHandler = function ($scope, $) {
 
-            var PremiumContentToggle = $scope.find(".premium-content-toggle-container");
+            var $contentToggle = $scope.find(".premium-content-toggle-container");
 
-            var radioSwitch = PremiumContentToggle.find(".premium-content-toggle-switch"),
-                contentList = PremiumContentToggle.find(".premium-content-toggle-two-content");
+            var radioSwitch = $contentToggle.find(".premium-content-toggle-switch"),
+                contentList = $contentToggle.find(".premium-content-toggle-two-content");
+
+            changeSwitcherLayout();
+
+            $(window).on('resize', function () {
+                changeSwitcherLayout();
+            })
 
             radioSwitch.prop('checked', false);
 
@@ -2933,6 +2960,16 @@
 
                 }
             });
+
+            function changeSwitcherLayout() {
+
+                $contentToggle.removeClass('premium-toggle-stack-yes premium-toggle-stack-no');
+
+                var computedStyle = getComputedStyle($scope[0]);
+
+                $contentToggle.addClass("premium-toggle-stack-" + computedStyle.getPropertyValue('--pa-content-toggle-stack'));
+
+            }
 
             function hide_not_selected_items(sides, filter) {
                 $.each(sides, function (key, value) {
@@ -4232,6 +4269,18 @@
                         $('<div class="premium-color-transition-layer elementor-repeater-item-' + itemsIDs[index] + '" data-direction="down"></div>').prependTo($('#premium-color-transition-' + _this.settings.id));
 
                         $('<div class="premium-color-transition-layer elementor-repeater-item-' + itemsIDs[index] + '" data-direction="up"></div>').prependTo($('#premium-color-transition-' + _this.settings.id));
+
+                        if (-1 !== downColors[index].indexOf('//')) {
+
+                            $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="down"]').css('background-image', 'url(' + downColors[index] + ')');
+
+                        }
+
+                        if (-1 !== _this.settings.upColors[index].indexOf('//')) {
+
+                            $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="up"]').css('background-image', 'url(' + _this.settings.upColors[index] + ')');
+
+                        }
 
                         if (_this.visible($('#' + element), true)) {
                             $('.elementor-repeater-item-' + itemsIDs[index] + '[data-direction="down"]').addClass('layer-active');

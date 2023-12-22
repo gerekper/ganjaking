@@ -980,25 +980,13 @@
 								formatted_value = '-' + self.formatMoney( Math.abs(cost) );
 							}
 
-							if ( 'quantity_based' === addon.price_type ) {
-
-								html =
-									html +
-									'<li class="wc-pao-row-quantity-based"><div class="wc-pao-col1">' +
-									addon.name +
-									'</div><div class="wc-pao-col2"><span class="amount">' +
-									formatted_value +
-									'</span></div></li>';
-							} else {
-								
-								html =
-									html +
-									'<li><div class="wc-pao-col1"><strong>' +
-									addon.name +
-									'</strong></div><div class="wc-pao-col2"><span class="amount">' +
-									formatted_value +
-									'</span></div></li>';
-							}
+							html =
+								html +
+								'<li><div class="wc-pao-col1"><strong>' +
+								addon.name +
+								'</strong></div><div class="wc-pao-col2"><span class="amount">' +
+								formatted_value +
+								'</span></div></li>';
 
 							if ( woocommerce_addons_params.tax_enabled && addon.is_custom_price ) {
 								has_custom_price_with_taxes = true;

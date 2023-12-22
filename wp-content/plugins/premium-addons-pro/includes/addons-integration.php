@@ -816,6 +816,7 @@ class Addons_Integration {
 		$class          = sprintf( 'PremiumAddonsPro\Widgets\%s', $class );
 		$social_classes = array(
 			'PremiumAddonsPro\Widgets\Premium_Facebook_Reviews',
+            'PremiumAddonsPro\Widgets\Premium_Yelp_Reviews',
 			'PremiumAddonsPro\Widgets\Premium_Google_Reviews',
 			'PremiumAddonsPro\Widgets\Premium_Instagram_Feed',
 		);

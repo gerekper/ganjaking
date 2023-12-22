@@ -777,6 +777,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
             $attribute_a_link = 'a_link_' . $this->counter;
             $attribute_custommeta_item = 'custommeta_item-' . $this->counter;
             $meta_value = get_post_meta($this->current_id, $custommeta_key, \true);
+            $metafield_url_target = $settings['metafield_url_target'];
             if (!$meta_value) {
                 return;
             }
@@ -865,16 +866,17 @@ abstract class Skin_Base extends Elementor_Skin_Base
                     break;
                 default:
             }
-            $linkOpen = '';
-            $linkClose = '';
+            $link_open = '';
+            $link_close = '';
             if ($link_to) {
+                $target = 'yes' == $metafield_url_target ? 'target="_blank"' : "";
                 $this->get_parent()->add_render_attribute($attribute_a_link, 'class', ['dce-link']);
-                $linkOpen = '<a ' . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
-                $linkClose = '</a>';
+                $link_open = '<a ' . $target . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
+                $link_close = '</a>';
             }
             if (isset($meta_html)) {
                 $this->get_parent()->add_render_attribute($attribute_custommeta_item, ['class' => ['dce-meta-item', 'dce-meta-' . $_id, 'dce-meta-' . $metafield_type, 'elementor-repeater-item-' . $settings['_id']]]);
-                echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $linkOpen . $meta_html . $linkClose . '</div>';
+                echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $link_open . $meta_html . $link_close . '</div>';
             }
             echo '</div>';
         }
@@ -994,16 +996,16 @@ abstract class Skin_Base extends Elementor_Skin_Base
                 break;
             default:
         }
-        $linkOpen = '';
-        $linkClose = '';
+        $link_open = '';
+        $link_close = '';
         if ($link_to) {
             $this->get_parent()->add_render_attribute($attribute_a_link, 'class', ['dce-link']);
-            $linkOpen = '<a ' . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
-            $linkClose = '</a>';
+            $link_open = '<a ' . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
+            $link_close = '</a>';
         }
         if (isset($meta_html)) {
             $this->get_parent()->add_render_attribute($attribute_custommeta_item, ['class' => ['dce-meta-item', 'dce-meta-' . $_id, 'dce-meta-' . $metafield_type, 'elementor-repeater-item-' . $settings['_id']]]);
-            echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $linkOpen . $meta_html . $linkClose . '</div>';
+            echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $link_open . $meta_html . $link_close . '</div>';
         }
         echo '</div>';
     }
@@ -1124,15 +1126,15 @@ abstract class Skin_Base extends Elementor_Skin_Base
                 break;
             default:
         }
-        $linkOpen = '';
-        $linkClose = '';
+        $link_open = '';
+        $link_close = '';
         if ($link_to) {
             $this->get_parent()->add_render_attribute($attribute_a_link, 'class', ['dce-link']);
-            $linkOpen = '<a ' . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
-            $linkClose = '</a>';
+            $link_open = '<a ' . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
+            $link_close = '</a>';
         }
         $this->get_parent()->add_render_attribute($attribute_custommeta_item, ['class' => ['dce-meta-item', 'dce-meta-' . $_id, 'dce-meta-' . $metafield_type, 'elementor-repeater-item-' . $settings['_id']]]);
-        echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $linkOpen . $meta_html . $linkClose . '</div>';
+        echo '<div ' . $this->get_parent()->get_render_attribute_string($attribute_custommeta_item) . '>' . $link_open . $meta_html . $link_close . '</div>';
         echo '</div>';
     }
     protected function render_terms($settings)

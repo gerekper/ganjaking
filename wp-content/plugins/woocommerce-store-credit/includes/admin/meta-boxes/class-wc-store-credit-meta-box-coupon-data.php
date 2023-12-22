@@ -33,7 +33,7 @@ class WC_Store_Credit_Meta_Box_Coupon_Data {
 	 * @param int       $coupon_id Coupon ID.
 	 * @param WC_Coupon $coupon    Coupon object.
 	 */
-	public function general_options( $coupon_id, $coupon ) {
+	public function general_options( $coupon_id, $coupon ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		include 'views/html-coupon-data-store-credit.php';
 	}
 

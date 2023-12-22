@@ -149,13 +149,14 @@ class Module extends Module_Base {
 				}
 
 				if ( 'yes' === $enable_schema && false === $content_schema_warning ) {
-					$video_data = array(
+					$upload_date = new DateTime( $settings['schema_upload_date'] );
+					$video_data  = array(
 						'@context'     => 'https://schema.org',
 						'@type'        => 'VideoObject',
 						'name'         => $settings['schema_title'],
 						'description'  => $settings['schema_description'],
 						'thumbnailUrl' => ( $is_custom_thumbnail ) ? $custom_thumbnail_url : $settings['schema_thumbnail']['url'],
-						'uploadDate'   => $settings['schema_upload_date'],
+						'uploadDate'   => $upload_date->format( 'Y-m-d\TH:i:s\Z' ),
 						'contentUrl'   => $video_link,
 						'embedUrl'     => $video_link,
 					);

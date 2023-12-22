@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.18.0 - 06-12-2023 */
+/*! elementor-pro - v3.18.0 - 20-12-2023 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
 /***/ "../assets/dev/js/frontend/preloaded-elements-handlers.js":

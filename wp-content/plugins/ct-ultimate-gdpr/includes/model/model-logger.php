@@ -15,6 +15,10 @@ class CT_Ultimate_GDPR_Model_Logger {
 	 */
 	protected $wpdb;
 
+    protected $current_ver = '2';
+
+    protected $db_ver_key = 'ct_ultimate_gdpr_logger_version';
+
 	/**
 	 * CT_Ultimate_GDPR_Model_Logger constructor.
 	 */
@@ -24,6 +28,7 @@ class CT_Ultimate_GDPR_Model_Logger {
 		$this->wpdb = $wpdb;
 		$this->maybe_create_tables();
 
+        add_action("admin_init",array($this,'maybe_update_tables'));
 	}
 
 	/**
@@ -100,14 +105,39 @@ class CT_Ultimate_GDPR_Model_Logger {
   user_ip varchar(255) NOT NULL,
   user_agent varchar(255) NOT NULL,
   time bigint(20) UNSIGNED NOT NULL,
-  data varchar(255) NOT NULL,
+  data varchar(2048) NOT NULL,
   PRIMARY KEY (id)
 ) $charset_collate;";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
 
+        add_option($this->db_ver_key, $this->current_ver);
 	}
+
+    public function maybe_update_tables() {
+        global $wpdb;
+
+        $installed_ver = get_option($this->db_ver_key);
+
+        if (version_compare($installed_ver, $this->current_ver, '<')) {
+            $table_name = $this->get_consent_table();
+
+            // Prepare SQL query to alter the table
+            $sql = "ALTER TABLE `{$table_name}` MODIFY `data` VARCHAR(2048) NOT NULL;";
+
+            $result = $wpdb->query($sql);
+
+            // Check for errors
+            if ($result === false) {
+                // Handle errors, e.g., log them or notify the admin
+                error_log("Failed to alter table for {$table_name}");
+            } else {
+                // Update the version in the database
+                update_option($this->db_ver_key, $this->current_ver);
+            }
+        }
+    }
 
 	/**
 	 * @param string $type

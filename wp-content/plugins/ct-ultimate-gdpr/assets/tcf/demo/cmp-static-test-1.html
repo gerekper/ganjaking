@@ -1,0 +1,76 @@
+<html>
+<head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TCF modal Consent Mode Demo</title>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        if(localStorage.getItem('consentMode') === null){
+            gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'analytics_storage': 'denied',
+                'personalization_storage': 'denied',
+                'functionality_storage': 'denied',
+                'security_storage': 'denied',
+            });
+        } else {
+            gtag('consent', 'default',
+                JSON.parse(localStorage.getItem('consentMode')));
+        }
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MHJNBK6');</script>
+
+    <script>
+        <!-- Define CMP domain -->
+        var ctCmpDomain = "https://cmptcf.createit.dev";
+        var ct_ultimate_gdpr_tcf = {
+            "GVL_BASE_URL": ctCmpDomain + "/wp-json/custom/v1",
+            "GVL_LATEST_FILENAME": "get-vendor-list?v=29",
+            "DEBUG_MODE": "1",
+            "CONSENT_MODE":"1"
+        };
+        function ctLoadScript(src, callback) {
+            var script = document.createElement('script');
+            script.type = "text/javascript";
+            script.src = src;
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+        ctLoadScript(ctCmpDomain + "/wp-json/custom/v1/generate-tcf-config?v=29",
+            function() {
+                ctLoadScript(ctCmpDomain +
+                    "/wp-content/plugins/ct-ultimate-gdpr/assets/tcf/dist/bundle.js?ver=5.2_29",
+                    function(){
+                        console.log("Script loaded");
+                    });
+            });
+    </script>
+
+</head>
+
+
+<body>
+
+<style>
+    body {
+        font-family: Arial;
+        min-height:2000px;
+    }
+</style>
+
+</body>
+</html>

@@ -186,18 +186,23 @@ class WC_Store_Credit_Admin {
 	 * @return array
 	 */
 	public function plugin_row_meta( $links, $file ) {
-		if ( WC_STORE_CREDIT_BASENAME === $file ) {
-			$row_meta = array(
-				'docs' => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/document/woocommerce-store-credit/' ),
-					esc_attr_x( 'View WooCommerce Store Credit documentation', 'aria-label: documentation link', 'woocommerce-store-credit' ),
-					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-store-credit' )
-				),
-			);
-
-			$links = array_merge( $links, $row_meta );
+		if ( WC_STORE_CREDIT_BASENAME !== $file ) {
+			return $links;
 		}
+
+		$links['docs'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
+			esc_url( 'https://woo.com/document/woocommerce-store-credit/' ),
+			esc_attr_x( 'View WooCommerce Store Credit documentation', 'aria-label: documentation link', 'woocommerce-store-credit' ),
+			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-store-credit' )
+		);
+
+		$links['support'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+			esc_url( 'https://woo.com/my-account/create-a-ticket?select=18609' ),
+			esc_attr_x( 'Open a support ticket at Woo.com', 'aria-label: support link', 'woocommerce-store-credit' ),
+			esc_html_x( 'Support', 'plugin row link', 'woocommerce-store-credit' )
+		);
 
 		return $links;
 	}

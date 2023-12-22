@@ -1,5 +1,5 @@
 <?php
-define( 'DCE_VERSION', '2.12.5' );
+define( 'DCE_VERSION', '2.12.6' );
 define( 'DCE_SLUG', 'dynamic-content-for-elementor' );
 define( 'DCE_PREFIX', 'dce' );
 define( 'DCE_PRODUCT_NAME', 'Dynamic.ooo' );
@@ -14,7 +14,7 @@ define( 'DCE_SUGGESTED_PHP_VERSION', '7.4' );
 
 // License and update
 define( 'DCE_LICENSE_URL', 'https://license.dynamic.ooo' );
-define( 'DCE_PRICING_PAGE', 'https://www.dynamic.ooo/pricing/' );
+define( 'DCE_PRICING_PAGE', 'https://www.dynamic.ooo/dynamic-content-for-elementor/pricing/' );
 
 // Options
 define( 'DCE_TEMPLATE_SYSTEM_OPTION', 'dyncontel_options' );

@@ -99,10 +99,10 @@ class Icons extends \DynamicContentForElementor\Extensions\ExtensionPrototype
     {
         if (!empty($item['field_icon'])) {
             if ('elementor-field-label' === $item['field_icon_position']) {
-                $label = Helper::get_icon($item['field_icon'], ['aria-hidden' => 'true', 'class' => 'label-icons']) . ' ' . $item['field_label'];
+                $label = Helper::get_icon($item['field_icon'], ['aria-hidden' => 'true', 'class' => 'label-icons dce-form-icon']) . ' ' . $item['field_label'];
                 $form->add_render_attribute('label' . $item_index, 'dce-icon-render', $label);
             } elseif ('elementor-field' === $item['field_icon_position']) {
-                $icon = Helper::get_icon($item['field_icon'], ['aria-hidden' => 'true', 'class' => 'input-icons']);
+                $icon = Helper::get_icon($item['field_icon'], ['aria-hidden' => 'true', 'class' => 'input-icons dce-form-icon']);
                 $form->add_render_attribute('input' . $item_index, 'dce-icon-render', $icon);
                 $form->add_render_attribute('textarea' . $item_index, 'dce-icon-render', $icon);
                 $form->add_render_attribute('select' . $item_index, 'dce-icon-render', $icon);
@@ -128,7 +128,7 @@ class Icons extends \DynamicContentForElementor\Extensions\ExtensionPrototype
         $widget->add_control('label_icon_color', ['label' => __('Icon Color on Label', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'selectors' => ['{{WRAPPER}} .label-icons' => 'color: {{VALUE}}; fill: {{VALUE}}']]);
         $widget->add_control('field_icon_color', ['label' => __('Icon Color on Input', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'selectors' => ['{{WRAPPER}} .dce-field-input-wrapper .input-icons' => 'color: {{VALUE}}; fill: {{VALUE}}']]);
         $widget->add_control('label_icon_size', ['label' => __('Size on Label', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SLIDER, 'default' => ['unit' => 'px', 'size' => ''], 'range' => ['px' => ['min' => 10, 'max' => 50, 'step' => 1]], 'frontend_available' => \true, 'render_type' => 'template', 'selectors' => ['{{WRAPPER}} .label-icons' => 'font-size: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}']]);
-        $widget->add_control('field_icon_size', ['label' => __('Size on Input', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SLIDER, 'default' => ['unit' => 'px', 'size' => ''], 'range' => ['px' => ['min' => 10, 'max' => 50, 'step' => 1]], 'frontend_available' => \true, 'render_type' => 'template', 'selectors' => ['{{WRAPPER}} .dce-field-input-wrapper i.input-icons' => 'font-size: {{SIZE}}{{UNIT}};', '{{WRAPPER}} .dce-field-input-wrapper svg.input-icons' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};']]);
+        $widget->add_control('field_icon_size', ['label' => __('Size on Input', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SLIDER, 'default' => ['unit' => 'px', 'size' => ''], 'range' => ['px' => ['min' => 10, 'max' => 50, 'step' => 1]], 'frontend_available' => \true, 'render_type' => 'template', 'selectors' => ['{{WRAPPER}} i.input-icons.dce-form-icon' => 'font-size: {{SIZE}}{{UNIT}};', '{{WRAPPER}} svg.input-icons.dce-form-icon' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};']]);
         $widget->end_controls_section();
     }
 }

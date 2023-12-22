@@ -4,10 +4,16 @@
 
         var PremiumContentToggleHandler = function ($scope, $) {
 
-            var PremiumContentToggle = $scope.find(".premium-content-toggle-container");
+            var $contentToggle = $scope.find(".premium-content-toggle-container");
 
-            var radioSwitch = PremiumContentToggle.find(".premium-content-toggle-switch"),
-                contentList = PremiumContentToggle.find(".premium-content-toggle-two-content");
+            var radioSwitch = $contentToggle.find(".premium-content-toggle-switch"),
+                contentList = $contentToggle.find(".premium-content-toggle-two-content");
+
+            changeSwitcherLayout();
+
+            $(window).on('resize', function () {
+                changeSwitcherLayout();
+            })
 
             radioSwitch.prop('checked', false);
 
@@ -45,6 +51,16 @@
 
                 }
             });
+
+            function changeSwitcherLayout() {
+
+                $contentToggle.removeClass('premium-toggle-stack-yes premium-toggle-stack-no');
+
+                var computedStyle = getComputedStyle($scope[0]);
+
+                $contentToggle.addClass("premium-toggle-stack-" + computedStyle.getPropertyValue('--pa-content-toggle-stack'));
+
+            }
 
             function hide_not_selected_items(sides, filter) {
                 $.each(sides, function (key, value) {

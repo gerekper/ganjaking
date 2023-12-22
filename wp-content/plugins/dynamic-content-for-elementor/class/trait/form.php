@@ -2,6 +2,7 @@
 
 namespace DynamicContentForElementor;
 
+use ElementorPro\Core\Utils;
 trait Form
 {
     /** In Elementor forms validation and process functions, Elementor
@@ -109,7 +110,7 @@ trait Form
             }
         }
         $extra = array('submitted_on' => $this_page->post_title, 'submitted_on_id' => $this_page->ID, 'submitted_by' => $this_user, 'submitted_by_id' => $this_user_id);
-        return ['submitted_on_id' => $this_page->ID, 'submitted_by_id' => $this_user_id, 'ip_address' => self::get_client_ip(), 'referrer' => $referrer, 'form_name' => $form_name];
+        return ['submitted_on_id' => $this_page->ID, 'submitted_by_id' => $this_user_id, 'ip_address' => Utils::get_client_ip(), 'referrer' => $referrer, 'form_name' => $form_name];
     }
     public static function replace_setting_shortcodes($setting, $fields = array(), $urlencode = \false)
     {

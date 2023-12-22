@@ -228,7 +228,7 @@ class WC_Store_Credit_Item_Discounts {
 	protected function add_item_discount( $item_discount ) {
 		if ( ! $item_discount instanceof WC_Store_Credit_Item_Discount ) {
 			/* translators: %s: class name */
-			throw new InvalidArgumentException( sprintf( _x( 'The argument must be an instance of the class %s.', 'exception message', 'woocommerce-store-credit' ), 'WC_Store_Credit_Item_Discount' ) );
+			throw new InvalidArgumentException( sprintf( esc_html_x( 'The argument must be an instance of the class %s.', 'exception message', 'woocommerce-store-credit' ), 'WC_Store_Credit_Item_Discount' ) );
 		}
 
 		$item_group = $this->get_item_group( $item_discount );

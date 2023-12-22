@@ -30,7 +30,7 @@ class Php extends Tag
     }
     public function get_docs()
     {
-        return 'https://www.dynamic.ooo/widget/dynamic-tag-php/';
+        return 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-php/';
     }
     protected function register_controls()
     {

@@ -173,6 +173,7 @@
 							'top': base.topOffset - (base.isWindowScrolling ? 0 : base.$window.scrollTop()),
 							'display': 'flex',
 							'flex-direction': 'column',
+							'z-index': base.options.zIndex,
 						})
 						 base.$originalHeader.children('.footable-header').css({
 						 	'z-index': base.options.zIndex,

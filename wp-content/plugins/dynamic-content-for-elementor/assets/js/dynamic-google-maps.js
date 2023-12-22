@@ -170,7 +170,7 @@
 									document.body.addEventListener('click', function (e) {
 										var marker_clicked = e.target.tagName == "AREA";
 										var mouse_on_info_window = (e.target.className === 'gm-style-iw-d')
-										if (openInfoWindows.infoWindow && openInfoWindows.isOpen  && !marker_clicked ) {
+										if (!isPartOfMap(e.target) && openInfoWindows.infoWindow && openInfoWindows.isOpen  && !marker_clicked ) {
 											openInfoWindows.infoWindow.close();
 											openInfoWindows.isOpen = false;		
 										}
@@ -255,6 +255,16 @@
 
 
 				}
+			}
+			
+			function isPartOfMap(element) {
+				while (element) {
+					if (element.classList && element.classList.contains('gm-style')) {
+						return true;
+					}
+					element = element.parentNode;
+				}
+				return false;
 			}
 
 			function infoWindow(marker) {

@@ -187,7 +187,14 @@
   
             content = btoa(JSON.stringify(content));
             var js_expire_time = new Date(1000 * consent_expire_time).toUTCString();
-            document.cookie = "ct-ultimate-gdpr-cookie=" + content + "; expires=" + js_expire_time + "; path=/";
+
+            // Check if the site is accessed via HTTPS
+            var cookieSecureFlag = '';
+            if (window.location.protocol === 'https:') {
+                cookieSecureFlag = '; Secure';
+            }
+
+            document.cookie = "ct-ultimate-gdpr-cookie=" + content + "; expires=" + js_expire_time + "; path=/" + cookieSecureFlag;
   
         } catch (e) {
   
@@ -508,7 +515,13 @@
             date.setTime(date.getTime() + (days*24*60*60*1000));
             expires = "; expires=" + date.toUTCString();
         }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        // Check if the site is accessed via HTTPS
+        var cookieSecureFlag = '';
+        if (window.location.protocol === 'https:') {
+            cookieSecureFlag = '; Secure';
+        }
+
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/" + cookieSecureFlag;
     }
   
     function resetCookieConsent(){

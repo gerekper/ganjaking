@@ -126,7 +126,7 @@ class CT_Ultimate_GDPR_Service_Metform extends CT_Ultimate_GDPR_Service_Abstract
 				"ct-ultimate-gdpr-services-{$this->get_id()}_accordion-{$this->get_id()}",
 				array( 
 					"hint" => __('If it does not work, try disabling the inject consent to all form field above, then enable again together with this field.', 'ct-ultimate-gdpr')
-				),
+				)
 			);
 
 			add_settings_field(

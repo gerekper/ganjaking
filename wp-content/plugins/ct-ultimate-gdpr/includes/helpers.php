@@ -315,7 +315,7 @@ function ct_ultimate_gpdr_get_default_post_types()
 function ct_ultimate_gdpr_set_encoded_cookie($name, $value, $expire_time, $path = '/')
 {
     $value = base64_encode($value);
-    setcookie($name, $value, $expire_time, $path);
+    ct_ultimate_gdpr_set_cookie($name, $value, $expire_time, $path);
 }
 
 /**
@@ -1091,10 +1091,6 @@ function ct_ultimate_gdpr_do_settings_sections($page)
 
     foreach ((array)$wp_settings_sections[$page] as $section) {
 
-        if ($section['callback']) {
-            call_user_func($section['callback'], $section);
-        }
-
         if (!isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || !isset($wp_settings_fields[$page][$section['id']])) {
             continue;
         }
@@ -1164,6 +1160,12 @@ function ct_ultimate_gdpr_do_settings_sections($page)
                 echo "<h2 class='card-header'>{$section['title']}</h2>\n";
             }
 
+        }
+
+        if ($section['callback']) {
+            echo "<div class='card-body'>";
+            call_user_func($section['callback'], $section);
+            echo '</div>';
         }
 
         echo "<table class='$table_class'>";
@@ -1483,3 +1485,22 @@ function ct_ultimate_gdpr_nonce_field( $action, $nonce_field) {
     }
 
 }
+
+/**
+ * @param $name
+ * @param $value
+ * @param $expire
+ * @param $path
+ * @return bool
+ */
+function ct_ultimate_gdpr_set_cookie($name, $value, $expire, $path = '/', $domain = '') {
+    $secure = is_ssl();
+
+    if($domain === ''){
+        $domain = defined('COOKIE_DOMAIN') ? COOKIE_DOMAIN : '';
+    }
+
+    $res = setcookie($name, $value, $expire, $path, $domain, $secure);
+    return $res;
+}
+

@@ -28,7 +28,7 @@ class Template extends Tag
     }
     public function get_docs()
     {
-        return 'https://www.dynamic.ooo/widget/dynamic-tag-template/';
+        return 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-template/';
     }
     /**
      * Register Controls

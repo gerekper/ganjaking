@@ -56,7 +56,7 @@ class WC_Store_Credit_Privacy extends WC_Abstract_Privacy {
 			'woocommerce-store-credit'
 		);
 
-		return wpautop( sprintf( $privacy_message, esc_url( 'https://woocommerce.com/document/marketplace-privacy/#woocommerce-store-credit' ) ) );
+		return wpautop( sprintf( $privacy_message, esc_url( 'https://woo.com/document/marketplace-privacy/#woocommerce-store-credit' ) ) );
 	}
 
 	/**

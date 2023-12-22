@@ -123,12 +123,12 @@ class WC_Store_Credit_Discounts_Order extends WC_Store_Credit_Discounts {
 		$cart_discount_tax_diff = round( $this->order()->get_discount_tax( 'edit' ) - $cart_discount_tax, wc_get_price_decimals() );
 
 		// There is a discrepancy in the cart discount.
-		if ( 0 != $cart_discount_diff ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+		if ( 0 != $cart_discount_diff ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual
 			$this->order()->set_discount_total( $cart_discount );
 		}
 
 		// There is a discrepancy in the cart discount tax.
-		if ( 0 != $cart_discount_tax_diff ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+		if ( 0 != $cart_discount_tax_diff ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual
 			$this->order()->set_discount_tax( $cart_discount_tax );
 		}
 	}

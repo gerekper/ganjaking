@@ -234,7 +234,7 @@ class WC_Store_Credit_Admin_Notices {
 	 */
 	protected static function get_notice_content_from_file( $notice ) {
 		$file = str_replace( array( 'wc_store_credit_', '_' ), array( '', '-' ), $notice );
-		$path = dirname( __FILE__ ) . "/notices/{$file}.php";
+		$path = __DIR__ . "/notices/{$file}.php";
 
 		$content = '';
 

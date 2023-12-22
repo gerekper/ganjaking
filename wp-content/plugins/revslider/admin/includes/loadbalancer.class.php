@@ -105,10 +105,18 @@ class RevSliderLoadBalancer {
 		$done	= false;
 		$count	= 0;
 		
-		do{	
-			$server	 = $this->get_url($subdomain, 0, $force_http);
-			
-			$request = wp_remote_post($server.'/'.$url, array(
+		do{
+			if (!preg_match("/^https?:\/\//i", $url)) {
+				//just a filename passed, lets build an url
+				$server	 = $this->get_url($subdomain, 0, $force_http);
+				$url = $server . '/' . ltrim($url, '/');
+			} else {
+				//full URL passed, lets check if we need to force http 
+				if ($force_http) {
+					$url = preg_replace("/^https:\/\//i", "http://", $url);
+				}
+			}
+			$request = wp_remote_post($url, array(
 				'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
 				'body'		 => $data,
 				'timeout'	 => 45

@@ -131,7 +131,7 @@
                 targetIndex = count - 1;
 
 
-            if (-1 !== currentDevice.indexOf('tablet') && -1 !== currentDevice.indexOf('mobile')) {
+            if (-1 !== currentDevice.indexOf('tablet') || -1 !== currentDevice.indexOf('mobile')) {
                 if (snapScroll && settings.disableSnap) {
                     snapScroll = false;
                     entrance = false;

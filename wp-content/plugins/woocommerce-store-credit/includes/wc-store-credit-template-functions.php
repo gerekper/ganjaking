@@ -43,6 +43,6 @@ if ( ! function_exists( 'wc_store_credit_cart_coupon' ) ) {
 	 * @param WC_Coupon $coupon Coupon object.
 	 */
 	function wc_store_credit_cart_coupon( $coupon ) {
-		wc_store_credit_get_template( 'cart/store-credit-coupon.php', compact( 'coupon' ) );
+		wc_store_credit_get_template( 'cart/store-credit-coupon.php', array( 'coupon' => $coupon ) );
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * WC_PAO_Admin_Notices class
  *
- * @package  WooCommerce Product Add-ons
+ * @package  Woo Product Add-ons
  */
 
 // Exit if accessed directly.

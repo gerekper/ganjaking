@@ -158,7 +158,7 @@ class WC_Store_Credit_Coupon_Discounts {
 	protected function add_coupon_discount( $coupon_discount ) {
 		if ( ! $coupon_discount instanceof WC_Store_Credit_Coupon_Discount ) {
 			/* translators: %s: class name */
-			throw new InvalidArgumentException( sprintf( _x( 'The argument must be an instance of the class %s.', 'exception message', 'woocommerce-store-credit' ), 'WC_Store_Credit_Coupon_Discount' ) );
+			throw new InvalidArgumentException( sprintf( esc_html_x( 'The argument must be an instance of the class %s.', 'exception message', 'woocommerce-store-credit' ), 'WC_Store_Credit_Coupon_Discount' ) );
 		}
 
 		$coupon_code = $coupon_discount->get_coupon()->get_code();

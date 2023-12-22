@@ -1,26 +1,26 @@
-# Copyright (C) 2023 WooCommerce
+# Copyright (C) 2023 Woo
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Add-ons 6.5.1\n"
-"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Project-Id-Version: Woo Product Add-ons 6.5.2\n"
+"Report-Msgid-Bugs-To: https://woo.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-29T12:04:04+00:00\n"
+"POT-Creation-Date: 2023-12-20T09:51:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-product-addons\n"
 
 #. Plugin Name of the plugin
-msgid "WooCommerce Product Add-ons"
+msgid "Woo Product Add-ons"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://woocommerce.com/products/product-add-ons/"
+msgid "https://woo.com/products/product-add-ons/"
 msgstr ""
 
 #. Description of the plugin
@@ -28,11 +28,11 @@ msgid "Add extra options to products which your customers can select from, when 
 msgstr ""
 
 #. Author of the plugin
-msgid "WooCommerce"
+msgid "Woo"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://woocommerce.com"
+msgid "https://woo.com"
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin-list-table.php:62
@@ -606,7 +606,7 @@ msgid "Product Bundles"
 msgstr ""
 
 #: includes/class-wc-product-addons-compatibility.php:175
-msgid "WooCommerce Product Bundles"
+msgid "Woo Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
@@ -620,11 +620,11 @@ msgid "Composite Products"
 msgstr ""
 
 #: includes/class-wc-product-addons-compatibility.php:188
-msgid "WooCommerce Composite Products"
+msgid "Woo Composite Products"
 msgstr ""
 
 #: includes/class-wc-product-addons-compatibility.php:200
-msgid "WooCommerce Blocks"
+msgid "Woo Blocks"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
@@ -777,7 +777,7 @@ msgstr ""
 
 #. translators: %1$s: Version %, %2$s: Update PHP doc URL
 #: woocommerce-product-addons.php:98
-msgid "WooCommerce Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
+msgid "Woo Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
 #: woocommerce-product-addons.php:249
@@ -789,7 +789,7 @@ msgid "Support"
 msgstr ""
 
 #: woocommerce-product-addons.php:265
-msgid "Thank you for installing WooCommerce Product Add-ons."
+msgid "Thank you for installing Woo Product Add-ons."
 msgstr ""
 
 #: woocommerce-product-addons.php:267

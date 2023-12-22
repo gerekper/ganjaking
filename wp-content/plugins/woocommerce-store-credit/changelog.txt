@@ -1,5 +1,15 @@
 *** Store Credit Changelog ***
 
+2023-12-20 - version 4.4.1
+* Tweak - Validates the Store Credit product on the client side before adding it to the cart.
+* Tweak - Improved description of the custom amount field on the Store Credit product page.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Added a link to get support in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.4.
+* Tweak - Tested compatibility up to WP 6.4.
+* Fix - Filter the customer coupons by the exact email instead of a 'lIKE' SQL query on the My Account page.
+
 2023-08-17 - version 4.4.0
 * Feature - Add usage restrictions when sending Store Credit coupons to customers.
 * Dev - Dropped `woo-includes/` files.

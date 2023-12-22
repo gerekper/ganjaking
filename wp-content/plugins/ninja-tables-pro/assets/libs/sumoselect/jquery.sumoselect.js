@@ -364,7 +364,8 @@
                     if (O.is_floating) {
                         var H = O.optDiv.children('ul').outerHeight() + 2;  // +2 is clear fix
                         if (O.is_multi) H = H + parseInt(O.optDiv.css('padding-bottom'));
-                        O.optDiv.css('height', H);
+                        const extraHeight = 25; // extra height clearAll on mobile devices
+                        O.optDiv.css('height', H + extraHeight);
                         $('body').addClass('sumoStopScroll');
                     }
 

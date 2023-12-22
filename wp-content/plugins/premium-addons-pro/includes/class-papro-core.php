@@ -54,9 +54,9 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 				add_action( 'elementor/init', array( $this, 'elementor_init' ) );
 			}
 
-			if ( defined( 'ELEMENTOR_PRO_VERSION' ) && defined( 'PREMIUM_ADDONS_VERSION' ) ) {
-				require_once PREMIUM_PRO_ADDONS_PATH . 'includes/grid-builder/pa-grid-builder-handler.php';
-			}
+			// if ( defined( 'ELEMENTOR_PRO_VERSION' ) && defined( 'PREMIUM_ADDONS_VERSION' ) ) {
+			// 	require_once PREMIUM_PRO_ADDONS_PATH . 'includes/grid-builder/pa-grid-builder-handler.php';
+			// }
 		}
 
 		/**
@@ -174,6 +174,10 @@ if ( ! class_exists( 'PAPRO_Core' ) ) {
 			}
 
 			$this->init_files();
+
+            if ( defined( 'ELEMENTOR_PRO_VERSION' ) && defined( 'PREMIUM_ADDONS_VERSION' ) ) {
+                require_once PREMIUM_PRO_ADDONS_PATH . 'includes/grid-builder/pa-grid-builder-handler.php';
+			}
 
 		}
 

@@ -2,7 +2,7 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul, manzurahammed
 Tags: elementor, elements, widgets, page builder, builder, visual editor, wordpress page builder
 Tested up to: 6.4
-Stable tag: 5.8.4
+Stable tag: 5.8.5
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -88,6 +88,11 @@ List of Extensions :
 * Conditional Display
 
 == Changelog ==
+
+= 5.8.5 - 21/12/2023 =
+
+- Improved: License Mechanism
+- Few minor bug fixes & improvements
 
 = 5.8.4 - 14/12/2023 =
 

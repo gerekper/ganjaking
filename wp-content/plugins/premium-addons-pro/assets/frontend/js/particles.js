@@ -14441,6 +14441,13 @@
 
         $(window).on('elementor/frontend/init', function () {
 
+            // we add paParticlesHandler on content load but only initialize it on elementor/init.
+            if (undefined != window.paParticlesHandler) {
+
+                var particalesObj = new paParticlesHandler('page', $('.elementor-page'), {});
+                particalesObj.init();
+            }
+
             var PremiumParticlesHandler = function ($scope, $) {
 
                 if (!$scope.hasClass("premium-particles-yes"))
@@ -14460,15 +14467,209 @@
 
             };
 
-            elementorFrontend.hooks.addAction("frontend/element_ready/section", PremiumParticlesHandler);
-            elementorFrontend.hooks.addAction("frontend/element_ready/column", PremiumParticlesHandler);
-            elementorFrontend.hooks.addAction("frontend/element_ready/container", PremiumParticlesHandler);
+            elementorFrontend.hooks.addAction("frontend/element_ready/global", PremiumParticlesHandler);
 
         });
+
+        window.paParticlesHandler = function (eleType, $scope, settings) {
+
+            var self = this,
+                pageSettings = {};
+
+            this.isAddonEnabled = false;
+
+            self.init = function () {
+
+                this.isEditMode = elementorFrontend.isEditMode();
+
+                // in case the addons is disabled on page load >> we listen to its switcher to re-init the addon when it's enabled.
+                if (this.isEditMode) {
+                    this.initAddonSwListener();
+                    this.initCustomCss();
+                    this.initZIndex();
+                    this.initApplyOn();
+                }
+
+                self.initParticles();
+            };
+
+            self.initZIndex = function () {
+
+                elementor.settings.page.addChangeCallback('premium_particles_zindex', self.onAddonZIndexChange);
+            };
+
+            self.initApplyOn = function () {
+
+                elementor.settings.page.addChangeCallback('premium_particles_responsive', self.onAddonApplyOnChange);
+            };
+
+            self.initCustomCss = function () {
+
+                elementor.settings.page.addChangeCallback('premium_particles_custom_style', self.onAddonCustomCssChange);
+            };
+
+            self.initAddonSwListener = function () {
+
+                elementor.settings.page.addChangeCallback('premium_particles_switcher', self.onAddonSwitcherChange);
+            };
+
+            /** Addon's switcher call back function, re-init the particle on enabling, Destroy it on disabling. */
+            self.onAddonSwitcherChange = function (newVal) {
+
+                if ('yes' === newVal) {
+                    self.initParticles();
+
+                } else {
+                    self.destroy();
+                }
+            };
+
+            self.onAddonApplyOnChange = function (newVal) {
+                currentDevice = elementorFrontend.getCurrentDeviceMode();
+
+                if (-1 < newVal.indexOf(currentDevice)) {
+                    self.initParticles();
+
+                } else {
+                    self.destroy();
+                }
+            };
+
+            self.onAddonCustomCssChange = function (newVal) {
+
+                if ('' !== newVal) {
+                    self.initParticles();
+
+                } else {
+                    self.destroy();
+                }
+            };
+
+            self.onAddonZIndexChange = function (newVal) {
+
+                if ('' !== newVal) {
+                    self.initParticles();
+
+                } else {
+                    self.destroy();
+                }
+            };
+
+            self.destroy = function () {
+
+                $scope.removeClass('premium-particles-yes premium-particles');
+
+                $('.premium-global-particles-' + self.getPageId()).remove();
+            };
+
+            self.initParticles = function () {
+                var settings = elementorFrontend.isEditMode() ? elementor.settings.page.model.attributes : elementorFrontend.config.settings.page;
+
+                pageSettings = Object.assign({}, settings);
+
+                if (!Object.keys(pageSettings).length) {
+                    return;
+                }
+
+                self.isPgParticlesEnabled();
+
+                if (!this.isAddonEnabled) {
+                    return;
+                }
+
+
+                self.generateParticles();
+
+                var pageStyle = pageSettings.premium_particles_custom_style,
+                    pageZIndex = pageSettings.premium_particles_zindex,
+                    pageDevice = pageSettings.premium_particles_responsive;
+
+                if (!pageStyle) return !1;
+
+                var p = {};
+                p.style = JSON.parse(pageStyle);
+                p.zindex = pageZIndex;
+                p.devices = pageDevice;
+                p = Object.assign(p);
+
+                var n = elementorFrontend.getCurrentDeviceMode();
+
+                var supportedDevices = ['desktop', 'mobile', 'tablet'];
+
+                if (-1 === pageDevice.indexOf(n) && -1 !== supportedDevices.indexOf(n)) return;
+
+                var a = $scope.find('.premium-global-particles');
+
+                a.attr("id", "premium-section-particles"), tsParticles.load("premium-section-particles", p.style), a.children("canvas.tsparticles-canvas-el").css({
+                    zIndex: p.zindex
+                })
+
+                return p;
+            }
+
+            /** Checks if the addon's switcher is enabled and not disabled on the current device mode. */
+            self.isPgParticlesEnabled = function () {
+
+                var isAddonEnabled = 'yes' === pageSettings.premium_particles_switcher ? true : false;
+
+                if (isAddonEnabled) {
+
+                    self.isAddonEnabled = true;
+
+                } else {
+                    self.isAddonEnabled = false;
+                }
+            };
+
+            self.generateParticles = function () {
+
+                var elemId = self.getPageId(),
+                    uniqueClass = 'premium-global-particles-' + elemId,
+                    particlesHtml = self.getParticlesHtml(uniqueClass);
+
+                self.addParticles(uniqueClass, particlesHtml);
+            };
+
+            self.getPageId = function () {
+
+                return elementorFrontend.config.post.id;
+            };
+
+            self.getParticlesHtml = function (uniqueClass) {
+
+                var particlesHtml = '<div class="premium-global-particles ' + uniqueClass + '">';
+
+                particlesHtml += '</div>';
+
+                return particlesHtml;
+            };
+
+            self.addParticles = function (uniqueClass, particles) {
+
+                self.addParticlesClasses();
+
+                $scope.find('.' + uniqueClass).remove();
+
+                $scope.prepend(particles);
+            }
+
+            self.addParticlesClasses = function () {
+
+                // remove the old type-class( premium-particles-{type} ) before adding a new one.
+                $scope.removeClass(function (index, selector) {
+                    return (selector.match(new RegExp("(^|\\s)premium-particles-\\S+", 'g')) || []).join(' ');
+                });
+
+                $scope.addClass('premium-particles-yes premium-particles');
+            };
+
+        }
+
 
     })(jQuery);
 
     function premiumParticlesHandler(t) {
+
         var a = t,
             i = a.data("id"),
             tempTarget = a.find('#premium-particles-' + i),
@@ -14482,8 +14683,8 @@
 
             if (!pStyle) return !1;
 
-
-            if (s.zindex = zIndex, s.style = pStyle, s.devices = device.split(" "), 0 !== Object.keys(s).length) return s
+            if (s.zindex = zIndex, s.style = pStyle, s.devices = device.split(" "), 0 !== Object.keys(s).length)
+                return s
 
         }(i) : function () {
             var e = a.data();

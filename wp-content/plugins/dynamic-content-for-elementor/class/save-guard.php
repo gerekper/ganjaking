@@ -10,6 +10,10 @@ if (!\defined('ABSPATH')) {
 class SaveGuard
 {
     /**
+     * @var bool
+     */
+    private $doing_save = \false;
+    /**
      * @var array<string>
      */
     private $unsafe_widgets = [];
@@ -256,15 +260,19 @@ class SaveGuard
      */
     public function filter_save_data($data, $document)
     {
-        if (empty($data)) {
-            // needed to avoid infinite recursion when getting saved data of a new elementor post.
+        if (empty($data) || $this->doing_save) {
+            // needed to avoid infinite recursion when getting saved data of a
+            // new elementor post and potentially other situations.
             return $data;
         }
         if (current_user_can('administrator')) {
             return $data;
         }
+        $this->doing_save = \true;
         $this->saved_data = $this->get_saved_data($document);
-        return $this->filter_element($data);
+        $filtered = $this->filter_element($data);
+        $this->doing_save = \false;
+        return $filtered;
     }
     public function __construct()
     {

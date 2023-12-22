@@ -127,10 +127,21 @@ function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active'
 		wp_cache_set( $cache_key, $coupon_ids, 'store_credit' );
 	}
 
+	// Filter the coupons by the exact customer email to avoid false positives due to the 'LIKE' SQL query.
 	$coupons = array();
 
-	if ( ! empty( $coupon_ids ) ) {
-		$coupons = array_filter( array_map( 'wc_store_credit_get_coupon', $coupon_ids ) );
+	foreach ( $coupon_ids as $coupon_id ) {
+		$coupon = wc_store_credit_get_coupon( $coupon_id );
+
+		if ( ! $coupon instanceof WC_Coupon ) {
+			continue;
+		}
+
+		$email_restrictions = $coupon->get_email_restrictions();
+
+		if ( in_array( $customer_email, $email_restrictions, true ) ) {
+			$coupons[] = $coupon;
+		}
 	}
 
 	return $coupons;

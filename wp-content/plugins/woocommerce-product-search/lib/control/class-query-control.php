@@ -241,19 +241,19 @@ class Query_Control {
 			return self::$parameters[$key];
 		}
 
-		$title      = isset( $_REQUEST[self::TITLE] ) ? intval( $_REQUEST[self::TITLE] ) > 0 : self::DEFAULT_TITLE;
-		$excerpt    = isset( $_REQUEST[self::EXCERPT] ) ? intval( $_REQUEST[self::EXCERPT] ) > 0 : self::DEFAULT_EXCERPT;
-		$content    = isset( $_REQUEST[self::CONTENT] ) ? intval( $_REQUEST[self::CONTENT] ) > 0 : self::DEFAULT_CONTENT;
-		$tags       = isset( $_REQUEST[self::TAGS] ) ? intval( $_REQUEST[self::TAGS] ) > 0 : self::DEFAULT_TAGS;
-		$sku        = isset( $_REQUEST[self::SKU] ) ? intval( $_REQUEST[self::SKU] ) > 0 : self::DEFAULT_SKU;
-		$categories = isset( $_REQUEST[self::CATEGORIES] ) ? intval( $_REQUEST[self::CATEGORIES] ) > 0 : self::DEFAULT_CATEGORIES;
-		$attributes = isset( $_REQUEST[self::ATTRIBUTES] ) ? intval( $_REQUEST[self::ATTRIBUTES] ) > 0 : self::DEFAULT_ATTRIBUTES;
-		$variations = isset( $_REQUEST[self::VARIATIONS] ) ? intval( $_REQUEST[self::VARIATIONS] ) > 0 : self::DEFAULT_VARIATIONS;
-		$min_price  = isset( $_REQUEST[self::MIN_PRICE] ) ? \WooCommerce_Product_Search_Utility::to_float( $_REQUEST[self::MIN_PRICE] ) : null;
-		$max_price  = isset( $_REQUEST[self::MAX_PRICE] ) ? \WooCommerce_Product_Search_Utility::to_float( $_REQUEST[self::MAX_PRICE] ) : null;
-		$on_sale    = isset( $_REQUEST[self::ON_SALE] ) ? intval( $_REQUEST[self::ON_SALE] ) > 0 : self::DEFAULT_ON_SALE;
-		$rating     = isset( $_REQUEST[self::RATING] ) ? intval( $_REQUEST[self::RATING] ) : self::DEFAULT_RATING;
-		$in_stock   = isset( $_REQUEST[self::IN_STOCK] ) ? intval( $_REQUEST[self::IN_STOCK] ) > 0 : self::DEFAULT_IN_STOCK;
+		$title      = isset( $_REQUEST[self::TITLE] ) && is_scalar( $_REQUEST[self::TITLE] ) ? intval( $_REQUEST[self::TITLE] ) > 0 : self::DEFAULT_TITLE;
+		$excerpt    = isset( $_REQUEST[self::EXCERPT] ) && is_scalar( $_REQUEST[self::EXCERPT] ) ? intval( $_REQUEST[self::EXCERPT] ) > 0 : self::DEFAULT_EXCERPT;
+		$content    = isset( $_REQUEST[self::CONTENT] ) && is_scalar( $_REQUEST[self::CONTENT] ) ? intval( $_REQUEST[self::CONTENT] ) > 0 : self::DEFAULT_CONTENT;
+		$tags       = isset( $_REQUEST[self::TAGS] ) && is_scalar( $_REQUEST[self::TAGS] ) ? intval( $_REQUEST[self::TAGS] ) > 0 : self::DEFAULT_TAGS;
+		$sku        = isset( $_REQUEST[self::SKU] ) && is_scalar( $_REQUEST[self::SKU] ) ? intval( $_REQUEST[self::SKU] ) > 0 : self::DEFAULT_SKU;
+		$categories = isset( $_REQUEST[self::CATEGORIES] ) && is_scalar( $_REQUEST[self::CATEGORIES] ) ? intval( $_REQUEST[self::CATEGORIES] ) > 0 : self::DEFAULT_CATEGORIES;
+		$attributes = isset( $_REQUEST[self::ATTRIBUTES] ) && is_scalar( $_REQUEST[self::ATTRIBUTES] ) ? intval( $_REQUEST[self::ATTRIBUTES] ) > 0 : self::DEFAULT_ATTRIBUTES;
+		$variations = isset( $_REQUEST[self::VARIATIONS] ) && is_scalar( $_REQUEST[self::VARIATIONS] ) ? intval( $_REQUEST[self::VARIATIONS] ) > 0 : self::DEFAULT_VARIATIONS;
+		$min_price  = isset( $_REQUEST[self::MIN_PRICE] ) && is_scalar( $_REQUEST[self::MIN_PRICE] ) ? \WooCommerce_Product_Search_Utility::to_float( $_REQUEST[self::MIN_PRICE] ) : null;
+		$max_price  = isset( $_REQUEST[self::MAX_PRICE] ) && is_scalar( $_REQUEST[self::MAX_PRICE] ) ? \WooCommerce_Product_Search_Utility::to_float( $_REQUEST[self::MAX_PRICE] ) : null;
+		$on_sale    = isset( $_REQUEST[self::ON_SALE] ) && is_scalar( $_REQUEST[self::ON_SALE] ) ? intval( $_REQUEST[self::ON_SALE] ) > 0 : self::DEFAULT_ON_SALE;
+		$rating     = isset( $_REQUEST[self::RATING] ) && is_scalar( $_REQUEST[self::RATING] ) ? intval( $_REQUEST[self::RATING] ) : self::DEFAULT_RATING;
+		$in_stock   = isset( $_REQUEST[self::IN_STOCK] ) && is_scalar( $_REQUEST[self::IN_STOCK] ) ? intval( $_REQUEST[self::IN_STOCK] ) > 0 : self::DEFAULT_IN_STOCK;
 
 		$search_query = isset( $_REQUEST[Base::SEARCH_QUERY] ) && is_string( $_REQUEST[Base::SEARCH_QUERY] ) ? sanitize_text_field( $_REQUEST[Base::SEARCH_QUERY] ) : null;
 		if ( $search_query !== null ) {
@@ -289,14 +289,14 @@ class Query_Control {
 			}
 		}
 
-		$limit = isset( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
+		$limit = isset( $_REQUEST[self::LIMIT] ) && is_numeric( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
 		$limit = max( 0, intval( apply_filters( 'product_search_limit', $limit ) ) );
 
 		$offset = isset( $_REQUEST['offset'] ) && is_numeric( $_REQUEST['offset'] ) ? max( 0, intval( $_REQUEST['offset'] ) ) : null;
 		$page = isset( $_REQUEST['page'] ) && is_numeric( $_REQUEST['page'] ) ? max( 1, intval( $_REQUEST['page'] ) ) : null;
 		$per_page = isset( $_REQUEST['per_page'] ) && is_numeric( $_REQUEST['per_page'] ) ? max( 1, intval( $_REQUEST['per_page'] ) ) : null;
 
-		$order = isset( $_REQUEST[self::ORDER] ) ? strtoupper( sanitize_text_field( trim( $_REQUEST[self::ORDER] ) ) ) : null;
+		$order = isset( $_REQUEST[self::ORDER] ) && is_string( $_REQUEST[self::ORDER] ) ? strtoupper( sanitize_text_field( trim( $_REQUEST[self::ORDER] ) ) ) : null;
 		switch ( $order ) {
 			case 'DESC' :
 			case 'ASC' :
@@ -304,10 +304,10 @@ class Query_Control {
 			default :
 				$order = null;
 		}
-		$order_by = isset( $_REQUEST[self::ORDER_BY] ) ? sanitize_text_field( trim( $_REQUEST[self::ORDER_BY] ) ) : null;
+		$order_by = isset( $_REQUEST[self::ORDER_BY] ) && is_string( $_REQUEST[self::ORDER_BY] ) ? sanitize_text_field( trim( $_REQUEST[self::ORDER_BY] ) ) : null;
 
-		$ixwpse = isset( $_REQUEST['ixwpse'] ) ? boolval( $_REQUEST['ixwpse'] ) : false;
-		$ixwpsp = isset( $_REQUEST['ixwpsp'] ) ? boolval( $_REQUEST['ixwpsp'] ) : false;
+		$ixwpse = isset( $_REQUEST['ixwpse'] ) && is_scalar( $_REQUEST['ixwpse'] ) ? boolval( $_REQUEST['ixwpse'] ) : false;
+		$ixwpsp = isset( $_REQUEST['ixwpsp'] ) && is_scalar( $_REQUEST['ixwpsp'] ) ? boolval( $_REQUEST['ixwpsp'] ) : false;
 
 		$ixwpst = Term_Control::get_ixwpst( $this->query );
 
@@ -608,8 +608,12 @@ class Query_Control {
 			$engine->attach_stage( $stage );
 		}
 
-		if ( get_option( 'woocommerce_hide_out_of_stock_items' ) === 'yes' ) {
-			$in_stock = true;
+		if ( is_admin() && !isset( $wps_doing_ajax ) ) {
+		} else {
+
+			if ( get_option( 'woocommerce_hide_out_of_stock_items' ) === 'yes' ) {
+				$in_stock = true;
+			}
 		}
 		if ( $in_stock ) {
 			$args = array( 'stock' => 'instock', 'variations' => $stage_variations );
@@ -651,18 +655,21 @@ class Query_Control {
 			}
 		}
 
-		if ( is_array( $params['ixwpst'] ) && count( $params['ixwpst'] ) > 0 ) {
-			foreach ( $params['ixwpst'] as $taxonomy => $term_ids ) {
-				if ( count( $term_ids ) > 0 ) {
-					$args = array(
-						'taxonomy' => $taxonomy,
-						'terms'    => $term_ids,
-						'id_by'    => 'id',
-						'op'       => 'or',
-						'variations' => $stage_variations
-					);
-					$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Terms( $args );
-					$engine->attach_stage( $stage );
+		if ( is_admin() && !isset( $wps_doing_ajax ) ) {
+		} else {
+			if ( is_array( $params['ixwpst'] ) && count( $params['ixwpst'] ) > 0 ) {
+				foreach ( $params['ixwpst'] as $taxonomy => $term_ids ) {
+					if ( count( $term_ids ) > 0 ) {
+						$args = array(
+							'taxonomy' => $taxonomy,
+							'terms'    => $term_ids,
+							'id_by'    => 'id',
+							'op'       => 'or',
+							'variations' => $stage_variations
+						);
+						$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Terms( $args );
+						$engine->attach_stage( $stage );
+					}
 				}
 			}
 		}
@@ -685,25 +692,28 @@ class Query_Control {
 			$engine->attach_stage( $stage );
 		}
 
-		if ( $limit !== null && $limit > 0 || $offset !== null ) {
+		if ( $engine->get_stage_count() > 0 ) {
 
-			$args = array(
-				'limit' => $limit,
-				'offset' => $offset !== null ? $offset : 0,
-				'page' => null,
-				'per_page' => null
-			);
-			$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Pagination( $args );
-			$engine->attach_stage( $stage );
-		} else if ( $per_page !== null && $page !== null ) {
-			$args = array(
-				'limit' => null,
-				'offset' => null,
-				'page' => $page,
-				'per_page' => $per_page
-			);
-			$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Pagination( $args );
-			$engine->attach_stage( $stage );
+			if ( $limit !== null && $limit > 0 || $offset !== null ) {
+
+				$args = array(
+					'limit' => $limit,
+					'offset' => $offset !== null ? $offset : 0,
+					'page' => null,
+					'per_page' => null
+				);
+				$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Pagination( $args );
+				$engine->attach_stage( $stage );
+			} else if ( $per_page !== null && $page !== null ) {
+				$args = array(
+					'limit' => null,
+					'offset' => null,
+					'page' => $page,
+					'per_page' => $per_page
+				);
+				$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Pagination( $args );
+				$engine->attach_stage( $stage );
+			}
 		}
 
 		if ( $this->doing_pre_get_posts && $engine->get_stage_count() === 0 ) {

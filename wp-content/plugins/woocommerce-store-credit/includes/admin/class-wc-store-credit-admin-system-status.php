@@ -43,7 +43,7 @@ class WC_Store_Credit_Admin_System_Status {
 			'overrides'          => self::get_template_overrides(),
 		);
 
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';
+		include_once __DIR__ . '/views/html-admin-status-report-settings.php';
 	}
 
 	/**

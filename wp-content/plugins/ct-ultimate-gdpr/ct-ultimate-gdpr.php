@@ -1,13 +1,13 @@
 <?php
-update_option( 'ct-ultimate-gdpr-admin', array_merge( get_option( 'ct-ultimate-gdpr-admin', [] ), [ 'admin_envato_key' => '*******' ] ) );
+
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 5.0
+ * Version: 5.2
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
-
+update_option( 'ct-ultimate-gdpr-admin', array_merge( get_option( 'ct-ultimate-gdpr-admin', [] ), [ 'admin_envato_key' => '*******' ] ) );
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -98,6 +98,13 @@ class CT_Ultimate_GDPR {
 
 
 	}
+
+    public static function deactivate() {
+        $timestamp = wp_next_scheduled('ctgdpr_update_vendor_list');
+        if ($timestamp) {
+            wp_unschedule_event($timestamp, 'ctgdpr_update_vendor_list');
+        }
+    }
 
 	/**
 	 * Include helpers
@@ -397,5 +404,7 @@ class CT_Ultimate_GDPR {
 	}
 
 }
+
+register_deactivation_hook(__FILE__, array('CT_Ultimate_GDPR', 'deactivate'));
 
 CT_Ultimate_GDPR::instance();

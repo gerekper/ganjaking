@@ -79,7 +79,7 @@ class ParentChildMenu extends \DynamicContentForElementor\Widgets\WidgetPrototyp
         if (empty($settings)) {
             return;
         }
-        $id_page = Helper::get_the_id();
+        $id_page = get_queried_object_id();
         if (!$settings['dynamic_parentchild']) {
             $id_page = $settings['parentpage_select'];
         } else {

@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.13.1';
+	const VERSION = '2.14.0';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -620,9 +620,10 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			);
 		}
 
-		// display a notice specifically for Facebook Redirect URIs
+		/** @var \WC_Social_Login_Provider_Facebook $facebook */
 		$facebook = $this->get_provider( 'facebook' );
 
+		// display a notice specifically for Facebook Redirect URIs
 		if ( $facebook && $facebook->is_enabled() && ! $facebook->is_redirect_uri_configured() ) {
 
 			$message = sprintf(
@@ -650,6 +651,26 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			);
 
 			$this->get_admin_notice_handler()->add_admin_notice( $message, $facebook->get_id() . '-redirect-uri-not-configured', [
+				'always_show_on_settings' => false,
+				'notice_class'            => 'notice-warning',
+			] );
+		}
+
+		/** @var \WC_Social_Login_Provider_LinkedIn $linkedin */
+		$linkedin = $this->get_provider( 'linkedin' );
+
+		// notify merchants of LinkedIn API changes
+		if ( $linkedin && $linkedin->is_configured() && $linkedin->get_api_version() !== 'v2oid' ) {
+
+			$message = sprintf(
+				/* translators: Placeholders: %1$s - <strong> opening HTML tag, %2$s - </strong> closing HTML tag, %3$s - <a> opening HTML tag, %4$s - </a> closing HTML tag, %5$s - <a> opening HTML tag, %6$s - </a> closing HTML tag */
+				__( '%1$sHeads up!%2$s LinkedIn has updated their method for authenticating members using OpenID Connect. Please make sure your app and LinkedIn settings in Social Login are up-to-date to support %3$sOpenID Connect%4$s. If you are using an existing v2 app, we recommend following %5$sour setup instructions%6$s to connect a new app using OpenID Connect.', 'woocommerce-social-login' ),
+				'<strong>', '</strong>',
+				'<a href="https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin-v2" target="_blank">', '</a>',
+				'<a href="https://woo.com/document/woocommerce-social-login-create-social-apps/#linkedin" target="_blank">', '</a>'
+			);
+
+			$this->get_admin_notice_handler()->add_admin_notice( $message, $linkedin->get_id() . '-update-to-v2-open-id-connect', [
 				'always_show_on_settings' => false,
 				'notice_class'            => 'notice-warning',
 			] );

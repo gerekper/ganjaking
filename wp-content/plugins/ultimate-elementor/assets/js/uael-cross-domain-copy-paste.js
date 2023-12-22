@@ -203,6 +203,15 @@ UAE_Cross_Domain_Handler = {
 				message: elementor.translate( 'Something went wrong!' )
 			});
 		})
+    },
+
+    isValidJson: function(str) {
+        try {
+            JSON.parse(str);
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 }
 
@@ -219,13 +228,23 @@ item_type.forEach( function( item, index ) {
                         title: uael_cross_domain.uae_copy,
                         icon: uael_cross_domain.cross_domain_icon,
                         callback: function () {
-                            var widgetType = element.model.get( "widgetType" ),
+                            var widgetType = element.model.get('widgetType'),
                                 widgetCode = element.model.toJSON(),
                                 bsf_container = {
-                                    widgetType : widgetType,
-                                    widgetCode : widgetCode
+                                    widgetType: widgetType,
+                                    widgetCode: widgetCode
                                 };
-                                xsLocalStorage.setItem( 'bsf_uael_container_new', JSON.stringify( bsf_container ) );
+
+                            // Store data in local storage
+                            xsLocalStorage.setItem('bsf_uael_container_new', JSON.stringify(bsf_container));
+
+                            // Create a textarea, set its value to the JSON string, and copy to clipboard
+                            var textarea = document.createElement('textarea');
+                            textarea.value = JSON.stringify(bsf_container);
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
 
                         }
                     },
@@ -234,13 +253,99 @@ item_type.forEach( function( item, index ) {
                         title: uael_cross_domain.uae_paste,
                         icon: uael_cross_domain.cross_domain_icon,
                         callback: function () {
-                            var bsf_container = '';
-                            xsLocalStorage.getItem( 'bsf_uael_container_new', function ( loop_element ) {
-                                bsf_container = JSON.parse( loop_element.value );
-                                UAE_Cross_Domain_Handler.paste( bsf_container, element );
-                            });
+                            if (!navigator.clipboard) {
+                                // If the Clipboard API is not supported
+                                var existingDialog = document.getElementById('uae-paste-area-dialog');
+                                if (existingDialog) {
+                                    existingDialog.parentNode.removeChild(existingDialog);
+                                }
+                    
+                                var uae_paste = document.querySelector('#uae-paste-area-input');
+                                if (!uae_paste) {
+                                    // Create a dialog for paste area
+                                    var container = document.createElement('div'),
+                                        paragraph = document.createElement('p');
+                                    paragraph.innerHTML = 'Please grant clipboard permission for this site to paste.';
+                    
+                                    var inputArea = document.createElement('input');
+                                    inputArea.id = 'uae-paste-area-input';
+                                    inputArea.type = 'text';
+                                    inputArea.setAttribute('autocomplete', 'off');
+                                    inputArea.setAttribute('autofocus', 'autofocus');
+                                    inputArea.focus();
+                    
+                                    container.appendChild(paragraph);
+                                    container.appendChild(inputArea);
+                    
+                                    // Handle paste event in the input area
+                                    inputArea.addEventListener('paste', async function (event) {
+                                        event.preventDefault();
+                                        var pastedData = event.clipboardData.getData("text");
+                    
+                                        if (UAE_Cross_Domain_Handler.isValidJson(pastedData)) {
+                                            var checktype = JSON.parse(pastedData);
+                                            if (pastedData && typeof checktype == 'object') {
+                                                // Call your paste handler function
+                                                xsLocalStorage.setItem("bsf_uael_container_new", pastedData);
+                                                UAE_Cross_Domain_Handler.paste(checktype, element);
+                                            }
 
-                        }
+                                        }
+                    
+                                        var existingDialog = document.getElementById('uae-paste-area-dialog');
+                                        if (existingDialog) {
+                                            existingDialog.parentNode.removeChild(existingDialog);
+                                        }
+                                    });
+                    
+                                    // Determine system-specific paste instructions
+                                    let getSystem = '';
+                                    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                                        getSystem = 'Command'
+                                    } else {
+                                        getSystem = 'Ctrl'
+                                    }
+                    
+                                    // Create and show a lightbox dialog for pasting
+                                    var uaeDialog = elementorCommon.dialogsManager.createWidget('lightbox', {
+                                        id: 'uae-paste-area-dialog',
+                                        headerMessage: `${getSystem} + V`,
+                                        message: container,
+                                        position: {
+                                            my: 'center center',
+                                            at: 'center center'
+                                        },
+                                        onShow: function onShow() {
+                                            inputArea.focus()
+                                            uaeDialog.getElements('widgetContent').on('click', function () {
+                                                inputArea.focus()
+                                            });
+                                        },
+                                        closeButton: true,
+                                        closeButtonOptions: {
+                                            iconClass: 'eicon-close'
+                                        },
+                                    });
+                    
+                                    uaeDialog.show();
+                                }
+                            } else {
+                                // If Clipboard API is supported
+                                navigator.clipboard.readText().then(function (pastedData) {
+                                    if (UAE_Cross_Domain_Handler.isValidJson(pastedData)) {
+                                        var checktype = JSON.parse(pastedData);
+                                        if (pastedData && typeof checktype == 'object') {
+                                            // Call your paste handler function
+                                            xsLocalStorage.setItem( "bsf_uael_container_new", pastedData );
+                                            
+                                            UAE_Cross_Domain_Handler.paste( checktype, element);
+                                        }
+                                    }
+                                }).catch(function (err) {
+                                    console.error("Error clipboard data: " + err);
+                                });
+                            }
+                        },
                     },
 					{
 						name: 'copy_all',
@@ -258,23 +363,121 @@ item_type.forEach( function( item, index ) {
 									message: elementor.translate( 'Entire Page Content Is Copied!' )
 								});
 							});
+
+                            // Create a textarea, set its value to the JSON string, and copy to clipboard
+                            var textarea = document.createElement('textarea');
+                            textarea.value = JSON.stringify(allSections);
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+
 						}
 					},
-					{
+                    {
 						name: 'paste_all',
 						title: uael_cross_domain.uae_paste_all,
 						icon: uael_cross_domain.cross_domain_icon,
 						callback: function(){
-							var allSections = '';
-							xsLocalStorage.getItem( 'bsf_uael_all_sections', function( data ){
-								var editor_view = elementor.$previewContents.find( "html" );
-								editor_view.addClass( 'uael-fpcp-wait' ).attr( "data-uael-fpcp-text", "Starting the process..." );
-								if( 'uael-icon-uae' == uael_cross_domain.cross_domain_icon ){
-                                    editor_view.find('body').addClass('uael-fpcp-wait__icon');
+                            var editor_view = elementor.$previewContents.find( "html" );
+
+                            if (!navigator.clipboard) {
+                                // If the Clipboard API is not supported
+                                var existingDialog = document.getElementById('uae-paste-area-dialog');
+                                if (existingDialog) {
+                                    existingDialog.parentNode.removeChild(existingDialog);
                                 }
-								allSections = JSON.parse( data.value );
-								UAE_Cross_Domain_Handler.getData( allSections, editor_view );
-							});
+                    
+                                var uae_paste = document.querySelector('#uae-paste-area-input');
+                                if (!uae_paste) {
+                                    // Create a dialog for paste area
+                                    var container = document.createElement('div'),
+                                        paragraph = document.createElement('p');
+                                    paragraph.innerHTML = 'Please grant clipboard permission for this site to paste.';
+                    
+                                    var inputArea = document.createElement('input');
+                                    inputArea.id = 'uae-paste-area-input';
+                                    inputArea.type = 'text';
+                                    inputArea.setAttribute('autocomplete', 'off');
+                                    inputArea.setAttribute('autofocus', 'autofocus');
+                                    inputArea.focus();
+                    
+                                    container.appendChild(paragraph);
+                                    container.appendChild(inputArea);
+                    
+                                    // Handle paste event in the input area
+                                    inputArea.addEventListener('paste', async function (event) {
+                                        event.preventDefault();
+                                        var pastedData = event.clipboardData.getData("text");
+                    
+                                        if (UAE_Cross_Domain_Handler.isValidJson(pastedData)) {
+                                            var checktype = JSON.parse(pastedData);
+                                            if (pastedData && typeof checktype == 'object') {
+                                                // Call your paste handler function
+                                                xsLocalStorage.setItem("bsf_uael_all_sections", pastedData);
+                                                UAE_Cross_Domain_Handler.getData(checktype, element);
+                                            }
+
+                                        }
+                    
+                                        var existingDialog = document.getElementById('uae-paste-area-dialog');
+                                        if (existingDialog) {
+                                            existingDialog.parentNode.removeChild(existingDialog);
+                                        }
+                                    });
+                    
+                                    // Determine system-specific paste instructions
+                                    let getSystem = '';
+                                    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                                        getSystem = 'Command'
+                                    } else {
+                                        getSystem = 'Ctrl'
+                                    }
+                    
+                                    // Create and show a lightbox dialog for pasting
+                                    var uaeDialog = elementorCommon.dialogsManager.createWidget('lightbox', {
+                                        id: 'uae-paste-area-dialog',
+                                        headerMessage: `${getSystem} + V`,
+                                        message: container,
+                                        position: {
+                                            my: 'center center',
+                                            at: 'center center'
+                                        },
+                                        onShow: function onShow() {
+                                            inputArea.focus()
+                                            uaeDialog.getElements('widgetContent').on('click', function () {
+                                                inputArea.focus()
+                                            });
+                                        },
+                                        closeButton: true,
+                                        closeButtonOptions: {
+                                            iconClass: 'eicon-close'
+                                        },
+                                    });
+                    
+                                    uaeDialog.show();
+                                }
+                            } else {
+                                navigator.clipboard.readText().then(function (pastedData) {
+                                    if (UAE_Cross_Domain_Handler.isValidJson(pastedData)) {
+                                        var checktype = JSON.parse(pastedData);
+                                        if (pastedData && typeof checktype == 'object') {
+                                            // Call your paste handler function
+                                            xsLocalStorage.setItem( "bsf_uael_all_sections", pastedData );
+
+                                            editor_view.addClass( 'uael-fpcp-wait' ).attr( "data-uael-fpcp-text", "Starting the process..." );
+                                            
+                                            if( 'uael-icon-uae' == uael_cross_domain.cross_domain_icon ){
+                                                editor_view.find('body').addClass('uael-fpcp-wait__icon');
+                                            }
+                                            
+								            UAE_Cross_Domain_Handler.getData( checktype, editor_view );
+                                        }
+                                    }
+                                }).catch(function (err) {
+                                    console.error("Error clipboard data: " + err);
+                                });
+                            }
 						}
 					},
                 ]

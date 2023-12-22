@@ -58,6 +58,11 @@
   top: 0;
   height: 100%; }
 
+.premium-particles-yes .premium-global-particles {
+  position: absolute; }
+  .premium-particles-yes .premium-global-particles .tsparticles-canvas-el {
+    position: fixed !important; }
+
 /**************** Premium Parallax Section *****************/
 /***********************************************************/
 .elementor-element.premium-prallax-multi {
@@ -377,9 +382,6 @@ img.kenburns-scale-infinite-out {
 
 .premium-gCursor-yes:not(.premium-cursor-fimage):not(.premium-cursor-ftext) *, .premium-gCursor-yes.magnet-effect * {
   cursor: none !important; }
-
-.premium-gCursor-yes:not(.premium-cursor-dot).premium-cursor-ftext *, .premium-gCursor-yes:not(.premium-cursor-dot).premium-cursor-fimage * {
-  cursor: default; }
 
 .premium-cursor-icon-svg {
   -webkit-transform: translate(-50%, -50%);

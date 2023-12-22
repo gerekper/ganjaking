@@ -229,7 +229,7 @@ class Premium_Content_Toggle extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'premium_content_toggle_heading_layout',
 			array(
 				'label'        => __( 'Display', 'premium-addons-pro' ),
@@ -239,10 +239,12 @@ class Premium_Content_Toggle extends Widget_Base {
 					'yes' => __( 'Block', 'premium-addons-pro' ),
 				),
 				'default'      => 'no',
-				'prefix_class' => 'premium-toggle-stack-',
 				'condition'    => array(
 					'premium_content_toggle_labels_switcher'    => 'yes',
 				),
+				'selectors'   => array(
+                    '{{WRAPPER}}' => '--pa-content-toggle-stack: {{VALUE}}',
+                ),
 			)
 		);
 

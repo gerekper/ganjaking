@@ -100,7 +100,7 @@ class RevSliderTracking extends RevSliderFunctions {
 		$data['environment'] = array(
 			'version'		=> RS_REVISION
 		);
-		$data['licensed']	= ($deactivation === 'default') ? $this->_truefalse(get_option('revslider-valid', 'true')) : $deactivation; //if $deactivation === false, we are in deactivation process, so set already to false
+		$data['licensed']	= (!in_array($deactivation, array(true, false), true)) ? $this->_truefalse(get_option('revslider-valid', 'true')) : $deactivation; //if $deactivation === false, we are in deactivation process, so set already to false
 		$data['slider']		= array(
 			'number'		=> 0,
 			'premium'		=> 0,
@@ -110,6 +110,7 @@ class RevSliderTracking extends RevSliderFunctions {
 				'post'			=> 0,
 				'woocommerce'	=> 0,
 				'social'		=> 0,
+				'social_detail'	=> array(),
 			),
 			'navigations'	=> array(
 				'arrows'	=> 0,
@@ -185,7 +186,11 @@ class RevSliderTracking extends RevSliderFunctions {
 
 				if($type === 'gallery')	$data['slider']['sources']['custom']++;
 				if($post === true || $specific_post === true)	$data['slider']['sources']['post']++;
-				if($stream === true)	$data['slider']['sources']['social']++;
+				if($stream !== false){
+					$data['slider']['sources']['social']++;
+					if(!isset($data['slider']['sources']['social_detail'][$stream])) $data['slider']['sources']['social_detail'][$stream] = 0;
+					$data['slider']['sources']['social_detail'][$stream]++;
+				}
 				if($wc === true)		$data['slider']['sources']['woocommerce']++;
 
 				if($premium === true)	$data['slider']['premium']++;

@@ -115,21 +115,55 @@ class WC_Store_Credit_Product_Addons {
 			return;
 		}
 
-		$description = '';
-		$min_amount  = $product->get_min_custom_amount();
+		$min_amount         = $product->get_min_custom_amount();
+		$max_amount         = $product->get_max_custom_amount();
+		$custom_amount_step = $product->get_custom_amount_step();
+		$custom_attributes  = array();
 
 		if ( $min_amount > 0 ) {
-			/* translators: %s: minimum amount */
-			$description = sprintf( __( 'Minimum amount: %s', 'woocommerce-store-credit' ), wc_price( $min_amount ) );
+			$custom_attributes['min'] = $min_amount;
+		}
+
+		if ( $max_amount > 0 ) {
+			$custom_attributes['max'] = $max_amount;
+		}
+
+		if ( $custom_amount_step ) {
+			$custom_attributes['step'] = $custom_amount_step;
+		}
+
+		$description = '';
+
+		if ( $min_amount > 0 || $max_amount > 0 ) {
+			$min_amount_text = ( $min_amount > 0 ? wc_price( $min_amount ) : __( 'zero', 'woocommerce-store-credit' ) );
+			$max_amount_text = ( $max_amount > 0 ? wc_price( $max_amount ) : __( 'unlimited', 'woocommerce-store-credit' ) );
+
+			if ( $custom_amount_step ) {
+				$description = sprintf(
+					/* translators: 1: minimum amount, 2: maximum amount, 3: step amount */
+					__( 'Enter an amount between %1$s and %2$s with increments of %3$s.', 'woocommerce-store-credit' ),
+					$min_amount_text,
+					$max_amount_text,
+					wc_price( $custom_amount_step )
+				);
+			} else {
+				$description = sprintf(
+					/* translators: 1: minimum amount 2: maximum amount */
+					__( 'Enter an amount between %1$s and %2$s.', 'woocommerce-store-credit' ),
+					$min_amount_text,
+					$max_amount_text
+				);
+			}
 		}
 
 		$data = array(
 			'fields' => array(
 				'store_credit_custom_amount' => array(
 					/* translators: %s: Currency symbol */
-					'label'       => sprintf( _x( 'Credit amount (%s)', 'product field label', 'woocommerce-store-credit' ), get_woocommerce_currency_symbol() ),
-					'type'        => 'text',
-					'description' => $description,
+					'label'             => sprintf( _x( 'Credit amount (%s)', 'product field label', 'woocommerce-store-credit' ), get_woocommerce_currency_symbol() ),
+					'type'              => 'number',
+					'description'       => $description,
+					'custom_attributes' => $custom_attributes,
 				),
 			),
 		);

@@ -31,7 +31,7 @@ class Token extends Tag
     }
     public function get_docs()
     {
-        return 'https://www.dynamic.ooo/widget/dynamic-tag-token/';
+        return 'https://www.dynamic.ooo/dynamic-content-for-elementor/features/dynamic-tag-token/';
     }
     /**
      * @return void

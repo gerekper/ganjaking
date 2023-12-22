@@ -2,9 +2,9 @@
 Contributors: leap13
 Tags: elementor, elements, addons, elementor addon, elementor widget, elementor extensions, page builder, builder, visual editor, wordpress page builder
 Requires at least: 4.5
-Tested Up To: 6.4.1
+Tested Up To: 6.4.2
 Requires PHP: 7.0
-Stable tag: 2.9.9
+Stable tag: 2.9.10
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -89,6 +89,13 @@ Yes, it will work with any WordPress theme as long as you are using Elementor as
 Premium Addons for Elementor is light weight and we also gave you the control to enable only the elements you actually use on your website for faster performance.
 
 == Changelog ==
+
+= 2.9.10 =
+
+- Tweak: Added option to apply Particles addon on whole page through Elementor page settings.
+- Tweak: Added responsive controls to Display option in Content Toggle widget.
+- Fixed: Disable Snappy Effect on Touch Devices in Horizontal Scroll widget not working.
+- Fixed: Flickering issue with Image Sequence effect in Magic Scroll addon.
 
 = 2.9.9 =
 

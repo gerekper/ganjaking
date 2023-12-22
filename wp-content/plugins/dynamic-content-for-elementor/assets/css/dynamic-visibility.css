@@ -2,7 +2,7 @@
 .dce-visibility-widget-hidden,
 .dce-visibility-column-hidden,
 .dce-visibility-section-hidden {
-  display: none;
+  display: none !important;
 }
 
 .dce-visibility-element-hidden.elementor-widget-dyncontel-panorama {

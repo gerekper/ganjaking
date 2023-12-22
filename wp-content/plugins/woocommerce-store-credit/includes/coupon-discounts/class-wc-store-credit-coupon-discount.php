@@ -55,7 +55,7 @@ class WC_Store_Credit_Coupon_Discount {
 		$coupon = wc_store_credit_get_coupon( $the_coupon );
 
 		if ( false === $coupon ) {
-			throw new Exception( _x( 'Invalid coupon.', 'exception message', 'woocommerce-store-credit' ) );
+			throw new Exception( esc_html_x( 'Invalid coupon.', 'exception message', 'woocommerce-store-credit' ) );
 		}
 
 		if ( is_array( $item_discounts ) ) {
@@ -63,7 +63,7 @@ class WC_Store_Credit_Coupon_Discount {
 		}
 
 		if ( ! $item_discounts instanceof WC_Store_Credit_Item_Discounts ) {
-			throw new Exception( _x( 'Invalid item discounts.', 'exception message', 'woocommerce-store-credit' ) );
+			throw new Exception( esc_html_x( 'Invalid item discounts.', 'exception message', 'woocommerce-store-credit' ) );
 		}
 
 		$this->coupon         = $coupon;

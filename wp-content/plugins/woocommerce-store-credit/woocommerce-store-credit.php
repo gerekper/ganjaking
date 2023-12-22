@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: WooCommerce Store Credit
- * Plugin URI: https://woocommerce.com/products/store-credit/
+ * Plugin URI: https://woo.com/products/store-credit/
  * Description: Create "store credit" coupons for customers which are redeemable at checkout.
- * Version: 4.4.0
- * Author: Themesquad
- * Author URI: https://themesquad.com/
+ * Version: 4.4.1
+ * Author: KoiLab
+ * Author URI: https://koilab.com/
  * Requires PHP: 5.6
  * Requires at least: 4.9
- * Tested up to: 6.3
+ * Tested up to: 6.4
  * Text Domain: woocommerce-store-credit
  * Domain Path: /languages/
  *
  * WC requires at least: 3.7
- * WC tested up to: 8.0
+ * WC tested up to: 8.4
  * Woo: 18609:c4bf3ecec4146cb69081e5b28b6cdac4
  *
  * License: GNU General Public License v3.0
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
  * Plugin requirements.
  */
 if ( ! class_exists( 'WC_Store_Credit_Requirements', false ) ) {
-	require_once dirname( __FILE__ ) . '/includes/class-wc-store-credit-requirements.php';
+	require_once __DIR__ . '/includes/class-wc-store-credit-requirements.php';
 }
 
 if ( ! WC_Store_Credit_Requirements::are_satisfied() ) {
@@ -43,7 +43,7 @@ if ( ! defined( 'WC_STORE_CREDIT_FILE' ) ) {
 
 // Include the main class of the plugin.
 if ( ! class_exists( 'WC_Store_Credit' ) ) {
-	include_once dirname( __FILE__ ) . '/includes/class-wc-store-credit.php';
+	include_once __DIR__ . '/includes/class-wc-store-credit.php';
 }
 
 /**

@@ -1042,9 +1042,12 @@
 				}
 			},
 			_scroll_to_top: function () {
-				$scope.find( 'html, body' ).animate( {
-					scrollTop: tabs_wrapper.offset().top - 100
-				}, 800 );
+				if ( tabs_wrapper.length ) {
+					window.scrollTo({
+					  top: 0,
+					  behavior: 'smooth'
+					});
+				}
 			},
 
 			_order_review_ajax: function() {

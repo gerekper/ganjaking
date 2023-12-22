@@ -91,7 +91,7 @@ humbug_phpscoper_expose_class('UnhandledMatchError', 'DynamicOOOS\UnhandledMatch
 humbug_phpscoper_expose_class('Stringable', 'DynamicOOOS\Stringable');
 humbug_phpscoper_expose_class('PhpToken', 'DynamicOOOS\PhpToken');
 humbug_phpscoper_expose_class('Attribute', 'DynamicOOOS\Attribute');
-humbug_phpscoper_expose_class('ComposerAutoloaderInit64e683f7e09eeb1dea69d591957953b8', 'DynamicOOOS\ComposerAutoloaderInit64e683f7e09eeb1dea69d591957953b8');
+humbug_phpscoper_expose_class('ComposerAutoloaderInitc9b90be5fd873b39c5ead4d83d736793', 'DynamicOOOS\ComposerAutoloaderInitc9b90be5fd873b39c5ead4d83d736793');
 humbug_phpscoper_expose_class('Mustache_Tokenizer', 'DynamicOOOS\Mustache_Tokenizer');
 humbug_phpscoper_expose_class('Mustache_Template', 'DynamicOOOS\Mustache_Template');
 humbug_phpscoper_expose_class('Mustache_Source', 'DynamicOOOS\Mustache_Source');
@@ -141,7 +141,7 @@ if (!function_exists('array_key_last')) { function array_key_last() { return \Dy
 if (!function_exists('balanceTags')) { function balanceTags() { return \DynamicOOOS\balanceTags(...func_get_args()); } }
 if (!function_exists('check_admin_referer')) { function check_admin_referer() { return \DynamicOOOS\check_admin_referer(...func_get_args()); } }
 if (!function_exists('check_ajax_referer')) { function check_ajax_referer() { return \DynamicOOOS\check_ajax_referer(...func_get_args()); } }
-if (!function_exists('composerRequire64e683f7e09eeb1dea69d591957953b8')) { function composerRequire64e683f7e09eeb1dea69d591957953b8() { return \DynamicOOOS\composerRequire64e683f7e09eeb1dea69d591957953b8(...func_get_args()); } }
+if (!function_exists('composerRequirec9b90be5fd873b39c5ead4d83d736793')) { function composerRequirec9b90be5fd873b39c5ead4d83d736793() { return \DynamicOOOS\composerRequirec9b90be5fd873b39c5ead4d83d736793(...func_get_args()); } }
 if (!function_exists('ctype_alnum')) { function ctype_alnum() { return \DynamicOOOS\ctype_alnum(...func_get_args()); } }
 if (!function_exists('ctype_alpha')) { function ctype_alpha() { return \DynamicOOOS\ctype_alpha(...func_get_args()); } }
 if (!function_exists('ctype_cntrl')) { function ctype_cntrl() { return \DynamicOOOS\ctype_cntrl(...func_get_args()); } }

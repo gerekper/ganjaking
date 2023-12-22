@@ -229,12 +229,12 @@ class LicenseManager {
 		$response = $this->remote_post( 'check_license' );
 
 		if ( is_wp_error( $response ) ) {
-			delete_transient( "{$this->db_prefix}_license_data" );
+			delete_transient( "{$this->db_prefix}-license_data" );
 
 			return $response;
 		}
 
-		set_transient( "{$this->db_prefix}_license_data", $response, MONTH_IN_SECONDS * 3 );
+		set_transient( "{$this->db_prefix}-license_data", $response, MONTH_IN_SECONDS * 3 );
 
 		return $response;
 	}

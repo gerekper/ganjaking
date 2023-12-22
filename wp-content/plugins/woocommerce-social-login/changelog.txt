@@ -1,5 +1,9 @@
 *** WooCommerce Social Login Changelog ***
 
+2023.12.21 - version 2.14.0
+ * Fix - Ensure that LinkedIn can use OpenID Connect
+ * Misc - New installations will use LinkedIn API v2 with OpenID Connect by default
+
 2023.11.17 - version 2.13.1
  * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
 

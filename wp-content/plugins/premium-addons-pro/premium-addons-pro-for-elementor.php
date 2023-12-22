@@ -3,10 +3,10 @@
 Plugin Name: Premium Addons PRO
 Description: Premium Addons PRO Plugin Includes 36+ premium widgets & addons for Elementor Page Builder.
 Plugin URI: https://premiumaddons.com
-Version: 2.9.9
+Version: 2.9.10
 Author: Leap13
-Elementor tested up to: 3.17.3
-Elementor Pro tested up to: 3.17.1
+Elementor tested up to: 3.18.2
+Elementor Pro tested up to: 3.18.1
 Author URI: https://leap13.com/
 Text Domain: premium-addons-pro
 Domain Path: /languages
@@ -23,11 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No access of directly access.
 }
 
-update_option( 'papro_license_status', 'valid' );
-update_option( 'papro_license_key', '123456-123456-123456-123456' );
-
-define( 'PREMIUM_PRO_ADDONS_VERSION', '2.9.9' );
-define( 'PREMIUM_PRO_ADDONS_STABLE_VERSION', '2.9.8' );
+define( 'PREMIUM_PRO_ADDONS_VERSION', '2.9.10' );
+define( 'PREMIUM_PRO_ADDONS_STABLE_VERSION', '2.9.9' );
 define( 'PREMIUM_PRO_ADDONS_URL', plugins_url( '/', __FILE__ ) );
 define( 'PREMIUM_PRO_ADDONS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'PREMIUM_PRO_ADDONS_FILE', __FILE__ );

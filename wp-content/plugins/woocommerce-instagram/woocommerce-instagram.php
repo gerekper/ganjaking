@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Instagram
  * Plugin URI: https://woo.com/products/woocommerce-instagram/
  * Description: Connect your store with Instagram. Upload your product catalog to Instagram and showcase how your customers are using them.
- * Version: 4.6.0
+ * Version: 4.6.1
  * Author: KoiLab
  * Author URI: https://koilab.com/
  * Requires PHP: 5.6
@@ -13,7 +13,7 @@
  * Domain Path: /languages/
  *
  * WC requires at least: 3.7
- * WC tested up to: 8.3
+ * WC tested up to: 8.4
  * Woo: 260061:ecaa2080668997daf396b8f8a50d891a
  *
  * License: GNU General Public License v3.0

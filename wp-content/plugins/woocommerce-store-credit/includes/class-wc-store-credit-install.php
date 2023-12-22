@@ -59,7 +59,7 @@ class WC_Store_Credit_Install {
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
 		add_action( 'admin_init', array( __CLASS__, 'add_notices' ), 20 );
 		add_action( 'wc_store_credit_updater_complete', array( __CLASS__, 'updated' ) );
-		add_action( 'update_option_wc_store_credit_db_version', array( __CLASS__, 'add_feature_notices' ), 10, 2 );
+		add_action( 'update_option_wc_store_credit_db_version', array( __CLASS__, 'add_feature_notices' ) );
 	}
 
 	/**
@@ -128,7 +128,7 @@ class WC_Store_Credit_Install {
 	 * @since 2.4.2
 	 */
 	private static function remove_notices() {
-		include_once dirname( __FILE__ ) . '/admin/class-wc-store-credit-admin-notices.php';
+		include_once __DIR__ . '/admin/class-wc-store-credit-admin-notices.php';
 
 		// Remove not dismissed notice from a previous update.
 		WC_Store_Credit_Admin_Notices::remove_notice( 'wc_store_credit_updated' );
@@ -168,9 +168,8 @@ class WC_Store_Credit_Install {
 	 * @since 3.2.0
 	 *
 	 * @param string $old_version The old version.
-	 * @param string $new_version The new version.
 	 */
-	public static function add_feature_notices( $old_version, $new_version ) {
+	public static function add_feature_notices( $old_version ) {
 		if ( $old_version && version_compare( $old_version, '3.2.0', '<' ) ) {
 			WC_Store_Credit_Admin_Notices::add_dismiss_notice( 'wc_store_credit_sell_credit' );
 		}
@@ -323,8 +322,8 @@ class WC_Store_Credit_Install {
 	 * @since 2.4.2
 	 */
 	public static function updated() {
-		include_once dirname( __FILE__ ) . '/admin/wc-store-credit-admin-functions.php';
-		include_once dirname( __FILE__ ) . '/admin/class-wc-store-credit-admin-notices.php';
+		include_once __DIR__ . '/admin/wc-store-credit-admin-functions.php';
+		include_once __DIR__ . '/admin/class-wc-store-credit-admin-notices.php';
 
 		self::update_db_version();
 

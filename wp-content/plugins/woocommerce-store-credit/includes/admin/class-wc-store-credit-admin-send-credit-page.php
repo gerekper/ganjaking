@@ -271,7 +271,7 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 			$fields = self::populate_form_fields_values( $fields );
 		}
 
-		include dirname( __FILE__ ) . '/views/html-admin-page-send-credit.php';
+		include __DIR__ . '/views/html-admin-page-send-credit.php';
 	}
 
 	/**
