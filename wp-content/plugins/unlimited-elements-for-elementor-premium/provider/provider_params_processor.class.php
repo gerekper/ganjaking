@@ -820,9 +820,11 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			
 			//get intro, intro from excerpt - tags not stripped
 			
-			$intro = UniteFunctionsUC::getVal($arrPost, "post_excerpt");
+			$exceprt = UniteFunctionsUC::getVal($arrPost, "post_excerpt");
+			
+			$intro = $exceprt;
 			$introFull = "";
-
+			
 			if(empty($intro)){
 				$intro = UniteFunctionsUC::getVal($arrData, "content");
 				$intro = wp_strip_all_tags($intro);
@@ -836,6 +838,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$intro = UniteFunctionsUC::truncateString($intro, 100);
 			}
 			
+			$arrData["excerpt"] = $exceprt;
 			$arrData["intro"] = $intro;			
 			$arrData["intro_full"] = $introFull;
 			
@@ -1344,7 +1347,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		if(!empty($arrMetaQuery))
 			$response["meta_query"] = $arrMetaQuery;
-						
+		
 		return($response);
 	}
 	
@@ -2814,12 +2817,22 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$args["post__in"] = $postIDs;
 		$args["ignore_sticky_posts"] = true;
-		$args["post_type"] = "any";
+		
+		$postTypes = get_post_types(array("exclude_from_search"=>false));
+		
+		//add elementor_template to any types
+		if(isset($postTypes["e-landing-page"]))
+			$postTypes["elementor_library"] = "elementor_library";
+		
+		$args["post_type"] = $postTypes;
+		
 		$args["posts_per_page"] = $postsPerPage;
+		$args["suppress_filters"] = true;
 		
 		$args["post_status"] = "publish, private";
 		
 		$args = $this->getPostListData_addOrderBy($args, $value, $name, true);
+				
 		
 		if($showDebugQuery == true){
 			dmp("Manual Selection. The Query Is:");
@@ -2832,7 +2845,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		
 		if($showDebugQuery == true && $debugType == "show_query"){
-						
+			
 			$originalQueryVars = $query->query_vars;
 			$originalQueryVars = UniteFunctionsWPUC::cleanQueryArgsForDebug($originalQueryVars);
 			
@@ -3025,24 +3038,39 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		}
 		
 		$arrData = array();
+		$arrPostIDs = array();
+		
 		foreach($arrPosts as $post){
 			
 			//protection in case that post is id
 			if(is_numeric($post))
 				$post = get_post($post);
-
+			
 			$postData = $this->getPostDataByObj($post, $arrPostAdditions, $arrImageSizes);
+			
+			$postID = UniteFunctionsUC::getVal($postData, "id");
+			
+			$arrPostIDs[] = $postID;
 			
 			$arrData[] = $postData;
 		}
 		
+		$strPostIDs = implode(",", $arrPostIDs);
+		
 		$data[$name] = $arrData;		
+		
+		//add post output id's variable
+		
+		$keyIDs = $name."_output_ids";
+		
+		if(!isset($data[$keyIDs]))
+			$data[$keyIDs] = $strPostIDs;
 		
 		// remove me
 		if(self::SHOW_DEBUG_POSTLIST_QUERIES == true){
 			
 			dmp("debug qieries inside post list");
-		
+			
 			HelperProviderUC::printDebugQueries(true);
 		}
 		
@@ -3851,8 +3879,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					
 				$postData = $this->getPostDataByObj($item);
 				
-				$arrFields = array("id","alias","link","intro","intro_full","date","date_modified","image","image_thumb","image_thumb_large");
-				
+				$arrFields = array("id","alias","link","intro","intro_full","excerpt","date","date_modified","image","image_thumb","image_thumb_large");
 				
 				foreach($arrFields as $fieldKey){
 					

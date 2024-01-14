@@ -38,6 +38,10 @@ class ThePlus_Advanced_Typography extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return ['Advanced Typography', 'Typography Widget', 'Elementor Typography', 'Custom Typography', 'Typography Options'];
+    }
  
     protected function register_controls() {
 		/*start advanced typography*/

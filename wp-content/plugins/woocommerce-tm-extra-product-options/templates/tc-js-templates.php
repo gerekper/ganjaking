@@ -105,8 +105,7 @@ if ( ! isset( $formatted_sale_price ) ) {
 		</div>
 	</div>
 </script>
-<script class="tm-hidden" type="text/template" id="tmpl-tc-floating-box-nks">
-	<# if (data.values.length) {#>
+<script class="tm-hidden" type="text/template" id="tmpl-tc-floating-box-nks"><# if (data.values.length) {#>
 	{{{ data.html_before }}}
 	<div class="tc-row tm-fb-labels">
 		<span class="tc-cell tcwidth tcwidth-25 tm-fb-title">{{{ data.option_label }}}</span>
@@ -130,10 +129,8 @@ if ( ! isset( $formatted_sale_price ) ) {
 	<# } #>
 	{{{ data.html_after }}}
 	<# }#>
-	{{{ data.totals }}}
-</script>
-<script class="tm-hidden" type="text/template" id="tmpl-tc-floating-box">
-	<# if (data.values.length) {#>
+	{{{ data.totals }}}</script>
+<script class="tm-hidden" type="text/template" id="tmpl-tc-floating-box"><# if (data.values.length) {#>
 	{{{ data.html_before }}}
 	<dl class="tm-fb">
 		<# for (var i = 0; i < data.values.length; i++) { #>
@@ -146,9 +143,7 @@ if ( ! isset( $formatted_sale_price ) ) {
 		<# } #>
 	</dl>
 	{{{ data.html_after }}}
-	<# }#>
-	{{{ data.totals }}}
-</script>
+	<# }#>{{{ data.totals }}}</script>
 <script class="tm-hidden" type="text/template" id="tmpl-tc-chars-remanining">
 	<span class="tc-chars">
 		<span class="tc-chars-remanining">{{{ data.maxlength }}}</span>

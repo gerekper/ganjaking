@@ -3,7 +3,7 @@
 // Integrate WP List Table for Master Log
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class SRP_Master_Log extends WP_List_Table {
@@ -30,20 +30,20 @@ class SRP_Master_Log extends WP_List_Table {
 								$mydata  = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d", $userobject->ID ) , ARRAY_A ) ;
 				$newdata = $this->get_user_data_for_master_log( $mydata ) ;
 
-				usort( $newdata , array( &$this , 'sort_data' ) ) ;
+				usort( $newdata , array( &$this, 'sort_data' ) ) ;
 
-				$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+				$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 				$this->items           = $newdata ;
 			}
 		} else {
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $num_rows ,
-				'per_page'    => $perPage
+				'total_items' => $num_rows,
+				'per_page'    => $perPage,
 			) ) ;
 
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 			$this->items           = $data ;
 		}
 	}
@@ -69,24 +69,22 @@ class SRP_Master_Log extends WP_List_Table {
 					$refuserid    = get_user_meta( $values[ 'refuserid' ] , 'nickname' , true ) ;
 					$nomineeid    = get_user_meta( $values[ 'nomineeid' ] , 'nickname' , true ) ;
 					$usernickname = get_user_meta( $values[ 'userid' ] , 'nickname' , true ) ;
-					$eventname    = RSPointExpiry::msg_for_log( false , true , true , $values[ 'earnedpoints' ] , $values[ 'checkpoints' ] , $values[ 'productid' ] , $values[ 'orderid' ] , $values[ 'variationid' ] , $values[ 'userid' ] , $refuserid , $values[ 'reasonindetail' ] , $values[ 'redeempoints' ] , true , $nomineeid , $usernickname , $values[ 'nomineepoints' ] ) ;
+					$eventname    = RSPointExpiry::msg_for_log( false , true , true , $values[ 'earnedpoints' ] , $values[ 'checkpoints' ] , $values[ 'productid' ] , $values[ 'orderid' ] , $values[ 'variationid' ] , $values[ 'userid' ] , $refuserid , $values[ 'reasonindetail' ] , $values[ 'redeempoints' ] , true , $nomineeid , $usernickname , $values[ 'nomineepoints' ], $values ) ;
 					$total        = ! empty( $total ) ? $total : $values[ 'redeempoints' ] ;
-				} else {
-					if ( '' != get_option( 'rsoveralllog' ) ) {
+				} elseif ( '' != get_option( 'rsoveralllog' ) ) {
 						$eventname              = $values[ 'eventname' ] ;
 						$values[ 'earneddate' ] = $values[ 'date' ] ;
-					}
 				}
 
 				$data[] = array(
-					'sno'         => $i ,
-					'user_name'   => $getuserbyid->user_login ,
-					'points'      => round_off_type( $total ) ,
-					'event'       => '' == $eventname ? '-' : $eventname ,
-					'date'        => date_display_format( $values[ 'earneddate' ] ) ,
-					'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
+					'sno'         => $i,
+					'user_name'   => $getuserbyid->user_login,
+					'points'      => $total,
+					'event'       => '' == $eventname ? '-' : $eventname,
+					'date'        => date_display_format( $values[ 'earneddate' ] ),
+					'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-',
 						) ;
-				$i ++ ;
+				$i++ ;
 			}
 		}
 		return $data ;
@@ -94,12 +92,12 @@ class SRP_Master_Log extends WP_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'sno'         => __( 'S.No' , 'rewardsystem' ) ,
-			'user_name'   => __( 'Username' , 'rewardsystem' ) ,
-			'points'      => __( 'Points' , 'rewardsystem' ) ,
-			'event'       => __( 'Event' , 'rewardsystem' ) ,
-			'date'        => __( 'Earned/Redeemed Date' , 'rewardsystem' ) ,
-			'expiry_date' => __( 'Expiry Date' , 'rewardsystem' ) ,
+			'sno'         => __( 'S.No' , 'rewardsystem' ),
+			'user_name'   => __( 'Username' , 'rewardsystem' ),
+			'points'      => __( 'Points' , 'rewardsystem' ),
+			'event'       => __( 'Event' , 'rewardsystem' ),
+			'date'        => __( 'Earned/Redeemed Date' , 'rewardsystem' ),
+			'expiry_date' => __( 'Expiry Date' , 'rewardsystem' ),
 				) ;
 
 		return $columns ;
@@ -111,10 +109,10 @@ class SRP_Master_Log extends WP_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			'points'      => array( 'points' , false ) ,
-			'sno'         => array( 'sno' , false ) ,
-			'date'        => array( 'date' , false ) ,
-			'expiry_date' => array( 'expiry_date' , false ) ,
+			'points'      => array( 'points', false ),
+			'sno'         => array( 'sno', false ),
+			'date'        => array( 'date', false ),
+			'expiry_date' => array( 'expiry_date', false ),
 				) ;
 	}
 
@@ -143,26 +141,24 @@ class SRP_Master_Log extends WP_List_Table {
 					$refuserid    = get_user_meta( $values[ 'refuserid' ] , 'nickname' , true ) ;
 					$nomineeid    = get_user_meta( $values[ 'nomineeid' ] , 'nickname' , true ) ;
 					$usernickname = get_user_meta( $values[ 'userid' ] , 'nickname' , true ) ;
-					$eventname    = RSPointExpiry::msg_for_log( false , true , true , $values[ 'earnedpoints' ] , $values[ 'checkpoints' ] , $values[ 'productid' ] , $values[ 'orderid' ] , $values[ 'variationid' ] , $values[ 'userid' ] , $refuserid , $values[ 'reasonindetail' ] , $values[ 'redeempoints' ] , true , $nomineeid , $usernickname , $values[ 'nomineepoints' ] ) ;
+					$eventname    = RSPointExpiry::msg_for_log( false , true , true , $values[ 'earnedpoints' ] , $values[ 'checkpoints' ] , $values[ 'productid' ] , $values[ 'orderid' ] , $values[ 'variationid' ] , $values[ 'userid' ] , $refuserid , $values[ 'reasonindetail' ] , $values[ 'redeempoints' ] , true , $nomineeid , $usernickname , $values[ 'nomineepoints' ], $values ) ;
 					$total        = ! empty( $values[ 'redeempoints' ] ) ? $values[ 'redeempoints' ] : $total ;
-				} else {
-					if ( '' != get_option( 'rsoveralllog' ) ) {
+				} elseif ( '' != get_option( 'rsoveralllog' ) ) {
 						$eventname              = $values[ 'eventname' ] ;
 						$values[ 'earneddate' ] = $values[ 'date' ] ;
-					}
 				}
 
 				if ( !empty($getuserbyid) ) {
 					$data[] = array(
-						'sno'         => $i ,
-						'user_name'   => $getuserbyid->user_login ,
-						'points'      => round_off_type( $total ) ,
-						'event'       => '' == $eventname ? '-' : $eventname ,
-						'date'        => date_display_format( $values[ 'earneddate' ] ) ,
-						'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
+						'sno'         => $i,
+						'user_name'   => $getuserbyid->user_login,
+						'points'      => $total,
+						'event'       => '' == $eventname ? '-' : $eventname,
+						'date'        => date_display_format( $values[ 'earneddate' ] ),
+						'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-',
 							) ;
 				}
-				$i ++ ;
+				$i++ ;
 			}
 		}
 		return $data ;
@@ -207,5 +203,4 @@ class SRP_Master_Log extends WP_List_Table {
 
 		return -$result ;
 	}
-
 }

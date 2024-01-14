@@ -8,12 +8,12 @@ if ( ! class_exists( 'RSWPMLSupport' ) ) {
 	class RSWPMLSupport {
 
 		public static function init() {
-			add_action( 'wp_head' , array( __CLASS__ , 'register_user_lang' ) ) ;
-			add_action( 'admin_init' , array( __CLASS__ , 'register_template_for_wpml' ) ) ;
+			add_action( 'wp_head' , array( __CLASS__, 'register_user_lang' ) ) ;
+			add_action( 'admin_init' , array( __CLASS__, 'register_template_for_wpml' ) ) ;
 		}
 
 		public static function register_user_lang() {
-			$Language = function_exists( 'icl_register_string' ) ? ( isset( $_SESSION[ 'wpml_globalcart_language' ] ) ? $_SESSION[ 'wpml_globalcart_language' ] : ICL_LANGUAGE_CODE ) : 'en' ;
+			$Language = function_exists( 'icl_register_string' ) ? ( isset( $_SESSION[ 'wpml_globalcart_language' ] ) ? wc_clean(wp_unslash($_SESSION[ 'wpml_globalcart_language' ])) : ICL_LANGUAGE_CODE ) : 'en' ;
 			update_user_meta( get_current_user_id() , 'rs_wpml_lang' , $Language ) ;
 		}
 
@@ -59,7 +59,6 @@ if ( ! class_exists( 'RSWPMLSupport' ) ) {
 			}
 			return $translated ;
 		}
-
 	}
 
 	RSWPMLSupport::init() ;

@@ -5035,14 +5035,6 @@ msgstr ""
 msgid "Check to strip the html tags from emails"
 msgstr ""
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-msgid "Hide uploaded file path"
-msgstr ""
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr ""
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 msgid "Legacy meta data"
 msgstr ""

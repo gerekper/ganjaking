@@ -39,9 +39,10 @@ class ThePlus_Advanced_Buttons extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+	
 	public function get_keywords() {
-		return ['buttons', 'advance buttons', 'call to action buttons', 'CTA buttons', 'download buttons', 'creative buttons'];
-	}
+        return ['Advanced Buttons', 'Button Widget', 'Custom Buttons', 'Stylish Buttons', 'Creative Buttons', 'Elementor Buttons', 'Button', 'Button Addon', 'Button Plugin', 'Button Element'];
+    }
 	
     protected function register_controls() {
 		/*adv button section start*/

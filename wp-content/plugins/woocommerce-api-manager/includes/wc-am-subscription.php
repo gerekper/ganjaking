@@ -15,8 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Subscription {
 
-	private $api_resource_table   = '';
-	private $api_activation_table = '';
+	private string $api_resource_table   = '';
 
 	/**
 	 * @var null
@@ -39,7 +38,6 @@ class WC_AM_Subscription {
 	private function __construct() {
 		if ( WCAM()->get_wc_subs_exist() ) {
 			$this->api_resource_table   = WC_AM_USER()->get_api_resource_table_name();
-			$this->api_activation_table = WC_AM_USER()->get_api_activation_table_name();
 
 			/**
 			 * Passes $post_id.
@@ -245,9 +243,9 @@ class WC_AM_Subscription {
 	/**
 	 * Returns a parent Order ID for renewal, resubscribe, and/or switch orders of a subscription.
 	 *
+	 * @see        $this->get_parent_id()
 	 * @deprecated 2.5.5 Due to HPOS. Backup for older versions of Subscriptions before WC 7.4.
 	 *
-	 * @see        $this->get_parent_id()
 	 * @since      1.5
 	 *
 	 * @param int $post_id Subscription order ID.
@@ -951,11 +949,11 @@ class WC_AM_Subscription {
 		$product = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $product_id );
 
 		if ( is_object( $product ) && $product->is_type( array(
-			                                                 'subscription',
-			                                                 'simple-subscription',
-			                                                 'variable-subscription',
-			                                                 'subscription_variation'
-		                                                 ) ) ) {
+				'subscription',
+				'simple-subscription',
+				'variable-subscription',
+				'subscription_variation'
+			) ) ) {
 			return true;
 		}
 
@@ -1004,11 +1002,11 @@ class WC_AM_Subscription {
 		$subscription = $this->get_subscription_object( $subscription );
 
 		return is_object( $subscription ) && $subscription->has_status( array(
-			                                                                'cancelled',
-			                                                                'expired',
-			                                                                'trash',
-			                                                                'switched'
-		                                                                ) );
+				'cancelled',
+				'expired',
+				'trash',
+				'switched'
+			) );
 	}
 
 	/**

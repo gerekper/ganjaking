@@ -743,16 +743,12 @@ function theplus_more_post_ajax(){
 	$display_theplus_quickview = isset($load_attr["display_theplus_quickview"]) ? wp_unslash($load_attr["display_theplus_quickview"]) : '';
 	
 	$desktop_class=$tablet_class=$mobile_class='';
-	if($layout!='carousel' && $layout!='metro'){
-		if($desktop_column=='5'){
-			$desktop_class='theplus-col-5';
-		}else{
-			$desktop_class='tp-col-lg-'.esc_attr($desktop_column);
-		}
-		
-		$tablet_class='tp-col-md-'.esc_attr($tablet_column);
-		$mobile_class='tp-col-sm-'.esc_attr($mobile_column);
-		$mobile_class .=' tp-col-'.esc_attr($mobile_column);
+
+	if ( 'carousel' !== $layout && 'metro' !== $layout ) {
+		$desktop_class = 'tp-col-lg-' . esc_attr( $desktop_column );
+		$tablet_class  = 'tp-col-md-' . esc_attr( $tablet_column );
+		$mobile_class  = 'tp-col-sm-' . esc_attr( $mobile_column );
+		$mobile_class .= ' tp-col-' . esc_attr( $mobile_column );
 	}
 
 	$clientContentFrom="";
@@ -1563,6 +1559,34 @@ function theplus_filter_post(){
 			$args=[];
 			if (has_filter($CustonQuery) ){
 				$args = apply_filters($CustonQuery, $args);
+
+				if( !empty($args['post_type']) ){
+					$post_type = $args['post_type'];
+				}
+				
+				if( !empty($args['posts_per_page']) ){
+					$DisplayPost = $args['posts_per_page'];
+				}else{
+					$args['posts_per_page'] = $DisplayPost;
+				}
+
+				if( !empty($args['offset']) ){
+					$offset = $args['offset'];
+				}else{
+					$args['offset'] = $offset;
+				}
+
+				if( !empty($args['orderby']) ){
+					$order_by = $args['orderby'];
+				}else{
+					$args['orderby'] = $order_by;
+				}
+
+				if( !empty($args['order']) ){
+					$post_order = $args['order'];
+				}else{
+					$args['order'] = $post_order;
+				}
 			}
 		}else{
 			if($widgetName == 'dynamiclisting' || $widgetName == 'products'){
@@ -1582,7 +1606,6 @@ function theplus_filter_post(){
 		}
 
 		if(!empty($includePosts)){
-			
 			$args['post__in'] = explode(',',$includePosts);
 		}
 
@@ -1601,8 +1624,9 @@ function theplus_filter_post(){
 					$NameValue = (!empty($val) && !empty($val['name'])) ? $val['name'] : '';
 					$keyEnable=$WooSortEnable=0;
 					$PubliStatus = 'publish';
-
+					
 					if($TypeValue == 'taxonomy'){
+						
 						if($FieldValue == 'rating' && $post_type == 'product' && !empty($DataValue)){
 							$RatingQ = $wpdb->get_results( $wpdb->prepare( "SELECT {$wpdb->comments}.comment_post_ID FROM {$wpdb->commentmeta}, {$wpdb->comments} WHERE {$wpdb->commentmeta}.meta_key='rating' AND {$wpdb->commentmeta}.meta_value = %d AND {$wpdb->comments}.comment_type='review' AND {$wpdb->commentmeta}.comment_id = {$wpdb->comments}.comment_ID", $DataValue ) );
 
@@ -1618,7 +1642,7 @@ function theplus_filter_post(){
 						}else if($FieldValue == 'search' && strlen($DataValue) > 1){
 							$Generic = !empty($val) ? $val['Generic'] : [];
 							$AllData=$GTitle=$Gexcerpt=$Gcontent=$Gname=$PCat=$PTag=[];
-
+							
 							if( !empty($Generic['GFEnable']) ){
 								$Result = ($Generic['GFSType'] == 'fullMatch') ? "{$wpdb->esc_like($DataValue)}%" : "%{$wpdb->esc_like($DataValue)}%";
 								
@@ -2158,11 +2182,17 @@ function theplus_filter_post(){
 							}
 						}
 					}else if( !empty($category) && $post_type == 'product' ){
-						$attr_tax[] = array(
-							'taxonomy' => 'product_cat',
-							'field' => 'slug',
-							'terms' => explode(',', $category),
-						);
+						if( !empty($is_archivePage) ){
+							/**
+							 * need to add code when archve page is true and Only Active Archive Category option is on
+							 */
+						}else{
+							$attr_tax[] = array(
+								'taxonomy' => 'product_cat',
+								'field' => 'slug',
+								'terms' => explode(',', $category),
+							);
+						}	
 					}else if( !empty($category)  ){
 						if( !empty($texonomy_category) ){
 							$attr_tax[] = array(
@@ -2211,6 +2241,7 @@ function theplus_filter_post(){
             $result[$key]['options'] = $Options;
 		}else{
 			$totalcount='';
+
 			ob_start();
 				$loop = new WP_Query($args);
 				$totalcount = $loop->found_posts;

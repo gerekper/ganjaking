@@ -93,7 +93,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * @return void
 	 */
 	public function filter_cost() {
-		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) && 'yes' !== THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) {
+		if ( 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_add_options_display_cost' ) ) {
 			if ( ! defined( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT' ) ) {
 				define( 'WC_EPO_BOOKINGS_CALCULATED_BOOKING_COST_SUCCESS_OUTPUT', true );
 			}
@@ -158,13 +158,13 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			$booking_has_person_cost_multiplier = is_callable( [ $product, 'get_has_person_cost_multiplier' ] ) && $product->get_has_person_cost_multiplier() ? 1 : 0;
 			$booking_has_person_qty_multiplier  = is_callable( [ $product, 'get_has_person_qty_multiplier' ] ) && $product->get_has_person_qty_multiplier() ? 1 : 0;
 
-			$tm_epo_bookings_person = isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] : '';
-			$tm_epo_bookings_block  = isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] : '';
+			$tm_epo_bookings_person = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' );
+			$tm_epo_bookings_block  = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' );
 
 			if ( $tm_epo_bookings_person ) {
-				if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' ) ) {
 					$tm_epo_bookings_person = 1;
-				} elseif ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'own' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) {
+				} elseif ( 'own' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' ) ) {
 					$tm_epo_bookings_person = $booking_has_person_cost_multiplier;
 				} else {
 					$tm_epo_bookings_person = 0;
@@ -173,9 +173,9 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 				$tm_epo_bookings_person = 0;
 			}
 			if ( $tm_epo_bookings_block ) {
-				if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' ) ) {
 					$tm_epo_bookings_block = 1;
-				} elseif ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'own' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) {
+				} elseif ( 'own' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' ) ) {
 					$tm_epo_bookings_block = $booking_has_person_qty_multiplier;
 				} else {
 					$tm_epo_bookings_block = 0;
@@ -190,7 +190,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 				'booking_block_qty_multiplier'         => $booking_has_person_qty_multiplier,
 				'wc_booking_person_qty_multiplier'     => $tm_epo_bookings_person,
 				'wc_booking_block_qty_multiplier'      => $tm_epo_bookings_block,
-				'wc_bookings_add_options_display_cost' => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_add_options_display_cost'] : '',
+				'wc_bookings_add_options_display_cost' => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_add_options_display_cost' ),
 			];
 			wp_localize_script( 'themecomplete-comp-bookings', 'TMEPOBOOKINGSJS', $args );
 		}
@@ -388,8 +388,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * @since 1.0
 	 */
 	public function wc_epo_cart_options_prices_before( $price, $cart_item ) {
-		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' ) ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' ) ) ? 1 : 0;
 
 		if (
 			( ! $wc_booking_person_qty_multiplier && ! $wc_booking_block_qty_multiplier )
@@ -452,8 +452,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		$extra_price  = 0;
 		$booking_data = function_exists( 'wc_bookings_get_posted_data' ) ? wc_bookings_get_posted_data( $posted, $product ) : [];
 
-		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' ) ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' ) ) ? 1 : 0;
 		if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 			foreach ( $epos['tmcartepo'] as $key => $value ) {
 				if ( ! empty( $value['price'] ) ) {
@@ -503,8 +503,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		$extra_price  = 0;
 		$booking_data = $booking_form->get_posted_data( $posted );
 
-		$wc_booking_person_qty_multiplier = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_person'] ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_bookings_block'] ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_person' ) ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_bookings_block' ) ) ? 1 : 0;
 		if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 			foreach ( $epos['tmcartepo'] as $key => $value ) {
 				if ( ! empty( $value['price'] ) ) {

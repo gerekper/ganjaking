@@ -89,7 +89,7 @@ class SubscriberStatisticsRepository extends Repository {
         ->andWhere('stats.sentAt >= :dateTime')
         ->setParameter('dateTime', $startTime);
     }
-    return $queryBuilder
+    return (int)$queryBuilder
       ->getQuery()
       ->getSingleScalarResult();
   }

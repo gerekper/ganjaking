@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API Resource manager.
- * Version: 3.1.1
+ * Version: 3.2.1
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -13,10 +13,10 @@
  * Domain Path: /i18n/languages/
  * Requires WP: 6.0
  * Requires at least: 6.0
- * Tested up to: 6.3.1
+ * Tested up to: 6.4.2
  * Requires PHP: 7.4
  * WC requires at least: 7.4
- * WC tested up to: 8.0.3
+ * WC tested up to: 8.4
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
  *
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
@@ -35,7 +35,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WC_AM_VERSION' ) ) {
-	define( 'WC_AM_VERSION', '3.1.1' );
+	define( 'WC_AM_VERSION', '3.2.1' );
 }
 
 // Minimum WooCommerce version required.
@@ -111,16 +111,16 @@ if ( WooCommerce_API_Manager::is_wc_subscriptions_active_static() ) {
 
 final class WooCommerce_API_Manager {
 
-	private $db_cache                                = false;
-	private $db_cache_expires                        = 5;
-	private $api_cache_expires                       = 5;
-	private $wc_subs_exist                           = false;
-	private $file;
-	private $plugin_file;
-	private $grant_access_after_payment              = false;
-	private $unlimited_activation_limit              = 0;
-	private $wc_hpos_active                          = false;
-	private $is_wc_custom_order_tables_usage_enabled = false;
+	private bool $db_cache         = false;
+	private int  $db_cache_expires = 5;
+	private int  $api_cache_expires = 5;
+	private bool   $wc_subs_exist     = false;
+	private string $file;
+	private string $plugin_file;
+	private bool  $grant_access_after_payment = false;
+	private int  $unlimited_activation_limit              = 0;
+	private bool $wc_hpos_active                          = false;
+	private bool $is_wc_custom_order_tables_usage_enabled = false;
 
 	/**
 	 * @var null The single instance of the class

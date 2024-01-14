@@ -6102,18 +6102,6 @@ msgstr "Verwijder html uit e-mails"
 msgid "Check to strip the html tags from emails"
 msgstr "Vink aan om de html-tags uit e-mails te verwijderen"
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-#, fuzzy
-msgid "Hide uploaded file path"
-msgstr "Geüpload bestandspad verbergen"
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-#, fuzzy
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr ""
-"Vink deze optie aan om het geüploade bestandspad te verbergen voor "
-"gebruikers (in de Volgorde)."
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 #, fuzzy
 msgid "Legacy meta data"

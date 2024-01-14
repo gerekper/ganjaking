@@ -14,14 +14,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_User {
 
-	private $api_resource_table          = 'wc_am_api_resource';
-	private $api_activation_table        = 'wc_am_api_activation';
-	private $associated_api_key_table    = 'wc_am_associated_api_key';
-	private $secure_hash_table           = 'wc_am_secure_hash';
-	private $grace_period_table          = 'wc_am_grace_period';
-	private $legacy_product_id_table     = 'wc_am_legacy_product_id';
-	private $master_api_key_meta_key     = 'wc_am_master_api_key';
-	private $master_api_key_status       = 'wc_am_master_api_key_status';
+	private string $api_resource_table       = 'wc_am_api_resource';
+	private string $api_activation_table     = 'wc_am_api_activation';
+	private string $associated_api_key_table = 'wc_am_associated_api_key';
+	private string $secure_hash_table       = 'wc_am_secure_hash';
+	private string $grace_period_table      = 'wc_am_grace_period';
+	private string $legacy_product_id_table = 'wc_am_legacy_product_id';
+	private string $master_api_key_meta_key     = 'wc_am_master_api_key';
+	private string $master_api_key_status       = 'wc_am_master_api_key_status';
 	private $hide_product_order_api_keys = false;
 	private $hide_master_api_key         = false;
 
@@ -277,7 +277,6 @@ class WC_AM_User {
 
 		// Delete all activations when the Master API Key is changed.
 		if ( $delete_all_activations ) {
-			WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_user_id( $user_id );
 			WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_resource_activation_ids_by_user_id( $user_id );
 		}
 

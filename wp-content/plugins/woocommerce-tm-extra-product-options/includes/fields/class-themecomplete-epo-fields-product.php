@@ -371,7 +371,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 
 		// class label.
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 
@@ -486,7 +486,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			$selected_value = '';
 			if ( isset( $args['posted_name'] ) ) {
 				$name = $args['posted_name'];
-				if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] ] ) ) {
+				if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] ] ) ) {
 					if ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) {
 						$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ];
 					} else {
@@ -498,7 +498,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					} elseif ( isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 						$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 					}
-				} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
+				} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) ) {
 					$selected_value = -1;
 				}
 			}
@@ -523,7 +523,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 								isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action']
 							)
 						) ||
-						'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add
+						'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' )
 					) ) {
 					if ( $is_default_value ) {
 						$selected = true;
@@ -531,7 +531,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 				}
 			} else {
 				if ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) {
-					if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ] ) ) {
+					if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ] ) ) {
 						$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ];
 					} elseif ( isset( $_REQUEST[ $name ] ) && isset( $_REQUEST[ $name . '_' . $_default_value_counter ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						$selected_value = wp_unslash( $_REQUEST[ $name . '_' . $_default_value_counter ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -688,9 +688,9 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		$labelclass       = '';
 		$labelclass_start = '';
 		$labelclass_end   = '';
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_css_styles ) {
-			$labelclass       = THEMECOMPLETE_EPO()->tm_epo_css_styles_style;
-			$labelclass_start = THEMECOMPLETE_EPO()->tm_epo_css_styles_style;
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles' ) ) {
+			$labelclass       = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles_style' );
+			$labelclass_start = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles_style' );
 			$labelclass_end   = true;
 		}
 

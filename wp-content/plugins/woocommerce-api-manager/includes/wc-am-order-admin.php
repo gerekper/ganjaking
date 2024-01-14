@@ -178,9 +178,6 @@ class WC_AM_Order_Admin {
 							// Refreshing cache here will also delete API cache for activations about to be deleted.
 							WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
 
-							// Delete excess API Key activations by activation resource ID.
-							WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
-
 							// This prevents Subscription orders that were switched away from, from displaying API Resources meant for the new Switched order.
 							if ( ( $order->get_id() == $resource->order_id ) || $order_contains_switch ) {
 								include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-resources.php' );
@@ -387,26 +384,28 @@ class WC_AM_Order_Admin {
 
 		$this_post = wc_clean( $_POST );
 
-		// Delete activation.
-		WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $this_post[ 'instance' ] );
+        if ( is_array( $this_post ) ) {
+	        // Delete activation.
+	        WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $this_post[ 'instance' ] );
 
-		/**
-		 * Delete cache.
-		 *
-		 * @since 2.1.7
-		 */
-		$admin_resources = array(
-			'instance'      => $this_post[ 'instance' ],
-			'order_id'      => $this_post[ 'order_id' ],
-			'sub_parent_id' => $this_post[ 'sub_parent_id' ],
-			'api_key'       => $this_post[ 'api_key' ],
-			'product_id'    => $this_post[ 'product_id' ],
-			'user_id'       => $this_post[ 'user_id' ]
-		);
+	        /**
+	         * Delete cache.
+	         *
+	         * @since 2.1.7
+	         */
+	        $admin_resources = array(
+		        'instance'      => $this_post[ 'instance' ],
+		        'order_id'      => $this_post[ 'order_id' ],
+		        'sub_parent_id' => $this_post[ 'sub_parent_id' ],
+		        'api_key'       => $this_post[ 'api_key' ],
+		        'product_id'    => $this_post[ 'product_id' ],
+		        'user_id'       => $this_post[ 'user_id' ]
+	        );
 
-		WC_AM_SMART_CACHE()->delete_cache( wc_clean( array( 'admin_resources' => $admin_resources ) ), true );
+	        WC_AM_SMART_CACHE()->delete_cache( wc_clean( array( 'admin_resources' => $admin_resources ) ), true );
 
-		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( (int) $this_post[ 'order_id' ] );
+	        WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( (int) $this_post[ 'order_id' ] );
+        }
 
 		wp_die();
 	}
@@ -426,7 +425,7 @@ class WC_AM_Order_Admin {
 
 		$this_post = wc_clean( $_POST );
 
-		if ( isset( $this_post[ 'activations_purchased_total' ] ) && isset( $this_post[ 'product_id' ] ) && isset( $this_post[ 'product_order_api_key' ] ) && isset( $this_post[ 'current_activations_purchased_total' ] ) ) {
+		if ( is_array( $this_post ) && isset( $this_post[ 'activations_purchased_total' ] ) && isset( $this_post[ 'product_id' ] ) && isset( $this_post[ 'product_order_api_key' ] ) && isset( $this_post[ 'current_activations_purchased_total' ] ) ) {
 			$product_order_api_key               = $this_post[ 'product_order_api_key' ];
 			$activations_purchased_total         = $this_post[ 'activations_purchased_total' ];
 			$current_activations_purchased_total = $this_post[ 'current_activations_purchased_total' ];

@@ -5506,16 +5506,6 @@ msgstr "Filtrer le html des emails"
 msgid "Check to strip the html tags from emails"
 msgstr "Cocher pour filtrer les tags html des emails"
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-msgid "Hide uploaded file path"
-msgstr "Cacher le chemin du fichier chargé"
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr ""
-"Cochez pour masquer le chemin d’accès du fichier téléchargé par les "
-"utilisateurs (dans l’ordre)."
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 msgid "Legacy meta data"
 msgstr "Métadonnées héritées"

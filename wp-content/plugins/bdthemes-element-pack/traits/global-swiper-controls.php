@@ -1822,20 +1822,7 @@ trait Global_Swiper_Controls {
 								'modifier'     => ("yes" == $settings["coverflow_toggle"]) ? $settings["coverflow_modifier"]["size"] : 1,
 								'slideShadows' => true,
 							],
-
-
-							// "effect" => 'creative',
-							// "creativeEffect" => [
-							// 	"prev" => [
-							// 	  // will set `translateZ(-400px)` on previous slides
-							// 	  "translate" => [0, 0, -400],
-							// 	],
-							// 	"next" => [
-							// 	  // will set `"translate"X(100%)` on next slides
-							// 	  "translate" => ['100%', 0, 0],
-							// 	],
-							// ],
-
+							"watchSlidesProgress" => true,
 						]))
 					]
 				]

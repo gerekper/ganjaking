@@ -17,26 +17,74 @@ use Elementor\Group_Control_Box_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+/**
+ * Exit if accessed directly.
+ * */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Class ThePlus_Button
+ */
 class ThePlus_Button extends Widget_Base {
-		
+	
+	/**
+	 * Get Widget Name.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function get_name() {
 		return 'tp-button';
 	}
 
+	/**
+	 * Get Widget Title.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_title() {
         return esc_html__('TP Button', 'theplus');
     }
 
+	/**
+	 * Get Widget Icon.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_icon() {
         return 'fa fa-link theplus_backend_icon';
     }
 
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_categories() {
         return array('plus-essential');
     }
+
+	/**
+	 * Get Widget keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_keywords() {
+        return [ 'Buttons', 'Button widget', 'Elementor buttons', ' Elementor button widget', 'Button elementor addon', 'Elementor plus addon buttons', 'Elementor plus buttons', 'Button', 'Button elementor element', 'Button elementor module', 'Elementor button module', 'Elementor button element', 'Button elementor extension', 'Elementor button extension', 'Button elementor plugin', 'Elementor button plugin'];
+    }
 	
+	/**
+	 * Register controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function register_controls() {
 		
 		$this->start_controls_section(

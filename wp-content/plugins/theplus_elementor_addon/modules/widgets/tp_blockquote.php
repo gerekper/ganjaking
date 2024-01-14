@@ -1,10 +1,13 @@
 <?php 
-/*
-Widget Name: Blockquote
-Description: Author Quote Style.
-Author: Theplus
-Author URI: https://posimyth.com
-*/
+/**
+ * Widget Name: Blockquote
+ * Description: Author Quote Style.
+ * Author: Theplus
+ * Author URI: https://posimyth.com
+ *
+ * @package ThePlus
+ */
+
 namespace TheplusAddons\Widgets;
 
 use Elementor\Widget_Base;
@@ -18,26 +21,74 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+/**
+ * Exit if accessed directly.
+ * */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Class ThePlus_Block_Quote
+ */
 class ThePlus_Block_Quote extends Widget_Base {
-		
+	
+	/**
+	 * Get Widget Name.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function get_name() {
 		return 'tp-blockquote';
 	}
 
+	/**
+	 * Get Widget Title.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_title() {
         return esc_html__('Blockquote', 'theplus');
     }
 
+	/**
+	 * Get Widget Icon.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_icon() {
         return 'fa fa-quote-left theplus_backend_icon';
     }
 
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_categories() {
         return array('plus-essential');
     }
 
+	/**
+	 * Get Widget keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_keywords() {
+        return [ 'Quotes', 'Quote box', 'Quote widget', 'Testimonials', 'Testimonial box', 'Testimonial widget', 'Customer reviews', 'Review box', 'Review widget', 'Feedback box', 'Feedback widget', 'Comment box', 'Comment widget', 'Opinion box', 'Opinion widget', 'Recommendation box', 'Recommendation widget', 'Rating box', 'Rating box' ];
+    }
+
+	/**
+	 * Register controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function register_controls() {
 		
 		$this->start_controls_section(

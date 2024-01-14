@@ -65,7 +65,9 @@ class Bounces {
     $countQuery = $this->getBouncesQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $count = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
+      /** @var int $result */
+      $result = $this->entityManager->getConnection()->executeQuery($query)->fetchOne();
+      $count = intval($result);
 
       $query = $this->getBouncesQuery($definition);
       $query .= " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";

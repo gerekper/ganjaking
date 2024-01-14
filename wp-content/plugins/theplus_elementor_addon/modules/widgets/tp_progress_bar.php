@@ -40,8 +40,8 @@ class ThePlus_Progress_Bar extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return [ 'pie chart', 'progress bar', 'chart'];
-	}
+        return [ 'Pie Chart', 'Chart', 'Graph', 'Data Visualization', 'Circular Chart', 'Percentage Chart', 'Statistics Chart', 'Progress Bar', 'Progress Indicator', 'Progress Tracker', 'Progress Meter', 'Progress Graph', 'Progress Chart', 'Progress Status' ];
+    }
 
     protected function register_controls() {
 		

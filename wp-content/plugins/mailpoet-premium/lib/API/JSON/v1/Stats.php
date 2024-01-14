@@ -75,9 +75,13 @@ class Stats extends APIEndpoint {
         ]
       );
     }
+
+    $allowAllNewsletterTypes = isset($data['accept']) && strtolower($data['accept']) === 'all';
+    $isNewsletterSent = $this->isNewsletterSent($newsletter);
+
     $statistics = $this->newsletterStatisticsRepository->getStatistics($newsletter);
 
-    if (!$this->isNewsletterSent($newsletter)) {
+    if (!$allowAllNewsletterTypes && !$isNewsletterSent) {
       return $this->errorResponse(
         [
           APIError::NOT_FOUND => __('This newsletter is not sent yet.', 'mailpoet-premium'),
@@ -85,16 +89,16 @@ class Stats extends APIEndpoint {
       );
     }
 
-    $clickedLinks = $this->statisticsClicksRepository->getClickedLinks($newsletter);
+    $clickedLinks = $isNewsletterSent ? $this->statisticsClicksRepository->getClickedLinks($newsletter) : [];
 
-    $previewUrl = $this->newsletterUrl->getViewInBrowserUrl($newsletter);
+    $clickedLinksWithAggregatedUnsubscribes = $isNewsletterSent ? $this->getClickedLinksWithAggregatedUnsubscribes($clickedLinks) : [];
 
     return $this->successResponse(
       $this->statsResponseBuilder->build(
         $newsletter,
         $statistics,
-        $this->getClickedLinksWithAggregatedUnsubscribes($clickedLinks),
-        $previewUrl
+        $clickedLinksWithAggregatedUnsubscribes,
+        $this->newsletterUrl
       )
     );
   }

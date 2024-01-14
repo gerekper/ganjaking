@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.7.2
+ * Version: 5.7.5
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 8.3
+ * WC tested up to: 8.4
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -206,6 +206,11 @@ class WooCommerce_Anti_Fraud {
 		add_action( 'wp_ajax_check_blacklist_whitelist', array( $this, 'check_blacklist_whitelist' ) );
 		add_action( 'wp_ajax_nopriv_check_blacklist_whitelist', array( $this, 'check_blacklist_whitelist' ) );
 
+		//Ajax for maxmind & trustswiftly
+
+		add_action('wp_ajax_dismiss_maxmind_alert', array( $this, 'dismiss_maxmind_alert_callback') );
+		add_action('wp_ajax_dismiss_trustswiftly_alert', array( $this, 'dismiss_trustswiftly_alert_callback') );
+
 		// For MaxMind Device Tracking Script
 		add_action( 'admin_head', array( $this, 'get_device_tracking_script' ), 100, 100 );
 		add_action( 'wp_head', array( $this, 'get_device_tracking_script' ), 100, 100 );
@@ -253,6 +258,48 @@ class WooCommerce_Anti_Fraud {
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'wh_pre_paymentcall' ), 10, 2 );
 		add_action( 'woocommerce_after_checkout_validation', array( $this, 'max_order_attempt_between_timespan' ), 10, 2 );
 		add_action('init', array($this, 'update_blacklist_ips_option'), 999);
+	}
+
+
+	/*Callback function to dismiss the MaxMind alert.*/
+	public function dismiss_maxmind_alert_callback() { 
+
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			return false;
+		}
+		$task = isset($_POST['task']) ? sanitize_text_field($_POST['task']) : '';
+
+		if ('maxmind-alert-dismissed' === $task ) {
+			// Add user meta
+			$user_id = get_current_user_id();
+			$meta_key = 'opmc-antifraud-maxmind-alert';
+			$meta_value = 'yes';
+			update_user_meta($user_id, $meta_key, $meta_value);
+			
+		}
+
+		wp_die();
+	}
+
+	/* Callback function to dismiss the alert trustswiftly alert.*/
+	public function dismiss_trustswiftly_alert_callback() { 
+
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			return false;
+		}
+
+		$trustswiftly = isset($_POST['trustswiftly']) ? sanitize_text_field($_POST['trustswiftly']) : '';
+
+		if ('trustswiftly-alert-dismissed' === $trustswiftly) {
+			// Add user meta
+			$user_id = get_current_user_id();
+			$meta_key = 'opmc-antifraud-trustswiftly-alert';
+			$meta_value = 'yes';
+			update_user_meta($user_id, $meta_key, $meta_value);
+			
+		}
+
+		wp_die();
 	}
 
 	/* Related to Wildcard email */
@@ -1903,6 +1950,17 @@ class WooCommerce_Anti_Fraud {
 			}
 		}
 		_set_cron_array( $crons );
+		
+		
+		$maxmind_alert_users = get_users( array( 'meta_key' => 'opmc-antifraud-maxmind-alert' ) );
+		foreach ( $maxmind_alert_users as $maxmind_user ) {
+			delete_user_meta($maxmind_user->ID, 'opmc-antifraud-maxmind-alert');
+		}
+		
+		$trustswiftly_alert_users = get_users( array( 'meta_key' => 'opmc-antifraud-trustswiftly-alert' ) );
+		foreach ( $trustswiftly_alert_users as $trustswiftly_user ) {
+			delete_user_meta($trustswiftly_user->ID, 'opmc-antifraud-trustswiftly-alert');
+		}
 	}
 
 	/**
@@ -2267,6 +2325,21 @@ class WooCommerce_Anti_Fraud {
 
 	// TO DO
 	public function admin_scripts() {
+
+		$hposSettingsEnabled = get_option('woocommerce_custom_orders_table_enabled', true);
+		
+		if ('yes' === $hposSettingsEnabled ) {
+			
+			wp_enqueue_style('wc_af_edit_shop_order_css', plugins_url( 'assets/css/edit-shop-order.css', __FILE__), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
+			wp_enqueue_style(
+						'wc_af_post_shop_order_css',
+						plugins_url( '/assets/css/post-shop-order.css', __FILE__),
+						array(),
+						WOOCOMMERCE_ANTI_FRAUD_VERSION);
+			wp_enqueue_script( 'knob' );
+			wp_enqueue_script( 'edit' );
+		}
+			
 		wp_enqueue_style( 'opmc_af_admin_css', plugins_url( 'assets/css/app.css', __FILE__ ), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
 		wp_enqueue_style( 'cal', plugins_url( 'assets/css/tags-input.css', __FILE__ ), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
 
@@ -2275,7 +2348,79 @@ class WooCommerce_Anti_Fraud {
 		wp_register_script( 'knob', plugins_url( '/assets/js/jquery.knob.min.js', self::get_plugin_file() ), array( 'jquery' ), WOOCOMMERCE_ANTI_FRAUD_VERSION );
 		wp_register_script( 'edit', plugins_url( '/assets/js/edit-shop-order.js', __FILE__ ), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
 		wp_enqueue_script( 'opmc_af_admin_js', plugins_url( '/assets/js/app.js', __FILE__ ), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
+		
+		// Code related to displaying maxmind and trustswiftly related notifications to admin users
+		/* Disabling maxmind and trustswiftly dash notifications.
+		if (is_admin()) {
+			add_action('admin_notices', array( $this, 'display_maxmind_dismissible_message' ));
+			add_action('admin_notices', array( $this, 'display_trustswiftly_dismissible_message'));
+		}
+		*/
 	}
+	
+	/**
+	 * Displayes Maxmind dismissable notification to admin users
+	 *
+	 * @return void
+	 */
+	public function display_maxmind_dismissible_message() {
+
+		$current_user_id = get_current_user_id();
+
+		$alert_value = get_user_meta($current_user_id, 'opmc-antifraud-maxmind-alert', true);
+
+		if ('yes'  === $alert_value) {		
+			return;
+		} else {
+		
+			$message = '<div class="notice notice-info is-dismissible opmc-antifraud-maxmind-alert">';
+			$message .= '<p>We recommend you use <a href="https://maxmind.pxf.io/qnvxGg " target="_blank">MaxMind</a>, to obtain the maximum fraud prevention benefit from the Anti Fraud plugin.  <a href="https://maxmind.pxf.io/qnvxGg" target="_blank">MaxMind</a> can be configured in the <a href="/wp-admin/admin.php?page=wc-settings&tab=wc_af&section=minfraud_settings">plugin settings</a>.  Please refer to the Anti Fraud <a href="https://woo.com/products/woocommerce-anti-fraud/" target="_blank">Product page</a> and <a href="https://woo.com/document/woocommerce-anti-fraud/" target="_blank">Documentation page</a> for further information and configuration steps.</p>';
+			$message .= '<p><strong>Steps to create a MaxMind Account:</strong></p>';
+			$message .= '<ol>';
+			$message .= '<li>Visit the <a href="https://maxmind.pxf.io/qnvxGg" target="_blank">MaxMind Home page</a></li>';
+			$message .= '<li>Click "Sign In" (top right).</li>';
+			$message .= '<li>Select the option at the bottom to create a MaxMind account.</li>';
+			$message .= '<li>Follow their remaining instructions.</li>';
+			$message .= '</ol>';
+			
+			$message .= '</div>';
+
+			echo wp_kses_post($message);
+		}
+		
+	} // display_maxmind_dismissible_message()	
+
+	/**
+	 * Displayes Trust Swiftly dismissable notification to admin users
+	 *
+	 * @return void
+	 */
+	public function display_trustswiftly_dismissible_message() {
+
+		$current_user_id = get_current_user_id();
+
+		$trustswiftly_meta_value = get_user_meta($current_user_id, 'opmc-antifraud-trustswiftly-alert', true);
+
+		if ('yes' === $trustswiftly_meta_value) {		
+			return;
+		} else {	
+
+			$message = '<div class="notice notice-info is-dismissible opmc-antifraud-trustswiftly-alert">';
+			$message .= '<p>We recommend you use <a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8" target="_blank">Trust Swiftly</a> to further enhance fraud prevention using their Customer Identity Verification service with the Anti Fraud plugin.  <a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8" target="_blank">Trust Swiftly</a> can be configured in the <a href="/wp-admin/admin.php?page=wc-settings&tab=wc_af&section=trust_swiftly_settings">plugin settings</a>.  Please refer to the Anti Fraud <a href="https://woo.com/products/woocommerce-anti-fraud/" target="_blank">Product page</a> and <a href="https://woo.com/document/woocommerce-anti-fraud/" target="_blank">Documentation page</a> for further information and configuration steps.</p>';
+			$message .= '<p><strong>Steps to create a Trust Swiftly Account:</strong></p>';
+			$message .= '<ol>';
+			$message .= '<li>Visit the <a href="https://thrive.zohopublic.com/aref/G4734hGpxD/mBWuIqNh8 " target="_blank">Trust Swiftly Sign Up page</a>.</li>';
+			$message .= '<li>Complete and Submit their Sign Up form.</li>';
+			$message .= '<li>Follow their remaining instructions.</li>';
+			$message .= '</ol>';
+			
+			$message .= '</div>';
+
+			echo wp_kses_post($message);
+			
+		}
+		 
+	} // display_trustswiftly_dismissible_message()
 
 	/**
 	 * Save the default settings.

@@ -304,10 +304,10 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_my_cashback_status_label_shortcode' ).closest( 'tr' ).show() ;
             } else {
                 jQuery( '#rs_my_cashback_title_shortcode' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_my_cashback_sno_label' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_my_cashback_userid_label' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_my_cashback_requested_label' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_my_cashback_status_label' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_my_cashback_sno_label_shortcode' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_my_cashback_userid_label_shortcode' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_my_cashback_requested_label_shortcode' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_my_cashback_status_label_shortcode' ).closest( 'tr' ).hide() ;
             }
         } ,
         toggle_select_type_for_min_max_cashback : function () {

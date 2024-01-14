@@ -20,6 +20,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_waitlist_converstion() ;
             this.comment_product_review() ;
             this.show_or_hide_for_enable_product_review() ;
+            this.toggle_payment_gateways_rp();
             $( document ).on( 'change' , '#_rs_enable_signup' , this.enable_signup ) ;
             $( document ).on( 'change' , '#rs_enable_points_for_cus_field_reg' , this.enable_customreg_fields ) ;
             $( document ).on( 'change' , '#rs_enable_for_social_account_linking' , this.enable_social_acc_linking ) ;
@@ -42,6 +43,8 @@ jQuery( function ( $ ) {
             $( document ).on( 'click' , '.add' , this.add_rule_for_coupon_usage_reward ) ;
             $( document ).on( 'click' , '.remove' , this.remove_rule_for_coupon_usage_reward ) ;
             $( document ).on( 'click' , '#rs_reward_for_comment_product_review' , this.comment_product_review ) ;
+            
+            $( document ).on( 'change' , '#rs_reward_type_for_payment_gateways_bacs, #rs_reward_type_for_payment_gateways_cheque, #rs_reward_type_for_payment_gateways_cod' , this.toggle_payment_gateways_rp ) ;
         } ,
         enable_signup : function () {
             ActionModule.show_or_hide_for_enable_signup() ;
@@ -594,6 +597,32 @@ jQuery( function ( $ ) {
         } ,
         unblock : function ( id ) {
             $( id ).unblock() ;
+        } ,
+        toggle_payment_gateways_rp : function () {
+            
+            if ( '1' === $('#rs_reward_type_for_payment_gateways_bacs').val() ){
+                $('#rs_reward_payment_gateways_bacs').closest( 'tr' ).show();
+                $('#rs_reward_points_for_payment_gateways_in_percent_bacs').closest( 'tr' ).hide();
+            } else {
+                $('#rs_reward_points_for_payment_gateways_in_percent_bacs').closest( 'tr' ).show();
+                $('#rs_reward_payment_gateways_bacs').closest( 'tr' ).hide();
+            }
+
+            if ( '1' === $('#rs_reward_type_for_payment_gateways_cheque').val() ){
+                $('#rs_reward_payment_gateways_cheque').closest( 'tr' ).show();
+                $('#rs_reward_points_for_payment_gateways_in_percent_cheque').closest( 'tr' ).hide();
+            } else {
+                $('#rs_reward_points_for_payment_gateways_in_percent_cheque').closest( 'tr' ).show();
+                $('#rs_reward_payment_gateways_cheque').closest( 'tr' ).hide();
+            }
+        
+            if ( '1' === $('#rs_reward_type_for_payment_gateways_cod').val() ){
+                $('#rs_reward_payment_gateways_cod').closest( 'tr' ).show();
+                $('#rs_reward_points_for_payment_gateways_in_percent_cod').closest( 'tr' ).hide();
+            } else {
+                $('#rs_reward_points_for_payment_gateways_in_percent_cod').closest( 'tr' ).show();
+                $('#rs_reward_payment_gateways_cod').closest( 'tr' ).hide();
+            }   
         } ,
     } ;
     ActionModule.init() ;

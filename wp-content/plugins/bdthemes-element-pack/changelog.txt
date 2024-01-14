@@ -1,3 +1,17 @@
+## 7.7.2 [21th December 2023]
+
+### Fixed
+
+- Input fields style issue fixed in gravity forms widget (Thanks to Matt)
+- Swiper carousel hidden item opacity issue fixed
+- Title, Button Link Error fixed in Hover Box widget (Thanks to Hakan Yılmaz)
+- Hover issue fixed in Advanced Icon Box widget (Thanks to Gregor Kramberger)
+
+### Deleted
+
+- Deprecated EDD Grid widget deleted
+- Deprecated bbPress widget deleted
+
 ## 7.7.1 [10th December 2023]
 
 ### Added

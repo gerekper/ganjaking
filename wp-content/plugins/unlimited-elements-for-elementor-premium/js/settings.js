@@ -116,26 +116,29 @@ function UniteSettingsUC(){
 	/**
 	 * init tipsy
 	 */
-	function initTipsy(gravity){
+	function initTipsy(){
+		if (typeof jQuery("body").tipsy !== "function")
+			return;
 
-		if(!g_objWrapper)
-			return(false);
+		g_objWrapper.tipsy({
+			selector: ".uc-tip",
+			delayIn: 200,
+			offset: 4,
+			html: true,
+			gravity: function () {
+				var objTip = jQuery(this);
 
-		if(typeof jQuery("body").tipsy != "function")
-			return(false);
+				return objTip.data("tipsy-gravity") || "s";
+			},
+		});
 
-		if(!gravity)
-			gravity = "s";
+		jQuery("body").on("click", ".uc-tip", function () {
+			var objTip = jQuery(this);
 
-		var tipsyOptions = {
-				html:true,
-				gravity:"s",
-		        delayIn: 1000,
-		        selector: ".uc-tip"
-		};
-
-		g_objWrapper.tipsy(tipsyOptions);
-
+			// trigger title update
+			objTip.tipsy("hide");
+			objTip.tipsy("show");
+		});
 	}
 
 
@@ -277,45 +280,40 @@ function UniteSettingsUC(){
 
 			break;
 			case "text":
-
 				if(objInput.hasClass("unite-color-picker"))
 					type = "color";
-				else if(objInput.hasClass("unite-setting-image-input"))
+				else if (objInput.hasClass("unite-setting-image-input"))
 					type = "image";
-				else if(objInput.hasClass("unite-setting-mp3-input"))
+				else if (objInput.hasClass("unite-setting-mp3-input"))
 					type = "mp3";
-				else if(objInput.hasClass("unite-postpicker-input"))
-					type="post";
-				else if(objInput.hasClass("unite-iconpicker-input"))
-					type="icon";
-				else if(objInput.hasClass("unite-setting-range"))
-					type="range";
-				else if(objInput.hasClass("unite-setting-link"))
-					type="link";
-
+				else if (objInput.hasClass("unite-postpicker-input"))
+					type = "post";
+				else if (objInput.hasClass("unite-setting-range"))
+					type = "range";
+				else if (objInput.hasClass("unite-setting-link"))
+					type = "link";
 			break;
 			case "textarea":
 				if(objInput.hasClass("mce_editable") || objInput.hasClass("wp-editor-area"))
 					type = "editor_tinymce";
 			break;
+			case "hidden":
+				if (objInput.hasClass("unite-iconpicker-input"))
+					type = "icon";
+			break;
 			case "span":
 			case "div":
-
 				type = customType;
 
-				if(!type){
-
-					if(objInput.hasClass("uc-setting-items-panel"))
+				if (!type) {
+					if (objInput.hasClass("uc-setting-items-panel"))
 						type = "items";
-					else
-					if(objInput.hasClass("uc-setting-fonts-panel"))
+					else if (objInput.hasClass("uc-setting-fonts-panel"))
 						type = "fonts";
-					else
-					if(objInput.hasClass("unite-setting-inline-editor"))
+					else if (objInput.hasClass("unite-setting-inline-editor"))
 						type = "editor_tinymce";
 				}
-
-			break;
+				break;
 		}
 
 		return(type);
@@ -393,7 +391,7 @@ function UniteSettingsUC(){
 				value = multiSelectModifyAfterGet(value);
 			break;
 			case "dimentions":
-				value = dimentionsGetValues(objInput);
+				value = getDimentionsInputData(objInput);
 			break;
 			case "select2":
 			break;
@@ -584,7 +582,7 @@ function UniteSettingsUC(){
 			case "icon":
 				defaultValue = objInput.data(dataname);
 				objInput.val(defaultValue);
-				objInput.trigger("blur");
+				objInput.trigger("input");
 			break;
 			case "color":
 
@@ -760,10 +758,6 @@ function UniteSettingsUC(){
 				objInput.val(value);
 				objInput.trigger("input");
 			break;
-			case "icon":
-				objInput.val(value);
-				objInput.trigger("blur");
-			break;
 			case "color":
 				objInput.val(value);
 
@@ -807,6 +801,12 @@ function UniteSettingsUC(){
 			case "mp3":
 				objInput.val(value);
 				objInput.trigger("change");
+			break;
+			case "dimentions":
+				setDimentionsInputValue(objInput, value);
+			break;
+			case "icon":
+				setIconInputValue(objInput, value);
 			break;
 			case "link":
 				setLinkInputValue(objInput, value);
@@ -1131,21 +1131,44 @@ function UniteSettingsUC(){
 
 	}
 
+	function initSelect2(objInput) {
 
-	function initSelect2(objInput){
+		setTimeout(function () {
+			appendPlusIcon(objInput);
+		}, 400);
 
-		setTimeout(function(){
+		var dropdownParent = objInput.closest('.unite-setting-input');
+
+		if (dropdownParent.length === 0)
+			dropdownParent = objInput.closest('.unite-inputs');
+
+		if (dropdownParent.length === 0)
+			dropdownParent = jQuery('body');
+
+		objInput.select2({
+			dropdownParent: dropdownParent,
+			minimumResultsForSearch: 10,
+			templateResult: prepareTemplate,
+			templateSelection: prepareTemplate,
+		}).on("change", function () {
+			t.onSettingChange(null, objInput, true);
 
 			appendPlusIcon(objInput);
+		}).on("select2:closing", function () {
+			// hide tipsy
+			jQuery(".select2-dropdown").find(".uc-tip").trigger("mouseleave");
+		});
 
-		},400)
+		function prepareTemplate(data) {
+			var $option = jQuery(data.element);
+			var content = $option.data("content");
+			var output = data.text;
 
-		objInput.select2({minimumInputLength: 1}).on('change', function(e){
+			if (content)
+				output = jQuery(content);
 
-			t.onSettingChange(null,objInput,true);
-
-			appendPlusIcon(objInput);
-		})
+			return output;
+		}
 	}
 
 
@@ -1226,7 +1249,7 @@ function UniteSettingsUC(){
 				"left":posLeft,
 				"top":posTop
 			});
-			
+
 		}).on("click",function(){
 			return(false);	//prevent body click
 		});
@@ -2001,21 +2024,34 @@ function UniteSettingsUC(){
 			objRoot.find(".unite-settings-tab").removeClass("unite-active");
 			objTab.addClass("unite-active");
 
-			var objContents = g_objWrapper.find(".unite-postbox").hide().filter(".uctab-" + id).show();
+			var objContents = g_objWrapper.find(".unite-postbox")
+				.hide()
+				.filter("[data-tab='" + id + "']")
+				.show();
 
 			if (objContents.filter(".unite-active").length === 0)
 				objContents.filter(":first").find(".unite-postbox-title").trigger("click");
 		});
 
 		g_objWrapper.find(".unite-postbox .unite-postbox-title").on("click", function () {
-			jQuery(this).closest(".unite-postbox:not(.unite-no-accordion)")
+			var objRoot = jQuery(this).closest(".unite-postbox:not(.unite-no-accordion)");
+			var tab = objRoot.data("tab");
+
+			jQuery(".unite-postbox:not(.unite-no-accordion)[data-tab='" + tab + "']")
+				.not(objRoot)
+				.removeClass("unite-active")
+				.find(".unite-postbox-inside")
+				.stop()
+				.slideUp(g_vars.animationDuration);
+
+			objRoot
 				.toggleClass("unite-active")
 				.find(".unite-postbox-inside")
 				.stop()
 				.slideToggle(g_vars.animationDuration);
 		});
 
-		g_objWrapper.find(".unite-settings-accordion-saps-tabs .unite-settings-tab.unite-active").trigger("click");
+		g_objWrapper.find(".unite-settings-accordion-saps-tabs .unite-settings-tab:first").trigger("click");
 
 	}
 
@@ -2237,731 +2273,565 @@ function UniteSettingsUC(){
 
 	}
 
+
 	function ______ICON_PICKER____(){}
 
-
 	/**
-	 * add icons type
+	 * init icon picker
 	 */
-	this.iconPicker_addIconsType = function(name, arrIcons, iconsTemplate, optParams){
+	function initIconPicker(objInput, funcChange) {
+		var iconsType = objInput.data("icons_type");
 
-		var key = "icon_picker_type_"+name;
-		var objType = g_ucAdmin.getGlobalData(key);
-		if(objType)
-			return(false);
+		if (!iconsType)
+			iconsType = "fa";
 
-		var params = {
-				"name": name,
-				"icons":arrIcons,
-				"template":iconsTemplate
-		};
+		var objDialogWrapper = iconPicker_initDialog(iconsType);
 
-		if(optParams)
-			jQuery.extend(params, optParams);
-
-		g_ucAdmin.storeGlobalData(key, params);
-	};
-
-
-	/**
-	 * get icons type object
-	 */
-	function iconPicker_getObjIconsType(name){
-		var key = "icon_picker_type_"+name;
-		var objType = g_ucAdmin.getGlobalData(key);
-
-		if(!objType)
-			throw new Error("Icons type: "+name+" not found");
-
-		return(objType);
-	}
-
-
-	/**
-	 * init the dialog
-	 */
-	function iconPicker_initDialog(type){
-
-		if(!type)
-			var type = "fa";
-
-		var dialogID = "unite_icon_picker_dialog_"+type;
-
-		var objDialogWrapper = jQuery("#"+dialogID);
-		if(objDialogWrapper.length){
-			g_iconsHash = jQuery("body").data("uc_icons_hash");
-
-			return(objDialogWrapper);
+		if (!objDialogWrapper || objDialogWrapper.length === 0) {
+			trace("Icon picker dialog not initialized.");
+			return;
 		}
 
-		if(type == "elementor" && g_ucFaIcons.length == 0)
+		var objPickerWrapper = objInput.closest(".unite-iconpicker");
+		var objPickerInput = objPickerWrapper.find(".unite-iconpicker-input");
+		var objPickerError = objPickerWrapper.find(".unite-iconpicker-error");
+		var objPickerButton = objPickerWrapper.find(".unite-iconpicker-button");
+		var objPickerButtonNone = objPickerButton.filter("[data-action='none']");
+		var objPickerButtonUpload = objPickerButton.filter("[data-action='upload']");
+		var objPickerButtonLibrary = objPickerButton.filter("[data-action='library']");
+		var objPickerUploadedIcon = objPickerWrapper.find(".unite-iconpicker-uploaded-icon");
+		var objPickerLibraryIcon = objPickerWrapper.find(".unite-iconpicker-library-icon");
+		var pickerErrorTimeout = -1;
+
+		objPickerButtonNone.on("click", function () {
+			objPickerInput.val(null).trigger("input");
+		});
+
+		objPickerButtonUpload.on("click", function () {
+			g_ucAdmin.openAddImageDialog("Choose Icon", function (imageUrl, imageId) {
+				var fileName = imageUrl.split("/").pop();
+				var fileExtension = fileName.split(".").pop();
+
+				if (fileExtension !== "svg") {
+					clearTimeout(pickerErrorTimeout);
+
+					objPickerError.html("Icon must be of type SVG.").show();
+
+					pickerErrorTimeout = setTimeout(function () {
+						objPickerError.hide();
+					}, 5000);
+
+					return;
+				}
+
+				objPickerError.hide();
+
+				objPickerInput
+					.data("image-id", imageId)
+					.val(imageUrl)
+					.trigger("input");
+			}, false);
+		});
+
+		objPickerButtonLibrary.on("click", function () {
+			if (objDialogWrapper.dialog("isOpen")) {
+				objDialogWrapper.dialog("close");
+			} else {
+				// set selected icon
+				var iconName = objPickerInput.data("icon-name");
+
+				objDialogWrapper
+					.find(".unite-iconpicker-dialog-icon")
+					.removeClass("icon-selected")
+					.filter("[data-name='" + iconName + "']")
+					.addClass("icon-selected");
+
+				objDialogWrapper
+					.data("objpicker", objPickerWrapper)
+					.dialog("open");
+			}
+		});
+
+		objPickerInput.on("input", function (event) {
+			var value = objPickerInput.val().trim();
+
+			// trigger settings change
+			funcChange(event, objPickerInput);
+
+			// deactivate buttons
+			objPickerButton.removeClass("ue-active");
+
+			// check for uploaded icon
+			var isUpload = value.indexOf(".svg") > -1;
+
+			if (isUpload === true){
+				objPickerButtonUpload.addClass("ue-active");
+				objPickerUploadedIcon.attr("src", value);
+
+				return;
+			}
+
+			// check for library icon
+			var icon = value;
+
+			if (iconsType === "fa")
+				icon = value.replace("fa fa-", "");
+
+			var iconHash = icon + "_" + iconsType;
+
+			if (g_iconsHash[iconHash]) {
+				objPickerButtonLibrary.addClass("ue-active");
+
+				var objType = iconPicker_getObjIconsType(iconsType);
+				var iconHtml = iconPicker_getIconHtmlFromTemplate(objType.template, icon);
+
+				objPickerLibraryIcon.html(iconHtml);
+
+				return;
+			}
+
+			// fallback to the "none"
+			objPickerButtonNone.addClass("ue-active");
+		});
+
+		objPickerInput.trigger("input");
+	}
+
+	/**
+	 * init icon picker dialog
+	 */
+	function iconPicker_initDialog(type) {
+		if (!type)
 			type = "fa";
 
-		//set "fa" template
-		if(type == "fa"){
+		var dialogID = "unite_icon_picker_dialog_" + type;
 
-			t.iconPicker_addIconsType("fa", g_ucFaIcons, function(icon){	//icon to html functoin
-				var classAdd = "fa fa-";
-				if(icon.indexOf("fa-") != -1)
-					classAdd = "";
+		var objDialogWrapper = jQuery("#" + dialogID);
 
-				var html = '<i class="'+classAdd+icon+'"></i>';
+		if (objDialogWrapper.length !== 0) {
+			g_iconsHash = jQuery("body").data("uc_icons_hash");
 
-				return(html);
+			return objDialogWrapper;
+		}
+
+		if (type === "elementor" && g_ucFaIcons.length === 0)
+			type = "fa";
+
+		if (type === "fa") {
+			iconPicker_addIconsType(type, g_ucFaIcons, function (icon) {
+				if (icon.indexOf("fa-") === -1)
+					icon = "fa fa-" + icon;
+
+				var html = "<i class=\"" + icon + "\"></i>";
+
+				return html;
 			});
+		} else if (type === "elementor") {
+			iconPicker_addIconsType(type, g_ucElIcons, function (icon) {
+				var html = "<i class=\"" + icon + "\"></i>";
 
-		}else if(type == "elementor"){
-
-			t.iconPicker_addIconsType("elementor", g_ucElIcons, function(icon){	//icon to html functoin
-
-				var html = '<i class="'+icon+'"></i>';
-
-				return(html);
+				return html;
 			});
-
-
-
 		}
 
 		var objType = iconPicker_getObjIconsType(type);
-		var isAddNew = g_ucAdmin.getVal(objType, "add_new");
+		// var isAddNew = g_ucAdmin.getVal(objType, "add_new");
 
+		var htmlDialog = "<div id=\"" + dialogID + "\" class=\"unite-iconpicker-dialog unite-inputs unite-picker-type-" + type + "\" style=\"display:none\">";
+		htmlDialog += "<div class=\"unite-iconpicker-dialog-top\">";
+		htmlDialog += "<input class=\"unite-iconpicker-dialog-input-filter\" type=\"text\" placeholder=\"Type to filter\" value=\"\">";
+		htmlDialog += "<span class=\"unite-iconpicker-dialog-icon-name\"></span>";
 
-		var htmlDialog = '<div id="'+dialogID+'" class="unite-icon-picker-dialog unite-inputs unite-picker-type-'+type+'" style="display:none">';
-		htmlDialog += '<div class="unite-iconpicker-dialog-top">';
-		htmlDialog += '<input class="unite-iconpicker-dialog-input-filter" type="text" placeholder="Type to filter" value="">';
-		htmlDialog += '<span class="unite-iconpicker-dialog-icon-name"></span>';
+		// add new functionality
+		// if (isAddNew === true) {
+		// 	htmlDialog += "<a class=\"unite-button-secondary unite-iconpicker-dialog-button-addnew\">Add New Shape</a>";
+		// }
 
-		//add new functionality
-		/*
-		if(isAddNew === true){
-			htmlDialog += '<a class="unite-button-secondary unite-iconpicker-dialog-button-addnew">Add New Shape</a>';
-		}
-		*/
-
-		htmlDialog += '</div>';
-		htmlDialog += '<div class="unite-iconpicker-dialog-icons-container"></div></div>';
-
+		htmlDialog += "</div>";
+		htmlDialog += "<div class=\"unite-iconpicker-dialog-icons-container\"></div></div>";
 
 		jQuery("body").append(htmlDialog);
 
-		objDialogWrapper = jQuery('#'+dialogID);
+		objDialogWrapper = jQuery("#" + dialogID);
 
-		var objContainer = objDialogWrapper.find('.unite-iconpicker-dialog-icons-container');
-		var objFilter = objDialogWrapper.find('.unite-iconpicker-dialog-input-filter');
+		var objContainer = objDialogWrapper.find(".unite-iconpicker-dialog-icons-container");
+		var objFilter = objDialogWrapper.find(".unite-iconpicker-dialog-input-filter");
 		var objIconName = objDialogWrapper.find(".unite-iconpicker-dialog-icon-name");
 
-		//set the icons
-
-		var arrIcons = [];
-
-		arrIcons = objType.icons;
-		var iconTemplate = objType.template;
-
+		// add icons
+		var arrIcons = objType.icons;
 		var isArray = jQuery.isArray(arrIcons);
 
-		jQuery.each(arrIcons, function(index, icon) {
-
+		jQuery.each(arrIcons, function (index, icon) {
 			var iconTitle = null;
 
-			if(isArray == false){
+			if (isArray === false) {
 				iconTitle = icon;
 				icon = index;
 			}
 
-			var hashName = icon+"_"+type;
-
-			if(typeof iconTemplate == "function"){
-				var iconHtml = iconTemplate(icon);
-			}else{
-				var iconHtml = iconTemplate.replace("[icon]", icon);
-			}
-
-			var objIcon = jQuery('<span class="unite-iconpicker-icon">'+iconHtml+'</span>');
+			var iconHtml = iconPicker_getIconHtmlFromTemplate(objType.template, icon);
+			var objIcon = jQuery("<span class=\"unite-iconpicker-dialog-icon\">" + iconHtml + "</span>");
 
 			var iconName = icon;
-			if(objType && typeof objType.getIconName == "function")
+
+			if (objType && typeof objType.getIconName === "function")
 				iconName = objType.getIconName(icon);
 
-			//avoid doubles
-			if(g_iconsHash.hasOwnProperty(hashName) == false){
-				objIcon.data('title', iconTitle);
-				objIcon.data('name', iconName);
-				objIcon.data('value', icon);
+			var iconHash = icon + "_" + type;
+
+			if (g_iconsHash.hasOwnProperty(iconHash) === false) {
+				objIcon.attr("data-name", iconName)
+				objIcon.data("title", iconTitle);
+				objIcon.data("name", iconName);
+				objIcon.data("value", icon);
 
 				objContainer.append(objIcon);
-				g_iconsHash[hashName] = objIcon;
-			}
 
+				g_iconsHash[iconHash] = objIcon;
+			}
 		});
 
 		jQuery("body").data("uc_icons_hash", g_iconsHash);
 
 		var dialogTitle = "Choose Icon";
-		if(type == "shape")
-			dialogTitle = "Choose Shape";
 
+		if (type === "shape")
+			dialogTitle = "Choose Shape";
 
 		objDialogWrapper.dialog({
 			autoOpen: false,
 			height: 500,
 			width: 800,
-			dialogClass:"unite-ui unite-ui2",
+			dialogClass: "unite-ui unite-ui2",
 			title: dialogTitle,
-			open: function( event, ui ) {
+			open: function (event, ui) {
+				objContainer.scrollTop(0);
 
-			  objContainer.scrollTop(0);
+				var objSelectedIcon = objContainer.find(".icon-selected");
 
-			  var objSelectedIcon = objContainer.find('.icon-selected');
-			  if (!objSelectedIcon.length)
-				  return(false);
+				if (objSelectedIcon.length === 0)
+					return false;
 
-			  if(objSelectedIcon.is(":hidden") == true)
-				  return(false);
+				if (objSelectedIcon.is(":hidden") === true)
+					return false;
 
-			  //scroll to icon
-			  var containerHeight = objContainer.height();
-			  var iconPos = objSelectedIcon.position().top;
+				// scroll to icon
+				var containerHeight = objContainer.height();
+				var iconPos = objSelectedIcon.position().top;
 
-			  if(iconPos > containerHeight)
-				  objContainer.scrollTop(iconPos - (containerHeight / 2 - 50) );
+				if (iconPos > containerHeight)
+					objContainer.scrollTop(iconPos - (containerHeight / 2 - 50));
+			},
+		});
+
+		// on filter input
+		objFilter.on("input", function () {
+			var value = objFilter.val().trim();
+
+			objDialogWrapper.find(".unite-iconpicker-dialog-icon").each(function () {
+				var objIcon = jQuery(this);
+				var name = objIcon.data("name");
+				var isVisible = false;
+
+				if (value === "" || name.indexOf(value) > -1)
+					isVisible = true;
+
+				objIcon.toggle(isVisible);
+			});
+		});
+
+		// on icon click
+		objContainer.on("click", ".unite-iconpicker-dialog-icon", function () {
+			var objIcon = jQuery(this);
+			var iconName = objIcon.data("name");
+			var iconValue = objIcon.data("value");
+
+			// select icon
+			objDialogWrapper
+				.find(".unite-iconpicker-dialog-icon")
+				.removeClass("icon-selected")
+				.filter(objIcon)
+				.addClass("icon-selected");
+
+			// update picker value
+			var inputValue = iconValue;
+
+			if (type === "fa") {
+				if (iconName.indexOf("fa-") === -1)
+					inputValue = "fa fa-" + iconName;
+				else
+					inputValue = iconName;
 			}
 
-		  });
+			objDialogWrapper
+				.data("objpicker")
+				.find(".unite-iconpicker-input")
+				.data("icon-name", iconName)
+				.val(inputValue)
+				.trigger("input");
 
-		//init events
-		objContainer.on('click', '.unite-iconpicker-icon', function (event) {
+			// close dialog
+			objDialogWrapper.dialog("close");
+		});
 
-				objContainer.find('.icon-selected').removeClass('icon-selected');
-				var objIcon = jQuery(event.target).closest('.unite-iconpicker-icon');
-				objIcon.addClass('icon-selected');
+		// on icon mouseenter
+		objContainer.on("mouseenter", ".unite-iconpicker-dialog-icon", function () {
+			var objIcon = jQuery(this);
+			var iconName = objIcon.data("name");
+			var iconTitle = objIcon.data("title");
 
-				var iconName = objIcon.data('name');
-				var iconValue = objIcon.data('value');
-				var iconTitle = objIcon.data('title');
-
-				//update picker object
-				var objPicker = objDialogWrapper.data("objpicker");
-				var objPickerInput = objPicker.find(".unite-iconpicker-input");
-				var objPickerButton = objPicker.find(".unite-iconpicker-button");
-				var objPickerTitle = objPicker.find(".unite-iconpicker-title");
-
-				var inputValue = iconValue;
-				if(type == "fa"){
-					if(iconName.indexOf("fa-") == -1)
-						inputValue = 'fa fa-' + iconName;
-					else
-						inputValue = iconName;
-				}
-
-				objPickerInput.val(inputValue);
-
-				if(typeof iconTemplate == "function")
-					var htmlIcon = iconTemplate(iconValue);
-				else
-					var htmlIcon = iconTemplate.replace("[icon]", iconValue);
-
-				objPickerButton.html(htmlIcon);
-
-				//set title
-				if(iconTitle)
-					objPickerTitle.show().html(iconTitle);
-				else
-					objPickerTitle.hide()
-
-				objPickerInput.trigger("change");
-
-				//close dialog
-				objDialogWrapper.dialog("close");
-
-				var objPickerWrapper = objPickerInput.parents(".unite-settings-iconpicker");
-
-				//check svg icon, if not exist - set text inside svg button
-				removeSvgPreview(objPickerWrapper, objPickerInput);
-
-				//enable input
-				objPickerInput.removeAttr('disabled');
-
-				//add clear input button
-				appendClearInputButton(objPickerWrapper, objPickerInput);
-
-			});
-
-		//on icon mouseover
-		objContainer.on('mouseenter', '.unite-iconpicker-icon', function (event) {
-
-			var objIcon = jQuery(event.target).closest('.unite-iconpicker-icon');
-
-			var iconNameStr = objIcon.data('name');
-			var iconTitle = objIcon.data('title');
-
-			var iconName = iconNameStr;
-			if(iconTitle)
+			if (iconTitle)
 				iconName = iconTitle;
 
-			if(type == "fa"){
-
+			if (type === "fa") {
 				iconName = iconName.replace("fa-", "");
 
-				if(iconName.indexOf("fab ") == 0)
-					iconName = iconName.replace("fab ", "")+" [brand]";
+				if (iconName.indexOf("fab ") === 0)
+					iconName = iconName.replace("fab ", "") + " [brand]";
+				else if (iconName.indexOf("fal ") === 0)
+					iconName = iconName.replace("fal ", "") + " [light]";
+				else if (iconName.indexOf("far ") === 0)
+					iconName = iconName.replace("far ", "") + " [regular]";
 				else
-					if(iconName.indexOf("fal ") == 0)
-						iconName = iconName.replace("fal ", "")+" [light]";
-				else
-					if(iconName.indexOf("far ") == 0)
-						iconName = iconName.replace("far ", "")+" [regular]";
-				else
-					iconName = iconName+" [solid]";
-
+					iconName = iconName + " [solid]";
 			}
 
 			objIconName.text(iconName);
 		});
 
-		//on icon mouseover
-		objContainer.on('mouseleave', '.unite-iconpicker-icon', function (event) {
+		// on icon mouseleave
+		objContainer.on("mouseleave", ".unite-iconpicker-dialog-icon", function () {
 			objIconName.text("");
 		});
 
-
-		//filter functionality
-		objFilter.on('keyup', function () {
-
-			var strFilter = objFilter.val();
-			strFilter = jQuery.trim(strFilter);
-
-			var objIcons = objDialogWrapper.find(".unite-iconpicker-icon");
-
-			jQuery(objIcons).each(function(index, icon){
-				  var objIcon = jQuery(icon);
-				  var name = objIcon.data("name");
-
-				  var isVisible = false;
-				  if(strFilter == "" || name.indexOf(strFilter) !== -1)
-					  isVisible = true;
-
-				  if(isVisible == true)
-					  objIcon.show();
-				  else
-					  objIcon.hide();
-
-			});
-		  });
-
-
-		return(objDialogWrapper);
+		return objDialogWrapper;
 	}
 
 	/**
-	 * show error svg: wrong tupe
+	 * icon picker - add icons type
 	 */
-	function showWrongSvgTypeError(objPickerWrapper){
-
-		var errorHtml = '<div class="unite-iconpicker-button-error">Wrong Image Type. Image Needs to Be SVG type.</div>';
-
-		objPickerWrapper.prepend(errorHtml);
-
-		var objError = objPickerWrapper.find('.unite-iconpicker-button-error');
-
-		setTimeout(function(){
-			objError.remove();
-		},4000);
-
-	}
-
-	/**
-	 * remove clear input button
-	 */
-	function removeClearInputButton(objPickerWrapper){
-
-		var objClearInputButton = objPickerWrapper.find('.unite-iconpicker-button-clear');
-
-		if(!objClearInputButton.length)
-		return(false);
-
-		objClearInputButton.remove();
-
-	}
-
-	/**
-	 * append clear button
- */
-	function appendClearInputButton(objPickerWrapper, objInput){
-
-		var clearInputButtonClassName = 'unite-iconpicker-button-clear';
-		var hoverClass = 'uc-hover';
-		var clearButtonHtml = ' <span class="'+clearInputButtonClassName+'">Clear</span>';
-		var objClearInputButton = objPickerWrapper.find('.'+clearInputButtonClassName);
-
-		if(objClearInputButton.length > 0)
-		return(false);
-
-		objPickerWrapper.append(clearButtonHtml);
-
-		//reinit button
-		objClearInputButton = objPickerWrapper.find('.'+clearInputButtonClassName);
-
-		objClearInputButton.on('click', function(){
-
-			onClearInputButtonClick(objPickerWrapper, objInput);
-
-			objInput.removeClass(hoverClass);
-
-		});
-
-		objClearInputButton.on('mouseenter', function(){
-
-			objInput.addClass(hoverClass);
-
-		});
-
-		objClearInputButton.on('mouseleave', function(){
-
-			objInput.removeClass(hoverClass);
-
-		});
-
-	}
-
-	/**
-	 * remove svg preview
-	 */
-	function removeSvgPreview(objPickerWrapper, objInput){
-
-		var objSvgButton = objPickerWrapper.find('.unite-iconpicker-button-svg');
-
-		//check if svg exist
-		var dataName = objSvgButton.data('svg-name');
-		var inputVal = objInput.val();
-
-		if(dataName == inputVal){
-
-			var urlImage = objSvgButton.data('svg-src');
-			var urlToSvg = g_ucAdmin.urlToFull(urlImage);
-
-			setSvgPreview(urlToSvg, objSvgButton, objPickerWrapper);
-
-			//hide icon chooser
-			hideIconChooseButton(objPickerWrapper);
-
-			//enable input
-			objInput.removeAttr('disabled');
-
-			return(false);
-
-		}
-
-		//remove attributes
-		objSvgButton.removeAttr('data-svg-src');
-		objSvgButton.removeAttr('data-svg-id');
-		objSvgButton.removeAttr('data-svg-name');
-
-		objSvgButton.removeClass('svg-selected');
-
-		//set text inside svg button instead of preview
-		objSvgButton.html('SVG');
-
-		//remove clear input button
-		removeClearInputButton(objPickerWrapper);
-
-		//disable input
-		objInput.attr('disabled', 'disabled');
-
-		//show icon chooser
-		showIconChooseButton(objPickerWrapper);
-
-	}
-
-	/**
-	 * set preview of selected svg icon
-	 */
-	function setSvgPreview(selectedSvgUrl, objSvgButton, objPickerWrapper){
-
-		var imageHtml = '<img src="'+selectedSvgUrl+'" alt="selected svg" >';
-
-		objSvgButton.addClass('svg-selected');
-
-		objSvgButton.html(imageHtml);
-
-		//remove icon preview
-		removeIconPreview(objPickerWrapper);
-
-	}
-
-
-	/**
-	 * get icon value
-	 */
-	function getIconInputData(objInput){
-
-		var inputText = objInput.val();
-		var isTypeSvg = inputText.indexOf('.svg') > -1;
-
-		if(isTypeSvg == true){
-
-			var urlToImage = objInput.data('svg-src');
-			var idOfImage = objInput.data('svg-id');
-
-			var svgArray = setSvgArrayObject(urlToImage, idOfImage);
-
-			return(svgArray);
-
-		}
-
-		if(isTypeSvg == false){
-
-			var selectedIconName = objInput.val();
-
-			return(selectedIconName);
-
-		}
-
-
-	}
-
-
-
-	/**
-	 * set svg array object
-	 */
-	function setSvgArrayObject(urlImage, imageId){
-
-		var svgArray = [];
-		var urlToSvgFile = g_ucAdmin.urlToRelative(urlImage);
-
-
-		var svgArrayObject = {
-			id: imageId,
-			library: 'svg',
-			url: urlToSvgFile
+	function iconPicker_addIconsType(name, arrIcons, iconsTemplate, optParams) {
+		var key = "icon_picker_type_" + name;
+		var objType = g_ucAdmin.getGlobalData(key);
+
+		if (objType)
+			return;
+
+		var params = {
+			name: name,
+			icons: arrIcons,
+			template: iconsTemplate,
 		};
 
-		svgArray.push(svgArrayObject);
+		if (optParams)
+			jQuery.extend(params, optParams);
 
-		return(svgArray);
-	}
-
-	/*
-	* get svg data
-	*/
-	function setIconSvgData(urlImage, imageId){
-
-		var svgArray = setSvgArrayObject(urlImage, imageId);
-
-		return(svgArray)
-
-	}
-
-	//hide icon chooser
-	function hideIconChooseButton(objPickerWrapper){
-
-		var objChooseIconButton = objPickerWrapper.find('.unite-iconpicker-button');
-
-		if(!objChooseIconButton.length)
-		return(false);
-
-		objChooseIconButton.hide();
-
-	}
-
-	//show icon chooser
-	function showIconChooseButton(objPickerWrapper){
-
-		var objChooseIconButton = objPickerWrapper.find('.unite-iconpicker-button');
-
-		if(!objChooseIconButton.length)
-		return(false);
-
-		objChooseIconButton.show();
-
+		g_ucAdmin.storeGlobalData(key, params);
 	}
 
 	/**
-	 * init svg picker
+	 * icon picker - get icons type object
 	 */
-	function initSvgPicker(objInput){
+	function iconPicker_getObjIconsType(name) {
+		var key = "icon_picker_type_" + name;
+		var objType = g_ucAdmin.getGlobalData(key);
 
-		var objPickerWrapper = objInput.parents(".unite-settings-iconpicker");
-		var objSvgButton = objPickerWrapper.find('.unite-iconpicker-button-svg');
+		if (!objType)
+			throw new Error("Icons type \"" + name + "\" not found.");
 
-		if(!objSvgButton.length)
-		return(false);
-
-		objSvgButton.on('click', function(){
-
-			g_ucAdmin.openAddImageDialog("Choose Images",function(urlImage, imageId){
-
-				var fileName = urlImage.split('/').pop();
-				var fileExtension = fileName.split('.').pop();
-
-				if(fileExtension != 'svg'){
-
-					//show error
-					showWrongSvgTypeError(objPickerWrapper);
-
-					trace('Image needs to be svg type.')
-					return(false);
-
-				}
-
-				//set data-name attr
-				objInput.data('svg-name', fileName);
-
-				//set data-src / data-id attr
-				var urlToSvg = g_ucAdmin.urlToRelative(urlImage);
-
-				objInput.data('svg-src', urlToSvg);
-				objInput.data('svg-id', imageId);
-
-				//put file name inside input
-				objInput.val(fileName);
-
-				//hide icon chooser
-				hideIconChooseButton(objPickerWrapper);
-
-				//get svg data
-				setIconSvgData(urlImage, imageId);
-
-				//disable input
-				objInput.attr('disabled', 'disabled');
-
-				//set previe of selected icon inside button
-				setSvgPreview(urlImage, objSvgButton, objPickerWrapper);
-
-				//append clear input button
-				appendClearInputButton(objPickerWrapper, objInput);
-
-				objInput.trigger("change");
-
-
-			},false);
-
-		});
-
+		return objType;
 	}
 
 	/**
-	 * remove icon preview
+	 * icon picker - get icons type object
 	 */
-	function removeIconPreview(objPickerWrapper){
+	function iconPicker_getIconHtmlFromTemplate(template, icon) {
+		if (!template)
+			throw new Error("Icon template not found.");
 
-		var objIconChooseButton = objPickerWrapper.find('.unite-iconpicker-button');
+		if (typeof template == "function")
+			return template(icon);
 
-		objIconChooseButton.html('choose');
-
+		return template.replace("[icon]", icon);
 	}
 
 	/**
-	 * clear input
+	 * destroy icon pickers
 	 */
-	function onClearInputButtonClick(objPickerWrapper, objInput){
-
-		//clear input
-		objInput.val('');
-
-		//remove svg preview
-		removeSvgPreview(objPickerWrapper, objInput);
-
-		//remove icon preview
-		removeIconPreview(objPickerWrapper);
-
-		//enable input
-		objInput.removeAttr('disabled');
-
-		objInput.trigger("change");
+	function destroyIconPickers() {
+		g_objWrapper.find(".unite-iconpicker-button").off("click");
+		g_objWrapper.find(".unite-iconpicker-input").off("input");
 	}
 
 	/**
-	 * init icon picker raw function
+	 * get icon input value
 	 */
-	function initIconPicker(objInput){
+	function getIconInputData(objInput) {
+		var inputValue = objInput.val();
+		var isUpload = inputValue.indexOf(".svg") > -1;
 
-		var iconsType = objInput.data("icons_type");
-		if(!iconsType)
-			iconsType = "fa";
+		if (isUpload === true) {
+			var imageId = objInput.data("image-id");
+			var imageUrl = g_ucAdmin.urlToRelative(inputValue);
 
-		var objDialogWrapper = iconPicker_initDialog(iconsType);
+			var svgArray = [{
+				id: imageId,
+				url: imageUrl,
+				library: 'svg',
+			}];
 
-		if(!objDialogWrapper || objDialogWrapper.length == 0){
-			trace("icon picker dialog not inited");
-			return(false);
+			return svgArray;
 		}
 
-		var objPickerWrapper = objInput.parents(".unite-settings-iconpicker");
-		var objInput = objPickerWrapper.find('input.unite-iconpicker-input');
-		var objButton = objPickerWrapper.find('.unite-iconpicker-button');
-		var objTitle = objPickerWrapper.find('.unite-iconpicker-title');
+		return inputValue;
+	}
 
-		//on button click
-		objButton.on("click",function () {
+	/**
+	 * set icon input value
+	 */
+	function setIconInputValue(objInput, value){
+		if (jQuery.isArray(value) === true) {
+			var image = value[0];
 
-				if (objDialogWrapper.dialog('isOpen')) {
-					objDialogWrapper.dialog('close');
-				} else {
-					objDialogWrapper.data("objpicker", objPickerWrapper);
-					objDialogWrapper.dialog('open');
+			objInput.data("image-id", image.id);
+
+			value = g_ucAdmin.urlToFull(image.url);
+		}
+
+		objInput.val(value).trigger("input");
+	}
+
+
+	function _______DIMENTIONS_____(){}
+
+	/**
+	 * init dimentions
+	 */
+	function initDimentions(objInput, funcChange) {
+		
+		var objDevice = objInput.find(".unite-dimentions-device");
+		var objFields = objInput.find(".unite-dimentions-fields");
+		
+		var objUnits = objInput.find(".unite-dimentions-units");
+		
+		objDevice.on("change", function () {
+			const device = objDevice.val();
+
+			objFields
+				.removeClass("ue-active")
+				.filter("[data-device=\"" + device + "\"]")
+				.addClass("ue-active");
+		});
+
+		objFields.each(function () {
+			var objWrapper = jQuery(this);
+			var objInputs = objWrapper.find(".unite-dimentions-field-input");
+			var objLink = objWrapper.find(".unite-dimentions-link");
+
+			objInputs.on("input", function (event) {
+				if (objLink.hasClass("ue-active") === true) {
+					var objInput = jQuery(this);
+					var value = objInput.val();
+
+					objInputs.not(objInput).val(value);
+
+					funcChange(event, objInput);
 				}
+			});
+
+			objLink.on("click", function (event) {
+				objLink.toggleClass("ue-active");
+
+				var active = objLink.hasClass("ue-active");
+
+				if (objLink.hasClass("ue-active") === true) {
+					var value = objInputs.first().val();
+
+					objInputs.val(value);
+				}
+
+				initDimentions_updateLinkTitle(objLink);
+
+				funcChange(event, objInput);
+			});
+
+			initDimentions_updateLinkTitle(objLink);
+		});
+	}
+
+	/**
+	 * init dimentions - update link title
+	 */
+	function initDimentions_updateLinkTitle(objLink) {
+		var title = objLink.hasClass("ue-active") === true
+			? objLink.data("title-unlink")
+			: objLink.data("title-link");
+
+		objLink.attr("title", title);
+	}
+
+	/**
+	 * destroy dimentions
+	 */
+	function destroyDimentions() {
+		g_objWrapper.find(".unite-dimentions-device").off("change");
+		g_objWrapper.find(".unite-dimentions-link").off("click");
+		g_objWrapper.find(".unite-dimentions-field-input").off("input");
+	}
+
+	/**
+	 * get dimentions input value
+	 */
+	function getDimentionsInputData(objWrapper) {
+		var data = {};
+
+		objWrapper.find(".unite-dimentions-field-input").each(function () {
+			var objInput = jQuery(this);
+			var value = objInput.val();
+			var key = objInput.data("key");
+
+			data[key] = value;
 		});
 
+		objWrapper.find(".unite-dimentions-link").each(function () {
+			var objLink = jQuery(this);
+			var value = objLink.hasClass("ue-active") === true;
+			var key = objLink.data("key");
 
-		//on input blur
-		objInput.on('blur', function () {
-
-			var value = jQuery(this).val();
-
-			if(iconsType == "fa")
-				value = value.replace("fa fa-","");
-
-			value = jQuery.trim(value);
-
-			var hashName = value+"_"+iconsType;
-
-			if(!g_iconsHash[hashName]){
-				var text = "choose";
-				if(iconsType == "shape")
-					text = "Choose Shape";
-
-				objButton.html(text);
-				return(false);
-			}
-
-			var objIcon = g_iconsHash[hashName];
-			var iconTitle = objIcon.data("title");
-
-			var objType = iconPicker_getObjIconsType(iconsType);
-			if(!objType.template)
-				throw new Error("icon template not found");
-
-			if(typeof objType.template == "function")
-				var htmlIcon = objType.template(value);
-			else
-				var htmlIcon = objType.template.replace("[icon]", value);
-
-			objButton.html(htmlIcon);
-
-			//set title
-			if(iconTitle)
-				objTitle.show().html(iconTitle);
-			else
-				objTitle.hide();
-
-
-			//set selected icon in dialog
-			var objContainer = objDialogWrapper.find('.unite-iconpicker-dialog-icons-container');
-
-			objContainer.find('.icon-selected').removeClass('icon-selected');
-			objIcon.addClass('icon-selected');
-
+			data[key] = value;
 		});
 
-		objInput.trigger("blur");
+		data["unit"] = objWrapper.find(".unite-dimentions-units").val();
 
+		return data;
+	}
+
+	/**
+	 * set dimentions input value
+	 */
+	function setDimentionsInputValue(objInput, value){
+		objInput.find(".unite-dimentions-field-input").each(function () {
+			var objInput = jQuery(this);
+			var key = objInput.data("key");
+
+			objInput.val(value[key]);
+		});
+
+		objInput.find(".unite-dimentions-link").each(function () {
+			var objLink = jQuery(this);
+			var key = objLink.data("key");
+
+			objLink.toggleClass("ue-active", value[key] === "true");
+
+			initDimentions_updateLinkTitle(objLink);
+		});
+
+		objInput.find(".unite-dimentions-units").val(value["unit"]);
 	}
 
 
 	function ______POST_PICKER____(){}
-
 
 	/**
 	 * init post picker
@@ -2990,7 +2860,7 @@ function UniteSettingsUC(){
 				});
 			}
 		}
-
+		
 		var urlAjax = g_ucAdmin.getUrlAjax("get_posts_list_forselect");
 
 		objSelect.select2({
@@ -3061,9 +2931,7 @@ function UniteSettingsUC(){
         	initPostPicker(objWrapper, arrData, value);
 
         });
-
-
-
+        
 	}
 
 
@@ -3953,31 +3821,6 @@ function UniteSettingsUC(){
 
 	}
 
-	function _______DIMENTIONS_____(){}
-
-
-	/**
-	 * get dimentions setting value
-	 */
-	function dimentionsGetValues(objWrapper){
-
-		var objAllInputs = objWrapper.find("input");
-		var objUnits = objWrapper.find("select");
-
-		var data = {};
-
-		objAllInputs.each(function(index, input){
-			var objInput = jQuery(input);
-			var value = objInput.val();
-			var pos = objInput.data("pos");
-
-			data[pos] = value;
-		});
-
-		data["unit"] = objUnits.val();
-
-		return(data);
-	}
 
 	function _______SWITCHER_____(){}
 
@@ -4038,7 +3881,7 @@ function UniteSettingsUC(){
 	 * init switcher events
 	 */
 	function initSwitcherEvents(objSwitcher){
-				
+
 		objSwitcher.on("click", function(){
 			objSwitcher.toggleClass("uc-checked");
 		});
@@ -4167,7 +4010,7 @@ function UniteSettingsUC(){
 	 * @TODO: implement the hide/show, enabled/disables functionality
 	 */
 	function onControlSettingChange(event, input){
-		
+
 		var debugControls = false;
 
 		if(!input)
@@ -4175,15 +4018,15 @@ function UniteSettingsUC(){
 
 		var objInput = jQuery(input);
 		var controlID = input.name;
-		
+
 		if(!controlID)
 			controlID = objInput.data("name");
-		
+
 		if(!controlID)
 			return(true);
-		
+
 		var controlValue = getSettingInputValue(objInput);
-		
+
 		if(!g_arrControls[controlID])
 			return(true);
 
@@ -4517,8 +4360,7 @@ function UniteSettingsUC(){
 	this.updateEvents = function(){
 
 		initSettingsEvents();
-
-		initTipsy("s");
+		initTipsy();
 
 		if(typeof g_objProvider.onSettingsUpdateEvents == "function")
 			g_objProvider.onSettingsUpdateEvents(g_objParent);
@@ -4595,8 +4437,7 @@ function UniteSettingsUC(){
 	 * run on setting change
 	 */
 	this.onSettingChange = function(event, objInput, isInstantChange){
-
-
+		
 		if(g_temp.enableTriggerChange == false)
 			return(true);
 
@@ -4686,26 +4527,24 @@ function UniteSettingsUC(){
 	 * combine controls to one object, and init control events.
 	 */
 	function initControls(){
-		
+
 		if(!g_objWrapper)
 			return(false);
 
 		var objControls = g_objWrapper.data("controls");
-		
-		trace(objControls);
-		
+
 		if(!objControls)
 			return(false);
 
 		g_objWrapper.removeAttr("data-controls");
-		
+
 		g_arrControls = objControls.parents;
 		g_arrChildrenControls = objControls.children;
-		
+
 		//init events
 		g_objParent.find("select").on("change", onControlSettingChange);
 		g_objParent.find("input[type='radio'], .unite-setting-switcher").on("click", onControlSettingChange);
-		
+
 	}
 
 
@@ -4778,8 +4617,10 @@ function UniteSettingsUC(){
 				initColorPickerInputEvents(objInput, funcChange);
 			break;
 			case "icon":
-				initIconPicker(objInput);
-				initSvgPicker(objInput);
+				initIconPicker(objInput, funcChange);
+			break;
+			case "dimentions":
+				initDimentions(objInput, funcChange);
 			break;
 			case "range":
 				initRangeInput(objInput, funcChange);
@@ -4862,7 +4703,7 @@ function UniteSettingsUC(){
 
 			initInputEvents(objInput);
 		});
-		
+
 		//init image input events
 		var objImageSettings = g_objParent.find(".unite-setting-image");
 		t.initImageChooser(objImageSettings);
@@ -5040,13 +4881,14 @@ function UniteSettingsUC(){
 		if(g_temp.objFontsPanel)
 			t.destroyFontsPanel();
 
-		if(g_temp.isRepeaterExists == true)
+		if(g_temp.isRepeaterExists)
 			t.destroyRepeaters();
 
-
 		//destroy icon pickers
-		g_objParent.find(".unite-settings-iconpicker input").off("blur");
-		g_objParent.find(".unite-iconpicker-button").off("blur");
+		destroyIconPickers();
+
+		//destroy dimentions
+		destroyDimentions();
 
 		//destroy custom setting types
 		var objCustomTypes = getCustomSettingType();

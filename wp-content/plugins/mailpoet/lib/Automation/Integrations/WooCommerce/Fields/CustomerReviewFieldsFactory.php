@@ -51,6 +51,7 @@ class CustomerReviewFieldsFactory {
    */
   private function getUniqueProductReviewCount(WC_Customer $customer): int {
     $wpdb = $this->wordPress->getWpdb();
+    /** @var literal-string $sql */
     $sql = "
       SELECT COUNT(DISTINCT comment_post_ID) FROM {$wpdb->comments}
       WHERE comment_parent = 0
@@ -65,6 +66,7 @@ class CustomerReviewFieldsFactory {
 
   private function getLastReviewDate(WC_Customer $customer): ?DateTimeImmutable {
     $wpdb = $this->wordPress->getWpdb();
+    /** @var literal-string $sql */
     $sql = "
       SELECT comment_date FROM {$wpdb->comments}
       WHERE comment_parent = 0

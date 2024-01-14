@@ -147,8 +147,10 @@ class SubscriberStatistics {
         continue;
       }
       $placeholder = implode(',', array_fill(0, count($value), '%s'));
+      /** @var literal-string $sql */
+      $sql = ' AND ' . $this->filterMap[$filterKey] . ' IN (' . $placeholder . ')';
       $sqlWhere .= $wpdb->prepare(
-        ' AND ' . $this->filterMap[$filterKey] . ' IN (' . $placeholder . ')',
+        $sql,
         ...$value
       );
     }
@@ -162,16 +164,12 @@ class SubscriberStatistics {
       );
     }
 
-    /** @var string $sqlWhere */
-    $sqlWhere = $wpdb->prepare(
-      $sqlWhere,
-      $from->format('Y-m-d H:i:s'),
-      $to->format('Y-m-d H:i:s'),
-      $automation->getId()
-    );
+    /* @phpstan-ignore-next-line wpdb::prepare() expects literal-string and because the value of the variable $sqlWhere is changed, PHPStan cannot recognize it by PHP annotation */
+    $sqlWhere = $wpdb->prepare($sqlWhere, $from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $automation->getId());
     $sqlOrderBy = !$count ? "ORDER BY $orderBy $order" : "";
     $sqlLimit = !$count ? "LIMIT $offset, $limit" : "";
 
+    /** @var string $sqlWhere */
     $sql = "SELECT $sqlSelect
     FROM `" . $wpdb->prefix . "mailpoet_automation_runs` AS `run`
     LEFT JOIN `" . $wpdb->prefix . "mailpoet_automation_run_subjects` AS `subject` ON `run`.`id` = `subject`.`automation_run_id`
@@ -182,6 +180,7 @@ class SubscriberStatistics {
       $sqlOrderBy
       $sqlLimit";
 
+    /** @var RawSubscriberType[] $result */
     $result = $wpdb->get_results($sql, ARRAY_A);
     if (!$count) {
       return is_array($result) ? $result : [];

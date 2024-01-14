@@ -631,9 +631,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		protected function drawIconPickerInput($setting){
 
-			$previewStyle = "display:none";
 			$iconsType = UniteFunctionsUC::getVal($setting, "icons_type");
-
 			$value = UniteFunctionsUC::getVal($setting, "value");
 
 			if(empty($iconsType) || $iconsType == "fa"){
@@ -647,19 +645,45 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$addClassWrapper = "";
 			if($iconsType){
 				$addHtml .= " data-icons_type='$iconsType'";
-				$addClassWrapper = " unite-icon-type-".$iconsType;
+				$addClassWrapper = " unite-icon-type-" . $iconsType;
 			}
 
 			$enableSvg = UniteFunctionsUC::getVal($setting, "enable_svg");
 			$enableSvg = UniteFunctionsUC::strToBool($enableSvg);
 
 			?>
-		      <div class="unite-settings-iconpicker<?php echo esc_attr($addClassWrapper)?>">
-					<input type="text" id="<?php echo esc_attr($setting["id"])?>" name="<?php echo esc_attr($setting["name"])?>" <?php echo UniteProviderFunctionsUC::escAddParam($class)?> value="<?php echo esc_attr($value)?>" <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?> />
-		        	<span class="unite-iconpicker-button"></span>
-		        	<div class="unite-iconpicker-title"></div>
-		        	<span class="unite-iconpicker-button-svg">SVG</span>
-			  </div>
+			<div class="unite-iconpicker<?php echo esc_attr($addClassWrapper) ?>">
+				<div class="unite-iconpicker-buttons">
+					<div class="unite-iconpicker-button uc-tip" title="<?php esc_attr_e("None", "unlimited-elements-for-elementor"); ?>" data-action="none">
+						<svg class="unite-iconpicker-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+							<path d="m2.111 9.889 7.778-7.778" />
+							<path d="M6 11.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+						</svg>
+					</div>
+					<div class="unite-iconpicker-button uc-tip" title="<?php esc_attr_e("Upload SVG", "unlimited-elements-for-elementor"); ?>" data-action="upload">
+						<svg class="unite-iconpicker-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+							<path d="M2.5.5H2A1.5 1.5 0 0 0 .5 2v8A1.5 1.5 0 0 0 2 11.5h8a1.5 1.5 0 0 0 1.5-1.5V2A1.5 1.5 0 0 0 10 .5h-.5M.5 8.5h11" />
+							<path d="M3.5 3 6 .5 8.5 3M6 6.5v-6" />
+						</svg>
+						<img class="unite-iconpicker-uploaded-icon" src="" alt="" />
+					</div>
+					<div class="unite-iconpicker-button uc-tip" title="<?php esc_attr_e("Icon Library", "unlimited-elements-for-elementor"); ?>" data-action="library">
+						<svg class="unite-iconpicker-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 11">
+							<path d="m5.5 2.5-1-2h-4v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-7h-6Z" />
+						</svg>
+						<div class="unite-iconpicker-library-icon"></div>
+					</div>
+				</div>
+				<div class="unite-iconpicker-error">Some error message.</div>
+				<input
+					type="hidden"
+					id="<?php echo esc_attr($setting["id"]); ?>"
+					name="<?php echo esc_attr($setting["name"]); ?>"
+					value="<?php echo esc_attr($value); ?>"
+					<?php echo UniteProviderFunctionsUC::escAddParam($class); ?>
+					<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+				/>
+			</div>
 			<?php
 		}
 
@@ -1031,9 +1055,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 				break;
 				case UniteCreatorSettings::TYPE_DIMENTIONS:
-
+					
 					$this->drawDimentionsSetting($setting);
-
+					
 				break;
 				case UniteCreatorSettings::TYPE_GALLERY:
 
@@ -1205,12 +1229,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(isset($setting["style"]))
 				$style = "style='".$setting["style"]."'";
+
 			if(isset($setting["disabled"]))
 				$disabled = 'disabled="disabled"';
 
-			if(isset($setting["readonly"])){
+			if(isset($setting["readonly"]))
 				$readonly = "readonly='readonly'";
-			}
 
 			$defaultClass = self::INPUT_CLASS_NORMAL;
 
@@ -1259,7 +1283,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			if($typePass === true){
 				$inputType = "password";
 			}
-			
+
 			?>
 				<input type="<?php echo esc_attr($inputType)?>" <?php echo UniteProviderFunctionsUC::escAddParam($class)?> <?php echo UniteProviderFunctionsUC::escAddParam($style)?> <?php echo UniteProviderFunctionsUC::escAddParam($disabled)?><?php echo UniteProviderFunctionsUC::escAddParam($readonly)?> id="<?php echo esc_attr($setting["id"])?>" name="<?php echo esc_attr($setting["name"])?>" value="<?php echo esc_attr($value)?>" <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?> />
 			<?php
@@ -1689,7 +1713,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 
-
+		
 		/**
 		 * draw input additinos like unit / description etc
 		 */
@@ -2042,49 +2066,44 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		private function drawSettingsRowByType($setting, $mode){
 
-		    switch($setting["type"]){
-		        case UniteSettingsUC::TYPE_HR:
-		            $this->drawHrRow($setting);
-		            break;
-		        case UniteSettingsUC::TYPE_STATIC_TEXT:
-		            $this->drawTextRow($setting);
-		            break;
-		        default:
-		            $this->drawSettingRow($setting, $mode);
-		        break;
-		    }
-
+			switch($setting["type"]){
+				case UniteSettingsUC::TYPE_HR:
+					$this->drawHrRow($setting);
+				break;
+				case UniteSettingsUC::TYPE_STATIC_TEXT:
+					$this->drawTextRow($setting);
+				break;
+				default:
+					$this->drawSettingRow($setting, $mode);
+				break;
+			}
 		}
 
 
 		/**
 		 * draw settings - all together
 		 */
-		private function drawSettings_settings($filterSapID = null, $mode=null, $arrSettings = null){
-
+		private function drawSettings_settings($filterSapID = null, $mode = null, $arrSettings = null){
 
 			if(is_null($arrSettings))
 				$arrSettings = $this->arrSettings;
 
-		    $this->drawSettings_before();
+			$this->drawSettings_before();
 
-		    foreach($arrSettings as $key=>$setting){
+			foreach($arrSettings as $setting){
+				if(isset($setting[UniteSettingsUC::PARAM_NODRAW]))
+					continue;
 
-		            if(isset($setting[UniteSettingsUC::PARAM_NODRAW]))
-		                continue;
+				if($filterSapID !== null){
+					$sapID = UniteFunctionsUC::getVal($setting, "sap");
+					if($sapID != $filterSapID)
+						continue;
+				}
 
-		                if($filterSapID !== null){
-		                    $sapID = UniteFunctionsUC::getVal($setting, "sap");
-		                    if($sapID != $filterSapID)
-		                        continue;
-		                }
+				$this->drawSettingsRowByType($setting, $mode);
+			}
 
-		                $this->drawSettingsRowByType($setting, $mode);
-
-		        }
-
-		        $this->drawSettingsAfter();
-
+			$this->drawSettingsAfter();
 		}
 
 

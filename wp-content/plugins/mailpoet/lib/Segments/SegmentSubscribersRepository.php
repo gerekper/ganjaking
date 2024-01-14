@@ -107,6 +107,7 @@ class SegmentSubscribersRepository {
     }
 
     $statement = $this->executeQuery($queryBuilder);
+    /** @var string $result */
     $result = $statement->fetchColumn();
     return (int)$result;
   }
@@ -124,6 +125,7 @@ class SegmentSubscribersRepository {
     $queryBuilder = $this->createDynamicStatisticsQueryBuilder();
     $queryBuilder = $this->filterSubscribersInDynamicSegment($queryBuilder, $segment, null);
     $statement = $this->executeQuery($queryBuilder);
+    /** @var array{all:string} $result */
     $result = $statement->fetch();
     return (int)$result['all'];
   }

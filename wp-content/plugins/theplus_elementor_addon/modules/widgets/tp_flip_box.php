@@ -37,6 +37,10 @@ class ThePlus_Flip_Box extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Flipbox', 'Flip Box', ' Flip-card', 'Card flip', 'Box flip', 'Elementor flipbox', 'Elementor flip box', 'Elementor flip-card', 'Elementor card flip', ' Elementor box flip'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

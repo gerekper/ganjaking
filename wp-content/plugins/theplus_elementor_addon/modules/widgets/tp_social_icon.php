@@ -1,10 +1,12 @@
-<?php 
-/*
-Widget Name: Social Icon
-Description: share social icon list design.
-Author: Theplus
-Author URI: https://posimyth.com
-*/
+<?php
+/**
+ * Widget Name: Social Icon
+ * Description: Share social icon list design.
+ * Author: Theplus
+ * Author URI: https://posimyth.com
+ *
+ * @package ThePlus
+ */
 
 namespace TheplusAddons\Widgets;
 
@@ -14,26 +16,74 @@ use Elementor\Utils;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+/**
+ * Exit if accessed directly.
+ * */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Class ThePlus_Social_Icon
+ */
 class ThePlus_Social_Icon extends Widget_Base {
-		
+	
+	/**
+	 * Get Widget Name.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function get_name() {
 		return 'tp-social-icon';
 	}
 
+	/**
+	 * Get Widget Title.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_title() {
         return esc_html__('Social Icon', 'theplus');
     }
 
+	/**
+	 * Get Widget Icon.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_icon() {
         return 'fa fa-share-square-o theplus_backend_icon';
     }
 
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_categories() {
         return array('plus-essential');
     }
 
+	/**
+	 * Get Widget keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_keywords() {
+        return [ 'social', 'icon', 'social icon', 'Social Media Icon', 'Social Media', ' Social Icon Widget', 'Elementor Social Icon' ];
+    }
+
+	/**
+	 * Register controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function register_controls() {
 		
 		$this->start_controls_section(
@@ -197,7 +247,7 @@ class ThePlus_Social_Icon extends Widget_Base {
 				'default' => '#404040',
 				'selectors' => [
 					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-3):not(.style-9):not(.style-11):not(.style-12) a,{{WRAPPER}} {{CURRENT_ITEM}}.style-12 a .fa' => 'background: {{VALUE}};',
-					'{{WRAPPER}} {{CURRENT_ITEM}}.style-3' => 'background: {{VALUE}};border-color: {{VALUE}};background-clip: content-box;',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.style-3' => 'background: {{VALUE}};background-clip: content-box;',
 					'{{WRAPPER}} {{CURRENT_ITEM}}.style-9:hover a span:before' => 'background: {{VALUE}};',
 					'{{WRAPPER}} {{CURRENT_ITEM}}.style-11 a:before' => '-webkit-box-shadow: inset 0 0 0 70px {{VALUE}};-moz-box-shadow: inset 0 0 0 70px {{VALUE}};box-shadow: inset 0 0 0 70px {{VALUE}};',
 				],
@@ -210,7 +260,7 @@ class ThePlus_Social_Icon extends Widget_Base {
 				'default' => '#222222',
 				'selectors' => [
 					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-3):not(.style-9):not(.style-11):not(.style-12):hover a,{{WRAPPER}} {{CURRENT_ITEM}}.style-6 a .social-hover-style,{{WRAPPER}} {{CURRENT_ITEM}}.style-12:hover a span' => 'background: {{VALUE}};',
-					'{{WRAPPER}} {{CURRENT_ITEM}}.style-3:hover' => 'background: {{VALUE}};border-color: {{VALUE}};background-clip: content-box;',					
+					'{{WRAPPER}} {{CURRENT_ITEM}}.style-3:hover' => 'background: {{VALUE}};background-clip: content-box;',					
 					'{{WRAPPER}} {{CURRENT_ITEM}}.style-11:hover a:before' => '-webkit-box-shadow: inset 0 0 0 4px {{VALUE}};-moz-box-shadow: inset 0 0 0 4px {{VALUE}};box-shadow: inset 0 0 0 4px {{VALUE}};',
 				],
 			]
@@ -221,7 +271,7 @@ class ThePlus_Social_Icon extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'default' => '#404040',
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-11):not(.style-12):not(.style-13) a,{{WRAPPER}} {{CURRENT_ITEM}}.style-12 a .fa,{{WRAPPER}} {{CURRENT_ITEM}}.style-13 a:after,{{WRAPPER}} {{CURRENT_ITEM}}.style-13 a:before' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}},{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-11):not(.style-12):not(.style-13) a,{{WRAPPER}} {{CURRENT_ITEM}}.style-12 a .fa,{{WRAPPER}} {{CURRENT_ITEM}}.style-13 a:after,{{WRAPPER}} {{CURRENT_ITEM}}.style-13 a:before' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -231,7 +281,7 @@ class ThePlus_Social_Icon extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'default' => '#222222',
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-11):not(.style-12):not(.style-13):hover a,{{WRAPPER}} {{CURRENT_ITEM}}.style-12:hover a span,{{WRAPPER}} {{CURRENT_ITEM}}.style-13:hover a:after,{{WRAPPER}} {{CURRENT_ITEM}}.style-13:hover a:before' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}}:hover,{{WRAPPER}} {{CURRENT_ITEM}}:not(.style-11):not(.style-12):not(.style-13):hover a,{{WRAPPER}} {{CURRENT_ITEM}}.style-12:hover a span,{{WRAPPER}} {{CURRENT_ITEM}}.style-13:hover a:after,{{WRAPPER}} {{CURRENT_ITEM}}.style-13:hover a:before' => 'border-color: {{VALUE}};',
 				],
 			]
 		);

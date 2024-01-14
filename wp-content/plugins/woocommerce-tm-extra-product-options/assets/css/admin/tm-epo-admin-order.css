@@ -1,5 +1,9 @@
 /* stylelint-disable selector-class-pattern */
 
+:root {
+	--tcgap: 15px;
+}
+
 .tm-order-line-option .edit {
 	display: none;
 }
@@ -55,6 +59,7 @@
 	width: 50%;
 	min-height: 1px;
 	overflow: auto;
+	word-break: break-word;
 }
 
 .rtl .tm-50 {
@@ -138,20 +143,40 @@
 	color: #a00;
 }
 
-.cpf-data-on-cart,
-.cpf-img-on-cart {
+.cpf-data-on-cart {
 	border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 	margin-bottom: 0.5em;
 	display: block;
 }
 
-.cpf-img-on-cart img {
-	margin-right: 0.5em;
-	max-width: 100%;
+.cpf-img-on-order {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	width: calc(100% - var(--tcgap));
+	gap: var(--tcgap);
 }
 
-.epo-option-image {
-	max-height: 100px;
+.cpf-img-on-order img {
+	-o-object-fit: cover;
+	object-fit: cover;
+	display: block;
+	width: 100%;
 	height: auto;
-	width: auto;
+}
+
+.cpf-img-on-order > * {
+	max-width: calc(50% - var(--tcgap)) !important;
+	max-height: none !important;
+	display: block;
+	-webkit-box-flex: 0 !important;
+	-ms-flex: 0 0 calc(50% - var(--tcgap)) !important;
+	flex: 0 0 calc(50% - var(--tcgap)) !important;
 }

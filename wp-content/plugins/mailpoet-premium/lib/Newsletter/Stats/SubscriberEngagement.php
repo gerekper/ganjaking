@@ -18,7 +18,6 @@ use MailPoet\Listing;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\NotFoundException;
 use MailPoet\Premium\Newsletter\StatisticsClicksRepository;
-use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class SubscriberEngagement {
@@ -101,7 +100,14 @@ class SubscriberEngagement {
     $countQuery = $this->getStatsQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $count = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
+
+      /** @var int|null $result */
+      $result = $this->entityManager->getConnection()->executeQuery($query, [
+        'search' => $this->getSearchParameter($definition),
+      ], [
+        'search' => \PDO::PARAM_STR,
+      ])->fetchOne();
+      $count = intval($result);
 
       $statsQuery = $this->getStatsQuery($definition);
       $query = $statsQuery . " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";
@@ -111,9 +117,11 @@ class SubscriberEngagement {
         ->executeQuery($query, [
           'limit' => $definition->getLimit(),
           'offset' => $definition->getOffset(),
+          'search' => $this->getSearchParameter($definition),
         ], [
           'limit' => \PDO::PARAM_INT,
           'offset' => \PDO::PARAM_INT,
+          'search' => \PDO::PARAM_STR,
         ])
         ->fetchAllAssociative();
     } else {
@@ -143,10 +151,6 @@ class SubscriberEngagement {
     if ($applyConstraints) {
       $filterConstraint = $this->getFilterConstraint($definition);
       $searchConstraint = $this->getSearchConstraint($definition);
-      if (($searchConstraint) === false) {
-        // Nothing was found by search
-        return false;
-      }
     }
 
     $queries = [];
@@ -271,38 +275,29 @@ class SubscriberEngagement {
 
   private function getSearchConstraint(Listing\ListingDefinition $definition) {
     // Search recipients
-    $subscriberIds = [];
-    if (!empty($definition->getSearch())) {
-      $search = trim($definition->getSearch());
-      $search = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search); // escape for 'LIKE'
-      $qb = $this->entityManager->getConnection()->createQueryBuilder();
-      $qb
-        ->addSelect('id')
-        ->from($this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName())
-        ->orWhere($qb->expr()->like('email', ':search'))
-        ->orWhere($qb->expr()->like('first_name', ':search'))
-        ->orWhere($qb->expr()->like('last_name', ':search'))
-        ->setParameter('search', '%' . $search . '%');
-      $statement = $qb->execute();
-      if (!$statement instanceof Statement) { // for PHPStan, it doesn't know execute always returns Statement for SELECT queries
-        throw new \Exception('$statement must be an instance of Statement');
-      }
-      $subscriberIds = $statement->fetchAll();
-
-      $subscriberIds = array_column($subscriberIds, 'id');
-      if (empty($subscriberIds)) {
-        return false;
-      }
+    if (empty($definition->getSearch())) {
+      return '';
     }
-    $subscribersConstraint = '';
-    if (!empty($subscriberIds)) {
-      $subscribersConstraint = sprintf(
-        ' AND subscribers.id IN (%s) ',
-        join(',', array_map('intval', $subscriberIds))
-      );
-    }
+    $qb = $this->entityManager->getConnection()->createQueryBuilder();
+    $qb
+      ->addSelect('id')
+      ->from($this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName())
+      ->orWhere($qb->expr()->like('email', ':search'))
+      ->orWhere($qb->expr()->like('first_name', ':search'))
+      ->orWhere($qb->expr()->like('last_name', ':search'));
+    $subscriberSearchQuery = $qb->getSQL();
+    $subscribersConstraint = ' AND subscribers.id IN (' . $subscriberSearchQuery . ') ';
 
     return $subscribersConstraint;
+  }
+
+  private function getSearchParameter(Listing\ListingDefinition $definition): ?string {
+    if (empty($definition->getSearch())) {
+      return null;
+    }
+    $search = trim($definition->getSearch());
+    $search = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search); // escape for 'LIKE'
+    return '%' . $search . '%';
   }
 
   /**
@@ -401,6 +396,8 @@ class SubscriberEngagement {
   private function fetchStatsCount(Listing\ListingDefinition $definition, string $group): int {
     $subQuery = $this->getStatsQuery($definition, true, $group, false);
     $query = ' SELECT COUNT(*) as cnt FROM ( ' . $subQuery . ' ) t ';
-    return intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
+    /** @var int|null $result */
+    $result = $this->entityManager->getConnection()->executeQuery($query)->fetchOne();
+    return intval($result);
   }
 }

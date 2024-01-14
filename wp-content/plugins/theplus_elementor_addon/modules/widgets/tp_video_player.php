@@ -38,6 +38,10 @@ class ThePlus_Video_Player extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return [ 'video', 'media', 'player', 'multimedia', 'youtube', 'vimeo', 'mp4', 'embed', 'playback', 'watch', 'stream', 'online', 'clip', 'film', 'movie', 'visual', 'recording', 'motion picture' ];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

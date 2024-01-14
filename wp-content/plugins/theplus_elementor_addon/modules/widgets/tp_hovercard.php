@@ -49,6 +49,11 @@ class ThePlus_Hovercard extends Widget_Base {
 		return esc_url($DocUrl);
 	}
 
+	public function get_keywords() {
+        return [ 'Hover card', 'Card hover', 'Card on hover', 'Elementor hover card', 'Elementor card hover', 'Elementor card on hover' ];
+    }
+
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

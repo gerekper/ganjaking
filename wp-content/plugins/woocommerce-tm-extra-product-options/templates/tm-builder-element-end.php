@@ -53,7 +53,7 @@ if ( isset( $repeater_quantity, $element_type, $repeater, $repeater_button_label
 	<div class="tc-cell tcwidth tcwidth-100 tc-repeater-wrap">
 		<button type="button" class="tc-repeater-add button">
 			<?php
-			echo ( '' !== $repeater_button_label ) ? wp_kses_post( $repeater_button_label ) : ( ! empty( THEMECOMPLETE_EPO()->tm_epo_add_button_text_repeater ) ? wp_kses_post( THEMECOMPLETE_EPO()->tm_epo_add_button_text_repeater ) : esc_html__( 'Add', 'woocommerce-tm-extra-product-options' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+			echo ( '' !== $repeater_button_label ) ? wp_kses_post( $repeater_button_label ) : ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_add_button_text_repeater' ) ) ? wp_kses_post( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_add_button_text_repeater' ) ) : esc_html__( 'Add', 'woocommerce-tm-extra-product-options' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 			?>
 		</button>
 	</div>

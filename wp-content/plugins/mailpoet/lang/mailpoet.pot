@@ -1,15 +1,15 @@
-# Copyright (C) 2023 MailPoet
+# Copyright (C) 2024 MailPoet
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.40.0\n"
+"Project-Id-Version: MailPoet 4.41.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-12T09:56:23+00:00\n"
+"POT-Creation-Date: 2024-01-03T21:56:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1846,7 +1846,7 @@ msgstr ""
 #: views/homepage.html:71
 #: views/segments/translations.html:217
 #: views/subscribers/subscribers.html:136
-#: lib/Twig/Functions.php:330
+#: lib/Twig/Functions.php:331
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
 msgid "Excellent"
@@ -1860,7 +1860,7 @@ msgstr ""
 #: views/homepage.html:74
 #: views/segments/translations.html:220
 #: views/subscribers/subscribers.html:139
-#: lib/Twig/Functions.php:332
+#: lib/Twig/Functions.php:333
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
 msgid "Good"
@@ -2211,7 +2211,6 @@ msgid "Refresh monthly email limit"
 msgstr ""
 
 #: views/layout.html:141
-#: assets/dist/js/commons.js:9
 msgid "To help your audience and MailPoet authenticate you as the domain owner, please add the following DNS records to your domain’s DNS and click “Verify the DNS records”. Please note that it may take up to 24 hours for DNS changes to propagate after you make the change. [link]Read the guide[/link]."
 msgstr ""
 
@@ -4129,6 +4128,8 @@ msgid "This value should be the same."
 msgstr ""
 
 #: views/premium_key_validation_strings.html:2
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:187
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:192
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Learn more"
@@ -5599,24 +5600,24 @@ msgid "%1$s emails"
 msgstr ""
 
 #: views/settings_translations.html:210
-#: lib/Twig/Functions.php:229
+#: lib/Twig/Functions.php:230
 msgid "every minute"
 msgstr ""
 
 #. translators: %1$d is the amount of minutes.
 #: views/settings_translations.html:211
-#: lib/Twig/Functions.php:231
+#: lib/Twig/Functions.php:232
 msgid "every %1$d minutes"
 msgstr ""
 
 #: views/settings_translations.html:212
-#: lib/Twig/Functions.php:232
+#: lib/Twig/Functions.php:233
 msgid "every hour"
 msgstr ""
 
 #. translators: %1$d is the amount of hours.
 #: views/settings_translations.html:213
-#: lib/Twig/Functions.php:234
+#: lib/Twig/Functions.php:235
 msgid "every %1$d hours"
 msgstr ""
 
@@ -7116,7 +7117,7 @@ msgstr ""
 #: lib/API/JSON/v1/Segments.php:179
 #: lib/API/JSON/v1/Segments.php:243
 #: lib/API/JSON/v1/Segments.php:265
-#: lib/API/MP/v1/Subscribers.php:388
+#: lib/API/MP/v1/Subscribers.php:389
 msgid "This list does not exist."
 msgid_plural "These lists do not exist."
 msgstr[0] ""
@@ -7327,7 +7328,7 @@ msgstr ""
 #: lib/API/JSON/v1/Subscribers.php:218
 #: lib/API/JSON/v1/Subscribers.php:248
 #: lib/API/JSON/v1/SubscriberStats.php:45
-#: lib/API/MP/v1/Subscribers.php:374
+#: lib/API/MP/v1/Subscribers.php:375
 msgid "This subscriber does not exist."
 msgstr ""
 
@@ -7436,60 +7437,60 @@ msgstr ""
 msgid "Failed to save a status of a subscriber : %s"
 msgstr ""
 
-#: lib/API/MP/v1/Subscribers.php:243
+#: lib/API/MP/v1/Subscribers.php:244
 msgid "This subscriber is already unsubscribed."
 msgstr ""
 
 #. translators: %s is an error message
-#: lib/API/MP/v1/Subscribers.php:321
+#: lib/API/MP/v1/Subscribers.php:322
 msgid "Subscriber added, but welcome email failed to send: %s"
 msgstr ""
 
 #. translators: %s is the error message
-#: lib/API/MP/v1/Subscribers.php:336
+#: lib/API/MP/v1/Subscribers.php:337
 msgid "Subscriber added to lists, but confirmation email failed to send: %s"
 msgstr ""
 
-#: lib/API/MP/v1/Subscribers.php:347
+#: lib/API/MP/v1/Subscribers.php:348
 msgid "At least one segment ID is required."
 msgstr ""
 
-#: lib/API/MP/v1/Subscribers.php:357
+#: lib/API/MP/v1/Subscribers.php:358
 msgid "A subscriber is required."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:398
+#: lib/API/MP/v1/Subscribers.php:399
 msgid "Can't subscribe to a WordPress Users list with ID '%d'."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:401
+#: lib/API/MP/v1/Subscribers.php:402
 msgid "Can't unsubscribe from a WordPress Users list with ID '%d'."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:408
+#: lib/API/MP/v1/Subscribers.php:409
 msgid "Can't subscribe to a WooCommerce Customers list with ID '%d'."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:411
+#: lib/API/MP/v1/Subscribers.php:412
 msgid "Can't unsubscribe from a WooCommerce Customers list with ID '%d'."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:418
+#: lib/API/MP/v1/Subscribers.php:419
 msgid "Can't subscribe to a list with ID '%d'."
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/API/MP/v1/Subscribers.php:421
+#: lib/API/MP/v1/Subscribers.php:422
 msgid "Can't unsubscribe from a list with ID '%d'."
 msgstr ""
 
 #. translators: %s is the count of lists
-#: lib/API/MP/v1/Subscribers.php:433
+#: lib/API/MP/v1/Subscribers.php:434
 msgid "List with ID '%s' does not exist."
 msgid_plural "Lists with IDs '%s' do not exist."
 msgstr[0] ""
@@ -7647,7 +7648,7 @@ msgstr ""
 #. translators: %s is the name of the segment
 #: lib/Automation/Engine/Builder/DuplicateAutomationController.php:52
 #: lib/Form/FormSaveController.php:28
-#: lib/Newsletter/NewsletterSaveController.php:180
+#: lib/Newsletter/NewsletterSaveController.php:181
 #: lib/Segments/DynamicSegments/SegmentSaveController.php:55
 #: lib/Segments/SegmentSaveController.php:47
 msgid "Copy of %s"
@@ -7806,7 +7807,7 @@ msgid "Can not update automation with ID '%d' because users are currently active
 msgstr ""
 
 #: lib/Automation/Engine/Exceptions/Exception.php:27
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:66
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:67
 msgid "Unknown error."
 msgstr ""
 
@@ -7874,71 +7875,71 @@ msgstr ""
 msgid "A trigger that provides %s is required"
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:78
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:79
 msgid "This is a required field."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:86
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:87
 msgid "This field is not well formed."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:88
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:89
 msgid "Please add more items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:90
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:91
 msgid "Please remove some items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:92
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:93
 msgid "Please remove duplicate items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:94
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:95
 msgid "This value is out of bounds."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:96
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:97
 msgid "This value is not long enough."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:98
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:99
 msgid "This value is too long."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:100
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:101
 msgid "This value is not well formed."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:102
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:103
 msgid "This value does not match the expected format."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:104
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:105
 msgid "This value is not matching the correct times."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:106
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:107
 msgid "This value is not a hex formatted color."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:108
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:109
 msgid "This value is not a date."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:110
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:111
 msgid "This value is not an email address."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:112
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:113
 msgid "This value is not an IP address."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:114
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:115
 msgid "This value is not an UUID."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:133
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:134
 msgid "Some steps are not valid"
 msgstr ""
 
@@ -9752,7 +9753,7 @@ msgstr ""
 msgid "No subject"
 msgstr ""
 
-#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:301
+#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:300
 msgid "There was an error processing your newsletter during sending. If possible, please contact us and report this issue."
 msgstr ""
 
@@ -11127,7 +11128,7 @@ msgstr ""
 msgid "System fields"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportRepository.php:194
+#: lib/Subscribers/ImportExport/ImportExportRepository.php:207
 msgid "Not In Segment"
 msgstr ""
 
@@ -11269,7 +11270,7 @@ msgid "Please check the CAPTCHA."
 msgstr ""
 
 #: lib/Subscription/Captcha/Validator/RecaptchaValidator.php:44
-#: lib/Subscription/Captcha/Validator/RecaptchaValidator.php:48
+#: lib/Subscription/Captcha/Validator/RecaptchaValidator.php:49
 msgid "Error while validating the CAPTCHA."
 msgstr ""
 
@@ -11386,7 +11387,7 @@ msgstr ""
 msgid "%d seconds"
 msgstr ""
 
-#: lib/Twig/Functions.php:334
+#: lib/Twig/Functions.php:335
 #: assets/dist/js/automation_analytics.js:9
 msgid "Average"
 msgstr ""
@@ -11470,6 +11471,49 @@ msgstr ""
 #. translators: %s is the PHP version
 #: lib/Util/Notices/PHPVersionWarnings.php:26
 msgid "Your website is running an outdated version of PHP (%1$s), on which MailPoet might stop working in the future. We recommend upgrading to %2$s or greater. Read our [link]simple PHP upgrade guide.[/link]"
+msgstr ""
+
+#. translators: %1$s is the domain of the user's default from address, %2$s is a rewritten version of their default from address, %3$s is HTML for an 'update sender' button, and %4$s is HTML for a Learn More button
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:130
+msgid ""
+"<strong>Update your sender email address to a branded domain to continue sending your campaigns.</strong>\n"
+"<span>MailPoet can no longer send from email addresses on shared 3rd party domains like <strong>%1$s</strong>. Please change your campaigns to send from an email address on your site's branded domain. Your existing scheduled and active emails will temporarily be sent from <strong>%2$s</strong>.</span> <p>%3$s &nbsp; %4$s</p>"
+msgstr ""
+
+#. translators: %1$s is the domain of the user's default from address, %2$s is a rewritten version of their default from address, %3$s is HTML for an 'update sender' button, and %4$s is HTML for a Learn More button
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:140
+msgid ""
+"<strong>Your newsletters and post notifications have been paused. Update your sender email address to a branded domain to continue sending your campaigns.</strong>\n"
+"<span>MailPoet can no longer send from email addresses on shared 3rd party domains like <strong>%1$s</strong>. Please change your campaigns to send from an email address on your site's branded domain. Your marketing automations and transactional emails will temporarily be sent from <strong>%2$s</strong>.</span> <p>%3$s &nbsp; %4$s</p>"
+msgstr ""
+
+#. translators: %1$s is HTML for an 'authenticate domain' button, %2$s is HTML for a Learn More button
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:152
+msgid ""
+"<strong>Authenticate your sender domain to improve email delivery rates.</strong>\n"
+"<span>Major mailbox providers require you to authenticate your sender domain to confirm you sent the emails, and may place unauthenticated emails in the \"Spam\" folder. Please authenticate your sender domain to ensure your marketing campaigns are compliant and will reach your contacts.</span><p>%1$s &nbsp; %2$s</p>"
+msgstr ""
+
+#. translators: %1$s is a rewritten version of the user's default from address, %2$s is HTML for an 'authenticate domain' button, %3$s is HTML for a Learn More button
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:161
+msgid ""
+"<strong>Authenticate your sender domain to send new emails.</strong>\n"
+"      <span>Major mailbox providers require you to authenticate your sender domain to confirm you sent the emails, and may place unauthenticated emails in the \"Spam\" folder. Please authenticate your sender domain to ensure your marketing campaigns are compliant and will reach your contacts. Your existing scheduled and active emails will temporarily be sent from <strong>%1$s</strong>.</span> <p>%2$s &nbsp; %3$s</span>"
+msgstr ""
+
+#. translators: %1$s is a rewritten version of the user's default from address, %2$s is HTML for an 'authenticate domain' button, %3$s is HTML for a Learn More button
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:170
+msgid ""
+"<strong>Your newsletters and post notifications have been paused. Authenticate your sender domain to continue sending.</strong>\n"
+"<span>Major mailbox providers require you to authenticate your sender domain to confirm you sent the emails, and may place unauthenticated emails in the \"Spam\" folder. Please authenticate your sender domain to ensure your marketing campaigns are compliant and will reach your contacts. Your marketing automations and transactional emails will temporarily be sent from <strong>%1$s</strong>.</span> <p>%2$s &nbsp; %3$s</p>"
+msgstr ""
+
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:182
+msgid "Update sender email"
+msgstr ""
+
+#: lib/Util/Notices/SenderDomainAuthenticationNotices.php:203
+msgid "Authenticate domain"
 msgstr ""
 
 #: lib/Util/Notices/UnauthorizedEmailInNewslettersNotice.php:49
@@ -12057,6 +12101,7 @@ msgid "Please specify a subject"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
+#: assets/dist/js/email-editor/email_editor.js:15
 msgid "Preview text"
 msgstr ""
 
@@ -14714,6 +14759,14 @@ msgid "Manage Sender Domain "
 msgstr ""
 
 #: assets/dist/js/commons.js:9
+msgid "Authenticate your sender domain to send emails from your email address. This helps your recipients verify you are the author of these emails and helps mailbox providers fight spam and improves your email delivery rates."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
+msgid "Please add the following DNS records to your domain’s DNS and click “Verify the DNS records”. Do note that it may take up to 24 hours for DNS changes to propagate after you make the change. <link>Read the guide</link>."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
 msgid "Host"
 msgstr ""
 
@@ -14727,14 +14780,6 @@ msgstr ""
 
 #: assets/dist/js/commons.js:9
 msgid "Verify the DNS records"
-msgstr ""
-
-#: assets/dist/js/commons.js:9
-msgid "Authorized emails"
-msgstr ""
-
-#: assets/dist/js/commons.js:9
-msgid "Sender Domains"
 msgstr ""
 
 #: assets/dist/js/commons.js:9
@@ -15196,19 +15241,15 @@ msgid "Shortcode guide"
 msgstr ""
 
 #: assets/dist/js/email-editor/email_editor.js:15
-msgid "Preview text (recommended)"
-msgstr ""
-
-#: assets/dist/js/email-editor/email_editor.js:15
-msgid "This text will appear in the inbox, underneath the subject line. Max length is 250 characters, but we recommend 80 characters."
-msgstr ""
-
-#: assets/dist/js/email-editor/email_editor.js:15
 msgid "Eg. The summer sale is here!"
 msgstr ""
 
 #: assets/dist/js/email-editor/email_editor.js:15
 msgid "Add a preview text to capture subscribers' attention and increase open rates."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:15
+msgid "<link>This text</link> will appear in the inbox, underneath the subject line."
 msgstr ""
 
 #: assets/dist/js/email-editor/email_editor.js:15

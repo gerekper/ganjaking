@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.2.0
+Version: 2.2.1
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -18,14 +18,14 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.2.0');
+define('PERFMATTERS_VERSION', '2.2.1');
 
 function perfmatters_plugins_loaded() {
 
 	//setup cache constants
 	$perfmatters_cache_path = apply_filters('perfmatters_cache_path', 'cache');
 	$parsed_url = parse_url(get_site_url());
-	$host = $parsed_url['host'] . ($parsed_url['path'] ?? '');
+	$host = ($parsed_url['host'] ?? '') . ($parsed_url['path'] ?? '');
 	if(!defined('PERFMATTERS_CACHE_DIR')) {
 		define('PERFMATTERS_CACHE_DIR', WP_CONTENT_DIR . '/' . $perfmatters_cache_path . "/perfmatters/$host/");
 	}
@@ -369,6 +369,27 @@ function perfmatters_install() {
 		if(!empty($perfmatters_options['assets']['defer_jquery']) && empty($perfmatters_tools['show_advanced'])) {
 			$perfmatters_tools['show_advanced'] = '1';
 			update_option('perfmatters_tools', $perfmatters_tools);
+		}
+	}
+
+	if($perfmatters_version < '2.2.1') {
+
+		$update_flag = false;
+
+		$perfmatters_options = get_option('perfmatters_options');
+
+		if(!empty($perfmatters_options['analytics']['script_type']) && $perfmatters_options['analytics']['script_type'] == 'gtag' && !empty($perfmatters_options['analytics']['dual_tracking']) && !empty($perfmatters_options['analytics']['measurement_id'])) {
+			$perfmatters_options['analytics']['tracking_id'] = $perfmatters_options['analytics']['measurement_id'];
+			$update_flag = true;
+		}
+
+		if(!empty($perfmatters_options['analytics']['script_type']) && $perfmatters_options['analytics']['script_type'] != 'minimalv4') {
+			unset($perfmatters_options['analytics']['script_type']);
+			$update_flag = true;
+		}
+
+		if($update_flag) {
+			update_option('perfmatters_options', $perfmatters_options);
 		}
 	}
 

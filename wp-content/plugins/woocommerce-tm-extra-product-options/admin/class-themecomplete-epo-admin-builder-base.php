@@ -2738,7 +2738,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 *
 	 * @param array<mixed> $args Array of arguments.
 	 * @return void
-	 * @since  1.0
+	 * @since 1.0
 	 * @access private
 	 */
 	private function section_elements_template( $args = [] ) {
@@ -2785,13 +2785,32 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 			echo '<div class="section_elements closed">';
 		}
 		if ( is_array( $section_fields ) ) {
+			$clogic              = false;
+			$logicrules          = false;
+			$logicrules_pointers = [];
 			foreach ( $section_fields as $section_field ) {
 				if ( empty( $args['is_template'] ) ) {
+					if ( ! empty( $section_field['clogic'] ) ) {
+						$clogic = $section_field;
+					}
+					if ( ! empty( $section_field['logicrules'] ) ) {
+						$logicrules          = $section_field;
+						$logicrules_pointers = [
+							'pointer'  => $pointer,
+							'jpointer' => $section_field['id'],
+						];
+					}
 					if ( 'custom' !== $section_field['type'] ) {
 						$this->jsbuilder[ $pointer ]['section'][ $section_field['id'] ] = $this->remove_for_js( $section_field );
 					}
 				} elseif ( empty( $this->noecho ) ) {
 					THEMECOMPLETE_EPO_HTML()->create_field( $section_field, 1 );
+				}
+			}
+			if ( false !== $clogic && false !== $logicrules && isset( $logicrules_pointers['jpointer'] ) ) {
+				if ( isset( $clogic['default'] ) && array_key_exists( 'default', $logicrules ) && null === $logicrules['default'] ) {
+					$logicrules['default'] = $clogic['default'];
+					$this->jsbuilder[ $logicrules_pointers['pointer'] ]['section'][ $logicrules_pointers['jpointer'] ] = $this->remove_for_js( $logicrules );
 				}
 			}
 		}
@@ -2858,7 +2877,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 *
 	 * @param array<mixed> $args Array of arguments.
 	 * @return void
-	 * @since  1.0
+	 * @since 1.0
 	 * @access private
 	 */
 	private function section_template( $args = [] ) {
@@ -3024,7 +3043,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 *
 	 * @param boolean $wpml_is_original_product If the product is the original product.
 	 * @return void
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function template_section_elements( $wpml_is_original_product = true ) {
@@ -3048,7 +3067,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Generates all hidden elements for use in jQuery.
 	 *
 	 * @return void
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function template_elements() {
@@ -3088,7 +3107,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 *
 	 * @param mixed $val The value to clear.
 	 * @return mixed
-	 * @since  1.0
+	 * @since 1.0
 	 * @access private
 	 */
 	private function clear_array_values( $val ) {
@@ -3104,7 +3123,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 *
 	 * @param mixed $val The value to false.
 	 * @return mixed
-	 * @since  5.0
+	 * @since 5.0
 	 * @access private
 	 */
 	private function return_false_array_values( $val ) {
@@ -3122,7 +3141,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * @param integer $current_post_id current post id.
 	 * @param boolean $wpml_is_original_product If the product is the original product.
 	 * @return array<mixed>
-	 * @since  5.0
+	 * @since 5.0
 	 * @access public
 	 */
 	public function get_current_jsbuilder( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
@@ -3142,7 +3161,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * @param integer $current_post_id current post id.
 	 * @param boolean $wpml_is_original_product If the product is the original product.
 	 * @return void
-	 * @since  5.0
+	 * @since 5.0
 	 * @access public
 	 */
 	public function ajax_print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
@@ -3157,7 +3176,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * @param integer $current_post_id current post id.
 	 * @param boolean $wpml_is_original_product If the product is the original product.
 	 * @return void
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
@@ -3964,7 +3983,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for Image replacement
 	 *
 	 * @see    builder_sub_variations_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param  string $value The image source.
 	 * @return void
 	 * @access public
@@ -3981,7 +4000,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for Product Image replacement
 	 *
 	 * @see    builder_sub_variations_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param  string $value The image source.
 	 * @return void
 	 * @access public
@@ -3997,7 +4016,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	/**
 	 * Generates element sub-options for variations.
 	 *
-	 * @since  3.0.0
+	 * @since 3.0.0
 	 * @param  array<mixed> $args Array of arguments.
 	 * @return mixed
 	 * @access public
@@ -4593,7 +4612,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * @param string $name Element name.
 	 * @return void
 	 * @see    builder_sub_options_image_helper
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @access public
 	 */
 	public function get_builder_sub_options_upload_helper( $name = '' ) {
@@ -4610,7 +4629,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for Image replacement
 	 *
 	 * @see    builder_sub_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string       $name Element name.
 	 * @param string|false $image Image to output.
 	 * @return void
@@ -4631,7 +4650,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to print the upload button for checked Image replacement
 	 *
 	 * @see    builder_sub_options_imagec_helper
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string $name Element name.
 	 * @return void
 	 * @access public
@@ -4650,7 +4669,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for checked Image replacement
 	 *
 	 * @see    builder_sub_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string       $name Element name.
 	 * @param string|false $image Image to output.
 	 * @return void
@@ -4671,7 +4690,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to print the upload button for Product Image replacement
 	 *
 	 * @see    builder_sub_options_imagep_helper
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string $name Element name.
 	 * @return void
 	 * @access public
@@ -4688,7 +4707,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for Product Image replacement
 	 *
 	 * @see    builder_sub_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string       $name Element name.
 	 * @param string|false $image Image to output.
 	 * @return void
@@ -4709,7 +4728,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to print the upload button for Lightbox Image
 	 *
 	 * @see    builder_sub_options_imagel_helper
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string $name Element name.
 	 * @return void
 	 * @access public
@@ -4726,7 +4745,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	 * Helper to generate html for Lightbox Image
 	 *
 	 * @see    builder_sub_options
-	 * @since  4.8.5
+	 * @since 4.8.5
 	 * @param string       $name Element name.
 	 * @param string|false $image Image to output.
 	 * @return void
@@ -4746,7 +4765,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	/**
 	 * Remove problematic array keys for js output
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 * @param array<mixed> $setting Array of arguments.
 	 * @return array<mixed>
 	 * @access public
@@ -4764,7 +4783,7 @@ final class THEMECOMPLETE_EPO_ADMIN_BUILDER_Base {
 	/**
 	 * Generates element sub-options for selectbox, checkbox and radio buttons.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @param array<mixed> $args Array of arguments.
 	 * @return mixed
 	 * @access public

@@ -50,8 +50,8 @@ class WC_Dropshipping_CSV_Import {
 			</tr>
 			<tr>
 				<td>';
-				echo '<input type="hidden" id="csv_upload_term_id" name="term_id" value="' . $term_id . '" />
-					<input type="file" name="csv_file" value="" />';
+				echo '	<input type="hidden" id="csv_upload_term_id" name="term_id" value="' . htmlspecialchars($term_id, ENT_QUOTES, 'UTF-8') . '" />
+    					<input type="file" name="csv_file" value="" />';
 
 				echo '<input type="hidden" value="' . $ds['slug'] . '" name="slug">';
 				echo '<input type="hidden" value="dropship_supplier" name="taxonomy">';

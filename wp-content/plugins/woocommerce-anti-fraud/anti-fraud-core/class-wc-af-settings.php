@@ -719,7 +719,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'id'       => 'wc_af_email_alert_settings',
 							),
 							array(
-								'title'       => __( 'Activate EmailAlerts for Admin', 'woocommerce-anti-fraud' ),
+								'title'       => __( 'Activate Email Alerts for Admin', 'woocommerce-anti-fraud' ),
 								'type'        => 'checkbox',
 								'label'       => '',
 								'default'     => 'no',
@@ -1867,7 +1867,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					);
 
 				}
-
+				update_option( 'wc_af_is_settings_saved', true);
 				/**
 				 * Filter WCAF Settings
 				 *

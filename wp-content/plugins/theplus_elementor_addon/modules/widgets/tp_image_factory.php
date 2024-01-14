@@ -37,6 +37,10 @@ class ThePlus_Image_Factory extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+
+	public function get_keywords() {
+        return [ 'Creative Images', 'Image Gallery', 'Image Slider', 'Image Carousel', 'Image Showcase', 'Image Grid', 'Image Masonry', 'Image Wall', 'Image Portfolio' ];
+    }
 	
     protected function register_controls() {
 		

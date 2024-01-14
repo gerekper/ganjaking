@@ -6,7 +6,7 @@ class Images
     //initialize image functions
     public static function init() 
     {
-        add_action('wp', array('Perfmatters\Images', 'queue'));
+        add_action('perfmatters_queue', array('Perfmatters\Images', 'queue'));
     }
 
     //queue functions
@@ -82,12 +82,7 @@ class Images
             return array('width' => $matches[1], 'height' => $matches[2]);
         }
 
-        //get image path
-        $parsed_url = parse_url($url);
-        if(empty($parsed_url['path'])) {
-            return false;
-        }
-        $image_path = str_replace('/wp-content', '', WP_CONTENT_DIR) . '/' . $parsed_url['path'];
+        $image_path = str_replace(site_url('/'), ABSPATH, $url);
 
         if(file_exists($image_path)) {
 

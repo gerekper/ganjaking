@@ -73,15 +73,15 @@ if ( ! class_exists( 'SRP_Birthday' ) ) {
 		 * Meta data keys
 		 */
 		protected $meta_data_keys = array(
-			'srp_user_id'             => '' ,
-			'srp_user_email'          => '' ,
-			'srp_user_name'           => '' ,
-			'srp_birthday_date'       => '' ,
-			'srp_birthday_month'      => '' ,
-			'srp_birthday_updated_on' => '' ,
-			'srp_issued_date'         => '' ,
-			'srp_issued_year'         => array() ,
-			'srp_last_issued_year'    => '' ,
+			'srp_user_id'             => '',
+			'srp_user_email'          => '',
+			'srp_user_name'           => '',
+			'srp_birthday_date'       => '',
+			'srp_birthday_month'      => '',
+			'srp_birthday_updated_on' => '',
+			'srp_issued_date'         => '',
+			'srp_issued_year'         => array(),
+			'srp_last_issued_year'    => '',
 				) ;
 
 		/**
@@ -243,8 +243,6 @@ if ( ! class_exists( 'SRP_Birthday' ) ) {
 
 			return $this->srp_last_issued_year ;
 		}
-
 	}
 
 }
-	

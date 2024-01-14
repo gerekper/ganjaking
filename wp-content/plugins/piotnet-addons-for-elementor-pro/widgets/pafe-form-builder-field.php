@@ -1649,6 +1649,26 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 			]
 		);
 
+        $this->add_control(
+			'field_step',
+			[
+				'label' => __( 'Step. Value', 'elementor-pro' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+                'description' => __('Use dots to represent decimal places.', 'pafe'),
+				'conditions' => [
+					'terms' => [
+						[
+							'name' => 'field_type',
+							'operator' => 'in',
+							'value' => [
+								'number',
+							],
+						],
+					],
+				],
+			]
+		);
+
 		$this->add_control(
 			'number_spiner',
 			[
@@ -6403,6 +6423,7 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 
                         break;
 					case 'number':
+                        $step = !empty($item['field_step']) ? $item['field_step'] : 'any';
 						if(!empty($settings['field_value_remove']) || $settings['field_value_remove'] == '0'){
 							$remove_value = $settings['field_value_remove'];
 						}else{
@@ -6410,7 +6431,7 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 						}
 						$this->add_render_attribute( 'input' . $item_index, 'data-pafe-form-builder-form-id', $form_id );
 						$this->add_render_attribute( 'input' . $item_index, 'class', 'elementor-field-textual' );
-						$this->add_render_attribute( 'input' . $item_index, 'step', 'any' );
+						$this->add_render_attribute( 'input' . $item_index, 'step', $step );
 						$this->add_render_attribute( 'input' . $item_index, 'data-pafe-remove-value', $remove_value);
                         if ( !empty( $item['field_min'] ) || $item['field_min'] === 0 ) {
 							$this->add_render_attribute( 'input' . $item_index, 'min', esc_attr( $item['field_min'] ) );

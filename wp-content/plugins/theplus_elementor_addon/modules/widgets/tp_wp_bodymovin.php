@@ -38,8 +38,8 @@ class ThePlus_Bodymovin_Animations extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return [ 'bodymoving', 'animations', 'lottiefiles', 'bodylines'];
-	}
+        return [ 'Lottiefiles', 'Lottie animation', 'Lottie widget', 'Elementor Lottie', 'Lottie Elementor', 'Lottie animation Elementor', 'Lottie animation widget', 'Lottie animation plugin', 'Lottie animation addon', 'Lottie animation for Elementor', 'On Scroll', 'Scroll Animation', 'Animated Scroll', 'Animation Widget', 'JSON Animation' ];
+    }
 	
     protected function register_controls() {
 		

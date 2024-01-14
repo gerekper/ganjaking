@@ -1,15 +1,15 @@
-# Copyright (C) 2023 MailPoet
+# Copyright (C) 2024 MailPoet
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.38.0\n"
+"Project-Id-Version: MailPoet Premium 4.41.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-27T17:40:04+00:00\n"
+"POT-Creation-Date: 2024-01-03T21:50:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -191,13 +191,13 @@ msgstr ""
 
 #: lib/API/JSON/v1/Bounces.php:39
 #: lib/API/JSON/v1/Stats.php:71
-#: lib/API/JSON/v1/Stats.php:105
+#: lib/API/JSON/v1/Stats.php:109
 msgid "This newsletter does not exist."
 msgstr ""
 
 #: lib/API/JSON/v1/Bounces.php:46
-#: lib/API/JSON/v1/Stats.php:80
-#: lib/API/JSON/v1/Stats.php:112
+#: lib/API/JSON/v1/Stats.php:84
+#: lib/API/JSON/v1/Stats.php:116
 msgid "This newsletter is not sent yet."
 msgstr ""
 
@@ -285,22 +285,22 @@ msgstr ""
 msgid "Automation not found"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:200
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:199
 #: assets/dist/js/premium.js:2
 msgid "Failed"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:202
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:201
 #: assets/dist/js/premium.js:2
 msgid "In Progress"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:204
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:203
 #: assets/dist/js/premium.js:2
 msgid "Cancelled"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:206
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:205
 #: assets/dist/js/premium.js:2
 msgid "Completed"
 msgstr ""
@@ -580,42 +580,42 @@ msgstr ""
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:328
+#: lib/Newsletter/Stats/SubscriberEngagement.php:323
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:360
+#: lib/Newsletter/Stats/SubscriberEngagement.php:355
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:365
+#: lib/Newsletter/Stats/SubscriberEngagement.php:360
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:370
+#: lib/Newsletter/Stats/SubscriberEngagement.php:365
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:375
+#: lib/Newsletter/Stats/SubscriberEngagement.php:370
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:384
+#: lib/Newsletter/Stats/SubscriberEngagement.php:379
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:391
+#: lib/Newsletter/Stats/SubscriberEngagement.php:386
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""
 
 #: mailpoet-premium.php:51
-msgid "MailPoet Premium requires PHP version 7.3.0 or newer (version 8.1 recommended). Please read our [link]instructions[/link] on how to resolve this issue."
+msgid "MailPoet Premium requires PHP version 7.4.0 or newer (version 8.1 recommended). Please read our [link]instructions[/link] on how to resolve this issue."
 msgstr ""
 
 #: mailpoet-premium.php:78

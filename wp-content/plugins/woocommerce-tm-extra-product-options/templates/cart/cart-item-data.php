@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$separator = THEMECOMPLETE_EPO()->tm_epo_separator_cart_text;
+$separator = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_separator_cart_text' );
 ?>
 <dl class="tc-epo-metadata variation">
 	<?php
@@ -46,7 +46,7 @@ $separator = THEMECOMPLETE_EPO()->tm_epo_separator_cart_text;
 			if ( $is_epo && '' === $data['display'] ) {
 				$show_dd = false;
 			}
-			if ( ( 'link' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display && isset( $data['popuplink'] ) ) || ! $show_dd ) {
+			if ( ( 'link' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_cart_field_display' ) && isset( $data['popuplink'] ) ) || ! $show_dd ) {
 				$separator = '';
 			}
 

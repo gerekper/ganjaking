@@ -1,5 +1,11 @@
 *** WooCommerce Chained Products Changelog ***
 
+2024-01-02 - version 3.4.0
+* New: WooCommerce 8.4.0 Compatible
+* Fix: Product price is not showing correctly on the category page, if Priced Individually is enabled for any of the chained items
+* Developer: Filter 'wc_cp_admin_hide_chained_order_item' to hide the chained items in order edit page [Admin]
+* Update: POT file
+
 2023-11-30 - version 3.3.0
 * New: WooCommerce 8.2.2 compatible
 * New: WordPress 6.4.1 compatible

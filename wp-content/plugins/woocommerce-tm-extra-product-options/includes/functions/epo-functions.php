@@ -207,6 +207,15 @@ function THEMECOMPLETE_EPO_ACTIONS() {
 	return THEMECOMPLETE_EPO_Actions_Base::instance();
 }
 
+/**
+ * Data Store Interface.
+ *
+ * @return THEMECOMPLETE_EPO_Data_Store_Base
+ */
+function THEMECOMPLETE_EPO_DATA_STORE() {
+	return THEMECOMPLETE_EPO_Data_Store_Base::instance();
+}
+
 if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 	/**
 	 * Convert local decimal separator to PHP dot

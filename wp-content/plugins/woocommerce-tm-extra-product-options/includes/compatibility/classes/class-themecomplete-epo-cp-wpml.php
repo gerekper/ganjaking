@@ -229,7 +229,7 @@ final class THEMECOMPLETE_EPO_CP_WPML {
 			$wpml_fields = ( 'sections' === $identifier ) ? $this->wpml_section_fields : $this->wpml_element_fields;
 
 			// always use translated value for multiple_ settings.
-			if ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $element, 'multiple_' ) ) {
+			if ( str_starts_with( $element, 'multiple_' ) ) {
 				$wpml_fields = true;
 			}
 			if ( isset( $current_builder[ $element ] ) &&

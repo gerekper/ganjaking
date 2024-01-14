@@ -76,7 +76,7 @@ final class THEMECOMPLETE_EPO_CP_Atum {
 	public function wc_epo_no_order_get_items( $ret ) {
 		global $post;
 
-		if ( isset( $_REQUEST['action'] ) && THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( stripslashes_deep( $_REQUEST['action'] ) ), 'atum_' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['action'] ) && str_starts_with( sanitize_text_field( stripslashes_deep( $_REQUEST['action'] ) ), 'atum_' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$ret = true;
 		}
 

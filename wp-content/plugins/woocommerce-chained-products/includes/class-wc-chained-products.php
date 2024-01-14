@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- * @version     1.3.3
+ * @version     1.3.4
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -270,7 +270,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			$products_data = array();
 
 			// Set product ids to cache key to get the details of nested chained products.
-			$cache_key = ( true === $is_child ) ? 'sa_cp_details' . implode( '_', $product_ids ) : 'sa_cp_details';
+			$cache_key = 'sa_cp_details' . implode( '_', $product_ids );
 
 			// Fetch chained products id from cache.
 			$chained_product_ids = wp_cache_get( $cache_key, 'woocommerce-chained-products' );
@@ -1730,6 +1730,17 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				$css_class = $css_class . ' cp_hide_line_item_meta';
 			}
 
+			if ( apply_filters(
+				'wc_cp_admin_hide_chained_order_item',
+				false,
+				array(
+					'item'   => $item,
+					'source' => $this,
+				)
+			) ) {
+				$css_class .= ' cp_hide_line_order_item';
+			}
+
 			return $css_class . ' chained_item';
 		}
 
@@ -1928,7 +1939,8 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				}
 				.chained_item.cp_hide_line_item_meta td.item_cost div,
 				.chained_item.cp_hide_line_item_meta td.line_cost div,
-				.chained_item.cp_hide_line_item_meta td.line_tax div {
+				.chained_item.cp_hide_line_item_meta td.line_tax div,
+				.chained_item.cp_hide_line_order_item {
 					display: none;
 				}
 			</style>

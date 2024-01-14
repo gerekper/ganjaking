@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Interface {
 
-	private $grace_period_table = '';
+	private string $grace_period_table = '';
 
 	/**
 	 * @var null
@@ -262,11 +262,11 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 			}
 
 			if ( ! empty( $expiration_dates ) ) {
-				foreach ( $expiration_dates as $resource->api_resource_id => $expiration_date ) {
-					$result = $this->insert( $resource->api_resource_id, $expiration_date );
+				foreach ( $expiration_dates as $api_resource_id => $expiration_date ) {
+					$result = $this->insert( $api_resource_id, $expiration_date );
 				}
 			}
-		} else {
+		} else { // if $api_resource_ids is an integer not an array.
 			$sub_id = WC_AM_API_RESOURCE_DATA_STORE()->get_sub_id_by_api_resource_id( $api_resource_ids );
 
 			if ( ! empty( $sub_id ) ) {

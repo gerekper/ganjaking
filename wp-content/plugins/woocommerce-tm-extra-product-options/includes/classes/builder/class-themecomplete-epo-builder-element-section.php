@@ -405,7 +405,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 			[
 				'sectionclogic'     => [
 					'id'      => 'sections_clogic',
-					'clogic ' => true,
+					'clogic'  => true,
 					'default' => '',
 					'nodiv'   => 1,
 					'type'    => 'hidden',

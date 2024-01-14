@@ -145,6 +145,10 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			$this->columns = 1;
 		}
 
+		if ( ! isset( $args['connector_value'] ) ) {
+			$args['connector_value'] = $args['value'];
+		}
+
 		$hexclass         = '';
 		$li_class         = '';
 		$search_for_color = $args['label'];
@@ -218,8 +222,8 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$label_mode            = '';
 		$changes_product_image = empty( $element['changes_product_image'] ) ? '' : $element['changes_product_image'];
 
-		if ( THEMECOMPLETE_EPO()->tm_epo_global_image_mode === 'relative' ) {
-			if ( strpos( $image, get_site_url() ) !== false ) {
+		if ( 'relative' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_image_mode' ) ) {
+			if ( str_contains( $image, get_site_url() ) ) {
 				$image  = wp_make_link_relative( $image );
 				$imagec = wp_make_link_relative( $imagec );
 				$imagep = wp_make_link_relative( $imagep );
@@ -248,11 +252,11 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$selected_value = '';
 		if ( isset( $args['posted_name'] ) ) {
 			$name = $args['posted_name'];
-			if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ $name ] ) ) {
+			if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) && isset( $this->post_data[ $name ] ) ) {
 				$selected_value = $this->post_data[ $name ];
 			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-			} elseif ( ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || ! isset( $this->post_data[ $name ] ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			} elseif ( ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || ! isset( $this->post_data[ $name ] ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) || ( ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = -1;
 			}
 		}
@@ -278,7 +282,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 			if (
 				( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] )
-				|| 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add
+				|| 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' )
 				) {
 				if ( $default_value && ! THEMECOMPLETE_EPO()->is_edit_mode() ) {
 					$checked = true;
@@ -286,7 +290,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 		} elseif ( ! THEMECOMPLETE_EPO()->is_edit_mode() && ! empty( $default_value ) && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
 			$checked = true;
-		} elseif ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( ( $args['value'] ) ) ) {
+		} elseif ( esc_attr( stripcslashes( $selected_value ) ) === esc_attr( ( $args['connector_value'] ) ) ) {
 			$checked = true;
 		}
 
@@ -296,7 +300,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$use_lightbox        = isset( $element['use_lightbox'] ) ? $element['use_lightbox'] : '';
 		$choice_counter      = $this->default_value_counter;
 		$show_label          = empty( $element['show_label'] ) ? '' : $element['show_label'];
-		$tm_epo_no_lazy_load = THEMECOMPLETE_EPO()->tm_epo_no_lazy_load;
+		$tm_epo_no_lazy_load = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_no_lazy_load' );
 		if ( isset( $element['color'] ) ) {
 			$color = $element['color'];
 		}
@@ -342,7 +346,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 
 			if ( 'image' === $replacement_mode && ! empty( $image ) ) {
-				if ( THEMECOMPLETE_EPO()->tm_epo_global_retrieve_image_sizes === 'yes' ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_retrieve_image_sizes' ) ) {
 					$attachment_id = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image );
 					$attachment_id = ( $attachment_id ) ? $attachment_id : 0;
 					$image_info    = THEMECOMPLETE_EPO_HELPER()->get_attachment_sizes( $attachment_id, $image );
@@ -436,7 +440,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 
 			if ( ! empty( $swatch ) ) {
-				$swatch[] = [ 'data-tm-hide-label' => THEMECOMPLETE_EPO()->tm_epo_swatch_hide_label ];
+				$swatch[] = [ 'data-tm-hide-label' => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_swatch_hide_label' ) ];
 			}
 
 			switch ( $swatch_position ) {
@@ -485,18 +489,18 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$labelclass       = '';
 		$labelclass_start = '';
 		$labelclass_end   = '';
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_css_styles && ( 'none' === $replacement_mode || ( ( 'image' === $replacement_mode || 'color' === $replacement_mode ) && 'center' !== $swatch_position ) ) ) {
-			$labelclass       = THEMECOMPLETE_EPO()->tm_epo_css_styles_style;
-			$labelclass_start = THEMECOMPLETE_EPO()->tm_epo_css_styles_style . ( empty( $hexclass ) ? '' : ' ' . $hexclass );
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles' ) && ( 'none' === $replacement_mode || ( ( 'image' === $replacement_mode || 'color' === $replacement_mode ) && 'center' !== $swatch_position ) ) ) {
+			$labelclass       = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles_style' );
+			$labelclass_start = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles_style' ) . ( empty( $hexclass ) ? '' : ' ' . $hexclass );
 			$labelclass_end   = true;
 		}
 
-		$is_separator = '-1' === str_replace( '_' . $choice_counter, '', $args['value'] ) && '-1' !== $args['value'];
+		$is_separator = '-1' === strstr( $args['value'], '_', true ) && '-1' !== $args['value'];
 		if ( $is_separator ) {
 			$li_class .= ' is-separator';
 		}
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 		$display = [
@@ -516,7 +520,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			'li_class'              => $li_class,
 			'class'                 => $css_class,
 			'label'                 => $label,
-			'value'                 => $args['value'],
+			'value'                 => $args['connector_value'],
 			'element_id'            => 'tmcp_choice_' . str_replace( '-', '_', $unique_indentifier ),
 			'textbeforeprice'       => isset( $element['text_before_price'] ) ? $element['text_before_price'] : '',
 			'textafterprice'        => isset( $element['text_after_price'] ) ? $element['text_after_price'] : '',
@@ -538,7 +542,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			'show_tooltip'          => $showtooltip,
 			'clear_options'         => empty( $element['clear_options'] ) ? '' : $element['clear_options'],
 			'show_label'            => $show_label,
-			'tm_epo_no_lazy_load'   => THEMECOMPLETE_EPO()->tm_epo_no_lazy_load,
+			'tm_epo_no_lazy_load'   => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_no_lazy_load' ),
 			'changes_product_image' => $changes_product_image,
 			'default_value'         => $default_value,
 			'quantity'              => isset( $element['quantity'] ) ? $element['quantity'] : '',

@@ -671,7 +671,7 @@ body.uc-blank-preview{
 }
 
 .unite-setting-switcher__object {
-	background: var(--ue-color-gray-light);
+	background: var(--ue-color-gray-lighter);
 	text-indent: -9999em;
 	border: none;
 	border-radius: 20px;

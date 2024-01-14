@@ -426,7 +426,6 @@ class UniteTableUC extends HtmlOutputBaseUC{
 		$total_records = $this->total;
 		$total_pages = $this->numPages;
 		
-		
 		$isShowExtras = true;
 	
 		$pagination = '';

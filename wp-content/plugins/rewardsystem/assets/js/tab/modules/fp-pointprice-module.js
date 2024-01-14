@@ -213,11 +213,9 @@ jQuery( function ( $ ) {
             }
         } ,
         bulk_update_points_for_point_price_product : function ( ) {
-            var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to update now?" ) ;
-            if ( rsconfirm === true ) {
                 PointsPriceModule.block( '.rs_hide_bulk_update_for_point_price_start' ) ;
                 var data = {
-                    action : 'update_point_price_for_product' ,
+                    action : 'bulk_update_point_price_for_product' ,
                     sumo_security : fp_pointprice_module_param.point_price_bulk_update ,
                     productselection : $( '#rs_which_point_precing_product_selection' ).val() ,
                     enablepointprice : $( '#rs_local_enable_disable_point_price' ).val() ,
@@ -229,13 +227,12 @@ jQuery( function ( $ ) {
                 } ;
                 $.post( fp_pointprice_module_param.ajaxurl , data , function ( response ) {
                     if ( true === response.success ) {
-                        window.location.href = fp_pointprice_module_param.redirecturl ;
+                        window.location.href = response.data.redirect_url ;
                     } else {
                         window.alert( response.data.error ) ;
                     }
                     PointsPriceModule.unblock( '.rs_hide_bulk_update_for_point_price_start' ) ;
                 } ) ;
-            }
             return false ;
         } ,
         block : function ( id ) {

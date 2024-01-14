@@ -158,8 +158,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	public function get_associated_price_html( $product, $discount, $discount_type, $discount_applied = false ) {
 		$price_html = $product->get_price_html();
 		$type       = themecomplete_get_product_type( $product );
-		$free_text  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_remove_free_price_label ) ? ( '' !== THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text ? THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text : '' ) : esc_attr__( 'Free!', 'woocommerce' );
-		$use_from   = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_use_from_on_price );
+		$free_text  = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_free_price_label' ) ) ? ( '' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) : '' ) : esc_attr__( 'Free!', 'woocommerce' );
+		$use_from   = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) );
 
 		if ( 'variable' === $type ) {
 			$price = $product->get_variation_price(); // Min active price.
@@ -701,7 +701,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 			$parent_key      = $cart_item['associated_parent'];
 			$parent_quantity = 1;
-			if ( THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync === 'yes' ) {
+			if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_quantity_sync' ) ) {
 				$parent_quantity = floatval( $parent['quantity'] );
 			}
 			$min_quantity = floatval( $cart_item['tmproducts'][ $associated_id ]['quantity_min'] );
@@ -1112,7 +1112,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @since 5.0
 	 */
 	public function woocommerce_after_cart_item_quantity_update( $cart_item_key, $quantity = 0 ) {
-		if ( THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync === 'no' ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_quantity_sync' ) ) {
 			return;
 		}
 
@@ -1194,7 +1194,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			} else {
 
 				$parent_quantity = 1;
-				if ( THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync === 'yes' ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_quantity_sync' ) ) {
 					$parent_quantity = $parent['quantity'];
 				}
 				$max_stock = $cart_item['data']->managing_stock() && ! $cart_item['data']->backorders_allowed() ? $cart_item['data']->get_stock_quantity() : '';
@@ -1535,7 +1535,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					$quantity = 1;
 				} else {
 					$quantity = $item_quantity;
-					if ( THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync === 'yes' ) {
+					if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_quantity_sync' ) ) {
 						$quantity = floatval( $quantity ) * floatval( $parent_quantity );
 					}
 				}

@@ -1,10 +1,12 @@
 <?php 
-/*
-Widget Name: Info Box 
-Description: Display Infobox.
-Author: Theplus
-Author URI: https://posimyth.com
-*/
+/**
+ * Widget Name: Info Box
+ * Description: Display Infobox.
+ * Author: Theplus
+ * Author URI: https://posimyth.com
+ *
+ * @package ThePlus
+ */
 
 namespace TheplusAddons\Widgets;
  
@@ -17,26 +19,74 @@ use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Image_Size;
  
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
- 
+/**
+ * Exit if accessed directly.
+ * */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Class ThePlus_Info_Box
+ */
 class ThePlus_Info_Box extends Widget_Base {
- 
+	
+	/**
+	 * Get Widget Name.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function get_name() {
 		return 'tp-info-box';
 	}
- 
+	
+	/**
+	 * Get Widget Title.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_title() {
         return esc_html__('Info Box', 'theplus');
     }
- 
+	
+	/**
+	 * Get Widget Icon.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_icon() {
-        return 'fa fa-info-circle theplus_backend_icon';
+		return 'fa fa-info-circle theplus_backend_icon';
     }
- 
+	
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
     public function get_categories() {
         return array('plus-essential');
     }
- 
+
+	/**
+	 * Get Widget keywords.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_keywords() {
+		return array( 'Info Box', 'Information Box', 'Content Box', 'Text Box', 'Feature Box', 'Icon Box', 'Callout Box', 'Highlight Box', 'Notification Box', 'Alert Box', 'Message Box', 'Card Box', 'Box Widget', 'Box Element', 'Box Container' );
+	}
+	
+	/**
+	 * Register controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function register_controls() {
  
 		$this->start_controls_section(

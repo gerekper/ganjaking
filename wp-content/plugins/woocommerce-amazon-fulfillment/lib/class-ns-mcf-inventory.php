@@ -178,7 +178,7 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 			}
 
 			// check if the FBA stock level for the product is at or below our threshold.
-			$threshold = $this->ns_fba->options['ns_fba_low_stock_threshold'];
+			$threshold = $this->ns_fba->get_option( 'ns_fba_low_stock_threshold', '0' );
 			if ( $stock > $threshold ) {
 				$reason = ' because it is safely more than the set threshold: ' . $threshold;
 			} else {
@@ -187,8 +187,7 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 				$stock  = 0;
 			}
 
-			$sync_inventory_selected_only = isset( $this->ns_fba->options['ns_fba_update_inventory_selected_only'] )
-				&& $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_update_inventory_selected_only'] );
+			$sync_inventory_selected_only = $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_update_inventory_selected_only', 'no' ) );
 			$update_product_stock         = true;
 			if ( 'sync-inventory' === $log_entry_prefix && $sync_inventory_selected_only ) {
 				$update_product_stock = $this->ns_fba->utils->is_product_amazon_fulfill( $current_product );

@@ -26,7 +26,7 @@ if ( ! isset( $textafterprice ) ) {
 	$textafterprice = '';
 }
 ?>
-<?php if ( empty( $hide_amount ) || 'no' === THEMECOMPLETE_EPO()->tm_epo_hide_price_html ) : ?>
+<?php if ( empty( $hide_amount ) || 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_price_html' ) ) : ?>
 <span class="tc-col-auto tc-epo-style-space tc-price-wrap<?php echo ( ! empty( $hide_amount ) ) ? ' tc-hidden' : ''; ?>">
 	<?php if ( '' !== $textbeforeprice ) : ?>
 	<span class="before-amount"><?php echo apply_filters( 'wc_epo_kses', esc_html( $textbeforeprice ), $textbeforeprice ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>&nbsp;

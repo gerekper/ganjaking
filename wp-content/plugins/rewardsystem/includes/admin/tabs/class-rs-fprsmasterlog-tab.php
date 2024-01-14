@@ -13,15 +13,15 @@ if ( ! class_exists( 'RSMasterLog' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_rs_settings_tabs_fprsmasterlog' , array( __CLASS__ , 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fprsmasterlog' , array( __CLASS__, 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsmasterlog' , array( __CLASS__ , 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsmasterlog' , array( __CLASS__, 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 
-			add_action( 'rs_default_settings_fprsmasterlog' , array( __CLASS__ , 'set_default_value' ) ) ;
+			add_action( 'rs_default_settings_fprsmasterlog' , array( __CLASS__, 'set_default_value' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_select_users_master_log' , array( __CLASS__ , 'rs_select_user_to_export_master_log' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_select_users_master_log' , array( __CLASS__, 'rs_select_user_to_export_master_log' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_masterlog' , array( __CLASS__ , 'points_log_table' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_masterlog' , array( __CLASS__, 'points_log_table' ) ) ;
 		}
 
 		/*
@@ -30,40 +30,45 @@ if ( ! class_exists( 'RSMasterLog' ) ) {
 
 		public static function reward_system_admin_fields() {
 			global $woocommerce ;
+						/**
+						 * Hook:woocommerce_rewardsystem_myaccount_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_rewardsystem_myaccount_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Master Log Settings' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => 'rs_masterlog_setting' ,
-				) ,
+					'name' => __( 'Master Log Settings' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => 'rs_masterlog_setting',
+				),
 				array(
-					'name'    => __( 'Export Master Log for' , 'rewardsystem' ) ,
-					'id'      => 'rs_export_import_masterlog_option' ,
-					'class'   => 'rs_export_import_masterlog_option' ,
-					'std'     => '1' ,
-					'default' => '1' ,
-					'type'    => 'radio' ,
-					'options' => array( '1' => __('All Users', 'rewardsystem') , '2' => __('Selected Users', 'rewardsystem') ) ,
-					'newids'  => 'rs_export_import_masterlog_option' ,
-				) ,
+					'name'    => __( 'Export Master Log for' , 'rewardsystem' ),
+					'id'      => 'rs_export_import_masterlog_option',
+					'class'   => 'rs_export_import_masterlog_option',
+					'std'     => '1',
+					'default' => '1',
+					'type'    => 'radio',
+					'options' => array( '1' => __('All Users', 'rewardsystem'), '2' => __('Selected Users', 'rewardsystem') ),
+					'newids'  => 'rs_export_import_masterlog_option',
+				),
 				array(
-					'name'    => __( 'Select the users that you wish to Export Master Log' , 'rewardsystem' ) ,
-					'id'      => 'rs_export_masterlog_users_list' ,
-					'std'     => '' ,
-					'default' => '' ,
-					'type'    => 'rs_select_users_master_log' ,
-					'newids'  => 'rs_export_masterlog_users_list' ,
-				) ,
+					'name'    => __( 'Select the users that you wish to Export Master Log' , 'rewardsystem' ),
+					'id'      => 'rs_export_masterlog_users_list',
+					'std'     => '',
+					'default' => '',
+					'type'    => 'rs_select_users_master_log',
+					'newids'  => 'rs_export_masterlog_users_list',
+				),
 				array(
-					'type' => 'rs_masterlog' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => 'rs_masterlog_setting' ) ,
+					'type' => 'rs_masterlog',
+				),
+				array( 'type' => 'sectionend', 'id' => 'rs_masterlog_setting' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 					) ) ;
 		}
 
@@ -97,7 +102,7 @@ if ( ! class_exists( 'RSMasterLog' ) ) {
 			$field_id    = 'rs_export_masterlog_users_list' ;
 			$field_label = __('Select the users that you wish to Export Master Log' , 'rewardsystem');
 			$getuser     = get_option( 'rs_export_masterlog_users_list' ) ;
-			echo wp_kses_post(user_selection_field( $field_id , $field_label , $getuser ) );
+			echo do_shortcode(user_selection_field( $field_id , $field_label , $getuser ) );
 		}
 
 		public static function outputCSV( $data ) {
@@ -133,13 +138,11 @@ if ( ! class_exists( 'RSMasterLog' ) ) {
 							header( 'Content-Disposition: attachment; filename=reward_points_masterlog ' . date_i18n( 'Y-m-d' ) . '.csv' ) ;
 							header( 'Pragma: no-cache' ) ;
 							header( 'Expires: 0' ) ;
-							echo wp_kses_post('Username,Points,Event,Date,Expiry Date' . "\n") ;
+							echo esc_html('Username,First Name,Last Name,Email ID,Phone Number,Points,Event,Earned Date,Expiry Date' . "\n") ;
 							self::outputCSV( get_option( 'rs_data_to_export' ) ) ;
-							delete_option( 'rs_data_to_export' ) ;
 							exit() ;
 						}
 		}
-
 	}
 
 	RSMasterLog::init() ;

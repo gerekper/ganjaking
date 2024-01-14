@@ -110,7 +110,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		$meta = wp_get_attachment_metadata( $attachment_id );
 		if ( $meta && isset( $meta['sizes'] ) && is_array( $meta['sizes'] ) ) { // @phpstan-ignore-line
 			foreach ( $meta['sizes'] as $key => $value ) {
-				if ( false !== strpos( $attachment_url, $value['file'] ) ) {
+				if ( str_contains( $attachment_url, $value['file'] ) ) {
 					return [ $value['width'], $value['height'] ];
 				}
 			}
@@ -143,7 +143,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 		$domain = $this->get_site_domain();
 
-		if ( false === strpos( $attachment_url, $domain ) ) {
+		if ( ! str_contains( $attachment_url, $domain ) ) {
 			$attachment_url = $domain . $attachment_url;
 		}
 
@@ -160,7 +160,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 					$upload_url = set_url_scheme( $upload_url, 'https' );
 				}
 
-				if ( false !== strpos( $attachment_url, $upload_url ) ) {
+				if ( str_contains( $attachment_url, $upload_url ) ) {
 
 					// If this is the URL of an auto-generated thumbnail, get the URL of the original image.
 					$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $attachment_url );
@@ -172,7 +172,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 				if ( ! $attachment_id ) {
 
 					$path = $attachment_url;
-					if ( 0 === strpos( $path, $upload_dir_paths['baseurl'] . '/' ) ) {
+					if ( 0 === mb_strpos( $path, $upload_dir_paths['baseurl'] . '/' ) ) {
 						$path = substr( $path, strlen( $upload_dir_paths['baseurl'] . '/' ) );
 					}
 
@@ -199,7 +199,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @since 1.0
 	 */
 	public function generate_image_array( $image_variations = [], $image_link = '', $image_type = '' ) {
-		if ( THEMECOMPLETE_EPO()->tm_epo_global_retrieve_image_sizes === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_retrieve_image_sizes' ) ) {
 			$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
 			$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
 			$attachment_object = get_post( $attachment_id );
@@ -450,7 +450,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @since 1.0
 	 */
 	public function is_ajax_request() {
-		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( filter_var( stripslashes_deep( $_SERVER['HTTP_X_REQUESTED_WITH'] ), FILTER_SANITIZE_STRING ) ) ) {
+		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( $this->filter_sanitize_string( sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ) ) ) ) {
 			return true;
 		}
 
@@ -479,7 +479,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			return $sum;
 		}
 
-		$is_real_max = THEMECOMPLETE_EPO()->tm_epo_global_max_real;
+		$is_real_max = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_max_real' );
 
 		$sum[ $minkey ] = THEMECOMPLETE_EPO_CONDITIONAL_LOGIC()->calculate_minimum_price( $fields, $include_variation_prices ? $product_id : false, $minkey );
 		if ( 'yes' === $is_real_max ) {
@@ -610,7 +610,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			if ( 'end' === $where ) {
 				$k = strrev( $key );
 			}
-			if ( strpos( $k, $what ) === 0 ) {
+			if ( mb_strpos( $k, $what ) === 0 ) {
 				$filtered_result[ $key ] = $value;
 			}
 		}
@@ -1301,30 +1301,6 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
-	 * String starts with functionality
-	 *
-	 * @param string $source The string to search in.
-	 * @param string $prefix The string search for.
-	 * @return boolean
-	 * @since 1.0
-	 */
-	public function str_startswith( $source, $prefix ) {
-		return 0 === strncmp( $source, $prefix, strlen( $prefix ) );
-	}
-
-	/**
-	 * String ends with functionality
-	 *
-	 * @param string $source The string to search in.
-	 * @param string $suffix The string search for.
-	 * @return boolean
-	 * @since 1.0
-	 */
-	public function str_endsswith( $source, $suffix ) {
-		return '' === $suffix || ( strlen( $suffix ) <= strlen( $source ) && substr_compare( $source, $suffix, - strlen( $suffix ) ) === 0 );
-	}
-
-	/**
 	 * Search through an array for a matching key.
 	 *
 	 * See https://gist.github.com/steve-todorov/3671626
@@ -1365,10 +1341,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		$return_array = [];
 		$keys         = array_keys( $input_array );
 		foreach ( $keys as $k ) {
-			if ( $this->str_endsswith( $k, $search_value ) ) {
+			if ( str_ends_with( $k, $search_value ) ) {
 				$canbeadded = true;
 				foreach ( $excludes as $exclude ) {
-					if ( $this->str_endsswith( $k, $exclude ) ) {
+					if ( str_ends_with( $k, $exclude ) ) {
 						$canbeadded = false;
 					}
 				}
@@ -1643,7 +1619,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 		// Get local decimal point.
 		if ( false === $decimal ) {
-			$tm_epo_global_input_decimal_separator = THEMECOMPLETE_EPO()->tm_epo_global_input_decimal_separator;
+			$tm_epo_global_input_decimal_separator = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_input_decimal_separator' );
 			if ( '' === $tm_epo_global_input_decimal_separator ) {
 				// currency_format_decimal_sep.
 				$decimal = stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) );
@@ -1680,7 +1656,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
-	 * Convert url to ssl if it applies
+	 * Convert url to ssl
 	 *
 	 * @param mixed $url The url.
 	 * @return string
@@ -1946,5 +1922,16 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		}
 
 		return $str;
+	}
+
+	/**
+	 * Constant FILTER_SANITIZE_STRING polyfill for PHP > 8.1
+	 *
+	 * @param string $str The string to filter.
+	 *
+	 * @return false|string
+	 */
+	public static function filter_sanitize_string( $str = '' ) {
+		return _wp_specialchars( wp_strip_all_tags( $str ), ENT_QUOTES, 'UTF-8', true );
 	}
 }

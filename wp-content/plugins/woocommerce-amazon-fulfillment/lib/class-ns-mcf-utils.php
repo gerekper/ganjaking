@@ -70,8 +70,8 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 
 			// if a custom address is set use that otherwise use the admin email.
 			$to = '';
-			if ( isset( $this->ns_fba->options['ns_fba_notify_email'] ) && '' !== $this->ns_fba->options['ns_fba_notify_email'] ) {
-				$to = $this->ns_fba->options['ns_fba_notify_email'];
+			if ( '' !== $this->ns_fba->get_option( 'ns_fba_notify_email' ) ) {
+				$to = $this->ns_fba->get_option( 'ns_fba_notify_email' );
 			} else {
 				$to = get_option( 'admin_email' );
 			}
@@ -107,7 +107,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			$base_country     = $country->get_base_country();
 			$shipping_country = $order->get_shipping_country();
 
-			if ( $this->isset_on( $this->ns_fba->options['ns_fba_disable_international'] ) && $base_country !== $shipping_country ) {
+			if ( $this->isset_on( $this->ns_fba->get_option( 'ns_fba_disable_international', 'no' ) ) && $base_country !== $shipping_country ) {
 				$is_order_amazon_fulfill = false;
 				throw new Exception( __( 'This order was NOT sent to FBA because International fulfillment is disabled in the NS FBA settings and the shipping address country does not match the base location country in the WooCommerce settings.', $this->ns_fba->text_domain ) );
 			}
@@ -116,7 +116,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			$order_shipping_method = $order->get_shipping_method();
 
 			// try to reverse translate the shipping method back to English if WPML translated it to another language at checkout.
-			$excluded_shipping_options = $this->ns_fba->options['ns_fba_disable_shipping'];
+			$excluded_shipping_options = $this->ns_fba->get_option( 'ns_fba_disable_shipping', 'no' );
 			if ( is_array( $excluded_shipping_options ) && count( $excluded_shipping_options ) > 0 ) {
 				foreach ( $excluded_shipping_options as $excl_key => $excluded_option ) {
 					// error_log ( 'Excluded Shipping Option: '. $excluded_option . '<br /><br />', 3, $this->ns_fba->err_log_path );.
@@ -173,7 +173,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			}
 
 			// if vacation mode is ON then don't check any other conditions.
-			if ( $this->isset_on( $this->ns_fba->options['ns_fba_vacation_mode'] ) ) {
+			if ( $this->isset_on( $this->ns_fba->get_option( 'ns_fba_vacation_mode', 'no' ) ) ) {
 				return true;
 			}
 
@@ -195,7 +195,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			}
 
 			// check if the Quantity Max Filter is set and violated.
-			if ( ! empty( $this->ns_fba->options['ns_fba_quantity_max_filter'] ) && $item['qty'] > $this->ns_fba->options['ns_fba_quantity_max_filter'] ) {
+			if ( ! empty( $this->ns_fba->get_option( 'ns_fba_quantity_max_filter' ) ) && $item['qty'] > $this->ns_fba->get_option( 'ns_fba_quantity_max_filter' ) ) {
 				$is_order_item_amazon_fulfill = false;
 				// translators: 1: The SKU 2: The quantity.
 				$order_note .= sprintf( __( 'The Order Item with SKU: %1$s has a Qty = %2$s which is > the Quantity Max Filter setting in NS FBA. It will not be sent to FBA for this order.', $this->ns_fba->text_domain ), $item_product->get_sku(), $item['qty'] );
@@ -278,7 +278,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 		 * @return int The total files deleted
 		 */
 		public function delete_older_logs() {
-			$days          = $this->ns_fba->options['ns_fba_clean_logs_interval'] ? (int) $this->ns_fba->options['ns_fba_clean_logs_interval'] : 30;
+			$days          = ! empty( $this->ns_fba->get_option( 'ns_fba_clean_logs_interval' ) ) ? (int) $this->ns_fba->get_option( 'ns_fba_clean_logs_interval' ) : 30;
 			$path_dir      = $this->ns_fba->plugin_path . 'logs/';
 			$files_deleted = 0;
 			// Open the directory.

@@ -42,8 +42,8 @@ class ThePlus_Chart extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return ['chart','line','bar','vertical bar','horizontal bar','radar','pie','doughnut','polararea','bubble'];
-	}
+        return ['Advanced Chart', 'Chart Widget', 'Elementor Chart', 'Graph Widget', 'Elementor Graph', 'Data Visualization Widget', 'Elementor Data Visualization', 'Advanced Data Visualization', 'Interactive Chart', 'Interactive Graph', 'Elementor Addon Chart', 'Elementor Addon Graph'];
+    }
 	
     protected function register_controls() {
 		

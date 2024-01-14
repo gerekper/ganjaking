@@ -54,6 +54,7 @@ class WC_AM_Admin_System_Status {
 		$wc_api_manager_data = array();
 
 		$this->set_api_manager_cache( $wc_api_manager_data );
+		$this->set_api_manager_homepage_cached( $wc_api_manager_data );
 		$this->set_live_site_url( $wc_api_manager_data );
 		$this->set_api_manager_version( $wc_api_manager_data );
 		$this->set_api_manager_database_version( $wc_api_manager_data );
@@ -114,10 +115,26 @@ class WC_AM_Admin_System_Status {
 	 */
 	private function set_api_manager_cache( &$debug_data ) {
 		$debug_data[ 'wc_api_manager_cache' ] = array(
-			'name'    => _x( 'Cache Enabled', 'Cache Enabled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'name'    => _x( 'API & Database Cache Enabled', 'API & Database Cache Enabled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
 			'label'   => 'Cache Enabled',
 			'note'    => WCAM()->get_db_cache() ? esc_attr__( 'Yes', 'woocommerce-api-manager' ) : esc_attr__( 'No', 'woocommerce-api-manager' ),
 			'success' => WCAM()->get_db_cache() ? 1 : 0,
+		);
+	}
+
+	/**
+	 * Homepage cachable?
+	 *
+	 * @since 3.1.2
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_homepage_cached( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_homepage_cached' ] = array(
+			'name'    => _x( 'Homepage cachable?', 'Is the homepage cachable, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'   => 'Hide Product Order API Keys?',
+			'note'    => WC_AM_DISABLE_HOMEPAGE_CACHE ? esc_attr__( 'No', 'woocommerce-api-manager' ) : esc_attr__( 'Yes', 'woocommerce-api-manager' ),
+			'success' => WC_AM_DISABLE_HOMEPAGE_CACHE ? 0 : 1,
 		);
 	}
 

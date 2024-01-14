@@ -34,7 +34,7 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 		$max_chars = '' !== $max_chars ? absint( $element['max_chars'] ) : '';
 
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 

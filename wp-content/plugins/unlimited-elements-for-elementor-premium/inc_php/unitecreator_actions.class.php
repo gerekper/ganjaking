@@ -15,6 +15,7 @@ class UniteCreatorActions{
 	 */
 	protected function onUpdateLayoutResponse($response){
 
+
 		$isUpdate = $response["is_update"];
 
 		//create
@@ -162,6 +163,42 @@ class UniteCreatorActions{
 					$response = $categories->getLayoutsCatsListFromData($data);
 
 					HelperUC::ajaxResponseData($response);
+				break;
+				case "get_addon_changelog":
+
+					HelperProviderUC::verifyAdminPermission();
+					HelperProviderUC::verifyAddonChangelogEnabled();
+
+					$response = $operations->getAddonChangelogFromData($data);
+
+					HelperUC::ajaxResponseData($response);
+				break;
+				case "add_addon_changelog":
+
+					HelperProviderUC::verifyAdminPermission();
+					HelperProviderUC::verifyAddonChangelogEnabled();
+
+					$addons->addAddonChangelog($data);
+
+					HelperUC::ajaxResponseSuccess(esc_html__("Log added.", "unlimited-elements-for-elementor"));
+				break;
+				case "update_addon_changelog":
+
+					HelperProviderUC::verifyAdminPermission();
+					HelperProviderUC::verifyAddonChangelogEnabled();
+
+					$addons->updateAddonChangelog($data);
+
+					HelperUC::ajaxResponseSuccess(esc_html__("Log updated.", "unlimited-elements-for-elementor"));
+				break;
+				case "delete_addon_changelog":
+
+					HelperProviderUC::verifyAdminPermission();
+					HelperProviderUC::verifyAddonChangelogEnabled();
+
+					$addons->deleteAddonChangelog($data);
+
+					HelperUC::ajaxResponseSuccess(esc_html__("Log deleted.", "unlimited-elements-for-elementor"));
 				break;
 				case "get_addon_revisions":
 

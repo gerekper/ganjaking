@@ -38,6 +38,10 @@ class ThePlus_Dark_Mode extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return ['Dark mode', 'Night mode', 'Dark theme', 'Night theme', 'Dark widget', 'Night widget', 'Elementor dark mode', 'Elementor night mode'];
+    }
 	
     protected function register_controls() {
 		

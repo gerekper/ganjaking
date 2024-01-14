@@ -97,8 +97,8 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-measurement', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-measurement.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			$args = [
-				'wc_measurement_qty_multiplier' => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) ? 1 : 0,
-				'wc_measurement_divide'         => isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) ? 1 : 0,
+				'wc_measurement_qty_multiplier' => 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_calculate_mode' ) ? 1 : 0,
+				'wc_measurement_divide'         => 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_divide' ) ? 1 : 0,
 			];
 			wp_localize_script( 'themecomplete-comp-measurement', 'TMEPOMEASUREMENTJS', $args );
 		}
@@ -194,7 +194,7 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	 * @since 1.0
 	 */
 	public function wc_epo_price_on_cart( $price = '', $cart_item = [] ) {
-		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_calculate_mode' ) ) {
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_quantity'] ) ) {
 				$new_quantity   = (float) $cart_item['quantity'] / $cart_item['pricing_item_meta_data']['_quantity'];
 				$original_price = (float) $price;
@@ -217,11 +217,11 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	 */
 	public function wc_epo_option_price_correction( $price = '', $cart_item = [] ) {
 
-		if ( isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) {
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_divide' ) ) {
 			$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 		}
 
-		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_calculate_mode'] ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_calculate_mode' ) ) {
 
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
 				$price = floatval( $price ) * floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
@@ -243,7 +243,7 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 
 		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) ) {
 			$price = floatval( $cart_item['pricing_item_meta_data']['_price'] );
-			if ( ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) && 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_measurement_divide'] ) {
+			if ( ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_measurement_divide' ) ) {
 				$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 			}
 		}

@@ -796,7 +796,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * add saporator
 		 */
 		public function addSap($text, $name="", $tab = null, $params = array()){
-
+						
 			if(empty($tab))
 				$tab = self::TAB_CONTENT;
 
@@ -985,8 +985,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		/**
 		 * add a item that controlling visibility of enabled/disabled of other.
 		 */
-		public function addControl($control_item_name,$controlled_item_name,$control_type,$value){
-
+		public function addControl($control_item_name, $controlled_item_name, $control_type, $value, $isSap = false){
+			
 			UniteFunctionsUC::validateNotEmpty($control_item_name,"control parent");
 			UniteFunctionsUC::validateNotEmpty($controlled_item_name,"control child");
 			UniteFunctionsUC::validateNotEmpty($control_type,"control type");
@@ -1032,7 +1032,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 				$this->addControlChildArray($controlled_item_name, $control_item_name);
 			}
-
+			
+			if($isSap == true)
+				$arrControl["forsap"] = true;
+			
 			$this->arrControls[$control_item_name] = $arrControl;
 
 		}
@@ -1079,11 +1082,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * get control action
 		 */
 		private function getControlAction($parentName, $arrControl){
-
+						
+			$value = UniteFunctionsUC::getVal($arrControl, "value");
+			$type = UniteFunctionsUC::getVal($arrControl, "type");
+			
+			if(empty($type))
+				return(null);
+			
 			$parentValue = $this->getSettingValue($parentName);
-			$value = $arrControl["value"];
-			$type = $arrControl["type"];
-
+			
 			switch($type){
 				case self::CONTROL_TYPE_ENABLE:
 					if($this->isControlValuesEqual($parentValue, $value) == false)
@@ -1111,10 +1118,11 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * set sattes of the settings (enabled/disabled, visible/invisible) by controls
 		 */
 		public function setSettingsStateByControls(){
-
+						
 			if(empty($this->arrControls))
 				return(false);
 
+			
 			foreach($this->arrControlChildren as $childName => $arrParents){
 
 				foreach($arrParents as $parentName){
@@ -1166,7 +1174,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			foreach($this->arrBulkControl as $control)
 				$this->addControl($control["control_name"],$name, $control["type"], $control["value"]);
-
+		
 		}
 
 

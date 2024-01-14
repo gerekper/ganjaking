@@ -6,7 +6,7 @@ class CDN
     //initialize cdn
     public static function init() 
     {
-        add_action('wp', array('Perfmatters\CDN', 'queue'));
+        add_action('perfmatters_queue', array('Perfmatters\CDN', 'queue'));
     }
 
     //queue functions

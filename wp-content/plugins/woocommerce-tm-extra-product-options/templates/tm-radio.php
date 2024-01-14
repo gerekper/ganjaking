@@ -40,11 +40,10 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 		$is_separator = false;
 	}
 	$liclass = 'tmcp-field-wrap' . $li_class . ( ! empty( $label_mode ) ? ' tc-mode-' . $label_mode : ' tc-mode-normal' );
-	if ( ! $is_separator ) {
-		$liclass .= ' ' . $border_type;
-	}
 
-	if ( ! $is_separator && 'text' === $replacement_mode ) {
+	$liclass .= ' ' . $border_type;
+
+	if ( 'text' === $replacement_mode ) {
 		$liclass .= ' tc-epo-text-wrapper';
 	}
 	?>
@@ -93,7 +92,7 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 				'data-image-variations' => $image_variations,
 			],
 		];
-		if ( apply_filters( 'wc_epo_radio_print_required_attribute', true ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_enable_validation && isset( $required ) && ! empty( $required ) ) {
+		if ( apply_filters( 'wc_epo_radio_print_required_attribute', true ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_enable_validation' ) && isset( $required ) && ! empty( $required ) ) {
 			$input_args['tags']['required'] = true;
 		}
 		if ( ! empty( $tax_obj ) ) {
@@ -152,9 +151,9 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 				}
 			}
 
-			$tmlazy = THEMECOMPLETE_EPO()->tm_epo_no_lazy_load === 'no' ? 'tmlazy ' : '';
+			$tmlazy = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_no_lazy_load' ) === 'no' ? 'tmlazy ' : '';
 
-			$text_label_class = 'radio-image-label' . ( ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $label_mode, 'start' ) || THEMECOMPLETE_EPO_HELPER()->str_startswith( $label_mode, 'end' ) ) ? '-inline' : '' );
+			$text_label_class = 'radio-image-label' . ( ( str_starts_with( $label_mode, 'start' ) || str_starts_with( $label_mode, 'end' ) ) ? '-inline' : '' );
 			switch ( $label_mode ) {
 				case 'images':
 				case 'startimages':
@@ -196,9 +195,8 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 					if ( 'endcolor' === $label_mode ) {
 						$img_classes[] = 'tc-right';
 					}
-					$img_classes[] = 'tc-epo-style-space';
-					$img_classes   = array_merge( $img_classes, array_filter( [ $border_type, $swatch_class ] ) );
-					$img_classes   = implode( ' ', $img_classes );
+					$img_classes = array_merge( $img_classes, array_filter( [ $border_type, $swatch_class ] ) );
+					$img_classes = implode( ' ', $img_classes );
 					echo '<span class="' . esc_attr( $img_classes ) . '" ' .
 					'alt="' . esc_attr( wp_strip_all_tags( $label_to_display ) ) . '" ' .
 					wp_kses_post( $swatch_html ) .
@@ -206,7 +204,7 @@ if ( isset( $li_class, $label_to_display, $element_id, $replacement_mode, $borde
 					break;
 			}
 		}
-		$desc_inline          = 'yes' === THEMECOMPLETE_EPO()->tm_epo_description_inline;
+		$desc_inline          = 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_description_inline' );
 		$tc_label_inner_class = 'tc-label-inner tcwidth tcwidth-100';
 		if ( $desc_inline ) {
 			$tc_label_inner_class .= ' desc-inline';

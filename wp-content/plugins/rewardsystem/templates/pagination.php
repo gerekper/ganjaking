@@ -26,7 +26,7 @@ $display_last_pagination  = '>>';
 			</span>
 		</li>
 		<?php
-		for ( $i = 1 ; $i <= $page_count ; $i ++ ) {
+		for ( $i = 1 ; $i <= $page_count ; $i++ ) {
 			$display = false ;
 			$classes = array( 'rs-pagination' ) ;
 

@@ -26,6 +26,7 @@ class UniteProviderCoreAdminUC_Elementor extends UniteProviderAdminUC{
 			"email-test",
 			"forms-logs",
 			"troubleshooting-overload",
+			"troubleshooting-globals",
 			"troubleshooting-phpinfo",
 			"troubleshooting-memory-usage",
 			"troubleshooting-connectivity",
@@ -43,6 +44,7 @@ class UniteProviderCoreAdminUC_Elementor extends UniteProviderAdminUC{
 			GlobalsUnlimitedElements::VIEW_FORM_ENTRIES,
 			GlobalsUnlimitedElements::VIEW_SETTINGS_ELEMENTOR,
 			GlobalsUnlimitedElements::VIEW_CUSTOM_POST_TYPES,
+			GlobalsUnlimitedElements::VIEW_CHANGELOG,
 		);
 
 		HelperProviderCoreUC_EL::globalInit();
@@ -112,6 +114,9 @@ class UniteProviderCoreAdminUC_Elementor extends UniteProviderAdminUC{
 		if(HelperProviderUC::isFormEntriesEnabled() === true)
 			$this->addSubMenuPage(GlobalsUnlimitedElements::VIEW_FORM_ENTRIES, __('Form Entries', "unlimited-elements-for-elementor"), "adminPages");
 
+		if(HelperProviderUC::isAddonChangelogEnabled() === true)
+			$this->addSubMenuPage(GlobalsUnlimitedElements::VIEW_CHANGELOG, __('Changelog', "unlimited-elements-for-elementor"), "adminPages");
+
 		$this->addSubMenuPage(GlobalsUnlimitedElements::VIEW_SETTINGS_ELEMENTOR, __('General Settings', "unlimited-elements-for-elementor"), "adminPages");
 
 		if(defined("UNLIMITED_ELEMENTS_UPRESS_VERSION")){
@@ -127,7 +132,6 @@ class UniteProviderCoreAdminUC_Elementor extends UniteProviderAdminUC{
 
 		//if($isFsActivated == false)
 		//$this->addSubMenuPage("licenseelementor", __('Old License Activation',"unlimited-elements-for-elementor"), "adminPages");
-
 	}
 
 	/**

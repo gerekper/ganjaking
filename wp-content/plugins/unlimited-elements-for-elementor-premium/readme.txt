@@ -1237,6 +1237,57 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
+version 1.5.92: 2024-01-04:
+
+* Feature: Introduced the change log option in the widget editor.
+* Feature: Introduced the ability to connect with Google API for multi-source options.
+* Feature: Included an option to link with Google Sheets under the general settings for forms.
+* Feature: Integrated a "show globals" feature in troubleshooting for enhanced diagnostics.
+* Feature: Implemented the capability to output cart fragments for the woo mini cart.
+* Feature: Provided an option for "none" under lightbox-type in galleries, allowing users to disable the lightbox.
+* Feature: Added an "excerpt" field to post fields within the widget editor for more detailed posts.
+* Fix: Replaced site_url() with home_url() in global variables for better website navigation.
+* Fix: Resolved a conflict with another select2 on the admin side, ensuring smoother operations.
+* Fix: Rectified an error with multiple order by clauses in post queries to improve data sorting.
+* Fix: Enhanced the manual selection of Elementor template retrieval for optimized performance.
+
+* Feature - Content Carousel - Introduced 'Equalize Content Height' option. This new feature simplifies the process of making content elements equal in each item.
+* Feature - Flip Box Carousel - Enhanced responsiveness for Border Radius option. The update ensures that the Border Radius adapts effectively to different screen sizes and device resolutions for a consistent display.
+* Feature - WooCommerce Product Carousel -  Resolved broken layout issue occurring when set to side-by-side layout
+* Feature - Phone Field - Feature - Introduced 'Placeholder' option, allowing users to set placeholder text for improved user experience and clearer input guidance.
+* Feature - Textarea Field - Feature - Introduced 'Placeholder' option, allowing users to set placeholder text for improved user experience and clearer input guidance.
+* Feature - Email Field - Feature - Introduced 'Placeholder' option, allowing users to set placeholder text for improved user experience and clearer input guidance.
+* Feature - Text Field - Feature - Introduced 'Placeholder' option, allowing users to set placeholder text for improved user experience and clearer input guidance.
+* Feature - Testimonial Carousel - Implemented 'Layout Type: Grid' option. This new functionality facilitates the transformation of the widget's layout into a simple grid.
+* Feature - Testimonial Carousel - Introduced 'Layout Type: Swipe' option. This new feature allows users to set the behavior of the widget, resembling the functionality found in Swipe Carousel widget.
+* Feature - Flip Box Carousel - Introduced 'Disable Mouse Drag' and 'Disable Touch Drag' options in Flip Box Carousel settings, offering control over user interaction by allowing the disabling of dragging functionalities.
+* Feature - Team Member Grid - Introduced 'Badge' option, allowing users to include custom badge images or icons for enhanced member representation.
+* Feature - Thumbnail Slider - Implemented responsiveness for 'Slider Main Image Height' option.
+* Feature - Thumbnail Slider - Optimized 'Slider Main Image Height' functionality to prevent widget reloading upon value change.
+* Change - Thumbnail Slider - Changed attribute of 'Slider Main Image Height' option from Number to Slider. This adjustment simplifies the process of adjusting the height of the main image by providing a more intuitive control.
+* Fix - Submit Button - Improved interaction within Multi Step Form widget. Enhancements have been made to streamline and optimize the submit action.
+* Feature - Multi Step Form - Implemented form submission loader. This new addition introduces a visual loader to illustrate the process of sending form data, enhancing user feedback during form submission.
+* Feature - WooCommerce Product List - Introduced 'Default Image' option. The widget will now display the specified default image when a product image is empty, for a more personalized user experience.
+
+
+version 1.5.91: 2023-12-28:
+
+* Change: removed some vulnerability related to templates import
+
+
+version 1.5.90: 2023-12-18:
+
+* Fix: fixed some small bug with pro version main file
+
+
+version 1.5.89: 2023-12-17:
+
+* Fix: fixed some post filters detection issues on the page
+* Fix: fixed some "$type not found" message in php
+* Fix: fixed some "infinite template found: " message in php (emtpy template load protection)
+* Change: added instagram api access error message
+* Change: removed "import with images" functionality. replaced by doubly plugin.
+
 
 version 1.5.88: 2023-12-11:
 

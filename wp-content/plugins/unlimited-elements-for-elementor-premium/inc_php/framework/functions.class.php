@@ -43,7 +43,17 @@ class UniteFunctionsUC{
 		echo "</pre>";
 
 	}
-
+	
+	/**
+	 * show some class static variables values
+	 */
+	public static function showClassStaticVariables($className){
+		
+		 $reflectionClass = new ReflectionClass($className);
+		 $staticProperties = $reflectionClass->getStaticProperties();
+		 dmp($staticProperties);
+	}
+	
 
 	/**
 	 * throw error and show function trace
@@ -2867,73 +2877,73 @@ class UniteFunctionsUC{
 
 
 	public static function z___________OTHERS__________(){}
-	
-	
+
+
 	/**
-	 * load xml file, get simplexml object back. 
+	 * load xml file, get simplexml object back.
 	 * if not loaded - print the error
 	 */
 	public static function loadXMLFile($filepath){
-		
+
 		if(file_exists($filepath) == false)
 			UniteFunctionsUC::throwError("xml file not found: ".$filepath);
 
 		if(function_exists("simplexml_load_file") == false)
 			UniteFunctionsUC::throwError("Your php missing SimpleXML Extension. The plugin can't work without this extension because it has many xml files to load. Please enable this extension in php.ini");
-		
+
 		$showErrors = false;
-		
+
 		if(function_exists("libxml_use_internal_errors")){
 			$showErrors = true;
-			libxml_use_internal_errors(true);			
-			libxml_clear_errors();			
+			libxml_use_internal_errors(true);
+			libxml_clear_errors();
 		}
-		
+
 		$obj = simplexml_load_file($filepath);
-		
+
 		if(empty($obj)){
-			
+
 			$xmlString = file_get_contents($filepath);
-			
+
 			if(empty($xmlString))
 				UniteFunctionsUC::throwError("xml load: No content found in: ".$filepath);
-			
+
 			$obj = simplexml_load_string($xmlString);
 		}
-		
+
 		/**
 		 * throw the error
 		 */
 		if(empty($obj)){
-			
+
 			$errorsHTML = "Wrong xml file format: $filepath <br>";
-			
+
 			if($showErrors == true){
-				
+
 				$arrErrors = libxml_get_errors();
-				
+
 				if(empty($arrErrors))
 					$arrErrors = array();
-								
+
 				foreach($arrErrors as $error){
-					
+
 					$line = $error->line;
 					$column = $error->column;
 					$message = $error->message;
-					
+
 		        	$errorsHTML .= "$message ($line, $column)  <br>\n";
 				}
-				
+
 			}
-			
+
 			UniteFunctionsUC::throwError($errorsHTML);
 		}
-		
-		
+
+
 		return($obj);
 	}
-	
-	
+
+
 	/**
 	 * disable deprecated warnings in php
 	 */
@@ -2951,8 +2961,8 @@ class UniteFunctionsUC{
 	 */
 	public static function getYoutubeVideoID($url){
 
-		preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
-
+		preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
+				
 		if(empty($matches))
 			return($url);
 
@@ -3091,9 +3101,10 @@ class UniteFunctionsUC{
 	}
 
 	/**
-	 * Download Image
+	 * Download image file
 	 */
-	public function downloadImage($filepath, $filename, $mimeType=""){
+	public function downloadImage($filepath, $filename, $mimeType = ""){
+
 		$contents = file_get_contents($filepath);
 		$filesize = strlen($contents);
 
@@ -3103,38 +3114,40 @@ class UniteFunctionsUC{
 			$mimeType = "image/$ext";
 		}
 
-		header("Content-Type: $mimeType");
 		header("Content-Disposition: attachment; filename=\"$filename\"");
 		header("Content-Length: $filesize");
+		header("Content-Type: $mimeType");
+
 		echo UniteProviderFunctionsUC::escCombinedHtml($contents);
-		exit();
+		exit;
 	}
 
 	/**
-	 * download text file
+	 * Download text file
 	 */
-	public static function downloadTextFile($text, $filename){
+	public static function downloadTxt($filename, $text){
 
 		$filesize = strlen($text);
 
-		header("Content-Type: text");
 		header("Content-Disposition: attachment; filename=\"$filename\"");
 		header("Content-Length: $filesize");
+		header("Content-Type: text/plain");
+
 		echo UniteProviderFunctionsUC::escCombinedHtml($text);
-		exit();
+		exit;
 	}
 
 	/**
-	 * Download CSV
+	 * Download CSV file
 	 */
 	public static function downloadCsv($filename, $headers, $rows){
 
-		header('Content-Disposition: attachment; filename="' . $filename . '"');
-		header('Content-Transfer-Encoding: binary');
-		header('Content-Type: application/octet-stream');
-		header('Content-Type: text/csv');
+		header("Content-Disposition: attachment; filename=\"$filename\"");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: text/csv");
 
-		$handler = fopen('php://output', 'w');
+		$handler = fopen("php://output", "w");
 
 		// add BOM to fix UTF-8 in Excel
 		fputs($handler, chr(0xEF) . chr(0xBB) . chr(0xBF));
@@ -3144,7 +3157,7 @@ class UniteFunctionsUC{
 			$fields = array();
 
 			foreach($headers as $key => $header){
-				$fields[] = $row[$key];
+				$fields[] = self::getVal($row, $key);
 			}
 
 			fputcsv($handler, $fields);

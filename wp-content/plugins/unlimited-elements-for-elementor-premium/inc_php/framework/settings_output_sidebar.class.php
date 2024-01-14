@@ -26,7 +26,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
         $this->wrapperID = "unite_settings_sidebar_output_".self::$serial;
         $this->settingsMainClass = "unite-settings-sidebar";
 
-        $this->showDescAsTips = true;
+        $this->showDescAsTips = false;
         $this->setShowSaps(true, self::SAPS_TYPE_ACCORDION);
 
         $this->isSidebar = true;
@@ -116,88 +116,82 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 		/**
 		 * draw settings row
-		 * @param $setting
+		 * @param array $setting
+		 * @param string $mode
 		 */
-		protected function drawSettingRow($setting, $mode=""){
+		protected function drawSettingRow($setting, $mode = ""){
 
+			$baseClass = "unite-setting-row";
 
-		    //set cellstyle:
-		    $cellStyle = "";
-		    if(isset($setting[UniteSettingsUC::PARAM_CELLSTYLE])){
-		        $cellStyle .= $setting[UniteSettingsUC::PARAM_CELLSTYLE];
-		    }
+			$text = UniteFunctionsUC::getVal($setting, "text");
+			$description = UniteFunctionsUC::getVal($setting, "description");
 
-		    if($cellStyle != "")
-		        $cellStyle = "style='".$cellStyle."'";
+			$toDrawText = true;
 
-		        $textStyle = $this->drawSettingRow_getTextStyle($setting);
+			$attribsText = UniteFunctionsUC::getVal($setting, "attrib_text");
+			if(empty($attribsText) && empty($text))
+				$toDrawText = false;
 
-		        $baseClass = "unite-setting-row";
+			$settingID = $setting["id"];
 
-		        $text = $this->drawSettingRow_getText($setting);
+			$labelBlock = UniteFunctionsUC::getVal($setting, "label_block");
+			$labelBlock = UniteFunctionsUC::strToBool($labelBlock);
 
-		        $description = UniteFunctionsUC::getVal($setting,"description");
-		        $description = htmlspecialchars($description);
+			if($labelBlock === false)
+				$baseClass .= " uc-inline";
 
-		        $addField = UniteFunctionsUC::getVal($setting, UniteSettingsUC::PARAM_ADDFIELD);
+			$isResponsive = UniteFunctionsUC::getVal($setting, "is_responsive");
+			$isResponsive = UniteFunctionsUC::strToBool($isResponsive);
 
-		        $toDrawText = true;
+			$responsiveType = UniteFunctionsUC::getVal($setting, "responsive_type");
 
-		        $attribsText = UniteFunctionsUC::getVal($setting, "attrib_text");
-		        if(empty($attribsText) && empty($text))
-		        	$toDrawText = false;
+			if($isResponsive === true && $responsiveType != "desktop")
+				$baseClass .= " uc-responsive-hidden";
 
-		        $settingID = $setting["id"];
+			$addAttr = "";
 
-		        $textClassAdd = "";
-		        if($this->showTips == true)
-		            $textClassAdd = " uc-tip";
+			if($isResponsive == true){
+				$responsiveName = UniteFunctionsUC::getVal($setting, "responsive_name");
+				$baseClass .= " unite-setting-row__" . $responsiveType;
 
-		        $isResponsive = UniteFunctionsUC::getVal($setting, "is_responsive");
-		        $isResponsive = UniteFunctionsUC::strToBool($isResponsive);
+				$addAttr = "data-responsiveid='{$responsiveName}'";
+			}
 
-		        $responsiveType = UniteFunctionsUC::getVal($setting, "responsive_type");
+			$rowClass = $this->drawSettingRow_getRowClass($setting, $baseClass);
 
-		        if($isResponsive == true && $responsiveType != "desktop"){
-		        	$baseClass .= " uc-responsive-hidden";
-		        }
+			?>
+			<li id="<?php echo esc_attr($settingID); ?>_row" <?php echo $addAttr; ?> <?php echo UniteProviderFunctionsUC::escAddParam($rowClass); ?>>
 
-		        $addAttr = "";
+				<div class="unite-setting-field">
 
-		        if($isResponsive == true){
-		      		$responsiveName = UniteFunctionsUC::getVal($setting, "responsive_name");
-		        	$baseClass .= " unite-setting-row__".$responsiveType;
-
-		        	$addAttr = "data-responsiveid='{$responsiveName}'";
-		        }
-
-		        $rowClass = $this->drawSettingRow_getRowClass($setting, $baseClass);
-
-		        ?>
-				<li id="<?php echo esc_attr($settingID)?>_row" <?php echo $addAttr?>  <?php echo UniteProviderFunctionsUC::escAddParam($rowClass)?>>
-
-					<?php if($toDrawText == true):?>
-
+					<?php if($toDrawText == true): ?>
 						<div class="unite-setting-text-wrapper">
-							<div id="<?php echo esc_attr($settingID)?>_text" class='unite-setting-text<?php echo esc_attr($textClassAdd)?>' title="<?php echo esc_attr($description)?>" <?php echo UniteProviderFunctionsUC::escAddParam($attribsText)?>><?php echo esc_html($text) ?></div>
-							<?php if($isResponsive)
-									$this->addResponsiveIconsHtml($responsiveType);
-							?>
+							<div id="<?php echo esc_attr($settingID); ?>_text" class='unite-setting-text' <?php echo UniteProviderFunctionsUC::escAddParam($attribsText); ?>>
+								<?php echo esc_html($text); ?>
+							</div>
+							<?php if($isResponsive): ?>
+								<?php $this->addResponsiveIconsHtml($responsiveType); ?>
+							<?php endif; ?>
 						</div>
-					<?php endif?>
+					<?php endif ?>
 
-					<?php if(!empty($addHtmlBefore)):?>
-						<div class="unite-setting-addhtmlbefore"><?php echo UniteProviderFunctionsUC::escAddParam($addHtmlBefore)?></div>
-					<?php endif?>
+					<?php if(!empty($addHtmlBefore)): ?>
+						<div class="unite-setting-addhtmlbefore"><?php echo UniteProviderFunctionsUC::escAddParam($addHtmlBefore); ?></div>
+					<?php endif; ?>
 
-					<div class='unite-setting-input'>
-						<?php
-							$this->drawInputs($setting);
-							$this->drawInputAdditions($setting);
-						?>
+					<div class="unite-setting-input">
+						<?php $this->drawInputs($setting); ?>
 					</div>
-					<div class="unite-clear"></div>
-				</li>
+
+				</div>
+
+				<?php if(!empty($description)): ?>
+					<div class="unite-setting-helper">
+						<?php echo $description; ?>
+					</div>
+				<?php endif; ?>
+
+			</li>
 
 			<?php
 		}
@@ -261,18 +255,16 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * @param  $sap
 		 */
 		protected function drawSapBefore($sap, $key){
-
+						
 		    //set class
 		    $class = "unite-postbox";
 		    if(!empty($this->addClass))
 		        $class .= " ".$this->addClass;
-
+			
 		    $tab = UniteFunctionsUC::getVal($sap, "tab");
 
 		    if(empty($tab))
 		    	$tab = UniteSettingsUC::TAB_CONTENT;
-
-		    $class .= " uctab-$tab";
 
 				if($this->isAccordion == false){
 					$class .= " unite-no-accordion";
@@ -294,14 +286,14 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 				}
 
 			?>
-			<div class="<?php echo esc_attr($class)?>">
+			<div class="<?php esc_attr_e($class); ?>" data-tab="<?php esc_attr_e($tab); ?>">
 
 				<?php if($this->showSapTitle == true): ?>
 
 					<div class="unite-postbox-title" <?php echo UniteProviderFunctionsUC::escAddParam($styleTitle); ?>>
 
 					<?php if(!empty($classIcon)):?>
-					<i class="unite-postbox-icon <?php echo esc_attr($classIcon); ?>"></i>
+						<i class="unite-postbox-icon <?php echo esc_attr($classIcon); ?>"></i>
 					<?php endif; ?>
 
 						<span><?php echo esc_html($text); ?></span>
@@ -323,13 +315,11 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * draw sap after
 		 */
 		protected function drawSapAfter(){
-		    ?>
 
-							<div class="unite-clear"></div>
-						</div>
-					</div>
-		        <?php
-
+		?>
+			</div>
+		</div>
+		<?php
 		}
 
 

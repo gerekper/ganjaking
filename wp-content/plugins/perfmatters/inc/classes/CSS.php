@@ -25,7 +25,7 @@ class CSS
         }
 
         if(!empty(Config::$options['assets']['remove_unused_css'])) {
-            add_action('wp', array('Perfmatters\CSS', 'queue'));
+            add_action('perfmatters_queue', array('Perfmatters\CSS', 'queue'));
             add_action('wp_ajax_perfmatters_clear_post_used_css', array('Perfmatters\CSS', 'clear_post_used_css'));
             add_action('admin_bar_menu', array('Perfmatters\CSS', 'admin_bar_menu'));
             add_action('admin_notices', array('Perfmatters\CSS', 'admin_notices'));
@@ -130,9 +130,7 @@ class CSS
                 if(!$used_css_exists) {
 
                     //get local stylesheet path
-                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), '', explode('?', $stylesheet[2])[0]);
-
-                    $file = str_replace('/wp-content', '/', WP_CONTENT_DIR) . $url;
+                    $file = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), ABSPATH, explode('?', $stylesheet[2])[0]);
 
                     //make sure local file exists
                     if(!file_exists($file)) {

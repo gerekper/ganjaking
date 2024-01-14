@@ -1,7 +1,7 @@
 <?php 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( !empty($FilterType) && ($FilterType == 'search_list') || $paginationType == 'ajaxbased') { ?>
+if ( (!empty($FilterType) && ($FilterType == 'search_list')) || (!empty($paginationType) && $paginationType == 'ajaxbased')) { ?>
     <div class="tp-skeleton">  
         <div class="tp-skeleton-img loading">
             <div class="tp-skeleton-bottom">

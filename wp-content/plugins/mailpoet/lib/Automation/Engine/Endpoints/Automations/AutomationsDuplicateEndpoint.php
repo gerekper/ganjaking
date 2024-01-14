@@ -28,7 +28,9 @@ class AutomationsDuplicateEndpoint extends Endpoint {
   }
 
   public function handle(Request $request): Response {
-    $automationId = intval($request->getParam('id'));
+    /** @var int $automationId */
+    $automationId = $request->getParam('id');
+    $automationId = intval($automationId);
     $duplicate = $this->duplicateController->duplicateAutomation($automationId);
     return new Response($this->automationMapper->buildAutomation($duplicate));
   }

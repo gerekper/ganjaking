@@ -59,12 +59,13 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	 * @since 4.8
 	 */
 	public static function tc_epo_action( $atts ) {
-		$vars                                       = shortcode_atts(
+		$vars = shortcode_atts(
 			[
 				'action' => '',
 			],
 			$atts
 		);
+
 		$GLOBALS['THEMECOMPLETE_IS_FROM_SHORTCODE'] = true;
 		do_action( $vars['action'] );
 		unset( $GLOBALS['THEMECOMPLETE_IS_FROM_SHORTCODE'] );

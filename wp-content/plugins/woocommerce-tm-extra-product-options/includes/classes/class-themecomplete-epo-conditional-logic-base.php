@@ -442,7 +442,7 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 		$combinations        = [ [] ];
 		$pre_combinations    = [ [] ];
 		$result_combinations = [];
-		$max_combinations    = intval( THEMECOMPLETE_EPO()->tm_epo_global_max_combinations );
+		$max_combinations    = intval( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_max_combinations' ) );
 		$max_combinations    = $max_combinations > 0 ? $max_combinations : 1;
 
 		for ( $index = 0; $index < $total_fields; $index++ ) {
@@ -1411,9 +1411,9 @@ final class THEMECOMPLETE_EPO_Conditional_Logic_Base {
 
 				return ( ( null !== $posted_value && '' !== $posted_value ) );
 			case 'startswith':
-				return THEMECOMPLETE_EPO_HELPER()->str_startswith( $posted_value, $value );
+				return str_starts_with( $posted_value, $value );
 			case 'endswith':
-				return THEMECOMPLETE_EPO_HELPER()->str_endsswith( $posted_value, $value );
+				return str_ends_with( $posted_value, $value );
 			case 'greaterthan':
 				return floatval( $posted_value ) > floatval( $value );
 			case 'lessthan':

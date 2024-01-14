@@ -234,7 +234,6 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 				unset( self::$expired_points[ $user_id ] ) ;
 			}
 		}
-
 	}
 
 }

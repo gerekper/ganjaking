@@ -178,7 +178,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		 */
 		public function post_fulfillment_order( WC_Order $order, $is_manual_send = false ) {
 			$order_id     = $order->get_id();
-			$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
+			$order_number = $this->ns_fba->get_option( 'ns_fba_order_prefix' ) . $order->get_order_number();
 
 			if ( ! NS_MCF_Utils::is_valid_length( $order_number, 40 ) ) {
 				$this->write_debug_log( $log_tag, 'Order number longer than the required 40 characters. Removing prefix defined in settings' );
@@ -283,7 +283,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				if ( $this->ns_fba->is_debug ) {
 					$this->ns_fba->logger->add_entry( '<b>Step 3 of 8: </b>AFTER checking all items in order<br />', 'debug', $this->ns_fba->debug_log_path );
-					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_perfection_mode'] ) ) {
+					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_perfection_mode', 'no' ) ) ) {
 						$this->ns_fba->logger->add_entry( '----: Perfection Mode is ACTIVE<br />', 'debug', $this->ns_fba->debug_log_path );
 					} else {
 						$this->ns_fba->logger->add_entry( '----: Perfection Mode is OFF<br />', 'debug', $this->ns_fba->debug_log_path );
@@ -298,7 +298,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					return false;
 				}
 
-				if ( ! $is_manual_send && $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_perfection_mode'] ) && $total_item_count !== $fulfill_item_count ) {
+				if ( ! $is_manual_send && $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_perfection_mode', 'no' ) ) && $total_item_count !== $fulfill_item_count ) {
 					// if we're in Perfection Mode but not ALL of the order items passed fulfillment rules, then we're done.
 					$this->write_debug_log( $log_tag, 'Perfection Mode is active and Not ALL products in this order are set to fulfill with FBA' );
 					$order->add_order_note( __( 'Perfection Mode is active and Not ALL products in this order are set to Fulfill with Amazon, so we did not try to send this order to FBA.', $this->ns_fba->text_domain ) );
@@ -352,7 +352,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$body['destinationAddress']['stateOrRegion'] = $this->get_formatted_string( $address_source['state'] );
 
 				// phone and email need to come from billing.
-				if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_exclude_phone'] ) ) {
+				if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_exclude_phone', 'no' ) ) ) {
 					$body['destinationAddress']['phone'] = $this->get_formatted_string( $order_data['billing']['phone'] );
 				} else {
 					$body['destinationAddress']['phone'] = '';
@@ -360,12 +360,14 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				// Amazon shipping notification list.
 				$notify = array();
-				if ( $order->get_billing_email() && ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_disable_shipping_email'] ) ) {
+				if ( $order->get_billing_email() && ! $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_disable_shipping_email', 'no' ) ) ) {
 					$notify = array( $order_data['billing']['email'] );
 				}
 				// Add the admin email.
-				if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_email_on_error'] ) ) {
-					$notify = $notify + array( $this->ns_fba->options['ns_fba_notify_email'] );
+				if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_email_on_error', 'no' ) ) ) {
+					if ( !empty( $this->ns_fba->get_option( 'ns_fba_notify_email' ) ) ) {
+						$notify = $notify + array( $this->ns_fba->get_option( 'ns_fba_notify_email' ) );
+					}
 				}
 
 				$body['notificationEmails'] = $notify;
@@ -416,7 +418,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$inventory_updates = array();
 				$inventory_data    = $this->get_inventory_summaries( '', $fba_skus );
 				// Update the inventory numbers if sync is enabled.
-				if ( $this->ns_fba->utils->isset_on( ( $this->ns_fba->options['ns_fba_update_inventory'] ) ) ) {
+				if ( $this->ns_fba->utils->isset_on( ( $this->ns_fba->get_option( 'ns_fba_update_inventory', 'no' ) ) ) ) {
 					// phpcs:disable WordPress.NamingConventions.ValidVariableName
 					foreach ( $inventory_data->payload->inventorySummaries as $inventorySummary ) {
 						// TODO: check for errors.
@@ -435,7 +437,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				if ( ! SP_API::is_error_in( $response ) ) {
 					$this->write_debug_log( $log_tag, $response['body'] );
 
-					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_automatic_completion'] ) ) {
+					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_automatic_completion', 'no' ) ) ) {
 						$ns_wc_term = 'completed';
 						$this->write_debug_log( $log_tag, 'Setting for Mark Orders Complete active. Order Status set to Completed.' );
 					} elseif ( $fulfill_item_count === $total_item_count ) {
@@ -464,8 +466,13 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					return $order_id;
 
 				} else {
-					// TODO: finish handling error responses from Amazon.
-					$error_message = json_decode( $response['body'], true );
+					if ( is_wp_error( $response ) ) {
+						$error_message = $response->get_error_messages();
+					} else {
+						// TODO: finish handling error responses from Amazon.
+						$error_message = json_decode( $response['body'], true );
+					}
+
 					$this->write_debug_log( $log_tag, "In ERROR: error_message:\n" . print_r( $error_message, true ) ); // phpcs:ignore
 					$this->ns_fba->logger->add_entry( "ERROR LOG for Order: " . $order_id . " @ " . wp_date("Y-m-d H:i:s") . "<br><br>",'info', $this->ns_fba->err_log_path ); // phpcs:ignore
 					$this->ns_fba->logger->add_entry( "Original REQUEST: <br><pre>" . print_r( json_decode( $request_body, true ), true ) . "</pre><br><br>",'info', $this->ns_fba->err_log_path ); // phpcs:ignore
@@ -502,7 +509,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				// This is because PayPal orders can get set back to processing by IPN *after* order has already been sent and marked complete.
 				// TODO add checking for part-to-fba for full integrity - this could go from part-to-fba to sent-to-fba.
 				if ( 'processing' === $order->get_status() ) {
-					$complete_status = $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_automatic_completion'] ) ? 'completed' : 'sent-to-fba';
+					$complete_status = $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_automatic_completion', 'no' ) ) ? 'completed' : 'sent-to-fba';
 					$this->set_order_status_safe( $order_id, $complete_status );
 					$order->add_order_note( __( 'Skipping order completion via Amazon: this order already sent.', $this->ns_fba->text_domain ) );
 				}
@@ -519,7 +526,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		public function get_fulfillment_order( int $order_id ) {
 			$log_tag      = 'get_fulfillment_order: ' . $order_id;
 			$order        = wc_get_order( $order_id );
-			$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
+			$order_number = $this->ns_fba->get_option( 'ns_fba_order_prefix' ) . $order->get_order_number();
 
 			// For manual testing only.
 			// $order_number = 'ns_test_wc_order_PXvpRxjZ0bMr7'; //phpcs:ignore.
@@ -669,7 +676,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					continue;
 				}
 
-				$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
+				$order_number = $this->ns_fba->get_option( 'ns_fba_order_prefix' ) . $order->get_order_number();
 
 				$log_tag = 'Order ' . $order_id;
 
@@ -722,7 +729,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$order->save();
 			}
 
-			if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_sync_ship_retry'] ) ) {
+			if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_sync_ship_retry', 'no' ) ) ) {
 
 				$this->write_debug_log( 'DEBUG', 'Trying to resend orders' );
 
@@ -1035,7 +1042,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		protected function get_marketplace_id_for_order( $order, $default ) {
 			// Return the default marketplace ID if the configured region is not Europe
 			// @link https://app.codeable.io/tasks/74910 .
-			if ( 'https://mws-eu.amazonservices.com' !== $this->ns_fba->options['ns_fba_service_url'] ) {
+			if ( 'https://mws-eu.amazonservices.com' !== $this->ns_fba->get_option( 'ns_fba_service_url' ) ) {
 				return $default;
 			}
 
@@ -1128,7 +1135,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		 */
 		private function get_formatted_string( $string_raw ) {
 			$org_string = $string_raw;
-			if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_encode_convert_bypass'] ) ) {
+			if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_encode_convert_bypass', 'no' ) ) ) {
 				$string_raw = iconv( 'UTF-8', 'ASCII//TRANSLIT//IGNORE', $string_raw );
 			}
 

@@ -6134,16 +6134,6 @@ msgstr "ईमेल से एचटीएमएल स्ट्रिप क�
 msgid "Check to strip the html tags from emails"
 msgstr "ईमेल से HTML टैग हटाने के लिए जाँच करें"
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-#, fuzzy
-msgid "Hide uploaded file path"
-msgstr "अपलोड किया गया फ़ाइल पथ छुपाएँ"
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-#, fuzzy
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr "अपलोड किए गए फ़ाइल पथ को उपयोगकर्ताओं से छिपाने के लिए जाँच करें (आदेश में)."
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 #, fuzzy
 msgid "Legacy meta data"

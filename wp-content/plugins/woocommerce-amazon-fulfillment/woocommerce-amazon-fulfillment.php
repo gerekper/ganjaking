@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.9.4
+ * Version: 4.1.9.5
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -75,7 +75,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.9.4';
+			public $version = '4.1.9.5';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -302,7 +302,6 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				$this->init_paths();
 
 				// Load our helper class includes and the Amazon PHP libraries.
-				//$this->require_all( $this->plugin_path . 'lib', 3 );
 				$this->load_files();
 
 				add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
@@ -331,7 +330,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 
 				// Set is_debug based on retrieved value from DB.
 				// Clean install does not have this set, we need to check.
-				$this->is_debug = isset( $this->options['ns_fba_debug_mode'] ) ? $this->utils->isset_on( $this->options['ns_fba_debug_mode'] ) : false;
+				$this->is_debug = $this->utils->isset_on( $this->get_option( 'ns_fba_debug_mode', 'no' ) );
 
 				// This is an important test to prevent potential error conditions where
 				// values aren't available that hooks depend on and therefore get wired prematurely.
@@ -369,12 +368,12 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				if ( $this->is_configured ) {
 
 					// Add scheduled event for inventory sync and fulfillment status sync if either option is selected.
-					if ( $this->utils->isset_on( $this->options['ns_fba_clean_logs'] ) ) {
+					if ( $this->utils->isset_on( $this->get_option( 'ns_fba_clean_logs', 'no' ) ) ) {
 						if ( ! wp_next_scheduled( 'ns_fba_clean_logs_daily' ) ) {
 							wp_schedule_event( time(), 'daily', 'ns_fba_clean_logs_daily' );
 						}
 						// Make sure we only wire the actions to the active syncs.
-						if ( $this->utils->isset_on( $this->options['ns_fba_clean_logs'] ) ) {
+						if ( $this->utils->isset_on( $this->get_option( 'ns_fba_clean_logs', 'no' ) ) ) {
 							add_action( 'ns_fba_clean_logs_daily', array( $this->utils, 'delete_older_logs' ) );
 						}
 					} else {
@@ -504,24 +503,6 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 */
 
 			/**
-			 * Scan the path, recursively including all PHP files. This is primarily to include all Amazon lib files
-			 *
-			 * @param string $dir The directory to scan.
-			 * @param int    $depth Optional. Depth to scan. Defaults to 0.
-			 */
-			protected function require_all( $dir, $depth = 0 ) {
-				// Require all php files.
-				$scan = glob( "$dir/*" );
-				foreach ( $scan as $path ) {
-					if ( preg_match( '/\.php$/', $path ) ) {
-						require_once $path;
-					} elseif ( is_dir( $path ) ) {
-						$this->require_all( $path, $depth + 1 );
-					}
-				}
-			}
-
-			/**
 			 * Load all required plugin files
 			 *
 			 * @return void
@@ -562,7 +543,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 
 					// View order page hook to get and display order shipping and tracking data from Amazon.
 					// Only activate the hook if the option is turned ON.
-					if ( $this->utils->isset_on( $this->options['ns_fba_display_order_tracking'] ) ) {
+					if ( $this->utils->isset_on( $this->get_option( 'ns_fba_display_order_tracking', 'no' ) ) ) {
 
 						add_action( 'woocommerce_view_order', array( $this->fulfill, 'get_fulfillment_order_shipping_info' ) );
 					}
@@ -571,7 +552,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 						// There is already a check for inventory in the method `sync_inventory`.
 						add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_inventory' ) );
 						// Add scheduled event for inventory sync and fulfillment status sync if either option is selected.
-						if ( $this->utils->isset_on( $this->options['ns_fba_sync_ship_status'] ) ) {
+						if ( $this->utils->isset_on( $this->get_option( 'ns_fba_sync_ship_status', 'no' ) ) ) {
 							add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_fulfillment_order_status' ) );
 						}
 					}
@@ -951,6 +932,23 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				$this->options = $the_options;
 
 				// there is no return here, because you should use the $this->options variable.
+			}
+
+			/**
+			 * Get Option
+			 *
+			 * @param string $option_name The option name
+			 * @param string $default The default value.
+			 *
+			 * @return mixed
+			 */
+			public function get_option( $option_name, $default = '' ) {
+				// Check if options are set. If empty make sure to load the options.
+				if ( empty( $this->options ) ) {
+					$this->get_options();
+				}
+
+				return isset( $this->options[ $option_name ] ) ? $this->options[ $option_name ] : $default;
 			}
 
 			/**

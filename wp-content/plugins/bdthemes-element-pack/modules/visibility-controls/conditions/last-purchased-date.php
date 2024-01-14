@@ -67,6 +67,9 @@
 		 * @since 6.7.1
 		 */
 		public function check( $relation, $val ) {
+
+			if(!$val) return;
+			$show = false;
 			
 			$args = array(
 				'customer_id' => get_current_user_id(),
@@ -81,8 +84,10 @@
 			$purchased_date = $order_date && $order_date[0] ? date( 'Y-m-d', strtotime( $order_date[0]->get_Date_completed() ) ) : false;
 			
 			// Check that purchase date is on or before
-			$show = $val >= $purchased_date ? true : false;
-			
+			if($purchased_date){
+				$show = $val >= $purchased_date ? true : false;
+			}
+						
 			return $this->compare( $show, true, $relation );
 		}
 	}

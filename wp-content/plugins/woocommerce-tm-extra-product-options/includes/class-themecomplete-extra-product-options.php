@@ -27,14 +27,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	private $postid_pre = false;
 
 	/**
-	 * Custom data
-	 * This is used in places where we need to add custom settings
-	 *
-	 * @var array<mixed>
-	 */
-	public $data_store = [];
-
-	/**
 	 * Helper for determining various conditionals
 	 *
 	 * @var array<bool>
@@ -178,13 +170,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public $current_option_features = [];
 
 	/**
-	 * Holds all of the plugin settings
-	 *
-	 * @var array<mixed>
-	 */
-	private $tm_plugin_settings = [];
-
-	/**
 	 * Enable/disable flag for outputing plugin specific classes
 	 * to the post_class filter
 	 *
@@ -322,1480 +307,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public $lookup_tables = false;
 
 	/**
-	 * Enable front-end for roles
-	 * Select the roles that will have access to the extra options.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_roles_enabled = '@everyone';
-
-	/**
-	 * Disable front-end for roles
-	 * Select the roles that will not have access to the extra options.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_roles_disabled = '';
-
-	/**
-	 * Enable translations
-	 * This will enable the default plugin translation using the pot files.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_translations = 'yes';
-
-	/**
-	 * Post type hook priority
-	 * Do not change this unless you know how it will affect your site!
-	 * This is the priority which the post types are loaded by the plugin.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_post_type_hook_priority = '';
-
-	/**
-	 * Final total box
-	 * Select when to show the final total box
-	 *
-	 * @var string
-	 */
-	public $tm_epo_final_total_box = 'normal';
-
-	/**
-	 * Show Final total
-	 * Enable to display the comprehensive order total,
-	 * providing customers with a clear overview of the overall cost.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_final_total = 'show';
-
-	/**
-	 * Show Options Total
-	 * Activate to display the total specifically for selected product options,
-	 * allowing customers to see the cost breakdown for their chosen customizations.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_options_total = 'show';
-
-	/**
-	 * Enable Final total box for all products
-	 * Show the Final total box even when the product has no extra options
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_final_total_box_all = 'no';
-
-	/**
-	 * Enable original final total display
-	 * Check to enable the display of the undiscounted final total
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_original_final_total = 'no';
-
-	/**
-	 * Enable options VAT display
-	 * Check to display the options VAT amount above the options total
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_vat_options_total = 'no';
-
-	/**
-	 * Show Unit price on totals box
-	 * Enable this to display the unit price when the totals box is visible
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_unit_price = 'no';
-
-	/**
-	 * Include Fees on unit price
-	 * Enable this to add any Fees to the unit price
-	 *
-	 * @var string
-	 */
-	public $tm_epo_fees_on_unit_price = 'no';
-
-	/**
-	 * Total price as Unit Price
-	 * Make the total price not being multiplied by the product quantity
-	 *
-	 * @var string
-	 */
-	public $tm_epo_total_price_as_unit_price = 'no';
-
-	/**
-	 * Hide Final total box until an element is chosen
-	 * Check this to show the Final total box
-	 * only when at least one option is filled
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_totals_until_any = 'no';
-
-	/**
-	 * Hide Final total box until all required elements are chosen
-	 * Check this to show the Final total box
-	 * only when all required visible options are filled
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_totals_until_all_required = 'no';
-
-	/**
-	 * Hide Final total box until all elements are chosen
-	 * Check this to show the Final total box
-	 * only when all visible options are filled
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_totals_until_all = 'no';
-
-	/**
-	 * Disable lazy load images
-	 * Enable this to disable lazy loading images.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_lazy_load = 'yes';
-
-	/**
-	 * Preload lightbox images
-	 * Enable this to preload the image when using the lightbox feature.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_preload_lightbox_image = 'no';
-
-	/**
-	 * Enable plugin for WooCommerce shortcodes
-	 * Enabling this will load the plugin files to all WordPress pages.
-	 * Use with caution.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_shortcodes = 'no';
-
-	/**
-	 * Enable shortcodes in options strings
-	 * Enabling this will allow the use of shortcodes and HTML code
-	 * in the options label and description text.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_data_shortcodes = 'yes';
-
-	/**
-	 * Display
-	 * This controls how your fields are displayed on the front-end.
-	 * If you choose "Show using action hooks" you have to manually
-	 * write the code to your theme or plugin to display the fields
-	 * and the placement settings below will not work.
-	 * If you use the Composite Products extension you must leave this
-	 * setting to "Normal" otherwise the extra options cannot be displayed
-	 * on the composite product bundles. See more at the documentation.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_display = 'normal';
-
-	/**
-	 * Extra Options placement
-	 * Select where you want the extra options to appear.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_options_placement = 'woocommerce_before_add_to_cart_button';
-
-	/**
-	 * Extra Options placement custom hook
-	 *
-	 * @var string
-	 */
-	public $tm_epo_options_placement_custom_hook = '';
-
-	/**
-	 * Extra Options placement hook priority
-	 * Select the Extra Options placement hook priority
-	 *
-	 * @var string|integer
-	 */
-	public $tm_epo_options_placement_hook_priority = '50';
-
-	/**
-	 * Totals box placement
-	 * Select where you want the Totals box to appear.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_totals_box_placement = 'woocommerce_before_add_to_cart_button';
-
-	/**
-	 * Totals box placement custom hook
-	 *
-	 * @var string
-	 */
-	public $tm_epo_totals_box_placement_custom_hook = '';
-
-	/**
-	 * Totals box placement hook priority
-	 * Select the Totals box placement hook priority
-	 *
-	 * @var string|integer
-	 */
-	public $tm_epo_totals_box_placement_hook_priority = '50';
-
-	/**
-	 * Floating Totals box
-	 * This will enable a floating box to display your totals box.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_floating_totals_box = 'disable';
-
-	/**
-	 * Floating Totals box visibility
-	 * This determines the floating totals box visibility.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_floating_totals_box_visibility = 'always';
-
-	/**
-	 * Pixels amount needed to scroll
-	 * Select the number of pixels the page needs to scroll for the
-	 * floating totals to become visible.
-	 *
-	 * @var string|integer
-	 */
-	public $tm_epo_floating_totals_box_pixels = '100';
-
-	/**
-	 * Add to cart button on floating totals box
-	 * Display the add to cart button on floating box.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_floating_totals_box_add_button = 'no';
-
-	/**
-	 * Change original product price
-	 * Check to overwrite the original product price when the price is changing.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_change_original_price = 'no';
-
-	/**
-	 * Change variation price
-	 * Check to overwrite the variation price when the price is changing.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_change_variation_price = 'no';
-
-	/**
-	 * Force Select Options
-	 * This changes the add to cart button on shop and archive pages to
-	 * display select options when the product has extra product options.
-	 * Enabling this will remove the ajax functionality.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_force_select_options = 'no';
-
-	/**
-	 * Enable extra options in shop and category view
-	 * Check to enable the display of extra options on the shop page and
-	 * category view. This setting is theme dependent and some aspects
-	 * may not work as expected.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_enable_in_shop = 'no';
-
-	/**
-	 * Remove Free price label
-	 * Check to remove Free price label when product has extra options
-	 *
-	 * @var string
-	 */
-	public $tm_epo_remove_free_price_label = 'no';
-
-	/**
-	 * Use progressive display on options
-	 * Enabling this will hide the options on the product page until
-	 * JavaScript is initialized. This is a fail-safe setting and
-	 * we recommend to be active.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_progressive_display = 'yes';
-
-	/**
-	 * Animation delay
-	 * How long the animation will take in milliseconds
-	 *
-	 * @var string|float
-	 */
-	public $tm_epo_animation_delay = '100';
-
-	/**
-	 * Start Animation delay
-	 * The delay until the animation starts in milliseconds
-	 *
-	 * @var string
-	 */
-	public $tm_epo_start_animation_delay = '0';
-
-	/**
-	 * Show quantity selector only for elements with a value
-	 * Check show quantity selector only for elements with a value.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_only_active_quantities = 'yes';
-
-	/**
-	 * Hide add-to-cart button until an element is chosen
-	 * Check this to show the add to cart button only when at least
-	 * one option is filled.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_add_cart_button = 'no';
-
-	/**
-	 * Hide add-to-cart button until all required elements are chosen
-	 * Check this to show the add to cart button only when all required
-	 * visible options are filled.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_required_add_cart_button = 'no';
-
-	/**
-	 * Hide add-to-cart button until all elements are chosen
-	 * Check this to show the add to cart button only when all visible
-	 * options are filled.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_all_add_cart_button = 'no';
-
-	/**
-	 * Show full width label for elements.
-	 * Check this to force elements to be full width instead of auto.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_select_fullwidth = 'yes';
-
-	/**
-	 * Show choice description inline.
-	 * Check this to disable showing description as a tooltip and
-	 * show it inline instead.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_description_inline = 'no';
-
-	/**
-	 * Hide choice label when using the Show tooltip setting for radio
-	 * buttons and checkboxes
-	 * Check this to hide the choice label when using the Show tooltip
-	 * setting for radio buttons and checkboxes.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_swatch_hide_label = 'yes';
-
-	/**
-	 * Auto hide price if zero
-	 * Check this to globally hide the price display if it is zero.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_auto_hide_price_if_zero = 'no';
-
-	/**
-	 * Trim zeros in prices
-	 * Check this to globally trim zero in prices.
-	 * This will be applied to native WooCommerce prices as well.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_trim_zeros = 'no';
-
-	/**
-	 * Hide element price html when hide price setting is enabled
-	 * Check this if you use Google Merchant Center.
-	 * It will hide the price html of the element when you enable
-	 * its hide price setting.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_price_html = 'yes';
-
-	/**
-	 * Show prices inside select box choices
-	 * Check this to show the price of the select box options
-	 * if the price type is fixed.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_price_inside_option = 'no';
-
-	/**
-	 * Show prices inside select box choices even if the prices are hidden
-	 * Check this to show the price of the select box options
-	 * if the price type is fixed and even if the element hides the price.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_price_inside_option_hidden_even = 'no';
-
-	/**
-	 * Multiply prices inside select box choices with its quantity selector
-	 * Check this to multiply the prices of the select box options
-	 * with its quantity selector if any.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_multiply_price_inside_option = 'yes';
-
-	/**
-	 * Use translated values when possible on admin Order
-	 * Please note that if the options on the Order change
-	 * or get deleted you will get wrong results by enabling this!
-	 *
-	 * @var string
-	 */
-	public $tm_epo_wpml_order_translate = 'no';
-
-	/**
-	 * Include option pricing in product price
-	 * Check this to include the pricing of the options to the product price.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_include_possible_option_pricing = 'no';
-
-	/**
-	 * Check for empty product price
-	 * Check this to have the plugin set to zero the
-	 * product price when it is empty.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_add_product_price_check = 'yes';
-
-	/**
-	 * Use the "From" string on displayed product prices
-	 * Check this to alter the price display of a product when it
-	 * has extra options with prices.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_use_from_on_price = 'no';
-
-	/**
-	 * Alter generated product structured data
-	 * Alters the generated product structured data.
-	 * This may produce wrong results if the options use conditional logic!
-	 *
-	 * @var string
-	 */
-	public $tm_epo_alter_structured_data = 'no';
-
-	/**
-	 * Responsive options structure
-	 * Enable this if you want the options to have responsive display.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_responsive_display = 'yes';
-
-	/**
-	 * Turn off persistent cart
-	 * Enable this if the product has a lot of options.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_turn_off_persi_cart = 'no';
-
-	/**
-	 * Clear cart button
-	 * Enables or disables the clear cart button
-	 *
-	 * @var string
-	 */
-	public $tm_epo_clear_cart_button = 'no';
-
-	/**
-	 * Cart Field Display
-	 * Select how to display your fields in the cart
-	 *
-	 * @var string
-	 */
-	public $tm_epo_cart_field_display = 'normal';
-
-	/**
-	 * Hide extra options in cart
-	 * Enables or disables the display of options in the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_options_in_cart = 'no';
-
-	/**
-	 * Hide extra options prices in cart
-	 * Enables or disables the display of prices of options in the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_options_prices_in_cart = 'no';
-
-	/**
-	 * Prevent negative priced products
-	 * Prevent adding to the cart negative priced products.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_negative_priced_products = 'no';
-
-	/**
-	 * Prevent zero priced products
-	 * Prevent adding to the cart zero priced products.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_zero_priced_products = 'no';
-
-	/**
-	 * Hide checkbox element average price
-	 * This will hide the average price display on the cart for checkboxes.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_cart_average_price = 'yes';
-
-	/**
-	 * Show image replacement in cart and checkout
-	 * Enabling this will show the images of elements that have
-	 * an image replacement.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_image_replacement = 'no';
-
-	/**
-	 * Hide upload file URL in cart and checkout
-	 * Enabling this will hide the URL of any uploaded file while
-	 * in cart and checkout.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_hide_uploaded_file_url_cart = 'no';
-
-	/**
-	 * Show uploaded image in cart and checkout
-	 * Enabling this will show the uploaded images in cart and checkout.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_upload_image_replacement = 'yes';
-
-	/**
-	 * Maximum image width
-	 * Set the maximum width of the images that appear on cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_image_max_width = '70%';
-
-	/**
-	 * Maximum image height
-	 * Set the maximum height of the images that appear on cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_image_max_height = 'none';
-
-	/**
-	 * Always use unique values on cart for elements
-	 * Enabling this will separate comma separated values for elements.
-	 * This is mainly used for multiple checkbox choices.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_always_unique_values = 'no';
-
-	/**
-	 * Post types to show the saved options
-	 * Select the post types where the plugin will modify the
-	 * edit order screen to show the saved options.
-	 * You can type in your custom post type.
-	 *
-	 * @var string|array<string>
-	 */
-	public $tm_epo_order_post_types = 'shop_order';
-
-	/**
-	 * Strip html from emails
-	 * Check to strip the html tags from emails
-	 *
-	 * @var string
-	 */
-	public $tm_epo_strip_html_from_emails = 'yes';
-
-	/**
-	 * Hide uploaded file path
-	 * Check to hide the uploaded file path from users (in the Order).
-	 *
-	 * @var string
-	 */
-	public $tm_epo_hide_upload_file_path = 'yes';
-
-	/**
-	 * Legacy meta data
-	 * Check to enable legacy meta data functionality.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_legacy_meta_data = 'no';
-
-	/**
-	 * Unique meta values
-	 * Check to split items with multiple values to unique lines.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_unique_meta_values = 'no';
-
-	/**
-	 * Prevent options from being sent to emails
-	 * Check to disable options from being sent to emails.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_prevent_options_from_emails = 'no';
-
-	/**
-	 * Disable sending the options upon saving the order
-	 * Enable this if you are getting a 500 error when trying to
-	 * complete the order in the checkout.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_disable_sending_options_in_order = 'no';
-
-	/**
-	 * Attach upload files to emails
-	 * Check to Attach upload files to emails.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_attach_uploaded_to_emails = 'yes';
-
-	/**
-	 * Disable Options on Order status change
-	 * Check this only if you are getting server errors on checkout.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_disable_options_on_order_status = 'no';
-
-	/**
-	 * Hide upload file URL in order
-	 * Enabling this will hide the URL of any uploaded file while in order.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_show_hide_uploaded_file_url_order = 'no';
-
-	/**
-	 * Field Label/value separator
-	 * Enter the character that will be used to separate
-	 * field labels from field values in the cart and order.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_separator_cart_text = ':';
-
-	/**
-	 * Multiple field values separator
-	 * Enter the string that will be used to separate multiple values
-	 * for a field that allows multiple selections in the cart and order.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_multiple_separator_cart_text = ' ';
-
-	/**
-	 * Update cart text
-	 * Enter the Update cart text when you edit a product.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_update_cart_text = '';
-
-	/**
-	 * Edit Options text replacement
-	 * Enter a text to replace the Edit options text on the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_edit_options_text = '';
-
-	/**
-	 * Additional Options text replacement
-	 * Enter a text to replace the Additional options text when using
-	 * the pop up setting on the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_additional_options_text = '';
-
-	/**
-	 * Close button text replacement
-	 * Enter a text to replace the Close button text when using
-	 * the pop up setting on the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_close_button_text = '';
-
-	/**
-	 * Empty cart text
-	 * Enter a text to replace the empty cart button text.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_empty_cart_text = '';
-
-	/**
-	 * Final total text
-	 * Enter the Final total text or leave blank for default.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_final_total_text = '';
-
-	/**
-	 * Unit price text
-	 * Enter the Unit price text or leave blank for default.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_options_unit_price_text = '';
-
-	/**
-	 * Options total text
-	 * Enter the Options total text or leave blank for default.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_options_total_text = '';
-
-	/**
-	 * Options VAT total text
-	 * Enter the Options VAT total text or leave blank for default.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_vat_options_total_text = '';
-
-	/**
-	 * Fees total text
-	 * Enter the Fees total text or leave blank for default.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_fees_total_text = '';
-
-	/**
-	 * Free Price text replacement
-	 * Enter a text to replace the Free price label when product has extra options.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_replacement_free_price_text = '';
-
-	/**
-	 * Force Select options text
-	 * Enter a text to replace the add to cart button text when using
-	 * the Force select option.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_force_select_text = '';
-
-	/**
-	 * No zero priced products text
-	 * Enter a text to replace the message when trying to add
-	 * a zero priced product to the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_zero_priced_products_text = '';
-
-	/**
-	 * No negative priced products text
-	 * Enter a text to replace the message when trying to add
-	 * a negative priced product to the cart.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_negative_priced_products_text = '';
-
-	/**
-	 * Popup section button text replacement
-	 * Enter a text to replace the topup section button text.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_popup_section_button_text = '';
-
-	/**
-	 * Reset Options text replacement
-	 * Enter a text to replace the Reset options text when
-	 * using custom variations.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_reset_variation_text = '';
-
-	/**
-	 * Calendar close button text replacement
-	 * Enter a text to replace the Close button text on the calendar.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_closetext = '';
-
-	/**
-	 * Calendar today button text replacement
-	 * Enter a text to replace the Today button text on the calendar.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_currenttext = '';
-
-	/**
-	 * Slider previous text
-	 * Enter a text to replace the previous button text for slider.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_slider_prev_text = '';
-
-	/**
-	 * Slider next text
-	 * Enter a text to replace the next button text for slider.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_slider_next_text = '';
-
-	/**
-	 * This field is required text
-	 * Enter a text to indicate that a field is required.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_this_field_is_required_text = '';
-
-	/**
-	 * Characters remaining text
-	 * Enter a text to replace the Characters remaining text when
-	 * using maximum characters on a text field or a textarea.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_characters_remaining_text = '';
-
-	/**
-	 * Uploading files text
-	 * Enter a text to replace the Uploading files text used in the
-	 * pop-up after clicking the add to cart button when there are upload fields.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_uploading_files_text = '';
-
-	/**
-	 * Uploading message text
-	 * Enter a message to be used in the pop-up after clicking the
-	 * add to cart button when there are upload fields.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_uploading_message_text = '';
-
-	/**
-	 * Select file text
-	 * Enter a text to replace the Select file text used in the
-	 * styled upload button.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_select_file_text = '';
-
-	/**
-	 * Single file text
-	 * Enter a text to replace the file text used in the styled upload button.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_uploading_num_file = '';
-
-	/**
-	 * Multiple files text
-	 * Enter a text to replace the files text used in the styled upload button.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_uploading_num_files = '';
-
-	/**
-	 * Add button text on associated products
-	 * Enter a text to replace the add button text on associated products.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_add_button_text_associated_products = '';
-
-	/**
-	 * Remove button text on associated products
-	 * Enter a text to replace the remove button text on associated products.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_remove_button_text_associated_products = '';
-
-	/**
-	 * Repeater add text
-	 * Enter a text to replace the add text button for repeater fields.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_add_button_text_repeater = '';
-
-	/**
-	 * Enable checkbox and radio styles
-	 * Enables or disables extra styling for checkboxes and radio buttons.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_css_styles = 'no';
-
-	/**
-	 * Style
-	 * Select a style for the checkboxes and radio buttons
-	 *
-	 * @var string
-	 */
-	public $tm_epo_css_styles_style = 'round';
-
-	/**
-	 * Select item border type
-	 * Select a style for the selected border when using
-	 * image replacements or swatches.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_css_selected_border = '';
-
-	/**
-	 * Enable validation
-	 * Check to enable validation feature for builder elements
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_enable_validation = 'yes';
-
-	/**
-	 * Disable error scrolling
-	 * Check to disable scrolling to the element with an error
-	 *
-	 * @var string
-	 */
-	public $tm_epo_disable_error_scroll = 'no';
-
-	/**
-	 * Error label placement
-	 * Set the placement for the validation error notification label
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_error_label_placement = '';
-
-	/**
-	 * Use options cache
-	 * Use options caching for boosting performance.
-	 * Disable if you have options that share the same unique ID.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_options_cache = 'no';
-
-	/**
-	 * Javascript and CSS inclusion mode
-	 * Select how to include JS and CSS files
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_js_css_mode = 'dev';
-
-	/**
-	 * Disable PNG convert security
-	 * Check to disable the conversion to png for image uploads.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_no_upload_to_png = 'no';
-
-	/**
-	 * Override product price
-	 * This will globally override the product price with the
-	 * price from the options if the total options price is greater then zero.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_override_product_price = '';
-
-	/**
-	 * Options price mode
-	 * Select the price mode for the options.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_options_price_mode = 'sale';
-
-	/**
-	 * Maximum number of combinations for price calcualtions
-	 * This setting controls the maximum number of combinations
-	 * that the plugin will use to calculate minimum and maximum prices.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_max_combinations = '10';
-
-	/**
-	 * Calculate the Precise Maximum Price
-	 * This setting influences how the plugin calculates the maximum price
-	 * of a product. Enabling this setting will provide a more precise result
-	 * at the cost of processing speed.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_max_real = 'no';
-
-	/**
-	 * Reset option values after the product is added to the cart
-	 * This will revert the option values to the default ones after
-	 * adding the product to the cart
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_reset_options_after_add = 'no';
-
-	/**
-	 * Use plus and minus signs on prices in cart and checkout
-	 * Choose how you want the sign of options prices to bedisplayed
-	 * in cart and checkout.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_price_sign = '';
-
-	/**
-	 * Use plus and minus signs on option prices
-	 * Choose how you want the sign of options prices to be displayed
-	 * at the product page.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_options_price_sign = 'minus';
-
-	/**
-	 * Input decimal separator
-	 * Choose how to determine the decimal separator for user inputs
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_input_decimal_separator = 'browser';
-
-	/**
-	 * Displayed decimal separator
-	 * Choose which decimal separator to display on currency prices
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_displayed_decimal_separator = '';
-
-	/**
-	 * Timezone override for Date element
-	 * Choose which timezone the date element will use on the backend
-	 * calculations or leave blank for server timezone.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_date_timezone = '';
-
-	/**
-	 * Required state indicator
-	 * Enter a string to indicate the required state of a field.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_required_indicator = '*';
-
-	/**
-	 * Required state indicator position
-	 * Select the placement of the Required state indicator
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_required_indicator_position = 'left';
-
-	/**
-	 * Include tax string suffix on totals box
-	 * Enable this to add the WooCommerce tax suffix on the totals box
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_tax_string_suffix = 'no';
-
-	/**
-	 * Include the WooCommerce Price display suffix on totals box
-	 * Enable this to add the WooCommerce Price display suffix
-	 * on the totals box.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_wc_price_suffix = 'no';
-
-	/**
-	 * The jQuery selector for main product image
-	 * This is used to change the product image.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_product_image_selector = '';
-
-	/**
-	 * Product image replacement mode
-	 * Self mode replaces the actual image and Inline appends
-	 * new image elements.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_product_image_mode = 'self';
-
-	/**
-	 * Move out of stock message
-	 * This is moves the out of stock message when styled variations
-	 * are used just below them.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_move_out_of_stock = 'no';
-
-	/**
-	 * Use internal variation price
-	 * Use this if your variable products have a lot of options to
-	 * improve performance. Note that this may cause issues with
-	 * discount or currency plugins.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_no_variation_prices_array = 'no';
-
-	/**
-	 * Enable plugin backend interface
-	 * Select the roles that will have access to the plugin settings
-	 * and the plugin interface while on the edit product page.
-	 * The Admininstrator role always has access.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_hide_product_enabled = '';
-
-	/**
-	 * Hide override settings on products
-	 * Enable this to hide the settings tab on the product edit screen
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_hide_product_settings = 'no';
-
-	/**
-	 * Hide Builder mode on products
-	 * Enable this to hide the builder tab on the product edit screen
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_hide_product_builder_mode = 'no';
-
-	/**
-	 * Hide Normal mode on products
-	 * Enable this to hide the normal tab on the product edit screen
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_hide_product_normal_mode = 'no';
-
-	/**
-	 * Enable WP Rocket CDN
-	 * Check to enable the use of WP Rocket cdn for the plugin images
-	 * if it is active.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_cdn_rocket = 'yes';
-
-	/**
-	 * Enable Jetpack CDN
-	 * Check to enable the use of Jetpack cdn for the plugin images
-	 * if it is active.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_cdn_jetpack = 'no';
-
-	/**
-	 * Tooltip max width
-	 * Set the max width of the tooltip that appears on the elements.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_tooltip_max_width = '340px';
-
-	/**
-	 * Image mode
-	 * Set the image mode that will be used for various image
-	 * related functionality.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_image_mode = 'relative';
-
-	/**
-	 * Recalculate image on changes
-	 * This is required on several gallery solutions that change
-	 * the image html dynamically
-	 * or if you want to control the image dynamically.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_image_recalculate = 'no';
-
-	/**
-	 * Retrieve image sizes for image replacements
-	 * Disable this for slow servers or large amounts of images.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_retrieve_image_sizes = 'no';
-
-	/**
-	 * Show quantity 1
-	 * Enable to show the quantity string even when the quantity is 1
-	 * and when the quantity selector is enabled.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_quantity_one = 'no';
-
-	/**
-	 * Radio button undo button
-	 * Globally override the undo button for radio buttons
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_radio_undo_button = '';
-
-	/**
-	 * Datepicker theme
-	 * Select the theme for the datepicker.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_datepicker_theme = '';
-
-	/**
-	 * Datepicker size
-	 * Select the size of the datepicker.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_datepicker_size = '';
-
-	/**
-	 * Datepicker position
-	 * Select the position of the datepicker.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_datepicker_position = '';
-
-	/**
-	 * Minimum characters for text-field and text-areas
-	 * Enter a value for the minimum characters the user must enter.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_min_chars = '';
-
-	/**
-	 * Maximum characters for text-field and text-areas
-	 * Enter a value for the minimum characters the user must enter.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_max_chars = '';
-
-	/**
-	 * Upload element inline Image preview
-	 * Enable inline preview of the image that will be uploaded.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_upload_inline_image_preview = 'no';
-
-	/**
-	 * Scroll to the product element upon selection
-	 * Enable to scroll the viewport to the product element.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_product_element_scroll = 'yes';
-
-	/**
-	 * Product element scroll offset
-	 * Enter a value for the scroll offset when selecting a choice
-	 * for the product element.
-	 *
-	 * @var string|integer
-	 */
-	public $tm_epo_global_product_element_scroll_offset = '-100';
-
-	/**
-	 * Sync associated product quantity with main product quantity
-	 * Enable to have the quantities of the associated products to be
-	 * a multiple of the main product quantity.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_global_product_element_quantity_sync = 'yes';
-
-	/**
-	 * Upload folder
-	 * Changing this will only affect future uploads.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_upload_folder = 'extra_product_options';
-
-	/**
-	 * Enable pop-up message on uploads
-	 * Enables a pop-up when uploads are made.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_upload_popup = 'no';
-
-	/**
-	 * Enable upload success message
-	 * Indicates if the upload was successful with a message.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_upload_success_message = 'yes';
-
-	/**
-	 * Allowed file types
-	 * Select which file types the user will be allowed to upload.
-	 *
-	 * @var string|array<string>
-	 */
-	public $tm_epo_allowed_file_types = '@';
-
-	/**
-	 * Custom types
-	 * Select custom file types the user will be allowed to upload
-	 * separated by commas.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_custom_file_types = '';
-
-	/**
-	 * CSS code
-	 * Only enter pure CSS code without and style tags
-	 *
-	 * @var string
-	 */
-	public $tm_epo_css_code = '';
-
-	/**
-	 * JavaScript code
-	 * Only enter pure JavaScript code without and script tags
-	 *
-	 * @var string
-	 */
-	public $tm_epo_js_code = '';
-
-	/**
-	 * Username
-	 * Your Envato username.
-	 *
-	 * @var string
-	 */
-	public $tm_epo_envato_username = '';
-
-	/**
-	 * Envato Personal Token
-	 *
-	 * @var string
-	 */
-	public $tm_epo_envato_apikey = '';
-
-	/**
-	 * Purchase code
-	 *
-	 * @var string
-	 */
-	public $tm_epo_envato_purchasecode = '';
-
-	/**
-	 * Consent
-	 *
-	 * @var string
-	 */
-	public $tm_epo_consent_for_transmit = 'no';
-
-	/**
-	 * Custom math formula constants
-	 *
-	 * @var string
-	 */
-	public $tm_epo_math = '';
-
-	/**
-	 * Plugin Loading Areas
-	 *
-	 * @var array<string>
-	 */
-	public $tm_epo_loading_areas = [ 'woocommerce' ];
-
-	/**
 	 * The single instance of the class
 	 *
 	 * @var THEMECOMPLETE_Extra_Product_Options|null
@@ -1826,6 +337,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @since 1.0
 	 */
 	public function __construct() {
+		$this->wc_vars['is_ajax'] = wp_doing_ajax();
+
 		$this->is_bto = false;
 
 		$this->cart_edit_key_var     = apply_filters( 'wc_epo_cart_edit_key_var', 'tm_cart_item_key' );
@@ -1907,7 +420,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @return void
 	 */
 	public function plugin_loaded() {
-		$this->tm_plugin_settings = THEMECOMPLETE_EPO_SETTINGS()->plugin_settings();
 		$this->get_plugin_settings();
 
 		THEMECOMPLETE_EPO_ORDER();
@@ -1928,149 +440,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	}
 
 	/**
-	 * Stores a setting key/value pair
-	 *
-	 * @param string $key The setting name.
-	 * @param mixed  $value The setting value.
-	 * @since 1.0
-	 * @return void
-	 */
-	private function set_setting( $key, $value ) {
-		if ( is_array( $value ) && 3 === count( $value ) ) {
-			$method    = $value[2];
-			$classname = $value[1];
-			if ( is_object( $classname ) && call_user_func( [ $classname, $method ] ) ) {
-				$this->data_store[ $key ] = get_option( $key );
-				if ( false === $this->data_store[ $key ] ) {
-					$this->data_store[ $key ] = $value[0];
-				}
-			} else {
-				$this->data_store[ $key ] = get_option( $key );
-				if ( false === $this->data_store[ $key ] ) {
-					$this->data_store[ $key ] = $value;
-				}
-			}
-		} else {
-			$this->data_store[ $key ] = get_option( $key );
-			if ( false === $this->data_store[ $key ] ) {
-				$this->data_store[ $key ] = $value;
-			}
-		}
-		$this->data_store[ $key ] = wp_unslash( $this->data_store[ $key ] );
-	}
-
-	/**
 	 * Gets all of the plugin settings
 	 *
 	 * @since 1.0
 	 * @return void
 	 */
 	public function get_plugin_settings() {
-		foreach ( apply_filters( 'wc_epo_get_settings', [] ) as $key => $value ) {
-			$this->set_setting( $key, $value );
-		}
-
-		foreach ( $this->tm_plugin_settings as $key => $value ) {
-			if ( isset( $this->data_store[ $key ] ) ) {
-				continue;
-			}
-			if ( is_array( $value ) && 3 === count( $value ) ) {
-				$method    = $value[2];
-				$classname = $value[1];
-				if ( is_object( $classname ) && call_user_func( [ $classname, $method ] ) ) {
-					$this->$key = get_option( $key );
-					if ( false === $this->$key ) {
-						$this->$key = $value[0];
-					}
-				} else {
-					$this->$key = get_option( $key );
-					if ( false === $this->$key ) {
-						$this->$key = $value;
-					}
-				}
-			} else {
-				$this->$key = get_option( $key );
-				if ( false === $this->$key ) {
-					$this->$key = $value;
-				}
-			}
-			$this->$key = wp_unslash( $this->$key );
-		}
-
-		if ( 'custom' === $this->tm_epo_options_placement ) {
-			$this->tm_epo_options_placement = $this->tm_epo_options_placement_custom_hook;
-		}
-
-		if ( 'custom' === $this->tm_epo_totals_box_placement ) {
-			$this->tm_epo_totals_box_placement = $this->tm_epo_totals_box_placement_custom_hook;
-		}
-
-		$this->upload_dir = $this->tm_epo_upload_folder;
-		$this->upload_dir = str_replace( '/', '', $this->upload_dir );
-		$this->upload_dir = sanitize_file_name( $this->upload_dir );
-		$this->upload_dir = '/' . $this->upload_dir . '/';
-
-		if ( $this->is_quick_view() ) {
-			$this->tm_epo_options_placement_hook_priority    = 50;
-			$this->tm_epo_totals_box_placement_hook_priority = 50;
-			$this->tm_epo_options_placement                  = 'woocommerce_before_add_to_cart_button';
-			$this->tm_epo_totals_box_placement               = 'woocommerce_before_add_to_cart_button';
-		}
-
-		// Backwards compatibility.
-		$this->tm_epo_change_original_price = THEMECOMPLETE_EPO_SETTINGS()->get_compatibility_value( 'tm_epo_change_original_price', $this->tm_epo_change_original_price );
-		$this->tm_epo_final_total_box       = THEMECOMPLETE_EPO_SETTINGS()->get_compatibility_value( 'tm_epo_final_total_box', $this->tm_epo_final_total_box );
-
-		if ( 'display' === $this->tm_epo_force_select_options ) {
-			$this->tm_epo_force_select_options = 'yes';
-		}
-		if ( 'normal' === $this->tm_epo_force_select_options ) {
-			$this->tm_epo_force_select_options = 'no';
-		}
-
-		if ( 'show' === $this->tm_epo_clear_cart_button ) {
-			$this->tm_epo_clear_cart_button = 'yes';
-		}
-		if ( 'normal' === $this->tm_epo_clear_cart_button ) {
-			$this->tm_epo_clear_cart_button = 'no';
-		}
-
-		if ( 'hide' === $this->tm_epo_hide_options_in_cart ) {
-			$this->tm_epo_hide_options_in_cart = 'yes';
-		}
-		if ( 'normal' === $this->tm_epo_hide_options_in_cart ) {
-			$this->tm_epo_hide_options_in_cart = 'no';
-		}
-
-		if ( 'hide' === $this->tm_epo_hide_options_prices_in_cart ) {
-			$this->tm_epo_hide_options_prices_in_cart = 'yes';
-		}
-		if ( 'normal' === $this->tm_epo_hide_options_prices_in_cart ) {
-			$this->tm_epo_hide_options_prices_in_cart = 'no';
-		}
-
-		if ( 'on' === $this->tm_epo_css_styles ) {
-			$this->tm_epo_css_styles = 'yes';
-		}
-		if ( '' === $this->tm_epo_css_styles ) {
-			$this->tm_epo_css_styles = 'no';
-		}
-
-		if ( '' !== $this->tm_epo_global_image_max_width || '' !== $this->tm_epo_global_image_max_height ) {
-			$image_css = '.woocommerce #content table.cart img.epo-upload-image, .woocommerce table.cart img.epo-upload-image, .woocommerce-page #content table.cart img.epo-upload-image, .woocommerce-page table.cart img.epo-upload-image, .epo-upload-image {';
-			if ( '' !== $this->tm_epo_global_image_max_width ) {
-				$image_css .= 'max-width: calc(' . esc_attr( $this->tm_epo_global_image_max_width ) . ' - 0.5em)  !important;';
-			}
-			if ( '' !== $this->tm_epo_global_image_max_height ) {
-				$image_css .= 'max-height: ' . esc_attr( $this->tm_epo_global_image_max_height ) . ' !important;';
-			}
-			$image_css            .= '}';
-			$this->tm_epo_css_code = $image_css . "\n" . $this->tm_epo_css_code;
-		}
-
-		if ( isset( $_REQUEST['tc-fullwidth'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$this->tm_epo_select_fullwidth = sanitize_text_field( wp_unslash( $_REQUEST['tc-fullwidth'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		}
+		THEMECOMPLETE_EPO_DATA_STORE()->init();
 	}
 
 	/**
@@ -2126,17 +502,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_filter( 'tm_image_url', [ $this, 'tm_image_url' ] );
 
 		// Alter the price filter.
-		if ( 'yes' === $this->tm_epo_add_product_price_check ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_add_product_price_check' ) ) {
 			add_filter( 'woocommerce_product_get_price', [ $this, 'woocommerce_product_get_price' ], 1, 2 );
 		}
 
 		// Alter product display price to include possible option pricing.
-		if ( ! is_admin() && 'yes' === $this->tm_epo_include_possible_option_pricing ) {
+		if ( ! is_admin() && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_include_possible_option_pricing' ) ) {
 			add_filter( 'woocommerce_product_get_price', [ $this, 'tm_woocommerce_get_price' ], 2, 2 );
 		}
-		if ( ! is_admin() && 'yes' === $this->tm_epo_use_from_on_price ) {
+		if ( ! is_admin() && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) ) {
 			add_filter( 'woocommerce_show_variation_price', [ $this, 'tm_woocommerce_show_variation_price' ], 50, 3 );
-			if ( 'no' === $this->tm_epo_include_possible_option_pricing ) {
+			if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_include_possible_option_pricing' ) ) {
 				add_filter( 'woocommerce_get_variation_price_html', [ $this, 'tm_get_price_html' ], 11, 2 );
 				add_filter( 'woocommerce_get_price_html', [ $this, 'tm_get_price_html' ], 11, 2 );
 			}
@@ -2147,7 +523,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		// Override the maximum characters of text fields globally.
 		add_filter( 'wc_epo_global_max_chars', [ $this, 'wc_epo_global_max_chars' ], 10, 2 );
 
-		if ( 'yes' === $this->tm_epo_global_no_upload_to_png ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_no_upload_to_png' ) ) {
 			add_filter( 'wc_epo_no_upload_to_png', '__return_false' );
 		}
 
@@ -2155,7 +531,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_filter( 'woocommerce_structured_data_product_offer', [ $this, 'woocommerce_structured_data_product_offer' ], 10, 2 );
 
 		// Enable shortcodes in options strings.
-		if ( 'yes' === $this->tm_epo_enable_data_shortcodes ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_data_shortcodes' ) ) {
 			add_filter( 'wc_epo_kses', [ $this, 'wc_epo_kses' ], 10, 3 );
 			add_filter( 'wc_epo_label_in_cart', [ $this, 'wc_epo_label_in_cart' ], 10, 1 );
 		}
@@ -2173,7 +549,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_filter( 'woocommerce_get_price_html', [ $this, 'woocommerce_get_price_html' ], 999999, 2 );
 
 		// Trim zeros in prices.
-		if ( 'yes' === $this->tm_epo_trim_zeros ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_trim_zeros' ) ) {
 			add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
 		}
 	}
@@ -2218,30 +594,37 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			$tm_price_display_override_sale = isset( $tm_meta_cpf['price_display_override_sale'] ) ? $tm_meta_cpf['price_display_override_sale'] : '';
 			$tm_price_display_override_to   = isset( $tm_meta_cpf['price_display_override_to'] ) ? $tm_meta_cpf['price_display_override_to'] : '';
 
+			$f_tm_price_display_override      = apply_filters( 'wc_epo_get_price_in_currency', $tm_price_display_override );
+			$f_tm_price_display_override_sale = apply_filters( 'wc_epo_get_price_in_currency', $tm_price_display_override_sale );
+			$f_tm_price_display_override_to   = apply_filters( 'wc_epo_get_price_in_currency', $tm_price_display_override_to );
+
 			switch ( $tm_price_display_mode ) {
 				case 'price':
 					if ( '' !== $tm_price_display_override_sale ) {
 						$price = ( function_exists( 'wc_get_price_to_display' )
-							? wc_format_sale_price( wc_format_decimal( $tm_price_display_override ), wc_format_decimal( $tm_price_display_override_sale ) )
-							: '<del>' . themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $tm_price_display_override_sale ) ) . '</ins>'
+							? wc_format_sale_price( wc_format_decimal( $f_tm_price_display_override ), wc_format_decimal( $f_tm_price_display_override_sale ) )
+							: '<del>' . themecomplete_price( wc_format_decimal( $f_tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $tm_price_display_override_sale ) ) . '</ins>'
 						);
 					} else {
-						$price = themecomplete_price( wc_format_decimal( $tm_price_display_override ) );
+						$price = themecomplete_price( wc_format_decimal( $f_tm_price_display_override ) );
 					}
+					$price = apply_filters( 'wc_epo_price_display_mode_price', $price, $tm_price_display_override, $tm_price_display_override_sale, $product );
 					break;
 				case 'from':
 					$price = ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : ( false !== $product ? $product->get_price_html_from_text() : '' ) );
 					if ( '' !== $tm_price_display_override_sale ) {
 						$price .= ( function_exists( 'wc_get_price_to_display' )
-							? wc_format_sale_price( wc_format_decimal( $tm_price_display_override ), wc_format_decimal( $tm_price_display_override_sale ) )
-							: '<del>' . themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $tm_price_display_override_sale ) ) . '</ins>'
+							? wc_format_sale_price( wc_format_decimal( $f_tm_price_display_override ), wc_format_decimal( $f_tm_price_display_override_sale ) )
+							: '<del>' . themecomplete_price( wc_format_decimal( $f_tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $f_tm_price_display_override_sale ) ) . '</ins>'
 						);
 					} else {
-						$price .= themecomplete_price( wc_format_decimal( $tm_price_display_override ) );
+						$price .= themecomplete_price( wc_format_decimal( $f_tm_price_display_override ) );
 					}
+					$price = apply_filters( 'wc_epo_price_display_mode_from', $price, $tm_price_display_override, $tm_price_display_override_sale, $product );
 					break;
 				case 'range':
-					$price = themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . ' - ' . themecomplete_price( wc_format_decimal( $tm_price_display_override_to ) );
+					$price = themecomplete_price( wc_format_decimal( $f_tm_price_display_override ) ) . ' - ' . themecomplete_price( wc_format_decimal( $f_tm_price_display_override_to ) );
+					$price = apply_filters( 'wc_epo_price_display_mode_range', $price, $tm_price_display_override, $tm_price_display_override_to, $product );
 					break;
 			}
 		}
@@ -2318,15 +701,27 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$override_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $id, 'product' ) );
 		$tm_meta_cpf = themecomplete_get_post_meta( $override_id, 'tm_meta_cpf', true );
 
-		$price_override = ( 'no' === $this->tm_epo_global_override_product_price )
+		$price_override = ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) )
 			? 0
-			: ( ( 'yes' === $this->tm_epo_global_override_product_price )
+			: ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) )
 				? 1
 				: ( ! empty( $tm_meta_cpf['price_override'] ) ? 1 : 0 ) );
 
 		$minmax = $this->add_product_tc_prices( $id );
 		if ( ! is_array( $minmax ) ) {
-			$minmax = [];
+			$minmax = [
+				'tc_min_price'    => 0,
+				'tc_max_price'    => 0,
+				'tc_min_variable' => 0,
+				'tc_max_variable' => 0,
+				'tc_min_max'      => false,
+			];
+		}
+		if ( ! isset( $minmax['tc_min_price'] ) ) {
+			$minmax['tc_min_price'] = 0;
+		}
+		if ( ! isset( $minmax['tc_max_price'] ) ) {
+			$minmax['tc_max_price'] = 0;
 		}
 
 		$min_raw           = 0;
@@ -2481,7 +876,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @since 4.8.1
 	 */
 	public function woocommerce_structured_data_product_offer( $markup, $product ) {
-		if ( 'no' === $this->tm_epo_alter_structured_data ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_alter_structured_data' ) ) {
 			return $markup;
 		}
 
@@ -2552,8 +947,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function wc_epo_global_min_chars( $min = '', $element = '' ) {
 		$element = str_replace( '_min_chars', '', $element );
 
-		if ( ( 'textfield' === $element || 'textarea' === $element ) && '' !== $this->tm_epo_global_min_chars && '' === $min ) {
-			$min = $this->tm_epo_global_min_chars;
+		if ( ( 'textfield' === $element || 'textarea' === $element ) && '' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_min_chars' ) && '' === $min ) {
+			$min = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_min_chars' );
 		}
 
 		return $min;
@@ -2569,8 +964,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 */
 	public function wc_epo_global_max_chars( $max = '', $element = '' ) {
 		$element = str_replace( '_min_chars', '', $element );
-		if ( ( 'textfield' === $element || 'textarea' === $element ) && '' !== $this->tm_epo_global_max_chars && '' === $max ) {
-			$max = $this->tm_epo_global_max_chars;
+		if ( ( 'textfield' === $element || 'textarea' === $element ) && '' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_max_chars' ) && '' === $max ) {
+			$max = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_max_chars' );
 		}
 
 		return $max;
@@ -2641,7 +1036,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		// Disable floating totals box on non product pages.
 		if ( ! $this->wc_vars['is_product'] ) {
-			$this->tm_epo_floating_totals_box = '';
+			THEMECOMPLETE_EPO_DATA_STORE()->set( 'tm_epo_floating_totals_box', '' );
 		}
 	}
 
@@ -2671,7 +1066,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( ( empty( $_FILES ) && empty( $_POST ) && isset( $_SERVER['REQUEST_METHOD'] ) && strtolower( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) === 'post'
 			&& isset( $_SERVER['CONTENT_LENGTH'] ) && (float) $_SERVER['CONTENT_LENGTH'] > $post_max )
 			// phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			|| ( is_admin() && ( ! isset( $_GET ) || ( isset( $_GET ) && isset( $_GET['post_type'] ) && isset( $_GET['action'] ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( wp_unslash( $_GET['post_type'] ), 'ct_template' ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( wp_unslash( $_GET['action'] ), 'oxy_render_' ) ) ) ) // @phpstan-ignore-line
+			|| ( is_admin() && ( ! isset( $_GET ) || ( isset( $_GET ) && isset( $_GET['post_type'] ) && isset( $_GET['action'] ) && ! str_starts_with( wp_unslash( $_GET['post_type'] ), 'ct_template' ) && ! str_starts_with( wp_unslash( $_GET['action'] ), 'oxy_render_' ) ) ) ) // @phpstan-ignore-line
 		) {
 			/* translators: %s: post max size */
 			wc_add_notice( sprintf( esc_html__( 'Trying to upload files larger than %s is not allowed!', 'woocommerce-tm-extra-product-options' ), $post_max ), 'error' );
@@ -2694,20 +1089,20 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		// Check if the plugin is active for the user.
 		if ( $this->check_enable() ) {
 			if ( ( $this->is_enabled_shortcodes() || is_product() || $this->is_quick_view() )
-				&& ( 'normal' === $this->tm_epo_display || 'normal' === $this->tm_meta_cpf['override_display'] )
+				&& ( 'normal' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_display' ) || 'normal' === $this->tm_meta_cpf['override_display'] )
 				&& 'action' !== $this->tm_meta_cpf['override_display']
 			) {
 				// Add options to the page.
-				$this->tm_epo_options_placement_hook_priority    = intval( $this->tm_epo_options_placement_hook_priority );
-				$this->tm_epo_totals_box_placement_hook_priority = intval( $this->tm_epo_totals_box_placement_hook_priority );
+				THEMECOMPLETE_EPO_DATA_STORE()->set( 'tm_epo_options_placement_hook_priority', THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement_hook_priority' ) );
+				THEMECOMPLETE_EPO_DATA_STORE()->set( 'tm_epo_totals_box_placement_hook_priority', THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_totals_box_placement_hook_priority' ) );
 
-				add_action( $this->tm_epo_options_placement, [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_epo_fields' ], $this->tm_epo_options_placement_hook_priority );
-				add_action( $this->tm_epo_options_placement, [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_add_inline_style' ], $this->tm_epo_options_placement_hook_priority + 99999 );
-				add_action( $this->tm_epo_totals_box_placement, [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_epo_totals' ], $this->tm_epo_totals_box_placement_hook_priority );
+				add_action( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement' ), [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_epo_fields' ], THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement_hook_priority' ) );
+				add_action( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement' ), [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_add_inline_style' ], THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement_hook_priority' ) + 99999 );
+				add_action( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_totals_box_placement' ), [ THEMECOMPLETE_EPO_DISPLAY(), 'tm_epo_totals' ], THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_totals_box_placement_hook_priority' ) );
 			}
 		}
 
-		if ( 'yes' === $this->tm_epo_enable_in_shop && ( is_shop() || is_product_category() || is_product_tag() || function_exists( 'dokan' ) ) ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' ) && ( is_shop() || is_product_category() || is_product_tag() || function_exists( 'dokan' ) ) ) {
 			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'tm_woocommerce_after_shop_loop_item' ], 9 );
 		}
 
@@ -2719,14 +1114,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		$this->current_free_text       = esc_attr__( 'Free!', 'woocommerce' );
 		$this->assoc_current_free_text = $this->current_free_text;
-		if ( $this->tm_epo_replacement_free_price_text ) {
-			$this->assoc_current_free_text = $this->tm_epo_replacement_free_price_text;
+		if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+			$this->assoc_current_free_text = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' );
 		}
-		if ( 'yes' === $this->tm_epo_remove_free_price_label ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_free_price_label' ) ) {
 			$this->assoc_current_free_text = '';
 		}
 
-		if ( 'yes' === $this->tm_epo_remove_free_price_label && 'no' === $this->tm_epo_include_possible_option_pricing ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_free_price_label' ) && 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_include_possible_option_pricing' ) ) {
 
 			if ( $post || $this->postid_pre ) {
 
@@ -2745,10 +1140,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						is_object( $product ) && is_callable( [ $product, 'get_price' ] )
 					) {
 						if ( ! (float) $product->get_price() > 0 ) {
-							if ( $this->tm_epo_replacement_free_price_text ) {
-								$this->current_free_text = $this->tm_epo_replacement_free_price_text;
+							if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+								$this->current_free_text = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' );
 								add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], 10, 2 );
-							} elseif ( 'no' === $this->tm_epo_use_from_on_price ) {
+							} elseif ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) ) {
 								$this->current_free_text = '';
 								remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 							}
@@ -2758,11 +1153,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				} elseif ( is_shop() || is_product_category() || is_product_tag() ) {
 					add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html_shop' ], 10, 2 );
 				} elseif ( ! is_product() && $this->is_enabled_shortcodes() ) {
-					if ( $this->tm_epo_replacement_free_price_text ) {
-						$this->current_free_text = $this->tm_epo_replacement_free_price_text;
+					if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+						$this->current_free_text = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' );
 						add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], 10, 2 );
 					} else {
-						if ( 'no' === $this->tm_epo_use_from_on_price ) {
+						if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) ) {
 							$this->current_free_text = '';
 							remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 						}
@@ -2772,23 +1167,23 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					add_filter( 'woocommerce_get_price_html', [ $this, 'related_get_price_html2' ], 10, 2 );
 				}
 			} elseif ( $this->is_quick_view() ) {
-				if ( $this->tm_epo_replacement_free_price_text ) {
-					$this->current_free_text = $this->tm_epo_replacement_free_price_text;
+				if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+					$this->current_free_text = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' );
 					add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], 10, 2 );
 				} else {
 					add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], 10, 2 );
-					if ( 'no' === $this->tm_epo_use_from_on_price ) {
+					if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) ) {
 						$this->current_free_text = '';
 						remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 					}
 				}
 			}
-		} elseif ( $this->tm_epo_replacement_free_price_text ) {
-			$this->current_free_text = $this->tm_epo_replacement_free_price_text;
+		} elseif ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+			$this->current_free_text = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' );
 			add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], 10, 2 );
 		}
 
-		if ( 'yes' === $this->tm_epo_use_from_on_price && is_product() && $post ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) && is_product() && $post ) {
 			if ( $product &&
 				( is_object( $product ) && ! is_callable( [ $product, 'get_price' ] ) ) ||
 				( ! is_object( $product ) )
@@ -2872,7 +1267,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$this->hasoptions[ $post_id ] = true;
 
 					// Product doesn't have extra options but the final total box is enabled for all products.
-				} elseif ( 'yes' === $this->tm_epo_enable_final_total_box_all ) {
+				} elseif ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_final_total_box_all' ) ) {
 
 					$this->hasoptions[ $post_id ] = true;
 
@@ -2896,12 +1291,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @return boolean
 	 */
 	public function can_load_scripts() {
-		$loading_areas = $this->tm_epo_loading_areas;
+		$loading_areas = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_loading_areas' );
 		if ( ! is_array( $loading_areas ) ) {
 			$loading_areas = [ $loading_areas ];
 		}
 
-		if ( 'yes' === $this->tm_epo_enable_in_shop ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' ) ) {
 			$loading_areas = array_unique( array_merge( $loading_areas, [ 'shop', 'product_taxonomy' ] ) );
 		}
 
@@ -3031,49 +1426,55 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				'tc_min_max'      => false,
 			];
 
-			$minmax = THEMECOMPLETE_EPO_HELPER()->sum_array_values( $id, true );
+			$epos = $this->get_product_tm_epos( $id, '', false, true );
 
-			if ( ! isset( $minmax['min'] ) ) {
-				$minmax['min'] = 0;
-			}
-			if ( ! isset( $minmax['max'] ) ) {
-				$minmax['max'] = 0;
-			}
+			if ( is_array( $epos ) && ( ! empty( $epos['global'] ) || ! empty( $epos['local'] ) ) && ! empty( $epos['price'] ) ) {
+				$minmax = THEMECOMPLETE_EPO_HELPER()->sum_array_values( $id, true );
 
-			$min                    = $minmax['min'];
-			$max                    = $minmax['max'];
-			$minmax['tc_min_price'] = $min;
-			$minmax['tc_max_price'] = $max;
+				if ( ! isset( $minmax['min'] ) ) {
+					$minmax['min'] = 0;
+				}
+				if ( ! isset( $minmax['max'] ) ) {
+					$minmax['max'] = 0;
+				}
 
-			$minmax['tc_min_variable'] = $min;
-			$minmax['tc_max_variable'] = $max;
+				$min                    = $minmax['min'];
+				$max                    = $minmax['max'];
+				$minmax['tc_min_price'] = $min;
+				$minmax['tc_max_price'] = $max;
 
-			$minmax['tc_min_max'] = true;
+				$minmax['tc_min_variable'] = $min;
+				$minmax['tc_max_variable'] = $max;
 
-			$this->product_options_minmax[ $id ] = [
-				'tc_min_price'    => $min,
-				'tc_max_price'    => $max,
-				'tc_min_variable' => $min,
-				'tc_max_variable' => $max,
-				'tc_min_max'      => true,
-			];
+				$minmax['tc_min_max'] = true;
 
-			if ( is_array( $min ) && is_array( $max ) ) {
 				$this->product_options_minmax[ $id ] = [
-					'tc_min_price'    => min( $min ),
-					'tc_max_price'    => max( $max ),
+					'tc_min_price'    => $min,
+					'tc_max_price'    => $max,
 					'tc_min_variable' => $min,
 					'tc_max_variable' => $max,
 					'tc_min_max'      => true,
 				];
 
-				$minmax['tc_min_price']    = min( $min );
-				$minmax['tc_max_price']    = max( $max );
-				$minmax['tc_min_variable'] = $min;
-				$minmax['tc_max_variable'] = $max;
-			}
+				if ( is_array( $min ) && is_array( $max ) ) {
+					$this->product_options_minmax[ $id ] = [
+						'tc_min_price'    => min( $min ),
+						'tc_max_price'    => max( $max ),
+						'tc_min_variable' => $min,
+						'tc_max_variable' => $max,
+						'tc_min_max'      => true,
+					];
 
-			return $minmax;
+					$minmax['tc_min_price']    = min( $min );
+					$minmax['tc_max_price']    = max( $max );
+					$minmax['tc_min_variable'] = $min;
+					$minmax['tc_max_variable'] = $max;
+				}
+
+				return $minmax;
+			} else {
+				$this->product_options_minmax[ $id ] = false;
+			}
 		}
 
 		return false;
@@ -3110,7 +1511,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		++$this->tm_woocommerce_get_price_flag;
 
 		if ( 1 === $this->tm_woocommerce_get_price_flag ) {
-			if ( ! is_admin() && ! $this->wc_vars['is_product'] && 'no' === $this->tm_epo_use_from_on_price ) {
+			if ( ! is_admin() && ! $this->wc_vars['is_product'] && 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) ) {
 
 				add_filter( 'woocommerce_get_price_html', [ $this, 'tm_get_price_html' ], 11, 2 );
 				add_filter( 'woocommerce_get_variation_price_html', [ $this, 'tm_get_price_html' ], 11, 2 );
@@ -3265,8 +1666,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				return $price;
 			}
 
-			$use_from  = ( 'yes' === $this->tm_epo_use_from_on_price );
-			$free_text = ( 'yes' === $this->tm_epo_remove_free_price_label ) ? ( '' !== $this->tm_epo_replacement_free_price_text ? $this->tm_epo_replacement_free_price_text : '' ) : esc_attr__( 'Free!', 'woocommerce' );
+			$use_from  = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_use_from_on_price' ) );
+			$free_text = ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_free_price_label' ) ) ? ( '' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) : '' ) : esc_attr__( 'Free!', 'woocommerce' );
 
 			$min               = $min_max['min_raw'];
 			$max               = $min_max['max_raw'];
@@ -3414,7 +1815,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// WP Rocket cdn.
-		if ( 'yes' === $this->tm_epo_global_cdn_rocket && defined( 'WP_ROCKET_VERSION' ) && function_exists( 'get_rocket_cdn_cnames' ) && function_exists( 'get_rocket_cdn_url' ) ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_cdn_rocket' ) && defined( 'WP_ROCKET_VERSION' ) && function_exists( 'get_rocket_cdn_cnames' ) && function_exists( 'get_rocket_cdn_url' ) ) {
 			$zone   = [ 'all', 'images' ];
 			$cnames = get_rocket_cdn_cnames( $zone );
 			if ( $cnames ) {
@@ -3423,7 +1824,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// Jetpack cdn.
-		if ( 'yes' === $this->tm_epo_global_cdn_jetpack && function_exists( 'jetpack_photon_url' ) && is_string( $url ) ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_cdn_jetpack' ) && function_exists( 'jetpack_photon_url' ) && is_string( $url ) ) {
 			$url = jetpack_photon_url( $url );
 		}
 
@@ -3508,14 +1909,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$this->wc_vars['is_product_tag']
 			)
 			&&
-			'no' === $this->tm_epo_enable_in_shop
+			'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' )
 			)
 
 		) {
 			return $classes;
 		}
 
-		if ( 'yes' === $this->tm_epo_responsive_display ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_responsive_display' ) ) {
 			$classes[] = 'tm-responsive';
 		}
 
@@ -3555,7 +1956,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$this->wc_vars['is_product_tag']
 			)
 			&&
-			'no' === $this->tm_epo_enable_in_shop
+			'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' )
 			)
 
 		) {
@@ -3578,7 +1979,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$classes[] = 'tm-has-options';
 
 				// Product doesn't have extra options but the final total box is enabled for all products.
-			} elseif ( 'yes' === $this->tm_epo_enable_final_total_box_all ) {
+			} elseif ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_final_total_box_all' ) ) {
 
 				$classes[] = 'tm-no-options-pxq';
 
@@ -3620,8 +2021,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 */
 	public function check_enable() {
 		$enable         = false;
-		$enabled_roles  = $this->tm_epo_roles_enabled;
-		$disabled_roles = $this->tm_epo_roles_disabled;
+		$enabled_roles  = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_roles_enabled' );
+		$disabled_roles = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_roles_disabled' );
 
 		if ( isset( $this->tm_meta_cpf['override_enabled_roles'] ) && '' !== $this->tm_meta_cpf['override_enabled_roles'] ) {
 			$enabled_roles = $this->tm_meta_cpf['override_enabled_roles'];
@@ -3690,7 +2091,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @since 1.0
 	 */
 	public function is_enabled_shortcodes() {
-		return 'yes' === $this->tm_epo_enable_shortcodes;
+		return 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_shortcodes' );
 	}
 
 	/**
@@ -3718,8 +2119,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 */
 	public function tm_epo_option_name( $label = '', $args = null, $counter = null, $value = null, $vlabel = null ) {
 		if ( ( null === $this->associated_per_product_pricing || 1 === $this->associated_per_product_pricing ) &&
-			'yes' === $this->tm_epo_show_price_inside_option &&
-			( empty( $args['hide_amount'] ) || 'yes' === $this->tm_epo_show_price_inside_option_hidden_even ) &&
+			'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_price_inside_option' ) &&
+			( empty( $args['hide_amount'] ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_price_inside_option_hidden_even' ) ) &&
 			null !== $value &&
 			null !== $vlabel &&
 			isset( $args['rules_type'] ) &&
@@ -3730,16 +2131,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			$display_price = ( isset( $args['rules_filtered'][ $value ][0] ) ) ? $args['rules_filtered'][ $value ][0] : '';
 			$qty           = 1;
 
-			if ( 'yes' === $this->tm_epo_multiply_price_inside_option ) {
+			if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiply_price_inside_option' ) ) {
 				if ( ! empty( $args['quantity'] ) && ! empty( $args['quantity_default_value'] ) ) {
 					$qty = floatval( $args['quantity_default_value'] );
 				}
 			}
 			$display_price = floatval( $display_price ) * $qty;
 
-			if ( ( 'yes' === $this->tm_epo_auto_hide_price_if_zero && ! empty( $display_price ) ) || ( 'yes' !== $this->tm_epo_auto_hide_price_if_zero && '' !== $display_price ) ) {
+			if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_auto_hide_price_if_zero' ) && ! empty( $display_price ) ) || ( 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_auto_hide_price_if_zero' ) && '' !== $display_price ) ) {
 				$symbol = '';
-				if ( '' === $this->tm_epo_global_options_price_sign ) {
+				if ( '' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_options_price_sign' ) ) {
 					$symbol = apply_filters( 'wc_epo_price_in_dropdown_plus_sign', '+' );
 				}
 
@@ -3790,10 +2191,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			if ( (float) $product->get_price() > 0 ) {
 				return $price;
 			} else {
-				return sprintf( $this->tm_epo_replacement_free_price_text, $price );
+				return sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 			}
 		} else {
-			return sprintf( $this->tm_epo_replacement_free_price_text, $price );
+			return sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 		}
 	}
 
@@ -3809,13 +2210,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( $product && is_object( $product ) && is_callable( [ $product, 'get_price' ] ) ) {
 			if ( (float) $product->get_price() > 0 ) {
 				return $price;
-			} elseif ( $this->tm_epo_replacement_free_price_text ) {
-				return sprintf( $this->tm_epo_replacement_free_price_text, $price );
+			} elseif ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+				return sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 			} else {
 				$price = '';
 			}
-		} elseif ( $this->tm_epo_replacement_free_price_text ) {
-			return sprintf( $this->tm_epo_replacement_free_price_text, $price );
+		} elseif ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+			return sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 		} else {
 			$price = '';
 		}
@@ -3841,8 +2242,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$thiscpf = $this->get_product_tm_epos( themecomplete_get_id( $product ), '', false, true );
 
 				if ( is_array( $thiscpf ) && ( ! empty( $thiscpf['global'] ) || ! empty( $thiscpf['local'] ) ) ) {
-					if ( $this->tm_epo_replacement_free_price_text ) {
-						return sprintf( $this->tm_epo_replacement_free_price_text, $price );
+					if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+						return sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 					} else {
 						$price = '';
 					}
@@ -3867,8 +2268,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			&& ! (float) $product->get_price() > 0
 		) {
 
-			if ( $this->tm_epo_replacement_free_price_text ) {
-				$price = sprintf( $this->tm_epo_replacement_free_price_text, $price );
+			if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ) ) {
+				$price = sprintf( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_replacement_free_price_text' ), $price );
 			} else {
 				$price = '';
 			}
@@ -3890,17 +2291,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( ( is_product() && ! $this->in_related_upsells ) || $this->is_in_product_shortcode ) {
 			return $text;
 		}
-		if ( 'no' === $this->tm_epo_enable_in_shop
-			&& 'yes' === $this->tm_epo_force_select_options
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' )
+			&& 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_force_select_options' )
 			&& is_object( $product )
 			&& property_exists( $product, 'id' )
 		) {
 			$has_epo = THEMECOMPLETE_EPO_API()->has_options( themecomplete_get_id( $product ) );
 			if ( THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo ) ) {
-				$text = ( ! empty( $this->tm_epo_force_select_text ) ) ? esc_html( $this->tm_epo_force_select_text ) : esc_html__( 'Select options', 'woocommerce-tm-extra-product-options' );
+				$text = ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_force_select_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_force_select_text' ) ) : esc_html__( 'Select options', 'woocommerce-tm-extra-product-options' );
 			}
 		}
-		if ( 'yes' === $this->tm_epo_enable_in_shop && ! $this->in_related_upsells ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' ) && ! $this->in_related_upsells ) {
 			$text = esc_html__( 'Add to cart', 'woocommerce' );
 		}
 
@@ -3918,7 +2319,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		global $product;
 
 		if ( ! is_product()
-			&& 'yes' === $this->tm_epo_force_select_options
+			&& 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_force_select_options' )
 			&& is_object( $product )
 			&& property_exists( $product, 'id' )
 		) {
@@ -3943,7 +2344,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function woocommerce_cart_redirect_after_error( $url = '', $product_id = 0 ) {
 		$product = wc_get_product( $product_id );
 
-		if ( 'yes' === $this->tm_epo_force_select_options
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_force_select_options' )
 			&& is_object( $product )
 			&& property_exists( $product, 'id' )
 		) {
@@ -4013,10 +2414,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param string|false  $current_currency The current currency.
 	 * @param array<mixed>  $price_per_currencies The price per currencies array.
 	 * @param array<mixed>  $tmdata Saved tmdata array.
+	 * @param mixed         $func_total Current options total if applicable.
+	 * @param mixed         $cumulative_total Current cumulative total if applicable.
 	 * @return mixed
 	 * @since 1.0
 	 */
-	public function calculate_math_price( $_price = '', $post_data = [], $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = 0, $price_default_value = 0, $currency = false, $current_currency = false, $price_per_currencies = null, $tmdata = [] ) {
+	public function calculate_math_price( $_price = '', $post_data = [], $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = 0, $price_default_value = 0, $currency = false, $current_currency = false, $price_per_currencies = null, $tmdata = [], $func_total = false, $cumulative_total = false ) {
 		$formula = $_price;
 
 		// This happens when the user has prevented the totals box from being displayed.
@@ -4048,11 +2451,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// constants.
-		$constants = json_decode( $this->tm_epo_math, true );
+		$constants = json_decode( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_math' ), true );
 		if ( is_array( $constants ) ) {
 			foreach ( $constants as $constant ) {
 				if ( '' !== $constant['name'] && '' !== $constant['value'] ) {
-					if ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $constant['value'], '{' ) ) {
+					if ( str_starts_with( $constant['value'], '{' ) ) {
 						$formula = str_replace( '{' . $constant['name'] . '}', $constant['value'], $formula );
 					} else {
 						$formula = str_replace( '{' . $constant['name'] . '}', THEMECOMPLETE_EPO_HELPER()->convert_to_number( floatval( themecomplete_convert_local_numbers( $constant['value'] ) ), true ), $formula );
@@ -4159,8 +2562,28 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( ! $product_price ) {
 			$product_price = 0;
 		}
+		$product_price = THEMECOMPLETE_EPO_HELPER()->convert_to_number( floatval( $product_price ), true );
 
-		$formula = str_replace( '{product_price}', THEMECOMPLETE_EPO_HELPER()->convert_to_number( floatval( $product_price ), true ), $formula );
+		$formula = str_replace( '{product_price}', $product_price, $formula );
+
+		if ( ! $func_total ) {
+			$func_total = 0;
+		}
+		$func_total = THEMECOMPLETE_EPO_HELPER()->convert_to_number( floatval( $func_total ), true );
+
+		if ( ! $cumulative_total ) {
+			$cumulative_total = 0;
+		}
+		$cumulative_total = THEMECOMPLETE_EPO_HELPER()->convert_to_number( floatval( $cumulative_total ), true );
+
+		$product_price_plus_func_total       = $product_price + $func_total;
+		$product_price_plus_cumulative_total = $product_price + $cumulative_total;
+
+		$formula = str_replace( '{options_total}', $func_total, $formula );
+		$formula = str_replace( '{product_price_plus_options_total}', $product_price_plus_func_total, $formula );
+
+		$formula = str_replace( '{cumulative_total}', $cumulative_total, $formula );
+		$formula = str_replace( '{product_price_plus_cumulative_total}', $product_price_plus_cumulative_total, $formula );
 
 		preg_match_all( '/\{(\s)*?field\.([^}]*)}/', $formula, $matches );
 
@@ -4400,8 +2823,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			if ( isset( $element['price_rules'][ $key ][0] ) ) {// general rule.
 				$price = $element['price_rules'][ $key ][0];
 			}
-		} elseif ( isset( $element['price_rules'][ $key ] ) && isset( $element['price_rules'][ $key ][0] ) && '' !== $element['price_rules'][ $key ][0] ) {
-			$price = $element['price_rules'][ $key ][0];
 		} elseif ( ! isset( $tmcp['element']['rules'][ $key ] ) ) {// field price rule.
 			if ( isset( $tmcp['element']['rules'][0][0] ) ) {// general rule.
 				$price = $tmcp['element']['rules'][0][0];
@@ -4410,6 +2831,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			$price = $tmcp['element']['rules'][ $key ][0];
 		} elseif ( isset( $tmcp['element']['rules'][0][0] ) ) {// general rule.
 			$price = $tmcp['element']['rules'][0][0];
+		} elseif ( isset( $element['price_rules'][ $key ] ) && isset( $element['price_rules'][ $key ][0] ) && '' !== $element['price_rules'][ $key ][0] ) {
+			$price = $element['price_rules'][ $key ][0];
 		}
 
 		return $price;
@@ -4557,6 +2980,45 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	}
 
 	/**
+	 * Check for the presence of mathematical special variables in a given string.
+	 *
+	 * @param string $price_string The input string to be checked for mathematical special variables.
+	 * @param string $type The type of the special variable to check.
+	 *                     Possible values: '' (all types), 'special', 'cumulative'.
+	 *
+	 * @return bool True if any special variable is found, false otherwise.
+	 */
+	public function has_math_special_variable( $price_string = '', $type = '' ) {
+		$math_special_variables = [
+			'{product_price_plus_options_total}',
+			'{options_total}',
+		];
+
+		$math_cumulative_special_variables = [
+			'{cumulative_total}',
+			'{product_price_plus_cumulative_total}',
+		];
+
+		if ( empty( $type ) || 'special' === $type ) {
+			foreach ( $math_special_variables as $variable ) {
+				if ( str_contains( $price_string, $variable ) ) {
+					return true;
+				}
+			}
+		}
+
+		if ( empty( $type ) || 'cumulative' === $type ) {
+			foreach ( $math_cumulative_special_variables as $variable ) {
+				if ( str_contains( $price_string, $variable ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Calculates the correct option price
 	 *
 	 * @param array<mixed>|null  $post_data The posted data.
@@ -4575,10 +3037,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param array<mixed>|null  $price_per_currencies The price per currencies array.
 	 * @param array<mixed>|false $tmcp Saved element data.
 	 * @param array<mixed>       $tmdata Saved tmdata array.
+	 * @param mixed              $func_total Current options total if applicable.
+	 * @param mixed              $cumulative_total Current cumulative total if applicable.
 	 * @return mixed
 	 * @since 1.0
 	 */
-	public function calculate_price( $post_data = null, $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = null, $price_default_value = false, $currency = false, $current_currency = false, $price_per_currencies = null, $tmcp = false, $tmdata = [] ) {
+	public function calculate_price( $post_data = null, $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = null, $price_default_value = false, $currency = false, $current_currency = false, $price_per_currencies = null, $tmcp = false, $tmdata = [], $func_total = false, $cumulative_total = false ) {
 		$element = apply_filters( 'wc_epo_get_element_for_display', $element );
 		// @phpstan-ignore-next-line
 		if ( is_null( $post_data ) && isset( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
@@ -4636,7 +3100,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		foreach ( $key as $thiskey ) {
 
-			$_price = $this->calculate_key_price( $posted_attribute, $post_data, $element, $thiskey, $attribute, $attribute_quantity, $key_id, $keyvalue_id, $per_product_pricing, $cpf_product_price, $variation_id, $price_default_value, $currency, $current_currency, $price_per_currencies, $tmcp, $tmdata );
+			$_price = $this->calculate_key_price( $posted_attribute, $post_data, $element, $thiskey, $attribute, $attribute_quantity, $key_id, $keyvalue_id, $per_product_pricing, $cpf_product_price, $variation_id, $price_default_value, $currency, $current_currency, $price_per_currencies, $tmcp, $tmdata, $func_total, $cumulative_total );
 			if ( '' === $price_default_value && '' === $_price ) {
 				$price = $_price;
 			} else {
@@ -4670,10 +3134,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param array<mixed>|null  $price_per_currencies The price per currencies array.
 	 * @param array<mixed>|false $tmcp Saved element data.
 	 * @param array<mixed>       $tmdata Saved tmdata array.
+	 * @param mixed              $func_total Current options total if applicable.
+	 * @param mixed              $cumulative_total Current cumulative total if applicable.
 	 * @return mixed
 	 * @since 6.0
 	 */
-	public function calculate_key_price( $posted_attribute = '', $post_data = null, $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = null, $price_default_value = 0, $currency = false, $current_currency = false, $price_per_currencies = null, $tmcp = false, $tmdata = [] ) {
+	public function calculate_key_price( $posted_attribute = '', $post_data = null, $element = [], $key = null, $attribute = null, $attribute_quantity = false, $key_id = 0, $keyvalue_id = 0, $per_product_pricing = null, $cpf_product_price = false, $variation_id = null, $price_default_value = 0, $currency = false, $current_currency = false, $price_per_currencies = null, $tmcp = false, $tmdata = [], $func_total = false, $cumulative_total = false ) {
 		if ( false === $price_default_value ) {
 			$price_default_value = 0;
 		}
@@ -4909,7 +3375,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					}
 					break;
 				case 'math':
-					$_price = $this->calculate_math_price( $_price, $post_data, $element, $key, $attribute, $attribute_quantity, $key_id, $keyvalue_id, $per_product_pricing, $cpf_product_price, $variation_id, $price_default_value, $original_currency, $current_currency, $price_per_currencies, $tmdata );
+					$_price = $this->calculate_math_price( $_price, $post_data, $element, $key, $attribute, $attribute_quantity, $key_id, $keyvalue_id, $per_product_pricing, $cpf_product_price, $variation_id, $price_default_value, $original_currency, $current_currency, $price_per_currencies, $tmdata, $func_total, $cumulative_total );
 					break;
 				default:
 					// fixed price.
@@ -5080,8 +3546,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function get_allowed_mimes() {
 		$mimes = [];
 
-		$tm_epo_custom_file_types  = $this->tm_epo_custom_file_types;
-		$tm_epo_allowed_file_types = $this->tm_epo_allowed_file_types;
+		$tm_epo_custom_file_types  = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_custom_file_types' );
+		$tm_epo_allowed_file_types = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_allowed_file_types' );
 
 		$tm_epo_custom_file_types = explode( ',', $tm_epo_custom_file_types );
 		if ( ! is_array( $tm_epo_custom_file_types ) ) {
@@ -5172,8 +3638,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function upload_mimes_trick( $existing_mimes = [] ) {
 		$mimes = [];
 
-		$tm_epo_custom_file_types  = $this->tm_epo_custom_file_types;
-		$tm_epo_allowed_file_types = $this->tm_epo_allowed_file_types;
+		$tm_epo_custom_file_types  = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_custom_file_types' );
+		$tm_epo_allowed_file_types = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_allowed_file_types' );
 
 		$tm_epo_custom_file_types = explode( ',', $tm_epo_custom_file_types );
 		if ( ! is_array( $tm_epo_custom_file_types ) ) {
@@ -5394,11 +3860,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			return $this->cpf[ $post_id ][ "{$no_disabled}" ][ "f{$form_prefix}" ];
 		}
 
-		if ( 'yes' === $this->tm_epo_global_enable_validation ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_enable_validation' ) ) {
 			$this->current_option_features[] = 'validation';
 		}
 
-		if ( 'no' === $this->tm_epo_no_lazy_load ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_no_lazy_load' ) ) {
 			$this->current_option_features[] = 'lazyload';
 		}
 
@@ -5751,9 +4217,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'order'       => 'asc',
 					// phpcs:ignore WordPress.DB.SlowDBQuery
 					'meta_query'  => [
+						'relation' => 'OR',
 						[
 							'key'     => 'tm_meta_product_ids',
 							'value'   => ':"' . $post_original_id . '";',
+							'compare' => 'LIKE',
+
+						],
+						[
+							'key'     => 'tm_meta_product_ids',
+							'value'   => ':' . $post_original_id . ';',
 							'compare' => 'LIKE',
 
 						],
@@ -5873,11 +4346,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'order'       => 'asc',
 					// phpcs:ignore WordPress.DB.SlowDBQuery
 					'meta_query'  => [
+						'relation' => 'OR',
 						[
 							'key'     => 'tm_meta_product_ids',
 							'value'   => ':"' . $post_original_id . '";',
 							'compare' => 'LIKE',
-
+						],
+						[
+							'key'     => 'tm_meta_product_ids',
+							'value'   => ':' . $post_original_id . ';',
+							'compare' => 'LIKE',
 						],
 					],
 				];
@@ -5892,6 +4370,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						$glue[]                             = [
 							'key'     => 'tm_meta_product_ids',
 							'value'   => ':"' . floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $variation_id ) ) . '";',
+							'compare' => 'LIKE',
+						];
+						$glue[]                             = [
+							'key'     => 'tm_meta_product_ids',
+							'value'   => ':' . floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $variation_id ) ) . ';',
 							'compare' => 'LIKE',
 						];
 					}
@@ -6199,7 +4682,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$variation_element_id = false;
 		$variation_section_id = false;
 
-		$enable_sales = 'sale' === $this->tm_epo_global_options_price_mode;
+		$enable_sales = 'sale' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_options_price_mode' );
 
 		if ( $tmglobalprices ) {
 
@@ -6308,7 +4791,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				}
 
 				$priority = isset( $tmcp_meta['priority'] ) ? absint( $tmcp_meta['priority'] ) : 1000;
-
+				if ( isset( $global_epos[ $priority ][ $tmcp_id ] ) ) {
+					if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
+						if ( isset( $global_epos[ $priority ][ $tmcp_id ]['wpml_is_original_product'] ) && empty( $global_epos[ $priority ][ $tmcp_id ]['wpml_is_original_product'] ) ) {
+							continue;
+						}
+					}
+				}
+				if ( THEMECOMPLETE_EPO_WPML()->is_active() && isset( $wpml_is_original_product ) ) {
+					$global_epos[ $priority ][ $tmcp_id ]['original_product_id']      = $original_product_id;
+					$global_epos[ $priority ][ $tmcp_id ]['wpml_is_original_product'] = $wpml_is_original_product;
+				}
 				if ( isset( $tmcp_meta['tmfbuilder'] ) ) {
 
 					$global_epos[ $priority ][ $tmcp_id ]['is_form']     = 1;
@@ -6517,7 +5010,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 									++$element_real_no_in_section;
 
-									$tm_epo_options_cache = ( ! $no_cache && 'yes' === $this->tm_epo_options_cache ) ? true : false;
+									$tm_epo_options_cache = ( ! $no_cache && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_cache' ) ) ? true : false;
 
 									if ( isset( $wpml_is_original_product ) && ! empty( $wpml_is_original_product ) && apply_filters( 'wc_epo_use_elements_cache', $tm_epo_options_cache ) && isset( $this->cpf_single[ $element_uniqueid ] ) ) {
 										$global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['elements'][] = $this->cpf_single[ $element_uniqueid ];
@@ -6663,12 +5156,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											$lookuptable_x = trim( $lookuptable_x );
 											$lookuptable_y = trim( $lookuptable_y );
 											if ( ! empty( $lookuptable_x ) ) {
-												if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_x, '{' ) ) {
+												if ( ! str_starts_with( $lookuptable_x, '{' ) ) {
 													$lookuptable_x = '{field.' . $lookuptable_x . '.text}';
 												}
 											}
 											if ( ! empty( $lookuptable_y ) ) {
-												if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_y, '{' ) ) {
+												if ( ! str_starts_with( $lookuptable_y, '{' ) ) {
 													$lookuptable_y = '{field.' . $lookuptable_y . '.text}';
 												}
 											}
@@ -7519,7 +6012,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_regular_price[ $key ][ $k ]          = wc_format_localized_price( $v );
 												$_regular_price_filtered[ $key ][ $k ] = wc_format_localized_price( $v );
 											} elseif ( ! $has_feature_lookuptable ) {
-												if ( false !== strpos( $v, 'lookuptable(' ) ) {
+												if ( str_contains( $v, 'lookuptable(' ) ) {
 													$this->current_option_features[] = 'lookuptable';
 													$has_feature_lookuptable         = true;
 												}
@@ -7545,7 +6038,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											'logic'      => $this->get_builder_element( $_prefix . 'logic', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 											'section_logic' => $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_logic'],
 										];
-										$epos_prices[]                                     = $this->cpf_single_epos_prices[ $element_uniqueid ];
+
+										$epos_prices[] = $this->cpf_single_epos_prices[ $element_uniqueid ];
 									}
 									if ( false !== $_min_price ) {
 										$_min_price = wc_format_localized_price( $_min_price );
@@ -7722,6 +6216,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'label_size' => $this->get_builder_element( $_prefix . 'header_size', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'label' => $this->get_builder_element( $_prefix . 'header_title', $builder, $current_builder, $current_counter, '', $current_element, 'wc_epo_label', $element_uniqueid ),
 													'label_position' => $this->get_builder_element( $_prefix . 'header_title_position', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'label_mode' => $this->get_builder_element( $_prefix . 'header_title_mode', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'label_color' => $this->get_builder_element( $_prefix . 'header_title_color', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'description' => $this->get_builder_element( $_prefix . 'header_subtitle', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'description_position' => $this->get_builder_element( $_prefix . 'header_subtitle_position', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),

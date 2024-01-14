@@ -204,7 +204,6 @@ function wc_am_update_200_data_migrate_activations() {
 												'sub_item_id'           => ! empty( $resource->sub_item_id ) ? (int) $resource->sub_item_id : 0,
 												'sub_parent_id'         => ! empty( $resource->sub_parent_id ) ? (int) $resource->sub_parent_id : 0,
 												'version'               => ! empty( $activation[ 'software_version' ] ) ? (string) $activation[ 'software_version' ] : '',
-												'update_requests'       => 0,
 												'user_id'               => (int) $user_id
 											);
 
@@ -219,26 +218,19 @@ function wc_am_update_200_data_migrate_activations() {
 												'%s',
 												'%s',
 												'%d',
-												'%s',
-												'%s',
-												'%d',
-												'%d',
 												'%d',
 												'%s',
 												'%d',
+												'%d',
+												'%d',
+												'%s',
 												'%d'
 											);
 
 											$result = $wpdb->insert( $wpdb->prefix . $wc_am_api_activation, $data, $format );
 
 											if ( ! empty( $result ) ) {
-												WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->update_associated_api_key_activation_ids_list( $api_key, $wpdb->insert_id );
-
-												$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_order_id( $resource->order_id );
-												$activation_ids = ! empty( $activation_ids ) ? array_merge( $activation_ids, array( $wpdb->insert_id ) ) : array( $wpdb->insert_id );
-
 												$data = array(
-													'activation_ids'    => WC_AM_FORMAT()->json_encode( $activation_ids ),
 													'activations_total' => $resource->activations_total + 1
 												);
 
@@ -247,7 +239,6 @@ function wc_am_update_200_data_migrate_activations() {
 												);
 
 												$data_format = array(
-													'%s',
 													'%d'
 												);
 
@@ -482,14 +473,14 @@ function wc_am_update_201_db_version() {
 function wc_am_update_205_check_if_api_resources_table_is_empty() {
 	$empty = WC_AM_API_RESOURCE_DATA_STORE()->is_api_resource_table_empty();
 
-	if ( empty( $empty ) ) {
+	if ( $empty ) {
 		wc_am_update_200_data_migrate_orders();
 		wc_am_update_200_data_migrate_activations();
 		wc_am_update_201_data_migrate_access_granted_to_order_created_time();
 
 		$empty = WC_AM_API_RESOURCE_DATA_STORE()->is_api_resource_table_empty();
 
-		if ( empty( $empty ) ) {
+		if ( $empty ) {
 			global $wpdb;
 
 			$sql = "
@@ -502,7 +493,7 @@ function wc_am_update_205_check_if_api_resources_table_is_empty() {
 
 			if ( ! empty( $product_ids ) ) {
 				foreach ( $product_ids as $key => $product_id ) {
-					WC_AM_BACKGROUND_EVENTS()->queue_add_new_api_product_orders( $product_id );
+					WC_AM_BACKGROUND_EVENTS()->queue_add_new_api_product_orders_event( $product_id );
 
 					unset( $key, $product_id );
 				}
@@ -558,5 +549,37 @@ function wc_am_update_2_6_17_add_unique_key_instance() {
 
 	if ( ! WC_AM_FORMAT()->empty( $result ) ) {
 		WC_AM_INSTALL()->update_db_version( '2.6.17' );
+	}
+}
+
+/**
+ * Drop no longer used table columns, and update the API Resource table activations_total value.
+ *
+ * @since 3.2
+ */
+function wc_am_update_3_2_drop_table_columns_and_update_activations_total() {
+	global $wpdb;
+
+	$result = false;
+
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_api_resource'" ) ) {
+		$result = $wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_resource` DROP COLUMN `activation_ids`" );
+		$wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_resource` DROP COLUMN `associated_api_key_ids`" );
+		$wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_resource` DROP COLUMN `collaborators`" );
+		$wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_resource` DROP COLUMN `download_requests`" );
+	}
+
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_api_activation'" ) ) {
+		$wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_activation` DROP COLUMN `update_requests`" );
+	}
+
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_associated_api_key'" ) ) {
+		$wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_associated_api_key` DROP COLUMN `activation_ids`" );
+	}
+
+	WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_activations_total_event();
+
+	if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+		WC_AM_INSTALL()->update_db_version( '3.2' );
 	}
 }

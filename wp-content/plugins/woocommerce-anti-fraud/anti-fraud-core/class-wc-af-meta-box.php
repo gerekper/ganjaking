@@ -27,13 +27,29 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 		 */
 		public function output() {
 
-			// Post get must be set.
-			if ( ! isset( $_GET['post'] ) ) {
-				return;
+			$hposSettingsEnabled = get_option('woocommerce_custom_orders_table_enabled', true);
+			
+			if ('yes' != $hposSettingsEnabled ) {
+				// Post get must be set.
+				if ( ! isset( $_GET['post'] ) ) {
+					return;
+				}
+			} else {
+				// Post get must be set.
+				if ( ! isset( $_GET['id'] ) ) {
+					return;
+				}
 			}
 
-			$order_id = sanitize_text_field( $_GET['post'] );
+			if ('yes' != $hposSettingsEnabled ) {
 
+				$order_id = sanitize_text_field( $_GET['post'] );
+
+			} else {
+
+				$order_id = sanitize_text_field( $_GET['id'] );
+
+			}
 			// Create Score object and calculate score.
 			$score_points = opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true );
 

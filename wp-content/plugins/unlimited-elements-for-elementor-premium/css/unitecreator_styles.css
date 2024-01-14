@@ -947,8 +947,8 @@
 
 .uc-dialog-param-error {
 	position: absolute;
-	top: 430px;
-	left: 29px;
+	top: 477px;
+	left: 26px;
 	width: 360px;
 }
 
@@ -1286,72 +1286,160 @@
 	box-sizing: border-box;
 }
 
-.----------------REVISIONS_TAB------------- {
-}
+.----------------CHANGELOG-REVISIONS_TAB------------- {}
 
+.uc-changelogs-wrapper,
 .uc-revisions-wrapper {
 	max-width: 480px;
 }
 
+.uc-changelogs-form {
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid var(--ue-color-gray-lighter);
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+}
+
+.uc-changelogs-form select,
+.uc-changelogs-form textarea {
+	width: 100%;
+	max-width: initial;
+	margin-bottom: 8px;
+}
+
+.uc-changelogs-form-error,
+.uc-changelogs-form-editing {
+	display: none;
+	font-size: var(--ue-font-size);
+	line-height: var(--ue-line-height);
+	color: var(--ue-color-dark);
+	margin-bottom: 8px;
+}
+
+.uc-changelogs-form-error {
+	color: var(--ue-color-danger);
+}
+
+.uc-changelogs-form-error-title,
+.uc-changelogs-form-editing-title {
+	font-weight: var(--ue-font-weight-bold);
+}
+
+.uc-changelogs-form-editing-title {
+	color: var(--ue-color-primary);
+}
+
+.uc-changelogs-form-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.uc-changelogs-form-actions button + button {
+	margin-left: 8px;
+}
+
+.uc-changelogs-loader,
+.uc-changelogs-empty,
 .uc-revisions-loader,
 .uc-revisions-empty {
-	color: #a0a0a0;
+	color: var(--ue-color-gray-light);
 }
 
 .uc-revisions-label {
 	display: flex;
 	align-items: center;
-	font-size: 0.85em;
-	line-height: 1em;
+	font-size: var(--ue-font-size-small);
+	line-height: var(--ue-line-height-normal);
 	text-transform: uppercase;
-	color: #a0a0a0;
-	margin: 10px 0 0 0;
-	padding: 10px;
+	color: var(--ue-color-gray-light);
+	margin: 16px 0 0 0;
+	padding: 8px;
+}
+
+.uc-revisions-label:first-child {
+	margin-top: 0;
 }
 
 .uc-revisions-label:after {
 	flex-grow: 1;
 	content: "";
 	height: 1px;
-	background: #e1e1e1;
-	margin-left: 10px;
+	background: var(--ue-color-gray-lighter);
+	margin-left: 8px;
 }
 
+.uc-changelog,
 .uc-revision {
 	display: flex;
 	align-items: center;
+	font-size: var(--ue-font-size);
+	line-height: var(--ue-line-height);
+	color: var(--ue-color-dark);
 	border: 1px solid transparent;
-	border-radius: 5px;
+	border-radius: var(--ue-radius);
 	margin: 0;
-	padding: 10px;
+	padding: 8px;
+	transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
+.uc-changelog:hover,
 .uc-revision:hover {
-	background-color: #f5f5f5;
-	border-color: #e1e1e1;
+	background-color: var(--ue-color-gray-lightest);
+	border-color: var(--ue-color-gray-lighter);
+}
+
+.uc-changelog.uc-active {
+	background-color: var(--ue-color-gray-lightest);
+	border-color: var(--ue-color-primary);
+}
+
+.uc-changelog-content {
+	margin-right: 8px;
+}
+
+.uc-changelog-info {
+	line-height: var(--ue-line-height-small);
+	color: var(--ue-color-gray);
+	margin-top: 4px;
+}
+
+.uc-changelog-actions {
+	margin-left: auto;
 }
 
 .uc-revision-name {
 	margin-right: auto;
 }
 
+.uc-changelog-button + .uc-changelog-button,
 .uc-revision-button + .uc-revision-button {
-	margin-left: 5px;
+	margin-left: 4px;
 }
 
 @media (max-width: 480px) {
+	.uc-changelog,
 	.uc-revision {
 		flex-wrap: wrap;
-		justify-content: center;
+	}
+
+	.uc-changelog-content {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	.uc-changelog-actions {
+		margin-left: 0;
 	}
 
 	.uc-revision-name {
 		width: 100%;
-		text-align: center;
 	}
 
+	.uc-changelog-button,
 	.uc-revision-button {
-		margin-top: 5px;
+		margin-top: 8px;
 	}
 }
 
@@ -1907,7 +1995,7 @@ ul.uc-list-pages-thumbs li a i {
 .uc-preview-addon-left {
 	flex-shrink: 0;
 	width: 300px;
-	border-right: 1px solid var(--ue-color-gray-light);
+	border-right: 1px solid var(--ue-color-gray-lighter);
 }
 
 .uc-preview-addon-right {

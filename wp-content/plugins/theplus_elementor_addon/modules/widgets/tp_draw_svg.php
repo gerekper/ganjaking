@@ -36,6 +36,10 @@ class ThePlus_Draw_Svg extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Draw SVG', 'SVG drawing', 'SVG animator', 'SVG widget', 'SVG', 'SVG animation', 'SVG graphics', 'SVG design'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

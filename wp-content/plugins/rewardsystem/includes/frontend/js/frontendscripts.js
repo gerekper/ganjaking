@@ -1,4 +1,3 @@
-
 jQuery( function ( $ ) {
     'use strict' ;
     var FPFrontendScripts = {
@@ -8,6 +7,8 @@ jQuery( function ( $ ) {
             }
 
             this.trigger_on_page_load() ;
+            this.toggle_birthday_date_field_on_myaccount() ;
+            this.toggle_birthday_date_field_on_checkout();
             $( ".rs_success_msg_for_pointurl" ).fadeOut( 10000 ) ;
             $( ".sk_failure_msg_for_pointsurl" ).fadeOut( 10000 ) ;
             $( '.woocommerce_booking_variations' ).hide() ;
@@ -16,13 +17,19 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , 'input, wcva_attribute_radio' , this.message_for_variations ) ;
             $( document ).on( 'click' , '.share_wrapper' , this.fb_share ) ;
             $( document ).on( 'click' , '#refgeneratenow' , this.generated_referral_link ) ;
-            $( document ).on( 'click' , '.referrals' , this.display_social_icons_reward_table ) ;
-            $( document ).on( 'click' , '.footable-toggle' , this.display_social_icons_reward_table ) ;
+            $( document ).on( 'click' , '.referrals, .footable-toggle' , this.display_social_icons_reward_table ) ;
             $( document ).on( 'click' , 'a.add_removed_free_product_to_cart' , this.unset_removed_free_products ) ;
             $( document ).on( 'click' , '.rs_copy_clipboard_image' , this.copy_to_clipboard ) ;
             $( '#wc-bookings-booking-form' ).on( 'change' , 'input, select' , this.message_for_booking ) ;
             $( document ).on( 'change' , '#rs_duration_type' , this.toggle_my_reward_table_date_filter ) ;
             $( document ).on( 'click' , '#rs_submit' , this.prevent_submit_in_my_reward_table ) ;
+            $( document ).on( 'click' , '.toggle-email-share-button' , this.toggle_referral_email ) ;
+            $( document ).on( 'click' , '.email-share-close-button' , this.close_referral_email ) ;
+            $( document ).on( 'click' , '.email-share-button' , this.send_referral_email ) ;
+            $( document ).on( 'change' , '#rs_enable_earn_points_for_user_in_reg_form' , this.toggle_birthday_date_field_on_myaccount ) ;
+            $( document ).on( 'change' , '#enable_reward_prgm' , this.toggle_birthday_date_field_on_checkout ) ;
+            $( document ).on( 'click' , '#subscribeoption' , this.subscribe_or_unsubscribe_mail ) ;
+        
         } ,
         trigger_on_page_load : function ( ) {
 
@@ -45,6 +52,7 @@ jQuery( function ( $ ) {
             $( '.displaymessage' ).parent().hide() ;
             
             FPFrontendScripts.unsubscribe_email_link_alert();
+            $( '.rs_social_buttons' ).find( '.email-share-field' ).hide();
         } ,
         table_as_footable : function ( ) {
             jQuery( '.my_reward_table' ).footable( ).bind( 'footable_filtering' , function ( e ) {
@@ -54,6 +62,7 @@ jQuery( function ( $ ) {
                     e.clear = ! e.filter ;
                 }
             } ) ;
+            
             jQuery( '#change-page-sizes' ).change( function ( e ) {
                 e.preventDefault( ) ;
                 var pageSize = jQuery( this ).val( ) ;
@@ -79,9 +88,11 @@ jQuery( function ( $ ) {
 	    } ) ;
         } ,
         display_social_icons_reward_table : function ( ) {
-            jQuery( '.rs_social_buttons .fb-share-button span' ).css( "width" , "60px" ) ;
-            jQuery( '.rs_social_buttons .fb-share-button span iframe' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
-            jQuery( '.rs_social_buttons iframe.twitter-share-button' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
+            $( '.rs_social_buttons .fb-share-button span' ).css( "width" , "60px" ) ;
+            $( '.rs_social_buttons .fb-share-button span iframe' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
+            $( '.rs_social_buttons iframe.twitter-share-button' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
+            $( '.rs_social_buttons' ).find( '.toggle-email-share-button' ).show();
+            $( '.rs_social_buttons' ).find( '.email-share-field' ).hide();
         } ,
         generated_referral_link : function ( ) {
             var urlstring = jQuery( '#generate_referral_field' ).val( ) ;
@@ -214,10 +225,9 @@ jQuery( function ( $ ) {
                 } ) ;
                 $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
                     if ( true === response.success ) {
-                        if ( response.data.showmsg ) {
                             if ( frontendscripts_params.productpurchasecheckbox == 'yes' ) {
                                 if ( frontendscripts_params.showreferralmsg == '1' ) {
-                                    if ( response.data.earnpointmsg != '' ) {
+                                    if ( response.data.showmsg && response.data.earnpointmsg != '' ) {
                                         if ( frontendscripts_params.loggedinuser == "yes" ) {
                                             if ( frontendscripts_params.showearnmsg == '1' ) {
                                                 $( '.variableshopmessage' ).show() ;
@@ -350,10 +360,6 @@ jQuery( function ( $ ) {
                                 $( '.rs-minimum-quantity-error-variable' ).addClass("woocommerce-error");
                                 $( '.rs-minimum-quantity-error-variable' ).html( response.data.min_quantity_error_message ) ;
                             }
-                        } else {
-                            $( '.variableshopmessage' ).hide() ;
-                            $( '.variableshopmessage' ).next( 'br' ).hide() ;
-                        }
                     } else {
                         window.alert( response.data.error ) ;
                     }
@@ -427,12 +433,7 @@ jQuery( function ( $ ) {
                 return false ;
             }
         } ,
-        unsubscribe_email_link_alert:function(){
-            
-            if(!frontendscripts_params.is_user_logged_in){
-                return false;
-            }
-                        
+        unsubscribe_email_link_alert:function(){                        
             $.urlParam = function( name ) {
 				var results = new RegExp( '[\?&]' + name + '=([^&#]*)' ).exec( window.location.href ) ;
 				if ( results ) {
@@ -443,20 +444,40 @@ jQuery( function ( $ ) {
 			}
                         
             var $email_user_id = $.urlParam( 'userid' ),
-                    $email_unsub_link = $.urlParam( 'unsub' ),
-                    $unsub_link_nonce = $.urlParam( 'nonce' );    
+                $email_unsub_link = $.urlParam( 'unsub' ),
+                $unsub_link_nonce = $.urlParam( 'nonce' );    
             
             if(!$email_user_id || !$email_unsub_link || !$unsub_link_nonce){
-		 return false;
+		        return false;
+            }
+            
+            if(!frontendscripts_params.is_user_logged_in){
+                alert( frontendscripts_params.loggedinuser_err );
+                window.location.href = frontendscripts_params.myaccount_url;
+                return false;
             }
             
             if( $email_user_id != frontendscripts_params.user_id || 'yes' != $email_unsub_link){
                 alert(frontendscripts_params.unsub_link_error);
-		return false;
+		        return false;
             }
             
-            alert(frontendscripts_params.unsub_link_success);
-            window.location.href = frontendscripts_params.site_url ;
+            let data = ( {
+                action : 'unsubscribe_user' ,
+                user_id : $email_user_id ,
+                sumo_security : frontendscripts_params.unsubscribe_user,
+            } ) ;
+
+            $.post( frontendscripts_params.ajaxurl , data , function ( res ) {                
+                if ( true === res.success ) {
+                    alert(frontendscripts_params.unsub_link_success);
+                } else {
+                    alert(res.data.error);
+                }
+
+                window.location.href = frontendscripts_params.myaccount_url;
+            } );
+
         },
         block : function ( id ) {
             $( id ).block( {
@@ -470,6 +491,95 @@ jQuery( function ( $ ) {
         unblock : function ( id ) {
             $( id ).unblock( ) ;
         } ,
+
+        toggle_referral_email : function ( e ) {
+            e.preventDefault();
+            let $this = $( e.currentTarget );
+            $( $this ).hide();
+            $( '.rs_social_buttons' ).find( '.email-share-field' ).show();
+        } ,
+
+        close_referral_email : function ( e ) {
+            e.preventDefault();
+            let $this = $( e.currentTarget );
+            $( $this ).closest('p').find( '#receiver_email_ids' ).val('');
+            $( $this ).closest('p').hide();
+            $( $this ).closest('div').find( '.toggle-email-share-button' ).show();
+            $($this).closest('p').find('.error, .success').remove();
+        } ,
+
+        send_referral_email : function ( e ) {
+            e.preventDefault();
+            let $this = $( e.currentTarget ),
+                $ref_link = $($this).closest( '.email-share-field' ).find( '#email_ref_link' ).val(),
+                $receiver_ids = $($this).closest( '.email-share-field' ).find( '#receiver_email_ids' ).val();            
+            $($this).closest('div').find('.error, .success').remove();
+            
+            if ( '' === $receiver_ids ){
+                $($this).closest('p').append('<p class="error">Enter any email id with comma separate.</p>');
+                return;
+            }
+            var data = ( {
+                action : 'send_referral_email' ,
+                ref_link : $ref_link,
+                receiver_ids : $receiver_ids,
+                sumo_security : frontendscripts_params.send_referral_email
+            } ) ;
+            FPFrontendScripts.block($($this).closest('p'));
+            $.post( frontendscripts_params.ajaxurl , data , function ( res ) {                
+                if ( true === res.success ) {
+                    $($this).closest('p').hide() ;
+                    $($this).closest('div').find('.toggle-email-share-button').show();
+                    $($this).closest('div').append('<p class="success">'+res.data+'</p>');
+                    $($this).closest('div').find('.success').fadeOut( 10000 ) ;
+                    $($this).closest('p').find( '#receiver_email_ids' ).val('');
+                } else {
+                    $($this).closest('p').append( '<p class="error">'+res.data.error+' '+res.data.ids+'</p>' );
+                }
+
+                FPFrontendScripts.unblock($($this).closest('p'));
+            } );
+        } ,
+
+        toggle_birthday_date_field_on_myaccount : function ( ) {
+            if ( 'yes' === $('#rs_enable_earn_points_for_user_in_reg_form').data('enable-reward-program') ){
+                if( false === $('#rs_enable_earn_points_for_user_in_reg_form').is(':checked') ){
+                    $( '#srp_birthday_date' ).closest('p').hide();
+                } else {
+                    $( '#srp_birthday_date' ).closest('p').show();
+                }
+            } else {
+                $( '#srp_birthday_date' ).closest('p').show();
+            }
+        } ,
+
+        toggle_birthday_date_field_on_checkout : function ( ) {
+            if( 'yes' === $('#enable_reward_prgm').closest('p').find('.checkbox').data('enable-reward-program') ){
+                if( false === $('#enable_reward_prgm').is(':checked') ){
+                    $( '#srp_birthday_date_field' ).closest('p').hide();
+                } else {
+                    $( '#srp_birthday_date_field' ).closest('p').show();
+                }                
+            } else {             
+                $( '#srp_birthday_date_field' ).closest('p').show();
+            }
+        } ,
+        subscribe_or_unsubscribe_mail : function () {
+            var subscribe = $( '#subscribeoption' ).is( ':checked' ) ? 'yes' : 'no' ;
+            var data = {
+                action : "subscribemail" ,
+                subscribe : subscribe ,
+                sumo_security : frontendscripts_params.fp_subscribe_mail
+            } ;
+            $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
+                if ( true === response.success ) {
+                    window.alert( response.data.content ) ;
+                } else {
+                    window.alert( response.data.error ) ;
+                }
+            } ) ;
+        } ,
+
     } ;
     FPFrontendScripts.init( ) ;
 } ) ;

@@ -7,7 +7,7 @@
  * or work differently accross various WooCommerce version.
  *
  * @package Extra Product Options/Functions
- * @version 4.9
+ * @version 6.4.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -26,6 +26,60 @@ if ( ! function_exists( 'mb_basename' ) ) {
 		$base      = str_replace( $separator, '', $base );
 
 		return $base;
+	}
+}
+
+if ( ! function_exists( 'mb_strpos' ) ) {
+	/**
+	 * Find position of first occurrence of string in a string
+	 *
+	 * @param string  $haystack The string being checked.
+	 * @param string  $needle The string to find in haystack.
+	 * @param int     $offset The search offset. If it is not specified, 0 is used. A negative offset counts from the end of the string.
+	 * @param ?string $encoding The encoding parameter is the character encoding. If it is omitted or null, the internal character encoding value will be used.
+	 * @return bool
+	 */
+	function mb_strpos( $haystack, $needle, $offset = 0, $encoding = null ) {
+		return strpos( $haystack, $needle, $offset, $encoding );
+	}
+}
+
+if ( ! function_exists( 'str_starts_with' ) ) {
+	/**
+	 * Checks if a string starts with a given substring
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle The substring to search for in the haystack.
+	 * @return bool
+	 */
+	function str_starts_with( string $haystack, string $needle ) {
+		return 0 === strlen( $needle ) || 0 === strpos( $haystack, $needle );
+	}
+}
+
+if ( ! function_exists( 'str_ends_with' ) ) {
+	/**
+	 * Checks if a string ends with a given substring
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle The substring to search for in the haystack.
+	 * @return bool
+	 */
+	function str_ends_with( string $haystack, string $needle ) {
+		return 0 === strlen( $needle ) || substr( $haystack, -strlen( $needle ) ) === $needle;
+	}
+}
+
+if ( ! function_exists( 'str_contains' ) ) {
+	/**
+	 * Determine if a string contains a given substring
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle The substring to search for in the haystack.
+	 * @return bool
+	 */
+	function str_contains( $haystack, $needle ) {
+		return 0 === strlen( $needle ) || false !== mb_strpos( $haystack, $needle );
 	}
 }
 
@@ -296,7 +350,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 	function themecomplete_get_post_meta( $post_id, $meta_key = '', $single = false ) {
 		$meta = false;
 
-		if ( $post_id instanceof WC_Product && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
+		if ( $post_id instanceof WC_Product && ! str_starts_with( $meta_key, '_' ) ) {
 			return $post_id->get_meta( $meta_key, $single );
 		} elseif ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && 'product' !== $post_id->post_type ) ) {
 			$meta = get_post_meta( $post_id->ID, $meta_key, $single );
@@ -314,7 +368,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 			}
 		} elseif ( did_action( 'woocommerce_init' ) && function_exists( 'wc_get_product' ) && is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
-			if ( is_object( $product ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
+			if ( is_object( $product ) && ! str_starts_with( $meta_key, '_' ) ) {
 				$meta = $product->get_meta( $meta_key, $single );
 			} else {
 				$meta = get_post_meta( $post_id, $meta_key, $single );

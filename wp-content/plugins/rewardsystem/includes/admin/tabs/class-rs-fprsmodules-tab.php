@@ -12,19 +12,24 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 	class RSModulesTab {
 
 		public static function init() {
-			add_action( 'woocommerce_rs_settings_tabs_fprsmodules' , array( __CLASS__ , 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fprsmodules' , array( __CLASS__, 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsmodules' , array( __CLASS__ , 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsmodules' , array( __CLASS__, 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 
-			add_action( 'woocommerce_admin_field_rs_modules_for_sumo' , array( __CLASS__ , 'reward_system_module_html' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_modules_for_sumo' , array( __CLASS__, 'reward_system_module_html' ) ) ;
 		}
 
 		public static function reward_system_admin_fields() {
 			global $woocommerce ;
+						/**
+						 * Hook:woocommerce_fprsmodules_tab.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_fprsmodules_tab' , array(
 				array(
-					'type' => 'rs_modules_for_sumo'
-				) ,
+					'type' => 'rs_modules_for_sumo',
+				),
 					) ) ;
 		}
 
@@ -43,12 +48,17 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 		public static function box_and_hyperlink_class_name( $enable ) {
 			$activeclass    = ( 'yes' == $enable ) ? 'active_rs_box' : 'inactive_rs_box' ;
 			$hyperlinkclass = ( 'yes' == $enable ) ? 'rs_active_hyperlink' : 'rs_inactive_hyperlink' ;
-			$array          = array( 'classname1' => $activeclass , 'classname2' => $hyperlinkclass ) ;
+			$array          = array( 'classname1' => $activeclass, 'classname2' => $hyperlinkclass ) ;
 			return $array ;
 		}
 
 		public static function reward_system_module_html() {
 			if ( isset( $_GET[ 'section' ] ) ) {
+								/**
+								 * Hook:woocommerce_rs_settings_tabs.
+								 * 
+								 * @since 1.0
+								 */
 				do_action( 'woocommerce_rs_settings_tabs_' . wc_clean( wp_unslash( $_GET[ 'section' ] ) ) ) ;
 			} else {
 				?>
@@ -81,10 +91,23 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 						$ARClassName = self::box_and_hyperlink_class_name( $enable ) ;
 						self::html_element_for_module( $ARClassName[ 'classname1' ] , $ARClassName[ 'classname2' ] , 'Action Reward Points' , 'fpactionreward' , get_option( 'rs_reward_action_activated' ) , 'rs_reward_action_activated') ;
 												
-												//Birthday Reward Points						//Birthday Reward Point Module
+						//Birthday Reward Point Module
 						$enable      = get_option( 'rs_bday_points_activated' );
-						$PUClassName = self::box_and_hyperlink_class_name( $enable ) ;
-						self::html_element_for_module( $PUClassName[ 'classname1' ] , $PUClassName[ 'classname2' ] , 'Birthday Reward Points' , 'fpbirthday' , get_option( 'rs_bday_points_activated' ) , 'rs_bday_points_activated' ) ;
+						$BRClassName = self::box_and_hyperlink_class_name( $enable ) ;
+						self::html_element_for_module( $BRClassName[ 'classname1' ] , $BRClassName[ 'classname2' ] , 'Birthday Reward Points' , 'fpbirthday' , get_option( 'rs_bday_points_activated' ) , 'rs_bday_points_activated' ) ;
+												
+						//Bonus Reward Module
+						$BMClassName = self::box_and_hyperlink_class_name( get_option( 'rs_bonus_points_activated' ) ) ;
+						self::html_element_for_module( $BMClassName[ 'classname1' ] , $BMClassName[ 'classname2' ] , 'Bonus Reward Points' , 'fpbonuspoints' , get_option( 'rs_bonus_points_activated' ) , 'rs_bonus_points_activated' ) ;
+
+						//Promotional Point Module
+						$enable      = get_option( 'rs_promotional_points_activated' );
+						$PMClassName = self::box_and_hyperlink_class_name( $enable ) ;
+						self::html_element_for_module( $PMClassName[ 'classname1' ] , $PMClassName[ 'classname2' ] , 'Promotion Reward Points' , 'fppromotional' , get_option( 'rs_promotional_points_activated' ) , 'rs_promotional_points_activated' ) ;
+
+						//Anniversary Reward Module
+						$BMClassName = self::box_and_hyperlink_class_name( get_option( 'rs_anniversary_points_activated' ) ) ;
+						self::html_element_for_module( $BMClassName[ 'classname1' ] , $BMClassName[ 'classname2' ] , 'Anniversary Reward Points' , 'fpanniversarypoints' , get_option( 'rs_anniversary_points_activated' ) , 'rs_anniversary_points_activated' ) ;
 
 						//Points Expiry Module
 						$enable      = get_option( 'rs_point_expiry_activated' );
@@ -99,7 +122,7 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 						//Points Price Module
 						$enable      = get_option( 'rs_point_price_activated' );
 						$POPClassName = self::box_and_hyperlink_class_name( $enable ) ;
-						self::html_element_for_module( $POPClassName[ 'classname1' ] , $POPClassName[ 'classname2' ] , 'Points Price' , 'fppointprice' , get_option( 'rs_point_price_activated' ) , 'rs_point_price_activated' ) ;
+						self::html_element_for_module( $POPClassName[ 'classname1' ] , $POPClassName[ 'classname2' ] , 'Point Price' , 'fppointprice' , get_option( 'rs_point_price_activated' ) , 'rs_point_price_activated' ) ;
 
 						//Email Module
 						$enable      = get_option( 'rs_email_activated' );
@@ -188,7 +211,7 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 			<div class="rs_grid">
 				<div class="rs_inner_grid <?php echo esc_attr( $classname1 ) ; ?>">                    
 					<div class="<?php echo esc_attr( $classname2 ) ; ?>">
-						<h1 class="rs-module-title"><?php echo wp_kses_post( $module_name ) ; ?></h1>
+						<h1 class="rs-module-title"><?php echo esc_html( $module_name ) ; ?></h1>
 							<div class="rs-module-icon">
 								<?php $image_url = SRP_PLUGIN_DIR_URL . '/assets/images/modules/' . $icon_module_name . '/' . $icon_display_status; ?>
 								<img class="rs-module-icon-<?php echo esc_attr($tab_name); ?>" 
@@ -221,18 +244,17 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 				</th>
 				<td class="forminp forminp-text">
 					<label class="rs_switch_round">
-						<input type="checkbox" value="yes" data-metakey="<?php echo esc_attr( $metakey ) ; ?>" name="<?php echo wp_kses_post( $checkboxname ) ; ?>" class="rs_enable_module" 
+						<input type="checkbox" value="yes" data-metakey="<?php echo esc_attr( $metakey ) ; ?>" name="<?php echo esc_attr( $checkboxname ) ; ?>" class="rs_enable_module" 
 						<?php
 						if ( 'yes' == $enable ) {
 							?>
-								   checked="checked" <?php } ?> />
+								checked="checked" <?php } ?> />
 						<div class="rs_slider_round"></div>
 					</label>
 				</td>
 			</tr>
 			<?php
 		}
-
 	}
 
 	RSModulesTab::init() ;

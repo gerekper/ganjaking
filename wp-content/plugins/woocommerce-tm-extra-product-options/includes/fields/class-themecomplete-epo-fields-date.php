@@ -30,9 +30,9 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		$name = $args['posted_name'];
 		$id   = $args['element_id'];
 
-		$tm_epo_global_datepicker_theme    = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme : ( isset( $element['theme'] ) ? $element['theme'] : 'epo' );
-		$tm_epo_global_datepicker_size     = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size : ( isset( $element['theme_size'] ) ? $element['theme_size'] : 'medium' );
-		$tm_epo_global_datepicker_position = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position : ( isset( $element['theme_position'] ) ? $element['theme_position'] : 'normal' );
+		$tm_epo_global_datepicker_theme    = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_theme' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_theme' ) : ( isset( $element['theme'] ) ? $element['theme'] : 'epo' );
+		$tm_epo_global_datepicker_size     = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_size' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_size' ) : ( isset( $element['theme_size'] ) ? $element['theme_size'] : 'medium' );
+		$tm_epo_global_datepicker_position = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_position' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_position' ) : ( isset( $element['theme_position'] ) ? $element['theme_position'] : 'normal' );
 
 		$translation_day   = ! empty( $element['translation_day'] ) ? $element['translation_day'] : '';
 		$translation_month = ! empty( $element['translation_month'] ) ? $element['translation_month'] : '';
@@ -232,7 +232,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		$get_default_value = $this->get_default_value( $element, $args, false, $get_default_value );
 
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 
@@ -330,8 +330,8 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 							$posted_date = $posted_date_arr[2] . $sep . $posted_date_arr[1] . $sep . $posted_date_arr[0];
 						}
 					}
-					if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) ) {
-						$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00', new DateTimeZone( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) );
+					if ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_date_timezone' ) ) ) {
+						$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00', new DateTimeZone( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_date_timezone' ) ) );
 					} else {
 						$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00' );
 					}
@@ -390,8 +390,8 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 						$disabled_months    = $this->element['disabled_months'];
 
 						$now = new DateTime( '00:00:00' );
-						if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) ) {
-							$now = new DateTime( '00:00:00', new DateTimeZone( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) );
+						if ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_date_timezone' ) ) ) {
+							$now = new DateTime( '00:00:00', new DateTimeZone( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_date_timezone' ) ) );
 						}
 						$now_day   = $now->format( 'd' );
 						$now_month = $now->format( 'm' );

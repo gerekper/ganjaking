@@ -55,6 +55,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 		}
 
 		add_action( 'plugins_loaded', [ $this, 'eco_check' ], 0 );
+		add_action( 'plugins_loaded', [ $this, 'multiple_file_upload_check' ], 0 );
 	}
 
 	/**
@@ -161,6 +162,25 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	}
 
 	/**
+	 * Disable multiple file upload addon
+	 * (allready included in 6.4.2 +)
+	 *
+	 * @since 6.4.2
+	 * @return void
+	 * @static
+	 */
+	public function multiple_file_upload_check() {
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		if ( class_exists( 'THEMECOMPLETE_Extension_Class_multiple_file_upload' ) ) {
+
+			if ( is_plugin_active( 'woocommerce-tm-extra-product-options-multiple-file-upload/woocommerce-tm-extra-product-options-multiple-file-upload.php' ) ) {
+				deactivate_plugins( 'woocommerce-tm-extra-product-options-multiple-file-upload/woocommerce-tm-extra-product-options-multiple-file-upload.php' );
+				add_action( 'admin_notices', [ $this, 'multiple_file_upload_notice_deactivate' ] );
+			}
+		}
+	}
+	/**
 	 * Deprecation notice for Extra Checkout Options
 	 *
 	 * @return void
@@ -187,7 +207,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	 * @return void
 	 */
 	public function eco_notice() {
-		echo '<div class="error fade"><h4>Extra Product Options & Add-Ons for WooCommerce</h4><p>';
+		echo '<div class="error fade"><h4>' . esc_html__( 'Extra Product Options & Add-Ons for WooCommerce', 'woocommerce-tm-extra-product-options' ) . '</h4><p>';
 		printf(
 			/* translators: %1 open strong html tag %2 close strong html tag */
 			esc_html__( '%1$sImportant:%2$s Your version of WooCommerce Extra Checkout Options is not supported. Please update to the latest version.', 'woocommerce-tm-extra-product-options' ),
@@ -203,10 +223,26 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	 * @return void
 	 */
 	public function eco_notice_deactivate() {
-		echo '<div class="error fade"><h4>Extra Product Options & Add-Ons for WooCommerce</h4><p>';
+		echo '<div class="error fade"><h4>' . esc_html__( 'Extra Product Options & Add-Ons for WooCommerce', 'woocommerce-tm-extra-product-options' ) . '</h4><p>';
 		printf(
 			/* translators: %1 open strong html tag %2 close strong html tag */
 			esc_html__( '%1$sImportant:%2$s Extra Product Options & Add-Ons for WooCommerce has been deactivated because it is not compatible with the current version of Extra Checkout Options.', 'woocommerce-tm-extra-product-options' ),
+			'<strong>',
+			'</strong>'
+		);
+		echo '</p></div>' . "\n";
+	}
+
+	/**
+	 * Prints a notice
+	 *
+	 * @return void
+	 */
+	public function multiple_file_upload_notice_deactivate() {
+		echo '<div class="error fade"><h4>' . esc_html__( 'Extra Product Options & Add-Ons for WooCommerce', 'woocommerce-tm-extra-product-options' ) . '</h4><p>';
+		printf(
+			/* translators: %1 open strong html tag %2 close strong html tag */
+			esc_html__( '%1$sImportant:%2$s WooCommerce TM Extra Product Options Multiple File Upload has been deactivated because its functionality is included in the main plugin.', 'woocommerce-tm-extra-product-options' ),
 			'<strong>',
 			'</strong>'
 		);

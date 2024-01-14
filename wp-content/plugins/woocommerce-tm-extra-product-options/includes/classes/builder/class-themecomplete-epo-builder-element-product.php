@@ -43,7 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_PRODUCT extends THEMECOMPLETE_EPO_BUILDE
 	 * Fetch product categories
 	 * for use in a select box
 	 *
-	 * @since  5.0
+	 * @since 5.0
 	 * @return array<mixed>
 	 */
 	public function fetch_product_categories_array() {

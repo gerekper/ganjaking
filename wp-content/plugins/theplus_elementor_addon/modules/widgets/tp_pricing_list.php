@@ -40,6 +40,10 @@ class ThePlus_Pricing_List extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return [ 'pricing list', 'price list', 'price table', 'pricing table', 'pricing widget', 'price widget', 'pricing element', 'price element', 'pricing addon', 'price addon', 'pricing module', 'price module' ];
+    }
+
     protected function register_controls() {
 		$this->start_controls_section(
 				'Pricing_list',

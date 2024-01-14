@@ -34,6 +34,10 @@ class ThePlus_Smooth_Scroll extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Smooth Scroll', 'Scroll Widget', 'Elementor Scroll', 'Scroll Animation', 'Smooth Scrolling', 'Scroll Effect', 'Elementor Smooth Scroll', 'Scroll Widget for Elementor', 'Scroll Animation for Elementor', 'Smooth Scrolling for Elementor', 'Elementor Scroll Effect'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

@@ -5234,50 +5234,50 @@ class ThePlus_Search_Bar extends Widget_Base {
 	}
 
 	protected function tp_search_drop_down($data, $name, $id, $taxo, $repeater){
-		$output='';
-		$showCnt = !empty($repeater['showCount']) ? 'yes' : '';
-		$label = !empty($repeater['fieldLabel']) ? $repeater['fieldLabel'] : '';
-		$DefText = !empty($repeater['DefText']) ? $repeater['DefText'] : '';
+        $output='';
+        $showCnt = !empty($repeater['showCount']) ? 'yes' : '';
+        $label = !empty($repeater['fieldLabel']) ? $repeater['fieldLabel'] : '';
+        $DefText = !empty($repeater['DefText']) ? $repeater['DefText'] : '';
 
-		if(!empty($taxo)){
-			$output .= '<input name="taxonomy" type="hidden" value="'.esc_attr($taxo).'">';
-		}
-		if(!empty($label)){
-			$output .= '<label class="tp-search-label">'.esc_attr($label).'</label>';
-		}
+        if(!empty($taxo)){
+            $output .= '<input name="taxonomy" type="hidden" value="'.esc_attr($taxo).'">';
+        }
+        if(!empty($label)){
+            $output .= '<label class="tp-search-label">'.esc_html($label).'</label>';
+        }
 
-		$DatName='';
-		if($name == 'post'){
-			$DatName = 'post_type';
-		}else if($name == 'category'){
-			$DatName = 'cat';
-		}
+        $DatName='';
+        if($name == 'post'){
+            $DatName = 'post_type';
+        }else if($name == 'category'){
+            $DatName = 'cat';
+        }
 
-		$output .= '<div class="tp-sbar-dropdown">';
-			$output .= '<div class="tp-select">';
-				$output .= '<span>'.esc_attr($DefText).'</span><i class="fas fa-chevron-down tp-dd-icon"></i>';
-			$output .= '</div>';
-			$output .= '<input type="hidden" name="'.esc_attr($DatName).'" id="'.esc_attr($DatName).'" >';
-			$output .= '<ul class="tp-sbar-dropdown-menu">';
-				$output .= '<li id="" class="tp-searchbar-li">'.esc_attr($DefText).'</li>';
-	
-				foreach($data as $key => $label){
-					$LName = !empty($label['name']) ? $label['name'] : '';
-					$Lcount = !empty($label['count']) ? $label['count'] : 0;
+        $output .= '<div class="tp-sbar-dropdown">';
+            $output .= '<div class="tp-select">';
+                $output .= '<span>'.esc_html($DefText).'</span><i class="fas fa-chevron-down tp-dd-icon"></i>';
+            $output .= '</div>';
+            $output .= '<input type="hidden" name="'.esc_attr($DatName).'" id="'.esc_attr($DatName).'" >';
+            $output .= '<ul class="tp-sbar-dropdown-menu">';
+                $output .= '<li id="" class="tp-searchbar-li">'.esc_attr($DefText).'</li>';
+    
+                foreach($data as $key => $label){
+                    $LName = !empty($label['name']) ? $label['name'] : '';
+                    $Lcount = !empty($label['count']) ? $label['count'] : 0;
 
-					$output .= '<li id="'.esc_attr($key).'" class="tp-searchbar-li" >';
-						if( !empty($showCnt) ){
-							$output .= esc_attr($LName) .' ('.esc_attr($Lcount).')';
-						}else{
-							$output .= esc_attr($LName);
-						}
-					$output .= '</li>';
-				}
-			$output .= '</ul>';
-		$output .= '</div>';
-		
-		return $output;
-	}
+                    $output .= '<li id="'.esc_attr($key).'" class="tp-searchbar-li" >';
+                        if( !empty($showCnt) ){
+                            $output .= esc_html($LName) .' ('.esc_html($Lcount).')';
+                        }else{
+                            $output .= esc_html($LName);
+                        }
+                    $output .= '</li>';
+                }
+            $output .= '</ul>';
+        $output .= '</div>';
+        
+        return $output;
+    }
 
 	protected function tp_search_button($attr){
 		$output='';

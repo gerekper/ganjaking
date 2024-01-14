@@ -39,9 +39,10 @@ class ThePlus_Hotspot extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+	
 	public function get_keywords() {
-		return [ 'hotspot', 'pinpoint', 'image hotspot', 'tooltip'];
-	}
+        return [ 'Hotspot', 'Pin Point', 'Marker', 'Location', 'Pointer', 'Indicator', 'Map', 'Navigation', 'Interactive', 'Clickable', 'Tooltip', 'Information', 'Icon' ];
+    }
 	
     protected function register_controls() {
 		

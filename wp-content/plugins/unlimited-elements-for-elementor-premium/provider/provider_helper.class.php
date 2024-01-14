@@ -498,7 +498,7 @@ class HelperProviderUC{
 
 		if($disableDeprecated == true)
 			UniteFunctionsUC::disableDeprecatedWarnings();
-		
+
 		add_action("plugins_loaded", array("HelperProviderUC", "onPluginsLoaded"));
 
 		$showPHPError = HelperProviderCoreUC_EL::getGeneralSetting("show_php_error");
@@ -836,6 +836,28 @@ class HelperProviderUC{
 
 		if($hasPermission == false)
 			UniteFunctionsUC::throwError("The user don't have permission to do this operation");
+	}
+
+	/**
+	 * check if addon changelog is enabled
+	 */
+	public static function isAddonChangelogEnabled(){
+
+		$isChangelogEnabled = HelperProviderCoreUC_EL::getGeneralSetting("enable_changelog");
+		$isChangelogEnabled = UniteFunctionsUC::strToBool($isChangelogEnabled);
+
+		return $isChangelogEnabled;
+	}
+
+	/**
+	 * verify if addon changelog is enabled, use it before ajax actions
+	 */
+	public static function verifyAddonChangelogEnabled(){
+
+		$isChangelogEnabled = self::isAddonChangelogEnabled();
+
+		if($isChangelogEnabled === false)
+			UniteFunctionsUC::throwError("The changelog is disabled.");
 	}
 
 	/**

@@ -39,6 +39,9 @@ class FilterHelper {
     return $this->getTableForEntity(SubscriberEntity::class);
   }
 
+  /**
+   * @param class-string<object> $entityClass
+   */
   public function getTableForEntity(string $entityClass): string {
     return $this->entityManager->getClassMetadata($entityClass)->getTableName();
   }

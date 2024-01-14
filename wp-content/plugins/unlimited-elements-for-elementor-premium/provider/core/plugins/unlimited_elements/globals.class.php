@@ -19,13 +19,13 @@ class GlobalsUnlimitedElements{
 
 	public static $showAdminNotices = false;
 	public static $debugAdminNotices = false;
-	
+
 	public static $enableApiIntegrations = true;
 	
-	public static $enableGoogleAPI = false;
+	public static $enableGoogleAPI = true;
 	public static $enableWeatherAPI = false;
 	public static $enableCurrencyAPI = true;
-	
+
 	public static $enableGoogleCalendarScopes = false;
 	public static $enableGoogleYoutubeScopes = false;
 
@@ -37,7 +37,7 @@ class GlobalsUnlimitedElements{
 	//public static $insideNotificationText = "Unlimited Elements Birthday Sale!!! <br> 50% OFF - all plans! <br> <a style='text-decoration:underline;' href='https://unlimited-elements.com/pricing/' target='_blank'>Get It Now!</a> ";
 	public static $insideNotificationText = "Unlock Access To All PRO Widgets and Features.  <a href='https://unlimited-elements.com/pricing/' target='_blank'>Upgrade Now</a> ";
 	public static $insideNotificationUrl = "https://unlimited-elements.com/pricing/";
-		
+
 	const PLUGIN_NAME = "unlimitedelements";
 	const VIEW_DASHBOARD = "dashboard";
 	const VIEW_ADDONS_ELEMENTOR = "addons_elementor";
@@ -49,6 +49,7 @@ class GlobalsUnlimitedElements{
 	const VIEW_ICONS = "svg_shapes";
 	const VIEW_BACKGROUNDS = "backgrounds";
 	const VIEW_FORM_ENTRIES = "form_entries";
+	const VIEW_CHANGELOG = "changelog";
 
 	const LINK_BUY = "https://unlimited-elements.com/pricing/";
 
@@ -71,7 +72,10 @@ class GlobalsUnlimitedElements{
 	const EMAIL_FEEDBACK = "support@unitecms.net";
 
 	const FREEMIUS_PLUGIN_ID = "4036";
-
+	
+	const GOOGLE_CONNECTION_URL = "https://unlimited-elements.com/google-connect/connect.php";
+	const GOOGLE_CONNECTION_CLIENTID = "916742274008-sji12chck4ahgqf7c292nfg2ofp10qeo.apps.googleusercontent.com";
+	
 	const LINK_HELP_POSTSLIST = "https://unlimited-elements.helpscoutdocs.com/article/69-post-list-query-usage";
 
 	const PREFIX_TEMPLATE_PERMALINK = "unlimited-";
@@ -97,7 +101,7 @@ class GlobalsUnlimitedElements{
 		self::$urlAccount = admin_url("admin.php?page=unlimitedelements-account");
 
 		UniteProviderFunctionsUC::addAction('admin_init', array("GlobalsUnlimitedElements", 'initAdminNotices'));
-		
+
 		if(self::$enableGutenbergSupport == true)
 			self::initGutenbergIntegration();
 	
@@ -110,7 +114,7 @@ class GlobalsUnlimitedElements{
 	 * init the admin notices
 	 */
 	public static function initAdminNotices(){
-		
+
 		if(GlobalsUnlimitedElements::$showAdminNotices === false)
 			return;
 

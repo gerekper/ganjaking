@@ -1011,7 +1011,10 @@ class UniteCreatorLayoutsExporterWork extends UniteCreatorExporterBase{
 				$this->importTxtFile($filepath, $layoutID);
 				break;
 			case "zip":
-				$this->importZipFile($filepath, $layoutID, $overwriteAddons);
+				
+				UniteFunctionsUC::throwError("Import layout zip file is not supported anymore");
+				
+				//$this->importZipFile($filepath, $layoutID, $overwriteAddons);
 				break;
 			default:
 				UniteFunctionsUC::throwError("Wrong file: $filename");

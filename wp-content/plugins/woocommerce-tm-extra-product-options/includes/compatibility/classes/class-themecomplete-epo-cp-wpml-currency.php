@@ -170,8 +170,8 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 			// Replaces any number between curly braces with the current currency.
 			$price = preg_replace_callback(
 				'/\{(\d+)\}/',
-				function ( $matches ) {
-					return apply_filters( 'wc_epo_get_currency_price', $matches[1], false, '' );
+				function ( $matches ) use( $currency ) {
+					return apply_filters( 'wc_epo_get_currency_price', $matches[1], $currency, '' );
 				},
 				$price
 			);

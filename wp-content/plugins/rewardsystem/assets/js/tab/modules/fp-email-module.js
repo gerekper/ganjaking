@@ -19,14 +19,12 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_enable_mail_for_thershold_points() ;
             $( document ).on( 'change' , '#rs_mail_enable_threshold_points' , this.enable_mail_for_thershold_points ) ;
             $( '#rs_email_templates_table' ).on( 'click' , '.rs_mail_active' , this.activate_or_deactivate_email_template ) ;
-            $( document ).on( 'click' , '.rs_unsubscribe_user' , this.unsubscribe_selected_user ) ;
             $( document ).on( 'click' , '#rs_save_new_template' , this.save_template ) ;
             $( document ).on( 'click' , '#rs_save_new_template' , this.edit_template ) ;
             $( document ).on( 'change' , '.rs_sender_opt' , this.show_or_hide_for_sender_option ) ;
             $( document ).on( 'change' , '#rs_duration_type' , this.duration_type ) ;
             $( document ).on( 'change' , '.rsmailsendingoptions' , this.show_or_hide_for_mailsending_option ) ;
             $( document ).on( 'change' , '.rs_sendmail_options_all' , this.show_or_hide_for_user_option ) ;
-            $( document ).on( 'click' , '#send_button' , this.send_mail ) ;
             $( document ).on( 'click' , '#rs_select_mail_function' , this.add_note ) ;
         } ,
         add_note : function () {
@@ -147,28 +145,7 @@ jQuery( function ( $ ) {
                 }
             } ) ;
         } ,
-        unsubscribe_selected_user : function () {
-            jQuery( '.gif_rs_sumo_reward_button_for_unsubscribe' ).css( 'display' , 'inline-block' ) ;
-            var unsubscribe = jQuery( '#rs_select_user_to_unsubscribe' ).val() ;
-            var emailsubject = jQuery( '#rs_subject_for_user_unsubscribe' ).val() ;
-            var emailmessage = jQuery( '#rs_message_for_user_unsubscribe' ).val() ;
-            var data = ( {
-                action : 'unsubscribeuser' ,
-                unsubscribe : unsubscribe ,
-                emailsubject : emailsubject ,
-                emailmessage : emailmessage ,
-                sumo_security : fp_email_params.fp_unsubscribe_email
-            } ) ;
-            $.post( fp_email_params.ajaxurl , data , function ( response ) {
-                if ( true === response.success ) {
-                    console.log( 'Ajax Done Successfully' ) ;
-                    jQuery( '.button-primary' ).trigger( 'click' ) ;
-                    jQuery( '.gif_rs_sumo_reward_button_for_unsubscribe' ).css( 'display' , 'none' ) ;
-                } else {
-                    window.alert( response.data.error ) ;
-                }
-            } ) ;
-        } ,
+        
         save_template : function ( ) {
             if ( fp_email_params.save_new_template ) {
                 $( this ).prop( "disabled" , true ) ;
@@ -286,43 +263,6 @@ jQuery( function ( $ ) {
                     window.alert( response.data.error ) ;
                 }
                 EmailModule.unblock( '#rs_email_templates_table' ) ;
-            } ) ;
-        } ,
-        send_mail : function () {
-            var email_id = jQuery( '#rs_send_email_to' ).val() ;
-            if ( email_id == '' ) {
-                alert( 'Please enter the email id' ) ;
-                return false ;
-            }
-            var rs_subject = jQuery( "#rs_subject" ).val() ;
-            var rs_status_template = jQuery( "#rs_template_status" ).val() ;
-            var rs_sender_options = jQuery( "input:radio[name=rs_sender_opt]:checked" ).val() ;
-            var rs_from_name = jQuery( "#rs_from_name" ).val() ;
-            var rs_from_email = jQuery( "#rs_from_email" ).val() ;
-            var data = {
-                action : "sendmail" ,
-                email_id : email_id ,
-                rs_subject : rs_subject ,
-                rs_status_template : rs_status_template ,
-                rs_sender_options : rs_sender_options ,
-                rs_from_name : rs_from_name ,
-                rs_from_email : rs_from_email ,
-                rs_email_template_id : fp_email_params.template_id ,
-                sumo_security : fp_email_params.fp_send_mail ,
-            } ;
-            $.post( fp_email_params.ajaxurl , data , function ( response ) {
-                if ( true === response.success ) {
-                    if ( response.data.content == 'Mail Sent' ) {
-                        alert( "Email Sent Successfully" ) ;
-                        jQuery( "#send_button" ).prop( "disabled" , false ) ;
-                        jQuery( '#rs_send_email_to' ).val( '' ) ;
-                    } else {
-                        alert( "Email not Sent" ) ;
-                    }
-                } else {
-                    window.alert( response.data.error ) ;
-                    jQuery( '#rs_send_email_to' ).val( '' ) ;
-                }
             } ) ;
         } ,
         block : function ( id ) {

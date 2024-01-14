@@ -38,6 +38,10 @@ class ThePlus_Scroll_Navigation extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+
+	public function get_keywords() {
+        return ['Scroll Navigation', 'Scroll Menu', 'Sticky Navigation', 'Sticky Menu', 'Fixed Navigation', 'Fixed Menu', 'Anchor Menu', 'Anchor Navigation', 'Smooth Scroll', 'One Page Navigation'];
+    }
 	
     protected function register_controls() {
 		/* Scroll Navigation Menu List Start*/

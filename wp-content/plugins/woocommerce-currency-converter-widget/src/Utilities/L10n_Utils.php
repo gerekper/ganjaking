@@ -32,7 +32,7 @@ class L10n_Utils {
 			$locales  = array();
 
 			if ( file_exists( $filepath ) && is_readable( $filepath ) ) {
-				$locales = require_once $filepath;
+				$locales = include $filepath;
 			}
 
 			self::$locales = $locales;

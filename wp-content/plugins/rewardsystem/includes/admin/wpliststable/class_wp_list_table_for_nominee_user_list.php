@@ -3,7 +3,7 @@
 // Integrate WP List Table for Master Log
 
 if (!class_exists('WP_List_Table')) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ;
 }
 
 class WP_List_Table_For_Nominee extends WP_List_Table {
@@ -25,18 +25,18 @@ class WP_List_Table_For_Nominee extends WP_List_Table {
 		$num_rows = count($newdata);
 		$data = $this->table_data();
 		
-		usort($data, array(&$this, 'sort_data'));        
+		usort($data, array( &$this, 'sort_data' ));        
 		$currentPage = $this->get_pagenum();
 		$totalItems = count($data);
 
 		$this->set_pagination_args(array(
 			'total_items' => $num_rows,
-			'per_page' => $perPage
+			'per_page' => $perPage,
 		));
 
 		$data = array_slice($data, ( ( $currentPage - 1 ) * $perPage ), $perPage);
 
-		$this->_column_headers = array($columns, $hidden);
+		$this->_column_headers = array( $columns, $hidden );
 
 		$this->items = $data;
 	}
@@ -57,7 +57,7 @@ class WP_List_Table_For_Nominee extends WP_List_Table {
 		return array();
 	}
 
-	public function column_cb( $item) {
+	public function column_cb( $item ) {
 		return sprintf(
 				'<input type="checkbox" name="id[]" value="%s" />', $item['cb']
 		);
@@ -126,11 +126,11 @@ class WP_List_Table_For_Nominee extends WP_List_Table {
 		return $data;
 	}
 
-	public function column_id( $item) {
+	public function column_id( $item ) {
 		return $item['sno'];
 	}
 
-	public function column_default( $item, $column_name) {
+	public function column_default( $item, $column_name ) {
 		switch ($column_name) {
 			case 'sno':
 			case 'buyer':
@@ -142,7 +142,7 @@ class WP_List_Table_For_Nominee extends WP_List_Table {
 		}
 	}
 
-	private function sort_data( $a, $b) {
+	private function sort_data( $a, $b ) {
 
 		$orderby = 'sno';
 		$order = 'asc';
@@ -162,5 +162,4 @@ class WP_List_Table_For_Nominee extends WP_List_Table {
 
 		return -$result;
 	}
-
 }

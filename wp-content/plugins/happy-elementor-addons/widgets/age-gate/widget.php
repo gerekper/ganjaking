@@ -2039,7 +2039,7 @@ class Age_Gate extends Base {
 								<?php $image_url = wp_get_attachment_image_url( $settings['header_img']['id'], 'full' ); ?>
 								<div class="ha-age-gate-image"><img src="<?php echo esc_url($image_url); ?>"></div>
 							<?php else: ?>
-								<div class="ha-age-gate-image"><img src="<?php echo $settings['header_img']['url']; ?>"></div>
+								<div class="ha-age-gate-image"><img src="<?php echo esc_url($settings['header_img']['url']); ?>"></div>
 							<?php endif; ?>
 						<?php endif; ?>
 

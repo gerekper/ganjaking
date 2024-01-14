@@ -2482,17 +2482,6 @@ class ModuleService {
 				]
 			]
 		];
-		$settings_fields['element_pack_third_party_widget'][] = [
-			'name'        => 'bbpress',
-			'label'       => esc_html__('bbPress (deprecated)', 'bdthemes-element-pack'),
-			'type'        => 'checkbox',
-			'default'     => 'on',
-			'plugin_name' => 'bbpress',
-			'plugin_path' => 'bbpress/bbpress.php',
-			'widget_type' => 'pro',
-			'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress',
-			'video_url'   => 'https://youtu.be/7vkAHZ778c4',
-		];
 
 		$settings_fields['element_pack_third_party_widget'][] = [
 			'name'        => 'bbpress-forum-form',

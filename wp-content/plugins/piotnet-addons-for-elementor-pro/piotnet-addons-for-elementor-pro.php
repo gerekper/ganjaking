@@ -3,7 +3,7 @@
  * Plugin Name: Piotnet Addons For Elementor Pro
  * Description: Piotnet Addons For Elementor Pro (PAFE Pro) adds many new features for Elementor
  * Plugin URI:  https://pafe.piotnet.com/
- * Version:     7.1.19
+ * Version:     7.1.23
  * Author:      Piotnet Team
  * Author URI:  https://piotnet.com/
  * Text Domain: pafe
@@ -11,6 +11,9 @@
  * Elementor tested up to: 3.13.4
  * Elementor Pro tested up to: 3.13.2
  */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
 update_option( 'piotnet_addons_for_elementor_pro_license_key', [ 'siteKey' => '**********', 'licenseKey' => '*********' ] );
 update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => time() + 5*365*24*60*60, 'value' => [
 'status' => 'VALID',
@@ -22,9 +25,8 @@ update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => t
 'lifetime' => 1,
 'expired_at' => time() + 5*365*24*60*60,
 ] ] );
-if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'PAFE_PRO_VERSION', '7.1.19' );
+define( 'PAFE_PRO_VERSION', '7.1.23' );
 define( 'PAFE_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 final class Piotnet_Addons_For_Elementor_Pro {
@@ -121,7 +123,10 @@ final class Piotnet_Addons_For_Elementor_Pro {
 		add_action( 'elementor/element/page-settings/section_page_style/before_section_end', [ $this, 'add_elementor_page_settings_controls' ] );
 
 		add_action('add_meta_boxes', [$this, 'pafe_pdf_metabox']);
+        add_action('add_meta_boxes', [$this, 'pafe_is_checkout_metabox']);
 		add_action( 'save_post_pafe-fonts', [$this, 'pafe_pdf_save_custom_font'] );
+        add_action('save_post', [$this,'pafe_save_is_page_checkout']);
+        
 		add_filter('upload_mimes', [$this,'add_custom_upload_mimes']);
 		add_action( 'elementor/elements/categories_registered', [ $this, 'add_elementor_widget_categories' ] );
 
@@ -736,7 +741,8 @@ final class Piotnet_Addons_For_Elementor_Pro {
     }
 
 	public function pafe_apply_custom_price_to_cart_item( $cart ) {
-		if ( class_exists( 'WooCommerce' ) ) {  
+		if ( class_exists( 'WooCommerce' ) ) {
+            //echo "1111";
 	        foreach ( $cart->get_cart() as $cart_item ) {
 		        if( isset($cart_item['pafe_custom_price']) ) {
 		            $cart_item['data']->set_price( !empty($cart_item['pafe_custom_price']) ? $cart_item['pafe_custom_price'] : 0 );
@@ -911,6 +917,23 @@ final class Piotnet_Addons_For_Elementor_Pro {
 		}, 10, 2 );
 	}
 
+    public function pafe_is_checkout_metabox(){
+        add_meta_box('pafe-is-checkout-page', 'Piotnet Addons WooCommerce Checkout', [$this, 'pafe_set_is_checkout_page']);
+    }
+    
+    public function pafe_set_is_checkout_page($post){
+        $is_checkout_page = get_post_meta($post->ID, '_pafe_is_checkout_page', true);
+        $checked = !empty($is_checkout_page) && $is_checkout_page == 'true'  ? ' checked' : '';
+        $html = '<div class="pafe-set-is-checkout-page">
+            <input type="checkbox" id="pafe-is-checkout" name="pafe_is_checkout_page" value="pafe_is_checkout"'.$checked .'/>
+            <label for="pafe-is-checkout"> Set this page to be the Piotnet Addon WooCommerce Checkout</label>
+        </div>';
+        echo $html;
+    }
+    public function pafe_save_is_page_checkout($post_id){
+        $is_checkout_page = isset($_POST['pafe_is_checkout_page']) ? 'true' : 'false';
+        update_post_meta($post_id, '_pafe_is_checkout_page', $is_checkout_page); 
+    }
 	public function pafe_pdf_metabox(){
 		add_meta_box('pafe-pdf', 'PDF custom font (TTF)', [$this, 'pafe_pdf_metabox_output'], 'pafe-fonts');
 	}
@@ -1034,7 +1057,9 @@ final class Piotnet_Addons_For_Elementor_Pro {
 
 		if ( ! is_admin() ) {			
 			$elementor_data = stripslashes( json_encode( get_post_meta( get_the_ID(), '_elementor_data', true) ) );
-			if (strpos($elementor_data, 'pafe_woocommerce_checkout_product_id') !== false) {
+            $is_checkout_page = get_post_meta(get_the_ID(), '_pafe_is_checkout_page', true);
+            $is_checkout_page = $is_checkout_page === 'true' ? true : false;
+			if (strpos($elementor_data, 'pafe_woocommerce_checkout_product_id') !== false || $is_checkout_page) {
 				$is_checkout = true;
 			}
 		}

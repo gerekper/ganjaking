@@ -40,6 +40,10 @@ class ThePlus_Cascading_Image extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Image', 'Cascading', 'Image Cascading', 'Image Gallery', 'Image Grid', 'Image Masonry', 'Image Stack', 'Image Layout', 'Elementor Image', 'Elementor Image Cascading', 'Elementor Image Gallery', 'Elementor Image Grid', 'Elementor Image Masonry', 'Elementor Image Stack', 'Elementor Image Layout'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

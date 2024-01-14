@@ -45,6 +45,10 @@ class ThePlus_Adv_Text_Block extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Advance Text Block', 'Advanced Text Block', 'Text Block', 'Enhanced Text Block', 'Improved Text Block', 'Customizable Text Block', 'Stylish Text Block', 'Unique Text Block', 'Elementor Text Block', 'Elementor Advanced Text Block', 'Elementor Enhanced Text Block', 'Elementor Customizable Text Block', 'Elementor Stylish Text Block', 'Elementor Unique Text Block', 'Elementor Addon Text Block', 'Text Block', 'Text Editor', 'Rich Text Editor', 'Elementor Text Editor', 'Elementor Rich Text Editor'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

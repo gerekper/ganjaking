@@ -18,12 +18,17 @@ if ( ! class_exists( 'SRP_Register_Post_Type' ) ) {
 		 * Birthday Post Type.
 		 */
 		const BIRTHDAY_POSTTYPE = 'srp_birthday' ;
+				
+				/**
+		 * Promotional Post Type.
+		 */
+		const PROMOTIONAL_POSTTYPE = 'srp_promotional' ;
 
 		/**
 		 * Class initialization.
 		 */
 		public static function init() {
-			add_action( 'init' , array( __CLASS__ , 'register_custom_post_types' ) , 5 ) ;
+			add_action( 'init' , array( __CLASS__, 'register_custom_post_types' ) , 5 ) ;
 		}
 
 		/**
@@ -35,9 +40,14 @@ if ( ! class_exists( 'SRP_Register_Post_Type' ) ) {
 			}
 
 			$custom_post_type = array(
-				self::BIRTHDAY_POSTTYPE       => array( 'SRP_Register_Post_Type' , 'birthday_post_type_args' ) ,
+				self::BIRTHDAY_POSTTYPE       => array( 'SRP_Register_Post_Type', 'birthday_post_type_args' ),
+				self::PROMOTIONAL_POSTTYPE    => array( 'SRP_Register_Post_Type', 'promotional_post_type_args' ),
 					) ;
-
+						/**
+						 * Hook:srp_add_custom_post_type.
+						 * 
+						 * @since 1.0
+						 */
 			$custom_post_type = apply_filters( 'srp_add_custom_post_type' , $custom_post_type ) ;
 
 			if ( ! srp_check_is_array( $custom_post_type ) ) {
@@ -59,21 +69,44 @@ if ( ! class_exists( 'SRP_Register_Post_Type' ) ) {
 		}
 
 		/**
-		 * Prepare Rules Post type arguments
+		 * Prepare Birthday Post type arguments
 		 */
 		public static function birthday_post_type_args() {
-
+						/**
+						 * Hook:srp_rules_post_type_args.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'srp_rules_post_type_args' , array(
-				'label'           => esc_html__( 'Birthday' , 'rewardsystem' ) ,
-				'public'          => false ,
-				'hierarchical'    => false ,
-				'supports'        => false ,
-				'capability_type' => 'post' ,
-				'rewrite'         => false ,
+				'label'           => esc_html__( 'Birthday' , 'rewardsystem' ),
+				'public'          => false,
+				'hierarchical'    => false,
+				'supports'        => false,
+				'capability_type' => 'post',
+				'rewrite'         => false,
 					)
 					) ;
 		}
-
+				
+				/**
+		 * Prepare Promotional Post type arguments
+		 */
+		public static function promotional_post_type_args() {
+						/**
+						 * Hook:srp_promotional_post_type_args.
+						 * 
+						 * @since 1.0
+						 */
+			return apply_filters( 'srp_promotional_post_type_args' , array(
+				'label'           => esc_html__( 'Promotional' , 'rewardsystem' ),
+				'public'          => false,
+				'hierarchical'    => false,
+				'supports'        => false,
+				'capability_type' => 'post',
+				'rewrite'         => false,
+					)
+					) ;
+		}
 	}
 
 	SRP_Register_Post_Type::init() ;

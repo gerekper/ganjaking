@@ -13,11 +13,11 @@ if ( ! class_exists( 'RSBuddypressCompatibility' ) ) {
 
 		public static function init() {
 			//Buddypress group create 
-			add_action( 'groups_group_create_complete' , array( __CLASS__ , 'award_points_for_group_creation' ) , 10 , 4 ) ;
+			add_action( 'groups_group_create_complete' , array( __CLASS__, 'award_points_for_group_creation' ) , 10 , 4 ) ;
 			//Buddypress post create  
-			add_action( 'bp_activity_comment_posted' , array( __CLASS__ , 'award_points_for_post_comment' ) , 10 , 3 ) ;
+			add_action( 'bp_activity_comment_posted' , array( __CLASS__, 'award_points_for_post_comment' ) , 10 , 3 ) ;
 			//Buddypress post comment  
-			add_action( 'bp_activity_posted_update' , array( __CLASS__ , 'award_points_for_post_creation' ) , 10 , 3 ) ;
+			add_action( 'bp_activity_posted_update' , array( __CLASS__, 'award_points_for_post_creation' ) , 10 , 3 ) ;
 		}
 
 		public static function buddypress_restriction( $Action, $Points ) {
@@ -54,7 +54,7 @@ if ( ! class_exists( 'RSBuddypressCompatibility' ) ) {
 			}
 
 			$new_obj = new RewardPointsOrder( 0 , 'no' ) ;
-			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_group_create' ) , 'event_slug' => 'RPFBPG' , 'user_id' => get_current_user_id() , 'totalearnedpoints' => $Points ) ;
+			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_group_create' ), 'event_slug' => 'RPFBPG', 'user_id' => get_current_user_id(), 'totalearnedpoints' => $Points ) ;
 			$new_obj->total_points_management( $Values ) ;
 		}
 
@@ -78,7 +78,7 @@ if ( ! class_exists( 'RSBuddypressCompatibility' ) ) {
 			}
 
 			$new_obj = new RewardPointsOrder( 0 , 'no' ) ;
-			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_postcomment' ) , 'event_slug' => 'RPFBPC' , 'user_id' => get_current_user_id() , 'product_id' => $post_id , 'totalearnedpoints' => $Points ) ;
+			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_postcomment' ), 'event_slug' => 'RPFBPC', 'user_id' => get_current_user_id(), 'product_id' => $post_id, 'totalearnedpoints' => $Points ) ;
 			$new_obj->total_points_management( $Values ) ;
 			update_user_meta( get_current_user_id() , 'rs_bp_groupcomment_check' . $PostId , '1' ) ;
 		}
@@ -89,12 +89,10 @@ if ( ! class_exists( 'RSBuddypressCompatibility' ) ) {
 			}
 
 			$new_obj = new RewardPointsOrder( 0 , 'no' ) ;
-			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_post_create' ) , 'event_slug' => 'RPFBP' , 'user_id' => get_current_user_id() , 'totalearnedpoints' => $Points ) ;
+			$Values  = array( 'pointstoinsert' => get_option( 'rs_points_for_bp_post_create' ), 'event_slug' => 'RPFBP', 'user_id' => get_current_user_id(), 'totalearnedpoints' => $Points ) ;
 			$new_obj->total_points_management( $Values ) ;
 		}
-
 	}
 
 	RSBuddypressCompatibility::init() ;
 }
-

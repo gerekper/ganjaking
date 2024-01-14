@@ -330,6 +330,12 @@ final class THEMECOMPLETE_EPO_Actions_Base {
 					}
 				}
 			}
+
+			foreach ( $shipping->shipping_methods as $shipping_key => $method ) {
+				if ( 'no' === $method->enabled ) {
+					unset( $shipping->shipping_methods[ $shipping_key ] );
+				}
+			}
 		}
 	}
 

@@ -1160,11 +1160,9 @@ jQuery( function ( $ ) {
             }
         } ,
         bulk_update_points_for_social_reward : function ( ) {
-            var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to update now?" ) ;
-            if ( rsconfirm === true ) {
                 SocialRewardPointsScripts.block( '.rs_hide_bulk_update_for_social_reward_start' ) ;
                 var data = {
-                    action : 'bulk_update_points_for_social_rewards' ,
+                    action : 'bulk_update_social_points_action' ,
                     sumo_security : fp_social_params.social_reward_bulk_update ,
                     productselection : $( '#rs_which_social_product_selection' ).val() ,
                     enablereward : $( '#rs_local_enable_disable_social_reward' ).val() ,
@@ -1197,13 +1195,12 @@ jQuery( function ( $ ) {
                 } ;
                 $.post( fp_social_params.ajaxurl , data , function ( response ) {
                     if ( true === response.success ) {
-                        window.location.href = fp_social_params.redirecturl ;
+                        window.location.href = response.data.redirect_url ;
                     } else {
                         window.alert( response.data.error ) ;
                     }
                     SocialRewardPointsScripts.unblock( '.rs_hide_bulk_update_for_social_reward_start' ) ;
                 } ) ;
-            }
             return false ;
         } ,
         toggle_social_promotion_selection_type : function() {

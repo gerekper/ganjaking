@@ -1,6 +1,6 @@
 === Happy Addons for Elementor ===
 Plugin Name: Happy Addons for Elementor
-Version: 3.10.0
+Version: 3.10.1
 Author: Leevio
 Author URI: https://happyaddons.com/
 Contributors: happyaddons, thehappymonster, wedevs, Leevio
@@ -655,6 +655,10 @@ For a more detailed explanation check out the following documentation
 
 
 == Changelog ==
+
+= 3.10.1 - 1 January 2024 =
+
+- Fix: Security improvement for Age Gate widget.
 
 = 3.10.0 - 19 December 2023 =
 

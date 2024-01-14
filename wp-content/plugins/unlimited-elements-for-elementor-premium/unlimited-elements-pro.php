@@ -1,4 +1,20 @@
 <?php
+
+/*
+Plugin Name: Unlimited Elements for Elementor (Premium)
+Plugin URI: http://unlimited-elements.com
+Description: Unlimited Elements Pro - Huge Widgets Pack for Elementor Page Builder, with html/css/js widget creator and editor
+Author: Unlimited Elements
+Version: 1.5.92
+Update URI: https://api.freemius.com
+Author URI: http://unlimited-elements.com
+Text Domain: unlimited-elements-for-elementor
+Domain Path: /languages
+
+* Tested up to: 6.4
+* Elementor tested up to: 3.18.3
+* Elementor Pro tested up to: 3.18.2
+*/
 class uepFsNull {
 public function is_paying() {
 return true;
@@ -9,23 +25,8 @@ return true;
 public function can_use_premium_code__premium_only() {
 return true;
 }
-}// Include Freemius SDK.
+}
 
-/*
-Plugin Name: Unlimited Elements for Elementor (Premium)
-Plugin URI: http://unlimited-elements.com
-Description: Unlimited Elements Pro - Huge Widgets Pack for Elementor Page Builder, with html/css/js widget creator and editor
-Author: Unlimited Elements
-Version: 1.5.87
-Update URI: https://api.freemius.com
-Author URI: http://unlimited-elements.com
-Text Domain: unlimited-elements-for-elementor
-Domain Path: /languages
-
-* Tested up to: 6.4
-* Elementor tested up to: 3.17.3
-* Elementor Pro tested up to: 3.17.1
-*/
 if ( !defined( "UNLIMITED_ELEMENTS_INC" ) ) {
     define( "UNLIMITED_ELEMENTS_INC", true );
 }
@@ -37,7 +38,7 @@ if ( !function_exists( 'unl_fs' ) ) {
         global  $unl_fs ;
         
         if ( !isset( $unl_fs ) ) {
-          $unl_fs = new uepFsNull();
+           $unl_fs = new uepFsNull();
         }
         
         return $unl_fs;

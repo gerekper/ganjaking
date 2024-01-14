@@ -111,9 +111,9 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		public function leftJoin( $table, $alias, $on ) {
 
 			$this->joins[ $alias ] = array(
-				'table' => $table ,
-				'on'    => $on ,
-				'type'  => 'LEFT' ,
+				'table' => $table,
+				'on'    => $on,
+				'type'  => 'LEFT',
 					) ;
 
 			return $this ;
@@ -124,9 +124,9 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function tableJoin( $table, $alias, $on ) {
 			$this->joins[ $alias ] = array(
-				'table' => $table ,
-				'on'    => $on ,
-				'type'  => 'LEFT' ,
+				'table' => $table,
+				'on'    => $on,
+				'type'  => 'LEFT',
 					) ;
 
 			return $this ;
@@ -138,9 +138,9 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		public function innerJoin( $table, $alias, $on ) {
 
 			$this->joins[ $alias ] = array(
-				'table' => $table ,
-				'on'    => $on ,
-				'type'  => 'INNER' ,
+				'table' => $table,
+				'on'    => $on,
+				'type'  => 'INNER',
 					) ;
 
 			return $this ;
@@ -169,8 +169,8 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function orderBy( $order_by, $order = 'ASC' ) {
 			$this->order_by[] = array(
-				'order_by' => $order_by ,
-				'order'    => $order ,
+				'order_by' => $order_by,
+				'order'    => $order,
 					) ;
 
 			return $this ;
@@ -181,10 +181,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function where( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'where' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'where',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -195,10 +195,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereNot( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'not' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'not',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -209,10 +209,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereLike( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'like' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'like',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -223,10 +223,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereNotLike( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'not_like' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'not_like',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -237,10 +237,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereLt( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'lt' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'lt',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -251,10 +251,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereLte( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'lte' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'lte',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -265,10 +265,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereGt( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'gt' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'gt',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -279,10 +279,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereGte( $column, $value, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'gte' ,
-				'column' => $column ,
-				'value'  => $value ,
-				'glue'   => $glue ,
+				'type'   => 'gte',
+				'column' => $column,
+				'value'  => $value,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -293,10 +293,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereIn( $column, array $in, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'in' ,
-				'column' => $column ,
-				'value'  => $in ,
-				'glue'   => $glue ,
+				'type'   => 'in',
+				'column' => $column,
+				'value'  => $in,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -307,10 +307,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereNotIn( $column, array $not_in, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'not_in' ,
-				'column' => $column ,
-				'value'  => $not_in ,
-				'glue'   => $glue ,
+				'type'   => 'not_in',
+				'column' => $column,
+				'value'  => $not_in,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -321,9 +321,9 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereAny( array $where, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'  => 'any' ,
-				'where' => $where ,
-				'glue'  => $glue ,
+				'type'  => 'any',
+				'where' => $where,
+				'glue'  => $glue,
 					) ;
 
 			return $this ;
@@ -334,9 +334,9 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereAll( array $where, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'  => 'all' ,
-				'where' => $where ,
-				'glue'  => $glue ,
+				'type'  => 'all',
+				'where' => $where,
+				'glue'  => $glue,
 					) ;
 
 			return $this ;
@@ -347,11 +347,11 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function whereBetween( $column, $start, $end, $glue = 'AND' ) {
 			$this->where[] = array(
-				'type'   => 'between' ,
-				'column' => $column ,
-				'start'  => $start ,
-				'end'    => $end ,
-				'glue'   => $glue ,
+				'type'   => 'between',
+				'column' => $column,
+				'start'  => $start,
+				'end'    => $end,
+				'glue'   => $glue,
 					) ;
 
 			return $this ;
@@ -371,10 +371,10 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 		 */
 		public function havingRaw( $statement, array $values, $glue = 'AND' ) {
 			$this->having[] = array(
-				'type'      => 'raw_having' ,
-				'statement' => $statement ,
-				'values'    => $values ,
-				'glue'      => $glue ,
+				'type'      => 'raw_having',
+				'statement' => $statement,
+				'values'    => $values,
+				'glue'      => $glue,
 					) ;
 
 			return $this ;
@@ -633,7 +633,6 @@ if ( ! class_exists( 'SRP_Query' ) ) {
 
 			return "SELECT {$this->target} FROM `{$table}` AS `{$this->alias}`{$join}{$where}{$group}{$having}{$order}{$limit}{$offset}" ;
 		}
-
 	}
 
 }

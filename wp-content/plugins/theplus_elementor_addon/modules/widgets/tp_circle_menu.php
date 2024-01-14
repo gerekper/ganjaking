@@ -41,8 +41,8 @@ class ThePlus_Circle_Menu extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return ['circle', 'bubble menu', 'menu', 'list', 'tp', 'theplus'];
-	}
+        return ['Circle Menu', 'Circular Menu', 'Round Menu', 'Circular Navigation', 'Round Navigation', 'Circular Button Menu', 'Round Button Menu', 'Circular Icon Menu', 'Round Icon Menu', 'Circle Menu Widget', 'Circular Menu Widget', 'Round Menu Widget', 'Circle Menu', 'Circular Menu', 'Round Menu'];
+    }
 
     protected function register_controls() {
 		

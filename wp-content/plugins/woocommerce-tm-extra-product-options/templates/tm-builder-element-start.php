@@ -137,7 +137,7 @@ if ( isset( $repeater, $repeater_quantity, $repeater_min_rows, $repeater_max_row
 	$ulclass = implode( ' ', array_filter( $ulclass ) );
 
 	if ( isset( $tm_element_settings ) && 'radio' === $tm_element_settings['type'] ) {
-		switch ( THEMECOMPLETE_EPO()->tm_epo_global_radio_undo_button ) {
+		switch ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_radio_undo_button' ) ) {
 			case 'enable':
 				$clear_options = '1';
 				break;
@@ -195,10 +195,10 @@ if ( isset( $repeater, $repeater_quantity, $repeater_min_rows, $repeater_max_row
 			$css              = '';
 			$descriptionclass = 'tc-cell tm-element-description tm-description';
 			if ( ! empty( $label_color ) ) {
-				$css .= '.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $label_color ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $label_color ) ) . ';}';
+				$css .= '.tc-epo-label.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $label_color ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $label_color ) ) . ';}';
 			}
 			if ( ! empty( $description_color ) ) {
-				$css              .= '.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $description_color ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $description_color ) ) . ';}';
+				$css              .= '.tc-epo-label.color-' . esc_attr( themecomplete_sanitize_hex_color_no_hash( $description_color ) ) . '{color:' . esc_attr( themecomplete_sanitize_hex_color( $description_color ) ) . ';}';
 				$descriptionclass .= ' color-' . themecomplete_sanitize_hex_color_no_hash( $description_color );
 			}
 			THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css );
@@ -226,9 +226,9 @@ if ( isset( $repeater, $repeater_quantity, $repeater_min_rows, $repeater_max_row
 					echo ' class="tc-cell tc-epo-label tm-epo-element-label' . esc_attr( $class ) . '">';
 
 					// Required indicator.
-					if ( $required && ! empty( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) ) {
-						// THEMECOMPLETE_EPO()->tm_epo_global_required_indicator may contain HTML code.
-						echo '<span class="tm-epo-required tc-' . esc_attr( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator_position ) . '">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ), THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+					if ( $required && ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ) ) {
+						// THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) may contain HTML code.
+						echo '<span class="tm-epo-required tc-' . esc_attr( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator_position' ) ) . '">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ), THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
 					}
 
 					// Icon tooltip.

@@ -942,6 +942,16 @@
                     })
                 }
             }
+
+        /**Active tab on anchore ID CLick */
+		let customLink = document.querySelectorAll('a');
+			
+        customLink.forEach(function(link){
+            link.addEventListener("click", function(e){
+                jQuery(this.hash).trigger('click');
+            });
+        });
+        
 	};
 
     window.addEventListener('elementor/frontend/init', (event) => {

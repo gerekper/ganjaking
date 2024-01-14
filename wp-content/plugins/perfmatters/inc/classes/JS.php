@@ -10,7 +10,7 @@ class JS
 			return;
 		}
 
-		add_action('wp', array('Perfmatters\JS', 'queue'));
+		add_action('perfmatters_queue', array('Perfmatters\JS', 'queue'));
 	}
 
 	//queue functions
@@ -87,7 +87,8 @@ class JS
 					'lazysizes',
 					'customize-support',
 					'fastclick',
-					'jqueryParams'
+					'jqueryParams',
+					'et_link_options_data'
 				);
 
 				if(!empty(Config::$options['assets']['delay_js_quick_exclusions'])) {
@@ -252,7 +253,7 @@ class JS
 
 	  	if(!empty(apply_filters('perfmatters_delay_js', !empty(Config::$options['assets']['delay_js'])))) {
 
-	  		$script = '<script type="text/javascript" id="perfmatters-delayed-scripts-js">';
+	  		$script = '<script id="perfmatters-delayed-scripts-js">';
 	  			
 				$script.= 'const pmDelayClick=' . $delay_click . ';';
 				if(!empty($timeout)) {
@@ -308,7 +309,7 @@ class JS
 	        		'id' => 'borlabs-cookie/borlabs-cookie.php',
 	        		'title' => 'Borlabs Cookie',
 	        		'exclusions' => array(
-	        			'/wp-content/plugins/borlabs-cookie/',
+	        			'/plugins/borlabs-cookie/',
 						'borlabs-cookie',
 						'BorlabsCookie',
 						'jquery.min.js'
@@ -325,7 +326,7 @@ class JS
 	        		'id' => 'cookie-notice/cookie-notice.php',
 	        		'title' => 'Cookie Notice & Compliance for GDPR',
 	        		'exclusions' => array(
-	        			'/wp-content/plugins/cookie-notice/js/front.min.js',
+	        			'/plugins/cookie-notice/js/front.min.js',
 						'cnArgs'
 	        		)
 	        	),
@@ -334,7 +335,7 @@ class JS
 	        		'title' => 'CookieYes',
 	        		'exclusions' => array(
 	        			'jquery.min.js',
-	        			'/wp-content/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js',
+	        			'/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js',
 						'cookie-law-info-js-extra'
 	        		)
 	        	),
@@ -343,8 +344,19 @@ class JS
 	        		'title' => 'GDPR Cookie Compliance',
 	        		'exclusions' => array(
 	        			'jquery.min.js',
-	        			'/wp-content/plugins/gdpr-cookie-compliance/',
+	        			'/plugins/gdpr-cookie-compliance/',
 						'moove_gdpr'
+	        		)
+	        	),
+	        	'gravityforms' => array(
+	        		'id' => 'gravityforms/gravityforms.php',
+	        		'title' => 'Gravity Forms',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'gravityforms',
+	        			'gform',
+						'moxiejs-js',
+						'plupload-js'
 	        		)
 	        	),
 	        	'grow-social' => array(
@@ -376,7 +388,7 @@ class JS
 	        		'id' => 'lightweight-cookie-notice-free/init.php',
 	        		'title' => 'Lightweight Cookie Notice',
 	        		'exclusions' => array(
-	        			'/wp-content/lightweight-cookie-notice-free/public/assets/js/production/general.js',
+	        			'/lightweight-cookie-notice-free/public/assets/js/production/general.js',
 						'daextlwcnf-general-js-after',
 						'daextlwcnf-general-js-extra'
 	        		)
@@ -386,6 +398,14 @@ class JS
 	        		'title' => 'Mediavine',
 	        		'exclusions' => array(
 	        			'mediavine'
+	        		)
+	        	),
+	        	'mediavine' => array(
+	        		'id' => 'modula-slider/modula-slider.php',
+	        		'title' => 'Modula Slider',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'/modula-slider/'
 	        		)
 	        	),
 	        	'ninja-forms' => array(
@@ -437,6 +457,13 @@ class JS
 						'rev_slider',
 						'setREVStartSize',
 						'window.RS_MODULES'
+	        		)
+	        	),
+	        	'sheknows-infuse' => array(
+	        		'id' => 'sheknows-infuse/sheknows-infuse.php',
+	        		'title' => 'SHE Media Infuse',
+	        		'exclusions' => array(
+	        			'blogherads'
 	        		)
 	        	),
 	        	'shortpixel' => array(
@@ -504,6 +531,14 @@ class JS
 						'privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js'
 	                )   
 	            ),
+	            'thrive-leads'  => array(
+	                'id' => 'thrive-leads/thrive-leads.php',
+	                'title' => 'Thrive Leads',
+	                'exclusions' => array(
+	                    'jquery.min.js',
+	                    'tve_frontend-js'
+	                )
+	            ),
 	            'woocommerce-product-gallery' => array(
 	                'id' => 'woocommerce/woocommerce.php',
 	                'title' => 'WooCommerce Single Product Gallery',
@@ -546,7 +581,11 @@ class JS
 	        			'wprm-public-js',
 	        			'wprm-public-js-extra',
 	        			'wprmp-public-js',
-	        			'wprmp-public-js-extra'
+	        			'wprmp-public-js-extra',
+	        			'wprm-shared-js',
+						'wprmp-admin-js',
+						'wprm-admin-js',
+						'wprm-admin-modal-js'
 	        		)
 	        	),
 	        	'ws-form' => array(
@@ -596,8 +635,8 @@ class JS
 	        		'id' => 'bricks',
 	        		'title' => 'Bricks',
 	        		'exclusions' => array(
-	        			'/wp-content/themes/bricks/assets/js/bricks.min.js',
-	        			'/wp-content/themes/bricks/assets/js/libs/swiper.min.js',
+	        			'/themes/bricks/assets/js/bricks.min.js',
+	        			'/themes/bricks/assets/js/libs/swiper.min.js',
 	        			'bricks-scripts-js-extra'
 	        		)
 	        	),
@@ -656,6 +695,13 @@ class JS
 	                    'offSide'
 	                )
 	            ),
+	            'mediavine-trellis' => array(
+	        		'id' => 'mediavine-trellis',
+	        		'title' => 'Mediavine Trellis',
+	        		'exclusions' => array(
+	        			'mv-trellis-localModel'
+	        		)
+	        	),
 	            'newspaper' => array(
 	        		'id' => 'newspaper',
 	        		'title' => 'Newspaper',

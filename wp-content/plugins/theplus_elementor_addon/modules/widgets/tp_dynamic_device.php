@@ -49,8 +49,8 @@ class ThePlus_Dynamic_Devices extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return ['dynamic custom skin', 'dynamic loop', 'loop builder', 'skin builder', 'custom skin', 'post skin', 'post loop','dynamic listing', 'dynamic custom post type listing', 'custom post type listing', 'post type'];
-	}
+        return ['Dynamic Devices', 'Devices', 'Device', 'Responsive Devices', 'Device Preview', 'Device Switcher', 'Device Mockup', 'Device Showcase', 'Device Slider', 'Device Carousel', 'Device Display', 'Device Viewer', 'Device Frames'];
+    }
 
     protected function register_controls() {
 		

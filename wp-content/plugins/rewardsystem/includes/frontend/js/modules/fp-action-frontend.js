@@ -16,7 +16,11 @@ jQuery( function ( $ ) {
         woocommerce_applied_coupon:function(){
           $('.rs-coupon-reward-message').hide();
         },
-        msg_for_rewardgateway : function () {
+        msg_for_rewardgateway : function () {   
+
+            if ( 'yes' !== fp_action_frontend_params.action_reward ){
+                return;
+            }
 
             var gatewayid = $( this ).val() ;
             var gatewaytitle = $( '.payment_method_' + gatewayid ).find( 'label' ).html() ;
@@ -29,16 +33,19 @@ jQuery( function ( $ ) {
             $.post( fp_action_frontend_params.ajaxurl , data , function ( response ) {
                 if ( true === response.success ) {
                     $( '.rsgatewaypointsmsg' ).css( 'display' , 'none' ) ;
-                    $( '.rspgpoints' ).css( 'display' , 'none' ) ;
+                    $( '.rspgpoints' ).remove() ;
 
                     if ( response.data.restrictedmsg !== '' ) {
                         $( '.rsgatewaypointsmsg' ).css( 'display' , 'inline-block' ) ;
                         $( '.rsgatewaypointsmsg' ).html( response.data.restrictedmsg ) ;
+                        $('html,body').animate({
+                            scrollTop: $('.rsgatewaypointsmsg').offset().top - 200
+                            }, 1200);
                     }
 
                     if ( response.data.rewardpoints != '' ) {
                         $( '.rspgpoints' ).css( 'display' , 'inline-block' ) ;
-                        $( '.rspgpoints' ).html( response.data.earn_gateway_message ) ;
+                        $( '.woocommerce-checkout-payment' ).find( '.payment_method_'+gatewayid ).first().append('<div class="woocommerce-info rspgpoints">'+response.data.earn_gateway_message+'</div>');
                     }
                 } else {
                     window.alert( response.data.error ) ;

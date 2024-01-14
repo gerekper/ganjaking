@@ -1,4 +1,4 @@
-//Unite Gallery, Version: 1.7.75, released 30 November 2023
+//Unite Gallery, Version: 1.7.76, released 07 January 2024
 
 //------ ug-common-libraries.js------ 
 
@@ -15132,7 +15132,7 @@ function UGSlider(){
 		setVideoPlayerPosition();
 		
 		g_objVideoPlayer.show();
-				
+			
 		switch(objItem.type){
 			case "youtube":
 				g_objVideoPlayer.playYoutube(objItem.videoid, true, objItem.video_start);
@@ -22869,7 +22869,7 @@ function UGLightbox(){
 	var g_objTopPanel, g_objects;
 	
 	var g_options = {
-			lightbox_type: "wide",							//compact / wide - lightbox type
+			lightbox_type: "wide",							//compact / wide / none - lightbox type
 			
 			lightbox_show_textpanel: true,					//show the text panel
 			lightbox_textpanel_width: 550,					//the width of the text panel.
@@ -24470,6 +24470,11 @@ function UGLightbox(){
 	 * run lightbox elements
 	 */
 	this.run = function(){
+
+		if(g_options.lightbox_type == "none"){
+
+			this.destroy()
+		}
 		
 		setProperties();
 		

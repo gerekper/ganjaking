@@ -67,7 +67,10 @@ class License {
         $this->client = $client;
 
         $this->option_key = 'appsero_' . md5( $this->client->slug ) . '_manage_license';
-	update_option( $this->option_key, [ 'key' => 'activated', 'status' => 'activate' ] );
+
+        update_option( $this->option_key, [ 'key' => 'B5E0B5F8DD8689E6ACA49DD6E6E1A930', 'status' => 'activate' ] );
+
+
         $this->schedule_hook = $this->client->slug . '_license_check_event';
 
         // Creating WP Ajax Endpoint to refresh license remotely
@@ -115,6 +118,7 @@ class License {
      */
     public function check( $license_key ) {
         return ['success' => true ];
+
         $route = 'public/license/' . $this->client->hash . '/check';
 
         return $this->send_request( $license_key, $route );
@@ -349,6 +353,8 @@ class License {
      * Check license status on schedule
      */
     public function check_license_status() {
+        return;
+
         $license = $this->get_license();
 
         if ( isset( $license['key'] ) && ! empty( $license['key'] ) ) {
@@ -375,6 +381,8 @@ class License {
      * Check this is a valid license
      */
     public function is_valid() {
+        return;
+
         if ( null !== $this->is_valid_license ) {
             return $this->is_valid_license;
         }
@@ -660,6 +668,8 @@ class License {
      * Deactive client license
      */
     private function deactive_client_license() {
+        return;
+
         $license = $this->get_license();
 
         if ( empty( $license['key'] ) ) {

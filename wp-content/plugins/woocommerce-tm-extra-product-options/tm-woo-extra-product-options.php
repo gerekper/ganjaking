@@ -6,7 +6,7 @@
  * Author: ThemeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 6.4.0.1
+ * Version: 6.4.2
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Tested up to: 7.0
@@ -37,7 +37,7 @@ require_once __DIR__ . '/includes/class-themecomplete-extra-product-options-setu
 /**
  * Main instance of Themecomplete_Extra_Product_Options_Setup.
  *
- * @since  4.8
+ * @since 4.8
  * @return Themecomplete_Extra_Product_Options_Setup
  */
 function themecomplete_extra_product_options_setup() {

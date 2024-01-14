@@ -30,7 +30,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 		$changes_product_image = empty( $element['changes_product_image'] ) ? '' : $element['changes_product_image'];
 
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 
@@ -52,11 +52,11 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 		$selected_value = '';
 		if ( isset( $args['posted_name'] ) ) {
 			$name = $args['posted_name'];
-			if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ $name ] ) ) {
+			if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) && isset( $this->post_data[ $name ] ) ) {
 				$selected_value = $this->post_data[ $name ];
 			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-			} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
+			} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) ) {
 				$selected_value = -1;
 			}
 		}
@@ -83,7 +83,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 			$selected = false;
 
 			if ( -1 === $selected_value ) {
-				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ! isset( $this->post_data['quantity'] ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) ) {
+				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ! isset( $this->post_data['quantity'] ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) ) ) {
 					if ( false !== $default_value ) {
 						$selected = true;
 					}

@@ -139,7 +139,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 		$has_epo      = THEMECOMPLETE_EPO_API()->has_options( $post_id );
 		if ( ( 'bto' === $product_type || 'composite' === $product_type )
 			&& ! THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo )
-			&& 'yes' !== THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all
+			&& 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_final_total_box_all' )
 		) {
 
 			// search components for options.
@@ -241,7 +241,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 		if ( $product ) {
 			THEMECOMPLETE_EPO()->set_tm_meta( themecomplete_get_id( $product ) );
 			THEMECOMPLETE_EPO()->is_bto = true;
-			if ( ( 'normal' === THEMECOMPLETE_EPO()->tm_epo_display || 'normal' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_display'] ) && 'action' !== THEMECOMPLETE_EPO()->tm_meta_cpf['override_display'] ) {
+			if ( ( 'normal' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_display' ) || 'normal' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_display'] ) && 'action' !== THEMECOMPLETE_EPO()->tm_meta_cpf['override_display'] ) {
 				THEMECOMPLETE_EPO_DISPLAY()->frontend_display( themecomplete_get_id( $product ), $component_id );
 			}
 			return;

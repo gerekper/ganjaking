@@ -113,6 +113,7 @@ jQuery( function( $ ) {
             if ( $( 'select.srp_select2_search' ).length ) {
                 //Multiple select with ajax search
                 $( 'select.srp_select2_search' ).each( function () {
+
                     var select2_args = {
                         allowClear : $( this ).data( 'allow_clear' ) ? true : false ,
                         placeholder : $( this ).data( 'placeholder' ) ,
@@ -121,7 +122,7 @@ jQuery( function( $ ) {
                             return m ;
                         } ,
                         ajax : {
-                            url : srp_enhanced_params.ajaxurl ,
+                            url : srp_enhanced_params.ajax_url ,
                             dataType : 'json' ,
                             delay : 250 ,
                             data : function ( params ) {
@@ -191,7 +192,7 @@ jQuery( function( $ ) {
 		    return terms ;
             } ) ;
             
-            $( "select.rs-product-search" ).ajaxChosen( {
+        $( "select.rs-product-search" ).ajaxChosen( {
 		method : 'GET' ,
 		url : srp_enhanced_params.ajax_url ,
 		dataType : 'json' ,

@@ -1,4 +1,3 @@
-
 jQuery( function ( $ ) {
     'use strict' ;
     var SRPScripts = {
@@ -40,6 +39,7 @@ jQuery( function ( $ ) {
         unblock : function ( id ) {
             $( id ).unblock() ;
         } ,
+
     } ;
     SRPScripts.init() ;
 } ) ;

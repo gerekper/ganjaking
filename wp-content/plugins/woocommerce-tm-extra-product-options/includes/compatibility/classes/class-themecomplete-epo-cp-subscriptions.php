@@ -271,7 +271,7 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	 * @since 6.1
 	 */
 	public function woocommerce_order_again_cart_item_data( $cart_item_meta ) {
-		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_order_again_include_addons'] ) && 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_order_again_include_addons'] ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_order_again_include_addons' ) ) {
 			if ( ! defined( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL' ) ) {
 				define( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL', 1 );
 			}
@@ -328,8 +328,8 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	 * @since 1.0
 	 */
 	public function wc_epo_script_args( $args ) {
-		$args['i18n_subscription_sign_up_fee'] = ( ! empty( THEMECOMPLETE_EPO()->data_store['tm_epo_subscription_fee_text'] ) ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_subscription_fee_text'] : esc_html__( 'Sign up fee', 'woocommerce-tm-extra-product-options' );
-		$args['i18n_sign_up_fee']              = ( ! empty( THEMECOMPLETE_EPO()->data_store['tm_epo_signup_fee_text'] ) ) ? THEMECOMPLETE_EPO()->data_store['tm_epo_signup_fee_text'] : esc_html__( 'sign-up fee', 'woocommerce-tm-extra-product-options' );
+		$args['i18n_subscription_sign_up_fee'] = ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_subscription_fee_text' ) ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_subscription_fee_text' ) : esc_html__( 'Sign up fee', 'woocommerce-tm-extra-product-options' );
+		$args['i18n_sign_up_fee']              = ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_signup_fee_text' ) ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_signup_fee_text' ) : esc_html__( 'sign-up fee', 'woocommerce-tm-extra-product-options' );
 		$args['i18n_and_a']                    = esc_html__( 'and a', 'woocommerce-tm-extra-product-options' );
 
 		return $args;
@@ -579,6 +579,7 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 				case 'selectbox':
 				case 'radiobuttons':
 				case 'checkboxes':
+				case 'multiple_file_upload':
 					$data[ $key ]->subscription_fee_type = 'multiple';
 					break;
 
@@ -810,7 +811,7 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	 *
 	 * @param mixed $val Value to clear.
 	 * @return mixed
-	 * @since  1.0
+	 * @since 1.0
 	 * @access private
 	 */
 	private function clear_array_values( $val ) {

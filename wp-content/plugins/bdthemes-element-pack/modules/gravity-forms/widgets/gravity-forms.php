@@ -116,20 +116,6 @@ class Gravity_Forms extends Module_Base
 			]
 		);
 
-		// $this->add_control(
-		// 	'custom_attributes',
-		// 	[
-		// 		'label' => __('Custom Attributes', 'bdthemes-element-pack'),
-		// 		'type' => Controls_Manager::TEXTAREA,
-		// 		'dynamic' => [
-		// 			'active' => true,
-		// 		],
-		// 		'placeholder' => __('key|value', 'bdthemes-element-pack'),
-		// 		'description' => sprintf(__('Set custom attributes for the gravity form. Each attribute in a separate line. Separate attribute key from the value using %s character. for example: field_values|param_name1=value1', 'bdthemes-element-pack'), '<code>|</code>'),
-		// 		'classes' => 'elementor-control-direction-ltr',
-		// 	]
-		// );
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -203,7 +189,7 @@ class Gravity_Forms extends Module_Base
 				],
 				'default'   => '',
 				'selectors' => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
 					 {{WRAPPER}} .bdt-gravity-forms .gfield textarea' => 'text-align: {{VALUE}};',
 				],
 			]
@@ -224,7 +210,7 @@ class Gravity_Forms extends Module_Base
 				'label'     => __('Text Color', 'bdthemes-element-pack'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
                      {{WRAPPER}} .bdt-gravity-forms .gfield textarea, {{WRAPPER}} .bdt-gravity-forms .gfield select' => 'color: {{VALUE}}',
 				],
 			]
@@ -236,7 +222,7 @@ class Gravity_Forms extends Module_Base
 				'label'     => __('Background Color', 'bdthemes-element-pack'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
                      {{WRAPPER}} .bdt-gravity-forms .gfield textarea, {{WRAPPER}} .bdt-gravity-forms .gfield select' => 'background-color: {{VALUE}}',
 				],
 			]
@@ -249,7 +235,7 @@ class Gravity_Forms extends Module_Base
 				'label'       => __('Border', 'bdthemes-element-pack'),
 				'placeholder' => '1px',
 				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+				'selector'    => '{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
 								  {{WRAPPER}} .bdt-gravity-forms .gfield textarea, {{WRAPPER}} .bdt-gravity-forms .gfield select',
 				'separator'   => 'before',
 			]
@@ -262,7 +248,7 @@ class Gravity_Forms extends Module_Base
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
 				'selectors'  => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
 					 {{WRAPPER}} .bdt-gravity-forms .gfield textarea, 
                      {{WRAPPER}} .bdt-gravity-forms .gfield select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -318,7 +304,7 @@ class Gravity_Forms extends Module_Base
 				],
 				'size_units' => ['px', 'em', '%'],
 				'selectors'  => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
                      {{WRAPPER}} .bdt-gravity-forms .gfield textarea' => 'text-indent: {{SIZE}}{{UNIT}}',
 				],
 			]
@@ -357,7 +343,7 @@ class Gravity_Forms extends Module_Base
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'field_box_shadow',
-				'selector'  => '{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+				'selector'  => '{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
 				{{WRAPPER}} .bdt-gravity-forms .gfield textarea, 
 				{{WRAPPER}} .bdt-gravity-forms .gfield select',
 				'separator' => 'before',
@@ -1142,7 +1128,7 @@ class Gravity_Forms extends Module_Base
 				'label'     => esc_html__('Fullwidth Input', 'bdthemes-element-pack'),
 				'type'      => Controls_Manager::SWITCHER,
 				'selectors'  => [
-					'{{WRAPPER}} .bdt-gravity-forms .gfield input[type="text"], 
+					'{{WRAPPER}} .bdt-gravity-forms .gfield input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), 
                      {{WRAPPER}} .bdt-gravity-forms .gfield select' => 'width: 100%;',
 				],
 			]

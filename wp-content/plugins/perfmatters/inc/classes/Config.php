@@ -17,6 +17,7 @@ class Config
 
 		//actions
 		add_action('admin_bar_menu', array('Perfmatters\Config', 'admin_bar_menu'), 500);
+		add_action('wp', array('Perfmatters\Config', 'queue'));
 	}
 
 	//setup admin bar menu
@@ -33,5 +34,33 @@ class Config
 			'title' => 'Perfmatters',
 			'href'  => admin_url('options-general.php?page=perfmatters')
 		));
+	}
+
+	//run the queue
+	public static function queue() {
+
+		//inital checks
+        if(is_admin() || perfmatters_is_dynamic_request() || perfmatters_is_page_builder() || isset($_GET['perfmatters']) || isset($_GET['perfmattersoff'])) {
+            return;
+        }
+
+        //logged in check
+        if(!empty(self::$tools['disable_logged_in']) && is_user_logged_in()) {
+            return;
+        }
+
+        //user agent check
+        if(!empty($_SERVER['HTTP_USER_AGENT'])) {
+            $excluded_agents = array(
+                'usercentrics'
+            );
+            foreach($excluded_agents as $agent) {
+                if(stripos($_SERVER['HTTP_USER_AGENT'], $agent) !== false) {
+                    return;
+                }
+            }
+        }
+
+		do_action('perfmatters_queue');
 	}
 }

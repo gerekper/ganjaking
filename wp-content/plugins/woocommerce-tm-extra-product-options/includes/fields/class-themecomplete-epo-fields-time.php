@@ -26,9 +26,9 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
-		$tm_epo_global_datepicker_theme    = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_theme : $this->get_value( $element, 'theme', 'epo' );
-		$tm_epo_global_datepicker_size     = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_size : $this->get_value( $element, 'theme_size', 'medium' );
-		$tm_epo_global_datepicker_position = ! empty( THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position ) ? THEMECOMPLETE_EPO()->tm_epo_global_datepicker_position : $this->get_value( $element, 'theme_position', 'normal' );
+		$tm_epo_global_datepicker_theme    = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_theme' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_theme' ) : $this->get_value( $element, 'theme', 'epo' );
+		$tm_epo_global_datepicker_size     = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_size' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_size' ) : $this->get_value( $element, 'theme_size', 'medium' );
+		$tm_epo_global_datepicker_position = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_position' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_datepicker_position' ) : $this->get_value( $element, 'theme_position', 'normal' );
 
 		$button_type = ! empty( $element['button_type'] ) ? $element['button_type'] : 'system';
 
@@ -67,7 +67,7 @@ class THEMECOMPLETE_EPO_FIELDS_time extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) === 'yes' ) {
 			$class_label = ' fullwidth';
 		}
 

@@ -1,6 +1,6 @@
 <?php
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
@@ -8,11 +8,11 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 	class FPRewardSystemEncashTabList extends WP_List_Table {
 
 		public function __construct() {
-			global $status , $page ;
+			global $status, $page ;
 			parent::__construct( array(
-				'singular' => 'encashing_application' ,
-				'plural'   => 'encashing_applications' ,
-				'ajax'     => true
+				'singular' => 'encashing_application',
+				'plural'   => 'encashing_applications',
+				'ajax'     => true,
 			) ) ;
 		}
 
@@ -29,8 +29,8 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 			if ( 'Paid' == $item[ 'status' ]) {
 				//Build row actions
 				$actions = array(
-					'cancel' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Cancel</a>' , sanitize_text_field($page) , $tab , $section , 'cancel' , $item[ 'id' ] ) ,
-					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , sanitize_text_field($page) , $tab , $section , 'encash_application_delete' , $item[ 'id' ] ) ,
+					'cancel' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Cancel</a>' , sanitize_text_field($page) , $tab , $section , 'cancel' , $item[ 'id' ] ),
+					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , sanitize_text_field($page) , $tab , $section , 'encash_application_delete' , $item[ 'id' ] ),
 						) ;
 
 				//Return the title contents
@@ -42,7 +42,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 			} elseif (  'Cancelled'  == $item[ 'status' ]) {
 				//Build row actions
 				$actions = array(
-					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , sanitize_text_field($page) , $tab , $section , 'encash_application_delete' , $item[ 'id' ] ) ,
+					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , sanitize_text_field($page) , $tab , $section , 'encash_application_delete' , $item[ 'id' ] ),
 						) ;
 
 				//Return the title contents
@@ -54,10 +54,10 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 			} else {
 				//Build row actions
 				$actions = array(
-					'accept' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Accept</a>' , $page , $tab , $section , 'accept' , $item[ 'id' ] ) ,
-					'cancel' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Cancel</a>' , $page , $tab, $section, 'cancel' , $item[ 'id' ] ) ,
+					'accept' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Accept</a>' , $page , $tab , $section , 'accept' , $item[ 'id' ] ),
+					'cancel' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Cancel</a>' , $page , $tab, $section, 'cancel' , $item[ 'id' ] ),
 					//'edit' => sprintf('<a href="?page=rewardsystem_callback&tab=rewardsystem_request_for_cash_back&encash_application_id=%s">Edit</a>', $item['id']),
-					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page , $tab, $section, 'delete' , $item[ 'id' ] ) ,
+					'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page , $tab, $section, 'delete' , $item[ 'id' ] ),
 						) ;
 
 				//Return the title contents
@@ -77,38 +77,38 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 
 		public function get_columns() {
 			$columns = array(
-				'cb'                   => '<input type="checkbox" />' , //Render a checkbox instead of text            
-				'userloginname'        => __( 'Username' , 'rewardsystem' ) ,
-				'pointstoencash'       => __( 'Points for Cashback' , 'rewardsystem' ) ,
-				'pointsconvertedvalue' => __( 'Points equivalent in Amount ' . get_woocommerce_currency_symbol() , 'rewardsystem' ) ,
-				'reasonforencash'      => __( 'Reason for Cashback' , 'rewardsystem' ) ,
-				'paypalemailid'        => __( 'Paypal Address ' , 'rewardsystem' ) ,
-				'otherpaymentdetails'  => __( 'Other Payment Details' , 'rewardsystem' ) ,
-				'status'               => __( 'Application Status' , 'rewardsystem' ) ,
-				'date'                 => __( 'Date' , 'rewardsystem' )
+				'cb'                   => '<input type="checkbox" />', //Render a checkbox instead of text            
+				'userloginname'        => __( 'Username' , 'rewardsystem' ),
+				'pointstoencash'       => __( 'Points for Cashback' , 'rewardsystem' ),
+				'pointsconvertedvalue' => __( 'Points equivalent in Amount ' . get_woocommerce_currency_symbol() , 'rewardsystem' ),
+				'reasonforencash'      => __( 'Reason for Cashback' , 'rewardsystem' ),
+				'paypalemailid'        => __( 'Paypal Address ' , 'rewardsystem' ),
+				'otherpaymentdetails'  => __( 'Other Payment Details' , 'rewardsystem' ),
+				'status'               => __( 'Application Status' , 'rewardsystem' ),
+				'date'                 => __( 'Date' , 'rewardsystem' ),
 					) ;
 			return $columns ;
 		}
 
 		public function get_sortable_columns() {
 			$sortable_columns = array(
-				'userloginname'        => array( 'userloginname' , false ) , //true means it's already sorted            
-				'pointstoencash'       => array( 'pointstoencash' , false ) ,
-				'pointsconvertedvalue' => array( 'pointsconvertedvalue' , false ) ,
-				'reasonforencash'      => array( 'reasonforencash' , false ) ,
-				'paypalemailid'        => array( 'paypalemailid' , false ) ,
-				'otherpaymentdetails'  => array( 'otherpaymentdetails' , false ) ,
-				'status'               => array( 'status' , false ) ,
-				'date'                 => array( 'date' , false )
+				'userloginname'        => array( 'userloginname', false ), //true means it's already sorted            
+				'pointstoencash'       => array( 'pointstoencash', false ),
+				'pointsconvertedvalue' => array( 'pointsconvertedvalue', false ),
+				'reasonforencash'      => array( 'reasonforencash', false ),
+				'paypalemailid'        => array( 'paypalemailid', false ),
+				'otherpaymentdetails'  => array( 'otherpaymentdetails', false ),
+				'status'               => array( 'status', false ),
+				'date'                 => array( 'date', false ),
 					) ;
 			return $sortable_columns ;
 		}
 
 		public function get_bulk_actions() {
 			$actions = array(
-				'encash_application_delete' => __( 'Delete' , 'rewardsystem' ) ,
-				'rspaid'                    => __( 'Mark as Approve' , 'rewardsystem' ) ,
-				'rsdue'                     => __( 'Mark as Reject' , 'rewardsystem' ) ,
+				'encash_application_delete' => __( 'Delete' , 'rewardsystem' ),
+				'rspaid'                    => __( 'Mark as Approve' , 'rewardsystem' ),
+				'rsdue'                     => __( 'Mark as Reject' , 'rewardsystem' ),
 					) ;
 			return $actions ;
 		}
@@ -139,10 +139,10 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 						}
 
 						$table_args   = array(
-							'user_id'           => $user_id ,
-							'pointstoinsert'    => $value[ 'pointstoencash' ] ,
-							'checkpoints'       => 'RCBRP' ,
-							'totalearnedpoints' => $value[ 'pointstoencash' ] ,
+							'user_id'           => $user_id,
+							'pointstoinsert'    => $value[ 'pointstoencash' ],
+							'checkpoints'       => 'RCBRP',
+							'totalearnedpoints' => $value[ 'pointstoencash' ],
 								) ;
 						RSPointExpiry::insert_earning_points( $table_args ) ;
 						RSPointExpiry::record_the_points( $table_args ) ;
@@ -166,7 +166,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				}
 				if ( ! empty( $message ) ) :
 					?>
-					<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+					<div id="message" class="updated"><p><?php echo do_shortcode($message); ?></p></div>
 					<?php
 				endif ;
 			} elseif ( 'accept' === $this->current_action() ) {
@@ -199,7 +199,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				}
 				if ( ! empty( $message ) ) :
 					?>
-					<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+					<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 					<?php
 				endif ;
 			} elseif ( 'cancel' === $this->current_action() ) {
@@ -220,10 +220,10 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 						}
 
 						$table_args   = array(
-							'user_id'           => $user_id ,
-							'pointstoinsert'    => $value[ 'pointstoencash' ] ,
-							'checkpoints'       => 'RCBRP' ,
-							'totalearnedpoints' => $value[ 'pointstoencash' ] ,
+							'user_id'           => $user_id,
+							'pointstoinsert'    => $value[ 'pointstoencash' ],
+							'checkpoints'       => 'RCBRP',
+							'totalearnedpoints' => $value[ 'pointstoencash' ],
 								) ;
 						RSPointExpiry::insert_earning_points( $table_args ) ;
 						RSPointExpiry::record_the_points( $table_args ) ;
@@ -239,7 +239,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				}
 				if ( ! empty( $message ) ) :
 					?>
-					<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+					<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 					<?php
 				endif ;
 			} elseif ( 'delete' === $this->current_action() ) {
@@ -257,10 +257,10 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 						}
 
 						$table_args = array(
-							'user_id'           => $user_id ,
-							'pointstoinsert'    => $value[ 'pointstoencash' ] ,
-							'checkpoints'       => 'RCBRP' ,
-							'totalearnedpoints' => $value[ 'pointstoencash' ] ,
+							'user_id'           => $user_id,
+							'pointstoinsert'    => $value[ 'pointstoencash' ],
+							'checkpoints'       => 'RCBRP',
+							'totalearnedpoints' => $value[ 'pointstoencash' ],
 								) ;
 						RSPointExpiry::insert_earning_points( $table_args ) ;
 						RSPointExpiry::record_the_points( $table_args ) ;
@@ -271,7 +271,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				$db->query( "DELETE FROM {$db->prefix}sumo_reward_encashing_submitted_data WHERE id IN($idtodelete)" ) ;
 				if ( ! empty( $message ) ) :
 					?>
-					<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+					<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 					<?php
 				endif ;
 			} else {
@@ -282,11 +282,11 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				}
 				if ( ! empty( $message ) ) :
 					?>
-					<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+					<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 					<?php
 				endif ;
 			}
-			$redirect = remove_query_arg( array( 'action' , 'id' ) , get_permalink() ) ;
+			$redirect = remove_query_arg( array( 'action', 'id' ) , get_permalink() ) ;
 			wp_safe_redirect( $redirect ) ;
 		}
 
@@ -305,7 +305,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 				if ( isset( $getallresults ) ) {
 					foreach ( $getallresults as $value ) {
 						if ( '' != $value[ 'pointstoencash' ] && '' != $value[ 'paypalemailid' ] ) {
-							$mainlistarray_paypal[] = array( $value[ 'paypalemailid' ] , $value[ 'pointsconvertedvalue' ] , get_woocommerce_currency() , $value[ 'userid' ] , get_option( 'rs_encashing_paypal_custom_notes' ) ) ;
+							$mainlistarray_paypal[] = array( $value[ 'paypalemailid' ], $value[ 'pointsconvertedvalue' ], get_woocommerce_currency(), $value[ 'userid' ], get_option( 'rs_encashing_paypal_custom_notes' ) ) ;
 						}
 					}
 					if ( isset( $_REQUEST[ 'fprs_encash_export_csv_paypal' ] ) ) {
@@ -333,14 +333,14 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 					foreach ( $getallresults as $allvalue ) {
 						if ( '' != $allvalue[ 'pointstoencash' ] ) {
 							$mainlistarray_alldata_heading = 'Username,UserCurrentPoints,PointsforCashback,CurrencyCode,AmountforCashback,ReasonforEncashing,PaypalAddress,OtherPaymentDetails,ApplicationStatus,CashbackRequestedDate' . "\n" ;
-							$mainlistarray_alldata[]       = array( $allvalue[ 'userloginname' ] , $allvalue[ 'encashercurrentpoints' ] , $allvalue[ 'pointstoencash' ] , get_woocommerce_currency() , $allvalue[ 'pointsconvertedvalue' ] , $allvalue[ 'reasonforencash' ] , $allvalue[ 'paypalemailid' ] , $allvalue[ 'otherpaymentdetails' ] , $allvalue[ 'status' ] , $allvalue[ 'date' ] ) ;
+							$mainlistarray_alldata[]       = array( $allvalue[ 'userloginname' ], $allvalue[ 'encashercurrentpoints' ], $allvalue[ 'pointstoencash' ], get_woocommerce_currency(), $allvalue[ 'pointsconvertedvalue' ], $allvalue[ 'reasonforencash' ], $allvalue[ 'paypalemailid' ], $allvalue[ 'otherpaymentdetails' ], $allvalue[ 'status' ], $allvalue[ 'date' ] ) ;
 						}
 					}
 					if ( isset( $_REQUEST[ 'fprs_encash_export_csv_alldata' ] ) ) {
 						$dateformat = get_option( 'date_format' ) ;
 						$name       = date_i18n( 'Y-m-d' ) ;
 						ob_end_clean() ;
-						echo wp_kses_post($mainlistarray_alldata_heading );
+						echo do_shortcode($mainlistarray_alldata_heading );
 						header( 'Content-type: text/csv' ) ;
 						header( 'Content-Disposition: attachment; filename=sumoreward_cashback_alldata' . $name . '.csv' ) ;
 						header( 'Pragma: no-cache' ) ;
@@ -370,7 +370,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 			$sortable = $this->get_sortable_columns() ;
 
 			// here we configure table headers, defined in our methods
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 
 			// [OPTIONAL] process bulk action if any
 			$this->process_bulk_action() ;
@@ -382,7 +382,7 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 			$paged   = isset( $_REQUEST[ 'paged' ] ) ? max( 0 , intval( $_REQUEST[ 'paged' ] ) - 1 ) : 0 ;
 			$paged   = $paged * $per_page + 1;
 			$orderby = ( isset( $_REQUEST[ 'orderby' ] ) && in_array( sanitize_text_field($_REQUEST[ 'orderby' ]) , array_keys( $this->get_sortable_columns() ) ) ) ? sanitize_text_field($_REQUEST[ 'orderby' ] ): 'id' ;
-			$order   = ( isset( $_REQUEST[ 'order' ] ) && in_array( sanitize_text_field($_REQUEST[ 'order' ]) , array( 'asc' , 'desc' ) ) ) ? sanitize_text_field($_REQUEST[ 'order' ]) : 'asc' ;
+			$order   = ( isset( $_REQUEST[ 'order' ] ) && in_array( sanitize_text_field($_REQUEST[ 'order' ]) , array( 'asc', 'desc' ) ) ) ? sanitize_text_field($_REQUEST[ 'order' ]) : 'asc' ;
 
 			// [REQUIRED] define $items array
 			// notice that last argument is ARRAY_A, so we will retrieve array
@@ -390,12 +390,11 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
 
 			// [REQUIRED] configure pagination
 			$this->set_pagination_args( array(
-				'total_items' => $total_items , // total items defined above
-				'per_page'    => $per_page , // per page constant defined at top of method
-				'total_pages' => ceil( $total_items / $per_page ) // calculate pages count
+				'total_items' => $total_items, // total items defined above
+				'per_page'    => $per_page, // per page constant defined at top of method
+				'total_pages' => ceil( $total_items / $per_page ), // calculate pages count
 			) ) ;
 		}
-
 	}
 
 }

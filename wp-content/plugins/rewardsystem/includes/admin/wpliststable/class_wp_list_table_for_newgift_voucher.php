@@ -3,7 +3,7 @@
 // Integrate WP List Table for Master Log
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
@@ -26,35 +26,35 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 			$searchvalue           = wc_clean(wp_unslash($_REQUEST[ 's' ] ));
 			$keyword               = "$searchvalue" ;
 			$data                  = $this->get_data_of_searched_code( $keyword , $newdata ) ;
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 			$currentPage           = $this->get_pagenum() ;
 			$totalItems            = count( $data ) ;
 			$newdata               = array_slice( $data , ( ( $currentPage - 1 ) * $perPage ) , $perPage ) ;
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 			$this->items           = $newdata ;
 		} else {
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 			$currentPage           = $this->get_pagenum() ;
 			$totalItems            = count( $data ) ;
 			$this->set_pagination_args( array(
-				'total_items' => $num_rows ,
-				'per_page'    => $perPage
+				'total_items' => $num_rows,
+				'per_page'    => $perPage,
 			) ) ;
 			$data                  = array_slice( $data , ( ( $currentPage - 1 ) * $perPage ) , $perPage ) ;
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 			$this->items           = $data ;
 		}
 	}
 
 	public function get_columns() {
 		$columns = array(
-			'cb'                      => '<input type="checkbox" />' ,
-			'sno'                     => __( 'S.No' , 'rewardsystem' ) ,
-			'reward_code'             => __( 'Voucher Code' , 'rewardsystem' ) ,
-			'points_assigned'         => __( 'Points' , 'rewardsystem' ) ,
-			'rewardcode_created_date' => __( 'Created on' , 'rewardsystem' ) ,
-			'rewardcode_expired_date' => __( 'Expires on' , 'rewardsystem' ) ,
-			'rewardcode_used_by'      => __( 'Voucher Code used by' , 'rewardsystem' ) ,
+			'cb'                      => '<input type="checkbox" />',
+			'sno'                     => __( 'S.No' , 'rewardsystem' ),
+			'reward_code'             => __( 'Voucher Code' , 'rewardsystem' ),
+			'points_assigned'         => __( 'Points' , 'rewardsystem' ),
+			'rewardcode_created_date' => __( 'Created on' , 'rewardsystem' ),
+			'rewardcode_expired_date' => __( 'Expires on' , 'rewardsystem' ),
+			'rewardcode_used_by'      => __( 'Voucher Code used by' , 'rewardsystem' ),
 		) ;
 
 		return $columns ;
@@ -76,7 +76,7 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 				$section = isset($_REQUEST[ 'section' ]) ? wc_clean(wp_unslash($_REQUEST[ 'section' ] )) : '';
 		//Build row actions
 		$actions = array(
-			'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page, $tab, $section, 'delete_row' , $item[ 'cb' ] ) ,
+			'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page, $tab, $section, 'delete_row' , $item[ 'cb' ] ),
 		) ;
 		//Return the title contents
 		return sprintf( '%1$s %3$s' ,
@@ -88,18 +88,18 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 
 	public function get_bulk_actions() {
 		$columns = array(
-			'delete'     => __( 'Delete' , 'rewardsystem' ) ,
-			'delete_all' => __( 'Delete All' , 'rewardsystem' ) ,
+			'delete'     => __( 'Delete' , 'rewardsystem' ),
+			'delete_all' => __( 'Delete All' , 'rewardsystem' ),
 		) ;
 		return $columns ;
 	}
 
 	public function get_sortable_columns() {
 		return array(
-			'points_assigned'         => array( 'points_assigned' , false ) ,
-			'sno'                     => array( 'sno' , false ) ,
-			'rewardcode_created_date' => array( 'rewardcode_created_date' , false ) ,
-			'rewardcode_expired_date' => array( 'rewardcode_expired_date' , false ) ,
+			'points_assigned'         => array( 'points_assigned', false ),
+			'sno'                     => array( 'sno', false ),
+			'rewardcode_created_date' => array( 'rewardcode_created_date', false ),
+			'rewardcode_expired_date' => array( 'rewardcode_expired_date', false ),
 		) ;
 	}
 
@@ -112,7 +112,7 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 			$ids        = isset( $_REQUEST[ 'id' ] ) ? absint($_REQUEST[ 'id' ] ): array() ;
 			if ( is_array( $ids ) && ! empty( $ids ) ) {
 				foreach ( $ids as $each_code ) {
-										$wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}rsgiftvoucher WHERE vouchercode=%s", $each_code) ) ;
+					$wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}rsgiftvoucher WHERE vouchercode=%s", $each_code) ) ;
 				}
 			}
 		} elseif ( 'delete_row' === $this->current_action() ) {
@@ -146,23 +146,7 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 							} else {
 								$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 							}
-						} else {
-							if ( '' != $value[ 'memberused' ] ) {
-								if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
-									foreach ( $user_ids as $user_id ) {
-										$userinfo                        = get_userdata( $user_id ) ;
-										$usernames                       = $userinfo->user_login ;
-										$username[ $value[ 'vouchercode' ] ] = $usernames ;
-									}
-								} else {
-									$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
-								}
-							} else {
-								$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
-							}
-						}
-					} else {
-						if ( '' != $value[ 'memberused' ]) {
+						} elseif ( '' != $value[ 'memberused' ] ) {
 							if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
 								foreach ( $user_ids as $user_id ) {
 									$userinfo                        = get_userdata( $user_id ) ;
@@ -175,18 +159,30 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 						} else {
 							$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 						}
+					} elseif ( '' != $value[ 'memberused' ]) {
+						if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
+							foreach ( $user_ids as $user_id ) {
+								$userinfo                        = get_userdata( $user_id ) ;
+								$usernames                       = $userinfo->user_login ;
+								$username[ $value[ 'vouchercode' ] ] = $usernames ;
+							}
+						} else {
+							$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
+						}
+					} else {
+						$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 					}
 					$count  = count( $user_ids ) > 1 ? ( count( $user_ids ) - 1 ) . '+' : '1+' ;
 					$data[] = array(
-						'cb'                      => $value[ 'vouchercode' ] ,
-						'sno'                     => $i ,
-						'reward_code'             => $value[ 'vouchercode' ] ,
-						'points_assigned'         => $value[ 'points' ] ,
-						'rewardcode_created_date' => $value[ 'vouchercreated' ] ,
-						'rewardcode_expired_date' => '' != $value[ 'voucherexpiry' ] ? $value[ 'voucherexpiry' ] : 'Never' ,
-						'rewardcode_used_by'      => count( $user_ids ) > 1 ? ( $username[ $value[ 'vouchercode' ] ] . ',<a href=' . add_query_arg( 'vouchercode' , $value[ 'vouchercode' ] , get_permalink() ) . '>' . $count . '</a>' ) : $username[ $value[ 'vouchercode' ] ] ,
+						'cb'                      => $value[ 'vouchercode' ],
+						'sno'                     => $i,
+						'reward_code'             => $value[ 'vouchercode' ],
+						'points_assigned'         => $value[ 'points' ],
+						'rewardcode_created_date' => $value[ 'vouchercreated' ],
+						'rewardcode_expired_date' => '' != $value[ 'voucherexpiry' ] ? $value[ 'voucherexpiry' ] : 'Never',
+						'rewardcode_used_by'      => count( $user_ids ) > 1 ? ( $username[ $value[ 'vouchercode' ] ] . ',<a href=' . add_query_arg( 'vouchercode' , $value[ 'vouchercode' ] , add_query_arg( array( 'page' => 'rewardsystem_callback', 'tab' => 'fprsmodules', 'section' => 'fpgiftvoucher' ), SRP_ADMIN_URL ) ) . '>' . $count . '</a>' ) : $username[ $value[ 'vouchercode' ] ],
 					) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 		}
@@ -224,23 +220,7 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 								} else {
 									$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 								}
-							} else {
-								if ( '' != $value[ 'memberused' ]  ) {
-									if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
-										foreach ( $user_ids as $user_id ) {
-											$userinfo                        = get_userdata( $user_id ) ;
-											$usernames                       = $userinfo->user_login ;
-											$username[ $value[ 'vouchercode' ] ] = $usernames ;
-										}
-									} else {
-										$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
-									}
-								} else {
-									$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
-								}
-							}
-						} else {
-							if ( ''!= $value[ 'memberused' ] ) {
+							} elseif ( '' != $value[ 'memberused' ]  ) {
 								if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
 									foreach ( $user_ids as $user_id ) {
 										$userinfo                        = get_userdata( $user_id ) ;
@@ -253,18 +233,30 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 							} else {
 								$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 							}
+						} elseif ( ''!= $value[ 'memberused' ] ) {
+							if ( is_array( $user_ids ) && ! empty( $user_ids ) ) {
+								foreach ( $user_ids as $user_id ) {
+									$userinfo                        = get_userdata( $user_id ) ;
+									$usernames                       = $userinfo->user_login ;
+									$username[ $value[ 'vouchercode' ] ] = $usernames ;
+								}
+							} else {
+								$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
+							}
+						} else {
+							$username[ $value[ 'vouchercode' ] ] = 'Not Yet' ;
 						}
 						$count  = count( $user_ids ) > 1 ? ( count( $user_ids ) - 1 ) . '+' : '1+' ;
 						$data[] = array(
-							'cb'                      => $value[ 'vouchercode' ] ,
-							'sno'                     => $i ,
-							'reward_code'             => $value[ 'vouchercode' ] ,
-							'points_assigned'         => $value[ 'points' ] ,
-							'rewardcode_created_date' => $value[ 'vouchercreated' ] ,
-							'rewardcode_expired_date' => '' != $value[ 'voucherexpiry' ] ? $value[ 'voucherexpiry' ] : 'Never' ,
-							'rewardcode_used_by'      => count( $user_ids ) > 1 ? ( $username[ $value[ 'vouchercode' ] ] . ',<a href=' . add_query_arg( 'vouchercode' , $value[ 'vouchercode' ] , get_permalink() ) . '>' . $count . '</a>' ) : $username[ $value[ 'vouchercode' ] ] ,
+							'cb'                      => $value[ 'vouchercode' ],
+							'sno'                     => $i,
+							'reward_code'             => $value[ 'vouchercode' ],
+							'points_assigned'         => $value[ 'points' ],
+							'rewardcode_created_date' => $value[ 'vouchercreated' ],
+							'rewardcode_expired_date' => '' != $value[ 'voucherexpiry' ] ? $value[ 'voucherexpiry' ] : 'Never',
+							'rewardcode_used_by'      => count( $user_ids ) > 1 ? ( $username[ $value[ 'vouchercode' ] ] . ',<a href=' . add_query_arg( 'vouchercode' , $value[ 'vouchercode' ] , add_query_arg( array( 'page' => 'rewardsystem_callback', 'tab' => 'fprsmodules', 'section' => 'fpgiftvoucher' ), SRP_ADMIN_URL ) ) . '>' . $count . '</a>' ) : $username[ $value[ 'vouchercode' ] ],
 						) ;
-						$i ++ ;
+						$i++ ;
 					}
 				}
 			}
@@ -310,5 +302,4 @@ class SRP_NewGiftVoucher_List_Table extends WP_List_Table {
 
 		return -$result ;
 	}
-
 }

@@ -163,6 +163,41 @@
 		evaluate: function( $expression, $cache = true ) {
 			return this.execute( $expression, $cache );
 		},
+		parse: function( $expression ) {
+			var $tokens;
+			var result;
+			var $calculator;
+			var count = 0;
+			var char;
+
+			for ( char of $expression ) {
+				if ( char === '(' ) {
+					count++;
+				} else if ( char === ')' ) {
+					count--;
+				}
+
+				// If count becomes negative at any point, return false
+				if ( count < 0 ) {
+					return false;
+				}
+			}
+
+			// If count is not zero at the end, parentheses are not balanced
+			if ( count !== 0 ) {
+				return false;
+			}
+
+			$tokens = new THEMECOMPLETE_EPO_MATH_Tokenizer( $expression, this.operators );
+			$tokens = $tokens.tokenize().build_reverse_polish_notation();
+			$calculator = new THEMECOMPLETE_EPO_MATH_Calculator( this.functions, this.operators );
+
+			result = $calculator.calculate( $tokens, this.variables, this.on_var_not_found, this );
+			if ( 'number' !== gettype( result ) || isNaN( result ) ) {
+				return false;
+			}
+			return result;
+		},
 		execute: function( $expression, $cache = true ) {
 			var $cache_key = $expression;
 			var $calculator;
@@ -1332,6 +1367,9 @@
 			if ( window.TMEPOJS && window.TMEPOJS.WP_DEBUG ) {
 				window.console.log( $code + '\n' + $msg );
 				window.console.trace();
+			}
+			if ( window.TMEPOGLOBALADMINJS && window.TMEPOGLOBALADMINJS.WP_DEBUG ) {
+				return $msg;
 			}
 			return $return;
 		}

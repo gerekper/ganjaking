@@ -144,7 +144,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 						<?php if ( '1' == $order_info['options']['order_date'] && '1' == $order_info['options']['full_information'] ) { ?>
 
 						(
-							<?php echo date( 'F d,Y' ); ?>)
+						<?php echo date( 'F d,Y' ); ?>)
 
 						<?php } else { ?>
 
@@ -238,13 +238,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 									</tr>
 
-										<?php
+									<?php
 									}
 
 									if ( $order_info['options']['full_information'] == '1' ) {
 										?>
 
-										<?php if ( ( @$order_info['options']['show_pay_type'] == '1' ) || ( @$order_info['options']['show_pay_type'] == '' ) ) { ?>
+									<?php if ( ( @$order_info['options']['show_pay_type'] == '1' ) || ( @$order_info['options']['show_pay_type'] == '' ) ) { ?>
 
 									<tr>
 
@@ -273,7 +273,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 									</tr>
 
-											<?php
+									<?php
 										}
 									} elseif ( ( @$order_info['options']['show_pay_type'] == '1' ) || ( @$order_info['options']['show_pay_type'] == '' ) ) {
 
@@ -306,7 +306,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 									</tr>
 
-											<?php
+									<?php
 
 									}
 									?>
@@ -350,7 +350,8 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 									<tr>
 
-										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>;">
+										<td class="woocommerce_email_base_color" id="woocommerce_email_base_color"
+											colspan="3" style="<?php echo $woo_body_text_color; ?>;">
 
 											<?php
 
@@ -375,8 +376,9 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
 													?>
-													<br> <hr style="border-top: 1px solid #96588a;"> 
-													<?php
+											<br>
+											<hr style="border-top: 1px solid #96588a;">
+											<?php
 
 												}
 												if ( $options['billing_phone'] == 1 ) {
@@ -395,8 +397,9 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
 													?>
-													<br><hr style="border-top: 1px solid #96588a;">
-													<?php
+											<br>
+											<hr style="border-top: 1px solid #96588a;">
+											<?php
 
 												}
 												if ( $options['billing_phone'] == 1 ) {
@@ -408,8 +411,9 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 													printf( __( 'Customer Email : %s', 'woocommerce-dropshipping' ), @$order_info['billing_info']['billing_email'] );
 													?>
-													<br><hr style="border-top: 1px solid #96588a;">
-													<?php
+											<br>
+											<hr style="border-top: 1px solid #96588a;">
+											<?php
 
 												}
 
@@ -543,7 +547,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 					</tr>
 				</table>
 
-							<?php
+				<?php
 				}
 					}
 				}
@@ -584,7 +588,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php echo @$order_info['options']['dropship_image']; ?>
+									<?php echo @$order_info['options']['dropship_image']; ?>
 
 								</b>
 
@@ -596,13 +600,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php echo 'Image'; ?>
+									<?php echo 'Image'; ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 								}
 							} elseif ( $order_info['options']['product_image'] == '1' ) {
@@ -627,13 +631,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php _e( 'Image', 'woocommerce-dropshipping' ); ?>
+									<?php _e( 'Image', 'woocommerce-dropshipping' ); ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 							}
 							?>
@@ -718,7 +722,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php echo @$order_info['options']['type_of_package_conversion']; ?>
+									<?php echo @$order_info['options']['type_of_package_conversion']; ?>
 
 								</b>
 
@@ -730,13 +734,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
+									<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 								}
 							} elseif ( $order_info['options']['type_of_package'] == '1' ) {
@@ -761,13 +765,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
+									<?php _e( 'Type Of Package', 'woocommerce-dropshipping' ); ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 							}
 							?>
@@ -787,7 +791,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php echo @$order_info['options']['dropship_price']; ?>
+									<?php echo @$order_info['options']['dropship_price']; ?>
 
 								</b>
 
@@ -799,13 +803,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
+									<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 								}
 							} elseif ( $order_info['options']['product_price'] == '1' ) {
@@ -830,13 +834,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								<b>
 
-										<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
+									<?php _e( 'Price', 'woocommerce-dropshipping' ); ?>
 
 								</b>
 
 							</th>
 
-										<?php
+							<?php
 							}
 							}
 							?>
@@ -1270,7 +1274,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 				<?php if ( $order_info['options']['shipping'] == '1' ) { ?>
 
-					<?php if ( ( $order_info['options']['billing_address'] == '1' ) || ( $order_info['options']['shipping_address'] == '1' ) ) { ?>
+				<?php if ( ( $order_info['options']['billing_address'] == '1' ) || ( $order_info['options']['shipping_address'] == '1' ) ) { ?>
 
 				<table align="center" cellpadding="5" cellspacing="0" style="width:100%; vertical-align: baseline;">
 
@@ -1551,7 +1555,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								</table>
 
-									<?php
+								<?php
 
 								}
 								?>
@@ -1666,7 +1670,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 											<?php if ( @$order_info['options']['customer_email'] == '1' ) { ?>
 
-												<?php echo @$order_info['billing_info']['billing_email']; ?><br />
+											<?php echo @$order_info['billing_info']['billing_email']; ?><br />
 
 											<?php } ?>
 
@@ -1731,7 +1735,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								</table>
 
-									<?php
+								<?php
 
 								}
 								?>
@@ -1739,37 +1743,36 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 							</td>
 
 						</tr>
+					</tbody>
 
-						<tr border="0" style="<?php echo $woo_body_bg_color; ?>">
+				</table>
 
-							<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left"
-								style=" padding: 20px; <?php echo $woo_body_text_color; ?>">
-
-								<p>
-
-									<?php
+				<?php
+				}
+				}
+				?>
+				<table>
+					<tr border="0" style="<?php echo $woo_body_bg_color; ?>">
+		
+						<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left"
+							style=" padding: 20px; <?php echo $woo_body_text_color; ?>">
+		
+							<p>
+		
+								<?php
 									if ( $order_info['options']['dropship_additional_comment'] ) {
 
 										echo @$order_info['options']['dropship_additional_comment'];
 
 									}
-									?>
-
-								</p>
-
-							</td>
-
-						</tr>
-
-					</tbody>
-
+								?>
+		
+							</p>
+		
+						</td>
+		
+					</tr>
 				</table>
-
-						<?php
-				}
-				}
-				?>
-
 
 			</td>
 		</tr>

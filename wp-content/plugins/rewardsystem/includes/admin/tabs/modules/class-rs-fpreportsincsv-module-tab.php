@@ -11,21 +11,21 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 	class RSReportsInCsv {
 
 		public static function init() {
-			add_action( 'woocommerce_rs_settings_tabs_fpreportsincsv' , array( __CLASS__ , 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fpreportsincsv' , array( __CLASS__, 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsmodules_fpreportsincsv' , array( __CLASS__ , 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsmodules_fpreportsincsv' , array( __CLASS__, 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 
-			add_action( 'rs_default_settings_fpreportsincsv' , array( __CLASS__ , 'set_default_value' ) ) ;
+			add_action( 'rs_default_settings_fpreportsincsv' , array( __CLASS__, 'set_default_value' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_select_users_report_in_csv' , array( __CLASS__ , 'selected_users_report_in_csv' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_select_users_report_in_csv' , array( __CLASS__, 'selected_users_report_in_csv' ) ) ;
 
-			add_action( 'woocommerce_admin_field_export_reports' , array( __CLASS__ , 'reward_system_page_customization_reports' ) ) ;
+			add_action( 'woocommerce_admin_field_export_reports' , array( __CLASS__, 'reward_system_page_customization_reports' ) ) ;
 
-			add_action( 'admin_enqueue_scripts' , array( __CLASS__ , 'wp_enqueqe_for_datepicker' ) ) ;
+			add_action( 'admin_enqueue_scripts' , array( __CLASS__, 'wp_enqueqe_for_datepicker' ) ) ;
 
-			add_action( 'fp_action_to_reset_module_settings_fpreportsincsv' , array( __CLASS__ , 'reset_reports_in_csv_module' ) ) ;
+			add_action( 'fp_action_to_reset_module_settings_fpreportsincsv' , array( __CLASS__, 'reset_reports_in_csv_module' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_enable_disable_report_module' , array( __CLASS__ , 'enable_module' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_enable_disable_report_module' , array( __CLASS__, 'enable_module' ) ) ;
 		}
 
 		/*
@@ -33,72 +33,110 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 		 */
 
 		public static function reward_system_admin_fields() {
-
+						/**
+						 * Hook:woocommerce_fpreportsincsv_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_fpreportsincsv_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Reports in CSV Module' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_activate_report_module'
-				) ,
+					'name' => __( 'Reports in CSV Module' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_activate_report_module',
+				),
 				array(
-					'type' => 'rs_enable_disable_report_module' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_activate_report_module' ) ,
+					'type' => 'rs_enable_disable_report_module',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_activate_report_module' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 				array(
-					'type' => 'rs_wrapper_start' ,
-				) ,
+					'type' => 'rs_wrapper_start',
+				),
 				array(
-					'name' => __( 'Reports in CSV Settings(CSV Exported from here cannot be Imported)' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_csvreport_setting'
-				) ,
+					'name' => __( 'Reports in CSV Settings(CSV Exported from here cannot be Imported)' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_csvreport_setting',
+				),
 				array(
-					'name'     => __( 'Export available Points for' , 'rewardsystem' ) ,
-					'desc'     => __( 'Here you can set whether to Export Reward Points for All Users or Selected Users' , 'rewardsystem' ) ,
-					'id'       => 'rs_export_user_report_option' ,
-					'std'      => '1' ,
-					'default'  => '1' ,
-					'type'     => 'radio' ,
-					'options'  => array( '1' => __('All Users', 'rewardsystem') , '2' => __('Selected Users', 'rewardsystem') ) ,
-					'newids'   => 'rs_export_user_report_option' ,
-					'desc_tip' => true ,
-				) ,
+					'name'     => __( 'Export available Points for' , 'rewardsystem' ),
+					'desc'     => __( 'Here you can set whether to Export Reward Points for All Users or Selected Users' , 'rewardsystem' ),
+					'id'       => 'rs_export_user_report_option',
+					'std'      => '1',
+					'default'  => '1',
+					'type'     => 'radio',
+					'options'  => array(
+						'1' => __('All Users', 'rewardsystem'),
+						'2' => __('Selected Users', 'rewardsystem'),
+						'3' => __('Selected User Role(s)', 'rewardsystem'),
+						),
+					'newids'   => 'rs_export_user_report_option',
+					'desc_tip' => true,
+				),
 				array(
-					'name'     => __( 'Select the User(s) for whom you wish to Export Points' , 'rewardsystem' ) ,
-					'desc'     => __( 'Here you select the users to whom you wish to Export Reward Points' , 'rewardsystem' ) ,
-					'id'       => 'rs_export_users_report_list' ,
-					'css'      => 'min-width:400px;' ,
-					'std'      => '' ,
-					'default'  => '' ,
-					'type'     => 'rs_select_users_report_in_csv' ,
-					'newids'   => 'rs_export_users_report_list' ,
-					'desc_tip' => true ,
-				) ,
+					'name'     => __( 'Select the User(s) for whom you wish to Export Points' , 'rewardsystem' ),
+					'desc'     => __( 'Here you select the users to whom you wish to Export Reward Points' , 'rewardsystem' ),
+					'id'       => 'rs_export_users_report_list',
+					'css'      => 'min-width:400px;',
+					'std'      => '',
+					'default'  => '',
+					'type'     => 'rs_select_users_report_in_csv',
+					'newids'   => 'rs_export_users_report_list',
+					'desc_tip' => true,
+				),
 				array(
-					'name'     => __( 'Export User Points for' , 'rewardsystem' ) ,
-					'desc'     => __( 'Here you can set whether to Export Reward Points for All Time or Selected Date' , 'rewardsystem' ) ,
-					'id'       => 'rs_export_report_date_option' ,
-					'class'    => 'rs_export_report_date_option' ,
-					'std'      => '1' ,
-					'default'  => '1' ,
-					'type'     => 'radio' ,
-					'options'  => array( '1' => __('All Time', 'rewardsystem') , '2' => __('Selected Date', 'rewardsystem' )) ,
-					'newids'   => 'rs_export_report_date_option' ,
-					'desc_tip' => true ,
-				) ,
+					'name'        => __( 'Select the User Role(s)' , 'rewardsystem' ),
+					'id'          => 'rs_export_user_roles_report_list',
+					'css'         => 'min-width:343px;',
+					'std'         => '',
+					'default'     => '',
+					'placeholder' => 'Search for a User Role',
+					'type'        => 'multiselect',
+					'options'     => fp_user_roles(),
+					'newids'      => 'rs_export_user_roles_report_list',
+					'desc_tip'    => false,
+				),
 				array(
-					'type' => 'export_reports' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_csvreport_setting' ) ,
+					'name'     => __( 'Users are identified based on' , 'rewardsystem' ),
+					'desc'     => __( 'Here you can set whether to Export CSV Format with Username or Userid or Emailid' , 'rewardsystem' ),
+					'id'       => 'rs_report_csv_format',
+					'class'    => 'rs_report_csv_format',
+					'newids'   => 'rs_report_csv_format',
+					'std'      => '1',
+					'default'  => '1',
+					'type'     => 'radio',
+					'options'  => array(
+						'1' => __('Username', 'rewardsystem'),
+						'2' => __('Email-Id', 'rewardsystem'), 
+						),
+					'desc_tip' => true,
+				),
 				array(
-					'type' => 'rs_wrapper_end' ,
-				) ,
+					'name'     => __( 'Export User Points for' , 'rewardsystem' ),
+					'desc'     => __( 'Here you can set whether to Export Reward Points for All Time or Selected Date' , 'rewardsystem' ),
+					'id'       => 'rs_export_report_date_option',
+					'class'    => 'rs_export_report_date_option',
+					'std'      => '1',
+					'default'  => '1',
+					'type'     => 'radio',
+					'options'  => array(
+						'1' => __('All Time', 'rewardsystem'),
+						'2' => __('Selected Date', 'rewardsystem' ),
+						),
+					'newids'   => 'rs_export_report_date_option',
+					'desc_tip' => true,
+				),
+				array(
+					'type' => 'export_reports',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_csvreport_setting' ),
+				array(
+					'type' => 'rs_wrapper_end',
+				),
 					) ) ;
 		}
 
@@ -141,7 +179,7 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 			$field_id    = 'rs_export_users_report_list' ;
 			$field_label = __('Select the Users that you wish to Export Reward Points' , 'rewardsystem');
 			$getuser     = get_option( 'rs_export_users_report_list' ) ;
-			echo wp_kses_post(user_selection_field( $field_id , $field_label , $getuser ) );
+			echo do_shortcode(user_selection_field( $field_id , $field_label , $getuser ) );
 		}
 
 		public static function reward_system_page_customization_reports() {
@@ -170,6 +208,7 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 					<input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_earning" id="rs_export_report_pointtype_option_earning" /><?php esc_html_e( 'Total Earned Points' , 'rewardsystem' ) ; ?>
 					<input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_redeeming" id="rs_export_report_pointtype_option_redeeming" /><?php esc_html_e( 'Total Redeemed Points' , 'rewardsystem' ) ; ?>
 					<input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_total" id="rs_export_report_pointtype_option_total" checked="checked" /><?php esc_html_e( 'Available Points' , 'rewardsystem' ) ; ?>
+									   <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_expired" id="rs_export_report_pointtype_option_expired"/><?php esc_html_e( 'Total Expired Points' , 'rewardsystem' ) ; ?>
 				</td>
 			</tr>
 			<tr valign ="top">
@@ -187,7 +226,7 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 				header( 'Content-Disposition: attachment; filename=reward_points_report' . date_i18n( 'Y-m-d' ) . '.csv' ) ;
 				header( 'Pragma: no-cache' ) ;
 				header( 'Expires: 0' ) ;
-				echo wp_kses_post(get_option( 'heading' ) );
+				echo esc_html(get_option( 'heading' ) );
 				self::output_CSV_report( get_option( 'rs_export_report' ) ) ;
 				exit() ;
 			}
@@ -221,7 +260,6 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
 			$settings = self::reward_system_admin_fields() ;
 			RSTabManagement::reset_settings( $settings ) ;
 		}
-
 	}
 
 	RSReportsInCsv::init() ;

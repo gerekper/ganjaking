@@ -12,8 +12,8 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 	class FP_Reward_Points_WC_2P6 {
 
 		public static function init() {
-			add_action( 'wp_enqueue_scripts' , array( __CLASS__ , 'enqueue_scripts' ) , 999 ) ;
-			add_action( 'wp_ajax_rs_point_price_compatability' , array( __CLASS__ , 'combatibility_point_price' ) , 10 ) ;
+			add_action( 'wp_enqueue_scripts' , array( __CLASS__, 'enqueue_scripts' ) , 999 ) ;
+			add_action( 'wp_ajax_rs_point_price_compatability' , array( __CLASS__, 'combatibility_point_price' ) , 10 ) ;
 		}
 
 		public static function combatibility_point_price() {
@@ -26,7 +26,7 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 					$product      = srp_product_object( $booking_id ) ;
 					$booking_form = new WC_Booking_Form( $product ) ;
 					$cost         = $booking_form->calculate_booking_cost( $posted ) ;
-					$args         = array( 'qty' => 1 , 'price' => $cost ) ;
+					$args         = array( 'qty' => 1, 'price' => $cost ) ;
 					if ( is_wp_error( $cost ) ) {
 						die( json_encode( array( 'sumorewardpoints' => 0 ) ) ) ;
 					}
@@ -48,35 +48,33 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 						if ( 'yes' == $product_level_enable ) {
 							if ( '2' == $product_level_price_display_type ) {
 								$data[] = get_post_meta( $product_id , '_rewardsystem__points' , true ) ;
-							} else {
-								if ( '1' == $product_level_price_type ) {
-									if ( '' == $product_level_fixed_price ) {
-										$term = get_the_terms( $product_id , 'product_cat' ) ;
-										if ( is_array( $term ) ) {
-											foreach ( $term as $term ) {
-												$cat_level_enable = srp_term_meta( $term->term_id , 'enable_point_price_category' ) ;
-												if ( ( 'yes' == $cat_level_enable ) && ( '' != $cat_level_enable ) ) {
-													$cat_level_price_type = srp_term_meta( $term->term_id , 'point_price_category_type' ) ;
-													if ( '1' == $cat_level_price_type ) {
-														$cat_level_fixed_price = srp_term_meta( $term->term_id , 'rs_category_points_price' ) ;
+							} elseif ( '1' == $product_level_price_type ) {
+								if ( '' == $product_level_fixed_price ) {
+									$term = get_the_terms( $product_id , 'product_cat' ) ;
+									if ( is_array( $term ) ) {
+										foreach ( $term as $term ) {
+											$cat_level_enable = srp_term_meta( $term->term_id , 'enable_point_price_category' ) ;
+											if ( ( 'yes' == $cat_level_enable ) && ( '' != $cat_level_enable ) ) {
+												$cat_level_price_type = srp_term_meta( $term->term_id , 'point_price_category_type' ) ;
+												if ( '1' == $cat_level_price_type ) {
+													$cat_level_fixed_price = srp_term_meta( $term->term_id , 'rs_category_points_price' ) ;
 
-														$data[] = ( '' == $cat_level_fixed_price ) ? self::get_global_vlaue( $product_price ) : $cat_level_fixed_price ;
-													} else {
-														$data[] = redeem_point_conversion( $product_price , get_current_user_id() ) ;
-													}
+													$data[] = ( '' == $cat_level_fixed_price ) ? self::get_global_vlaue( $product_price ) : $cat_level_fixed_price ;
 												} else {
-													$data[] = self::get_global_vlaue( $product_price ) ;
+													$data[] = redeem_point_conversion( $product_price , get_current_user_id() ) ;
 												}
+											} else {
+												$data[] = self::get_global_vlaue( $product_price ) ;
 											}
-										} else {
-											$data[] = self::get_global_vlaue( $product_price ) ;
 										}
 									} else {
-										$data[] = $product_level_fixed_price ;
+										$data[] = self::get_global_vlaue( $product_price ) ;
 									}
 								} else {
-									$data[] = redeem_point_conversion( $product_price , get_current_user_id() ) ;
+									$data[] = $product_level_fixed_price ;
 								}
+							} else {
+								$data[] = redeem_point_conversion( $product_price , get_current_user_id() ) ;
 							}
 						} else {
 							$data[] = '' ;
@@ -98,13 +96,13 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 					$type[] = check_display_price_type( $product_id ) ;
 					if ( in_array( 2 , $type ) ) {
 						die( json_encode( array(
-							'result' => 'SUCCESS' ,
-							'html'   => __( 'Booking cost' , 'woocommerce-bookings' ) . ': <strong>' . $pointpricemessage . '</strong>'
+							'result' => 'SUCCESS',
+							'html'   => __( 'Booking cost' , 'woocommerce-bookings' ) . ': <strong>' . $pointpricemessage . '</strong>',
 						) ) ) ;
 					} else {
 						die( json_encode( array(
-							'result' => 'SUCCESS' ,
-							'html'   => __( 'Booking cost' , 'woocommerce-bookings' ) . ': <strong>' . wc_price( $product_price ) . $label1 . $pointpricemessage . '</strong>'
+							'result' => 'SUCCESS',
+							'html'   => __( 'Booking cost' , 'woocommerce-bookings' ) . ': <strong>' . wc_price( $product_price ) . $label1 . $pointpricemessage . '</strong>',
 						) ) ) ;
 					}
 				}
@@ -140,7 +138,7 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 					if ( is_shop() ) {
 						wp_enqueue_script( 'jquery' ) ;
 						wp_register_script( 'pointpricecompatibility' , SRP_PLUGIN_DIR_URL . 'assets/js/pointpricecompatibility.js', array(), SRP_VERSION ) ;
-						$global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL , 'user_id' => get_current_user_id() ) ;
+						$global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL, 'user_id' => get_current_user_id() ) ;
 						wp_localize_script( 'pointpricecompatibility' , 'pointpricecompatibility_variable_js' , $global_variable_for_js ) ;
 						wp_enqueue_script( 'pointpricecompatibility' , false , array() , SRP_VERSION , true ) ;
 					}
@@ -149,13 +147,12 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
 				if ( is_checkout() && is_user_logged_in() ) {
 					wp_enqueue_script( 'jquery' ) ;
 					wp_register_script( 'checkoutscript' , SRP_PLUGIN_DIR_URL . 'assets/js/checkoutscript.js' , array(), SRP_VERSION) ;
-					$global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL , 'user_id' => get_current_user_id() , 'redeem_it_link' => get_option( 'rs_show_hide_redeem_it_field_checkout' ) , 'redeem_restriction' => get_option( 'rs_show_hide_redeem_field' ) , 'checkout_redeem_check' => get_option( 'rs_show_hide_redeem_field_checkout' ) , '_rs_storefront_redeem_button' => $redeem_buton_display ) ;
+					$global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL, 'user_id' => get_current_user_id(), 'redeem_it_link' => get_option( 'rs_show_hide_redeem_it_field_checkout' ), 'redeem_restriction' => get_option( 'rs_show_hide_redeem_field' ), 'checkout_redeem_check' => get_option( 'rs_show_hide_redeem_field_checkout' ), '_rs_storefront_redeem_button' => $redeem_buton_display ) ;
 					wp_localize_script( 'checkoutscript' , 'checkoutscript_variable_js' , $global_variable_for_js ) ;
 					wp_enqueue_script( 'checkoutscript' , false , array() , SRP_VERSION , true ) ;
 				}
 			}
 		}
-
 	}
 
 	FP_Reward_Points_WC_2P6::init() ;

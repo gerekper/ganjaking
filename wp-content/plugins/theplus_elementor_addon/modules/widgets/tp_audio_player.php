@@ -41,6 +41,10 @@ class ThePlus_Audio_Player extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return ['Audio Player', 'Music Player', 'Sound Player', 'Media Player', 'MP3 Player', 'Podcast Player', 'Audio Widget', 'Music Widget', 'Sound Widget', 'Media Widget', 'MP3 Widget', 'Podcast Widget'];
+    }
 	
     protected function register_controls() {
 		$this->start_controls_section(

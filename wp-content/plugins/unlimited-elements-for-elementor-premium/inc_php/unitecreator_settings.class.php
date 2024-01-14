@@ -325,7 +325,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		$accessData = HelperInstaUC::getInstagramSavedAccessData();
 		$accessToken = UniteFunctionsUC::getVal($accessData, "access_token");
 		$username = UniteFunctionsUC::getVal($accessData, "username");
-		
+
 		if(!empty($accessToken)){
 
 			$params = array();
@@ -811,14 +811,112 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		return($setting);
 	}
 
+	private function a__________CONDITIONS_________(){}
+
+	
+	/**
+	 * add controls
+	 */
+	private function addByCreatorParam_handleConditions($param, $isForSap = false){
+		
+		$enableCondition = UniteFunctionsUC::getVal($param, "enable_condition");
+
+		$enableCondition = UniteFunctionsUC::strToBool($enableCondition);
+
+		if($enableCondition == false){
+			return(false);
+		}
+
+		$name = UniteFunctionsUC::getVal($param, "name");
+
+		$attribute = UniteFunctionsUC::getVal($param, "condition_attribute");
+		$operator = UniteFunctionsUC::getVal($param, "condition_operator");
+		$value = UniteFunctionsUC::getVal($param, "condition_value");
+
+		$attribute2 = UniteFunctionsUC::getVal($param, "condition_attribute2");
+		$operator2 = UniteFunctionsUC::getVal($param, "condition_operator2");
+		$value2 = UniteFunctionsUC::getVal($param, "condition_value2");
+
+		if(empty($attribute))
+			return(false);
+
+		$action = "show";
+		if($operator == "not_equal")
+			$action = "hide";
+		
+		$this->addControl($attribute, $name, $action, $value, $isForSap);
+		
+		if(empty($attribute2))
+			return(false);
+
+		$action = "show";
+		if($operator2 == "not_equal")
+			$action = "hide";
+		
+			
+		$this->addControl($attribute2, $name, $action, $value2, $isForSap);
+	}
+	
+    /**
+     * add control by elementor condition
+     */
+    private function addControl_byElementorConditions($nameChild, $arrConditions){
+
+    	if(empty($arrConditions) == true)
+    		return(false);
+
+    	if(is_array($arrConditions) == false)
+    		UniteFunctionsUC::throwError("The elementor conditions should be array");
+
+    	foreach($arrConditions as $nameParent=>$value){
+			
+    		$type = "show";
+    		
+			$lastCharacter = substr($nameParent, -1);    		
+    		
+			if($lastCharacter == "!"){
+				$type = "hide";
+				$nameParent = substr($nameParent, 0, -1);	//cut last character
+			}
+			
+    		$this->addControl($nameParent, $nameChild, $type, $value);
+    	}
 
 
+    }
+
+
+    /**
+     * add controls by elementor conditions
+     */
+	private function addControls_byElementorConditions(){
+
+		if(empty($this->arrSettings))
+			return(false);
+
+		foreach($this->arrSettings as $setting){
+
+			$elementorCondition	 = UniteFunctionsUC::getVal($setting, "elementor_condition");
+
+			if(empty($elementorCondition))
+				continue;
+			
+			$name = UniteFunctionsUC::getVal($setting, "name");
+
+			$this->addControl_byElementorConditions($name, $elementorCondition);
+		}
+
+	}
+	
+	
 	/**
 	 * Test addon settings - inside addon use and gutenberg.
 	 * Not for elementor
 	 */
 	private function a__________TEST_ADDON_SETTINGS_________(){}
 
+	
+	
 	/**
 	 * check and add images sizes chooser
 	 */
@@ -871,7 +969,6 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	 */
 	public function addByCreatorParam($param, $inputValue = null){
 
-
 		//add ready setting if exists
 		$arrReadySetting = UniteFunctionsUC::getVal($param, "uc_setting");
 		if(!empty($arrReadySetting)){
@@ -892,22 +989,41 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 		$title = UniteFunctionsUC::getVal($param, "title");
 		$name = UniteFunctionsUC::getVal($param, "name");
 		$description = UniteFunctionsUC::getVal($param, "description");
+		$placeholder = UniteFunctionsUC::getVal($param, "placeholder");
+		$labelBlock = UniteFunctionsUC::getVal($param, "label_block");
+
+		$alwaysLabelBlock = array(
+			UniteCreatorDialogParam::PARAM_BORDER_DIMENTIONS,
+			UniteCreatorDialogParam::PARAM_MARGINS,
+			UniteCreatorDialogParam::PARAM_PADDING,
+			UniteCreatorDialogParam::PARAM_TEXTAREA,
+			UniteCreatorDialogParam::PARAM_MULTIPLE_SELECT,
+		);
+
+		if (in_array($type, $alwaysLabelBlock))
+			$labelBlock = true;
 
 		$defaultValue = UniteFunctionsUC::getVal($param, "default_value");
 		$value = UniteFunctionsUC::getVal($param, "value", $defaultValue);
 
 		$unit = UniteFunctionsUC::getVal($param, "unit");
+
 		if($unit == "other")
 			$unit = UniteFunctionsUC::getVal($param, "unit_custom");
 
 		$extra = array();
+
 		if(!empty($description))
 			$extra["description"] = $description;
+
+		if(!empty($placeholder))
+			$extra["placeholder"] = $placeholder;
 
 		if(!empty($unit))
 			$extra["unit"] = $unit;
 
 		$extra["origtype"] = $type;
+		$extra["label_block"] = $labelBlock;
 
 		foreach($this->arrAddAttributes as $attributeName){
 
@@ -1262,50 +1378,8 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 
 	}
 
-	/**
-	 * add controls
-	 */
-	private function addByCreatorParam_handleConditions($param){
-
-		$enableCondition = UniteFunctionsUC::getVal($param, "enable_condition");
-
-		$enableCondition = UniteFunctionsUC::strToBool($enableCondition);
-
-		if($enableCondition == false){
-			return(false);
-		}
-
-		$name = UniteFunctionsUC::getVal($param, "name");
-
-		$attribute = UniteFunctionsUC::getVal($param, "condition_attribute");
-		$operator = UniteFunctionsUC::getVal($param, "condition_operator");
-		$value = UniteFunctionsUC::getVal($param, "condition_value");
-
-		$attribute2 = UniteFunctionsUC::getVal($param, "condition_attribute2");
-		$operator2 = UniteFunctionsUC::getVal($param, "condition_operator2");
-		$value2 = UniteFunctionsUC::getVal($param, "condition_value2");
-
-		if(empty($attribute))
-			return(false);
-
-		$action = "show";
-		if($operator == "not_equal")
-			$action = "hide";
-
-		$this->addControl($attribute, $name, $action, $value);
-
-		if(empty($attribute2))
-			return(false);
-
-		$action = "show";
-		if($operator2 == "not_equal")
-			$action = "hide";
-
-		$this->addControl($attribute2, $name, $action, $value2);
-
-
-	}
-
+	
+	
 
     /**
      * sort params by categories
@@ -1373,47 +1447,6 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
     	return($arrOutput);
     }
 
-    /**
-     * add control by elementor condition
-     */
-    private function addControl_byElementorConditions($nameChild, $arrConditions){
-
-    	if(empty($arrConditions) == true)
-    		return(false);
-
-    	if(is_array($arrConditions) == false)
-    		UniteFunctionsUC::throwError("The elementor conditions should be array");
-
-    	foreach($arrConditions as $nameParent=>$value){
-
-    		$this->addControl($nameParent, $nameChild, "show", $value);
-    	}
-
-
-    }
-
-
-    /**
-     * add controls by elementor conditions
-     */
-	private function addControls_byElementorConditions(){
-
-		if(empty($this->arrSettings))
-			return(false);
-
-		foreach($this->arrSettings as $setting){
-
-			$elementorCondition	 = UniteFunctionsUC::getVal($setting, "elementor_condition");
-
-			if(empty($elementorCondition))
-				continue;
-
-			$name = UniteFunctionsUC::getVal($setting, "name");
-
-			$this->addControl_byElementorConditions($name, $elementorCondition);
-		}
-
-	}
 
 	/**
 	 * add edit widget button to advanced settings - if allowed
@@ -1506,7 +1539,7 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	 * not for elementor
 	 */
 	public function initByCreatorParams($arrParams, $arrCats = array()){
-
+		
 		if(empty($arrCats)){
 
 			foreach($arrParams as $param)
@@ -1534,9 +1567,18 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 			$tab = UniteFunctionsUC::getVal($arrCat, "tab");
 
 			$arrParams = UniteFunctionsUC::getVal($arrCat, "params");
-
-			$this->addSap($title,$catID,$tab);
-
+			
+			$sapParams = $arrCat;
+			unset($sapParams["params"]);
+			
+			$this->addSap($title, $catID, $tab);
+			
+			//handle sap conditions
+			
+			$sapParams["name"] = $catID;
+			$this->addByCreatorParam_handleConditions($sapParams, true);
+			
+			
 			foreach($arrParams as $param){
 
 	          	$type = UniteFunctionsUC::getVal($param, "type");

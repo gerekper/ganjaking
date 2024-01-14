@@ -47,8 +47,8 @@ class ThePlus_Navigation_Menu_Lite extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'menu', 'navigation', 'header','menu bar','nav' ];
-	}
+        return ['Navigation', 'Menu', 'Nav', 'Navbar', 'Navigation bar', 'Navigation menu', 'Menu bar', 'Menu widget', 'Navigation widget'];
+    }
 	
     protected function register_controls() {
 		

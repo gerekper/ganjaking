@@ -51,6 +51,7 @@ class I18n extends AbstractExtension {
 
   public function localize() {
     $args = func_get_args();
+    /** @var array $translations */
     $translations = array_shift($args);
     $output = [];
     foreach ($translations as $key => $translation) {
@@ -85,6 +86,7 @@ class I18n extends AbstractExtension {
 
   public function date() {
     $args = func_get_args();
+    /** @var int|null $date */
     $date = (isset($args[0])) ? $args[0] : null;
     $dateFormat = (isset($args[1])) ? $args[1] : WPFunctions::get()->getOption('date_format');
 

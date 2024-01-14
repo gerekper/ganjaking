@@ -34,6 +34,10 @@ class Theplus_Ele_Heading_Title extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return ['Heading', 'Title', 'Heading Title', 'Heading Widget', 'Title Widget'];
+    }
 	
 	protected function register_controls() {
 		/*tab Layout */

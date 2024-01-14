@@ -80,6 +80,9 @@ class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 			case 'send_subscription_1_day_after_expiration_notification':
 				WC_AM_BACKGROUND_EVENTS()->send_subscription_1_day_after_expiration_notification( absint( $item[ 'subscription_1_day_after_expiration_api_resource_id' ] ) );
 				break;
+			case 'update_api_resource_activations_total':
+				WC_AM_BACKGROUND_EVENTS()->update_api_resource_activations_total( absint( $item[ 'api_resource_api_resource_id' ] ) );
+				break;
 		}
 
 		return false;

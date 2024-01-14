@@ -18,15 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tbody class="sortable_menu">
 		<?php
 		$defaultcolumn = array(
-			'rs_myrewards_table'        => esc_html__( 'My Rewards Table' , 'rewardsystem' ) ,
-			'rs_nominee_field'          => esc_html__( 'Nominee Field' , 'rewardsystem' ) ,
-			'rs_gift_voucher_field'     => esc_html__( 'Gift Voucher Field' , 'rewardsystem' ) ,
-			'rs_referral_table'         => esc_html__( 'Referral Table' , 'rewardsystem' ) ,
-			'rs_generate_referral_link' => esc_html__( 'Generate Referral Link' , 'rewardsystem' ) ,
-			'rs_refer_a_friend_form'    => esc_html__( 'Refer a Friend Form' , 'rewardsystem' ) ,
-			'rs_my_cashback_form'       => esc_html__( 'Cashback Form' , 'rewardsystem' ) ,
-			'rs_my_cashback_table'      => esc_html__( 'My Cashback Table' , 'rewardsystem' ) ,
-			'rs_email_subscribe_link'   => esc_html__( 'Email - Subscribe Link' , 'rewardsystem' ) ,
+			'rs_myrewards_table'        => esc_html__( 'My Rewards Table' , 'rewardsystem' ),
+			'rs_nominee_field'          => esc_html__( 'Nominee Field' , 'rewardsystem' ),
+			'rs_gift_voucher_field'     => esc_html__( 'Gift Voucher Field' , 'rewardsystem' ),
+			'rs_referral_table'         => esc_html__( 'Referral Table' , 'rewardsystem' ),
+			'rs_generate_referral_link' => esc_html__( 'Generate Referral Link' , 'rewardsystem' ),
+			'rs_refer_a_friend_form'    => esc_html__( 'Refer a Friend Form' , 'rewardsystem' ),
+			'rs_my_cashback_form'       => esc_html__( 'Cashback Form' , 'rewardsystem' ),
+			'rs_my_cashback_table'      => esc_html__( 'My Cashback Table' , 'rewardsystem' ),
+			'rs_email_subscribe_link'   => esc_html__( 'Email - Subscribe Link' , 'rewardsystem' ),
 				) ;
 
 		$sortedcolumn = srp_check_is_array( get_option( 'rs_sorted_menu_settings_list' ) ) ? get_option( 'rs_sorted_menu_settings_list' ) : $defaultcolumn ;

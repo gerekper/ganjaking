@@ -214,30 +214,44 @@
 		return $message;
 	}
 
-	function generatePaymentResponse($intent,$subscriptions=false) {
+	function generatePaymentResponse($intent, $subscriptions=false, $fields = [], $form = []) {
 	    # Note that if your API version is before 2019-02-11, 'requires_action'
 	    # appears as 'requires_source_action'.
-	    if ($intent->status == 'requires_action' &&
-	        $intent->next_action->type == 'use_stripe_sdk' || $intent->status == 'requires_source_action' &&
-	        $intent->next_action->type == 'use_stripe_sdk') {
-	      # Tell the client to handle the action
+	    if (!empty($intent->id)) {
+            $email = !empty($form['settings']['pafe_stripe_customer_field_email']) ? $form['settings']['pafe_stripe_customer_field_email'] : '';
+            $name = !empty($form['settings']['pafe_stripe_customer_field_name']) ? $form['settings']['pafe_stripe_customer_field_name'] : '';
+            $phone = !empty($form['settings']['pafe_stripe_customer_field_phone']) ? $form['settings']['pafe_stripe_customer_field_phone'] : '';
+            $city = !empty($form['settings']['pafe_stripe_customer_field_address_city']) ? $form['settings']['pafe_stripe_customer_field_address_city'] : '';
+            $country = !empty($form['settings']['pafe_stripe_customer_field_address_country']) ? $form['settings']['pafe_stripe_customer_field_address_country'] : '';
+            $line1 = !empty($form['settings']['pafe_stripe_customer_field_address_line1']) ? $form['settings']['pafe_stripe_customer_field_address_line1'] : '';
+            $line2 = !empty($form['settings']['pafe_stripe_customer_field_address_line2']) ? $form['settings']['pafe_stripe_customer_field_address_line2'] : '';
+            $postal_code = !empty($form['settings']['pafe_stripe_customer_field_address_postal_code']) ? $form['settings']['pafe_stripe_customer_field_address_postal_code'] : '';
+            $state = !empty($form['settings']['pafe_stripe_customer_field_address_state']) ? $form['settings']['pafe_stripe_customer_field_address_state'] : '';
+            $billing_details = [
+                'email' => !empty(replace_email_stripe($email, $fields)) ? replace_email_stripe($email, $fields) : null,
+                'name' => !empty(replace_email_stripe($name, $fields)) ? replace_email_stripe($name, $fields) : null,
+                'phone' => !empty(replace_email_stripe($phone, $fields)) ? replace_email_stripe($phone, $fields) : null,
+                'address' => [
+                    'city' => !empty(replace_email_stripe($city, $fields)) ? replace_email_stripe($city, $fields) : null,
+                    'country' => !empty(replace_email_stripe($country, $fields)) ? replace_email_stripe($country, $fields) : null,
+                    'line1' => !empty(replace_email_stripe($line1, $fields)) ? replace_email_stripe($line1, $fields) : null,
+                    'line2' => !empty(replace_email_stripe($line2, $fields)) ? replace_email_stripe($line2, $fields) : null,
+                    'postal_code' => !empty(replace_email_stripe($postal_code, $fields)) ? replace_email_stripe($postal_code, $fields) : null,
+                    'state' => !empty(replace_email_stripe($state, $fields)) ? replace_email_stripe($state, $fields) : null,
+                ]
+            ];
+	      # Tell the client to handle   the action
 	      echo json_encode([
 	        'requires_action' => true,
 	        'payment_intent_client_secret' => $intent->client_secret,
 	        "subscriptions" => $subscriptions,
 	        "payment_intent_id" => $intent->id,
-	      ]);
-	    } else if ($intent->status == 'succeeded') {
-	      # The payment didn’t need any additional actions and completed!
-	      # Handle post-payment fulfillment
-	      echo json_encode([
-	        "success" => true,
-	        "payment_intent_id" => $intent->id,
+            "billing_details" => $billing_details
 	      ]);
 	    } else {
 	      # Invalid status
 	      http_response_code(500);
-	      echo json_encode(['error' => 'Invalid PaymentIntent status']);
+	      echo json_encode(['error' => isset($intent->error->message) ? $intent->error->message : 'Invalid PaymentIntent status']);
 	    }
 	}
 
@@ -484,7 +498,6 @@
 							'payment_method' => $_POST['payment_method_id'],
 							'amount' => $amount,
 				    		'currency' => $currency,
-							'confirmation_method' => 'manual',
 							'confirm' => true,
 							'customer' => $customer->id,
 							'metadata' => $fields_metadata,
@@ -501,7 +514,26 @@
 							$intent_array['description'] = $form_id;
 						}
 
-						$intent = \Stripe\PaymentIntent::create( $intent_array );
+                        $stripe_secret_key = get_option('piotnet-addons-for-elementor-pro-stripe-secret-key');
+                        $stripeIntent = [
+                            'headers' => [
+                                'Content-type' => 'application/x-www-form-urlencoded',
+                                'Authorization' => 'Basic ' . base64_encode($stripe_secret_key)
+                            ],
+                            'body' => [
+                                'amount' => floatval($amount),
+                                'currency' => $currency,
+                                'automatic_payment_methods' => [
+                                    'enabled' => 'true',
+                                ],
+                                'description' => !empty($form['settings']['pafe_stripe_customer_description']) ? replace_email_stripe($form['settings']['pafe_stripe_customer_description'], $fields) : $form_id,
+                                'receipt_email' => !empty($form['settings']['pafe_stripe_customer_receipt_email']) ? replace_email_stripe($form['settings']['pafe_stripe_customer_receipt_email'], $fields) : null
+                            ]
+                        ];
+                        
+                        $intent = wp_remote_retrieve_body(wp_remote_post( 'https://api.stripe.com/v1/payment_intents', $stripeIntent ));
+                        $intent = json_decode($intent);
+
 						if(!empty($form['settings']['pafe_stripe_create_invoice'])){
 							$invoiceitems = [
 								'customer' => $customer->id,
@@ -526,7 +558,8 @@
 						$intent->confirm();
 						
 					}
-					generatePaymentResponse($intent);
+
+                    generatePaymentResponse($intent, false, $fields, $form);
 				} catch (\Stripe\Exception\ApiErrorException $e) {
 					# Display error on client
 					echo json_encode([
@@ -605,7 +638,7 @@
 									'description' => replace_email_stripe($form['settings']['pafe_stripe_customer_description'], $fields),
 								]
 							);
-							generatePaymentResponse($intent,true);
+							generatePaymentResponse($intent,true, $fields, $form);
 						}catch (\Stripe\Exception\ApiErrorException $e) {
 							# Display error on client
 							echo json_encode([
@@ -743,7 +776,7 @@
 											$intent->id,
 											['description' => replace_email_stripe($form['settings']['pafe_stripe_customer_description'], $fields)]
 										);
-										generatePaymentResponse($intent,true);
+										generatePaymentResponse($intent, true, $fields, $form);
 									} catch (\Stripe\Exception\ApiErrorException $e) {
 										# Display error on client
 										echo json_encode([
@@ -767,7 +800,7 @@
 								['receipt_email' => replace_email_stripe($form['settings']['pafe_stripe_customer_receipt_email'], $fields)]
 							);
 						}
-						generatePaymentResponse($intent);
+						generatePaymentResponse($intent, false, $fields, $form);
 					} catch (\Stripe\Exception\ApiErrorException $e) {
 						# Display error on client
 						echo json_encode([

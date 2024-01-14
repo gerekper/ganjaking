@@ -400,6 +400,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Notices
     $container->autowire(\MailPoet\Util\Notices\PermanentNotices::class);
     $container->autowire(\MailPoet\Util\Notices\PendingApprovalNotice::class)->setPublic(true);
+    $container->autowire(\MailPoet\Util\Notices\SenderDomainAuthenticationNotices::class)->setPublic(true);
     //Referrals
     $container->autowire(\MailPoet\Referrals\ReferralDetector::class);
     // Router
@@ -600,6 +601,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Util
     $container->autowire(\MailPoet\Util\Cookies::class);
     $container->autowire(\MailPoet\Util\DBCollationChecker::class);
+    $container->autowire(\MailPoet\Util\FreeDomains::class);
     $container->autowire(\MailPoet\Util\Url::class)->setPublic(true);
     $container->autowire(\MailPoet\Util\Installation::class);
     $container->autowire(\MailPoet\Util\Security::class);
@@ -649,20 +651,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Tags
     $container->autowire(\MailPoet\Tags\TagRepository::class)->setPublic(true);
     return $container;
-  }
-
-  /**
-   * @phpcsSuppress SlevomatCodingStandard.Classes.UnusedPrivateElements
-   */
-  private function registerPremiumService(ContainerBuilder $container, $id) {
-    $container->register($id)
-      ->setPublic(true)
-      ->addArgument($id)
-      ->addArgument(new Reference('service_container'))
-      ->setFactory([
-        self::class,
-        'getPremiumService',
-      ]);
   }
 
   public static function getPremiumService($id, ContainerInterface $container = null) {

@@ -1708,7 +1708,7 @@ class ThePlus_Accordion extends Widget_Base {
                 'tab' => Controls_Manager::TAB_STYLE,
 			]
         );
-		$this->add_control(
+		$this->add_responsive_control(
 			'accordion_title_padding',
 			[
 				'label' => esc_html__( 'Inner Padding', 'theplus' ),

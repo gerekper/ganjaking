@@ -34,6 +34,10 @@ class ThePlus_Design_Tool extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return [ 'Design Styles', 'Styles', 'Widget Styles', 'Elementor Styles', 'Styles', 'Design Widget', 'Elementor Design Styles', 'Design' ];
+    }
+
     protected function register_controls() {		
 		$this->start_controls_section(
 			'content_section',

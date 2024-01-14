@@ -530,7 +530,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * convert url to full url
 		 */
 		public static function URLtoFull($url, $urlBase = null){
-
+			
 			if(is_numeric($url))		//protection for image id
 				return($url);
 

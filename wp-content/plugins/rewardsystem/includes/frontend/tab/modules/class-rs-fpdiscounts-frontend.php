@@ -1,6 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit ; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 if ( ! class_exists( 'RSDiscountCompatability' ) ) {
 
@@ -8,10 +8,10 @@ if ( ! class_exists( 'RSDiscountCompatability' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_before_checkout_form' , array( __CLASS__ , 'display_msg_when_discounts_applied' ) ) ;
+			add_action( 'woocommerce_before_checkout_form', array( __CLASS__, 'display_msg_when_discounts_applied' ) );
 
 			/* Trash when Coupon is removed */
-			add_action( 'woocommerce_after_checkout_validation' , array( __CLASS__ , 'trash_coupon_or_redeeming_on_placing_the_order' ) , 11 , 2 ) ;
+			add_action( 'woocommerce_after_checkout_validation', array( __CLASS__, 'trash_coupon_or_redeeming_on_placing_the_order' ), 11, 2 );
 		}
 
 		/*
@@ -20,73 +20,73 @@ if ( ! class_exists( 'RSDiscountCompatability' ) ) {
 
 		public static function display_msg_when_discounts_applied() {
 			if ( ! class_exists( 'SUMODiscounts' ) ) {
-				return ;
+				return;
 			}
 
-			if ( ! isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
-				return ;
+			if ( ! isset( $_COOKIE['rsreferredusername'] ) ) {
+				return;
 			}
 
 			if ( check_if_discount_applied() ) {
-				return ;
+				return;
 			}
 
 			if ( 'yes' == WC()->session->get( 'check_if_fee_exist' ) ) {
-				return ;
+				return;
 			}
 
-			self::display_coupon_restriction_notice() ;
+			self::display_coupon_restriction_notice();
 
-			self::display_redeeming_restriction_notice() ;
+			self::display_redeeming_restriction_notice();
 		}
 
 		/*
 		 * Trash Coupon or Redeeming if Exists on placing the order.
-		 * 
+		 *
 		 */
 
 		public static function trash_coupon_or_redeeming_on_placing_the_order( $data, $error ) {
 
-			$user_id = get_current_user_id() ;
+			$user_id = get_current_user_id();
 			if ( ! $user_id ) {
-				return ;
+				return;
 			}
-			if ( ! isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
-				return ;
+			if ( ! isset( $_COOKIE['rsreferredusername'] ) ) {
+				return;
 			}
 			if ( ! class_exists( 'SUMODiscounts' ) ) {
-				return ;
+				return;
 			}
 			if ( check_if_discount_applied() ) {
-				return ;
+				return;
 			}
 			if ( 'yes' == WC()->session->get( 'check_if_fee_exist' ) ) {
-				return ;
+				return;
 			}
-			$AppliedCoupons = WC()->cart->get_applied_coupons() ;
+			$AppliedCoupons = WC()->cart->get_applied_coupons();
 			if ( ! srp_check_is_array( array_filter( $AppliedCoupons ) ) ) {
-				return ;
+				return;
 			}
 
-			$restriction_for_redeeming = get_option( 'rs_show_redeeming_field' ) ;
-			$restriction_for_coupon    = get_option( '_rs_show_hide_coupon_if_sumo_discount' ) ;
-			$UserInfo                  = get_user_by( 'id' , $user_id ) ;
-			$UserName                  = $UserInfo->user_login ;
-			$Redeem                    = 'sumo_' . strtolower( "$UserName" ) ;
-			$AutoRedeem                = 'auto_redeem_' . strtolower( "$UserName" ) ;
+			$restriction_for_redeeming = get_option( 'rs_show_redeeming_field' );
+			$restriction_for_coupon    = get_option( '_rs_show_hide_coupon_if_sumo_discount' );
+			$UserInfo                  = get_user_by( 'id', $user_id );
+			$UserName                  = $UserInfo->user_login;
+			$Redeem                    = 'sumo_' . strtolower( "$UserName" );
+			$AutoRedeem                = 'auto_redeem_' . strtolower( "$UserName" );
 
 			foreach ( $AppliedCoupons as $code ) :
 				if ( '2' == $restriction_for_redeeming ) {
 					if ( $code == $Redeem || $code == $AutoRedeem ) {
-						WC()->cart->remove_coupon( $code ) ;
-						$error->add( 'Coupon ' , __( 'Since you got a discount, the applied points have been removed' , 'rewardsystem' ) ) ;
+						WC()->cart->remove_coupon( $code );
+						$error->add( 'Coupon ', __( 'Since you got a discount, the applied points have been removed', 'rewardsystem' ) );
 					}
 				}
-				if ( 'yes' == $restriction_for_coupon  && ( $code != $Redeem && $code != $AutoRedeem ) ) {
-					WC()->cart->remove_coupon( $code ) ;
-					$error->add( 'Coupon ' , __( 'Since you got a discount, the coupon have been removed' , 'rewardsystem' ) ) ;
+				if ( 'yes' == $restriction_for_coupon && ( $code != $Redeem && $code != $AutoRedeem ) ) {
+					WC()->cart->remove_coupon( $code );
+					$error->add( 'Coupon ', __( 'Since you got a discount, the coupon have been removed', 'rewardsystem' ) );
 				}
-			endforeach ;
+			endforeach;
 		}
 
 		/*
@@ -96,11 +96,11 @@ if ( ! class_exists( 'RSDiscountCompatability' ) ) {
 		public static function display_coupon_restriction_notice() {
 
 			if ( 'no' == get_option( '_rs_show_hide_coupon_if_sumo_discount' ) ) {
-				return ;
+				return;
 			}
 			?>
 			<div class="woocommerce-info rs_show_notice_for_hide_coupon_field">
-				<?php echo wp_kses_post(get_option( 'rs_message_in_cart_and_checkout_for_discount' ) ); ?>
+				<?php echo do_shortcode( get_option( 'rs_message_in_cart_and_checkout_for_discount' ) ); ?>
 			</div>
 			<?php
 		}
@@ -111,21 +111,20 @@ if ( ! class_exists( 'RSDiscountCompatability' ) ) {
 
 		public static function display_redeeming_restriction_notice() {
 
-			$user_id = get_current_user_id() ;
+			$user_id = get_current_user_id();
 			if ( ! $user_id ) {
-				return ;
+				return;
 			}
-			if ( '1' == get_option( 'rs_show_redeeming_field' , '1' ) ) {
-				return ;
+			if ( '1' == get_option( 'rs_show_redeeming_field', '1' ) ) {
+				return;
 			}
 			?>
 			<div class="woocommerce-info rs_show_notice_for_hide_redeem_field">
-				<?php echo wp_kses_post(get_option( 'rs_redeeming_usage_restriction_for_discount' ) ); ?>
+				<?php echo do_shortcode( get_option( 'rs_redeeming_usage_restriction_for_discount' ) ); ?>
 			</div>
 			<?php
 		}
-
 	}
 
-	RSDiscountCompatability::init() ;
+	RSDiscountCompatability::init();
 }

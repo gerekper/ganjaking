@@ -12,19 +12,19 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_rs_settings_tabs_fpemailexpiredpoints' , array( __CLASS__ , 'register_settings' ) ) ;
+			add_action( 'woocommerce_rs_settings_tabs_fpemailexpiredpoints' , array( __CLASS__, 'register_settings' ) ) ;
 
-			add_action( 'woocommerce_update_options_fprsmodules_fpemailexpiredpoints' , array( __CLASS__ , 'update_settings' ) ) ;
+			add_action( 'woocommerce_update_options_fprsmodules_fpemailexpiredpoints' , array( __CLASS__, 'update_settings' ) ) ;
 
-			add_action( 'woocommerce_admin_field_emailexpiry_templates_table' , array( __CLASS__ , 'emailexpiry_templates_table' ) ) ;
+			add_action( 'woocommerce_admin_field_emailexpiry_templates_table' , array( __CLASS__, 'emailexpiry_templates_table' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_enable_emailexpiry_module' , array( __CLASS__ , 'enable_module' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_enable_emailexpiry_module' , array( __CLASS__, 'enable_module' ) ) ;
 
-			add_action( 'rs_display_save_button_fpemailexpiredpoints' , array( 'RSTabManagement' , 'rs_display_save_button' ) ) ;
+			add_action( 'rs_display_save_button_fpemailexpiredpoints' , array( 'RSTabManagement', 'rs_display_save_button' ) ) ;
 
-			add_action( 'rs_display_reset_button_fpemailexpiredpoints' , array( 'RSTabManagement' , 'rs_display_reset_button' ) ) ;
+			add_action( 'rs_display_reset_button_fpemailexpiredpoints' , array( 'RSTabManagement', 'rs_display_reset_button' ) ) ;
 
-			add_action( 'fp_action_to_reset_settings_fpemailexpiredpoints' , array( __CLASS__ , 'reset_emailexpiry_module' ) ) ;
+			add_action( 'fp_action_to_reset_settings_fpemailexpiredpoints' , array( __CLASS__, 'reset_emailexpiry_module' ) ) ;
 		}
 
 		public static function enable_module() {
@@ -40,48 +40,53 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 					$TemplateNames[ $Template[ 'template_name' ] ] = $Template[ 'template_name' ] ;
 				}
 			}
+						/**
+						 * Hook:woocommerce_fpemailexpiredpoints_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_fpemailexpiredpoints_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Email Template for Expire' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_activate_email_template_expire_module' ,
-				) ,
+					'name' => __( 'Email Template for Expire' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_activate_email_template_expire_module',
+				),
 				array(
-					'type' => 'rs_enable_emailexpiry_module' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_activate_email_template_expire_module' ) ,
+					'type' => 'rs_enable_emailexpiry_module',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_activate_email_template_expire_module' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Email Templates Settings for Expire' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_email_expired_point_template_setting'
-				) ,
+					'name' => __( 'Email Templates Settings for Expire' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_email_expired_point_template_setting',
+				),
 				array(
-					'name'    => __( 'Select Template ' , 'rewardsystem' ) ,
-					'id'      => 'rs_select_template' ,
-					'class'   => 'rs_select_template' ,
-					'std'     => '' ,
-					'default' => '' ,
-					'type'    => 'select' ,
-					'newids'  => 'rs_select_template' ,
-					'options' => $TemplateNames ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => 'rs_general_tab_' ) ,
+					'name'    => __( 'Select Template ' , 'rewardsystem' ),
+					'id'      => 'rs_select_template',
+					'class'   => 'rs_select_template',
+					'std'     => '',
+					'default' => '',
+					'type'    => 'select',
+					'newids'  => 'rs_select_template',
+					'options' => $TemplateNames,
+				),
+				array( 'type' => 'sectionend', 'id' => 'rs_general_tab_' ),
 				array(
-					'type' => 'emailexpiry_templates_table' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_email_expired_point_template_setting' ) ,
+					'type' => 'emailexpiry_templates_table',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_email_expired_point_template_setting' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 					) ) ;
 		}
 
@@ -115,7 +120,7 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 				echo wp_kses_post(self::table_for_template( $Template , true , 'edit' ) );
 			} else {
 								$SavedTemplates = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}rs_expiredpoints_email" , OBJECT ) ;
-				$NewTemplateURL = add_query_arg( array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsmodules' , 'section' => 'fpemailexpiredpoints' , 'rs_new_email_expired' => 'template' ) , SRP_ADMIN_URL ) ;
+				$NewTemplateURL = add_query_arg( array( 'page' => 'rewardsystem_callback', 'tab' => 'fprsmodules', 'section' => 'fpemailexpiredpoints', 'rs_new_email_expired' => 'template' ) , SRP_ADMIN_URL ) ;
 				?>
 				<a href='<?php echo esc_url($NewTemplateURL); ?>'>
 					<input type="button" name="rs_new_email_expired_template" id="rs_new_email_expired_template" class="button rs_email_button" value="<?php esc_html_e('New Template', 'rewardsystem'); ?>">
@@ -149,7 +154,7 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 						if ( srp_check_is_array( $SavedTemplates ) ) {
 							$i = 1 ;
 							foreach ( $SavedTemplates as $each_template ) {
-								$EditTemplateURL = add_query_arg( array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsmodules' , 'section' => 'fpemailexpiredpoints' , 'rs_edit_email_expired' => $each_template->id ) , SRP_ADMIN_URL ) ;
+								$EditTemplateURL = add_query_arg( array( 'page' => 'rewardsystem_callback', 'tab' => 'fprsmodules', 'section' => 'fpemailexpiredpoints', 'rs_edit_email_expired' => $each_template->id ) , SRP_ADMIN_URL ) ;
 								$FromName        = 'local'  == $each_template->sender_opt ? $each_template->from_name : get_option( 'woocommerce_email_from_name' ) ;
 								$FromEmail       = 'local' == $each_template->sender_opt ? $each_template->from_email : get_option( 'woocommerce_email_from_address' ) ;
 								$Message         = strip_tags( $each_template->message ) ;
@@ -168,29 +173,29 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 										</span>
 									</td>
 									<td>
-										<?php echo wp_kses_post($each_template->template_name) ; ?>
+										<?php echo esc_html($each_template->template_name) ; ?>
 									</td>
 									<td>
-										<?php echo wp_kses_post($FromName) ; ?>
+										<?php echo esc_html($FromName) ; ?>
 									</td>
 									<td>
-										<?php echo wp_kses_post($FromEmail) ; ?>
+										<?php echo esc_html($FromEmail) ; ?>
 									</td>
 									<td>
-										<?php echo wp_kses_post($each_template->subject) ; ?>
+										<?php echo esc_html($each_template->subject) ; ?>
 									</td>
 									<td>
-										<?php echo wp_kses_post($Message) ; ?>
+										<?php echo esc_html($Message) ; ?>
 									</td>
 									<td>
 										<?php echo esc_attr($each_template->noofdays) ; ?>
 									</td>
 									<td>
-										<a href="#" class="button rs_expired_mail_active" data-rsmailid="<?php echo esc_attr($each_template->id ); ?>" data-currentstate="<?php echo wp_kses_post($Status) ; ?>"><?php echo wp_kses_post($ButtonText) ; ?></a>
+										<a href="#" class="button rs_expired_mail_active" data-rsmailid="<?php echo esc_attr($each_template->id ); ?>" data-currentstate="<?php echo esc_html($Status) ; ?>"><?php echo esc_html($ButtonText) ; ?></a>
 									</td>
 								</tr>
 								<?php
-								$i ++ ;
+								$i++ ;
 							}
 						}
 						?>
@@ -216,18 +221,21 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 			$FromMail        = $Bool ? $Template->from_email : '' ;
 			$Subject         = $Bool ? $Template->subject : '' ;
 			$NoofDays        = $Bool ? $Template->noofdays : '' ;
-			$ReturnURL       = add_query_arg( array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsmodules' , 'section' => 'fpemailexpiredpoints' ) , SRP_ADMIN_URL ) ;
+			$ReturnURL       = add_query_arg( array( 'page' => 'rewardsystem_callback', 'tab' => 'fprsmodules', 'section' => 'fpemailexpiredpoints' ) , SRP_ADMIN_URL ) ;
+			$shortcode_note  = __('<b>Note:</b> <br/>We recommend don’t use the above shortcodes anywhere on your site. It will give the value only on the place where we have predefined.<br/> Please check by using the shortcodes available in the <b>Shortcodes </b> tab which will give the value globally.', 'rewardsystem');
 			?>
 			<table class="widefat">
+								
 				<tr><td><span><strong><?php esc_html_e('{rssitelink}', 'rewardsystem'); ?></strong> - <?php esc_html_e( 'Use this Shortcode to insert the Cart Link in the mail' , 'rewardsystem' ) ; ?></span></td></tr>
 				<tr><td><span><strong><?php esc_html_e('{rsfirstname}', 'rewardsystem'); ?></strong> - <?php esc_html_e( 'Use this Shortcode to insert Receiver First Name in the mail' , 'rewardsystem' ) ; ?></span></td></tr>
 				<tr><td><span><strong><?php esc_html_e('{rslastname}', 'rewardsystem'); ?></strong> - <?php esc_html_e( 'Use this Shortcode to insert Receiver Last Name in the mail' , 'rewardsystem' ) ; ?></span></td></tr>
 				<tr><td><span><strong><?php esc_html_e('{rs_points_expire}', 'rewardsystem'); ?></strong> - <?php esc_html_e( 'Use this shortcode to display the earned points with an expiry date in the Table' , 'rewardsystem' ) ; ?></span></td></tr>
 				<tr><td><span><strong><?php esc_html_e('{site_referral_url}', 'rewardsystem'); ?></strong> - <?php esc_html_e( 'Use this Shortcode for displaying the Referral Link' , 'rewardsystem' ) ; ?></span></td></tr>                 
+								<tr><td><span><?php echo wp_kses_post($shortcode_note); ?></span></td></tr>
 				<tr>
 					<td><?php esc_html_e( 'Template Name' , 'rewardsystem' ); ?>:</td>
 					<td>
-						<input type="text" name="rs_email_expired_name" id="rs_email_expired_name" value="<?php echo wp_kses_post($TemplateName) ; ?>"/>
+						<input type="text" name="rs_email_expired_name" id="rs_email_expired_name" value="<?php echo esc_html($TemplateName) ; ?>"/>
 					</td>
 				</tr>
 				<tr>
@@ -261,7 +269,7 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 				<tr>
 					<td><?php esc_html_e( 'Email Subject' , 'rewardsystem' ); ?>:</td>
 					<td>
-						<input type="text" name="rs_subject_expired" id="rs_subject_expired" value="<?php echo wp_kses_post($Subject) ; ?>"/>
+						<input type="text" name="rs_subject_expired" id="rs_subject_expired" value="<?php echo esc_html($Subject) ; ?>"/>
 					</td>
 				</tr>
 				<tr>
@@ -292,7 +300,6 @@ if ( ! class_exists( 'RSEmailExpiredPointsTemplate' ) ) {
 			$Settings = RSEmailTemplate::settings_fields() ;
 			RSTabManagement::reset_settings( $Settings ) ;
 		}
-
 	}
 
 	RSEmailExpiredPointsTemplate::init() ;

@@ -19,14 +19,14 @@ class WC_AM_Smart_Cache {
 	 *
 	 * @var array Array of transient keys.
 	 */
-	private $set_transients = array();
+	private array $set_transients = array();
 
 	/**
 	 * Transients to delete on shutdown.
 	 *
 	 * @var array Array of transient keys.
 	 */
-	private $delete_transients = array();
+	private array $delete_transients = array();
 
 	/**
 	 * @var null

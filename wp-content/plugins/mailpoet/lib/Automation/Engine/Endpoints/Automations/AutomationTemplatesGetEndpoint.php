@@ -23,6 +23,7 @@ class AutomationTemplatesGetEndpoint extends Endpoint {
   }
 
   public function handle(Request $request): Response {
+    /** @var string|null $category */
     $category = $request->getParam('category');
     $templates = array_values($this->registry->getTemplates($category ? strval($category) : null));
     return new Response(array_map(function (AutomationTemplate $automation) {

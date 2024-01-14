@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					foreach ( $coupons as $coupon ) :
 						?>
-				<option value="<?php echo wp_kses_post( strtolower( $coupon->post_title ) ) ; ?>"><?php echo wp_kses_post( $coupon->post_title ) ; ?>
+				<option value="<?php echo esc_attr( strtolower( $coupon->post_title ) ) ; ?>"><?php echo esc_html( $coupon->post_title ) ; ?>
 				<?php endforeach ; ?>          
 			</option>
 		</select>

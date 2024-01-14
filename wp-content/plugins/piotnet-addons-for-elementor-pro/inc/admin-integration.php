@@ -7,6 +7,16 @@
         }
         return $new_key;
     }
+    function PAFE_generate_input_api($key, $name){
+        if(!empty($key)){
+            $html = '<div style="display: flex;"><input type="text" class="regular-text pafe-preview-value" value="' .PAFE_generate_key($key). '" readonly/>';
+            $html .= '<input type="hidden" name="' . $name . '" value="' .$key. '" class="regular-text pafe-hidden-value" />';
+            $html .= '<button type="button" class="pafe-change-api-button">Change</button><button type="button" data-value="'.$key.'" class="pafe-cancel-api-button" style="display:none;">Cancel</button></div>';
+        }else{
+            $html = '<input type="text" name="' . $name . '" class="regular-text" />';
+        }
+        return $html;
+    }
 ?>
 <?php if( get_option( 'pafe-features-form-google-sheets-connector', 2 ) == 2 || get_option( 'pafe-features-form-google-sheets-connector', 2 ) == 1 ) : ?>
 
@@ -62,12 +72,14 @@
         <table class="form-table">
             <tr valign="top">
                 <th scope="row"><?php _e('Client ID','pafe'); ?></th>
-                <td><input type="text" name="piotnet-addons-for-elementor-pro-google-sheets-client-id" value="<?php echo PAFE_generate_key($client_id); ?>" class="regular-text"/></td>
+                <td>
+                    <?php echo PAFE_generate_input_api($client_id, 'piotnet-addons-for-elementor-pro-google-sheets-client-id'); ?>
+                </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Client Secret','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-google-sheets-client-secret" value="<?php echo PAFE_generate_key($client_secret); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($client_secret, 'piotnet-addons-for-elementor-pro-google-sheets-client-secret'); ?>
                 </td>
             </tr>
             <tr valign="top">
@@ -176,18 +188,20 @@
         <table class="form-table">
             <tr valign="top">
                 <th scope="row"><?php esc_html_e( 'Client ID', 'pafe' ); ?></th>
-                <td><input type="text" name="piotnet-addons-for-elementor-pro-google-calendar-client-id" value="<?php echo PAFE_generate_key($gg_cld_client_id); ?>" class="regular-text"/></td>
+                <td>
+                <?php echo PAFE_generate_input_api($gg_cld_client_id, 'piotnet-addons-for-elementor-pro-google-calendar-client-id'); ?>
+                </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php esc_html_e( 'Client Secret', 'pafe' ); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-google-calendar-client-secret" value="<?php echo PAFE_generate_key($gg_cld_client_secret); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($gg_cld_client_secret, 'piotnet-addons-for-elementor-pro-google-calendar-client-secret'); ?>
                 </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php esc_html_e( 'API Key', 'pafe' ); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-google-calendar-client-api-key" value="<?php echo PAFE_generate_key($client_api_key); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($client_api_key, 'piotnet-addons-for-elementor-pro-google-calendar-client-api-key'); ?>
                 </td>
             </tr>
             <tr valign="top">
@@ -229,7 +243,7 @@
             <tr valign="top">
                 <th scope="row"><?php _e('Google Maps API Key','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-google-maps-api-key" value="<?php echo PAFE_generate_key($google_maps_api_key); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($google_maps_api_key, 'piotnet-addons-for-elementor-pro-google-maps-api-key'); ?>
                 </td>
             </tr>
         </table>
@@ -253,12 +267,14 @@
         <table class="form-table">
             <tr valign="top">
                 <th scope="row"><?php _e('Publishable Key','pafe'); ?></th>
-                <td><input type="text" name="piotnet-addons-for-elementor-pro-stripe-publishable-key" value="<?php echo PAFE_generate_key($publishable_key); ?>" class="regular-text"/></td>
+                <td>
+                <?php echo PAFE_generate_input_api($publishable_key, 'piotnet-addons-for-elementor-pro-stripe-publishable-key'); ?>
+                </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Secret Key','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-stripe-secret-key" value="<?php echo PAFE_generate_key($secret_key); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($secret_key, 'piotnet-addons-for-elementor-pro-stripe-secret-key'); ?>
                 </td>
             </tr>
         </table>
@@ -286,12 +302,14 @@
             </div>
             <tr valign="top">
                 <th scope="row"><?php _e('Client ID','pafe'); ?></th>
-                <td><input type="text" name="piotnet-addons-for-elementor-pro-paypal-client-id" value="<?php echo PAFE_generate_key($client_id); ?>" class="regular-text"/></td>
+                <td>
+                <?php echo PAFE_generate_input_api($client_id, 'piotnet-addons-for-elementor-pro-paypal-client-id'); ?>
+                </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Client Secret','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-paypal-client-secret" value="<?php echo PAFE_generate_key($client_secret); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($client_secret, 'piotnet-addons-for-elementor-pro-paypal-client-secret'); ?>
                 </td>
             </tr>
         </table>
@@ -314,7 +332,7 @@
             <tr valign="top">
                 <th scope="row"><?php _e('API Key','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-mollie-api-key" value="<?php echo PAFE_generate_key($mollie_api_key); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($mollie_api_key, 'piotnet-addons-for-elementor-pro-mollie-api-key'); ?>
                 </td>
             </tr>
         </table>
@@ -336,13 +354,13 @@
             <tr valign="top">
                 <th scope="row"><?php _e('Key ID','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-razorpay-api-key" value="<?php echo PAFE_generate_key($razor_key_id); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($razor_key_id, 'piotnet-addons-for-elementor-pro-razorpay-api-key'); ?>
                 </td>
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Key Secret','pafe'); ?></th>
                 <td class="pafe-settings-page-td">
-                    <input type="text" name="piotnet-addons-for-elementor-pro-razorpay-secret-key" value="<?php echo PAFE_generate_key($razor_key_secret); ?>" class="regular-text"/>
+                <?php echo PAFE_generate_input_api($razor_key_secret, 'piotnet-addons-for-elementor-pro-razorpay-secret-key'); ?>
                 </td>
             </tr>
         </table>
@@ -365,7 +383,9 @@
         <table class="form-table">
             <tr valign="top">
                 <th scope="row"><?php _e('Private App Access Token','pafe'); ?></th>
-                <td><input type="text" name="piotnet-addons-for-elementor-pro-hubspot-access-token" value="<?php echo PAFE_generate_key($hubspot_access_token); ?>" class="regular-text"/></td>
+                <td>
+                <?php echo PAFE_generate_input_api($hubspot_access_token, 'piotnet-addons-for-elementor-pro-hubspot-access-token'); ?>
+                </td>
             </tr>
         </table>
 		<?php submit_button(__('Save Settings','pafe')); ?>
@@ -390,7 +410,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-mailchimp-api-key" value="<?php echo PAFE_generate_key($api_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($api_key, 'piotnet-addons-for-elementor-pro-mailchimp-api-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -411,7 +431,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-mailerlite-api-key" value="<?php echo PAFE_generate_key($api_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($api_key, 'piotnet-addons-for-elementor-pro-mailerlite-api-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -432,7 +452,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-sendinblue-api-key" value="<?php echo PAFE_generate_key($sendinblue_api_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($sendinblue_api_key, 'piotnet-addons-for-elementor-pro-sendinblue-api-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -454,12 +474,14 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-activecampaign-api-key" value="<?php echo PAFE_generate_key($api_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($api_key, 'piotnet-addons-for-elementor-pro-activecampaign-api-key'); ?>
                     </td>
                 </tr>
                 <tr valign="top">
                     <th scope="row"><?php _e('API URL','pafe'); ?></th>
-                    <td><input type="text" name="piotnet-addons-for-elementor-pro-activecampaign-api-url" value="<?php echo PAFE_generate_key($api_url); ?>" class="regular-text"/></td>
+                    <td>
+                    <?php echo PAFE_generate_input_api($api_url, 'piotnet-addons-for-elementor-pro-activecampaign-api-url'); ?>
+                    </td>
                 </tr>
             </table>
             <?php submit_button(__('Save Settings','pafe')); ?>
@@ -479,7 +501,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-getresponse-api-key" value="<?php echo PAFE_generate_key($getresponseapi_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($getresponseapi_key, 'piotnet-addons-for-elementor-pro-getresponse-api-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -516,12 +538,14 @@
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row"><?php _e('Site Key','pafe'); ?></th>
-                    <td><input type="text" name="piotnet-addons-for-elementor-pro-recaptcha-site-key" value="<?php echo PAFE_generate_key($site_key); ?>" class="regular-text"/></td>
+                    <td>
+                    <?php echo PAFE_generate_input_api($site_key, 'piotnet-addons-for-elementor-pro-recaptcha-site-key'); ?>
+                    </td>
                 </tr>
                 <tr valign="top">
                     <th scope="row"><?php _e('Secret Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-recaptcha-secret-key" value="<?php echo PAFE_generate_key($secret_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($secret_key, 'piotnet-addons-for-elementor-pro-recaptcha-secret-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -542,12 +566,14 @@
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row"><?php _e('Account SID','pafe'); ?></th>
-                    <td><input type="text" name="piotnet-addons-for-elementor-pro-twilio-account-sid" value="<?php echo PAFE_generate_key($account_sid); ?>" class="regular-text"/></td>
+                    <td>
+                    <?php echo PAFE_generate_input_api($account_sid, 'piotnet-addons-for-elementor-pro-twilio-account-sid'); ?>
+                    </td>
                 </tr>
                 <tr valign="top">
                     <th scope="row"><?php _e('Author Token','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-twilio-author-token" value="<?php echo PAFE_generate_key($author_token); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($author_token, 'piotnet-addons-for-elementor-pro-twilio-author-token'); ?>
                     </td>
                 </tr>
             </table>
@@ -568,7 +594,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('SendFox Personal Aceess Token','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-sendfox-access-token" value="<?php echo PAFE_generate_key($sendfox_access_token); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($sendfox_access_token, 'piotnet-addons-for-elementor-pro-sendfox-access-token'); ?>
                     </td>
                 </tr>
             </table>
@@ -593,13 +619,13 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-constant-contact-client-id" value="<?php echo PAFE_generate_key($c_ID); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($c_ID, 'piotnet-addons-for-elementor-pro-constant-contact-client-id'); ?>
                     </td>
                 </tr>
                 <tr valign="top">
                     <th scope="row"><?php _e('App Secret','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-constant-contact-app-secret-id" value="<?php echo PAFE_generate_key($app_secret); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($app_secret, 'piotnet-addons-for-elementor-pro-constant-contact-app-secret-id'); ?>
                     </td>
                 </tr>
                 <tr valign="top">
@@ -659,7 +685,7 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('API Key','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-convertkit-api-key" value="<?php echo PAFE_generate_key($convertkit_api_key); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($convertkit_api_key, 'piotnet-addons-for-elementor-pro-convertkit-api-key'); ?>
                     </td>
                 </tr>
             </table>
@@ -701,14 +727,14 @@
                 <tr valign="top">
                     <th scope="row"><?php _e('Client ID','pafe'); ?></th>
                     <td>
-                        <input type="text" name="piotnet-addons-for-elementor-pro-zoho-client-id" value="<?php echo PAFE_generate_key($client_id); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($client_id, 'piotnet-addons-for-elementor-pro-zoho-client-id'); ?>
                         <a target="_blank" href="https://accounts.zoho.com/developerconsole">How to create client id and Screct key</a>
                     </td>
                 </tr>
                 <tr valign="top">
                     <th scope="row"><?php _e('Client Secret','pafe'); ?></th>
                     <td class="pafe-settings-page-td">
-                        <input type="text" name="piotnet-addons-for-elementor-pro-zoho-client-secret" value="<?php echo PAFE_generate_key($client_secret); ?>" class="regular-text"/>
+                    <?php echo PAFE_generate_input_api($client_secret, 'piotnet-addons-for-elementor-pro-zoho-client-secret'); ?>
                     </td>
                 </tr>
                 <tr valign="top">

@@ -814,7 +814,7 @@ function UniteAdminUC(){
 	 * get input type (from jquery object)
 	 */
 	this.getInputType = function(objInput){
-				
+		
 		if(objInput.is("input[type='text']"))
 			return("text");
 
@@ -832,6 +832,10 @@ function UniteAdminUC(){
 
 		if(objInput.is("input[type='button']"))
 			return("button");
+
+		if(objInput.is("input[type='number']"))
+			return("text");
+		
 		
 		//get type by data
 		var inputType = objInput.data("inputtype");

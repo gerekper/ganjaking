@@ -159,12 +159,8 @@ class Bridge {
   public function getAuthorizedSenderDomains($domain = 'all'): array {
     $domain = strtolower($domain);
 
-    $data = $this
-      ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
-      ->getAuthorizedSenderDomains();
-    $data = $data ?? [];
-
     $allSenderDomains = [];
+    $data = $this->getRawSenderDomainData();
 
     foreach ($data as $subarray) {
       if (isset($subarray['domain'])) {
@@ -178,6 +174,13 @@ class Bridge {
     }
 
     return $allSenderDomains;
+  }
+
+  public function getRawSenderDomainData(): array {
+    $data = $this
+      ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
+      ->getAuthorizedSenderDomains();
+    return $data ?? [];
   }
 
   /**

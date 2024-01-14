@@ -3,7 +3,7 @@
 // Integrate WP List Table for Referral Table
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class SRP_Referral_List_Table extends WP_List_Table {
@@ -28,7 +28,7 @@ class SRP_Referral_List_Table extends WP_List_Table {
 
 			$newdata = array() ;
 			$args    = array(
-				'search' => $keyword ,
+				'search' => $keyword,
 					) ;
 			$mydata  = get_users( $args ) ;
 
@@ -36,7 +36,7 @@ class SRP_Referral_List_Table extends WP_List_Table {
 				$sr = 1 ;
 				foreach ( $mydata as $eacharray => $value ) {
 					$newdata[] = $this->get_data_of_users_for_referral( $value->ID , $sr ) ;
-					$sr ++ ;
+					$sr++ ;
 				}
 			}
 
@@ -44,20 +44,20 @@ class SRP_Referral_List_Table extends WP_List_Table {
 			$currentPage = $this->get_pagenum() ;
 			$totalItems  = count( $newdata ) ;
 
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 
 			$this->items = $newdata ;
 		} else {
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 
 			$totalItems = $num_rows ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $totalItems ,
-				'per_page'    => $perPage
+				'total_items' => $totalItems,
+				'per_page'    => $perPage,
 			) ) ;
 
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 
 			$this->items = $data ;
 		}
@@ -70,19 +70,19 @@ class SRP_Referral_List_Table extends WP_List_Table {
 		$total_referral_points = RSMemberFunction::earn_points_percentage( $user_id , ( float ) $total_referral_points ) ;
 		if ( $referreduser_count > 0 && $total_referral_points > 0 ) {
 			$data = array(
-				'sno'                   => $i ,
-				'referer_name'          => '' != $getuserbyid->user_login  ? $getuserbyid->user_login : '-' ,
-				'referer_email'         => '' != $getuserbyid->user_email  ? $getuserbyid->user_email : '-' ,
-				'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user_id , get_permalink() ) . ">$referreduser_count</a>" : '0' ,
-				'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0' ,
+				'sno'                   => $i,
+				'referer_name'          => '' != $getuserbyid->user_login  ? $getuserbyid->user_login : '-',
+				'referer_email'         => '' != $getuserbyid->user_email  ? $getuserbyid->user_email : '-',
+				'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user_id , get_permalink() ) . ">$referreduser_count</a>" : '0',
+				'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0',
 					) ;
 		} else {
 			$data = array(
-				'sno'                   => $i ,
-				'referer_name'          => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-' ,
-				'referer_email'         => '' != $getuserbyid->user_email ? $getuserbyid->user_email : '-' ,
-				'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user_id , get_permalink() ) . ">$referreduser_count</a>" : '0' ,
-				'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0' ,
+				'sno'                   => $i,
+				'referer_name'          => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-',
+				'referer_email'         => '' != $getuserbyid->user_email ? $getuserbyid->user_email : '-',
+				'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user_id , get_permalink() ) . ">$referreduser_count</a>" : '0',
+				'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0',
 					) ;
 		}
 		return $data ;
@@ -90,11 +90,11 @@ class SRP_Referral_List_Table extends WP_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'sno'                   => __( 'S.No' , 'rewardsystem' ) ,
-			'referer_name'          => __( 'Referrer Username' , 'rewardsystem' ) ,
-			'referer_email'         => __( 'Referrer Email' , 'rewardsystem' ) ,
-			'refered_person_count'  => __( 'Referred Person Count' , 'rewardsystem' ) ,
-			'total_referral_points' => __( 'Total Referral Points' , 'rewardsystem' ) ,
+			'sno'                   => __( 'S.No' , 'rewardsystem' ),
+			'referer_name'          => __( 'Referrer Username' , 'rewardsystem' ),
+			'referer_email'         => __( 'Referrer Email' , 'rewardsystem' ),
+			'refered_person_count'  => __( 'Referred Person Count' , 'rewardsystem' ),
+			'total_referral_points' => __( 'Total Referral Points' , 'rewardsystem' ),
 				) ;
 
 		return $columns ;
@@ -105,9 +105,10 @@ class SRP_Referral_List_Table extends WP_List_Table {
 	}
 
 	public function get_sortable_columns() {
-		return array( 'refered_person_count' => array( 'refered_person_count' , false ) ,
-			'sno'                  => array( 'sno' , false ) ,
-			'total_points'         => array( 'total_points' , false ) ,
+		return array(
+		'refered_person_count' => array( 'refered_person_count', false ),
+			'sno'                  => array( 'sno', false ),
+			'total_points'         => array( 'total_points', false ),
 				) ;
 	}
 
@@ -132,13 +133,13 @@ class SRP_Referral_List_Table extends WP_List_Table {
 				$total_referral_points = RSMemberFunction::earn_points_percentage( $user->ID , ( float ) $total_referral_points ) ;
 				if ( $referreduser_count > 0 && $total_referral_points > 0 ) {
 					$data[] = array(
-						'sno'                   => $i ,
-						'referer_name'          => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-' ,
-						'referer_email'         => '' != $getuserbyid->user_email ? $getuserbyid->user_email : '-' ,
-						'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user->ID , get_permalink() ) . ">$referreduser_count</a>" : '0' ,
-						'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0' ,
+						'sno'                   => $i,
+						'referer_name'          => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-',
+						'referer_email'         => '' != $getuserbyid->user_email ? $getuserbyid->user_email : '-',
+						'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user->ID , get_permalink() ) . ">$referreduser_count</a>" : '0',
+						'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0',
 							) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 			return $data ;
@@ -160,13 +161,13 @@ class SRP_Referral_List_Table extends WP_List_Table {
 				$total_referral_points = RSMemberFunction::earn_points_percentage( $user->ID , ( float ) $total_referral_points ) ;
 				if ( $referreduser_count > 0 && $total_referral_points > 0 ) {
 					$data[] = array(
-						'sno'                   => $i ,
-						'referer_name'          => !empty($getuserbyid->user_login) ? $getuserbyid->user_login : '-' ,
-						'referer_email'         => !empty($getuserbyid->user_email) ? $getuserbyid->user_email : '-' ,
-						'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user->ID , get_permalink() ) . ">$referreduser_count</a>" : '0' ,
-						'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0' ,
+						'sno'                   => $i,
+						'referer_name'          => !empty($getuserbyid->user_login) ? $getuserbyid->user_login : '-',
+						'referer_email'         => !empty($getuserbyid->user_email) ? $getuserbyid->user_email : '-',
+						'refered_person_count'  => $referreduser_count > 0 ? '<a href=' . add_query_arg( 'view' , $user->ID , get_permalink() ) . ">$referreduser_count</a>" : '0',
+						'total_referral_points' => $total_referral_points > 0 ? round_off_type( $total_referral_points ) : '0',
 							) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 			return $data ;
@@ -211,5 +212,4 @@ class SRP_Referral_List_Table extends WP_List_Table {
 
 		return -$result ;
 	}
-
 }

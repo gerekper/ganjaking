@@ -86,8 +86,9 @@ class ThePlus_Carousel_Remote extends Widget_Base {
 	 * @access public
 	 */
 	public function get_keywords() {
-		return array( 'carousal', 'carousal remote', 'remote', 'horizontal', 'horizontal scroll', 'switcher', 'tp', 'theplus' );
-	}
+        return ['Carousel', 'Remote', 'Slider', 'Slideshow', 'Image Slider', 'Image Carousel', 'Elementor Carousel', 'Elementor Slider', 'Elementor Slideshow', 'Elementor Image Slider', 'Elementor Image Carousel', 'Plus Addons Carousel', 'Plus Addons Slider', 'Plus Addons Slideshow', 'Plus Addons Image Slider', 'Plus Addons Image Carousel'];
+    }
+
 
 	/**
 	 * Widget Help url

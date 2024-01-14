@@ -898,7 +898,7 @@ class UniteCreatorTemplateEngineWork{
 	 * put pagination
 	 */
 	public function putPagination($args = array()){
-
+		
 		$objPagination = new UniteCreatorElementorPagination();
 		$objPagination->putPaginationWidgetHtml($args);
 	}
@@ -955,7 +955,7 @@ class UniteCreatorTemplateEngineWork{
 
 		if(function_exists("wc_price") == false)
 			return($price);
-
+		
 		$newPrice = wc_price($price);
 
 		//new - exclude if the product or variation id is not given
@@ -978,9 +978,9 @@ class UniteCreatorTemplateEngineWork{
 			return($newPrice);
 
 		try{
-
+						
 			$newPrice = apply_filters("woocommerce_get_price_html",$newPrice, $product);
-
+						
 		}catch(Exception $e){
 		}
 

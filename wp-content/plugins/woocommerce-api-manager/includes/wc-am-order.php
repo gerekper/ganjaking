@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Order {
 
-	private $api_resource_table   = '';
-	private $api_activation_table = '';
+	private string $api_resource_table   = '';
+	private string $api_activation_table = '';
 
 	/**
 	 * @var null
@@ -177,7 +177,6 @@ class WC_AM_Order {
 					$current_access_expires = ! empty( $v[ 'old_access_expires' ] ) ? $v[ 'old_access_expires' ] + $new_access_expires : $new_access_expires;
 
 					$data = array(
-						'activation_ids'              => '',
 						'activations_total'           => 0,
 						'activations_purchased'       => ! empty( $v[ 'api_activations' ] ) ? (int) $v[ 'api_activations' ] : 0,
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
@@ -198,7 +197,6 @@ class WC_AM_Order {
 					);
 
 					$format = array(
-						'%s',
 						'%d',
 						'%d',
 						'%d',
@@ -364,7 +362,6 @@ class WC_AM_Order {
 					 * as it may still exist on the subscription.
 					 */
 					$data = array(
-						'activation_ids'              => '',
 						'activations_total'           => 0,
 						'activations_purchased'       => ! empty( $v[ 'api_activations' ] ) ? (int) $v[ 'api_activations' ] : 0,
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
@@ -390,7 +387,6 @@ class WC_AM_Order {
 					);
 
 					$format = array(
-						'%s',
 						'%d',
 						'%d',
 						'%d',
@@ -606,12 +602,6 @@ class WC_AM_Order {
 
 			if ( $activation_ids ) {
 				foreach ( $activation_ids as $k => $activation_id ) {
-					$activation_resource = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resource_by_activation_id( $activation_id );
-
-					if ( ! empty( $activation_resource ) ) {
-						WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
-					}
-
 					// Deletes all the API Key activations with the activation ID.
 					WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
 				}
@@ -754,12 +744,6 @@ class WC_AM_Order {
 
 		if ( ! empty( $activation_ids ) ) {
 			foreach ( $activation_ids as $k => $activation_id ) {
-				$activation_resource = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resource_by_activation_id( $activation_id );
-
-				if ( ! empty( $activation_resource ) ) {
-					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
-				}
-
 				// Deletes all the API Key activations with the activation ID.
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
 			}
@@ -824,12 +808,6 @@ class WC_AM_Order {
 
 		if ( ! empty( $activation_ids ) ) {
 			foreach ( $activation_ids as $k => $activation_id ) {
-				$activation_resource = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resource_by_activation_id( $activation_id );
-
-				if ( ! empty( $activation_resource ) ) {
-					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
-				}
-
 				// Deletes all the API Key activations with the activation ID.
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
 			}
@@ -1112,7 +1090,6 @@ class WC_AM_Order {
 
 								if ( count( $previous_activation_ids ) == $previous_api_resource_object->activations_total ) {
 									$data = array(
-										'activation_ids'              => WC_AM_FORMAT()->json_encode( $previous_activation_ids ),
 										'activations_total'           => $previous_api_resource_object->activations_total,
 										'activations_purchased'       => $previous_api_resource_object->activations_purchased,
 										'activations_purchased_total' => $previous_api_resource_object->activations_purchased_total,
@@ -1124,7 +1101,8 @@ class WC_AM_Order {
 									);
 
 									$data_format = array(
-										'%s',
+										'%d',
+										'%d',
 										'%d',
 										'%s'
 									);

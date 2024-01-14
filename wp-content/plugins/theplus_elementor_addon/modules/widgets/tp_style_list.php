@@ -40,6 +40,10 @@ class ThePlus_Style_List extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return [ 'Stylist List', 'Stylist Widget', 'Stylist', 'Stylist Addon', 'Stylist Plus Addon', 'Stylist Plugin', 'Elementor Stylist', 'Elementor Stylist List', 'Elementor Stylist Widget', 'Elementor Stylist Addon', 'Elementor Stylist Plus Addon', 'Elementor Stylist Plugin' ];
+    }
 	
     protected function register_controls() {
 		

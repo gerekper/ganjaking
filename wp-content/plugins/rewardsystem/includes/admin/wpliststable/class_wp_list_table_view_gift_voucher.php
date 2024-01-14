@@ -3,7 +3,7 @@
 // Integrate WP List Table for viewing Referral Table
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class SRP_View_Gift_Voucher extends WP_List_Table {
@@ -28,36 +28,36 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 					$newdata[] = $data[ $eacharray ] ;
 				}
 			}
-			usort( $newdata , array( &$this , 'sort_data' ) ) ;
+			usort( $newdata , array( &$this, 'sort_data' ) ) ;
 
 			$perPage     = RSTabManagement::rs_get_value_for_no_of_item_perpage( $user , $screen ) ;
 			$currentPage = $this->get_pagenum() ;
 			$totalItems  = count( $newdata ) ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $totalItems ,
-				'per_page'    => $perPage
+				'total_items' => $totalItems,
+				'per_page'    => $perPage,
 			) ) ;
 
 			$newdata = array_slice( $newdata , ( ( $currentPage - 1 ) * $perPage ) , $perPage ) ;
 
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 
 			$this->items = $newdata ;
 		} else {
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 			$perPage     = RSTabManagement::rs_get_value_for_no_of_item_perpage( $user , $screen ) ;
 			$currentPage = $this->get_pagenum() ;
 			$totalItems  = count( $data ) ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $totalItems ,
-				'per_page'    => $perPage
+				'total_items' => $totalItems,
+				'per_page'    => $perPage,
 			) ) ;
 
 			$data = array_slice( $data , ( ( $currentPage - 1 ) * $perPage ) , $perPage ) ;
 
-			$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+			$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 
 			$this->items = $data ;
 		}
@@ -65,9 +65,9 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'sno'          => __( 'S.No' , 'rewardsystem' ) ,
-			'voucher_code' => __( 'Voucher Code' , 'rewardsystem' ) ,
-			'username'     => __( 'UserName' , 'rewardsystem' ) ,
+			'sno'          => __( 'S.No' , 'rewardsystem' ),
+			'voucher_code' => __( 'Voucher Code' , 'rewardsystem' ),
+			'username'     => __( 'UserName' , 'rewardsystem' ),
 		) ;
 
 		return $columns ;
@@ -78,9 +78,9 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 	}
 
 	public function get_sortable_columns() {
-		return array( 'username' => array( 'username' , false ) ,
-			'sno'      => array( 'sno' , false ) ,
-			'username' => array( 'username' , false ) ,
+		return array(
+		'username' => array( 'username', false ),
+			'sno'      => array( 'sno', false ),
 		) ;
 	}
 
@@ -94,11 +94,11 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 				$getuserbyid = get_user_by( 'id' , $key ) ;
 				if ( is_object( $getuserbyid ) ) {
 					$data[] = array(
-						'sno'          => $i ,
-						'voucher_code' => $keyword ,
-						'username'     => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-' ,
+						'sno'          => $i,
+						'voucher_code' => $keyword,
+						'username'     => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-',
 					) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 		}
@@ -117,11 +117,11 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 				$getuserbyid = get_user_by( 'id' , $key ) ;
 				if ( is_object( $getuserbyid ) ) {
 					$data[] = array(
-						'sno'          => $i ,
-						'voucher_code' => $voucher_code ,
-						'username'     => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-' ,
+						'sno'          => $i,
+						'voucher_code' => $voucher_code,
+						'username'     => '' != $getuserbyid->user_login ? $getuserbyid->user_login : '-',
 					) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 		}
@@ -164,5 +164,4 @@ class SRP_View_Gift_Voucher extends WP_List_Table {
 
 		return -$result ;
 	}
-
 }

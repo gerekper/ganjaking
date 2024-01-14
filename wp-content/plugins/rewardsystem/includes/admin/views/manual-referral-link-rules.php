@@ -134,7 +134,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</td>
 					</tr>
 					<?php
-					$i ++;
+					$i++;
 				endif ;
 			endforeach ;
 		else :
@@ -178,12 +178,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<td colspan="<?php echo esc_attr( '4' ) ; ?>" class="footable-visible">
 					<?php
 					$pagination = array(
-						'page_count'      => $page_count ,
-						'permalink'       => admin_url( 'admin.php' ) ,
-						'query_args'      => $query_args ,
-						'current_page'    => $current_page ,
-						'prev_page_count' => ( 0 == ( $current_page - 1 ) ) ? ( $current_page ) : ( $current_page - 1 ) ,
-						'next_page_count' => ( ( $current_page + 1 ) <= ( $page_count ) ) ? ( $current_page + 1 ) : ( $current_page )
+						'page_count'      => $page_count,
+						'permalink'       => admin_url( 'admin.php' ),
+						'query_args'      => $query_args,
+						'current_page'    => $current_page,
+						'prev_page_count' => ( 0 == ( $current_page - 1 ) ) ? ( $current_page ) : ( $current_page - 1 ),
+						'next_page_count' => ( ( $current_page + 1 ) <= ( $page_count ) ) ? ( $current_page + 1 ) : ( $current_page ),
 							) ;
 
 					srp_get_template( 'pagination.php' , $pagination ) ;

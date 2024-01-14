@@ -11,6 +11,7 @@ use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Newsletter\Statistics\NewsletterStatistics;
+use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 
 class StatsResponseBuilder {
@@ -20,7 +21,7 @@ class StatsResponseBuilder {
    * @param NewsletterEntity $newsletter
    * @param NewsletterStatistics $statistics
    * @param array<array<string, int|string>> $clickedLinks
-   * @param string $previewUrl
+   * @param NewsletterUrl $newsletterUrl
    *
    * @return array<string, int|string|array<string, mixed>|null>
    */
@@ -28,7 +29,7 @@ class StatsResponseBuilder {
     NewsletterEntity $newsletter,
     NewsletterStatistics $statistics,
     array $clickedLinks,
-    string $previewUrl
+    NewsletterUrl $newsletterUrl
   ): array {
     $segments = $newsletter->getNewsletterSegments();
 
@@ -46,7 +47,13 @@ class StatsResponseBuilder {
       'total_sent' => $statistics->getTotalSentCount(),
       'ga_campaign' => $newsletter->getGaCampaign(),
       'clicked_links' => $clickedLinks,
-      'preview_url' => $previewUrl,
+      'created_at' => ($createdAt = $newsletter->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
+      'updated_at' => $newsletter->getUpdatedAt()->format(self::DATE_FORMAT),
+      'deleted_at' => ($deletedAt = $newsletter->getDeletedAt()) ? $deletedAt->format(self::DATE_FORMAT) : null,
+      'sent_at' => ($sentAt = $newsletter->getSentAt()) ? $sentAt->format(self::DATE_FORMAT) : null,
+      'status' => $newsletter->getStatus(),
+      'parent_id' => ($parent = $newsletter->getParent()) ? $parent->getId() : null,
+      'wp_post_id' => $newsletter->getWpPostId(),
     ];
 
     $queue = $newsletter->getLatestQueue();
@@ -62,6 +69,14 @@ class StatsResponseBuilder {
         ];
       }
     }
+
+    $result['preview_url'] = $newsletterUrl->getViewInBrowserUrl(
+      $newsletter,
+      null,
+      in_array($newsletter->getStatus(), [NewsletterEntity::STATUS_SENT, NewsletterEntity::STATUS_SENDING], true)
+        ? $queue
+        : null
+    );
 
     return $result;
   }

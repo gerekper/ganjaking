@@ -428,11 +428,11 @@ function dropshipper_order_list()
 		echo '<table class="table table-bordered">';
 		echo '<tr>
                         From:
-                        <input type="date" name="dateFrom" value="' . $get_fromdate_in . '" />
+                        <input type="date" name="dateFrom" value="' . htmlspecialchars( $get_fromdate_in ). '" />
                         To:
-                        <input type="date" name="dateTo" value="' . $get_todate_in . '" />
+                        <input type="date" name="dateTo" value="' . htmlspecialchars( $get_todate_in ) . '" />
                         Number of items per page:
-                        <input type="number" min="5" max="50" name="order_per_page" value="' . $post_per_page . '" style="width: 55px;margin-right: 5px;" />
+                        <input type="number" min="5" max="50" name="order_per_page" value="' . htmlspecialchars( $post_per_page ) . '" style="width: 55px;margin-right: 5px;" />
                         <input type="submit" class="button button-primary" name="submit" value="Filter"/>
                     <tr>';
 		echo '</table>';

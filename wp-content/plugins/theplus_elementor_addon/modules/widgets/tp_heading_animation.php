@@ -36,6 +36,10 @@ class ThePlus_Heading_Animation extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Animated Text', 'Text Animation', 'Animated Typography', 'Animated Heading', 'Animated Title', 'Animated Words'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

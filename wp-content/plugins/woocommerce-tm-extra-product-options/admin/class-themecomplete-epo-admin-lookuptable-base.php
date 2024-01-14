@@ -165,7 +165,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	public function register_admin_scripts() {
 		global $wp_query, $post;
 		$ext = '.min';
-		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$ext = '';
 		}
 		THEMECOMPLETE_EPO_ADMIN_GLOBAL()->register_admin_styles( 1 );
@@ -271,7 +271,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 *
 	 * @param integer $post_id The current post id.
 	 * @return void
-	 * @since  6.1
+	 * @since 6.1
 	 * @access public
 	 */
 	public function print_saved_lookuptable( $post_id = 0 ) {

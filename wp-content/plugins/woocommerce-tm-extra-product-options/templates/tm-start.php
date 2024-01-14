@@ -24,7 +24,7 @@ if ( isset( $classcart, $epo_internal_counter, $forcart, $form_prefix, $isfromsh
 	$product_id           = (string) $product_id;
 
 	$showoptionsoverride = '';
-	if ( THEMECOMPLETE_EPO()->tm_epo_progressive_display === 'no' ) {
+	if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_progressive_display' ) ) {
 		$showoptionsoverride = ' tc-show-override';
 	}
 	?>

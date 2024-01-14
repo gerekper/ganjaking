@@ -50,7 +50,7 @@ class UCFormEntryService{
 	/**
 	 * Find the entry by the identifier.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return array
 	 */
@@ -119,7 +119,7 @@ class UCFormEntryService{
 	/**
 	 * Mark the entry as read.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return int
 	 * @throws Exception
@@ -135,7 +135,7 @@ class UCFormEntryService{
 	/**
 	 * Mark the entry as unread.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return int
 	 * @throws Exception
@@ -151,7 +151,7 @@ class UCFormEntryService{
 	/**
 	 * Put the entry to trash.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return int
 	 * @throws Exception
@@ -167,7 +167,7 @@ class UCFormEntryService{
 	/**
 	 * Restore the entry from trash.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return int
 	 * @throws Exception
@@ -183,7 +183,7 @@ class UCFormEntryService{
 	/**
 	 * Delete the entry permanently.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 *
 	 * @return int
 	 * @throws Exception
@@ -216,7 +216,7 @@ class UCFormEntryService{
 	/**
 	 * Update the given entry.
 	 *
-	 * @param int|array $id
+	 * @param int|int[] $id
 	 * @param array $data
 	 *
 	 * @return int
@@ -248,7 +248,7 @@ class UCFormEntryService{
 	 *
 	 * @param array $fields
 	 *
-	 * @return string
+	 * @return array
 	 */
 	private function getEntryMainField($fields){
 

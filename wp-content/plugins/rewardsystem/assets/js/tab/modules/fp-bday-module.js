@@ -1,5 +1,5 @@
 /*
- * Action Reward Points - Module
+ * Birthday Reward Points - Module
  */
 jQuery( function ( $ ) {
     'use strict' ;
@@ -7,7 +7,9 @@ jQuery( function ( $ ) {
         init : function () {
             this.show_or_hide_for_enable_birthday() ;
             this.show_or_hide_for_email() ;
+            this.show_or_hide_birthday_mandatory_field() ;
             $( document ).on( 'change' , '#rs_enable_bday_points' , this.enable_birthday ) ;
+            $( document ).on( 'change' , '#rs_enable_bday_field_mandatory' , this.toggle_birthday_mandatory_field ) ;
             $( document ).on( 'change' , '#rs_send_mail_for_bday_points' , this.enable_email ) ;
         } ,
         enable_birthday : function () {
@@ -20,6 +22,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_bday_points' ).closest( 'tr' ).hide() ;
             }
         } ,
+        toggle_birthday_mandatory_field:function(){
+            BirthdayModule.show_or_hide_birthday_mandatory_field() ;
+        },
+        show_or_hide_birthday_mandatory_field:function(){
+            if ( jQuery( '#rs_enable_bday_field_mandatory' ).is( ':checked' ) == true ) {
+                jQuery( '#rs_bday_field_mandatory_error' ).closest( 'tr' ).show() ;
+            } else {
+                jQuery( '#rs_bday_field_mandatory_error' ).closest( 'tr' ).hide() ;
+            }
+        },
         enable_email : function () {
             BirthdayModule.show_or_hide_for_email() ;
         } ,

@@ -412,6 +412,15 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 	 * @return array<mixed> List of common element options adjusted by element internal id.
 	 */
 	public function get_header_array( $id = 'header', $type = '', $name = '' ) {
+		$default_fullwidth_setting = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' );
+
+		$full_width = esc_html__( 'Full width', 'woocommerce-tm-extra-product-options' );
+		$auto       = esc_html__( 'Auto', 'woocommerce-tm-extra-product-options' );
+		$default    = $auto;
+		if ( 'yes' === $default_fullwidth_setting ) {
+			$default = $full_width;
+		}
+		$default = esc_html__( 'Default', 'woocommerce-tm-extra-product-options' ) . ' (' . $default . ')';
 		return apply_filters(
 			'wc_epo_admin_element_label_options',
 			[
@@ -522,6 +531,34 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 					],
 					'label'            => esc_html__( 'Label', 'woocommerce-tm-extra-product-options' ),
 					'desc'             => '',
+				],
+				[
+					'id'               => $id . '_title_mode',
+					'message0x0_class' => 'tm-title-mode tm-epo-switch-wrapper',
+					'wpmldisable'      => 1,
+					'default'          => '',
+					'type'             => 'radio',
+					'tags'             => [
+						'class' => 'title-mode',
+						'id'    => 'builder_' . $id . '_title_mode',
+						'name'  => 'tm_meta[tmfbuilder][' . $id . '_title_mode][]',
+					],
+					'options'          => [
+						[
+							'text'  => $default,
+							'value' => '',
+						],
+						[
+							'text'  => $full_width,
+							'value' => 'fullwidth',
+						],
+						[
+							'text'  => $auto,
+							'value' => 'auto',
+						],
+					],
+					'label'            => esc_html__( 'Label view mode', 'woocommerce-tm-extra-product-options' ),
+					'desc'             => esc_html__( 'Select if the label should full be width or auto.', 'woocommerce-tm-extra-product-options' ),
 				],
 				[
 					'id'          => $id . '_title_position',
@@ -757,11 +794,17 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 
 		// @phpstan-ignore-next-line
 		$post = isset( $_GET ) && isset( $_GET['post'] ) ? absint( stripslashes_deep( $_GET['post'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$post_type = '';
 		if ( $post ) {
-			$post = get_post( $post );
-			if ( $post && THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE === $post->post_type ) {
-				$tabs_override['conditional_logic'] = 0;
-			}
+			$post      = get_post( $post );
+			$post_type = $post->post_type;
+		} elseif ( isset( $_REQUEST ) && isset( $_REQUEST['post_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$post_type = sanitize_text_field( wp_unslash( $_REQUEST['post_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		}
+
+		if ( THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE === $post_type ) {
+			$tabs_override['conditional_logic'] = 0;
 		}
 
 		return [
@@ -1362,17 +1405,25 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 	 * for use in a select box
 	 *
 	 * @param array<mixed> $selected_methods The selected shipping methods.
-	 * @since  6.4
+	 * @since 6.4
 	 * @return array<mixed>
 	 */
 	public function fetch_shipping_methods_array( $selected_methods = [] ) {
+		$cache_list = wp_cache_get( 'wc_epo_fetch_shipping_methods_array' );
+		if ( false !== $cache_list ) {
+			return $cache_list;
+		}
+
 		$list = [];
 
-		$shipping_methods = wp_cache_get( 'wc_epo_shipping_methods' );
+		$shipping_methods = WC()->shipping()->load_shipping_methods();
 
-		if ( false === $shipping_methods ) {
-			$shipping_methods = WC()->shipping()->load_shipping_methods();
-			wp_cache_set( 'wc_epo_shipping_methods', $shipping_methods );
+		$zones = WC_Shipping_Zones::get_zones();
+
+		if ( ! isset( $zones[0] ) ) {
+			$rest_of_world                = WC_Shipping_Zones::get_zone_by();
+			$zones[0]                     = $rest_of_world->get_data();
+			$zones[0]['shipping_methods'] = $rest_of_world->get_shipping_methods();
 		}
 
 		foreach ( $shipping_methods as $method_id => $method ) {
@@ -1389,21 +1440,6 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 					'value'    => $method_id,
 					'selected' => in_array( $method_id, $selected_methods ), // phpcs:ignore WordPress.PHP.StrictInArray
 				];
-
-				$zones = wp_cache_get( 'wc_epo_shipping_zones' );
-
-				if ( false === $zones ) {
-
-					$zones = WC_Shipping_Zones::get_zones();
-
-					if ( ! isset( $zones[0] ) ) {
-						$rest_of_world                = WC_Shipping_Zones::get_zone_by();
-						$zones[0]                     = $rest_of_world->get_data();
-						$zones[0]['shipping_methods'] = $rest_of_world->get_shipping_methods();
-					}
-
-					wp_cache_set( 'wc_epo_shipping_zones', $zones );
-				}
 
 				foreach ( $zones as $zone ) {
 
@@ -1466,7 +1502,7 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 					'optgroupend' => true,
 				];
 			} else {
-				$is_legacy = ( 0 === strpos( $method_id, 'legacy_' ) );
+				$is_legacy = ( 0 === mb_strpos( $method_id, 'legacy_' ) );
 				$list[]    = [
 					'text'     => $method->get_title() . ( $is_legacy ? ' ' . esc_html__( '(Legacy)', 'woocommerce-tm-extra-product-options' ) : '' ),
 					'value'    => $method_id,
@@ -1474,6 +1510,8 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 				];
 			}
 		}
+
+		wp_cache_set( 'wc_epo_fetch_shipping_methods_array', $list );
 
 		return $list;
 	}

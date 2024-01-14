@@ -1,5 +1,32 @@
 
 
+version 1.5.92:
+
+* Feature: Introduced the change log option in the widget editor.
+* Feature: Introduced the ability to connect with Google API for multi-source options.
+* Feature: Included an option to link with Google Sheets under the general settings for forms.
+* Feature: Integrated a "show globals" feature in troubleshooting for enhanced diagnostics.
+* Feature: Implemented the capability to output cart fragments for the woo mini cart.
+* Feature: Provided an option for "none" under lightbox-type in galleries, allowing users to disable the lightbox.
+* Feature: Added an "excerpt" field to post fields within the widget editor for more detailed posts.
+* Fix: Replaced site_url() with home_url() in global variables for better website navigation.
+* Fix: Resolved a conflict with another select2 on the admin side, ensuring smoother operations.
+* Fix: Rectified an error with multiple order by clauses in post queries to improve data sorting.
+* Fix: Enhanced the manual selection of Elementor template retrieval for optimized performance.
+
+
+version 1.5.91:
+
+-change: removed some vulnerability related to templates import
+-feature: enabled youtube shorts to be conveniently added inside our galleries
+-change: redesigned some settings and button inside the plugin.
+
+
+version 1.5.90:
+
+-bug fix: fixed some small bug with pro version main file
+
+
 version 1.5.89:
 
 -bug fix: fixed some post filters detection issues on the page

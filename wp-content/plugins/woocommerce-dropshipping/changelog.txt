@@ -1,5 +1,11 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-12-22 - version 5.0.3
+* Fix: PLUGINS-2233 - Supplier Email Notifications. Saving Settings should remain on same tab.
+* Fix: PLUGINS-2100 - Importing of CSV inventory causes fatal error.
+* Fix: PLUGINS-2101 - Additional comments not displayed.
+* Fix: PLUGINS-2180 - Woo Security Scan Issues.
+
 2023-12-12 - version 5.0.2
 * Fix: PLUGINS-2372 - HPOS adjustment.
 * Fix: PLUGINS-2211 - Fix postcode field type.

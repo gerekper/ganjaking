@@ -354,7 +354,7 @@ class WC_AM_API_Requests {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_resources() method. Error message is "Error code 100. No API Resources exist. Verify there are activations remaining, and the API Key and Product ID are correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
-				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key and Product ID are correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() . '" target="blank">', '</a>' ) );
+				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key and Product ID are correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_URL()->get_api_keys_url() . '" target="blank">', '</a>' ) );
 			}
 
 			if ( $this->debug_log ) {
@@ -1367,7 +1367,7 @@ class WC_AM_API_Requests {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_api_resources_for_master_api_key_or_product_order_api_key() method. Error message is "Error code 100. No API Resources exist. Verify there are activations remaining, and the API Key is correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
-				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key is correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() . '" target="blank">', '</a>' ) );
+				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key is correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_URL()->get_api_keys_url() . '" target="blank">', '</a>' ) );
 			}
 
 			if ( $this->debug_log ) {
@@ -1790,7 +1790,7 @@ class WC_AM_API_Requests {
 	 */
 	public function get_page_content( $page_obj ) {
 		if ( isset( $page_obj ) && is_object( $page_obj ) ) {
-			if ( ! empty( $page_obj->post_content ) ) {
+			if ( ! WC_AM_FORMAT()->empty( $page_obj->post_content ) ) {
 				return wp_kses_post( $page_obj->post_content );
 			} else {
 				return '';

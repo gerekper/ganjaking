@@ -41,6 +41,10 @@ class ThePlus_Post_Content extends Widget_Base {
         return array('plus-builder');
     }
 
+	public function get_keywords() {
+        return ['Protected Content', 'Password Protected Content', 'Content Protection', 'Secure Content', 'Restricted Content'];
+    }
+
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-post-content-in-elementor-blog-post";
 

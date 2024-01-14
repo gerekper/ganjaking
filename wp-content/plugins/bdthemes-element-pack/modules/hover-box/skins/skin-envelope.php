@@ -127,8 +127,8 @@ class Skin_Envelope extends Elementor_Skin_Base {
 					$title_key = 'title_' . $index;
 					$button_key = 'button_' . $index;
 					$this->parent->add_render_attribute($title_key, 'class', 'bdt-ep-hover-box-title-link', true);
-					$this->parent->add_link_attributes($title_key, $item['title_link']);
-					$this->parent->add_link_attributes($button_key, $item['button_link']);
+					$this->parent->add_link_attributes($title_key, isset($item['title_link']) ? $item['title_link'] : []);
+					$this->parent->add_link_attributes($button_key, isset($item['button_link']) ? $item['button_link'] : []);
 					
 					?>
 					<div>

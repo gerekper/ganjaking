@@ -41,8 +41,8 @@ class ThePlus_Countdown extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return ['Countdown', 'Count down', 'time', 'fake number', 'tp', 'theplus'];
-	}
+        return ['Countdown', 'Timer', 'Countdown Timer', 'Elementor Countdown', 'Elementor Timer', 'Elementor Countdown Timer', 'Time Limit', 'Time Countdown'];
+    }
 	
     protected function register_controls() {
 		

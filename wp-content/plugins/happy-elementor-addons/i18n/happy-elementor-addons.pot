@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Happy Addons
+# Copyright (C) 2024 Happy Addons
 # This file is distributed under the same license as the Happy Addons package.
 msgid ""
 msgstr ""

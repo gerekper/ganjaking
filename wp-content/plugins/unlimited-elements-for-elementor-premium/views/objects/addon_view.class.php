@@ -437,16 +437,23 @@ class UniteCreatorAddonView{
 	}
 
 	/**
+	 * if put changelog tab
+	 */
+	private function isPutChangelogTab(){
+
+		$isChangelogEnabled = HelperProviderUC::isAddonChangelogEnabled();
+
+		return $isChangelogEnabled === true;
+	}
+
+	/**
 	 * if put revisions tab
 	 */
 	private function isPutRevisionsTab(){
 
 		$isRevisionsEnabled = HelperProviderUC::isAddonRevisionsEnabled();
 
-		if($isRevisionsEnabled === true)
-			return true;
-
-		return false;
+		return $isRevisionsEnabled === true;
 	}
 
 	/**
@@ -463,6 +470,7 @@ class UniteCreatorAddonView{
 		$isPut_js = $this->isPutTab("js");
 		$isPut_includes = $this->isPutTab("includes");
 		$isPut_assets = $this->isPutTab("assets");
+		$isPut_changelog = $this->isPutChangelogTab();
 		$isPut_revisions = $this->isPutRevisionsTab();
 
 		$htmlTabTitle = esc_html__("HTML", "unlimited-elements-for-elementor");
@@ -527,11 +535,17 @@ class UniteCreatorAddonView{
 			</a>
 			<?php endif?>
 
+			<?php if($isPut_changelog): ?>
+				<a id="uc_tablink_changelog" href="javascript:void(0)" data-contentid="uc_tab_changelog">
+					<?php esc_html_e("Changelog", "unlimited-elements-for-elementor") ?>
+				</a>
+			<?php endif?>
+
 			<?php if($isPut_revisions): ?>
 				<a id="uc_tablink_revisions" href="javascript:void(0)" data-contentid="uc_tab_revisions">
 					<?php esc_html_e("Revisions", "unlimited-elements-for-elementor") ?>
 				</a>
-			<?php endif ?>
+			<?php endif?>
 		</div>
 
 		<div class="unite-clear"></div>
@@ -753,6 +767,58 @@ class UniteCreatorAddonView{
 		$objAssets->initByKey("assets_manager", $this->objAddon);
 
 		$objAssets->putHTML($pathAbsolute);
+	}
+
+	/**
+	 * put changelog tab html
+	 */
+	private function putHtml_changelogTab(){
+
+		$changelog = new UniteCreatorAddonChangelog();
+		$types = $changelog->getTypes();
+
+		?>
+		<div class="uc-changelogs-wrapper">
+			<div class="uc-changelogs-form">
+				<div class="uc-changelogs-form-error">
+					<div class="uc-changelogs-form-error-title"></div>
+					<div class="uc-changelogs-form-error-content"></div>
+				</div>
+				<div class="uc-changelogs-form-editing">
+					<div class="uc-changelogs-form-editing-title">
+						<?php esc_html_e("Editing:", "unlimited-elements-for-elementor"); ?>
+					</div>
+					<div class="uc-changelogs-form-editing-content"></div>
+				</div>
+				<input type="hidden" name="id" />
+				<select name="type">
+					<option value="" selected disabled>
+						<?php esc_html_e("Select type", "unlimited-elements-for-elementor"); ?>
+					</option>
+					<?php foreach($types as $value => $label): ?>
+						<option value="<?php esc_attr_e($value); ?>"><?php esc_html_e($label); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<textarea name="text" placeholder="<?php esc_attr_e("Enter text", "unlimited-elements-for-elementor"); ?>"></textarea>
+				<div class="uc-changelogs-form-actions">
+					<button class="uc-changelogs-form-clear unite-button-secondary">
+						<?php esc_html_e("Clear", "unlimited-elements-for-elementor"); ?>
+					</button>
+					<button
+						class="uc-changelogs-form-submit unite-button-primary"
+						data-text-default="<?php esc_attr_e("Save", "unlimited-elements-for-elementor"); ?>"
+						data-text-loading="<?php esc_attr_e("Saving...", "unlimited-elements-for-elementor"); ?>"
+					>
+						<?php esc_html_e("Save", "unlimited-elements-for-elementor"); ?>
+					</button>
+				</div>
+			</div>
+			<div class="uc-changelogs-loader">
+				<?php esc_html_e("Loading...", "unlimited-elements-for-elementor"); ?>
+			</div>
+			<div class="uc-changelogs-content"></div>
+		</div>
+		<?php
 	}
 
 	/**
@@ -1146,6 +1212,11 @@ class UniteCreatorAddonView{
 			<!-- ASSETS -->
 			<div id="uc_tab_assets" class="uc-tab-content" style="display:none">
 				<?php $this->putHtml_assetsTab() ?>
+			</div>
+
+			<!-- CHANGELOG -->
+			<div id="uc_tab_changelog" class="uc-tab-content" style="display:none">
+				<?php $this->putHtml_changelogTab() ?>
 			</div>
 
 			<!-- REVISIONS -->
@@ -1853,6 +1924,69 @@ class UniteCreatorAddonView{
 	}
 
 	/**
+	 * get contents of addon changelog from ajax
+	 */
+	public function getChangelogContents($data){
+
+		$addonID = UniteFunctionsUC::getVal($data, "addon_id");
+		UniteFunctionsUC::validateNotEmpty($addonID, "addon id");
+
+		$changelog = new UniteCreatorAddonChangelog();
+		$changelogs = $changelog->getAddonChangelogs($addonID);
+
+		ob_start();
+
+		?>
+		<?php if(empty($changelogs)): ?>
+			<div class="uc-changelogs-empty">
+				<?php esc_html_e("No changelogs yet.", "unlimited-elements-for-elementor"); ?>
+			</div>
+		<?php else: ?>
+			<ul class="uc-changelogs">
+				<?php foreach($changelogs as $log): ?>
+					<li class="uc-changelog" data-id="<?php esc_attr_e($log["id"]); ?>" data-log="<?php esc_attr_e(json_encode($log)); ?>">
+						<div class="uc-changelog-content">
+							<div class="uc-changelog-text">
+								<b><?php esc_html_e($log["type_title"]); ?>:</b>
+								<?php echo $log["text_html"]; ?>
+							</div>
+							<div class="uc-changelog-info" title="<?php echo $log["created_date"]; ?>">
+								<?php echo human_time_diff($log["created_time"], current_time("timestamp")); ?>
+								<?php esc_html_e("ago", "unlimited-elements-for-elementor"); ?>
+								<?php esc_html_e("by", "unlimited-elements-for-elementor"); ?>
+								<?php echo $log["user_username"]; ?>
+							</div>
+						</div>
+						<div class="uc-changelog-actions">
+							<button
+								class="uc-changelog-button uc-changelog-edit unite-button-secondary"
+								title="<?php esc_attr_e("Edit", "unlimited-elements-for-elementor"); ?>"
+							>
+								<i class="fa fa-pen"></i>
+							</button>
+							<button
+								class="uc-changelog-button uc-changelog-delete unite-button-secondary"
+								title="<?php esc_attr_e("Delete", "unlimited-elements-for-elementor"); ?>"
+							>
+								<i class="fa fa-trash"></i>
+							</button>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		<?php
+
+		$html = ob_get_contents();
+		ob_end_clean();
+
+		$response = array();
+		$response["html"] = $html;
+
+		return ($response);
+	}
+
+	/**
 	 * get contents of addon revisions from ajax
 	 */
 	public function getRevisionsContents($data){
@@ -1872,21 +2006,21 @@ class UniteCreatorAddonView{
 		?>
 		<?php if(empty($revisions)): ?>
 			<div class="uc-revisions-empty">
-				<?php esc_html_e("No revisions found", "unlimited-elements-for-elementor"); ?>
+				<?php esc_html_e("No revisions yet.", "unlimited-elements-for-elementor"); ?>
 			</div>
 		<?php else: ?>
 			<ul class="uc-revisions">
 				<?php foreach($revisions as $revision): ?>
 
-					<?php if($previousRevision === null && $revision['is_today'] === true): ?>
+					<?php if($previousRevision === null && $revision["is_today"] === true): ?>
 						<li class="uc-revisions-label">
 							<?php esc_html_e("Today", "unlimited-elements-for-elementor"); ?>
 						</li>
-					<?php elseif($previousRevision === null && $revision['is_today'] === false): ?>
+					<?php elseif($previousRevision === null && $revision["is_today"] === false): ?>
 						<li class="uc-revisions-label">
 							<?php esc_html_e("Past", "unlimited-elements-for-elementor"); ?>
 						</li>
-					<?php elseif($previousRevision !== null && $previousRevision['is_today'] !== $revision['is_today']): ?>
+					<?php elseif($previousRevision !== null && $previousRevision["is_today"] !== $revision["is_today"]): ?>
 						<li class="uc-revisions-label">
 							<?php esc_html_e("Past", "unlimited-elements-for-elementor"); ?>
 						</li>
@@ -1894,13 +2028,13 @@ class UniteCreatorAddonView{
 
 					<?php $previousRevision = $revision; ?>
 
-					<li class="uc-revision" data-id="<?php echo $revision['id']; ?>">
-							<span class="uc-revision-name" title="<?php echo $revision['date']; ?>">
+					<li class="uc-revision" data-id="<?php echo $revision["id"]; ?>">
+							<span class="uc-revision-name" title="<?php echo $revision["date"]; ?>">
 								<?php esc_html_e("Revision:", "unlimited-elements-for-elementor"); ?>
-								<?php echo human_time_diff($revision['time'], current_time('timestamp')); ?>
+								<?php echo human_time_diff($revision["time"], current_time("timestamp")); ?>
 								<?php esc_html_e("ago", "unlimited-elements-for-elementor"); ?>
 								<?php esc_html_e("by", "unlimited-elements-for-elementor"); ?>
-								<?php echo $revision['username']; ?>
+								<?php echo $revision["username"]; ?>
 							</span>
 						<button
 							class="uc-revision-button uc-revision-restore unite-button-secondary"

@@ -7,7 +7,7 @@ class LazyLoad
 	//initialize lazyload iframe functions
 	public static function init_iframes()
 	{
-		add_action('wp', array('Perfmatters\LazyLoad', 'queue_iframes'));
+		add_action('perfmatters_queue', array('Perfmatters\LazyLoad', 'queue_iframes'));
 	}
 
 	//queue iframe functions
@@ -250,7 +250,7 @@ class LazyLoad
 	//initialize lazy loading
 	public static function init_images()
 	{
-		add_action('wp', array('Perfmatters\LazyLoad', 'queue_images'));
+		add_action('perfmatters_queue', array('Perfmatters\LazyLoad', 'queue_images'));
 	}
 
 	//queue image functions
@@ -398,6 +398,7 @@ class LazyLoad
 
 			$lazy_image_count = 0;
 			$exclude_leading_images = apply_filters('perfmatters_exclude_leading_images', Config::$options['lazyload']['exclude_leading_images'] ?? 0);
+			$leading_image_exclusions = apply_filters('perfmatters_leading_image_exclusions', array());
 
 			//remove any duplicate images
 			$images = array_unique($images, SORT_REGULAR);
@@ -405,12 +406,25 @@ class LazyLoad
 			//loop through images
 	        foreach($images as $image) {
 
-	        	$lazy_image_count++;
+	        	$leading = true;
 
-	        	if($lazy_image_count <= $exclude_leading_images) {
-	        		continue;
-	        	}
+	        	//check for leading image exclusion
+	        	if(!empty($leading_image_exclusions) && is_array($leading_image_exclusions)) {
+                    foreach($leading_image_exclusions as $exclusion) {
+                        if(strpos($image[0], $exclusion) !== false) {
+                            $leading = false;
+                        }
+                    }
+                }
 
+                //skip leading images
+                if($leading) {
+                	$lazy_image_count++;
+		        	if($lazy_image_count <= $exclude_leading_images) {
+		        		continue;
+		        	}
+                }
+	        	
 	        	//prepare lazy load image
 	            $lazy_image = self::lazyload_image($image);
 
@@ -620,7 +634,7 @@ class LazyLoad
 		if(!empty(Config::$options['lazyload']['css_background_selectors'])) {
 
 			//match all selectors
-			preg_match_all('#<(?>div|section)(\s[^>]*?(' . implode('|', Config::$options['lazyload']['css_background_selectors']) . ').*?)>#i', $buffer, $selectors, PREG_SET_ORDER);
+			preg_match_all('#<(?>div|section|figure)(\s[^>]*?(' . implode('|', Config::$options['lazyload']['css_background_selectors']) . ').*?)>#i', $buffer, $selectors, PREG_SET_ORDER);
 
 			if(!empty($selectors)) {
 
@@ -705,7 +719,8 @@ class LazyLoad
 			'data-perfmatters-preload',
 			'gform_ajax_frame',
 			';base64',
-			'skip-lazy'
+			'skip-lazy',
+			'fetchpriority="high"'
 		); 
 
 		//get exclusions added from settings

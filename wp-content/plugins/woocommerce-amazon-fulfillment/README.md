@@ -68,7 +68,11 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
-### 2023-15-05 - version 4.1.9.4
+### 2023-12-14 - version 4.1.9.5
+* Improved option settings usage
+
+
+### 2023-12-05 - version 4.1.9.4
 * Fix issues with Kint debugger.
 * Improve installation notice message.
 

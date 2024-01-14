@@ -32,6 +32,10 @@ class ThePlus_Tp_Shape_Divider extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return [ 'Animated Separators', 'Elementor Animated Separators', 'Plus Addons Animated Separators', 'Elementor Addon', 'Animated Lines', 'Decorative Separators', 'Fancy Separators', 'Fancy Lines', 'Animated Dividers', 'Elementor Dividers' ];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

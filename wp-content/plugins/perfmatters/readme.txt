@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.4.1
-Stable tag: 2.2.0
+Tested up to: 6.4.2
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,21 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.2.1 - 01.04.2024 =
+* Removed deprecated Universal Analytics options which are no longer available and renamed remaining script type labels. If you still haven't updated to Google Analytics 4, make sure to create a new profile and input your new measurement ID.
+* Added new tools option to Disable Optimizations for Logged In Users.
+* Added new perfmatters_leading_image_exclusions filter.
+* Added support for targeting figure elements to CSS Background Images.
+* Added REST route exception for Litespeed.
+* Added and updated Delay JS quick exclusions for Gravity Forms, Mediavine Trellis, Modula Slider, SHE Media Infuse, Thrive Leads, and WP Recipe Maker.
+* Added built-in Delay JS exclusion for Divi link options script.
+* Added generic customizer request parameter to excluded page builders array.
+* Made some adjustments to classes dealing with cache directory files to support non-traditional folder structures such as Bedrock.
+* Fixed a PHP warning related to cache URL declaration that would sometimes display for certain types of requests.
+* Fixed an issue where picture elements were not getting excluded from lazy loading when fetchpriority high was set on a child image.
+* Removed unnecessary script type attribute from our Delay JS inline script.
+* Translation updates.
 
 = 2.2.0 - 11.22.2023 =
 * Added Delay JS quick exclusion and REST route exception for WS Form.

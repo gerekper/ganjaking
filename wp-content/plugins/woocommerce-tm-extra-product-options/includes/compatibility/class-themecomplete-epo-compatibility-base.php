@@ -82,6 +82,8 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 		THEMECOMPLETE_EPO_CP_BAP::instance();
 		// WooCommerce Dynamic Pricing & Discounts.
 		THEMECOMPLETE_EPO_CP_DPD::instance();
+		// Advanced Dynamic Pricing for WooCommerce Pro (AlogPlus).
+		THEMECOMPLETE_EPO_CP_APD_PRO::instance();
 		// Store Exporter Deluxe for WooCommerce.
 		THEMECOMPLETE_EPO_CP_Store_Exporter::instance();
 		// WooTour - WooCommerce Travel Tour Booking.

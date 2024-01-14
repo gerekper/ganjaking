@@ -5767,18 +5767,6 @@ msgstr "Remover html de e-mails"
 msgid "Check to strip the html tags from emails"
 msgstr "Verifique para remover as tags html dos e-mails"
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-#, fuzzy
-msgid "Hide uploaded file path"
-msgstr "Ocultar o caminho do arquivo carregado"
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-#, fuzzy
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr ""
-"Verifique para ocultar o caminho do arquivo carregado dos usuários (na "
-"Ordem)."
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 #, fuzzy
 msgid "Legacy meta data"

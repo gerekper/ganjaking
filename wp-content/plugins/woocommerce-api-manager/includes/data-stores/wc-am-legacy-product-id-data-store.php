@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Legacy_Product_ID_Data_Store {
 
-	private $legacy_product_id_table = '';
+	private string $legacy_product_id_table = '';
 
 	/**
 	 * @var null
@@ -207,6 +207,6 @@ class WC_AM_Legacy_Product_ID_Data_Store {
 			FROM {$wpdb->prefix}" . $this->legacy_product_id_table . "
 		" );
 
-		return ! empty( $count ) ? (int) $count : 0;
+		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
 	}
 }

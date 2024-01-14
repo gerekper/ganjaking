@@ -49,8 +49,8 @@ class ThePlus_Off_Canvas extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return [ 'offcanvas', 'popup', 'modal box', 'modal popup','popup builder'];
-	}
+        return [ 'Offcanvas', 'Off-canvas', 'Slide out', 'Slide-in', 'Side menu', 'Overlay menu', 'Hidden menu', 'Drawer menu', 'Hamburger menu', 'Mobile menu' ];
+    }
 
     protected function register_controls() {
 		

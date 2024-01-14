@@ -38,6 +38,10 @@ class ThePlus_Before_After extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return [ 'Before After Image', 'Before and After Image', 'Image Comparison', 'Image Slider', 'Image Before and After', 'Elementor Before After Image', 'Elementor Image Comparison', 'Elementor Image Slider', 'Elementor Before and After', 'Before After Slider' ];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

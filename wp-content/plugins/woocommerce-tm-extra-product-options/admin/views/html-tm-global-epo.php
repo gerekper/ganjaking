@@ -16,13 +16,13 @@ if ( ! $wpml_is_original_product ) {
 	$tm_meta_cpf = themecomplete_get_post_meta( $post_id, 'tm_meta_cpf', true );
 }
 $tm_meta_cpf_mode = isset( $tm_meta_cpf['mode'] ) ? $tm_meta_cpf['mode'] : '';
-if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode !== 'yes' ) {
+if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_builder_mode' ) && 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_normal_mode' ) ) {
 	$tm_meta_cpf_mode = 'local';
 }
-if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode !== 'yes' ) {
+if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_normal_mode' ) && 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_builder_mode' ) ) {
 	$tm_meta_cpf_mode = 'builder';
 }
-if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_settings !== 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode === 'yes' ) {
+if ( 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_settings' ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_normal_mode' ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_builder_mode' ) ) {
 	$tm_meta_cpf_mode = 'settings';
 }
 // Check for deprecated Normal mode.
@@ -43,21 +43,21 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 			<p class="form-field tm-mode-select">
 				<span class="
 				<?php
-				if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode === 'yes' ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_builder_mode' ) ) {
 					echo 'tm-hidden ';
 				}
 				?>
 				button button-primary button-large tc-select-mode tc-builder-select"><i class="tcfa tcfa-th-large"></i><?php esc_html_e( 'Builder', 'woocommerce-tm-extra-product-options' ); ?></span>
 					<span class="
 					<?php
-					if ( empty( $tmepos ) || THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode === 'yes' ) {
+					if ( empty( $tmepos ) || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_normal_mode' ) ) {
 						echo 'tm-hidden ';
 					}
 					?>
 					button button-primary button-large tc-select-mode tc-local-select"><i class="tcfa tcfa-th-list"></i><?php esc_html_e( 'Normal', 'woocommerce-tm-extra-product-options' ); ?></span>	
 				<span class="
 				<?php
-				if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_settings === 'yes' ) {
+				if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_settings' ) ) {
 					echo 'tm-hidden ';
 				}
 				?>

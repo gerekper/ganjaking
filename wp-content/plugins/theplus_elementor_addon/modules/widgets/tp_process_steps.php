@@ -38,9 +38,10 @@ class ThePlus_Process_Steps extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+	
 	public function get_keywords() {
-		return ['process', 'steps', 'sequence','process bar'];
-	}
+        return ['Process', 'Steps', 'Procedure', 'Method', 'Workflow', 'Sequence', 'Order', 'Stages', 'Phases', 'Actions', 'Tasks', 'Activities', 'Operation', 'Protocol', 'Technique', 'Approach', 'System', 'Plan', 'Strategy', 'Path', 'Route', 'Formula', 'Algorithm', 'Blueprint', 'Roadmap'];
+    }
 	
     protected function register_controls() {
 		/*process steps section start*/

@@ -31,7 +31,7 @@ jQuery( function ( $ ) {
             var usertype = $( "input:radio[name=rs_export_import_user_option]:checked" ).val() ;
             var selecteduser = $( "#rs_import_export_users_list" ).val() ;
             var data = ( {
-                action : 'exportpoints' ,
+                action : 'imp_exp_module_export_points' ,
                 usertype : usertype ,
                 selecteduser : selecteduser ,
                 selected_user_roles : $( "#rs_export_user_roles" ).val() ,
@@ -39,7 +39,7 @@ jQuery( function ( $ ) {
             } ) ;
             $.post( fp_impexp_module_params.ajaxurl , data , function ( response ) {
                 if ( true === response.success ) {
-                    window.location.href = fp_impexp_module_params.redirect ;
+                    window.location.href = response.data.redirect_url ;
                 } else {
                     window.alert( response.data.error ) ;
                 }

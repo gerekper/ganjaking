@@ -16,18 +16,18 @@ if ( ! function_exists( 'srp_select2_html' ) ) {
 	function srp_select2_html( $args, $echo = true ) {
 		$args = wp_parse_args(
 				$args , array(
-			'class'                   => '' ,
-			'id'                      => '' ,
-			'name'                    => '' ,
-			'list_type'               => '' ,
-			'action'                  => '' ,
-			'placeholder'             => '' ,
-			'exclude_global_variable' => 'no' ,
-			'custom_attributes'       => array() ,
-			'multiple'                => true ,
-			'allow_clear'             => true ,
-			'selected'                => true ,
-			'options'                 => array() ,
+			'class'                   => '',
+			'id'                      => '',
+			'name'                    => '',
+			'list_type'               => '',
+			'action'                  => '',
+			'placeholder'             => '',
+			'exclude_global_variable' => 'no',
+			'custom_attributes'       => array(),
+			'multiple'                => true,
+			'allow_clear'             => true,
+			'selected'                => true,
+			'options'                 => array(),
 				)
 				) ;
 
@@ -37,19 +37,19 @@ if ( ! function_exists( 'srp_select2_html' ) ) {
 
 		$allowed_html = array(
 			'select' => array(
-				'id'                           => array() ,
-				'class'                        => array() ,
-				'data-placeholder'             => array() ,
-				'data-allow_clear'             => array() ,
-				'data-exclude-global-variable' => array() ,
-				'data-action'                  => array() ,
-				'multiple'                     => array() ,
-				'name'                         => array() ,
-			) ,
+				'id'                           => array(),
+				'class'                        => array(),
+				'data-placeholder'             => array(),
+				'data-allow_clear'             => array(),
+				'data-exclude-global-variable' => array(),
+				'data-action'                  => array(),
+				'multiple'                     => array(),
+				'name'                         => array(),
+			),
 			'option' => array(
-				'value'    => array() ,
-				'selected' => array()
-			)
+				'value'    => array(),
+				'selected' => array(),
+			),
 				) ;
 
 		// Custom attribute handling.
@@ -136,15 +136,15 @@ if ( ! function_exists( 'srp_get_datepicker_html' ) ) {
 	function srp_get_datepicker_html( $args, $echo = true ) {
 		$args = wp_parse_args(
 				$args , array(
-			'class'             => '' ,
-			'id'                => '' ,
-			'name'              => '' ,
-			'placeholder'       => '' ,
-			'custom_attributes' => array() ,
-			'value'             => '' ,
-			'wp_zone'           => true ,
-			'with_time'         => false ,
-			'error'             => ''
+			'class'             => '',
+			'id'                => '',
+			'name'              => '',
+			'placeholder'       => '',
+			'custom_attributes' => array(),
+			'value'             => '',
+			'wp_zone'           => true,
+			'with_time'         => false,
+			'error'             => '',
 				)
 				) ;
 
@@ -152,17 +152,17 @@ if ( ! function_exists( 'srp_get_datepicker_html' ) ) {
 
 		$allowed_html = array(
 			'input' => array(
-				'id'          => array() ,
-				'type'        => array() ,
-				'placeholder' => array() ,
-				'class'       => array() ,
-				'value'       => array() ,
-				'name'        => array() ,
-				'min'         => array() ,
-				'max'         => array() ,
-				'data-error'  => array() ,
-				'style'       => array() ,
-			) ,
+				'id'          => array(),
+				'type'        => array(),
+				'placeholder' => array(),
+				'class'       => array(),
+				'value'       => array(),
+				'name'        => array(),
+				'min'         => array(),
+				'max'         => array(),
+				'data-error'  => array(),
+				'style'       => array(),
+			),
 				) ;
 
 		$class_name = ( $args[ 'with_time' ] ) ? 'srp_datetimepicker ' : 'srp_datepicker ' ;

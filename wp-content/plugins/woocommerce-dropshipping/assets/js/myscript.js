@@ -82,13 +82,25 @@ jQuery(document).ready(function() {
 
     });
 
-	jQuery('.wc-dropship-setting-tabs li').click(function(){
-		jQuery('.wc-dropship-setting-tabs li').removeClass('active');
-		jQuery('.drop-setting-section').removeClass('active');
-		jQuery(this).addClass('active');
-		var tabId = jQuery(this).data('id');
-		jQuery('#'+tabId).addClass('active');
-	});
+	var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+        jQuery('.wc-dropship-setting-tabs li').removeClass('active');
+        jQuery('.drop-setting-section').removeClass('active');
+        jQuery('[data-id="' + activeTab + '"]').addClass('active');
+        jQuery('#' + activeTab).addClass('active');
+    }
+
+    // Click event to handle tab switching
+    jQuery('.wc-dropship-setting-tabs li').click(function() {
+        jQuery('.wc-dropship-setting-tabs li').removeClass('active');
+        jQuery('.drop-setting-section').removeClass('active');
+        jQuery(this).addClass('active');
+        var tabId = jQuery(this).data('id');
+        jQuery('#' + tabId).addClass('active');
+
+        // Store active tab in local storage
+        localStorage.setItem('activeTab', tabId);
+    });
 });
 // Ajax callback for Aliexpress related product open in diffrent tab
 

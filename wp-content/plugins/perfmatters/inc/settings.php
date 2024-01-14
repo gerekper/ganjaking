@@ -1432,45 +1432,11 @@ function perfmatters_settings() {
             'id' => 'script_type',
             'input' => 'select',
             'options' => array(
-                '' => 'analytics.js' . ' (' . __('Default', 'perfmatters') . ')',
-                'gtagv4' => 'gtag.js v4',
-                'gtag' => 'gtag.js',
-                'minimal' => __('Minimal', 'perfmatters'),
-                'minimal_inline' => __('Minimal Inline', 'perfmatters'),
-                'minimalv4' => __('Minimal v4', 'perfmatters')
+                '' => 'Google Analytics 4' . ' (' . __('Default', 'perfmatters') . ')',
+                'minimalv4' => 'Google Analytics 4 Minimal'
             ),
             'class' => 'perfmatters-input-controller',
-            'tooltip' => __('Choose which script method you would like to use.', 'perfmatters')
-        )
-    );
-
-    //disable display features
-    add_settings_field(
-        'disable_display_features', 
-        perfmatters_title(__('Disable Display Features', 'perfmatters'), 'disable_display_features', 'https://perfmatters.io/docs/local-analytics/#disabledisplayfeatures'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'disable_display_features',
-            'class' => 'analytics-script_type perfmatters-select-control-' . (!empty($perfmatters_options['analytics']['script_type']) ? ' hidden' : ''),
-            'tooltip' => __('Disable remarketing and advertising which generates a 2nd HTTP request.', 'perfmatters')
-        )
-    );
-
-    //anonymize ip
-    add_settings_field(
-        'anonymize_ip', 
-        perfmatters_title(__('Anonymize IP', 'perfmatters'), 'anonymize_ip', 'https://perfmatters.io/docs/local-analytics/#anonymize-ip'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'anonymize_ip',
-            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-select-control-minimalv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && ($perfmatters_options['analytics']['script_type'] == 'gtagv4' || $perfmatters_options['analytics']['script_type'] == 'minimalv4') ? ' hidden' : ''),
-            'tooltip' => __('Shorten visitor IP to comply with privacy restrictions in some countries.', 'perfmatters')
+            'tooltip' => __('Choose which script method you would like to use. Default Google Analytics 4 is larger and includes all features, while Minimal is smaller and only includes basic reporting features.', 'perfmatters')
         )
     );
 
@@ -1488,39 +1454,6 @@ function perfmatters_settings() {
         )
     );
 
-    //adjusted bounce rate
-    add_settings_field(
-        'adjusted_bounce_rate', 
-        perfmatters_title(__('Adjusted Bounce Rate', 'perfmatters'), 'adjusted_bounce_rate', 'https://perfmatters.io/docs/local-analytics/#adjusted-bounce-rate'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'adjusted_bounce_rate',
-            'input' => 'text',
-            'class' => 'analytics-script_type perfmatters-select-control-' . (!empty($perfmatters_options['analytics']['script_type']) ? ' hidden' : ''),
-            'tooltip' => __('Set a timeout limit in seconds to better evaluate the quality of your traffic. (1-100)', 'perfmatters')
-        )
-    );
-
-    //cdn url
-    add_settings_field(
-        'cdn_url', 
-        perfmatters_title(__('CDN URL', 'perfmatters'), 'cdn_url', 'https://perfmatters.io/docs/local-analytics/#gtag-cdn'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'cdn_url',
-            'input' => 'text',
-            'placeholder' => 'https://cdn.example.com',
-            'class' => 'analytics-script_type perfmatters-select-control-gtag' . (empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] != 'gtag' ? ' hidden' : ''),
-            'tooltip' => __('Use your CDN URL when referencing analytics.js from inside gtag.js. Example: https://cdn.example.com', 'perfmatters')
-        )
-    );
-
     //use monsterinsights
     add_settings_field(
         'use_monster_insights', 
@@ -1531,7 +1464,7 @@ function perfmatters_settings() {
         array(
             'section' => 'analytics',
             'id' => 'use_monster_insights',
-            'class' => 'analytics-script_type perfmatters-select-control- perfmatters-select-control-gtag' . (!empty($perfmatters_options['analytics']['script_type']) && $perfmatters_options['analytics']['script_type'] != 'gtag' ? ' hidden' : ''),
+            'class' => 'analytics-script_type perfmatters-select-control- ' . (!empty($perfmatters_options['analytics']['script_type']) ? ' hidden' : ''),
             'tooltip' => __('Allows MonsterInsights to manage your Google Analytics while still using the locally hosted gtag.js file generated by Perfmatters.', 'perfmatters')
         )
     );
@@ -1546,39 +1479,7 @@ function perfmatters_settings() {
         array(
             'section' => 'analytics',
             'id' => 'enable_amp',
-            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-select-control-minimalv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && ($perfmatters_options['analytics']['script_type'] == 'gtagv4' || $perfmatters_options['analytics']['script_type'] == 'minimalv4') ? ' hidden' : ''),
             'tooltip' => __('Enable support for analytics tracking on AMP sites. This is not a local script, but a native AMP script.', 'perfmatters')
-        )
-    );
-
-    //dual tracking
-    add_settings_field(
-        'dual_tracking', 
-        perfmatters_title(__('Dual Tracking', 'perfmatters'), 'dual_tracking', 'https://perfmatters.io/docs/local-analytics/#dual-tracking'),
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'dual_tracking',
-            'class' => 'perfmatters-input-controller analytics-script_type perfmatters-select-control-gtag' . (empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] != 'gtag' ? ' hidden' : ''),
-            'tooltip' => __('Run Google Analytics 4 and Universal Analytics simultaneously.', 'perfmatters')
-        )
-    );
-
-    //measurement id
-    add_settings_field(
-        'measurement_id', 
-        perfmatters_title(__('Measurement ID', 'perfmatters'), 'measurement_id', 'https://perfmatters.io/docs/local-analytics/#dual-tracking'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'perfmatters_analytics', 
-        array(
-            'section' => 'analytics',
-            'id' => 'measurement_id',
-            'input' => 'text',
-            'class' => 'analytics-dual_tracking analytics-script_type perfmatters-select-control-gtag' . (empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] != 'gtag' || empty($perfmatters_options['analytics']['dual_tracking']) ? ' hidden' : ''),
-            'tooltip' => __('Input your Google Analytics 4 measurement ID.', 'perfmatters')
         )
     );
 
@@ -1646,6 +1547,20 @@ function perfmatters_settings() {
             'option' => 'perfmatters_tools',
             'tooltip' => __('Show advanced options in the Perfmatters UI.', 'perfmatters'),
             'confirmation' => __('Advanced options should only be used if you know exactly what you are doing, as they can break certain plugin functionality if used improperly.', 'perfmatters'),
+        )
+    );
+
+    //disable while logged in
+    add_settings_field(
+        'disable_logged_in', 
+        perfmatters_title(__('Disable for Logged In Users', 'perfmatters'), 'disable_logged_in', 'https://perfmatters.io/docs/disable-logged-in-users/'), 
+        'perfmatters_print_input', 
+        'perfmatters_tools', 
+        'plugin', 
+        array(
+            'id' => 'disable_logged_in',
+            'option' => 'perfmatters_tools',
+            'tooltip' => __('Disable optimizations for logged in users.', 'perfmatters')
         )
     );
 

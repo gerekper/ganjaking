@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Associated_API_Key_Data_Store {
 
-	private $associated_api_key_table = '';
+	private string $associated_api_key_table = '';
 
 	/**
 	 * @var null
@@ -138,39 +138,6 @@ class WC_AM_Associated_API_Key_Data_Store {
 	}
 
 	/**
-	 * Get array of activation IDs.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $api_key
-	 *
-	 * @return array|bool
-	 */
-	public function get_associated_api_key_activation_ids_by_api_key( $api_key ) {
-		global $wpdb;
-
-		$activation_id_list = array();
-
-		$sql = "
-            SELECT activation_ids
-            FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
-            WHERE associated_api_key = %s
-        ";
-
-		$activation_ids = $wpdb->get_results( $wpdb->prepare( $sql, $api_key ), ARRAY_A );
-
-		if ( ! empty( $activation_ids ) ) {
-			foreach ( $activation_ids as $k => $activation_id ) {
-				if ( ! empty( $activation_id[ 'activation_ids' ] ) ) {
-					$activation_id_list = array_merge( $activation_id_list, json_decode( $activation_id[ 'activation_ids' ], true ) );
-				}
-			}
-		}
-
-		return ! WC_AM_FORMAT()->empty( $activation_id_list ) ? $activation_id_list : false;
-	}
-
-	/**
 	 * Use the Associated API Key to return the API Resource ID.
 	 *
 	 * @since 2.0
@@ -189,39 +156,6 @@ class WC_AM_Associated_API_Key_Data_Store {
 		", $associated_api_key ) );
 
 		return ! WC_AM_FORMAT()->empty( $api_resource_id ) ? $api_resource_id : false;
-	}
-
-	/**
-	 * Get array of activation IDs.
-	 *
-	 * @since 2.0
-	 *
-	 * @param int $associated_api_key_id
-	 *
-	 * @return array|bool
-	 */
-	public function get_activation_ids_by_associated_api_key_id( $associated_api_key_id ) {
-		global $wpdb;
-
-		$activation_id_list = array();
-
-		$sql = "
-            SELECT activation_ids
-            FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
-            WHERE associated_api_key_id = %d
-        ";
-
-		$activation_ids = $wpdb->get_results( $wpdb->prepare( $sql, $associated_api_key_id ), ARRAY_A );
-
-		if ( ! empty( $activation_ids ) ) {
-			foreach ( $activation_ids as $k => $activation_id ) {
-				if ( ! empty( $activation_id[ 'activation_ids' ] ) ) {
-					$activation_id_list = array_merge( $activation_id_list, json_decode( $activation_id[ 'activation_ids' ], true ) );
-				}
-			}
-		}
-
-		return ! WC_AM_FORMAT()->empty( $activation_id_list ) ? $activation_id_list : false;
 	}
 
 	/**
@@ -246,6 +180,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 	 * Add a unique API Key that is associated with an API resource.
 	 *
 	 * @since 2.0
+	 * @updated 3.2 Removed update to dropped column associated_api_key_ids in the wc_am_api_resource database table.
 	 *
 	 * @param string $api_key
 	 * @param int    $order_id
@@ -256,7 +191,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 	public function add_associated_api_key( $api_key, $order_id, $product_id ) {
 		global $wpdb;
 
-		$update = false;
+		$result = false;
 
 		if ( ! $this->has_associated_api_key( $api_key ) ) {
 			$api_resource_id = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_id_by_order_id_and_product_id( $order_id, $product_id );
@@ -275,152 +210,10 @@ class WC_AM_Associated_API_Key_Data_Store {
 				);
 
 				$result = $wpdb->insert( $wpdb->prefix . $this->associated_api_key_table, $data, $format );
-
-				if ( ! WC_AM_FORMAT()->empty( $result ) ) {
-					$associated_api_key_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_associated_api_key_ids_by_api_resource_id( $api_resource_id );
-
-					$data = array(
-						'associated_api_key_ids' => WC_AM_FORMAT()->json_encode( ! empty( $associated_api_key_ids ) ? array_merge( $associated_api_key_ids, array( $wpdb->insert_id ) ) : array( $wpdb->insert_id ) )
-					);
-
-					$where = array(
-						'api_resource_id' => $api_resource_id
-					);
-
-					$data_format = array(
-						'%s'
-					);
-
-					$where_format = array(
-						'%d'
-					);
-
-					$update = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
-				}
 			}
 		}
 
-		return ! WC_AM_FORMAT()->empty( $update );
-	}
-
-	/**
-	 * Add the activation_id reference number.
-	 * Used for data migration from version 1.5.4 to 2.0.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $api_key
-	 * @param int    $activation_id
-	 *
-	 * @return bool
-	 */
-	public function update_associated_api_key_activation_ids_list( $api_key, $activation_id ) {
-		global $wpdb;
-
-		$activation_ids_list = $this->get_associated_api_key_activation_ids_by_api_key( $api_key );
-
-		$data = array(
-			'activation_ids' => WC_AM_FORMAT()->json_encode( ! empty( $activation_ids_list ) ? array_merge( $activation_ids_list, array( $activation_id ) ) : array( $activation_id ) )
-		);
-
-		$where = array(
-			'associated_api_key' => $api_key
-		);
-
-		$data_format = array(
-			'%s'
-		);
-
-		$where_format = array(
-			'%s'
-		);
-
-		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
-
-		return ! WC_AM_FORMAT()->empty( $update );
-	}
-
-	/**
-	 * Add Activation IDs for Associated API Key.
-	 *
-	 * @since 2.0
-	 *
-	 * @param int $associated_api_key_id
-	 * @param int $activation_id
-	 *
-	 * @return bool
-	 */
-	public function update_associated_api_key_activation_ids( $associated_api_key_id, $activation_id ) {
-		global $wpdb;
-
-		$associated_api_key_activation_ids = $this->get_activation_ids_by_associated_api_key_id( $associated_api_key_id );
-
-		$data = array(
-			'activation_ids' => WC_AM_FORMAT()->json_encode( ! empty( $associated_api_key_activation_ids ) ? array_merge( $associated_api_key_activation_ids, array( $activation_id ) ) : array( $activation_id ) )
-		);
-
-		$where = array(
-			'associated_api_key_id' => $associated_api_key_id
-		);
-
-		$data_format = array(
-			'%s'
-		);
-
-		$where_format = array(
-			'%d'
-		);
-
-		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
-
-		return ! WC_AM_FORMAT()->empty( $update );
-	}
-
-	/**
-	 * Delete Activation IDs for Associated API Key.
-	 *
-	 * @since 2.0
-	 *
-	 * @param int $associated_api_key_id
-	 * @param int $activation_id
-	 *
-	 * @return bool
-	 */
-	public function delete_associated_api_key_activation_ids( $associated_api_key_id, $activation_id ) {
-		global $wpdb;
-
-		$activation_ids = $this->get_activation_ids_by_associated_api_key_id( $associated_api_key_id );
-
-		if ( ! empty( $activation_ids ) ) {
-			foreach ( $activation_ids as $key => $value ) {
-				if ( (int) $value == (int) $activation_id ) {
-					unset( $activation_ids[ $key ] );
-				}
-			}
-
-			// Reindex the array keys.
-			$activation_ids = array_values( $activation_ids );
-		}
-
-		$data = array(
-			'activation_ids' => ! empty( $activation_ids ) ? WC_AM_FORMAT()->json_encode( $activation_ids ) : ''
-		);
-
-		$where = array(
-			'associated_api_key_id' => $associated_api_key_id
-		);
-
-		$data_format = array(
-			'%s'
-		);
-
-		$where_format = array(
-			'%d'
-		);
-
-		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
-
-		return ! WC_AM_FORMAT()->empty( $update );
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 
 	/**

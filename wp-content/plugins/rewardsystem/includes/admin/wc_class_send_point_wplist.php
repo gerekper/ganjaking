@@ -1,16 +1,16 @@
 <?php
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class FPRewardSystemSendpointTabList extends WP_List_Table {
 
 	public function __construct() {
-		global $status , $page ;
+		global $status, $page ;
 		parent::__construct( array(
-			'singular' => 'send_application' ,
-			'plural'   => 'send_applications' ,
-			'ajax'     => true
+			'singular' => 'send_application',
+			'plural'   => 'send_applications',
+			'ajax'     => true,
 		) ) ;
 	}
 
@@ -27,7 +27,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 		if ( 'Paid' == $item[ 'status' ] ) {
 			//Build row actions
 			$actions = array(
-				'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page , $tab , $section , 'send_application_delete' , $item[ 'id' ] ) ,
+				'delete' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Delete</a>' , $page , $tab , $section , 'send_application_delete' , $item[ 'id' ] ),
 					) ;
 
 			//Return the title contents
@@ -39,7 +39,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 		} elseif ( 'Rejected' == $item[ 'status' ] ) {
 			//Build row actions
 			$actions = array(
-				'delete' => sprintf( '<a href="?page=%s&tab=%s&action=%s&id=%s&section=%s">Delete</a>' , $page , $tab , $section, 'delete' , $item[ 'id' ] ) ,
+				'delete' => sprintf( '<a href="?page=%s&tab=%s&action=%s&id=%s&section=%s">Delete</a>' , $page , $tab , $section, 'delete' , $item[ 'id' ] ),
 					) ;
 			return sprintf( '%1$s %3$s' ,
 					/* $1%s */ $item[ 'userloginname' ] ,
@@ -48,8 +48,8 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					) ;
 		} else {
 			$actions = array(
-				'accept' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Approve</a>' , $page , $tab , $section , 'accept' , $item[ 'id' ] ) ,
-				'reject' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Reject</a>' , $page , $tab , $section , 'reject' , $item[ 'id' ] ) ,
+				'accept' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Approve</a>' , $page , $tab , $section , 'accept' , $item[ 'id' ] ),
+				'reject' => sprintf( '<a href="?page=%s&tab=%s&section=%s&action=%s&id=%s">Reject</a>' , $page , $tab , $section , 'reject' , $item[ 'id' ] ),
 					) ;
 			//Return the title contents
 			return sprintf( '%1$s %3$s' ,
@@ -68,34 +68,34 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'cb'                  => '<input type="checkbox" />' , //Render a checkbox instead of text            
-			'userloginname'       => __( 'Sent by' , 'rewardsystem' ) ,
-			'selecteduser'        => __( 'Received by' , 'rewardsystem' ) ,
-			'pointstosend'        => __( 'Points' , 'rewardsystem' ) ,
-			'sendercurrentpoints' => __( 'Current user Points' , 'rewardsystem' ) ,
-			'status'              => __( 'Request Status' , 'rewardsystem' ) ,
-			'date'                => __( 'Requested date' , 'rewardsystem' )
+			'cb'                  => '<input type="checkbox" />', //Render a checkbox instead of text            
+			'userloginname'       => __( 'Sent by' , 'rewardsystem' ),
+			'selecteduser'        => __( 'Received by' , 'rewardsystem' ),
+			'pointstosend'        => __( 'Points' , 'rewardsystem' ),
+			'sendercurrentpoints' => __( 'Current user Points' , 'rewardsystem' ),
+			'status'              => __( 'Request Status' , 'rewardsystem' ),
+			'date'                => __( 'Requested date' , 'rewardsystem' ),
 				) ;
 		return $columns ;
 	}
 
 	public function get_sortable_columns() {
 		$sortable_columns = array(
-			'userloginname'       => array( 'userloginname' , false ) , //true means it's already sorted            
-			'selecteduser'        => array( 'selecteduser' , false ) ,
-			'pointstosend'        => array( 'pointstosend' , false ) ,
-			'sendercurrentpoints' => array( 'sendercurrentpoints' , false ) ,
-			'status'              => array( 'status' , false ) ,
-			'date'                => array( 'date' , false )
+			'userloginname'       => array( 'userloginname', false ), //true means it's already sorted            
+			'selecteduser'        => array( 'selecteduser', false ),
+			'pointstosend'        => array( 'pointstosend', false ),
+			'sendercurrentpoints' => array( 'sendercurrentpoints', false ),
+			'status'              => array( 'status', false ),
+			'date'                => array( 'date', false ),
 				) ;
 		return $sortable_columns ;
 	}
 
 	public function get_bulk_actions() {
 		$actions = array(
-			'delete' => __( 'Delete' , 'rewardsystem' ) ,
-			'rspaid' => __( 'Mark as Approve' , 'rewardsystem' ) ,
-			'rsdue'  => __( 'Mark as Reject' , 'rewardsystem' ) ,
+			'delete' => __( 'Delete' , 'rewardsystem' ),
+			'rspaid' => __( 'Mark as Approve' , 'rewardsystem' ),
+			'rsdue'  => __( 'Mark as Reject' , 'rewardsystem' ),
 				) ;
 		return $actions ;
 	}
@@ -126,10 +126,10 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					}
 
 					$table_args   = array(
-						'user_id'           => $user_id ,
-						'pointstoinsert'    => $value[ 'pointstosend' ] ,
-						'checkpoints'       => 'SEP' ,
-						'totalearnedpoints' => $value[ 'pointstosend' ] ,
+						'user_id'           => $user_id,
+						'pointstoinsert'    => $value[ 'pointstosend' ],
+						'checkpoints'       => 'SEP',
+						'totalearnedpoints' => $value[ 'pointstosend' ],
 							) ;
 					$senderinfo   = get_userdata( $user_id ) ;
 					$receiverinfo = get_userdata( $value[ 'selecteduser' ] ) ;
@@ -156,11 +156,11 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					$senderinfo   = get_userdata( $senduser ) ;
 					$receiverinfo = get_userdata( $user_id ) ;
 					$table_args   = array(
-						'user_id'           => $user_id ,
-						'pointstoinsert'    => $value[ 'pointstosend' ] ,
-						'checkpoints'       => 'SP' ,
-						'totalearnedpoints' => $value[ 'pointstosend' ] ,
-						'nomineeid'         => $senduser
+						'user_id'           => $user_id,
+						'pointstoinsert'    => $value[ 'pointstosend' ],
+						'checkpoints'       => 'SP',
+						'totalearnedpoints' => $value[ 'pointstosend' ],
+						'nomineeid'         => $senduser,
 							) ;
 					$this->rs_confirmation_mail_and_admin_mail_for_Sendpoints( 'Accepted' , $senderinfo , $receiverinfo , $value[ 'pointstosend' ] ) ;
 					RSPointExpiry::insert_earning_points( $table_args ) ;
@@ -168,11 +168,11 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 
 					// Log to be record for Sender after Admin Approval
 					$table_args = array(
-						'user_id'           => $senduser ,
-						'usedpoints'        => $value[ 'pointstosend' ] ,
-						'checkpoints'       => 'SPA' ,
-						'totalearnedpoints' => $value[ 'pointstosend' ] ,
-						'nomineeid'         => $user_id
+						'user_id'           => $senduser,
+						'usedpoints'        => $value[ 'pointstosend' ],
+						'checkpoints'       => 'SPA',
+						'totalearnedpoints' => $value[ 'pointstosend' ],
+						'nomineeid'         => $user_id,
 							) ;
 					RSPointExpiry::record_the_points( $table_args ) ;
 				}
@@ -180,7 +180,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 			$message = __( $countids . ' Status Changed to Paid' , 'rewardsystem' ) ;
 			if ( ! empty( $message ) ) :
 				?>
-				<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+				<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 				<?php
 			endif ;
 		} elseif ( 'reject' === $this->current_action() ) {
@@ -204,10 +204,10 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					$receiverinfo = get_userdata( $value[ 'selecteduser' ] ) ;
 					$this->rs_confirmation_mail_and_admin_mail_for_Sendpoints( 'Rejected' , $senderinfo , $receiverinfo , $value[ 'pointstosend' ] ) ;
 					$table_args   = array(
-						'user_id'           => $user_id ,
-						'pointstoinsert'    => $value[ 'pointstosend' ] ,
-						'checkpoints'       => 'SEP' ,
-						'totalearnedpoints' => $value[ 'pointstosend' ] ,
+						'user_id'           => $user_id,
+						'pointstoinsert'    => $value[ 'pointstosend' ],
+						'checkpoints'       => 'SEP',
+						'totalearnedpoints' => $value[ 'pointstosend' ],
 							) ;
 					RSPointExpiry::insert_earning_points( $table_args ) ;
 					RSPointExpiry::record_the_points( $table_args ) ;
@@ -216,7 +216,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 			}
 			if ( ! empty( $message ) ) :
 				?>
-				<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+				<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 				<?php
 			endif ;
 		} elseif ( 'delete' === $this->current_action() ) {
@@ -238,10 +238,10 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					$receiverinfo = get_userdata( $value[ 'selecteduser' ] ) ;
 					$this->rs_confirmation_mail_and_admin_mail_for_Sendpoints( 'Deleted' , $senderinfo , $receiverinfo , $value[ 'pointstosend' ] ) ;
 					$table_args   = array(
-						'user_id'           => $user_id ,
-						'pointstoinsert'    => $value[ 'pointstosend' ] ,
-						'checkpoints'       => 'SEP' ,
-						'totalearnedpoints' => $value[ 'pointstosend' ] ,
+						'user_id'           => $user_id,
+						'pointstoinsert'    => $value[ 'pointstosend' ],
+						'checkpoints'       => 'SEP',
+						'totalearnedpoints' => $value[ 'pointstosend' ],
 							) ;
 					RSPointExpiry::insert_earning_points( $table_args ) ;
 					RSPointExpiry::record_the_points( $table_args ) ;
@@ -252,7 +252,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 			$db->query( "DELETE FROM $table_name WHERE id IN($idstodelete)" ) ;
 			if ( ! empty( $message ) ) :
 				?>
-				<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+				<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 				<?php
 			endif ;
 		} else {
@@ -263,11 +263,11 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 			}
 			if ( ! empty( $message ) ) :
 				?>
-				<div id="message" class="updated"><p><?php echo wp_kses_post($message); ?></p></div>
+				<div id="message" class="updated"><p><?php echo esc_html($message); ?></p></div>
 				<?php
 			endif ;
 		}
-		$redirect = remove_query_arg( array( 'action' , 'id' ) , get_permalink() ) ;
+		$redirect = remove_query_arg( array( 'action', 'id' ) , get_permalink() ) ;
 		wp_safe_redirect( $redirect ) ;
 		exit ;
 	}
@@ -276,7 +276,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 		global $wpdb ;
 		$data       = array() ;
 		$orderby               = ( isset( $_REQUEST[ 'orderby' ] ) && in_array( sanitize_text_field($_REQUEST[ 'orderby' ]) , array_keys( $this->get_sortable_columns() ) ) ) ? sanitize_text_field($_REQUEST[ 'orderby' ] ): 'id' ;
-		$order                 = ( isset( $_REQUEST[ 'order' ] ) && in_array( sanitize_text_field($_REQUEST[ 'order' ]) , array( 'asc' , 'desc' ) ) ) ? sanitize_text_field($_REQUEST[ 'order' ]) : 'asc' ;
+		$order                 = ( isset( $_REQUEST[ 'order' ] ) && in_array( sanitize_text_field($_REQUEST[ 'order' ]) , array( 'asc', 'desc' ) ) ) ? sanitize_text_field($_REQUEST[ 'order' ]) : 'asc' ;
 
 				$query_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}sumo_reward_send_point_submitted_data ORDER BY %s %s LIMIT %d OFFSET %d", $orderby, $order, $perPage , $startpoint ) , ARRAY_A ) ;
 		$i          = 1 ;
@@ -289,15 +289,15 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 				if ( is_object( $customer ) ) {
 					$reciver_info = $customer->display_name . ' (#' . $customer->ID . ' - ' . sanitize_email( $customer->user_email ) . ')' ;
 					$data[]       = array(
-						'id'                  => $user[ 'id' ] ,
-						'userloginname'       => $customer_info ,
-						'selecteduser'        => $reciver_info ,
-						'pointstosend'        => $user[ 'pointstosend' ] ,
-						'sendercurrentpoints' => $user[ 'sendercurrentpoints' ] ,
-						'status'              => $user[ 'status' ] ,
-						'date'                => $user[ 'date' ] ,
+						'id'                  => $user[ 'id' ],
+						'userloginname'       => $customer_info,
+						'selecteduser'        => $reciver_info,
+						'pointstosend'        => $user[ 'pointstosend' ],
+						'sendercurrentpoints' => $user[ 'sendercurrentpoints' ],
+						'status'              => $user[ 'status' ],
+						'date'                => $user[ 'date' ],
 							) ;
-					$i ++ ;
+					$i++ ;
 				}
 			}
 		}
@@ -310,7 +310,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 		$hidden                = array() ;
 		$sortable              = $this->get_sortable_columns() ;
 		// here we configure table headers, defined in our methods
-		$this->_column_headers = array( $columns , $hidden , $sortable ) ;
+		$this->_column_headers = array( $columns, $hidden, $sortable ) ;
 		$this->process_bulk_action() ;
 		// will be used in pagination settings
 				$total_items           = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}sumo_reward_send_point_submitted_data" ) ;
@@ -327,9 +327,9 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 		$this->items           = $data ;
 		// [REQUIRED] configure pagination
 		$this->set_pagination_args( array(
-			'total_items' => $total_items , // total items defined above
-			'per_page'    => $per_page , // per page constant defined at top of method
-			'total_pages' => ceil( $total_items / $per_page ) // calculate pages count
+			'total_items' => $total_items, // total items defined above
+			'per_page'    => $per_page, // per page constant defined at top of method
+			'total_pages' => ceil( $total_items / $per_page ), // calculate pages count
 		) ) ;
 	}
 
@@ -354,7 +354,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 					add_filter( 'woocommerce_email_footer_text' , 'srp_footer_link' ) ;
 					ob_start() ;
 					wc_get_template( 'emails/email-header.php' , array( 'email_heading' => $confirmation_email_subject ) ) ;
-					echo wp_kses_post($confirmation_email_message_for_sendpoints );
+					echo esc_html($confirmation_email_message_for_sendpoints );
 					wc_get_template( 'emails/email-footer.php' ) ;
 					$woo_temp_msg                              = ob_get_clean() ;
 					$message_headers                           = "MIME-Version: 1.0\r\n" ;
@@ -385,7 +385,7 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 
 					ob_start() ;
 					wc_get_template( 'emails/email-header.php' , array( 'email_heading' => $email_subject ) ) ;
-					echo wp_kses_post($Email_message) ;
+					echo esc_html($Email_message) ;
 					wc_get_template( 'emails/email-footer.php' ) ;
 					$woo_temp_msg                 = ob_get_clean() ;
 					$message_headers              = "MIME-Version: 1.0\r\n" ;
@@ -405,5 +405,4 @@ class FPRewardSystemSendpointTabList extends WP_List_Table {
 			}
 		}
 	}
-
 }

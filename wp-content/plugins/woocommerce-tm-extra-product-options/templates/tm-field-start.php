@@ -35,9 +35,9 @@ if ( isset( $required, $field_id, $label, $original_rules, $rules, $rules_type, 
 	<span class="tc-epo-label tm-epo-element-label">
 	<?php
 	echo esc_html( $label );
-	if ( $required && ! empty( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) && 'left' === THEMECOMPLETE_EPO()->tm_epo_global_required_indicator_position ) {
-		// THEMECOMPLETE_EPO()->tm_epo_global_required_indicator may contain HTML code.
-		echo '<span class="tm-epo-required">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ), THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	if ( $required && ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ) && 'left' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator_position' ) ) {
+		// THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) may contain HTML code.
+		echo '<span class="tm-epo-required">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ), THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_required_indicator' ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 	?>
 	</span>

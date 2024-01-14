@@ -47,6 +47,10 @@ class ThePlus_Data_Table extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return [ 'Table', 'Data Table', 'Table Widget', 'Table', 'Table Addon', 'Table Plugin', 'Elementor Table', 'Elementor Data Table', 'Table Design', 'Table Layout' ];
+    }
+
     protected function register_controls() {
 		$this->start_controls_section( 'section_table',
 			[

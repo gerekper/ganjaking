@@ -549,7 +549,7 @@ if (
 										'element_data_attr' => [ 'data-tm-for-variation' => $att_id ],
 										'fieldtype'       => 'tmcp-field ' . $variations_class . ' tm-epo-variation-element',
 										'field_counter'   => $v_field_counter,
-										'border_type'     => THEMECOMPLETE_EPO()->tm_epo_css_selected_border,
+										'border_type'     => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_selected_border' ),
 									]
 								);
 
@@ -567,7 +567,7 @@ if (
 										'price_type'     => '',
 										'amount'         => '',
 										'fieldtype'      => 'tmcp-field ' . $variations_class . ' tm-epo-variation-element',
-										'border_type'    => THEMECOMPLETE_EPO()->tm_epo_css_selected_border,
+										'border_type'    => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_selected_border' ),
 									];
 
 									$field_args = array_merge( $field_args, $display );
@@ -595,7 +595,7 @@ if (
 			}
 
 			if ( count( $attributes ) === intval( $loop ) ) {
-				echo '<a class="reset_variations tc-cell tcwidth tcwidth-100" href="#reset">' . ( ( ! empty( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_reset_variation_text ) : esc_html__( 'Reset options', 'woocommerce-tm-extra-product-options' ) ) . '</a>';
+				echo '<a class="reset_variations tc-cell tcwidth tcwidth-100" href="#reset">' . ( ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_reset_variation_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_reset_variation_text' ) ) : esc_html__( 'Reset options', 'woocommerce-tm-extra-product-options' ) ) . '</a>';
 			}
 		}
 	}

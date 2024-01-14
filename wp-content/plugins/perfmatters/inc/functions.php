@@ -151,7 +151,8 @@ function perfmatters_rest_authentication_errors($result) {
 			'contact-form-7',
 			'wordfence',
 			'elementor',
-			'ws-form'
+			'ws-form',
+			'litespeed'
 		));
 		foreach($exceptions as $exception) {
 			if(strpos($rest_route, $exception) !== false) {
@@ -1070,16 +1071,13 @@ if(!empty($perfmatters_options['analytics']['enable_local_ga'])) {
 
 	$print_analytics = true;
 
-	if(empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] == 'gtag' || $perfmatters_options['analytics']['script_type'] == 'gtagv4') {
+	if(empty($perfmatters_options['analytics']['script_type'])) {
 		if(!wp_next_scheduled('perfmatters_update_ga')) {
 			wp_schedule_event(time(), 'daily', 'perfmatters_update_ga');
 		}
-		if(empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] == 'gtag') {
-			if(!empty($perfmatters_options['analytics']['use_monster_insights'])) {
-				$print_analytics = false;
-				add_filter('monsterinsights_frontend_output_analytics_src', 'perfmatters_monster_ga', 1000);
-				add_filter('monsterinsights_frontend_output_gtag_src', 'perfmatters_monster_ga_gtag', 1000);
-			}
+		if(!empty($perfmatters_options['analytics']['use_monster_insights'])) {
+			$print_analytics = false;
+			add_filter('monsterinsights_frontend_output_gtag_src', 'perfmatters_monster_ga_gtag', 1000);
 		}
 	}
 	else {
@@ -1111,7 +1109,7 @@ else {
 	}
 }
 
-//update analytics.js
+//update analytics local files
 function perfmatters_update_ga() {
 
 	$options = get_option('perfmatters_options');
@@ -1119,22 +1117,13 @@ function perfmatters_update_ga() {
 	$queue = array();
 
 	$upload_dir = wp_get_upload_dir();
-
-	//add analytics.js to the queue
-	if(empty($options['analytics']['script_type']) || $options['analytics']['script_type'] == 'gtag') {
-		$queue['analytics'] = array(
-			'remote' => 'https://www.google-analytics.com/analytics.js',
-			'local' => dirname(dirname(__FILE__)) . '/js/analytics.js'
-		);
-	}
 	
 	//add gtag to queue
-	if((!empty($options['analytics']['script_type']) && ($options['analytics']['script_type'] == 'gtag' || $options['analytics']['script_type'] == 'gtagv4')) || (empty($options['analytics']['script_type']) && !empty($options['analytics']['use_monster_insights']))) {
+	if(empty($options['analytics']['script_type'])) {
 		if(!empty($options['analytics']['tracking_id'])) {
-			$script_type = !empty($options['analytics']['script_type']) ? $options['analytics']['script_type'] : 'gtag';
 			$queue[$script_type]= array(
 				'remote' => 'https://www.googletagmanager.com/gtag/js?id=' . $options['analytics']['tracking_id'],
-				'local' => $upload_dir['basedir'] . '/perfmatters/' . $script_type . '.js'
+				'local' => $upload_dir['basedir'] . '/perfmatters/gtagv4.js'
 			);
 		}
 	}
@@ -1152,20 +1141,8 @@ function perfmatters_update_ga() {
 			    if(!is_dir($upload_dir['basedir']  . '/perfmatters/')) {
 			    	wp_mkdir_p($upload_dir['basedir']  . '/perfmatters/');
 			    }
-
-			    if($type == 'gtag') {
-			    	$plugins_url = (!empty($options['analytics']['cdn_url']) ? trailingslashit($options['analytics']['cdn_url']) . 'wp-content/plugins' : str_replace('http:', 'https:', plugins_url())) . '/perfmatters/js/';
-			    	$split_upload_dir = explode('/wp-content/', $upload_dir['baseurl']);
-			    	$uploads_url = (!empty($options['analytics']['cdn_url']) ? trailingslashit($options['analytics']['cdn_url']) . 'wp-content/' . $split_upload_dir[1] : $upload_dir['baseurl']) . '/perfmatters';
-			    	$body = str_replace('https://www.google-analytics.com/', $plugins_url, $file['body']);
-			    	$body = str_replace('/gtag/js?id=', '/gtag.js?id=', $body);
-		            $body = str_replace('"//www.googletagmanager.com"', '"' . preg_replace('(^https?:)', "", $uploads_url) . '"', $body);
-			    }
-			    else {
-			    	$body = $file['body'];
-			    }
-
-			   	file_put_contents($files['local'], $body);
+			   
+			   	file_put_contents($files['local'], $file['body']);
 			}
 		}
 	}
@@ -1191,49 +1168,8 @@ function perfmatters_print_ga() {
 	$output = '';
 
 	if(empty($options['analytics']['script_type'])) {
-		$output.= "<script>";
-		    $output.= "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-					})(window,document,'script','" . str_replace('http:', 'https:', plugins_url()) . "/perfmatters/js/analytics.js','ga');";
-		    $output.= "ga('create', '" . $options['analytics']['tracking_id'] . "', 'auto');";
-
-		    //disable display features
-		    if(!empty($options['analytics']['disable_display_features'])) {
-		    	$output.= "ga('set', 'allowAdFeatures', false);";
-		    }
-
-		    //anonymize ip
-		   	if(!empty($options['analytics']['anonymize_ip'])) {
-		   		$output.= "ga('set', 'anonymizeIp', true);";
-		   	}
-
-		    $output.= "ga('send', 'pageview');";
-
-		    //adjusted bounce rate
-		    if(!empty($options['analytics']['adjusted_bounce_rate'])) {
-		    	$output.= 'setTimeout("ga(' . "'send','event','adjusted bounce rate','" . $options['analytics']['adjusted_bounce_rate'] . " seconds')" . '"' . "," . $options['analytics']['adjusted_bounce_rate'] * 1000 . ");";
-		    }
-	    $output.= "</script>";
-	}
-	elseif($options['analytics']['script_type'] == 'gtag') {
-		$output.= '<script async src="' . $upload_dir['baseurl'] . '/perfmatters/gtag.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
-		$output.= '<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "' . $options['analytics']['tracking_id'] . '", {' . (!empty($options['analytics']['anonymize_ip']) ? '"anonymize_ip": true' : '') . '});';
-		if(!empty($options['analytics']['dual_tracking']) && !empty($options['analytics']['measurement_id'])) {
-    		$output.= 'gtag("config", "' . $options['analytics']['measurement_id'] . '");';
-    	}
-		$output.= '</script>';
-	}
-	elseif($options['analytics']['script_type'] == 'gtagv4') {
-    	$output.= '<script async src="' . $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
+		$output.= '<script async src="' . $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
     	$output.= '<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "' . $options['analytics']['tracking_id'] . '");</script>';
-	}
-	elseif($options['analytics']['script_type'] == 'minimal') {
-		$output.= '<script>window.pmGAID="' . $options['analytics']['tracking_id'] . '";' . (!empty($options['analytics']['anonymize_ip']) ? 'window.pmGAAIP=true;' : '') . '</script>';
-		$output.= '<script async src="' . str_replace('http:', 'https:', plugins_url()) . '/perfmatters/js/analytics-minimal.js"></script>';
-	}
-	elseif($options['analytics']['script_type'] == 'minimal_inline') {
-		$output.= '<script>(function(a,b,c){var d=a.history,e=document,f=navigator||{},g=localStorage,h=encodeURIComponent,i=d.pushState,k=function(){return Math.random().toString(36)},l=function(){return g.cid||(g.cid=k()),g.cid},m=function(r){var s=[];for(var t in r)r.hasOwnProperty(t)&&void 0!==r[t]&&s.push(h(t)+"="+h(r[t]));return s.join("&")},n=function(r,s,t,u,v,w,x){var z="https://www.google-analytics.com/collect",A=m({v:"1",ds:"web",aip:c.anonymizeIp?1:void 0,tid:b,cid:l(),t:r||"pageview",sd:c.colorDepth&&screen.colorDepth?screen.colorDepth+"-bits":void 0,dr:e.referrer||void 0,dt:e.title,dl:e.location.origin+e.location.pathname+e.location.search,ul:c.language?(f.language||"").toLowerCase():void 0,de:c.characterSet?e.characterSet:void 0,sr:c.screenSize?(a.screen||{}).width+"x"+(a.screen||{}).height:void 0,vp:c.screenSize&&a.visualViewport?(a.visualViewport||{}).width+"x"+(a.visualViewport||{}).height:void 0,ec:s||void 0,ea:t||void 0,el:u||void 0,ev:v||void 0,exd:w||void 0,exf:"undefined"!=typeof x&&!1==!!x?0:void 0});if(f.sendBeacon)f.sendBeacon(z,A);else{var y=new XMLHttpRequest;y.open("POST",z,!0),y.send(A)}};d.pushState=function(r){return"function"==typeof d.onpushstate&&d.onpushstate({state:r}),setTimeout(n,c.delay||10),i.apply(d,arguments)},n(),a.ma={trackEvent:function o(r,s,t,u){return n("event",r,s,t,u)},trackException:function q(r,s){return n("exception",null,null,null,null,r,s)}}})(window,"' . $options['analytics']['tracking_id'] . '",{' . (!empty($options['analytics']['anonymize_ip']) ? 'anonymizeIp:true,' : '') . 'colorDepth:true,characterSet:true,screenSize:true,language:true});</script>';
 	}
 	elseif($options['analytics']['script_type'] == 'minimalv4') {
 		$output.= '<script>window.pmGAID="' . $options['analytics']['tracking_id'] . '";</script>';
@@ -1241,7 +1177,7 @@ function perfmatters_print_ga() {
 	}
 
 	//amp analytics
-	if(!empty($options['analytics']['enable_amp']) && (empty($options['analytics']['script_type']) || $options['analytics']['script_type'] != 'gtagv4')) {
+	if(!empty($options['analytics']['enable_amp'])) {
 		if(function_exists('is_amp_endpoint') && is_amp_endpoint()) {
 			$output.= '<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>';
 			$output.= '<amp-analytics type="gtag" data-credentials="include"><script type="application/json">{"vars" : {"gtag_id": "' . $options['analytics']['tracking_id'] . '", "config" : {"' . $options['analytics']['tracking_id'] . '": { "groups": "default" }}}}</script></amp-analytics>';
@@ -1253,15 +1189,16 @@ function perfmatters_print_ga() {
 	}
 }
 
-//return local anlytics url for Monster Insights
-function perfmatters_monster_ga($url) {
-	return str_replace('http:', 'https:', plugins_url()) . "/perfmatters/js/analytics.js";
-}
-
-//return local gtag url for Monster Insights
+//return local gtag url for monster insights
 function perfmatters_monster_ga_gtag($url) {
-	$upload_dir = wp_get_upload_dir();
-	return $upload_dir['baseurl'] . '/perfmatters/gtag.js';
+	$perfmatters_options = get_option('perfmatters_options');
+
+	if(!empty($perfmatters_options['analytics']['tracking_id'])) {
+		$upload_dir = wp_get_upload_dir();
+		return $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'];
+	}
+
+	return $url;
 }
 
 //run analytics updater after settings update if we need to
@@ -1272,19 +1209,15 @@ function perfmatters_update_option_perfmatters_options($old_value, $new_value) {
 
 	$update_flag = false;
 
-	if($new_script_type != $old_script_type && (empty($new_script_type) || $new_script_type == 'gtag' || $new_script_type == 'gtagv4')) {
+	if($new_script_type != $old_script_type && empty($new_script_type)) {
 		$update_flag = true;
 	}
 
-	if(!empty($new_value['analytics']['tracking_id']) && $new_value['analytics']['tracking_id'] != ($old_value['analytics']['tracking_id'] ?? '') && ($new_script_type == 'gtag' || $new_script_type == 'gtagv4')) {
+	if(!empty($new_value['analytics']['tracking_id']) && $new_value['analytics']['tracking_id'] != ($old_value['analytics']['tracking_id'] ?? '') && empty($new_script_type)) {
 		$update_flag = true;
 	}
 
-	if(($new_value['analytics']['cdn_url'] ?? '') != ($old_value['analytics']['cdn_url'] ?? '') && $new_script_type == 'gtag') {
-		$update_flag = true;
-	}
-
-	if(empty($new_value['analytics']['script_type']) && empty($old_value['analytics']['use_monster_insights']) && !empty($new_value['analytics']['use_monster_insights'])) {
+	if(empty($old_value['analytics']['use_monster_insights']) && !empty($new_value['analytics']['use_monster_insights'])) {
 		$update_flag = true;
 	}
 
@@ -1438,6 +1371,7 @@ add_action('admin_init', 'perfmatters_update_options');
 function perfmatters_is_page_builder() {
 
 	$page_builders = apply_filters('perfmatters_page_builders', array(
+		'customizer',
 		'elementor-preview', //elementor
 		'fl_builder', //beaver builder
 		'et_fb', //divi

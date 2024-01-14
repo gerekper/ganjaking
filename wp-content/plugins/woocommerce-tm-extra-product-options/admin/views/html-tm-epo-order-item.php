@@ -61,7 +61,7 @@ if ( isset( $item, $item_id, $order, $_product, $item_meta, $epo, $key, $epo_nam
 					$textarea_value = '';
 					if ( is_array( $epo['value'] ) ) {
 						$edit_value     = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
-						$edit_value     = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $edit_value, THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text );
+						$edit_value     = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $edit_value, THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiple_separator_cart_text' ) );
 						$textarea_value = $edit_value;
 					} else {
 						$textarea_value = $epo['value'];

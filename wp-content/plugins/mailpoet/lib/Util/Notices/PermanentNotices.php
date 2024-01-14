@@ -61,6 +61,9 @@ class PermanentNotices {
   /** @var PremiumFeaturesAvailableNotice */
   private $premiumFeaturesAvailableNotice;
 
+  /** @var SenderDomainAuthenticationNotices */
+  private $senderDomainAuthenticationNotices;
+
   public function __construct(
     WPFunctions $wp,
     TrackingConfig $trackingConfig,
@@ -68,7 +71,8 @@ class PermanentNotices {
     SettingsController $settings,
     SubscribersFeature $subscribersFeature,
     ServicesChecker $serviceChecker,
-    MailerFactory $mailerFactory
+    MailerFactory $mailerFactory,
+    SenderDomainAuthenticationNotices $senderDomainAuthenticationNotices
   ) {
     $this->wp = $wp;
     $this->phpVersionWarnings = new PHPVersionWarnings();
@@ -85,6 +89,7 @@ class PermanentNotices {
     $this->pendingApprovalNotice = new PendingApprovalNotice($settings);
     $this->woocommerceVersionWarning = new WooCommerceVersionWarning($wp);
     $this->premiumFeaturesAvailableNotice = new PremiumFeaturesAvailableNotice($subscribersFeature, $serviceChecker, $wp);
+    $this->senderDomainAuthenticationNotices = $senderDomainAuthenticationNotices;
   }
 
   public function init() {
@@ -139,6 +144,9 @@ class PermanentNotices {
       Menu::isOnMailPoetAdminPage($excludeSetupWizard)
     );
     $this->premiumFeaturesAvailableNotice->init(
+      Menu::isOnMailPoetAdminPage($excludeSetupWizard)
+    );
+    $this->senderDomainAuthenticationNotices->init(
       Menu::isOnMailPoetAdminPage($excludeSetupWizard)
     );
   }

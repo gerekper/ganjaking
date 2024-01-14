@@ -192,7 +192,7 @@ jQuery( function ( $ ) {
                 return false ;
             }
             var dataparam = ( {
-                action : 'generatevouchercode' ,
+                action : 'generate_voucher_code' ,
                 enableprefix : prefix_enabled_value ,
                 prefixvalue : prefix_content ,
                 enablesuffix : suffix_enabled_value ,
@@ -212,46 +212,7 @@ jQuery( function ( $ ) {
             $.post( fp_giftvoucher_module_param.ajaxurl , dataparam ,
                     function ( response ) {
                         if ( true == response.success ) {
-                            var uniquekey = [ ] ;
-                            $.each( response.data.content , function ( i , el ) {
-                                if ( $.inArray( el , uniquekey ) === - 1 ) {
-                                    uniquekey.push( el ) ;
-                                }
-                            } ) ;
-                            if ( number_of_vouchers_to_be_created > uniquekey.length + 1 ) {
-                                GiftVoucherModule.unblock( block ) ;
-                                $( "#dialog1" ).dialog( {
-                                    buttons : [
-                                        {
-                                            text : "Ok" ,
-                                            icons : {
-                                                primary : "ui-icon-heart"
-                                            } ,
-                                            click : function ( ) {
-                                                jQuery( this ).dialog( "close" ) ;
-                                                window.location.href = fp_giftvoucher_module_param.redirecturl ;
-                                            }
-
-                                        }
-                                    ]
-
-                                } ) ;
-                                $( 'div#dialog1' ).on( 'dialogclose' , function ( ) {
-                                    window.location.href = fp_giftvoucher_module_param.redirecturl ;
-                                } ) ;
-                                $( "#dialog1" ).html( + uniquekey.length + ' Unique code is Generated Please Increase number of Character to Create More Voucher' ) ;
-                            } else {
-                                window.location.href = fp_giftvoucher_module_param.redirecturl ;
-                            }
-                            $( '.rs_voucher_prefix_offline_online' ).val( '' ) ;
-                            $( '.rs_voucher_suffix_offline_online' ).val( '' ) ;
-                            $( '#rs_reward_code_type' ).val( '' ) ;
-                            $( '.rs_exclude_characters_code_generation' ).val( '' ) ;
-                            $( '.rs_voucher_code_length_offline_online' ).val( '' ) ;
-                            $( '.rs_voucher_code_points_value_offline_online' ).val( '' ) ;
-                            $( '.rs_voucher_code_count_offline_online' ).val( '' ) ;
-                            $( '#rs_gift_voucher_expiry' ).val( '' ) ;
-                            $( '.preloader_image_online_offline_rewards' ).css( "display" , "none" ) ;
+                            window.location.href = response.data.redirect_url ;
                         } else {
                             window.alert( response.data.error ) ;
                         }

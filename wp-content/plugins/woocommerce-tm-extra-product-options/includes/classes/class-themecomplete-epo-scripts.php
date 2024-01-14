@@ -72,14 +72,14 @@ class THEMECOMPLETE_EPO_Scripts {
 	 * @since 1.0
 	 */
 	public function print_extra_css_js() {
-		if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_css_code ) ) {
+		if ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_code' ) ) ) {
 			wp_register_style( 'themecomplete-extra-css', false, [], THEMECOMPLETE_EPO_VERSION );
-			wp_add_inline_style( 'themecomplete-extra-css', THEMECOMPLETE_EPO()->tm_epo_css_code );
+			wp_add_inline_style( 'themecomplete-extra-css', THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_code' ) );
 			wp_enqueue_style( 'themecomplete-extra-css' );
 		}
-		if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_js_code ) ) {
+		if ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_js_code' ) ) ) {
 			wp_register_script( 'themecomplete-extra-js', false, [], THEMECOMPLETE_EPO_VERSION, false );
-			wp_add_inline_script( 'themecomplete-extra-js', THEMECOMPLETE_EPO()->tm_epo_js_code );
+			wp_add_inline_script( 'themecomplete-extra-js', THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_js_code' ) );
 			wp_enqueue_script( 'themecomplete-extra-js' );
 		}
 	}
@@ -194,7 +194,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			$taxable          = $product->is_taxable();
 			$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
 			$suffix           = '';
-			if ( $taxable && 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_tax_string_suffix ) {
+			if ( $taxable && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_tax_string_suffix' ) ) {
 				if ( 'excl' === $tax_display_mode ) {
 
 					$suffix = ' <small>' . apply_filters( 'wc_epo_ex_tax_or_vat_string', WC()->countries->ex_tax_or_vat() ) . '</small>';
@@ -205,7 +205,7 @@ class THEMECOMPLETE_EPO_Scripts {
 
 				}
 			}
-			if ( $taxable && 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_wc_price_suffix ) {
+			if ( $taxable && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_wc_price_suffix' ) ) {
 				$suffix .= ' <small>' . get_option( 'woocommerce_price_display_suffix' ) . '</small>';
 			}
 			$formatted_price      .= $suffix;
@@ -242,10 +242,10 @@ class THEMECOMPLETE_EPO_Scripts {
 	 */
 	public function css_array() {
 		$ext = '.min';
-		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$ext = '';
 		}
-		if ( 'multiple' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode || 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'multiple' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) || 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$css_array = [
 				// The version of the fontawesome is customized.
 				'themecomplete-fontawesome' => [
@@ -371,7 +371,7 @@ class THEMECOMPLETE_EPO_Scripts {
 	public function custom_frontend_scripts() {
 		$this->defered_files = [];
 		$ext                 = '.min';
-		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$ext = '';
 		}
 		do_action( 'tm_epo_register_addons_scripts' );
@@ -401,7 +401,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			$dependencies[] = 'wc-jquery-ui-touchpunch';
 		}
 
-		if ( 'multiple' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode || 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'multiple' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) || 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 
 			$dependencies[] = 'themecomplete-api';
 			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', [], THEMECOMPLETE_EPO_VERSION, true );
@@ -502,7 +502,7 @@ class THEMECOMPLETE_EPO_Scripts {
 		}
 
 		// constants.
-		$constants = THEMECOMPLETE_EPO()->tm_epo_math;
+		$constants = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_math' );
 
 		$extra_fee = 0;
 		global $wp_locale;
@@ -511,68 +511,68 @@ class THEMECOMPLETE_EPO_Scripts {
 			'ajax_url'                                    => admin_url( 'admin-ajax' ) . '.php', // WPML 3.3.3 fix.
 			'extraFee'                                    => apply_filters( 'woocommerce_tm_final_price_extra_fee', $extra_fee, $product ),
 			'i18n_extra_fee'                              => esc_html__( 'Extra fee', 'woocommerce-tm-extra-product-options' ),
-			'i18n_unit_price'                             => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_options_unit_price_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_options_unit_price_text ) : esc_html__( 'Unit price', 'woocommerce-tm-extra-product-options' ),
-			'i18n_options_total'                          => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_options_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_options_total_text ) : esc_html__( 'Options amount', 'woocommerce-tm-extra-product-options' ),
-			'i18n_vat_options_total'                      => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_vat_options_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_vat_options_total_text ) : esc_html__( 'Options VAT amount', 'woocommerce-tm-extra-product-options' ),
-			'i18n_fees_total'                             => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_fees_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_fees_total_text ) : esc_html__( 'Fees amount', 'woocommerce-tm-extra-product-options' ),
-			'i18n_final_total'                            => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_final_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_final_total_text ) : esc_html__( 'Final total', 'woocommerce-tm-extra-product-options' ),
-			'i18n_prev_text'                              => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_slider_prev_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_slider_prev_text ) : esc_html__( 'Prev', 'woocommerce-tm-extra-product-options' ),
-			'i18n_next_text'                              => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_slider_next_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_slider_next_text ) : esc_html__( 'Next', 'woocommerce-tm-extra-product-options' ),
+			'i18n_unit_price'                             => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_unit_price_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_unit_price_text' ) ) : esc_html__( 'Unit price', 'woocommerce-tm-extra-product-options' ),
+			'i18n_options_total'                          => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_total_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_total_text' ) ) : esc_html__( 'Options amount', 'woocommerce-tm-extra-product-options' ),
+			'i18n_vat_options_total'                      => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_vat_options_total_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_vat_options_total_text' ) ) : esc_html__( 'Options VAT amount', 'woocommerce-tm-extra-product-options' ),
+			'i18n_fees_total'                             => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_fees_total_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_fees_total_text' ) ) : esc_html__( 'Fees amount', 'woocommerce-tm-extra-product-options' ),
+			'i18n_final_total'                            => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_final_total_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_final_total_text' ) ) : esc_html__( 'Final total', 'woocommerce-tm-extra-product-options' ),
+			'i18n_prev_text'                              => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_slider_prev_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_slider_prev_text' ) ) : esc_html__( 'Prev', 'woocommerce-tm-extra-product-options' ),
+			'i18n_next_text'                              => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_slider_next_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_slider_next_text' ) ) : esc_html__( 'Next', 'woocommerce-tm-extra-product-options' ),
 			'i18n_cancel'                                 => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
-			'i18n_close'                                  => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_close_button_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_close_button_text ) : esc_html__( 'Close', 'woocommerce-tm-extra-product-options' ),
-			'i18n_addition_options'                       => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_additional_options_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_additional_options_text ) : esc_html__( 'Additional options', 'woocommerce-tm-extra-product-options' ),
-			'i18n_characters_remaining'                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_characters_remaining_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_characters_remaining_text ) : esc_html__( 'characters remaining', 'woocommerce-tm-extra-product-options' ),
+			'i18n_close'                                  => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_close_button_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_close_button_text' ) ) : esc_html__( 'Close', 'woocommerce-tm-extra-product-options' ),
+			'i18n_addition_options'                       => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_additional_options_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_additional_options_text' ) ) : esc_html__( 'Additional options', 'woocommerce-tm-extra-product-options' ),
+			'i18n_characters_remaining'                   => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_characters_remaining_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_characters_remaining_text' ) ) : esc_html__( 'characters remaining', 'woocommerce-tm-extra-product-options' ),
 
 			'i18n_option_label'                           => esc_html__( 'Label', 'woocommerce-tm-extra-product-options' ),
 			'i18n_option_value'                           => esc_html__( 'Value', 'woocommerce-tm-extra-product-options' ),
 			'i18n_option_qty'                             => esc_html__( 'Qty', 'woocommerce-tm-extra-product-options' ),
 			'i18n_option_price'                           => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
 
-			'i18n_uploading_files'                        => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_files_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_files_text ) : esc_html__( 'Uploading files', 'woocommerce-tm-extra-product-options' ),
-			'i18n_uploading_message'                      => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) : esc_html__( 'Your files are being uploaded', 'woocommerce-tm-extra-product-options' ),
+			'i18n_uploading_files'                        => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_files_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_files_text' ) ) : esc_html__( 'Uploading files', 'woocommerce-tm-extra-product-options' ),
+			'i18n_uploading_message'                      => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_message_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_message_text' ) ) : esc_html__( 'Your files are being uploaded', 'woocommerce-tm-extra-product-options' ),
 
-			'i18n_file'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_file ) : esc_html__( 'file', 'woocommerce-tm-extra-product-options' ),
-			'i18n_files'                                  => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_files ) : esc_html__( 'files', 'woocommerce-tm-extra-product-options' ),
+			'i18n_file'                                   => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_message_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_num_file' ) ) : esc_html__( 'file', 'woocommerce-tm-extra-product-options' ),
+			'i18n_files'                                  => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_message_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_uploading_num_files' ) ) : esc_html__( 'files', 'woocommerce-tm-extra-product-options' ),
 
 			'currency_format_num_decimals'                => apply_filters( 'wc_epo_price_decimals', esc_attr( (string) wc_get_price_decimals() ) ),
 			'currency_format_symbol'                      => esc_attr( get_woocommerce_currency_symbol() ),
 			'currency_format_decimal_sep'                 => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) ) ),
 			'currency_format_thousand_sep'                => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_thousand_sep' ) ) ),
 			'currency_format'                             => esc_attr( str_replace( [ '%1$s', '%2$s' ], [ '%s', '%v' ], get_woocommerce_price_format() ) ),
-			'css_styles'                                  => THEMECOMPLETE_EPO()->tm_epo_css_styles,
-			'css_styles_style'                            => THEMECOMPLETE_EPO()->tm_epo_css_styles_style,
-			'tm_epo_options_placement'                    => THEMECOMPLETE_EPO()->tm_epo_options_placement,
-			'tm_epo_totals_box_placement'                 => THEMECOMPLETE_EPO()->tm_epo_totals_box_placement,
-			'tm_epo_no_lazy_load'                         => THEMECOMPLETE_EPO()->tm_epo_no_lazy_load,
-			'tm_epo_preload_lightbox_image'               => THEMECOMPLETE_EPO()->tm_epo_preload_lightbox_image,
-			'tm_epo_show_only_active_quantities'          => THEMECOMPLETE_EPO()->tm_epo_show_only_active_quantities,
-			'tm_epo_hide_add_cart_button'                 => THEMECOMPLETE_EPO()->tm_epo_hide_add_cart_button,
-			'tm_epo_hide_all_add_cart_button'             => THEMECOMPLETE_EPO()->tm_epo_hide_all_add_cart_button,
-			'tm_epo_hide_required_add_cart_button'        => THEMECOMPLETE_EPO()->tm_epo_hide_required_add_cart_button,
-			'tm_epo_auto_hide_price_if_zero'              => THEMECOMPLETE_EPO()->tm_epo_auto_hide_price_if_zero,
-			'tm_epo_show_price_inside_option'             => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option,
-			'tm_epo_show_price_inside_option_hidden_even' => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option_hidden_even,
-			'tm_epo_multiply_price_inside_option'         => THEMECOMPLETE_EPO()->tm_epo_multiply_price_inside_option,
-			'tm_epo_global_enable_validation'             => THEMECOMPLETE_EPO()->tm_epo_global_enable_validation,
-			'tm_epo_global_input_decimal_separator'       => THEMECOMPLETE_EPO()->tm_epo_global_input_decimal_separator,
-			'tm_epo_global_displayed_decimal_separator'   => THEMECOMPLETE_EPO()->tm_epo_global_displayed_decimal_separator,
-			'tm_epo_remove_free_price_label'              => THEMECOMPLETE_EPO()->tm_epo_remove_free_price_label,
-			'tm_epo_global_product_image_selector'        => THEMECOMPLETE_EPO()->tm_epo_global_product_image_selector,
-			'tm_epo_global_image_recalculate'             => THEMECOMPLETE_EPO()->tm_epo_global_image_recalculate,
-			'tm_epo_upload_inline_image_preview'          => THEMECOMPLETE_EPO()->tm_epo_upload_inline_image_preview,
-			'tm_epo_global_product_element_scroll_offset' => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll_offset,
-			'tm_epo_global_product_element_scroll'        => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll,
-			'tm_epo_global_product_image_mode'            => THEMECOMPLETE_EPO()->tm_epo_global_product_image_mode,
-			'tm_epo_global_move_out_of_stock'             => THEMECOMPLETE_EPO()->tm_epo_global_move_out_of_stock,
-			'tm_epo_progressive_display'                  => THEMECOMPLETE_EPO()->tm_epo_progressive_display,
-			'tm_epo_animation_delay'                      => THEMECOMPLETE_EPO()->tm_epo_animation_delay,
-			'tm_epo_start_animation_delay'                => THEMECOMPLETE_EPO()->tm_epo_start_animation_delay,
-			'tm_epo_global_error_label_placement'         => THEMECOMPLETE_EPO()->tm_epo_global_error_label_placement,
-			'tm_epo_global_tooltip_max_width'             => THEMECOMPLETE_EPO()->tm_epo_global_tooltip_max_width,
-			'tm_epo_global_product_element_quantity_sync' => THEMECOMPLETE_EPO()->tm_epo_global_product_element_quantity_sync,
+			'css_styles'                                  => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles' ),
+			'css_styles_style'                            => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_css_styles_style' ),
+			'tm_epo_options_placement'                    => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_options_placement' ),
+			'tm_epo_totals_box_placement'                 => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_totals_box_placement' ),
+			'tm_epo_no_lazy_load'                         => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_no_lazy_load' ),
+			'tm_epo_preload_lightbox_image'               => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_preload_lightbox_image' ),
+			'tm_epo_show_only_active_quantities'          => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_only_active_quantities' ),
+			'tm_epo_hide_add_cart_button'                 => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_add_cart_button' ),
+			'tm_epo_hide_all_add_cart_button'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_all_add_cart_button' ),
+			'tm_epo_hide_required_add_cart_button'        => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_required_add_cart_button' ),
+			'tm_epo_auto_hide_price_if_zero'              => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_auto_hide_price_if_zero' ),
+			'tm_epo_show_price_inside_option'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_price_inside_option' ),
+			'tm_epo_show_price_inside_option_hidden_even' => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_price_inside_option_hidden_even' ),
+			'tm_epo_multiply_price_inside_option'         => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiply_price_inside_option' ),
+			'tm_epo_global_enable_validation'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_enable_validation' ),
+			'tm_epo_global_input_decimal_separator'       => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_input_decimal_separator' ),
+			'tm_epo_global_displayed_decimal_separator'   => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_displayed_decimal_separator' ),
+			'tm_epo_remove_free_price_label'              => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_free_price_label' ),
+			'tm_epo_global_product_image_selector'        => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_image_selector' ),
+			'tm_epo_global_image_recalculate'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_image_recalculate' ),
+			'tm_epo_upload_inline_image_preview'          => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_upload_inline_image_preview' ),
+			'tm_epo_global_product_element_scroll_offset' => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_scroll_offset' ),
+			'tm_epo_global_product_element_scroll'        => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_scroll' ),
+			'tm_epo_global_product_image_mode'            => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_image_mode' ),
+			'tm_epo_global_move_out_of_stock'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_move_out_of_stock' ),
+			'tm_epo_progressive_display'                  => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_progressive_display' ),
+			'tm_epo_animation_delay'                      => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_animation_delay' ),
+			'tm_epo_start_animation_delay'                => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_start_animation_delay' ),
+			'tm_epo_global_error_label_placement'         => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_error_label_placement' ),
+			'tm_epo_global_tooltip_max_width'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_tooltip_max_width' ),
+			'tm_epo_global_product_element_quantity_sync' => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_product_element_quantity_sync' ),
 
 			'tm_epo_global_validator_messages'            => [
-				'required'                 => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_this_field_is_required_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_this_field_is_required_text ) : esc_html__( 'This field is required.', 'woocommerce-tm-extra-product-options' ),
+				'required'                 => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_this_field_is_required_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_this_field_is_required_text' ) ) : esc_html__( 'This field is required.', 'woocommerce-tm-extra-product-options' ),
 				'email'                    => esc_html__( 'Please enter a valid email address.', 'woocommerce-tm-extra-product-options' ),
 				'url'                      => esc_html__( 'Please enter a valid URL.', 'woocommerce-tm-extra-product-options' ),
 				'number'                   => esc_html__( 'Please enter a valid number.', 'woocommerce-tm-extra-product-options' ),
@@ -608,43 +608,43 @@ class THEMECOMPLETE_EPO_Scripts {
 			'isRTL'                                       => 'rtl' === $wp_locale->text_direction,
 			'text_direction'                              => $wp_locale->text_direction,
 			'is_rtl'                                      => is_rtl(),
-			'closeText'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_closetext ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_closetext ) : esc_html__( 'Done', 'woocommerce-tm-extra-product-options' ),
-			'currentText'                                 => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_currenttext ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_currenttext ) : esc_html__( 'Today', 'woocommerce-tm-extra-product-options' ),
+			'closeText'                                   => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_closetext' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_closetext' ) ) : esc_html__( 'Done', 'woocommerce-tm-extra-product-options' ),
+			'currentText'                                 => ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_currenttext' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_currenttext' ) ) : esc_html__( 'Today', 'woocommerce-tm-extra-product-options' ),
 
 			'hourText'                                    => esc_html__( 'Hour', 'woocommerce-tm-extra-product-options' ),
 			'minuteText'                                  => esc_html__( 'Minute', 'woocommerce-tm-extra-product-options' ),
 			'secondText'                                  => esc_html__( 'Second', 'woocommerce-tm-extra-product-options' ),
 
-			'floating_totals_box'                         => THEMECOMPLETE_EPO()->tm_epo_floating_totals_box,
-			'floating_totals_box_visibility'              => THEMECOMPLETE_EPO()->tm_epo_floating_totals_box_visibility,
-			'floating_totals_box_add_button'              => THEMECOMPLETE_EPO()->tm_epo_floating_totals_box_add_button,
-			'floating_totals_box_pixels'                  => THEMECOMPLETE_EPO()->tm_epo_floating_totals_box_pixels,
+			'floating_totals_box'                         => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_floating_totals_box' ),
+			'floating_totals_box_visibility'              => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_floating_totals_box_visibility' ),
+			'floating_totals_box_add_button'              => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_floating_totals_box_add_button' ),
+			'floating_totals_box_pixels'                  => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_floating_totals_box_pixels' ),
 			'floating_totals_box_html_before'             => apply_filters( 'floating_totals_box_html_before', '' ),
 			'floating_totals_box_html_after'              => apply_filters( 'floating_totals_box_html_after', '' ),
-			'tm_epo_show_unit_price'                      => THEMECOMPLETE_EPO()->tm_epo_show_unit_price,
-			'tm_epo_fees_on_unit_price'                   => THEMECOMPLETE_EPO()->tm_epo_fees_on_unit_price,
-			'tm_epo_total_price_as_unit_price'            => THEMECOMPLETE_EPO()->tm_epo_total_price_as_unit_price,
-			'tm_epo_hide_totals_until_any'                => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_any,
-			'tm_epo_hide_totals_until_all_required'       => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_all_required,
-			'tm_epo_hide_totals_until_all'                => THEMECOMPLETE_EPO()->tm_epo_hide_totals_until_all,
-			'tm_epo_enable_final_total_box_all'           => THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all,
-			'tm_epo_enable_original_final_total'          => THEMECOMPLETE_EPO()->tm_epo_enable_original_final_total,
-			'tm_epo_enable_vat_options_total'             => THEMECOMPLETE_EPO()->tm_epo_enable_vat_options_total,
-			'tm_epo_change_original_price'                => THEMECOMPLETE_EPO()->tm_epo_change_original_price,
-			'tm_epo_change_variation_price'               => THEMECOMPLETE_EPO()->tm_epo_change_variation_price,
-			'tm_epo_enable_in_shop'                       => THEMECOMPLETE_EPO()->tm_epo_enable_in_shop,
-			'tm_epo_disable_error_scroll'                 => THEMECOMPLETE_EPO()->tm_epo_disable_error_scroll,
-			'tm_epo_global_options_price_sign'            => THEMECOMPLETE_EPO()->tm_epo_global_options_price_sign,
-			'tm_epo_trim_zeros'                           => THEMECOMPLETE_EPO()->tm_epo_trim_zeros,
+			'tm_epo_show_unit_price'                      => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_unit_price' ),
+			'tm_epo_fees_on_unit_price'                   => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_fees_on_unit_price' ),
+			'tm_epo_total_price_as_unit_price'            => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_total_price_as_unit_price' ),
+			'tm_epo_hide_totals_until_any'                => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_totals_until_any' ),
+			'tm_epo_hide_totals_until_all_required'       => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_totals_until_all_required' ),
+			'tm_epo_hide_totals_until_all'                => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_totals_until_all' ),
+			'tm_epo_enable_final_total_box_all'           => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_final_total_box_all' ),
+			'tm_epo_enable_original_final_total'          => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_original_final_total' ),
+			'tm_epo_enable_vat_options_total'             => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_vat_options_total' ),
+			'tm_epo_change_original_price'                => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_change_original_price' ),
+			'tm_epo_change_variation_price'               => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_change_variation_price' ),
+			'tm_epo_enable_in_shop'                       => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_enable_in_shop' ),
+			'tm_epo_disable_error_scroll'                 => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_disable_error_scroll' ),
+			'tm_epo_global_options_price_sign'            => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_options_price_sign' ),
+			'tm_epo_trim_zeros'                           => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_trim_zeros' ),
 			'tm_epo_math'                                 => $constants,
 
 			'minus_sign'                                  => apply_filters( 'wc_epo_get_price_for_cart_minus_sign', "<span class='tc-minus-sign'>-</span>" ),
 			'plus_sign'                                   => apply_filters( 'wc_epo_get_price_for_cart_plus_sign', "<span class='tc-minus-sign'>+</span>" ),
 
-			'option_plus_sign'                            => THEMECOMPLETE_EPO()->tm_epo_global_options_price_sign === '' ? apply_filters( 'wc_epo_price_in_dropdown_plus_sign', '+' ) : '',
+			'option_plus_sign'                            => '' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_options_price_sign' ) ? apply_filters( 'wc_epo_price_in_dropdown_plus_sign', '+' ) : '',
 			'option_minus_sign'                           => apply_filters( 'wc_epo_price_in_dropdown_minus_sign', '-' ),
 
-			'tm_epo_upload_popup'                         => THEMECOMPLETE_EPO()->tm_epo_upload_popup,
+			'tm_epo_upload_popup'                         => THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_upload_popup' ),
 
 			'current_free_text'                           => esc_html( THEMECOMPLETE_EPO()->current_free_text ),
 			'assoc_current_free_text'                     => esc_html( THEMECOMPLETE_EPO()->assoc_current_free_text ),

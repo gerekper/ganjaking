@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<p class="form-field">
 							<input type="text" 
 								   name="rewards_dynamic_rule_for_redeem[<?php echo esc_attr( $key ) ; ?>][name]" 
-								   class="short" value="<?php echo wp_kses_post( $level_name ) ; ?>">
+								   class="short" value="<?php echo esc_attr( $level_name ) ; ?>">
 						</p>
 					</td>
 					<td class="column-columnname">

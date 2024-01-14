@@ -156,6 +156,7 @@ class OrderStatistics {
       $sqlOrderBy
       $sqlLimit";
 
+    /** @var RawOrderType[] $result */
     $result = $wpdb->get_results($sql, ARRAY_A);
     if (!$count) {
       return is_array($result) ? $result : [];
@@ -236,6 +237,7 @@ class OrderStatistics {
       $sqlOrderBy
       $sqlLimit";
 
+    /** @var RawOrderType[] $result */
     $result = $wpdb->get_results($sql, ARRAY_A);
     if (!$count) {
       return is_array($result) ? $result : [];

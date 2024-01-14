@@ -18,15 +18,15 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 		public static function init() {
 			if ( '1' == get_option( 'rs_reward_table_position' ) ) {
 				// Display my reward log after my account.
-				add_action( 'woocommerce_after_my_account' , array( __CLASS__ , 'reawrd_log_in_my_account_page' ) ) ;
+				add_action( 'woocommerce_after_my_account' , array( __CLASS__, 'reawrd_log_in_my_account_page' ) ) ;
 			} else {
 				// Display my reward log before my account.
-				add_action( 'woocommerce_before_my_account' , array( __CLASS__ , 'reawrd_log_in_my_account_page' ) ) ;
+				add_action( 'woocommerce_before_my_account' , array( __CLASS__, 'reawrd_log_in_my_account_page' ) ) ;
 			}
 
 			if ( '1' == get_option( 'rs_show_or_hide_date_filter' ) ) {
 				// My reward table - date filter hook.
-				add_filter( 'rs_my_reward_date_filter' , array( __CLASS__ , 'my_reward_table_date_filter' ) ) ;
+				add_filter( 'rs_my_reward_date_filter' , array( __CLASS__, 'my_reward_table_date_filter' ) ) ;
 			}
 		}
 
@@ -89,6 +89,11 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 			if ( 2 == get_option( 'rs_my_reward_table' ) ) {
 				return ;
 			}
+						
+			$BanType = check_banning_type( get_current_user_id() ) ;
+			if ( 'earningonly' == $BanType || 'both' == $BanType ) {
+				return ;
+			}
 
 			self::reward_log() ;
 		}
@@ -102,31 +107,32 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 		public static function reward_log( $my_reward_menu_page = false ) {
 
 			$TableData = array(
-				'points_log_sort'        => get_option( 'rs_points_log_sorting' ) ,
-				'search_box'             => get_option( 'rs_show_hide_search_box_in_my_rewards_table' ) ,
-				'page_size'              => get_option( 'rs_show_hide_page_size_my_rewards' ) ,
-				'points_label_position'  => get_option( 'rs_reward_point_label_position' ) ,
-				'total_points_label'     => get_option( 'rs_my_rewards_total' ) ,
-				'display_currency_value' => get_option( 'rs_reward_currency_value' ) ,
-				'sno'                    => get_option( 'rs_my_reward_points_s_no' ) ,
-				'points_expiry'          => get_option( 'rs_my_reward_points_expire' ) ,
-				'username'               => get_option( 'rs_my_reward_points_user_name_hide' ) ,
-				'reward_for'             => get_option( 'rs_my_reward_points_reward_for_hide' ) ,
-				'earned_points'          => get_option( 'rs_my_reward_points_earned_points_hide' ) ,
-				'redeemed_points'        => get_option( 'rs_my_reward_points_redeemed_points_hide' ) ,
-				'total_points'           => get_option( 'rs_my_reward_points_total_points_hide' ) ,
-				'earned_date'            => get_option( 'rs_my_reward_points_earned_date_hide' ) ,
-				'my_reward_label'        => get_option( 'rs_my_rewards_title' ) ,
-				'label_sno'              => get_option( 'rs_my_rewards_sno_label' ) ,
-				'label_username'         => get_option( 'rs_my_rewards_userid_label' ) ,
-				'label_reward_for'       => get_option( 'rs_my_rewards_reward_for_label' ) ,
-				'label_earned_points'    => get_option( 'rs_my_rewards_points_earned_label' ) ,
-				'label_redeemed_points'  => get_option( 'rs_my_rewards_redeem_points_label' ) ,
-				'label_total_points'     => get_option( 'rs_my_rewards_total_points_label' ) ,
-				'label_earned_date'      => get_option( 'rs_my_rewards_date_label' ) ,
-				'label_points_expiry'    => get_option( 'rs_my_rewards_points_expired_label' ) ,
-				'per_page'               => ( '2' == get_option( 'rs_show_hide_page_size_my_rewards' , 1 ) ) ? get_option( 'rs_number_of_page_size_in_myaccount' , 5 ) : 5 ,
-				'is_my_reward_menu_page' => $my_reward_menu_page ,
+				'points_log_sort'        => get_option( 'rs_points_log_sorting' ),
+				'search_box'             => get_option( 'rs_show_hide_search_box_in_my_rewards_table' ),
+				'page_size'              => get_option( 'rs_show_hide_page_size_my_rewards' ),
+				'points_label_position'  => get_option( 'rs_reward_point_label_position' ),
+				'total_points_label'     => get_option( 'rs_my_rewards_total' ),
+				'display_currency_value' => get_option( 'rs_reward_currency_value' ),
+				'sno'                    => get_option( 'rs_my_reward_points_s_no' ),
+				'points_expiry'          => get_option( 'rs_my_reward_points_expire' ),
+				'username'               => get_option( 'rs_my_reward_points_user_name_hide' ),
+				'reward_for'             => get_option( 'rs_my_reward_points_reward_for_hide' ),
+				'earned_points'          => get_option( 'rs_my_reward_points_earned_points_hide' ),
+				'redeemed_points'        => get_option( 'rs_my_reward_points_redeemed_points_hide' ),
+				'total_points'           => get_option( 'rs_my_reward_points_total_points_hide' ),
+				'earned_date'            => get_option( 'rs_my_reward_points_earned_date_hide' ),
+				'my_reward_label'        => get_option( 'rs_my_rewards_title' ),
+				'label_sno'              => get_option( 'rs_my_rewards_sno_label' ),
+				'label_username'         => get_option( 'rs_my_rewards_userid_label' ),
+				'label_reward_for'       => get_option( 'rs_my_rewards_reward_for_label' ),
+				'label_earned_points'    => get_option( 'rs_my_rewards_points_earned_label' ),
+				'label_redeemed_points'  => get_option( 'rs_my_rewards_redeem_points_label' ),
+				'label_total_points'     => get_option( 'rs_my_rewards_total_points_label' ),
+				'label_earned_date'      => get_option( 'rs_my_rewards_date_label' ),
+				'label_points_expiry'    => get_option( 'rs_my_rewards_points_expired_label' ),
+				'per_page'               => ( '2' == get_option( 'rs_show_hide_page_size_my_rewards' , 1 ) ) ? get_option( 'rs_number_of_page_size_in_myaccount' , 5 ) : 5,
+				'is_my_reward_menu_page' => $my_reward_menu_page,
+				'pagination_limit'       => get_option( 'rs_numbers_to_display_pagination', '' ),
 					) ;
 			self::reward_log_table( $TableData ) ;
 		}
@@ -147,7 +153,11 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 
 			global $wpdb ;
 						$db = &$wpdb;
-
+						/**
+						 * Hook:rs_my_reward_date_filter.
+						 * 
+						 * @since 1.0
+						 */                        
 			$where   = apply_filters( 'rs_my_reward_date_filter' , '' ) ;
 			if ($where) {
 				$UserLog = $db->get_results( $db->prepare( "SELECT * FROM {$db->prefix}rsrecordpoints WHERE userid = %d AND showuserlog = false $where" , $UserId ) , ARRAY_A ) ;
@@ -185,7 +195,11 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 			} else {
 				echo wp_kses_post('<h4 class=my_reward_total> ' . round_off_type( $AvailablePoints ) . ' ' . $msg . $TableData[ 'total_points_label' ] . '</h4>' );
 			}
-
+						/**
+						 * Hook:srp_above_reward_table.
+						 * 
+						 * @since 1.0
+						 */
 			$outputtablefields = apply_filters( 'srp_above_reward_table' , '' ) ;
 
 			if ( '1' == get_option( 'rs_enable_footable_js' ) ) {
@@ -215,17 +229,18 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 			}
 
 			$DefaultColumn = array(
-				'username' ,
-				'reward_for' ,
-				'earned_points' ,
-				'redeemed_points' ,
-				'points_expiry' ,
-				'total_points' ,
-				'earned_date' ,
+				'username',
+				'reward_for',
+				'earned_points',
+				'redeemed_points',
+				'points_expiry',
+				'total_points',
+				'earned_date',
 					) ;
 
 			$SortedColumn = srp_check_is_array( get_option( 'sorted_settings_list' ) ) ? get_option( 'sorted_settings_list' ) : $DefaultColumn ;
 			$per_page     = isset( $TableData[ 'per_page' ] ) ? $TableData[ 'per_page' ] : '5' ;
+			$pagination_limit = isset( $TableData[ 'pagination_limit' ] ) ? $TableData[ 'pagination_limit' ] : '0';
 
 			// Pagination args when the footable JS dequeued.
 			$pagination = self::get_pagination_args( $UserLog , $TableData , $per_page ) ;
@@ -263,14 +278,14 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 			$query_arg       = isset( $table_data[ 'is_my_reward_menu_page' ] ) && true == $table_data[ 'is_my_reward_menu_page' ] ? $menu_name : '' ;
 
 			return array(
-				'reward_log_data' => $reward_log_data ,
-				'offset'          => $offset ,
-				'page_count'      => $page_count ,
-				'permalink'       => '' != $query_arg ? wc_get_endpoint_url( $query_arg ) : get_permalink() ,
-				'query_args'      => array() ,
-				'current_page'    => $current_page ,
-				'prev_page_count' => ( 0 == ( $current_page - 1 ) ) ? ( $current_page ) : ( $current_page - 1 ) ,
-				'next_page_count' => ( ( $current_page + 1 ) <= ( $page_count ) ) ? ( $current_page + 1 ) : ( $current_page )
+				'reward_log_data' => $reward_log_data,
+				'offset'          => $offset,
+				'page_count'      => $page_count,
+				'permalink'       => '' != $query_arg ? wc_get_endpoint_url( $query_arg ) : get_permalink(),
+				'query_args'      => array(),
+				'current_page'    => $current_page,
+				'prev_page_count' => ( 0 == ( $current_page - 1 ) ) ? ( $current_page ) : ( $current_page - 1 ),
+				'next_page_count' => ( ( $current_page + 1 ) <= ( $page_count ) ) ? ( $current_page + 1 ) : ( $current_page ),
 					) ;
 		}
 		
@@ -297,7 +312,6 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 				<?php
 			}
 		}
-
 	}
 
 	RSFunctionForMessage::init() ;

@@ -636,37 +636,35 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$score_points = self::invert_score( $score_points );
 			$email_nofication_status = get_option( 'wc_af_email_notification' );
 
-			if ( ( 'yes' == $email_nofication_status ) && ( $score_points > $email_score ) ) {
+			$sent_email = get_option('email_sent_' . $order_id);
 
-				// This is unfortunately needed in the current WooCommerce email setup
-				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
-					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else {
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
+			if ((string) $order_id != $sent_email) {
+
+				if ( ( 'yes' == $email_nofication_status ) && ( $score_points > $email_score ) ) {
+
+					// This is unfortunately needed in the current WooCommerce email setup
+					if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
+						include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
+					} else {
+						include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
+					}
+
+					$email = new WC_AF_Admin_Email( $order, $score_points );
+					update_option('email_sent_' . $order_id, $order_id);
+					// Send admin email
+					$data = $email->send_notification();
+					
 				}
 
-				// Setup admin email
-				$email = new WC_AF_Admin_Email( $order, $score_points );
-
-				// Send admin email
-				$data = $email->send_notification();
+			} else {
+				
+				Af_Logger::debug( 'Email already sent.' );
+				delete_option('email_sent_' . $order_id);
 			}
+			
 
 			// Check if we need to send an admin email notification
 			if ( false == $is_whitelisted ) {
-
-				// This is unfortunately needed in the current WooCommerce email setup
-				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
-					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else {
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-				}
-
-				// Setup admin email
-				$email = new WC_AF_Admin_Email( $order, $score_points );
-
-				// Send admin email
-				$email->send_notification();
 
 				$is_update_status_active = get_option( 'wc_af_fraud_update_state' );
 				if ( 'yes' == $is_update_status_active ) {

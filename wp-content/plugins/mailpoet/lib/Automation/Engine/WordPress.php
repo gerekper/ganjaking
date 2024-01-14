@@ -65,6 +65,7 @@ class WordPress {
   }
 
   /**
+   * @param 'ARRAY_A'|'ARRAY_N'|'OBJECT' $object
    * @return array|WP_Post|null
    */
   public function getPost(int $id, string $object = OBJECT) {
@@ -93,6 +94,7 @@ class WordPress {
   }
 
   /**
+   * @param 'ARRAY_A'|'ARRAY_N'|'OBJECT' $output
    * @return WP_Comment|array|null
    */
   public function getComment(int $id, string $output = OBJECT) {
@@ -164,9 +166,10 @@ class WordPress {
   }
 
   /**
+   * @param 'and'|'or' $operator
    * @return string[]|\WP_Taxonomy[]
    */
-  public function getTaxonomies(array $args = [], string $output = 'names', string $operator = 'AND'): array {
+  public function getTaxonomies(array $args = [], string $output = 'names', string $operator = 'and'): array {
     return get_taxonomies($args, $output, $operator);
   }
 
@@ -180,7 +183,7 @@ class WordPress {
   /**
    * @param int|WP_Term|object $term
    * @param string $taxonomy
-   * @param string $output
+   * @param 'ARRAY_A'|'ARRAY_N'|'OBJECT' $output
    * @param string $filter
    * @return WP_Term|array|WP_Error|null
    */

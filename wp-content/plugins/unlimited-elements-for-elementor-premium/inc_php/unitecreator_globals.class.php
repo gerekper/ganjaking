@@ -8,16 +8,14 @@
 defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 	class GlobalsUC{
-		
+
 		public static $inDev = false;
-		
+
 		public static $debugAjaxErrors = false;
 		
-		const DEBUG_ALLOW_SHOWVARS = false;		//keep it false
-
 		public static $SHOW_TRACE = false;
 		public static $SHOW_TRACE_FRONT = false;
-		
+
 		const ENABLE_TRANSLATIONS = false;
 
 		const PLUGIN_TITLE = "Unlimited Elements";
@@ -26,6 +24,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		const TABLE_ADDONS_NAME = "addonlibrary_addons";
 		const TABLE_LAYOUTS_NAME = "addonlibrary_layouts";
 		const TABLE_CATEGORIES_NAME = "addonlibrary_categories";
+		const TABLE_CHANGELOG_NAME = "addonlibrary_changelog";
 		const TABLE_FORM_ENTRIES_NAME = "ue_form_entries";
 		const TABLE_FORM_ENTRY_FIELDS_NAME = "ue_form_entry_fields";
 
@@ -65,7 +64,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		const URL_API = "https://api.unlimited-elements.com/index.php";
 		//const URL_API = "http://api.bloxbuilder.me/index.php";
-		
+
 		const URL_SITE = "https://unlimited-elements.com/";
 		const URL_WIDGETS = "https://unlimited-elements.com/elementor-widgets/";
 		const URL_BUY = "https://unlimited-elements.com/pricing/";
@@ -98,7 +97,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		const ENABLE_CATALOG_SHORTPIXEL = true;
 		const SHORTPIXEL_PREFIX = "https://cdn.shortpixel.ai/spai/q_glossy+w_323+to_auto+ret_img/";
-				
+
 		public static $permisison_add = false;
 		public static $blankWindowMode = false;
 
@@ -131,6 +130,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $current_protocol;
 
 		public static $url_base;
+		public static $url_site;
 		public static $url_images;
 		public static $url_images_screenshots;
 		public static $url_no_image_placeholder;
@@ -182,21 +182,20 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $isAdminRTL = false;
 		public static $enableInsideWidgetFreeVersionNotifiaction = true;
 		public static $colorPickerType = "spectrum";
-		
-		
+
+
 		/**
 		 * init globals
 		 */
 		public static function initGlobals(){
-			
+
 			//set dev mode
 			if(defined("UC_DEVMODE") && UC_DEVMODE === true)
 				self::$inDev = true;
-			
+
 			if(defined("UC_DEBUG_AJAX_ERRORS") && UC_DEBUG_AJAX_ERRORS === true)
 				self::$debugAjaxErrors = true;
-			
-			
+
 			UniteProviderFunctionsUC::initGlobalsBase();
 
 			self::$current_protocol = "http://";
@@ -223,7 +222,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(file_exists(self::$pathPro))
 				self::$isProVersion = true;
-			
+
 			if(defined("UC_TEST_FREE_VERSION"))
 				self::$isProVersion = false;
 
@@ -241,9 +240,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			self::$urlPluginImages = self::$urlPlugin."images/";
 
 			self::$url_no_image_placeholder = self::$urlPluginImages."placeholder.png";
-			
+
 			self::$url_video_thumbnail = self::$urlPluginImages."video_thumbnail.png";
-						
+
 			self::$pathLibrary = self::$pathPlugin."assets_libraries/";
 
 			//check for wp version
@@ -262,18 +261,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$isDebugMode = UniteFunctionsUC::getGetVar("debug", "", UniteFunctionsUC::SANITIZE_KEY);
 				self::$is_admin_debug_mode = UniteFunctionsUC::strToBool($isDebugMode);
 			}
-
-			if(self::DEBUG_ALLOW_SHOWVARS == true){
 			
-				$action = UniteFunctionsUC::getGetVar("maxaction", "", UniteFunctionsUC::SANITIZE_KEY);
-				if($action == "showvars")
-					GlobalsUC::printVars();
-
-			}
-			
-			
-			
-			//GlobalsUC::printVars();
 		}
 
 		/**
@@ -306,18 +294,18 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$webAPI->setProduct($product);
 
 			self::$isProductActive = $webAPI->isProductActive();
-			
+
 			//show trace by get url
-			
+
 			$isShowTrace = HelperUC::hasPermissionsFromQuery("uctrace");
 			
 			if($isShowTrace == true){
 				GlobalsUC::$SHOW_TRACE_FRONT = true;
-				GlobalsUC::$SHOW_TRACE = true;				
+				GlobalsUC::$SHOW_TRACE = true;
 			}
-			
+
 		}
-		
+
 
 		/**
 		 * init globals after admin init
@@ -335,10 +323,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * print all globals variables
 		 */
 		public static function printVars(){
-
-			$methods = get_class_vars( "GlobalsUC" );
-			dmp($methods);
-			exit();
+			
+			UniteFunctionsUC::showClassStaticVariables("GlobalsUC");
+			
 		}
 
 	}

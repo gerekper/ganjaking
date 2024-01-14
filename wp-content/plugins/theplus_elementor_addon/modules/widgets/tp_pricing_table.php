@@ -36,6 +36,10 @@ class ThePlus_Pricing_Table extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+
+	public function get_keywords() {
+        return ['Pricing', 'Table', 'Pricing Table', 'Pricing Plan', 'Pricing Comparison', 'Pricing Options', 'Pricing Packages', 'Pricing Grid', 'Pricing Chart'];
+    }
 	
     protected function register_controls() {
 		

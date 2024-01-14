@@ -28,8 +28,6 @@
         <key name="tm_epo_add_button_text_associated_products"/>
         <key name="tm_epo_remove_button_text_associated_products"/>
         <key name="tm_epo_add_button_text_repeater"/>
-        <key name="tm_epo_dpd_prefix"/>
-        <key name="tm_epo_dpd_suffix"/>
         <key name="tm_epo_global_required_indicator"/>
         <key name="tm_epo_global_date_timezone"/>
         <key name="tm_epo_popup_section_button_text"/>

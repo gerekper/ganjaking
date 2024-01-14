@@ -2025,15 +2025,9 @@ button.tmicon {
 	width: 100%;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #settingsdiv .tm-epo-switch-wrapper label {
@@ -2043,6 +2037,7 @@ button.tmicon {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	max-width: 33%;
 }
 
 #misc-settings-actions {
@@ -3704,6 +3699,11 @@ button.tmicon {
 	vertical-align: middle;
 }
 
+.tc-wmpl-flag {
+	width: 16px;
+	height: 16px;
+}
+
 .tm-meta-wpml-lang {
 	padding: 6px 0 8px;
 }
@@ -4119,6 +4119,17 @@ button.tc.tc-button.details-override {
 	font-size: 18px;
 	line-height: 30px;
 	padding: 14px;
+	font-family: monospace;
+}
+
+.tc-wrapper .tc-element-setting-edit-price.formula-error {
+	border: 2px solid #ff0025;
+	color: #ff0025;
+}
+
+.tc-wrapper .tc-element-setting-edit-price.formula-correct {
+	border: 2px solid #38bb5d;
+	color: #38bb5d;
 }
 
 .tc-price-variables {

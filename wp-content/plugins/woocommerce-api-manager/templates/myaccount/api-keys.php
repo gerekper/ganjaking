@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 3.1
+ * @version 3.2
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -105,9 +105,6 @@ if ( ! empty( $user_id ) ) {
 				foreach ( $resources as $resource ) {
 					// Refreshing cache here will also delete API cache for activations about to be deleted.
 					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
-
-					// Delete excess API Key activations by activation resource ID.
-					WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
 
 					$product_object          = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
 					$parent_product_id       = $resource->parent_id;

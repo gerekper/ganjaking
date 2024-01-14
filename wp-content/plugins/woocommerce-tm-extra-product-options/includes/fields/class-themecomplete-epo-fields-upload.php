@@ -69,7 +69,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 				break;
 			case 'button':
 				$style       = ' cpf-upload-container';
-				$upload_text = ( ( ! empty( THEMECOMPLETE_EPO()->tm_epo_select_file_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_select_file_text ) : esc_html__( 'Select file', 'woocommerce-tm-extra-product-options' ) );
+				$upload_text = ( ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_file_text' ) ) ) ? esc_html( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_file_text' ) ) : esc_html__( 'Select file', 'woocommerce-tm-extra-product-options' ) );
 				break;
 		}
 
@@ -77,7 +77,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 		$max_file_size_text = sprintf( esc_html__( '(max file size %s)', 'woocommerce-tm-extra-product-options' ), size_format( wp_max_upload_size() ) );
 
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 		$display = [
@@ -158,13 +158,9 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	 * @since 1.0
 	 */
 	public function add_cart_item_data_single() {
-		$files  = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
-		$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, 1, $this->key_id, $this->keyvalue_id, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-		if ( empty( $this->key ) ) {
-			$_price = 0;
-		}
-		$can_be_added = false;
+		$files = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
 
+		$can_be_added = false;
 		$posted_check = false;
 		if ( isset( $this->post_data[ $this->attribute ] ) && '' !== $this->post_data[ $this->attribute ] ) {
 			if ( is_array( $this->post_data[ $this->attribute ] ) ) {
@@ -189,7 +185,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			if ( false !== $upload ) {
 				if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
 					$value = wc_clean( $upload['url'] );
-					if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
+					if ( empty( $upload['tc'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_upload_success_message' ) ) {
 						wc_add_notice( esc_html__( 'Upload successful', 'woocommerce-tm-extra-product-options' ), 'success' );
 					}
 					$can_be_added = true;
@@ -200,15 +196,18 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			}
 		}
 
-		if ( isset( $value ) ) {
-			$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
-		}
-
-		if ( ! isset( $value ) ) {
-			$value = '';
-		}
-
 		if ( $can_be_added ) {
+			if ( isset( $value ) ) {
+				$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
+			}
+			if ( ! isset( $value ) ) {
+				$value = '';
+			}
+			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, 1, $this->key_id, $this->keyvalue_id, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
+			if ( empty( $this->key ) ) {
+				$_price = 0;
+			}
+
 			return apply_filters(
 				'wc_epo_add_cart_item_data_single',
 				[
@@ -253,19 +252,57 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	 */
 	public function add_cart_item_data_cart_fees_single() {
 		$files = $_FILES; // phpcs:ignore WordPress.Security.NonceVerification
-		if ( ! empty( $files[ $this->attribute ] ) && ! empty( $files[ $this->attribute ]['name'] ) ) {
-			$upload = THEMECOMPLETE_EPO()->upload_file( $files[ $this->attribute ], $this->key_id, $this->keyvalue_id );
-			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
-				$value = wc_clean( $upload['url'] );
-				if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
-					wc_add_notice( esc_html__( 'Upload successful', 'woocommerce-tm-extra-product-options' ), 'success' );
-				}
-				$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, 1, $this->key_id, $this->keyvalue_id, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-				if ( empty( $this->key ) ) {
-					$_price = 0;
-				}
 
-				return [
+		$can_be_added = false;
+		$posted_check = false;
+		if ( isset( $this->post_data[ $this->attribute ] ) && '' !== $this->post_data[ $this->attribute ] ) {
+			if ( is_array( $this->post_data[ $this->attribute ] ) ) {
+				if ( isset( $this->post_data[ $this->attribute ][ $this->key_id ] ) && '' !== $this->post_data[ $this->attribute ][ $this->key_id ] ) {
+					$posted_check = true;
+				}
+			} else {
+				$posted_check = true;
+			}
+		}
+		if ( $posted_check ) {
+			$value = $this->post_data[ $this->attribute ];
+			if ( is_array( $value ) && isset( $value[ $this->key_id ] ) ) {
+				$value = $value[ $this->key_id ];
+				if ( is_array( $value ) && isset( $value[ $this->keyvalue_id ] ) ) {
+					$value = $value[ $this->keyvalue_id ];
+				}
+			}
+			$can_be_added = true;
+		} elseif ( ! empty( $files[ $this->attribute ] ) && ! empty( $files[ $this->attribute ]['name'] ) ) {
+			$upload = THEMECOMPLETE_EPO()->upload_file( $files[ $this->attribute ], $this->key_id, $this->keyvalue_id );
+			if ( false !== $upload ) {
+				if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
+					$value = wc_clean( $upload['url'] );
+					if ( empty( $upload['tc'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_upload_success_message' ) ) {
+						wc_add_notice( esc_html__( 'Upload successful', 'woocommerce-tm-extra-product-options' ), 'success' );
+					}
+					$can_be_added = true;
+
+				} else {
+					wc_add_notice( $upload['error'], 'error' );
+				}
+			}
+		}
+
+		if ( $can_be_added ) {
+			if ( isset( $value ) ) {
+				$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
+			}
+			if ( ! isset( $value ) ) {
+				$value = '';
+			}
+			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, 1, $this->key_id, $this->keyvalue_id, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
+			if ( empty( $this->key ) ) {
+				$_price = 0;
+			}
+			return apply_filters(
+				'wc_epo_add_cart_item_data_cart_fees_single',
+				[
 					'mode'                             => 'builder',
 					'cssclass'                         => $this->element['class'],
 					'include_tax_for_fee_price_type'   => $this->element['include_tax_for_fee_price_type'],
@@ -286,15 +323,17 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 					'price'                            => THEMECOMPLETE_EPO_CART()->calculate_fee_price( $_price, $this->product_id, $this->element ),
 					'section'                          => $this->element['uniqid'],
 					'section_label'                    => $this->element['label'],
-					'percentcurrenttotal'              => 0,
-					'fixedcurrenttotal'                => 0,
+					'percentcurrenttotal'              => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
+					'fixedcurrenttotal'                => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
 					'currencies'                       => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
 					'price_per_currency'               => $this->fill_currencies( 1 ),
 					'quantity'                         => 1,
-
+					'quantity_selector'                => '',
 					'cart_fees'                        => 'single',
-				];
-			}
+					'file'                             => isset( $upload ) && isset( $upload['file'] ) ? $upload : '',
+				],
+				$this
+			);
 		}
 
 		return false;

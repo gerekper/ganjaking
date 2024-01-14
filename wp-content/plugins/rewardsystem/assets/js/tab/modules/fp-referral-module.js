@@ -22,8 +22,8 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_referral_table() ;
             this.show_or_hide_for_referral_table_shortcode() ;
             this.show_or_hide_for_refer_friend_form() ;
-            this.show_or_hide_for_product_category_selection() ;
-
+            this.show_or_hide_for_product_category_selection() ;        
+            this.enable_referral_reward_signup_bonus();
             $( document ).on( 'change' , '#rs_global_referral_reward_type' , this.toggle_referral_reward_type_for_product_total ) ;
             $( document ).on( 'change' , '#rs_global_referral_reward_type_refer' , this.toggle_referred_reward_type_for_product_total ) ;
             $( document ).on( 'change' , '#rs_global_referral_reward_type_for_cart_total' , this.toggle_referral_reward_type_for_cart_total ) ;
@@ -51,14 +51,13 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_show_hide_referal_table_shortcode' , this.referral_table_shortcode ) ;
             $( document ).on( 'change' , '#rs_enable_message_for_friend_form' , this.refer_friend_form ) ;
             $( document ).on( 'change' , '.rs_which_product_selection' , this.product_category_selection ) ;
-
             $( document ).on( 'click' , '.add' , this.add_manual_referral_link_rule ) ;
             $( document ).on( 'click' , '.rs-remove-manual-referral-link-rule' , this.remove_manual_referral_link_rule ) ;
 
             // Upload gift voucher.
-            $( document ).on( 'click' , '#rs_fbimage_upload_button' , this.upload_gift_voucher ) ;
-            
+            $( document ).on( 'click' , '#rs_fbimage_upload_button' , this.upload_gift_voucher ) ;            
             $( document ).on( 'change' , '#rs_account_show_hide_social_share_button' , this.toggle_social_share_button ) ;
+            $( document ).on( 'change' , '#rs_enable_referral_bonus_reward_signup' , this.enable_referral_reward_signup_bonus ) ;
         } ,
         trigger_on_page_load : function () {
             if ( fp_referral_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
@@ -902,6 +901,19 @@ jQuery( function ( $ ) {
             //Open the uploader dialog
             rs_custom_uploader.open() ;
         } ,
+
+        enable_referral_reward_signup_bonus : function ( ) {
+            if ( true ===  $( '#rs_enable_referral_bonus_reward_signup' ).is(':checked') ){
+                $( '#rs_referral_reward_signup_bonus' ).closest( 'tr' ).show();
+                $( '#rs_no_of_users_referral_to_get_reward_signup_bonus' ).closest( 'tr' ).show();
+                $( '#rs_referral_reward_signup_bonus_points' ).closest( 'tr' ).show();
+            } else {
+                $( '#rs_referral_reward_signup_bonus' ).closest( 'tr' ).hide();
+                $( '#rs_no_of_users_referral_to_get_reward_signup_bonus' ).closest( 'tr' ).hide();
+                $( '#rs_referral_reward_signup_bonus_points' ).closest( 'tr' ).hide();
+            }
+        } ,
+
     } ;
     ReferralModuleScripts.init() ;
 } ) ;

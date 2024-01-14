@@ -6102,18 +6102,6 @@ msgstr ""
 "Ελέγξτε για να αφαιρέσετε τις ετικέτες html από μηνύματα ηλεκτρονικού "
 "ταχυδρομείου"
 
-#: includes/classes/class-themecomplete-epo-settings-base.php:999
-#, fuzzy
-msgid "Hide uploaded file path"
-msgstr "Απόκρυψη διαδρομής μεταφορτωμένου αρχείου"
-
-#: includes/classes/class-themecomplete-epo-settings-base.php:1000
-#, fuzzy
-msgid "Check to hide the uploaded file path from users (in the Order)."
-msgstr ""
-"Ελέγξτε για να αποκρύψετε τη διαδρομή του μεταφορτωμένου αρχείου από τους "
-"χρήστες (στη Σειρά)."
-
 #: includes/classes/class-themecomplete-epo-settings-base.php:1006
 #, fuzzy
 msgid "Legacy meta data"

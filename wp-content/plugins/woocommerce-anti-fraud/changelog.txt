@@ -1,5 +1,19 @@
 *** WooCommerce Anti Fraud ***
 
+2023-12-18 - version 5.7.5
+* Remove: PLUGINS-2430 - Remove malfunctioning notification recommending MaxMind and Trust Swiftly.
+
+2023-12-13 - version 5.7.4
+* Fix: PLUGINS-2338 - Resolve lost settings on plugin deactivation.
+* Add: PLUGINS-2358 - MaxMind and Trust Swiftly recommendation message.
+* Fix: PLUGINS-2352 - Missing Fraud Risk meta box on order page with HPOS enabled.
+
+2023-12-04 - version 5.7.3
+* Fix: PLUGINS-1589 - Paypal email verification not sending verification emails.
+* Fix: PLUGINS-1931 - Stop running PayPal cron checks when settings are disabled.
+* Fix: PLUGINS-2137 - Activate Email Alerts for Admin option still sending emails even disabled.
+* Fix: PLUGINS-2318 - Potential Order Status Set to Processing Without Approval.
+
 2023-11-23 - version 5.7.2
 * Add: PLUGINS-2375 - Trust Swiftly text updates.
 

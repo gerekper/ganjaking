@@ -36,6 +36,10 @@ class ThePlus_Post_Search extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Post search bar', 'search bar', 'post search', 'search widget', 'post widget', 'elementor search bar', 'elementor search widget', 'search bar', 'search widget', 'search', 'post search widget', 'post search', 'search addon', 'search elementor addon'];
+    }
+
     protected function register_controls() {
 		/*Layout Content*/
 		$this->start_controls_section(

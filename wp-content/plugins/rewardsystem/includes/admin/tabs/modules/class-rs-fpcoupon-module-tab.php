@@ -12,17 +12,17 @@ if ( ! class_exists( 'RSCouponCompatability' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_rs_settings_tabs_fpcoupon' , array( __CLASS__ , 'register_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fpcoupon' , array( __CLASS__, 'register_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsmodules_fpcoupon' , array( __CLASS__ , 'update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsmodules_fpcoupon' , array( __CLASS__, 'update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 
-			add_action( 'fp_action_to_reset_settings_fpcoupon' , array( __CLASS__ , 'reset_coupon_module' ) ) ;
+			add_action( 'fp_action_to_reset_settings_fpcoupon' , array( __CLASS__, 'reset_coupon_module' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_enable_coupon_compatability_module' , array( __CLASS__ , 'enable_module' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_enable_coupon_compatability_module' , array( __CLASS__, 'enable_module' ) ) ;
 
-			add_action( 'rs_display_save_button_fpcoupon' , array( 'RSTabManagement' , 'rs_display_save_button' ) ) ;
+			add_action( 'rs_display_save_button_fpcoupon' , array( 'RSTabManagement', 'rs_display_save_button' ) ) ;
 
-			add_action( 'rs_display_reset_button_fpcoupon' , array( 'RSTabManagement' , 'rs_display_reset_button' ) ) ;
+			add_action( 'rs_display_reset_button_fpcoupon' , array( 'RSTabManagement', 'rs_display_reset_button' ) ) ;
 		}
 
 		public static function enable_module() {
@@ -35,55 +35,59 @@ if ( ! class_exists( 'RSCouponCompatability' ) ) {
 
 		public static function settings_fields() {
 			global $woocommerce ;
-
+						/**
+						 * Hook:woocommerce_rewardsystem_coupon_compatability_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_rewardsystem_coupon_compatability_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Coupon Compatibility Module' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_activate_coupon_compatability_module'
-				) ,
+					'name' => __( 'Coupon Compatibility Module' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_activate_coupon_compatability_module',
+				),
 				array(
-					'type' => 'rs_enable_coupon_compatability_module' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_activate_coupon_compatability_module' ) ,
+					'type' => 'rs_enable_coupon_compatability_module',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_activate_coupon_compatability_module' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 				array(
-					'type' => 'rs_wrapper_start' ,
-				) ,
+					'type' => 'rs_wrapper_start',
+				),
 				array(
-					'name' => __( 'SUMO Coupon Compatibility Settings' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_coupon_compatability_setting'
-				) ,
+					'name' => __( 'SUMO Coupon Compatibility Settings' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_coupon_compatability_setting',
+				),
 				array(
-					'name'    => __( 'Don\'t allow Earn Points when SUMO Coupon is applied' , 'rewardsystem' ) ,
-					'desc'    => __( ' Don\'t allow Earn Points when SUMO Coupon is applied' , 'rewardsystem' ) ,
-					'id'      => '_rs_not_allow_earn_points_if_sumo_coupon' ,
-					'css'     => 'min-width:550px;' ,
-					'type'    => 'checkbox' ,
-					'std'     => 'no' ,
-					'default' => 'no' ,
-					'newids'  => '_rs_not_allow_earn_points_if_sumo_coupon' ,
-				) ,
+					'name'    => __( 'Don\'t allow Earn Points when SUMO Coupon is applied' , 'rewardsystem' ),
+					'desc'    => __( ' Don\'t allow Earn Points when SUMO Coupon is applied' , 'rewardsystem' ),
+					'id'      => '_rs_not_allow_earn_points_if_sumo_coupon',
+					'css'     => 'min-width:550px;',
+					'type'    => 'checkbox',
+					'std'     => 'no',
+					'default' => 'no',
+					'newids'  => '_rs_not_allow_earn_points_if_sumo_coupon',
+				),
 				array(
-					'name'    => __( 'Don\'t allow Redeem when SUMO Coupon is applied' , 'rewardsystem' ) ,
-					'desc'    => __( 'Don\'t allow Redeem when SUMO Coupon is applied' , 'rewardsystem' ) ,
-					'id'      => 'rs_dont_allow_redeem_if_sumo_coupon' ,
-					'css'     => 'min-width:550px;' ,
-					'type'    => 'checkbox' ,
-					'std'     => 'no' ,
-					'default' => 'no' ,
-					'newids'  => 'rs_dont_allow_redeem_if_sumo_coupon' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_coupon_compatability_setting' ) ,
+					'name'    => __( 'Don\'t allow Redeem when SUMO Coupon is applied' , 'rewardsystem' ),
+					'desc'    => __( 'Don\'t allow Redeem when SUMO Coupon is applied' , 'rewardsystem' ),
+					'id'      => 'rs_dont_allow_redeem_if_sumo_coupon',
+					'css'     => 'min-width:550px;',
+					'type'    => 'checkbox',
+					'std'     => 'no',
+					'default' => 'no',
+					'newids'  => 'rs_dont_allow_redeem_if_sumo_coupon',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_coupon_compatability_setting' ),
 				array(
-					'type' => 'rs_wrapper_end' ,
-				) ,
+					'type' => 'rs_wrapper_end',
+				),
 					) ) ;
 		}
 
@@ -115,7 +119,6 @@ if ( ! class_exists( 'RSCouponCompatability' ) ) {
 			$settings = self::settings_fields() ;
 			RSTabManagement::reset_settings( $settings ) ;
 		}
-
 	}
 
 	RSCouponCompatability::init() ;

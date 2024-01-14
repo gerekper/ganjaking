@@ -73,7 +73,8 @@ class Theplus_Section_Column_Link extends Elementor\Widget_Base {
 	}
 
 	public function plus_before_render($element) {
-		$settings = $element->get_settings();
+		// $settings = $element->get_settings();
+		$settings = $element->get_settings_for_display();
 
 		$linkSwitch = !empty($settings['sc_link_switch'] && $settings['sc_link_switch'] == 'yes') ? $settings['sc_link_switch'] : '';
 		$WrapperLink = !empty($settings['sc_link']) && !empty($settings['sc_link']['url']) ? $settings['sc_link']['url'] : '';

@@ -37,9 +37,10 @@ class ThePlus_Navigation_Menu extends Widget_Base {
     public function get_categories() {
         return array('plus-header');
     }
+
 	public function get_keywords() {
-		return ['navigation menu', 'mega menu', 'header builder', 'sticky menu', 'navigation bar', 'header menu', 'menu', 'navigation builder'];
-	}
+        return ['Navigation', 'Menu', 'Nav', 'Navbar', 'Navigation bar', 'Navigation menu', 'Menu widget', 'Navigation widget', 'Horizontal Mega Menu', 'Horizontal Menu', 'Elementor Menu Widget', 'Vertical Mega Menu', 'Vertical Menu', 'Mega Menu', 'Elementor Menu', 'Elementor Mega Menu', 'Elementor Vertical Menu', 'Vertical Navigation', 'Vertical Navigation Menu', 'Vertical Toggle Menu', 'Vertical Accordion Menu', 'Vertical Collapsible Menu', 'Vertical Expandable Menu', 'Vertical Dropdown Menu', 'Vertical Toggle Navigation', 'Vertical Toggle Menu Widget', 'Elementor Vertical Toggle Menu', 'Elementor Vertical Accordion Menu', 'Elementor Vertical Collapsible Menu', 'Elementor Vertical Expandable Menu', 'Elementor Vertical Dropdown Menu', 'Elementor Vertical Navigation Menu', 'Elementor Vertical Toggle Navigation', 'Sticky navigation', 'Fixed navigation', 'Floating navigation', 'Persistent navigation', 'Scrollable navigation', 'Header navigation', 'Menu bar', 'Sticky menu'];
+    }
 	
     protected function register_controls() {
 		

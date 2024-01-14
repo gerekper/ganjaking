@@ -35,51 +35,6 @@ class WC_AM_URL {
 	private function __construct() {}
 
 	/**
-	 * @deprecated 2.1
-	 *
-	 * Formats an Amazon S3 URL for secure Query String Request Authentication to the S3 REST API
-	 * Works with either path-style request (s3.amazonaws.com/bucket), or virtual hosted-style (bucket.s3.amazonaws.com).
-	 *
-	 * http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
-	 * http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationExamples
-	 * http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
-	 * http://docs.aws.amazon.com/AmazonS3/latest/UG/Introduction.html
-	 *
-	 * @since      1.3.2
-	 *
-	 * @param string $url
-	 * @param bool   $expire
-	 *
-	 * @return string
-	 */
-	public function format_secure_s3_url( $url, $expire = false ) {
-		if ( ! empty( $url ) ) {
-			try {
-				$secret_key = defined( 'WC_AM_AWS3_SECRET_ACCESS_KEY' ) ? WC_AM_AWS3_SECRET_ACCESS_KEY : WC_AM_ENCRYPTION()->decrypt( get_option( 'woocommerce_api_manager_amazon_s3_secret_access_key' ) );
-
-				if ( $expire === false ) {
-					$expire = time() + ( get_option( 'woocommerce_api_manager_url_expire' ) * MINUTE_IN_SECONDS );
-				}
-
-				$objectpath       = parse_url( $url, PHP_URL_PATH );
-				$signature        = utf8_encode( "GET\n\n\n$expire\n" . $objectpath );
-				$hashed_signature = base64_encode( hash_hmac( 'sha1', $signature, $secret_key, true ) );
-				$query_string     = array(
-					'AWSAccessKeyId' => defined( 'WC_AM_AWS3_ACCESS_KEY_ID' ) ? WC_AM_AWS3_ACCESS_KEY_ID : get_option( 'woocommerce_api_manager_amazon_s3_access_key_id' ),
-					'Expires'        => $expire,
-					'Signature'      => $hashed_signature
-				);
-
-				return $url . '?' . http_build_query( $query_string, '', '&' );
-			} catch ( Exception $e ) {
-				return '';
-			}
-		}
-
-		return '';
-	}
-
-	/**
 	 * Formats an Amazon S3 URL for secure Query String Request Authentication to the AWS S3 REST API using the AWS Signature Version 4.
 	 * Works with either path-style request (s3.amazonaws.com/bucket), or virtual hosted-style (bucket.s3.amazonaws.com).
 	 *
@@ -442,6 +397,19 @@ class WC_AM_URL {
 		);
 
 		return wp_nonce_url( add_query_arg( $args, home_url( '/' ) ), 'wcam_delete_activation' );
+	}
+
+	/**
+	 * Returns the API Keys endpoint URL.
+	 *
+	 * @since 2.0
+	 *
+	 * @return mixed|void
+	 */
+	public function get_api_keys_url() {
+		$api_keys_url = wc_get_endpoint_url( 'api-keys', '', wc_get_page_permalink( 'myaccount' ) );
+
+		return apply_filters( 'wc_api_manager_get_api_keys_url', $api_keys_url );
 	}
 
 }

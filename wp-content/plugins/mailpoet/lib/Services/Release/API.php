@@ -29,7 +29,7 @@ class API {
       case 200:
         $body = $this->wp->wpRemoteRetrieveBody($result);
         if ($body) {
-          $body = json_decode($body);
+          $body = $this->formatPluginInformation(json_decode($body));
         }
         break;
       default:
@@ -46,6 +46,22 @@ class API {
 
   public function getKey() {
     return $this->apiKey;
+  }
+
+  private function formatPluginInformation($info) {
+    if (!$info instanceof \stdClass) return $info;
+
+    $propKeys = array_keys(get_object_vars($info));
+    $newInfo = clone $info;
+
+    foreach ($propKeys as $key) {
+      if (gettype($newInfo->{$key}) === 'object') {
+        // cast objects to array for WP to understand
+        $newInfo->{$key} = (array)$newInfo->{$key};
+      }
+    }
+
+    return $newInfo;
   }
 
   private function request($url, $params = []) {

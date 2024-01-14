@@ -9,8 +9,8 @@
 
 defined( 'ABSPATH' ) || exit;
 $button_class = ' alt';
-$text_add     = ! empty( THEMECOMPLETE_EPO()->tm_epo_add_button_text_associated_products ) ? THEMECOMPLETE_EPO()->tm_epo_add_button_text_associated_products : esc_html__( 'Add', 'woocommerce-tm-extra-product-options' );
-$text_remove  = ! empty( THEMECOMPLETE_EPO()->tm_epo_remove_button_text_associated_products ) ? THEMECOMPLETE_EPO()->tm_epo_remove_button_text_associated_products : esc_html__( 'Remove', 'woocommerce-tm-extra-product-options' );
+$text_add     = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_add_button_text_associated_products' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_add_button_text_associated_products' ) : esc_html__( 'Add', 'woocommerce-tm-extra-product-options' );
+$text_remove  = ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_button_text_associated_products' ) ) ? THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_remove_button_text_associated_products' ) : esc_html__( 'Remove', 'woocommerce-tm-extra-product-options' );
 $button_text  = $text_add;
 if ( isset( $input_value ) && $input_value > 0 ) {
 	$button_class = '';

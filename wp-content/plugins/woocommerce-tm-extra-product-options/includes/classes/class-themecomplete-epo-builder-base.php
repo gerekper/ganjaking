@@ -121,6 +121,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'variations',
 			'product',
 			'template',
+			'multiple_file_upload',
 		];
 
 		if ( ( 'post.php' === $pagenow && isset( $_GET['post'] ) ) || ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended

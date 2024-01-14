@@ -362,17 +362,17 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				foreach ( $value as $k => $v ) {
 					$k = trim( $k );
 					$k = $this->remove_utf8_bom( $k );
-					if ( strpos( $k, 'multiple_' ) === 0 ) {
+					if ( mb_strpos( $k, 'multiple_' ) === 0 ) {
 						$v = THEMECOMPLETE_EPO_HELPER()->array_unserialize( $v );
 
-						if ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'checkboxes_options_default_value' ) && is_array( $v ) ) {
+						if ( str_ends_with( $k, 'checkboxes_options_default_value' ) && is_array( $v ) ) {
 							$data[ $k ][] = $v;
-						} elseif ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'options_default_value' ) && is_array( $v ) ) {
+						} elseif ( str_ends_with( $k, 'options_default_value' ) && is_array( $v ) ) {
 							$data[ $k ][] = $v[0];
 						} else {
 							$data[ $k ][] = $v;
 						}
-					} elseif ( strpos( $k, 'variations_options' ) === 0 ) {
+					} elseif ( mb_strpos( $k, 'variations_options' ) === 0 ) {
 						$v = themecomplete_maybe_unserialize( $v );
 						if ( is_array( $v ) ) {
 							foreach ( $v as $ok => $ov ) {
@@ -380,7 +380,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 							}
 						}
 					} else {
-						if ( 'product_productids' === $k && false !== strpos( $v, '|' ) ) {
+						if ( 'product_productids' === $k && str_contains( $v, '|' ) ) {
 							$v = explode( '|', $v );
 						}
 						$data[ $k ][] = $v;
@@ -582,8 +582,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 					isset( $_GET ) && // @phpstan-ignore-line
 					isset( $_GET['post_type'] )
 					&& isset( $_GET['action'] )
-					&& ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ), 'ct_template' )
-					&& ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['action'] ) ), 'oxy_render_' )
+					&& ! str_starts_with( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ), 'ct_template' )
+					&& ! str_starts_with( sanitize_text_field( wp_unslash( $_GET['action'] ) ), 'oxy_render_' )
 				)
 			)
 		) {

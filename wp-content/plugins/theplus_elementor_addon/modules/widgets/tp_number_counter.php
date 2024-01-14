@@ -40,6 +40,10 @@ class ThePlus_Number_Counter extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Number Counter', 'Counter Widget', 'Number Counter Elementor', 'Elementor Number Counter', 'Counter', 'Number Counter Addon', 'Elementor Counter', 'Elementor Plus Addons Number Counter'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

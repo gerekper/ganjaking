@@ -340,11 +340,29 @@ class UniteCreatorForm{
 
 					$this->executeFormAction("after_{$action}_action");
 				}catch(Exception $exception){
-					$actionsErrors[] = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
+					
+					
+					$debugType = UniteFunctionsUC::getVal($this->formSettings, "debug_type");
+
+					$errorMessage = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
+					
+					if($debugType == "full"){
+						
+						$trace = "<pre>
+							{$exception->getTraceAsString()}						
+						</pre>";
+						
+						$errorMessage .= $trace;
+					}
+						
+					
+					$actionsErrors[] = $errorMessage;
+					
 				}
 			}
 
 			if(empty($actionsErrors) === false){
+				
 				$errors = array_merge($errors, $actionsErrors);
 
 				$actionsErrors = implode(" ", $actionsErrors);

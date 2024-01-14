@@ -32,7 +32,7 @@ class WC_AM_Product_Data_Store {
 		return self::$_instance;
 	}
 
-	private function __construct() { }
+	private function __construct() {}
 
 	/**
 	 * Return the product object.
@@ -62,7 +62,7 @@ class WC_AM_Product_Data_Store {
 	public function get_meta( $product, $meta_key = '', $single = true ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
+		if ( is_object( $product ) ) {
 			if ( $single ) {
 				/**
 				 * @usage returns a single value for a single key. A single value for the single order.
@@ -123,7 +123,7 @@ class WC_AM_Product_Data_Store {
 	public function get_type( $product ) {
 		$product = $this->get_product_object( $product );
 
-		return $product ? $product->get_type() : false;
+		return is_object( $product ) ? $product->get_type() : false;
 	}
 
 	/**
@@ -202,7 +202,7 @@ class WC_AM_Product_Data_Store {
 		if ( is_object( $product ) ) {
 			$downloads = $this->get_downloads( $product );
 
-			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+			if ( is_array( $downloads ) && ! WC_AM_FORMAT()->empty( $downloads ) ) {
 				foreach ( $downloads as $download => $value ) {
 					// return only the latest/first download URL.
 					return $value[ 'file' ];
@@ -229,7 +229,7 @@ class WC_AM_Product_Data_Store {
 		if ( is_object( $product ) ) {
 			$downloads = $this->get_downloads( $product );
 
-			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+			if ( is_array( $downloads ) && ! WC_AM_FORMAT()->empty( $downloads ) ) {
 				foreach ( $downloads as $download => $value ) {
 					$urls[] = $value[ 'file' ];
 				}
@@ -255,7 +255,7 @@ class WC_AM_Product_Data_Store {
 		if ( is_object( $product ) ) {
 			$downloads = $this->get_downloads( $product );
 
-			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+			if ( is_array( $downloads ) && ! WC_AM_FORMAT()->empty( $downloads ) ) {
 				foreach ( $downloads as $download => $value ) {
 					// return only the latest/first download id.
 					return $value[ 'id' ];
@@ -273,21 +273,19 @@ class WC_AM_Product_Data_Store {
 	 *
 	 * @param int|WC_Product $product
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public function get_product_ids( $product ) {
 		$product = $this->get_product_object( $product );
 
 		if ( is_object( $product ) ) {
-			$product_ids = array(
+			return array(
 				'product_id'   => $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(),
 				'variation_id' => $product->is_type( 'variation' ) ? $product->get_id() : 0,
 			);
-
-			return $product_ids;
 		}
 
-		return false;
+		return array();
 	}
 
 	/**
@@ -403,12 +401,12 @@ class WC_AM_Product_Data_Store {
 	 *
 	 * @param int|WC_Product $product
 	 *
-	 * @return bool|string
+	 * @return string|false
 	 */
 	public function get_product_type( $product ) {
 		$product = $this->get_product_object( $product );
 
-		return $product ? $product->get_type() : false;
+		return is_object( $product ) ? $product->get_type() : false;
 	}
 
 	/**
@@ -423,7 +421,7 @@ class WC_AM_Product_Data_Store {
 	public function get_downloadable( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
+		if ( is_object( $product ) ) {
 			return $product->exists() && $product->get_downloadable();
 		}
 
@@ -443,7 +441,7 @@ class WC_AM_Product_Data_Store {
 		$unlimited_activations = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $product_id ); // since 2.2
 		$activations           = $unlimited_activations ? WCAM()->get_unlimited_activation_limit() : $this->get_meta( $product_id, '_api_activations' );
 
-		return ! empty( $activations ) ? (int) $activations : 0;
+		return ! WC_AM_FORMAT()->empty( $activations ) ? (int) $activations : 0;
 	}
 
 	/**
@@ -458,7 +456,7 @@ class WC_AM_Product_Data_Store {
 	public function get_api_access_expires( $product_id ) {
 		$access_expires = $this->get_meta( $product_id, '_access_expires' );
 
-		return ! empty( $access_expires ) ? (int) $access_expires : 0;
+		return ! WC_AM_FORMAT()->empty( $access_expires ) ? (int) $access_expires : 0;
 	}
 
 	/**
@@ -473,7 +471,7 @@ class WC_AM_Product_Data_Store {
 	public function get_product_legacy_api_software_title( $product_id ) {
 		$title = $this->get_meta( $product_id, '_api_resource_title' );
 
-		return ! empty( $title ) ? $title : false;
+		return ! WC_AM_FORMAT()->empty( $title ) ? $title : false;
 	}
 
 	/**
@@ -493,7 +491,7 @@ class WC_AM_Product_Data_Store {
 			AND meta_value = %s
 		", '_is_api', 'yes' ) );
 
-		return ! empty( $api_products_count ) ? $api_products_count : 0;
+		return ! WC_AM_FORMAT()->empty( $api_products_count ) ? $api_products_count : 0;
 	}
 
 	/**
@@ -511,7 +509,7 @@ class WC_AM_Product_Data_Store {
 			FROM {$wpdb->prefix}" . WC_AM_USER()->get_secure_hash_table_name() . "
 		" );
 
-		return ! empty( $secure_hash_count ) ? $secure_hash_count : 0;
+		return ! WC_AM_FORMAT()->empty( $secure_hash_count ) ? $secure_hash_count : 0;
 	}
 
 	/**
@@ -526,10 +524,10 @@ class WC_AM_Product_Data_Store {
 	public function flatten_get_meta( $data ) {
 		$array = array();
 
-		if ( ! empty( $data ) ) {
+		if ( ! WC_AM_FORMAT()->empty( $data ) ) {
 			foreach ( (array) $data as $key => $value ) {
 				// Skip empty meta values.
-				if ( ! empty( $value->value ) ) {
+				if ( ! WC_AM_FORMAT()->empty( $value->value ) ) {
 					$array[ $value->key ] = $value->value;
 				}
 			}
@@ -568,24 +566,24 @@ class WC_AM_Product_Data_Store {
 	public function update_missing_api_resource_product_id( $product_id, $parent_id = 0 ) {
 		$has_api_resource_product_id = $this->has_api_resource_product_id( $product_id );
 
-		if ( empty( $has_api_resource_product_id ) ) {
-			if ( ! empty( $parent_id ) ) {
+		if ( WC_AM_FORMAT()->empty( $has_api_resource_product_id ) ) {
+			if ( ! WC_AM_FORMAT()->empty( $parent_id ) ) {
 				$is_api = $this->get_meta( $parent_id, '_is_api' );
 
-				if ( ! empty( $is_api ) && $is_api == 'yes' ) {
+				if ( ! WC_AM_FORMAT()->empty( $is_api ) && $is_api == 'yes' ) {
 					$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 				}
-			} elseif ( empty( $this->is_api_product( $product_id ) ) ) {
+			} elseif ( WC_AM_FORMAT()->empty( $this->is_api_product( $product_id ) ) ) {
 				$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 			}
-		} elseif ( ! empty( $parent_id ) && WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_resource_product_id' ) != $parent_id ) {
+		} elseif ( ! WC_AM_FORMAT()->empty( $parent_id ) && WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_resource_product_id' ) != $parent_id ) {
 			/*
 			 * If Parent Product ID does not match the Product _api_resource_product_id, then update _api_resource_product_id. Issue occurs when duplicating/cloning a product.
 			 * Update is done automatically when product edit screen is displayed.
 			 */
 			$is_api = $this->get_meta( $parent_id, '_is_api' );
 
-			if ( ! empty( $is_api ) && $is_api == 'yes' ) {
+			if ( ! WC_AM_FORMAT()->empty( $is_api ) && $is_api == 'yes' ) {
 				$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 			}
 		}
@@ -656,7 +654,7 @@ class WC_AM_Product_Data_Store {
 		// If the product variation lists the $product_id in the post_parent column, then this is a parent product.
 		$variation_id = $wpdb->get_var( $wpdb->prepare( $sql, 'product_variation', $product_id ) );
 
-		if ( ! empty( $variation_id ) ) {
+		if ( ! WC_AM_FORMAT()->empty( $variation_id ) ) {
 			return true;
 		} else {
 			$sql = "
@@ -668,7 +666,7 @@ class WC_AM_Product_Data_Store {
 
 			$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, 'product', 0 ) );
 
-			return ! empty( $parent_id ) && $parent_id == $product_id;
+			return ! WC_AM_FORMAT()->empty( $parent_id ) && $parent_id == $product_id;
 		}
 	}
 
@@ -694,7 +692,7 @@ class WC_AM_Product_Data_Store {
 		// If the product variation lists the $product_id in the post_parent column, then this is a parent product.
 		$variation_id = $wpdb->get_var( $wpdb->prepare( $sql, 'product_variation', $product_id ) );
 
-		return empty( $variation_id ) ? false : true;
+		return ! WC_AM_FORMAT()->empty( $variation_id );
 	}
 
 	/**
@@ -709,12 +707,12 @@ class WC_AM_Product_Data_Store {
 	public function is_api_product( $product_id ) {
 		$is_api = $this->get_meta( $product_id, '_is_api' );
 
-		if ( empty( $is_api ) ) {
+		if ( WC_AM_FORMAT()->empty( $is_api ) ) {
 			$parent_id = $this->get_parent_product_id( $product_id );
 			$is_api    = $this->get_meta( $parent_id, '_is_api' );
 		}
 
-		return ! empty( $is_api ) && $is_api == 'yes';
+		return ! WC_AM_FORMAT()->empty( $is_api ) && $is_api == 'yes';
 	}
 
 	/**
@@ -729,7 +727,7 @@ class WC_AM_Product_Data_Store {
 	public function is_api_product_unlimited_activations( $product_id ) {
 		$is_unlimited = $this->get_meta( $product_id, '_api_activations_unlimited' );
 
-		return ! empty( $is_unlimited ) && $is_unlimited == 'yes';
+		return ! WC_AM_FORMAT()->empty( $is_unlimited ) && $is_unlimited == 'yes';
 	}
 
 	/**
@@ -742,7 +740,7 @@ class WC_AM_Product_Data_Store {
 	 * @return bool
 	 */
 	public function is_api_subscription_required_product( $product ) {
-		return ! empty( $this->get_meta( $product, '_api_is_subscription' ) ) == 'yes';
+		return ! WC_AM_FORMAT()->empty( $this->get_meta( $product, '_api_is_subscription' ) ) == 'yes';
 	}
 
 	/**
@@ -757,7 +755,7 @@ class WC_AM_Product_Data_Store {
 	public function is_downloadable_product( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
+		if ( is_object( $product ) ) {
 			return $product->exists() && $product->is_downloadable() && $product->has_file();
 		}
 
@@ -793,7 +791,7 @@ class WC_AM_Product_Data_Store {
 
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $args ) );
 
-		return ! empty( $result );
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 
 	/**
@@ -827,7 +825,7 @@ class WC_AM_Product_Data_Store {
 	public function has_api_resource_product_id( $product_id ) {
 		$product_id = $this->get_meta( $product_id, '_api_resource_product_id' );
 
-		return ! empty( $product_id );
+		return ! WC_AM_FORMAT()->empty( $product_id );
 	}
 
 	/**
@@ -873,7 +871,7 @@ class WC_AM_Product_Data_Store {
 	 * @return array
 	 */
 	public function filter_get_item_downloads( $files, $item ) {
-		$product_id = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ];
+		$product_id = ! WC_AM_FORMAT()->empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ];
 
 		return $this->is_api_product( WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_parent_id( $product_id ) ) ? array() : $files;
 	}

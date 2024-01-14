@@ -97,7 +97,8 @@
 									child1[0].classList.add('active');
 									PlayPushwrap[0].classList.remove('pausecls');
 									clearInterval(totabloopplay);
-									tabautoplaychange();
+									// tabautoplaychange();
+									totabloopplay = setInterval(tabautoplaychange, totalDuration);
 								}
 						});
 					}
@@ -720,6 +721,14 @@
 					}
 				});
 			}
+
+		let customLink = $scope[0].querySelectorAll('.elementor-tab-content p a');
+			customLink.forEach(function(link){
+				link.addEventListener("click", function(e){
+					jQuery(this.hash).trigger('click');
+
+				});
+			});
         
         function tp_swipeclick(event){
             let Getslideindex = (event.clickedSlide) ? event.clickedSlide.dataset.swiperSlideIndex : 0,

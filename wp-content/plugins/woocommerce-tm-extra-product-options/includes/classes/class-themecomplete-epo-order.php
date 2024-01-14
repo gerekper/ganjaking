@@ -68,11 +68,10 @@ class THEMECOMPLETE_EPO_Order {
 		// Alter the product thumbnail in order.
 		add_filter( 'woocommerce_admin_order_item_thumbnail', [ $this, 'woocommerce_admin_order_item_thumbnail' ], 50, 3 );
 
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_legacy_meta_data ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_legacy_meta_data' ) ) {
 			// Adds options to the array of items/products of an order.
 			add_filter( 'woocommerce_order_get_items', [ $this, 'woocommerce_order_get_items' ], 10, 2 );
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', [ $this, 'woocommerce_order_item_get_formatted_meta_data' ], 10, 2 );
-
 		} else {
 			// Adds options to the array of items/products of an order.
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', [ $this, 'woocommerce_order_item_get_formatted_meta_data' ], 10, 2 );
@@ -92,7 +91,7 @@ class THEMECOMPLETE_EPO_Order {
 		// Hides uploaded file path in order.
 		add_filter( 'woocommerce_order_item_display_meta_value', [ $this, 'woocommerce_order_item_display_meta_value' ], 10, 1 );
 
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_disable_options_on_order_status ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_disable_options_on_order_status' ) ) {
 			$email_actions = apply_filters(
 				'woocommerce_email_actions',
 				[
@@ -119,7 +118,7 @@ class THEMECOMPLETE_EPO_Order {
 		}
 
 		// Attach upload files to emails.
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_attach_uploaded_to_emails ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_attach_uploaded_to_emails' ) ) {
 			add_filter( 'woocommerce_email_attachments', [ $this, 'woocommerce_email_attachments' ], 10, 3 );
 		}
 
@@ -206,9 +205,9 @@ class THEMECOMPLETE_EPO_Order {
 				$cart_item_meta['tmhasepo'] = 1;
 			}
 
-			$price_override = ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
+			$price_override = ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) )
 				? 0
-				: ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
+				: ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) )
 					? 1
 					: ( ! empty( THEMECOMPLETE_EPO()->tm_meta_cpf['price_override'] ) ? 1 : 0 ) );
 
@@ -423,8 +422,8 @@ class THEMECOMPLETE_EPO_Order {
 	public function woocommerce_order_item_get_formatted_meta_data( $formatted_meta = [], $item = false ) {
 		if ( apply_filters( 'wc_epo_no_order_get_items', false ) ||
 			false === $item ||
-			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_disable_sending_options_in_order && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
-			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_prevent_options_from_emails ) ||
+			( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_disable_sending_options_in_order' ) && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
+			( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_prevent_options_from_emails' ) ) ||
 			( isset( $_POST['action'] ) && 'woocommerce_calc_line_taxes' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
 			( isset( $_POST['action'] ) && 'woocommerce_add_order_item' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
 			( isset( $_POST['action'] ) && 'woocommerce_add_coupon_discount' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
@@ -494,7 +493,7 @@ class THEMECOMPLETE_EPO_Order {
 					}
 					$original_value = $epo['value'];
 
-					$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'];
+					$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && ( 'upload' === $epo['element']['type'] || 'multiple_file_upload' === $epo['element']['type'] );
 					$epo['value'] = $this->display_meta_value( $epo['value'], $override, 'order' );
 					$epo['value'] = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 
@@ -521,13 +520,77 @@ class THEMECOMPLETE_EPO_Order {
 						$display_value_array = explode( $epo['multiple_values'], $epo['value'] );
 						$display_value       = '';
 						foreach ( $display_value_array as $d => $dv ) {
-							$display_value .= '<span class="cpf-data-on-cart">' . $dv . '</span>';
+							$display_value .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $dv . '</span></span>';
 						}
 						$epo['value'] = $display_value;
 					}
 
+					if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && ( 'upload' === $epo['element']['type'] || 'multiple_file_upload' === $epo['element']['type'] ) ) {
+						if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_upload_image_replacement' ) ) {
+							add_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
+							$check = wp_check_filetype( $original_value );
+							remove_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
+							if ( ! empty( $check['ext'] ) ) {
+								$image_exts = [ 'jpg', 'jpeg', 'jpe', 'gif', 'png' ];
+								if ( in_array( $check['ext'], $image_exts, true ) ) {
+									$display_other_value_only = '<span class="cpf-img-on-order">';
+
+									$files = explode( '|', $original_value );
+									foreach ( $files as $file ) {
+										$display_other_value_only .= '<a download href="' . esc_url( $file ) . '"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $file ) . '"></a>';
+									}
+									$display_other_value_only .= '</span>';
+
+									$display_value = $display_other_value_only;
+
+									$epo['value'] = $display_value;
+								}
+							}
+						} elseif ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) ) {
+							$files = explode( '|', $original_value );
+
+							$display_other_value_only = [];
+							foreach ( $files as $file ) {
+								$file_value = THEMECOMPLETE_EPO_ORDER()->display_meta_value( apply_filters( 'tm_image_url', $file ), 0, 'order' );
+								if ( 1 < count( $files ) ) {
+									$display_other_value_only[] .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $file_value . '</span></span>';
+								} else {
+									$display_other_value_only[] .= $file_value;
+								}
+							}
+							$display_other_value_only = implode( '', $display_other_value_only );
+
+							$display_value      = $display_other_value_only;
+							$display_value_only = $display_value;
+
+							$display_other_value_only = '';
+
+							$epo['value'] = $display_value;
+						} elseif ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) ) {
+							$files = explode( '|', $original_value );
+
+							$display_other_value_only = [];
+							foreach ( $files as $file ) {
+								$file_value = THEMECOMPLETE_EPO_ORDER()->display_meta_value( apply_filters( 'tm_image_url', $file ), 2, 'order' );
+								if ( 1 < count( $files ) ) {
+									$display_other_value_only[] .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $file_value . '</span></span>';
+								} else {
+									$display_other_value_only[] .= $file_value;
+								}
+							}
+							$display_other_value_only = implode( '', $display_other_value_only );
+
+							$display_value      = $display_other_value_only;
+							$display_value_only = $display_value;
+
+							$display_other_value_only = '';
+
+							$epo['value'] = $display_value;
+						}
+					}
+
 					$epovalue = '';
-					if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_hide_options_prices_in_cart && ! empty( $epo['price'] ) ) {
+					if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_options_prices_in_cart' ) && ! empty( $epo['price'] ) ) {
 
 						$product = wc_get_product( $current_product_id );
 
@@ -578,11 +641,11 @@ class THEMECOMPLETE_EPO_Order {
 
 						$epovalue .= ' ' . ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( $price, $currency_arg ) . $tax_string ) : '' );
 					}
-					if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+					if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 						$epovalue .= ' &times; ' . $epo['quantity'];
 					}
 
-					$epovalue = apply_filters( 'wc_epo_value_in_order', $epovalue, $epo['price'], $epo, $item, $item_id, $order );
+					$epovalue = apply_filters( 'wc_epo_price_qty_in_order', $epovalue, $epo['price'], $epo, $item, $item_id, $order );
 
 					if ( '' !== $epovalue && ! is_array( $epo['value'] ) && ( ( ! empty( $epo['hidevalueinorder'] ) && 'price' === $epo['hidevalueinorder'] ) || empty( $epo['hidevalueinorder'] ) ) ) {
 						$epo['value'] .= ' <small>' . $epovalue . '</small>';
@@ -590,16 +653,16 @@ class THEMECOMPLETE_EPO_Order {
 
 					$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
 
-					if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_strip_html_from_emails ) {
+					if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_strip_html_from_emails' ) ) {
 						$epo['value'] = wp_strip_all_tags( $epo['value'] );
-					} else {
-						if ( ! empty( $epo['images'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+					} elseif ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_strip_html_from_emails' ) ) {
+						if ( ! empty( $epo['images'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_image_replacement' ) ) {
 							$display_value = '<span class="cpf-img-on-cart"><img alt="'
 											. esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="'
 											. apply_filters( 'tm_image_url', $epo['images'] )
 											. '" /></span>';
 							$epo['value']  = $display_value . $epo['value'];
-						} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+						} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_image_replacement' ) ) {
 							$color_hex     = $epo['color'];
 							$color_no_hash = $epo['color'];
 							if ( 'transparent' !== $color_hex ) {
@@ -611,23 +674,6 @@ class THEMECOMPLETE_EPO_Order {
 											. '</span>';
 							$epo['value']  = $display_value . $epo['value'];
 							THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( (string) $color_no_hash ) . '{background-color:' . esc_attr( (string) $color_hex ) . ';}' );
-						}
-
-						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_order && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
-							add_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
-							$check = wp_check_filetype( $original_value );
-							remove_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
-							if ( ! empty( $check['ext'] ) ) {
-								$image_exts = [ 'jpg', 'jpeg', 'jpe', 'gif', 'png' ];
-								if ( in_array( $check['ext'], $image_exts, true ) ) {
-									$display_value  = '<span class="cpf-img-on-order">';
-									$display_value .= '<img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $original_value ) . '" />';
-									$avalue         = $epo['value'];
-									$display_value .= '<span class="cpf-data-on-order"><a download href="' . esc_url( $original_value ) . '">' . $avalue . '</a></span>';
-									$display_value .= '</span>';
-									$epo['value']   = $display_value;
-								}
-							}
 						}
 					}
 
@@ -651,7 +697,7 @@ class THEMECOMPLETE_EPO_Order {
 								case 'price':
 									$_value = ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( (float) $epo['price'] / (float) $epo['quantity'], $currency_arg ) ) : '' );
 
-									if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+									if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 										$_value .= ' &times; ' . $epo['quantity'];
 									}
 									break;
@@ -660,7 +706,7 @@ class THEMECOMPLETE_EPO_Order {
 									break;
 								case 'noprice':
 									$_value = $epo['value'];
-									if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+									if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 										$_value .= ' &times; ' . $epo['quantity'];
 									}
 									break;
@@ -689,8 +735,8 @@ class THEMECOMPLETE_EPO_Order {
 			foreach ( $_items_to_add as $uniquid => $element ) {
 				foreach ( $element as $key => $value ) {
 
-					if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_unique_meta_values && is_array( $value ) ) {
-						$value = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
+					if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_unique_meta_values' ) && is_array( $value ) ) {
+						$value = implode( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiple_separator_cart_text' ), $value );
 					}
 					if ( '' === $value ) {
 						$value = ' ';
@@ -698,7 +744,7 @@ class THEMECOMPLETE_EPO_Order {
 					$added = true;
 
 					if ( is_array( $value ) ) {
-						if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_always_unique_values ) {
+						if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_always_unique_values' ) ) {
 							foreach ( $value as $currentvalue ) {
 								++$current_meta_key;
 								if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
@@ -713,7 +759,7 @@ class THEMECOMPLETE_EPO_Order {
 						} else {
 							++$current_meta_key;
 							if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
-								$value                               = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
+								$value                               = implode( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiple_separator_cart_text' ), $value );
 								$formatted_meta[ $current_meta_key ] = (object) [
 									'key'           => $key,
 									'value'         => $value,
@@ -752,8 +798,8 @@ class THEMECOMPLETE_EPO_Order {
 		if ( apply_filters( 'wc_epo_no_order_get_items', false ) ||
 			! is_array( $items ) ||
 			false === $order ||
-			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_disable_sending_options_in_order && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
-			( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_prevent_options_from_emails ) ||
+			( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_disable_sending_options_in_order' ) && defined( 'WOOCOMMERCE_CHECKOUT' ) && ! $this->is_about_to_sent_email && ! defined( 'TM_CHECKOUT_ORDER_PROCESSED' ) ) ||
+			( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_prevent_options_from_emails' ) ) ||
 			( isset( $_POST['action'] ) && 'woocommerce_calc_line_taxes' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
 			( isset( $_POST['action'] ) && 'woocommerce_add_order_item' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
 			( isset( $_POST['action'] ) && 'woocommerce_add_coupon_discount' === $_POST['action'] ) || // phpcs:ignore WordPress.Security.NonceVerification
@@ -838,9 +884,9 @@ class THEMECOMPLETE_EPO_Order {
 								}
 							}
 						}
-						$original_value = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
+						$original_value = $epo['value'];
 
-						$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'];
+						$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && ( 'upload' === $epo['element']['type'] || 'multiple_file_upload' === $epo['element']['type'] );
 						$epo['value'] = $this->display_meta_value( $epo['value'], $override, 'order' );
 						$epo['value'] = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 
@@ -867,13 +913,77 @@ class THEMECOMPLETE_EPO_Order {
 							$display_value_array = explode( $epo['multiple_values'], $epo['value'] );
 							$display_value       = '';
 							foreach ( $display_value_array as $d => $dv ) {
-								$display_value .= '<span class="cpf-data-on-cart">' . $dv . '</span>';
+								$display_value .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $dv . '</span></span>';
 							}
 							$epo['value'] = $display_value;
 						}
 
+						if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && ( 'upload' === $epo['element']['type'] || 'multiple_file_upload' === $epo['element']['type'] ) ) {
+							if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_upload_image_replacement' ) ) {
+								add_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
+								$check = wp_check_filetype( $original_value );
+								remove_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
+								if ( ! empty( $check['ext'] ) ) {
+									$image_exts = [ 'jpg', 'jpeg', 'jpe', 'gif', 'png' ];
+									if ( in_array( $check['ext'], $image_exts, true ) ) {
+										$display_other_value_only = '<span class="cpf-img-on-order">';
+
+										$files = explode( '|', $original_value );
+										foreach ( $files as $file ) {
+											$display_other_value_only .= '<a download href="' . esc_url( $file ) . '"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $file ) . '"></a>';
+										}
+										$display_other_value_only .= '</span>';
+
+										$display_value = $display_other_value_only;
+
+										$epo['value'] = $display_value;
+									}
+								}
+							} elseif ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) ) {
+								$files = explode( '|', $original_value );
+
+								$display_other_value_only = [];
+								foreach ( $files as $file ) {
+									$file_value = THEMECOMPLETE_EPO_ORDER()->display_meta_value( apply_filters( 'tm_image_url', $file ), 0, 'order' );
+									if ( 1 < count( $files ) ) {
+										$display_other_value_only[] .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $file_value . '</span></span>';
+									} else {
+										$display_other_value_only[] .= $file_value;
+									}
+								}
+								$display_other_value_only = implode( '', $display_other_value_only );
+
+								$display_value      = $display_other_value_only;
+								$display_value_only = $display_value;
+
+								$display_other_value_only = '';
+
+								$epo['value'] = $display_value;
+							} elseif ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' ) ) {
+								$files = explode( '|', $original_value );
+
+								$display_other_value_only = [];
+								foreach ( $files as $file ) {
+									$file_value = THEMECOMPLETE_EPO_ORDER()->display_meta_value( apply_filters( 'tm_image_url', $file ), 2, 'order' );
+									if ( 1 < count( $files ) ) {
+										$display_other_value_only[] .= '<span class="cpf-data-on-cart"><span class="cpf-data-value">' . $file_value . '</span></span>';
+									} else {
+										$display_other_value_only[] .= $file_value;
+									}
+								}
+								$display_other_value_only = implode( '', $display_other_value_only );
+
+								$display_value      = $display_other_value_only;
+								$display_value_only = $display_value;
+
+								$display_other_value_only = '';
+
+								$epo['value'] = $display_value;
+							}
+						}
+
 						$epovalue = '';
-						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_hide_options_prices_in_cart && ! empty( $epo['price'] ) ) {
+						if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_hide_options_prices_in_cart' ) && ! empty( $epo['price'] ) ) {
 
 							$product = wc_get_product( $current_product_id );
 
@@ -924,11 +1034,11 @@ class THEMECOMPLETE_EPO_Order {
 
 							$epovalue .= ' ' . ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( $price, $currency_arg ) . $tax_string ) : '' );
 						}
-						if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+						if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 							$epovalue .= ' &times; ' . $epo['quantity'];
 						}
 
-						$epovalue = apply_filters( 'wc_epo_value_in_order', $epovalue, $epo['price'], $epo, $item, $item_id, $order );
+						$epovalue = apply_filters( 'wc_epo_price_qty_in_order', $epovalue, $epo['price'], $epo, $item, $item_id, $order );
 
 						if ( '' !== $epovalue && ! is_array( $epo['value'] ) && ( ( ! empty( $epo['hidevalueinorder'] ) && 'price' === $epo['hidevalueinorder'] ) || empty( $epo['hidevalueinorder'] ) ) ) {
 							$epo['value'] .= ' <small>' . $epovalue . '</small>';
@@ -936,16 +1046,16 @@ class THEMECOMPLETE_EPO_Order {
 
 						$epo['value'] = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
 
-						if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_strip_html_from_emails ) {
+						if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_strip_html_from_emails' ) ) {
 							$epo['value'] = wp_strip_all_tags( $epo['value'] );
-						} else {
-							if ( ! empty( $epo['images'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+						} elseif ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_strip_html_from_emails' ) ) {
+							if ( ! empty( $epo['images'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_image_replacement' ) ) {
 								$display_value = '<span class="cpf-img-on-cart"><img alt="'
 												. esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="'
 												. apply_filters( 'tm_image_url', $epo['images'] )
 												. '" /></span>';
 								$epo['value']  = $display_value . $epo['value'];
-							} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_image_replacement ) {
+							} elseif ( ! empty( $epo['color'] ) && 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_image_replacement' ) ) {
 								$color_hex     = $epo['color'];
 								$color_no_hash = $epo['color'];
 								if ( 'transparent' !== $color_hex ) {
@@ -953,21 +1063,10 @@ class THEMECOMPLETE_EPO_Order {
 									$color_no_hash = themecomplete_sanitize_hex_color_no_hash( $color_no_hash );
 								}
 								$display_value = '<span class="cpf-colors-on-cart"><span class="cpf-color-on-cart backgroundcolor'
-												. esc_attr( $color_no_hash ) . '"></span> '
+												. esc_attr( (string) $color_no_hash ) . '"></span> '
 												. '</span>';
 								$epo['value']  = $display_value . $epo['value'];
 								THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( (string) $color_no_hash ) . '{background-color:' . esc_attr( (string) $color_hex ) . ';}' );
-							}
-
-							if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
-								$check = wp_check_filetype( $epo['value'] );
-								if ( ! empty( $check['ext'] ) ) {
-									$image_exts = [ 'jpg', 'jpeg', 'jpe', 'gif', 'png' ];
-									if ( in_array( $check['ext'], $image_exts, true ) ) {
-										$display_value = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $original_value ) . '" /><span class="cpf-data-on-cart"><a download href="' . esc_url( $original_value ) . '">' . $epo['value'] . '</a></span></span>';
-										$epo['value']  = $display_value;
-									}
-								}
 							}
 						}
 
@@ -991,7 +1090,7 @@ class THEMECOMPLETE_EPO_Order {
 									case 'price':
 										$_value = ( ( apply_filters( 'epo_can_show_order_price', true, $item_meta ) ) ? ( wc_price( (float) $epo['price'] / (float) $epo['quantity'], $currency_arg ) ) : '' );
 
-										if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+										if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 											$_value .= ' &times; ' . $epo['quantity'];
 										}
 										break;
@@ -1000,7 +1099,7 @@ class THEMECOMPLETE_EPO_Order {
 										break;
 									case 'noprice':
 										$_value = $epo['value'];
-										if ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_quantity_one && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
+										if ( ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_quantity_one' ) && ! empty( $epo['quantity_selector'] ) ) || $epo['quantity'] > 1 ) {
 											$_value .= ' &times; ' . $epo['quantity'];
 										}
 										break;
@@ -1057,8 +1156,8 @@ class THEMECOMPLETE_EPO_Order {
 				foreach ( $_items_to_add as $uniquid => $element ) {
 					foreach ( $element as $key => $value ) {
 
-						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_unique_meta_values && is_array( $value ) ) {
-							$value = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
+						if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_unique_meta_values' ) && is_array( $value ) ) {
+							$value = implode( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiple_separator_cart_text' ), $value );
 						}
 						if ( '' === $value ) {
 							$value = ' ';
@@ -1182,10 +1281,10 @@ class THEMECOMPLETE_EPO_Order {
 
 		$canbeallowed = true;
 		if ( 'cart' === $check ) {
-			$canbeallowed = 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart;
+			$canbeallowed = 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_cart' );
 		}
 		if ( 'order' === $check ) {
-			$canbeallowed = 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_order;
+			$canbeallowed = 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_show_hide_uploaded_file_url_order' );
 		}
 		if ( 'always' === $check ) {
 			$canbeallowed = true;
@@ -1200,9 +1299,9 @@ class THEMECOMPLETE_EPO_Order {
 							// There maybe cases where $v2 is an array.
 							foreach ( $v2 as $k3 => $v3 ) {
 								$original_value = $v3;
-								$found          = ( strpos( $v3, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+								$found          = str_contains( $v3, THEMECOMPLETE_EPO()->upload_dir );
 								if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
-									if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v3, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+									if ( ( 2 === $override || ! $canbeallowed ) && filter_var( filter_var( THEMECOMPLETE_EPO_HELPER()->filter_sanitize_string( $v3 ), FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
 										$v3 = mb_basename( $v3 );
 									}
 								}
@@ -1213,9 +1312,9 @@ class THEMECOMPLETE_EPO_Order {
 							}
 						} else {
 							$original_value = $v2;
-							$found          = ( strpos( $v2, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+							$found          = str_contains( $v2, THEMECOMPLETE_EPO()->upload_dir );
 							if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
-								if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v2, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+								if ( ( 2 === $override || ! $canbeallowed ) && filter_var( filter_var( THEMECOMPLETE_EPO_HELPER()->filter_sanitize_string( $v2 ), FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
 									$v2 = mb_basename( $v2 );
 								}
 							}
@@ -1226,11 +1325,10 @@ class THEMECOMPLETE_EPO_Order {
 						}
 					}
 				} else {
-
 					$original_value = $v;
-					$found          = ( strpos( $v, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+					$found          = str_contains( $v, THEMECOMPLETE_EPO()->upload_dir );
 					if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
-						if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+						if ( ( 2 === $override || ! $canbeallowed ) && filter_var( filter_var( THEMECOMPLETE_EPO_HELPER()->filter_sanitize_string( $v ), FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
 							$v = mb_basename( $v );
 						}
 					}
@@ -1242,9 +1340,9 @@ class THEMECOMPLETE_EPO_Order {
 			}
 			$value = $new_value;
 		} else {
-			$found = ( strpos( $value, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+			$found = str_contains( $value, THEMECOMPLETE_EPO()->upload_dir );
 			if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
-				if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $value, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+				if ( ( 2 === $override || ! $canbeallowed ) && filter_var( filter_var( THEMECOMPLETE_EPO_HELPER()->filter_sanitize_string( $value ), FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
 					$value = mb_basename( $value );
 				}
 			}
@@ -1253,7 +1351,7 @@ class THEMECOMPLETE_EPO_Order {
 			}
 		}
 		if ( is_array( $value ) ) {
-			$value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $value, THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text );
+			$value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $value, THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_multiple_separator_cart_text' ) );
 		}
 
 		return $value;
@@ -1320,7 +1418,7 @@ class THEMECOMPLETE_EPO_Order {
 							if ( $epo && is_array( $epo ) && isset( $epo['section'] ) ) {
 
 								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload', 'multiple_file_upload' ] ), true ) ) {
-									if ( false !== strpos( $epo['value'], '|' ) ) {
+									if ( str_contains( $epo['value'], '|' ) ) {
 										$links = explode( '|', $epo['value'] );
 										foreach ( $links as $link ) {
 											$attachments[] = $param['path'] . str_replace( $base_url, '', $link );
@@ -1344,7 +1442,7 @@ class THEMECOMPLETE_EPO_Order {
 							if ( $epo && is_array( $epo ) && isset( $epo['section'] ) ) {
 
 								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload', 'multiple_file_upload' ] ), true ) ) {
-									if ( false !== strpos( $epo['value'], '|' ) ) {
+									if ( str_contains( $epo['value'], '|' ) ) {
 										$links = explode( '|', $epo['value'] );
 										foreach ( $links as $link ) {
 											$attachments[] = $param['path'] . str_replace( $base_url, '', $link );

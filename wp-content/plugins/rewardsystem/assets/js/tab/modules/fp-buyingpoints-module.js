@@ -38,28 +38,25 @@ jQuery( function ( $ ) {
             }
         } ,
         bulk_update_points_for_buying_reward : function ( ) {
-            var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to update now?" ) ;
-            if ( rsconfirm === true ) {
                 var div = $( this ).closest( 'div.rs_section_wrapper' ) ;
                 BuyingPointsModule.block( div ) ;
                 var dataparam = {
-                    action : 'bulk_update_buying_points_for_product' ,
+                    action : 'buying_points_bulk_update_action' ,
                     sumo_security : fp_buyingpoints_module_param.buying_reward_bulk_update ,
-                    applicableproduct : $( '#rs_buying_points_is_applicable' ).val() ,
-                    enablebuyingpoint : $( '#rs_enable_buying_points' ).val() ,
-                    buyingpoint : $( '#rs_points_for_buying_points' ).val() ,
-                    includeproducts : $( '#rs_include_products_for_buying_points' ).val() ,
-                    excludeproducts : $( '#rs_exclude_products_for_buying_points' ).val() ,
+                    applicable_product : $( '#rs_buying_points_is_applicable' ).val() ,
+                    enable_buying_point : $( '#rs_enable_buying_points' ).val() ,
+                    buying_point : $( '#rs_points_for_buying_points' ).val() ,
+                    include_products : $( '#rs_include_products_for_buying_points' ).val() ,
+                    exclude_products : $( '#rs_exclude_products_for_buying_points' ).val() ,
                 } ;
                 $.post( fp_buyingpoints_module_param.ajaxurl , dataparam , function ( response ) {
                     if ( true === response.success ) {
-                        window.location.href = fp_buyingpoints_module_param.buyingredirecturl ;
+                        window.location.href = response.data.redirect_url ;
                     } else {
                         window.alert( response.data.error ) ;
                     }
                     BuyingPointsModule.unblock( div ) ;
                 } ) ;
-            }
             return false ;
         } ,
         block : function ( id ) {

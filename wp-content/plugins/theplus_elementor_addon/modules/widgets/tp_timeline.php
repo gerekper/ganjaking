@@ -39,6 +39,10 @@ class ThePlus_TimeLine extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['Time', 'Line', 'Timeline', 'Chronology', 'Events', 'History', 'Progress', 'Schedule', 'Chronological', 'Sequential'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

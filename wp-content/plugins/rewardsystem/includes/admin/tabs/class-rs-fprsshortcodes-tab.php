@@ -13,23 +13,28 @@ if ( ! class_exists( 'RSShortcode' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_rs_settings_tabs_fprsshortcodes' , array( __CLASS__ , 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fprsshortcodes' , array( __CLASS__, 'reward_system_register_admin_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsshortcodes' , array( __CLASS__ , 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsshortcodes' , array( __CLASS__, 'reward_system_update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 		}
 
 		public static function reward_system_admin_fields() {
+						/**
+						 * Hook:woocommerce_fprsshortcodes_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_fprsshortcodes_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Shortcodes' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => 'rs_shortcode' ,
-				) ,
+					'name' => __( 'Shortcodes' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => 'rs_shortcode',
+				),
 				array(
-					'type' => 'title' ,
+					'type' => 'title',
 					'desc' => __('<h3>User Reward Points Info Shortcodes</h3><br><br>'
 					. '<b>[rs_my_reward_points]</b> - Use this Shortcode to display Reward Points of Current User<br><br>'
 					. '<b>[rs_user_total_earned_points]</b> - Use this Shortcode to display Total Points Earned by a User<br><br>'
@@ -68,12 +73,12 @@ if ( ! class_exists( 'RSShortcode' ) ) {
 					. '<b>[rssendpoints]</b> - Use this Shortcode to display Send Points Form'
 					. '<h3>Action Points     Message Shortcode</h3><br><br>'
 					. '<b>[rs_list_enable_options]</b> - Use this Shortcode to display action messages<br><br>'
-					. '<b>[rs_list_of_orders_with_pending_points]</b> - Use this shortcode to display the orders which has the points to award<br><br>' , 'rewardsystem') ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => 'rs_shortcode' ) ,
+					. '<b>[rs_list_of_orders_with_pending_points]</b> - Use this shortcode to display the orders which has the points to award<br><br>' , 'rewardsystem'),
+				),
+				array( 'type' => 'sectionend', 'id' => 'rs_shortcode' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 					)
 					) ;
 		}
@@ -85,7 +90,6 @@ if ( ! class_exists( 'RSShortcode' ) ) {
 		public static function reward_system_update_settings() {
 			woocommerce_update_options( self::reward_system_admin_fields() ) ;
 		}
-
 	}
 
 	RSShortcode::init() ;

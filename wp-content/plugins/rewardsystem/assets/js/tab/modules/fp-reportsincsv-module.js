@@ -10,8 +10,9 @@ jQuery( function ( $ ) {
             this.update_selected_user() ;
             this.update_report_date_type() ;
             this.update_type_of_points() ;
+            this.export_user_based_on();
             $( document ).on( 'change' , '#rs_point_export_report_start_date' , this.update_start_date ) ;
-            $( document ).on( 'change' , '#rs_point_export_report_start_date' , this.update_end_date ) ;
+            $( document ).on( 'change' , '#rs_point_export_report_end_date' , this.update_end_date ) ;
             $( document ).on( 'change' , '#rs_export_user_report_option' , this.update_user_type ) ;
             $( document ).on( 'change' , '#rs_export_users_report_list' , this.update_selected_user ) ;
             $( document ).on( 'change' , '.rs_export_report_date_option' , this.update_report_date_type ) ;
@@ -20,10 +21,16 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_export_report_pointtype_option_total' , this.update_type_of_points ) ;
 
             $( document ).on( 'click' , '#rs_export_user_points_report_csv' , this.export_report_for_user ) ;
+            $( document ).on( 'change' , '.rs_report_csv_format' , this.export_user_based_on ) ;
         } ,
         trigger_on_page_load : function ( ) {
             $( '#rs_point_export_report_start_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
             $( '#rs_point_export_report_end_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
+            if( fp_reports_in_csv_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
+                $( '#rs_export_user_roles_report_list' ).chosen() ;
+            } else {
+                $( '#rs_export_user_roles_report_list' ).select2() ;
+            }
         } ,
         update_start_date : function ( ) {
             var data = {
@@ -91,15 +98,16 @@ jQuery( function ( $ ) {
             var block = $( this ).closest( '.rs_section_wrapper' ) ;
             ReportsInCSVModuleScripts.block( block ) ;
             var dataparam = ( {
-                action : 'exportreport' ,
+                action : 'export_report' ,
                 sumo_security : fp_reports_in_csv_module_params.fp_export_report ,
                 usertype : $( "input:radio[name=rs_export_user_report_option]:checked" ).val( ) ,
-                selecteduser : $( "#rs_export_users_report_list" ).val( )
+                expired_column_enabled : $( "#rs_export_report_pointtype_option_expired" ).is(':checked') ,
+                selecteduser : $( "#rs_export_users_report_list" ).val( ),
+                selected_user_roles : $( "#rs_export_user_roles_report_list" ).val()
             } ) ;
             $.post( fp_reports_in_csv_module_params.ajaxurl , dataparam , function ( response ) {
                 if ( true === response.success ) {
-                    $( '#rs_export_user_points_report_csv1' ).trigger( 'click' ) ;
-                    window.location.href = fp_reports_in_csv_module_params.redirecturl ;
+                    window.location.href = response.data.redirect_url ;
                 } else {
                     window.alert( response.data.error ) ;
                 }
@@ -117,6 +125,21 @@ jQuery( function ( $ ) {
         } ,
         unblock : function ( id ) {
             $( id ).unblock() ;
+        } ,
+
+        export_user_based_on : function () {
+            var data = ( {
+                action : "update_report_user_selection_format" ,
+                selected_format : $( 'input[name=rs_report_csv_format]:checked' ).val() ,
+                sumo_security : fp_reports_in_csv_module_params.fp_user_selection ,
+            } ) ;
+            $.post( fp_reports_in_csv_module_params.ajaxurl , data , function ( response ) {
+                if ( true === response.success ) {
+
+                } else {
+                    window.alert( response.data.error ) ;
+                }
+            } ) ;
         } ,
     } ;
     ReportsInCSVModuleScripts.init( ) ;

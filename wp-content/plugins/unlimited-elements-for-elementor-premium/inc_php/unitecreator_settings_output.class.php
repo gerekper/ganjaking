@@ -398,13 +398,18 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 				<?php echo sprintf(__("Connected to: <b>%s</b>", "unlimited-elements-for-elementor"), UEGoogleAPIHelper::getUserEmail()); ?>
 			</div>
 			<a class="button" href="<?php esc_attr_e(UEGoogleAPIHelper::getRevokeUrl()); ?>">
-				<?php _e("Disconnect from Google", "unlimited-elements-for-elementor"); ?>
+				<?php esc_html_e("Disconnect from Google Sheets", "unlimited-elements-for-elementor"); ?>
 			</a>
 			<?php
 		}else{
 			?>
 			<a class="button" href="<?php esc_attr_e(UEGoogleAPIHelper::getAuthUrl()); ?>">
-				<?php _e("Connect to Google", "unlimited-elements-for-elementor"); ?>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" style="margin-bottom: -0.2em">
+					<path fill="#19b870" d="m21 6-6-6H5a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6z" />
+					<path fill="#80D8B0" d="M15 0v4a2 2 0 0 0 2 2h4l-6-6z" />
+					<path fill="#ffffff" d="M7 9v10h10V9H7zm9 3h-3.5v-2H16v2zm-3.5 1H16v2h-3.5v-2zm-1 2H8v-2h3.5v2zm0-5v2H8v-2h3.5zM8 16h3.5v2H8v-2zm4.5 2v-2H16v2h-3.5z" />
+				</svg>
+				<?php esc_html_e("Connect to Google Sheets", "unlimited-elements-for-elementor"); ?>
 			</a>
 			<?php
 		}
@@ -656,182 +661,179 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 	}
 
 	/**
-	 * draw row of dimention setting
-	 */
-	private function drawDimentionsSetting_drawRow($setting, $arrValues, $prefix = "", $prefixTitle = ""){
-
-		$name = UniteFunctionsUC::getVal($setting, "name");
-		$isNoUnits = UniteFunctionsUC::getVal($setting, "no_units");
-		$isNoUnits = UniteFunctionsUC::strToBool($isNoUnits);
-
-		$top = UniteFunctionsUC::getVal($arrValues, $prefix . "top");
-		$bottom = UniteFunctionsUC::getVal($arrValues, $prefix . "bottom");
-		$left = UniteFunctionsUC::getVal($arrValues, $prefix . "left");
-		$right = UniteFunctionsUC::getVal($arrValues, $prefix . "right");
-
-		$units = UniteFunctionsUC::getVal($arrValues, "units");
-
-		$optionUnitsPX = "selected";
-		$optionPercent = "";
-
-		if($units == "%"){
-			$optionUnitsPX = "";
-			$optionPercent = "selected";
-		}
-
-		$isOutputNames = UniteFunctionsUC::getVal($setting, "output_names");
-		$isOutputNames = UniteFunctionsUC::strToBool($isOutputNames);
-
-		$nameTop = "";
-		$nameBottom = "";
-		$nameLeft = "";
-		$nameRight = "";
-
-		$posPrefix = $prefix;
-		$drawUnits = false;
-
-		if(empty($prefix)){
-			$posPrefix = "";
-			$prefix = "_";
-			$drawUnits = true;
-		}
-
-		if($isNoUnits === true)
-			$drawUnits = false;
-
-		if($isOutputNames === true){
-			$nameTop = $name . $prefix . "top";
-			$nameBottom = $name . $prefix . "bottom";
-			$nameLeft = $name . $prefix . "left";
-			$nameRight = $name . $prefix . "right";
-		}
-
-		if(!empty($prefixTitle))
-			$prefixTitle .= " - ";
-
-		?>
-		<tr>
-			<th>
-				<?php echo $prefixTitle . __("Top", "unlimited-elements-for-elementor") ?>
-			</th>
-			<th>
-				<?php echo $prefixTitle . __("Right", "unlimited-elements-for-elementor") ?>
-			</th>
-			<th>
-				<?php echo $prefixTitle . __("Bottom", "unlimited-elements-for-elementor") ?>
-			</th>
-			<th>
-				<?php echo $prefixTitle . __("Left", "unlimited-elements-for-elementor") ?>
-			</th>
-			<th>
-				<?php if($drawUnits == true): ?>
-
-					<?php echo $prefixTitle . __("Units", "unlimited-elements-for-elementor") ?>
-
-				<?php endif ?>
-			</th>
-		</tr>
-		<tr>
-			<td>
-				<input data-pos="<?php echo $posPrefix ?>top"
-					type="text"
-					value="<?php echo $top ?>"
-					name="<?php echo $nameTop ?>"
-					class="unite-input-dimentions unite-input-dimentions-top">
-			</td>
-			<td>
-				<input data-pos="<?php echo $posPrefix ?>right"
-					type="text"
-					value="<?php echo $right ?>"
-					name="<?php echo $nameRight ?>"
-					class="unite-input-dimentions unite-input-dimentions-right">
-			</td>
-			<td>
-				<input data-pos="<?php echo $posPrefix ?>bottom"
-					type="text"
-					value="<?php echo $bottom ?>"
-					name="<?php echo $nameBottom ?>"
-					class="unite-input-dimentions unite-input-dimentions-bottom">
-			</td>
-			<td>
-				<input data-pos="<?php echo $posPrefix ?>left"
-					type="text"
-					value="<?php echo $left ?>"
-					name="<?php echo $nameLeft ?>"
-					class="unite-input-dimentions unite-input-dimentions-left">
-			</td>
-			<td>
-				<?php if($drawUnits == true): ?>
-
-					<select class="unite-setting-dimentions-select-units unite-input-dimentions">
-						<option value="px" <?php echo $optionUnitsPX ?>>PX</option>
-						<option value="%" <?php echo $optionPercent ?>>%</option>
-						<option value="em">em</option>
-						<option value="rem">rem</option>
-					</select>
-
-				<?php endif ?>
-			</td>
-		</tr>
-
-		<?php
-	}
-
-	/**
 	 * draw dimentions setting
 	 */
 	protected function drawDimentionsSetting($setting){
 
-		$arrValues = UniteFunctionsUC::getVal($setting, "value");
 		$id = UniteFunctionsUC::getVal($setting, "id");
 		$name = UniteFunctionsUC::getVal($setting, "name");
+		$value = UniteFunctionsUC::getVal($setting, "value");
+		$withNames = UniteFunctionsUC::getVal($setting, "output_names");
+		$withNames = UniteFunctionsUC::strToBool($withNames);
+		$withoutUnits = UniteFunctionsUC::getVal($setting, "no_units");
+		$withoutUnits = UniteFunctionsUC::strToBool($withoutUnits);
 
-		//clear values
-		$arrNames = array(
-			"top", "bottom", "left", "right", "units",
-			"tablet_top", "tablet_bottom", "tablet_left", "tablet_right",
-			"mobile_top", "mobile_bottom", "mobile_left", "mobile_right",
+		$keys = array(
+			"units",
+			"top", "bottom", "left", "right", "is_linked",
+			"tablet_top", "tablet_bottom", "tablet_left", "tablet_right", "tablet_is_linked",
+			"mobile_top", "mobile_bottom", "mobile_left", "mobile_right", "tablet_is_linked",
 		);
 
-		foreach($arrNames as $key){
-			if(isset($arrValues[$key]) == false)
+		foreach($keys as $key){
+			if(isset($value[$key]) === false)
 				continue;
 
-			$arrValues[$key] = trim($arrValues[$key]);
-			$arrValues[$key] = htmlspecialchars($arrValues[$key]);
+			$value[$key] = trim($value[$key]);
+			$value[$key] = htmlspecialchars($value[$key]);
 		}
 
-		$isResponsive = UniteFunctionsUC::getVal($arrValues, "is_responsive");
+		$isResponsive = UniteFunctionsUC::getVal($value, "is_responsive");
 		$isResponsive = UniteFunctionsUC::strToBool($isResponsive);
 
-		$setting["is_responsive"] = $isResponsive;
-		if($isResponsive == true)
-			$setting["responsive_type"] = "desktop";
+		$units = UniteFunctionsUC::getVal($value, "units");
+		$units = empty($units) === false ? $units : "px";
+
+		$deviceList = array(
+			"desktop" => array(
+				"title" => __("Desktop", "unlimited-elements-for-elementor"),
+				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path d="M3.5 10.5h5M6 7.5v3M11.5.5H.5v7h11v-7Z" /></svg>',
+				"prefix" => "",
+			),
+			"tablet" => array(
+				"title" => __("Tablet", "unlimited-elements-for-elementor"),
+				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12"><path d="M2.5 9.5h5M8.5.5h-7a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
+				"prefix" => "tablet_",
+			),
+			"mobile" => array(
+				"title" => __("Mobile", "unlimited-elements-for-elementor"),
+				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 12"><path d="M2.5 9.5h3M6.5.5h-5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
+				"prefix" => "mobile_",
+			),
+		);
+
+		$dimentionList = array(
+			"top" => __("Top", "unlimited-elements-for-elementor"),
+			"right" => __("Right", "unlimited-elements-for-elementor"),
+			"bottom" => __("Bottom", "unlimited-elements-for-elementor"),
+			"left" => __("Left", "unlimited-elements-for-elementor"),
+		);
+
+		$unitsList = array("px", "%", "em", "rem");
+
+		$showDevices = $isResponsive === true;
+		$showUnits = $withoutUnits === false;
+		$deviceDefault = "desktop";
 
 		?>
-		<div class="unite-setting-input-object" data-name="<?php echo $name ?>" data-settingtype="dimentions">
+		<div
+			class="unite-setting-input-object unite-dimentions"
+			data-name="<?php echo $name; ?>"
+			data-settingtype="dimentions"
+		>
 
-			<table class="unite-settings-table-dimentions ">
+			<?php if($showUnits === true || $showDevices === true): ?>
+				<div class="unite-dimentions-options">
 
-				<?php $this->drawDimentionsSetting_drawRow($setting, $arrValues); ?>
-				<?php
-				if($isResponsive == true){
-					$setting["responsive_type"] = "tablet";
+					<?php if($showUnits === true): ?>
+						<select class="unite-dimentions-units unite-units-picker select2">
+							<?php foreach($unitsList as $unitValue): ?>
+								<option
+									value="<?php esc_attr_e($unitValue); ?>"
+									data-content="<?php esc_attr_e('<div class="unite-units-picker-item">' . $unitValue . '</div>'); ?>"
+									<?php echo $unitValue === $units ? "selected" : ""; ?>
+								>
+									<?php esc_html_e($unitValue); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					<?php endif; ?>
 
-					$this->drawDimentionsSetting_drawRow($setting, $arrValues, "tablet_", "Tablet");
+					<?php if($showDevices === true): ?>
+						<select class="unite-dimentions-device unite-responsive-picker select2">
+							<?php foreach($deviceList as $deviceValue => $device): ?>
+								<option
+									value="<?php esc_attr_e($deviceValue); ?>"
+									data-content="<?php esc_attr_e('<div class="unite-responsive-picker-item uc-tip" title="' . esc_attr($device["title"]) . '" data-tipsy-gravity="w">' . $device["icon"] . '</div>'); ?>"
+								>
+									<?php esc_html_e($device["title"]); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					<?php endif; ?>
 
-					$setting["responsive_type"] = "mobile";
+				</div>
+			<?php endif; ?>
 
-					$this->drawDimentionsSetting_drawRow($setting, $arrValues, "mobile_", "Mobile");
-				}
-				?>
+			<div class="unite-dimentions-content">
+				<?php foreach($deviceList as $deviceValue => $device): ?>
+					<div
+						class="unite-dimentions-fields <?php echo $deviceValue === $deviceDefault ? "ue-active" : ""; ?>"
+						data-device="<?php esc_attr_e($deviceValue); ?>"
+					>
 
-			</table>
+						<?php foreach($dimentionList as $dimentionValue => $dimentionTitle): ?>
 
+							<?php
+
+							$fieldKey = $device["prefix"] . $dimentionValue;
+							$fieldId = "$id-$fieldKey";
+							$fieldValue = UniteFunctionsUC::getVal($value, $fieldKey);
+
+							$fieldNamePrefix = empty($device["prefix"]) === false ? $device["prefix"] : "_";
+							$fieldName = $withNames === true ? $name . $fieldNamePrefix . $dimentionValue : "";
+
+							?>
+
+							<div class="unite-dimentions-field">
+								<input
+									class="unite-dimentions-field-input"
+									id="<?php esc_attr_e($fieldId); ?>"
+									type="number"
+									name="<?php esc_attr_e($fieldName); ?>"
+									value="<?php esc_attr_e($fieldValue); ?>"
+									data-key="<?php esc_attr_e($fieldKey); ?>"
+								/>
+								<label
+									class="unite-dimentions-field-label"
+									for="<?php esc_attr_e($fieldId); ?>"
+								>
+									<?php esc_html_e($dimentionTitle); ?>
+								</label>
+							</div>
+
+						<?php endforeach; ?>
+
+						<?php
+
+						$fieldKey = $device["prefix"] . "is_linked";
+
+						$isLinked = UniteFunctionsUC::getVal($value, $fieldKey, true);
+						$isLinked = UniteFunctionsUC::strToBool($isLinked);
+
+						?>
+
+						<div
+							class="unite-dimentions-link uc-tip <?php echo $isLinked === true ? "ue-active" : ""; ?>"
+							data-key="<?php esc_attr_e($fieldKey); ?>"
+							data-title-link="<?php esc_attr_e(__("Link Values", "unlimited-elements-for-elementor")); ?>"
+							data-title-unlink="<?php esc_attr_e(__("Unlink Values", "unlimited-elements-for-elementor")); ?>"
+						>
+							<svg class="unite-dimentions-icon-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+								<path d="m3.5 8.5 5-5M5 3l1.672-1.672a2.829 2.829 0 0 1 4 4L9 7M3 5 1.328 6.672a2.829 2.829 0 0 0 4 4L7 9" />
+							</svg>
+							<svg class="unite-dimentions-icon-unlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+								<path d="m5.5 2.5 1.172-1.172a2.829 2.829 0 0 1 4 4L9.5 6.5M2.5 5.5 1.328 6.672a2.829 2.829 0 0 0 4 4L6.5 9.5M3.5 8.5l1-1M7.5 4.5l1-1M.5.5l11 11" />
+							</svg>
+						</div>
+
+					</div>
+				<?php endforeach; ?>
+			</div>
 		</div>
-
 		<?php
 	}
+
 
 	private function a________DRAW_FONTS_PANEL_______(){
 	}

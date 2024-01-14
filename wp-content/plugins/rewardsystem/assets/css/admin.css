@@ -1,220 +1,376 @@
 /*Reset button*/
 #resettab{
-    float: left; 
-    margin-top: -59px; 
-    margin-left: 170px;
+	float: left; 
+	margin-top: -59px; 
+	margin-left: 170px;
 }
 .rs-manual-referral-link-search{
-    text-align:right;
+	text-align:right;
 }
 /*Progress Bar*/
-.fp_prograssbar_wrapper{
-    width:500px;
-    margin:20% auto;
+.fp_prograssbar_wrapper,
+.rs_progress_bar_wrapper{
+	width:500px;
+	margin:20% auto;
 }
-.fp_outer{
-    height: 20px;
-    width: 500px;
-    background:#d5d4d3;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset;
-    border-radius:50px;
+.fp_outer,
+.rs_progress_bar_outer{
+	height: 20px;
+	width: 500px;
+	background:#d5d4d3;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 0.1) inset;
+	border-radius:50px;
 }
 
 .fp-srp-processing-message{
-    font-weight:normal;
+	font-weight:normal;
 }
-.fp_inner{
-    height: 20px;
-    background:#5cb85c;
-    border-radius:50px;
+.fp_inner,
+.rs_progress_bar_inner{
+	height: 20px;
+	background:#5cb85c;
+	border-radius:50px;
 }
 .fp-srp-show{
-    display:inline-block !important;
+	display:inline-block !important;
 }
 .fp-srp-hide{
-    display:none !important;
+	display:none !important;
 }
 /*Nominee Module CSS - Start*/
 .rs_delete_nominee {
-    border: 2px solid #a1a1a1;
-    padding: 3px 9px;
-    background: #dddddd;
-    width: 5px;
-    border-radius: 25px;
+	border: 2px solid #a1a1a1;
+	padding: 3px 9px;
+	background: #dddddd;
+	width: 5px;
+	border-radius: 25px;
 }
 .rs_delete_nominee:hover {
-    cursor: pointer;
-    background:red;
-    color:#fff;
-    border: 2px solid #fff;
+	cursor: pointer;
+	background:red;
+	color:#fff;
+	border: 2px solid #fff;
 }
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
 }
 /* Hide default HTML checkbox */
 .switch input {display:none;}
 
 /* The slider */
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+	background-color: #2196F3;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+	box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-    border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 /*Nominee Module CSS - End*/
 
 /*Referral Module CSS - Start*/
 .rs_manual_linking_referral{
-    width:60%;
+	width:60%;
 }
 .rs_manual_linking_referer{
-    width:60%;
+	width:60%;
 }
 .column-columnname-link{
-    width:10%;               
+	width:10%;               
 } 
 /*Referral Module CSS - End*/
 .chosen-container .chosen-results {
-    clear: both;
+	clear: both;
 }
 .chosen-container {
-    position:absolute !important;
+	position:absolute !important;
 }
 .rs_local_senders{
-    display:none;
+	display:none;
 }
 
 .coupon_code_points_selected{
-    width: 60%!important;
+	width: 60%!important;
 }
 .coupon_code_points{
-    width: 60%!important;
+	width: 60%!important;
 }
 .chosen-container-multi {
-    position:absolute!important;
+	position:absolute!important;
 }
 
 .rs_add_free_product_user_levels, .rs-free-product{
-    width:100%;
+	width:100%;
 }
 .chosen-container-active{
-    position: absolute;
+	position: absolute;
 }
 
 .fp-srp-earn-points-value,
 .fp-srp-redeem-points-value,
 #rs_redeem_point_for_cash_back,
 #rs_redeem_point_value_for_cash_back{
-    max-width:250px;
+	max-width:250px;
 }
 
 .rs_sumo_rewards_social{
-    margin-bottom:10px;
-    margin-top:10px; 
-    color:green;
+	margin-bottom:10px;
+	margin-top:10px; 
+	color:green;
 }
 
 .gif_rs_sumo_reward_button_for_reset{
-    width:32px;
-    height:32px;
-    position:absolute;
+	width:32px;
+	height:32px;
+	position:absolute;
 }
 
 .gif_rs_reset_tab_settings{
-    width:32px;
-    height:32px;
-    position:absolute;
+	width:32px;
+	height:32px;
+	position:absolute;
 }
 
 .gif_rs_sumo_reward_button_for_unsubscribe{
-    width:32px;
-    height:32px;
-    position:absolute;
+	width:32px;
+	height:32px;
+	position:absolute;
 }
 
 .send_button{
-    color:white;
-    font-size:12px;
-    background-color:#008CBA;
+	color:white;
+	font-size:12px;
+	background-color:#008CBA;
 }
 
 .fp-srp-current-points-value{
-    min-width:150px;
+	min-width:150px;
 }
 
 .rs_add_remove_points_errors{
-    color: red;font-size:14px;
+	color: red;font-size:14px;
 }
 
 .fp-srp-points-log{
-    width:590px;
+	width:590px;
 }
 
 fp-srp-refresh-button{
-    font-size:14px;
+	font-size:14px;
 }
 
 .gif_rs_sumo_reward_button_for_remove, 
 .gif_rs_sumo_reward_button_for_add{
-    width:32px;
-    height:32px;
-    position:absolute
+	width:32px;
+	height:32px;
+	position:absolute
 }
 
 .fp-srp-button-label{
-    font-size:14px;
-    font-weight:600;
+	font-size:14px;
+	font-weight:600;
 }
 
 .fp-srp-experimental-label{
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .rs_sumo_rewards_previous_order{
-    margin-bottom:10px;
-    margin-top:10px; 
-    color:green;
+	margin-bottom:10px;
+	margin-top:10px; 
+	color:green;
+}
+
+.rs-range-based-rules td input[type="text"],
+.rs-earning-percentage-rule td input[type="text"],
+.rs-earning-percentage-rule td input[type="number"],
+.rs-user-purchase-history-rules input[type="text"],
+.rs-user-purchase-history-rules input[type="number"],
+.rs-bonus-points-without-repeat-rules-for-orders td input[type="text"],
+.rs-bonus-points-without-repeat-rules-for-orders td input[type="number"],
+.rs-account-anniversary-rule-based-type td input[type="text"],
+.rs-account-anniversary-rule-based-type td input[type="number"],
+.rs-custom-anniversary-rule-based-type td input[type="text"],
+.rs-custom-anniversary-rule-based-type td input[type="number"],
+.rs-custom-anniversary-rule-based-type td textarea{
+	width:100% !important;
+}
+
+.rs-bonus-point-placed-orders-table-popup,
+.rs-anniversary-multiple-dates-table-popup,
+.rs-account-anniversary-points-table-content-popup,
+.rs-single-anniversary-points-table-content-popup,
+.rs-multiple-anniversary-points-table-content-popup{
+	border:1px solid #c3c4c7 !important;
+}
+
+.rs-bonus-point-placed-orders-table-popup thead tr th,
+.rs-bonus-point-placed-orders-table-popup tbody tr td,
+.rs-anniversary-multiple-dates-table-popup thead tr th,
+.rs-anniversary-multiple-dates-table-popup tbody tr td,
+.rs-account-anniversary-points-table-content-popup thead tr th,
+.rs-account-anniversary-points-table-content-popup tbody tr td,
+.rs-single-anniversary-points-table-content-popup thead tr th,
+.rs-single-anniversary-points-table-content-popup tbody tr td,
+.rs-multiple-anniversary-points-table-content-popup thead tr th,
+.rs-multiple-anniversary-points-table-content-popup tbody tr td{
+	padding:8px 10px !important;
+	text-align:center !important;
+}
+
+.rs-bonus-point-placed-order-count-message{
+	margin-bottom:10px;
+	color:#0000ff;
+}
+/*Rules CSS - Start*/
+.srp-rule-name {
+	padding: 15px 0 15px 10px;
+	margin-top: 0;
+	margin-bottom: 0;    
+	border: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	font-size: 1em;
+	cursor: pointer;
+}
+
+.srp-rule-name span {
+	float:right;
+}
+
+.srp-rule-name .dashicons-arrow-down {
+	width: auto;
+	height: auto;
+	margin-right: 10px;
+	font-size: 30px;
+	line-height: 20px;
+}
+
+.srp-rule-name .dashicons-trash {
+	color: #f00;
+}
+
+.srp-add-rule-button-wrapper {
+	width: 100%;
+	margin-top: 15px;
+}
+
+.rs_section_wrapper .srp-rules-content {
+	border: none;
+}
+
+.rs_section_wrapper .srp-rules-content .srp-rules-content-wrapper {
+	float: left;
+	width: 100%;
+	border: 1px solid #ccc;    
+}
+.rs_section_wrapper  .srp-rule-name{
+	background: #e5e5e5;
+	cursor: pointer;
+}
+
+.rs_section_wrapper  .srp-rule-name span {
+	float: right;
+}
+
+.rs_section_wrapper  .srp-rule-name .dashicons-arrow-down {
+	width: auto;
+	height: auto;    
+	margin-right: 10px;
+	font-size: 30px;
+	line-height: 20px;
+}
+
+.rs_section_wrapper  .srp-rule-name .dashicons-trash {
+	color: #f00;
+}
+
+.rs_section_wrapper .srp-rules-wrapper {
+	float: left;
+	width: 94%;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	padding: 15px;
+	border: 1px solid #000;
+	background: #fff;
+}
+
+.rs_section_wrapper .srp-rules-content-wrapper .srp-rule-fields .srp-date-range span {
+	float:left;
+}
+
+.rs_section_wrapper .srp-rules-wrapper p {
+	float: left;
+	width: 100%;
+}
+
+.rs_section_wrapper .srp-rules-wrapper p label {
+	display: table-cell;
+	float: left;
+	width: 200px;
+	padding: 20px 24px 20px 0;
+	font-weight: 600;
+	font-size: 14px;
+	text-align: left;
+	line-height: 1.3;
+	vertical-align: top;
+}
+
+.rs_section_wrapper .srp-rules-wrapper p input,
+.rs_section_wrapper .srp-rules-wrapper p select {
+	margin-left: 10px;
+	margin-top: 20px;
+}
+
+.rs_section_wrapper .srp-rules-wrapper .srp-date-range input {
+	display: table-cell;
+	margin-left: 10px;
+	margin-top: 0;
+}
+
+/*Rules CSS - Ends*/
+
+.srp-field-hide {
+	display : none;
 }

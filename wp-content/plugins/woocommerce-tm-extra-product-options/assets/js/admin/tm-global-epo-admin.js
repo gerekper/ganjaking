@@ -606,10 +606,10 @@
 			// Price
 			$( document ).on( 'click.cpf', '.tc-element-setting-price, .tc-element-setting-sale-price, .tm_option_price, .tm_option_sale_price', function() {
 				var $_html;
-				var thisPopup;
 				var val;
 				var $this = $( this );
 				var pricetypeSelector;
+				var checkFormula;
 
 				if ( $this.is( '.tc-element-setting-price, .tc-element-setting-sale-price' ) ) {
 					pricetypeSelector = $( '.tm-pricetype-selector' );
@@ -618,6 +618,22 @@
 				}
 
 				if ( pricetypeSelector.val() === 'math' ) {
+					checkFormula = function() {
+						var tcmexp = window.tcmexp;
+						var formula = $( '.tc-element-setting-edit-price' ).val();
+						var parsed;
+						var result = true;
+						if ( tcmexp ) {
+							parsed = formula.replace( /\{[^}]*\}/g, '(0)' );
+							result = tcmexp.parse( parsed );
+							if ( result !== false ) {
+								$( '.tc-element-setting-edit-price' ).removeClass( 'formula-error' ).addClass( 'formula-correct' );
+							} else {
+								$( '.tc-element-setting-edit-price' ).removeClass( 'formula-correct' ).addClass( 'formula-error' );
+							}
+						}
+						return result;
+					};
 					val = $this.val();
 					$_html = $.tmEPOAdmin.builder_floatbox_template(
 						{
@@ -628,7 +644,7 @@
 						},
 						'tc-floatbox-edit'
 					);
-					thisPopup = $.tcFloatBox( {
+					$.tcFloatBox( {
 						closefadeouttime: 0,
 						animateOut: '',
 						fps: 1,
@@ -641,19 +657,21 @@
 						classname: 'flasho tc-wrapper tc-builder-add-section-and-element',
 						data: $_html,
 						cancelClass: '.floatbox-edit-cancel',
+						updateClass: '.floatbox-edit-update',
+						updateEvent: function( inst ) {
+							var formula = $( '.tc-element-setting-edit-price' ).val();
+							checkFormula();
+							$this.val( formula );
+							inst.destroy();
+						},
 						unique: true
 					} );
+
+					checkFormula();
 
 					$.tmEPOAdmin.populatePriceVariables( $( '.tc-price-variables' ) );
 
 					$( '.tc-element-setting-edit-price' ).val( val );
-
-					$( '.floatbox-edit-update' ).on( 'click.cpf', function( ev ) {
-						ev.preventDefault();
-
-						$this.val( $( '.tc-element-setting-edit-price' ).val() );
-						thisPopup.destroy();
-					} );
 
 					$( '.tc-var-field' ).on( 'click.cpf', function( ev ) {
 						var $txt = $( '.tc-element-setting-edit-price' );
@@ -673,6 +691,7 @@
 						txtarea.selectionEnd = caretPos;
 						$txt.trigger( ' focus' );
 						txtarea.scrollTop = scrollPos;
+						checkFormula();
 					} );
 
 					$( '.formula-field-mode' ).on( 'change.cpf', function() {
@@ -682,6 +701,10 @@
 						list.toArray().forEach( function( el ) {
 							$( el ).attr( 'data-value', '{field.' + $( el ).attr( 'title' ) + '.' + mode + '}' );
 						} );
+					} );
+
+					$( '.tc-element-setting-edit-price' ).on( 'input.cpf', function() {
+						checkFormula();
 					} );
 				}
 			} );
@@ -7149,6 +7172,16 @@
 			obj.append( list );
 			list.append( '<li class="tc-var-field" data-value="{quantity}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_quantity + '</span></li>' );
 			list.append( '<li class="tc-var-field" data-value="{product_price}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_product_price + '</span></li>' );
+
+			// special variables
+			list = $( '<h4 class="tc-var-header">' + TMEPOGLOBALADMINJS.i18n_formula_special_variables + '</h4>' );
+			obj.append( list );
+			list = $( '<ul class="tc-var-list product"></ul>' );
+			obj.append( list );
+			list.append( '<li class="tc-var-field" data-value="{options_total}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_options_total + '</span></li>' );
+			list.append( '<li class="tc-var-field" data-value="{product_price_plus_options_total}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_product_price_plus_options_total + '</span></li>' );
+			list.append( '<li class="tc-var-field" data-value="{cumulative_total}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_cumulative_total + '</span></li>' );
+			list.append( '<li class="tc-var-field" data-value="{product_price_plus_cumulative_total}"><span>' + TMEPOGLOBALADMINJS.i18n_product_price_plus_cumulative_total + '</span></li>' );
 
 			// this element
 			list = $( '<h4 class="tc-var-header">' + TMEPOGLOBALADMINJS.i18n_formula_this_element + '</h4>' );

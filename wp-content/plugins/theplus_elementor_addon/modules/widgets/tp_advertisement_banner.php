@@ -41,6 +41,10 @@ class ThePlus_Advertisement_Banner extends Widget_Base {
         return array('plus-creatives');
     }
 
+	public function get_keywords() {
+        return ['advertisement', 'banner', 'ad', 'promotion', 'marketing', 'display', 'graphics'];
+    }
+
     protected function register_controls() {
 	$this->start_controls_section(
 			'section_advertisement_banner',

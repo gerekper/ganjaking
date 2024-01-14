@@ -10,6 +10,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_position_for_var() ;
             this.show_or_hide_for_reward_shortcode() ;
             this.show_or_hide_for_single_product_page() ;
+            this.show_or_hide_for_single_product_page_guest();
             this.show_or_hide_for_single_product_page_msg_for_referral_to_simple() ;
             this.show_or_hide_for_single_product_page_msg_for_referral_to_variable() ;
             this.show_or_hide_for_simple_product_msg_in_shop_page() ;
@@ -28,11 +29,14 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_related_simple_product_msg_in_product_page() ;
             this.show_or_hide_for_related_variable_product_msg_in_product_page() ;
             this.show_or_hide_for_earn_points_msg_for_simple_product_in_product_page() ;
+            this.show_or_hide_earn_msg_for_simple_product_in_product_guest();
             this.show_or_hide_for_earn_points_msg_for_variable_product_in_product_page() ;
+            this.show_or_hide_for_earn_msg_for_variable_product_in_product_guest();
             this.show_or_hide_for_earn_points_msg_for_each_variant_in_product_page() ;
+            this.show_or_hide_for_earn_points_msg_variant_in_product_guest();
             this.show_or_hide_for_purchase_message_in_cart_page() ;
             this.show_or_hide_for_buy_points_message_in_cart_page() ;
-            this.page_size_for_my_reward_table() ;
+            this.my_reward_table_page_size() ;
             this.show_or_hide_for_first_purchase_message_in_cart_page() ;
             this.show_or_hide_for_total_points_message_in_cart_page() ;
             this.show_or_hide_for_my_reward_message_in_cart_page() ;
@@ -69,10 +73,11 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_msg_for_percent_cart_based_points_in_custom_page() ;
             this.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;            
             this.show_or_hide_msg_for_buy_point_message_for_simple_in_product_user();
-            this.show_or_hide_msg_for_buy_point_message_for_variable_in_product_user();           
+            this.show_or_hide_msg_for_buy_point_message_for_variable_in_product_user();
             $( document ).on( 'change' , '#rs_my_reward_table_shortcode' , this.show_or_hide_for_reward_shortcode ) ;
             $( document ).on( 'change' , '#rs_enable_display_earn_message_for_variation' , this.show_or_hide_for_position_for_var ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_single_product' , this.single_product_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_message_for_single_product_guest' , this.single_product_page_guest ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_single_product_referral' , this.single_product_page_msg_for_referral_to_simple ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_variable_product_referral' , this.single_product_page_msg_for_referral_to_variable ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_simple_in_shop' , this.simple_product_msg_in_shop_page ) ;
@@ -91,8 +96,11 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_show_hide_message_for_shop_archive_single_related_products' , this.related_simple_product_msg_in_product_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_shop_archive_variable_related_products' , this.related_variable_product_msg_in_product_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_shop_archive_single' , this.earn_points_msg_for_simple_product_in_product_page ) ;
+            $( document ).on( 'change' , '#rs_show_or_hide_earn_message_single_product_guest' , this.earn_points_msg_for_simple_product_in_product_page_guest ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_variable_in_single_product_page' , this.earn_points_msg_for_variable_product_in_product_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_message_for_variable_in_single_product_page_guest' , this.earn_points_msg_for_variable_product_in_product_page_guest ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_variable_product' , this.earn_points_msg_for_each_variant_in_product_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_message_variation_single_product_guest' , this.earn_points_msg_for_each_variant_in_product_page_guest ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_each_products' , this.purchase_message_in_cart_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_buy_point_message_for_each_products' , this.buy_points_message_in_cart_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_page_size_my_rewards' , this.my_reward_table_page_size ) ;
@@ -142,6 +150,11 @@ jQuery( function ( $ ) {
                 handle : '.post_sort_handle' ,
             } ) ;
             jQuery( ".sortable" ).disableSelection() ;
+            if ( fp_message_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
+                $( '.srp-rp-product-include-taxonomy' ).chosen() ;
+            }else{
+                $( '.srp-rp-product-include-taxonomy' ).select2() ;
+            }
         } ,       
         buy_point_message_for_simple_related_product: function () {
             MessageTabScripts.show_or_hide_msg_for_buy_point_message_for_simple_in_product_user() ;
@@ -241,6 +254,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_message_for_single_product_point_rule' ).parent().parent().show() ;
             } else {
                 jQuery( '#rs_message_for_single_product_point_rule' ).parent().parent().hide() ;
+            }
+        } ,
+        single_product_page_guest:function(){
+            MessageTabScripts.show_or_hide_for_single_product_page_guest() ;
+        },
+        show_or_hide_for_single_product_page_guest : function () {
+            if ( jQuery( '#rs_show_hide_message_for_single_product_guest' ).val() == '1' ) {
+                jQuery( '#rs_purchase_reward_message_single_product_guest' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_purchase_reward_message_single_product_guest' ).parent().parent().hide() ;
             }
         } ,
         single_product_page_msg_for_referral_to_simple : function () {
@@ -431,6 +454,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_message_in_single_product_page' ).parent().parent().hide() ;
             }
         } ,
+        earn_points_msg_for_simple_product_in_product_page_guest:function(){
+            MessageTabScripts.show_or_hide_earn_msg_for_simple_product_in_product_guest() ;
+        },
+        show_or_hide_earn_msg_for_simple_product_in_product_guest : function () {
+            if ( jQuery( '#rs_show_or_hide_earn_message_single_product_guest' ).val() == '1' ) {
+                jQuery( '#rs_earn_message_single_product_guest' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_earn_message_single_product_guest' ).parent().parent().hide() ;
+            }
+        } ,
         earn_points_msg_for_variable_product_in_product_page : function () {
             MessageTabScripts.show_or_hide_for_earn_points_msg_for_variable_product_in_product_page() ;
         } ,
@@ -443,6 +476,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_message_position_in_single_product_page_for_simple_products' ).parent().parent().hide() ;
             }
         } ,
+        earn_points_msg_for_variable_product_in_product_page_guest:function(){
+            MessageTabScripts.show_or_hide_for_earn_msg_for_variable_product_in_product_guest() ;
+        },
+        show_or_hide_for_earn_msg_for_variable_product_in_product_guest : function () {
+            if ( jQuery( '#rs_show_hide_message_for_variable_in_single_product_page_guest' ).val() == '1' ) {
+                jQuery( '#rs_earn_message_single_product_variation_guest' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_earn_message_single_product_variation_guest' ).parent().parent().hide() ;
+            }
+        } ,
         earn_points_msg_for_each_variant_in_product_page : function () {
             MessageTabScripts.show_or_hide_for_earn_points_msg_for_each_variant_in_product_page() ;
         } ,
@@ -453,6 +496,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_message_for_variation_products' ).parent().parent().hide() ;
             }
         } ,
+        earn_points_msg_for_each_variant_in_product_page_guest:function(){
+            MessageTabScripts.show_or_hide_for_earn_points_msg_variant_in_product_guest() ;
+        },
+        show_or_hide_for_earn_points_msg_variant_in_product_guest:function(){
+            if ( jQuery( '#rs_show_hide_message_variation_single_product_guest' ).val() == '1' ) {
+                jQuery( '#rs_message_variation_single_product_guest' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_message_variation_single_product_guest' ).parent().parent().hide() ;
+            }
+        },
         purchase_message_in_cart_page : function () {
             MessageTabScripts.show_or_hide_for_purchase_message_in_cart_page() ;
         } ,
@@ -484,13 +537,10 @@ jQuery( function ( $ ) {
             }
         } ,
         my_reward_table_page_size : function () {
-            MessageTabScripts.page_size_for_my_reward_table() ;
-        } ,
-        page_size_for_my_reward_table : function () {
-            if ( jQuery( '#rs_show_hide_page_size_my_rewards' ).val() == '2' ) {
-                jQuery( '#rs_number_of_page_size_in_myaccount' ).parent().parent().show() ;
+            if ( '2' === $( '#rs_show_hide_page_size_my_rewards' ).val()) {
+                $( '#rs_number_of_page_size_in_myaccount' ).closest('tr').show() ;
             } else {
-                jQuery( '#rs_number_of_page_size_in_myaccount' ).parent().parent().hide() ;
+                $( '#rs_number_of_page_size_in_myaccount' ).closest('tr').hide() ;
             }
         } ,
         total_points_message_in_cart_page : function () {

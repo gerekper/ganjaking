@@ -366,6 +366,19 @@ class UCOperations extends UniteElementsBaseUC{
 	}
 
 	/**
+	 * get addon changelog from data
+	 */
+	public function getAddonChangelogFromData($data){
+
+		require_once GlobalsUC::$pathViewsObjects . "addon_view.class.php";
+		$objAddonView = new UniteCreatorAddonView();
+
+		$response = $objAddonView->getChangelogContents($data);
+
+		return ($response);
+	}
+
+	/**
 	 * get addon revisions from data
 	 */
 	public function getAddonRevisionsFromData($data){
@@ -519,18 +532,18 @@ class UCOperations extends UniteElementsBaseUC{
 	 * put debug of post custom fields
 	 */
 	public function putPostCustomFieldsDebug($postID, $showCustomFields = false){
-		
+
 		if($postID == "current"){
 			$post = get_post();
 			$postID = $post->ID;
 		}else
 			$post = get_post($postID);
-					
+
 		if(empty($post))
 			return (false);
 
 		$postTitle = $post->post_title;
-		
+
 		if($showCustomFields == false)
 			$arrCustomFields = UniteFunctionsWPUC::getPostMeta($postID);
 		else{
@@ -562,10 +575,10 @@ class UCOperations extends UniteElementsBaseUC{
 	 * put term custom fields - for debug
 	 */
 	public function putTermCustomFieldsDebug($term){
-		
+
 		if(empty($term))
 			UniteFunctionsUC::throwError("print term debug: the termid option is empty");
-		
+
 		if(is_array($term)){
 			$termID = UniteFunctionsUC::getVal($term, "id");
 			$name = UniteFunctionsUC::getVal($term, "name");
@@ -573,7 +586,7 @@ class UCOperations extends UniteElementsBaseUC{
 			$termID = $term->term_id;
 			$name = $term->name;
 		}
-		
+
 		$arrCustomFields = UniteFunctionsWPUC::getTermCustomFields($termID, false);
 
 		foreach($arrCustomFields as $key => $field){
@@ -593,7 +606,7 @@ class UCOperations extends UniteElementsBaseUC{
 	 * terms custom fields debug
 	 */
 	public function putTermsCustomFieldsDebug($arrTerms,$showCustomFields = false){
-		
+
 		if(empty($arrTerms))
 			return (false);
 
@@ -613,7 +626,7 @@ class UCOperations extends UniteElementsBaseUC{
 	 * put posts meta fields debug
 	 */
 	public function putPostsCustomFieldsDebug($arrPosts, $showCustomFields = false){
-	
+
 		if(empty($arrPosts))
 			return (false);
 
@@ -621,7 +634,7 @@ class UCOperations extends UniteElementsBaseUC{
 
 		foreach($arrPosts as $post){
 			$postID = $post->ID;
-			
+
 			$this->putPostCustomFieldsDebug($postID, $showCustomFields);
 		}
 	}
@@ -639,12 +652,12 @@ class UCOperations extends UniteElementsBaseUC{
 		foreach($arrItems as $item){
 
 			$menuItemID = UniteFunctionsUC::getVal($item, "id");
-			
+
 			$this->putPostCustomFieldsDebug($menuItemID, $showCustomFields);
 		}
 	}
-	
-	
+
+
 	/**
 	 * put custom fields array to debug
 	 */
@@ -1044,7 +1057,7 @@ class UCOperations extends UniteElementsBaseUC{
 	 * get last query data
 	 */
 	public function getLastQueryData(){
-
+		
 		$query = GlobalsProviderUC::$lastPostQuery;
 
 		if(empty($query)){
@@ -1062,18 +1075,23 @@ class UCOperations extends UniteElementsBaseUC{
 		$numPosts = 0;
 		if(isset($query->posts))
 			$numPosts = count($query->posts);
-
+		
 		$totalPosts = 0;
 		if(isset($query->found_posts))
 			$totalPosts = $query->found_posts;
 
 		$arrQuery = $query->query;
-
+				
 		$postType = UniteFunctionsUC::getVal($arrQuery, "post_type");
 
 		$orderBy = UniteFunctionsUC::getVal($arrQuery, "orderby");
 		$orderDir = UniteFunctionsUC::getVal($arrQuery, "order");
-
+		
+		if(is_array($orderBy)){
+			$orderDir = UniteFunctionsUC::getArrFirstValue($orderBy);
+			$orderBy = UniteFunctionsUC::getFirstNotEmptyKey($orderBy);
+		}
+		
 		$orderBy = strtolower($orderBy);
 		$orderDir = strtolower($orderDir);
 
@@ -1085,30 +1103,30 @@ class UCOperations extends UniteElementsBaseUC{
 		$output["total_posts"] = $totalPosts;
 		$output["page"] = UniteFunctionsUC::getVal($data, "current");
 		$output["num_pages"] = $totalPages;
-		
+
 		if(!empty($orderBy)){
-			
+
 			if($orderBy == "meta_value"){
-				
+
 				$metaKey = UniteFunctionsUC::getVal($arrQuery, "meta_key");
-				
+
 				if(!empty($metaKey))
 					$orderBy = "meta__{$metaKey}__text";
 			}
-			
+
 			if($orderBy == "meta_value_num"){
-				
+
 				$metaKey = UniteFunctionsUC::getVal($arrQuery, "meta_key");
-				
+
 				if(!empty($metaKey))
 					$orderBy = "meta__{$metaKey}__number";
 			}
-			
-			
+
+
 			$output["orderby"] = $orderBy;
 		}
-		
-		
+
+
 		if(!empty($orderDir))
 			$output["orderdir"] = $orderDir;
 

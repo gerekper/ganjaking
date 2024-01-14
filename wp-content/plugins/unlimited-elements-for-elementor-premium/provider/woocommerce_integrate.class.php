@@ -1279,6 +1279,14 @@ class UniteCreatorWooIntegrate{
 		}
 	}
 	
+	/**
+	 * output cart fragments
+	 */
+	public function outputCartFragments(){
+		
+		$strFragments = WC_AJAX::get_refreshed_fragments();
+	}
+	
 	private function __________CART_HTML________(){}
 	
 	/**

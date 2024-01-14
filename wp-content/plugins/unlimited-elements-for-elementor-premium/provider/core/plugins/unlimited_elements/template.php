@@ -7,6 +7,8 @@ class UCEmptyTemplate{
 	const SHOW_DEBUG = false;
 	
 	private $templateID;
+	private $isMultiple = false;
+	
 	
 	
 	/**
@@ -93,6 +95,15 @@ class UCEmptyTemplate{
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <?php wp_head(); ?>
+    
+    <style>
+    html{
+    	margin:0px !important;
+    	padding:0px !important;
+    }
+    
+    </style>
+        
   </head>
   <body <?php body_class(); ?>>
 		
@@ -103,7 +114,11 @@ class UCEmptyTemplate{
 	 * render footer part
 	 */
 	private function renderFooter(){
+		
 		wp_footer();
+		
+		if($this->isMultiple)
+			$this->putMultipleModeScripts();
 		
 		?>
 			</body>
@@ -116,10 +131,14 @@ class UCEmptyTemplate{
 	 */
 	private function renderTemplate(){
 
+		if(is_singular() == false)
+			UniteFunctionsUC::throwError("not singlular");
+		
+		UniteFunctionsUC::validateNumeric($this->templateID,"template id");
+		
 		$this->validateTemplateExists();
 		
 		$content = HelperProviderCoreUC_EL::getElementorTemplate($this->templateID, true);
-		
 		
 		$this->renderHeaderPart();
 		
@@ -130,7 +149,44 @@ class UCEmptyTemplate{
 		$this->renderFooter();
 		
 }
+
 	
+	/**
+	 * render multiple template for templates widget output
+	 */
+	private function renderMultipleTemplates(){
+					
+		$this->isMultiple = true;
+		
+		$arrTemplates = explode(",", $this->templateID);
+		
+		UniteFunctionsUC::validateIDsList($this->templateID,"template ids");
+		
+		$content = "";
+		
+		foreach($arrTemplates as $index => $templateID){
+
+			$output = HelperProviderCoreUC_EL::getElementorTemplate($templateID, true);
+			
+			if(empty($output))
+				$output = "template $templateID not found";
+			
+			$class = "";
+			if($index > 0)
+				$class = " uc-template-hidden";
+			
+			$content .= "<div id='uc_template_$templateID' class='uc-template-holder{$class}' data-id='$templateID'>$output</div>";
+		}
+		
+		$this->renderHeaderPart();
+		
+		//$this->renderRegularBody();
+		
+		echo $content;
+		
+		$this->renderFooter();
+		
+	}
 	
 	
 	/**
@@ -142,18 +198,22 @@ class UCEmptyTemplate{
 			
   			show_admin_bar(false);
 			
-			$renderTemplateID = UniteFunctionsUC::getGetVar("ucrendertemplate","",UniteFunctionsUC::SANITIZE_ID);
+			$renderTemplateID = UniteFunctionsUC::getGetVar("ucrendertemplate","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+			
+			$isMultiple = UniteFunctionsUC::getGetVar("multiple","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+			$isMultiple = UniteFunctionsUC::strToBool($isMultiple);
 			
 			if(empty($renderTemplateID))
 				UniteFunctionsUC::throwError("template id not found");
 			
-			if(is_singular() == false)
-				UniteFunctionsUC::throwError("not singlular");
-
-			
 			$this->templateID = $renderTemplateID;
 				
-			$this->renderTemplate();
+			if($isMultiple == true)
+				$this->renderMultipleTemplates();
+			else{
+													
+				$this->renderTemplate();
+			}
 			
 			
 		}catch(Exception $e){

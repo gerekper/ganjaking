@@ -105,14 +105,17 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 		$this->createTable(GlobalsUC::TABLE_ADDONS_NAME, $isForce);
 		$this->createTable(GlobalsUC::TABLE_CATEGORIES_NAME, $isForce);
 
-		$isEnabled = HelperProviderUC::isFormEntriesEnabled();
+		$isAddonChangelogEnabled = HelperProviderUC::isAddonChangelogEnabled();
 
-		if($isEnabled == true){
+		if($isAddonChangelogEnabled === true)
+			$this->createTable(GlobalsUC::TABLE_CHANGELOG_NAME, $isForce);
 
+		$isFormEntriesEnabled = HelperProviderUC::isFormEntriesEnabled();
+
+		if($isFormEntriesEnabled === true){
 			$this->createTable(GlobalsUC::TABLE_FORM_ENTRIES_NAME, $isForce);
 			$this->createTable(GlobalsUC::TABLE_FORM_ENTRY_FIELDS_NAME, $isForce);
 		}
-
 	}
 
 
@@ -176,6 +179,25 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 					test_slot2 TEXT,	
 					test_slot3 TEXT,
 					PRIMARY KEY (id)
+				) $charset_collate;";
+			break;
+
+			case GlobalsUC::TABLE_CHANGELOG_NAME:
+				$isAddonChangelogEnabled = HelperProviderUC::isAddonChangelogEnabled();
+
+				if($isAddonChangelogEnabled === false)
+					return;
+
+				$sql = "CREATE TABLE " . $tableRealName . " (
+					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					addon_id BIGINT(20) UNSIGNED NOT NULL,
+					user_id BIGINT(20) UNSIGNED NULL,
+					type VARCHAR(32) NOT NULL,
+					text TEXT NOT NULL,
+					plugin_version VARCHAR(32) NOT NULL,
+					created_at DATETIME NOT NULL,
+					PRIMARY KEY (id),
+					INDEX addon_id_index (addon_id)
 				) $charset_collate;";
 			break;
 

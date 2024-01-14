@@ -38,9 +38,10 @@ class ThePlus_Animated_Service_Boxes extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+	
 	public function get_keywords() {
-		return ['image accordion','sliding boxes','article box','info banner','hover section','fancy box','services element','portfolio','verticle slider', 'horizontal slider'];
-	}
+        return ['Animated', 'Service', 'Boxes', 'Animated Service Boxes', 'Elementor addon', 'Elementor search bar', 'search', 'Widget for Elementor', 'Elementor service boxes', 'Elementor animated boxes'];
+    }
 
     protected function register_controls() {
 		

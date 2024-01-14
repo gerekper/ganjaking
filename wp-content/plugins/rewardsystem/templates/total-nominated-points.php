@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$user_name = $user->user_login ;
 			?>
 			<tr>
-				<td><?php echo esc_html( $i ++  ) ; ?></td>
+				<td><?php echo esc_html( $i++  ) ; ?></td>
 				<td><?php echo esc_html( $user_name ) ; ?></td>
 				<td><?php echo esc_html( $total_points ) ; ?></td>
 			</tr>

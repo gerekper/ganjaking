@@ -555,8 +555,7 @@ class UniteCreatorFiltersProcess{
 			
 			$arrOutput = $this->parseStrTerms($strTerms);
 		}
-		
-		
+				
 		//page
 		
 		$page = UniteFunctionsUC::getVal($request, "ucpage");
@@ -585,7 +584,19 @@ class UniteCreatorFiltersProcess{
 		
 		if(!empty($search))
 			$arrOutput["search"] = $search;
-
+		
+		//price
+		
+		$priceFrom = UniteFunctionsUC::getVal($request, "ucpricefrom");
+		$priceTo = UniteFunctionsUC::getVal($request, "ucpriceto");
+		
+		if(!empty($priceFrom))
+			$arrOutput["price_from"] = $priceFrom;
+		
+		if(!empty($priceTo))
+			$arrOutput["price_to"] = $priceTo;
+		
+		
 		//exclude
 		$exclude = UniteFunctionsUC::getVal($request, "ucexclude");
 		$exclude = UniteProviderFunctionsUC::sanitizeVar($exclude, UniteFunctionsUC::SANITIZE_TEXT_FIELD);
@@ -601,6 +612,7 @@ class UniteCreatorFiltersProcess{
 		//orderby
 		
 		$arrOutput = $this->getArrInputFilters_getOrderby($arrOutput, $request);
+		
 		
 		//orderdir
 		
@@ -663,7 +675,6 @@ class UniteCreatorFiltersProcess{
 		
 		$arrInputFilters = $this->getArrInputFilters();
 		
-		
 		if(empty($arrInputFilters))
 			return(self::$filters);
 		
@@ -723,7 +734,19 @@ class UniteCreatorFiltersProcess{
 
 		if(!empty($orderdir))
 			self::$filters["orderdir"] = $orderdir;
-			
+		
+		//price
+		
+		$priceFrom = UniteFunctionsUC::getVal($arrInputFilters, "price_from");
+		$priceTo = UniteFunctionsUC::getVal($arrInputFilters, "price_to");
+		
+		if(!empty($priceFrom) && is_numeric($priceFrom))
+			self::$filters["price_from"] = $priceFrom;
+		
+		if(!empty($priceTo) && is_numeric($priceTo))
+			self::$filters["price_to"] = $priceTo;
+		
+		
 		return(self::$filters);
 	}
 	
@@ -886,6 +909,8 @@ class UniteCreatorFiltersProcess{
 		
 		$arrFilters = $this->getRequestFilters();
 		
+		$arrMetaQuery = array();
+		
 		
 		//---- set offset and count ----
 		
@@ -896,6 +921,8 @@ class UniteCreatorFiltersProcess{
 		$exclude = UniteFunctionsUC::getVal($arrFilters, "exclude");
 		$orderby = UniteFunctionsUC::getVal($arrFilters, "orderby");
 		$orderdir = UniteFunctionsUC::getVal($arrFilters, "orderdir");
+		$priceFrom = UniteFunctionsUC::getVal($arrFilters, "price_from");
+		$priceTo = UniteFunctionsUC::getVal($arrFilters, "price_to");
 		
 		
 		if(!empty($page))
@@ -992,6 +1019,37 @@ class UniteCreatorFiltersProcess{
 			global $wp_filter;
 			$wp_filter = array();
 		}
+		
+		//Woo Prices
+		
+		if(!empty($priceFrom)){
+			
+			$arrMetaQuery[] = array(
+                'key' => '_price',
+                'value' => $priceFrom,
+                'compare' => '>='
+            );
+		}
+		
+		if(!empty($priceTo)){
+			
+			$arrMetaQuery[] = array(
+                'key' => '_price',
+                'value' => $priceTo,
+                'compare' => '<='
+        	);
+		}
+
+		
+		//set the meta query
+		
+		if(!empty($arrMetaQuery)){
+			
+			$arrExistingMeta = UniteFunctionsUC::getVal($args, "meta_query",array());
+						
+			$args["meta_query"] = array_merge($arrExistingMeta, $arrMetaQuery);
+		}
+
 		
 		if(self::$showDebug == true){
 			
@@ -1492,7 +1550,13 @@ class UniteCreatorFiltersProcess{
 		
 		
 		if(self::$showEchoDebug == true){
+
+			dmp("The posts: ");
+			
+			HelperUC::$operations->putPostsCustomFieldsDebug(GlobalsProviderUC::$lastPostQuery->posts);
+			
 			dmp("showing the debug");
+			
 			exit();
 		}
 		
@@ -2640,7 +2704,12 @@ s	 */
 					$objWoo = UniteCreatorWooIntegrate::getInstance();
 					
 					$objWoo->updateCartQuantityFromData();
+				break;
+				case "getcartdata":
 										
+					$objWoo = UniteCreatorWooIntegrate::getInstance();
+					$objWoo->outputCartFragments();
+					
 				break;
 				case "dynamicpopupcache":
 					

@@ -3,7 +3,7 @@
 // Integrate WP List Table for Users
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ;
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'  ;
 }
 
 class WP_List_Table_For_Users extends WP_List_Table {
@@ -25,18 +25,18 @@ class WP_List_Table_For_Users extends WP_List_Table {
 		if ( isset( $_REQUEST[ 'rs_submit_for_user_role_log' ] ) ) {
 			if ( isset( $_REQUEST[ 'rs_userrole_for_reward_log' ] ) ) {
 				$args = array(
-					'role__in' => ( array ) ( wc_clean(wp_unslash($_REQUEST[ 'rs_userrole_for_reward_log' ])) ) ,
+					'role__in' => ( array ) ( wc_clean(wp_unslash($_REQUEST[ 'rs_userrole_for_reward_log' ])) ),
 						) ;
 			} else if ( isset( $_REQUEST[ 'rs_select_user_for_reward_log' ] ) ) {
 				$args = array(
-					'include' => ( array ) ( wc_clean(wp_unslash($_REQUEST[ 'rs_select_user_for_reward_log' ])) ) ,
+					'include' => ( array ) ( wc_clean(wp_unslash($_REQUEST[ 'rs_select_user_for_reward_log' ])) ),
 						) ;
 			}
 			$this->search_user( $args , $user , $screen , $columns , $sortable ) ;
 		} else if ( isset( $_REQUEST[ 's' ] ) ) {
 			$searchvalue = wc_clean(wp_unslash($_REQUEST[ 's' ])) ;
 			$args        = array(
-				'search' => "$searchvalue" ,
+				'search' => "$searchvalue",
 					) ;
 			$this->search_user( $args , $user , $screen , $columns , $sortable ) ;
 		} elseif ( isset( $_REQUEST[ 'orderby' ] , $_REQUEST[ 'order' ]) && ( wc_clean(wp_unslash($_REQUEST[ 'orderby' ])) ) && wc_clean(wp_unslash($_REQUEST[ 'order' ])) ) {
@@ -45,25 +45,25 @@ class WP_List_Table_For_Users extends WP_List_Table {
 			$order_by              = wc_clean(wp_unslash($_REQUEST[ 'orderby' ])) ;
 			$startpoint            = ( $paged - 1 ) * $perPage ;
 			$data                  = $this->get_sorting_data( $order , $startpoint , $perPage , $order_by ) ;
-			$this->_column_headers = array( $columns , array() , $sortable ) ;
+			$this->_column_headers = array( $columns, array(), $sortable ) ;
 			$totalItems            = $num_rows ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $totalItems ,
-				'per_page'    => $perPage
+				'total_items' => $totalItems,
+				'per_page'    => $perPage,
 			) ) ;
 			$this->items = $data ;
 		} else {
-			usort( $data , array( &$this , 'sort_data' ) ) ;
+			usort( $data , array( &$this, 'sort_data' ) ) ;
 
 			$totalItems = $num_rows ;
 
 			$this->set_pagination_args( array(
-				'total_items' => $totalItems ,
-				'per_page'    => $perPage
+				'total_items' => $totalItems,
+				'per_page'    => $perPage,
 			) ) ;
 
-			$this->_column_headers = array( $columns , array() , $sortable ) ;
+			$this->_column_headers = array( $columns, array(), $sortable ) ;
 
 			$this->items = $data ;
 		}
@@ -76,11 +76,11 @@ class WP_List_Table_For_Users extends WP_List_Table {
 			$sr = 1 ;
 			foreach ( $UserData as $eacharray => $value ) {
 				$newdata[] = $this->get_data_of_users( $value->ID , $sr ) ;
-				$sr ++ ;
+				$sr++ ;
 			}
 		}
 
-		$this->_column_headers = array( $columns , array() , $sortable ) ;
+		$this->_column_headers = array( $columns, array(), $sortable ) ;
 		$this->items           = $newdata ;
 	}
 
@@ -135,11 +135,11 @@ class WP_List_Table_For_Users extends WP_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			'user_name'            => array( 'user_name' , false ) ,
-			'total_points'         => array( 'total_points' , false ) ,
-			'total_earned_points'  => array( 'total_earned_points' , false ) ,
-			'total_redeem_points'  => array( 'total_redeem_points' , false ) ,
-			'total_expired_points' => array( 'total_expired_points' , false ) ,
+			'user_name'            => array( 'user_name', false ),
+			'total_points'         => array( 'total_points', false ),
+			'total_earned_points'  => array( 'total_earned_points', false ),
+			'total_redeem_points'  => array( 'total_redeem_points', false ),
+			'total_expired_points' => array( 'total_expired_points', false ),
 				) ;
 	}
 
@@ -177,17 +177,17 @@ class WP_List_Table_For_Users extends WP_List_Table {
 			$RedeemedPoints  = $PointsData->total_redeemed_points() ;
 			$ExpiredPoints   = $PointsData->total_expired_points() ;
 			$data[]          = array(
-				'sno'                  => $startpoint + $i ,
-				'user_name'            => $UserInfo->user_login ,
-				'user_email'           => $UserInfo->user_email ,
-				'total_earned_points'  => $EarnedPoints ,
-				'total_points'         => $AvailablePoints ,
-				'total_redeem_points'  => $RedeemedPoints ,
-				'total_expired_points' => $ExpiredPoints ,
-				'view'                 => '<a href=' . add_query_arg( 'view' , $Data[ 'ID' ] , admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>View Log</a>' ,
-				'edit'                 => '<a href=' . add_query_arg( 'edit' , $Data[ 'ID' ] , admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>Edit Total Points</a>' ,
+				'sno'                  => $startpoint + $i,
+				'user_name'            => $UserInfo->user_login,
+				'user_email'           => $UserInfo->user_email,
+				'total_earned_points'  => $EarnedPoints,
+				'total_points'         => $AvailablePoints,
+				'total_redeem_points'  => $RedeemedPoints,
+				'total_expired_points' => $ExpiredPoints,
+				'view'                 => '<a href=' . add_query_arg( 'view' , $Data[ 'ID' ] , admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>View Log</a>',
+				'edit'                 => '<a href=' . add_query_arg( 'edit' , $Data[ 'ID' ] , admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>Edit Total Points</a>',
 					) ;
-			$i ++ ;
+			$i++ ;
 		}
 		return $data ;
 	}
@@ -231,7 +231,7 @@ class WP_List_Table_For_Users extends WP_List_Table {
 					'view'                      => '<a href=' . add_query_arg( 'view', $user->ID, admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>View Log</a>',
 					'edit'                      => '<a href=' . add_query_arg( 'edit', $user->ID, admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>Edit Total Points</a>',
 						) ;
-				$i ++ ;
+				$i++ ;
 			}
 
 			return $data ;
@@ -264,7 +264,7 @@ class WP_List_Table_For_Users extends WP_List_Table {
 					'view'                      => '<a href=' . add_query_arg( 'view', $user->ID, admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>View Log</a>',
 					'edit'                      => '<a href=' . add_query_arg( 'edit', $user->ID, admin_url( 'admin.php?page=rewardsystem_callback&tab=fprsuserrewardpoints' ) ) . '>Edit Total Points</a>',
 						) ;
-				$i ++ ;
+				$i++ ;
 			}
 
 			return $data ;
@@ -315,5 +315,4 @@ class WP_List_Table_For_Users extends WP_List_Table {
 
 		return -$result ;
 	}
-
 }

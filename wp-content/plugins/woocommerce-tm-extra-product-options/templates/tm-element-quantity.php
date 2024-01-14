@@ -22,7 +22,7 @@ if ( isset( $tm_element_settings ) && ! empty( $quantity ) && isset( $posted_nam
 	$__step          = floatval( $tm_element_settings['quantity_step'] );
 	$__default_value = $tm_element_settings['quantity_default_value'];
 
-	if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
+	if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_reset_options_after_add' ) ) {
 		if ( isset( $_REQUEST[ $posted_name . '_quantity' ] ) && ( ! isset( $checked ) || ! empty( $checked ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$attribute_quantity = map_deep( stripslashes_deep( $_REQUEST[ $posted_name . '_quantity' ] ), 'sanitize_text_field' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( is_array( $attribute_quantity ) && isset( $attribute_quantity[ $get_posted_key ] ) ) {

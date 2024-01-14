@@ -82,18 +82,18 @@ class THEMECOMPLETE_EPO_Autoloader {
 		$class_name     = strtolower( $class_name );
 		$file           = $this->get_file_name_from_class( $class_name );
 
-		if ( 0 === strpos( $class_name, 'themecomplete_epo_fields' ) ) {
+		if ( 0 === mb_strpos( $class_name, 'themecomplete_epo_fields' ) ) {
 			$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'fields/';
-		} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_admin_' ) ) {
+		} elseif ( 0 === mb_strpos( $class_name, 'themecomplete_epo_admin_' ) ) {
 			$path = THEMECOMPLETE_EPO_ADMIN_PATH;
-		} elseif ( 0 === strpos( $class_name, 'themecomplete_extra_' ) ) {
+		} elseif ( 0 === mb_strpos( $class_name, 'themecomplete_extra_' ) ) {
 			$path = THEMECOMPLETE_EPO_INCLUDES_PATH;
-		} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_' ) ) {
-			if ( 0 === strpos( $class_name, 'themecomplete_epo_compatibility_base' ) ) {
+		} elseif ( 0 === mb_strpos( $class_name, 'themecomplete_epo_' ) ) {
+			if ( 0 === mb_strpos( $class_name, 'themecomplete_epo_compatibility_base' ) ) {
 				$path = THEMECOMPLETE_EPO_COMPATIBILITY_PATH;
-			} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_cp' ) ) {
+			} elseif ( 0 === mb_strpos( $class_name, 'themecomplete_epo_cp' ) ) {
 				$path = THEMECOMPLETE_EPO_COMPATIBILITY_PATH . 'classes/';
-			} elseif ( 0 === strpos( $class_name, 'themecomplete_epo_builder_element' ) ) {
+			} elseif ( 0 === mb_strpos( $class_name, 'themecomplete_epo_builder_element' ) ) {
 				$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'classes/builder/';
 			} else {
 				$path = THEMECOMPLETE_EPO_INCLUDES_PATH . 'classes/';

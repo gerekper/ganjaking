@@ -590,7 +590,7 @@ class UCFormEntriesView extends WP_List_Table{
 			$rows[] = $row;
 		}
 
-		$filename = "unlimited-elements-export-" . current_time("mysql");
+		$filename = "form-entries-" . current_time("mysql") . ".csv";
 		$headers = array_merge($fieldHeaders, $entryHeaders);
 
 		UniteFunctionsUC::downloadCsv($filename, $headers, $rows);

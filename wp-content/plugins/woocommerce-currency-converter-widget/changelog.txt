@@ -1,5 +1,8 @@
 *** Currency Converter Changelog ***
 
+2023-12-14 - version 2.2.1
+* Fix - Fixed issue when loading the currencies locales.
+
 2023-12-12 - version 2.2.0
 * Feature - Added template to customize the widget content.
 * Tweak - Updated the plugin URLs to the new woo.com domain.

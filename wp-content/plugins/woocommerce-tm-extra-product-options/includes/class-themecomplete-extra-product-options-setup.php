@@ -187,14 +187,14 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return void
 	 */
 	public function includes() {
+		// Plugin compatibility functions.
+		require_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/compatibility-functions.php';
+
 		// Class autoloader.
 		include_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'class-themecomplete-epo-autoloader.php';
 
 		// Functions.
 		include_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/epo-functions.php';
-
-		// Plugin compatibility functions.
-		require_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/compatibility-functions.php';
 	}
 
 	/**

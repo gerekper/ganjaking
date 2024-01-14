@@ -22,6 +22,7 @@ if ( isset( $class_label, $element_id, $fieldtype, $name, $placeholder, $options
 	$placeholder = (string) $placeholder;
 	?>
 <li class="tmcp-field-wrap"><div class="tmcp-field-wrap-inner">
+	<div class="tc-col tc-field-label-wrap">
 	<label class="tc-col tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $element_id ); ?>">
 	<?php
 	$select_array = [
@@ -120,11 +121,31 @@ if ( isset( $class_label, $element_id, $fieldtype, $name, $placeholder, $options
 	);
 
 	THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, '/n', false, true );
+	$desc_inline = 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_description_inline' );
+	if ( ! $desc_inline ) {
+		require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php';
+	}
+
+	$has_desc = isset( $tm_element_settings ) && ! empty(
+		array_filter(
+			$tm_element_settings['cdescription'],
+			function ( $value ) {
+				return '' !== $value;
+			}
+		)
+	);
 	?>
 	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
+	</div>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
-</div><?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php'; ?></li>
+</div>
+	<?php
+	if ( $desc_inline ) {
+		require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_choice_description.php';
+	}
+	?>
+</li>
 	<?php
 endif;

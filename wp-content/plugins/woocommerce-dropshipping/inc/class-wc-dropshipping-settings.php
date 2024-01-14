@@ -2413,6 +2413,10 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 </tr>
                             </table>';
 
+							$from_name_sanitized = esc_html($from_name);
+							$from_email_sanitized = esc_html($from_email);
+							$woocommerce_url_sanitized = esc_url($woocommerce_url);
+
 							echo '<h2>Email Sender Information</h2>
 							<p style="margin-top: -10px;">If left empty, emails sent from the store will use default WooCommerce settings.</p>
 
@@ -2421,22 +2425,22 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr valign="top">
                                         <th scope="row" class="titledesc">
 
-                                            <label for="from_name">Emails sent from the store should show this sender name: <img class="help_tip" data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
+                                            <label for="from_name">Emails sent from the store should show this sender name: <img class="help_tip" data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url_sanitized . 'assets/images/help.png" height="16" width="16"></label>
                                         </th>
 
                                         <td class="forminp forminp-text">
 
-                                            <input name="from_name" id="from_name" type="text" size="30" value="' . $from_name . '" class="" placeholder="">
+                                            <input name="from_name" id="from_name" type="text" size="30" value="' . $from_name_sanitized . '" class="" placeholder="">
                                         </td>
                                     </tr>
 
                                     <tr valign="top">
                                         <th scope="row" class="titledesc">
-                                            <label for="from_email">Emails sent from the store should show this sender email address:<img class="help_tip" data-tip="This option will override default WooCommerce functionality" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
+                                            <label for="from_email">Emails sent from the store should show this sender email address:<img class="help_tip" data-tip="This option will override default WooCommerce functionality" src="' . $woocommerce_url_sanitized . 'assets/images/help.png" height="16" width="16"></label>
                                         </th>
 
                                         <td class="forminp forminp-email">
-                                            <input name="from_email" id="from_email" type="email" size="30" value="' . $from_email . '" class="" placeholder="" multiple="multiple">
+                                            <input name="from_email" id="from_email" type="email" size="30" value="' . $from_email_sanitized . '" class="" placeholder="" multiple="multiple">
 
                                             <input type="hidden" name="show_admin_notice_option" value="0" />
                                         </td>

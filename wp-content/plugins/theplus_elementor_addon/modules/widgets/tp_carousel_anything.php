@@ -49,8 +49,8 @@ class ThePlus_Carousel_Anything extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return ['carousel', 'carousel anything', 'tp', 'theplus'];
-	}
+        return ['carousel', 'slider', 'slideshow', 'image carousel', 'image slider', 'image slideshow', 'carousel widget', 'slider widget', 'slideshow widget'];
+    }
  
     protected function register_controls() {
  

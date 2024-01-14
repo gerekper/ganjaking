@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Currency Switcher from realmag777
+ * FOX - WooCommerce Currency Switcher from realmag777
  * https://codecanyon.net/item/woocommerce-currency-switcher/8085217
  *
  * @package Extra Product Options/Compatibility
@@ -47,6 +47,14 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	 * @var string|null|boolean
 	 */
 	public $default_from_currency = false;
+
+	/**
+	 * Custom help data
+	 * This is used in places where we need to add a custom property
+	 *
+	 * @var array<mixed>
+	 */
+	public $data_store = [];
 
 	/**
 	 * The single instance of the class
@@ -105,6 +113,10 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 		add_filter( 'wc_epo_script_args', [ $this, 'wc_epo_script_args' ], 10, 1 );
 		add_filter( 'tc_get_default_currency', [ $this, 'tc_get_default_currency' ], 10, 1 );
 		add_action( 'wc_epo_template_tm_totals', [ $this, 'wc_epo_template_tm_totals' ], 10 );
+		add_action( 'wc_epo_get_price_in_currency', [ $this, 'get_price_in_currency' ], 10, 6 );
+		add_action( 'wc_epo_price_display_mode_price', [ $this, 'wc_epo_price_display_mode_price' ], 10, 4 );
+		add_action( 'wc_epo_price_display_mode_from', [ $this, 'wc_epo_price_display_mode_from' ], 10, 4 );
+		add_action( 'wc_epo_price_display_mode_range', [ $this, 'wc_epo_price_display_mode_range' ], 10, 4 );
 	}
 
 	/**
@@ -224,10 +236,12 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	 * @since 1.0
 	 */
 	public function wc_epo_currency_actions( $price1, $price2, $cart_item ) {
-		$price1                       = apply_filters( 'wc_epo_convert_to_currency', $price1, $this->woocs->default_currency, $this->woocs->current_currency );
-		$cart_item['data']->tc_price1 = floatval( $price1 );// option prices.
-		$cart_item['data']->tc_price2 = floatval( $price2 );
-		$cart_item['data']->tm_epo_product_original_price = floatval( $cart_item['tm_epo_product_original_price'] );
+		$price1     = apply_filters( 'wc_epo_convert_to_currency', $price1, $this->woocs->default_currency, $this->woocs->current_currency );
+		$product_id = themecomplete_get_id( $cart_item['data'] );
+
+		$this->data_store[ $product_id ]['tc_price1']                     = floatval( $price1 );// option prices.
+		$this->data_store[ $product_id ]['tc_price2']                     = floatval( $price2 );
+		$this->data_store[ $product_id ]['tm_epo_product_original_price'] = floatval( $cart_item['tm_epo_product_original_price'] );
 	}
 
 	/**
@@ -251,9 +265,9 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 		$product_id = $product->get_id();
 
 		$flag = false;
-		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) ) {
 			$flag = true;
-		} elseif ( '' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price ) {
+		} elseif ( '' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_override_product_price' ) ) {
 			$tm_meta_cpf = themecomplete_get_post_meta( $product_id, 'tm_meta_cpf', true );
 			if ( ! is_array( $tm_meta_cpf ) ) {
 				$tm_meta_cpf = [];
@@ -279,8 +293,8 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 			return $fixed_price;
 		}
 
-		$option_prices                      = floatval( $product->tc_price1 );
-		$original_price_in_current_currency = floatval( $product->tm_epo_product_original_price );
+		$option_prices                      = isset( $this->data_store[ $product_id ] ) ? $this->data_store[ $product_id ]['tc_price1'] : 0;
+		$original_price_in_current_currency = isset( $this->data_store[ $product_id ] ) ? $this->data_store[ $product_id ]['tm_epo_product_original_price'] : 0;
 		$original_price_in_current_currency = floatval( $this->wc_epo_get_current_currency_price( $original_price_in_current_currency ) );
 
 		$new_price = $original_price_in_current_currency + $option_prices;
@@ -295,14 +309,14 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	}
 
 	/**
-	 * Add additional info in price html
+	 * General price manipulations.
 	 *
-	 * @param string $price_html The price html code..
+	 * @param string $price_html The price html code.
 	 * @param object $product The product object.
 	 * @return string
-	 * @since 1.0
+	 * @since 6.4.2
 	 */
-	public function wc_epo_get_price_html( $price_html, $product ) {
+	public function woocs_price_html_general( $price_html, $product ) {
 		$currencies            = is_callable( [ $this->woocs, 'get_currencies' ] ) ? $this->woocs->get_currencies() : [];
 		$customer_price_format = get_option( 'woocs_customer_price_format', '' );
 
@@ -318,6 +332,117 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 				$price_html = preg_replace( '/\.[0-9][0-9]/', '', $price_html );
 			}
 		}
+
+		return $price_html;
+	}
+
+	/**
+	 * Add additional info in price html
+	 *
+	 * @param string $price_html The price html code.
+	 * @param mixed  $from_price The from price in default currency.
+	 * @param mixed  $to_price The to price in default currency.
+	 * @param object $product The product object.
+	 * @return string
+	 * @since 6.4.2
+	 */
+	public function wc_epo_price_display_mode_range( $price_html, $from_price, $to_price, $product ) {
+		$currencies = is_callable( [ $this->woocs, 'get_currencies' ] ) ? $this->woocs->get_currencies() : [];
+		$price_html = $this->woocs_price_html_general( $price_html, $product );
+
+		if ( ( get_option( 'woocs_price_info', 0 ) && ! is_admin() ) || isset( $_REQUEST['get_product_price_by_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$info             = '<ul>';
+			$current_currency = $this->woocs->current_currency;
+			foreach ( $currencies as $curr ) {
+				if ( ! isset( $curr['name'] ) || $curr['name'] === $current_currency ) {
+					continue;
+				}
+				$this->woocs->current_currency = $curr['name'];
+
+				$min_value  = (float) $from_price;
+				$max_value  = (float) $to_price;
+				$min_value  = number_format( $min_value, 2, $this->woocs->decimal_sep, '' );
+				$max_value  = number_format( $max_value, 2, $this->woocs->decimal_sep, '' );
+				$var_price  = $this->woocs->wc_price( $min_value, [ 'currency' => $curr['name'] ] );
+				$var_price .= ' - ';
+				$var_price .= $this->woocs->wc_price( $max_value, [ 'currency' => $curr['name'] ] );
+				$info      .= '<li><b>' . $curr['name'] . '</b>: ' . $var_price . '</li>';
+			}
+			$this->woocs->current_currency = $current_currency;
+
+			$info       .= '</ul>';
+			$info        = '<div class="woocs_price_info"><span class="woocs_price_info_icon"></span>' . $info . '</div>';
+			$price_html .= $info;
+		}
+
+		return $price_html;
+	}
+
+	/**
+	 * Add additional info in price html
+	 *
+	 * @param string $price_html The price html code.
+	 * @param mixed  $price The price in default currency.
+	 * @param mixed  $sale_price The sale price in default currency.
+	 * @param object $product The product object.
+	 * @return string
+	 * @since 6.4.2
+	 */
+	public function wc_epo_price_display_mode_from( $price_html, $price, $sale_price, $product ) {
+		$currencies = is_callable( [ $this->woocs, 'get_currencies' ] ) ? $this->woocs->get_currencies() : [];
+		$price_html = $this->woocs_price_html_general( $price_html, $product );
+
+		if ( ( get_option( 'woocs_price_info', 0 ) && ! is_admin() ) || isset( $_REQUEST['get_product_price_by_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$info             = '<ul>';
+			$current_currency = $this->woocs->current_currency;
+			foreach ( $currencies as $curr ) {
+				if ( ! isset( $curr['name'] ) || $curr['name'] === $current_currency ) {
+					continue;
+				}
+				$this->woocs->current_currency = $curr['name'];
+
+				$value = $price;
+				if ( '' !== $sale_price ) {
+					$value = $sale_price;
+				}
+				$value = (float) $value;
+				$value = number_format( $value, 2, $this->woocs->decimal_sep, '' );
+				$info .= '<li><b>' . $curr['name'] . '</b>: ' . $this->woocs->wc_price( $value, [ 'currency' => $curr['name'] ] ) . '</li>';
+			}
+			$this->woocs->current_currency = $current_currency;
+
+			$info       .= '</ul>';
+			$info        = '<div class="woocs_price_info"><span class="woocs_price_info_icon"></span>' . $info . '</div>';
+			$price_html .= $info;
+		}
+
+		return $price_html;
+	}
+
+	/**
+	 * Add additional info in price html
+	 *
+	 * @param string $price_html The price html code.
+	 * @param mixed  $price The price in default currency.
+	 * @param mixed  $sale_price The sale price in default currency.
+	 * @param object $product The product object.
+	 * @return string
+	 * @since 6.4.2
+	 */
+	public function wc_epo_price_display_mode_price( $price_html, $price, $sale_price, $product ) {
+		return $this->wc_epo_price_display_mode_from( $price_html, $price, $sale_price, $product );
+	}
+
+	/**
+	 * Add additional info in price html
+	 *
+	 * @param string $price_html The price html code.
+	 * @param object $product The product object.
+	 * @return string
+	 * @since 1.0
+	 */
+	public function wc_epo_get_price_html( $price_html, $product ) {
+		$price_html = $this->woocs_price_html_general( $price_html, $product );
 
 		if ( ( get_option( 'woocs_price_info', 0 ) && ! is_admin() ) || isset( $_REQUEST['get_product_price_by_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$info             = '<ul>';
@@ -454,8 +579,8 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 			// Replaces any number between curly braces with the current currency.
 			$price = preg_replace_callback(
 				'/\{(\d+)\}/',
-				function ( $matches ) {
-					return apply_filters( 'wc_epo_get_currency_price', $matches[1], false, '' );
+				function ( $matches ) use( $currency ) {
+					return apply_filters( 'wc_epo_get_currency_price', $matches[1], $currency, '' );
 				},
 				$price
 			);
@@ -594,7 +719,7 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	 *
 	 * @return mixed The price converted from source to destination currency.
 	 */
-	protected function get_price_in_currency( $price, $to_currency = null, $from_currency = null, $currencies = null, $type = null, $key = null ) {
+	public function get_price_in_currency( $price, $to_currency = null, $from_currency = null, $currencies = null, $type = null, $key = null ) {
 
 		if ( empty( $from_currency ) ) {
 			$from_currency = $this->get_default_from_currency();

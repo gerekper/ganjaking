@@ -46,6 +46,10 @@ class ThePlus_Unfold extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return [ 'Unfold', 'Read More', 'Expand', 'Show More', 'Show Less', 'Toggle', 'Read More Button', 'Elementor Read More', 'Elementor Unfold' ];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

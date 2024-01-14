@@ -20,14 +20,14 @@ jQuery( function ( $ ) {
             var $block = $( this ).closest( '.rs_modulecheck_wrapper' ) ;
             MasterLogScript.block( $block ) ;
             var data = ( {
-                action : 'exportlog' ,
+                action : 'export_log' ,
                 usertype : $( "input:radio[name=rs_export_import_masterlog_option]:checked" ).val() ,
                 selecteduser : $( "#rs_export_masterlog_users_list" ).val() ,
                 sumo_security : fp_masterlog_params.fp_export_log ,
             } ) ;
             $.post( fp_masterlog_params.ajaxurl , data , function ( response ) {
                 if ( true === response.success ) {
-                    window.location.href = fp_masterlog_params.redirecturl ;
+                    window.location.href = response.data.redirect_url ;
                 } else {
                     window.alert( response.data.error ) ;
                 }

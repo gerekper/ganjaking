@@ -26,11 +26,11 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 		 */
 		public function init_hooks() {
 			// This hook registers SUMO Reward Points data exporters.
-			add_filter( 'wp_privacy_personal_data_exporters' , array( __CLASS__ , 'register_exporters' ) ) ;
+			add_filter( 'wp_privacy_personal_data_exporters' , array( __CLASS__, 'register_exporters' ) ) ;
 			// This hook registers SUMO Reward Points data erasers.
-			add_filter( 'wp_privacy_personal_data_erasers' , array( __CLASS__ , 'register_erasers' ) ) ;
+			add_filter( 'wp_privacy_personal_data_erasers' , array( __CLASS__, 'register_erasers' ) ) ;
 
-			add_action( 'admin_init' , array( __CLASS__ , 'add_privacy_content_for_reward_points' ) , 20 ) ;
+			add_action( 'admin_init' , array( __CLASS__, 'add_privacy_content_for_reward_points' ) , 20 ) ;
 		}
 
 		/**
@@ -38,8 +38,8 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 		 */
 		public static function register_exporters( $exporter ) {
 			$exporter[ 'srp-customer-data' ] = array(
-				'exporter_friendly_name' => __( 'Reward Points' , 'rewardsystem' ) ,
-				'callback'               => array( __CLASS__ , 'customer_data_exporter' ) ,
+				'exporter_friendly_name' => __( 'Reward Points' , 'rewardsystem' ),
+				'callback'               => array( __CLASS__, 'customer_data_exporter' ),
 					) ;
 
 			return $exporter ;
@@ -50,8 +50,8 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 		 */
 		public static function register_erasers( $erasers ) {
 			$erasers[ 'srp-customer-data' ] = array(
-				'eraser_friendly_name' => __( 'Reward Points' , 'rewardsystem' ) ,
-				'callback'             => array( __CLASS__ , 'customer_data_eraser' ) ,
+				'eraser_friendly_name' => __( 'Reward Points' , 'rewardsystem' ),
+				'callback'             => array( __CLASS__, 'customer_data_eraser' ),
 					) ;
 
 			return $erasers ;
@@ -65,21 +65,21 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 			$user_data      = get_user_by( 'email' , $email_address ) ; // Check if user has an ID in the DB to load stored personal data.
 			if ( ! $user_data instanceof WP_User ) {
 				return array(
-					'data' => $data_to_export ,
-					'done' => true ,
+					'data' => $data_to_export,
+					'done' => true,
 						) ;
 			}
 
 			$data_to_export[] = array(
-				'group_id'    => 'srp-customer-data' ,
-				'group_label' => __( 'Reward Points' , 'rewardsystem' ) ,
-				'item_id'     => 'user' ,
-				'data'        => self::get_customer_personal_data( $user_data ) ,
+				'group_id'    => 'srp-customer-data',
+				'group_label' => __( 'Reward Points' , 'rewardsystem' ),
+				'item_id'     => 'user',
+				'data'        => self::get_customer_personal_data( $user_data ),
 					) ;
 
 			return array(
-				'data' => $data_to_export ,
-				'done' => true ,
+				'data' => $data_to_export,
+				'done' => true,
 					) ;
 		}
 
@@ -88,10 +88,10 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 		 */
 		public static function customer_data_eraser( $email_address, $page ) {
 			$response = array(
-				'items_removed'  => false ,
-				'items_retained' => false ,
-				'messages'       => array() ,
-				'done'           => true ,
+				'items_removed'  => false,
+				'items_retained' => false,
+				'messages'       => array(),
+				'done'           => true,
 					) ;
 
 			$user = get_user_by( 'email' , $email_address ) ; // Check if user has an ID in the DB to load stored personal data.
@@ -121,38 +121,38 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 			$payment_detail        = get_paypal_id_form_cashback_form( $user_id ) ;
 			return array(
 				array(
-					'name'  => __( 'User ID' , 'rewardsystem' ) ,
-					'value' => $user_id ,
-				) ,
+					'name'  => __( 'User ID' , 'rewardsystem' ),
+					'value' => $user_id,
+				),
 				array(
-					'name'  => __( 'Available Points' , 'rewardsystem' ) ,
-					'value' => $available_points ,
-				) ,
+					'name'  => __( 'Available Points' , 'rewardsystem' ),
+					'value' => $available_points,
+				),
 				array(
-					'name'  => __( 'Total Earned Points' , 'rewardsystem' ) ,
-					'value' => $total_earned_points ,
-				) ,
+					'name'  => __( 'Total Earned Points' , 'rewardsystem' ),
+					'value' => $total_earned_points,
+				),
 				array(
-					'name'  => __( 'Total Redeemed Points' , 'rewardsystem' ) ,
-					'value' => $total_redeemed_points ,
-				) ,
+					'name'  => __( 'Total Redeemed Points' , 'rewardsystem' ),
+					'value' => $total_redeemed_points,
+				),
 				array(
-					'name'  => __( 'Total Expired Points' , 'rewardsystem' ) ,
-					'value' => $total_expired_points ,
-				) ,
+					'name'  => __( 'Total Expired Points' , 'rewardsystem' ),
+					'value' => $total_expired_points,
+				),
 				array(
-					'name'  => __( 'Payment Details for Cashback' , 'rewardsystem' ) ,
-					'value' => '' == $payment_detail ? '-' : $payment_detail ,
-				) ,
+					'name'  => __( 'Payment Details for Cashback' , 'rewardsystem' ),
+					'value' => '' == $payment_detail ? '-' : $payment_detail,
+				),
 					) ;
 		}
 
 		public static function remove_data_from_table( $user_id ) {
 			global $wpdb ;
 			$table_names = array(
-				'rspointexpiry' ,
-				'rsrecordpoints' ,
-				'sumo_reward_encashing_submitted_data'
+				'rspointexpiry',
+				'rsrecordpoints',
+				'sumo_reward_encashing_submitted_data',
 					) ;
 			foreach ( $table_names as $name ) {
 				$res   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}%s WHERE userid = %d" , $name, $user_id ) ) ;
@@ -163,9 +163,7 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 		 * Return the privacy policy content for SUMO Reward Points.
 		 */
 		public static function get_privacy_content() {
-			return
-
-					'<p>' . __( 'This includes the basics of what personal data your store may be collecting, storing and sharing. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary' , 'rewardasystem' ) . '</p>' .
+			return '<p>' . __( 'This includes the basics of what personal data your store may be collecting, storing and sharing. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary' , 'rewardasystem' ) . '</p>' .
 					'<h2>' . __( 'What the Plugin Does' , 'rewardasystem' ) . '</h2>' .
 					'<p>' . __( '- Reward Points can be earned for various actions such as account signup, product purchase, social promotion, product review, etc' , 'rewardasystem' ) . '</p>' .
 					'<p>' . __( '- The earned reward points can be used for getting a discount on future purchases' , 'rewardasystem' ) . '</p>' .
@@ -194,7 +192,6 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 			$content =  self::get_privacy_content() ;
 			wp_add_privacy_policy_content( __( 'SUMO Reward Points' , 'rewardsystem' ) , $content ) ;
 		}
-
 	}
 
 	new SRP_Privacy() ;

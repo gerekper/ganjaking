@@ -89,6 +89,22 @@
 	<key name="rs_bday_field_label" />
 	<key name="rs_bday_field_reason_label" />
 	<!-- Birthday Reward Points Label Settings-->
+	
+	<!-- Bonus Reward Points Label Settings-->
+	<key name="_rs_bonus_reward_points_orders_log" />
+	<key name="rs_email_subject_number_of_orders_bonus_point" />
+	<key name="rs_email_message_number_of_orders_bonus_point" />
+	<!-- Bonus Reward Points Label Settings-->
+	
+	<!-- Anniversary Reward Points Label Settings-->
+	<key name="rs_account_anniversary_field_reward_log" />
+	<key name="rs_email_subject_account_anniversary" />
+	<key name="rs_email_message_account_anniversary" />
+	
+	<key name="rs_custom_anniversary_field_reward_log"/>
+	<key name="rs_email_subject_custom_anniversary"/>
+	<key name="rs_email_message_custom_anniversary"/>
+	<!-- Anniversary Reward Points Label Settings-->
 
 	<!-- My Referral Table Label Settings-->
 	<key name="rs_referal_table_title" />
@@ -408,12 +424,18 @@
 
 	<!-- Redeeming Settings for Cart Page -->
 	<key name="rs_redeeming_button_option_message" />
+	<key name="rs_redeeming_start_sequence_msg"/>
+	<key name="rs_redeeming_predefined_points_selection_label"/>
+	<key name="rs_redeeming_predefined_choose_option_label"/>
 	<!-- Redeeming Settings for Cart Page -->
 
 	<!-- Redeeming Settings for Checkout Page -->
 	<key name="rs_reedming_field_label_checkout" />
 	<key name="rs_reedming_field_link_label_checkout" />
 	<key name="rs_redeeming_button_option_message_checkout"/>
+	<key name="rs_redeeming_start_sequence_msg_checkout"/>
+	<key name="rs_redeeming_predefined_points_selection_label_checkout"/>
+	<key name="rs_redeeming_predefined_choose_option_label_checkout"/>
 	<!-- Redeeming Settings for Checkout Page -->
 
 	<!-- Redeeming Settings for Cart and Checkout Page -->
@@ -431,6 +453,7 @@
 	<key name="rs_max_cart_total_redeem_error"/>
 	<key name="rs_available_points_redeem_error"/>
 	<key name="rs_coupon_applied_individual_error_msg"/>
+	<key name="rs_maximum_redeeming_per_day_error"/>
 	<!-- Redeeming Restriction -->
 
 	<!-- Message Settings in Edit Order Page -->
@@ -600,10 +623,14 @@
 
 	<!-- Single Product Page Message Settings -->
 	<key name="rs_message_for_single_product_point_rule" />
+        <key name="rs_purchase_reward_message_single_product_guest" />
 	<key name="rs_message_in_single_product_page" />
+        <key name="rs_earn_message_single_product_guest"/>
 	<key name="rs_message_in_single_product_page_related_products" />
 	<key name="rs_message_for_single_product_variation" />
+        <key name="rs_earn_message_single_product_variation_guest" />
 	<key name="rs_message_for_variation_products"/>
+        <key name="rs_message_variation_single_product_guest"/>
 	<key name="rs_message_in_variable_related_products"/>
 	<key name="rs_msg_for_fixed_cart_total_based_product_purchase"/>
 	<key name="rs_msg_for_percent_cart_total_based_product_purchase"/>

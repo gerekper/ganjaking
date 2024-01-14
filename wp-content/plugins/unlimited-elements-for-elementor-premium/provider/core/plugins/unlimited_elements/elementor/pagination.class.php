@@ -456,7 +456,7 @@ class UniteCreatorElementorPagination{
 			$isArchive = is_archive();
 			
 			if($isFront == true)
-				$permalink = GlobalsUC::$url_base;
+				$permalink = GlobalsUC::$url_site;
 			
 			$urlCurrentPage = UniteFunctionsWPUC::getUrlCurrentPage(true);
 			

@@ -12,7 +12,7 @@ class Preload
     //initialize preload functions
     public static function init() 
     {
-       add_action('wp', array('Perfmatters\Preload', 'queue'));
+       add_action('perfmatters_queue', array('Perfmatters\Preload', 'queue'));
     }
 
     //queue functions

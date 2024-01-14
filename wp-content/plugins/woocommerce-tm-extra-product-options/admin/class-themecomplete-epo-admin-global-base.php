@@ -185,7 +185,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 * Search for products and variations in categories
 	 *
 	 * @return void
-	 * @since  5.0
+	 * @since 5.0
 	 */
 	public static function wc_epo_search_products_in_categories() {
 		check_ajax_referer( 'search-products', 'security' );
@@ -225,7 +225,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 * Get the categories of a product.
 	 *
 	 * @return void
-	 * @since  5.0
+	 * @since 5.0
 	 */
 	public static function wc_epo_get_product_categories() {
 
@@ -1603,7 +1603,20 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		<?php
 		// check for correct saved meta.
 		$tm_meta_product_ids = themecomplete_get_post_meta( $post->ID, 'tm_meta_product_ids', true );
-		if ( 'auto-draft' !== $post->post_status && $tm_meta_product_ids !== $meta['product_ids'] ) {
+
+		// The below is required since on some systems the ids are saved as strings.
+		$array1 = $tm_meta_product_ids;
+		if ( ! is_array( $array1 ) ) {
+			$array1 = [ $array1 ];
+		}
+		$array2 = $meta['product_ids'];
+		if ( ! is_array( $array2 ) ) {
+			$array2 = [ $array2 ];
+		}
+		$array1 = array_map( 'strval', $array1 );
+		$array2 = array_map( 'strval', $array2 );
+
+		if ( 'auto-draft' !== $post->post_status && $array1 !== $array2 ) {
 			echo '<div class="tc-info tc-error">';
 			esc_html_e( 'Meta data not correctly saved. Please save the product!', 'woocommerce-tm-extra-product-options' );
 			echo '</div>';
@@ -1719,7 +1732,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			THEMECOMPLETE_EPO_ADMIN_BUILDER()->print_saved_elements( $id_for_meta, $post->ID, $wpml_is_original_product );
 			echo '</div>';
 
-			if ( $wpml_is_original_product && ( 'product' !== $this->post->type || 'yes' !== THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode ) ) {
+			if ( $wpml_is_original_product && ( 'product' !== $this->post->type || 'yes' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_hide_product_builder_mode' ) ) ) {
 				echo '<div id="tc-welcome" class="tc-welcome">';
 				if ( $show_buttons ) {
 					echo '<div class="tc-info-text">'
@@ -2560,7 +2573,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 		}
 		$ext = '.min';
-		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$ext = '';
 		}
 		wp_enqueue_style( 'themecomplete-pagination', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tcpagination' . $ext . '.css', [], THEMECOMPLETE_EPO_VERSION, 'screen' );
@@ -2585,7 +2598,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	public function register_admin_scripts( $override = 0 ) {
 		global $wp_query, $post;
 		$ext = '.min';
-		if ( 'dev' === THEMECOMPLETE_EPO()->tm_epo_global_js_css_mode ) {
+		if ( 'dev' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_global_js_css_mode' ) ) {
 			$ext = '';
 		}
 		$this->register_admin_styles( $override );
@@ -2621,6 +2634,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 		wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', [], '2.1.4', true );
 
+		wp_register_script( 'themecomplete-tm-math', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-math' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
+
 		wp_register_script(
 			'themecomplete-global-epo-admin',
 			THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/tm-global-epo-admin' . $ext . '.js',
@@ -2640,6 +2655,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 				'jquery-tcfloatbox',
 				'jquery-tctooltip',
 				'plupload-all',
+				'themecomplete-tm-math',
 			],
 			THEMECOMPLETE_EPO_VERSION,
 			true
@@ -2660,88 +2676,93 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		}
 
 		$params = [
-			'post_id'                            => sprintf( '%d', $post_id ),
-			'original_post_id'                   => sprintf( '%d', $original_post_id ),
-			'is_original_post'                   => $post_id === $original_post_id,
-			'get_products_categories_nonce'      => wp_create_nonce( 'get-product-categories' ),
-			'search_products_nonce'              => wp_create_nonce( 'search-products' ),
-			'export_nonce'                       => wp_create_nonce( 'export-nonce' ),
-			'check_attributes_nonce'             => wp_create_nonce( 'check_attributes' ),
-			'import_nonce'                       => wp_create_nonce( 'import-nonce' ),
-			'save_nonce'                         => wp_create_nonce( 'save-nonce' ),
+			'post_id'                                  => sprintf( '%d', $post_id ),
+			'original_post_id'                         => sprintf( '%d', $original_post_id ),
+			'is_original_post'                         => $post_id === $original_post_id,
+			'get_products_categories_nonce'            => wp_create_nonce( 'get-product-categories' ),
+			'search_products_nonce'                    => wp_create_nonce( 'search-products' ),
+			'export_nonce'                             => wp_create_nonce( 'export-nonce' ),
+			'check_attributes_nonce'                   => wp_create_nonce( 'check_attributes' ),
+			'import_nonce'                             => wp_create_nonce( 'import-nonce' ),
+			'save_nonce'                               => wp_create_nonce( 'save-nonce' ),
 			// WPML 3.3.x fix.
-			'ajax_url'                           => strtok( admin_url( 'admin-ajax' . '.php' ), '?' ), // phpcs:ignore Generic.Strings.UnnecessaryStringConcat
-			'plugin_url'                         => THEMECOMPLETE_EPO_PLUGIN_URL,
-			'import_url'                         => $import_url,
-			'element_data'                       => $this->js_element_data(), // This is internal HTML code so we don't escape it.
-			'i18n_builder_delete'                => esc_html__( 'Are you sure you want to delete this item?', 'woocommerce-tm-extra-product-options' ),
-			'i18n_builder_clone'                 => esc_html__( 'Are you sure you want to clone this item?', 'woocommerce-tm-extra-product-options' ),
-			'i18n_builder_change_ask_title'      => esc_html__( 'Change Element Type', 'woocommerce-tm-extra-product-options' ),
-			'i18n_builder_change_ask'            => esc_html__( 'Would you like the new element to inherit data from the previous one?', 'woocommerce-tm-extra-product-options' ),
-			'i18n_change_element'                => esc_html__( 'Change Element Type', 'woocommerce-tm-extra-product-options' ),
-			'i18n_yes'                           => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
-			'i18n_no'                            => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ),
-			'i18n_update'                        => esc_html__( 'Update', 'woocommerce-tm-extra-product-options' ),
-			'i18n_no_variations'                 => esc_html__( 'There are no saved variations yet.', 'woocommerce-tm-extra-product-options' ),
-			'i18n_cancel'                        => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
-			'i18n_edit_settings'                 => esc_html__( 'Edit settings', 'woocommerce-tm-extra-product-options' ),
-			'i18n_element_uniqid'                => esc_html__( 'Element id', 'woocommerce-tm-extra-product-options' ),
-			'i18n_section_uniqid'                => esc_html__( 'Section id', 'woocommerce-tm-extra-product-options' ),
-			'i18n_is'                            => esc_html__( 'is', 'woocommerce-tm-extra-product-options' ),
-			'i18n_is_not'                        => esc_html__( 'is not', 'woocommerce-tm-extra-product-options' ),
-			'i18n_is_empty'                      => esc_html__( 'is empty', 'woocommerce-tm-extra-product-options' ),
-			'i18n_is_not_empty'                  => esc_html__( 'is not empty', 'woocommerce-tm-extra-product-options' ),
-			'i18n_starts_with'                   => esc_html__( 'starts with', 'woocommerce-tm-extra-product-options' ),
-			'i18n_ends_with'                     => esc_html__( 'ends with', 'woocommerce-tm-extra-product-options' ),
-			'i18n_greater_than'                  => esc_html__( 'greater than', 'woocommerce-tm-extra-product-options' ),
-			'i18n_less_than'                     => esc_html__( 'less than', 'woocommerce-tm-extra-product-options' ),
-			'i18n_greater_than_equal'            => esc_html__( 'greater than or equal to', 'woocommerce-tm-extra-product-options' ),
-			'i18n_less_than_equal'               => esc_html__( 'less than or equal to', 'woocommerce-tm-extra-product-options' ),
-			'i18n_cannot_apply_rules'            => esc_html__( 'Cannot apply rules on this element or section since there are not any value configured elements on other sections, or no other sections found.', 'woocommerce-tm-extra-product-options' ),
-			'i18n_cannot_apply_shippingrules'    => esc_html__( 'An error has occurred! Cannot apply conditions on this element!', 'woocommerce-tm-extra-product-options' ),
-			'i18n_invalid_request'               => esc_html__( 'Invalid request!', 'woocommerce-tm-extra-product-options' ),
-			'i18n_populate'                      => esc_html__( 'Populate', 'woocommerce-tm-extra-product-options' ),
-			'i18n_invalid_extension'             => esc_html__( 'Invalid file extension', 'woocommerce-tm-extra-product-options' ),
-			'i18n_importing'                     => esc_html__( 'Importing csv...', 'woocommerce-tm-extra-product-options' ),
-			'i18n_saving'                        => esc_html__( 'Saving... Please wait.', 'woocommerce-tm-extra-product-options' ),
-			'i18n_import_title'                  => esc_html__( 'Importing data', 'woocommerce-tm-extra-product-options' ),
-			'i18n_error_title'                   => esc_html__( 'Error', 'woocommerce-tm-extra-product-options' ),
-			'i18n_add_element'                   => esc_html__( 'Add element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_edit_price'                    => esc_html__( 'Edit price', 'woocommerce-tm-extra-product-options' ),
-			'i18n_edit_tab'                      => esc_html__( 'Edit tab', 'woocommerce-tm-extra-product-options' ),
-			'i18n_save'                          => esc_html__( 'Save', 'woocommerce-tm-extra-product-options' ),
-			'i18n_overwrite_existing_elements'   => esc_html__( 'Overwrite existing elements', 'woocommerce-tm-extra-product-options' ),
-			'i18n_append_new_elements'           => esc_html__( 'Append new elements', 'woocommerce-tm-extra-product-options' ),
-			'i18n_form_is_applied_to_all'        => esc_html__( 'The form is being applied to all products', 'woocommerce-tm-extra-product-options' ),
-			'i18n_form_not_applied_to_all'       => esc_html__( 'The form isn\'t being applied to any products', 'woocommerce-tm-extra-product-options' ),
-			'i18n_no_title'                      => esc_html__( '(No title)', 'woocommerce-tm-extra-product-options' ),
-			'i18n_epo'                           => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
-			'i18n_loading'                       => esc_html__( 'Loading ...', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_product_variables'     => esc_html__( 'Product variables', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_global_variables'      => esc_html__( 'Global variables', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_quantity'              => esc_html__( 'Product quantity', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_product_price'         => esc_html__( 'Original product price', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_element'          => esc_html__( 'This element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_value'            => esc_html__( 'The value of this element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_value_length'     => esc_html__( 'The value length of this element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_count'            => esc_html__( 'The number of options the user has selected', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_count_quantity'   => esc_html__( 'The total quantity of this element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_this_quantity'         => esc_html__( 'The quantity of this element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_other_elements'        => esc_html__( 'Other elements', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_price'           => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_price_tip'       => esc_html__( 'The price of the targeted element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_value'           => esc_html__( 'Value', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_value_tip'       => esc_html__( 'The value of the targeted element converted to a float', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_text'            => esc_html__( 'Text', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_text_tip'        => esc_html__( 'The raw value of the targeted element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_text_length'     => esc_html__( 'Text length', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_text_length_tip' => esc_html__( 'The text length of the targeted element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_quantity'        => esc_html__( 'Quantity', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_quantity_tip'    => esc_html__( 'The total quantity of the targeted element', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_count'           => esc_html__( 'Count', 'woocommerce-tm-extra-product-options' ),
-			'i18n_formula_field_count_tip'       => esc_html__( 'The number of options the user has selected on the targeted element', 'woocommerce-tm-extra-product-options' ),
-			'tcAdminNoPagination'                => apply_filters( 'wc_epo_admin_no_pagination', false ),
-
+			'ajax_url'                                 => strtok( admin_url( 'admin-ajax' . '.php' ), '?' ), // phpcs:ignore Generic.Strings.UnnecessaryStringConcat
+			'plugin_url'                               => THEMECOMPLETE_EPO_PLUGIN_URL,
+			'import_url'                               => $import_url,
+			'element_data'                             => $this->js_element_data(), // This is internal HTML code so we don't escape it.
+			'i18n_builder_delete'                      => esc_html__( 'Are you sure you want to delete this item?', 'woocommerce-tm-extra-product-options' ),
+			'i18n_builder_clone'                       => esc_html__( 'Are you sure you want to clone this item?', 'woocommerce-tm-extra-product-options' ),
+			'i18n_builder_change_ask_title'            => esc_html__( 'Change Element Type', 'woocommerce-tm-extra-product-options' ),
+			'i18n_builder_change_ask'                  => esc_html__( 'Would you like the new element to inherit data from the previous one?', 'woocommerce-tm-extra-product-options' ),
+			'i18n_change_element'                      => esc_html__( 'Change Element Type', 'woocommerce-tm-extra-product-options' ),
+			'i18n_yes'                                 => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+			'i18n_no'                                  => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ),
+			'i18n_update'                              => esc_html__( 'Update', 'woocommerce-tm-extra-product-options' ),
+			'i18n_no_variations'                       => esc_html__( 'There are no saved variations yet.', 'woocommerce-tm-extra-product-options' ),
+			'i18n_cancel'                              => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
+			'i18n_edit_settings'                       => esc_html__( 'Edit settings', 'woocommerce-tm-extra-product-options' ),
+			'i18n_element_uniqid'                      => esc_html__( 'Element id', 'woocommerce-tm-extra-product-options' ),
+			'i18n_section_uniqid'                      => esc_html__( 'Section id', 'woocommerce-tm-extra-product-options' ),
+			'i18n_is'                                  => esc_html__( 'is', 'woocommerce-tm-extra-product-options' ),
+			'i18n_is_not'                              => esc_html__( 'is not', 'woocommerce-tm-extra-product-options' ),
+			'i18n_is_empty'                            => esc_html__( 'is empty', 'woocommerce-tm-extra-product-options' ),
+			'i18n_is_not_empty'                        => esc_html__( 'is not empty', 'woocommerce-tm-extra-product-options' ),
+			'i18n_starts_with'                         => esc_html__( 'starts with', 'woocommerce-tm-extra-product-options' ),
+			'i18n_ends_with'                           => esc_html__( 'ends with', 'woocommerce-tm-extra-product-options' ),
+			'i18n_greater_than'                        => esc_html__( 'greater than', 'woocommerce-tm-extra-product-options' ),
+			'i18n_less_than'                           => esc_html__( 'less than', 'woocommerce-tm-extra-product-options' ),
+			'i18n_greater_than_equal'                  => esc_html__( 'greater than or equal to', 'woocommerce-tm-extra-product-options' ),
+			'i18n_less_than_equal'                     => esc_html__( 'less than or equal to', 'woocommerce-tm-extra-product-options' ),
+			'i18n_cannot_apply_rules'                  => esc_html__( 'Cannot apply rules on this element or section since there are not any value configured elements on other sections, or no other sections found.', 'woocommerce-tm-extra-product-options' ),
+			'i18n_cannot_apply_shippingrules'          => esc_html__( 'An error has occurred! Cannot apply conditions on this element!', 'woocommerce-tm-extra-product-options' ),
+			'i18n_invalid_request'                     => esc_html__( 'Invalid request!', 'woocommerce-tm-extra-product-options' ),
+			'i18n_populate'                            => esc_html__( 'Populate', 'woocommerce-tm-extra-product-options' ),
+			'i18n_invalid_extension'                   => esc_html__( 'Invalid file extension', 'woocommerce-tm-extra-product-options' ),
+			'i18n_importing'                           => esc_html__( 'Importing csv...', 'woocommerce-tm-extra-product-options' ),
+			'i18n_saving'                              => esc_html__( 'Saving... Please wait.', 'woocommerce-tm-extra-product-options' ),
+			'i18n_import_title'                        => esc_html__( 'Importing data', 'woocommerce-tm-extra-product-options' ),
+			'i18n_error_title'                         => esc_html__( 'Error', 'woocommerce-tm-extra-product-options' ),
+			'i18n_add_element'                         => esc_html__( 'Add element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_edit_price'                          => esc_html__( 'Edit price', 'woocommerce-tm-extra-product-options' ),
+			'i18n_edit_tab'                            => esc_html__( 'Edit tab', 'woocommerce-tm-extra-product-options' ),
+			'i18n_save'                                => esc_html__( 'Save', 'woocommerce-tm-extra-product-options' ),
+			'i18n_overwrite_existing_elements'         => esc_html__( 'Overwrite existing elements', 'woocommerce-tm-extra-product-options' ),
+			'i18n_append_new_elements'                 => esc_html__( 'Append new elements', 'woocommerce-tm-extra-product-options' ),
+			'i18n_form_is_applied_to_all'              => esc_html__( 'The form is being applied to all products', 'woocommerce-tm-extra-product-options' ),
+			'i18n_form_not_applied_to_all'             => esc_html__( 'The form isn\'t being applied to any products', 'woocommerce-tm-extra-product-options' ),
+			'i18n_no_title'                            => esc_html__( '(No title)', 'woocommerce-tm-extra-product-options' ),
+			'i18n_epo'                                 => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
+			'i18n_loading'                             => esc_html__( 'Loading ...', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_product_variables'           => esc_html__( 'Product variables', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_special_variables'           => esc_html__( 'Special variables', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_global_variables'            => esc_html__( 'Global variables', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_options_total'               => esc_html__( 'Options Total', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_product_price_plus_options_total' => esc_html__( 'Original product price + Options Total', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_cumulative_total'            => esc_html__( 'Cumulative Total', 'woocommerce-tm-extra-product-options' ),
+			'i18n_product_price_plus_cumulative_total' => esc_html__( 'Original product price + Cumulative Total', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_quantity'                    => esc_html__( 'Product quantity', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_product_price'               => esc_html__( 'Original product price', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_element'                => esc_html__( 'This element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_value'                  => esc_html__( 'The value of this element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_value_length'           => esc_html__( 'The value length of this element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_count'                  => esc_html__( 'The number of options the user has selected', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_count_quantity'         => esc_html__( 'The total quantity of this element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_this_quantity'               => esc_html__( 'The quantity of this element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_other_elements'              => esc_html__( 'Other elements', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_price'                 => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_price_tip'             => esc_html__( 'The price of the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_value'                 => esc_html__( 'Value', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_value_tip'             => esc_html__( 'The value of the targeted element converted to a float', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_text'                  => esc_html__( 'Text', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_text_tip'              => esc_html__( 'The raw value of the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_text_length'           => esc_html__( 'Text length', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_text_length_tip'       => esc_html__( 'The text length of the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_quantity'              => esc_html__( 'Quantity', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_quantity_tip'          => esc_html__( 'The total quantity of the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_count'                 => esc_html__( 'Count', 'woocommerce-tm-extra-product-options' ),
+			'i18n_formula_field_count_tip'             => esc_html__( 'The number of options the user has selected on the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'tcAdminNoPagination'                      => apply_filters( 'wc_epo_admin_no_pagination', false ),
+			'WP_DEBUG'                                 => 1,
 		];
 		wp_localize_script( 'themecomplete-global-epo-admin', 'TMEPOGLOBALADMINJS', $params );
 		wp_enqueue_script( 'themecomplete-global-epo-admin' );
@@ -2874,7 +2895,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			if ( ! isset( $tm_metas['tm_meta']['tmfbuilder'][ $key ] ) ) {
 				$tm_metas['tm_meta']['tmfbuilder'][ $key ] = [];
 			}
-			if ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $key, 'variations_' ) ) {
+			if ( str_starts_with( $key, 'variations_' ) ) {
 				if ( 'variations_disabled' !== $key ) {
 					$tm_metas['tm_meta']['tmfbuilder'][ $key ] = $value;
 				}
@@ -3467,4 +3488,3 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		return $duplicate_id;
 	}
 }
-

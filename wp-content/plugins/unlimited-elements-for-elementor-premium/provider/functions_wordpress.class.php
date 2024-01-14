@@ -2260,7 +2260,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			
 			return ($args);
 		}
-
+		
 		switch($orderBy){
 			case "price":
 				$args["orderby"] = "meta_value_num";
@@ -3729,6 +3729,29 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	}
 
 	/**
+	 * print registered includes
+	 */
+	public static function printRegisteredIncludes($type = "js"){
+		
+		if($type == "css")
+			$objScripts = wp_styles();
+		else
+			$objScripts = wp_scripts();
+		
+		dmp("Registered scripts: ");
+			
+		foreach( $objScripts->queue as $scriptName ){
+			
+			$objScript = UniteFunctionsUC::getVal($objScripts->registered, $scriptName);
+			
+			$url = $objScript->src;
+			
+			dmp("$scriptName | $url");
+		}
+				
+	}
+	
+	/**
 	 * find and remove some include
 	 */
 	public static function findAndRemoveInclude($filename, $isJS = true){
@@ -3746,7 +3769,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		$arrDeleted = array();
 
 		foreach( $objScripts->queue as $scriptName ){
-		
+			
 			$objScript = UniteFunctionsUC::getVal($objScripts->registered, $scriptName);
 
 			if(empty($objScript))
@@ -3774,12 +3797,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$arrDeleted[] = $url;
 
 			if($isJS == true)
-				wp_dequeue_script( $scriptName );
+				wp_deregister_script( $scriptName );
 			else
-				wp_dequeue_style( $scriptName );
-
+				wp_deregister_style( $scriptName );
+				
 		}
-
+		
+		
 		return($arrDeleted);
 	}
 
@@ -4058,13 +4082,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		global $wp_filter;
 		if(isset($wp_filter[$tag]) == false)
 			return (array());
-
+	
 		$objFilter = $wp_filter[$tag];
-
+		
 		$arrCallbacks = $objFilter->callbacks;
 		if(empty($arrCallbacks))
 			return (array());
-
+		
 		return ($arrCallbacks);
 	}
 
@@ -4072,12 +4096,17 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	 * get action functions of some tag
 	 */
 	public static function getActionFunctionsKeys($tag){
-
+		
 		$arrCallbacks = self::getFilterCallbacks($tag);
-
+		
+		if(empty($arrCallbacks))
+			return(array());
+		
+		$arrFunctions = array();
+		
 		foreach($arrCallbacks as $priority => $callbacks){
 			$arrKeys = array_keys($callbacks);
-
+			
 			foreach($arrKeys as $key){
 				$arrFunctions[$key] = true;
 			}
@@ -4086,6 +4115,21 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		return ($arrFunctions);
 	}
 
+	/**
+	 * show action functions
+	 */
+	public static function showActionFunctionsKeys($tag){
+		
+		$arrActions = self::getActionFunctionsKeys($tag);
+		
+		if(empty($arrActions))
+			return(false);
+			
+		dmp($arrActions);
+		
+	}
+	
+	
 	/**
 	 * clear filters from functions
 	 */

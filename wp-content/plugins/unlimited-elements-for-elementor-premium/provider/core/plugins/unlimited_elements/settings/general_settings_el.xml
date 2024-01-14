@@ -116,6 +116,13 @@
       <option value="editor" text="Editor" />
     </field>
 
+    <field name="enable_changelog"
+      type="boolean"
+      default="false"
+      label="Enable Changelog"
+      description="Enable changelog for widgets">
+    </field>
+
     <field name="enable_revisions"
       type="boolean"
       default="false"
@@ -164,7 +171,7 @@
 
     <field name="google_connect_heading"
       type="statictext"
-      label="&lt;b&gt;Google Connect&lt;/b&gt;">
+      label="&lt;b&gt;Google Sheets Connect&lt;/b&gt;">
     </field>
 
     <field name="google_connect_desc"
@@ -407,6 +414,21 @@
       label="Show the phpinfo - php server configuration table"
     >
     </field>
+
+    <field name="text_globals"
+      type="statictext"
+      label="Show Globals">
+    </field>
+
+	
+    <field name="text_globals_button"
+      type="button"
+      value="Show Globals"
+      gotoview="troubleshooting-globals"
+      label="Show the global variables of the plugin, like base url and path"
+    >
+    </field>
+
 
   </fieldset>
 

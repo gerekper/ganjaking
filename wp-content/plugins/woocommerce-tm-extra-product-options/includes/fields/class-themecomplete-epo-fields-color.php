@@ -27,7 +27,7 @@ class THEMECOMPLETE_EPO_FIELDS_color extends THEMECOMPLETE_EPO_FIELDS {
 	 */
 	public function display_field( $element = [], $args = [] ) {
 		$class_label = '';
-		if ( THEMECOMPLETE_EPO()->tm_epo_select_fullwidth === 'yes' ) {
+		if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_select_fullwidth' ) ) {
 			$class_label = ' fullwidth';
 		}
 		$display = [

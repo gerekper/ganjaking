@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td><?php echo esc_html( $points ) ; ?></td>
 				</tr>
 				<?php
-				$i ++ ;
+				$i++ ;
 			endforeach ;
 		endif ;
 

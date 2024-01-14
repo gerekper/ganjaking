@@ -189,7 +189,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 
 		if ( $this->is_wpml ) {
 			$url = $this->get_flag_url( $lang );
-			echo '<img src="' . esc_url( $url ) . '"/>';
+			echo '<img class="tc-wmpl-flag" src="' . esc_url( $url ) . '"/>';
 		}
 
 		if ( $output ) {
@@ -1322,7 +1322,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 */
 	public function get_wpml_translation_by_id( $current_product_id = 0, $override = false ) {
 		$wpml_translation_by_id = [];
-		if ( $this->is_wpml && ( $override || 'yes' === THEMECOMPLETE_EPO()->tm_epo_wpml_order_translate ) ) {
+		if ( $this->is_wpml && ( $override || 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_wpml_order_translate' ) ) ) {
 			$this_land_epos = THEMECOMPLETE_EPO()->get_product_tm_epos( $current_product_id );
 			if ( isset( $this_land_epos['global'] ) && is_array( $this_land_epos['global'] ) ) {
 				foreach ( $this_land_epos['global'] as $priority => $priorities ) {

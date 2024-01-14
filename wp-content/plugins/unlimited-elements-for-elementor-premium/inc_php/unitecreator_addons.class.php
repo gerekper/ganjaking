@@ -473,11 +473,11 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 
 		$objOutput = new UniteCreatorOutput();
 		$objOutput->setProcessType($processType);
-		
+
 		//put show debug here
-		
+
 		$objOutput->checkOutputDebug($objAddon);
-		
+
 		$objOutput->initByAddon($objAddon);
 
 		if($isWrap == true)
@@ -1458,6 +1458,75 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 		$response["import_log"] = $importLog;
 
 		return ($response);
+	}
+
+	/**
+	 * add addon changelog
+	 */
+	public function addAddonChangelog($data){
+
+		try{
+			$addonId = UniteFunctionsUC::getVal($data, "addon_id");
+			$type = UniteFunctionsUC::getVal($data, "type");
+			$text = UniteFunctionsUC::getVal($data, "text");
+
+			UniteFunctionsUC::validateNotEmpty($addonId, "addon id");
+			UniteFunctionsUC::validateNotEmpty($type, "type");
+			UniteFunctionsUC::validateNotEmpty($text, "text");
+
+			$changelog = new UniteCreatorAddonChangelog();
+			$changelog->addChangelog($addonId, $type, $text);
+		}catch(Exception $e){
+			$message = "Add changelog error: " . $e->getMessage();
+			echo esc_html($message);
+			exit();
+		}
+	}
+
+	/**
+	 * update addon changelog
+	 */
+	public function updateAddonChangelog($data){
+
+		try{
+			$id = UniteFunctionsUC::getVal($data, "id");
+			$type = UniteFunctionsUC::getVal($data, "type");
+			$text = UniteFunctionsUC::getVal($data, "text");
+
+			UniteFunctionsUC::validateNotEmpty($id, "id");
+			UniteFunctionsUC::validateNotEmpty($type, "type");
+			UniteFunctionsUC::validateNotEmpty($text, "text");
+
+			$changelog = new UniteCreatorAddonChangelog();
+
+			$changelog->updateChangelog($id, array(
+				"type" => $type,
+				"text" => $text,
+			));
+		}catch(Exception $e){
+			$message = "Update changelog error: " . $e->getMessage();
+			echo esc_html($message);
+			exit();
+		}
+	}
+
+	/**
+	 * delete addon changelog
+	 */
+	public function deleteAddonChangelog($data){
+
+		try{
+			$id = UniteFunctionsUC::getVal($data, "id");
+
+			UniteFunctionsUC::validateNotEmpty($id, "id");
+
+			$changelog = new UniteCreatorAddonChangelog();
+			$changelog->deleteChangelog($id);
+		}catch(Exception $e){
+			$message = "Delete changelog error: " . $e->getMessage();
+			echo esc_html($message);
+			exit();
+		}
 	}
 
 	/**

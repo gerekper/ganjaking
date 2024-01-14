@@ -26,6 +26,9 @@ abstract class DbMigration {
 
   abstract public function run(): void;
 
+  /**
+   * @param class-string<object> $entityClass
+   */
   protected function getTableName(string $entityClass): string {
     return $this->entityManager->getClassMetadata($entityClass)->getTableName();
   }

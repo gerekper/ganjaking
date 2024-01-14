@@ -3,9 +3,7 @@
 class UEGoogleAPIHelper{
 
 	const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-	const AUTH_CLIENT_ID = "852030113875-d858hv695ki288ha3qk2s3qifng6ra9e.apps.googleusercontent.com"; // TODO: Replace with a real one
-	const AUTH_REDIRECT_URL = "https://dev.unlimited-elements.com/google-connect/connect.php"; // TODO: Replace with a real one
-
+	
 	const SCOPE_CALENDAR_EVENTS = "https://www.googleapis.com/auth/calendar.events.readonly";
 	const SCOPE_SHEETS_ALL = "https://www.googleapis.com/auth/spreadsheets";
 	const SCOPE_USER_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
@@ -79,8 +77,8 @@ class UEGoogleAPIHelper{
 		$returnUrl = UniteFunctionsUC::encodeContent($returnUrl);
 
 		$params = array(
-			"client_id" => self::AUTH_CLIENT_ID,
-			"redirect_uri" => self::AUTH_REDIRECT_URL,
+			"client_id" => GlobalsUnlimitedElements::GOOGLE_CONNECTION_CLIENTID,
+			"redirect_uri" => GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL,
 			"scope" => implode(" ", self::getScopes()),
 			"access_type" => "offline",
 			"prompt" => "consent select_account",
@@ -109,8 +107,8 @@ class UEGoogleAPIHelper{
 			"state" => $returnUrl,
 		);
 
-		$url = self::AUTH_REDIRECT_URL . "?" . http_build_query($params);
-
+		$url = GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL . "?" . http_build_query($params);
+		
 		return $url;
 	}
 
@@ -313,10 +311,10 @@ class UEGoogleAPIHelper{
 			UniteFunctionsUC::throwError("Refresh token is missing.");
 
 		$params = array("refresh_token" => $refreshToken);
-		$url = self::AUTH_REDIRECT_URL . "?" . http_build_query($params);
-
+		$url = GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL . "?" . http_build_query($params);
+		
 		$curl = curl_init();
-
+		
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

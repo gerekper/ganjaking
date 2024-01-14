@@ -1,5 +1,32 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-12-26 - version 3.2.1
+* Tweak: Further optimize when adding an API Key activation.
+* Fix: Background processing to update all customer purchased API Key activations when the product activation limit is changed.
+* Dev: Removed unused Amazon S3 function format_secure_s3_url() that was used to create AWS Signature Version 3 URL introduced in version 1.3.2. AWS Signature Version 4 has been in use since version 2.1.
+
+2023-12-24 - version 3.2
+* Update: Updated the URLs for the WooCommerce API Manager support form and documentation on woo.com.
+* Update: Updated templates/myaccount/api-downloads.php.
+* Update: Updated templates/myaccount/api-keys.php.
+* Dev: Moved get_api_keys_url() from the WC_AM_API_Activation_Data_Store class to the WC_AM_URL class.
+* Dev: Dropped columns activation_ids, associated_api_key_ids, collaborators, and download_requests from the wc_am_api_resource database table.
+* Dev: Dropped column update_requests from the wc_am_api_activation database table.
+* Dev: Dropped column activation_ids from the wc_am_associated_api_key database table.
+* Dev: Added property type declarations in classes for PHP 7.4 or greater.
+* Dev: Refactored the WC_AM_API_Activation_Data_Store() class to optimize accuracy, resource management, and speed.
+* Dev: Removed get_associated_api_key_ids_by_api_resource_id() since the associated_api_key_ids column was dropped.
+* Dev: Removed delete_api_resource_id_activation_ids() since the activation_ids column was dropped.
+* Dev: Removed get_associated_api_key_activation_ids_by_api_key() since the activation_ids column was dropped.
+* Dev: Removed update_associated_api_key_activation_ids_list() since the activation_ids column was dropped.
+* Dev: Removed update_associated_api_key_activation_ids() since the activation_ids column was dropped.
+* Dev: Removed get_activation_ids_by_associated_api_key_id() since the activation_ids column was dropped.
+* Dev: Removed delete_associated_api_key_activation_ids() since the activation_ids column was dropped.
+
+2023-09-14 - version 3.1.2
+* Fix: Cronjob cleanup of expired API Key activations queried a database column using a misspelled name.
+* New: Added if the Homepage is cachable to the WooCommerce > Status > WooCommmerce API Manager status report.
+
 2023-09-05 - version 3.1.1
 * New: Added Action Filters, wc_api_manager_endpoint_title_api_keys, wc_api_manager_endpoint_title_api_downloads, wc_api_manager_add_menu_items_api_keys, wc_api_manager_add_menu_items_api_downloads. Changing endpoints requires Settings > Permalink Settings to be manually Saved to refresh the endpoints.
 

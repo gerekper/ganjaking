@@ -43,7 +43,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILD
 	 * Fetch templates
 	 * for use in a select box
 	 *
-	 * @since  5.0
+	 * @since 5.0
 	 * @return array<mixed>
 	 */
 	public function fetch_template_array() {

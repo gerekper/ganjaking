@@ -149,7 +149,7 @@ class Module extends Module_Base {
 				}
 
 				if ( 'yes' === $enable_schema && false === $content_schema_warning ) {
-					$upload_date = new DateTime( $settings['schema_upload_date'] );
+					$upload_date = new \DateTime( $settings['schema_upload_date'] );
 					$video_data  = array(
 						'@context'     => 'https://schema.org',
 						'@type'        => 'VideoObject',

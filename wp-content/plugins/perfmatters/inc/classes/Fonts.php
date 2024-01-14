@@ -15,7 +15,7 @@ class Fonts
     //initialize fonts
     public static function init() {
         if(empty(Config::$options['fonts']['disable_google_fonts'])) {
-            add_action('wp', array('Perfmatters\Fonts', 'queue'));
+            add_action('perfmatters_queue', array('Perfmatters\Fonts', 'queue'));
         }
         add_action('wp_ajax_perfmatters_clear_local_fonts', array('Perfmatters\Fonts', 'clear_local_fonts_ajax'));
     }

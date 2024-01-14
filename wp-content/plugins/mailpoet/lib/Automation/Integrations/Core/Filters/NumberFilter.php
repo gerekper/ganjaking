@@ -57,6 +57,9 @@ class NumberFilter implements Filter {
     }
   }
 
+  /**
+   * @param float $value
+   */
   public function matches(FilterData $data, $value): bool {
     $filterValue = $data->getArgs()['value'] ?? null;
     $condition = $data->getCondition();
@@ -97,7 +100,7 @@ class NumberFilter implements Filter {
   }
 
   /**
-   * @param mixed $value
+   * @param float|null $value
    * @param mixed $filterValue
    */
   private function matchesBetween(string $condition, $value, $filterValue): bool {
@@ -113,6 +116,7 @@ class NumberFilter implements Filter {
       return false;
     }
 
+    /** @var float $value */
     $value = floatval($value);
     $from = floatval($filterValue[0]);
     $to = floatval($filterValue[1]);

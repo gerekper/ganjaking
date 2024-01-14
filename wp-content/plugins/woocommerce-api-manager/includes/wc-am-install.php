@@ -19,33 +19,36 @@ class WC_AM_Install {
 	 *
 	 * @var array
 	 */
-	private $db_updates = array(
-		'2.0.0'  => array(
-			'wc_am_update_200_create_master_api_key',
-			'wc_am_update_200_data_migrate_orders',
-			'wc_am_update_200_data_migrate_activations',
-			'wc_am_update_200_data_add_product_id_and_add_api_orders_processed_flag_to_api_products',
-			'wc_am_update_200_data_merge_software_title',
-			'wc_am_update_200_db_version',
-		),
-		'2.0.1'  => array(
-			'wc_am_update_201_data_migrate_access_granted_to_order_created_time',
-			'wc_am_update_201_db_version',
-		),
-		'2.0.5'  => array(
-			'wc_am_update_205_check_if_api_resources_table_is_empty',
-			'wc_am_update_205_db_version',
-		),
-		'2.2.6'  => array(
-			'wc_am_update_2_2_6_db_version',
-		),
-		'2.6.9'  => array(
-			'wc_am_update_2_6_9_missing_api_resources_repair',
-		),
-		'2.6.17' => array(
-			'wc_am_update_2_6_17_add_unique_key_instance',
-		),
-	);
+	private array $db_updates = array(
+			'2.0.0'  => array(
+				'wc_am_update_200_create_master_api_key',
+				'wc_am_update_200_data_migrate_orders',
+				'wc_am_update_200_data_migrate_activations',
+				'wc_am_update_200_data_add_product_id_and_add_api_orders_processed_flag_to_api_products',
+				'wc_am_update_200_data_merge_software_title',
+				'wc_am_update_200_db_version',
+			),
+			'2.0.1'  => array(
+				'wc_am_update_201_data_migrate_access_granted_to_order_created_time',
+				'wc_am_update_201_db_version',
+			),
+			'2.0.5'  => array(
+				'wc_am_update_205_check_if_api_resources_table_is_empty',
+				'wc_am_update_205_db_version',
+			),
+			'2.2.6'  => array(
+				'wc_am_update_2_2_6_db_version',
+			),
+			'2.6.9'  => array(
+				'wc_am_update_2_6_9_missing_api_resources_repair',
+			),
+			'2.6.17' => array(
+				'wc_am_update_2_6_17_add_unique_key_instance',
+			),
+			'3.2' => array(
+				'wc_am_update_3_2_drop_table_columns_and_update_activations_total',
+			),
+		);
 
 	/**
 	 * Background update class.
@@ -123,8 +126,8 @@ class WC_AM_Install {
 	public static function plugin_row_meta( $links, $file ) {
 		if ( WCAM()->get_file() == $file ) {
 			$row_meta = array(
-				'Docs'    => '<a href="' . esc_url( apply_filters( 'wc_api_manager_docs_url', 'http://docs.woocommerce.com/document/woocommerce-api-manager/', 'woocommerce-api-manager' ) ) . '">' . esc_html__( 'Docs', 'woocommerce-api-manager' ) . '</a>',
-				'Support' => '<a href="' . esc_url( apply_filters( 'wc_api_manager_support_url', 'https://woocommerce.com/my-account/create-a-ticket/?select=260110' ) ) . '">' . esc_html__( 'Support', 'woocommerce-api-manager' ) . '</a>',
+				'Docs'    => '<a href="' . esc_url( apply_filters( 'wc_api_manager_docs_url', 'https://woo.com/document/woocommerce-api-manager/', 'woocommerce-api-manager' ) ) . '">' . esc_html__( 'Docs', 'woocommerce-api-manager' ) . '</a>',
+				'Support' => '<a href="' . esc_url( apply_filters( 'wc_api_manager_support_url', 'https://woo.com/my-account/contact-support/?select=260110' ) ) . '">' . esc_html__( 'Support', 'woocommerce-api-manager' ) . '</a>',
 			);
 
 			return array_merge( $links, $row_meta );
@@ -357,16 +360,12 @@ class WC_AM_Install {
 			$api_resource_table = "
 				CREATE TABLE {$wpdb->prefix}wc_am_api_resource (
 					api_resource_id BIGINT UNSIGNED NOT NULL auto_increment,
-					activation_ids longtext NOT NULL,
 					activations_total BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					activations_purchased BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					activations_purchased_total BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					active tinyint(1) NOT NULL DEFAULT '1',
 					access_expires BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					access_granted BIGINT UNSIGNED NOT NULL,
-					associated_api_key_ids longtext NOT NULL,
-					collaborators longtext NOT NULL,
-					download_requests BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					item_qty BIGINT UNSIGNED NOT NULL,
 					master_api_key VARCHAR(60) NOT NULL,
 					order_id BIGINT UNSIGNED NOT NULL,
@@ -423,7 +422,6 @@ class WC_AM_Install {
 					sub_item_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					sub_parent_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					version VARCHAR(20) NOT NULL DEFAULT '',
-					update_requests BIGINT UNSIGNED NOT NULL DEFAULT 0,
 					user_id BIGINT UNSIGNED NOT NULL,
 					PRIMARY KEY (activation_id),
 					KEY api_key (api_key),
@@ -448,7 +446,6 @@ class WC_AM_Install {
 			$activation_table = "
 				CREATE TABLE {$wpdb->prefix}wc_am_associated_api_key (
 					associated_api_key_id BIGINT UNSIGNED NOT NULL auto_increment,
-					activation_ids longtext NOT NULL,
 					associated_api_key VARCHAR(190) NOT NULL,
 					api_resource_id BIGINT UNSIGNED NOT NULL,
 					product_id BIGINT UNSIGNED NOT NULL,

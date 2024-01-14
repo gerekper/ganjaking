@@ -11,6 +11,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_social_reward_points() ;
             this.show_or_hide_for_product_purchase_reward_points() ;
             this.show_or_hide_for_referral_product_purchase_reward_points() ;
+            this.toggle_enable_redeeming_points($('._rewardsystem_redeeming_points_enable')) ;
             $( document ).on( 'change' , '#_rewardsystem_enable_point_price' , this.enable_point_price ) ;
             $( document ).on( 'change' , '#_rewardsystem_enable_point_price_type' , this.point_price_type ) ;
             $( document ).on( 'change' , '#_rewardsystem_buying_reward_points' , this.buying_reward_points ) ;
@@ -18,7 +19,21 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#_rewardsystemcheckboxvalue' , this.product_purchase_reward_points ) ;
             $( document ).on( 'change' , '#_rewardsystemreferralcheckboxvalue' , this.referral_product_purchase_reward_points ) ;
             $( document ).on( 'click' , '#publish' , this.validate_point_price_settings ) ;
+            $( document ).on( 'change' , '._rewardsystem_redeeming_points_enable' , this.enable_redeeming_points ) ;
         } ,
+
+        enable_redeeming_points : function (e) {
+            e.preventDefault();
+            EditProductPageScript.toggle_enable_redeeming_points(this) ;
+        } ,
+
+        toggle_enable_redeeming_points : function (e) {
+            if ( '1' === $(e).val() ){
+                $(e).closest('div').find('#_rewardsystem_max_redeeming_points').closest('p').show();
+            } else {
+                $(e).closest('div').find('#_rewardsystem_max_redeeming_points').closest('p').hide();
+            }
+        },
 
         validate_point_price_settings : function ( e ) {
             if ( jQuery( '._rewardsystem_enable_point_price_type' ).val() == '2' ) {

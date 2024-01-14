@@ -82,9 +82,9 @@ if ( ! class_exists( 'SRP_Post' ) ) {
 		 */
 		public function update_status( $status ) {
 			$post_args = array(
-				'ID'          => $this->id ,
-				'post_type'   => $this->post_type ,
-				'post_status' => $status ,
+				'ID'          => $this->id,
+				'post_type'   => $this->post_type,
+				'post_status' => $status,
 					) ;
 
 			return wp_update_post( $post_args ) ;
@@ -151,7 +151,6 @@ if ( ! class_exists( 'SRP_Post' ) ) {
 		 * Prepare extra post data
 		 */
 		protected function load_extra_postdata() {
-			
 		}
 
 		/**
@@ -188,8 +187,8 @@ if ( ! class_exists( 'SRP_Post' ) ) {
 		public function create( $meta_data, $post_args = array() ) {
 
 			$default_post_args = array(
-				'post_type'   => $this->post_type ,
-				'post_status' => $this->post_status ,
+				'post_type'   => $this->post_type,
+				'post_status' => $this->post_status,
 					) ;
 
 			$post_args = wp_parse_args( $post_args , $default_post_args ) ;
@@ -212,9 +211,9 @@ if ( ! class_exists( 'SRP_Post' ) ) {
 			}
 
 			$default_post_args = array(
-				'ID'          => $this->id ,
-				'post_type'   => $this->post_type ,
-				'post_status' => $this->get_status() ,
+				'ID'          => $this->id,
+				'post_type'   => $this->post_type,
+				'post_status' => $this->get_status(),
 					) ;
 
 			$post_args = wp_parse_args( $post_args , $default_post_args ) ;
@@ -255,7 +254,6 @@ if ( ! class_exists( 'SRP_Post' ) ) {
 
 			update_post_meta( $this->id , sanitize_key( $meta_key ) , $value ) ;
 		}
-
 	}
 
 }

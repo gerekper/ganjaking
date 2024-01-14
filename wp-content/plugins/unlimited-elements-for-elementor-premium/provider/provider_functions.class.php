@@ -67,8 +67,11 @@ class UniteProviderFunctionsUC{
 
 			GlobalsUC::$path_cache = GlobalsUC::$pathPlugin."cache/";
 		}
-
-		GlobalsUC::$url_base = site_url()."/";
+		
+		GlobalsUC::$url_base = home_url()."/";
+		
+		GlobalsUC::$url_site = site_url()."/";
+		
 		GlobalsUC::$urlPlugin = plugins_url($pluginName)."/";
 
 		GlobalsUC::$url_component_admin = admin_url()."admin.php?page=$pluginUrlAdminBase";
@@ -348,7 +351,7 @@ class UniteProviderFunctionsUC{
 	public static function getUrlJQueryInclude(){
 
 		$url = GlobalsUC::$url_base."wp-includes/js/jquery/jquery".".js";
-
+		
 		return($url);
 	}
 
@@ -763,7 +766,7 @@ class UniteProviderFunctionsUC{
 	 * remember transient
 	 */
 	public static function rememberTransient($transient, $expiration, $callback, $supportMultisite = false){
-
+		
 		if($expiration <= 0){
 			$value = $callback();
 

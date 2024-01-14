@@ -139,7 +139,7 @@ class WC_AM_Order_Data_Store {
 	 * @throws \Exception
 	 */
 	public function get_order_item_meta( $item_id, $key = '', $single = true ) {
-		if ( empty( $key ) ) {
+		if ( WC_AM_FORMAT()->empty( $key ) ) {
 			return WC_AM_ARRAY()->flatten_array( wc_get_order_item_meta( $item_id, $key, $single ) );
 		}
 
@@ -183,7 +183,7 @@ class WC_AM_Order_Data_Store {
 			}
 		}
 
-		return ! empty( $item_ids ) ? $item_ids : false;
+		return ! WC_AM_FORMAT()->empty( $item_ids ) ? $item_ids : false;
 	}
 
 	/**
@@ -336,7 +336,7 @@ class WC_AM_Order_Data_Store {
 							$refunds[ $order->get_id() ] = array(
 								'order_id'   => $order->get_id(),
 								'item_id'    => $item_id,
-								'product_id' => empty( $variation_id ) ? $parent_id : $variation_id,
+								'product_id' => WC_AM_FORMAT()->empty( $variation_id ) ? $parent_id : $variation_id,
 								'count'      => $count += $this->get_refund_quantity_for_item( $refund, $item_id )
 							);
 						}
@@ -403,7 +403,7 @@ class WC_AM_Order_Data_Store {
 			'hname'            => $hash_data[ 'hname' ],
 			'hkey'             => $hash_data[ 'hkey' ],
 			'hexpires'         => $hash_data[ 'hexpires' ],
-			'remote_url'       => ! empty( $remote_url ) ? 'yes' : 'no'
+			'remote_url'       => ! WC_AM_FORMAT()->empty( $remote_url ) ? 'yes' : 'no'
 		);
 
 		return add_query_arg( $url_args, home_url( '/' ) );
@@ -440,7 +440,7 @@ class WC_AM_Order_Data_Store {
 		// Returns an Object
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $args ) );
 
-		return ! empty( $result ) ? $result : false;
+		return ! WC_AM_FORMAT()->empty( $result ) ? $result : false;
 	}
 
 	/**
@@ -468,7 +468,7 @@ class WC_AM_Order_Data_Store {
 			$resources = $wpdb->get_results( $wpdb->prepare( $sql, $order->get_id() ) );
 		}
 
-		return ! empty( $resources ) ? $resources : false;
+		return ! WC_AM_FORMAT()->empty( $resources ) ? $resources : false;
 	}
 
 	/**
@@ -491,7 +491,7 @@ class WC_AM_Order_Data_Store {
 			AND 		order_item_type = %s
 		", absint( $order_id ), esc_attr( $type ) ) );
 
-		return ! empty( $item_id ) ? (int) $item_id : false;
+		return ! WC_AM_FORMAT()->empty( $item_id ) ? (int) $item_id : false;
 	}
 
 	/**
@@ -524,12 +524,12 @@ class WC_AM_Order_Data_Store {
 			ORDER BY 	order_item_id DESC
 		", absint( $order_id ), esc_attr( $type ) ), ARRAY_A );
 
-		if ( ! empty( $item_ids ) && is_array( $item_ids ) ) {
+		if ( ! WC_AM_FORMAT()->empty( $item_ids ) && is_array( $item_ids ) ) {
 			foreach ( $item_ids as $order_item_id => $item ) {
 				$order_items[] = $item[ 'order_item_id' ];
 			}
 
-			return ! empty( $order_items ) ? $order_items : false;
+			return ! WC_AM_FORMAT()->empty( $order_items ) ? $order_items : false;
 		}
 
 		return false;
@@ -595,7 +595,7 @@ class WC_AM_Order_Data_Store {
 			if ( WC_AM_FORMAT()->count( $get_items ) > 0 ) {
 				foreach ( $get_items as $item_id => $item ) {
 					// Line item has been renewed on a new order, so this API Resource has expired.
-					if ( ! empty( wc_get_order_item_meta( $item_id, '_wc_am_is_expired_api_resource' ) ) ) {
+					if ( ! WC_AM_FORMAT()->empty( wc_get_order_item_meta( $item_id, '_wc_am_is_expired_api_resource' ) ) ) {
 						continue;
 					}
 					/**
@@ -603,12 +603,12 @@ class WC_AM_Order_Data_Store {
 					 */
 					$data              = $item->get_data();
 					$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item->get_product_id() );
-					$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! empty( $parent_product_id ) ? $parent_product_id : $data[ 'variation_id' ] );
+					$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! WC_AM_FORMAT()->empty( $parent_product_id ) ? $parent_product_id : $data[ 'variation_id' ] );
 
 					// Only store API resource data for API products that have an order status of completed.
 					if ( $is_api ) {
-						$variation_id  = ! empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
-						$product_id    = ! empty( $variation_id ) ? $variation_id : $parent_product_id;
+						$variation_id  = ! WC_AM_FORMAT()->empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
+						$product_id    = ! WC_AM_FORMAT()->empty( $variation_id ) ? $variation_id : $parent_product_id;
 						$valid_product = WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $product_id );
 
 						// Skip WC Subscriptions.
@@ -616,7 +616,7 @@ class WC_AM_Order_Data_Store {
 
 						// Only store API resource data for API products that have an order status of completed.
 						if ( $valid_product && ! $is_wc_sub ) {
-							$item_qty               = ! empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
+							$item_qty               = ! WC_AM_FORMAT()->empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
 							$refund_qty             = $this->get_qty_refunded_for_item( $order_id, $item_id );
 							$values[ 'item_qty' ]   = $item_qty;
 							$values[ 'refund_qty' ] = absint( $refund_qty );
@@ -629,19 +629,19 @@ class WC_AM_Order_Data_Store {
 							$old_access_expires = wc_get_order_item_meta( $item_id, '_wc_am_access_expires_time_to_add' );
 
 							$values[ 'user_id' ]            = $this->get_customer_id( $order );
-							$values[ 'order_item_id' ]      = ! empty( $item_id ) ? (int) $item_id : 0;
+							$values[ 'order_item_id' ]      = ! WC_AM_FORMAT()->empty( $item_id ) ? (int) $item_id : 0;
 							$values[ 'variation_id' ]       = $variation_id;
 							$values[ 'parent_id' ]          = $parent_product_id;
 							$values[ 'product_id' ]         = $product_id;
 							$values[ 'access_expires' ]     = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $values[ 'product_id' ] );
-							$values[ 'old_access_expires' ] = ( ! empty( $old_access_expires ) ) ? $old_access_expires : 0;
+							$values[ 'old_access_expires' ] = ( ! WC_AM_FORMAT()->empty( $old_access_expires ) ) ? $old_access_expires : 0;
 							$api_product_activations        = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
-							$values[ 'api_activations' ]    = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+							$values[ 'api_activations' ]    = ! WC_AM_FORMAT()->empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
 							$product_object                 = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
 							$values[ 'product_title' ]      = is_object( $product_object ) ? $product_object->get_title() : '';
 							$values[ 'activations_total' ]  = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
 
-							if ( empty( $values[ 'api_activations' ] ) ) {
+							if ( WC_AM_FORMAT()->empty( $values[ 'api_activations' ] ) ) {
 								$values[ 'api_activations' ]   = apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
 								$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
 							}
@@ -697,7 +697,7 @@ class WC_AM_Order_Data_Store {
 			WHERE 		meta_value = %s
 		", $meta_value ) );
 
-		return ! empty( $order_item_id ) ? (int) $order_item_id : false;
+		return ! WC_AM_FORMAT()->empty( $order_item_id ) ? (int) $order_item_id : false;
 	}
 
 	/**
@@ -719,7 +719,7 @@ class WC_AM_Order_Data_Store {
 			WHERE 		meta_value = %s
 		", $meta_value ), ARRAY_A );
 
-		return ! empty( $item_ids ) ? $item_ids : false;
+		return ! WC_AM_FORMAT()->empty( $item_ids ) ? $item_ids : false;
 	}
 
 	/**
@@ -735,7 +735,7 @@ class WC_AM_Order_Data_Store {
 	public function get_order_id_by_meta_value( $meta_value ) {
 		$order_item_id = $this->get_order_item_id_by_meta_value( $meta_value );
 
-		return ! empty( $order_item_id ) ? $this->get_order_id_by_order_item_id( $order_item_id ) : false;
+		return ! WC_AM_FORMAT()->empty( $order_item_id ) ? $this->get_order_id_by_order_item_id( $order_item_id ) : false;
 	}
 
 	/**
@@ -753,13 +753,13 @@ class WC_AM_Order_Data_Store {
 		$order_ids      = array();
 		$order_item_ids = $this->get_all_order_item_ids_by_meta_value( $meta_value );
 
-		if ( ! empty( $order_item_ids ) ) {
+		if ( ! WC_AM_FORMAT()->empty( $order_item_ids ) ) {
 			foreach ( $order_item_ids as $key => $item_id ) {
 				$order_ids[] = $this->get_order_id_by_order_item_id( $item_id );
 			}
 		}
 
-		return ! empty( $order_ids ) ? array_unique( $order_ids ) : false;
+		return ! WC_AM_FORMAT()->empty( $order_ids ) ? array_unique( $order_ids ) : false;
 	}
 
 	/**

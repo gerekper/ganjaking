@@ -29,11 +29,15 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			// Meta Boxes.
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
-			// Order edit assets.
-			add_action( 'admin_print_scripts-post.php', array( $this, 'post_admin_scripts' ), 11 );
+			$hposSettingsEnabled = get_option('woocommerce_custom_orders_table_enabled', true);
+			
+			if ('yes' != $hposSettingsEnabled ) {
+				// Order edit assets.
+				add_action( 'admin_print_scripts-post.php', array( $this, 'post_admin_scripts' ), 11 );
 
-			// Order overview assets.
-			add_action( 'admin_print_scripts-edit.php', array( $this, 'edit_admin_scripts' ), 11 );
+				// Order overview assets.
+				add_action( 'admin_print_scripts-edit.php', array( $this, 'edit_admin_scripts' ), 11 );
+			}
 
 			// add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'payment_complete_order_status' ), 99, 2 );.
 
@@ -44,8 +48,16 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			add_action( 'wc-af-check', array( $this, 'process_queue' ), 10, 1 );
 
 			// Order columns.
-			add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_column' ), 11 );
-			add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_column' ), 3 );
+			if ('yes' === $hposSettingsEnabled ) {
+
+				add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'add_column' ), 11 );
+				add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'render_column_with_hpos_enabled' ), 2, 2 );
+
+			} else {
+			
+				add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_column' ), 11 );
+				add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_column_without_hpos_enabled' ), 3 );
+			}
 
 			// paypal cron job integrations.
 			add_action( 'wp', array( $this, 'cron_schedule_paypal_email' ) );
@@ -237,7 +249,25 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			return $columns;
 		}
 
-		public function render_column( $column ) {
+		public function render_column_with_hpos_enabled( $column, $order ) {
+			global $post;
+			if ( 'anti_fraud' == $column ) {
+
+				// Get the score points
+				$score_points = opmc_hpos_get_post_meta( $order->get_id(), 'wc_af_score', true );
+
+				// Get meta
+				$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $order->get_id() );
+
+				// Af_Logger::debug('order Meta : ' . print_r($meta, true));
+
+				// Display span
+				echo "<span class='wc-af-score tips' style='color:" . esc_attr( $meta['color'] ) . "' data-tip='" . esc_attr( $meta['label'], 'woocommerce-anti-fraud' ) . "'>&nbsp;</span>";
+			}
+		}
+
+		public function render_column_without_hpos_enabled( $column ) {
+
 			global $post;
 			if ( 'anti_fraud' == $column ) {
 
@@ -253,7 +283,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				echo "<span class='wc-af-score tips' style='color:" . esc_attr( $meta['color'] ) . "' data-tip='" . esc_attr( $meta['label'], 'woocommerce-anti-fraud' ) . "'>&nbsp;</span>";
 
 			}
-
 		}
 
 		/*Paypal verified addresses*/
@@ -284,8 +313,14 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		* check and execute cron job
 		*/
 		public function cron_schedule_paypal_email() {
-			if ( ! wp_next_scheduled( 'wp_af_paypal_verification' ) ) {
+			
+			$paypal_varify = get_option('wc_af_paypal_verification');
+			
+			if ( ! wp_next_scheduled( 'wp_af_paypal_verification' ) && 'yes' == $paypal_varify ) {
 				wp_schedule_event( time(), 'wc_af_further_attempt', 'wp_af_paypal_verification' );
+			} else {
+				
+				wp_clear_scheduled_hook('wp_af_paypal_verification');
 			}
 		}
 
@@ -295,10 +330,14 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		*/
 		public function cron_schedule_paypal_email_schedule( $schedules ) {
 
-			$schedules['wc_af_further_attempt'] = array(
-				'interval'  => 86400 * get_option( 'wc_settings_anti_fraud_time_paypal_attempts' ),
-				'display'   => __( 'Antifraud paypal verification', 'woocommerce-anti-fraud' ),
-			);
+			$paypal_varify = get_option('wc_af_paypal_verification');
+
+			if ('yes' == $paypal_varify ) {
+				$schedules['wc_af_further_attempt'] = array(
+					'interval'  => 86400 * get_option( 'wc_settings_anti_fraud_time_paypal_attempts' ),
+					'display'   => __( 'Antifraud paypal verification', 'woocommerce-anti-fraud' ),
+				);
+			}
 			$schedules['wp_af_every_hour'] = array(  // For fraud risk score check
 				'interval'  => 60 * 60,
 				'display'   => __( 'Check pending order fraud risk score', 'woocommerce-anti-fraud' ),

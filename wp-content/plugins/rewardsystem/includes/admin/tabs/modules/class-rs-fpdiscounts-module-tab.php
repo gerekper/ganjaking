@@ -12,19 +12,19 @@ if ( ! class_exists( 'RSDiscountsCompatability' ) ) {
 
 		public static function init() {
 
-			add_action( 'woocommerce_rs_settings_tabs_fpdiscounts' , array( __CLASS__ , 'register_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
+			add_action( 'woocommerce_rs_settings_tabs_fpdiscounts' , array( __CLASS__, 'register_settings' ) ) ; // Call to register the admin settings in the Reward System Submenu with general Settings tab        
 
-			add_action( 'woocommerce_update_options_fprsmodules_fpdiscounts' , array( __CLASS__ , 'update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
+			add_action( 'woocommerce_update_options_fprsmodules_fpdiscounts' , array( __CLASS__, 'update_settings' ) ) ; // call the woocommerce_update_options_{slugname} to update the reward system                               
 
-			add_action( 'fp_action_to_reset_settings_fpdiscounts' , array( __CLASS__ , 'reset_discounts_module' ) ) ;
+			add_action( 'fp_action_to_reset_settings_fpdiscounts' , array( __CLASS__, 'reset_discounts_module' ) ) ;
 
-			add_action( 'woocommerce_admin_field_rs_enable_discounts_compatability_module' , array( __CLASS__ , 'enable_module' ) ) ;
+			add_action( 'woocommerce_admin_field_rs_enable_discounts_compatability_module' , array( __CLASS__, 'enable_module' ) ) ;
 
-			add_filter( 'rs_default_value_modules' , array( __CLASS__ , 'set_default_values' ) ) ;
+			add_filter( 'rs_default_value_modules' , array( __CLASS__, 'set_default_values' ) ) ;
 
-			add_action( 'rs_display_save_button_fpdiscounts' , array( 'RSTabManagement' , 'rs_display_save_button' ) ) ;
+			add_action( 'rs_display_save_button_fpdiscounts' , array( 'RSTabManagement', 'rs_display_save_button' ) ) ;
 
-			add_action( 'rs_display_reset_button_fpdiscounts' , array( 'RSTabManagement' , 'rs_display_reset_button' ) ) ;
+			add_action( 'rs_display_reset_button_fpdiscounts' , array( 'RSTabManagement', 'rs_display_reset_button' ) ) ;
 		}
 
 		public static function enable_module() {
@@ -37,83 +37,87 @@ if ( ! class_exists( 'RSDiscountsCompatability' ) ) {
 
 		public static function settings_fields() {
 			global $woocommerce ;
-
+						/**
+						 * Hook:woocommerce_fpdiscounts_settings.
+						 * 
+						 * @since 1.0
+						 */
 			return apply_filters( 'woocommerce_fpdiscounts_settings' , array(
 				array(
-					'type' => 'rs_modulecheck_start' ,
-				) ,
+					'type' => 'rs_modulecheck_start',
+				),
 				array(
-					'name' => __( 'Discounts Compatibility Module' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_activate_discounts_compatability_module'
-				) ,
+					'name' => __( 'Discounts Compatibility Module' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_activate_discounts_compatability_module',
+				),
 				array(
-					'type' => 'rs_enable_discounts_compatability_module' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_activate_discounts_compatability_module' ) ,
+					'type' => 'rs_enable_discounts_compatability_module',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_activate_discounts_compatability_module' ),
 				array(
-					'type' => 'rs_modulecheck_end' ,
-				) ,
+					'type' => 'rs_modulecheck_end',
+				),
 				array(
-					'type' => 'rs_wrapper_start' ,
-				) ,
+					'type' => 'rs_wrapper_start',
+				),
 				array(
-					'name' => __( 'SUMO Discounts Compatibility Settings' , 'rewardsystem' ) ,
-					'type' => 'title' ,
-					'id'   => '_rs_discounts_compatability_setting'
-				) ,
+					'name' => __( 'SUMO Discounts Compatibility Settings' , 'rewardsystem' ),
+					'type' => 'title',
+					'id'   => '_rs_discounts_compatability_setting',
+				),
 				array(
-					'name'    => __( 'Don\'t allow Earn Points when SUMO Discount is applied' , 'rewardsystem' ) ,
-					'desc'    => __( 'Don\'t allow Earn Points when SUMO Discount is applied' , 'rewardsystem' ) ,
-					'id'      => '_rs_not_allow_earn_points_if_sumo_discount' ,
-					'css'     => 'min-width:550px;' ,
-					'type'    => 'checkbox' ,
-					'std'     => 'no' ,
-					'default' => 'no' ,
-					'newids'  => '_rs_not_allow_earn_points_if_sumo_discount' ,
-				) ,
+					'name'    => __( 'Don\'t allow Earn Points when SUMO Discount is applied' , 'rewardsystem' ),
+					'desc'    => __( 'Don\'t allow Earn Points when SUMO Discount is applied' , 'rewardsystem' ),
+					'id'      => '_rs_not_allow_earn_points_if_sumo_discount',
+					'css'     => 'min-width:550px;',
+					'type'    => 'checkbox',
+					'std'     => 'no',
+					'default' => 'no',
+					'newids'  => '_rs_not_allow_earn_points_if_sumo_discount',
+				),
 				array(
-					'name'    => __( 'Show Redeeming Field' , 'rewardsystem' ) ,
-					'id'      => 'rs_show_redeeming_field' ,
-					'std'     => '1' ,
-					'default' => '1' ,
-					'type'    => 'select' ,
-					'newids'  => 'rs_show_redeeming_field' ,
+					'name'    => __( 'Show Redeeming Field' , 'rewardsystem' ),
+					'id'      => 'rs_show_redeeming_field',
+					'std'     => '1',
+					'default' => '1',
+					'type'    => 'select',
+					'newids'  => 'rs_show_redeeming_field',
 					'options' => array(
-						'1' => __( 'Always' , 'rewardsystem' ) ,
-						'2' => __( 'When Price is not altered through SUMO Discounts Plugin' , 'rewardsystem' ) ,
-					) ,
-				) ,
+						'1' => __( 'Always' , 'rewardsystem' ),
+						'2' => __( 'When Price is not altered through SUMO Discounts Plugin' , 'rewardsystem' ),
+					),
+				),
 				array(
-					'name'    => __( 'Message' , 'rewardsystem' ) ,
-					'id'      => 'rs_redeeming_usage_restriction_for_discount' ,
-					'std'     => __( 'Since you got the discount, you can\'t redeem the points in this order' , 'rewardsystem' ) ,
-					'default' => __( 'Since you got the discount, you can\'t redeem the points in this order' , 'rewardsystem' ) ,
-					'type'    => 'textarea' ,
-					'newids'  => 'rs_redeeming_usage_restriction_for_discount' ,
-				) ,
+					'name'    => __( 'Message' , 'rewardsystem' ),
+					'id'      => 'rs_redeeming_usage_restriction_for_discount',
+					'std'     => __( 'Since you got the discount, you can\'t redeem the points in this order' , 'rewardsystem' ),
+					'default' => __( 'Since you got the discount, you can\'t redeem the points in this order' , 'rewardsystem' ),
+					'type'    => 'textarea',
+					'newids'  => 'rs_redeeming_usage_restriction_for_discount',
+				),
 				array(
-					'name'    => __( 'Show/Hide WooCommerce Coupon Field' , 'rewardsystem' ) ,
-					'desc'    => __( 'Enable this checkbox to prevent woocommerce coupon usage when discount from SUMO Discount plugin is applied' , 'rewardsystem' ) ,
-					'id'      => '_rs_show_hide_coupon_if_sumo_discount' ,
-					'css'     => 'min-width:550px;' ,
-					'type'    => 'checkbox' ,
-					'std'     => 'no' ,
-					'default' => 'no' ,
-					'newids'  => '_rs_show_hide_coupon_if_sumo_discount' ,
-				) ,
+					'name'    => __( 'Show/Hide WooCommerce Coupon Field' , 'rewardsystem' ),
+					'desc'    => __( 'Enable this checkbox to prevent woocommerce coupon usage when discount from SUMO Discount plugin is applied' , 'rewardsystem' ),
+					'id'      => '_rs_show_hide_coupon_if_sumo_discount',
+					'css'     => 'min-width:550px;',
+					'type'    => 'checkbox',
+					'std'     => 'no',
+					'default' => 'no',
+					'newids'  => '_rs_show_hide_coupon_if_sumo_discount',
+				),
 				array(
-					'name'    => __( 'Message' , 'rewardsystem' ) ,
-					'id'      => 'rs_message_in_cart_and_checkout_for_discount' ,
-					'std'     => __( 'Since you got the discount, you can\'t use the WooCommerce Coupon' , 'rewardsystem' ) ,
-					'default' => __( 'Since you got the discount, you can\'t use the WooCommerce Coupon' , 'rewardsystem' ) ,
-					'type'    => 'textarea' ,
-					'newids'  => 'rs_message_in_cart_and_checkout_for_discount' ,
-				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_discounts_compatability_setting' ) ,
+					'name'    => __( 'Message' , 'rewardsystem' ),
+					'id'      => 'rs_message_in_cart_and_checkout_for_discount',
+					'std'     => __( 'Since you got the discount, you can\'t use the WooCommerce Coupon' , 'rewardsystem' ),
+					'default' => __( 'Since you got the discount, you can\'t use the WooCommerce Coupon' , 'rewardsystem' ),
+					'type'    => 'textarea',
+					'newids'  => 'rs_message_in_cart_and_checkout_for_discount',
+				),
+				array( 'type' => 'sectionend', 'id' => '_rs_discounts_compatability_setting' ),
 				array(
-					'type' => 'rs_wrapper_end' ,
-				) ,
+					'type' => 'rs_wrapper_end',
+				),
 					) ) ;
 		}
 
@@ -146,7 +150,6 @@ if ( ! class_exists( 'RSDiscountsCompatability' ) ) {
 			$settings = self::settings_fields() ;
 			RSTabManagement::reset_settings( $settings ) ;
 		}
-
 	}
 
 	RSDiscountsCompatability::init() ;

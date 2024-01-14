@@ -37,9 +37,10 @@ class ThePlus_Wp_Login_Register extends Widget_Base {
     public function get_categories() {
         return array('plus-essential');
     }
+	
 	public function get_keywords() {
-		return ['login', 'signup', 'password', 'login header bar', 'signup header bar', 'login signup panel', 'login panel', 'signup panel' ,'forgot' , 'reset' ,'register'];
-	}
+        return ['Login', 'Signup', 'User login', 'User signup', 'Login widget', 'Signup widget', 'User login widget', 'User signup widget'];
+    }
 	
     protected function register_controls() {	
 		$this->start_controls_section(

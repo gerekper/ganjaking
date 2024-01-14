@@ -1,3 +1,7 @@
+= 3.10.1 - 1 January 2024 =
+
+- Fix: Security improvement for Age Gate widget.
+
 = 3.10.0 - 19 December 2023 =
 
 - New: Support for Equal Height in Container.

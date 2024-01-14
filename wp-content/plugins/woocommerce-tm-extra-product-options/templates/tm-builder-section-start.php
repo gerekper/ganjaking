@@ -90,10 +90,10 @@ if ( isset( $sections_class, $haslogic, $column, $uniqid, $logic, $sections_popu
 
 	if ( 'popup' === $sections_type ) {
 		$_popuplinkitle = esc_html__( 'Open', 'woocommerce-tm-extra-product-options' );
-		if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text ) ) {
-			if ( '%auto%' !== THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text ) {
-				$_popuplinkitle = THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text;
-			} elseif ( '%auto%' === THEMECOMPLETE_EPO()->tm_epo_popup_section_button_text && '' !== $label ) {
+		if ( ! empty( THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_popup_section_button_text' ) ) ) {
+			if ( '%auto%' !== THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_popup_section_button_text' ) ) {
+				$_popuplinkitle = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_popup_section_button_text' );
+			} elseif ( '%auto%' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_popup_section_button_text' ) && '' !== $label ) {
 				$_popuplinkitle = $label;
 			}
 		}

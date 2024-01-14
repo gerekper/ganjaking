@@ -89,7 +89,6 @@ if ( ! class_exists( 'RS_Referral_Log' ) ) {
 				return '0' ; // None of them found
 			}
 		}
-
 	}
 
 }

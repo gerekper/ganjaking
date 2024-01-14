@@ -121,7 +121,7 @@ jQuery( function ( $ ) {
             }
         } ,
         validation_for_add_or_remove_points : function ( actionname ) {
-            AddRemovePointsTabScript.block( '.form-table' ) ;
+            
             var enteredpoints = jQuery( '#rs_reward_addremove_points' ).val() ;
             var reason = jQuery( '#rs_reward_addremove_reason' ).val() ;
             var usertype = jQuery( '#rs_select_user_type' ).val() ;
@@ -152,7 +152,6 @@ jQuery( function ( $ ) {
                 jQuery( '.rs_add_remove_points_reason_error' ).fadeOut( 5000 , function () {
                     $( this ).remove() ;
                 } ) ;
-                AddRemovePointsTabScript.unblock( '.form-table' ) ;
                 return false ;
             } else if ( enteredpoints == '' ) {
                 jQuery( '#rs_reward_addremove_points' ).closest( 'td' ).append( points_error ) ;
@@ -161,7 +160,6 @@ jQuery( function ( $ ) {
                 jQuery( '.rs_add_remove_points_error' ).fadeOut( 5000 , function () {
                     $( this ).remove() ;
                 } ) ;
-                AddRemovePointsTabScript.unblock( '.form-table' ) ;
                 return false ;
             } else if ( reason == '' ) {
                 jQuery( '#rs_reward_addremove_reason' ).closest( 'td' ).append( reason_error ) ;
@@ -170,7 +168,6 @@ jQuery( function ( $ ) {
                 jQuery( '.rs_add_remove_points_reason_error' ).fadeOut( 5000 , function () {
                     $( this ).remove() ;
                 } ) ;
-                AddRemovePointsTabScript.unblock( '.form-table' ) ;
                 return false ;
             } else if ( '' != expireddate ) {
                 var expired_time = new Date( expireddate ).getTime() ;
@@ -182,20 +179,16 @@ jQuery( function ( $ ) {
                     jQuery( '.rs_add_remove_points_expirydate_error' ).fadeOut( 5000 , function () {
                         $( this ).remove() ;
                     } ) ;
-                    AddRemovePointsTabScript.unblock( '.form-table' ) ;
                     return false ;
                 }
             }
-
-            AddRemovePointsTabScript.unblock( '.form-table' ) ;
-            if ( actionname == 'rsremovepointforuser' ) {
-                var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to Remove Points for User(s)?" ) ;
+            
+            AddRemovePointsTabScript.block( $('.rs_button').closest('table') ) ;
+            if ( actionname == 'manually_remove_points_for_user' ) {
                 var sumo_security = fp_addremovepoints_tab_params.fp_remove_points ;
             } else {
-                var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to Add Points for User(s)?" ) ;
                 var sumo_security = fp_addremovepoints_tab_params.fp_add_points ;
             }
-            if ( rsconfirm === true ) {
                 var data = ( {
                     action : actionname ,
                     usertype : usertype ,
@@ -219,19 +212,20 @@ jQuery( function ( $ ) {
                 } ) ;
                 $.post( fp_addremovepoints_tab_params.ajaxurl , data , function ( response ) {
                     if ( true === response.success ) {
-                        window.location.href = fp_addremovepoints_tab_params.redirect ;
+                        AddRemovePointsTabScript.unblock( $('.rs_button').closest('table'))  ;
+                        window.location.href = response.data.redirect_url ;
                     } else {
+                        AddRemovePointsTabScript.unblock( $('.rs_button').closest('table') ) ;
                         window.alert( response.data.error ) ;
                     }
                 } ) ;
-            }
             return false ;
         } ,
         remove_points_from_user : function () {
-            AddRemovePointsTabScript.validation_for_add_or_remove_points( 'rsremovepointforuser' ) ;
+            AddRemovePointsTabScript.validation_for_add_or_remove_points( 'manually_remove_points_for_user' ) ;
         } ,
         add_points_to_user : function () {
-            AddRemovePointsTabScript.validation_for_add_or_remove_points( 'rsaddpointforuser' ) ;
+            AddRemovePointsTabScript.validation_for_add_or_remove_points( 'manually_add_points_for_user' ) ;
         } ,
         block : function ( id ) {
             $( id ).block( {

@@ -158,7 +158,10 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 * @since 1.0
 	 */
 	private function get_order_post_types() {
-		$tm_epo_order_post_types_default = [ 'shop_order' => esc_html__( 'Shop order', 'woocommerce-tm-extra-product-options' ) ];
+		$tm_epo_order_post_types_default = [
+			'shop_order_placehold' => esc_html__( 'Shop order (HPOS)', 'woocommerce-tm-extra-product-options' ),
+			'shop_order'           => esc_html__( 'Shop order', 'woocommerce-tm-extra-product-options' ),
+		];
 		$tm_epo_order_post_types         = get_option( 'tm_epo_order_post_types' );
 		if ( ! is_array( $tm_epo_order_post_types ) ) {
 			$tm_epo_order_post_types = $tm_epo_order_post_types_default;
@@ -983,7 +986,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'                => 'tm_epo_order_post_types',
 				'class'             => 'chosen_select',
 				'css'               => 'min-width:300px;',
-				'default'           => 'shop_order',
+				'default'           => [ 'shop_order_placehold', 'shop_order' ],
 				'type'              => 'multiselect',
 				'custom_attributes' => [ 'data-tags' => true ],
 				'options'           => $this->get_order_post_types(),
@@ -992,13 +995,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'title'   => esc_html__( 'Strip html from emails', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check to strip the html tags from emails', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_strip_html_from_emails',
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Hide uploaded file path', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check to hide the uploaded file path from users (in the Order).', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_hide_upload_file_path',
 				'default' => 'yes',
 				'type'    => 'checkbox',
 			],
@@ -1417,7 +1413,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				],
 			],
 			[
-				'title'   => esc_html__( 'Select item border type', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Swatch border type', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Select a style for the selected border when using image replacements or swatches.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_css_selected_border',
 				'class'   => 'chosen_select',
@@ -1433,14 +1429,62 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 					'thinline' => esc_html__( 'Thin line', 'woocommerce-tm-extra-product-options' ),
 				],
 			],
-			// [
-			// 	'title'   => esc_html__( 'Swatch Border Color', 'woocommerce-tm-extra-product-options' ),
-			// 	'desc'    => esc_html__( 'Set the border color for the selected border when using image replacements or swatches.', 'woocommerce-tm-extra-product-options' ),
-			// 	'id'      => 'tm_epo_swatch_border_color',
-			// 	'class'   => 'tm-color-picker',
-			// 	'default' => '',
-			// 	'type'    => 'text',
-			// ],
+			[
+				'title'   => esc_html__( 'Swatch Border Color', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Choose the border color for image or color swatches. If left blank it defaults to transparent.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_swatch_border_color',
+				'class'   => 'tm-color-picker',
+				'default' => '',
+				'type'    => 'text',
+			],
+			[
+				'title'   => esc_html__( 'Text Swatch Border Color', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Choose the border color for text swatches. If left blank it is set to inherit the current color.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_text_swatch_border_color',
+				'class'   => 'tm-color-picker',
+				'default' => '',
+				'type'    => 'text',
+			],
+			[
+				'title'   => esc_html__( 'Swatch Active Border Color', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Choose the color that should appear as the active border when you have selected an image, color or text swatch. If left blank it is set to inherit the current color.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_swatch_active_border_color',
+				'class'   => 'tm-color-picker',
+				'default' => '',
+				'type'    => 'text',
+			],
+			[
+				'title'       => esc_html__( 'Swatch Border Width', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Choose the border width for image or color swatches.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_swatch_border_width',
+				'default'     => '',
+				'placeholder' => '2px',
+				'type'        => 'text',
+			],
+			[
+				'title'       => esc_html__( 'Swatch Active Border Width', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Select the border width for the active border when you have chosen an image or color swatch.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_swatch_active_border_width',
+				'default'     => '',
+				'placeholder' => '2px',
+				'type'        => 'text',
+			],
+			[
+				'title'       => esc_html__( 'Text Swatch Border Width', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Choose the border width for text swatches.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_text_swatch_border_width',
+				'default'     => '',
+				'placeholder' => '1px',
+				'type'        => 'text',
+			],
+			[
+				'title'       => esc_html__( 'Text Swatch Active Border Width', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Select the border width for the active border when you have chosen a text swatch.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_text_swatch_active_border_width',
+				'default'     => '',
+				'placeholder' => '1px',
+				'type'        => 'text',
+			],
 			[
 				'type' => 'tm_sectionend',
 				'id'   => 'epo_page_options',

@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td class="column-columnname">
 						<p class="form-field">
 							<input type="text" 
-								   name="rewards_dynamic_rule_purchase_history_redeem[<?php echo esc_attr( $i ) ; ?>][name]"
-								   class="short" value="<?php echo wp_kses_post( $level_name ) ; ?>">
+								name="rewards_dynamic_rule_purchase_history_redeem[<?php echo esc_attr( $i ) ; ?>][name]"
+								class="short" value="<?php echo esc_attr( $level_name ) ; ?>">
 						</p>
 					</td>
 

@@ -120,7 +120,7 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		 * @since 1.0
 		 */
 		public function script_templates() {
-			// The check is required in case other plugin do things that don't load the wc_get_template function.
+			// The check is required in case other plugins do things that don't load the wc_get_template function.
 			if ( function_exists( 'wc_get_template' ) ) {
 				wc_get_template( 'tc-js-admin-templates.php', [], '', THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
 			}

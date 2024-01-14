@@ -128,7 +128,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
 
-		if ( isset( THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) && 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable' ) ) {
 			add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'cart_loaded_from_session_2' ], 2 );
 			if ( defined( 'RP_WCDPD_VERSION' ) && version_compare( RP_WCDPD_VERSION, '2.3.4', '>=' ) ) {
 				add_filter( 'woocommerce_product_get_price', [ $this, 'woocommerce_product_get_price_99999' ], 99999, 2 );
@@ -185,7 +185,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @since 5.0.6
 	 */
 	public function wc_epo_original_price_type_mode( $price = '', $post_data = [] ) {
-		if ( 'undiscounted' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_original_price_base'] && isset( $post_data['tcaddtocart'] ) ) {
+		if ( 'undiscounted' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_original_price_base' ) && isset( $post_data['tcaddtocart'] ) ) {
 			if ( class_exists( 'RightPress_Product_Price' ) ) {
 				RightPress_Product_Price::get_instance()->start_running_custom_calculations();
 			}
@@ -231,7 +231,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @access public
 	 *
 	 * @return void
-	 * @since  5.0
+	 * @since 5.0
 	 */
 	public function woocommerce_after_mini_cart() {
 		$cart_contents = WC()->cart->cart_contents;
@@ -251,7 +251,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @param object  $product The product object.
 	 * @return mixed
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 */
 	public function woocommerce_product_get_price_99999( $price, $product ) {
 		if ( is_cart() || is_checkout() || ! empty( $product->tc_in_mini_cart ) ) {
@@ -276,7 +276,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @return integer
 	 *
-	 * @since  4.9.6
+	 * @since 4.9.6
 	 */
 	public function rightpress_product_price_late_hook_priority() {
 		return 99990;
@@ -288,7 +288,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @param boolean      $can true or false.
 	 * @param array<mixed> $item_meta The item meta.
 	 * @return boolean
-	 * @since  4.8.4
+	 * @since 4.8.4
 	 */
 	public function epo_can_show_order_price( $can = true, $item_meta = [] ) {
 		$order_flag = isset( $item_meta[ $this->order_flag ] ) ? $item_meta[ $this->order_flag ] : ( isset( $item_meta[ '_' . $this->order_flag ] ) ? $item_meta[ '_' . $this->order_flag ] : [] );
@@ -299,7 +299,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		if ( is_array( $order_flag ) && count( $order_flag ) > 0 ) {
 			$order_flag = $order_flag[0];
 		}
-		if ( 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_show_option_prices_in_order'] && ! empty( $order_flag ) ) {
+		if ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_show_option_prices_in_order' ) && ! empty( $order_flag ) ) {
 			$can = false;
 		}
 
@@ -479,15 +479,15 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @since 1.0
 	 */
 	public function wc_epo_template_args_tm_totals( $args, $product ) {
-		$args['tm_epo_dpd_suffix']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_suffix'];
-		$args['tm_epo_dpd_prefix']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_prefix'];
-		$args['tm_epo_dpd_enable_pricing_table'] = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable_pricing_table'];
-		$args['tm_epo_dpd_enable']               = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'];
-		$args['tm_epo_dpd_string_placement']     = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_string_placement'];
-		$args['tm_epo_dpd_label_css_selector']   = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_label_css_selector'];
-		$args['tm_epo_dpd_original_price_base']  = THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_original_price_base'];
+		$args['tm_epo_dpd_suffix']               = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_suffix' );
+		$args['tm_epo_dpd_prefix']               = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_prefix' );
+		$args['tm_epo_dpd_enable_pricing_table'] = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable_pricing_table' );
+		$args['tm_epo_dpd_enable']               = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable' );
+		$args['tm_epo_dpd_string_placement']     = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_string_placement' );
+		$args['tm_epo_dpd_label_css_selector']   = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_label_css_selector' );
+		$args['tm_epo_dpd_original_price_base']  = THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_original_price_base' );
 
-		$args['fields_price_rules'] = ( 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) ? $args['fields_price_rules'] : 1;
+		$args['fields_price_rules'] = ( 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable' ) ) ? $args['fields_price_rules'] : 1;
 
 		if ( '1' === $args['price_override'] ) {
 			$args['fields_price_rules'] = 1;
@@ -800,10 +800,10 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 		$float_price_to_display = floatval( $product->get_price() );
 
-		if ( 'advanced' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display ) {
+		if ( 'advanced' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_cart_field_display' ) ) {
 			$original_price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $cart_item['tm_epo_product_original_price'], $cart_item, '', 1 );
 			$float_original_price_to_display = floatval( $cart_item['tm_epo_product_original_price'] );
-			if ( 'yes' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] ) {
+			if ( 'yes' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable' ) ) {
 				$price                  = $this->get_rp_wcdpd( $cart_item['tm_epo_product_original_price'], wc_get_product( themecomplete_get_id( $cart_item['data'] ) ), $cart_item_key );
 				$price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $price, $cart_item, '', 1 );
 				$float_price_to_display = floatval( $price );
@@ -843,7 +843,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 */
 	private function get_rp_wcdpd_single( $field_price, $cart_item_key, $pricing = null, $force = false ) {
 
-		if ( empty( $cart_item_key ) || 'no' === THEMECOMPLETE_EPO()->data_store['tm_epo_dpd_enable'] && ! $force ) {
+		if ( empty( $cart_item_key ) || 'no' === THEMECOMPLETE_EPO_DATA_STORE()->get( 'tm_epo_dpd_enable' ) && ! $force ) {
 			return $field_price;
 		}
 

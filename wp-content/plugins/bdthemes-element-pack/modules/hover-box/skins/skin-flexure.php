@@ -79,7 +79,7 @@ class Skin_Flexure extends Elementor_Skin_Base {
 
 						$title_key = 'title_' . $index;
 						$this->parent->add_render_attribute($title_key, 'class', 'bdt-ep-hover-box-title-link', true);
-						$this->parent->add_link_attributes($title_key, $item['title_link']);
+						$this->parent->add_link_attributes($title_key, isset($item['title_link']) ? $item['title_link'] : []);
 						
 						?>
                         <div <?php echo ( $this->parent->get_render_attribute_string( 'box-item' ) ); ?> data-id="<?php echo esc_attr($tab_id); ?>">
