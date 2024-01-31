@@ -3,11 +3,11 @@
  * Plugin Name: EventON
  * Plugin URI: http://www.myeventon.com/
  * Description: A beautifully crafted minimal calendar experience
- * Version: 4.5.4
+ * Version: 4.5.8
  * Author: AshanJay
  * Author URI: http://www.ashanjay.com
  * Requires at least: 6.0
- * Tested up to: 6.4.1
+ * Tested up to: 6.4.2
  * 
  * Text Domain: eventon
  * Domain Path: /lang/languages/

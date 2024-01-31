@@ -39,7 +39,7 @@ SeedProd is a WordPress Website Theme Builder, which allows you to create custom
 
 Typically you would need a traditional WordPress theme to accomplish this. With SeedProd no theme is needed. No more conflicts between your theme and page builder. SeedProd is a complete turnkey solution that gets you a website fast.
 
-Themes created with SeedProd can use any builder. Of course, SeedProd is the best page builder in our opinion, but you can use: Gutenberg Page Builder, Elementor Page Builder, Beaver Builder Page Builder, Divi Page Builder, Visual Composer Page Builder, Brizy Page Builder, Thrive Architect Page Builder, Beaver Builder, and the list goes on...
+Themes created with SeedProd can use any builder. Of course, SeedProd is the best page builder in our opinion, but you can use: Gutenberg Page Builder, Elementor Page Builder, Beaver Builder Page Builder, Divi Page Builder, Visual Composer Page Builder, Brizy Page Builder, Thrive Architect Page Builder, and the list goes on...
 
 SeedProd also has a growing library of 200+ <a href="https://www.seedprod.com/templates/?type=themes&sort=0&utm_source=wordpress.org&utm_medium=link&utm_campaign=coming-soon-from-wordpress.org" rel="friend">beautiful pre-built WordPress themes</a>, templates, blocks, sections and complete websites to help you get started. Did I mention, no coding is required :)
 
@@ -76,7 +76,7 @@ The Free Version of SeedProd comes with a variety of Coming Soon Page and Mainte
 *   Subscriber Management - Track every subscriber with or without a 3rd party email provider.
 *   Stock Images - Get In-Plugin Access to over 2 Million Stock Images. Searchable, Resized, and Optimized for the Web.
 *   Live Previews - We allow you to see live previews of the page while it's in any state, draft, live, or just testing.
-*   Layout Navigation - Use our layout navigation, which is a mini-map of your page, to easily rearrange sections, rows, columns, blocks, or access your page settings
+*   Layout Navigation - Use our layout navigation, which is a mini-map of your page, to easily rearrange sections, rows, columns, blocks, or access your page settings.
 *   Revision History, Undo & Redo - With one click reverts, you can go back to any previously saved point on your page and even see who made those particular changes.
 *   Draft Mode - Work on your page in private without revealing its construction to the public.
 *   Mobile Device Preview - See what your pages will look like on desktop and mobile devices before you go live.
@@ -87,12 +87,12 @@ The Free Version of SeedProd comes with a variety of Coming Soon Page and Mainte
 *   Domain Mapping - Domain Mapping lets you create landing pages and point them to any domain name instead of your main website domain.
 *   Dynamic Text - Dynamic Text lets you dynamically insert dates or values from a query parameter to personalize your landing pages.
 *   Custom Scripts - Need to add a tracking script or widget from another website? Use the built-in header and footer scripts area to implement more technical tweaks.
-*   Spam Protection - Protect your landing pages from spam, bots, and fraudulent submissions with Google ReCaptcha
+*   Spam Protection - Protect your landing pages from spam, bots, and fraudulent submissions with Google reCAPTCHA
 
 ### WordPress Blocks:
 
 *   Standard Blocks - Headline, Text, List, Button, Image, Video, Divider, Spacer, Column
-*   Advanced Blocks - Giveaway, Contact Form, Optin Form, Countdown, Social Profiles, Social Sharing, Animated Headlines, Progress Bar, Icon, Testimonials, Image Carousel, Image Box, Icon Box, Nav Menu, Pricing Tables, Page Anchor, Star Rating, Accordion, Shortcode, Login Form, Google Maps, Seach Form, Custom HTML
+*   Advanced Blocks - Giveaway, Contact Form, Optin Form, Countdown, Social Profiles, Social Sharing, Animated Headline, Progress Bar, Icon, Testimonials, Image Carousel, Image Box, Icon Box, Nav Menu, Pricing Table, Page Anchor, Star Rating, Accordion, Shortcode, Login Form, Google Maps, Search Form, Custom HTML
 *   Social Media Blocks - Facebook Page, Facebook Embed, Facebook Like, Facebook Comments, Twitter Embed Tweet, Twitter Embed Timeline, Twitter Tweet Button, Twitter Follow Button
 *   WooCommerce Blocks - Add To Cart, Checkout, Cart, Product Grid, Recent Products, Sale Products, Best Selling Products, Featured Products, Top Rated Products, Menu Cart, Product Title, Product Featured Image, Product Price, Short Description, Additional Information, Products Related, Upsells, Product Rating, Product Stock, Archive Products, Product Data Tabs
 *   Theme Template Tag Blocks: Posts, Post Title, Post Content, Post Excerpt, Featured Image, Author Box, Post Comments, Post Navigation: Post Info, Archive Title, Site Logo, Global Template Parts
@@ -167,9 +167,9 @@ With our WordPress Website Builder, you can now create your entire website and W
 
 You can build landing pages, coming soon pages, maintenance mode pages in the free version. In addition, in the Pro version, you can create 404 pages and login pages. 
 
-= Will the SeedProd Page Builder work with my Theme =
+= Will the SeedProd Page Builder work with my Theme? =
 
-Coming soon pages, maintenance mode pages, and landing pages are standalone pages and are separate from your theme's design. If you use the SeedProd WordPress Website Builder to build your website then a theme is not needed. SeedProd has its own theme built-in theme which can be customized. You can also use the Gutenberg, Elementor, Divi, Beaver Builder, Visual Composer, Thrive Architect, Brizy, or any other page builder on websites built with SeedProd. [More Info &raquo;](https://www.seedprod.com/features/seedprod-theme-builder-overview/)
+Coming soon pages, maintenance mode pages, and landing pages are standalone pages and are separate from your theme's design. If you use the SeedProd WordPress Website Builder to build your website then a theme is not needed. SeedProd has its own built-in theme which can be customized. You can also use the Gutenberg, Elementor, Divi, Beaver Builder, Visual Composer, Thrive Architect, Brizy, or any other page builder on websites built with SeedProd. [More Info &raquo;](https://www.seedprod.com/features/seedprod-theme-builder-overview/)
 
 = Does it work with WooCommerce? =
 
@@ -258,12 +258,12 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 * Added - PRO Site Logo
 * Added - PRO Template Parts
 * Added - PRO Ability to Add WordPress widgets
-* Added - PRO Social Profile Updates: Medium, Discord, Telegram, Slack, Weibo, Vimeo, Facebook Messenger, Whatsapp
+* Added - PRO Social Profile Updates: Medium, Discord, Telegram, Slack, Weibo, Vimeo, Facebook Messenger, WhatsApp
 
 = 6.6.0 =
 
 * Added - Column Alignment Controls
-* Added - Divice Visibility Controls
+* Added - Device Visibility Controls
 * Added - Full Length Template Previews
 * Tweak - Version Sync with Pro
 
@@ -276,10 +276,10 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 
 * Added - WooCommerce Blocks Pro Version
 * Added - Accordion Block Pro Version
-* Added - Testimonial Block Version
+* Added - Testimonial Block Pro Version
 * Added - Ability to Edit WordPress pages with SeedProd, this can be disabled in the SeedProd settings page.
 * Fixed - IOS cover image bug
-* Fixed - Yoast and AllinOne SEO Pro edit page links
+* Fixed - Yoast and All in One SEO(AIOSEO) Pro edit page links
 * Fixed - WP Version filter not returning default value
 * Tweak - Added filter to top level menu position 'seedprod_top_level_menu_postion'
 * Tweak - Added imprint and privacy to default excluded pages
@@ -300,15 +300,15 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 = 6.0.10.1 =
 * Added - 10 New Templates
 * Added - Undo and Redo Functionality
-* Added = Permissions Filters
+* Added - Permissions Filters
 * Added - Easier Upgrade Path
-* Fixed - WPRocket Compatability
+* Fixed - WP Rocket Compatibility
 * Fixed - BGSlideshow timeout issue 
 * Fixed - Highlight left menu when page is selected
 * Fixed - Mobile Fonts Settings
 * Tweak - Animate Optin Button
 * Tweak - Moved Preview Button
-* Tweak - Made Sections Clickable In Free Verson
+* Tweak - Made Sections Clickable In Free Version
 * Tweak - Attribution Fix
 
 = 6.0.9.0 =
@@ -330,7 +330,7 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 * Tweak - menus require manage_options capability
 
 = 6.0.8.2 =
-* Reverted - Preview link ad added flush permalink
+* Reverted - Preview link ad, added flush permalink
 
 = 6.0.8.1 =
 * Tweak - Added preview_nonce to preview link

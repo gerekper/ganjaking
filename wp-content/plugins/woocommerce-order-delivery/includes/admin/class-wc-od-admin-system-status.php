@@ -52,10 +52,10 @@ class WC_OD_Admin_System_Status {
 			'delivery_days'   => wc_od_get_delivery_days(),
 		);
 
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-shipping-days.php';
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-ranges.php';
-		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-days.php';
+		include_once __DIR__ . '/views/html-admin-status-report-settings.php';
+		include_once __DIR__ . '/views/html-admin-status-report-shipping-days.php';
+		include_once __DIR__ . '/views/html-admin-status-report-delivery-ranges.php';
+		include_once __DIR__ . '/views/html-admin-status-report-delivery-days.php';
 	}
 
 	/**

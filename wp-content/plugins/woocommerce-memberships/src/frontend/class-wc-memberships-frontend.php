@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -106,24 +106,6 @@ class WC_Memberships_Frontend {
 	public function get_my_account_instance() {
 
 		return $this->my_account;
-	}
-
-
-	/**
-	 * Gets the Members Area handler instance.
-	 *
-	 * TODO: remove this method by 2.0.0 or by 2022-03-04 {WV 2020-09-04}
-	 *
-	 * @since 1.7.4
-	 * @deprecated 1.19.0
-	 *
-	 * @return \WC_Memberships_Members_Area
-	 */
-	public function get_members_area_instance() {
-
-		wc_deprecated_function( __METHOD__, '1.19.0', __CLASS__ . '::get_my_account_instance()->get_members_area_instance()' );
-
-		return $this->get_my_account_instance()->get_members_area_instance();
 	}
 
 
@@ -357,7 +339,7 @@ class WC_Memberships_Frontend {
 		}
 
 		if ( isset( $notice_message, $notice_type ) ) {
-			wc_add_notice( $notice_message, $notice_type );
+			wc_add_notice( $notice_message, in_array( $notice_type, [ 'notice', 'error', 'success' ], true ) ? $notice_type : 'notice' );
 		}
 
 		$redirect_to = wc_memberships_get_members_area_url();
@@ -782,28 +764,6 @@ class WC_Memberships_Frontend {
 		}
 
 		return $original_redirect_url;
-	}
-
-
-	/**
-	 * Redirects a member who just logged in according to Memberships setting.
-	 *
-	 * @internal
-	 *
-	 * @since 1.16.0
-	 * @deprecated 1.21.2
-	 *
-	 * @TODO remove this deprecated method by version 2.0.0 or by May 2022 {FN 2020-01-20}
-	 *
-	 * @param string $original_redirect_url URL which WooCommerce is redirecting to
-	 * @param \WP_User $user member user object
-	 * @return string
-	 */
-	public function redirect_to_page_upon_login( $original_redirect_url, $user ) {
-
-		wc_deprecated_function( __METHOD__, '1.21.2', __CLASS__ . '::redirect_to_page_upon_woocommerce_login()' );
-
-		return $this->redirect_to_page_upon_woocommerce_login( $original_redirect_url, $user );
 	}
 
 

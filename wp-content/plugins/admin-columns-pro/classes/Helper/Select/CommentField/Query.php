@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Helper\Select\CommentField;
 
+use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 
@@ -18,7 +19,7 @@ class Query extends ArrayIterator implements Paginated
     {
         $this->field = $field;
         $this->args = array_merge([
-            'limit'  => 100,
+            'limit'  => (new QueryTotalNumber())->apply_filter(),
             'search' => null,
             'page'   => 1,
         ], $args);

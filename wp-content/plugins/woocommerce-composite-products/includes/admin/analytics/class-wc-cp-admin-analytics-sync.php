@@ -2,7 +2,7 @@
 /**
  * WC_CP_Admin_Analytics_Sync class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.3.0
  */
 

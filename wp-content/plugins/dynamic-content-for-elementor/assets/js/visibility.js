@@ -19,6 +19,9 @@
 		const showOnLoadAnimation = settings.dce_visibility_load_show;
 		const $hideOther = jQuery(hideOther).not($e);
 		const transitionDelay = 400;
+		// Will become true if there this trigger element is already in charge
+		// of hiding the same others. Do not do it twice:
+		let hideOtherAlreadyHandled = false;
 		const afterShow = () => {
 			elementorFrontend.elementsHandler.runReadyTrigger($e);
 		}
@@ -72,14 +75,30 @@
 		const triggerEventCallback = (event) => {
 			event.preventDefault();
 			const triggerFun = isToggle ? toggle : (shouldHide? hide : show);
-			if (hideOther) {
+			if (hideOther && ! hideOtherAlreadyHandled) {
 				hideOtherElements(triggerFun);
 			} else {
 				triggerFun();
 			}
 		}
+
+		// See the commend on hideOtherElements definition
+		const handleHideOthers = ($triggerElement) => {
+			let hideOthers = $triggerElement.data('dce-hide-others') || {};
+			if( hideOthers[hideOther] ) {
+				hideOtherAlreadyHandled = true;
+			} else {
+				hideOthers[hideOther] = true;
+				$triggerElement.data('dce-hide-others', hideOthers);
+			}
+		}
+
 		if (triggerElement) {
-			jQuery(triggerElement).on(triggerEvent, triggerEventCallback);
+			let $triggerElement = jQuery(triggerElement);
+			if (hideOther) {
+				handleHideOthers($triggerElement);
+			}
+			$triggerElement.on(triggerEvent, triggerEventCallback);
 		}
 		if (showOnLoad) {
 			setTimeout(() => {

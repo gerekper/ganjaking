@@ -2800,6 +2800,16 @@ class ThePlus_Pricing_Table extends Widget_Base {
 				],
 			]
 		);
+		$this->start_controls_tabs( 'list_content_style_tab1' );
+		$this->start_controls_tab(
+			'content_Normal',
+			[
+				'label' => esc_html__( 'Normal', 'theplus' ),
+				'condition' => [
+					'content_style' => 'stylist_list',
+				],
+			]
+		);
 		$this->add_control(
 			'toggle_expand_text_color',
 			[
@@ -2814,6 +2824,32 @@ class ThePlus_Pricing_Table extends Widget_Base {
 				],
 			]
 		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'content_hover',
+			[
+				'label' => esc_html__( 'Hover', 'theplus' ),
+				'condition' => [
+					'content_style' => 'stylist_list',
+				],
+			]
+		);
+		$this->add_control(
+			'toggle_expand_text_hover_color',
+			[
+				'label' => esc_html__( 'Text Color', 'theplus' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .plus-pricing-table .pricing-content-wrap.listing-content.style-1 a.read-more-options:hover' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'content_style' => 'stylist_list',
+					'content_list_style' => 'style-1'
+				],
+			]
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->add_control(
 			'toggle_expand_border_top',
 			[

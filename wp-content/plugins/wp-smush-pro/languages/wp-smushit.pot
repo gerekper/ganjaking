@@ -1,22 +1,22 @@
-# Copyright (C) 2023 WPMU DEV
+# Copyright (C) 2024 WPMU DEV
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.15.2\n"
+"Project-Id-Version: Smush Pro 3.15.4\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-06T13:49:45+00:00\n"
+"POT-Creation-Date: 2024-01-23T13:28:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: wp-smushit\n"
 
 #. Plugin Name of the plugin
-#: app/class-admin.php:283
-#: app/class-admin.php:322
+#: app/class-admin.php:291
+#: app/class-admin.php:330
 #: app/pages/class-dashboard.php:110
 #: app/pages/class-dashboard.php:353
 #: app/views/directory/meta-box.php:43
@@ -81,9 +81,9 @@ msgid "Documentation"
 msgstr ""
 
 #: app/class-abstract-page.php:731
-#: app/class-admin.php:503
-#: app/class-admin.php:707
-#: app/class-admin.php:751
+#: app/class-admin.php:511
+#: app/class-admin.php:716
+#: app/class-admin.php:760
 #: app/pages/class-directory.php:176
 #: app/pages/class-directory.php:177
 #: core/class-core.php:315
@@ -105,7 +105,7 @@ msgid "You have images that need smushing. %1$sBulk smush now!%2$s"
 msgstr ""
 
 #: app/class-abstract-page.php:910
-#: app/class-admin.php:318
+#: app/class-admin.php:326
 #: app/views/settings/permissions-meta-box.php:92
 #: core/class-settings.php:1172
 msgid "Tutorials"
@@ -128,7 +128,7 @@ msgid "PNG to JPEG savings"
 msgstr ""
 
 #: app/class-abstract-summary-page.php:152
-#: app/class-admin.php:302
+#: app/class-admin.php:310
 #: app/pages/class-cdn.php:31
 #: app/pages/class-cdn.php:40
 #: app/pages/class-cdn.php:50
@@ -205,14 +205,15 @@ msgstr ""
 msgid "Choose directory"
 msgstr ""
 
-#: app/class-admin.php:217
-#: app/views/bulk/limit-reached-notice.php:26
+#: app/class-admin.php:216
+#: app/views/bulk/limit-reached-notice.php:28
 #: app/views/smush-upgrade-page.php:26
 msgid "Upgrade to Smush Pro"
 msgstr ""
 
+#. translators: %s: Discount percent
 #: app/class-admin.php:218
-msgid "Upgrade for 60% off"
+msgid "Upgrade For %s Off!"
 msgstr ""
 
 #: app/class-admin.php:220
@@ -220,70 +221,61 @@ msgstr ""
 msgid "Renew Membership"
 msgstr ""
 
-#: app/class-admin.php:230
+#: app/class-admin.php:234
 msgid "View Smush Documentation"
 msgstr ""
 
-#: app/class-admin.php:230
+#: app/class-admin.php:234
 #: app/common/footer-links.php:41
 #: app/common/footer-links.php:66
-#: app/views/smush-upgrade-page.php:211
 msgid "Docs"
 msgstr ""
 
-#: app/class-admin.php:234
-msgid "Go to Smush settings"
+#: app/class-admin.php:238
+msgid "Go to Smush Dashboard"
 msgstr ""
 
-#: app/class-admin.php:234
-#: app/class-admin.php:314
-#: app/pages/class-bulk.php:108
-#: _src/react/modules/configs.jsx:150
-msgid "Settings"
+#: app/class-admin.php:238
+#: app/class-admin.php:295
+msgid "Dashboard"
 msgstr ""
 
-#: app/class-admin.php:261
+#: app/class-admin.php:265
 msgid "Rate Smush"
 msgstr ""
 
-#: app/class-admin.php:262
+#: app/class-admin.php:266
 #: app/common/footer-links.php:38
 #: app/common/footer-links.php:63
-#: app/views/smush-upgrade-page.php:208
 msgid "Support"
 msgstr ""
 
-#: app/class-admin.php:267
+#: app/class-admin.php:271
 msgid "View details"
 msgstr ""
 
-#: app/class-admin.php:271
+#: app/class-admin.php:275
 msgid "Premium Support"
 msgstr ""
 
-#: app/class-admin.php:274
+#: app/class-admin.php:282
 #: app/common/footer-links.php:35
 #: app/common/footer-links.php:60
-#: app/views/smush-upgrade-page.php:205
 msgid "Roadmap"
 msgstr ""
 
-#: app/class-admin.php:283
+#: app/class-admin.php:291
 #: app/class-media-library.php:378
 #: core/integrations/nextgen/class-admin.php:135
 #: core/integrations/nextgen/class-admin.php:137
 #: core/integrations/nextgen/class-admin.php:275
 #: core/media-library/class-media-library-row.php:511
 #: core/modules/bulk/class-mail.php:65
-#: wp-smush.php:466
+#: wp-smush.php:510
 msgid "Smush"
 msgstr ""
 
-#: app/class-admin.php:287
-msgid "Dashboard"
-msgstr ""
-
-#: app/class-admin.php:290
+#: app/class-admin.php:298
 #: app/pages/class-bulk.php:94
 #: app/pages/class-dashboard.php:74
 #: app/pages/class-nextgen.php:57
@@ -296,13 +288,13 @@ msgstr ""
 msgid "Bulk Smush"
 msgstr ""
 
-#: app/class-admin.php:294
+#: app/class-admin.php:302
 #: app/pages/class-dashboard.php:121
 #: app/pages/class-directory.php:31
 msgid "Directory Smush"
 msgstr ""
 
-#: app/class-admin.php:298
+#: app/class-admin.php:306
 #: app/modals/onboarding.php:51
 #: app/modals/onboarding.php:168
 #: app/pages/class-dashboard.php:132
@@ -316,7 +308,7 @@ msgstr ""
 msgid "Lazy Load"
 msgstr ""
 
-#: app/class-admin.php:306
+#: app/class-admin.php:314
 #: app/pages/class-dashboard.php:143
 #: app/pages/class-dashboard.php:299
 #: app/pages/class-webp.php:120
@@ -328,7 +320,7 @@ msgstr ""
 msgid "Local WebP"
 msgstr ""
 
-#: app/class-admin.php:310
+#: app/class-admin.php:318
 #: app/pages/class-dashboard.php:85
 #: app/pages/class-integrations.php:38
 #: app/views/settings/permissions-meta-box.php:75
@@ -337,112 +329,114 @@ msgstr ""
 msgid "Integrations"
 msgstr ""
 
-#: app/class-admin.php:342
+#: app/class-admin.php:322
+#: app/pages/class-bulk.php:108
+#: _src/react/modules/configs.jsx:150
+msgid "Settings"
+msgstr ""
+
+#: app/class-admin.php:350
 msgid "Plugin: Smush"
 msgstr ""
 
-#: app/class-admin.php:344
+#: app/class-admin.php:352
 msgid "Note: Smush does not interact with end users on your website. The only input option Smush has is to a newsletter subscription for site admins only. If you would like to notify your users of this in your privacy policy, you can use the information below."
 msgstr ""
 
-#: app/class-admin.php:346
+#: app/class-admin.php:354
 msgid "Smush sends images to the WPMU DEV servers to optimize them for web use. This includes the transfer of EXIF data. The EXIF data will either be stripped or returned as it is. It is not stored on the WPMU DEV servers."
 msgstr ""
 
 #. translators: %1$s - opening <a>, %2$s - closing </a>
-#: app/class-admin.php:349
+#: app/class-admin.php:357
 msgid "Smush uses the Stackpath Content Delivery Network (CDN). Stackpath may store web log information of site visitors, including IPs, UA, referrer, Location and ISP info of site visitors for 7 days. Files and images served by the CDN may be stored and served from countries other than your own. Stackpath's privacy policy can be found %1$shere%2$s."
 msgstr ""
 
-#: app/class-admin.php:357
+#: app/class-admin.php:365
 msgid "Smush uses a third-party email service (Drip) to send informational emails to the site administrator. The administrator's email address is sent to Drip and a cookie is set by the service. Only administrator information is collected by Drip."
 msgstr ""
 
-#: app/class-admin.php:361
+#: app/class-admin.php:369
 msgid "WP Smush"
 msgstr ""
 
-#: app/class-admin.php:379
+#: app/class-admin.php:387
 msgid "Validating..."
 msgstr ""
 
 #. translators: $1$s: recheck link, $2$s: closing a tag, %3$s; contact link, %4$s: closing a tag
-#: app/class-admin.php:384
+#: app/class-admin.php:392
 msgid "It looks like Smush couldn’t verify your WPMU DEV membership so Pro features have been disabled for now. If you think this is an error, run a %1$sre-check%2$s or get in touch with our %3$ssupport team%4$s."
 msgstr ""
 
-#: app/class-admin.php:491
+#: app/class-admin.php:499
 msgid "You have multiple WordPress image optimization plugins installed. This may cause unpredictable behavior while optimizing your images, inaccurate reporting, or images to not display. For best results use only one image optimizer plugin at a time. These plugins may cause issues with Smush:"
 msgstr ""
 
-#: app/class-admin.php:497
+#: app/class-admin.php:505
 msgid "Manage Plugins"
 msgstr ""
 
 #. translators: 1. opening strong tag, 2: unsmushed images count,3. closing strong tag.
-#: app/class-admin.php:524
+#: app/class-admin.php:532
 msgid "%1$s%2$d attachment%3$s that needs smushing"
 msgid_plural "%1$s%2$d attachments%3$s that need smushing"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1. opening strong tag, 2: re-smush images count,3. closing strong tag.
-#: app/class-admin.php:535
+#: app/class-admin.php:543
 msgid "%1$s%2$d attachment%3$s that needs re-smushing"
 msgid_plural "%1$s%2$d attachments%3$s that need re-smushing"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1. username, 2. unsmushed images message, 3. 'and' text for when having both unsmushed and re-smush images, 4. re-smush images message.
-#: app/class-admin.php:546
+#: app/class-admin.php:554
 msgid "%1$s, you have %2$s%3$s%4$s! %5$s"
 msgstr ""
 
-#: app/class-admin.php:549
+#: app/class-admin.php:557
 msgid " and "
 msgstr ""
 
-#: app/class-admin.php:589
+#: app/class-admin.php:597
 #: core/integrations/nextgen/class-admin.php:567
 msgid "Yay! All images are optimized as per your current settings."
 msgstr ""
 
 #. translators: %1$d - number of images, %2$s - opening a tag, %3$s - closing a tag
-#: app/class-admin.php:595
+#: app/class-admin.php:603
 #: core/integrations/nextgen/class-admin.php:561
 msgid "Image check complete, you have %1$d images that need smushing. %2$sBulk smush now!%3$s"
 msgstr ""
 
-#: app/class-admin.php:620
-msgid "60% off welcome discount available."
+#. translators: %s: Discount
+#: app/class-admin.php:629
+msgid "%s off welcome discount available."
 msgstr ""
 
 #. translators: 1: max free bulk limit, 2: Total batches to smush, 3: opening a tag, 4: closing a tag.
-#: app/class-admin.php:623
+#: app/class-admin.php:632
 msgid "Free users can only Bulk Smush %1$d images at one time. Smush in %2$d batches or %3$sBulk Smush unlimited images with Pro%4$s. %5$s"
 msgstr ""
 
 #. translators: %s: <strong>curl_multi_exec()</strong>
-#: app/class-admin.php:690
+#: app/class-admin.php:699
 msgid "Smush was unable to activate parallel processing on your site as your web hosting provider has disabled the %s function on your server. We highly recommend contacting your hosting provider to enable that function to optimize images on your site faster."
 msgstr ""
 
-#: app/class-admin.php:700
+#: app/class-admin.php:709
 msgid "Smush images faster with parallel image optimization"
 msgstr ""
 
 #. translators: 1: Current MYSQL version, 2: Required MYSQL version
-#: app/class-admin.php:734
+#: app/class-admin.php:743
 msgid "Smush was unable to activate background processing on your site as your web hosting provider is using an old version of MySQL on your server (version %1$s). We highly recommend contacting your hosting provider to upgrade MySQL to version %2$s or higher to optimize images in the background."
 msgstr ""
 
-#: app/class-admin.php:744
+#: app/class-admin.php:753
 msgid "Smush images in the background"
-msgstr ""
-
-#. translators: %1$s: Current PHP version
-#: app/class-admin.php:774
-msgid "We have noticed that you are using PHP %1$s, which has reached its end of life and is now highly insecure. Smush will stop supporting PHP %1$s soon, please contact your hosting provider to switch to a more recent version of PHP."
 msgstr ""
 
 #: app/class-ajax.php:162
@@ -461,7 +455,7 @@ msgstr ""
 #: app/class-ajax.php:999
 #: core/class-settings.php:662
 #: core/integrations/class-nextgen.php:181
-#: core/modules/bulk/class-background-bulk-smush.php:127
+#: core/modules/bulk/class-background-bulk-smush.php:138
 #: core/modules/class-backup.php:728
 #: core/modules/class-backup.php:747
 #: core/modules/class-dir.php:186
@@ -636,25 +630,21 @@ msgid "Made with %s by WPMU DEV"
 msgstr ""
 
 #: app/common/footer-links.php:32
-#: app/views/smush-upgrade-page.php:202
 msgid "Free Plugins"
 msgstr ""
 
 #: app/common/footer-links.php:44
 #: app/common/footer-links.php:54
-#: app/views/smush-upgrade-page.php:214
 msgid "The Hub"
 msgstr ""
 
 #: app/common/footer-links.php:47
 #: app/common/footer-links.php:72
-#: app/views/smush-upgrade-page.php:217
 msgid "Terms of Service"
 msgstr ""
 
 #: app/common/footer-links.php:50
 #: app/common/footer-links.php:75
-#: app/views/smush-upgrade-page.php:220
 msgid "Privacy Policy"
 msgstr ""
 
@@ -1221,25 +1211,26 @@ msgid "%1$sCompress original images%2$s is disabled, which means that enabling %
 msgstr ""
 
 #. translators: %s: Upsell Link
-#: app/pages/class-bulk.php:551
+#: app/pages/class-bulk.php:550
 msgid "Want to exit the page? Background Optimization is available with Smush Pro, allowing you to leave while Smush continues to work its magic. %s"
 msgstr ""
 
-#: app/pages/class-bulk.php:552
-#: app/views/bulk/global-upsell.php:18
-msgid "Upgrade to Pro and get 60% off"
+#. translators: %s: Discount
+#: app/pages/class-bulk.php:555
+#: app/views/bulk/global-upsell.php:23
+msgid "Upgrade to Pro and get %s off"
 msgstr ""
 
 #. translators: %s: Upsell text
-#: app/pages/class-bulk.php:557
+#: app/pages/class-bulk.php:563
 msgid "Bulk Smush is currently running. Please keep this page open until the process is complete. %s"
 msgstr ""
 
-#: app/pages/class-bulk.php:632
+#: app/pages/class-bulk.php:638
 msgid "New"
 msgstr ""
 
-#: app/pages/class-bulk.php:642
+#: app/pages/class-bulk.php:648
 #: app/views/dashboard/cdn/meta-box-header.php:21
 #: app/views/dashboard/summary-meta-box.php:69
 #: app/views/dashboard/summary-meta-box.php:105
@@ -1353,7 +1344,7 @@ msgstr ""
 msgid "Error detecting language"
 msgstr ""
 
-#: app/pages/class-tutorials.php:58
+#: app/pages/class-tutorials.php:56
 #: app/views/dashboard/directory-meta-box.php:65
 msgid "View All"
 msgstr ""
@@ -1400,20 +1391,22 @@ msgstr ""
 msgid "Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide."
 msgstr ""
 
-#: app/views/bulk/cdn-upsell.php:21
-msgid "Unlock now with Pro."
+#. translators: %s: Discount
+#: app/views/bulk/cdn-upsell.php:25
+msgid "Unlock now with Pro and get %s off."
 msgstr ""
 
-#: app/views/bulk/global-upsell.php:12
+#: app/views/bulk/global-upsell.php:13
 msgid "Smush Upsell Icon"
 msgstr ""
 
-#: app/views/bulk/limit-reached-notice.php:21
-msgid "Get 60% off when you upgrade today."
+#. translators: %s: Discount
+#: app/views/bulk/limit-reached-notice.php:23
+msgid "Get %s off when you upgrade today."
 msgstr ""
 
 #. translators: %s1$d - bulk smush limit, %2$s - upgrade link, %3$s - <strong>, %4$s - </strong>, %5$s - Bulk Smush limit
-#: app/views/bulk/limit-reached-notice.php:24
+#: app/views/bulk/limit-reached-notice.php:26
 msgid "The free version of Smush only allows you to compress %1$d images at a time. %2$s to compress %3$sunlimited images at once%4$s or click Resume to compress another %1$d images. %5$s"
 msgstr ""
 
@@ -1684,7 +1677,7 @@ msgid "Configure"
 msgstr ""
 
 #: app/views/dashboard/directory-meta-box.php:21
-#: app/views/directory/meta-box.php:25
+#: app/views/directory/meta-box.php:24
 msgid "In addition to smushing your media uploads, you may want to smush non WordPress images that are outside of your uploads directory. Get started by adding files and folders you wish to optimize."
 msgstr ""
 
@@ -1695,7 +1688,7 @@ msgstr ""
 
 #. translators: %d: number of images with errors
 #: app/views/dashboard/directory-meta-box.php:56
-#: app/views/directory/meta-box.php:70
+#: app/views/directory/meta-box.php:71
 msgid "Showing 20 of %d failed optimizations. Fix or remove these images and run another Directory Smush."
 msgstr ""
 
@@ -1818,11 +1811,11 @@ msgstr ""
 msgid "WebP conversion is active and working well."
 msgstr ""
 
-#: app/views/directory/meta-box.php:21
+#: app/views/directory/meta-box.php:20
 msgid "Directory Smush - Choose Folder"
 msgstr ""
 
-#: app/views/directory/meta-box.php:29
+#: app/views/directory/meta-box.php:28
 msgid "CHOOSE DIRECTORY"
 msgstr ""
 
@@ -1848,23 +1841,25 @@ msgstr ""
 msgid "The WPMU DEV Team."
 msgstr ""
 
-#: app/views/email/upsell-cdn.php:18
+#: app/views/email/upsell-cdn.php:24
 msgid "Serve images 2X faster with Smush Pro’s CDN"
 msgstr ""
 
-#: app/views/email/upsell-cdn.php:28
-msgid "Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive 60% welcome discount for Smush free users. Limited time only."
+#. translators: %s: Discount
+#: app/views/email/upsell-cdn.php:37
+msgid "Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive %s welcome discount for Smush free users. Limited time only."
 msgstr ""
 
-#: app/views/email/upsell-cdn.php:41
+#: app/views/email/upsell-cdn.php:53
 msgid "Includes better GIF performance"
 msgstr ""
 
-#: app/views/email/upsell-cdn.php:50
-msgid "60% off your first year"
+#. translators: %s: Discount
+#: app/views/email/upsell-cdn.php:65
+msgid "%s off your first year"
 msgstr ""
 
-#: app/views/email/upsell-cdn.php:55
+#: app/views/email/upsell-cdn.php:73
 msgid "Learn more about Pro"
 msgstr ""
 
@@ -2485,14 +2480,6 @@ msgstr ""
 
 #: app/views/smush-upgrade-page.php:190
 msgid "Includes a 30-day money-back guarantee"
-msgstr ""
-
-#: app/views/smush-upgrade-page.php:197
-msgid "Made with"
-msgstr ""
-
-#: app/views/smush-upgrade-page.php:197
-msgid "by WPMU DEV"
 msgstr ""
 
 #: app/views/summary/lossy-level.php:24
@@ -3336,14 +3323,15 @@ msgstr ""
 msgid "Background scan is already in processing."
 msgstr ""
 
+#. translators: %s Doc link
 #. translators: %s: a doc link
-#: core/media-library/class-background-media-library-scanner.php:82
-#: core/modules/bulk/class-background-bulk-smush.php:78
+#: core/media-library/class-background-media-library-scanner.php:95
+#: core/modules/bulk/class-background-bulk-smush.php:89
 msgid "Your site seems to have an issue with loopback requests. Please try again and if the problem persists find out more %s."
 msgstr ""
 
-#: core/media-library/class-background-media-library-scanner.php:83
-#: core/modules/bulk/class-background-bulk-smush.php:79
+#: core/media-library/class-background-media-library-scanner.php:96
+#: core/modules/bulk/class-background-bulk-smush.php:90
 msgid "here"
 msgstr ""
 
@@ -3432,21 +3420,21 @@ msgid "Skipped with %s filter."
 msgstr ""
 
 #. translators: %s: Cron interval in minutes
-#: core/modules/background/class-background-process.php:347
+#: core/modules/background/class-background-process.php:351
 msgid "Every %d Minutes"
 msgstr ""
 
-#: core/modules/bulk/class-background-bulk-smush.php:252
+#: core/modules/bulk/class-background-bulk-smush.php:263
 msgid "Enable the email notification"
 msgstr ""
 
 #. translators: %s: a link
-#: core/modules/bulk/class-background-bulk-smush.php:256
+#: core/modules/bulk/class-background-bulk-smush.php:267
 msgid "Feel free to close this page while Smush works its magic in the background. %s to receive an email when the process finishes."
 msgstr ""
 
 #. translators: %s: Email address
-#: core/modules/bulk/class-background-bulk-smush.php:262
+#: core/modules/bulk/class-background-bulk-smush.php:273
 msgid "Feel free to close this page while Smush works its magic in the background. We’ll email you at <strong>%s</strong> when it’s done."
 msgstr ""
 
@@ -3800,7 +3788,12 @@ msgstr ""
 msgid "Smush was successful but we were unable to save the file due to a file system error: [%s]."
 msgstr ""
 
-#: wp-smush.php:445
+#. translators: %1$s - Requires PHP version - %2$s URL to an article about our hosting benefits.
+#: wp-smush.php:114
+msgid "Your site is running an outdated version of PHP that is no longer supported or receiving security updates. Please update PHP to at least version %1$s at your hosting provider in order to activate Smush, or consider switching to <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">WPMU DEV Hosting</a>."
+msgstr ""
+
+#: wp-smush.php:489
 msgid "Get Fast!"
 msgstr ""
 

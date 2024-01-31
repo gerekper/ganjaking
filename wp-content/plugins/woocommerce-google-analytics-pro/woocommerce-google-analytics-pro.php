@@ -6,23 +6,23 @@
  * Description: Measure your site's success using advanced eCommerce tracking via Google Analytics
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 2.0.14
+ * Version: 2.0.15
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2015-2023, SkyVerge, Inc.
+ * Copyright: (c) 2015-2024, SkyVerge, Inc.
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author    SkyVerge
  * @category  Integration
- * @copyright Copyright (c) 2015-2023, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2024, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
  * WC requires at least: 3.9.4
- * WC tested up to: 8.3.0
+ * WC tested up to: 8.5.1
  */
 
 defined( 'ABSPATH' ) or exit;

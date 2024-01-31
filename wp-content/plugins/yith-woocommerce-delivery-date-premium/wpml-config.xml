@@ -1,0 +1,8 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywcdd_ddm_shipping_message"/>
+        <key name="ywcdd_ddm_delivery_message"/>
+        <key name="ywcdd_ddm_time_limit_alternative_txt"/>
+        <key name="ywcdd_user_privacy_description"/>
+    </admin-texts>
+</wpml-config>

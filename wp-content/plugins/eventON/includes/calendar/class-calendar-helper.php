@@ -55,6 +55,37 @@ class evo_cal_help {
 		return implode(' ', $array);
 	}
 
+	// check whether eventon settings is set to hide past @4.5.5
+	function _is_cal_hide_past(){
+		$hide_past = 'no';
+
+		if( EVO()->cal->check_yn('evcal_cal_hide_past') ){
+			$hide_past = EVO()->cal->get_prop('evcal_past_ev') ?: 'local_time';
+		}
+		return $hide_past;
+	}
+
+	// Calculate the calendar visible date range @4.5.5
+		function get_cal_visible_range_start( ){
+			
+			$DD = new DateTime('now'); // time now in unix epoch
+			$DD->setTimezone( EVO()->calendar->cal_tz ); // local tz based off eventon settings tz
+
+			$visible_range = 0;
+
+			if( $hide_past_by = EVO()->calendar->helper->_is_cal_hide_past() ){
+				if( $hide_past_by == 'local_time' ){					
+					$visible_range = $DD->format('U');
+				} 
+				if( $hide_past_by == 'today_date' ){
+					$DD->setTime(0,0,0);
+					$visible_range = $DD->format('U');
+				}
+			}
+
+			return $visible_range;
+		}
+
 	function get_attrs($array){
 		if(empty($array)) return;
 
@@ -570,7 +601,7 @@ class evo_cal_help {
 		}
 
 	// get all event default values
-	// updated 2.8
+	// updated 4.5.7
 		function get_calendar_defaults(){
 			$options = EVO()->calendar->evopt1;
 			$SC = EVO()->calendar->shortcode_args;
@@ -613,6 +644,8 @@ class evo_cal_help {
 			$defaults['wp_date_format'] = evo_convert_php_moment(EVO()->calendar->date_format);
 			$defaults['wp_time_format'] = evo_convert_php_moment( EVO()->calendar->time_format );
 			$defaults['utc_offset'] = get_option('gmt_offset');
+			$defaults['cal_tz_offset'] = ( (int)EVO()->calendar->cal_utc_offset * -1 ) /60;// 4.5.7
+			$defaults['cal_tz'] = EVO()->calendar->cal_tz_string;// 4.5.7
 
 			// google maps
 			$defaults['google_maps_load'] = EVO()->calendar->google_maps_load;

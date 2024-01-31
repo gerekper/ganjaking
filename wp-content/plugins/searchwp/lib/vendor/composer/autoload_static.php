@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1
+class ComposerStaticInit26079afd754ee521c73ceeff5cb0db96
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -30,11 +30,16 @@ class ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1
         'SWP_Query' => __DIR__ . '/../..' . '/class.swp-query.php',
         'SearchWP\\Admin\\AdminBar' => __DIR__ . '/../..' . '/../includes/Admin/AdminBar.php',
         'SearchWP\\Admin\\AdminNotice' => __DIR__ . '/../..' . '/../includes/Admin/AdminNotice.php',
+        'SearchWP\\Admin\\AdminNotices\\DeprecatedIntegrationAdminNotice' => __DIR__ . '/../..' . '/../includes/Admin/AdminNotices/DeprecatedIntegrationAdminNotice.php',
         'SearchWP\\Admin\\AdminNotices\\DirtyInstallAdminNotice' => __DIR__ . '/../..' . '/../includes/Admin/AdminNotices/DirtyInstallAdminNotice.php',
         'SearchWP\\Admin\\AdminNotices\\MissingEngineSourceAdminNotice' => __DIR__ . '/../..' . '/../includes/Admin/AdminNotices/MissingEngineSourceAdminNotice.php',
         'SearchWP\\Admin\\AdminNotices\\MissingIntegrationAdminNotice' => __DIR__ . '/../..' . '/../includes/Admin/AdminNotices/MissingIntegrationAdminNotice.php',
         'SearchWP\\Admin\\DashboardWidgets\\StatisticsDashboardWidget' => __DIR__ . '/../..' . '/../includes/Admin/DashboardWidgets/StatisticsDashboardWidget.php',
+        'SearchWP\\Admin\\Extensions\\CustomResultsOrderPreview' => __DIR__ . '/../..' . '/../includes/Admin/Extensions/CustomResultsOrderPreview.php',
+        'SearchWP\\Admin\\Extensions\\ExcludeUIPreview' => __DIR__ . '/../..' . '/../includes/Admin/Extensions/ExcludeUIPreview.php',
         'SearchWP\\Admin\\Extensions\\Extensions' => __DIR__ . '/../..' . '/../includes/Admin/Extensions/Extensions.php',
+        'SearchWP\\Admin\\Extensions\\RedirectsPreview' => __DIR__ . '/../..' . '/../includes/Admin/Extensions/RedirectsPreview.php',
+        'SearchWP\\Admin\\Extensions\\RelatedPreview' => __DIR__ . '/../..' . '/../includes/Admin/Extensions/RelatedPreview.php',
         'SearchWP\\Admin\\LegacyMetricsCompat' => __DIR__ . '/../..' . '/../includes/Admin/LegacyMetricsCompat.php',
         'SearchWP\\Admin\\NavTab' => __DIR__ . '/../..' . '/../includes/Admin/NavTab.php',
         'SearchWP\\Admin\\Notifications\\Notifications' => __DIR__ . '/../..' . '/../includes/Admin/Notifications/Notifications.php',
@@ -345,9 +350,9 @@ class ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit26079afd754ee521c73ceeff5cb0db96::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit26079afd754ee521c73ceeff5cb0db96::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit26079afd754ee521c73ceeff5cb0db96::$classMap;
 
         }, null, ClassLoader::class);
     }

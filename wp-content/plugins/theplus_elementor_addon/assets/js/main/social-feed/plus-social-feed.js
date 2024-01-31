@@ -6,7 +6,7 @@
             GetId = (container[0].dataset && container[0].dataset.id) ? container[0].dataset.id : '',
             Getscroll = (container[0].dataset && container[0].dataset.scrollNormal) ? JSON.parse(container[0].dataset.scrollNormal) : '',
             FeedData = (container[0].dataset && container[0].dataset.feedData) ? JSON.parse(container[0].dataset.feedData) : '',
-            Getids = (container[0].dataset && container[0].dataset.ids) ? JSON.parse(container[0].dataset.ids) : '';
+            Getids = (container[0].dataset && container[0].dataset.ids) ? JSON.parse(container[0].dataset.ids) : [];
 
         tp_readbtn_click();
         
@@ -44,6 +44,7 @@
             let Setting = (container[0].dataset && container[0].dataset.fancyOption) ? JSON.parse(container[0].dataset.fancyOption) : '',
                 Getalbum = container[0].querySelectorAll('.grid-item.feed-Facebook');
                 
+            if(Getids.length > 0){
                 Getids.forEach(function(self) {
                     $().fancybox({
                         selector : `[data-fancybox="${self}"]`,
@@ -102,11 +103,12 @@
                         },
                     });
                 });
+            }
 
                 if( Getalbum.length > 0 ){
                     Getalbum.forEach(function(self) {
                         let itemindex = (self.dataset && self.dataset.index) ? self.dataset.index : '';
-
+                        if(Getids.length > 0){
                             Getids.forEach(function(item) {
                                 $().fancybox({
                                     selector : `[data-fancybox="album-${itemindex}-${item}"]`,
@@ -128,6 +130,7 @@
                                     smallBtn: false,
                                 });
                             });
+                        }
                     });
                 }
         }

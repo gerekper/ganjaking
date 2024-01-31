@@ -1,5 +1,13 @@
 *** WooCommerce Anti Fraud ***
 
+2024-01-17 - version 5.7.7
+* Fix: PLUGINS-2386 - Anti Fraud - Woo QI Test Issues.
+
+2024-01-15 - version 5.7.6
+* Fix: PLUGINS-2381 - Fix reCAPTCHA to be revalidated everytime the Place Order button has been submitted on the Checkout page.
+* Update: PLUGINS-2382 - Verify further relevant information on orders to minFraud transactions.
+* Update: PLUGINS-2417 - Update "Does IP Address Match Location?" rule to be independent from MaxMind in plugin.
+
 2023-12-18 - version 5.7.5
 * Remove: PLUGINS-2430 - Remove malfunctioning notification recommending MaxMind and Trust Swiftly.
 

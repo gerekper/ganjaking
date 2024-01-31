@@ -593,3 +593,13 @@ a.a2w-photo-edit:hover::before {
     transform: translate(-50%,-50%);
 }
 
+.a2w-apply-filter{
+    display: block;
+    width: 100%;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+.a2w-apply-filter__range{
+    margin-top: 4px;
+}

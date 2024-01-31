@@ -2,7 +2,7 @@
 /**
  * WC_CP_Admin_Post_Types class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.15.2
  */
 

@@ -1110,14 +1110,7 @@ class UniteCreatorBrowserWork extends HtmlOutputBaseUC{
 	 * put html
 	 */
 	private function putHtml(){
-		
-		/*
-		if(empty($this->addonType)){
-			dmp("skip regular addon type");		//remove me
-			return(false);
-		}
-		*/
-			
+					
 		$this->getHtml(true);
 	}
 	

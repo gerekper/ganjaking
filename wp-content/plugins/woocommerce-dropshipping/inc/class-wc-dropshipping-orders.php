@@ -517,7 +517,10 @@ class WC_Dropshipping_Orders {
 			foreach ( $order_info[ $supplier_info['slug'] ] as $prod_info ) {
 
 				$product_description = get_post( $prod_info['id'] )->post_content;
-				fputcsv( $file, array( $prod_info['name'], $prod_info['sku'], $prod_info['qty'], html_entity_decode( strip_tags( $prod_info['price'] ) ), $product_description, $order_billing_first_name . ' ' . $order_billing_last_name, $fullBillAddress, $full_ship_address, $order_billing_email, $order_billing_phone ) );
+
+				fputcsv( $file, array( htmlspecialchars($prod_info['name'], ENT_COMPAT), htmlspecialchars($prod_info['sku'], ENT_COMPAT), htmlspecialchars($prod_info['qty'], ENT_COMPAT), html_entity_decode( strip_tags( $prod_info['price'] ) ), $product_description, $order_billing_first_name . ' ' . $order_billing_last_name, $fullBillAddress, $full_ship_address, $order_billing_email, $order_billing_phone ) );
+				
+				// fputcsv( $file, array( $prod_info['name'], $prod_info['sku'], $prod_info['qty'], html_entity_decode( strip_tags( $prod_info['price'] ) ), $product_description, $order_billing_first_name . ' ' . $order_billing_last_name, $fullBillAddress, $full_ship_address, $order_billing_email, $order_billing_phone ) );
 
 			}
 

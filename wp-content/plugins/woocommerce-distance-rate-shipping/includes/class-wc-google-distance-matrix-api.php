@@ -3,7 +3,7 @@
  * Google Distance Matrix API class, handles all API calls to Google Distance
  * Matrix API
  *
- * @package WC_Distance_Rate
+ * @package woocommerce-distance-rate-shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 		 */
 		public function __construct( $api_key, $debug ) {
 			$this->api_key = $api_key;
-			$this->debug = $debug;
+			$this->debug   = $debug;
 		}
 
 		/**
@@ -62,6 +62,12 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 		 */
 		private function perform_request( $params ) {
 			$args = array(
+				/**
+				 * Allow modifying the API timeout.
+				 *
+				 * @since 1.0
+				 * @param int $api_timeout Array of arguments for $wpdb->get_results().
+				 */
 				'timeout'     => apply_filters( 'google_distance_matrix_api_timeout', 3 ), // Default to 3 seconds.
 				'redirection' => 0,
 				'httpversion' => '1.0',
@@ -74,12 +80,12 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 
 			if ( $this->debug ) {
 				parse_str( $params, $params_debug );
-				wc_add_notice( 'Request: <br/>' . '<pre>' . print_r( $params_debug, true ) . '</pre>', 'notice' );
-				wc_add_notice( 'Response: <br/>' . '<pre>' . print_r( $response, true ) . '</pre>', 'notice' );
+				wc_add_notice( 'Request: <br/><pre>' . print_r( $params_debug, true ) . '</pre>', 'notice' ); // phpcs:ignore -- its a debug.
+				wc_add_notice( 'Response: <br/><pre>' . print_r( $response, true ) . '</pre>', 'notice' ); // phpcs:ignore -- its a debug.
 			}
 
 			if ( is_wp_error( $response ) ) {
-				throw new Exception( $response );
+				throw new Exception( esc_html( $response->get_error_message() ) );
 			}
 
 			return $response;
@@ -96,21 +102,25 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 		 * @param  string $units       Units.
 		 * @param  mixed  $region      Region.
 		 * @param  string $language    Language.
-		 * 
+		 *
 		 * @return array
 		 */
 		public function get_distance( $origin, $destination, $sensor = 'false', $mode = 'driving', $avoid = '', $units = 'metric', $region = false, $language = '' ) {
-			$transient = md5( http_build_query( array(
-				'name'        => 'wc_distance_rate',
-				'origin'      => $origin,
-				'destination' => $destination,
-				'sensor'      => $sensor,
-				'mode'        => $mode,
-				'avoid'       => $avoid,
-				'units'       => $units,
-				'region'      => $region,
-				'language'    => $language,
-			) ) );
+			$transient = md5(
+				http_build_query(
+					array(
+						'name'        => 'wc_distance_rate',
+						'origin'      => $origin,
+						'destination' => $destination,
+						'sensor'      => $sensor,
+						'mode'        => $mode,
+						'avoid'       => $avoid,
+						'units'       => $units,
+						'region'      => $region,
+						'language'    => $language,
+					)
+				)
+			);
 
 			$distance = get_transient( $transient );
 
@@ -123,7 +133,7 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				$params['origins']      = $origin;
 				$params['destinations'] = $destination;
 				$params['mode']         = $mode;
-				
+
 				if ( ! empty( $avoid ) ) {
 					$params['avoid'] = $avoid;
 				}
@@ -136,7 +146,7 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				}
 
 				$params['language'] = $language;
-				
+
 				/**
 				 * Filters the Google Distance Matrix API request parameters.
 				 *
@@ -166,7 +176,7 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				}
 			} elseif ( $this->debug ) {
 				wc_add_notice( 'Using cached distance.', 'notice' );
-				wc_add_notice( 'Response: <br/>' . '<pre>' . print_r( $distance, true ) . '</pre>', 'notice' );
+				wc_add_notice( 'Response: <br/><pre>' . print_r( $distance, true ) . '</pre>', 'notice' ); // phpcs:ignore -- its a debug.
 			}
 
 			/**

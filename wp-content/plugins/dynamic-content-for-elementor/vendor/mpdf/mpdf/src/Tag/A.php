@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 class A extends Tag
 {
     public function open($attr, &$ahtml, &$ihtml)
@@ -18,7 +19,7 @@ class A extends Tag
                 } else {
                     $objattr['bklevel'] = 0;
                 }
-                $e = "\xbb\xa4\xactype=bookmark,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+                $e = Mpdf::OBJECT_IDENTIFIER . "type=bookmark,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
             }
             /* -- END BOOKMARKS -- */
             if ($this->mpdf->tableLevel) {

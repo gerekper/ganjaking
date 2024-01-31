@@ -150,7 +150,7 @@ class WPR_Diff_Renderer_Html_Array extends WPR_Diff_Renderer_Abstract
 	{
 		$start = 0;
 		$limit = min(strlen($fromLine), strlen($toLine));
-		while($start < $limit && $fromLine{$start} == $toLine{$start}) {
+		while($start < $limit && $fromLine[$start] == $toLine[$start]) {
 			++$start;
 		}
 		$end = -1;

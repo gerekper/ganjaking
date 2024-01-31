@@ -41,6 +41,9 @@ const BoxOffice = function() {
 
           // Display response.
           displayResult.innerHTML = request.response;
+
+          // Clear the value of input field.
+          input.value = '';
         }
 
         return;

@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 use DynamicOOOS\Mpdf\Utils\UtfString;
 abstract class InlineTag extends Tag
 {
@@ -30,7 +31,7 @@ abstract class InlineTag extends Tag
             $objattr['SUBJECT'] = '';
             $objattr['OPACITY'] = $this->mpdf->annotOpacity;
             $objattr['COLOR'] = $this->colorConverter->convert('yellow', $this->mpdf->PDFAXwarnings);
-            $annot = "\xbb\xa4\xactype=annot,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+            $annot = Mpdf::OBJECT_IDENTIFIER . "type=annot,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
         }
         /* -- END ANNOTATIONS -- */
         // mPDF 5.7.3 Inline tags

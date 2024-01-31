@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2024, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '2.0.14';
+	public const VERSION = '2.0.15';
 
 	/** @var Plugin the singleton instance of the plugin */
 	protected static $instance;

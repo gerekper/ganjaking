@@ -76,8 +76,18 @@
 			}
 
 			if (elementSettings.style_select === 'prestyle') {
-				var fileStyle = elementSettings.snazzy_select;
-				$.getJSON(fileStyle + ".json", function (json) {
+				let fileStyle = elementSettings.snazzy_select;
+				let jsonUrl;
+			
+				// Check if fileStyle starts with 'http' (compatibility with old settings that contains DCE_URL/json_file without .json extension)
+				if (fileStyle.startsWith('http')) {
+					jsonUrl = fileStyle + '.json'; // Append '.json' extension to the URL
+				} else { // New settings contains only the file name
+					let dceUrl = elementSettings.dce_url; // Get DCE_URL from elementSettings
+					jsonUrl = dceUrl + 'assets/maps_style/' + fileStyle + '.json'; // Construct the full URL
+				}
+			
+				$.getJSON(jsonUrl, function (json) {
 					mapParams['styles'] = json;
 					_initMap(map, mapParams);
 				});

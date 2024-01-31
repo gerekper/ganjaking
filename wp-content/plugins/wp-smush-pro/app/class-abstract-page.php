@@ -908,7 +908,7 @@ abstract class Abstract_Page {
 
 		$strings = array(
 			'tutorials'         => esc_html__( 'Tutorials', 'wp-smushit' ),
-			'tutorials_link'    => 'https://wpmudev.com/blog/tutorials/tutorial-category/smush-pro/',
+			'tutorials_link'    => $this->get_utm_link( array( 'utm_campaign' => 'smush_tutorials_page' ), 'https://wpmudev.com/blog/tutorials/tutorial-category/smush-pro/' ),
 			'tutorials_strings' => array(
 				array(
 					'loading'      => esc_html__( 'Loading tutorials...', 'wp-smushit' ),
@@ -958,8 +958,8 @@ abstract class Abstract_Page {
 					'configsPage'   => network_admin_url( 'admin.php?page=smush-settings&view=configs' ),
 					'accordionImg'  => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
 					'hubConfigs'    => 'https://wpmudev.com/hub2/configs/my-configs',
-					'hubWelcome'    => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
-					'freeNoticeHub' => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
+					'hubWelcome'    => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/hub-welcome/' ),
+					'freeNoticeHub' => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/hub-welcome/' ),
 				),
 				'requestsData' => array(
 					'root'           => esc_url_raw( rest_url( 'wp-smush/v1/preset_configs' ) ),
@@ -1011,14 +1011,22 @@ abstract class Abstract_Page {
 		return $locale;
 	}
 
-	protected function get_utm_link( $args = array() ) {
+	protected function get_utm_link( $args = array(), $url = '' ) {
+		if ( empty( $url ) ) {
+			$url = $this->upgrade_url;
+		}
+
+		if ( WP_Smush::is_pro() ) {
+			return $url;
+		}
+
 		$default = array(
 			'utm_source' => 'smush',
 			'utm_medium' => 'plugin',
 		);
 		$args    = wp_parse_args( $args, $default );
 
-		return add_query_arg( $args, $this->upgrade_url );
+		return add_query_arg( $args, $url );
 	}
 
 	public function get_connect_site_link() {

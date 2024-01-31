@@ -532,8 +532,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'utm_campaign' => 'smush_bulk_smush_progress_BO',
 			)
 		);
-
-		$upsell_cdn_url 		=  $this->get_utm_link(
+		$upsell_cdn_url 		= $this->get_utm_link(
 			array(
 				'utm_campaign' => 'smush_bulksmush_cdn',
 			)
@@ -549,7 +548,14 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			$upsell_text = sprintf(
 				/* translators: %s: Upsell Link */
 				__( 'Want to exit the page? Background Optimization is available with Smush Pro, allowing you to leave while Smush continues to work its magic. %s', 'wp-smushit' ),
-				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '"><strong>' . esc_html__( 'Upgrade to Pro and get 60% off', 'wp-smushit' ) . '</strong></a>'
+				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '">
+					<strong>' .
+					sprintf(
+						/* translators: %s: Discount */
+						esc_html__( 'Upgrade to Pro and get %s off', 'wp-smushit' ),
+						WP_Smush::get_instance()->admin()->get_plugin_discount()
+					) . '</strong>
+				</a>'
 			);
 		}
 		$in_processing_notice = sprintf(
@@ -569,11 +575,11 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'remaining_count'                 => (int) $array_utils->get_array_value( $global_stats, 'remaining_count' ),
 				'total_count'                     => (int) $array_utils->get_array_value( $global_stats, 'count_total' ),
 				'bulk_upgrade_url'                => $bulk_upgrade_url,
-				'upsell_cdn_url'				  => $upsell_cdn_url,
+				'upsell_cdn_url'                  => $upsell_cdn_url,
 				'background_processing_enabled'   => $background_processing_enabled,
 				'background_in_processing'        => $background_in_processing,
 				'background_in_processing_notice' => $bg_optimization->get_in_process_notice(),
-				'in_processing_notice' 			  => $in_processing_notice,
+				'in_processing_notice'            => $in_processing_notice,
 			)
 		);
 	}

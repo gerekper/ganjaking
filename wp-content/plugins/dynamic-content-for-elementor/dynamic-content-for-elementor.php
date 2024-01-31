@@ -1,14 +1,14 @@
 <?php
 /**
  *
- * @copyright Copyright (C) 2018-2023, Ovation S.r.l. - support@dynamic.ooo
+ * @copyright Copyright (C) 2018-2024, Ovation S.r.l. - support@dynamic.ooo
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
  * Plugin Name: Dynamic.ooo - Dynamic Content for Elementor
  * Plugin URI: https://www.dynamic.ooo/dynamic-content-for-elementor?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description: Building powerful websites by extending Elementor. We give you over 150 features that will save you time and money on achieving complex results. The only limit is your imagination.
- * Version: 2.12.6
+ * Version: 2.12.8
  * Requires at least: 5.2
  * Requires PHP: 7.2
  * Author: Dynamic.ooo
@@ -17,8 +17,8 @@
  * Domain Path: /languages
  * License: GPL-3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
- * Elementor tested up to: 3.18.3
- * Elementor Pro tested up to: 3.18.2
+ * Elementor tested up to: 3.19.0
+ * Elementor Pro tested up to: 3.18.3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,6 +104,7 @@
  * - Select2, Copyright (c) 2012-2017 Kevin Brown, Igor Vaynberg, and Select2 contributors, License: MIT, https://github.com/select2/select2
  * - Symfony/ExpressionLanguage, Copyright (c) Symfony, License: MIT, https://github.com/symfony/expression-language
  * - Slick, Copyright (c) 2013-2016, License: MIT, http://kenwheeler.github.io/slick/
+ * - Snazzy Maps, Created by Adam Krogh, License: CC0 1.0 DEED, https://snazzymaps.com/
  * - String Encode, Copyright (c) 2014 Gilles Paquette, License: MIT, https://github.com/paquettg/string-encoder/
  * - Stripe, Copyright (c) 2010-2019 Stripe, Inc. (https://stripe.com), License: MIT, https://github.com/stripe/stripe-php
  * - Swiper.js, 2019 (c) Swiper by Vladimir Kharlampidi from iDangero.us, License: MIT, https://idangero.us/swiper/
@@ -127,18 +128,14 @@
  *
  */
 
+update_option( 'dce_license_activated', 1 );
+update_option( 'dce_license_status', 'active' );
+$protocol = ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] || ( ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) ) ? 'https://' : 'http://';
+update_option( 'dce_license_domain', base64_encode( str_replace( $protocol, '', get_bloginfo( 'wpurl' ) ) ) ); 
+ 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-update_option('dce_license_key', '4308eedb-1add-43a9-bbba-6f5d5aa6b8ee');
-update_option('dce_license_status', 'active');
-update_option('dce_license_domain', base64_encode('SL_INSTANCE'));
-update_option('dce_license_error', '');
-add_filter( 'site_transient_update_plugins', function( $value ) {
-    unset( $value->response['dynamic-content-for-elementor/dynamic-content-for-elementor.php'] );
-    return $value;
-} );
 
 define( 'DCE_PLUGIN_BASE', plugin_basename( __FILE__ ) ); // {dce-folder}/{current-file}
 define( 'DCE__FILE__', __FILE__ ); // {path}/wp-content/plugins/{dce-folder}/{current-file}

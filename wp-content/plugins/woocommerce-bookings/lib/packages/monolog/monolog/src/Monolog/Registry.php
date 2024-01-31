@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -26,8 +26,8 @@ use InvalidArgumentException;
  * via static method calls on this class.
  *
  * <code>
- * $application = new Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('application');
- * $api = new Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('api');
+ * $application = new \Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('application');
+ * $api = new \Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('api');
  *
  * Monolog\Registry::addLogger($application);
  * Monolog\Registry::addLogger($api);

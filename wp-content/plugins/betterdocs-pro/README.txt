@@ -5,7 +5,7 @@ Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, 
 Requires at least: 4.0
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 3.0.1
+Stable tag: 3.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,18 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.0.3 - 14/01/2023 =
+
+- Improved: Added CSV Support for Import/Export feature
+- Improved: Added an option to change the docs order on the Instant Answer
+- Fixed: Instant Answer Search Results not showing properly on FAQs & Docs respectively
+- Fixed: When FAQ is disabled inside Instant Answer, it still shows the search result from FAQs in the Instant Answer
+- Few minor bug fixes & improvements
+
+= 3.0.2 - 11/12/2023 =
+
+- Few Minor Bug Fixes & Improvements
 
 = 3.0.1 - 03/12/2023 =
 

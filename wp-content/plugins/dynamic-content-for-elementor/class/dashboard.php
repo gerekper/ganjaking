@@ -56,9 +56,9 @@ class Dashboard
 			<div class="dce-overview__footer">
 				<ul>
 					<li class="dce-overview__help"><a href="https://www.dynamic.ooo/" target="_blank"><?php 
-        echo DCE_PRODUCT_NAME;
+        echo DCE_BRAND;
         ?><span class="screen-reader-text"><?php 
-        echo DCE_PRODUCT_NAME;
+        echo DCE_BRAND;
         ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></li>
 					<li class="dce-overview__help"><a href="http://facebook.com/groups/dynamic.ooo" target="_blank"><?php 
         _e('Facebook Community', 'dynamic-content-for-elementor');

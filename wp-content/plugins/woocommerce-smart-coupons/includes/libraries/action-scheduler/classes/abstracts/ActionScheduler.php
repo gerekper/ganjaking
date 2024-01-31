@@ -227,7 +227,7 @@ abstract class ActionScheduler {
 				__( '%s() was called before the Action Scheduler data store was initialized', 'woocommerce' ),
 				esc_attr( $function_name )
 			);
-			error_log( $message );
+			_doing_it_wrong( $function_name, $message, '3.1.6' );
 		}
 
 		return self::$data_store_initialized;

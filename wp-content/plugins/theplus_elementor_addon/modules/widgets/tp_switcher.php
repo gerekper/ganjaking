@@ -47,6 +47,10 @@ class ThePlus_Switcher extends Widget_Base {
         return array('plus-tabbed');
     }
 
+	public function get_keywords() {
+        return ['Switcher', 'Elementor switcher', 'switcher', 'switcher addon', 'switcher plugin', 'switcher elementor addon', 'switcher', 'switcher plus addons', 'switcher plus addons for elementor', 'switcher the plus addons for elementor'];
+    }
+
     protected function register_controls() {
 		/*content1 start*/
 		$this->start_controls_section(

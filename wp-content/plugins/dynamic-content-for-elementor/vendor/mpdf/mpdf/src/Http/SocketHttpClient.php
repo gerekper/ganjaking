@@ -3,6 +3,8 @@
 namespace DynamicOOOS\Mpdf\Http;
 
 use DynamicOOOS\Mpdf\Log\Context as LogContext;
+use Mpdf\PsrHttpMessageShim\Response;
+use Mpdf\PsrHttpMessageShim\Stream;
 use Mpdf\PsrLogAwareTrait\PsrLogAwareTrait;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;

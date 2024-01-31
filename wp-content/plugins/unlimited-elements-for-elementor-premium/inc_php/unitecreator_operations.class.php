@@ -1057,7 +1057,7 @@ class UCOperations extends UniteElementsBaseUC{
 	 * get last query data
 	 */
 	public function getLastQueryData(){
-		
+
 		$query = GlobalsProviderUC::$lastPostQuery;
 
 		if(empty($query)){
@@ -1075,13 +1075,13 @@ class UCOperations extends UniteElementsBaseUC{
 		$numPosts = 0;
 		if(isset($query->posts))
 			$numPosts = count($query->posts);
-		
+
 		$totalPosts = 0;
 		if(isset($query->found_posts))
 			$totalPosts = $query->found_posts;
 
 		$arrQuery = $query->query;
-				
+
 		$postType = UniteFunctionsUC::getVal($arrQuery, "post_type");
 
 		$orderBy = UniteFunctionsUC::getVal($arrQuery, "orderby");

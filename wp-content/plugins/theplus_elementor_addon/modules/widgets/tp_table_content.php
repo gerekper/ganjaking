@@ -40,6 +40,10 @@ class ThePlus_Table_Content extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Table Of Contents', 'TOC', 'Contents Table', 'Navigation', 'Index', 'Menu', 'Links', 'Anchor Links', 'Scroll', 'Scrollspy', 'Elementor Table Of Contents', 'Elementor TOC'];
+    }
+
     protected function register_controls() {
     	 /* Layout Tab */
 		$this->start_controls_section(

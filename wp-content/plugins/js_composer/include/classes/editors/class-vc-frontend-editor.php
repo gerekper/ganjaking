@@ -11,6 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 /**
+ * Base functionality for VC editors
+ *
+ * @package WPBakeryPageBuilder
+ * @since 7.4
+ */
+require_once vc_path_dir( 'EDITORS_DIR', 'class-vc-editor.php' );
+
+/**
  * Vc front end editor.
  *
  * Introduce principles ‘What You See Is What You Get’ into your page building process with our amazing frontend editor.
@@ -18,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.0
  */
-class Vc_Frontend_Editor {
+class Vc_Frontend_Editor extends Vc_Editor {
 	/**
 	 * @var
 	 */
@@ -89,34 +97,12 @@ class Vc_Frontend_Editor {
 	 * @var string
 	 */
 	protected static $brand_url = 'https://wpbakery.com/?utm_campaign=VCplugin&utm_source=vc_user&utm_medium=frontend_editor';
-	/**
-	 * @var string
-	 */
-	public $post_custom_css;
-	/**
-	 * @var string
-	 */
-	public $post_custom_js_header;
-	/**
-	 * @var string
-	 */
-	public $post_custom_js_footer;
-	/**
-	 * Post layout
-	 * @note right now we use only one custom 'Blank Page' layout
-	 * @since 7.0
-	 *
-	 * @var string
-	 */
-	public $post_custom_layout;
+
 	/**
 	 * @var string
 	 */
 	protected $vc_post_content = '';
 
-	/**
-	 *
-	 */
 	public function init() {
 		$this->addHooks();
 		/**
@@ -136,9 +122,6 @@ class Vc_Frontend_Editor {
 		}
 	}
 
-	/**
-	 *
-	 */
 	public function addHooks() {
 		add_action( 'template_redirect', array(
 			$this,
@@ -155,9 +138,6 @@ class Vc_Frontend_Editor {
 		add_shortcode( 'vc_container_anchor', 'vc_container_anchor' );
 	}
 
-	/**
-	 *
-	 */
 	public function hookLoadEdit() {
 		add_action( 'current_screen', array(
 			$this,
@@ -175,9 +155,6 @@ class Vc_Frontend_Editor {
 		$current_screen->is_block_editor( false );
 	}
 
-	/**
-	 *
-	 */
 	public function adminInit() {
 		if ( Vc_Frontend_Editor::frontendEditorEnabled() ) {
 			$this->setPost();
@@ -187,9 +164,6 @@ class Vc_Frontend_Editor {
 		}
 	}
 
-	/**
-	 *
-	 */
 	public function buildEditablePage() {
 		if ( 'vc_load_shortcode' === vc_request_param( 'action' ) ) {
 			return;
@@ -217,9 +191,6 @@ class Vc_Frontend_Editor {
 		) );
 	}
 
-	/**
-	 *
-	 */
 	public function buildPage() {
 		add_action( 'admin_bar_menu', array(
 			$this,
@@ -476,10 +447,7 @@ class Vc_Frontend_Editor {
 		remove_all_actions( 'admin_notices' );
 		remove_all_actions( 'network_admin_notices' );
 
-		$this->post_custom_css = wp_strip_all_tags( get_post_meta( $this->post_id, '_wpb_post_custom_css', true ) );
-		$this->post_custom_js_header = get_post_meta( $this->post_id, '_wpb_post_custom_js_header', true );
-		$this->post_custom_js_footer = get_post_meta( $this->post_id, '_wpb_post_custom_js_footer', true );
-		$this->post_custom_layout = wpb_get_name_post_custom_layout();
+		$this->set_post_meta( $this->post );
 
 		if ( ! defined( 'IFRAME_REQUEST' ) ) {
 			define( 'IFRAME_REQUEST', true );

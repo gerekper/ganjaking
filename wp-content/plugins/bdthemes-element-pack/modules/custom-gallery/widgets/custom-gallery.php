@@ -50,9 +50,9 @@ class Custom_Gallery extends Module_Base {
 
 	public function get_script_depends() {
 		if ($this->ep_is_edit_mode()) {
-			return ['imagesloaded', 'tilt', 'ep-scripts'];
+			return ['tilt', 'ep-scripts'];
 		} else {
-			return ['imagesloaded', 'tilt', 'ep-custom-gallery'];
+			return ['tilt', 'ep-custom-gallery'];
 		}
 	}
 
@@ -298,7 +298,7 @@ class Custom_Gallery extends Module_Base {
 		$this->add_control(
 			'image_mask_popover',
 			[
-				'label'        => esc_html__('Image Mask', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'        => esc_html__('Image Mask', 'bdthemes-element-pack'),
 				'type'         => Controls_Manager::POPOVER_TOGGLE,
 				'render_type'  => 'template',
 				'return_value' => 'yes',
@@ -660,7 +660,7 @@ class Custom_Gallery extends Module_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'item_box_shadow',
-				'label' => esc_html__('Box Shadow', 'bdthemes-element-pack') . BDTEP_NC,
+				'label' => esc_html__('Box Shadow', 'bdthemes-element-pack'),
 				'selector' => '{{WRAPPER}} .bdt-custom-gallery .bdt-custom-gallery-inner',
 			]
 		);
@@ -683,7 +683,7 @@ class Custom_Gallery extends Module_Base {
 		$this->add_control(
 			'overlay_blur_effect',
 			[
-				'label' => esc_html__('Glassmorphism', 'bdthemes-element-pack') . BDTEP_NC,
+				'label' => esc_html__('Glassmorphism', 'bdthemes-element-pack'),
 				'type'  => Controls_Manager::SWITCHER,
 				'description' => sprintf(__('This feature will not work in the Firefox browser untill you enable browser compatibility so please %1s look here %2s', 'bdthemes-element-pack'), '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility" target="_blank">', '</a>'),
 				'separator' => 'before',
@@ -770,6 +770,21 @@ class Custom_Gallery extends Module_Base {
 				],
 				'condition' => [
 					'_skin!' => '',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'content_padding',
+			[
+				'label'      => esc_html__('Content Padding', 'bdthemes-element-pack') . BDTEP_NC,
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => ['px', 'em', '%'],
+				'selectors'  => [
+					'{{WRAPPER}} .bdt-custom-gallery .bdt-overlay' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					'_skin' => '',
 				],
 			]
 		);
@@ -1008,7 +1023,7 @@ class Custom_Gallery extends Module_Base {
 		$this->add_responsive_control(
 			'button_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', 'em', '%'],
 				'selectors'  => [

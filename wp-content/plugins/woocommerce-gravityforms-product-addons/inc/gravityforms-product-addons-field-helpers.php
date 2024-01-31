@@ -105,9 +105,7 @@ class WC_GFPA_Field_Helpers {
 			$quantity       = sizeof( $quantity_field ) > 0 ? WC_GFPA_Field_Helpers::get_lead_field_value( $lead, $quantity_field[0] ) : 1;
 
 			switch ( $field["type"] ) {
-
 				case "product" :
-
 					//ignore products that have been hidden by conditional logic
 					$is_hidden = WC_GFPA_Field_Helpers::get_product_field_is_hidden( $form, $field, array(), $lead );
 					if ( $is_hidden ) {

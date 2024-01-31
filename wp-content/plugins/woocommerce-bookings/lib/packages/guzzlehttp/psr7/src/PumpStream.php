@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -24,7 +24,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamInterface;
  */
 final class PumpStream implements StreamInterface
 {
-    /** @var callable|null */
+    /** @var callable(int): (string|false|null)|null */
     private $source;
 
     /** @var int|null */
@@ -169,9 +169,9 @@ final class PumpStream implements StreamInterface
 
     private function pump(int $length): void
     {
-        if ($this->source) {
+        if ($this->source !== null) {
             do {
-                $data = call_user_func($this->source, $length);
+                $data = ($this->source)($length);
                 if ($data === false || $data === null) {
                     $this->source = null;
 

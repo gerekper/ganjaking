@@ -15,7 +15,7 @@ class AuthorIP extends AC\Column\Comment\AuthorIP
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_author_IP');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_author_IP');
     }
 
     public function search()

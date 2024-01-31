@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Product_Addons_Cart class.
  *
  * @class    WC_Product_Addons_Cart
- * @version  6.5.0
+ * @version  6.6.0
  */
 class WC_Product_Addons_Cart {
 	/**
@@ -251,6 +251,12 @@ class WC_Product_Addons_Cart {
 					$addon_price = $addon['price'];
 				}
 
+				$prev_product = null;
+
+				if ( isset( $GLOBALS[ 'product' ] ) && ! is_null( $GLOBALS[ 'product' ] ) ) {
+					$prev_product = $GLOBALS[ 'product' ];
+				}
+
 				$GLOBALS[ 'product' ] = $cloned_product;
 
 				$price = html_entity_decode(
@@ -259,7 +265,11 @@ class WC_Product_Addons_Cart {
 					get_bloginfo( 'charset' )
 				);
 
-				unset( $GLOBALS[ 'product' ] );
+				if ( ! is_null( $prev_product ) ) {
+					$GLOBALS[ 'product' ] = $prev_product;
+				} else {
+					unset( $GLOBALS[ 'product' ] );
+				}
 
 				/*
 				 * If there is an add-on price, add the price of the add-on
@@ -659,6 +669,12 @@ class WC_Product_Addons_Cart {
 
 				$add_price_to_value = apply_filters( 'woocommerce_addons_add_cart_price_to_value', false, $cart_item );
 
+				$prev_product = null;
+
+				if ( isset( $GLOBALS[ 'product' ] ) && ! is_null( $GLOBALS[ 'product' ] ) ) {
+					$prev_product = $GLOBALS[ 'product' ];
+				}
+
 				$GLOBALS[ 'product' ] = $cloned_cart_item;
 
 				if ( 0 == $addon['price'] ) {
@@ -691,7 +707,11 @@ class WC_Product_Addons_Cart {
 					$value      .= sprintf( _x( ' (%1$s)', 'percentage based addon price in cart', 'woocommerce-product-addons' ), $addon_price );
 				}
 
-				unset( $GLOBALS[ 'product' ] );
+				if ( ! is_null( $prev_product ) ) {
+					$GLOBALS[ 'product' ] = $prev_product;
+				} else {
+					unset( $GLOBALS[ 'product' ] );
+				}
 
 				$addon_data = array(
 					'name'    => $addon['name'],

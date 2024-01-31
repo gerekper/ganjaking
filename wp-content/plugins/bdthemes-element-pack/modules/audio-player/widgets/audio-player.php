@@ -169,7 +169,6 @@ class Audio_Player extends Module_Base {
 			]
 		);
 
-
 		$this->add_control(
 			'remote_url',
 			[

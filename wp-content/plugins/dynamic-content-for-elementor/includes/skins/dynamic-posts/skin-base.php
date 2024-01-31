@@ -342,21 +342,17 @@ abstract class Skin_Base extends Elementor_Skin_Base
      */
     protected function render_template(int $template_id)
     {
-        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            $inlinecss = 'inlinecss="true"';
-        } else {
-            $inlinecss = '';
-        }
         $parent = $this->get_parent();
-        echo do_shortcode('[dce-elementor-template id="' . $template_id . '" post_id="' . $this->current_id . '" ' . $inlinecss . ']');
+        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+        echo $template_system->build_elementor_template_special(['id' => $template_id, 'post_id' => $this->current_id, 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()]);
         $this->parent = $parent;
     }
     protected function render_post_items()
     {
         $_skin = $this->get_parent()->get_settings('_skin');
-        $style_items = $this->get_parent()->get_settings('style_items');
-        $post_items = $this->get_parent()->get_settings('list_items');
-        $hover_animation = $this->get_parent()->get_settings('hover_content_animation');
+        $style_items = $this->get_parent()->get_settings_for_display('style_items');
+        $post_items = $this->get_parent()->get_settings_for_display('list_items');
+        $hover_animation = $this->get_parent()->get_settings_for_display('hover_content_animation');
         $animation_class = !empty($hover_animation) && $style_items != 'float' && $_skin != 'gridtofullscreen3d' ? ' elementor-animation-' . $hover_animation : '';
         $hover_effects = $this->get_parent()->get_settings('hover_text_effect');
         $hoverEffects_class = !empty($hover_effects) && $style_items == 'float' && $_skin != 'gridtofullscreen3d' ? ' dce-hover-effect-' . $hover_effects . ' dce-hover-effect-content dce-close' : '';
@@ -382,47 +378,62 @@ abstract class Skin_Base extends Elementor_Skin_Base
         }
         echo $hoverEffects_start . $contentarea_start;
         foreach ($post_items as $key => $item) {
-            $_id = $item['item_id'];
-            // se ci sono i 2 wrapper (image-area e content-area) escludo dal render immagine
-            if ($_id != 'item_image' && $imagearea_start) {
+            $item_id = $item['item_id'];
+            // If there are both wrappers (image-area and content-area), exclude rendering the image,
+            // or render everything if the layout is default.
+            if ($item_id != 'item_image' && $imagearea_start || !$imagearea_start) {
                 $this->render_repeater_item_start($item['_id'], $item['item_id'], $item);
             }
-            // se il layout è default renderizzo tutto
-            if (!$imagearea_start) {
-                $this->render_repeater_item_start($item['_id'], $item['item_id'], $item);
+            switch ($item_id) {
+                case 'item_image':
+                    if (!$imagearea_start) {
+                        $this->render_featured_image($item);
+                    }
+                    break;
+                case 'item_title':
+                    $this->render_title($item);
+                    break;
+                case 'item_token':
+                    echo Helper::get_dynamic_value($item['item_token_code'] ?? '');
+                    break;
+                case 'item_addtocart':
+                    $this->render_add_to_cart($item);
+                    break;
+                case 'item_productprice':
+                    $this->render_product_price($item);
+                    break;
+                case 'item_sku':
+                    $this->render_product_sku($item);
+                    break;
+                case 'item_date':
+                    $this->render_date($item);
+                    break;
+                case 'item_author':
+                    $this->render_author($item);
+                    break;
+                case 'item_termstaxonomy':
+                    $this->render_terms($item);
+                    break;
+                case 'item_content':
+                    $this->render_content($item);
+                    break;
+                case 'item_custommeta':
+                    $this->render_custom_meta($item);
+                    break;
+                case 'item_jetengine':
+                    $this->render_jetengine($item);
+                    break;
+                case 'item_metabox':
+                    $this->render_metabox($item);
+                    break;
+                case 'item_readmore':
+                    $this->render_read_more($item);
+                    break;
+                case 'item_posttype':
+                    $this->render_post_type($item);
+                    break;
             }
-            if ($_id == 'item_image' && !$imagearea_start) {
-                $this->render_featured_image($item);
-            } elseif ($_id == 'item_title') {
-                $this->render_title($item);
-            } elseif ($_id == 'item_token') {
-                echo Helper::get_dynamic_value($item['item_token_code'] ?? '');
-            } elseif ($_id == 'item_addtocart') {
-                $this->render_add_to_cart($item);
-            } elseif ($_id == 'item_productprice') {
-                $this->render_product_price($item);
-            } elseif ($_id == 'item_sku') {
-                $this->render_product_sku($item);
-            } elseif ($_id == 'item_date') {
-                $this->render_date($item);
-            } elseif ($_id == 'item_author') {
-                $this->render_author($item);
-            } elseif ($_id == 'item_termstaxonomy') {
-                $this->render_terms($item);
-            } elseif ($_id == 'item_content') {
-                $this->render_content($item);
-            } elseif ($_id == 'item_custommeta') {
-                $this->render_custom_meta($item);
-            } elseif ($_id == 'item_jetengine') {
-                $this->render_jetengine($item);
-            } elseif ($_id == 'item_metabox') {
-                $this->render_metabox($item);
-            } elseif ($_id == 'item_readmore') {
-                $this->render_read_more($item);
-            } elseif ($_id == 'item_posttype') {
-                $this->render_post_type($item);
-            }
-            if ($_id != 'item_image' && $imagearea_start) {
+            if ($item_id != 'item_image' && $imagearea_start) {
                 $this->render_repeater_item_end();
             } elseif (!$imagearea_start) {
                 $this->render_repeater_item_end();

@@ -1,4 +1,4 @@
-<h1><?php _ex('Aliexpress Dropshipping Settings', 'Setting title', 'ali2woo');?></h1>
+<h1><?php _ex('Ali2Woo', 'Setting title', 'ali2woo');?></h1>
 <div class="a2w-content">
     <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>
     

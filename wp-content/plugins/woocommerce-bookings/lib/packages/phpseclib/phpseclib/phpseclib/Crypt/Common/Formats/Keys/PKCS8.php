@@ -22,7 +22,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -144,6 +144,7 @@ abstract class PKCS8 extends PKCS
                 break;
             case 'RC2':
                 $cipher = new RC2('cbc');
+                $cipher->setKeyLength(64);
                 break;
             case '3-KeyTripleDES':
                 $cipher = new TripleDES('cbc');
@@ -221,7 +222,7 @@ abstract class PKCS8 extends PKCS
     {
         switch ($algo) {
             case 'desCBC':
-                $cipher = new TripleDES('cbc');
+                $cipher = new DES('cbc');
                 break;
             case 'des-EDE3-CBC':
                 $cipher = new TripleDES('cbc');

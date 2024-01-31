@@ -43,6 +43,16 @@ class Frontend {
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'taxonomy_mod' ], 20, 2 );
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'author_mod' ], 20, 2 );
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'post_type_mod' ], 20, 2 );
+
+		add_action( 'searchwp\get_global_excerpt\the_content\before', function () {
+			add_filter( 'pre_render_block', [ __CLASS__, 'disable_block_render' ], 10, 2 );
+			add_filter( 'pre_do_shortcode_tag', [ __CLASS__, 'disable_shortcode_render' ], 10, 2 );
+		} );
+
+		add_action( 'searchwp\get_global_excerpt\the_content\after', function () {
+			remove_filter( 'pre_render_block', [ __CLASS__, 'disable_block_render' ] );
+			remove_filter( 'pre_do_shortcode_tag', [ __CLASS__, 'disable_shortcode_render' ] );
+		} );
 	}
 
 	/**
@@ -852,5 +862,37 @@ class Frontend {
 		$form_id = isset( $form['id'] ) ? absint( $form['id'] ) : 0;
 
 		return 'searchwp-form-' . $form_id;
+	}
+
+	/**
+	 * Disable Gutenberg block rendering.
+	 *
+	 * @param string|null $pre_render The pre-rendered content. Default null.
+	 * @param array $parsed_block The block being rendered.
+	 *
+	 * @since 4.3.10
+	 *
+	 */
+	public static function disable_block_render( $pre_render, $parsed_block ) {
+
+		if ( ! isset( $parsed_block['blockName'] ) ) {
+			return $pre_render;
+		}
+
+		return $parsed_block['blockName'] === 'searchwp/search-form' ? '' : $pre_render;
+	}
+
+	/**
+	 * Disable Shortcode rendering.
+	 *
+	 * @param false|string $output Short-circuit return value. Either false or the value to replace the shortcode with.
+	 * @param string $tag Shortcode name.
+	 *
+	 * @since 4.3.10
+	 *
+	 */
+	public static function disable_shortcode_render( $output, $tag ) {
+
+		return $tag === 'searchwp_form' ? '' : $output;
 	}
 }

@@ -116,7 +116,7 @@ function seedprod_pro_subscribers_datatable() {
 		$period   = new \DatePeriod( $now, $interval, $chart_timeframe ); // 7 Days
 
 		$recent_subscribers_data = array(
-			array( 'Year', 'Subscribers' ),
+			array( __( 'Year', 'seedprod-pro' ), __( 'Subscribers', 'seedprod-pro' ) ),
 		);
 		foreach ( $period as $day ) {
 			$key         = $day->format( 'Y-m-d' );

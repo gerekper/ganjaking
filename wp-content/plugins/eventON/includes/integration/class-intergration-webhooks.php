@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON webhooks integration	
- * @version 4.5
+ * @version 4.5.5
  */
 
 class EVO_WebHooks{
@@ -74,6 +74,7 @@ class EVO_WebHooks{
 					array(
 						array(
 							'type'=>'dropdown',
+							'field_class'=>'wh_trigger_point',
 							'id'=>'trig',
 							'value'=>	(isset($hook_data['trig']) ? $hook_data['trig']: ''),
 							'name'=> __('Select available EventON trigger points to pass values to webhook','eventon'),
@@ -89,7 +90,7 @@ class EVO_WebHooks{
 			?>	
 				<div class='evo_elm_row'>
 					<p class='evo_field_label'><?php _e('Fields passed on to webhook','eventon');?></p>
-					<p class='evo_field_container' data-d=''>-</p>
+					<p class='evo_field_container evo_whdata_fields' style='font-style: italic;' data-d=''>-</p>					
 				</div>
 				<?php 
 
@@ -105,9 +106,9 @@ class EVO_WebHooks{
 		</div>
 		<?php 
 
-		echo json_encode(array(
-			'status'=>'good','html'=> ob_get_clean()
-		));exit;
+		wp_send_json(array(
+			'status'=>'good','content'=> ob_get_clean()
+		));wp_die();
 	}
  	
  	function ajax_webhook_delete(){
@@ -135,7 +136,6 @@ class EVO_WebHooks{
 
 	// plug for adding trigger points
 	function get_trigger_events(){
-
 		return apply_filters('evo_webhook_triggers',
 			array()
 		);
@@ -184,17 +184,17 @@ class EVO_WebHooks{
 					$name = isset($available_hooks[ $data[ 'trig' ]]) ? $available_hooks[ $data[ 'trig' ]]: $data[ 'trig' ];
 					$url = isset($data[ 'url' ]) ? $data[ 'url' ] : '-';
 					$data = array(
-						'popc'=>'print_lightbox',
-						'lb_cl_nm'=>'evo_webhook_settings',
-						'ajax'=>'yes',
-						't'=>'Webhook Configurations',
-						'd'=> array(
-							'action'=>'evo_webhook_settings',
-							'id'=> $id
+						'lbvals'=>array(
+							'lbc'=>'evo_webhooks_config',
+							'uid'=>'evo_webhook_config',
+							't'=> __('Configure Webhooks'),	
+							'd'=> array( 'action'=>'evo_webhook_settings','id'=> $id),
+							'lightbox_loader'=> true,
+							'ajax'=>'yes'
 						)
 					);
 
-					$OUT .= "<p data-id='{$id}'><span>{$id}</span><span>{$name}</span><span>{$url}</span><em><i class='fa fa-pencil evowh_edit ajde_popup_trig' ". $HELP->array_to_html_data($data) ."></i><i class='evowh_del fa fa-minus-circle'></i></em></p>";
+					$OUT .= "<p data-id='{$id}'><span>{$id}</span><span>{$name}</span><span>{$url}</span><em><i class='fa fa-pencil evowh_edit evolb_trigger' ". $HELP->array_to_html_data($data) ."></i><i class='evowh_del fa fa-minus-circle'></i></em></p>";
 				}
 			}else{
 				$OUT .= "<p data-id=''>".__('No webhooks created yet')."</p>";
@@ -207,19 +207,23 @@ class EVO_WebHooks{
 	public function webhookz_code(){
 		
 		ob_start();
-		$data = array(
-			'popc'=>'print_lightbox',
-			'lb_cl_nm'=>'evo_webhook_settings',
-			'ajax'=>'yes',
-			't'=>'Webhook Configurations',
-			'd'=> array(
-				'action'=>'evo_webhook_settings'
-			)
-		);
+		
 		$HELP = new evo_helper();
 		?>
 		<div id='evowhs_container'><?php echo $this->get_webhooks_html();?></div>
-		<p><a class='evo_btn ajde_popup_trig' <?php echo $HELP->array_to_html_data($data);?>><?php _e('Create a new webhook connection');?></a></p>
+
+		<p><?php EVO()->elements->print_trigger_element(array(
+				'title'=> __('Create a new webhook connection'),
+				'dom_element'=> 'span',
+				'uid'=>'evo_webhook_config',
+				'lb_class' =>'evo_webhooks_config',
+				'lb_title'=> __('Configure Webhooks'),	
+				'lb_loader'=>true,
+				'ajax_data'=>array(
+					'action'=>'evo_webhook_settings'
+				),
+			),'trig_lb');?></p>
+		
 		<?php
 
 		return ob_get_clean();

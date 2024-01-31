@@ -119,6 +119,13 @@ class WC_Store_Credit_Admin {
 		if ( 'product' === $screen_id ) {
 			wp_enqueue_style( 'wc-store-credit-admin', WC_STORE_CREDIT_URL . 'assets/css/admin.css', array(), WC_STORE_CREDIT_VERSION );
 			wp_enqueue_script( 'wc-store-credit-admin-meta-boxes-product', WC_STORE_CREDIT_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'wc-admin-product-meta-boxes' ), WC_STORE_CREDIT_VERSION, true );
+			wp_localize_script(
+				'wc-store-credit-admin-meta-boxes-product',
+				'wc_store_credit_admin_meta_boxes_product_params',
+				array(
+					'invalid_preset_amounts' => __( 'Please, enter valid amounts separated by "|". For example: 10 | 20 | 30.', 'woocommerce-store-credit' ),
+				)
+			);
 		}
 
 		if ( $send_credit_screen_id === $screen_id ) {

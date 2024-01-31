@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.5
 Tested up to: 6.4
-Stable tag: 7.11.0
+Stable tag: 7.11.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,15 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.11.1 - January 2, 2024 =
+* Improvement: Added ".env" to the files checked for "Scan for publicly accessible configuration, backup, or log files"
+* Improvement: Provided better descriptive text for the option "Block IPs who send POST requests with blank User-Agent and Referer"
+* Improvement: The diagnostics page now displays the contents of any `auto_prepend_file` .htaccess/.user.ini block for troubleshooting
+* Fix: Fixed an issue where a login lockout on a WooCommerce login form could fail silently
+* Fix: The scan result for abandoned plugins no longer states it has been removed from wordpress.org if it is still listed
+* Fix: Addressed an exception parsing date information in non-repo plugins that have a bad `last_updated` value
+* Fix: The URL scanner no longer generates a log warning when matching a potential URL fragment that ends up not being a valid URL
 
 = 7.11.0 - November 28, 2023 =
 * Improvement: Added new functionality for trusted proxy presets to support proxies such as Amazon CloudFront, Ezoic, and Quic.cloud

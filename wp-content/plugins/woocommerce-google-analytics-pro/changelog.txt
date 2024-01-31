@@ -1,5 +1,8 @@
 *** WooCommerce Google Analytics Pro ***
 
+2024.01.23 - version 2.0.15
+ * Misc - Add support for new authentication proxy service
+
 2023.11.30 - version 2.0.14
  * Fix - Prevent Fatal TypeErrors for `add_to_cart` events in PHP 8.2 and newer
 

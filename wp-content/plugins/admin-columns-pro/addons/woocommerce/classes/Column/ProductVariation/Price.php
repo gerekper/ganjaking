@@ -67,7 +67,10 @@ class Price extends AC\Column\Meta
 
     public function sorting()
     {
-        return new ACP\Sorting\Model\Post\Meta($this->get_meta_key());
+        return new ACP\Sorting\Model\Post\Meta(
+            $this->get_meta_key(),
+            new ACP\Sorting\Type\DataType(ACP\Sorting\Type\DataType::DECIMAL)
+        );
     }
 
     public function export()

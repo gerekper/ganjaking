@@ -11,7 +11,7 @@
  * @link https://packagist.org/packages/league/oauth2-client Packagist
  * @link https://github.com/thephpleague/oauth2-client GitHub
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -82,6 +82,11 @@ class GenericProvider extends AbstractProvider
     private $responseResourceOwnerId = 'id';
 
     /**
+     * @var string|null
+     */
+    private $pkceMethod = null;
+
+    /**
      * @param array $options
      * @param array $collaborators
      */
@@ -117,6 +122,7 @@ class GenericProvider extends AbstractProvider
             'responseCode',
             'responseResourceOwnerId',
             'scopes',
+            'pkceMethod',
         ]);
     }
 
@@ -206,6 +212,14 @@ class GenericProvider extends AbstractProvider
     protected function getScopeSeparator()
     {
         return $this->scopeSeparator ?: parent::getScopeSeparator();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getPkceMethod()
+    {
+        return $this->pkceMethod ?: parent::getPkceMethod();
     }
 
     /**

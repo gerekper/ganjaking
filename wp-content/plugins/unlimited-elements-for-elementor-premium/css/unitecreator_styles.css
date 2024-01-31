@@ -624,9 +624,13 @@
 	width: 100%;
 }
 
+.uc-table-params .uc-table-nowrap {
+	white-space: nowrap;
+}
+
 .uc-table-params .uc-button-duplicate-param {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
 .uc-table-params label {
@@ -781,10 +785,9 @@
 	top: 7px;
 }
 
-.----------------PARAMS_DIALOG------------- {
-}
 
-/** DIALOG PARAM **/
+.----------------PARAMS_DIALOG------------- {}
+
 .dialog-param-wrapper {
 	padding: 10px;
 	padding-top: 10px;
@@ -835,11 +838,6 @@
 	overflow: auto;
 }
 
-.dialog-param-wrapper input[type="text"] {
-	width: 250px;
-	margin-bottom: 0px;
-}
-
 .dialog-param-wrapper .uc-text-colorpicker {
 	width: 100px !important;
 }
@@ -850,7 +848,12 @@
 
 .dialog-param-wrapper label {
 	display: inline;
-	margin: 0px;
+	margin: 0;
+}
+
+.dialog-param-wrapper input[type="text"] {
+	width: 250px;
+	margin-bottom: 0;
 }
 
 .dialog-param-wrapper textarea {
@@ -860,6 +863,10 @@
 .dialog-param-wrapper .dialog-param-right textarea {
 	width: 400px;
 	height: 120px;
+}
+
+.dialog-param-wrapper .input-small {
+	width: 100px !important;
 }
 
 .dialog-param-wrapper .params-dialog-table {
@@ -1016,7 +1023,7 @@
 
 	.ui-dialog.unite-dialog-responsive {
 		width: calc(100% - 20px) !important;
-		left: 10 !important;
+		left: 10px !important;
 	}
 
 	.dialog-param-wrapper .dialog-param-left {
@@ -1337,7 +1344,7 @@
 }
 
 .uc-changelogs-form-actions button + button {
-	margin-left: 8px;
+	margin-left: 4px;
 }
 
 .uc-changelogs-loader,
@@ -1406,6 +1413,8 @@
 }
 
 .uc-changelog-actions {
+	display: flex;
+	align-items: center;
 	margin-left: auto;
 }
 
@@ -1690,8 +1699,7 @@
 }
 
 
-.----------------TEST_ADDON_VIEW------------- {
-}
+.----------------TEST_ADDON_VIEW------------- {}
 
 .uc-addondefaults-panel,
 .uc-testaddon-panel {
@@ -1711,12 +1719,8 @@
 	width: 150px;
 }
 
-.uc-testaddon-new-panel a.unite-button-secondary {
-	margin-right: 10px;
-}
 
-.----------------NO_ADDON_TEXT------------- {
-}
+.----------------NO_ADDON_TEXT------------- {}
 
 .uc-empty-addons-wrapper {
 	position: relative;
@@ -1985,6 +1989,32 @@ ul.uc-list-pages-thumbs li a i {
 
 
 #---------------PREVIEW-ADDON-NEW--------------------- {}
+
+.uc-preview-addon-actions,
+.uc-preview-addon-actions-primary,
+.uc-preview-addon-actions-secondary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.uc-preview-addon-actions-secondary {
+	margin-left: auto;
+}
+
+.uc-preview-addon-actions a + a,
+.uc-preview-addon-actions button + button {
+	margin-left: 4px;
+}
+
+.uc-preview-addon-actions span {
+	width: 1px;
+	height: 100%;
+	background: var(--ue-color-gray-lighter);
+	text-indent: -9999em;
+	margin-right: 8px;
+	margin-left: 8px;
+}
 
 .uc-preview-addon-wrapper {
 	display: flex;

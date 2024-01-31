@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+// HPOS
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 class WC_pdf_invoice_helper_functions {
 
     public function __construct() {
@@ -128,6 +131,155 @@ class WC_pdf_invoice_helper_functions {
 			</form>';
 	}
 
+	// Database queries
+	
+
+	public static function get_result_invoice_number_this_year( $start_date, $end_date ) {
+		global $wpdb;
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$meta_table_name =  'wc_orders_meta';
+
+	        $invoice = $wpdb->get_row( "SELECT * FROM $wpdb->prefix$meta_table_name
+								WHERE meta_key = '_invoice_number' 
+								AND order_id IN (
+								    SELECT order_id FROM $wpdb->prefix$meta_table_name
+								    WHERE meta_key = '_invoice_created_mysql'
+								    AND meta_value >=  '$start_date'
+								    AND meta_value <=  '$end_date'
+								)
+								ORDER BY CAST(meta_value AS SIGNED) DESC
+								LIMIT 1;"
+	                        );
+
+		} else {
+			$meta_table_name = 'postmeta';
+
+	        $invoice = $wpdb->get_row( "SELECT * FROM $wpdb->prefix$meta_table_name
+								WHERE meta_key = '_invoice_number' 
+								AND post_id IN (
+								    SELECT post_id FROM $wpdb->prefix$meta_table_name
+								    WHERE meta_key = '_invoice_created_mysql'
+								    AND meta_value >=  '$start_date'
+								    AND meta_value <=  '$end_date'
+								)
+								ORDER BY CAST(meta_value AS SIGNED) DESC
+								LIMIT 1;"
+	                        );
+
+		}
+
+		return $invoice;
+
+	}
+
+	public static function get_result_invoice_number() {
+		global $wpdb;
+
+		// meta table name
+		$meta_table_name = 'postmeta';
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$meta_table_name =  'wc_orders_meta';
+		}
+
+        $invoice = $wpdb->get_row( "SELECT * FROM $wpdb->prefix$meta_table_name 
+                                    WHERE meta_key = '_invoice_number' 
+                                    ORDER BY CAST(meta_value AS SIGNED) DESC
+                                    LIMIT 1;"
+                                );
+        return $invoice;
+
+	}
+
+	public static function get_result_invoice_count() {
+		global $wpdb;
+
+		// meta table name
+		$meta_table_name = 'postmeta';
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$meta_table_name =  'wc_orders_meta';
+		}
+
+        // Check if there are any invoices
+        $invoice_count =   $wpdb->get_var( "SELECT count(*) FROM $wpdb->prefix$meta_table_name
+											WHERE meta_key = '_invoice_number' "
+                                        );
+        return $invoice_count;
+        
+	}
+
+	public static function get_result_update_order_meta_invoice_date() {
+		global $wpdb;
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$meta_table_name =  'wc_orders_meta';
+
+			$query = "SELECT COUNT(order_id) FROM $wpdb->prefix$meta_table_name 
+						WHERE order_id IN (
+							SELECT order_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_number'
+						) AND order_id NOT IN (
+							SELECT order_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_created'
+						)
+						GROUP BY (order_id)
+					 ";
+
+		} else {
+			$meta_table_name = 'postmeta';
+
+	        $query = "SELECT COUNT(post_id) FROM $wpdb->prefix$meta_table_name 
+						WHERE post_id IN (
+							SELECT post_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_number'
+						) AND post_id NOT IN (
+							SELECT post_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_created'
+						)
+						GROUP BY (post_id)
+					 ";
+
+		}
+
+		$results = $wpdb->get_var( $query );
+
+        return $results;
+        
+	}
+
+	public static function get_result_action_scheduler_update_order_meta_invoice_date () {
+		global $wpdb;
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$meta_table_name =  'wc_orders_meta';
+
+            $query = "SELECT order_id FROM $wpdb->prefix$meta_table_name
+				WHERE order_id IN (
+					SELECT order_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_number'
+				) AND order_id NOT IN (
+					SELECT order_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_created'
+				)
+				GROUP BY (order_id)
+				ORDER BY order_id ASC
+			 ";
+
+		} else {
+			$meta_table_name = 'postmeta';
+
+            $query = "SELECT post_id FROM $wpdb->prefix$meta_table_name
+				WHERE post_id IN (
+					SELECT post_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_number'
+				) AND post_id NOT IN (
+					SELECT post_id FROM $wpdb->prefix$meta_table_name WHERE meta_key = '_invoice_created'
+				)
+				GROUP BY (post_id)
+				ORDER BY post_id ASC
+			 ";
+
+		}
+
+		$results = $wpdb->get_var( $query );
+
+        return $results;
+	}
 }
 
 $GLOBALS['WC_pdf_invoice_helper_functions'] = new WC_pdf_invoice_helper_functions();

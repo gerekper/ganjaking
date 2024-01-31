@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -106,7 +106,7 @@ class PHP64 extends PHP
      */
     public static function isValidEngine()
     {
-        return PHP_INT_SIZE >= 8;
+        return PHP_INT_SIZE >= 8 && !self::testJITOnWindows();
     }
 
     /**

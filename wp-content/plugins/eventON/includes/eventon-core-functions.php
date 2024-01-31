@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions
- * @version     4.5.4
+ * @version     4.5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -312,8 +312,9 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		return $__output;
 	}
 
-	// RETURN: formatted event time in multiple formats
-	function eventon_get_formatted_time($row_unix, $lang=''){
+	// RETURN: formatted event time in multiple formats @4.5.7
+	// $tz = cal, utc, or event timezone
+	function eventon_get_formatted_time($row_unix, $tz = 'cal' ){
 		/*
 				D = Mon - Sun
 			1	j = 1-31
@@ -340,7 +341,13 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		// validate
 		if(empty($row_unix)) return false;
 
-		$DD = new DateTime('now', EVO()->calendar->timezone0);
+		// set proper timezone for datetime
+		$_tz = EVO()->calendar->cal_tz;
+		if( !empty( $tz )) $_tz = $tz;
+		if( $tz == 'cal') $_tz = EVO()->calendar->cal_tz;
+		if( $tz == 'utc') $_tz = EVO()->calendar->timezone0;
+
+		$DD = new DateTime('now', $_tz );
 		$DD->setTimestamp( $row_unix);
 				
 		$key = array('D','j','l','N','S','n','F','t','z','Y','g','i','a','M','m','d','H', 'A', 'y','G');
@@ -405,9 +412,9 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 	/**
 	 * GET event UNIX time from date and time format $_POST values in UTC0
-	 * @updated 4.0.6
+	 * @updated 4.5.8
 	 */
-	function eventon_get_unix_time($data='', $date_format='', $time_format=''){
+	function eventon_get_unix_time($data='', $date_format='', $time_format='', $tz2= ''){
 		
 		$help = new evo_helper();
 		$postdata = $help->sanitize_array( $_POST );
@@ -433,18 +440,22 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					true: false
 				); // get default site-wide date format
 				
-							
+			
+			// UTC0
 			$TZ = EVO()->calendar->timezone0;
 			$DD = new DateTime( null, $TZ);
 
+			// @cal tz
+			$DDcal = new DateTime( null, ( empty($tz2) ? EVO()->calendar->cal_tz : $tz2 ) );
+
 			// ---
 			// START UNIX
-			$unix_start =0;
+			$unix_start = $unix_start_ev = 0;
+
 			if( !empty($data['evcal_start_date']) ){
 												
 				$datetime = DateTime::createFromFormat( $_wp_date_format, $data['evcal_start_date'] , $TZ );
-				//$unix_start = $datetime->format('U');
-
+				
 				if(!empty($data['evcal_start_time_hour'])){
 					// hour conversion to 24h
 					$time_hour = (int)$data['evcal_start_time_hour'];
@@ -460,9 +471,15 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					}
 
 					$DD->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
-					->setTime( $time_hour, $data['evcal_start_time_min']);				
+					->setTime( $time_hour, $data['evcal_start_time_min']);
 
 					$unix_start = $DD->format('U');
+
+					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+					->setTime( $time_hour, $data['evcal_start_time_min']);				
+
+					$unix_start_ev = $DDcal->format('U');
+					
 				}
 			}
 
@@ -470,7 +487,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			
 			// ---
 			// END TIME UNIX
-			$unix_end =0;
+			$unix_end = $unix_end_ev = 0;
 			if( !empty($data['evcal_end_date']) ){				
 				
 				$datetime = DateTime::createFromFormat( $_wp_date_format, $__evo_end_date , $TZ );
@@ -492,7 +509,12 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					$DD->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
 						->setTime( $time_hour, $data['evcal_end_time_min']);
 					
-					$unix_end = $DD->format('U');						
+					$unix_end = $DD->format('U');	
+
+					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+					->setTime( $time_hour, $data['evcal_end_time_min']);				
+
+					$unix_end_ev = $DDcal->format('U');					
 				}	
 			}
 
@@ -500,7 +522,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			$unix_end =(!empty($unix_end) )?$unix_end:$unix_start;
 
 			// virtual end date - @4.0.3
-			$unix_vir_end = $unix_end;
+			$unix_vir_end = $unix_vend_ev = $unix_end;
 			if( !empty( $data['event_vir_date_x'])){
 				
 				$datetime = DateTime::createFromFormat( $_wp_date_format, $data['event_vir_date_x'] , $TZ );
@@ -520,41 +542,32 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					$DD->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
 						->setTime( $time_hour, $data['_vir_minute']);
 					
-					$unix_vir_end = $DD->format('U');						
+					$unix_vir_end = $DD->format('U');	
+
+					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+						->setTime( $time_hour, $data['_vir_minute']);					
+					$unix_vend_ev = $DDcal->format('U');						
 				}
 			}
 			
 		}else{
 			// if no start or end present
-			$unix_start = $unix_end = $unix_vir_end = time();
+			$unix_start = $unix_end = $unix_vir_end = $unix_start_ev = $unix_end_ev = $unix_vend_ev = time();
 		}
 		// output the unix timestamp
 		$output = array(
 			'unix_start'	=>$unix_start,
 			'unix_end'		=>$unix_end,
-			'unix_vir_end'	=> $unix_vir_end
+			'unix_vir_end'	=> $unix_vir_end,
+			'unix_start_ev' => $unix_start_ev,
+			'unix_end_ev' => $unix_end_ev,
+			'unix_vend_ev' => $unix_vend_ev,
 		);	
 
 
 		return $output;
 	}
 
-	function evo_date_parse_from_format($format, $date) {
-	  	$dMask = array(
-	    'H'=>'hour',
-	    'i'=>'minute',
-	    's'=>'second',
-	    'y'=>'year',
-	    'm'=>'month',
-	    'd'=>'day'
-	  	);
-	  	$format = preg_split('//', $format, -1, PREG_SPLIT_NO_EMPTY); 
-	  	$date = preg_split('//', $date, -1, PREG_SPLIT_NO_EMPTY); 
-	  	foreach ($date as $k => $v) {
-	    if ($dMask[$format[$k]]) $dt[$dMask[$format[$k]]] .= $v;
-	  	}
-	  	return $dt;
-	}
 
 	/*
 	return jquery and HTML UNIVERSAL date format for the site
@@ -969,8 +982,8 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 				}
 
 				// skip year and month long events
-				if( $EV->check_yn( 'evo_year_long') ) continue;
-				if( $EV->check_yn( '_evo_month_long') ) continue;
+				if( $EV->is_year_long() ) continue;
+				if( $EV->is_month_long() ) continue;
 				
 				if( $EV->is_current_event('end') ) continue;
 				
@@ -1005,7 +1018,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 
 	/* repeat interval generation when saving event post */
-	// Updated: 4.0.3
+	// Updated: 4.5.8
 		function eventon_get_repeat_intervals($unix_S, $unix_E){
 
 			$help = new evo_helper();
@@ -1033,8 +1046,11 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			$event_duration = $unix_E - $unix_S;
 			if($event_duration<0) $event_duration = 1;
 
+			// timezone setup
+				$DD = new DateTime(null, EVO()->calendar->timezone0);
 
-			$repeat_intervals = array();
+
+			$repeat_intervals = $ev_ri = array();
 
 			// switch statement	
 				$term = 'days';	
@@ -1056,7 +1072,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 				$_is_24h = (!empty($postdata['_evo_time_format']) && $postdata['_evo_time_format']=='24h')? true:false;
 				$_wp_date_format = $postdata['_evo_date_format'];
 
-				$DD = new DateTime(null, EVO()->calendar->timezone0);
+				
 
 				// make sure repeats are saved along with initial times for event
 				$numberof_repeats = count($_post_repeat_intervals);
@@ -1122,7 +1138,6 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 			}else{
 
-				$DD = EVO()->calendar->DD;
 				$DD->setTimestamp( $unix_S );
 
 				// event hour and minutes based off event start time
@@ -1809,6 +1824,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 		return $id;
 	}
+
 	// get event archive page template name
 	function evo_get_event_template($opt){
 		$opt == (!empty($opt))? $opt: evo_get_options('1');
@@ -1821,7 +1837,6 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		}
 		return $template;
 	}
-	function evo_archive_page_content(){}
 
 	// Wrapper for nocache_headers which also disables page caching.
 	// @since 4.4
@@ -1971,10 +1986,6 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			}
 		}
 	
-	/** Clean variables */
-		function eventon_clean( $var ) {
-			return sanitize_text_field( $var );
-		}
 	// Get capabilities for Eventon - these are assigned to admin during installation or reset
 		function eventon_get_core_capabilities(){
 			$capabilities = array();

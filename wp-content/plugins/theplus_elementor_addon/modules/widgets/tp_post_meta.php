@@ -47,6 +47,10 @@ class ThePlus_Post_Meta extends Widget_Base {
 		return esc_url($DocUrl);
 	}
 
+	public function get_keywords() {
+        return ['Post Meta', 'Custom Fields', 'Post Data', 'Meta Data', 'Advanced Fields'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(

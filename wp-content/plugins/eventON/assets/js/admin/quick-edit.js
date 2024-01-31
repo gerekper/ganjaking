@@ -1,6 +1,6 @@
 /**
  * Eventon event quick edit
- * @version  2.5.2
+ * @version  4.5.6
  */
 jQuery(function($){  
 
@@ -10,6 +10,8 @@ jQuery(function($){
 
 		var post_id = $(this).closest('tr').attr('id');		
 		post_id = post_id.replace("post-", "");
+
+
 		
 		var event_data = $('#eventon_inline_' + post_id );
 		//const edit_row = $('#edit-'+ post_id);
@@ -34,30 +36,19 @@ jQuery(function($){
 		// yes no fields
 			var DATA = [
 				'evo_hide_endtime',
-				'evcal_allday',
 				'_featured','evo_exclude_ev','evcal_gmap_gen',
 				'evcal_hide_locname',
 				'evo_access_control_location',
 				'evo_evcrd_field_org',
-				'evo_year_long', '_evo_month_long'
 			];
 			for(i=0; i< DATA.length; i++){
 				VAL = event_data.find('.'+  DATA[i]).text();
 
 				INPUT = edit_row.find('input[name="'+ DATA[i] +'"]');
 				INPUT.val( VAL ); 
+
 				if(VAL == 'yes'){
-					INPUT.siblings('span').attr('class','ajde_yn_btn'); 
-
-					// if month long
-					if( DATA[i] == '_evo_month_long'){
-
-						edit_row.find('.evo_longer_events_notice').show();
-
-						edit_row.find('.evo_event_start_time').hide();
-						edit_row.find('.evo_event_end_time').hide();
-					}
-
+					INPUT.siblings('span').attr('class','ajde_yn_btn'); 					
 				}else{
 					INPUT.siblings('span').attr('class','ajde_yn_btn NO'); 
 				}
@@ -65,11 +56,10 @@ jQuery(function($){
 
 		// SELECT fields
 			var sel_D = [
-				'_ev_status'
+				'_ev_status','_time_ext_type'
 			];	
 			for(i=0; i< sel_D.length; i++){
 				VAL = event_data.find('.'+  sel_D[i]).text();
-
 
 				sel = edit_row.find('select[name="'+ sel_D[i] +'"]');
 				sel.find('option[value="'+ VAL +'"]' ).attr('selected',true); 

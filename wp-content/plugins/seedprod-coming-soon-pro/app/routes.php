@@ -412,7 +412,10 @@ function seedprod_pro_redirect_to_site() {
 	//  setup page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_setup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['sp_setup_dismiss'] ) ) {
-			update_option( 'seedprod_dismiss_setup', 1 );
+			// check nonce
+			if ( !empty($_GET['nonce']) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'seedprod_nonce' ) ) {
+				update_option( 'seedprod_dismiss_setup', 1 );
+			}
 		}
 
 		$dimiss_setup = get_option( 'seedprod_dismiss_setup' );

@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Condition_Coupon_Code class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.3.0
  */
 

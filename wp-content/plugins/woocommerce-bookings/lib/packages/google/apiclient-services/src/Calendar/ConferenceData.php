@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -27,16 +27,32 @@ class ConferenceData extends \Automattic\WooCommerce\Bookings\Vendor\Google\Coll
    * @var string
    */
   public $conferenceId;
+  /**
+   * @var ConferenceSolution
+   */
+  public $conferenceSolution;
   protected $conferenceSolutionType = ConferenceSolution::class;
   protected $conferenceSolutionDataType = '';
+  /**
+   * @var CreateConferenceRequest
+   */
+  public $createRequest;
   protected $createRequestType = CreateConferenceRequest::class;
   protected $createRequestDataType = '';
+  /**
+   * @var EntryPoint[]
+   */
+  public $entryPoints;
   protected $entryPointsType = EntryPoint::class;
   protected $entryPointsDataType = 'array';
   /**
    * @var string
    */
   public $notes;
+  /**
+   * @var ConferenceParameters
+   */
+  public $parameters;
   protected $parametersType = ConferenceParameters::class;
   protected $parametersDataType = '';
   /**

@@ -2,7 +2,7 @@
 /**
  * WC_CP_TAWS_Variation_Swatches_Compatibility
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    4.0.0
  */
 

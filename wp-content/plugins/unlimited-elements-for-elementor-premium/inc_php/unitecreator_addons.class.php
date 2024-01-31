@@ -636,7 +636,8 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * prepare addon by data
 	 */
 	public function prepareAddonByData($addonData){
-
+		
+		
 		$addonName = UniteFunctionsUC::getVal($addonData, "name");
 		$addonType = UniteFunctionsUC::getVal($addonData, "addontype");
 
@@ -1184,11 +1185,12 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 */
 	public function initAddonByData($data){
 
+				
 		if(is_string($data)){
 			$data = json_decode($data);
 			$data = UniteFunctionsUC::convertStdClassToArray($data);
 		}
-
+		
 		$addonID = UniteFunctionsUC::getVal($data, "id");
 		$addonName = UniteFunctionsUC::getVal($data, "name");
 		$arrConfig = UniteFunctionsUC::getVal($data, "config");

@@ -38,9 +38,11 @@ class ThePlus_Woo_Single_Tabs extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
 		return ['single tabs,woocomerce', 'post','product','description','additional information','review','tabs','woo tabs'];
 	}
+	
     protected function register_controls() {
 		/*content start*/
 		$this->start_controls_section(

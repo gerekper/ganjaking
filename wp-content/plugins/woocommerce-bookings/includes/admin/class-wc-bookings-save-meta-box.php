@@ -60,6 +60,7 @@ class WC_Bookings_Save_Meta_Box {
 		<div id="delete-action"><a class="submitdelete deletion" href="<?php echo esc_url( get_delete_post_link( $post->ID ) ); ?>"><?php esc_html_e( 'Move to trash', 'woocommerce-bookings' ); ?></a></div>
 
 		<input type="submit" class="button save_order button-primary tips" name="save" value="<?php esc_attr_e( 'Save Booking', 'woocommerce-bookings' ); ?>" data-tip="<?php echo wc_sanitize_tooltip( __( 'Save/update the booking', 'woocommerce-bookings' ) ); ?>" />
+		<span id="sync-note"><span class="dashicons dashicons-info"></span><?php echo esc_html__( 'Saving will also sync to Google Calendar', 'woocommerce-bookings' ); ?></span>
 		<?php
 	}
 }

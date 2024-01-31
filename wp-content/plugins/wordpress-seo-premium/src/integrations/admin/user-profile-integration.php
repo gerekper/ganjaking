@@ -15,8 +15,8 @@ use Yoast\WP\SEO\Integrations\Integration_Interface;
  */
 class User_Profile_Integration implements Integration_Interface {
 
-	const NONCE_FIELD_ACTION = 'show_user_profile';
-	const NONCE_FIELD_NAME   = 'wpseo_premium_user_profile_schema_nonce';
+	public const NONCE_FIELD_ACTION = 'show_user_profile';
+	public const NONCE_FIELD_NAME   = 'wpseo_premium_user_profile_schema_nonce';
 
 	/**
 	 * Holds the schema fields we're adding to the user profile.
@@ -58,6 +58,8 @@ class User_Profile_Integration implements Integration_Interface {
 
 	/**
 	 * Sets the fields and their labels and descriptions.
+	 *
+	 * @return void
 	 */
 	private function set_fields() {
 		$this->fields = [
@@ -172,6 +174,8 @@ class User_Profile_Integration implements Integration_Interface {
 	 * Updates the user metas that (might) have been set on the user profile page.
 	 *
 	 * @param int $user_id User ID of the updated user.
+	 *
+	 * @return void
 	 */
 	public function process_user_option_update( $user_id ) {
 		// I'm keeping this to conform to the original logic.

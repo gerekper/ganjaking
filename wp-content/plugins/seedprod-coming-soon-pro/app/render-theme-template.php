@@ -1251,13 +1251,13 @@ function seedprod_pro_render_template_tags_shortcode( $atts ) {
 		}
 		if ( 'get_previous_post_link' === $a['tag'] ) {
 			$prev_icon  = '<svg class="sp-postnavigation-previous-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 13v-2H8l4-4-1-2-7 7 7 7 1-2-4-4z" fill="currentColor"></path></svg>';
-			$prev_label = '<span class="sp-postnavigation-previous-label">' . $prev_icon . ' Previous</span>';
+			$prev_label = '<span class="sp-postnavigation-previous-label">' . $prev_icon . ' ' . __( 'Previous', 'seedprod-pro' ) . '</span>';
 			$prev_title = '<span class="sp-postnavigation-previous-title">%title</span>';
 			$values     = array( '%link', '<span class="sp-postnavigation-previous">' . $prev_label . $prev_title . '</span>', false, '', 'category' );
 		}
 		if ( 'get_next_post_link' === $a['tag'] ) {
 			$next_icon  = '<svg class="sp-postnavigation-next-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m4 13v-2h12l-4-4 1-2 7 7-7 7-1-2 4-4z" fill="currentColor"></path></svg>';
-			$next_label = '<span class="sp-postnavigation-next-label">Next ' . $next_icon . ' </span>';
+			$next_label = '<span class="sp-postnavigation-next-label">' . __( 'Next', 'seedprod-pro' ) . ' ' . $next_icon . ' </span>';
 			$next_title = '<span class="sp-postnavigation-next-title">%title</span>';
 			$values     = array( '%link', '<span class="sp-postnavigation-next">' . $next_label . $next_title . '</span>', false, '', 'category' );
 		}
@@ -1603,7 +1603,24 @@ function seedprod_pro_clean_data_attributes( $code ) {
 		}
 	}
 
+	// Get tablet css & Remove inline data attributes.
+	preg_match_all( '/data-tablet-css="([^"]*)"/', $code, $matches );
+	if ( ! empty( $matches ) ) {
+		// remove inline data attributes
+		foreach ( $matches[0] as $v ) {
+			$code = str_replace( $v, '', $code );
+		}
+	}
+
 	preg_match_all( '/data-mobile-visibility="([^"]*)"/', $code, $matches );
+	if ( ! empty( $matches ) ) {
+		// remove inline data attributes
+		foreach ( $matches[0] as $v ) {
+			$code = str_replace( $v, '', $code );
+		}
+	}
+
+	preg_match_all( '/data-tablet-visibility="([^"]*)"/', $code, $matches );
 	if ( ! empty( $matches ) ) {
 		// remove inline data attributes
 		foreach ( $matches[0] as $v ) {

@@ -38,9 +38,10 @@ class ThePlus_Woo_Order_Track extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
-		return ['track', 'order' , 'order track' , 'order track page' , 'WooCommerce'];
-	}
+        return ['Order Track', 'Order Tracking', 'Track Order', 'Tracking Order', 'Order Status', 'Order Progress', 'Order Updates', 'Order Locator', 'Order Finder'];
+    }
 	
     protected function register_controls() {	
 		$this->start_controls_section(

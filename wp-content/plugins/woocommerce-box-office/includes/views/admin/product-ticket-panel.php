@@ -65,6 +65,28 @@
 					</tbody>
 				</table>
 			</div>
+			<p class="form-field">
+				<?php
+					$pii_setting = get_post_meta( $post->ID, '_user_pii_setting', true );
+					$pii_setting = empty( $pii_setting ) ? 'yes' : $pii_setting;
+
+					woocommerce_wp_checkbox(
+						array(
+							'id'            => '_user_pii_setting',
+							'wrapper_class' => 'show_if_ticket',
+							'label'         => __( 'User privacy preference', 'woocommerce-box-office' ),
+							'value'         => $pii_setting,
+							'description'   => sprintf(
+								__(
+									'Allow customers to opt-out from being displayed in the public list of attendees when %s shortcode is used.',
+									'woocommerce-box-office'
+								),
+								'<code>[tickets]</code>'
+							),
+						)
+					);
+					?>
+			</p>
 		</div>
 	</div>
 

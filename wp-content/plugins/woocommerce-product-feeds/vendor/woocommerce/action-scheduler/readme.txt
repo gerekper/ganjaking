@@ -1,9 +1,11 @@
 === Action Scheduler ===
 Contributors: Automattic, wpmuguru, claudiosanches, peterfabian1000, vedjain, jamosova, obliviousharmony, konamiman, sadowski, royho, barryhughes-1
 Tags: scheduler, cron
-Stable tag: 3.6.3
+Stable tag: 3.7.1
 License: GPLv3
-Tested up to: 6.3
+Requires at least: 6.2
+Tested up to: 6.4
+Requires PHP: 5.6
 
 Action Scheduler - Job Queue for WordPress
 
@@ -44,6 +46,25 @@ Action Scheduler is developed and maintained by [Automattic](http://automattic.c
 Collaboration is cool. We'd love to work with you to improve Action Scheduler. [Pull Requests](https://github.com/woocommerce/action-scheduler/pulls) welcome.
 
 == Changelog ==
+
+= 3.7.1 - 2023-12-13 =
+* Release/3.7.0.
+* Tweak - WP 6.4 compatibility.
+* update semver to 5.7.2 because of a security vulnerability in 5.7.1.
+
+= 3.7.0 - 2023-11-20 =
+* Important: starting with this release, Action Scheduler follows an L-2 version policy (WordPress, and consequently PHP).
+* Add extended indexes for hook_status_scheduled_date_gmt and status_sheduled_date_gmt.
+* Catch and log exceptions thrown when actions can't be created, e.g. under a corrupt database schema.
+* Release/3.6.4.
+* Tweak - WP 6.4 compatibility.
+* Update unit tests for upcoming dependency version policy.
+* make sure hook action_scheduler_failed_execution can access original exception object.
+* mention dependency version policy in usage.md.
+
+= 3.6.4 - 2023-10-11 =
+* Performance improvements when bulk cancelling actions.
+* Dev-related fixes.
 
 = 3.6.3 - 2023-09-13 =
 * Use `_doing_it_wrong` in initialization check.

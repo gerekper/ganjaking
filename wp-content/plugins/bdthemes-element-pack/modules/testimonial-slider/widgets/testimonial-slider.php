@@ -159,7 +159,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_control(
             'show_review_platform',
             [
-                'label'   => esc_html__('Review Platform', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'   => esc_html__('Review Platform', 'bdthemes-element-pack'),
                 'type'    => Controls_Manager::SWITCHER,
             ]
         );
@@ -327,6 +327,14 @@ class Testimonial_Slider extends Module_Base {
 			]
 		);
 
+		$this->add_control(
+			'auto-height',
+			[
+				'label'   => esc_html__('Auto Height', 'bdthemes-element-pack') . BDTEP_NC,
+				'type'    => Controls_Manager::SWITCHER,
+			]
+		);
+
 		$this->end_controls_section();
 
 		//Navigation Controls
@@ -403,7 +411,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->start_controls_section(
 			'section_style_iamge',
 			[
-				'label' => esc_html__('Image', 'bdthemes-element-pack') . BDTEP_NC,
+				'label' => esc_html__('Image', 'bdthemes-element-pack'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'_skin!' => 'bdt-thumb',
@@ -598,7 +606,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_control(
             'quatation_offset_toggle',
             [
-                'label' => __('Offset', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => __('Offset', 'bdthemes-element-pack'),
                 'type' => Controls_Manager::POPOVER_TOGGLE,
                 'label_off' => __('None', 'bdthemes-element-pack'),
                 'label_on' => __('Custom', 'bdthemes-element-pack'),
@@ -767,7 +775,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_responsive_control(
 			'title_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -858,7 +866,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_responsive_control(
 			'address_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -883,7 +891,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_control(
             'original_color',
             [
-                'label'   => esc_html__('Enable Original Color', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'   => esc_html__('Enable Original Color', 'bdthemes-element-pack'),
                 'type'    => Controls_Manager::SWITCHER,
                 'condition' => [
                     'show_review_platform' => 'yes'
@@ -928,7 +936,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_responsive_control(
 			'rating_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -1144,7 +1152,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_responsive_control(
 			'thumb_padding',
 			[
-				'label'      => esc_html__('Padding', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -1156,7 +1164,7 @@ class Testimonial_Slider extends Module_Base {
 		$this->add_responsive_control(
 			'thumb_margin',
 			[
-				'label'      => esc_html__('Margin', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Margin', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -1169,7 +1177,7 @@ class Testimonial_Slider extends Module_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'thumb_box_shadow',
-				'label'      => esc_html__('Box Shadow', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Box Shadow', 'bdthemes-element-pack'),
 				'selector' => '{{WRAPPER}} .bdt-testimonial-slider .bdt-slider-thumbnav-inner img'
 			]
 		);
@@ -1263,7 +1271,7 @@ class Testimonial_Slider extends Module_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'thumb_hover_box_shadow',
-				'label'      => esc_html__('Box Shadow', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => esc_html__('Box Shadow', 'bdthemes-element-pack'),
 				'selector' => '{{WRAPPER}} .bdt-testimonial-slider .bdt-active .bdt-slider-thumbnav-inner img'
 			]
 		);
@@ -1378,6 +1386,7 @@ class Testimonial_Slider extends Module_Base {
 						wp_json_encode(array_filter([
 							'autoplay'     => ('yes' == $settings['autoplay']) ? ['delay' => $settings['autoplay_interval']] : false,
 							'loop'         => ($settings['loop'] == 'yes') ? true : false,
+							'autoHeight'   => ($settings['auto-height'] == 'yes') ? true : false,
 							'speed'        => $settings['velocity'],
 							'pauseOnHover' => isset($settings['pause_on_hover']) ? true : false,
 							'navigation'   => [

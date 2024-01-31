@@ -56,6 +56,14 @@
       description="Output comments before and after widgets in source html output">
     </field>
 
+    <field name="enable_import_export"
+      type="boolean"
+      default="true"
+      label="		Show Import and Export Buttons In Templates"
+      description="Show special import and export buttons (import and export with images) in elementor saved templates screen">
+    </field>
+
+
     <field name="enable_backgrounds"
       type="boolean"
       default="true"

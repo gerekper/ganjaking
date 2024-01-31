@@ -29,14 +29,20 @@ class WoocommerceGpfImportExportIntegration {
 		add_action( 'plugins_loaded', [ $this, 'attach_render_hooks' ], 11 );
 		// Import filters.
 		add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_columns' ) );
-		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_default_mapping_columns' ) );
+		add_filter(
+			'woocommerce_csv_product_import_mapping_default_columns',
+			array(
+				$this,
+				'add_default_mapping_columns',
+			)
+		);
 		add_filter( 'woocommerce_product_import_pre_insert_product_object', array( $this, 'process_import' ), 10, 2 );
 	}
 
 	/**
 	 * Register our columns with the importer/exporter.
 	 *
-	 * @param  array  $columns  List of columns.
+	 * @param array $columns List of columns.
 	 *
 	 * @return array            Modified list of columns.
 	 */
@@ -51,14 +57,22 @@ class WoocommerceGpfImportExportIntegration {
 
 		$fields = $this->generate_column_list();
 		foreach ( array_keys( $fields ) as $key ) {
-			add_filter( 'woocommerce_product_export_product_column_' . $key, array( $this, "render_column_$key" ), 10, 2 );
+			add_filter(
+				'woocommerce_product_export_product_column_' . $key,
+				array(
+					$this,
+					"render_column_$key",
+				),
+				10,
+				2
+			);
 		}
 	}
 
 	/**
 	 * Return list of default mappings.
 	 *
-	 * @param  array   $mappings  The list of standard mappings.
+	 * @param array $mappings The list of standard mappings.
 	 *
 	 * @return array             The extended list of mappings.
 	 */
@@ -68,6 +82,7 @@ class WoocommerceGpfImportExportIntegration {
 			$mappings[ $v ]               = $k;
 			$mappings[ strtolower( $v ) ] = $k;
 		}
+
 		return $mappings;
 	}
 
@@ -87,14 +102,15 @@ class WoocommerceGpfImportExportIntegration {
 		}
 		$fields['gpf_exclude_product'] = __( 'Google product feed: Hide product from feed (Y/N)', 'woocommerce_gpf' );
 		asort( $fields );
+
 		return $fields;
 	}
 
 	/**
 	 * Process a set of import data.
 	 *
-	 * @param  WC_Product $product  The product being imported.
-	 * @param  array      $data    The data processed from the CSV file and mapped.
+	 * @param WC_Product $product The product being imported.
+	 * @param array $data The data processed from the CSV file and mapped.
 	 *
 	 * @return WC_Product          The product with updates applied.
 	 */
@@ -105,6 +121,9 @@ class WoocommerceGpfImportExportIntegration {
 			$product_data = array();
 		}
 		foreach ( array_keys( $fields ) as $key ) {
+			$product_data_key = str_replace( 'gpf_', '', $key );
+			$field_config     = $this->woocommerce_gpf_common->product_fields[ $product_data_key ] ?? [];
+
 			if ( 'gpf_exclude_product' === $key ) {
 				if ( isset( $data[ $key ] ) && 'y' === strtolower( $data[ $key ] ) ) {
 					$data[ $key ] = 'on';
@@ -113,10 +132,15 @@ class WoocommerceGpfImportExportIntegration {
 				}
 			}
 			if ( isset( $data[ $key ] ) ) {
-				$product_data[ str_replace( 'gpf_', '', $key ) ] = $data[ $key ];
+				$field_data = $data[ $key ];
+				if ( isset( $field_config['import_as_array'] ) && $field_config['import_as_array'] ) {
+					$field_data = explode( ',', $field_data );
+				}
+				$product_data[ $product_data_key ] = $field_data;
 			}
 		}
 		$product->update_meta_data( '_woocommerce_gpf_data', $product_data );
+
 		return $product;
 	}
 
@@ -137,6 +161,7 @@ class WoocommerceGpfImportExportIntegration {
 			throw new Exception( 'Invalid method on ' . __CLASS__ );
 		}
 		$field = str_replace( 'render_column_gpf_', '', $method );
+
 		return $this->get_product_gpf_value( $field, $args[1] );
 	}
 
@@ -146,23 +171,28 @@ class WoocommerceGpfImportExportIntegration {
 	 */
 	public function render_column_gpf_exclude_product( $value, $product ) {
 		$value = $this->get_product_gpf_value( 'exclude_product', $product );
+
 		return 'on' === $value ? 'Y' : '';
 	}
 
 	/**
 	 * Get the value of a GPF field for a product.
 	 *
-	 * @param  string      $key      The key that we want to retrieve.
-	 * @param  WC_Product  $product  The product we're enquiring about.
+	 * @param string $key The key that we want to retrieve.
+	 * @param WC_Product $product The product we're enquiring about.
 	 *
 	 * @return string                The value of the key for this product, or
 	 *                               empty string.
 	 */
 	private function get_product_gpf_value( $key, $product ) {
 		$product_settings = get_post_meta( $product->get_id(), '_woocommerce_gpf_data', true );
-		if ( isset( $product_settings[ $key ] ) ) {
-			return $product_settings[ $key ];
+		if ( ! isset( $product_settings[ $key ] ) ) {
+			return '';
 		}
-		return '';
+		if ( is_array( $product_settings[ $key ] ) ) {
+			return implode( ',', $product_settings[ $key ] );
+		}
+
+		return $product_settings[ $key ];
 	}
 }

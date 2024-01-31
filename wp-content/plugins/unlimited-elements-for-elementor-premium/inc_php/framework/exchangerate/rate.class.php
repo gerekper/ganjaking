@@ -60,6 +60,7 @@ class UEExchangeRateAPIRate extends UEExchangeRateAPIModel{
 
 		$country = $this->getCountry();
 		$country = strtolower($country);
+		
 		$url = "https://flagcdn.com/" . $country . ".svg";
 
 		return $url;
@@ -119,7 +120,7 @@ class UEExchangeRateAPIRate extends UEExchangeRateAPIModel{
 			"ANG" => array(
 				"name" => "Netherlands Antillean Guilder",
 				"symbol" => "ƒ",
-				"country" => "AN",
+				"country" => "NL",
 			),
 			"AOA" => array(
 				"name" => "Angolan Kwanza",

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Trait Order_Util file.
+ *
+ * @package WC_Shipment_Tracking
+ */
 
 namespace WooCommerce\ShipmentTracking;
 
@@ -40,7 +45,7 @@ trait Order_Util {
 	/**
 	 * Checks whether the OrderUtil class and the given method exist
 	 *
-	 * @param string $method
+	 * @param string $method Method name of the order object.
 	 *
 	 * @return bool
 	 */
@@ -87,7 +92,7 @@ trait Order_Util {
 	 * Returns the WC_Order object from the object passed to
 	 * the add_meta_box callback function.
 	 *
-	 * @param $post_or_order_object
+	 * @param WP_Post|WC_Order $post_or_order_object Either post or order object.
 	 *
 	 * @return \WC_Order
 	 */

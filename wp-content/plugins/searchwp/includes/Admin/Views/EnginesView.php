@@ -505,8 +505,7 @@ class EnginesView {
 		Utils::localize_script( $handle, array_merge( [
 			'view'     => self::get_config(),
 			'index'    => $index->get_stats(),
-			'welcome'  => empty( $settings['misc']['hasInitialSave'] )
-							&& isset( $_GET['welcome'] ),
+			'welcome'  => isset( $_GET['welcome'] ),
 			'migrated' => $migrated,
 			'cron'     => \SearchWP\Utils::is_cron_operational(),
 			// Use the source prefix to exclude all sources from that family. (e.g. 'taxonomy.' excludes all Taxonomy sources).

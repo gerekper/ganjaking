@@ -35,9 +35,10 @@ class ThePlus_Row_Background extends Widget_Base {
     public function get_categories() {
         return array('plus-creatives');
     }
+	
 	public function get_keywords() {
-		return ['row background', 'section background', 'canvas', 'particles js', 'segmentation', 'gallery background', 'slideshow background', 'video background', 'youtube background', 'vimeo background', 'mobile video background', 'parallax background, segment', 'animated gradient background', 'on scroll background color change', 'on scroll morphing shape background', 'background fixed SVG morphing', 'on Scroll background Image change', 'kenburn gallery', 'kenburn background'];
-	}
+        return ['Row Background', 'Background for Row', 'Row Background Color', 'Row Background Image', 'Row Background Options', 'Row Background Styles', 'Parallax', 'Background', 'Parallax Background', 'Elementor Parallax', 'Elementor Background', 'Segment', 'Elementor', 'Widget', 'Canvas', 'Plus Addons', 'Search bar', 'Keywords', 'Terms', 'Gallery', 'Image', 'Photo', 'Picture', 'Slider', 'Carousel', 'Grid', 'Masonry', 'Thumbnail', 'Portfolio', 'Special Backgrounds', 'Backgrounds', 'Custom Backgrounds', 'Unique Backgrounds', 'Elementor Backgrounds', 'Plus Addons Widget', 'The Plus Addons Widget', 'Video Background', 'Background Video', 'Video Background Widget', 'Background Video Widget', 'Elementor Video Background', 'Elementor Background Video', 'Video Background Addon', 'Background Video Addon', 'The Plus Addons Video Background', 'The Plus Addons Background Video'];
+    }
 
 	protected function register_controls() {
 		

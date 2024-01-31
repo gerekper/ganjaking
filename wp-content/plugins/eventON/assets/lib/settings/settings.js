@@ -1,6 +1,6 @@
 /**
  * EventON Settings scripts
- * @version  4.5.1
+ * @version  4.5.5
  */
 jQuery(document).ready(function($){
 
@@ -23,10 +23,12 @@ jQuery(document).ready(function($){
 		}
 	}
 
+
 // header save changes button
 	$('body').on('click','.evo_trig_form_save',function(event){
 		event.preventDefault();
-		$('body').find('.evo_settings_form').submit();
+		//$('body').find('.evo_settings_form').submit();
+		$('body').find('.evo_settings_save_btn').trigger('click');
 	});
 
 // Settings

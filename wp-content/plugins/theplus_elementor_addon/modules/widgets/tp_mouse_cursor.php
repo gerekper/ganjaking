@@ -39,6 +39,9 @@ class ThePlus_Mouse_Cursor extends Widget_Base {
         return array('plus-creatives');
     }
 	
+	public function get_keywords() {
+        return ['Mouse Cursor', 'Cursor', 'Elementor Cursor', 'Elementor Mouse Cursor', 'Custom Cursor', 'Elementor Custom Cursor', 'Cursor Widget', 'Mouse Cursor Widget', 'Elementor Cursor Widget', 'Elementor Mouse Cursor Widget', 'The Plus Addons Cursor', 'The Plus Addons Mouse Cursor', 'The Plus Addons Elementor Cursor', 'Elementor Addon Cursor', 'Elementor Addon Mouse Cursor', 'Elementor Addon Custom Cursor'];
+    }
 	
     protected function register_controls() {		
 		$this->start_controls_section(
@@ -1192,7 +1195,7 @@ class ThePlus_Mouse_Cursor extends Widget_Base {
 				$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings["mc_cursor_icon_symbol"])) ? $settings["mc_cursor_icon_symbol"] : 'crosshair';
 			}			
         	if($settings['mouse_cursor_type'] =='mouse-cursor-icon' && $settings['Icon_cursor_type'] =='cursor-Icon-custom'){	
-        		$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon']['url'])) ? $settings['mc_pointer_icon']['url'] : '';
+        		$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon']['url'])) ? esc_url( $settings['mc_pointer_icon']['url'] ) : '';
 				
 				if($settings['cursor_effect'] =='mc-widget'){
 					$mouse_cursor_attr['mc_cursor_adjust_width'] = (!empty($settings["mc_pointer_icon_width"]["size"])) ? $settings["mc_pointer_icon_width"]["size"] : 0;
@@ -1203,12 +1206,12 @@ class ThePlus_Mouse_Cursor extends Widget_Base {
 
         		if( !empty($settings['mc_click_cursor']) && $settings['mc_click_cursor'] == 'yes' && !empty($settings['mc_pointer_click_icon']['url']) ){
         			$mouse_cursor_attr['mc_cursor_see_more'] = 'yes';
-        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon']['url'])) ? $settings['mc_pointer_click_icon']['url'] : '';					
+        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon']['url'])) ? esc_url( $settings['mc_pointer_click_icon']['url'] ) : '';					
         		}
 
         	}
         	else if(!empty($settings['mouse_cursor_type']) && $settings['mouse_cursor_type'] =='mouse-follow-image'){
-        		$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon']['url'])) ? $settings['mc_pointer_icon']['url'] : '';
+        		$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon']['url'])) ? esc_url( $settings['mc_pointer_icon']['url'] ) : '';
 				
 				if($settings['cursor_effect'] =='mc-widget'){
 					$mouse_cursor_attr['mc_cursor_adjust_width'] = (!empty($settings["mc_pointer_icon_width"]["size"])) ? $settings["mc_pointer_icon_width"]["size"] : 0;
@@ -1219,7 +1222,7 @@ class ThePlus_Mouse_Cursor extends Widget_Base {
 					
         		if( !empty($settings['mc_click_cursor']) && $settings['mc_click_cursor'] == 'yes' && !empty($settings['mc_pointer_click_icon']['url']) ){
         			$mouse_cursor_attr['mc_cursor_see_more'] = 'yes';
-        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon']['url'])) ? $settings['mc_pointer_click_icon']['url'] : '';					
+        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon']['url'])) ? esc_url( $settings['mc_pointer_click_icon']['url'] ) : '';					
         		}
 
         	}
@@ -1259,14 +1262,14 @@ class ThePlus_Mouse_Cursor extends Widget_Base {
 					  $mouse_cursor_attr['style_two_bgh'] = (!empty($settings["circle_stltwo_background_h"])) ? $settings["circle_stltwo_background_h"] : '';
 			        }		       
 			    }else if($settings['circle_cursor_type'] == 'cursor-custom'){		
-					$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon_cir_cst']['url'])) ? $settings['mc_pointer_icon_cir_cst']['url'] : '';
+					$mouse_cursor_attr['mc_cursor_icon'] = (!empty($settings['mc_pointer_icon_cir_cst']['url'])) ? esc_url( $settings['mc_pointer_icon_cir_cst']['url'] ) : '';
 					
 					$mouse_cursor_attr['mc_cursor_adjust_left'] = (isset($settings["mc_pointer_left_offset"]["size"])) ? $settings["mc_pointer_left_offset"]["size"] : 0;
 					$mouse_cursor_attr['mc_cursor_adjust_top'] = (isset($settings["mc_pointer_top_offset"]["size"])) ? $settings["mc_pointer_top_offset"]["size"] : 0;
 						
 	        		if( !empty($settings['mc_click_cursor_cir_cst']) && $settings['mc_click_cursor_cir_cst'] == 'yes' && !empty($settings['mc_pointer_click_icon_cst']['url']) ){
 	        			$mouse_cursor_attr['mc_cursor_see_more'] = 'yes';
-	        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon_cst']['url'])) ? $settings['mc_pointer_click_icon_cst']['url'] : '';						
+	        			$mouse_cursor_attr['mc_cursor_see_icon'] = (!empty($settings['mc_pointer_click_icon_cst']['url'])) ? esc_url( $settings['mc_pointer_click_icon_cst']['url'] ) : '';						
 	        		}
         	    }				
 				if((!empty($settings['mouse_cursor_type']) && $settings['mouse_cursor_type'] == 'mouse-follow-circle') && (!empty($settings['circle_style']) && $settings['circle_style'] == 'mc-cs2')){

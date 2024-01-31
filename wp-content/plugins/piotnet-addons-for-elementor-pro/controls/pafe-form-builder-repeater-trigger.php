@@ -53,6 +53,9 @@ class PAFE_Form_Builder_Repeater_Trigger extends \Elementor\Widget_Base {
 				'label' => __( 'Repeater ID* (Required)', 'pafe' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'description' => __( 'Enter Repeater ID with latin character and no space. E.g products_repeater', 'pafe' ),
+                'dynamic' => [
+					'active' => true,
+				],
 				'condition' => [
 					'pafe_form_builder_repeater_enable_trigger' => 'yes',
 				],

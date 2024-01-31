@@ -3677,7 +3677,7 @@ class ThePlus_Coupon_Code extends Widget_Base {
 				$coupon_code_attr['sclheight'] = $scrollHgt;
 			}
 			if($actionType=='popup' && !empty($tabReverse) && $tabReverse=='yes') {				
-				$coupon_code_attr['extlink'] = $redirectLink;
+				$coupon_code_attr['extlink'] = esc_url($redirectLink);
 			}			
 		}
 		if($couponType == 'scratch') {
@@ -3733,7 +3733,7 @@ class ThePlus_Coupon_Code extends Widget_Base {
 						$popupBgImage = isset($settings['popupBgImage']) ? $settings['popupBgImage']['url'] : '';
 						$ppbistyle='';
 						if(!empty($copLoop) && $copLoop=='yes' && !empty($popupBgImage)){				
-							$ppbistyle='style="background-image: url('.$popupBgImage.');background-position: center center;background-repeat: no-repeat;background-size: cover;"';
+							$ppbistyle='style="background-image: url(' . esc_url( $popupBgImage ). ');background-position: center center;background-repeat: no-repeat;background-size: cover;"';
 						}
 						
 						

@@ -94,20 +94,13 @@
 		 */
 		activateLicenseProcessResponse: ( response ) => {
 
-			$( '.swp-content-container button' ).removeAttr( 'disabled' );
-			$( '#swp-license-activate' ).removeClass( 'swp-button--processing' );
-
 			if ( response.success && 'valid' === response.data.status ) {
-				$( '#swp-license' ).attr( 'type', 'password' ).attr( 'disabled', true );
-				$( '#swp-license-activate' ).hide();
-				$( '#swp-license-deactivate' ).show();
-				$( '#swp-license-inactive-msg' ).hide();
-				$( '#swp-license-type' ).text( response.data.type.toUpperCase() );
-				$( '#swp-license-remaining' ).text( response.data.remaining );
-				$( '#swp-license-active-msg' ).show();
+				location.reload();
 			}
 
 			if ( ! response.success ) {
+				$( '.swp-content-container button' ).removeAttr( 'disabled' );
+				$( '#swp-license-activate' ).removeClass( 'swp-button--processing' );
 				$( '#swp-license-error-msg' ).show().text( typeof response.data === 'string' ? response.data : 'There was a problem activating your license.' );
 			}
 		},
@@ -119,20 +112,13 @@
 		 */
 		deactivateLicenseProcessResponse: ( response ) => {
 
-			$( '.swp-content-container button' ).removeAttr( 'disabled' );
-			$( '#swp-license-deactivate' ).removeClass( 'swp-button--processing' );
-
 			if ( response.success && 'deactivated' === response.data.status ) {
-				$( '#swp-license' ).attr( 'type', 'text' ).attr( 'disabled', false ).removeAttr( 'value' ).val( '' );
-				$( '#swp-license-activate' ).show();
-				$( '#swp-license-deactivate' ).hide();
-				$( '#swp-license-inactive-msg' ).show();
-				$( '#swp-license-type' ).empty();
-				$( '#swp-license-remaining' ).empty();
-				$( '#swp-license-active-msg' ).hide();
+				location.reload();
 			}
 
 			if ( ! response.success ) {
+				$( '.swp-content-container button' ).removeAttr( 'disabled' );
+				$( '#swp-license-deactivate' ).removeClass( 'swp-button--processing' );
 				$( '#swp-license-error-msg' ).show().text( typeof response.data === 'string' ? response.data : 'There was a problem deactivating your license.' );
 			}
 		},

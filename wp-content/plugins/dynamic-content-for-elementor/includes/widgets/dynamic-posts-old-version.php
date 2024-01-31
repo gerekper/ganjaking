@@ -27,10 +27,11 @@ class DynamicPostsOldVersion extends \DynamicContentForElementor\Widgets\WidgetP
     }
     public function get_style_depends()
     {
-        if (\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
-            return ['animatecss', 'dce-dynamicPosts_slick', 'dce-dynamicPosts_timeline', 'dce-dynamic-posts-old-version'];
+        $styles = ['animatecss', 'dce-dynamicPosts_slick', 'dce-dynamicPosts_timeline', 'dce-dynamic-posts-old-version'];
+        if (!\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
+            $styles[] = 'dce-dynamicPosts_swiper';
         }
-        return ['animatecss', 'dce-dynamicPosts_slick', 'dce-dynamicPosts_swiper', 'dce-dynamicPosts_timeline', 'dce-dynamic-posts-old-version'];
+        return $styles;
     }
     /**
      * Register controls after check if this feature is only for admin

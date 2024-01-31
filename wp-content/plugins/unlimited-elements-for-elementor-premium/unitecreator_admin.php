@@ -103,14 +103,14 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 					//clear third party includes
 					UniteFunctionsWPUC::findAndRemoveInclude("dropzone.min");
-					
+
 					/*
 					UniteFunctionsWPUC::findAndRemoveInclude("ue_select2_js");
 					UniteFunctionsWPUC::findAndRemoveInclude("ue_select2_css", false);
-					
+
 					//UniteFunctionsWPUC::printRegisteredIncludes();	//print scripts
 					*/
-					
+
 					//dropzone
 					HelperUC::addScript("dropzone", "dropzone_js","js/dropzone");
 					HelperUC::addStyle("dropzone", "dropzone_css","js/dropzone");
@@ -118,7 +118,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					//select 2
 					HelperUC::addScript("select2.full.min", "ue_select2_js","js/select2");
 					HelperUC::addStyle("select2", "ue_select2_css","js/select2");
-										
+
 					//include codemirror
 					HelperUC::addScript("codemirror.min", "codemirror_js","js/codemirror");
 					HelperUC::addScript("css", "codemirror_cssjs","js/codemirror/mode/css");
@@ -147,6 +147,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					wp_deregister_script("wp-codemirror");
 					wp_deregister_style("wp-codemirror");
 
+					wp_deregister_script("woo-variation-swatches");
+					wp_deregister_style("woo-variation-swatches");
+
 				break;
 				case GlobalsUC::VIEW_TEST_ADDON:
 
@@ -166,6 +169,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 					self::onAddScriptsBrowser();
 					UniteCreatorManager::putScriptsIncludes(UniteCreatorManager::TYPE_ITEMS_INLINE);
+
+					UniteFunctionsWPUC::findAndRemoveInclude("woo-variation-swatches/assets/js/admin.min.js");
 
 					HelperUC::addScript("select2.full.min", "select2_js","js/select2");
 					HelperUC::addStyle("select2", "select2_css","js/select2");
@@ -326,7 +331,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			//check curl
 			if(function_exists("curl_init") == false)
 				HelperUC::addAdminNotice("Your PHP is missing \"CURL\" Extension. Blox needs this extension. Please enable it in php.ini");
-			
+
 		}
 
 
@@ -352,6 +357,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * onAjax action handler
 		 */
 		public static function onAjaxAction(){
+
+			GlobalsUC::$isAjaxAction = true;
 
 			$objActions = new UniteCreatorActions();
 			$objActions->onAjaxAction();

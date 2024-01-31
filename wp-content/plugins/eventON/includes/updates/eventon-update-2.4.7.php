@@ -41,7 +41,7 @@ global $eventon;
 	}
 
 // change locations saved as evcal_location_name into taxonomy based location 
-// with location meta valyes saved into evo_tax_meta
+// with location meta values saved into evo_tax_meta
 	$events = new WP_Query(array(
 			'post_type'=>'ajde_events',
 			'posts_per_page'=>-1

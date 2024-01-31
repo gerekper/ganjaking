@@ -105,6 +105,7 @@
                 removeItemButton: true,
                 duplicateItemsAllowed: false,
                 noResultsText: 'Press Enter to add item',
+                noChoicesText: 'Type to add new items',
                 fuseOptions: {
                     threshold: 0,
                 },

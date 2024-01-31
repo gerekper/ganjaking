@@ -28,8 +28,9 @@ class WC_Store_Credit_Product_Addons {
 	public static function init() {
 		// Template hooks.
 		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'product_content' ) );
-		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'custom_amount_content' ) );
-		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'different_receiver_content' ), 20 );
+		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'preset_amounts_content' ) );
+		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'custom_amount_content' ), 20 );
+		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'different_receiver_content' ), 30 );
 		add_action( 'wp', array( __CLASS__, 'check_validation_errors' ) );
 
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'validate_add_cart_item' ), 20, 2 );
@@ -38,23 +39,6 @@ class WC_Store_Credit_Product_Addons {
 		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'get_item_data' ), 10, 2 );
 		add_action( 'woocommerce_before_calculate_totals', array( __CLASS__, 'before_calculate_totals' ) );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( __CLASS__, 'order_line_item' ), 10, 3 );
-	}
-
-	/**
-	 * Gets if the specified Store Credit product allows sending the credit to a different person.
-	 *
-	 * @since 3.2.0
-	 * @deprecated 4.0.0
-	 *
-	 * @param mixed $the_product Post object or post ID of the product.
-	 * @return bool
-	 */
-	public static function allow_different_receiver( $the_product ) {
-		wc_deprecated_function( __FUNCTION__, '4.0.0', 'WC_Store_Credit_Product->allow_different_receiver()' );
-
-		$product = wc_store_credit_get_product( $the_product );
-
-		return ( $product instanceof WC_Store_Credit_Product && $product->allow_different_receiver() );
 	}
 
 	/**
@@ -104,6 +88,32 @@ class WC_Store_Credit_Product_Addons {
 	}
 
 	/**
+	 * Outputs the preset amounts content.
+	 *
+	 * @since 4.5.0
+	 */
+	public static function preset_amounts_content() {
+		$product = self::get_store_credit_product();
+
+		if ( ! $product ) {
+			return;
+		}
+
+		$preset_amounts = $product->get_preset_amounts();
+
+		if ( ! $preset_amounts ) {
+			return;
+		}
+
+		$args = array(
+			'preset_amounts' => $preset_amounts,
+			'allow_custom'   => $product->allow_custom_amount(),
+		);
+
+		wc_store_credit_get_template( 'single-product/store-credit/preset-amounts.php', $args );
+	}
+
+	/**
 	 * Outputs the custom amount content.
 	 *
 	 * @since 4.0.0
@@ -111,48 +121,50 @@ class WC_Store_Credit_Product_Addons {
 	public static function custom_amount_content() {
 		$product = self::get_store_credit_product();
 
-		if ( ! $product || ! $product->allow_custom_amount() ) {
+		if ( ! $product || ( ! $product->allow_custom_amount() && ! $product->get_preset_amounts() ) ) {
 			return;
 		}
 
-		$min_amount         = $product->get_min_custom_amount();
-		$max_amount         = $product->get_max_custom_amount();
-		$custom_amount_step = $product->get_custom_amount_step();
-		$custom_attributes  = array();
+		$custom_attributes = array();
+		$description       = '';
 
-		if ( $min_amount > 0 ) {
-			$custom_attributes['min'] = $min_amount;
-		}
+		if ( $product->allow_custom_amount() ) {
+			$min_amount         = $product->get_min_custom_amount();
+			$max_amount         = $product->get_max_custom_amount();
+			$custom_amount_step = $product->get_custom_amount_step();
 
-		if ( $max_amount > 0 ) {
-			$custom_attributes['max'] = $max_amount;
-		}
+			if ( $min_amount > 0 ) {
+				$custom_attributes['min'] = $min_amount;
+			}
 
-		if ( $custom_amount_step ) {
-			$custom_attributes['step'] = $custom_amount_step;
-		}
-
-		$description = '';
-
-		if ( $min_amount > 0 || $max_amount > 0 ) {
-			$min_amount_text = ( $min_amount > 0 ? wc_price( $min_amount ) : __( 'zero', 'woocommerce-store-credit' ) );
-			$max_amount_text = ( $max_amount > 0 ? wc_price( $max_amount ) : __( 'unlimited', 'woocommerce-store-credit' ) );
+			if ( $max_amount > 0 ) {
+				$custom_attributes['max'] = $max_amount;
+			}
 
 			if ( $custom_amount_step ) {
-				$description = sprintf(
-					/* translators: 1: minimum amount, 2: maximum amount, 3: step amount */
-					__( 'Enter an amount between %1$s and %2$s with increments of %3$s.', 'woocommerce-store-credit' ),
-					$min_amount_text,
-					$max_amount_text,
-					wc_price( $custom_amount_step )
-				);
-			} else {
-				$description = sprintf(
-					/* translators: 1: minimum amount 2: maximum amount */
-					__( 'Enter an amount between %1$s and %2$s.', 'woocommerce-store-credit' ),
-					$min_amount_text,
-					$max_amount_text
-				);
+				$custom_attributes['step'] = $custom_amount_step;
+			}
+
+			if ( $min_amount > 0 || $max_amount > 0 ) {
+				$min_amount_text = ( $min_amount > 0 ? wc_price( $min_amount ) : __( 'zero', 'woocommerce-store-credit' ) );
+				$max_amount_text = ( $max_amount > 0 ? wc_price( $max_amount ) : __( 'unlimited', 'woocommerce-store-credit' ) );
+
+				if ( $custom_amount_step ) {
+					$description = sprintf(
+						/* translators: 1: minimum amount, 2: maximum amount, 3: step amount */
+						__( 'Enter an amount between %1$s and %2$s with increments of %3$s.', 'woocommerce-store-credit' ),
+						$min_amount_text,
+						$max_amount_text,
+						wc_price( $custom_amount_step )
+					);
+				} else {
+					$description = sprintf(
+						/* translators: 1: minimum amount 2: maximum amount */
+						__( 'Enter an amount between %1$s and %2$s.', 'woocommerce-store-credit' ),
+						$min_amount_text,
+						$max_amount_text
+					);
+				}
 			}
 		}
 
@@ -275,47 +287,62 @@ class WC_Store_Credit_Product_Addons {
 			}
 		}
 
-		if ( ! $product->allow_custom_amount() ) {
+		$preset_amounts = $product->get_preset_amounts();
+		$custom_amount  = ( ! empty( $_POST['store_credit_custom_amount'] ) ? wc_clean( wp_unslash( $_POST['store_credit_custom_amount'] ) ) : 0 );
+
+		// Custom amount is a preset amount.
+		if ( $preset_amounts && $custom_amount && in_array( $custom_amount, $preset_amounts, true ) ) {
 			return true;
 		}
 
-		// Validate custom credit amount.
-		if ( empty( $_POST['store_credit_custom_amount'] ) && 0 >= $product->get_credit_amount() ) {
-			wc_add_notice( __( 'Please, enter a credit amount.', 'woocommerce-store-credit' ), 'error' );
+		$allow_custom_amount = $product->allow_custom_amount();
+
+		// Custom amount not allowed.
+		if ( ! $allow_custom_amount && $custom_amount ) {
+			wc_add_notice( __( 'The credit amount is not valid.', 'woocommerce-store-credit' ), 'error' );
 			return false;
 		}
 
-		if ( ! empty( $_POST['store_credit_custom_amount'] ) ) {
-			$amount = (float) wc_format_decimal( wp_unslash( $_POST['store_credit_custom_amount'] ) );
-
-			if ( $amount <= 0 ) {
-				wc_add_notice( __( 'The credit amount is not valid.', 'woocommerce-store-credit' ), 'error' );
+		if ( $allow_custom_amount ) {
+			// Default credit amount not defined, a custom amount is required.
+			if ( ! $custom_amount && 0 >= $product->get_credit_amount() ) {
+				wc_add_notice( __( 'Please, enter a credit amount.', 'woocommerce-store-credit' ), 'error' );
 				return false;
 			}
 
-			$min_amount = (float) $product->get_min_custom_amount();
+			// Use the default credit amount if empty.
+			if ( ! empty( $custom_amount ) ) {
+				$amount = (float) wc_format_decimal( $custom_amount );
 
-			if ( $min_amount > 0 && $min_amount > $amount ) {
-				/* translators: %s: minimum amount */
-				wc_add_notice( sprintf( __( 'The minimum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $min_amount ) ), 'error' );
-				return false;
-			}
+				if ( $amount <= 0 ) {
+					wc_add_notice( __( 'The credit amount is not valid.', 'woocommerce-store-credit' ), 'error' );
+					return false;
+				}
 
-			$max_amount = (float) $product->get_max_custom_amount();
+				$min_amount = (float) $product->get_min_custom_amount();
 
-			if ( $max_amount > 0 && $max_amount < $amount ) {
-				/* translators: %s: maximum amount */
-				wc_add_notice( sprintf( __( 'The maximum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $max_amount ) ), 'error' );
-				return false;
-			}
+				if ( $min_amount > 0 && $min_amount > $amount ) {
+					/* translators: %s: minimum amount */
+					wc_add_notice( sprintf( __( 'The minimum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $min_amount ) ), 'error' );
+					return false;
+				}
 
-			$amount_step = (float) $product->get_custom_amount_step();
+				$max_amount = (float) $product->get_max_custom_amount();
 
-			// Add number precision to avoid a 'division by zero' error.
-			if ( $amount_step > 0 && 0 !== ( wc_add_number_precision( $amount ) % wc_add_number_precision( $amount_step ) ) ) {
-				/* translators: %s: amount step */
-				wc_add_notice( sprintf( __( 'The credit amount has an interval of %s.', 'woocommerce-store-credit' ), wc_price( $amount_step ) ), 'error' );
-				return false;
+				if ( $max_amount > 0 && $max_amount < $amount ) {
+					/* translators: %s: maximum amount */
+					wc_add_notice( sprintf( __( 'The maximum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $max_amount ) ), 'error' );
+					return false;
+				}
+
+				$amount_step = (float) $product->get_custom_amount_step();
+
+				// Add number precision to avoid a 'division by zero' error.
+				if ( $amount_step > 0 && 0 !== ( wc_add_number_precision( $amount ) % wc_add_number_precision( $amount_step ) ) ) {
+					/* translators: %s: amount step */
+					wc_add_notice( sprintf( __( 'The credit amount has an interval of %s.', 'woocommerce-store-credit' ), wc_price( $amount_step ) ), 'error' );
+					return false;
+				}
 			}
 		}
 
@@ -341,7 +368,7 @@ class WC_Store_Credit_Product_Addons {
 		}
 
 		// phpcs:disable WordPress.Security.NonceVerification
-		if ( ! empty( $_POST['store_credit_custom_amount'] ) && $product->allow_custom_amount() ) {
+		if ( ! empty( $_POST['store_credit_custom_amount'] ) && ( $product->allow_custom_amount() || $product->get_preset_amounts() ) ) {
 			// The custom amount has been validated into the method validate_add_cart_item().
 			$amount = wc_format_decimal( wp_unslash( $_POST['store_credit_custom_amount'] ) );
 

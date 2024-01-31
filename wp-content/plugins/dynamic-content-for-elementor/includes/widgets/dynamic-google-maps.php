@@ -32,6 +32,7 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
         parent::run_once();
         $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
         $save_guard->register_unsafe_control($this->get_type(), 'infoWindow_query_html');
+        $save_guard->register_unsafe_control($this->get_type(), 'style_map');
     }
     protected $positions = [];
     /**
@@ -112,7 +113,8 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
         $this->start_controls_section('section_mapStyles', ['label' => __('Map Type', 'dynamic-content-for-elementor')]);
         $this->add_control('map_type', ['label' => __('Map Type', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'default' => 'roadmap', 'options' => ['roadmap' => __('Roadmap', 'dynamic-content-for-elementor'), 'satellite' => __('Satellite', 'dynamic-content-for-elementor'), 'hybrid' => __('Hybrid', 'dynamic-content-for-elementor'), 'terrain' => __('Terrain', 'dynamic-content-for-elementor')], 'frontend_available' => \true]);
         $this->add_control('style_select', ['label' => __('Style', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'options' => ['' => __('None', 'dynamic-content-for-elementor'), 'custom' => __('Custom', 'dynamic-content-for-elementor'), 'prestyle' => __('Snazzy Style', 'dynamic-content-for-elementor')], 'frontend_available' => \true, 'condition' => ['map_type' => 'roadmap']]);
-        $this->add_control('snazzy_select', ['label' => 'Snazzy Maps', 'type' => Controls_Manager::SELECT2, 'options' => $this->get_snazzy_maps_list(), 'frontend_available' => \true, 'condition' => ['map_type' => 'roadmap', 'style_select' => 'prestyle']]);
+        $this->add_control('dce_url', ['label' => 'Snazzy Maps', 'type' => Controls_Manager::HIDDEN, 'default' => DCE_URL, 'frontend_available' => \true, 'condition' => ['map_type' => 'roadmap', 'style_select' => 'prestyle']]);
+        $this->add_control('snazzy_select', ['label' => 'Snazzy Maps', 'type' => Controls_Manager::SELECT2, 'options' => $this->get_snazzy_maps_list(), 'frontend_available' => \true, 'default' => 'red', 'condition' => ['map_type' => 'roadmap', 'style_select' => 'prestyle']]);
         $this->add_control('style_map', ['label' => __('Snazzy JSON Style Map', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXTAREA, 'description' => __('To better manage the graphic styles of the map go to: <a href="https://snazzymaps.com/" target="_blank">snazzymaps.com</a>', 'dynamic-content-for-elementor'), 'frontend_available' => \true, 'condition' => ['map_type' => 'roadmap', 'style_select' => 'custom']]);
         $this->end_controls_section();
         $this->start_controls_section('section_mapInfoWIndow', ['label' => __('InfoWindow', 'dynamic-content-for-elementor')]);
@@ -627,20 +629,7 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
      */
     protected function get_snazzy_maps_list()
     {
-        $snazzy_list = [];
-        $snazzy_styles = \glob(DCE_PATH . 'assets/maps_style/*.json');
-        if (!empty($snazzy_styles)) {
-            foreach ($snazzy_styles as $key => $value) {
-                $snazzy_name = \basename($value);
-                $snazzy_name = \str_replace('.json', '', $snazzy_name);
-                $snazzy_name = \str_replace('_', ' ', $snazzy_name);
-                $snazzy_name = \ucfirst($snazzy_name);
-                $snazzy_url = \str_replace('.json', '', $value);
-                $snazzy_url = \str_replace(DCE_PATH, DCE_URL, $snazzy_url);
-                $snazzy_list[$snazzy_url] = $snazzy_name;
-            }
-        }
-        return $snazzy_list;
+        return ['antiqued_gold' => 'Antiqued Gold', 'bates_green' => 'Bates Green', 'baykoclar_red' => 'Baykoclar Red', 'beaglecat_yellow_dark_gray' => 'Beaglecat Yellow Dark Gray', 'black_and_white' => 'Black And White', 'blue_essence' => 'Blue Essence', 'blue_ish' => 'Blue Ish', 'blue_water' => 'Blue Water', 'bluish' => 'Bluish', 'bobbys_world' => 'Bobbys World', 'bright_&_bubbly' => 'Bright & Bubbly', 'bright_dessert' => 'Bright Dessert', 'brownie' => 'Brownie', 'clean_cut' => 'Clean Cut', 'clr_map_brown' => 'Clr Map Brown', 'cobalt_v2_black_blue' => 'Cobalt V2 Black Blue', 'dark_figure_ground_dark_grey' => 'Dark Figure Ground Dark Grey', 'devvela_pms_white_orange' => 'Devvela Pms White Orange', 'extra_black' => 'Extra Black', 'extra_light' => 'Extra Light', 'grass_is_greener_water_is_bluer' => 'Grass Is Greener Water Is Bluer', 'jazzygreen' => 'Jazzygreen', 'light_and_dark' => 'Light And Dark', 'Light_gray' => 'Light Gray', 'mint' => 'Mint', 'mrad_architecture_map' => 'Mrad Architecture Map', 'muted_blue' => 'Muted Blue', 'muted_monotone_gray' => 'Muted Monotone Gray', 'n5_black' => 'N5 Black', 'nature' => 'Nature', 'navigation_gray_white_black' => 'Navigation Gray White Black', 'neutral_blue' => 'Neutral Blue', 'octopvs_bar_3' => 'Octopvs Bar 3', 'ohana72_red_turquise' => 'Ohana72 Red Turquoise', 'old_dry_mud_orange_yellow' => 'Old Dry Mud Orange Yellow', 'old_map' => 'Old Map', 'openform_dark_gray_white' => 'Openform Dark Gray White', 'purple_rain' => 'Purple Rain', 'red_darkness' => 'Red Darkness', 'red_hues' => 'Red Hues', 'red' => 'Red', 'redmapdarck' => 'Redmapdarck', 'seq7_black_white' => 'Seq7 Black White', 'shadow_agent_dark_blue_light_grey' => 'Shadow Agent Dark Blue Light Grey', 'sin_city_black_red' => 'Sin City Black Red', 'snazzy_maps_black_green' => 'Snazzy Maps Black Green', 'two_tone_red_blue' => 'Two Tone Red Blue', 'unsaturated_browns' => 'Unsaturated Browns', 'youthup_verde_blue' => 'Youthup Verde Blue'];
     }
     /**
      * Get Positions

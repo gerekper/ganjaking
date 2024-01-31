@@ -155,5 +155,11 @@ class WC_Box_Office_Product_Admin {
 		if ( isset( $_POST['_ticket_email_plain'] ) ) {
 			update_post_meta( $post_id, '_ticket_email_plain', sanitize_text_field( wp_unslash( $_POST['_ticket_email_plain'] ) ) );
 		}
+
+		if ( isset( $_POST['_user_pii_setting'] ) ) {
+			update_post_meta( $post_id, '_user_pii_setting', sanitize_text_field( wp_unslash( $_POST['_user_pii_setting'] ) ) );
+		} else {
+			update_post_meta( $post_id, '_user_pii_setting', 'no' );
+		}
 	}
 }

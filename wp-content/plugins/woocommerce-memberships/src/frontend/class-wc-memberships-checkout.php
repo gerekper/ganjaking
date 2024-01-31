@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -90,22 +90,6 @@ class WC_Memberships_Checkout {
 	public function maybe_require_registration( $require_registration ) {
 
 		return $this->force_registration() ? true : $require_registration;
-	}
-
-
-	/**
-	 * Restores the original checkout registration settings after checkout has loaded
-	 *
-	 * TODO remove this method by version 2.0.0 or April 2022, whichever comes first {FN 2020-12-24}
-	 *
-	 * @internal
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.20.0
-	 */
-	public function restore_registration_settings() {
-
-		wc_deprecated_function( __METHOD__, '1.20.0' );
 	}
 
 

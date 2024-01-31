@@ -79,7 +79,7 @@ class FrontEnd extends Base {
             $eligible_template = $views->path( $_template, $_default_template );
 
             if ( file_exists( $eligible_template ) ) {
-                $template =  &$eligible_template;
+                $template = &$eligible_template;
             }
         }
 

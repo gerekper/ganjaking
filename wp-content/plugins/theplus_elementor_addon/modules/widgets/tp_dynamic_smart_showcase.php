@@ -40,9 +40,10 @@ class ThePlus_Dynamic_Smart_Showcase extends Widget_Base {
     public function get_categories() {
         return array('plus-listing');
     }
+	
 	public function get_keywords() {
-		return ['dynamic magazine filter', 'dynamic magazine slider', 'dynamic post ticker', 'post ticker', 'ticker', 'dynamic ticker', 'post magazine', 'magazine slider','magazine filter', 'blog slider', 'dynamic slider', 'dynamic filter', 'magazine', 'blog'];
-	}
+        return ['Magazine Slider', 'Elementor Magazine Slider', 'Slider Widget', 'Magazine Carousel', 'Elementor Carousel', 'Slider Elementor Addon', 'Magazine Slider Elementor Addon', 'Elementor Slider Plugin', 'Magazine Slider Plugin', 'Elementor Magazine Carousel', 'Magazine Slider Widget', 'Magazine', 'Filter', 'Elementor Addon', 'Search bar', 'Widget', 'Dynamic Ticker', 'Ticker widget', 'News ticker', 'Scrolling news', 'Breaking news', 'Headline ticker', 'News feed', 'Live updates', 'Latest news', 'News marquee', 'News carousel', 'News slider', 'News ticker plugin', 'Elementor news ticker', 'Elementor ticker widget', 'Elementor scrolling news', 'Elementor breaking news', 'Elementor headline ticker', 'Elementor news feed', 'Elementor live updates', 'Elementor latest news', 'Elementor news marquee', 'Elementor news carousel', 'Elementor news slider'];
+    }
 	
     protected function register_controls() {
 		

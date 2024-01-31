@@ -1,4 +1,4 @@
-<div class="modal-overlay modal-shipping">
+<div class="modal-overlay modal-shipping a2w-content">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title"><?php _e('Available shipping methods', 'ali2woo');?></h3>

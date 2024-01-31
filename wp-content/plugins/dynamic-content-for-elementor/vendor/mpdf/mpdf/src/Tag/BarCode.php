@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 class BarCode extends Tag
 {
     /**
@@ -185,7 +186,7 @@ class BarCode extends Tag
                 }
             }
             /* -- END CSS-IMAGE-FLOAT -- */
-            $e = "\xbb\xa4\xactype=barcode,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+            $e = Mpdf::OBJECT_IDENTIFIER . "type=barcode,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
             /* -- TABLES -- */
             // Output it to buffers
             if ($this->mpdf->tableLevel) {

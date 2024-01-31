@@ -437,6 +437,7 @@ class ThePlus_Dynamic_Devices extends Widget_Base {
 				'condition' => [
 					'device_mode' => 'normal',
 					'icon_show' => 'yes',
+					'content_type!' => 'iframe',
 				],
             ]
         );
@@ -2376,6 +2377,7 @@ class ThePlus_Dynamic_Devices extends Widget_Base {
 				'condition' => [
 					'scroll_image_effect' => 'yes',
 					'scroll_image_effect_manual' => 'yes',
+					'content_type!' => 'iframe',
 				],
             ]
         );
@@ -2530,7 +2532,7 @@ class ThePlus_Dynamic_Devices extends Widget_Base {
 				$device_class .= $settings["device_desktop"];
 			}else if($settings["device_mockup"]=='custom'){
 				$custom_image = !empty($settings['custom_image']['url']) ? $settings['custom_image']['url'] : '';
-				$layout_shape='<img src="'.$custom_image.'" class="plus-device-image" alt="Plus custom device">';
+				$layout_shape='<img src="' . esc_url($custom_image) . '" class="plus-device-image" alt="Plus custom device">';
 				$device_class .= ' custom-device-mockup';
 			}
 			
@@ -2633,7 +2635,7 @@ class ThePlus_Dynamic_Devices extends Widget_Base {
 
 			if($settings["device_mockup_carousal"]=='custom'){
 				$custom_image = !empty($settings['device_mockup_carousal_image']['url']) ? $settings['device_mockup_carousal_image']['url'] : '';
-				$layout_shape='<img src="'.$custom_image.'" class="plus-device-image" alt="Plus custom device">';
+				$layout_shape='<img src="' . esc_url($custom_image) . '" class="plus-device-image" alt="Plus custom device">';
 				$carousal_device .= ' custom-device-mockup';
 			}
 

@@ -1,5 +1,16 @@
 *** Product Addons Changelog ***
 
+2023-01-24 - version 6.6.0
+* Important: Tweak - Used JSON encoding for importing/exporting add-ons. Serialized export data created by previous plugin versions will no longer work.
+* New - Added compatibility with PHP 8.3
+* Fix - Removed WooPayments express checkout buttons from product pages with add-ons due to avoid compatibility issues.
+* Fix - Removed Stripe express checkout buttons from product pages with add-ons due to avoid compatibility issues.
+* Fix - Removed PayPal smart buttons from product pages with add-ons due to avoid compatibility issues.
+* Fix - Resolved an issue that enforced min/max quantity rules even when Limit Quantity was disabled.
+* Fix - Resolved PHP warning triggered when editing a product with a deleted add-ons meta.
+* Tweak - Improved the handling of the global product object to avoid compatibility issues with other plugins using it.
+* Tweak - Defer frontend scripts.
+
 2023-12-20 - version 6.5.2
 * New - Introduced the 'woocommerce_addons_cloned_product_with_filtered_price' to allow plugins to not discount add-on prices. 
 * Fix - Resolved a styling issue with quantity-based add-on prices on the single product page. 

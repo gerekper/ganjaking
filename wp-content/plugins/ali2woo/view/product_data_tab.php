@@ -1,4 +1,3 @@
-
 <div class="a2w_product_tab_menu">
     <ul class="subsubsub" style="float: initial;margin-left:12px">
         <li><a href="#" data-tab="general" class="current">General</a> | </li>
@@ -98,14 +97,14 @@
     </div>
 
     
-    <?php if(a2w_get_setting('add_shipping_to_price')): ?>
+    <?php if(Ali2Woo\get_setting('add_shipping_to_price')): ?>
     <div class="options_group">
         <?php
         // save shipping meta data
-        $shipping_meta = new A2W_ProductShippingMeta($post_id);
+        $shipping_meta = new Ali2Woo\ProductShippingMeta($post_id);
         $shipping_cost = $shipping_meta->get_cost();
         $shipping_country_from = $shipping_meta->get_country_from();
-        $shipping_country_from_list = A2W_ProductShippingMeta::get_country_from_list($post_id);
+        $shipping_country_from_list = Ali2Woo\ProductShippingMeta::get_country_from_list($post_id);
         $shipping_country_to = $shipping_meta->get_country_to();
         $shipping_method = $shipping_meta->get_method();
 
@@ -222,7 +221,7 @@
 
     <?php
     // load exteranl images
-    $images_ids = A2W_Attachment::find_external_images(1000, $post_id);
+    $images_ids = Ali2Woo\Attachment::find_external_images(1000, $post_id);
     ?>
     <?php if($images_ids):?>
     <div class="options_group">

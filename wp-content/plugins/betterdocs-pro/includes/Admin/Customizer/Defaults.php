@@ -562,6 +562,7 @@ class Defaults extends FreeDefaults {
             'betterdocs_select_specific_faq_mkb'                                         => 'all',
             'betterdocs_select_faq_template_mkb'                                         => 'layout-1',
             'betterdocs_faq_title_text_mkb'                                              => __( 'Frequently Asked Questions', 'betterdocs-pro' ),
+            'betterdocs_mkb_page_show_category_icon'                                     => true,
             'betterdocs_faq_title_margin_mkb_layout_1'                                   => [
                 'input1' => 0,
                 'input2' => 0,
@@ -614,8 +615,8 @@ class Defaults extends FreeDefaults {
         ];
         $betterdocs_defaults_pro = apply_filters( 'betterdocs_pro_option_defaults', $betterdocs_defaults_pro );
 
-        if( ! empty( $key ) ) {
-            return isset( $betterdocs_defaults_pro[ $key ] ) ? $betterdocs_defaults_pro[ $key ] : parent::defaults( $key );
+        if ( ! empty( $key ) ) {
+            return isset( $betterdocs_defaults_pro[$key] ) ? $betterdocs_defaults_pro[$key] : parent::defaults( $key );
         }
 
         return array_merge( parent::defaults(), $betterdocs_defaults_pro );

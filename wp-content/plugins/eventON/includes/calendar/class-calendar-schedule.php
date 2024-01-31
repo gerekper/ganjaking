@@ -1,7 +1,7 @@
 <?php
 /* 
  * Schedule view calendar 
- * @version 4.3
+ * @version 4.5.8
  */
 
 class Evo_Cal_Schedule{
@@ -54,22 +54,40 @@ class Evo_Cal_Schedule{
 		if(isset($global['calendars']) && in_array('EVOSV', $global['calendars'])){
 			
 			ob_start();
-			?><div class='evodv_CD evoADDS evodv_current_day dv_vs_{{dv_view_style}}' style='display:none'>
-				<p class='evodv_dayname'>{{fixed_day_name}}</p>
-				<p class='evodv_daynum'><span class='evodv_daynum_switch prev' data-dir='prev'><i class='fa fa-angle-left'></i></span><b class='evodv_current_fixed_day'>{{fixed_day}}</b><span class='evodv_daynum_switch next' data-dir='next'><i class='fa fa-angle-right'></i></span></p>
-				<p class='evodv_events' style='display:none'></p>
-			</div><?php
+			?>
+			{{#each this}}
+			
+			<div class='date_row' data-d="{{d}}" data-su='{{SU}}'>
+				{{#each events}}
+				<div class='row'>
+					<div class='evosv_date'>{{{../date}}}</div>
+					<div class='evosv_items' data-id='{{@key}}' data-uxval='{{ux_val}}'>
+						<div class='evosv_clr llxvl' style='background-color:{{color}}'></div>
+						<div class='evosv_time llxvl'>{{time}}</div>
+						<div class='evosv_event llxvl'>{{{tag}}} {{{title}}} {{{loc}}} {{{org}}}</div>
+						
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			
+			{{/each}}
+
+			<?php
 
 			$content = ob_get_clean();
-			$A['temp']['evosv_grid'] = ''; 
+			$A['temp']['evosv_grid'] = $content; 
 
 			// text string
 			$A['txt']['until'] = evo_lang('Until' );
 			$A['txt']['from'] = evo_lang('From' );
 			$A['txt']['all_day'] = evo_lang_get('evcal_lang_allday','All Day');
+
+			
 		}
 		return $A;
 	}
+
 
 	// Other Additions
 		function view_switcher($A, $args){

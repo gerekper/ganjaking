@@ -3,6 +3,7 @@
 namespace Yoast\WP\SEO\Premium\Helpers;
 
 use RuntimeException;
+use WP_Error;
 use WP_User;
 use WPSEO_Utils;
 use Yoast\WP\SEO\Helpers\Options_Helper;
@@ -64,7 +65,7 @@ class AI_Generator_Helper {
 	 * Each code verifier should only be used once.
 	 * This all helps with preventing access tokens from one site to be sent to another and it makes a mitm attack more difficult to execute.
 	 *
-	 * @param \WP_User $user The WP user.
+	 * @param WP_User $user The WP user.
 	 *
 	 * @return string The code verifier.
 	 */
@@ -93,9 +94,9 @@ class AI_Generator_Helper {
 	 *
 	 * @param int $user_id The user ID.
 	 *
-	 * @throws \RuntimeException Unable to retrieve the code verifier.
-	 *
 	 * @return string The code verifier.
+	 *
+	 * @throws RuntimeException Unable to retrieve the code verifier.
 	 */
 	public function get_code_verifier( int $user_id ): string {
 		$user_id_string = (string) $user_id;
@@ -153,6 +154,8 @@ class AI_Generator_Helper {
 	 * @param array  $request_body    The request body.
 	 * @param array  $request_headers The request headers.
 	 *
+	 * @return object The response object.
+	 *
 	 * @throws Bad_Request_Exception When the request fails for any other reason.
 	 * @throws Forbidden_Exception When the response code is 403.
 	 * @throws Internal_Server_Error_Exception When the response code is 500.
@@ -162,8 +165,6 @@ class AI_Generator_Helper {
 	 * @throws Service_Unavailable_Exception When the response code is 503.
 	 * @throws Too_Many_Requests_Exception When the response code is 429.
 	 * @throws Unauthorized_Exception When the response code is 401.
-	 *
-	 * @return object The response object.
 	 */
 	public function request( $action_path, $request_body = [], $request_headers = [] ) {
 		// Our API expects JSON.
@@ -171,7 +172,7 @@ class AI_Generator_Helper {
 		$request_headers   = \array_merge( $request_headers, [ 'Content-Type' => 'application/json' ] );
 		$request_arguments = [
 			'timeout' => 30,
-			// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_wp_json_encode -- Reason: We don't want the debug/pretty possibility.
+			// phpcs:ignore Yoast.Yoast.JsonEncodeAlternative.Found -- Reason: We don't want the debug/pretty possibility.
 			'body'    => \wp_json_encode( $request_body ),
 			'headers' => $request_headers,
 		];
@@ -242,7 +243,7 @@ class AI_Generator_Helper {
 	/**
 	 * Parses the response from the API.
 	 *
-	 * @param array|\WP_Error $response The response from the API.
+	 * @param array|WP_Error $response The response from the API.
 	 *
 	 * @return array The response code and message.
 	 */
@@ -254,7 +255,7 @@ class AI_Generator_Helper {
 		if ( $response_code !== 200 && $response_code !== 0 ) {
 			$json_body = \json_decode( \wp_remote_retrieve_body( $response ) );
 			if ( $json_body !== null ) {
-				$response_message = isset( $json_body->error_code ) ? $json_body->error_code : $this->map_message_to_code( $json_body->message );
+				$response_message = ( $json_body->error_code ?? $this->map_message_to_code( $json_body->message ) );
 				if ( $response_code === 402 ) {
 					$missing_licenses = isset( $json_body->missing_licenses ) ? (array) $json_body->missing_licenses : [];
 				}
@@ -285,7 +286,7 @@ class AI_Generator_Helper {
 			return true;
 		}
 
-		return $json->exp < time();
+		return $json->exp < \time();
 	}
 
 	/**
@@ -293,9 +294,9 @@ class AI_Generator_Helper {
 	 *
 	 * @param string $user_id The user ID.
 	 *
-	 * @throws \RuntimeException Unable to retrieve the access token.
-	 *
 	 * @return string The access JWT.
+	 *
+	 * @throws RuntimeException Unable to retrieve the access token.
 	 */
 	public function get_access_token( string $user_id ): string {
 		$access_jwt = $this->user_helper->get_meta( $user_id, '_yoast_wpseo_ai_generator_access_jwt', true );
@@ -311,9 +312,9 @@ class AI_Generator_Helper {
 	 *
 	 * @param string $user_id The user ID.
 	 *
-	 * @throws \RuntimeException Unable to retrieve the refresh token.
-	 *
 	 * @return string The access JWT.
+	 *
+	 * @throws RuntimeException Unable to retrieve the refresh token.
 	 */
 	public function get_refresh_token( $user_id ) {
 		$refresh_jwt = $this->user_helper->get_meta( $user_id, '_yoast_wpseo_ai_generator_refresh_jwt', true );

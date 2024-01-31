@@ -229,19 +229,35 @@
 
 		} // END __construct
 
+		/**
+		 * [liveurl description]
+		 * @return [type] [description]
+		 */
 		protected static function liveurl() {
 			return 'https://secure.worldpay.com/wcc/purchase';
 		}
 
+		/**
+		 * [testurl description]
+		 * @return [type] [description]
+		 */
 		protected static function testurl() {
 			return 'https://secure-test.worldpay.com/wcc/purchase';
 		}
 
+		/**
+		 * [status description]
+		 * @return [type] [description]
+		 */
 		protected static function status() {
 			$settings = get_option( 'woocommerce_worldpay_settings' );
 			return $settings['status'];
 		}
 
+		/**
+		 * [debug description]
+		 * @return [type] [description]
+		 */
 		protected static function debug() {
 			$settings = get_option( 'woocommerce_worldpay_settings' );
 			return $settings['debug'];
@@ -387,7 +403,7 @@
 			$order = new WC_Order( $order_id );
 
 			include_once( 'class-wc-gateway-worldpay-request.php' );
-			$worldpay_args = WC_Gateway_WorldPay_Request::get_worldpay_args( $order );			
+			$worldpay_args = WC_Gateway_WorldPay_Request::get_worldpay_args( $order );	
 
 			if ( self::status() == 'testing' ) {
 				$worldpayform_adr 			= self::testurl();
@@ -520,6 +536,9 @@
 				$worldpaycrypt_b64 		= $this->worldpaysimpleXor( $worldpaycrypt_b64, $this->callbackPW );
 				$worldpay_return_values = $this->getTokens( $worldpaycrypt_b64 );
 
+				// Verify payment is from Worldpay
+				WC_Gateway_Worldpay_Form::verify_worldpay_response( $worldpay_return_values, $order );
+
 				if ( isset($worldpay_return_values['transId']) ) :
         			do_action( "valid-worldpay-request", $worldpay_return_values );
 				endif;
@@ -597,6 +616,9 @@
 		                    ), $url );
 			}
 
+			// Check for possible fraud
+			WC_Gateway_Worldpay_Form::maybe_update_order_status( $order );
+
 			wp_redirect( $url );
 			exit;
 				
@@ -630,6 +652,13 @@
 		        	$order->payment_complete( $worldpay_return_values['transId'] );
 		        	// Clear the cart, just in case
 		        	WC()->cart->empty_cart();
+
+		        	// Check for possible fraud
+					WC_Gateway_Worldpay_Form::maybe_update_order_status( $order );
+
+					// Temporary action
+					do_action( 'woocommerce_worldpay_check_order_status', $order );
+
 		        	exit;
 					
 				}
@@ -638,8 +667,11 @@
 
 		} // END successful_wpform_request
 
-		/**
-		 * Update the order notes with all the transaction informations
+ 		/**
+ 		 * Update the order notes with all the transaction informations
+ 		 * @param  [type] $order                  [description]
+ 		 * @param  [type] $worldpay_return_values [description]
+ 		 * @return [type]                         [description]
  		 */
 		function update_order_notes( $order, $worldpay_return_values ) {	
 			global $woocommerce;
@@ -699,8 +731,8 @@
    			// Add the full return to the order meta, just in case
    			if( isset( $worldpay_response["MC_order"] ) ) {
 				// update_post_meta( $worldpay_response["MC_order"], '_worldpay_response', $worldpay_response );
-				$reponse_order 	 = new WC_Order( (int) $worldpay_response["MC_order"] );
-				$this->update_order_meta_data ( '_worldpay_response', $worldpay_response, $reponse_order, $worldpay_response["MC_order"] );
+				$response_order 	 = new WC_Order( (int) $worldpay_response["MC_order"] );
+				$this->update_order_meta_data ( '_worldpay_response', $worldpay_response, $response_order, $worldpay_response["MC_order"] );
 			}
 
 			$order 				  = '';
@@ -756,17 +788,32 @@
 				 */
 				if ( !$MC_transactionNumber || $MC_transactionNumber == '' ) :
 					// Get the order id based on the futurepayid
-					$orderid = $wpdb->get_row("SELECT post_id FROM $wpdb->postmeta 
-												WHERE meta_key = '_futurepayid' 
-												AND meta_value = '".$futurePayId."'
-												ORDER BY post_id ASC 
-												LIMIT 1"
-											 );
+					if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+						// HPOS
+						$meta_table_name =  'wc_orders_meta';
+						$orderid = $wpdb->get_row("SELECT order_id FROM $wpdb->prefix$meta_table_name 
+							WHERE meta_key = '_futurepayid' 
+							AND meta_value = '".$futurePayId."'
+							ORDER BY order_id ASC 
+							LIMIT 1"
+						 );
+					} else {
+						$orderid = $wpdb->get_row("SELECT post_id FROM $wpdb->postmeta 
+							WHERE meta_key = '_futurepayid' 
+							AND meta_value = '".$futurePayId."'
+							ORDER BY post_id ASC 
+							LIMIT 1"
+						 );						
+					}
 					
 					// Make sure there is a row from the DB
 					if( NULL !== $orderid ) {
-											 
-						$order 	 = new WC_Order( (int) $orderid->post_id );
+						
+						if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+							$order 	 = new WC_Order( (int) $orderid->order_id );
+						} else {
+							$order 	 = new WC_Order( (int) $orderid->post_id );
+						}				 
 
 						$order_id   = $order->get_id();
 
@@ -814,47 +861,43 @@
 							$this->update_order_meta_data ( '_payment_method', $this->id, $renewal_order, $renewal_order->get_id() );
 							$this->update_order_meta_data ( '_payment_method_title', $this->method_title, $renewal_order, $renewal_order->get_id() );
 
+						 	/**
+				 			 * Make sure the order notes contain the FuturePayID
+							 * and add it as post_meta so we can find it easily when Worldpay sends 
+							 * updates about payments / cancellations etc
+							 */
+							$orderNotes = '';
+							if ( function_exists( 'wcs_order_contains_subscription' ) && wcs_order_contains_subscription( $order ) ) {
+								$orderNotes .=	'<br /><!-- FUTURE PAY-->';
+								$orderNotes .=	'<br />FuturePayID : ' 	. $futurePayId;
+								$orderNotes .=	'<br /><!-- FUTURE PAY-->';
+
+								// update_post_meta( $order_id, '_futurepayid', $futurePayId );
+								$this->update_order_meta_data ( '_futurepayid', $futurePayId, $order, $order_id );
+							}
+
+							$orderNotes .=	'<br />transId : ' 			. $transId;
+							$orderNotes .=	'<br />transStatus : ' 		. $transStatus;
+							$orderNotes .=	'<br />transTime : '		. $transTime;
+							$orderNotes .=	'<br />authAmount : ' 		. $authAmount;
+							$orderNotes .=	'<br />authCurrency : ' 	. $authCurrency;
+							$orderNotes .=	'<br />rawAuthMessage : ' 	. $rawAuthMessage;
+							$orderNotes .=	'<br />rawAuthCode : ' 		. $rawAuthCode;
+							$orderNotes .=	'<br />cardType : ' 		. $cardType;
+							$orderNotes .=	'<br />countryMatch : ' 	. $countryMatch;
+							$orderNotes .=	'<br />AVS : ' 				. $AVS;
+							
+							$renewal_order->add_order_note( __('WorldPay payment completed.' . $orderNotes, 'woocommerce_worlday') ); 
 						}
-
-					 	/**
-			 			 * Make sure the order notes contain the FuturePayID
-						 * and add it as post_meta so we can find it easily when Worldpay sends 
-						 * updates about payments / cancellations etc
-						 */
-						$orderNotes = '';
-						if ( function_exists( 'wcs_order_contains_subscription' ) && wcs_order_contains_subscription( $order ) ) {
-							$orderNotes .=	'<br /><!-- FUTURE PAY-->';
-							$orderNotes .=	'<br />FuturePayID : ' 	. $futurePayId;
-							$orderNotes .=	'<br /><!-- FUTURE PAY-->';
-
-							// update_post_meta( $order_id, '_futurepayid', $futurePayId );
-							$this->update_order_meta_data ( '_futurepayid', $futurePayId, $order, $order_id );
-						}
-
-						$orderNotes .=	'<br />transId : ' 			. $transId;
-						$orderNotes .=	'<br />transStatus : ' 		. $transStatus;
-						$orderNotes .=	'<br />transTime : '		. $transTime;
-						$orderNotes .=	'<br />authAmount : ' 		. $authAmount;
-						$orderNotes .=	'<br />authCurrency : ' 	. $authCurrency;
-						$orderNotes .=	'<br />rawAuthMessage : ' 	. $rawAuthMessage;
-						$orderNotes .=	'<br />rawAuthCode : ' 		. $rawAuthCode;
-						$orderNotes .=	'<br />cardType : ' 		. $cardType;
-						$orderNotes .=	'<br />countryMatch : ' 	. $countryMatch;
-						$orderNotes .=	'<br />AVS : ' 				. $AVS;
-						
-						$renewal_order->add_order_note( __('WorldPay payment completed.' . $orderNotes, 'woocommerce_worlday') ); 
 
 					}
 
 					return false;
 					
 				else:
-					
-					/**
-					 * This is an ordinary payment, carry on
-					 */
-	        		return true;
-					
+					// Check response domain and callback password
+					return WC_Gateway_Worldpay_Form::verify_worldpay_response( $worldpay_response, $response_order );					
+
 				endif;
 				
 			else :
@@ -945,6 +988,8 @@
 		/**
 		 * A convenience function that extracts the values from the query string.
 		 * Works even if one of the values is a URL containing the & or = signs.
+		 * @param  [type] $query_string [description]
+		 * @return [type]               [description]
 		 */
 		function getTokens( $query_string = NULL ) {
 
@@ -968,9 +1013,10 @@
 		} // END getTokens
 
 		/**
-		 * Subscription Cancelation
-		 * 
+		 * [cancel_subscription_with_worldpay description]
 		 * When a store manager or user cancels a subscription in the store, also cancel the subscription with WorldPay. 
+		 * @param  [type] $subscription [description]
+		 * @return [type]               [description]
 		 */
 		function cancel_subscription_with_worldpay( $subscription ) {
 
@@ -994,7 +1040,10 @@
 		}
 
 		/**
-		 * Cancel Subscription via iAdmin
+		 * [change_subscription_status description]
+		 * @param  [type] $futurepayid [description]
+		 * @param  [type] $new_status  [description]
+		 * @return [type]              [description]
 		 */
 		function change_subscription_status( $futurepayid, $new_status ) {
 
@@ -1169,6 +1218,11 @@
 
     	}
 
+    	/**
+    	 * [get_transaction_id description]
+    	 * @param  [type] $order [description]
+    	 * @return [type]        [description]
+    	 */
 		function get_transaction_id( $order ) {
 
 			$order_id 		= $order->get_id();
@@ -1182,6 +1236,12 @@
 
 		}
 		
+		/**
+		 * [startsWith description]
+		 * @param  [type] $haystack [description]
+		 * @param  [type] $needle   [description]
+		 * @return [type]           [description]
+		 */
 		function startsWith($haystack, $needle) {
     		return $needle === "" || strpos($haystack, $needle) === 0;
 		}
@@ -1210,7 +1270,7 @@
 		 * Create a unique MD5 example for sites to use
 		 * @return $md5
 		 */
-		private function generate_md5() {
+		protected function generate_md5() {
 
 			// Create MD5
 			$md5 = MD5( NONCE_SALT . AUTH_SALT . time() );
@@ -1228,7 +1288,15 @@
 
 		}
 
-		private function update_order_meta_data ( $key, $value, $order, $order_id ) {
+		/**
+		 * [update_order_meta_data description]
+		 * @param  [type] $key      [description]
+		 * @param  [type] $value    [description]
+		 * @param  [type] $order    [description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
+		protected function update_order_meta_data ( $key, $value, $order, $order_id ) {
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 				$order->update_meta_data( $key, $value );
@@ -1239,4 +1307,68 @@
 
 		}
 
-	} // END CLASS
+		/**
+		 * [verify_worldpay_response description]
+		 * @param  [type] $args  [description]
+		 * @param  [type] $order [description]
+		 * @return [type]        [description]
+		 */
+		protected function verify_worldpay_response( $args, $order ) {
+
+			$domain 			 = gethostbyaddr( $_SERVER['REMOTE_ADDR'] );
+			$returned_callbackpw = stripslashes( $args['callbackPW'] );
+
+			// Testing
+			$domain 			 = apply_filters( 'woocommerce_worldpay_verify_worldpay_response_domain', $domain, $order );
+			$returned_callbackpw = apply_filters( 'woocommerce_worldpay_verify_worldpay_response_returned_callbackpw', $returned_callbackpw, $order );
+
+			// Check the domain
+			if( strpos( $domain, 'worldpay.com' ) !== false && $returned_callbackpw == $this->callbackPW ){
+				/**
+				 * This is an ordinary payment, carry on
+				 */
+				$order_note = '<br />Domain: ' . $domain . '<br />Stored callback PW: ' . $this->callbackPW . '<br />Returned callback PW: ' . $returned_callbackpw;
+				// $order->add_order_note( __('WorldPay payment verified by domain and callback password.', 'woocommerce_worlday') . $order_note );
+ 
+				$order->update_meta_data( '_worldpay_security_check', 'pass' );
+				$order->save();
+        		return true;
+
+        	} elseif( $returned_callbackpw == $this->callbackPW ) {
+        		$order_note = '<br />Domain: ' . $domain . '<br />Stored callback PW: ' . $this->callbackPW . '<br />Returned callback PW: ' . $returned_callbackpw;
+				// result not returning from Worldpay IP address but callbackPW matches settings
+				// $order->add_order_note( __('WorldPay payment verified by callback password.', 'woocommerce_worlday') . $order_note );
+				
+				$order->update_meta_data( '_worldpay_security_check', 'pass' );
+				$order->save();
+				return true;
+
+			} else {
+				$order_note = '<br />Domain: ' . $domain . '<br />Stored callback PW: ' . $this->callbackPW . '<br />Returned callback PW: ' . $returned_callbackpw;
+				// result not returning from Worldpay IP address but callbackPW matches settings
+				$order->add_order_note( __('Result not returning from Worldpay IP address and returned callbackPW does not match settings.', 'woocommerce_worlday') . $order_note );
+				
+				// Result not returning from Worldpay IP address or callback passwords do not match
+				$order->update_meta_data( '_worldpay_security_check', 'fail' );
+				$order->save();
+				return true;
+			}
+
+		}
+
+		/**
+		 * [maybe_update_order_status description]
+		 * @param  [type] $order [description]
+		 * @return [type]        [description]
+		 */
+		protected function maybe_update_order_status ( $order ) {
+			$check 		= $order->get_meta( '_worldpay_security_check', TRUE );
+			$no_fraud 	= apply_filters( 'woocommerce_worldpay_maybe_dont_update_order_status', true, $order );
+
+			if( isset( $check ) && $check === 'fail' && $no_fraud ) {
+				$order->update_status( 'fraud-screen', _x( 'Worldpay Security Check', 'woocommerce_worlday' ) . _x( '<br />Login to Worldpay and check this order has been paid for before shipping.', 'woocommerce_worlday' ) . _x( '<br />The callback password returned from Worldpay did not match the stored value or the transaction did not return from a Worldpay domain - this may happen if you are using a Proxy server.', 'woocommerce_worlday' ) );
+			}
+
+		}
+
+	} // END CLASS}

@@ -114,7 +114,6 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 
 			return false;
 		}
-
 	}
 }
 

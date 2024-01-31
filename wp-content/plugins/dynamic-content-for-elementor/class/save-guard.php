@@ -24,7 +24,7 @@ class SaveGuard
     /**
      * @var array<string>
      */
-    private $unsafe_dynamic_tags = ['dce-dynamic-tag-php', 'dce-dynamic-tag-image-token', 'dce-token'];
+    private $unsafe_dynamic_tags = ['dce-dynamic-tag-php', 'dce-dynamic-tag-image-token', 'dce-token', 'dce-dynamic-tag-image-token', 'dce-acf-relationship', 'dce-favorites', 'dce-metabox-relationship', 'dce-my-posts', 'dce-posts', 'dce-sticky-posts', 'dce-woo-products', 'dce-wishlist'];
     /**
      * @var array<string,mixed>
      */
@@ -56,7 +56,7 @@ class SaveGuard
      */
     private function denied()
     {
-        $msg = DCE_PRODUCT_NAME . ' ' . esc_html__('Only administrators can edit this Elementor Page', 'dynamic-content-for-elementor');
+        $msg = DCE_BRAND . ' ' . esc_html__('Only administrators can edit this Elementor Page', 'dynamic-content-for-elementor');
         throw new \Exception($msg);
     }
     /**

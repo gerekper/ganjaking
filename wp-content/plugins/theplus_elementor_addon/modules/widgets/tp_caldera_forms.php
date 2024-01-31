@@ -37,6 +37,10 @@ class ThePlus_Caldera_Forms extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['Caldera Forms', 'Form builder', 'Form creator', 'Contact form', 'WordPress form', 'Form plugin', 'Form widget', 'Form generator', 'Drag and drop form', 'Form element', 'Elementor form', 'Plus Addons form', 'Caldera form widget'];
+    }
 	
     protected function register_controls() {
 		/*Layout Content start*/

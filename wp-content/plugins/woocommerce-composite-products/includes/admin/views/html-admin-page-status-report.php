@@ -2,7 +2,7 @@
 /**
  * Status Report data for CP.
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.13.9
  */
 

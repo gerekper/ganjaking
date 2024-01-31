@@ -281,7 +281,15 @@ class Settings extends FreeSettings {
             // 'upload_header_logo'                        => [],
             'upload_home_icon'                          => [],
             'upload_sendmessage_icon'                   => [],
-            'upload_resource_icon'                      => []
+            'upload_resource_icon'                      => [],
+            'ia_terms_orderby'                          => 'name',
+            'ia_terms_order'                            => 'asc',
+            // 'ia_docs_order_by'                          => 'ID',
+            // 'ia_docs_order'                             => 'asc',
+            'faq_terms_orderby'                         => 'name',
+            'faq_terms_order'                           => 'asc',
+            'ia_faq_list_order_by'                      => 'id',
+            'ia_faq_list_order'                         => 'asc',
             // 'ia_resources_doc_category_title_text_color'           => '#19ca9e',
             // 'ia_resources_doc_category_card_title_color'           => '#19ca9e',
             // 'ia_resources_doc_category_card_list_color'            => '#19ca9e',
@@ -448,13 +456,13 @@ class Settings extends FreeSettings {
                                     'priority' => 1,
                                     'fields'   => [
                                         'ia_enable_preview'   => [
-                                            'name'        => 'ia_enable_preview',
-                                            'type'        => 'toggle',
-                                            'priority'    => 1,
-                                            'label'       => __( 'Live Preview', 'betterdocs-pro' ),
+                                            'name'                       => 'ia_enable_preview',
+                                            'type'                       => 'toggle',
+                                            'priority'                   => 1,
+                                            'label'                      => __( 'Live Preview', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'default'     => true,
-                                            'is_pro'      => true
+                                            'default'                    => true,
+                                            'is_pro'                     => true
                                         ],
                                         'display_ia_pages'    => [
                                             'name'     => 'display_ia_pages',
@@ -931,12 +939,12 @@ class Settings extends FreeSettings {
                                     'priority' => 1,
                                     'fields'   => [
                                         'chat_tab_visibility_switch' => [
-                                            'name'        => 'chat_tab_visibility_switch',
-                                            'type'        => 'toggle',
-                                            'label'       => __( 'Ask Tab', 'betterdocs-pro' ),
+                                            'name'                       => 'chat_tab_visibility_switch',
+                                            'type'                       => 'toggle',
+                                            'label'                      => __( 'Ask Tab', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'default'     => true,
-                                            'priority'    => 1
+                                            'default'                    => true,
+                                            'priority'                   => 1
                                         ],
                                         'chat_tab_title'             => [
                                             'name'     => 'chat_tab_title',
@@ -1150,12 +1158,12 @@ class Settings extends FreeSettings {
                                     'label'    => __( "Docs Category", "betterdocs" ),
                                     'fields'   => [
                                         'ia_resources_doc_categories_switch'   => [
-                                            'name'        => 'ia_resources_doc_categories_switch',
-                                            'type'        => 'toggle',
-                                            'label'       => __( 'Enable Category', 'betterdocs-pro' ),
+                                            'name'                       => 'ia_resources_doc_categories_switch',
+                                            'type'                       => 'toggle',
+                                            'label'                      => __( 'Enable Category', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'priority'    => 1,
-                                            'default'     => true
+                                            'priority'                   => 1,
+                                            'default'                    => true
                                         ],
                                         'ia_resources_doc_categories'          => [
                                             'name'     => 'ia_resources_doc_categories',
@@ -1167,14 +1175,6 @@ class Settings extends FreeSettings {
                                             'options'  => array_merge( [['value' => 'all', 'label' => 'All']], $this->docs_categories() ),
                                             'rules'    => Rules::is( 'ia_resources_doc_categories_switch', true )
                                         ],
-                                        // 'ia_resources_doc_categories_number'  => [
-                                        //     'name'     => 'ia_resources_doc_categories_number',
-                                        //     'type'     => 'number',
-                                        //     'label'    => __( 'Number Of Categories', 'betterdocs-pro' ),
-                                        //     'default'  => 5,
-                                        //     'priority' => 3,
-                                        //     'rules'    => Rules::is( 'ia_resources_doc_categories_switch', true )
-                                        // ],
                                         'ia_resources_doc_category_title_text' => [
                                             'name'     => 'ia_resources_doc_category_title_text',
                                             'type'     => 'text',
@@ -1182,7 +1182,71 @@ class Settings extends FreeSettings {
                                             'priority' => 4,
                                             'default'  => __( 'Doc Categories', 'betterdocs-pro' ),
                                             'rules'    => Rules::is( 'ia_resources_doc_categories_switch', true )
+                                        ],
+                                        'ia_terms_orderby'                     => [
+                                            'name'     => 'ia_terms_orderby',
+                                            'type'     => 'select',
+                                            'label'    => __( 'Terms Order By', 'betterdocs' ),
+                                            'default'  => 'name',
+                                            'options'  => $this->normalize_options(
+                                                [
+                                                    'none'               => __( 'No order', 'betterdocs' ),
+                                                    'name'               => __( 'Name', 'betterdocs' ),
+                                                    'slug'               => __( 'Slug', 'betterdocs' ),
+                                                    'term_group'         => __( 'Term Group', 'betterdocs' ),
+                                                    'term_id'            => __( 'Term ID', 'betterdocs' ),
+                                                    'id'                 => __( 'ID', 'betterdocs' ),
+                                                    'description'        => __( 'Description', 'betterdocs' ),
+                                                    'parent'             => __( 'Parent', 'betterdocs' ),
+                                                    'doc_category_order' => __( 'BetterDocs Order', 'betterdocs' )
+                                                ]
+                                            ),
+                                            'priority' => 5,
+                                            'rules'    => Rules::is( 'ia_resources_doc_categories_switch', true )
+                                        ],
+                                        'ia_terms_order'                       => [
+                                            'name'     => 'ia_terms_order',
+                                            'type'     => 'select',
+                                            'label'    => __( 'Terms Order', 'betterdocs' ),
+                                            'default'  => 'asc',
+                                            'options'  => $this->normalize_options( [
+                                                'asc'  => 'Ascending',
+                                                'desc' => 'Descending'
+                                            ] ),
+                                            'priority' => 6,
+                                            'rules'    => Rules::is( 'ia_resources_doc_categories_switch', true )
                                         ]
+                                        // 'ia_docs_order_by' => [
+                                        //     'name'     => 'ia_docs_order_by',
+                                        //     'type'     => 'select',
+                                        //     'label'    => __( 'Docs Order By', 'betterdocs' ),
+                                        //     'default'  => 'ID',
+                                        //     'options'  => $this->normalize_options( [
+                                        //         'none'             => __( 'No order', 'betterdocs' ),
+                                        //         'ID'               => __( 'Docs ID', 'betterdocs' ),
+                                        //         'author'           => __( 'Docs Author', 'betterdocs' ),
+                                        //         'title'            => __( 'Title', 'betterdocs' ),
+                                        //         'date'             => __( 'Date', 'betterdocs' ),
+                                        //         'modified'         => __( 'Last Modified Date', 'betterdocs' ),
+                                        //         'parent'           => __( 'Parent Id', 'betterdocs' ),
+                                        //         'rand'             => __( 'Random', 'betterdocs' ),
+                                        //         'comment_count'    => __( 'Comment Count', 'betterdocs' ),
+                                        //         'menu_order'       => __( 'Menu Order', 'betterdocs' ),
+                                        //         'betterdocs_order' => __( 'BetterDocs Order', 'betterdocs' )
+                                        //     ] ),
+                                        //     'priority' => 7
+                                        // ],
+                                        // 'ia_docs_order'                => [
+                                        //     'name'     => 'ia_docs_order',
+                                        //     'type'     => 'select',
+                                        //     'label'    => __( 'Docs Order', 'betterdocs' ),
+                                        //     'default'  => 'asc',
+                                        //     'options'  => $this->normalize_options( [
+                                        //         'asc'  => 'Ascending',
+                                        //         'desc' => 'Descending'
+                                        //     ] ),
+                                        //     'priority' => 8
+                                        // ]
                                     ]
                                 ],
                                 'ia-resources-faq-tab'          => [
@@ -1193,12 +1257,12 @@ class Settings extends FreeSettings {
                                     'label'    => __( "FAQ", "betterdocs" ),
                                     'fields'   => [
                                         'ia_resources_faq_switch'       => [
-                                            'name'        => 'ia_resources_faq_switch',
-                                            'type'        => 'toggle',
-                                            'label'       => __( 'Enable FAQ', 'betterdocs-pro' ),
+                                            'name'                       => 'ia_resources_faq_switch',
+                                            'type'                       => 'toggle',
+                                            'label'                      => __( 'Enable FAQ', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'priority'    => 1,
-                                            'default'     => true
+                                            'priority'                   => 1,
+                                            'default'                    => true
                                         ],
                                         'ia_resources_faq_content_type' => [
                                             'name'     => 'ia_resources_faq_content_type',
@@ -1240,6 +1304,78 @@ class Settings extends FreeSettings {
                                                 Rules::is( 'ia_resources_faq_switch', true )
                                             ] )
                                         ],
+                                        'faq_terms_orderby'             => [
+                                            'name'     => 'faq_terms_orderby',
+                                            'type'     => 'select',
+                                            'label'    => __( 'FAQ Group Order By', 'betterdocs' ),
+                                            'default'  => 'name',
+                                            'options'  => $this->normalize_options(
+                                                [
+                                                    'none'        => __( 'No order', 'betterdocs' ),
+                                                    'name'        => __( 'Name', 'betterdocs' ),
+                                                    'slug'        => __( 'Slug', 'betterdocs' ),
+                                                    'term_group'  => __( 'Term Group', 'betterdocs' ),
+                                                    'id'          => __( 'ID', 'betterdocs' ),
+                                                    'description' => __( 'Description', 'betterdocs' ),
+                                                    'parent'      => __( 'Parent', 'betterdocs' )
+                                                ]
+                                            ),
+                                            'priority' => 6,
+                                            'rules'    => Rules::logicalRule( [
+                                                Rules::is( 'ia_resources_faq_content_type', 'faq-group' ),
+                                                Rules::is( 'ia_resources_faq_switch', true )
+                                            ] )
+                                        ],
+                                        'faq_terms_order'               => [
+                                            'name'     => 'faq_terms_order',
+                                            'type'     => 'select',
+                                            'label'    => __( 'FAQ Group Order', 'betterdocs' ),
+                                            'default'  => 'asc',
+                                            'options'  => $this->normalize_options( [
+                                                'asc'  => 'Ascending',
+                                                'desc' => 'Descending'
+                                            ] ),
+                                            'priority' => 7,
+                                            'rules'    => Rules::logicalRule( [
+                                                Rules::is( 'ia_resources_faq_content_type', 'faq-group' ),
+                                                Rules::is( 'ia_resources_faq_switch', true )
+                                            ] )
+                                        ],
+                                        'ia_faq_list_order_by'          => [
+                                            'name'     => 'ia_faq_list_order_by',
+                                            'type'     => 'select',
+                                            'label'    => __( 'FAQ List Order By', 'betterdocs' ),
+                                            'default'  => 'id',
+                                            'options'  => $this->normalize_options( [
+                                                'none'     => __( 'No order', 'betterdocs' ),
+                                                'id'       => __( 'ID', 'betterdocs' ),
+                                                'author'   => __( 'Author', 'betterdocs' ),
+                                                'title'    => __( 'Title', 'betterdocs' ),
+                                                'date'     => __( 'Date', 'betterdocs' ),
+                                                'modified' => __( 'Last Modified Date', 'betterdocs' ),
+                                                'parent'   => __( 'Parent Id', 'betterdocs' )
+                                            ] ),
+                                            'priority' => 8,
+                                            'rules'    => Rules::logicalRule( [
+                                                Rules::is( 'ia_resources_faq_content_type', 'faq-list' ),
+                                                Rules::is( 'ia_resources_faq_switch', true )
+                                            ] )
+                                        ],
+                                        'ia_faq_list_order'             => [
+                                            'name'     => 'ia_faq_list_order',
+                                            'type'     => 'select',
+                                            'label'    => __( 'FAQ List Order', 'betterdocs' ),
+                                            'default'  => 'asc',
+                                            'options'  => $this->normalize_options( [
+                                                'asc'  => 'Ascending',
+                                                'desc' => 'Descending'
+                                            ] ),
+                                            'priority' => 9,
+                                            'rules'    => Rules::logicalRule( [
+                                                Rules::is( 'ia_resources_faq_content_type', 'faq-list' ),
+                                                Rules::is( 'ia_resources_faq_switch', true )
+                                            ] )
+                                        ],
                                         // 'ia_resources_faq_list_number'  => [
                                         //     'name'     => 'ia_resources_faq_list_number',
                                         //     'type'     => 'number',
@@ -1266,7 +1402,7 @@ class Settings extends FreeSettings {
                                             'name'     => 'ia_resources_faq_title',
                                             'type'     => 'text',
                                             'label'    => __( 'FAQ Title Text', 'betterdocs-pro' ),
-                                            'priority' => 7,
+                                            'priority' => 5,
                                             'default'  => __( 'FAQ', 'betterdocs-pro' ),
                                             'rules'    => Rules::is( 'ia_resources_faq_switch', true )
                                         ]
@@ -1315,20 +1451,20 @@ class Settings extends FreeSettings {
                                     'label'    => __( 'Content', "betterdocs-pro" ),
                                     'fields'   => [
                                         'ia_branding'    => [
-                                            'name'        => 'ia_branding',
-                                            'type'        => 'toggle',
-                                            'label'       => __( 'Branding', 'betterdocs-pro' ),
+                                            'name'                       => 'ia_branding',
+                                            'type'                       => 'toggle',
+                                            'label'                      => __( 'Branding', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'default'     => true,
-                                            'priority'    => 1
+                                            'default'                    => true,
+                                            'priority'                   => 1
                                         ],
                                         'ia_reaction'    => [
-                                            'name'        => 'ia_reaction',
-                                            'type'        => 'toggle',
-                                            'label'       => __( 'Reaction', 'betterdocs-pro' ),
+                                            'name'                       => 'ia_reaction',
+                                            'type'                       => 'toggle',
+                                            'label'                      => __( 'Reaction', 'betterdocs-pro' ),
                                             'enable_disable_text_active' => true,
-                                            'default'     => true,
-                                            'priority'    => 2
+                                            'default'                    => true,
+                                            'priority'                   => 2
                                         ],
                                         'reaction_title' => [
                                             'name'     => 'reaction_title',
@@ -1371,7 +1507,7 @@ class Settings extends FreeSettings {
                                             'default'    => '#111213',
                                             'priority'   => 2
                                         ],
-                                        'ia_single_title_header_font_color'      => [
+                                        'ia_single_title_header_font_color'   => [
                                             'name'       => 'ia_single_title_header_font_color',
                                             'type'       => 'colorpicker',
                                             'label'      => __( 'On Scroll Title Color', 'betterdocs-pro' ),
@@ -1444,7 +1580,7 @@ class Settings extends FreeSettings {
         $args['tabs']['tab-license'] = apply_filters( 'betterdocs_settings_tab_license', [
             'id'       => 'tab-license',
             'label'    => __( 'License', 'betterdocs-pro' ),
-            'priority' => 80,
+            'priority' => 90,
             'fields'   => [
                 'title-design' => [
                     'name'     => 'title-design-tab',
@@ -1467,8 +1603,9 @@ class Settings extends FreeSettings {
         $args['submit']['rules'] = Rules::logicalRule( [
             Rules::is( 'config.active', 'tab-design', true ),
             Rules::is( 'config.active', 'tab-shortcodes', true ),
-            Rules::is( 'config.active', 'tab-instant-answer', true ),
-            Rules::is( 'config.active', 'tab-license', true )
+            Rules::is( 'config.active', 'tab-license', true ),
+            Rules::is( 'config.active', 'tab-import-export', true ),
+            Rules::is( 'config.active', 'tab-migration', true )
         ], 'and' );
 
         return $args;

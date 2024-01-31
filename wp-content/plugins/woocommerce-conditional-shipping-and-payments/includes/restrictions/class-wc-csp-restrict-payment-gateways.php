@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Restrict_Payment_Gateways class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.13.0
  */
 
@@ -15,9 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Payment Gateways.
  *
  * @class    WC_CSP_Restrict_Payment_Gateways
- * @version  1.15.0
+ * @version  1.5.5
  */
 class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
+
+	/**
+	 * Flag to mark the beginning of the template render.
+	 *
+	 */
+	protected $before_payment_gateways_template;
+
+	/**
+	 * Flag to mark the end of the template render.
+	 *
+	 */
+	protected $after_payment_gateways_template;
 
 	public function __construct() {
 

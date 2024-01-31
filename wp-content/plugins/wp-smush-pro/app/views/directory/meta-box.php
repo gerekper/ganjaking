@@ -10,7 +10,6 @@
  *
  * @var Smush\App\Pages\Directory $this  Dashboard page.
  */
-
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -31,6 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 	<!-- Notices -->
 	<?php $this->smush_result_notice(); ?>
+	<?php if ( ! WP_Smush::is_pro() ) : ?>
 	<div class="sui-notice sui-notice-info wp-smush-dir-limit sui-hidden">
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
@@ -49,6 +49,7 @@ if ( ! defined( 'WPINC' ) ) {
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
 
 	<?php if ( ! empty( $images ) ) : ?>
 		<div class="smush-final-log">

@@ -2,7 +2,7 @@
 /**
  * Composite Products Template Hooks
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.2.0
  */
 

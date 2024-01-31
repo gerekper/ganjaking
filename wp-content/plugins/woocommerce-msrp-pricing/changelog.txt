@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2024.01.23 - version 3.4.26
+* Update: WooCommerce compatibility up to 8.5
+
 2023.12.11 - version 3.4.24
 * Update: Compatibility with Cart & Checkout blocks
 

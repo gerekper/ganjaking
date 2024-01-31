@@ -1,8 +1,10 @@
 <?php
-$a2w_pricing_rules_type = a2w_get_setting('pricing_rules_type', 'sale_price_as_base');
-$a2w_use_extended_price_markup = a2w_get_setting('use_extended_price_markup');
-$a2w_use_compared_price_markup = a2w_get_setting('use_compared_price_markup');
-$a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
+use function Ali2Woo\get_setting;
+
+$a2w_pricing_rules_type = get_setting('pricing_rules_type', 'sale_price_as_base');
+$a2w_use_extended_price_markup = get_setting('use_extended_price_markup');
+$a2w_use_compared_price_markup = get_setting('use_compared_price_markup');
+$a2w_local_currency = strtoupper(get_setting('local_currency'));
 ?>
 
 <div class="global-pricing mt20">
@@ -346,7 +348,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_e("Shipping costs will be added to the product price.", 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control" id="a2w_add_shipping_to_price" name="a2w_add_shipping_to_price" value="yes" <?php if (a2w_get_setting('add_shipping_to_price')): ?>checked<?php endif;?>/>
+                    <input type="checkbox" class="field__input form-control" id="a2w_add_shipping_to_price" name="a2w_add_shipping_to_price" value="yes" <?php if (get_setting('add_shipping_to_price')): ?>checked<?php endif;?>/>
                 </div>
             </div>
 
@@ -358,7 +360,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_e("Pricing rules will be applied after shipping cost are added to the product price. This is necessary if you want to add a markup to both the product cost and the shipping cost.", 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox"<?php if (!a2w_get_setting('add_shipping_to_price')): ?> disabled="disabled"<?php endif;?> class="field__input form-control" id="a2w_apply_price_rules_after_shipping_cost" name="a2w_apply_price_rules_after_shipping_cost" value="yes" <?php if (a2w_get_setting('apply_price_rules_after_shipping_cost')): ?>checked<?php endif;?>/>
+                    <input type="checkbox"<?php if (!get_setting('add_shipping_to_price')): ?> disabled="disabled"<?php endif;?> class="field__input form-control" id="a2w_apply_price_rules_after_shipping_cost" name="a2w_apply_price_rules_after_shipping_cost" value="yes" <?php if (get_setting('apply_price_rules_after_shipping_cost')): ?>checked<?php endif;?>/>
                 </div>
             </div>
 

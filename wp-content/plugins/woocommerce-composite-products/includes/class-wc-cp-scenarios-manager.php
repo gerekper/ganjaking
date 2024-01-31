@@ -2,7 +2,7 @@
 /**
  * WC_CP_Scenarios_Manager class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.9.0
  */
 

@@ -2,7 +2,7 @@
 /**
  * WC_Product_Composite class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    1.0.0
  */
 

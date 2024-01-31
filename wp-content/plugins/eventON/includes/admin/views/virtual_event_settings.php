@@ -1,7 +1,7 @@
 <?php
 /**
  * Virtual Event Settings 
- * @version 4.2.2
+ * @version 4.5.6
  */	
 
 
@@ -15,6 +15,8 @@ $vir_o = '';
 <form class='evo_virtual_settings'>
 <input type="hidden" name="event_id" value='<?php echo $EVENT->ID;?>'>
 <input type="hidden" name="action" value='eventon_save_virtual_event_settings'>
+
+<?php wp_nonce_field( 'evo_save_virtual_event_settings', 'evo_noncename' );?>
 
 <?php 
 if( !$EVENT->is_virtual_data_ready()): ?>

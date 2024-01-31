@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Admin Columns Pro
+# Copyright (C) 2024 Admin Columns Pro
 # This file is distributed under the same license as the Admin Columns Pro package.
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-12-19 09:42+0000\n"
+"POT-Creation-Date: 2024-01-16 09:17+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -824,15 +824,15 @@ msgstr ""
 msgid "Enable Inline Edit to change password"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/User/UserPosts.php:18
+#: admin-columns-pro/classes/Column/User/UserPosts.php:19
 msgid "Posts by Author"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/User/UserPosts.php:57
+#: admin-columns-pro/classes/Column/User/UserPosts.php:58
 msgid "No items"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/User/UserPosts.php:91
+#: admin-columns-pro/classes/Column/User/UserPosts.php:92
 msgid "Recent items"
 msgstr ""
 
@@ -981,11 +981,11 @@ msgstr ""
 msgid "No options found"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Asset/TableScriptFactory.php:185
+#: admin-columns-pro/classes/Filtering/Asset/TableScriptFactory.php:186
 msgid "Future"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Asset/TableScriptFactory.php:186
+#: admin-columns-pro/classes/Filtering/Asset/TableScriptFactory.php:187
 msgid "Past"
 msgstr ""
 
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "Link To"
 msgstr ""
 
-#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:29, admin-columns-pro/addons/pods/classes/Setting/Field.php:30, admin-columns-pro/addons/types/classes/Settings/Field.php:31
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:29, admin-columns-pro/addons/pods/classes/Setting/Field.php:34, admin-columns-pro/addons/types/classes/Settings/Field.php:31
 msgid "No %s fields available."
 msgstr ""
 
@@ -1273,7 +1273,7 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:35, admin-columns-pro/addons/pods/classes/Setting/Field.php:40, admin-columns-pro/addons/types/classes/Settings/Field.php:37, admin-columns-pro/addons/metabox/classes/Column/MetaBox/Fields.php:11, admin-columns-pro/addons/woocommerce/classes/Settings/Order/Meta.php:26
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:35, admin-columns-pro/addons/pods/classes/Setting/Field.php:47, admin-columns-pro/addons/types/classes/Settings/Field.php:37, admin-columns-pro/addons/metabox/classes/Column/MetaBox/Fields.php:11, admin-columns-pro/addons/woocommerce/classes/Settings/Order/Meta.php:26
 msgid "Field"
 msgstr ""
 
@@ -1437,11 +1437,11 @@ msgstr ""
 msgid "Group Field"
 msgstr ""
 
-#: admin-columns-pro/addons/pods/classes/Setting/Field.php:31
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php:36
 msgid "Create your first %s field."
 msgstr ""
 
-#: admin-columns-pro/addons/pods/classes/Setting/Field.php:89
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php:104
 msgid "empty label"
 msgstr ""
 
@@ -1537,7 +1537,7 @@ msgstr ""
 msgid "Attribute"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Service/Subscriptions.php:61, admin-columns-pro/addons/woocommerce/classes/Service/SubscriptionsPostType.php:26
+#: admin-columns-pro/addons/woocommerce/classes/Service/Subscriptions.php:61, admin-columns-pro/addons/woocommerce/classes/Service/SubscriptionsPostType.php:28
 msgid "WooCommerce Subscriptions"
 msgstr ""
 

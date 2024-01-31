@@ -994,7 +994,15 @@ class UniteCreatorLayoutsExporterWork extends UniteCreatorExporterBase{
 		
 		if(empty($filepath))
 			UniteFunctionsUC::throwError("layout filepath not found");
+	
 		
+		//file type validation
+			
+		$objAssets = new UniteCreatorAssets();
+		$objAssets->deleteFilesInExtracted($filepath);
+		$objAssets->validateAllowedFilesInExtracted($filepath);
+			
+			
 		//get extension
 		if(is_array($arrFile)){
 			$filename = UniteFunctionsUC::getVal($arrFile, "name");
@@ -1014,7 +1022,7 @@ class UniteCreatorLayoutsExporterWork extends UniteCreatorExporterBase{
 				
 				UniteFunctionsUC::throwError("Import layout zip file is not supported anymore");
 				
-				//$this->importZipFile($filepath, $layoutID, $overwriteAddons);
+				$this->importZipFile($filepath, $layoutID, $overwriteAddons);
 				break;
 			default:
 				UniteFunctionsUC::throwError("Wrong file: $filename");

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "woocommerce-min-max/max-quantity-field",
+  "version": "0.1.0",
+  "title": "Maximum Quantity",
+  "category": "widgets",
+  "icon": "flag",
+  "description": "Maximum Quantity",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "__experimentalRole": "content"
+    }
+  },
+  "supports": {
+    "html": false,
+    "inserter": false
+  },
+  "textdomain": "woocommerce-min-max-quantities",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

@@ -132,4 +132,17 @@ class WC_Store_Credit_Product extends WC_Product_Simple {
 
 		return ( isset( $data['custom_amount_step'] ) ? wc_format_decimal( $data['custom_amount_step'] ) : '' );
 	}
+
+	/**
+	 * Gets the preset amounts.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return array
+	 */
+	public function get_preset_amounts() {
+		$data = $this->get_meta( '_store_credit_data' );
+
+		return ( ! empty( $data['preset_amounts'] ) ? explode( '|', $data['preset_amounts'] ) : array() );
+	}
 }

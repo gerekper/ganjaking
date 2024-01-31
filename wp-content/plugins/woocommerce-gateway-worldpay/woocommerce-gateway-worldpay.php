@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce WorldPay Gateway
 Plugin URI: http://woothemes.com/woocommerce/
 Description: Extends WooCommerce. Provides a WorldPay gateway for WooCommerce. Includes basic support for Subscriptions. http://www.worldpay.com.
-Version: 5.2.1
+Version: 5.3.2
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
-WC tested up to: 8.3.0
+WC tested up to: 8.5.0
 Woo: 18646:6bc48c9d12dc0c43add4b099665a80b0
 */
 
@@ -50,7 +50,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '6bc48c9d12dc0c43add4b09966
 // Defines
 define( 'WORLDPAYPLUGINPATH', plugin_dir_path( __FILE__ ) );
 define( 'WORLDPAYPLUGINURL', plugin_dir_url( __FILE__ ) );
-define( 'WORLDPAYPLUGINVERSION', '5.2.1' );
+define( 'WORLDPAYPLUGINVERSION', '5.3.2' );
 
 // Load Admin files
 if( is_admin() ) {
@@ -86,7 +86,46 @@ function init_worldpay_gateway() {
 	 */
 	include('classes/class-wc-gateway-worldpay-widget.php');
 
-    
+	// Add Fraud Order Status
+	add_filter( 'woocommerce_register_shop_order_post_statuses', 'worldpay_register_fraud_order_status' );
+	add_filter( 'wc_order_statuses', 'worldpay_fraud_order_status' );
+	// Set Fraud Order Status as a paid order status
+	add_filter( 'woocommerce_order_is_paid_statuses', 'worldpay_fraud_order_status_is_paid' );
+
+	function worldpay_fraud_order_status( $statuses ) {
+		$statuses['wc-fraud-screen'] = _x( 'Fraud Screen', 'Order status', 'woocommerce_worlday' );
+		return $statuses;
+	}
+
+	/**
+	 * New order status for WooCommerce 2.2 or later
+	 *
+	 * @return void
+	 */
+	function worldpay_register_fraud_order_status( $statuses ) {
+	    $statuses['wc-fraud-screen'] = array(
+	            'label'                     => _x( 'Fraud Screen', 'Order status', 'woocommerce_worlday' ),
+	            'public'                    => true,
+	            'exclude_from_search'       => false,
+	            'show_in_admin_all_list'    => true,
+	            'show_in_admin_status_list' => true,
+	            'label_count'               => _n_noop( 'Fraud Screening Required <span class="count">(%s)</span>', 'Fraud Screening Required <span class="count">(%s)</span>', 'woocommerce_worlday' )
+	        );
+
+	    return $statuses;
+	}
+
+	/**
+	 * [worldpay_fraud_order_status_is_paid description]
+	 * @param  [type] $paid [description]
+	 * @return [type]       [description]
+	 */
+	function worldpay_fraud_order_status_is_paid( $paid ) {
+		$paid[] = 'fraud-screen';
+
+		return $paid;
+	}
+
 } // END init_worldpay_gateway
 
 /**

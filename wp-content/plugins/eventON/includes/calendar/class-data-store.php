@@ -2,7 +2,7 @@
 /**
  *	EventON Post Data Store 
  * @+ 3.0.2
- * @u 4.4
+ * @u 4.5.5
  */
 
 class EVO_Data_Store{
@@ -15,7 +15,7 @@ class EVO_Data_Store{
 	public $ID;
 	public $meta = array();
 
-	public $post_author, $author, $title, $post_date, $post_content, $content, $excerpt, $post_excerpt, $post_status, $post_parent, $time;
+	public $post_author, $author, $title, $post_date, $post_content, $content, $excerpt, $post_excerpt, $post_status, $post_parent, $time, $post_password;
 
 // meta data
 	public function get_permalink(){

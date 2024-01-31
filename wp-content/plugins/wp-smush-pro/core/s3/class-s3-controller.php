@@ -224,7 +224,7 @@ class S3_Controller extends Controller {
 
 	public function delete_files_from_remote( $attachment_id ) {
 		if ( ! $this->local_files_available( $attachment_id ) ) {
-			$this->log_error( "Did not find expected local files for attachment $attachment_id, so files from remote are not being deleted." );			   	   			 	 	 	 	
+			$this->log_error( "Did not find expected local files for attachment $attachment_id, so files from remote are not being deleted." );
 			return;
 		}
 

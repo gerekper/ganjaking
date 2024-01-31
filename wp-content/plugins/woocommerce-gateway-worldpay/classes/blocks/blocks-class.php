@@ -12,6 +12,7 @@ final class WC_Worldpay_Blocks_Support extends AbstractPaymentMethodType {
      * @var string
      */
     protected $name = 'worldpay';
+    public $icon;
 
     /**
      * Initializes the payment method type.

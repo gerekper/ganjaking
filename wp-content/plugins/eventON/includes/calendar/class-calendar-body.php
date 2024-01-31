@@ -3,7 +3,7 @@
  * Calendar body parts class
  *
  * @class  		evo_cal_body
- * @version		2.6.15
+ * @version		4.5.6
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -548,7 +548,9 @@ class evo_cal_body{
 		// @+2.8
 		function get_calendar_footer( $footer_data = true){
 			return $this->calendar_shell_footer( $footer_data );
-		}
+		}	
+
+
 		public function calendar_shell_footer( $footer_data = true ){
 
 			if($this->calendar_nonlogged()) return false;
@@ -569,6 +571,10 @@ class evo_cal_body{
 
 					echo '<a class="evcal_btn download_ics" href="'.$link.'" style="margin-top:10px"><em class="fa fa-calendar-plus-o" ></em> '. evo_lang('Download all events as ICS file').'</a>';
 				}
+
+				// calendar time zone in footer @4.5.6
+				if( EVO()->cal->check_yn('evo_foot_tz','evcal_1'))
+					echo "<div class='evo_cal_footer_tz'>". evo_lang('Calendar timezone') .": ". EVO()->calendar->cal_tz_gmt ."</div>";
 			?>
 
 			<?php do_action('evo_cal_after_footer', EVO()->evo_generator->shortcode_args);?>
@@ -595,7 +601,9 @@ class evo_cal_body{
 			$str .= " data-sc='". json_encode( $SC )."'";
 
 			$other_data = apply_filters('evo_cal_OD', array(
-				'lang_no_events'=> $this->cal->lang_array['no_event']
+				'lang_no_events'=> $this->cal->lang_array['no_event'],
+				'cal_tz_offset'=> ( (int)EVO()->calendar->cal_utc_offset * -1 ) /60,
+				'cal_tz' => EVO()->calendar->cal_tz_string
 			));
 			$str .= " data-od='". json_encode( $other_data )."'";
 

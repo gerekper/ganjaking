@@ -190,7 +190,7 @@ class Prominent_Words_Repository {
 
 		// We want to change the raw document frequencies into a map mapping stems to document frequency.
 		$stems = \array_map(
-			static function( $item ) {
+			static function ( $item ) {
 				return $item->stem;
 			},
 			$raw_doc_frequencies

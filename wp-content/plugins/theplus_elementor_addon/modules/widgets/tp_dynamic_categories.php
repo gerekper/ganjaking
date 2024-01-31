@@ -42,8 +42,8 @@ class ThePlus_Dynamic_Categories extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return [ 'category list', 'dynamic category', 'category', 'tp', 'theplus'];
-	}
+        return ['Dynamic Category', 'Category', 'Category Widget', 'Dynamic Category Widget', 'Elementor Dynamic Category', 'Elementor Category Widget', 'Elementor Dynamic Category Widget', 'Dynamic Category Elementor Addon', 'Category Elementor Addon', 'Dynamic Category Plus Addons', 'Category Plus Addons', 'Dynamic Category The Plus Addons', 'Category The Plus Addons'];
+    }
 	
     protected function register_controls() {
 		

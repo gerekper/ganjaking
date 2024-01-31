@@ -289,6 +289,7 @@ class Post extends Source {
 				'notes'   => [
 					__( 'Tip: Match multiple keys using * as wildcard and hitting Enter', 'searchwp' ),
 				],
+				'tooltip' => true,
 				'default' => $this->is_excluded_from_search() ? false : Utils::get_min_engine_weight(),
 				'options' => function( $search = false, array $include = [] ) {
 					// If we're retrieving a specific set of options, get them and return.
@@ -373,6 +374,7 @@ class Post extends Source {
 						return new Option( $taxonomy->name, $taxonomy->label . ' (' . $taxonomy->name . ')' );
 					}, get_object_taxonomies( $this->post_type, 'objects' ) );
 				},
+				'tooltip' => true,
 				'data'    => function( $post_id, $taxonomy ) {
 					do_action( 'searchwp\source\post\attributes\taxonomy', [
 						'taxonomy'  => $taxonomy,
@@ -901,14 +903,6 @@ class Post extends Source {
 			return '';
 		}
 
-		// Prevent the SearchWP Forms shortcode from being rendered in the excerpt.
-		add_filter( 'pre_do_shortcode_tag', function( $output, $tag ) {
-			return $tag === 'searchwp_form' ? '' : $output;
-		}, 10, 2 );
-
-		// Prevent the SearchWP Forms Gutenberg block from being rendered in the excerpt.
-		add_filter( 'render_block_searchwp/search-form', '__return_empty_string' );
-
 		if ( $query instanceof Query ) {
 			// Be sure to check suggested search strings and not just the submitted search.
 			if ( ! empty( $query->get_suggested_search() ) ) {
@@ -951,8 +945,12 @@ class Post extends Source {
 			);
 		}
 
+		do_action( 'searchwp\get_global_excerpt\the_content\before' );
+
 		// Next check the post content.
 		$content = Utils::stringify_html( apply_filters( 'the_content', $post->post_content ) );
+
+		do_action( 'searchwp\get_global_excerpt\the_content\after' );
 
 		if ( ! empty( $content ) ) {
 			$content = apply_filters( 'searchwp\source\post\excerpt_haystack', $content, [
@@ -1120,10 +1118,10 @@ class Post extends Source {
 		}
 
 		if ( ! has_action( 'profile_update', [ $this, 'updated_author_profile' ] ) ) {
-			add_action( 'profile_update', [ $this, 'updated_author_profile' ], 10, 3 );
+			add_action( 'profile_update', [ $this, 'updated_author_profile' ], 10, 2 );
 		}
 
-		if ( ! has_action( 'delete_user', [ $this, 'updated_author_profile' ] ) ) {
+		if ( ! has_action( 'delete_user', [ $this, 'deleted_author_profile' ] ) ) {
 			add_action( 'delete_user', [ $this, 'deleted_author_profile' ], 10 );
 		}
 	}
@@ -1269,7 +1267,7 @@ class Post extends Source {
 			]
 		);
 
-		$this->drop_posts_by_attribute( $term_posts->posts, 'taxonomy.' . $taxonomy );
+		$this->drop_posts_by_id( $term_posts->posts );
 
 		do_action( 'searchwp\debug\log', "{$taxonomy} id {$term_id} updated dropping posts" );
 	}
@@ -1355,10 +1353,12 @@ class Post extends Source {
 	 * @param $new_user_data
 	 * @return void
 	 */
-	public function updated_author_profile( $user_id, $old_user_data, $new_user_data ) {
+	public function updated_author_profile( $user_id, $old_user_data ) {
+
+		$user = get_userdata( $user_id );
 
 		// If the Author display name hasn't changed, bail out.
-		if ( $old_user_data->data->display_name === $new_user_data['display_name'] ) {
+		if ( empty( $user ) || $user->display_name === $old_user_data->display_name ) {
 			return;
 		}
 
@@ -1400,8 +1400,12 @@ class Post extends Source {
 			]
 		);
 
+		if ( empty( $author_posts->posts ) ) {
+			return;
+		}
+
 		// Drop the posts from the index.
-		$this->drop_posts_by_attribute( $author_posts->posts, 'author' );
+		$this->drop_posts_by_id( $author_posts->posts );
 
 		do_action( 'searchwp\debug\log', "Author id {$user_id} updated, dropping posts" );
 	}
@@ -1415,7 +1419,7 @@ class Post extends Source {
 	 * @param $attribute
 	 * @return void
 	 */
-	private function drop_posts_by_attribute( $post_ids, $attribute ) {
+	private function drop_posts_by_id( $post_ids ) {
 		global $wpdb;
 
 		$index        = \SearchWP::$index;
@@ -1436,9 +1440,8 @@ class Post extends Source {
 					FROM {$index_table} AS i
 					LEFT JOIN {$status_table} AS s
 					ON i.id = s.id
-					WHERE i.attribute = %s
-					AND i.id IN (" . implode( ', ', array_fill( 0, count( $batch ), '%s' ) ) . ')',
-					array_merge( [ $attribute ], $batch )
+					WHERE i.id IN (" . implode( ', ', array_fill( 0, count( $batch ), '%s' ) ) . ')',
+					$batch
 				)
 			);
 		}

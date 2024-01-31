@@ -1825,34 +1825,11 @@ class UniteCreatorLayoutWork extends UniteElementsBaseUC{
 		return($arrAddons);
 	}
 	
-	/**
-	 * clean layout data before save
-	 * get array of data each time
-	 */
-	public function cleanLayoutDataBeforeExport($arrData){
-		
-		if(is_array($arrData) == false)
-			return($arrData);
-		
-		$arrDataNew = array();
-		foreach($arrData as $key=>$item){
-			
-			if(strpos($key, "_unite_selected_text") !== false)
-				continue;
-						
-			$arrDataNew[$key] = $item;
-		}
-		
-		
-		return($arrDataNew);
-	}
 	
 	/**
 	 * clean layout settings before save or export from extra data
 	 */
 	public function cleanLayoutSettingsBeforeExport(){
-		
-		$cleanFunc = array($this, "cleanLayoutDataBeforeExport");
 		
 		$this->gridData = $this->mapModifyLayoutDataAll($this->gridData, $cleanFunc);
 		

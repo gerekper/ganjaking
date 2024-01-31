@@ -2198,11 +2198,38 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 	}
 
 	/**
+	 * check if there are relevant array param values, that starts with a "name_"
+	 * retur nthe value anyway
+	 */
+	private function getArrayParamValues($value, $param, $name, $arrValues){
+		
+		$outputValues = array();
+		
+		foreach($arrValues as $key=>$outputValue){
+			
+			if(strpos($key,"{$name}_") !== 0)
+				continue;
+			
+			$outputKey = substr($key, strlen($name)+1);
+			
+			$outputValues[$outputKey] = $outputValue;
+		}
+
+		
+		if(empty($outputValues))
+			return($value);
+		
+			
+		return($outputValues);
+	}
+	
+	
+	/**
 	 * set params values work
 	 * type: main,items
 	 */
 	private function setParamsValuesWork($arrValues, $arrParams, $type){
-
+				
 		$this->validateInited();
 		
 		if(empty($arrValues))
@@ -2211,32 +2238,39 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		if(!is_array($arrValues))
 			UniteFunctionsUC::throwError("The values shoud be array");
 		
-		
 			
 		foreach($arrParams as $key => $param){
 			$name = UniteFunctionsUC::getVal($param, "name");
 
 			if(empty($name))
 				continue;
-
+			
 			$defaultValue = UniteFunctionsUC::getVal($param, "default_value");
-
+			
 			$type = UniteFunctionsUC::getVal($param, "type");
-
+			
 			$value = UniteFunctionsUC::getVal($arrValues, $name, $defaultValue);
-
+						
+			//multiple values - like post list
+			
 			$value = $this->objProcessor->getSpecialParamValue($type, $name, $value, $arrValues);
-
+			
+			//check for array type
+			if(isset($param["default_value"]) == false && empty($value)){
+				
+				$value = $this->getArrayParamValues($value, $param, $name, $arrValues);
+			}
+			
 			$param["value"] = $value;
 
 			$param = $this->setResponsiveParamValues($param, $name, $arrValues);
-
+			
 			$param = $this->objProcessor->setExtraParamsValues($type, $param, $name, $arrValues);
-
+			
 			//set responsive values
 			$arrParams[$key] = $param;
 		}
-
+				
 		return ($arrParams);
 	}
 

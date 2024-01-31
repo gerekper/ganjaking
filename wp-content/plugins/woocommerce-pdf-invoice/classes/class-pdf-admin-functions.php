@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_pdf_admin_functions {
 
+	private $debug;
+
     public function __construct() {
 
     	// Get PDF Invoice Options
     	$woocommerce_pdf_invoice_options = get_option('woocommerce_pdf_invoice_settings');
-    	$this->id 	 = 'woocommerce_pdf_invoice';
     	$this->debug = false;
 
     	if( isset( $woocommerce_pdf_invoice_options["pdf_debug"] ) && $woocommerce_pdf_invoice_options["pdf_debug"] == "true" ) {
@@ -21,39 +22,38 @@ class WC_pdf_admin_functions {
 		add_action( 'admin_init' , array( $this, 'pdf_manage_edit_shop_order_columns' ), 10, 2 );
 
 		// Add Invoice Number to column
-		add_action( 'manage_shop_order_posts_custom_column' , array( $this, 'invoice_number_admin_init') , 2 );
+		add_action( 'manage_shop_order_posts_custom_column' , array( $this, 'invoice_number_admin_init'), 10, 2 );
+
+		// HPOS add Invoice Number to column 
+		add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'invoice_number_admin_init'), 10 ,2 );
+
+		// Bulk Actions Admin Notices
+		add_action( 'admin_notices', array( $this, 'bulk_admin_notices' ) );
+
+		add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_pdf_invoice_bulk_actions' ), 10, 3 );
+		// HPOS
+    	add_filter( 'handle_bulk_actions-woocommerce_page_wc-orders', array( $this, 'handle_pdf_invoice_bulk_actions' ), 10, 3 );
 
     	// Update Invoice Meta, only available if debugging is on
 		if ( $this->debug == true ) {
-			add_filter( 'bulk_actions-edit-shop_order', array( $this, 'bulk_edit_pdf_invoice_update_meta' ) );
-    		add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_update_invoice_meta' ), 10, 3 );
+			add_filter( 'bulk_actions-edit-shop_order', array( $this, 'bulk_edit_pdf_invoice_update_meta' ), 9 );
+			// HPOS
+			add_filter( 'bulk_actions-woocommerce_page_wc-orders', array( $this, 'bulk_edit_pdf_invoice_update_meta' ), 9 );
+
 		}
 
 		// Add PDF Invoice options to Bulk edit menu
-    	add_filter( 'bulk_actions-edit-shop_order', array( $this, 'bulk_edit_pdf_invoice_options' ) );
+    	add_filter( 'bulk_actions-edit-shop_order', array( $this, 'bulk_edit_pdf_invoice_options' ), 9 );
+
+    	// HPOS add PDF Invoice options to Bulk edit menu
+    	add_filter( 'bulk_actions-woocommerce_page_wc-orders', array( $this, 'bulk_edit_pdf_invoice_options' ), 9 );
 
     	// Delete Invoice, only available if debugging is on
 		if ( $this->debug == true ) {
 			add_filter( 'bulk_actions-edit-shop_order', array( $this, 'bulk_edit_pdf_invoice_delete_invoice' ) );
-    		add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_delete_invoice' ), 10, 3 );
+			// HPOS
+    		add_filter( 'bulk_actions-woocommerce_page_wc-orders', array( $this, 'bulk_edit_pdf_invoice_delete_invoice' ), 9 );
 		}
-
-    	// Methods for Bulk edit menu
-    	add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_create_invoice' ), 10, 3 );
-    	add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_create_email_invoice' ), 10, 3 );
-    	add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_email_invoice' ), 10, 3 );
-
-    	// Action Scheduler 
-    	add_action( 'woocommerce_pdf_invoice_create_email_invoice', array( __CLASS__, 'action_scheduler_create_email_invoice' ), 10, 2 );
-
-    	// Filters for order list
-    	// Remove Subsriptions drop down if necessary
-    	if( class_exists('WC_Subscriptions_Order') ) {
-    		remove_action( 'restrict_manage_posts', 'WC_Subscriptions_Order::restrict_manage_subscriptions', 50 );
-    	}
-
-    	// Add dropdown to admin orders screen to filter on order type
-		// add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_post_types' ), 50 );
 		
 		// Add invoice number to order search
 		add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'add_pdf_invoice_number_to_order_search' ) );
@@ -71,6 +71,9 @@ class WC_pdf_admin_functions {
      */
 	function pdf_manage_edit_shop_order_columns( $columns ) {
 		add_filter( 'manage_edit-shop_order_columns', 'invoice_column_admin_init' );
+
+		// Add security check column to orders page in admin HPOS
+        add_filter( 'woocommerce_shop_order_list_table_columns', 'invoice_column_admin_init' );
 	}
 
 	/**
@@ -78,16 +81,19 @@ class WC_pdf_admin_functions {
 	 * @param  [type] $column [description]
 	 * @return [type]         [description]
 	 */
-	function invoice_number_admin_init( $column ) {
-		global $post, $woocommerce, $the_order;
+	function invoice_number_admin_init( $column_id, $order = NULL ) {
 
-		if ( $column == 'pdf_invoice_num' ) {
+		if ( $column_id == 'pdf_invoice_num' ) {
 
-			if ( get_post_meta( $post->ID, '_invoice_number_display', TRUE ) ) {
+			if( !is_object($order) ) {
+				$order 	 = wc_get_order( $order );
+			}
 
-				$invoice_number = get_post_meta( $post->ID, '_invoice_number_display', TRUE );
-				$invoice_date 	= get_post_meta( $post->ID, '_invoice_date', TRUE );
-				$output 		=  '<a href="' . $_SERVER['REQUEST_URI'] . '&pdfid=' . $post->ID .'">' . $invoice_number . '<br />' . $invoice_date . '</a>';
+			if ( $order->get_meta( '_invoice_number_display', TRUE ) ) {
+
+				$invoice_number = $order->get_meta( '_invoice_number_display', TRUE );
+				$invoice_date 	= $order->get_meta( '_invoice_date', TRUE );
+				$output 		=  '<a href="' . $_SERVER['REQUEST_URI'] . '&pdfid=' . $order->get_id() .'">' . $invoice_number . '<br />' . $invoice_date . '</a>';
 
 				/**
 				 * Filter the output
@@ -96,7 +102,7 @@ class WC_pdf_admin_functions {
 				 * $invoice_date: stored '_invoice_date' from order meta
 				 * $post->ID: $order_id
 				 */
-				echo apply_filters( 'pdf_invoice_number_order_screen_output', $output, $invoice_number, $invoice_date, $post->ID );
+				echo apply_filters( 'pdf_invoice_number_order_screen_output', $output, $invoice_number, $invoice_date, $order->get_id() );
 
 			}
 
@@ -135,8 +141,9 @@ class WC_pdf_admin_functions {
 		$actions['pdf_create_invoice'] 			= __( 'Create Invoice(s)', 'woocommerce-pdf-invoice' );
 		$actions['pdf_create_email_invoice'] 	= __( 'Create and Email Invoice(s)', 'woocommerce-pdf-invoice' );
 		$actions['pdf_email_invoice'] 			= __( 'Email Invoice(s)', 'woocommerce-pdf-invoice' );
+		$actions['pdf_bulk_export'] 			= __( 'Bulk Export PDFs', 'woocommerce-pdf-invoice' );
 
-    	return $actions;
+		return $actions;
 
     }
 
@@ -151,9 +158,64 @@ class WC_pdf_admin_functions {
 			unset( $actions['edit'] );
 		}
 
-		$actions['pdf_delete_invoice'] 			= __( 'Delete Invoice(s)', 'woocommerce-pdf-invoice' );
+		$actions['pdf_delete_invoice'] = __( 'Delete Invoice(s)', 'woocommerce-pdf-invoice' );
 
     	return $actions;
+
+    }
+
+    /**
+     * [handle_pdf_invoice_bulk_actions description]
+     * @param  [type] $redirect_to [description]
+     * @param  [type] $action      [description]
+     * @param  [type] $ids         [description]
+     * @return [type]              [description]
+     */
+    public function handle_pdf_invoice_bulk_actions( $redirect_to, $action, $ids ) {
+
+    	$supported_actions = array( 
+    		'pdf_update_invoice_meta', 
+    		'pdf_create_invoice', 
+    		'pdf_create_email_invoice', 
+    		'pdf_email_invoice', 
+    		'pdf_delete_invoice', 
+    		'pdf_bulk_export' 
+    	);
+
+    	if( in_array( $action, $supported_actions ) ) {
+
+	    	switch( $action ) {
+	    		case 'pdf_update_invoice_meta':
+	    			$redirect_args = $this->handle_update_invoice_meta( $redirect_to, $action, $ids );
+	    			break;
+	    		case 'pdf_create_invoice':
+	    			$redirect_args = $this->handle_create_invoice( $redirect_to, $action, $ids );
+	    			break;
+	    		case 'pdf_create_email_invoice':
+	    			$redirect_args = $this->handle_create_email_invoice( $redirect_to, $action, $ids );
+	    			break;
+	    		case 'pdf_email_invoice':
+	    			$redirect_args = $this->handle_email_invoice_meta( $redirect_to, $action, $ids );
+	    			break;
+	    		case 'pdf_delete_invoice':
+	    			$redirect_args = $this->handle_delete_invoice( $redirect_to, $action, $ids );
+	    			break;
+	    		case 'pdf_bulk_export':
+	    			$redirect_args = $this->handle_bulk_export( $redirect_to, $action, $ids );
+	    			break;
+	    	}
+
+	    	$redirect_to = add_query_arg(
+					array(
+						'changed'     => $redirect_args['changed'],
+						'bulk_action' => $redirect_args['bulk_action'],
+					),
+					wp_get_referer()
+				);
+
+	    	return esc_url_raw( $redirect_to );
+
+    	}
 
     }
 
@@ -166,8 +228,10 @@ class WC_pdf_admin_functions {
      */
 	public function handle_update_invoice_meta( $redirect_to, $action, $ids ) {
 
+		$changed 		= 0;
+
 		// Bail out if this is not the pdf_update_invoice_meta.
-		if ( $action === 'pdf_update_invoice_meta' && $ids != NULL ) {
+		if ( $action === 'pdf_update_invoice_meta' && $ids != NULL && $this->debug == true ) {
 
 			require_once( 'class-pdf-send-pdf-class.php' );
 			require_once( 'class-pdf-functions-class.php' );
@@ -179,9 +243,9 @@ class WC_pdf_admin_functions {
 
 			foreach ( $ids as $id ) {
 
-				$order 	 = new WC_Order( $id );
+				$order 	 = wc_get_order( $id );
 
-				$old_pdf_invoice_meta_items		 = get_post_meta( $id, '_invoice_meta', TRUE );
+				$old_pdf_invoice_meta_items		 = $order->get_meta( '_invoice_meta', TRUE );
 				$ordernote 						 = '';
 
 				$new_invoice_meta = array( 
@@ -203,11 +267,11 @@ class WC_pdf_admin_functions {
 				if( md5( json_encode($old_pdf_invoice_meta_items) ) !== md5( json_encode($new_invoice_meta) ) ) {
 
 					// Update the invoice_meta
-					update_post_meta( $id, '_invoice_meta', $new_invoice_meta );
+					WC_pdf_functions::update_order_meta_data ( '_invoice_meta', $new_invoice_meta, $order, $id );
 
 					// Update the individual invoice meta
 					foreach( $new_invoice_meta as $key => $value ) {
-						update_post_meta( $id, '_'.$key, $value );
+						WC_pdf_functions::update_order_meta_data ( '_'.$key, $value, $order, $id );
 					}
 
 					// Add an order note with the original infomation
@@ -224,11 +288,16 @@ class WC_pdf_admin_functions {
 
 				} // if( md5( json_encode($old_pdf_invoice_meta_items) ) !== md5( json_encode($new_invoice_meta) ) )
 
+				$changed++;
+
 			} // foreach ( $ids as $id ) {
 
 		}
 
-		return esc_url_raw( $redirect_to );
+		return array(
+					'changed'     => $changed,
+					'bulk_action' => 'handle_update_invoice_meta',
+				);
 
 	}
 
@@ -241,28 +310,36 @@ class WC_pdf_admin_functions {
 	 */
 	public function handle_create_invoice( $redirect_to, $action, $ids ) {
 
-		// Bail out if this is not the pdf_update_invoice_meta.
+		$changed 		= 0;
+
+		// Bail out if this is not the pdf_create_invoice.
 		if ( $action === 'pdf_create_invoice' ) {
 
 			require_once( 'class-pdf-send-pdf-class.php' );
 
 			$ids = array_map( 'absint', $ids );
-
 			// Sort Order IDs lowest to highest
 			sort( $ids );
 
 			foreach ( $ids as $id ) {
 
-				if ( get_post_meta( $id, '_invoice_number', TRUE ) == '' ) {
+				$order 	 = wc_get_order( $id );
+
+				if ( $order->get_meta( '_invoice_number', TRUE ) == '' ) {
 					// Crreate the invoice
                     WC_pdf_functions::woocommerce_completed_order_create_invoice( $id );
+
+                    $changed++;
                 }
 
 			}
 
 		}
 
-		return esc_url_raw( $redirect_to );
+		return array(
+					'changed'     => $changed,
+					'bulk_action' => 'handle_create_invoice',
+				);
 
 	}
 
@@ -282,45 +359,13 @@ class WC_pdf_admin_functions {
 			);
 
 			WC()->queue()->add( 'woocommerce_pdf_invoice_create_email_invoice', array( $args ) );
-		}
-
-		return esc_url_raw( $redirect_to );
-
-	}
-
-	/**
-	 * [action_scheduler_create_email_invoice description]
-	 * @param  [type] $args  [description]
-	 * @param  string $group [description]
-	 * @return [type]        [description]
-	 */
-	public static function action_scheduler_create_email_invoice( $args = NULL, $group = '' ) {
-
-		require_once( 'class-pdf-send-pdf-class.php' );
-
-		// Sort Order IDs lowest to highest
-		sort( $args['ids'] );
-
-		foreach ( $args['ids'] as $order_id ) {
-
-			if ( get_post_meta( $order_id, '_invoice_number', TRUE ) == '' ) {
-				// Crreate the invoice
-                WC_pdf_functions::woocommerce_completed_order_create_invoice( $order_id );
-            }
-            
-            // To stop the email being sent use the filter
-            // add_filter( 'pdf_invoice_bulk_send_invoice', 'remove_pdf_invoice_bulk_send_invoice' );
-            // function remove_pdf_invoice_bulk_send_invoice() {
-            // 	return false;
-            // }
-            $send_email = apply_filters( 'pdf_invoice_bulk_send_invoice', true );
-
-            if( $send_email ) {
-            	$order = new WC_Order( $order_id );
-				WC()->mailer()->emails['PDF_Invoice_Customer_PDF_Invoice']->trigger( $order_id, $order );
-			}
 
 		}
+
+		return array(
+					'changed'     => count( $ids ),
+					'bulk_action' => 'handle_create_email_invoice',
+				);
 
 	}
 
@@ -332,6 +377,8 @@ class WC_pdf_admin_functions {
 	 * @return [type]              [description]
 	 */
 	public function handle_email_invoice( $redirect_to, $action, $ids ) {
+
+		$changed 		= 0;
 
 		// Bail out if this is not the pdf_email_invoice.
 		if ( $action === 'pdf_email_invoice' ) {
@@ -345,18 +392,23 @@ class WC_pdf_admin_functions {
 
 			foreach ( $ids as $id ) {
 
-				if ( get_post_meta( $id, '_invoice_number', TRUE ) ) {
-					$order = new WC_Order( $id );
+				$order 	 = wc_get_order( $id );
 
-                    // Send the 'Resend Invoice', complete with PDF invoice!
+				if ( $order->get_meta( '_invoice_number', TRUE ) != '' ) {
+					// Send the 'Resend Invoice', complete with PDF invoice!
 					WC()->mailer()->emails['PDF_Invoice_Customer_PDF_Invoice']->trigger( $id, $order );
+
+					$changed++;
                 }
 
 			}
 
 		}
 
-		return esc_url_raw( $redirect_to );
+		return array(
+					'changed'     => $changed,
+					'bulk_action' => 'handle_email_invoice',
+				);
 
 	}
 
@@ -369,20 +421,22 @@ class WC_pdf_admin_functions {
 	 */
 	public function handle_delete_invoice( $redirect_to, $action, $ids ) {
 
+		$changed 		= 0;
+
 		// Bail out if this is not the pdf_delete_invoice.
-		if ( $action === 'pdf_delete_invoice' ) {
+		if ( $action === 'pdf_delete_invoice' && $this->debug == true) {
 
 			$ids = array_map( 'absint', $ids );
 
 			// Sort Order IDs lowest to highest
 			sort( $ids );
 
-			foreach ( $ids as $id ) {
+			foreach ( $ids as $order_id ) {
 
 				$ordernote 					= '';
-				$order 						= new WC_Order( $id );
+				$order 						= wc_get_order( $order_id );
 				$invoice_meta 				= WC_pdf_functions::get_invoice_meta();
-				$old_pdf_invoice_meta_items	= get_post_meta( $id, '_invoice_meta', TRUE );
+				$old_pdf_invoice_meta_items	= $order->get_meta( '_invoice_meta', TRUE );
 
 				// Add an order note with the original infomation
 				foreach( $old_pdf_invoice_meta_items as $key => $value ) {
@@ -391,23 +445,56 @@ class WC_pdf_admin_functions {
 
 				// Delete the invoice meta
 				foreach( $invoice_meta as $meta_key ) {
-					delete_post_meta( $id, $meta_key );
+					// delete_post_meta( $id, $meta_key );
+					WC_pdf_functions::delete_order_meta_data( $meta_key, $order, $order_id );
 				}
 
 				// Delete other postmeta
-				delete_post_meta( $id, '_invoice_created_mysql' );
-				delete_post_meta( $id, '_wc_pdf_invoice_created_date' );
+				WC_pdf_functions::delete_order_meta_data( '_invoice_created_mysql', $order, $order_id );
+				WC_pdf_functions::delete_order_meta_data( '_wc_pdf_invoice_created_date', $order, $order_id );
+				WC_pdf_functions::delete_order_meta_data( '_invoice_meta', $order, $order_id );
 
 				WC_pdf_admin_functions::handle_next_invoice_number();
 
 				// Add order note
 				$order->add_order_note( __("Invoice deleted. <br/>Previous details : ", 'woocommerce-pdf-invoice' ) . '<br />' . $ordernote, false, true );
 
+				$changed++;
+
 			}
 
 		}
 
-		return esc_url_raw( $redirect_to );
+		return array(
+					'changed'     => $changed,
+					'bulk_action' => 'handle_delete_invoice',
+				);
+
+	}
+
+	/**
+	 * [handle_delete_invoice description]
+	 * @param  [type] $redirect_to [description]
+	 * @param  [type] $action      [description]
+	 * @param  [type] $ids         [description]
+	 * @return [type]              [description]
+	 */
+	public function handle_bulk_export( $redirect_to, $action, $ids ) {
+
+		$changed = 0;
+
+		// Bail out if this is not the pdf_create_invoice.
+		if ( $action === 'pdf_bulk_export' && class_exists("ZipArchive") ) {
+
+			$pdf_export     = new WC_pdf_export();
+            $changed    	= $pdf_export->handle_shop_order_bulk_actions( $redirect_to, $action, $ids );
+
+		}
+
+		return array(
+					'changed'     => $changed,
+					'bulk_action' => 'handle_bulk_export',
+				); 
 
 	}
 
@@ -433,7 +520,7 @@ class WC_pdf_admin_functions {
 			$date_format = "j F, Y";
 		}
 
-		$order 	 = new WC_Order( $order_id );
+		$order 	 = wc_get_order( $order_id );
 
 		if ( $usedate == 'completed' ) {
 			$order_status = $order->get_status();
@@ -546,18 +633,73 @@ class WC_pdf_admin_functions {
 	}
 
 	/**
-	 * [bulk_post_updated_messages description]
-	 * @param  [type] $bulk_messages [description]
-	 * @param  [type] $bulk_counts   [description]
-	 * @return [type]                [description]
+	 * Show confirmation message that order has been updated for number of orders.
 	 */
-	public static function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
+	public function bulk_admin_notices() {
 
-		if( isset( $bulk_messages['shop_order']['invoiced'] ) ) {
-			$bulk_messages['shop_order']['invoiced'] = _n( '%s invoice created.', '%s invoices created.', $bulk_counts['invoiced'], 'woocommerce' );
+		// No point is going any further if the bulk_action is not set
+		if ( !isset( $_REQUEST['bulk_action'] ) ) {
+			return;
 		}
-		
-		return $bulk_messages;
+
+		$bulk_actions = array( 'handle_create_invoice', 'handle_create_email_invoice', 'handle_email_invoice', 'handle_delete_invoice','handle_update_invoice_meta', 'handle_bulk_export' );
+
+		// Bail out if not on shop order list page.
+		if ( !in_array( $_REQUEST['bulk_action'], $bulk_actions ) || !isset( $_REQUEST['bulk_action'] ) ) {
+			return;
+		}
+
+		$number         = isset( $_REQUEST['changed'] ) ? absint( $_REQUEST['changed'] ) : 0;
+		$bulk_action    = wc_clean( wp_unslash( $_REQUEST['bulk_action'] ) );
+
+		switch ( $bulk_action ) {
+		    case 'handle_create_invoice':
+		        $message = sprintf( _n( '%s invoice created.', '%s invoices created.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) );
+						echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
+		        break;
+		    case 'handle_create_email_invoice':
+		        $message = sprintf( _n( '%s order has been queued for invoicing.', '%s orders have been queued for invoicing.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) );
+						echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
+		        break;
+		    case 'handle_email_invoice':
+		        $message = sprintf( _n( '%s invoice has been emailed.', '%s invoices have been emailed.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) );
+						echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
+		        break;
+		    case 'handle_delete_invoice':
+		    	$message = sprintf( _n( '%s invoice has been deleted.', '%s invoices have been deleted.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) );
+						echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
+		        break;
+		    case 'handle_update_invoice_meta':
+		    	$message = sprintf( _n( '%s invoice has been updated.', '%s invoices have been updated.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) );
+						echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
+		        break;
+		    case 'handle_bulk_export':
+
+		    	// Set the temp directory
+                $pdftemp    = sys_get_temp_dir();
+                $upload_dir = wp_upload_dir();
+
+                if ( file_exists( $upload_dir['basedir'] . '/woocommerce_pdf_invoice/index.html' ) ) {
+                    $pdftemp = $upload_dir['basedir'] . '/woocommerce_pdf_invoice';
+                }
+
+                $zip_status = get_transient( '_pdf_export_status' );
+                $zip_file   = get_transient( '_pdf_export_zip_file' );
+                $changed    = get_transient( '_pdf_export_changed' );
+
+                if( isset( $zip_status ) && $zip_status == 0 ) {
+
+                    $exported = isset( $number ) ? absint( $number ) : 0;
+                    /* translators: %s: orders count */
+                    echo '<div class="updated"><p>' . sprintf( _n( '%s invoice added to zip file.', '%s invoices added to zip file.', $exported, 'woocommerce-pdf-invoice' ), number_format_i18n( $exported ) ) . '</p><p>' . sprintf( __( 'Download the zipfile from <a href="%1$s/%2$s.zip">%3$s.zip</a>', 'woocommerce-pdf-invoice' ), $upload_dir['baseurl'].'/woocommerce_pdf_invoice', $zip_file, $zip_file ) . '</p></div>';
+                            
+                } else {
+                    echo '<div class="error"><p>' . __('Zip file creation failed. Check the log in the WooCommerce System Status logs tab.', 'woocommerce-pdf-invoice') . '</p></div>';
+                }
+				break;
+
+		    default;
+		}
 	}
 
 	/**

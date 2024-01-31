@@ -1,0 +1,16 @@
+a.searchwp-sidebar-add-license-key,
+a.searchwp-sidebar-add-license-key:hover,
+a.searchwp-sidebar-add-license-key:focus,
+a.searchwp-sidebar-add-license-key:active {
+	color: #fff !important;
+	background-color: #df2a4a !important;
+	font-weight: normal !important;
+}
+
+a.searchwp-sidebar-upgrade-to-pro,
+a.searchwp-sidebar-upgrade-to-pro:hover,
+a.searchwp-sidebar-upgrade-to-pro:focus,
+a.searchwp-sidebar-upgrade-to-pro:active {
+	color: #fff !important;
+	background-color: #1da867 !important;
+}

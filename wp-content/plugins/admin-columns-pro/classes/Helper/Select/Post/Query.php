@@ -2,6 +2,7 @@
 
 namespace ACP\Helper\Select\Post;
 
+use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Query;
@@ -23,7 +24,7 @@ class Query extends ArrayIterator
     public function __construct(array $args = [])
     {
         $args = array_merge([
-            'posts_per_page' => 30,
+            'posts_per_page' => (new QueryTotalNumber())->apply_filter(),
             'post_type'      => 'any',
             'orderby'        => 'title',
             'order'          => 'ASC',

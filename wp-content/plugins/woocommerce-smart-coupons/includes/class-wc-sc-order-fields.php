@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -552,6 +552,13 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		 * @return float
 		 */
 		public function smart_coupon_get_discount( $discount = 0, $order_item = null ) {
+			if ( ( function_exists( 'wc_tax_enabled' ) && false === wc_tax_enabled() ) || ( get_option( 'woocommerce_calc_taxes' ) === 'no' ) ) {
+				return $discount;
+			}
+			$discount_tax = $this->is_callable( $order_item, 'get_discount_tax' ) ? $order_item->get_discount_tax() : 0;
+			if ( empty( $discount_tax ) ) {
+				return $discount;
+			}
 			$order_id = ( $this->is_callable( $order_item, 'get_order_id' ) ) ? $order_item->get_order_id() : 0;
 			if ( $this->is_old_sc_order( $order_id ) ) {
 				return $discount;
@@ -559,10 +566,6 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 			if ( is_admin() && $order_item->is_type( 'coupon' ) ) {
 				$coupon_data = $order_item->get_meta( 'coupon_data' );
 				if ( ! empty( $coupon_data['discount_type'] ) && 'smart_coupon' === $coupon_data['discount_type'] ) {
-					$discount_tax = $this->is_callable( $order_item, 'get_discount_tax' ) ? $order_item->get_discount_tax() : 0;
-					if ( empty( $discount_tax ) ) {
-						return $discount;
-					}
 					$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
 					if ( ! empty( $backtrace ) && is_array( $backtrace ) ) {
 						$args = array();

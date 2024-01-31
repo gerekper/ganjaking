@@ -560,6 +560,7 @@
 	.inline-edit-row.inline-edit-ajde_events td{
 		padding: 1em;border: 10px solid #d9d9d9; background-color: #d9d9d9;
 	}
+	.evo_quickedit_events_fields .yesno_row label{margin: 0; line-height: 1.5;}
 
 /* date time selector */
 	.evo_date_time_select{display: flex; flex-wrap: wrap;}
@@ -825,19 +826,20 @@
 
 	/* environment section in settings */
 		.evo_environment p{
-			display: flex;
+			display: flex; padding:10px;
 		    justify-content: space-between;
 		    border-bottom: 1px solid #efefef;
 		}
+		.evo_environment p.shead{font-weight: 800;text-transform: uppercase;}
 
 /* event card designer */
 	.evocard_design_holder{
 		background: linear-gradient(45deg, #52b4e4, #a2defd);
 	    padding: 15px;
-	    border-radius: 10px;
+	    border-radius: 20px;
 	    margin-bottom: 10px;
 	}
-	.ecd_row{background-color: #eaeaea; border-radius: 8px;	}
+	.ecd_row{background-color: #eaeaea; border-radius: 15px;	}
 	.ecd_row.L .ecd_row_in{flex-direction: row-reverse;}
 	.ecd_row, .ecd_row_in{display: flex;align-items: center;	}
 	.ecd_row_box_h, .ecd_row_in{flex:1;}
@@ -845,7 +847,7 @@
 	.ecd_row .fa:hover, .ectd_act .fa:hover{color: #ff4242;}
 	.ecd_row_box{
 		background-color: #fff;
-	    border-radius: 5px;
+	    border-radius: 8px;
 	    margin: 5px;
 	    display: flex; justify-content: space-between; align-items: center;
 	    flex: 1; font-size: 14px;
@@ -930,7 +932,7 @@
 	.evotop_designer .evotop_design_holder{
 		background: linear-gradient(45deg, #52b4e4, #a2defd);
 	    padding: 15px;
-	    border-radius: 10px;
+	    border-radius: 20px;
 	    margin-bottom: 10px;
 	        flex-direction: row;
 	    display: flex;flex-wrap: wrap;
@@ -940,7 +942,7 @@
 		    display: flex;
 	    flex-direction: column;
 	    background-color: #eaeaea;
-	    border-radius: 5px;
+	    border-radius: 10px;
 	    padding: 5px;
 	    flex: 1;
 	}

@@ -38504,8 +38504,8 @@
 				trimAfter: parseInt(_SEARCHWP.trimAfter,10),
 				trimAfterOptions: [
 					{ label: __('Never'), value: 0 },
-					{ label: __('After 30 days'), value: 30 },
-					{ label: __('After 1 year'), value: 365 },
+					{ label: __('30 days'), value: 30 },
+					{ label: __('1 year'), value: 365 },
 				],
 				canEditSettings: _SEARCHWP.canEditSettings,
 			}

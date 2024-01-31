@@ -2,7 +2,7 @@
 /**
  * WC_CP_Admin_Notices class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  */
 
 // Exit if accessed directly.
@@ -343,19 +343,19 @@ class WC_CP_Admin_Notices {
 					$prompt = self::get_force_update_prompt();
 				}
 				/* translators: prompt. */
-				$status = sprintf( __( '<strong>WooCommerce Composite Products</strong> is updating your database.%s', 'woocommerce-composite-products' ), $prompt );
+				$status = sprintf( __( '<strong>Woo Composite Products</strong> is updating your database.%s', 'woocommerce-composite-products' ), $prompt );
 
 			// Show a prompt to update.
 			} elseif ( false === WC_CP_Install::auto_update_enabled() && false === WC_CP_Install::is_update_incomplete() ) {
 
-				$status  = __( '<strong>WooCommerce Composite Products</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well.', 'woocommerce-composite-products' );
+				$status  = __( '<strong>Woo Composite Products</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well.', 'woocommerce-composite-products' );
 				/* translators: link to documentation. */
 				$status .= '<br/>' . sprintf( __( 'Before you proceed, please take a few minutes to <a href="%s" target="_blank">learn more</a> about best practices when updating.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'updating' ) );
 				$status .= self::get_trigger_update_prompt();
 
 			} elseif ( WC_CP_Install::is_update_incomplete() ) {
 				/* translators: failed prompt. */
-				$status = sprintf( __( '<strong>WooCommerce Composite Products</strong> has not finished updating your database.%s', 'woocommerce-composite-products' ), self::get_failed_update_prompt() );
+				$status = sprintf( __( '<strong>Woo Composite Products</strong> has not finished updating your database.%s', 'woocommerce-composite-products' ), self::get_failed_update_prompt() );
 			}
 
 			if ( $status ) {
@@ -364,7 +364,7 @@ class WC_CP_Admin_Notices {
 
 		// Show persistent notice to indicate that the update process is complete.
 		} else {
-			$notice = __( '<strong>WooCommerce Composite Products</strong> database update complete. Thank you for updating to the latest version!', 'woocommerce-composite-products' );
+			$notice = __( '<strong>Woo Composite Products</strong> database update complete. Thank you for updating to the latest version!', 'woocommerce-composite-products' );
 			self::add_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'update' ) );
 		}
 	}
@@ -394,7 +394,7 @@ class WC_CP_Admin_Notices {
 		<p class="sw-welcome-text">
 			<?php
 				/* translators: onboarding url */
-				echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>WooCommerce Composite Products</strong>. Ready to get started? <a href="%s">Click here to create your first composite product</a>.', 'woocommerce-composite-products' ), admin_url( 'post-new.php?post_type=product&wc_cp_first_composite=1' ) ) );
+				echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>Woo Composite Products</strong>. Ready to get started? <a href="%s">Click here to create your first composite product</a>.', 'woocommerce-composite-products' ), admin_url( 'post-new.php?post_type=product&wc_cp_first_composite=1' ) ) );
 			?>
 		</p>
 		<?php

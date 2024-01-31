@@ -51,7 +51,6 @@ class ThePlus_Gallery_ListOut extends Widget_Base {
 		return [ 'gallery', 'image', 'image carousel', 'image listing', 'tp', 'theplus'];
 	}
 
-
     protected function register_controls() {
 
 		$this->start_controls_section(

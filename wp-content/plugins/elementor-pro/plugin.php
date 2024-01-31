@@ -327,7 +327,7 @@ class Plugin {
 			[
 				'jquery',
 			],
-			'1.0.1',
+			'1.2.1',
 			true
 		);
 

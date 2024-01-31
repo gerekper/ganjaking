@@ -3,7 +3,7 @@
  * calendar outter shell content.
  *
  * @class 		evo_cal_shell
- * @version		2.4.11
+ * @version		4.5.5
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -59,56 +59,72 @@ class evo_cal_shell {
 			}
 		}
 
+	
 
 	// generate calendar date range and starting month year
-	// v2.8
+	// v2.8 @u 4.5.5
 		function set_calendar_range($atts=''){
 
+
+			EVO()->cal->set_cur('evcal_1'); // set the current settings 
 
 			$SC = $this->cal->shortcode_args;
 			extract($SC);
 
 			if(empty($focus_start_date_range) && empty($focus_end_date_range)){
 
-				$DD = new DateTime();
-				$DD->setTimezone( $this->cal->timezone0 );
-				$DD->setTimestamp( $this->cal->current_time );
-				$DD->setTime(0,0,0); // move to start of the day
+				// get local month and year now
+					$DD = new DateTime('now'); // time now in unix epoch
+					$DD->setTimezone( $this->cal->cal_tz ); // local tz based off eventon settings tz
+
+					$unix_now = $DD->format('U');
+
+					// move to start of day
+					$DD->setTime(0,0,0);
+
 				
 				// set fixed day, if shortcode fixed day is empty
-				if(!isset($SC['fixed_day'])){
-					$this->cal->_update_sc_args('fixed_day', $DD->format('j'));
-					$this->cal->shortcode_args['fixed_day'] = $DD->format('j');
-				} 				
+					if(!isset($SC['fixed_day'])){
+						$this->cal->_update_sc_args('fixed_day', $DD->format('j'));
+						$this->cal->shortcode_args['fixed_day'] = $DD->format('j');
+					} 				
 				
+				// move to first day of month
 				$DD->modify('first day of this month');
 
 				// set event fetching range
 				$_start = $DD->format('U');
 
-				// month increment value
-				if(!empty($month_incre) && $month_incre != 0){
 
-					// for + values
-					if( strpos($month_incre, '+') === false  && strpos($month_incre, '-') === false)
-						$month_incre = '+'.$month_incre;
+				// IF month increment value
+					if(!empty($month_incre) && $month_incre != 0){
 
-					if( strpos($month_incre, '+') !== false ) $month_incre = '+'.(int)$month_incre;
-					if( strpos($month_incre, '-') !== false ) $month_incre = '-'.(int)( str_replace('-', '', $month_incre ));
-						 
-					$DD->modify( $month_incre.'month');
-					$_start = $DD->format('U');
-				}
+						// for + values
+						if( strpos($month_incre, '+') === false  && strpos($month_incre, '-') === false)
+							$month_incre = '+'.$month_incre;
 
-				$fixed_month = (int)$fixed_month;
-				$fixed_year = (int)$fixed_year;				
+						if( strpos($month_incre, '+') !== false ) $month_incre = '+'.(int)$month_incre;
+						if( strpos($month_incre, '-') !== false ) $month_incre = '-'.(int)( str_replace('-', '', $month_incre ));
+							 
+						$DD->modify( $month_incre.'month');
+						$_start = $DD->format('U');
+					}
 
-				// fixed month & year
-				if( $fixed_month> 0 && $fixed_year >0){
-					$DD->modify( $fixed_year .'-'. $fixed_month  );
-					$_start = $DD->format('U');
-				}
+				// current start month values
+					$loc_d = $DD->format('j');
+					$loc_m = $DD->format('n');
+					$loc_y = $DD->format('Y');
 
+				$fixed_month = empty($fixed_month) ? $loc_m : (int)$fixed_month;
+				$fixed_year = empty($fixed_year) ? $loc_y :(int)$fixed_year;		
+		
+
+				// IF fixed month & year -- modify start
+					if( (int)$fixed_month > 0 && (int)$fixed_year > 0){
+						$DD->modify( $fixed_year .'-'. $fixed_month .'-1' );
+						$DD->setTime(0,0,0);
+						$_start = $DD->format('U');
+					}
 				
 				$this->cal->_update_sc_args('focus_start_date_range', $_start);
 				$this->cal->_update_sc_args('fixed_month', $DD->format('n'));
@@ -126,12 +142,17 @@ class evo_cal_shell {
 				$this->cal->_update_sc_args('focus_end_date_range', $DD->format('U'));
 
 
+
 			}else{
 
-				if(empty($atts['fixed_month'])) $this->cal->_update_sc_args('fixed_month', date('n', $focus_start_date_range));
-				if(empty($atts['fixed_year'])) $this->cal->_update_sc_args('fixed_year', date('Y', $focus_start_date_range));
+				$DD = new DateTime('now');
+				$DD->setTimezone( $this->cal->cal_tz );
+				$DD->setTimestamp( $focus_start_date_range );
+
+				if(empty($atts['fixed_month'])) $this->cal->_update_sc_args('fixed_month', $DD->format('n') );
+				if(empty($atts['fixed_year'])) $this->cal->_update_sc_args('fixed_year', $DD->format('Y') );
 				if(empty($atts['fixed_day']) && !isset($this->cal->shortcode_args['fixed_day'])){
-					$this->cal->_update_sc_args('fixed_day', date('j', $focus_start_date_range));
+					$this->cal->_update_sc_args('fixed_day', $DD->format('j'));
 				} 
 
 			}
@@ -139,7 +160,7 @@ class evo_cal_shell {
 		}
 
 	// check if a event dates are in set calendar date range
-		// $start end = date range
+	// $S, $E is date range $start, $end event time to check
 		function is_in_range($S, $E, $start, $end){
 			return (
 				($E == 0 && $S == 0) ||

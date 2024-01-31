@@ -1,3 +1,6 @@
+<?php
+use function Ali2Woo\get_setting;
+?>
 <div class="a2w-content">    
     <div class="panel panel-primary">
         <div class="panel-heading panel-heading_column">
@@ -14,11 +17,11 @@
                     <label for="a2w_item_purchase_code" class="<?php echo isset($errors['a2w_item_purchase_code']) ? "has-error" : ""; ?>">                 
                         <strong><?php echo esc_html_x('Input your Purchase code', 'Wizard', 'ali2woo'); ?></strong>
                     </label>
-                    <p><?php esc_html_e('You can find the purchase code in your CodeCanyon account, then go to the "Downloads" page and locate the plugin there. Click "License certificate & purchase code" (available as PDF or text file).', 'ali2woo'); ?></p>
+                    <p><?php esc_html_e('You can find the purchase code in the email that you get after purchasing the plugin.', 'ali2woo'); ?></p>
                 </div>
                 <div class="field__input-wrap">
                     <div class="field__input form-group input-block no-margin <?php echo isset($errors['a2w_item_purchase_code']) ? "has-error" : ""; ?>">
-                        <input placeholder="<?php esc_html_e('CodeCanyon purchase code', 'ali2woo') ?>" type="<?php echo ( a2w_check_defined('A2W_HIDE_KEY_FIELDS') ? 'password' : 'text'); ?>" class="field__input form-control large-input" id="a2w_item_purchase_code" name="a2w_item_purchase_code" value="<?php echo esc_attr(a2w_get_setting('item_purchase_code')); ?>"/>
+                        <input placeholder="<?php esc_html_e('Purchase code', 'ali2woo') ?>" type="<?php echo ( a2w_check_defined('A2W_HIDE_KEY_FIELDS') ? 'password' : 'text'); ?>" class="field__input form-control large-input" id="a2w_item_purchase_code" name="a2w_item_purchase_code" value="<?php echo esc_attr(get_setting('item_purchase_code')); ?>"/>
                         <span class="help-block"><?php echo isset($errors['a2w_item_purchase_code']) ? $errors['a2w_item_purchase_code'] : ""; ?></span>
                     </div>             
                 </div>
@@ -34,7 +37,7 @@
                 </div>
                 <div class="field__input-wrap">
                     <div class="form-group input-block no-margin">
-                        <?php $cur_language = a2w_get_setting('import_language'); ?>
+                        <?php $cur_language = get_setting('import_language'); ?>
                         <select name="a2w_import_language" id="a2w_import_language" class="field__input form-control small-input">
                             <?php foreach ( $languages as $code => $text) : ?>
                                 <option value="<?php echo $code; ?>" <?php if ($cur_language == $code): ?>selected="selected"<?php endif; ?>><?php echo $text; ?></option>
@@ -54,7 +57,7 @@
                 <div class="field__input-wrap">
                     <div class="field__input form-group input-block no-margin">
                         <?php 
-                            $cur_a2w_local_currency = strtoupper(a2w_get_setting('local_currency')); 
+                            $cur_a2w_local_currency = strtoupper(get_setting('local_currency')); 
                         ?>
                         <select name="field__input a2w_local_currency" id="a2w_local_currency" class="form-control small-input">
                             <?php foreach($currencies as $code=>$name):?><option value="<?php echo $code;?>" <?php if ($cur_a2w_local_currency == $code): ?>selected="selected"<?php endif; ?>><?php echo $name;?></option><?php endforeach; ?>
@@ -131,8 +134,8 @@
                 </div>
                 <div class="field__input-wrap">
                     <div class="field__input form-group input-block no-margin <?php echo isset($errors['a2w_fulfillment_phone_block']) ? "has-error" : ""; ?>">
-                        <input type="text" placeholder="code" style="max-width: 60px;" class="field__input form-control" id="a2w_fulfillment_phone_code" maxlength="5" name="a2w_fulfillment_phone_code" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_code')); ?>" />
-                        <input type="text" placeholder="phone" class="field__input form-control large-input" id="a2w_fulfillment_phone_number" maxlength="16" name="a2w_fulfillment_phone_number" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_number')); ?>" />
+                        <input type="text" placeholder="code" style="max-width: 60px;" class="field__input form-control" id="a2w_fulfillment_phone_code" maxlength="5" name="a2w_fulfillment_phone_code" value="<?php echo esc_attr(get_setting('fulfillment_phone_code')); ?>" />
+                        <input type="text" placeholder="phone" class="field__input form-control large-input" id="a2w_fulfillment_phone_number" maxlength="16" name="a2w_fulfillment_phone_number" value="<?php echo esc_attr(get_setting('fulfillment_phone_number')); ?>" />
                         <span class="field__input help-block"><?php echo isset($errors['a2w_fulfillment_phone_block']) ? $errors['a2w_fulfillment_phone_block'] : ""; ?></span>
                     </div>
                 </div>

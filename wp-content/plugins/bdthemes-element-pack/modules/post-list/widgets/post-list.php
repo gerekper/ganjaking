@@ -92,7 +92,7 @@ class Post_List extends Module_Base {
 		$this->add_control(
 			'show_image',
 			[
-				'label'   => esc_html__('Image', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'   => esc_html__('Featured Image', 'bdthemes-element-pack') . BDTEP_NC,
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
@@ -233,8 +233,11 @@ class Post_List extends Module_Base {
 		$this->start_controls_section(
 			'section_style_image',
 			[
-				'label' => __('Image', 'bdthemes-element-pack'),
+				'label' => __('Featured Image', 'bdthemes-element-pack'),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_image' => 'yes',
+				],
 			]
 		);
 

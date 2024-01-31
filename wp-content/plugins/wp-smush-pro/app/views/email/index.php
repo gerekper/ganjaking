@@ -173,7 +173,7 @@
                                 <td style="font-size:0;height:25px;vertical-align:middle;width:25px;">
                                   <a href="https://www.facebook.com/wpmudev" target="_blank">
                                     <span class="smush-light-img">
-                                      <img height="25" src="https://mcusercontent.com/53a1e972a043d1264ed082a5b/images/2ebf5329-b6fa-d7ab-330a-376099e5186a.png" style="border-radius:3px;display:block;" width="25" alt="" />
+                                      <img height="25" src="https://ci3.googleusercontent.com/meips/ADKq_NZAhxcXF5H6F6zqEl6kws6_d-WEBGVfkcejYfTMHmaUUMDGS55LWNdYEoAqPTD8TCwXZwpjr4NU-gjknIql97H63Sieiwn-wQ=s0-d-e1-ft" style="border-radius:3px;display:block;" width="25" alt="" />
                                     </span>
                                     <span class="smush-dark-img" style="display:inline-block;display:none;width:0;height:0;visibility:hidden;margin:0;padding:0">
                                       <img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/email/facebook-dark-mode.png' ); ?>" style="border-radius:3px;display:block;" width="25" height="25" alt="" />
@@ -194,7 +194,7 @@
                                 <td style="font-size:0;height:25px;vertical-align:middle;width:25px;">
                                   <a href="https://www.instagram.com/wpmu_dev/" target="_blank">
                                     <span class="smush-light-img">
-                                      <img height="25" src="https://mcusercontent.com/53a1e972a043d1264ed082a5b/images/2fdea1f1-c823-e43d-68a2-279fc2f254a0.png" style="border-radius:3px;display:block;" width="25" alt="" />
+                                      <img height="25" src="https://ci3.googleusercontent.com/meips/ADKq_NYj1QdHLge1_Ks9F7COiJVae93tgjThv7s0fYjAmteGWAcIFKEm2LRdjcmc9n40_FmTmMShEFxdFu6XwwvljQvGNKVpzBU8R88=s0-d-e1-ft" style="border-radius:3px;display:block;" width="25" alt="" />
                                     </span>
                                     <span class="smush-dark-img" style="display:inline-block;display:none;width:0;height:0;visibility:hidden;margin:0;padding:0">
                                       <img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/email/instagram-dark-mode.png' ); ?>" style="border-radius:3px;display:block;" width="25" height="25" alt="" />
@@ -215,7 +215,7 @@
                                 <td style="font-size:0;height:25px;vertical-align:middle;width:25px;">
                                   <a href="https://twitter.com/wpmudev" target="_blank">
                                     <span class="smush-light-img">
-                                      <img height="25" src="https://mcusercontent.com/53a1e972a043d1264ed082a5b/images/025ac077-8a43-38ac-89d8-c331106e1c35.png" style="border-radius:3px;display:block;" width="25" alt="" />
+                                      <img height="25" src="https://ci3.googleusercontent.com/meips/ADKq_NblzavICscMS8Fhx3ppS_aNUNPUthQJaoele9REZh5x2Cu522fm-JdO6OtccsDnIewUjjkIIZwuqqaldUw9oGf21JxCTS8fIDA=s0-d-e1-ft" style="border-radius:3px;display:block;" width="25" alt="" />
                                     </span>
                                     <span class="smush-dark-img" style="display:inline-block;display:none;width:0;height:0;visibility:hidden;margin:0;padding:0">
                                       <img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/email/twitter-dark-mode.png' ); ?>" style="border-radius:3px;display:block;" width="25" height="25" alt="" />

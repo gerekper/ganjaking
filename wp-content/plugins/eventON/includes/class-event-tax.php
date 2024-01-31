@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Taxonomy Class 
- * @version 4.4
+ * @version 4.5.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; 
@@ -75,7 +75,8 @@ class EVO_Event_Tax {
 						foreach( $EVENT->get_organizer_social_meta_array() as $f=>$k){
 							if( empty($org_data_this->$f)) continue;
 
-							$social_html .= "<a class='pad10' target='_blank' href='". $org_data_this->$f. "'><i class='fa fa-{$f}'></i></a>";
+							$icon = ($f == 'twitter') ? 'x-'. $f : $f;
+							$social_html .= "<a class='pad10' target='_blank' href='". $org_data_this->$f. "'><i class='fa fa-{$icon}'></i></a>";
 						}
 
 						if(!empty($social_html)){

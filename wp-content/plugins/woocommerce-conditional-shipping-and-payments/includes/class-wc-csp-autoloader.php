@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Conditional Shipping and Payments Autoloader.
+ * Woo Conditional Shipping and Payments Autoloader.
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.4.0
  */
 

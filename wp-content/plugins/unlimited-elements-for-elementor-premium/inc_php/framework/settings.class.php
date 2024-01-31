@@ -94,9 +94,11 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		protected $arrSettings = array();
 		protected $arrIndex = array();	//index of name->index of the settings.
+		
 		protected $arrSaps = array();
 		protected $currentSapKey = 0;
-
+		protected $arrSapIndex = array();
+		
 		//controls:
 		protected $arrControls = array();		//array of items that controlling others (hide/show or enabled/disabled)
 		protected $arrControlChildren = array();
@@ -155,7 +157,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		//-----------------------------------------------------------------------------------------------
 		// add the section value to the setting
 		private function checkAndAddSap($setting){
-
+			
 			$setting["sap"] = $this->currentSapKey;
 
 			return($setting);
@@ -456,6 +458,50 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		private function a_________SAPS_________(){}
 
+		/**
+		 *
+		 * add saporator
+		 */
+		public function addSap($text, $name, $tab = null, $params = array()){
+			
+			if(is_array($name))
+				UniteFunctionsUC::throwError("addSap function: sap name can't be array: $text");
+			
+			if(empty($tab))
+				$tab = self::TAB_CONTENT;
+
+			if(empty($text))
+				UniteFunctionsUC::throwError("sap $name must have a text");
+			
+			if(empty($name))
+				$name = "uc_sap_".UniteFunctionsUC::getRandomString();
+			
+			$opened = UniteFunctionsUC::getVal($params, "opened");
+			$icon = UniteFunctionsUC::getVal($params, "icon");
+
+			//create sap array
+			$sap = array();
+			$sap["name"] = $name;
+			$sap["text"] = $text;
+			$sap["icon"] = $icon;
+			$sap["tab"] = $tab;
+						
+			if(!empty($params))
+				$sap = array_merge($sap, $params);
+
+			if($opened === true)
+				$sap["opened"] = true; 
+
+			$this->arrSaps[] = $sap;
+
+			$this->currentSapKey = count($this->arrSaps)-1;
+			
+			$this->arrSapIndex[$name] = $this->currentSapKey;
+			
+		}
+		
+		
+		
 		//-----------------------------------------------------------------------------------------------
 		//get number of settings
 		public function getNumSettings(){
@@ -478,45 +524,92 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * get sap data
 		 */
 		public function getSap($sapKey){
-
+						
 			$arrSap = UniteFunctionsUC::getVal($this->arrSaps, $sapKey);
+			
 			if(empty($arrSap))
 				UniteFunctionsUC::throwError("sap with key: $sapKey not found");
 
 			return($arrSap);
 		}
 
+		/**
+		 * get sap data
+		 */
+		public function getSapByName($sapName){
+			
+			if(isset($this->arrSapIndex[$sapName]) == false)
+				UniteFunctionsUC::throwError("sap with name: $sapName not found");
+			
+			$index = UniteFunctionsUC::getVal($this->arrSapIndex, $sapName);
+			
+			$arrSap = UniteFunctionsUC::getVal($this->arrSaps, $index);
+			
+			if(empty($arrSap))
+				UniteFunctionsUC::throwError("sap with key: $index not found");
+			
+			return($arrSap);
+		}
+		
 
 		/**
 		 * get sap by name
 		 */
 		protected function getSapKeyByName($name){
 
-			foreach($this->arrSaps as $key=>$sap){
-				if($sap["name"] == $name)
-					return($key);
-			}
-
-			return(null);
+			if(isset($this->arrSapIndex[$name]) == false)
+				return(null);
+			
+			$index = UniteFunctionsUC::getVal($this->arrSapIndex, $name);
+			
+			return($index);
 		}
 
 		/**
 		 * hide sap from showing
 		 */
 		public function hideSap($name){
-
-			foreach($this->arrSaps as $key=>$sap){
-
-				$sapName = UniteFunctionsUC::getVal($sap, "name");
-
-				if($sapName == $name){
-					$this->arrSaps[$key]["hidden"] = true;
-				}
-
-			}
-
+			
+			$this->updateSapProperty($name, "hidden", true);
+			
 		}
+		
+		
+		/**
+		 * update property of some sap
+		 */
+		public function updateSapProperty($sapName, $propertyName, $value){
+			
+			try{
+								
+				$sap = $this->getSapByName($sapName);
+				
+				if(empty($sap))
+					return(false);
 
+			}catch(Exception $e){
+				return(false);
+			}
+			
+			$sap[$propertyName] = $value;
+			
+			$this->updateSapByName($sapName, $sap);
+		}
+		
+		/**
+		 * update sap by name
+		 */
+		private function updateSapByName($sapName, $sap){
+			
+			if(isset($this->arrSapIndex[$sapName]) == false)
+				UniteFunctionsUC::throwError("sap with name: $sapName not found");
+			
+			$index = UniteFunctionsUC::getVal($this->arrSapIndex, $sapName);
+			
+			$this->arrSaps[$index] = $sap;
+		}
+		
+		
 		private function a_________ADD_________(){}
 
 		//private function
@@ -531,6 +624,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		//-----------------------------------------------------------------------------------------------
 		//add text area control
 		public function addTextArea($name,$defaultValue,$text,$arrParams = array()){
+
+			$arrParams["label_block"] = true;
+
 			$this->add($name,$defaultValue,$text,self::TYPE_TEXTAREA,$arrParams);
 		}
 
@@ -570,20 +666,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$this->add($name,$defaultValue,$text,self::TYPE_HIDDEN,$arrParams);
 		}
 
-
 		/**
 		 * add range slider
 		 */
 		public function addRangeSlider($name, $defaultValue = "",$text = "",$arrParams = array()){
 
-			if(isset($arrParams["unit"])){
-				$arrParams["range_unit"] = $arrParams["unit"];
-				unset($arrParams["unit"]);
-			}
+			$arrParams["label_block"] = true;
 
 			$this->add($name,$defaultValue,$text,self::TYPE_RANGE,$arrParams);
 		}
-
 
 		/**
 		 * add text box
@@ -596,6 +687,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * add link setting
 		 */
 		public function addLink($name,$defaultValue = "",$text = "",$arrParams = array()){
+
+			$arrParams["label_block"] = true;
+
 			$this->add($name,$defaultValue,$text,self::TYPE_LINK,$arrParams);
 		}
 
@@ -670,6 +764,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$arrParams["settings_items"] = $settingsItems;
 			$arrParams["items_values"] = $arrValues;
+			$arrParams["label_block"] = true;
 
 			$this->add($name, null, $text, self::TYPE_REPEATER, $arrParams);
 		}
@@ -786,45 +881,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$params = array("items"=>$arrItems);
 			$params = array_merge($params,$arrParams);
+			$params["label_block"] = true;
 
 			$this->add($name,$defaultItem,$text,self::TYPE_MULTISELECT,	$params);
 		}
 
 
-		/**
-		 *
-		 * add saporator
-		 */
-		public function addSap($text, $name="", $tab = null, $params = array()){
-						
-			if(empty($tab))
-				$tab = self::TAB_CONTENT;
-
-			if(empty($text))
-				UniteFunctionsUC::throwError("sap $name must have a text");
-
-
-			$opened = UniteFunctionsUC::getVal($params, "opened");
-			$icon = UniteFunctionsUC::getVal($params, "icon");
-
-			//create sap array
-			$sap = array();
-			$sap["name"] = $name;
-			$sap["text"] = $text;
-			$sap["icon"] = $icon;
-			$sap["tab"] = $tab;
-
-			if(!empty($params))
-				$sap = array_merge($sap, $params);
-
-			if($opened === true)
-				$sap["opened"] = true;
-
-			$this->arrSaps[] = $sap;
-
-			$this->currentSapKey = count($this->arrSaps)-1;
-
-		}
 
 		/**
 		 * function for override
@@ -935,7 +997,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$setting = $this->modifyBeforeAdd($setting, $modifyType);
 			}
 
-
+			
 			$this->addSettingByArray($setting);
 		}
 
@@ -957,7 +1019,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$setting["id"] = $this->idPrefix.$name;
 			$setting["id_service"] = $setting["id"]."_service";
 			$setting["id_row"] = $setting["id"]."_row";
-
+			
 			//add sap key and sap keys
 
 			$setting = $this->checkAndAddSap($setting);
@@ -1028,14 +1090,17 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					$this->addControlChildArray($cname, $control_item_name);
 				}
 			}else{
-				$arrControl[$controlled_item_name] = array("type"=>$control_type, "value"=>$value);
-
+				
+				$arrControlValue = array("type"=>$control_type, "value"=>$value);
+				
+				if($isSap == true)
+					$arrControlValue["forsap"] = true;
+				
+				$arrControl[$controlled_item_name] = $arrControlValue;
+				
 				$this->addControlChildArray($controlled_item_name, $control_item_name);
 			}
-			
-			if($isSap == true)
-				$arrControl["forsap"] = true;
-			
+						
 			$this->arrControls[$control_item_name] = $arrControl;
 
 		}
@@ -1082,15 +1147,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * get control action
 		 */
 		private function getControlAction($parentName, $arrControl){
-						
+
 			$value = UniteFunctionsUC::getVal($arrControl, "value");
 			$type = UniteFunctionsUC::getVal($arrControl, "type");
-			
+
 			if(empty($type))
 				return(null);
-			
+
 			$parentValue = $this->getSettingValue($parentName);
-			
+
 			switch($type){
 				case self::CONTROL_TYPE_ENABLE:
 					if($this->isControlValuesEqual($parentValue, $value) == false)
@@ -1118,32 +1183,46 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * set sattes of the settings (enabled/disabled, visible/invisible) by controls
 		 */
 		public function setSettingsStateByControls(){
-						
+			
 			if(empty($this->arrControls))
 				return(false);
 
-			
 			foreach($this->arrControlChildren as $childName => $arrParents){
-
+				
 				foreach($arrParents as $parentName){
-
+															
 					$arrControl = $this->arrControls[$parentName][$childName];
 					$action = $this->getControlAction($parentName, $arrControl);
-
+					
+					$isSap = UniteFunctionsUC::getVal($arrControl, "forsap");
+					$isSap = UniteFunctionsUC::strToBool($isSap);
+					
+					
 					if($action == "disable"){
-						$this->updateSettingProperty($childName, "disabled", true);
+						
+						if($isSap == true)
+							$this->updateSapProperty($childName, "disabled", true);
+						else
+							$this->updateSettingProperty($childName, "disabled", true);
+						
 						break;
 					}
 
 					if($action == "hide"){
-						$this->updateSettingProperty($childName, "hidden", true);
+						
+						if($isSap == true)
+							$this->updateSapProperty($childName, "hidden", true);
+						else
+							$this->updateSettingProperty($childName, "hidden", true);
+						
 						break;
 					}
 
 				}
 
 			}
-
+			
+			
 		}
 
 
@@ -1174,7 +1253,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			foreach($this->arrBulkControl as $control)
 				$this->addControl($control["control_name"],$name, $control["type"], $control["value"]);
-		
+
 		}
 
 
@@ -1186,10 +1265,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * load settings from xml file
 		 */
 		public function loadXMLFile($filepath, $loadedSettingsType = null){
-			
-			
+
+
 			$obj = UniteFunctionsUC::loadXMLFile($filepath);
-			
+
 			if(empty($obj))
 				UniteFunctionsUC::throwError("Wrong xml file format: $filepath");
 
@@ -1240,7 +1319,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 				//check for duplicate sap
 				$sapKey = $this->getSapKeyByName($sapName);
-
+				
 				if($sapKey === null)
 					$this->addSap($sapLabel, $sapName, false, $sapIcon, $sapParams);
 				else{
@@ -1714,11 +1793,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 
-
-
 		private function a__________UPDATE____________(){}
 
-
+		
 		/**
 		 * set addtext to the setting
 		 */
@@ -1745,7 +1822,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$this->updateArrSettingByName($settingName, $setting);
 		}
-
+		
 
 		/**
 		 *

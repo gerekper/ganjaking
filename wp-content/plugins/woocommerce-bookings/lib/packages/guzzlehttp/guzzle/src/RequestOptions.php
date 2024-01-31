@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -11,9 +11,7 @@ namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 /**
  * This class contains a list of built-in Guzzle request options.
  *
- * More documentation for each option can be found at http://guzzlephp.org/.
- *
- * @see http://docs.guzzlephp.org/en/v6/request-options.html
+ * @see https://docs.guzzlephp.org/en/latest/request-options.html
  */
 final class RequestOptions
 {

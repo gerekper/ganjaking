@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Admin_Notices class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.5.0
  */
 
@@ -311,13 +311,13 @@ class WC_CSP_Admin_Notices {
 			}
 
 			if ( $status ) {
-				$notice = '<strong>' . __( 'WooCommerce Conditional Shipping and Payments Data Update', 'woocommerce-conditional-shipping-and-payments' ) . '</strong> &#8211; ' . $status;
+				$notice = '<strong>' . __( 'Woo Conditional Shipping and Payments Data Update', 'woocommerce-conditional-shipping-and-payments' ) . '</strong> &#8211; ' . $status;
 				self::add_notice( $notice, 'native' );
 			}
 
 		// Show persistent notice to indicate that the update process is complete.
 		} else {
-			$notice = __( 'WooCommerce Conditional Shipping and Payments data update complete.', 'woocommerce-conditional-shipping-and-payments' );
+			$notice = __( 'Woo Conditional Shipping and Payments data update complete.', 'woocommerce-conditional-shipping-and-payments' );
 			self::add_notice( $notice, array( 'type' => 'native', 'dismiss_class' => 'update' ) );
 		}
 	}
@@ -380,7 +380,7 @@ class WC_CSP_Admin_Notices {
 			<p class="sw-welcome-text">
 				<?php
 					/* translators: onboarding url */
-					echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>WooCommerce Conditional Shipping and Payments</strong>. Ready to get started? <a href="%s">Click here to create your first shipping or payment option restriction</a>.', 'woocommerce-conditional-shipping-and-payments' ), admin_url( 'admin.php?page=wc-settings&tab=restrictions' ) ) );
+					echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>Woo Conditional Shipping and Payments</strong>. Ready to get started? <a href="%s">Click here to create your first shipping or payment option restriction</a>.', 'woocommerce-conditional-shipping-and-payments' ), admin_url( 'admin.php?page=wc-settings&tab=restrictions' ) ) );
 				?>
 			</p>
 			<?php

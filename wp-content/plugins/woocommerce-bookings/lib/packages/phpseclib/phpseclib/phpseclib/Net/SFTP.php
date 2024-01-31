@@ -30,7 +30,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -3298,6 +3298,7 @@ class SFTP extends SSH2
         $this->use_request_id = false;
         $this->pwd = false;
         $this->requestBuffer = [];
+        $this->partial_init = false;
     }
 
     /**

@@ -41,6 +41,10 @@ class Frontend {
      */
     public static function assets() {
 
+	    if ( ! isset( $_GET['swps'] ) ) {
+		    return;
+	    }
+
         wp_enqueue_style(
             'searchwp-results-page',
             SEARCHWP_PLUGIN_URL . 'assets/css/frontend/results-page.css',
@@ -207,7 +211,7 @@ class Frontend {
         <?php if ( ! empty( $search_results ) ) : ?>
             <?php foreach ( $search_results as $search_result ) : ?>
                 <?php $display_data = self::get_display_data( $search_result ); ?>
-                <article id="post-0" class="swp-result-item post-0 post type-post status-publish format-standard hentry category-uncategorized entry">
+                <article class="swp-result-item post-<?php echo absint( $display_data['id'] ); ?> post type-<?php echo esc_attr( $display_data['type'] ); ?> status-publish format-standard hentry category-uncategorized entry">
                     <?php if ( ! empty( $display_data['image_html'] ) && ! empty( $settings['swp-image-size'] ) && $settings['swp-image-size'] !== 'none' ) : ?>
                         <div class="swp-result-item--img-container">
                             <div class="swp-result-item--img">

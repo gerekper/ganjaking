@@ -17,7 +17,7 @@
  */
 class WPSEO_Facebook_Profile {
 
-	const TRANSIENT_NAME = 'yoast_facebook_profiles';
+	public const TRANSIENT_NAME = 'yoast_facebook_profiles';
 
 	/**
 	 * URL providing us the full name belonging to the user.
@@ -31,6 +31,8 @@ class WPSEO_Facebook_Profile {
 	 *
 	 * @deprecated 20.3
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function set_hooks() {
 		_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.3' );
@@ -42,6 +44,8 @@ class WPSEO_Facebook_Profile {
 	 *
 	 * @deprecated 20.3
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function ajax_get_facebook_name() {
 		_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.3' );
@@ -127,6 +131,8 @@ class WPSEO_Facebook_Profile {
 	 *
 	 * @param string $facebook_profile The Facebook profile belonging to the name.
 	 * @param string $facebook_name    The name the user got on Facebook.
+	 *
+	 * @return void
 	 */
 	private function set_cached_name( $facebook_profile, $facebook_name ) {
 		$facebook_profiles = get_transient( self::TRANSIENT_NAME );

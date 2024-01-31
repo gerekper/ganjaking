@@ -38,9 +38,11 @@ class ThePlus_Woo_Thank_You extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
 		return ['Thank You', 'woo thankyou','thankyou','woocommerce','post','product'];
 	}
+	
     protected function register_controls() {
 		/*content start*/
 		$this->start_controls_section(

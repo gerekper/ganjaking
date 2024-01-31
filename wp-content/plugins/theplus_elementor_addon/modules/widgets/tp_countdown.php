@@ -41,7 +41,7 @@ class ThePlus_Countdown extends Widget_Base {
     }
 
 	public function get_keywords() {
-        return ['Countdown', 'Timer', 'Countdown Timer', 'Elementor Countdown', 'Elementor Timer', 'Elementor Countdown Timer', 'Time Limit', 'Time Countdown'];
+        return ['Coupon', 'Code', 'Discount', 'Promo', 'Voucher', 'Offer', 'Deal', 'Savings', 'Discount Code', 'Promo Code', 'Voucher Code', 'Coupon Deal', 'Coupon Offer', 'Coupon Savings', 'Discount Offer', 'Discount Deal', 'Promo Offer', 'Promo Deal', 'Voucher Offer', 'Voucher Deal'];
     }
 	
     protected function register_controls() {
@@ -2389,7 +2389,7 @@ class ThePlus_Countdown extends Widget_Base {
 		$countdownExpiry = !empty($settings['countdownExpiry']) ? $settings['countdownExpiry'] : '';
 		$expirymsg="";
 		if($countdownExpiry == 'redirect') {	
-			$expirymsg = $settings['expiryRedirect']['url'];
+			$expirymsg = esc_url($settings['expiryRedirect']['url']);
 		}else if($countdownExpiry == 'showmsg') {
 			$expirymsg = !empty($settings['expiryMsg']) ? $settings['expiryMsg'] : '';
 		}else if($countdownExpiry == 'showtemp') {	

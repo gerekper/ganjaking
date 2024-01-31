@@ -79,15 +79,36 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 			$item_quantity = wc_get_order_item_meta( $item_id, '_qty', true );
 			$product_id = $item_data['product_id'];
 			$product_cat = get_the_terms( $product_id, 'product_cat', true );
+			foreach ( $product_cat as $product_cats ) {
+				$product_categry[] = $product_cats->name;
+
+			}
+
+			$cat_names = implode(',', $product_categry);
+
 			$price = opmc_hpos_get_post_meta( $product_id, '_regular_price', true );
+			$datas[] = array(
+				'category' => $cat_names,
+				'item_id' => $product_id,
+				'quantity' => $item_quantity,
+				'price' => $price,
+			);
+			
 		}
+
 		// $agent = $_SERVER["HTTP_USER_AGENT"];
+		$custEmail = $order->get_billing_email();
+		$emailDomain = substr($custEmail, strpos($custEmail, '@') + 1);
 
 		$data = array(
 			'device' => array(
 				'ip_address' => $ip_address,
 				'user_agent' => $agent,
 				'accept_language' => 'en-US,en;q=0.8',
+			),
+			'email' => array (
+				'address' => md5($custEmail),
+				'domain' => $emailDomain,
 			),
 			'shipping' => array(
 				'first_name' => $order->get_shipping_first_name(),
@@ -121,13 +142,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 				'amount' => $shipping_total,
 				'currency' => @$currency_symbol,
 			),
-			'shopping_cart' => array(
-				array(
-					'item_id' => $product_id,
-					'quantity' => $item_quantity,
-					'price' => $price,
-				),
-			),
+			'shopping_cart' => $datas,
 		);
 
 		$body_data = json_encode( $data );

@@ -7,8 +7,6 @@ namespace Yoast\WP\SEO\Schema_Templates\Block_Patterns;
  *
  * @deprecated 20.5
  * @codeCoverageIgnore
- *
- * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
  */
 abstract class Job_Posting_Base_Pattern extends Block_Pattern {
 

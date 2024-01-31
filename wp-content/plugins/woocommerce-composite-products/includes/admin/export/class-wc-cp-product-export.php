@@ -2,7 +2,7 @@
 /**
  * WC_CP_Product_Export class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.11.0
  */
 

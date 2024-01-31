@@ -16,6 +16,21 @@ function vc_page_welcome_slug() {
 }
 
 /**
+ * @return mixed|void
+ */
+function vc_get_page_welcome_tabs() {
+	global $vc_page_welcome_tabs;
+	$vc_page_welcome_tabs = apply_filters( 'vc_page-welcome-slugs-list', array(
+		'vc-welcome' => esc_html__( 'What\'s New', 'js_composer' ),
+		'vc-faq' => esc_html__( 'FAQ', 'js_composer' ),
+		'vc-resources' => esc_html__( 'Resources', 'js_composer' ),
+	) );
+
+	return $vc_page_welcome_tabs;
+}
+
+
+/**
  * Build vc-welcome page block which will be shown after Vc installation.
  *
  * vc_filter: vc_page_welcome_render_capabilities
@@ -56,14 +71,9 @@ function vc_welcome_menu_hooks_network() {
 
 add_action( 'admin_menu', 'vc_welcome_menu_hooks', 9 );
 add_action( 'network_admin_menu', 'vc_welcome_menu_hooks_network', 9 );
-/**
- * ====================
- * Redirect to welcome page on plugin activation.
- * ====================
- */
 
 /**
- * Set redirect transition on update or activation
+ * Set redirect transition on plugin activation.
  * @since 4.5
  */
 function vc_page_welcome_set_redirect() {
@@ -89,15 +99,22 @@ add_action( 'vc_activation_hook', 'vc_page_welcome_set_redirect' );
 add_action( 'admin_init', 'vc_page_welcome_redirect' );
 
 /**
- * @return mixed|void
+ * Set promo popup transition on plugin activation.
+ *
+ * @since 7.3
+ * @param object $upgrade_object
+ * @param array $options
  */
-function vc_get_page_welcome_tabs() {
-	global $vc_page_welcome_tabs;
-	$vc_page_welcome_tabs = apply_filters( 'vc_page-welcome-slugs-list', array(
-		'vc-welcome' => esc_html__( 'What\'s New', 'js_composer' ),
-		'vc-faq' => esc_html__( 'FAQ', 'js_composer' ),
-		'vc-resources' => esc_html__( 'Resources', 'js_composer' ),
-	) );
-
-	return $vc_page_welcome_tabs;
+function vc_set_promo_editor_popup( $upgrade_object, $options ) {
+	if ( 'update' !== $options['action'] || 'plugin' !== $options['type'] ) {
+		return;
+	}
+	$plugins = $options['plugins'];
+	foreach ( $plugins as $plugin ) {
+		if ( 'js_composer/js_composer.php' === $plugin ) {
+			set_transient( '_vc_editor_promo_popup', 1, 86400 );
+		}
+	}
 }
+
+add_action( 'upgrader_process_complete', 'vc_set_promo_editor_popup', 10, 2 );

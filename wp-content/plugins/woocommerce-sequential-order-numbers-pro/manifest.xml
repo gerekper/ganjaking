@@ -1,0 +1,7 @@
+<Translation>
+    <File
+        HoPath="i18n/languages/woocommerce-sequential-order-numbers-pro.pot"
+        HbPath="i18n/languages/{Culture}.pot"
+        Cultures="da-DK, de-DE, el-GR, es-ES, es-MX, fi-FI, fr-FR, fr-CA, it-IT, nb-NO, nl-NL, pl-PL, pt-BR, pt-PT, ru-RU, sv-SE, tr-TR, uk-UA, id-ID, ja-JP, ko-KR, th-TH, vi-VN, zh-CN, zh-TW, hi-IN, qa-PS"
+    />
+</Translation>

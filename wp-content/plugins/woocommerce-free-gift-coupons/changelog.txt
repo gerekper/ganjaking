@@ -1,5 +1,11 @@
 === WooCommerce Free Gift Coupons ===
 
+2023.01.26 - version 3.6.0
+* Update: Tested up to WooCommerce 8.4.0.
+* New: Prelimary support for variable gifts in cart block. For now it will re-direct to the single product page.
+* New: Declare cart/checkout block support.
+* Fix: Much stricter add to cart validation on gift items, esp for variations with some attributes pre-configured but "Any" value allowed for other attributes.
+
 2023.12.11 - version 3.5.0
 * IMPORTANT: Requires WC 3.6.0+.
 * Update: Tested up to WooCommerce 8.2.0.

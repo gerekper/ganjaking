@@ -2,7 +2,7 @@
 /**
  * EventON Setup
  *
- * @since 4.5.4
+ * @since 4.5.8
  */
 
 
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.5.4';
+	public $version = '4.5.8';
 	
 	
 	public $template_url;
@@ -124,6 +124,7 @@ final class EventON {
 		include_once( EVO_ABSPATH. 'includes/class-frontend.php' );		
 		include_once( EVO_ABSPATH. 'includes/class-map-styles.php' );
 		
+		include_once( EVO_ABSPATH. 'includes/calendar/class-calendar-time.php' );
 		include_once( EVO_ABSPATH. 'includes/calendar/class-calendar-now.php' );
 		include_once( EVO_ABSPATH. 'includes/calendar/class-calendar-schedule.php' );
 		include_once( EVO_ABSPATH. 'includes/calendar/class-calendar-helper.php' );
@@ -158,6 +159,7 @@ final class EventON {
 			include_once(EVO_ABSPATH.'includes/admin/class-evo-admin.php' );	
 			include_once(EVO_ABSPATH.'includes/products/class-licenses.php' );						
 			include_once(EVO_ABSPATH.'includes/admin/class-evo-errors.php' );					
+			//include_once(EVO_ABSPATH.'includes/admin/class-event-indexing.php' );					
 		}
 		if ( ! $this->is_request('admin') || $this->is_request('ajax') ){
 
@@ -430,27 +432,4 @@ final class EventON {
 			return $location;
 		}
 
-	// Events archive page content
-		function archive_page(){
-			$archive_page_id = evo_get_event_page_id();
-
-			// check whether archieve post id passed
-			if($archive_page_id){
-
-				$archive_page  = get_page($archive_page_id);	
-				
-				echo "<div class='wrapper evo_archive_page'>";
-
-				do_action('evo_event_archive_page_before_content');
-
-				echo apply_filters('the_content', $archive_page->post_content);
-
-				do_action('evo_event_archive_page_after_content');
-
-				echo "</div>";
-
-			}else{
-				echo "<p>ERROR: Please select a event archive page in eventON Settings > Events Paging > Select Events Page</p>";
-			}
-		}	
 }

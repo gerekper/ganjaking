@@ -1,6 +1,6 @@
 /* 
  * EventON Elements CSS 
- * @version 4.5.2
+ * @version 4.5.5
     General
     Lightbox Select Field
     Select in a row
@@ -19,6 +19,7 @@
     	box-shadow: 0px 0px 10px 0px #dadada;
         background-color: #fff;
     }
+    .evo_elm_row{display: block;width: 100%;}
     .evo_elm_row p.evo_field_label, .evo_elm_row p.evo_field_container{margin:0;}
     .evo_elm_row p.evo_field_label{margin-bottom: 5px; padding-bottom: 0; font-size: 14px;}
     .evo_elm_row p.evo_field_container{margin-bottom: 10px;padding:0;}
@@ -91,7 +92,7 @@
     { padding-left:10px; line-height: 1.8;     }
     .evo_lightbox .yesno_row span.field_name{padding-left: 10px;}
     .evo_inside .yesno_row span.field_name{pointer-events:auto;}
-    .yesno_row .ajde_yn_btn { padding: 0;}
+    .yesno_row .ajde_yn_btn { padding: 0;flex: 0 0 auto;}
 
 /* angle button */
     .evo_elm_row.angle{display: flex;align-items: center;}

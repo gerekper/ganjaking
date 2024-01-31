@@ -3,7 +3,7 @@
  * Eventon date time class.
  *
  * @class 		EVO_generator
- * @version		2.5.3
+ * @version		4.5.7
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -89,8 +89,9 @@ class evo_datetime{
 	/*
 	 * Return: array(start, end)
 	 * Returns WP proper formatted corrected event time based on repeat interval provided
+	 * u4.5.7 -- deprecating
 	 */
-		public function get_correct_formatted_event_repeat_time($post_meta, $repeat_interval='', $date_format=''){
+		public function get_correct_formatted_event_repeat_time($post_meta, $repeat_interval='', $date_format='', $tz = ''){
 			
 			// get date and time formats
 			$date_format = (!empty($date_format)? $date_format: get_option('date_format'));			
@@ -102,8 +103,8 @@ class evo_datetime{
 				// if there arent repeating intervals saved
 				if(!isset($intervals[$repeat_interval])) return false;
 
-				$formatted_unix_s = eventon_get_formatted_time($intervals[$repeat_interval][0]);
-				$formatted_unix_e = eventon_get_formatted_time($intervals[$repeat_interval][1]);
+				$formatted_unix_s = eventon_get_formatted_time($intervals[$repeat_interval][0] , $tz );
+				$formatted_unix_e = eventon_get_formatted_time($intervals[$repeat_interval][1] , $tz );
 
 				return array(
 					// this didnt work on tickets addon
@@ -120,8 +121,8 @@ class evo_datetime{
 				$end_row =  !empty($post_meta['evcal_erow'])? $post_meta['evcal_erow'][0]: $post_meta['evcal_erow'][0];
 				$end = ( !empty($post_meta['evcal_erow'])? date_i18n($date_format.' h:i:a',$post_meta['evcal_erow'][0]): $start);
 
-				$formatted_unix_s = eventon_get_formatted_time($start_row);
-				$formatted_unix_e = eventon_get_formatted_time($end_row);
+				$formatted_unix_s = eventon_get_formatted_time($start_row , $tz );
+				$formatted_unix_e = eventon_get_formatted_time($end_row , $tz );
 
 				//echo $end_row.' '.$post_meta['evcal_srow'][0];
 				return array(
@@ -134,41 +135,22 @@ class evo_datetime{
 		}
 
 	// convert unix to lang formatted readable string
-	// added 3.0.3
-		public function get_readable_formatted_date($unix, $format = ''){
+	// +3.0.3 u4.5.7
+		public function get_readable_formatted_date($unix, $format = '', $tz = ''){
 
 			if(empty($format)) $format = EVO()->calendar->date_format.' '.EVO()->calendar->time_format;
 
 			return $this->__get_lang_formatted_timestr(
 				$format, 
-				eventon_get_formatted_time( $unix )
+				eventon_get_formatted_time( $unix , $tz )
 			);
 			
-		}
-
-	// return start OR end time unix in translated and formatted date-time-string
-		function get_formatted_smart_time_piece($unix, $epmv='', $lang='', $passed_date_time_format=''){
-			$time_ = eventon_get_formatted_time($unix);
-
-			$_is_allday = (!empty($epmv['evcal_allday']) && $epmv['evcal_allday'][0]=='yes')? true:false;
-			
-			$date_time_format = apply_filters('evo_smart_time_datetime_format', $this->wp_date_format);
-
-			
-			if($_is_allday){
-				$output = $this->date($date_time_format, $time_).' ('.evo_lang_get('evcal_lang_allday','All Day').')';
-			}else{// not all day
-				$date_time_format = (!empty($passed_date_time_format))?  $passed_date_time_format: $date_time_format.' '.$this->wp_time_format;
-				
-				$output = $this->date($date_time_format, $time_);
-			}
-			return $output;
 		}
 
 	
 
 	// return a smarter complete date-time -translated and formatted to date-time string
-	// 2.3.13
+	// 2.3.13 -- deprecating use EVO_Event()->get_formatted_smart_time();
 		public function get_formatted_smart_time($startunix, $endunix, $epmv='', $event_id=''){
 
 			$wp_time_format = get_option('time_format');
@@ -259,23 +241,6 @@ class evo_datetime{
 			return $newtime;
 		}
 
-	// eventon version of converted date time 
-	// also filter for proper all day text
-		function evo_date($unix, $eventPMV=null){
-			date_default_timezone_set('UTC');
-			$date_format = get_option('date_format');
-			$time_format = get_option('time_format');
-			$alldaytext = false;
-
-			if($eventPMV){
-				if(!empty($eventPMV['evcal_allday']) && $eventPMV['evcal_allday'][0]=='yes'){
-					global $eventon;
-					$alldaytext = $eventon->frontend->lang('','evcal_lang_allday','All Day');
-				}				
-			}
-
-			return date_i18n($date_format.' '.($alldaytext? '':$time_format), $unix). ( $alldaytext? '('.$alldaytext.')':'' );
-		}
 
 	// Timezone 
 	// @deprecating moved to EVO_Environment

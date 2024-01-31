@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 ?>
 
-<div class="vc_ui-helper-modal-ai-promo">
-	<div class="vc_ui-helper-modal-ai-promo--inner">
+<div class="vc_ui-helper-popup-promo">
+	<div class="vc_ui-helper-popup-promo--inner">
 		<?php
 
 		vc_include_template( $logo_template_path );

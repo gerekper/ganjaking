@@ -37,6 +37,10 @@ class ThePlus_Ninja_form extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['Ninja Forms', 'form builder', 'form plugin', 'contact forms', 'form creator', 'form designer', 'form generator', 'form maker', 'form widget', 'form element', 'form addon', 'form extension'];
+    }
 	
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-ninja-forms-in-elementor";

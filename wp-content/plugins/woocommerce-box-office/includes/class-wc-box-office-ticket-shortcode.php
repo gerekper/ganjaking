@@ -104,9 +104,23 @@ class WC_Box_Office_Ticket_Shortcode {
 			$params
 		);
 
+		/**
+		 * If the `user_id` attribute is provided through shortcode
+		 * and does not equal to the user ID of the logged-in user,
+		 * and the current user does not have the `manage_woocommerce`
+		 * capability, then return early.
+		 */
+		if (
+			! WC_Box_Office_Cron::is_rendering_email()
+			&& get_current_user_id() !== (int) $attributes['user_id']
+			&& ! current_user_can( 'manage_woocommerce' )
+		) {
+			return '';
+		}
+
 		$tickets = wc_box_office_get_tickets_by_user( $attributes['user_id'], $attributes['amount'] );
 		if ( 0 == count( $tickets ) ) {
-			return;
+			return '';
 		}
 
 		ob_start();
@@ -145,7 +159,42 @@ class WC_Box_Office_Ticket_Shortcode {
 			return;
 		}
 
-		$tickets = WCBO()->components->order->get_tickets_by_order( $attributes['order_id'], $attributes['amount'] );
+		$meta_query = array(
+			array(
+				'key'   => '_order',
+				'value' => $attributes['order_id'],
+			),
+		);
+
+		/*
+		 * If the current user does not have the `manage_woocommerce
+		 * capability, then fetch the order by matching the `_user`
+		 * meta value with the current user ID.
+		 */
+		if ( ! WC_Box_Office_Cron::is_rendering_email() ) {
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				$user_id = get_current_user_id();
+
+				if ( 0 !== $user_id ) {
+					$meta_query[] = array(
+						'key'   => '_user',
+						'value' => $user_id,
+					);
+				} else {
+					return '';
+				}
+			}
+		}
+
+		$tickets = WCBO()->components->order->get_tickets_by_order(
+			$attributes['order_id'],
+			$attributes['amount'],
+			'',
+			array(
+				'meta_query' => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			)
+		);
+
 		if ( 0 == count( $tickets ) ) {
 			return;
 		}
@@ -215,6 +264,9 @@ class WC_Box_Office_Ticket_Shortcode {
 		foreach ( $tickets as $ticket ) {
 			$position = '';
 
+			$pii_preference = get_post_meta( $ticket->ID, '_user_pii_preference', true );
+			$opt_out        = 'opted-out' === $pii_preference && ! current_user_can( 'manage_woocommerce' );
+
 			if ( 0 == $i % $attributes['columns'] ) {
 				$position = 'first';
 			} elseif ( 0 == ( $i + 1 ) % $attributes['columns'] ) {
@@ -234,6 +286,10 @@ class WC_Box_Office_Ticket_Shortcode {
 			$twitter 		= '';
 
 			foreach ( $ticket_fields as $field_key => $field ) {
+
+				if ( ! WC_Box_Office_Cron::is_rendering_email() && $opt_out ) {
+					continue 2;
+				}
 
 				$ticket_meta = get_post_meta( $ticket->ID, $field_key, true );
 
@@ -310,6 +366,10 @@ class WC_Box_Office_Ticket_Shortcode {
 		}
 
 		$html .= '</ul>' . "\n";
+
+		if ( ! count( $tickets ) ) {
+			$html = '';
+		}
 
 		return $html;
 	}

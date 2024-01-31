@@ -32,42 +32,42 @@ class AI_Generator_Route implements Route_Interface {
 	 *
 	 * @var string
 	 */
-	const ROUTE_PREFIX = 'ai_generator';
+	public const ROUTE_PREFIX = 'ai_generator';
 
 	/**
 	 * The callback route constant (invoked by the API).
 	 *
 	 * @var string
 	 */
-	const CALLBACK_ROUTE = self::ROUTE_PREFIX . '/callback';
+	public const CALLBACK_ROUTE = self::ROUTE_PREFIX . '/callback';
 
 	/**
 	 * The refresh callback route constant (invoked by the API).
 	 *
 	 * @var string
 	 */
-	const REFRESH_CALLBACK_ROUTE = self::ROUTE_PREFIX . '/refresh_callback';
+	public const REFRESH_CALLBACK_ROUTE = self::ROUTE_PREFIX . '/refresh_callback';
 
 	/**
 	 * The get_suggestions route constant.
 	 *
 	 * @var string
 	 */
-	const GET_SUGGESTIONS_ROUTE = self::ROUTE_PREFIX . '/get_suggestions';
+	public const GET_SUGGESTIONS_ROUTE = self::ROUTE_PREFIX . '/get_suggestions';
 
 	/**
 	 * The get_suggestions route constant.
 	 *
 	 * @var string
 	 */
-	const CONSENT_ROUTE = self::ROUTE_PREFIX . '/consent';
+	public const CONSENT_ROUTE = self::ROUTE_PREFIX . '/consent';
 
 	/**
 	 * The bust_subscription_cache route constant.
 	 *
 	 * @var string
 	 */
-	const BUST_SUBSCRIPTION_CACHE_ROUTE = self::ROUTE_PREFIX . '/bust_subscription_cache';
+	public const BUST_SUBSCRIPTION_CACHE_ROUTE = self::ROUTE_PREFIX . '/bust_subscription_cache';
 
 	/**
 	 * Instance of the AI_Generator_Action.

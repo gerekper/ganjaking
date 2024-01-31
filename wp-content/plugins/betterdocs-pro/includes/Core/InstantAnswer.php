@@ -1005,13 +1005,21 @@ class InstantAnswer extends Base {
                 'faq_content_type' => $this->settings->get( 'ia_resources_faq_content_type' ),
                 // 'faq-group-number' => $this->settings->get( 'ia_resources_faq_group_number' ),
                 // 'faq-list-number'  => $this->settings->get( 'ia_resources_faq_list_number' ),
-                'faq-terms'        => $this->settings->get( 'ia_resources_faq_group' ),
-                'faq-list'         => $this->settings->get( 'ia_resources_faq_list' )
+                'faq-terms'          => $this->settings->get( 'ia_resources_faq_group' ),
+                'faq-list'           => $this->settings->get( 'ia_resources_faq_list' ),
+                'faq-terms-order'    => $this->settings->get( 'faq_terms_order' ),
+                'faq-terms-order-by' => $this->settings->get( 'faq_terms_orderby' ),
+                'faq-list-orderby'   => $this->settings->get( 'ia_faq_list_order_by' ),
+                'faq-list-order'     => $this->settings->get( 'ia_faq_list_order' )
             ],
             'DOC_CATEGORY'        => [
                 'doc-title'           => $this->settings->get( 'ia_resources_doc_category_title_text' ),
                 'doc-terms'           => $this->settings->get( 'ia_resources_doc_categories' ),
-                'doc-category-switch' => $this->settings->get( 'ia_resources_doc_categories_switch' )
+                'doc-category-switch' => $this->settings->get( 'ia_resources_doc_categories_switch' ),
+                'doc-terms-order'     => $this->settings->get( 'ia_terms_order' ),
+                'doc-terms-order-by'  => $this->settings->get( 'ia_terms_orderby' ),
+                // 'docs-orderby'        => $this->settings->get('ia_docs_order_by'),
+                // 'docs-order'           => $this->settings->get('ia_docs_order')
                 // 'doc-categories-number' => $this->settings->get( 'ia_resources_doc_categories_number' )
             ],
             'HOME_TAB_TITLE'      => $this->settings->get( 'home_tab_title' ),

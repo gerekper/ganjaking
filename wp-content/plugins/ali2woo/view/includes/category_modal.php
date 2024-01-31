@@ -7,7 +7,7 @@
         <div class="modal-body">
             <div>
                 <label><?php _e('Categories');?>:</label>
-                <?php $remember_categories = a2w_get_setting('remember_categories', array());?>
+                <?php $remember_categories = Ali2Woo\get_setting('remember_categories', array());?>
                 <select class="form-control select2 categories" data-placeholder="<?php _e('Choose Categories', 'ali2woo');?>" multiple="multiple">
                     <option></option>
                     <?php foreach ($categories as $c): ?>

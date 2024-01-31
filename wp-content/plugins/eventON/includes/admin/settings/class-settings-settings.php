@@ -1,7 +1,7 @@
 <?php
 /**
   * evo settings class
-  * @version 4.5
+  * @version 4.5.5
   */
 class evo_settings_settings{
 	private $evcal_opt;
@@ -30,16 +30,6 @@ class evo_settings_settings{
 					array('id'=>'evcal_cal_hide','type'=>'yesno','name'=>__('Hide Calendars from front-end','eventon'),),
 					
 					//array('id'=>'evcal_only_loggedin','type'=>'yesno','name'=>__('Show calendars only to logged-in Users','eventon'),),
-					
-					array('id'=>'evcal_cal_hide_past','type'=>'yesno','name'=>__('Hide past events for default calendar(s)','eventon'),'afterstatement'=>'evcal_cal_hide_past'),	
-											
-					array('id'=>'evcal_cal_hide_past','type'=>'begin_afterstatement'),
-					array('id'=>'evcal_past_ev','type'=>'radio','name'=>__('Select a precise timing for the cut off time for past events','eventon'),'width'=>'full',
-						'options'=>array(
-							'local_time'=>__('Hide events past current local time','eventon'),
-							'today_date'=>__('Hide events past today\'s date','eventon'))
-					),
-					array('id'=>'evcal_cal_hide_past','type'=>'end_afterstatement'),				
 					
 									
 					//array('id'=>'evcal_dis_conFilter','type'=>'yesno','name'=>__('Disable Content Filter','eventon'),'legend'=>__('This will disable to use of the_content filter on event details and custom field values.','eventon')),				
@@ -281,6 +271,20 @@ class evo_settings_settings{
 						array('id'=>'evo_utcoff','type'=>'yesno',
 							'name'=>__('Use UTC offset time globally on calendars','eventon'), 
 							'legend'=>__('This will use UTC time for calculating current live events and use event times from UTC0 conversion. ','eventon')
+						),
+						array('id'=>'evcal_cal_hide_past','type'=>'yesno','name'=>__('Hide past events for default calendar(s)','eventon'),'afterstatement'=>'evcal_cal_hide_past'),	
+												
+						array('id'=>'evcal_cal_hide_past','type'=>'begin_afterstatement'),
+						array('id'=>'evcal_past_ev','type'=>'radio','name'=>__('Select a precise timing for the cut off time for past events','eventon'),'width'=>'full',
+							'options'=>array(
+								'local_time'=>__('Hide events past current local time','eventon'),
+								'today_date'=>__('Hide events past today\'s date','eventon'))
+						),
+						
+						array('id'=>'evcal_cal_hide_past','type'=>'end_afterstatement'),	
+						array('id'=>'evo_foot_tz','type'=>'yesno',
+							'name'=>__('Show calendar timezone in footer','eventon'), 
+							'legend'=>__('This will show calendar timezone at the bottom of each calendar.','eventon')
 						),
 					array('type'=>'sub_section_close'),
 	
@@ -565,11 +569,11 @@ class evo_settings_settings{
 					
 					array('id'=>'evo_event_archive_page_id',
 						'type'=>'dropdown',
-						'name'=>__('Select Events Page','eventon'), 
+						'name'=>__('Select which page to get content from','eventon'), 
 						'options'=>$this->event_pages(), 
 						'desc'=>__('This will allow you to use this page with url slug /events/ as event archive page. Be sure to insert eventon shortcode in this page.','eventon')
 					),
-					array('id'=>'evo_event_archive_page_template','type'=>'dropdown','name'=>__('Select Events Page Template','eventon'), 'options'=>$this->theme_templates()),					
+						
 					array('id'=>'evo_event_slug',
 						'type'=>'text',
 						'name'=>__('EventOn Event Post Slug','eventon'), 
@@ -632,8 +636,7 @@ class evo_settings_settings{
 					'icon'=>'laptop-code',
 					'fields'=>array(
 					array('type'=>'sub_section_open','name'=>__('WP EventON Core Settings' ,'eventon')),					
-
-						array('id'=>'evo_content_filter','type'=>'dropdown','name'=>__('Select calendar event content filter type','eventon'),'legend'=>__('This will disable the use of the_content filter on event details and custom field values.','eventon'), 'options'=>array( 
+						array('id'=>'evo_content_filter','type'=>'dropdown','name'=>__('Select calendar event content filter type','eventon'),'legend'=>__('Select which method to use for processing event details and custom meta field data content for front-end.','eventon'), 'options'=>array( 
 							'evo'=>__('EventON Content Filter','eventon'),
 							'def'=>__('Default WordPress Filter','eventon'),
 							'none'=>__('No Filter','eventon')
@@ -645,6 +648,7 @@ class evo_settings_settings{
 							'options'=>array(
 								'default'=>__('Query all the event posts','eventon'),
 								'this_year'=>__('Query only the event posts created this year','eventon'),
+								'12months'=>__('Query only the event posts created within last 12 months','eventon'),
 								'6months'=>__('Query only the event posts created within last 6 months','eventon'),
 								'last_5months'=>__('Query only the event posts created within last 5 months','eventon'),
 								'last_4months'=>__('Query only the event posts created within last 4 months','eventon'),
@@ -658,12 +662,23 @@ class evo_settings_settings{
 							'name'=>__('Enable sanitizing HTML content for event data','eventon'), 
 							'legend'=>__('Enabling this will sanitize HTML content using evo_helper()->sanitize_html() function and remove unsupported html content. By default any HTML content is allowed.','eventon')
 						),
-						/*array('id'=>'evo_enable_endpoint_ajax',
-							'type'=>'yesno',
-							'name'=>__('Enable endpoint AJAX calls on front-end.','eventon'), 
-							'legend'=>__('Enabling this will use endpoint REST-API based AJAX calls to load calendar data, instead of classic admin_ajax.php method. This method has shown to improve calendar speed. Since v4.4','eventon')
-						),*/
+						// communication method with server from client @4.5.5
+						array('id'=>'evo_com_method',
+							'type'=>'dropdown',
+							'default'=>'endpoint',
+							'name'=>__('Select which HTTP server communication method to use for calendar','eventon'),'legend'=>__('Endpoint only runs eventon needed codes for the most part. AJAX use admin-ajax.php url which loads most of admin codes. @since 4.5.5','eventon'), 'options'=>array( 
+								'endpoint'=>__('Endpoint','eventon'),
+								'ajax'=>__('AJAX','eventon'),
+						)),
 					array('type'=>'sub_section_close'),
+
+					/* In the works still
+					array('type'=>'sub_section_open','name'=>__('Event Indexing' ,'eventon')),
+						array('id'=>'evcal__note','type'=>'customcode','code'=>$this->content_event_indexing()),
+					array('type'=>'sub_section_close'),
+					*/
+
+
 					array('type'=>'sub_section_open','name'=>__('Autonomous Functions' ,'eventon')),
 
 						array('id'=>'evcal_move_trash','type'=>'yesno','name'=>__('Auto move events to trash when the event date is past','eventon'), 'legend'=>__('This will move events to trash when the event end date is past current date. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
@@ -834,6 +849,34 @@ class evo_settings_settings{
 			return apply_filters('evo_se_setting_fields',$data);
 		}
 
+	// event indexing - in the works still 4.5.5
+		function content_event_indexing(){
+			ob_start();
+			?>
+			<div class='evo_event_index_settings'>
+				<p style='' class='evopadb10'><?php _e('Event indexing create a data field in wp_options with a list of events and respective event date range. This will be used to fetch events in the calendar range.','eventon');?></p>
+				<p class=''>
+					<?php 
+					EVO()->elements->print_trigger_element(array(
+						'title'=>__('View indexed events log','eventon'),
+						'class_attr'=>'evo_admin_btn evolb_trigger',
+						'dom_element'=> 'span',
+						'uid'=>'evo_admin_index_log',
+						'lb_class' =>'evoadmin_index_log',
+						'lb_title'=> __('Indexed Events Log','eventon'),
+						'ajax_data' =>array(
+							'action'=>'eventon_admin_index_log'
+						),
+					), 'trig_lb');
+
+					
+					?>
+				</p>
+			</div>
+			<?php
+			return ob_get_clean();
+		}
+
 	// Search
 		function content_search(){
 			ob_start();?>
@@ -864,13 +907,19 @@ class evo_settings_settings{
 		}
 		function environ_data(){
 			ob_start();
-			?>
-			<div class="environment evo_environment">
-				
-			</div>
-			<p><a class='evo_admin_btn btn_triad' id='evo_load_environment'><?php _e('Load Environment Stats','eventon');?></a></p>
+			
+				EVO()->elements->print_trigger_element(array(
+					'title'=>__('Load Environment Stats','eventon'),
+					'class_attr'=>'evo_admin_btn evolb_trigger btn_triad',
+					'dom_element'=> 'span',
+					'uid'=>'evoadmin_enviro',
+					'lb_class' =>'evoadmin_enviro',
+					'lb_title'=> __('EventON & Website Environment Stats','eventon'),
+					'ajax_data' =>array(
+						'action'=>'eventon_admin_get_environment'
+					),
+				), 'trig_lb');
 
-			<?php 
 				EVO()->elements->print_trigger_element(array(
 					'title'=>__('View eventon system log','eventon'),
 					'class_attr'=>'evo_admin_btn evolb_trigger btn_triad',
@@ -1212,6 +1261,7 @@ class evo_settings_settings{
 			$__additions_009_1 = apply_filters('eventon_cmd_field_types', array(
 				'text'=>__('Single line Text','eventon'),
 				'textarea'=>__('Multiple lines of text (Editor)','eventon'), 
+				'textarea_trumbowig'=>__('Multiple lines of text (Trumbowig Editor)','eventon'), 
 				'textarea_basic'=>__('Multiple lines of text (Text Field)','eventon'), 
 				'button'=>__('Button','eventon')
 			) );
@@ -1385,17 +1435,6 @@ class evo_settings_settings{
 			wp_reset_postdata();
 			return $_page_ar;
 		}
-		function theme_templates(){
-			// get all available templates for the theme
-			$templates = get_page_templates();
-			$_templates_ar['archive-ajde_events.php'] = 'Default Eventon Template';
-			$_templates_ar['page.php'] = 'Default Page Template';
-		   	foreach ( $templates as $template_name => $template_filename ) {
-		       $_templates_ar[$template_filename] = $template_name;
-		   	}
-		   	return $_templates_ar;
-		}
-
 	function content_shortcodes(){
 		
 		ob_start();

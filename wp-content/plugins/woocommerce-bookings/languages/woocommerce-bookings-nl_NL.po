@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-20T16:11:19+00:00\n"
+"POT-Creation-Date: 2024-01-10T13:54:49+00:00\n"
 "PO-Revision-Date: 2023-11-01 17:54:03+0000\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -90,7 +90,7 @@ msgstr "Melding"
 msgid "Create Booking"
 msgstr "Boeking aanmaken"
 
-#: includes/admin/class-wc-bookings-admin.php:340
+#: includes/admin/class-wc-bookings-admin.php:341
 msgid "Templates"
 msgstr "Templates"
 
@@ -150,30 +150,30 @@ msgstr "Google-gebeurtenissen"
 msgid "Availability Rules"
 msgstr "Beschikbaarheidsregels"
 
-#: includes/admin/class-wc-bookings-ajax.php:602
+#: includes/admin/class-wc-bookings-ajax.php:605
 msgid "You are not authorized to perform this action"
 msgstr "Je bent niet gemachtigd deze actie uit te voeren"
 
-#: includes/admin/class-wc-bookings-ajax.php:212
+#: includes/admin/class-wc-bookings-ajax.php:213
 msgid "No slots available."
 msgstr "Geen plaatsen beschikbaar."
 
-#: includes/admin/class-wc-bookings-ajax.php:207
+#: includes/admin/class-wc-bookings-ajax.php:208
 #: templates/booking-form/month-picker.php:85
 msgid "This month is unavailable"
 msgstr "Deze maand is niet beschikbaar"
 
-#: includes/admin/class-wc-bookings-ajax.php:205
+#: includes/admin/class-wc-bookings-ajax.php:206
 #: templates/booking-form/month-picker.php:83
 msgid "This month is fully booked and unavailable"
 msgstr "Deze maand is volgeboekt en niet beschikbaar"
 
-#: includes/admin/class-wc-bookings-ajax.php:203
+#: includes/admin/class-wc-bookings-ajax.php:204
 #: templates/booking-form/month-picker.php:81
 msgid "This month is available"
 msgstr "Deze maand is beschikbaar"
 
-#: includes/admin/class-wc-bookings-ajax.php:164
+#: includes/admin/class-wc-bookings-ajax.php:165
 msgid "Error: The booking product details are missing."
 msgstr "Fout: De gegevens van het reserveringsproduct ontbreken."
 
@@ -204,16 +204,16 @@ msgstr "Dit reserveringsproduct bestaat niet!"
 msgid "Unauthorised request, please try again."
 msgstr "Niet-goedgekeurd verzoek, probeer opnieuw."
 
-#: includes/admin/class-wc-bookings-admin.php:378
+#: includes/admin/class-wc-bookings-admin.php:379
 #: includes/admin/views/html-booking-export.php:24
 msgid "Export"
 msgstr "Exporteren"
 
-#: includes/admin/class-wc-bookings-admin.php:680
+#: includes/admin/class-wc-bookings-admin.php:681
 msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "De reserveringsduur is ingesteld op 24 uur. Dit is omdat een duur van langer dan 24 uur niet is toegestaan wanneer de beschikbaarheid is ingesteld op 'standaard-niet-beschikbaar’."
 
-#: includes/admin/class-wc-bookings-admin.php:679
+#: includes/admin/class-wc-bookings-admin.php:680
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "Een duur van langer dan 24 uur is niet toegestaan wanneer de beschikbaarheid is ingesteld op 'standaard-niet-beschikbaar'."
 
@@ -241,11 +241,11 @@ msgstr "Deze sectie toont alle bestanden die de standaard WooCommerce sjabloonpa
 msgid "WooCommerce Bookings template overrides"
 msgstr "Overgeschreven WooCommerce Bookings-sjablonen"
 
-#: includes/admin/class-wc-bookings-admin.php:708
+#: includes/admin/class-wc-bookings-admin.php:709
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "De maximale duur moet langer zijn dan of gelijk zijn aan de minimale duur."
 
-#: includes/admin/class-wc-bookings-admin.php:707
+#: includes/admin/class-wc-bookings-admin.php:708
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "De minimale duur moet korter zijn dan of gelijk zijn aan de maximale duur."
 
@@ -253,7 +253,7 @@ msgstr "De minimale duur moet korter zijn dan of gelijk zijn aan de maximale duu
 msgid "Customer Information"
 msgstr "Klantgegevens"
 
-#: includes/admin/class-wc-bookings-admin.php:678
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "This setting is being overridden at the resource level."
 msgstr "Deze instelling wordt overschreven op hulpmiddel-niveau."
 
@@ -300,17 +300,17 @@ msgstr "Verwijdervoorkeuren"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Datum moet de indeling jjjj-mm-dd hebben en mag niet leeg worden gelaten."
 
-#: includes/admin/class-wc-bookings-admin.php:701
+#: includes/admin/class-wc-bookings-admin.php:702
 #: includes/admin/class-wc-bookings-details-meta-box.php:563
 msgid "Start date cannot be greater than end date."
 msgstr "Startdatum kan niet hoger dan einddatum zijn."
 
-#: includes/admin/class-wc-bookings-admin.php:700
+#: includes/admin/class-wc-bookings-admin.php:701
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "'Start- en einddatum' moeten de indeling jjjj-mm-dd hebben en mogen niet leeg worden gelaten."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1418
-#: includes/class-wc-bookings-google-calendar-connection.php:1427
+#: includes/class-wc-bookings-google-calendar-connection.php:1424
+#: includes/class-wc-bookings-google-calendar-connection.php:1433
 msgid "Invalid request!"
 msgstr "Ongeldig verzoek!"
 
@@ -1496,18 +1496,18 @@ msgstr "Boeking omschrijving:"
 msgid "Bookings from %s"
 msgstr "Boekingen vanaf %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1564
+#: includes/class-wc-bookings-google-calendar-connection.php:1570
 #: includes/class-wc-bookings-init.php:101
 #: includes/class-wc-bookings-init.php:104
 msgid "Booking"
 msgstr "Boeking"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1532
+#: includes/class-wc-bookings-google-calendar-connection.php:1538
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr "Let op: dit event kan niet worden bewerkt in Google Agenda. <a href=\"%s\" target=\"_blank\">Bewerk deze reservering in WooCommerce</a> om wijzigingen aan te brengen."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1516
+#: includes/class-wc-bookings-google-calendar-connection.php:1522
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:64
 #: templates/emails/admin-new-booking.php:82
@@ -1519,7 +1519,7 @@ msgstr "Let op: dit event kan niet worden bewerkt in Google Agenda. <a href=\"%s
 msgid "Booking Type"
 msgstr "Boeking type"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1515
+#: includes/class-wc-bookings-google-calendar-connection.php:1521
 #: templates/emails/admin-booking-cancelled.php:54
 #: templates/emails/admin-new-booking.php:72
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1530,17 +1530,17 @@ msgstr "Boeking type"
 msgid "Booking ID"
 msgstr "Boeking ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1307
+#: includes/class-wc-bookings-google-calendar-connection.php:1313
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "Het is niet gelukt om uw account af te sluiten, probeer het later nog eens. Als het probleem aanhoud, zet het Debug Logboek aan, om te kijken wat er gebeurd."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1284
+#: includes/class-wc-bookings-google-calendar-connection.php:1290
 msgid "Account connected successfully!"
 msgstr "Account succesvol aangesloten!"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1236
-#: includes/class-wc-bookings-google-calendar-connection.php:1363
-#: includes/class-wc-bookings-google-calendar-connection.php:1376
+#: includes/class-wc-bookings-google-calendar-connection.php:1369
+#: includes/class-wc-bookings-google-calendar-connection.php:1382
 msgid "Permission denied!"
 msgstr "Geen toestemming! (rechten)"
 
@@ -1611,9 +1611,9 @@ msgstr "Authoriseren"
 #: includes/class-wc-bookings-google-calendar-connection.php:1197
 #: includes/class-wc-bookings-google-calendar-connection.php:1199
 #: includes/class-wc-bookings-google-calendar-connection.php:1202
-#: includes/class-wc-bookings-google-calendar-connection.php:1272
-#: includes/class-wc-bookings-google-calendar-connection.php:1284
-#: includes/class-wc-bookings-google-calendar-connection.php:1307
+#: includes/class-wc-bookings-google-calendar-connection.php:1278
+#: includes/class-wc-bookings-google-calendar-connection.php:1290
+#: includes/class-wc-bookings-google-calendar-connection.php:1313
 msgid "Google Calendar"
 msgstr "Google Agenda"
 
@@ -1682,7 +1682,7 @@ msgstr "Boekingen"
 #: includes/class-wc-booking-form-handler.php:25
 #: includes/class-wc-booking-form-handler.php:33
 #: includes/class-wc-booking-form-handler.php:48
-#: includes/data-stores/class-wc-booking-data-store.php:125
+#: includes/data-stores/class-wc-booking-data-store.php:123
 msgid "Invalid booking."
 msgstr "Ongeldige boeking."
 
@@ -3572,23 +3572,23 @@ msgstr "%1$s — %2$s"
 msgid "All Day"
 msgstr "De hele dag"
 
-#: includes/admin/class-wc-bookings-ajax.php:369
+#: includes/admin/class-wc-bookings-ajax.php:372
 msgid "Cheatin&#8217; huh?"
 msgstr "Niet valsspelen, hè!"
 
-#: includes/admin/class-wc-bookings-ajax.php:354
+#: includes/admin/class-wc-bookings-ajax.php:357
 msgid "No blocks available."
 msgstr "Geen blokken beschikbaar."
 
-#: includes/admin/class-wc-bookings-ajax.php:305
+#: includes/admin/class-wc-bookings-ajax.php:308
 msgid "Please enter a valid date."
 msgstr "Vul een geldige datum in."
 
-#: includes/admin/class-wc-bookings-ajax.php:269
+#: includes/admin/class-wc-bookings-ajax.php:271
 msgid "Booking cost"
 msgstr "Boekingskosten"
 
-#: includes/admin/class-wc-bookings-ajax.php:236
+#: includes/admin/class-wc-bookings-ajax.php:238
 msgid "This booking is unavailable."
 msgstr "Deze boeking is niet beschikbaar."
 
@@ -3608,109 +3608,109 @@ msgstr "Het was niet mogelijk om dit hulpmiddel toe te voegen."
 msgid "The resource has already been linked to this product"
 msgstr "Dit hulpmiddel is al met dit product geassocieerd."
 
-#: includes/admin/class-wc-bookings-admin.php:735
+#: includes/admin/class-wc-bookings-admin.php:736
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "Vink dit aan wanneer dit boekbare product meerdere boekbare hulpmiddelen heeft. Bijvoorbeeld: kamertype of instructeurs."
 
-#: includes/admin/class-wc-bookings-admin.php:734
+#: includes/admin/class-wc-bookings-admin.php:735
 msgid "Has resources"
 msgstr "Heeft hulpmiddelen"
 
-#: includes/admin/class-wc-bookings-admin.php:728
+#: includes/admin/class-wc-bookings-admin.php:729
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "Vink dit aan wanneer dit boekbare product geboekt kan worden voor een door de klant aan te geven aantal personen."
 
-#: includes/admin/class-wc-bookings-admin.php:727
+#: includes/admin/class-wc-bookings-admin.php:728
 msgid "Has persons"
 msgstr "Heeft personen"
 
-#: includes/admin/class-wc-bookings-admin.php:676
+#: includes/admin/class-wc-bookings-admin.php:677
 msgid "Resource"
 msgstr "Resource"
 
-#: includes/admin/class-wc-bookings-admin.php:675
+#: includes/admin/class-wc-bookings-admin.php:676
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "Klant"
 
-#: includes/admin/class-wc-bookings-admin.php:674
+#: includes/admin/class-wc-bookings-admin.php:675
 msgid "View details"
 msgstr "Gegevens weergeven"
 
-#: includes/admin/class-wc-bookings-admin.php:666
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "Enter a name for the new resource"
 msgstr "Voer een naam in voor dit nieuwe hulpmiddel"
 
-#: includes/admin/class-wc-bookings-admin.php:665
+#: includes/admin/class-wc-bookings-admin.php:666
 msgid "days"
 msgstr "dagen"
 
-#: includes/admin/class-wc-bookings-admin.php:664
+#: includes/admin/class-wc-bookings-admin.php:665
 msgid "hours"
 msgstr "uren"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:664
 msgid "minutes"
 msgstr "minuten"
 
-#: includes/admin/class-wc-bookings-admin.php:660
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "Are you sure you want to remove this resource?"
 msgstr "Weet je zeker dat je dit hulpmiddel wilt verwijderen?"
 
-#: includes/admin/class-wc-bookings-admin.php:657
+#: includes/admin/class-wc-bookings-admin.php:658
 msgid "Are you sure you want to remove this person type?"
 msgstr "Weet je zeker dat je dit persoontype wilt verwijderen?"
 
-#: includes/admin/class-wc-bookings-admin.php:554
+#: includes/admin/class-wc-bookings-admin.php:555
 #: includes/class-wc-booking-privacy.php:78
 #: includes/class-wc-bookings-init.php:330
 msgid "Bookable product"
 msgstr "Boekbaar product"
 
-#: includes/admin/class-wc-bookings-admin.php:459
+#: includes/admin/class-wc-bookings-admin.php:460
 msgid "Booking submitted."
 msgstr "Boeking verzonden. "
 
-#: includes/admin/class-wc-bookings-admin.php:458
+#: includes/admin/class-wc-bookings-admin.php:459
 msgid "Booking saved."
 msgstr "Boeking opgeslagen."
 
-#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:455
 msgid "Custom field deleted."
 msgstr "Extra veld verwijderd."
 
-#: includes/admin/class-wc-bookings-admin.php:453
+#: includes/admin/class-wc-bookings-admin.php:454
 msgid "Custom field updated."
 msgstr "Extra veld bijgewerkt."
 
-#: includes/admin/class-wc-bookings-admin.php:452
-#: includes/admin/class-wc-bookings-admin.php:455
-#: includes/admin/class-wc-bookings-admin.php:457
+#: includes/admin/class-wc-bookings-admin.php:453
+#: includes/admin/class-wc-bookings-admin.php:456
+#: includes/admin/class-wc-bookings-admin.php:458
 msgid "Booking updated."
 msgstr "Boeking bijgewerkt."
 
-#: includes/admin/class-wc-bookings-admin.php:371
-#: includes/admin/class-wc-bookings-admin.php:677
+#: includes/admin/class-wc-bookings-admin.php:372
+#: includes/admin/class-wc-bookings-admin.php:678
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:309
-#: includes/class-wc-bookings-google-calendar-connection.php:1517
+#: includes/class-wc-bookings-google-calendar-connection.php:1523
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr "Personen"
 
-#: includes/admin/class-wc-bookings-admin.php:364
+#: includes/admin/class-wc-bookings-admin.php:365
 #: includes/admin/views/html-booking-tab.php:3
 msgid "Costs"
 msgstr "Kosten"
 
-#: includes/admin/class-wc-bookings-admin.php:357
+#: includes/admin/class-wc-bookings-admin.php:358
 #: includes/admin/class-wc-bookings-products-export.php:32
 #: includes/admin/class-wc-bookings-products-import.php:33
 #: includes/admin/views/html-booking-tab.php:2
 msgid "Availability"
 msgstr "Beschikbaarheid"
 
-#: includes/admin/class-wc-bookings-admin.php:350
+#: includes/admin/class-wc-bookings-admin.php:351
 #: includes/admin/class-wc-bookings-menus.php:127
 #: includes/admin/views/html-booking-resources.php:36
 #: includes/admin/views/html-booking-tab.php:1

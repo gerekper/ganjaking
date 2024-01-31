@@ -1464,15 +1464,22 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				}
 				
 				$relatedMode = UniteFunctionsUC::getVal($value, $name."_related_mode");
-								
+					
 				//prepare terms string
 				$arrTerms = UniteFunctionsWPUC::getPostTerms($post);
 				
 				$strTerms = "";
-							
+
+				$arrRelatedTaxonomies = UniteFunctionsUC::getVal($value, $name."_related_taxonomies");
+								
 				foreach($arrTerms as $tax => $terms){
 					
 					if($tax == "product_type")
+						continue;
+					
+					//filter by only related taxonomies from the settings.
+					
+					if(!empty($arrRelatedTaxonomies) && in_array($tax, $arrRelatedTaxonomies) == false)
 						continue;
 					
 					foreach($terms as $term){
@@ -1502,7 +1509,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				
 				$filters["exclude_current_post"] = true;
 			}
-			
 			
 			
 		}else{		//if not related posts
@@ -2450,17 +2456,17 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		
 		HelperUC::addDebug("posts found: ".count($arrPosts));
-		
+				
 		if($showDebugQuery == true){
 			
 			dmp("Found Posts: ".count($arrPosts));
-									
+			
 			echo "</div>";
 		}
 		
 		//show debug meta if needed
 		$this->showPostsDebyMeta($arrPosts, $value, $name);
-				
+		
 		
 		return($arrPosts);
 	}
@@ -3066,7 +3072,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if(!isset($data[$keyIDs]))
 			$data[$keyIDs] = $strPostIDs;
 		
-		// remove me
 		if(self::SHOW_DEBUG_POSTLIST_QUERIES == true){
 			
 			dmp("debug qieries inside post list");
@@ -3289,6 +3294,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			//set video
 			
 			if($mimeType == "video/mp4"){
+				
 				$urlVideo = UniteFunctionsUC::getVal($post, "guid");
 				
 				$item["type"] = "html5video";
@@ -3297,11 +3303,33 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$urlImage = UniteFunctionsUC::getVal($item, "image");
 				$urlThumb = UniteFunctionsUC::getVal($item, "thumb");
 				
+				//check alternative image url 
+				//from attachent meta - happends some time in jet for example
+				
+				$arrMeta = UniteFunctionsWPUC::getPostMeta($attachmentID);
+				$thumbnailID = UniteFunctionsUC::getVal($arrMeta, "_thumbnail_id");
+				
+				if(!empty($thumbnailID)){
+					
+					$arrData = UniteFunctionsWPUC::getAttachmentData($thumbnailID);
+					if(!empty($arrData)){
+						
+						$urlImage = UniteFunctionsUC::getVal($arrData, "image");
+						$urlThumb = UniteFunctionsUC::getVal($arrData, "thumb_large");
+					}
+					
+				}
+				
+				
 				if($urlImage == GlobalsUC::$url_no_image_placeholder)
-					$item["image"] = GlobalsUC::$url_video_thumbnail;
+					$urlImage = GlobalsUC::$url_video_thumbnail;
 				
 				if($urlThumb == GlobalsUC::$url_no_image_placeholder)
-					$item["thumb"] = GlobalsUC::$url_video_thumbnail;
+					$urlThumb = GlobalsUC::$url_video_thumbnail;
+
+				$item["image"] = $urlImage;
+				$item["thumb"] = $urlThumb;
+				
 			}
 			
 			

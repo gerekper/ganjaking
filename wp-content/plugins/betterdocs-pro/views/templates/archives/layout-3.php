@@ -30,11 +30,12 @@
             $_shortcode_attributes = [
                 'title_tag'     => $title_tag,
                 'terms_order'   => $terms_order,
-                'terms_orderby' => esc_html( $terms_orderby )
+                'terms_orderby' => esc_html( $terms_orderby ),
+                'show_icon'     => betterdocs()->customizer->defaults->get( 'betterdocs_doc_page_show_category_icon' )
             ];
 
             if ( is_tax( 'knowledge_base' ) ) {
-				$_shortcode_attributes['multiple_knowledge_base'] = true;
+                $_shortcode_attributes['multiple_knowledge_base'] = true;
             }
 
             $attributes = betterdocs()->template_helper->shortcode_atts( $_shortcode_attributes, 'betterdocs_category_box_2', 'layout-3' );

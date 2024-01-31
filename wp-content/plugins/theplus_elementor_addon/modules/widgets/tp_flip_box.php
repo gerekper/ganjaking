@@ -436,7 +436,7 @@ class ThePlus_Flip_Box extends Widget_Base {
 		$this->add_control(
             'loop_content',
             [
-				'label' => esc_html__( 'carousel FlipBox', 'theplus' ),
+				'label' => esc_html__( 'Carousel FlipBox', 'theplus' ),
                 'type' => Controls_Manager::REPEATER,
                 'default' => [
                     [

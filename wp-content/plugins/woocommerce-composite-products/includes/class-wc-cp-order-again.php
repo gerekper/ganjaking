@@ -2,7 +2,7 @@
 /**
  * WC_CP_Order_Again class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.14.6
  */
 

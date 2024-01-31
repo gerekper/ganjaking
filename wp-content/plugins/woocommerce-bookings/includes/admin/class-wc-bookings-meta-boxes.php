@@ -18,6 +18,7 @@ class WC_Bookings_Meta_Boxes {
 	public function __construct() {
 		$this->meta_boxes[] = new WC_Bookings_Details_Meta_Box();
 		$this->meta_boxes[] = new WC_Bookings_Customer_Meta_Box();
+		$this->meta_boxes[] = new WC_Bookings_Notes_Meta_Box();
 		$this->meta_boxes[] = new WC_Bookings_Save_Meta_Box();
 		$this->meta_boxes[] = new WC_Bookable_Resource_Details_Meta_Box();
 

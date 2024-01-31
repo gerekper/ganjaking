@@ -1004,6 +1004,7 @@ class PAFE_Form_Builder_Field extends \Elementor\Widget_Base {
 								'terms_select',
 								'checkbox',
 								'radio',
+                                'select_autocomplete'
 							],
 						],
 					],

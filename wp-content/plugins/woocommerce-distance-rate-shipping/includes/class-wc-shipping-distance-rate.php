@@ -1,9 +1,8 @@
 <?php
-
 /**
  * Shipping method with distance rate.
  *
- * @package WC_Distance_Rate
+ * @package woocommerce-distance-rate-shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -184,6 +183,13 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				return false;
 			}
 
+			/**
+			 * Allow 3rd parties to check if this shipping method is available or not.
+			 *
+			 * @since 1.0.5
+			 * @param bool $availability True if the shipping method is available for the package.
+			 * @param array $package Package to check.
+			 */
 			return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', true, $package );
 		}
 
@@ -220,7 +226,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		/**
 		 * Init function.
 		 *
-		 * @access private
 		 * @return void
 		 */
 		private function init() {
@@ -235,7 +240,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		/**
 		 * Process settings on save
 		 *
-		 * @access public
 		 * @return void
 		 */
 		public function process_admin_options() {
@@ -249,102 +253,102 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 */
 		public function init_form_fields() {
 			$this->instance_form_fields = array(
-				'title'            => array(
-					'title'           => __( 'Method Title', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'This controls the title which the user sees during checkout.', 'woocommerce-distance-rate-shipping' ),
-					'default'         => __( 'Distance Rate', 'woocommerce-distance-rate-shipping' ),
+				'title'                 => array(
+					'title'       => __( 'Method Title', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-distance-rate-shipping' ),
+					'default'     => __( 'Distance Rate', 'woocommerce-distance-rate-shipping' ),
 				),
-				'tax_status' => array(
-					'title'         => __( 'Tax Status', 'woocommerce-distance-rate-shipping' ),
-					'type'          => 'select',
-					'default'       => 'taxable',
-					'options'       => array(
+				'tax_status'            => array(
+					'title'   => __( 'Tax Status', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'select',
+					'default' => 'taxable',
+					'options' => array(
 						'taxable' => __( 'Taxable', 'woocommerce-distance-rate-shipping' ),
 						'none'    => _x( 'None', 'Tax status', 'woocommerce-distance-rate-shipping' ),
 					),
 				),
-				'mode'  => array(
-					'title'           => __( 'Transportation Mode', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'select',
-					'default'         => 'driving',
-					'options'         => array(
-						'driving'     => __( 'Driving', 'woocommerce-distance-rate-shipping' ),
-						'walking'     => __( 'Walking', 'woocommerce-distance-rate-shipping' ),
-						'bicycling'   => __( 'Bicycling', 'woocommerce-distance-rate-shipping' ),
+				'mode'                  => array(
+					'title'   => __( 'Transportation Mode', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'select',
+					'default' => 'driving',
+					'options' => array(
+						'driving'   => __( 'Driving', 'woocommerce-distance-rate-shipping' ),
+						'walking'   => __( 'Walking', 'woocommerce-distance-rate-shipping' ),
+						'bicycling' => __( 'Bicycling', 'woocommerce-distance-rate-shipping' ),
 					),
 				),
-				'avoid'  => array(
-					'title'           => __( 'Avoid', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'select',
-					'default'         => 'none',
-					'options'         => array(
-						'none'      => __( 'None', 'woocommerce-distance-rate-shipping' ),
-						'tolls'     => __( 'Tolls', 'woocommerce-distance-rate-shipping' ),
-						'highways'  => __( 'Highways', 'woocommerce-distance-rate-shipping' ),
-						'ferries'   => __( 'Ferries', 'woocommerce-distance-rate-shipping' ),
+				'avoid'                 => array(
+					'title'   => __( 'Avoid', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'select',
+					'default' => 'none',
+					'options' => array(
+						'none'     => __( 'None', 'woocommerce-distance-rate-shipping' ),
+						'tolls'    => __( 'Tolls', 'woocommerce-distance-rate-shipping' ),
+						'highways' => __( 'Highways', 'woocommerce-distance-rate-shipping' ),
+						'ferries'  => __( 'Ferries', 'woocommerce-distance-rate-shipping' ),
 					),
 				),
-				'unit'  => array(
-					'title'           => __( 'Distance Unit', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'select',
-					'default'         => 'metric',
-					'options'         => array(
-						'metric'      => __( 'Metric', 'woocommerce-distance-rate-shipping' ),
-						'imperial'    => __( 'Imperial', 'woocommerce-distance-rate-shipping' ),
+				'unit'                  => array(
+					'title'   => __( 'Distance Unit', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'select',
+					'default' => 'metric',
+					'options' => array(
+						'metric'   => __( 'Metric', 'woocommerce-distance-rate-shipping' ),
+						'imperial' => __( 'Imperial', 'woocommerce-distance-rate-shipping' ),
 					),
 				),
-				'show_distance' => array(
-					'title'           => __( 'Show distance', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'checkbox',
-					'label'           => __( 'Show the distance next to the shipping cost for the customer.', 'woocommerce-distance-rate-shipping' ),
-					'default'         => 'yes',
+				'show_distance'         => array(
+					'title'   => __( 'Show distance', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'checkbox',
+					'label'   => __( 'Show the distance next to the shipping cost for the customer.', 'woocommerce-distance-rate-shipping' ),
+					'default' => 'yes',
 				),
-				'show_duration' => array(
+				'show_duration'         => array(
 					'title'   => __( 'Show duration', 'woocommerce-distance-rate-shipping' ),
 					'type'    => 'checkbox',
 					'label'   => __( 'Show the duration next to the shipping cost for the customer.', 'woocommerce-distance-rate-shipping' ),
 					'default' => 'no',
 				),
 				'distance_rate_address' => array(
-					'title'         => __( 'Shipping Address', 'woocommerce-distance-rate-shipping' ),
-					'type'          => 'title',
-					'description'   => __( 'Please enter the address that you are shipping from below to work out the distance of the customer from the shipping location.', 'woocommerce-distance-rate-shipping' ),
+					'title'       => __( 'Shipping Address', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'title',
+					'description' => __( 'Please enter the address that you are shipping from below to work out the distance of the customer from the shipping location.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'address_1' => array(
-					'title'           => __( 'Address 1', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'First address line of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'address_1'             => array(
+					'title'       => __( 'Address 1', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'First address line of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'address_2' => array(
-					'title'           => __( 'Address 2', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'Second address line of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'address_2'             => array(
+					'title'       => __( 'Address 2', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'Second address line of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'city' => array(
-					'title'           => __( 'City', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'City of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'city'                  => array(
+					'title'       => __( 'City', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'City of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'postal_code'             => array(
-					'title'           => __( 'Zip/Postal Code', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'Zip or Postal Code of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'postal_code'           => array(
+					'title'       => __( 'Zip/Postal Code', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'Zip or Postal Code of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'state_province' => array(
-					'title'           => __( 'State/Province', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'State/Province of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'state_province'        => array(
+					'title'       => __( 'State/Province', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'State/Province of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'country' => array(
-					'title'           => __( 'Country', 'woocommerce-distance-rate-shipping' ),
-					'type'            => 'text',
-					'description'     => __( 'Country of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
+				'country'               => array(
+					'title'       => __( 'Country', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'Country of where you are shipping from.', 'woocommerce-distance-rate-shipping' ),
 				),
-				'distance_rates_map' => array(
+				'distance_rates_map'    => array(
 					'type' => 'distance_rates_map',
 				),
-				'rules' => array(
+				'rules'                 => array(
 					'type' => 'distance_rate_rule_table',
 				),
 			);
@@ -355,7 +359,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					'type'        => 'text',
 					'description' => __( 'Your <a href="https://woo.com/document/woocommerce-distance-rate-shipping/#obtain-a-google-api-key">Google API Key</a>', 'woocommerce-distance-rate-shipping' ),
 				),
-				'debug' => array(
+				'debug'   => array(
 					'title'   => __( 'Debug Mode', 'woocommerce-distance-rate-shipping' ),
 					'type'    => 'checkbox',
 					'label'   => __( 'Enable/Disable Debug Mode, display API calls on frontend', 'woocommerce-distance-rate-shipping' ),
@@ -377,7 +381,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				?>
 				<tr valign="top">
 					<td colspan="2">
-						<iframe width="600" height="450" frameborder="0" style="border:0" src="<?php echo esc_url( 'https://www.google.com/maps/embed/v1/place?q=' . urlencode( $this->get_shipping_address_string() ) . '&key=' . $this->api_key ); ?>"></iframe>
+						<iframe width="600" height="450" frameborder="0" style="border:0" src="<?php echo esc_url( 'https://www.google.com/maps/embed/v1/place?q=' . rawurlencode( $this->get_shipping_address_string() ) . '&key=' . $this->api_key ); ?>"></iframe>
 					</td>
 				</tr>
 				<?php
@@ -422,7 +426,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 							$i = -1;
 							if ( $this->rules ) {
 								foreach ( $this->rules as $rule ) {
-									$i++;
+									++$i;
 
 									$checked_break   = isset( $rule['break'] ) ? $rule['break'] : '';
 									$checked_abort   = isset( $rule['abort'] ) ? $rule['abort'] : '';
@@ -443,8 +447,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 											array(
 												array(
 													'condition' => $rule['condition'],
-													'min'       => $min_rule,
-													'max'       => $max_rule,
+													'min' => $min_rule,
+													'max' => $max_rule,
 												),
 											),
 										);
@@ -757,19 +761,26 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					</script>
 				</td>
 			</tr>
-<?php
+			<?php
 			return ob_get_clean();
 		}
 
-		public function re_order_array( $array ) {
-			if ( ! is_array( $array ) ) {
-				return $array;
+		/**
+		 * Reorder the array keys.
+		 *
+		 * @param array $array_to_reorder Array to reorder.
+		 *
+		 * @return array Reordered array.
+		 */
+		public function re_order_array( $array_to_reorder ) {
+			if ( ! is_array( $array_to_reorder ) ) {
+				return $array_to_reorder;
 			}
 
 			$count  = 0;
 			$result = array();
 
-			foreach ( $array as $k => $v ) {
+			foreach ( $array_to_reorder as $k => $v ) {
 				if ( $this->is_integer_value( $k ) ) {
 					$result[ $count ] = $this->re_order_array( $v );
 
@@ -782,9 +793,16 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			return $result;
 		}
 
+		/**
+		 * Check if it is an integer value or not.
+		 *
+		 * @param int|string $value Value to check.
+		 *
+		 * @return bool True if its an integer.
+		 */
 		public function is_integer_value( $value ) {
 			if ( ! is_int( $value ) ) {
-				if ( is_string( $value ) && preg_match( "/^-?\d+$/i", $value ) ) {
+				if ( is_string( $value ) && preg_match( '/^-?\d+$/i', $value ) ) {
 					return true;
 				}
 
@@ -820,7 +838,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			$rules           = array();
 
 			if ( isset( $_POST[ $this->id . '_conditions' ] ) ) {
-				$rule_conditions = $this->re_order_array( $_POST[ $this->id . '_conditions' ] );
+				$rule_conditions = $this->re_order_array( wp_unslash( $_POST[ $this->id . '_conditions' ] ) );
 			}
 
 			// Not processing the rules if it's not an array.
@@ -999,7 +1017,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		/**
 		 * Shows notices when shipping is not available.
 		 *
-		 * @access public
 		 * @since 3.1.3
 		 * @version 3.1.3
 		 *
@@ -1019,7 +1036,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		/**
 		 * Gets the currently set notice.
 		 *
-		 * @access public
 		 * @since 3.1.3
 		 * @version 3.1.3
 		 * @return string Notice.
@@ -1050,8 +1066,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @since 1.0.20
 		 * @version 1.0.20
 		 *
-		 * @param  array $package For specific package.
-		 * @return array
+		 * @param  array $package Package to check.
+		 *
+		 * @return bool|void True if the rates is set, void if shipping address still empty.
 		 */
 		public function get_rates( $package = array() ) {
 			$rates = array();
@@ -1102,11 +1119,30 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				? sprintf( ' (%s)', implode( '; ', $label_suffix ) )
 				: '';
 
+			/**
+			 * Allow 3rd parties to modify shipping method label suffix.
+			 *
+			 * @param string $label_suffix  Label suffix.
+			 * @param object $distance      Distance object returned by API.
+			 * @param array $package        current cart package.
+			 * @return string
+			 *
+			 * @since 1.0.6
+			 */
 			$label_suffix = apply_filters( 'woocommerce_distance_rate_shipping_label_suffix', $label_suffix, $distance, $package );
 
 			$travel_time_minutes = round( $distance->rows[0]->elements[0]->duration->value / 60 );
-			$rounding_precision  = apply_filters( 'woocommerce_distance_rate_shipping_distance_rounding_precision', 1 );
-			$distance_value      = $distance->rows[0]->elements[0]->distance->value;
+
+			/**
+			 * Allow 3rd parties to modify distance rounding precision.
+			 *
+			 * @param int $rounding_precision Rounding Precision.
+			 * @return int
+			 *
+			 * @since 1.0.3
+			 */
+			$rounding_precision = apply_filters( 'woocommerce_distance_rate_shipping_distance_rounding_precision', 1 );
+			$distance_value     = $distance->rows[0]->elements[0]->distance->value;
 
 			// Get product quantities from package contents.
 			$package_quantities = array_map(
@@ -1128,11 +1164,13 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			}
 
 			/**
-			 * Filter the distance received by the api before the shipping rules are checked
+			 * Filter the distance received by the api before the shipping rules are checked.
 			 *
 			 * @param stdClass $distance
 			 * @param integer $distance_value
 			 * @param string $unit
+			 *
+			 * @since 1.0.3
 			 */
 			$distance = apply_filters( 'woocommerce_distance_rate_shipping_calculated_distance', $distance, $distance_value, $this->unit );
 
@@ -1262,7 +1300,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			}
 
 			// None found?
-			if ( count( $rates ) == 0 ) {
+			if ( count( $rates ) === 0 ) {
 				return false;
 			}
 
@@ -1405,6 +1443,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
 			}
 
+			$condition = empty( $rule['condition'] ) ? $rule['conditions'][0][0]['condition'] : $rule['condition'];
+			$condition = 'total' === $condition ? 'order_total' : $condition; // Rename `total` condition to match legacy filter name.
 			/**
 			 * Honor the legacy filter for backward compatibility.
 			 *
@@ -1416,8 +1456,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			 * @param float $total_unit    Total unit value either distance or time.
 			 * @param array $package       Package to ship.
 			 */
-			$condition = empty( $rule['condition'] ) ? $rule['conditions'][0][0]['condition'] : $rule['condition'];
-			$condition = 'total' === $condition ? 'order_total' : $condition; // Rename `total` condition to match legacy filter name.
 			$rule_cost = apply_filters(
 				'woocommerce_distance_rate_shipping_rule_cost_' . $condition . '_shipping',
 				$rule_cost,
@@ -1749,6 +1787,14 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$address['country'] = $country;
 			}
 
+			/**
+			 * Allow modifying the customer shipping address.
+			 *
+			 * @param array $address Customer shipping address.
+			 * @return array
+			 *
+			 * @since 1.0.28
+			 */
 			return implode( ', ', apply_filters( 'woocommerce_shipping_' . $this->id . '_get_customer_address_string', $address ) );
 		}
 
@@ -1783,6 +1829,14 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$address['country'] = $this->country;
 			}
 
+			/**
+			 * Allow modifying the origin shipping address.
+			 *
+			 * @param array $address Origin shipping address.
+			 * @return array
+			 *
+			 * @since 1.0.28
+			 */
 			return implode( ', ', apply_filters( 'woocommerce_shipping_' . $this->id . '_get_shipping_address_string', $address ) );
 		}
 
@@ -1807,7 +1861,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		/**
 		 * Clear transients.
 		 *
-		 * @access public
 		 * @return void
 		 */
 		public function clear_transients() {

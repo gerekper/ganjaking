@@ -1,5 +1,24 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.19.0 - 2024-01-29
+
+* New: Introducing Display Conditions for Elements - allowing users to customize content visibility based on specified criteria ([#4246](https://github.com/elementor/elementor/issues/4246), [#21152](https://github.com/elementor/elementor/issues/21152))
+* New: Implemented Akismet Integration for enhanced spam protection and security in Form widget ([#11401](https://github.com/elementor/elementor/issues/11401))
+* New: Introducing Permissions functionality to Element Manager - providing users with enhanced control over access and management capabilities
+* Tweak: Added styling option for dropdown indicator in Menu widget ([#21907](https://github.com/elementor/elementor/issues/21907))
+* Tweak: Added additional size units and custom units in all elements
+* Tweak: Implemented CSS logical properties in WordPress Menu widget
+* Tweak: Implemented CSS logical properties in Reviews widget
+* Tweak: Implemented CSS logical properties in Countdown widget
+* Tweak: Implemented CSS logical properties in Elementor Editor
+* Tweak: Updated `jquery.smartmenus.js` version from 1.1.1 to 1.2.0
+* Fix: Dynamic Background Image does not load on the first Loop Item in a Loop Grid ([#21489](https://github.com/elementor/elementor/issues/21489), [#22368](https://github.com/elementor/elementor/issues/22368), [#23085](https://github.com/elementor/elementor/issues/23085))
+* Fix: History panel deprecation notices in console log
+* Fix: Second Pro rollback installed the latest version instead of the specifically selected older version
+* Fix: Incorrect position of the dropdown content when applying entrance animation in Menu Widget
+* Fix: UX issues when using in-place editing in Menu widget
+* Fix: Pagination with page reload is not working when used with the Taxonomy filter and Loop Grid widget in Archive template
+
 #### 3.18.2 - 2023-12-20
 
 * Fix: Modified controls sanitization to enforce better security policies in Price List widget

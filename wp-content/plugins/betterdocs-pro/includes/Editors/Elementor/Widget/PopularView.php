@@ -14,7 +14,7 @@ class PopularView extends BaseWidget {
     }
 
     public function get_title() {
-        return __( 'Betterdocs Popular Docs', 'betterdocs-pro' );
+        return __( 'BetterDocs Popular Docs', 'betterdocs-pro' );
     }
 
     public function get_icon() {
@@ -34,7 +34,7 @@ class PopularView extends BaseWidget {
     }
 
     public function get_custom_help_url() {
-        return 'https://betterdocs.co/#pricing';
+        return 'https://betterdocs.co/docs/wordpress';
     }
 
     protected function register_controls() {
@@ -51,12 +51,14 @@ class PopularView extends BaseWidget {
         $this->add_control(
             'articles_sort',
             [
-                'label'          => __( 'Sort Articles', 'betterdocs-pro' ),
+                'label'          => __( 'Sort By Docs', 'betterdocs-pro' ),
                 'label_block'    => true,
                 'type'           => Controls_Manager::SELECT2,
                 'options'        => [
-                    'ASC'  => 'Least Popular',
-                    'DESC' => 'Most Popular'
+                    'ASC'      => 'Least Popular',
+                    'DESC'     => 'Most Popular',
+                    'MODIFIED' => 'Last Updated',
+                    'CREATED'  => 'Last Created'
                 ],
                 'multiple'       => false,
                 'default'        => 'DESC',
@@ -70,7 +72,7 @@ class PopularView extends BaseWidget {
         $this->add_control(
             'popular_posts_number',
             [
-                'label'   => __( 'Number Of Posts', 'betterdocs-pro' ),
+                'label'   => __( 'Number Of Docs', 'betterdocs-pro' ),
                 'type'    => Controls_Manager::NUMBER,
                 'default' => '8'
             ]

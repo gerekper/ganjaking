@@ -29,7 +29,7 @@ class Favorites extends Tag
     }
     protected function register_controls()
     {
-        $this->add_control('favorites_scope', ['label' => __('Favorites from', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['cookie' => ['title' => __('Cookie', 'dynamic-content-for-elementor'), 'icon' => 'icon-dyn-cookie'], 'user' => ['title' => __('User', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-user'], 'global' => ['title' => __('Global', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-globe']], 'toggle' => \false, 'default' => 'user']);
+        $this->add_control('favorites_scope', ['label' => __('Favorites from', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['cookie' => ['title' => __('Cookie', 'dynamic-content-for-elementor'), 'icon' => 'icon-dyn-cookie'], 'user' => ['title' => __('User', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-user']], 'toggle' => \false, 'default' => 'user']);
         $this->add_control('favorites_key', ['label' => __('Favorites Key', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => 'my_favorites']);
         $this->add_control('favorites_separator', ['label' => __('Separator', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'options' => ['new_line' => __('New Line', 'dynamic-content-for-elementor'), 'line_break' => __('Line Break', 'dynamic-content-for-elementor'), 'comma' => __('Comma', 'dynamic-content-for-elementor')], 'default' => 'line_break', 'multiple' => \true]);
         $this->add_control('favorites_link', ['label' => __('Link to Favorite', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'condition' => ['favorites_separator!' => 'new_line']]);
@@ -71,7 +71,7 @@ class Favorites extends Tag
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $favorites_post_in = \explode(',', $_COOKIE[$settings['favorites_key']]);
         } elseif ('global' === $settings['favorites_scope']) {
-            $favorites_post_in = get_option($settings['favorites_key']);
+            $favorites_post_in = [];
         }
         if (!empty($favorites_post_in)) {
             if ('dce_wishlist' !== $settings['favorites_key']) {

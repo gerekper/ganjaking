@@ -148,8 +148,7 @@ if ( ! class_exists( 'SRP_Coupon_Validator' ) ) {
 			foreach ( $this->get_items() as $item ) {
 				$product_id  = ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'];
 				$product_obj = srp_product_object( $product_id );
-				$sale_price  = is_object( $product_obj ) ? $product_obj->get_sale_price() : '';
-				if ( ! empty( $sale_price ) ) {
+				if ( is_object( $product_obj ) && $product_obj->is_on_sale() ) {
 					return false;
 				}
 			}

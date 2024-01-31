@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -141,11 +141,14 @@ class StreamHandler extends AbstractProcessingHandler
             $this->createDir($url);
             $this->errorMessage = null;
             set_error_handler([$this, 'customErrorHandler']);
-            $stream = fopen($url, 'a');
-            if ($this->filePermission !== null) {
-                @chmod($url, $this->filePermission);
+            try {
+                $stream = fopen($url, 'a');
+                if ($this->filePermission !== null) {
+                    @chmod($url, $this->filePermission);
+                }
+            } finally {
+                restore_error_handler();
             }
-            restore_error_handler();
             if (!is_resource($stream)) {
                 $this->stream = null;
 

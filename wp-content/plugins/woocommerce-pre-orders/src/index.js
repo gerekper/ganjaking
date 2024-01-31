@@ -22,8 +22,8 @@ import './index.scss';
 const cartContainsPreorders = ( cart ) => {
 	if ( cart.cartItemsCount > 0 ) {
 		return (
-			cart.cartItems[ 0 ].extensions.preorders.charged_upfront ||
-			cart.cartItems[ 0 ].extensions.preorders.charged_upon_release
+			cart.cartItems[ 0 ].extensions?.preorders?.charged_upfront ||
+			cart.cartItems[ 0 ].extensions?.preorders?.charged_upon_release
 		);
 	}
 	return false;

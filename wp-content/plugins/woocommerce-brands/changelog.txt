@@ -1,5 +1,10 @@
 *** Brands Changelog ***
 
+2024-01-09 - version 1.6.63
+* Tweak - Changed minimum WC version to 5.0.
+* Tweak - WC 8.5 compatibility.
+* Tweak - WP 6.4 compatibility.
+
 2023-11-07 - version 1.6.62
 * Dev - Run unit tests using Pest instead of PHPUnit.
 * Fix - Doc - Use new Woo.com domain.

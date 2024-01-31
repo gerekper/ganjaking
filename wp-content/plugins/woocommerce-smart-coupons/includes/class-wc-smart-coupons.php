@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.8.0
+ * @version     6.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1985,6 +1985,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			} else {
 				add_action( 'wp_loaded', array( $this, 'smart_coupons_discount_total_filters' ), 20 );
 				add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'order_calculate_discount_amount' ), 10, 2 );
+				add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $this, 'wc_blocks_order_calculate_discount_amount' ) );
 				add_filter( 'woocommerce_cart_totals_coupon_html', array( $this, 'cart_totals_coupon_html' ), 99, 3 );
 			}
 		}
@@ -2061,6 +2062,63 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$pending_statuses = $this->get_pending_statuses();
 					if ( 'woocommerce_add_coupon_discount' === $post_action && $order->has_status( $pending_statuses ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) {
 						do_action( 'sc_after_order_calculate_discount_amount', $order_id );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Function to set order discount for store credit for WC Checkout Blocks
+		 *
+		 * @param WC_Order $order Order object.
+		 */
+		public function wc_blocks_order_calculate_discount_amount( $order = null ) {
+			if ( ! is_object( $order ) || ! $order instanceof WC_Order || ! is_callable( array( $order, 'get_id' ) ) ) {
+				return;
+			}
+
+			$order_id = $order->get_id();
+			if ( empty( $order_id ) ) {
+				return;
+			}
+			$post_post_type    = ( $this->is_hpos() ) ? $this->get_post_type( $order_id ) : ( ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : '' ); // phpcs:ignore
+			$order_created_via = ( is_callable( array( $order, 'get_created_via' ) ) ) ? $order->get_created_via() : '';
+			$order_status      = ( is_callable( array( $order, 'get_status' ) ) ) ? $order->get_status() : '';
+			if ( 'shop_order' === $post_post_type && in_array( $order_status, array( 'checkout-draft' ), true ) && in_array( $order_created_via, array( 'store-api' ), true ) ) {
+
+				$coupons = ( is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
+				if ( is_array( $coupons ) && ! empty( $coupons ) ) {
+					foreach ( $coupons as $item_id => $item ) {
+						$coupon_code = ( is_object( $item ) && is_callable( array( $item, 'get_name' ) ) ) ? $item->get_name() : trim( $item['name'] );
+						if ( empty( $coupon_code ) ) {
+							continue;
+						}
+
+						$coupon        = new WC_Coupon( $coupon_code );
+						$discount_type = $coupon->get_discount_type();
+						if ( 'smart_coupon' === $discount_type ) {
+							$total                      = (float) $order->get_total();
+							$discount_total             = is_callable( array( $order, 'get_discount_total' ) ) ? (float) $order->get_discount_total() : 0;
+							$smart_coupons_contribution = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
+							$smart_coupons_contribution = ! empty( $smart_coupons_contribution ) ? $smart_coupons_contribution : array();
+
+							if ( ! empty( $smart_coupons_contribution ) && count( $smart_coupons_contribution ) > 0 && array_key_exists( $coupon_code, $smart_coupons_contribution ) ) {
+								$discount = $smart_coupons_contribution[ $coupon_code ];
+							} else {
+								$discount = $this->sc_order_get_discount_amount( $total, $coupon, $order );
+							}
+
+							$discount = (float) min( $total, $discount );
+							if ( is_callable( array( $order, 'set_total' ) ) ) {
+								$order->set_total( $total - $discount );
+							}
+							if ( is_callable( array( $order, 'set_discount_total' ) ) ) {
+								$order->set_discount_total( $discount + $discount_total );
+							}
+							$smart_coupons_contribution[ $coupon_code ] = $discount;
+
+							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true, $order );
+						}
 					}
 				}
 			}

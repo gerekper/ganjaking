@@ -72,6 +72,39 @@ class ProviderOperationsUC extends UCOperations{
 				
 		return($output);
 	}
+
+	/**
+	 * get select 2 terms titles from array of id's or slugs
+	 */
+	public function getSelect2UsersTitles($data){
+		
+		$arrIDs = UniteFunctionsUC::getVal($data, "post_ids");
+		
+		if(empty($arrIDs))
+			return(null);
+		
+		if(is_string($arrIDs)){
+			$arrIDs = explode(",", $arrIDs);
+		}
+		
+		$args = array("include"=>$arrIDs);
+		
+		$response = get_users($args);
+		
+		if(empty($response))
+			return(null);
+		
+			
+		$output = array();
+		foreach($response as $user){
+			
+			$item = $this->getUserResult($user);
+			
+			$output[] = $item;
+		}
+				
+		return($output);
+	}
 	
 	
 	/**
@@ -126,7 +159,7 @@ class ProviderOperationsUC extends UCOperations{
 		
 		$search = $this->getSearchFromData($data);
 		$taxonomy = UniteFunctionsUC::getVal($data, "taxonomy");
-
+		
 		$query = array();
 		$query["number"] = $limit;
 		$query["search"] = $search;
@@ -144,6 +177,7 @@ class ProviderOperationsUC extends UCOperations{
 			$isSingleTax = false;
 		
 		$response = get_terms($query);
+		
 		
 		//try to get some taxonomies
 		if(empty($response) && count($search) == 1){
@@ -178,6 +212,73 @@ class ProviderOperationsUC extends UCOperations{
 			$arrResult[] = $arr;
 		}
 
+		$arrOutput = array();
+		$arrOutput["results"] = $arrResult;
+		$arrOutput["pagination"] = array("more"=>false);
+		
+		return($arrOutput);
+	}
+	
+	/**
+	 * get user result object
+	 */
+	private function getUserResult($user){
+		
+		$data = (array)$user->data;
+		
+		$caps = (array)$user->caps;
+		
+		$cap = UniteFunctionsUC::getFirstNotEmptyKey($caps);
+					
+		$name = UniteFunctionsUC::getVal($data, "display_name");
+		
+		if(empty($name))
+			$name = UniteFunctionsUC::getVal($data, "user_nicename");
+		
+		if(empty($name))
+			$name = UniteFunctionsUC::getVal($data, "user_login");
+		
+		if(empty($name))
+			$name = UniteFunctionsUC::getVal($data, "user_email");
+		
+		$userID = UniteFunctionsUC::getVal($data, "ID");
+		
+		$text = "$name ($cap)";
+		
+		$arr = array();
+		$arr["id"] = $userID;
+		$arr["text"] = $text;
+		
+		return($arr);
+	}
+	
+	
+	/**
+	 * get terms list for select
+	 */
+	public function getUsersListForSelectFromData($data){
+		
+		$limit = 10;
+		
+		$search = $this->getSearchFromData($data);
+		
+		$query = array();
+		$query["search"] = "*$search*";
+		$query["number"] = 10;
+		
+		$users = get_users($query);
+				
+		if(empty($users))
+			return(null);
+		
+		$arrResult = array();
+		foreach($users as $user){
+
+			$arr = $this->getUserResult($user);
+			
+			$arrResult[] = $arr;
+		}
+		
 		$arrOutput = array();
 		$arrOutput["results"] = $arrResult;
 		$arrOutput["pagination"] = array("more"=>false);

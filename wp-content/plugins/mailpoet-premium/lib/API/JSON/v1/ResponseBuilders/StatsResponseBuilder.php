@@ -36,6 +36,7 @@ class StatsResponseBuilder {
     $result = [
       'id' => (string)$newsletter->getId(),
       'subject' => $newsletter->getSubject(),
+      'campaign_name' => $newsletter->getCampaignName(),
       'sender_address' => $newsletter->getSenderAddress(),
       'sender_name' => $newsletter->getSenderName(),
       'reply_to_address' => $newsletter->getReplyToAddress(),

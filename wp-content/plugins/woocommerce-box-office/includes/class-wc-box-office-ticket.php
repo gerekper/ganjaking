@@ -240,6 +240,10 @@ class WC_Box_Office_Ticket {
 			) );
 		}
 
+		if ( isset( $data['fields']['pii_preference'] ) && 'opted-out' === $data['fields']['pii_preference'] ) {
+			update_post_meta( $ticket_id, '_user_pii_preference', 'opted-out' );
+		}
+
 		update_post_meta( $ticket_id, '_token', $this->_generate_token( $ticket_id ) );
 
 		update_post_meta( $ticket_id, '_product_id', $product->get_id() );
@@ -295,6 +299,10 @@ class WC_Box_Office_Ticket {
 				$this->save_ticket_field( $this->id, $key, $data[ $key ], $field['type'] );
 			}
 		}
+
+		$pii_preference = isset( $data['pii_preference'] ) ? 'opted-out' : 'opted-in';
+
+		update_post_meta( $this->id, '_user_pii_preference', $pii_preference );
 
 		if ( ! empty( $content_array ) ) {
 			$post_data = array(

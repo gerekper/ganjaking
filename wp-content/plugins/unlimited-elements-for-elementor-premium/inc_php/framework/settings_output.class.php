@@ -19,6 +19,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		protected $showDescAsTips = false;
 		protected $wrapperID = "";
+		protected $idPrefix;
 		protected $addCss = "";
 		protected $settingsMainClass = "";
 		protected $isParent = false;		//variable that this class is parent
@@ -54,6 +55,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$this->settings = new UniteSettingsUC();
 			$this->settings = $settings;
+			
+			$this->idPrefix = $settings->getIDPrefix();
+			
 		}
 
 
@@ -114,41 +118,39 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		/**
 		 * get default value add html
-		 * @param $setting
 		 */
 		protected function getDefaultAddHtml($setting, $implodeArray = false){
 
 			$defaultValue = UniteFunctionsUC::getVal($setting, "default_value");
-			if(is_array($defaultValue))
+
+			if(is_array($defaultValue) || is_object($defaultValue))
 				$defaultValue = json_encode($defaultValue);
 
-			$defaultValue = htmlspecialchars($defaultValue);
-
-			//UniteFunctionsUC::showTrace();exit();
-
 			$value = UniteFunctionsUC::getVal($setting, "value");
+
 			if(is_array($value) || is_object($value)){
-				if($implodeArray == false)
-					return("");
-				else
+				if($implodeArray === true)
 					$value = implode(",", $value);
+				else
+					$value = json_encode($value);
 			}
 
+			$defaultValue = htmlspecialchars($defaultValue);
 			$value = htmlspecialchars($value);
 
 			$addHtml = " data-default=\"{$defaultValue}\" data-initval=\"{$value}\" ";
 
-	        $addAttrSelectors = $this->getSelectorsAddAttr($setting);
+			$addAttrSelectors = $this->getSelectorsAddAttr($setting);
 
-	        if(!empty($addAttrSelectors))
-	        	$addHtml .= " ".$addAttrSelectors;
+			if(!empty($addAttrSelectors))
+				$addHtml .= " " . $addAttrSelectors;
 
 			$addParams = UniteFunctionsUC::getVal($setting, UniteSettingsUC::PARAM_ADDPARAMS);
+
 			if(!empty($addParams))
-				$addHtml .= " ".$addParams;
+				$addHtml .= " " . $addParams;
 
-
-			return($addHtml);
+			return $addHtml;
 		}
 
 
@@ -425,63 +427,67 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 				<div class="unite-setting-link-field">
 					<input
-						id="<?php echo esc_attr($id); ?>"
+						id="<?php esc_attr_e($id); ?>"
 						type="text"
-						name="<?php echo esc_attr($name); ?>"
-						value="<?php echo esc_attr($urlValue); ?>"
-						placeholder="<?php echo esc_attr(__("Link URL")); ?>"
+						name="<?php esc_attr_e($name); ?>"
+						value="<?php esc_attr_e($urlValue); ?>"
+						placeholder="<?php esc_attr_e(__("Link URL")); ?>"
 						data-settingtype="link"
 						<?php echo UniteProviderFunctionsUC::escAddParam($class); ?>
 						<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
 					/>
-					<button class="unite-setting-link-toggle" type="button" title="<?php echo esc_attr(__("Link options")); ?>">
+					<button
+						class="unite-setting-link-toggle"
+						type="button"
+						title="<?php esc_attr_e("Link options", "unlimited-elements-for-elementor"); ?>"
+					>
 						<span class="dashicons dashicons-admin-generic"></span>
 					</button>
 				</div>
 
-				<ul class="unite-setting-link-fields unite-settings-exclude">
-					<li>
-						<div>
+				<div class="unite-setting-link-options unite-settings-exclude">
+					<div class="unite-setting-link-option">
+						<div class="unite-setting-link-checkbox">
 							<input
-								id="<?php echo esc_attr($externalId); ?>"
+								id="<?php esc_attr_e($externalId); ?>"
 								class="unite-setting-link-external"
 								type="checkbox"
 								<?php echo $externalChecked ? "checked" : ""; ?>
 							/>
-							<label for="<?php echo esc_attr($externalId); ?>">
-								<?php echo esc_html(__("Open in new window")); ?>
+							<label for="<?php esc_attr_e($externalId); ?>">
+								<?php esc_html_e("Open in new window", "unlimited-elements-for-elementor"); ?>
 							</label>
 						</div>
-						<div>
+						<div class="unite-setting-link-checkbox">
 							<input
-								id="<?php echo esc_attr($nofollowId); ?>"
+								id="<?php esc_attr_e($nofollowId); ?>"
 								class="unite-setting-link-nofollow"
 								type="checkbox"
 								<?php echo $nofollowChecked ? "checked" : ""; ?>
 							/>
-							<label for="<?php echo esc_attr($nofollowId); ?>">
-								<?php echo esc_html(__("Add nofollow")); ?>
+							<label for="<?php esc_attr_e($nofollowId); ?>">
+								<?php esc_html_e("Add nofollow", "unlimited-elements-for-elementor"); ?>
 							</label>
 						</div>
-					</li>
-					<li>
+					</div>
+					<div class="unite-setting-link-option">
 						<div class="unite-setting-text-wrapper">
 							<div class="unite-setting-text">
-								<?php echo esc_html(__("Custom attributes")); ?>
+								<?php esc_html_e("Custom attributes", "unlimited-elements-for-elementor"); ?>
 							</div>
 						</div>
 						<input
-							id="<?php echo esc_attr($attributesId); ?>"
+							id="<?php esc_attr_e($attributesId); ?>"
 							class="unite-setting-link-attributes"
 							type="text"
-							value="<?php echo esc_attr($attributesValue); ?>"
-							placeholder="<?php echo esc_attr(__("key|value")); ?>"
+							value="<?php esc_attr_e($attributesValue); ?>"
+							placeholder="<?php esc_attr_e("key|value", "unlimited-elements-for-elementor"); ?>"
 						/>
-						<div class="description">
-							<?php echo esc_html(__("Set custom attributes for the link element. Separate attribute keys from values using the | (pipe) character. Separate key-value pairs with a comma.")); ?>
+						<div class="unite-setting-helper">
+							<?php esc_html_e("Set custom attributes for the link element. Separate attribute keys from values using the | (pipe) character. Separate key-value pairs with a comma.", "unlimited-elements-for-elementor"); ?>
 						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
 
 			</div>
 			<?php
@@ -1045,24 +1051,16 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					$this->drawHiddenInput($setting);
 				break;
 				case UniteCreatorSettings::TYPE_REPEATER:
-
 					$this->drawRepeaterInput($setting);
-
 				break;
 				case UniteCreatorSettings::TYPE_TYPOGRAPHY:
-
 					$this->drawTypographySetting($setting);
-
 				break;
 				case UniteCreatorSettings::TYPE_DIMENTIONS:
-					
 					$this->drawDimentionsSetting($setting);
-					
 				break;
 				case UniteCreatorSettings::TYPE_GALLERY:
-
 					$this->drawGallerySetting($setting);
-
 				break;
 				case UniteSettingsUC::TYPE_CUSTOM:
 					if(method_exists($this,"drawCustomInputs") == false){
@@ -1079,53 +1077,45 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 
 		/**
-		 * draw text input
-		 * @param $setting
+		 * draw range slider input
 		 */
-		protected function drawRangeSliderInput($setting) {
+		protected function drawRangeSliderInput($setting){
 
-
-			$setting[UniteSettingsUC::PARAM_CLASSADD] = "unite-setting-range";
-			$setting["class"] = "nothing";
-			$setting["type_number"] = true;
-
-			$value = UniteFunctionsUC::getVal($setting, "value");
-
-			$min = UniteFunctionsUC::getVal($setting, "min");
-			$max = UniteFunctionsUC::getVal($setting, "max");
-			$step = UniteFunctionsUC::getVal($setting, "step");
-
-			if(empty($step))
-				$step = 1;
-
-			if($min === "" || is_numeric($min) == false)
-				UniteFunctionsUC::throwError("range error: should be min value");
-
-			if($max === "" || is_numeric($max) == false)
-				UniteFunctionsUC::throwError("range error: should be max value");
-
+			$id = UniteFunctionsUC::getVal($setting, "id");
+			$name = UniteFunctionsUC::getVal($setting, "name");
 			$defaultValue = UniteFunctionsUC::getVal($setting, "default_value");
+			$value = UniteFunctionsUC::getVal($setting, "value", $defaultValue);
+			$min = UniteFunctionsUC::getVal($setting, "min", 0);
+			$max = UniteFunctionsUC::getVal($setting, "max", 0);
+			$step = UniteFunctionsUC::getVal($setting, "step", 1);
+			$units = UniteFunctionsUC::getVal($setting, "units");
+			$unit = empty($units) === false ? reset($units) : "px";
 
-			$unit = UniteFunctionsUC::getVal($setting, "range_unit");
+			$setting["default_value"] = array("size" => $defaultValue, "unit" => $unit);
+			$setting["value"] = array("size" => $value, "unit" => $unit);
 
-			if($unit == "__hide__")
-				$unit = null;
+			$addHtml = $this->getDefaultAddHtml($setting);
 
 			?>
-			<div class="unite-setting-range-wrapper">
-
-				<input type="range" min="<?php echo esc_attr($min)?>" max="<?php echo esc_attr($max)?>" step="<?php echo esc_attr($step)?>" value="<?php echo esc_attr($value)?>" >
-			<?php
-
-				$this->drawTextInput($setting);
-
-				if(!empty($unit)):
-				?>
-				<span class="setting_unit"><?php echo esc_html($unit)?></span>
-				<?php
-				endif;
-			?>
-
+			<div
+				class="unite-setting-input-object unite-setting-range"
+				data-name="<?php esc_attr_e($name); ?>"
+				data-settingtype="range"
+				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+			>
+				<div
+					class="unite-setting-range-slider"
+					data-value="<?php esc_attr_e($value); ?>"
+					data-min="<?php esc_attr_e($min); ?>"
+					data-max="<?php esc_attr_e($max); ?>"
+					data-step="<?php esc_attr_e($step); ?>"
+				></div>
+				<input
+					class="unite-setting-range-input"
+					id="<?php esc_attr_e($id); ?>"
+					type="number"
+					value="<?php esc_attr_e($value); ?>"
+				/>
 			</div>
 			<?php
 		}
@@ -1137,10 +1127,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		protected function drawRepeaterInput($setting){
 
 			$itemsValues = UniteFunctionsUC::getVal($setting, "items_values");
-
 			$strData = UniteFunctionsUC::jsonEncodeForHtmlData($itemsValues, "itemvalues");
-
 			$addItemText = UniteFunctionsUC::getVal($setting, "add_button_text");
+
 			if(empty($addItemText))
 				$addItemText = esc_html__("Add Item", "unlimited-elements-for-elementor");
 
@@ -1148,27 +1137,28 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$emptyText = UniteFunctionsUC::getVal($setting, "empty_text");
 
 			if(empty($emptyText))
-				$emptyText = esc_html__("No Items Found", "unlimited-elements-for-elementor");
+				$emptyText = esc_html__("No items found.", "unlimited-elements-for-elementor");
 
 			$objSettingsItems = UniteFunctionsUC::getVal($setting, "settings_items");
+
 			UniteFunctionsUC::validateNotEmpty($objSettingsItems, "settings items");
 
 			$emptyTextAddHtml = "";
+
 			if(!empty($value))
 				$emptyTextAddHtml = "style='display:none'";
 
-			if($this->isSidebar == true){
+			if($this->isSidebar === true){
 				$output = new UniteSettingsOutputSidebarUC();
 				$output->setShowSaps(false);
-			}
-			else
+			}else
 				$output = new UniteSettingsOutputWideUC();
-
 
 			$output->init($objSettingsItems);
 
 			//get item title
 			$itemTitle = UniteFunctionsUC::getVal($setting, "item_title");
+
 			if(empty($itemTitle))
 				$itemTitle = esc_html__("Item", "unlimited-elements-for-elementor");
 
@@ -1176,40 +1166,44 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			//delete button text
 			$deleteButtonText = UniteFunctionsUC::getVal($setting, "delete_button_text");
+
 			if(empty($deleteButtonText))
-				$deleteButtonText = esc_html__("Delete Item","unlimited-elements-for-elementor");
+				$deleteButtonText = esc_html__("Delete", "unlimited-elements-for-elementor");
 
 			$duplicateButtonText = UniteFunctionsUC::getVal($setting, "duplicate_button_text");
+
 			if(empty($duplicateButtonText))
-				$duplicateButtonText = esc_html__("Duplicate Item","unlimited-elements-for-elementor");
+				$duplicateButtonText = esc_html__("Duplicate", "unlimited-elements-for-elementor");
 
 			$deleteButtonText = htmlspecialchars($deleteButtonText);
 			$duplicateButtonText = htmlspecialchars($duplicateButtonText);
 
-
 			?>
-		      <div id="<?php echo esc_attr($setting["id"])?>" data-settingtype="repeater" <?php echo UniteProviderFunctionsUC::escAddParam($strData)?> class="unite-settings-repeater unite-setting-input-object" data-name="<?php echo esc_attr($setting["name"])?>" data-itemtitle='<?php echo esc_attr($itemTitle)?>' data-deletetext="<?php echo esc_attr($deleteButtonText)?>" data-duplicatext="<?php echo esc_attr($duplicateButtonText)?>" >
-
-		      	 <div class="unite-repeater-emptytext" <?php echo UniteProviderFunctionsUC::escAddParam($emptyTextAddHtml)?>>
-		      	 	<?php echo esc_html($emptyText)?>
-		      	 </div>
-
-		      	 <div class="unite-repeater-template" style="display:none">
-
-		      	 		<?php $output->draw("settings_item_repeater", false); ?>
-
-		      	 </div>
-
-		      	 <div class="unite-repeater-items"></div>
-
-		      	 <a class="unite-button-secondary unite-repeater-buttonadd" ><?php echo UniteProviderFunctionsUC::escAddParam($addItemText)?></a>
-
-			  </div>
-
+			<div
+				id="<?php esc_attr_e($setting["id"]); ?>"
+				class="unite-setting-input-object unite-setting-repeater"
+				<?php echo UniteProviderFunctionsUC::escAddParam($strData); ?>
+				data-settingtype="repeater"
+				data-name="<?php esc_attr_e($setting["name"]); ?>"
+				data-item-title="<?php esc_attr_e($itemTitle); ?>"
+				data-text-delete="<?php esc_attr_e($deleteButtonText); ?>"
+				data-text-duplicate="<?php esc_attr_e($duplicateButtonText); ?>"
+			>
+				<div class="unite-repeater-template unite-hidden">
+					<?php $output->draw("settings_item_repeater", false); ?>
+				</div>
+				<div class="unite-repeater-empty" <?php echo UniteProviderFunctionsUC::escAddParam($emptyTextAddHtml); ?>>
+					<?php esc_html_e($emptyText); ?>
+				</div>
+				<div class="unite-repeater-items"></div>
+				<div class="unite-repeater-actions">
+					<button class="unite-button-primary unite-repeater-add">
+						<?php echo UniteProviderFunctionsUC::escAddParam($addItemText); ?>
+					</button>
+				</div>
+			</div>
 			<?php
-
 		}
-
 
 		/**
 		 * special inputs
@@ -1261,10 +1255,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			}
 
 			$value = $setting["value"];
-			
+
 			if(is_array($value))
 				$value = json_encode($value);
-			
+
 			$value = htmlspecialchars($value);
 
 			$typePass = UniteFunctionsUC::getVal($setting, "ispassword");
@@ -1713,7 +1707,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 
-		
+
 		/**
 		 * draw input additinos like unit / description etc
 		 */
@@ -1757,7 +1751,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$options["show_saps"] = $this->showSaps;
 			$options["saps_type"] = $this->sapsType;
 			$options["id_prefix"] = $idPrefix;
-
+			
+			//add google fonts
+			$fontData = HelperUC::getFontPanelData();
+			$googleFonts = UniteFunctionsUC::getVal($fontData, "arrGoogleFonts");
+			
+			$options["google_fonts"] = $googleFonts;
+			
 			return($options);
 		}
 
@@ -1784,7 +1784,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * insert settings into saps array
 		 */
 		private function groupSettingsIntoSaps(){
-
+			
 		    $arrSaps = $this->settings->getArrSaps();
 		    $arrSettings = $this->settings->getArrSettings();
 
@@ -1792,7 +1792,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		    foreach($arrSettings as $key=>$setting){
 
 		        $sapID = $setting["sap"];
-
+				
 		        if(isset($arrSaps[$sapID]["settings"]))
 		            $arrSaps[$sapID]["settings"][] = $setting;
 		            else
@@ -1810,22 +1810,33 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		protected function drawTypographySetting($setting){
 
-			if($this->isSidebar == false){
+			if($this->isSidebar === false){
 				dmp("the typography attribute will be available in elementor");
-				return(false);
-			}
 
-			$addHtml = $this->getDefaultAddHtml($setting);
+				return;
+			}
 
 			$this->isTypographyExists = true;
 
+			$addHtml = $this->getDefaultAddHtml($setting);
+
 			?>
-		      <div id="<?php echo esc_attr($setting["id"])?>" data-settingtype="typography" class="unite-setting-input-object unite-settings-typography" data-name="<?php echo esc_attr($setting["name"])?>" <?php echo $addHtml?> >
-
-		        	<span class="unite-button-secondary unite-button-typography"><?php _e("Choose Styles","unlimited-elements-for-elementor") ?></span>
-
-			  </div>
-
+			<div
+				id="<?php esc_attr_e($setting["id"]); ?>"
+				class="unite-setting-input-object unite-typography"
+				data-name="<?php esc_attr_e($setting["name"]); ?>"
+				data-settingtype="typography"
+				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+			>
+				<button
+					class="unite-typography-button uc-tip"
+					title="<?php esc_attr_e("Edit", "unlimited-elements-for-elementor"); ?>"
+				>
+					<svg class="unite-typography-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+						<path stroke-linejoin="round" d="m9 1 2 2-7 7-3 1 1-3 7-7Z" />
+					</svg>
+				</button>
+			</div>
 			<?php
 		}
 
@@ -1835,26 +1846,20 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		protected function drawTypographyDialog(){
 
 			$settings = new UniteCreatorSettings();
-
 			$settings->addTypographyDialogSettings();
 
 			$output = new UniteSettingsOutputSidebarUC();
-
 			$output->init($settings);
 
-		   ?>
-				<div class="uc-dialog-typgoraphy unite-settings-exclude">
-
-		   			<?php $output->draw("settings_typography_dialog", false); ?>
-
-				</div>
+			?>
+			<div class="unite-typography-dialog unite-settings-exclude">
+				<?php $output->draw("settings_typography_dialog", false); ?>
+			</div>
 			<?php
-
 		}
 
 
 		private function a______DRAW_GENERAL_____(){}
-
 
 		/**
 		 * get controls for client side
@@ -2125,9 +2130,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		protected function drawSettingsBottom(){
 
-			if($this->isTypographyExists && $this->isSidebar == true)
+			if($this->isSidebar === true && $this->isTypographyExists === true)
 				$this->drawTypographyDialog();
-
 		}
 
 		/**

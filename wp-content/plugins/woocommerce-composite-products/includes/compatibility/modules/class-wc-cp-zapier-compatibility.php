@@ -2,7 +2,7 @@
 /**
  * WC_CP_Zapier_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.1.1
  */
 

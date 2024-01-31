@@ -77,7 +77,6 @@ $first_tag = 'style';
 			<input type="hidden" id="wpb_vc_js_status" name="wpb_vc_js_status" value="true">
 			<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="Loading, please wait...">
 			<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row" value="Crunching...">
-			<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="" autocomplete="off"></div>
 	</div>
 	<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>
 	<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row" value="<?php esc_attr_e( 'Crunching...', 'js_composer' ); ?>"/>
@@ -87,6 +86,4 @@ add_filter( 'vc_role_access_with_backend_editor_get_state', '__return_true' );
 vc_include_template( 'editors/partials/access-manager-js.tpl.php' );
 vc_include_template( 'editors/partials/backend-shortcodes-templates.tpl.php' );
 do_action( 'vc_ui-template-preview' );
-// fix bug #59741644518985 in firefox
-// wp_dequeue_script( 'isotope' );
 require_once ABSPATH . 'wp-admin/admin-footer.php';

@@ -1,7 +1,7 @@
 <?php
 /*
  * Taxonomy Settings
- * @version 4.2.2
+ * @version 4.5.6
  */
 
 $settings = new EVO_Settings();
@@ -69,6 +69,7 @@ $footer_btns = array(
 	}
 
 $data_array =  array(
+	'nonce_action'=>'evo_save_term_form',
 	'form_class'=>'evo_tax_event_settings',
 	'container_class'=>'evo_tax pad20',
 	'hidden_fields'=>array(

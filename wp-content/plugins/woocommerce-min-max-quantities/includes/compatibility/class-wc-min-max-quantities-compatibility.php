@@ -2,7 +2,7 @@
 /**
  * WC_MMQ_Compatibility class
  *
- * @package  WooCommerce Min/Max Quantities
+ * @package  Woo Min/Max Quantities
  * @since    4.0.4
  */
 

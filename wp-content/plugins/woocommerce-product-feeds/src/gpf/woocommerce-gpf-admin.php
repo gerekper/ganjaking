@@ -28,11 +28,6 @@ class WoocommerceGpfAdmin {
 	protected $feed_image_manager;
 
 	/**
-	 * @var WoocommerceProductFeedsWoocommerceAdminIntegration
-	 */
-	protected $wc_admin_integration;
-
-	/**
 	 * @var WoocommerceProductFeedsFeedConfigRepository
 	 */
 	protected $feed_config_repository;
@@ -76,9 +71,9 @@ class WoocommerceGpfAdmin {
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
 	 * @param WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
-	 * @param WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration
 	 * @param WoocommerceProductFeedsFeedConfigRepository $feed_config_repository
 	 * @param WoocommerceProductFeedsFeedManager $feed_manager
+	 * @param WoocommerceProductFeedsSetupTasks $setup_tasks
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
@@ -86,7 +81,6 @@ class WoocommerceGpfAdmin {
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status,
 		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager,
-		WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration,
 		WoocommerceProductFeedsFeedConfigRepository $feed_config_repository,
 		WoocommerceProductFeedsFeedManager $feed_manager
 	) {
@@ -95,7 +89,6 @@ class WoocommerceGpfAdmin {
 		$this->cache                  = $woocommerce_gpf_cache;
 		$this->cache_status           = $woocommerce_gpf_cache_status;
 		$this->feed_image_manager     = $woocommerce_product_feeds_feed_image_manager;
-		$this->wc_admin_integration   = $woocommerce_product_feeds_woocommerce_admin_integration;
 		$this->feed_config_repository = $feed_config_repository;
 		$this->feed_manager           = $feed_manager;
 	}
@@ -108,13 +101,12 @@ class WoocommerceGpfAdmin {
 	public function initialise() {
 
 		$this->settings = get_option( 'woocommerce_gpf_config', array() );
-		$this->base_dir = dirname( dirname( __DIR__ ) );
+		$this->base_dir = dirname( __DIR__, 2 );
 
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ), 11 );
 		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'admin_print_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'woocommerce_init', array( $this->wc_admin_integration, 'initialise' ) );
 
 		// Extend category admin page.
 		add_action( 'product_cat_add_form_fields', array( $this, 'category_meta_box' ), 99, 2 ); // After left-col
@@ -528,9 +520,13 @@ class WoocommerceGpfAdmin {
 				$header_vars['default_text'] = '';
 				$placeholder                 = '';
 				if ( isset( $fieldinfo['can_default'] ) && ! empty( $this->settings['product_defaults'][ $key ] ) ) {
+					$default_value = $this->settings['product_defaults'][ $key ];
+					if ( is_array( $default_value ) ) {
+						$default_value = implode( ',', $default_value );
+					}
 					$header_vars['default_text'] .= '<span class="woocommerce_gpf_default_label">(' .
 													__( 'Default: ', 'woocommerce_gpf' ) .
-													esc_html( $this->settings['product_defaults'][ $key ] ) .
+													esc_html( $default_value ) .
 													')</span>';
 					$placeholder                  = __( 'Use default', 'woo_gpf' );
 				}
@@ -668,13 +664,17 @@ class WoocommerceGpfAdmin {
 					);
 				}
 				if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
+					$default_value = $product_defaults[ $key ];
+					if ( is_array( $default_value ) ) {
+						$default_value = implode( ',', $default_value );
+					}
 					$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
 						'woo-gpf',
 						'variation-meta-default-text',
 						array(
 							'default' => sprintf(
 								'Defaults to value from main product, or &quot;%s&quot;.',
-								esc_html( $product_defaults[ $key ] )
+								esc_html( $default_value )
 							),
 						)
 					);
@@ -791,11 +791,15 @@ class WoocommerceGpfAdmin {
 					}
 				}
 				if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
+					$default_value = $product_defaults[ $key ];
+					if ( is_array( $default_value ) ) {
+						$default_value = implode( ',', $default_value );
+					}
 					$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
 						'woo-gpf',
 						'product-meta-default-text',
 						array(
-							'default' => '(' . __( 'Default: ', 'woocommerce_gpf' ) . esc_html( $product_defaults[ $key ] ) . ')',
+							'default' => '(' . __( 'Default: ', 'woocommerce_gpf' ) . esc_html( $default_value ) . ')',
 						)
 					);
 					$placeholder                  = __( 'Use default', 'woo_gpf' );
@@ -1173,6 +1177,48 @@ class WoocommerceGpfAdmin {
 		return $this->template_loader->get_template_with_variables(
 			'woo-gpf',
 			'field-row-default-generic-select',
+			$variables
+		);
+	}
+
+	/**
+	 * Used to render the drop-down of valid size types
+	 *
+	 * @access private
+	 *
+	 * @param string $key The key being processed
+	 * @param array $current_data The current value of this key
+	 *
+	 * @return string
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 */
+	private function render_generic_multi_select( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
+		if ( ! is_array( $current_data ) ) {
+			$current_data = [ $current_data ];
+		}
+		$variables                = $this->default_field_variables( $key, $loop_idx );
+		$variables['options']     = $this->build_multi_select_options(
+			$this->product_fields[ $key ]['options_callback'](),
+			$current_data
+		);
+		$variables['emptyoption'] = '';
+		$optional                 = ! isset( $this->product_fields[ $key ]['mandatory'] ) ||
+									! $this->product_fields[ $key ]['mandatory'];
+		// Mandatory fields are only mandatory on the main config screen. If this is some other context (category,
+		// product, variation), or the field is optional, we need the "use default"/"no default" option.
+		if ( 'config' !== $context || $optional ) {
+			$variables['emptyoption'] = $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'field-row-default-generic-select-empty-option',
+				$variables
+			);
+		}
+
+		return $this->template_loader->get_template_with_variables(
+			'woo-gpf',
+			'field-row-default-generic-multi-select',
 			$variables
 		);
 	}
@@ -1926,7 +1972,7 @@ class WoocommerceGpfAdmin {
 			// We do these so we can re-use the same form field rendering code for the fields
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			foreach ( $_POST['_woocommerce_gpf_data'] as $key => $value ) {
-				$_POST['_woocommerce_gpf_data'][ $key ] = stripslashes( $value );
+				$_POST['_woocommerce_gpf_data'][ $key ] = stripslashes_deep( $value );
 			}
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$_POST['woocommerce_gpf_config']['product_defaults'] = $_POST['_woocommerce_gpf_data'];
@@ -1949,7 +1995,8 @@ class WoocommerceGpfAdmin {
 	}
 
 	/**
-	 * @param $options
+	 * @param array $options
+	 * @param string $current_data
 	 *
 	 * @return string
 	 */
@@ -1963,6 +2010,29 @@ class WoocommerceGpfAdmin {
 					'value'       => $value,
 					'description' => $description,
 					'selected'    => ( $current_data === $value ) ? 'selected' : '',
+				]
+			);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @param array $options
+	 * @param array $current_data
+	 *
+	 * @return string
+	 */
+	private function build_multi_select_options( $options, $current_data ) {
+		$result = '';
+		foreach ( $options as $value => $description ) {
+			$result .= $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'field-row-default-generic-select-option',
+				[
+					'value'       => $value,
+					'description' => $description,
+					'selected'    => in_array( $value, $current_data, true ) ? 'selected' : '',
 				]
 			);
 		}

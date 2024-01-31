@@ -32,7 +32,7 @@ $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? '
 			<a href="#" class="wc-pao-export-addons"><?php esc_html_e( 'Export', 'woocommerce-product-addons' ); ?></a>
 			<a href="#" class="wc-pao-close-all"><?php esc_html_e( 'Close all', 'woocommerce-product-addons' ); ?></a>
 			<a href="#" class="wc-pao-expand-all"><?php esc_html_e( 'Expand all', 'woocommerce-product-addons' ); ?></a>&nbsp;
-			<input type="hidden" name="product_addons_export_string" class="product_addons_export_string" value="<?php echo esc_textarea( serialize( $product_addons ) ); ?>" />
+			<input type="hidden" name="product_addons_export_string" class="product_addons_export_string" value="<?php echo wc_esc_json( json_encode( $product_addons ) ); ?>" />
 		</p>
 	</div>
 

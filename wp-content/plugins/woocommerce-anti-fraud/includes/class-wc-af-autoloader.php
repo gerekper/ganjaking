@@ -41,7 +41,7 @@ class WC_AF_Autoloader {
 
 			// Check & load file
 			if ( file_exists( $file_path ) ) {
-				require_once( $file_path );
+				include_once( $file_path );
 			}
 		}
 

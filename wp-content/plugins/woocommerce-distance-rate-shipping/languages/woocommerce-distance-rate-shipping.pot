@@ -1,15 +1,15 @@
-# Copyright (C) 2023 WooCommerce
+# Copyright (C) 2024 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Distance Rate Shipping 1.3.4\n"
+"Project-Id-Version: WooCommerce Distance Rate Shipping 1.3.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-distance-rate-shipping\n"
-"POT-Creation-Date: 2023-12-11 23:13:56+00:00\n"
+"POT-Creation-Date: 2024-01-08 22:20:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -18,7 +18,8 @@ msgstr ""
 msgid "WooCommerce Distance Rate Shipping"
 msgstr ""
 
-#: includes/class-wc-distance-rate-privacy.php:20
+#: includes/class-wc-distance-rate-privacy.php:28
+#. translators: %s is the privacy document link.
 msgid ""
 "By using this extension, you may be storing personal data or sharing data "
 "with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
@@ -38,7 +39,7 @@ msgstr ""
 msgid "Docs"
 msgstr ""
 
-#: includes/class-wc-distance-rate.php:184
+#: includes/class-wc-distance-rate.php:182
 #. translators: %1s: Shipping zones link start %2s: Link end
 msgid ""
 "Distance Rate now supports shipping zones. The zone settings were added to "
@@ -46,353 +47,353 @@ msgid ""
 "%1$shere%2$s "
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:161
-#: includes/class-wc-shipping-distance-rate.php:256
+#: includes/class-wc-shipping-distance-rate.php:160
+#: includes/class-wc-shipping-distance-rate.php:260
 msgid "Distance Rate"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:253
+#: includes/class-wc-shipping-distance-rate.php:257
 msgid "Method Title"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:255
+#: includes/class-wc-shipping-distance-rate.php:259
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:259
+#: includes/class-wc-shipping-distance-rate.php:263
 msgid "Tax Status"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:263
+#: includes/class-wc-shipping-distance-rate.php:267
 msgid "Taxable"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:268
+#: includes/class-wc-shipping-distance-rate.php:272
 msgid "Transportation Mode"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:272
+#: includes/class-wc-shipping-distance-rate.php:276
 msgid "Driving"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:273
+#: includes/class-wc-shipping-distance-rate.php:277
 msgid "Walking"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:274
+#: includes/class-wc-shipping-distance-rate.php:278
 msgid "Bicycling"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:278
+#: includes/class-wc-shipping-distance-rate.php:282
 msgid "Avoid"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:282
+#: includes/class-wc-shipping-distance-rate.php:286
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:283
+#: includes/class-wc-shipping-distance-rate.php:287
 msgid "Tolls"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:284
+#: includes/class-wc-shipping-distance-rate.php:288
 msgid "Highways"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:285
+#: includes/class-wc-shipping-distance-rate.php:289
 msgid "Ferries"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:289
+#: includes/class-wc-shipping-distance-rate.php:293
 msgid "Distance Unit"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:293
+#: includes/class-wc-shipping-distance-rate.php:297
 msgid "Metric"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:294
+#: includes/class-wc-shipping-distance-rate.php:298
 msgid "Imperial"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:298
+#: includes/class-wc-shipping-distance-rate.php:302
 msgid "Show distance"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:300
+#: includes/class-wc-shipping-distance-rate.php:304
 msgid "Show the distance next to the shipping cost for the customer."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:304
+#: includes/class-wc-shipping-distance-rate.php:308
 msgid "Show duration"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:306
+#: includes/class-wc-shipping-distance-rate.php:310
 msgid "Show the duration next to the shipping cost for the customer."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:310
+#: includes/class-wc-shipping-distance-rate.php:314
 msgid "Shipping Address"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:312
+#: includes/class-wc-shipping-distance-rate.php:316
 msgid ""
 "Please enter the address that you are shipping from below to work out the "
 "distance of the customer from the shipping location."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:315
+#: includes/class-wc-shipping-distance-rate.php:319
 msgid "Address 1"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:317
+#: includes/class-wc-shipping-distance-rate.php:321
 msgid "First address line of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:320
+#: includes/class-wc-shipping-distance-rate.php:324
 msgid "Address 2"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:322
+#: includes/class-wc-shipping-distance-rate.php:326
 msgid "Second address line of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:325
+#: includes/class-wc-shipping-distance-rate.php:329
 msgid "City"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:327
+#: includes/class-wc-shipping-distance-rate.php:331
 msgid "City of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:330
+#: includes/class-wc-shipping-distance-rate.php:334
 msgid "Zip/Postal Code"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:332
+#: includes/class-wc-shipping-distance-rate.php:336
 msgid "Zip or Postal Code of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:335
+#: includes/class-wc-shipping-distance-rate.php:339
 msgid "State/Province"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:337
+#: includes/class-wc-shipping-distance-rate.php:341
 msgid "State/Province of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:340
+#: includes/class-wc-shipping-distance-rate.php:344
 msgid "Country"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:342
+#: includes/class-wc-shipping-distance-rate.php:346
 msgid "Country of where you are shipping from."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:354
+#: includes/class-wc-shipping-distance-rate.php:358
 msgid "API Key"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:356
+#: includes/class-wc-shipping-distance-rate.php:360
 msgid ""
 "Your <a "
 "href=\"https://woo.com/document/woocommerce-distance-rate-shipping/#obtain-"
 "a-google-api-key\">Google API Key</a>"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:359
+#: includes/class-wc-shipping-distance-rate.php:363
 msgid "Debug Mode"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:361
+#: includes/class-wc-shipping-distance-rate.php:365
 msgid "Enable/Disable Debug Mode, display API calls on frontend"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:397
+#: includes/class-wc-shipping-distance-rate.php:401
 msgid "Distance Rate Rules"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:403
+#: includes/class-wc-shipping-distance-rate.php:407
 msgid "Condition"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:403
+#: includes/class-wc-shipping-distance-rate.php:407
 msgid "On what condition must the rule be applied."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:404
+#: includes/class-wc-shipping-distance-rate.php:408
 msgid "Min"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:404
+#: includes/class-wc-shipping-distance-rate.php:408
 msgid ""
 "Minimum condition value, leave blank for no limit. Travel time based in "
 "minutes."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:405
+#: includes/class-wc-shipping-distance-rate.php:409
 msgid "Max"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:405
+#: includes/class-wc-shipping-distance-rate.php:409
 msgid ""
 "Maximum condition value, leave blank for no limit. Travel time based in "
 "minutes."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:406
+#: includes/class-wc-shipping-distance-rate.php:410
 msgid "Base Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:406
+#: includes/class-wc-shipping-distance-rate.php:410
 msgid ""
 "Base cost for rule, exluding tax. Other calculations will be added on top "
 "of this cost."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:407
+#: includes/class-wc-shipping-distance-rate.php:411
 msgid "Cost Per Distance / Minute"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:407
+#: includes/class-wc-shipping-distance-rate.php:411
 msgid ""
 "Cost per distance unit, or cost per minute for total travel time, excluding "
 "tax. Will be added to Base cost."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:408
+#: includes/class-wc-shipping-distance-rate.php:412
 msgid "Unit"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:408
+#: includes/class-wc-shipping-distance-rate.php:412
 msgid "Unit that is used for calculation"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:409
+#: includes/class-wc-shipping-distance-rate.php:413
 msgid "Multiply by Qty"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:409
+#: includes/class-wc-shipping-distance-rate.php:413
 msgid "Cost will be multiplied by quantity"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:410
+#: includes/class-wc-shipping-distance-rate.php:414
 msgid "Handling Fee"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:410
+#: includes/class-wc-shipping-distance-rate.php:414
 msgid ""
 "Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. "
 "Will be added to Base cost."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:411
+#: includes/class-wc-shipping-distance-rate.php:415
 msgid "Break"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:411
+#: includes/class-wc-shipping-distance-rate.php:415
 msgid "Check to not continue processing rules below the selected rule."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:412
+#: includes/class-wc-shipping-distance-rate.php:416
 msgid "Abort"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:412
+#: includes/class-wc-shipping-distance-rate.php:416
 msgid "Check to disable the shipping method if the rule matches."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:417
+#: includes/class-wc-shipping-distance-rate.php:421
 msgid "Add Distance Rule"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:417
+#: includes/class-wc-shipping-distance-rate.php:421
 msgid "Delete selected rule"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:417
+#: includes/class-wc-shipping-distance-rate.php:421
 msgid "Enable Advanced Mode"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:417
+#: includes/class-wc-shipping-distance-rate.php:421
 msgid "Disable Advanced Mode"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:469
-#: includes/class-wc-shipping-distance-rate.php:578
-#: includes/class-wc-shipping-distance-rate.php:702
-#: includes/class-wc-shipping-distance-rate.php:1310
+#: includes/class-wc-shipping-distance-rate.php:473
+#: includes/class-wc-shipping-distance-rate.php:582
+#: includes/class-wc-shipping-distance-rate.php:706
 #: includes/class-wc-shipping-distance-rate.php:1348
+#: includes/class-wc-shipping-distance-rate.php:1386
 msgid "Distance"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:470
-#: includes/class-wc-shipping-distance-rate.php:703
+#: includes/class-wc-shipping-distance-rate.php:474
+#: includes/class-wc-shipping-distance-rate.php:707
 msgid "Travel Time"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:579
-#: includes/class-wc-shipping-distance-rate.php:1311
+#: includes/class-wc-shipping-distance-rate.php:583
 #: includes/class-wc-shipping-distance-rate.php:1349
+#: includes/class-wc-shipping-distance-rate.php:1387
 msgid "Total Travel Time"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:580
-#: includes/class-wc-shipping-distance-rate.php:1312
+#: includes/class-wc-shipping-distance-rate.php:584
 #: includes/class-wc-shipping-distance-rate.php:1350
+#: includes/class-wc-shipping-distance-rate.php:1388
 msgid "Weight"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:581
-#: includes/class-wc-shipping-distance-rate.php:1313
+#: includes/class-wc-shipping-distance-rate.php:585
 #: includes/class-wc-shipping-distance-rate.php:1351
+#: includes/class-wc-shipping-distance-rate.php:1389
 msgid "Order Total"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:582
-#: includes/class-wc-shipping-distance-rate.php:1314
+#: includes/class-wc-shipping-distance-rate.php:586
 #: includes/class-wc-shipping-distance-rate.php:1352
+#: includes/class-wc-shipping-distance-rate.php:1390
 msgid "Quantity"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:586
-#: includes/class-wc-shipping-distance-rate.php:1319
+#: includes/class-wc-shipping-distance-rate.php:590
 #: includes/class-wc-shipping-distance-rate.php:1357
+#: includes/class-wc-shipping-distance-rate.php:1395
 msgid "and"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:594
-#: includes/class-wc-shipping-distance-rate.php:1327
-#: includes/class-wc-shipping-distance-rate.php:1367
+#: includes/class-wc-shipping-distance-rate.php:598
+#: includes/class-wc-shipping-distance-rate.php:1365
+#: includes/class-wc-shipping-distance-rate.php:1405
 msgid "or"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:620
-#: includes/class-wc-shipping-distance-rate.php:1370
+#: includes/class-wc-shipping-distance-rate.php:624
+#: includes/class-wc-shipping-distance-rate.php:1408
 msgid "Add rule group"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:723
+#: includes/class-wc-shipping-distance-rate.php:727
 msgid "Delete the selected rule?"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:1222
+#: includes/class-wc-shipping-distance-rate.php:1260
 msgid "Sorry, that shipping location is beyond our shipping radius."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:1226
+#: includes/class-wc-shipping-distance-rate.php:1264
 msgid "Sorry, that shipping location is beyond our shipping travel time."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:1230
+#: includes/class-wc-shipping-distance-rate.php:1268
 msgid "Sorry, the total weight of your chosen items is beyond what we can ship."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:1234
+#: includes/class-wc-shipping-distance-rate.php:1272
 msgid "Sorry, the total order cost is beyond what we can ship."
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:1238
+#: includes/class-wc-shipping-distance-rate.php:1276
 msgid "Sorry, the total quantity of items is beyond what we can ship."
 msgstr ""
 
@@ -420,7 +421,7 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-shipping-distance-rate.php:264
+#: includes/class-wc-shipping-distance-rate.php:268
 msgctxt "Tax status"
 msgid "None"
 msgstr ""

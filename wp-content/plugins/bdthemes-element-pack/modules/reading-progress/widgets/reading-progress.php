@@ -44,9 +44,9 @@ class Reading_Progress extends Module_Base {
 
 	public function get_style_depends() {
 		if ( $this->ep_is_edit_mode() ) {
-			return [ 'elementor-icons-fa-solid', 'ep-styles' ];
+			return [ 'elementor-icons-fa-solid', 'ep-font', 'ep-styles' ];
 		} else {
-			return [ 'elementor-icons-fa-solid', 'ep-reading-progress' ];
+			return [ 'elementor-icons-fa-solid', 'ep-font', 'ep-reading-progress' ];
 		}
 	}
 

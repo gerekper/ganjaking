@@ -2,7 +2,7 @@
 /**
  * Class for handling the Configuration Summary Block.
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.10.4
  * @version 8.10.4
  */

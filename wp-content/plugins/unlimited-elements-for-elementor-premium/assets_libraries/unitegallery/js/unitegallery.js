@@ -1,4 +1,4 @@
-//Unite Gallery, Version: 1.7.76, released 07 January 2024
+//Unite Gallery, Version: 1.7.77, released 15 January 2024
 
 //------ ug-common-libraries.js------ 
 
@@ -13017,7 +13017,8 @@ function UGSlider(){
 		  slider_enable_text_panel: true,				//true,false - enable the text panel
 		  slider_textpanel_always_on: true,				//true,false - text panel are always on, false - show only on mouseover
 		  
-		  slider_videoplay_button_type: "square"		//square, round - the videoplay button type, square or round	
+		  slider_videoplay_button_type: "square",		//square, round - the videoplay button type, square or round	
+			slider_video_autoplay: false //autoplays the video
 	};
 	
 	
@@ -14346,6 +14347,7 @@ function UGSlider(){
 	 */
 	function onItemChange(data, arg_objItem, role){
 		
+		
 		//trace("slider on change");
 		
 		var objItem = g_gallery.getSelectedItem();
@@ -14353,6 +14355,19 @@ function UGSlider(){
 		t.setItem(objItem, false, role);
 		
 		var itemIndex = objItem.index;
+		
+
+		if(g_options.slider_video_autoplay == true){			
+			
+			setTimeout(function(){
+				
+				var objCurrentSlide = t.getCurrentSlide();
+				var objVideoPlayButton = getSlideVideoPlayButton(objCurrentSlide);
+				objVideoPlayClick(objVideoPlayButton);
+
+			},500);
+						
+		}
 		
 		//set active bullet
 		if(g_objBullets)
@@ -14371,6 +14386,7 @@ function UGSlider(){
 		else{
 			setControlsMode("video");
 		}
+
 				
 	}
 	
@@ -15117,7 +15133,7 @@ function UGSlider(){
 	this.startSlideAction = function(objSlide){
 		
 	//	trace("start action");
-		
+	
 		if(!objSlide)
 			objSlide = t.getCurrentSlide();
 		
@@ -18704,7 +18720,6 @@ function UGSoundCloudAPI(){
 	 * init events
 	 */
 	function initEvents(){
-		
 		
 		//set "play" event
 		g_player.bind(SC.Widget.Events.PLAY, function(){

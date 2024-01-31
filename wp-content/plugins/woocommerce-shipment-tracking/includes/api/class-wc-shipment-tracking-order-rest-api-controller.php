@@ -1,4 +1,9 @@
 <?php
+/**
+ * WC_Shipment_Tracking_Order_REST_API_Controller class file.
+ *
+ * @package WC_Shipment_Tracking
+ */
 
 /**
  * REST API shipment tracking controller.
@@ -7,7 +12,6 @@
  *
  * @since 1.5.0
  */
-
 class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller {
 
 	/**
@@ -33,7 +37,9 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	protected $post_type = 'shop_order';
 
 	/**
-	 * @param $namespace
+	 * Set a namespace for tracking order Rest API.
+	 *
+	 * @param string $namespace Rest API namespace.
 	 *
 	 * @return WC_Shipment_Tracking_Order_REST_API_Controller
 	 */
@@ -46,51 +52,74 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	 * Register the routes for trackings.
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/' . $this->rest_base, array(
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base,
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'                => $this->get_collection_params(),
-			),
-			array(
-				'methods'             => WP_REST_Server::CREATABLE,
-				'callback'            => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'                => array_merge( $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ), array(
-					'tracking_number' => array(
-						'required' => true,
-					),
-				) ),
-			),
-			'schema' => array( $this, 'get_public_item_schema' ),
-		) );
-		
-		// nosemgrep: audit.php.wp.security.rest-route.permission-callback.return-true
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/providers', array(
-			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_providers' ),
-				'permission_callback' => '__return_true',
-			),
-		) );
-
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[a-fA-F0-9]{0,32})', array(
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_item' ),
-				'permission_callback' => array( $this, 'get_item_permissions_check' ),
-				'args'                => array(
-					'context' => $this->get_context_param( array( 'default' => 'view' ) ),
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_items' ),
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'args'                => $this->get_collection_params(),
 				),
-			),
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_item' ),
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
+					'args'                => array_merge(
+						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+						array(
+							'tracking_number' => array(
+								'required' => true,
+							),
+						)
+					),
+				),
+				'schema' => array( $this, 'get_public_item_schema' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/providers',
 			array(
-				'methods'             => WP_REST_Server::DELETABLE,
-				'callback'            => array( $this, 'delete_item' ),
-				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-			),
-			'schema' => array( $this, 'get_public_item_schema' ),
-		) );
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_providers' ),
+					'permission_callback' => array( $this, 'rest_provider_route_permission' ),
+				),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<id>[a-fA-F0-9]{0,32})',
+			array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_item' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
+					'args'                => array(
+						'context' => $this->get_context_param( array( 'default' => 'view' ) ),
+					),
+				),
+				array(
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_item' ),
+					'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+				),
+				'schema' => array( $this, 'get_public_item_schema' ),
+			)
+		);
+	}
+
+	/**
+	 * Rest route permission always return true.
+	 *
+	 * @return boolean
+	 */
+	public function rest_provider_route_permission() {
+		return true;
 	}
 
 	/**
@@ -148,7 +177,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	/**
 	 * Checks if an order ID is a valid order.
 	 *
-	 * @param int $order_id
+	 * @param int $order_id Order ID.
+	 *
 	 * @return bool
 	 * @since 1.6.4
 	 */
@@ -159,7 +189,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	/**
 	 * Get shipment-trackings from an order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
 	 * @return array
 	 */
 	public function get_items( $request ) {
@@ -186,7 +217,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	/**
 	 * Get shipment-tracking providers.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
 	 * @return array
 	 */
 	public function get_providers( $request ) {
@@ -241,6 +273,7 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	 * Get a single order shipment-tracking.
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
@@ -269,6 +302,7 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	 * Delete a single order shipment-tracking.
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
+	 *
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function delete_item( $request ) {
@@ -301,8 +335,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	/**
 	 * Prepare a single order shipment-note output for response.
 	 *
-	 * @param array           $tracking_item Shipment tracking item
-	 * @param WP_REST_Request $request       Request object
+	 * @param array           $tracking_item Shipment tracking item.
+	 * @param WP_REST_Request $request       Request object.
 	 *
 	 * @return WP_REST_Response $response Response data
 	 */
@@ -312,7 +346,7 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 			'tracking_provider' => $tracking_item['formatted_tracking_provider'],
 			'tracking_link'     => $tracking_item['formatted_tracking_link'],
 			'tracking_number'   => $tracking_item['tracking_number'],
-			'date_shipped'      => date( 'Y-m-d', $tracking_item['date_shipped'] ),
+			'date_shipped'      => gmdate( 'Y-m-d', $tracking_item['date_shipped'] ),
 		);
 
 		$order_id = $tracking_item['order_id'];
@@ -332,6 +366,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 		 * @param WP_REST_Response $response      The response object.
 		 * @param array            $tracking_item Order tracking item used to create response.
 		 * @param WP_REST_Request  $request       Request object.
+		 *
+		 * @since 1.6.20
 		 */
 		return apply_filters( 'woocommerce_rest_prepare_order_shipment_tracking', $response, $tracking_item, $request );
 	}
@@ -339,8 +375,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	/**
 	 * Prepare links for the request.
 	 *
-	 * @param int   $order_id          Order ID
-	 * @param array $shipment_tracking Shipment tracking item
+	 * @param int   $order_id Order ID.
+	 * @param array $tracking_item Shipment tracking item.
 	 *
 	 * @return array Links for the given order shipment-tracking.
 	 */
@@ -348,13 +384,13 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 		$order_id = (int) $order_id;
 		$base     = str_replace( '(?P<order_id>[\d]+)', $order_id, $this->rest_base );
 		$links    = array(
-			'self' => array(
+			'self'       => array(
 				'href' => rest_url( sprintf( '/%s/%s/%s', $this->namespace, $base, $tracking_item['tracking_id'] ) ),
 			),
 			'collection' => array(
 				'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $base ) ),
 			),
-			'up' => array(
+			'up'         => array(
 				'href' => rest_url( sprintf( '/%s/orders/%d', $this->namespace, $order_id ) ),
 			),
 		);
@@ -372,13 +408,13 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 			'title'      => 'tax',
 			'type'       => 'shipment_tracking',
 			'properties' => array(
-				'tracking_id' => array(
+				'tracking_id'              => array(
 					'description' => __( 'Unique identifier for shipment tracking.', 'woocommerce-shipment-tracking' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'tracking_provider' => array(
+				'tracking_provider'        => array(
 					'description' => __( 'Tracking provider name.', 'woocommerce-shipment-tracking' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
@@ -390,20 +426,20 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 					'context'     => array( 'edit' ),
 					'readonly'    => false,
 				),
-				'custom_tracking_link' => array(
+				'custom_tracking_link'     => array(
 					'description' => __( 'Custom tracking provider link.', 'woocommerce-shipment-tracking' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'edit' ),
 					'readonly'    => false,
 				),
-				'tracking_number' => array(
+				'tracking_number'          => array(
 					'description' => __( 'Tracking number.', 'woocommerce-shipment-tracking' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => false,
 				),
-				'date_shipped' => array(
+				'date_shipped'             => array(
 					'description' => __( 'Date when package was shipped.', 'woocommerce-shipment-tracking' ),
 					'type'        => 'date',
 					'context'     => array( 'view', 'edit' ),

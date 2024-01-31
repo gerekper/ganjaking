@@ -1,5 +1,15 @@
 ** WooCommerce Gateway Purchase Order Changelog **
 
+2024-01-09 - version 1.4.6
+* Dev - Bump PHP minimum supported version to 7.4.
+* Dev - Bump WooCommerce "tested up to" version 8.4.
+* Dev - Bump WooCommerce minimum supported version to 8.2.
+* Dev - Declare add-on compatibility with Product Editor.
+* Dev - Declare add-on compatibility with WooPayments.
+* Dev - Declare add-on compatibility with WooCommerce Blocks.
+* Dev - Bump PHP "tested up to" version 8.3.
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
+
 2023-11-20 - version 1.4.5
 * Dev - Added critical flows end-to-end tests.
 * Dev - Update default behavior to use a block-based cart and checkout in e2e tests.

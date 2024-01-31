@@ -17,7 +17,7 @@ class ReplyTo extends AC\Column\Comment\ReplyTo
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_parent');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_parent');
     }
 
     public function search()

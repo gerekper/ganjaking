@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.4.2
-Stable tag: 2.2.1
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,13 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.2.3 - 01.08.2024 =
+* Fixed an issue where Mediavine and Modula Slider quick exclusions were not working properly.
+
+= 2.2.2 - 01.07.2024 =
+* Fixed PHP warnings coming from certain local analytics setups.
+* Translation updates.
 
 = 2.2.1 - 01.04.2024 =
 * Removed deprecated Universal Analytics options which are no longer available and renamed remaining script type labels. If you still haven't updated to Google Analytics 4, make sure to create a new profile and input your new measurement ID.

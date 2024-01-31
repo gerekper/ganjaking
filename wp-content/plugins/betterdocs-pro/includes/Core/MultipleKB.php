@@ -60,6 +60,8 @@ class MultipleKB extends Base {
         add_filter( 'betterdocs_breadcrumb_before_archives', [$this, 'breadcrumbs'], 20, 1 );
         add_filter( 'rest_knowledge_base_collection_params', [$this, 'add_rest_orderby_params_on_knowledge_base'], 10, 1 );
         add_filter( 'rest_knowledge_base_query', [$this, 'modify_knowledge_base_rest_query'], 10, 2 );
+        add_filter( 'betterdocs_export_type_options', [$this, 'export_type_options'], 10, 1 );
+        add_filter( 'betterdocs_export_fields', [$this, 'export_fields'], 10, 1 );
     }
 
     public function modify_knowledge_base_rest_query( $args, $request ) {
@@ -89,7 +91,7 @@ class MultipleKB extends Base {
     }
 
     public function type_rewrite_permalink( $permalink, $slug, $permalink_structure ) {
-        if( ! $this->is_enable && strpos( $permalink, '%knowledge_base%' ) >= 0 )  {
+        if( ! $this->is_enable && strpos( $permalink, '%knowledge_base%' ) >= 0 && $this->settings->get( 'permalink_structure' ) )  {
             $permalink = trim( str_replace('%knowledge_base%', '', $permalink), '/' );
             $this->settings->save_settings( [ 'permalink_structure' => $permalink ] );
         }
@@ -668,5 +670,31 @@ class MultipleKB extends Base {
             update_term_meta( $order_data['term_id'], 'kb_order', ( (int) $order_data['order'] + (int) $kb_index ) );
         }
         wp_send_json_success();
+    }
+
+    public function export_type_options( $options ) {
+        $options['knowledge_base'] = __( 'Knowledge Base', 'betterdocs' );
+        return $options;
+    }
+
+    public function export_fields( $fields ) {
+        $fields['export_kbs'] = [
+            'name'           => 'export_kbs',
+            'type'           => 'checkbox-select',
+            'label'          => __( 'Select Knowledge Base', 'betterdocs' ),
+            'label_subtitle' => __( "Selected knowledge bases and its docs will be included in the export.", 'betterdocs' ),
+            'priority'       => 5,
+            'multiple'       => true,
+            'search'         => true,
+            'default'        => ['all'],
+            'placeholder'    => __( 'Select any', 'betterdocs' ),
+            'options'        => betterdocs()->settings->get_terms( 'knowledge_base' ),
+            'filterValue'    => 'all',
+            'rules'          => Rules::logicalRule( [
+                Rules::is( 'multiple_kb', true ),
+                Rules::is( 'export_type', 'knowledge_base' )
+            ], 'and' ),
+        ];
+        return $fields;
     }
 }

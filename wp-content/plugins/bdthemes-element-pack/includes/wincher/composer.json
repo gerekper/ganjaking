@@ -1,0 +1,20 @@
+{
+    "name": "ep/wincher",
+    "autoload": {
+        "psr-4": {
+            "ElementPack\\Wincher\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Element Pack",
+            "email": "support@bdthemes.com"
+        }
+    ],
+    "require": {
+         "php": "^7.1 || ^8.0",
+         "ext-json": "*",
+         "guzzlehttp/guzzle": "^7.8",
+         "league/oauth2-client": "^2.6"
+    }
+}

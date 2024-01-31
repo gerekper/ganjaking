@@ -6,7 +6,7 @@ use Elementor\Repeater;
 use ElementPack\Base\Module_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Text_Stroke;
 use ElementPack\Utils;
 use element_pack_helper;
 
@@ -1151,35 +1151,12 @@ class Device_Slider extends Module_Base
 		);
 
 		$this->add_control(
-			'show_text_stroke',
-			[
-				'label' => esc_html__('Text Stroke', 'bdthemes-element-pack') . BDTEP_NC,
-				'type' => Controls_Manager::SWITCHER,
-				'prefix_class' => 'bdt-text-stroke--',
-			]
-		);
-
-		$this->add_responsive_control(
-			'text_stroke_width',
-			[
-				'label' => esc_html__('Text Stroke Width', 'bdthemes-element-pack') . BDTEP_NC,
-				'type' => Controls_Manager::SLIDER,
-				'selectors' => [
-					'{{WRAPPER}} .bdt-device-slider-container .bdt-slideshow-items .bdt-device-slider-title' => '-webkit-text-stroke-width: {{SIZE}}{{UNIT}};',
-				],
-				'condition' => [
-					'show_text_stroke' => 'yes'
-				]
-			]
-		);
-
-		$this->add_control(
 			'title_color',
 			[
 				'label' => esc_html__('Color', 'bdthemes-element-pack'),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .bdt-device-slider-container .bdt-slideshow-items .bdt-device-slider-title' => 'color: {{VALUE}}; -webkit-text-stroke-color: {{VALUE}};',
+					'{{WRAPPER}} .bdt-device-slider-container .bdt-slideshow-items .bdt-device-slider-title' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -1223,8 +1200,13 @@ class Device_Slider extends Module_Base
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography',
-				'label' => esc_html__('Typography', 'bdthemes-element-pack'),
-				//'scheme'   => Schemes\Typography::TYPOGRAPHY_4,
+				'selector' => '{{WRAPPER}} .bdt-device-slider-container .bdt-slideshow-items .bdt-device-slider-title',
+			]
+		);
+		$this->add_group_control(
+			Group_Control_Text_Stroke::get_type(),
+			[
+				'name' => 'title_text_stroke',
 				'selector' => '{{WRAPPER}} .bdt-device-slider-container .bdt-slideshow-items .bdt-device-slider-title',
 			]
 		);
@@ -1396,7 +1378,7 @@ class Device_Slider extends Module_Base
 		} elseif ('edge-dark' === $device_type) {
 			$ratio = '1280:651';
 		} elseif ('macbookpro' === $device_type) {
-			$ratio = '1280:815';
+			$ratio = '1280:807';
 		} elseif ('macbookair' === $device_type) {
 			$ratio = '1280:810';
 		} elseif ('tablet' === $device_type and $settings['rotation_state'] == '') {
@@ -1550,7 +1532,7 @@ class Device_Slider extends Module_Base
 	{
 		$settings = $this->get_settings_for_display();
 
-		$this->add_link_attributes($element_key, $content['title_link']);
+		$this->add_link_attributes($element_key, isset($content['title_link']) ? $content['title_link'] : []);
 
 		?>
 		<div class="bdt-slideshow-content-wrapper bdt-position-z-index bdt-position-<?php echo esc_attr($settings['content_position']); ?> bdt-position-large bdt-text-<?php echo esc_attr($settings['content_align']); ?>">

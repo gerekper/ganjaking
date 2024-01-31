@@ -2,7 +2,7 @@
 /**
  * Composite Products DB update functions
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.7.0
  */
 

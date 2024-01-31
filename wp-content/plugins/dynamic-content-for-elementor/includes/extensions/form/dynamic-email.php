@@ -242,16 +242,11 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
                     if ($amail['dce_form_email_content_template_style'] == 'embed') {
                         $inline = ' inlinecss="true"';
                     }
-                    $author = '';
-                    $current_user_id = get_current_user_id();
-                    if ($current_user_id) {
-                        $author = ' author_id="' . $current_user_id . '"';
-                    }
                     $t_post = '';
                     if (get_the_ID()) {
                         $t_post = ' post_id="' . get_the_ID() . '"';
                     }
-                    $dce_form_email_content = do_shortcode('[dce-elementor-template id="' . $amail['dce_form_email_content_template'] . '"' . $t_post . $inline . $author . ']');
+                    $dce_form_email_content = do_shortcode('[dce-elementor-template id="' . $amail['dce_form_email_content_template'] . '"' . $t_post . $inline . ']');
                     $pdf_attachments = $this->get_email_pdf_attachments($dce_form_email_content, $fields, $amail, $settings);
                     $all_pdf_attachments += $pdf_attachments;
                     $upload_attachments = $this->get_email_upload_attachments($dce_form_email_content, $fields, $amail, $settings);

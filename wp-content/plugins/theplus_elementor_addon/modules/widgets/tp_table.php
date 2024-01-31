@@ -3305,7 +3305,7 @@ class ThePlus_Data_Table extends Widget_Base {
 								$header_text[ $cell_col_count ]['icon_image'] = $head['header_content_icon_image'];
 								$header_text[ $cell_col_count ]['plus_heading_icon_align'] = 'plus_heading_icon_align' .$head['_id'];
 								$header_text[ $cell_col_count ]['plus_heading_icon'] = 'plus_heading_icon' . $head['_id'];
-								$header_text[ $cell_col_count ]['icons_image_url'] = !empty($head['icons_image']['url']) ? $head['icons_image']['url'] : '';
+								$header_text[ $cell_col_count ]['icons_image_url'] = !empty($head['icons_image']['url']) ? esc_url($head['icons_image']['url']) : '';
 								$header_text[ $cell_col_count ]['plus_head_col_img'] = 'plus_head_col_img' . $head['_id'];
 								$cell_col_count++;
 							} else {

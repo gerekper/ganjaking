@@ -27,7 +27,7 @@
     <div class="betterdocs-content-wrapper betterdocs-archive-wrap betterdocs-archive-main">
         <?php
             $_shortcode_attributes = [
-                'show_term_image'       => $enable_image,
+                'show_term_image'  => $enable_image,
                 'show_description' => $enable_description,
                 'title_tag'        => $title_tag
             ];

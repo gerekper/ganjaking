@@ -3,18 +3,18 @@ Contributors: koilab
 Tags: woocommerce, delivery, date
 Requires PHP: 5.6
 Requires at least: 4.9
-Tested up to: 6.3
-Stable tag: 2.6.0
+Tested up to: 6.4
+Stable tag: 2.6.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.7
-WC tested up to: 8.1
+WC tested up to: 8.5
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 == Description ==
 
 Let your customers choose the delivery details for their orders during checkout or just notify them about the estimated shipping and delivery dates.
-Visit our [product page](https://woocommerce.com/products/woocommerce-order-delivery/) for more info.
+Visit our [product page](https://woo.com/products/woocommerce-order-delivery/) for more info.
 
 == Minimum Requirements ==
 
@@ -29,11 +29,11 @@ Visit our [product page](https://woocommerce.com/products/woocommerce-order-deli
 
 == Documentation & support ==
 
-For help setting up and configuring the extension, please refer to our [user guide](https://woocommerce.com/document/woocommerce-order-delivery/).
+For help setting up and configuring the extension, please refer to our [user guide](https://woo.com/document/woocommerce-order-delivery/).
 
 == Changelog ==
 
-Visit our [Changelog](http://woocommerce.com/changelogs/woocommerce-order-delivery/changelog.txt) and stay up to date on the latest changes.
+Visit our [Changelog](http://woo.com/changelogs/woocommerce-order-delivery/changelog.txt) and stay up to date on the latest changes.
 
 == Upgrade Notice ==
 

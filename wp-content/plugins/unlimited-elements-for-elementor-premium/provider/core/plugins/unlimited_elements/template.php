@@ -116,10 +116,7 @@ class UCEmptyTemplate{
 	private function renderFooter(){
 		
 		wp_footer();
-		
-		if($this->isMultiple)
-			$this->putMultipleModeScripts();
-		
+				
 		?>
 			</body>
 		</html>

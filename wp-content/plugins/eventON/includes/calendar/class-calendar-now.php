@@ -2,7 +2,7 @@
 /**
  *
  *	EventON Now Calendar Content
- *	@version 4.5.2
+ *	@version 4.5.8
  */
 
 class Evo_Calendar_Now{
@@ -38,21 +38,15 @@ class Evo_Calendar_Now{
 
 		$A = $this->A;
 
-		$DD = new DateTime();
-		$DD->setTimezone( EVO()->calendar->timezone0 );
-		$current_time = EVO()->calendar->current_time;
+		$DD = new DateTime('now');
+		$DD->setTimezone( EVO()->calendar->cal_tz );
 		
-		$DD->setTimestamp( $current_time );	
-
-		//echo $DD->format('Y-m-d H:i:s');	
 
 		$plus = $delay? 1:0;
 
 		// in UTC0
 		$A['focus_start_date_range'] = $DD->format('U') + $plus;
 		$A['focus_end_date_range'] = $DD->format('U') + $plus ;
-
-
 
 		$A = EVO()->calendar->process_arguments( $A);	
 		$now_event_ids = array();
@@ -112,7 +106,6 @@ class Evo_Calendar_Now{
 				$A = $this->A;
 				
 				// get events for next 12 months
-				$DD->setTimestamp( $current_time );	
 				$A['focus_start_date_range'] = $DD->format('U');
 				$DD->modify('+12 months');
 				$A['focus_end_date_range'] = $DD->format('U');
@@ -126,9 +119,7 @@ class Evo_Calendar_Now{
 
 					$help = new evo_helper();
 
-					$next_event_start_unix = EVO()->calendar->is_utcoff ? 
-						$event_list_array[0]['event_start_unix_utc']:
-						$event_list_array[0]['event_start_unix'];
+					$next_event_start_unix = $event_list_array[0]['unix_start'];
 					
 					if( $next_event_start_unix > 0 ){
 					
@@ -140,13 +131,13 @@ class Evo_Calendar_Now{
 						);
 
 
-						$gap = $next_event_start_unix - EVO()->calendar->get_current_time();
+						$gap = $next_event_start_unix - EVO()->calendar->current_time;
 						$nonce = wp_create_nonce('evo_calendar_now');
 
 						$data_attr = array(
 							'gap'=> $gap,
 							'endutc'=> $next_event_start_unix,
-							'now'=> EVO()->calendar->get_current_time(),
+							'now'=> EVO()->calendar->current_time,
 							't'=>'',
 							'd'=>evo_lang('Day'),
 							'ds'=>evo_lang('Days'),

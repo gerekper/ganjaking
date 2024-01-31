@@ -5,6 +5,7 @@ class woocommerce_gravityforms_product_form {
 	private $next_page;
 	private $form_id = 0;
 	private $product_id = 0;
+	private int $previous_page;
 
 	public function __construct( $form_id, $product_id ) {
 		$this->form_id    = $form_id;
@@ -224,7 +225,6 @@ class woocommerce_gravityforms_product_form {
 		return '';
 	}
 
-	// filter the Gravity Forms button type
 	function on_submit_button( $button, $form ) {
 		if ( $form['id'] != $this->form_id ) {
 			return $button;

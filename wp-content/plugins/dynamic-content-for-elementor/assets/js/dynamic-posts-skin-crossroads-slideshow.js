@@ -66,31 +66,14 @@ var Widget_DCE_Dynamicposts_crossroadsslideshow_Handler = function ($scope, $) {
                 const tx = direction === 'left' ? '+=' + val*-1 : '+=' + val;
                 const duration = 1.2;
 
-                new TimelineMax({onComplete: resolve})
-                .to(this.DOM.imgWrap, duration, {
-                    x: tx,
-                    ease: Quart.easeInOut
-                }, 0)
-                .to(this.DOM.imgWrap, duration*.5, {
-                    scaleX: 1.3,
-                    ease: Quart.easeIn
-                }, 0)
-                .to(this.DOM.imgWrap, duration*.5, {
-                    scaleX: 1,
-                    ease: Quart.easeOut
-                }, duration*.5)
-                .to(this.DOM.number, duration, {
-                    x: tx,
-                    ease: Quint.easeInOut
-                }, 0)
-                .to(this.DOM.subtitle, duration*1.1, {
-                    x: tx,
-                    ease: Quart.easeInOut
-                }, 0)
-                .to(this.DOM.title, duration*1.05, {
-                    x: tx,
-                    ease: Quart.easeInOut
-                }, 0);
+                gsap.timeline({onComplete: resolve})
+					.to(this.DOM.imgWrap, { duration: duration, x: tx, ease: "quart.inOut" }, 0)
+					.to(this.DOM.imgWrap, { duration: duration * 0.5, scaleX: 1.3, ease: "quart.in" }, 0)
+					.to(this.DOM.imgWrap, { duration: duration * 0.5, scaleX: 1, ease: "quart.out" }, duration * 0.5)
+					.to(this.DOM.number, { duration: duration, x: tx, ease: "quint.inOut" }, 0)
+					.to(this.DOM.subtitle, { duration: duration * 1.1, x: tx, ease: "quart.inOut" }, 0)
+					.to(this.DOM.title, { duration: duration * 1.05, x: tx, ease: "quart.inOut" }, 0);
+
             });
         }
         setCenter() {
@@ -122,12 +105,14 @@ var Widget_DCE_Dynamicposts_crossroadsslideshow_Handler = function ($scope, $) {
         animateElementsOut(contentItem) {
             return new Promise((resolve, reject) => {
                 const time = MathUtils.randomNumber(0,100)/500;
-                this.elemsTimeline = new TimelineMax({onComplete: resolve})
-                .staggerTo(this.DOM.titleLetters, 1, {
-                    y: MathUtils.randomNumber(300,600),
-                    opacity: 0,
-                    ease: Quart.easeInOut
-                }, 0.04, time)
+                this.elemsTimeline = gsap.timeline({onComplete: resolve})
+					.to(this.DOM.titleLetters, {
+						duration: 1,
+						y: () => MathUtils.randomNumber(300, 600),
+						opacity: 0,
+						ease: "quart.inOut",
+						stagger: 0.04
+					}, time)
                 .staggerTo(this.DOM.titleLetters, 0.5, {
                     scaleY: 2.2,
                     ease: Quart.easeIn
@@ -187,7 +172,7 @@ var Widget_DCE_Dynamicposts_crossroadsslideshow_Handler = function ($scope, $) {
         animateElementsIn(contentItem) {
             return new Promise((resolve, reject) => {
                 const time = MathUtils.randomNumber(0,50)/500;
-                this.elemsTimeline = new TimelineMax({onComplete: resolve});
+                this.elemsTimeline = gsap.timeline({onComplete: resolve});
 
                 if ( this.isCenter ) {
                     const contentItemTitle = contentItem.querySelector('.dce-content__item-header-title');
@@ -305,15 +290,18 @@ var Widget_DCE_Dynamicposts_crossroadsslideshow_Handler = function ($scope, $) {
                 if ( this.isAnimating ) {
                     return;
                 }
-                new TimelineMax()
-                .to(this.centerSlide.DOM.imgWrap, 0.7, {
-                    ease: Expo.easeOut,
-                    scale: 1.02
-                })
-                .to(this.centerSlide.DOM.img, 1.7, {
-                    ease: Expo.easeOut,
-                    scale: 1.05
-                }, 0);
+                gsap.timeline()
+					.to(this.centerSlide.DOM.imgWrap, {
+						duration: 0.7,
+						ease: "expo.out",
+						scale: 1.02
+					})
+					.to(this.centerSlide.DOM.img, {
+						duration: 1.7,
+						ease: "expo.out",
+						scale: 1.05
+					}, 0);
+
             };
             this.DOM.interaction.center.addEventListener('mouseenter', this.mouseenterCenterFn);
 
@@ -321,14 +309,17 @@ var Widget_DCE_Dynamicposts_crossroadsslideshow_Handler = function ($scope, $) {
                 if ( this.isAnimating ) {
                     return;
                 }
-                new TimelineMax().to(this.centerSlide.DOM.imgWrap, 0.7, {
-                    ease: Expo.easeOut,
-                    scale: 1
-                })
-                .to(this.centerSlide.DOM.img, 0.7, {
-                    ease: Expo.easeOut,
-                    scale: 1
-                }, 0);
+				gsap.timeline()
+					.to(this.centerSlide.DOM.imgWrap, {
+						duration: 0.7,
+						ease: "expo.out",
+						scale: 1
+					})
+					.to(this.centerSlide.DOM.img, {
+						duration: 0.7,
+						ease: "expo.out",
+						scale: 1
+					}, 0);
             };
             this.DOM.interaction.center.addEventListener('mouseleave', this.mouseleaveCenterFn);
 

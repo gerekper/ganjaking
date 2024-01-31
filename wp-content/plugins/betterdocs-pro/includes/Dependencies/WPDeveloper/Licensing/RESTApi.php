@@ -32,6 +32,16 @@ class RESTApi extends ApiAdapter {
     public function routes() {
         $this->route( '/license/activate', [$this, 'activate'], $this->args() );
         $this->route( '/license/deactivate', [$this, 'deactivate'] );
+        $this->route( '/license/submit-otp', [$this, 'submit_otp'], $this->args([
+            'otp' => [
+                'required'          => true,
+                'validate_callback' => function ( $param, $request, $key ) {
+                    return is_string( $param ) && ! empty( $param );
+                }
+            ]
+        ]) );
+        $this->route( '/license/resend-otp', [$this, 'resend_otp'], $this->args() );
+        $this->route( '/license/get-license', [$this, 'get_license'] );
     }
 
     public function activate( $request ) {
@@ -44,14 +54,61 @@ class RESTApi extends ApiAdapter {
         return $this->license_manager->deactivate();
     }
 
-    protected function args() {
-        return [
-            'license_key' => [
+    /**
+     * Handles OTP submission request.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|WP_REST_Response
+     */
+	public function submit_otp( $request ) {
+		$args = [
+			'otp'         => sanitize_text_field( $request->get_param( 'otp') ),
+			'license_key' => sanitize_text_field( $request->get_param( 'license_key') )
+		];
+
+		return $this->license_manager->submit_otp( $args );
+	}
+
+    /**
+     * Handles OTP resend request.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|WP_REST_Response
+     */
+	public function resend_otp( $request ) {
+		$args = [
+			'license_key' => sanitize_text_field( $request->get_param( 'license_key') )
+		];
+
+		return $this->license_manager->resend_otp( $args );
+	}
+
+    /**
+     * Retrieves the license details.
+     *
+     * This method uses the LicenseManager to get the license data, hide the license key, and format the title.
+     * It then returns an array with the title, hidden license key, and license status.
+     *
+     * @return array An array containing the title, hidden license key, and license status.
+     */
+    public function get_license(){
+        $license_data = $this->license_manager->get_license_data();
+        $license_key  = $this->license_manager->hide_license_key($license_data['license_key']);
+        $status       = $license_data['license_status'];
+        $title        = sprintf(__('%s License', $this->license_manager->textdomain), $this->license_manager->item_name);
+
+        return ['title' => $title, 'key' => $license_key, 'status' => $status];
+    }
+
+    protected function args($args = []) {
+        return wp_parse_args($args, [
+            'license_key'       => [
+                'required'          => true,
                 'validate_callback' => function ( $param, $request, $key ) {
                     return is_string( $param ) && ! empty( $param );
                 }
             ]
-        ];
+        ]);
     }
 
     private function get_namespace() {

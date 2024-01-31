@@ -190,7 +190,7 @@ class Instagram_Feed extends Widget_Base {
                 'label'     => esc_html__('Image Dimension (px)', 'essential-addons-elementor'),
                 'type'      => Controls_Manager::SLIDER,
                 'default'   => [
-                    'size' => 300,
+                    'size' => 280,
                 ],
                 'range'     => [
                     'px' => [

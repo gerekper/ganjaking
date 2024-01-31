@@ -9,6 +9,7 @@
 
 namespace SearchWP\Admin\Views;
 
+use SearchWP\License;
 use SearchWP\Utils;
 use SearchWP\Settings;
 use SearchWP\Statistics;
@@ -153,6 +154,14 @@ class StatisticsView {
             SEARCHWP_VERSION
         );
 
+		// This style is for the non-Vue part of the page.
+		wp_enqueue_style(
+			$handle . '_static',
+			SEARCHWP_PLUGIN_URL . 'assets/css/admin/pages/statistics.css',
+			[],
+			SEARCHWP_VERSION
+		);
+
 		Utils::localize_script( $handle, [
 			'stats'           => Statistics::get(),
 			'trimAfter'       => Settings::get( 'trim_stats_logs_after', 'int' ),
@@ -203,7 +212,78 @@ class StatisticsView {
                     </div>
                 </div>
             </div>
+            <?php self::get_metrics_upsell(); ?>
         </div>
 		<?php
 	}
+
+	/**
+     * Outputs the upsell for the Metrics extension.
+     *
+     * @since 4.3.10
+	 */
+    private static function get_metrics_upsell() {
+
+		$license_type = License::get_type();
+
+		$link_text  = '';
+		$link_url   = '';
+		$bonus_text = '';
+
+        switch ( $license_type ) {
+            case '':
+			case 'standard':
+                $link_text  = __( 'Upgrade to PRO Today to Unlock Metrics', 'searchwp' );
+                $link_url   = 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=Statistics+Upsell+Button&utm_campaign=SearchWP&utm_content=Get+SearchWP+Pro+Today+To+Unlock+The+Metrics+Extension';
+                $bonus_text = __( '<strong>Bonus:</strong> SearchWP Standard users get up to <span class="green">$200 off their upgrade price</span>, automatically applied at checkout.', 'searchwp' );
+				break;
+
+            case 'pro':
+			case 'agency':
+                $link_text = __( 'Get SearchWP Metrics Today', 'searchwp' );
+                $link_url  = 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=Statistics+Upsell+Button&utm_campaign=SearchWP&utm_content=Get+SearchWP+Metrics+Today+To+Unlock+Advanced+Tracking';
+                break;
+
+            default:
+                break;
+		}
+
+        ?>
+        <div class="searchwp-settings-statistics-upsell">
+            <h5><?php esc_html_e( 'Get Metrics Extension Today and Unlock Advanced Search Tracking', 'searchwp' ); ?></h5>
+            <p>
+				<?php esc_html_e( 'Take the next step in tracking your search statistics with the Metrics extension!', 'searchwp' ); ?><br>
+            	<?php esc_html_e( 'Get a unique insight into your visitors\' search behavior with advanced tools like click tracking and custom reporting.', 'searchwp' ); ?>
+			</p>
+			<img class="swp-img" src="<?php echo esc_url( SEARCHWP_PLUGIN_URL . 'assets/images/admin/pages/statistics/metrics-upsell.jpg' ); ?>" alt="Metrics screenshot">
+			<div class="list">
+                <ul>
+                    <li><?php esc_html_e( 'Zoom into your data: structure your report by date range, search queries, engines, or everything at once.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Analyze popular searches and discover which results users clicked for every query.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Automatically move your most clicked content to the top of search results.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Check queries with no results for new content ideas preventing failed searches.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Use unique, actionable advice based on your website data to make your best content shine.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Blocklist the unwanted search queries to keep your search reports clean and focused.', 'searchwp' ); ?></li>
+                    <li><?php esc_html_e( 'Get in-depth metrics for every engine: total searches, searches per user, average click rank, etc.', 'searchwp' ); ?></li>
+                </ul>
+            </div>
+            <a href="<?php echo esc_url( $link_url ); ?>" class="swp-button swp-button--green" target="_blank" rel="noopener noreferrer" title="<?php esc_html_e( 'Get SearchWP Metrics Today', 'searchwp' ); ?>"><?php echo esc_html( $link_text ); ?></a>
+			<?php if ( ! empty( $bonus_text ) ) : ?>
+				<p>
+					<?php
+						echo wp_kses(
+							$bonus_text,
+							[
+								'strong' => [],
+								'span'   => [
+									'class' => [],
+								],
+							]
+						);
+					?>
+				</p>
+			<?php endif; ?>
+        </div>
+        <?php
+    }
 }

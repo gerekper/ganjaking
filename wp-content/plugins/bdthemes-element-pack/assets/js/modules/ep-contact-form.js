@@ -8,7 +8,7 @@
 
     var widgetSimpleContactForm = function ($scope, $) {
 
-        var $contactForm = $scope.find('.bdt-contact-form .without-recaptcha');
+        var $contactForm = $scope.find('.bdt-contact-form.without-recaptcha');
 
         if (!$contactForm.length) {
             return;

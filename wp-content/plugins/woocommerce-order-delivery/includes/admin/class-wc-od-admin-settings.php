@@ -742,7 +742,6 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 				WC_Admin_Settings::add_error( $error_message );
 			}
 		}
-
 	}
 }
 

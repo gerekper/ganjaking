@@ -849,12 +849,14 @@
                     
                         let search_text = this.value;
                         let findstring = container[0].querySelectorAll('.theplus-accordion-item');
-
                             findstring.forEach(function(self){
-                                let content_editor = self.querySelector('.elementor-tab-content .plus-content-editor');
-                                let searchRegex = new RegExp(search_text, 'gi');
-                                
-                                content_editor.innerHTML = content_editor.outerText.replace(searchRegex,  `<mark class="highlight">$&</mark>`)
+                                let content_editor = self.querySelector('.elementor-tab-content .plus-content-editor'),
+                                    searchRegex = new RegExp(search_text, 'gi'),
+                                    paragraphs = content_editor.querySelectorAll('*');
+
+                                paragraphs.forEach(function (paragraph) {
+                                    paragraph.innerHTML = paragraph.outerText.replace(searchRegex, `<mark class="tp-highlight">$&</mark>`);
+                                });
                              });
                     }
 

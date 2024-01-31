@@ -1358,9 +1358,7 @@ function UniteCreatorAdmin(){
 
 			objChangelogFormError.hide();
 
-			objChangelogFormSubmit
-				.prop('disabled', true)
-				.text(objChangelogFormSubmit.data('text-loading'));
+			g_ucAdmin.setAjaxLoadingButtonID(objChangelogFormSubmit.attr('id'));
 
 			g_ucAdmin.ajaxRequest(action, {
 				addon_id: g_addonID,
@@ -1371,10 +1369,6 @@ function UniteCreatorAdmin(){
 				objChangelogFormClear.trigger('click');
 
 				loadChangelog();
-			}).always(function () {
-				objChangelogFormSubmit
-					.prop('disabled', false)
-					.text(objChangelogFormSubmit.data('text-default'));
 			});
 		});
 

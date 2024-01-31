@@ -77,12 +77,26 @@ class Background_Media_Library_Scanner extends Controller {
 
 		if ( ! Helper::loopback_supported() ) {
 			$this->logger->error( 'Loopback check failed. Not starting a new background process.' );
-			wp_send_json_error( array(
-				'message' => sprintf(
-					esc_html__( 'Your site seems to have an issue with loopback requests. Please try again and if the problem persists find out more %s.', 'wp-smushit' ),
-					sprintf( '<a target="_blank" href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/#background-processing">%s</a>', esc_html__( 'here', 'wp-smushit' ) )
-				),
-			) );
+			$doc_link = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/#background-processing';
+			if ( ! WP_Smush::is_pro() ) {
+				$doc_link = add_query_arg(
+					array(
+						'utm_source' => 'smush',
+						'utm_medium' => 'plugin',
+						'utm_campaign' => 'smush_bulksmush_loopback_notice',
+					),
+					$doc_link
+				);
+			}
+			wp_send_json_error(
+				array(
+					'message' => sprintf(
+						/* translators: %s Doc link */
+						esc_html__( 'Your site seems to have an issue with loopback requests. Please try again and if the problem persists find out more %s.', 'wp-smushit' ),
+						sprintf( '<a target="_blank" href="%1$s">%2$s</a>', $doc_link, esc_html__( 'here', 'wp-smushit' ) )
+					),
+				)
+			);
 		} else {
 			$this->logger->notice( 'Loopback check successful.' );
 		}
@@ -143,7 +157,7 @@ class Background_Media_Library_Scanner extends Controller {
 	private function make_identifier() {
 		$identifier = 'wp_smush_background_scan_process';
 		if ( is_multisite() ) {
-			$post_fix   = "_" . get_current_blog_id();
+			$post_fix   = '_' . get_current_blog_id();
 			$identifier .= $post_fix;
 		}
 

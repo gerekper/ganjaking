@@ -2,7 +2,7 @@
 /**
  * WC_CP_FS_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    7.0.7
  */
 
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Flatsome integration.
  *
- * @version  7.0.7
+ * @version  8.10.5
  */
 class WC_CP_FS_Compatibility {
 
@@ -41,18 +41,14 @@ class WC_CP_FS_Compatibility {
 	 */
 	public static function add_quickview_integration() {
 
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'wc-composite-single-css' );
 		wp_enqueue_script( 'wc-add-to-cart-composite' );
-		wp_add_inline_script( 'wc-add-to-cart-composite',
-		'
-			jQuery( document ).on( "mfpOpen", function( e ) {
 
-				jQuery( ".composite_form .composite_data" ).each( function() {
-						jQuery( this ).wc_composite_form();
-				} );
-
-			} );
-		' );
+		wp_register_script( 'wc-composite-flatsome-quickview', WC_CP()->plugin_url() . '/assets/js/frontend/integrations/composite-flatsome-quickview' . $suffix . '.js', array( 'jquery', 'jquery-blockui', 'underscore', 'backbone', 'wp-util', 'wc-add-to-cart-variation' ), WC_CP()->version, true );
+		wp_script_add_data( 'wc-composite-flatsome-quickview', 'strategy', 'defer' );
+		wp_enqueue_script( 'wc-composite-flatsome-quickview' );
 	}
 }
 

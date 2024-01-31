@@ -58,14 +58,16 @@ class GeneralSettingsView {
 
 		$handle = SEARCHWP_PREFIX . self::$slug;
 
-		array_map(
-			'wp_enqueue_style',
+		wp_enqueue_style(
+			$handle,
+			SEARCHWP_PLUGIN_URL . 'assets/css/admin/pages/general-settings.css',
 			[
 				Utils::$slug . 'collapse-layout',
 				Utils::$slug . 'input',
 				Utils::$slug . 'toggle-switch',
 				Utils::$slug . 'style',
-			]
+			],
+			SEARCHWP_VERSION
 		);
 
 		wp_enqueue_script(
@@ -148,7 +150,7 @@ class GeneralSettingsView {
 
                             <div class="swp-col swp-col--title-width">
                                 <h3 class="swp-h3">
-                                    License Key
+									<?php esc_html_e( 'License Key', 'searchwp' ); ?>
                                 </h3>
                             </div>
 
@@ -160,20 +162,26 @@ class GeneralSettingsView {
 
                                 <div class="swp-flex--row sm:swp-flex--wrap swp-flex--gap12">
                                     <input id="swp-license" class="swp-input swp-w-2/5" type="<?php echo License::is_active() ? 'password' : 'text'; ?>"<?php echo License::is_active() ? ' value="' . esc_attr( License::get_key() ) . '" disabled' : ''; ?>>
-                                    <button id="swp-license-deactivate" class="swp-button"<?php echo License::is_active() ? '' : ' style="display:none"'; ?>>Remove Key</button>
-                                    <button id="swp-license-activate" class="swp-button swp-button--green"<?php echo License::is_active() ? ' style="display:none"' : ''; ?>>Verify Key</button>
+									<?php if ( License::is_active() ) : ?>
+										<button id="swp-license-deactivate" class="swp-button"><?php esc_html_e( 'Remove Key', 'searchwp' ); ?></button>
+									<?php else : ?>
+										<button id="swp-license-activate" class="swp-button swp-button--green"><?php esc_html_e( 'Verify Key', 'searchwp' ); ?></button>
+									<?php endif; ?>
                                 </div>
 
                                 <p id="swp-license-error-msg" class="swp-desc--btm swp-text-red" style="display:none"></p>
 
-                                <p id="swp-license-active-msg" class="swp-desc--btm"<?php echo License::is_active() ? '' : ' style="display:none"'; ?>>
-                                    Your license key level is <b><span id="swp-license-type"><?php echo License::is_active() ? esc_html( strtoupper( License::get_type() ) ) : ''; ?></span></b>. <span id="swp-license-remaining"><?php echo License::is_active() ? esc_html( $license['remaining'] ) : ''; ?></span>.
-                                </p>
-                                <p id="swp-license-inactive-msg" class="swp-desc--btm"<?php echo License::is_active() ? ' style="display:none"' : ''; ?>>
-                                    Your license key can be found in your <a href="https://searchwp.com/account/?utm_campaign=plugin&utm_source=WordPress&utm_medium=settings-license&utm_content=Account%20Dashboard" target="_blank" rel="noopener noreferrer">SearchWP Account Dashboard</a>. Don’t have a license? <a href="https://searchwp.com/buy/?utm_campaign=plugin&utm_source=WordPress&utm_medium=settings-license&utm_content=License%20Key%20Sign%20Up" target="_blank" rel="noopener noreferrer">Sign up today!</a>
-                                </p>
-                            </div>
+								<p class="swp-desc--btm">
+									<?php if ( License::is_active() ) : ?>
+										Your license key level is <b><span id="swp-license-type"><?php echo License::is_active() ? esc_html( strtoupper( License::get_type() ) ) : ''; ?></span></b>. <span id="swp-license-remaining"><?php echo License::is_active() ? esc_html( $license['remaining'] ) : ''; ?></span>.
+									<?php else : ?>
+										Your license key can be found in your <a href="https://searchwp.com/account/?utm_campaign=plugin&utm_source=WordPress&utm_medium=settings-license&utm_content=Account%20Dashboard" target="_blank" rel="noopener noreferrer">SearchWP Account Dashboard</a>. Don’t have a license? <a href="https://searchwp.com/buy/?utm_campaign=plugin&utm_source=WordPress&utm_medium=settings-license&utm_content=License%20Key%20Sign%20Up" target="_blank" rel="noopener noreferrer">Sign up today!</a>
+									<?php endif; ?>
+								</p>
 
+								<?php self::render_license_upsell(); ?>
+
+                            </div>
                         </div>
 
                     </div>
@@ -296,5 +304,93 @@ class GeneralSettingsView {
 		Settings::update( $setting, $value );
 
 		wp_send_json_success();
+	}
+
+	/**
+	 * Renders the license upsell notice.
+	 *
+	 * @since 4.3.10
+	 */
+	private static function render_license_upsell() {
+
+		$license_type = License::get_type();
+
+		$title       = '';
+		$upsell_text = '';
+		$upsell_url  = '';
+		$bonus_text  = '';
+
+		switch ( $license_type ) {
+			case '':
+				$title       = '<h5>' . __( 'Get SearchWP Pro Today and Unlock all the Powerful Features', 'searchwp' ) . '</h5>';
+				$upsell_text = __( 'Buy SearchWP Pro Today »', 'searchwp' );
+				$upsell_url  = 'https://searchwp.com/buy/?utm_source=WordPress&utm_medium=License+Field+Upsell+Link&utm_campaign=SearchWP&utm_content=Buy+SearchWP+Pro+Today';
+				break;
+
+			case 'standard':
+				$title       = '<h5>' . __( 'Get SearchWP Pro Today and Unlock all the Powerful Features', 'searchwp' ) . '</h5>';
+				$upsell_text = __( 'Get SearchWP Pro Today »', 'searchwp' );
+				$upsell_url  = 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=License+Field+Upsell+Link&utm_campaign=SearchWP&utm_content=Get+SearchWP+Pro+Today';
+				$bonus_text  = __( '<strong>Bonus:</strong> SearchWP Standard users get up to <span class="green">$200 off their upgrade price</span>, automatically applied at checkout!', 'searchwp' );
+				break;
+
+			case 'pro':
+				$title       = '<h5>' . __( 'Upgrade to SearchWP Agency today and use SearchWP on an unlimited number of websites!', 'searchwp' ) . '</h5>';
+				$upsell_text = __( 'Get SearchWP Agency Now »', 'searchwp' );
+				$upsell_url  = 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=License+Field+Upsell+Link&utm_campaign=SearchWP&utm_content=Get+SearchWP+Agency+Now';
+				$bonus_text  = __( '<strong>Bonus:</strong> SearchWP Pro users get up to <span class="green">$300 off their upgrade price</span>, automatically applied at checkout!', 'searchwp' );
+				break;
+
+			case 'agency':
+				$title = __( 'Thank you for using SearchWP! ❤️', 'searchwp' );
+				break;
+
+			default:
+				break;
+		}
+
+		?>
+		<div class="searchwp-settings-license-upsell <?php echo esc_attr( $license_type ); ?>">
+
+			<?php echo wp_kses_post( $title ); ?>
+
+			<?php if ( empty( $license_type ) || $license_type === 'standard' ) : ?>
+				<div class="list">
+					<ul>
+						<li><?php esc_html_e( 'WooCommerce & Easy Digital Downloads support', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Advanced search Metrics and insights on visitor activity', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Click tracking to know what search results users are picking', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Multi-language search support with WPML and Polylang', 'searchwp' ); ?></li>
+					</ul>
+					<ul>
+						<li><?php esc_html_e( 'Increased activation limit (use SearchWP on more sites!)', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Granular customization of search results order', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Related block to display similar search results', 'searchwp' ); ?></li>
+						<li><?php esc_html_e( 'Conditional redirects based on the search request', 'searchwp' ); ?></li>
+					</ul>
+				</div>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $upsell_text ) ) : ?>
+				<p><a href="<?php echo esc_url( $upsell_url ); ?>" target="_blank" rel="noopener noreferrer" title="<?php echo esc_html( $upsell_text ); ?>"><?php echo esc_html( $upsell_text ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $bonus_text ) ) : ?>
+				<p>
+					<?php
+						echo wp_kses(
+							$bonus_text,
+							[
+								'strong' => [],
+								'span'   => [
+									'class' => [],
+								],
+							]
+						);
+					?>
+				</p>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 }

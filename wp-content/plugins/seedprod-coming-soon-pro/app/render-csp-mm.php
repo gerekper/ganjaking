@@ -170,7 +170,7 @@ class SeedProd_Pro_Render {
 		// Top Level Settings
 		$ts                = get_option( 'seedprod_settings' );
 		$seedprod_settings = json_decode( $ts );
-		$get_request_uri = ! empty( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : null;
+		$get_request_uri   = ! empty( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : null;
 
 		// Page Info
 		$page_id = 0;
@@ -314,8 +314,6 @@ class SeedProd_Pro_Render {
 					$bypass_hash = md5( $settings->bypass_phrase . get_current_blog_id() );
 					setcookie( 'wp-seedprod-bypass', $bypass_hash, 0, COOKIEPATH, COOKIE_DOMAIN, false );
 
-					add_filter( 'auth_cookie_expiration', 'seedprod_pro_change_wp_cookie_logout' );
-
 					// Log user in auto
 					$username = 'seedprod_bypass_user_' . $settings->bypass_phrase;
 					if ( ! is_user_logged_in() ) {
@@ -326,6 +324,9 @@ class SeedProd_Pro_Render {
 						do_action( 'wp_login', $username, $user );
 						update_user_meta( $user_id, 'show_admin_bar_front', false );
 					}
+
+					// This doesn't have the intended effect. Using a non-WP function in setcookie() might be the reason why.
+					add_filter( 'auth_cookie_expiration', 'seedprod_pro_change_wp_cookie_logout', 10, 3 );
 
 					$get_return = ! empty( $_REQUEST['return'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['return'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( null !== $get_return ) {
@@ -503,19 +504,19 @@ class SeedProd_Pro_Render {
 		if ( ! empty( $settings->include_exclude_type ) && '1' == $settings->include_exclude_type ) {
 			if ( is_front_page() && is_home() ) {
 				// Default homepage
-				
-				} elseif ( is_front_page()){
+
+			} elseif ( is_front_page() ) {
 				// Static homepage
-				
-				} elseif ( is_home()){
-				
+
+			} elseif ( is_home() ) {
+
 				// Blog page
-				
-				} else {
-				
-					return false;
-				
-				}
+
+			} else {
+
+				return false;
+
+			}
 		}
 
 		// Check if redirect url and exclude

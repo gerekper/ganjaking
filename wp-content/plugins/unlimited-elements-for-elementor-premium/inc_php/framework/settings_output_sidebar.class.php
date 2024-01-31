@@ -83,36 +83,66 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		}
 
 		/**
-		 * add responsive html icons selector
+		 * draw responsive picker
 		 */
-		private function addResponsiveIconsHtml($type){
+		private function drawResponsivePicker($selectedType){
 
-			$orderDesktop = 1;
-			$orderTablet = 2;
-			$orderMobile = 3;
-
-			if($type == "tablet")
-				$orderTablet = 0;
-
-			if($type == "mobile")
-				$orderMobile = 0;
-
-			//unite-settings-responsive-wrapper__open
+			$devices = array(
+				"desktop" => array(
+					"title" => __("Desktop", "unlimited-elements-for-elementor"),
+					"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path d="M3.5 10.5h5M6 7.5v3M11.5.5H.5v7h11v-7Z" /></svg>',
+				),
+				"tablet" => array(
+					"title" => __("Tablet", "unlimited-elements-for-elementor"),
+					"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12"><path d="M2.5 9.5h5M8.5.5h-7a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
+				),
+				"mobile" => array(
+					"title" => __("Mobile", "unlimited-elements-for-elementor"),
+					"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 12"><path d="M2.5 9.5h3M6.5.5h-5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
+				),
+			);
 
 			?>
-
-			<div class="unite-settings-responsive-wrapper">
-				<div class="unite-settings-responsive-holder">
-					<a href="javascript:void(0)" style="order:<?php echo $orderDesktop?>" class="unite-settings-responsive-icon unite-settings-responsive-icon__desktop" data-device="desktop">Desktop</a>
-					<a href="javascript:void(0)" style="order:<?php echo $orderTablet?>" class="unite-settings-responsive-icon unite-settings-responsive-icon__tablet" data-device="tablet">Tablet</a>
-					<a href="javascript:void(0)" style="order:<?php echo $orderMobile?>" class="unite-settings-responsive-icon unite-settings-responsive-icon__mobile" data-device="mobile">Mobile</a>
-				</div>
-			</div>
-
+			<select class="unite-responsive-picker">
+				<?php foreach($devices as $type => $device): ?>
+					<option
+						value="<?php esc_attr_e($type); ?>"
+						data-content="<?php esc_attr_e('<div class="unite-responsive-picker-item uc-tip" title="' . esc_attr($device["title"]) . '" data-tipsy-gravity="w">' . $device["icon"] . '</div>'); ?>"
+						<?php echo $type === $selectedType ? "selected" : ""; ?>
+					>
+						<?php esc_html_e($device["title"]); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
 			<?php
 		}
 
+		/**
+		 * draw units picker
+		 */
+		private function drawUnitsPicker($units, $selectedUnit){
 
+			$defaultUnit = reset($units);
+			$initialUnit = $selectedUnit ?: $defaultUnit;
+
+			?>
+			<select
+				class="unite-units-picker"
+				data-default="<?php esc_attr_e($defaultUnit); ?>"
+				data-initval="<?php esc_attr_e($initialUnit); ?>"
+			>
+				<?php foreach($units as $unit): ?>
+					<option
+						value="<?php esc_attr_e($unit); ?>"
+						data-content="<?php esc_attr_e('<div class="unite-units-picker-item">' . $unit . '</div>'); ?>"
+						<?php echo $unit === $selectedUnit ? "selected" : ""; ?>
+					>
+						<?php esc_html_e($unit); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+			<?php
+		}
 
 		/**
 		 * draw settings row
@@ -123,6 +153,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 			$baseClass = "unite-setting-row";
 
+			$type = UniteFunctionsUC::getVal($setting, "type");
 			$text = UniteFunctionsUC::getVal($setting, "text");
 			$description = UniteFunctionsUC::getVal($setting, "description");
 
@@ -145,32 +176,41 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 			$responsiveType = UniteFunctionsUC::getVal($setting, "responsive_type");
 
-			if($isResponsive === true && $responsiveType != "desktop")
-				$baseClass .= " uc-responsive-hidden";
+			if($isResponsive === true && $responsiveType !== "desktop")
+				$baseClass .= " unite-hidden";
 
 			$addAttr = "";
 
-			if($isResponsive == true){
-				$responsiveName = UniteFunctionsUC::getVal($setting, "responsive_name");
-				$baseClass .= " unite-setting-row__" . $responsiveType;
-
-				$addAttr = "data-responsiveid='{$responsiveName}'";
+			if($isResponsive === true){
+				$responsiveId = UniteFunctionsUC::getVal($setting, "responsive_id");
+				$addAttr = "data-responsive-id='$responsiveId' data-responsive-device='$responsiveType'";
 			}
+
+			$units = UniteFunctionsUC::getVal($setting, "units");
+			$unitsSelected = UniteFunctionsUC::getVal($setting, "units_selected");
 
 			$rowClass = $this->drawSettingRow_getRowClass($setting, $baseClass);
 
 			?>
-			<li id="<?php echo esc_attr($settingID); ?>_row" <?php echo $addAttr; ?> <?php echo UniteProviderFunctionsUC::escAddParam($rowClass); ?>>
+			<li
+				id="<?php esc_attr_e($settingID); ?>_row"
+				<?php echo UniteProviderFunctionsUC::escAddParam($rowClass); ?>
+				<?php echo UniteProviderFunctionsUC::escAddParam($addAttr); ?>
+				data-type="<?php esc_attr_e($type); ?>"
+			>
 
 				<div class="unite-setting-field">
 
-					<?php if($toDrawText == true): ?>
+					<?php if($toDrawText === true): ?>
 						<div class="unite-setting-text-wrapper">
 							<div id="<?php echo esc_attr($settingID); ?>_text" class='unite-setting-text' <?php echo UniteProviderFunctionsUC::escAddParam($attribsText); ?>>
 								<?php echo esc_html($text); ?>
 							</div>
-							<?php if($isResponsive): ?>
-								<?php $this->addResponsiveIconsHtml($responsiveType); ?>
+							<?php if($isResponsive === true): ?>
+								<?php $this->drawResponsivePicker($responsiveType); ?>
+							<?php endif; ?>
+							<?php if(empty($units) === false): ?>
+								<?php $this->drawUnitsPicker($units, $unitsSelected); ?>
 							<?php endif; ?>
 						</div>
 					<?php endif ?>
@@ -255,12 +295,12 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 * @param  $sap
 		 */
 		protected function drawSapBefore($sap, $key){
-						
+
 		    //set class
 		    $class = "unite-postbox";
 		    if(!empty($this->addClass))
 		        $class .= " ".$this->addClass;
-			
+
 		    $tab = UniteFunctionsUC::getVal($sap, "tab");
 
 		    if(empty($tab))
@@ -284,9 +324,24 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 					$styleTitle = esc_attr($styleTitle);
 					$styleTitle = " style='$styleTitle'";
 				}
-
+				
+				$isHidden = UniteFunctionsUC::getVal($sap, "hidden");
+				$isHidden = UniteFunctionsUC::strToBool($isHidden);
+				
+				if($isHidden == true)
+					$class .= " unite-setting-hidden";	
+				
+				$name = UniteFunctionsUC::getVal($sap, "name");
+				
+				//generate name if missing
+				if(empty($name))
+					$name = "unnamed_".UniteFunctionsUC::getRandomString();
+				
+				
+				$sapID = $this->idPrefix."ucsap_{$name}";
+				
 			?>
-			<div class="<?php esc_attr_e($class); ?>" data-tab="<?php esc_attr_e($tab); ?>">
+			<div id="<?php esc_attr_e($sapID)?>" class="<?php esc_attr_e($class); ?>" data-tab="<?php esc_attr_e($tab); ?>">
 
 				<?php if($this->showSapTitle == true): ?>
 

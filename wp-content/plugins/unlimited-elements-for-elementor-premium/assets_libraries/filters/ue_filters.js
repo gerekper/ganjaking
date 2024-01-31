@@ -29,6 +29,7 @@ function UEDynamicFilters(){
 		CLASS_HIDDEN: "uc-filter-hidden",	//don't refresh with this class
 		CLASS_INITING: "uc-filter-initing",
 		CLASS_INITING_HIDDEN: "uc-initing-filter-hidden",
+		CLASS_SKIP_REFRESH: "uc-filters-norefresh",		//on some grid parent
 		CLASS_REFRESH_SOON: "uc-ajax-refresh-soon",
 		EVENT_SET_HTML_ITEMS: "uc_ajax_sethtml",
 		
@@ -38,8 +39,8 @@ function UEDynamicFilters(){
 		EVENT_AJAX_REFRESHED: "uc_ajax_refreshed",	   //on grid
 		EVENT_AJAX_REFRESHED_BODY: "uc_ajax_refreshed_body",	   //on grid
 		EVENT_UPDATE_ACTIVE_FILTER_ITEMS: "update_active_filter_items",	   //on grid
-		EVENT_CLEAR_FILTERS: "clear_filters",	   //on grid
 		EVENT_UNSELECT_FILTER: "uc_unselect_filter",   //on grid
+		EVENT_SILENT_FILTER_CHANGE: "uc_silent_filter_change",   //on grid
 		
 		
 		//events on filters
@@ -49,6 +50,9 @@ function UEDynamicFilters(){
 		EVENT_GET_FILTER_DATA:"get_filter_data",
 		EVENT_FILTER_RELOADED: "uc_ajax_reloaded",
 		
+		//grid actions
+		
+		ACTION_CLEAR_FILTERS: "clear_filters",	   //on grid
 		ACTION_REFRESH_GRID: "uc_refresh",	//listen on grid
 		ACTION_GET_FILTERS_URL: "uc_get_filters_url",	//listen on grid
 		ACTION_FILTER_CHANGE: "uc_filter_change",		//listen on grid
@@ -896,6 +900,19 @@ function UEDynamicFilters(){
 		
 	}
 	
+	/**
+	 * return true if the filter skip's it's action - like under mobile drawer
+	 */
+	function isFilterSkipAction(objFilter){
+		
+		var objParentSkipRefresh = objFilter.parents("." + g_vars.CLASS_SKIP_REFRESH);
+		
+		if(objParentSkipRefresh.length)
+			return(true);
+		
+		return(false);
+	}
+	
 	
 	function ________PAGINATION_FILTER______(){}
 	
@@ -1169,7 +1186,7 @@ function UEDynamicFilters(){
 			objLink.addClass(className);
 			
 		}
-				
+		
 		var objGrid = objTermsFilter.data("grid");
 		
 		if(!objGrid || objGrid.length == 0)
@@ -1200,6 +1217,18 @@ function UEDynamicFilters(){
 		
 		if(filterRole == "main")
 			clearChildFilters(objGrid, objTermsFilter, isHideChildren, termID);
+		
+		//skip action
+		
+		var isSkipAction = isFilterSkipAction(objTermsFilter);
+		
+		if(isSkipAction == true){
+			
+			objGrid.trigger(g_vars.EVENT_SILENT_FILTER_CHANGE);
+			
+			return(false);
+		}
+		
 		
 		//refresh grid		
 		refreshAjaxGrid(objGrid);
@@ -1292,27 +1321,39 @@ function UEDynamicFilters(){
 	 * init general filter
 	 */
 	function initGeneralFilter(objFilter){
-		
+				
 		objFilter.on(g_vars.ACTION_FILTER_CHANGE, onGeneralFilterChange);
 		
-		
 	}
+	
 	
 	
 	/**
 	 * on general filter change
 	 */
-	function onGeneralFilterChange(obj, params){
+	function onGeneralFilterChange(event, params){
 		
+		event.stopPropagation();
+						
 		var isRefresh = getVal(params, "refresh");
 		
 		var objFilter = jQuery(this);
 		
+		var filterType = objFilter.data("filtertype");
+				
+		if(filterType != "general"){
+			
+			trace(objFilter);
+			
+			throw new Error("Not a general filter on action: " + g_vars.ACTION_FILTER_CHANGE);
+			return(false);
+		}
+				
 		if(isRefresh !== true)
 			setNoRefreshFilter(objFilter);
 		
 		var objGrid = objFilter.data("grid");
-				
+		
 		if(!objGrid || objGrid.length == 0){
 			
 			trace(objGrid);
@@ -1321,8 +1362,19 @@ function UEDynamicFilters(){
 			return(false);
 		}
 		
+		//check for skip action
+		
+		var isSkipAction = isFilterSkipAction(objFilter);
+		
+		if(isSkipAction == true){
+			objGrid.trigger(g_vars.EVENT_SILENT_FILTER_CHANGE);
+			return(false);
+		}
+		
 		
 		refreshAjaxGrid(objGrid);
+		
+		return(false);
 	}
 	
 	
@@ -2334,8 +2386,6 @@ function UEDynamicFilters(){
 		//for the options - not refresh other filters
 		var isLoadMoreMode = (refreshType == g_vars.REFRESH_MODE_LOADMORE || refreshType == g_vars.REFRESH_MODE_PAGINATION);
 		
-		
-		
 		//get all grid filters
 		var objFilters = objGrid.data("filters");
 		
@@ -2686,6 +2736,7 @@ function UEDynamicFilters(){
 		var objTaxIDs = {};
 		var strSelectedTerms = "";
 		var search = "";
+		var price_from, price_to;
 		var orderby = null;
 		var orderby_metaname = null;
 		var orderby_metatype = null;
@@ -2873,6 +2924,11 @@ function UEDynamicFilters(){
 						
 					}
 					
+					//handle price
+					price_from = getVal(filterData,"price_from");
+					price_to = getVal(filterData,"price_to");
+					
+					
 					//handle sort
 					var argOrderby = getVal(filterData,"orderby");
 					if(argOrderby && argOrderby != "default"){
@@ -2888,6 +2944,7 @@ function UEDynamicFilters(){
 					
 					if(isLoadMoreMode == true)
 						isNoRefresh = true;
+					
 					
 				break;
 				default:
@@ -3019,6 +3076,12 @@ function UEDynamicFilters(){
 		
 		if(urlAddition_filtersTest)
 			urlAjax = addUrlParam(urlAjax, urlAddition_filtersTest);
+		
+		if(price_from)
+			urlAjax += "&ucpricefrom="+price_from;
+		
+		if(price_to)
+			urlAjax += "&ucpriceto="+price_to;
 		
 		if(page){
 			urlAjax += "&ucpage="+page;
@@ -3553,7 +3616,7 @@ function UEDynamicFilters(){
 			
 			arrTerms.push(objSearch);
 		}
-				
+		
 		objGrid.data("active_filters_items", arrTerms);
 		objGrid.trigger(g_vars.EVENT_UPDATE_ACTIVE_FILTER_ITEMS, [arrTerms]);
 		
@@ -3663,7 +3726,7 @@ function UEDynamicFilters(){
 		
 		//clear filters from event
 		
-		objGrids.on(g_vars.EVENT_CLEAR_FILTERS, function(){
+		objGrids.on(g_vars.ACTION_CLEAR_FILTERS, function(){
 			
 			var objGrid = jQuery(this);
 			
@@ -3786,9 +3849,12 @@ function UEDynamicFilters(){
 	}
 	
 	/**
-	 * run function with trashold
+	 * run function with trashold, default is 500
 	 */
 	this.runWithTrashold = function(func, trashold){
+		
+		if(!trashold)
+			 var trashold = 500;
 		
 		if(g_vars.trashold_handle)
 			clearTimeout(g_vars.trashold_handle);

@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit;
 class SettingsController {
 
   const ALLOWED_BLOCK_TYPES = [
+    'core/button',
+    'core/buttons',
     'core/paragraph',
     'core/heading',
     'core/column',
@@ -40,16 +42,22 @@ class SettingsController {
   const EMAIL_WIDTH = '660px';
 
   /**
-   * Width of the email in pixels.
+   * Color of email layout background.
    * @var string
    */
-  const EMAIL_BACKGROUND = '#cccccc';
+  const EMAIL_LAYOUT_BACKGROUND = '#cccccc';
 
   /**
    * Padding of the email in pixels.
    * @var string
    */
   const EMAIL_PADDING = '10px';
+
+  /**
+   * Gap between blocks in flex layouts
+   * @var string
+   */
+  const FLEX_GAP = '16px';
 
   /**
    * Default styles applied to the email. These are going to be replaced by style settings.
@@ -104,31 +112,49 @@ class SettingsController {
     // Enable custom spacing
     $coreSettings['spacing']['units'] = ['px'];
     $coreSettings['spacing']['padding'] = true;
+    // Typography
+    $coreSettings['typography']['dropCap'] = false; // Showing large initial letter cannot be implemented in emails
+    $coreSettings['typography']['fontWeight'] = false; // Font weight will be handled by the font family later
 
-    $themeJson = (string)file_get_contents(dirname(__FILE__) . '/theme.json');
-    $themeJson = json_decode($themeJson, true);
-    /** @var array $themeJson */
-    $theme = new \WP_Theme_JSON($themeJson);
+    $theme = $this->getTheme();
 
     // body selector is later transformed to .editor-styles-wrapper
     // setting padding for bottom and top is needed because \WP_Theme_JSON::get_stylesheet() set them only for .wp-site-blocks selector
     $contentVariables = 'body {';
     $contentVariables .= 'padding-bottom: var(--wp--style--root--padding-bottom);';
     $contentVariables .= 'padding-top: var(--wp--style--root--padding-top);';
+    $contentVariables .= '--wp--style--block-gap:' . self::FLEX_GAP . ';';
     $contentVariables .= '}';
 
     $settings = array_merge($coreDefaultSettings, self::DEFAULT_SETTINGS);
     $settings['allowedBlockTypes'] = self::ALLOWED_BLOCK_TYPES;
+    $flexEmailLayoutStyles = file_get_contents(__DIR__ . '/flex-email-layout.css');
+
     $settings['styles'] = [
+      $coreDefaultSettings['defaultEditorStyles'][0],
+      ['css' => wp_get_global_stylesheet(['base-layout-styles'])],
       ['css' => $theme->get_stylesheet()],
       ['css' => $contentVariables],
-      ['css' => wp_get_global_stylesheet(['base-layout-styles'])],
+      ['css' => $flexEmailLayoutStyles],
     ];
 
     $settings['__experimentalFeatures'] = $coreSettings;
+    // Enable border radius, color, style and width where possible
+    $settings['__experimentalFeatures']['border'] = [
+      "radius" => true,
+      "color" => true,
+      "style" => true,
+      "width" => true,
+    ];
 
     // Enabling alignWide allows full width for specific blocks such as columns, heading, image, etc.
     $settings['alignWide'] = true;
+
+    // Disable gradients. We cannot render them in emails.
+    $settings['disableCustomGradients'] = true;
+    $settings['__experimentalFeatures']['color']['customGradient'] = false;
+    $settings['__experimentalFeatures']['color']['defaultGradients'] = false;
+    $settings['__experimentalFeatures']['color']['gradients'] = [];
 
     return $settings;
   }
@@ -160,7 +186,7 @@ class SettingsController {
   public function getEmailLayoutStyles(): array {
     return [
       'width' => self::EMAIL_WIDTH,
-      'background' => self::EMAIL_BACKGROUND,
+      'background' => self::EMAIL_LAYOUT_BACKGROUND,
       'padding' => [
         'bottom' => self::EMAIL_PADDING,
         'left' => self::EMAIL_PADDING,
@@ -203,5 +229,12 @@ class SettingsController {
 
   public function parseNumberFromStringWithPixels(string $string): float {
     return (float)str_replace('px', '', $string);
+  }
+
+  public function getTheme(): \WP_Theme_JSON {
+    $themeJson = (string)file_get_contents(dirname(__FILE__) . '/theme.json');
+    $themeJson = json_decode($themeJson, true);
+    /** @var array $themeJson */
+    return new \WP_Theme_JSON($themeJson);
   }
 }

@@ -2,7 +2,7 @@
 /**
  * WC_CP_Core_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.5.2
  */
 

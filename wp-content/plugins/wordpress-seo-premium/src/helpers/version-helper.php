@@ -25,6 +25,6 @@ class Version_Helper {
 	 */
 	public function is_premium_update_available() {
 		$plugin_updates = \get_plugin_updates();
-		return isset( $plugin_updates[ WPSEO_PREMIUM_BASENAME ] );
+		return isset( $plugin_updates[ \WPSEO_PREMIUM_BASENAME ] );
 	}
 }

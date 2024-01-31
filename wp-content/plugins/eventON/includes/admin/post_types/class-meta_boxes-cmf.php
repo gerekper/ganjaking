@@ -1,7 +1,7 @@
 <?php
 /**
  *	Event edit custom meta field data
- *	@version 4.4
+ *	@version 4.5.5
  */
 
 $metabox_array = array();
@@ -50,49 +50,63 @@ if( count($metabox_array)>0):
 			// FIELD
 			$__saved_field_value = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cus") )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cus"):null ;
 			
-			// wysiwyg editor
-			if( $__field_type == 'textarea'){
-			
-				wp_editor($__saved_field_value, $__field_id);					
-				
-			// textarea editor
-			}elseif( $__field_type == 'textarea_basic'){			
-				
-				echo "<textarea class='textarea_basic' type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus'> ";										
-				echo $__saved_field_value.'</textarea>';	
-				
-			// button
-			}elseif( $__field_type =='button'){
-				
-				$__saved_field_link = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cusL")  )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cusL"):null ;
+			switch ($__field_type) {
+				case 'textarea':
+					wp_editor($__saved_field_value, $__field_id, array('wpautop' => true ));
+					break;
 
-				echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";
-				echo 'value="'. ( !empty($__saved_field_value) ? addslashes($__saved_field_value ) :'' ) .'"';						
-				echo "style='width:100%' placeholder='".__('Button Text','eventon')."' title='Button Text'/>";
+				case 'textarea_trumbowig':
+					echo EVO()->elements->get_element(array(
+						'type'=> 'wysiwyg',
+						'id'=> $__field_id,
+						'name'=> '',
+						'value'=> $__saved_field_value
+					));	
+					break;
 
-				echo "<input type='text' id='_evcal_ec_f".$x."a1_cusL' name='_evcal_ec_f".$x."a1_cusL' ";
-				echo 'value="'. $__saved_field_link.'"';						
-				echo "style='width:100%' placeholder='".__('Button Link','eventon')."' title='Button Link'/>";
+				case 'textarea_basic':
 
-					$onw = ($EVENT->get_prop("_evcal_ec_f".$x."_onw") )? $EVENT->get_prop("_evcal_ec_f".$x."_onw"):null ;
-				?>
+					echo EVO()->elements->get_element(array(
+						'type'=> 'textarea',
+						'id'=> $__field_id,
+						'name'=> '',
+						'value'=> $__saved_field_value
+					));	
+					break;
 
-				<span class='yesno_row evo'>
-					<?php 	
-					echo EVO()->elements->yesno_btn(array(
-						'id'=>'_evcal_ec_f'.$x . '_onw',
-						'var'=> $EVENT->get_prop('_evcal_ec_f'.$x . '_onw'),
-						'input'=>true,
-						'label'=>__('Open in New window','eventon')
-					));?>											
-				</span>
+				case 'button':
+					$__saved_field_link = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cusL")  )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cusL"):null ;
+
+					echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";
+					echo 'value="'. ( !empty($__saved_field_value) ? addslashes($__saved_field_value ) :'' ) .'"';						
+					echo "style='width:100%' placeholder='".__('Button Text','eventon')."' title='Button Text'/>";
+
+					echo "<input type='text' id='_evcal_ec_f".$x."a1_cusL' name='_evcal_ec_f".$x."a1_cusL' ";
+					echo 'value="'. $__saved_field_link.'"';						
+					echo "style='width:100%' placeholder='".__('Button Link','eventon')."' title='Button Link'/>";
+
+						$onw = ($EVENT->get_prop("_evcal_ec_f".$x."_onw") )? $EVENT->get_prop("_evcal_ec_f".$x."_onw"):null ;
+					?>
+
+					<span class='yesno_row evo'>
+						<?php 	
+						echo EVO()->elements->yesno_btn(array(
+							'id'=>'_evcal_ec_f'.$x . '_onw',
+							'var'=> $EVENT->get_prop('_evcal_ec_f'.$x . '_onw'),
+							'input'=>true,
+							'label'=>__('Open in New window','eventon')
+						));?>											
+					</span>
 				<?php
-			
-			// text	
-			}else{
-				echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";										
-				echo 'value="'. $__saved_field_value.'"';						
-				echo "style='width:100%'/>";								
+					break;
+				default:
+					echo EVO()->elements->get_element(array(
+						'type'=> 'input',
+						'id'=> $__field_id,
+						'name'=> '',
+						'value'=> $__saved_field_value
+					));	
+					break;	
 			}
 
 		echo "</div></div>";

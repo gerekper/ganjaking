@@ -6,6 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_Box_Office_Cron {
 	/**
+	 * Whether we are rendering an email or not.
+	 *
+	 * @var boolean
+	 */
+	protected static $is_rendering_email = false;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -13,19 +20,29 @@ class WC_Box_Office_Cron {
 		add_action( 'init', array( $this, 'scheduled_batch_emails' ) );
 		add_action( 'wc-box-office-send-email-after-tickets-published', array( $this, 'send_email_to_ticket_contacts' ), 10, 2 );
 		add_action( 'wc-box-office-send-email-for-private-link', array( $this, 'send_email_for_private_content_link' ), 10, 3 );
+		add_action( 'wc-box-office-update-user-privacy-preference', array( $this, 'update_user_preference' ), 10, 2 );
+	}
+
+	/**
+	 * Returns the value of `$is_rendering_email`.
+	 *
+	 * @return boolean
+	 */
+	public static function is_rendering_email() {
+		return self::$is_rendering_email;
 	}
 
 	/**
 	 * Filter cron schedules.
 	 *
-	 * @param array $schedules Schedules
+	 * @param array $schedules Schedules.
 	 *
 	 * @return array Schedules
 	 */
 	public function cron_schedules( $schedules ) {
 		$schedules['10-mins'] = array(
 			'interval' => 60 * 10,
-			'display' => __( 'Once every 10 minutes', 'woocommerce-box-office' ),
+			'display'  => __( 'Once every 10 minutes', 'woocommerce-box-office' ),
 		);
 		return $schedules;
 	}
@@ -53,13 +70,15 @@ class WC_Box_Office_Cron {
 	public function send_emails_batch() {
 		global $wpdb;
 
-		$jobs = get_posts( array(
-			'post_type'      => 'event_ticket_email',
-			'post_status'    => 'pending',
-			'order'          => 'ASC',
-			'posts_per_page' => -1,
-			'cache_results'  => false,
-		) );
+		$jobs = get_posts(
+			array(
+				'post_type'      => 'event_ticket_email',
+				'post_status'    => 'pending',
+				'order'          => 'ASC',
+				'posts_per_page' => -1,
+				'cache_results'  => false,
+			)
+		);
 
 		if ( empty( $jobs ) ) {
 			return;
@@ -90,6 +109,8 @@ class WC_Box_Office_Cron {
 		// Force send cron emails.
 		add_filter( 'woocommerce_box_office_send_ticket_email', '__return_true' );
 
+		self::$is_rendering_email = true;
+
 		foreach ( $tickets_raw as $meta ) {
 			$deleted = $wpdb->query(
 				$wpdb->prepare(
@@ -101,7 +122,7 @@ class WC_Box_Office_Cron {
 				)
 			);
 
-			if ( $deleted > 0) {
+			if ( $deleted > 0 ) {
 				$sent = wc_box_office_send_ticket_email( $meta->meta_value, '', $job->post_title, $job->post_content, $job->post_title );
 
 				if ( $sent ) {
@@ -114,27 +135,33 @@ class WC_Box_Office_Cron {
 				} else {
 					WCBO()->components->logger->log( 'Processing e-mail job', $job->ID );
 				}
-				$processed++;
+				++$processed;
 			}
 		}
 
 		remove_filter( 'woocommerce_box_office_send_ticket_email', '__return_true' );
 
 		if ( $total - $processed < 1 ) {
-			wp_update_post( array(
-				'ID'          => $job->ID,
-				'post_status' => 'publish',
-			) );
+			wp_update_post(
+				array(
+					'ID'          => $job->ID,
+					'post_status' => 'publish',
+				)
+			);
 
 			WCBO()->components->logger->log( 'Email job complete and published.', $job->ID );
+		}
+
+		if ( self::$is_rendering_email ) {
+			self::$is_rendering_email = false;
 		}
 	}
 
 	/**
 	 * Schedule send email to each contact in each ticket after tickets published.
 	 *
-	 * @param int   $timestamp  The time to send the email
-	 * @param array $ticket_ids Ticket IDs
+	 * @param int   $timestamp  The time to send the email.
+	 * @param array $ticket_ids Ticket IDs.
 	 */
 	public function schedule_send_email_after_tickets_published( $timestamp, array $ticket_ids, $force_send = false ) {
 		wp_schedule_single_event( $timestamp, 'wc-box-office-send-email-after-tickets-published', array( $ticket_ids, $force_send ) );
@@ -145,9 +172,9 @@ class WC_Box_Office_Cron {
 	 *
 	 * Triggered by scheduled event 'wc-box-office-send-email-after-tickets-published'.
 	 *
-	 * @param array $ticket_ids Ticket IDs
+	 * @param array $ticket_ids Ticket IDs.
 	 * @param bool  $force_send Force send even if ticket's product has _email_tickets
-	 *                          set to false
+	 *                          set to false.
 	 *
 	 * @return void
 	 */
@@ -155,6 +182,8 @@ class WC_Box_Office_Cron {
 		if ( $force_send ) {
 			add_filter( 'woocommerce_box_office_send_ticket_email', '__return_true' );
 		}
+
+		self::$is_rendering_email = true;
 
 		foreach ( $ticket_ids as $ticket_id ) {
 			$product_id = get_post_meta( $ticket_id, '_product', true );
@@ -167,15 +196,19 @@ class WC_Box_Office_Cron {
 		if ( $force_send ) {
 			remove_filter( 'woocommerce_box_office_send_ticket_email', '__return_true' );
 		}
+
+		if ( self::is_rendering_email() ) {
+			self::$is_rendering_email = false;
+		}
 	}
 
 	/**
 	 * Schedule send email after requesting private content link.
 	 *
-	 * @param int    $timestamp          The time to send the email
-	 * @param string $email              Email address to send the email
-	 * @param int    $ticket_id          Ticket ID
-	 * @param int    $private_content_id Private content ID
+	 * @param int    $timestamp          The time to send the email.
+	 * @param string $email              Email address to send the email.
+	 * @param int    $ticket_id          Ticket ID.
+	 * @param int    $private_content_id Private content ID.
 	 *
 	 * @return void
 	 */
@@ -189,9 +222,9 @@ class WC_Box_Office_Cron {
 	 *
 	 * Triggered by scheduled event 'wc-box-office-send-email-for-private-link'.
 	 *
-	 * @param string $email              Email address to send the email
-	 * @param inb    $ticket_id          Ticket ID
-	 * @param int    $private_content_id Private content ID
+	 * @param string $email              Email address to send the email.
+	 * @param inb    $ticket_id          Ticket ID.
+	 * @param int    $private_content_id Private content ID.
 	 *
 	 * @return void
 	 */
@@ -216,5 +249,56 @@ class WC_Box_Office_Cron {
 		$message = wc_box_office_get_parsed_ticket_content( $ticket_id, $message );
 
 		wc_box_office_send_mail( array( $email ), $subject, $message );
+	}
+
+	/**
+	 * Schedule the job for updating user privacy preference.
+	 *
+	 * @param string $preference User preference for a ticket.
+	 * @param int    $page       The current batch of tickets being updated.
+	 *
+	 * @return void
+	 */
+	public function schedule_user_privacy_update_job( $preference, $page = 1 ) {
+		update_option( 'wc-box-office-update-user-privacy-preference', 'yes' );
+
+		wp_schedule_single_event(
+			time(),
+			'wc-box-office-update-user-privacy-preference',
+			array(
+				'preference' => $preference,
+				'page'       => $page,
+			)
+		);
+	}
+
+	/**
+	 * Updates user privacy preference in all tickets.
+	 *
+	 * @param string $preference User preference for a ticket.
+	 * @param int    $page       The current batch of tickets being updated.
+	 *
+	 * @return void
+	 */
+	public function update_user_preference( $preference, $page = 1 ) {
+		$args = array(
+			'post_type'      => 'event_ticket',
+			'posts_per_page' => get_option( 'posts_per_page' ),
+			'paged'          => (int) $page,
+		);
+
+		$tickets = get_posts( $args );
+
+		if ( 0 === count( $tickets ) ) {
+			delete_option( 'wc-box-office-update-user-privacy-preference' );
+			return;
+		}
+
+		foreach ( $tickets as $ticket ) {
+			$ticket_id = $ticket->ID;
+			update_post_meta( $ticket_id, '_user_pii_preference', $preference );
+		}
+
+		$this->schedule_user_privacy_update_job( $preference, $page + 1 );
 	}
 }

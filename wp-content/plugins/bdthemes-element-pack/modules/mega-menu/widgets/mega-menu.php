@@ -1199,13 +1199,13 @@ class Mega_menu extends Module_Base {
                 'size_units' => ['px'],
                 'range'     => [
                     'px'    => [
-                        'min'   => -100,
-                        'max'   => 100,
+                        'min'   => -200,
+                        'max'   => 200,
                         'step'  => 1,
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'margin-left: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label' => 'margin-left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1217,13 +1217,34 @@ class Mega_menu extends Module_Base {
                 'size_units' => ['px'],
                 'range'     => [
                     'px'    => [
-                        'min'   => -100,
-                        'max'   => 100,
+                        'min'   => -200,
+                        'max'   => 200,
                         'step'  => 1,
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'margin-top: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label' => 'margin-top: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+        
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name'     => 'badge_border',
+                'label'    => esc_html__('Border', 'bdthemes-element-pack'),
+                'selector' => '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label',
+                'separator' => 'before'
+            ]
+        );
+        $this->add_responsive_control(
+            'badge_radius',
+            [
+                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%', 'em'],
+                'selectors'  => [
+                    '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1234,38 +1255,7 @@ class Mega_menu extends Module_Base {
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-                'separator' => 'before'
-            ]
-        );
-        $this->add_responsive_control(
-            'badge_margin',
-            [
-                'label'      => esc_html__('Margin (Deprecated)', 'bdthemes-element-pack'),
-                'type'       => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors'  => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-        $this->add_group_control(
-            Group_Control_Border::get_type(),
-            [
-                'name'     => 'badge_border',
-                'label'    => esc_html__('Border', 'bdthemes-element-pack'),
-                'selector' => '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label',
-            ]
-        );
-        $this->add_responsive_control(
-            'badge_radius',
-            [
-                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
-                'type'       => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors'  => [
-                    '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1274,7 +1264,7 @@ class Mega_menu extends Module_Base {
             [
                 'name'      => 'badge_typography',
                 'label'     => esc_html__('Typography', 'bdthemes-element-pack'),
-                'selector'  => '{{WRAPPER}} .ep-megamenu .megamenu-header-default .ep-badge-label',
+                'selector'  => '{{WRAPPER}} .ep-badge-label, #ep-megamenu-{{ID}}-virtual .ep-badge-label',
             ]
         );
 

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Yoast\WP\SEO\Premium\Integrations;
 
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
@@ -9,7 +8,6 @@ use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Post_Type_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
-use function get_post;
 
 /**
  * Integration to add Publishing Principles to the Schema.
@@ -34,21 +32,21 @@ class Publishing_Principles_Schema_Integration implements Integration_Interface 
 	/**
 	 * The indexable helper.
 	 *
-	 * @var Indexable_Helper $indexable_helper
+	 * @var Indexable_Helper
 	 */
 	private $indexable_helper;
 
 	/**
 	 * The post type helper.
 	 *
-	 * @var Post_Type_Helper $post_type_helper
+	 * @var Post_Type_Helper
 	 */
 	private $post_type_helper;
 
 	/**
 	 * The options helper.
 	 *
-	 * @var Options_Helper $options_helper
+	 * @var Options_Helper
 	 */
 	private $options_helper;
 
@@ -162,7 +160,7 @@ class Publishing_Principles_Schema_Integration implements Integration_Interface 
 		}
 
 		if ( $this->indexable_helper->should_index_indexables() && $this->post_type_helper->is_of_indexable_post_type( 'page' ) ) {
-			$indexables = $this->indexable_repository->find_by_multiple_ids_and_type( array_unique( $ids ), 'post' );
+			$indexables = $this->indexable_repository->find_by_multiple_ids_and_type( \array_unique( $ids ), 'post' );
 
 			foreach ( $principle_ids as $key => $principle_id ) {
 				foreach ( $indexables as $indexable ) {
@@ -183,11 +181,11 @@ class Publishing_Principles_Schema_Integration implements Integration_Interface 
 
 		foreach ( $principle_ids as $key => $principle_id ) {
 			foreach ( $ids as $post_id ) {
-				$post = get_post( (int) $post_id );
-				if ( is_object( $post ) ) {
+				$post = \get_post( (int) $post_id );
+				if ( \is_object( $post ) ) {
 					if ( (int) $principle_id['value'] === (int) $post_id && \get_post_status( $post_id ) === 'publish' && $post->post_password === '' ) {
 						$policies[ $key ] = [
-							'permalink' => get_permalink( $post_id ),
+							'permalink' => \get_permalink( $post_id ),
 							'schema'    => $principle_id['schema'],
 						];
 						break;

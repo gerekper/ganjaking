@@ -126,6 +126,7 @@ class ComposerStaticInitAdminColumns
         'AC\\Ajax\\NumberFormat' => __DIR__ . '/../..' . '/classes/Ajax/NumberFormat.php',
         'AC\\ApplyFilter\\ColumnSeparator' => __DIR__ . '/../..' . '/classes/ApplyFilter/ColumnSeparator.php',
         'AC\\ApplyFilter\\PostTypes' => __DIR__ . '/../..' . '/classes/ApplyFilter/PostTypes.php',
+        'AC\\ApplyFilter\\QueryTotalNumber' => __DIR__ . '/../..' . '/classes/ApplyFilter/QueryTotalNumber.php',
         'AC\\ApplyFilter\\ValidAudioMimetypes' => __DIR__ . '/../..' . '/classes/ApplyFilter/ValidAudioMimetypes.php',
         'AC\\ApplyFilter\\ValidVideoMimetypes' => __DIR__ . '/../..' . '/classes/ApplyFilter/ValidVideoMimetypes.php',
         'AC\\ArrayIterator' => __DIR__ . '/../..' . '/classes/ArrayIterator.php',

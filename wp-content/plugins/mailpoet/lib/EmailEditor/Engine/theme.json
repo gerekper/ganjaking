@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
   "settings": {
     "layout": {
@@ -14,6 +15,10 @@
         "right": "10px",
         "top": "10px"
       }
+    },
+    "color": {
+      "background": "#ffffff",
+      "text": "#000000"
     }
   }
 }

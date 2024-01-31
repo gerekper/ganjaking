@@ -2,7 +2,7 @@
 /**
  * WC_Product_Composite_Data_Store_CPT class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.9.0
  */
 

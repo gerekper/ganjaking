@@ -35,10 +35,11 @@ class Skin_DualCarousel extends \DynamicContentForElementor\Includes\Skins\Skin_
      */
     public function get_style_depends()
     {
-        if (\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
-            return ['dce-dynamicPosts-carousel', 'dce-dynamicPosts-dualcarousel'];
+        $styles = ['dce-dynamicPosts-carousel', 'dce-dynamicPosts-dualcarousel'];
+        if (!\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
+            $styles[] = 'dce-swiper';
         }
-        return ['dce-dynamicPosts-carousel', 'dce-dynamicPosts-dualcarousel', 'dce-swiper'];
+        return $styles;
     }
     public function get_id()
     {
@@ -180,10 +181,9 @@ class Skin_DualCarousel extends \DynamicContentForElementor\Includes\Skins\Skin_
     // Classes
     public function get_container_class()
     {
-        if (\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
-            return 'swiper dce-skin-' . $this->get_id() . ' dce-skin-' . parent::get_id();
-        }
-        return 'swiper-container dce-skin-' . $this->get_id() . ' dce-skin-' . parent::get_id();
+        $base_class = 'dce-skin-' . $this->get_id() . ' dce-skin-' . parent::get_id();
+        $class = \Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest') ? 'swiper ' : 'swiper-container ';
+        return $class . $base_class;
     }
     public function get_wrapper_class()
     {

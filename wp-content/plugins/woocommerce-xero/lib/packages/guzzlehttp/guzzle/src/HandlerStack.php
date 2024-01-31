@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -50,7 +50,7 @@ class HandlerStack
      *                                                                            handler is provided, the best handler for your
      *                                                                            system will be utilized.
      */
-    public static function create(?callable $handler = null): self
+    public static function create(callable $handler = null): self
     {
         $stack = new self($handler ?: Utils::chooseHandler());
         $stack->push(Middleware::httpErrors(), 'http_errors');
@@ -92,14 +92,14 @@ class HandlerStack
         $stack = [];
 
         if ($this->handler !== null) {
-            $stack[] = "0) Handler: " . $this->debugCallable($this->handler);
+            $stack[] = '0) Handler: '.$this->debugCallable($this->handler);
         }
 
         $result = '';
         foreach (\array_reverse($this->stack) as $tuple) {
-            $depth++;
+            ++$depth;
             $str = "{$depth}) Name: '{$tuple[1]}', ";
-            $str .= "Function: " . $this->debugCallable($tuple[0]);
+            $str .= 'Function: '.$this->debugCallable($tuple[0]);
             $result = "> {$str}\n{$result}";
             $stack[] = $str;
         }
@@ -128,7 +128,7 @@ class HandlerStack
      */
     public function hasHandler(): bool
     {
-        return $this->handler !== null ;
+        return $this->handler !== null;
     }
 
     /**
@@ -137,7 +137,7 @@ class HandlerStack
      * @param callable(callable): callable $middleware Middleware function
      * @param string                       $name       Name to register for this middleware.
      */
-    public function unshift(callable $middleware, ?string $name = null): void
+    public function unshift(callable $middleware, string $name = null): void
     {
         \array_unshift($this->stack, [$middleware, $name]);
         $this->cached = null;
@@ -272,10 +272,10 @@ class HandlerStack
         if (\is_array($fn)) {
             return \is_string($fn[0])
                 ? "callable({$fn[0]}::{$fn[1]})"
-                : "callable(['" . \get_class($fn[0]) . "', '{$fn[1]}'])";
+                : "callable(['".\get_class($fn[0])."', '{$fn[1]}'])";
         }
 
         /** @var object $fn */
-        return 'callable(' . \spl_object_hash($fn) . ')';
+        return 'callable('.\spl_object_hash($fn).')';
     }
 }

@@ -432,6 +432,7 @@ class HelperProviderUC{
 		return(false);
 	}
 
+	
 
 	/**
 	 * on plugins loaded, load textdomains
@@ -939,4 +940,22 @@ class HelperProviderUC{
 		HelperUC::$operations->updateUnlimitedElementsGeneralSettings($settings);
 	}
 
+	/**
+	 * show last posts queries
+	 */
+	public static function showLastQueryPosts(){
+		
+		if(empty(GlobalsProviderUC::$lastPostQuery))
+			return(false);
+		
+    	$arrLastPosts = GlobalsProviderUC::$lastPostQuery->posts;
+    	
+    	if(empty($arrLastPosts))
+    		return(false);
+    	
+	    HelperUC::$operations->putPostsCustomFieldsDebug($arrLastPosts);
+		
+	}
+	
+	
 }

@@ -443,7 +443,7 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 		$settings = $this->sanitize_shipping_methods_fields( $settings );
 
 		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $settings );
+		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $settings ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**

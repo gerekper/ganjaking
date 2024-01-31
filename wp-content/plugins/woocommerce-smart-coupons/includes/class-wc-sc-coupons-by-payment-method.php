@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.5.0
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -42,6 +42,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 			add_filter( 'wc_sc_process_coupon_meta_value_for_import', array( $this, 'process_coupon_meta_value_for_import' ), 10, 2 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
 			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_payment_method_meta' ) );
+			add_action( 'wp_footer', array( $this, 'styles_and_scripts' ) );
 		}
 
 		/**
@@ -159,11 +160,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 				return $valid;
 			}
 
-			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+			if ( ! $coupon instanceof WC_Coupon ) {
 				return $valid;
 			}
 
-			if ( ! is_a( $discounts, 'WC_Discounts' ) ) {
+			if ( ! $discounts instanceof WC_Discounts ) {
 				return $valid;
 			}
 
@@ -183,12 +184,17 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 			$cart_or_order_object = is_callable( array( $discounts, 'get_object' ) ) ? $discounts->get_object() : null;
 			$is_wc_session        = is_a( $cart_or_order_object, 'WC_Cart' ) && function_exists( 'WC' ) && isset( WC()->session ) && is_object( WC()->session );
 			$needs_payment        = ( $this->is_callable( $cart_or_order_object, 'needs_payment' ) ) ? $cart_or_order_object->needs_payment() : true;
+			$posted_data          = array();
+			$post_data            = isset( $_POST['post_data'] ) && ! empty( $_POST['post_data'] ) ? wc_clean( wp_unslash( $_POST['post_data'] ) ) : ''; // phpcs:ignore
+			wp_parse_str( $post_data, $posted_data );
 
 			if ( true === $needs_payment && is_array( $payment_method_ids ) && ! empty( $payment_method_ids ) ) {
 				$payment_titles        = $this->get_payment_method_titles_by_ids( $payment_method_ids );
 				$chosen_payment_method = '';
 				if ( is_a( $cart_or_order_object, 'WC_Order' ) ) {
 					$chosen_payment_method = is_callable( array( $cart_or_order_object, 'get_payment_method' ) ) ? $cart_or_order_object->get_payment_method() : '';
+				} elseif ( ! empty( $posted_data ) && isset( $posted_data['payment_method'] ) ) {
+					$chosen_payment_method = $posted_data['payment_method'];
 				} elseif ( true === $is_wc_session ) {
 					$chosen_payment_method = ( WC()->session->__isset( 'chosen_payment_method' ) ) ? WC()->session->get( 'chosen_payment_method' ) : '';
 				}
@@ -196,6 +202,14 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 					if ( true === $is_wc_session && is_callable( array( WC()->session, 'set' ) ) ) {
 						WC()->session->set( 'wc_sc_reload_payment_method', 'yes' );
 					}
+
+					$applied_coupons = ( WC()->cart instanceof WC_Cart && is_callable( array( WC()->cart, 'get_applied_coupons' ) ) ) ? WC()->cart->get_applied_coupons() : array();
+					if ( ! empty( $applied_coupons ) && in_array( $coupon_code, $applied_coupons, true ) ) {
+						WC()->cart->remove_coupon( $coupon_code );
+						/* translators: 1. The coupon code 2. The text 'payment method/s' 3. List of payment method names 4. Link to the checkout page */
+						wc_add_notice( sprintf( __( 'Coupon code %1$s has been removed. It is valid only for %2$s: %3$s. You can change the payment method from the %4$s page.', 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>', _n( 'payment method', 'payment methods', count( $payment_titles ), 'woocommerce-smart-coupons' ), '<strong>"' . implode( '", "', $payment_titles ) . '"</strong>', '<a href="' . esc_url( wc_get_checkout_url() ) . '"><strong>' . __( 'Checkout', 'woocommerce-smart-coupons' ) . '</strong></a>' ), 'error' );
+					}
+
 					/* translators: 1. The coupon code 2. The text 'payment method/s' 3. List of payment method names 4. Link to the checkout page */
 					throw new Exception( sprintf( __( 'Coupon code %1$s is valid only for %2$s: %3$s. You can change payment method from the %4$s page.', 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>', _n( 'payment method', 'payment methods', count( $payment_titles ), 'woocommerce-smart-coupons' ), '<strong>"' . implode( '", "', $payment_titles ) . '"</strong>', '<a href="' . esc_url( wc_get_checkout_url() ) . '"><strong>' . __( 'Checkout', 'woocommerce-smart-coupons' ) . '</strong></a>' ) );
 				}
@@ -370,6 +384,18 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 				return true;
 			}
 			return $protected;
+		}
+
+		/**
+		 * Function to add styles & scripts
+		 */
+		public function styles_and_scripts() {
+
+			$js = "jQuery('form.checkout').on('change', 'input[name=payment_method]', function(){
+					jQuery(document.body).trigger('update_checkout');
+				})";
+			wc_enqueue_js( $js );
+
 		}
 	}
 }

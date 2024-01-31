@@ -37,6 +37,10 @@ class ThePlus_Wp_Forms extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['WP Forms', 'WordPress Forms', 'Form Builder', 'Elementor Forms', 'Contact Forms', 'Custom Forms', 'Drag and Drop Forms', 'Form Creator', 'Form Designer', 'Form Generator', 'Form Maker', 'Form Plugin', 'Form Widget'];
+    }
 	
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-wpforms-in-elementor";

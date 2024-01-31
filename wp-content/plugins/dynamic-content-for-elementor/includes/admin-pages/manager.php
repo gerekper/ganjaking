@@ -29,7 +29,22 @@ class Manager
         add_action('admin_menu', [$this, 'add_menu_pages'], 200);
         add_action('admin_notices', [$this, 'warning_old_conditional']);
         add_action('elementor/init', [$this, 'warning_lazyload']);
+        add_filter('elementor/admin-top-bar/is-active', [$this, 'deactivate_elementor_top_bar'], 10, 2);
         $this->warning_features_bloat();
+    }
+    /**
+     * Deactivates the Elementor top bar for Dynamic Content for Elementor pages.
+     *
+     * @param bool $is_active Whether the Elementor top bar is active.
+     * @param \WP_Screen $current_screen The current screen.
+     * @return bool Whether the Elementor top bar should be active.
+     */
+    public function deactivate_elementor_top_bar($is_active, $current_screen)
+    {
+        if ($current_screen && \false !== \strpos($current_screen->id, 'dynamic-content-for-elementor')) {
+            return \false;
+        }
+        return $is_active;
     }
     public function maybe_redirect_to_wizard_on_activation()
     {
@@ -60,18 +75,18 @@ class Manager
         // Menu
         add_menu_page(DCE_PRODUCT_NAME, DCE_PRODUCT_NAME, 'manage_options', 'dce-features', [$this->features_page, 'page_callback'], 'data:image/svg+xml;base64,' . self::get_dynamic_ooo_icon_svg_base64(), '58.6');
         // Features
-        add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('Features', 'dynamic-content-for-elementor'), __('Features', 'dynamic-content-for-elementor'), 'manage_options', 'dce-features', [$this->features_page, 'page_callback']);
-        add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('Settings', 'dynamic-content-for-elementor'), __('Settings', 'dynamic-content-for-elementor'), 'manage_options', 'dce-settings', [$this->settings, 'display_settings_page']);
+        add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('Features', 'dynamic-content-for-elementor'), __('Features', 'dynamic-content-for-elementor'), 'manage_options', 'dce-features', [$this->features_page, 'page_callback']);
+        add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('Settings', 'dynamic-content-for-elementor'), __('Settings', 'dynamic-content-for-elementor'), 'manage_options', 'dce-settings', [$this->settings, 'display_settings_page']);
         // HTML Templates (only for PDF Generator for Elementor Pro Form or PDF Button)
         if (Plugin::instance()->features->is_feature_active('ext_form_pdf') || Plugin::instance()->features->is_feature_active('wdg_pdf')) {
-            add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('HTML Templates', 'dynamic-content-for-elementor'), __('HTML Templates', 'dynamic-content-for-elementor'), 'manage_options', 'edit.php?post_type=' . \DynamicContentForElementor\PdfHtmlTemplates::CPT);
+            add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('HTML Templates', 'dynamic-content-for-elementor'), __('HTML Templates', 'dynamic-content-for-elementor'), 'manage_options', 'edit.php?post_type=' . \DynamicContentForElementor\PdfHtmlTemplates::CPT);
         }
         // Template System
-        add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('Template System', 'dynamic-content-for-elementor'), __('Template System', 'dynamic-content-for-elementor'), 'manage_options', 'dce-templatesystem', [$this->template_system, 'display_form']);
+        add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('Template System', 'dynamic-content-for-elementor'), __('Template System', 'dynamic-content-for-elementor'), 'manage_options', 'dce-templatesystem', [$this->template_system, 'display_form']);
         // Integrations
-        add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('Integrations', 'dynamic-content-for-elementor'), __('Integrations', 'dynamic-content-for-elementor'), 'manage_options', 'dce-integrations', [$this->api, 'display_form']);
+        add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('Integrations', 'dynamic-content-for-elementor'), __('Integrations', 'dynamic-content-for-elementor'), 'manage_options', 'dce-integrations', [$this->api, 'display_form']);
         // License
-        add_submenu_page('dce-features', DCE_PRODUCT_NAME . ' - ' . __('License', 'dynamic-content-for-elementor'), __('License', 'dynamic-content-for-elementor'), 'administrator', 'dce-license', [$this->license, 'show_license_form']);
+        add_submenu_page('dce-features', DCE_PRODUCT_NAME_LONG . ' - ' . __('License', 'dynamic-content-for-elementor'), __('License', 'dynamic-content-for-elementor'), 'administrator', 'dce-license', [$this->license, 'show_license_form']);
     }
     /**
      * @return void

@@ -2,7 +2,7 @@
 /**
  * WC_CP_AJAX class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  */
 
 // Exit if accessed directly.

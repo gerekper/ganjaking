@@ -42,8 +42,8 @@ class ThePlus_Social_Reviews extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return [ 'social', 'fb', 'facebook', 'rating', 'rate', 'recommendation', 'gg', 'google', 'tp', 'theplus'];
-	}
+        return ['Social Reviews', 'Elementor Social Reviews', 'Elementor Reviews Widget', 'Elementor Social Proof Widget', 'Social Proof Reviews', 'Elementor Social Proof', 'Reviews Widget for Elementor', 'for Social Reviews', 'Social Reviews Plugin for Elementor'];
+    }
 
 	public function is_reload_preview_required() {
 		return true;

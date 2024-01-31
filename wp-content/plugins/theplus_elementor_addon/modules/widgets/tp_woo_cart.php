@@ -38,9 +38,11 @@ class ThePlus_Woo_Cart extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
-		return ['cart page', 'cart', 'WooCommerce' ,'woo cart'];
-	}
+        return ['WooCommerce', 'Cart', 'Ecommerce', 'Shopping Cart', 'Online Store', 'Add to Cart', 'Buy Now', 'Product Cart', 'Shop Cart', 'Store Cart'];
+    }
+
     protected function register_controls() {
 		/*content start*/
 		$this->start_controls_section(

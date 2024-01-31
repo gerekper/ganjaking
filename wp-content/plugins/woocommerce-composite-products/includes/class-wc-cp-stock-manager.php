@@ -2,7 +2,7 @@
 /**
  * WC_CP_Stock_Manager and WC_CP_Stock_Manager_Item classes
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.0.4
  */
 

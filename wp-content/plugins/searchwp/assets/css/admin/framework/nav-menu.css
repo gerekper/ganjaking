@@ -46,6 +46,10 @@
     border-radius: 2px;
 }
 
+.swp-nav-link--preview {
+	color: rgba(var(--neutralRGB), 0.4);
+}
+
 .swp-nav-link--active {
     font-weight: 700;
     font-size: 16px;

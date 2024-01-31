@@ -949,7 +949,7 @@ class Module extends Module_Base {
 
 	public function e_notices_body_classes( $classes ) {
 		if ( $this->should_load_wc_notices_styles() ) {
-			foreach ( $this->woocommerce_notices_elements as $notice_element ) {
+			foreach ( $this->get_styled_notice_elements() as $notice_element ) {
 				$classes[] = 'e-' . str_replace( '_', '-', $notice_element ) . '-notice';
 			}
 		}
@@ -957,15 +957,26 @@ class Module extends Module_Base {
 		return $classes;
 	}
 
-	public function e_notices_css( $classes ) {
-		if ( $this->should_load_wc_notices_styles() ) {
-			wp_enqueue_style(
-				'e-woocommerce-notices',
-				ELEMENTOR_PRO_URL . 'assets/css/woocommerce-notices.min.css',
-				[],
-				ELEMENTOR_PRO_VERSION
-			);
+	public function get_styled_notice_elements() {
+		if ( empty( $this->woocommerce_notices_elements ) ) {
+			$kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+			$this->woocommerce_notices_elements = $kit->get_settings_for_display( 'woocommerce_notices_elements' );
 		}
+
+		return ! empty( $this->woocommerce_notices_elements ) ? $this->woocommerce_notices_elements : [];
+	}
+
+	public function e_notices_css() {
+		if ( ! $this->should_load_wc_notices_styles() ) {
+			return false;
+		}
+
+		wp_enqueue_style(
+			'e-woocommerce-notices',
+			ELEMENTOR_PRO_URL . 'assets/css/woocommerce-notices.min.css',
+			[],
+			ELEMENTOR_PRO_VERSION
+		);
 	}
 
 	public function get_order_received_endpoint_url( $url, $endpoint, $value ) {
@@ -1179,12 +1190,9 @@ class Module extends Module_Base {
 			return true;
 		}
 
-		$kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
-		$this->woocommerce_notices_elements = is_array( $kit->get_settings_for_display( 'woocommerce_notices_elements' ) ) ? $kit->get_settings_for_display( 'woocommerce_notices_elements' ) : [];
-
 		// Front end checks.
 		if (
-			0 < count( $this->woocommerce_notices_elements ) // At least one notice has been activated.
+			0 < count( $this->get_styled_notice_elements() ) // At least one notice has been activated.
 			&& $woocommerce_active // WooCommerce is active.
 			&& ( ! is_admin() || $is_editor ) // We are not in WP Admin.
 		) {
@@ -1329,10 +1337,8 @@ class Module extends Module_Base {
 	public function __construct() {
 		parent::__construct();
 
-		if ( API::is_licence_has_feature( static::SITE_SETTINGS_PAGES_LICENSE_FEATURE_NAME, API::BC_VALIDATION_CALLBACK ) ) {
-			add_action( 'elementor/kit/register_tabs', [ $this, 'init_site_settings' ], 1, 40 );
-			$this->add_update_kit_settings_hooks();
-		}
+		add_action( 'elementor/kit/register_tabs', [ $this, 'init_site_settings' ], 1, 40 );
+		$this->add_update_kit_settings_hooks();
 
 		add_action( 'elementor/template-library/create_new_dialog_fields', [ $this, 'add_products_type_to_template_popup' ], 11 );
 		add_action( 'elementor-pro/modules/loop-builder/documents/loop/query_settings', [ $this, 'add_products_type_to_loop_settings_query' ], 11 );
@@ -1583,8 +1589,8 @@ class Module extends Module_Base {
 
 	private function populate_persistent_settings( array $config ) {
 		$config['persistent_keys'] = array_key_exists( 'persistent_keys', $config ) ?
-				array_merge( $config['persistent_keys'], self::WC_PERSISTENT_SITE_SETTINGS ) :
-				self::WC_PERSISTENT_SITE_SETTINGS;
+			array_merge( $config['persistent_keys'], self::WC_PERSISTENT_SITE_SETTINGS ) :
+			self::WC_PERSISTENT_SITE_SETTINGS;
 
 		return $config;
 	}

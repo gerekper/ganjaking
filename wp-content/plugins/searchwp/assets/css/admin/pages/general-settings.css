@@ -1,0 +1,52 @@
+.searchwp-settings-license-upsell {
+	max-width: 850px;
+	margin-top: 20px;
+}
+
+.searchwp-settings-license-upsell:not(.agency) {
+	padding: 20px;
+	border-radius: 2px;
+	background-color: #f7f7f7;
+}
+
+.searchwp-settings-license-upsell h5 {
+	color: var(--neutralText);
+	font-weight: 700;
+	font-size: 14px;
+	margin: 0 0 25px;
+}
+
+.searchwp-settings-license-upsell .list {
+	display: flex;
+	justify-content: space-between;
+	max-width: 850px;
+	margin: 30px 0;
+}
+
+.searchwp-settings-license-upsell .list ul {
+	margin: 0;
+}
+
+.searchwp-settings-license-upsell .list li {
+	position: relative;
+	margin: 0;
+	padding: 0 0 2px 16px;
+	color: var(--neutralText);
+	font-size: 14px;
+}
+
+.searchwp-settings-license-upsell .list li:before {
+	content: '+';
+	position: absolute;
+	top: -1px;
+	left: 0;
+}
+
+.searchwp-settings-license-upsell a {
+	color: var(--primary);
+}
+
+.searchwp-settings-license-upsell .green {
+	color: var(--primary);
+	font-weight: 700;
+}

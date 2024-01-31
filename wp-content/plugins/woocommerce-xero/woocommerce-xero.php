@@ -5,14 +5,15 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.8.2
+ * Version: 1.8.4
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
- * Requires at least: 6.2
+ * Requires at least: 6.3
  * Tested up to: 6.4
- * Requires PHP: 7.3
- * WC tested up to: 8.3
- * WC requires at least: 8.1
+ * Requires PHP: 7.4
+ * PHP tested up to: 8.3
+ * WC tested up to: 8.5
+ * WC requires at least: 8.3
  *
  * Copyright 2019 WooCommerce
  *
@@ -41,7 +42,7 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.8.2' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.8.4' ); // WRCS: DEFINED_VERSION.
 
 // ActionScheduler group.
 define( 'WC_XERO_AS_GROUP', 'wc_xero' );

@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is needed for backwards compatibility.
+ *
+ * @package woocommerce-shipment-tracking
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

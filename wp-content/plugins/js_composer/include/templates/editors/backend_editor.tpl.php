@@ -42,11 +42,12 @@ $first_tag = 'style';
 	</style>
 	<div class="metabox-composer-content">
 		<div id="wpbakery_content" class="wpb_main_sortable main_wrapper"></div>
-		<?php vc_include_template(
+		<?php
+		vc_include_template(
 			'editors/partials/vc_welcome_block.tpl.php',
 			[ 'editor' => 'backend' ]
 		);
-?>
+		?>
 	</div>
 
 <?php
@@ -57,23 +58,22 @@ if ( '' === $wpb_vc_status || ! isset( $wpb_vc_status ) ) {
 }
 
 ?>
-	<input type="hidden" id="wpb_vc_js_status" name="wpb_vc_js_status" value="<?php echo esc_attr( $wpb_vc_status ); ?>"/>
-	<input type="hidden" id="wpb_js_google_fonts_save_nonce" name="wpb_js_google_fonts_save_nonce" value="<?php echo esc_js( wp_create_nonce( 'wpb_js_google_fonts_save' ) ); ?>"/>
+<input type="hidden" id="wpb_vc_js_status" name="wpb_vc_js_status" value="<?php echo esc_attr( $wpb_vc_status ); ?>"/>
+<input type="hidden" id="wpb_js_google_fonts_save_nonce" name="wpb_js_google_fonts_save_nonce" value="<?php echo esc_js( wp_create_nonce( 'wpb_js_google_fonts_save' ) ); ?>"/>
 
-	<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading"
-			value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>
-	<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row"
-			value="<?php esc_attr_e( 'Crunching...', 'js_composer' ); ?>"/>
-	<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css"
-			value="<?php echo esc_attr( $editor->post_custom_css ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_js_header" id="vc_post-custom-js-header"
-			value="<?php echo esc_attr( $editor->post_custom_js_header ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_js_footer" id="vc_post-custom-js-footer"
-			value="<?php echo esc_attr( $editor->post_custom_js_footer ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_layout" id="vc_post-custom-layout"
-			value="<?php echo $editor->post_custom_layout; ?>" autocomplete="off"/>
+<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading"
+		value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>
+<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row"
+		value="<?php esc_attr_e( 'Crunching...', 'js_composer' ); ?>"/>
 
-	<div id="vc_preloader" style="display: none;"></div>
-	<div id="vc_overlay_spinner" class="vc_ui-wp-spinner vc_ui-wp-spinner-dark vc_ui-wp-spinner-lg" style="display:none;"></div>
+<?php
+vc_include_template(
+	'editors/partials/vc_post_custom_meta.tpl.php',
+	[ 'editor' => $editor ]
+);
+?>
+
+<div id="vc_preloader" style="display: none;"></div>
+<div id="vc_overlay_spinner" class="vc_ui-wp-spinner vc_ui-wp-spinner-dark vc_ui-wp-spinner-lg" style="display:none;"></div>
 <?php
 vc_include_template( 'editors/partials/access-manager-js.tpl.php' );

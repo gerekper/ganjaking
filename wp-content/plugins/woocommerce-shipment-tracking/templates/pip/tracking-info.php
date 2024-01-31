@@ -1,20 +1,28 @@
 <?php
+/**
+ * Tracking info email template.
+ * Shows tracking information in the HTML order email
+ *
+ * @package WC_Shipment_Tracking
+ * @version 1.6.4
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-/**
- * Shipment Tracking
- *
- * Shows tracking information in the HTML order email
- *
- * @author  WooThemes
- * @package WooCommerce Shipment Tracking/templates/email
- * @version 1.6.4
- */
 ?>
 
-<h3><?php echo esc_html( apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'Tracking Information', 'woocommerce-shipment-tracking' ) ) ); ?></h3>
+<h3>
+	<?php
+	/**
+	 * Filter to change the content title of the email.
+	 *
+	 * @since 1.3.7
+	 * @param String Content title.
+	 */
+	echo esc_html( apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'Tracking Information', 'woocommerce-shipment-tracking' ) ) );
+	?>
+</h3>
 
 <?php foreach ( $items as $item ) : ?>
 <p class="tracking-content">
@@ -26,6 +34,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<em><?php echo esc_html( $item['tracking_number'] ); ?></em>
 	<br />
 	<?php /* translators: 1: date of shipping */ ?>
-	<span style="font-size: 0.8em"><?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?></span>
+	<span style="font-size: 0.8em"><?php echo sprintf( esc_html__( 'Shipped on %s', 'woocommerce-shipment-tracking' ), esc_html( date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?></span>
 </p>
 <?php endforeach; ?>

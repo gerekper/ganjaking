@@ -23,15 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="wpb_element_label"><?php esc_html_e( 'Page title', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
 							<?php
-							if ( vc_user_access()->part( 'text_ai' )->can()->get() ) {
-								vc_include_template(
-										'editors/partials/icon-ai.tpl.php',
-										[
-											'type' => 'textfield',
-											'field_id' => 'vc_page-title-field',
-										]
-								);
-							}
+							wpb_add_ai_icon_to_text_field( 'textfield', 'vc_page-title-field' );
 							?>
 							<input name="page_title" class="wpb-textinput vc_title_name" type="text" value="" id="vc_page-title-field" placeholder="<?php esc_attr_e( 'Please enter page title', 'js_composer' ); ?>">
 							<span class="vc_description"><?php printf( esc_html__( 'Change title of the current %s (Note: changes may not be displayed in a preview, but will take effect after saving page).', 'js_composer' ), esc_html( get_post_type() ) ); ?></span>
@@ -52,15 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="vc_ui-settings-text-wrapper">
 								<p><?php esc_html_e( '<style>' ) ?></p>
 								<?php
-								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
-									vc_include_template(
-										'editors/partials/icon-ai.tpl.php',
-										[
-											'type' => 'custom_css',
-											'field_id' => 'wpb_css_editor',
-										]
-									);
-								}
+								wpb_add_ai_icon_to_code_field( 'custom_css', 'wpb_css_editor' );
 								?>
 							</div>
 							<pre id="wpb_css_editor" class="wpb_content_element custom_code wpb_frontend"></pre>
@@ -74,15 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="vc_ui-settings-text-wrapper">
 								<p><?php esc_html_e( '<script>' ) ?></p>
 								<?php
-								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
-									vc_include_template(
-											'editors/partials/icon-ai.tpl.php',
-											[
-												'type' => 'custom_js',
-												'field_id' => 'wpb_js_header_editor',
-											]
-									);
-								}
+								wpb_add_ai_icon_to_code_field( 'custom_js', 'wpb_js_header_editor' );
 								?>
 							</div>
 							<pre id="wpb_js_header_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>
@@ -100,15 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="vc_ui-settings-text-wrapper">
 								<p><?php esc_html_e( '<script>' ) ?></p>
 								<?php
-								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
-									vc_include_template(
-										'editors/partials/icon-ai.tpl.php',
-										[
-											'type' => 'custom_js',
-											'field_id' => 'wpb_js_footer_editor',
-										]
-									);
-								}
+								wpb_add_ai_icon_to_code_field( 'custom_js', 'wpb_js_footer_editor' );
 								?>
 							</div>
 							<pre id="wpb_js_footer_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>

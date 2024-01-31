@@ -1348,7 +1348,10 @@ class Content_Timeline extends Widget_Base
 				'global' => [
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY
 				],
-                'selector' =>'{{WRAPPER}} .eael-content-timeline-content .eael-timeline-title, {{WRAPPER}} .eael-horizontal-timeline-item .eael-horizontal-timeline-item__card-title',
+                'selector' =>'{{WRAPPER}} .eael-content-timeline-content .eael-timeline-title,
+							  {{WRAPPER}} .eael-horizontal-timeline-item .eael-horizontal-timeline-item__card-title,
+							  {{WRAPPER}} .eael-content-timeline-content .eael-timeline-title a,
+							  {{WRAPPER}} .eael-horizontal-timeline-item .eael-horizontal-timeline-item__card-title a',
 			]
 		);
 

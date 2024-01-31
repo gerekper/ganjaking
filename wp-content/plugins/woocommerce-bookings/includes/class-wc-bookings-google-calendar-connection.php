@@ -279,8 +279,9 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 *                        'critical', 'error', 'warning', 'notice',
 	 *                        'info' and 'debug'.
 	 *                        Defaults to 'info'.
+	 * @param bool   $show_notice Whether to show a notice to the user.
 	 */
-	private function log( $message, $context = array(), $level = WC_Log_Levels::NOTICE ) {
+	private function log( $message, $context = array(), $level = WC_Log_Levels::NOTICE, $show_notice = false ) {
 		$logger = $this->get_logger();
 		if ( is_null( $logger ) ) {
 			return;
@@ -291,6 +292,43 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 
 		$logger->log( $level, $message, $context );
+
+		// Show notice.
+		if ( $show_notice ) {
+			// Add a custom link to the support page.
+			$message .= '; ';
+
+			$support_text = sprintf(
+				/* translators: %1s: support link start tag, %2s: support link end tag */
+				esc_html__(
+					'If things aren\'t going quite as expected, we\'re happy to help -- please %1$1sreach out to our support team%2$2s.',
+					'woocommerce-bookings'
+				),
+				'<a href="https://woo.com/my-account/contact-support/" target="_blank">',
+				'</a>'
+			);
+
+			/**
+			 * Filter the support text shown in the admin notice.
+			 *
+			 * @since 2.0.8
+			 *
+			 * @param string $support_text Support text.
+			 * @param string $message      Log message.
+			 * @param string $level        Log level.
+			 *
+			 * @return string Support text.
+			 */
+			$support_text = apply_filters( 'woocommerce_bookings_google_calendar_connection_support_text', $support_text, $message, $level ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceVersionComment
+
+			// Append support text to message.
+			$message .= $support_text;
+
+			WC_Admin_Notices::add_custom_notice(
+				'bookings_google_calendar_connection',
+				'<strong>' . esc_html__( 'Google Calendar:', 'woocommerce-bookings' ) . '</strong> ' . $message
+			);
+		}
 	}
 
 	/**
@@ -400,7 +438,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					$poller_errors_count
 				),
 				array(),
-				WC_Log_Levels::ERROR
+				WC_Log_Levels::ERROR,
+				true
 			);
 		}
 		// Reschedule next action.
@@ -614,7 +653,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 						isset( $access_token['error_description'] ) ? $access_token['error_description'] : ''
 					),
 					array(),
-					WC_Log_Levels::ERROR
+					WC_Log_Levels::ERROR,
+					true
 				);
 			}
 		}
@@ -626,7 +666,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				$client->setAccessToken( $access_token );
 			} catch ( InvalidArgumentException $e ) {
 				// Something is wrong with the access token, customer should try to connect again.
-				$this->log( sprintf( 'Invalid access token. Reconnect with Google necessary. Code %s. Message: %s.', $e->getCode(), $e->getMessage() ) );
+				$this->log( sprintf( 'Invalid access token. Reconnect with Google necessary. Code %s. Message: %s.', $e->getCode(), $e->getMessage() ), array(), WC_Log_Levels::ERROR, true );
 			}
 		}
 
@@ -888,7 +928,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				}
 			}
 		} catch ( Exception $e ) {
-			$this->log( 'Error while getting list of events' );
+			$this->log( 'Error while getting list of events', array(), WC_Log_Levels::ERROR, true );
 		}
 		$this->polling = false;
 	}
@@ -1072,14 +1112,14 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			try {
 				return array_reduce(
 					$this->service->calendarList->listCalendarList()->items,
-					function( $carry, $item ) {
+					function ( $carry, $item ) {
 						$carry[ $item['id'] ] = $item['summary'];
 						return $carry;
 					},
 					$options
 				);
 			} catch ( Exception $e ) {
-				$this->log( 'Error while getting the list of calendars: ' . $e->getMessage() );
+				$this->log( 'Error while getting the list of calendars: ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 			}
 		}
 
@@ -1159,14 +1199,24 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * Admin Options.
 	 */
 	public function admin_options() {
-		echo '<p>' . esc_html__( 'To sync with Google Calendar using an app provided by WooCommerce.com, click the "Connect with Google" button below to authorize access to your Google calendar.', 'woocommerce-bookings' ) . '</p>';
+		printf(
+			/* translators: %1$s - opening <p> tag, %2$s - closing </p> tag, %3$s - opening <a> tag, %4$s - closing </a> tag */
+			esc_html__(
+				'%1$sTo sync with Google Calendar using an app provided by WooCommerce.com, click the "Connect with Google" button below to authorize access to your Google calendar. For more details, refer the %2$sofficial documentation%3$s.%4$s',
+				'woocommerce-bookings'
+			),
+			'<p>',
+			'<a href="https://docs.woocommerce.com/document/bookings-google-calendar-integration/" target="_blank">',
+			'</a>',
+			'</p>'
+		);
 
 		try {
 			echo '<table class="form-table">';
 			$this->generate_settings_html();
 			echo '</table>';
 		} catch ( Exception $e ) {
-			$this->log( 'The Google Calendar API is facing issues: ' . $e->getMessage() );
+			$this->log( 'The Google Calendar API is facing issues: ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 		}
 	}
 
@@ -1248,7 +1298,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		 * Google API client during the authentication process so do not need to be
 		 * sanitized by the various sanitization functions once unslashed.
 		 */
-		$access_token  = array(
+		$access_token = array(
 			'access_token'  => wp_unslash( $_GET['access_token'] ),
 			'expires_in'    => wp_unslash( $_GET['expires_in'] ),
 			'scope'         => wp_unslash( $_GET['scope'] ),
@@ -1347,7 +1397,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$success = $client->revokeToken();
 
 		if ( ! $success ) {
-			$this->log( 'Failed to revoke access token.' );
+			$this->log( 'Failed to revoke access token.', array(), WC_Log_Levels::ERROR, true );
 			return false;
 		}
 
@@ -1485,7 +1535,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		try {
 			$event = $this->service->events->get( $this->get_calendar_id(), $event_id );
 		} catch ( Exception $e ) {
-			$this->log( 'Error while getting event for Booking ' . $booking_id . ': ' . $e->getMessage() );
+			$this->log( 'Error while getting event for Booking ' . $booking_id . ': ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 		}
 
 		return $event;
@@ -1616,8 +1666,38 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			$booking->set_google_calendar_event_id( wc_clean( $event->getId() ) );
 
 			update_post_meta( $booking->get_id(), '_wc_bookings_gcalendar_event_id', $event->getId() );
+
+			if ( $order ) {
+				/* translators: 1: booking ID 2: event ID */
+				$order->add_order_note( sprintf( esc_html__( 'Booking #%1$d successfully synced to Google Calendar with an Event ID: %2$s', 'woocommerce-bookings' ), $booking_id, $event->getId() ) );
+			}
 		} catch ( Exception $e ) {
-			$this->log( 'Error while adding/updating Google event: ' . $e->getMessage() );
+			$error = $e->getMessage();
+
+			// Tweak the error message to be more user friendly.
+			if ( strpos( $error, 'message' ) !== false ) {
+				$error = sprintf(
+					/* translators: 1: settings URL with opening <a> tag 2: closing </a> tag */
+					esc_html__(
+						'Please verify that your Google Calendar %1$ssettings%2$s are correct',
+						'woocommerce-bookings'
+					),
+					'<a href="' . admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=connection' ) . '">',
+					'</a>'
+				);
+			}
+
+			$this->log( 'Error while adding/updating Google event: ' . $error, array(), WC_Log_Levels::ERROR, true );
+
+			if ( $order ) {
+				/* translators: 1: error 2: booking ID */
+				$order_note = sprintf( esc_html__( 'Error while adding/updating Google event, %1$s for booking #%2$d', 'woocommerce-bookings' ), $error, $booking_id );
+				if ( $event->getId() ) {
+					/* translators: 1: event ID */
+					$order_note .= ' ' . sprintf( esc_html__( 'with an Event ID: %s', 'woocommerce-bookings' ), $event->getId() );
+				}
+				$order->add_order_note( wp_kses_post( $order_note ) );
+			}
 		}
 	}
 
@@ -1673,10 +1753,10 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					// Remove event ID.
 					update_post_meta( $booking->get_id(), '_wc_bookings_gcalendar_event_id', '' );
 				} else {
-					$this->log( 'Error while removing the booking #' . $booking->get_id() . ': ' . print_r( $resp, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					$this->log( 'Error while removing the booking #' . $booking->get_id() . ': ' . print_r( $resp, true ), array(), WC_Log_Levels::ERROR, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				}
 			} catch ( Exception $e ) {
-				$this->log( 'Error while deleting event from Google: ' . $e->getMessage() );
+				$this->log( 'Error while deleting event from Google: ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 			}
 		}
 	}
@@ -1776,7 +1856,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			try {
 				$this->service->events->delete( $this->get_calendar_id(), $availability->get_gcal_event_id() );
 			} catch ( Exception $e ) {
-				$this->log( 'Error while deleting event from Google: ' . $e->getMessage() );
+				$this->log( 'Error while deleting event from Google: ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 			}
 		}
 	}
@@ -1811,7 +1891,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					$this->service->events->update( $this->get_calendar_id(), $event->getId(), $event );
 				}
 			} catch ( Exception $e ) {
-				$this->log( 'Error while syncing global availability to Google: ' . $e->getMessage() );
+				$this->log( 'Error while syncing global availability to Google: ' . $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 			}
 		}
 	}
@@ -1880,7 +1960,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				// Our date ranges are inclusive, Google's are not.
 				$end_date->sub( new DateInterval( 'P1D' ) );
 			} catch ( Exception $e ) {
-				$this->log( $e->getMessage() );
+				$this->log( $e->getMessage(), array(), WC_Log_Levels::ERROR, true );
 				// Should never happen.
 			}
 

@@ -772,6 +772,7 @@ class wfScanEngine {
 		$this->scanController->startStage(wfScanner::STAGE_PUBLIC_FILES);
 
 		$backupFileTests = array(
+			wfCommonBackupFileTest::createFromRootPath('.env'),
 			wfCommonBackupFileTest::createFromRootPath('.user.ini'),
 //			wfCommonBackupFileTest::createFromRootPath('.htaccess'),
 			wfCommonBackupFileTest::createFromRootPath('wp-config.php.bak'),
@@ -2081,7 +2082,17 @@ class wfScanEngine {
 						($lastUpdateTimestamp = strtotime($statusArray['last_updated'])) && 
 						(time() - $lastUpdateTimestamp) > 63072000 /* ~2 years */) {
 						
-						$statusArray['dateUpdated'] = wfUtils::formatLocalTime(get_option('date_format'), $lastUpdateTimestamp);
+						try {
+							$statusArray['dateUpdated'] = wfUtils::formatLocalTime(get_option('date_format'), $lastUpdateTimestamp);
+						}
+						catch (Exception $e) { //DateMalformedStringException in PHP >= 8.3, Exception previously
+							wordfence::status(3, 'error', sprintf(
+							/* translators: 1. Plugin slug. 2. Malformed date string. */
+								__('Encountered bad date string for plugin "%s" in abandoned plugin check: %s', 'wordfence'), 
+								$slug, 
+								$statusArray['last_updated']));
+							continue;
+						}
 						$severity = wfIssues::SEVERITY_MEDIUM;
 						$statusArray['abandoned'] = true;
 						$statusArray['vulnerable'] = false;
@@ -2104,7 +2115,7 @@ class wfScanEngine {
 							/* translators: 1. Plugin name. 2. Software version. 3. Software version.  */
 								__('The Plugin "%1$s" appears to be abandoned (updated %2$s, tested to WP %3$s).', 'wordfence'),
 								(empty($statusArray['name']) ? $slug : $statusArray['name']),
-								wfUtils::formatLocalTime(get_option('date_format'), $lastUpdateTimestamp),
+								$statusArray['dateUpdated'],
 								$statusArray['tested']
 							);
 							$longMsg = sprintf(
@@ -2118,7 +2129,7 @@ class wfScanEngine {
 							/* translators: 1. Plugin name. 2. Software version. */
 								__('The Plugin "%1$s" appears to be abandoned (updated %2$s).', 'wordfence'),
 								(empty($statusArray['name']) ? $slug : $statusArray['name']),
-								wfUtils::formatLocalTime(get_option('date_format'), $lastUpdateTimestamp)
+								$statusArray['dateUpdated']
 							);
 							$longMsg = sprintf(
 							/* translators: Time duration. */
@@ -2130,7 +2141,7 @@ class wfScanEngine {
 						if ($statusArray['vulnerable']) {
 							$longMsg .= ' ' . __('It has unpatched security issues and may have compatibility problems with the current version of WordPress.', 'wordfence');
 						} else {
-							$longMsg .= ' ' . __('Your site is still using this plugin, but it is not currently available on wordpress.org. Plugins can be removed from wordpress.org for various reasons. This can include benign issues like a plugin author discontinuing development or moving the plugin distribution to their own site, but some might also be due to security issues. In any case, future updates may or may not be available, so it is worth investigating the cause and deciding whether to temporarily or permanently replace or remove the plugin.', 'wordfence');
+							$longMsg .= ' ' . __('It may have compatibility problems with the current version of WordPress or unknown security issues.', 'wordfence');
 						}
 						$longMsg .= ' ' . sprintf(
 							/* translators: Support URL. */

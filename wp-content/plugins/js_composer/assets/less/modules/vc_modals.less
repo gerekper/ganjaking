@@ -40,7 +40,7 @@
   }
 }
 
-.vc_modal-ai-container {
+.vc_modal-popup-container {
   background: rgba(0, 0, 0, 0.5) !important;
 
   .vc_column + .vc_column {
@@ -48,7 +48,7 @@
   }
 }
 
-.vc_modal-ai-content {
+.vc_modal-popup-content {
   width: 600px;
   height: 90%;
   margin: 30px auto;
@@ -71,14 +71,72 @@
   }
 }
 
+#vc_ui-helper-promo-popup {
+  .vc_modal-popup-content {
+    max-height: 750px;
+    margin: auto;
+  }
+
+  .vc_ui-panel-content-container {
+    .vc_ui-panel-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 670px;
+      padding: 20px;
+    }
+
+    .vc-featured-img {
+      display: block;
+      margin: 0 auto;
+      width: 80%;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .vc-feature-text {
+      h3 {
+        color: #1d2327;
+        font-size: 21px;
+        line-height: 1.5;
+      }
+    }
+
+    .vc-feature-text,
+    p {
+      color: #3c434a;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    ul {
+      list-style: disc;
+      padding: 0 0 0 25px;
+    }
+
+    li::marker {
+      color: #0772CE;
+      font-size: 16px;
+    }
+  }
+
+  .vc_ui-panel-footer-container {
+    background: #fff;
+    text-align: center;
+  }
+}
+
 .vc_modal-ai-container--promo {
-  .vc_modal-ai-content {
+  .vc_modal-popup-content {
     max-height: 550px;
   }
 }
 
-
-.vc_ui-helper-modal-ai-promo,
+.vc_ui-helper-popup-promo,
 .vc_ui-helper-modal-ai-preloader {
   position: absolute;
   top: 51px;
@@ -104,7 +162,7 @@
   }
 }
 
-.vc_ui-helper-modal-ai-promo--inner {
+.vc_ui-helper-popup-promo--inner {
   position: absolute;
   top: 0;
   right: 0;

@@ -2,7 +2,7 @@
 /**
  * Plugin main class.
  *
- * @package woocommerce-shippings-distance-rate
+ * @package woocommerce-distance-rate-shipping
  */
 
 /**
@@ -97,7 +97,6 @@ class WC_Distance_Rate {
 	/**
 	 * Checks the plugin version.
 	 *
-	 * @access public
 	 * @since 1.0.5
 	 * @version 1.0.5
 	 * @return bool
@@ -122,7 +121,6 @@ class WC_Distance_Rate {
 	 *
 	 * @since 1.0.5
 	 * @version 1.0.5
-	 * @access public
 	 */
 	public function install() {
 		// Get all saved settings and cache it.
@@ -181,7 +179,7 @@ class WC_Distance_Rate {
 			<p>
 			<?php
 				/* translators: %1s: Shipping zones link start %2s: Link end */
-				echo sprintf( esc_html__( 'Distance Rate now supports shipping zones. The zone settings were added to a new Distance Rate method on the "Rest of the World" Zone. See the zones %1$shere%2$s ', 'woocommerce-distance-rate-shipping' ), '<a href="' . esc_url( $zones_admin_url ) . '">', '</a>' );
+				printf( esc_html__( 'Distance Rate now supports shipping zones. The zone settings were added to a new Distance Rate method on the "Rest of the World" Zone. See the zones %1$shere%2$s ', 'woocommerce-distance-rate-shipping' ), '<a href="' . esc_url( $zones_admin_url ) . '">', '</a>' );
 			?>
 			</p>
 		</div>

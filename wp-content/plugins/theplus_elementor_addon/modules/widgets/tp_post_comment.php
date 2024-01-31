@@ -41,6 +41,12 @@ class ThePlus_Post_Comment extends Widget_Base {
         return array('plus-builder');
     }
 
+	public function get_keywords() {
+        return ['Post Comment', 'Comment', 'Comment Box', 'Comment Section', 'Feedback', 'User Feedback', 'User Comment', 'Add Comment', 'Leave Comment', 'Submit Comment', 'Comment Form', 'Comment Widget', 'Comment Element', 'Elementor Comment', 'Elementor Comment Box', 'Elementor Comment Section', 'Elementor Feedback', 'Elementor User Feedback', 'Elementor User Comment', 'Elementor Add Comment', 'Elementor Leave Comment', 'Elementor Submit Comment', 'Elementor Comment Form'];
+    }
+
+
+
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-post-comments-in-elementor-blog-post";
 

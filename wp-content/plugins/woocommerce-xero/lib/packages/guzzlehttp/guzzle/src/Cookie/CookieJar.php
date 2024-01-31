@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -56,10 +56,10 @@ class CookieJar implements CookieJarInterface
         $cookieJar = new self();
         foreach ($cookies as $name => $value) {
             $cookieJar->setCookie(new SetCookie([
-                'Domain'  => $domain,
-                'Name'    => $name,
-                'Value'   => $value,
-                'Discard' => true
+                'Domain' => $domain,
+                'Name' => $name,
+                'Value' => $value,
+                'Discard' => true,
             ]));
         }
 
@@ -102,9 +102,6 @@ class CookieJar implements CookieJarInterface
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function toArray(): array
     {
         return \array_map(static function (SetCookie $cookie): array {
@@ -112,13 +109,11 @@ class CookieJar implements CookieJarInterface
         }, $this->getIterator()->getArrayCopy());
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function clear(?string $domain = null, ?string $path = null, ?string $name = null): void
+    public function clear(string $domain = null, string $path = null, string $name = null): void
     {
         if (!$domain) {
             $this->cookies = [];
+
             return;
         } elseif (!$path) {
             $this->cookies = \array_filter(
@@ -131,25 +126,22 @@ class CookieJar implements CookieJarInterface
             $this->cookies = \array_filter(
                 $this->cookies,
                 static function (SetCookie $cookie) use ($path, $domain): bool {
-                    return !($cookie->matchesPath($path) &&
-                        $cookie->matchesDomain($domain));
+                    return !($cookie->matchesPath($path)
+                        && $cookie->matchesDomain($domain));
                 }
             );
         } else {
             $this->cookies = \array_filter(
                 $this->cookies,
                 static function (SetCookie $cookie) use ($path, $domain, $name) {
-                    return !($cookie->getName() == $name &&
-                        $cookie->matchesPath($path) &&
-                        $cookie->matchesDomain($domain));
+                    return !($cookie->getName() == $name
+                        && $cookie->matchesPath($path)
+                        && $cookie->matchesDomain($domain));
                 }
             );
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function clearSessionCookies(): void
     {
         $this->cookies = \array_filter(
@@ -160,9 +152,6 @@ class CookieJar implements CookieJarInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setCookie(SetCookie $cookie): bool
     {
         // If the name string is empty (but not 0), ignore the set-cookie
@@ -176,9 +165,10 @@ class CookieJar implements CookieJarInterface
         $result = $cookie->validate();
         if ($result !== true) {
             if ($this->strictMode) {
-                throw new \RuntimeException('Invalid cookie: ' . $result);
+                throw new \RuntimeException('Invalid cookie: '.$result);
             }
             $this->removeCookieIfEmpty($cookie);
+
             return false;
         }
 
@@ -186,9 +176,9 @@ class CookieJar implements CookieJarInterface
         foreach ($this->cookies as $i => $c) {
             // Two cookies are identical, when their path, and domain are
             // identical.
-            if ($c->getPath() != $cookie->getPath() ||
-                $c->getDomain() != $cookie->getDomain() ||
-                $c->getName() != $cookie->getName()
+            if ($c->getPath() != $cookie->getPath()
+                || $c->getDomain() != $cookie->getDomain()
+                || $c->getName() != $cookie->getName()
             ) {
                 continue;
             }
@@ -259,7 +249,7 @@ class CookieJar implements CookieJarInterface
     /**
      * Computes cookie path following RFC 6265 section 5.1.4
      *
-     * @link https://tools.ietf.org/html/rfc6265#section-5.1.4
+     * @see https://tools.ietf.org/html/rfc6265#section-5.1.4
      */
     private function getCookiePathFromRequest(RequestInterface $request): string
     {
@@ -290,13 +280,13 @@ class CookieJar implements CookieJarInterface
         $path = $uri->getPath() ?: '/';
 
         foreach ($this->cookies as $cookie) {
-            if ($cookie->matchesPath($path) &&
-                $cookie->matchesDomain($host) &&
-                !$cookie->isExpired() &&
-                (!$cookie->getSecure() || $scheme === 'https')
+            if ($cookie->matchesPath($path)
+                && $cookie->matchesDomain($host)
+                && !$cookie->isExpired()
+                && (!$cookie->getSecure() || $scheme === 'https')
             ) {
-                $values[] = $cookie->getName() . '='
-                    . $cookie->getValue();
+                $values[] = $cookie->getName().'='
+                    .$cookie->getValue();
             }
         }
 

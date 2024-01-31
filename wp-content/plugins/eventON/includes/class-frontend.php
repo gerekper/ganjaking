@@ -3,7 +3,7 @@
  * evo_frontend class for front and backend.
  *
  * @class 		evo_frontend
- * @version		4.4.1
+ * @version		4.5.8
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -31,13 +31,12 @@ class evo_frontend {
 		// register styles and scripts
 			add_action( 'init', array( $this, 'register_scripts' ), 10 );
 
-			$load_only_on_evo_pages = EVO()->cal->check_yn('evo_load_scripts_only_onevo','evcal_1');
-
-			$this->load_only_on_evo_pages = apply_filters('evo_load_scripts_topage', $load_only_on_evo_pages);
+			$this->load_only_on_evo_pages = apply_filters('evo_load_scripts_topage', EVO()->cal->check_yn('evo_load_scripts_only_onevo','evcal_1') );
 
 			// load eventon scripts/styles on all pages
 			if(!$this->load_only_on_evo_pages){
 				add_action( 'wp_enqueue_scripts', array( $this, 'load_evo_scripts_styles' ), 10 );
+				add_action( 'wp_enqueue_scripts', array( $this, 'inline_styles_scripts' ), 10 );
 				add_action( 'wp_enqueue_scripts', array( $this, 'load_dynamic_evo_styles' ), 10 );
 			}else{
 				// if load eventON scripts/styles to only eventon pages
@@ -79,10 +78,7 @@ class evo_frontend {
 			add_filter(	'heartbeat_nopriv_received', array($this, 'heartbeat_nopriv'),10,2);
 			add_filter( 'heartbeat_settings', array($this,'wp_heartbeat_settings') );
 	
-		//_eventon_debug_eventon_get_repeat_intervals( 1611964800, 1612047600);	
-
-
-
+			
 	}
 
 	// heartbeat
@@ -127,10 +123,9 @@ class evo_frontend {
 			if(!EVO()->cal->check_yn('evo_dis_jitsi')){
 				wp_register_script('evo_jitsi','https://meet.jit.si/external_api.js', array('jquery'), EVO()->version, true ); // 4.5.3
 			}
-			
-
-			
+						
 			wp_register_script('evo_moment',plugins_url(EVENTON_BASE) . '/assets/js/lib/moment.min.js', array('jquery'), EVO()->version, true ); // 2.8
+			wp_register_script('evo_moment_tz',plugins_url(EVENTON_BASE) . '/assets/js/lib/moment_timezone_min.js', array('jquery'), EVO()->version, true ); // 4.5.8
 			
 			wp_register_script('evo_mobile',EVO()->assets_path.'js/lib/jquery.mobile.min.js', array('jquery'), EVO()->version, true ); // 2.2.17
 			
@@ -144,7 +139,7 @@ class evo_frontend {
 			wp_register_script( 'evo_wyg_editor',EVO()->assets_path.'lib/trumbowyg/trumbowyg.min.js','', EVO()->version, true );
 			wp_register_style( 'evo_wyg_editor',EVO()->assets_path.'lib/trumbowyg/trumbowyg.css', '', EVO()->version);
 
-			// removing
+			// removing soon
 			wp_localize_script( 
 				'evcal_ajax_handle', 
 				'the_ajax_script', 
@@ -164,7 +159,7 @@ class evo_frontend {
 				apply_filters('evo_ajax_script_data', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ) , 
 					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%'), 
-					'ajax_method' => 'ajax',
+					'ajax_method' => ( EVO()->cal->get_prop('evo_com_method') == 'ajax'? 'ajax':'endpoint'),
 					'rest_url'=> EVO_Rest_API::get_rest_api('%%endpoint%%'),
 					'n' => wp_create_nonce( 'eventon_nonce' ),					
 					'evo_v'=> EVO()->version,
@@ -244,7 +239,8 @@ class evo_frontend {
 					//'open-sans' => 'Open+Sans:400,400italic,700',
 					//'Roboto' => 'Roboto:400,700,900',
 					//'league-spartan' => 'League+Spartan:400,700',
-					'monsterrat' => 'Montserrat:700,800,900',
+					//'monsterrat' => 'Montserrat:700,800,900',
+					'poppins' => 'Poppins:700,800,900',
 					//'figtree' => 'Figtree:700,800,900',
 				)
 			);
@@ -296,9 +292,9 @@ class evo_frontend {
 
 		}
 
-		// load inline styles and scripts - @since 4.2.3
+		// load inline styles and scripts - @since 4.2.3 @u 4.5.5
 		function inline_styles_scripts(){
-			
+
 			$inline_script = "jQuery(document).ready(function($){";
 			$inline_script .= apply_filters('evo_inline_script_jq','');
 			$inline_script .= "});";
@@ -318,9 +314,7 @@ class evo_frontend {
 		public function load_evo_scripts_styles(){
 			$this->load_google_maps_scripts();
 			$this->load_default_evo_scripts();
-			$this->load_default_evo_styles();	
-
-			$this->inline_styles_scripts();		
+			$this->load_default_evo_styles();
 		}
 
 		// scripts
@@ -337,7 +331,10 @@ class evo_frontend {
 
 			// conditional loading
 			if( !EVO()->cal->check_yn('evo_dis_jqmobile') ) wp_enqueue_script('evo_mobile');
-			if( !EVO()->cal->check_yn('evo_dis_moment') ) wp_enqueue_script('evo_moment');
+			if( !EVO()->cal->check_yn('evo_dis_moment') ){
+				wp_enqueue_script('evo_moment');
+				wp_enqueue_script('evo_moment_tz');
+			} 
 			
 			wp_enqueue_script('evo_mouse');
 			wp_enqueue_script('evcal_ajax_handle');			

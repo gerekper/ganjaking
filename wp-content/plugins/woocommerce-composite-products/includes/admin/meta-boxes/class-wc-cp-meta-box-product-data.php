@@ -2,7 +2,7 @@
 /**
  * WC_CP_Meta_Box_Product_Data class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.7.0
  */
 
@@ -2001,7 +2001,7 @@ class WC_CP_Meta_Box_Product_Data {
 				<?php echo wp_kses_post(
 					sprintf(
 							__( 'Enable this option to track stock for this SKU only. This option does not affect the inventory management of composited products. <a class="composites-inventory-learn-more-link" href="%1$s" target="_blank" rel="noreferrer">Learn more</a>', 'woocommerce-composite-products' ),
-							esc_url( 'https://woocommerce.com/document/composite-products/composite-products-configuration/#inventory' )
+							esc_url( 'https://woo.com/document/composite-products/composite-products-configuration/#inventory' )
 						)
 					); ?>
 		</span><?php
@@ -2521,7 +2521,7 @@ class WC_CP_Meta_Box_Product_Data {
 				$product->set( $props );
 
 			} else {
-				self::add_notice( __( 'Your changes have not been saved &ndash; please wait for the <strong>WooCommerce Composite Products Data Update</strong> routine to complete before creating new composite products or making changes to existing ones.', 'woocommerce-composite-products' ), 'error' );
+				self::add_notice( __( 'Your changes have not been saved &ndash; please wait for the <strong>Woo Composite Products Data Update</strong> routine to complete before creating new composite products or making changes to existing ones.', 'woocommerce-composite-products' ), 'error' );
 			}
 
 			// Clear dismissible welcome notice.

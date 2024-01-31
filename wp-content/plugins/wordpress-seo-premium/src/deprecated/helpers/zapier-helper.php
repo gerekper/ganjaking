@@ -116,7 +116,6 @@ class Zapier_Helper {
 	public function reset_api_key_and_subscription() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
 
-
 		$this->options->set( 'zapier_api_key', '' );
 		$this->options->set( 'zapier_subscription', [] );
 	}

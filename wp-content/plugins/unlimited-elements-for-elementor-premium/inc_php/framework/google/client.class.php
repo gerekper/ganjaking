@@ -93,7 +93,7 @@ abstract class UEGoogleAPIClient{
 	 * @throws Exception
 	 */
 	protected function post($endpoint, $params = array()){
-		
+
 		return $this->request(self::METHOD_POST, $endpoint, $params);
 	}
 
@@ -154,10 +154,10 @@ abstract class UEGoogleAPIClient{
 
 			if($error)
 				throw new Exception($error);
-			
+
 			if($response === null)
 				throw new Exception("Unable to parse the response (status code $code).", $code);
-			
+
 			if(empty($response["error"]) === false){
 				$error = $response["error"];
 				$message = $error["message"];

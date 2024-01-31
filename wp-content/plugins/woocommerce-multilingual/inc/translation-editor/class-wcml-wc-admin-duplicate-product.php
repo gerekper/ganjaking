@@ -80,10 +80,18 @@ class WCML_WC_Admin_Duplicate_Product {
 
 		$translations                        = $this->sitepress->get_element_translations( $trid, $element_type );
 		$duplicated_products['translations'] = [];
+		$hasOneTranslationWitWPNativeEditor  = false;
+
 		if ( $translations ) {
 
 			foreach ( $translations as $translation ) {
 				if ( ! $translation->original && $translation->element_id != $product_id ) {
+					/**
+					 * @see \WPML_PB_Last_Translation_Edit_Mode::NATIVE_EDITOR
+					 * @see \WPML_PB_Last_Translation_Edit_Mode::POST_META_KEY
+					 */
+					$hasOneTranslationWitWPNativeEditor = $hasOneTranslationWitWPNativeEditor || 'native-editor' === get_post_meta( $translation->element_id, '_last_translation_edit_mode', true );
+
 					$post_to_duplicate = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->posts} WHERE ID=%d", $translation->element_id ) );
 
 					if ( ! empty( $post_to_duplicate ) ) {
@@ -115,6 +123,18 @@ class WCML_WC_Admin_Duplicate_Product {
 					}
 				}
 			}
+		}
+
+		if ( ! $hasOneTranslationWitWPNativeEditor ) {
+			/**
+			 * If the original product does not have any manual translation,
+			 * we'll force the `_wpml_post_translation_editor_native` post meta to `no`
+			 * so the duplicated translations will open in ATE as for the
+			 * original translations.
+			 *
+			 * @see \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE
+			 */
+			update_post_meta( $new_orig_id, '_wpml_post_translation_editor_native', 'no' );
 		}
 
 		$duplicated_products['original'] = $new_orig_id;

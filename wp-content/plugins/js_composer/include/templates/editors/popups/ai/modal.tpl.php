@@ -3,8 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 ?>
-<div class="vc_modal modal-backdrop vc_modal-ai-container" id="vc_ui-helper-modal-ai">
-	<div class="vc_ui-font-open-sans vc_media-xs vc_modal-ai-content" >
+<div class="vc_modal modal-backdrop vc_modal-popup-container" id="vc_ui-helper-modal-ai">
+	<div class="vc_ui-font-open-sans vc_media-xs vc_modal-popup-content" >
 		<div class="vc_ui-panel-window-inner">
 			<?php
 			vc_include_template('editors/popups/vc_ui-header.tpl.php', array(
@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'content_template' => '',
 			));
 			?>
-			<div class="vc_ui-helper-modal-ai-placeholder vc_ui-helper-modal-ai-promo vc_ui-hidden">
-				<div class="vc_ui-helper-modal-ai-promo--inner">
+			<div class="vc_ui-helper-modal-ai-placeholder vc_ui-helper-modal-ai-promo vc_ui-helper-popup-promo vc_ui-hidden">
+				<div class="vc_ui-helper-popup-promo--inner">
 					<?php
 					vc_include_template( 'editors/popups/ai/happy-ai-logo.tpl.php' );
 					?>

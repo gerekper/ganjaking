@@ -330,7 +330,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 
 		foreach ( $ids as $id ) {
 			if ( $this->update_shipping_date( $id ) ) {
-				$changed++;
+				++$changed;
 			}
 		}
 
@@ -407,5 +407,4 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 
 		return $updated;
 	}
-
 }

@@ -217,6 +217,7 @@ $seedprod_global_css = '{
 			"contentPosition": "1",
 			"headCss": "",
 			"mobileCss": "",
+			"tabletCss":"",
 			"placeholderCss": "",
 			"useVideoBg": false,
 			"useVideoBgUrl": "",

@@ -391,7 +391,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		}
 
 		$error = UniteFunctionsUC::getGetVar("google_connect_error", $error, UniteFunctionsUC::SANITIZE_NOTHING);
-
+		
 		if(empty($accessToken) === false){
 			?>
 			<div class="uc-google-connect-message">
@@ -415,6 +415,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		}
 
 		if(empty($error) === false){
+			
+			$error = esc_html($error);
+			
 			?>
 			<div class="uc-google-connect-error">
 				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), $error); ?>
@@ -505,14 +508,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			$urlImage = $urlFull;
 
 			$previewStyle = "";
-
-			$operations = new UCOperations();
-			try{
-				$urlThumb = $operations->createThumbs($urlFull);
-			}catch(Exception $e){
-				$urlThumb = $value;
-			}
-
+			
+			$urlThumb = $value;		//maybe change
+			
 			$urlThumbFull = HelperUC::URLtoFull($urlThumb);
 			if(!empty($previewStyle))
 				$previewStyle .= ";";
@@ -667,171 +665,113 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 
 		$id = UniteFunctionsUC::getVal($setting, "id");
 		$name = UniteFunctionsUC::getVal($setting, "name");
+		$defaultValue = UniteFunctionsUC::getVal($setting, "default_value");
 		$value = UniteFunctionsUC::getVal($setting, "value");
 		$withNames = UniteFunctionsUC::getVal($setting, "output_names");
 		$withNames = UniteFunctionsUC::strToBool($withNames);
-		$withoutUnits = UniteFunctionsUC::getVal($setting, "no_units");
-		$withoutUnits = UniteFunctionsUC::strToBool($withoutUnits);
 
-		$keys = array(
-			"units",
-			"top", "bottom", "left", "right", "is_linked",
-			"tablet_top", "tablet_bottom", "tablet_left", "tablet_right", "tablet_is_linked",
-			"mobile_top", "mobile_bottom", "mobile_left", "mobile_right", "tablet_is_linked",
-		);
+		$defaultValue = $this->drawDimentionsSetting_prepareValues($defaultValue);
+		$value = $this->drawDimentionsSetting_prepareValues($value);
 
-		foreach($keys as $key){
-			if(isset($value[$key]) === false)
-				continue;
-
-			$value[$key] = trim($value[$key]);
-			$value[$key] = htmlspecialchars($value[$key]);
-		}
-
-		$isResponsive = UniteFunctionsUC::getVal($value, "is_responsive");
-		$isResponsive = UniteFunctionsUC::strToBool($isResponsive);
-
-		$units = UniteFunctionsUC::getVal($value, "units");
-		$units = empty($units) === false ? $units : "px";
-
-		$deviceList = array(
-			"desktop" => array(
-				"title" => __("Desktop", "unlimited-elements-for-elementor"),
-				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path d="M3.5 10.5h5M6 7.5v3M11.5.5H.5v7h11v-7Z" /></svg>',
-				"prefix" => "",
-			),
-			"tablet" => array(
-				"title" => __("Tablet", "unlimited-elements-for-elementor"),
-				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12"><path d="M2.5 9.5h5M8.5.5h-7a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
-				"prefix" => "tablet_",
-			),
-			"mobile" => array(
-				"title" => __("Mobile", "unlimited-elements-for-elementor"),
-				"icon" => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 12"><path d="M2.5 9.5h3M6.5.5h-5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" /></svg>',
-				"prefix" => "mobile_",
-			),
-		);
-
-		$dimentionList = array(
+		$dimentions = array(
 			"top" => __("Top", "unlimited-elements-for-elementor"),
 			"right" => __("Right", "unlimited-elements-for-elementor"),
 			"bottom" => __("Bottom", "unlimited-elements-for-elementor"),
 			"left" => __("Left", "unlimited-elements-for-elementor"),
 		);
 
-		$unitsList = array("px", "%", "em", "rem");
+		$setting["default_value"] = $defaultValue;
+		$setting["value"] = $value;
 
-		$showDevices = $isResponsive === true;
-		$showUnits = $withoutUnits === false;
-		$deviceDefault = "desktop";
+		$addHtml = $this->getDefaultAddHtml($setting);
 
 		?>
 		<div
 			class="unite-setting-input-object unite-dimentions"
-			data-name="<?php echo $name; ?>"
+			data-name="<?php esc_attr_e($name); ?>"
 			data-settingtype="dimentions"
+			<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
 		>
 
-			<?php if($showUnits === true || $showDevices === true): ?>
-				<div class="unite-dimentions-options">
+			<?php foreach($dimentions as $dimentionValue => $dimentionTitle): ?>
 
-					<?php if($showUnits === true): ?>
-						<select class="unite-dimentions-units unite-units-picker select2">
-							<?php foreach($unitsList as $unitValue): ?>
-								<option
-									value="<?php esc_attr_e($unitValue); ?>"
-									data-content="<?php esc_attr_e('<div class="unite-units-picker-item">' . $unitValue . '</div>'); ?>"
-									<?php echo $unitValue === $units ? "selected" : ""; ?>
-								>
-									<?php esc_html_e($unitValue); ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					<?php endif; ?>
+				<?php
 
-					<?php if($showDevices === true): ?>
-						<select class="unite-dimentions-device unite-responsive-picker select2">
-							<?php foreach($deviceList as $deviceValue => $device): ?>
-								<option
-									value="<?php esc_attr_e($deviceValue); ?>"
-									data-content="<?php esc_attr_e('<div class="unite-responsive-picker-item uc-tip" title="' . esc_attr($device["title"]) . '" data-tipsy-gravity="w">' . $device["icon"] . '</div>'); ?>"
-								>
-									<?php esc_html_e($device["title"]); ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					<?php endif; ?>
+				$fieldId = "$id-$dimentionValue";
+				$fieldValue = UniteFunctionsUC::getVal($value, $dimentionValue);
+				$fieldName = $withNames === true ? $name . "_" . $dimentionValue : "";
 
-				</div>
-			<?php endif; ?>
+				?>
 
-			<div class="unite-dimentions-content">
-				<?php foreach($deviceList as $deviceValue => $device): ?>
-					<div
-						class="unite-dimentions-fields <?php echo $deviceValue === $deviceDefault ? "ue-active" : ""; ?>"
-						data-device="<?php esc_attr_e($deviceValue); ?>"
+				<div class="unite-dimentions-field">
+					<input
+						class="unite-dimentions-field-input"
+						id="<?php esc_attr_e($fieldId); ?>"
+						type="number"
+						name="<?php esc_attr_e($fieldName); ?>"
+						value="<?php esc_attr_e($fieldValue); ?>"
+						data-key="<?php esc_attr_e($dimentionValue); ?>"
+					/>
+					<label
+						class="unite-dimentions-field-label"
+						for="<?php esc_attr_e($fieldId); ?>"
 					>
+						<?php esc_html_e($dimentionTitle); ?>
+					</label>
+				</div>
 
-						<?php foreach($dimentionList as $dimentionValue => $dimentionTitle): ?>
+			<?php endforeach; ?>
 
-							<?php
+			<?php
 
-							$fieldKey = $device["prefix"] . $dimentionValue;
-							$fieldId = "$id-$fieldKey";
-							$fieldValue = UniteFunctionsUC::getVal($value, $fieldKey);
+			$fieldName = "is_linked";
+			$isLinked = UniteFunctionsUC::getVal($value, $fieldName, true);
+			$isLinked = UniteFunctionsUC::strToBool($isLinked);
 
-							$fieldNamePrefix = empty($device["prefix"]) === false ? $device["prefix"] : "_";
-							$fieldName = $withNames === true ? $name . $fieldNamePrefix . $dimentionValue : "";
+			?>
 
-							?>
-
-							<div class="unite-dimentions-field">
-								<input
-									class="unite-dimentions-field-input"
-									id="<?php esc_attr_e($fieldId); ?>"
-									type="number"
-									name="<?php esc_attr_e($fieldName); ?>"
-									value="<?php esc_attr_e($fieldValue); ?>"
-									data-key="<?php esc_attr_e($fieldKey); ?>"
-								/>
-								<label
-									class="unite-dimentions-field-label"
-									for="<?php esc_attr_e($fieldId); ?>"
-								>
-									<?php esc_html_e($dimentionTitle); ?>
-								</label>
-							</div>
-
-						<?php endforeach; ?>
-
-						<?php
-
-						$fieldKey = $device["prefix"] . "is_linked";
-
-						$isLinked = UniteFunctionsUC::getVal($value, $fieldKey, true);
-						$isLinked = UniteFunctionsUC::strToBool($isLinked);
-
-						?>
-
-						<div
-							class="unite-dimentions-link uc-tip <?php echo $isLinked === true ? "ue-active" : ""; ?>"
-							data-key="<?php esc_attr_e($fieldKey); ?>"
-							data-title-link="<?php esc_attr_e(__("Link Values", "unlimited-elements-for-elementor")); ?>"
-							data-title-unlink="<?php esc_attr_e(__("Unlink Values", "unlimited-elements-for-elementor")); ?>"
-						>
-							<svg class="unite-dimentions-icon-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-								<path d="m3.5 8.5 5-5M5 3l1.672-1.672a2.829 2.829 0 0 1 4 4L9 7M3 5 1.328 6.672a2.829 2.829 0 0 0 4 4L7 9" />
-							</svg>
-							<svg class="unite-dimentions-icon-unlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-								<path d="m5.5 2.5 1.172-1.172a2.829 2.829 0 0 1 4 4L9.5 6.5M2.5 5.5 1.328 6.672a2.829 2.829 0 0 0 4 4L6.5 9.5M3.5 8.5l1-1M7.5 4.5l1-1M.5.5l11 11" />
-							</svg>
-						</div>
-
-					</div>
-				<?php endforeach; ?>
+			<div
+				class="unite-dimentions-link uc-tip <?php echo $isLinked === true ? "ue-active" : ""; ?>"
+				data-key="<?php esc_attr_e($fieldName); ?>"
+				data-title-link="<?php esc_attr_e(__("Link Values", "unlimited-elements-for-elementor")); ?>"
+				data-title-unlink="<?php esc_attr_e(__("Unlink Values", "unlimited-elements-for-elementor")); ?>"
+			>
+				<svg class="unite-dimentions-icon-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+					<path d="m3.5 8.5 5-5M5 3l1.672-1.672a2.829 2.829 0 0 1 4 4L9 7M3 5 1.328 6.672a2.829 2.829 0 0 0 4 4L7 9" />
+				</svg>
+				<svg class="unite-dimentions-icon-unlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+					<path d="m5.5 2.5 1.172-1.172a2.829 2.829 0 0 1 4 4L9.5 6.5M2.5 5.5 1.328 6.672a2.829 2.829 0 0 0 4 4L6.5 9.5M3.5 8.5l1-1M7.5 4.5l1-1M.5.5l11 11" />
+				</svg>
 			</div>
+
 		</div>
 		<?php
+	}
+
+	/**
+	 * draw dimentions setting - prepare values
+	 */
+	function drawDimentionsSetting_prepareValues($values){
+
+		$keys = array("top", "bottom", "left", "right", "unit", "is_linked");
+
+		foreach($keys as $key){
+			if(isset($values[$key]) === false)
+				continue;
+
+			$value = $values[$key];
+			$value = trim($value);
+			$value = htmlspecialchars($value);
+
+			if($key === "unit")
+				$value = empty($value) === false ? $value : "px";
+			elseif($key === "is_linked")
+				$value = UniteFunctionsUC::strToBool($value);
+
+			$values[$key] = $value;
+		}
+
+		return $values;
 	}
 
 
@@ -906,7 +846,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 	 */
 	private function getFontsPanelHtmlFields($arrParams, $arrFontsData, $addTemplate = false){
 
-		$arrData = HelperUC::getFontPanelData($addTemplate);
+		$arrData = HelperUC::getFontPanelData();
 
 		if($addTemplate == true)
 			$arrFontsTemplate = UniteCreatorPageBuilder::getPageFontNames(true);
@@ -973,12 +913,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 				$selectFontTemplate = HelperHtmlUC::getHTMLSelect($arrFontsTemplate, $fontTemplate, "data-fieldname='template' class='{$classInput}'", true, "not_chosen", esc_html__("---- Select Page Font----", "unlimited-elements-for-elementor"));
 
 			$selectFontFamily = HelperHtmlUC::getHTMLSelect($arrData["arrFontFamily"], $fontFamily, "data-fieldname='font-family' class='{$classInput}'", true, "not_chosen", esc_html__("Select Font Family", "unlimited-elements-for-elementor"));
-
 			$selectFontWeight = HelperHtmlUC::getHTMLSelect($arrData["arrFontWeight"], $fontWeight, "data-fieldname='font-weight' class='{$classInput}'", false, "not_chosen", esc_html__("Select", "unlimited-elements-for-elementor"));
-
 			$selectLineHeight = HelperHtmlUC::getHTMLSelect($arrData["arrLineHeight"], $lineHeight, "data-fieldname='line-height' class='{$classInput}'", false, "not_chosen", esc_html__("Select", "unlimited-elements-for-elementor"));
 			$selectTextDecoration = HelperHtmlUC::getHTMLSelect($arrData["arrTextDecoration"], $textDecoration, "data-fieldname='text-decoration' class='{$classInput}'", false, "not_chosen", esc_html__("Select Text Decoration", "unlimited-elements-for-elementor"));
-
 			$selectFontStyle = HelperHtmlUC::getHTMLSelect($arrData["arrFontStyle"], $fontStyle, "data-fieldname='font-style' class='{$classInput}'", false, "not_chosen", esc_html__("Select", "unlimited-elements-for-elementor"));
 
 			$classSection = "uc-fontspanel-details";
@@ -1135,12 +1072,12 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			$arrFontFamily = array();
 			$arrTabletSize = array();
 		}else{
-			$arrFontStyle = UniteFunctionsUC::arrayToAssoc($arrData["arrFontStyle"]);
-			$arrFontWeight = UniteFunctionsUC::arrayToAssoc($arrData["arrFontWeight"]);
+			$arrFontStyle = $arrData["arrFontStyle"];
+			$arrFontWeight = $arrData["arrFontWeight"];
 			$arrFontSize = UniteFunctionsUC::arrayToAssoc($arrData["arrFontSize"]);
 			$arrMobileSize = UniteFunctionsUC::arrayToAssoc($arrData["arrMobileSize"]);
 			$arrLineHeight = UniteFunctionsUC::arrayToAssoc($arrData["arrLineHeight"]);
-			$arrTextDecoration = UniteFunctionsUC::arrayToAssoc($arrData["arrTextDecoration"]);
+			$arrTextDecoration = $arrData["arrTextDecoration"];
 
 			$arrFontFamily = UniteFunctionsUC::addArrFirstValue($arrData["arrFontFamily"], "[Select Font Family]", $valueNotChosen);
 			$arrFontStyle = UniteFunctionsUC::addArrFirstValue($arrFontStyle, "[Select Style]", $valueNotChosen);

@@ -12,6 +12,7 @@ if (!\defined('ABSPATH')) {
 }
 class PdfHtmlTemplates
 {
+    private $tempdir;
     const CPT = 'dce_html_template';
     const FONTS_CACHE_OPTION = 'dce_html_template_fonts_cache';
     const TEMPLATE_META_KEY = 'dce_html_template';
@@ -68,6 +69,7 @@ EOF;
     public $post_type_object;
     public function __construct()
     {
+        $this->tempdir = \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'mpdf';
         $this->register_post_type();
         add_action('wp_ajax_dce_pdf_button', [$this, 'pdf_button_ajax']);
         add_action('wp_ajax_nopriv_dce_pdf_button', [$this, 'pdf_button_ajax']);
@@ -78,6 +80,13 @@ EOF;
         add_action('save_post_elementor_font', function () {
             delete_option(self::FONTS_CACHE_OPTION);
         }, 100);
+    }
+    private function clean_temp_dir()
+    {
+        $files = \glob("{$this->tempdir}/mpdf/ttfontdata/*");
+        if ($files !== \false) {
+            \array_map('unlink', $files);
+        }
     }
     public function pdf_button_ajax()
     {
@@ -187,8 +196,9 @@ EOF;
     {
         $dirs = [$dir];
         $conf = ['test' => ['R' => $filename, 'useOTL' => 0xff, 'useKashida' => 75]];
+        $this->clean_temp_dir();
         try {
-            $mpdf = new \DynamicOOOS\Mpdf\Mpdf(['tempDir' => \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'mpdf', 'fontDir' => $dirs, 'fontdata' => $conf, 'default_font' => 'test', 'mono_fonts' => ['test'], 'serif_fonts' => ['test'], 'sans_fonts' => ['test']]);
+            $mpdf = new \DynamicOOOS\Mpdf\Mpdf(['tempDir' => $this->tempdir, 'fontDir' => $dirs, 'fontdata' => $conf, 'default_font' => 'test', 'mono_fonts' => ['test'], 'serif_fonts' => ['test'], 'sans_fonts' => ['test']]);
             $mpdf->WriteHTML('hello world');
             $mpdf->Output(null, 'S');
         } catch (\DynamicOOOS\Mpdf\Exception\FontException $e) {
@@ -344,10 +354,20 @@ EOF;
     }
     private function generate_pdf($code, $format, $orientation, $return_string)
     {
+        try {
+            return $this->mpdf_generate_pdf($code, $format, $orientation, $return_string);
+        } catch (\DynamicOOOS\Mpdf\MpdfException $e) {
+            // maybe temp dir is corrupted, reattempt after clening it:
+            $this->clean_temp_dir();
+            return $this->mpdf_generate_pdf($code, $format, $orientation, $return_string);
+        }
+    }
+    private function mpdf_generate_pdf($code, $format, $orientation, $return_string)
+    {
         $fonts = $this->get_fonts();
         $font_dirs = $fonts['dirs'];
         $font_data = $fonts['fonts'];
-        $mpdf = new \DynamicOOOS\Mpdf\Mpdf(['tempDir' => \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'mpdf', 'fontDir' => $font_dirs, 'fontdata' => $font_data, 'default_font' => 'ctimes', 'mono_fonts' => ['ccourier'], 'serif_fonts' => ['ctimes'], 'sans_fonts' => ['chelvetica'], 'format' => $format . '-' . $orientation]);
+        $mpdf = new \DynamicOOOS\Mpdf\Mpdf(['tempDir' => $this->tempdir, 'fontDir' => $font_dirs, 'fontdata' => $font_data, 'default_font' => 'ctimes', 'mono_fonts' => ['ccourier'], 'serif_fonts' => ['ctimes'], 'sans_fonts' => ['chelvetica'], 'format' => $format . '-' . $orientation]);
         $mpdf->WriteHTML($code);
         return $mpdf->Output(null, $return_string ? 'S' : null);
     }

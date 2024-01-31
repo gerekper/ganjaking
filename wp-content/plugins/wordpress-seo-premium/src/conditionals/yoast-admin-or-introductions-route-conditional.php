@@ -16,7 +16,7 @@ class Yoast_Admin_Or_Introductions_Route_Conditional implements Conditional {
 	/**
 	 * Holds the Yoast_Admin_Conditional.
 	 *
-	 * @var \Yoast\WP\SEO\Conditionals\Admin\Yoast_Admin_Conditional
+	 * @var Yoast_Admin_Conditional
 	 */
 	private $yoast_admin_conditional;
 

@@ -64,11 +64,13 @@ class Save_Action {
 	 *
 	 * @param array $data The data to process. This is an array consisting of associative arrays (1 per indexable) with the keys
 	 *                    'object_id', 'object_type' and 'prominent_words' (an array with 'stem' => 'weight' mappings).
+	 *
+	 * @return void
 	 */
 	public function save( $data ) {
 		if ( $data ) {
 			foreach ( $data as $row ) {
-				$prominent_words = ( isset( $row['prominent_words'] ) ? $row['prominent_words'] : [] );
+				$prominent_words = ( $row['prominent_words'] ?? [] );
 
 				$this->link( $row['object_type'], $row['object_id'], $prominent_words );
 			}
@@ -81,6 +83,8 @@ class Save_Action {
 	 * @param string $object_type The object type of the indexable (e.g. `post` or `term`).
 	 * @param int    $object_id   The object id of the indexable.
 	 * @param array  $words       The words to link, as a `'stem' => weight` map.
+	 *
+	 * @return void
 	 */
 	public function link( $object_type, $object_id, $words ) {
 		$indexable = $this->indexable_repository->find_by_id_and_type( $object_id, $object_type );

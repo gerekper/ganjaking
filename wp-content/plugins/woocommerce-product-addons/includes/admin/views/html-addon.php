@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 global $post;
-$addon_title                     = ! empty( $addon['name'] ) ? $addon['name'] : '';
+$addon_title                     = ! empty( $addon['name'] ) ? wp_kses_post( stripslashes($addon['name'] ) ) : '';
 $title_format                    = ! empty( $addon['title_format'] ) ? $addon['title_format'] : '';
 $addon_type                      = ! empty( $addon['type'] ) ? $addon['type'] : 'multiple_choice';
 $addon_type_formatted            = ! empty( $addon_type ) ? $this->convert_type_name( $addon_type ) : __( 'Multiple choice', 'woocommerce-product-addons' );
@@ -11,7 +11,7 @@ $display                         = ! empty( $addon['display'] ) ? $addon['displa
 $restrictions                    = ! empty( $addon['restrictions'] ) ? $addon['restrictions'] : '';
 $restrictions_type               = ! empty( $addon['restrictions_type'] ) ? $addon['restrictions_type'] : '';
 $description_enable              = ! empty( $addon['description_enable'] ) ? $addon['description_enable'] : '';
-$description                     = ! empty( $addon['description'] ) ? $addon['description'] : '';
+$description                     = ! empty( $addon['description'] ) ? wp_kses_post( stripslashes( $addon['description'] ) ) : '';
 $required                        = ! empty( $addon['required'] ) ? $addon['required'] : '';
 $min                             = ! empty( $addon['min'] ) ? $addon['min'] : '';
 $max                             = ! empty( $addon['max'] ) ? $addon['max'] : '';

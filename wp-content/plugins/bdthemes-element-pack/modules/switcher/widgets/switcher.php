@@ -1464,6 +1464,7 @@ class Switcher extends Module_Base
 								'id' => esc_attr($id),
 								"linkWidgetTargetA" => (isset($settings['source_a_link_widget']) && !empty($settings['source_a_link_widget'])) ? '#' . $settings['source_a_link_widget'] : '',
 								"linkWidgetTargetB" => (isset($settings['source_b_link_widget']) && !empty($settings['source_b_link_widget'])) ? '#' . $settings['source_b_link_widget'] : '',
+								'defaultActive' => ($settings["default_active"] == 'a') ? "a" : "b"
 							]))
 						],
 

@@ -57,12 +57,24 @@ jQuery( function( $ ) {
 	 * @param {array} data
 	 */
 	let hidePreSelectedAttributes = function ( data ) {
-		if ( undefined === data || ! Array.isArray( data ) ) {
+
+		if ( 'object' !== typeof data ) {
 			return;
 		}
 
-		for ( let attribute in data ) {
-			$( 'select[name="' + data[attribute] + '"]' ).closest( 'tr' ).hide();
+		// Access dynamic property and its value
+		for (const attribute in data) {
+			if (data.hasOwnProperty(attribute)) {
+
+				let $selector =  $( 'select[name="' + attribute + '"]' );
+
+				// Remove other attribute values.
+				$selector.find('option:not([value="' + data[attribute] + '"])').remove();
+
+				// Hide the whole dang attribute.
+				$selector.closest( 'tr' ).hide();
+
+			}
 		}
 
 		// Hide reset link.

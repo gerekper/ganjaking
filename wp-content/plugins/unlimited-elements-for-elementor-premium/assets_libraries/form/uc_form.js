@@ -1,6 +1,6 @@
 "use strict";
 
-//version: 1.10
+//version: 1.11
 
 function UnlimitedElementsForm(){
   
@@ -103,7 +103,7 @@ function UnlimitedElementsForm(){
   /**
   * replace fields name with its values
   */
-  function replaceNamesWithValues(expr, objError){
+  function replaceNamesWithValues(expr, objError, objCalcInput){
     
     var names = getFormulaNames(expr, objError);
     
@@ -157,38 +157,52 @@ function UnlimitedElementsForm(){
         
       }
       
-      var inputValue = objInpput.val();  
+      var dataDateMode = objCalcInput.data("date-mode");   
       
-      //if input is empty then count it as 0
-      if(inputValue.length == 0)
-      inputValue = 0;
+      //set formula input to date type
+      if(dataDateMode == true)
+      objCalcInput.attr("type", "date");
       
-      //see if input value is round number, if so - make sure the number is unformatted
-      var dataSeparateThousandsFormat =  objInpput.data("separate-thousands-format");
-   		
-      if(dataSeparateThousandsFormat == "de-DE"){
-
-        inputValue = Number(inputValue.replace(".", "").replace(",", ""));
-       
+      var inputType = objInpput.attr("type");      
+      var inputValue;     
+      
+      if(inputType != "date"){
+        
+        inputValue = objInpput.val();    
+        
+        //if input is empty then count it as 0
+        if(inputValue.length == 0)
+        inputValue = 0;
+        
+        //see if input value is round number, if so - make sure the number is unformatted
+        var dataSeparateThousandsFormat =  objInpput.data("separate-thousands-format");
+        
+        if(dataSeparateThousandsFormat == "de-DE"){
+          
+          inputValue = Number(inputValue.replace(".", "").replace(",", ""));
+          
+        }else{
+          
+          //make sure value is number type (usefull for separating thousand option)
+          inputValue = Number(inputValue.toString().replace(",", ''));
+          
+        }      		
+        
+        //add parentheses if valus is less then 0
+        if(inputValue < 0)
+        inputValue = "("+inputValue+")";	
+        
       }else{
         
-        //make sure value is number type (usefull for separating thousand option)
-        inputValue = Number(inputValue.toString().replace(",", ''));
-     	
-      }      		
-		
-      //add parentheses if valus is less then 0
-      if(inputValue < 0)
-      inputValue = "("+inputValue+")";	
+        inputValue = new Date(objInpput.val()).getTime();         
+      }
       
       expr = expr.replace(name, inputValue);
       expr = expr.replace('[', '');
-      expr = expr.replace(']', '');
-      
+      expr = expr.replace(']', '');      
     });
     
-    return(expr);
-    
+    return(expr);    
   }
   
   /*
@@ -206,8 +220,7 @@ function UnlimitedElementsForm(){
     
     expr = result;
     
-    return(expr);
-    
+    return(expr);    
   }
   
   /**
@@ -219,7 +232,7 @@ function UnlimitedElementsForm(){
     expr = expr.replace(/\s+/g, "");
     
     //replace inputs name with its values
-    expr = replaceNamesWithValues(expr, objError);
+    expr = replaceNamesWithValues(expr, objError, objCalcInput);
     
     var result;
     
@@ -230,9 +243,17 @@ function UnlimitedElementsForm(){
       
       result = getClosestValue(objCalcInput, objError);
       
-      return(result);
-      
+      return(result);      
     }    
+    
+    var dataDateMode = objCalcInput.data("date-mode");
+    
+    if(dataDateMode == true){
+      
+      result = new Date(eval(expr));
+      
+      return(result);
+    }
     
     //validate espression
     expr = validateExpression(expr);
@@ -246,20 +267,17 @@ function UnlimitedElementsForm(){
       result = eval(expr);
       
       //hide error message after successful calculation
-      objError.hide();
-      
+      objError.hide();      
     }
     
     catch{      
       
-      showCustomError(objError, errorText, consoleErrorText);
-      
+      showCustomError(objError, errorText, consoleErrorText);      
     }
     
     if(isNaN(result) == true){
       
-      showCustomError(objError, errorText, consoleErrorText);
-      
+      showCustomError(objError, errorText, consoleErrorText);      
     }
     
     return result;
@@ -295,6 +313,15 @@ function UnlimitedElementsForm(){
   * format result number
   */
   function formatResultNumber(result, objCalcInput){
+    
+    var dataDateMode = objCalcInput.data("date-mode");
+    
+    if(dataDateMode == true){
+      
+      result =  result.toISOString().split('T')[0] 
+      
+      return(result);
+    }
     
     var dataFormat = objCalcInput.data("format");
     
@@ -828,9 +855,9 @@ function UnlimitedElementsForm(){
       var id = conditionArray._id;
       
       var objField = jQuery(ueInputFieldSelector+'[name="'+fieldName+'"]');
-
+      
       var objFieldValue = parseInt(objField.val());
-            
+      
       //sets the condition: "==", ">", "<" ...
       var visibilityCondition = getConditions(visibilityCondition, condition, objFieldValue, fieldValue);
       

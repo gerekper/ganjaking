@@ -36,6 +36,10 @@ class ThePlus_Everest_form extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['Everest Forms', 'contact form', 'form builder', 'form plugin', 'form creator', 'form designer', 'form element', 'form widget', 'form generator', 'form maker', 'form editor', 'form module', 'form addon', 'form extension'];
+    }
 	
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-everest-forms-in-elementor";

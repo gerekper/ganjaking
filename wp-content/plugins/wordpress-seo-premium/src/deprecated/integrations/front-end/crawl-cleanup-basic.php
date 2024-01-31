@@ -108,6 +108,8 @@ class Crawl_Cleanup_Basic implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function clean_headers() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Basic::clean_headers()' );

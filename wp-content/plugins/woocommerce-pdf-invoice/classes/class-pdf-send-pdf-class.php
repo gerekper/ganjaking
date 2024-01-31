@@ -21,6 +21,9 @@
 
     class WC_send_pdf {
 
+    	private $wc_version;
+		private $settings;
+
         public function __construct() {
 
         	$this->wc_version = get_option( 'woocommerce_version' );
@@ -541,7 +544,7 @@
 		private static function create_filename( $order_id ) {
 
 			$settings 	= get_option( 'woocommerce_pdf_invoice_settings' );
-			$order 		= new WC_Order( $order_id );
+			$order 		= wc_get_order( $order_id );
 			$pdf 		= new WC_send_pdf();
 
 			$replace 	= array( ' ', "/", "'",'"', "--" );
@@ -552,11 +555,11 @@
 				$filename	= get_bloginfo('name') . '-' . $order_id;
 			} else {
 
-				$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $pdf->get_option( 'pdf_date_format' ) );
+				$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $pdf->get_option( 'pdf_date_format' ), $order );
 
 				$filename	= str_replace( '{{company}}',		$pdf->get_option( 'pdf_company_name' ) , $filename );
 				$filename	= str_replace( '{{invoicedate}}', 	$invoice_date, $filename );
-				$filename	= str_replace( '{{invoicenumber}}',	( $pdf->get_woocommerce_pdf_invoice_num( $order_id ) ? $pdf->get_woocommerce_pdf_invoice_num( $order_id ) : $order_id ) , $filename );
+				$filename	= str_replace( '{{invoicenumber}}',	( $pdf->get_woocommerce_pdf_invoice_num( $order_id, $order ) ? $pdf->get_woocommerce_pdf_invoice_num( $order_id, $order ) : $order_id ) , $filename );
 				$filename	= str_replace( '{{ordernumber}}', 	$order->get_order_number(), $filename );
 				$filename	= str_replace( '{{month}}',	date( 'F', strtotime( $invoice_date ) ) , $filename );
 				$filename	= str_replace( '{{mon}}',	date( 'M', strtotime( $invoice_date ) ) , $filename );
@@ -672,17 +675,20 @@
 		 */
 		function get_woocommerce_invoice_content( $order_id, $email_id = NULL ) {
 
+			if (!$order_id) return;	
+
+			$order = wc_get_order( $order_id );
+
 			// PDF Invoice settings
 			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			// Get Invoice Meta
-			$invoice_meta = get_post_meta( $order_id, '_invoice_meta', TRUE );
+			$invoice_meta = $order->get_meta( '_invoice_meta', TRUE );
 
 			// WPML
 			do_action( 'before_invoice_content', $order_id );
 			
-			if (!$order_id) return;	
-			$order 			   = new WC_Order( $order_id );
+			
 
 			// Check if the order has an invoice
 			$invoice_number_display = isset( $invoice_meta['invoice_number_display'] ) ? $invoice_meta['invoice_number_display'] : '';
@@ -708,59 +714,59 @@
 			$content = str_replace(	'[[PDFFONTFAMILY]]', 						self::get_fontfamily( $order_id, $settings ),								$content );
 			$content = str_replace( '[[PDFCURRENCYSYMBOLFONT]]', 				self::get_currency_fontfamily( $order_id, $settings ),						$content );
 			$content = str_replace( '[[PDFRTL]]', 								self::get_text_direction( $order_id, $settings ),							$content );
-			$content = str_replace(	'[[PDFLOGO]]', 								self::get_pdf_logo( $order_id, $settings ), 			 					$content );
+			$content = str_replace(	'[[PDFLOGO]]', 								self::get_pdf_logo( $order_id, $settings, $order ), 			 			$content );
 
-			$content = str_replace(	'[[PDFCOMPANYNAME]]', 						self::get_invoice_companyname( $order_id, $settings ),						$content );
-			$content = str_replace(	'[[PDFCOMPANYDETAILS]]', 					self::get_invoice_companydetails( $order_id, $settings ), 					$content );
-			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 					self::get_invoice_registeredname( $order_id, $settings ), 					$content );
-			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 				self::get_invoice_registeredaddress( $order_id, $settings ),				$content );
-			$content = str_replace(	'[[PDFCOMPANYNUMBER]]', 					self::get_invoice_companynumber( $order_id, $settings ), 					$content );
-			$content = str_replace(	'[[PDFTAXNUMBER]]', 						self::get_invoice_taxnumber( $order_id, $settings ), 						$content );
+			$content = str_replace(	'[[PDFCOMPANYNAME]]', 						self::get_invoice_companyname( $order_id, $settings, $order ),				$content );
+			$content = str_replace(	'[[PDFCOMPANYDETAILS]]', 					self::get_invoice_companydetails( $order_id, $settings, $order ), 			$content );
+			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 					self::get_invoice_registeredname( $order_id, $settings, $order ), 			$content );
+			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 				self::get_invoice_registeredaddress( $order_id, $settings, $order ),		$content );
+			$content = str_replace(	'[[PDFCOMPANYNUMBER]]', 					self::get_invoice_companynumber( $order_id, $settings, $order ), 			$content );
+			$content = str_replace(	'[[PDFTAXNUMBER]]', 						self::get_invoice_taxnumber( $order_id, $settings, $order ), 				$content );
 
 
-			$content = str_replace(	'[[PDFREGISTEREDNAME_SECTION]]', 			self::get_invoice_registeredname_section( $order_id, $settings ), 			$content );
-			$content = str_replace(	'[[PDFREGISTEREDADDRESS_SECTION]]', 		self::get_invoice_registeredaddress_section( $order_id, $settings ),		$content );
-			$content = str_replace(	'[[PDFCOMPANYNUMBER_SECTION]]', 			self::get_invoice_companynumber_section( $order_id, $settings ), 			$content );
-			$content = str_replace(	'[[PDFTAXNUMBER_SECTION]]', 				self::get_invoice_taxnumber_section( $order_id, $settings ), 				$content );
+			$content = str_replace(	'[[PDFREGISTEREDNAME_SECTION]]', 			self::get_invoice_registeredname_section( $order_id, $settings, $order ), 	$content );
+			$content = str_replace(	'[[PDFREGISTEREDADDRESS_SECTION]]', 		self::get_invoice_registeredaddress_section( $order_id, $settings, $order ),$content );
+			$content = str_replace(	'[[PDFCOMPANYNUMBER_SECTION]]', 			self::get_invoice_companynumber_section( $order_id, $settings, $order ), 	$content );
+			$content = str_replace(	'[[PDFTAXNUMBER_SECTION]]', 				self::get_invoice_taxnumber_section( $order_id, $settings, $order ), 		$content );
 
 			$content = str_replace(	'[[PDFINVOICENUMHEADING]]', 				self::get_pdf_template_invoice_number_text( $order ), 	 					$content );
-			$content = str_replace(	'[[PDFINVOICENUM]]', 						self::get_invoice_display_invoice_num( $order_id ),							$content );
+			$content = str_replace(	'[[PDFINVOICENUM]]', 						self::get_invoice_display_invoice_num( $order_id, $order),					$content );
 
 			$content = str_replace(	'[[PDFORDERENUMHEADING]]', 					self::get_pdf_template_order_number_text( $order ), 	 					$content );
-			$content = str_replace(	'[[PDFORDERENUM]]', 						self::get_invoice_display_order_number( $order ), 							$content );
+			$content = str_replace(	'[[PDFORDERENUM]]', 						self::get_invoice_display_order_number( $order), 							$content );
 
 			$content = str_replace(	'[[PDFINVOICEDATEHEADING]]', 				self::get_pdf_template_invoice_date_text( $order ), 	 					$content );
-			$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice', self::get_option( 'pdf_date_format' ) ), 	$content );
+			$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice', self::get_option( 'pdf_date_format' ), $order ), 	$content );
 
 			$content = str_replace(	'[[PDFORDERDATEHEADING]]', 					self::get_pdf_template_order_date_text( $order ), 	 						$content );
-			$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order', self::get_option( 'pdf_date_format' ) ), 		$content );
+			$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order', self::get_option( 'pdf_date_format' ), $order ), 		$content );
 			
 			$content = str_replace(	'[[PDFINVOICE_BILLINGDETAILS_HEADING]]',	self::get_pdf_billing_details_heading( $order ), 	 						$content );
 			$content = str_replace(	'[[PDFBILLINGADDRESS]]', 					self::get_invoice_billing_address( $order ),  								$content );
-			$content = str_replace(	'[[PDFBILLINGTEL]]', 						self::get_invoice_billing_phone( $order_id ), 	  							$content );
-			$content = str_replace(	'[[PDFBILLINGEMAIL]]', 						self::get_invoice_billing_email( $order_id ), 								$content );
-			$content = str_replace(	'[[PDFBILLINGVATNUMBER]]', 					self::get_invoice_billing_vat_number( $order_id ), 							$content );
+			$content = str_replace(	'[[PDFBILLINGTEL]]', 						self::get_invoice_billing_phone( $order_id, $order ), 	  					$content );
+			$content = str_replace(	'[[PDFBILLINGEMAIL]]', 						self::get_invoice_billing_email( $order_id, $order ), 						$content );
+			$content = str_replace(	'[[PDFBILLINGVATNUMBER]]', 					self::get_invoice_billing_vat_number( $order_id, $order ), 					$content );
 
 			$content = str_replace(	'[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]',	self::get_pdf_shipping_details_heading( $order ), 	 						$content );
 			$content = str_replace(	'[[PDFSHIPPINGADDRESS]]', 					self::get_invoice_shipping_address( $order ), 								$content );
 
 			$content = str_replace(	'[[PDFINVOICE_PAYMETHOD_HEADING]]', 		self::get_template_payment_method_text( $order ), 	 						$content );
-			$content = str_replace(	'[[PDFINVOICEPAYMENTMETHOD]]',				self::get_invoice_payment_method_title( $order_id ), 						$content );
+			$content = str_replace(	'[[PDFINVOICEPAYMENTMETHOD]]',				self::get_invoice_payment_method_title( $order_id, $order ), 				$content );
 
 			$content = str_replace(	'[[PDFINVOICE_SHIPMETHOD_HEADING]]', 		self::get_pdf_template_shipping_method_text( $order ), 	 					$content );
 			$content = str_replace(	'[[PDFSHIPPINGMETHOD]]',					self::get_invoice_shipping_method_title( $order ), 							$content );
 
-			$content = str_replace(	'[[ORDERINFOHEADER]]',						self::get_pdf_headers( $order_id ), 										$content );
-			$content = str_replace(	'[[ORDERINFO]]', 							self::get_pdf_order_details( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERNOTES]]', 						self::get_pdf_order_note( $order_id ), 	  									$content );
+			$content = str_replace(	'[[ORDERINFOHEADER]]',						self::get_pdf_headers( $order_id, $order ), 								$content );
+			$content = str_replace(	'[[ORDERINFO]]', 							self::get_pdf_order_details( $order_id, $order ), 	  						$content );
+			$content = str_replace(	'[[PDFORDERNOTES]]', 						self::get_pdf_order_note( $order_id, $order ), 	  							$content );
 
-			$content = str_replace(	'[[PDFORDERSUBTOTAL]]', 					self::get_pdf_order_subtotal( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERSHIPPING]]', 					self::get_pdf_order_shipping( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERFEES]]', 						self::get_pdf_order_fees( $order_id, $tax_display ), 	  					$content );
-			$content = str_replace(	'[[PDFORDERDISCOUNT]]', 					self::get_pdf_order_discount( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERTAX]]', 							self::get_pdf_order_tax( $order_id ), 	  									$content );
-			$content = str_replace(	'[[PDFORDERTOTAL]]', 						self::get_pdf_order_total( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERTOTALS]]', 						self::get_pdf_order_totals( $order_id, $tax_display ), 	  					$content );
+			$content = str_replace(	'[[PDFORDERSUBTOTAL]]', 					self::get_pdf_order_subtotal( $order_id, $order ), 	  						$content );
+			$content = str_replace(	'[[PDFORDERSHIPPING]]', 					self::get_pdf_order_shipping( $order_id, $order ), 	  						$content );
+			$content = str_replace(	'[[PDFORDERFEES]]', 						self::get_pdf_order_fees( $order_id, $tax_display, $order ), 	  			$content );
+			$content = str_replace(	'[[PDFORDERDISCOUNT]]', 					self::get_pdf_order_discount( $order_id, $order ), 	  						$content );
+			$content = str_replace(	'[[PDFORDERTAX]]', 							self::get_pdf_order_tax( $order_id, $order ), 	  							$content );
+			$content = str_replace(	'[[PDFORDERTOTAL]]', 						self::get_pdf_order_total( $order_id, $order ), 	  						$content );
+			$content = str_replace(	'[[PDFORDERTOTALS]]', 						self::get_pdf_order_totals( $order_id, $tax_display, $order ), 	  			$content );
 
 			$content = str_replace(	'[[PDFINVOICE_ORDERDETAILS_HEADING]]', 		self::get_pdf_order_details_heading( $order ), 	 							$content );
 
@@ -777,23 +783,23 @@
 			$content = str_replace(	'[[PDFINVOICE_COMPANYNUMBER_HEADING]]', 	self::get_pdf_template_company_number_text( $order, $settings ), 			$content );
 			$content = str_replace(	'[[PDFINVOICE_VATNUMBER_HEADING]]', 		self::get_pdf_template_vat_number_text( $order, $settings ), 				$content );
 
-			$content = str_replace(	'[[PDFBARCODES]]', 							self::get_barcode( $order_id ), 			 								$content );
-			$content = str_replace(	'[[PDFBILLINGVATNUMBER]]', 					self::get_vat_number( $order_id ), 		 									$content );
+			$content = str_replace(	'[[PDFBARCODES]]', 							self::get_barcode( $order_id, $order ), 			 						$content );
+			$content = str_replace(	'[[PDFBILLINGVATNUMBER]]', 					self::get_vat_number( $order_id, $order ), 		 							$content );
 
 			if( preg_match('/ORDERDETAILS(.*?)ENDORDERDETAILS/', $content, $match) == 1 ) {
 				$template_order_details = WC_send_pdf::get_pdf_template_invoice_order_details( $order, $match );
 				$content = preg_replace( '/ORDERDETAILS(.*?)ENDORDERDETAILS/', $template_order_details, $content );
 			}
 
-			$content = str_replace(	'[[ORDERINFOHEADER_NOPRICES]]', 			self::get_pdf_headers_noprices( $order_id ), 			 					$content );
-			$content = str_replace(	'[[ORDERINFO_NOPRICES]]', 					self::get_pdf_order_details_noprices( $order_id ), 		 					$content );
+			$content = str_replace(	'[[ORDERINFOHEADER_NOPRICES]]', 			self::get_pdf_headers_noprices( $order_id, $order ), 			 			$content );
+			$content = str_replace(	'[[ORDERINFO_NOPRICES]]', 					self::get_pdf_order_details_noprices( $order_id, $order ), 		 			$content );
 
 			// Alternate One additions
-			$content = str_replace(	'[[PDFDOCTITLE]]', 							self::get_pdf_doc_title( $order_id ), 			 							$content );
-			$content = str_replace(	'[[PDFINVOICE_SUPPLYDETAILS_HEADING]]', 	self::get_pdf_supply_details_heading( $order_id ), 			 				$content );
+			$content = str_replace(	'[[PDFDOCTITLE]]', 							self::get_pdf_doc_title( $order_id, $order ), 			 					$content );
+			$content = str_replace(	'[[PDFINVOICE_SUPPLYDETAILS_HEADING]]', 	self::get_pdf_supply_details_heading( $order_id, $order ), 			 		$content );
 
 			// WooCommerce Shipment Tracking
-			$content = str_replace(	'[[PDFSHIPMENTTRACKING]]', 					self::get_shipment_tracking( $order_id ), 		 							$content );
+			$content = str_replace(	'[[PDFSHIPMENTTRACKING]]', 					self::get_shipment_tracking( $order_id, $order ), 		 					$content );
 
 			// Paid im full overlay
 			$content = str_replace(	'[[PDFPAIDINFULLOVERLAY]]', 				self::get_pdf_template_paid_in_full_overlay( $order, $settings ), 			$content );
@@ -809,7 +815,9 @@
 
 			do_action( 'after_invoice_content', $current_language ); 
 	
-			return mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8');
+			// return mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8');
+
+			return mb_encode_numericentity( $content, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
 		}
 
 		/**
@@ -902,12 +910,12 @@
 		 * @param  [type] $settings [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_pdf_logo( $order_id, $settings ) {
+		public static function get_pdf_logo( $order_id, $settings, $order ) {
 
 			$use_stored_logo = self::get_option( 'store_logo_file' );
 
 			// Get the logo from the order meta
-			$pdflogo = get_post_meta( $order_id,'_pdf_logo_file',TRUE );
+			$pdflogo = $order->get_meta( '_pdf_logo_file',TRUE );
 
 			// Check if the stored logo exists
 			$stored_logo_exists = false;
@@ -944,9 +952,9 @@
 		 * @param  [type] $settings [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_companyname( $order_id, $settings ) {
+		public static function get_invoice_companyname( $order_id, $settings, $order ) {
 
-			$pdfcompanyname = get_post_meta( $order_id,'_pdf_company_name',TRUE );
+			$pdfcompanyname = $order->get_meta( '_pdf_company_name',TRUE );
 
 			if ( !isset( $pdfcompanyname ) || $pdfcompanyname == '' ) {
 				$pdfcompanyname = self::get_option( 'pdf_company_name' );
@@ -963,9 +971,9 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 */
-		public static function get_invoice_companydetails( $order_id, $settings ) {
+		public static function get_invoice_companydetails( $order_id, $settings, $order ) {
 
-			$pdf_company_details = nl2br( get_post_meta( $order_id,'_pdf_company_details',TRUE ) );
+			$pdf_company_details = nl2br( $order->get_meta( '_pdf_company_details',TRUE ) );
 
 			if ( !isset( $pdf_company_detailspdf_company_details ) || $pdf_company_details == '' ) {
 				$pdf_company_details = self::get_option( 'pdf_company_details' );
@@ -982,9 +990,9 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 */
-		public static function get_invoice_registeredname( $order_id, $settings ) {
+		public static function get_invoice_registeredname( $order_id, $settings, $order ) {
 
-			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
+			$pdf_registered_name = $order->get_meta( '_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
 				$pdf_registered_name = self::get_option( 'pdf_registered_name' );
@@ -1001,9 +1009,9 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 */
-		public static function get_invoice_registeredaddress( $order_id, $settings ) {
+		public static function get_invoice_registeredaddress( $order_id, $settings, $order ) {
 
-			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
+			$pdf_registered_address = $order->get_meta( '_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
 				$pdf_registered_address = self::get_option( 'pdf_registered_address' );
@@ -1020,9 +1028,9 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 */
-		public static function get_invoice_companynumber( $order_id, $settings ) {
+		public static function get_invoice_companynumber( $order_id, $settings, $order ) {
 
-			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
+			$pdf_company_number = $order->get_meta( '_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
 				$pdf_company_number = self::get_option( 'pdf_company_number' );
@@ -1039,9 +1047,9 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 */
-		public static function get_invoice_taxnumber( $order_id, $settings ) {
+		public static function get_invoice_taxnumber( $order_id, $settings, $order ) {
 
-			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
+			$pdf_tax_number = $order->get_meta( '_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
 				$pdf_tax_number = self::get_option( 'pdf_tax_number' );
@@ -1060,11 +1068,11 @@
 		 *
 		 * echo apply_filters( 'pdf_template_registered_name_text', __( 'Registered Name : ', 'woocommerce-pdf-invoice' ) ); [[PDFREGISTEREDNAME]] 
 		 */
-		public static function get_invoice_registeredname_section( $order_id, $settings ) {
+		public static function get_invoice_registeredname_section( $order_id, $settings, $order ) {
 
 			$title = apply_filters( 'pdf_template_registered_name_text', __( 'Registered Name : ', 'woocommerce-pdf-invoice' ) );
 
-			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
+			$pdf_registered_name = $order->get_meta( '_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
 				$pdf_registered_name = self::get_option( 'pdf_registered_name' );
@@ -1089,11 +1097,11 @@
 		 *
 		 * echo apply_filters( 'pdf_template_registered_office_text', __( 'Registered Office : ', 'woocommerce-pdf-invoice' ) ); [[PDFREGISTEREDADDRESS]]
 		 */
-		public static function get_invoice_registeredaddress_section( $order_id, $settings ) {
+		public static function get_invoice_registeredaddress_section( $order_id, $settings, $order ) {
 
 			$title = apply_filters( 'pdf_template_registered_office_text', __( 'Registered Office : ', 'woocommerce-pdf-invoice' ) );
 
-			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
+			$pdf_registered_address = $order->get_meta( '_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
 				$pdf_registered_address = self::get_option( 'pdf_registered_address' );
@@ -1118,11 +1126,11 @@
 		 *
 		 * echo apply_filters( 'pdf_template_company_number_text', __( 'Company Number : ', 'woocommerce-pdf-invoice' ) ); [[PDFCOMPANYNUMBER]]
 		 */
-		public static function get_invoice_companynumber_section( $order_id, $settings ) {
+		public static function get_invoice_companynumber_section( $order_id, $settings, $order ) {
 
 			$title = apply_filters( 'pdf_template_company_number_text', __( 'Company Number : ', 'woocommerce-pdf-invoice' ) );
 
-			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
+			$pdf_company_number = $order->get_meta( '_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
 				$pdf_company_number = self::get_option( 'pdf_company_number' );
@@ -1147,11 +1155,11 @@
 		 *
 		 * echo apply_filters( 'pdf_template_vat_number_text', __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) ); [[PDFTAXNUMBER]]
 		 */
-		public static function get_invoice_taxnumber_section( $order_id, $settings ) {
+		public static function get_invoice_taxnumber_section( $order_id, $settings, $order ) {
 
 			$title = apply_filters( 'pdf_template_vat_number_text', __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) );
 
-			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
+			$pdf_tax_number = $order->get_meta( '_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
 				$pdf_tax_number = self::get_option( 'pdf_tax_number' );
@@ -1173,17 +1181,17 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_display_invoice_num( $order_id ) {
+		public static function get_invoice_display_invoice_num( $order_id, $order ) {
 
 			if ( $order_id ) {
 
 				$invnum 		= '';
-				$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
+				$invoice_meta 	= $order->get_meta( '_invoice_meta', TRUE );
 
 				if( isset( $invoice_meta['invoice_number_display'] ) && strlen( $invoice_meta['invoice_number_display'] ) != 0 ) {
 					$invnum = esc_html( $invoice_meta['invoice_number_display'] );
 				} else {
-					$invnum = esc_html( get_post_meta( $order_id, '_invoice_number_display', TRUE ) );
+					$invnum = esc_html( $order->get_meta( '_invoice_number_display', TRUE ) );
 				}
 
 				if( $invnum == '' || strlen( $invnum ) == 0 ) {
@@ -1199,11 +1207,11 @@
 						$invnum = $display_invoice_number;
 
 						// Update the post meta _invoice_number_display
-						update_post_meta( $order_id, '_invoice_number_display', $display_invoice_number );
+						WC_pdf_functions::update_order_meta_data ( '_invoice_number_display', $display_invoice_number, $order, $order_id );
 
 						// Update the post meta _invoice_meta
 						$invoice_meta['invoice_number_display'] = $display_invoice_number;
-						update_post_meta( $order_id, '_invoice_meta', $invoice_meta );
+						WC_pdf_functions::update_order_meta_data ( '_invoice_meta', $invoice_meta, $order, $order_id );
 
 					}
 				}
@@ -1219,26 +1227,8 @@
 		 * @return [type]        [description]
 		 */
 		public static function get_invoice_display_order_number( $order ) {
-			// Get order id
-			$order_id = $order->get_id();
 			
-			// Look for the Sequential Order Numbers Pro / Sequential Order Numbers order number and use it if it's there
 			$output_order_num = $order->get_order_number();
-
-			// Load plugin.php if required
-			if( !is_admin() ) {
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			}
-
-			// Sequential Order Numbers
-			if ( get_post_meta( $order_id,'_order_number',TRUE ) && class_exists( 'WC_Seq_Order_Number' ) ) :
-				$output_order_num = get_post_meta( $order_id,'_order_number',TRUE );
-			endif;
-
-			// Sequential Order Numbers Pro
-			if ( get_post_meta( $order_id,'_order_number_formatted',TRUE ) && class_exists( 'WC_Seq_Order_Number_Pro' ) ) :
-				$output_order_num = get_post_meta( $order_id,'_order_number_formatted',TRUE );
-			endif;
 
 			return apply_filters( 'pdf_invoice_display_order_number', $output_order_num, $order ); 
 
@@ -1250,14 +1240,12 @@
 		 * @param  [type] $usedate  [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_display_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format = "j F, Y" ) {
+		public static function get_invoice_display_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format = "j F, Y", $order = NULL ) {
 			global $woocommerce;
 
-			$order 			= new WC_Order( $order_id );
-
 			// Invoice Date : Use Invoice date from order meta if available
-			if( get_post_meta( $order_id, '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
-				return apply_filters( 'pdf_display_invoice_date', get_post_meta( $order_id, '_invoice_date', TRUE ), $order_id, $usedate, $sendsomething, $display_date );
+			if( $order->get_meta( '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
+				return apply_filters( 'pdf_display_invoice_date', $order->get_meta( '_invoice_date', TRUE ), $order_id, $usedate, $sendsomething, $display_date );
 			}
 
 			// Order Date
@@ -1301,8 +1289,8 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_billing_phone( $order_id ) {
-			return apply_filters( 'pdf_invoice_billing_phone', get_post_meta( $order_id,'_billing_phone',TRUE ), $order_id );
+		public static function get_invoice_billing_phone( $order_id, $order ) {
+			return apply_filters( 'pdf_invoice_billing_phone', $order->get_billing_phone(), $order_id );
 		}
 
 		/**
@@ -1310,8 +1298,8 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_billing_email( $order_id ) {
-			return apply_filters( 'pdf_invoice_billing_email', get_post_meta( $order_id,'_billing_email',TRUE ), $order_id );
+		public static function get_invoice_billing_email( $order_id, $order ) {
+			return apply_filters( 'pdf_invoice_billing_email', $order->get_billing_email(), $order_id );
 		}
 
 		/**
@@ -1319,15 +1307,15 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_billing_vat_number( $order_id ) {
+		public static function get_invoice_billing_vat_number( $order_id, $order ) {
 
 			$billing_vat_number = '';
 
 			// Support for EU VAT Number Extension
-			if ( get_post_meta( $order_id,'VAT Number',TRUE ) ) {
-				$billing_vat_number = __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) . get_post_meta( $order_id,'VAT Number',TRUE );
-			} elseif ( get_post_meta( $order_id,'vat_number',TRUE ) ) {	
-				$billing_vat_number = __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) . get_post_meta( $order_id,'vat_number',TRUE );
+			if ( $order->get_meta( 'VAT Number',TRUE ) ) {
+				$billing_vat_number = __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) . $order->get_meta( 'VAT Number',TRUE );
+			} elseif ( $order->get_meta( 'vat_number',TRUE ) ) {	
+				$billing_vat_number = __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) . $order->get_meta( 'vat_number',TRUE );
 			}
 
 			return apply_filters( 'pdf_invoice_billing_vat_number', $billing_vat_number, $order_id );
@@ -1355,13 +1343,12 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_invoice_payment_method_title( $order_id ) {
-			$order 	 				= new WC_Order( $order_id );
-			$payment_method 		= get_post_meta( $order_id, '_payment_method', true );
+		public static function get_invoice_payment_method_title( $order_id, $order ) {
+			$payment_method 		= $order->get_payment_method();
 			$payment_method_title 	= ucwords( $order->get_payment_method_title() );
 			
 			if ( $payment_method == 'woocommerce_gateway_purchase_order' ) {
-				$payment_method_title .= null !== get_post_meta( $order_id, '_po_number', true ) ? ' ' . get_post_meta( $order_id, '_po_number', true ) : '';
+				$payment_method_title .= null !== $order->get_meta( '_po_number', true ) ? ' ' . $order->get_meta( '_po_number', true ) : '';
 			}
 
 			return apply_filters( 'pdf_invoice_payment_method_title', $payment_method_title, $order_id );
@@ -1382,9 +1369,9 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_shipment_tracking( $order_id ) {
+		public static function get_shipment_tracking( $order_id, $order ) {
 
-			$tracking = get_post_meta( $order_id, '_wc_shipment_tracking_items', TRUE );
+			$tracking = $order->get_meta( '_wc_shipment_tracking_items', TRUE );
 
 			if( !isset( $tracking ) || is_null( $tracking ) || $tracking == '' ) {
 				return '';
@@ -1475,19 +1462,21 @@
 		 */
 		public static function get_pdf_headers( $order_id ) {
 
+			$column_widths = self::get_column_widths( 'full' );
+
 			$headers =  '<table class="shop_table orderdetails" width="100%">' . 
 						'<thead>' .
 						'<tr class="pdf_table_row pdf_table_row_title">' .
-						'<td colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</td>' .
+						'<td colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">[[PDFINVOICE_ORDERDETAILS_HEADING]]</td>' .
 						'</tr>' .
 						'<tr class="pdf_table_row pdf_table_row_heading">' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="5%" valign="top" align="right">'  . esc_html__( 'Qty', 'woocommerce-pdf-invoice' ) 		. '</td>' .						
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="50%" valign="top" align="left">'  . esc_html__( 'Product', 'woocommerce-pdf-invoice' ) 	. '</td>' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Price Ex', 'woocommerce-pdf-invoice' ) 	. '</td>' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Total Ex.', 'woocommerce-pdf-invoice' ) 	. '</td>' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="7%" valign="top" align="right">'  . esc_html__( 'Tax', 'woocommerce-pdf-invoice' ) 		. '</td>' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Price Inc', 'woocommerce-pdf-invoice' ) 	. '</td>' .
-						'<td class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Total Inc', 'woocommerce-pdf-invoice' ) 	. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['qty'] . '" valign="top" align="right">[[PDFINVOICE_QTY_HEADING]]</td>' .						
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['product'] . '" valign="top" align="left">[[PDFINVOICE_PRODUCT_HEADING]]</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['priceex'] . '" valign="top" align="right">[[PDFINVOICE_PRICEEX_HEADING]]</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['totalex'] . '" valign="top" align="right">[[PDFINVOICE_TOTALEX_HEADING]]</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['tax'] . '" valign="top" align="right">[[PDFINVOICE_TAX_HEADING]]</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['priceinc'] . '" valign="top" align="right">[[PDFINVOICE_PRICEINC_HEADING]]</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['totalinc'] . '" valign="top" align="right">[[PDFINVOICE_TOTALINC_HEADING]]</td>' .
 						'</tr>' .
 						'</thead>' .
 						'</table>';
@@ -1505,14 +1494,16 @@
 		 */
 		public static function get_pdf_headers_noprices( $order_id ) {
 
+			$column_widths = self::get_column_widths( 'noprices' );
+
 			$headers =  '<table class="shop_table orderdetails" width="100%">' . 
 						'<thead>' .
 						'<tr class="pdf_table_row pdf_table_row_title">' .
-						'<th colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</th>' .
+						'<th colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">[[PDFINVOICE_ORDERDETAILS_HEADING]]</th>' .
 						'</tr>' .
 						'<tr class="pdf_table_row pdf_table_row_heading">' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">'  . esc_html__( 'Qty', 'woocommerce-pdf-invoice' ) 		. '</th>' .						
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="90%" valign="top" align="left">'  . esc_html__( 'Product', 'woocommerce-pdf-invoice' ) 	. '</th>' .
+						'<th class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['qty'] . '" valign="top" align="right">[[PDFINVOICE_QTY_HEADING]]</th>' .						
+						'<th class="pdf_table_cell pdf_table_cell_heading" width="' . $column_widths['product'] . '" valign="top" align="left">[[PDFINVOICE_PRODUCT_HEADING]]</th>' .
 						'</tr>' .
 						'</thead>' .
 						'</table>';
@@ -1531,7 +1522,9 @@
 		function get_pdf_order_details( $order_id ) {
 			global $woocommerce;
 
-			$order 	 		= new WC_Order( $order_id );
+			$column_widths = self::get_column_widths( 'full' );
+
+			$order 	 		= wc_get_order( $order_id );
 			$order_currency = $order->get_currency();
 
 			$item_loop 		= 0;
@@ -1659,13 +1652,13 @@
 							$total_inc 		= wc_price( $item->get_subtotal() + $item->get_subtotal_tax(), array( 'currency' => $order_currency ) );
 
 						$line .= 	'<tr class="pdf_table_row '  . $row_class  . '">' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="5%" align="right">' . $item_quantity . ' x</td>' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="50%">' .  stripslashes( $item_name ) . '</td>' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  .  $price_ex . '</td>' .							
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  . $total_ex . '</td>' .	
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="7%" align="right">'  . $tax . '</td>' .			
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' . $price_inc . '</td>' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' . $total_inc . '</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['qty'] . '" align="right">' . $item_quantity . ' x</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['product'] . '">' .  stripslashes( $item_name ) . '</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['priceex'] . '" align="right">'  .  $price_ex . '</td>' .							
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['totalex'] . '" align="right">'  . $total_ex . '</td>' .	
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['tax'] . '" align="right">'  . $tax . '</td>' .			
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['priceinc'] . '" align="right">' . $price_inc . '</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="' . $column_widths['totalinc'] . '" align="right">' . $total_inc . '</td>' .
 									'</tr>';
 
 						$line = apply_filters( 'pdf_invoice_item_line', $line, $order );
@@ -1691,7 +1684,9 @@
 		function get_pdf_order_details_noprices( $order_id ) {
 			global $woocommerce;
 
-			$order 	 		= new WC_Order( $order_id );
+			$column_widths = self::get_column_widths( 'noprices' );
+
+			$order 	 		= wc_get_order( $order_id );
 			$order_currency = $order->get_currency();
 
 			$item_loop 		= 0;
@@ -2158,11 +2153,16 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		function get_woocommerce_pdf_invoice_num( $order_id ) {
+		function get_woocommerce_pdf_invoice_num( $order_id, $order = NULL ) {
 			global $woocommerce;
+
+			if( $order == NULL ) {
+				// Get order object
+				$order = wc_get_order( $order_id );
+			}
 	
-			if ( $order_id ) :
-				$invnum = esc_html( get_post_meta( $order_id, '_invoice_number_display', true ) );
+			if ( $order ) :
+				$invnum = esc_html( $order->get_meta( '_invoice_number_display', true ) );
 			else :
 				$invnum = ''; 
 			endif;
@@ -2176,14 +2176,17 @@
 		 * @param  [type] $usedate  [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_woocommerce_pdf_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format = "j F, Y" ) {
+		public static function get_woocommerce_pdf_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format = "j F, Y", $order = NULL ) {
 			global $woocommerce;
 
-			$order 	 		= new WC_Order( $order_id );
+			if( $order == NULL ) {
+				// Get order object
+				$order = wc_get_order( $order_id );
+			}
 
 			// Invoice Date : Use Invoice date from order meta if available
-			if( get_post_meta( $order_id, '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
-				return get_post_meta( $order_id, '_invoice_date', TRUE );
+			if( $order->get_meta( '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
+				return $order->get_meta( '_invoice_date', TRUE );
 			}
 
 			// Order Date
@@ -2201,7 +2204,7 @@
 
 			if ( $usedate == 'completed' && $order->get_status() == 'completed' ) {
 				// Order completed data
-				$date = WC_send_pdf::get_completed_date( $order_id );
+				$date = WC_send_pdf::get_completed_date( $order_id, $order );
 			} else {
 				// Order placed date
 				$date = $order->get_date_created();
@@ -2224,11 +2227,9 @@
 		}
 
 		// Get the date the order was completed if _invoice_date was not set at the time the invoice number was created
-		public static function get_completed_date( $order_id ) {
+		public static function get_completed_date( $order_id, $order ) {
 
 			$date = '';
-
-			$order = wc_get_order( $order_id );
 
 			// Use _date_completed from order meta
 			$date = $order->get_date_completed();
@@ -2236,15 +2237,15 @@
 			// if _date_completed is empty then use this as a backup
 			if( !isset( $date ) || $date == '' ) {
 
-				if( get_post_meta($order_id, '_invoice_meta', TRUE) && get_post_meta($order_id, '_invoice_meta', TRUE) != '' ) {
+				if( $order->get_meta( '_invoice_meta', TRUE) && $order->get_meta( '_invoice_meta', TRUE) != '' ) {
 
-					$invoice_meta = get_post_meta($order_id, '_invoice_meta', TRUE);
+					$invoice_meta = $order->get_meta( '_invoice_meta', TRUE);
 					$date 		  = $invoice_meta['invoice_created'];
 
 				} else {
 					global $wpdb;
 
-					$invoice_number = get_post_meta( $order_id, '_invoice_number_display', TRUE );
+					$invoice_number = $order->get_meta( '_invoice_number_display', TRUE );
 
 					$invoice = $wpdb->get_row( "SELECT * FROM $wpdb->comments 
 												WHERE comment_post_id = $order_id 
@@ -2276,12 +2277,11 @@
 		/**
 		 * Get the order notes for the template
 		 */			
-		function get_pdf_order_note( $order_id ) {
+		function get_pdf_order_note( $order_id, $order ) {
 			
 			if (!$order_id) return;	
 
-			$order 			= new WC_Order( $order_id ); 
-    		$customer_note  = $order->get_customer_note();
+			$customer_note  = $order->get_customer_note();
 			$output 		= '';
 			
 			if( $customer_note ) {
@@ -2295,11 +2295,10 @@
 		/**
 		 * Get the order subtotal for the template
 		 */
-		function get_pdf_order_subtotal( $order_id ) {
+		function get_pdf_order_subtotal( $order_id, $order ) {
 			
 			if (!$order_id) return;
 
-			$order 	= new WC_Order( $order_id );
 			$output = '';
 
 			$output = 	'<tr class="pdf_order_totals_subtotal_row pdfordertotals_row">' .
@@ -2314,11 +2313,10 @@
 		/**
 		 * Get the order shipping total for the template
 		 */
-		function get_pdf_order_shipping( $order_id ) {
+		function get_pdf_order_shipping( $order_id, $order ) {
 			
 			if (!$order_id) return;	
 
-			$order = new WC_Order( $order_id );
 			$output = '';
 			
 			$output = 	'<tr class="pdf_order_totals_shipping_row pdfordertotals_row">' .
@@ -2334,11 +2332,10 @@
 		/** 
 		 * Get Fees
 		 */
-		function get_pdf_order_fees( $order_id, $tax_display = "" ) {
+		function get_pdf_order_fees( $order_id, $tax_display = "", $order = NULL ) {
 
 			if (!$order_id) return;	
 
-			$order = new WC_Order( $order_id );
 			$output = '';
 
 			$fees = $order->get_fees();
@@ -2368,11 +2365,9 @@
 		/**
 		 * Show coupons used
 		 */
-		function pdf_coupons_used( $order_id ) {
+		function pdf_coupons_used( $order_id, $order ) {
 
 			if (!$order_id) return;	
-
-			$order = new WC_Order( $order_id );
 
 			$output = '';
 
@@ -2397,16 +2392,15 @@
 		/**
 		 * Get the order discount for the template
 		 */
-		function get_pdf_order_discount( $order_id ) {
+		function get_pdf_order_discount( $order_id, $order ) {
 			
 			if (!$order_id) return;	
 
-			$order 			= new WC_Order( $order_id );
 			$order_discount = $order->get_total_discount();
 
 			$output 	= '';
 			$negative 	= apply_filters( 'get_pdf_order_discount_negative', '-', $order );
-			$coupons  	= apply_filters( 'get_pdf_order_discount_coupons_used', esc_html__('Discount:', 'woocommerce-pdf-invoice') . $this->pdf_coupons_used( $order_id ), $order );
+			$coupons  	= apply_filters( 'get_pdf_order_discount_coupons_used', esc_html__('Discount:', 'woocommerce-pdf-invoice') . $this->pdf_coupons_used( $order_id, $order ), $order );
 
 			if ( $order_discount > 0 ) {
 				$output .=  '<tr class="pdf_order_totals_discount_row pdfordertotals_row">' .
@@ -2422,11 +2416,10 @@
 		/**
 		 * Get the tax for the template
 		 */
-		function get_pdf_order_tax( $order_id ) {
+		function get_pdf_order_tax( $order_id, $order ) {
 
 			if (!$order_id) return;	
 
-			$order 	= new WC_Order( $order_id );
 			$output = '';
 
 			if ( $order->get_total_tax()>0 ) {
@@ -2473,11 +2466,9 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		function get_pdf_order_total( $order_id ) {
+		function get_pdf_order_total( $order_id, $order ) {
 			
 			if (!$order_id) return;	
-
-			$order = new WC_Order( $order_id );
 
 			$output =  	'<tr class="pdf_order_totals_total_row pdfordertotals_row">' .
 						'<td align="right" class="pdf_order_totals_total_label pdfordertotals_cell pdf_order_totals_total_label">' .
@@ -2495,11 +2486,10 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		function get_pdf_order_totals( $order_id, $tax_display = '' ) {
+		function get_pdf_order_totals( $order_id, $tax_display = '', $order = NULL ) {
 
 			if (!$order_id) return;	
 
-			$order 				= new WC_Order( $order_id );
 			$order_currency 	= $order->get_currency();
 			$order_item_totals 	= apply_filters( 'pdf_invoice_order_item_totals', $order->get_order_item_totals( $tax_display ), $order );
 
@@ -2523,17 +2513,7 @@
 				}
 
 			}
-/*
-			if( $order->get_total_refunded() > 0 ) {
 
-				$output .=  '<tr class="pdfordertotals_row">' .
-							'<td align="right" class="pdfordertotals_cell pdfordertotals_title_cell">' .
-							'Amount Refunded:</td>' .
-							'<td align="right" class="pdfordertotals_cell pdfordertotals_value_cell">' . wc_price( $order->get_total_refunded(), array( 'currency' => $order_currency ) ) . '</td>' .
-							'</tr>' ;
-							
-			}
-*/
 			$output = apply_filters( 'pdf_template_order_totals' , $output, $order_id, $tax_display = '' );
 
 			return $output;
@@ -2545,12 +2525,12 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_barcode( $order_id ) {
+		public static function get_barcode( $order_id, $order ) {
 
 			$barcode_output = '';
 
-			$barcode_text 	= get_post_meta( $order_id, '_barcode_text', TRUE );
-			$barcode_data 	= get_post_meta( $order_id, '_barcode_image', TRUE );
+			$barcode_text 	= $order->get_meta( '_barcode_text', TRUE );
+			$barcode_data 	= $order->get_meta( '_barcode_image', TRUE );
 
 			$show_barcode 	= apply_filters( 'pdf_template_show_barcode', TRUE );
 
@@ -2598,14 +2578,14 @@
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_vat_number( $order_id ) {
+		public static function get_vat_number( $order_id, $order ) {
 
 			$vat_number = '';
 
-			if ( get_post_meta( $order_id,'VAT Number',TRUE ) ) {
-				$vat_number = get_post_meta( $order_id,'VAT Number',TRUE );
-			} elseif ( get_post_meta( $order_id,'vat_number',TRUE ) ) {	
-				$vat_number = get_post_meta( $order_id,'vat_number',TRUE );
+			if ( $order->get_meta( 'VAT Number',TRUE ) ) {
+				$vat_number = $order->get_meta( 'VAT Number',TRUE );
+			} elseif ( $order->get_meta( 'vat_number',TRUE ) ) {	
+				$vat_number = $order->get_meta( 'vat_number',TRUE );
 			}
 
 			return $vat_number;
@@ -2804,7 +2784,7 @@
 		public static function get_pdf_template_registered_name_text( $order, $settings ) {
 			$return = apply_filters( 'pdf_template_registered_name_text', esc_html__( 'Registered Name ', 'woocommerce-pdf-invoice' ), $order );
 
-			$get_invoice_registeredname = self::get_invoice_registeredname( $order->get_id(), $settings );
+			$get_invoice_registeredname = self::get_invoice_registeredname( $order->get_id(), $settings, $order );
 
 			if( !isset( $get_invoice_registeredname ) || $get_invoice_registeredname = '' ) {
 				$return = '';
@@ -2821,7 +2801,7 @@
 		public static function get_pdf_template_registered_office_text( $order, $settings ) {
 			$return = apply_filters( 'pdf_template_registered_office_text', esc_html__( 'Registered Office ', 'woocommerce-pdf-invoice' ), $order );
 
-			$get_invoice_registeredaddress = self::get_invoice_registeredaddress( $order->get_id(), $settings );
+			$get_invoice_registeredaddress = self::get_invoice_registeredaddress( $order->get_id(), $settings, $order );
 
 			if( !isset( $get_invoice_registeredaddress ) || $get_invoice_registeredaddress = '' ) {
 				$return = '';
@@ -2838,7 +2818,7 @@
 		public static function get_pdf_template_company_number_text( $order, $settings ) {
 			$return = apply_filters( 'pdf_template_company_number_text', __( 'Company Number ', 'woocommerce-pdf-invoice' ), $order );
 
-			$get_invoice_companynumber = self::get_invoice_companynumber( $order->get_id(), $settings );
+			$get_invoice_companynumber = self::get_invoice_companynumber( $order->get_id(), $settings, $order );
 
 			if( !isset( $get_invoice_companynumber ) || $get_invoice_companynumber = '' ) {
 				$return = '';
@@ -2855,7 +2835,7 @@
 		public static function get_pdf_template_vat_number_text( $order, $settings ) {
 			$return = apply_filters( 'pdf_template_vat_number_text', __( 'VAT Number ', 'woocommerce-pdf-invoice' ), $order );
 
-			$get_invoice_taxnumber = self::get_invoice_taxnumber( $order->get_id(), $settings );
+			$get_invoice_taxnumber = self::get_invoice_taxnumber( $order->get_id(), $settings, $order );
 
 			if( !isset( $get_invoice_taxnumber ) || $get_invoice_taxnumber = '' ) {
 				$return = '';
@@ -2877,8 +2857,7 @@
 			// Check if this option is set
 			if( isset( $settings['paid_in_full_show'] ) && $settings['paid_in_full_show'] === 'yes' ) {
 
-				$order_id 		= $order->get_id();
-				$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
+				$invoice_meta = $order->get_meta( '_invoice_meta', TRUE );
 
 				// Set the "Paid in full" text
 				if( isset( $settings['paid_in_full_text'] ) && strlen( $settings['paid_in_full_text'] ) !== 0 ) {
@@ -2945,6 +2924,8 @@
 		public static function get_woocommerce_invoice_terms( $page_id = 0, $order_id = 0 ) {
 
 			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
+			$order = wc_get_order( $order_id );
 			
 			/**
 			 * Filter the $page_id for reasons
@@ -2978,15 +2959,15 @@
 			$content = str_replace(	'[[TERMSTITLE]]', 						self::get_terms_title( $order_id, $post ),  							$content );
 			$content = str_replace(	'[[TERMS]]', 							self::get_terms_content( $order_id, $post ),							$content );
 
-			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 				self::get_invoice_registeredname( $order_id, $settings ), 				$content );
-			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 			self::get_invoice_registeredaddress( $order_id, $settings ),			$content );
-			$content = str_replace(	'[[PDFCOMPANYNUMBER]]', 				self::get_invoice_companynumber( $order_id, $settings ), 				$content );
-			$content = str_replace(	'[[PDFTAXNUMBER]]', 					self::get_invoice_taxnumber( $order_id, $settings ), 					$content );
+			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 				self::get_invoice_registeredname( $order_id, $settings, $order ), 		$content );
+			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 			self::get_invoice_registeredaddress( $order_id, $settings, $order ),	$content );
+			$content = str_replace(	'[[PDFCOMPANYNUMBER]]', 				self::get_invoice_companynumber( $order_id, $settings, $order ), 		$content );
+			$content = str_replace(	'[[PDFTAXNUMBER]]', 					self::get_invoice_taxnumber( $order_id, $settings, $order ), 			$content );
 
-			$content = str_replace(	'[[PDFREGISTEREDNAME_SECTION]]', 		self::get_invoice_registeredname_section( $order_id, $settings ), 		$content );
-			$content = str_replace(	'[[PDFREGISTEREDADDRESS_SECTION]]', 	self::get_invoice_registeredaddress_section( $order_id, $settings ),	$content );
-			$content = str_replace(	'[[PDFCOMPANYNUMBER_SECTION]]', 		self::get_invoice_companynumber_section( $order_id, $settings ), 		$content );
-			$content = str_replace(	'[[PDFTAXNUMBER_SECTION]]', 			self::get_invoice_taxnumber_section( $order_id, $settings ), 			$content );
+			$content = str_replace(	'[[PDFREGISTEREDNAME_SECTION]]', 		self::get_invoice_registeredname_section( $order_id, $settings, $order ),$content );
+			$content = str_replace(	'[[PDFREGISTEREDADDRESS_SECTION]]', 	self::get_invoice_registeredaddress_section( $order_id, $settings, $order ),	$content );
+			$content = str_replace(	'[[PDFCOMPANYNUMBER_SECTION]]', 		self::get_invoice_companynumber_section( $order_id, $settings, $order ), $content );
+			$content = str_replace(	'[[PDFTAXNUMBER_SECTION]]', 			self::get_invoice_taxnumber_section( $order_id, $settings, $order ), 	 $content );
 			
 			return $content;	
 		}
@@ -3019,6 +3000,33 @@
 			}
 
 			return $terms;
+		}
+
+		/**
+		 * [get_column_widths description]
+		 * @param  string $template [description]
+		 * @return [type]           [description]
+		 */
+		public static function get_column_widths( $template = 'full' ) {
+
+			if( $template !== 'full' ) {
+				$widths = array( 
+					'qty' => '10%',
+					'product' => '90%'
+				);
+			} else {
+				$widths = array( 
+					'qty' 		=> '5%',
+					'product' 	=> '50%',
+					'priceex' 	=> '9%',
+					'totalex' 	=> '9%',
+					'tax' 		=> '7%',
+					'priceinc' 	=> '10%',
+					'totalinc' 	=> '10%',
+				);
+			}
+
+			return apply_filters( 'woocommerce_pdf_invoices_get_column_widths', $widths, $template );
 		}
 
         /**

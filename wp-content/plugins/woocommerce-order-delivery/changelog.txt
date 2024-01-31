@@ -1,5 +1,12 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2024-01-18 - version 2.6.1
+* Tweak - Declare incompatibility with the WooCommerce Cart and Checkout blocks.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Tested compatibility up to WC 8.5.
+* Tweak - Tested compatibility up to WP 6.4.
+* Fix - Fixed warnings for using deprecated jQuery shorthand functions in the `bootstrap-datepicker.js` library.
+
 2023-09-25 - version 2.6.0
 * Feature - Use different texts than delivery on local pickup orders.
 * Tweak - Don't calculate the shipping date for local pickup orders.

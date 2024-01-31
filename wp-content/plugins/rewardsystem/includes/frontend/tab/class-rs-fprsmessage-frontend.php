@@ -207,8 +207,7 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 				if ('1' ==  $TableData[ 'search_box' ] ) {
 					?>
 									<label><?php esc_html_e( 'Search:' , 'rewardsystem' ) ; ?></label> 
-									<input id="filters" type="text"/>     
-										
+									<input id="filters" type="text"/>
 									<?php
 				}
 

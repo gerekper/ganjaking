@@ -192,6 +192,114 @@ jQuery(document).ajaxComplete(function (event, request, settings) {
  * End accordion widget script
  */
 /**
+ * Start ACF accordion widget script ( Duplicate of accordion widget script )
+ */
+
+
+
+;(function($, elementor) {
+    'use strict';
+    var widgetAcfAccordion = function($scope, $) {
+        var $accrContainer = $scope.find('.bdt-ep-accordion-container'),
+        $accordion = $accrContainer.find('.bdt-ep-accordion');
+        if (!$accrContainer.length) {
+            return;
+        }
+        var $settings         = $accordion.data('settings');
+        var activeHash        = $settings.activeHash;
+        var hashTopOffset     = $settings.hashTopOffset;
+        var hashScrollspyTime = $settings.hashScrollspyTime;
+        var activeScrollspy   = $settings.activeScrollspy;
+
+        if (activeScrollspy === null || typeof activeScrollspy === 'undefined'){
+            activeScrollspy = 'no';
+        }
+
+        function hashHandler($accordion, hashScrollspyTime, hashTopOffset) {
+            if (window.location.hash) {
+                if ($($accordion).find('[data-title="' + window.location.hash.substring(1) + '"]').length) {
+                        var hashTarget = $('[data-title="' + window.location.hash.substring(1) + '"]')
+                        .closest($accordion)
+                        .attr('id');
+
+                        if(activeScrollspy == 'yes'){
+                            $('html, body').animate({
+                                easing    : 'slow',
+                                scrollTop : $('#'+hashTarget).offset().top - hashTopOffset
+                            }, hashScrollspyTime, function() {
+                                }).promise().then(function() {
+                                    bdtUIkit.accordion($accordion).toggle($('[data-title="' + window.location.hash.substring(1) + '"]').data('accordion-index'), false);
+                                });
+                        } else {
+                            bdtUIkit.accordion($accordion).toggle($('[data-title="' + window.location.hash.substring(1) + '"]').data('accordion-index'), true);
+                        }
+
+                }
+            }
+        }
+    if (activeHash == 'yes') {
+        $(window).on('load', function() {
+            if(activeScrollspy == 'yes'){
+                hashHandler($accordion, hashScrollspyTime, hashTopOffset);
+            }else{
+                bdtUIkit.accordion($accordion).toggle($('[data-title="' + window.location.hash.substring(1) + '"]').data('accordion-index'), false);
+            }
+        });
+        $($accordion).find('.bdt-ep-accordion-title').off('click').on('click', function(event) {
+            window.location.hash = ($.trim($(this).attr('data-title')));
+            hashHandler($accordion, hashScrollspyTime = 1000, hashTopOffset);
+        });
+        $(window).on('hashchange', function(e) {
+            hashHandler($accordion, hashScrollspyTime = 1000, hashTopOffset);
+        });
+    }
+
+    };
+
+    jQuery(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction('frontend/element_ready/bdt-acf-accordion.default', widgetAcfAccordion);
+    });
+
+}(jQuery, window.elementorFrontend));
+
+/**
+ * End ACF accordion widget script
+ */
+/**
+ * Start ACF Gallery widget script ( Duplicate of Advanced Image Gallery widget script )
+ */
+
+(function ($, elementor) {
+
+    'use strict';
+
+    var widgetAcfGallery = function ($scope, $) {
+
+        var $advancedImageGallery = $scope.find('.bdt-ep-advanced-image-gallery'),
+            $settings = $advancedImageGallery.data('settings');
+
+        if (!$advancedImageGallery.length) {
+            return;
+        }
+
+        if ($settings.tiltShow == true) {
+            var elements = document.querySelectorAll($settings.id + " [data-tilt]");
+            VanillaTilt.init(elements);
+        }
+
+    };
+
+    jQuery(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/bdt-acf-gallery.default', widgetAcfGallery);
+        elementorFrontend.hooks.addAction('frontend/element_ready/bdt-acf-gallery.bdt-carousel', widgetAcfGallery);
+    });
+
+}(jQuery, window.elementorFrontend));
+
+/**
+ * End ACF Gallery widget script
+ */ 
+/**
  * Start custom calculator widget script
  */
 
@@ -554,184 +662,143 @@ jQuery(document).ajaxComplete(function (event, request, settings) {
  */
 
 
-/**
- * Start advanced gmap widget script
- */
 ;(function ($, elementor) {
-	'use strict';
-	//Adavanced Google Map
-	var widgetAvdGoogleMap = function ($scope, $) {
+    'use strict';
 
-		var $advancedGoogleMap = $scope.find('.bdt-advanced-gmap'),
-		 $GmapWrapper = $scope.find('.bdt-advanced-map'),
-
-			map_settings = $advancedGoogleMap.data('map_settings'),
-			markers = $advancedGoogleMap.data('map_markers'),
-			map_lists = $scope.find('ul.bdt-gmap-lists div.bdt-gmap-list-item'),
-			map_search_form = $scope.find('.bdt-search'),
-			map_search_text_box = $scope.find('.bdt-search-input'),
-			map_form = $scope.find('.bdt-gmap-search-wrapper > form');
-			let listMarker,markupPhone, markupWebsite, markupPlace, markupTitle, markupContent;
+    var widgetAvdGoogleMap = function ($scope, $) {
+        var $advancedGoogleMap = $scope.find('.bdt-advanced-gmap'),
+            $GmapWrapper = $scope.find('.bdt-advanced-map'),
+            map_settings = $advancedGoogleMap.data('map_settings'),
+            markers = $advancedGoogleMap.data('map_markers'),
+            map_lists = $scope.find('ul.bdt-gmap-lists div.bdt-gmap-list-item'),
+            map_search_form = $scope.find('.bdt-search'),
+            map_search_text_box = $scope.find('.bdt-search-input'),
+            map_form = $scope.find('.bdt-gmap-search-wrapper > form'),
+            listMarker, markupPhone, markupWebsite, markupPlace, markerImage, markupTitle, markupContent;
 
 
-		if (!$advancedGoogleMap.length) {
-			return;
-		}
-		$GmapWrapper.removeAttr("style");
-		var avdGoogleMap = new GMaps(map_settings);
-		for (var i in markers) {
-			listMarker = (markers[i].image !== undefined) ? markers[i].image[0]: markers[i].image;
-			markupWebsite = (markers[i].website !== undefined) ? `<a href="${markers[i].website}">${markers[i].website}</a>`: '';
-			markupPhone = (markers[i].phone !== undefined)? `<a href="tel:${markers[i].phone}">${markers[i].phone}</a>`: '';
-			markupContent = (markers[i].content !== undefined) ? `<span class="bdt-tooltip-content">${markers[i].content}</span><br>`: '';
-			markupPlace = (markers[i].place !== undefined) ? `<h5 class="bdt-tooltip-place">${markers[i].place}</h5>`: '';
-			markupTitle = (markers[i].title !== undefined) ? `<h4 class="bdt-tooltip-title">${markers[i].title}</h4>`: '';
-			var content = `<div class="bdt-map-tooltip-view">
-						<div class="bdt-map-tooltip-view-inner">
-							<div class="bdt-map-tooltip-top-image">
-							<img class="bdt-map-image" src="${listMarker}" alt="" />
-							</div>
-							<div class="bdt-map-tooltip-bottom-footer">
-								${markupTitle}
-								${markupPlace}
-								${markupContent}
-								${markupWebsite}
-								${markupPhone}
-							</div>
-						</div>
-						</div>`;
-			avdGoogleMap.addMarker({
-				lat: markers[i].lat,
-				lng: markers[i].lng,
-				title: markers[i].title,
-				icon: markers[i].icon,
-				infoWindow: {
-					content: content
+        if (!$advancedGoogleMap.length) {
+            return;
+        }
 
-				},
-			});
-		}
+        $GmapWrapper.removeAttr("style");
+        var avdGoogleMap = new GMaps(map_settings);
 
-		if ($advancedGoogleMap.data('map_geocode')) {
-			$(map_form).submit(function (e) {
-				e.preventDefault();
-				GMaps.geocode({
-					address: $(this).find('.bdt-search-input').val().trim(),
-					callback: function (results, status) {
-						if (status === 'OK') {
-							var latlng = results[0].geometry.location;
-							avdGoogleMap.setCenter(
-								latlng.lat(),
-								latlng.lng()
-							);
-							avdGoogleMap.addMarker({
-								lat: latlng.lat(),
-								lng: latlng.lng()
-							});
-						}
-					}
-				});
-			});
-		}
+        function createMarkerContent(marker, markerImage) {
 
-		if ($advancedGoogleMap.data('map_style')) {
-			avdGoogleMap.addStyle({
-				styledMapName: 'Custom Map',
-				styles: $advancedGoogleMap.data('map_style'),
-				mapTypeId: 'map_style'
-			});
-			avdGoogleMap.setStyle('map_style');
-		}
+            listMarker = markerImage !== '' ? `<div class="bdt-map-tooltip-top-image"><img class="bdt-map-image" src="${markerImage}" alt="" /></div>` : "";
+            markupWebsite = marker.website !== undefined ? `<a href="${marker.website}">${marker.website}</a>` : '';
+            markupPhone = marker.phone !== undefined ? `<a href="tel:${marker.phone}">${marker.phone}</a>` : '';
+            markupContent = marker.content !== undefined ? `<span class="bdt-tooltip-content">${marker.content}</span><br>` : '';
+            markupPlace = marker.place !== undefined ? `<h5 class="bdt-tooltip-place">${marker.place}</h5>` : '';
+            markupTitle = marker.title !== undefined ? `<h4 class="bdt-tooltip-title">${marker.title}</h4>` : '';
+            return `<div class="bdt-map-tooltip-view">
+                        <div class="bdt-map-tooltip-view-inner">
+                            ${listMarker}
+                            <div class="bdt-map-tooltip-bottom-footer">
+                                ${markupTitle}
+                                ${markupPlace}
+                                ${markupContent}
+                                ${markupWebsite}
+                                ${markupPhone}
+                            </div>
+                        </div>
+                    </div>`;
+        }
 
-		$(map_lists).bind("click", function (e) {
-			var mapList;
-			var dataSettings = $(this).data("settings"),
-			mapList = new GMaps({
-				el: dataSettings.el,
-				lat: dataSettings.lat,
-				lng: dataSettings.lng,
-				title: dataSettings.title,
-				zoom: map_settings.zoom,
-			});
+        for (var i in markers) {
+		  markerImage = markers[i].image !== undefined ? markers[i].image: "";
+          avdGoogleMap.addMarker({
+            lat: markers[i].lat,
+            lng: markers[i].lng,
+            title: markers[i].title,
+            icon: markers[i].icon,
+            infoWindow: {
+              content: createMarkerContent(markers[i], markerImage)
+            },
+          });
+        }
 
+        if ($advancedGoogleMap.data('map_geocode')) {
+            $(map_form).submit(function (e) {
+                e.preventDefault();
+                GMaps.geocode({
+                    address: $(this).find('.bdt-search-input').val().trim(),
+                    callback: function (results, status) {
+                        if (status === 'OK') {
+                            var latlng = results[0].geometry.location;
+                            avdGoogleMap.setCenter(latlng.lat(), latlng.lng());
+                            avdGoogleMap.addMarker({
+                                lat: latlng.lat(),
+                                lng: latlng.lng()
+                            });
+                        }
+                    }
+                });
+            });
+        }
 
-			// console.log(dataSettings.icon);
-			listMarker = (dataSettings.image !== undefined) ? dataSettings.image[0]: dataSettings.image;
-			markupTitle= (dataSettings.title !== undefined) ?  `<h4 class="bdt-tooltip-title">${dataSettings.title}</h4>`: '';
-			markupPlace = (dataSettings.place !== undefined) ? `<h5 class="bdt-tooltip-place">${dataSettings.place}</h5>`: '';
-			markupContent =  (dataSettings.content !== undefined) ?  `<span class="bdt-tooltip-content">${dataSettings.content}</span><br>`:'';
-			markupWebsite = (dataSettings.website !== undefined) ? `<a href="${dataSettings.website}">${dataSettings.website}</a>`: '';
-			markupPhone = (dataSettings.phone !== undefined)? `<a href="tel:${dataSettings.phone}">${dataSettings.phone}</a>`: '';
+        if ($advancedGoogleMap.data('map_style')) {
+            avdGoogleMap.addStyle({
+                styledMapName: 'Custom Map',
+                styles: $advancedGoogleMap.data('map_style'),
+                mapTypeId: 'map_style'
+            });
+            avdGoogleMap.setStyle('map_style');
+        }
 
-			var content = `<div class="bdt-map-tooltip-view">
-							<div class="bdt-map-tooltip-view-inner">
-								<div class="bdt-map-tooltip-top-image">
-								<img class="bdt-map-image" src="${listMarker}" alt="" />
-								</div>
-								<div class="bdt-map-tooltip-bottom-footer">
-										${markupTitle}
-										${markupPlace}
-										${markupContent}
-										${markupWebsite}
-										${markupPhone}
-								</div>
-							</div>
-						</div>`
-			mapList.addMarker({
-					lat: dataSettings.lat,
-					lng: dataSettings.lng,
-					title: dataSettings.title,
-					icon: dataSettings.icon,
-					infoWindow: {
-					content: content,
-					},
-				});
-		if ($advancedGoogleMap.data('map_style')) {
-			mapList.addStyle({
-				styledMapName: 'Custom Map',
-				styles: $advancedGoogleMap.data('map_style'),
-				mapTypeId: 'map_style'
-			});
-			mapList.setStyle('map_style');
-		}
+        $(map_lists).bind("click", function (e) {
+            var mapList;
+            var dataSettings = $(this).data("settings");
+            mapList = new GMaps({
+                el: dataSettings.el,
+                lat: dataSettings.lat,
+                lng: dataSettings.lng,
+                title: dataSettings.title,
+                zoom: map_settings.zoom,
+            });
 
+			markerImage = dataSettings.image !== undefined ? dataSettings.image[0]: "";
+            mapList.addMarker({
+                lat: dataSettings.lat,
+                lng: dataSettings.lng,
+                title: dataSettings.title,
+                icon: dataSettings.icon,
+                infoWindow: {
+                    content: createMarkerContent(dataSettings, markerImage),
+                },
+            });
 
-		
+            if ($advancedGoogleMap.data('map_style')) {
+                mapList.addStyle({
+                    styledMapName: 'Custom Map',
+                    styles: $advancedGoogleMap.data('map_style'),
+                    mapTypeId: 'map_style'
+                });
+                mapList.setStyle('map_style');
+            }
+        });
 
-		
-		});
+        $(map_search_form).submit(function (e) {
+            e.preventDefault();
+            let searchValue = $(map_search_text_box).val().toLowerCase();
+            $(map_lists).filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+            });
+        });
 
+        $(map_search_text_box).keyup(function () {
+            let searchValue = $(this).val().toLowerCase();
+            $(map_lists).filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+            });
+        });
+    };
 
-		/**
-			 * binding event for search form
-			 */
-		$(map_search_form).submit(function (e) {
-			e.preventDefault();
-			let searchValue = $(map_search_text_box).val().toLowerCase();
-			$(map_lists).filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1)
-			});
-		});
-		/**
-		 * bind search event on key press
-		 */
-		$(map_search_text_box).keyup(function () {
-			let searchValue = $(this).val().toLowerCase();
-			$(map_lists).filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1)
-			});
-		});
-
-	};
-	jQuery(window).on('elementor/frontend/init', function () {
-		elementorFrontend.hooks.addAction('frontend/element_ready/bdt-advanced-gmap.default', widgetAvdGoogleMap);
-	});
-
+    jQuery(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/bdt-advanced-gmap.default', widgetAvdGoogleMap);
+    });
 }(jQuery, window.elementorFrontend));
-
-/**
- * End advanced gmap widget script
- */
 
 /**
  * Start advanced heading widget script
@@ -2128,10 +2195,11 @@ $(window).on('elementor/frontend/init', function () {
                     var $drop = $(item).find('.ep-megamenu-panel');
                     var widthType = $(item).data('width-type');
 
-                    var defaltWidthSelector = $(item).closest('.elementor-container');
+                    var defaltWidthSelector = $(item).closest('.e-con-inner');
                     if (defaltWidthSelector.length <= 0){
                         var defaltWidthSelector =
-                          $(item).closest(".e-con-inner");
+                            $(item).closest(".elementor-container");
+
                     }
 
                     if ('horizontal' === $this.settings('direction')) {
@@ -3212,7 +3280,7 @@ function circleJs(id, circleMoving, movingTime, mouseEvent) {
 
     var widgetSimpleContactForm = function ($scope, $) {
 
-        var $contactForm = $scope.find('.bdt-contact-form .without-recaptcha');
+        var $contactForm = $scope.find('.bdt-contact-form.without-recaptcha');
 
         if (!$contactForm.length) {
             return;
@@ -4217,51 +4285,102 @@ $(window).on('elementor/frontend/init', function () {
 (function ($, elementor) {
     "use strict";
     var widgetWebhookForm = function ($scope, $) {
-        var $formWrapper = $scope.find(".bdt-ep-webhook-form"),
+        var $formWrapper = $scope.find(".bdt-ep-webhook-form.without-recaptcha"),
+            $form = $formWrapper.find(".bdt-ep-webhook-form-form"),
             $settings = $formWrapper.data("settings");
 
         if (!$formWrapper.length) {
             return;
         }
 
-        $($settings.id)
-            .find(".bdt-ep-webhook-form-form")
-            .submit(function (e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                formData = formData + "&action=submit_webhook_form";
-                formData = formData + "&nonce=" + ElementPackConfig.nonce;
+        console.log($settings);
 
-                $.ajax({
-                    url: ElementPackConfig.ajaxurl,
-                    type: "post",
-                    data: formData,
-                    beforeSend: function () {
-                        bdtUIkit.notification({
-                            message: "<div bdt-spinner></div> Sending...",
-                            timeout: false,
-                            status: "primary",
-                        });
-                    },
-                    success: function (res) {
-                        let response = JSON.parse(res);
-                        bdtUIkit.notification.closeAll();
-
-                        if (true == response.success) {
-                            bdtUIkit.notification({
-                                message:
-                                    '<div bdt-icon="icon: check"></div> ' + response.message,
-                            });
-                        } else {
-                            bdtUIkit.notification({
-                                message:
-                                    '<div bdt-icon="icon: close"></div> ' + response.message,
-                            });
-                        }
-                    },
-                });
-            });
+        $($settings.id).find(".bdt-ep-webhook-form-form").submit(function (e) {
+            e.preventDefault();
+            send_form_data($form);
+        });
     };
+
+    function send_form_data(form) {
+        var formData = $(form).serialize();
+        formData = formData + "&action=submit_webhook_form";
+        formData = formData + "&nonce=" + ElementPackConfig.nonce;
+
+        $.ajax({
+            url: ElementPackConfig.ajaxurl,
+            type: "post",
+            data: formData,
+            beforeSend: function () {
+                bdtUIkit.notification({
+                    message: "<div bdt-spinner></div> Sending...",
+                    timeout: false,
+                    status: "primary",
+                });
+            },
+            success: function (res) {
+                let response = JSON.parse(res);
+                bdtUIkit.notification.closeAll();
+
+                if (true == response.success) {
+                    bdtUIkit.notification({
+                        message: '<div bdt-icon="icon: check"></div> ' + response.message,
+                    });
+                } else {
+                    bdtUIkit.notification({
+                        message: '<div bdt-icon="icon: close"></div> ' + response.message,
+                    });
+                }
+            },
+        });
+    }
+
+    // google invisible captcha
+    function elementPackWebFormGIC() {
+
+        var langStr = window.ElementPackConfig.contact_form;
+
+        return new Promise(function (resolve, reject) {
+
+            if (grecaptcha === undefined) {
+                bdtUIkit.notification({
+                    message: '<div bdt-spinner></div> ' + langStr.captcha_nd,
+                    timeout: false,
+                    status: 'warning'
+                });
+                reject();
+            }
+
+            var response = grecaptcha.getResponse();
+
+            if (!response) {
+                bdtUIkit.notification({
+                    message: '<div bdt-spinner></div> ' + langStr.captcha_nr,
+                    timeout: false,
+                    status: 'warning'
+                });
+                reject();
+            }
+
+            var $webhookForm = $('textarea.g-recaptcha-response').filter(function () {
+                return $(this).val() === response;
+            }).closest('form.bdt-ep-webhook-form-form');
+
+            var contactFormAction = $webhookForm.attr('action');
+
+            if (contactFormAction && contactFormAction !== '') {
+                send_form_data($webhookForm);
+            } else {
+                console.log($webhookForm);
+            }
+
+            grecaptcha.reset();
+
+        }); //end promise
+
+    }
+
+    //Contact form recaptcha callback, if needed
+    window.elementPackGICCB = elementPackWebFormGIC;
 
     jQuery(window).on("elementor/frontend/init", function () {
         elementorFrontend.hooks.addAction(
@@ -4274,7 +4393,6 @@ $(window).on('elementor/frontend/init', function () {
 /**
  * End webhook form widget script
  */
-
 (function ($, elementor) {
 
     'use strict';
@@ -9813,7 +9931,7 @@ jQuery(window).on('elementor/frontend/init', function() {
         var $settings = $readingProgress.data('settings');
 
         jQuery(document).ready(function(){
-            // jQuery($readingProgress).progressScroll([$settings.progress_bg, $settings.scroll_bg]); 
+
             var settings = {
                 borderSize: 10,
                 mainBgColor: '#E6F4F7',
@@ -9852,7 +9970,6 @@ jQuery(window).on('elementor/frontend/init', function() {
                 $('.' + textContainer, container).text(per + '%');
             };
             var prepare = function () {
-                    //$(container).addClass("bdt-reading-progress");
                     $(container).html("<div class='" + borderContainer + "'><div class='" + circleContainer + "'><span class='" + textContainer + "'></span></div></div>");
 
                     $('.' + borderContainer, container).css({
@@ -9924,8 +10041,6 @@ jQuery(window).on('elementor/frontend/init', function() {
         }
 
         $(document).ready(function() {
-
-
             //Scroll indicator
             var progressPath = document.querySelector('.bdt-progress-wrap path');
             var pathLength = progressPath.getTotalLength();
@@ -11152,11 +11267,11 @@ jQuery(window).on('elementor/frontend/init', function() {
 
 				$($switcherContentAAA).appendTo($('#bdt-switcher-' + $settings.id));
 				$($switcherContentBBB).appendTo($('#bdt-switcher-' + $settings.id));
-				
+
 				var $activeA, $activeB = '';
-				if ($settings.defaultActive == 'a'){
-						$activeA, $activeA = 'bdt-active';
-				}else{
+				if ($settings.defaultActive == 'a') {
+					$activeA, $activeA = 'bdt-active';
+				} else {
 					$activeB = 'bdt-active';
 				}
 
@@ -11164,29 +11279,44 @@ jQuery(window).on('elementor/frontend/init', function() {
 				$('#' + $settings['switch-b-content']).wrapAll('<div class="bdt-switcher-item-content-inner ' + $activeB + '"></div>');
 			}
 		}
- 
+
 
 		if ($settingsLinkWidget !== undefined && editMode === false) {
 			var $targetA = $($settingsLinkWidget.linkWidgetTargetA),
 				$targetB = $($settingsLinkWidget.linkWidgetTargetB),
 				$switcher = '#bdt-switcher-' + $settingsLinkWidget.id;
 
+			if ($settingsLinkWidget.defaultActive == 'a') {
+				$targetA.css({
+					'opacity': 1,
+					'display': 'block'
+				});
+				$targetB.css({
+					'opacity': 0,
+					'display': 'none'
+				});
+			} else {
+				$targetA.css({
+					'opacity': 0,
+					'display': 'none'
+				});
+				$targetB.css({
+					'opacity': 1,
+					'display': 'block'
+				});
+			}
+
 			$targetA.css({
-				'opacity': 1,
-				'display': 'block',
+				'grid-row-start': 1,
+				'grid-column-start': 1
+			});
+			$targetB.css({
 				'grid-row-start': 1,
 				'grid-column-start': 1
 			});
 
 			$targetA.parent().css({
 				'display': 'grid'
-			});
-
-			$targetB.css({
-				'opacity': 0,
-				'display': 'none',
-				'grid-row-start': 1,
-				'grid-column-start': 1
 			});
 
 			bdtUIkit.util.on($switcher, 'shown', function (e) {

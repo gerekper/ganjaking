@@ -81,6 +81,7 @@ return array(
     'AC\\Ajax\\NumberFormat' => $baseDir . '/classes/Ajax/NumberFormat.php',
     'AC\\ApplyFilter\\ColumnSeparator' => $baseDir . '/classes/ApplyFilter/ColumnSeparator.php',
     'AC\\ApplyFilter\\PostTypes' => $baseDir . '/classes/ApplyFilter/PostTypes.php',
+    'AC\\ApplyFilter\\QueryTotalNumber' => $baseDir . '/classes/ApplyFilter/QueryTotalNumber.php',
     'AC\\ApplyFilter\\ValidAudioMimetypes' => $baseDir . '/classes/ApplyFilter/ValidAudioMimetypes.php',
     'AC\\ApplyFilter\\ValidVideoMimetypes' => $baseDir . '/classes/ApplyFilter/ValidVideoMimetypes.php',
     'AC\\ArrayIterator' => $baseDir . '/classes/ArrayIterator.php',

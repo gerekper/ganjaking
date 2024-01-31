@@ -632,10 +632,10 @@
 											if ($fields[$key_field]['attach-files'] == 1) {
 												$attachment[] = WP_CONTENT_DIR . '/uploads/piotnet-addons-for-elementor/' . $filename;
 											} else {
-												if($fields[$key_field]['value'] == '' && in_array($file_name_san, $field['file_name'])){
+												if($fields[$key_field]['value'] == '' && in_array($file['name'][$i], $field['file_name'])){
 													$fields[$key_field]['value'] = $file_url;
 												}else{
-													if(in_array($file_name_san, $field['file_name']) && $i != (count($file['name']) - 1)){
+													if(in_array($file['name'][$i], $field['file_name']) && $i != (count($file['name']) - 1)){
 														$fields[$key_field]['value'] .= ', ' . $file_url;
 													}
 												}

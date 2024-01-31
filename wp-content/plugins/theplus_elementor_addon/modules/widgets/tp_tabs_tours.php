@@ -45,9 +45,10 @@ class ThePlus_Tabs_Tours extends Widget_Base {
     public function get_categories() {
         return array('plus-tabbed');
     }
+	
 	public function get_keywords() {
-		return ['tabs', 'tours', 'tabbed content'];
-	}
+        return ['Tabs', 'Tours', 'Tabs widget', 'Tours widget', 'Elementor Tabs', 'Elementor Tours', 'Elementor Tabs widget', 'Elementor Tours widget', 'Tabs addon', 'Tours addon', 'Elementor Tabs addon', 'Elementor Tours addon'];
+    }
 	
     protected function register_controls() {		
 		$this->start_controls_section(

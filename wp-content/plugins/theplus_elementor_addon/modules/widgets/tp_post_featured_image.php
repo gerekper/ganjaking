@@ -44,6 +44,10 @@ class ThePlus_Featured_Image extends Widget_Base {
 		return esc_url($DocUrl);
 	}
 
+	public function get_keywords() {
+        return ['Post Featured Image', 'Featured Image', 'Image Widget', 'Image Gallery', 'Image Slider', 'Image Carousel', 'Image Grid', 'Image Showcase', 'Image Viewer', 'Image Display', 'Image Preview', 'Image Thumbnail', 'Image Container', 'Image Box', 'Image Block', 'Image Frame', 'Image Holder', 'Image Wrapper', 'Image Placeholder', 'Image Slider Widget', 'Image Carousel Widget', 'Image Grid Widget', 'Image Showcase Widget', 'Image Viewer Widget', 'Image Display Widget', 'Image Preview Widget', 'Image Thumbnail Widget', 'Image Container Widget', 'Image Box Widget', 'Image Block'];
+    }
+
     protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',

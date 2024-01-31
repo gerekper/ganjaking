@@ -18,21 +18,19 @@ use MailPoet\InvalidStateException;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Mailer\MetaInfo;
-use MailPoet\Models\Newsletter;
-use MailPoet\Models\ScheduledTask;
-use MailPoet\Models\StatisticsNewsletters as StatisticsNewslettersModel;
-use MailPoet\Models\Subscriber as SubscriberModel;
-use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository;
 use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\SubscribersFinder;
+use MailPoet\Services\AuthorizedEmailsController;
+use MailPoet\Statistics\StatisticsNewslettersRepository;
 use MailPoet\Subscribers\SubscribersRepository;
-use MailPoet\Tasks\Sending as SendingTask;
 use MailPoet\Tasks\Subscribers\BatchIterator;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
+use Throwable;
 
 class SendingQueue {
   /** @var MailerTask */
@@ -60,9 +58,6 @@ class SendingQueue {
   /** @var LoggerFactory */
   private $loggerFactory;
 
-  /** @var NewslettersRepository */
-  private $newslettersRepository;
-
   /** @var CronHelper */
   private $cronHelper;
 
@@ -81,6 +76,9 @@ class SendingQueue {
   /** @var ScheduledTasksRepository */
   private $scheduledTasksRepository;
 
+  /** @var ScheduledTaskSubscribersRepository */
+  private $scheduledTaskSubscribersRepository;
+
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
@@ -90,22 +88,30 @@ class SendingQueue {
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var StatisticsNewslettersRepository */
+  private $statisticsNewslettersRepository;
+
+  /** @var AuthorizedEmailsController */
+  private $authorizedEmailsController;
+
   public function __construct(
     SendingErrorHandler $errorHandler,
     SendingThrottlingHandler $throttlingHandler,
     StatsNotificationsScheduler $statsNotificationsScheduler,
     LoggerFactory $loggerFactory,
-    NewslettersRepository $newslettersRepository,
     CronHelper $cronHelper,
     SubscribersFinder $subscriberFinder,
     SegmentsRepository $segmentsRepository,
     WPFunctions $wp,
     Links $links,
     ScheduledTasksRepository $scheduledTasksRepository,
+    ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository,
     MailerTask $mailerTask,
     SubscribersRepository $subscribersRepository,
     SendingQueuesRepository $sendingQueuesRepository,
     EntityManager $entityManager,
+    StatisticsNewslettersRepository $statisticsNewslettersRepository,
+    AuthorizedEmailsController $authorizedEmailsController,
     $newsletterTask = false
   ) {
     $this->errorHandler = $errorHandler;
@@ -118,29 +124,27 @@ class SendingQueue {
     $this->mailerMetaInfo = new MetaInfo;
     $this->wp = $wp;
     $this->loggerFactory = $loggerFactory;
-    $this->newslettersRepository = $newslettersRepository;
     $this->cronHelper = $cronHelper;
     $this->links = $links;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->scheduledTaskSubscribersRepository = $scheduledTaskSubscribersRepository;
     $this->subscribersRepository = $subscribersRepository;
     $this->sendingQueuesRepository = $sendingQueuesRepository;
     $this->entityManager = $entityManager;
+    $this->statisticsNewslettersRepository = $statisticsNewslettersRepository;
+    $this->authorizedEmailsController = $authorizedEmailsController;
   }
 
   public function process($timer = false) {
     $timer = $timer ?: microtime(true);
     $this->enforceSendingAndExecutionLimits($timer);
-    foreach ($this->scheduledTasksRepository->findRunningSendingTasks(self::TASK_BATCH_SIZE) as $taskEntity) {
-      $task = ScheduledTask::findOne($taskEntity->getId());
-      if (!$task instanceof ScheduledTask) continue;
+    foreach ($this->scheduledTasksRepository->findRunningSendingTasks(self::TASK_BATCH_SIZE) as $task) {
+      $queue = $task->getSendingQueue();
+      if (!$queue) {
+        continue;
+      }
 
-      $queue = SendingTask::createFromScheduledTask($task);
-      if (!$queue instanceof SendingTask) continue;
-
-      $task = $queue->task();
-      if (!$task instanceof ScheduledTask) continue;
-
-      if ($this->isInProgress($task)) {
+      if ($task->getInProgress()) {
         if ($this->isTimeout($task)) {
           $this->stopProgress($task);
         } else {
@@ -152,8 +156,8 @@ class SendingQueue {
       $this->startProgress($task);
 
       try {
-        $this->scheduledTasksRepository->touchAllByIds([$queue->taskId]);
-        $this->processSending($queue, (int)$timer);
+        $this->scheduledTasksRepository->touchAllByIds([$task->getId()]);
+        $this->processSending($task, (int)$timer);
       } catch (\Exception $e) {
         $this->stopProgress($task);
         throw $e;
@@ -163,46 +167,39 @@ class SendingQueue {
     }
   }
 
-  private function processSending(SendingTask $queue, int $timer): void {
+  private function processSending(ScheduledTaskEntity $task, int $timer): void {
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
       'sending queue processing',
-      ['task_id' => $queue->taskId]
+      ['task_id' => $task->getId()]
     );
 
-    $this->deleteTaskIfNewsletterDoesNotExist($queue);
+    $this->deleteTaskIfNewsletterDoesNotExist($task);
 
-    $newsletterEntity = $this->newsletterTask->getNewsletterFromQueue($queue);
-    if (!$newsletterEntity) {
+    $queue = $task->getSendingQueue();
+    $newsletter = $this->newsletterTask->getNewsletterFromQueue($task);
+    if (!$queue || !$newsletter) {
       return;
     }
 
     // pre-process newsletter (render, replace shortcodes/links, etc.)
-    $newsletterEntity = $this->newsletterTask->preProcessNewsletter($newsletterEntity, $queue);
+    $newsletter = $this->newsletterTask->preProcessNewsletter($newsletter, $task);
 
-    if (!$newsletterEntity) {
-      $this->deleteTask($queue);
-      return;
-    }
-
-    $newsletter = Newsletter::findOne($newsletterEntity->getId());
     if (!$newsletter) {
+      $this->deleteTask($task);
       return;
     }
 
-    $isTransactional = in_array($newsletter->type, [
+    $isTransactional = in_array($newsletter->getType(), [
       NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL,
       NewsletterEntity::TYPE_WC_TRANSACTIONAL_EMAIL,
     ]);
 
-    // clone the original object to be used for processing
-    $_newsletter = (object)$newsletter->asArray();
-    $_newsletter->options = $newsletterEntity->getOptionsAsArray();
     // configure mailer
     $this->mailerTask->configureMailer($newsletter);
     // get newsletter segments
-    $newsletterSegmentsIds = $newsletterEntity->getSegmentIds();
+    $newsletterSegmentsIds = $newsletter->getSegmentIds();
     $segmentIdsToCheck = $newsletterSegmentsIds;
-    $filterSegmentId = $newsletterEntity->getFilterSegmentId();
+    $filterSegmentId = $newsletter->getFilterSegmentId();
 
     if (is_int($filterSegmentId)) {
       $segmentIdsToCheck[] = $filterSegmentId;
@@ -212,32 +209,40 @@ class SendingQueue {
     if ($newsletterSegmentsIds && !$this->checkDeletedSegments($segmentIdsToCheck)) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
         'pause task in sending queue due deleted or trashed segment',
-        ['task_id' => $queue->taskId]
+        ['task_id' => $task->getId()]
       );
-      $queue->status = ScheduledTaskEntity::STATUS_PAUSED;
-      $queue->save();
-      $this->wp->setTransient(self::EMAIL_WITH_INVALID_SEGMENT_OPTION, $newsletter->subject);
+      $task->setStatus(ScheduledTaskEntity::STATUS_PAUSED);
+      $this->scheduledTasksRepository->flush();
+      $this->wp->setTransient(self::EMAIL_WITH_INVALID_SEGMENT_OPTION, $newsletter->getSubject());
+      return;
+    }
+
+    // Pause task if sender domain requirements are not met
+    if (!$this->authorizedEmailsController->isSenderAddressValid($newsletter, 'sending')) {
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
+        'pause task in sending queue due to sender domain requirements',
+        ['task_id' => $task->getId()]
+      );
+      $task->setStatus(ScheduledTaskEntity::STATUS_PAUSED);
+      $this->scheduledTasksRepository->flush();
       return;
     }
 
     // get subscribers
-    $subscriberBatches = new BatchIterator($queue->taskId, $this->getBatchSize());
+    $subscriberBatches = new BatchIterator($task->getId(), $this->getBatchSize());
     if ($subscriberBatches->count() === 0) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
         'no subscribers to process',
-        ['task_id' => $queue->taskId]
+        ['task_id' => $task->getId()]
       );
-      $task = $queue->getSendingQueueEntity()->getTask();
-      if ($task) {
-        $this->scheduledTasksRepository->invalidateTask($task);
-      }
+      $this->scheduledTasksRepository->invalidateTask($task);
       return;
     }
     /** @var int[] $subscribersToProcessIds - it's required for PHPStan */
     foreach ($subscriberBatches as $subscribersToProcessIds) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
         'subscriber batch processing',
-        ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId, 'subscriber_batch_count' => count($subscribersToProcessIds)]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId(), 'subscriber_batch_count' => count($subscribersToProcessIds)]
       );
       if (!empty($newsletterSegmentsIds[0])) {
         // Check that subscribers are in segments
@@ -246,36 +251,50 @@ class SendingQueue {
         } catch (InvalidStateException $exception) {
           $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
             'paused task in sending queue due to problem finding subscribers: ' . $exception->getMessage(),
-            ['task_id' => $queue->taskId]
+            ['task_id' => $task->getId()]
           );
-          $queue->status = ScheduledTaskEntity::STATUS_PAUSED;
-          $queue->save();
+          $task->setStatus(ScheduledTaskEntity::STATUS_PAUSED);
+          $this->scheduledTasksRepository->flush();
           return;
         }
-        $foundSubscribers = empty($foundSubscribersIds) ? [] : SubscriberModel::whereIn('id', $foundSubscribersIds)
-          ->whereNull('deleted_at')
-          ->findMany();
+        $foundSubscribers = empty($foundSubscribersIds) ? [] : $this->subscribersRepository->findBy(['id' => $foundSubscribersIds, 'deletedAt' => null]);
       } else {
         // No segments = Welcome emails or some Automatic emails.
         // Welcome emails or some Automatic emails use segments only for scheduling and store them as a newsletter option
-        $foundSubscribers = SubscriberModel::whereIn('id', $subscribersToProcessIds);
-        $foundSubscribers = $newsletter->type === NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL ?
-          $foundSubscribers->whereNotEqual('status', SubscriberModel::STATUS_BOUNCED) :
-          $foundSubscribers->where('status', SubscriberModel::STATUS_SUBSCRIBED);
-        $foundSubscribers = $foundSubscribers
-          ->whereNull('deleted_at')
-          ->findMany();
-        $foundSubscribersIds = SubscriberModel::extractSubscribersIds($foundSubscribers);
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+
+        $queryBuilder->select('s')
+          ->from(SubscriberEntity::class, 's')
+          ->where('s.id IN (:subscriberIds)')
+          ->setParameter('subscriberIds', $subscribersToProcessIds)
+          ->andWhere('s.deletedAt IS NULL');
+
+        if ($newsletter->getType() === NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL) {
+          $queryBuilder->andWhere('s.status != :bouncedStatus')
+            ->setParameter('bouncedStatus', SubscriberEntity::STATUS_BOUNCED);
+        } else {
+          $queryBuilder->andWhere('s.status = :subscribedStatus')
+            ->setParameter('subscribedStatus', SubscriberEntity::STATUS_SUBSCRIBED);
+        }
+
+        $foundSubscribers = $queryBuilder->getQuery()->getResult();
+        $foundSubscribersIds = array_map(function(SubscriberEntity $subscriber) {
+          return $subscriber->getId();
+        }, $foundSubscribers);
       }
+
       // if some subscribers weren't found, remove them from the processing list
       if (count($foundSubscribersIds) !== count($subscribersToProcessIds)) {
         $subscribersToRemove = array_diff(
           $subscribersToProcessIds,
           $foundSubscribersIds
         );
-        $queue->removeSubscribers($subscribersToRemove);
-        if (!$queue->countToProcess) {
-          $this->newsletterTask->markNewsletterAsSent($newsletterEntity);
+
+        $this->scheduledTaskSubscribersRepository->deleteByScheduledTaskAndSubscriberIds($task, $subscribersToRemove);
+        $this->sendingQueuesRepository->updateCounts($queue);
+
+        if (!$queue->getCountToProcess()) {
+          $this->newsletterTask->markNewsletterAsSent($newsletter);
           continue;
         }
         // if there aren't any subscribers to process in batch (e.g. all unsubscribed or were deleted) continue with next batch
@@ -285,16 +304,23 @@ class SendingQueue {
       }
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
         'before queue chunk processing',
-        ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId, 'found_subscribers_count' => count($foundSubscribers)]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId(), 'found_subscribers_count' => count($foundSubscribers)]
       );
 
       // reschedule bounce task to run sooner, if needed
       $this->reScheduleBounceTask();
 
-      if ($newsletterEntity->getStatus() !== NewsletterEntity::STATUS_CORRUPT) {
-        $queue = $this->processQueue(
-          $queue,
-          $_newsletter,
+      // Check task has not been paused before continue processing
+      // This is needed because the task can be paused in the middle of the batch processing,
+      // for example on API error ERROR_MESSAGE_BULK_EMAIL_FORBIDDEN
+      if ($task->getStatus() === ScheduledTaskEntity::STATUS_PAUSED) {
+        return;
+      }
+
+      if ($newsletter->getStatus() !== NewsletterEntity::STATUS_CORRUPT) {
+        $this->processQueue(
+          $task,
+          $newsletter,
           $foundSubscribers,
           $timer
         );
@@ -308,22 +334,22 @@ class SendingQueue {
         }
         $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
           'after queue chunk processing',
-          ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
+          ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
         );
-        if ($queue->status === ScheduledTaskEntity::STATUS_COMPLETED) {
+        if ($task->getStatus() === ScheduledTaskEntity::STATUS_COMPLETED) {
           $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
             'completed newsletter sending',
-            ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
+            ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
           );
-          $this->newsletterTask->markNewsletterAsSent($newsletterEntity);
-          $this->statsNotificationsScheduler->schedule($newsletterEntity);
+          $this->newsletterTask->markNewsletterAsSent($newsletter);
+          $this->statsNotificationsScheduler->schedule($newsletter);
         }
         $this->enforceSendingAndExecutionLimits($timer);
       } else {
-        $this->sendingQueuesRepository->pause($queue->getSendingQueueEntity());
+        $this->sendingQueuesRepository->pause($queue);
         $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->error(
           'Can\'t send corrupt newsletter',
-          ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
+          ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
         );
       }
     }
@@ -333,7 +359,10 @@ class SendingQueue {
     return $this->throttlingHandler->getBatchSize();
   }
 
-  public function processQueue($queue, $newsletter, $subscribers, $timer) {
+  /**
+   * @param SubscriberEntity[] $subscribers
+   */
+  public function processQueue(ScheduledTaskEntity $task, NewsletterEntity $newsletter, array $subscribers, $timer) {
     // determine if processing is done in bulk or individually
     $processingMethod = $this->mailerTask->getProcessingMethod();
     $preparedNewsletters = [];
@@ -343,40 +372,32 @@ class SendingQueue {
     $statistics = [];
     $metas = [];
     $oneClickUnsubscribeUrls = [];
-    $sendingQueueEntity = $queue->getSendingQueueEntity();
+    $sendingQueueEntity = $task->getSendingQueue();
+    if (!$sendingQueueEntity) {
+      return;
+    }
+
     $sendingQueueMeta = $sendingQueueEntity->getMeta() ?? [];
     $campaignId = $sendingQueueMeta['campaignId'] ?? null;
 
-    $newsletterEntity = $this->newslettersRepository->findOneById($newsletter->id);
-
     foreach ($subscribers as $subscriber) {
-      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
-
-      if (!$subscriberEntity instanceof SubscriberEntity) {
-        continue;
-      }
-
-      if (!$newsletterEntity instanceof NewsletterEntity) {
-        continue;
-      }
-
       // render shortcodes and replace subscriber data in tracked links
       $preparedNewsletters[] =
         $this->newsletterTask->prepareNewsletterForSending(
-          $newsletterEntity,
-          $subscriberEntity,
-          $queue
+          $newsletter,
+          $subscriber,
+          $sendingQueueEntity
         );
       // format subscriber name/address according to mailer settings
       $preparedSubscribers[] = $this->mailerTask->prepareSubscriberForSending(
         $subscriber
       );
-      $preparedSubscribersIds[] = $subscriber->id;
+      $preparedSubscribersIds[] = $subscriber->getId();
       // create personalized instant unsubsribe link
-      $unsubscribeUrls[] = $this->links->getUnsubscribeUrl($queue->id, $subscriberEntity);
-      $oneClickUnsubscribeUrls[] = $this->links->getOneClickUnsubscribeUrl($queue->id, $subscriberEntity);
+      $unsubscribeUrls[] = $this->links->getUnsubscribeUrl($sendingQueueEntity->getId(), $subscriber);
+      $oneClickUnsubscribeUrls[] = $this->links->getOneClickUnsubscribeUrl($sendingQueueEntity->getId(), $subscriber);
 
-      $metasForSubscriber = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletterEntity, $subscriberEntity);
+      $metasForSubscriber = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletter, $subscriber);
       if ($campaignId) {
         $metasForSubscriber['campaign_id'] = $campaignId;
       }
@@ -384,13 +405,13 @@ class SendingQueue {
 
       // keep track of values for statistics purposes
       $statistics[] = [
-        'newsletter_id' => $newsletter->id,
-        'subscriber_id' => $subscriber->id,
-        'queue_id' => $queue->id,
+        'newsletter_id' => $newsletter->getId(),
+        'subscriber_id' => $subscriber->getId(),
+        'queue_id' => $sendingQueueEntity->getId(),
       ];
       if ($processingMethod === 'individual') {
-        $queue = $this->sendNewsletter(
-          $queue,
+        $this->sendNewsletter(
+          $task,
           $preparedSubscribersIds[0],
           $preparedNewsletters[0],
           $preparedSubscribers[0],
@@ -412,8 +433,8 @@ class SendingQueue {
       }
     }
     if ($processingMethod === 'bulk') {
-      $queue = $this->sendNewsletters(
-        $queue,
+      $this->sendNewsletters(
+        $task,
         $preparedSubscribersIds,
         $preparedNewsletters,
         $preparedSubscribers,
@@ -426,11 +447,10 @@ class SendingQueue {
         ]
       );
     }
-    return $queue;
   }
 
   public function sendNewsletter(
-    SendingTask $sendingTask, $preparedSubscriberId, $preparedNewsletter,
+    ScheduledTaskEntity $task, $preparedSubscriberId, $preparedNewsletter,
     $preparedSubscriber, $statistics, $timer, $extraParams = []
   ) {
     // send newsletter
@@ -439,8 +459,8 @@ class SendingQueue {
       $preparedSubscriber,
       $extraParams
     );
-    return $this->processSendResult(
-      $sendingTask,
+    $this->processSendResult(
+      $task,
       $sendResult,
       [$preparedSubscriber],
       [$preparedSubscriberId],
@@ -450,7 +470,7 @@ class SendingQueue {
   }
 
   public function sendNewsletters(
-    SendingTask $sendingTask, $preparedSubscribersIds, $preparedNewsletters,
+    ScheduledTaskEntity $task, $preparedSubscribersIds, $preparedNewsletters,
     $preparedSubscribers, $statistics, $timer, $extraParams = []
   ) {
     // send newsletters
@@ -459,8 +479,8 @@ class SendingQueue {
       $preparedSubscribers,
       $extraParams
     );
-    return $this->processSendResult(
-      $sendingTask,
+    $this->processSendResult(
+      $task,
       $sendResult,
       $preparedSubscribers,
       $preparedSubscribersIds,
@@ -492,7 +512,7 @@ class SendingQueue {
   }
 
   private function processSendResult(
-    SendingTask $sendingTask,
+    ScheduledTaskEntity $task,
     $sendResult,
     array $preparedSubscribers,
     array $preparedSubscribersIds,
@@ -502,25 +522,34 @@ class SendingQueue {
     // log error message and schedule retry/pause sending
     if ($sendResult['response'] === false) {
       $error = $sendResult['error'];
-      $this->errorHandler->processError($error, $sendingTask, $preparedSubscribersIds, $preparedSubscribers);
-    } elseif (!$sendingTask->updateProcessedSubscribers($preparedSubscribersIds)) { // update processed/to process list
-      MailerLog::processError(
-        'processed_list_update',
-        sprintf('QUEUE-%d-PROCESSED-LIST-UPDATE', $sendingTask->id),
-        null,
-        true
-      );
+      $this->errorHandler->processError($error, $task, $preparedSubscribersIds, $preparedSubscribers);
+    } else {
+      $queue = $task->getSendingQueue();
+      if (!$queue) {
+        return;
+      }
+      try {
+        $this->scheduledTaskSubscribersRepository->updateProcessedSubscribers($task, $preparedSubscribersIds);
+        $this->sendingQueuesRepository->updateCounts($queue);
+      } catch (Throwable $e) {
+        MailerLog::processError(
+          'processed_list_update',
+          sprintf('QUEUE-%d-PROCESSED-LIST-UPDATE', $queue->getId()),
+          null,
+          true
+        );
+      }
     }
+
     // log statistics
-    StatisticsNewslettersModel::createMultiple($statistics);
+    $this->statisticsNewslettersRepository->createMultiple($statistics);
     // update the sent count
     $this->mailerTask->updateSentCount();
     // enforce execution limits if queue is still being processed
-    if ($sendingTask->status !== ScheduledTaskEntity::STATUS_COMPLETED) {
+    if ($task->getStatus() !== ScheduledTaskEntity::STATUS_COMPLETED) {
       $this->enforceSendingAndExecutionLimits($timer);
     }
     $this->throttlingHandler->processSuccess();
-    return $sendingTask;
   }
 
   public function enforceSendingAndExecutionLimits($timer) {
@@ -543,31 +572,20 @@ class SendingQueue {
     }
   }
 
-  private function isInProgress(ScheduledTask $task): bool {
-    if (!empty($task->inProgress)) {
-      // Do not run multiple instances of the task
-      return true;
-    }
-    return false;
+  private function startProgress(ScheduledTaskEntity $task): void {
+    $task->setInProgress(true);
+    $this->scheduledTasksRepository->flush();
   }
 
-  private function startProgress(ScheduledTask $task): void {
-    $task->inProgress = true;
-    $task->save();
+  private function stopProgress(ScheduledTaskEntity $task): void {
+    $task->setInProgress(false);
+    $this->scheduledTasksRepository->flush();
   }
 
-  private function stopProgress(ScheduledTask $task): void {
-    $task->inProgress = false;
-    $task->save();
-  }
-
-  private function isTimeout(ScheduledTask $task): bool {
+  private function isTimeout(ScheduledTaskEntity $task): bool {
     $currentTime = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
-    $updated = strtotime((string)$task->updatedAt);
-    if ($updated !== false) {
-      $updatedAt = Carbon::createFromTimestamp($updated);
-    }
-    if (isset($updatedAt) && $updatedAt->diffInSeconds($currentTime, false) > $this->getExecutionLimit()) {
+    $updatedAt = new Carbon($task->getUpdatedAt());
+    if ($updatedAt->diffInSeconds($currentTime, false) > $this->getExecutionLimit()) {
       return true;
     }
 
@@ -578,20 +596,27 @@ class SendingQueue {
     return $this->cronHelper->getDaemonExecutionLimit() * 3;
   }
 
-  private function deleteTaskIfNewsletterDoesNotExist(SendingTask $sendingTask) {
-    $sendingQueue = $sendingTask->getSendingQueueEntity();
-    $newsletter = $sendingQueue->getNewsletter();
+  private function deleteTaskIfNewsletterDoesNotExist(ScheduledTaskEntity $task) {
+    $queue = $task->getSendingQueue();
+    $newsletter = $queue ? $queue->getNewsletter() : null;
     if ($newsletter !== null) {
       return;
     }
-    $this->deleteTask($sendingTask);
+    $this->deleteTask($task);
   }
 
-  private function deleteTask(SendingTask $queue) {
+  private function deleteTask(ScheduledTaskEntity $task) {
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
       'delete task in sending queue',
-      ['task_id' => $queue->taskId]
+      ['task_id' => $task->getId()]
     );
-    $queue->delete();
+
+    $queue = $task->getSendingQueue();
+    if ($queue) {
+      $this->sendingQueuesRepository->remove($queue);
+    }
+    $this->scheduledTaskSubscribersRepository->deleteByScheduledTask($task);
+    $this->scheduledTasksRepository->remove($task);
+    $this->scheduledTasksRepository->flush();
   }
 }

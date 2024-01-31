@@ -168,11 +168,14 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 
 				// check if product is a variable product
 				if ( ! empty( $item->variation_id ) ) {
-					$product = wc_get_product( absint( $item->variation_id ) );
-
+					$product    = wc_get_product( absint( $item->variation_id ) );
 					$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
+					$metadata   = array();
+					if ( $order_item ) {
+						$metadata = $order_item->get_formatted_meta_data();
+					}
 
-					if ( $metadata = $order_item->get_formatted_meta_data() ) {
+					if ( ! empty( $metadata ) ) {
 						foreach ( $metadata as $meta_id => $meta ) {
 							// Skip hidden core fields
 							if ( in_array( $meta->key, apply_filters( 'wcpv_hidden_order_itemmeta', array(
@@ -204,7 +207,11 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				}
 
 				$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
-				$order_item_meta = wc_display_item_meta( $order_item, array( 'echo' => false ) );
+
+				$order_item_meta = '';
+				if ( $order_item ) {
+					$order_item_meta = wc_display_item_meta( $order_item, array( 'echo' => false ) );
+				}
 
 				$refunded_quantity = $order->get_qty_refunded_for_item( intval( $item->order_item_id ) );
 

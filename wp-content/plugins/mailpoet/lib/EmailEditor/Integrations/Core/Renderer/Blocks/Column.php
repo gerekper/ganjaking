@@ -9,7 +9,7 @@ use MailPoet\EmailEditor\Engine\Renderer\BlockRenderer;
 use MailPoet\EmailEditor\Engine\SettingsController;
 
 class Column implements BlockRenderer {
-  public function render($blockContent, array $parsedBlock, SettingsController $settingsController): string {
+  public function render(string $blockContent, array $parsedBlock, SettingsController $settingsController): string {
     $content = '';
     foreach ($parsedBlock['innerBlocks'] ?? [] as $block) {
       $content .= render_block($block);
@@ -45,14 +45,14 @@ class Column implements BlockRenderer {
     ];
     // The default column alignment is `stretch to fill` which means that we need to set the background color to the main cell
     // to create a feeling of a stretched column
-    if (!isset($parsedBlock['attrs']['verticalAlignment'])) {
+    if (!isset($parsedBlock['attrs']['verticalAlignment']) || $parsedBlock['attrs']['verticalAlignment'] === 'stretch') {
       $mainCellStyles['background-color'] = $backgroundColor;
     }
 
     return '
       <td class="block" style="' . $settingsController->convertStylesToString($mainCellStyles) . '">
         <div class="email_column" style="background:' . $backgroundColor . ';background-color:' . $backgroundColor . ';width:100%;max-width:' . $width . ';font-size:0px;text-align:left;display:inline-block;">
-          <table class="email_column" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:' . $backgroundColor . ';background-color:' . $backgroundColor . ';width:100%;max-width:' . $width . ';vertical-align:top;" width="' . $width . '">
+          <table class="email_column" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:' . $backgroundColor . ';background-color:' . $backgroundColor . ';min-width:100%;width:100%;max-width:' . $width . ';vertical-align:top;" width="' . $width . '">
             <tbody>
               <tr>
                 <td align="left" style="font-size:0px;padding-left:' . $paddingLeft . ';padding-right:' . $paddingRight . ';padding-bottom:' . $paddingBottom . ';padding-top:' . $paddingTop . ';">

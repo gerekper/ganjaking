@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -18,8 +18,8 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamInterface;
 class Stream implements StreamInterface
 {
     /**
-     * @see http://php.net/manual/function.fopen.php
-     * @see http://php.net/manual/en/function.gzopen.php
+     * @see https://www.php.net/manual/en/function.fopen.php
+     * @see https://www.php.net/manual/en/function.gzopen.php
      */
     private const READABLE_MODES = '/r|a\+|ab\+|w\+|wb\+|x\+|xb\+|c\+|cb\+/';
     private const WRITABLE_MODES = '/a|w|r\+|rb\+|rw|x|c/';

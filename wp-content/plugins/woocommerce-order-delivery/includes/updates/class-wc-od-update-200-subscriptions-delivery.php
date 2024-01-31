@@ -77,7 +77,7 @@ class WC_OD_Update_200_Subscriptions_Delivery {
 
 		foreach ( $subscriptions as $subscription ) {
 			$this->process_subscription( $subscription );
-			$this->offset++;
+			++$this->offset;
 		}
 
 		// Run again.

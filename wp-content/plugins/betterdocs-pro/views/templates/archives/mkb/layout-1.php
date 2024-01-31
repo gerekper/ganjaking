@@ -22,6 +22,7 @@
         <?php
             $attributes = betterdocs()->template_helper->shortcode_atts( [
                 'title_tag'     => $title_tag,
+                'show_icon'     =>  betterdocs()->customizer->defaults->get('betterdocs_mkb_page_show_category_icon')
             ], 'betterdocs_multiple_kb', 'layout-1' );
 
             echo do_shortcode( '[betterdocs_multiple_kb ' . $attributes . ']' );

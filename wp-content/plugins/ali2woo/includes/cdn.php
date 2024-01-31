@@ -1,4 +1,8 @@
 <?php
+use Ali2Woo\Lib\Requests;
+
+error_reporting(E_ERROR | E_PARSE);
+
 // if( !isset($_REQUEST['_sign']) || !isset($_SERVER['HTTP_REFERER']) || parse_url($_SERVER['HTTP_REFERER'])['host'] != $_SERVER['HTTP_HOST'] ){
 //     header('HTTP/1.1 401 Unauthorized');
 //     exit;
@@ -42,7 +46,7 @@ try {
     }
     
     if( empty($key) || !a2w_verify_request($_REQUEST['_sign'], array('url'=>isset($_REQUEST['url'])?$_REQUEST['url']:''), $key) ){
-        header('HTTP/1.1 401 Unauthorized');
+        //header('HTTP/1.1 401 Unauthorized');
         exit;
     }
     
@@ -67,7 +71,7 @@ try {
         }
     }
 
-    $requests_response = Ali2Woo\Lib\Requests::get($request_url, array('Accept-Encoding' => ''), array('timeout' => 30, 'useragent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36', 'verify' => false, 'sslverify' => false, 'verifyname' => false));
+    $requests_response = Requests::get($request_url, array('Accept-Encoding' => ''), array('timeout' => 30, 'useragent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36', 'verify' => false, 'sslverify' => false, 'verifyname' => false));
 
     foreach ($requests_response->headers->getAll() as $name => $values) {
         if (in_array(strtolower($name), array('content-length', 'content-type', 'cache-control', 'last-modified', 'expires', 'date'))) {

@@ -1165,6 +1165,10 @@ class Custom_Carousel extends Module_Base {
 
 			if ( $image_link_to ) {
 
+				if ( ( 'video' !== $slide['type'] ) && ( '' !== isset( $slide['video']['url'] ) ) ) {
+					$this->add_link_attributes( $element_key . '_link', $slide['image'] );
+				}
+
 				$image_mask = $settings['image_mask_popover'] == 'yes' ? ' bdt-image-mask' : '';
 
 				if ( 'custom' === $slide['image_link_to_type'] ) {

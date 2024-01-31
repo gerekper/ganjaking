@@ -34,7 +34,7 @@ class Elementor_Premium implements Integration_Interface {
 	 *
 	 * @var string
 	 */
-	const SCRIPT_HANDLE = 'elementor-premium';
+	public const SCRIPT_HANDLE = 'elementor-premium';
 
 	/**
 	 * Holds the Current_Page_Helper.
@@ -201,7 +201,6 @@ class Elementor_Premium implements Integration_Interface {
 
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
-
 
 		return [
 			'currentObjectId'                 => $this->get_metabox_post()->ID,

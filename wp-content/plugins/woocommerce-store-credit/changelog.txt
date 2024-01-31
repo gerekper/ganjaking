@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2024-01-23 - version 4.5.0
+* Feature - Define preset amounts for the Store Credit products.
+* Tweak - Tested compatibility up to WC 8.5.
+* Dev - Dropped deprecated plugin code.
+
 2023-12-20 - version 4.4.1
 * Tweak - Validates the Store Credit product on the client side before adding it to the cart.
 * Tweak - Improved description of the custom amount field on the Store Credit product page.

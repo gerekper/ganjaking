@@ -14,14 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware;
 
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\FetchAuthTokenCache;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\FetchAuthTokenInterface;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\GetQuotaProjectInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\UpdateMetadataInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Utils;
 use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
 
 /**
@@ -43,6 +46,9 @@ class AuthTokenMiddleware
     private $httpHandler;
 
     /**
+     * It must be an implementation of FetchAuthTokenInterface.
+     * It may also implement UpdateMetadataInterface allowing direct
+     * retrieval of auth related headers
      * @var FetchAuthTokenInterface
      */
     private $fetcher;
@@ -102,7 +108,7 @@ class AuthTokenMiddleware
                 return $handler($request, $options);
             }
 
-            $request = $request->withHeader('authorization', 'Bearer ' . $this->fetchToken());
+            $request = $this->addAuthHeaders($request);
 
             if ($quotaProject = $this->getQuotaProject()) {
                 $request = $request->withHeader(
@@ -116,32 +122,33 @@ class AuthTokenMiddleware
     }
 
     /**
-     * Call fetcher to fetch the token.
+     * Adds auth related headers to the request.
      *
-     * @return string|null
+     * @param RequestInterface $request
+     * @return RequestInterface
      */
-    private function fetchToken()
+    private function addAuthHeaders(RequestInterface $request)
     {
-        $auth_tokens = (array) $this->fetcher->fetchAuthToken($this->httpHandler);
+        if (!$this->fetcher instanceof UpdateMetadataInterface ||
+            ($this->fetcher instanceof FetchAuthTokenCache &&
+             !$this->fetcher->getFetcher() instanceof UpdateMetadataInterface)
+        ) {
+            $token = $this->fetcher->fetchAuthToken();
+            $request = $request->withHeader(
+                'authorization', 'Bearer ' . ($token['access_token'] ?? $token['id_token'] ?? '')
+            );
+        } else {
+            $headers = $this->fetcher->updateMetadata($request->getHeaders(), null, $this->httpHandler);
+            $request = Utils::modifyRequest($request, ['set_headers' => $headers]);
+        }
 
-        if (array_key_exists('access_token', $auth_tokens)) {
-            // notify the callback if applicable
-            if ($this->tokenCallback) {
-                call_user_func(
-                    $this->tokenCallback,
-                    $this->fetcher->getCacheKey(),
-                    $auth_tokens['access_token']
-                );
+        if ($this->tokenCallback && ($token = $this->fetcher->getLastReceivedToken())) {
+            if (array_key_exists('access_token', $token)) {
+                call_user_func($this->tokenCallback, $this->fetcher->getCacheKey(), $token['access_token']);
             }
-
-            return $auth_tokens['access_token'];
         }
 
-        if (array_key_exists('id_token', $auth_tokens)) {
-            return $auth_tokens['id_token'];
-        }
-
-        return null;
+        return $request;
     }
 
     /**

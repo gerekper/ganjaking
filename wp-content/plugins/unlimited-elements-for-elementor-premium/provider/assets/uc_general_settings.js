@@ -12,7 +12,7 @@ if(typeof trace == "undefined"){
 function UCGeneralSettings(){
 	var t = this;
 	var g_currentManager;
-	var g_objCurrentSettings = null, g_objSettingsWrapper, g_objFontsPanel = null;
+	var g_objCurrentSettings = null, g_objSettingsWrapper;
 	var g_objTooltip, g_options, g_objVCDialogChoose;
 	
 	if(!g_ucAdmin)
@@ -113,24 +113,7 @@ function UCGeneralSettings(){
 		g_currentManager.initManager();
 		
 	}
-	
-	/**
-	 * init fonts panel
-	 */
-	this.initVCFontsPanel = function(wrapperID){
 		
-		var objWrapper = jQuery("#" + wrapperID);
-		
-		if(objWrapper.length == 0)
-			throw new Error("Fonts panel not found");
-		
-		if(!g_objCurrentSettings)
-			g_objCurrentSettings = new UniteSettingsUC();
-		
-		g_objFontsPanel = g_objCurrentSettings.initFontsPanel(objWrapper);
-		
-	}
-	
 	
 	/**
 	 * init visual composer settings
@@ -225,12 +208,7 @@ function UCGeneralSettings(){
 		
 		
 		setTimeout(function(){
-			
-			if(g_objFontsPanel){
-				g_objCurrentSettings.destroyFontsPanel();
-				g_objFontsPanel = null;
-			}
-			
+						
 			if(g_objCurrentSettings){
 				g_objCurrentSettings.destroy();
 				g_objCurrentSettings = null;
@@ -288,15 +266,7 @@ function UCGeneralSettings(){
 		//fonts
 		vc.atts.uc_fonts = {
 				parse:function(param){
-										
-					if(!g_objFontsPanel)
-						return("");
-					
-					var fontsData = g_objCurrentSettings.getFontsPanelData();
-					
-					//encode
-					fontsData = encodeContent(fontsData);
-					
+																				
 					return(fontsData);
 				}
 		};

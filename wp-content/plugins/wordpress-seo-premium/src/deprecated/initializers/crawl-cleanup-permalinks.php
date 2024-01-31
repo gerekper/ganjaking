@@ -114,6 +114,8 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function utm_redirect() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Initializers\Crawl_Cleanup_Permalinks::utm_redirect()' );

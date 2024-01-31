@@ -364,11 +364,8 @@ class UniteCreatorParamsProcessorWork{
 					}
 
 					if(isset($arrGoogleFonts[$styleValue])){
-
-						$googleFontUrl = $arrGoogleFonts[$styleValue];
-
-						$urlGoogleFont = "https://fonts.googleapis.com/css?family=".$googleFontUrl;
-
+						$urlGoogleFont = HelperHtmlUC::getGoogleFontUrl($arrGoogleFonts[$styleValue]);
+						
 						if(!empty($this->addon)){
 							//$urlGoogleFont .= "&amp;fromaddon=".$this->addon->getName();
 							$this->addon->addCssInclude($urlGoogleFont);
@@ -1033,34 +1030,34 @@ class UniteCreatorParamsProcessorWork{
 	 * @param  $param
 	 */
 	protected function getProcessedParamsValue_icon($data, $value, $param, $processType){
-		
-		
+
+
 		//get array item from simple array like value[0] = value
 		if(is_array($value) && count($value) == 1 && isset($value[0]))
 			$value = $value[0];
-		
-		
+
+
 		$isSVG = false;
 		$svgContent = null;
 
 		if(is_array($value) == true){
 
 			$library = UniteFunctionsUC::getVal($value, "library");
-			
+
 			if(isset($value["value"]))
 				$value = UniteFunctionsUC::getVal($value, "value");
-						
+
 			if($library == "svg"){
-								
+
 				$value = UniteFunctionsUC::getVal($value, "url");	//in case of svg
 				$isSVG = true;
-				
+
 				//value is "url" here
-				
+
 				if(!empty($value))
 					$value = HelperUC::URLtoFull($value);
-					
-				
+
+
 				//try to get the content
 				$putAs = UniteFunctionsUC::getVal($param, "put_svg_as");
 
@@ -1695,11 +1692,11 @@ class UniteCreatorParamsProcessorWork{
 
 		$isDebug = false;
 
-		//not given - return current date
-
+		//not given or wrong type - return current date
+		
 		$formatFullDate = "d-M-Y, H:i";
-
-		if(empty($value)){
+		
+		if(empty($value) || is_array($value)){
 
 			//$stamp = time();
 			//$data[$name."_stamp"] = $stamp;
@@ -1831,9 +1828,8 @@ class UniteCreatorParamsProcessorWork{
 
 			break;
 			case "currency_api":
-
+			case "weather_api":
 				$data = UniteCreatorAPIIntegrations::getInstance()->addDataToParams($data, $name);
-
 			break;
 		}
 
@@ -1957,6 +1953,7 @@ class UniteCreatorParamsProcessorWork{
 	 * @param $objParams
 	 */
 	public function getProcessedParamsValues($arrParams, $processType, $filterType = null){
+
 
 		self::validateProcessType($processType);
 

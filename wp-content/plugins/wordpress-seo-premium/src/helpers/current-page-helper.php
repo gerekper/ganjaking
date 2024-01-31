@@ -82,7 +82,6 @@ class Current_Page_Helper {
 	 * @return string The taxonomy.
 	 */
 	public function get_current_taxonomy() {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- doing a strict in_array check should be sufficient.
 		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! \in_array( $_SERVER['REQUEST_METHOD'], [ 'GET', 'POST' ], true ) ) {
 			return '';
 		}

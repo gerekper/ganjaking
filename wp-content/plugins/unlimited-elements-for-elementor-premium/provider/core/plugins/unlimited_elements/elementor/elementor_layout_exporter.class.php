@@ -356,7 +356,13 @@ class UniteCreatorLayoutsExporterElementor extends UniteCreatorLayoutsExporter{
 				
 		$this->extractImportLayoutFile($filepath);
 		
+		//filetype validation
 		
+		$objAssets = new UniteCreatorAssets();
+		$objAssets->deleteFilesInExtracted($this->pathImportLayout);
+		$objAssets->validateAllowedFilesInExtracted($this->pathImportLayout);
+		
+				
 		//prepare the content and the json file path after extracted before import 
 		$this->importElementorTemplateNew_prepareLayoutImportContent();
 		

@@ -463,29 +463,6 @@ if ( '' === $current_section ) : ?>
 			<tbody>
 				<tr valign="top" class="">
 					<th scope="row" class="titledesc">
-					<label for="wc_af_ip_geolocation_order">
-						<?php echo wp_kses_post( $settings_fileds['wc_af_ip_geolocation_order']['title'] ); ?>
-						<span class="woocommerce-help-tip" data-tip="<?php echo wp_kses_post( $settings_fileds['wc_af_ip_geolocation_order']['desc_tip'] ); ?>"></span>
-					</label>
-					</th>
-					<td  class="forminp forminp-checkbox">
-						<fieldset>
-						<legend class="screen-reader-text"><span><?php echo wp_kses_post( $settings_fileds['wc_af_ip_geolocation_order']['title'] ); ?></span></legend>
-						<label for="wc_af_ip_geolocation_order" class="opmc-toggle-control">
-						<input name="wc_af_ip_geolocation_order" id="wc_af_ip_geolocation_order" type="checkbox" value="1" <?php checked( get_option( 'wc_af_ip_geolocation_order' ), 'yes' ); ?> >
-						<span class="opmc-control"></span>
-					</label> 
-						</fieldset>
-					</td>
-					<td class="forminp forminp-number">
-						<input name="wc_settings_anti_fraud_ip_geolocation_order_weight" id="wc_settings_anti_fraud_ip_geolocation_order_weight" type="<?php echo esc_attr( $settings_fileds['wc_settings_anti_fraud_ip_geolocation_order_weight']['type'] ); ?>" style="display: block; width: 5em;" value="<?php echo esc_attr( get_option( 'wc_settings_anti_fraud_ip_geolocation_order_weight' ) ); ?>" min="<?php echo esc_attr( $settings_fileds['wc_settings_anti_fraud_ip_geolocation_order_weight']['custom_attributes']['min'] ); ?>" step="<?php echo esc_attr( $settings_fileds['wc_settings_anti_fraud_ip_geolocation_order_weight']['custom_attributes']['step'] ); ?>" max="<?php echo esc_attr( $settings_fileds['wc_settings_anti_fraud_ip_geolocation_order_weight']['custom_attributes']['max'] ); ?>">
-					</td>
-					<td class="forminp forminp-slider">
-						<?php $this->opmc_score_slider( get_option( 'wc_settings_anti_fraud_ip_geolocation_order_weight' ) ); ?>
-					</td>
-				</tr>
-				<tr valign="top" class="">
-					<th scope="row" class="titledesc">
 					<label for="wc_af_bca_order">
 						<?php echo wp_kses_post( $settings_fileds['wc_af_bca_order']['title'] ); ?>
 						<span class="woocommerce-help-tip" data-tip="<?php echo wp_kses_post( $settings_fileds['wc_af_bca_order']['desc_tip'] ); ?>"></span>

@@ -25,7 +25,8 @@ class MultipleKBTwo extends CategoryBoxTwo {
             'column'                   => $this->settings->get( 'column_number' ),
             'terms'                    => '',
             'disable_customizer_style' => false,
-            'title_tag'                => 'h2'
+            'title_tag'                => 'h2',
+            'show_icon'                => true
         ];
     }
 
@@ -45,7 +46,6 @@ class MultipleKBTwo extends CategoryBoxTwo {
         $this->attributes['terms_orderby']           = $this->settings->get( 'alphabetically_order_term' ) ? 'name' : 'slug';
         $this->attributes['multiple_knowledge_base'] = true;
         $this->attributes['kb_slug']                 = '';
-        $this->attributes['show_icon']               = true;
         $this->attributes['show_description']        = false;
 
         parent::render( $atts, $content );
@@ -57,7 +57,8 @@ class MultipleKBTwo extends CategoryBoxTwo {
         $_view_params = [
             'wrapper_attr' => [
                 'class' => ['betterdocs-multiple-kb-wrapper']
-            ]
+            ],
+            'show_icon' => $this->attributes['show_icon']
         ];
 
         return $this->merge( parent::view_params(), $_view_params );

@@ -3,7 +3,7 @@
  * REST API Reports Stats Query
  * Handles requests to the '/reports/composites/stats' endpoint.
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.3.0
  */
 

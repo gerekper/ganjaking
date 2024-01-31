@@ -1,11 +1,11 @@
 <?php
 /*
-* Plugin Name: WooCommerce Composite Products
-* Plugin URI: https://woocommerce.com/products/composite-products/
+* Plugin Name: Woo Composite Products
+* Plugin URI: https://woo.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.10.4
-* Author: WooCommerce
-* Author URI: https://somewherewarm.com/
+* Version: 8.10.5
+* Author: Woo
+* Author URI: https://woo.com/
 *
 * Woo: 216836:0343e0115bbcb97ccd98442b8326a0af
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.10.4
+ * @version  8.10.5
  */
 class WC_Composite_Products {
 
-	public $version  = '8.10.4';
+	public $version  = '8.10.5';
 	public $required = '3.9.0';
 
 	/**
@@ -195,7 +195,7 @@ class WC_Composite_Products {
 		// WC version sanity check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, $this->required ) < 0 ) {
 			/* translators: Required version. */
-			$notice = sprintf( __( 'WooCommerce Composite Products requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-composite-products' ), $this->required );
+			$notice = sprintf( __( 'Woo Composite Products requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-composite-products' ), $this->required );
 			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -204,7 +204,7 @@ class WC_Composite_Products {
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
 			/* translators: %1$s: PHP version, %2$s: Documentation link. */
-			$notice = sprintf( __( 'WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '7.0.0', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
+			$notice = sprintf( __( 'Woo Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '7.0.0', 'https://woo.com/document/how-to-update-your-php-version/' );
 			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -227,7 +227,7 @@ class WC_Composite_Products {
 	public function define_constants() {
 
 		$this->maybe_define_constant( 'WC_CP_VERSION', $this->version );
-		$this->maybe_define_constant( 'WC_CP_SUPPORT_URL', 'https://woocommerce.com/my-account/marketplace-ticket-form/' );
+		$this->maybe_define_constant( 'WC_CP_SUPPORT_URL', 'https://woo.com/my-account/marketplace-ticket-form/' );
 		$this->maybe_define_constant( 'WC_CP_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 		if ( defined( 'WC_CP_DEBUG_QUERY_TRANSIENTS' ) ) {
@@ -395,23 +395,23 @@ class WC_Composite_Products {
 		$resource = false;
 
 		if ( 'pricing-options' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#pricing';
+			$resource = 'https://woo.com/document/composite-products/composite-products-configuration/#pricing';
 		} elseif ( 'shipping-options' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#shipping';
+			$resource = 'https://woo.com/document/composite-products/composite-products-configuration/#shipping';
 		} elseif ( 'catalog-price-option' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#catalog-price';
+			$resource = 'https://woo.com/document/composite-products/composite-products-configuration/#catalog-price';
 		} elseif ( 'update-php' === $handle ) {
-			$resource = 'https://woocommerce.com/document/how-to-update-your-php-version/';
+			$resource = 'https://woo.com/document/how-to-update-your-php-version/';
 		} elseif ( 'docs-contents' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/';
+			$resource = 'https://woo.com/document/composite-products/';
 		} elseif ( 'guide' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/';
+			$resource = 'https://woo.com/document/composite-products/composite-products-configuration/';
 		} elseif ( 'advanced-guide' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-advanced-configuration/';
+			$resource = 'https://woo.com/document/composite-products/composite-products-advanced-configuration/';
 		} elseif ( 'max-input-vars' === $handle ) {
-			$resource = 'https://woocommerce.com/document/composite-products/composite-products-faq/#faq_items_dont_save';
+			$resource = 'https://woo.com/document/composite-products/composite-products-faq/#faq_items_dont_save';
 		} elseif ( 'updating' === $handle ) {
-			$resource = 'https://woocommerce.com/document/how-to-update-woocommerce/';
+			$resource = 'https://woo.com/document/how-to-update-woocommerce/';
 		} elseif ( 'ticket-form' === $handle ) {
 			$resource = WC_CP_SUPPORT_URL;
 		}

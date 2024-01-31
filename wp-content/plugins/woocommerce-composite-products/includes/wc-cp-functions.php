@@ -2,7 +2,7 @@
 /**
  * Composite Products Functions
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  */
 
 // Exit if accessed directly.

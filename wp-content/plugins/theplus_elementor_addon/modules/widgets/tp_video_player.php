@@ -994,7 +994,7 @@ class ThePlus_Video_Player extends Widget_Base {
 						$title .= '<span '.$titlesch.'>'.esc_html($settings["video_title"]).'</span>';
 						if(! empty ( $settings[ "video_desc" ] )){
 							$title .= '<div class="tp-video-desc" '.$descsch.' >';
-								$title .= esc_html ( $settings[ "video_desc" ] ) ;
+								$title .= esc_html( $settings[ "video_desc" ] ) ;
 							$title .= '</div>';
 						}
 					$title .= '</div>';
@@ -1003,7 +1003,7 @@ class ThePlus_Video_Player extends Widget_Base {
 						$only_img=$settings['only_img']['id'];
 						$img = wp_get_attachment_image_src($only_img,$settings['only_img_thumbnail_size']);
 						$only_img_icon = isset($img[0]) ? $img[0] : '';
-						$only_image .='<img class="ts-video-only-icon" src="'.esc_url($only_img_icon).'" alt="'.esc_attr__("play-icon","theplus").'" />';
+						$only_image .='<img class="ts-video-only-icon" src="'.esc_url($only_img_icon).'" alt="'.esc_html__("play-icon","theplus").'" />';
 				}
 				
 			if(!empty($settings["image_video"]["url"])){

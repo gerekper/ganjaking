@@ -38,6 +38,10 @@ class ThePlus_Mobile_Menu extends Widget_Base {
     public function get_categories() {
         return array('plus-header');
     }
+
+	public function get_keywords() {
+        return ['Mobile Menu', 'Hamburger Menu', 'Responsive Menu', 'Navigation Menu', 'Menu Widget', 'Elementor Menu', 'Elementor Navigation', 'Elementor Mobile Menu'];
+    }
 	
     protected function register_controls() {
 		/*mobile menu section start*/

@@ -511,7 +511,6 @@ class ThePlus_Team_Member_ListOut extends Widget_Base {
 					"grid" => esc_html__("Grid Image", 'theplus'),
 					"custom" => esc_html__("Custom", 'theplus'),
 				],
-				'separator' => 'after',
 				'condition' => [
 					'layout' => ['carousel']
 				],

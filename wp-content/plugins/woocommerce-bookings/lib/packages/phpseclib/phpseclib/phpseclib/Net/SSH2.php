@@ -42,7 +42,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -1106,6 +1106,16 @@ class SSH2
     private $errorOnMultipleChannels;
 
     /**
+     * Terrapin Countermeasure
+     *
+     * "During initial KEX, terminate the connection if any unexpected or out-of-sequence packet is received"
+     * -- https://github.com/openssh/openssh-portable/commit/1edb00c58f8a6875fad6a497aa2bacf37f9e6cd5
+     *
+     * @var int
+     */
+    private $extra_packets;
+
+    /**
      * Default Constructor.
      *
      * $host can either be a string, representing the host, or a stream resource.
@@ -1125,6 +1135,7 @@ class SSH2
                 4 => 'NET_SSH2_MSG_DEBUG',
                 5 => 'NET_SSH2_MSG_SERVICE_REQUEST',
                 6 => 'NET_SSH2_MSG_SERVICE_ACCEPT',
+                7 => 'NET_SSH2_MSG_EXT_INFO', // RFC 8308
                 20 => 'NET_SSH2_MSG_KEXINIT',
                 21 => 'NET_SSH2_MSG_NEWKEYS',
                 30 => 'NET_SSH2_MSG_KEXDH_INIT',
@@ -1538,6 +1549,8 @@ class SSH2
             $preferred['client_to_server']['comp'] :
             SSH2::getSupportedCompressionAlgorithms();
 
+        $kex_algorithms = array_merge($kex_algorithms, ['ext-info-c', 'kex-strict-c-v00@openssh.com']);
+
         // some SSH servers have buggy implementations of some of the above algorithms
         switch (true) {
             case $this->server_identifier == 'SSH-2.0-SSHD':
@@ -1552,6 +1565,20 @@ class SSH2
                     $c2s_mac_algorithms = array_values(array_diff(
                         $c2s_mac_algorithms,
                         ['hmac-sha1-96', 'hmac-md5-96']
+                    ));
+                }
+                break;
+            case substr($this->server_identifier, 0, 24) == 'SSH-2.0-TurboFTP_SERVER_':
+                if (!isset($preferred['server_to_client']['crypt'])) {
+                    $s2c_encryption_algorithms = array_values(array_diff(
+                        $s2c_encryption_algorithms,
+                        ['aes128-gcm@openssh.com', 'aes256-gcm@openssh.com']
+                    ));
+                }
+                if (!isset($preferred['client_to_server']['crypt'])) {
+                    $c2s_encryption_algorithms = array_values(array_diff(
+                        $c2s_encryption_algorithms,
+                        ['aes128-gcm@openssh.com', 'aes256-gcm@openssh.com']
                     ));
                 }
         }
@@ -1578,6 +1605,7 @@ class SSH2
         if ($kexinit_payload_server === false) {
             $this->send_binary_packet($kexinit_payload_client);
 
+            $this->extra_packets = 0;
             $kexinit_payload_server = $this->get_binary_packet();
 
             if (
@@ -1609,6 +1637,11 @@ class SSH2
             $this->languages_server_to_client,
             $first_kex_packet_follows
         ) = Strings::unpackSSH2('L10C', $response);
+        if (in_array('kex-strict-s-v00@openssh.com', $this->kex_algorithms)) {
+            if ($this->session_id === false && $this->extra_packets) {
+                throw new \UnexpectedValueException('Possible Terrapin Attack detected');
+            }
+        }
 
         $this->supported_private_key_algorithms = $this->server_host_key_algorithms;
 
@@ -1865,6 +1898,10 @@ class SSH2
         if ($type != NET_SSH2_MSG_NEWKEYS) {
             $this->disconnect_helper(NET_SSH2_DISCONNECT_PROTOCOL_ERROR);
             throw new \UnexpectedValueException('Expected SSH_MSG_NEWKEYS');
+        }
+
+        if (in_array('kex-strict-s-v00@openssh.com', $this->kex_algorithms)) {
+            $this->get_seq_no = $this->send_seq_no = 0;
         }
 
         $keyBytes = pack('Na*', strlen($keyBytes), $keyBytes);
@@ -2179,7 +2216,9 @@ class SSH2
      */
     public function login($username, ...$args)
     {
-        $this->auth[] = func_get_args();
+        if (!$this->retry_connect) {
+            $this->auth[] = func_get_args();
+        }
 
         // try logging with 'none' as an authentication method first since that's what
         // PuTTY does
@@ -2318,10 +2357,26 @@ class SSH2
                     return $this->login_helper($username, $password);
                 }
                 $this->disconnect_helper(NET_SSH2_DISCONNECT_CONNECTION_LOST);
-                throw new ConnectionClosedException('Connection closed by server');
+                throw $e;
             }
 
-            list($type, $service) = Strings::unpackSSH2('Cs', $response);
+            list($type) = Strings::unpackSSH2('C', $response);
+
+            if ($type == NET_SSH2_MSG_EXT_INFO) {
+                list($nr_extensions) = Strings::unpackSSH2('N', $response);
+                for ($i = 0; $i < $nr_extensions; $i++) {
+                    list($extension_name, $extension_value) = Strings::unpackSSH2('ss', $response);
+                    if ($extension_name == 'server-sig-algs') {
+                        $this->supported_private_key_algorithms = explode(',', $extension_value);
+                    }
+                }
+
+                $response = $this->get_binary_packet();
+                list($type) = Strings::unpackSSH2('C', $response);
+            }
+
+            list($service) = Strings::unpackSSH2('s', $response);
+
             if ($type != NET_SSH2_MSG_SERVICE_ACCEPT || $service != 'ssh-userauth') {
                 $this->disconnect_helper(NET_SSH2_DISCONNECT_PROTOCOL_ERROR);
                 throw new \UnexpectedValueException('Expected SSH_MSG_SERVICE_ACCEPT');
@@ -2597,7 +2652,7 @@ class SSH2
             $privatekey = $privatekey->withPadding(RSA::SIGNATURE_PKCS1);
             $algos = ['rsa-sha2-256', 'rsa-sha2-512', 'ssh-rsa'];
             if (isset($this->preferred['hostkey'])) {
-                $algos = array_intersect($this->preferred['hostkey'], $algos);
+                $algos = array_intersect($algos, $this->preferred['hostkey']);
             }
             $algo = self::array_intersect_first($algos, $this->supported_private_key_algorithms);
             switch ($algo) {
@@ -3406,6 +3461,8 @@ class SSH2
         $this->session_id = false;
         $this->retry_connect = true;
         $this->get_seq_no = $this->send_seq_no = 0;
+        $this->channel_status = [];
+        $this->channel_id_last_interactive = 0;
     }
 
     /**
@@ -3731,13 +3788,15 @@ class SSH2
             case NET_SSH2_MSG_DISCONNECT:
                 Strings::shift($payload, 1);
                 list($reason_code, $message) = Strings::unpackSSH2('Ns', $payload);
-                $this->errors[] = 'SSH_MSG_DISCONNECT: ' . static::$disconnect_reasons[$reason_code] . "\r\n$message";
+                $this->errors[] = 'SSH_MSG_DISCONNECT: ' . self::$disconnect_reasons[$reason_code] . "\r\n$message";
                 $this->bitmap = 0;
                 return false;
             case NET_SSH2_MSG_IGNORE:
+                $this->extra_packets++;
                 $payload = $this->get_binary_packet($skip_channel_filter);
                 break;
             case NET_SSH2_MSG_DEBUG:
+                $this->extra_packets++;
                 Strings::shift($payload, 2); // second byte is "always_display"
                 list($message) = Strings::unpackSSH2('s', $payload);
                 $this->errors[] = "SSH_MSG_DEBUG: $message";
@@ -3746,6 +3805,7 @@ class SSH2
             case NET_SSH2_MSG_UNIMPLEMENTED:
                 return false;
             case NET_SSH2_MSG_KEXINIT:
+                // this is here for key re-exchanges after the initial key exchange
                 if ($this->session_id !== false) {
                     if (!$this->key_exchange($payload)) {
                         $this->bitmap = 0;

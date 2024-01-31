@@ -331,13 +331,7 @@ class Vc_Edit_Form_Fields {
 				'' :
 				strtolower( preg_replace( '/[^A-Za-z0-9]+/', '_', $param['heading'] ) );
 			$field_id = $param['type'] . '_' . $field_id;
-			$aiIcon = vc_get_template(
-				'editors/partials/icon-ai.tpl.php',
-				[
-					'type' => $param['type'],
-					'field_id' => $field_id,
-				]
-			);
+			$aiIcon = wpb_get_ai_icon_template( $param['type'], $field_id, false );
 		}
 
 		return $aiIcon;
@@ -379,6 +373,8 @@ class Vc_Edit_Form_Fields {
 			'uc_textfield',
 			'uc_textarea',
 			'uc_editor',
+			'us_textarea',
+			'us_text',
 		];
 
 		return array_merge( $params, $paramsAddons );

@@ -100,17 +100,19 @@
 
 				// Zip creation failed
 				if ( $zip->open($filename, ZipArchive::CREATE)!==TRUE ) {
-					
-				    $redirect_to = add_query_arg( array(
-						'post_type'    	=> 'shop_order',
-						'pdf_export'   	=> '1',
-					), $redirect_to );
+
+					$redirect_to = add_query_arg(
+						array(
+							'pdf_export'   	=> '1',
+						),
+						wp_get_referer()
+					);
 
 					// Logging
     				$export_log['Redirect To'] 	= $redirect_to;
     				$export_log['Zip File'] 	= "No Zip File!";
 
-    				return esc_url_raw( $redirect_to );
+    				return $changed;
 
 				}
 
@@ -120,11 +122,6 @@
 
 					$zip->addFile( $file, $pdf );
 				}
-
-				$redirect_to = add_query_arg( array(
-					'post_type'    	=> 'shop_order',
-					'pdf_export'   	=> $zip->status,
-				), $redirect_to );
 
 				$zip->close();
 
@@ -138,7 +135,7 @@
     		set_transient( '_pdf_export_zip_file', $zip_file, DAY_IN_SECONDS );
     		set_transient( '_pdf_export_changed', $changed, DAY_IN_SECONDS );
 
-    		return esc_url_raw( $redirect_to );
+    		return $changed;
 
 		}
 

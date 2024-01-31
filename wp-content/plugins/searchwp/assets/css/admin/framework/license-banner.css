@@ -1,0 +1,32 @@
+.searchwp-license-key-bar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	padding: 0 11px 0 20px;
+	background-color: #df2a4a;
+	color: #fff;
+	font-size: 14px;
+	line-height: 1.8;
+}
+
+.searchwp-license-key-bar a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.searchwp-license-key-bar a:hover,
+.searchwp-license-key-bar a:focus,
+.searchwp-license-key-bar a:active {
+	text-decoration: none;
+}
+
+.searchwp-license-key-bar .upgrade-text,
+.searchwp-license-key-bar-logo {
+	display: flex;
+}
+
+.searchwp-license-key-bar-logo svg {
+	width: 20px;
+	margin-right: 12px;
+}

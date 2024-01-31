@@ -1,12 +1,13 @@
 <?php
 /**
 * Calendar single event's html structure 
-* @version 4.4.2
+* @version 4.5.6
 */
 
 class EVO_Cal_Event_Structure{
 	private $EVENT;
 	private $timezone = '';
+	private $ev_tz = '';
 	private $timezone_data = array();
 
 	private $OO = array();
@@ -18,12 +19,15 @@ class EVO_Cal_Event_Structure{
 
 		$this->timezone_data = array(
 			'__f'=>'YYYY-MM-DD h:mm:a',
+			'__df'=> 'YYYY-MM-DD',
+			'__tf'=> 'h:mm:a',
 			'__t'=> evo_lang('View in my time')
 		);
 
 		if(!empty($EVENT)) $this->EVENT = $EVENT;
 
 		$this->timezone = get_option('gmt_offset', 0);
+		$this->ev_tz = $EVENT->get_timezone_key();
 
 		$this->helper = $this->help = new evo_helper();
 	}
@@ -285,34 +289,25 @@ class EVO_Cal_Event_Structure{
 				$timezone_text = (!empty($object->timezone)? ' <em class="evo_etop_timezone">'.$object->timezone. '</em>':null);
 
 				$tzo = $tzo_box = '';
-				$event_timezone_key = $EVENT->get_timezone_key();
 
-				// show local time
-				if( $event_timezone_key && EVO()->cal->check_yn('evo_show_localtime','evcal_1') ){
+				// custom timezone text
+				if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1') && !empty($this->ev_tz) ){
 
-					extract( $this->timezone_data);
-					
-					
-					if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
-
-						$GMT_text = $this->help->get_timezone_gmt( $event_timezone_key, $EVENT->start_unix);
-
-						$timezone_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
-					}
-
-					// event utc offset
-					$tzo = $this->help->get_timezone_offset( $event_timezone_key, $EVENT->start_unix);
-
-					$tzo_box = "<em class='evcal_tz_time evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$event_start_unix}-{$event_end_unix}' ><i class='fa fa-globe-americas'></i> <b>{$__t}</b></em>";							
+					$GMT_text = $this->help->get_timezone_gmt( $this->ev_tz , $EVENT->start_unix);
+					$timezone_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
 				}
-
+					
+				// event time
 				$OT.= "<em class='evcal_time evo_tz_time'><i class='fa fa-clock-o'></i>". apply_filters('evoeventtop_belowtitle_datetime', $object->event_date_html['html_fromto'], $object->event_date_html, $object) . $timezone_text ."</em> ";
 
-				// local time
-				if( $event_timezone_key) $OT.= $tzo_box;
+				// view in my time - local time
+				if( !empty($this->ev_tz) && EVO()->cal->check_yn('evo_show_localtime','evcal_1') ){
+					
+					$OT.= $this->get_view_my_time_content( $this->timezone_data , $EVENT->start_unix, $EVENT->end_unix);		
+				}
 
 				// manual timezone text
-				if( !$event_timezone_key) $OT.= "<em class='evcal_local_time' data-s='{$event_start_unix}' data-e='{$event_end_unix}' data-tz='". $EVENT->get_prop('_evo_tz') ."'></em>";
+				if( empty($this->ev_tz) ) $OT.= "<em class='evcal_local_time' data-s='{$event_start_unix}' data-e='{$event_end_unix}' data-tz='". $EVENT->get_prop('_evo_tz') ."'></em>";
 			
 				$OT.= "</span>";
 
@@ -476,18 +471,18 @@ class EVO_Cal_Event_Structure{
 
 
 		// custom meta fields
-		if( strpos($field, 'cmd') !== false){
-			if(!empty($object->cmf_data) && is_array($object->cmf_data) && count($object->cmf_data)>0){
+			if( strpos($field, 'cmd') !== false){
+				if(!empty($object->cmf_data) && is_array($object->cmf_data) && count($object->cmf_data)>0){
 
-				if( !isset($object->cmf_data[ $field ])) return $OT;
-				$OT = $this->get_eventtop_cmf_html( $object->cmf_data[ $field ] , $EVENT);
+					if( !isset($object->cmf_data[ $field ])) return $OT;
+					$OT = $this->get_eventtop_cmf_html( $object->cmf_data[ $field ] , $EVENT);
+				}
 			}
-		}
 
 		// event type taxonomy
-		if(strpos($field, 'eventtype') !== false){
-			$OT .= $this->get_eventtop_types($field, $object, $EVENT);
-		}
+			if(strpos($field, 'eventtype') !== false){
+				$OT .= $this->get_eventtop_types($field, $object, $EVENT);
+			}
 
 		return $OT;
 	}
@@ -619,9 +614,6 @@ class EVO_Cal_Event_Structure{
 
 	// @since 4.5
 	function custom_eventtop_layout( $eventtop_fields, $SC){
-
-		
-
 		return $eventtop_fields;
 	}
 
@@ -825,29 +817,26 @@ class EVO_Cal_Event_Structure{
 
 				// TIME
 					case 'time':
+
 						$iconTime = "<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__fai_002', 'fa-clock-o',$evOPT )."'></i></span>";
+						
 						// time for event card
 						$timezone = (!empty($object->timezone)? ' <em class="evo_eventcard_tiemzone">'. $object->timezone.'</em>':null);
 						
+						// event time
 						$evc_time_text = "<span class='evo_eventcard_time_t'>". apply_filters('evo_eventcard_time', $object->timetext. $timezone, $object) . "</span>";
 
-						// if timezone selected
-						if( !empty($object->_evo_tz) && EVO()->cal->check_yn('evo_show_localtime','evcal_1')){
+						// custom timezone text
+						if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1') && !empty($this->ev_tz) ){
 
-							extract( $this->timezone_data);
-														
+							$GMT_text = $this->help->get_timezone_gmt( $this->ev_tz, $EVENT->start_unix);
+							$evc_time_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
+						}							
 
-							if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
-
-								$GMT_text = $this->help->get_timezone_gmt( $object->_evo_tz , $EVENT->start_unix);
-
-								$evc_time_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
-							}
-
-							// event utc offset
-							$tzo = $this->help->get_timezone_offset( $object->_evo_tz,  $EVENT->start_unix);
-
-							$evc_time_text .= "<span class='evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$object->event_times}'><i class='fa fa-globe-americas'></i> <b>{$__t}</b></span>";
+						// view in my time - local time
+						if( !empty($this->ev_tz) && EVO()->cal->check_yn('evo_show_localtime','evcal_1') ){
+							
+							$evc_time_text.= $this->get_view_my_time_content( $this->timezone_data , $EVENT->start_unix, $EVENT->end_unix);		
 						}
 						
 
@@ -1103,11 +1092,12 @@ class EVO_Cal_Event_Structure{
 								$OT.= (!empty($img_src)? 
 										"<p class='evo_data_val evo_card_organizer_image'><img src='{$img_src[0]}'/></p>":null);
 
-							// description
-							$description = !empty($EO->description) ? stripslashes($EO->description): false;
+							
 
 							$org_data = '';
 							$org_data .= "<h4 class='evo_h4 marb5'>" . $orgNAME . "</h4>" ;
+							
+							/* // hide this in 4.5.5 
 							$org_data .= "<div class='evo_data_val'>".
 								
 								( $description? "<div class='evo_card_organizer_description marb5 db'>".$description."</div>":'')
@@ -1117,6 +1107,7 @@ class EVO_Cal_Event_Structure{
 								".(!empty($EO->organizer_address)? 
 								"<span class='evo_card_organizer_address marb5'>". stripslashes($EO->organizer_address). "</span>":null)."
 								</div>";
+
 
 
 							// organizer social share
@@ -1131,6 +1122,8 @@ class EVO_Cal_Event_Structure{
 								}
 								if( !empty($org_social)) 
 									$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
+
+							*/
 
 							// learn more button
 								$btn_data = array(
@@ -1419,7 +1412,7 @@ class EVO_Cal_Event_Structure{
 
 						break;
 
-				// social share
+				// social share u4.5.7
 					case 'evosocial':
 						$__calendar_type = EVO()->calendar->__calendar_type;
 						$evo_opt = $evOPT;
@@ -1427,12 +1420,6 @@ class EVO_Cal_Event_Structure{
 						$event_id = $EVENT->ID;
 						$repeat_interval = $EVENT->ri;
 						$event_post_meta = get_post_custom($event_id);
-
-						// Event Times
-							$dateTime = new evo_datetime();
-							$unixes = $dateTime->get_correct_event_repeat_time($event_post_meta, $repeat_interval);
-							$datetime_string = $dateTime->get_formatted_smart_time($unixes['start'], $unixes['end'],$event_post_meta);
-
 						
 						// check if social media to show or not
 						if( (!empty($evo_opt['evosm_som']) && $evo_opt['evosm_som']=='yes' && $__calendar_type=='single') 
@@ -1462,7 +1449,7 @@ class EVO_Cal_Event_Structure{
 								'imgurl'=> $imgurl,
 								'permalink'=> $permalink,
 								'encodeURL'=> $encodeURL,
-								'datetime_string'=> $datetime_string
+								'datetime_string'=> $EVENT->get_formatted_smart_time( )
 							));
 
 							if(!empty($output_sm)){
@@ -1521,6 +1508,21 @@ class EVO_Cal_Event_Structure{
 		return $OT;
 	}
 
+// view in my time 
+	public function get_view_my_time_content($timezone_data, $start, $end){
+		extract( $timezone_data );
+		
+		$data = array(
+			'__df'=> $__df,
+			'__tf'=> $__tf,
+			'__f'=> $__f,
+			'times'=> $start . '-' . $end,
+			'tzo' => $this->help->get_timezone_offset( $this->ev_tz,  $start)
+		);
+
+		return "<em class='evcal_tz_time evo_mytime tzo_trig' title='". evo_lang('My Time') ."'  ". $this->help->array_to_html_data($data)."><i class='fa fa-globe-americas'></i> <b>{$__t}</b></em>";	
+
+	}
 
 // SEO Schema data
 	function get_schema($EventData, $_eventcard){

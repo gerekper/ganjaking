@@ -78,8 +78,6 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 * @SuppressWarnings(PHPMD.ErrorControlOperator)
 	 */
 	public function initialise_rebuild() {
-		global $wpdb;
-
 		$feed_types                     = $this->common->get_feed_types();
 		$this->feed_formats             = [];
 		$this->non_product_feed_formats = [];
@@ -100,12 +98,6 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			}
 		}
 
-		// Cater for large stores.
-		$wpdb->hide_errors();
-		@set_time_limit( 0 );
-		while ( ob_get_level() ) {
-			@ob_end_clean();
-		}
 		// Disable term ordering by Advanced Taxonomy Terms Order from
 		// (http://www.nsp-code.com) as it has horrible performance
 		// characteristics.
@@ -120,11 +112,6 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 				}
 			);
 		}
-
-		// Disable query monitor.
-		// phpcs:disable WordPress.NamingConventions.ValidHookName.UseUnderscores
-		do_action( 'qm/cease' );
-		// phpcs:enable
 	}
 
 	/**

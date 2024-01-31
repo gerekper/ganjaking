@@ -3736,7 +3736,7 @@ class ThePlus_Advanced_Typography extends Widget_Base {
 							if(! empty( $item['text_link']['url'] )){ 
 								$loop_img_reveal_open .='<a '.$this->get_render_attribute_string( "loop_typo_link".$i ).' class="block__title" data-img="'.esc_attr($on_hover_img_source).'">';
 							}else{
-								$loop_img_reveal_open .='<a class="block__title" data-img="'.esc_attr($on_hover_img_source).'">';
+								$loop_img_reveal_open .='<a class="block__title" data-img="'.esc_url($on_hover_img_source).'">';
 							}
 
 							$loop_img_reveal_close .='</a></div>';
@@ -3816,7 +3816,7 @@ class ThePlus_Advanced_Typography extends Widget_Base {
 
 							$loop_typo_text .= $loop_img_reveal_open;
 							if ( ! empty( $item['text_link']['url'] ) && (!empty($item['on_hover_img_reveal_switch']) && $item['on_hover_img_reveal_switch']=='yes')) {
-								$loop_typo_text .='<div  class="'.$marquee_class.' listing-typo-text '.esc_attr($data_class).' " '.$marquee_attr.'  style="display:inline;'.$mix_blend_style.'">';
+								$loop_typo_text .='<div class="'.$marquee_class.' listing-typo-text '.esc_attr($data_class).' " '.$marquee_attr.'  style="display:inline;'.$mix_blend_style.'">';
 									$loop_typo_text .= htmlspecialchars_decode($item['typo_text']);
 								$loop_typo_text .= '</div>';
 							}else{

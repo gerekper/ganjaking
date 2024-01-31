@@ -28,7 +28,8 @@
         <?php
             $_shortcode_attributes = [
                 'terms_order'   => $terms_order,
-                'terms_orderby' => $terms_orderby
+                'terms_orderby' => $terms_orderby,
+                'show_icon'     => betterdocs()->customizer->defaults->get( 'betterdocs_mkb_page_show_category_icon' )
             ];
 
             $attributes = betterdocs()->template_helper->shortcode_atts( $_shortcode_attributes, 'betterdocs_multiple_kb_tab_grid', 'layout-4' );

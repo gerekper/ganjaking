@@ -182,11 +182,12 @@ class NewsletterListingRepository extends ListingRepository {
   }
 
   protected function applySelectClause(QueryBuilder $queryBuilder) {
-    $queryBuilder->select("PARTIAL n.{id,subject,hash,type,status,sentAt,updatedAt,deletedAt,wpPostId}");
+    $queryBuilder->select("PARTIAL n.{id,subject,hash,type,status,sentAt,updatedAt,deletedAt}, PARTIAL wpPost.{id,postTitle}");
   }
 
   protected function applyFromClause(QueryBuilder $queryBuilder) {
-    $queryBuilder->from(NewsletterEntity::class, 'n');
+    $queryBuilder->from(NewsletterEntity::class, 'n')
+      ->leftJoin('n.wpPost', 'wpPost');
   }
 
   protected function applyGroup(QueryBuilder $queryBuilder, string $group) {
@@ -240,6 +241,11 @@ class NewsletterListingRepository extends ListingRepository {
   }
 
   protected function applySorting(QueryBuilder $queryBuilder, string $sortBy, string $sortOrder) {
+    if ($sortBy === 'name') {
+      $queryBuilder->addSelect('CONCAT(COALESCE(wpPost.postTitle, \'\'), n.subject) AS HIDDEN sortingName');
+      $queryBuilder->addOrderBy("sortingName", $sortOrder);
+      return;
+    }
     if ($sortBy === 'sentAt') {
       $queryBuilder->addSelect('CASE WHEN n.sentAt IS NULL THEN 1 ELSE 0 END AS HIDDEN sentAtIsNull');
       $queryBuilder->addOrderBy('sentAtIsNull', 'DESC');

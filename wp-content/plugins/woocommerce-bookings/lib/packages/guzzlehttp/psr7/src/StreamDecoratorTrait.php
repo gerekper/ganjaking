@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -76,7 +76,7 @@ trait StreamDecoratorTrait
     {
         /** @var callable $callable */
         $callable = [$this->stream, $method];
-        $result = call_user_func_array($callable, $args);
+        $result = ($callable)(...$args);
 
         // Always return the wrapped object if the result is a return $this
         return $result === $this->stream ? $this : $result;

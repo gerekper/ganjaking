@@ -2,7 +2,7 @@
 /**
  * WC_CP_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  */
 
 // Exit if accessed directly.
@@ -364,8 +364,8 @@ class WC_CP_Compatibility {
 			$required_version = $this->required[ 'pb' ];
 			if ( version_compare( WC_CP()->plugin_version( true, WC_PB()->version ), $required_version ) < 0 ) {
 				$extension      = __( 'Product Bundles', 'woocommerce-composite-products' );
-				$extension_full = __( 'WooCommerce Product Bundles', 'woocommerce-composite-products' );
-				$extension_url  = 'https://woocommerce.com/products/product-bundles/';
+				$extension_full = __( 'Woo Product Bundles', 'woocommerce-composite-products' );
+				$extension_url  = 'https://woo.com/products/product-bundles/';
 				/* translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version. */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-composite-products' ), $extension, $extension_url, $extension_full, $required_version );
 				WC_CP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'pb_lt_' . $required_version, 'type' => 'warning' ) );
@@ -397,8 +397,8 @@ class WC_CP_Compatibility {
 			if ( version_compare( WC_PRODUCT_ADDONS_VERSION, $required_version ) < 0 ) {
 
 				$extension      = __( 'Product Add-Ons', 'woocommerce-composite-products' );
-				$extension_full = __( 'WooCommerce Product Add-Ons', 'woocommerce-composite-products' );
-				$extension_url  = 'https://woocommerce.com/products/product-add-ons/';
+				$extension_full = __( 'Woo Product Add-Ons', 'woocommerce-composite-products' );
+				$extension_url  = 'https://woo.com/products/product-add-ons/';
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-composite-products' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_CP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'addons_lt_' . $required_version, 'type' => 'warning' ) );
@@ -410,8 +410,8 @@ class WC_CP_Compatibility {
 			$required_version = $this->required[ 'mmq' ];
 			if ( version_compare( WC_MIN_MAX_QUANTITIES, $required_version ) < 0 ) {
 				$extension      = __( 'Min/Max Quantities', 'woocommerce-composite-products' );
-				$extension_full = __( 'WooCommerce Min/Max Quantities', 'woocommerce-composite-products' );
-				$extension_url  = 'https://woocommerce.com/products/minmax-quantities/';
+				$extension_full = __( 'Woo Min/Max Quantities', 'woocommerce-composite-products' );
+				$extension_url  = 'https://woo.com/products/minmax-quantities/';
 				/* translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version. */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-composite-products' ), $extension, $extension_url, $extension_full, $required_version );
 				WC_CP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'mmq_lt_' . $required_version, 'type' => 'warning' ) );

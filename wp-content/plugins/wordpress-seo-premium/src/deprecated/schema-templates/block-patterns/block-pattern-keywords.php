@@ -10,5 +10,5 @@ namespace Yoast\WP\SEO\Schema_Templates\Block_Patterns;
  */
 class Block_Pattern_Keywords {
 
-	const YOAST_JOB_POSTING = [ 'yoast', 'job', 'posting', 'vacancy' ];
+	public const YOAST_JOB_POSTING = [ 'yoast', 'job', 'posting', 'vacancy' ];
 }

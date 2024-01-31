@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -47,6 +47,9 @@ class WC_Social_Login_Frontend {
 		// Handle front-end notices.
 		add_action( 'init',      array( $this, 'load_account_notices' ) );
 		add_action( 'wp_loaded', array( $this, 'add_notices' ) );
+
+		// enqueue frontend scripts
+		add_action( 'wp_enqueue_scripts', [ $this, 'load_styles_scripts' ] );
 
 		// render login buttons on the login form
 		add_action( 'woocommerce_login_form_end', array( $this, 'render_social_login_buttons' ) );
@@ -241,9 +244,6 @@ class WC_Social_Login_Frontend {
 		// Return URL after successful login
 		$return_url = wc_get_page_permalink( 'myaccount' );
 
-		// Enqueue styles and scripts
-		$this->load_styles_scripts();
-
 		// load the template
 		wc_get_template(
 			'myaccount/social-profiles.php',
@@ -259,32 +259,57 @@ class WC_Social_Login_Frontend {
 
 
 	/**
-	 * Loads frontend styles and scripts on checkout page
+	 * Loads frontend styles and scripts.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param bool $force option to force script loading, otherwise will only load on pages designated in plugin settings
 	 */
-	public function load_styles_scripts() {
+	public function load_styles_scripts( $force = false ) {
+
+		if ( false === $force ) {
+
+			if ( ! is_checkout() && ! is_account_page() && ! is_product() ) {
+				return;
+			}
+
+			if ( is_checkout() && ! $this->is_displayed_on( 'checkout' ) ) {
+				return;
+			}
+
+			if ( is_account_page() && ! $this->is_displayed_on( 'my_account' ) ) {
+				return;
+			}
+
+			if ( is_product() && ! $this->is_displayed_on( 'product_reviews_pro' ) && ! $this->is_one_page_checkout() ) {
+				return;
+			}
+
+		}
 
 		// frontend CSS
 		wp_enqueue_style( 'wc-social-login-frontend', wc_social_login()->get_plugin_url() . '/assets/css/frontend/wc-social-login.min.css', array(), WC_Social_Login::VERSION );
 
-		$script_deps = array( 'jquery' );
+		$script_deps = [ 'jquery' ];
 
 		if ( is_checkout() ) {
 			$script_deps[] = 'wc-checkout';
 		}
 
 		/**
-		 * Toggles whether to load the Social Login front end scripts in the document footer or not.
+		 * Filter how the Social Login front end script is loaded in the document.
+		 *
+		 * @see https://developer.wordpress.org/reference/functions/wp_enqueue_script/#usage
 		 *
 		 * @since 2.6.1
+		 * @since 2.14.1 defaults to 'defer' strategy
 		 *
-		 * @param bool $load_in_footer default false (loads scripts in the document head)
+		 * @param array<string, string>|bool $loading_strategy default to 'defer' (used to be boolean true)
 		 */
-		$load_in_footer = (bool) apply_filters( 'wc_social_login_enqueue_frontend_scripts_in_footer', false );
+		$loading_strategy = apply_filters( 'wc_social_login_enqueue_frontend_scripts_in_footer', [ 'strategy' => 'defer' ] );
 
 		// frontend scripts
-		wp_enqueue_script( 'wc-social-login-frontend', wc_social_login()->get_plugin_url() . '/assets/js/frontend/wc-social-login.min.js', $script_deps, WC_Social_Login::VERSION, $load_in_footer );
+		wp_enqueue_script( 'wc-social-login-frontend', wc_social_login()->get_plugin_url() . '/assets/js/frontend/wc-social-login.min.js', $script_deps, WC_Social_Login::VERSION, $loading_strategy );
 
 		// customize button colors
 		wp_add_inline_style( 'wc-social-login-frontend', wc_social_login()->get_button_colors_css() );

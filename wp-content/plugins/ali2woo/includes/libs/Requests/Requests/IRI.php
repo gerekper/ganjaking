@@ -1,6 +1,5 @@
 <?php 
-namespace Ali2Woo\Lib;
-
+            namespace Ali2Woo\Lib;
 /**
  * IRI parser/serialiser/normaliser
  *

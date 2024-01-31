@@ -7,10 +7,10 @@ use WPSEO_Taxonomy_Meta;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Conditionals\Cornerstone_Enabled_Conditional;
-use Yoast\WP\SEO\Premium\Presenters\Icons\Checkmark_Icon_Presenter;
-use Yoast\WP\SEO\Premium\Presenters\Icons\Cross_Icon_Presenter;
 use Yoast\WP\SEO\Premium\Conditionals\Term_Overview_Or_Ajax_Conditional;
 use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
+use Yoast\WP\SEO\Premium\Presenters\Icons\Checkmark_Icon_Presenter;
+use Yoast\WP\SEO\Premium\Presenters\Icons\Cross_Icon_Presenter;
 
 /**
  * Cornerstone_Taxonomy_Column_Integration class.
@@ -24,7 +24,7 @@ class Cornerstone_Taxonomy_Column_Integration implements Integration_Interface {
 	 *
 	 * @var string
 	 */
-	const CORNERSTONE_COLUMN_NAME = 'wpseo-cornerstone';
+	public const CORNERSTONE_COLUMN_NAME = 'wpseo-cornerstone';
 
 	/**
 	 * Holds the Current_Page_Helper instance.
@@ -63,6 +63,8 @@ class Cornerstone_Taxonomy_Column_Integration implements Integration_Interface {
 
 	/**
 	 * Register hooks that need to be registered after `init` due to all post types not yet being registered.
+	 *
+	 * @return void
 	 */
 	public function register_init_hooks() {
 		$taxonomy       = $this->current_page_helper->get_current_taxonomy();

@@ -2,7 +2,7 @@
 /**
  * dynamic styles for front end
  *
- * @updated 	4.5.4
+ * @updated 	4.5.7
  * @package		eventon/Styles
  * @author 		AJDE
  */
@@ -60,7 +60,7 @@
 			'css'=>'font-family:$', 
 			'type'=>'font_name',
 			'var'=>'evcal_font_fam',	
-			'default'=>"Montserrat, sans-serif"
+			'default'=> $evo_font_1
 		),
 		array(
 			'item'=>apply_filters('evo_styles_secondary_font',
@@ -88,7 +88,7 @@
 		.evcal_evdata_row'),
 			'css'=>'font-family:$', 
 			'var'=>'evcal_font_fam_secondary',	
-			'default'=>"'Noto Sans', 'sans-serif'"
+			'default'=> $evo_font_2
 		),
 		array(
 			'item'=>'.ajde_evcal_calendar .evo_sort_btn, .eventon_sf_field p, .evo_srt_sel p.fa',
@@ -346,13 +346,7 @@
 			'item'=>'.evo_cal_above span',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'evcal__jm001',	'default'=>'ffffff'),
-				array('css'=>'background-color:#$', 'var'=>'evcal__jm002',	'default'=>$evo_color_1)
-			)			
-		),array(
-			'item'=>'.evo_cal_above span:hover',
-			'multicss'=>array(
-				array('css'=>'color:#$', 'var'=>'evcal__jm001H','default'=>'ffffff'),
-				array('css'=>'background-color:#$', 'var'=>'evcal__jm002H',	'default'=>'C8C8C8')
+				array('css'=>'background-color:#$', 'var'=>'evcal__jm002',	'default'=>$evo_color_2)
 			)			
 		),
 		// this month button

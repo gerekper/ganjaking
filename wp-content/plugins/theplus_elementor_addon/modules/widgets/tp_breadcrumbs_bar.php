@@ -39,6 +39,10 @@ class ThePlus_Breadcrumbs_Bar extends Widget_Base {
     public function get_categories() {
         return array('plus-header');
     }
+
+	public function get_keywords() {
+        return ['Breadcrumb', 'Navigation', 'Trail', 'Path', 'Links', 'Navigational Links', 'Navigation Bar'];
+    }
 	
     protected function register_controls() {
 		/*start advanced typography*/
@@ -200,7 +204,6 @@ class ThePlus_Breadcrumbs_Bar extends Widget_Base {
 				'name' => 'icons_image_thumbnail',
 				'default' => 'full',
 				'separator' => 'none',
-				'separator' => 'after',
 				'condition' => [				
 					'home_select_icon' => 'icon',
 					'icon_font_style' => 'icon_image',

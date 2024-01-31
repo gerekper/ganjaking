@@ -38,6 +38,10 @@ class ThePlus_Google_Map extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['Google Map', 'map', 'location', 'directions', 'navigation', 'interactive map', 'map widget', 'map element', 'map plugin', 'map addon', 'map extension'];
+    }
 	
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "google-maps";

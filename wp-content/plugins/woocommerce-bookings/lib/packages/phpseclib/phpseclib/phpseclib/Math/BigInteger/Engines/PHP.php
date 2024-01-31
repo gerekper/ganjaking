@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -1328,5 +1328,20 @@ abstract class PHP extends Engine
         }
 
         return array_reverse($vals);
+    }
+
+    /**
+     * @return bool
+     */
+    protected static function testJITOnWindows()
+    {
+        // see https://github.com/php/php-src/issues/11917
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && function_exists('opcache_get_status') && PHP_VERSION_ID < 80213 && !defined('PHPSECLIB_ALLOW_JIT')) {
+            $status = opcache_get_status();
+            if ($status && isset($status['jit']) && $status['jit']['enabled'] && $status['jit']['on']) {
+                return true;
+            }
+        }
+        return false;
     }
 }

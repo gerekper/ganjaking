@@ -23,7 +23,7 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 	 *
 	 * @var string
 	 */
-	const INCLUSIVE_LANGUAGE_COLUMN_NAME = 'wpseo-inclusive-language';
+	public const INCLUSIVE_LANGUAGE_COLUMN_NAME = 'wpseo-inclusive-language';
 
 	/**
 	 * The score icon helper.
@@ -74,6 +74,8 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 
 	/**
 	 * Register hooks that need to be registered after `init` due to all post types not yet being registered.
+	 *
+	 * @return void
 	 */
 	public function register_init_hooks() {
 		$taxonomy       = $this->current_page_helper->get_current_taxonomy();
@@ -134,7 +136,6 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 		$score = (int) WPSEO_Taxonomy_Meta::get_term_meta( $term_id, $this->current_page_helper->get_current_taxonomy(), 'inclusive_language_score' );
 
 		if ( $column_name === self::INCLUSIVE_LANGUAGE_COLUMN_NAME ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Correctly escaped through the Score_Icon_Helper.
 			return $this->score_icon_helper->for_inclusive_language( $score );
 		}
 

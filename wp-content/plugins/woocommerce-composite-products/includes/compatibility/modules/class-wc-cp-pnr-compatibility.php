@@ -2,7 +2,7 @@
 /**
  * WC_CP_PnR_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.3.0
  */
 

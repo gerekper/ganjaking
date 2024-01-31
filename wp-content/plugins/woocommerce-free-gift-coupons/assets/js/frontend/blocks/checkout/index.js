@@ -70,5 +70,4 @@ const registerCheckoutFilters =
 
     }
 
-
 } );

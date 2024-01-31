@@ -12,7 +12,7 @@ use Yoast\WP\SEO\Premium\Conditionals\Inclusive_Language_Enabled_Conditional;
 /**
  * Inclusive_Language_Filter_Integration class.
  *
-* phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
+ * phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
  */
 class Inclusive_Language_Filter_Integration implements Integration_Interface {
 
@@ -54,7 +54,7 @@ class Inclusive_Language_Filter_Integration implements Integration_Interface {
 		echo '<select name="inclusive_language_filter" id="wpseo-inclusive-language-filter">';
 
 		// phpcs:ignore WordPress.Security.EscapeOutput -- Output is correctly escaped in the generate_option() method.
-		echo $this->generate_option( '', __( 'All Inclusive Language Scores', 'wordpress-seo-premium' ) );
+		echo $this->generate_option( '', \__( 'All Inclusive Language Scores', 'wordpress-seo-premium' ) );
 
 		foreach ( $ranks as $rank ) {
 			$selected = \selected( $this->get_current_inclusive_language_filter(), $rank->get_rank(), false );
@@ -76,7 +76,7 @@ class Inclusive_Language_Filter_Integration implements Integration_Interface {
 	 * @return string The generated <option> element.
 	 */
 	protected function generate_option( $value, $label, $selected = '' ) {
-		return '<option ' . $selected . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
+		return '<option ' . $selected . ' value="' . \esc_attr( $value ) . '">' . \esc_html( $label ) . '</option>';
 	}
 
 	/**

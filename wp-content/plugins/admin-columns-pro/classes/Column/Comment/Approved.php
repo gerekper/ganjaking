@@ -13,7 +13,7 @@ class Approved extends AC\Column\Comment\Approved
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_approved');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_approved');
     }
 
     public function editing()

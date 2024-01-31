@@ -1,9 +1,9 @@
-# Copyright (C) 2021 Dropshipping Guru
+# Copyright (C) 2021 MA-Group
 # This file is distributed under the GPLv2+.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Aliexpress Dropshipping for Woocommerce 1.18.4\n"
+"Project-Id-Version: Aliexpress Dropship for Woocommerce 1.18.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ali2woo\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,30 +21,30 @@ msgstr ""
 msgid "\"Refresh\" Page"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:175
-#: includes/classes/utils/A2W_Shipping.php:180
+#: includes/classes/utils/Shipping.php:175
+#: includes/classes/utils/Shipping.php:180
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/classes/utils/A2W_Shipping.php:177
+#: includes/classes/utils/Shipping.php:177
 msgid "%s days"
 msgstr ""
 
-#: includes/classes/shipping/A2W_FrontendShippingController.php:740
+#: includes/classes/shipping/FrontendShippingController.php:740
 msgid "%s removed because it can not be delivered to %s."
 msgstr ""
 
-#: includes/classes/shipping/A2W_FrontendShippingController.php:740
+#: includes/classes/shipping/FrontendShippingController.php:740
 msgid "%s removed because it can not be delivered to your country."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:80
+#: includes/classes/controller/OrderDataTabController.php:80
 msgid "A2W Order Data"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:46
+#: includes/classes/controller/SettingPageController.php:46
 msgid "Account settings"
 msgstr ""
 
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: includes/libs/a2w_json_api/singletons/api.php:208
+#: includes/libs/json_api/singletons/api.php:208
 msgid "Activate this controller"
 msgstr ""
 
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Add variant"
 msgstr ""
 
-#: includes/classes/controller/A2W_AddonsController.php:23
+#: includes/classes/controller/AddonsController.php:23
 msgid "Add-ons"
 msgstr ""
 
-#: view/addons.php:1 includes/classes/controller/A2W_AddonsController.php:23
+#: view/addons.php:1 includes/classes/controller/AddonsController.php:23
 msgid "Add-ons/Extensions"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Ali2Woo"
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:27
+#: includes/classes/model/PriceFormula.php:27
 msgid ""
 "Ali2Woo gets your <strong>sale price</strong> by applying a pricing formula "
 "to the AliExpress sale price. Your <strong>regular price</strong> is "
@@ -115,43 +115,43 @@ msgid ""
 "formula/\">this article</a>"
 msgstr ""
 
-#: includes/classes/A2W_AbstractAdminPage.php:49
+#: includes/classes/AbstractAdminPage.php:49
 msgid ""
 "Ali2Woo notice! Please install the <a href=\"https://woocommerce.com/\" "
 "target=\"_blank\">WooCommerce</a> plugin first."
 msgstr ""
 
-#: includes/classes/controller/A2W_SynchProductController.php:309
-#: includes/classes/controller/A2W_SynchProductController.php:320
+#: includes/classes/controller/SynchProductController.php:309
+#: includes/classes/controller/SynchProductController.php:320
 msgid "Ali2Woo report: Changes in your products"
 msgstr ""
 
 #. Name of the plugin
-msgid "Aliexpress Dropshipping for Woocommerce"
+msgid "Aliexpress Dropship for Woocommerce"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Aliexpress Dropshipping for Woocommerce is a WordPress plugin created for "
+"Aliexpress Dropship for Woocommerce is a WordPress plugin created for "
 "AliExpress Drop Shipping and Affiliate marketing"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:308
+#: includes/classes/controller/WooCommerceOrderListController.php:308
 msgid "AliExpress Info"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:181
-#: includes/classes/controller/A2W_OrderDataTabController.php:244
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:291
+#: includes/classes/controller/OrderDataTabController.php:181
+#: includes/classes/controller/OrderDataTabController.php:244
+#: includes/classes/controller/WooCommerceOrderListController.php:291
 msgid "AliExpress Order ID"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:114
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:166
+#: includes/classes/controller/OrderDataTabController.php:114
+#: includes/classes/controller/WooCommerceOrderListController.php:166
 msgid "AliExpress order ID"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:142
+#: includes/classes/controller/OrderDataTabController.php:142
 msgid "AliExpress order ID(s)"
 msgstr ""
 
@@ -159,20 +159,20 @@ msgstr ""
 msgid "Aliexpress orders count"
 msgstr ""
 
-#: includes/classes/controller/A2W_ProductDataTabController.php:114
+#: includes/classes/controller/ProductDataTabController.php:114
 msgid "Aliexpress Regular price (%s)"
 msgstr ""
 
-#: includes/classes/controller/A2W_ProductDataTabController.php:121
+#: includes/classes/controller/ProductDataTabController.php:121
 msgid "Aliexpress Sale price (%s)"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:35
-#: includes/classes/controller/A2W_WooCommerceProductListController.php:64
+#: includes/classes/controller/WooCommerceProductEditController.php:35
+#: includes/classes/controller/WooCommerceProductListController.php:64
 msgid "AliExpress Sync"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:153
+#: includes/classes/controller/OrderDataTabController.php:153
 msgid "AliExpress tracking numbers"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "allow_url_fopen"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:51
+#: includes/classes/controller/SettingPageController.php:51
 msgid "API Keys"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 
 #: view/product_edit_photo.php:23 view/settings/phrase_filter.php:137
 #: view/settings/price_formula.php:404
-#: includes/classes/shipping/A2W_FrontendShippingController.php:116
+#: includes/classes/shipping/FrontendShippingController.php:116
 msgid "Apply"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgid "Browse"
 msgstr ""
 
 #: view/search_v1.php:41 view/search_v2.php:42
-#: includes/classes/controller/A2W_SearchPageController.php:21
+#: includes/classes/controller/SearchPageController.php:21
 msgctxt "Button"
 msgid "Advance"
 msgstr ""
@@ -294,27 +294,27 @@ msgctxt "Button"
 msgid "Search"
 msgstr ""
 
-#: includes/classes/controller/A2W_SearchPageController.php:22
+#: includes/classes/controller/SearchPageController.php:22
 msgctxt "Button"
 msgid "Simple"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:213
+#: includes/classes/controller/WooCommerceOrderListController.php:213
 msgctxt "Button text"
 msgid "Error!"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:220
+#: includes/classes/controller/WooCommerceOrderListController.php:220
 msgctxt "Button text"
 msgid "SYNC ALL with AliExpress"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:212
+#: includes/classes/controller/WooCommerceOrderListController.php:212
 msgctxt "Button text"
 msgid "Sync done!"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:216
+#: includes/classes/controller/WooCommerceOrderListController.php:216
 msgctxt "Button text"
 msgid "Try again?"
 msgstr ""
@@ -336,12 +336,12 @@ msgstr ""
 msgid "Cancel move"
 msgstr ""
 
-#: includes/classes/model/A2W_Override.php:95
+#: includes/classes/model/Override.php:95
 msgid "Cancel Override"
 msgstr ""
 
 #: view/shipping/shipping_popup.php:53
-#: includes/classes/controller/A2W_OrderDataTabController.php:116
+#: includes/classes/controller/OrderDataTabController.php:116
 msgid "Carrier"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Change Prices"
 msgstr ""
 
-#: includes/classes/controller/A2W_SynchProductController.php:310
+#: includes/classes/controller/SynchProductController.php:310
 msgid "Changes occurred in the last half-hour in your store"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 msgid "click here"
 msgstr ""
 
-#: includes/classes/A2W_WooCommerceOrderItem.php:172
+#: includes/classes/WooCommerceOrderItem.php:172
 msgid "Click to see the tracking information"
 msgstr ""
 
@@ -458,7 +458,7 @@ msgstr ""
 msgid "comma separated keywords"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:45
+#: includes/classes/controller/SettingPageController.php:45
 msgid "Common settings"
 msgstr ""
 
@@ -507,11 +507,11 @@ msgstr ""
 msgid "Daily limits"
 msgstr ""
 
-#: includes/libs/a2w_json_api/singletons/api.php:206
+#: includes/libs/json_api/singletons/api.php:206
 msgid "Deactivate this controller"
 msgstr ""
 
-#: includes/classes/controller/A2W_DebugPageController.php:16
+#: includes/classes/controller/DebugPageController.php:16
 msgid "Debug"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Description images"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:208
+#: includes/classes/controller/WooCommerceOrderListController.php:208
 msgctxt "Dialog title"
 msgid "AliExpress Info"
 msgstr ""
@@ -602,35 +602,35 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:218
+#: includes/classes/controller/WooCommerceOrderListController.php:218
 msgctxt "Error text"
 msgid ""
 "Can`t get tracking data. Please log-in to your AliExpress account first."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:215
+#: includes/classes/controller/WooCommerceOrderListController.php:215
 msgctxt "Error text"
 msgid ""
 "Can`t get tracking data. Unknown error in the Chrome extension. Please "
 "contact our support."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:217
+#: includes/classes/controller/WooCommerceOrderListController.php:217
 msgctxt "Error text"
 msgid "Didn`t find the AliExpress order № "
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:99
+#: includes/classes/controller/WooCommerceOrderListController.php:99
 msgctxt "Error text"
 msgid "Didn`t find the Woocommerce order №"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:214
+#: includes/classes/controller/WooCommerceOrderListController.php:214
 msgctxt "Error text"
 msgid "Error! Please install the latest Chrome extension."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:221
+#: includes/classes/controller/WooCommerceOrderListController.php:221
 msgctxt "Error text"
 msgid ""
 "Please log in your AliExpress account to get tracking data for the "
@@ -645,15 +645,15 @@ msgstr ""
 msgid "Estimated Delivery Time"
 msgstr ""
 
-#: includes/classes/controller/A2W_SynchProductController.php:47
+#: includes/classes/controller/SynchProductController.php:47
 msgid "Every 15 Minutes"
 msgstr ""
 
-#: includes/classes/controller/A2W_SynchProductController.php:46
+#: includes/classes/controller/SynchProductController.php:46
 msgid "Every 5 Minutes"
 msgstr ""
 
-#: addons/export_import_list_products/A2W_ExportImportListProductsAddon.php:26
+#: addons/export_import_list_products/ExportImportListProductsAddon.php:26
 msgid "Export/Import Products List"
 msgstr ""
 
@@ -682,14 +682,14 @@ msgstr ""
 msgid "Fixed Markup"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:234
+#: includes/classes/utils/Shipping.php:234
 msgid "Free"
 msgstr ""
 
 #: view/shipping/shipping_popup.php:62
-#: includes/classes/shipping/A2W_FrontendShippingController.php:821
-#: includes/classes/utils/A2W_Shipping.php:44
-#: includes/classes/utils/A2W_Shipping.php:127
+#: includes/classes/shipping/FrontendShippingController.php:821
+#: includes/classes/utils/Shipping.php:44
+#: includes/classes/utils/Shipping.php:127
 msgid "free"
 msgstr ""
 
@@ -697,8 +697,8 @@ msgstr ""
 msgid "Free return"
 msgstr ""
 
-#: includes/classes/controller/A2W_FrontendInitController.php:356
-#: includes/classes/controller/A2W_FrontendInitController.php:404
+#: includes/classes/controller/FrontendInitController.php:356
+#: includes/classes/controller/FrontendInitController.php:404
 msgid "Free Shipping"
 msgstr ""
 
@@ -727,17 +727,17 @@ msgstr ""
 msgid "Global pricing rules"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:149
+#: includes/classes/controller/WooCommerceOrderListController.php:149
 msgctxt "hint"
 msgid "Product page"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:153
+#: includes/classes/controller/WooCommerceOrderListController.php:153
 msgctxt "hint"
 msgid "Seller"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:177
+#: includes/classes/controller/WooCommerceOrderListController.php:177
 msgctxt "hint"
 msgid "The product has been deleted"
 msgstr ""
@@ -759,8 +759,8 @@ msgid "Import"
 msgstr ""
 
 #: view/import.php:25 view/settings/price_formula.php:396
-#: includes/classes/controller/A2W_ImportPageController.php:20
-#: includes/classes/controller/A2W_ImportPageController.php:20
+#: includes/classes/controller/ImportPageController.php:20
+#: includes/classes/controller/ImportPageController.php:20
 msgid "Import List"
 msgstr ""
 
@@ -785,18 +785,18 @@ msgstr ""
 msgid "Inventory"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:113
-#: includes/classes/controller/A2W_OrderDataTabController.php:168
-#: includes/classes/shipping/A2W_FrontendShippingController.php:738
+#: includes/classes/controller/OrderDataTabController.php:113
+#: includes/classes/controller/OrderDataTabController.php:168
+#: includes/classes/shipping/FrontendShippingController.php:738
 msgid "Item"
 msgstr ""
 
-#: includes/classes/shipping/A2W_FrontendShippingController.php:738
+#: includes/classes/shipping/FrontendShippingController.php:738
 msgctxt "Item name in quotes"
 msgid "&ldquo;%s&rdquo;"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:27
+#: includes/classes/controller/SettingPageController.php:27
 msgid "leave blank to allow all countries"
 msgstr ""
 
@@ -817,7 +817,7 @@ msgid "Loading"
 msgstr ""
 
 #. Author of the plugin
-msgid "Dropshipping Guru"
+msgid "MA-Group"
 msgstr ""
 
 #: view/product_edit_photo.php:22
@@ -828,7 +828,7 @@ msgstr ""
 msgid "Markup"
 msgstr ""
 
-#: includes/classes/controller/A2W_ThirdNameFieldController.php:45
+#: includes/classes/controller/ThirdNameFieldController.php:45
 msgid "Middle name"
 msgstr ""
 
@@ -865,7 +865,7 @@ msgstr ""
 msgid "New variant"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:157
+#: includes/classes/utils/Shipping.php:157
 msgid "no"
 msgstr ""
 
@@ -881,8 +881,8 @@ msgstr ""
 msgid "No products found."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:253
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:276
+#: includes/classes/controller/WooCommerceOrderListController.php:253
+#: includes/classes/controller/WooCommerceOrderListController.php:276
 msgid "Not available yet"
 msgstr ""
 
@@ -906,7 +906,7 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:138
+#: includes/classes/controller/OrderDataTabController.php:138
 msgid ""
 "Old order data goes below. It will be  removed completely in a future "
 "versions of the Ali2Woo plugin."
@@ -924,7 +924,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:302
+#: includes/classes/controller/WooCommerceOrderListController.php:302
 msgid "Order fulfillment"
 msgstr ""
 
@@ -953,7 +953,7 @@ msgid "original ratio"
 msgstr ""
 
 #: view/import.php:116 view/includes/override_modal.php:52
-#: includes/classes/controller/A2W_ImportAjaxController.php:754
+#: includes/classes/controller/ImportAjaxController.php:754
 msgid "Override"
 msgstr ""
 
@@ -985,15 +985,15 @@ msgstr ""
 msgid "Phrase"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:50
+#: includes/classes/controller/SettingPageController.php:50
 msgid "Phrase Filtering"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:79
+#: includes/classes/controller/OrderFulfillmentController.php:79
 msgid "Place on AliExpress"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:193
+#: includes/classes/utils/Shipping.php:193
 msgid "Placeholder"
 msgstr ""
 
@@ -1009,7 +1009,7 @@ msgstr ""
 msgid "Please enter Numbers. Between 5 - 16 characters."
 msgstr ""
 
-#: includes/classes/controller/A2W_SearchPageController.php:62
+#: includes/classes/controller/SearchPageController.php:62
 msgid "Please enter some search keywords or select item from category list!"
 msgstr ""
 
@@ -1046,7 +1046,7 @@ msgstr ""
 msgid "Prices and Regular Prices"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:47
+#: includes/classes/controller/SettingPageController.php:47
 msgid "Pricing Rules"
 msgstr ""
 
@@ -1097,7 +1097,7 @@ msgstr ""
 msgid "Profit"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:194
+#: includes/classes/utils/Shipping.php:194
 msgid "Purpose"
 msgstr ""
 
@@ -1110,7 +1110,7 @@ msgid "Push Products to Shop"
 msgstr ""
 
 #: view/import.php:116
-#: includes/classes/controller/A2W_ImportAjaxController.php:772
+#: includes/classes/controller/ImportAjaxController.php:772
 msgid "Push to Shop"
 msgstr ""
 
@@ -1178,15 +1178,15 @@ msgstr ""
 msgid "Replacement"
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:32
+#: includes/classes/controller/WizardPageController.php:32
 msgid "required field"
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:115
+#: includes/classes/controller/WizardPageController.php:115
 msgid "required fields"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:122
+#: includes/classes/controller/OrderDataTabController.php:122
 msgid "Reset A2W Order Data"
 msgstr ""
 
@@ -1198,7 +1198,7 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:48
+#: includes/classes/controller/SettingPageController.php:48
 msgid "Reviews settings"
 msgstr ""
 
@@ -1215,7 +1215,7 @@ msgid "Save"
 msgstr ""
 
 #: view/settings/chrome.php:40
-#: includes/libs/a2w_json_api/singletons/api.php:250
+#: includes/libs/json_api/singletons/api.php:250
 msgid "Save changes"
 msgstr ""
 
@@ -1228,7 +1228,7 @@ msgstr ""
 
 #: view/chrome_notify.php:6
 msgid ""
-"Save time adding and ordering products by using free chrome extension "
+"Save time adding and ordering products by using the MA Aliexpress Dropship "
 "Chrome Extension!"
 msgstr ""
 
@@ -1244,7 +1244,7 @@ msgstr ""
 msgid "Search for products"
 msgstr ""
 
-#: includes/classes/controller/A2W_SearchPageController.php:15
+#: includes/classes/controller/SearchPageController.php:15
 msgid "Search Products"
 msgstr ""
 
@@ -1257,7 +1257,7 @@ msgid "Secret Key"
 msgstr ""
 
 #: view/shipping/shipping_popup.php:15 view/shipping/shipping_select.php:17
-#: includes/classes/shipping/A2W_FrontendShippingController.php:161
+#: includes/classes/shipping/FrontendShippingController.php:161
 msgid "Select a Country"
 msgstr ""
 
@@ -1278,7 +1278,7 @@ msgid "Select country"
 msgstr ""
 
 #: view/import.php:104
-#: includes/classes/controller/A2W_ImportAjaxController.php:773
+#: includes/classes/controller/ImportAjaxController.php:773
 msgid "Select Product to Override"
 msgstr ""
 
@@ -1633,7 +1633,7 @@ msgstr ""
 
 #: view/settings/chrome.php:27
 msgctxt "setting description"
-msgid "Use this URL in your a2w chrome extension settings."
+msgid "Use this URL in your an chrome extension settings."
 msgstr ""
 
 #: view/settings/system_info.php:132
@@ -1714,14 +1714,14 @@ msgctxt "Setting title"
 msgid "Account settings"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:78
+#: includes/classes/utils/Shipping.php:78
 msgctxt "Setting title"
 msgid "After  add-to-cart button"
 msgstr ""
 
 #: view/settings/settings_head.php:1
 msgctxt "Setting title"
-msgid "Aliexpress Dropshipping Settings"
+msgid "Aliexpress Dropship Settings"
 msgstr ""
 
 #: view/settings/shipping.php:103
@@ -1756,12 +1756,12 @@ msgctxt "Setting title"
 msgid "Automatic payments"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:77
+#: includes/classes/utils/Shipping.php:77
 msgctxt "Setting title"
 msgid "Before add-to-cart button"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:72
+#: includes/classes/utils/Shipping.php:72
 msgctxt "Setting title"
 msgid ""
 "Calculate AliExpress shipping cost of all items in cart and add the cost to "
@@ -1778,14 +1778,14 @@ msgctxt "Setting title"
 msgid "Convert case of attributes and their values"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:70
+#: includes/classes/utils/Shipping.php:70
 msgctxt "Setting title"
 msgid ""
 "Create a new shipping method and add it to currently available shipping "
 "options"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:71
+#: includes/classes/utils/Shipping.php:71
 msgctxt "Setting title"
 msgid ""
 "Create a new shipping method and make it the only available shipping option"
@@ -1866,7 +1866,7 @@ msgctxt "Setting title"
 msgid "Delivered Order Status"
 msgstr ""
 
-#: includes/classes/utils/A2W_Shipping.php:69
+#: includes/classes/utils/Shipping.php:69
 msgctxt "Setting title"
 msgid "Do not calculate item shipping, only save customer`s shipping option"
 msgstr ""
@@ -2106,7 +2106,7 @@ msgctxt "Setting title"
 msgid "Use random stock value"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:15
+#: includes/classes/controller/SettingPageController.php:15
 msgid "Settings"
 msgstr ""
 
@@ -2128,8 +2128,8 @@ msgstr ""
 
 #: view/import.php:263 view/product_data_tab.php:127
 #: view/shipping/shipping_popup.php:35
-#: includes/classes/controller/A2W_FrontendInitController.php:350
-#: includes/classes/shipping/A2W_FrontendShippingController.php:426
+#: includes/classes/controller/FrontendInitController.php:350
+#: includes/classes/shipping/FrontendShippingController.php:426
 msgid "Shipping"
 msgstr ""
 
@@ -2154,37 +2154,37 @@ msgstr ""
 msgid "Shipping country"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:240
+#: includes/classes/controller/OrderDataTabController.php:240
 msgid "Shipping Info"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:14
-#: includes/classes/shipping/A2W_ShippingPostType.php:15
-#: includes/classes/shipping/A2W_ShippingPostType.php:16
+#: includes/classes/shipping/ShippingPageController.php:14
+#: includes/classes/shipping/ShippingPostType.php:15
+#: includes/classes/shipping/ShippingPostType.php:16
 msgid "Shipping List"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:33
+#: includes/classes/shipping/ShippingPageController.php:33
 msgctxt "Shipping List page"
 msgid "Enable price rule"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:31
+#: includes/classes/shipping/ShippingPageController.php:31
 msgctxt "Shipping List page"
 msgid "Initial Name"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:32
+#: includes/classes/shipping/ShippingPageController.php:32
 msgctxt "Shipping List page"
 msgid "Service name"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:30
+#: includes/classes/shipping/ShippingPageController.php:30
 msgctxt "Shipping List page"
 msgid "Shipping name"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:34
+#: includes/classes/shipping/ShippingPageController.php:34
 msgctxt "Shipping List page"
 msgid "Status"
 msgstr ""
@@ -2193,17 +2193,17 @@ msgstr ""
 msgid "Shipping Method"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:77
+#: includes/classes/shipping/ShippingPageController.php:77
 msgctxt "Shipping method Edit page"
 msgid "Enable price rule"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:75
+#: includes/classes/shipping/ShippingPageController.php:75
 msgctxt "Shipping method Edit page"
 msgid "Initial Name"
 msgstr ""
 
-#: includes/classes/shipping/A2W_ShippingPageController.php:76
+#: includes/classes/shipping/ShippingPageController.php:76
 msgctxt "Shipping method Edit page"
 msgid "Service Name"
 msgstr ""
@@ -2212,7 +2212,7 @@ msgstr ""
 msgid "Shipping Method: "
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:49
+#: includes/classes/controller/SettingPageController.php:49
 msgid "Shipping settings"
 msgstr ""
 
@@ -2293,19 +2293,19 @@ msgctxt "sort by"
 msgid "Seller's feedback score"
 msgstr ""
 
-#: includes/classes/model/A2W_ProductImport.php:200
+#: includes/classes/model/ProductImport.php:200
 msgid "Sort by Date add (new first)"
 msgstr ""
 
-#: includes/classes/model/A2W_ProductImport.php:200
+#: includes/classes/model/ProductImport.php:200
 msgid "Sort by Date add (old first)"
 msgstr ""
 
-#: includes/classes/model/A2W_ProductImport.php:200
+#: includes/classes/model/ProductImport.php:200
 msgid "Sort by External Id"
 msgstr ""
 
-#: includes/classes/model/A2W_ProductImport.php:200
+#: includes/classes/model/ProductImport.php:200
 msgid "Sort by Product title"
 msgstr ""
 
@@ -2334,7 +2334,7 @@ msgid "Split to <span class=\"btn-split-count\">0</span> Products"
 msgstr ""
 
 #: view/settings/phrase_filter.php:46 view/settings/phrase_filter.php:66
-msgid "sreplacement or empty"
+msgid "replacement or empty"
 msgstr ""
 
 #: view/settings/system_info.php:186
@@ -2345,25 +2345,25 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:26
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:48
+#: includes/classes/controller/SettingPageController.php:26
+#: includes/classes/controller/WooCommerceProductEditController.php:48
 msgctxt "Status"
 msgid "All images loaded"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:55
+#: includes/classes/controller/OrderFulfillmentController.php:55
 msgctxt "Status"
 msgid ""
 "All orders are placed! Click \"Orders List\" to be directed to the orders "
 "list on the AliExpress website."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:46
+#: includes/classes/controller/OrderFulfillmentController.php:46
 msgctxt "Status"
 msgid "All products are added to the cart. Wait..."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:223
+#: includes/classes/controller/WooCommerceOrderListController.php:223
 msgctxt "Status"
 msgid ""
 "At the moment there are no orders available for synchronization. Please note:"
@@ -2371,7 +2371,7 @@ msgid ""
 "ID."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:50
+#: includes/classes/controller/OrderFulfillmentController.php:50
 msgctxt "Status"
 msgid ""
 "Can`t add this product to the cart. Switch to AliExpress and choose another "
@@ -2379,245 +2379,245 @@ msgid ""
 "Check out <a href=\"%s\">the instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:64
+#: includes/classes/controller/OrderFulfillmentController.php:64
 msgctxt "Status"
 msgid "Can`t find the WC order with a given ID."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:57
+#: includes/classes/controller/OrderFulfillmentController.php:57
 msgctxt "Status"
 msgid ""
 "Can`t get the external order ID, please copy it manually to your WC order. "
 "Then continue."
 msgstr ""
 
-#: addons/import_shopmaster/A2W_ToolsController.php:24
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:38
-#: includes/classes/controller/A2W_WooCommerceProductListController.php:94
+#: addons/import_shopmaster/ToolsController.php:24
+#: includes/classes/controller/OrderFulfillmentController.php:38
+#: includes/classes/controller/WooCommerceProductListController.php:94
 msgctxt "Status"
 msgid "Complete! Result updated: %d; errors: %d."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:43
+#: includes/classes/controller/OrderFulfillmentController.php:43
 msgctxt "Status"
 msgid "Detected old AliExpress interface. Please contact Ali2Woo support."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:49
+#: includes/classes/controller/OrderFulfillmentController.php:49
 msgctxt "Status"
 msgid "Filling order notes..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:48
+#: includes/classes/controller/OrderFulfillmentController.php:48
 msgctxt "Status"
 msgid ""
 "Get no responces from the chrome extension for 30s. Check out <a href=\"%s\">"
 "the instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_SearchPageController.php:24
+#: includes/classes/controller/SearchPageController.php:24
 msgctxt "Status"
 msgid "Import failed."
 msgstr ""
 
-#: includes/classes/controller/A2W_SearchPageController.php:23
+#: includes/classes/controller/SearchPageController.php:23
 msgctxt "Status"
 msgid "Imported successfully."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:54
+#: includes/classes/controller/OrderFulfillmentController.php:54
 msgctxt "Status"
 msgid ""
 "Internal AliExpress error. Please continue to try again or skip this order."
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:25
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:47
+#: includes/classes/controller/SettingPageController.php:25
+#: includes/classes/controller/WooCommerceProductEditController.php:47
 msgctxt "Status"
 msgid "Load %d images"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:67
+#: includes/classes/controller/OrderFulfillmentController.php:67
 msgctxt "Status"
 msgid ""
 "No AliExpress products in the current order. Check out <a href=\"%s\">the "
 "instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:219
+#: includes/classes/controller/WooCommerceOrderListController.php:219
 msgctxt "Status"
 msgid "No tracking numbers for the AliExpress order № "
 msgstr ""
 
 #: view/includes/place_orders_bulk_popup.php:4
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:34
+#: includes/classes/controller/OrderFulfillmentController.php:34
 msgctxt "Status"
 msgid "Placing orders %d/%d..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:40
+#: includes/classes/controller/OrderFulfillmentController.php:40
 msgctxt "Status"
 msgid ""
 "Please connect the Chrome extension to your store and then continue. Need "
 "help? Check out <a href=\"%s\">the instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:39
+#: includes/classes/controller/OrderFulfillmentController.php:39
 msgctxt "Status"
 msgid ""
 "Please install and connect to your website the Ali2Woo chrome extension to "
 "use this feature."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:60
+#: includes/classes/controller/OrderFulfillmentController.php:60
 msgctxt "Status"
 msgid "Please switch to AliExpress and choose payment method."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:52
+#: includes/classes/controller/OrderFulfillmentController.php:52
 msgctxt "Status"
 msgid ""
 "Please switch to AliExpress and input the Captcha code manually or wait for "
 "your Captcha solver to do the job..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:59
+#: includes/classes/controller/OrderFulfillmentController.php:59
 msgctxt "Status"
 msgid "Please switch to AliExpress and pay for the order."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:42
+#: includes/classes/controller/OrderFulfillmentController.php:42
 msgctxt "Status"
 msgid "Please switch to AliExpress tab and login into your AliExpress account."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:51
+#: includes/classes/controller/OrderFulfillmentController.php:51
 msgctxt "Status"
 msgid "Please switch to AliExpress tab, type the address or skip this order."
 msgstr ""
 
-#: addons/import_shopmaster/A2W_ToolsController.php:21
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:35
-#: includes/classes/controller/A2W_WooCommerceProductListController.php:91
+#: addons/import_shopmaster/ToolsController.php:21
+#: includes/classes/controller/OrderFulfillmentController.php:35
+#: includes/classes/controller/WooCommerceProductListController.php:91
 msgctxt "Status"
 msgid "Please wait, data loads.."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:209
+#: includes/classes/controller/WooCommerceOrderListController.php:209
 msgctxt "Status"
 msgid "Please wait, data loads..."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:210
+#: includes/classes/controller/WooCommerceOrderListController.php:210
 msgctxt "Status"
 msgid "Please wait..."
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:24
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:46
+#: includes/classes/controller/SettingPageController.php:24
+#: includes/classes/controller/WooCommerceProductEditController.php:46
 msgctxt "Status"
 msgid "Process loading %d of %d. Errors: %d."
 msgstr ""
 
-#: addons/import_shopmaster/A2W_ToolsController.php:22
-#: includes/classes/controller/A2W_WooCommerceProductListController.php:92
+#: addons/import_shopmaster/ToolsController.php:22
+#: includes/classes/controller/WooCommerceProductListController.php:92
 msgctxt "Status"
 msgid "Process update %d of %d."
 msgstr ""
 
-#: addons/import_shopmaster/A2W_ToolsController.php:23
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:37
-#: includes/classes/controller/A2W_WooCommerceProductListController.php:93
+#: addons/import_shopmaster/ToolsController.php:23
+#: includes/classes/controller/OrderFulfillmentController.php:37
+#: includes/classes/controller/WooCommerceProductListController.php:93
 msgctxt "Status"
 msgid "Process update %d of %d. Errors: %d."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:45
+#: includes/classes/controller/OrderFulfillmentController.php:45
 msgctxt "Status"
 msgid "Product (%d) is added to the cart. Wait..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:70
+#: includes/classes/controller/OrderFulfillmentController.php:70
 msgctxt "Status"
 msgid "Server error. Continue to try again."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:54
+#: includes/classes/controller/WooCommerceProductEditController.php:54
 msgctxt "Status"
 msgid "Sync failed."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:211
+#: includes/classes/controller/WooCommerceOrderListController.php:211
 msgctxt "Status"
 msgid "Sync process"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceProductEditController.php:53
+#: includes/classes/controller/WooCommerceProductEditController.php:53
 msgctxt "Status"
 msgid "Synchronized successfully."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:53
+#: includes/classes/controller/OrderFulfillmentController.php:53
 msgctxt "Status"
 msgid "The order is placed. Wait..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:58
+#: includes/classes/controller/OrderFulfillmentController.php:58
 msgctxt "Status"
 msgid ""
 "The payment is failed, please finish this order manually. Then continue."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:47
+#: includes/classes/controller/OrderFulfillmentController.php:47
 msgctxt "Status"
 msgid "The previous cart data is cleared. Wait..."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:66
+#: includes/classes/controller/OrderFulfillmentController.php:66
 msgctxt "Status"
 msgid ""
 "This order doesn`t contain the `product_url` field for some reason. Check "
 "out <a href=\"%s\">the instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:65
+#: includes/classes/controller/OrderFulfillmentController.php:65
 msgctxt "Status"
 msgid ""
 "This order has a variable product but doesn`t contain the variable data for "
 "some reason. Check out <a href=\"%s\">the instruction</a>"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:62
+#: includes/classes/controller/OrderFulfillmentController.php:62
 msgctxt "Status"
 msgid ""
 "This website is not connected to the Ali2Woo chrome extension. Please check "
 "that you choose right API key."
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:222
+#: includes/classes/controller/WooCommerceOrderListController.php:222
 msgctxt "Status"
 msgid "Tracking data is updated for the AliExpress order № "
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:69
+#: includes/classes/controller/OrderFulfillmentController.php:69
 msgctxt "Status"
 msgid "Unknown error occured. Please contact support."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:56
+#: includes/classes/controller/OrderFulfillmentController.php:56
 msgctxt "Status"
 msgid ""
 "We can`t process your orders. Check out the \"Status Page\" for more details."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:41
+#: includes/classes/controller/OrderFulfillmentController.php:41
 msgctxt "Status"
 msgid ""
 "We found an old order fulfillment process and removed it. Press the "
 "\"Continue\" button."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderFulfillmentController.php:44
+#: includes/classes/controller/OrderFulfillmentController.php:44
 msgctxt "Status"
 msgid "Your customer address is entered. Wait..."
 msgstr ""
@@ -2630,15 +2630,15 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:65
+#: includes/classes/controller/WooCommerceOrderListController.php:65
 msgid "SYNC ALL with AliExpress"
 msgstr ""
 
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:333
+#: includes/classes/controller/WooCommerceOrderListController.php:333
 msgid "SYNC with AliExpress"
 msgstr ""
 
-#: includes/classes/controller/A2W_SettingPageController.php:52
+#: includes/classes/controller/SettingPageController.php:52
 msgid "System Info"
 msgstr ""
 
@@ -2646,17 +2646,17 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:58
+#: includes/classes/controller/OrderDataTabController.php:58
 msgid "The order external ID(s) and tracking numbers have been reset."
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:228
+#: includes/classes/controller/OrderDataTabController.php:228
 msgid ""
 "The order external ID(s) and/or tracking numbers have been added to the "
 "order manually."
 msgstr ""
 
-#: includes/classes/controller/A2W_SynchProductController.php:312
+#: includes/classes/controller/SynchProductController.php:312
 msgid "The report is generated by the Email alerts module in Ali2Woo at"
 msgstr ""
 
@@ -2694,7 +2694,7 @@ msgstr ""
 msgid "These markups will be used for the rest of the price ranges"
 msgstr ""
 
-#: includes/classes/model/A2W_Override.php:91
+#: includes/classes/model/Override.php:91
 msgid ""
 "This product will override <a href=\"%s\">%s</a> Click \"Override\" to "
 "proceed."
@@ -2709,7 +2709,7 @@ msgstr ""
 msgid "To:"
 msgstr ""
 
-#: addons/import_shopmaster/A2W_ToolsController.php:17
+#: addons/import_shopmaster/ToolsController.php:17
 msgid "Tools"
 msgstr ""
 
@@ -2717,11 +2717,11 @@ msgstr ""
 msgid "Tracking"
 msgstr ""
 
-#: includes/classes/controller/A2W_OrderDataTabController.php:115
-#: includes/classes/controller/A2W_OrderDataTabController.php:190
-#: includes/classes/controller/A2W_OrderDataTabController.php:248
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:171
-#: includes/classes/controller/A2W_WooCommerceOrderListController.php:290
+#: includes/classes/controller/OrderDataTabController.php:115
+#: includes/classes/controller/OrderDataTabController.php:190
+#: includes/classes/controller/OrderDataTabController.php:248
+#: includes/classes/controller/WooCommerceOrderListController.php:171
+#: includes/classes/controller/WooCommerceOrderListController.php:290
 msgid "Tracking numbers"
 msgstr ""
 
@@ -2761,15 +2761,15 @@ msgstr ""
 msgid "Use custom account"
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:36
+#: includes/classes/model/PriceFormula.php:36
 msgid "Use regular price as base"
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:26
+#: includes/classes/model/PriceFormula.php:26
 msgid "Use sale price and discount"
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:31
+#: includes/classes/model/PriceFormula.php:31
 msgid "Use sale price as base"
 msgstr ""
 
@@ -2817,7 +2817,7 @@ msgstr ""
 msgid "When variant is no longer available"
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:18
+#: includes/classes/controller/WizardPageController.php:18
 msgid "Wizard"
 msgstr ""
 
@@ -2836,7 +2836,7 @@ msgctxt "Wizard"
 msgid "Do you want to import reviews?"
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:162
+#: includes/classes/controller/WizardPageController.php:162
 msgctxt "Wizard"
 msgid "Import description from AliExpress"
 msgstr ""
@@ -2858,7 +2858,7 @@ msgid ""
 "in dropshipping."
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:166
+#: includes/classes/controller/WizardPageController.php:166
 msgctxt "Wizard"
 msgid "No, i will set up prices myself later"
 msgstr ""
@@ -2892,7 +2892,7 @@ msgctxt "Wizard"
 msgid "Reviews allow you to increase the conversion in your store."
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:167
+#: includes/classes/controller/WizardPageController.php:167
 #, php-format
 msgctxt "Wizard"
 msgid "Set 300% fixed markup (if you sell only low-ticket products only)"
@@ -2932,7 +2932,7 @@ msgid ""
 "products which you import into your store."
 msgstr ""
 
-#: includes/classes/controller/A2W_WizardPageController.php:161
+#: includes/classes/controller/WizardPageController.php:161
 msgctxt "Wizard"
 msgid "Use product specifications instead of description (recommended)"
 msgstr ""
@@ -2988,7 +2988,7 @@ msgid "Write ali2woo logs"
 msgstr ""
 
 #: view/emails/product-changes.php:58
-#: includes/classes/utils/A2W_Shipping.php:157
+#: includes/classes/utils/Shipping.php:157
 msgid "yes"
 msgstr ""
 
@@ -3022,7 +3022,7 @@ msgid ""
 "cost of your product to be XX.99 then add 99 to the fields below)."
 msgstr ""
 
-#: includes/libs/a2w_json_api/singletons/api.php:112
+#: includes/libs/json_api/singletons/api.php:112
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -3030,7 +3030,7 @@ msgstr ""
 msgid "You have unsaved changes"
 msgstr ""
 
-#: includes/classes/model/A2W_Override.php:32
+#: includes/classes/model/Override.php:32
 msgid ""
 "You've already selected to override this product. Check your import list and "
 "confirm the override to continue."
@@ -3040,14 +3040,14 @@ msgstr ""
 msgid "Your Import List is Empty."
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:37
+#: includes/classes/model/PriceFormula.php:37
 msgid ""
 "Your pricing formula is applied to the AliExpress regular price. To learn "
 "more check out <a href=\"https://ali2woo.com/codex/pricing-markup-formula/\">"
 "this article</a>"
 msgstr ""
 
-#: includes/classes/model/A2W_PriceFormula.php:32
+#: includes/classes/model/PriceFormula.php:32
 msgid ""
 "Your pricing formula is applied to the AliExpress sale price. To learn more "
 "check out <a href=\"https://ali2woo.com/codex/pricing-markup-formula/\">this "

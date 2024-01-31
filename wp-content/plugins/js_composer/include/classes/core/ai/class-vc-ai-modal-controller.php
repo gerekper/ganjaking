@@ -113,6 +113,9 @@ class Vc_Ai_Modal_Controller {
 
 		$api_connector = new Vc_Ai_Api_Connector();
 		$data = $api_connector->add_license_key_to_request_data( $data );
+		if ( is_wp_error( $data ) ) {
+			return 'license_no_valid';
+		}
 		$response = $api_connector->get_api_response_data( $data, 'status', true );
 
 		if ( ! is_wp_error( $response ) ) {

@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Condition_Billing_Postcode class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.9.0
  */
 

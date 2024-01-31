@@ -9,7 +9,7 @@ $opt_label_column      = ( ! empty( $addon['display'] ) && 'images' === $addon['
 $opt_image             = ! empty( $option['image'] ) ? $option['image'] : '';
 $opt_show_image_swatch = ! empty( $opt_image ) ? 'show' : 'hide';
 $opt_show_add_image    = ! empty( $opt_image ) ? 'hide' : 'show';
-$opt_label             = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? $option['label'] : '';
+$opt_label             = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? wp_kses_post( stripslashes($option['label'] ) ) : '';
 $opt_price             = ! empty( $option['price'] ) ? $option['price'] : '';
 $opt_image_thumb       = '<img />';
 $opt_decimal_separator = wc_get_price_decimal_separator();

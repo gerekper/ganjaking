@@ -2,6 +2,7 @@
 
 namespace ACP\Helper\Select\Taxonomy;
 
+use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Term_Query;
@@ -19,7 +20,7 @@ class Query extends ArrayIterator
     {
         $args = array_merge([
             'page'       => 1,
-            'number'     => 100,
+            'number'     => (new QueryTotalNumber())->apply_filter(),
             'search'     => '',
             'hide_empty' => 0,
             'taxonomy'   => null,

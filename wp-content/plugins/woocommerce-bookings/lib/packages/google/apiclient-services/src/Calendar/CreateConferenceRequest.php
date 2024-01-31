@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -22,12 +22,20 @@ namespace Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar;
 
 class CreateConferenceRequest extends \Automattic\WooCommerce\Bookings\Vendor\Google\Model
 {
+  /**
+   * @var ConferenceSolutionKey
+   */
+  public $conferenceSolutionKey;
   protected $conferenceSolutionKeyType = ConferenceSolutionKey::class;
   protected $conferenceSolutionKeyDataType = '';
   /**
    * @var string
    */
   public $requestId;
+  /**
+   * @var ConferenceRequestStatus
+   */
+  public $status;
   protected $statusType = ConferenceRequestStatus::class;
   protected $statusDataType = '';
 

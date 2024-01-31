@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventON/Admin/ajde_events
- * @version     2.4.4
+ * @version     4.5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -28,12 +28,13 @@ class evo_ajde_events{
 		add_filter( 'list_table_primary_column', array( $this, 'list_table_primary_column' ), 10, 2 );
 		add_filter( 'post_row_actions', array($this,'eventon_duplicate_event_link_row'),10,2 );
 		add_action( 'post_submitbox_misc_actions', array($this,'eventon_duplicate_event_post_button') );
-
+		
+		// bulk quick edit
 		add_action( 'bulk_edit_custom_box', array( $this, 'bulk_edit' ), 10, 2 );
 		add_action( 'quick_edit_custom_box',  array($this,'eventon_admin_event_quick_edit'), 10, 2 );
+		add_action( 'save_post', array($this,'bulk_quick_edit_hook'), 10, 2 );
+		add_action( 'evo_bulk_and_quick_edit', array($this,'bulk_and_quick_edit_save_post'), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array($this,'eventon_admin_events_quick_edit_scripts'), 10 );
-		add_action( 'save_post', array($this,'bulk_and_quick_edit_hook'), 10, 2 );
-		add_action( 'evo_event_bulk_quick_edit', array( $this, 'bulk_and_quick_edit_save_hook' ), 10, 2 );
 	}
 
 	// Columns for events page
@@ -178,12 +179,11 @@ class evo_ajde_events{
 
 	// Custom Columns for event page
 		function eventon_custom_event_columns( $column , $post_id) {
-			global $post, $eventon;
+			global $post;
 
-			//if ( empty( $ajde_events ) || $ajde_events->id != $post->ID )
-				//$ajde_events = get_product( $post );
-			//$pmv = get_post_custom($post->ID);
-			$EVENT = new EVO_Event( $post->ID);
+			$EVENT = new EVO_Event( $post_id);
+			$EVENT->load_all_meta();
+
 			$pmv = $EVENT->get_data();
 
 			switch ($column) {
@@ -196,14 +196,14 @@ class evo_ajde_events{
 				break;
 				
 				case "name" :
-					$edit_link = get_edit_post_link( $post->ID );
+					$edit_link = get_edit_post_link( $post_id );
 					$title = _draft_or_post_title();
 					$post_type_object = get_post_type_object( $post->post_type );
-					$can_edit_post = current_user_can( $post_type_object->cap->edit_post, $post->ID );
+					$can_edit_post = current_user_can( $post_type_object->cap->edit_post, $post_id );
 
 
 					echo "<div class='evoevent_item'>";
-						$img_src = $eventon->evo_admin->get_image('thumbnail',false);
+						$img_src = EVO()->evo_admin->get_image('thumbnail',false);
 						$event_color = eventon_get_hex_color( $EVENT->get_prop('evcal_event_color') );
 						echo '<a class="evoevent_image" href="' . get_edit_post_link( $post_id ) . '">';
 						if($img_src){
@@ -288,16 +288,15 @@ class evo_ajde_events{
 						echo '</div>';
 					
 					get_inline_data( $post );
-				
-					
-					
+									
 					//print_r($event);
 					
 					/* Custom inline data for eventon */
-					echo '<div class="hidden" id="eventon_inline_' . $post->ID . '">';
-					foreach(  $this->_get_event_edit_values($post->ID)  as $F=>$V){
-						echo "<div class='{$F}'>". $V. "</div>";
-					}
+					echo '<div class="hidden" id="eventon_inline_' . $post_id . '" >';
+						echo $EVENT->get_event_status().' '. get_post_meta( $post_id, '_status',true);
+						foreach(  $this->_get_event_edit_values( $EVENT )  as $F=>$V){
+							echo "<div class='{$F}'>". $V. "</div>";
+						}
 					echo "<div class='_menu_order'>".$post->menu_order."</div>";
 					echo '</div>';
 					echo '</div><!--.evoevent_item-->';
@@ -420,12 +419,13 @@ class evo_ajde_events{
 			}
 		}
 
-		// get evetn edit fields for quick edit
-		// @+2.8.1
-		function _get_event_edit_values($ID){
+		// get event edit fields for quick edit
+		// @4.5.6
+		function _get_event_edit_values( $EVENT ){
 			
-			$EV = new EVO_Event($ID);
+			$EV = $EVENT;
 			$R = array();
+
 			foreach(array(
 				0=>'evcal_start_date',
 				'evcal_start_time_hour',
@@ -438,10 +438,8 @@ class evo_ajde_events{
 				'evcal_location',
 				'evcal_organizer',
 				'evcal_subtitle',
-				'evcal_allday',
 				'evo_hide_endtime',
 				'_featured',
-				'_ev_status'=>'_status',
 				'evo_exclude_ev',
 				'evcal_gmap_gen',
 				'evcal_hide_locname',
@@ -449,10 +447,8 @@ class evo_ajde_events{
 				'evo_evcrd_field_org',
 				'_evo_date_format',
 				'_evo_time_format',
-				'_evo_month_long','evo_year_long'
 			) as $F=>$V){
-				$_V = ($F == '_ev_status')? $F: $V;		
-				$R[$_V] = $EV->get_prop($V);
+				$R[ $V ] = $EV->get_prop($V);
 			}
 
 			$evcal_date_format = eventon_get_timeNdate_format();
@@ -472,6 +468,9 @@ class evo_ajde_events{
 				$R['evcal_end_time_hour'] = $E[1];
 				$R['evcal_end_time_min'] = $E[2];
 				if(isset($E[3])) $R['evcal_et_ampm'] = $E[3];
+
+			$R['_time_ext_type'] = $EV->get_time_ext_type();
+			$R['_ev_status'] = $EV->get_event_status();
 
 			return $R;
 		}
@@ -513,11 +512,7 @@ class evo_ajde_events{
 
 	// Set list table primary column for events
 		function list_table_primary_column( $default, $screen_id ) {
-
-			if ( 'edit-ajde_events' === $screen_id ) {
-				return 'name';
-			}
-
+			if ( 'edit-ajde_events' === $screen_id )	return 'name';
 			return $default;
 		}
 
@@ -576,23 +571,23 @@ class evo_ajde_events{
 			include_once(EVO()->plugin_path(). '/includes/admin/views/html-bulk-edit-ajde_events.php');
 		}
 
-		// SAVE QUICK EDIT
-		function bulk_and_quick_edit_hook($post_id, $post){
-			remove_action( 'save_post', array( $this, 'bulk_and_quick_edit_hook' ) );
-			do_action( 'evo_event_bulk_quick_edit', $post_id, $post );
-			add_action( 'save_post', array( $this, 'bulk_and_quick_edit_hook' ), 10, 2 );
-		}
-		function bulk_and_quick_edit_save_hook( $post_id, $post ) {
+		// SAVE QUICK EDIT	
+		function bulk_quick_edit_hook( $post_id, $post){
+			remove_action( 'save_post', array( $this, 'bulk_quick_edit_hook' ) );
+			do_action( 'evo_bulk_and_quick_edit', $post_id, $post );
+			add_action( 'save_post', array( $this, 'bulk_quick_edit_hook' ), 10, 2 );
+		}	
+		function bulk_and_quick_edit_save_post( $post_id, $post ) {
 
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return $post_id;
 
+			// authorisation
 			if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) || 'ajde_events' !== $post->post_type || ! current_user_can( 'edit_post', $post_id ) ) return $post_id;
 
 			//check nonce
 			if ( ! isset( $_REQUEST['eventon_quick_edit_nonce'] ) || ! wp_verify_nonce( $_REQUEST['eventon_quick_edit_nonce'], 'eventon_quick_edit_nonce' ) ) { 
 				return $post_id;
 			}
-
 			
 			$EVENT = new EVO_Event( $post_id);
 
@@ -605,59 +600,69 @@ class evo_ajde_events{
 			return $post_id;			
 		}
 
+		// @4.5.6
 		private function quick_edit_save($post_id, $EVENT){
+
+			$HELP = new evo_helper();
+			$post_data = $HELP->sanitize_array($_REQUEST);
 
 			// Save fields
 			if ( isset( $_POST['evcal_subtitle'] ) ) 
-				$EVENT->set_prop('evcal_subtitle', eventon_clean( $_POST['evcal_subtitle'] ));
+				$EVENT->set_prop('evcal_subtitle', sanitize_text_field( $_POST['evcal_subtitle'] ));
 
 			// start end time
 			$proper_time = 	evoadmin_get_unix_time_fromt_post($post_id);
 
 			if ( !empty($proper_time['unix_start']) )
-				$EVENT->set_prop('evcal_srow', eventon_clean( $proper_time['unix_start'] ));
+				$EVENT->set_prop('evcal_srow', sanitize_text_field( $proper_time['unix_start'] ));
 			
 			if ( !empty($proper_time['unix_end']) )
-				$EVENT->set_prop('evcal_erow', eventon_clean( $proper_time['unix_end'] ));
+				$EVENT->set_prop('evcal_erow', sanitize_text_field( $proper_time['unix_end'] ));
 
-			// yes no fields
+			// Other fields
 			foreach( apply_filters('eventon_quick_save_fields', array(
 				'_featured',
 				'_ev_status',
 				'evo_hide_endtime',
 				'evo_span_hidden_end',
-				'evcal_allday',
 				'evo_exclude_ev',
 				'evcal_gmap_gen',
 				'evcal_hide_locname',
 				'evo_access_control_location',
 				'evo_evcrd_field_org',
+				'_time_ext_type',
 			)) as $field){
-				if( empty($_REQUEST[ $field ])) continue;
+				if( empty($post_data[ $field ])) continue;
 
 				$F = ($field == '_ev_status')? '_status': $field;
-				$EVENT->set_prop( $F, eventon_clean($_REQUEST[ $field ])  );
+				$EVENT->set_prop( $F, $post_data[ $field ]  );
 			}
-
 		}
+
+		// @u 4.5.6
 		private function bulk_edit_save($post_id, $EVENT){
+
+			$HELP = new evo_helper();
+			$post_data = $HELP->sanitize_array($_REQUEST);
+
 			// yes no fields
 			foreach( apply_filters('eventon_quick_save_fields', array(
 				'_featured',
 				'_ev_status',
 				'evo_hide_endtime',
 				'evo_span_hidden_end',
-				'evcal_allday',
 				'evo_exclude_ev',
 				'evcal_gmap_gen',
 				'evcal_hide_locname',
 				'evo_access_control_location',
 				'evo_evcrd_field_org',
+				'_time_ext_type'
 			)) as $field){
-				if( empty($_REQUEST[ $field ])) continue;
+				if( empty($post_data[ $field ])) continue;
+				if( $post_data[ $field ] == '-') continue; // skip no change values
 
 				$F = ($field == '_ev_status')? '_status': $field;
-				$EVENT->set_prop( $F, eventon_clean($_REQUEST[ $field ])  );
+				$EVENT->set_prop( $F, sanitize_text_field( $post_data[ $field ] )  );
 			}
 		}
 }

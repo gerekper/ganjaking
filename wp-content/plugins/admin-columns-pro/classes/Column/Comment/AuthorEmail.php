@@ -17,7 +17,7 @@ class AuthorEmail extends AC\Column\Comment\AuthorEmail
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_author_email');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_author_email');
     }
 
     public function editing()

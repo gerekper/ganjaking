@@ -638,9 +638,9 @@ class Gradient
                 $angle = 0;
             }
             if (\stripos($bgr[0], 'left') !== \false) {
-                $startx = 0;
-            } elseif (\stripos($bgr[0], 'right') !== \false) {
                 $startx = 1;
+            } elseif (\stripos($bgr[0], 'right') !== \false) {
+                $startx = 0;
             }
             if (\stripos($bgr[0], 'top') !== \false) {
                 $starty = 1;

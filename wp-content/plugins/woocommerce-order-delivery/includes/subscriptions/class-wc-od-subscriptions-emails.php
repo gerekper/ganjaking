@@ -9,7 +9,9 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
-
+	/**
+	 * WC_OD_Subscriptions_Emails class.
+	 */
 	class WC_OD_Subscriptions_Emails {
 
 		/**
@@ -62,7 +64,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 		 * @return array An array with the email IDs.
 		 */
 		public function emails_with_delivery_details( $email_ids ) {
-			$email_ids = array_merge(
+			return array_merge(
 				$email_ids,
 				array(
 					'new_renewal_order',
@@ -70,8 +72,6 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 					'customer_completed_renewal_order',
 				)
 			);
-
-			return $email_ids;
 		}
 
 		/**
@@ -123,7 +123,6 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 				printf( '<p>%s</p>', sprintf( $text, join( ', ', $links ) ) );
 			}
 		}
-
 	}
 }
 

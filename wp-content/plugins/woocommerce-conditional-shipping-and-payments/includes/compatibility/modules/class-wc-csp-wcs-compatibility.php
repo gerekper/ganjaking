@@ -2,7 +2,7 @@
 /**
  * WC_CSP_WCS_Compatibility class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.14.5
  */
 

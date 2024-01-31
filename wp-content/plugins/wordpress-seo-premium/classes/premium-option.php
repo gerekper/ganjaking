@@ -35,6 +35,8 @@ class WPSEO_Premium_Option extends WPSEO_Option {
 
 	/**
 	 * Registers the option to the WPSEO Options framework.
+	 *
+	 * @return void
 	 */
 	public static function register_option() {
 		WPSEO_Options::register_option( static::get_instance() );

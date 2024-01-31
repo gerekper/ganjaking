@@ -59,8 +59,8 @@ final class ComparisonFactory
 
             case $field instanceof Type\Posts:
                 return $field->is_multiple()
-                    ? new ACP\Search\Comparison\Meta\Posts($field->get_name(), $field->get_related_post_types())
-                    : new ACP\Search\Comparison\Meta\Post($field->get_name(), $field->get_related_post_types());
+                    ? new ACP\Search\Comparison\Meta\Posts($field->get_name(), $field->get_related_post_types() ?: [])
+                    : new ACP\Search\Comparison\Meta\Post($field->get_name(), $field->get_related_post_types() ?: []);
 
             case $field instanceof Type\Media:
                 $query_factory = new QueryMetaFactory();

@@ -91,6 +91,9 @@ class WC_Min_Max_Quantities_Admin {
 
 		// Add a notice if Min/Max quantities are not compatible with the "Group of" option.
 		add_action( 'admin_notices', array( $this, 'maybe_add_group_of_notice' ), 0 );
+
+		// Show row meta on the plugin screen.
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
 
 	/**
@@ -754,8 +757,29 @@ class WC_Min_Max_Quantities_Admin {
 	 */
 	public function output_notice( $content, $type ) {
 		echo '<div class="notice notice-' . esc_attr( $type ) . '">';
-		echo wpautop( wp_kses_post( $content ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo wpautop( wp_kses_post( $content ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>';
+	}
+
+	/**
+	 * Show row meta on the plugin screen.
+	 *
+	 * @param	mixed  $links
+	 * @param	mixed  $file
+	 * @return	array
+	 */
+	public static function plugin_row_meta( $links, $file ) {
+
+		if ( WC_MMQ_PLUGIN_BASENAME === $file ) {
+			$row_meta = array(
+				'docs'    => '<a href="https://woo.com/products/minmax-quantities/">' . __( 'Documentation', 'woocommerce-min-max-quantities' ) . '</a>',
+				'support' => '<a href="https://woo.com/my-account/marketplace-ticket-form/">' . __( 'Support', 'woocommerce-min-max-quantities' ) . '</a>',
+			);
+
+			return array_merge( $links, $row_meta );
+		}
+
+		return $links;
 	}
 
 }

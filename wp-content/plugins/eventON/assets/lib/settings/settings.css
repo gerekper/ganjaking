@@ -1,6 +1,6 @@
 /**
  * AJDE backender styles
- * @version 4.5.4
+ * @version 4.5.5
  */
 
 /* General Appearace */
@@ -15,7 +15,7 @@
 		background-color: #fff;
 	    padding: 65px 0 0px;
 	    margin: -20px -20px 30px;
-	    border-bottom:1px solid #e0e0e0
+	    border-bottom:1px solid #e0e0e0;
 	}
 	.evo_settings_header h2{
 		border-bottom: 1px solid #e0e0e0; margin:0;padding:20px;
@@ -23,11 +23,40 @@
 	h2.settings_m_header{
 		position: fixed;
 	    background-color: #fff;
-	    width: 100%;
+	    width:calc(100% - 200px);
 	    z-index: 3; top:30px; padding:20px 20px 15px;
+	    display: flex; align-items: center;
+	    justify-content: space-between;
 	}
+	.evo_set_right{    display: flex; flex-direction: row; align-items: center;}
+	.folded h2.settings_m_header{ width:calc(100% - 76px);}
 	.evo_settings_header div{color:#202124;}
-	.wrap .evo_settings_header .updated{margin:5px;}
+
+	/* updated message */
+		.wrap .evo_settings_header .evo_updated{
+			display: inline-block;
+		    margin: 0 0 0 10px;
+		    outline: none;
+		    border: none;
+		    padding: 4px 15px 4px 25px;position: relative;
+		}
+		.wrap .evo_settings_header .evo_updated:before{
+			content:"\f00c";
+			font-family: 'evo_FontAwesomeS','evo_FontAwesome','evo_FontAwesomeB';
+    		font-weight: 400;
+    		-webkit-font-smoothing: antialiased;
+		    display: var(--fa-display, inline-block);
+		    font-style: normal;
+		    font-variant: normal;
+		    line-height: 1;
+		    text-rendering: auto;
+		    position: absolute;    top: 5px; left: 0;
+		}
+		.wrap .evo_settings_header .evo_updated.error:before{
+			content:"\21";
+		}
+		.wrap .evo_settings_header .evo_updated p{margin:0;}
+		.evo_settings_header .evo_trig_form_save{margin:0 0 0 5px;font-size: 12px;}
 
 	.ajde_settings .evo_lang_export{margin-left: 155px;}
 	.ajde_settings.evcal_2 .evo_lang_export{margin-left: 0;}

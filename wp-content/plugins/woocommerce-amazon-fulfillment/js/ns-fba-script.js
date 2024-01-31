@@ -41,10 +41,20 @@ jQuery(
 							success: function (result) {
 								let market_selector = $( '#woocommerce_fba_ns_fba_marketplace_id' );
 								market_selector.empty().append( result.data );
+								refreshMarketPlaceURL();
 							}
 						}
 					);
 				}
+			}
+		);
+
+		// Refresh marketplace url.
+		$( document ).on(
+			'change',
+			'#woocommerce_fba_ns_fba_marketplace_id',
+			function () {
+				refreshMarketPlaceURL();
 			}
 		);
 
@@ -530,6 +540,36 @@ jQuery(
 			$( '#woocommerce_fba_ns_fba_shipping_speed_standard' ).closest( 'tr' ).remove();
 			$( '#woocommerce_fba_ns_fba_shipping_speed_expedited' ).closest( 'tr' ).remove();
 			$( '#woocommerce_fba_ns_fba_shipping_speed_priority' ).closest( 'tr' ).remove();
+		}
+
+		/**
+		 * Update the login url to match the region.
+		 */
+		function refreshMarketPlaceURL() {
+			if ( $( '.ns_fba_login_with_amazon' ).length ) {
+				let marketplace = $( '#woocommerce_fba_ns_fba_marketplace_id' ).find(":selected").val();
+				var button = $( '.ns_fba_login_with_amazon' );
+				if (marketplace) {
+					$.ajax(
+						{
+							url      : ajaxurl,
+							type     : 'POST',
+							dataType : 'json',
+							cache    : false,
+							data     : {
+								action : 'ns_fba_refresh_marketplace_link',
+								nonce  : ns_fba.nonce,
+								marketplace: marketplace
+							},
+							success: function (result) {
+								if (result.success) {
+									button.attr( 'href', result.data );
+								}
+							}
+						}
+					);
+				}
+			}
 		}
 
 	}

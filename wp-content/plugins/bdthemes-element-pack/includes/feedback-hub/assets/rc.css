@@ -1,0 +1,20 @@
+.rc-global-notice {
+    z-index: 99;
+}
+
+.rc-global-notice .rc-global-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rc-global-notice .rc-global-header img {
+    height: 30px;
+    width: auto;
+}
+
+.rc-button-danger {
+    background: #ea5353 !important;
+    color: #fff !important;
+    border-color: #ea5353 !important;
+}

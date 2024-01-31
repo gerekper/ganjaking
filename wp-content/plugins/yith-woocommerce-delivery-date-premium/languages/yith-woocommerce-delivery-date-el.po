@@ -1,0 +1,1823 @@
+# Translation of YITH WooCommerce Delivery Date in Greek
+# This file is distributed under the same license as the YITH WooCommerce Delivery Date package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Delivery Date\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"delivery-date-premium\n"
+"POT-Creation-Date: 2021-02-08 10:57:14+00:00\n"
+"PO-Revision-Date: 2020-10-06 21:04:00+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: class.yith-delivery-date.php:209
+#: templates/meta-boxes/carrier-meta-boxes-options.php:13
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:12
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:20
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: class.yith-delivery-date.php:210
+msgid "Processing Options"
+msgstr "Επιλογές Επεξεργασίας"
+
+#: class.yith-delivery-date.php:211
+msgid "Carrier Options"
+msgstr "Επιλογές Μεταφορέα"
+
+#: class.yith-delivery-date.php:212
+#: plugin-options/dynamic-delivery-message-options.php:8
+msgid "Dynamic Delivery Message"
+msgstr "Δυναμικό Μήνυμα Παράδοσης"
+
+#: class.yith-delivery-date.php:213
+#: plugin-options/general-calendar-options.php:97
+msgid "Calendar"
+msgstr "Ημερολόγιο"
+
+#: class.yith-delivery-date.php:214
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:13
+#: plugin-options/delivery-table-options.php:16
+msgid "Quantity Tables"
+msgstr "Πίνακες Ποσότητας"
+
+#: class.yith-delivery-date.php:215
+msgid "Email"
+msgstr "Email"
+
+#: class.yith-delivery-date.php:222
+msgid "YITH WooCommerce Delivery Date"
+msgstr "YITH WooCommerce Delivery Date"
+
+#: class.yith-delivery-date.php:224
+msgid "Advanced delivery options for your customers"
+msgstr "Προηγμένες επιλογές παράδοσης για τους πελάτες σας"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:11
+msgid "Carrier "
+msgstr "Μεταφορέας "
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:13
+msgid "Carriers"
+msgstr "Μεταφορείς"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:31
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:33
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:29
+#: includes/widgets/class.yith-delivery-date-dynamic-messages-widget.php:43
+msgid "Title"
+msgstr "Τίτλος"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:32
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:34
+msgid "Number of Workdays"
+msgstr "Αριθμός Εργάσιμων Ημερών"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:33
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:35
+msgid "Workdays"
+msgstr "Εργάσιμες ημέρες"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:34
+msgid "Maximum number of days to be selected"
+msgstr "Μέγιστος αριθμός ημερών για επιλογή"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:35
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:36
+msgid "Author"
+msgstr "Συντάκτης"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:36
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:37
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:34
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:78
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:79
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:76
+msgid "Restore this item from Trash"
+msgstr "Επαναφορά αντικειμένου από Κάδο Ανακύκλωσης"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:78
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:79
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:76
+msgid "Restore"
+msgstr "Επαναφορά"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:81
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:82
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:79
+msgid "Delete permanently"
+msgstr "Οριστική διαγραφή"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:83
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:88
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:84
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:89
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:81
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:86
+#: templates/meta-boxes/order-delivery-details-meta-box.php:64
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:84
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:257
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:85
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:258
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:82
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:269
+msgid "Trash"
+msgstr "Κάδος Ανακύκλωσης"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:239
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:240
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:251
+#: plugin-options/general-calendar-options.php:86
+#: plugin-options/processing-method-options.php:101
+#: plugin-options/processing-method-options.php:158
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:108
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:240
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:241
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:252
+msgid "Move to Trash"
+msgstr "Μεταφορά σε Κάδο Ανακύκλωσης"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:254
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:255
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:266
+msgid "All"
+msgstr "Όλα"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:255
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:256
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:267
+msgid "Published"
+msgstr "Δημοσιευμένο"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:256
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:257
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:268
+msgid "Mine"
+msgstr "Δικό μου"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:258
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:259
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:270
+msgid "Draft"
+msgstr "Πρόχειρο"
+
+#: includes/admin-tables/class.yith-delivery-date-carrier-table.php:314
+#: templates/meta-boxes/types/number-select.php:21
+msgid "All Zones"
+msgstr "Όλες οι Ζώνες"
+
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:13
+#: includes/integrations/class.yith-fedex-woocommerce-print-label-integration.php:84
+#: includes/integrations/class.yith-product-shipping-integration.php:64
+#: includes/integrations/class.yith-wc-advanced-shipping.php:54
+#: includes/integrations/class.yith-wc-fedex-integration.php:67
+#: includes/integrations/class.yith-wc-pickup-store.php:64
+#: includes/integrations/class.yith-wc-table-rate-integration.php:78
+#: includes/integrations/class.yith-wc-table-rate-integration.php:81
+#: includes/post-type/class.yith-delivery-date-processing-method.php:119
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:201
+#: plugin-options/general-calendar-options.php:52
+#: templates/meta-boxes/order-delivery-details-meta-box.php:137
+msgid "Processing Method"
+msgstr "Μέθοδος Επεξεργασίας"
+
+#: includes/admin-tables/class.yith-delivery-date-processing-method-table.php:15
+#: plugin-options/processing-method-options.php:46
+msgid "Processing Methods"
+msgstr "Μέθοδοι Επεξεργασίας"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:11
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:85
+msgid "Quantity Table"
+msgstr "Πίνακας Ποσότητας"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:30
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:31
+msgid "Assign at"
+msgstr "Ανάθεση σε"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:32
+#: includes/class.yith-delivery-date-frontend-product-table.php:465
+#: includes/post-type/class.yith-delivery-date-carrier.php:120
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:532
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:650
+#: plugin-options/general-calendar-options.php:56
+#: templates/meta-boxes/order-delivery-details-meta-box.php:23
+#: templates/meta-boxes/order-delivery-details-meta-box.php:150
+#: templates/woocommerce/checkout/delivery-date-select-date.php:9
+#: templates/woocommerce/pdf/delivery-date-info.php:15
+msgid "Carrier"
+msgstr "Μεταφορέας"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:33
+msgid "Post Author"
+msgstr "Συντάκτης Άρθρου"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:111
+msgid "Activated"
+msgstr "Ενεργοποιημένο"
+
+#: includes/admin-tables/class.yith-delivery-date-quantity-table-list.php:111
+msgid "Deactivated"
+msgstr "Απενεργοποιημένο"
+
+#: includes/class.yith-delivery-date-admin.php:179
+#: includes/post-type/class.yith-delivery-date-carrier.php:256
+msgid "No item found."
+msgstr "Δεν βρέθηκε αντικείμενο."
+
+#: includes/class.yith-delivery-date-admin.php:706
+msgid ""
+"In order to use the plugin, it is essential to create at least a Carrier"
+msgstr ""
+"Για να χρησιμοποιήσετε αυτό το πρόσθετο, είναι απαραίτητη η δημιουργία "
+"τουλάχιστον ενός Μεταφορέα"
+
+#: includes/class.yith-delivery-date-admin.php:708
+msgid "Add new Carrier"
+msgstr "Προσθήκη νέου Μεταφορέα"
+
+#: includes/class.yith-delivery-date-admin.php:726
+msgid ""
+"In order to use the plugin, it is essential to create at least a Processing "
+"Method"
+msgstr ""
+"Για να χρησιμοποιήσετε αυτό το πρόσθετο, είναι απαραίτητη η δημιουργία "
+"τουλάχιστον μιας Μεθόδου Επεξεργασίας"
+
+#: includes/class.yith-delivery-date-admin.php:728
+#: includes/post-type/class.yith-delivery-date-processing-method.php:123
+#: includes/post-type/class.yith-delivery-date-processing-method.php:124
+msgid "Add new Processing Method"
+msgstr "Προσθήκη νέας Μεθόδου Επεξεργασίας"
+
+#: includes/class.yith-delivery-date-calendar.php:298
+#: plugin-options/general-calendar-options.php:49
+msgid "Holiday for"
+msgstr "Αργία για"
+
+#: includes/class.yith-delivery-date-calendar.php:308
+#: includes/class.yith-delivery-date-calendar.php:320
+msgid "Order"
+msgstr "Παραγγελία"
+
+#: includes/class.yith-delivery-date-calendar.php:309
+msgid "Shipping day for"
+msgstr "Ημέρα αποστολής για"
+
+#: includes/class.yith-delivery-date-calendar.php:321
+msgid "Delivery day for"
+msgstr "Ημέρα Παράδοσης για"
+
+#: includes/class.yith-delivery-date-calendar.php:378
+msgid "Carrier Default"
+msgstr "Προεπιλεγμένος Μεταφορέας"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:237
+#: includes/class.yith-delivery-date-frontend-product-table.php:304
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:536
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:658
+#: templates/meta-boxes/order-delivery-details-meta-box.php:31
+#: templates/woocommerce/checkout/delivery-date-select-date.php:32
+#: templates/woocommerce/pdf/delivery-date-info.php:24
+msgid "Delivery Date"
+msgstr "Ημερομηνία Παράδοσης"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:308
+msgid "Last shipping date"
+msgstr "Τελευταία ημερομηνία αποστολής"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:312
+msgid "Processing Method ID"
+msgstr "ID Μεθόδου Επεξεργασίας"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:316
+msgid "Carrier ID"
+msgstr "ID Μεταφορέα"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:448
+msgid "Shipping within"
+msgstr "Αποστολή έως"
+
+#: includes/class.yith-delivery-date-frontend-product-table.php:539
+msgid "Choose a date"
+msgstr "Επιλογή ημερομηνίας"
+
+#: includes/class.yith-delivery-date-order-manager.php:53
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:646
+msgid "Delivery Details"
+msgstr "Στοιχεία Παράδοσης"
+
+#: includes/class.yith-delivery-date-order-manager.php:138
+msgid "Shipping date"
+msgstr "Ημερομηνία αποστολής"
+
+#: includes/class.yith-delivery-date-order-manager.php:139
+#: templates/meta-boxes/order-delivery-details-meta-box.php:171
+msgid "Delivery date"
+msgstr "Ημερομηνία παράδοσης"
+
+#: includes/class.yith-delivery-date-order-manager.php:167
+msgid "No shipping date"
+msgstr "Χωρίς ημερομηνία αποστολής"
+
+#: includes/class.yith-delivery-date-order-manager.php:182
+msgid "No delivery date"
+msgstr "Χωρίς ημερομηνία παράδοσης"
+
+#: includes/class.yith-delivery-date-order-manager.php:399
+msgid "All Shipping date"
+msgstr "Όλες οι Ημερομηνίες αποστολής"
+
+#: includes/class.yith-delivery-date-order-manager.php:399
+msgid "All Delivery date"
+msgstr "Όλες οι Ημερομηνίες παράδοσης"
+
+#: includes/class.yith-delivery-date-order-manager.php:402
+msgid "Filter by date"
+msgstr "Ταξινόμηση κατά ημερομηνία"
+
+#. translators: 1: Month name, 2: 4-digit year.
+#: includes/class.yith-delivery-date-order-manager.php:419
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: includes/class.yith-delivery-date-privacy.php:33
+msgid ""
+"We collect information about you during the registration and checkout "
+"process on our store."
+msgstr ""
+"Συγκεντρώνουμε στοιχεία για εσάς κατα την διαδικασία εγγραφής και ταμείου "
+"στο κατάστημά μας."
+
+#: includes/class.yith-delivery-date-privacy.php:34
+msgid "While you visit our site, we’ll track:"
+msgstr "Κατά την επίσκεψή σας στη σελίδα μας, θα καταγράφουμε:"
+
+#: includes/class.yith-delivery-date-privacy.php:36
+msgid ""
+"Delivery information: we will use these data to save delivery information "
+"that allows customers to select a delivery date during the checkout process."
+msgstr ""
+"Στοιχεία παράδοσης: θα χρησιμοποιήσουμε αυτά τα δεδομένα για να "
+"αποθηκεύσουμε τα στοιχεία παράδοσης που επιτρέπουν στους πελάτες να "
+"επιλέξουν μια ημερομηνία παράδοσης κατα την διαδικασία ταμείου."
+
+#: includes/class.yith-delivery-date-privacy.php:37
+msgid ""
+"The information required, carrier identifier, date and time slot are stored "
+"in the Order, so this field is subject to WooCommerce policy."
+msgstr ""
+"Τα στοιχεία που απαιτούνται, αναγνωριστικό μεταφορέα, ημερομηνία και χρονικό "
+"εύρος είναι αποθηκευμένα στην Παραγγελία, επομένως αυτό το πεδίο εξαρτάται "
+"από την πολιτική του WooCommerce."
+
+#: includes/class.yith-delivery-date-privacy.php:38
+msgid ""
+"The plugin can also send an email when the order has been shipped by the "
+"admin."
+msgstr ""
+"Το πρόσθετο μπορεί επίσης να στείλει email κατα την αποστολή παραγγελίας από "
+"τον διαχειριστή."
+
+#: includes/class.yith-delivery-date-privacy.php:43
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Μέλη της ομάδας μας έχουν πρόσβαση στις πληροφορίες που μας παραχωρείτε. Για "
+"παράδειγμα, Διαχειριστές και Διαχειριστές Kαταστήματος έχουν πρόσβαση σε:"
+
+#: includes/class.yith-delivery-date-privacy.php:45
+msgid "All delivery information"
+msgstr "Όλα τα στοιχεία παράδοσης"
+
+#: includes/class.yith-delivery-date-privacy.php:47
+msgid ""
+"Our team members have access to this information to help fulfill orders, "
+"process orders and support you."
+msgstr ""
+"Τα μέλη της ομάδας μας έχουν πρόσβαση σε αυτές τις πληροφορίες για την "
+"βοήθεια ολοκλήρωσης παραγγελιών, επεξεργασίας επιστροφών και της υποστήριξή "
+"σας."
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:20
+#: templates/meta-boxes/order-delivery-details-meta-box.php:108
+#: templates/meta-boxes/order-delivery-details-meta-box.php:129
+msgid "Shipped to carrier"
+msgstr "Έγινε αποστολή σε μεταφορέα"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:21
+msgid ""
+"This email is sent to user when administrator has processed and sent the "
+"order to the carrier"
+msgstr ""
+"Αυτό το email στέλνεται στον χρήστη όταν ο διαχειριστής έχει επεξεργαστεί "
+"και στείλει την παραγγελία στον μεταφορέα"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:224
+msgid "HTML template"
+msgstr "Πρότυπο HTML"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:225
+msgid "Plain text template"
+msgstr "Πρότυπο απλού κειμένου"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:252
+msgid "Delete template file"
+msgstr "Διαγραφή αρχείου προτύπου"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:255
+msgid ""
+"This template has been overridden by your theme and can be found in: <code>"
+"%s</code>."
+msgstr ""
+"Το πρότυπο έχει παρακαμφθεί από το θέμα σας και μπορεί να βρεθεί στο: <code>"
+"%s</code>."
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:273
+msgid "Copy file to theme"
+msgstr "Αντιγραφή αρχείου σε θέμα"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:276
+msgid ""
+"To override and edit this email template, copy <code>%s</code> to your theme "
+"folder: <code>%s</code>."
+msgstr ""
+"Για να παρακάμψετε και να επεξεργαστείτε αυτό το πρότυπο email, αντιγράψτε "
+"<code>%s</code> στο φάκελο του θέματός σας: <code>%s</code>."
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:287
+msgid "File not found."
+msgstr "Το αρχείο δεν βρέθηκε."
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:314
+msgid "View template"
+msgstr "Εμφάνιση προτύπου"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:315
+msgid "Hide template"
+msgstr "Απόκρυψη προτύπου"
+
+#: includes/emails/class.yith-delivery-date-advise-customer-email.php:326
+msgid "Are you sure you want to delete this template file?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το αρχείο προτύπου;"
+
+#: includes/functions.yith-delivery-date.php:16
+msgid "Sunday"
+msgstr "Κυριακή"
+
+#: includes/functions.yith-delivery-date.php:17
+msgid "Monday"
+msgstr "Δευτέρα"
+
+#: includes/functions.yith-delivery-date.php:18
+msgid "Tuesday"
+msgstr "Τρίτη"
+
+#: includes/functions.yith-delivery-date.php:19
+msgid "Wednesday"
+msgstr "Τετάρτη"
+
+#: includes/functions.yith-delivery-date.php:20
+msgid "Thursday"
+msgstr "Πέμπτη"
+
+#: includes/functions.yith-delivery-date.php:21
+msgid "Friday"
+msgstr "Παρασκευή"
+
+#: includes/functions.yith-delivery-date.php:22
+msgid "Saturday"
+msgstr "Σάββατο"
+
+#: includes/functions.yith-delivery-date.php:122
+msgid "Y/m/d"
+msgstr "Χ/μ/η"
+
+#: includes/functions.yith-delivery-date.php:368
+msgid ""
+"These options are disabled because the plugin is in \"Product quantity table "
+"mode\""
+msgstr ""
+"Αυτές οι επιλογές έχουν απενεργοποιηθεί γιατί το πρόσθετο βρίσκεται σε "
+"“Λειτουργία πίνακα ποσότητας προϊόντος”"
+
+#: includes/integrations/class.yith-fedex-woocommerce-print-label-integration.php:75
+#: includes/integrations/class.yith-product-shipping-integration.php:55
+#: includes/integrations/class.yith-wc-advanced-shipping.php:46
+#: includes/integrations/class.yith-wc-fedex-integration.php:59
+#: includes/integrations/class.yith-wc-pickup-store.php:55
+#: includes/integrations/class.yith-wc-table-rate-integration.php:70
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:194
+msgid "Select a processing method"
+msgstr "Επιλογή μεθόδου επεξεργασίας"
+
+#: includes/integrations/class.yith-fedex-woocommerce-print-label-integration.php:94
+#: includes/integrations/class.yith-product-shipping-integration.php:74
+#: includes/integrations/class.yith-wc-advanced-shipping.php:62
+#: includes/integrations/class.yith-wc-fedex-integration.php:75
+#: includes/integrations/class.yith-wc-pickup-store.php:74
+#: includes/integrations/class.yith-wc-table-rate-integration.php:92
+#: includes/integrations/class.yith-wc-table-rate-integration.php:95
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:209
+msgid "Set as required"
+msgstr "Ορισμός ως απαραίτητο"
+
+#: includes/integrations/class.yith-fedex-woocommerce-print-label-integration.php:98
+#: includes/integrations/class.yith-product-shipping-integration.php:78
+#: includes/integrations/class.yith-wc-advanced-shipping.php:66
+#: includes/integrations/class.yith-wc-fedex-integration.php:79
+#: includes/integrations/class.yith-wc-pickup-store.php:78
+#: includes/integrations/class.yith-wc-table-rate-integration.php:99
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:213
+msgid "If enabled, customers must select a date for the delivery"
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα πρέπει να επιλέξουν μια ημερομηνία παράδοσης"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:121
+#: includes/post-type/class.yith-delivery-date-processing-method.php:120
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:86
+msgid "Parent Item:"
+msgstr "Γονικό Αντικείμενο:"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:122
+msgid "All carriers"
+msgstr "Όλοι οι μεταφορείς"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:123
+msgid "View carrier"
+msgstr "Προβολή μεταφορέα"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:124
+#: includes/post-type/class.yith-delivery-date-carrier.php:125
+msgid "Add new carrier"
+msgstr "Προσθήκη νέου μεταφορέα"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:126
+msgid "Edit carrier"
+msgstr "Επεξεργασία μεταφορέα"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:127
+msgid "Update carrier"
+msgstr "Ενημέρωση μεταφορέα"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:128
+msgid "Search carrier"
+msgstr "Αναζήτηση μεταφορέα"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:129
+msgid "No carrier found"
+msgstr "Δεν βρέθηκε μεταφορέας"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:130
+msgid "No carrier found in Trash"
+msgstr "Δεν βρέθηκε μεταφορέας στον Κάδο Ανακύκλωσης"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:613
+msgid "Back to Carriers"
+msgstr "Πίσω στους Μεταφορείς"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:121
+msgid "All methods"
+msgstr "Όλες οι μέθοδοι"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:122
+msgid "View method"
+msgstr "Προβολή μεθόδου"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:125
+msgid "Edit Processing Method"
+msgstr "Επεξεργασία Μεθόδου Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:126
+msgid "Update Processing Method"
+msgstr "Ενημέρωση Μεθόδου Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:127
+msgid "Search Processing Method"
+msgstr "Αναζήτηση Μεθόδου Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:128
+msgid "No method found"
+msgstr "Δεν βρέθηκε μέθοδος"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:129
+msgid "No method found in Trash"
+msgstr "Δεν βρέθηκε μέθοδος στον Κάδο Ανακύκλωσης"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:383
+msgid "Back to Processing Methods"
+msgstr "Πίσω στους Μεθόδους Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:87
+msgid "All Quantity Tables"
+msgstr "Όλοι οι Πίνακες Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:88
+msgid "View Quantity Table"
+msgstr "Προβολή Πίνακα Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:89
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:90
+msgid "Add Quantity Table"
+msgstr "Προσθήκη Πίνακα Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:91
+msgid "Edit Quantity Table"
+msgstr "Επεξεργασία Πίνακα Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:92
+msgid "Update Quantity Table"
+msgstr "Ενημέρωση Πίνακα Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:93
+msgid "Search Quantity Table"
+msgstr "Αναζήτηση Πίνακα Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:94
+msgid "No Quantity Table found"
+msgstr "Δεν βρέθηκε Πίνακας Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:95
+msgid "No Quantity Table found in Trash"
+msgstr "Δεν βρέθηκε Πίνακας Ποσότητας στον Κάδο Ανακύκλωσης"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:378
+msgid "Back to Quantity Tables"
+msgstr "Πίσω στους Πίνακες Ποσότητας"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:418
+msgid "Your order will be delivered on"
+msgstr "Η παραγγελία σας θα παραδοθεί στις"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:418
+msgid "Edit date"
+msgstr "Επεξεργασία ημερομηνίας"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:477
+msgid "Fee"
+msgstr "Χρέωση"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:524
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:565
+msgid "An error occurred during the checkout,  please try again"
+msgstr "Παρουσιάστηκε σφάλμα κατά το ταμείο,  παρακαλώ προσπαθήστε ξανά"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:532
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:536
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:542
+msgid "is a required field."
+msgstr "είναι απαιτούμενο πεδίο."
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:542
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:662
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:16
+#: templates/meta-boxes/order-delivery-details-meta-box.php:35
+#: templates/woocommerce/checkout/delivery-date-select-timeslot.php:13
+msgid "Time Slot"
+msgstr "Χρονικό Εύρος"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:552
+msgid ""
+"<strong>Time slot:</strong> the time slot select is no longer available, "
+"choose another slot"
+msgstr ""
+"<strong>Χρονικό εύρος:</strong> το επιλεγμένο χρονικό εύρος δεν είναι πλέον "
+"διαθέσιμο, διαλέξτε ένα άλλο"
+
+#: includes/widgets/class.yith-delivery-date-dynamic-messages-widget.php:12
+msgid "YITH Delivery Dynamic Messages"
+msgstr "Δυναμικά Μηνύματα Παράδοσης YITH"
+
+#: includes/widgets/class.yith-delivery-date-dynamic-messages-widget.php:13
+msgid ""
+"Show dynamic messages about delivery. Please note - this widget works only "
+"on the single product sidebar"
+msgstr ""
+"Εμφάνιση δυναμικών μηνυμάτων για την παράδοση. Παρακαλώ σημειώστε - αυτή η "
+"μικροεφαρμογή λειτουργεί μόνο στην πλευρική στήλη απλού προϊόντος"
+
+#: includes/widgets/class.yith-delivery-date-dynamic-messages-widget.php:46
+msgid "Insert a title"
+msgstr "Εισάγετε ένα τίτλο"
+
+#: init.php:40
+msgid ""
+"YITH WooCommerce Delivery Date Premium is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"Το YITH WooCommerce Delivery Date Premium είναι ενεργοποιημένο αλλά μη "
+"αποτελεσματικό. Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: plugin-options/delivery-table-options.php:26
+msgid "Customization"
+msgstr "Προσαρμογή"
+
+#: plugin-options/delivery-table-options.php:29
+msgid "Color for the selected day"
+msgstr "Χρώμα για την επιλεγμένη ημέρα"
+
+#: plugin-options/delivery-table-options.php:36
+msgid "Color for the selected quantity"
+msgstr "Χρώμα για την επιλεγμένη ποσότητα"
+
+#: plugin-options/dynamic-delivery-message-options.php:13
+msgid "Enable prompt delivery to carrier"
+msgstr "Ενεργοποίηση προτροπής παράδοσης σε μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:16
+msgid ""
+"Enable this option if you want to show the date when the product is usually "
+"shipped to carrier"
+msgstr ""
+"Ενεργοποιήστε αυτή την επιλογή αν θέλετε να εμφανίζετε την ημερομηνία που το "
+"προϊόν έχει συνήθως αποσταλεί στον μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:21
+msgid "Prompt delivery to carrier"
+msgstr "Προτροπή παράδοσης σε μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:24
+msgid ""
+"Insert the text to show. E.g. This product will be ready and picked up by "
+"carrier within March 20th, 2019 . Use the placeholder {shipping_date} to "
+"show the date"
+msgstr ""
+"Εισάγετε το κείμενο προς εμφάνιση. Πχ. Ο μεταφορέας θα έχει παραλάβει το "
+"προϊόν έως τις 20 Μαρτίου, 2019 . Χρησιμοποιήστε το κείμενο υποκατάστασης "
+"{shipping_date} για την εμφάνιση ημερομηνίας"
+
+#: plugin-options/dynamic-delivery-message-options.php:25
+msgid "This product will be picked up by carrier within {shipping_date}"
+msgstr "Ο μεταφορέας θα έχει παραλάβει το προϊόν έως τις {shipping_date}"
+
+#: plugin-options/dynamic-delivery-message-options.php:34
+msgid "Enable delivery to customer"
+msgstr "Ενεργοποίηση παράδοσης για πελάτη"
+
+#: plugin-options/dynamic-delivery-message-options.php:37
+msgid "Enable this option if you want to show the delivery date"
+msgstr ""
+"Ενεργοποιήστε την επιλογή αν θέλετε να εμφανίζετε την ημερομηνία παράδοσης"
+
+#: plugin-options/dynamic-delivery-message-options.php:42
+msgid "Delivery to customer"
+msgstr "Παράδοση σε πελάτη"
+
+#: plugin-options/dynamic-delivery-message-options.php:45
+msgid ""
+"Insert the text to show. E.g. This product will be shipped on March 20th, "
+"2019 . Use the placeholder {delivery_date} to show the date . Use "
+"{time_limit} to show the time limit."
+msgstr ""
+"Εισάγετε το κείμενο προς εμφάνιση. Πχ. Αυτό το προϊόν θα αποσταλεί στις 20 "
+"Μαρτίου, 2019 . Χρησιμοποιήστε αυτό το κείμενο υποκατάστασης {delivery_date} "
+"για την εμφάνιση ημερομηνίας . Χρησιμοποιήστε {time_limit} για την εμφάνιση "
+"χρονικού ορίου."
+
+#: plugin-options/dynamic-delivery-message-options.php:46
+msgid ""
+"Place your order by {time_limit} to receive the product within "
+"{delivery_date}"
+msgstr ""
+"Τοποθετήστε την παραγγελία σας έως τις {time_limit} για να λάβετε αυτό το "
+"προϊόν μέχρι τις {delivery_date}"
+
+#: plugin-options/dynamic-delivery-message-options.php:55
+msgid "Alternative delivery text to customer"
+msgstr "Εναλλακτικό κείμενο παράδοσης για πελάτη"
+
+#: plugin-options/dynamic-delivery-message-options.php:58
+msgid ""
+"If it is not possible to calculate the time limit, insert an alternative "
+"text.  E.g. This product will be delivered on March 20th, 2019 . Use the "
+"placeholder {delivery_date} to show the date"
+msgstr ""
+"Δεν είναι δυνατός ο υπολογισμός του χρονικού ορίου, εισάγετε εναλλακτικό "
+"κείμενο.  Πχ. Αυτό το προϊόν θα παραδοθεί στις 20 Μαρτίου, 2019 . "
+"Χρησιμοποιήστε το κείμενο υποκατάστασης {delivery_date} για την εμφάνιση "
+"ημερομηνίας"
+
+#: plugin-options/dynamic-delivery-message-options.php:68
+msgid "Position for the delivery message"
+msgstr "Θέση μηνύματος παράδοσης"
+
+#: plugin-options/dynamic-delivery-message-options.php:71
+msgid "Choose where you want to show the messages"
+msgstr "Επιλέξτε πού θέλετε να εμφανίζονται τα μηνύματα"
+
+#: plugin-options/dynamic-delivery-message-options.php:74
+msgid "After Price"
+msgstr "Μετά Τιμής"
+
+#: plugin-options/dynamic-delivery-message-options.php:75
+msgid "Before Add to cart button"
+msgstr "Πριν από κουμπί Προσθήκη στο καλάθι"
+
+#: plugin-options/dynamic-delivery-message-options.php:76
+msgid "After Add to cart button"
+msgstr "Μετά από κουμπί Προσθήκη στο καλάθι"
+
+#: plugin-options/dynamic-delivery-message-options.php:77
+msgid "With Widget or Shortcode"
+msgstr "Με Μικροεφαρμογή ή Μικροκώδικα"
+
+#: plugin-options/dynamic-delivery-message-options.php:87
+msgid "Dynamic Delivery Message Customization"
+msgstr "Προσαρμογή Δυναμικού Μηνύματος Παράδοσης"
+
+#: plugin-options/dynamic-delivery-message-options.php:91
+msgid "Prompt delivery to carrier background"
+msgstr "Προτροπή παράδοσης σε φόντο μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:94
+msgid "Set a background color for prompt delivery to carrier message"
+msgstr "Ορισμός χρώματος φόντου για προτροπή παράδοσης σε μήνυμα μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:99
+msgid "Prompt delivery to carrier icon"
+msgstr "Προτροπή παράδοσης σε εικονίδιο μεταφορέα"
+
+#: plugin-options/dynamic-delivery-message-options.php:103
+#: plugin-options/dynamic-delivery-message-options.php:119
+msgid "Upload a custom icon if you want replace the default one"
+msgstr ""
+"Ανέβασμα προσαρμοσμένου εικονιδίου αν θέλετε να γίνει αντικατάσταση του "
+"προεπιλεγμένου"
+
+#: plugin-options/dynamic-delivery-message-options.php:107
+msgid "Delivery to customer background"
+msgstr "Παράδοση σε φόντο πελάτη"
+
+#: plugin-options/dynamic-delivery-message-options.php:110
+msgid "Set a background color for delivery to customer message"
+msgstr "Ορισμός χρώματος φόντου για παράδοση σε μήνυμα πελάτη"
+
+#: plugin-options/dynamic-delivery-message-options.php:115
+msgid "Delivery to customer icon"
+msgstr "Παράδοση σε εικονίδιο πελάτη"
+
+#: plugin-options/email-settings-options.php:6
+msgid "Your order has been shipped!"
+msgstr "Η παραγγελία σας έχει αποσταλεί!"
+
+#: plugin-options/email-settings-options.php:8
+msgid "Dear"
+msgstr "Αγαπητέ"
+
+#: plugin-options/email-settings-options.php:9
+msgid "the order"
+msgstr "η παραγγελία"
+
+#: plugin-options/email-settings-options.php:10
+msgid "has been shipped to carrier"
+msgstr "έχει αποσταλεί στον μεταφορέα"
+
+#: plugin-options/email-settings-options.php:11
+msgid "You should receive your order within"
+msgstr "Θα λάβετε την παραγγελία σας σε"
+
+#: plugin-options/email-settings-options.php:12
+msgid "Best regards"
+msgstr "Με εκτίμιση"
+
+#: plugin-options/email-settings-options.php:16
+msgid "You can use the following placeholders"
+msgstr "Μπορείτε να χρησιμοποιήσετε τα ακόλουθα κείμενα υποκατάστασης"
+
+#: plugin-options/email-settings-options.php:17
+msgid "{site_title} replaced by website title"
+msgstr "{site_title} αποκαταστάθηκε από τίτλο ιστοτόπου"
+
+#: plugin-options/email-settings-options.php:18
+msgid "{order_url} replaced by order link"
+msgstr "{order_url} αποκαταστάθηκε από σύνδεσμο παραγγελίας"
+
+#: plugin-options/email-settings-options.php:19
+msgid "{order_id} replaced by order ID"
+msgstr "{order_id} αποκαταστάθηκε από ID παραγγελίας"
+
+#: plugin-options/email-settings-options.php:20
+msgid "{order_content} replaced by order content"
+msgstr "{order_content} αποκαταστάθηκε από περιεχόμενο παραγγελίας"
+
+#: plugin-options/email-settings-options.php:21
+msgid "{customer_email} replaced by customer's email address"
+msgstr "{customer_email} αποκαταστάθηκε από διεύθυνση email πελάτη"
+
+#: plugin-options/email-settings-options.php:22
+msgid "{customer_name} replaced by customer's name"
+msgstr "{customer_name} αποκαταστάθηκε από όνομα πελάτη"
+
+#: plugin-options/email-settings-options.php:23
+msgid "{delivery_date} replaced by delivery date"
+msgstr "{delivery_date} αποκαταστάθηκε από ημερομηνία παράδοσης"
+
+#: plugin-options/email-settings-options.php:24
+msgid "{delivery_time} replaced by delivery time slot"
+msgstr "{delivery_time} αποκαταστάθηκε από χρονικό εύρος παράδοσης"
+
+#: plugin-options/email-settings-options.php:34
+#: plugin-options/privacy-settings-options.php:11
+msgid "Privacy Settings"
+msgstr "Ρυθμίσεις Προστασίας"
+
+#: plugin-options/email-settings-options.php:39
+#: plugin-options/privacy-settings-options.php:16
+msgid "GDPR compliance"
+msgstr "GDPR compliance"
+
+#: plugin-options/email-settings-options.php:43
+#: plugin-options/privacy-settings-options.php:20
+msgid ""
+"If checked, you will allow customers to choose whether they want to receive "
+"an email for the concerned order"
+msgstr ""
+"Αν επιλεχθεί, θα επιτρέπετε στους πελάτες να επιλέγουν αν θέλουν να "
+"λαμβάνουν email για την εν λόγω παραγγελία"
+
+#: plugin-options/email-settings-options.php:48
+#: plugin-options/privacy-settings-options.php:25
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: plugin-options/email-settings-options.php:52
+#: plugin-options/privacy-settings-options.php:29
+msgid "This description will be displayed next to the checkbox"
+msgstr "Αυτή η περιγραφή θα εμφανίζεται δίπλα στο κουμπί επιλογής"
+
+#: plugin-options/email-settings-options.php:58
+#: plugin-options/privacy-settings-options.php:35
+msgid "Yes, I want to receive emails when my order is shipped"
+msgstr "Ναι, θέλω να λαμβάνω email κατα την αποστολή της παραγγελίας μου"
+
+#: plugin-options/email-settings-options.php:65
+msgid "Shipped to carrier - email settings"
+msgstr "Έγινε αποστολή σε μεταφορέα - ρυθμίσεις email"
+
+#: plugin-options/email-settings-options.php:70
+msgid "Enable/Disable"
+msgstr "Ενεργοποίηση/Απενεργοποίηση"
+
+#: plugin-options/email-settings-options.php:78
+msgid "Email type"
+msgstr "Τύπος email"
+
+#: plugin-options/email-settings-options.php:82
+msgid "HTML"
+msgstr "HTML"
+
+#: plugin-options/email-settings-options.php:83
+msgid "Plain text"
+msgstr "Απλό κείμενο"
+
+#: plugin-options/email-settings-options.php:98
+msgid "Email subject"
+msgstr "Θέμα email"
+
+#: plugin-options/email-settings-options.php:113
+msgid "Email sender"
+msgstr "Αποστολέας email"
+
+#: plugin-options/email-settings-options.php:127
+msgid "Email content"
+msgstr "Περιεχόμενο email"
+
+#: plugin-options/general-calendar-options.php:6
+msgid ""
+"Add customized holidays to your calendar. This day will not counted in the "
+"\"day of processing\"."
+msgstr ""
+"Προσθήκη προσαρμοσμένων αργιών στο ημερολόγιό σας. Αυτή η μέρα δεν θα "
+"μετρήσει στην “ημέρα επεξεργασίας”."
+
+#: plugin-options/general-calendar-options.php:8
+msgid ""
+" if you add an holiday for 21,22 and 23 December and you get a new order day "
+"21, processing time will start from day 24 and delivery date will be delayed "
+"according your holidays"
+msgstr ""
+" αν προσθέσετε μια αργία για τις 21,22 και 23 Δεκεμβρίου και λάβετε νέα "
+"παραγγελία στις 21, η ώρα επεξεργασίας θα ξεκινήσει από τις 24 και η "
+"ημερομηνία παράδοσης θα καθυστερήσει ανάλογα με τις αργίες σας"
+
+#: plugin-options/general-calendar-options.php:15
+msgid "Holidays"
+msgstr "Αργίες"
+
+#: plugin-options/general-calendar-options.php:26
+msgid "Add a new holiday"
+msgstr "Προσθήκη νέας αργίας"
+
+#: plugin-options/general-calendar-options.php:43
+msgid "Holiday name"
+msgstr "Όνομα αργίας"
+
+#: plugin-options/general-calendar-options.php:68
+msgid "From"
+msgstr "Από"
+
+#: plugin-options/general-calendar-options.php:75
+msgid "To"
+msgstr "Σε"
+
+#: plugin-options/general-calendar-options.php:81
+#: plugin-options/processing-method-options.php:96
+#: plugin-options/processing-method-options.php:153
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:103
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: plugin-options/general-calendar-options.php:108
+msgid "Calendar Customization"
+msgstr "Προσαρμογή Ημερολογίου"
+
+#: plugin-options/general-calendar-options.php:112
+msgid "Ship to Carrier Event Color"
+msgstr "Χρώμα Εκδήλωσης Αποστολής Μεταφορέα"
+
+#: plugin-options/general-calendar-options.php:117
+msgid "Set a background color for your ship to carrier events"
+msgstr "Ορισμός χρώματος φόντου για την αποστολή σε εκδηλώσεις μεταφορέα"
+
+#: plugin-options/general-calendar-options.php:120
+msgid "Delivery Event Color"
+msgstr "Χρώμα Παράδοσης για Εκδήλωση"
+
+#: plugin-options/general-calendar-options.php:125
+msgid "Set a background color for your delivery to customer events"
+msgstr "Ορισμός χρώματος φόντου για παράδοση σε εκδηλώσεις πελατών"
+
+#: plugin-options/general-calendar-options.php:128
+msgid "Holiday Event Color"
+msgstr "Χρώμα Εκδήλωσης Διακοπών"
+
+#: plugin-options/general-calendar-options.php:133
+msgid "Set a background color for your holiday events"
+msgstr "Ορισμός χρώματος φόντου για τις εκδηλώσεις διακοπών σας"
+
+#: plugin-options/general-settings-options.php:20
+msgid "Plugin Mode Settings"
+msgstr "Ρυθμίσεις Λειτουργίας Πρόσθετου"
+
+#: plugin-options/general-settings-options.php:25
+msgid "Working Mode"
+msgstr "Λειτουργία Εργασίας"
+
+#: plugin-options/general-settings-options.php:29
+msgid "Checkout based"
+msgstr "Βάσει ταμείου"
+
+#: plugin-options/general-settings-options.php:30
+msgid "Product quantity table"
+msgstr "Πίνακας ποσότητα προϊόντος"
+
+#: plugin-options/general-settings-options.php:34
+msgid ""
+"Checkout based: allow you to set delivery dates for the whole order in "
+"processing methods.Product quantity table: allows you to set custom delivery "
+"dates for different products and will enable a table in the product page"
+msgstr ""
+"Βάσει ταμείου: σας επιτρέπει να ορίσετε ημερομηνίες παράδοσης για ολόκληρη "
+"την παραγγελία με μεθόδους επεξεργασίας. Πίνακας ποσότητας προϊόντος: σας "
+"επιτρέπει να ορίσετε προσαρμοσμένες ημερομηνίες παράδοσης για διαφορετικά "
+"προϊόντα και ενεργοποιεί έναν πίνακα στη σελίδα προϊόντος"
+
+#: plugin-options/general-settings-options.php:41
+msgid "Delivery Settings"
+msgstr "Ρυθμίσεις Παράδοσης"
+
+#: plugin-options/general-settings-options.php:47
+msgid "Open DatePicker"
+msgstr "Άνοιγμα Επιλογέα Ημερομηνίας"
+
+#: plugin-options/general-settings-options.php:51
+msgid "If checked, the datepicker is opened automatically on frontend"
+msgstr ""
+"Αν επιλεχθεί, ο επιλογέας ημερομηνίας θα ανοίγει αυτόματα στην εμφάνιση"
+
+#: plugin-options/general-settings-options.php:55
+msgid "Date Format"
+msgstr "Μορφή Ημερομηνίας"
+
+#: plugin-options/general-settings-options.php:56
+msgid "Select a date format for your datepicker"
+msgstr "Επιλογή μορφής ημερομηνίας για τον επιλογέα ημερομηνίας"
+
+#: plugin-options/general-settings-options.php:64
+msgid "Time increments (minutes)"
+msgstr "Χρονικές προσαυξήσεις (λεπτά)"
+
+#: plugin-options/general-settings-options.php:68
+msgid ""
+" Set how users can choose the delivery time: let them choose any type of "
+"increments, from 1 minute to 1 hour. Example: If you set 30 minutes, you can "
+"create time slots from 12:00 to 12:30, etc."
+msgstr ""
+" Ορίστε πως να επιλέγουν οι χρήστες την ώρα παράδοσης: επιτρέψτε τους να "
+"επιλέγουν οποιοδήποτε τύπο προσαύξησης, από 1 λεπτό έως 1 ώρα. Παράδειγμα: "
+"Αν ορίσετε 30 λεπτά, μπορείτε να δημιουργήσετε χρονικά εύρη από 2:00 έως "
+"12:30, κλπ."
+
+#: plugin-options/general-settings-options.php:77
+msgid "Time Slot Fee Settings"
+msgstr "Ρυθμίσεις Χρέωσης Χρονικού Εύρους"
+
+#: plugin-options/general-settings-options.php:83
+msgid "Fee Taxable"
+msgstr "Φορολογήσιμη Χρέωση"
+
+#: plugin-options/general-settings-options.php:84
+msgid ""
+"Enable this option to set the fee to taxable. N.B. the time slot fees are "
+"always tax excluded, so if you set a $20 fee as taxable, the final value "
+"will be $20+tax"
+msgstr ""
+"Ενεργοποιήστε αυτή την επιλογή για να ορίσετε την χρέωση ως φορολογήσιμη. "
+"Σημ. Οι χρεώσεις χρονικού εύρους δεν περιλαμβάνονται ποτέ στον φόρο, "
+"επομένως αν ορίσετε 20€ χρέωση ως φορολογήσιμη, η τελική αξία θα είναι 20€"
+"+φόρος"
+
+#: plugin-options/general-settings-options.php:91
+msgid "Tax Class"
+msgstr "Κλάση Φόρου"
+
+#: plugin-options/general-settings-options.php:92
+msgid "Select the tax that you want to apply to time slot fees"
+msgstr ""
+"Επιλογή του φόρου που θέλετε να εφαρμόζεται στις χρεώσεις χρονικού εύρους"
+
+#: plugin-options/general-settings-options.php:110
+msgid "Event Calendar settings"
+msgstr "Ρυθμίσεις Ημερολογίου Εκδηλώσεων"
+
+#: plugin-options/general-settings-options.php:115
+msgid "Order status"
+msgstr "Κατάσταση παραγγελίας"
+
+#: plugin-options/general-settings-options.php:116
+msgid ""
+"Add events to the calendar when the order is marked with one or more of the "
+"following statuses"
+msgstr ""
+"Προσθήκη εκδηλώσεων στο ημερολόγιο όταν εφαρμόζεται στην παραγγελία μια ή "
+"παραπάνω από τις ακόλουθες καταστάσεις"
+
+#: plugin-options/general-settings-options.php:120
+msgid "Click to add an order status"
+msgstr "Κάντε κλικ για να προσθέσετε μια κατάσταση παραγγελίας"
+
+#: plugin-options/general-settings-options.php:121
+msgid "Add All Order Status"
+msgstr "Προσθήκη Όλων των Καταστάσεων Παραγγελίας"
+
+#: plugin-options/processing-method-options.php:24
+msgid ""
+" You can't find the old processing method when the \"Product quantity table "
+"mode\" is enabled. Please, add a new Processing method!"
+msgstr ""
+" Δεν μπορείτε να βρείτε την παλιά μέθοδο επεξεργασίας σας όταν είναι "
+"ενεργοποιημένη η “Λειτουργία πίνακα ποσότητας προϊόντος”. Παρακαλώ, "
+"προσθέστε μια νέα μέθοδο Επεξεργασίας!"
+
+#: plugin-options/processing-method-options.php:56
+msgid "Custom Processing day for product"
+msgstr "Προσαρμοσμένη ημέρα Επεξεργασίας για προϊόν"
+
+#: plugin-options/processing-method-options.php:58
+msgid "Create customized processing day for specific products of your store."
+msgstr ""
+"Δημιουργία προσαρμοσμένης ημέρας επεξεργασίας για συγκεκριμένα προϊόντα τους "
+"καταστήματός σας."
+
+#: plugin-options/processing-method-options.php:64
+#: plugin-options/processing-method-options.php:120
+msgid "Add New"
+msgstr "Προσθήκη Νέας"
+
+#: plugin-options/processing-method-options.php:80
+msgid "Product"
+msgstr "Προϊόν"
+
+#: plugin-options/processing-method-options.php:112
+msgid "Custom Processing day for category"
+msgstr "Προσαρμοσμένη ημέρα Επεξεργασίας για κατηγορία"
+
+#: plugin-options/processing-method-options.php:113
+msgid ""
+"Create customized processing day for specific product categories of your "
+"store."
+msgstr ""
+"Δημιουργία προσαρμοσμένης ημέρας επεξεργασίας για συγκεκριμένες κατηγορίες "
+"προϊόντος τους καταστήματός σας."
+
+#: plugin-options/processing-method-options.php:137
+msgid "Search for a category&hellip;"
+msgstr "Αναζήτηση κατηγορίας&hellip;"
+
+#: plugin-options/processing-method-options.php:141
+msgid "Product Category"
+msgstr "Κατηγορία Προϊόντος"
+
+#: templates/admin/types/quantity-range-field.php:20
+msgid "Remove range"
+msgstr "Αφαίρεση εύρους"
+
+#: templates/admin/types/quantity-range-field.php:106
+msgid "+ Add another quantity range"
+msgstr "+ Προσθήκη επιπλέον εύρους ποσότητας"
+
+#: templates/admin/types/quantity-range-field.php:111
+msgid ""
+"Set custom processing days depending on the number of products ordered by "
+"the user. <br/>Leave \"to\" value empty if you want to set a single "
+"processing time without changes when increasing the quantity."
+msgstr ""
+"Ορίστε προσαρμοσμένες ημέρες επεξεργασίας βάσει του αριθμού προϊόντων που "
+"έχει παραγγείλει ο χρήστης. <br/>Διατηρήστε την αξία “έως” κενή αν θέλετε να "
+"ορίσετε μόνο μια ώρα επεξεργασίας χωρίς αλλαγές κατα την αύξηση ποσότητας."
+
+#: templates/admin/types/select-group.php:40
+msgid "Select All"
+msgstr "Επιλογή Όλων"
+
+#: templates/admin/types/select-group.php:47
+msgid "Deselect All"
+msgstr "Αποεπιλογή Όλων"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:7
+msgid "Carrier settings"
+msgstr "Ρυθμίσεις Μεταφορέα"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:16
+msgid "Estimated Delivery Day"
+msgstr "Εκτιμώμενη Ημέρα Παράδοσης"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:17
+msgid ""
+"Set the number of days essential to your carrier to deliver the order (Set "
+"the value to 0 if the delivery occurs within the same day)"
+msgstr ""
+"Ορίστε τον αριθμό ημερών που χρειάζεται ο μεταφορέας σας για να παραδώσει "
+"την παραγγελία (Ορίστε την αξία σε 0 αν η παράδοση πραγματοποιείται μέσα "
+"στην ίδια μέρα)"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:23
+msgid "Choose the carriers workdays"
+msgstr "Επιλέξτε τις εργάσιμες ημέρες των μεταφορέων"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:26
+msgid "Select a day"
+msgstr "Επιλογή ημέρας"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:30
+msgid ""
+"The maximum number of available days to show starting from the first valid "
+"delivery date."
+msgstr ""
+"Ο μέγιστος αριθμός διαθέσιμων ημερών για εμφάνιση από την πρώτη έγκυρη "
+"ημερομηνία παράδοσης."
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:10
+msgid "Time Slots"
+msgstr "Χρονικά Εύρη"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:26
+msgid "Add a Time Slot"
+msgstr "Προσθήκη Χρονικού Εύρους"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:29
+msgid "From %%timefrom%% - To %%timeto%%"
+msgstr "Από %%timefrom%% - Έως %%timeto%%"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:39
+msgid "Time slot name"
+msgstr "Όνομα χρονικού εύρους"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:47
+#: templates/meta-boxes/order-delivery-details-meta-box.php:178
+msgid "Time From"
+msgstr "Ώρα Από"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:54
+#: templates/meta-boxes/order-delivery-details-meta-box.php:185
+msgid "Time To"
+msgstr "Ώρα Έως"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:61
+msgid "Lockout"
+msgstr "Απαγόρευση εισόδου"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:62
+msgid "Max number of orders accepted for this time slot"
+msgstr ""
+"Μέγιστος αριθμός παραγγελιών που μπορούν να γίνουν αποδέκτες για αυτό το "
+"χρονικό εύρος"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:70
+msgid "Fee Name"
+msgstr "Όνομα Χρέωσης"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:77
+msgid "Fee Price"
+msgstr "Τιμή χρέωσης"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:81
+msgid ""
+"Add a fee for this time slot. If you don't need a fee, leave these fields "
+"empty."
+msgstr ""
+"Προσθήκη χρέωσης για αυτό το χρονικό εύρος. Αν δεν χρειάζεστε χρέωση, αφήστε "
+"αυτά τα πεδία κενά."
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:87
+msgid "Set Workdays"
+msgstr "Ορισμός Εργάσιμων Ημερών"
+
+#: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:98
+msgid ""
+"If enabled, this time slot will be available only for the follow selected "
+"workdays"
+msgstr ""
+"Αν ενεργοποιηθεί, αυτό το χρονικό εύρος θα είναι διαθέσιμο μόνο για τις "
+"ακόλουθες επιλεγμένες εργάσιμες μέρες"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:6
+msgid "Quantity Table settings"
+msgstr "Ρυθμίσεις Πίνακα Ποσότητας"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:16
+msgid "Table Content"
+msgstr "Περιεχόμενο Πίνακα"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:21
+msgid "Enable Table"
+msgstr "Ενεργοποίηση Πίνακα"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:22
+msgid "Enable or disable this product table"
+msgstr "Ενεργοποίηση ή απενεργοποίηση αυτού του πίνακα προϊόντος"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:28
+msgid "Assign this table to"
+msgstr "Αντιστοιχείστε αυτόν τον πίνακα σε"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:29
+msgid "Choose how to set this table in your shop"
+msgstr "Επιλέξτε πως να ορίσετε αυτόν τον πίνακα στο κατάστημά σας"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:32
+msgid "Product Categories"
+msgstr "Κατηγορίες Προϊόντος"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:33
+msgid "Products"
+msgstr "Προϊόντα"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:40
+msgid "Select Products"
+msgstr "Επιλογή Προϊόντων"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:47
+msgid "Select in which products you want to show the table"
+msgstr "Επιλέξτε σε ποια προϊόντα θέλετε να φαίνεται ο πίνακας"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:51
+msgid "Select Product Categories"
+msgstr "Επιλογή Κατηγοριών Προϊόντος"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:57
+msgid "Select on which product categories you want to show the table"
+msgstr "Επιλέξτε σε ποιες κατηγορίες προϊόντος θέλετε να φαίνεται ο πίνακας"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:61
+msgid "Required days"
+msgstr "Απαιτούμενες ημέρες"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:67
+msgid ""
+"Set the number of days needed to prepare the product belonging to this table"
+msgstr ""
+"Ορίστε τον αριθμό ημερών που χρειάζονται για την προετοιμασία του προϊόντος "
+"που ανήκει σε αυτόν τον πίνακα"
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:70
+msgid "Set carrier for this table "
+msgstr "Ορισμός μεταφορέα για αυτόν τον πίνακα "
+
+#: templates/meta-boxes/delivery-table-meta-boxes-options.php:74
+msgid "Select a carrier for this table"
+msgstr "Επιλογή μεταφορέα για αυτόν τον πίνακα"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:27
+msgid "Shipping Date"
+msgstr "Ημερομηνία Αποστολής"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:43
+msgid "Not Available"
+msgstr "Μη Διαθέσιμο"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:52
+msgid ""
+"No email will be sent since customer denied the consent during the checkout"
+msgstr ""
+"Δεν θα σταλεί email καθώς ο χρήστης αρνήθηκε την συναίνεση κατα το ταμείο"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:62
+msgid "Processing and Delivery date"
+msgstr "Ημερομηνία Επεξεργασίας και Παράδοσης"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:101
+msgid "Please, ship this order to the carrier within this date"
+msgstr ""
+"Παρακαλώ, στείλτε την παραγγελία στον μεταφορέα εντός αυτής της ημερομηνίας"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:104
+msgid "You haven't shipped the order in time!"
+msgstr "Δεν στείλατε την παραγγελία εγκαίρως!"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:142
+msgid "Select a Processing Method"
+msgstr "Επιλογή Μεθόδου Επεξεργασίας"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:156
+msgid "Select a Carrier"
+msgstr "Επιλογή Μεταφορέα"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:164
+msgid "Processing date"
+msgstr "Ημερομηνία επεξεργασίας"
+
+#: templates/meta-boxes/order-delivery-details-meta-box.php:189
+msgid "Update delivery details"
+msgstr "Ενημέρωση στοιχείων παράδοσης"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:6
+msgid "Select a carrier for this processing method"
+msgstr "Επιλογή μεταφορέα για αυτήν τη μέθοδο επεξεργασίας"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:11
+msgid "or create one"
+msgstr "ή δημιουργήστε ένα"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:14
+msgid "Processing Method settings"
+msgstr "Ρυθμίσεις Μεθόδου Επεξεργασίας"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:23
+msgid "Required Workdays"
+msgstr "Απαιτούμενες Εργάσιμες Ημέρες"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:24
+msgid ""
+"Set the minimum number of days required to process an order ( Set 0 if you "
+"can ship the package within the day )"
+msgstr ""
+"Ορίστε τον ελάχιστο απαιτούμενο αριθμό ημερών για την επεξεργασία μιας "
+"παραγγελίας ( Ορίστε 0 αν μπορείτε να αποστείλετε το πακέτο εντός της "
+"ημέρας )"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:30
+msgid "Workday"
+msgstr "Εργάσιμη μέρα"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:31
+msgid "Select the days on which you process the orders"
+msgstr "Επιλέξτε τις μέρες κατα τις οποίες θα επεξεργάζεστε τις παραγγελίες"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:35
+#: templates/woocommerce/checkout/delivery-date-select-date.php:10
+msgid "Select Carrier"
+msgstr "Επιλογή Μεταφορέα"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:39
+msgid "Click to add a carrier"
+msgstr "Κάντε κλικ για προσθήκη μεταφορέα"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:40
+msgid "Add All Carriers"
+msgstr "Προσθήκη Όλων των Μεταφορέων"
+
+#: templates/meta-boxes/processing-method-meta-boxes-options.php:43
+msgid "Select Shipping Method"
+msgstr "Επιλογή Μεθόδου Αποστολής"
+
+#: templates/meta-boxes/types/check_list_day.php:34
+msgid "All Days"
+msgstr "Όλες οι Μέρες"
+
+#: templates/meta-boxes/types/check_list_day.php:48
+msgid "Time Limit"
+msgstr "Χρονικό Όριο"
+
+#: templates/meta-boxes/types/number-select.php:49
+#: templates/meta-boxes/types/number-select.php:83
+msgid "days for zone"
+msgstr "ημέρες για ζώνη"
+
+#: templates/meta-boxes/types/number-select.php:58
+msgid "Add another estimated day for a zone"
+msgstr "Προσθήκη νέας υπολογισμένης μέρας για ζώνη"
+
+#: templates/meta-boxes/types/quantity-table.php:27
+msgid "Discount or Markup %"
+msgstr "Έκπτωση ή Markup %"
+
+#: templates/meta-boxes/types/quantity-table.php:38
+#: templates/woocommerce/single-product/quantity-table.php:113
+#: templates/woocommerce/single-product/quantity-table.php:263
+msgid "Quantity"
+msgstr "Ποσότητα"
+
+#: templates/meta-boxes/types/quantity-table.php:82
+#: templates/meta-boxes/types/quantity-table.php:176
+msgid "Available"
+msgstr "Διαθέσιμο"
+
+#: templates/meta-boxes/types/quantity-table.php:83
+#: templates/meta-boxes/types/quantity-table.php:177
+msgid "Unavailable"
+msgstr "Μη διαθέσιμο"
+
+#: templates/meta-boxes/types/quantity-table.php:140
+msgid "Add row"
+msgstr "Προσθήκη σειράς"
+
+#: templates/meta-boxes/types/select-shipping-method.php:79
+#: templates/meta-boxes/types/select-shipping-method.php:84
+msgid "Shipping Method"
+msgstr "Μέθοδος Αποστολής"
+
+#: templates/meta-boxes/types/select-shipping-method.php:83
+msgid "Shipping Zone"
+msgstr "Ζώνη Αποστολής"
+
+#: templates/meta-boxes/types/select-shipping-method.php:85
+msgid "Required"
+msgstr "Απαιτείται"
+
+#: templates/meta-boxes/types/select-shipping-method.php:110
+msgid "This method is not set in any WooCommerce Shipping Method"
+msgstr "Αυτή η μέθοδος δεν έχει οριστεί σε καμία Μέθοδο Αποστολής WooCommerce"
+
+#: templates/meta-boxes/types/select-shipping-method.php:123
+msgid "Manage Shipping Zones"
+msgstr "Διαχείριση Ζωνών Αποστολής"
+
+#: templates/woocommerce/checkout/checkout-show-delivery-date-info.php:7
+msgid "Your order will be shipped to carrier on"
+msgstr "Η παραγγελία σας θα αποσταλεί στον μεταφορέα στις"
+
+#: templates/woocommerce/checkout/checkout-show-delivery-date-info.php:11
+msgid "You should receive the package on"
+msgstr "Θα λάβετε το πακέτο στις"
+
+#: templates/woocommerce/checkout/delivery-date-select-date.php:19
+msgid "Select a carrier"
+msgstr "Επιλέξτε μεταφορέα"
+
+#: templates/woocommerce/checkout/delivery-date-select-date.php:35
+msgid "Select a delivery date"
+msgstr "Επιλέξτε ημερομηνία παράδοσης"
+
+#: templates/woocommerce/checkout/delivery-date-select-timeslot.php:17
+msgid "Select time slot"
+msgstr "Επιλέξτε χρονικό εύρος"
+
+#: templates/woocommerce/pdf/delivery-date-info.php:12
+msgid "Delivery Notes"
+msgstr "Σημειώσεις Παράδοσης"
+
+#: templates/woocommerce/single-product/quantity-table.php:259
+msgid "Delivery"
+msgstr "Παράδοση"
+
+#: templates/woocommerce/single-product/quantity-table.php:267
+msgid "Total price"
+msgstr "Συνολική τιμή"
+
+#. Description of the plugin/theme
+msgid ""
+"With <code><strong>YITH WooCommerce Delivery Date Premium</strong></code> "
+"you will allow your customers to choose the delivery date for their orders "
+"by specifying time slots and possible carriers! <a href=\"https://yithemes."
+"com\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+"Με το <code><strong>YITH WooCommerce Delivery Date Premium</strong></code> "
+"θα επιτρέπετε στους πελάτες σας να επιλέγουν την ημερομηνία παράδοσης των "
+"παραγγελιών τους ορίζοντας χρονικά εύρη και πιθανούς μεταφορείς! <a href="
+"\"https://yithemes.com\">Βρείτε περισσότερα πρόσθετα για το ηλεκτρονικό σας "
+"κατάστημα στο <strong>YITH</strong></a>."
+
+#: includes/class.yith-delivery-date-admin.php:844
+msgctxt "Part of: My holiday for Processing Method, DHL"
+msgid "for"
+msgstr "για"
+
+#: includes/class.yith-delivery-date-admin.php:870
+msgctxt "Part of: From 2019/08/15 - To 2019/08/20"
+msgid "From"
+msgstr "Από"
+
+#: includes/class.yith-delivery-date-admin.php:872
+msgctxt "Part of: From 2019/08/15 - To 2019/08/20"
+msgid "To"
+msgstr "Έως"
+
+#: includes/class.yith-delivery-date-product.php:257
+msgctxt "[Part of]: 4 hours and 50 minutes"
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ώρα"
+msgstr[1] "ώρες"
+
+#: includes/class.yith-delivery-date-product.php:258
+msgctxt "[Part of]: 4 hours and 50 minutes"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "λεπτό"
+msgstr[1] "λεπτά"
+
+#: includes/class.yith-delivery-date-product.php:260
+msgctxt "[Part of]: 4 hours and 50 minutes"
+msgid "and"
+msgstr "και"
+
+#: includes/functions.yith-delivery-date.php:51
+msgctxt "month"
+msgid "January"
+msgstr "Ιανουάριος"
+
+#: includes/functions.yith-delivery-date.php:52
+msgctxt "month"
+msgid "February"
+msgstr "Φεβρουάριος"
+
+#: includes/functions.yith-delivery-date.php:53
+msgctxt "month"
+msgid "March"
+msgstr "Μάρτιος"
+
+#: includes/functions.yith-delivery-date.php:54
+msgctxt "month"
+msgid "April"
+msgstr "Απρίλιος"
+
+#: includes/functions.yith-delivery-date.php:55
+msgctxt "month"
+msgid "May"
+msgstr "Μάιος"
+
+#: includes/functions.yith-delivery-date.php:56
+msgctxt "month"
+msgid "June"
+msgstr "Ιούνιος"
+
+#: includes/functions.yith-delivery-date.php:57
+msgctxt "month"
+msgid "July"
+msgstr "Ιούλιος"
+
+#: includes/functions.yith-delivery-date.php:58
+msgctxt "month"
+msgid "August "
+msgstr "Αύγουστος "
+
+#: includes/functions.yith-delivery-date.php:59
+#: includes/functions.yith-delivery-date.php:60
+msgctxt "month"
+msgid "September "
+msgstr "Σεπτέμβριος "
+
+#: includes/functions.yith-delivery-date.php:61
+msgctxt "month"
+msgid "October "
+msgstr "Οκτώβριος "
+
+#: includes/functions.yith-delivery-date.php:62
+msgctxt "month"
+msgid "November "
+msgstr "Νοέμβριος "
+
+#: includes/functions.yith-delivery-date.php:63
+msgctxt "month"
+msgid "December "
+msgstr "Δεκέμβριος "
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:118
+msgctxt "post type general name"
+msgid "Carrier"
+msgstr "Μεταφορέας"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:117
+msgctxt "post type general name"
+msgid "Processing Method"
+msgstr "Μέθοδος Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:83
+msgctxt "post type general name"
+msgid "Quantity Table"
+msgstr "Πίνακας Ποσότητας"
+
+#: includes/post-type/class.yith-delivery-date-carrier.php:119
+msgctxt "post type singular name"
+msgid "Carrier"
+msgstr "Μεταφορέας"
+
+#: includes/post-type/class.yith-delivery-date-processing-method.php:118
+msgctxt "post type singular name"
+msgid "Processing Method"
+msgstr "Μέθοδος Επεξεργασίας"
+
+#: includes/post-type/class.yith-delivery-date-product-quantity-table.php:84
+msgctxt "post type singular name"
+msgid "Quantity Table"
+msgstr "Πίνακας Ποσότητας"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:478
+msgctxt "from time"
+msgid "From"
+msgstr "Από"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:478
+msgctxt "to time"
+msgid "To"
+msgstr "Έως"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:654
+#: templates/woocommerce/pdf/delivery-date-info.php:20
+msgctxt "[Part of]: Shipping Date within 20th March 2019"
+msgid "Shipping Date"
+msgstr "Ημερομηνία Αποστολής"
+
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:655
+#: templates/woocommerce/pdf/delivery-date-info.php:21
+msgctxt "[Part of]: Shipping Date within 20th March 2019"
+msgid "within"
+msgstr "έως"
+
+#: plugin-options/general-calendar-options.php:7
+msgctxt ""
+"Part of: Example: if you add an holiday for 21,22 and 23 December and you "
+"get a new order day 21, processing time will start from day 24 and delivery "
+"date will be delayed according your holidays"
+msgid "Example:"
+msgstr "Παράδειγμα:"
+
+#: plugin-options/processing-method-options.php:90
+#: plugin-options/processing-method-options.php:147
+msgctxt "Part of]: For quantity from 50 to 100 set 5 days"
+msgid "For quantity"
+msgstr "Για την ποσότητα"
+
+#: templates/admin/types/quantity-range-field.php:16
+msgctxt "Part of]: For quantity from 50 to 100 set 5 days"
+msgid "from"
+msgstr "από"
+
+#: templates/admin/types/quantity-range-field.php:17
+msgctxt "[Part of]: For quantity from 50 to 100 set 5 days"
+msgid "to"
+msgstr "έως"
+
+#: templates/admin/types/quantity-range-field.php:18
+msgctxt "[Part of]: For quantity from 50 to 100 set 5 days"
+msgid "set"
+msgstr "ορισμός"
+
+#: templates/admin/types/quantity-range-field.php:19
+msgctxt "[Part of]: For quantity from 50 to 100 set 5 days"
+msgid "days for processing"
+msgstr "μέρες για επεξεργασία"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:22
+msgctxt "workdays"
+msgid "Workday"
+msgstr "Εργάσιμη μέρα"
+
+#: templates/meta-boxes/carrier-meta-boxes-options.php:29
+msgctxt "days that can be selected starting from"
+msgid "Maximum number of days to select"
+msgstr "Μέγιστος αριθμός ημερών για επιλογή"
+
+#: templates/meta-boxes/types/quantity-table.php:26
+msgctxt "Part of Day 1"
+msgid "Day %d"
+msgstr "Μέρα %d"

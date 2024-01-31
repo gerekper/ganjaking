@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     4.4.4
+ * @version     4.5.8
  */
 
 class EVO_AJAX{
@@ -85,31 +85,31 @@ class EVO_AJAX{
 	// AJAX events
 		public static function add_ajax_events(){
 			$ajax_events = array(
-			'init_load'=>'init_load',			
-			'ajax_events_data'=>'ajax_events_data',			
-			'get_events'=>'main_ajax_call',			
-			//'the_ajax_hook'=>'main_ajax_call',			
-			'load_event_content'=>'load_event_content',
-			'load_single_eventcard_content'=>'load_single_eventcard_content',
-			'ics_download'=>'eventon_ics_download',			
-			'export_events_ics'=>'export_events_ics',
-			'search_evo_events'=>'search_evo_events',
-			'get_local_event_time'=>'get_local_event_time',
-			'refresh_now_cal'=>'refresh_now_cal',
-			'record_mod_joined'=>'record_mod_joined',
-			'refresh_elm'=>'refresh_elm',
-			'gen_trig_ajax'=>'gen_trig_ajax',
-			'get_tax_card_content'=>'get_tax_card_content',
+				'init_load'=>'init_load',			
+				'ajax_events_data'=>'ajax_events_data',			
+				'get_events'=>'main_ajax_call',			
+				//'the_ajax_hook'=>'main_ajax_call',			
+				'load_event_content'=>'load_event_content',
+				'load_single_eventcard_content'=>'load_single_eventcard_content',
+				'ics_download'=>'eventon_ics_download',			
+				'export_events_ics'=>'export_events_ics',
+				'search_evo_events'=>'search_evo_events',
+				'get_local_event_time'=>'get_local_event_time',
+				'refresh_now_cal'=>'refresh_now_cal',
+				'record_mod_joined'=>'record_mod_joined',
+				'refresh_elm'=>'refresh_elm',
+				'gen_trig_ajax'=>'gen_trig_ajax',
+				'get_tax_card_content'=>'get_tax_card_content',
 
-		);
-		foreach ( $ajax_events as $ajax_event => $class ) {
-			$prepend = ( in_array($ajax_event, array('the_ajax_hook','evo_dynamic_css','the_post_ajax_hook_3','the_post_ajax_hook_2')) )? '': 'eventon_';
-			add_action( 'wp_ajax_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
-			add_action( 'wp_ajax_nopriv_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
+			);
+			foreach ( $ajax_events as $ajax_event => $class ) {
+				$prepend = ( in_array($ajax_event, array('the_ajax_hook','evo_dynamic_css','the_post_ajax_hook_3','the_post_ajax_hook_2')) )? '': 'eventon_';
+				add_action( 'wp_ajax_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
+				add_action( 'wp_ajax_nopriv_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
 
-			// EVO AJAX can be used for frontend ajax requests.
-			add_action( 'evo_ajax_' . $prepend . $ajax_event, array( __CLASS__ , $class ) );
-		}
+				// EVO AJAX can be used for frontend ajax requests.
+				add_action( 'evo_ajax_' . $prepend . $ajax_event, array( __CLASS__ , $class ) );
+			}
 		}
 
 	// Initial load
@@ -177,9 +177,12 @@ class EVO_AJAX{
 	// General ajax call - added 3.1
 		public static function gen_trig_ajax(){
 
-			$PP = EVO()->helper->sanitize_array( $_POST );
-
-			if(!wp_verify_nonce($PP['nn'], 'eventon_nonce')) {echo 'Evo Nonce Failed!'; exit;}
+			// verify nonce
+			if(empty( $_POST['nn'] ) || !wp_verify_nonce( wp_unslash( $_POST['nn'] ), 'eventon_nonce')) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.','eventon') ); 
+			}
+			
+			$PP = $this->helper->recursive_sanitize_array_fields( $_POST );
 		
 			wp_send_json(
 				apply_filters('evo_ajax_general_send_results', array('status'=>'good'), $PP)
@@ -207,6 +210,11 @@ class EVO_AJAX{
 		public static function main_ajax_call(){
 			$postdata = EVO()->helper->sanitize_array( $_POST );
 
+			// nonce verification
+			if(empty( $_POST['nonce'] ) || !wp_verify_nonce(wp_unslash( $_POST['nonce'] ), 'eventon_nonce')) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.','eventon') ); 
+			}
+
 			$shortcode_args = $focused_month_num = $focused_year = '';
 			$status = 'GOOD';
 
@@ -228,31 +236,32 @@ class EVO_AJAX{
 				}
 
 				$calendar_type = 'default';
+
 				// event list with more than one month
 				if( $SC['number_of_months']==1){
 
 					// calculate new date range if calendar direction is changing
 					if($postdata['direction'] !='none'){
 						if(!empty($fixed_month) && !empty($fixed_year)){
-							$fixed_year = ($postdata['direction']=='next')? 
-								(($fixed_month==12)? $fixed_year+1:$fixed_year):
-								(($fixed_month==1)? $fixed_year-1:$fixed_year);
 
-							$fixed_month = ($postdata['direction']=='next')?
-								(($fixed_month==12)? 1:$fixed_month+1):
-								(($fixed_month==1)? 12:$fixed_month-1);													
-
-							$DD = new DateTime();
-							$DD->setTimezone( EVO()->calendar->timezone0 );
+							$DD = new DateTime('now');
+							$DD->setTimezone( EVO()->calendar->cal_tz );
 							$DD->setDate($fixed_year,$fixed_month,1 );
 							$DD->setTime(0,0,0);
 
-							$SC['fixed_month'] = $fixed_month;
-							$SC['fixed_year'] = $fixed_year;
+							// get previous or next month
+							( $postdata['direction']=='next' ) ?	
+								$DD->modify('+1 month') : $DD->modify('-1 month');
+							
+
+							$SC['fixed_day'] = $DD->format('j');
+							$SC['fixed_month'] = $DD->format('n');
+							$SC['fixed_year'] = $DD->format('Y');
 							$SC['focus_start_date_range'] = $DD->format('U');
 							$DD->modify('last day of this month');
 							$DD->setTime(23,59,59);
-							$SC['focus_end_date_range'] = $DD->format('U');							
+							$SC['focus_end_date_range'] = $DD->format('U');	
+
 						}
 					}else{ // not switching months
 
@@ -293,6 +302,8 @@ class EVO_AJAX{
 					'debug' => array(
 						's' => date('y-m-d h:i:s', $focus_start_date_range),
 						'e' => date('y-m-d h:i:s', $focus_end_date_range),
+						'su'=> $focus_start_date_range, 
+						'eu'=> $focus_end_date_range,
 					),
 					
 				), 
@@ -310,13 +321,19 @@ class EVO_AJAX{
 	// Now Calendar
 		public static function refresh_now_cal(){
 
-			$PP = EVO()->helper->sanitize_array( $_POST );
+			// nonce verification
+			if(empty( $_POST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'eventon_nonce')) {
+				wp_send_json_error( 'bad_nonce' );
+				wp_die();
+			}
+
+			$post_data = EVO()->helper->sanitize_array( $_POST );
 
 			$calnow = new Evo_Calendar_Now();
 
-			$SC = isset($PP['SC']) ? $PP['SC']: array();
+			$SC = isset($post_data['SC']) ? $post_data['SC']: array();
 			
-			$defA = isset($PP['defA']) ? $PP['defA'] : array();
+			$defA = isset($post_data['defA']) ? $post_data['defA'] : array();
 
 			$args = array_merge($defA, $SC);
 
@@ -336,6 +353,12 @@ class EVO_AJAX{
 
 	// refresh elements
 		public static function refresh_elm(){
+
+			// nonce verification
+			if(empty( $_POST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'eventon_nonce')) {
+				wp_send_json_error( 'bad_nonce' );
+				wp_die();
+			}
 
 			$PP = EVO()->helper->sanitize_array( $_POST );
 			wp_send_json( self::get_refresh_elm_data( $PP ));	
@@ -405,14 +428,19 @@ class EVO_AJAX{
 	// @2.6.13
 		public static function load_event_content(){
 
-			if(!isset($_POST['eid'])) return false;
-			if(!isset($_POST['nonce'])) return false;
+			// nonce verification
+			if(empty( $_POST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'eventon_nonce')) {
+				wp_send_json_error( 'bad_nonce' );
+				wp_die();
+			} 
 
-			if(!wp_verify_nonce($_POST['nonce'], 'eventon_nonce')) {echo 'nonce failed'; exit;} // nonce verification
+			$post_data = EVO()->helper->recursive_sanitize_array_fields( $_POST );
 
-			$postdata = EVO()->helper->sanitize_array( $_POST );
-			
-			$EVENT = new EVO_Event($postdata['eid']);
+			if(!isset($post_data['eid'])) return false;
+			if(!isset($post_data['nonce'])) return false;			
+
+			$EVENT = new EVO_Event( (int)$post_data['eid']);
+
 			wp_send_json(
 				apply_filters('evo_single_event_content_data',array(), $EVENT)
 			);
@@ -421,6 +449,13 @@ class EVO_AJAX{
 	// load single eventcard content
 	// @ 2.9.2 @u 4.4.4
 		public static function load_single_eventcard_content(){
+
+			// nonce verification
+			if(empty( $_POST['nn'] ) || !wp_verify_nonce( wp_unslash( $_POST['nn'] ), 'eventon_nonce')) {
+				wp_send_json_error( 'bad_nonce' );
+				wp_die();
+			} 
+
 			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$event_id = (int) $postdata['event_id'];
@@ -552,7 +587,14 @@ class EVO_AJAX{
 
 
 	// Search results for ajax search of events from search box
+	// u 4.5.8
 		public static function search_evo_events(){
+
+			// nonce verification
+			if(empty( $_POST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'eventon_nonce')) {
+				wp_send_json_error( 'bad_nonce' );
+				wp_die();
+			}
 			
 			$postdata = EVO()->helper->sanitize_array( $_POST );
 
@@ -573,26 +615,23 @@ class EVO_AJAX{
 					$DD->modify('+30 years');
 					$__focus_end_date_range = $DD->format('U');
 				
-				}else{
+				}else{	
+
+					$DD = new DateTime();
+					$DD->setTimezone( EVO()->calendar->cal_tz );
+					$DD->setTimestamp( EVO()->calendar->current_time );
+
+					$__focus_start_date_range = $DD->format('U');
+
+
 					$current_timestamp = current_time('timestamp');
 
-					// restrained time unix
+					// send end range based on number of months
 						$number_of_months = !empty($shortcode['number_of_months'])? $shortcode['number_of_months']:12;
-						$month_dif = '+';
-						$unix_dif = strtotime($month_dif.($number_of_months-1).' months', $current_timestamp);
 
-						$restrain_monthN = ($number_of_months>0)?				
-							date('n',  $unix_dif):
-							date('n',$current_timestamp);
+						$DD->modify( '+' . $number_of_months . 'months' );
 
-						$restrain_year = ($number_of_months>0)?				
-							date('Y', $unix_dif):
-							date('Y',$current_timestamp);			
-
-					// upcoming events list 
-						$restrain_day = date('t', mktime(0, 0, 0, $restrain_monthN+1, 0, $restrain_year));
-						$__focus_start_date_range = $current_timestamp;
-						$__focus_end_date_range =  mktime(23,59,59,($restrain_monthN),$restrain_day, ($restrain_year));
+						$__focus_end_date_range = $DD->format( 'U' );
 				}
 			
 
@@ -632,6 +671,7 @@ class EVO_AJAX{
 					'content'=>$content,
 					'range'=> date('Y-m-d', $__focus_start_date_range).' '.date('Y-m-d', $__focus_end_date_range)
 				));
+				wp_die();
 		}
 
 	// deprecating

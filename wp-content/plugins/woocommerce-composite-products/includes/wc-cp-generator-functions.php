@@ -4,7 +4,7 @@
  *
  * PHP 5.5+ only.
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  */
 
 // Exit if accessed directly.

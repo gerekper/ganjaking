@@ -1,10 +1,10 @@
-=== WooCommerce Conditional Shipping and Payments ===
+=== Woo Conditional Shipping and Payments ===
 
 Contributors: SomewhereWarm
 Tags: woocommerce, conditional, checkout, restrictions, countries, gateways, shipping, methods, exclude, access
 Requires at least: 4.1
 Tested up to: 6.0
-Stable tag: 1.15.4
+Stable tag: 1.15.5
 WC requires at least: 3.9
 WC tested up to: 8.0
 License: GNU General Public License v3.0
@@ -16,4 +16,4 @@ Exclude payment gateways, shipping methods and shipping countries/states using c
 
 Use conditional logic to control the shipping methods, payment gateways, and shipping destinations available at checkout.
 
-Need help? Read the full documentation [here](https://docs.woocommerce.com/document/woocommerce-conditional-shipping-and-payments/).
+Need help? Read the full documentation [here](https://woo.com/document/woocommerce-conditional-shipping-and-payments/).

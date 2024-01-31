@@ -30,6 +30,11 @@ function vc_single_image_convert_old_link_to_new( $atts ) {
 
 add_action( 'wp_ajax_wpb_single_image_src', 'vc_single_image_src' );
 
+/**
+ * Get Single Image source URL.
+ *
+ * @return string
+ */
 function vc_single_image_src() {
 	vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
 
@@ -37,7 +42,6 @@ function vc_single_image_src() {
 	$params = vc_post_param( 'params' );
 	$post_id = (int) vc_post_param( 'post_id' );
 	$img_size = vc_post_param( 'size' );
-	$img = '';
 
 	if ( ! empty( $params['source'] ) ) {
 		$source = $params['source'];
@@ -45,39 +49,33 @@ function vc_single_image_src() {
 		$source = 'media_library';
 	}
 
-	switch ( $source ) {
-		case 'media_library':
-		case 'featured_image':
-			if ( 'featured_image' === $source ) {
-				if ( $post_id && has_post_thumbnail( $post_id ) ) {
-					$img_id = get_post_thumbnail_id( $post_id );
-				} else {
-					$img_id = 0;
-				}
-			} else {
-				$img_id = preg_replace( '/[^\d]/', '', $image_id );
-			}
+	$image_data = wpb_get_image_data_by_source( $source, $post_id, $image_id, $img_size );
 
-			if ( ! $img_size ) {
-				$img_size = 'thumbnail';
-			}
+	echo esc_url( $image_data['image_src'] );
+	die();
+}
 
-			if ( $img_id ) {
-				$img = wp_get_attachment_image_src( $img_id, $img_size );
-				if ( $img ) {
-					$img = $img[0];
-				}
-			}
+add_action( 'wp_ajax_wpb_single_image_data', 'vc_single_image_data' );
 
-			break;
+/**
+ * Get single image data  (source URL, alt attribute).
+ *
+ * @since 7.4
+ */
+function vc_single_image_data() {
+	vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
 
-		case 'external_link':
-			if ( ! empty( $params['custom_src'] ) ) {
-				$img = $params['custom_src'];
-			}
-			break;
+	$image_id = (int) vc_post_param( 'content' );
+	$params = vc_post_param( 'params' );
+	$post_id = (int) vc_post_param( 'post_id' );
+	$img_size = vc_post_param( 'size' );
+
+	if ( ! empty( $params['source'] ) ) {
+		$source = $params['source'];
+	} else {
+		$source = 'media_library';
 	}
 
-	echo esc_url( $img );
-	die();
+	$image_data = wpb_get_image_data_by_source( $source, $post_id, $image_id, $img_size );
+	wp_send_json_success( $image_data );
 }

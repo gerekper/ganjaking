@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2024, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -422,7 +422,7 @@ class Integration extends \WC_Integration {
 						'data-placeholder' => __( 'Select a property&hellip;', 'woocommerce-google-analytics-pro' ),
 					],
 					'desc_tip'    => __( "Choose which Universal Analytics property you want to track.", 'woocommerce-google-analytics-pro' ),
-					'description' => '&#9888; ' . sprintf( __( 'Clear this setting to disconnect Universal Analytics once you have migrated to GA4. This setting will stop working after %1$sGoogle retires Universal Analytics%2$s (expected mid-2023).', 'woocommerce-google-analytics-pro' ), '<a href="ttps://support.google.com/analytics/answer/11583528?hl=en" target="_blank">', '</a>' ),
+					'description' => '&#9888; ' . sprintf( __( 'Clear this setting to disconnect Universal Analytics once you have migrated to GA4. This setting will stop working after %1$sGoogle retires Universal Analytics%2$s (expected mid-2024).', 'woocommerce-google-analytics-pro' ), '<a href="ttps://support.google.com/analytics/answer/11583528?hl=en" target="_blank">', '</a>' ),
 				],
 			] );
 		}

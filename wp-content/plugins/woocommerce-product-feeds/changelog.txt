@@ -1,5 +1,17 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2024.01.22 - version 10.12.2
+* Fix: Resolve issues with importing adwords_label via CSV
+
+2024.01.22 - version 10.12.1
+* New: WooCommerce compatibility up to 8.5
+* Update: Clarification that disabling the sending of variations is strongly discouraged
+* Update: Housekeeping and remove some unneeded optimisation calls
+* Update: WooCommerce compatibility updates for setup tasks
+* Update: Support multiple values for 'shopping ads excluded countries'
+* Fix: Resolve issues with incorrect rounding when prices are exclusive of taxes and multiple purchase quantities are enforced
+* Fix: Remove unnecessary duplicated data in REST responses
+
 2023.12.11 - version 10.11.4
 * Update: Declare compatibility with WooCommerce cart checkout blocks
 

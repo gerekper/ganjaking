@@ -90,11 +90,14 @@ class MiscSettingsView {
 		$settings = [
 			'debug'                          => [
 				'label' => __( 'Debugging', 'searchwp' ),
-				'desc'  => __( 'Log information during indexing and searching for review.', 'searchwp' ),
+				'desc'  => __( 'Log indexing and searching activity. Debug logs are saved in <em>/wp-content/uploads/searchwp-logs/</em>. Debug Panel is available from the frontend admin bar.', 'searchwp' ),
 			],
 			'tokenize_pattern_matches'       => [
-				'label' => __( 'Pattern Match Tokens', 'searchwp' ),
-				'desc'  => __( 'When enabled, additional tokens will be generated from regex pattern matches.', 'searchwp' ),
+				'label' => __( 'Split Pattern Keywords', 'searchwp' ),
+				'desc'  => sprintf(
+                    __( 'SearchWP detects typical pattern keywords (SKUs, dates, initials, etc) and keeps them as one token without splitting. Enable this option to split these keywords and generate additional smaller tokens. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+                    'https://searchwp.com/documentation/hooks/searchwp-tokens-regex_patterns/'
+                ),
 			],
 			'remove_min_word_length'         => [
 				'label' => __( 'Remove Minimum Word Length', 'searchwp' ),
@@ -102,7 +105,7 @@ class MiscSettingsView {
 			],
 			'indexer_paused'                 => [
 				'label' => __( 'Pause Indexing', 'searchwp' ),
-				'desc'  => __( 'Continue to queue (but do not apply) delta index updates. Queued updates will be processed immediately when the indexer is unpaused.', 'searchwp' ),
+				'desc'  => __( 'When paused, any new or updated content will not be included in the search results. The indexing will resume once the indexer is unpaused.', 'searchwp' ),
 			],
 			'reduced_indexer_aggressiveness' => [
 				'label' => __( 'Reduce Indexer Load', 'searchwp' ),
@@ -162,7 +165,7 @@ class MiscSettingsView {
                                             <div class="swp-toggle-switch"></div>
                                         </div>
                                         <span class="swp-label">
-                                            <?php echo esc_html( $setting['desc'] ); ?>
+                                            <?php echo wp_kses_post( $setting['desc'] ); ?>
                                         </span>
                                     </label>
                                 </div>

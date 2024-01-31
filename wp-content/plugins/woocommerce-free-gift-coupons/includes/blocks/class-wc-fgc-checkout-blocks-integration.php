@@ -61,7 +61,7 @@ class WC_FGC_Checkout_Blocks_Integration implements IntegrationInterface {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'free_gift_coupons';
+		return 'free_gift_coupons/checkout';
 	}
 
 	/**

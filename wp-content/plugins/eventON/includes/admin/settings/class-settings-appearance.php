@@ -1,7 +1,7 @@
 <?php
 /**
  * Appearance settings for eventon
- * @version 4.4
+ * @version 4.5.7
  */
 
 class evoadmin_set_appearance{
@@ -30,12 +30,12 @@ class evoadmin_set_appearance{
 					)
 				),
 				array('id'=>'evcal_font_fam','type'=>'text','name'=>__('Primary Calendar Font family <i>(Note: type the name of the font that is supported in your website. eg. Arial)</i>','eventon')
-					,'default'=>'Montserrat, sans-serif'
+					,'default'=> $evo_font_1
 				),
 					
 
 				array('id'=>'evcal_font_fam_secondary','type'=>'text','name'=>__('Secondary Calendar Font family <i>(Note: type the name of the font that is supported in your website. eg. Arial)</i>','eventon')
-					,'default'=>'Noto Sans, sans-serif',
+					,'default'=> $evo_font_2,
 					'legend' => 'Secondary font family is used in subtitle text through out the calendar.'
 				),
 				array('id'=>'evcal_arrow_hide','type'=>'yesno','name'=>__('Hide month navigation arrows','eventon'), 'legend'=>'You can also hide individual calendar navigation arrows via shortcode variable hide_arrows="yes"'),
@@ -60,9 +60,7 @@ class evoadmin_set_appearance{
 					),array('id'=>'fs_calhead','type'=>'fontation','name'=>__('Jump Months Trigger Button','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__jm001', 'name'=>'Text Color', 'type'=>'color', 'default'=>'ffffff'),
-							array('id'=>'evcal__jm002', 'name'=>'Background Color', 'type'=>'color', 'default'=>$preset_data['evo_color_1']),
-							array('id'=>'evcal__jm001H', 'name'=>'Text Color (Hover)', 'type'=>'color', 'default'=>'ffffff'),
-							array('id'=>'evcal__jm002H', 'name'=>'Background Color (Hover)', 'type'=>'color', 'default'=>'d3d3d3'),						
+							array('id'=>'evcal__jm002', 'name'=>'Background Color', 'type'=>'color', 'default'=>$preset_data['evo_color_2']),					
 						)
 					),array('id'=>'fs_calhead','type'=>'fontation','name'=>__('Jumper - Month/Year Buttons','eventon'),
 						'variations'=>array(

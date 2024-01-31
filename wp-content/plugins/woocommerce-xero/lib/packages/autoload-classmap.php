@@ -122,6 +122,7 @@ return array(
    'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\CachedKeySet' => $strauss_src . '/firebase/php-jwt/src/CachedKeySet.php',
    'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\Key' => $strauss_src . '/firebase/php-jwt/src/Key.php',
    'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\JWK' => $strauss_src . '/firebase/php-jwt/src/JWK.php',
+   'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\JWTExceptionWithPayloadInterface' => $strauss_src . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
    'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\ExpiredException' => $strauss_src . '/firebase/php-jwt/src/ExpiredException.php',
    'Automattic\WooCommerce\Xero\Vendor\Firebase\JWT\JWT' => $strauss_src . '/firebase/php-jwt/src/JWT.php',
    'Automattic\WooCommerce\Xero\Vendor\XeroAPI\XeroPHP\StringUtil' => $strauss_src . '/xeroapi/xero-php-oauth2/lib/StringUtil.php',

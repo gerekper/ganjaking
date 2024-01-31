@@ -473,12 +473,13 @@ class WC_Box_Office_Order {
 	/**
 	 * Get tickets purchased in order.
 	 *
-	 * @param  int      $order_id   Order ID
-	 * @param  string   $amount     Number of tickets to fetch
-	 * @param  string   $fields     How to return results: '' (for complete `WP_Post`, 'ids' for post IDs).
-	 * @return array    Array of ticket posts
+	 * @param  int    $order_id Order ID.
+	 * @param  string $amount   Number of tickets to fetch.
+	 * @param  string $fields   How to return results: '' (for complete `WP_Post`, 'ids' for post IDs).
+	 * @param  array  $args     Overridable args for `get_posts()`.
+	 * @return array  Array of ticket posts
 	 */
-	public function get_tickets_by_order( $order_id = 0, $amount = 'all', $fields = '' ) {
+	public function get_tickets_by_order( $order_id = 0, $amount = 'all', $fields = '', $args = array() ) {
 
 		if ( ! $order_id ) {
 			return array();
@@ -488,7 +489,7 @@ class WC_Box_Office_Order {
 			$amount = -1;
 		}
 
-		$args = apply_filters( 'woocommerce_box_office_order_tickets_query', array(
+		$default_args = array(
 			'post_type'      => 'event_ticket',
 			'post_status'    => array( 'publish', 'pending' ),
 			'posts_per_page' => $amount,
@@ -499,9 +500,19 @@ class WC_Box_Office_Order {
 					'value' => $order_id,
 				),
 			),
-		), $order_id );
+		);
 
-		return get_posts( $args );
+		$merged_query_args = array_merge( $default_args, $args );
+
+		/**
+		 * Hook to filter the order tickets query.
+		 *
+		 * @param array $merged_query_args Arguments for the query.
+		 * @param int   $order_id     Order ID.
+		 */
+		$merged_query_args = apply_filters( 'woocommerce_box_office_order_tickets_query', $merged_query_args, $order_id );
+
+		return get_posts( $merged_query_args );
 	}
 
 	/**

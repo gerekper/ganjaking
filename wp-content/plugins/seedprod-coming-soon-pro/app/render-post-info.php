@@ -188,7 +188,7 @@ function render_item( $item_number, $show_icons = true ) {
 				$html .= '<span class="sp-postinfo-comments-text">';
 
 				$comments_number = (int) do_shortcode( '[seedprod tag="get_comments_number" echo="true"]' );
-				$comments        = sprintf( '%d Comment(s)', $comments_number );
+				$comments        = sprintf( '%d ' . __( 'Comment(s)', 'seedprod-pro' ), $comments_number );
 
 				$html .= $comments;
 				$html .= '</span>';

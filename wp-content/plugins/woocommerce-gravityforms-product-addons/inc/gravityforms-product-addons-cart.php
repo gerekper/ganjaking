@@ -300,7 +300,8 @@ class WC_GFPA_Cart {
 				$cart_item_meta['_gravity_form_lead'] = array(
 					'form_id'    => $form_id,
 					'source_url' => $lead['source_url'],
-					'ip'         => $lead['ip']
+					'ip'         => $lead['ip'],
+					'original_lead_id' => $lead['id'],
 				);
 
 				GFCommon::log_debug( __METHOD__ . "(): [] Lead From Validation #{$form_id}." );
@@ -329,6 +330,7 @@ class WC_GFPA_Cart {
 						}
 
 						foreach ( $inputs as $input ) {
+							$input_id = $input['id'];
 							if ( is_numeric( $input_id ) && absint( $input_id ) == absint( $field->id ) ) {
 								$cart_item_meta['_gravity_form_lead'][ strval( $input['id'] ) ] = apply_filters( 'wcgf_gform_input_value', $cart_item_meta['_gravity_form_lead'][ strval( $input_id ) ], $product_id, $variation_id, $field, $input );
 							}

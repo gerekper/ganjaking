@@ -99,7 +99,6 @@
          * PDF options page
          */
         public static function options_page() {
-            global $wpdb;
 
             $woocommerce_pdf_invoice_options = WC_pdf_admin_settings::get_settings();
 

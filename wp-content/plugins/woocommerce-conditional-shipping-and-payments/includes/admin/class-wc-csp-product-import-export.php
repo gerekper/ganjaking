@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Product_Import_Export class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.8.2
  */
 

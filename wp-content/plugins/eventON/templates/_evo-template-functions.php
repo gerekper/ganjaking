@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Template functions for template system
- *	@version 4.4.4
+ *	@version 4.5.6
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -25,8 +25,45 @@ add_action('eventon_after_single_event_summary','evotemp_after_single_event_summ
 add_action('eventon_after_single_event','evotemp_after_single_event');
 
 
+add_action('eventon_arch_before_header','evoarch_before_header');
+add_action('eventon_arch_main_content','evoarch_main_content');
+add_action('eventon_arch_after_content','evoarch_after_content');
 
 
+// Archive page function 
+	function evoarch_before_header(){
+		if( !evo_current_theme_is_fse_theme() )  get_header('events');
+
+		wp_enqueue_style( 'evo_single_event');		
+		EVO()->frontend->load_evo_scripts_styles();		
+	}
+	function evoarch_main_content(){
+		$archive_page_id = evo_get_event_page_id();
+
+		// check whether archieve post id passed
+		if($archive_page_id){
+
+			$archive_page  = get_page($archive_page_id);	
+			
+			echo "<div class='wrapper evo_archive_page'>";
+
+			do_action('evo_event_archive_page_before_content');
+
+			echo apply_filters('the_content', $archive_page->post_content);
+
+			do_action('evo_event_archive_page_after_content');
+
+			echo "</div>";
+
+		}else{
+			echo "<p>ERROR: Please select a event archive page in eventON Settings > Events Paging > Select Events Page</p>";
+		}
+	}
+	function evoarch_after_content(){
+		if( !evo_current_theme_is_fse_theme() ) get_footer('events');
+	}
+
+// Other templates
 add_filter( 'post_class', 'evo_event_post_class', 30, 3 );
 function evo_event_post_class($class='', $event = null){
 	global $post, $event;
@@ -49,6 +86,8 @@ function evotemp_before_header(){
 	if( isset($_GET['l'])) $L = sanitize_text_field( $_GET['l'] );
 
 	$EVENT = evo_setup_event_data( $post, $RI);
+
+	//print_r($EVENT->get_start_end_times() );
 
 	
 	// support passing URL like ..../var/ri-2.l-L2/
@@ -177,7 +216,7 @@ function evotemp_before_single_event_content(){
 	$repeati = $event->ri;
 	$lang = EVO()->lang;	
 
-	$formatted_time = eventon_get_formatted_time( $event->get_event_time() );	
+	$formatted_time = eventon_get_formatted_time( $event->get_event_time() , $event->tz );	
 	$header_text =  get_eventon_cal_title_month($formatted_time['n'], $formatted_time['Y'], $lang);
 
 	
@@ -202,7 +241,8 @@ function evotemp_single_event_summary(){
 	$single_events_args = apply_filters('eventon_single_event_page_data',array(
 		'etc_override'=>'no',
 		'eventtop_style'=> ($eventtop_style == 'color'? 2:0),
-		'eventtop_layout_style'=> EVO()->cal->get_prop('evosm_eventtop_layout_style')
+		'eventtop_layout_style'=> EVO()->cal->get_prop('evosm_eventtop_layout_style'),
+		'show_et_ft_img'=>'yes', // @4.5.5
 	));
 
 	// override event color on page with event typ color @since 4.3

@@ -2,7 +2,7 @@
 /**
  * WCS_CSP_Tracker class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.14.0
  */
 

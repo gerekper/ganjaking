@@ -950,33 +950,27 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 			}
 
 			$coupon_code = SRP_Coupon_Handler::create_coupon($UserId, $Points, 'auto_redeem');
+			$coupon_object = new WC_Coupon($coupon_code);
+			$coupon_amount = $coupon_object->get_amount();
 
 			if ( ! empty( get_option( 'rs_minimum_redeeming_points' ) ) && empty( get_option( 'rs_maximum_redeeming_points' ) ) ) {
-				if ( $CouponAmnt > get_option( 'rs_minimum_redeeming_points' ) ) {
+				if ( $coupon_amount > get_option( 'rs_minimum_redeeming_points' ) ) {
 					WC()->cart->add_discount( $coupon_code );
 				}
-			}
-
-			if ( ! empty( get_option( 'rs_maximum_redeeming_points' ) ) && empty( get_option( 'rs_minimum_redeeming_points' ) ) ) {
-				if ( $CouponAmnt < get_option( 'rs_maximum_redeeming_points' ) ) {
+			} else if ( ! empty( get_option( 'rs_maximum_redeeming_points' ) ) && empty( get_option( 'rs_minimum_redeeming_points' ) ) ) {
+				if ( $coupon_amount < get_option( 'rs_maximum_redeeming_points' ) ) {
 					WC()->cart->add_discount( $coupon_code );
 				}
-			}
-
-			if ( get_option( 'rs_minimum_redeeming_points' ) == get_option( 'rs_maximum_redeeming_points' ) ) {
-				if ( ( get_option( 'rs_minimum_redeeming_points' ) == $CouponAmnt ) && ( get_option( 'rs_maximum_redeeming_points' ) == $CouponAmnt ) ) {
+			} else if ( ! empty( get_option( 'rs_minimum_redeeming_points' ) ) && ! empty( get_option( 'rs_maximum_redeeming_points' ) ) ) {
+				if ( get_option( 'rs_minimum_redeeming_points' ) == get_option( 'rs_maximum_redeeming_points' ) ) {
+					if ( ( get_option( 'rs_minimum_redeeming_points' ) == $coupon_amount ) && ( get_option( 'rs_maximum_redeeming_points' ) == $coupon_amount ) ) {
+						WC()->cart->add_discount( $coupon_code );
+					}
+				} else if ( ( $coupon_amount >= get_option( 'rs_minimum_redeeming_points' ) ) && ( $coupon_amount <= get_option( 'rs_maximum_redeeming_points' ) ) ) {
 					WC()->cart->add_discount( $coupon_code );
 				}
-			}
-
-			if ( empty( get_option( 'rs_minimum_redeeming_points' ) ) && empty( get_option( 'rs_maximum_redeeming_points' ) ) ) {
+			} else if ( empty( get_option( 'rs_minimum_redeeming_points' ) ) && empty( get_option( 'rs_maximum_redeeming_points' ) ) ) {
 				WC()->cart->add_discount( $coupon_code );
-			}
-
-			if ( ! empty( get_option( 'rs_minimum_redeeming_points' ) ) && ! empty( get_option( 'rs_maximum_redeeming_points' ) ) ) {
-				if ( ( $CouponAmnt >= get_option( 'rs_minimum_redeeming_points' ) ) && ( $CouponAmnt <= get_option( 'rs_maximum_redeeming_points' ) ) ) {
-					WC()->cart->add_discount( $coupon_code );
-				}
 			}
 		}
 

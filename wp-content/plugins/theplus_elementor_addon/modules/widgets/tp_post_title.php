@@ -41,6 +41,11 @@ class ThePlus_Post_Title extends Widget_Base {
         return array('plus-builder');
     }
 
+	public function get_keywords() {
+        return ['Post Title', 'Title', 'Blog Title', 'Article Title', 'Page Title', 'Post Name', 'Article Name', 'Page Name'];
+    }
+
+
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-post-title-in-elementor-blog-post";
 

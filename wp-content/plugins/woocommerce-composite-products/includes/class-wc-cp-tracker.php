@@ -2,7 +2,7 @@
 /**
  * WC_CP_Tracker class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.5.1
  */
 

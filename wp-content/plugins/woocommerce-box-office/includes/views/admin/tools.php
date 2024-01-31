@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 $active_tab = ! empty( $_GET['tab'] ) ? $_GET['tab'] : 'export';
-if ( ! in_array( $active_tab, array( 'export', 'email' ) ) ) {
+if ( ! in_array( $active_tab, array( 'export', 'email', 'user-privacy' ) ) ) {
 	$active_tab = 'export';
 }
 
@@ -20,6 +20,11 @@ $tab_url_fmt = 'edit.php?post_type=event_ticket&page=ticket_tools&tab=%s';
 		<?php $class_attr = 'email' === $active_tab ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>
 		<a href="<?php echo esc_url( admin_url( sprintf( $tab_url_fmt, 'email' ) ) ) ?>" class="<?php echo esc_attr( $class_attr ); ?>">
 			<?php esc_html_e( 'Email', 'woocommerce-box-office' ) ?>
+		</a>
+
+		<?php $class_attr = 'user-privacy' === $active_tab ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>
+		<a href="<?php echo esc_url( admin_url( sprintf( $tab_url_fmt, 'user-privacy' ) ) ) ?>" class="<?php echo esc_attr( $class_attr ); ?>">
+			<?php esc_html_e( 'User Privacy', 'woocommerce-box-office' ) ?>
 		</a>
 	</h2>
 

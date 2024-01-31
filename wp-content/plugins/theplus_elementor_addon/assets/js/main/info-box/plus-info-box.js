@@ -3,7 +3,7 @@
     var WidgetInfoBoxHandler = function($scope, $) {
         var container = $scope.find('.pt_plus_info_box.list-carousel-slick'),
             uid = container.data('id'),
-            loop_item = container.find(".info-box-inner"),
+            loop_item = container.find(".info-box-inner").closest('.slick-slide'),
             data_conn = container.data("connection"),
             data_eventtype = container.data("eventtype");			
 		if(data_conn!='' && data_conn!=undefined){

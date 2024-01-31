@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -19,9 +19,9 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamInterface;
  * then appends the zlib.inflate filter. The stream is then converted back
  * to a Guzzle stream resource to be used as a Guzzle stream.
  *
- * @see http://tools.ietf.org/html/rfc1950
- * @see http://tools.ietf.org/html/rfc1952
- * @see http://php.net/manual/en/filters.compression.php
+ * @see https://datatracker.ietf.org/doc/html/rfc1950
+ * @see https://datatracker.ietf.org/doc/html/rfc1952
+ * @see https://www.php.net/manual/en/filters.compression.php
  */
 final class InflateStream implements StreamInterface
 {
@@ -34,7 +34,7 @@ final class InflateStream implements StreamInterface
     {
         $resource = StreamWrapper::getResource($stream);
         // Specify window=15+32, so zlib will use header detection to both gzip (with header) and zlib data
-        // See http://www.zlib.net/manual.html#Advanced definition of inflateInit2
+        // See https://www.zlib.net/manual.html#Advanced definition of inflateInit2
         // "Add 32 to windowBits to enable zlib and gzip decoding with automatic header detection"
         // Default window size is 15.
         stream_filter_append($resource, 'zlib.inflate', STREAM_FILTER_READ, ['window' => 15 + 32]);

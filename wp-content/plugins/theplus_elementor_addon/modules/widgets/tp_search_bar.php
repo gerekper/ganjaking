@@ -40,8 +40,8 @@ class ThePlus_Search_Bar extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return ['search bar','search','bar','wp search'];
-	}
+        return ['Search bar', 'search widget', 'search element', 'search tool', 'search form', 'search box', 'search input', 'search functionality', 'Elementor', 'widget', 'search bar', 'search', 'bar', 'Elementor Addon'];
+    }
 
     protected function register_controls() {
 
@@ -5078,7 +5078,7 @@ class ThePlus_Search_Bar extends Widget_Base {
 					}
 				$output .= '</div>';
 			$output .= '</form>';
-
+			
 			if (!empty($AJAXSearch)) {
 				$output .= '<div class="tp-search-area '.esc_attr($RStyle).'">';
 					$output .= '<div class="tp-search-error"></div>';
@@ -5178,10 +5178,19 @@ class ThePlus_Search_Bar extends Widget_Base {
 
 				$DataArray=[];
 				if(($sourceType == 'post') && (!empty($PostData) && is_array($PostData) || is_object($PostData))){
-					foreach ($PostData as $value) {					
+					foreach ($PostData as $value) {		
+						$post_type_object = get_post_type_object( $value );
+						
+						$getlabel = $value;
+						if( !empty($post_type_object) && isset($post_type_object->label) ){
+							$getlabel = $post_type_object->label;
+						}
+
 						$count = wp_count_posts($value);
 						$countNum =  !empty($count->publish) ? $count->publish : 0;
-						$DataArray[$value] = ['name'=>ucfirst($value), 'count'=>$countNum];
+						$DataArray[$value] = [
+							'name'=>$getlabel, 'count'=>$countNum
+						];
 					}
 
 					if(!empty($DataArray)){

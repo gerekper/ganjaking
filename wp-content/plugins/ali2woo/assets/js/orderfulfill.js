@@ -8,16 +8,24 @@ jQuery(function($) {
     });
 
     $(document).on("click", ".a2w_aliexpress_order_fulfillment", function () {        
-        const ids = (typeof $(this).attr('id') == "undefined" && $(this).attr('href').substr(0, 1) == "#")? [$(this).attr('href').substr(1)]: [$(this).attr('id').split('-')[1]]        
-        prepare_order_fulfillment_dialog(ids)
+        const ids = (typeof $(this).attr('id') == "undefined" && $(this).attr('href').substr(0, 1) == "#")? [$(this).attr('href').substr(1)]: [$(this).attr('id').split('-')[1]];
+        prepare_order_fulfillment_dialog(ids);
         return false;
     });
 
-    function prepare_order_fulfillment_dialog(ids) {    
+    function refresh_fulfillment_dialog() {
+        const ids = $(".modal-overlay.modal-fulfillment").data('ids');
+
+        prepare_order_fulfillment_dialog(ids);
+    }
+
+    function prepare_order_fulfillment_dialog(ids) {
+        $(".modal-overlay.modal-fulfillment").data('ids', ids);
+
         $(".modal-overlay.modal-fulfillment .modal-content .loader").remove();
         $(".modal-overlay.modal-fulfillment .modal-content").append('<div class="loader a2w-load-container"><div class="a2w-load-speeding-wheel"></div></div>');
         $(".modal-overlay.modal-fulfillment").addClass('opened');
- 
+
         $("#fulfillment-auto").removeAttr('disabled', 'disabled');
         $("#fulfillment-auto").removeClass('loading')
         $("#fulfillment-auto").show()
@@ -75,12 +83,27 @@ jQuery(function($) {
         return false;             
     })
 
+    $(document.body).on("change", ".modal-fulfillment #_shipping_country", function () {
+        const country = $(this).val();
+        const $rut_field = $('.modal-fulfillment ._shipping_rut');
+        const $cpf_field = $('.modal-fulfillment ._shipping_cpf');
+
+        $rut_field.addClass('hidden');
+        $cpf_field.addClass('hidden');
+
+        if (country === 'BR') {
+            $cpf_field.removeClass('hidden');
+        } else if (country === 'CL') {
+            $rut_field.removeClass('hidden');
+        }
+    });
+
     $(document.body).on("click", ".modal-fulfillment #save-order-address", function () {
         const $form = $(this).parents('.single-order-wrap').find('.order-edit-address-form')
         $form.removeClass('open');
         const order_id = $(this).parents('.single-order-wrap').attr('data-order_id');
 
-        const data = { 
+        const data = {
             'action': 'a2w_save_order_shipping_info',
             'order_id': order_id,
             '_shipping_first_name': $form.find('#_shipping_first_name').val(),
@@ -93,22 +116,26 @@ jQuery(function($) {
             '_shipping_country': $form.find('#_shipping_country').val(),
             '_shipping_state': $form.find('#_shipping_state').val(),
             '_shipping_phone': $form.find('#_shipping_phone').val(),
-            '_shipping_passport_no': $form.find('#_shipping_passport_no').val(),
-            '_shipping_passport_no_date': $form.find('#_shipping_passport_no_date').val(),
-            '_shipping_passport_organization': $form.find('#_shipping_passport_organization').val(),
-            '_shipping_tax_number': $form.find('#_shipping_tax_number').val(),
-            '_shipping_foreigner_passport_no': $form.find('#_shipping_foreigner_passport_no').val(),
-            '_shipping_is_foreigner': $form.find('#_shipping_is_foreigner').is(':checked')?$form.find('#_shipping_is_foreigner').val():'',
-            '_shipping_vat_no': $form.find('#_shipping_vat_no').val(),
-            '_shipping_tax_company': $form.find('#_shipping_tax_company').val(),
+        }
+
+
+        const $rut = $form.find('#rut');
+        const $cpf = $form.find('#cpf');
+
+        if (!$rut.closest('._shipping_rut').hasClass('hidden')) {
+            data['rut'] = $rut.val();
+        }
+
+        if (!$cpf.closest('._shipping_cpf').hasClass('hidden')) {
+            data['cpf'] = $cpf.val();
         }
 
         $.post(ajaxurl, data, function(response) {
             var json = $.parseJSON(response);  
             if (json.state == 'error') {
                 console.log(json.message)
-            } else {                
-                
+            } else {
+                refresh_fulfillment_dialog();
             }
         }).fail(function(xhr, status, error) {
             console.log(error);                        
@@ -272,20 +299,36 @@ jQuery(function($) {
 
             if ( $( order ).data( 'urls' ) )
             {
-                urls = $( order ).data( 'urls' ).split(';');
+                urls = $( order ).data( 'urls' ).split(';');  
             }
 
             try
             {
-                await Promise.all( urls.map( url => fetch( url, { "mode": "no-cors" } ) ) );
+                await Promise.all(urls.map(url => fetch_url(url)));
             }
             catch (error)
             {
- 
             }
         }
 
-        var state = { total: orders_to_plase.length, ok: 0, error: 0 };
+        const fetch_url = function (url) {
+            return new Promise((res) => {
+                let img = document.createElement("img");
+                img.style.display = "none";
+                img.addEventListener("load", (function() {
+                    document.body.removeChild(img);
+                    res();
+                }));
+                img.addEventListener("error", (function(e) {
+                    document.body.removeChild(img);
+                    res();
+                }));
+                img.src = url;
+                document.body.appendChild(img);
+            });
+        }
+
+        let state = { total: orders_to_plase.length, ok: 0, error: 0 };
         a2w_js_fulfillment_place_order(orders_to_plase, state, on_place_order, before_place_order);
     })
 
@@ -299,7 +342,7 @@ jQuery(function($) {
     })
 
 
-    async function a2w_js_fulfillment_place_order (orders_to_plase, state, on_load_calback, before_load_callback)
+    async function a2w_js_fulfillment_place_order ( orders_to_plase, state, on_load_calback, before_load_callback )
     {
         if (orders_to_plase.length > 0) {
             var data = orders_to_plase.shift();  
@@ -307,8 +350,8 @@ jQuery(function($) {
             if ( before_load_callback )
             {
                 await before_load_callback( data.order_id );    
-            }          
-
+            }
+  
             $.post(ajaxurl, data).done(function (response) {
                 var json = jQuery.parseJSON(response);
                 if (json.state !== 'ok') {
@@ -751,15 +794,22 @@ jQuery(function($) {
     }
 
     $("#doaction, #doaction2").click(function(event) {
-        var check_action = ($(this).attr('id') == 'doaction') ? $('#bulk-action-selector-top').val() : $('#bulk-action-selector-bottom').val();
+        const check_action= ($(this).attr('id') === 'doaction') ?
+            $('#bulk-action-selector-top').val() :
+            $('#bulk-action-selector-bottom').val();
+
         if ('a2w_order_place_bulk' === check_action) {
             event.preventDefault();
-
-            var ids = [];
+            const ids = [];
             $('input:checkbox[name="post[]"]:checked').each(function() {
                 ids.push($(this).val());
             });
-
+            if (ids.length < 1) {
+                //for HPOS screen
+                $('input:checkbox[name="id[]"]:checked').each(function() {
+                    ids.push($(this).val());
+                });
+            }
             prepare_order_fulfillment_dialog(ids)
         }
     });

@@ -1,4 +1,7 @@
-*** WooCommerce Conditional Shipping and Payments ***
+*** Woo Conditional Shipping and Payments ***
+
+2024.01.24 - version 1.15.5
+* New - Added compatibility with PHP 8.3.
 
 2023.10.17 - version 1.15.4
 * Fix - Important: Security improvements.
@@ -154,7 +157,7 @@
 * Tweak - List complete trees in Category condition dropdowns.
 
 2020.04.27 - version 1.8.0
-* Important - Added integration with WooCommerce Gift Cards - see https://woocommerce.com/products/gift-cards/.
+* Important - Added integration with WooCommerce Gift Cards - see https://woo.com/products/gift-cards/.
 * Feature - Conditionally prevent customers from paying with gift cards. Useful for restricting gift card usage to specific products, categories, customers, etc.
 * Feature - Added 'Gift Cards' condition to conditionally exclude payment options depending on whether a gift card is used to pay for an order, partially or fully.
 * Feature - Added 'Gift Card Product' condition to conditionally exclude payment options depending on whether a gift card is used to pay for an order, partially or fully.
@@ -330,7 +333,7 @@
 * Tweak - Refactored logic for adding conditions, now based on JS templates - see 'WC_CSP_Conditions::print_condition_field_scripts()'.
 
 2016.05.30 - version 1.2.0
-* Important - Added support for WooCommerce 2.6 and WC 2.6 Shipping Zones. To ensure that your shipping method restrictions still work after the WC 2.6 update, please ensure that WooCommerce Conditional Shipping and Payments has been updated to version 1.2.0 before running the WC 2.6 data update routine!
+* Important - Added support for WooCommerce 2.6 and WC 2.6 Shipping Zones. To ensure that your shipping method restrictions still work after the WC 2.6 update, please ensure that Woo Conditional Shipping and Payments has been updated to version 1.2.0 before running the WC 2.6 data update routine!
 * Important - WC 2.6 has introduced irreversible changes to shipping rate IDs. In some cases, the update may break existing shipping method restrictions/conditions. Please review any existing shipping method restriction settings after running the WC 2.6 update routine!
 * Feature - Ability to create shipping method restrictions based on custom shipping rate IDs ("Exclude Shipping Rate IDs" field).
 * Tweak - After updating to WC 2.6, it is no longer possible to choose specific Table Rate Shipping / Flat Rate Boxes rates when defining Shipping Method restrictions. Instead, this is now possible by making use of the newly introduced "Exclude Shipping Rate IDs" field.

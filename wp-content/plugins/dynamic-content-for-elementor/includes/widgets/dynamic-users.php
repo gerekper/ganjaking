@@ -446,7 +446,24 @@ class DynamicUsers extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     } else {
                         $inlinecss = '';
                     }
-                    echo do_shortcode('[dce-elementor-template user_id="' . $user->ID . '" author_id="' . $user->ID . '" id="' . $settings['users_render_template'] . '" ' . $inlinecss . ']');
+                    global $wp_query;
+                    $original_queried_object = $wp_query->queried_object;
+                    $original_queried_object_id = $wp_query->queried_object_id;
+                    global $current_user;
+                    $original_user = $current_user;
+                    $current_user = $user;
+                    global $authordata;
+                    $original_author = $authordata;
+                    $authordata = $current_user;
+                    if ($authordata) {
+                        $wp_query->queried_object = $authordata;
+                        $wp_query->queried_object_id = $authordata->ID;
+                    }
+                    echo do_shortcode('[dce-elementor-template id="' . $settings['users_render_template'] . '" ' . $inlinecss . ']');
+                    $authordata = $original_author;
+                    $current_user = $original_user;
+                    $wp_query->queried_object = $original_queried_object;
+                    $wp_query->queried_object_id = $original_queried_object_id;
                 }
                 echo '</div>';
             }
@@ -456,24 +473,24 @@ class DynamicUsers extends \DynamicContentForElementor\Widgets\WidgetPrototype
             Helper::numeric_query_pagination(\intval(\ceil($number_of_users / $settings['results_per_page'])), $settings);
         }
     }
-    protected function get_attachments($tx_before, $users, $size_attach, $is_attachment_url)
+    protected function get_attachments($text_before, $users, $size_attach, $is_attachment_url)
     {
-        $acfList = [];
-        $get_attachments = get_posts(array('author__in' => $users, 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => 'any', 'orderby' => 'title'));
+        $attachments = get_posts(['author__in' => $users, 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => 'any', 'orderby' => 'title']);
+        if (empty($attachments)) {
+            return;
+        }
         echo '<div class="grid-attach">';
-        if (!empty($get_attachments)) {
-            echo $tx_before;
-            foreach ($get_attachments as $media) {
-                echo '<div class="item_attach">';
-                if ($is_attachment_url == 'yes') {
-                    echo '<a href="' . get_permalink($media->ID) . '">';
-                }
-                echo wp_get_attachment_image($media->ID, $size_attach);
-                if ($is_attachment_url == 'yes') {
-                    echo '</a>';
-                }
-                echo '</div>';
+        echo $text_before;
+        foreach ($attachments as $media) {
+            echo '<div class="item_attach">';
+            if ($is_attachment_url == 'yes') {
+                echo '<a href="' . get_permalink($media->ID) . '">';
             }
+            echo wp_get_attachment_image($media->ID, $size_attach);
+            if ($is_attachment_url == 'yes') {
+                echo '</a>';
+            }
+            echo '</div>';
         }
         echo '</div>';
     }
@@ -482,13 +499,13 @@ class DynamicUsers extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $get_articles = get_posts(array('author__in' => $userId, 'post_type' => 'any', 'numberposts' => -1, 'post_status' => 'publish', 'public' => \true));
         return \count($get_articles);
     }
-    protected function get_articles($tx_before, $users, $size_art, $type_art, $is_article_url)
+    protected function get_articles($text_before, $users, $size_art, $type_art, $is_article_url)
     {
         $acfList = [];
         $get_articles = get_posts(array('author__in' => $users, 'post_type' => \DynamicContentForElementor\Helper::validate_post_type($type_art), 'numberposts' => -1, 'post_status' => 'publish', 'public' => \true, 'orderby' => 'title'));
         echo '<div class="grid-articles">';
         if (!empty($get_articles)) {
-            echo $tx_before;
+            echo $text_before;
             foreach ($get_articles as $art) {
                 $featuredImageID = get_post_thumbnail_id($art->ID);
                 echo '<div class="item_article">';

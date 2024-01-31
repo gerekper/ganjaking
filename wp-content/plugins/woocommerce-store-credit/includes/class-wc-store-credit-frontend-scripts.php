@@ -47,7 +47,7 @@ class WC_Store_Credit_Frontend_Scripts {
 		if ( is_product() ) {
 			$product = wc_store_credit_get_product( $post->ID );
 
-			if ( $product instanceof WC_Store_Credit_Product && ( $product->allow_different_receiver() || $product->allow_custom_amount() ) ) {
+			if ( $product instanceof WC_Store_Credit_Product && ( $product->allow_different_receiver() || $product->allow_custom_amount() || $product->get_preset_amounts() ) ) {
 				wp_enqueue_style( 'wc-store-credit' );
 				wp_enqueue_script( 'wc-store-credit-single-product' );
 			}

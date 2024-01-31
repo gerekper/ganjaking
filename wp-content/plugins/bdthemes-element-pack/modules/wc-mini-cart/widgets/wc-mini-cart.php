@@ -1463,7 +1463,7 @@ class WC_Mini_Cart extends Module_Base {
 		$this->add_render_attribute('offcanvas', 'class', 'bdt-offcanvas');
 		$this->add_render_attribute('offcanvas', 'id', $id);
 
-		if('yes' == $settings['trigger_on_cart_update']) {
+		if ('yes' == $settings['trigger_on_cart_update']) {
 			$this->add_render_attribute('offcanvas', 'class', 'bdt-offcanvas __update_cart');
 		}
 
@@ -1509,7 +1509,7 @@ class WC_Mini_Cart extends Module_Base {
 				<?php endif; ?>
 
 				<div class="bdt-widget-title">
-					<?php echo wp_kses_post($settings['custom_widget_cart_title']); ?>
+					<?php echo esc_html__($settings['custom_widget_cart_title'], 'bdthemes-element-pack'); ?>
 				</div>
 
 				<?php if ($settings['custom_content_before_switcher'] === 'yes' and !empty($settings['custom_content_before'])) : ?>
@@ -1530,5 +1530,4 @@ class WC_Mini_Cart extends Module_Base {
 
 <?php
 	}
-
 }

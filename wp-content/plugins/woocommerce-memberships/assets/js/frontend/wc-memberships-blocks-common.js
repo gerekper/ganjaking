@@ -1,3 +1,6 @@
+/**
+ * @deprecated do not extend this file, will be removed in future versions
+ */
 jQuery(function ($) {
 	var wc_memberships_common = window.wc_memberships_blocks_common || {};
 
@@ -118,7 +121,7 @@ jQuery(function ($) {
 			const membershipData = {
 				endPoint: 'wc/v4/memberships/members',
 				requestData: {
-					_includes: 'customer_data',
+					customer_data: true,
 					per_page: directorySettings.perPage,
 					...requestData,
 				},

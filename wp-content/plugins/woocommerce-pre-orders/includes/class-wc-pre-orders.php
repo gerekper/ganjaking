@@ -41,6 +41,36 @@ class WC_Pre_Orders {
 	private $base_file;
 
 	/**
+	 * @var WC_Pre_Orders_Cron
+	 */
+	private $cron = null;
+
+	/**
+	 * @var WC_Pre_Orders_Manager
+	 */
+	private $manager = null;
+
+	/**
+	 * @var WC_Pre_Orders_Product
+	 */
+	private $product = null;
+
+	/**
+	 * @var WC_Pre_Orders_Cart
+	 */
+	private $cart = null;
+
+	/**
+	 * @var WC_Pre_Orders_Checkout
+	 */
+	private $checkout = null;
+
+	/**
+	 * @var WC_Pre_Orders_Order
+	 */
+	private $order = null;
+
+	/**
 	 * Setup main plugin class
 	 *
 	 * @return \WC_Pre_Orders

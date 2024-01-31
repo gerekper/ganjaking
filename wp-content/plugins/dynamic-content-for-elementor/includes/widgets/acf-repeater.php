@@ -446,16 +446,12 @@ class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         }
                         echo do_shortcode(Tokens::replace_var_tokens($text, 'ROW', $sub_fields_tokens_row[get_row_index()]));
                     } elseif ($settings['dce_acf_repeater_mode'] == 'template') {
-                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $inlinecss = 'inlinecss="true"';
-                        } else {
-                            $inlinecss = '';
-                        }
                         $template_id = $settings['dce_acf_repeater_template'];
                         if ($settings['dce_acf_repeater_template_2_enable'] && get_row_index() % 2) {
                             $template_id = $settings['dce_acf_repeater_template_2_id'];
                         }
-                        echo do_shortcode('[dce-elementor-template id="' . $template_id . '" ' . $inlinecss . ']');
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special(['id' => $template_id, 'acf_row' => get_row_index(), 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()]);
                     } else {
                         foreach ($settings['dce_acf_repeater_subfields'] as $key => $value) {
                             $sub_field = get_sub_field($value['dce_acf_repeater_field_name']);

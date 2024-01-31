@@ -722,7 +722,7 @@
 				});
 			}
 
-		let customLink = $scope[0].querySelectorAll('.elementor-tab-content p a');
+		let customLink = $scope[0].querySelectorAll('a');
 			customLink.forEach(function(link){
 				link.addEventListener("click", function(e){
 					jQuery(this.hash).trigger('click');

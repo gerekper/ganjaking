@@ -367,6 +367,7 @@ class Evo_Shortcode_Fields{
 					'sort_title'=>__('Title','eventon'),
 					'sort_posted'=>__('Posted Date','eventon'),
 					'sort_rand'=>__('Random Order','eventon'),
+					'sort_menu_order'=>__('Menu Order','eventon'),
 				)
 			),'hide_sortO'=>array(
 				'name'=>__('Disable calendar sort/filter ability','eventon'),

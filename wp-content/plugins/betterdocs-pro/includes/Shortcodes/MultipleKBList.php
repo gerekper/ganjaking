@@ -27,7 +27,8 @@ class MultipleKBList extends ListView {
             'title_tag'                => 'h2',
             'show_description'         => (bool) $this->customizer->get( 'betterdocs_mkb_desc', false ),
             'terms_order'              => $this->settings->get( 'terms_order', 'ASC' ),
-            'terms_orderby'            => $this->settings->get( 'terms_orderby', 'betterdocs_order' )
+            'terms_orderby'            => $this->settings->get( 'terms_orderby', 'betterdocs_order' ),
+            'show_icon'                => true
         ];
     }
 
@@ -57,7 +58,8 @@ class MultipleKBList extends ListView {
         $_view_params = [
             'wrapper_attr'     => [
                 'class' => ['betterdocs-multiple-kb-list-wrapper']
-            ]
+            ],
+            'show_icon' => $this->attributes['show_icon']
         ];
 
         return $this->merge( parent::view_params(), $_view_params );

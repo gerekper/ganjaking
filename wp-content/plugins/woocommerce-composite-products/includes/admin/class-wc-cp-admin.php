@@ -2,7 +2,7 @@
 /**
  * WC_CP_Admin class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    2.2.2
  */
 
@@ -221,7 +221,7 @@ class WC_CP_Admin {
 	 */
 	public static function add_privacy_policy_guide_content() {
 		if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
-			wp_add_privacy_policy_content( 'WooCommerce Composite Products', self::get_privacy_policy_guide_message() );
+			wp_add_privacy_policy_content( 'Woo Composite Products', self::get_privacy_policy_guide_message() );
 		}
 	}
 
@@ -331,7 +331,7 @@ class WC_CP_Admin {
 	 * @return array
 	 */
 	public static function composite_template_scan_path( $paths ) {
-		$paths[ 'WooCommerce Composite Products' ] = WC_CP()->plugin_path() . '/templates/';
+		$paths[ 'Woo Composite Products' ] = WC_CP()->plugin_path() . '/templates/';
 		return $paths;
 	}
 

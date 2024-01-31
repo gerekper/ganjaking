@@ -82,7 +82,7 @@ class WC_Shipment_Tracking_Order_CSV_Export_Compat {
 				$pipe = null;
 				foreach ( $item as $key => $value ) {
 					if ( 'date_shipped' === $key ) {
-						$value = date( 'Y-m-d', $value );
+						$value = gmdate( 'Y-m-d', $value );
 					}
 
 					$shipment_tracking_csv_output .= "$pipe$key:$value";

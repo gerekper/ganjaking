@@ -228,6 +228,9 @@ class wfConfig {
 			'lastPermissionsTemplateCheck' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'previousWflogsFileList' => array('value' => '[]', 'autoload' => self::DONT_AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'diagnosticsWflogsRemovalHistory' => array('value' => '[]', 'autoload' => self::DONT_AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
+			'satisfactionPromptDismissed' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
+			'satisfactionPromptInstallDate' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
+			'satisfactionPromptOverride' => array('value' => true, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 		),
 	);
 	public static $serializedOptions = array('lastAdminLogin', 'scanSched', 'emailedIssuesList', 'wf_summaryItems', 'adminUserList', 'twoFactorUsers', 'alertFreqTrack', 'wfStatusStartMsgs', 'vulnerabilities_plugin', 'vulnerabilities_theme', 'dashboardData', 'malwarePrefixes', 'coreHashes', 'noc1ScanSchedule', 'allScansScheduled', 'disclosureStates', 'scanStageStatuses', 'adminNoticeQueue', 'suspiciousAdminUsernames', 'wordpressPluginVersions', 'wordpressThemeVersions');
@@ -518,6 +521,9 @@ class wfConfig {
 	public static function setJSON($key, $val, $autoload = self::AUTOLOAD) {
 		self::set($key, @json_encode($val), $autoload);
 	}
+	public static function setBool($key, $val, $autoload = self::AUTOLOAD) {
+		self::set($key, wfUtils::truthyToBoolean($val) ? 1 : 0, $autoload);
+	}
 	public static function setOrRemove($key, $value, $autoload = self::AUTOLOAD) {
 		if ($value === null) {
 			self::remove($key);
@@ -563,6 +569,10 @@ class wfConfig {
 			return $default;
 		}
 		return $decoded;
+	}
+	
+	public static function getBool($key, $default = false, $allowCached = true) {
+		return wfUtils::truthyToBoolean(self::get($key, $default, $allowCached));
 	}
 	
 	/**

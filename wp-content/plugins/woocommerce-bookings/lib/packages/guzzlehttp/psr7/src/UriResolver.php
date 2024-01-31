@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -17,14 +17,14 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
  *
  * @author Tobias Schultze
  *
- * @see https://tools.ietf.org/html/rfc3986#section-5
+ * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5
  */
 final class UriResolver
 {
     /**
      * Removes dot segments from a path and returns the new path.
      *
-     * @see http://tools.ietf.org/html/rfc3986#section-5.2.4
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5.2.4
      */
     public static function removeDotSegments(string $path): string
     {
@@ -59,7 +59,7 @@ final class UriResolver
     /**
      * Converts the relative URI into a new URI that is resolved against the base URI.
      *
-     * @see http://tools.ietf.org/html/rfc3986#section-5.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5.2
      */
     public static function resolve(UriInterface $base, UriInterface $rel): UriInterface
     {

@@ -1,4 +1,23 @@
 *** WorldPay Changelog ***
+2024.01.22 - version 5.3.2
+ * Set Fraud Screen order status as a paid order status
+ * Filter to stop orders going to Fraud Screen
+
+2024.01.10 - version 5.3.1
+ * Remove order notes used for third party testing
+
+2024.01.09 - version 5.3.0
+ * new order status "Fraud Screen" 
+ * update $response checks, allow orders that fail security check to proceed but flag
+
+2024.01.05 - version 5.2.3
+ * Further $response checks for proxies
+
+2023.18.12 - version 5.2.2
+ * PHP 8.3 Deprecated functions "Creation of dynamic property"
+ * Add Worldpay.com check
+ * Fix missing HPOS database check 
+
 2023.11.22 - version 5.2.1
  * Make sure "Next Payment Date" is updated after renewal
  * Fix - missing payment method for blocks when subscription product is in cart

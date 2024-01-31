@@ -25,7 +25,6 @@ use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\GATracking;
-use MailPoet\Tasks\Sending;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\pQuery\DomNode;
 use MailPoet\Util\pQuery\pQuery;
@@ -107,10 +106,10 @@ class Newsletter {
     $this->scheduledTasksRepository = ContainerWrapper::getInstance()->get(ScheduledTasksRepository::class);
   }
 
-  public function getNewsletterFromQueue(Sending $sendingTask): ?NewsletterEntity {
+  public function getNewsletterFromQueue(ScheduledTaskEntity $task): ?NewsletterEntity {
     // get existing active or sending newsletter
-    $sendingQueue = $sendingTask->getSendingQueueEntity();
-    $newsletter = $sendingQueue->getNewsletter();
+    $queue = $task->getSendingQueue();
+    $newsletter = $queue ? $queue->getNewsletter() : null;
 
     if (
       is_null($newsletter)
@@ -118,7 +117,7 @@ class Newsletter {
       || !in_array($newsletter->getStatus(), [NewsletterEntity::STATUS_ACTIVE, NewsletterEntity::STATUS_SENDING])
       || $newsletter->getStatus() === NewsletterEntity::STATUS_CORRUPT
     ) {
-      $this->recoverFromInvalidState($newsletter, $sendingQueue);
+      $this->recoverFromInvalidState($task);
       return null;
     }
 
@@ -138,17 +137,18 @@ class Newsletter {
     return $newsletter;
   }
 
-  public function preProcessNewsletter(NewsletterEntity $newsletter, Sending $sendingTask) {
+  public function preProcessNewsletter(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
     // return the newsletter if it was previously rendered
-    /** @phpstan-ignore-next-line - SendingQueue::getNewsletterRenderedBody() is called inside Sending using __call(). Sending will be refactored soon to stop using Paris models. */
-    if (!is_null($sendingTask->getNewsletterRenderedBody())) {
-      return (!$sendingTask->validate()) ?
-        $this->stopNewsletterPreProcessing(sprintf('QUEUE-%d-RENDER', $sendingTask->id)) :
-        $newsletter;
+    $queue = $task->getSendingQueue();
+    if (!$queue) {
+      return false;
+    }
+    if ($queue->getNewsletterRenderedBody() !== null) {
+      return $newsletter;
     }
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
       'pre-processing newsletter',
-      ['newsletter_id' => $newsletter->getId(), 'task_id' => $sendingTask->taskId]
+      ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
     );
 
     $campaignId = null;
@@ -158,7 +158,7 @@ class Newsletter {
       // hook to the newsletter post-processing filter and add tracking image
       $this->trackingImageInserted = OpenTracking::addTrackingImage();
       // render newsletter
-      $renderedNewsletter = $this->renderer->render($newsletter, $sendingTask->getSendingQueueEntity());
+      $renderedNewsletter = $this->renderer->render($newsletter, $queue);
       $renderedNewsletter = $this->wp->applyFilters(
         'mailpoet_sending_newsletter_render_after_pre_process',
         $renderedNewsletter,
@@ -169,10 +169,10 @@ class Newsletter {
       }
       $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletter);
       // hash and save all links
-      $renderedNewsletter = $this->linksTask->process($renderedNewsletter, $newsletter, $sendingTask);
+      $renderedNewsletter = $this->linksTask->process($renderedNewsletter, $newsletter, $queue);
     } else {
       // render newsletter
-      $renderedNewsletter = $this->renderer->render($newsletter, $sendingTask->getSendingQueueEntity());
+      $renderedNewsletter = $this->renderer->render($newsletter, $queue);
       $renderedNewsletter = $this->wp->applyFilters(
         'mailpoet_sending_newsletter_render_after_pre_process',
         $renderedNewsletter,
@@ -192,7 +192,7 @@ class Newsletter {
       // delete notification history record since it will never be sent
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
         'no posts in post notification, deleting it',
-        ['newsletter_id' => $newsletter->getId(), 'task_id' => $sendingTask->taskId]
+        ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
       );
       $this->newslettersRepository->bulkDelete([(int)$newsletter->getId()]);
       return false;
@@ -200,43 +200,41 @@ class Newsletter {
     // extract and save newsletter posts
     $this->postsTask->extractAndSave($renderedNewsletter, $newsletter);
 
-    $sendingQueueEntity = $sendingTask->getSendingQueueEntity();
-
     if ($campaignId !== null) {
-      $this->sendingQueuesRepository->saveCampaignId($sendingQueueEntity, $campaignId);
+      $this->sendingQueuesRepository->saveCampaignId($queue, $campaignId);
     }
 
     $filterSegmentId = $newsletter->getFilterSegmentId();
     if ($filterSegmentId) {
       $filterSegment = $this->segmentsRepository->findOneById($filterSegmentId);
       if ($filterSegment instanceof SegmentEntity && $filterSegment->getType() === SegmentEntity::TYPE_DYNAMIC) {
-        $this->sendingQueuesRepository->saveFilterSegmentMeta($sendingQueueEntity, $filterSegment);
+        $this->sendingQueuesRepository->saveFilterSegmentMeta($queue, $filterSegment);
       }
     }
 
     // update queue with the rendered and pre-processed newsletter
-    $sendingTask->newsletterRenderedSubject = ShortcodesTask::process(
-      $newsletter->getSubject(),
-      $renderedNewsletter['html'],
-      $newsletter,
-      null,
-      $sendingQueueEntity
+    $queue->setNewsletterRenderedSubject(
+      ShortcodesTask::process(
+        $newsletter->getSubject(),
+        $renderedNewsletter['html'],
+        $newsletter,
+        null,
+        $queue
+      )
     );
 
     // if the rendered subject is empty, use a default subject,
     // having no subject in a newsletter is considered spammy
-    if (empty(trim((string)$sendingTask->newsletterRenderedSubject))) {
-      $sendingTask->newsletterRenderedSubject = __('No subject', 'mailpoet');
+    if (empty(trim((string)$queue->getNewsletterRenderedSubject()))) {
+      $queue->setNewsletterRenderedSubject(__('No subject', 'mailpoet'));
     }
     $renderedNewsletter = $this->emoji->encodeEmojisInBody($renderedNewsletter);
-    $sendingTask->newsletterRenderedBody = $renderedNewsletter;
-    $sendingTask->save();
+    $queue->setNewsletterRenderedBody($renderedNewsletter);
 
-    // catch DB errors
-    $queueErrors = $sendingTask->getErrors();
-
-    if ($queueErrors) {
-      $this->stopNewsletterPreProcessing(sprintf('QUEUE-%d-SAVE', $sendingTask->id));
+    try {
+      $this->sendingQueuesRepository->flush();
+    } catch (\Throwable $e) {
+      $this->stopNewsletterPreProcessing(sprintf('QUEUE-%d-SAVE', $queue->getId()));
     }
     return $newsletter;
   }
@@ -245,31 +243,28 @@ class Newsletter {
    * Shortcodes and links will be replaced in the subject, html and text body
    * to speed the processing, join content into a continuous string.
    */
-  public function prepareNewsletterForSending(NewsletterEntity $newsletter, SubscriberEntity $subscriber, Sending $sendingTask): array {
-    $sendingQueue = $sendingTask->queue();
-    $renderedNewsletter = $sendingQueue->getNewsletterRenderedBody();
+  public function prepareNewsletterForSending(NewsletterEntity $newsletter, SubscriberEntity $subscriber, SendingQueueEntity $queue): array {
+    $renderedNewsletter = $queue->getNewsletterRenderedBody();
     $renderedNewsletter = $this->emoji->decodeEmojisInBody($renderedNewsletter);
     $preparedNewsletter = Helpers::joinObject(
       [
-        $sendingTask->newsletterRenderedSubject,
+        $queue->getNewsletterRenderedSubject(),
         $renderedNewsletter['html'],
         $renderedNewsletter['text'],
       ]
     );
-
-    $sendingQueueEntity = $sendingTask->getSendingQueueEntity();
 
     $preparedNewsletter = ShortcodesTask::process(
       $preparedNewsletter,
       null,
       $newsletter,
       $subscriber,
-      $sendingQueueEntity
+      $queue
     );
     if ($this->trackingEnabled) {
       $preparedNewsletter = $this->newsletterLinks->replaceSubscriberData(
         $subscriber->getId(),
-        $sendingTask->id,
+        $queue->getId(),
         $preparedNewsletter
       );
     }
@@ -339,28 +334,23 @@ class Newsletter {
 
   /**
    * This method recovers the scheduled task and newsletter from a state when sending cannot proceed.
-   * @param NewsletterEntity|null $newsletter
-   * @param SendingQueueEntity $sendingQueue
-   * @return void
    */
-  private function recoverFromInvalidState(?NewsletterEntity $newsletter, SendingQueueEntity $sendingQueue): void {
+  private function recoverFromInvalidState(ScheduledTaskEntity $task): void {
     // When newsletter does not exist, we need to remove the scheduled task and sending queue.
-    $scheduledTask = $sendingQueue->getTask();
+    $queue = $task->getSendingQueue();
+    $newsletter = $queue ? $queue->getNewsletter() : null;
     if (!$newsletter) {
-      if ($scheduledTask) {
-        $this->scheduledTasksRepository->remove($scheduledTask);
+      $this->scheduledTasksRepository->remove($task);
+      if ($queue) {
+        $this->sendingQueuesRepository->remove($queue);
       }
-      $this->sendingQueuesRepository->remove($sendingQueue);
       $this->sendingQueuesRepository->flush();
-
       return;
     }
 
     // Only deleted newsletter or newsletter with unexpected state should pass here.
     // Because this state cannot proceed with sending, we need to pause the scheduled task.
-    if ($scheduledTask) {
-      $scheduledTask->setStatus(ScheduledTaskEntity::STATUS_PAUSED);
-      $this->scheduledTasksRepository->flush();
-    }
+    $task->setStatus(ScheduledTaskEntity::STATUS_PAUSED);
+    $this->scheduledTasksRepository->flush();
   }
 }

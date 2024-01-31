@@ -2800,13 +2800,13 @@ class ThePlus_Instagram extends Widget_Base {
 			}else{
 				$loop_imgSrc='';
 			}
-				$list_img ='<img src='.esc_url($loop_imgSrc).' />';
+				$list_img = '<img src=' . esc_url($loop_imgSrc) . ' />';
 		}
 	
 			$popupimage_attr= $list_img;
 	
 	$uid=uniqid('insta');
-	if($settings['loop_select_image']['url']!=''){
+	if( !empty( $settings['loop_select_image']['url'] ) ){
 		$icn_image=$settings['loop_select_image']['url'];
 	}else{
 		$icn_image = THEPLUS_ASSETS_URL .'images/insta_img_icon.png';			
@@ -2843,7 +2843,7 @@ class ThePlus_Instagram extends Widget_Base {
 	$insta_feed_by .= ' data-carousels="'.esc_attr($settings['theplus_instafeed_carousels'] ).'"';
 	$insta_feed_by .= ' data-layoutstyle="'.esc_attr($settings['insta_layout_style'] ).'"';
 	$insta_feed_by .= ' data-column="'.$data_attr.'"';
-	$insta_feed_by .= ' data-popup-image="'.$icn_image.'"';
+	$insta_feed_by .= ' data-popup-image="'.esc_url($icn_image).'"';
 	$insta_feed_by .= ' data-loadmore-text="'.$settings['tp_if_p_text'].'"';
 	$insta_feed_by .= ' data-loading-text="'.$settings['tp_if_p_loading_text'].'"';
 	

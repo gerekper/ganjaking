@@ -15,7 +15,7 @@ class Agent extends AC\Column\Comment\Agent
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_agent');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_agent');
     }
 
     public function search()

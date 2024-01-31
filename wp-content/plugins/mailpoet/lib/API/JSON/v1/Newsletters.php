@@ -26,6 +26,7 @@ use MailPoet\Newsletter\Preview\SendPreviewException;
 use MailPoet\Newsletter\Scheduler\PostNotificationScheduler;
 use MailPoet\Newsletter\Scheduler\Scheduler;
 use MailPoet\Newsletter\Url as NewsletterUrl;
+use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Settings\SettingsController;
 use MailPoet\UnexpectedValueException;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
@@ -84,6 +85,9 @@ class Newsletters extends APIEndpoint {
   /** @var Scheduler */
   private $scheduler;
 
+  /** @var AuthorizedEmailsController */
+  private $authorizedEmailsController;
+
   public function __construct(
     Listing\Handler $listingHandler,
     WPFunctions $wp,
@@ -99,7 +103,8 @@ class Newsletters extends APIEndpoint {
     NewsletterSaveController $newsletterSaveController,
     NewsletterUrl $newsletterUrl,
     Scheduler $scheduler,
-    NewsletterValidator $newsletterValidator
+    NewsletterValidator $newsletterValidator,
+    AuthorizedEmailsController $authorizedEmailsController
   ) {
     $this->listingHandler = $listingHandler;
     $this->wp = $wp;
@@ -116,6 +121,7 @@ class Newsletters extends APIEndpoint {
     $this->newsletterUrl = $newsletterUrl;
     $this->scheduler = $scheduler;
     $this->newsletterValidator = $newsletterValidator;
+    $this->authorizedEmailsController = $authorizedEmailsController;
   }
 
   public function get($data = []) {
@@ -160,6 +166,8 @@ class Newsletters extends APIEndpoint {
     $newsletter = $this->newsletterSaveController->save($data);
     $response = $this->newslettersResponseBuilder->build($newsletter, [
       NewslettersResponseBuilder::RELATION_SEGMENTS,
+      NewslettersResponseBuilder::RELATION_OPTIONS,
+      NewslettersResponseBuilder::RELATION_QUEUE,
     ]);
     $previewUrl = $this->getViewInBrowserUrl($newsletter);
     $response = $this->wp->applyFilters('mailpoet_api_newsletters_save_after', $response);
@@ -186,6 +194,12 @@ class Newsletters extends APIEndpoint {
       return $this->errorResponse([
         APIError::NOT_FOUND => __('This email does not exist.', 'mailpoet'),
       ]);
+    }
+
+    if ($status === NewsletterEntity::STATUS_ACTIVE && !$this->authorizedEmailsController->isSenderAddressValid($newsletter)) {
+          return $this->errorResponse([
+            APIError::FORBIDDEN => __('The sender address is not an authorized sender domain.', 'mailpoet'),
+          ], [], Response::STATUS_FORBIDDEN);
     }
 
     if ($status === NewsletterEntity::STATUS_ACTIVE) {
@@ -228,7 +242,11 @@ class Newsletters extends APIEndpoint {
     $this->newslettersRepository->flush();
 
     return $this->successResponse(
-      $this->newslettersResponseBuilder->build($newsletter)
+      $this->newslettersResponseBuilder->build($newsletter, [
+        NewslettersResponseBuilder::RELATION_SEGMENTS,
+        NewslettersResponseBuilder::RELATION_OPTIONS,
+        NewslettersResponseBuilder::RELATION_QUEUE,
+      ])
     );
   }
 
@@ -238,7 +256,11 @@ class Newsletters extends APIEndpoint {
       $this->newslettersRepository->bulkRestore([$newsletter->getId()]);
       $this->newslettersRepository->refresh($newsletter);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($newsletter),
+        $this->newslettersResponseBuilder->build($newsletter, [
+          NewslettersResponseBuilder::RELATION_SEGMENTS,
+          NewslettersResponseBuilder::RELATION_OPTIONS,
+          NewslettersResponseBuilder::RELATION_QUEUE,
+        ]),
         ['count' => 1]
       );
     } else {
@@ -254,7 +276,11 @@ class Newsletters extends APIEndpoint {
       $this->newslettersRepository->bulkTrash([$newsletter->getId()]);
       $this->newslettersRepository->refresh($newsletter);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($newsletter),
+        $this->newslettersResponseBuilder->build($newsletter, [
+          NewslettersResponseBuilder::RELATION_SEGMENTS,
+          NewslettersResponseBuilder::RELATION_OPTIONS,
+          NewslettersResponseBuilder::RELATION_QUEUE,
+        ]),
         ['count' => 1]
       );
     } else {
@@ -285,7 +311,11 @@ class Newsletters extends APIEndpoint {
       $duplicate = $this->newsletterSaveController->duplicate($newsletter);
       $this->wp->doAction('mailpoet_api_newsletters_duplicate_after', $newsletter, $duplicate);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($duplicate),
+        $this->newslettersResponseBuilder->build($duplicate, [
+          NewslettersResponseBuilder::RELATION_SEGMENTS,
+          NewslettersResponseBuilder::RELATION_OPTIONS,
+          NewslettersResponseBuilder::RELATION_QUEUE,
+        ]),
         ['count' => 1]
       );
     } else {

@@ -202,6 +202,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				// Validate if exist at least 1 product with Amazon Fulfillment Enable.
 				$fulfill_item_count = 0;
 				$total_item_count   = 0;
+				$digital_item_count = 0;
 
 				$order_data = $order->get_data();
 
@@ -230,6 +231,13 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					// phpcs:ignore
 					// $product_id = intval( $item['product_id'] );
 					$product_id = intval( $product->get_id() );
+
+					// Check for virtual items and skip.
+					$is_order_item_virtual = $this->ns_fba->utils->is_order_item_virtual( $item, $product_id );
+					if ( $is_order_item_virtual ) {
+						$digital_item_count++;
+						continue;
+					}
 
 					// run through the Order Level smart fulfillment rules.
 					$is_order_item_fba = $this->ns_fba->utils->is_order_item_amazon_fulfill( $order, $item, $product, $product_id, $is_manual_send );
@@ -440,7 +448,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_automatic_completion', 'no' ) ) ) {
 						$ns_wc_term = 'completed';
 						$this->write_debug_log( $log_tag, 'Setting for Mark Orders Complete active. Order Status set to Completed.' );
-					} elseif ( $fulfill_item_count === $total_item_count ) {
+					} elseif ( $fulfill_item_count === $total_item_count || ( ( $digital_item_count + $fulfill_item_count ) === $total_item_count ) ) {
 						$ns_wc_term = 'sent-to-fba';
 						$this->write_debug_log( $log_tag, 'All items fulfilled with FBA. Order Status set to Sent to FBA' );
 					} else {
@@ -717,6 +725,11 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 							$order->add_order_note( 'Synced fulfillment status with FBA and found COMPLETE_PARTIALLED. Updated order status from Sent to FBA to Completed.' );
 							break;
 					}
+
+					if ( $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_display_order_tracking', 'no' ) ) ) {
+						$this->get_fulfillment_order_shipping_info( $order_id );
+					}
+
 				} catch ( Exception $ex ) {
 					$this->write_debug_log( $log_tag, $ex->getMessage() );
 

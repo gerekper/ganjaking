@@ -30,10 +30,11 @@ class Skin_Carousel extends \DynamicContentForElementor\Includes\Skins\Skin_Base
      */
     public function get_style_depends()
     {
-        if (\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
-            return ['dce-dynamicPosts-carousel'];
+        $styles = ['dce-dynamicPosts-carousel'];
+        if (!\Elementor\Plugin::$instance->experiments->is_feature_active('e_swiper_latest')) {
+            $styles[] = 'dce-swiper';
         }
-        return ['dce-dynamicPosts-carousel', 'dce-swiper'];
+        return $styles;
     }
     public function get_id()
     {

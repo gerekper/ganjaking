@@ -21,21 +21,21 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
+	public const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
 	/**
 	 * Human readable version of the current version.
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '21.7';
+	public const PLUGIN_VERSION_NAME = '21.9';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_CODE = '16';
+	public const PLUGIN_VERSION_CODE = '16';
 
 	/**
 	 * Instance of the WPSEO_Redirect_Page class.
@@ -53,13 +53,15 @@ class WPSEO_Premium {
 
 	/**
 	 * Function that will be executed when plugin is activated.
+	 *
+	 * @return void
 	 */
 	public static function install() {
 		if ( ! Addon_Installer::is_yoast_seo_up_to_date() ) {
 			delete_option( Addon_Installer::OPTION_KEY );
 		}
 		$wpseo_addon_installer = new Addon_Installer( __DIR__ );
-		$wpseo_addon_installer->install_or_load_yoast_seo_from_vendor_directory();
+		$wpseo_addon_installer->install_yoast_seo_from_repository();
 
 		// Load the Redirect File Manager.
 		require_once WPSEO_PREMIUM_PATH . 'classes/redirect/redirect-file-util.php';
@@ -76,8 +78,10 @@ class WPSEO_Premium {
 			WPSEO_Options::set( 'should_redirect_after_install', true );
 		}
 
-		\do_action( 'wpseo_register_capabilities_premium' );
-		\WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
+		if ( class_exists( WPSEO_Capability_Manager_Factory::class ) ) {
+			do_action( 'wpseo_register_capabilities_premium' );
+			WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
+		}
 	}
 
 	/**
@@ -204,6 +208,8 @@ class WPSEO_Premium {
 
 	/**
 	 * Initialize the watchers for the posts and the terms
+	 *
+	 * @return void
 	 */
 	public function init_watchers() {
 		// The Post Watcher.
@@ -242,6 +248,8 @@ class WPSEO_Premium {
 
 	/**
 	 * Add 'Create Redirect' option to admin bar menu on 404 pages
+	 *
+	 * @return void
 	 */
 	public function admin_bar_menu() {
 		// Prevent function from running if the page is not a 404 page or the user has not the right capabilities to create redirects.
@@ -296,6 +304,8 @@ class WPSEO_Premium {
 	 *
 	 * @param Yoast_Form $yform The Yoast_Form object.
 	 * @param string     $name  The post type name.
+	 *
+	 * @return void
 	 */
 	public function admin_page_meta_post_types_checkboxes( $yform, $name ) {
 		$custom_fields_help_link = new Help_Link_Presenter(
@@ -323,11 +333,6 @@ class WPSEO_Premium {
 	 * @return array
 	 */
 	public function add_submenu_pages( $submenu_pages ) {
-		/**
-		 * Filter: 'wpseo_premium_manage_redirects_role' - Change the minimum rule to access and change the site redirects
-		 *
-		 * @api string wpseo_manage_redirects
-		 */
 		$submenu_pages[] = [
 			'wpseo_dashboard',
 			'',
@@ -372,6 +377,8 @@ class WPSEO_Premium {
 
 	/**
 	 * Register the premium settings
+	 *
+	 * @return void
 	 */
 	public function register_settings() {
 		register_setting( 'yoast_wpseo_redirect_options', 'wpseo_redirect' );
@@ -379,6 +386,8 @@ class WPSEO_Premium {
 
 	/**
 	 * Output admin css in admin head
+	 *
+	 * @return void
 	 */
 	public function admin_css() {
 		echo "<style type='text/css'>#wpseo_content_top{ padding-left: 0; margin-left: 0; }</style>";
@@ -386,6 +395,8 @@ class WPSEO_Premium {
 
 	/**
 	 * Load textdomain
+	 *
+	 * @return void
 	 */
 	private function load_textdomain() {
 		load_plugin_textdomain( 'wordpress-seo-premium', false, dirname( WPSEO_PREMIUM_BASENAME ) . '/languages/' );

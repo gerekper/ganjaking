@@ -71,7 +71,9 @@ class WC_Dropshipping_CSV_Import {
 	// parses a supplier inventory csv and updates the SKUS
 	public function admin_save_inventory_status() {
 		global $wpdb;
-		ini_set( 'auto_detect_line_endings', true );
+		ini_set( 'auto_detect_line_endings', '1' );
+		// echo "<script>alert($true_auto_detect_line_endings)</script>";
+
 		$ds = wc_dropshipping_get_dropship_supplier( intval( $_POST['term_id'] ) ); // get the supplier data
 		$options = get_option( 'wc_dropship_manager' );
 		$instock = '';

@@ -1788,7 +1788,7 @@ class Utils {
 		} else {
 			$words = preg_split( '/\s+/', $string );
 		}
-		
+
 		$flag = self::clean_string( $flag );
 
 		$flags = array_filter( array_map( self::class . '::clean_string', $words ) );
@@ -2020,8 +2020,9 @@ class Utils {
 		$last_run = get_site_option( SEARCHWP_PREFIX . 'last_health_check' );
 
 		// We can compare the latest index update timestamp to the last run timestamp
-		// and if the difference between those is > 10 minutes, assume cron isn't working.
-		$last_index_activity = strtotime( \SearchWP::$index->get_last_activity_timestamp() );
+		// and if the difference between theme is > 10 minutes, assume cron isn't working.
+		$last_index_activity_timestamp = \SearchWP::$index->get_last_activity_timestamp();
+		$last_index_activity = ! empty( $last_index_activity_timestamp ) ? strtotime( $last_index_activity_timestamp ) : 0;
 
 		if ( $last_index_activity - absint( $last_run ) > 10 * MINUTE_IN_SECONDS ) {
 			do_action( 'searchwp\debug\log', 'Potential WP-Cron issue detected (last health check was ' . human_time_diff( $last_run ) . ' ago) ensure WP-Cron is running properly', 'utils' );
@@ -2124,6 +2125,29 @@ class Utils {
 		}
 
 		if ( ! empty( $view ) && $view !== 'default' && ( empty( $_GET['tab'] ) || $view !== $_GET['tab'] ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Helper function to determine if loading a specific SearchWP extension settings admin page.
+	 *
+	 * @since 4.3.10
+	 *
+	 * @param string $extension   Slug identifier for a specific SearchWP extension.
+	 * @param string $parent_page Slug identifier for an extension settings parent SearchWP admin page.
+	 *
+	 * @return bool
+	 */
+	public static function is_swp_admin_extension_settings_page( $extension = '', $parent_page = 'settings' ) {
+
+		if ( ! self::is_swp_admin_page( $parent_page, 'extensions' ) ) {
+			return false;
+		}
+
+		if ( ! isset( $_GET['extension'] ) || sanitize_key( $_GET['extension'] ) !== $extension ) {
 			return false;
 		}
 

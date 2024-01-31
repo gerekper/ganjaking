@@ -1,6 +1,16 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2024.01.09 - version 3.5.4
+    * WC Compatibility Tags.
+    * Fix: Fix issue with the grand total not properly applying to the cart item.
+
+2024.01.05 - version 3.5.3
+    * WC and WP Compatibility Tags.
+    * Updates: PHP 8.3+ compatibility.
+
 2023.11.11 - version 3.5.2
     * WC and WP Compatibility Tags.
+    * Fix: Fix issue with export functionality if an order or order item is deleted.
+    * Updates: PHP 8.2+ compatibility.
 
 2023.08.15 - version 3.5.1
     * WC and WP Compatibility Tags.

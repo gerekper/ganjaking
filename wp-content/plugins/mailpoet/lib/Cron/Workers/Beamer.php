@@ -27,7 +27,14 @@ class Beamer extends SimpleWorker {
   }
 
   public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
+    if (!$this->isBeamerEnabled()) {
+      return false;
+    }
     return $this->setLastAnnouncementDate();
+  }
+
+  private function isBeamerEnabled(): bool {
+    return $this->settings->get('3rd_party_libs.enabled') === '1';
   }
 
   public function setLastAnnouncementDate() {

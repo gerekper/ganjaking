@@ -8,6 +8,7 @@
 
 namespace SearchWP\Admin\Views;
 
+use SearchWP\License;
 use SearchWP\Utils;
 use SearchWP\Admin\NavTab;
 
@@ -124,6 +125,53 @@ class GettingStartedView {
 
             </div> <!-- .swp-content-section -->
 
+            <?php
+            $license_type = License::get_type();
+
+            // If the license is Pro, show the Agency upsell.
+            if ( $license_type === 'pro' ) {
+                ?>
+                <div class="swp-content-section swp-margin-b40">
+                    <div class="swp-content-block swp-bg--white">
+                        <div class="searchwp-getting-started-cta <?php echo esc_attr( $license_type ); ?>">
+                            <h2 class="swp-h2 swp-leading--160 swp-margin-b25">
+                                <?php esc_html_e( 'Upgrade to SearchWP Agency today and use SearchWP on an unlimited number of websites!', 'searchwp' ); ?>
+                            </h2>
+                            <h2 class="swp-h2 swp-margin-b10">
+                                <a href="<?php echo esc_url( 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=Getting+Started+Upsell+Link&utm_campaign=SearchWP&utm_content=Get+SearchWP+Agency+Now' ); ?>"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   title="<?php esc_html_e( 'Get SearchWP Agency Now »', 'searchwp' ); ?>"
+                                   class="swp-a swp-font-semibold"
+                                >
+                                    <?php esc_html_e( 'Get SearchWP Agency Now »', 'searchwp' ); ?>
+                                </a>
+                            </h2>
+                            <p class="swp-p-content">
+                                <?php
+									echo wp_kses(
+										__( '<strong>Bonus:</strong> SearchWP Pro users get up to <span class="swp-text-green">$300 off their upgrade price</span>, automatically applied at checkout!', 'searchwp' ),
+										[
+											'strong' => [],
+											'span'   => [
+												'class' => [],
+											],
+										]
+									);
+								?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+
+            // If the license is higher than Standard, skip the Pro upsell.
+            if ( ! empty( $license_type ) && $license_type !== 'standard' ) {
+                return;
+            }
+            ?>
+
             <div class="swp-content-section swp-margin-b40">
 
                 <div class="swp-content-block swp-bg--gray">
@@ -133,8 +181,7 @@ class GettingStartedView {
                     </h2>
 
                     <p class="swp-p-content swp-margin-b25">
-                        <?php esc_html_e( 'Upgrade to SearchWP Pro to unlock all the awesome features and experience
-                        why SearchWP is consistently rated the best WordPress search plugin.', 'searchwp' ); ?>
+                        <?php esc_html_e( 'Upgrade to SearchWP Pro to unlock all the awesome features and experience why SearchWP is consistently rated the best WordPress search plugin.', 'searchwp' ); ?>
                     </p>
 
                     <p class="swp-p-content">
@@ -166,7 +213,7 @@ class GettingStartedView {
                     </h2>
 
                     <p class="swp-p-content">
-                        <?php esc_html_e( 'Bonus: SearchWP users get', 'searchwp' ); ?> <span class="swp-text-green">50% off their upgrade price</span>, <?php esc_html_e( 'automatically applied at checkout.', 'searchwp' ); ?>
+                        <?php esc_html_e( 'Bonus: SearchWP users get up to', 'searchwp' ); ?> <span class="swp-text-green">$300 off their upgrade price</span>, <?php esc_html_e( 'automatically applied at checkout.', 'searchwp' ); ?>
                     </p>
 
                 </div> <!-- .swp-bg--white -->

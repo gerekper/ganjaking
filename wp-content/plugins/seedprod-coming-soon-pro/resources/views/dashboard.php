@@ -483,6 +483,7 @@ var seedprod_data_admin =
 			'theme_dev_mode'               => $theme_dev_mode,
 			'dismiss_settings_lite_cta'    => get_option( 'seedprod_dismiss_settings_lite_cta' ),
 			'inline_help_articles'         => seedprod_pro_fetch_inline_help_data(),
+			'seedprod_nonce'               => $seedprod_nonce,
 		)
 	);
 	?>

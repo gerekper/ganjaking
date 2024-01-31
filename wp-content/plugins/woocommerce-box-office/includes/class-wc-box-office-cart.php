@@ -30,12 +30,41 @@ class WC_Box_Office_Cart {
 
 		add_filter( 'woocommerce_add_to_cart_sold_individually_found_in_cart', array( $this, 'filter_sold_individually_found_in_cart' ), 10, 5 );
 
-		/**
+		/*
 		 * Required ticket fields validation.
 		 *
 		 * @see https://github.com/woocommerce/woocommerce-box-office/issues/263
 		 */
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_required_ticket_fields' ), 10, 2 );
+
+		/*
+		 * WooPayments compatibility.
+		 *
+		 * The additional fields on the product page prevent the use of express
+		 * payment options (Apple Pay, Google Pay) as the ticket fields are not
+		 * recorded if a payment is made from the product page using these methods.
+		 */
+		add_filter( 'wcpay_payment_request_is_product_supported', array( $this, 'filter_wcpay_payment_request_is_product_supported' ), 10, 2 );
+	}
+
+	/**
+	 * Filter whether express payment options are supported on the product pages.
+	 *
+	 * This runs on the filter `wcpay_payment_request_is_product_supported` as a
+	 * compatibility fix for WooPayments.
+	 *
+	 * @since 1.2.3
+	 *
+	 * @param bool   $is_supported Whether express payment options are supported on product pages.
+	 * @param object $product      The product.
+	 * @return bool Whether express payment options are supported on product pages.
+	 */
+	public function filter_wcpay_payment_request_is_product_supported( $is_supported, $product ) {
+		if ( wc_box_office_is_product_ticket( $product ) ) {
+			return false;
+		}
+
+		return $is_supported;
 	}
 
 	/**

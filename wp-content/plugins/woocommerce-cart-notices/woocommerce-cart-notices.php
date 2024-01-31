@@ -6,11 +6,11 @@
  * Description: Add dynamic notices above the cart and checkout to help increase your sales!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.15.1
+ * Version: 1.16.0
  * Text Domain: woocommerce-cart-notices
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Cart-Notices
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18706:cf25b8df1ffe2fa1880b076aa137f8d7
  * WC requires at least: 3.9.4
- * WC tested up to: 8.3.0
+ * WC tested up to: 8.5.2
  */
 
 defined( 'ABSPATH' ) or exit;

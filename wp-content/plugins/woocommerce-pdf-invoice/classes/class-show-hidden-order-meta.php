@@ -39,7 +39,9 @@ if( !class_exists( 'PDF_Hidden_Order_Meta' ) ) {
 		 */
 		function woocommerce_hidden_order_meta_box( $post ) {
 
-			$custom_fields = get_post_meta( $post->ID );
+			$order 	= wc_get_order( $post->ID );
+
+			$custom_fields = $order->get_meta();
 	?>
 			<table>
 				<thead>

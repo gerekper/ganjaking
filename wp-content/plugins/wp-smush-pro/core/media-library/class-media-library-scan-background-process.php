@@ -6,6 +6,14 @@ use Smush\Core\Modules\Background\Background_Process;
 
 class Media_Library_Scan_Background_Process extends Background_Process {
 	/**
+	 * Cron Interval.
+	 *
+	 * @overwrite parent.
+	 * @var int
+	 */
+	protected $cron_interval = 2;
+
+	/**
 	 * @var Media_Library_Scanner
 	 */
 	private $scanner;
@@ -21,7 +29,11 @@ class Media_Library_Scan_Background_Process extends Background_Process {
 		return true;
 	}
 
-	protected function attempt_restart_during_health_check() {
-		return false;
+	protected function should_update_queue_after_task() {
+		return true;
+	}
+
+	protected function get_instance_expiry_duration_seconds() {
+		return MINUTE_IN_SECONDS;
 	}
 }

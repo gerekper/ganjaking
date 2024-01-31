@@ -14,19 +14,25 @@
 			init: function ( $cart_form ) {
 
 				// Simple Products.
-				var $qty_input     = $cart_form.find( 'input.qty' ),
-					$quantity_wrap = $cart_form.find( '.quantity' ),
-					min_qty        = parseInt( $qty_input.prop( 'min' ), 10 ),
-					max_qty        =  '' !== $qty_input.prop( 'max' ) ? parseInt($qty_input.prop( 'max' ), 10 ) : Infinity;
+				var $quantity_wrap = $cart_form.find( '.quantity' );
 
-				// Hide variation quantity, only if Min Qty = Max Qty = 1, and display it otherwise.
-				if ( 1 === min_qty && min_qty === max_qty ) {
-					$qty_input.prop( 'type', 'hidden' );
-					$quantity_wrap.addClass( 'hidden' );
-				} else if ( $quantity_wrap.hasClass( 'hidden' ) ) {
-					$qty_input.prop( 'type', 'number' );
-					$quantity_wrap.removeClass( 'hidden' );
-				}
+				$quantity_wrap.each( function() {
+					var $qty_input = $( this ).find( 'input.qty' );
+
+					if ( $qty_input.length ) {
+						var min_qty    = parseInt( $qty_input.prop( 'min' ), 10 ),
+							max_qty    = '' !== $qty_input.prop( 'max' ) ? parseInt( $qty_input.prop( 'max' ), 10 ) : Infinity;
+
+						// Hide variation quantity, only if Min Qty = Max Qty = 1, and display it otherwise.
+						if ( 1 === min_qty && min_qty === max_qty ) {
+							$qty_input.prop( 'type', 'hidden' );
+							$( this ).addClass( 'hidden' );
+						} else if ( $( this ).hasClass( 'hidden' ) ) {
+							$qty_input.prop( 'type', 'number' );
+							$( this ).removeClass( 'hidden' );
+						}
+					}
+				} );
 
 				// Variations.
 				if ( ! $cart_form.hasClass( 'variations_form' ) ) {

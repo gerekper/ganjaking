@@ -1,4 +1,10 @@
 <?php
+/**
+ * WC_Shipment_Tracking_Order_CSV_Import_Compat file.
+ *
+ * @package WC_Shipment_Tracking
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -14,10 +20,10 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 	 * Constructor
 	 */
 	public function __construct() {
-		// Add Shipment Tracking as a recognized mapping option to the import column mapper
+		// Add Shipment Tracking as a recognized mapping option to the import column mapper.
 		add_action( 'wc_csv_import_suite_column_mapping_options', array( $this, 'add_column_mapping_options' ), 10, 2 );
 
-		// Parse Shipment Tracking data from the import to set it properly for an order
+		// Parse Shipment Tracking data from the import to set it properly for an order.
 		add_filter( 'wc_csv_import_suite_parsed_order_data', array( $this, 'add_parsed_order_data' ), 10, 2 );
 		add_action( 'wc_csv_import_suite_update_order_data', array( $this, 'save_shipment_tracking_order_data' ), 10, 2 );
 	}
@@ -26,8 +32,9 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 	/**
 	 * Add Shipment Tracking as a recognized import column
 	 *
-	 * @param array $options associative array of options for import mapping
-	 * @param string $importer Importer type
+	 * @param array  $options Associative array of options for import mapping.
+	 * @param string $importer Importer type.
+	 *
 	 * @return array updated options
 	 */
 	public function add_column_mapping_options( $options, $importer ) {
@@ -49,8 +56,8 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 	 * Add Shipment Tracking data to the parsed raw order data in CSV Import Suite.
 	 *
 	 * @since 1.6.2
-	 * @param array $order_data Parsed order data
-	 * @param array $item raw order data
+	 * @param array $order_data Parsed order data.
+	 * @param array $item Raw order data.
 	 * @return array
 	 */
 	public function add_parsed_order_data( $order_data, $item ) {
@@ -58,10 +65,10 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 		$tracking_data = array();
 
 		if ( ! empty( $value ) ) {
-			// let's get an array of packages first
-			$packages_raw  = explode( ';', $value );
+			// let's get an array of packages first.
+			$packages_raw = explode( ';', $value );
 
-			// format each package as an array of data
+			// format each package as an array of data.
 			foreach ( $packages_raw as $package_raw ) {
 				if ( empty( $package_raw ) ) {
 					continue;
@@ -70,16 +77,16 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 				$package_data = array();
 				$package      = explode( '|', $package_raw );
 
-				// now give us an associative array of 'tracking_key' => 'value' for the package
+				// Now give us an associative array of 'tracking_key' => 'value' for the package
 				// we don't use list() as we want to leverage the explode() 'limit' param
-				// since tracking URLs can have : chars within the value
+				// since tracking URLs can have : chars within the value.
 				foreach ( $package as $tracking_value ) {
 
 					$tracking                     = explode( ':', $tracking_value, 2 );
 					$package_data[ $tracking[0] ] = $tracking[1];
 				}
 
-				// use a timestamp, Shipment Tracking expects one
+				// Use a timestamp, Shipment Tracking expects one.
 				$package_data['date_shipped'] = strtotime( $package_data['date_shipped'] );
 				$tracking_data[]              = $package_data;
 			}
@@ -92,9 +99,10 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 	/**
 	 * Update Shipment Tracking data when orders are imported by CSV Import Suite.
 	 *
+	 * @param int   $order_id Order ID.
+	 * @param array $order_data Order data.
+	 *
 	 * @since 1.6.2
-	 * @param int $id Order ID
-	 * @param array $data Order data
 	 */
 	public function save_shipment_tracking_order_data( $order_id, $order_data ) {
 		$order = wc_get_order( $order_id );
@@ -106,5 +114,4 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 		$order->update_meta_data( '_wc_shipment_tracking_items', $order_data['shipment_tracking'] );
 		$order->save();
 	}
-
 }

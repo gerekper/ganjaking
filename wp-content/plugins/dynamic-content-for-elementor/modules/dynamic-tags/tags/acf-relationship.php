@@ -48,7 +48,7 @@ class AcfRelationship extends \DynamicContentForElementor\Modules\DynamicTags\Ta
     {
         $args = parent::get_args();
         $settings = $this->get_settings_for_display();
-        $relations = \get_field($settings['acf_relationship_field'], \false);
+        $relations = \get_field($settings['acf_relationship_field'], \false, \false);
         if (!$relations) {
             $relations = get_sub_field($settings['acf_relationship_field'], \false);
         }

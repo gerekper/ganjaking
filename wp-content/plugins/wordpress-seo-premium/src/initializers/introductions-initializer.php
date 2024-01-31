@@ -12,9 +12,10 @@ use Yoast\WP\SEO\Premium\Conditionals\Yoast_Admin_Or_Introductions_Route_Conditi
  * Initializes Premium introductions.
  */
 class Introductions_Initializer implements Initializer_Interface {
-	const SCRIPT_HANDLE = 'wp-seo-premium-introductions';
 
 	use Current_Page_Trait;
+
+	public const SCRIPT_HANDLE = 'wp-seo-premium-introductions';
 
 	/**
 	 * Holds the current page helper.
@@ -45,6 +46,8 @@ class Introductions_Initializer implements Initializer_Interface {
 	 * Returns the conditionals based in which this loadable should be active.
 	 *
 	 * In this case: when on an admin page.
+	 *
+	 * @return array<string>
 	 */
 	public static function get_conditionals() {
 		return [ Yoast_Admin_Or_Introductions_Route_Conditional::class ];
@@ -82,6 +85,8 @@ class Introductions_Initializer implements Initializer_Interface {
 
 	/**
 	 * Enqueue the workouts app.
+	 *
+	 * @return void
 	 */
 	public function enqueue_assets() {
 		\wp_enqueue_script( self::SCRIPT_HANDLE );

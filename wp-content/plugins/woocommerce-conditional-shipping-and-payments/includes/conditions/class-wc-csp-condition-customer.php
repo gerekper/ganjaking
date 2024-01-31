@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Condition_Customer class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.1.0
  */
 
@@ -430,7 +430,7 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
 			<textarea class="csp_conditional_values_input" name="<?php echo in_array( $current_modifier, $modifiers ) ? esc_attr( $value_input_name ) : ''; ?>"><?php echo in_array( $current_modifier, $modifiers ) ? esc_textarea( $formatted_values ) : ''; ?></textarea>
-			<span class="description"><?php echo wp_kses_post( __( 'Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses.', 'woocommerce-conditional-shipping-and-payments' ) ); ?></span>
+			<span class="description"><?php echo wp_kses_post( __( 'Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woo.com</code> will match all woo.com addresses.', 'woocommerce-conditional-shipping-and-payments' ) ); ?></span>
 		</div>
 
 		<?php

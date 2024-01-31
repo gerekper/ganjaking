@@ -1680,8 +1680,6 @@ class UniteFunctionsUC{
 		}
 
 
-		//remove me
-		//Functions::addToLogFile(SERVICE_LOG_SERVICE, "url", $url);
 
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

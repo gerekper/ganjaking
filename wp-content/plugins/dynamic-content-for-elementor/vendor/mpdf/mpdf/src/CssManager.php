@@ -6,7 +6,7 @@ use DynamicOOOS\Mpdf\Color\ColorConverter;
 use DynamicOOOS\Mpdf\Css\TextVars;
 use DynamicOOOS\Mpdf\File\StreamWrapperChecker;
 use DynamicOOOS\Mpdf\Http\ClientInterface;
-use DynamicOOOS\Mpdf\Http\Request;
+use Mpdf\PsrHttpMessageShim\Request;
 use DynamicOOOS\Mpdf\Utils\Arrays;
 use DynamicOOOS\Mpdf\Utils\UtfString;
 class CssManager

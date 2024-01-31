@@ -39,9 +39,10 @@ class ThePlus_Meeting_Scheduler extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+	
 	public function get_keywords() {
-		return ['meeting scheduler','calendly','freebusy','free busy','meetingbird','meeting bird','vyte','xai','x ai'];
-	}
+        return ['Meeting Scheduler', 'Schedule Meeting', 'Meeting Planner', 'Meeting Organizer', 'Meeting Arranger', 'Meeting Time Manager', 'Meeting Coordinator', 'Meeting Scheduling Tool', 'Meeting Booking', 'Meeting Calendar'];
+    }
 
     protected function register_controls() {		
 		$this->start_controls_section(

@@ -8,6 +8,13 @@ if (!\defined('ABSPATH')) {
 }
 class TemplateSystem
 {
+    /**
+     * This is need to the style fix knows what to do. If false then try to
+     * auto-detect.
+     *
+     * @var array{type:string,id:string|int,object?:mixed}|false
+     */
+    public $current_object_info = \false;
     public static $instance;
     public static $template_id;
     public static $options = [];
@@ -249,7 +256,7 @@ class TemplateSystem
      */
     public function taxonomy_columns_head($columns)
     {
-        $columns['dce_template'] = DCE_PRODUCT_NAME . ' ' . __('Template', 'dynamic-content-for-elementor');
+        $columns['dce_template'] = DCE_BRAND . ' ' . __('Template', 'dynamic-content-for-elementor');
         return $columns;
     }
     /**
@@ -270,21 +277,35 @@ class TemplateSystem
         return $content;
     }
     /**
+     * This shortcode should be removed, the function should be called instead.
      * Add a shortcode [dce-elementor-template] to display a template in WordPress with Elementor.
-     * The shortcode accepts various attributes like 'id', 'post_id', 'author_id', 'user_id', 'term_id', 'ajax', 'loading', and 'inlinecss'.
-     * 
+     * The shortcode accepts various attributes like 'id', 'post_id', 'term_id', 'ajax', 'loading', and 'inlinecss'.
+     *
      * @param array<mixed> $atts The array of attributes passed to the shortcode.
      * @return string The template HTML string or an empty string.
      */
     public function add_shortcode_template($atts)
     {
-        $atts = shortcode_atts(array('id' => '', 'post_id' => '', 'author_id' => '', 'user_id' => '', 'term_id' => '', 'ajax' => '', 'loading' => '', 'inlinecss' => \false), $atts, 'dce-elementor-template');
+        return self::build_elementor_template_special($atts);
+    }
+    /**
+     * In case you are wondering why not just use the Elementor API:
+     * This function not only returns a rendered elementor templates, but it
+     * has many other jobs, including:
+     *
+     * - Setting the current object in the loop if requested.
+     * - Changing CSS classes from the end result so that they are compatilbe with the loop style fix.
+     * - Dealing with wpml ids.
+     * - etc. This is likely a non-exhaustive list.
+     */
+    public function build_elementor_template_special($atts)
+    {
+        $atts = $atts + ['id' => '', 'post_id' => '', 'term_id' => '', 'ajax' => '', 'loading' => '', 'inlinecss' => \false];
         $atts['id'] = \intval($atts['id']);
         $atts['post_id'] = \intval($atts['post_id']);
-        $atts['author_id'] = \intval($atts['author_id']);
-        $atts['user_id'] = \intval($atts['user_id']);
         $atts['term_id'] = \intval($atts['term_id']);
         if ($atts['id'] !== '') {
+            $old_current_object_info = $this->current_object_info;
             global $wp_query;
             $original_queried_object = $wp_query->queried_object;
             $original_queried_object_id = $wp_query->queried_object_id;
@@ -293,30 +314,15 @@ class TemplateSystem
                 $original_post = $post;
                 $post = get_post($atts['post_id']);
                 if ($post) {
+                    $this->current_object_info = ['object' => $post, 'type' => 'post', 'id' => $atts['post_id']];
                     $wp_query->queried_object = $post;
                     $wp_query->queried_object_id = $atts['post_id'];
                 }
-            }
-            if (!empty($atts['author_id'])) {
-                global $authordata;
-                $original_author = $authordata;
-                $authordata = get_user_by('ID', $atts['author_id']);
-                if ($authordata) {
-                    $wp_query->queried_object = $authordata;
-                    $wp_query->queried_object_id = $atts['author_id'];
-                }
-            }
-            if (!empty($atts['user_id'])) {
-                global $user;
-                global $current_user;
-                $original_user = $current_user;
-                $current_user = get_user_by('ID', $atts['user_id']);
-                $user = $current_user;
-            }
-            if (!empty($atts['term_id'])) {
+            } elseif (!empty($atts['term_id'])) {
                 global $term;
                 $term = get_term($atts['term_id']);
                 if ($term) {
+                    $this->current_object_info = ['object' => $term, 'type' => 'term', 'id' => $atts['term_id']];
                     $wp_query->queried_object = $term;
                     $wp_query->queried_object_id = $atts['term_id'];
                 }
@@ -324,35 +330,6 @@ class TemplateSystem
             $inlinecss = $atts['inlinecss'] == 'true';
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 $inlinecss = \true;
-            }
-            if (!empty($atts['ajax']) && WP_DEBUG) {
-                if (empty(\DynamicContentForElementor\Elements::$elements)) {
-                    add_action('elementor/frontend/widget/after_render', function ($widget = \false) {
-                        $styles = $widget->get_style_depends();
-                        if (!empty($styles)) {
-                            foreach ($styles as $key => $style) {
-                                if (wp_doing_ajax()) {
-                                    self::$template_styles[] = $style;
-                                } else {
-                                    \DynamicContentForElementor\Assets::wp_print_styles($style);
-                                }
-                            }
-                        }
-                    });
-                    if (wp_doing_ajax()) {
-                        add_action('elementor/frontend/the_content', function ($content = \false) {
-                            $styles = self::$template_styles;
-                            $add_styles = '';
-                            if (!empty($styles)) {
-                                foreach ($styles as $key => $style) {
-                                    $add_styles .= \DynamicContentForElementor\Assets::wp_print_styles($style, \false);
-                                }
-                            }
-                            // add also current document file
-                            return $content . $add_styles;
-                        });
-                    }
-                }
             }
             $dce_default_template = $atts['id'];
             if (!empty($atts['loading']) && $atts['loading'] == 'lazy') {
@@ -362,28 +339,16 @@ class TemplateSystem
                 if (!empty($atts['post_id'])) {
                     $optionals .= ' data-post="' . $atts['post_id'] . '"';
                 }
-                if (!empty($atts['user_id'])) {
-                    $optionals .= ' data-user="' . $atts['user_id'] . '"';
-                }
                 if (!empty($atts['term_id'])) {
                     $optionals .= ' data-term="' . $atts['term_id'] . '"';
                 }
-                if (!empty($atts['author_id'])) {
-                    $optionals .= ' data-author="' . $atts['author_id'] . '"';
-                }
                 $template_page = '<div class="dce-elementor-template-placeholder" data-id="' . $atts['id'] . '"' . $optionals . '></div>';
             } else {
-                $template_page = self::get_template($dce_default_template, $inlinecss);
+                $template_page = $this->get_template($dce_default_template, $inlinecss);
             }
+            $this->current_object_info = $old_current_object_info;
             if (!empty($atts['post_id'])) {
                 $post = $original_post;
-            }
-            if (!empty($atts['author_id'])) {
-                $authordata = $original_author;
-            }
-            if (!empty($atts['user_id'])) {
-                $user = $original_user;
-                $current_user = $original_user;
             }
             $wp_query->queried_object = $original_queried_object;
             $wp_query->queried_object_id = $original_queried_object_id;
@@ -432,10 +397,10 @@ class TemplateSystem
      *
      * This method will set a default template before the content of a post based on
      * several conditions. It checks for a post type, taxonomy, and term and sets
-     * the default template accordingly. The template is then rendered using the 
+     * the default template accordingly. The template is then rendered using the
      * Elementor's `do_shortcode` function.
      *
-     * Note: The method makes use of the global variables `$post` and 
+     * Note: The method makes use of the global variables `$post` and
      * `$default_template`.
      *
      * @global \WP_Post $post The post object.
@@ -535,7 +500,7 @@ class TemplateSystem
         return $single_template;
     }
     /**
-     * This method is used to load the layout from the Elementor's template directory. It will either load the 'header-footer' 
+     * This method is used to load the layout from the Elementor's template directory. It will either load the 'header-footer'
      * layout (Full-Width in our settings) or the 'canvas' layout.
      *
      * @param string $my_template The current template.
@@ -726,7 +691,7 @@ class TemplateSystem
         // if current post has not its Elementor Template
         $dce_default_template = self::get_template_id();
         if ($dce_default_template) {
-            $content = self::get_template($dce_default_template);
+            $content = $this->get_template($dce_default_template);
             // fix Elementor PRO Post Content Widget
             static $did_posts = [];
             $did_posts[get_the_ID()] = \true;
@@ -964,7 +929,11 @@ class TemplateSystem
         self::$template_id = Helper::wpml_translate_object_id($dce_template);
         return $dce_template;
     }
-    public static function get_template($template_id, $inline_css = \false)
+    /**
+     * $queried_object_type and $queried_object_id are for the class fix, if
+     * they are null they'll be auto-detected.
+     */
+    public function get_template($template_id, $inline_css = \false)
     {
         if (!$template_id) {
             return;
@@ -979,7 +948,7 @@ class TemplateSystem
         $doc = \Elementor\Plugin::$instance->documents->get($template_id);
         if ($doc && $doc->is_built_with_elementor()) {
             $template_page = \Elementor\Plugin::instance()->frontend->get_builder_content($template_id, $inline_css);
-            $template_page = self::css_class_fix($template_page, $template_id);
+            $template_page = $this->css_class_fix($template_page, $template_id);
             return $template_page;
         } else {
             $post_n = get_post($template_id);
@@ -1056,7 +1025,7 @@ class TemplateSystem
      * @param int $template_id
      * @return string
      */
-    public static function css_class_fix(string $content = '', int $template_id = 0)
+    public function css_class_fix(string $content = '', int $template_id = 0)
     {
         if (empty($content)) {
             return $content;
@@ -1068,17 +1037,24 @@ class TemplateSystem
             $template_id = $template_html_id;
         }
         if ($template_id) {
-            $queried_object = get_queried_object();
-            $queried_object_id = get_queried_object_id();
-            $queried_object_type = Helper::get_queried_object_type();
-            if ('post' === $queried_object_type) {
-                $queried_object_id = get_the_ID();
-            }
-            if (Helper::is_acfpro_active()) {
-                $row = acf_get_loop('active');
-                if ($row) {
-                    $queried_object_type = 'row';
-                    $queried_object_id = get_row_index();
+            if ($this->current_object_info !== \false) {
+                $queried_object = $this->current_object_info['object'] ?? get_queried_object();
+                $queried_object_id = $this->current_object_info['id'];
+                $queried_object_type = $this->current_object_info['type'];
+            } else {
+                // auto-detected queried object:
+                $queried_object = get_queried_object();
+                $queried_object_id = get_queried_object_id();
+                $queried_object_type = Helper::get_queried_object_type();
+                if ('post' === $queried_object_type) {
+                    $queried_object_id = get_the_ID();
+                }
+                if (Helper::is_acfpro_active()) {
+                    $row = acf_get_loop('active');
+                    if ($row) {
+                        $queried_object_type = 'row';
+                        $queried_object_id = get_row_index();
+                    }
                 }
             }
             $content = \str_replace('class="elementor elementor-' . $template_id . ' ', 'class="elementor elementor-' . $template_id . ' dce-elementor-' . $queried_object_type . '-' . $queried_object_id . ' ', $content);
@@ -1104,6 +1080,9 @@ class TemplateSystem
      *
      * Change Selector to fix background images in a loop
      *
+     * The selectors should work because the required classes are addded when
+     * build_elementor_template_special is called.
+     *
      * @param \Elementor\Element_Base $element
      * @return void
      */
@@ -1116,13 +1095,18 @@ class TemplateSystem
         $css = '';
         $element_id = $element->get_id();
         $element_controls = $element->get_controls();
-        $queried_object_type = Helper::get_queried_object_type();
-        $queried_object_id = get_queried_object_id();
-        if (Helper::is_acfpro_active()) {
-            $row = acf_get_loop('active');
-            if ($row) {
-                $queried_object_type = 'row';
-                $queried_object_id = get_row_index();
+        if ($this->current_object_info !== \false) {
+            $queried_object_type = $this->current_object_info['type'];
+            $queried_object_id = $this->current_object_info['id'];
+        } else {
+            $queried_object_type = Helper::get_queried_object_type();
+            $queried_object_id = get_queried_object_id();
+            if (Helper::is_acfpro_active()) {
+                $row = acf_get_loop('active');
+                if ($row) {
+                    $queried_object_type = 'row';
+                    $queried_object_id = get_row_index();
+                }
             }
         }
         foreach ($settings['__dynamic__'] as $key => $dsetting) {

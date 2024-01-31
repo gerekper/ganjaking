@@ -12,6 +12,26 @@
 		display: none;
 	}
 
+	.store-credit-preset-amounts-container {
+		.store-credit-preset-amounts {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: space-between;
+			margin-bottom: 10px;
+
+			.store-credit-preset-amount {
+				flex: 1;
+				text-align: center;
+
+				&.selected {
+					background-color: #d5d5d5;
+					border-color: #d5d5d5;
+				}
+			}
+		}
+	}
+
 	.send-to-different-customer {
 
 		label span {

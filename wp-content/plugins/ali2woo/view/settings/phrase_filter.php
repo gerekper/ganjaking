@@ -43,7 +43,7 @@
                 </div>
                 <div class="grid__col">
                     <div class="form-group input-block no-margin">
-                        <input type="text" value="<?php echo $phrase->phrase_replace; ?>" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
+                        <input type="text" value="<?php echo $phrase->phrase_replace; ?>" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('replacement or empty', 'ali2woo');?>" />
                     </div>
                 </div>
                 <div class="grid__col">
@@ -63,7 +63,7 @@
             </div>
             <div class="grid__col">
                 <div class="form-group input-block no-margin">
-                    <input type="text" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
+                    <input type="text" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('replacement or empty', 'ali2woo');?>" />
                 </div>
             </div>
             <div class="grid__col">

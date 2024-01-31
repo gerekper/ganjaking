@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -95,7 +95,7 @@ final class Header
             $v = '';
             $isQuoted = false;
             $isEscaped = false;
-            for ($i = 0, $max = \strlen($value); $i < $max; $i++) {
+            for ($i = 0, $max = \strlen($value); $i < $max; ++$i) {
                 if ($isEscaped) {
                     $v .= $value[$i];
                     $isEscaped = false;

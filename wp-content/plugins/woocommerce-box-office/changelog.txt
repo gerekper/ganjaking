@@ -1,5 +1,23 @@
 *** WooCommerce Box Office Changelog ***
 
+2024-01-16 - version 1.2.4
+* Dev - Declare compatibility with WooCommerce Blocks
+* Dev - Bump PHP "tested up to" version 8.3.
+* Dev - Bump PHP minimum supported version to 7.4.
+* Dev - Bump WooCommerce "tested up to" version 8.4.
+* Dev - Bump WooCommerce minimum supported version to 8.2.
+* Fix - Clear the scan ticket input field after ticket results are loaded to improve the ticket scanning process.
+
+2024-01-10 - version 1.2.3
+* Dev - Add Playwright end-to-end tests.
+* Dev - Bump WooCommerce "tested up to" version 8.3.
+* Dev - Bump WooCommerce minimum supported version to 8.1.
+* Dev - Bump WordPress "tested up to" version 6.4.
+* Dev - Bump WordPress minimum supported version to 6.2.
+* Fix - WooPayments compatibility: Prevent express pay buttons displaying on product pages.
+* Fix - Shortcode rendering verification.
+* Tweak - Bump `woocommerce-sniffs` to `1.0.0`.
+
 2023-10-02 - version 1.2.2
 * Dev - Update PHPCS and PHPCompatibility GitHub Actions.
 

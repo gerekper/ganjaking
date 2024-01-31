@@ -3,7 +3,7 @@
  * Plugin Name: SUMO Reward Points
  * Plugin URI:
  * Description: SUMO Reward Points is a WooCommerce Loyalty Reward System using which you can Reward your Customers using Reward Points for Purchasing Products, Writing Reviews, Sign up on your site etc
- * Version:29.8.0
+ * Version:29.9.0
  * Author: Fantastic Plugins
  * Author URI:http://fantasticplugins.com
  * Tested up to: 6.4.2
@@ -26,7 +26,7 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
 		 *
 		 * @var string.
 		 */
-		public $version = '29.8.0';
+		public $version = '29.9.0';
 
 		/**
 		 * Single Instance of the class

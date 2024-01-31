@@ -1,5 +1,8 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2024-01-08 - version 1.3.5
+Fix - WordPress Coding Standards.
+
 2023-12-11 - version 1.3.4
 * Add - Declared cart/checkout blocks compatibility.
 

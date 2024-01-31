@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.5.2
+ *	@version 4.5.6
  */
 
 class EVO_Settings{
@@ -42,6 +42,7 @@ class EVO_Settings{
 	}
 
 // CONTENT
+
 	function print_page(){
 		// Settings Tabs array
 			$evcal_tabs = apply_filters('eventon_settings_tabs',array(
@@ -113,7 +114,16 @@ class EVO_Settings{
 		?>
 		<div class="wrap ajde_settings <?php echo $this->focus_tab;?>" id='<?php echo $args['tab_id'];?>'>
 			<div class='evo_settings_header'>
-				<h2 class='settings_m_header'><?php echo $args['title'];?> (ver <?php echo $args['version'];?>) <span class='evo_trig_form_save evo_admin_btn btn_blue'><?php _e('Save Changes','eventon');?></span></h2>
+				<h2 class='settings_m_header'><?php echo $args['title'];?> (ver <?php echo $args['version'];?>) 
+					<span class='evo_set_right'>
+						<?php
+						// SETTINGS SAVED MESSAGE
+							$updated_code = (isset($_POST['settings-updated']) && $_POST['settings-updated']=='true')? '<div class="evo_updated updatedx fade"><p>'.__('Settings Saved','eventon').'</p></div>':null;
+							echo $updated_code;	
+						?>
+						<span class='evo_trig_form_save evo_admin_btn btn_blue'><?php _e('Save Changes','eventon');?></span>
+					</span>
+				</h2>
 				<h2 class='nav-tab-wrapper' id='meta_tabs'>
 					<?php					
 						foreach($args['tabs'] as $key=>$val){
@@ -820,7 +830,7 @@ class EVO_Settings{
 
 						<div class='evo_diag actual'>
 							<!-- save settings -->
-							<input type="submit" class="evo_admin_btn btn_prime btn_blue" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
+							<input type="submit" class="evo_admin_btn btn_prime btn_blue evo_settings_save_btn" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
 						</div>	
 
 					</div>
@@ -833,7 +843,7 @@ class EVO_Settings{
 	}
 
 // Event Edit Settings
-// @since 4.2.1 @updated 4.5
+// @since 4.2.1 @updated 4.5.6
 	function get_event_edit_settings($data){
 		ob_start();
 
@@ -843,6 +853,7 @@ class EVO_Settings{
 			'container_class'=>'',
 			'fields'=> array(),
 			'save_btn_data'=> array(),
+			'nonce_action'=>'eventon',// nonce field name
 			'footer_btns'=> array(
 				'save_changes'=> array(
 					'label'=> __('Save Changes','eventon'),
@@ -860,6 +871,10 @@ class EVO_Settings{
 		<div class='<?php echo $container_class;?>'>
 			<form class='<?php echo $form_class;?>'>
 				<?php 
+
+				// include nonce field
+				wp_nonce_field( $nonce_action, 'evo_noncename' );
+
 				foreach($hidden_fields as $k=>$v){
 					echo "<input type='hidden' name='{$k}' value='{$v}'>";
 				}

@@ -57,8 +57,9 @@ abstract class AdminNotice {
 	 * @return void
 	 */
 	function __construct() {
+
 		add_action( 'admin_notices', [ $this, 'render' ] );
-		add_action( 'wp_ajax_' . SEARCHWP_PREFIX . 'notice_dismiss', [ $this, 'dismiss' ] );
+		add_action( 'wp_ajax_' . SEARCHWP_PREFIX . 'notice_dismiss_' . $this->slug, [ $this, 'dismiss' ] );
 	}
 
 	/**
@@ -68,6 +69,7 @@ abstract class AdminNotice {
 	 * @return bool
 	 */
 	private function is_dismissed() {
+
 		$dismissed = Settings::get( 'dismissed_notices', 'array' );
 
 		return in_array( $this->slug, $dismissed );
@@ -80,6 +82,7 @@ abstract class AdminNotice {
 	 * @return void
 	 */
 	public function render() {
+
 		if ( $this->is_dismissed() ) {
 			return;
 		}
@@ -106,6 +109,7 @@ abstract class AdminNotice {
 	 * @return void
 	 */
 	private function get_dismiss_callback() {
+
 		$nonce = wp_create_nonce( SEARCHWP_PREFIX . 'admin_notice' . $this->slug );
 		?>
 		<script>
@@ -113,7 +117,7 @@ abstract class AdminNotice {
 				$('body').on('click', '#searchwp-admin-notice-<?php echo esc_js( $this->slug ); ?> button.notice-dismiss', function(e) {
 					$.post(ajaxurl, {
 						_ajax_nonce: '<?php echo esc_js( $nonce ); ?>',
-						action: '<?php echo esc_js( SEARCHWP_PREFIX . 'notice_dismiss' ); ?>',
+						action: '<?php echo esc_js( SEARCHWP_PREFIX . 'notice_dismiss_' . $this->slug ); ?>',
 						notice: '<?php echo esc_js( $this->slug ); ?>'
 					});
 				});
@@ -129,6 +133,13 @@ abstract class AdminNotice {
 	 * @return void
 	 */
 	public function dismiss() {
+
+		check_ajax_referer( SEARCHWP_PREFIX . 'admin_notice' . $this->slug );
+
+		if ( ! current_user_can( Settings::get_capability() ) ) {
+			wp_send_json_error();
+		}
+
 		$dismissed = Settings::get( 'dismissed_notices', 'array' );
 
 		$dismissed[] = $this->slug;

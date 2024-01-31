@@ -602,6 +602,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 			if ( ! srp_check_is_array( WC()->cart->get_cart() ) ) {
 				return $valid;
 			}
+
 			foreach ( WC()->cart->get_cart() as $item ) {
 				if ( WC()->cart->cart_contents_count > 0 && 1 <= WC()->cart->cart_contents_count ) {
 					$ProductId = product_id_from_obj( $item['data'] );
@@ -636,7 +637,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 
 		public static function check_if_point_price_product_is_added_to_cart( $ProductIdAdded, $ProductId ) {
 			if ( '2' == check_display_price_type( $ProductId ) ) {
-				if ( '1' == check_display_price_type( $ProductIdAdded ) ) {
+				if ( '1' == check_display_price_type( $ProductIdAdded ) || is_null(check_display_price_type( $ProductIdAdded )) ) {
 					wc_add_notice( get_option( 'rs_errmsg_for_normal_product_with_point_price' ), 'error' );
 					return false;
 				}

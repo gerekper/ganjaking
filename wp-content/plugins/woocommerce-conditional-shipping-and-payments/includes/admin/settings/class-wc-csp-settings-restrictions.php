@@ -2,7 +2,7 @@
 /**
  * WC_Settings_Restrictions class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.0.0
  */
 
@@ -16,7 +16,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  x.x.x
+ * @version  1.5.5
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 

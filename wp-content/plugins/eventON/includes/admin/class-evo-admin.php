@@ -104,13 +104,12 @@ class evo_admin {
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/post_types/class-meta_boxes.php' );
 			$this->metaboxes = new evo_event_metaboxes();
 				
-		// evneton settings only 
+		// eventon settings only 
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings.php' );
 			$this->settings = new EVO_Settings();
 
 			if($pagenow =='admin.php' && isset($_GET['page']) && ($_GET['page']=='eventon' || $_GET['page']=='action_user')
-			){				
-				
+			){	
 				$this->settings->register_ss();
 				$this->settings->load_styles_scripts();
 			}

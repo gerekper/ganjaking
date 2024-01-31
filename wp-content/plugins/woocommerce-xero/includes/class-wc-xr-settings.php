@@ -63,7 +63,7 @@ class WC_XR_Settings {
 			'client_secret' => array(
 				'title'       => __( 'Client Secret', 'woocommerce-xero' ),
 				'default'     => '',
-				'type'        => 'text',
+				'type'        => 'password',
 				'description' => __( 'OAuth Credential retrieved from <a href="https://developer.xero.com/myapps/" target="_blank">Xero Developer My Apps Centre</a>.', 'woocommerce-xero' ),
 			),
 			// Connect to Xero button.
@@ -549,7 +549,8 @@ class WC_XR_Settings {
 		$xero_oauth    = WC_XR_OAuth20::get_instance( $client_id, $client_secret );
 
 		// Update Branding Themes, only on the Xero settings page.
-		if ( $xero_oauth->is_api_ready() && 'Xero' === get_admin_page_title() ) {
+		$page_title = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $xero_oauth->is_api_ready() && 'woocommerce_xero' === $page_title ) {
 			$this->update_branding_themes();
 		}
 	}
@@ -640,7 +641,7 @@ class WC_XR_Settings {
 	 */
 	public function add_menu_item_oauth() {
 		$sub_menu_page = add_submenu_page(
-			null,
+			'',
 			__( 'Xero OAuth', 'woocommerce-xero' ),
 			__( 'Xero OAuth', 'woocommerce-xero' ),
 			'manage_woocommerce',
@@ -856,11 +857,21 @@ class WC_XR_Settings {
 	/**
 	 * Text setting field
 	 *
-	 * @param array $args
+	 * @param array  $args Field arguments.
+	 * @param string $type Input field type.
 	 */
-	public function input_text( $args ) {
-		echo '<input type="text" name="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" id="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" value="' . esc_attr( $this->get_option( $args['key'] ) ) . '" />';
+	public function input_text( $args, $type = 'text' ) {
+		echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" id="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" value="' . esc_attr( $this->get_option( $args['key'] ) ) . '" />';
 		echo '<p class="description">' . wp_kses_post( $args['option']['description'] ) . '</p>';
+	}
+
+	/**
+	 * Text setting field
+	 *
+	 * @param array $args Field arguments.
+	 */
+	public function input_password( $args ) {
+		$this->input_text( $args, 'password' );
 	}
 
 	/**
@@ -870,7 +881,7 @@ class WC_XR_Settings {
 	 */
 	public function input_text_oauth( $args ) {
 		require_once 'class-wc-xr-oauth20.php';
-		$this->input_text( $args );
+		$this->input_password( $args );
 		echo '<p>' . esc_html__( 'Please use the following url as your redirect url when creating a Xero application:', 'woocommerce-xero' ) . '</p>';
 		echo esc_url( WC_XR_OAuth20::build_redirect_uri() );
 		echo '<br/></br>';

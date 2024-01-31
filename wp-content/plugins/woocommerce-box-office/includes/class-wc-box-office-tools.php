@@ -28,7 +28,7 @@ class WC_Box_Office_Tools {
 	 */
 	public function __construct() {
 		// Add settings page to menu.
-		add_action( 'admin_menu' , array( $this, 'add_menu_item' ) );
+		add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
 		// Process requested action.
 		add_action( 'load-event_ticket_page_ticket_tools', array( $this, 'dispatch_tools_action' ) );
@@ -40,7 +40,7 @@ class WC_Box_Office_Tools {
 		add_action( 'wp_ajax_show_test_email', array( $this, 'show_test_email' ) );
 
 		// Add settings link to plugins page.
-		add_filter( 'plugin_action_links_' . plugin_basename( WCBO()->file ) , array( $this, 'add_tools_link' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( WCBO()->file ), array( $this, 'add_tools_link' ) );
 	}
 
 	/**
@@ -78,6 +78,8 @@ class WC_Box_Office_Tools {
 				break;
 			case 'email':
 				$this->email_tickets();
+			case 'user-privacy':
+				$this->user_privacy();
 		}
 	}
 
@@ -115,8 +117,8 @@ class WC_Box_Office_Tools {
 			'fields'         => 'ids',
 			'meta_query'     => array(
 				array(
-					'key'     => '_product',
-					'value'   => $product_id,
+					'key'   => '_product',
+					'value' => $product_id,
 				),
 			),
 		);
@@ -248,22 +250,24 @@ class WC_Box_Office_Tools {
 		fputcsv( $export, $columns );
 
 		$paged = 1;
-		while ( $tickets = get_posts( array(
-			'post_type'      => 'event_ticket',
-			'post_status'    => $post_status,
-			'posts_per_page' => 200,
-			'paged'          => $paged++,
-			'orderby'        => 'ID',
-			'order'          => 'ASC',
-			'cache_results'  => false,
-			'meta_query' => array(
-				array(
-					'key' => '_product',
-					'value' => $queryable_product_ids,
-					'compare' => 'IN',
+		while ( $tickets = get_posts(
+			array(
+				'post_type'      => 'event_ticket',
+				'post_status'    => $post_status,
+				'posts_per_page' => 200,
+				'paged'          => $paged++,
+				'orderby'        => 'ID',
+				'order'          => 'ASC',
+				'cache_results'  => false,
+				'meta_query'     => array(
+					array(
+						'key'     => '_product',
+						'value'   => $queryable_product_ids,
+						'compare' => 'IN',
+					),
 				),
-			),
-		) ) ) {
+			)
+		) ) {
 
 			foreach ( $tickets as $ticket ) {
 
@@ -279,14 +283,14 @@ class WC_Box_Office_Tools {
 					continue;
 				}
 
-				$product = wc_get_product($variation_id) ?: wc_get_product($product_id);
+				$product = wc_get_product( $variation_id ) ?: wc_get_product( $product_id );
 
 				// Get customer user ID.
 				$user_id = get_post_meta( $ticket_id, '_user', true );
 
 				// Get order info.
 				$order_id = get_post_meta( $ticket_id, '_order', true );
-				$order = wc_get_order( $order_id );
+				$order    = wc_get_order( $order_id );
 
 				$ticket_url = wcbo_get_my_ticket_url( $ticket_id );
 
@@ -326,7 +330,7 @@ class WC_Box_Office_Tools {
 				$ticket_fields = get_post_meta( $product_id, '_ticket_fields', true );
 				if ( is_array( $ticket_fields ) ) {
 					foreach ( $ticket_fields as $field_key => $field ) {
-						$ticket_meta        = get_post_meta( $ticket_id, $field_key, true );
+						$ticket_meta = get_post_meta( $ticket_id, $field_key, true );
 						if ( is_array( $ticket_meta ) ) {
 							$ticket_meta = implode( ',', $ticket_meta );
 						}
@@ -386,12 +390,14 @@ class WC_Box_Office_Tools {
 			}
 
 			// Create send-batch-emails job.
-			$job_id = wp_insert_post( array(
-				'post_type'    => 'event_ticket_email',
-				'post_status'  => 'pending',
-				'post_title'   => sanitize_text_field( $_POST['email_subject'] ),
-				'post_content' => wp_kses_post( $_POST['email_body'] ),
-			) );
+			$job_id = wp_insert_post(
+				array(
+					'post_type'    => 'event_ticket_email',
+					'post_status'  => 'pending',
+					'post_title'   => sanitize_text_field( $_POST['email_subject'] ),
+					'post_content' => wp_kses_post( $_POST['email_body'] ),
+				)
+			);
 
 			if ( $job_id && isset( $_POST['product_id'] ) ) {
 				$product_id = absint( $_POST['product_id'] );
@@ -452,6 +458,33 @@ class WC_Box_Office_Tools {
 	}
 
 	/**
+	 * Update user privacy preference.
+	 *
+	 * @return void
+	 */
+	public function user_privacy() {
+		$preference = isset( $_POST['user-privacy-preference'] ) ? sanitize_text_field( wp_unslash( $_POST['user-privacy-preference'] ) ) : false;
+
+		if ( empty( $preference ) ) {
+			return;
+		}
+
+		if ( ! in_array( $preference, array( 'opted-in', 'opted-out' ), true ) ) {
+			return;
+		}
+
+		if ( ! wp_next_scheduled(
+			'wc-box-office-update-user-privacy-preference',
+			array(
+				'preference' => $preference,
+				'page'       => 1,
+			)
+		) ) {
+			WCBO()->components->cron->schedule_user_privacy_update_job( $preference );
+		}
+	}
+
+	/**
 	 * Notice message when email job is queued.
 	 */
 	public function notice_email_job_queued() {
@@ -469,7 +502,7 @@ class WC_Box_Office_Tools {
 	 */
 	public function tools_page() {
 		$errors = $this->_get_formatted_errors();
-		require_once( WCBO()->dir . 'includes/views/admin/tools.php' );
+		require_once WCBO()->dir . 'includes/views/admin/tools.php';
 	}
 
 	/**

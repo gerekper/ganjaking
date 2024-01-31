@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "searchwp/exclude-ui-preview",
+	"version": "1.0.0",
+	"title": "SearchWP Exclude UI Preview",
+	"category": "searchwp",
+	"icon": "search",
+	"description": "The best WordPress search you can find.",
+	"textdomain": "searchwp",
+	"editorScript": "file:./index.js"
+}

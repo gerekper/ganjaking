@@ -4,11 +4,11 @@ Tags: woocommerce, credit, coupons
 Requires PHP: 5.6
 Requires at least: 4.9
 Tested up to: 6.4
-Stable tag: 4.4.1
+Stable tag: 4.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.7
-WC tested up to: 8.4
+WC tested up to: 8.5
 Woo: 18609:c4bf3ecec4146cb69081e5b28b6cdac4
 
 == Description ==

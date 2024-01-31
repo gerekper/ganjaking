@@ -2,7 +2,7 @@
 /**
  * WC_CP_Query_String class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    6.3.0
  */
 

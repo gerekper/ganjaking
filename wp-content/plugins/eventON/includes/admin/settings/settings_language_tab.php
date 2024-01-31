@@ -2,7 +2,7 @@
 /**
  * Language Settings 
  *
- * @version		4.5.1
+ * @version		4.5.6
  * @package		EventON/settings
  * @category	Settings
  * @author 		AJDE
@@ -50,7 +50,7 @@ class evo_settings_lang{
 				</div>
 			</div>
 			
-			<p style='padding:0'><input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes','eventon') ?>" style='margin-top:15px'/></p>
+			<p style='padding:0'><input type="submit" class="evo_admin_btn btn_prime evo_settings_save_btn" value="<?php _e('Save Changes','eventon') ?>" style='margin-top:15px'/></p>
 
 		</form>
 		
@@ -90,7 +90,7 @@ class evo_settings_lang{
 		function _section_lang_selection(){	
 			global $ajde;		
 			ob_start(); ?>
-				<h4><?php _e('Select your language','eventon');?> <select id='evo_lang_selection' url='<?php echo get_admin_url()?>'>		
+				<h4><?php _e('Select your language','eventon');?> <select id='evo_lang_selection' url='<?php echo get_admin_url('','admin.php')?>'>		
 				<?php
 					foreach($this->lang_variations as $lang){
 						echo "<option value='{$lang}' ".(($this->lang_version==$lang)? 'selected="select"':null).">{$lang}</option>";
@@ -283,6 +283,7 @@ class evo_settings_lang{
 					
 					array('label'=>'The Event Calendar','var'=>'1'),
 					array('label'=>'Collection of Events','var'=>'1'),
+					array('label'=>'Calendar timezone','var'=>'1'),
 				array('type'=>'togend'),
 
 				array('type'=>'section',

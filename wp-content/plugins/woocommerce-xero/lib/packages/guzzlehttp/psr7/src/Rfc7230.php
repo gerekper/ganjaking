@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -20,7 +20,7 @@ final class Rfc7230
      *
      * Note: header delimiter (\r\n) is modified to \r?\n to accept line feed only delimiters for BC reasons.
      *
-     * @link    https://github.com/amphp/http/blob/v1.0.1/src/Rfc7230.php#L12-L15
+     * @see https://github.com/amphp/http/blob/v1.0.1/src/Rfc7230.php#L12-L15
      *
      * @license https://github.com/amphp/http/blob/v1.0.1/LICENSE
      */

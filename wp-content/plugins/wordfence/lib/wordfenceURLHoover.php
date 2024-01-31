@@ -110,6 +110,10 @@ class wordfenceURLHoover {
 	public function captureURL($matches) {
 		$id = $this->currentHooverID;
 		$url = 'http:' . $matches[0];
+		if (!filter_var($url, FILTER_VALIDATE_URL)) {
+			return;
+		}
+		
 		$components = parse_url($url);
 		if (preg_match('/\.(xn--(?:[a-z0-9-]*)[a-z0-9]+|[a-z\xa1-\xff0-9]{2,})$/i', $components['host'], $tld)) {
 			$tld = strtolower($tld[1]);
@@ -125,9 +129,6 @@ class wordfenceURLHoover {
 			if (strcasecmp($h, $components['host']) === 0) {
 				return;
 			}
-		}
-		if (!filter_var($url, FILTER_VALIDATE_URL)) {
-			return;
 		}
 		
 		$this->_foundSome++;

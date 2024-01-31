@@ -73,4 +73,7 @@
 	line-height: 200%;
 }
 
-.
+.order-status.status-fraud-screen {
+	color:#5c0a04;
+	background: #f55656;
+}

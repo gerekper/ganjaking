@@ -87,7 +87,7 @@ class Notifications {
 
         wp_enqueue_style(
             Utils::$slug . '_admin_notifications_global',
-            SEARCHWP_PLUGIN_URL . 'assets/styles/admin/notifications-global.css',
+            SEARCHWP_PLUGIN_URL . 'assets/css/admin/panels/notifications-global.css',
             [],
             SEARCHWP_VERSION
         );
@@ -110,7 +110,7 @@ class Notifications {
 
 		wp_enqueue_style(
 			Utils::$slug . '_admin_notifications',
-			SEARCHWP_PLUGIN_URL . 'assets/styles/admin/notifications.css',
+			SEARCHWP_PLUGIN_URL . 'assets/css/admin/panels/notifications.css',
 			[],
 			SEARCHWP_VERSION
 		);
@@ -244,18 +244,13 @@ class Notifications {
 
 		?>
         <div class="swp-notifications-panel--wrapper" style="display: none;">
-
             <div class="swp-notifications-panel components-animate__slide-in is-from-left">
 
                 <div class="swp-notifications-panel--header">
-
                     <span>
-						<span>
-							<?php echo count( $notifications ); ?>
-						</span>
-						Unread Notifications
+						<span><?php echo count( $notifications ); ?></span>
+						<?php esc_html_e( 'Unread Notifications', 'searchwp' ); ?>
 					</span>
-                    
 					<button type="button" class="swp-notifications-panel--close"
                             aria-label="Close notifications">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -267,16 +262,32 @@ class Notifications {
 
                 <div class="swp-notifications-panel--notifications">
 					<?php
-                        foreach ( $notifications as $notification ) {
-                            self::output_panel_notification_single( $notification );
-                        }
+						foreach ( $notifications as $notification ) {
+							self::output_panel_notification_single( $notification );
+						}
                     ?>
+					<?php self::output_empty_notifications_message(); ?>
                 </div>
 
             </div>
             <div class="swp-notifications-backdrop"></div>
         </div>
 		<?php
+	}
+
+	/**
+     * Output empty notifications message.
+     *
+     * @since 4.3.10
+	 */
+    private static function output_empty_notifications_message() {
+        ?>
+        <div class="swp-notifications--empty-notifications-message"<?php echo self::get_count() ? ' style="display: none;"' : ''; ?>>
+            <img src="<?php echo esc_url( SEARCHWP_PLUGIN_URL . 'assets/images/searchwp-finnie.png' ); ?>" alt="SearchWP Finnie">
+            <div class="swp-notifications--great"><?php esc_html_e( 'Fancy meeting you here!', 'searchwp' ); ?></div>
+            <div class="swp-notifications--no-new-notifications"><?php esc_html_e( 'You have no new notifications.', 'searchwp' ); ?></div>
+        </div>
+        <?php
 	}
 
 	/**
@@ -304,19 +315,19 @@ class Notifications {
                 <div class="swp-flex--row swp-justify-between swp-flex--gap25">
 
                     <h2 class="swp-h2 swp-font-size16"><?php echo esc_html( $notification['title'] ); ?></h2>
-                    
+
 					<div class="swp-notifications--notification-date"><?php echo esc_html( human_time_diff( strtotime( $notification['start'] ), strtotime( current_time( 'mysql' ) ) ) ); ?>
                         ago
                     </div>
 
                 </div>
-				
+
 				<p class="swp-p swp-margin-t15"><?php echo wp_kses_post( $notification['content'] ); ?></p>
-                
+
 				<div class="swp-flex--row swp-flex--wrap swp-flex--gap12 swp-flex--align-c swp-margin-t15">
-				    
+
 					<?php foreach ( $notification['actions'] as $notification_action ) : ?>
-                        
+
 						<a href="<?php echo esc_url( $notification_action['url'] ); ?>" target="_blank" class="swp-button is-<?php echo esc_attr( $notification_action['type'] ); ?>">
                             <?php echo esc_html( $notification_action['text'] ); ?>
                         </a>

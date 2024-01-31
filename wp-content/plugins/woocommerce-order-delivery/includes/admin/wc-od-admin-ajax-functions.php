@@ -45,7 +45,7 @@ function wc_od_calendar_add_event() {
 		$event       = wc_od_parse_event( $event );
 
 		$events[ $event_index ] = $event;
-		$event_index++;
+		++$event_index;
 
 		// Updates the settings.
 		WC_OD()->settings()->update_setting( $index_setting, $event_index );

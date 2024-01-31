@@ -3,9 +3,11 @@
 Plugin Name: SearchWP
 Plugin URI: https://searchwp.com/
 Description: The best WordPress search you can find
-Version: 4.3.9
+Version: 4.3.10
 Author: SearchWP
 Author URI: https://searchwp.com/
+Requires at least: 5.3
+Tested up to: 6.4
 Text Domain: searchwp
 
 Copyright 2013-2022 SearchWP
@@ -25,7 +27,7 @@ For more information please see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SEARCHWP_VERSION', '4.3.9' );
+define( 'SEARCHWP_VERSION', '4.3.10' );
 define( 'SEARCHWP_PREFIX', 'searchwp_' );
 define( 'SEARCHWP_SEPARATOR', '.' );
 define( 'SEARCHWP_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -69,7 +71,7 @@ if ( ! function_exists( 'searchwp_plugin_activate' ) ) {
 	function searchwp_plugin_activate( $network_wide = false ) {
 		// Minimum WordPress version requirement.
 		$wp_version = get_bloginfo( 'version' );
-		if ( version_compare( $wp_version, '5.2', '<' ) ) {
+		if ( version_compare( $wp_version, '5.3', '<' ) ) {
 			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			deactivate_plugins( __FILE__ );
 			wp_die( esc_html( __( 'SearchWP requires WordPress 5.3 or higher and as a result has been deactivated. Please upgrade WordPress before activating this plugin.', 'searchwp' ) ) . ' <a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">WordPress Admin</a>' );
@@ -120,6 +122,14 @@ register_activation_hook( __FILE__, 'searchwp_plugin_activate' );
 // Kickoff!
 require_once SEARCHWP_PLUGIN_DIR . '/lib/vendor/scoper-autoload.php';
 require_once SEARCHWP_PLUGIN_DIR . '/includes/SearchWP.php';
+
+/**
+ * Fires after SearchWP classes were autoloaded by Composer but before any code is run.
+ * This hook should be used to run Composer autoload for SearchWP extensions.
+ *
+ * @since 4.3.10
+ */
+do_action( 'searchwp\composer\autoload' );
 
 /**
  * Returns an instance of the classes' container.

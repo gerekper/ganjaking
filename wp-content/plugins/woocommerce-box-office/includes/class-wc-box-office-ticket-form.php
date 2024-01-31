@@ -80,6 +80,8 @@ class WC_Box_Office_Ticket_Form {
 	}
 
 	public function render( $args = array() ) {
+		global $post;
+
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -140,6 +142,40 @@ class WC_Box_Office_Ticket_Form {
 					}
 					break;
 			}
+		}
+
+		if ( ! $args['editable'] ) {
+			return;
+		}
+
+		$product_id  = $this->product->get_id();
+		$pii_setting = get_post_meta( $product_id, '_user_pii_setting', true );
+
+		if ( 'yes' === $pii_setting ) {
+			$pii_preference = 'opted-in';
+			$ticket_id      = null;
+
+			if ( is_admin() && $post ) {
+				$ticket_id = $post->ID;
+			} elseif ( isset( $_GET['token'] ) ) {
+				$token     = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+				$ticket    = wc_box_office_get_ticket_by_token( $token );
+				$ticket_id = $ticket->id;
+			}
+
+			$pii_preference = get_post_meta( $ticket_id, '_user_pii_preference', true );
+			?>
+			<p class="form-row form-field">
+				<label for="pii_preference">
+					<?php esc_html_e( 'Privacy Preference:', 'woocommerce-box-office' ); ?>
+				</label>
+				<input type="checkbox" name="<?php echo esc_attr( $this->field_name_prefix ); ?>[pii_preference]" id="pii_preference" value="opted-out" <?php checked( $pii_preference, 'opted-out' ); ?> />
+				&nbsp;
+				<span class="description">
+					<?php esc_html_e( 'Opt-out from being displayed in the public list of attendees.', 'woocommerce-box-office' ); ?>
+				</span>
+			</p>
+			<?php
 		}
 
 		// Enqueue Ticket form JS to handle checkbox group required.

@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Restriction class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.0.0
  */
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.15.0
+ * @version  1.5.5
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -45,6 +45,9 @@ class WC_CSP_Restriction extends WC_Settings_API {
 
 	/** @var array Restriction supports multiple rules */
 	public $supports_multiple;
+
+	/** @var string Method title */
+	public $method_title;
 
 	/** @var array Restriction conditions */
 	public $conditions;

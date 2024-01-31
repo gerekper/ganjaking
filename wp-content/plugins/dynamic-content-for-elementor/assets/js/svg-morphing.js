@@ -325,7 +325,6 @@
 					}else{
 						ferma();
 					}
-
 				}
 
 				if(!is_running){
@@ -438,8 +437,6 @@
 				$('.elementor-element[data-id='+id_scope+']').on('touchstart','svg', mouseenterFn);
 				$('.elementor-element[data-id='+id_scope+']').on('touchend','svg', mouseleaveFn);
 
-
-
 			}else if(elementSettings.svg_trigger == 'scroll'){
 				if(one_by_one){
 					if(transitionTl) transitionTl.kill($(dceshape));
@@ -457,7 +454,9 @@
 					}
 
 					// Comincia L'animazione ...........
-					if( elementorFrontend.isEditMode() && contentElemsTotal > 1) playShapeEl();
+					if( elementorFrontend.isEditMode() && contentElemsTotal > 1) {
+						playShapeEl();
+					}
 				}
 
 				active_scrollAnalysi( '#dce-svg-'+id_scope );

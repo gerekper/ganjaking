@@ -13,7 +13,42 @@
 		var wc_store_credit_single_product = {
 
 			init: function() {
+				this.initPresetAmountsButtons();
 				this.initSendToDifferentCustomer();
+			},
+
+			initPresetAmountsButtons: function() {
+				var that = this,
+				    $presetAmounts = $( '.store-credit-preset-amount' );
+
+				// Show the custom amount fields if there are no preset amounts.
+				this.toggleCustomAmountFields( ! $presetAmounts.length );
+
+				$presetAmounts.on( 'click', function() {
+					var value = $( this ).data( 'value' ),
+						isCustom = ( value === 'custom' );
+					$( '.store-credit-preset-amount' ).removeClass( 'selected' );
+					$( this ).addClass( 'selected' );
+
+					that.toggleCustomAmountFields( isCustom );
+
+					if ( ! isCustom ) {
+						that.updateCustomAmountField( value );
+					}
+				});
+			},
+
+			updateCustomAmountField: function( amount ) {
+				$( '#store_credit_custom_amount' ).val( amount );
+			},
+
+			toggleCustomAmountFields: function( show ) {
+				if ( show ) {
+					this.updateCustomAmountField( '' );
+					$( 'div.store-credit-custom-amount-fields' ).slideDown();
+				} else {
+					$( 'div.store-credit-custom-amount-fields' ).hide();
+				}
 			},
 
 			initSendToDifferentCustomer: function() {

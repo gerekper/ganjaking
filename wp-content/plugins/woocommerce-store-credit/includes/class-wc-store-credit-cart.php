@@ -52,28 +52,6 @@ class WC_Store_Credit_Cart {
 	}
 
 	/**
-	 * Applies a store credit coupon by URL.
-	 *
-	 * @since 3.7.0
-	 * @deprecated 4.2.0
-	 */
-	public function apply_coupon_from_url() {
-		wc_deprecated_function( __FUNCTION__, '4.2.0', 'WC_Store_Credit_Cart_Coupons->apply_coupon_from_url()' );
-		$this->cart_coupons->apply_coupon_from_url();
-	}
-
-	/**
-	 * Applies the store credit coupons stored in session.
-	 *
-	 * @since 3.7.0
-	 * @deprecated 4.2.0
-	 */
-	public function apply_coupons_from_session() {
-		wc_deprecated_function( __FUNCTION__, '4.2.0', 'WC_Store_Credit_Cart_Coupons->apply_coupons_from_session()' );
-		$this->cart_coupons->apply_coupons_from_session();
-	}
-
-	/**
 	 * Gets the cart discounts instance.
 	 *
 	 * @since 3.0.0

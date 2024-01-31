@@ -2,7 +2,7 @@
 /**
  * REST API Reports Stats data store
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.3.0
  */
 

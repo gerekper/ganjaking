@@ -36,6 +36,12 @@ class WC_Bookings_Init {
 
 		// Add a new custom quick add menu item for bookable products.
 		add_filter( 'admin_bar_menu', array( $this, 'wp_admin_bar_new_content_menu' ), 999 );
+
+		// WooPayments compatibility.
+		add_filter( 'wcpay_payment_request_is_product_supported', array( $this, 'wcpay_is_product_supported' ), 10, 2 );
+		add_filter( 'wcpay_woopay_button_is_product_supported', array( $this, 'wcpay_is_product_supported' ), 10, 2 );
+		add_filter( 'wcpay_payment_request_is_cart_supported', array( $this, 'wcpay_is_cart_supported' ), 10, 2 );
+		add_filter( 'wcpay_platform_checkout_button_are_cart_items_supported', array( $this, 'platform_checkout_button_are_cart_items_supported' ) );
 	}
 
 	/**
@@ -210,6 +216,85 @@ class WC_Bookings_Init {
 			'label_count'               => false,
 		) );
 
+	}
+
+	/**
+	 * Filter whether to display express pay buttons on product pages.
+	 *
+	 * Runs on the `wcpay_payment_request_is_product_supported` and
+	 * `wcpay_woopay_button_is_product_supported` filters.
+	 *
+	 * @since 2.0.8
+	 *
+	 * @param bool        $is_supported Whether express pay buttons are supported on product pages.
+	 * @param \WC_Product $product      The product object.
+	 *
+	 * @return bool Modified support status.
+	 */
+	public function wcpay_is_product_supported( $is_supported, $product ) {
+		if ( ! ( $product instanceof WC_Product_Booking ) ) {
+			// Product unrelated to this extension.
+			return $is_supported;
+		}
+
+		// Express pay buttons are not supported on product pages.
+		return false;
+	}
+
+	/**
+	 * Filter whether to display Apple/Google express pay buttons on cart pages.
+	 *
+	 * Hide the express pay button on cart pages if the booking requires confirmation.
+	 *
+	 * Runs on the `wcpay_payment_request_is_cart_supported` filter.
+	 *
+	 * @since 2.0.8
+	 *
+	 * @param bool        $is_supported Whether Apple/Google express pay buttons are supported on cart pages.
+	 * @param \WC_Product $product      A product object in the cart.
+	 *
+	 * @return bool Modified support status.
+	 */
+	public function wcpay_is_cart_supported( $is_supported, $product ) {
+		if ( ! ( $product instanceof WC_Product_Booking ) ) {
+			// Product unrelated to this extension.
+			return $is_supported;
+		}
+
+		if ( $product->get_requires_confirmation() ) {
+			// Don't show the express pay button if the booking requires confirmation.
+			return false;
+		}
+
+		return $is_supported;
+	}
+
+	/**
+	 * Filter whether to display WooPay express pay buttons on cart pages.
+	 *
+	 * Hide the express WooPay button on cart pages containing bookings.
+	 *
+	 * Runs on the `wcpay_platform_checkout_button_are_cart_items_supported` filter.
+	 *
+	 * @link https://woo.com/document/woopay-merchant-documentation/#incompatible-extensions
+	 *
+	 * @since 2.0.8
+	 *
+	 * @param bool $is_supported Whether express WooPay buttons are supported on cart pages.
+	 *
+	 * @return bool Modified support status.
+	 */
+	public function platform_checkout_button_are_cart_items_supported( $is_supported ) {
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			$product = $cart_item['data'];
+
+			if ( $product instanceof WC_Product_Booking ) {
+				// Product is a booking product.
+				return false;
+			}
+		}
+
+		return $is_supported;
 	}
 
 	/**

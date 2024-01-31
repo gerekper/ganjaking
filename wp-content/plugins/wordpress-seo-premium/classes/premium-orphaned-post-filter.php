@@ -23,6 +23,8 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 
 	/**
 	 * Registers the hooks when the link feature is enabled.
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		if ( ! YoastSEO()->classes->get( Migration_Status::class )->is_version( 'free', WPSEO_VERSION ) ) {
@@ -162,11 +164,15 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 			$count    = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT COUNT(ID)
-						FROM `{$wpdb->posts}`
+						FROM %i
 						WHERE ID IN ( $subquery )
-							AND post_status = 'publish'
-							AND post_password = ''
-							AND post_type = %s",
+							AND %i = 'publish'
+							AND %i = ''
+							AND %i = %s",
+					$wpdb->posts,
+					'post_status',
+					'post_password',
+					'post_type',
 					$this->get_current_post_type()
 				)
 			);

@@ -22,6 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Class Admin
  */
 class Admin {
+	const PLUGIN_DISCOUNT_PERCENT = 80;
 
 	/**
 	 * Plugin pages.
@@ -71,11 +72,12 @@ class Admin {
 		// Init media library UI.
 		$media_lib->init_ui();
 
-		add_filter( 'plugin_action_links_' . WP_SMUSH_BASENAME, array( $this, 'settings_link' ) );
-		add_filter( 'network_admin_plugin_action_links_' . WP_SMUSH_BASENAME, array( $this, 'settings_link' ) );
+		add_filter( 'plugin_action_links_' . WP_SMUSH_BASENAME, array( $this, 'dashboard_link' ) );
+		add_filter( 'network_admin_plugin_action_links_' . WP_SMUSH_BASENAME, array( $this, 'dashboard_link' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2 );
 
 		// Prints a membership validation issue notice in Media Library.
+		add_action( 'admin_notices', array( $this, 'media_library_membership_notice' ) );
 
 		// Plugin conflict notice.
 		add_action( 'admin_notices', array( $this, 'show_plugin_conflict_notice' ) );
@@ -87,8 +89,6 @@ class Admin {
 
 		// Filter built-in wpmudev branding script.
 		add_filter( 'wpmudev_whitelabel_plugin_pages', array( $this, 'builtin_wpmudev_branding' ) );
-
-		add_action( 'wp_smush_header_notices', array( $this, 'show_php_deprecated_notice' ) );
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Admin {
 	 *
 	 * @return array|string
 	 */
-	public function settings_link( $links ) {
+	public function dashboard_link( $links ) {
 		// Upgrade link.
 		if ( ! WP_Smush::is_pro() ) {
 			$upgrade_url = add_query_arg(
@@ -214,7 +214,8 @@ class Admin {
 			$using_free_version = 'wp-smush-pro/wp-smush.php' !== WP_SMUSH_BASENAME;
 			if ( $using_free_version ) {
 				$label = __( 'Upgrade to Smush Pro', 'wp-smushit' );
-				$text  = __( 'Upgrade for 60% off', 'wp-smushit' );
+				/* translators: %s: Discount percent */
+				$text = sprintf( __( 'Upgrade For %s Off!', 'wp-smushit' ), $this->get_plugin_discount() );
 			} else {
 				$label = __( 'Renew Membership', 'wp-smushit' );
 				$text  = __( 'Renew Membership', 'wp-smushit' );
@@ -226,11 +227,15 @@ class Admin {
 		}
 
 		// Documentation link.
-		$links['smush_docs'] = '<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs" aria-label="' . esc_attr( __( 'View Smush Documentation', 'wp-smushit' ) ) . '" target="_blank">' . esc_html__( 'Docs', 'wp-smushit' ) . '</a>';
+		$docs_link = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/';
+		if ( ! WP_Smush::is_pro() ) {
+			$docs_link .= '?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
+		}
+		$links['smush_docs'] = '<a href="' . esc_url( $docs_link ) . '" aria-label="' . esc_attr( __( 'View Smush Documentation', 'wp-smushit' ) ) . '" target="_blank">' . esc_html__( 'Docs', 'wp-smushit' ) . '</a>';
 
-		// Settings link.
-		$settings_page            = is_multisite() && is_network_admin() ? network_admin_url( 'admin.php?page=smush-settings' ) : menu_page_url( 'smush-settings', false );
-		$links['smush_dashboard'] = '<a href="' . $settings_page . '" aria-label="' . esc_attr( __( 'Go to Smush settings', 'wp-smushit' ) ) . '">' . esc_html__( 'Settings', 'wp-smushit' ) . '</a>';
+		// Dashboard link.
+		$dashboard_page           = is_multisite() && is_network_admin() ? network_admin_url( 'admin.php?page=smush' ) : menu_page_url( 'smush', false );
+		$links['smush_dashboard'] = '<a href="' . esc_url( $dashboard_page ) . '" aria-label="' . esc_attr( __( 'Go to Smush Dashboard', 'wp-smushit' ) ) . '">' . esc_html__( 'Dashboard', 'wp-smushit' ) . '</a>';
 
 		$access = get_site_option( 'wp-smush-networkwide' );
 		if ( ! is_network_admin() && is_plugin_active_for_network( WP_SMUSH_BASENAME ) && ! $access ) {
@@ -270,7 +275,11 @@ class Admin {
 			$links[] = '<a href="https://wpmudev.com/get-support/" target="_blank" title="' . esc_attr__( 'Premium Support', 'wp-smushit' ) . '">' . esc_html__( 'Premium Support', 'wp-smushit' ) . '</a>';
 		}
 
-		$links[] = '<a href="https://wpmudev.com/roadmap/" target="_blank" title="' . esc_attr__( 'Roadmap', 'wp-smushit' ) . '">' . esc_html__( 'Roadmap', 'wp-smushit' ) . '</a>';
+		$roadmap_link = 'https://wpmudev.com/roadmap/';
+		if ( ! WP_Smush::is_pro() ) {
+			$roadmap_link .= '?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_roadmap';
+		}
+		$links[] = '<a href="' . esc_url( $roadmap_link ) . '" target="_blank" title="' . esc_attr__( 'Roadmap', 'wp-smushit' ) . '">' . esc_html__( 'Roadmap', 'wp-smushit' ) . '</a>';
 
 		return $links;
 	}
@@ -366,6 +375,7 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
+		return;
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;
@@ -607,7 +617,7 @@ class Admin {
 			return '';
 		}
 
-		$upgrade_url   = add_query_arg(
+		$upgrade_url = add_query_arg(
 			array(
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
@@ -615,8 +625,9 @@ class Admin {
 			),
 			'https://wpmudev.com/project/wp-smush-pro/'
 		);
-		$batches       = ceil( $remaining_count / Core::MAX_FREE_BULK );
-		$discount_text = '<strong>'. esc_html__( '60% off welcome discount available.', 'wp-smushit' ) .'</strong>';
+		$batches     = ceil( $remaining_count / Core::MAX_FREE_BULK );
+		/* translators: %s: Discount */
+		$discount_text = '<strong>' . sprintf( esc_html__( '%s off welcome discount available.', 'wp-smushit' ), $this->get_plugin_discount() ) . '</strong>';
 		return sprintf(
 		/* translators: 1: max free bulk limit, 2: Total batches to smush, 3: opening a tag, 4: closing a tag. */
 			esc_html__( 'Free users can only Bulk Smush %1$d images at one time. Smush in %2$d batches or %3$sBulk Smush unlimited images with Pro%4$s. %5$s', 'wp-smushit' ),
@@ -754,26 +765,7 @@ class Admin {
 		<?php
 	}
 
-	public function show_php_deprecated_notice() {
-		// Only show the deprecated notice for admin and only network side for MU site.
-		if ( ! current_user_can( 'manage_options' ) || ( is_multisite() && ! is_network_admin() )  ) {
-			return;
-		}
-
-		if ( $this->is_notice_dismissed( 'php_deprecated' ) ) {
-			return;
-		}
-
-		$php_version          = PHP_VERSION;
-		$required_php_version = '7.0';
-		if ( version_compare( $php_version, $required_php_version, '>=' ) ) {
-			return;
-		}
-		/* translators: %1$s: Current PHP version */
-		$error_message = sprintf( esc_html__( 'We have noticed that you are using PHP %1$s, which has reached its end of life and is now highly insecure. Smush will stop supporting PHP %1$s soon, please contact your hosting provider to switch to a more recent version of PHP.', 'wp-smushit' ), $php_version );
-		$error_message = '<p>' . $error_message . '</p>';
-		?>
-		<div role="alert" id="wp-smush-php-deprecated-notice" class="sui-notice wp-smush-dismissible-header-notice smush-dismissible-notice" data-dismiss-key="php_deprecated" data-message="<?php echo esc_attr( $error_message ); ?>" aria-live="assertive"></div>
-		<?php
+	public function get_plugin_discount() {
+		return self::PLUGIN_DISCOUNT_PERCENT . '%';
 	}
 }

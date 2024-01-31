@@ -28,7 +28,26 @@
 			adminBar.style.display = 'none';
 		}
 	}
+	let selectedElement = document.querySelector(jsconv.selector);
+	// Remove responsive images attributes, otherwise html2canvas can crop results
+	// after changing viewport.
+	let imgs = selectedElement.querySelectorAll('img');
+	imgs.forEach((img) => {
+		img.removeAttribute("srcset");
+		img.removeAttribute("sizes");
+	});
+	// Hide the pdf button:
+	let pdfButton = selectedElement.getElementsByClassName("elementor-button-pdf-wrapper");
+	let onLoad = true;
+	if (pdfButton.length > 0) {
+		onLoad = ! pdfButton[0].closest('.elementor-element').classList.contains('pdf-custom-trigger');
+		var pdfButtonDisplay = pdfButton[0].style.display;
+		pdfButton[0].style.display = 'none';
+	}
 	function pdfAfterRendering() {
+		if (pdfButton.length > 0) {
+			pdfButton[0].style.display = pdfButtonDisplay;
+		}
 		if (adminBar) {
 			adminBar.style.display = adminBarDisplay;
 		}
@@ -40,21 +59,6 @@
 			});
 		}
 		document.body.classList.remove('dce-pdf-printing');
-	}
-
-	let selectedElement = document.querySelector(jsconv.selector);
-	// Remove responsive images attributes, otherwise html2canvas can crop results
-	// after changing viewport.
-	let imgs = selectedElement.querySelectorAll('img');
-	imgs.forEach((img) => {
-		img.removeAttribute("srcset");
-		img.removeAttribute("sizes");
-	});
-	// Hide the pdf button:
-	let pdfButton = selectedElement.getElementsByClassName("elementor-button-pdf-wrapper");
-	if (pdfButton.length > 0) {
-		var pdfButtonDisplay = pdfButton[0].style.display;
-		pdfButton[0].style.display = 'none';
 	}
 	function downloadPDF() {
 		if (! selectedElement) {
@@ -72,7 +76,7 @@
 		const pdfHeight = doc.internal.pageSize.getHeight();
 		const pdfElWidth = pdfWidth - jsconv.marginLeft - jsconv.marginRight;
 		const pdfElHeight = pdfHeight - jsconv.marginTop - jsconv.marginBottom;
-		html2canvas(selectedElement, { windowWidth: 1024, windowHeight: 768 }).then(sourceCanvas => {
+		html2canvas(selectedElement, { scale: jsconv.scale, windowWidth: 1024, windowHeight: 768 }).then(sourceCanvas => {
 			const imgData = sourceCanvas.toDataURL('image/png');
 			// The following is necesary for the case where sourceCanvas is so long that
 			// it doesn't fit in one page.
@@ -116,11 +120,13 @@
 
 		});
 	}
-	jQuery(window).trigger('dce/jsconvpdf/before');
-	downloadPDF();
-	if (pdfButton.length > 0) {
-		pdfButton[0].style.display = pdfButtonDisplay;
+	window.DCEDownloadJSPDF = () => {
+		jQuery(window).trigger('dce/jsconvpdf/before');
+		downloadPDF();
+		pdfAfterRendering();
+		jQuery(window).trigger('dce/jsconvpdf/after');
 	}
-	pdfAfterRendering();
-	jQuery(window).trigger('dce/jsconvpdf/after');
+	if (onLoad) {
+		window.DCEDownloadJSPDF();
+	}
 })();

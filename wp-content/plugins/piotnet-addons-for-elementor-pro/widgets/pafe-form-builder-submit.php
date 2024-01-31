@@ -3397,7 +3397,7 @@ class PAFE_Form_Builder_Submit extends \Elementor\Widget_Base {
 		);
         if(empty(get_option('piotnet-addons-for-elementor-pro-razorpay-api-key')) || empty(get_option('piotnet-addons-for-elementor-pro-razorpay-secret-key'))) {
 			$this->add_control(
-				'razorpay_payment_note',
+				'razorpay_subcription_note',
 				[
 					'type' => \Elementor\Controls_Manager::RAW_HTML,
 					'raw' => __( 'Please enter Razorpay API Key at Dashboard->Piotnet Addons->Integration->Razorpay Payment', 'pafe' ),

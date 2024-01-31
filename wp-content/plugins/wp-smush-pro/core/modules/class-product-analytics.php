@@ -31,6 +31,11 @@ class Product_Analytics {
 	 * @var Media_Library_Scan_Background_Process
 	 */
 	private $scan_background_process;
+	private $scanner_slice_size;
+	/**
+	 * @var bool
+	 */
+	private $scan_background_process_dead = false;
 
 	public function __construct() {
 		$this->settings                = Settings::get_instance();
@@ -59,8 +64,10 @@ class Product_Analytics {
 
 		$identifier = $this->scan_background_process->get_identifier();
 
-		add_action( "{$identifier}_before_start", array( $this, 'track_background_scan_start' ) );
-		add_action( "{$identifier}_completed", array( $this, 'track_background_scan_end' ) );
+		add_action( "{$identifier}_before_start", array( $this, 'record_scan_death' ), 10, 2 );
+		add_action( "{$identifier}_started", array( $this, 'track_background_scan_start' ), 10, 2 );
+		add_action( "{$identifier}_revived", array( $this, 'track_background_scan_revival' ), 10, 2 );
+		add_action( "{$identifier}_completed", array( $this, 'track_background_scan_end' ), 10, 2 );
 
 		add_action(
 			"{$identifier}_cancelled",
@@ -406,22 +413,48 @@ class Product_Analytics {
 		}
 	}
 
-	public function track_background_scan_start() {
+	public function record_scan_death() {
+		$this->scan_background_process_dead = $this->scan_background_process->get_status()->is_dead();
+	}
+
+	public function track_background_scan_start( $identifier, $background_process ) {
+		$type = $this->scan_background_process_dead
+			? 'Retry'
+			: 'New';
+
+		$this->_track_background_scan_start( $type, $background_process );
+	}
+
+	public function track_background_scan_revival( $identifier, $background_process ) {
+		$this->_track_background_scan_start( 'Auto', $background_process );
+	}
+
+	private function _track_background_scan_start( $type, $background_process ) {
 		$properties = array(
-			'Scan Type' => $this->scan_background_process->get_status()->is_dead() ? 'Retry' : 'New',
+			'Scan Type' => $type,
 		);
 
 		$this->get_mixpanel()->track( 'Scan Started', array_merge(
 			$properties,
 			$this->get_bulk_properties(),
-			$this->get_scan_properties()
+			$this->get_scan_properties( $background_process )
 		) );
 	}
 
-	public function track_background_scan_end() {
+	/**
+	 * @param $identifier
+	 * @param $background_process Background_Process
+	 *
+	 * @return void
+	 */
+	public function track_background_scan_end( $identifier, $background_process ) {
+		$properties = array(
+			'Retry Attempts' => $background_process->get_revival_count(),
+		);
 		$this->get_mixpanel()->track( 'Scan Ended', array_merge(
+			$properties,
 			$this->get_bulk_properties(),
-			$this->get_scan_properties()
+			$this->get_scan_properties( $background_process )
 		) );
 	}
 
@@ -432,9 +465,16 @@ class Product_Analytics {
 	 * @return void
 	 */
 	public function track_background_scan_process_cancellation( $identifier, $background_process ) {
+		$properties = array(
+			'Retry Attempts' => $background_process->get_revival_count(),
+			'Slice Size'     => $this->get_scanner_slice_size(),
+		);
 		$this->get_mixpanel()->track(
 			'Background Scan Process Cancelled',
-			$this->get_background_process_status_properties( $background_process )
+			array_merge(
+				$properties,
+				$this->get_background_process_status_properties( $background_process )
+			)
 		);
 	}
 
@@ -445,20 +485,25 @@ class Product_Analytics {
 	 * @return void
 	 */
 	public function track_background_scan_process_death( $identifier, $background_process ) {
-		$scanner = new Media_Library_Scanner();
-
 		$this->get_mixpanel()->track(
 			'Background Scan Process Dead',
 			array_merge(
-				array( 'Slice Size' => $scanner->get_slice_size() ),
+				array(
+					'Slice Size'     => $this->get_scanner_slice_size(),
+					'Retry Attempts' => $background_process->get_revival_count(),
+				),
 				$this->get_background_process_status_properties( $background_process )
 			)
 		);
 	}
 
-	private function get_scan_properties() {
+	private function get_scan_properties( $background_process ) {
 		$global_stats       = Global_Stats::get();
 		$global_stats_array = $global_stats->to_array();
+		$properties         = array(
+			'scan_id'    => $background_process->get_process_id(),
+			'Slice Size' => $this->get_scanner_slice_size(),
+		);
 
 		$labels = array(
 			'image_attachment_count' => 'Image Attachment Count',
@@ -502,6 +547,7 @@ class Product_Analytics {
 		$properties                = array();
 		if ( $background_process_status ) {
 			$properties = array(
+				'scan_id'         => $background_process->get_process_id(),
 				'Total Items'     => $background_process_status->get_total_items(),
 				'Processed Items' => $background_process_status->get_processed_items(),
 				'Failed Items'    => $background_process_status->get_failed_items(),
@@ -517,5 +563,13 @@ class Product_Analytics {
 		}
 		$unit_mb = pow( 1024, 2 );
 		return round( $size_in_bytes / $unit_mb, 2 );
+	}
+
+	private function get_scanner_slice_size() {
+		if ( is_null( $this->scanner_slice_size ) ) {
+			$this->scanner_slice_size = ( new Media_Library_Scanner() )->get_slice_size();
+		}
+
+		return $this->scanner_slice_size;
 	}
 }

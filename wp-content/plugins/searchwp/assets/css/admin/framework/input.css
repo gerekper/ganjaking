@@ -41,6 +41,10 @@ input.swp-input:disabled {
     color: rgba(var(--neutralRGB), 0.5);
 }
 
+input[type="number"].swp-input {
+    min-width: 50px;
+}
+
 select.swp-select {
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;

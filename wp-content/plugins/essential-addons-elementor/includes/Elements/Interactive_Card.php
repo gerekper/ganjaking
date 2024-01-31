@@ -422,7 +422,8 @@ class Interactive_Card extends Widget_Base
 					'{{WRAPPER}}.eael-interactive-card-rear-img-align-top .interactive-card .content .content-inner .image' => 'height: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
-					'eael_interactive_card_rear_image_alignment' => 'top'
+					'eael_interactive_card_rear_image_alignment' => 'top',
+					'eael_interactive_card_type' => 'img-grid'
 				]
 			]
 		);
@@ -624,14 +625,51 @@ class Interactive_Card extends Widget_Base
 		 * Video Content
 		 */
 		$this->add_control(
+			'eael_interactive_card_video_source',
+			[
+				'label' => esc_html__( 'Video Source', 'essential-addons-elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'youtube',
+				'separator' => 'before',
+				'options' => [
+					'youtube' => esc_html__( 'Youtube', 'essential-addons-elementor' ),
+					'vimeo'   => esc_html__( 'Vimeo', 'essential-addons-elementor' ),
+				],
+				'condition' => [
+					'eael_interactive_card_type' => 'video'
+				],
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->add_control(
 			'eael_interactive_card_youtube_video_url',
 			[
 				'label' => esc_html__('Youtube URL', 'essential-addons-elementor'),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
-				'default' => esc_html__('https://www.youtube.com/watch?v=3rV9imkbV7k', 'essential-addons-elementor'),
+				'default' => 'https://www.youtube.com/watch?v=3rV9imkbV7k',
 				'condition' => [
-					'eael_interactive_card_type' => 'video'
+					'eael_interactive_card_type' => 'video',
+					'eael_interactive_card_video_source' => 'youtube',
+				],
+				'ai' => [
+					'active' => false,
+				],
+			]
+
+		);
+
+		$this->add_control(
+			'eael_interactive_card_vimeo_video_url',
+			[
+				'label' => esc_html__('Vimeo URL', 'essential-addons-elementor'),
+				'type' => Controls_Manager::TEXT,
+				'default' => 'https://vimeo.com/235215203',
+				'condition' => [
+					'eael_interactive_card_type' => 'video',
+					'eael_interactive_card_video_source' => 'vimeo',
 				],
 				'ai' => [
 					'active' => false,
@@ -745,10 +783,6 @@ class Interactive_Card extends Widget_Base
 			[
 				'label' => esc_html__('Height', 'essential-addons-elementor'),
 				'type' => Controls_Manager::SLIDER,
-				'default' => [
-					'size' => 600,
-					'unit' => 'px',
-				],
 				'size_units' => ['px', 'vh', '%'],
 				'range' => [
 					'px' => [
@@ -767,6 +801,7 @@ class Interactive_Card extends Widget_Base
 				],
 				'selectors' => [
 					'{{WRAPPER}} .interactive-card' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .interactive-card.vimeo-content' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -2086,15 +2121,19 @@ class Interactive_Card extends Widget_Base
 		endif;
 
 		$this->add_render_attribute('eael-interactive-card', [
+			'id'	=> 'interactive-card-'.esc_attr($this->get_id()),
 			'class'	=> 'interactive-card',
 			'data-interactive-card-id'	=> esc_attr($this->get_id()),
 			'data-animation'			=> $settings['eael_interactive_card_content_animation'],
 			'data-animation-time'		=> $settings['eael_interactive_card_animation_reveal_time']
 		]);
 
+		if( 'vimeo' === $settings['eael_interactive_card_video_source'] ){
+			$this->add_render_attribute('eael-interactive-card', 'class', 'eael-vimeo-content');
+		}
 ?>
 
-		<div id="interactive-card-<?php echo esc_attr($this->get_id()); ?>" <?php echo 	$this->get_render_attribute_string('eael-interactive-card'); ?>>
+		<div <?php echo $this->get_render_attribute_string('eael-interactive-card'); ?>>
 			<?php if ('text-card' === $settings['eael_interactive_card_style']) : ?>
 				<div class="front-content front-text-content">
 					<div class="image-screen">
@@ -2225,12 +2264,34 @@ class Interactive_Card extends Widget_Base
 					</div>
 				<?php
 				elseif ('video' === $settings['eael_interactive_card_type']) :
+
+					if ( 'youtube' === $settings['eael_interactive_card_video_source'] ){
+						$iframeSrc = str_replace('watch?v=', 'embed/', $settings['eael_interactive_card_youtube_video_url']);
+						echo '<iframe src="' . esc_url( $iframeSrc ) . '" '. esc_attr( $full_screen ) .'></iframe>';
+					}
+					elseif ('vimeo'=== $settings['eael_interactive_card_video_source']){
+						$vimeo_url = esc_url( $settings['eael_interactive_card_vimeo_video_url'] );
+						$video_id = $this->get_vimeo_video_id( $vimeo_url );
+						if ( $video_id ) {
+							$iframeSrc = "https://player.vimeo.com/video/{$video_id}";
+							echo '<iframe class="eael-ic-vimeo-iframe" src="' . esc_url( $iframeSrc ) . '" frameborder="0" '. esc_attr( $full_screen ) .'></iframe>';
+						}
+					}
+					
+				endif; 
 				?>
-					<iframe src="<?php echo esc_url(str_replace('watch?v=', 'embed/', $settings['eael_interactive_card_youtube_video_url'])); ?>" <?php echo $full_screen; ?>></iframe>
-				<?php endif; ?>
 			</div>
 		</div>
-<?php
+	<?php
+	}
+
+	private function get_vimeo_video_id( $vimeoUrl ) {
+		preg_match('/\/(\w+)$/', $vimeoUrl, $matches);
+		if (isset($matches[1])) {
+			return $matches[1]; // Return the video ID
+		} else {
+			return null; // Return null if no match is found
+		}
 	}
 
 	protected function content_template()

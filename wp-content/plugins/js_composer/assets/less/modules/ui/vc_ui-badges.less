@@ -1,0 +1,23 @@
+[class*=vc_ui-badge--] i::after {
+  content: '';
+  display: block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+  right: -2px;
+}
+
+.vc_ui-badge {
+  &--success i:after {
+    background-color: #11C248;
+  }
+  &--warnings i:after {
+    background-color: #F4AF1D;
+  }
+  &--problems i:after {
+    background-color: #FC4242;
+  }
+}
+

@@ -194,7 +194,7 @@ function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
 				( $order_time_from === $time_from && $order_time_to === $time_to ) || // The same range.
 				( $order_time_from < $time_to && $order_time_to > $time_from ) // The two time ranges intersect.
 			) {
-				$count ++;
+				++$count;
 			}
 		}
 	}

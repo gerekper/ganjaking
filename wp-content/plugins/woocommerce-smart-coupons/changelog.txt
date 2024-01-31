@@ -1,5 +1,20 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2024.01.12 - version 8.13.0
+* Fix: Uncaught Error: Cannot use object of type stdClass as array
+* Fix: When store credit is fully covering the order total making the amount to be paid as 0 (zero), on trying to place such order, it's always giving the error 'No payment method provided' [WC Blocks]
+* Tweak: Handle display of coupon field 'Auto apply?' using JavaScript ES6 instead of jQuery
+* Developer: New filter 'wc_sc_force_validate_allowed_emails' to control the behavior of validation of allowed emails
+* Update: Add appropriate message when coupon is removed after email validation
+* Update: 'Action Scheduler' updated to version 3.7.0
+* Update: POT, PO & MO file
+
+2024.01.02 - version 8.12.0
+* Fix: Auto-apply coupon not working correctly with Payment method restriction
+* Add: New filter hook 'wc_sc_allow_custom_refund_amount' to allow custom refund amount from order edit admin page
+* Tweak: Improvement to early return from method 'smart_coupon_get_discount'
+* Update: POT, PO & MO file
+
 2023.12.08 - version 8.11.0
 * New: WordPress 6.4.2 compatible
 * Fix: Coupon applied via Coupon Shareable link was not reflecting in Side Cart [WooCommerce Side Cart Premium by XootiX]

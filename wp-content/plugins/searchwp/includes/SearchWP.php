@@ -8,6 +8,7 @@
 
 use SearchWP\Utils;
 use SearchWP\Index\Controller as Index;
+use SearchWP\Admin\Extensions\ExcludeUIPreview;
 
 /**
  * Class SearchWP initializes core components.
@@ -266,6 +267,11 @@ class SearchWP {
 			wp_schedule_event( time(), 'daily', SEARCHWP_PREFIX . 'maintenance' );
 		}
 
+		// Load the Exclude UI Preview.
+		if ( ! is_plugin_active( 'searchwp-exclude-ui/searchwp-exclude-ui.php' ) ) {
+			new ExcludeUIPreview();
+		}
+
 		do_action( 'searchwp\loaded' );
 	}
 
@@ -333,6 +339,10 @@ class SearchWP {
 			new \SearchWP\Admin\OptionsView();
 
 			new \SearchWP\Admin\DashboardWidgets\StatisticsDashboardWidget();
+
+			if ( apply_filters( 'searchwp\deprecated_integration_notices', true ) ) {
+				add_action( 'admin_init', [ $this, 'check_for_deprecated_integrations' ] );
+			}
 
 			if ( apply_filters( 'searchwp\missing_integration_notices', true ) ) {
 				add_action( 'admin_init', [ $this, 'check_for_missing_integrations' ] );
@@ -500,6 +510,27 @@ class SearchWP {
 				&& ! is_plugin_active( $integration_extension['integration']['file'] )
 			) {
 				new \SearchWP\Admin\AdminNotices\MissingIntegrationAdminNotice( $slug, $integration_extension );
+			}
+		}
+	}
+
+	/**
+	 * Checks if any deprecated SearchWP Extensions is active and outputs an Admin Notice when one is found.
+	 *
+	 * @since 4.3.10
+	 */
+	public function check_for_deprecated_integrations() {
+
+		// These are the deprecated integration Extensions.
+		$integration_extensions = [
+			'searchwp-term-priority' => [
+				'file' => 'searchwp-term-priority/searchwp-term-priority.php',
+			],
+		];
+
+		foreach ( $integration_extensions as $slug => $integration_extension ) {
+			if ( is_plugin_active( $integration_extension['file'] ) ) {
+				new \SearchWP\Admin\AdminNotices\DeprecatedIntegrationAdminNotice( $slug );
 			}
 		}
 	}

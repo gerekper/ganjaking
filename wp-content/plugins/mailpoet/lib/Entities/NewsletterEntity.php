@@ -25,17 +25,19 @@ use MailPoetVendor\Symfony\Component\Validator\Constraints as Assert;
  */
 class NewsletterEntity {
   // types
-  const TYPE_AUTOMATIC = 'automatic';
   const TYPE_AUTOMATION = 'automation';
+  const TYPE_AUTOMATION_NOTIFICATION = 'automation_notification';
   const TYPE_AUTOMATION_TRANSACTIONAL = 'automation_transactional';
   const TYPE_STANDARD = 'standard';
-  const TYPE_WELCOME = 'welcome';
   const TYPE_NOTIFICATION = 'notification';
-  const TYPE_AUTOMATION_NOTIFICATION = 'automation_notification';
   const TYPE_NOTIFICATION_HISTORY = 'notification_history';
-  const TYPE_WC_TRANSACTIONAL_EMAIL = 'wc_transactional';
   const TYPE_RE_ENGAGEMENT = 're_engagement';
+  const TYPE_WC_TRANSACTIONAL_EMAIL = 'wc_transactional';
   const TYPE_CONFIRMATION_EMAIL_CUSTOMIZER = 'confirmation_email';
+
+  // legacy types, replaced by automations
+  const TYPE_AUTOMATIC = 'automatic';
+  const TYPE_WELCOME = 'welcome';
 
   // standard newsletters
   const STATUS_DRAFT = 'draft';
@@ -50,6 +52,16 @@ class NewsletterEntity {
    */
   const TYPES_WITH_RESETTABLE_BODY = [
     NewsletterEntity::TYPE_STANDARD,
+  ];
+
+  /**
+   * Newsletters that have additional restrictions for activation and sending
+   */
+  const CAMPAIGN_TYPES = [
+    NewsletterEntity::TYPE_STANDARD,
+    NewsletterEntity::TYPE_NOTIFICATION,
+    NewsletterEntity::TYPE_NOTIFICATION_HISTORY,
+    NewsletterEntity::TYPE_RE_ENGAGEMENT,
   ];
 
   // automatic newsletters status
@@ -117,12 +129,6 @@ class NewsletterEntity {
   private $preheader = '';
 
   /**
-   * @ORM\Column(type="integer", nullable=true)
-   * @var int|null
-   */
-  private $wpPostId;
-
-  /**
    * @ORM\Column(type="json", nullable=true)
    * @var array|null
    */
@@ -175,6 +181,13 @@ class NewsletterEntity {
    * @var ArrayCollection<int, SendingQueueEntity>
    */
   private $queues;
+
+  /**
+   * @ORM\OneToOne(targetEntity="MailPoet\Entities\WpPostEntity")
+   * @ORM\JoinColumn(name="wp_post_id", referencedColumnName="ID", nullable=true)
+   * @var WpPostEntity|null
+   */
+  private $wpPost;
 
   public function __construct() {
     $this->children = new ArrayCollection();
@@ -279,14 +292,6 @@ class NewsletterEntity {
    */
   public function getStatus() {
     return $this->status;
-  }
-
-  public function getWpPostId(): ?int {
-    return $this->wpPostId;
-  }
-
-  public function setWpPostId(?int $wpPostId): void {
-    $this->wpPostId = $wpPostId;
   }
 
   /**
@@ -576,15 +581,34 @@ class NewsletterEntity {
     return in_array($this->getType(), [self::TYPE_NOTIFICATION_HISTORY, self::TYPE_STANDARD], true);
   }
 
-  /**
-   * We don't use typehint for now because doctrine cache generator would fail as it doesn't know the class.
-   * @return \WP_Post|null
-   */
-  public function getWpPost() {
-    if ($this->wpPostId === null) {
+  public function getWpPost(): ?WpPostEntity {
+    $this->safelyLoadToOneAssociation('wpPost');
+    return $this->wpPost;
+  }
+
+  public function setWpPost(?WpPostEntity $wpPostEntity): void {
+    $this->wpPost = $wpPostEntity;
+  }
+
+  public function getWpPostId(): ?int {
+    $wpPost = $this->wpPost;
+    return $wpPost ? $wpPost->getId() : null;
+  }
+
+  public function getCampaignName(): ?string {
+    $wpPost = $this->getWpPost();
+    if (!$wpPost) {
       return null;
     }
-    $post = \WP_Post::get_instance($this->wpPostId);
-    return $post ?: null;
+    return $wpPost->getPostTitle();
+  }
+
+  /**
+   * Used for cases when we present newsletter by name.
+   * Newsletters created via legacy editor have only subjects.
+   */
+  public function getCampaignNameOrSubject(): string {
+    $campaignName = $this->getCampaignName();
+    return $campaignName ?: $this->getSubject();
   }
 }

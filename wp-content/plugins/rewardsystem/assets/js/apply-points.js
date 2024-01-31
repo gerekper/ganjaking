@@ -10,6 +10,7 @@ jQuery( function ( $ ) {
 			// Redeem Point Value
 			$(document).on('click', '.srp-redeem-point-btn', this.redeem_point );
 			$(document).on('click', '.save_order', this.validate_reward_gateway_points );
+			$(document).on('click', '.save_order', this.validate_point_price_product );
 		} , redeem_point_popup_button : function ( e ) {
 			e.preventDefault() ;
 			let $this = $(e.currentTarget),
@@ -88,7 +89,35 @@ jQuery( function ( $ ) {
 				}
 				SRP_Apply_Points.unblock(wrapper);
 			});
-		} , block : function ( id ) {
+		}  , validate_point_price_product : function ( e ) {
+			let gateway_id = $('#_payment_method').val(),
+				user_id = $('#customer_user').val();
+
+			if( 'reward_gateway' == gateway_id ){
+				return;
+			}
+
+			e.preventDefault() ;
+			let wrapper = $('.wc-order-bulk-actions');
+			SRP_Apply_Points.block(wrapper);
+
+			let data = ({
+				action: 'validate_point_price_product',
+				order_id: $('#post_ID').val(),
+				payment_method: gateway_id,
+				user_id: user_id,
+				sumo_security: srp_redeem_points_params.redeem_points_nonce,
+			});
+
+			$.post(srp_redeem_points_params.ajax_url, data, function (res) {
+				if (true === res.success) {
+					$('.save_order').closest('form').submit();
+				} else {
+					alert(res.data.error);
+				}
+				SRP_Apply_Points.unblock(wrapper);
+			});
+		}, block : function ( id ) {
 			if ( ! SRP_Apply_Points.is_blocked( id ) ) {
 				$( id ).addClass( 'processing' ).block( {
 					message : null ,

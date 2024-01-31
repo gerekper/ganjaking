@@ -50,11 +50,9 @@
 						$extra_info[] = 'Fee tax status: ' . ( $time_frame->get_fee_tax_status() ? $time_frame->get_fee_tax_status() : 'none' );
 					}
 				}
-			} else {
-				if ( $fee_amount ) {
+			} elseif ( $fee_amount ) {
 					$extra_info[] = 'Fee tax amount: ' . $fee_amount;
 					$extra_info[] = 'Fee tax status: ' . ( $delivery_day->get_fee_tax_status() ? $delivery_day->get_fee_tax_status() : 'none' );
-				}
 			}
 
 			echo '<tr>';

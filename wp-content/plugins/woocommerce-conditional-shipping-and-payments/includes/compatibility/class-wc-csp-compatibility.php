@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Compatibility class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.4.0
  */
 
@@ -214,8 +214,8 @@ class WC_CSP_Compatibility {
 			$required_version = self::$required[ 'blocks' ];
 			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), self::$required[ 'blocks' ] ) < 0 ) {
 
-				$plugin      = __( 'WooCommerce Blocks', 'woocommerce-conditional-shipping-and-payments' );
-				$plugin_url  = 'https://woocommerce.com/products/woocommerce-gutenberg-products-block/';
+				$plugin      = __( 'Woo Blocks', 'woocommerce-conditional-shipping-and-payments' );
+				$plugin_url  = 'https://woo.com/products/woocommerce-gutenberg-products-block/';
 				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
 				$notice      = sprintf( __( 'The installed version of <strong>%1$s</strong> does not support <strong>Conditional Shipping and Payments</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-conditional-shipping-and-payments' ), $plugin, $plugin_url, $plugin, $required_version );
 
@@ -230,8 +230,8 @@ class WC_CSP_Compatibility {
 			if ( version_compare( WC_GC()->get_plugin_version( true ), $required_version ) < 0 ) {
 
 				$extension      = __( 'Gift Cards', 'woocommerce-conditional-shipping-and-payments' );
-				$extension_full = __( 'WooCommerce Gift Cards', 'woocommerce-conditional-shipping-and-payments' );
-				$extension_url  = 'https://woocommerce.com/products/gift-cards/';
+				$extension_full = __( 'Woo Gift Cards', 'woocommerce-conditional-shipping-and-payments' );
+				$extension_url  = 'https://woo.com/products/gift-cards/';
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Conditional Shipping and Payments</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-conditional-shipping-and-payments' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_CSP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'gc_lt_' . $required_version, 'type' => 'warning' ) );

@@ -3,13 +3,13 @@
  * EVO_generator class.
  *
  * @class 		EVO_generator
- * @version		4.5.2
+ * @version		4.5.8
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
  */
 
-class EVO_generator {
+class EVO_generator extends EVO_Cal_Time{
 
 	public $google_maps_load,
 		$is_eventcard_open,
@@ -35,15 +35,15 @@ class EVO_generator {
 	private $__apply_scheme_SEO = false;
 	private $_featured_events = array();
 
-	private $class_args = array();
+	private $class_args = array(); 
+	public $tax_meta = array();
 	public $is_user_logged_in = false;
 
-	public $tax_meta = array();
-
 	// time date values
-		public $GMT, $DD, $timezone, $timezone0, $current_time, $time_format, $date_format, $is_utcoff, $utc_time, $current_time0;
+		public $GMT, $DD, $timezone, $timezone0, $current_time, $time_format, $date_format, $is_utcoff, $utc_time, $current_time0, $cal_tz_string,  $cal_utc_offset, $cal_tz, $cal_tz_gmt;
 		private $utc_DD;
-		public $filtering, $shell, $body, $helper, $EVENT;
+	
+	public $filtering, $shell, $body, $helper, $EVENT, $cal_range_data, $help;
 
 	public $__calendar_type;
 	public $events_list = array();
@@ -66,7 +66,7 @@ class EVO_generator {
 			require_once('class-calendar-event-structure.php');
 
 			$this->__calendar_type = 'default';
-
+			$this->help = new evo_helper();
 
 			/** set class wide variables **/
 			$this->evopt1 = EVO()->cal->get_op('evcal_1');
@@ -88,6 +88,12 @@ class EVO_generator {
 			$this->date_format = get_option('date_format');
 
 			$this->is_utcoff = EVO()->cal->is_utcoff();
+
+			// get calendar utc offset @4.5.6
+				$this->cal_tz_string = EVO()->cal->get_prop('evo_global_tzo','evcal_1') ? : 'UTC';				
+				$this->cal_tz_gmt = $this->help->get_timezone_gmt( $this->cal_tz_string );			
+				$this->cal_utc_offset = $this->help->_get_tz_offset_seconds( $this->cal_tz_string );
+				$this->cal_tz = new DateTimeZone( $this->cal_tz_string );
 
 			$tzstring = get_option( 'timezone_string' );
     		
@@ -128,9 +134,9 @@ class EVO_generator {
 		}
 
 	// globals 
-		// return current time on UTC0 or on server based on settings
+		// return current unix time
 		function get_current_time(){
-			return $this->is_utcoff ? $this->utc_time: $this->current_time;
+			return $this->current_time;
 		}
 	
 	// WP OPTIONS for Calendar // @+2.8
@@ -204,12 +210,10 @@ class EVO_generator {
 				// Set hide past value for shortcode hide past event variation
 					$this->_sc_hide_past = (!empty($args['hide_past']) && $args['hide_past']=='yes')? true:false;
 
-				// Evo language @+2.6.10
-					evo_set_global_lang($args['lang']);
-
-				// process WPML @u 4.5			
-					if( has_filter( 'wpml_current_language ')){
+				// process WPML @u 4.5,5	
+					if( has_filter( 'wpml_current_language ') || defined('ICL_LANGUAGE_CODE')){
 						$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+						if( defined('ICL_LANGUAGE_CODE')) $my_current_lang = ICL_LANGUAGE_CODE; // backward compatibility
 
 						if( !empty($my_current_lang)){
 							$lang_count = apply_filters('eventon_lang_var_count', 3); // @version 2.2.24
@@ -220,6 +224,9 @@ class EVO_generator {
 							}
 						}						
 					}
+
+				// Evo language @+2.6.10
+					evo_set_global_lang($args['lang']);
 
 			// hide_past => event_past_future filter - v2.8
 				if(isset($args['event_past_future']) && $args['event_past_future']=='future'){
@@ -311,8 +318,7 @@ class EVO_generator {
 		function _get_initial_calendar($atts=array(), $header_args='' ){
 			
 			// PROCESS SC
-			$A = $this->process_arguments( $atts);	
-			
+			$A = $this->process_arguments( $atts);				
 
 			if(!EVO()->frontend->is_member_only($A)) return EVO()->frontend->nonMemberCalendar();
 
@@ -324,10 +330,11 @@ class EVO_generator {
 			
 			// Before date range set
 			do_action('evo_ajax_cal_before_rangeset', $atts);
-			
+
 
 			// SET default range for one month // again
 			$this->shell->set_calendar_range($atts);
+
 
 			// before calendar process / after date range set
 			do_action('evo_ajax_cal_before', $atts);	
@@ -335,7 +342,6 @@ class EVO_generator {
 
 			// PROCESS & extract the variable values
 			$A = $this->shortcode_args;	extract($A);
-
 
 			$O = '';
 
@@ -397,7 +403,7 @@ class EVO_generator {
 
 			// Start Date range 
 				$DD = new DateTime();
-				$DD->setTimezone( $this->timezone0 );
+				$DD->setTimezone( $this->cal_tz );
 				$DD->setTimestamp( (int)$focus_start_date_range);
 
 				$new_events_data = array();
@@ -461,8 +467,6 @@ class EVO_generator {
 							}
 						}
 
-
-
 						// hide empty month filter
 						if( $hide_empty_months == 'yes' && $_EC == 0) continue;
 
@@ -484,7 +488,6 @@ class EVO_generator {
 					if( ($sep_month == 'no' && empty($content) ) || empty($content) ){
 						$content .= "<div class='eventon_list_event no_events'>".$this->helper->get_no_event_content() ."</div>";
 					}
-
 				}
 
 				
@@ -492,6 +495,7 @@ class EVO_generator {
 				$event_list_array = $this->filtering->apply_filters_to_event_list($event_list_array,'event_count');
 
 				if($output != 'data' ){
+
 					
 					$new_events_data = $event_list_array;
 
@@ -551,9 +555,6 @@ class EVO_generator {
 
 				if(isset($atts['hide_month_headers']) && $atts['hide_month_headers'] =='yes') 
 					$atts['sep_month'] = 'no';
-
-				
-
 
 			// PROCESS SC
 			$SC = $this->process_arguments( $atts);	
@@ -636,12 +637,18 @@ class EVO_generator {
 							$wp_arguments_ = array_merge($wp_arguments_, array('s'=>$ecv['s']));
 						}
 
-					// sort query 
-					if( isset($ecv['sort_by']) && $ecv['sort_by'] == 'sort_posted'){
-						$wp_arguments_['orderby'] = 'date';
-
+					// event order ASC or DESC
 						if(isset($ecv['event_order'])) $wp_arguments_['order'] = $ecv['event_order'];
-					}
+
+					// sort query 
+						if( isset($ecv['sort_by'])){
+							switch ($ecv['sort_by']) {
+								case 'sort_posted':
+									$wp_arguments_['orderby'] = 'date';
+								case 'sort_menu_order':
+									$wp_arguments_['orderby'] = 'menu_order';								
+							}
+						}
 
 					$meta_query = array();
 
@@ -709,6 +716,11 @@ class EVO_generator {
 								$wp_arguments_['date_query'] = array(
 							        array('year'  => $getdate["year"]),
 							    );
+							}
+							if( $que == '12months'){
+								$wp_arguments_['date_query'] = array(
+									array( 'column' => 'post_date_gmt', 'after'  => '12 months ago')
+								);
 							}
 							if( $que == '6months'){
 								$wp_arguments_['date_query'] = array(
@@ -781,7 +793,7 @@ class EVO_generator {
 				$SC = $this->shortcode_args;
 				extract($SC);
 
-				$event_list_array= $featured_events = array();
+				$event_list_array = $featured_events = array();
 
 				$wp_arguments= (!empty($wp_arguments))?$wp_arguments: $this->wp_arguments;			
 				
@@ -790,56 +802,29 @@ class EVO_generator {
 
 				if ( $events->have_posts() ) :
 
-					// based on UTC determin current time
-					$current_time = $this->get_current_time();
+					$D = new DateTime('now');
+					$D->setTimezone( $this->cal_tz);
+				
+					if( !empty($focus_start_date_range)) $D->setTimestamp( $focus_start_date_range );
 
-					//shortcode driven hide_past value OR hide past events value set via settings
-						
-						$_settings_hide_past = evo_settings_check_yn($this->evopt1 ,'evcal_cal_hide_past');
+					$start_unix = $D->format('U');
 
-					// override past event cut-off
-						if(!empty($SC['pec'])){
-
-							// current date
-							if( $SC['pec']=='cd'){								
-								$current_time = strtotime( date("m/j/Y", $current_time) );
-							}
-
-						}else{
-							// Define option values for the front-end
-							$cur_time_basis = (!empty($this->evopt1['evcal_past_ev']) )? $this->evopt1['evcal_past_ev'] : null;
-
-							if($_settings_hide_past && $cur_time_basis=='today_date'){
-								// this is based on local time
-								$current_time = strtotime( date("m/j/Y", $current_time) );
-							}
-						}
-
-						//echo $this->utc_time;
-						
-						$this->current_time = $current_time;
-
-						
-
-					// current year month
-						$range_start = !empty($focus_start_date_range)? $focus_start_date_range: $this->current_time;
-						$__current_year = date('Y', (int)$range_start);
-						$__current_month = date('n', (int)$range_start);
-
+					// start range values
 						$this->cal_range_data = array(
-							'start'=> $focus_start_date_range, 
-							'end'=> $focus_end_date_range,
-							'start_year'=> date('Y', (!empty($focus_start_date_range)? $focus_start_date_range: $this->current_time)),
-							'start_month'=> date('n', (!empty($focus_start_date_range)? $focus_start_date_range: $this->current_time)),
-							'end_year'=> date('Y', (!empty($focus_end_date_range)? $focus_end_date_range: $this->current_time)),
-							'end_month'=> date('n', (!empty($focus_end_date_range)? $focus_end_date_range: $this->current_time)),
+							'start'=> $D->format('U'), 
+							'start_year'=> $D->format('Y'),
+							'start_month'=> $D->format('n')
 						);
+
+					// end range
+						if( !empty($focus_end_date_range)) $D->setTimestamp( $focus_end_date_range );
+						$this->cal_range_data['end'] = $D->format('U');
+						$this->cal_range_data['end_year'] = $D->format('Y');
+						$this->cal_range_data['end_month'] = $D->format('n');
+										
 					
 					$event_list_array = $this->wp_query_event_cycle_filter( $events);
 					
-					// set featured events list aside
-					$this->_featured_events = $featured_events;
-
 
 				endif;
 				wp_reset_postdata();
@@ -848,24 +833,22 @@ class EVO_generator {
 				return $event_list_array;
 			}
 
+			// cycle through events list for corrct events to show @4.5.5
 			public function wp_query_event_cycle_filter( $events){
 
 				$SC = $this->shortcode_args;
 				extract($SC);
 
 				$event_list_array= $featured_events = array();
-				$current_time = '';
-				$current_time = $this->current_time;
-
 				
-
-				$sc_hide_past = $hide_past == 'yes'? true:false;
-				$cal_hide_past = $evcal_cal_hide_past = ($sc_hide_past)? 'yes':
-					( (!empty($this->evopt1['evcal_cal_hide_past']))? $this->evopt1['evcal_cal_hide_past']: 'no');
+				// hide past validation
+					$_hide_past = ( $event_past_future == 'future' ) ? true : false;
+					$_cal_visible_range = $this->helper->get_cal_visible_range_start();
 
 				$range_data = $this->cal_range_data;
 				
 				$count = 0;
+
 
 				// each event
 				while( $events->have_posts()): $events->the_post();
@@ -873,14 +856,13 @@ class EVO_generator {
 					$count ++;
 
 					// disregard any non event posts called within wp_query
-					if(apply_filters('evo_wp_query_post_type_if', true, $SC) == true && $events->post->post_type != 'ajde_events') continue;
+						if(apply_filters('evo_wp_query_post_type_if', true, $SC) == true && $events->post->post_type != 'ajde_events') continue;
 
 					$EVENT = new EVO_Event( $events->post->ID ,'','',true, $events->post);
 					$ev_vals = $EVENT->get_data();
 
 					// if event set to exclude from calendars
-					if( $EVENT->check_yn('evo_exclude_ev')) continue;
-											
+						if( $EVENT->check_yn('evo_exclude_ev')) continue;										
 
 					// Show event only for logged in user filtering
 						if( $EVENT->check_yn('_onlyloggedin') && !$this->is_user_logged_in ) continue;
@@ -891,10 +873,11 @@ class EVO_generator {
 
 						$evcal_event_color_n= $EVENT->get_prop_val('evcal_event_color_n',0);
 						$_is_featured = $EVENT->is_featured();
-
+					
 
 					// REPEATING EVENTS
 					if($EVENT->is_repeating_event()){
+						//continue;
 
 						// get saved repeat intervals for repeating events
 						$repeat_intervals = $EVENT->get_repeats();
@@ -922,17 +905,18 @@ class EVO_generator {
 								$event_year = date('Y', $E_start_unix);
 								$event_month = date('n', $E_start_unix);
 
-								$_is_event_current = $EVENT->is_current_event( 
-									($hide_past_by=='ee'?'end':'start'), $current_time );
-								$_is_event_inrange = $EVENT->is_event_in_date_range( $range_data['start'],$range_data['end'] );
 
+								// using UTC0 time
+								$_is_event_current = $EVENT->is_current_event( ($hide_past_by=='ee'?'end':'start') );								
+								$_is_event_inrange = $EVENT->is_event_in_date_range( $range_data['start'],$range_data['end'] ,$E_start_unix,$E_end_unix, true );
+
+								$_is_in_visible_range = $EVENT->is_in_visible_range( $_cal_visible_range );
 								
 								
 								// hide past event set - past events set to hide
-									if($cal_hide_past =='yes' && !$_is_event_current) continue;
-
+									if( !$_is_in_visible_range ) continue;
+									if($_hide_past && !$_is_event_current) continue;
 									if(!$_is_event_inrange ) continue;
-
 
 									if(in_array( $EVENT->ID, $this->events_processed)){
 										if($hide_mult_occur=='yes' && $show_repeats=='no') continue;
@@ -946,16 +930,18 @@ class EVO_generator {
 								$event_list_array[] = $this->_convert_to_readable_eventdata(array(
 									'ID'=> $EVENT->ID,
 									'event_id' => $EVENT->ID,
-									'event_start_unix'=> (int)$E_start_unix,
-									'event_start_unix_utc'=> (int)$E_start_unix + $EVENT->utcoff,
-									'event_end_unix'=> (int)$E_end_unix,
+									'event_start_unix'=> (int)$E_start_unix,									
+									'event_end_unix'=> (int)$E_end_unix,									
 									'event_title'=>	$EVENT->get_title(),
 									'event_color'=>$evcal_event_color_n,
 									'event_type'=>$term_ar,
 									'event_past'=> ($_is_event_current? 'no':'yes' ),
-									'event_pmv'=>$ev_vals,
 									'event_repeat_interval'=>$index,
 									'ri'=>$index,
+									'unix_start'=> $EVENT->start_unix,
+									'unix_end'=> $EVENT->end_unix,
+									'etx_type' => $EVENT->get_time_ext_type(),
+									'event_pmv'=>$ev_vals,
 								), $EVENT);
 
 								if($EVENT->is_featured() )	$featured_events[] = $EVENT->ID;
@@ -974,17 +960,19 @@ class EVO_generator {
 							$event_year = date('Y', $row_start );
 							$event_month = date('n', $row_start );
 						
-						$_is_event_current = $EVENT->is_current_event( 
-							($hide_past_by=='ee'?'end':'start'), $current_time );
-						$_is_event_inrange = $EVENT->is_event_in_date_range( $range_data['start'],$range_data['end'] );
+						// using UTC0 time
+						$_is_event_current = $EVENT->is_current_event( ($hide_past_by=='ee'?'end':'start'));
 
-						//echo $EVENT->ID. ($EVENT->is_utcoff ? 'ff':'dd') .' ';
-						
-						//print_r( $EVENT->meta_data );
-						//print_r($range_data);
-										
+						$_is_event_inrange = $EVENT->is_event_in_date_range( 
+							$range_data['start'],$range_data['end'],'','', true );
+
+						$_is_in_visible_range = $EVENT->is_in_visible_range( $_cal_visible_range );
+
+
 						// past event and range check
-							if($cal_hide_past=='yes' && !$_is_event_current) continue;
+							if( !$_is_in_visible_range ) continue;
+
+							if( $_hide_past && !$_is_event_current) continue;
 							if(!$_is_event_inrange ) continue;
 
 						// hide multiple occurance check
@@ -993,32 +981,33 @@ class EVO_generator {
 							$event_list_array[] = $this->_convert_to_readable_eventdata( array(
 								'ID'=> $EVENT->ID,
 								'event_id' => $EVENT->ID,
-								'event_start_unix'=> (int)$row_start,
-								'event_start_unix_utc'=> (int)$row_start + (int)$EVENT->utcoff,
+								'event_start_unix'=> (int)$row_start,								
 								'event_end_unix'=> (int)$row_end,
 								'event_title'=> get_the_title(),
 								'event_color'=> $evcal_event_color_n,
 								'event_type'=>'nr',
-								'event_past'=> ($_is_event_current? 'no':'yes' ),
-								'event_pmv'=>$ev_vals,
+								'event_past'=> ($_is_event_current? 'no':'yes' ),								
 								'event_repeat_interval'=>'0',
-								'ri'=>'0'
+								'ri'=>'0',
+								'unix_start'=> $EVENT->start_unix,
+								'unix_end'=> $EVENT->end_unix,
+								'etx_type' => $EVENT->get_time_ext_type(),
+								'event_pmv'=>$ev_vals,
 							), $EVENT);
 
 
 							if($EVENT->is_featured()) $featured_events[]= $EVENT->ID;
 							$this->events_processed[]= $EVENT->ID;
-
-					}
-					
+					}					
 					
 				endwhile;
 
 				$this->_featured_events = $featured_events;
 
 				return $event_list_array;
-
 			}
+
+			
 
 	/**	output single event data	 */
 		public function get_single_event_data($event_id, $lang='', $repeat_interval='', $args=array()){
@@ -1069,8 +1058,8 @@ class EVO_generator {
 		}
 
 	// RETURN event times
-	// 2.5.6
-		private function generate_time($args= array()){
+	// 2.5.6 u4.5.7
+		public function generate_time($args= array()){
 
 			$output = array('start'=>'', 'end'=>'');
 
@@ -1108,374 +1097,7 @@ class EVO_generator {
 
 			return $output;
 		}
-
-	// GENERATE TIME for event
-		public function generate_time_(
-			$DATE_start_val,
-			$DATE_end_val,
-			$pmv,
-			$evcal_lang_allday,
-			$focus_month_beg_range='',
-			$FOCUS_month_int='',
-			$event_start_unix='',
-			$event_end_unix='',
-			$cal_hide_end_time = false,
-			$EVENT = false
-		){
-			
-			$data_array = array(
-				'start'=> array(
-					'year'=>'','month'=>'','date'=>''
-				), 
-				'end'=> array(
-					'year'=>'','month'=>'','date'=>''
-				)
-			);
-			$_event_date_HTML = array();
-
-			EVO()->cal->set_cur('evcal_1');
-
-			// INITIAL variables
-
-				$SC = $this->shortcode_args;
-				$RTL = (isset($SC['_cal_evo_rtl']) && $SC['_cal_evo_rtl'] == 'yes')? true: false;
-
-				// start and end row times
-					if(empty($event_start_unix)) $event_start_unix = $EVENT->start_unix;
-					$event_end_unix = $event_start_unix + $EVENT->duration;
-
-				//echo $event_start_unix.' '.$event_end_unix;
-
-				$_is_allday = $EVENT->is_all_day();
-				$_hide_endtime = $EVENT->is_hide_endtime();
-					if( $cal_hide_end_time) $_hide_endtime = true; // override by calendar values
-
-				$DATE_start_val= (!empty($DATE_start_val))? $DATE_start_val: 
-					eventon_get_formatted_time($event_start_unix);
-				if( !empty( $DATE_end_val ) ) $DATE_end_val = eventon_get_formatted_time($event_end_unix);
-
-				
-
-				//if virtual event end time set > override visible end time
-				if( $EVENT->vir_duration && !$EVENT->is_repeating_event() ){
-					$event_end_unix = $event_start_unix + $EVENT->vir_duration;
-					$DATE_end_val = eventon_get_formatted_time( $event_end_unix );
-				}
-
-				// FOCUSED values
-				$CURRENT_month_INT = (!empty($FOCUS_month_int))?
-					$FOCUS_month_int: (!empty($focus_month_beg_range)?
-						date('n', $focus_month_beg_range ): date('n')); //
-				$_current_date = (!empty($focus_month_beg_range))? date('j', $focus_month_beg_range ): 1;
-
-				// time format
-				$wp_time_format = get_option('time_format');
-				
-
-				// Universal time format
-				// if activated get time values
-				$__univ_time = false;
-				if( EVO()->cal->check_yn('evo_timeF') && EVO()->cal->get_prop('evo_timeF_v') ){
-
-					$custom_time_format = EVO()->cal->get_prop('evo_timeF_v');
-				
-					$__univ_time_s = eventon_get_langed_pretty_time($event_start_unix, $custom_time_format);
-
-					if( $_hide_endtime ){
-						$__univ_time = $__univ_time_s;
-					}else{
-						$__univ_time = $__univ_time_s .' - '. eventon_get_langed_pretty_time($event_end_unix, $custom_time_format);
-					}
-				}
-
-				$dateTime = new evo_datetime();	
-
-				$formatted_start = $dateTime->__get_lang_formatted_timestr($wp_time_format,$DATE_start_val);
-				$formatted_end = $dateTime->__get_lang_formatted_timestr($wp_time_format,$DATE_end_val);
-				
-
-			$date_args = array(
-				'cdate'=>$_current_date,
-				'eventstart'=>$DATE_start_val,
-				'eventend'=>$DATE_end_val,
-				'stime'=>$formatted_start,
-				'etime'=>$formatted_end,
-				'_hide_endtime'=>$_hide_endtime
-			);
-
-			// validate
-			if(!is_array($DATE_start_val) || !is_array($DATE_end_val)) return array();
-			
-
-			// CHECKS
-				$_start_end_same = false;
-
-			// same start and end months
-			if($DATE_start_val['n'] == $DATE_end_val['n']){
-
-				/** EVENT TYPE = start and end in SAME DAY **/
-				if($DATE_start_val['j'] == $DATE_end_val['j']){
-
-					// check all days event
-					if($_is_allday){
-						$__from_to ="<em class='evcal_alldayevent_text'>(".$evcal_lang_allday.": ".$DATE_start_val['l'].")</em>";
-						$__prettytime = $__univ_time? $__univ_time: $evcal_lang_allday.' ('. ucfirst($DATE_start_val['l']).')';
-						$__time = "<span class='start'>".$evcal_lang_allday."</span>";
-
-						$data_array['start'] = array(
-							'year'=>	$DATE_start_val['Y'],
-							'month'=>	$DATE_start_val['M'],
-							'date'=>	$DATE_start_val['d'],
-						);
-						$data_array['end'] = '';
-
-					}else{
-						$__from_to = ($_hide_endtime)?
-							$formatted_start:
-							$formatted_start.' - '. $formatted_end .'';
-
-						$__prettytime = ($__univ_time)? 
-							$__univ_time: 
-							apply_filters('eventon_evt_fe_ptime', '('. ucfirst($DATE_start_val['l']).') '.$__from_to);
-						$__time = "<span class='start'>".$formatted_start."</span>". (!$_hide_endtime ? "<span class='end'>- ".$formatted_end."</span>": null);
-
-						$data_array['start'] = array(
-							'year'=>	$DATE_start_val['Y'],
-							'month'=>	$DATE_start_val['M'],
-							'date'=>	$DATE_start_val['d'],
-						);
-					}
-
-					//print_r($__univ_time);
-
-
-					$_event_date_HTML = array(
-						'html_date'=> '<span class="start">'.$DATE_start_val['j'].'<em>'.$DATE_start_val['M'].'</em></span>',
-						'html_time'=>$__time,
-						'html_fromto'=> apply_filters('eventon_evt_fe_time', $__from_to, $DATE_start_val, $DATE_end_val),
-						'html_prettytime'=> $__prettytime,
-						'class_daylength'=>"sin_val",
-						'start_month'=>$DATE_start_val['M'],
-					);
-
-				}else{
-					// different start and end date
-
-					// check all days event
-					if($_is_allday){
-						$__from_to ="<em class='evcal_alldayevent_text'>(".$evcal_lang_allday.")</em>";
-						$__prettytime = $__univ_time? $__univ_time: ($DATE_start_val['F'].' '.$DATE_start_val['j'].' ('. ucfirst($DATE_start_val['l']) .') - '.$DATE_end_val['j'].' ('. ucfirst($DATE_end_val['l']).')' );
-						$__time = "<span class='start'>".$evcal_lang_allday."</span>";
-
-						$data_array['start'] = array(
-							'year'=>	$DATE_start_val['Y'],
-							'month'=>	$DATE_start_val['M'],
-							'date'=>	$DATE_start_val['d'],
-						);
-						$data_array['end'] = array(
-							'date'=>	$DATE_end_val['d'],
-						);
-					}else{
-
-						// if start date is before current date
-							$date_inclusion = ($DATE_start_val['j'] < $_current_date) ? ' ('.$DATE_start_val['j'].')':'';
-						$__from_to = ($_hide_endtime)?
-							$formatted_start:
-							$formatted_start. $date_inclusion.' - '.$formatted_end. ' <em class="evo_endday">('.$DATE_end_val['j'].')</em>';
-						
-						$__prettytime =($__univ_time)?
-							$__univ_time:
-							apply_filters('eventon_evt_fe_ptime', $DATE_start_val['j'].' ('. ucfirst($DATE_start_val['l']).') '.$formatted_start.  ( !$_hide_endtime? ' - '.$DATE_end_val['j'].' ('. ucfirst($DATE_end_val['l']).') '.$formatted_end :'') ) ;
-
-						$data_array['start'] = array(
-							'year'=>	$DATE_start_val['Y'],
-							'month'=>	$DATE_start_val['M'],
-							'date'=>	$DATE_start_val['d'],
-						);
-						$data_array['end'] = array(
-							'date'=>	$DATE_end_val['d'],
-						);
-
-					}
-
-					$__time = "<span class='start'>".$formatted_start."</span>". (!$_hide_endtime ? "<span class='end'>- ".$formatted_end."</span>": null);
-
-
-					$_event_date_HTML = array(
-						'html_date'=> '<span class="start">'.$DATE_start_val['j'].'<em>'.$DATE_start_val['M'].'</em></span>'. ( !$_hide_endtime? '<span class="end"> - '.$DATE_end_val['j'].'</span>': ''),
-						'html_time'=>$__time,
-						'html_fromto'=> apply_filters('eventon_evt_fe_time', $__from_to, $DATE_start_val, $DATE_end_val),
-						'html_prettytime'=> $__prettytime,
-						'class_daylength'=>"mul_val",
-						'start_month'=>$DATE_start_val['M']
-					);
-				}
-			}else{
-				/** EVENT TYPE = different start and end months **/
-
-				$__time = "<span class='start'>".$formatted_start."</span>". (!$_hide_endtime ? "<span class='end'>- ".$formatted_end."</span>": null);
-
-				/** EVENT TYPE = start month is before current month **/
-				if($CURRENT_month_INT != $DATE_start_val['n']){
-					// check all days event
-					if($_is_allday){
-						$__from_to ="<em class='evcal_alldayevent_text'>(".$evcal_lang_allday.")</em>";
-						$__time = "<span class='start'>".$evcal_lang_allday."</span>";
-					}else{
-						$__start_this = '('.$DATE_start_val['F'].' '.$DATE_start_val['j'].') '.$formatted_start;
-						$__end_this = (!$_hide_endtime? ' - ('.$DATE_end_val['F'].' '.$DATE_end_val['j'].') '.$formatted_end :'' );
-
-						$__from_to = (($_hide_endtime)?
-							$__start_this:$__start_this.$__end_this);
-					}
-
-				}else{
-					/** EVENT TYPE = start month is current month and end month is future month **/
-					// check all days event
-					if($_is_allday){
-						$__from_to ="<em class='evcal_alldayevent_text'>(".$evcal_lang_allday.")</em>";
-						$__time = "<span class='start'>".$evcal_lang_allday."</span>";
-					}else{
-						$date_inclusion = ($DATE_start_val['j'] < $_current_date) ? ' ('.$DATE_start_val['j'].')':'';
-						$__start_this = $formatted_start.$date_inclusion;
-						$__end_this = ' - ('.$DATE_end_val['F'].' '.$DATE_end_val['j'].') '.$formatted_end;
-
-						$__from_to =($_hide_endtime)? $__start_this:$__start_this.$__end_this;
-					}
-				}
-
-				$data_array['start'] = array(
-					'year'=>	$DATE_start_val['Y'],
-					'month'=>	$DATE_start_val['M'],
-					'date'=>	$DATE_start_val['d'],
-				);
-				$data_array['end'] = array(
-					'month'=>	$DATE_end_val['M'],
-					'date'=>	$DATE_end_val['d'],
-				);
-
-				// check all days event
-				if($_is_allday){
-					$__prettytime = ucfirst($DATE_start_val['F']) .' '.$DATE_start_val['j'].' ('. ucfirst($DATE_start_val['l']).')'. (!$_hide_endtime? ' - '. ucfirst($DATE_end_val['F']).' '.$DATE_end_val['j'].' ('. ucfirst($DATE_end_val['l']).')' :'' );
-				}else{
-					$__prettytime =
-						ucfirst($DATE_start_val['F']) .' '.$DATE_start_val['j'].' ('. ucfirst($DATE_start_val['l']).') '.date($wp_time_format,($event_start_unix)). ( !$_hide_endtime? ' - '. ucfirst($DATE_end_val['F']).' '.$DATE_end_val['j'].' ('.ucfirst($DATE_end_val['l']).') '.date($wp_time_format,($event_end_unix)) :'' );
-				}
-
-
-				// html date
-				$__this_html_date = ($_hide_endtime)?
-					'<span class="start">'.$DATE_start_val['j'].'<em>'.$DATE_start_val['M'].'</em></span>':
-					'<span class="start">'.$DATE_start_val['j'].'<em>'.$DATE_start_val['M'].'</em></span><span class="end"> - '.$DATE_end_val['j'].'<em>'.$DATE_end_val['M'].'</em></span>';
-
-				$_event_date_HTML = apply_filters('evo_eventcard_dif_SEM', array(
-					'html_date'=> $__this_html_date,
-					'html_time'=>$__time,
-					'html_fromto'=> apply_filters('eventon_evt_fe_time', $__from_to, $DATE_start_val, $DATE_end_val),
-					'html_prettytime'=> ($__univ_time)? $__univ_time: apply_filters('eventon_evt_fe_ptime', $__prettytime),
-					'class_daylength'=>"mul_val",
-					'start_month'=>$DATE_start_val['M'],
-				));
-			}
-
-			// start and end years are different
-				if($DATE_start_val['Y'] != $DATE_end_val['Y']){
-					$data_array['start']['year'] = $DATE_start_val['Y'];
-					if( is_array($data_array['end']) ){
-						$data_array['end']['year'] = $DATE_end_val['Y'];
-					}else{
-						$data_array['end'] = array('year' => $DATE_end_val['Y'] );
-					}
-				}
-
-			// Include day name
-				if( !empty($data_array['end']) && isset($DATE_end_val['D'])) $data_array['end']['day'] = $DATE_end_val['D'];
-				if( isset($DATE_start_val['D'])) $data_array['start']['day'] = $DATE_start_val['D'];
-			
-
-			// year long event
-				$__is_year_long = $EVENT->is_year_long();
-
-				//if year long event
-				if($__is_year_long){
-					$evcal_lang_yrrnd = $this->lang_array['evcal_lang_yrrnd'];
-					$_event_date_HTML = array(
-						'html_date'=> '<span class="yearRnd"></span>',
-						'html_time'=>'',
-						'html_fromto'=> $evcal_lang_yrrnd . ' ('. $DATE_start_val['Y'] .')',
-						'html_prettytime'=> $evcal_lang_yrrnd . ' ('. $DATE_start_val['Y'] .')',
-						'class_daylength'=>"no_val",
-						'start_month'=>$_event_date_HTML['start_month']
-					);
-					$data_array['start'] = array(
-						'year'=>	$DATE_start_val['Y'],
-						'month'=>	'',
-						'date'=>	'',
-					);
-					$data_array['end'] = array(
-						'year'=>	'',
-						'month'=>	'',
-						'date'=>	'',
-					);
-				}
-
-			// Month long event
-				$__is_month_long = $__is_year_long? false: $EVENT->is_month_long();
-
-				//if month long event
-				if($__is_month_long){
-					$evcal_lang_mntlng = $this->lang_array['evcal_lang_mntlng'];
-					$_event_date_HTML = array(
-						'html_date'=> '<span class="yearRnd"></span>',
-						'html_time'=>'',
-						'html_fromto'=> $evcal_lang_mntlng . ' ('. $DATE_start_val['F'] .')',
-						'html_prettytime'=> $evcal_lang_mntlng . ' ('. $DATE_start_val['F'] .')',
-						'class_daylength'=>"no_val",
-						'start_month'=>$_event_date_HTML['start_month']
-					);
-
-					$data_array['start'] = array(
-						'year'=>	$DATE_start_val['Y'],
-						'month'=>	$DATE_start_val['M'],
-						'date'=>	'',
-					);
-					$data_array['end'] = array(
-						'year'=>	'',
-						'month'=>	'',
-						'date'=>	'',
-					);
-				}
-
-			// all day event check
-				if($_is_allday){
-					$data_array['start']['time'] = $evcal_lang_allday;					
-				}else{
-					$dv_time = $this->generate_time($date_args);
-					$data_array['start']['time'] = $dv_time['start'];
-					$data_array['end']['time'] = ($_hide_endtime?'' :$dv_time['end']);
-				}
-
-			// remove event time for month and year long events
-				if($__is_month_long || $__is_year_long){
-					$data_array['start']['time'] = '';
-					$data_array['end']['time'] = '';
-				}
-
-			// if hide end time
-				if($_hide_endtime){
-					$data_array['end'] = array(
-						'year'=>	'',
-						'month'=>	'',
-						'date'=>	'',
-					);
-				}
-
-			$_event_date_HTML = array_merge($_event_date_HTML, $data_array);
-
-			return $_event_date_HTML;
-		}
-
-
+	
 
 	/** GENERATE individual event data	for event list array */
 		public function generate_event_data(
@@ -1570,8 +1192,9 @@ class EVO_generator {
 
 					$__count++;
 					$event_id = $EVENT->ID;
-					$event_start_unix 	= (int)$event_['event_start_unix'];
-					$event_end_unix 	= $event_start_unix + $EVENT->duration ;
+					//$event_start_unix 	= (int)$event_['event_start_unix'];
+					$event_start_unix 	= $EVENT->start_unix;
+					$event_end_unix 	= $EVENT->end_unix ;
 					$event_type = $event_['event_type'];
 					$ev_vals = $event_['event_pmv'];
 
@@ -1649,17 +1272,17 @@ class EVO_generator {
 					$ev_other_data = $ev_other_data_top = $html_event_type_info= $_event_date_HTML= $html_event_type_2_info =''; $_is_end_date=true;
 
 				// UNIX date values
-					$DATE_start_val = $EventData['start_date_data'] = eventon_get_formatted_time($event_start_unix);
+					$DATE_start_val = $EventData['start_date_data'] = eventon_get_formatted_time( $event_start_unix , $EVENT->tz );
 
-					// if method could not convert unxi to separate time items
+					//print_r($DATE_start_val);
+
+					// if method could not convert unix to separate time items
 					if(!$DATE_start_val) continue;
 
-					if(empty($event_end_unix)){
-						$_is_end_date=false;
-						$DATE_end_val= $EventData['end_date_data'] = $DATE_start_val;
-					}else{
-						$DATE_end_val = $EventData['end_date_data'] = eventon_get_formatted_time($event_end_unix);
-					}
+					$DATE_end_val = $EventData['end_date_data'] = eventon_get_formatted_time( $event_end_unix , $EVENT->tz );
+
+					//echo $event_['event_start_unix'].' ';
+					//echo "$EVENT->start_unix $EVENT->start_unix_raw $EVENT->utc_offset";
 
 				// Event Status data
 					$EventData['_status'] = $EVENT->get_event_status();
@@ -1677,15 +1300,13 @@ class EVO_generator {
 					$_hide_endtime = 	$EventData['hide_end_time'] = $EVO_Event->is_hide_endtime();
 					$evcal_lang_allday = $this->lang( 'evcal_lang_allday', 'All Day');
 
-				/*
-					evo_hide_endtime
-					NOTE: if its set to hide end time, meaning end time and date would be empty on wp-admin, which will fall into same start end month category.
-				*/
-
-				$_event_date_HTML = $this->generate_time_(
-					$DATE_start_val, $DATE_end_val, $ev_vals, $evcal_lang_allday, $focus_month_beg_range, $FOCUS_month_int, $event_start_unix, $event_end_unix, $cal_hide_end_time,
-					$EVENT
-				);
+				// get processed event time u4.5.7
+					$_event_date_HTML = $this->generate_time_(
+						$EVENT,
+						$focus_month_beg_range, 
+						$FOCUS_month_int, 
+						$cal_hide_end_time,
+					);
 
 				// HOOK for addons
 					$_event_date_HTML= apply_filters('eventon_eventcard_date_html', $_event_date_HTML, $event_id);
@@ -1851,7 +1472,7 @@ class EVO_generator {
 						$_eventcard['location'] = array();	
 						$_eventcard['time'] = array(
 							'timetext'=>$_event_date_HTML['html_prettytime'],
-							'timezone'=> $EVENT->get_prop('evo_event_timezone'),	
+							'timezone'=> $EVENT->get_prop('evo_event_timezone'),// tz custom text
 							'date_times' => $_event_date_HTML,
 							'focus_start' => $focus_month_beg_range,
 							'_evo_tz'=> $EVENT->get_timezone_key(),
@@ -2125,6 +1746,14 @@ class EVO_generator {
 								$_this_style = 'background-color: '.$EventData['color'].';';
 								$p_elm_styles['background-color'] = $EventData['color'];
 								$_eventClasses[] = 'noimg';
+
+								if( $SC['tile_bg'] =='0'){ // color bg	
+									// gradient color
+										if( $ev_grad = $EVENT->get_gradient() ){
+											$_eventInAttr['style'][] = 'background-image: '.$ev_grad.';';
+										}
+								}	
+
 							}
 							
 
@@ -2230,7 +1859,7 @@ class EVO_generator {
 				$_eventAttr['class'] = $this->helper->implode( apply_filters('evo_event_etop_class_names', $_eventClasses, $EVENT, $this ) );
 				$_eventAttr['data-event_id'] = $event_id;
 				$_eventAttr['data-ri'] = $EVENT->ri.'r';
-				$_eventAttr['data-time'] = $event_start_unix.'-'.$event_end_unix;
+				$_eventAttr['data-time'] = $EVENT->start_unix.'-'.$EVENT->end_unix;
 				$_eventAttr['data-colr'] = $EventData['color'];
 				$_eventAttr['rest'][] = $__scheme_attributes;
 
@@ -2336,8 +1965,9 @@ class EVO_generator {
 			$SC = $this->shortcode_args;
 			$calendar_defaults = $this->helper->get_calendar_defaults();	
 
-			// other event post values
-			$A['timezone_offset'] = 0;
+			// other event post values u 4.5.8
+			$A['timezone_offset'] = $EVENT->utcoff;
+			$A['gmt'] = $EVENT->gmt;
 
 			// unique event ID with repeat interval
 			$A['_ID'] = $event_data['ID'].'_'. $event_data['ri'];
@@ -2392,7 +2022,7 @@ class EVO_generator {
 		}
 
 	// generate event data for all eventON events
-	// @updated 4.5.2
+	// @updated 4.5.6
 		public function get_all_event_data($args = array()){
 			
 			$evo_opt = EVO()->cal->get_op('evcal_1');
@@ -2407,9 +2037,6 @@ class EVO_generator {
 				'evcal_subtitle'=>'event_subtitle',
 				'evcal_lmlink'=>'learnmore_link',
 				'_featured'=>'featured',
-				'evcal_allday'=>'all_day_event',
-				'evo_year_long'=>'year_long_event',
-				'_evo_month_long'=>'month_long_event'
 			);
 			
 
@@ -2454,6 +2081,11 @@ class EVO_generator {
 							if(!empty($ev_vals[$field]))
 								$output[$event_id][$name] = $ev_vals[$field][0];
 						}
+
+					// time ext type
+						$output[$event_id]['year_long_event'] = ( $EVENT->is_year_long() ) ? 'yes':'no';
+						$output[$event_id]['month_long_event'] = ( $EVENT->is_month_long() ) ? 'yes':'no';
+						$output[$event_id]['all_day_event'] = ( $EVENT->is_all_day() ) ? 'yes':'no';
 
 					// image
 						if(has_post_thumbnail()){

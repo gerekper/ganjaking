@@ -7,8 +7,7 @@
 	Class WC_pdf_template_editor {
 
 	    public function __construct() {
-			
-			global $wpdb,$woocommerce;
+			global $woocommerce;
 
 			// TODO Add duplicate links to PDF Template post type
 			// if ( ! function_exists( 'duplicate_post_plugin_activation' ) ) {

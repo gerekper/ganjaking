@@ -102,7 +102,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $blankWindowMode = false;
 
 		public static $view_default;
-
+		
+		public static $isAjaxAction = false;
+		public static $ajaxAction;
+		public static $isTesting = false;
+		
+		
 		public static $table_addons;
 		public static $table_categories;
 		public static $table_layouts;
@@ -182,7 +187,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static $isAdminRTL = false;
 		public static $enableInsideWidgetFreeVersionNotifiaction = true;
 		public static $colorPickerType = "spectrum";
-
+		
 
 		/**
 		 * init globals
@@ -195,7 +200,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(defined("UC_DEBUG_AJAX_ERRORS") && UC_DEBUG_AJAX_ERRORS === true)
 				self::$debugAjaxErrors = true;
-
+			
 			UniteProviderFunctionsUC::initGlobalsBase();
 
 			self::$current_protocol = "http://";
@@ -284,7 +289,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * //check if active only if in admin side
 		 */
 		public static function initAfterIncludes(){
-
+			
 			$product = HelperUC::getProductFromRequest();
 			if(empty($product))
 				$product = self::PLUGIN_NAME;
@@ -303,7 +308,14 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				GlobalsUC::$SHOW_TRACE_FRONT = true;
 				GlobalsUC::$SHOW_TRACE = true;
 			}
-
+			
+			//show errors by url
+			
+			$showAjaxErrors = HelperUC::hasPermissionsFromQuery("showajaxerrors");
+			
+			if($showAjaxErrors == true)	
+				self::$debugAjaxErrors = true;
+			
 		}
 
 

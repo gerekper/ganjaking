@@ -187,8 +187,9 @@ class Vc_Shared_Templates {
 		) ) );
 
 		$templateId = vc_request_param( 'id' );
-		$status = true;
-		$file = dirname( __FILE__ ) . '/xml/' . $templateId . '.xml';
+		$requestUrl = $this->getTemplateDownloadLink( $templateId );
+		$status = false;
+		$file = $this->downloadTemplate( $requestUrl );
 		$data = array();
 		if ( is_string( $file ) && ! empty( $file ) ) {
 			new Vc_WXR_Parser_Plugin();

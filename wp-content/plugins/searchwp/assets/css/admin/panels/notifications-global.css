@@ -1,0 +1,23 @@
+@keyframes searchwp-pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(214,54,56,.65);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 8px rgba(214,54,56,0);
+	}
+}
+
+#wpadminbar .searchwp-admin-menu-notification-indicator,
+#adminmenu .searchwp-admin-menu-notification-indicator {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	background-color: #d63638;
+	border-radius: 50%;
+	float: right;
+	-webkit-animation: searchwp-pulse 2s infinite;
+	animation: searchwp-pulse 2s infinite;
+}

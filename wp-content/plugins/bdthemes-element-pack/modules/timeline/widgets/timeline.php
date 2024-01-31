@@ -975,7 +975,21 @@ class Timeline extends Module_Base {
                 'label'     => esc_html__('Color', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .bdt-timeline .bdt-timeline-title a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bdt-timeline .bdt-timeline-title *' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'title_hover_color',
+            [
+                'label'     => esc_html__('Hover Color', 'bdthemes-element-pack'),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bdt-timeline .bdt-timeline-title a:hover' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'title_link' => 'yes',
                 ],
             ]
         );
@@ -984,10 +998,10 @@ class Timeline extends Module_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'title_bg_color',
-				'selector' => '{{WRAPPER}} .bdt-timeline .bdt-timeline-title a',
+				'selector' => '{{WRAPPER}} .bdt-timeline .bdt-timeline-title *',
                 'fields_options' => [
                     'background' => [
-                        'label' => esc_html__('Background Type', 'bdthemes-element-pack') . BDTEP_NC,
+                        'label' => esc_html__('Background Type', 'bdthemes-element-pack'),
                     ],
                 ],
 			]
@@ -996,11 +1010,11 @@ class Timeline extends Module_Base {
         $this->add_responsive_control(
             'title_border_radius',
             [
-                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
                 'selectors'  => [
-                    '{{WRAPPER}} .bdt-timeline .bdt-timeline-title a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bdt-timeline .bdt-timeline-title *' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1008,11 +1022,11 @@ class Timeline extends Module_Base {
 		$this->add_responsive_control(
 			'title_padding',
 			[
-				'label'      => __('Padding', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'      => __('Padding', 'bdthemes-element-pack'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px', '%', 'em'],
 				'selectors'  => [
-					'{{WRAPPER}} .bdt-timeline .bdt-timeline-title a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .bdt-timeline .bdt-timeline-title *' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);

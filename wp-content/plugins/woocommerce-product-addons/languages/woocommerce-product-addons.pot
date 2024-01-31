@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Woo
+# Copyright (C) 2024 Woo
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Woo Product Add-ons 6.5.2\n"
+"Project-Id-Version: Woo Product Add-ons 6.6.0\n"
 "Report-Msgid-Bugs-To: https://woo.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-20T09:51:28+00:00\n"
+"POT-Creation-Date: 2024-01-24T14:23:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -95,7 +95,7 @@ msgstr ""
 #: includes/admin/class-wc-product-addons-admin.php:78
 #: includes/admin/class-wc-product-addons-admin.php:123
 #: includes/admin/class-wc-product-addons-admin.php:137
-#: includes/admin/class-wc-product-addons-admin.php:646
+#: includes/admin/class-wc-product-addons-admin.php:647
 msgid "Add-ons"
 msgstr ""
 
@@ -112,178 +112,182 @@ msgstr ""
 msgid "Show running subtotal, even if not all required add-on choices have been made."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:274
+#: includes/admin/class-wc-product-addons-admin.php:272
 msgid "Could not import add-ons. Please review the import string and try again."
 msgstr ""
 
+#: includes/admin/class-wc-product-addons-admin.php:299
+msgid "Could not import add-ons, as the import string was created by an older plugin version. Please export your add-ons again and retry."
+msgstr ""
+
 #. translators: %s number of imported add-ons
-#: includes/admin/class-wc-product-addons-admin.php:335
+#: includes/admin/class-wc-product-addons-admin.php:336
 msgid "%d add-ons were successfully imported."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:380
+#: includes/admin/class-wc-product-addons-admin.php:381
 msgid "Please complete all highlighted fields before saving."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:381
+#: includes/admin/class-wc-product-addons-admin.php:382
 msgid "Add-on titles must have maximum 255 characters. Please update the titles of the highlighted add-ons."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:382
+#: includes/admin/class-wc-product-addons-admin.php:383
 #: includes/admin/views/html-addon.php:197
 msgid "Limit price"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:383
+#: includes/admin/class-wc-product-addons-admin.php:384
 #: includes/admin/views/html-addon.php:201
 msgid "Limit quantity"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:384
+#: includes/admin/class-wc-product-addons-admin.php:385
 #: includes/admin/views/html-addon.php:204
 #: includes/admin/views/html-addon.php:207
 msgid "Limit character length"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:385
+#: includes/admin/class-wc-product-addons-admin.php:386
 #: includes/admin/views/html-addon.php:191
 msgid "Restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:386
+#: includes/admin/class-wc-product-addons-admin.php:387
 msgid "Remove this add-on field?"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:387
+#: includes/admin/class-wc-product-addons-admin.php:388
 msgid "Delete this option?"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:388
+#: includes/admin/class-wc-product-addons-admin.php:389
 msgid "Add Image Swatch"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:389
+#: includes/admin/class-wc-product-addons-admin.php:390
 msgid "Add Image"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:390
+#: includes/admin/class-wc-product-addons-admin.php:391
 msgid "Use this field to paste the add-ons you previously exported."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:391
+#: includes/admin/class-wc-product-addons-admin.php:392
 msgid "Add-ons successfully copied to your clipboard."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:392
+#: includes/admin/class-wc-product-addons-admin.php:393
 msgid "The selected add-on groups will be deleted permanently. Are you sure?"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:393
+#: includes/admin/class-wc-product-addons-admin.php:394
 #: includes/admin/views/html-addon.php:154
 msgid "Option title"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:394
+#: includes/admin/class-wc-product-addons-admin.php:395
 msgid "Option title/image"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:428
+#: includes/admin/class-wc-product-addons-admin.php:429
 #: includes/admin/views/html-global-admin.php:16
 msgid "Global Add-ons"
 msgstr ""
 
 #. translators: %1$s max_input_vars size
-#: includes/admin/class-wc-product-addons-admin.php:447
-#: includes/admin/class-wc-product-addons-admin.php:699
+#: includes/admin/class-wc-product-addons-admin.php:448
+#: includes/admin/class-wc-product-addons-admin.php:704
 msgid "Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s."
 msgstr ""
 
 #. translators: %1$s max_input_vars size
-#: includes/admin/class-wc-product-addons-admin.php:447
-#: includes/admin/class-wc-product-addons-admin.php:699
+#: includes/admin/class-wc-product-addons-admin.php:448
+#: includes/admin/class-wc-product-addons-admin.php:704
 msgid " (currently %s)"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:458
+#: includes/admin/class-wc-product-addons-admin.php:459
 msgid "Add-on saved successfully"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:469
-#: includes/admin/class-wc-product-addons-admin.php:486
+#: includes/admin/class-wc-product-addons-admin.php:470
+#: includes/admin/class-wc-product-addons-admin.php:487
 msgid "Error: Add-on not found"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:501
-#: includes/admin/class-wc-product-addons-admin.php:579
+#: includes/admin/class-wc-product-addons-admin.php:502
+#: includes/admin/class-wc-product-addons-admin.php:580
 msgid "Add-ons Group"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:513
+#: includes/admin/class-wc-product-addons-admin.php:514
 msgid "Add-on deleted successfully"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:533
+#: includes/admin/class-wc-product-addons-admin.php:534
 msgid "Checkbox"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:536
+#: includes/admin/class-wc-product-addons-admin.php:537
 #: includes/admin/views/html-addon.php:165
 msgid "Price"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:539
+#: includes/admin/class-wc-product-addons-admin.php:540
 #: includes/admin/views/html-addon-panel.php:80
 msgid "Quantity"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:542
+#: includes/admin/class-wc-product-addons-admin.php:543
 #: includes/admin/views/html-addon-panel.php:76
 msgid "Short Text"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:545
+#: includes/admin/class-wc-product-addons-admin.php:546
 #: includes/admin/views/html-addon-panel.php:77
 msgid "Long Text"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:548
+#: includes/admin/class-wc-product-addons-admin.php:549
 #: includes/admin/views/html-addon-panel.php:78
 msgid "File Upload"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:551
+#: includes/admin/class-wc-product-addons-admin.php:552
 #: includes/admin/views/html-addon.php:101
 msgid "Dropdown"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:555
+#: includes/admin/class-wc-product-addons-admin.php:556
 #: includes/admin/views/html-addon-panel.php:74
 msgid "Multiple Choice"
 msgstr ""
 
 #. translators: %1$s: Product name
-#: includes/admin/class-wc-product-addons-admin.php:684
+#: includes/admin/class-wc-product-addons-admin.php:689
 msgid "<strong>%1$s</strong> has at least one add-on whose <strong>Title</strong> is longer than <strong>255</strong> characters. Please adjust its value and save your changes."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:851
+#: includes/admin/class-wc-product-addons-admin.php:856
 msgid "Some add-ons could not be saved correctly because their <strong>Title</strong> was not set. Please review your add-ons configuration and update this product."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:855
+#: includes/admin/class-wc-product-addons-admin.php:860
 msgid "Some add-ons could not be saved correctly because their <strong>Title</strong> was longer than 255 characters. Please review your add-ons configuration and update this product."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:965
+#: includes/admin/class-wc-product-addons-admin.php:970
 msgid "SKU:"
 msgstr ""
 
 #. translators: %s ID of variation
-#: includes/admin/class-wc-product-addons-admin.php:974
+#: includes/admin/class-wc-product-addons-admin.php:979
 msgid "%s (No longer exists)"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:977
+#: includes/admin/class-wc-product-addons-admin.php:982
 msgid "Variation ID:"
 msgstr ""
 
@@ -555,43 +559,43 @@ msgid "Addons data."
 msgstr ""
 
 #. translators: %1$s flat fee addon price in order
-#: includes/class-wc-product-addons-cart.php:270
+#: includes/class-wc-product-addons-cart.php:280
 msgctxt "flat fee addon price in order"
 msgid " (+ %1$s)"
 msgstr ""
 
 #. translators: %1$s addon price in order
-#: includes/class-wc-product-addons-cart.php:273
+#: includes/class-wc-product-addons-cart.php:283
 msgctxt "addon price in order"
 msgid " (%1$s)"
 msgstr ""
 
 #. translators: %1$s custom addon price in order
-#: includes/class-wc-product-addons-cart.php:276
+#: includes/class-wc-product-addons-cart.php:286
 msgctxt "custom addon price in order"
 msgid " (%1$s)"
 msgstr ""
 
 #. translators: %1$s flat fee addon price in cart
-#: includes/class-wc-product-addons-cart.php:672
+#: includes/class-wc-product-addons-cart.php:688
 msgctxt "flat fee addon price in cart"
 msgid " (+ %1$s)"
 msgstr ""
 
 #. translators: %1$s custom addon price in cart
-#: includes/class-wc-product-addons-cart.php:678
+#: includes/class-wc-product-addons-cart.php:694
 msgctxt "custom price addon price in cart"
 msgid " (%1$s)"
 msgstr ""
 
 #. translators: %1$s quantity based addon price in cart
-#: includes/class-wc-product-addons-cart.php:683
+#: includes/class-wc-product-addons-cart.php:699
 msgctxt "quantity based addon price in cart"
 msgid " (%1$s)"
 msgstr ""
 
 #. translators: %1$s percentage based addon price in cart
-#: includes/class-wc-product-addons-cart.php:691
+#: includes/class-wc-product-addons-cart.php:707
 msgctxt "percentage based addon price in cart"
 msgid " (%1$s)"
 msgstr ""
@@ -601,99 +605,99 @@ msgstr ""
 msgid "Foul!"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:174
+#: includes/class-wc-product-addons-compatibility.php:189
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:175
+#: includes/class-wc-product-addons-compatibility.php:190
 msgid "Woo Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/class-wc-product-addons-compatibility.php:178
-#: includes/class-wc-product-addons-compatibility.php:190
+#: includes/class-wc-product-addons-compatibility.php:193
+#: includes/class-wc-product-addons-compatibility.php:205
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Add-ons</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:187
+#: includes/class-wc-product-addons-compatibility.php:202
 msgid "Composite Products"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:188
+#: includes/class-wc-product-addons-compatibility.php:203
 msgid "Woo Composite Products"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:200
+#: includes/class-wc-product-addons-compatibility.php:215
 msgid "Woo Blocks"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
-#: includes/class-wc-product-addons-compatibility.php:203
+#: includes/class-wc-product-addons-compatibility.php:218
 msgid "The installed version of <strong>%1$s</strong> does not support <strong>Product Add-ons</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:102
+#: includes/class-wc-product-addons-display.php:105
 msgid "Please choose an option."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:103
+#: includes/class-wc-product-addons-display.php:106
 msgid "Please enter some text in this field."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:104
+#: includes/class-wc-product-addons-display.php:107
 msgid "Please enter a number in this field."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:105
+#: includes/class-wc-product-addons-display.php:108
 msgid "Please upload a file."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:106
+#: includes/class-wc-product-addons-display.php:109
 msgid "Please enter letters only."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:107
+#: includes/class-wc-product-addons-display.php:110
 msgid "Please enter numbers only."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:108
+#: includes/class-wc-product-addons-display.php:111
 msgid "Please enter letters and numbers only."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:109
+#: includes/class-wc-product-addons-display.php:112
 msgid "Please enter a valid email address."
 msgstr ""
 
 #. translators: %1$s min number of characters
-#: includes/class-wc-product-addons-display.php:111
+#: includes/class-wc-product-addons-display.php:114
 msgid "Please enter at least %1$s characters."
 msgstr ""
 
 #. translators: %1$s max number of characters
-#: includes/class-wc-product-addons-display.php:113
+#: includes/class-wc-product-addons-display.php:116
 msgid "Please enter up to %1$s characters."
 msgstr ""
 
 #. translators: %1$s min number
-#: includes/class-wc-product-addons-display.php:115
+#: includes/class-wc-product-addons-display.php:118
 msgid "Please enter %1$s or more."
 msgstr ""
 
 #. translators: %1$s max number
-#: includes/class-wc-product-addons-display.php:117
+#: includes/class-wc-product-addons-display.php:120
 msgid "Please enter %1$s or less."
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:118
+#: includes/class-wc-product-addons-display.php:121
 msgid "Subtotal"
 msgstr ""
 
 #. translators: %s remaining characters
-#: includes/class-wc-product-addons-display.php:120
+#: includes/class-wc-product-addons-display.php:123
 msgid "%s characters remaining"
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:538
+#: includes/class-wc-product-addons-display.php:541
 msgid "Select options"
 msgstr ""
 

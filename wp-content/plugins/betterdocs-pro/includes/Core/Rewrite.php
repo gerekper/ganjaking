@@ -34,7 +34,7 @@ class Rewrite extends FreeRewrite {
      * @return void
      */
     public function save_permalink_structure( $_saved, $_settings, $_old_settings ) {
-        if ( $_settings['multiple_kb'] == false ) {
+        if ( isset( $_settings['multiple_kb'] ) && $_settings['multiple_kb'] == false ) {
             $_settings['permalink_structure'] = $this->remove_knowledge_base_placeholder( $_settings['permalink_structure'] );
         }
 
@@ -44,6 +44,7 @@ class Rewrite extends FreeRewrite {
          * This block of code decides whether it needs to be flushed or not.
          * Flush happens after register the post type.
          */
+
         switch ( true ) {
             case $_settings['multiple_kb'] !== $_old_settings['multiple_kb']:
                 $this->database->set_transient( 'betterdocs_flush_rewrite_rules', true );

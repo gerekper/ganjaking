@@ -5,7 +5,7 @@ use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 /**
  * Class for integrating with WooCommerce Blocks scripts
  *
- * @package WooCommerce Conditional Shipping and Payments
+ * @package Woo Conditional Shipping and Payments
  * @since   1.13.0
  * @version 1.15.0
  */

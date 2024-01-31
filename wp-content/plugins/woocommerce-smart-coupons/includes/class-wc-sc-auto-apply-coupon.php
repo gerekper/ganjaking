@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     2.3.0
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -108,18 +108,15 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		public function usage_restriction( $coupon_id = 0, $coupon = null ) {
 			?>
 			<script type="text/javascript">
-				jQuery(function() {
-					let show_hide_auto_apply_field = function() {
-						let discount_type = jQuery('select#discount_type').val();
-						if ('smart_coupon' === discount_type) {
-							jQuery('.wc_sc_auto_apply_coupon_field').hide();
-						} else {
-							jQuery('.wc_sc_auto_apply_coupon_field').show();
-						}
-					}
-					show_hide_auto_apply_field();
-					jQuery('select#discount_type').on('change', function() {
-						show_hide_auto_apply_field();
+				document.addEventListener('DOMContentLoaded', () => {
+					const showHideAutoApplyCouponField = () => {
+						let discountType = document.querySelector('select#discount_type').value;
+						let autoApplyField = document.querySelector('.wc_sc_auto_apply_coupon_field');
+						autoApplyField.style.display = ( 'smart_coupon' === discountType ) ? 'none' : 'block';
+					};
+					showHideAutoApplyCouponField();
+					document.querySelector('select#discount_type').addEventListener('change', () => {
+						showHideAutoApplyCouponField();
 					});
 				});
 			</script>
@@ -551,6 +548,13 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 							$coupon_id   = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 							$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 						}
+
+						// If coupon has payment method restriction and already store wc_sc_auto_applied_coupons.
+						$payment_method_ids = $this->get_post_meta( $coupon_id, 'wc_sc_payment_method_ids', true );
+						if ( ( is_array( $payment_method_ids ) && count( $payment_method_ids ) > 0 ) && $this->is_coupon_applied_by_auto_apply( $coupon_code ) ) {
+							$this->unset_auto_applied_coupon( $coupon_code );
+						}
+
 						// Check if it is a valid coupon object.
 						if ( $apply_coupon_id === $coupon_id && ! empty( $coupon_code ) && $this->is_coupon_valid_for_auto_apply( $coupon ) ) {
 								$cart_total    = ( $this->is_wc_greater_than( '3.1.2' ) ) ? $cart->get_cart_contents_total() : $cart->cart_contents_total;

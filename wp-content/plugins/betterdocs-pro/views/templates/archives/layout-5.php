@@ -34,7 +34,8 @@
                     $_shortcode_attributes = [
                         'title_tag'     => $title_tag,
                         'terms_order'   => $terms_order,
-                        'terms_orderby' => esc_html( $terms_orderby )
+                        'terms_orderby' => esc_html( $terms_orderby ),
+                        'show_icon'     => betterdocs()->customizer->defaults->get( 'betterdocs_doc_page_show_category_icon' )
                     ];
 
                     if ( is_tax( 'knowledge_base' ) ) {
@@ -51,7 +52,7 @@
                     $popular_posts_per_page = betterdocs()->settings->get( 'betterdocs_popular_docs_number', 10 );
 
                     echo '<div class="betterdocs-popular-article-list-wrapper">';
-                        echo do_shortcode( '[betterdocs_popular_articles title="' . $popular_doc_text . '" post_per_page="' . $popular_posts_per_page . '"]' );
+                    echo do_shortcode( '[betterdocs_popular_articles title="' . $popular_doc_text . '" post_per_page="' . $popular_posts_per_page . '"]' );
                     echo '</div>';
                 }
             ?>

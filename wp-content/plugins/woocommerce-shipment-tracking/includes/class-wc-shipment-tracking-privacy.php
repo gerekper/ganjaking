@@ -1,12 +1,27 @@
 <?php
+/**
+ * WC_Shipment_Tracking_Privacy class file.
+ *
+ * @package WC_Shipment_Tracking
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 	return;
 }
 
+/**
+ * WC_Shipment_Tracking_Privacy class.
+ *
+ * This class handles the display of the privacy message of the privacy id to the admin,
+ * privacy data to be exported and privacy data to be deleted.
+ */
 class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		parent::__construct( __( 'Shipment Tracking', 'woocommerce-shipment-tracking' ) );
@@ -19,17 +34,17 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Returns a list of orders that are using one of 2Checkout API's payment methods.
 	 *
-	 * @param string  $email_address
-	 * @param int     $page
+	 * @param string $email_address Email address to be searched on orders.
+	 * @param int    $page Pagination of data.
 	 *
-	 * @return array WP_Post
+	 * @return array List of orders.
 	 */
 	protected function get_orders( $email_address, $page ) {
 		$user = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
 
 		$order_query = array(
 			'limit' => 10,
-			'page'  => $page,
+			'paged' => $page,
 		);
 
 		if ( $user instanceof WP_User ) {
@@ -43,9 +58,9 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
+		// translators: %s is a URL of privacy documentation for WC shipment tracking.
 		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-shipment-tracking' ), 'https://docs.woocommerce.com/document/privacy-shipping/#woocommerce-shipment-tracking' ) );
 	}
 
@@ -61,6 +76,7 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 		foreach ( $items as $item ) {
 			foreach ( $item as $key => $item ) {
 				$output[] = array(
+					// translators: %s is a shipmen tracking key.
 					'name'  => sprintf( __( 'Shipment Tracking - %s', 'woocommerce-shipment-tracking' ), $key ),
 					'value' => $item,
 				);
@@ -132,12 +148,12 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 			$order = wc_get_order( $order->get_id() );
 
 			list( $removed, $retained, $msgs ) = $this->maybe_handle_order( $order );
-			$items_removed  |= $removed;
-			$items_retained |= $retained;
-			$messages        = array_merge( $messages, $msgs );
+			$items_removed                    |= $removed;
+			$items_retained                   |= $retained;
+			$messages                          = array_merge( $messages, $msgs );
 		}
 
-		// Tell core if we have more orders to work on still
+		// Tell core if we have more orders to work on still.
 		$done = count( $orders ) < 10;
 
 		return array(
@@ -151,7 +167,7 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Handle eraser of data tied to Orders
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order $order Order object.
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {

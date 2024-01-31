@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.5
+ * @version 4.5.5
 
 Items //
 print_date_time_selector
@@ -149,8 +149,8 @@ class EVO_General_Elements{
 					echo "<input class='{$field_class}' type='{$field_type}' name='{$id}' max='{$max}' min='{$min}' step='{$step}'";
 
 					if( $readonly ) echo 'readonly="true"';
-					//$__values = htmlspecialchars( $value , ENT_QUOTES);
-					$__values =  $value ;
+					$__values = htmlspecialchars( $value , ENT_QUOTES);
+					//$__values =  $value ;
 					echo 'value="'. $__values .'"';
 				}				
 				echo $placeholder."/>";
@@ -406,6 +406,7 @@ class EVO_General_Elements{
 						'input'=> true,
 						'guide'=> $tooltip,
 						'guide_position'=> $tooltip_position,
+						'inputAttr'=>$inputAttr, // @s 4.5.5
 						'label'=> $label,
 					))."<span class='field_name'>". $name ."{$legend_code}</span>";
 
@@ -875,10 +876,14 @@ class EVO_General_Elements{
 		</span>";
 	}
 
+	// @4.5.5
 	function _get_date_picker_data(){
+		
+		$date_format = ( EVO()->cal->check_yn('evo_usewpdateformat','evcal_1') ) ? get_option('date_format') : 'Y/m/d';
+
 		return array(
-			'date_format' => (empty(EVO()->calendar->date_format)? get_option('date_format'): EVO()->calendar->date_format ),
-			'js_date_format' => _evo_dateformat_PHP_to_jQueryUI( EVO()->calendar->date_format  ),
+			'date_format' => $date_format,
+			'js_date_format' => _evo_dateformat_PHP_to_jQueryUI( $date_format  ),
 			'time_format' =>  EVO()->calendar->time_format ,
 			'sow'=> get_option('start_of_week'),
 		);
@@ -979,6 +984,8 @@ class EVO_General_Elements{
 			'evo_color_link' => '656565',
 			'evo_color_prime' => '00aafb',
 			'evo_color_second' => 'fed584',
+			'evo_font_1' => "'Poppins', sans-serif",
+			'evo_font_2' => "'Noto Sans',arial",
 		);
 		return $preset_data;
 	}
@@ -1108,7 +1115,8 @@ class EVO_General_Elements{
 			'classes'=>'',
 			'tr_classes'=>'',
 			'tr_attr'=>'',
-			'colspan'=>'none'
+			'colspan'=>'none',
+			'content'=>'',
 		);
 		$args = !empty($args) ?array_merge($defaults, $args): $defaults;
 

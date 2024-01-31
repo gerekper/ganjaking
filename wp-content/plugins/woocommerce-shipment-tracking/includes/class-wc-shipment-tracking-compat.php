@@ -1,4 +1,10 @@
 <?php
+/**
+ * WC_Shipment_Tracking_Compat class file.
+ *
+ * @package WC_Shipment_Tracking
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -15,10 +21,10 @@ class WC_Shipment_Tracking_Compat {
 	 */
 	public function load_compats() {
 		// Load built-in compat classes.
-		require_once( 'compats/class-wc-shipment-tracking-pip-compat.php' );
-		require_once( 'compats/class-wc-shipment-tracking-order-xml-export-compat.php' );
-		require_once( 'compats/class-wc-shipment-tracking-order-csv-import-compat.php' );
-		require_once( 'compats/class-wc-shipment-tracking-order-csv-export-compat.php' );
+		require_once WC_SHIPMENT_TRACKING_DIR . '/includes/compats/class-wc-shipment-tracking-pip-compat.php';
+		require_once WC_SHIPMENT_TRACKING_DIR . '/includes/compats/class-wc-shipment-tracking-xml-export-compat.php';
+		require_once WC_SHIPMENT_TRACKING_DIR . '/includes/compats/class-wc-shipment-tracking-order-csv-import-compat.php';
+		require_once WC_SHIPMENT_TRACKING_DIR . '/includes/compats/class-wc-shipment-tracking-order-csv-export-compat.php';
 
 		$compats = array(
 			'WC_Shipment_Tracking_PIP_Compat',

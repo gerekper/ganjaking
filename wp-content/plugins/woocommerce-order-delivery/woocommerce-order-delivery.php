@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: WooCommerce Order Delivery
- * Plugin URI: https://woocommerce.com/products/woocommerce-order-delivery/
+ * Plugin URI: https://woo.com/products/woocommerce-order-delivery/
  * Description: Choose a delivery date during checkout for the order.
- * Version: 2.6.0
+ * Version: 2.6.1
  * Author: KoiLab
  * Author URI: https://koilab.com/
  * Requires PHP: 5.6
  * Requires at least: 4.9
- * Tested up to: 6.3
+ * Tested up to: 6.4
  * Text Domain: woocommerce-order-delivery
  * Domain Path: /languages
  *
  * WC requires at least: 3.7
- * WC tested up to: 8.1
+ * WC tested up to: 8.5
  * Woo: 976514:beaa91b8098712860ec7335d3dca61c0
  *
  * License: GNU General Public License v3.0
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
  * Plugin requirements.
  */
 if ( ! class_exists( 'WC_OD_Requirements', false ) ) {
-	require_once dirname( __FILE__ ) . '/includes/class-wc-od-requirements.php';
+	require_once __DIR__ . '/includes/class-wc-od-requirements.php';
 }
 
 if ( ! WC_OD_Requirements::are_satisfied() ) {

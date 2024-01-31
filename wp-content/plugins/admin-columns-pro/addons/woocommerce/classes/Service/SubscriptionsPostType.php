@@ -6,6 +6,7 @@ use AC;
 use AC\Registerable;
 use ACA\WC\Column;
 use ACA\WC\ListScreen\Product;
+use ACA\WC\ListScreen\ShopOrder;
 use ACA\WC\ListScreenFactory;
 use ACA\WC\Search;
 
@@ -17,6 +18,7 @@ final class SubscriptionsPostType implements Registerable
         add_action('ac/column_groups', [$this, 'register_column_groups']);
         add_action('ac/column_types', [$this, 'add_product_columns']);
         add_action('ac/column_types', [$this, 'add_user_columns']);
+        add_action('ac/column_types', [$this, 'add_order_columns']);
 
         AC\ListScreenFactory\Aggregate::add(new ListScreenFactory\ShopSubscriptionFactory());
     }
@@ -49,6 +51,19 @@ final class SubscriptionsPostType implements Registerable
                 Column\UserSubscription\ActiveSubscriber::class,
                 Column\UserSubscription\InactiveSubscriber::class,
                 Column\UserSubscription\Subscriptions::class,
+            ];
+
+            foreach ($columns as $column) {
+                $list_screen->register_column_type(new $column());
+            }
+        }
+    }
+
+    public function add_order_columns(AC\ListScreen $list_screen): void
+    {
+        if ($list_screen instanceof ShopOrder) {
+            $columns = [
+                Column\ShopOrder\SubscriptionRelationship::class,
             ];
 
             foreach ($columns as $column) {

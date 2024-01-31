@@ -413,7 +413,17 @@ if ( ! empty( $settings ) ) {
 		<?php } ?>
 	}
 
-	@media only screen and (min-width: 480px) {
+	@media only screen and (min-width: 481px) and (max-width: 1024px) {
+		<?php if ( ! empty( $settings->document->settings->tabletCss ) ) { ?>
+			<?php echo str_replace( '.sp-tablet-view', '', $settings->document->settings->tabletCss );  // phpcs:ignore?>
+		<?php } ?>
+
+		<?php if ( ! empty( $settings->document->settings->tabletVisibilityCss ) ) { ?>
+			<?php echo str_replace( '.sp-tablet-view', '', $settings->document->settings->tabletVisibilityCss ); // phpcs:ignore ?>
+		<?php } ?>
+	}
+
+	@media only screen and (min-width: 1024px) {
 		<?php if ( ! empty( $settings->document->settings->desktopVisibilityCss ) ) { ?>
 			<?php echo $settings->document->settings->desktopVisibilityCss; // phpcs:ignore ?>
 		<?php } ?>
@@ -429,7 +439,24 @@ if ( ! empty( $settings ) ) {
 		}
 	}
 
+	// Get tablet css & Remove inline data attributes.
+	preg_match_all( '/data-tablet-css="([^"]*)"/', $content, $matches );
+	if ( ! empty( $matches ) ) {
+		// remove inline data attributes
+		foreach ( $matches[0] as $v ) {
+			$content = str_replace( $v, '', $content );
+		}
+	}
+
 	preg_match_all( '/data-mobile-visibility="([^"]*)"/', $content, $matches );
+	if ( ! empty( $matches ) ) {
+		// remove inline data attributes
+		foreach ( $matches[0] as $v ) {
+			$content = str_replace( $v, '', $content );
+		}
+	}
+
+	preg_match_all( '/data-tablet-visibility="([^"]*)"/', $content, $matches );
 	if ( ! empty( $matches ) ) {
 		// remove inline data attributes
 		foreach ( $matches[0] as $v ) {
@@ -627,7 +654,8 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	$content            = str_replace( 'the_link', $actual_link, $content );
 	$content            = do_shortcode( $content );
 	if ( empty( $content ) ) {
-		$content = '<h1 style="margin-top:80px; text-align:center; font-size: 22px">The content for this page is empty or has not been saved. Please edit this page and "Save" the contents in the builder.</h1>';
+		$empty_content =  __( 'The content for this page is empty or has not been saved. Please edit this page and "Save" the contents in the builder.', 'seedprod-pro' ); 
+		$content = '<h1 style="margin-top:80px; text-align:center; font-size: 22px">'.$empty_content.'</h1>';
 	}
 	echo apply_filters( 'seedprod_lpage_content', $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 

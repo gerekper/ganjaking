@@ -5,9 +5,9 @@
  * Click on the "Upload" option, then click "Browse" to select the zip file from your computer.
  * After the zip file has been selected press the "Install Now" button.
  * On the Plugins page, find the Xero for "WooCommerce Xero Integration" plugin and press "Activate"
- 
 
-== Configuring A Connection to Xero == 
+
+== Configuring A Connection to Xero ==
 
 Xero’s API uses 2 legged OAuth for validating all connections.  There are two steps to setting up the connection between your WooCommerce shopping cart and your Xero account.  First, you will need to generate a Self-signed Certificate (X509) for use with this module.  Second, you will need to define your WooCommerce site as a Public Application and allow it to connect to your Xero account.  Instructions for these steps are below.
 
@@ -15,7 +15,7 @@ Xero’s API uses 2 legged OAuth for validating all connections.  There are two 
 Step 1. Generating a Private/Public Key pair
 
 (These instructions are referenced from the Xero Blog)
- 
+
 -- Windows users --
 
 You can download OpenSSL for Windows here.
@@ -66,9 +66,9 @@ Step 2.  Setup Up A Private Application in Xero
 		  * Please select which organisation your application can access:  Select which Xero company to access. The extension can only access one company at a time.
 		  * X509 Public Key Certificate: Paste the certificate file you created in Step 1. above.  Note: Certificate files begin with the text  "—–BEGIN CERTIFICATE—–"
   * Press Save and you will be taken to the Edit Application page with the note "Application Added"
-  * The Edit Application page will have a box titled "OAuth Credentials" showing the "Consumer Key" and the "Consumer Secret".   These will be used in the next step – Configuring Xero for WooCommerce  
-  
-  
+  * The Edit Application page will have a box titled "OAuth Credentials" showing the "Consumer Key" and the "Consumer Secret".   These will be used in the next step – Configuring Xero for WooCommerce
+
+
 == Configuring Xero for WooCommerce ==
 
 -- Setup OAuth Credentials --
@@ -78,9 +78,9 @@ Step 2.  Setup Up A Private Application in Xero
 -- Setup Certificate Files --
   * The Public/Private key pair created in Step 1. above need to be placed on your hosting account
   * Use an FTP/SFTP program to create a directory named "xero-certs" at the same level as your public_html directory
-  * Place the two files into this directory  
-  * Fill the "Private Key" and "Public Key" settings fields with the paths to these files.  You may need to contact your web host to find the path for these files.  
-  
+  * Place the two files into this directory
+  * Fill the "Private Key" and "Public Key" settings fields with the paths to these files.  You may need to contact your web host to find the path for these files.
+
 -- Setup Default Account Numbers --
 
 The invoices and payments sent to Xero need to be associated with accounts in your company’s Chart of Accounts.  Use the Account fields in the admin dashboard to specify the account number for each type of account.  Note: The Tax Rate associated with the Xero account needs to match the tax rate setup in WooCommerce.
@@ -89,7 +89,7 @@ The invoices and payments sent to Xero need to be associated with accounts in yo
   * Sales Tax Account – This account will collect tax associated with purchase
   * Discount Account – This account will collect all discounts given through coupons
   * Shipping Account – This account will collect all shipping charges
-  * Payment Account – This account will collect all payments made.  This account either needs to be Account Type "Bank" or have "Enable Payments to this account" checked in the Edit Account Details popup.  
+  * Payment Account – This account will collect all payments made.  This account either needs to be Account Type "Bank" or have "Enable Payments to this account" checked in the Edit Account Details popup.
 
 
 == Miscellaneous Settings ==
@@ -100,13 +100,13 @@ The invoices and payments sent to Xero need to be associated with accounts in yo
 -- Debug --
   * Check the box for the Debug option to enable logging for this extension
   * The log file is located at: /wp-logs/
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
 == Processing ==
 Orders made in your WooCommerce store will be copied to your Xero account as an approved invoice.  When payment is completed (normally immediately) then a payment is added to the invoice making the invoice paid in full.
 
@@ -142,3 +142,8 @@ To view debug information make sure the Debug checkbox option is checked in the 
 7. Why aren’t payments being exported?
 
 If invoices are being created, but payments are not being created, make sure that the Xero account that is used for “Payment Account”  has “Enable payments to this account” checked in the Edit Account Details popup.
+
+== Compatibility ==
+
+* [WooCommerce Blocks](https://woo.com/products/woocommerce-gutenberg-products-block)
+* [WooPayments](https://woo.com/products/woopayments/)

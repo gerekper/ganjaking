@@ -147,7 +147,7 @@ function theplus_get_post_type() {
 		$exclude = array( 'attachment', 'elementor_library' );
 		if( TRUE === in_array( $post_type->name, $exclude ) )
 		  continue;
-	  
+		
 		$options[$post_type->name] = $post_type->label;	   
 	}
 	return $options;
@@ -3866,6 +3866,7 @@ function theplus_breadcrumbs($icontype='',$sep_icontype='',$icons='',$home_title
 				}
 			} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
 				$post_type = get_post_type_object(get_post_type());
+				$singular_name = !empty($post_type->labels->singular_name) ? $post_type->labels->singular_name : '';
 				$crumbs_output .= $before . esc_html($post_type->labels->singular_name) . $after;
 			} elseif ( is_attachment() ) {
 				$parent = get_post($post->post_parent);

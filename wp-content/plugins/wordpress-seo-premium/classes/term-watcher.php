@@ -90,6 +90,8 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 *
 	 * @param string $tag      The current tag name.
 	 * @param string $taxonomy The name of the current taxonomy.
+	 *
+	 * @return void
 	 */
 	public function old_url_field( $tag, $taxonomy ) {
 		$url = $this->get_target_url( $tag, $taxonomy );
@@ -100,6 +102,8 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 
 	/**
 	 * Set old URL when the quick edit is used for taxonomies.
+	 *
+	 * @return void
 	 */
 	public function set_old_url_quick_edit() {
 		check_ajax_referer( 'taxinlineeditnonce', '_inline_edit' );
@@ -129,7 +133,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		 *
 		 * @since 12.9.0
 		 *
-		 * @api bool unsigned
+		 * @param bool $create_redirect Whether a redirect should be created.
 		 */
 		if ( apply_filters( 'Yoast\WP\SEO\term_redirect_slug_change', false ) === true ) {
 			return true;
@@ -172,9 +176,11 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * Offer to create a redirect from the term that is about to get deleted.
 	 *
 	 * @param int $term_taxonomy_id The term taxonomy id that will be deleted.
+	 *
+	 * @return void
 	 */
 	public function detect_term_delete( $term_taxonomy_id ) {
-		$term = \get_term_by( 'term_taxonomy_id', (int) $term_taxonomy_id );
+		$term = get_term_by( 'term_taxonomy_id', (int) $term_taxonomy_id );
 
 		if ( ! $term || is_wp_error( $term ) ) {
 			return;
@@ -197,7 +203,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	protected function is_redirect_needed( $term, $url ) {
 		$redirect_manager = new WPSEO_Redirect_Manager( 'plain' );
 		$redirect         = $redirect_manager->get_redirect( $url );
-		return ! $redirect || ( ! \is_nav_menu( $term->term_id ) && \is_taxonomy_viewable( $term->taxonomy ) );
+		return ! $redirect || ( ! is_nav_menu( $term->term_id ) && is_taxonomy_viewable( $term->taxonomy ) );
 	}
 
 	/**

@@ -7,16 +7,10 @@
 
 <div class="vc_ui-settings-text-wrapper">
 	<?php
-	vc_include_template(
-		'editors/partials/icon-ai.tpl.php',
-		[
-			'type' => 'custom_css',
-			'field_id' => 'wpb_css_editor',
-		]
-	);
+	wpb_add_ai_icon_to_code_field( 'custom_css',  'wpb_css_editor' );
 	?>
 </div>
-<textarea name="<?php esc_attr( $field_prefix ) ?> ?>custom_css" class="wpb_code_editor custom_code" style="display:none"><?php echo esc_textarea( $value ); ?></textarea>
+<textarea name="<?php echo esc_attr( $field_prefix ) ?>custom_css" class="wpb_code_editor custom_code" style="display:none"><?php echo esc_textarea( $value ); ?></textarea>
 <pre id="wpb_css_editor" class="wpb_content_element custom_code" >
 	<?php echo esc_textarea( $value ); ?>
 </pre>

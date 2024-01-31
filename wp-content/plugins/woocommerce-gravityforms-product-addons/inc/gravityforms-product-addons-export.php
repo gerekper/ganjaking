@@ -65,8 +65,7 @@ class WC_GFPA_Export {
 		switch ( $field_id ) {
 			case 'woocommerce_order_number' :
 				$order_id = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				if ( ! empty( $order_id ) ) {
-					$the_order = wc_get_order( $order_id );
+				if ( ! empty( $order_id ) && $the_order = wc_get_order( $order_id ) ) {
 					$value     = $the_order->get_order_number();
 				} else {
 					$value = '';

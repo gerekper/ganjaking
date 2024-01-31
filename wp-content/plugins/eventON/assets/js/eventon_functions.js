@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.5.2
+ * @version: 4.5.7
  */
 (function($){
 
@@ -98,7 +98,6 @@
   			LB = false;
   			if( OO.lightbox_key != '') LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
 
-  			//console.log(OO);
 
   			var returnvals = '';
 
@@ -108,6 +107,8 @@
   			// ajax url processing 
   				var ajax_url = el.evo_get_ajax_url({a: OO.ajax_action, e: OO.end, type: OO.ajax_type});
 
+  			//console.log(ajaxdata);
+  			//console.log(ajax_url);
 			$.ajax({
 				beforeSend: function(){
 					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO, el ]);
@@ -123,7 +124,7 @@
 				url: ajax_url,
 				data: ajaxdata,
 				dataType:'json',
-				success:function(data){		
+				success:function(data){	
 					//return;			
 					//console.log(OO);
 					if( LB ){
@@ -466,9 +467,12 @@
 
 		}
 
-	// Get Ajax url @since 4.4 
+	// Get Ajax url @since 4.4 @u 4.5.5
 		$.fn.evo_get_ajax_url = function(opt){
-			var defaults = { a:'',e:'client', type: 'ajax'};
+			var defaults = { 
+				a:'', // action key
+				e:'client', // end
+				type: 'ajax'};
 			var OO = $.extend({}, defaults, opt);
 
 			// end point url
@@ -484,8 +488,9 @@
 					//console.log(OO);
 				return  evo_ajax_url.toString().replace( '%%endpoint%%', OO.a );
 			}else{
+				action_add = OO.a != '' ? '?action='+ OO.a: '';
 				return ( OO.e == 'client' ) ? 
-					evo_general_params.ajaxurl : evo_admin_ajax_handle.ajaxurl;
+					evo_general_params.ajaxurl + action_add : evo_admin_ajax_handle.ajaxurl + action_add;
 			}	
 		}
 	
@@ -554,6 +559,9 @@
 				var Mnow = moment().utc();
 				var M = moment();
 				M.set('millisecond', OPT.endutc );
+
+				//console.log(Mnow.unix());
+				//console.log(endutc);
 
 				gap = endutc - Mnow.unix();
 
@@ -648,7 +656,7 @@
 			return template( OPT.TD );
 		}
 
-	// Date range and events
+	// Date range and events @4.5.7
 		// Date range and events - from webpage
 		$.fn.evo_cal_events_in_range = function(opt){
 			var defaults = { S:'', E:'', 
@@ -684,7 +692,7 @@
 
 					}else{
 						if(CAL.evo_is_in_range({
-							'S': OPT.S,	'E': OPT.E,	'start': ED.event_start_unix ,	'end':ED.event_end_unix 
+							'S': OPT.S,	'E': OPT.E,	'start': ED.unix_start ,	'end':ED.unix_end 
 						})){						
 							this_show = true;
 						} 
@@ -721,7 +729,7 @@
 
 					}else{
 						if(CAL.evo_is_in_range({
-							'S': OPT.S,	'E': OPT.E,	'start': ED.event_start_unix ,	'end':ED.event_end_unix 
+							'S': OPT.S,	'E': OPT.E,	'start': ED.unix_start ,	'end':ED.unix_end 
 						})){						
 							this_show = true;
 						} 
@@ -819,6 +827,8 @@
 				'hex_color': ELM.data('colr'),
 				'hide_et': ELM.hasClass('no_et') ? 'y':'n', // hide endtime
 				'evcal_event_color': ELM.data('colr'),
+				'unix_start': parseInt(time[0]),// @4.5.7
+				'unix_end': parseInt(time[1]),// @4.5.7
 			};
 
 			// event type
@@ -899,8 +909,7 @@
 					}				
 				}
 			}
-
-		
+	
 
 	// Shortcodes
 		// update shortcode values from filter changes @updated 4.3.3

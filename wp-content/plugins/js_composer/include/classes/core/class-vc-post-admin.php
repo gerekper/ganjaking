@@ -13,88 +13,99 @@ class Vc_Post_Admin {
 	 * Add hooks required to save, update and manipulate post
 	 */
 	public function init() {
-		// Called in BE
-		add_action( 'save_post', array(
-			$this,
-			'save',
-		) );
+		// hooks for backend editor
+		add_action( 'save_post', [ $this, 'save' ] );
+		add_filter( 'wp_insert_post_data', [ $this, 'change_post_fields' ], 10, 2 );
+		// hooks for frontend editor
+		add_action( 'wp_ajax_vc_save', [ $this, 'saveAjaxFe' ] );
 
-		// Called in FE
-		add_action( 'wp_ajax_vc_save', array(
-			$this,
-			'saveAjaxFe',
-		) );
 		add_filter( 'content_save_pre', 'wpb_remove_custom_html' );
 	}
 
 	/**
-	 * @throws \Exception
+	 * Update post frontend editor ajax processing.
+	 *
+	 * @throws Exception
 	 */
 	public function saveAjaxFe() {
 		$post_id = intval( vc_post_param( 'post_id' ) );
 		vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie()->canEdit( $post_id )->validateDie();
 
-		if ( $post_id > 0 ) {
-			ob_start();
-
-			// Update post_content, title and etc.
-			// post_title
-			// content
-			// post_status
-			if ( vc_post_param( 'content' ) ) {
-				$post = get_post( $post_id );
-				$post->post_content = stripslashes( vc_post_param( 'content' ) );
-				$post_status = vc_post_param( 'post_status' );
-				$post_title = vc_post_param( 'post_title' );
-				if ( null !== $post_title ) {
-					$post->post_title = $post_title;
-				}
-				if ( vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get() ) {
-					kses_remove_filters();
-				}
-				remove_filter( 'content_save_pre', 'balanceTags', 50 );
-				if ( $post_status && 'publish' === $post_status ) {
-					if ( vc_user_access()->wpAll( array(
-						get_post_type_object( $post->post_type )->cap->publish_posts,
-						$post_id,
-					) )->get() ) {
-						if ( 'private' !== $post->post_status && 'future' !== $post->post_status ) {
-							$post->post_status = 'publish';
-						}
-					} else {
-						$post->post_status = 'pending';
-					}
-				}
-
-				wp_update_post( $post );
-				$this->setPostMeta( $post_id );
-			}
-
-			wpbakery()->buildShortcodesCustomCss( $post_id );
-			wp_cache_flush();
-			ob_clean();
-
-			wp_send_json_success();
+		if ( 0 === $post_id ) {
+			wp_send_json_error();
 		}
 
-		wp_send_json_error();
-	}/** @noinspection PhpDocMissingThrowsInspection */
+		$this->update_post_data( $post_id );
+
+		wp_send_json_success();
+	}
 
 	/**
-	 * Save generated shortcodes, html and WPBakery Page Builder status in posts meta.
+	 * Update post_content, title and etc.
 	 *
-	 * @access public
-	 * @param $post_id - current post id
+	 * @since 7.4
+	 * @param $post_id
+	 * @throws Exception
+	 */
+	public function update_post_data( $post_id ) {
+		ob_start();
+
+		if ( ! vc_post_param( 'content' ) ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+
+		$post = $this->set_post_content( $post );
+
+		$post = $this->set_post_title( $post );
+
+		$post = $this->set_post_status( $post );
+
+		$post = $this->set_post_slug( $post );
+
+		if ( vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get() ) {
+			kses_remove_filters();
+		}
+		remove_filter( 'content_save_pre', 'balanceTags', 50 );
+
+		wp_update_post( $post );
+
+		$this->setPostMeta( $post_id );
+
+		wpbakery()->buildShortcodesCustomCss( $post_id );
+		wp_cache_flush();
+		ob_clean();
+	}
+
+	/**
+	 * Save plugin post meta and post fields.
 	 *
-	 * @return void
 	 * @since 4.4
-	 *
 	 */
 	public function save( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || vc_is_inline() ) {
 			return;
 		}
 		$this->setPostMeta( $post_id );
+	}
+
+	/**
+	 * Change post fields corresponding to post settings.
+	 *
+	 * @since 7.4
+	 * @param array $post_fields
+	 * @return array
+	 *
+	 */
+	public function change_post_fields( $post_fields ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || vc_is_inline() ) {
+			return $post_fields;
+		}
+
+		$post_fields = $this->set_post_slug( $post_fields );
+
+		return $post_fields;
 	}
 
 	/**
@@ -150,10 +161,98 @@ class Vc_Post_Admin {
 	}
 
 	/**
+	 * Set post content.
+	 *
+	 * @since 7.4
+	 * @param WP_Post $post
+	 * @return WP_Post $post
+	 */
+	public function set_post_content( $post ) {
+		$post->post_content = stripslashes( vc_post_param( 'content' ) );
+
+		return $post;
+	}
+
+	/**
+	 * Set post title.
+	 *
+	 * @since 7.4
+	 * @param WP_Post $post
+	 * @return WP_Post $post
+	 */
+	public function set_post_title( $post ) {
+		$post_title = vc_post_param( 'post_title' );
+		if ( null !== $post_title ) {
+			$post->post_title = $post_title;
+		}
+
+		return $post;
+	}
+
+	/**
+	 * Set post status.
+	 *
+	 * @since 7.4
+	 * @param WP_Post $post
+	 * @return WP_Post $post
+	 */
+	public function set_post_status( $post ) {
+		$post_status = vc_post_param( 'post_status' );
+		if ( $post_status && 'publish' === $post_status ) {
+			if ( vc_user_access()->wpAll( [
+				get_post_type_object( $post->post_type )->cap->publish_posts,
+				$post->ID,
+			] )->get() ) {
+				if ( 'private' !== $post->post_status && 'future' !== $post->post_status ) {
+					$post->post_status = 'publish';
+				}
+			} else {
+				$post->post_status = 'pending';
+			}
+		}
+
+		return $post;
+	}
+
+	/**
+	 * Set post slug
+	 *
+	 * @param WP_Post | array $post
+	 * @return WP_Post | array
+	 */
+	public function set_post_slug( $post ) {
+		$post_seo = vc_post_param( 'vc_post_custom_seo_settings' );
+		if ( empty( $post_seo ) ) {
+			return $post;
+		}
+
+		$post_seo = json_decode( stripslashes( $post_seo ), true );
+		if ( empty( $post_seo['slug'] ) ) {
+			return $post;
+		}
+
+		$slug = wp_unique_post_slug(
+			sanitize_title( $post_seo['slug'] ),
+			$post->ID,
+			$post->post_status,
+			$post->post_type,
+			$post->post_parent
+		);
+
+		if ( is_array( $post ) ) {
+			$post['post_name'] = $slug;
+		} else {
+			$post->post_name = $slug;
+		}
+
+		return $post;
+	}
+
+	/**
 	 * Set plugin meta to specific post.
 	 *
 	 * @param int $id
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function setPostMeta( $id ) {
 		if ( ! vc_user_access()->wpAny( array(
@@ -191,23 +290,25 @@ class Vc_Post_Admin {
 	 */
 	public function get_post_meta_list() {
 		return apply_filters( 'vc_post_meta_list',
-			array(
+			[
 				//@since 4.4
 				'custom_css',
 				//@since 7.0
 				'custom_js_header',
 				'custom_js_footer',
 				'custom_layout',
-			)
+				//@since 7.4
+				'custom_seo_settings',
+			]
 		);
 	}
 
 	/**
 	 * Set post meta by meta list.
 	 * @note we keep this data for meta in regular $_POST
-	 * @see include/templates/editors/backend_editor.tpl.php
-	 * @see include/templates/editors/frontend_editor.tpl.php
+	 * @see include/templates/editors/partials/vc_post_custom_meta.tpl.php
 	 * @note we also additionally save data for frontend editor in ajax request to push it in $_POST
+	 * and save it than in that method
 	 * @see assets/js/frontend_editor/shortcodes_builder.js ShortcodesBuilder::save()
 	 * @since 7.0
 	 *

@@ -44,6 +44,10 @@ class ThePlus_Contact_Form_7 extends Widget_Base {
 
 		return esc_url($DocUrl);
 	}
+
+	public function get_keywords() {
+        return ['Contact Form 7', 'form', 'contact form', 'form builder', 'form plugin', 'form creator', 'form generator'];
+    }
  
     protected function register_controls() {
 		/*Layout Content*/

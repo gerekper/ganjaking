@@ -181,7 +181,7 @@ function fill_modal_shipping_info(product_id, country_from_list, country_from, c
     jQuery('.modal-shipping .shipping-method').html(html);
 }
 
-function a2w_load_shipping_info ( product_id, country_from, country_to, page = 'a2w_dashboard', callback = null ){
+function a2w_load_shipping_info ( product_id, country_from, country_to, page = 'a2w_dashboard', callback = null){
     var data = { 'action': 'a2w_load_shipping_info', 'id': product_id, 'country_from':country_from, 'country_to': country_to, 'page': page };
 
     jQuery.post(ajaxurl, data).done(function (response) {
@@ -784,6 +784,73 @@ var Utils = new Utils();
         });
         /* ================================================================================ */
 
+        $(document).on('product_shipping_info_updated', function(e, data){
+            updateFullfilmentShippingSelect(data.product_id, data.items, data.method);
+        });
+
+        function updateFullfilmentShippingSelect(product_id, items, method) {
+            const $reloadButton = $('.fulfillment-order-items [data-external_id="' + product_id + '"]');
+            const $select = $reloadButton.closest('.shipping_company').find('.current-shipping-company');
+
+            let options = '';
+
+            $.each(items, function(i, item){
+                options += '<option value="' + item.serviceName + '" ' + (item.serviceName === method ? 'selected="selected"' : '') + '>' + item.company + ' (' + item.time + 'days, ' + item.freightAmount.formatedAmount + ')</option>';
+            });
+
+            $select.html(options).change();
+        }
+
+        $(document).on("click", '.a2w-shipping-update-global', function () {
+            const $btn = $(this);
+
+            const onSelectCallback = function (product_id, items, country_from, country_to, method) {
+                if(method && items){
+                    $btn.data('country_from', country_from)
+                    $btn.data('country_to', country_to)
+                    $btn.data('shipping_method', method)
+
+                    let cost;
+                    let selected_item;
+
+                    $.each(items, function (i, item) {
+                        if(item.serviceName == method){
+                            cost = item.previewFreightAmount?item.previewFreightAmount.value:item.freightAmount.value
+                            selected_item = item;
+                        }
+                    });
+
+                    $(document).trigger('product_shipping_info_updated', {
+                        product_id,
+                        items,
+                        country_from,
+                        country_to,
+                        method,
+                        selected_item,
+                        cost
+                    });
+                }
+            }
+
+            const country_from = $btn.data('country_from')
+            const country_to = $btn.data('country_to')
+            const shipping_method = $btn.data('shipping_method')
+            const product_id = $btn.data('external_id');
+            let country_from_list = $btn.data('country_from_list');
+
+            if (!country_from_list) {
+                country_from_list = [];
+            }
+
+            $('.modal-shipping .shipping-method').html('<div class="a2w-load-container"><div class="a2w-load-speeding-wheel"></div></div>');
+            a2w_load_shipping_info(product_id, country_from, country_to, 'fulfillment', function (state, items, default_method, shipping_cost, variations) {
+                fill_modal_shipping_info(product_id, country_from_list, country_from, country_to, items, 'fulfillment', shipping_method, onSelectCallback);
+            });
+
+            $(".modal-shipping").addClass('opened');
+            return false;
+        });
+
         $(".product-card-shipping-info").on("click", function () {
             const tmp_data = $( this ).data();
             
@@ -1027,7 +1094,7 @@ var Utils = new Utils();
                         console.log(json);
                         show_notification(a2w_common_data.lang.import_failed + ' ' + json.message, true);
                     } else {
-                        show_notification(a2w_common_data.lang.imported_successfully);
+                        show_notification(a2w_common_data.lang.removed_successfully);
 
                         $(_this).closest(".product-card").removeClass("product-card--added");
                         $(_this).find(".title").text('Add to import list');
@@ -1124,7 +1191,7 @@ var Utils = new Utils();
         });
 
         $(".modal-close, .modal-btn-close").on("click", function () {
-            $(".modal-overlay").removeClass('opened');
+            $(this).closest('.modal-overlay').removeClass('opened');
             return false;
         });
 
@@ -1760,21 +1827,112 @@ var Utils = new Utils();
                 $(this).parents('.price-edit-selector').addClass('random-value');
                 $(this).parents('.price-edit-selector').find('.price-box-top input[type="text"]').data({ type: 'quantity-random' });
             } else if ($(this).hasClass('rename-attr-value')) {
-                const $attrSelector = $(this).parents('td').find('.price-box-top select')
+                const $attrsTable = $('.a2w-rename-attrs-modal__table');
                 const attr_id = $(this).parents('td').attr('data-attr-id');
-                $(this).parents('.price-edit-selector').find('.price-box-top input[type="text"]').val('');
-                $attrSelector.find('option').remove();
+
+                $(".a2w-rename-attrs-modal")
+                    .addClass('opened')
+                    .data('attr_id', attr_id)
+                    .data('product', $(this).closest('.product'));
+
+                $attrsTable.empty();
                 $(this).parents('.variants-table').find('td[data-attr-id="' + attr_id + '"] input').each(function () {
-                    const val = $(this).val()
-                    if (val && $attrSelector.find('option[value="' + val + '"]').length == 0) {
-                        $attrSelector.append('<option value="' + val + '">' + val + '</option>')
+                    const val = $(this).val();
+                    const attr_name_id = $(this).data('id');
+
+                    if (val && $attrsTable.find('input[name="' + attr_name_id + '"]').length === 0) {
+                        $attrsTable.append('<tr class="a2w-rename-attrs-modal__row"><td class="a2w-rename-attrs-modal__name">'+val+'</td><td class="a2w-rename-attrs-modal__new-name" data-id="'+attr_name_id+'"><input type="text" name="'+attr_name_id+'" placeholder="'+a2w_common_data.lang.attr_new_name+'"></td></tr>')
                     }
                 });
+
+                $('.price-edit-selector').find('.price-box-top').hide();
+
+                return;
             }
 
 
             $('.price-edit-selector').find('.price-box-top').hide();
             $(this).parents('.price-edit-selector').find('.price-box-top').toggle();
+        });
+
+        $('.a2w-rename-attrs-modal__cancel').on('click', function(){
+            $('.a2w-rename-attrs-modal').removeClass('opened');
+        });
+
+        $('.a2w-rename-attrs-modal__apply').on('click', function(){
+            const $button = $(this);
+            const $modal = $button.closest('.a2w-rename-attrs-modal');
+            const attr_id = $modal.data('attr_id');
+            const $product = $modal.data('product');
+            const $attrInputs = $product.find('.variants-table tbody td[data-attr-id="' + attr_id + '"] input');
+            const $newNames = $modal.find('.a2w-rename-attrs-modal__new-name');
+            const $newNamesInputs = $modal.find('.a2w-rename-attrs-modal__new-name input');
+
+            $newNames.removeClass('error');
+
+            const oldAttrs = {};
+            const newAttrs = {};
+            const finalAttrs = {};
+
+            $attrInputs.each(function () {
+                const attr_name_id = $(this).data('id');
+                const value = $(this).val();
+
+                oldAttrs[attr_name_id] = value;
+            });
+
+            $newNamesInputs.each(function() {
+                const attr_name_id = $(this).attr('name');
+                let value = $(this).val();
+
+                newAttrs[attr_name_id] = value;
+
+                if (value === '') {
+                    value = oldAttrs[attr_name_id];
+                }
+
+                finalAttrs[attr_name_id] = value;
+            });
+
+            //check duplicates
+            let duplicatesKeys = [];
+            $.each(newAttrs, function(key, value){
+                if (!value) {
+                    return;
+                }
+
+                let duplicatesCount = 0;
+                $.each(finalAttrs, function(fKey, fValue){
+                    if (fValue.toLowerCase() === value.toLowerCase()) {
+                        duplicatesCount++;
+
+                        if (duplicatesCount > 1) {
+                            duplicatesKeys.push(key);
+                            const $newNameField = $newNames.filter('[data-id="' + key + '"]');
+
+                            $newNameField.addClass('error');
+
+                            if (!$newNameField.find('.a2w-rename-attrs-modal__error').length) {
+                                $newNameField.append('<div class="a2w-rename-attrs-modal__error"></div>')
+                            }
+
+                            $newNameField.find('.a2w-rename-attrs-modal__error').text(a2w_common_data.lang.attr_name_duplicate_error);
+
+                            return false;
+                        }
+                    }
+                });
+            });
+
+
+            //save
+            if (!duplicatesKeys.length) {
+                $.each(finalAttrs, function(key, value){
+                    $product.find('.variants-table tbody td[data-attr-id="' + attr_id + '"] input[data-id="'+key+'"]').val(value);
+                });
+
+                $('.a2w-rename-attrs-modal').removeClass('opened');
+            }
         });
 
         $('.a2w-content .price-edit-selector .price-box-top .apply').click(function () {
@@ -2156,10 +2314,45 @@ var Utils = new Utils();
             }
         })
 
-        //tooltip
-        $('')
+        $('#upload-csv').on('change', function(){
+            var $file = $(this),
+                $icon = $file.closest('.upload-icon'),
+                formData = new FormData();
+
+            if (typeof $file[0].files === 'undefined' || !$file[0].files.length) {
+                return;
+            }
+
+            var file = $file[0].files[0];
+            formData.append('file', file);
+            formData.append('action', 'a2w_csv_add_to_import');
+
+            $file.prop('disabled', true);
+            $icon.addClass('disabled');
+
+            $.ajax({
+                url : ajaxurl,
+                type : 'POST',
+                data : formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.state !== 'ok') {
+                        show_notification(a2w_common_data.lang.import_failed + ' ' + response.message, true);
+                    } else {
+                        show_notification(a2w_common_data.lang.imported_successfully);
+                    }
+                },
+                complete: function(){
+                    $file.prop('disabled', false);
+                    $icon.removeClass('disabled');
+                }
+            });
+
+            //clear file input
+            $file.val(null);
+        });
     });
 
 })(jQuery, window, document);
-
-

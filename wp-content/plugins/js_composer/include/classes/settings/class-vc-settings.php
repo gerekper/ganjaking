@@ -11,10 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * List of tabs
  * 1. General Settings - set access rules and allowed content types for editors.
- * 2. Design Options - custom color and spacing editor for VC shortcodes elements.
- * 3. Custom CSS - add custom css to your WP pages.
- * 4. Product License - license key activation for automatic VC updates.
- * 5. My Shortcodes - automated mapping tool for shortcodes.
+ * 2. Role Manager - set access rules and allowed content types for editors.
+ * 3. Design Options - custom color and spacing editor for VC shortcodes elements.
+ * 4. Custom CSS - add custom css to your WP pages.
+ * 5. Custom JS - add custom css to your WP pages.
+ * 6. Product License - license key activation for automatic VC updates.
+ * 7. My Shortcodes - automated mapping tool for shortcodes.
  *
  * @link http://codex.wordpress.org/Settings_API WordPress settings API
  * @since 3.4

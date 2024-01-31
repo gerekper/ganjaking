@@ -2,7 +2,7 @@
 /**
  * WC_CP_Display class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    2.2.2
  */
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.10.4
+ * @version  8.10.5
  */
 class WC_CP_Display {
 
@@ -201,6 +201,7 @@ class WC_CP_Display {
 		$dependencies = apply_filters( 'woocommerce_composite_script_dependencies', $dependencies );
 
 		wp_register_script( 'wc-add-to-cart-composite', WC_CP()->plugin_url() . '/assets/js/frontend/add-to-cart-composite' . $suffix . '.js', $dependencies, WC_CP()->version, true );
+		wp_script_add_data( 'wc-add-to-cart-composite', 'strategy', 'defer' );
 
 		wp_register_style( 'wc-composite-single-css', WC_CP()->plugin_url() . '/assets/css/frontend/single-product.css', false, WC_CP()->version, 'all' );
 		wp_style_add_data( 'wc-composite-single-css', 'rtl', 'replace' );

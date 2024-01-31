@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Admin class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.0.0
  */
 
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.15.3
+ * @version  1.5.5
  */
 class WC_CSP_Admin {
 
@@ -105,6 +105,9 @@ class WC_CSP_Admin {
 
 		// Dismiss notices.
 		add_action( 'wp_ajax_woocommerce_dismiss_csp_notice', array( __CLASS__ , 'dismiss_notice' ) );
+
+		// Show row meta on the plugin screen.
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
 
 	/**
@@ -640,7 +643,7 @@ class WC_CSP_Admin {
 	 */
 	public static function add_privacy_policy_guide_content() {
 		if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
-			wp_add_privacy_policy_content( 'WooCommerce Conditional Shipping and Payments', self::get_privacy_policy_guide_message() );
+			wp_add_privacy_policy_content( 'Woo Conditional Shipping and Payments', self::get_privacy_policy_guide_message() );
 		}
 	}
 
@@ -855,4 +858,28 @@ class WC_CSP_Admin {
 
 		wp_send_json( $response );
 	}
+
+	/**
+	 * Show row meta on the plugin screen.
+	 *
+	 * @since 1.5.5
+	 *
+	 * @param	mixed  $links
+	 * @param	mixed  $file
+	 * @return	array
+	 */
+	public static function plugin_row_meta( $links, $file ) {
+
+		if ( WC_CSP()->get_plugin_basename() === $file ) {
+			$row_meta = array(
+				'docs'    => '<a href="https://woo.com/products/conditional-shipping-and-payments/">' . __( 'Documentation', 'woocommerce-conditional-shipping-and-payments' ) . '</a>',
+				'support' => '<a href="https://woo.com/my-account/marketplace-ticket-form/">' . __( 'Support', 'woocommerce-conditional-shipping-and-payments' ) . '</a>',
+			);
+
+			return array_merge( $links, $row_meta );
+		}
+
+		return $links;
+	}
+
 }

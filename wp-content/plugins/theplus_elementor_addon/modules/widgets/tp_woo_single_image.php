@@ -39,6 +39,7 @@ class ThePlus_Woo_Single_Image extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+	
 	public function get_keywords() {
 		return ['Single Basic, woocomerce', 'theplus','single product','product gallery','feature image','thumbnail','post','product'];
 	}	

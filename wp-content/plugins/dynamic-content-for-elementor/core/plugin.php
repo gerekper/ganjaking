@@ -129,7 +129,7 @@ class Plugin
         add_action('elementor/init', [$this, 'add_dce_to_elementor'], 0);
         add_filter('plugin_action_links_' . DCE_PLUGIN_BASE, [$this, 'plugin_action_links']);
         add_filter('plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2);
-        add_filter('pre_handle_404', '\\DynamicContentForElementor\\Helper::allow_posts_pagination', 999, 2);
+        add_filter('pre_handle_404', '\\DynamicContentForElementor\\Helper::maybe_allow_posts_pagination', 1, 2);
         // Enchanted Tab for Elementor Pro Form
         $features_enchanted = self::instance()->features->filter_by_tag('enchanted');
         $active_features_enchanted = \array_filter($features_enchanted, function ($e) {

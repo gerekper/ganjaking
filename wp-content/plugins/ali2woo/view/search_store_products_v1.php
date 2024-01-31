@@ -3,9 +3,10 @@
         
         <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php';?>
         
-        <?php if (!A2W_Account::getInstance()->is_activated()): ?>
-        <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
-        <?php endif;?>
+        <?php //if (!Ali2Woo\Account::getInstance()->is_activated()): ?>
+            <?php //$link_html = "<a href=" . admin_url('admin.php?page=a2w_setting') .">" . __('settings', 'ali2woo') . "</a>"; ?>
+        <!--- <div class="a2w-pc-warn"><p><?php //echo sprintf( esc_html__( 'You didn`t activate Ali2Woo! Please open the Ali2Woo plugin %s and input your purchase key.', 'ali2woo' ), $link_html ); ?> </p></div> --->
+        <?php //endif;?>
         
 
         <?php include_once A2W()->plugin_path() . '/view/setup_wizard_notify.php';?>
@@ -126,7 +127,7 @@
 
         <div class="search-result">
             <div class="messages"><?php settings_errors('a2w_products_list');?></div>
-            <?php $localizator = A2W_AliexpressLocalizator::getInstance();?>
+            <?php $localizator = Ali2Woo\AliexpressLocalizator::getInstance();?>
             <?php $out_curr = $localizator->getLocaleCurr();?>
             <?php if ($load_products_result['state'] != 'error'): ?>
                 <?php if (!$load_products_result['total']): ?>

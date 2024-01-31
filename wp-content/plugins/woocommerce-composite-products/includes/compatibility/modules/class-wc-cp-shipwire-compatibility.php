@@ -2,7 +2,7 @@
 /**
  * WC_CP_Shipwire_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.8.0
  */
 

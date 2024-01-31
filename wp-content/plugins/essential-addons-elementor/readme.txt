@@ -2,7 +2,7 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul, manzurahammed
 Tags: elementor, elements, widgets, page builder, builder, visual editor, wordpress page builder
 Tested up to: 6.4
-Stable tag: 5.8.5
+Stable tag: 5.8.7
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -88,6 +88,20 @@ List of Extensions :
 * Conditional Display
 
 == Changelog ==
+
+= 5.8.7 - 17/01/2024 =
+
+- Fixed: EA Advanced Menu | Throwing Fatal error when Hamburger option is enabled for Desktop device
+- Few minor bug fixes & improvements
+
+= 5.8.6 - 14/01/2024 =
+- Fixed: EA Advanced Menu | SVG icon loading issue
+- Fixed: EA Content Timeline | Typography Issue
+- Fixed: EA Interactive Cards | Vimeo video visibility issue
+- Fixed: EA Smart Post List | No Context Empty link creating issue
+- Fixed: EA Instagram Feed | Border radius issue
+- Improved: EA Particles Extension | Added support to control speed and opacity
+- Few minor bug fixes & improvements
 
 = 5.8.5 - 21/12/2023 =
 

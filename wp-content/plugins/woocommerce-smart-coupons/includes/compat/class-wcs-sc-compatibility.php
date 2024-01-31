@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -216,7 +216,10 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 			foreach ( $meta as $index => $data ) {
 				if ( $this->is_wcs_gte( '2.2.0' ) ) {
-					if ( ! empty( $data['meta_key'] ) ) {
+					if ( is_object( $data ) ) {
+						$data = (array) $data;
+					}
+					if ( is_array( $data ) && ! empty( $data['meta_key'] ) ) {
 						$prefixed_key   = wcs_maybe_prefix_key( $data['meta_key'] );
 						$unprefixed_key = ( $data['meta_key'] === $prefixed_key ) ? substr( $data['meta_key'], 1 ) : $data['meta_key'];
 						if ( array_key_exists( $unprefixed_key, $meta_exists ) ) {

@@ -1,15 +1,15 @@
-# Copyright (C) 2023 SkyVerge
+# Copyright (C) 2024 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.25.2\n"
+"Project-Id-Version: WooCommerce Memberships 1.26.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-12-06 10:49:46+00:00\n"
+"POT-Creation-Date: 2024-01-24 02:02:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Memberships"
 msgstr ""
 
-#: class-wc-memberships.php:1242 src/Blocks.php:264
+#: class-wc-memberships.php:1242 src/Blocks.php:222
 #: src/admin/class-wc-memberships-admin-user-memberships.php:120
 #: src/admin/class-wc-memberships-import-export-handler.php:467
 #: src/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:180
@@ -126,74 +126,74 @@ msgstr ""
 msgid "Related Product"
 msgstr ""
 
-#: src/Blocks.php:262
+#: src/Blocks.php:220
 #: src/admin/class-wc-memberships-admin-user-memberships.php:109
 msgid "Email"
 msgstr ""
 
-#: src/Blocks.php:263
+#: src/Blocks.php:221
 msgid "Phone"
 msgstr ""
 
-#: src/Blocks.php:265
+#: src/Blocks.php:223
 msgid "Address"
 msgstr ""
 
-#: src/Blocks.php:266
+#: src/Blocks.php:224
 msgid ""
-"We didn’t find any members. Please try a different search or check for "
+"We didn't find any members. Please try a different search or check for "
 "typos."
 msgstr ""
 
-#: src/Blocks.php:267
+#: src/Blocks.php:225
 msgid "No records found..."
 msgstr ""
 
-#: src/Blocks.php:333 src/Blocks.php:340
+#: src/Blocks.php:323 src/Blocks.php:330
 msgid "restricted"
 msgstr ""
 
-#: src/Blocks.php:334 src/Blocks.php:341
+#: src/Blocks.php:324 src/Blocks.php:331
 msgid "hide"
 msgstr ""
 
-#: src/Blocks.php:335 src/Blocks.php:342
+#: src/Blocks.php:325 src/Blocks.php:332
 msgid "protected"
 msgstr ""
 
-#: src/Blocks.php:343
+#: src/Blocks.php:333
 msgid "memberships"
 msgstr ""
 
-#: src/Blocks.php:344
+#: src/Blocks.php:334
 msgid "members"
 msgstr ""
 
-#: src/Blocks.php:345
+#: src/Blocks.php:335
 msgid "non-members"
 msgstr ""
 
-#: src/Blocks.php:346
+#: src/Blocks.php:336
 msgid "non members"
 msgstr ""
 
-#: src/Blocks.php:347
+#: src/Blocks.php:337
 msgid "restrictions"
 msgstr ""
 
-#: src/Blocks.php:348
+#: src/Blocks.php:338
 msgid "content"
 msgstr ""
 
-#: src/Blocks.php:349
+#: src/Blocks.php:339
 msgid "hidden"
 msgstr ""
 
-#: src/Blocks.php:350
+#: src/Blocks.php:340
 msgid "private"
 msgstr ""
 
-#: src/Blocks.php:351
+#: src/Blocks.php:341
 msgid "public"
 msgstr ""
 
@@ -3517,101 +3517,101 @@ msgid "Membership plan additional meta data."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:489
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1146
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1230
 msgid "Meta ID."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:495
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1152
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1236
 msgid "Meta key."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:500
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1157
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1241
 msgid "Meta value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:50
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:51
 #: src/class-wc-memberships-post-types.php:142
 msgid "User Membership"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:106
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:108
 msgid "Unique identifier of a user membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:186
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:273
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:231
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:324
 msgid "Invalid request."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:192
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:237
 msgid "Required %s is missing."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:203
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:248
 #. translators: Placeholders: %1$s - customer ID, %2$s - membership plan ID
 msgid "A membership already exists for user %1$s and plan %2$s."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:281
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:332
 #. translators: Placeholder: %s - user membership identifier (may be empty)
 msgid "User Membership%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:305
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:358
 msgid "Could not change the membership plan of this user membership. %s"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:346
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:403
 #. translators: Placeholder: %s - customer identifier (may be empty)
 msgid "Membership Plan%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:372
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:431
 #. translators: Placeholder: %s - customer identifier (may be empty)
 msgid "Customer%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:413
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:474
 #. translators: Placeholder: %s - date string name
 msgid "Invalid %s date value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:425
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:487
 #. translators: Placeholder: %s - product identifier (may be empty)
 msgid "Product%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:436
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:499
 #. translators: Placeholder: %s - order identifier (may be empty)
 msgid "Order %s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:446
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:510
 msgid "Invalid user membership status: \"%s\"."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:459
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:524
 msgid "Invalid profile fields."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:469
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:535
 #. translators: Placeholders: %d - array item index
 msgid "The profile field slug in \"profile_fields[%d][slug]\" is required."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:478
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:544
 #. translators: Placeholders: %d - array item index
 msgid "The profile field value in \"profile_fields[%d][value]\" is required."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:489
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:555
 #. translators: Placeholder: %s - profile field slug
 msgid "No profile field definition found for \"%s\"."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:496
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:562
 #. translators: Placeholders: %1$s - profile field value, %2$s - profile field
 #. slug
 msgid ""
@@ -3619,152 +3619,152 @@ msgid ""
 "ID."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:504
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:572
 #. translators: Placeholders: %1$s - array item index, %2$s - error message
 msgid "The \"profile_fields[%1$s]\" data is invalid. %2$s"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:520
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:588
 msgid "Invalid meta data."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:528
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:597
 msgid "Invalid meta data key."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:533
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:602
 msgid "Invalid meta data value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:554
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:623
 msgid "An error occurred while setting properties for the user membership %s."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:577
-#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:76
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:647
+#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:78
 msgid "Limit results to user memberships of a specific status."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:585
-#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:65
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:655
+#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:67
 msgid ""
 "Limit results to user memberships for a specific plan (matched by ID or "
 "slug)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:592
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:662
 msgid ""
 "Limit results to user memberships belonging to a specific customer (matched "
 "by ID, login name or email address)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:599
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:669
 msgid ""
 "Limit results to user memberships related to a specific order (matched by "
 "ID)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:606
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:676
 msgid ""
 "Limit results to user memberships granted after the purchase of a specific "
 "product (matched by ID)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1024
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1108
 msgid "Unique identifier of the user membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1030
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1114
 msgid "Unique identifier of the user the membership belongs to."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1035
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1119
 msgid "Unique identifier of the plan the user membership grants access to."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1040
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1124
 msgid "User membership status."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1046
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1130
 msgid "Unique identifier of the order that grants access."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1051
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1135
 msgid ""
 "Unique identifier of the purchased product, or its variation, that grants "
 "access."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1056
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1140
 msgid "The date when the user membership is created, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1062
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1146
 msgid "The date when the user membership is created, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1068
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1152
 msgid "The date when the user membership starts being active, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1074
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1158
 msgid "The date when the user membership starts being active, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1079
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1163
 msgid "The date when the user membership ends, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1085
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1169
 msgid "The date when the user membership ends, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1090
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1174
 msgid "The date when the user membership was last paused, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1096
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1180
 msgid "The date when the user membership was last paused, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1101
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1185
 msgid "The date when the user membership was cancelled, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1107
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1191
 msgid "The date when the user membership was cancelled, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1112
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1196
 msgid "The URL pointing to the Members Area to view the membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1118
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1202
 msgid "User membership profile fields."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1125
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1209
 msgid "Profile field slug."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1131
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1215
 msgid "Profile field value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1139
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1223
 msgid "User membership additional meta data."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1223
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1310
 msgid "List of user memberships created."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1227
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1314
 msgid "List of updated user memberships."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1231
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1318
 msgid "List of deleted user memberships."
 msgstr ""
 
@@ -3800,28 +3800,28 @@ msgstr ""
 msgid "Membership Plan Restored"
 msgstr ""
 
-#: src/blocks/Members_Directory.php:142
+#: src/blocks/Members_Directory.php:159
 msgid "Search..."
 msgstr ""
 
-#: src/blocks/Members_Directory.php:146 src/blocks/Members_Directory.php:147
+#: src/blocks/Members_Directory.php:166 src/blocks/Members_Directory.php:167
 msgid "All Plans"
 msgstr ""
 
-#: src/blocks/Members_Directory.php:159 src/blocks/Members_Directory.php:160
+#: src/blocks/Members_Directory.php:173 src/blocks/Members_Directory.php:174
 msgid "All Statuses"
 msgstr ""
 
-#: src/blocks/Members_Directory.php:183
+#: src/blocks/Members_Directory.php:194
 msgid "Filter"
 msgstr ""
 
-#: src/blocks/Members_Directory.php:192
+#: src/blocks/Members_Directory.php:205
 #: src/functions/wc-memberships-functions-members-area.php:393
 msgid "Previous"
 msgstr ""
 
-#: src/blocks/Members_Directory.php:193
+#: src/blocks/Members_Directory.php:206
 #: src/functions/wc-memberships-functions-members-area.php:396
 msgid "Next"
 msgstr ""
@@ -4919,64 +4919,64 @@ msgid ""
 "complete it%4$s."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:222
+#: src/frontend/class-wc-memberships-frontend.php:204
 #. translators: Placeholder: %1$s - error code, %2$s - error message
 msgid "Error %1$s: %2$s"
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:321
-#: src/frontend/class-wc-memberships-frontend.php:552
+#: src/frontend/class-wc-memberships-frontend.php:303
+#: src/frontend/class-wc-memberships-frontend.php:534
 msgid "Invalid membership."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:331
+#: src/frontend/class-wc-memberships-frontend.php:313
 msgid "Membership cancelled by customer."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:340
+#: src/frontend/class-wc-memberships-frontend.php:322
 msgid "Your membership was cancelled."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:354
+#: src/frontend/class-wc-memberships-frontend.php:336
 msgid "Cannot cancel this membership."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:385
+#: src/frontend/class-wc-memberships-frontend.php:367
 msgid ""
 "Cannot automatically log in. Please log into your account and renew this "
 "membership manually."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:548
+#: src/frontend/class-wc-memberships-frontend.php:530
 msgid "Cannot renew this membership. Please contact us if you need assistance."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:561
+#: src/frontend/class-wc-memberships-frontend.php:543
 msgid "Invalid renewal URL."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:566
+#: src/frontend/class-wc-memberships-frontend.php:548
 msgid "Invalid renewal token."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:574
+#: src/frontend/class-wc-memberships-frontend.php:556
 msgid "Your renewal token has expired."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:580
+#: src/frontend/class-wc-memberships-frontend.php:562
 msgid "Please log in to renew this membership from your account page."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:582
+#: src/frontend/class-wc-memberships-frontend.php:564
 msgid "Please renew this membership from your account page."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:636
+#: src/frontend/class-wc-memberships-frontend.php:618
 #. translators: Placeholder: %s - a product to purchase to renew a membership
 msgid "Renew your membership by purchasing %s."
 msgstr ""
 
-#: src/frontend/class-wc-memberships-frontend.php:637
+#: src/frontend/class-wc-memberships-frontend.php:619
 msgid "You must be logged to renew your membership."
 msgstr ""
 

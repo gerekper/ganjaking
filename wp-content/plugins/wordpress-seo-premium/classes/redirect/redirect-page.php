@@ -26,6 +26,8 @@ class WPSEO_Redirect_Page {
 
 	/**
 	 * Display the presenter.
+	 *
+	 * @return void
 	 */
 	public function display() {
 		$display_args = [ 'current_tab' => $this->get_current_tab() ];
@@ -40,6 +42,8 @@ class WPSEO_Redirect_Page {
 	 * It catches:
 	 * A search post.
 	 * A redirect-type filter.
+	 *
+	 * @return void
 	 */
 	public function list_table_search() {
 		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
@@ -109,6 +113,8 @@ class WPSEO_Redirect_Page {
 
 	/**
 	 * Load the admin redirects scripts.
+	 *
+	 * @return void
 	 */
 	public function enqueue_assets() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
@@ -133,7 +139,7 @@ class WPSEO_Redirect_Page {
 			true
 		);
 		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoPremiumStrings', WPSEO_Premium_Javascript_Strings::strings() );
-		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoUserLocale', [ 'code' => substr( \get_user_locale(), 0, 2 ) ] );
+		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoUserLocale', [ 'code' => substr( get_user_locale(), 0, 2 ) ] );
 		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoAdminRedirect', [ 'homeUrl' => home_url( '/' ) ] );
 		wp_enqueue_style( 'wpseo-premium-redirects', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/dist/premium-redirects-' . $version . '.css', [], WPSEO_PREMIUM_VERSION );
 
@@ -170,6 +176,8 @@ class WPSEO_Redirect_Page {
 	 *
 	 * @param array $old_value Unused.
 	 * @param array $value     The new saved values.
+	 *
+	 * @return void
 	 */
 	public function save_redirect_files( $old_value, $value ) {
 
@@ -220,6 +228,8 @@ class WPSEO_Redirect_Page {
 
 	/**
 	 * Clears the redirects from the nginx config.
+	 *
+	 * @return void
 	 */
 	private function clear_nginx_redirects() {
 		$redirect_file = WPSEO_Redirect_File_Util::get_file_path();
@@ -230,6 +240,8 @@ class WPSEO_Redirect_Page {
 
 	/**
 	 * Initialize admin hooks.
+	 *
+	 * @return void
 	 */
 	private function initialize_admin() {
 		$this->fetch_bulk_action();
@@ -238,7 +250,7 @@ class WPSEO_Redirect_Page {
 		add_action( 'update_option_wpseo_redirect', [ $this, 'save_redirect_files' ], 10, 2 );
 
 		// Convert post into get on search and loading the page scripts.
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended -- We're not manipulating the value.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Recommended -- We're not manipulating the value.
 		if ( isset( $_GET['page'] ) && is_string( $_GET['page'] ) && wp_unslash( $_GET['page'] ) === 'wpseo_redirects' ) {
 			$upgrade_manager = new WPSEO_Upgrade_Manager();
 			$upgrade_manager->retry_upgrade_31();
@@ -252,6 +264,8 @@ class WPSEO_Redirect_Page {
 
 	/**
 	 * Initialize the AJAX redirect files.
+	 *
+	 * @return void
 	 */
 	private function initialize_ajax() {
 		// Normal Redirect AJAX.
@@ -272,7 +286,7 @@ class WPSEO_Redirect_Page {
 		if ( $current_tab === null ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended --  We're not manipulating the value.
 			if ( isset( $_GET['tab'] ) && is_string( $_GET['tab'] )
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended -- value sanitized in the if body, regex filters unwanted values.
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Recommended -- value sanitized in the if body, regex filters unwanted values.
 			&& in_array( wp_unslash( $_GET['tab'] ), [ WPSEO_Redirect_Formats::PLAIN, WPSEO_Redirect_Formats::REGEX, 'settings' ], true ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the regex takes care of filtering out unwanted values.
 				$current_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );

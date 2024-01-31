@@ -1,7 +1,7 @@
 <?php
 /**
  * Function ajax for backend
- * @version   4.5.2
+ * @version   4.5.5
  */
 class EVO_admin_ajax{
 	public $helper, $post_data;
@@ -19,7 +19,6 @@ class EVO_admin_ajax{
 			'export_settings'		=>'export_settings',
 			'import_settings'		=>'import_settings',
 
-			'eventpost_update_meta'	=>'evo_eventpost_update_meta',
 			'admin_test_email'		=>'admin_test_email',
 			'admin_get_environment'		=>'admin_get_environment',
 			'admin_system_log'		=>'admin_system_log',
@@ -84,13 +83,19 @@ class EVO_admin_ajax{
 				'dom_ids'=> $dom_id_array
 			);
 
-			//return $response;
-
-			echo json_encode($response);exit;
+			wp_send_json($response); wp_die();
 		}
 
 	// virtual events
 		public function config_virtual_event(){
+
+			// validate if user has permission
+			if( !current_user_can('edit_eventons') ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('You do not have proper permission to access this','eventon')
+				));	wp_die();
+			}
+
 			$post_data = $this->helper->sanitize_array( $_POST);
 
 			$EVENT = new EVO_Event( $post_data['eid'] );
@@ -99,15 +104,15 @@ class EVO_admin_ajax{
 
 			include_once('views/virtual_event_settings.php');
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good','content'=> ob_get_clean()
-			));exit;
+			)); wp_die();
 		}
 		public function select_virtual_moderator(){
 			
 			ob_start();
 
-			$eid = sanitize_text_field( $_POST['eid'] );
+			$eid = (int) $_POST['eid'];
 
 			$EVENT = new EVO_Event( $eid);
 			
@@ -119,7 +124,9 @@ class EVO_admin_ajax{
 			<div style="padding:20px">
 				<form class='evo_vir_select_mod'>
 					<input type="hidden" name="action" value='eventon_save_virtual_mod_settings'>
-					<input type="hidden" name="eid" value='<?php echo $eid;?>'>
+					<input type="hidden" name="eid" value='<?php echo esc_attr($eid);?>'>
+
+					<?php wp_nonce_field( 'evo_save_virtual_mod_settings', 'evo_noncename' );?>
 					
 					<p class='row'>
 						<label><?php _e('Select a user role to find users');?></label>
@@ -146,15 +153,15 @@ class EVO_admin_ajax{
 							<?php endif;?>
 						</select>
 					</p>
-					<p class='evo_save_changes' ><span class='evo_btn save_virtual_event_mod_config ' data-eid='<?php echo $eid;?>' style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>
+					<p class='evo_save_changes' ><span class='evo_btn save_virtual_event_mod_config ' data-eid='<?php echo esc_attr($eid);?>' style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>
 				</form>
 			</div>
 
 			<?php
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good','content'=> ob_get_clean()
-			));exit;
+			));wp_die();
 		}
 		public function get_virtual_users_select_options($role_slug, $set_user_id=''){
 			
@@ -174,20 +181,41 @@ class EVO_admin_ajax{
 		}
 		public function get_virtual_users(){
 
+			// validate if user has permission
+			if( !current_user_can('edit_eventons') ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('You do not have proper permission to access this','eventon')
+				));wp_die();
+			}
+
 			$user_role = sanitize_text_field( $_POST['_user_role']);
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good',
 				'content'=> empty($user_role) ? 
 					"<option value=''>--</option>" : 
 					$this->get_virtual_users_select_options($user_role)
-			));exit;
-
-			
+			)); wp_die();
 		}
 
 		// @updated 4.5.2
 		public function save_virtual_event_settings(){
+
+			// validate if user has permission
+			if( !current_user_can('edit_eventons') ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('You do not have proper permission to access this','eventon')
+				));
+				wp_die();
+			}
+			
+			// nonce validation
+			if( empty($_POST['evo_noncename']) && !wp_verify_nonce( $_POST['evo_noncename'], 'evo_save_virtual_event_settings' ) ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('Nonce validation failed','eventon')
+				));	wp_die();
+			}
+
 			$post_data = $this->helper->sanitize_array( $_POST);
 
 			$EVENT = new EVO_Event( $post_data['event_id']);
@@ -207,26 +235,49 @@ class EVO_admin_ajax{
 				$EVENT->save_meta($key, $val);
 			}
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good','msg'=> __('Virtual Event Data Saved Successfully','eventon')
-			));exit;
+			)); wp_die();
 		}
+
 		public function save_virtual_mod_settings(){
+
+			// validate if user has permission
+			if( !current_user_can('edit_eventons') ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('You do not have proper permission to access this','eventon')
+				));	wp_die();
+			}			
+
+			// nonce validation
+			if( empty( $_POST['evo_noncename'] ) || !wp_verify_nonce( wp_unslash( $_POST['evo_noncename'] ), 'evo_save_virtual_mod_settings' ) ){
+				wp_send_json(array(
+					'status'=>'bad','msg'=> __('Nonce validation failed','eventon')
+				));	wp_die();
+			}	
+
 			$post_data = $this->helper->sanitize_array( $_POST);
 
-			$EVENT = new EVO_Event( $post_data['eid']);
+			$EVENT = new EVO_Event( (int)$post_data['eid']);
 
 			$EVENT->save_meta('_evo_user_role', $post_data['_user_role']);
 			$EVENT->save_meta('_mod', $post_data['_mod']);
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good','msg'=> __('Moderator Data Saved Successfully','eventon')
-			));exit;
+			)); wp_die();
 			
 		}
 
-	// Related Events
+	// Related Events @4.5.5
 		function rel_event_list(){
+
+			// Check User Caps.
+			if ( ! current_user_can( 'edit_eventons' ) ) {
+				wp_send_json_error( 'missing_capabilities' );
+				wp_die();
+			}
+
 			$post_data = $this->helper->sanitize_array( $_POST);
 
 
@@ -241,17 +292,16 @@ class EVO_admin_ajax{
 			);
 			$events = new WP_Query($wp_args );
 
-		
+			
+			$content = '';
 
-			ob_start();
+			$content .= "<div class='evo_rel_events_form' data-eventid='{$event_id}'>";
 
-			echo "<div class='evo_rel_events_form' data-eventid='{$event_id}'>
-			<div class='evo_rel_search'>
-			<input class='evo_rel_search_input' type='text' name='event' value='' placeholder='Search events by name'/>
-			</div>";
+			$ev_count = 0;
 
-			if($events->have_posts()){				
-				?><div class='evo_rel_events_list'><?php
+			// each event
+			if($events->have_posts()){	
+				
 					
 				$events_list = array();
 
@@ -270,7 +320,8 @@ class EVO_admin_ajax{
 						</span>
 					</span><?php
 
-					$events_list[ $EV->get_start_time() ] = ob_get_clean();
+					$events_list[ $EV->get_start_time() . '_' . $event_id ] = ob_get_clean();
+					$ev_count++;
 
 					$repeats = $EV->get_repeats_count();
 					if($repeats){
@@ -289,29 +340,36 @@ class EVO_admin_ajax{
 								</span>
 							</span><?php
 
-							$events_list[ $EV->get_start_time() ] = ob_get_clean();
+							$events_list[ $EV->get_start_time() . '_' . $x ] = ob_get_clean();
+							$ev_count++;
 						}
 					}
 				}
 
 				krsort($events_list);
 
+				$content .= "<div class='evo_rel_search'>
+					<span class='evo_rel_ev_count' data-t='".__('Events','eventon')."'>". $ev_count .' '. __('Events','eventon') ."</span>
+					<input class='evo_rel_search_input' type='text' name='event' value='' placeholder='" . __('Search events by name','eventon'). " '/>
+				</div>
+				<div class='evo_rel_events_list'>";
+
+
 				foreach($events_list as $ed=>$ee){
-					echo $ee;
+					$content .= $ee;
 				}
 				
-				?></div>
-				<p style='text-align:center; padding-top:10px;'><span class='evo_btn evo_save_rel_events'><?php _e('Save Changes','eventon');?></span></p>
-				<?php
+				$content .= "</div><p style='text-align:center; padding-top:10px;'><span class='evo_btn evo_save_rel_events'>". __('Save Changes','eventon') ."</span></p>";
+				
 			}else{
-				?><p><?php _e('You must create events first!','eventon');?></p><?php
+				$content .= "<p>". __('You must create events first!','eventon') ."</p>";
 			}
 
-			echo "</div>";
+			$content .= "</div>";
 
 			wp_send_json(array(
 				'status'=>'good',
-				'content'=>ob_get_clean()
+				'content'=> $content
 			)); wp_die();
 		}
 
@@ -341,11 +399,11 @@ class EVO_admin_ajax{
 
 			$RR = json_decode($response);
 
-		    echo json_encode(array(
+		    wp_send_json(array(
 				'status'=>'good',
 				'lat' => $RR->results[0]->geometry->location->lat,
 		        'lng' => $RR->results[0]->geometry->location->lng,
-			)); exit;
+			)); wp_die();
 		}
 
 	// get HTML views
@@ -362,38 +420,22 @@ class EVO_admin_ajax{
 
 			$views = new EVO_Views();
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good','html'=>$views->get_html($type, $data)
-			)); exit;
-		}
-
-	// update event post meta
-		function evo_eventpost_update_meta(){
-			$post_data = $this->helper->sanitize_array( $_POST);
-
-			if(isset($post_data['eid']) && isset($post_data['values']) ){	
-
-				foreach($post_data['values'] as $key=>$val){
-					update_post_meta($post_data['eid'], $key, $val);
-
-					do_action('eventon_saved_event_metadata', $post_data['eid'], $key, $val);
-				}
-				echo json_encode(array(
-					'status'=>	'good',
-					'msg'=>	__('Successfully saved event meta data!','eventon')
-				)); exit;
-			}else{
-				echo 'Event ID not available!'; exit;
-			}
+			)); wp_die();
 		}
 
 	// export eventon settings
 		function export_settings(){
-			// check if admin and loggedin
-				if(!is_admin() && !is_user_logged_in()) die('User not loggedin!');
+			// validate if user has permission
+			if( !current_user_can('edit_eventons') ){
+				wp_die( __('User not loggedin','eventon'));
+			}
 
 			// verify nonce
-				if(!wp_verify_nonce($_REQUEST['nonce'], 'evo_export_settings')) die('Security Check Failed!');
+			if(empty( $_REQUEST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_REQUEST['nonce'] ), 'evo_export_settings')) {
+				wp_die( __('Security Check Failed','eventon'));
+			} 
 
 			header('Content-type: text/plain');
 			header("Content-Disposition: attachment; filename=Evo_settings__".date("d-m-y").".json");
@@ -406,15 +448,18 @@ class EVO_admin_ajax{
 				$json[$field] = $option;
 			}
 
-			echo json_encode($json);
-			exit;
+			wp_send_json($json); wp_die();
 		}
+
 	// import settings
 		function import_settings(){
 			$output = array('status'=>'','msg'=>'');
+			
 			// verify nonce
-				$output['success'] =wp_create_nonce('eventon_admin_nonce');
-				if(!wp_verify_nonce($_POST['nonce'], 'eventon_admin_nonce')) $output['msg'] = __('Security Check Failed!','eventon');
+				$output['success'] = wp_create_nonce('eventon_admin_nonce');
+				if(empty( $_POST['nonce'] ) || !wp_verify_nonce($_POST['nonce'], 'eventon_admin_nonce')){ 
+					$output['msg'] = __('Security Check Failed!','eventon');
+				}
 
 			// check if admin and loggedin
 				if(!is_admin() && !is_user_logged_in()) $output['msg'] = __('User not loggedin!','eventon');
@@ -432,8 +477,7 @@ class EVO_admin_ajax{
 				$output['msg'] = 'Successfully updated settings!';
 			}
 			
-			echo json_encode($output);
-			exit;
+			wp_send_json($output); wp_die();
 
 		}
 
@@ -442,10 +486,14 @@ class EVO_admin_ajax{
 		function export_events($event_id = ''){
 
 			// check if admin and loggedin
-				if(!is_admin() && !is_user_logged_in()) die('User not loggedin!');
+				if( !current_user_can('edit_eventons') ){
+					wp_die( __('User not loggedin','eventon'));
+				}
 
 			// verify nonce
-				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_download_events')) die('Security Check Failed!');
+				if( empty( $_REQUEST['nonce'] ) || !wp_verify_nonce( wp_unslash( $_REQUEST['nonce'] ), 'eventon_download_events')) {
+					wp_die('Security Check Failed!');
+				}
 
 			$run_process_content = false;
 			$wp_args = array();
@@ -454,8 +502,6 @@ class EVO_admin_ajax{
 				if( isset($_REQUEST['eid']) ){
 					$wp_args = array('p' => (int)$_REQUEST['eid']);
 				}
-				
-
 
 			header('Content-Encoding: UTF-8');
         	header('Content-type: text/csv; charset=UTF-8');
@@ -532,7 +578,7 @@ class EVO_admin_ajax{
 									$event_content = $this->html_process_content( $event_content, $process_html_content);
 								}
 							$csvRow.= '"'. sanitize_text_field($event_content).'",';
-;
+
 
 						// start time
 							if( isset($event['start'])){
@@ -794,10 +840,10 @@ class EVO_admin_ajax{
 			$error_msg_add = $html = $email = $msg = '';
 			
 			// check for required information
-			if(empty($post_data['type']) && isset($post_data['key']) && isset($post_data['slug']) ){ 
-				echo json_encode(array('status'=>'bad','error_msg'=> EVO_Error()->error_code(14) ));		
-				exit;
-			}
+				if(empty($post_data['type']) && isset($post_data['key']) && isset($post_data['slug']) ){ 
+					wp_send_json(array('status'=>'bad','error_msg'=> EVO_Error()->error_code(14) ));		
+					wp_die();
+				}
 
 			// Initial values
 			$type = $post_data['type'];
@@ -881,8 +927,8 @@ class EVO_admin_ajax{
 				'html'=>	$this->get_html_view( $type,$slug),
 				'debug'=> $validation
 			);
-			echo json_encode($return_content);		
-			exit;
+
+			wp_send_json($return_content);	wp_die();
 		}
 
 		// RE-VALIDATE
@@ -939,13 +985,12 @@ class EVO_admin_ajax{
 						}
 					}
 
-					echo json_encode(array(
+					wp_send_json(array(
 						'status'=> $results['status'],
 						'msg'=> $msg,
 						//'error_msg'=> EVO_Error()->error_code( $results['error_code']),
 						'html'=> $this->get_html_view( 'addon',$slug),					
-					));		
-					exit;
+					));	 wp_die();
 				}
 			}
 
@@ -1044,8 +1089,8 @@ class EVO_admin_ajax{
 				'msg'=>EVO_Error()->error_code($error_code),
 				'html'=> $html,					
 			);
-			echo json_encode($return_content);		
-			exit;
+			
+			wp_send_json($return_content);	wp_die();
 		}
 
 		function get_html_view($type,$slug){
@@ -1094,7 +1139,7 @@ class EVO_admin_ajax{
 				'content'=> $content,
 				'status'=>true
 			);			
-			echo json_encode($return_content);	exit;	
+			wp_send_json($return_content);	wp_die();
 		}
 
 	/** Feature an event from admin */
@@ -1199,11 +1244,15 @@ class EVO_admin_ajax{
 			wp_die();
 		}
 
-		// environment
+		// environment @u 4.5.5
 		function admin_get_environment(){
-			// verify nonce
-				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_admin_nonce')) die('Security Check Failed!');
 
+			// check if admin and loggedin
+				if( !current_user_can('edit_eventons') ){
+					wp_send_json_error(  __('User does not have permission','eventon') );
+					wp_die();
+				}
+			
 			$data = array(); $html = ''; global $wpdb;
 
 			// event count
@@ -1217,23 +1266,43 @@ class EVO_admin_ajax{
 			$data['EventON_version'] = EVO()->version;
 			$data['WordPress_version'] = get_bloginfo( 'version' );
 			$data['is_multisite'] = is_multisite()?'Yes':'No';
-			$data['WordPress_memory_limit'] = WP_MEMORY_LIMIT;
+
+			$data['WordPress_memory_limit'] =  WP_MEMORY_LIMIT;
+			$data['WordPress_Debug_mode'] = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? 'Yes':'No';
+			$data['WordPress_Cron'] = ! ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) ? 'Yes':'No';
+						
+			$data['shead1'] = __('Server Environment');
 			$data['PHP_version'] = phpversion();
-			$data['Maximum_update_size'] = wp_max_upload_size();
+			$data['PHP_max_input_vars'] = ini_get( 'max_input_vars' ) . ' '. __('Characters');
+			$data['Maximum_update_size'] = size_format( wp_max_upload_size() );
 			$data['CURL_enabled'] = in_array  ('curl', get_loaded_extensions() ) ? 'Yes':'No';
+
+			$data['shead2'] = __('Post Data');
 			$data['Events_count'] = $events_count;
 			$data['Total_event_postmeta_DB_entries'] = $pm_count;
 
+			// database information
+			if ( defined( 'DB_NAME' ) ) {	}
+
+			$html = '<div class="evo_environment">';
+
 			foreach($data as $D=>$V){
+
+				if( strpos($D, 'shead') !==  false ){ 
+					$html .= "<p class='shead'>". $V ."</p>"; continue;
+				}
+
 				$D = str_replace('_', ' ', $D);
 				$html .= "<p><span>".$D."</span><span class='data'>". $V ."</span></p>";
 			}
 
-			$html .="<em class='hr_line'></em>";
+
+			$html .= "</div>";
 				
-			echo json_encode(array(
-				'html'=> $html,
-			)); exit;
+			wp_send_json(array(
+				'status'=>'good',
+				'content'=> $html,
+			)); wp_die();
 		}
 }
 new EVO_admin_ajax();

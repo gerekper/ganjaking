@@ -2,6 +2,7 @@
 
 namespace ACP\Helper\Select\Comment;
 
+use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Comment_Query;
@@ -18,7 +19,7 @@ class Query extends ArrayIterator
     public function __construct(array $args = [])
     {
         $args = array_merge([
-            'number'        => 30,
+            'number'        => (new QueryTotalNumber())->apply_filter(),
             'fields'        => 'ID',
             'orderby'       => 'comment_date_gmt',
             'paged'         => 1,

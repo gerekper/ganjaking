@@ -142,6 +142,34 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			return $is_order_amazon_fulfill;
 		}
 
+
+		/**
+		 * Check if the order item is virtual.
+		 *
+		 * @param WC_Order_Item $item  The Order item.
+		 * @param int           $product_id The product id.
+		 *
+		 * @return boolean
+		 */
+		public function is_order_item_virtual( $item, $product_id ) {
+			if ( $item->get_variation_id() ) {
+				if ( 'product_variation' === get_post_type( $item->get_variation_id() ) ) {
+					$product = wc_get_product( $item->get_variation_id() );
+					if ( $product && $product->is_virtual() ) {
+						return true;
+					}
+				}
+			} else {
+				$product = wc_get_product( $product_id );
+
+				if ( $product && $product->is_virtual() ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		/**
 		 * Check if the order item can be processed by Amazon.
 		 *
@@ -163,13 +191,8 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			// variable product scenarios where 1 variation is physical and another variation is virtual and
 			// the overall product is set to fulfill with amazon but the virtual variation should never be sent.
 			// first we have to make sure we have and get a variation.
-			if ( $item->get_variation_id() ) {
-				if ( 'product_variation' === get_post_type( $item->get_variation_id() ) ) {
-					$product = wc_get_product( $item->get_variation_id() );
-					if ( $product && $product->is_virtual() ) {
-						return false;
-					}
-				}
+			if ( $this->is_order_item_virtual( $item, $product_id) ) {
+				return false;
 			}
 
 			// if vacation mode is ON then don't check any other conditions.

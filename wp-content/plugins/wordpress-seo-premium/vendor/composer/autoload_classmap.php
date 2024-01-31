@@ -204,6 +204,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => $baseDir . '/src/integrations/third-party/algolia.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD' => $baseDir . '/src/integrations/third-party/edd.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => $baseDir . '/src/integrations/third-party/elementor-premium.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Preview' => $baseDir . '/src/integrations/third-party/elementor-preview.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon' => $baseDir . '/src/integrations/third-party/mastodon.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => $baseDir . '/src/deprecated/integrations/third-party/zapier.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => $baseDir . '/src/deprecated/integrations/third-party/zapier-classic-editor.php',

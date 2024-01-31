@@ -48,7 +48,7 @@ class WC_Shipment_Tracking_Updates {
 
 		self::$updaters = array(
 			'1.6.5' => array(
-				'path'  => self::get_updater_base_dir() . 'class-wc-shipment-tracking-updater-1.6.5.php',
+				'path'  => self::get_updater_base_dir() . 'class-wc-shipment-tracking-updater-1-6-5.php',
 				'class' => 'WC_Shipment_Tracking_Updater_1_6_5',
 			),
 		);
@@ -93,7 +93,7 @@ class WC_Shipment_Tracking_Updates {
 	 * @param string $installed_version Installed version found in DB.
 	 */
 	protected static function maybe_perform_update( $installed_version ) {
-		require_once( self::get_updater_base_dir() . 'abstract-wc-shipment-tracking-updater.php' );
+		require_once self::get_updater_base_dir() . 'class-wc-shipment-tracking-updater.php';
 
 		foreach ( self::get_updaters() as $version => $updater ) {
 			if ( version_compare( $installed_version, $version, '>=' ) ) {
@@ -114,7 +114,7 @@ class WC_Shipment_Tracking_Updates {
 	 */
 	protected static function maybe_updater_runs_update( array $updater ) {
 		// nosemgrep: audit.php.lang.security.file.inclusion-arg, false positive. The path is defined internally inside this function.
-		require_once( $updater['path'] );
+		require_once $updater['path'];
 
 		$updater_instance = new $updater['class']();
 		if ( ! is_a( $updater_instance, 'WC_Shipment_Tracking_Updater' ) ) {

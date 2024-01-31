@@ -23,7 +23,7 @@ class Zapier implements Integration_Interface {
 	 *
 	 * @var string
 	 */
-	const ZAPIER_DASHBOARD_URL = 'https://zapier.com/app/zaps';
+	public const ZAPIER_DASHBOARD_URL = 'https://zapier.com/app/zaps';
 
 	/**
 	 * Represents the admin asset manager.

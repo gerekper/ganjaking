@@ -100,7 +100,7 @@
          */
         updateNotificationCount: () => {
 
-            const notificationsCount = $( '.swp-notifications-panel--notifications' ).children().length;
+            const notificationsCount = $( '.swp-notifications-panel--notifications .swp-notifications--notification' ).length;
 
             $( '.searchwp-branding-bar__actions-button-count' ).text( notificationsCount );
             $( '#wp-admin-bar-searchwp .searchwp-menu-notification-counter' ).text( notificationsCount );
@@ -109,6 +109,8 @@
             if ( notificationsCount !== 0 ) {
                 return;
             }
+
+			$( '.swp-notifications--empty-notifications-message' ).show();
 
             if ( window.location.hash ) {
                 window.location.hash = '';

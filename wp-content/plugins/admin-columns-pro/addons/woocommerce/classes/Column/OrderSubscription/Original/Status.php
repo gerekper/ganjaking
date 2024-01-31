@@ -17,7 +17,7 @@ class Status extends AC\Column implements ACP\Search\Searchable, ACP\Editing\Edi
 
     public function export()
     {
-        return new WC\Export\Order\Status();
+        return new WC\Export\OrderSubscription\Status();
     }
 
     public function search()

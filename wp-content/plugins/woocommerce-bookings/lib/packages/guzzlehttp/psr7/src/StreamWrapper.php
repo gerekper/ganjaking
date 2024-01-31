@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -128,7 +128,21 @@ final class StreamWrapper
     }
 
     /**
-     * @return array<int|string, int>
+     * @return array{
+     *   dev: int,
+     *   ino: int,
+     *   mode: int,
+     *   nlink: int,
+     *   uid: int,
+     *   gid: int,
+     *   rdev: int,
+     *   size: int,
+     *   atime: int,
+     *   mtime: int,
+     *   ctime: int,
+     *   blksize: int,
+     *   blocks: int
+     * }
      */
     public function stream_stat(): array
     {
@@ -158,7 +172,21 @@ final class StreamWrapper
     }
 
     /**
-     * @return array<int|string, int>
+     * @return array{
+     *   dev: int,
+     *   ino: int,
+     *   mode: int,
+     *   nlink: int,
+     *   uid: int,
+     *   gid: int,
+     *   rdev: int,
+     *   size: int,
+     *   atime: int,
+     *   mtime: int,
+     *   ctime: int,
+     *   blksize: int,
+     *   blocks: int
+     * }
      */
     public function url_stat(string $path, int $flags): array
     {

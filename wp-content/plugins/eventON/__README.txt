@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
-Tested up to: 6.4.1
-Stable tag: 4.5.4
+Tested up to: 6.4.2
+Stable tag: 4.5.8
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,78 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.5.8 (2024-1-29) = 
+ADDED: moment timezone js
+FIXED: search box not honoring passed on shortcodes
+FIXED: search box date range calculations with respect to calendar timezone
+FIXED: minor RTL style updates
+FIXED: event lists month name
+FIXED: coming up next time calculation based off event unix
+FIXED: schedule view day time calculation
+
+= 4.5.7 (2024-1-20) =
+FIXED: event data json to use offset unix times
+FIXED: send_email() arg getting overridden incorrectly
+FIXED: organizer social media twitter icon
+FIXED: after month switch to scroll page to top of calendar
+FIXED: incorrect time on front of calendar
+
+= 4.5.6 (2024-1-15) = 
+ADDED: event time extended type field to replace month, year long fields
+ADDED: option in time settings to show calendar timezone in the footer
+FIXED: global language value set after WPML lang validation
+FIXED: switching language in settings redirect url
+FIXED: save_virtual_event_settings() error
+FIXED: new location save not working due to nonce error
+FIXED: eventon_get_formatted_time() timezone to use global timezone
+FIXED: view in my time format correction
+FIXED: top save settings button not working properly
+FIXED: event time calculations with respect to timezone
+FIXED: datepicker not setting on first time
+FIXED: quick edit not displaying updated results
+FIXED: search box results not working
+FIXED: schedule view to use correct timezone and load via template
+FIXED: Nonce errors
+UPDATED: generate_time_() to use only needed parameters
+
+= 4.5.5 (2024-1-8) = 
+ADDED: support for sending emails in bcc
+ADDED: cronjob to flush error log every 3 months
+ADDED: backend sorting option menu_order for events
+ADDED: webhooks to pass supported fields
+ADDED: custom meta data field type using trumbowig editor
+ADDED: option to select which HTTP communication method to use ajax or endpoint
+ADDED: WP Query method to support last 12 months
+ADDED: WPML backward compatibility with ICL_LANGUAGE_CODE value
+ADDED: related events search to have event count
+FIXED: inline_styles_scripts() called more than once
+FIXED: Full site editing support for events archive page
+FIXED: tile gradient background not working for tile style 0
+FIXED: hide past events calculation to use UTC0 time
+FIXED: zoom api missing error
+FIXED: move_ml_yl_to_top() return empty events array 
+FIXED: EVO_Event() process event times to run month and yearl long filter after uct offset
+FIXED: event card open as lightbox not passing et_data values
+FIXED: single event page eventtop to have featured image
+FIXED: icon selector not working when no icon set 
+FIXED: custom meta field in multilines not saving HTML correct
+FIXED: hide past set in settings not working correct
+FIXED: zoom api enabled verification before proceeding with settings
+FIXED: get_ics_content() undefined dynamic property
+FIXED: XSS vulnerability for custom meta fields on event edit page
+FIXED: all day events not updating to correct start end unix time
+FIXED: bulk edit events yes no value to select field
+FIXED: event edit date picker to select date on picker
+FIXED: event edit date picker format match
+FIXED: various authorisation and CSRF validations in ajax calls
+FIXED: all the related events not appearing in selector
+FIXED: Settings save changes button not working in some pages
+UPDATED: primary font family to Poppins
+UPDATED: moved hide past events settings into time settings section
+UPDATED: refactor calendar date range calculation with timezone from settings
+UPDATED: load enviroment stats move to lightbox using evo elements
+UPDATED: admin settings page layout styles
+
 = 4.5.4 (2023-11-14) =
 FIXED: zoom error when api info is deleted
 FIXED: move_ml_yl_to_top() no events error

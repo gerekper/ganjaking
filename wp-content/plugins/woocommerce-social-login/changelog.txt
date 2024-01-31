@@ -1,5 +1,9 @@
 *** WooCommerce Social Login Changelog ***
 
+2024.01.16 - version 2.14.1
+ * Fix - Use expected hooks for loading scripts to prevent conflict with WooCommerce preventing login on the Checkout page
+ * Dev - Defer loading of frontend scripts by default to better optimize page load
+
 2023.12.21 - version 2.14.0
  * Fix - Ensure that LinkedIn can use OpenID Connect
  * Misc - New installations will use LinkedIn API v2 with OpenID Connect by default

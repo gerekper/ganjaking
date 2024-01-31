@@ -32,7 +32,7 @@ if (empty($cart_items)) {
 	<div>
 		<div class="bdt-mini-cart-subtotal bdt-flex bdt-flex-between">
 			<div>
-				<strong><?php echo __('Subtotal', 'bdthemes-element-pack'); ?>:</strong>
+				<strong><?php echo esc_html__('Subtotal', 'bdthemes-element-pack'); ?>:</strong>
 			</div>
 			<div>
 				<?php echo WC()->cart->get_cart_subtotal(); ?>

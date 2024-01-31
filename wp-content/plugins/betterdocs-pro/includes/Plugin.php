@@ -32,7 +32,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '3.0.1';
+    public $version = '3.0.3';
 
     /**
      * Plugin DB Version
@@ -295,7 +295,7 @@ final class Plugin {
 
         if ( ! empty( $_api_classes ) && is_array( $_api_classes ) ) {
             foreach ( $_api_classes as $class ) {
-                if ( $class == '.' || $class == '..' ) {
+                if ( $class == '.' || $class == '..' || strpos( $class, '.' ) === 0)  {
                     continue;
                 }
 

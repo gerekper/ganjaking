@@ -36,6 +36,10 @@ class ThePlus_MailChimp_Subscribe extends Widget_Base {
         return array('plus-adapted');
     }
 
+	public function get_keywords() {
+        return ['Mailchimp', 'Subscription', 'Email Subscription', 'Email Opt-in', 'Email Signup', 'Newsletter Signup', 'Newsletter Subscription'];
+    }
+
     protected function register_controls() {
 		/*Layout Content*/
 		$this->start_controls_section(

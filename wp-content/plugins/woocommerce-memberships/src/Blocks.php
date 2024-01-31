@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -207,7 +207,6 @@ class Blocks {
 		wp_register_style( $blocks_handle.'-editor', wc_memberships()->get_plugin_url() . '/assets/css/blocks/wc-memberships-blocks-editor.min.css', [ 'wc-blocks-editor-style', 'wc-blocks-style' ], \WC_Memberships::VERSION );
 		wp_register_style( $blocks_handle, wc_memberships()->get_plugin_url() . '/assets/css/blocks/wc-memberships-blocks.min.css', [], \WC_Memberships::VERSION );
 
-
 		// register scripts shared by all blocks
 		wp_register_script( $blocks_handle, wc_memberships()->get_plugin_url() . '/assets/js/blocks/wc-memberships-blocks.min.js', $this->get_script_dependencies(), \WC_Memberships::VERSION, true );
 		wp_localize_script( $blocks_handle, 'wc_memberships_blocks', $this->get_script_variables() );
@@ -215,11 +214,28 @@ class Blocks {
 		// configure localization files location
 		wp_set_script_translations( $blocks_handle, 'woocommerce-memberships', wc_memberships()->get_plugin_path() . '/i18n/languages/blocks' );
 
-		// register scripts shared by all blocks
-		wp_register_script( $blocks_handle.'-common', wc_memberships()->get_plugin_url() . '/assets/js/frontend/wc-memberships-blocks-common.min.js', ['selectWoo'], \WC_Memberships::VERSION, true );
-		wp_localize_script( $blocks_handle.'-common', 'wc_memberships_blocks_common', $this->get_common_script_variables() );
-	}
+		// @NOTE IMPORTANT: do not extend the following code and "common" scripts without a team discussion first as they are introducing tech debt - ideally the memberships code above should have been extended instead {unfulvio 2024-01-11}
 
+		$keywords = [
+			'email'             => __( 'Email', 'woocommerce-memberships' ),
+			'phone'             => __( 'Phone', 'woocommerce-memberships' ),
+			'plan'              => __( 'Plan', 'woocommerce-memberships' ),
+			'address'           => __( 'Address', 'woocommerce-memberships' ),
+			'search_not_found'  => __( "We didn't find any members. Please try a different search or check for typos.", 'woocommerce-memberships' ),
+			'results_not_found' => __( 'No records found...', 'woocommerce-memberships' )
+		];
+
+		$variables = [
+			'keywords'  => $keywords,
+			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
+			'restUrl'   => esc_url_raw( trailingslashit( rest_url() ) ),
+			'restNonce' => wp_create_nonce( 'wp_rest' )
+		];
+
+		// @deprecated: do not extend these scripts any longer, see note above
+		wp_register_script( $blocks_handle.'-common', wc_memberships()->get_plugin_url() . '/assets/js/frontend/wc-memberships-blocks-common.min.js', [ 'selectWoo' ], \WC_Memberships::VERSION, true );
+		wp_localize_script( $blocks_handle.'-common', 'wc_memberships_blocks_common', $variables );
+	}
 
 
 	/**
@@ -247,33 +263,6 @@ class Blocks {
 		];
 	}
 
-	/**
-	 * Gets the blocks script helper variables to print in the screen.
-	 *
-	 * Helper method, shouldn't be opened to public.
-	 *
-	 * @since 1.23.0
-	 *
-	 * @return array
-	 */
-	private function get_common_script_variables() {
-
-		$keywords = [
-			'email'   => __( 'Email', 'woocommerce-memberships' ),
-			'phone'   => __( 'Phone', 'woocommerce-memberships' ),
-			'plan'    => __( 'Plan', 'woocommerce-memberships' ),
-			'address' => __( 'Address', 'woocommerce-memberships' ),
-			'search_not_found' => __ ( 'We didn’t find any members. Please try a different search or check for typos.', 'woocommerce-memberships' ),
-			'results_not_found' => __ ( 'No records found...', 'woocommerce-memberships' )
-		];
-
-		return [
-			'keywords'     => $keywords,
-			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-			'restUrl'   => esc_url_raw( rest_url() ),
-			'restNonce' => wp_create_nonce( 'wp_rest' )
-		];
-	}
 
 	/**
 	 * Gets the blocks script helper variables to print in the screen.
@@ -287,6 +276,7 @@ class Blocks {
 	private function get_script_variables() {
 
 		$membership_plans = $membership_statuses = $profile_fields = $merge_tags = [];
+
 		foreach ( wc_memberships_get_membership_plans() as $membership_plan ) {
 			// the data below is prepared for react-select, which expects an array objects with values and labels
 			$membership_plans[] = [
@@ -295,7 +285,7 @@ class Blocks {
 			];
 		}
 
-		foreach ( wc_memberships_get_user_membership_statuses() as $status_key => $membership_status) {
+		foreach ( wc_memberships_get_user_membership_statuses() as $status_key => $membership_status ) {
 			// the data below is prepared for react-select, which expects an array objects with values and labels
 			$membership_statuses[] = [
 				'value' => $status_key,
@@ -303,7 +293,7 @@ class Blocks {
 			];
 		}
 
-		foreach ( get_option('wc_memberships_profile_fields', []) as $profile_field) {
+		foreach ( (array) get_option('wc_memberships_profile_fields', [] ) as $profile_field ) {
 			// the data below is prepared for react-select, which expects an array objects with values and labels
 			$profile_fields[] = [
 				'value' => $profile_field['slug'],

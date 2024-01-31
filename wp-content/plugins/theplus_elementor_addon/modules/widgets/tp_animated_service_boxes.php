@@ -576,9 +576,6 @@ class ThePlus_Animated_Service_Boxes extends Widget_Base {
 								],	
 								[
 									'name'     => 'main_style','operator' => '==','value'    => 'hover-section',
-								],	
-								[
-									'name'     => 'main_style','operator' => '==','value'    => 'article-box',
 								],
 								[		
 									'name'     => 'main_style','operator' => '==','value'    => 'sliding-boxes',		

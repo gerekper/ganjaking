@@ -236,6 +236,7 @@ if (!isset($collapseable)) {
 							'disabledValue' => 0,
 							'value' => wfConfig::get('other_blockBadPOST') ? 1 : 0,
 							'title' => __('Block IPs who send POST requests with blank User-Agent and Referer', 'wordfence'),
+							'subtitleHTML' => esc_html__('If you use external services that may send POST requests without these headers, do not use this option, as they will be blocked.', 'wordfence'),
 							'helpLink' => wfSupportController::supportURL(wfSupportController::ITEM_FIREWALL_WAF_OPTION_BLOCK_BAD_POST),
 						))->render();
 						?>

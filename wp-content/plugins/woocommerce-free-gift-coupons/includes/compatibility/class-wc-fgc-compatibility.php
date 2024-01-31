@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.0
- * @version  3.4.0
+ * @version  3.6.0
  */
 
 // Exit if accessed directly.
@@ -56,25 +56,29 @@ class WC_Free_Gift_Coupons_Compatibility {
 
 	public function __construct() {
 
-		// Declare HPOS compatibility.
-		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		// Declare WooCommerce Features compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_features_compatibility' ) );
 
 		// Initialize.
 		add_action( 'plugins_loaded', array( $this, 'init' ), 100 );
 	}
 
 	/**
-	 * Declare HPOS (Custom Order tables) compatibility.
+	 * Declare WooCommerce Features compatibility.
 	 *
-	 * @since 3.3.4
+	 * @since 3.6.0
 	 */
-	public function declare_hpos_compatibility() {
+	public function declare_features_compatibility() {
 
 		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			return;
 		}
 
+		// High Performance Order Storage (HPOS) Compatibility
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_Free_Gift_Coupons::plugin_basename(), true );
+
+		// Cart/Checkout Blocks compatibility.
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_Free_Gift_Coupons::plugin_basename(), true );
 	}
 
 	/**
@@ -128,6 +132,27 @@ class WC_Free_Gift_Coupons_Compatibility {
 		if ( class_exists( 'WC_FGC_Choose_Variation' ) ) {
 			remove_action( 'plugins_loaded', array( 'WC_FGC_Choose_Variation', 'init' ) );
 		}
+	}
+
+	/**
+	 * ---------------------------------------------------------------------------------
+	 * Deprecated Methods
+	 * ---------------------------------------------------------------------------------
+	 */
+
+	/**
+	 * Declare HPOS (Custom Order tables) compatibility.
+	 *
+	 * @since 3.3.4
+	 * @deprecated 3.6.0
+	 */
+	public function declare_hpos_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_Free_Gift_Coupons::plugin_basename(), true );
 	}
 
 }

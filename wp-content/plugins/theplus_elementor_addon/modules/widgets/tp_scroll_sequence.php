@@ -555,7 +555,7 @@ class ThePlus_Scroll_Sequence extends Widget_Base {
 				'endOffset' => esc_attr($canEndOffset),
 				'stickySec' => esc_attr($stickySec),
 				'seclist' => $seclist
-			);				
+			);
 		}else{
 			$ErrorTitle = 'No Image Selected!';
 			$ErrorMassage = 'Please Select Image To Get The Desired Result';

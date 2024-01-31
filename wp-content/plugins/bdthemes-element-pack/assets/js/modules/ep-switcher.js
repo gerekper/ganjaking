@@ -59,11 +59,11 @@
 
 				$($switcherContentAAA).appendTo($('#bdt-switcher-' + $settings.id));
 				$($switcherContentBBB).appendTo($('#bdt-switcher-' + $settings.id));
-				
+
 				var $activeA, $activeB = '';
-				if ($settings.defaultActive == 'a'){
-						$activeA, $activeA = 'bdt-active';
-				}else{
+				if ($settings.defaultActive == 'a') {
+					$activeA, $activeA = 'bdt-active';
+				} else {
 					$activeB = 'bdt-active';
 				}
 
@@ -71,29 +71,44 @@
 				$('#' + $settings['switch-b-content']).wrapAll('<div class="bdt-switcher-item-content-inner ' + $activeB + '"></div>');
 			}
 		}
- 
+
 
 		if ($settingsLinkWidget !== undefined && editMode === false) {
 			var $targetA = $($settingsLinkWidget.linkWidgetTargetA),
 				$targetB = $($settingsLinkWidget.linkWidgetTargetB),
 				$switcher = '#bdt-switcher-' + $settingsLinkWidget.id;
 
+			if ($settingsLinkWidget.defaultActive == 'a') {
+				$targetA.css({
+					'opacity': 1,
+					'display': 'block'
+				});
+				$targetB.css({
+					'opacity': 0,
+					'display': 'none'
+				});
+			} else {
+				$targetA.css({
+					'opacity': 0,
+					'display': 'none'
+				});
+				$targetB.css({
+					'opacity': 1,
+					'display': 'block'
+				});
+			}
+
 			$targetA.css({
-				'opacity': 1,
-				'display': 'block',
+				'grid-row-start': 1,
+				'grid-column-start': 1
+			});
+			$targetB.css({
 				'grid-row-start': 1,
 				'grid-column-start': 1
 			});
 
 			$targetA.parent().css({
 				'display': 'grid'
-			});
-
-			$targetB.css({
-				'opacity': 0,
-				'display': 'none',
-				'grid-row-start': 1,
-				'grid-column-start': 1
 			});
 
 			bdtUIkit.util.on($switcher, 'shown', function (e) {

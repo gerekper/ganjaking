@@ -12,6 +12,8 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 	/**
 	 * Registers all hooks to WordPress.
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		// Add export CSV block, the import and export settings are confusingly named only import.
@@ -24,6 +26,8 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 	/**
 	 * Outputs a tab header for the CSV export block.
+	 *
+	 * @return void
 	 */
 	public function redirects_export_header() {
 		if ( current_user_can( 'export' ) ) {
@@ -35,6 +39,8 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 	/**
 	 * Adding the export block for CSV. Makes it able to export redirects to CSV.
+	 *
+	 * @return void
 	 */
 	public function add_redirect_export_block() {
 		// Display the forms.
@@ -45,6 +51,8 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 	/**
 	 * Hijacks the request and returns a CSV file if we're on the right page with the right method and the right capabilities.
+	 *
+	 * @return void
 	 */
 	public function redirects_csv_export() {
 		if ( $this->is_valid_csv_export_request() && current_user_can( 'export' ) ) {
@@ -82,6 +90,8 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 	/**
 	 * Sets the headers to trigger an CSV download in the browser.
+	 *
+	 * @return void
 	 */
 	protected function set_csv_headers() {
 		header( 'Content-type: text/csv' );

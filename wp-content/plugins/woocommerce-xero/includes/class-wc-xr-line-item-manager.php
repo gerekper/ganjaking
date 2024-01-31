@@ -1,5 +1,4 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -7,9 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_XR_Line_Item_Manager {
 
 	/**
+	 * The Xero settings object.
+	 *
 	 * @var WC_XR_Settings
 	 */
 	private $settings;
+
+	/**
+	 * WC Order object.
+	 *
+	 * @var WC_Order
+	 */
+	private $order;
 
 	/**
 	 * WC_XR_Line_Item_Manager constructor.

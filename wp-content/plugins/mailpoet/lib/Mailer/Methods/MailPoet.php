@@ -85,15 +85,28 @@ class MailPoet implements MailerMethod {
   }
 
   public function processSendError($result, $subscriber, $newsletter) {
-    if (!empty($result['code']) && $result['code'] === API::RESPONSE_CODE_KEY_INVALID) {
-      $this->bridge->invalidateMssKey();
-    } elseif (
-      !empty($result['code'])
-      && $result['code'] === API::RESPONSE_CODE_CAN_NOT_SEND
-      && $result['error'] === API::ERROR_MESSAGE_INVALID_FROM
-    ) {
-      $this->authorizedEmailsController->checkAuthorizedEmailAddresses();
+    if (empty($result['code'])) {
+      return $this->errorMapper->getErrorForResult($result, $subscriber, $this->sender, $newsletter);
     }
+
+    switch ($result['code']) {
+      case API::RESPONSE_CODE_KEY_INVALID:
+        $this->bridge->invalidateMssKey();
+        break;
+
+      case API::RESPONSE_CODE_CAN_NOT_SEND:
+        if ($result['error'] === API::ERROR_MESSAGE_INVALID_FROM) {
+          $this->authorizedEmailsController->checkAuthorizedEmailAddresses();
+        }
+        break;
+
+      case API::RESPONSE_CODE_PAYLOAD_ERROR:
+        if (!empty($result['error']) && $result['error'] === API::ERROR_MESSAGE_BULK_EMAIL_FORBIDDEN) {
+          $this->authorizedEmailsController->checkAuthorizedEmailAddresses();
+        }
+        break;
+    }
+
     return $this->errorMapper->getErrorForResult($result, $subscriber, $this->sender, $newsletter);
   }
 

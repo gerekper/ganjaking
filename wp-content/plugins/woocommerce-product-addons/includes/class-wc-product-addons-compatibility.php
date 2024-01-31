@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_PAO_Compatibility
- * @version  6.4.6
+ * @version  6.6.0
  */
 class WC_PAO_Compatibility {
 
@@ -131,6 +131,21 @@ class WC_PAO_Compatibility {
 		// WooCommerce Cart/Checkout Blocks support.
 		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) >= 0 ) {
 			$module_paths[ 'blocks' ] = WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/modules/class-wc-product-addons-blocks-compatibility.php';
+		}
+
+		// WooPayments compatibility.
+		if ( class_exists( 'WC_Payments' ) ) {
+			$module_paths[ 'wcpay' ] = WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/modules/class-wc-product-addons-wc-payments-compatibility.php';
+		}
+
+		// Stripe compatibility.
+		if ( class_exists( 'WC_Stripe' ) && defined( 'WC_STRIPE_VERSION' ) ) {
+			$module_paths[ 'stripe' ] = WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/modules/class-wc-product-addons-stripe-compatibility.php';
+		}
+
+		// PayPal compatibility.
+		if ( class_exists( '\WooCommerce\PayPalCommerce\PluginModule' ) ) {
+			$module_paths[ 'paypal' ] = WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/modules/class-wc-product-addons-paypal-compatibility.php';
 		}
 
 		/**

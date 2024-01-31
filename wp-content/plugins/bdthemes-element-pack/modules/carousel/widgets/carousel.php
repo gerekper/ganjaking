@@ -140,7 +140,7 @@ class Carousel extends Module_Base {
         $this->add_control(
             'content_show',
             [
-                'label' => esc_html__('Content Show', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => esc_html__('Content Show', 'bdthemes-element-pack'),
                 'type'  => Controls_Manager::SELECT,
                 'options' => [
                     'onhover' => esc_html__('On Hover', 'bdthemes-element-pack'),
@@ -668,7 +668,7 @@ class Carousel extends Module_Base {
         $this->add_control(
             'overlay_blur_effect',
             [
-                'label'       => esc_html__('Blur Effect', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'       => esc_html__('Blur Effect', 'bdthemes-element-pack'),
                 'type'        => Controls_Manager::SWITCHER,
                 'description' => sprintf(esc_html__('This feature will not work in the Firefox browser untill you enable browser compatibility so please %1s look here %2s', 'bdthemes-element-pack'), '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility" target="_blank">', '</a>'),
                 'condition'   => [
@@ -853,6 +853,22 @@ class Carousel extends Module_Base {
         );
 
         $this->add_responsive_control(
+            'item_content_border_radius',
+            [
+                'label'      => esc_html__('Content Border Radius', 'bdthemes-element-pack') . BDTEP_NC,
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%'],
+                'selectors'  => [
+                    '{{WRAPPER}} .bdt-ep-carousel-skin-ramble .bdt-ep-carousel-thumbnail:before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bdt-ep-carousel-skin-ramble .bdt-ep-carousel-desc' => 'border-radius: 0 0 {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+                'condition' => [
+                    '_skin' => 'bdt-ramble',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
             'item_padding',
             [
                 'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
@@ -891,7 +907,7 @@ class Carousel extends Module_Base {
         $this->add_control(
             'item_opacity',
             [
-                'label'     => esc_html__('Opacity', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'     => esc_html__('Opacity', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::SLIDER,
                 'range'     => [
                     'px' => [
@@ -903,6 +919,28 @@ class Carousel extends Module_Base {
                 'selectors' => [
                     '{{WRAPPER}} .bdt-ep-carousel-item' => 'opacity: {{SIZE}};',
                 ],
+            ]
+        );
+        //content spacing
+        $this->add_responsive_control(
+            'content_spacing',
+            [
+                'label'      => esc_html__('Content Overlay Spacing', 'bdthemes-element-pack') . BDTEP_NC,
+                'type'       => Controls_Manager::SLIDER,
+                'range'      => [
+                    'px' => [
+                        'min'  => 0,
+                        'step' => 1,
+                        'max'  => 50,
+                    ]
+                ],
+                'selectors' => [
+                    '{{WRAPPER}}' => '--ep-carousel-spacing: {{SIZE}}px;'
+                ],
+                'condition' => [
+                    '_skin' => 'bdt-ramble',
+                ],
+                'separator' => 'before'
             ]
         );
 
@@ -976,7 +1014,7 @@ class Carousel extends Module_Base {
         $this->add_control(
             'item_hover_opacity',
             [
-                'label'     => esc_html__('Opacity', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'     => esc_html__('Opacity', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::SLIDER,
                 'range'     => [
                     'px' => [
@@ -996,7 +1034,7 @@ class Carousel extends Module_Base {
         $this->start_controls_tab(
             'tab_item_active',
             [
-                'label' => esc_html__('Active', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => esc_html__('Active', 'bdthemes-element-pack'),
             ]
         );
 
@@ -1090,6 +1128,9 @@ class Carousel extends Module_Base {
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
                     '{{WRAPPER}} .bdt-ep-carousel-thumbnail' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ],
+                'condition' => [
+                    '_skin!' => 'bdt-ramble',
                 ],
             ]
         );
@@ -1323,7 +1364,7 @@ class Carousel extends Module_Base {
             Group_Control_Text_Shadow::get_type(),
             [
                 'name'     => 'title_shadow',
-                'label'    => esc_html__('Text Shadow', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'    => esc_html__('Text Shadow', 'bdthemes-element-pack'),
                 'selector' => '{{WRAPPER}} .bdt-ep-carousel-title a',
             ]
         );

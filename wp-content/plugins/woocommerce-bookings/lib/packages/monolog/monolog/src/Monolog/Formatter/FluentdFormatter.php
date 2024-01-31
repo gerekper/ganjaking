@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -33,9 +33,9 @@ use Automattic\WooCommerce\Bookings\Vendor\Monolog\Utils;
  *
  * Monolog setup:
  *
- * $logger = new Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('fluent.tag');
- * $fluentHandler = new Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
- * $fluentHandler->setFormatter(new Automattic\WooCommerce\Bookings\Vendor\Monolog\Formatter\FluentdFormatter());
+ * $logger = new \Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger('fluent.tag');
+ * $fluentHandler = new \Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
+ * $fluentHandler->setFormatter(new \Automattic\WooCommerce\Bookings\Vendor\Monolog\Formatter\FluentdFormatter());
  * $logger->pushHandler($fluentHandler);
  *
  * @author Andrius Putna <fordnox@gmail.com>

@@ -67,11 +67,11 @@ class Widgets
     public function add_elementor_widget_categories($elements)
     {
         // Default category for widgets without a category
-        $elements->add_category('dynamic-content-for-elementor', array('title' => DCE_PRODUCT_NAME));
+        $elements->add_category('dynamic-content-for-elementor', array('title' => DCE_BRAND));
         $groups = \DynamicContentForElementor\Plugin::instance()->features->get_widgets_groups();
         // Add categories
         foreach ($groups as $group_key => $group_name) {
-            $elements->add_category('dynamic-content-for-elementor-' . \strtolower($group_key), array('title' => DCE_PRODUCT_NAME . ' - ' . $group_name));
+            $elements->add_category('dynamic-content-for-elementor-' . \strtolower($group_key), array('title' => DCE_BRAND . ' - ' . $group_name));
         }
     }
 }

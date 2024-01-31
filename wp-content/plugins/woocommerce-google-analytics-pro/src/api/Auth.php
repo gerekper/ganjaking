@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2024, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -39,8 +39,8 @@ defined( 'ABSPATH' ) or exit;
 class Auth {
 
 
-	/** @var string URL to Google Analytics Pro Authentication proxy */
-	protected const PROXY_URL = 'https://wc-ga-pro-proxy.com';
+	/** @var string HOST for the Google Analytics Pro Authentication proxy */
+	protected const PROXY_HOST = 'https://wc-ga-pro-proxy.com';
 
 	/** @var string read-only scope for Google Analytics APIs */
 	public const SCOPE_ANALYTICS_READONLY = 'https://www.googleapis.com/auth/analytics.readonly';
@@ -270,6 +270,26 @@ class Auth {
 
 
 	/**
+	 * Get the Authorization Proxy Service Host.
+	 *
+	 * @since 2.0.15
+	 *
+	 * @return string proxy host
+	 */
+	protected function get_proxy_host() : string {
+
+		/**
+		 * Filters the host for the OAuth proxy app.
+		 *
+		 * @since 2.0.15
+		 *
+		 * @param string $proxy_host defaults to Auth::PROXY_HOST
+		 */
+		return (string) apply_filters( 'wc_google_analytics_pro_proxy_host', static::PROXY_HOST );
+	}
+
+
+	/**
 	 * Gets the full proxy app URL.
 	 *
 	 * @since 2.0.4
@@ -280,7 +300,7 @@ class Auth {
 	 */
 	protected function get_proxy_app_url( string $endpoint = '', array $params = [] ) : string {
 
-		return add_query_arg( $params, self::PROXY_URL . '/' . $endpoint );
+		return add_query_arg( $params, $this->get_proxy_host() . '/' . $endpoint );
 	}
 
 
@@ -293,7 +313,7 @@ class Auth {
 	 */
 	public function get_auth_url(): string {
 
-		return $this->get_proxy_app_url( 'auth', [ 'callback' => urlencode( $this->get_callback_url() ) ] );
+		return $this->get_proxy_app_url( 'auth/google', [ 'callback' => urlencode( $this->get_callback_url() ) ] );
 	}
 
 
@@ -309,7 +329,7 @@ class Auth {
 		$refresh_url = null;
 
 		if ( $refresh_token = $this->get_refresh_token() ) {
-			$refresh_url = $this->get_proxy_app_url( 'auth/refresh', [ 'token' => base64_encode( $refresh_token ) ] );
+			$refresh_url = $this->get_proxy_app_url( 'auth/google/refresh', [ 'token' => base64_encode( $refresh_token ) ] );
 		}
 
 		return $refresh_url;
@@ -383,7 +403,7 @@ class Auth {
 		$revoke_url = null;
 
 		if ( $token = $this->get_access_token_json() ) {
-			$revoke_url = $this->get_proxy_app_url( 'auth/revoke', [ 'token' => base64_encode( $token ) ] );
+			$revoke_url = $this->get_proxy_app_url( 'auth/google/revoke', [ 'token' => base64_encode( $token ) ] );
 		}
 
 		return $revoke_url;

@@ -10,6 +10,7 @@ return array(
     'WCML\\API\\VendorAddon\\Hooks' => $baseDir . '/classes/API/VendorAddon/Hooks.php',
     'WCML\\AdminDashboard\\Hooks' => $baseDir . '/classes/AdminDashboard/Hooks.php',
     'WCML\\AdminNotices\\CachePlugins' => $baseDir . '/classes/AdminNotices/CachePlugins.php',
+    'WCML\\AdminNotices\\ExportImport' => $baseDir . '/classes/AdminNotices/ExportImport.php',
     'WCML\\AdminNotices\\MultiCurrencyMissing' => $baseDir . '/classes/AdminNotices/MultiCurrencyMissing.php',
     'WCML\\AdminNotices\\RestrictedScreens' => $baseDir . '/classes/AdminNotices/RestrictedScreens.php',
     'WCML\\AdminNotices\\Review' => $baseDir . '/classes/AdminNotices/Review.php',

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.14.0';
+	const VERSION = '2.14.1';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;

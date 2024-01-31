@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -46,11 +46,11 @@ class MessageFormatter implements MessageFormatterInterface
     /**
      * Apache Common Log Format.
      *
-     * @link https://httpd.apache.org/docs/2.4/logs.html#common
+     * @see https://httpd.apache.org/docs/2.4/logs.html#common
      *
      * @var string
      */
-    public const CLF = "{hostname} {req_header_User-Agent} - [{date_common_log}] \"{method} {target} HTTP/{version}\" {code} {res_header_Content-Length}";
+    public const CLF = '{hostname} {req_header_User-Agent} - [{date_common_log}] "{method} {target} HTTP/{version}" {code} {res_header_Content-Length}';
     public const DEBUG = ">>>>>>>>\n{request}\n<<<<<<<<\n{response}\n--------\n{error}";
     public const SHORT = '[{ts}] "{method} {target} HTTP/{version}" {code}';
 
@@ -74,7 +74,7 @@ class MessageFormatter implements MessageFormatterInterface
      * @param ResponseInterface|null $response Response that was received
      * @param \Throwable|null        $error    Exception that was received
      */
-    public function format(RequestInterface $request, ?ResponseInterface $response = null, ?\Throwable $error = null): string
+    public function format(RequestInterface $request, ResponseInterface $response = null, \Throwable $error = null): string
     {
         $cache = [];
 
@@ -96,9 +96,9 @@ class MessageFormatter implements MessageFormatterInterface
                         break;
                     case 'req_headers':
                         $result = \trim($request->getMethod()
-                                . ' ' . $request->getRequestTarget())
-                            . ' HTTP/' . $request->getProtocolVersion() . "\r\n"
-                            . $this->headers($request);
+                                .' '.$request->getRequestTarget())
+                            .' HTTP/'.$request->getProtocolVersion()."\r\n"
+                            .$this->headers($request);
                         break;
                     case 'res_headers':
                         $result = $response ?
@@ -107,7 +107,7 @@ class MessageFormatter implements MessageFormatterInterface
                                 $response->getProtocolVersion(),
                                 $response->getStatusCode(),
                                 $response->getReasonPhrase()
-                            ) . "\r\n" . $this->headers($response)
+                            )."\r\n".$this->headers($response)
                             : 'NULL';
                         break;
                     case 'req_body':
@@ -183,6 +183,7 @@ class MessageFormatter implements MessageFormatterInterface
                 }
 
                 $cache[$matches[1]] = $result;
+
                 return $result;
             },
             $this->template
@@ -196,7 +197,7 @@ class MessageFormatter implements MessageFormatterInterface
     {
         $result = '';
         foreach ($message->getHeaders() as $name => $values) {
-            $result .= $name . ': ' . \implode(', ', $values) . "\r\n";
+            $result .= $name.': '.\implode(', ', $values)."\r\n";
         }
 
         return \trim($result);

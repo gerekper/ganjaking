@@ -94,7 +94,9 @@ class Upgrader {
 		] );
 
 		// Maybe execute upgrade routine(s).
-		self::execute( $current_version );
+		if ( ! empty( $current_version ) ) {
+			self::execute( $current_version );
+		}
 
 		// Update current version.
 		if ( SEARCHWP_VERSION !== $current_version ) {
@@ -409,16 +411,31 @@ class Upgrader {
 		// Allow for custom initial Engine to be implemented.
 		$initial_default_engine = apply_filters(
 			'searchwp\install\engine\settings',
-			$network_wide ? $default_engine_config : [], // Network-wide installation gets default Engine as starting point.
+			$default_engine_config,
 			$default_engine_config
 		);
 
 		if ( ! empty( $initial_default_engine ) ) {
 			// Establish a Default Engine, which will in turn instantiate the Indexer.
-			// Otherwise the user will need to review and save first.
+			// Otherwise, the user will need to review and save first.
 			Settings::update_engines_config( [
 				'default' => Utils::normalize_engine_config( $initial_default_engine )
 			] );
+
+			// Trigger initial indexing.
+			\SearchWP::$indexer->trigger();
+		}
+
+		// Save initial settings
+		$initial_settings = [
+			'parse_shortcodes'         => true,
+			'do_suggestions'           => true,
+			'partial_matches'          => true,
+			'tokenize_pattern_matches' => true,
+		];
+
+		foreach ( $initial_settings as $key => $value ) {
+			Settings::update( $key, $value );
 		}
 	}
 }

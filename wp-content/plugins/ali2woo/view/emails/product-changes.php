@@ -2,7 +2,7 @@
 /**
  * Product Changes
  *
- * This template can be overridden by copying it to yourtheme/ali2woo/emails/product-changes.php
+ * This template can be overridden by copying it to yourtheme/[plugin_name]/emails/product-changes.php
  *
  *
  */

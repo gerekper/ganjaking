@@ -5,6 +5,8 @@
  * @package WPSEO\Premium\Classes
  */
 
+use Yoast\WP\SEO\Integrations\Cleanup_Integration;
+
 /**
  * Class WPSEO_Upgrade_Manager
  */
@@ -13,12 +15,14 @@ class WPSEO_Upgrade_Manager {
 	/**
 	 * Option key to save the version of Premium.
 	 */
-	const VERSION_OPTION_KEY = 'wpseo_premium_version';
+	public const VERSION_OPTION_KEY = 'wpseo_premium_version';
 
 	/**
 	 * Run the upgrade routine when it's necessary.
 	 *
 	 * @param string $current_version The current WPSEO version.
+	 *
+	 * @return void
 	 */
 	public function run_upgrade( $current_version ) {
 		if ( wp_doing_ajax() ) {
@@ -40,6 +44,8 @@ class WPSEO_Upgrade_Manager {
 	 * Runs the specific updates when it is necessary.
 	 *
 	 * @param string $version_number The version number that will be compared.
+	 *
+	 * @return void
 	 */
 	public function check_update( $version_number ) {
 		// Get current version.
@@ -211,12 +217,12 @@ class WPSEO_Upgrade_Manager {
 	 */
 	protected function retrigger_cleanup() {
 		// If Yoast SEO hasn't been upgraded to 17.2 the cleanup integration has not been implemented in the current way.
-		if ( ! \defined( '\Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK' ) ) {
+		if ( ! defined( '\Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK' ) ) {
 			return;
 		}
 		// If Yoast SEO premium was upgraded after Yoast SEO, reschedule the task to clean out orphaned prominent words.
-		if ( ! \wp_next_scheduled( \Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK ) ) {
-			\wp_schedule_single_event( ( time() + ( MINUTE_IN_SECONDS * 5 ) ), \Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK );
+		if ( ! wp_next_scheduled( Cleanup_Integration::START_HOOK ) ) {
+			wp_schedule_single_event( ( time() + ( MINUTE_IN_SECONDS * 5 ) ), Cleanup_Integration::START_HOOK );
 		}
 	}
 
@@ -239,8 +245,8 @@ class WPSEO_Upgrade_Manager {
 	 * @return void
 	 */
 	public function upgrade_16_2() {
-		\do_action( 'wpseo_register_capabilities_premium' );
-		\WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
+		do_action( 'wpseo_register_capabilities_premium' );
+		WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
 	}
 
 	/**
@@ -310,6 +316,8 @@ class WPSEO_Upgrade_Manager {
 	 * Validates if the 31 upgrade routine has correctly run and if not retries to run it
 	 *
 	 * @param bool $immediately Whether to do the upgrade immediately when this function is called.
+	 *
+	 * @return void
 	 */
 	public function retry_upgrade_31( $immediately = false ) {
 		/*
@@ -332,6 +340,8 @@ class WPSEO_Upgrade_Manager {
 	 * An update is required, do it
 	 *
 	 * @param string $current_version The current version number of the installation.
+	 *
+	 * @return void
 	 */
 	private function do_update( $current_version ) {
 		// Upgrade to version 1.2.0.
@@ -346,6 +356,8 @@ class WPSEO_Upgrade_Manager {
 
 	/**
 	 * Update the current version code
+	 *
+	 * @return void
 	 */
 	private function update_current_version_code() {
 		update_site_option( WPSEO_Premium::OPTION_CURRENT_VERSION, WPSEO_Premium::PLUGIN_VERSION_CODE );

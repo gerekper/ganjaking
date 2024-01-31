@@ -24,7 +24,7 @@
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -146,13 +146,16 @@ class BigInteger implements \JsonSerializable
                 ['PHP64', ['DefaultEngine']],
                 ['PHP32', ['DefaultEngine']]
             ];
+
             foreach ($engines as $engine) {
                 try {
                     self::setEngine($engine[0], $engine[1]);
-                    break;
+                    return;
                 } catch (\Exception $e) {
                 }
             }
+
+            throw new \UnexpectedValueException('No valid BigInteger found. This is only possible when JIT is enabled on Windows and neither the GMP or BCMath extensions are available so either disable JIT or install GMP / BCMath');
         }
     }
 

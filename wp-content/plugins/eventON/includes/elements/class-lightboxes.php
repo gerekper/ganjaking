@@ -32,8 +32,6 @@ class EVO_Lightboxes{
 
 			if(is_array($lightboxWindows) && count($lightboxWindows)>0){
 
-				//$display = (EVO()->cal->check_yn('evo_load_scripts_only_onevo','evcal_1') && !EVO()->cal->check_yn('evo_load_all_styles_onpages','evcal_1') )? 'none':'block';
-
 				echo "<div id='evo_lightboxes' class='evo_lightboxes' style='display:none'>";
 				foreach($lightboxWindows as $key=>$lb){
 					?>

@@ -107,7 +107,7 @@ class WC_OD_Data_Store_Delivery_Range {
 		}
 
 		if ( empty( $data ) ) {
-			throw new Exception( __( 'Invalid delivery range.', 'woocommerce-order-delivery' ) );
+			throw new Exception( esc_html__( 'Invalid delivery range.', 'woocommerce-order-delivery' ) );
 		}
 
 		$delivery_range->set_props( $data );

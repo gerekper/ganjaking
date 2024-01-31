@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -167,15 +167,24 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 			$i = 1;
 			if ( ! empty( $order_items ) ) {
-				$is_apply_before_tax = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
-				$is_old_sc_order     = $this->is_old_sc_order( $order_id );
-				$item_titles         = array_map(
+				$is_apply_before_tax        = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
+				$is_readonly                = ( 'yes' !== $is_apply_before_tax ) ? true : false;
+				$allow_custom_refund_amount = apply_filters(
+					'wc_sc_allow_custom_refund_amount',
+					( false === $is_readonly ),
+					array(
+						'source'    => $this,
+						'order_obj' => $order,
+					)
+				);
+				$is_old_sc_order            = $this->is_old_sc_order( $order_id );
+				$item_titles                = array_map(
 					function( $item ) {
 						return ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
 					},
 					$order_items
 				);
-				$posts               = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
+				$posts                      = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
                     $order_discount_amount = $sc_refunded_discount = $sc_refunded_discount_tax = $order_discount_tax_amount = 0; // phpcs:ignore
 					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
@@ -284,7 +293,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 									</div>
 									<?php if ( $sc_refunded_discount < $order_discount_amount ) { ?>
 										<div class="refund" style="display: none;">
-											<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc wc_input_price" max="<?php echo esc_attr( $max_refund_limit ); ?>" <?php ( ( 'yes' !== $is_apply_before_tax ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
+											<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc wc_input_price" max="<?php echo esc_attr( $max_refund_limit ); ?>" <?php ( ( false === $allow_custom_refund_amount ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
 											<input type="hidden" name="order_used_total_sc_amount[<?php echo esc_attr( $coupon_id ); ?>]" value="<?php echo esc_attr( $order_discount_amount ); ?>" class="order_used_total_sc_amount">
 											<input type="hidden" name="order_used_item_id[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $item_id ); ?>" class="order_sc_item_id">
 										</div>
@@ -315,7 +324,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 										</div>
 										<?php if ( $sc_refunded_discount_tax < $order_discount_tax_amount ) { ?>
 											<div class="refund" style="display: none;">
-												<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc_tax wc_input_price" max="<?php echo esc_attr( $max_refund_tax_limit ); ?>" <?php ( ( 'yes' !== $is_apply_before_tax ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
+												<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc_tax wc_input_price" max="<?php echo esc_attr( $max_refund_tax_limit ); ?>" <?php ( ( false === $allow_custom_refund_amount ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
 											</div>
 										<?php } ?>
 									</td>

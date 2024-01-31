@@ -2,6 +2,7 @@
 
 namespace ACA\WC\Helper\Select\Product;
 
+use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use ACP\Helper\Select;
@@ -24,7 +25,7 @@ class Product extends ArrayIterator
     public function __construct(array $args = [])
     {
         $args = array_merge([
-            'posts_per_page' => 30,
+            'posts_per_page' => (new QueryTotalNumber())->apply_filter(),
             'post_type'      => 'product',
             'orderby'        => 'title',
             'order'          => 'ASC',
@@ -40,7 +41,7 @@ class Product extends ArrayIterator
         add_filter('posts_join', [$this, 'join_postmeta']);
         add_filter('posts_search', [$this, 'add_search_fields'], 30, 2);
         add_filter('posts_groupby', [$this, 'group_post_ids']);
-        
+
         $this->query = new WP_Query($args);
 
         $found_ids = $this->query->get_posts();

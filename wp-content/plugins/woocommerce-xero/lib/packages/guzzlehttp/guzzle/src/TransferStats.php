@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -52,8 +52,8 @@ final class TransferStats
      */
     public function __construct(
         RequestInterface $request,
-        ?ResponseInterface $response = null,
-        ?float $transferTime = null,
+        ResponseInterface $response = null,
+        float $transferTime = null,
         $handlerErrorData = null,
         array $handlerStats = []
     ) {

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.18.0 - 20-12-2023 */
+/*! elementor-pro - v3.19.0 - 29-01-2024 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
 /***/ "../assets/dev/js/frontend/preloaded-elements-handlers.js":
@@ -3066,6 +3066,9 @@ class AjaxPagination extends elementorModules.frontend.handlers.Base {
       postsElements = document.querySelectorAll(`[data-id="${this.elementId}"] ${selectors.postWrapperTag}`);
     elementorFrontend.elementsHandler.runReadyTrigger(this.$element[0]);
     (0, _runElementHandlers.default)(postsElements);
+    if (elementorFrontend.config.experimentalFeatures.e_lazyload) {
+      document.dispatchEvent(new Event('elementor/lazyload/observe'));
+    }
   }
   onInit() {
     super.onInit();
@@ -3106,21 +3109,10 @@ class LoopLoadMore extends _loadMore.default {
   afterInsertPosts(postsElements, result) {
     super.afterInsertPosts(postsElements);
     if (elementorFrontend.config.experimentalFeatures.e_lazyload) {
-      this.handleLazyloadBackgroundElements();
+      document.dispatchEvent(new Event('elementor/lazyload/observe'));
     }
     this.handleDynamicStyleElements(result);
     (0, _runElementHandlers.default)(postsElements);
-  }
-
-  /**
-   * Handle Lazyload Background Elements.
-   *
-   * Add's the `lazyload` class to the newly added dom elements that use the Lazyload Background feature.
-   */
-  handleLazyloadBackgroundElements() {
-    document.querySelectorAll(`[data-id="${this.elementId}"] [data-e-bg-lazyload]:not(.lazyloaded)`).forEach(element => {
-      element.classList.add('lazyloaded');
-    });
   }
 
   /**
@@ -3664,6 +3656,9 @@ class BaseFilterFrontendModule extends elementorModules.Module {
         newWidgetContainer = this.createElementFromHTMLString(response.data);
       widget.replaceChild(newWidgetContainer, existingWidgetContainer);
       this.handleElementHandlers(newWidgetContainer);
+      if (elementorFrontend.config.experimentalFeatures.e_lazyload) {
+        document.dispatchEvent(new Event('elementor/lazyload/observe'));
+      }
       elementorFrontend.elementsHandler.runReadyTrigger(document.querySelector(`.elementor-element-${widgetId}`));
       widget.classList.remove('e-loading');
     }).finally(() => {
@@ -5551,10 +5546,10 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   getHeadingEvents() {
     const navigationWrapper = this.elements.$headingContainer[0];
     return {
-      mousedown: _flexHorizontalScroll.changeScrollStatus.bind(this, navigationWrapper),
-      mouseup: _flexHorizontalScroll.changeScrollStatus.bind(this, navigationWrapper),
-      mouseleave: _flexHorizontalScroll.changeScrollStatus.bind(this, navigationWrapper),
-      mousemove: _flexHorizontalScroll.setHorizontalTitleScrollValues.bind(this, navigationWrapper, this.getHorizontalScrollSetting())
+      mousedown: this.changeScrollStatusAndDispatch.bind(this, navigationWrapper),
+      mouseup: this.changeScrollStatusAndDispatch.bind(this, navigationWrapper),
+      mouseleave: this.changeScrollStatusAndDispatch.bind(this, navigationWrapper),
+      mousemove: this.setHorizontalTitleScrollValuesAndDispatch.bind(this, navigationWrapper)
     };
   }
   getHorizontalScrollSetting() {
@@ -5564,6 +5559,14 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   getItemPosition() {
     const currentDevice = elementorFrontend.getCurrentDeviceMode();
     return elementorFrontend.utils.controls.getResponsiveControlValue(this.getElementSettings(), 'item_position_horizontal', '', currentDevice);
+  }
+  changeScrollStatusAndDispatch(navigationWrapper, event) {
+    (0, _flexHorizontalScroll.changeScrollStatus)(navigationWrapper, event);
+    elementorFrontend.elements.$window.trigger('elementor-pro/mega-menu/heading-mouse-event');
+  }
+  setHorizontalTitleScrollValuesAndDispatch(navigationWrapper, event) {
+    (0, _flexHorizontalScroll.setHorizontalTitleScrollValues)(navigationWrapper, this.getHorizontalScrollSetting(), event);
+    elementorFrontend.elements.$window.trigger('elementor-pro/mega-menu/heading-mouse-event');
   }
 }
 exports["default"] = MegaMenu;
@@ -5709,10 +5712,12 @@ class StretchedMenuItemContent extends elementorModules.frontend.handlers.Stretc
   bindEvents() {
     super.bindEvents();
     elementorFrontend.addListenerOnce(this.getUniqueHandlerID(), 'elementor-pro/mega-menu/dropdown-open', this.stretch);
+    elementorFrontend.elements.$window.on('elementor-pro/mega-menu/heading-mouse-event', this.stretch);
   }
   unbindEvents() {
     super.unbindEvents();
     elementorFrontend.removeListeners(this.getUniqueHandlerID(), 'elementor-pro/mega-menu/dropdown-open', this.stretch);
+    elementorFrontend.elements.$window.off('elementor-pro/mega-menu/heading-mouse-event', this.stretch);
   }
   isStretchSettingEnabled() {
     return true;
@@ -8681,6 +8686,7 @@ class TOCHandler extends elementorModules.frontend.handlers.Base {
         if ('bullets' === elementSettings.marker_view && icon) {
           liContent = `${renderedIcon}${liContent}`;
         }
+        liContent = _dompurify.default.sanitize(liContent);
         html += liContent;
         html += '</div>';
         this.listItemPointer++;
@@ -10000,7 +10006,7 @@ class _default extends elementorModules.frontend.handlers.Base {
   getDefaultSettings() {
     return {
       selectors: {
-        woocommerceNotices: '.woocommerce-NoticeGroup, :not(.woocommerce-NoticeGroup) .woocommerce-error, :not(.woocommerce-NoticeGroup) .woocommerce-message, :not(.woocommerce-NoticeGroup) .woocommerce-info',
+        woocommerceNotices: ':not(.woocommerce-NoticeGroup) .wc-block-components-notice-banner, .woocommerce-NoticeGroup, :not(.woocommerce-NoticeGroup) .woocommerce-error, :not(.woocommerce-NoticeGroup) .woocommerce-message, :not(.woocommerce-NoticeGroup) .woocommerce-info',
         noticesWrapper: '.e-woocommerce-notices-wrapper'
       }
     };

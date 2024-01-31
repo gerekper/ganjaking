@@ -30,7 +30,7 @@ $a2w_shipping_html = str_replace(array("\r", "\n"), '', $a2w_shipping_html);
 
 <div class="a2w_shipping_wrap" id="a2w_shipping_wrap_<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>" data-initial-shipping-info="<?php echo htmlspecialchars(json_encode($shipping_info_data), ENT_QUOTES, 'UTF-8'); ?>"> 
     <div>
-        <input type="hidden" class="a2w_to_country_field" name="a2w_to_country_field" value="<?php echo isset($default_country) ? $default_country : ''; ?>"><input type="hidden" class="a2w_shipping_method_field" name="a2w_shipping_method_field" value="<?php if ($default_shipping_method) echo $default_shipping_method; ?>"><?php  if ( is_product() ): ?><input type="hidden" class="a2w_remove_cart_item" name="a2w_remove_cart_item" value="<?php echo a2w_get_setting( 'aliship_not_available_remove' ) ? 1 : 0; ?>"><input type="hidden" class="a2w_fake_method" name="a2w_fake_method" value="<?php echo A2W_Shipping::get_fake_method_id(); ?>"><?php  endif; ?><input type="hidden" class="product_id" value="<?php echo $product_id; ?>"><input type="hidden" class="item_id" value="<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>">
+        <input type="hidden" class="a2w_to_country_field" name="a2w_to_country_field" value="<?php echo isset($default_country) ? $default_country : ''; ?>"><input type="hidden" class="a2w_shipping_method_field" name="a2w_shipping_method_field" value="<?php if ($default_shipping_method) echo $default_shipping_method; ?>"><?php  if ( is_product() ): ?><input type="hidden" class="a2w_remove_cart_item" name="a2w_remove_cart_item" value="<?php echo Ali2Woo\get_setting( 'aliship_not_available_remove' ) ? 1 : 0; ?>"><input type="hidden" class="a2w_fake_method" name="a2w_fake_method" value="<?php echo Ali2Woo\Shipping::get_fake_method_id(); ?>"><?php  endif; ?><input type="hidden" class="product_id" value="<?php echo $product_id; ?>"><input type="hidden" class="item_id" value="<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>">
     </div>
     <?php if ($show_label) : ?><span class="label"><?php _e('Shipping', 'ali2woo'); ?>:</span><?php endif; ?>
     <div class="shipping_info"><?php echo $shipping_info; ?></div><div class="product-shipping-date"></div>
@@ -58,7 +58,7 @@ $a2w_shipping_html = str_replace(array("\r", "\n"), '', $a2w_shipping_html);
                 <div class="a2w-div-table-col small-col">
                     <input type="radio" class="select_method" value="<?php echo $method['serviceName']; ?>" name="<?php echo $fid; ?>" id="<?php echo $fid . '_' . $method['serviceName']; ?>" <?php echo  $method['serviceName'] == $default_shipping_method  ? 'checked': ''; ?>>
                 </div>
-                <div class="a2w-div-table-col"><?php echo A2W_Shipping::process_delivery_time($method['time']); ?></div>
+                <div class="a2w-div-table-col"><?php echo Ali2Woo\Shipping::process_delivery_time($method['time']); ?></div>
                 <div class="a2w-div-table-col"><?php echo ($method['price'] ? $method['formated_price'] : esc_html__('free', 'ali2woo')); ?></div>
                 <div class="a2w-div-table-col"><?php echo (isset($method['tracking']) && $method['tracking'] ? 'yes' : 'no'); ?></div>
                 <div class="a2w-div-table-col"><?php echo $method['company']; ?></div></div>

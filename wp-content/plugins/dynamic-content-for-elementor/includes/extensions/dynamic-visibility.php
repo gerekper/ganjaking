@@ -979,6 +979,7 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
                     //roles
                     if (isset($settings['dce_visibility_role']) && !empty($settings['dce_visibility_role'])) {
                         $triggers['dce_visibility_role'] = __('User Role', 'dynamic-content-for-elementor');
+                        $triggers_n++;
                         $current_user = wp_get_current_user();
                         if ($current_user->ID) {
                             $user_roles = $current_user->roles;
@@ -987,7 +988,6 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
                                 $user_roles = [$user_roles];
                             }
                             if (\is_array($settings['dce_visibility_role'])) {
-                                $triggers_n++;
                                 if (($settings['dce_visibility_role_all'] ?? 'no') === 'yes') {
                                     \sort($user_roles);
                                     \sort($settings['dce_visibility_role']);
@@ -1002,7 +1002,6 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
                                 }
                             }
                         } else {
-                            $triggers_n++;
                             if (\in_array('visitor', $settings['dce_visibility_role'])) {
                                 $conditions['dce_visibility_role'] = __('User not logged', 'dynamic-content-for-elementor');
                             }
@@ -1536,45 +1535,36 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
                     if ($context_archive) {
                         $context_archive_advanced = \false;
                         $queried_object = get_queried_object();
-                        switch ($archive) {
-                            case 'is_tax':
-                                if (\get_class($queried_object) == 'WP_Term' && $settings['dce_visibility_archive_tax'] && $queried_object->taxonomy == $settings['dce_visibility_archive_tax']) {
-                                    if (empty($settings['dce_visibility_archive_term_' . $settings['dce_visibility_archive_tax']])) {
-                                        $context_archive_advanced = \true;
-                                    } else {
-                                        if (\in_array($queried_object->term_id, $settings['dce_visibility_archive_term_' . $settings['dce_visibility_archive_tax']])) {
-                                            $context_archive_advanced = \true;
-                                        }
+                        $is_wpml_active = Helper::is_wpml_active();
+                        $archive_type = '';
+                        $term_ids = [];
+                        if (\get_class($queried_object) == 'WP_Term') {
+                            switch ($archive) {
+                                case 'is_tax':
+                                    if ($settings['dce_visibility_archive_tax'] && $queried_object->taxonomy == $settings['dce_visibility_archive_tax']) {
+                                        $archive_type = $settings['dce_visibility_archive_tax'];
+                                        $term_ids = $settings['dce_visibility_archive_term_' . $archive_type];
                                     }
-                                } else {
-                                    $context_archive_advanced = \true;
-                                }
-                                break;
-                            case 'is_category':
-                                is_category();
-                                if (\get_class($queried_object) == 'WP_Term' && $queried_object->taxonomy == 'category') {
-                                    if (empty($settings['dce_visibility_archive_term_category'])) {
-                                        $context_archive_advanced = \true;
-                                    } else {
-                                        if (\in_array($queried_object->term_id, $settings['dce_visibility_archive_term_category'])) {
-                                            $context_archive_advanced = \true;
-                                        }
+                                    break;
+                                case 'is_category':
+                                    if ($queried_object->taxonomy == 'category') {
+                                        $archive_type = 'category';
+                                        $term_ids = $settings['dce_visibility_archive_term_category'];
                                     }
-                                }
-                                break;
-                            case 'is_tag':
-                                if (\get_class($queried_object) == 'WP_Term' && $queried_object->taxonomy == 'post_tag') {
-                                    if (empty($settings['dce_visibility_archive_term_post_tag'])) {
-                                        $context_archive_advanced = \true;
-                                    } else {
-                                        if (\in_array($queried_object->term_id, $settings['dce_visibility_archive_term_post_tag'])) {
-                                            $context_archive_advanced = \true;
-                                        }
+                                    break;
+                                case 'is_tag':
+                                    if ($queried_object->taxonomy == 'post_tag') {
+                                        $archive_type = 'post_tag';
+                                        $term_ids = $settings['dce_visibility_archive_term_post_tag'];
                                     }
-                                }
-                                break;
-                            default:
-                                $context_archive_advanced = \true;
+                                    break;
+                            }
+                        }
+                        if ($is_wpml_active && !empty($archive_type)) {
+                            $term_ids = Helper::wpml_translate_object_id_by_type($term_ids, $archive_type);
+                        }
+                        if (empty($term_ids) || \in_array($queried_object->term_id, $term_ids)) {
+                            $context_archive_advanced = \true;
                         }
                         $triggers_n++;
                         if ($context_archive_advanced) {
@@ -1825,11 +1815,11 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
             try {
                 return eval($php_code);
             } catch (\ParseError $e) {
-                echo '<pre>Visibility Custom Condition: ', $e->getMessage(), '</pre>';
+                echo '<pre>Dynamic Visibility - Custom Condition: ', $e->getMessage(), '</pre>';
             } catch (\Throwable $e) {
                 if (current_user_can('administrator')) {
                     Helper::notice('', __('This message is visible only for Administrators', 'dynamic-content-for-elementor'));
-                    echo '<pre>Visibility Custom Condition: ', $e->getMessage(), '</pre>';
+                    echo '<pre>Dynamic Visibility - Custom Condition: ', $e->getMessage(), '</pre>';
                 }
             }
         }

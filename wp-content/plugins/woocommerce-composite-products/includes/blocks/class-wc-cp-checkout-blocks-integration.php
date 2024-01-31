@@ -2,7 +2,7 @@
 /**
  * WC_CP_Checkout_Blocks_Integration class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.4.0
  */
 
@@ -11,7 +11,7 @@ use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 /**
  * Class for integrating with WooCommerce Blocks scripts.
  *
- * @version 8.8.0
+ * @version 8.10.5
  */
 class WC_CP_Checkout_Blocks_Integration implements IntegrationInterface {
 
@@ -97,6 +97,8 @@ class WC_CP_Checkout_Blocks_Integration implements IntegrationInterface {
 			$script_asset[ 'version' ],
 			true
 		);
+
+		wp_script_add_data( 'wc-cp-checkout-blocks', 'strategy', 'defer' );
 
 		// Load JS translations.
 		if ( function_exists( 'wp_set_script_translations' ) ) {

@@ -8,6 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Template vars.
+ *
+ * @var WC_Coupon $coupon Coupon object.
+ */
 $inc_tax           = wc_store_credit_coupon_include_tax( $coupon );
 $apply_to_shipping = wc_store_credit_coupon_apply_to_shipping( $coupon );
 ?>

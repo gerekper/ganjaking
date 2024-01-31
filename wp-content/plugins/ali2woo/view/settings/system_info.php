@@ -1,6 +1,7 @@
 <?php 
-$write_info_log = a2w_get_setting('write_info_log');
-$pc_info = A2W_SystemInfo::server_ping();
+use function Ali2Woo\get_setting;
+$write_info_log = get_setting('write_info_log');
+$pc_info = Ali2Woo\SystemInfo::server_ping();
 ?>
 
 <form method="post">
@@ -11,14 +12,14 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="field field_inline">
                     <div class="field__label">
                         <label for="a2w_write_info_log">
-                            <strong><?php esc_html_e('Write ali2woo logs', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Write logs', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" data-title="<?php esc_html_e('Write ali2woo logs', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" data-title="<?php esc_html_e('Write logs', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="field__input-wrap">
                             <input type="checkbox" class="form-control" id="a2w_write_info_log" name="a2w_write_info_log" value="yes" <?php if ($write_info_log): ?><?php esc_html_e('checked', 'ali2woo'); ?><?php endif; ?>/>
                             <?php if ($write_info_log): ?>
-                                <div><?php if (file_exists(A2W_Logs::getInstance()->log_path())): ?><a target="_blank" href="<?php echo A2W_Logs::getInstance()->log_url();?>"><?php esc_html_e('Open log file', 'ali2woo'); ?></a> | <?php endif; ?>
+                                <div><?php if (file_exists(Ali2Woo\Logs::getInstance()->log_path())): ?><a target="_blank" href="<?php echo Ali2Woo\Logs::getInstance()->log_url();?>"><?php esc_html_e('Open log file', 'ali2woo'); ?></a> | <?php endif; ?>
                                 <a class="a2w-clean-log" href="#"><?php esc_html_e('Delete log file', 'ali2woo'); ?></a></div>
                             <?php endif; ?>
                     </div>
@@ -46,7 +47,7 @@ $pc_info = A2W_SystemInfo::server_ping();
                     <div class="field__input-wrap">
                         <div class="form-group input-block no-margin clearfix">
                             <?php
-                            $result = A2W_SystemInfo::php_check();
+                            $result = Ali2Woo\SystemInfo::php_check();
                             echo ($result['state']!=='ok'?'<span class="error">Error</span>':'<span class="ok">Ok</span>');
                             if($result['state']!=='ok'){
                                 echo '<div class="info-box" data-toggle="tooltip" data-title="'.$result['message'].'"></div>';
@@ -83,7 +84,7 @@ $pc_info = A2W_SystemInfo::server_ping();
                     <div class="field__input-wrap">
                         <div class="form-group input-block no-margin clearfix">
                             <?php
-                            $result = A2W_SystemInfo::ping();
+                            $result = Ali2Woo\SystemInfo::ping();
                             echo ($result['state']!=='ok'?'<span class="error">ERROR</span>':'<span class="ok">OK</span>');
                             if(!empty($result['message'])){
                                 echo '<div class="info-box" data-toggle="tooltip" data-title="'.$result['message'].'"></div>';
@@ -141,7 +142,7 @@ $pc_info = A2W_SystemInfo::server_ping();
                     <div class="field__input-wrap">
                         <div class="form-group input-block no-margin clearfix">
                             <?php
-                            $result = A2W_SystemInfo::php_dom_check();
+                            $result = Ali2Woo\SystemInfo::php_dom_check();
                             echo ($result['state']!=='ok'?'<span class="error">ERROR</span>':'<span class="ok">OK</span>');
                             if(!empty($result['message'])){
                                 echo '<div class="info-box" data-toggle="tooltip" data-title="'.$result['message'].'"></div>';
@@ -161,7 +162,7 @@ $pc_info = A2W_SystemInfo::server_ping();
                     <div class="field__input-wrap">
                         <div class="form-group input-block no-margin">
                             <?php 
-                            $import_process = new A2W_ImportProcess();
+                            $import_process = new Ali2Woo\ImportProcess();
                             $num_in_queue = $import_process->num_in_queue();
                             ?>
                             <span><?php echo $num_in_queue; ?></span> 

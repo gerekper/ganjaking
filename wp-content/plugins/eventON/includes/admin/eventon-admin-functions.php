@@ -86,8 +86,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	    return $page_id;
 	}
 
-// get converted unix time for saving event date time using $_POST
+// get converted unix time for saving event date time using $_POST u4.5.8
 	function evoadmin_get_unix_time_fromt_post($post_id=''){
+
+		$help = new evo_helper();
+		$post_data = $help->sanitize_array( $_POST );
+		$tz = isset($post_data['_evo_tz']) ? new DateTimeZone( $post_data['_evo_tz'] ) : EVO()->calendar->cal_tz;
+
 		// field names that pertains only to event date information
 			$fields_sub_ar = apply_filters('eventon_event_date_metafields', array(
 				'evcal_start_date',
@@ -124,40 +129,39 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			);
 
 			foreach($D as $ff=>$vv){
-				if(!isset( $_POST[ $ff ])) continue;
-
-				$_POST[ $vv ] = $_POST[ $ff ];
+				if(!isset( $post_data[ $ff ])) continue;
+				$post_data[ $vv ] = $post_data[ $ff ];
 			}
 
 		// DATE and TIME data
 			$date_POST_values = array();
 			foreach($fields_sub_ar as $ff){
 				
-				if(empty($_POST[$ff])) continue;
-				$date_POST_values[$ff]=$_POST[$ff];
+				if(empty($post_data[$ff])) continue;
+				$date_POST_values[$ff]=$post_data[$ff];
 
 				// remove these values from previously saved
 				if(!empty($post_id)) delete_post_meta($post_id, $ff);
 			}
 
 		// hide end time filtering of data values
-			if( !empty($_POST['evo_hide_endtime']) && $_POST['evo_hide_endtime']=='yes'){
+			if( !empty($post_data['evo_hide_endtime']) && $post_data['evo_hide_endtime']=='yes'){
 
-				if(evo_settings_check_yn($_POST,'evo_span_hidden_end')){
-					$date_POST_values['evcal_end_date']=$_POST['evcal_end_date'];
+				if(evo_settings_check_yn($post_data,'evo_span_hidden_end')){
+					$date_POST_values['evcal_end_date']=$post_data['evcal_end_date'];
 				}else{
-					$date_POST_values['evcal_end_date']=$_POST['evcal_start_date'];
+					$date_POST_values['evcal_end_date']=$post_data['evcal_start_date'];
 					$date_POST_values['evcal_end_time_hour'] = '11';
-					$date_POST_values['evcal_end_time_min'] = '50';
+					$date_POST_values['evcal_end_time_min'] = '59';
 					$date_POST_values['evcal_et_ampm'] = 'pm';
 				}				
 			}
 		
 		// convert the post times into proper unix time stamps
-			$date_format = !empty($_POST['_evo_date_format']) ? $_POST['_evo_date_format']: get_option('date_format');
-			$time_format = !empty($_POST['_evo_time_format']) ? $_POST['_evo_time_format']: get_option('time_format');
+			$date_format = !empty($post_data['_evo_date_format']) ? $post_data['_evo_date_format']: get_option('date_format');
+			$time_format = !empty($post_data['_evo_time_format']) ? $post_data['_evo_time_format']: get_option('time_format');
 
-			return eventon_get_unix_time($date_POST_values, $date_format, $time_format);
+			return eventon_get_unix_time($date_POST_values, $date_format, $time_format, $tz);
 	}
 
 // LEGACY

@@ -49,8 +49,8 @@ class ThePlus_Accordion extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return [ 'accordion', 'tabs', 'toggle' ];
-	}
+        return [ 'Accordion', 'Toggle', 'Collapsible', 'Expandable', 'Content Panel', 'FAQ', 'Q&A', 'Show/Hide', 'Dropdown', 'Tabbed Content', 'Vertical Tabs', 'Accordion Menu', 'Expand/Collapse', 'Content Slider' ];
+    }
 	
     protected function register_controls() {
 		
@@ -1609,7 +1609,7 @@ class ThePlus_Accordion extends Widget_Base {
 				Group_Control_Typography::get_type(),
 			[
 				'name' => 'content_typography',
-				'selector' => '{{WRAPPER}} .theplus-accordion-wrapper .highlight',
+				'selector' => '{{WRAPPER}} .theplus-accordion-wrapper .tp-highlight',
 			]
 	    );
 
@@ -1634,7 +1634,7 @@ class ThePlus_Accordion extends Widget_Base {
 					'search_text_highlight' => 'yes',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .theplus-accordion-wrapper .highlight' => 'background-color: {{value}};',
+					'{{WRAPPER}} .theplus-accordion-wrapper .tp-highlight' => 'background-color: {{value}};',
 				],
 			]
 		);
@@ -1648,7 +1648,7 @@ class ThePlus_Accordion extends Widget_Base {
 					'search_text_highlight' => 'yes',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .theplus-accordion-wrapper .highlight' => 'color: {{value}};',
+					'{{WRAPPER}} .theplus-accordion-wrapper .tp-highlight' => 'color: {{value}};',
 				],
 			]
 		);
@@ -1673,7 +1673,7 @@ class ThePlus_Accordion extends Widget_Base {
 					'search_text_highlight' => 'yes',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .theplus-accordion-wrapper .highlight:hover' => 'background-color: {{value}};',
+					'{{WRAPPER}} .theplus-accordion-wrapper .tp-highlight:hover' => 'background-color: {{value}};',
 				],
 				
 				
@@ -1689,7 +1689,7 @@ class ThePlus_Accordion extends Widget_Base {
 					'search_text_highlight' => 'yes',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .theplus-accordion-wrapper .highlight:hover' => 'color: {{value}};',
+					'{{WRAPPER}} .theplus-accordion-wrapper .tp-highlight:hover' => 'color: {{value}};',
 				],
 			]
 		);

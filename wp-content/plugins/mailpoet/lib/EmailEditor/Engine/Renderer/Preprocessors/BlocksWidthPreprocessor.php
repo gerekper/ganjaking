@@ -10,11 +10,6 @@ if (!defined('ABSPATH')) exit;
  * The final width in pixels is stored in the email_attrs array because we would like to avoid changing the original attributes.
  */
 class BlocksWidthPreprocessor implements Preprocessor {
-
-  const BLOCKS_WITHOUT_WIDTH = [
-    'core/paragraph',
-  ];
-
   public function preprocess(array $parsedBlocks, array $layoutStyles): array {
     foreach ($parsedBlocks as $key => $block) {
       // Layout width is recalculated for each block because full-width blocks don't exclude padding
@@ -26,7 +21,11 @@ class BlocksWidthPreprocessor implements Preprocessor {
         $layoutWidth -= $this->parseNumberFromStringWithPixels($layoutStyles['padding']['right'] ?? '0px');
       }
 
-      $width = $this->convertWidthToPixels($block['attrs']['width'] ?? '100%', $layoutWidth);
+      $widthInput = $block['attrs']['width'] ?? '100%';
+      // Currently we support only % and px units in case only the number is provided we assume it's %
+      // because editor saves percent values as a number.
+      $widthInput = is_numeric($widthInput) ? "$widthInput%" : $widthInput;
+      $width = $this->convertWidthToPixels($widthInput, $layoutWidth);
 
       if ($block['blockName'] === 'core/columns') {
         // Calculate width of the columns based on the layout width and padding
@@ -42,10 +41,7 @@ class BlocksWidthPreprocessor implements Preprocessor {
       $modifiedLayoutStyles['padding']['left'] = $block['attrs']['style']['spacing']['padding']['left'] ?? '0px';
       $modifiedLayoutStyles['padding']['right'] = $block['attrs']['style']['spacing']['padding']['right'] ?? '0px';
 
-      // Set current block values and reassign it to $parsedBlocks, but don't set width for blocks that are not supposed to have it
-      if (!in_array($block['blockName'], self::BLOCKS_WITHOUT_WIDTH, true)) {
-        $block['email_attrs']['width'] = "{$width}px";
-      }
+      $block['email_attrs']['width'] = "{$width}px";
       $block['innerBlocks'] = $this->preprocess($block['innerBlocks'], $modifiedLayoutStyles);
       $parsedBlocks[$key] = $block;
     }
@@ -77,6 +73,10 @@ class BlocksWidthPreprocessor implements Preprocessor {
       if (isset($column['attrs']['width']) && !empty($column['attrs']['width'])) {
         $columnsCountWithDefinedWidth++;
         $definedColumnWidth += $this->convertWidthToPixels($column['attrs']['width'], $columnsWidth);
+      } else {
+        // When width is not set we need to add padding to the defined column width for better ratio accuracy
+        $definedColumnWidth += $this->parseNumberFromStringWithPixels($column['attrs']['style']['spacing']['padding']['left'] ?? '0px');
+        $definedColumnWidth += $this->parseNumberFromStringWithPixels($column['attrs']['style']['spacing']['padding']['right'] ?? '0px');
       }
     }
 
@@ -84,7 +84,11 @@ class BlocksWidthPreprocessor implements Preprocessor {
       $defaultColumnsWidth = round(($columnsWidth - $definedColumnWidth) / ($columnsCount - $columnsCountWithDefinedWidth), 2);
       foreach ($columns as $key => $column) {
         if (!isset($column['attrs']['width']) || empty($column['attrs']['width'])) {
-          $columns[$key]['attrs']['width'] = "{$defaultColumnsWidth}px";
+          // Add padding to the specific column width because it's not included in the default width
+          $columnWidth = $defaultColumnsWidth;
+          $columnWidth += $this->parseNumberFromStringWithPixels($column['attrs']['style']['spacing']['padding']['left'] ?? '0px');
+          $columnWidth += $this->parseNumberFromStringWithPixels($column['attrs']['style']['spacing']['padding']['right'] ?? '0px');
+          $columns[$key]['attrs']['width'] = "{$columnWidth}px";
         }
       }
     }

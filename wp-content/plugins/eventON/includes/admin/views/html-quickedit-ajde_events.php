@@ -1,4 +1,9 @@
 <?php
+
+/** 
+ * Quick edit content
+ * @version 4.5.6
+ */
 	
 	// get time format
 	$wp_time_format = get_option('time_format');
@@ -80,14 +85,11 @@
 			</label>
 			</div>
 		</fieldset>
-		<fieldset class="inline-edit-col-right" >
+		<fieldset class="inline-edit-col-right evo_quickedit_events_fields" >
 			<div id="eventon-fields" class="inline-edit-col">
 			<?php
 				$fields = apply_filters('evo_quick_edit_event_add_fields',array(
-					'evcal_allday'=> array(
-						'type'=>'yesno',
-						'label'=>__('All day event','eventon')
-					),
+					
 					'evo_hide_endtime'=> array(
 						'type'=>'yesno',
 						'label'=>__('Hide end time from calendar','eventon')
@@ -96,23 +98,27 @@
 						'type'=>'yesno',
 						'label'=>__('Span the event until hidden end time','eventon')
 					),
-					'_evo_month_long'=> array(
-						'type'=>'yesno',
-						'label'=>__('Month Long Event - Show this event for the entire start event Month','eventon')
-					),	
-					'evo_year_long'=> array(
-						'type'=>'yesno',
-						'label'=>__('Year Long Event - Show this event for the entire start event Year','eventon')
-					),								
-					'_featured'=> array(
-						'type'=>'yesno',
-						'label'=>__('Featured event','eventon')
+					
+					'_time_ext_type'=> array(
+						'type'=>'select',
+						'label'=>__('Event Time extended type','eventon'),
+						'O'=> array(
+							'n' => __('None','eventon'),
+							'dl' => __('Day Long','eventon'),
+							'ml' => __('Month Long','eventon'),
+							'yl' => __('Year Long','eventon'),
+						)
 					),
 					'_ev_status'=> array(
 						'type'=>'select',
 						'label'=>__('Event Status','eventon'),
 						'O'=> EVO()->cal->get_status_array('back')
+					),								
+					'_featured'=> array(
+						'type'=>'yesno',
+						'label'=>__('Feature event','eventon')
 					),
+					
 					'evo_exclude_ev'=> array(
 						'type'=>'yesno',
 						'label'=>__('Exclude from calendar','eventon')
@@ -162,14 +168,16 @@
 						break;
 						case 'select':
 							?>
-							<span class='title'><?php echo $val['label'];?></span>
-							<select name='<?php echo $field;?>'>
-							<?php 
-								foreach($val['O'] as $F=>$V){
-									echo "<option value='{$F}'>{$V}</option>";
-								}
-							?>
-							</select>
+							<p class='evo_row'>
+								<span class='title'><?php echo $val['label'];?></span>
+								<select name='<?php echo $field;?>'>
+								<?php 
+									foreach($val['O'] as $F=>$V){
+										echo "<option value='{$F}'>{$V}</option>";
+									}
+								?>
+								</select>
+							</p>
 							<?php
 						break;
 					}

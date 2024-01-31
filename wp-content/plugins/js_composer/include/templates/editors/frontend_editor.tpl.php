@@ -83,21 +83,21 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 }
 // [/shortcodes presets data]
 
+vc_include_template(
+	'editors/partials/vc_post_custom_meta.tpl.php',
+	[ 'editor' => $editor ]
+);
 ?>
-	<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="<?php echo esc_attr( $editor->post_custom_css ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_js_header" id="vc_post-custom-js-header" value="<?php echo esc_attr( $editor->post_custom_js_header ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_js_footer" id="vc_post-custom-js-footer" value="<?php echo esc_attr( $editor->post_custom_js_footer ); ?>" autocomplete="off"/>
-	<input type="hidden" name="vc_post_custom_layout" id="vc_post-custom-layout" value="<?php echo esc_attr( $editor->post_custom_layout ); ?>" autocomplete="off"/>
-	<<?php echo esc_attr( $custom_tag ); ?>>
-		window.vc_user_mapper = <?php echo wp_json_encode( WPBMap::getUserShortCodes() ); ?>;
-		window.vc_mapper = <?php echo wp_json_encode( WPBMap::getShortCodes() ); ?>;
-		window.vc_vendor_settings_presets = <?php echo wp_json_encode( $vc_vendor_settings_presets ); ?>;
-		window.vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>;
-		window.vc_roles = [];
-		window.vcAdminNonce = '<?php echo esc_js( vc_generate_nonce( 'vc-admin-nonce' ) ); ?>';
-		window.wpb_js_google_fonts_save_nonce = '<?php echo esc_js( wp_create_nonce( 'wpb_js_google_fonts_save' ) ); ?>';
-		window.vc_post_id = <?php echo esc_js( $post_ID ); ?>;
-	</<?php echo esc_attr( $custom_tag ); ?>>
+<<?php echo esc_attr( $custom_tag ); ?>>
+	window.vc_user_mapper = <?php echo wp_json_encode( WPBMap::getUserShortCodes() ); ?>;
+	window.vc_mapper = <?php echo wp_json_encode( WPBMap::getShortCodes() ); ?>;
+	window.vc_vendor_settings_presets = <?php echo wp_json_encode( $vc_vendor_settings_presets ); ?>;
+	window.vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>;
+	window.vc_roles = [];
+	window.vcAdminNonce = '<?php echo esc_js( vc_generate_nonce( 'vc-admin-nonce' ) ); ?>';
+	window.wpb_js_google_fonts_save_nonce = '<?php echo esc_js( wp_create_nonce( 'wpb_js_google_fonts_save' ) ); ?>';
+	window.vc_post_id = <?php echo esc_js( $post_ID ); ?>;
+</<?php echo esc_attr( $custom_tag ); ?>>
 
 <?php vc_include_template( 'editors/partials/vc_settings-image-block.tpl.php' ); ?>
 <!-- BC for older plugins 5.5 !-->

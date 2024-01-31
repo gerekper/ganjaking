@@ -360,4 +360,30 @@ class WoocommerceProductFeedsDbManager {
 	public function upgrade_db_to_16() {
 		update_option( 'woocommerce_gpf_schema_min_timestamp_validity', time() );
 	}
+
+	/**
+	 * Migrate setup task completion status from custom options to woo-standard approach.
+	 *
+	 * @return void
+	 */
+	public function upgrade_db_to_17() {
+		$options = [
+			'woocommerce_gpf_configure_settings_is_complete' => 'woocommerce-gpf-configure-settings',
+			'woocommerce_gpf_feed_setup_is_complete' => 'woocommerce-gpf-feed-setup',
+		];
+		foreach ( $options as $legacy_option => $new_key ) {
+			$is_complete = get_option( $legacy_option );
+			if ( $is_complete ) {
+				$completed_tasks   = get_option( 'woocommerce_task_list_tracked_completed_tasks', [] );
+				$completed_tasks[] = $new_key;
+				$completed_tasks   = array_unique( $completed_tasks );
+				update_option( 'woocommerce_task_list_tracked_completed_tasks', $completed_tasks );
+				$completed_actions   = get_option( 'woocommerce_task_list_tracked_completed_actions', [] );
+				$completed_actions[] = $new_key;
+				$completed_actions   = array_unique( $completed_actions );
+				update_option( 'woocommerce_task_list_tracked_completed_actions', $completed_actions );
+			}
+			delete_option( $legacy_option );
+		}
+	}
 }

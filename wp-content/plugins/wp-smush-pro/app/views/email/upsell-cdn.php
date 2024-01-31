@@ -1,3 +1,9 @@
+<?php
+/**
+ * Background optimization email upsell template for old free users.
+ */
+$discount = WP_Smush::get_instance()->admin()->get_plugin_discount();
+?>
 <div style="margin:0px auto;padding:0;max-width:600px;">
 	<table id="smush-cdn-faster-delivery" border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="max-width:600px;border-collapse:collapse;margin:10px auto 0;padding:0 0;color:#fff">
 		<tbody>
@@ -25,7 +31,13 @@
 			<tr>
 				<td border="0" cellpadding="0" cellspacing="0" colspan="2" style="border-collapse:collapse;border-spacing:0px;border:0;padding:4px 20px 0;">
 					<p style="color:#fff;font-size:13px;font-weight:400;margin:0;padding:0;font-family:Roboto, Arial, sans-serif;line-height:22px;text-decoration:none;">
-						<?php esc_html_e( 'Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive 60% welcome discount for Smush free users. Limited time only.', 'wp-smushit' ); ?>
+						<?php
+						printf(
+							/* translators: %s: Discount */
+							esc_html__( 'Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive %s welcome discount for Smush free users. Limited time only.', 'wp-smushit' ),
+							esc_html( $discount )
+						);
+						?>
 					</p>
 				</td>
 			</tr>
@@ -47,7 +59,13 @@
 						<span class="smush-dark-img" style="display:inline-block;display:none;width:0;height:0;visibility:hidden;margin:0;padding:0">
 							<img onerror="arguments[0].currentTarget.style.display='none'" style="width:16px;margin-top:16px;margin-right:12px;" src="<?php echo WP_SMUSH_URL . 'app/assets/images/email/valid-dark.png'; ?>" />
 						</span>
-						<?php esc_html_e( '60% off your first year', 'wp-smushit' ); ?>
+						<?php
+						printf(
+							/* translators: %s: Discount */
+							esc_html__( '%s off your first year', 'wp-smushit' ),
+							esc_html( $discount )
+						);
+						?>
 					</p>
 					<p style="margin:0;padding:20px 0 35px;">
 						<a class="button"

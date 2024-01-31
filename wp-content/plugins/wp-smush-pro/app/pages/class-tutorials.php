@@ -39,13 +39,11 @@ class Tutorials extends Abstract_Page implements Interface_Page {
 	 * Render page header.
 	 */
 	public function render_page_header() {
-		$tutorials = add_query_arg(
+		$tutorials = $this->get_utm_link(
 			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
 				'utm_campaign' => 'smush_tutorials_page',
 			),
-			esc_url( 'https://wpmudev.com/blog/tutorials/tutorial-category/smush-pro/' )
+			'https://wpmudev.com/blog/tutorials/tutorial-category/smush-pro/'
 		);
 
 		?>

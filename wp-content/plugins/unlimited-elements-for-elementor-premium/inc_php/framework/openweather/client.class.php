@@ -1,7 +1,7 @@
 <?php
 
 class UEOpenWeatherAPIClient{
-
+	
 	const DATA_BASE_URL = "https://api.openweathermap.org/data/3.0";
 	const GEO_BASE_URL = "http://api.openweathermap.org/geo/1.0";
 
@@ -46,7 +46,7 @@ class UEOpenWeatherAPIClient{
 	public function getDailyForecast($country, $city, $units = "standard"){
 
 		$location = $this->findLocation($country, $city);
-
+		
 		$params = array(
 			"lat" => $location["lat"],
 			"lon" => $location["lon"],
@@ -54,7 +54,7 @@ class UEOpenWeatherAPIClient{
 			"exclude" => "current,hourly,alerts",
 			"lang" => get_locale(),
 		);
-
+				
 		$response = $this->get(self::DATA_BASE_URL . "/onecall", $params);
 		$forecast = UEOpenWeatherAPIForecast::transformAll($response["daily"]);
 
@@ -108,19 +108,20 @@ class UEOpenWeatherAPIClient{
 	 * @return array
 	 */
 	private function request($method, $url, $params = array()){
-
+		
 		$params["appid"] = $this->apiKey;
 
 		$query = ($method === self::METHOD_GET && $params) ? "?" . http_build_query($params) : "";
 		$body = ($method !== self::METHOD_GET && $params) ? json_encode($params) : null;
 
 		$url .= $query;
-
+		
 		$cacheKey = $this->getCacheKey($url);
 		$cacheTime = ($method === self::METHOD_GET) ? $this->cacheTime : 0;
-
+					
 		$response = UniteProviderFunctionsUC::rememberTransient($cacheKey, $cacheTime, function() use ($method, $url, $body){
-
+			
+			
 			$curl = curl_init();
 
 			curl_setopt($curl, CURLOPT_URL, $url);
@@ -130,7 +131,8 @@ class UEOpenWeatherAPIClient{
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
+			
+			
 			$response = curl_exec($curl);
 			$response = json_decode($response, true);
 

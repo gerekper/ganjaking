@@ -307,7 +307,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="p_icon">
 					<i class="far fa-calendar-check"></i>
 				</div>
-				<h3 class="p_num"><?php echo $wcd_count_prod_listings; ?></h3>
+				<h3 class="p_num"><?php echo esc_html( $wcd_count_prod_listings ); ?></h3>
+
 				<h5 class="p_title">Active Listing</h5>
 				<p class="p_text">Active and monitered listings</p>
 			</div>
@@ -315,7 +316,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="p_icon">
 					<i class="far fa-calendar-check"></i>
 				</div>
-				<h3 class="p_num"><?php echo $wcd_count_untracked_prod_listings; ?></h3>
+				<h3 class="p_num"><?php echo esc_html( $wcd_count_untracked_prod_listings ); ?></h3>
 				<h5 class="p_title">Untracked Listings</h5>
 				<p class="p_text">Current number of Untracked listings </p>
 			</div>
@@ -323,7 +324,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="p_icon">
 					<i class="fas fa-shopping-cart"></i>
 				</div>
-				<h3 class="p_num"><?php echo $wcd_daily_orders_count; ?></h3>
+				<h3 class="p_num"><?php echo esc_html( $wcd_daily_orders_count ); ?></h3>
 				<h5 class="p_title">Orders</h5>
 				<p class="p_text">Orders in the Past 24 hours</p>
 			</div>
@@ -331,7 +332,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="p_icon">
 					<i class="fas fa-dollar-sign"></i>
 				</div>
-				<h3 class="p_num"><?php echo get_woocommerce_currency_symbol() . ( ( $wcd_daily_sales['profit'] != null ) ? $wcd_daily_sales['profit'] : 0 ); ?></h3>
+				<h3 class="p_num"><?php echo esc_html( get_woocommerce_currency_symbol() . ( $wcd_daily_sales['profit'] !== null ? $wcd_daily_sales['profit'] : 0 ) ); ?></h3>
+
 				<h5 class="p_title">Profit</h5>
 				<p class="p_text">Estimate profit in the last 24 hours.</p>
 			</div>
@@ -391,7 +393,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="p_aco_list">
 								<div class="p_aco_list_item">
 									<p class="p_text p_left"><span class="p_txt">Auto Orders Mode</span></p>
-									<p class="p_text p_right"><span class="p_bag"><?php echo $wcd_orders[0]; ?></span></p>
+									<p class="p_text p_right"><span class="p_bag"><?php echo esc_html( $wcd_orders[0] ); ?></span></p>
+
 								</div>
 								<div class="p_aco_list_item">
 									<p class="p_text p_left"><span class="p_txt">Max Monitoring Products</span></p>
@@ -399,11 +402,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 								<div class="p_aco_list_item">
 									<p class="p_text p_left"><span class="p_txt">Out Of Stock Listings:</span></p>
-									<p class="p_text right"><span class="p_bag"><?php echo $wcd_count_prod_out_stock; ?></span></p>
+									<p class="p_text right"><span class="p_bag"><?php echo esc_html( $wcd_count_prod_out_stock ); ?></span></p>
+
 								</div>
 								<div class="p_aco_list_item">
 									<p class="p_text p_left"><span class="p_txt">Pending Orders:</span></p>
-									<p class="p_text p_right"><span class="p_bag"><?php echo $wcd_orders_pending; ?></span></p>
+									<p class="p_text p_right"><span class="p_bag"><?php echo esc_html( $wcd_orders_pending ); ?></span></p>
 								</div>
 							</div>
 						</div>
@@ -412,7 +416,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</section>
-	<script src="<?php echo plugins_url() . '/' . $base_name[0] . '/assets/js/jquery.min.js'; ?>"></script>
+	<script src="<?php echo esc_url( plugins_url() ) . '/' . esc_attr( $base_name[0] ) . '/assets/js/jquery.min.js'; ?>"></script>
+
 	<script>
 		 $(document).ready(function(){
 			$('.p_btn').click(function() {
@@ -420,78 +425,78 @@ if ( ! defined( 'ABSPATH' ) ) {
 			});
 		});
 	</script>
-	 <script type="text/javascript" src="<?php echo plugins_url() . '/' . $base_name[0] . '/assets/js/chart.js'; ?>"></script>
-	<script src="<?php echo plugins_url() . '/' . $base_name[0] . '/assets/js/chartjs-adapter-date-fns.bundle.min.js'; ?>"></script>
+	 <script type="text/javascript" src="<?php echo esc_url( plugins_url() ) . '/' . esc_attr( $base_name[0] ) . '/assets/js/chart.js'; ?>"></script>
+	<script src="<?php echo esc_url( plugins_url() ) . '/' . esc_attr( $base_name[0] ) . '/assets/js/chartjs-adapter-date-fns.bundle.min.js'; ?>"></script>
 		<script>
 	// setup 
 	
 	  const day = [
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[0]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[1]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[1]->total; ?>},
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[2]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[3]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[4]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[4]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[5]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[5]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_total_orders[6]->post_date; ?>'), y: <?php echo $get_one_week_daily_total_orders[6]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[0]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[1]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[1]->total ); ?>},
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[2]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[3]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[4]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[4]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[5]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[5]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_total_orders[6]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_total_orders[6]->total ); ?> },
 		];
 		
 		const day1 = [
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[0]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[1]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[1]->total; ?>},
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[2]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[3]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[4]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[4]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[5]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[5]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_week_daily_profit[6]->post_date; ?>'), y: <?php echo $get_one_week_daily_profit[6]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[0]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[1]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[1]->total ); ?>},
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[2]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[3]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[4]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[4]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[5]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[5]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_week_daily_profit[6]->post_date ); ?>'), y: <?php echo esc_url( $get_one_week_daily_profit[6]->total ); ?> },
 		];
 		
 
 		const week = [
-			{ x: Date.parse('<?php echo $get_per_week_total_orders[0]->post_date; ?>'), y: <?php echo $get_per_week_total_orders[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_total_orders[1]->post_date; ?>'), y: <?php echo $get_per_week_total_orders[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_total_orders[2]->post_date; ?>'), y: <?php echo $get_per_week_total_orders[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_total_orders[3]->post_date; ?>'), y: <?php echo $get_per_week_total_orders[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_total_orders[4]->post_date; ?>'), y: <?php echo $get_per_week_total_orders[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_total_orders[0]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_total_orders[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_total_orders[1]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_total_orders[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_total_orders[2]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_total_orders[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_total_orders[3]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_total_orders[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_total_orders[4]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_total_orders[4]->total ); ?> },
 		];
 		
 		const week1 = [
-			{ x: Date.parse('<?php echo $get_per_week_profit[0]->post_date; ?>'), y: <?php echo $get_per_week_profit[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_profit[1]->post_date; ?>'), y: <?php echo $get_per_week_profit[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_profit[2]->post_date; ?>'), y: <?php echo $get_per_week_profit[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_profit[3]->post_date; ?>'), y: <?php echo $get_per_week_profit[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_week_profit[4]->post_date; ?>'), y: <?php echo $get_per_week_profit[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_profit[0]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_profit[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_profit[1]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_profit[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_profit[2]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_profit[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_profit[3]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_profit[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_week_profit[4]->post_date ); ?>'), y: <?php echo esc_url( $get_per_week_profit[4]->total ); ?> },
 		];
 
 		 const month = [
-			{ x: Date.parse('<?php echo $get_one_month_total_orders[0]->post_date; ?>'), y: <?php echo $get_one_month_total_orders[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_month_total_orders[1]->post_date; ?>'), y: <?php echo $get_one_month_total_orders[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_month_total_orders[2]->post_date; ?>'), y: <?php echo $get_one_month_total_orders[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_month_total_orders[3]->post_date; ?>'), y: <?php echo $get_one_month_total_orders[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_one_month_total_orders[4]->post_date; ?>'), y: <?php echo $get_one_month_total_orders[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_month_total_orders[0]->post_date ); ?>'), y: <?php echo esc_url( $get_one_month_total_orders[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_month_total_orders[1]->post_date ); ?>'), y: <?php echo esc_url( $get_one_month_total_orders[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_month_total_orders[2]->post_date ); ?>'), y: <?php echo esc_url( $get_one_month_total_orders[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_month_total_orders[3]->post_date ); ?>'), y: <?php echo esc_url( $get_one_month_total_orders[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_one_month_total_orders[4]->post_date ); ?>'), y: <?php echo esc_url( $get_one_month_total_orders[4]->total ); ?> },
 		];
 		
 		const month1 = [
-			{ x: Date.parse('<?php echo $get_per_month_profit[0]->post_date; ?>'), y: <?php echo $get_per_month_profit[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_month_profit[1]->post_date; ?>'), y: <?php echo $get_per_month_profit[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_month_profit[2]->post_date; ?>'), y: <?php echo $get_per_month_profit[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_month_profit[3]->post_date; ?>'), y: <?php echo $get_per_month_profit[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_month_profit[4]->post_date; ?>'), y: <?php echo $get_per_month_profit[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_month_profit[0]->post_date ); ?>'), y: <?php echo esc_url( $get_per_month_profit[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_month_profit[1]->post_date ); ?>'), y: <?php echo esc_url( $get_per_month_profit[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_month_profit[2]->post_date ); ?>'), y: <?php echo esc_url( $get_per_month_profit[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_month_profit[3]->post_date ); ?>'), y: <?php echo esc_url( $get_per_month_profit[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_month_profit[4]->post_date ); ?>'), y: <?php echo esc_url( $get_per_month_profit[4]->total ); ?> },
 		];
 
 	   const year = [
-			{ x: Date.parse('<?php echo $get_per_year_total_orders[0]->post_date; ?>'), y: <?php echo $get_per_year_total_orders[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_total_orders[1]->post_date; ?>'), y: <?php echo $get_per_year_total_orders[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_total_orders[2]->post_date; ?>'), y: <?php echo $get_per_year_total_orders[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_total_orders[3]->post_date; ?>'), y: <?php echo $get_per_year_total_orders[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_total_orders[4]->post_date; ?>'), y: <?php echo $get_per_year_total_orders[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_total_orders[0]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_total_orders[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_total_orders[1]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_total_orders[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_total_orders[2]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_total_orders[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_total_orders[3]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_total_orders[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_total_orders[4]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_total_orders[4]->total ); ?> },
 		];
 		
 		const year1 = [
-			{ x: Date.parse('<?php echo $get_per_year_profit[0]->post_date; ?>'), y: <?php echo $get_per_year_profit[0]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_profit[1]->post_date; ?>'), y: <?php echo $get_per_year_profit[1]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_profit[2]->post_date; ?>'), y: <?php echo $get_per_year_profit[2]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_profit[3]->post_date; ?>'), y: <?php echo $get_per_year_profit[3]->total; ?> },
-			{ x: Date.parse('<?php echo $get_per_year_profit[4]->post_date; ?>'), y: <?php echo $get_per_year_profit[4]->total; ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_profit[0]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_profit[0]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_profit[1]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_profit[1]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_profit[2]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_profit[2]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_profit[3]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_profit[3]->total ); ?> },
+			{ x: Date.parse('<?php echo esc_url( $get_per_year_profit[4]->post_date ); ?>'), y: <?php echo esc_url( $get_per_year_profit[4]->total ); ?> },
 		];
 		
 	const data = {

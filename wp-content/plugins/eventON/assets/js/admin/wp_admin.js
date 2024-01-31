@@ -759,6 +759,30 @@ jQuery(document).ready(function($){
 				},complete:function(){	}
 			});
 		});
+
+	// Web hooks @since 4.5.5
+		BB.on('evo_ajax_success_evo_webhook_config',function(event, OO, data, el){
+			evo_populate_webhook_fields();
+
+			LB = BB.find('.evo_lightbox.evo_webhooks_config');
+
+			LB.find('select.wh_trigger_point').on('change',function(){
+				evo_populate_webhook_fields();
+			});
+		});
+
+		function evo_populate_webhook_fields(){
+			LB = BB.find('.evo_lightbox.evo_webhooks_config');
+
+			const whdata = LB.find('.evo_elm_webhooks_data').data('whdata');
+			var selected_key = LB.find('select').val();
+
+			var new_content = 'n/a';
+			if( selected_key in whdata ) new_content = whdata[ selected_key ];
+
+			LB.find('.evo_whdata_fields').html( new_content );
+		}
+
 		
 // Event Top Designer @version 4.1
 	$.fn.evotop_designer = function (options){
@@ -1124,47 +1148,7 @@ jQuery(document).ready(function($){
 		}		
 	});
 
-	// load environment data
-		$('#evo_load_environment').on('click',function(){
-			O = $(this);
-			
-			if($('.evo_environment').hasClass('done')) return;
 
-			$.ajax({
-				beforeSend: function(){	$('.evo_environment').html('<span>Loading...</span>');},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: {	
-					action:'eventon_admin_get_environment',
-					nonce: evo_admin_ajax_handle.postnonce,
-				},
-				dataType:'json',
-				success:function(data){
-					$('.evo_environment').html(data.html);
-				},complete:function(){	}
-			});
-
-		});
-
-	// load status log
-		$('#evo_load_log').on('click', function(){
-			O = $(this);
-			var LB = $('.evo_log_lightbox');
-			
-			$.ajax({
-				beforeSend: function(){	},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: {	
-					action:'eventon_admin_system_log',
-					nonce: evo_admin_ajax_handle.postnonce,
-				},
-				dataType:'json',
-				success:function(data){
-					LB.find('.ajde_popup_text').html( data.html );
-				},complete:function(){	}
-			});
-		});
 
 // LANGUAGE SETTINGS
 	// language tab
@@ -1215,7 +1199,7 @@ jQuery(document).ready(function($){
 						box.toggle();
 						bar.toggleClass('open');
 					}
-					console.log(thistext+' '+searchval);
+					//console.log(thistext+' '+searchval);
 				}
 			});
 		});

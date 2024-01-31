@@ -46,6 +46,56 @@ class UniteCreatorAddonChangelog{
 	}
 
 	/**
+	 * Get the title of the given addon.
+	 *
+	 * @param int $addonId
+	 * @param string $fallback
+	 *
+	 * @return string
+	 */
+	public function getAddonTitle($addonId, $fallback){
+
+		try{
+			$addon = new UniteCreatorAddon();
+			$addon->initByID($addonId);
+
+			return $addon->getTitle();
+		}catch(Exception $exception){
+			return sprintf(__("%s (deleted)", "unlimited-elements-for-elementor"), $fallback);
+		}
+	}
+
+	/**
+	 * Get the version of the given addon.
+	 *
+	 * @param int $addonId
+	 *
+	 * @return string|null
+	 */
+	public function getAddonVersion($addonId){
+
+		try{
+			$addon = new UniteCreatorAddon();
+			$addon->initByID($addonId);
+
+			$options = $addon->getOptions();
+
+			if(isset($options["is_free_addon"]) === false)
+				return null;
+
+			$isFree = UniteFunctionsUC::getVal($options, "is_free_addon");
+			$isFree = UniteFunctionsUC::strToBool($isFree);
+
+			if($isFree === true)
+				return __("Free", "unlimited-elements-for-elementor");
+
+			return __("Pro", "unlimited-elements-for-elementor");
+		}catch(Exception $exception){
+			return null;
+		}
+	}
+
+	/**
 	 * Get a list of changelogs for the given addon.
 	 *
 	 * @param int $addonId
@@ -66,7 +116,7 @@ class UniteCreatorAddonChangelog{
 
 		$limit = UniteFunctionsUC::getVal($filters, "limit", null);
 
-		if ($limit !== null) {
+		if($limit !== null){
 			$sql .= " LIMIT " . intval($limit);
 		}
 
@@ -124,8 +174,12 @@ class UniteCreatorAddonChangelog{
 
 		global $wpdb;
 
+		$addon = new UniteCreatorAddon();
+		$addon->initByID($addonId);
+
 		$data = array(
-			"addon_id" => $addonId,
+			"addon_id" => $addon->getID(),
+			"addon_title" => $addon->getTitle(),
 			"user_id" => get_current_user_id(),
 			"type" => $type,
 			"text" => $text,
@@ -225,18 +279,9 @@ class UniteCreatorAddonChangelog{
 	 */
 	private function prepareChangelogs($results){
 
-		$addon = new UniteCreatorAddon();
 		$changelogs = array();
 
 		foreach($results as $result){
-			try {
-				$addon->initByID($result["addon_id"]);
-
-				$result["addon_title"] = $addon->getTitle();
-			} catch(Exception $exception) {
-				$result["addon_title"] = sprintf(__("#%s (not found)", "unlimited-elements-for-elementor"), $result["addon_id"]);
-			}
-
 			$user = get_user_by("id", $result["user_id"]);
 
 			$textHtml = esc_html($result["text"]);
@@ -244,6 +289,8 @@ class UniteCreatorAddonChangelog{
 
 			$changelogs[] = array_merge($result, array(
 				"user_username" => $user ? $user->user_login : __("(deleted)", "unlimited-elements-for-elementor"),
+				"addon_title" => $this->getAddonTitle($result["addon_id"], $result["addon_title"]),
+				"addon_version" => $this->getAddonVersion($result["addon_id"]),
 				"type_title" => $this->getTypeTitle($result["type"]),
 				"text_html" => $textHtml,
 				"created_date" => mysql2date("j F Y H:i:s", $result["created_at"]),

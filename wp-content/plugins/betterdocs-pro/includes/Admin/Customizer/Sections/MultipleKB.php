@@ -4,7 +4,6 @@ namespace WPDeveloper\BetterDocsPro\Admin\Customizer\Sections;
 
 use WP_Customize_Control;
 use WP_Customize_Image_Control;
-use WP_Customize_Media_Control;
 use WPDeveloper\BetterDocs\Admin\Customizer\Controls\TitleControl;
 use WPDeveloper\BetterDocs\Admin\Customizer\Controls\SelectControl;
 use WPDeveloper\BetterDocs\Admin\Customizer\Controls\ToggleControl;
@@ -101,9 +100,9 @@ class MultipleKB extends Section {
 
     public function content_area_bg_image() {
         $this->customizer->add_setting( 'betterdocs_mkb_background_image', [
-            'default'           => $this->defaults['betterdocs_mkb_background_image'],
-            'capability'        => 'edit_theme_options',
-            'transport'         => 'postMessage',
+            'default'    => $this->defaults['betterdocs_mkb_background_image'],
+            'capability' => 'edit_theme_options',
+            'transport'  => 'postMessage'
         ] );
 
         $this->customizer->add_control(
@@ -1154,6 +1153,24 @@ class MultipleKB extends Section {
                 ]
             ] )
         );
+    }
+
+    public function show_category_icon() {
+        $this->customizer->add_setting( 'betterdocs_mkb_page_show_category_icon', [
+            'default'           => $this->defaults['betterdocs_mkb_page_show_category_icon'],
+            'capability'        => 'edit_theme_options',
+            'sanitize_callback' => [$this->sanitizer, 'checkbox']
+        ] );
+
+        $this->customizer->add_control( new ToggleControl(
+            $this->customizer, 'betterdocs_mkb_page_show_category_icon', [
+                'label'    => __( 'Show Category Icon', 'betterdocs' ),
+                'section'  => 'betterdocs_mkb_settings',
+                'settings' => 'betterdocs_mkb_page_show_category_icon',
+                'type'     => 'light', // light, ios, flat
+                'priority' => 24
+            ]
+        ) );
     }
 
     public function cat_icon_size() {

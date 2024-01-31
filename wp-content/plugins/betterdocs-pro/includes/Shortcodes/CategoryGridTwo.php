@@ -53,7 +53,7 @@ class CategoryGridTwo extends CategoryGrid {
             'kb_slug'                  => '',
             'multiple_knowledge_base'  => false,
             'disable_customizer_style' => false,
-            'title_tag'                => 'h2'
+            'title_tag'                => 'h2',
         ];
     }
 

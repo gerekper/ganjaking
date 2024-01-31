@@ -15,6 +15,7 @@ use Elementor\Icons_Manager;
 use \Elementor\Skin_Base;
 use \Elementor\Widget_Base;
 use Essential_Addons_Elementor\Pro\Classes\Helper;
+use Elementor\Plugin;
 
 class Skin_Six extends Skin_Base
 {
@@ -366,13 +367,54 @@ class Skin_Six extends Skin_Base
         );
 
         $this->add_control(
+			'eael_advanced_menu_item_indicator_width',
+			[
+				'label'      => esc_html__( 'Icon Size', 'essential-addons-elementor' ),
+				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					]
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 15,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li a span svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator i' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+        $this->add_responsive_control(
+            'eael_advanced_menu_item_indicator_margin',
+            [
+                'label'      => esc_html__( 'Margin', 'essential-addons-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li a span svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'eael_advanced_menu_item_indicator_color',
             [
                 'label' => __('Color', 'essential-addons-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#ffffff',
                 'selectors' => [
-                    '{{WRAPPER}} .eael-advanced-menu li .eael-advanced-menu-indicator:before' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu li .eael-advanced-menu-indicator i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li a span svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator svg path' => 'fill: {{VALUE}}',
                 ],
             ]
         );
@@ -466,8 +508,10 @@ class Skin_Six extends Skin_Base
                 'type' => Controls_Manager::COLOR,
                 'default' => '#00aeff',
                 'selectors' => [
-                    '{{WRAPPER}} .eael-advanced-menu li .eael-advanced-menu-indicator:hover:before' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-advanced-menu li .eael-advanced-menu-indicator.eael-advanced-menu-indicator-open:before' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li > a:hover span i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator:hover i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu .eael-advanced-menu-indicator:hover svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li a:hover span svg path' => 'fill: {{VALUE}}',
                 ],
             ]
         );
@@ -647,13 +691,55 @@ class Skin_Six extends Skin_Base
         );
 
         $this->add_control(
+			'eael_advanced_menu_dropdown_item_indicator_width',
+			[
+				'label'      => esc_html__( 'Icon Size', 'essential-addons-elementor' ),
+				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					]
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 15,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li ul li a span svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal ul li i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+        $this->add_responsive_control(
+            'eael_advanced_menu_dropdown_item_indicator_margin',
+            [
+                'label'      => esc_html__( 'Margin', 'essential-addons-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li ul li a span svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal ul li i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'eael_advanced_menu_dropdown_item_indicator_color',
             [
                 'label' => __('Color', 'essential-addons-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#00aeff',
                 'selectors' => [
-                    '{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator:before' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator.eael-dropdown-indicator i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal ul li i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li ul li a span svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-vertical .sub-menu .eael-dropdown-indicator svg path' => 'fill: {{VALUE}}',
                 ],
             ]
         );
@@ -747,8 +833,10 @@ class Skin_Six extends Skin_Base
                 'type' => Controls_Manager::COLOR,
                 'default' => '#ffffff',
                 'selectors' => [
-                    '{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator:hover:before' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-advanced-menu li ul li .eael-advanced-menu-indicator.eael-advanced-menu-indicator-open:before' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li ul li a:hover i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-vertical .eael-advanced-menu-indicator.eael-dropdown-indicator:hover i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-horizontal li ul li a:hover span svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .eael-advanced-menu-container .eael-advanced-menu.eael-advanced-menu-vertical .eael-advanced-menu-indicator.eael-dropdown-indicator:hover svg path' => 'fill: {{VALUE}}',
                 ],
             ]
         );
@@ -812,10 +900,24 @@ class Skin_Six extends Skin_Base
             $this->parent->add_render_attribute( 'eael-advanced-menu', 'data-hamburger-icon', $hamburger_icon );
         }
 
+        //For Vertical Menu
+        if ( isset( $settings['skin_six_eael_advanced_menu_item_indicator'] ) ) {
+            ob_start();
+            Icons_Manager::render_icon( $settings['skin_six_eael_advanced_menu_item_indicator'], [ 'aria-hidden' => 'true' ] );
+            $advanced_menu_indicator_icon = ob_get_clean();
+	        $this->parent->add_render_attribute( 'eael-advanced-menu', 'data-indicator-class', $advanced_menu_indicator_icon );
+        }
+
+        //For Dropdown Menu
+        if ( isset( $settings['skin_six_eael_advanced_menu_dropdown_item_indicator'] ) ) {
+            ob_start();
+            Icons_Manager::render_icon( $settings['skin_six_eael_advanced_menu_dropdown_item_indicator'], [ 'aria-hidden' => 'true' ] );
+            $advanced_menu_dropdown_item_indicator = ob_get_clean();
+	        $this->parent->add_render_attribute( 'eael-advanced-menu', 'data-dropdown-indicator-class', $advanced_menu_dropdown_item_indicator );
+        }
+
         $this->parent->add_render_attribute('eael-advanced-menu', [
             'class' => implode(' ', array_filter($container_classes)),
-            'data-indicator-class' => $settings['skin_six_eael_advanced_menu_item_indicator'],
-            'data-dropdown-indicator-class' => $settings['skin_six_eael_advanced_menu_dropdown_item_indicator'],
             'data-hamburger-breakpoints' => wp_json_encode( Helper::get_breakpoint_dropdown_options() ),
             'data-hamburger-device' => $hamburger_device,
         ]);
@@ -829,7 +931,39 @@ class Skin_Six extends Skin_Base
                 'echo' => false
             ];
 
-            echo '<div ' . $this->parent->get_render_attribute_string('eael-advanced-menu') . '>' . wp_nav_menu($args) . '</div>';
+            //Check breakpoint form hamburger options
+	        if ( ! empty( $hamburger_device ) && 'none' !== $hamburger_device ) {
+		        if ( 'desktop' === $hamburger_device ) {
+			        $breakpoints                     = method_exists( Plugin::$instance->breakpoints, 'get_breakpoints_config' ) ? Plugin::$instance->breakpoints->get_breakpoints_config() : [];
+			        $eael_get_breakpoint_from_option = isset( $breakpoints['widescreen'] ) ? $breakpoints['widescreen']['value'] - 1 : 2400;
+		        } else {
+			        $eael_get_breakpoint_from_option = Plugin::$instance->breakpoints->get_breakpoints( $hamburger_device )->get_value();
+		        }
+
+		        echo "<style>
+                        @media screen and (max-width: {$eael_get_breakpoint_from_option}px) {
+                            .eael-hamburger--{$hamburger_device} {
+                                .eael-advanced-menu-horizontal,
+                                .eael-advanced-menu-vertical {
+                                    display: none;
+                                }
+                            }
+                            .eael-hamburger--{$hamburger_device} {
+                                .eael-advanced-menu-container .eael-advanced-menu-toggle {
+                                    display: block;
+                                }
+                            }
+                        }
+                    </style>";
+	        }
+            ?>
+            <div <?php echo $this->parent->get_render_attribute_string( 'eael-advanced-menu' ); ?>>
+                <?php echo wp_nav_menu( $args ); ?>
+                <button class="eael-advanced-menu-toggle">
+                    <?php Icons_Manager::render_icon( $settings['eael_advanced_menu_hamburger_icon'], [ 'aria-hidden' => 'true' ] ); ?>
+                </button>
+            </div>
+            <?php
         }
     }
 }

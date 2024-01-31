@@ -16,7 +16,7 @@
   overflow: hidden;
 }
 .eael-instafeed.eael-instafeed-square-img .eael-instafeed-item-inner {
-  position: static;
+  position: relative;
 }
 .eael-instafeed .eael-instafeed-item,
 .eael-instafeed .eael-instafeed-item-inner {

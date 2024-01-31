@@ -21,8 +21,13 @@ class Admin extends Base {
             return;
         }
 
-        add_filter( 'manage_docs_posts_columns', [$this, 'views_columns'] );
-        add_filter( 'manage_docs_posts_custom_column', [$this, 'manage_views_columns'], 10, 2 );
+        /**
+         * Restrict Users To View This Column If They Do Not Have Analytics Capability
+         */
+        if ( current_user_can( 'read_docs_analytics' ) ) {
+            add_filter( 'manage_docs_posts_columns', [$this, 'views_columns'] );
+            add_filter( 'manage_docs_posts_custom_column', [$this, 'manage_views_columns'], 10, 2 );
+        }
 
         // add_filter( 'plugin_action_links_betterdocs/betterdocs.php', [$this, 'insert_plugin_links'] );
         add_filter( 'admin_body_class', [$this, 'admin_body_classes'] );
@@ -35,6 +40,7 @@ class Admin extends Base {
 
         add_action( 'betterdocs_doc_category_add_form_after', [$this, 'handbook_layout_cover_image'] );
         add_action( 'betterdocs_doc_category_update_form_after', [$this, 'update_handbook_layout_cover_image'], 10, 1 );
+
 
         if ( $this->settings->get( 'multiple_kb' ) ) {
             /**
@@ -113,7 +119,6 @@ class Admin extends Base {
 
     public function enqueue( $hook ) {
         // @todo: check the hook condition.
-
         if ( $hook !== 'toplevel_page_betterdocs-admin' ) {
             return;
         }

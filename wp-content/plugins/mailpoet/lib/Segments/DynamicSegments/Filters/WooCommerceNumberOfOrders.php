@@ -17,6 +17,12 @@ use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class WooCommerceNumberOfOrders implements Filter {
   const ACTION_NUMBER_OF_ORDERS = 'numberOfOrders';
+  const ACTION_NUMBER_OF_ORDERS_WITH_COUPON = 'numberOfOrdersWithCoupon';
+
+  const ACTIONS = [
+    self::ACTION_NUMBER_OF_ORDERS,
+    self::ACTION_NUMBER_OF_ORDERS_WITH_COUPON,
+  ];
 
   /** @var EntityManager */
   private $entityManager;
@@ -74,6 +80,12 @@ class WooCommerceNumberOfOrders implements Filter {
         'orderStats',
         $joinCondition
       );
+
+    $action = $filterData->getAction();
+
+    if ($action === self::ACTION_NUMBER_OF_ORDERS_WITH_COUPON) {
+      $subQuery->innerJoin('orderStats', $wpdb->prefix . 'wc_order_coupon_lookup', 'couponLookup', 'orderStats.order_id = couponLookup.order_id');
+    }
 
     $queryBuilder->add('join', [
       $subscribersTable => [

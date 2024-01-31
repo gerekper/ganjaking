@@ -335,7 +335,11 @@ abstract class Source implements \JsonSerializable {
 		$this->options = [
 			'weight_transfer' => [
 				'label'   => __( 'Transfer Weight', 'searchwp' ),
-				'tooltip' => __( 'Transfer the weight of the search result to the parent entry (if applicable)', 'searchwp' ),
+				'tooltip' => sprintf(
+					__( 'When a %s entry matches a search, the designated entry in the weight transfer option will be displayed in its place. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+					$this->labels['singular'],
+					'https://searchwp.com/documentation/setup/engines/#source-options'
+				),
 				'options' => $weight_transfer_options,
 			],
 		];

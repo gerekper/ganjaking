@@ -3,7 +3,7 @@
  * Template Loader
  *
  * @class 		EVO_Template_Loader 
- * @version		4.4
+ * @version		4.5.5
  * @package		Eventon/Classes
  * @category	Class
  * @author 		AJDE
@@ -201,6 +201,7 @@ class EVO_Template_Loader {
 		foreach($slugs as $slug){
 			if( !in_array($slug, array(
 				'single-ajde_events',
+				'archive-ajde_events',
 				'taxonomy-event_type',
 				'taxonomy-event_organizer',
 				'taxonomy-event_location'

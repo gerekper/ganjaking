@@ -420,7 +420,7 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
 				$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
 			}
 
-			// Adds every 5 minutes to the existing schedules.
+			// Adds every 3 minutes to the existing schedules.
 			$schedules[ $this->identifier . '_cron_interval' ] = array(
 				'interval' => MINUTE_IN_SECONDS * $interval,
 				'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),

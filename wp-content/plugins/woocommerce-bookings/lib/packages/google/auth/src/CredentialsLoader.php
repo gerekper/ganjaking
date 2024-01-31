@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -33,6 +33,7 @@ use UnexpectedValueException;
  * credentials files on the file system.
  */
 abstract class CredentialsLoader implements
+    GetUniverseDomainInterface,
     FetchAuthTokenInterface,
     UpdateMetadataInterface
 {
@@ -275,5 +276,16 @@ abstract class CredentialsLoader implements
             );
         }
         return $clientCertSourceJson;
+    }
+
+    /**
+     * Get the universe domain from the credential. Defaults to "googleapis.com"
+     * for all credential types which do not support universe domain.
+     *
+     * @return string
+     */
+    public function getUniverseDomain(): string
+    {
+        return self::DEFAULT_UNIVERSE_DOMAIN;
     }
 }

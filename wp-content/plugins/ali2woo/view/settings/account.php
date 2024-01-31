@@ -121,7 +121,7 @@
                 <div class="account_fields account_fields_epn">
                     <div class="field field_inline">
                         <div class="field__label">
-                            <label for="a2wesc_html_epn_cashback_url">
+                            <label for="a2w_epn_cashback_url">
                                 <strong><?php esc_html_e('Cashback URL', 'ali2woo');?></strong>
                             </label>
                             <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Cashback URL', 'setting description', 'ali2woo'); ?>"></div>

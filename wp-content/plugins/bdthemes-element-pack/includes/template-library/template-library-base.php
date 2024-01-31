@@ -3,8 +3,7 @@
 namespace ElementPack\Includes\TemplateLibrary;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
-class ElementPack_Template_Library_Base
-{
+class ElementPack_Template_Library_Base {
 
     protected $perPage = 18;
     protected $totalPage = 1;
@@ -27,8 +26,7 @@ class ElementPack_Template_Library_Base
 
     protected $api_url = 'https://www.elementpack.pro/wp-json/template-manager/v1/';
 
-    public function __construct()
-    {
+    public function __construct() {
         global $wpdb;
         $this->wpdb = $wpdb;
         $this->charset_collate = $this->wpdb->get_charset_collate();
@@ -39,18 +37,16 @@ class ElementPack_Template_Library_Base
     }
 
 
-    public function createTemplateTables()
-    {
+    public function createTemplateTables() {
         $charset_collate = $this->charset_collate;
         $table_cat_name = $this->table_cat;
         $table_post_name = $this->table_post;
-        $table_cat_post_name = $this->table_cat_post;
-        ;
-        if(defined('BDTEP_TPL_DB_VER') && BDTEP_TPL_DB_VER != get_option('BDTEP_TPL_DB_VER',false)){
-            $this->wpdb->query( "DROP TABLE IF EXISTS $table_cat_name" );
-            $this->wpdb->query( "DROP TABLE IF EXISTS $table_post_name" );
-            $this->wpdb->query( "DROP TABLE IF EXISTS $table_cat_post_name" );
-            update_option('BDTEP_TPL_DB_VER',BDTEP_TPL_DB_VER);
+        $table_cat_post_name = $this->table_cat_post;;
+        if (defined('BDTEP_TPL_DB_VER') && BDTEP_TPL_DB_VER != get_option('BDTEP_TPL_DB_VER', false)) {
+            $this->wpdb->query("DROP TABLE IF EXISTS $table_cat_name");
+            $this->wpdb->query("DROP TABLE IF EXISTS $table_post_name");
+            $this->wpdb->query("DROP TABLE IF EXISTS $table_cat_post_name");
+            update_option('BDTEP_TPL_DB_VER', BDTEP_TPL_DB_VER);
         }
 
 
@@ -95,8 +91,7 @@ class ElementPack_Template_Library_Base
         $this->setTemplateDataToDB();
     }
 
-    public function setTemplateDataToDB()
-    {
+    public function setTemplateDataToDB() {
 
         $demoData = $this->remote_get_demo_data();
         if ($demoData) {
@@ -114,14 +109,14 @@ class ElementPack_Template_Library_Base
             $PostCatQueryString = [];
 
             foreach ($demoData as $demo) {
-                $Catstring = [$demo['term_id'], $demo['name'], $demo['slug'],$demo['description'],$demo['total'],$demo['image_url']];
+                $Catstring = [$demo['term_id'], $demo['name'], $demo['slug'], $demo['description'], $demo['total'], $demo['image_url']];
                 $Catstring = '("' . implode('", "', $Catstring) . '")';
                 array_push($CatQueryString, $Catstring);
 
-                if(isset($demo['data']) && is_array($demo['data'])){
+                if (isset($demo['data']) && is_array($demo['data'])) {
                     $postData = $demo['data'];
-                    foreach($postData as $post){
-                        $Poststring = [$post['demo_id'], $post['date'], $post['title'],$post['short_desc'],$post['is_pro'],$post['type'],$post['thumbnail'],$post['demo_url'],$post['json_url']];
+                    foreach ($postData as $post) {
+                        $Poststring = [$post['demo_id'], $post['date'], $post['title'], $post['short_desc'], $post['is_pro'], $post['type'], $post['thumbnail'], $post['demo_url'], $post['json_url']];
                         $PostQueryString[$post['demo_id']] = '("' . implode('", "', $Poststring) . '")';
 
                         $PostCatstring = [$demo['term_id'], $post['demo_id']];
@@ -134,7 +129,7 @@ class ElementPack_Template_Library_Base
 
             $query = $prefixCat . implode(',', $CatQueryString);
             $this->wpdb->query($query);
-            if($this->wpdb->last_error){
+            if ($this->wpdb->last_error) {
                 $wpdbError = true;
             }
 
@@ -144,7 +139,7 @@ class ElementPack_Template_Library_Base
                 $this->wpdb->query($postQuery);
             }
 
-            if($this->wpdb->last_error){
+            if ($this->wpdb->last_error) {
                 $wpdbError = true;
             }
 
@@ -154,21 +149,20 @@ class ElementPack_Template_Library_Base
                 $this->wpdb->query($postCatQuery);
             }
 
-            if($this->wpdb->last_error){
+            if ($this->wpdb->last_error) {
                 $wpdbError = true;
             }
 
-            if(!$wpdbError){
-                set_transient( $this->get_transient_key(), 1, DAY_IN_SECONDS * 15 );
+            if (!$wpdbError) {
+                set_transient($this->get_transient_key(), 1, DAY_IN_SECONDS * 15);
             }
-
         }
     }
 
 
-    public function get_transient_key(){
+    public function get_transient_key() {
         $var = '';
-        if(defined('BDTEP_TPL_DB_VER')){
+        if (defined('BDTEP_TPL_DB_VER')) {
             $var = BDTEP_TPL_DB_VER;
         }
         return 'ep_elements_demo_import_table_data_' . $var;
@@ -176,17 +170,17 @@ class ElementPack_Template_Library_Base
 
     public function checkDemoData() {
 
-        $result = $this->wpdb->get_row("SHOW TABLES LIKE '".$this->table_cat."'", ARRAY_A);
+        $result = $this->wpdb->get_row("SHOW TABLES LIKE '" . $this->table_cat . "'", ARRAY_A);
         $tableExists = false;
         if (is_array($result)) {
-            if(count($result) == 1) {
+            if (count($result) == 1) {
                 $tableExists = true;
             }
         }
 
-        $demoData = get_transient( $this->get_transient_key() );
+        $demoData = get_transient($this->get_transient_key());
 
-        if ( ! $demoData || !$tableExists) {
+        if (!$demoData || !$tableExists) {
             $this->createTemplateTables();
         }
     }
@@ -195,8 +189,7 @@ class ElementPack_Template_Library_Base
      * @return array|mixed
      * retrieve element pack categories from remote server with api route
      */
-    public function remote_get_demo_data()
-    {
+    public function remote_get_demo_data() {
         $final_url = $this->api_url . 'data/';
         $response = wp_remote_get($final_url, ['timeout' => 60, 'sslverify' => false]);
         $body = wp_remote_retrieve_body($response);
@@ -208,22 +201,22 @@ class ElementPack_Template_Library_Base
     public function getNaviationItems() {
 
         $this->checkDemoData();
-        $demoData = $this->wpdb->get_results("SELECT * FROM {$this->table_cat}",ARRAY_A);
+        $demoData = $this->wpdb->get_results("SELECT * FROM {$this->table_cat}", ARRAY_A);
 
         $navItems = array();
         $totalDemo = 0;
-        foreach ( $demoData as $data ) {
+        foreach ($demoData as $data) {
             $total = intval($data['total']);
             $totalDemo = $totalDemo + $total;
-            $navItems[] = array( 'term_slug' => $data['slug'], 'term_name' => $data['name'],'term_id' => $data['term_id'],'count'=> $total);
+            $navItems[] = array('term_slug' => $data['slug'], 'term_name' => $data['name'], 'term_id' => $data['term_id'], 'count' => $total);
         }
         $this->demo_total = $totalDemo;
-        $firstItem = array( 'term_slug' => 'demo_term_all', 'term_name' => 'All Templates','term_id' => 0,'count'=> $totalDemo);
+        $firstItem = array('term_slug' => 'demo_term_all', 'term_name' => 'All Templates', 'term_id' => 0, 'count' => $totalDemo);
 
         return array_merge_recursive([$firstItem], $navItems);
     }
 
-    public function getData($paged=0){
+    public function getData($paged = 0) {
 
         //Default values
         $per_page   = $this->perPage;
@@ -235,52 +228,52 @@ class ElementPack_Template_Library_Base
         $sortingQuery = '';
         $orderbyTitle       = 'title';
         $sortByTitleType    = $this->sortByTitle;
-        if($sortByTitleType =='asc' || $sortByTitleType =='desc'){
-            $sortingQuery = " ORDER BY ".$orderbyTitle." ".$sortByTitleType;
+        if ($sortByTitleType == 'asc' || $sortByTitleType == 'desc') {
+            $sortingQuery = " ORDER BY " . $orderbyTitle . " " . $sortByTitleType;
         }
 
         $orderbyDate        = 'demo_id';
         $sortDateType       = $this->sortByDate;
-        if($sortDateType =='asc' || $sortDateType =='desc'){
-            if($sortingQuery){
-                $sortingQuery .= ", ".$orderbyDate." ".$sortDateType;
-            }else{
-                $sortingQuery = " ORDER BY ".$orderbyDate." ".$sortDateType;
+        if ($sortDateType == 'asc' || $sortDateType == 'desc') {
+            if ($sortingQuery) {
+                $sortingQuery .= ", " . $orderbyDate . " " . $sortDateType;
+            } else {
+                $sortingQuery = " ORDER BY " . $orderbyDate . " " . $sortDateType;
             }
         }
 
-        if(!$sortingQuery){
-            $sortingQuery = " ORDER BY ".$orderbyDate." desc";
+        if (!$sortingQuery) {
+            $sortingQuery = " ORDER BY " . $orderbyDate . " desc";
         }
 
 
         // Demo Type : Free or Pro
-        if($demo_tab){
-            if($demo_tab == 'pro'){
+        if ($demo_tab) {
+            if ($demo_tab == 'pro') {
                 $demo_tab = 1;
-            }elseif($demo_tab == 'free'){
+            } elseif ($demo_tab == 'free') {
                 $demo_tab = 0;
-            } else{
+            } else {
                 $demo_tab = '';
             }
         }
 
 
-        if($slug == 'demo_term_all'){
+        if ($slug == 'demo_term_all') {
             $slug = false;
         }
 
         // where conditions
         $keywordSearch = '';
-        if($search){
-            $searchIn = explode(' ',$search);
+        if ($search) {
+            $searchIn = explode(' ', $search);
             $searchIn = array_filter($searchIn);
             $searchIn = array_map('strtolower', $searchIn);
-            foreach($searchIn as $item){
-                if(!$keywordSearch){
+            foreach ($searchIn as $item) {
+                if (!$keywordSearch) {
                     $keywordSearch .= " title LIKE '%$search%' ";
                     $keywordSearch .= "OR title LIKE '%$item%' ";
-                }else{
+                } else {
                     $keywordSearch .= "OR title LIKE '%$item%' ";
                 }
             }
@@ -288,26 +281,26 @@ class ElementPack_Template_Library_Base
         $keywordSearch = " title LIKE '%$search%' ";
 
 
-        if($keywordSearch){
+        if ($keywordSearch) {
             $keywordSearch = " WHERE ( $keywordSearch ) ";
         }
 
-        if($keywordSearch){
-            if($slug){
+        if ($keywordSearch) {
+            if ($slug) {
                 $keywordSearch .= " AND slug='$slug' ";
             }
-        }else{
-            if($slug){
+        } else {
+            if ($slug) {
                 $keywordSearch .= " WHERE slug='$slug' ";
             }
         }
 
-        if($keywordSearch){
-            if($demo_tab === 1 || $demo_tab === 0){
+        if ($keywordSearch) {
+            if ($demo_tab === 1 || $demo_tab === 0) {
                 $keywordSearch .= "AND is_pro=$demo_tab ";
             }
-        }else{
-            if($demo_tab === 1 || $demo_tab === 0){
+        } else {
+            if ($demo_tab === 1 || $demo_tab === 0) {
                 $keywordSearch .= "WHERE is_pro=$demo_tab ";
             }
         }
@@ -337,7 +330,7 @@ $keywordSearch GROUP BY {$postTable}.demo_id $sortingQuery LIMIT $offset, $per_p
     }
 
 
-    public function getElementorLibraryData($paged=0){
+    public function getElementorLibraryData($paged = 0) {
 
         //Default values
         $per_page   = $this->perPage;
@@ -349,39 +342,39 @@ $keywordSearch GROUP BY {$postTable}.demo_id $sortingQuery LIMIT $offset, $per_p
         $sortingQuery = '';
         $orderbyTitle       = 'title';
         $sortByTitleType    = $this->sortByTitle;
-        if($sortByTitleType =='asc' || $sortByTitleType =='desc'){
-            $sortingQuery = " ORDER BY ".$orderbyTitle." ".$sortByTitleType;
+        if ($sortByTitleType == 'asc' || $sortByTitleType == 'desc') {
+            $sortingQuery = " ORDER BY " . $orderbyTitle . " " . $sortByTitleType;
         }
 
         $orderbyDate        = 'demo_id';
         $sortDateType       = $this->sortByDate;
-        if($sortDateType =='asc' || $sortDateType =='desc'){
-            if($sortingQuery){
-                $sortingQuery .= ", ".$orderbyDate." ".$sortDateType;
-            }else{
-                $sortingQuery = " ORDER BY ".$orderbyDate." ".$sortDateType;
+        if ($sortDateType == 'asc' || $sortDateType == 'desc') {
+            if ($sortingQuery) {
+                $sortingQuery .= ", " . $orderbyDate . " " . $sortDateType;
+            } else {
+                $sortingQuery = " ORDER BY " . $orderbyDate . " " . $sortDateType;
             }
         }
 
-        if(!$sortingQuery){
-            $sortingQuery = " ORDER BY ".$orderbyDate." desc";
+        if (!$sortingQuery) {
+            $sortingQuery = " ORDER BY " . $orderbyDate . " desc";
         }
 
-        if($slug == 'demo_term_all'){
+        if ($slug == 'demo_term_all') {
             $slug = false;
         }
 
         // where conditions
         $keywordSearch = '';
-        if($search){
-            $searchIn = explode(' ',$search);
+        if ($search) {
+            $searchIn = explode(' ', $search);
             $searchIn = array_filter($searchIn);
             $searchIn = array_map('strtolower', $searchIn);
-            foreach($searchIn as $item){
-                if(!$keywordSearch){
+            foreach ($searchIn as $item) {
+                if (!$keywordSearch) {
                     $keywordSearch .= " title LIKE '%$search%' ";
                     $keywordSearch .= "OR title LIKE '%$item%' ";
-                }else{
+                } else {
                     $keywordSearch .= "OR title LIKE '%$item%' ";
                 }
             }
@@ -389,26 +382,24 @@ $keywordSearch GROUP BY {$postTable}.demo_id $sortingQuery LIMIT $offset, $per_p
         $keywordSearch = " title LIKE '%$search%' ";
 
 
-        if($keywordSearch){
+        if ($keywordSearch) {
             $keywordSearch = " WHERE ( $keywordSearch ) ";
         }
 
-        if($keywordSearch){
-            if($slug){
+        if ($keywordSearch) {
+            if ($slug) {
                 $keywordSearch .= " AND slug='$slug' ";
             }
-        }else{
-            if($slug){
+        } else {
+            if ($slug) {
                 $keywordSearch .= " WHERE slug='$slug' ";
             }
         }
 
-        if($keywordSearch){
-                $keywordSearch .= "AND type=$demo_tab ";
-
-        }else{
-                $keywordSearch .= "WHERE type=$demo_tab ";
-
+        if ($keywordSearch) {
+            $keywordSearch .= "AND type=$demo_tab ";
+        } else {
+            $keywordSearch .= "WHERE type=$demo_tab ";
         }
 
         // Table Info
@@ -437,7 +428,10 @@ $keywordSearch $sortingQuery LIMIT $offset, $per_page", ARRAY_A);
         return $allPagesData;
     }
 
-    public function findDemo($id){
-        return $this->wpdb->get_row("SELECT * FROM {$this->table_post} WHERE id=$id", ARRAY_A);
+    public function findDemo($id) {
+        return $this->wpdb->get_row(
+            $this->wpdb->prepare("SELECT * FROM {$this->table_post} WHERE id=%d", $id),
+            ARRAY_A
+        );
     }
 }

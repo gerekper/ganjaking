@@ -45,12 +45,51 @@ class WoocommerceMinMaxQuantities {
 			$minimum_quantity = $group_of_quantity;
 		}
 		if ( $minimum_quantity > 0 ) {
-			$feed_item->sale_price_ex_tax     *= $minimum_quantity;
-			$feed_item->sale_price_inc_tax    *= $minimum_quantity;
-			$feed_item->regular_price_ex_tax  *= $minimum_quantity;
-			$feed_item->regular_price_inc_tax *= $minimum_quantity;
-			$feed_item->price_ex_tax          *= $minimum_quantity;
-			$feed_item->price_inc_tax         *= $minimum_quantity;
+			// Amend feed item to store (cleaned) responses to get_price(), get_regular_price() and get_sale_price() in the object.
+			// Then, below, call wc_get_price_(in|ex)cluding_tax() with args ['qty' => $minimum_quantity, 'price' => $pr
+
+			$feed_item->sale_price_ex_tax     = wc_get_price_excluding_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_sale_price,
+				]
+			);
+			$feed_item->sale_price_inc_tax    = wc_get_price_including_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_sale_price,
+				]
+			);
+			$feed_item->regular_price_ex_tax  = wc_get_price_excluding_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_regular_price,
+				]
+			);
+			$feed_item->regular_price_inc_tax = wc_get_price_including_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_regular_price,
+				]
+			);
+			$feed_item->price_ex_tax          = wc_get_price_excluding_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_price,
+				]
+			);
+			$feed_item->price_inc_tax         = wc_get_price_including_tax(
+				$feed_item->specific_product,
+				[
+					'qty'   => $minimum_quantity,
+					'price' => $feed_item->raw_price,
+				]
+			);
 			if ( empty( $feed_item->additional_elements['unit_pricing_measure'] ) &&
 				empty( $feed_item->additional_elements['unit_pricing_base_measure'] ) &&
 				apply_filters( 'woocommerce_gpf_minmax_send_unit_pricing', true ) ) {

@@ -78,7 +78,6 @@ $first_tag = 'style';
 				<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="Loading, please wait...">
 				<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row" value="Crunching...">
 				<input type="hidden" name="vc_grid_item_editor" value="true"/>
-				<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="" autocomplete="off">
 			</div>
 		</div>
 		<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>

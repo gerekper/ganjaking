@@ -898,7 +898,7 @@ class UniteCreatorTemplateEngineWork{
 	 * put pagination
 	 */
 	public function putPagination($args = array()){
-		
+
 		$objPagination = new UniteCreatorElementorPagination();
 		$objPagination->putPaginationWidgetHtml($args);
 	}

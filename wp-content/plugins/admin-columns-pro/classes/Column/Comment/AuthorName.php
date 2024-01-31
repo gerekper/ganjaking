@@ -17,7 +17,7 @@ class AuthorName extends AC\Column\Comment\AuthorName
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_author');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_author');
     }
 
     public function editing()

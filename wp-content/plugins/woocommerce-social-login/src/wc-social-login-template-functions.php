@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -67,8 +67,8 @@ function woocommerce_social_login_buttons( $return_url = null, $fallback_to_link
 	 */
 	$return_url = apply_filters( 'wc_social_login_buttons_return_url', $return_url );
 
-	// Enqueue styles and scripts
-	wc_social_login()->get_frontend_instance()->load_styles_scripts();
+	// Enqueue styles and scripts. $force = true to allow placement on any page
+	wc_social_login()->get_frontend_instance()->load_styles_scripts( true );
 
 	if ( is_checkout() ) {
 
@@ -114,8 +114,8 @@ if ( ! function_exists( 'woocommerce_social_login_link_account_buttons' ) ) :
 			$return_url = wc_get_page_permalink( 'myaccount' );
 		}
 
-		// Enqueue styles and scripts
-		wc_social_login()->get_frontend_instance()->load_styles_scripts();
+		// Enqueue styles and scripts. $force = true to allow placement on any page
+		wc_social_login()->get_frontend_instance()->load_styles_scripts( true );
 
 		$available_providers = array();
 

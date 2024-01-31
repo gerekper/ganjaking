@@ -1,15 +1,15 @@
-# Copyright (C) 2023 SkyVerge
+# Copyright (C) 2024 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Social Login 2.14.0\n"
+"Project-Id-Version: WooCommerce Social Login 2.14.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-form/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-21T03:24:15+00:00\n"
+"POT-Creation-Date: 2024-01-16T06:17:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-social-login\n"
@@ -531,7 +531,7 @@ msgid "linked accounts"
 msgstr ""
 
 #: src/class-wc-social-login-hybridauth.php:140
-#: src/frontend/class-wc-social-login-frontend.php:82
+#: src/frontend/class-wc-social-login-frontend.php:85
 msgid "Provider Authentication error"
 msgstr ""
 
@@ -568,11 +568,11 @@ msgstr ""
 msgid "Couldn&#8217;t register you&hellip; please contact us if you continue to have problems."
 msgstr ""
 
-#: src/frontend/class-wc-social-login-frontend.php:225
+#: src/frontend/class-wc-social-login-frontend.php:228
 msgid "Save time next time you checkout by linking your account to your favorite social network. No need to remember another username and password."
 msgstr ""
 
-#: src/frontend/class-wc-social-login-frontend.php:305
+#: src/frontend/class-wc-social-login-frontend.php:330
 msgid "Click here to login"
 msgstr ""
 

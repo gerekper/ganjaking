@@ -38,9 +38,10 @@ class ThePlus_Woo_Checkout extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
-		return ['checkout page', 'checkout', 'WooCommerce' ,'woo checkout'];
-	}
+        return ['WooCommerce', 'checkout', 'online store', 'e-commerce', 'shopping cart', 'payment gateway', 'purchase', 'buy', 'transaction', 'order', 'customer', 'billing', 'shipping', 'checkout page', 'checkout form', 'checkout process'];
+    }
 	
     protected function register_controls() {	
 		$this->start_controls_section(

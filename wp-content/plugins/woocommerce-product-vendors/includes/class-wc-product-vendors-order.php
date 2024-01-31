@@ -46,6 +46,9 @@ class WC_Product_Vendors_Order {
 		add_action( 'woocommerce_order_status_pending-deposit_to_completed', array( $this, 'process' ) );
 		add_action( 'woocommerce_order_status_scheduled-payment_to_processing', array( $this, 'process' ) );
 
+		// Delete commissions when order item is removed.
+		add_action( 'woocommerce_before_delete_order_item', array( $this, 'maybe_remove_affected_commission' ) );
+
 		add_action( 'delete_post', array( $this, 'remove_affected_commissions' ) );
 		add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
 		add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
@@ -490,6 +493,37 @@ class WC_Product_Vendors_Order {
 		}
 
 		return $fee;
+	}
+
+	/**
+	 * Maybe remove affected commission when an order item is removed.
+	 *
+	 * @since 2.2.5
+	 * @param int $order_item_id Order item ID.
+	 * @return void
+	 */
+	public function maybe_remove_affected_commission( $order_item_id ) {
+		$order_item = WC_Order_Factory::get_order_item( $order_item_id );
+		if ( ! $order_item || 'line_item' !== $order_item->get_type() ) {
+			return;
+		}
+
+		$product_id = $order_item->get_product_id();
+		$order_id   = $order_item->get_order_id();
+		$vendor_id  = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
+		// Check if product is a vendor product.
+		if ( ! $product_id || ! $order_id || ! $vendor_id ) {
+			return;
+		}
+
+		$affected_commission = $this->commission->get_commission_by_order_item_id( $order_item_id, $order_id );
+		// Check if commission exists and is unpaid.
+		if ( empty( $affected_commission ) || empty( $affected_commission['id'] ) || 'unpaid' !== $affected_commission['commission_status'] ) {
+			return;
+		}
+
+		// Delete affected commission.
+		$this->commission->delete( $affected_commission['id'] );
 	}
 
 	/**

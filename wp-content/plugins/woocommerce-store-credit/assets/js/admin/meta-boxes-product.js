@@ -4,10 +4,14 @@
  * @package WC_Store_Credit/Assets/Js/Admin
  * @since   3.2.0
  */
-
-(function( $ ) {
+/* global wc_store_credit_admin_meta_boxes_product_params, woocommerce_admin */
+(function( $, params ) {
 
 	'use strict';
+
+	if ( typeof params === 'undefined' ) {
+		return false;
+	}
 
 	$(function() {
 
@@ -40,6 +44,10 @@
 				this.getField( 'allow_custom_amount' ).on( 'change', function() {
 					that.toggleFields( ['min_custom_amount', 'max_custom_amount', 'custom_amount_step'], $( this ).prop( 'checked' ) )
 				}).trigger( 'change' );
+
+				this.getField( 'preset_amounts' ).on( 'keyup', function() {
+					that.validatePresetsAmounts( $( this ) );
+				});
 			},
 
 			/**
@@ -81,9 +89,33 @@
 				$.each( keys, function( index, key ) {
 					that.getField( key ).closest( '.form-field' ).toggle( visible );
 				});
+			},
+
+			/**
+			 * Validate presets amounts.
+			 */
+			validatePresetsAmounts: function( $field ) {
+				if ( typeof woocommerce_admin === 'undefined' ) {
+					return;
+				}
+
+				var regex = new RegExp( '^\\d+(\\|\\d+)*\\|?$' ),
+					value = $field.val(),
+					cleanedValue = value.replace( /[^0-9|]/g, '' ).replace( /\|{2,}/g, '|' );
+
+				if ( value !== cleanedValue ) {
+					$field.val( cleanedValue );
+				}
+
+				if ( value !== '' && ! regex.test( value ) ) {
+					woocommerce_admin.store_credit_invalid_preset_amounts = params.invalid_preset_amounts;
+					$( document.body ).triggerHandler( 'wc_add_error_tip', [$field, 'store_credit_invalid_preset_amounts'] );
+				} else {
+					$( document.body ).triggerHandler( 'wc_remove_error_tip', [$field, 'store_credit_invalid_preset_amounts'] );
+				}
 			}
 		};
 
 		wc_store_credit_meta_boxes_product.init();
 	});
-})( jQuery );
+})( jQuery, wc_store_credit_admin_meta_boxes_product_params );

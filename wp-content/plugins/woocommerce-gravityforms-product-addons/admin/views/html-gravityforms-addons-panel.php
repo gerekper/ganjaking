@@ -1,3 +1,5 @@
+/* @var $product WC_Product */
+
 <div id="gravityforms_addons_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper hidden">
 
 	<?php if ( !$product->is_type('external') && $product->get_status() == 'publish' && ! $product->is_purchasable() ) : ?>

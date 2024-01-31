@@ -369,8 +369,6 @@ function seedprod_pro_cspv5_render_comingsoon_page() {
 				$client_view_hash = md5( $client_view_url . get_current_blog_id() );
 				setcookie( 'wp-client-view', $client_view_hash, 0, COOKIEPATH, COOKIE_DOMAIN, false );
 
-				add_filter( 'auth_cookie_expiration', 'seed_cspv5_legacy_change_wp_cookie_logout' );
-
 				// Log user in auto
 				$username = 'seed_cspv5_clientview_' . $client_view_url;
 				if ( ! is_user_logged_in() ) {
@@ -381,6 +379,9 @@ function seedprod_pro_cspv5_render_comingsoon_page() {
 					do_action( 'wp_login', $username, $user );
 					update_user_meta( $user_id, 'show_admin_bar_front', false );
 				}
+
+				// This doesn't have the intended effect. Using a non-WP function in setcookie() might be the reason why.
+				add_filter( 'auth_cookie_expiration', 'seed_cspv5_legacy_change_wp_cookie_logout', 10, 3 );
 
 				if ( ! empty( $_REQUEST['return'] ) ) {
 					nocache_headers();
@@ -1484,8 +1485,7 @@ function seed_cspv5_legacy_contactform_callback() {
 		exit();
 }
 
-
-   /**
+/**
  * Update cookie length for bypass url
  */
 function seed_cspv5_legacy_change_wp_cookie_logout( $expirein ) {

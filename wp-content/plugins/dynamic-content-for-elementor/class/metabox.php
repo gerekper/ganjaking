@@ -209,7 +209,7 @@ class Metabox
 		<div id="dce_termbox" class="dce-term-box">
 			<div class="dce-term-head">
 				<h3><?php 
-        echo DCE_PRODUCT_NAME . ' ' . __('Template', 'dynamic-content-for-elementor');
+        echo DCE_BRAND . ' ' . __('Template', 'dynamic-content-for-elementor');
         ?></h3>
 			</div>
 			<div class="form-field dce-term dce-term-add">
@@ -241,7 +241,7 @@ class Metabox
 		<tr class="form-field dce-term dce-term-edit">
 			<th scope="row" valign="top">
 				<label for="dynamic_content"><?php 
-        echo DCE_PRODUCT_NAME . ' ' . __('Template', 'dynamic-content-for-elementor');
+        echo DCE_BRAND . ' ' . __('Template', 'dynamic-content-for-elementor');
         ?></label>
 			</th>
 			<td>

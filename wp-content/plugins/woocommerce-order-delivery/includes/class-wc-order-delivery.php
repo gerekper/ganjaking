@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.6.0';
+	public $version = '2.6.1';
 
 	/**
 	 * Constructor.
@@ -125,9 +125,9 @@ final class WC_Order_Delivery {
 	 * @since 2.3.0
 	 */
 	public function declare_compatibility() {
-		// Compatible with the 'High-Performance Order Storage' feature.
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_OD_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_OD_FILE, false );
 		}
 	}
 

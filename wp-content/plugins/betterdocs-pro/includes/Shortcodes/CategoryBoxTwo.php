@@ -5,7 +5,7 @@ use WPDeveloper\BetterDocs\Shortcodes\CategoryBox;
 
 class CategoryBoxTwo extends CategoryBox {
     protected $layout_class = 'layout-2';
-    protected $is_pro = true;
+    protected $is_pro       = true;
     /**
      * Summary of get_id
      * @return string
@@ -29,7 +29,8 @@ class CategoryBoxTwo extends CategoryBox {
             'multiple_knowledge_base'  => false,
             'disable_customizer_style' => false,
             'title_tag'                => 'h2',
-            'show_description'         => (bool) $this->customizer->get( 'betterdocs_doc_page_cat_desc', false )
+            'show_description'         => (bool) $this->customizer->get( 'betterdocs_doc_page_cat_desc', false ),
+            'show_icon'                => true
         ];
     }
 
@@ -54,10 +55,8 @@ class CategoryBoxTwo extends CategoryBox {
     }
 
     public function view_params() {
-        $this->attributes['show_icon'] = true;
-
         $_view_params = [
-            'show_icon'    => true
+            'show_icon' => $this->attributes['show_icon']
         ];
 
         return $this->merge( parent::view_params(), $_view_params );

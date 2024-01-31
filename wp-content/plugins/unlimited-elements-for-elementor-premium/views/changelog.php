@@ -173,7 +173,7 @@ class UCChangelogView extends WP_List_Table{
 		$this->displayHeader();
 
 		?>
-		<form class="unite-inputs" method="get">
+		<form method="get">
 			<?php $this->displayHiddenFields(); ?>
 			<?php $this->views(); ?>
 			<?php parent::display(); ?>
@@ -384,6 +384,36 @@ class UCChangelogView extends WP_List_Table{
 		return $result;
 	}
 
+	
+	/**
+	 * sort export items
+	 */
+	public function sortExportItems($item1, $item2){
+				
+		$arrNumbers = array(
+			"feature"=>1,
+			"change"=>2,
+			"fix"=>3,
+			"other"=>4
+		);
+		
+		$type1 = UniteFunctionsUC::getVal($item1, "type");
+		$type2 = UniteFunctionsUC::getVal($item2, "type");
+		
+		$num1 = UniteFunctionsUC::getVal($arrNumbers, $type1, 4);
+		$num2 = UniteFunctionsUC::getVal($arrNumbers, $type2, 4);
+		
+		if($num1 == $num2)
+			return(0);
+			
+		if($num1 > $num2)
+			return(1);
+			
+		return(-1);
+		
+	}
+	
+	
 	/**
 	 * Process the export action.
 	 *
@@ -399,6 +429,7 @@ class UCChangelogView extends WP_List_Table{
 			SELECT id
 			FROM {$this->service->getTable()}
 			WHERE {$this->getWhere($filters)}
+			ORDER BY {$this->getOrderBy()}
 		";
 
 		$ids = $wpdb->get_col($sql);
@@ -406,14 +437,22 @@ class UCChangelogView extends WP_List_Table{
 
 		$lines = array();
 
+		usort($items, array($this,"sortExportItems"));
+				
 		foreach($items as $item){
-			$lines[] = implode(" - ", array(
-				$item["addon_title"],
-				$item["type_title"],
-				$item["text"],
-			));
-		}
+			$title = $item["addon_title"];
 
+			if(empty($item["addon_version"]) === false)
+				$title .= " ({$item["addon_version"]})";
+			
+			$type = $item["type_title"];
+			$text = $item["text"];
+			 
+			$line = "* {$type}: {$title} - {$text}";
+			
+			$lines[] = $line;
+		}
+				
 		$filename = "changelog-" . current_time("mysql") . ".txt";
 		$content = implode("\n", $lines);
 
@@ -445,6 +484,7 @@ class UCChangelogView extends WP_List_Table{
 			SELECT id
 			FROM $table
 			WHERE $where
+			ORDER BY {$this->getOrderBy()}
 			LIMIT {$this->getLimit()}
 			OFFSET {$this->getOffset()}
 		";
@@ -470,26 +510,17 @@ class UCChangelogView extends WP_List_Table{
 		global $wpdb;
 
 		$sql = "
-			SELECT addon_id
+			SELECT addon_id, addon_title
 			FROM {$this->service->getTable()}
 			GROUP BY addon_id
 			ORDER BY addon_id
 		";
 
 		$results = $wpdb->get_results($sql);
-		$addon = new UniteCreatorAddon();
 		$items = array();
 
 		foreach($results as $result){
-			try {
-				$addon->initByID($result->addon_id);
-
-				$result->addon_title = $addon->getTitle();
-			} catch(Exception $exception) {
-				$result->addon_title = sprintf(__("#%s (not found)", "unlimited-elements-for-elementor"), $result->addon_id);
-			}
-
-			$items[$result->addon_id] = $result->addon_title;
+			$items[$result->addon_id] = $this->service->getAddonTitle($result->addon_id, $result->addon_title);
 		}
 
 		return $items;
@@ -627,6 +658,18 @@ class UCChangelogView extends WP_List_Table{
 	}
 
 	/**
+	 * Get the sorting clause.
+	 *
+	 * @return string
+	 */
+	private function getOrderBy(){
+
+		$orderBy = "created_at DESC";
+
+		return $orderBy;
+	}
+
+	/**
 	 * Get the limit.
 	 *
 	 * @return int
@@ -693,18 +736,20 @@ class UCChangelogView extends WP_List_Table{
 		$id = "filter-$name";
 
 		?>
-		<label class="screen-reader-text" for="<?php esc_attr_e($id); ?>"><?php esc_html_e($label); ?></label>
-		<select id="<?php esc_attr_e($id); ?>" name="<?php esc_attr_e($name); ?>">
-			<option value=""><?php esc_html_e($allLabel); ?></option>
-			<?php foreach($options as $value => $label): ?>
-				<option
-					value="<?php esc_attr_e($value); ?>"
-					<?php echo $value === $selectedValue ? "selected" : ""; ?>
-				>
-					<?php esc_html_e($label); ?>
-				</option>
-			<?php endforeach; ?>
-		</select>
+		<span class="uc-filter-select">
+			<label class="screen-reader-text" for="<?php esc_attr_e($id); ?>"><?php esc_html_e($label); ?></label>
+			<select id="<?php esc_attr_e($id); ?>" name="<?php esc_attr_e($name); ?>">
+				<option value=""><?php esc_html_e($allLabel); ?></option>
+				<?php foreach($options as $value => $label): ?>
+					<option
+						value="<?php esc_attr_e($value); ?>"
+						<?php echo $value === $selectedValue ? "selected" : ""; ?>
+					>
+						<?php esc_html_e($label); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</span>
 		<?php
 	}
 
@@ -721,11 +766,11 @@ class UCChangelogView extends WP_List_Table{
 		?>
 		<script>
 			jQuery(document).ready(function () {
-				jQuery(".tablenav select").each(function () {
+				jQuery(".uc-filter-select select").each(function () {
 					var objSelect = jQuery(this);
 
 					objSelect.select2({
-						dropdownParent: objSelect.closest(".actions"),
+						dropdownParent: objSelect.parent(),
 						minimumResultsForSearch: 10,
 					});
 				});

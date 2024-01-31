@@ -391,7 +391,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 		// The day is available for shipping.
 		if ( wc_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) ) {
 			// Decrease the minimum working days by default.
-			$min_working_days--;
+			--$min_working_days;
 
 			// Check the time limit in the initial date.
 			if ( $initial === $timestamp && ! empty( $args['shipping_days'][ $wday ]['time'] ) ) {
@@ -400,7 +400,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 				// We cannot start processing the order in the initial date.
 				if ( $start_timestamp > $timestamp_limit ) {
 					// Increase the minimum working days.
-					$min_working_days++;
+					++$min_working_days;
 				}
 			}
 
@@ -409,7 +409,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 			}
 		}
 
-		$days_for_shipping++;
+		++$days_for_shipping;
 		$wday = ( ( $wday + 1 ) % 7 );
 	} while ( ! $first_shipping_date && ( ! $deadline || $timestamp < $deadline ) );
 
@@ -509,14 +509,14 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 		// Need to reduce the minimum delivery days to zero before check the shipping date.
 		if ( 0 < $min_delivery_days ) {
 			if ( wc_string_to_bool( $delivery_days_status[ $wday ] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_delivery_days_args'], $context ) ) {
-				$min_delivery_days--;
+				--$min_delivery_days;
 			}
 			// Check shipping day availability.
 		} elseif ( wc_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_shipping_days_args'], $context ) ) {
 			$last_shipping_date = $timestamp;
 		}
 
-		$days_for_delivery--;
+		--$days_for_delivery;
 		$wday = ( 0 === $wday ? 6 : $wday - 1 ); // The module operator doesn't work with negative numbers.
 	} while ( ! $last_shipping_date && ( ! $deadline || $timestamp > $deadline ) );
 
@@ -630,14 +630,14 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) // The day isn't disabled for delivery.
 		) {
 			// Decrease the minimum delivery days.
-			$min_delivery_days--;
+			--$min_delivery_days;
 
 			if ( 0 > $min_delivery_days && $delivery_date->is_valid( array( 'shipping_method' => $args['shipping_method'] ) ) ) {
 				$first_delivery_date = $timestamp;
 			}
 		}
 
-		$days_for_delivery++;
+		++$days_for_delivery;
 		$wday = ( ( $wday + 1 ) % 7 );
 	} while ( ! $first_delivery_date && ( ! $deadline || $timestamp < $deadline ) );
 
@@ -730,7 +730,7 @@ function wc_od_get_next_delivery_date( $args = array(), $context = '' ) {
 			$next_delivery_date = $timestamp;
 		}
 
-		$next_days++;
+		++$next_days;
 	} while ( ! $next_delivery_date && ( ! $deadline || $timestamp < $deadline ) );
 
 	/**

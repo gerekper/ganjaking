@@ -27,6 +27,8 @@ class Skin_Elanza extends Elementor_Skin_Base {
 			return;
 		}
 
+		$post_count = $wp_query->post_count;
+
 		?> 
 		<div id="bdt-post-grid-<?php echo esc_attr($id); ?>" class="bdt-post-grid bdt-post-grid-skin-elanza">
 	  		<div class="bdt-grid bdt-grid-<?php echo esc_attr($settings['column_gap']); ?>" data-bdt-grid>
@@ -63,7 +65,7 @@ class Skin_Elanza extends Elementor_Skin_Base {
 							            </div>
 						            <?php endif; ?>
 
-					<?php if (8 == $bdt_count) : ?>
+					<?php if ($post_count == $bdt_count) : ?>
 						        </div>
 						    </div>
 						</div>

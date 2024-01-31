@@ -1307,28 +1307,7 @@ class Sub_Menu extends Module_Base {
 
             ]
         );
-        $this->add_responsive_control(
-            'submenu_badge_padding',
-            [
-                'label'      => __('Padding', 'bdthemes-element-pack'),
-                'type'       => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors'  => [
-                    '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-        $this->add_responsive_control(
-            'submenu_badge_margin',
-            [
-                'label'      => __('Margin', 'bdthemes-element-pack'),
-                'type'       => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors'  => [
-                    '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-badge' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
+        
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
@@ -1349,6 +1328,44 @@ class Sub_Menu extends Module_Base {
             ]
         );
 
+        $this->add_responsive_control(
+            'submenu_badge_padding',
+            [
+                'label'      => __('Padding', 'bdthemes-element-pack'),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%', 'em'],
+                'selectors'  => [
+                    '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        // $this->add_responsive_control(
+        //     'submenu_badge_margin',
+        //     [
+        //         'label'      => __('Margin', 'bdthemes-element-pack'),
+        //         'type'       => Controls_Manager::DIMENSIONS,
+        //         'size_units' => ['px', '%', 'em'],
+        //         'selectors'  => [
+        //             '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-badge' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        //         ],
+        //     ]
+        // );
+        $this->add_responsive_control(
+            'submenu_badge_horizontal_offset',
+            [
+                'label' => __('Horizontal Offset', 'bdthemes-element-pack'),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => -100,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}}' => '--ep-submenu-badge-h-offset: {{SIZE}}px;'
+                ],
+            ]
+        );
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
@@ -1384,6 +1401,19 @@ class Sub_Menu extends Module_Base {
                 'types'    => ['classic', 'gradient'],
                 'selector' => '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-badge',
 
+            ]
+        );
+        $this->add_control(
+            'submenu_badge_h_border_color',
+            [
+                'label'     => __('Border Color', 'bdthemes-element-pack'),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ep-sub-menu .ep-sub-menu-wrap .ep-item:hover .ep-badge' => 'border-color: {{VALUE}}',
+                ],
+                'condition' => [
+                    'submenu_badge_border_border!' => '',
+                ],
             ]
         );
         $this->end_controls_tab();

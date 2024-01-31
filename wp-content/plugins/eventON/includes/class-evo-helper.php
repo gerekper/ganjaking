@@ -3,7 +3,7 @@
  * Helper functions to be used by eventon or its addons
  * front-end only
  *
- * @version 4.5.4
+ * @version 4.5.7
  */
 
 
@@ -34,6 +34,12 @@ class evo_helper{
 		}
 
 	// sanitization
+		// @4.5.5
+		public function sanitize_xss($value){
+			return str_replace(array(
+				'alert(', 'onanimationstart', 'onclick'
+			), '', $value);
+		}
 		// @+ 4.0.3
 		public function sanitize_array($array){
 			return $this->recursive_sanitize_array_fields($array);
@@ -181,12 +187,13 @@ class evo_helper{
 		}
 
 	// ADMIN & Frontend Helper
-		// @updated 2.5.2
+		// @updated 4.5.7
 		public function send_email($args){
 			$defaults = array(
 				'html'=>'yes',
 				'preview'=>'no',
 				'to'=>'',
+				'bcc'=>'', // @s 4.5.5 support array() or single
 				'from'=>'',
 				'from_name'=>'','from_email'=>'',
 				'header'=>'',
@@ -197,7 +204,9 @@ class evo_helper{
 				'return_details'=>false,
 				'reply-to' => ''
 			);
-			$args = is_array($args)? array_merge($defaults, $args): $defaults;
+
+			$args = wp_parse_args( $args, $defaults );
+			//extract($args);
 
 			if($args['html']=='yes'){
 				add_filter( 'wp_mail_content_type',array($this,'set_html_content_type'));
@@ -220,22 +229,23 @@ class evo_helper{
 
 
 			// add reply to into headers // @2.8.6
-			if(!empty($args['reply-to']) && isset($args['reply-to'])){
+				if(!empty($args['reply-to']) && isset($args['reply-to'])){
 
-				if( is_array($headers)){
-					$headers[] = 'Reply-To: '. $args['reply-to'];
-				}else{
-					$headers .= 'Reply-To: '. $args['reply-to'];
+					if( is_array($headers)){
+						$headers[] = 'Reply-To: '. $args['reply-to'];
+					}else{
+						$headers .= 'Reply-To: '. $args['reply-to'];
+					}
 				}
-			}
 
-			if($args['html']=='yes'){
-				if( is_array($headers)){
-					$headers[] = 'Content-Type: text/html; charset=UTF-8';	
-				}else{
-					$headers .= 'Content-Type: text/html; charset=UTF-8';	
+			// email type as html
+				if($args['html']=='yes'){
+					if( is_array($headers)){
+						$headers[] = 'Content-Type: text/html; charset=UTF-8';	
+					}else{
+						$headers .= 'Content-Type: text/html; charset=UTF-8';	
+					}
 				}
-			}
 
 			$return = '';	
 
@@ -246,7 +256,8 @@ class evo_helper{
 					'message'=>$args['message'],
 					'headers'=>$headers
 				);
-			// bcc version of things
+			
+			// bcc version of things everything
 			}else if(!empty($args['type']) && $args['type']=='bcc' ){
 				if(is_array($args['to']) ){
 					foreach($args['to'] as $EM){
@@ -258,6 +269,17 @@ class evo_helper{
 
 				$return = wp_mail($args['from'], $args['subject'], $args['message'], $headers, $args['attachments']);	
 			}else{
+
+				// if bcc emails are provided add those to header @4.5.7
+					if( !empty( $args['bcc'])){
+						if(is_array( $args['bcc'] ) ){
+							foreach( $args['bcc'] as $bcc_email){
+								$headers[] = "Bcc: ".$bcc_email;
+							}
+						}else{	$headers[] = "Bcc: ". $args['bcc'];	}
+					}
+
+				// Send email using wp_mail()
 				$return = wp_mail($args['to'], $args['subject'], $args['message'], $headers, $args['attachments']);
 			}
 
@@ -600,8 +622,8 @@ class evo_helper{
 			);
 		}
 
-		// @updated 4.5.4
-		// $unix var is deprecating
+		// @updated 4.5.7
+		// $unix value passed to calculate DST for a given date - otherwise DST for now
 		function get_timezone_array( $unix = '' , $adjusted = true) {
 			
 			$tzs = $this->get_default_timezones_array();
@@ -609,7 +631,9 @@ class evo_helper{
 			if(!$adjusted) return $tzs;
 		
 			// adjust GMT values based on daylight savings time
-			$DD = new DateTime('now');
+			$DD = new DateTime( 'now' );
+
+			if( !empty( $unix ))	$DD->setTimestamp( $unix );
 			
 			$updated_zones = array();
 			foreach($tzs as $f=>$v){
@@ -628,8 +652,10 @@ class evo_helper{
 		}
 
 		// return time offset from saved timezone values @4.5.2
-		public function _get_tz_offset_seconds( $tz_key){
-			$data = $this->get_timezone_array();
+		public function _get_tz_offset_seconds( $tz_key, $unix = ''){
+			
+			$data = $this->get_timezone_array($unix);
+			
 			if( !isset( $data[$tz_key] )) return 0;// if non existing tz string 
 
 			$str = explode('GMT', $data[$tz_key]);

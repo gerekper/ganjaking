@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Condition_Customer_Role class
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.1.10
  */
 

@@ -208,10 +208,10 @@ class ExtensionPrototype
             // To register that group as well before the tag
             $tags_config = \Elementor\Plugin::$instance->dynamic_tags->get_config();
             if (!isset($tags_config['groups']['dce'])) {
-                \Elementor\Plugin::$instance->dynamic_tags->register_group('dce', ['title' => DCE_PRODUCT_NAME]);
+                \Elementor\Plugin::$instance->dynamic_tags->register_group('dce', ['title' => DCE_BRAND]);
             }
             if (!isset($tags_config['groups']['dce-dynamic-google-maps-directions'])) {
-                \Elementor\Plugin::$instance->dynamic_tags->register_group('dce-dynamic-google-maps-directions', ['title' => DCE_PRODUCT_NAME . ' - Dynamic Google Maps Directions']);
+                \Elementor\Plugin::$instance->dynamic_tags->register_group('dce-dynamic-google-maps-directions', ['title' => DCE_BRAND . ' - Dynamic Google Maps Directions']);
             }
             $class_name = '\\DynamicContentForElementor\\Modules\\DynamicTags\\Tags\\' . $class_name;
             $dynamic_tags->register(new $class_name());

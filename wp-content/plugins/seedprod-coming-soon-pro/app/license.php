@@ -67,16 +67,18 @@ function seedprod_pro_save_api_key( $api_key = null ) {
 			$slug = SEEDPROD_PRO_SLUG;
 		}
 
+		// get token and generate one if one does not exist
 		$token = get_option( 'seedprod_token' );
 		if ( empty( $token ) ) {
-			add_option( 'seedprod_token', wp_generate_uuid4() );
+			$token = strtolower( wp_generate_password( 32, false, false ) );
+			update_option( 'seedprod_token', $token );
 		}
 
 		// Validate the api key
 		$data = array(
 			'action'            => 'info',
 			'license_key'       => $api_key,
-			'token'             => get_option( 'seedprod_token' ),
+			'token'             => $token,
 			'wp_version'        => get_bloginfo( 'version' ),
 			'domain'            => home_url(),
 			'installed_version' => SEEDPROD_PRO_VERSION,

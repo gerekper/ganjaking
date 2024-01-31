@@ -10,7 +10,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons' ) ) {
 /**
  * Main WC_Free_Gift_Coupons Class
  *
- * @version	3.5.0
+ * @version	3.6.0
  */
 class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
@@ -19,14 +19,14 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.5.0';
+	public static $version = '3.6.0';
 
 	/**
 	 * The required WooCommerce version
 	 *
 	 * @var string
 	 */
-	public static $required_woo = '3.1.0';
+	public static $required_woo = '3.6.0';
 
 	/**
 	 * Coupon code to remove.
@@ -44,6 +44,17 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @var bool
 	 */
 	private static $coupon_removed_directly = false;
+
+	/**
+	 * Coupon code flushing.
+	 *
+	 * This helps prevent an FGC coupon from being removed
+	 * even if there's no more gift item in the cart.
+	 *
+	 * @since 3.6.0
+	 * @var bool
+	 */
+	private static $allow_coupon_flushing = true;
 
 	/**
 	 * Array of deprecated hook handlers.
@@ -85,7 +96,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 		// Sync gift item quantity with actual product.
 		add_filter( 'woocommerce_add_cart_item', array( __CLASS__, 'sync_add_cart_item' ), 20, 2 );
-		add_filter( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'sync_free_gifts_from_session' ) );
+		add_action( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'sync_free_gifts_from_session' ) );
 
 		// Validate quantity on update_cart in case sneaky folks mess with the markup.
 		add_filter( 'woocommerce_update_cart_validation', array( __CLASS__, 'update_cart_validation' ), 10, 4 );
@@ -295,25 +306,40 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 				 */
 				$data = apply_filters( 'wc_fgc_apply_coupon_data', $data, $coupon_code );
 
-				if ( $data['product_id'] > 0 && isset( $data['data'] ) && $data['data'] instanceof WC_Product && $data['data']->is_purchasable() ) {
+				$product_id   = ! empty( $data['product_id'] ) ? intval( $data['product_id'] )    : 0;
+				$quantity     = ! empty ( $data['quantity'] ) ? intval( $data['quantity'] )       : 1;
+				$variation_id = ! empty( $data['variation_id'] ) ? intval( $data['variation_id'] ): 0;
+				$variation    = ! empty( $data['variation'] ) ? $data['variation']                : array();
 
-					/**
-					 * FGC cart item data.
-					 *
-					 * @param array items.
-					 * @param string $coupon_code
-					 * @since 3.1.0
-					 */
-					$cart_item_data = apply_filters( 'wc_fgc_cart_item_data', 
-						array(
-							'free_gift'                   => $coupon_code,
-							'fgc_quantity'                => isset( $data['quantity'] ) && $data['quantity'] > 0 ? intval( $data['quantity'] ) : 1,
-							'fgc_type'                    => $data['data']->is_type( 'variable' ) ? 'variable' : 'not-variable', // Deprecated 3.1.0.
-							'fgc_edit_in_cart'            => self::supports_edit_in_cart( $data['data'] ),
-							'fgc_pre_selected_attributes' => self::get_pre_selected_attributes( $data['data'] ),
-						),
-						$coupon_code
-					);
+				/**
+				 * FGC cart item data.
+				 *
+				 * @param array items.
+				 * @param string $coupon_code
+				 * @since 3.1.0
+				 */
+				$cart_item_data = apply_filters( 'wc_fgc_cart_item_data', 
+					array(
+						'free_gift'                   => $coupon_code,
+						'fgc_quantity'                => $quantity,
+						'fgc_type'                    => $data['data']->is_type( 'variable' ) ? 'variable' : 'not-variable', // Deprecated 3.1.0.
+						'fgc_edit_in_cart'            => self::supports_edit_in_cart( $data['data'] ),
+						'fgc_pre_selected_attributes' => self::get_pre_selected_attributes( $data['data'] ),
+					),
+					$coupon_code
+				);
+
+				// Use add to cart validation.
+				$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $variation, $cart_item_data );
+
+				// Store and then clear any notices.
+				$notices = wc_get_notices('error');
+
+				// Clear any add to cart notices as we will only show a notice to the store managers.
+				wc_clear_notices();
+
+				// Aren't we going to get some notices here that we don't want?
+				if ( $passed_validation ) {
 
 					$key = self::add_gift_item_to_cart( $data, $cart_item_data );
 
@@ -330,6 +356,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 					}
 					
 					wc_add_notice( $notice, 'error' );
+
+					foreach( $notices as $notice ) {
+						wc_add_notice( $notice['notice'], 'error' );
+					}
 				}
 			}
 
@@ -373,14 +403,14 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @since 3.1.0
 	 *
 	 * @param WC_Product $product
-	 * @return  array 
+	 * @return  array @since 3.6.0 this returns an array of attribute=>value pairs instead of array of attributes only.
 	 */
 	private static function get_pre_selected_attributes( $product ) {
 		$pre_selected_attributes = array();
 
 		if ( $product->get_parent_id() > 0 ) {
 			// Remove attributes that are empty.
-			$pre_selected_attributes = array_keys( array_filter( $product->get_variation_attributes() ) );
+			$pre_selected_attributes = array_filter( $product->get_variation_attributes() );
 		}
 
 		return $pre_selected_attributes;
@@ -503,7 +533,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 */
 	public static function sync_free_gifts_from_session( $cart ) {
 
-		$cart_contents = $cart->get_cart_contents();
+		$cart_contents = $cart->get_cart();
 
 		if ( empty( $cart_contents ) ) {
 			return;
@@ -528,7 +558,6 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * Adjust session values on the gift item
 	 *
 	 * @since  3.0.0
-	 * @deprecated 3.3.0 - Cannot sync when loading individual cart item as the entire cart isn't present yet.
 	 *
 	 * @param array $cart_item
 	 * @param array $values
@@ -551,6 +580,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 			if ( ! empty ( $values['fgc_edit_in_cart'] ) ) {
 				$cart_item['fgc_edit_in_cart'] = $values['fgc_edit_in_cart'];
+			}
+
+			if ( ! empty ( $values['fgc_pre_selected_attributes'] ) ) {
+				$cart_item['fgc_pre_selected_attributes'] = $values['fgc_pre_selected_attributes'];
 			}
 
 			if ( ! empty( $values['fgc_synced_original_qty'] ) ) {
@@ -675,6 +708,15 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 */
 	public static function check_cart_items() {
 
+		// Do we need to skip this in the Store API?
+
+	//	if ( wc()->is_rest_api_request() ) {
+	//		return;
+	//	}
+
+		$removed = 0;
+
+		// Compare cart items to applied coupons.
 		$cart_coupons = (array) WC()->cart->get_applied_coupons();
 
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
@@ -683,10 +725,25 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 				WC()->cart->set_quantity( $cart_item_key, 0 );
 
-				wc_add_notice( __( 'A gift item which is no longer available was removed from your cart.', 'wc_free_gift_coupons' ), 'error' );
+				$removed++;
 
 			}
 		}
+
+		if ( $removed ) {
+
+			$notice = _n(
+				'A gift item which is no longer available was removed from your cart.',
+				'Gift items which are no longer available were removed from your cart.',
+				$removed,				
+				'wc_free_gift_coupons'
+			);
+	
+			wc_add_notice( esc_html( $notice ), 'error' );
+
+		}
+
+
 
 	}
 
@@ -1217,7 +1274,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	}
 
 	/**
-	 * Remove the coupon code if no free gifts left in cart.
+	 * When a product is removed, check the rest of the cart for any remaining gift items. If not, log coupon for later removal.
 	 *
 	 * @since 3.1.0
 	 * 
@@ -1225,31 +1282,44 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @param string $cart_item_key The cart item key.
 	 * @param  WC_Cart $cart The cart object.
 	 */
-	public static function check_remaining_product( $cart_item_key, $cart ) { 
+	public static function check_remaining_product( $cart_item_key, $cart ) {
+
+		if ( self::allow_coupon_flushing() ) {
+
+			$cart_contents = $cart->get_cart();
+
+			$cart_item = isset( $cart_contents[$cart_item_key] ) ?  $cart_contents[$cart_item_key] : array();
 	
-		$cart_contents = $cart->get_cart_contents();
-
-		$cart_item = isset( $cart_contents[$cart_item_key] ) ?  $cart_contents[$cart_item_key] : array();
-
-		// Removed a free gift.
-		if ( isset( $cart_item['free_gift'] ) ) {
-
-			unset( $cart_contents[$cart_item_key] );
-
-			$coupon_code = $cart_item['free_gift'];
-			$has_gifts   = false;
-
-			foreach ( $cart_contents as $cart_item_key => $values ) {
-				if ( isset( $values['free_gift'] ) && $values['free_gift'] === $coupon_code ) {
-					$has_gifts = true;
-					break;
+			// Removed a free gift.
+			if ( isset( $cart_item['free_gift'] ) ) {
+	
+				unset( $cart_contents[$cart_item_key] );
+	
+				$coupon_code = $cart_item['free_gift'];
+	
+				// Check if it's an only "free gift" coupon.
+				$coupon = new WC_Coupon( $coupon_code );
+	
+				// Only test coupons for other gifts if it's a free gift only coupon. Compound coupons need to stay in place.
+				if ( $coupon->is_type( 'free_gift' ) ) {
+	
+					$has_gifts   = false;
+	
+					foreach ( $cart_contents as $cart_item_key => $values ) {
+						if ( isset( $values['free_gift'] ) && $values['free_gift'] === $coupon_code ) {
+							$has_gifts = true;
+							break;
+						}
+					}
+	
+					// If no matching gifts left, store the coupon for later removal.
+					if ( ! $has_gifts ) {
+						self::$coupon_to_remove = $coupon_code;				
+					}
+	
 				}
 			}
 
-			// If no matching gifts left, and no need to prevent removal, remove code.
-			if ( ! $has_gifts && ! WC_FGC_Update_Variation_Cart::prevent_coupon_flushing() ) {
-				self::$coupon_to_remove = $coupon_code;				
-			}
 		}
 
 	}
@@ -1258,35 +1328,71 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * Remove the coupon code if no free gifts left in cart.
 	 *
 	 * @since 3.1.0
+	 * @deprecated 3.6.0
 	 * 
 	 * @see woocommerce_cart_item_removed
 	 * @param string $cart_item_key Cart item key.
 	 * @param  WC_Cart $cart Cart object.
 	 */
 	public static function delayed_coupon_removal( $cart_item_key, $cart ) { 
+
 		$coupon = new WC_Coupon( self::$coupon_to_remove );
 
 		if ( ! empty( self::$coupon_to_remove ) ) {
-			// Check if it's an only "free gift" coupon.
-			$coupon = new WC_Coupon( self::$coupon_to_remove );
-
-			// Is it our very own free gift?
-			if ( $coupon->is_type( 'free_gift' ) ) {
 
 				// Don't keep the user confused if the coupon was not removed directly by user.
-				if ( ! self::$coupon_removed_directly ) {
+				if ( ! self::$coupon_removed_directly ) { // @todo - not entire certain about this yet.
 					// Translators: %s is the coupon code/name.
 					wc_add_notice( sprintf( __( 'Coupon "%s" has been removed.', 'wc_free_gift_coupons' ), self::$coupon_to_remove ) );
 
 					// Remove "item removed notice" for last item, when coupon is automatically removed.
 					add_filter( 'woocommerce_cart_item_removed_notice_type', '__return_null' );
+
 				}
 
 				$cart->remove_coupon( self::$coupon_to_remove );
 				self::$coupon_to_remove = '';
-			}
+			
 		}
 
+	}
+
+
+	/**
+	 * Enable Coupon Flushing.
+	 * 
+	 * Ported in from the WC_FGC_Update_Variation_Cart class.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @return bool Returns field $allow_coupon_flushing
+	 */
+	public static function enable_coupon_flushing() {
+		self::$allow_coupon_flushing = true;
+	}
+
+	/**
+	 * Disable Coupon Flushing.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @return bool Returns field $allow_coupon_flushing
+	 */
+	public static function disable_coupon_flushing() {
+		self::$allow_coupon_flushing = false;
+	}
+
+	/**
+	 * Is Coupon Flushing Allowed?
+	 * 
+	 * Ported in from the WC_FGC_Update_Variation_Cart:prevent_coupon_flushing().
+	 *
+	 * @since 3.6.0
+	 *
+	 * @return bool Returns field $allow_coupon_flushing
+	 */
+	public static function allow_coupon_flushing() {
+		return boolval( self::$allow_coupon_flushing );
 	}
 
 } // End class.

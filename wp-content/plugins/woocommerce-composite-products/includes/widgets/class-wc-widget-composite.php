@@ -2,7 +2,7 @@
 /**
  * WC_Widget_Composite class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since   3.0.0
 */
 

@@ -1064,7 +1064,7 @@ class ThePlus_Social_Icon extends Widget_Base {
 							$icon = $network['pt_plus_social_icons'];
 						}
 						if ( ! empty( $network['social_url']['url'] ) ) {
-							$link_atts_url = 'href="'.$network["social_url"]["url"].'"';
+							$link_atts_url = 'href="' . esc_url( $network["social_url"]["url"] ) . '"';
 						}
 						if ( ! empty( $network['social_url']['is_external'] ) ) {
 						$link_atts_target = 'target="_blank"';

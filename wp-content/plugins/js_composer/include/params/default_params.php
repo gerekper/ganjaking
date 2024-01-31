@@ -248,10 +248,9 @@ function vc_textarea_form_field( $settings, $value ) {
 /**
  * Attach images shortcode attribute type generator.
  *
- * @param $settings
- * @param $value
- *
- * @param $tag
+ * @param array $settings
+ * @param string $value
+ * @param string $tag
  * @param bool $single
  *
  * @return string - html string.
@@ -259,23 +258,15 @@ function vc_textarea_form_field( $settings, $value ) {
  *
  */
 function vc_attach_images_form_field( $settings, $value, $tag, $single = false ) {
-	$output = '';
 	$param_value = wpb_removeNotExistingImgIDs( $value );
-	$output .= '<input type="hidden" class="wpb_vc_param_value gallery_widget_attached_images_ids ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $settings['type'] ) . '" name="' . esc_attr( $settings['param_name'] ) . '" value="' . $value . '"/>';
-	$output .= '<div class="gallery_widget_attached_images">';
-	$output .= '<ul class="gallery_widget_attached_images_list">';
-	$output .= ( '' !== $param_value ) ? vc_field_attached_images( explode( ',', $value ) ) : '';
-	$output .= '</ul>';
-	$output .= '</div>';
-	$output .= '<div class="gallery_widget_site_images">';
-	$output .= '</div>';
-	if ( true === $single ) {
-		$output .= '<a class="gallery_widget_add_images" href="javascript:;" use-single="true" title="' . esc_attr__( 'Add image', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-add"></i>' . esc_html__( 'Add image', 'js_composer' ) . '</a>';
-	} else {
-		$output .= '<a class="gallery_widget_add_images" href="javascript:;" title="' . esc_attr__( 'Add images', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-add"></i>' . esc_html__( 'Add images', 'js_composer' ) . '</a>';
-	}
 
-	return $output;
+	return vc_get_template( 'params/attache_images/template.php', [
+		'settings' => $settings,
+		'value' => $value,
+		'tag' => $tag,
+		'single' => $single,
+		'param_value' => $param_value,
+	] );
 }
 
 /**

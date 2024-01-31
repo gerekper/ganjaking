@@ -42,7 +42,7 @@ class Model extends CSS_Model
      */
     public function get_panel_page_settings()
     {
-        return ['title' => DCE_PRODUCT_NAME];
+        return ['title' => DCE_BRAND];
     }
     /**
      * Get CSS wrapper selector.

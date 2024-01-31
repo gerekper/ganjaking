@@ -31,7 +31,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -671,6 +671,8 @@ abstract class SymmetricKey
             switch (true) {
                 // PHP_OS & "\xDF\xDF\xDF" == strtoupper(substr(PHP_OS, 0, 3)), but a lot faster
                 case (PHP_OS & "\xDF\xDF\xDF") === 'WIN':
+                case !function_exists('php_uname'):
+                case !is_string(php_uname('m')):
                 case (php_uname('m') & "\xDF\xDF\xDF") != 'ARM':
                 case defined('PHP_INT_SIZE') && PHP_INT_SIZE == 8:
                     self::$use_reg_intval = true;

@@ -3,7 +3,7 @@ Contributors: unitecms, valiano, iritmega, freemius
 Donate link: http://unlimited-elements.com/
 Tags: elementor, elements, addons, elementor addons, elementor widget, page builder, builder, visual editor, wordpress page builder, elementor
 Requires at least: 3.5
-Tested up to: 6.4.1
+Tested up to: 6.4.2
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -1237,6 +1237,79 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
+version 1.5.94: 2024-01-25:
+
+* Feature: added option to message individual fields for the form
+* Change: removed instagram blocked api message - the instagram functionality is active now!
+* Change: added default values to currency fields
+* Fix: fixed small php bug regarding date field in items
+* Fix: fixed some small xss vulnurability that pachstack discovered
+
+* Feature: Number Field (Pro) - Introduced 'Enable Date Field in Formula' option. This new functionality enables the use of Date Field in formula by allowing the addition or subtraction of days.
+* Feature: Unlimited Charts (Pro) - Introduced 'Remove Items with 0 Value' option. This new functionality automatically excludes items with a value of 0 from charts.
+* Feature: WordPress Menu (Free) - Implemented 'Hover Effect' option. This new functionality allows users to choose from a variety of hover link effects, enhancing the visual presentation with dynamic animations.
+* Feature: Hotspots (Pro) - Introduced customizable popup positioning, providing users with the option to define the exact position rather than relying on preset center alignment.
+* Feature: Event List (Pro) - Introduced 'Event End Date' option, allowing users to display event end date and time.
+* Feature: Event List (Pro) - Implemented 'Calendar Horizontal Align' option. This new functionality allows users to customize the horizontal alignment of the calendar, providing better control over its placement within the layout.
+* Feature: Product Carousel (Pro) - Introduced functionality to hide navigation arrows automatically when the number of products is less than a specified value.
+* Feature: Dropdown Field (Pro) - Introduced 'Multisource' option. This functionality allows users to select the source of checkbox values as posts, products, etc., providing versatile options for integrating diverse content.
+* Feature: Checkbox Field (Pro) - Introduced 'Multisource' option. This functionality allows users to select the source of checkbox values as posts, products, etc., providing versatile options for integrating diverse content.
+* Feature: Checkbox Field (Pro) - Implemented 'Checkbox Value Handling' options. This new functionality allows users to choose the checkbox value type from options such as sum, individual number, or individual text, providing flexibility in handling checkbox values.
+* Feature: Masonry Gallery (Pro) - Introduced 'Title Typography' and 'Description Typography' options. These new functionalities allow users to customize the typography settings for titles and descriptions.
+* Feature: Masonry Gallery (Pro) - Implemented 'Tile Background Color' option. This new functionality allows users to customize the background color of tiles, providing enhanced visual control over the widget's appearance.
+* Feature: Hotspots (Pro) - Added 'Popup Image Size' option, allowing users to customize the size of popup images.
+* Feature: WooCommerce Product Carousel (Pro) - Introduced functionality to hide navigation arrows automatically when the number of products is less than a specified value.
+* Feature: Logo Carousel (Pro) - Implemented 'Open Links In New Tab' option. This new functionality allows users to specify whether links should open in a new tab with Source type posts, products, etc.
+* Feature: Content Ticker (Pro) - Added Option to add an Image for each ticker item.
+* Change: Hotspots (Pro) - Enabled 'Image Size Select' option for the Image, allowing users to choose from different image resolutions for enhanced flexibility and visual customization.
+* Change: Icon Carousel (Pro) - Improved 'Item Minimum Height' option by expanding the range of values.
+* Fix: Fullscreen Menu (Free) - Improved protection from Elementor sticky section interference.
+* Fix: vCard (Pro) - Issue with QR code not displaying when 'Include Image in Contact' is enabled has been resolved.
+* Fix: Dropdown Field (Pro) - Resolved issue with 'Field Name' not appearing during email sending. The fix ensures that the field name is now properly displayed in email notifications.
+* Fix: Mega Menu (Pro) - Resolved horizontal scroll issue. The fix ensures that the layout no longer experiences unintended horizontal scrolling, providing a more stable and user-friendly experience.
+* Fix: Scroll To Top (Free) - Resolved issue where the icon wasn't visible on the frontend. The fix ensures proper visibility of the icon, addressing the bug and improving the overall appearance.
+* Fix: Fullscreen Menu (Free) - Resolved issue with the 'Disable Page Scroll' option not working in some cases. The fix ensures consistent functionality, preventing page scrolling as intended.
+* Fix: Text Field (Free) - Resolved input width issue. The fix ensures that input elements now display with the correct width.
+
+
+
+version 1.5.93: 2024-01-18:
+
+* Feature: Introduced the option 'slider_video_autoplay' to galleries, enabling video autoplay when changing items.
+* Feature: Added the option to include specific taxonomies in related posts queries.
+* Feature: Implemented automatic recognition of video thumbnail IDs in certain gallery types based on relevant post meta.
+* Feature: Added functionality for the price range filter.
+* Change: Updated the Freemius version.
+* Change: Modified the text format for the export change log.
+* Change: Restored the "import with images" feature after incorporating file type checks for security.
+* Fix: Enhanced the handling of multiple user records for the 'exclude users' option in the users query (Ajax-based).
+* Fix: Corrected URL CSS and JS inclusion issues in Elementor editor.
+* Fix: Corrected a bug related to "mini cart widget" in PHP in specific cases.
+
+* Feature - Card Carousel (Free) - Introduced 'Hide Item' option. This new functionality allows users to hide items instead of deleting them permanently, offering a more reversible and flexible approach to item management.
+* Feature - Post Grid (Pro) - Implemented 'Layout Type: Above' option. This new functionality allows users to change the position of the content box to above the image.
+* Feature - Thumbnail Gallery (Pro) - Introduced 'Video Autoplay' option. This new functionality enables automatic playback of videos each time they become active, enhancing the user experience with seamless video transitions.
+* Feature - Compact Gallery (Free) - Introduced 'Video Autoplay' option. This new functionality enables automatic playback of videos each time they become active, enhancing the user experience with seamless video transitions.
+* Feature - Grid Gallery (Pro) - Introduced 'Video Autoplay' option. This new functionality enables automatic playback of videos each time they become active, enhancing the user experience with seamless video transitions.
+* Feature - Slider Gallery (Free) - Introduced 'Video Autoplay' option. This new functionality enables automatic playback of videos each time they become active, enhancing the user experience with seamless video transitions.
+* Feature - Flip Box Carousel (Pro) - Introduced option for back icon alignment, providing users the flexibility to customize the alignment of the back icon.
+* Feature - Post List (Free) - Implemented 'Image Scale' option for regular and hover states. This new feature allows users to customize the scaling of images independently for regular and hover states, enhancing visual presentation.
+* Change - Flip Box Carousel (Pro) - Implemented conditional rendering of CSS to reduce unused styles, resulting in improved performance, SEO, and faster load times for enhanced user experience.
+* Change - Content Accordion (Free) - Improved 'Expand All Accordion' functionality, now allowing users to close the accordion by clicking the same button again for a more intuitive and user-friendly experience.
+* Fix - WooCommerce Product Grid (Pro) - Implemented protection against buttons not being vertically aligned in specific cases.
+* Fix - Flip Box Carousel (Pro) - Resolved an issue where links were not functioning properly when clicking on the back icon.
+* Fix - WooCommerce Product Grid (Pro) - Resolved issue with the product button not being clickable in some cases.
+* Fix - Post Carousel (Pro) - Resolved issue with the side-by-side layout.
+* Feature - Logo Grid (Free) - Enhanced responsiveness for item 'Padding' option. This update ensures that item padding adjusts effectively across various screen sizes and device resolutions for a consistent layout.
+* Feature - Logo Grid (Free) - Implemented 'Direction' option. This new feature is particularly useful for RTL (Right-to-Left) websites, allowing users to specify the direction of the widget's layout for improved compatibility.
+* Feature - Content Accordion (Free) - Introduced a new feature that allows the expansion of all accordion items by clicking on an external element with the class "ue-content-accordion-expand-all".
+* Feature - Memory Game (Pro) - Introduced template option for success message, Allowing users to show Elementor template as success message.
+* Feature - Memory Game (Pro) - Added 'Completion Time' option, enabling users to show the time it took to complete the game for a more informative and engaging experience.
+* Feature - Content Accordion (Free) - Introduced 'Additional Header Content' option in the accordion, allowing users to include additional content after the header title.
+* Feature - Post Accordion (Free) - Implemented 'Open Links in New Tab' option. This new functionality allows users to configure links to open in a new tab, enhancing control over the navigation experience.
+* Feature - Side Menu (Pro) - Added an option to add a logo to the side menu layout.
+
+
 version 1.5.92: 2024-01-04:
 
 * Feature: Introduced the change log option in the widget editor.
@@ -1337,6 +1410,7 @@ version 1.5.84: 2023-09-20
 
 * Fix: added support for webp in the manager
 * Fix: allow fetching images from media library post type for the galleries 
+
 
 
 version 1.5.83: 2023-08-22

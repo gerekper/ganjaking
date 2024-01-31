@@ -1,3 +1,61 @@
+## 7.8.0 [29th January 2024]
+
+### Added
+
+- ACF Gallery widget added
+- ACF Accordion widget added
+- Wincher tool for track your keyword positions & monitor your SEO feature added
+- Title hover color added in timeline widget
+- Auto height option added in testimonial slider widget
+
+### Fixed
+
+- Title color issue fixed in timeline widget (Thanks to Nick Weirens)
+- Error fixed in Table widget (Thanks to Michael Esguerra)
+- Translations issue fixed in WC mini cart widget (Thanks to Ivan Polák)
+- Text cropped issue fixed in comparison list widget
+- Code Radius fixed in QR Code widget (Thanks to Marco Barbera)
+- Unclose tag issue fixed in Post Grid widget (Thanks to Peter Ganster)
+- Device slider widget cropping issue fixed
+- Lightbox issue fixed in custom carousel widget
+
+## 7.7.5 [15th January 2024]
+
+### Added
+
+- reCAPTCHA feature added in Webhook form widget
+- Image position responsive option added in review card widget
+- Content border radius added in carousel skin ramble widget
+- Content overlay spacing added in carousel skin ramble widget
+- Content Padding option added in custom gallery widget
+
+### Fixed
+
+- Link Error fixed in device slider widget (Thanks to Joshua)
+- Marker content initial image loading issue fixed in advanced google map widget (Thanks to Michał Marcjanik)
+- Link to widget option fixed in switcher widget (Thanks to Gabriel Sirbu)
+- Uikit print css issue fixed
+- Submit button Justified issue fixed in webhook form widget
+- Responsive mode badge style controls not working issue fixed in mega menu widget
+
+## 7.7.4 [6th January 2024]
+
+### Fixed
+
+- Duplicator Critical issue fixed
+
+## 7.7.3 [4th January 2024]
+
+### Added
+
+- Badge horizontal offset & hover border color options added in sub menu widget
+
+### Fixed
+
+- Duplicator issue fixed
+- URL issue fixed in Advanced Button widget (Thanks to David Gilfillan)
+- Image height issue fixed in Slider widget (Thanks to Ray Clark)
+
 ## 7.7.2 [21th December 2023]
 
 ### Fixed
@@ -33,7 +91,7 @@
 - Ribbon border added in price table widget
 - Active item feature added in sub menu widget
 - Unlock badge options in mega menu widget
-- Custom attributes compatibility added in fancy card, fancy slider, fancy tabs, featured box, flip box, honeycombs, hover box, icon mobile menu, icon nav, image accordion, image expand, image stack, interactive card, interactive tabs, logo caroseul, logo grid, lottie icon box, lottie image, marker, panel slider, price table, product carousel, product grid, profile card, slideshow, slinky vertical menu, static carousel, static grid tab, svg image, trailer box, vertical menu widgets
+- Custom attributes compatibility added in fancy card, fancy slider, fancy tabs, featured box, flip box, honeycombs, hover box, icon mobile menu, icon nav, image accordion, image expand, image stack, interactive card, interactive tabs, logo carousel, logo grid, lottie icon box, lottie image, marker, panel slider, price table, product carousel, product grid, profile card, slideshow, slinky vertical menu, static carousel, static grid tab, svg image, trailer box, vertical menu widgets
 - Icon option added in reading timer widget
 
 ### Fixed
@@ -323,7 +381,7 @@
 
 ### Fixed
 
-- Elementor pro (swiper caroseul) Compatibility issue fixed
+- Elementor pro (swiper carousel) Compatibility issue fixed
 
 ## 7.1.1 [20th June 2023]
 
@@ -793,7 +851,7 @@
 
 - Dropdown width issue fixed in User Login Widget (Thanks to Alex Nasla)
 - Fullwidth issue fixed in WC Product Widget
-- Target link issue fixed in Brand grid, brand caroseul and slider widgets
+- Target link issue fixed in Brand grid, brand carousel and slider widgets
 - Translation issue fixed in Search Widget (Thanks to Sergio Rodriguez)
 - Tooltip Hide issue fixed in Circle Menu Widget
 - Minor issue solved in Advanced Progress Bar (Thanks to Rolling Hills)

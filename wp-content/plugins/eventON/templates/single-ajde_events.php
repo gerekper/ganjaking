@@ -8,14 +8,12 @@
  *
  *	@Author: AJDE
  *	@EventON
- *	@version: 4.4
+ *	@version: 4.5.5
  */
 
 
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}	
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {	exit; }	
 
 do_action('eventon_before_header');	
 

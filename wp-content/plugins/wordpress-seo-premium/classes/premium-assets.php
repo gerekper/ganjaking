@@ -465,7 +465,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			$url = 'http://localhost:8081/' . $script['filename'];
 		}
 
-		$in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
+		$in_footer = ( $script['in_footer'] ?? false );
 
 		wp_register_script(
 			$script['name'],

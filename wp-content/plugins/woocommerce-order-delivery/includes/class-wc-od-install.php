@@ -144,7 +144,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * @since 1.6.0
 		 */
 		private static function remove_notices() {
-			include_once dirname( __FILE__ ) . '/admin/class-wc-od-admin-notices.php';
+			include_once __DIR__ . '/admin/class-wc-od-admin-notices.php';
 
 			// Remove not dismissed notice from a previous update.
 			WC_OD_Admin_Notices::remove_notice( 'wc_od_updated' );

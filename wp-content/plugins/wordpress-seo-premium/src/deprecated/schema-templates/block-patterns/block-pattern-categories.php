@@ -10,5 +10,5 @@ namespace Yoast\WP\SEO\Schema_Templates\Block_Patterns;
  */
 class Block_Pattern_Categories {
 
-	const YOAST_JOB_POSTING = 'yoast_job_posting';
+	public const YOAST_JOB_POSTING = 'yoast_job_posting';
 }

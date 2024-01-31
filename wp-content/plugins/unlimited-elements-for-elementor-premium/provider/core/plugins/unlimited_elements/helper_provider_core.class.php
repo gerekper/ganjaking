@@ -820,11 +820,12 @@ class HelperProviderCoreUC_EL{
 		$isWpmlExists = UniteCreatorWpmlIntegrate::isWpmlExists();
 			
 		//get right template
-		if($isWpmlExists == true){
-		
+		if($isWpmlExists == true && !empty($templateID)){
+			
 			$template = get_post($templateID);
 			
-			$templateID = apply_filters( 'wpml_object_id', $templateID, $template->post_type, true);
+			if(!empty($template))
+				$templateID = apply_filters( 'wpml_object_id', $templateID, $template->post_type, true);
 		}
 
 		
@@ -1185,12 +1186,17 @@ class HelperProviderCoreUC_EL{
 	 * global init
 	 */
 	public static function globalInit(){
-		
+			
 		self::$operations = new UCOperations();
 				
 		//set path and url
 		self::$pathCore = dirname(__FILE__)."/";
-		self::$urlCore = HelperUC::pathToFullUrl(self::$pathCore);
+		
+		self::$pathCore = UniteFunctionsUC::pathToUnix(self::$pathCore);
+				
+		$pathRelative = str_replace(GlobalsUC::$pathPlugin, "", self::$pathCore);
+		
+		self::$urlCore = GlobalsUC::$urlPlugin.$pathRelative;
 		
 		self::$filepathGeneralSettings = self::$pathCore."settings/general_settings_el.xml";
 		

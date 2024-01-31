@@ -1,18 +1,19 @@
 <?php
 /**
  * Event Meta box time and date fields
- * @version 4.3.1
+ * @version 4.5.6
  */
 							
 
 $wp_time_format = get_option('time_format');
-$_use_default_wp_date_format = (!empty($evcal_opt1) && $evcal_opt1['evo_usewpdateformat']=='yes')? true:false;
-$wp_date_format = $_use_default_wp_date_format? get_option('date_format'):'Y/m/d';
-$jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
+
+$dt_formats = extract( EVO()->elements->_get_date_picker_data() );
+
+$wp_date_format = $date_format;
 
 ?>
 
-<div id='evcal_dates' date_format='<?php echo $jq_date_format;?>'>	
+<div id='evcal_dates' date_format='<?php echo $js_date_format;?>'>	
 	<?php
 
 	// --- TIME variations	
@@ -25,18 +26,6 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		// Minute increment	
 		$minIncre = !empty($evcal_opt1['evo_minute_increment'])? (int)$evcal_opt1['evo_minute_increment']:1;
 		$minIncre = 60/ $minIncre;	
-
-
-	// all day 
-	echo EVO()->elements->get_element(
-		array(
-			'type'=>'yesno_btn',
-			'label'=> __('All Day Event', 'eventon'),
-			'id'=> 'evcal_allday',
-			'value'=> $EVENT->get_prop("evcal_allday"),
-		)
-	);
-
 	?>
 	
 	<!-- date and time formats to use -->
@@ -44,7 +33,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 	<input type='hidden' name='_evo_time_format' value='<?php echo $used_timeFormat;?>'/>
 
 	<!-- Event Time -->
-	<div class='evo_datetimes evo_edit_field_box' style='background-color: #f5c485;background: linear-gradient(45deg, #f9d29f, #ffae5b);border-radius: 20px;'>	
+	<div class='evo_datetimes evo_edit_field_box' style='background-color: #f5c485;background: linear-gradient(45deg, #f9d29f, #ffae5b);border-radius: 20px;' data-s='<?php echo $EVENT->get_prop('evcal_srow');?>' data-e='<?php echo $EVENT->get_prop('evcal_erow');?>' data-es="<?php echo $EVENT->get_prop('_unix_start_ev');?>" data-ee="<?php echo $EVENT->get_prop('_unix_end_ev');?>">	
 
 		<div class='evo_date_time_elem evo_start'>
 			<p class='evo_event_time_label' id='evcal_start_date_label'><?php _e('Event Start', 'eventon')?></p>
@@ -63,7 +52,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 					'unix'=> $EVENT->get_prop('evcal_srow'),
 					'type'=>'start',
 					'rand'=> $rand,
-					'time_opacity'=> ($EVENT->check_yn("evcal_allday") ? '0.5':1),
+					'time_opacity'=> ($EVENT->is_all_day() ? '0.5':1),
 				)
 			);
 			?>			
@@ -81,12 +70,12 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 					'unix'=> $EVENT->get_prop('evcal_erow'),
 					'type'=>'end',
 					'rand'=> $rand,
-					'time_opacity'=> ($EVENT->check_yn("evcal_allday") ? '0.5':1),
+					'time_opacity'=> ($EVENT->is_all_day() ? '0.5':1),
 				)
 			);
 			?>			
 		</div>
-		<div class='evo_date_time_virtual_end_row ' style='display:<?php echo $EVENT->check_yn('_evo_virtual_endtime')?'block':'none';?>'>
+		<div class='evo_date_time_virtual_end_row ' style='display:<?php echo $EVENT->check_yn('_evo_virtual_endtime')?'block':'none';?>' data-ve='<?php echo $EVENT->get_prop('_evo_virtual_erow');?>'>
 			<p class='evo_event_time_label'><?php _e('Virtual Visible Event End','eventon')?></p>
 			<?php
 
@@ -104,20 +93,28 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		</div>
 	</div>
 
-<!-- how time look on frontend -->
-<div class='evo_edit_field_box' style='padding: 5px 15px;'>
-	<p>
-<?php
-	if($EVENT->get_prop('evcal_srow')):
-		$dtime = new evo_datetime();
-		$val = $dtime->get_formatted_smart_time_piece( $EVENT->get_prop('evcal_srow'),$EVENT->get_data() );
-		echo __('Default Date/time format:','eventon').' '.$val.' / ';
-	endif;
+	<!-- Time extended type selection -->
+	<div class='evo_time_edit_extensions evo_edit_field_box' style='background-color: #f4f4f4'>
+		<p class=''><?php _e('Event Time Extended Type','eventon');?> <?php EVO()->elements->tooltips(__('Select if you want to extend this event time to longer ranges based on event start time.','eventon'),'',true);?></p>
+		<?php 
+			$time_etx_type = $EVENT->get_time_ext_type();
 
-	echo __('Website Time:') .' '. current_time( EVO()->calendar->date_format . ' '. EVO()->calendar->time_format);
-?>
-	</p>
-</div>
+			echo EVO()->elements->get_element( array(
+				'type'=>'select_row',
+				'row_class'=>'extended_values',
+				'name'=>'_time_ext_type',
+				'value'=>	$time_etx_type,
+				'options'=> array(
+					'n' => __('None','eventon'),
+					'dl' => __('Day Long','eventon'),
+					'ml' => __('Month Long','eventon'),
+					'yl' => __('Year Long','eventon'),
+				)
+			));
+		?>
+	</div>
+
+
 
 	<!-- timezone value -->	
 	<div class='evo_edit_field_box'>	
@@ -125,23 +122,25 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		<?php 
 
 		$help = new evo_helper();
-
-		// if set get default timezone
-		$default_timezone = EVO()->cal->get_prop('evo_global_tzo','evcal_1');
-		if($tz = $EVENT->get_prop('_evo_tz') ) $default_timezone = $tz;
+		
+		// calendar time
+			$DD = new DateTime();
+			$DD->setTimezone( EVO()->calendar->cal_tz );
+			$DD->modify('now');
+			$cal_time = $DD->format( EVO()->calendar->date_format . ' '. EVO()->calendar->time_format) .' ('. EVO()->calendar->cal_tz_gmt . ' '. EVO()->calendar->cal_tz_string .')';
 
 		echo EVO()->elements->process_multiple_elements( array(
 			array(
 				'type'=>'dropdown',
 				'id'=>'_evo_tz',
-				'value'=> $default_timezone,
+				'value'=> $EVENT->get_timezone_key(),
 				'name'=> __('Event Timezone','eventon'),
 				'options'=> $help->get_timezone_array( ),
 				'row_style'=>'padding-bottom:10px;',
 			),
 			array(
 				'type'=>'notice',
-				'name'=> __('NOTE: GMT offset value is set based on time right now. After event time is saved, it will be adjusted based on event start time.','eventon'),
+				'name'=> __('Calendar time: ','eventon') . $cal_time,
 				'row_class'=>'padb10',
 				'row_style'=>'padding-bottom:10px;',
 			),
@@ -155,7 +154,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		));
 		?>
 	</div>
-		
+	
 		
 	<?php
 	// date time related yes no values
@@ -187,7 +186,8 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 					'value'=> $EVENT->get_prop('evo_span_hidden_end')
 				),
 			array('type'=>'end_afterstatement',	),
-			array(
+			
+			/*array(
 				'type'=>'yesno_btn',
 				'label'=> __('Month Long Event - Show this event for the entire start event Month', 'eventon'),
 				'tooltip'=> __('This will show this event for the entire month that the event start date is set to.','eventon'), 
@@ -199,13 +199,15 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				'tooltip'=> __('This will show this event on every month of the year. The year will be based off the start date you choose above. If year long is set, month long will be overridden.','eventon'), 
 				'id'=> 'evo_year_long',
 				'value'=> $EVENT->get_prop('evo_year_long')
-			),array(
+			),
+			
+			array(
 				'type'=>'yesno_btn',
 				'label'=> __('This event is effected by day light savings time', 'eventon'),
 				'tooltip'=> __('Settings this will auto adjust the time for add to calendar event times.','eventon'), 
 				'id'=> '_edata[day_light]',
 				'value'=> $EVENT->get_eprop('day_light')
-			),
+			),*/
 			array(
 				'type'=>'yesno_btn',
 				'label'=> __('Hide live event progress bar', 'eventon'),
@@ -569,7 +571,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 							'unix'=> $EVENT->get_prop('evcal_srow'),
 							'type'=>'new_repeat_start',
 							'rand'=> $rand,
-							'time_opacity'=> ($EVENT->check_yn("evcal_allday") ? '0.5':1),
+							'time_opacity'=> ($EVENT->is_all_day() ? '0.5':1),
 						)
 					);
 					?>			
@@ -587,7 +589,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 							'unix'=> $EVENT->get_prop('evcal_erow'),
 							'type'=>'new_repeat_end',
 							'rand'=> $rand,
-							'time_opacity'=> ($EVENT->check_yn("evcal_allday") ? '0.5':1),
+							'time_opacity'=> ($EVENT->is_all_day() ? '0.5':1),
 						)
 					);
 					?>			

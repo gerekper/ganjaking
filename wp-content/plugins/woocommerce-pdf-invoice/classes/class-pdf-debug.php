@@ -6,6 +6,9 @@
 
     class WC_pdf_debug {
 
+    	private $id;
+    	private $debug;
+
         public function __construct() {
 
         	global $woocommerce;
@@ -22,7 +25,7 @@
         	// Add meta box for invoice values
 			if ( $this->debug == true ) {
 				// Add Invoice meta box
-				add_action( 'add_meta_boxes', array( $this,'invoice_meta' ), 10, 2 );
+				add_action( 'add_meta_boxes', array( $this,'invoice_meta_init' ), 10, 2 );
 				add_action( 'woocommerce_update_order', array( $this,'save_invoice_meta' ) );
 
 			}
@@ -35,14 +38,16 @@
          * @param  [type] $post      [description]
          * @return [type]            [description]
          */
-		function invoice_meta( $post_type, $post ) {
+		function invoice_meta_init( $post_type, $post ) {
 			// Get the current user
         	$current_user = wp_get_current_user();
 
         	$invoice_meta_box_allowed_user_role  = apply_filters( 'pdf_invoice_allowed_user_role_invoice_meta_box', 'administrator' );
 
-			if ( isset( $post_type ) && $post_type === 'shop_order' && get_post_meta( $post->ID, '_invoice_meta', TRUE ) && in_array($invoice_meta_box_allowed_user_role, $current_user->roles) ) {
+        	if ( in_array($invoice_meta_box_allowed_user_role, $current_user->roles) ) {
 				add_meta_box( 'woocommerce-invoice-meta', __('Invoice Meta', 'woocommerce-pdf-invoice'), array($this,'woocommerce_invoice_meta_box'), 'shop_order', 'advanced', 'low');
+
+				add_meta_box( 'woocommerce-invoice-meta', __('Invoice Meta', 'woocommerce-pdf-invoice'), array($this,'woocommerce_invoice_meta_box_hpos'), array( 'woocommerce_page_wc-orders', 'woocommerce_page_wc-orders--shop_subscription' ), 'advanced', 'low');
 			}
 		}
 		
@@ -54,17 +59,23 @@
 		function woocommerce_invoice_meta_box( $post ) {
 			global $woocommerce;
 
-			$data 							  = get_post_custom( $post->id );
+			$order 							  = wc_get_order( $post->ID );
+			$order_id 						  = $order->get_id();
+
+			$data 							  = get_post_custom( $order_id );
 			$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
-			$pdf_invoice_meta_items			  = WC_pdf_functions::clean_invoice_meta( get_post_meta( $post->ID, '_invoice_meta', TRUE ) );
+
+			$pdf_invoice_meta_items			  = WC_pdf_functions::clean_invoice_meta( $order->get_meta( '_invoice_meta', TRUE ) );
 
 			// Make sure new field wc_pdf_invoice_number does not cause a meta_update if it's empty
 			if( !isset( $pdf_invoice_meta_items['wc_pdf_invoice_number'] ) || $pdf_invoice_meta_items['wc_pdf_invoice_number'] == '' ) {
+
 				$pdf_invoice_meta_items['wc_pdf_invoice_number'] = $pdf_invoice_meta_items['invoice_number'];
 
 				// Add wc_pdf_invoice_number
-				update_post_meta( $post->ID, '_invoice_meta', $pdf_invoice_meta_items );
-				update_post_meta( $post->ID, '_wc_pdf_invoice_number', $old_pdf_invoice_meta_items['invoice_number'] );
+				WC_pdf_functions::update_order_meta_data ( '_invoice_meta', $pdf_invoice_meta_items, $order, $order_id );
+				WC_pdf_functions::update_order_meta_data ( '_wc_pdf_invoice_number', $pdf_invoice_meta_items['invoice_number'], $order, $order_id );
+
 			}
 
 ?>
@@ -83,6 +94,51 @@
 		}
 
 		/**
+		 * [woocommerce_invoice_meta_box_hpos description]
+		 * @param  [type] $post [description]
+		 * @return [type]       [description]
+		 */
+		function woocommerce_invoice_meta_box_hpos( $order ) {
+			global $woocommerce;
+
+			$order_id 						  = $order->get_id();
+
+			$data 							  = get_post_custom( $order_id );
+			$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
+			$pdf_invoice_meta_items			  = WC_pdf_functions::clean_invoice_meta( $order->get_meta( '_invoice_meta', TRUE ) );
+
+			if( is_array( $pdf_invoice_meta_items ) ) {
+
+				// Make sure new field wc_pdf_invoice_number does not cause a meta_update if it's empty
+				if( !isset( $pdf_invoice_meta_items['wc_pdf_invoice_number'] ) || $pdf_invoice_meta_items['wc_pdf_invoice_number'] == '' ) {
+
+					$pdf_invoice_meta_items['wc_pdf_invoice_number'] = $pdf_invoice_meta_items['invoice_number'];
+
+					// Add wc_pdf_invoice_number
+					WC_pdf_functions::update_order_meta_data ( '_invoice_meta', $pdf_invoice_meta_items, $order, $order_id );
+					WC_pdf_functions::update_order_meta_data ( '_wc_pdf_invoice_number', $pdf_invoice_meta_items['invoice_number'], $order, $order_id );
+
+				}
+
+?>
+				<div class="invoice_meta_group">
+					<ul>
+<?php 
+				foreach( $pdf_invoice_meta_items as $key => $value ) {
+					echo '<li><span>' . ucwords( str_replace( '_', ' ', $key) ) . ' : </span><input name="' . $key . '" type="text" value="' . $value . '" /></li>';
+				}
+?>
+					</ul>
+					<p><?php _e('Please ensure you are aware of any potential legal issues before changing this information.<br />Changing the "Invoice Number" field IS NOT RECOMMENDED, changing this could cause duplicate invoice numbers.', 'woocommerce-pdf-invoice'); ?></p>
+					<div class="clear"></div>
+				</div><?php
+
+			}
+			
+		}
+
+		/**
 		 * [save_invoice_meta description]
 		 * @param  [type] $order [description]
 		 * @return [type]        [description]
@@ -91,7 +147,7 @@
 			global $woocommerce;
 
 			if( !is_object( $order ) ) {
-				$order 	 = new WC_Order( $order );
+				$order 	 = wc_get_order( $order );
 			}
 
 			// Get the current user
@@ -100,9 +156,9 @@
         	
         	if( in_array( $save_invoice_meta_allowed_user_role, $current_user->roles ) ) {
 
-				$id                				  = $order->get_id();
+				$order_id                		  = $order->get_id();
 				$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
-				$old_pdf_invoice_meta_items		  = WC_pdf_functions::clean_invoice_meta( get_post_meta( $id, '_invoice_meta', TRUE ) );
+				$old_pdf_invoice_meta_items		  = WC_pdf_functions::clean_invoice_meta( $order->get_meta( '_invoice_meta', TRUE ) );
 				$ordernote 						  = '';
 				$new_invoice_meta 				  = array();
 
@@ -127,11 +183,11 @@
 					if( md5( json_encode($old_invoice_meta) ) !== md5( json_encode($new_invoice_meta) ) ) {
 
 						// Update the invoice_meta
-						update_post_meta( $id, '_invoice_meta', $new_invoice_meta );
+						WC_pdf_functions::update_order_meta_data ( '_invoice_meta', $new_invoice_meta, $order, $order_id );
 
 						// Update the individual invoice meta
 						foreach( $new_invoice_meta as $key => $value ) {
-							update_post_meta( $id, '_'.$key, $value );
+							WC_pdf_functions::update_order_meta_data ( '_'.$key, $value, $order, $order_id );
 						}
 
 						// Add an order note with the original infomation

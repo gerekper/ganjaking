@@ -49,8 +49,8 @@ class ThePlus_Pre_Loader extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return ['preloader' , 'pre loader', 'load' , 'animation' , 'loader'];
-	}
+        return ['Preloader', 'Loading screen', 'Page loader', 'Spinner', 'Loading animation', 'Loading icon', 'Elementor preloader', 'Elementor loading screen', 'Elementor page loader', 'Elementor spinner', 'Elementor loading animation', 'Elementor loading icon'];
+    }
 	
     protected function register_controls() {		
 		$this->start_controls_section(

@@ -136,7 +136,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * process the transaction
 		 */
 		public static function processDBTransaction($callback){
-
+			
 			global $wpdb;
 
 			try{
@@ -896,8 +896,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * get assoc list of the taxonomies
 		 */
 		public static function getTaxonomiesAssoc(){
+			
 			$arr = get_taxonomies();
-
+			
 			unset($arr["post_tag"]);
 			unset($arr["nav_menu"]);
 			unset($arr["link_category"]);
@@ -906,7 +907,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			return($arr);
 		}
 
-
+		/**
+		 * get all tax assoc
+		 */
+		public static function getAllTaxonomiesAssoc(){
+			
+			$arr = get_taxonomies();
+			
+			return($arr);
+		}
 
 		/**
 		 *
@@ -918,7 +927,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				return(self::$arrTaxCache);
 
 			$arrTax = self::getTaxonomiesAssoc();
-
+			
 			$arrTaxNew = array();
 			foreach($arrTax as $key => $value){
 
@@ -3491,8 +3500,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 		$args = array("role__not_in" => array("subscriber", "customer"));
+		
 		$arrUsers = get_users($args);
-
+		
 		$arrUsersShort = array();
 
 		$arrNames = array();

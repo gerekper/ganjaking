@@ -784,6 +784,10 @@ if ( ! class_exists( 'Anniversary_Points_Handler' ) ) {
 				return $fields;
 			}
 
+			if ('yes' != get_option('rs_enable_custom_anniversary_point')) {
+				return $fields;
+			}
+
 			if ( self::validate_single_anniversary_field_checkout_guest() ) {
 
 				$fields[ 'account' ][ 'rs_single_anniversary_date' ] = array(

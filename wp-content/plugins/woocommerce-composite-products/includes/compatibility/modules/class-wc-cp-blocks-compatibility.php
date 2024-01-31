@@ -3,7 +3,7 @@
  * WC_CP_Blocks_Compatibility class
  *
  * @author   SomewhereWarm <info@somewherewarm.com>
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    8.4.0
  */
 

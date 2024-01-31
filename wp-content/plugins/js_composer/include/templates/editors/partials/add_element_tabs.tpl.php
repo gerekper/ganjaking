@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $other_tab = false;
 
-$tabs = array(
+$tabs = isset( $is_default_tab ) ? array() : array(
 	array(
 		'name' => esc_html__( 'All', 'js_composer' ),
 		'active' => true,
@@ -33,10 +33,12 @@ foreach ( $categories as $key => $name ) {
 		$filter = '.js-category-' . md5( $name );
 	}
 
+	$is_active = isset( $is_default_tab ) && 0 === $key ? true : false;
+
 	$tabs[] = array(
 		'name' => $name,
 		'filter' => $filter,
-		'active' => false,
+		'active' => $is_active,
 	);
 }
 
@@ -48,7 +50,7 @@ $tabs = apply_filters( 'vc_add_element_categories', $tabs );
 
 ?>
 <ul class="vc_general vc_ui-tabs-line" data-vc-ui-element="panel-tabs-controls">
-	<?php foreach ( $tabs as $v ) : ?>
+	<?php foreach ( $tabs as $key => $v ) : ?>
 		<?php
 
 		$classes = array( 'vc_edit-form-tab-control' );
@@ -57,7 +59,7 @@ $tabs = apply_filters( 'vc_add_element_categories', $tabs );
 		}
 
 		?>
-		<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-vc-ui-element="panel-add-element-tab">
+		<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-vc-ui-element="panel-add-element-tab" <?php echo isset( $is_default_tab ) ? 'data-tab-index="' . esc_attr( $key ) .  '"' : '' ?>>
 			<button class="vc_ui-tabs-line-trigger vc_add-element-filter-button"
 					data-vc-ui-element="panel-tab-control"
 					data-filter="<?php echo esc_attr( $v['filter'] ); ?>">

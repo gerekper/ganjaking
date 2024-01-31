@@ -26,7 +26,7 @@ class Zapier_Notification_Integration implements Integration_Interface {
 	 *
 	 * @var string
 	 */
-	const USER_META_DISMISSED = 'is_dismissed_zapier_notice';
+	public const USER_META_DISMISSED = 'is_dismissed_zapier_notice';
 
 	/**
 	 * The capability helper.

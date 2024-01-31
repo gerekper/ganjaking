@@ -1,26 +1,26 @@
-# Copyright (C) 2023 WooCommerce
+# Copyright (C) 2024 Woo
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.15.4\n"
-"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Project-Id-Version: Woo Conditional Shipping and Payments 1.15.5\n"
+"Report-Msgid-Bugs-To: https://woo.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-17T11:53:56+00:00\n"
+"POT-Creation-Date: 2024-01-24T15:13:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-conditional-shipping-and-payments\n"
 
 #. Plugin Name of the plugin
-msgid "WooCommerce Conditional Shipping and Payments"
+msgid "Woo Conditional Shipping and Payments"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments"
+msgid "https://woo.com/products/woocommerce-conditional-shipping-and-payments"
 msgstr ""
 
 #. Description of the plugin
@@ -28,11 +28,11 @@ msgid "Exclude shipping methods, payment gateways and shipping destinations usin
 msgstr ""
 
 #. Author of the plugin
-msgid "WooCommerce"
+msgid "Woo"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://somewherewarm.com/"
+msgid "https://woo.com/"
 msgstr ""
 
 #: includes/abstracts/class-wc-csp-abstract-condition.php:189
@@ -47,7 +47,7 @@ msgstr ""
 #. translators: Used to stitch together product names
 #. translators: Used to stitch together a resolution meesage based on a restriction's active conditions
 #: includes/abstracts/class-wc-csp-abstract-condition.php:201
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:656
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:659
 msgid "%1$s, %2$s"
 msgstr ""
 
@@ -59,32 +59,32 @@ msgstr ""
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:167
-#: includes/admin/class-wc-csp-admin.php:402
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:170
+#: includes/admin/class-wc-csp-admin.php:405
 #: includes/class-wc-csp-conditions.php:320
 msgid "And"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:202
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:205
 msgid "No restrictions found. Add some now?"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:207
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:210
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:314
 msgid "Add Restriction"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:259
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:326
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:262
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:329
 msgid "Drag and drop to set order"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:321
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:324
 msgid "<span class=\"restriction_title_index_container\">#<span class=\"restriction_title_index\">%1$s</span></span> <span class=\"restriction_title_inner\">%2$s</span>"
 msgstr ""
 
 #. translators: Used to stitch together a resolution meesage based on a restriction's active conditions - last condition
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:660
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:663
 msgid "%1$s, or %2$s"
 msgstr ""
 
@@ -114,11 +114,11 @@ msgid "Database update incomplete."
 msgstr ""
 
 #: includes/admin/class-wc-csp-admin-notices.php:314
-msgid "WooCommerce Conditional Shipping and Payments Data Update"
+msgid "Woo Conditional Shipping and Payments Data Update"
 msgstr ""
 
 #: includes/admin/class-wc-csp-admin-notices.php:320
-msgid "WooCommerce Conditional Shipping and Payments data update complete."
+msgid "Woo Conditional Shipping and Payments data update complete."
 msgstr ""
 
 #. translators: %1$s: tax settings URL %2$s: product restrictions URL %3$s: global restrictions URL
@@ -128,7 +128,7 @@ msgstr ""
 
 #. translators: onboarding url
 #: includes/admin/class-wc-csp-admin-notices.php:383
-msgid "Thank you for installing <strong>WooCommerce Conditional Shipping and Payments</strong>. Ready to get started? <a href=\"%s\">Click here to create your first shipping or payment option restriction</a>."
+msgid "Thank you for installing <strong>Woo Conditional Shipping and Payments</strong>. Ready to get started? <a href=\"%s\">Click here to create your first shipping or payment option restriction</a>."
 msgstr ""
 
 #: includes/admin/class-wc-csp-admin-notices.php:418
@@ -147,58 +147,66 @@ msgstr ""
 msgid "If this message persists, please restore your database from a backup, or %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:228
+#: includes/admin/class-wc-csp-admin.php:231
 msgid "The installed version of <strong>Conditional Shipping and Payments</strong> is not compatible with the <code>selectSW</code> library found on your system. Please update Conditional Shipping and Payments to the latest version."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:302
+#: includes/admin/class-wc-csp-admin.php:305
 msgid "This rule will be permanently deleted from your system. Are you sure?"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:368
+#: includes/admin/class-wc-csp-admin.php:371
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:29
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:75
 msgid "Restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:410
+#: includes/admin/class-wc-csp-admin.php:413
 msgid "Choose restriction&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:419
+#: includes/admin/class-wc-csp-admin.php:422
 msgid "Add"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:445
+#: includes/admin/class-wc-csp-admin.php:448
 msgid "This product does not exclude any shipping or payment options."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:575
+#: includes/admin/class-wc-csp-admin.php:578
 msgid "re-enable product-level restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:576
+#: includes/admin/class-wc-csp-admin.php:579
 msgid "Product restrictions are currently disabled globally. You can still edit, create and delete rules under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect until you %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:590
+#: includes/admin/class-wc-csp-admin.php:593
 msgid "Product restrictions for <strong>Shipping Methods</strong> and <strong>Shipping Destinations</strong> do not work with <strong>Virtual</strong> products. You can still create and edit such restrictions under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect when purchasing this product."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:625
+#: includes/admin/class-wc-csp-admin.php:628
 msgid "Conditional Shipping and Payments does not collect, store or share any personal data."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:629
+#: includes/admin/class-wc-csp-admin.php:632
 msgid "However, WooCommerce collects personal data from customers which can be used by Conditional Shipping and Payments to conditionally disable specific shipping and payment options. Please keep in mind that, depending on the context, limiting the checkout options for specific customer groups may violate laws in your jurisdiction."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:677
+#: includes/admin/class-wc-csp-admin.php:680
 msgid "Filter by restriction"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:794
+#: includes/admin/class-wc-csp-admin.php:797
 msgid "Any restriction"
+msgstr ""
+
+#: includes/admin/class-wc-csp-admin.php:875
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/class-wc-csp-admin.php:876
+msgid "Support"
 msgstr ""
 
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:77
@@ -354,7 +362,7 @@ msgid "Conditional Shipping and Payments Debug Data"
 msgstr ""
 
 #: includes/class-wc-csp-debugger.php:330
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:25
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:37
 msgid "Payment Gateways"
 msgstr ""
 
@@ -403,7 +411,7 @@ msgid "Global"
 msgstr ""
 
 #: includes/compatibility/class-wc-csp-compatibility.php:217
-msgid "WooCommerce Blocks"
+msgid "Woo Blocks"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
@@ -418,7 +426,7 @@ msgid "Gift Cards"
 msgstr ""
 
 #: includes/compatibility/class-wc-csp-compatibility.php:233
-msgid "WooCommerce Gift Cards"
+msgid "Woo Gift Cards"
 msgstr ""
 
 #: includes/compatibility/class-wc-csp-compatibility.php:235
@@ -1059,7 +1067,7 @@ msgid "Rule <strong>#%1$s</strong>: Invalid e-mails found (%2$s) and removed fro
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-customer.php:433
-msgid "Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses."
+msgid "Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woo.com</code> will match all woo.com addresses."
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-date-time.php:29
@@ -1568,129 +1576,129 @@ msgstr ""
 msgid "Stock Quantity"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:26
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:38
 msgid "Restrict payment gateways conditionally."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:31
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:43
 msgid "Payment Gateway Restrictions"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:95
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:107
 msgid "Restrict the payment gateways available on the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. To create logical \"OR\" expressions with Conditions, add multiple Restrictions."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:143
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:155
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:108
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:396
 msgid "Short Description"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:146
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:158
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:111
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:399
 msgid "Optional short description for this rule&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:150
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:162
 msgid "Exclude Gateways"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:152
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:164
 msgid "Select Payment Gateways&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:164
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:176
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:426
 msgid "Show Excluded"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:170
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:182
 msgid "By default, excluded payment gateways are hidden in the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. Select this option if you prefer to show excluded gateways in the <strong>Checkout</strong> page and display a restriction notice when customers attempt to complete an order using an excluded gateway. In the <strong>Order > Pay</strong> page, excluded payment gateways will remain hidden."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:176
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:188
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:168
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:438
 msgid "Custom Notice"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:180
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:192
 msgid "Defaults to:<br/>&quot;Your order cannot be checked out via {excluded_gateway}. To complete your order, please choose a different payment method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:182
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:194
 msgid "Defaults to:<br/>&quot;{product} cannot be checked out via {excluded_gateway}. To complete your order, please choose a different payment method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:193
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:205
 msgid "Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{excluded_gateway}</code> and have it substituted by the selected payment gateway title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:195
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:207
 msgid "Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{product}</code> and <code>{excluded_gateway}</code> and have them substituted by the actual product title and the selected payment gateway title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:203
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:215
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:466
 msgid "Show Static Notices"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:209
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:221
 msgid "By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted payment method. Select this option if you also want to display a static notice under each restricted payment method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:287
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:299
 msgid "Restrict the available payment options when an order contains this product."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:340
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:352
 msgid "Payment Gateway restriction <strong>#%s</strong> has no effect: Please choose at least one payment gateway in the <strong>Exclude Gateways</strong> field."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:359
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:371
 msgid "Rule <strong>#%s</strong> has no effect: Please choose at least one payment gateway in the <strong>Exclude Gateways</strong> field."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:728
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:740
 msgid "To choose &quot;%1$s&quot;, please %2$s. Otherwise, please remove &quot;%3$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:730
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:742
 msgid "To purchase &quot;%3$s&quot; via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different payment method, or remove &quot;%3$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:738
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:750
 msgid "To complete your order, please choose a different payment method, or remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:743
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:755
 msgctxt "static notice context"
 msgid "&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:745
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:757
 msgctxt "validation notice context"
 msgid "&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:765
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:777
 msgid "To choose &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:767
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:779
 msgid "To complete your order via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different payment method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:775
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:787
 msgid "To complete your order, please choose a different payment method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:780
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:792
 msgid "This order cannot be checked out via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:782
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:794
 msgid "Your order cannot be checked out via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
@@ -1973,10 +1981,10 @@ msgstr ""
 
 #. translators: %s: WC min version
 #: woocommerce-conditional-shipping-and-payments.php:210
-msgid "WooCommerce Conditional Shipping and Payments requires at least WooCommerce <strong>%s</strong>."
+msgid "Woo Conditional Shipping and Payments requires at least WooCommerce <strong>%s</strong>."
 msgstr ""
 
 #. translators: %1$s: Version %, %2$s: Update PHP doc URL
 #: woocommerce-conditional-shipping-and-payments.php:219
-msgid "WooCommerce Conditional Shipping and Payments requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
+msgid "Woo Conditional Shipping and Payments requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""

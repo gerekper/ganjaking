@@ -30,7 +30,7 @@ if (!class_exists('PDF_Invoice_Test_Invoice')) :
 			
 			if (!$order_id) return;
 			
-			$order = new WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
 
 			// Check if the order has an invoice
 			$invoice_number_display = get_post_meta( $order_id, '_invoice_number_display', true );

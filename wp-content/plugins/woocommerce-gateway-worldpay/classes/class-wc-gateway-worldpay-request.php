@@ -236,7 +236,10 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 			$log->add( 'worldpay', print_r( $worldpay_args, TRUE ) );
 			$log->add( 'worldpay', '====================================' );
 			$log->add( 'worldpay', '' );
+
 		}
+
+
 
 		return $worldpay_args;
 

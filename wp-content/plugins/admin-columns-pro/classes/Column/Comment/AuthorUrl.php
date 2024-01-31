@@ -17,7 +17,7 @@ class AuthorUrl extends AC\Column\Comment\AuthorUrl
 
     public function sorting()
     {
-        return new Sorting\Model\OrderBy('comment_author_url');
+        return new Sorting\Model\Comment\OrderByNonUnique('comment_author_url');
     }
 
     public function editing()

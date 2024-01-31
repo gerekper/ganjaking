@@ -1,6 +1,6 @@
 /**
  * EventON elements
- * version: 4.5.1
+ * version: 4.5.6
  */
 jQuery(document).ready(function($){
 
@@ -160,13 +160,14 @@ const BB = $('body');
 
 		var init = function(){
 			scrollto_icon();
-			icon_on_focus = BB.find('.evo_icons.onfocus.'+ settings.icon_val);
+			icon_on_focus = BB.find('.evo_icons.onfocus');
 
 			// move search to header
 			el.find('.evo_icon_search_bar').appendTo( el.find('.evosp_head') );
 		}
 
 		var scrollto_icon = function(){
+			if( settings.icon_val == '' ) return;
 			const icon_in_list = el.find('li[data-v="' +settings.icon_val+ '"]');
 				icon_in_list.addClass('selected');
 			$('#evops_content').scrollTop( icon_in_list.position().top -100);
@@ -174,7 +175,7 @@ const BB = $('body');
 
 		// select an icon
 		el.on('click','li',function(){
-			icon_on_focus = BB.find('.evo_icons.onfocus.'+ settings.icon_val);
+			icon_on_focus = BB.find('.evo_icons.onfocus');
 			var icon = $(this).find('i').data('name');
 
 			el.find('li').removeClass('selected');
@@ -453,7 +454,7 @@ const BB = $('body');
         } 
     });
 
-// date time picker
+// date time picker @4.5.5
 	var RTL = $('body').hasClass('rtl');
 
 	// load date picker libs
@@ -479,6 +480,8 @@ const BB = $('body');
 
 			OBJ.addClass('dp_loaded');
 
+			const d = new Date( OBJ.val() );
+
 			OBJ.datepicker({
 				dateFormat: D.js_date_format,
 				firstDay: D.sow,
@@ -486,6 +489,7 @@ const BB = $('body');
 				altField: OBJ.siblings('input.alt_date'),
 				altFormat: OBJ.siblings('input.alt_date_format').val(),
 				isRTL: RTL,
+				setDate: d,
 				onSelect: function( selectedDate , ooo) {
 
 					//var date = new Date(ooo.selectedYear, ooo.selectedMonth, ooo.selectedDay);
@@ -504,6 +508,7 @@ const BB = $('body');
 					}
 				}
 			});
+
 
 			var id_match = ( ( OBJ_id !== undefined && OBJ_id == this_id ) || OBJ_id === undefined )
 				? true: false;

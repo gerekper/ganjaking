@@ -138,6 +138,9 @@ class WC_Box_Office {
 		// Declare compatibility with High-Performance Order Storage.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
+		// Show notice about changes in shortcode functionality in v1.2.3.
+		add_action( 'admin_init', array( $this, 'render_shortcode_changes_notice' ) );
+
 		$this->_initiated = true;
 	}
 
@@ -290,5 +293,29 @@ class WC_Box_Office {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $this->file, true );
 		}
+	}
+
+	/**
+	 * Admin notice for the changes introduced to the shortcodes in v1.2.3s.
+	 */
+	function render_shortcode_changes_notice() {
+		$notice_id    = 'wc_box_office_shortcode_change';
+		$is_dismissed = get_user_meta( get_current_user_id(), "dismissed_{$notice_id}_notice", true );
+
+		if ( $is_dismissed ) {
+			return;
+		}
+
+		$html = sprintf(
+			/* translators: %1$s - Plugin name, %2$s - Link to documentation for shortcodes. */
+			__( '<strong>%1$s 1.2.3</strong> has some changes to the functionality of the <code>[tickets]</code>, <code>[user_tickets]</code>, and <code>[order_tickets]</code> shortcodes. Please refer to <a  target="_blank" href="%2$s">this documentation</a> for more information.', 'woocommerce-box-office' ), // phpcs:ignore
+			esc_html__( 'WooCommerce Box Office', 'woocommerce-box-office' ),
+			esc_url( 'https://woo.com/document/woocommerce-box-office/#shortcodes' ),
+		);
+
+		WC_Admin_Notices::add_custom_notice(
+			$notice_id,
+			$html,
+		);
 	}
 }

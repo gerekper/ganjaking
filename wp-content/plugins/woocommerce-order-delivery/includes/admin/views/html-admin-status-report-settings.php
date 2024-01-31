@@ -76,7 +76,7 @@ $has_outdated = false;
 			<td data-export-label="Outdated Templates"><?php esc_html_e( 'Outdated templates', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?>:</td>
 			<td class="help"></td>
 			<td>
-				<mark class="error"><span class="dashicons dashicons-warning"></span></mark> <a href="https://woocommerce.com/document/fix-outdated-templates-woocommerce/" target="_blank"><?php esc_html_e( 'Learn how to update', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></a>
+				<mark class="error"><span class="dashicons dashicons-warning"></span></mark> <a href="https://woo.com/document/fix-outdated-templates-woocommerce/" target="_blank"><?php esc_html_e( 'Learn how to update', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></a>
 			</td>
 		</tr>
 		<?php endif; ?>

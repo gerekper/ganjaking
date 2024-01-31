@@ -2,7 +2,7 @@
 /**
  * WC_CSP_Condition_Cart_Item_Count
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  * @since    1.10.0
  */
 

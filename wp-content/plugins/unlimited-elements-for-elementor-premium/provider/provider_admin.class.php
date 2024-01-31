@@ -4,7 +4,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteProviderAdminUC extends UniteCreatorAdmin{
 
-	private $dbVersion = "4";    //used for upgrade db on plugin update
+	private $dbVersion = "5";    //used for upgrade db on plugin update
 	private static $arrMenuPages = array();
 	private static $arrSubMenuPages = array();
 	protected $capability = "manage_options";
@@ -191,6 +191,7 @@ class UniteProviderAdminUC extends UniteCreatorAdmin{
 				$sql = "CREATE TABLE " . $tableRealName . " (
 					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 					addon_id BIGINT(20) UNSIGNED NOT NULL,
+					addon_title VARCHAR(255) NOT NULL,
 					user_id BIGINT(20) UNSIGNED NULL,
 					type VARCHAR(32) NOT NULL,
 					text TEXT NOT NULL,

@@ -297,7 +297,8 @@ function init_reward_gateway_class() {
 			return $gateways;
 		}
 
-		$PointsData = new RS_Points_Data( get_current_user_id() );
+		$user_id = get_current_user_id();
+		$PointsData = new RS_Points_Data( $user_id );
 		if ( empty( $PointsData->total_available_points() ) ) {
 			foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
 				if ( 'reward_gateway' != $gateway->id ) {
@@ -306,6 +307,10 @@ function init_reward_gateway_class() {
 
 				unset( $gateways[ $gateway->id ] );
 			}
+		}
+
+		if ('yes' === get_option('rs_hide_reward_gateway_when_points_redeemed') && RSPointExpiry::validate_redeeming_is_applied()) {
+			unset( $gateways[ 'reward_gateway' ] );
 		}
 
 		$get_items = WC()->cart->cart_contents;

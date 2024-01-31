@@ -1,5 +1,7 @@
 <?php
-$load_review = a2w_get_setting('load_review');
+use function Ali2Woo\get_setting;
+
+$load_review = get_setting('load_review');
 ?>
 <form method="post" enctype='multipart/form-data'>
     <input type="hidden" name="setting_form" value="1"/>
@@ -30,7 +32,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Import more reviews periodically if they are on AliExpress', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control" id="a2w_review_status" name="a2w_review_status" value="yes" <?php if (a2w_get_setting('review_status')): ?>checked<?php endif; ?>/>
+                    <input type="checkbox" class="field__input form-control" id="a2w_review_status" name="a2w_review_status" value="yes" <?php if (get_setting('review_status')): ?>checked<?php endif; ?>/>
                 </div>
             </div>
             
@@ -43,7 +45,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('It tries to import translated version of reviews from AliExpress using the language you choose in the plugin settings.', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control" id="a2w_review_translated" name="a2w_review_translated" value="yes" <?php if (a2w_get_setting('review_translated')): ?>checked<?php endif; ?>/>
+                    <input type="checkbox" class="field__input form-control" id="a2w_review_translated" name="a2w_review_translated" value="yes" <?php if (get_setting('review_translated')): ?>checked<?php endif; ?>/>
                 </div>
 
             </div>
@@ -58,7 +60,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('It tries to import the buyer profile photo from AliExpress.', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control" id="a2w_review_avatar_import" name="a2w_review_avatar_import" value="yes" <?php if (a2w_get_setting('review_avatar_import')): ?>checked<?php endif; ?>/>
+                    <input type="checkbox" class="field__input form-control" id="a2w_review_avatar_import" name="a2w_review_avatar_import" value="yes" <?php if (get_setting('review_avatar_import')): ?>checked<?php endif; ?>/>
                 </div>
 
             </div>
@@ -74,7 +76,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="form-group input-block no-margin">
                         <div class="input-group">
                             <span class="input-group__input input-group__input_addon" id="basic-addon3"><?php esc_html_e('From', 'ali2woo'); ?></span>
-                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon3" id="a2w_review_min_per_product" name="a2w_review_min_per_product" value="<?php echo a2w_get_setting('review_min_per_product', a2w_get_setting('review_max_per_product') ); ?>">
+                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon3" id="a2w_review_min_per_product" name="a2w_review_min_per_product" value="<?php echo get_setting('review_min_per_product', get_setting('review_max_per_product') ); ?>">
                         </div>
 
                     </div>
@@ -84,7 +86,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="form-group input-block no-margin">
                         <div class="input-group">
                             <span class="input-group__input input-group__input_addon" id="basic-addon4"><?php esc_html_e('To', 'ali2woo'); ?></span>
-                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon4" id="a2w_review_max_per_product" name="a2w_review_max_per_product" value="<?php echo a2w_get_setting('review_max_per_product'); ?>" >
+                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon4" id="a2w_review_max_per_product" name="a2w_review_max_per_product" value="<?php echo get_setting('review_max_per_product'); ?>" >
                         </div>
                     </div>
                 </div>
@@ -101,7 +103,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="form-group input-block no-margin">
                         <div class="input-group">
                             <span class="input-group__input input-group__input_addon" id="basic-addon1"><?php esc_html_e('From', 'ali2woo'); ?></span>
-                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon1" id="a2w_review_raiting_from" name="a2w_review_raiting_from" value="<?php echo a2w_get_setting('review_raiting_from'); ?>">
+                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon1" id="a2w_review_raiting_from" name="a2w_review_raiting_from" value="<?php echo get_setting('review_raiting_from'); ?>">
                         </div>
 
                     </div>
@@ -111,7 +113,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="form-group input-block no-margin">
                         <div class="input-group">
                             <span class="input-group__input input-group__input_addon" id="basic-addon2"><?php esc_html_e('To', 'ali2woo'); ?></span>
-                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon2" id="a2w_review_raiting_to" name="a2w_review_raiting_to" value="<?php echo a2w_get_setting('review_raiting_to'); ?>" >
+                            <input type="text" class="input-group__input form-control small-input" aria-describedby="basic-addon2" id="a2w_review_raiting_to" name="a2w_review_raiting_to" value="<?php echo get_setting('review_raiting_to'); ?>" >
                         </div>
                     </div>
                 </div>
@@ -126,7 +128,7 @@ $load_review = a2w_get_setting('load_review');
                 </div>
                 <div class="field__input-wrap">
                     <?php
-                    $cur_a2w_review_noavatar_photo = a2w_get_setting('review_noavatar_photo', A2W()->plugin_url() . '/assets/img/noavatar.png');
+                    $cur_a2w_review_noavatar_photo = get_setting('review_noavatar_photo', A2W()->plugin_url() . '/assets/img/noavatar.png');
                     ?>
                     <?php /* <div href="#" class="thumbnail"> */ ?>
                     <img style="height: 80px; width: 80px; display: block;" src="<?php echo $cur_a2w_review_noavatar_photo ?>"/>
@@ -147,12 +149,12 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Import Review Attributes from Aliexpress', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control small-input" id="a2w_review_load_attributes" name="a2w_review_load_attributes" <?php if (a2w_get_setting('review_load_attributes')): ?>value="yes" checked<?php endif; ?> />
+                    <input type="checkbox" class="field__input form-control small-input" id="a2w_review_load_attributes" name="a2w_review_load_attributes" <?php if (get_setting('review_load_attributes')): ?>value="yes" checked<?php endif; ?> />
                 </div>
 
             </div>
 
-            <?php $import_review_images = a2w_get_setting('review_show_image_list'); ?>
+            <?php $import_review_images = get_setting('review_show_image_list'); ?>
             <div class="field field_inline review_option" <?php if (!$load_review): ?>style="display: none;"<?php endif; ?>>
                 <div class="field__label">
                     <label>
@@ -173,7 +175,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Set image thumbnail width (in pixels), height is calculated proportionally.', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="text" class="field__input form-control small-input" id="a2w_review_thumb_width" name="a2w_review_thumb_width" value="<?php echo esc_attr(a2w_get_setting('review_thumb_width')); ?>"/>
+                    <input type="text" class="field__input form-control small-input" id="a2w_review_thumb_width" name="a2w_review_thumb_width" value="<?php echo esc_attr(get_setting('review_thumb_width')); ?>"/>
                 </div>
 
             </div>
@@ -186,7 +188,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Input keywords separated by comma. The plugin will not import reviews which contain such keywords. Please note: the keywords search is not case sensitive!', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                        <textarea placeholder="<?php  esc_html_e('comma separated keywords', 'ali2woo'); ?>" maxlength="1000" rows="5" class="field__input form-control" id="a2w_review_skip_keywords" name="a2w_review_skip_keywords" cols="50"><?php echo esc_attr(a2w_get_setting('review_skip_keywords')); ?></textarea>
+                        <textarea placeholder="<?php  esc_html_e('comma separated keywords', 'ali2woo'); ?>" maxlength="1000" rows="5" class="field__input form-control" id="a2w_review_skip_keywords" name="a2w_review_skip_keywords" cols="50"><?php echo esc_attr(get_setting('review_skip_keywords')); ?></textarea>
                 </div>
 
             </div>
@@ -199,7 +201,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("Some users don't leave any text in their reviews. The plugin will not import such reviews.", 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control small-input" id="a2w_review_skip_empty" name="a2w_review_skip_empty" <?php if (a2w_get_setting('review_skip_empty')): ?>value="1" checked<?php endif; ?>  />
+                    <input type="checkbox" class="field__input form-control small-input" id="a2w_review_skip_empty" name="a2w_review_skip_empty" <?php if (get_setting('review_skip_empty')): ?>value="1" checked<?php endif; ?>  />
                 </div>
             </div>
 
@@ -211,7 +213,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php  echo esc_html_x("You can import reviews from all or particular countries. Before importing reviews choose necessary countries or keep the field empty to allow all countries.", 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                        <?php $cur_country_array =  a2w_get_setting('review_country'); ?>
+                        <?php $cur_country_array =  get_setting('review_country'); ?>
                         <select name="a2w_review_country[]" id="a2w_review_country" class="field__input form-control large-input" multiple="multiple">
                             <?php foreach ($reviews_countries as $code => $country): ?>
                                 <option value="<?php echo $code; ?>"<?php if (in_array($code, $cur_country_array )): ?> selected<?php endif;?>>
@@ -231,7 +233,7 @@ $load_review = a2w_get_setting('load_review');
                     <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("Use this option if you want to edit reviews before publishing. They will be saved in 'Comments' after import.", 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="checkbox" class="field__input form-control small-input" id="a2w_moderation_reviews" name="a2w_moderation_reviews" <?php if (a2w_get_setting('moderation_reviews')): ?>value="1" checked<?php endif; ?>  />
+                    <input type="checkbox" class="field__input form-control small-input" id="a2w_moderation_reviews" name="a2w_moderation_reviews" <?php if (get_setting('moderation_reviews')): ?>value="1" checked<?php endif; ?>  />
                 </div>
             </div>
 

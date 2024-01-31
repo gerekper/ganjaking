@@ -163,7 +163,7 @@ class WC_OD_Admin_Notices {
 
 		foreach ( $notices as $name ) {
 			$file = str_replace( '_', '-', $name );
-			$path = dirname( __FILE__ ) . "/notices/{$file}.php";
+			$path = __DIR__ . "/notices/{$file}.php";
 
 			if ( is_readable( $path ) ) {
 				include $path;

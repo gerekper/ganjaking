@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: WooCommerce Product Vendors
- * Version: 2.2.3
+ * Version: 2.2.5
  * Plugin URI: https://woocommerce.com/products/product-vendors/
  * Description: Set up a multi-vendor marketplace that allows vendors to manage their own products and earn commissions. Run stores similar to Amazon or Etsy.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Requires at least: 6.1
- * Requires PHP: 7.3
- * Tested up to: 6.3
- * WC requires at least: 7.8
- * WC tested up to: 8.0
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ * Tested up to: 6.4
+ * WC requires at least: 8.2
+ * WC tested up to: 8.4
  * Text Domain: woocommerce-product-vendors
  * Domain Path: /languages
  *
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WC_Product_Vendors' ) ) {
-	define( 'WC_PRODUCT_VENDORS_VERSION', '2.2.3' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCT_VENDORS_VERSION', '2.2.5' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main class.
@@ -225,7 +225,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 				return;
 			}
 
-			if ( ! function_exists( 'phpversion' ) ||  version_compare( phpversion(), '7.3', '<' ) ) {
+			if ( ! function_exists( 'phpversion' ) ||  version_compare( phpversion(), '7.4', '<' ) ) {
 				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 				return;
 			}
@@ -275,7 +275,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 		 * @return string
 		 */
 		public function php_version_notice() {
-			echo '<div class="error"><p>' . wp_kses( sprintf( __( 'WooCommerce Product Vendors requires PHP 7.3 and above. <a href="%s">How to update your PHP version</a>', 'woocommerce' ), 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' ), array(
+			echo '<div class="error"><p>' . wp_kses( sprintf( __( 'WooCommerce Product Vendors requires PHP 7.4 and above. <a href="%s">How to update your PHP version</a>', 'woocommerce' ), 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' ), array(
 				'a' => array(
 					'href'  => array(),
 					'title' => array(),

@@ -91,6 +91,14 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 					'description' => __( 'Value of the coupon. Default: regular price.', 'woocommerce-store-credit' ),
 					'value'       => ( isset( $values['amount'] ) ? $values['amount'] : '' ),
 				),
+				'preset_amounts'      => array(
+					'id'          => '_store_credit_preset_amounts',
+					'label'       => __( 'Preset amounts', 'woocommerce-store-credit' ) . " ({$currency_symbol})",
+					'type'        => 'text',
+					'desc_tip'    => true,
+					'description' => __( 'List of predefined credit amounts. Use "|" to separate the different amounts. For example: 10 | 20 | 30.', 'woocommerce-store-credit' ),
+					'value'       => ( isset( $values['preset_amounts'] ) ? $values['preset_amounts'] : '' ),
+				),
 				'allow_custom_amount' => array(
 					'id'          => '_store_credit_allow_custom_amount',
 					'label'       => __( 'Custom amount', 'woocommerce-store-credit' ),

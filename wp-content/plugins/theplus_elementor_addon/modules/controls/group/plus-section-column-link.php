@@ -82,8 +82,8 @@ class Theplus_Section_Column_Link extends Elementor\Widget_Base {
 		
 		if( !empty($linkSwitch) && !empty($WrapperLink) ){
 			$element->add_render_attribute( '_wrapper', array(
-				'data-tp-sc-link' => $WrapperLink,
-				'data-tp-sc-link-external' => $WrapperExternal,
+				'data-tp-sc-link' => esc_url( $WrapperLink ),
+				'data-tp-sc-link-external' => esc_attr( $WrapperExternal ),
 				'style' => 'cursor: pointer'
 			) );
 		}

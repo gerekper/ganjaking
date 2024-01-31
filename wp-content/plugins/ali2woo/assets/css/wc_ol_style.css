@@ -334,6 +334,16 @@
     z-index: 10000;
 }
 
+.post-type-shop_order .modal-shipping{
+    z-index: 10001;
+}
+
+.post-type-shop_order .modal-shipping .country-select-to{
+    display: none;
+}
+
+
+
 .modal-overlay.modal-fulfillment .modal-body {
     min-height: 140px;
 }
@@ -422,10 +432,29 @@
     width: 60px;
 }
 
+.fulfillment-order-items .shipping_company{
+    white-space: nowrap;
+}
+
 .fulfillment-order-items .shipping_company select{
     max-width: 280px;
 }
 
+.fulfillment-order-items .reload-companies{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(../img/icons/reload.png) center center no-repeat;
+    background-size: 60% 60%;
+    vertical-align: middle;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.fulfillment-order-items .reload-companies:hover{
+    opacity: 1;
+}
 
 
 
@@ -473,8 +502,32 @@
     display: inline-block;
     margin: 4px 0;
 }
+.modal-fulfillment .order-edit-address-form .form-field.hidden {
+    display: none;
+}
 .modal-fulfillment .order-edit-address-form .form-field label {
-    display:block;
+    display: inline-block;
+}
+
+.modal-fulfillment .order-edit-address-form .woocommerce-help-tip:before {
+    content: attr(data-tip);
+    position: absolute;
+    z-index: 10;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    width: 180px;
+    font-size: 11px;
+    left: 100%;
+    bottom: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.2s opacity;
+}
+
+.modal-fulfillment .order-edit-address-form .woocommerce-help-tip:hover:before{
+    opacity: 1;
 }
 
 .a2w-content .modal-fulfillment .btn-success .btn-icon-wrap{display: none;}

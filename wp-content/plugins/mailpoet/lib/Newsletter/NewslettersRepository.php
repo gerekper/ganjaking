@@ -371,7 +371,15 @@ class NewslettersRepository extends Repository {
     $childrenIds = $this->fetchChildrenIds($ids);
     $ids = array_merge($ids, $childrenIds);
 
-    $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids) {
+    $isRelatedNewsletterToBeDeleted = function($entity) use ($ids): bool {
+      if (is_string($entity) || !method_exists($entity, 'getNewsletter')) {
+        return false;
+      }
+      $newsletter = $entity->getNewsletter();
+      $newsletterId = $newsletter ? $newsletter->getId() : null;
+      return in_array($newsletterId, $ids, true);
+    };
+    $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids, $isRelatedNewsletterToBeDeleted) {
       // Delete statistics data
       $newsletterStatisticsTable = $entityManager->getClassMetadata(StatisticsNewsletterEntity::class)->getTableName();
       $entityManager->getConnection()->executeStatement("
@@ -471,10 +479,10 @@ class NewslettersRepository extends Repository {
 
       // Fetch WP Posts IDs and delete them
       /** @var int[] $wpPostsIds */
-      $wpPostsIds = $entityManager->createQueryBuilder()->select('n.wpPostId')
+      $wpPostsIds = $entityManager->createQueryBuilder()->select('wpp.id')
         ->from(NewsletterEntity::class, 'n')
+        ->join('n.wpPost', 'wpp')
         ->where('n.id IN (:ids)')
-        ->andWhere('n.wpPostId IS NOT NULL')
         ->setParameter('ids', $ids)
         ->getQuery()->getSingleColumnResult();
       foreach ($wpPostsIds as $wpPostId) {
@@ -487,6 +495,27 @@ class NewslettersRepository extends Repository {
         ->where('n.id IN (:ids)')
         ->setParameter('ids', $ids)
         ->getQuery()->execute();
+
+
+      $entityTypesToBeDetached = [
+        StatisticsNewsletterEntity::class,
+        StatisticsOpenEntity::class,
+        StatisticsClickEntity::class,
+        NewsletterPostEntity::class,
+        NewsletterOptionEntity::class,
+        NewsletterLinkEntity::class,
+        StatsNotificationEntity::class,
+        SendingQueueEntity::class,
+        ScheduledTaskSubscriberEntity::class,
+        NewsletterSegmentEntity::class,
+      ];
+      foreach ($entityTypesToBeDetached as $entityType) {
+        $this->detachEntitiesOfType($entityType, $isRelatedNewsletterToBeDeleted);
+      }
+
+      $this->detachEntitiesOfType(ScheduledTaskEntity::class, function($entity) use ($taskIds): bool {
+        return !is_string($entity) && method_exists($entity, 'getId') && in_array($entity->getId(), $taskIds, true);
+      });
     });
     return count($ids);
   }
@@ -518,9 +547,10 @@ class NewslettersRepository extends Repository {
    */
   public function getStandardNewsletterList(): array {
     return $this->entityManager->createQueryBuilder()
-      ->select('PARTIAL n.{id,subject,sentAt}')
+      ->select('PARTIAL n.{id,subject,sentAt}, PARTIAL wpPost.{id, postTitle}')
       ->addSelect('CASE WHEN n.sentAt IS NULL THEN 1 ELSE 0 END as HIDDEN sent_at_is_null')
       ->from(NewsletterEntity::class, 'n')
+      ->leftJoin('n.wpPost', 'wpPost')
       ->where('n.type = :typeStandard')
       ->andWhere('n.deletedAt IS NULL')
       ->orderBy('sent_at_is_null', 'DESC')

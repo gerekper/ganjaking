@@ -17,6 +17,7 @@ use SearchWP\Admin\Views\ImportExportView;
 use SearchWP\Admin\Views\MiscSettingsView;
 use SearchWP\Admin\Views\ResultsPageView;
 use SearchWP\Admin\Views\SystemInfoView;
+use SearchWP\License;
 use SearchWP\Utils;
 use SearchWP\Settings;
 use SearchWP\Statistics;
@@ -24,6 +25,9 @@ use SearchWP\Admin\Views\SearchFormsView;
 use SearchWP\Admin\Views\EnginesView;
 use SearchWP\Admin\Views\StatisticsView;
 use SearchWP\Admin\Views\ExtensionsView;
+use SearchWP\Admin\Extensions\CustomResultsOrderPreview;
+use SearchWP\Admin\Extensions\RedirectsPreview;
+use SearchWP\Admin\Extensions\RelatedPreview;
 
 /**
  * Class OptionsView is responsible for implementing the options screen into the WordPress Admin area.
@@ -76,6 +80,7 @@ class OptionsView {
 
 		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'assets' ] );
 		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'legacy_extensions_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'admin_menu_assets' ] );
 
 		add_action( 'admin_menu', [ __CLASS__, 'add_admin_menus' ] );
 		add_action( 'admin_menu', [ __CLASS__, 'add_dashboard_stats_link' ] );
@@ -112,6 +117,14 @@ class OptionsView {
 		// TODO: Extension handling can (should) be its own class.
 		$this->init_extensions();
 
+		if ( ! is_plugin_active( 'searchwp-redirects/searchwp-redirects.php' ) ) {
+			new RedirectsPreview();
+		}
+
+		if ( ! is_plugin_active( 'searchwp-related/searchwp-related.php' ) ) {
+			new RelatedPreview();
+		}
+
         new MiscSettingsView();
 
         new ResultsPageView();
@@ -122,6 +135,11 @@ class OptionsView {
 		}
 
 		( new ExtensionsView() )->init();
+
+		if ( ! is_plugin_active( 'searchwp-custom-results-order/searchwp-custom-results-order.php' ) ) {
+			new CustomResultsOrderPreview();
+		}
+
 		new GlobalRulesView();
 
         new SystemInfoView();
@@ -173,12 +191,10 @@ class OptionsView {
 
 		wp_enqueue_style(
 			self::$slug . '_admin_settings',
-			SEARCHWP_PLUGIN_URL . 'assets/styles/admin/settings.css',
+			SEARCHWP_PLUGIN_URL . 'assets/css/admin/settings.css',
 			[],
 			SEARCHWP_VERSION
 		);
-
-		wp_enqueue_script( 'jquery' );
 	}
 
 	/**
@@ -188,25 +204,27 @@ class OptionsView {
 	 */
     private static function register_framework_styles() {
 
-	    $styles = [
-	        'buttons',
-	        'card',
-	        'choicesjs',
-	        'collapse-layout',
-		    'color-picker',
-	        'colors',
-	        'draggable',
-	        'header',
-	        'input',
-	        'layout',
-	        'modal',
-	        'nav-menu',
-	        'pills',
+		$styles = [
+			'buttons',
+			'card',
+			'choicesjs',
+			'collapse-layout',
+			'color-picker',
+			'colors',
+			'content-header',
+			'draggable',
+			'header',
+			'input',
+			'layout',
+			'license-banner',
+			'modal',
+			'nav-menu',
+			'pills',
 			'radio-img',
-	        'toggle-switch',
-	        'tooltip',
-	        'upload-file',
-        ];
+			'toggle-switch',
+			'tooltip',
+			'upload-file',
+		];
 
 	    foreach ( $styles as $style ) {
 		    wp_register_style(
@@ -254,20 +272,15 @@ class OptionsView {
 	private static function enqueue_framework_styles() {
 
 		wp_enqueue_style(
-			self::$slug . 'page-header',
-			SEARCHWP_PLUGIN_URL . 'assets/css/admin/framework/page-header.css',
-			[],
-			SEARCHWP_VERSION
-		);
-
-		wp_enqueue_style(
 			self::$slug . 'style',
 			SEARCHWP_PLUGIN_URL . 'assets/css/admin/framework/style.css',
 			[
 				self::$slug . 'colors',
+				self::$slug . 'content-header',
 				self::$slug . 'header',
 				self::$slug . 'nav-menu',
 				self::$slug . 'layout',
+				self::$slug . 'license-banner',
 				self::$slug . 'buttons',
             ],
 			SEARCHWP_VERSION
@@ -292,6 +305,37 @@ class OptionsView {
 		if ( Utils::is_swp_admin_page( '', 'extensions' ) ) {
 			do_action( 'admin_enqueue_scripts', 'settings_page_searchwp' );
 		}
+	}
+
+	/**
+	 * Enqueue admin menu styles and scripts.
+	 *
+	 * @since 4.3.10
+	 */
+	public static function admin_menu_assets() {
+
+		if ( ! apply_filters( 'searchwp\options\settings_screen', true ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( Settings::get_capability() ) ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			self::$slug . '_admin_menu',
+			SEARCHWP_PLUGIN_URL . 'assets/js/admin/panels/menu.js',
+			[ 'jquery' ],
+			SEARCHWP_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+			self::$slug . '_admin_menu',
+			SEARCHWP_PLUGIN_URL . 'assets/css/admin/panels/menu.css',
+			[],
+			SEARCHWP_VERSION
+		);
 	}
 
 	/**
@@ -321,7 +365,7 @@ class OptionsView {
 			Settings::get_capability(),
 			$menu_page['menu_slug'],
 			[ __CLASS__, 'page' ],
-			'data:image/svg+xml;base64,' . base64_encode( self::get_dashicon() ),
+			'data:image/svg+xml;base64,' . base64_encode( self::get_dashicon() ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			apply_filters( 'searchwp\admin_menu\position', '58.95' )
 		);
 
@@ -335,6 +379,8 @@ class OptionsView {
 		        $submenu_page['function'] ?? [ __CLASS__, 'page' ]
 	        );
         }
+
+		self::add_admin_menu_css_classes();
 	}
 
 	/**
@@ -344,7 +390,7 @@ class OptionsView {
 	 */
 	private static function get_dashicon() {
 
-		return '<svg width="50" height="61" fill="#f0f0f1" xmlns="http://www.w3.org/2000/svg">
+		return '<svg viewBox="0 0 50 61" fill="#f0f0f1" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M9.57 13.259c-.959 0-1.782.68-1.946 1.625-.527 3.033-1.59 9.715-1.702 14.875-.114 5.288 1.134 13.417 1.712 16.864.16.952.984 1.636 1.95 1.636h30.683c.959 0 1.78-.675 1.945-1.619.584-3.339 1.823-11.12 1.71-16.381-.112-5.195-1.194-12.217-1.72-15.36a1.969 1.969 0 0 0-1.95-1.64zm2.728 5a.99.99 0 0 0-.986.873c-.237 2.012-.797 7.111-.89 11.127-.096 4.116.94 10.066 1.34 12.2.089.468.497.8.972.8h24.368a.983.983 0 0 0 .972-.799c.403-2.133 1.443-8.084 1.348-12.201-.094-4.016-.658-9.117-.897-11.128a.99.99 0 0 0-.987-.872z"/>
                   <path d="M34.564 36.765c.55-3.195.858-6.711.858-10.408a65.76 65.76 0 0 0-.09-3.416l-8.852 6.777zM24.92 31.013l-9.2 8.017a41.23 41.23 0 0 0 1.272 4.579c.978 2.835 2.141 3.732 3.34 4.021.636.154 1.327.149 2.105.096.215-.015.439-.034.668-.053.58-.048 1.198-.1 1.817-.1s1.237.052 1.816.1c.23.019.454.038.668.053.778.053 1.47.058 2.106-.096 1.198-.29 2.361-1.186 3.34-4.021.484-1.406.91-2.94 1.269-4.577zM23.363 29.716l-8.851-6.777c-.059 1.119-.09 2.259-.09 3.418 0 3.696.305 7.212.855 10.406zM31.53 11.759c-.405.004-.814.04-1.194.082l-.44.05c-.323.04-.623.076-.834.083a54.57 54.57 0 0 0-3.566.22l-.121.012a5.617 5.617 0 0 1-.453.031 1.34 1.34 0 0 1-.317-.05l-.213-.057-.117-.033a9.308 9.308 0 0 0-.97-.215c-.796-.13-1.91-.192-3.329.084-.312.06-.743.04-1.136.023l-.037-.002h-.008c-.434-.018-.886-.038-1.317-.005-.436.032-.8.117-1.072.273-.25.145-.438.36-.525.728-.548 2.32-.954 4.87-1.198 7.569l10.24 7.838 10.237-7.838c-.244-2.7-.65-5.248-1.197-7.569a1.311 1.311 0 0 0-.678-.902c-.351-.193-.818-.288-1.353-.314a6.888 6.888 0 0 0-.403-.008z"/>
                   <path d="M15.732 43.242h18.38a1.5 1.5 0 0 1 1.492 1.35l.6 6a1.5 1.5 0 0 1-1.492 1.65h-19.58a1.5 1.5 0 0 1-1.493-1.65l.6-6a1.5 1.5 0 0 1 1.493-1.35z"/>
@@ -407,7 +453,24 @@ class OptionsView {
 		    ],
 	    ];
 
+		if ( License::get_type() === 'standard' ) {
+			$submenu_pages['upgrade-to-pro'] = [
+				'menu_title' => esc_html__( 'Upgrade to Pro', 'searchwp' ),
+				'menu_slug'  => esc_url( 'https://searchwp.com/account/downloads/?utm_source=WordPress&utm_medium=Admin+Menu+Upgrade+Link&utm_campaign=SearchWP&utm_content=Upgrade+to+Pro' ),
+				'position'   => 999,
+				'function'   => '',
+			];
+		}
+
 	    $submenu_pages = (array) apply_filters( 'searchwp\options\submenu_pages', $submenu_pages );
+
+		if ( ! License::is_active() ) {
+			$submenu_pages['add-license-key'] = [
+				'menu_title' => esc_html__( 'Add License Key', 'searchwp' ),
+				'menu_slug'  => 'searchwp-add-license-key',
+				'position'   => 99999,
+			];
+		}
 
         return wp_list_sort( $submenu_pages, 'position', 'ASC', true );
     }
@@ -547,8 +610,98 @@ class OptionsView {
 			Settings::get_capability(),
 			self::$slug,
 			$callback,
-			'data:image/svg+xml;base64,' . base64_encode( self::get_dashicon() )
+			'data:image/svg+xml;base64,' . base64_encode( self::get_dashicon() ) // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		);
+	}
+
+	/**
+	 * Add CSS classes to SearchWP admin submenu items.
+	 *
+	 * @since 4.3.10
+	 */
+	private static function add_admin_menu_css_classes() {
+
+		global $submenu;
+
+		$submenus         = self::get_submenu_pages_args();
+		$top_submenu      = reset( $submenus );
+		$top_submenu_slug = ! empty( $top_submenu['menu_slug'] ) ? $top_submenu['menu_slug'] : '';
+
+		if ( empty( $top_submenu_slug ) ) {
+			return;
+		}
+
+		$menu_slug = '';
+
+		if ( isset( $submenu[ $top_submenu_slug ] ) ) {
+			$menu_slug = $top_submenu_slug;
+		}
+
+		$notifications_slug = $top_submenu_slug . '#notifications';
+		if ( isset( $submenu[ $notifications_slug ] ) ) {
+			$menu_slug = $notifications_slug;
+		}
+
+		if ( empty( $menu_slug ) ) {
+			return;
+		}
+
+		$menu_keys     = array_keys( $submenu[ $menu_slug ] );
+		$last_menu_key = array_pop( $menu_keys );
+
+		// Submenu item keys:
+		// 0 = menu_title, 1 = capability, 2 = menu_slug, 3 = page_title, 4 = classes.
+
+		if ( $submenu[ $menu_slug ][ $last_menu_key ][2] === 'searchwp-add-license-key' ) {
+			self::add_admin_menu_css_classes__add_license_key( $submenu[ $menu_slug ][ $last_menu_key ] );
+		}
+
+		if ( strpos( $submenu[ $menu_slug ][ $last_menu_key ][2], 'https://searchwp.com/' ) === 0 ) {
+			self::add_admin_menu_css_classes__upgrade_to_pro( $submenu[ $menu_slug ][ $last_menu_key ] );
+		}
+	}
+
+	/**
+	 * Add CSS classes to SearchWP "Add License Key" admin submenu item.
+	 *
+	 * @since 4.3.10
+	 *
+	 * @param array $submenu_item SearchWP "Add License Key" submenu item.
+	 */
+	private static function add_admin_menu_css_classes__add_license_key( &$submenu_item ) {
+
+		// Submenu item keys:
+		// 0 = menu_title, 1 = capability, 2 = menu_slug, 3 = page_title, 4 = classes.
+
+		// Modify the submenu item destination page.
+		$submenu_item[2] = 'searchwp-settings';
+
+		// Add/modify the submenu item CSS classes.
+		if ( isset( $submenu_item[4] ) ) {
+			$submenu_item[4] .= ' searchwp-sidebar-add-license-key';
+		} else {
+			$submenu_item[] = 'searchwp-sidebar-add-license-key';
+		}
+	}
+
+	/**
+	 * Add CSS classes to SearchWP "Upgrade to Pro" admin submenu item.
+	 *
+	 * @since 4.3.10
+	 *
+	 * @param array $submenu_item SearchWP "Upgrade to Pro" submenu item.
+	 */
+	private static function add_admin_menu_css_classes__upgrade_to_pro( &$submenu_item ) {
+
+		// Submenu item keys:
+		// 0 = menu_title, 1 = capability, 2 = menu_slug, 3 = page_title, 4 = classes.
+
+		// Add/modify the submenu item CSS classes.
+		if ( isset( $submenu_item[4] ) ) {
+			$submenu_item[4] .= ' searchwp-sidebar-upgrade-to-pro';
+		} else {
+			$submenu_item[] = 'searchwp-sidebar-upgrade-to-pro';
+		}
 	}
 
 	/**
@@ -570,6 +723,34 @@ class OptionsView {
 	}
 
 	/**
+	 * Display a notification bar if the license is not active.
+	 *
+	 * @since 4.3.10
+	 */
+	private static function license_activation_bar() {
+
+		?>
+		<div class="searchwp-license-key-bar">
+			<div class="upgrade-text">
+				<div class="searchwp-license-key-bar-logo">
+					<?php echo self::get_dashicon(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				</div>
+				<div>
+					<?php
+						echo wp_kses_post(
+							sprintf(
+								"You're using <strong>SearchWP Pro</strong> but no license key has been entered. Add your <strong>%s</strong>.",
+								'<a href=' . esc_url( admin_url( 'admin.php?page=searchwp-settings' ) ) . '>' . __( 'license key now', 'searchwp' ) . '</a>'
+							)
+						);
+					?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Output the SearchWP admin header.
 	 *
 	 * @since 4.2.0
@@ -583,6 +764,10 @@ class OptionsView {
 
 		if ( ! apply_filters( 'searchwp\settings\header', true ) ) {
 			return;
+		}
+
+		if ( ! License::is_active() ) {
+			self::license_activation_bar();
 		}
 
 		self::header();

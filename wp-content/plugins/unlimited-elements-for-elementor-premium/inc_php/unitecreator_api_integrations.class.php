@@ -477,6 +477,7 @@ class UniteCreatorAPIIntegrations{
 				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
 				"text" => __("Currency Code", "unlimited-elements-for-elementor"),
 				"desc" => sprintf(__("Enter the three-letter <a href='%s' target='_blank'>currency code</a>.", "unlimited-elements-for-elementor"), "https://exchangerate-api.com/docs/supported-currencies"),
+				"default" => "USD"
 			),
 			array(
 				"id" => self::CURRENCY_EXCHANGE_FIELD_PRECISION,
@@ -489,6 +490,7 @@ class UniteCreatorAPIIntegrations{
 				"type" => UniteCreatorDialogParam::PARAM_TEXTAREA,
 				"text" => __("Include Currencies", "unlimited-elements-for-elementor"),
 				"desc" => __("Optional. You can specify a comma separated list of currency codes to include, otherwise all currencies will be displayed.", "unlimited-elements-for-elementor"),
+				"default" => "USD, EUR, JPY, GBP, AUD, CAD, CHF, CNH, HKD, NZD"
 			),
 			array(
 				"id" => self::CURRENCY_EXCHANGE_FIELD_CACHE_TIME,
@@ -752,14 +754,18 @@ class UniteCreatorAPIIntegrations{
 
 		foreach($rates as $rate){
 			$code = $rate->getCode();
+			$symbol = $rate->getSymbol();
+			$formattedRate = $rate->getRate($precision);
 
 			$data[$code] = array(
 				"id" => $rate->getId(),
 				"code" => $code,
 				"name" => $rate->getName(),
-				"symbol" => $rate->getSymbol(),
+				"symbol" => $symbol,
 				"flag" => $rate->getFlagUrl(),
-				"rate" => $rate->getRate($precision),
+				"rate" => $formattedRate,
+				"value_before" => "$symbol$formattedRate",
+				"value_after" => "$formattedRate$symbol",
 			);
 		}
 

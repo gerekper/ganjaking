@@ -1,25 +1,25 @@
 <?php
 /**
  * Plugin Name: WooCommerce Distance Rate Shipping
- * Version: 1.3.4
+ * Version: 1.3.5
  * Plugin URI: https://woocommerce.com/products/woocommerce-distance-rate-shipping/
  * Description: Set up shipping rates based on the distance from your store to the customer, as well as charge based on number of items, order total or time to travel to customer.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Requires at least: 4.4
- * Tested up to: 6.3
+ * Requires at least: 6.2
+ * Tested up to: 6.4
  * Text Domain: woocommerce-distance-rate-shipping
  * Domain Path: /languages
- * WC tested up to: 8.2
- * WC requires at least: 3.0
+ * WC tested up to: 8.4
+ * WC requires at least: 8.0
  *
  * Woo: 461314:bbb6fc986fe0f074dcd5141d451b4821
  *
- * Copyright: © 2023 WooCommerce
+ * Copyright: © 2024 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package woocommerce-shipping-distance-rate
+ * @package woocommerce-distance-rate-shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'WC_DISTANCE_RATE_VERSION' ) ) {
-	define( 'WC_DISTANCE_RATE_VERSION', '1.3.4' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_DISTANCE_RATE_VERSION', '1.3.5' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_DISTANCE_RATE_FILE', __FILE__ );
 }
 
@@ -65,6 +65,6 @@ function wc_distance_rate_woocommerce_deactivated() {
 function wc_distance_rate_declare_cart_checkout_blocks_compatibility() {
 	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
-    }
+	}
 }
 add_action( 'before_woocommerce_init', 'wc_distance_rate_declare_cart_checkout_blocks_compatibility' );

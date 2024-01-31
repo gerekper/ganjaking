@@ -1,5 +1,8 @@
 *** WooCommerce Cart Notices Changelog ***
 
+2024.01.29 - version 1.16.0
+ * Feature - Add compatibility with the Cart and Checkout blocks
+
 2023.11.17 - version 1.15.1
  * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
 

@@ -348,12 +348,14 @@ class WC_Product_Addons_Helper {
 			$restriction_data[ 'content' ] = $addon[ 'restrictions_type' ];
 		}
 
-		if (  isset( $addon[ 'min' ] ) && '' !== $addon[ 'min' ] && $addon[ 'min' ] >= 0 ) {
-			$restriction_data[ 'min' ] = $addon[ 'min' ];
-		}
+		if ( isset( $addon[ 'restrictions' ] ) && 1 === $addon[ 'restrictions' ] ) {
+			if ( isset( $addon[ 'min' ] ) && '' !== $addon[ 'min' ] && $addon[ 'min' ] >= 0 ) {
+				$restriction_data[ 'min' ] = $addon[ 'min' ];
+			}
 
-		if (  isset( $addon[ 'max' ] ) && '' !== $addon[ 'max' ] && $addon[ 'max' ] > 0 ) {
-			$restriction_data[ 'max' ] = $addon[ 'max' ];
+			if ( isset( $addon[ 'max' ] ) && '' !== $addon[ 'max' ] && $addon[ 'max' ] > 0 ) {
+				$restriction_data[ 'max' ] = $addon[ 'max' ];
+			}
 		}
 
 		/**

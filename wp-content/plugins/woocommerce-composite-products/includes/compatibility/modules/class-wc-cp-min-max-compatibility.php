@@ -2,7 +2,7 @@
 /**
  * WC_CP_Min_Max_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.13.0
  */
 
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  8.6.0
+ * @version  8.10.5
  */
 class WC_CP_Min_Max_Compatibility {
 
@@ -351,17 +351,14 @@ class WC_CP_Min_Max_Compatibility {
 	 * Trigger Min/Max Quantities validation script when components load.
 	 */
 	public static function load_scripts() {
-		wp_add_inline_script( 'wc-add-to-cart-composite',
-				"
-					 jQuery( 'body .component' ).on( 'wc-composite-component-loaded', function () {
-						jQuery(this)
-							.find( '.cart:not( .cart_group )' )
-							.each(function () {
-								jQuery( 'body' ).trigger( 'wc-mmq-init-validation', [ jQuery(this) ] );
-							});
-					});
-				"
-		);
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script( 'wc-add-to-cart-composite' );
+		wp_enqueue_script( 'wc-mmq-frontend' );
+
+		wp_register_script( 'wc-composite-min-max-quantities', WC_CP()->plugin_url() . '/assets/js/frontend/integrations/composite-min-max-quantities' . $suffix . '.js', array( 'jquery', 'jquery-blockui', 'underscore', 'backbone', 'wp-util', 'wc-add-to-cart-variation', 'wc-add-to-cart-composite', 'wc-mmq-frontend' ), WC_CP()->version, true );
+		wp_script_add_data( 'wc-composite-min-max-quantities', 'strategy', 'defer' );
+		wp_enqueue_script( 'wc-composite-min-max-quantities' );
 	}
 }
 

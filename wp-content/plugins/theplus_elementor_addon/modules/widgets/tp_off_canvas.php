@@ -49,7 +49,7 @@ class ThePlus_Off_Canvas extends Widget_Base {
     }
 
 	public function get_keywords() {
-        return [ 'Offcanvas', 'Off-canvas', 'Slide out', 'Slide-in', 'Side menu', 'Overlay menu', 'Hidden menu', 'Drawer menu', 'Hamburger menu', 'Mobile menu' ];
+        return [ 'Offcanvas', 'Off-canvas', 'Slide out', 'Slide-in', 'Side menu', 'Overlay menu', 'Hidden menu', 'Drawer menu', 'Hamburger menu', 'Mobile menu', 'Popup', 'Modal', 'Pop-up', 'Overlay', 'Lightbox', 'Popover', 'Dialog', 'Message box', 'Notification', 'Alert'];
     }
 
     protected function register_controls() {
@@ -1596,7 +1596,7 @@ class ThePlus_Off_Canvas extends Widget_Base {
 		$this->add_control(
 			'exit',
 			[
-				'label' => wp_kses_post( "On Exit Inlet <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "exit-intent-popup-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label' => wp_kses_post( "On Exit Intent <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "exit-intent-popup-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
 				'type' => Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Enable', 'theplus' ),
 				'label_off' => esc_html__( 'Disable', 'theplus' ),
@@ -1816,7 +1816,7 @@ class ThePlus_Off_Canvas extends Widget_Base {
 				'global' => [
                     'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_TEXT
                 ],
-                'selector' => '.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor,.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor p',
+                'selector' => '.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor p, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h1, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h2, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h3, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h4, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h5, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h6',
             ]
         );
 		$this->add_control(
@@ -1826,7 +1826,7 @@ class ThePlus_Off_Canvas extends Widget_Base {
                 'type' => Controls_Manager::COLOR,
                 'default' => '#888',
                 'selectors' => [
-                    '.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor,.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor p' => 'color:{{VALUE}};',
+                    '.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor,.plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor p, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h1, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h2, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h3, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h4, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h5, .plus-{{ID}}.plus-canvas-content-wrap .plus-content-editor h6' => 'color:{{VALUE}};',
                 ],
             ]
         );
@@ -2429,7 +2429,6 @@ class ThePlus_Off_Canvas extends Widget_Base {
 				'condition' => [					
 					'button_border' => 'yes',
 				],
-				'separator' => 'before',
 			]
 		);
 		$this->start_controls_tabs( 'tabs_button_style' );

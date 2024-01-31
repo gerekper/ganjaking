@@ -341,6 +341,8 @@ class Redirect_Handler implements Initializer_Interface {
 
 	/**
 	 * Saves the default redirects options to the DB.
+	 *
+	 * @return void
 	 */
 	public function save_default_redirect_options() {
 		$redirect_option = WPSEO_Premium_Redirect_Option::get_instance();

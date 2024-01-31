@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * Product Add-Ons admin.
  *
  * @class    WC_Product_Addons_Admin
- * @version  6.5.1
+ * @version  6.6.0
  */
 class WC_Product_Addons_Admin {
 
@@ -257,8 +257,6 @@ class WC_Product_Addons_Admin {
 
 		$html = ob_get_clean();
 
-		$html = str_replace( array( "\n", "\r" ), '', str_replace( "'", '"', $html ) );
-
 		wp_send_json( array( 'html' => $html ) );
 	}
 
@@ -296,9 +294,12 @@ class WC_Product_Addons_Admin {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$import_addons = trim( wp_unslash( $_POST[ 'import_product_addon' ] ) );
 
-			// maybe_unserialize does not support additional options, to set allowed_classes to false.
-			if ( is_serialized( $import_addons ) ) { // Don't attempt to unserialize data that wasn't serialized going in.
-				$import_addons =  @unserialize( $import_addons, array( 'allowed_classes' => false ) ); // nosemgrep: audit.php.lang.security.object-injection
+			// Backwards compatibility.
+			if ( is_serialized( $import_addons ) ) {
+				$fail_message = __( 'Could not import add-ons, as the import string was created by an older plugin version. Please export your add-ons again and retry.', 'woocommerce-product-addons' );
+				wp_send_json_error( array( 'message' => $fail_message ) );
+			} else {
+				$import_addons = json_decode( $import_addons, true );
 			}
 
 			if ( is_array( $import_addons ) && ! empty( $import_addons ) ) {
@@ -678,6 +679,10 @@ class WC_Product_Addons_Admin {
 
 		$addons = get_post_meta( $post_id, '_product_addons', true );
 
+		if ( ! is_array( $addons ) ) {
+			return;
+		}
+
 		foreach ( $addons as $addon ) {
 			if ( isset( $addon[ 'name' ] ) && strlen( $addon[ 'name' ] ) > 255 ) {
 				/* translators: %1$s: Product name */
@@ -829,8 +834,8 @@ class WC_Product_Addons_Admin {
 				$data['adjust_price']       = isset( $addon_adjust_price[ $i ] ) ? 1 : 0;
 				$data['price_type']         = sanitize_text_field( wp_unslash( $addon_price_type[ $i ] ) );
 				$data['price']              = wc_format_decimal( sanitize_text_field( wp_unslash( $addon_price[ $i ] ) ) );
-				$data['min']                = (float) sanitize_text_field( wp_unslash( $addon_min[ $i ] ) );
-				$data['max']                = (float) sanitize_text_field( wp_unslash( $addon_max[ $i ] ) );
+				$data['min']                = 1 === $data[ 'restrictions' ] ? (float) sanitize_text_field( wp_unslash( $addon_min[ $i ] ) ) : 0;
+				$data['max']                = 1 === $data[ 'restrictions' ] ? (float) sanitize_text_field( wp_unslash( $addon_max[ $i ] ) ) : 0;
 				$data['id']                 = isset( $id[ $i ] ) && ! empty( $id[ $i ] ) ? $id[ $i ] : $this->generate_id( $current_addon_ids );
 
 				if ( ! empty( $addon_options ) ) {
@@ -1031,7 +1036,7 @@ class WC_Product_Addons_Admin {
 	 */
 	public function output_notice( $content, $type ) {
 		echo '<div class="notice notice-' . esc_attr( $type ) . '">';
-		echo wpautop( wp_kses_post( $content ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo wpautop( wp_kses_post( $content ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>';
 	}
 }

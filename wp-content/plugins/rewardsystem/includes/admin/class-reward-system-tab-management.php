@@ -737,7 +737,7 @@ if ( ! class_exists( 'RSTabManagement' ) ) {
 				return;
 			}
 			
-			if (!is_object($order)) {
+			if ( !is_object($order) ) {
 				return;
 			}
 

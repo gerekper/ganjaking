@@ -1,15 +1,17 @@
 /**
  * Javascript code that is associated with the front end of the calendar
- * @version 4.5
+ * @version 4.5.8
  */
 
 jQuery(document).ready(function($){
+
 		
 	var BODY = $('body');
 	var BUS = ''; // initial eventon calendar data
-	var ajax_url = '';
+	var ajax_url = evo_general_params.ajaxurl;
 
 	init();
+
 	
 // EventON calendar main function
 // 2.8.6
@@ -91,7 +93,7 @@ jQuery(document).ready(function($){
 	});
 	*/
 
-// localize event time function
+// localize event time function @ 4.5.5
 	$.fn.evo_local_time = function( options){
 		el = this;
 
@@ -99,27 +101,39 @@ jQuery(document).ready(function($){
 			const obj = $(this);
 			const event_obj = obj.closest('.eventon_list_event');
 			var time  = obj.data('times');
-			var tformat = obj.data('tform');
+			var time_format = obj.data('__f');
 
 			new_time = time.split('-');
 			
 			utc_offset = $(this).data('tzo');
+			utc_offset = 0;
 
 			start = parseInt(new_time[0]);
 			end = parseInt(new_time[1]);
 			offset_start = start + utc_offset;
 
+
 			// end
-			var Me = moment.unix( end + utc_offset ).utc().local();
-			var M1 = moment.unix( offset_start ).utc().local();
+			var Me = moment.unix( end ).utc().local();
+			var M1 = moment.unix( start ).utc().local();
 
 			var _html = '';
 
-			if( Me.format('YYYY/M') != M1.format('YYYY/M')){
-				_html = M1.format( tformat ) +' - '+ Me.format( tformat );
+			// same month 
+			if( Me.format('YYYY/M') == M1.format('YYYY/M')){
+
+				// same date
+				if( Me.format('DD') == M1.format('DD')){
+					_html = M1.format( time_format ) + ' - ' + Me.format( obj.data('__tf') ) ;
+				// dif date
+				}else{
+					_html = M1.format( time_format ) +' - '+ Me.format( time_format );
+				}
+			// dif month
 			}else{
-				_html = M1.format( tformat );
+				_html = M1.format( time_format ) +' - '+ Me.format( time_format );				
 			}
+
 
 			event_obj.find('.evo_mytime').find('b').html( _html );
 			event_obj.find('.evo_mytime').removeClass('tzo_trig');
@@ -136,8 +150,6 @@ jQuery(document).ready(function($){
 
 // RUN on Page load
 	function init(){
-
-		ajax_url = evo_general_params.ajaxurl;
 
 		init_run_gmap_openevc();
 		fullheight_img_reset();	
@@ -497,7 +509,7 @@ jQuery(document).ready(function($){
 		evo_apply_refresh_content( data );
 	});
 
-// Schedule View - 4.0
+// Schedule View - 4.0 / u 4.5.6
 	$('body')
 	.on('evo_init_ajax_success_each_cal',function(event, data, i, v, CAL){
 		$('body').find('.ajde_evcal_calendar.evoSV').each(function(){
@@ -559,7 +571,7 @@ jQuery(document).ready(function($){
 			O = $(this);
 			CAL = O.closest('.ajde_evcal_calendar');
 			var e_cl = 'event_'+O.data('id');
-
+			
 			const clicked_event_uxval = O.data('uxval');
 
 			// if event is set to slide down .. switch to lightbox
@@ -570,138 +582,154 @@ jQuery(document).ready(function($){
 			CAL.find('.'+e_cl).find('.desc_trig').trigger('click');
 		});
 
+	// populate the schedule view data @4.5.6
 	function evosv_populate(CAL){
 		var SC = CAL.evo_shortcode_data();
+		OD = CAL.evo_get_OD(); // calendar other data 
+
 		var cal_events = CAL.find('.eventon_list_event');
 		days_in_month = CAL.evo_day_in_month({M: SC.fixed_month, Y: SC.fixed_year});
 		time_format = CAL.evo_get_global({S1:'cal_def',S2:'wp_time_format'});
-		_txt = CAL.evo_get_txt({V:'no_events'});
-		_txt2 = CAL.evo_get_txt({V:'until'});
-		_txt3 = CAL.evo_get_txt({V:'from'});
-		_txt4 = CAL.evo_get_txt({V:'all_day'});
 
-		var html = "<div class='evosv_grid evoADDS'>";
+		// text strings
+			_txt = CAL.evo_get_txt({V:'no_events'});
+			_txt2 = CAL.evo_get_txt({V:'until'});
+			_txt3 = CAL.evo_get_txt({V:'from'});
+			_txt4 = CAL.evo_get_txt({V:'all_day'});
+		
 		CAL.find('#evcal_list').addClass('evo_hide');
 
 		var has_events = false;
+		var html = '';
+		var template_data = {};
+		var processed_ids = {};
 
-
-		processed_ids = {};
+		// Set initial date - date values
+			var SU = parseInt( SC.focus_start_date_range);	var EU = '';
+			var M = moment.unix( SU ).tz( OD.cal_tz );
 
 		// go through each day in month
 		for(var x=1; x<= days_in_month; x++){
-			var SU = parseInt(SC.focus_start_date_range) + ( (x-1) * 86400);
-			var EU = SU + 86399;
-			var DD = new Date( SU *1000);
-			var month_name = CAL.evo_get_dms_vals({ V: (DD.getUTCMonth() +1), type:'m3'});
-			var day_name = CAL.evo_get_dms_vals({ V:DD.getUTCDay(), type:'d3'});
-			var DN = '<b>'+DD.getUTCDate()+'</b> '+ month_name+' '+day_name;
-
-
+			
+			var month_name = CAL.evo_get_dms_vals({ V: (M.get('month') +1), type:'m3'});
+			var day_name = CAL.evo_get_dms_vals({ V: M.day(), type:'d3'});
+			
+			// set event unix into moment
+				SU = M.unix();	M.endOf('day');
+				EU = M.unix();	M.startOf('day');
+			
 			// run through each event and get events in this date
-			var events = {};
+				var events = {};
 
-			cal_events.each(function(index, elm){
-				ED = $(elm).evo_cal_get_basic_eventdata();
-				if( !ED) return;
+				cal_events.each(function(index, elm){
+					ED = $(elm).evo_cal_get_basic_eventdata();
+					if( !ED) return;
 
-				//console.log(ED);
+					processed_ids[ED.uID] = ED.uID;
+					ESU = ED.unix_start; EEU = ED.unix_end;
 
-				//if ( ED.uID in processed_ids) return;
-
-				processed_ids[ED.uID] = ED.uID;
-
-				var inrange = CAL.evo_is_in_range({
-					'S': SU,	'E': EU,	'start': ED.event_start_unix,
-					'end':ED.event_end_unix
-				});
-				if(!inrange) return;
-
-				has_events = true;
-
-				start = ED.event_start_unix;
-				end = ED.event_end_unix;
-				m = moment.unix( start ).utc();
-				me = moment.unix( end ).utc();
-
-				var all_day = $(elm).find('a.desc_trig').hasClass('allday') ? true: false;
-
-				// get event time
-				// all day
-				if( all_day ){
-					ED['t'] = _txt4;
-				}else{
-					if( start <= SU ){
-						if( end >= EU) ED['t'] = _txt4;
-						if( end < EU ) ED['t'] = _txt2+' ' + me.format( time_format);		
-					}else if(start > SU){
-						if( end >= EU)  ED['t'] = _txt3+' '+ m.format( time_format);
-						if( end < EU ) ED['t'] = m.format( time_format) +' - '+ me.format( time_format);
-					}	
-				}
-						
-
-				// hide end time
-				if( ED.hide_et == 'y'){
-					ED['t'] = m.format( time_format);
-				}
-
-				events[index] = ED;
-			});			
-
-			if( events && Object.keys(events).length > 0){
-				html += "<div class='date_row'>";
-				$.each(events, function(index, item){		
-
-					location_data = organizer_data = event_tags = '';
-
-					// location 
-					if( SC.show_location == 'yes' && 'location' in item){
-						location_data = "<div class='evosv_subdata evosv_location'><i class='fa fa-location-pin marr5'></i>" +item.location+"</div>";
-					}
-
-					// organizer					
-					if( SC.show_organizer == 'yes' && 'organizer' in item){
-						organizer_data = "<div class='evosv_subdata evosv_org'>" +item.organizer+"</div>";
-					}
-
-					// event tags
-					if( SC.show_tags == 'yes' && 'event_tags' in item){
-						event_tags = "<div class='evosv_subdata evosv_tags'>";
-						$.each( item.event_tags, function(index, val){
-							event_tags += "<span class='evosv_tag " + index +"'>" + val+"</span>";
+					// check for date range
+						var inrange = CAL.evo_is_in_range({
+							'S': SU,	'E': EU,	'start': ESU,	'end':EEU
 						});
-						event_tags += "</div>";
-					}
+						if(!inrange) return; // skip if no in range
 
-					html += "<div class='row'>"+
-						"<div class='evosv_date'>"+DN+"</div>"+
-						"<div class='evosv_items' data-id='"+item.uID+"' data-uxval='"+ item.ux_val+"'>"+
-							"<div class='evosv_clr llxvl' style='background-color:"+item.hex_color+"'></div>"+
-							"<div class='evosv_time llxvl'>"+item.t+"</div>"+
-							"<div class='evosv_event llxvl'>"+ event_tags + item.event_title + location_data+ organizer_data+ "</div>"+
-							
-						"</div>"+
-					"</div>";
-				});
-				html+= "</div>";
-			}
+					has_events = true;
+
+					// event time relative to calendar tz
+					m = moment.unix( ESU ).tz( OD.cal_tz );
+					me = moment.unix( end ).tz( OD.cal_tz );
+
+					var all_day = $(elm).find('a.desc_trig').hasClass('allday') ? true: false;
+
+					// get event time correct for all day
+					if( all_day ){
+						ED['t'] = _txt4;
+					}else{
+						if( ESU <= SU ){
+							if( EEU >= EU) ED['t'] = _txt4;
+							if( EEU < EU ) ED['t'] = _txt2+' ' + me.format( time_format);		
+						}else if(ESU > SU){
+							if( EEU >= EU)  ED['t'] = _txt3+' '+ m.format( time_format);
+							if( EEU < EU ) ED['t'] = m.format( time_format) +' - '+ me.format( time_format);
+						}	
+					}						
+
+					// hide end time
+					if( ED.hide_et == 'y')		ED['t'] = m.format( time_format);
+
+					events[index] = ED;
+				});			
+
+			// if there are events in this date
+				if( events && Object.keys(events).length > 0){
+					
+					template_data[ x ] = {};
+					template_data[ x ]['date'] = '<b>' + M.get('date')+'</b> '+ month_name+' '+ day_name;
+					template_data[ x ]['d'] =  M.format('YYYY-M-D');
+					template_data[ x ]['SU'] = SU;
+					template_data[ x ]['events'] = {}
+
+					$.each(events, function(index, item){		
+
+						location_data = organizer_data = event_tags = '';
+
+						// location 
+						if( SC.show_location == 'yes' && 'location' in item){
+							location_data = "<div class='evosv_subdata evosv_location'><i class='fa fa-location-pin marr5'></i>" +item.location+"</div>";
+						}
+
+						// organizer					
+						if( SC.show_organizer == 'yes' && 'organizer' in item){
+							organizer_data = "<div class='evosv_subdata evosv_org'>" +item.organizer+"</div>";
+						}
+
+						// event tags
+						if( SC.show_tags == 'yes' && 'event_tags' in item){
+							event_tags = "<div class='evosv_subdata evosv_tags'>";
+							$.each( item.event_tags, function(index, val){
+								event_tags += "<span class='evosv_tag " + index +"'>" + val+"</span>";
+							});
+							event_tags += "</div>";
+						}
+
+						template_data[ x ]['events'][ item.uID ] = {
+							'time': item.t,
+							'ux_val': item.ux_val,
+							'title': item.event_title,
+							'color':item.hex_color,
+							'tag': event_tags,
+							'loc': location_data,
+							'org': organizer_data,
+							'i': item
+						}
+
+					});					
+				}
+
+			// next date
+			M.add(1, 'd');
 		}
 
+		var html_ = "<div class='evosv_grid evoADDS'>";
+		
 		// if no events
 		if( !has_events){
-			no_event_content = CAL.evo_get_global({S1: 'html', S2:'no_events'});
-			
-			html += "<div class='date_row'><div class='row no_events evosv'>"+no_event_content+"</div></div>";
+			no_event_content = CAL.evo_get_global({S1: 'html', S2:'no_events'});			
+			html_ += "<div class='date_row'><div class='row no_events evosv'>"+no_event_content+"</div></div>";
+		}else{
+			html_ += CAL.evo_HB_process_template({
+				TD:template_data, part:'evosv_grid'
+			});
 		}
 
-		html += '</div>';
+		html_ += '</div>';
 
 		if( CAL.find('.evosv_grid').length > 0){
-			CAL.find('.evosv_grid').replaceWith( html);
+			CAL.find('.evosv_grid').replaceWith( html_ );
 		}else{
 			ELM = CAL.find('#eventon_loadbar_section');
-			ELM.after( html );
+			ELM.after( html_ );
 		}
 		
 	}
@@ -753,9 +781,7 @@ jQuery(document).ready(function($){
 						setTimeout( function(){
 
 							CAL = BODY.find('#'+ i);
-
 							if(CAL.length === 0) return;
-
 							
 							if('html' in v){						
 								CAL.find('#evcal_list').html( v.html );
@@ -766,8 +792,7 @@ jQuery(document).ready(function($){
 							}							
 
 							CAL.evo_calendar({
-								SC:v.sc,
-								json: v.json
+								SC:v.sc,	json: v.json
 							});
 
 							$('body').trigger('evo_init_ajax_success_each_cal', [data, i, v, CAL]);
@@ -1093,7 +1118,8 @@ jQuery(document).ready(function($){
 			fullheight_img_reset(); 
 
 			// update border color and eventtop color
-				const evoet_data = LIGHTBOX_content.find('.evoet_data').data();
+				const evoet_data = OO.other_data.et_data;
+				
 				bgcolor = evoet_data.bgc;
 				bggrad = evoet_data.bggrad;
 
@@ -1159,10 +1185,20 @@ jQuery(document).ready(function($){
 		;
 
 		// open event as lightbox / U 4.3.3
-		function eventon_open_event_lightbox( SC_data, obj, CAL){	
+		function eventon_open_event_lightbox( SC_data, obj, CAL){
+
+		//console.log(SC_data);	
 
 
 			const cancel_class = ( obj.hasClass('cancel_event')) ? ' cancel_event':'';
+
+			var other_data = {
+				extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+SC_data.event_id +'_'+ SC_data.repeat_interval + cancel_class,
+				CAL:CAL,
+				obj: obj,
+				et_data: obj.find('.evoet_data').data(),// @4.5.5
+				SC: SC_data
+			};
 			
 			// generate a random ID for this 
 				maximum = 99;
@@ -1206,12 +1242,7 @@ jQuery(document).ready(function($){
 					ajax_type: 'endpoint',
 					ajax_action: 'eventon_load_single_eventcard_content',
 					d: 	data_arg,
-					other_data: {
-						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+SC_data.event_id +'_'+ SC_data.repeat_interval + cancel_class,
-						CAL:CAL,
-						obj: obj,
-						SC: SC_data
-					}
+					other_data: other_data
 				});
 				
 
@@ -1225,12 +1256,7 @@ jQuery(document).ready(function($){
 					lbc:'evo_eventcard_'+ randomnumber,
 					end:'client',
 					content: '<div class="evopop_top">'+ obj.html() +'</div>' + content,
-					other_data: {
-						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+SC_data.event_id +'_'+ SC_data.repeat_interval + cancel_class,
-						CAL:CAL,
-						obj: obj,
-						SC: SC_data
-					}
+					other_data: other_data
 				});
 
 				return;
@@ -2004,6 +2030,7 @@ jQuery(document).ready(function($){
 					direction: 		direction,
 					shortcode: 		SC,
 					ajaxtype: 		ajaxtype,
+					nonce: 			evo_general_params.n
 				};	
 
 				EVENTS_LIST = ev_cal.find('.eventon_events_list');
@@ -2081,6 +2108,11 @@ jQuery(document).ready(function($){
 						ev_cal.evoGenmaps({'delay':400});
 						init_run_gmap_openevc(600);
 						fullheight_img_reset(cal_id);
+
+						// scroll to top of calendar
+						$('html, body').animate({
+		                    //scrollTop: ev_cal.offset().top - 20
+		                }, 500);
 
 						// pluggable
 						$('body').trigger('evo_main_ajax_complete', [CAL, ajaxtype, data.responseJSON , data_arg]);
@@ -2452,24 +2484,23 @@ jQuery(document).ready(function($){
 		});
 	});
 
-	// Submit search from search box
+	// Submit search from search box u 4.5.8
 		$('body').on('click','.evo_do_search',function(){
 			do_search_box( $(this) );
 		});
 
 		// dynamic enter key press on the search input field @4.2
-			$('body').on('keypress', '.evo_search_field',function(event){
-				var keycode = (event.keyCode ? event.keyCode : event.which);
-				if( keycode == '13' ){
-					do_search_box( $(this).siblings('.evo_do_search') );
-				}			
-			});
+		$(".evo_search_field").evo_enterKey(function () {
+			do_search_box( $(this).siblings('.evo_do_search') );
+		});
+			
 
 		// primary search function
 		function do_search_box(OBJ){
 			SearchVal = OBJ.closest('.evosr_search_box').find('input').val();
 			Evosearch = OBJ.closest('.EVOSR_section');
 			OBJ.closest('.evo_search_entry').find('.evosr_msg').hide();
+
 			//console.log(SearchVal);
 
 			if( SearchVal === undefined || SearchVal == ''){
@@ -2498,7 +2529,8 @@ jQuery(document).ready(function($){
 				'ajaxdata': {
 					//action: 		'eventon_search_evo_events',
 					search: 		SearchVal,
-					shortcode:  	Evosearch.find('span.data').data('sc')					
+					shortcode:  	Evosearch.find('span.data').data('sc'),
+					nonce: 			evo_general_params.n				
 				},
 				ajax_type:'endpoint',
 				ajax_action:'eventon_search_evo_events',
@@ -2563,9 +2595,11 @@ jQuery(document).ready(function($){
 		});	
 
 // supportive
-	// ajax url function 
+	// ajax url function  @u 4.5.5
 		function get_ajax_url(action){
-			return $('body').evo_get_ajax_url({a:action, type:'endpoint'});
+			var ajax_type = 'endpoint';
+			if('ajax_method' in evo_general_params ) ajax_type = evo_general_params.ajax_method;
+			return $('body').evo_get_ajax_url({a:action, type: 	ajax_type });
 		}
 	// handlebar additions
 		function handlebar_additional_arguments(){

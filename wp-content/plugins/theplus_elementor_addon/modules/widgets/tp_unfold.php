@@ -532,14 +532,13 @@ class ThePlus_Unfold extends Widget_Base {
 				'size_units' => [ 'px', 'em'],				
 				'selectors' => [
 					'{{WRAPPER}} .tp-unfold-wrapper .tp-unfold-description,{{WRAPPER}} .tp-unfold-wrapper .tp-unfold-description p' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'separator' => 'after',				
+				],			
 			]
 		);
 		$this->add_responsive_control(
 			'description_align',
 			[
-				'label' => esc_html__( 'Description Alignment', 'theplus' ),
+				'label' => esc_html__( 'Alignment', 'theplus' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => [					
 					'left' => [
@@ -565,7 +564,6 @@ class ThePlus_Unfold extends Widget_Base {
 				'condition' => [					
 					'content_a_source' => 'content',
 				],
-				'separator' => 'after',
 			]
 		);
 		$this->add_group_control(
@@ -1016,7 +1014,10 @@ class ThePlus_Unfold extends Widget_Base {
             'section_eb_styling',
             [
                 'label' => esc_html__('Extra Button', 'theplus'),
-                'tab' => Controls_Manager::TAB_STYLE,				
+                'tab' => Controls_Manager::TAB_STYLE,
+				'condition'		=> [
+					'extra_link' => 'yes',
+				],	
             ]
         );		
 		$this->add_group_control(

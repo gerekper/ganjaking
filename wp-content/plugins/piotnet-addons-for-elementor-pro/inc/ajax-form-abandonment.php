@@ -32,11 +32,12 @@
 
         $query = new WP_Query( $args );
 
-        if ($query->have_posts()) :
+        if ($query->have_posts()){
+            $webhook = 'false';
             while ($query->have_posts()) : $query->the_post();
                 $form_database_post_id = get_the_ID();
             endwhile;
-        else :
+        }else{
             $my_post = array(
                 'post_title'    => wp_strip_all_tags( 'PAFE Elementor Form Database ' . $form_id ),
                 'post_status'   => 'publish',
@@ -44,7 +45,7 @@
             );
 
             $form_database_post_id = wp_insert_post( $my_post );
-        endif;
+        };
 
         if (!empty($form_database_post_id)) {
 

@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 use DynamicOOOS\Mpdf\Utils\NumericString;
 class Hr extends Tag
 {
@@ -78,7 +79,7 @@ class Hr extends Tag
         /* -- END TABLES -- */
         $objattr['type'] = 'hr';
         $objattr['height'] = $objattr['linewidth'] + $objattr['margin_top'] + $objattr['margin_bottom'];
-        $e = "\xbb\xa4\xactype=image,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+        $e = Mpdf::OBJECT_IDENTIFIER . "type=image,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
         /* -- TABLES -- */
         // Output it to buffers
         if ($this->mpdf->tableLevel) {

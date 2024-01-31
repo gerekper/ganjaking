@@ -53,7 +53,9 @@
 
             	foreach( $results AS $result ) {
 
-            		$invoice_created = get_post_meta( $result->post_id, '_invoice_created', TRUE );
+            		$order 	= wc_get_order( $result->post_id );
+
+            		$invoice_created = $order->get_meta( '_invoice_created', TRUE );
 
             		if( is_object( $invoice_created ) && isset( $invoice_created->date ) ) {
             			add_post_meta( $result->post_id, '_invoice_created_mysql', $invoice_created->date, TRUE );

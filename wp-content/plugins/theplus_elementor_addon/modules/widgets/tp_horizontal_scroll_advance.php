@@ -688,7 +688,7 @@ class ThePlus_Horizontal_Scroll_Advance extends Widget_Base {
 					$bg_img = ! empty( $data['image']['url'] ) ? $data['image']['url'] : '';
 					$r_id   = ! empty( $data['_id'] ) ? $data['_id'] : '';
 					if ( ! empty( $bg_img ) ) {
-						$output .= '<div class="bg-scroll elementor-repeater-item-' . esc_attr( $r_id ) . '" style="background-image:url(' . esc_attr( $bg_img ) . ')"></div>';
+						$output .= '<div class="bg-scroll elementor-repeater-item-' . esc_attr( $r_id ) . '" style="background-image:url(' . esc_url( $bg_img ) . ')"></div>';
 					} else {
 						$output .= '<div class="bg-scroll elementor-repeater-item-' . esc_attr( $r_id ) . '"></div>';
 					}

@@ -323,9 +323,9 @@ function seedprod_pro_lpage_datatable() {
 			// Format Date
 			//$modified_at = date(get_option('date_format').' '.get_option('time_format'), strtotime($v->post_modified));
 
-			$modified_at = gmdate( 'Y/m/d', strtotime( $v->post_modified ) );
+			$modified_at = gmdate( get_option('date_format'), strtotime( $v->post_modified ) );
 
-			$posted_at = gmdate( 'Y/m/d', strtotime( $v->post_date ) );
+			$posted_at = gmdate( get_option('date_format'), strtotime( $v->post_date ) );
 
 			$url = get_permalink( $v->ID );
 
@@ -604,8 +604,29 @@ function seedprod_pro_save_lpage() {
 		$sp_post         = $_POST;
 		$sp_current_user = wp_get_current_user();
 
-		// Save personalization preferences.
-		update_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', $sp_post['personalization_preferences'] );
+		if ( metadata_exists( 'user', $sp_current_user->ID, 'seedprod_personalization_preferences' ) && $sp_post['personalization_preferences'] ) {
+			// Update personalization preferences.
+			update_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', $sp_post['personalization_preferences'] );
+		} else {
+			// Preference array.
+			$user_personalization_preferences_schema = array(
+				'show_templatetag_settings'             => true,
+				'show_woocommerce_templatetag_settings' => true,
+				'show_edd_templatetag_settings'         => true,
+				'show_entry_settings'                   => true,
+				'show_entry_settings_2'                 => true,
+				'show_entry_settings_4'                 => true,
+				'show_entry_settings_5'                 => true,
+				'show_entry_settings_3'                 => false,
+				'show_entry_settings_6'                 => true,
+				'show_layoutnav'                        => false,
+			);
+
+			// Save personalization preferences.
+			delete_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences' );
+			// Set default user personalization preferences.
+			add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
+		}
 
 		if ( false === $has_permission ) {
 			header( 'Content-Type: application/json' );
@@ -671,6 +692,26 @@ function seedprod_pro_save_lpage() {
 		if ( ! empty( $settings ) ) {
 			$update['post_content_filtered'] = $settings;
 		}
+
+		// validate json
+
+		$test_data = apply_filters( 'wp_insert_post_data', $update, $update, $update, false );
+		$test_data  = wp_unslash( $test_data );
+		update_option('seedprod_validate_json',$test_data['post_content_filtered']);
+		$test_json = get_option('seedprod_validate_json');
+		update_option('seedprod_validate_json',false);
+		$test_json_decoded = json_decode( $test_json, true );
+		if ($test_json_decoded === null && json_last_error() !== JSON_ERROR_NONE) {
+			$response = array(
+				'status' => '',
+				'id'     => $lpage_id,
+				'msg'	=> __('Page cannot be saved. Invalid JSON. This sometimes happens if you copy and paste text in. Please contact support.', 'seedprod-pro'),
+				'json' => $test_json,
+			);
+			wp_send_json( $response, 422 );
+		}
+
+		// end validate json
 
 		$status = '';
 		if ( empty( $lpage_id ) ) {

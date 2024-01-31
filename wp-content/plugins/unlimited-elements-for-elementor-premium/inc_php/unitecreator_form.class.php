@@ -340,29 +340,29 @@ class UniteCreatorForm{
 
 					$this->executeFormAction("after_{$action}_action");
 				}catch(Exception $exception){
-					
-					
+
+
 					$debugType = UniteFunctionsUC::getVal($this->formSettings, "debug_type");
 
 					$errorMessage = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
-					
+
 					if($debugType == "full"){
-						
+
 						$trace = "<pre>
 							{$exception->getTraceAsString()}						
 						</pre>";
-						
+
 						$errorMessage .= $trace;
 					}
-						
-					
+
+
 					$actionsErrors[] = $errorMessage;
-					
+
 				}
 			}
 
 			if(empty($actionsErrors) === false){
-				
+
 				$errors = array_merge($errors, $actionsErrors);
 
 				$actionsErrors = implode(" ", $actionsErrors);
@@ -869,29 +869,42 @@ class UniteCreatorForm{
 	private function prepareEmailMessageField($emailMessage){
 
 		$formFieldsReplace = array();
+		$formFieldPlaceholders = array();
+		$formFieldReplaces = array();
 
 		foreach($this->formFields as $field){
 			$title = $this->getFieldTitle($field);
+			$name = $field["name"];
 			$value = $field["value"];
 
 			if($field["type"] === self::TYPE_FILES)
 				$value = $this->getFilesFieldLinksHtml($value);
 
 			$formFieldsReplace[] = "$title: $value";
+
+			if (empty($name) === false) {
+				$placeholder = self::PLACEHOLDER_FORM_FIELDS . "." . $name;
+
+				$formFieldPlaceholders[] = $placeholder;
+				$formFieldReplaces[$placeholder] = $value;
+			}
 		}
 
 		$formFieldsReplace = implode("<br />", $formFieldsReplace);
 
-		$emailMessage = preg_replace("/(\r\n|\r|\n)/", "<br />", $emailMessage); // nl2br
-
-		$emailMessage = $this->replacePlaceholders($emailMessage, array(
+		$emailPlaceholders = array_merge(array(
 			self::PLACEHOLDER_ADMIN_EMAIL,
 			self::PLACEHOLDER_EMAIL_FIELD,
 			self::PLACEHOLDER_SITE_NAME,
 			self::PLACEHOLDER_FORM_FIELDS,
-		), array(
+		), $formFieldPlaceholders);
+
+		$emailReplaces = array_merge(array(
 			self::PLACEHOLDER_FORM_FIELDS => $formFieldsReplace,
-		));
+		), $formFieldReplaces);
+
+		$emailMessage = $this->replacePlaceholders($emailMessage, $emailPlaceholders, $emailReplaces);
+		$emailMessage = preg_replace("/(\r\n|\r|\n)/", "<br />", $emailMessage); // nl2br
 
 		return $emailMessage;
 	}

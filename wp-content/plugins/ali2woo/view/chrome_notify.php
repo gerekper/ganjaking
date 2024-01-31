@@ -3,7 +3,7 @@
         <div class="container-flex flex-between"> 
             <div class="container-flex">
                 <img class="display-block margin-right" width="16" src="<?php echo A2W()->plugin_url() . '/assets/img/logo_chrome.png'; ?>" alt="chrome extension">
-                <span class="display-block"><strong><?php _e('Save time adding products by using our free Chrome extension!', 'ali2woo'); ?></strong></span>
+                <span class="display-block"><strong><?php _e('Save time searching best products using free chrome extension!', 'ali2woo'); ?></strong></span>
             </div>
             <div class="container-flex">
                 <a class="btn btn-primary btn-sm chrome-install mr10" target="_blank" href="<?php echo A2W()->chrome_url; ?>"><?php _e('Get Chrome Extension', 'ali2woo'); ?></a>

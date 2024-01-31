@@ -12,12 +12,12 @@ abstract class Icon_Presenter extends Abstract_Presenter {
 	/**
 	 * The start tag of an SVG element.
 	 */
-	const SVG_START_TAG = "<svg xmlns='http://www.w3.org/2000/svg' fill='none' style='fill:none' viewBox='0 0 24 24' stroke='currentColor' height='%SIZE%' width='%SIZE%' >";
+	public const SVG_START_TAG = "<svg xmlns='http://www.w3.org/2000/svg' fill='none' style='fill:none' viewBox='0 0 24 24' stroke='currentColor' height='%SIZE%' width='%SIZE%' >";
 
 	/**
 	 * The default height and width of an icon in pixels.
 	 */
-	const SIZE_DEFAULT = 24;
+	public const SIZE_DEFAULT = 24;
 
 	/**
 	 * The size of the icon in pixels.

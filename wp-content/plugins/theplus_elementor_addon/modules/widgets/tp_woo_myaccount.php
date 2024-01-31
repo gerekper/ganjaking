@@ -38,9 +38,10 @@ class ThePlus_Woo_Myaccount extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+
 	public function get_keywords() {
-		return ['myaccount page', 'myaccount', 'WooCommerce' ,'woo myaccount','my account'];
-	}
+        return ['My Account', 'Account', 'User Account', 'User Profile', 'Profile', 'Login', 'Sign In', 'Register', 'Sign Up', 'Dashboard', 'User Dashboard', 'User Panel', 'Account Panel', 'Account Settings', 'Account Information', 'Account Details', 'User Details', 'User Profile Settings', 'My Profile', 'Edit Profile', 'Update Profile', 'Change Password', 'Forgot Password', 'Reset Password', 'User Login', 'User Registration', 'User Sign In', 'User Sign Up', 'User Dashboard', 'User Account Panel', 'User Account Settings', 'User Account Information', 'User Account Details'];
+    }
 	
     protected function register_controls() {	
 		$this->start_controls_section(

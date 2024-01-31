@@ -73,6 +73,7 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 				'srp_display_redeem_point_popup'         => false,
 				'srp_redeem_point_manually'              => false,
 				'validate_gateway_redeemed_points'       => false,
+				'validate_point_price_product'       => false,
 			);
 
 			foreach ( $actions as $action => $nopriv ) {
@@ -1964,6 +1965,13 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 					throw new exception( __( 'No product(s) added. Please add item(s) to redeem the points', 'rewardsystem' ) );
 				}
 
+				$point_price = srp_pp_get_point_price_values( $order->get_items() );
+				if ( srp_check_is_array( $point_price ) && isset($point_price['enable_point_price'])) {
+					if ('yes' == $point_price['enable_point_price']) {
+						throw new exception( __( 'You cannot apply the points for "Only Point Price" product(s).', 'rewardsystem' ) );
+					}
+				}
+
 				$user_info = get_user_by('id', $user_id);
 				$points_data      = new RS_Points_data( $user_id ) ;
 				$available_points = $points_data->total_available_points() ;
@@ -2104,11 +2112,63 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 						throw new exception( __("The selected user doesn\'t have points on their account. Hence, you cannot create the order", 'rewardsystem' ));
 					}
 	
+					$user_data = get_user_by( 'id', $user_id );
+					$user_name = $user_data->user_login;
+					$coupon_code = 'sumo_' . strtolower( $user_name );
+					if (srp_check_is_array($order->get_coupon_codes()) && ( in_array($coupon_code, $order->get_coupon_codes()) )) {
+						/* translators: %1$s: Points needed %2$s: Available Points */
+						throw new exception( __( 'Since you have applied the points, you cannot create this order using the "SUMO Reward Points Payment Gateway".', 'rewardsystem' ));
+					}
+
 					$point_price = srp_pp_get_point_price_values( $order->get_items() );
 					$redeemed_points = srp_check_is_array($point_price) ? gateway_points( $order->get_id() ) : redeem_point_conversion( $order->get_total(), $user_id );
 					if ( $redeemed_points > $available_points ) {
 						/* translators: %1$s: Points needed %2$s: Available Points */
 						throw new exception( sprintf(__( 'The selected user needs %1$s points to create this order but they have only %2$s points on their account', 'rewardsystem' ), $redeemed_points, $available_points));
+					}
+				}
+
+				wp_send_json_success();
+			} catch ( Exception $ex ) {
+				wp_send_json_error( array( 'error' => $ex->getMessage() ) );
+			}
+		}
+
+		/**
+		 * Validate point price product
+		 *
+		 * @since 29.8.0
+		 *
+		 * @return void
+		 */
+		public static function validate_point_price_product() {
+			check_ajax_referer( 'srp-redeem-point-nonce', 'sumo_security' );
+
+			try {
+				if ( ! isset( $_POST ) ) {
+					throw new exception( __( 'Invalid Request', 'rewardsystem' ) );
+				}
+
+				$order_id = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : '';
+				$order = wc_get_order( $order_id );
+				if ( 'auto-draft' == $order->get_status() ) {
+					$payment_method = ! empty( $_POST['payment_method'] ) ? absint( $_POST['payment_method'] ) : '';
+
+					$user_id = ! empty( $_POST['user_id'] ) ? absint( $_POST['user_id'] ) : 0;
+					if ( ! $user_id ) {
+						throw new exception( __( 'Please select the user', 'rewardsystem' ) );
+					}
+	
+					// Return if order items empty.
+					if ( ! srp_check_is_array( $order->get_items() ) ) {
+						throw new exception( __( 'No product(s) were added. Please add item(s) to place the order using the "SUMO Reward Points Payment Gateway".', 'rewardsystem' ) );
+					}
+
+					$point_price = srp_pp_get_point_price_values( $order->get_items() );
+					if ( srp_check_is_array( $point_price ) && isset($point_price['enable_point_price'])) {
+						if ('yes' == $point_price['enable_point_price']) {
+							throw new exception( __( 'Since the order contains "Only Point Price" product, you can create this order only using "SUMO Reward Points Payment Gateway".', 'rewardsystem' ) );
+						}
 					}
 				}
 

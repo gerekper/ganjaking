@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 class DotTab extends Tag
 {
     public function open($attr, &$ahtml, &$ihtml)
@@ -33,7 +34,7 @@ class DotTab extends Tag
         }
         $objattr['fontfamily'] = $this->mpdf->FontFamily;
         $objattr['fontsize'] = $this->mpdf->FontSizePt;
-        $e = "\xbb\xa4\xactype=dottab,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+        $e = Mpdf::OBJECT_IDENTIFIER . "type=dottab,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
         /* -- TABLES -- */
         // Output it to buffers
         if ($this->mpdf->tableLevel) {

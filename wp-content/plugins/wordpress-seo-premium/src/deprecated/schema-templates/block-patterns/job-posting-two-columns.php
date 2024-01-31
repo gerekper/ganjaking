@@ -7,8 +7,6 @@ namespace Yoast\WP\SEO\Schema_Templates\Block_Patterns;
  *
  * @deprecated 20.5
  * @codeCoverageIgnore
- *
- * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
  */
 class Job_Posting_Two_Columns extends Job_Posting_Base_Pattern {
 

@@ -2,7 +2,7 @@
 /**
  * Conditional Shipping and Payments Functions
  *
- * @package  WooCommerce Conditional Shipping and Payments
+ * @package  Woo Conditional Shipping and Payments
  */
 
 // Exit if accessed directly.

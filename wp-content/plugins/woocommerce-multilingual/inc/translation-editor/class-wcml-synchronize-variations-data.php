@@ -216,19 +216,14 @@ class WCML_Synchronize_Variations_Data {
 		}
 	}
 
+	/**
+	 * @param string $lang
+	 * @param int    $original_variation_id
+	 *
+	 * @return int|null
+	 */
 	public function get_variation_id_by_lang( $lang, $original_variation_id ) {
-		return $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT post_id FROM {$this->wpdb->postmeta} AS pm
-                                        JOIN {$this->wpdb->prefix}icl_translations AS tr ON tr.element_id = pm.post_id
-                                        WHERE tr.element_type = 'post_product_variation'
-                                          AND tr.language_code = %s
-                                          AND pm.meta_key = '_wcml_duplicate_of_variation'
-                                          AND pm.meta_value = %d",
-				$lang,
-				$original_variation_id
-			)
-		);
+		return $this->sitepress->get_object_id( $original_variation_id, 'product_variation', false, $lang );
 	}
 
 	public function sync_variations_taxonomies( $original_variation_id, $tr_variation_id, $lang ) {

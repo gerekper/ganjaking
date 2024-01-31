@@ -127,6 +127,16 @@ if ( ! class_exists( 'RSGatewayModule' ) ) {
 					'default' => 'yes',
 				),
 				array(
+					'name'    => __( 'Hide SUMO Reward Points Payment Gateway' , 'rewardsystem' ),
+					'desc'    => __( 'If enabled, you can hide this gateway at checkout when the user has applied the points in the cart/checkout.' , 'rewardsystem' ),
+					'id'      => 'rs_hide_reward_gateway_when_points_redeemed',
+					'class'   => 'rs_hide_reward_gateway_when_points_redeemed',
+					'newids'  => 'rs_hide_reward_gateway_when_points_redeemed',
+					'type'    => 'checkbox',
+					'std'     => 'no',
+					'default' => 'no',
+				),
+				array(
 					'name'   => __( 'SUMO Reward Points Payment Gateway is hidden for Selected Product(s)' , 'rewardsystem' ),
 					'desc'   => __( 'Enable this option to hide SUMO Reward Points Payment Gateway for selected product(s) (Don\'t select point price product)' , 'rewardsystem' ),
 					'id'     => 'rs_enable_selected_product_for_hide_gateway',

@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -28,7 +28,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar\Channel;
  * The "acl" collection of methods.
  * Typical usage is:
  *  <code>
- *   $calendarService = new Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar(...);
+ *   $calendarService = new \Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar(...);
  *   $acl = $calendarService->acl;
  *  </code>
  */

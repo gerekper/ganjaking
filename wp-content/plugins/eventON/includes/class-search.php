@@ -1,7 +1,7 @@
 <?php
 /**
  * Search Capabilities of events through out eventon
- * @version 4.5
+ * @version 4.5.8
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -28,7 +28,7 @@ class evo_search{
 		add_filter( 'posts_search', array($this, 'advanced_custom_search'), 500, 2 );	
 	}
 
-// shortcode content
+// shortcode content u4.5.8
 	function search_content($atts){
 		ob_start(); 
 
@@ -41,7 +41,7 @@ class evo_search{
 			'event_type_2'=>'all',
 			'number_of_months'=>12,
 			'search_all'=>'no',
-			'hide_mult_occur'=>'yes',
+			'hide_mult_occur'=>'no',
 			'lang'=>'L1',
 		);
 

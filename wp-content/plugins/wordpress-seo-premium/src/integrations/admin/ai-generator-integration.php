@@ -75,7 +75,6 @@ class Ai_Generator_Integration implements Integration_Interface {
 		Options_Helper $options_helper,
 		User_Helper $user_helper,
 		Introductions_Seen_Repository $introductions_seen_repository
-
 	) {
 		$this->asset_manager                 = $asset_manager;
 		$this->addon_manager                 = $addon_manager;

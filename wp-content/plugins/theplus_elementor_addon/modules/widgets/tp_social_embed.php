@@ -37,6 +37,10 @@ class ThePlus_Social_Embed extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return [ 'Social Embed', 'Social Media Embed', 'Embed Social Media', 'Social Media Widget', 'Social Media', 'Elementor Social Embed', 'Social Embed' ];
+    }
+
     protected function register_controls() {
 		/*Embed Option Start*/
 		$this->start_controls_section(

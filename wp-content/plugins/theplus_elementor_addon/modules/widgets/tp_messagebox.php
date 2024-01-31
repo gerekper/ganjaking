@@ -40,6 +40,11 @@ class ThePlus_MessageBox extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Message Box', 'Alert Box', 'Notification Box', 'Info Box', 'Callout Box', 'Warning Box', 'Success Box', 'Error Box', 'Message Widget', 'Alert Widget', 'Notification Widget', 'Info Widget', 'Callout Widget', 'Warning Widget', 'Success Widget', 'Error Widget'];
+    }
+
+
     protected function register_controls() {
 		/*Text Content */
 		$this->start_controls_section(

@@ -4,8 +4,8 @@ Donate link:
 Tags:
 Requires at least: 6.2
 Tested up to: 6.4
-Requires PHP: 7.3
-Stable tag: 1.1.3
+Requires PHP: 7.4
+Stable tag: 1.4.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,8 @@ Accept payments via purchase order using WooCommerce.
 
 Looking for a helping hand? [View plugin documentation](https://docs.woocommerce.com/document/woocommerce-purchase-order-gateway/).
 
+This plugin is compatible with [WooPayments](https://woo.com/products/woopayments/).
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -24,6 +26,16 @@ Looking for a helping hand? [View plugin documentation](https://docs.woocommerce
 * Initial release. Woo!
 
 == Changelog ==
+
+= 1.4.6 - 2024-01-09 =
+* Dev - Bump PHP minimum supported version to 7.4.
+* Dev - Bump WooCommerce "tested up to" version 8.4.
+* Dev - Bump WooCommerce minimum supported version to 8.2.
+* Dev - Declare add-on compatibility with Product Editor.
+* Dev - Declare add-on compatibility with WooPayments.
+* Dev - Declare add-on compatibility with WooCommerce Blocks.
+* Dev - Bump PHP "tested up to" version 8.3.
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
 
 = 1.4.5 - 2023-11-20 =
 * Dev - Added critical flows end-to-end tests.

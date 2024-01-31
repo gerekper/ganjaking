@@ -1,5 +1,6 @@
 <?php 
 namespace Ali2Woo\Lib;
+
 /**
  * Exception for HTTP requests
  *

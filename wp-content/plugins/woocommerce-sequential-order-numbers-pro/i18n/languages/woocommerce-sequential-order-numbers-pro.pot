@@ -1,27 +1,27 @@
-# Copyright (C) 2023 SkyVerge
+# Copyright (C) 2024 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.20.3\n"
+"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.21.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-08-01 08:33:36+00:00\n"
+"POT-Creation-Date: 2024-01-15 05:59:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-seq-order-number-pro.php:523
+#: class-wc-seq-order-number-pro.php:539
 msgid "Draft"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:663
+#: class-wc-seq-order-number-pro.php:679
 msgid "Order Number Start must be a number greater than or equal to 0."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:689
+#: class-wc-seq-order-number-pro.php:705
 #. translators: Placeholders: %1$s - highest order number, %2$s - current order
 #. number set
 msgid ""
@@ -30,86 +30,86 @@ msgid ""
 "permanently delete the relevant order(s)."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:715
+#: class-wc-seq-order-number-pro.php:731
 msgid "Order Numbers"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:717
+#: class-wc-seq-order-number-pro.php:733
 msgid ""
 "Use sequential, formatted order numbers to track your orders. Change the "
 "starting number, or add prefixes and suffixes for accounting."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:722
+#: class-wc-seq-order-number-pro.php:738
 msgid "Sample order number"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:730
+#: class-wc-seq-order-number-pro.php:746
 msgid "Order Number Format"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:732
+#: class-wc-seq-order-number-pro.php:748
 #. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
 #. link tag
 msgid "See the %1$splugin documentation%2$s for the full set of available patterns."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:733
+#: class-wc-seq-order-number-pro.php:749
 msgid ""
 "Enter prefixes, suffixes, or patterns for order numbers. You can use "
 "leading 0s to control order number length."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:739 src/Admin/Onboarding_Tips.php:413
+#: class-wc-seq-order-number-pro.php:755 src/Admin/Onboarding_Tips.php:413
 msgid "Skip Free Orders"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:740
+#: class-wc-seq-order-number-pro.php:756
 msgid "Skip order numbers for free orders"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:741
+#: class-wc-seq-order-number-pro.php:757
 msgid "Use a different sequence and prefix for free orders. Example: FREE-123."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:749
+#: class-wc-seq-order-number-pro.php:765
 msgid "Free Order Identifer"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:751
+#: class-wc-seq-order-number-pro.php:767
 #. translators: Placeholders: %s - sample order number
 msgid "Example free order identifier: %s"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:752
+#: class-wc-seq-order-number-pro.php:768
 msgid ""
 "The text to display in place of the order number for free orders. This will "
 "be displayed anywhere an order number would otherwise be shown: to the "
 "customer, in emails, and in the admin."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:757 class-wc-seq-order-number-pro.php:1455
+#: class-wc-seq-order-number-pro.php:773 class-wc-seq-order-number-pro.php:1471
 #. translators: FREE- as in free purchase order
 msgid "FREE-"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:847
+#: class-wc-seq-order-number-pro.php:863
 msgid "{mm}"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:848
+#: class-wc-seq-order-number-pro.php:864
 msgid "Prefix"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:854
+#: class-wc-seq-order-number-pro.php:870
 msgid "Number"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:860
+#: class-wc-seq-order-number-pro.php:876
 msgid "{yyyy}"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:861
+#: class-wc-seq-order-number-pro.php:877
 msgid "Suffix"
 msgstr ""
 

@@ -1,8 +1,8 @@
 <?php
-/*
-	styles tab for eventon settings
-	version: 2.2.11.1
-*/
+/**
+ * styles tab for eventon settings
+ * @version: 4.5.6
+ */
 ?>
 
 <div id="evcal_3" class="postbox evcal_admin_meta curve">	
@@ -42,5 +42,5 @@
 		<?php endif;?>
 	</div>
 </div>
-<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" />
+<input type="submit" class="evo_admin_btn btn_prime evo_settings_save_btn" value="<?php _e('Save Changes') ?>" />
 </form>

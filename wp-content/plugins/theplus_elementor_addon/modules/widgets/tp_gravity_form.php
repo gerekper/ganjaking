@@ -36,6 +36,10 @@ class ThePlus_Gravity_Form extends Widget_Base {
     public function get_categories() {
         return array('plus-adapted');
     }
+
+	public function get_keywords() {
+        return ['Gravity Forms', 'Form Builder', 'Contact Form', 'WordPress Forms', 'Elementor Forms'];
+    }
 	
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "customize-gravity-forms-in-elementor";

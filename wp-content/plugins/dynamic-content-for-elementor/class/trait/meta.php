@@ -526,7 +526,7 @@ trait Meta
         if (acf_have_local_fields()) {
             $local_fields = acf_get_local_fields();
             foreach ($local_fields as $key => $value) {
-                $acf_list[$value['key']] = $key . ' > ' . $value['label'] . ' [' . $value['key'] . '] (' . $value['type'] . ')';
+                $acf_list[$value['key']] = $key . ' > ' . ($value['label'] ?? '') . ' [' . $value['key'] . '] (' . $value['type'] . ')';
             }
         }
         if (empty($acf_fields) && empty($local_fields)) {

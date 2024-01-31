@@ -158,7 +158,7 @@ class Update_Premium_Notification implements Integration_Interface {
 	 * @return bool
 	 */
 	public function dismiss_update_premium_notification() {
-		return $this->options_helper->set( 'dismiss_update_premium_notification', WPSEO_PREMIUM_VERSION );
+		return $this->options_helper->set( 'dismiss_update_premium_notification', \WPSEO_PREMIUM_VERSION );
 	}
 
 	/**
@@ -169,7 +169,7 @@ class Update_Premium_Notification implements Integration_Interface {
 	protected function notice_was_dismissed_on_current_premium_version() {
 		$dismissed_notification_version = $this->options_helper->get( 'dismiss_update_premium_notification', '' );
 		if ( ! empty( $dismissed_notification_version ) ) {
-			return \version_compare( $dismissed_notification_version, WPSEO_PREMIUM_VERSION, '>=' );
+			return \version_compare( $dismissed_notification_version, \WPSEO_PREMIUM_VERSION, '>=' );
 		}
 
 		return false;

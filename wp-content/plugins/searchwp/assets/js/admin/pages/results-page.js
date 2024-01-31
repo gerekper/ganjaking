@@ -105,8 +105,6 @@
                 const $preview = $('.swp-rp-theme-preview > div');
                 const $perRowBlock = $('#swp-results-per-row-block');
 
-                console.log( );
-
                 if ( theme === 'alpha' ) {
                     $layout.filter( '[value=list]' ).prop( 'checked',true );
                     imageSizeChoicesJs.setChoiceByValue( '' );

@@ -330,7 +330,7 @@ class WPSEO_Premium_Import_Manager implements WPSEO_WordPress_Integration {
 	 * @return string The posted htaccess.
 	 */
 	protected function get_posted_htaccess() {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are validating a nonce here.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are validating a nonce here.
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'wpseo-import' )
 			&& isset( $_POST['htaccess'] ) && is_string( $_POST['htaccess'] ) ) {
 			return sanitize_text_field( wp_unslash( $_POST['htaccess'] ) );
@@ -347,7 +347,7 @@ class WPSEO_Premium_Import_Manager implements WPSEO_WordPress_Integration {
 	 * @return string|null The posted import plugin.
 	 */
 	protected function get_posted_import_plugin() {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are validating a nonce here.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are validating a nonce here.
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'wpseo-import' )
 			&& isset( $_POST['wpseo'] ) && is_array( $_POST['wpseo'] )
 			&& isset( $_POST['wpseo']['import_plugin'] ) && is_string( $_POST['wpseo']['import_plugin'] ) ) {

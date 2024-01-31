@@ -267,6 +267,21 @@ class WoocommerceGpfFeedItem {
 	public $stock_quantity;
 
 	/**
+	 * @var mixed
+	 */
+	public $raw_price;
+
+	/**
+	 * @var mixed
+	 */
+	public $raw_regular_price;
+
+	/**
+	 * @var mixed
+	 */
+	public $raw_sale_price;
+
+	/**
 	 * Whether or not we should calculate prices.
 	 *
 	 * Optional. Defaults to TRUE.
@@ -624,6 +639,10 @@ class WoocommerceGpfFeedItem {
 		$this->sale_price_end_date   = $prices['sale_price_end_date'];
 		$this->price_ex_tax          = $prices['price_ex_tax'];
 		$this->price_inc_tax         = $prices['price_inc_tax'];
+
+		$this->raw_sale_price    = $prices['raw_sale_price'];
+		$this->raw_regular_price = $prices['raw_regular_price'];
+		$this->raw_price         = $prices['raw_price'];
 	}
 
 	/**
@@ -644,12 +663,15 @@ class WoocommerceGpfFeedItem {
 		$prices                          = array();
 		$prices['sale_price_ex_tax']     = null;
 		$prices['sale_price_inc_tax']    = null;
-		$prices['regular_price_ex_tax']  = null;
-		$prices['regular_price_inc_tax'] = null;
 		$prices['sale_price_start_date'] = null;
 		$prices['sale_price_end_date']   = null;
+		$prices['raw_sale_price']        = null;
+		$prices['regular_price_ex_tax']  = null;
+		$prices['regular_price_inc_tax'] = null;
+		$prices['raw_regular_price']     = null;
 		$prices['price_ex_tax']          = null;
 		$prices['price_inc_tax']         = null;
+		$prices['raw_price']             = null;
 
 		// Find out the product type.
 		$product_type = $product->get_type();
@@ -677,14 +699,8 @@ class WoocommerceGpfFeedItem {
 		if ( '' !== $regular_price ) {
 			$prices['regular_price_ex_tax']  = wc_get_price_excluding_tax( $product, array( 'price' => $regular_price ) );
 			$prices['regular_price_inc_tax'] = wc_get_price_including_tax( $product, array( 'price' => $regular_price ) );
+			$prices['raw_regular_price']     = $regular_price;
 		}
-		// Grab the sale price of the base product. Some plugins (Dyanmic
-		// pricing as an example) filter the active price, but not the sale
-		// price. If the active price < the regular price treat it as a sale
-		// price.
-		$sale_price   = $product->get_sale_price() ?? '';
-		$active_price = $product->get_price() ?? '';
-
 		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		$this->debug->log(
 			'get_regular_price() for %d is: %s',
@@ -693,6 +709,16 @@ class WoocommerceGpfFeedItem {
 				var_export( $regular_price, 1 ),
 			]
 		);
+		// phpcs:enable
+
+		// Grab the sale price of the base product. Some plugins (Dyanmic
+		// pricing as an example) filter the active price, but not the sale
+		// price. If the active price < the regular price treat it as a sale
+		// price.
+		$sale_price   = $product->get_sale_price() ?? '';
+		$active_price = $product->get_price() ?? '';
+
+		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		$this->debug->log( 'get_sale_price() for %d is: %s', [ $product->get_id(), var_export( $sale_price, 1 ) ] );
 		$this->debug->log( 'get_active_price() for %d is: %s', [ $product->get_id(), var_export( $active_price, 1 ) ] );
 		// phpcs:enable
@@ -706,6 +732,7 @@ class WoocommerceGpfFeedItem {
 			$prices['sale_price_inc_tax']    = wc_get_price_including_tax( $product, array( 'price' => $sale_price ) );
 			$prices['sale_price_start_date'] = $product->get_date_on_sale_from();
 			$prices['sale_price_end_date']   = $product->get_date_on_sale_to();
+			$prices['raw_sale_price']        = $sale_price;
 		}
 
 		// If the sale price dates no longer apply, make sure we don't include a sale price.
@@ -715,6 +742,7 @@ class WoocommerceGpfFeedItem {
 			$prices['sale_price_start_date'] = null;
 			$prices['sale_price_ex_tax']     = null;
 			$prices['sale_price_inc_tax']    = null;
+			$prices['raw_sale_price']        = null;
 		}
 		// If we have a sale end date in the future, but no start date, set the start date to now()
 		if ( ! empty( $prices['sale_price_end_date'] ) &&
@@ -743,9 +771,11 @@ class WoocommerceGpfFeedItem {
 		if ( null !== $prices['sale_price_ex_tax'] ) {
 			$prices['price_ex_tax']  = $prices['sale_price_ex_tax'];
 			$prices['price_inc_tax'] = $prices['sale_price_inc_tax'];
+			$prices['raw_price']     = $prices['raw_sale_price'];
 		} else {
 			$prices['price_ex_tax']  = $prices['regular_price_ex_tax'];
 			$prices['price_inc_tax'] = $prices['regular_price_inc_tax'];
+			$prices['raw_price']     = $prices['raw_regular_price'];
 		}
 
 		return $prices;

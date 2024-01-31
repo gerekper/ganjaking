@@ -368,7 +368,7 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 		// Restore original Post Data.
 		wp_reset_postdata();
 	} else {
-		$render .= '<div class="posts-content">No posts were found.</div>';
+		$render .= '<div class="posts-content">' . __( 'No posts were found', 'seedprod-pro' ) . '.</div>';
 	}
 
 	return $render;
@@ -649,7 +649,7 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 		// Restore original Post Data.
 		wp_reset_postdata();
 	} else {
-		$render .= '<div class="posts-content">No posts were found.</div>';
+		$render .= '<div class="posts-content">' . __( 'No posts were found', 'seedprod-pro' ) . '.</div>';
 	}
 
 	return $render;
@@ -915,7 +915,7 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 		// Restore original Post Data.
 		wp_reset_postdata();
 	} else {
-		$render .= '<div class="posts-content">No posts were found.</div>';
+		$render .= '<div class="posts-content">' . __( 'No posts were found', 'seedprod-pro' ) . '.</div>';
 	}
 
 	return $render;

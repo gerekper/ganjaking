@@ -951,12 +951,13 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         break;
                     case 'template':
                         $tmpl_opt = '';
+                        $is_user = \false;
                         switch ($settings['dce_views_object']) {
                             case 'post':
                                 $tmpl_opt = ' post_id="' . $object_id . '"';
                                 break;
                             case 'user':
-                                $tmpl_opt = ' author_id="' . $object_id . '" user_id="' . $object_id . '"';
+                                $is_user = \true;
                                 break;
                             case 'term':
                                 $tmpl_opt = ' term_id="' . $object_id . '"';
@@ -987,7 +988,28 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                                 }
                             }
                         } else {
+                            if ($is_user) {
+                                global $wp_query;
+                                $original_queried_object = $wp_query->queried_object;
+                                $original_queried_object_id = $wp_query->queried_object_id;
+                                global $current_user;
+                                $original_user = $current_user;
+                                $current_user = $user;
+                                global $authordata;
+                                $original_author = $authordata;
+                                $authordata = $current_user;
+                                if ($authordata) {
+                                    $wp_query->queried_object = $authordata;
+                                    $wp_query->queried_object_id = $authordata->ID;
+                                }
+                            }
                             $row_html = do_shortcode($template_shortcode);
+                            if ($is_user) {
+                                $authordata = $original_author;
+                                $current_user = $original_user;
+                                $wp_query->queried_object = $original_queried_object;
+                                $wp_query->queried_object_id = $original_queried_object_id;
+                            }
                         }
                         break;
                     case 'text':

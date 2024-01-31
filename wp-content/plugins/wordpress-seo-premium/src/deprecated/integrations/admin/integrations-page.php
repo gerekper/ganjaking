@@ -28,7 +28,7 @@ class Integrations_Page implements Integration_Interface {
 	 * @codeCoverageIgnore
 	 */
 	public static function get_conditionals() {
-		\deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
+		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
 
 		return [ Admin_Conditional::class ];
 	}
@@ -42,7 +42,7 @@ class Integrations_Page implements Integration_Interface {
 	 * @param Options_Helper $options_helper The options helper.
 	 */
 	public function __construct( Options_Helper $options_helper ) {
-		\deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
+		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
 
 		$this->options_helper = $options_helper;
 	}
@@ -54,7 +54,7 @@ class Integrations_Page implements Integration_Interface {
 	 * @codeCoverageIgnore
 	 */
 	public function register_hooks() {
-		\deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
+		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
 	}
 
 	/**
@@ -62,8 +62,10 @@ class Integrations_Page implements Integration_Interface {
 	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function enqueue_assets() {
-		\deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
+		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
 	}
 }

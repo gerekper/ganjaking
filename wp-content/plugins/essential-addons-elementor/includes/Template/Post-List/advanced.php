@@ -51,8 +51,7 @@ if ($settings['eael_post_list_post_feature_image'] === 'yes') {
     if (has_post_thumbnail()) {
         echo '<img src="' . wp_get_attachment_image_url(get_post_thumbnail_id(), $settings['eael_post_featured_image_size']) . '" alt="' . esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) . '">';
     }
-    echo '<a href="' . get_the_permalink() . '"' . $link_settings['image_link_nofollow'] . '' . $link_settings['image_link_target_blank'] . '></a>
-            </div>';
+    echo '</div>';
 }
 
 echo '<div class="eael-post-list-content">';

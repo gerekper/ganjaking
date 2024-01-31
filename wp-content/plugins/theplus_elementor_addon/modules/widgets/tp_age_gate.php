@@ -42,6 +42,10 @@ class ThePlus_Age_Gate extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Age Gate', 'Age Verification', 'Age Restriction', 'Age Confirmation', 'Age Check', 'Age Limit', 'Age Requirement'];
+    }
+
     protected function register_controls() {
 		/* Layout Tab */
 		$this->start_controls_section(
@@ -2289,7 +2293,7 @@ class ThePlus_Age_Gate extends Widget_Base {
 			if(tp_has_lazyload()){			
 				$lazybgclass1 =' lazy-background';
 			}
-			$bg_image_main_wrapper = 'style="background-image:url('.$settings['age_sec_bg_image']['url'].');background-size:cover;   background-attachment:inherit;background-position:center center;"';
+			$bg_image_main_wrapper = 'style="background-image:url('. esc_url( $settings['age_sec_bg_image']['url'] ) .');background-size:cover;   background-attachment:inherit;background-position:center center;"';
 		}		
 		$age_cookies_days = !empty($settings['age_cookies_days']) ? $settings['age_cookies_days'] : '10';					 
 		if(!empty($settings['age_cookies']) && $settings['age_cookies']=='yes' && !empty($age_cookies_days)){	
@@ -2314,7 +2318,7 @@ class ThePlus_Age_Gate extends Widget_Base {
 									$imgSrc= tp_get_image_rander( $image_id,'full', [ 'class' => 'tp-agegate-image' ] );
 									$output .= '<div class="tp-age-ii">'.$imgSrc.'</div>';
 								}else{
-									$output .= '<div class="tp-age-ii"><img src='.$settings['age_head_img']['url'].' class="tp-agegate-image"></div>';
+									$output .= '<div class="tp-age-ii"><img src=' . esc_url( $settings['age_head_img']['url'] ) . ' class="tp-agegate-image"></div>';
 								}
 							}
 							if(!empty($age_gate_title) && $age_gate_title=='yes' && !empty($age_gate_title_input)){
@@ -2420,7 +2424,7 @@ class ThePlus_Age_Gate extends Widget_Base {
 							if(tp_has_lazyload()){			
 								$lazybgclass =' lazy-background';
 							}
-							$output .='<div class="tp-agegate-boxes '.$lazybgclass.' '.$right_img_class.'" style="background-image:url('.$settings['age_side_img']['url'].');background-size:cover;   background-attachment:inherit;">';
+							$output .='<div class="tp-agegate-boxes '.$lazybgclass.' '.$right_img_class.'" style="background-image:url(' . esc_url( $settings['age_side_img']['url'] ) . ');background-size:cover;   background-attachment:inherit;">';
 							$output .='</div>';
 						}				
 				$output .='</div>';

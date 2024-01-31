@@ -284,7 +284,7 @@ SCRIPT;
             try {
                 $res = $this->get_lang()->evaluate($condition['condition'], $values);
             } catch (\Throwable $e) {
-                $msg = esc_html__('Conditional Fields error (field: %s)', 'dynamic-content-for-elementor');
+                $msg = esc_html__('There is an error in your Conditional Fields code (field: %s)', 'dynamic-content-for-elementor');
                 $ajax_handler->add_error_message(\sprintf($msg, $id));
                 $ajax_handler->add_admin_error_message($e->getMessage());
                 return \false;

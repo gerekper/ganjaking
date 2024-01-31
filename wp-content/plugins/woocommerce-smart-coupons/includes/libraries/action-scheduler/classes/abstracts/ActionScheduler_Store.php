@@ -348,7 +348,7 @@ abstract class ActionScheduler_Store extends ActionScheduler_Store_Deprecated {
 					'hook'     => $hook,
 					'status'   => self::STATUS_PENDING,
 					'per_page' => 1000,
-					'orderby'  => 'action_id',
+					'orderby'  => 'none',
 				)
 			);
 
@@ -373,7 +373,7 @@ abstract class ActionScheduler_Store extends ActionScheduler_Store_Deprecated {
 					'group'    => $group,
 					'status'   => self::STATUS_PENDING,
 					'per_page' => 1000,
-					'orderby'  => 'action_id',
+					'orderby'  => 'none',
 				)
 			);
 

@@ -4,7 +4,7 @@
 	
 	use ElementPack\Base\Condition;
 	use Elementor\Controls_Manager;
-	use ElementPack\Modules\VisibilityControls\ACF_Global;
+	use ElementPack\Includes\ACF_Global;
 	
 	if ( ! defined( 'ABSPATH' ) ) {
 		exit; // Exit if accessed directly

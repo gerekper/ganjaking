@@ -587,7 +587,10 @@
 	.evo_rel_events_box .ev_rel_events_list span.n{text-transform: uppercase;font-weight: bold;}
 	.evo_rel_events_box .ev_rel_events_list span.l:hover{background-color: #ffce71; color: #7b7a7a;}
 	.evo_rel_events_box .ev_rel_events_list span.l:hover i{ color: #fff;}
-	.evo_rel_events_form .evo_rel_search{margin-bottom: 10px;}
+	.evo_rel_events_form .evo_rel_search{margin-bottom: 10px;position: relative;}
+	.evo_rel_events_form .evo_rel_search .evo_rel_ev_count{
+		position: absolute; right: 20px; top: 12px;
+	}
 	.evo_rel_events_form .evo_rel_search input{
 		border: 2px solid var(--evo_color_1);
 	    border-radius: 25px;

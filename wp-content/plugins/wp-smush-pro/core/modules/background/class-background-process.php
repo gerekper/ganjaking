@@ -74,7 +74,7 @@ abstract class Background_Process extends Async_Request {
 		$this->server_utils     = new Server_Utils();
 	}
 
-	private function generate_instance_id() {
+	private function generate_unique_id() {
 		return md5( microtime() . rand() );
 	}
 
@@ -95,7 +95,7 @@ abstract class Background_Process extends Async_Request {
 	}
 
 	public function spawn() {
-		$instance_id = $this->generate_instance_id();
+		$instance_id = $this->generate_unique_id();
 
 		$this->logger()->info( "Spawning a brand new instance (ID: $instance_id) for the process." );
 
@@ -203,7 +203,7 @@ abstract class Background_Process extends Async_Request {
 		set_site_transient(
 			$this->get_last_run_transient_key(),
 			$timestamp,
-			$this->get_instance_expiry_duration()
+			$this->get_instance_expiry_duration_seconds()
 		);
 
 		$human_readable_timestamp = wp_date( 'Y-m-d H:i:s', $timestamp );
@@ -252,6 +252,9 @@ abstract class Background_Process extends Async_Request {
 			}
 
 			unset( $queue[ $key ] );
+			if ( $this->should_update_queue_after_task() ) {
+				$this->update_queue( $queue );
+			}
 
 			$processed_tasks_count ++;
 			if ( $this->task_limit_reached( $processed_tasks_count ) ) {
@@ -270,7 +273,9 @@ abstract class Background_Process extends Async_Request {
 		if ( empty( $queue ) ) {
 			$this->complete();
 		} else {
-			$this->update_queue( $queue );
+			if ( ! $this->should_update_queue_after_task() ) {
+				$this->update_queue( $queue );
+			}
 			$this->dispatch( $instance_id );
 		}
 	}
@@ -284,7 +289,7 @@ abstract class Background_Process extends Async_Request {
 	 * @return bool
 	 */
 	protected function memory_exceeded() {
-		$memory_limit   = $this->server_utils->get_memory_limit() * 0.9; // 90% of max memory
+		$memory_limit   = $this->server_utils->get_memory_limit() * 0.75; // 75% of max memory
 		$current_memory = $this->server_utils->get_memory_usage();
 		$return         = false;
 
@@ -321,11 +326,10 @@ abstract class Background_Process extends Async_Request {
 	 * performed, or, call parent::complete().
 	 */
 	protected function complete() {
+		$this->do_action( 'completed' );
 		$this->logger()->info( "Process completed." );
 		$this->cleanup();
 		$this->status->complete();
-
-		$this->do_action( 'completed' );
 	}
 
 	/**
@@ -357,40 +361,52 @@ abstract class Background_Process extends Async_Request {
 	 * and data exists in the queue.
 	 */
 	public function handle_cron_healthcheck() {
-		$this->logger()->info( "Running scheduled health check." );
+		$mutex = new Mutex( $this->identifier . '_cron_healthcheck' );
+		$mutex->set_break_on_timeout( true )
+		      ->set_timeout( 1 ) // We don't want two health checks running
+		      ->execute( function () {
 
-		if ( $this->is_process_running() ) {
-			$this->logger()->info( "Health check: Process seems healthy, no action required." );
-			exit;
-		}
+				$this->logger()->info( "Running scheduled health check." );
 
-		if ( $this->is_queue_empty() ) {
-			$this->logger()->info( "Health check: Process not in progress but the queue is empty, no action required." );
-			$this->clear_scheduled_event();
-			exit;
-		}
+				if ( $this->is_process_running() ) {
+					$this->logger()->info( "Health check: Process seems healthy, no action required." );
+					exit;
+				}
 
-		if ( $this->status->is_cancelled() ) {
-			$this->logger()->info( "Health check: Process has been cancelled already, no action required." );
-			$this->clear_scheduled_event();
-			exit;
-		}
+				if ( $this->is_queue_empty() ) {
+					$this->logger()->info( "Health check: Process not in progress but the queue is empty, no action required." );
+					$this->clear_scheduled_event();
+					exit;
+				}
 
-		if ( $this->attempt_restart_during_health_check() ) {
-			$this->logger()->warning( "Health check: Process instance seems to have died. Spawn a new instance." );
-			$this->spawn();
-		} else {
-			$this->logger()->warning( "Health check: Process instance seems to have died. Restart disabled, marking the process as dead." );
-			$this->mark_as_dead();
-		}
+				if ( $this->status->is_cancelled() ) {
+					$this->logger()->info( "Health check: Process has been cancelled already, no action required." );
+					$this->clear_scheduled_event();
+					exit;
+				}
+
+				if ( ! $this->is_revival_limit_reached() ) {
+					$this->logger()->warning( "Health check: Process instance seems to have died. Spawn a new instance." );
+					$this->revive_process();
+				} else {
+					$this->logger()->warning( "Health check: Process instance seems to have died. Restart disabled, marking the process as dead." );
+					$this->mark_as_dead();
+				}
+			} );
 
 		exit;
 	}
 
+	private function revive_process() {
+		$this->do_action( 'revived' );
+		$this->increment_revival_count();
+		$this->spawn();
+	}
+
 	private function mark_as_dead() {
+		$this->do_action( 'dead' );
 		$this->status->mark_as_dead();
 		$this->cleanup();
-		$this->do_action( 'dead' );
 	}
 
 	/**
@@ -439,11 +455,12 @@ abstract class Background_Process extends Async_Request {
 			->set_break_on_timeout( false ) // Since this is a user operation, we must cancel, even if there is a timeout
 			->set_timeout( $this->get_time_limit() ) // Shouldn't take more time than the time allocated to the process itself
 			->execute( function () use ( $active_instance_id ) {
+				// Do this before cleanup, so we still have data available to us
+				$this->do_action( 'cancelled' );
+
 				$this->logger()->info( "Cancelling the process (Instance: $active_instance_id)." );
 				$this->cancel_process();
 				$this->logger()->info( "Cancellation completed (Instance: $active_instance_id)." );
-
-				$this->do_action( 'cancelled' );
 			} );
 	}
 
@@ -484,6 +501,22 @@ abstract class Background_Process extends Async_Request {
 		return $this->identifier . '_active_instance';
 	}
 
+	private function set_process_id( $instance_id ) {
+		update_site_option( $this->get_process_id_option_key(), $instance_id );
+	}
+
+	public function get_process_id() {
+		return get_site_option( $this->get_process_id_option_key() );
+	}
+
+	private function delete_process_id() {
+		delete_site_option( $this->get_process_id_option_key() );
+	}
+
+	private function get_process_id_option_key() {
+		return $this->identifier . '_process_id';
+	}
+
 	public function set_logger( $logger ) {
 		$this->logger_container->set_logger( $logger );
 	}
@@ -509,13 +542,16 @@ abstract class Background_Process extends Async_Request {
 
 		$total_items = count( $tasks );
 		$this->status->start( $total_items );
+		$this->update_queue( $tasks );
+		// Generate ID for the whole process.
+		$this->set_process_id( $this->generate_unique_id() );
 
 		$this->logger()->info( "Starting new process with $total_items tasks" );
 
-		$this->update_queue( $tasks );
-		$this->spawn();
-
+		// Trigger the started event before dispatching the request to ensure it is called before the completed event.
 		$this->do_action( 'started' );
+
+		$this->spawn();
 	}
 
 	private function mutex( $operation ) {
@@ -539,8 +575,8 @@ abstract class Background_Process extends Async_Request {
 		return apply_filters( $this->identifier . '_queue_lock_time', $lock_duration );
 	}
 
-	private function get_instance_expiry_duration() {
-		return apply_filters( $this->identifier . '_instance_expiry_time', 60 * 2 ); // 2 minutes
+	protected function get_instance_expiry_duration_seconds() {
+		return MINUTE_IN_SECONDS * 2;
 	}
 
 	private function get_last_run_transient_key() {
@@ -555,6 +591,8 @@ abstract class Background_Process extends Async_Request {
 		// Delete options and transients
 		$this->delete_queue();
 		delete_site_option( $this->get_active_instance_option_id() );
+		$this->delete_process_id();
+		$this->delete_revival_count();
 		$this->clear_last_run_timestamp();
 
 		// Cancel all events
@@ -594,11 +632,40 @@ abstract class Background_Process extends Async_Request {
 		return $interval * MINUTE_IN_SECONDS;
 	}
 
-	protected function attempt_restart_during_health_check() {
-		return true;
-	}
-
 	public function get_identifier() {
 		return $this->identifier;
+	}
+
+	protected function should_update_queue_after_task() {
+		return false;
+	}
+
+	private function increment_revival_count() {
+		$revival_count = $this->get_revival_count();
+		$this->set_revival_count( $revival_count + 1 );
+	}
+
+	private function set_revival_count( $instance_id ) {
+		update_site_option( $this->get_revival_count_option_key(), $instance_id );
+	}
+
+	public function get_revival_count() {
+		return (int) get_site_option( $this->get_revival_count_option_key(), 0 );
+	}
+
+	private function delete_revival_count() {
+		delete_site_option( $this->get_revival_count_option_key() );
+	}
+
+	private function get_revival_count_option_key() {
+		return $this->identifier . '_revival_count';
+	}
+
+	protected function get_revival_limit() {
+		return apply_filters( $this->identifier . '_revival_limit', 5 );
+	}
+
+	protected function is_revival_limit_reached() {
+		return $this->get_revival_count() >= $this->get_revival_limit();
 	}
 }

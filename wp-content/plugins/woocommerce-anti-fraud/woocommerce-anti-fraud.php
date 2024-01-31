@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.7.5
+ * Version: 5.7.7
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 8.4
+ * WC tested up to: 8.5
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -265,8 +265,10 @@ class WooCommerce_Anti_Fraud {
 	public function dismiss_maxmind_alert_callback() { 
 
 		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-			return false;
+			echo 'Nonce verification failed!';
+			die();
 		}
+
 		$task = isset($_POST['task']) ? sanitize_text_field($_POST['task']) : '';
 
 		if ('maxmind-alert-dismissed' === $task ) {
@@ -285,7 +287,8 @@ class WooCommerce_Anti_Fraud {
 	public function dismiss_trustswiftly_alert_callback() { 
 
 		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-			return false;
+			echo 'Nonce verification failed!';
+			die();
 		}
 
 		$trustswiftly = isset($_POST['trustswiftly']) ? sanitize_text_field($_POST['trustswiftly']) : '';
@@ -361,7 +364,8 @@ class WooCommerce_Anti_Fraud {
 		if ( ! empty( $_POST['billing_email'] ) ) {
 
 			if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-				return false;
+				echo 'Nonce verification failed!';
+				die();
 			}
 
 			$customer_billing_email = sanitize_text_field( $_POST['billing_email'] );
@@ -500,7 +504,8 @@ class WooCommerce_Anti_Fraud {
 		if ( ! empty( $_POST['billing_email'] ) ) {
 
 			if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-				return false;
+				echo 'Nonce verification failed!';
+				die();
 			}
 
 			$customer_email = sanitize_text_field( $_POST['billing_email'] );
@@ -651,8 +656,9 @@ class WooCommerce_Anti_Fraud {
 		$blocked_ipaddress = get_option( 'wc_settings_anti_fraudblacklist_ipaddress' );
 		$array_mail = explode( ',', $blocked_email );
 
-		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-			return true;
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			echo 'Nonce verification failed!';
+			die();
 		}
 		
 		$email_whitelist = get_option( 'wc_settings_anti_fraud_whitelist' );
@@ -862,8 +868,9 @@ class WooCommerce_Anti_Fraud {
 		$single_whitelist_email_arr = explode( "\n", $get_whitelist_email );
 		$selected_whitelisted_email = 'false';
 
-		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-			return true;
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			echo 'Nonce verification failed!';
+			die();
 		}
 
 		$customer_billing_email = isset( $_POST['billing_email'] ) ? sanitize_text_field( $_POST['billing_email'] ) : '';
@@ -1013,9 +1020,11 @@ class WooCommerce_Anti_Fraud {
 			$ip_address = WC_Geolocation::get_ip_address();
 			Af_Logger::debug( 'ip_address : ' . $ip_address );
 
-			if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-				return true;
+			if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+				echo 'Nonce verification failed!';
+				die();
 			}
+
 			$user = get_user_by( 'email', isset( $_POST['billing_email'] ) ? sanitize_text_field( $_POST['billing_email'] ) : '' );
 			// if(isset($user->ID)){
 			// $meta['key'] = '_customer_user';
@@ -1105,8 +1114,9 @@ class WooCommerce_Anti_Fraud {
 		$whitelist = explode( "\n", $email_whitelist );
 
 		$selected_whitelisted_email = false;
-		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-			return true;
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			echo 'Nonce verification failed!';
+			die();
 		}
 
 		$whitelist_array = isset( $_POST['billing_email'] ) ? sanitize_text_field( $_POST['billing_email'] ) : '';
@@ -1743,7 +1753,8 @@ class WooCommerce_Anti_Fraud {
 		if ( ! empty( $_POST['latitude'] ) && ! empty( $_POST['longitude'] ) ) {
 
 			if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-				return false;
+				echo 'Nonce verification failed!';
+				die();
 			}
 
 			$lat = sanitize_text_field( $_POST['latitude'] );
@@ -2003,9 +2014,12 @@ class WooCommerce_Anti_Fraud {
 	public function check_blacklist_whitelist() {
 		$blocked_email = get_option( 'wc_settings_anti_fraudblacklist_emails' );
 		$array_mail = explode( ',', $blocked_email );
-		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-			return true;
+		
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			echo 'Nonce verification failed!';
+			die();
 		}
+
 		$whitelistarray = isset( $_POST['whitelist'] ) ? sanitize_text_field( $_POST['whitelist'] ) : '';
 		$expwhitearray = explode( "\n", $whitelistarray );
 		$result = array_diff( $array_mail, $expwhitearray );
@@ -2180,7 +2194,8 @@ class WooCommerce_Anti_Fraud {
 
 		if ( 'yes' == $wc_af_enable_recaptcha_checkout && 'yes' == $wc_af_enable_v2_recaptcha && ! empty( $wc_af_recaptcha_site_key ) && ! empty( $wc_af_recaptcha_secret_key ) ) {
 
-			add_action( 'woocommerce_review_order_before_submit', array( $this, 'wc_af_captcha_checkout_field' ) );
+			//add_action( 'woocommerce_review_order_before_submit', array( $this, 'wc_af_captcha_checkout_field' ) );
+			add_action( 'woocommerce_review_order_before_payment', array( $this, 'wc_af_captcha_checkout_field' ), 10, 3 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'wc_af_validate_captcha' ), 10, 3 );
 
 		} else {
@@ -2247,8 +2262,10 @@ class WooCommerce_Anti_Fraud {
 		$v3_secret_key = get_option( 'wc_af_v3_recaptcha_secret_key' );
 
 		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
-			return false;
+			echo 'Nonce verification failed!';
+			die();
 		}
+
 		$REMOTE_ADDR = '';
 		$captcha = '';
 		if ( isset( $_POST['googlerecaptchav3'] ) && ! empty( $_POST['googlerecaptchav3'] ) ) {
@@ -2314,9 +2331,12 @@ class WooCommerce_Anti_Fraud {
 	// TO Do Test
 	public function my_action() {
 		$help_class = new WC_AF_Score_Helper();
-		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-			return true;
+
+		if ( wp_verify_nonce( isset( $_REQUEST['_wpnonce'] ), 'my-nonce' ) ) {
+			echo 'Nonce verification failed!';
+			die();
 		}
+		
 		if ( isset( $_POST['order_id'] ) ) {
 			$help_class->do_check( sanitize_text_field( $_POST['order_id'] ) );
 		}
@@ -2597,7 +2617,13 @@ class WooCommerce_Anti_Fraud {
 			<!--<a href="javascript:wcAfCaptcha=grecaptcha.reset(wcAfCaptcha);">Refresh</a>-->
 			</p>
 			<script>
-				 var wcAfCaptcha = null;
+
+				var $n = jQuery.noConflict();
+				$n(document.body).on('checkout_error', function () {
+					grecaptcha.reset();
+				   });
+
+				var wcAfCaptcha = null;
 				<?php $intval = uniqid( 'interval_' ); ?>
 
 				var <?php echo esc_html__( $intval ); ?> = setInterval(function() {

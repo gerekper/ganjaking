@@ -1537,7 +1537,7 @@ function check_display_price_type( $product_id ) {
 			'excluded_categories' => get_option( 'rs_exclude_particular_categories_for_point_pricing' ),
 		);
 		$ProductsToApplyPointPrice = srp_product_filter_for_quick_setup( $product_id, $product_id, $ProductFilters );
-		if ( '2' == $ProductsToApplyPointPrice ) {
+		if ( '2' == $ProductsToApplyPointPrice ) {      
 			if ( '1' == get_option( 'rs_pricing_type_global_level' ) ) {
 				if ( '' != get_option( 'rs_local_price_points_for_product', '' ) && '1' == get_option( 'rs_global_point_price_type', '1' ) ) {
 					return '1';

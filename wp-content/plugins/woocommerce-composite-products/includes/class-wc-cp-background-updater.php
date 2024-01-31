@@ -2,7 +2,7 @@
 /**
  * WC_CP_Background_Updater class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    3.7.0
  */
 
@@ -61,7 +61,7 @@ class WC_CP_Background_Updater extends WP_Background_Process {
 		$dispatched = parent::dispatch();
 
 		if ( is_wp_error( $dispatched ) ) {
-			WC_CP_Core_Compatibility::log( sprintf( 'Unable to dispatch WooCommerce Composite Products updater: %s', $dispatched->get_error_message() ), 'error', 'wc_cp_db_updates' );
+			WC_CP_Core_Compatibility::log( sprintf( 'Unable to dispatch Woo Composite Products updater: %s', $dispatched->get_error_message() ), 'error', 'wc_cp_db_updates' );
 		}
 	}
 

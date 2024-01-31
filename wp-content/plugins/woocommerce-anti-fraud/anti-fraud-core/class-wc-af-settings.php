@@ -1,4 +1,5 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -356,6 +357,29 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'desc'     => __( 'Enter the license key provided by MaxMind here.', 'woocommerce-anti-fraud' ),
 								'id'       => 'wc_af_maxmind_license_key',
 								'css'      => 'width: 15em;',
+							),
+
+							array(
+								'title'       => __( 'Does IP Address Match Location?', 'woocommerce-anti-fraud' ),
+								'type'        => 'checkbox',
+								'label'       => '',
+								'default'     => 'yes',
+								'desc' => '',
+								'desc_tip' => __( 'Enable it to identify that customer\'s physical location matches the location provided by IP address.', 'woocommerce-anti-fraud' ),
+								'id'    => 'wc_af_ip_geolocation_order',
+							),
+							array(
+								'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
+								'type'     => 'number',
+								'options'  => $rule_weight,
+								'desc'     => __( '<br/>' ),
+								'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_ip_geolocation_order_weight',
+								'css'         => 'display: block; width: 5em;',
+								'custom_attributes' => array(
+									'min'  => 0,
+									'step' => 1,
+									'max'  => 100,
+								),
 							),
 
 							array(
@@ -1397,28 +1421,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'class' => 'wc_af_sub-section',
 								'css'   => 'display: block;',
 							),
-							array(
-								'title'       => __( 'Does IP Address Match Location?', 'woocommerce-anti-fraud' ),
-								'type'        => 'checkbox',
-								'label'       => '',
-								'default'     => 'yes',
-								'desc' => '',
-								'desc_tip' => __( 'Enable it to identify that customer\'s physical location matches the location provided by IP address.', 'woocommerce-anti-fraud' ),
-								'id'    => 'wc_af_ip_geolocation_order',
-							),
-							array(
-								'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
-								'type'     => 'number',
-								'options'  => $rule_weight,
-								'desc'     => __( '<br/>' ),
-								'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_ip_geolocation_order_weight',
-								'css'         => 'display: block; width: 5em;',
-								'custom_attributes' => array(
-									'min'  => 0,
-									'step' => 1,
-									'max'  => 100,
-								),
-							),
 
 							/* Geo Location */
 							array(
@@ -2036,9 +2038,14 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				global $current_section;
 
 				$settings = $this->get_settings( $current_section );
-				if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
-					return true;
+				
+				$nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
+
+				if ( empty($nonce) || ! wp_verify_nonce( $nonce, 'woocommerce-settings' ) ) {
+					echo 'Nonce verification failed!';
+					wp_die();
 				}
+				
 				if ( isset( $_POST['wc_settings_anti_fraud_whitelist'] ) ) {
 					$_POST['wc_settings_anti_fraud_whitelist'] = str_replace( ',', "\n", sanitize_text_field( $_POST['wc_settings_anti_fraud_whitelist'] ) );
 				}

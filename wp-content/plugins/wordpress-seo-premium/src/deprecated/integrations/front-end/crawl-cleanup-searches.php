@@ -121,6 +121,8 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function maybe_redirect_searches() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Searches::maybe_redirect_searches()' );

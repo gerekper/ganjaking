@@ -63,6 +63,8 @@ class Schema_Blocks implements Integration_Interface {
 	 *
 	 * @deprecated 20.5
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function enqueue_assets() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.5' );

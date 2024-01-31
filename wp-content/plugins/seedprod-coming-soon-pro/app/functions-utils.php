@@ -30,7 +30,7 @@ function seedprod_pro_get_ip() {
 function seedprod_pro_change_wp_cookie_logout( $expirein ) {
 	global $seed_cspv5_bypass_expires;
 	if ( ! empty( $seed_cspv5_bypass_expires ) ) {
-		return $seed_cspv5_bypass_expires; // Modify the exire cookie
+		return $seed_cspv5_bypass_expires; // Modify the expire cookie
 	} else {
 		return $expirein;
 	}
@@ -1291,8 +1291,6 @@ function seedprod_pro_block_options() {
 			</svg>',
 		),
 
-
-
 	);
 
 	global $wp_widget_factory;
@@ -1998,60 +1996,60 @@ function seedprod_pro_dismiss_upsell() {
  */
 function seedprod_pro_get_expire_times() {
 	return array(
-		'1'    => '1 Hour',
-		'2'    => '2 Hours',
-		'3'    => '3 Hours',
-		'4'    => '4 Hours',
-		'5'    => '5 Hours',
-		'6'    => '6 Hours',
-		'7'    => '7 Hours',
-		'8'    => '8 Hours',
-		'9'    => '9 Hours',
-		'10'   => '10 Hours',
-		'11'   => '11 Hours',
-		'12'   => '12 Hours',
-		'13'   => '13 Hours',
-		'14'   => '14 Hours',
-		'15'   => '15 Hours',
-		'16'   => '16 Hours',
-		'17'   => '17 Hours',
-		'18'   => '18 Hours',
-		'19'   => '19 Hours',
-		'20'   => '20 Hours',
-		'21'   => '21 Hours',
-		'21'   => '22 Hours',
-		'23'   => '23 Hours',
-		'24'   => '1 Day',
-		'48'   => '2 Days',
-		'72'   => '3 Days',
-		'96'   => '4 Days',
-		'120'  => '5 Days',
-		'144'  => '6 Days',
-		'168'  => '7 Days',
-		'192'  => '8 Days',
-		'216'  => '9 Days',
-		'240'  => '10 Days',
-		'264'  => '11 Days',
-		'288'  => '12 Days',
-		'312'  => '13 Days',
-		'336'  => '14 Days',
-		'360'  => '15 Days',
-		'384'  => '16 Days',
-		'408'  => '17 Days',
-		'432'  => '18 Days',
-		'456'  => '19 Days',
-		'480'  => '20 Days',
-		'504'  => '21 Days',
-		'528'  => '22 Days',
-		'552'  => '23 Days',
-		'576'  => '24 Days',
-		'600'  => '25 Days',
-		'624'  => '26 Days',
-		'648'  => '27 Days',
-		'672'  => '28 Days',
-		'696'  => '29 Days',
-		'720'  => '30 Days',
-		'8760' => '1 Year',
+		'1'    => __( '1 Hour', 'seedprod-pro' ),
+		'2'    => __( '2 Hours', 'seedprod-pro' ),
+		'3'    => __( '3 Hours', 'seedprod-pro' ),
+		'4'    => __( '4 Hours', 'seedprod-pro' ),
+		'5'    => __( '5 Hours', 'seedprod-pro' ),
+		'6'    => __( '6 Hours', 'seedprod-pro' ),
+		'7'    => __( '7 Hours', 'seedprod-pro' ),
+		'8'    => __( '8 Hours', 'seedprod-pro' ),
+		'9'    => __( '9 Hours', 'seedprod-pro' ),
+		'10'   => __( '10 Hours', 'seedprod-pro' ),
+		'11'   => __( '11 Hours', 'seedprod-pro' ),
+		'12'   => __( '12 Hours', 'seedprod-pro' ),
+		'13'   => __( '13 Hours', 'seedprod-pro' ),
+		'14'   => __( '14 Hours', 'seedprod-pro' ),
+		'15'   => __( '15 Hours', 'seedprod-pro' ),
+		'16'   => __( '16 Hours', 'seedprod-pro' ),
+		'17'   => __( '17 Hours', 'seedprod-pro' ),
+		'18'   => __( '18 Hours', 'seedprod-pro' ),
+		'19'   => __( '19 Hours', 'seedprod-pro' ),
+		'20'   => __( '20 Hours', 'seedprod-pro' ),
+		'21'   => __( '21 Hours', 'seedprod-pro' ),
+		'21'   => __( '22 Hours', 'seedprod-pro' ),
+		'23'   => __( '23 Hours', 'seedprod-pro' ),
+		'24'   => __( '1 Day', 'seedprod-pro' ),
+		'48'   => __( '2 Days', 'seedprod-pro' ),
+		'72'   => __( '3 Days', 'seedprod-pro' ),
+		'96'   => __( '4 Days', 'seedprod-pro' ),
+		'120'  => __( '5 Days', 'seedprod-pro' ),
+		'144'  => __( '6 Days', 'seedprod-pro' ),
+		'168'  => __( '7 Days', 'seedprod-pro' ),
+		'192'  => __( '8 Days', 'seedprod-pro' ),
+		'216'  => __( '9 Days', 'seedprod-pro' ),
+		'240'  => __( '10 Days', 'seedprod-pro' ),
+		'264'  => __( '11 Days', 'seedprod-pro' ),
+		'288'  => __( '12 Days', 'seedprod-pro' ),
+		'312'  => __( '13 Days', 'seedprod-pro' ),
+		'336'  => __( '14 Days', 'seedprod-pro' ),
+		'360'  => __( '15 Days', 'seedprod-pro' ),
+		'384'  => __( '16 Days', 'seedprod-pro' ),
+		'408'  => __( '17 Days', 'seedprod-pro' ),
+		'432'  => __( '18 Days', 'seedprod-pro' ),
+		'456'  => __( '19 Days', 'seedprod-pro' ),
+		'480'  => __( '20 Days', 'seedprod-pro' ),
+		'504'  => __( '21 Days', 'seedprod-pro' ),
+		'528'  => __( '22 Days', 'seedprod-pro' ),
+		'552'  => __( '23 Days', 'seedprod-pro' ),
+		'576'  => __( '24 Days', 'seedprod-pro' ),
+		'600'  => __( '25 Days', 'seedprod-pro' ),
+		'624'  => __( '26 Days', 'seedprod-pro' ),
+		'648'  => __( '27 Days', 'seedprod-pro' ),
+		'672'  => __( '28 Days', 'seedprod-pro' ),
+		'696'  => __( '29 Days', 'seedprod-pro' ),
+		'720'  => __( '30 Days', 'seedprod-pro' ),
+		'8760' => __( '1 Year', 'seedprod-pro' ),
 	);
 }
 
@@ -2475,6 +2473,20 @@ function seedprod_pro_extract_page_css( $html, $id = null ) {
 			$device_mobile_css = str_replace( '.sp-mobile-view', '', $device_mobile_css );
 		}
 
+		// Get tablet css.
+		$tablet_css = '';
+		if ( ! empty( $settings->document->settings->tabletCss ) ) {
+			$tablet_css = $settings->document->settings->tabletCss;
+			$tablet_css = str_replace( '.sp-tablet-view', '', $tablet_css );
+		}
+
+		// Get device tablet css.
+		$device_tablet_css = '';
+		if ( ! empty( $settings->document->settings->tabletVisibilityCss ) ) {
+			$device_tablet_css = $settings->document->settings->tabletVisibilityCss;
+			$device_tablet_css = str_replace( '.sp-tablet-view', '', $device_tablet_css );
+		}
+
 		// Get desktop visibility css.
 		$device_desktop_css = '';
 		if ( ! empty( $settings->document->settings->desktopVisibilityCss ) ) {
@@ -2485,11 +2497,15 @@ function seedprod_pro_extract_page_css( $html, $id = null ) {
 			$mobile_css = '@media only screen and (max-width: 480px) {' . $mobile_css . $device_mobile_css . '}';
 		}
 
-		if ( ! empty( $device_desktop_css ) ) {
-			$device_desktop_css = '@media only screen and (min-width: 480px) {' . $device_desktop_css . '}';
+		if ( ! empty( $tablet_css ) || ! empty( $device_tablet_css ) ) {
+			$tablet_css = '@media only screen and (min-width: 481px) and (max-width: 1024px) {' . $tablet_css . $device_tablet_css . '}';
 		}
 
-		$output['css'] = $output['css'] . $mobile_css . $device_desktop_css;
+		if ( ! empty( $device_desktop_css ) ) {
+			$device_desktop_css = '@media only screen and (min-width: 1024px) {' . $device_desktop_css . '}';
+		}
+
+		$output['css'] = $output['css'] . $mobile_css . $tablet_css . $device_desktop_css;
 	}
 
 	// Clean HTML
@@ -2595,7 +2611,7 @@ function seedprod_pro_theme_template_conditons() {
 	}
 	$conditons =
 	array(
-		'General'    =>
+		__( 'General', 'seedprod-pro' )    =>
 		array(
 			0 => array(
 				'text'  => __( 'Entire Site', 'seedprod-pro' ),
@@ -2634,7 +2650,7 @@ function seedprod_pro_theme_template_conditons() {
 				'value' => 'is_author(x)',
 			),
 		),
-		'Posts'      =>
+		__( 'Posts', 'seedprod-pro' )      =>
 		array(
 			0 => array(
 				'text'  => __( 'Posts', 'seedprod-pro' ),
@@ -2649,8 +2665,8 @@ function seedprod_pro_theme_template_conditons() {
 				'value' => 'has_tag(x)',
 			),
 		),
-		'Post Types' => $post_types,
-		'Archives'   =>
+		__( 'Post Types', 'seedprod-pro' ) => $post_types,
+		__( 'Archives', 'seedprod-pro' )   =>
 		array(
 			0 => array(
 				'text'  => __( 'All Archives', 'seedprod-pro' ),
@@ -2674,7 +2690,7 @@ function seedprod_pro_theme_template_conditons() {
 				'value' => 'is_tax(x)',
 			),
 		),
-		// 'Posts Archives' =>
+		//  __( 'Posts Archives', 'seedprod-pro' ) =>
 		// array(
 		// 0 => array(
 		// 'text' => __( 'Post Archives', 'seedprod-pro' ),

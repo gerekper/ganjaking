@@ -1118,10 +1118,10 @@ function perfmatters_update_ga() {
 
 	$upload_dir = wp_get_upload_dir();
 	
-	//add gtag to queue
+	//add gtagv4 to queue
 	if(empty($options['analytics']['script_type'])) {
 		if(!empty($options['analytics']['tracking_id'])) {
-			$queue[$script_type]= array(
+			$queue['gtagv4']= array(
 				'remote' => 'https://www.googletagmanager.com/gtag/js?id=' . $options['analytics']['tracking_id'],
 				'local' => $upload_dir['basedir'] . '/perfmatters/gtagv4.js'
 			);
@@ -1195,7 +1195,7 @@ function perfmatters_monster_ga_gtag($url) {
 
 	if(!empty($perfmatters_options['analytics']['tracking_id'])) {
 		$upload_dir = wp_get_upload_dir();
-		return $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'];
+		return $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $perfmatters_options['analytics']['tracking_id'];
 	}
 
 	return $url;
@@ -1432,11 +1432,10 @@ function perfmatters_activate_license($network = false) {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
-
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 
 		//license is valid
 		if(!empty($license_data->license) && $license_data->license == 'valid') {
@@ -1479,12 +1478,10 @@ function perfmatters_deactivate_license($network = false) {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
-
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
-
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 		//license is deactivated
 		if($license_data->license == 'deactivated') {
 
@@ -1527,12 +1524,10 @@ function perfmatters_check_license($network = false) {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
-
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
-
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 		//update license option
 		if(is_network_admin() || $network) {
 			update_site_option('perfmatters_edd_license_status', $license_data->license);

@@ -2,7 +2,7 @@
 /**
  * WC_CP_Stripe_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    7.1.4
  */
 

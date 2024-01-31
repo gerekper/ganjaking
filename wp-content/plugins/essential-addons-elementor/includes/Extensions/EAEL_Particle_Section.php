@@ -54,6 +54,50 @@ class EAEL_Particle_Section
             ]
         );
 
+	    $element->add_control(
+		    'eael_particle_opacity',
+		    [
+			    'label'     => esc_html__( 'Opacity', 'essential-addons-elementor' ),
+			    'type'      => Controls_Manager::SLIDER,
+			    'default'   => [
+				    'size' => 0.5
+			    ],
+			    'range'     => [
+				    'px' => [
+					    'min'  => 0,
+					    'max'  => 1,
+					    'step' => 0.01
+				    ],
+			    ],
+			    'condition' => [
+				    'eael_particle_switch'     => 'yes',
+				    'eael_particle_theme_from' => 'presets',
+			    ]
+		    ]
+	    );
+
+	    $element->add_control(
+		    'eael_particle_speed',
+		    [
+			    'label'     => esc_html__( 'Move Speed', 'essential-addons-elementor' ),
+			    'type'      => Controls_Manager::SLIDER,
+			    'default'   => [
+				    'size' => 6
+			    ],
+			    'range'     => [
+				    'px' => [
+					    'min'  => 0,
+					    'max'  => 20,
+					    'step' => 1
+				    ],
+			    ],
+			    'condition' => [
+				    'eael_particle_switch'     => 'yes',
+				    'eael_particle_theme_from' => 'presets',
+			    ]
+		    ]
+	    );
+
         $element->add_control(
             'eael_particle_theme_from',
             [
@@ -157,6 +201,8 @@ class EAEL_Particle_Section
                     'data-eael_ptheme_source' => $settings['eael_particle_theme_from'],
                     'data-preset_theme' => $settings['eael_particle_preset_themes'],
                     'data-custom_style' => $settings['eael_particles_custom_style'],
+                    'data-particle_opacity' => $settings['eael_particle_opacity']['size'],
+                    'data-particle_speed' => $settings['eael_particle_speed']['size'],
                 ]
             );
         }

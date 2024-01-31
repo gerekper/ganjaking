@@ -359,7 +359,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		$redirect_type = 0;
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We come from our own redirect in a simple filter form, let's not overcomplicate.
 		if ( isset( $_GET['redirect-type'] ) && is_string( $_GET['redirect-type'] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: Cast to an integer and strictly compared against known keys.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: Cast to an integer and strictly compared against known keys.
 			$redirect_type = (int) wp_unslash( $_GET['redirect-type'] );
 			$redirect_type = array_key_exists( $redirect_type, $this->redirect_types ) ? $redirect_type : 0;
 		}
@@ -374,6 +374,8 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 
 	/**
 	 * Formats the items.
+	 *
+	 * @return void
 	 */
 	private function format_items() {
 		// Format the data.
@@ -460,7 +462,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	private function get_orderby() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: WP list table is not using a nonce.
 		if ( isset( $_GET['orderby'] ) && is_string( $_GET['orderby'] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
 			$orderby = wp_unslash( $_GET['orderby'] );
 			if ( array_key_exists( $orderby, $this->get_sortable_columns() ) ) {
 				return $orderby;
@@ -478,7 +480,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	private function get_order() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: WP list table is not using a nonce.
 		if ( isset( $_GET['order'] ) && is_string( $_GET['order'] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
 			$order = wp_unslash( $_GET['order'] );
 			if ( in_array( $order, [ 'asc', 'desc' ], true ) ) {
 				return $order;

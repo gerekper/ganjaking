@@ -48,6 +48,8 @@ class Plugin implements Initializer_Interface {
 
 	/**
 	 * The premium setup
+	 *
+	 * @return void
 	 */
 	public function load() {
 		new WPSEO_Premium();

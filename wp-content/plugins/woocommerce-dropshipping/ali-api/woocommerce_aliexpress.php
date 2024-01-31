@@ -498,9 +498,20 @@ function import_ali_product_in_woo( WP_REST_Request $request ) {
 
 					$name = time();
 
-					$upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars( $value['src'] ) ) );
+					$upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars($value['src'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401) ) );
 
-					$convert = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg', file_get_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' ) );
+					$webpFile = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
+					$jpgFile = $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg';
+
+					// Read the contents of the webp file
+					$webpContents = file_get_contents(htmlspecialchars($webpFile, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
+
+					// Write the contents to a jpg file
+					$convert = file_put_contents($jpgFile, $webpContents);
+
+					// $upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars( $value['src'] ) ) );
+
+					// $convert = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg', file_get_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' ) );
 
 					$uploadedWebp = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
 
@@ -2063,9 +2074,21 @@ function update_ali_product_in_woo( WP_REST_Request $request ) {
 
 					$name = time();
 
-					$upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars( $value['src'] ) ) );
+					$upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars($value['src'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401) ) );
 
-					$convert = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg', file_get_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' ) );
+					$webpFile = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
+					$jpgFile = $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg';
+
+					// Read the contents of the webp file
+					$webpContents = file_get_contents(htmlspecialchars($webpFile, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
+
+					// Write the contents to a jpg file
+					$convert = file_put_contents($jpgFile, $webpContents);
+
+
+					// $upload = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp', file_get_contents( htmlspecialchars( $value['src'] ) ) );
+
+					// $convert = file_put_contents( $wp_upload_dir['basedir'] . '/droptmp/convert/' . $name . '_' . $mn . '_.jpg', file_get_contents( $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp' ) );
 
 					$uploadedWebp = $wp_upload_dir['basedir'] . '/droptmp/' . $name . '_' . $mn . '_.webp';
 

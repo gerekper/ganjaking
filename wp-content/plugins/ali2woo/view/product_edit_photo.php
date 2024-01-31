@@ -80,12 +80,63 @@
                             </div>
                             
                         </div>
+
+                        <div class="sub-menu-container menu" id="colorize-sub-menu">
+                            <div class="block-title"><?php _e('Filters', 'ali2woo'); ?>:</div>
+                            <div class="block">
+                                <div class="a2w-apply-filter" data-type="Grayscale">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Grayscale', 'ali2woo'); ?></label>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="Invert">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Invert', 'ali2woo'); ?></label>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="Sepia">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Sepia', 'ali2woo'); ?></label>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="vintage">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Sepia2', 'ali2woo'); ?></label>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="Sharpen">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Sharpen', 'ali2woo'); ?></label>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="Emboss">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Emboss', 'ali2woo'); ?></label>
+                                </div>
+                            </div>
+                            <div class="block">
+                                <div class="a2w-apply-filter" data-type="Blur">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Blur', 'ali2woo'); ?></label>
+                                    <div class="a2w-apply-filter__range-wrap">
+                                        <input class="a2w-apply-filter__range" type="range" min="0.1" max="1.0" step="0.1" value="0.1">
+                                    </div>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="pixelate">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Pixelate', 'ali2woo'); ?></label>
+                                    <div class="a2w-apply-filter__range-wrap">
+                                        <input class="a2w-apply-filter__range" type="range" min="1" max="50" value="10">
+                                    </div>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="noise">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Noise', 'ali2woo'); ?></label>
+                                    <div class="a2w-apply-filter__range-wrap">
+                                        <input class="a2w-apply-filter__range" type="range" min="1" max="500" value="50">
+                                    </div>
+                                </div>
+                                <div class="a2w-apply-filter" data-type="brightness">
+                                    <label class="a2w-apply-filter__label"><input class="a2w-apply-filter__check" type="checkbox"> <?php _e('Brightness', 'ali2woo'); ?></label>
+                                    <div class="a2w-apply-filter__range-wrap">
+                                        <input class="a2w-apply-filter__range" type="range" min="-255" max="255" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="controls-menu">
                         <a href="#" id="btn-crop"><span class="dashicons dashicons-image-crop"></span></a>
                         <a href="#" id="btn-draw-line"><span class="dashicons dashicons-admin-customizer"></span></a>
                         <a href="#" id="btn-mask-filter"><span class="dashicons dashicons-format-image"></span></a>
                         <a href="#" id="btn-draw-text"><span class="dashicons dashicons-editor-textcolor"></span></a>
+                        <a href="#" id="btn-draw-colorize"><span class="dashicons dashicons-admin-appearance"></span></a>
                     </div>
                 </div>
             </div>            

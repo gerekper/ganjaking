@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 2.3.6
+
+	- Fixed issue where the plugin updater API response for perks included extra properties, such as the changelog, which could prevent plugin updates from showing up in some situations.
+
+## 2.3.5
+
+	- Fixed issue where "Enable auto-updates" would only show on perks if there was an available update.
+
 ## 2.3.4
 
 	- Updated strings in the Perks tab to be internationalized.

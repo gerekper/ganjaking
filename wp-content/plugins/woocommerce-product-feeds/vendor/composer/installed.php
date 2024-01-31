@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '10.11.4',
-        'version' => '10.11.4.0',
-        'reference' => 'a88065bd895af7f4d288823803fce67e05001d4c',
+        'pretty_version' => '10.12.2',
+        'version' => '10.12.2.0',
+        'reference' => '0e3fa3cad285e797db62ca52fa39b3193b405bd4',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '10.11.4',
-            'version' => '10.11.4.0',
-            'reference' => 'a88065bd895af7f4d288823803fce67e05001d4c',
+            'pretty_version' => '10.12.2',
+            'version' => '10.12.2.0',
+            'reference' => '0e3fa3cad285e797db62ca52fa39b3193b405bd4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -49,9 +49,9 @@
             'dev_requirement' => false,
         ),
         'woocommerce/action-scheduler' => array(
-            'pretty_version' => '3.6.3',
-            'version' => '3.6.3.0',
-            'reference' => 'c33dd732e37c90f37c3f9662f7eed888c11dc60d',
+            'pretty_version' => '3.7.1',
+            'version' => '3.7.1.0',
+            'reference' => 'bdaecb016e0358065a8bf76a41fdd60772cacaa5',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../woocommerce/action-scheduler',
             'aliases' => array(),

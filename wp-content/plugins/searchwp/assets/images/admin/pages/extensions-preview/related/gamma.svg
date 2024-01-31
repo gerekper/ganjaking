@@ -1,0 +1,10 @@
+<svg width="130" height="101" viewBox="0 0 130 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="130" height="101" rx="3.5" fill="white"/>
+<rect x="20.4318" y="31.4318" width="90.1364" height="40.1364" rx="1.29545" stroke="#437E47" stroke-opacity="0.1" stroke-width="0.863636"/>
+<rect x="43.3863" y="46.2046" width="51.8182" height="0.863636" rx="0.431818" stroke="#BDD6BD" stroke-width="0.863636"/>
+<rect x="42.9545" y="38" width="17.2727" height="3.45455" rx="1.72727" fill="#437E47" fill-opacity="0.6"/>
+<path d="M27 38.7273C27 37.7733 27.7733 37 28.7273 37H37.2727C38.2267 37 39 37.7733 39 38.7273V47.2727C39 48.2267 38.2267 49 37.2727 49H28.7273C27.7733 49 27 48.2267 27 47.2727V38.7273Z" fill="#437E47" fill-opacity="0.6"/>
+<rect x="43.3863" y="64.2045" width="51.8182" height="0.863636" rx="0.431818" stroke="#BDD6BD" stroke-width="0.863636"/>
+<rect x="42.9545" y="56" width="17.2727" height="3.45455" rx="1.72727" fill="#437E47" fill-opacity="0.6"/>
+<path d="M27 56.7273C27 55.7733 27.7733 55 28.7273 55H37.2727C38.2267 55 39 55.7733 39 56.7273V65.2727C39 66.2267 38.2267 67 37.2727 67H28.7273C27.7733 67 27 66.2267 27 65.2727V56.7273Z" fill="#437E47" fill-opacity="0.6"/>
+</svg>

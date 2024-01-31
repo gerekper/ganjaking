@@ -1,5 +1,17 @@
 *** WPBakery Page Builder changelog ***
 
+2024-01-17 - version 7.4
+  - New: An in-built SEO toolkit to analyze keywords
+  - New: An in-built SEO toolkit to control Google snippet display
+  - New: An in-built content analysis tools for higher quality content and SEO rankings
+  - New: An in-built tool to control social media snippet display
+  - Update: WPBakery AI option is available for the new SEO toolkit
+
+2023-12-06 - version 7.3
+  - New: Introduction popup added to inform about the new features of WPBakery
+  - Update: Structure and links updated in FAQ to reflect the changes in the knowledge base
+  - Update: License activation process improved after plugin installation and update
+
 2023-11-09 - version 7.2
   - New: WPBakery AI assistant for text and code generation available in Beta
   - New: WPBakery AI assistant support for 3rd party add-ons available in Beta

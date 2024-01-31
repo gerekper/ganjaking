@@ -54,6 +54,8 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::register_hooks()' );
@@ -75,6 +77,8 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function maybe_disable_feeds() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::maybe_disable_feeds()' );
@@ -95,6 +99,8 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function maybe_redirect_feeds() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::maybe_redirect_feeds()' );
@@ -162,6 +168,8 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 * @codeCoverageIgnore
 	 *
 	 * @param int $expiration The expiration time.
+	 *
+	 * @return void
 	 */
 	public function cache_control_header( $expiration ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::cache_control_header( $expiration )' );
@@ -186,6 +194,8 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 *
 	 * @param string $url    The location we're redirecting to.
 	 * @param string $reason The reason we're redirecting.
+	 *
+	 * @return void
 	 */
 	private function redirect_feed( $url, $reason ) {
 		\header_remove( 'Content-Type' );

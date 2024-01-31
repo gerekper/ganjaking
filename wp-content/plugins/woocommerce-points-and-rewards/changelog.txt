@@ -1,9 +1,12 @@
 *** WooCommerce Points and Rewards Changelog ***
 
-2023-11-07 - version 1.7.45
-* Fix - Doc - Use new Woo.com domain.
-* Tweak - WC 8.3 compatibility.
+2024-01-09 - version 1.7.47
+* Tweak - Changed minimum WC version to 6.0.
+* Tweak - WC 8.5 compatibility.
 * Tweak - WP 6.4 compatibility.
+
+2023-12-19 - version 1.7.46
+* Dev - Use new Woo.com domain.
 
 2023-10-19 - version 1.7.44
 * Dev - Add phpcs on changed files only.

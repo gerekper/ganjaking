@@ -1,5 +1,21 @@
 *** Xero Integration ***
 
+2024-01-22 - version 1.8.4
+* Add - Masked the client ID and client secret fields to add an extra layer of confidentiality and protection.
+* Dev - Bump WooCommerce "tested up to" version 8.5.
+* Dev - Bump WooCommerce minimum supported version to 8.3.
+* Dev - Bump WordPress minimum supported version to 6.3.
+
+2024-01-08 - version 1.8.3
+* Add - Indicate compatibility with WooPayments extension.
+* Add - Indicate compatibility with WooCommerce Blocks.
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
+* Dev - Bump WooCommerce "tested up to" version 8.4.
+* Dev - Bump WooCommerce minimum supported version to 8.2.
+* Dev - Bump PHP minimum supported version to 7.4.
+* Fix - Resolved PHP deprecation warnings on `strpos` and `preg_replace`.
+* Tweak - Bump PHP "tested up to" version 8.3.
+
 2023-12-11 - version 1.8.2
 * Dev - Added critical flows end-to-end tests.
 * Dev - Bump Woocommerce Requires at least 8.1.

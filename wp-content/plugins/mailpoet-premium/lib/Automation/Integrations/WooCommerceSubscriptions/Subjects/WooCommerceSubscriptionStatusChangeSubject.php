@@ -22,7 +22,7 @@ class WooCommerceSubscriptionStatusChangeSubject implements Subject {
 
   public function getName(): string {
     // translators: automation subject (entity entering automation) title
-    return __('WooCommerce subscription status change', 'mailpoet-premium');
+    return __('WooCommerce Subscription status change', 'mailpoet-premium');
   }
 
   public function getArgsSchema(): ObjectSchema {

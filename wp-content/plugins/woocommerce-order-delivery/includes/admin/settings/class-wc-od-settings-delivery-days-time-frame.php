@@ -140,7 +140,7 @@ class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame 
 		$delivery_days = $this->validate_array_field( $key, $value );
 
 		if ( empty( $delivery_days ) ) {
-			throw new Exception( __( 'Select a least one delivery day.', 'woocommerce-order-delivery' ) );
+			throw new Exception( esc_html__( 'Select a least one delivery day.', 'woocommerce-order-delivery' ) );
 		}
 
 		return array_map( 'intval', $delivery_days );

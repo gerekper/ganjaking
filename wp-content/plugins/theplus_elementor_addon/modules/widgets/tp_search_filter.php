@@ -40,9 +40,9 @@ class ThePlus_Search_Filter extends Widget_Base {
     }
 		
 	public function get_keywords() {
-		return ['search','filter','search filter','product filter','wp filter'];
-	}
-	 
+        return ['WooCommerce', 'Filter', 'Product Filter', 'Shop Filter', 'Ecommerce Filter', 'Elementor WooCommerce Filter', 'Elementor Product Filter', 'Elementor Shop Filter', 'Elementor Ecommerce Filter', 'Search bar', 'search widget', 'search element', 'search tool', 'search functionality', 'search feature', 'search box', 'search option', 'search module', 'search plugin', 'search extension', 'search component', 'search elementor addon', 'search plus addons for elementor', 'search filters', 'filter widget', 'filter element', 'filter tool', 'filter functionality', 'filter feature', 'filter box', 'filter option', 'filter module', 'filter plugin', 'filter extension', 'filter component', 'filter elementor addon', 'filter plus addons for elementor', 'Elementor', 'widget', 'search bar', 'search', 'bar', 'Elementor Addon', 'Horizontal Filters', 'Elementor Filters', 'Filters Widget', 'Filter Bar', 'Filter Menu', 'Filter Options', 'Filter Navigation', 'Elementor Search Bar', 'Search Widget', 'Search Bar', 'Elementor Addon', 'Elementor Plugin', 'Elementor Extension', 'Elementor Element', 'Modal', 'Popup', 'Filters', '', 'Search bar', 'Search widget', 'Elementor addon', 'Search functionality', 'Search tool', 'Inline Filters', 'Filterable Content', 'Content Filters', 'Elementor Filters', 'Advanced Filters', 'Dynamic Filters', 'Filterable Elements', 'Filterable Widgets', 'Filterable Sections', 'Filterable Blocks', 'Filterable Dividers', 'Filterable Containers', 'Filterable Rows', 'Filterable Columns', 'Filterable Grids', 'Filterable Galleries', 'Filterable Portfolios', 'Filterable Testimonials', 'Filterable Team Members', 'Filterable Pricing Tables', 'Filterable Accordion', 'Filterable Tabs', 'Filterable Toggle', 'Filterable Carousel'];
+    }
+
     protected function register_controls() {
 		$this->start_controls_section('FilterArea_section',
 			[
@@ -5655,6 +5655,16 @@ class ThePlus_Search_Filter extends Widget_Base {
                 'selectors'=>[
                     '{{WRAPPER}} .tp-search-filter .field-col .tp-range-silder'=>'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
+            ]
+        );
+        $this->add_group_control(Group_Control_Typography::get_type(),
+            [
+                'name'=>'RangeTypo',
+                'label'=>esc_html__('Typography','theplus'),
+                'global' => [
+                    'default' => Global_Typography::TYPOGRAPHY_PRIMARY
+                ],
+                'selector'=>'{{WRAPPER}} .tp-range-silder .noUi-tooltip',
             ]
         );
         $this->add_responsive_control('RangeWid',
@@ -11654,7 +11664,7 @@ class ThePlus_Search_Filter extends Widget_Base {
                                 }
                             }else if($TabbingMedia == 'image'){
                                 $Image = !empty($Repeater['TabbingImage']) ? $Repeater['TabbingImage']['url'] : THEPLUS_ASSETS_URL.'images/tp-placeholder.jpg';
-                                $output .= '<span class="tp-tabbing-media"><img src="'.$Image.'" class="tp-tabbing-image" alt="atl"></span>';
+                                $output .= '<span class="tp-tabbing-media"><img src="' . esc_url( $Image ). '" class="tp-tabbing-image" alt="atl"></span>';
                             }
                             $output .= '<input type="checkbox" class="tp-tabbing-input" id="woo_SgTabbing" name="woo_SgTabbing" value="'.esc_attr($key).'" data-title="'.esc_attr($value).'">';
                             $output .= '<span class="tp-tabbing-button">'.esc_html($value).'</span>';

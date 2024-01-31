@@ -2,15 +2,13 @@
 /**
 * Settings Content
 * inside EVO_Settings()
-* @version 4.0.2
+* @version 4.5.5
 */
 
 ?>
 <div class='evo_settings_box <?php echo (!empty($genral_opt['evo_rtl']) && $genral_opt['evo_rtl']=='yes')?'adminRTL':'';?>'>	
 <?php
-// SETTINGS SAVED MESSAGE
-	$updated_code = (isset($_POST['settings-updated']) && $_POST['settings-updated']=='true')? '<div class="updated fade"><p>'.__('Settings Saved','eventon').'</p></div>':null;
-	echo $updated_code;	
+
 	
 // TABS
 switch ($this->focus_tab):	

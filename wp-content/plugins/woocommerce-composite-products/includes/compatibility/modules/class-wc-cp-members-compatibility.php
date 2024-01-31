@@ -2,7 +2,7 @@
 /**
  * WC_CP_Members_Compatibility class
  *
- * @package  WooCommerce Composite Products
+ * @package  Woo Composite Products
  * @since    6.0.0
  */
 

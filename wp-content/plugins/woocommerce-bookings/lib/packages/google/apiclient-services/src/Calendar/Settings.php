@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -27,6 +27,10 @@ class Settings extends \Automattic\WooCommerce\Bookings\Vendor\Google\Collection
    * @var string
    */
   public $etag;
+  /**
+   * @var Setting[]
+   */
+  public $items;
   protected $itemsType = Setting::class;
   protected $itemsDataType = 'array';
   /**

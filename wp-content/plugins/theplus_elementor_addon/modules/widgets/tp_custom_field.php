@@ -1062,8 +1062,8 @@ class ThePlus_Custom_Field extends Widget_Base {
 					}else if($image_type_select != '') {
 						$field_html .= '<a href="' . esc_url($post_permalink) . '" '.$target.' title="' . $post_title . '">';
 					}
-					$field_html .= '<img src="'.$custom_field_val.'" />';
-					if($image_type_select != '' || $image_type_select == 'lightbox'){
+					$field_html .= '<img src="'.esc_url($custom_field_val).'" />';
+					if( !empty($image_type_select) || $image_type_select == 'lightbox'){
 						$field_html .= '</a>';
 					}
 					$field_html .= '</div>';
@@ -1116,20 +1116,19 @@ class ThePlus_Custom_Field extends Widget_Base {
 				case "link":
 				$custom_field_val_array = false;
 				if(is_array($custom_field_val)){
-				$custom_field_val_array = $custom_field_val;
-				$custom_field_val = $custom_field_val['url'];
+					$custom_field_val_array = $custom_field_val;
+					$custom_field_val = esc_url($custom_field_val['url']);
 				}
 				if($settings['key_link_type'] == 'email'){
-				$custom_field_val = 'mailto:'.$custom_field_val;
+					$custom_field_val = 'mailto:'.$custom_field_val;
 				}elseif($settings['key_link_type'] == 'tel'){
-				$custom_field_val = 'tel:'.$custom_field_val;
+					$custom_field_val = 'tel:'.$custom_field_val;
 				}
 			
 			
 				if(!empty($settings['field_link_text']) && $settings['field_link_type'] == 'static'){
 					$static_text = ($settings['field_link_text']) ? $settings['field_link_text'] : __('Read More','theplus');
-					$field_html = '<a href="'.$custom_field_val.'" '.$this->get_render_attribute_string( 'tp-custom-field-class' ).
-									'  >'.$static_text.'</a>';
+					$field_html = '<a href="'.$custom_field_val.'" '.$this->get_render_attribute_string( 'tp-custom-field-class' ). ' >'.$static_text.'</a>';
 				}else if(!empty($field_link_dynamic_text) && $settings['field_link_type'] == 'custom_field') {
 					$field_html = '<a href="'.$custom_field_val.'" '.$this->get_render_attribute_string( 'tp-custom-field-class' ).' >'.$field_link_dynamic_text.'</a>';
 				}else{

@@ -11,7 +11,7 @@
  * @link https://packagist.org/packages/league/oauth2-client Packagist
  * @link https://github.com/thephpleague/oauth2-client GitHub
  *
- * Modified by woocommerce on 06-December-2023 using Strauss.
+ * Modified by woocommerce on 22-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -30,7 +30,7 @@ class IdentityProviderException extends \Exception
     /**
      * @param string $message
      * @param int $code
-     * @param array|string $response The response body
+     * @param mixed $response The response body
      */
     public function __construct($message, $code, $response)
     {
@@ -42,7 +42,7 @@ class IdentityProviderException extends \Exception
     /**
      * Returns the exception's response body.
      *
-     * @return array|string
+     * @return mixed
      */
     public function getResponseBody()
     {

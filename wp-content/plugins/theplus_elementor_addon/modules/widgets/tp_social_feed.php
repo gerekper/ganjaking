@@ -40,8 +40,8 @@ class ThePlus_Social_Feed extends Widget_Base {
     }
 
 	public function get_keywords() {
-		return ['social', 'feed', 'fb', 'facebook', 'ig', 'instagram', 'tw', 'twitter', 'vimeo', 'tp', 'yt', 'youtube', 'theplus'];
-	}
+        return ['Social Feed', 'Social Media Feed', 'Instagram Feed', 'Facebook Feed', 'Twitter Feed', 'Pinterest Feed', 'LinkedIn Feed', 'Social Wall', 'Social Stream', 'Social Grid', 'Social Carousel', 'Social Tiles', 'Social Widget'];
+    }
 
 	public function is_reload_preview_required() {
 		return true;

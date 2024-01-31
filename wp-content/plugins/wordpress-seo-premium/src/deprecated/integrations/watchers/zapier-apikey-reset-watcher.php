@@ -13,8 +13,6 @@ use Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional;
  *
  * @deprecated 20.5
  * @codeCoverageIgnore
- *
- * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
  */
 class Zapier_APIKey_Reset_Watcher implements Integration_Interface {
 

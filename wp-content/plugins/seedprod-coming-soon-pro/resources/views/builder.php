@@ -84,6 +84,15 @@ if ( empty( $lpage->post_content_filtered ) ) {
 } else {
 	// get settings and maybe modify
 	$settings = json_decode( $lpage->post_content_filtered, true );
+
+	if ($settings === null && json_last_error() !== JSON_ERROR_NONE) {
+		// JSON is invalid
+		// Handle the error or display an error message
+		//echo "<script>alert('JSON is invalid. Entering Recovery Mode'); </script>";
+		require_once SEEDPROD_PRO_PLUGIN_PATH . 'resources/data-templates/basic-page.php';
+		$settings = json_decode( $seedprod_recovery, true );
+
+	} 
 }
 
 // Check is this is a seedprod template part or page/post using the seedprod editor
@@ -203,9 +212,9 @@ if ( ! empty( $_GET['seedprod_stripe_connect_token'] ) ) {
 	if ( ! empty( $_GET['seedprod_stripe_connect_origin'] ) ) {
 		if ( $seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin'] && current_user_can( 'manage_options' ) ) {
 			update_option( 'seedprod_stripe_connect_token', $_GET['seedprod_stripe_connect_token'] );
-		}	
+		}
 	}
-} 
+}
 // get stripe token
 $seedprod_stripe_connect_token = get_option( 'seedprod_stripe_connect_token' );
 if ( empty( $seedprod_stripe_connect_token ) ) {
@@ -242,10 +251,6 @@ if ( ! empty( $seedprod_app_settings ) ) {
 $template_preview_path = 'https://assets.seedprod.com/preview-';
 
 
-
-// Get user personalization preferences.
-$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
-
 // Preference array.
 $user_personalization_preferences_schema = array(
 	'show_templatetag_settings'             => true,
@@ -259,6 +264,25 @@ $user_personalization_preferences_schema = array(
 	'show_entry_settings_6'                 => true,
 	'show_layoutnav'                        => false,
 );
+
+// Get user personalization preferences.
+if ( metadata_exists( 'user', $sp_current_user->ID, 'seedprod_personalization_preferences' ) ) {
+	$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
+
+	$decoded_json = json_decode( $user_personalization_preferences, true );
+
+	// Validate user meta.
+	if ( empty( $user_personalization_preferences ) || ! isset( $user_personalization_preferences ) || ! is_array( $decoded_json ) || json_last_error() ) {
+		delete_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences' );
+		// Set default user personalization preferences.
+		add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
+		$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
+	}
+} else {
+	// Set default user personalization preferences.
+	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
+	$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
+}
 
 // Check if DB array has all the keys.
 $get_array_keys = array_keys( $user_personalization_preferences_schema );
@@ -275,18 +299,31 @@ function array_keys_exists( array $keys, array $array ) {
 	return count( $diff ) === 0;
 }
 
-$decoded_personalization_preferences = json_decode( $user_personalization_preferences, true ); // assoc array.
+// Decode user meta.
+$decoded_personalization_preferences = json_decode( $user_personalization_preferences, true );
 
-if ( ! $user_personalization_preferences || empty( $user_personalization_preferences ) ) {
-	// Set default settings.
-	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
-	$user_personalization_preferences = json_decode( get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true ) );
-} elseif ( ! array_keys_exists( $get_array_keys, $decoded_personalization_preferences ) ) {
-	update_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), $user_personalization_preferences );
-	// Get updated settings.
-	$user_personalization_preferences = json_decode( get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true ) );
+// Update user meta with new settings.
+if ( is_array( $decoded_personalization_preferences ) && $decoded_personalization_preferences !== null ) {
+	// Determine whether to update or not.
+	if ( ! array_keys_exists( $get_array_keys, $decoded_personalization_preferences ) ) {
+		// Update user meta with new settings.
+		update_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), $user_personalization_preferences );
+		// Get updated settings.
+		$user_personalization_preferences = json_decode( get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true ) );
+	}
+
+	// Get current settings.
+	$user_personalization_preferences = json_decode( $user_personalization_preferences, true );
 } else {
-	$user_personalization_preferences = json_decode( $user_personalization_preferences );
+	// If not array/is not set/empty set default settings.
+	if ( metadata_exists( 'user', $sp_current_user->ID, 'seedprod_personalization_preferences' ) ) {
+		// Update empty user meta with new settings.
+		delete_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences' );
+	}
+
+	// Set default user personalization preferences.
+	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
+	$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
 }
 
 // Pers
@@ -520,6 +557,8 @@ if ( count( $seedprod_theme_parts ) > 0 ) {
 	}
 }
 
+$wp_getlocale = get_locale();
+$wp_getlocale = substr( $wp_getlocale, 0, 2 );
 ?>
 
 
@@ -585,6 +624,7 @@ $seedprod_data = array(
 	'active_license'                   => $active_license,
 	'is_theme_template'                => $seedprod_is_theme_template,
 	'personalization_preferences'      => $user_personalization_preferences,
+	'wplocale'                         => $wp_getlocale,
 );
 
 

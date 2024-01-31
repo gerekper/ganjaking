@@ -90,7 +90,7 @@ class WebP extends Abstract_Summary_Page implements Interface_Page {
 					'support'   => 'https://wpmudev.com/hub2/support/#get-support',
 					'freeImg'   => esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-free-tier.png' ),
 					'freeImg2x' => esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-free-tier@2x.png' ),
-					'webpDoc'   => 'https://wpmudev.com/blog/local-webp-support-smush/',
+					'webpDoc'   => $this->get_utm_link( array( 'utm_campaign' => 'smush_webp_learnmore' ), 'https://wpmudev.com/blog/local-webp-support-smush/' ),
 					'upsell'    => add_query_arg(
 						array(
 							'utm_source'   => 'smush',

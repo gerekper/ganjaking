@@ -61,6 +61,8 @@ class Posts extends Tag
         $this->add_control('order', ['label' => __('Order', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'options' => ['ASC' => __('Ascending', 'dynamic-content-for-elementor'), 'DESC' => __('Descending', 'dynamic-content-for-elementor')], 'default' => 'DESC']);
         $this->add_control('posts', ['label' => __('Results', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::NUMBER, 'default' => '10']);
         $this->add_control('return_format', ['label' => __('Return Format', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'options' => ['title' => __('Title', 'dynamic-content-for-elementor'), 'title_id' => __('Title | ID', 'dynamic-content-for-elementor'), 'id' => __('ID', 'dynamic-content-for-elementor')], 'default' => 'title']);
+        $this->add_control('link', ['label' => __('Link', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER]);
+        $this->add_control('open_in_new_window', ['label' => __('Open in a New Window', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'condition' => ['link' => 'yes']]);
     }
     /**
      * Render
@@ -81,10 +83,14 @@ class Posts extends Tag
         if ($wp_query->have_posts()) {
             while ($wp_query->have_posts()) {
                 $wp_query->the_post();
-                if ('new_line' === $settings['separator'] || empty($settings['link'])) {
-                    echo $this->get_post_by_format();
+                if ('yes' === $settings['link']) {
+                    $this->add_render_attribute('link', 'href', get_the_permalink() ?: '#');
+                    if ('yes' === $settings['open_in_new_window']) {
+                        $this->add_render_attribute('link', 'target', '_blank');
+                    }
+                    echo '<a ' . $this->get_render_attribute_string('link') . '>' . $this->get_post_by_format() . '</a>';
                 } else {
-                    echo '<a href=' . get_the_permalink() . '>' . $this->get_post_by_format() . '</a>';
+                    echo $this->get_post_by_format();
                 }
                 if ($wp_query->current_post + 1 !== $wp_query->post_count) {
                     echo $this->separator($settings['separator']);

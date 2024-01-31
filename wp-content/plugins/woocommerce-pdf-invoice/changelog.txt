@@ -1,7 +1,26 @@
 *** WooCommerce PDF Invoice Changelog ***
-2023.06.14 - version 4.18.2
+2024.01.22 - version 5.0.2
+ * Fix WC_pdf_debug does not have a method "woocommerce_invoice_details_meta_box"
+
+2024.01.03 - version 5.0.1
+ * Fix missing bulk export option for HPOS
+ * Fix missing admin notices for bulk actions for HPOS
+
+2023.12.14 - version 5.0.0
+ * WC 8.3
+ * HPOS Support
+ * PHP 8.3
+ * New filter for column widths
+ * Fix bulk order actions not redirecting
+ * Fix bulk order actions update messages
+ * Fix create_email scheduled action failure
+
+2023.06.29 - version 4.18.2
  * WC 7.8.0
  * Version bump
+ * Individual filters for Order Details headings
+ * Update fields for deletion
+ * Update fields for subscription renewals
 
 2023.06.09 - version 4.18.1
  * Ensure PDFs are attached to completed order email when order is completed during checkout

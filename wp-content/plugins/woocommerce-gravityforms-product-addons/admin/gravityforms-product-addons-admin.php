@@ -6,42 +6,45 @@ class WC_GFPA_Admin_Controller {
 
 	public static function register() {
 		if ( self::$instance == null ) {
-			self::$instance = new WC_GFPA_Admin_Controller;
+			self::$instance = new WC_GFPA_Admin_Controller();
 		}
 	}
 
 	private function __construct() {
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'on_admin_enqueue_scripts' ), 100 );
-		add_action( 'admin_notices', array( $this, 'admin_install_notices' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'on_admin_enqueue_scripts' ], 100 );
+		add_action( 'admin_notices', [ $this, 'admin_install_notices' ] );
 
-		add_action( 'woocommerce_process_product_meta', array( $this, 'process_meta_box' ), 1, 2 );
-		add_action( 'admin_notices', array( $this, 'on_admin_notices' ) );
+		add_action( 'woocommerce_process_product_meta', [ $this, 'process_meta_box' ], 1, 2 );
+		add_action( 'admin_notices', [ $this, 'on_admin_notices' ] );
 
+		add_action( 'woocommerce_product_write_panel_tabs', [ $this, 'add_tab' ] );
+		add_action( 'woocommerce_product_data_panels', [ $this, 'render_panel' ] );
+		add_action( 'woocommerce_process_product_meta', [ $this, 'process_meta_box' ], 1, 2 );
 
-		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_tab' ) );
-		add_action( 'woocommerce_product_data_panels', array( $this, 'render_panel' ) );
-		add_action( 'woocommerce_process_product_meta', array( $this, 'process_meta_box' ), 1, 2 );
-
-		add_action( 'wp_ajax_wc_gravityforms_get_form_data', array( $this, 'on_wc_gravityforms_get_form_data' ) );
-
+		add_action( 'wp_ajax_wc_gravityforms_get_form_data', [ $this, 'on_wc_gravityforms_get_form_data' ] );
 	}
 
 	public function on_admin_enqueue_scripts() {
-		wp_enqueue_style( 'woocommerce_gravityforms_product_addons_css', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/css/admin.css' );
+		wp_enqueue_style( 'woocommerce_gravityforms_product_addons_css', plugins_url( basename( dirname( __DIR__ ) ) ) . '/assets/css/admin.css' );
 
-		$params = array(
+		$params = [
 			'nonce'                 => wp_create_nonce( 'wc_gravityforms_get_products' ),
 			'text_edit_form'        => __( 'Edit ', 'wc_gf_addons' ),
 			'url_edit_form'         => sprintf( '%s/admin.php?page=gf_edit_forms&id=FORMID', get_admin_url() ),
 			'duplicate_form_notice' => __( 'The singular and the bulk form can not be the same form. Make a duplicate of your singular form if need be. ', 'wc_gf_addons' ),
-			'product_id'            => get_the_ID()
-		);
+			'product_id'            => get_the_ID(),
+		];
 
-		wp_enqueue_script( 'woocommerce_gravityforms_product_addons_js', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/admin.js', array(
-			'jquery',
-			'jquery-blockui'
-		), wc_gfpa()->assets_version );
+		wp_enqueue_script(
+			'woocommerce_gravityforms_product_addons_js',
+			plugins_url( basename( dirname( __DIR__ ) ) ) . '/assets/js/admin.js',
+			[
+				'jquery',
+				'jquery-blockui',
+			],
+			wc_gfpa()->assets_version
+		);
 
 		wp_localize_script( 'woocommerce_gravityforms_product_addons_js', 'wc_gf_addons', $params );
 	}
@@ -61,8 +64,6 @@ class WC_GFPA_Admin_Controller {
             </div>
 			<?php
 		}
-
-
 	}
 
 	public function on_admin_notices() {
@@ -103,7 +104,8 @@ class WC_GFPA_Admin_Controller {
 	public function add_tab() {
 		?>
         <li class="gravityforms_addons_tab gravityforms_addons">
-        <a href="#gravityforms_addons_data"><span><?php _e( 'Gravity Forms', 'wc_gf_addons' ); ?></span></a></li><?php
+            <a href="#gravityforms_addons_data"><span><?php _e( 'Gravity Forms', 'wc_gf_addons' ); ?></span></a></li>
+		<?php
 	}
 
 	/**
@@ -111,9 +113,9 @@ class WC_GFPA_Admin_Controller {
 	 */
 	public function render_panel() {
 		global $post;
-		$product = wc_get_product( $post );
+		$product           = wc_get_product( $post );
 		$gravity_form_data = $product->get_meta( '_gravity_form_data', true );
-		include( dirname( __FILE__ ) . '/views/html-gravityforms-addons-wc-metabox.php' );
+		include __DIR__ . '/views/html-gravityforms-addons-wc-metabox.php';
 	}
 
 
@@ -124,7 +126,7 @@ class WC_GFPA_Admin_Controller {
 
 			$product = wc_get_product( $post );
 
-			$gravity_form_data = array(
+			$gravity_form_data = [
 				'id'                              => $_POST['gravityform-id'],
 				'bulk_id'                         => isset( $_POST['gravityform-bulk-id'] ) ? $_POST['gravityform-bulk-id'] : 0,
 				'display_title'                   => isset( $_POST['gravityform-display_title'] ) ? true : false,
@@ -153,9 +155,9 @@ class WC_GFPA_Admin_Controller {
 				'structured_data_low_price'       => isset( $_POST['gravityform-structured_data_low_price'] ) ? $_POST['gravityform-structured_data_low_price'] : '',
 				'structured_data_high_price'      => isset( $_POST['gravityform-structured_data_high_price'] ) ? $_POST['gravityform-structured_data_high_price'] : '',
 				'structured_data_override_type'   => isset( $_POST['gravityform-structured_data_override_type'] ) ? $_POST['gravityform-structured_data_override_type'] : 'append',
-			);
+			];
 
-            $gravity_form_data = apply_filters('woocommerce_gravityforms_before_save_metadata', $gravity_form_data, $product->get_id());
+			$gravity_form_data = apply_filters( 'woocommerce_gravityforms_before_save_metadata', $gravity_form_data, $product->get_id() );
 			$product->update_meta_data( '_gravity_form_data', $gravity_form_data );
 			$product->save_meta_data();
 		} else {
@@ -172,10 +174,12 @@ class WC_GFPA_Admin_Controller {
 
 		$form_id = isset( $_POST['form_id'] ) ? $_POST['form_id'] : 0;
 		if ( empty( $form_id ) ) {
-			wp_send_json_error( array(
-				'status'  => 'error',
-				'message' => __( 'No Form ID', 'wc_gf_addons' ),
-			) );
+			wp_send_json_error(
+				[
+					'status'  => 'error',
+					'message' => __( 'No Form ID', 'wc_gf_addons' ),
+				]
+			);
 			die();
 		}
 
@@ -191,28 +195,26 @@ class WC_GFPA_Admin_Controller {
 			}
 		}
 
-
 		$form   = GFAPI::get_form( $form_id );
-		$fields = GFAPI::get_fields_by_type( $form, array( 'quantity', 'number', 'singleproduct', ), false );
+		$fields = GFAPI::get_fields_by_type( $form, [ 'quantity', 'number', 'singleproduct' ], false );
 
 		if ( $fields ) {
-			$options = array();
+			$options = [];
 			foreach ( $fields as $field ) {
 				if ( $field['disableQuantity'] !== true ) {
 					$options[ $field['id'] ] = $field['label'];
 				}
 			}
 
-
 			ob_start();
 			woocommerce_wp_select(
-				array(
+				[
 					'id'          => 'gravityform-cart_quantity_field',
 					'label'       => __( 'Quantity Field', 'wc_gf_addons' ),
 					'value'       => $selected_field,
 					'options'     => $options,
-					'description' => __( 'A field to use to control cart item quantity.', 'wc_gf_addons' )
-				)
+					'description' => __( 'A field to use to control cart item quantity.', 'wc_gf_addons' ),
+				]
 			);
 
 			$markup = ob_get_clean();
@@ -228,17 +230,15 @@ class WC_GFPA_Admin_Controller {
 		}
 
 		$markup .= '</select>';
-        */
+		*/
 
-		$response = array(
+		$response = [
 			'status'  => 'success',
 			'message' => '',
-			'markup'  => $markup
-		);
+			'markup'  => $markup,
+		];
 
 		wp_send_json_success( $response );
 		die();
 	}
-
-
 }

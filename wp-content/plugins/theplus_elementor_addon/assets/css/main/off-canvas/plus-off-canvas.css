@@ -331,7 +331,7 @@ width: 60px;
 .plus-canvas-content-wrap .plus-content-editor{
   float: left;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   padding: 20px;
 }
 .plus-offcanvas-content-widget .plus-canvas-content-wrap::-webkit-scrollbar-track

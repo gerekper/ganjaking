@@ -34,6 +34,8 @@ class Missing_Indexables_Count_Integration implements Integration_Interface {
 
 	/**
 	 * Registers hooks with WordPress.
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		\add_filter( 'wpseo_indexable_collector_add_indexation_actions', [ $this, 'add_index_action' ] );

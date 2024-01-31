@@ -29,7 +29,8 @@ class MultipleKB extends CategoryBox {
             'column'                   => $this->settings->get( 'column_number' ),
             'show_description'         => (bool) $this->customizer->get( 'betterdocs_mkb_desc', false ),
             'terms_order'              => $this->settings->get( 'terms_order', 'ASC' ),
-            'terms_orderby'            => $this->settings->get( 'terms_orderby', 'betterdocs_order' )
+            'terms_orderby'            => $this->settings->get( 'terms_orderby', 'betterdocs_order' ),
+            'show_icon'                => true
         ];
     }
 
@@ -47,7 +48,6 @@ class MultipleKB extends CategoryBox {
         $this->attributes['nested_subcategory']      = false;
         $this->attributes['multiple_knowledge_base'] = true;
         $this->attributes['kb_slug']                 = '';
-        $this->attributes['show_icon']               = true;
 
         parent::render( $atts, $content );
 
@@ -58,7 +58,8 @@ class MultipleKB extends CategoryBox {
         $_view_params = [
             'wrapper_attr' => [
                 'class' => ['betterdocs-multiple-kb-wrapper']
-            ]
+            ],
+            'show_icon' => $this->attributes['show_icon']
         ];
 
         return $this->merge( parent::view_params(), $_view_params );

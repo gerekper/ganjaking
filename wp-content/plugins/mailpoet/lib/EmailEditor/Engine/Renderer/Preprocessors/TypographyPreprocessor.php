@@ -5,6 +5,8 @@ namespace MailPoet\EmailEditor\Engine\Renderer\Preprocessors;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\EmailEditor\Engine\SettingsController;
+
 class TypographyPreprocessor implements Preprocessor {
   /**
    * List of styles that should be copied from parent to children.
@@ -14,11 +16,24 @@ class TypographyPreprocessor implements Preprocessor {
     'color',
     'font-size',
     'font-family',
+    'text-decoration',
   ];
+
+  /** @var SettingsController */
+  private $settingsController;
+
+  public function __construct(
+    SettingsController $settingsController
+  ) {
+    $this->settingsController = $settingsController;
+  }
 
   public function preprocess(array $parsedBlocks, array $layoutStyles): array {
     foreach ($parsedBlocks as $key => $block) {
       $block = $this->preprocessParent($block);
+      // Set defaults from theme - this needs to be done on top level blocks only
+      $block = $this->setDefaultsFromTheme($block);
+
       $block['innerBlocks'] = $this->copyTypographyFromParent($block['innerBlocks'], $block);
       $parsedBlocks[$key] = $block;
     }
@@ -48,11 +63,26 @@ class TypographyPreprocessor implements Preprocessor {
     if (isset($block['attrs']['style']['typography']['fontSize'])) {
       $emailAttrs['font-size'] = $block['attrs']['style']['typography']['fontSize'];
     }
+    if (isset($block['attrs']['style']['typography']['textDecoration'])) {
+      $emailAttrs['text-decoration'] = $block['attrs']['style']['typography']['textDecoration'];
+    }
     $block['email_attrs'] = array_merge($emailAttrs, $block['email_attrs'] ?? []);
     return $block;
   }
 
   private function filterStyles(array $styles): array {
     return array_intersect_key($styles, array_flip(self::TYPOGRAPHY_STYLES));
+  }
+
+  private function setDefaultsFromTheme(array $block): array {
+    $themeData = $this->settingsController->getTheme()->get_data();
+    $contentStyles = $this->settingsController->getEmailContentStyles();
+    if (!($block['email_attrs']['color'] ?? '')) {
+      $block['email_attrs']['color'] = $themeData['styles']['color']['text'] ?? null;
+    }
+    if (!($block['email_attrs']['font-size'] ?? '')) {
+      $block['email_attrs']['font-size'] = $contentStyles['typography']['fontSize'];
+    }
+    return $block;
   }
 }

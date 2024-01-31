@@ -61,7 +61,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         }
         // Check if tokens are active
         if (get_option('dce_tokens_status') === 'disable') {
-            Helper::notice('', __('Tokens are not active. You can activate it from WP Dashboard > Dynamic.ooo > Settings > Tokens', 'dynamic-content-for-elementor'));
+            Helper::notice('', __('Tokens are not active. You can activate it from WP Dashboard > Dynamic Content for Elementor > Settings > Tokens', 'dynamic-content-for-elementor'));
             return;
         }
         Helper::notice('', __('This widget is only visible to administrators in order to better understand the tokens syntax, so you can put it on any public page without problem.', 'dynamic-content-for-elementor'));
@@ -82,7 +82,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         // Check if this type is active
         $active_tokens = get_option('dce_active_tokens', \array_keys($tokens));
         if (!\in_array($realtype, get_option('dce_active_tokens', $active_tokens), \true)) {
-            _e('This token type is not active. If you want to use it you can activate it from WP Dashboard > Dynamic.ooo > Settings > Tokens > Active Tokens', 'dynamic-content-for-elementor');
+            _e('This token type is not active. If you want to use it you can activate it from WP Dashboard > Dynamic Content for Elementor > Settings > Tokens > Active Tokens', 'dynamic-content-for-elementor');
             return;
         }
         if (!$this->check_plugin_dependencies($type)) {

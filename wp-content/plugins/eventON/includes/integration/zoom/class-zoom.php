@@ -1,7 +1,7 @@
 <?php
 /**
 Zoom integration with eventon
-@version 4.5.4
+@version 4.5.5
 */
 
 
@@ -31,9 +31,15 @@ class EVO_Zoom_Int{
 
 		EVO()->cal->set_cur('evcal_1');
 
+		// check if zoom API is enabled
+		if( ! EVO()->cal->check_yn('_evo_zoom') ){
+			wp_send_json(array(
+				'status'=>'bad','content'=> "<div style='padding:20px;'>".__('Zoom API is not enabled in EventON Settings.','eventon') ."!</div>"
+			));wp_die();
+		}
 
 		// validate key and secret
-		if( !$this->is_zoom_ok() || !$this->is_oauth_active() ){
+		if( !$this->is_zoom_ok() && !$this->is_oauth_active() ){
 			echo json_encode(array(
 				'status'=>'bad','content'=> "<div style='padding:20px;'>".__('Zoom API or OAuth Access information must be saved under EventON Settings > Third Party APIs','eventon') ."!</div>"
 			));exit;

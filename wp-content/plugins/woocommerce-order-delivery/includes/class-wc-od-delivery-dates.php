@@ -58,7 +58,7 @@ class WC_OD_Delivery_Dates {
 				$disabled_dates[] = ( $format ? date( $format, $timestamp ) : $timestamp );
 			}
 
-			$index++;
+			++$index;
 		} while ( $timestamp < $args['end_date'] );
 
 		return apply_filters( 'wc_od_get_disabled_dates', $disabled_dates );

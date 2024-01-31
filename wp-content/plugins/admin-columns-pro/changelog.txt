@@ -1,5 +1,25 @@
 == Changelog ==
 
+= 6.4.4 =
+Release Date: January 16th, 2024
+
+* [Fixed] Fatal error when Restoring the settings in the Settings tab
+* [Added] New filter for the 'Posts by Author' column on the User table
+* [Improved] Filter drop-downs for user related data now allows you to search for the user display name
+* [Improved] Single table view export is now pretty printed
+* [Improved] Better sorting for columns with non unique values
+* [Pods] Repeatable fields are not supported anymore until we have build fully support for repeatable fields
+* [Updated] Admin Columns Core to version 4.7.2
+
+= 6.4.3 =
+Release Date: January 9th, 2024
+
+* [Fixed] JetEngine Post Relationship Smart Filtering gave an error
+* [Fixed] Export for the Subscription Relationship column, does not work anymore
+* [Fixed] Export for the WooCommerce Status did not work
+* [Improved] Show 250 items in Filter drop downs by default
+* [Added] Added a new hook that allows developers to alter the max number of options in drop down lists used in Filtering `ac/select/query/limit`.
+
 = 6.4.2 =
 Release Date: December 19th, 2023
 

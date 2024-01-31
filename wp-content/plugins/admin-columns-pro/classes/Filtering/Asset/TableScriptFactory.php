@@ -56,13 +56,14 @@ final class TableScriptFactory
         $script->localize(
             'acp_filtering_i18n',
             Translation::create([
-                'fetching_results'   => __('Fetching options', 'codepress-admin-columns'),
-                'label_start_date'   => __('Start date', 'codepress-admin-columns'),
-                'label_end_date'     => __('End date', 'codepress-admin-columns'),
-                'label_start_number' => __('Min', 'codepress-admin-columns'),
-                'label_end_number'   => __('Max', 'codepress-admin-columns'),
-                'filter'             => __('Filter', 'codepress-admin-columns'),
-                'no_results'         => __('No options found', 'codepress-admin-columns'),
+                'fetching_results'    => __('Fetching options', 'codepress-admin-columns'),
+                'label_start_date'    => __('Start date', 'codepress-admin-columns'),
+                'label_end_date'      => __('End date', 'codepress-admin-columns'),
+                'label_start_number'  => __('Min', 'codepress-admin-columns'),
+                'label_end_number'    => __('Max', 'codepress-admin-columns'),
+                'filter'              => __('Filter', 'codepress-admin-columns'),
+                'no_results'          => __('No options found', 'codepress-admin-columns'),
+                'more_search_records' => __('Please enter more characters to narrow down the search results'),
             ])
         );
 

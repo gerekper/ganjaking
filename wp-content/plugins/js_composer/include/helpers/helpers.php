@@ -123,6 +123,59 @@ function wpb_getImageBySize( $params = array() ) { // phpcs:ignore
 }
 
 /**
+ * Get image data by source where image obtained from.
+ *
+ * @since 7.4
+ * @param string $source
+ * @param int $post_id
+ * @param int $image_id
+ * @param string $img_size
+ * @return array
+ */
+function wpb_get_image_data_by_source( $source, $post_id, $image_id, $img_size ) {
+	$image_src = '';
+	switch ( $source ) {
+		case 'media_library':
+		case 'featured_image':
+			if ( 'featured_image' === $source ) {
+				if ( $post_id && has_post_thumbnail( $post_id ) ) {
+					$img_id = get_post_thumbnail_id( $post_id );
+				} else {
+					$img_id = 0;
+				}
+			} else {
+				$img_id = preg_replace( '/[^\d]/', '', $image_id );
+			}
+
+			if ( ! $img_size ) {
+				$img_size = 'thumbnail';
+			}
+
+			if ( $img_id ) {
+				$image_src = wp_get_attachment_image_src( $img_id, $img_size );
+				if ( $image_src ) {
+					$image_src = $image_src[0];
+				}
+			}
+			$alt_text = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+
+			break;
+
+		case 'external_link':
+			if ( ! empty( $params['custom_src'] ) ) {
+				$image_src = $params['custom_src'];
+			}
+			$alt_text = '';
+			break;
+	}
+
+	return [
+		'image_src' => $image_src,
+		'image_alt' => $alt_text,
+	];
+}
+
+/**
  * Add `loading` attribute with param lazy to attribute list.
  *
  * @param array $attributes
@@ -1466,4 +1519,69 @@ function wpb_check_wordpress_com_env() {
 function wpb_get_name_post_custom_layout() {
 	$layout_manager = new Vc_PostCustomLayout();
 	return $layout_manager->getCustomLayoutName();
+}
+
+if ( ! function_exists( 'wpb_add_ai_to_text_field' ) ) {
+	/**
+	 * Add AI icon to text field.
+	 *
+	 * @param string $type
+	 * @param string $field_id
+	 * @since 7.4
+	 */
+	function wpb_add_ai_icon_to_text_field( $type, $field_id ) {
+		if ( ! vc_user_access()->part( 'text_ai' )->can()->get() ) {
+			return;
+
+		}
+		wpb_get_ai_icon_template( $type, $field_id );
+	}
+}
+
+if ( ! function_exists( 'wpb_add_ai_to_code_field' ) ) {
+	/**
+	 * Add AI icon to code field.
+	 *
+	 * @param string $type
+	 * @param string $field_id
+	 * @since 7.4
+	 */
+	function wpb_add_ai_icon_to_code_field( $type, $field_id ) {
+		if ( ! vc_user_access()->part( 'code_ai' )->can()->get() ) {
+			return;
+		}
+		wpb_get_ai_icon_template( $type, $field_id );
+	}
+}
+
+if ( ! function_exists( 'wpb_get_ai_icon_template' ) ) {
+	/**
+	 * Get AI icon.
+	 *
+	 * @param string $type
+	 * @param string $field_id
+	 * @since 7.4
+	 *
+	 * @return mixed
+	 */
+	function wpb_get_ai_icon_template( $type, $field_id, $is_include = true ) {
+		$template = apply_filters( 'wpb_get_ai_icon_template', 'editors/partials/icon-ai.tpl.php', $type, $field_id );
+		if ( $is_include ) {
+			vc_include_template(
+				$template,
+				[
+					'type' => $type,
+					'field_id' => $field_id,
+				]
+			);
+		} else {
+			return vc_get_template(
+				$template,
+				[
+					'type' => $type,
+					'field_id' => $field_id,
+				]
+			);
+		}
+	}
 }

@@ -1224,7 +1224,7 @@ class ThePlus_Number_Counter extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent;-webkit-background-clip: text;-webkit-text-fill-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
 				],
 				'condition'    => [
 					'title_color_option' => 'gradient',
@@ -1240,7 +1240,7 @@ class ThePlus_Number_Counter extends Widget_Base {
 				'options' => theplus_get_position_options(),
 				'default' => 'center center',
 				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent;-webkit-background-clip: text;-webkit-text-fill-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
 				],
 				'condition' => [
 					'title_color_option' => 'gradient',
@@ -1453,68 +1453,353 @@ class ThePlus_Number_Counter extends Widget_Base {
 		/*title style*/
 		/* digits */
 		$this->start_controls_section(
-				'section_digit_option',
-				[
-					'label' => esc_html__('Digit', 'theplus'),
-					'tab' => Controls_Manager::TAB_STYLE,
-				]
-		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+			'section_digit_option',
 			[
-				'name' => 'digit_typography',
-				'label' => esc_html__( 'Digit Typography', 'theplus' ),
-				'global' => [
-                    'default' => Global_Typography::TYPOGRAPHY_PRIMARY
-                ],
-				'selector' => '{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number',
-	       ]
-		);
-		$this->add_control(
-			'style_color',
-			[
-				'label' => esc_html__( 'Digit Color', 'theplus' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
-				],
+				'label' => esc_html__('Digit', 'theplus'),
+				'tab' => Controls_Manager::TAB_STYLE,
 			]
-		);
-        $this->add_control(
-			'style_hover_color',
-			[
-				'label' => esc_html__( 'Digit Hover Color', 'theplus' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => 'color: {{VALUE}}',
+	);
+	$this->add_group_control(
+		Group_Control_Typography::get_type(),
+		[
+			'name' => 'digit_typography',
+			'label' => esc_html__( 'Typography', 'theplus' ),
+			'global' => [
+				'default' => Global_Typography::TYPOGRAPHY_PRIMARY
+			],
+			'selector' => '{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number',
+	   ]
+	);
+	$this->start_controls_tabs( 'digit_gradient' );
+	$this->start_controls_tab(
+		'digit_gradient_normal',
+		[
+			'label' => esc_html__( 'Normal', 'theplus' ),
+		]
+	);
+	$this->add_control(
+		'digit_gradient_color',
+		[
+			'label' => esc_html__( 'Gradient Color', 'theplus' ),
+			'type' => Controls_Manager::CHOOSE,
+			'options' => [
+				'color' => [
+					'title' => esc_html__( 'Classic', 'theplus' ),
+					'icon' => 'eicon-paint-brush',
 				],
-			]
-		);
-		$this->add_control(
-            'number_top_space',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Number Top Space', 'theplus'),
-				'size_units' => [ 'px' ],
-				'range' => [
-					'px' => [
-						'step' => 2,
-						'min' => -150,
-						'max' => 150,
-					],
+				'gradient' => [
+					'title' => esc_html__( 'Gradient', 'theplus' ),
+					'icon' => 'eicon-barcode',
 				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 0,
+			],
+			'label_block' => false,
+			'default' => 'color',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_color1',
+		[
+			'label' => esc_html__('Color 1', 'theplus'),
+			'type' => Controls_Manager::COLOR,
+			'default' => 'orange',
+			'selectors' => [
+				'{{WRAPPER}} .counter-number .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+			],
+			'condition' => [
+				'digit_gradient_color' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_color1_control',
+		[
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Color 1 Location', 'theplus'),
+			'size_units' => [ '%' ],
+			'default' => [
+				'unit' => '%',
+				'size' => 0,
+			],
+			'render_type' => 'ui',
+			'condition' => [
+				'digit_gradient_color' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_color2',
+		[
+			'label' => esc_html__('Color 2', 'theplus'),
+			'type' => Controls_Manager::COLOR,
+			'default' => 'cyan',
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+			],
+			'condition' => [
+				'digit_gradient_color' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_color2_control',
+		[
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Color 2 Location', 'theplus'),
+			'size_units' => [ '%' ],
+			'default' => [
+				'unit' => '%',
+				'size' => 100,
 				],
-				'render_type' => 'ui',
-				'separator' => 'before',
-				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'margin-top : {{SIZE}}{{UNIT}}',
+			'render_type' => 'ui',
+			'condition' => [
+				'digit_gradient_color' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_style', [
+			'type' => Controls_Manager::SELECT,
+			'label' => esc_html__('Gradient Style', 'theplus'),
+			'default' => 'linear',
+			'options' => theplus_get_gradient_styles(),
+			'condition' => [
+				'digit_gradient_color' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'digit_gradient_angle', [
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Gradient Angle', 'theplus'),
+			'size_units' => [ 'deg' ],
+			'default' => [
+				'unit' => 'deg',
+				'size' => 180,
+			],
+			'range' => [
+				'deg' => [
+					'step' => 10,
 				],
-            ]
-        );
-       $this->end_controls_section();
+			],
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
+			],
+			'condition'    => [
+				'digit_gradient_color' => 'gradient',
+				'digit_gradient_style' => ['linear']
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'normal_gradient_position', [
+			'type' => Controls_Manager::SELECT,
+			'label' => esc_html__('Position', 'theplus'),
+			'options' => theplus_get_position_options(),
+			'default' => 'center center',
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'background-color: transparent;-webkit-background-clip: text;-webkit-text-fill-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
+			],
+			'condition'    => [
+				'digit_gradient_color' => 'gradient',
+				'digit_gradient_style' => ['radial']
+			],
+		'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'style_color',
+		[
+			'label' => esc_html__( 'Color', 'theplus' ),
+			'type' => Controls_Manager::COLOR,
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+			],
+			'condition'    => [
+				'digit_gradient_color' => 'color',
+			],
+		]
+	);
+	$this->end_controls_tab();
+	$this->start_controls_tab(
+		'gradient_title_hover',
+		[
+			'label' => esc_html__( 'Hover', 'theplus' ),
+		]
+	);
+	$this->add_control(
+		'gradient_hover_color_option',
+		[
+			'label' => esc_html__( 'Gradient Hover Color', 'theplus' ),
+			'type' => Controls_Manager::CHOOSE,
+			'options' => [
+				'color' => [
+					'title' => esc_html__( 'Classic', 'theplus' ),
+					'icon' => 'eicon-paint-brush',
+				],
+				'gradient' => [
+					'title' => esc_html__( 'Gradient', 'theplus' ),
+					'icon' => 'eicon-barcode',
+				],
+			],
+			'label_block' => false,
+			'default' => 'color',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_color1',
+		[
+			'label' => esc_html__('Color 1', 'theplus'),
+			'type' => Controls_Manager::COLOR,
+			'default' => 'orange',
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_color1_control',
+		[
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Color 1 Location', 'theplus'),
+			'size_units' => [ '%' ],
+			'default' => [
+				'unit' => '%',
+				'size' => 0,
+			],
+			'render_type' => 'ui',
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_color2',
+		[
+			'label' => esc_html__('Color 2', 'theplus'),
+			'type' => Controls_Manager::COLOR,
+			'default' => 'cyan',
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_color2_control',
+		[
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Color 2 Location', 'theplus'),
+			'size_units' => [ '%' ],
+			'default' => [
+				'unit' => '%',
+				'size' => 100,
+				],
+			'render_type' => 'ui',
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_style', [
+			'type' => Controls_Manager::SELECT,
+			'label' => esc_html__('Gradient Style', 'theplus'),
+			'default' => 'linear',
+			'options' => theplus_get_gradient_styles(),
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_angle', [
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Gradient Angle', 'theplus'),
+			'size_units' => [ 'deg' ],
+			'default' => [
+				'unit' => 'deg',
+				'size' => 180,
+			],
+			'range' => [
+				'deg' => [
+					'step' => 10,
+				],
+			],
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{hover_gradient_color1.VALUE}} {{hover_gradient_color1_control.SIZE}}{{hover_gradient_color1_control.UNIT}}, {{hover_gradient_color2.VALUE}} {{hover_gradient_color2_control.SIZE}}{{hover_gradient_color2_control.UNIT}})',
+			],
+			'condition'    => [
+				'gradient_hover_color_option' => 'gradient',
+				'hover_gradient_style' => ['linear']
+			],
+			'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'hover_gradient_position', [
+			'type' => Controls_Manager::SELECT,
+			'label' => esc_html__('Position', 'theplus'),
+			'options' => theplus_get_position_options(),
+			'default' => 'center center',
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number,{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{hover_gradient_color1.VALUE}} {{hover_gradient_color1_control.SIZE}}{{hover_gradient_color1_control.UNIT}}, {{hover_gradient_color2.VALUE}} {{hover_gradient_color2_control.SIZE}}{{hover_gradient_color2_control.UNIT}})',
+			],
+			'condition' => [
+				'gradient_hover_color_option' => 'gradient',
+				'hover_gradient_style' => 'radial',
+		],
+		'of_type' => 'gradient',
+		]
+	);
+	$this->add_control(
+		'style_hover_color',
+		[
+			'label' => esc_html__( 'Hover Color', 'theplus' ),
+			'type' => Controls_Manager::COLOR,
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => 'color: {{VALUE}}',
+			],
+			'condition'    => [
+				'gradient_hover_color_option' => 'color',
+			],
+		]
+	);
+	$this->end_controls_tabs();
+	$this->add_control(
+		'number_top_space',
+		[
+			'type' => Controls_Manager::SLIDER,
+			'label' => esc_html__('Number Top Space', 'theplus'),
+			'size_units' => [ 'px' ],
+			'range' => [
+				'px' => [
+					'step' => 2,
+					'min' => -150,
+					'max' => 150,
+				],
+			],
+			'default' => [
+				'unit' => 'px',
+				'size' => 0,
+			],
+			'render_type' => 'ui',
+			'separator' => 'before',
+			'selectors' => [
+				'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'margin-top : {{SIZE}}{{UNIT}}',
+			],
+		]
+	);
+   $this->end_controls_section();
 	    /* digits */
 		/*background option*/
 		$this->start_controls_section(
@@ -1880,6 +2165,7 @@ class ThePlus_Number_Counter extends Widget_Base {
 		//Icon
 		$icon_img_ic ='';	
 		if($settings["icon_type"] =="image" && !empty($settings["icon_image"]) && !empty($settings["icon_image"]["url"])){
+			
 			$icon_img_ic .='<div class="counter-image-inner">';
 				$icon_image = $settings['icon_image']['id'];
 				$imgSrc= tp_get_image_rander( $icon_image,$settings['icon_image_thumbnail_size'], [ 'class' => 'counter-icon-image' ] );
@@ -1890,20 +2176,30 @@ class ThePlus_Number_Counter extends Widget_Base {
 				}
 				
 			$icon_img_ic .='</div>';
+
 		}else if($settings["icon_type"] == "icon"){
 			$icons = '';
 			if($settings["icon_font_style"] == 'font_awesome'){
 				$icons = $settings["icon_fontawesome"];
 			}else if($settings["icon_font_style"] == 'font_awesome_5'){				
-				$icons = $settings['icon_fontawesome_5']['value'];
+				ob_start();
+					\Elementor\Icons_Manager::render_icon( $settings['icon_fontawesome_5'], [ 'aria-hidden' => 'true' ]);
+					$icons = ob_get_contents();
+				ob_end_clean();
 			}else if($settings["icon_font_style"] == 'icon_mind'){
 				$icons = $settings["icons_mind"];
 			}
 			$icon_bg = function_exists('tp_has_lazyload') ? tp_bg_lazyLoad($settings['icon_background_image'],$settings['icon_hover_background_image']) : '';
-			$icon_img_ic .='<div class="counter-icon-inner '.esc_attr($icon_bg).' shape-icon-'.esc_attr($settings["icon_style"]).'">';			$icon_img_ic .='<span class="counter-icon '.esc_attr($icons).'"></span>';
-			$icon_img_ic .='</div>';
-			
+			$icon_img_ic .= '<div class="counter-icon-inner '.esc_attr($icon_bg).' shape-icon-'.esc_attr($settings["icon_style"]).'">';
+				if( $settings["icon_font_style"] == 'font_awesome_5' ){
+					$icon_img_ic .= '<span class="counter-icon">'.$icons.'</span>';
+				}else{
+					$icon_img_ic .= '<span class="counter-icon '.esc_attr($icons).'"></span>';	
+				}
+			$icon_img_ic .= '</div>';
+
 		}else if($settings["icon_type"] == 'svg'){
+			
 			if($settings['svg_icon'] == 'img'){
 				$svg_url = $settings['svg_image']['url'];
 			}else{

@@ -178,17 +178,22 @@ class Module extends Element_Pack_Module_Base {
 
 	public function enqueue_scripts() {
         wp_enqueue_script('ep-ripple-effects-vendor', BDTEP_ASSETS_URL . 'vendor/js/ripple.min.js', [], '', true);
-		wp_enqueue_script('ep-ripple-effects');
-		wp_enqueue_style('ep-ripple-effects');
+    }
+
+	public function should_script_enqueue($widget) {
+        if ('yes' === $widget->get_settings_for_display('ep_ripple_enable')) {
+			$this->enqueue_scripts();
+			wp_enqueue_script('ep-ripple-effects');
+			wp_enqueue_style('ep-ripple-effects');
+        }
     }
 
 	protected function add_actions() {
-
 		add_action('elementor/element/common/_section_style/after_section_end', [$this, 'register_section']);
 		add_action('elementor/element/common/ep_ripple_effects/before_section_end', [$this, 'register_controls'], 10, 2);
 
 		// render scripts
-		add_action('elementor/frontend/widget/before_render', [$this, 'enqueue_scripts']);
+		add_action('elementor/frontend/widget/before_render', [$this, 'should_script_enqueue']);
         add_action('elementor/preview/enqueue_scripts', [$this, 'enqueue_scripts']);
 	}
 }

@@ -470,7 +470,7 @@ function UniteCreatorElementorEditorAdmin(){
 				
 		var type = objSelect.data("datatype");
 		
-		if(type == "terms")
+		if(type == "terms" || type == "users")
 			return(false);
 		
 		var objWrapper = objSelect.parents(".elementor-control-input-wrapper");
@@ -510,21 +510,6 @@ function UniteCreatorElementorEditorAdmin(){
 		objWrapper.append(htmlButton);
 		
 		
-		/*
-		var dataType = getVal(data, "dataType");
-		var isSingle = getVal(data,"issingle");
-		
-		trace(dataType);
-		trace(isSingle);
-		
-		if(dataType == "terms")
-			return(false);
-		
-		if(isSingle == false)
-			return(false);
-		
-		trace("check init data");
-		*/
 	}
 	
 	
@@ -546,10 +531,17 @@ function UniteCreatorElementorEditorAdmin(){
 		if(type == "elementor_template")
 			postType = "elementor_template";
 		
+		
 		//get terms
 		var action = "get_posts_list_forselect";
+		
 		if(type == "terms"){
 			action = "get_terms_list_forselect";
+		}
+		
+		if(type == "users"){
+			action = "get_users_list_forselect";
+			
 		}
 		
 		var taxonomyName = objSelect.data("taxonomyname");
@@ -654,8 +646,12 @@ function UniteCreatorElementorEditorAdmin(){
 		};
 		
 		var action = "get_select2_post_titles";
+		
 		if(dataType == "terms")
 			action = "get_select2_terms_titles";
+		
+		if(dataType == "users")
+			action = "get_select2_users_titles";
 		
 		ajaxRequest(action, ajaxData, function(response){
 			

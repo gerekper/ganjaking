@@ -1213,6 +1213,9 @@ class UniteCreatorFiltersProcess{
 		$objOutput->initByAddon($addon);
 
 	    if($isDebugFromGet == true){
+	    	
+	    	HelperProviderUC::showLastQueryPosts();
+			
 	    	dmp("End Here");
 	    	exit();
 	    }

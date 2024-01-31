@@ -403,10 +403,12 @@ class WoocommerceGpfCommon {
 					'full_desc'        => __( 'Use this attribute to stop a product from showing in certain countries, while still allowing it to show in a primary country.', 'woocommerce_gpf' ),
 					'can_default'      => true,
 					'can_prepopulate'  => false,
-					'callback'         => 'render_generic_select',
+					'callback'         => 'render_generic_multi_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::country_options',
 					'feed_types'       => [ 'google' ],
 					'ui_group'         => 'advanced',
+					'multiple'         => true,
+					'import_as_array'  => true,
 				],
 				'transit_time_label'                  => [
 					'desc'            => __( 'Transit time label', 'woocommerce_gpf' ),

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Min/Max Quantities
- * Plugin URI: https://woocommerce.com/products/minmax-quantities/
+ * Plugin Name: Woo Min/Max Quantities
+ * Plugin URI: https://woo.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.1.2
- * Author: WooCommerce
- * Author URI: https://woocommerce.com
+ * Version: 4.1.4
+ * Author: Woo
+ * Author URI: https://woo.com
  * Requires at least: 4.4
  * Tested up to: 6.0
  * WC tested up to: 6.9.0
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.1.2' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.1.4' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -120,6 +120,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			}
 
 			$this->maybe_define_constant( 'WC_MMQ_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+			$this->maybe_define_constant( 'WC_MMQ_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 			/**
 			 * Localisation.
@@ -127,8 +128,11 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			$this->load_plugin_textdomain();
 
 			if ( is_admin() ) {
-				include_once WC_MMQ_ABSPATH . '/includes/class-wc-min-max-quantities-admin.php';
+				include_once WC_MMQ_ABSPATH . 'includes/class-wc-min-max-quantities-admin.php';
 			}
+
+			// Blocks.
+			include_once WC_MMQ_ABSPATH . 'includes/class-wc-min-max-quantities-blocks.php';
 
 			// Extensions compatibility functions and hooks.
 			include_once WC_MMQ_ABSPATH . 'includes/compatibility/class-wc-min-max-quantities-compatibility.php';
@@ -167,12 +171,29 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 			add_filter( 'woocommerce_add_to_cart_product_id', array( $this, 'modify_add_to_cart_quantity' ) );
 
-			// Declare HPOS compatibility.
-			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+			add_action( 'before_woocommerce_init', array( $this, 'declare_feature_compatibilities' ) );
 
-			// Declare Blocks compatibility.
-			add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
+			add_action( 'init', array( $this, 'register_custom_taxonomies' ) );
+
 		}
+
+		/**
+		 * Registers custom taxonomies.
+		 *
+		 * @since 4.1.4
+		 */
+		public function register_custom_taxonomies() {
+			register_meta(
+				'term',
+				'group_of_quantity',
+				array(
+					'show_in_rest' => true,
+					'type' => 'string',
+					'single' => true,
+				)
+			);
+		}
+	
 
 		/**
 		 * Define constants if not present.
@@ -220,7 +241,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			<p>
 				<?php
 				/* translators: Minimum required PHP version */
-				echo wp_kses_post( sprintf( __( 'WooCommerce Min/Max Quantities requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-min-max-quantities' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' ) );
+				echo wp_kses_post( sprintf( __( 'Woo Min/Max Quantities requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-min-max-quantities' ), '7.0.0', 'https://woo.com/document/how-to-update-your-php-version/' ) );
 				?>
 			</p>
 			</div><?php
@@ -234,34 +255,26 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			if ( is_product() || is_cart() ) {
 				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				wp_register_script( 'wc-mmq-frontend', $this->plugin_url() . '/assets/js/frontend/validate' . $suffix . '.js', array( 'jquery' ), WC_MIN_MAX_QUANTITIES );
+				wp_script_add_data( 'wc-mmq-frontend', 'strategy', 'defer' );
 				wp_enqueue_script( 'wc-mmq-frontend' );
 			}
 		}
 
 		/**
-		 * Declare HPOS( Custom Order tables) compatibility.
+		 * Declare HPOS (Custom Order tables), Blocks and new Product Editor compatibility.
 		 *
 		 * @since 4.0.2
 		 */
-		public function declare_hpos_compatibility () {
+		public function declare_feature_compatibilities () {
 			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 				return;
 			}
 
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-		}
-
-		/**
-		 * Declare cart/checkout Blocks compatibility.
-		 *
-		 * @since 4.1.2
-		 */
-		public function declare_blocks_compatibility () {
-			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-				return;
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__ );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__ );
+			if (apply_filters( 'min_max_new_product_editor_enabled', '__return_false' )) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'product_block_editor', __FILE__ );
 			}
-
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 		}
 
 		/**

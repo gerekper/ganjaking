@@ -40,6 +40,10 @@ class ThePlus_Syntax_Highlighter extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Syntax Highlighter', 'code highlighter', 'code syntax', 'code editor', 'code formatting', 'code styling', 'code display', 'code snippet', 'code block'];
+    }
+
     protected function register_controls() {
 		
 		$this->start_controls_section(
@@ -972,7 +976,7 @@ class ThePlus_Syntax_Highlighter extends Widget_Base {
 		}
 		$dwnldBtnClass=$dwnldBtnIcon='';
 		if(!empty($dnloadBtn) && $dnloadBtn == 'yes') {
-			$dwnldBtnClass = 'data-src='.$fileLink.' data-download-link data-download-link-label='.$dwnldBtnText.'';
+			$dwnldBtnClass = 'data-src=' . esc_url( $fileLink ) . ' data-download-link data-download-link-label='.$dwnldBtnText.'';
 			
 			if(!empty($settings["dwnldBtnIcon"]["value"])){
 				$dowbtniconclass = " tpdowicon";

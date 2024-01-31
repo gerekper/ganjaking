@@ -423,7 +423,7 @@ class Qrcode extends Module_Base
                             "fill" => $settings["fill"],
                             "text" => $qr_content,
                             "size" => $settings["size"]["size"],
-                            "radius" => $settings["radius"]["size"] * 0.01,
+                            "radius" => floatval($settings["radius"]["size"]) * 0.01,
                             "mode" => (int) $mode,
                             "mSize" => (isset($settings["mSize"]["size"]) ? $settings["mSize"]["size"] * 0.01 : 11),
                             "mPosX" => (isset($settings["mPosX"]["size"]) ? $settings["mPosX"]["size"] * 0.01 : 50),

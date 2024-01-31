@@ -1,0 +1,64 @@
+
+#ywcdd_delivery_order_metabox h4 .edit_address{
+    width: 14px;
+    height: 0;
+    padding: 14px 0 0;
+    margin: 0 0 0 6px;
+    overflow: hidden;
+    position: relative;
+    color: #999;
+    border: 0;
+    float: right;
+}
+
+#ywcdd_delivery_order_metabox h4 .edit_address:hover{
+    color: #000;
+}
+
+#ywcdd_delivery_order_metabox h4 .edit_address:after{
+    font-family: 'Dashicons';
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    vertical-align: top;
+    line-height: 14px;
+    font-size: 14px;
+    font-weight: 400;
+    content: "\f464";
+}
+.edit_processing_delivery_date{
+    display: none;
+}
+
+.edit_processing_delivery_date p label {
+    display: block;
+}
+.woocommerce-help-tip.ywcdd-icon-warning{
+
+    text-align: center;
+    vertical-align: top;
+    line-height: 14px;
+    font-size: 14px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    margin-left: 10px;
+}
+.woocommerce-help-tip.ywcdd-icon-warning:after{
+    font-family: WooCommerce;
+    content: "\e016";
+
+}
+.woocommerce-help-tip.ywcdd-icon-warning.ywcdd_advise:after{
+    color:#d0c21f;
+}
+
+.woocommerce-help-tip.ywcdd-icon-warning.ywcdd_error:after{
+
+    color: #a00;
+}
+
+.woocommerce-help-tip.ywcdd-icon-warning.ywcdd_shipped:after{
+    content: "\e015";
+    color: #2ea2cc;
+}

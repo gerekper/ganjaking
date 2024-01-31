@@ -293,7 +293,6 @@ class evo_event_metaboxes{
 						
 			// $_POST FIELDS array
 				$fields_ar =apply_filters('eventon_event_metafields', array(
-					'evcal_allday',
 					'evcal_event_color','evcal_event_color_n',
 					'evcal_event_color2','evcal_event_color_n2',
 					'evcal_exlink','evcal_lmlink','evcal_subtitle',
@@ -302,13 +301,18 @@ class evo_event_metaboxes{
 					'evcal_repeat','_evcal_rep_series','_evcal_rep_endt','_evcal_rep_series_clickable','evcal_rep_freq','evcal_rep_gap','evcal_rep_num',
 					'evp_repeat_rb','evo_repeat_wom','evo_rep_WK','evp_repeat_rb_wk','evo_rep_WKwk',
 					'evcal_lmlink_target','_evcal_exlink_target','_evcal_exlink_option',
-					'evo_hide_endtime','evo_span_hidden_end','evo_year_long','_evo_month_long',
+					'evo_hide_endtime','evo_span_hidden_end','_time_ext_type',
 					'evo_evcrd_field_org','evo_event_org_as_perf','evo_event_timezone',
 					'_evo_virtual_endtime',
 
 					'evo_exclude_ev',				
 					'ev_releated',				
 				), $post_id);
+
+			// fields allowed to pass HTML
+				$fields_with_html = apply_filters('evo_event_metafields_htmlcontent',
+					array('evcal_subtitle')
+				);
 
 			// append custom fields based on activated number
 				$evcal_opt1= get_option('evcal_options_evcal_1');
@@ -321,11 +325,7 @@ class evo_event_metaboxes{
 					}
 				}
 
-			// fields allowed to pass HTML
-				$fields_with_html = apply_filters('evo_event_metafields_htmlcontent',
-					array('evcal_subtitle')
-				);
-
+			
 			// array of post meta fields that should be deleted from event post meta
 				foreach(array(
 					'evo_location_tax_id','evo_organizer_tax_id','_cancel'
@@ -348,7 +348,8 @@ class evo_event_metaboxes{
 			// remove duplicate field keys
 				$fields_ar = array_unique($fields_ar);
 
-			$proper_time = 	evoadmin_get_unix_time_fromt_post($post_id);
+			// process the time pieces into unix values
+				$proper_time = 	evoadmin_get_unix_time_fromt_post($post_id);
 
 			// if Repeating event save repeating intervals
 				if( eventon_is_good_repeat_data()  ){
@@ -370,10 +371,23 @@ class evo_event_metaboxes{
 						}
 					}
 				}
+			// full time converted to unix time stamp
+				if ( !empty($proper_time['unix_start']) )
+					update_post_meta( $post_id, 'evcal_srow', $proper_time['unix_start']);
+				
+				if ( !empty($proper_time['unix_end']) )
+					update_post_meta( $post_id, 'evcal_erow', $proper_time['unix_end']);
+
 
 			// save virtual end time
 				if( isset($proper_time['unix_vir_end']) && !empty($proper_time['unix_vir_end'])){
 					$EVENT->set_meta( '_evo_virtual_erow', $proper_time['unix_vir_end']);
+				}
+
+			// save adjusted event times
+				foreach( array( 'unix_start_ev', 'unix_end_ev', 'unix_vend_ev') as $f){
+					if ( !empty($proper_time[ $f ]) ) 
+						update_post_meta( $post_id,  '_'.$f , $proper_time[ $f ]);
 				}
 
 			// save previous start date for reschedule events
@@ -397,7 +411,7 @@ class evo_event_metaboxes{
 				}
 				
 
-			// run through all the custom meta fields
+			// run through all the custom meta fields @u4.5.5
 				foreach($fields_ar as $f_val){
 					
 					// make sure values are not empty at $_POST level
@@ -412,7 +426,7 @@ class evo_event_metaboxes{
 							continue;
 						}
 
-						// for saving custom meta fields @since 4.3.3
+						// for saving custom meta fields @since 4.3.3 @4.5.5
 						if( strpos($f_val, '_evcal_ec_f') !== false ){
 							$post_value = $HELP->sanitize_html( $_POST[$f_val]);				
 						}
@@ -425,7 +439,6 @@ class evo_event_metaboxes{
 						}
 
 					}else{
-						//if(defined('DOING_AUTOSAVE') && !DOING_AUTOSAVE){						
 						delete_post_meta($post_id, $f_val);
 					}					
 				}
@@ -436,14 +449,6 @@ class evo_event_metaboxes{
 				}							
 			
 			// Other data	
-				// full time converted to unix time stamp
-					if ( !empty($proper_time['unix_start']) )
-						update_post_meta( $post_id, 'evcal_srow', $proper_time['unix_start']);
-					
-					if ( !empty($proper_time['unix_end']) )
-						update_post_meta( $post_id, 'evcal_erow', $proper_time['unix_end']);
-
-				
 						
 				//set event color code to 1 for none select colors
 					if ( !isset( $post_data['evcal_event_color_n'] ) )

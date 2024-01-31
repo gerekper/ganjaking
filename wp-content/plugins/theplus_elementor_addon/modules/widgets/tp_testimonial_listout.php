@@ -434,7 +434,6 @@ class ThePlus_Testimonial_ListOut extends Widget_Base {
 				'name' => 'thumbnail',
 				'default' => 'full',
 				'separator' => 'none',
-				'separator' => 'after',
 				'exclude' => [ 'custom' ],
 				'condition'   => [					
 					'display_thumbnail' => 'yes',

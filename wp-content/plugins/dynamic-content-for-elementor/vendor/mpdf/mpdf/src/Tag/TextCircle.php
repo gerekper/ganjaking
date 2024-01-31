@@ -167,7 +167,7 @@ class TextCircle extends Tag
         $objattr['height'] = $h + $extraheight;
         $objattr['width'] = $w + $extrawidth;
         $objattr['type'] = 'textcircle';
-        $e = "\xbb\xa4\xactype=image,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+        $e = Mpdf::OBJECT_IDENTIFIER . "type=image,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
         /* -- TABLES -- */
         // Output it to buffers
         if ($this->mpdf->tableLevel) {

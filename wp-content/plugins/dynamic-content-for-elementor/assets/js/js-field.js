@@ -37,7 +37,7 @@
 			refresherGenerator = new Function('getField', 'updateSelf', code);
 		} catch (err) {
 			console.error(err);
-			visibleInput.value = jsFieldLocale.syntaxError;
+			input.value = jsFieldLocale.syntaxError;
 			return;
 		}
 		let refresher = refresherGenerator(makeGetFieldFunction(form),

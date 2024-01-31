@@ -5,6 +5,7 @@ namespace ElementPack\Includes\Controls\SelectInput;
 use ElementPack\Element_Pack_Loader;
 use Exception;
 use WP_Query;
+use ElementPack\Includes\ACF_Global;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -61,6 +62,7 @@ class Dynamic_Select_Input_Module {
 
             $query = isset($_POST['query']) ? sanitize_text_field($_POST['query']) : '';
             $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : '';
+            $acf_global = new ACF_Global();
 
             if ($query == 'terms') {
                 $data = $this->getTerms();
@@ -84,6 +86,8 @@ class Dynamic_Select_Input_Module {
                 $data = $this->getDynamicBbPressReplyIDs();
             } elseif ($query == 'bbpress_single_topic_terms') {
                 $data = $this->getbbPressTerms();
+            } elseif ($query == 'acf') {
+                $data = $acf_global->getAcfFields();
             } else {
                 $data = $this->getPosts();
             }
@@ -538,9 +542,6 @@ class Dynamic_Select_Input_Module {
         return $results;
     }
 
-    /**
-     * @return array of anywhere template
-     */
     /**
      * @return array of anywhere templates
      */

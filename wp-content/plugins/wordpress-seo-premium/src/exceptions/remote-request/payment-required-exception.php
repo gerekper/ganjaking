@@ -2,6 +2,8 @@
 
 namespace Yoast\WP\SEO\Premium\Exceptions\Remote_Request;
 
+use Throwable;
+
 /**
  * Class to manage a 402 - payment required response.
  */
@@ -17,10 +19,10 @@ class Payment_Required_Exception extends Remote_Request_Exception {
 	/**
 	 * Payment_Required_Exception constructor.
 	 *
-	 * @param string     $message The error message.
-	 * @param int        $code The error status code.
-	 * @param \Throwable $previous The previously thrown exception.
-	 * @param array      $missing_licenses The missing plugin licenses.
+	 * @param string    $message          The error message.
+	 * @param int       $code             The error status code.
+	 * @param Throwable $previous         The previously thrown exception.
+	 * @param array     $missing_licenses The missing plugin licenses.
 	 */
 	public function __construct( $message = '', $code = 0, $previous = null, $missing_licenses = [] ) {
 		$this->missing_licenses = $missing_licenses;

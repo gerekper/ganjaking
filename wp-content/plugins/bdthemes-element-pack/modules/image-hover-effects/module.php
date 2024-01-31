@@ -115,8 +115,10 @@ class Module extends Element_Pack_Module_Base {
 		);
 	}
 
-	public function enqueue_scripts() {
-		wp_enqueue_style('ep-image-hover-effects');
+	public function should_script_enqueue($widget) {
+        if ('yes' === $widget->get_settings_for_display('ep_image_hover_effects_on')) {
+            wp_enqueue_style('ep-image-hover-effects');
+        }
     }
 
 	protected function add_actions() {
@@ -124,7 +126,6 @@ class Module extends Element_Pack_Module_Base {
 		add_action('elementor/element/image/ep_image_hover_effects_controls/before_section_end', [$this, 'register_controls'], 10, 2);
 
 		// render scripts
-		add_action('elementor/frontend/widget/before_render', [$this, 'enqueue_scripts'], 10, 1);
-        add_action('elementor/preview/enqueue_scripts', [$this, 'enqueue_scripts']);
+		add_action('elementor/frontend/widget/before_render', [$this, 'should_script_enqueue'], 10, 1);
 	}
 }

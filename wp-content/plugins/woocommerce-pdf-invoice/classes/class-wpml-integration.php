@@ -18,7 +18,11 @@ if (!class_exists('WPML_Compatibility')) :
 	    
 	    function switch_language($order_id){
 		    global $sitepress;
-			$order_lang = get_post_meta( $order_id, 'wpml_language', true );
+
+		    $order 	  = wc_get_order( $order_id );
+
+			$order_lang = $order->get_meta( 'wpml_language', true );
+
 			if($order_lang!=''){
 				$current_language = $sitepress->get_current_language();
 				$sitepress->switch_lang($order_lang);

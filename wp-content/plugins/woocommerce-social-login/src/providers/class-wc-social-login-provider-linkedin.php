@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -143,11 +143,11 @@ class WC_Social_Login_Provider_LinkedIn extends \WC_Social_Login_Provider {
 	 * Generate the HTML for the fields on the "settings" screen.
 	 *
 	 * Override parent to display API Version description conditionally
-	 * 
+	 *
 	 * @see \WC_Settings_API::generate_settings_html()
-	 * 
+	 *
 	 * @since  2.14.0
-	 * 
+	 *
 	 * @param array $form_fields (default: array()) Array of form fields.
 	 * @param bool  $echo Echo or return.
 	 * @return string the html for the settings

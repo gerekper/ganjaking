@@ -41,6 +41,10 @@ class ThePlus_Social_Sharing extends Widget_Base {
         return array('plus-essential');
     }
 
+	public function get_keywords() {
+        return ['Social Sharing', 'Share Buttons', 'Social Media Sharing', 'Social Icons', 'Social Share', 'Social Share Buttons', 'Share Widget', 'Share Icons', 'Share Buttons Widget'];
+    }
+
     protected function register_controls() {
 		/*Content Layout */
 		$this->start_controls_section(
@@ -1546,7 +1550,7 @@ class ThePlus_Social_Sharing extends Widget_Base {
 								@media (max-width: '.esc_attr($tpmsp_open).'px){
 									.tp-widget-'.esc_attr($uid_socishre).' div#tp-mp-main-wrap1{display:flex !important;}}</style>';
 							}else{
-								$output .= '<a href="'.$getCustomLink.'" '.$tf.' '.$nf.' class="share-btn '.$settings['style1Align'].' '.esc_attr($lz2).'">';
+								$output .= '<a href="' . esc_url( $getCustomLink ) . '" '.$tf.' '.$nf.' class="share-btn '.$settings['style1Align'].' '.esc_attr($lz2).'">';
 							}
 							
 								if($viewtype!='text' && $viewtype!='textCount'){

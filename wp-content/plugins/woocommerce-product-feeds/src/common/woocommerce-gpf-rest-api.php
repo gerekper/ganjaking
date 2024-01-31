@@ -63,6 +63,20 @@ class WoocommerceGpfRestApi {
 	 */
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function rest_api_output_v2( $response, $product, $request ) {
+		// Hide internal meta values.
+		$meta_keys = [
+			'woocommerce_gpf_schema_cache',
+			'woocommerce_gpf_schema_cache_timestamp',
+		];
+		if ( ! empty( $response->data['meta_data'] ) ) {
+			foreach ( $response->data['meta_data'] as $idx => $meta_item ) {
+				if ( in_array( $meta_item->key, $meta_keys, true ) ) {
+					unset( $response->data['meta_data'][ $idx ] );
+				}
+			}
+		}
+
+		// Create a nicely formatted set of gpf data fields.
 		$response->data['gpf_data'] = array();
 		$meta                       = get_post_meta( $product->get_id(), '_woocommerce_gpf_data', true );
 		$elements                   = $this->generate_element_list();

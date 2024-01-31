@@ -42,7 +42,7 @@ class ThePlus_Post_Content extends Widget_Base {
     }
 
 	public function get_keywords() {
-        return ['Protected Content', 'Password Protected Content', 'Content Protection', 'Secure Content', 'Restricted Content'];
+        return ['Protected Content', 'Password Protected Content', 'Content Protection', 'Secure Content', 'Restricted Content', 'Post Content', 'Content', 'Blog Post', 'Article Content', 'Page Content', 'Text Content', 'Elementor Post Content'];
     }
 
 	public function get_custom_help_url() {

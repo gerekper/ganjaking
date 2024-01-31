@@ -361,7 +361,7 @@ class Td extends Tag
                 $this->mpdf->cell[$this->mpdf->row][$l] = 0;
             }
         }
-        if (isset($attr['ROWSPAN']) && $attr['ROWSPAN'] > 1) {
+        if (isset($attr['ROWSPAN']) && \preg_match('/^\\d+$/', $attr['ROWSPAN']) && $attr['ROWSPAN'] > 1) {
             $rs = $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['rowspan'] = $attr['ROWSPAN'];
         }
         for ($k = $this->mpdf->row; $k < $this->mpdf->row + $rs; $k++) {

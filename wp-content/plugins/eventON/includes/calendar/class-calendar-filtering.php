@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar Filtering
-* @version 4.4
+* @version 4.5.6
 */
 
 class EVO_Cal_Filering{
@@ -716,24 +716,26 @@ class EVO_Cal_Filering{
 			return $eventlist;
 		}
 
-		// @u 4.5.3
+		// @u 4.5.6
 		function move_ml_yl_to_top($eventlist){
 			$args = $this->cal->shortcode_args;
 
 			$ml_events = $yl_events = $events = array();
 
+			// if no events
+				if( count($eventlist) == 0) return $eventlist;
+
 			foreach($eventlist as $event){
-				if(isset($event['event_pmv']['_evo_month_long']) && isset($event['event_pmv']['_evo_month_long'][0]) && $event['event_pmv']['_evo_month_long'][0]=='yes' ){
-					$ml_events[]=$event;
-				}elseif(isset($event['event_pmv']['evo_year_long']) && isset($event['event_pmv']['evo_year_long'][0]) && $event['event_pmv']['evo_year_long'][0]=='yes' ){
-					$yl_events[]=$event;
+
+				if( $event['etx_type'] == 'ml' ){
+					$ml_events[] = $event;
+				}elseif(  $event['etx_type'] == 'yl' ){
+					$yl_events[] = $event;
 				}else{
-					$events[]=$event;
+					$events[] = $event;
 				}
 			}
-
-			// if no events
-				if( count($events) == 0) return $events;
+			
 
 			if(isset($args['ml_priority']) && $args['ml_priority']=='yes' ){
 				

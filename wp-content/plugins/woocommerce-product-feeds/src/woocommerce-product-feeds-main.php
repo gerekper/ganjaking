@@ -117,6 +117,11 @@ class WoocommerceProductFeedsMain {
 	private $add_to_cart_support;
 
 	/**
+	 * @var WoocommerceProductFeedsSetupTasks
+	 */
+	private WoocommerceProductFeedsSetupTasks $setup_tasks;
+
+	/**
 	 * WoocommerceProductFeedsMain constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
@@ -124,6 +129,7 @@ class WoocommerceProductFeedsMain {
 	 * @param WoocommerceProductFeedsIntegrationManager $integration_manager
 	 * @param WoocommerceProductFeedsFeedConfigFactory $feed_config_factory
 	 * @param WoocommerceProductFeedsJobManager $job_manager
+	 * @param WoocommerceProductFeedsSetupTasks $setup_tasks
 	 * @param Container $container
 	 */
 	public function __construct(
@@ -132,6 +138,7 @@ class WoocommerceProductFeedsMain {
 		WoocommerceProductFeedsIntegrationManager $integration_manager,
 		WoocommerceProductFeedsFeedConfigFactory $feed_config_factory,
 		WoocommerceProductFeedsJobManager $job_manager,
+		WoocommerceProductFeedsSetupTasks $setup_tasks,
 		Container $container
 	) {
 		$this->common              = $woocommerce_gpf_common;
@@ -140,6 +147,7 @@ class WoocommerceProductFeedsMain {
 		$this->feed_config_factory = $feed_config_factory;
 		$this->job_manager         = $job_manager;
 		$this->container           = $container;
+		$this->setup_tasks         = $setup_tasks;
 	}
 
 	public function run() {
@@ -182,6 +190,8 @@ class WoocommerceProductFeedsMain {
 
 		$this->rest_api = $this->container['WoocommerceGpfRestApi'];
 		$this->rest_api->initialise();
+
+		$this->setup_tasks->initialise();
 
 		add_filter( 'query_vars', [ $this, 'add_query_vars' ] );
 		add_action( 'plugins_loaded', [ $this->common, 'initialise' ], 1 );

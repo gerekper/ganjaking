@@ -3,7 +3,7 @@
  * Plugin Name: Piotnet Addons For Elementor Pro
  * Description: Piotnet Addons For Elementor Pro (PAFE Pro) adds many new features for Elementor
  * Plugin URI:  https://pafe.piotnet.com/
- * Version:     7.1.23
+ * Version:     7.1.25
  * Author:      Piotnet Team
  * Author URI:  https://piotnet.com/
  * Text Domain: pafe
@@ -11,9 +11,6 @@
  * Elementor tested up to: 3.13.4
  * Elementor Pro tested up to: 3.13.2
  */
-
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
 update_option( 'piotnet_addons_for_elementor_pro_license_key', [ 'siteKey' => '**********', 'licenseKey' => '*********' ] );
 update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => time() + 5*365*24*60*60, 'value' => [
 'status' => 'VALID',
@@ -25,8 +22,9 @@ update_option( 'piotnet_addons_for_elementor_pro_license_data', [ 'timeout' => t
 'lifetime' => 1,
 'expired_at' => time() + 5*365*24*60*60,
 ] ] );
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'PAFE_PRO_VERSION', '7.1.23' );
+define( 'PAFE_PRO_VERSION', '7.1.25' );
 define( 'PAFE_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 final class Piotnet_Addons_For_Elementor_Pro {
@@ -123,7 +121,11 @@ final class Piotnet_Addons_For_Elementor_Pro {
 		add_action( 'elementor/element/page-settings/section_page_style/before_section_end', [ $this, 'add_elementor_page_settings_controls' ] );
 
 		add_action('add_meta_boxes', [$this, 'pafe_pdf_metabox']);
-        add_action('add_meta_boxes', [$this, 'pafe_is_checkout_metabox']);
+        
+        $hide_wooCommerce_checkout = esc_attr( get_option( 'pafe_hide_wooCommerce_checkout' ) );
+        if(empty($hide_wooCommerce_checkout)){
+            add_action('add_meta_boxes', [$this, 'pafe_is_checkout_metabox']);
+        }
 		add_action( 'save_post_pafe-fonts', [$this, 'pafe_pdf_save_custom_font'] );
         add_action('save_post', [$this,'pafe_save_is_page_checkout']);
         
@@ -1629,6 +1631,7 @@ final class Piotnet_Addons_For_Elementor_Pro {
 
 		register_setting( 'piotnet-addons-for-elementor-pro-settings-group', 'piotnet_addons_for_elementor_pro_disable_ssl_verify_license' );
 		register_setting( 'piotnet-addons-for-elementor-pro-settings-group', 'piotnet_addons_for_elementor_pro_beta_version' );
+        register_setting( 'piotnet-addons-for-elementor-pro-settings-group', 'pafe_hide_wooCommerce_checkout' );
 	}
 
 	public function admin_page(){

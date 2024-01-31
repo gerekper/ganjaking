@@ -12,6 +12,7 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'Mpdf\\PsrLogAwareTrait\\' => array($vendorDir . '/mpdf/psr-log-aware-trait/src'),
+    'Mpdf\\PsrHttpMessageShim\\' => array($vendorDir . '/mpdf/psr-http-message-shim/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'DynamicOOOS\\stringEncode\\' => array($vendorDir . '/paquettg/string-encode/src/stringEncode'),
     'DynamicOOOS\\setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),

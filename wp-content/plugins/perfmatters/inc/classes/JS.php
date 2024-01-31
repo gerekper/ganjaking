@@ -400,7 +400,7 @@ class JS
 	        			'mediavine'
 	        		)
 	        	),
-	        	'mediavine' => array(
+	        	'modula-slider' => array(
 	        		'id' => 'modula-slider/modula-slider.php',
 	        		'title' => 'Modula Slider',
 	        		'exclusions' => array(

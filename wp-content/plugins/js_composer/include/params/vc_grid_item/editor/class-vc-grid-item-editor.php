@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Manger for new post type for single grid item design with constructor
+ * Manager for new post type for single grid item design with constructor
  *
  * @package WPBakeryPageBuilder
  * @since 4.4

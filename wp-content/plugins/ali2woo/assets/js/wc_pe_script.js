@@ -320,6 +320,73 @@ var a2w_isExternal = function (url) {
             });
         });
 
+        $('#btn-draw-colorize').on('click', function () {
+            $('.controls-content .sub-menu-container').hide();
+            $('#colorize-sub-menu').show();
+        });
+
+        $('.a2w-apply-filter__check').on('change', function(){
+            var $check = $(this);
+            var $applyFilter = $check.closest('.a2w-apply-filter');
+
+            updateFilter($applyFilter);
+        });
+
+        $('.a2w-apply-filter__range').on('change', function(){
+            var $check = $(this);
+            var $applyFilter = $check.closest('.a2w-apply-filter');
+
+            updateFilter($applyFilter);
+        });
+
+        function updateFilter($applyFilter){
+            var $check = $applyFilter.find('.a2w-apply-filter__check');
+            var type = $applyFilter.data('type').toLowerCase();
+            var options = getFilterOptions($applyFilter);
+
+            if ($check.is(':checked')) {
+                imageEditor.applyFilter(type, options);
+            } else {
+                imageEditor.removeFilter(type);
+            }
+        }
+
+        function getFilterOptions($applyFilter){
+            var options = null;
+            var type = $applyFilter.data('type').toLowerCase();
+            var $range = $applyFilter.find('.a2w-apply-filter__range');
+            var range = null;
+
+            if ($range.length) {
+                range = $range.val();
+            }
+
+            switch (type) {
+                case 'blur':
+                    options = {
+                        blur: range || 0.1
+                    };
+                    break;
+                case 'pixelate':
+                    options = {
+                        blocksize: parseInt(range, 10),
+                    };
+                    break;
+                case 'brightness':
+                    options = {
+                        brightness: parseInt(range, 10) / 255,
+                    };
+                    break;
+                case 'noise':
+                    options = {
+                        noise: parseInt(range, 10),
+                    };
+                    break;
+            }
+
+            return options;
+        }
+
         $('.btn-text-style').on('click', function (e) {
             var styleType = $(this).attr('data-style-type');
             var styleObj;
@@ -462,9 +529,9 @@ var a2w_isExternal = function (url) {
                         previewCrop('original');
                         $('.a2w-modal-content .a2w-edit-photo-loader').hide();
                     });
-                }    
+                }
             }
-            
+
             $('.a2w-modal-toolbar .spinner').removeClass('is-active');
             $("#a2w-edit-image").show();
         }
@@ -534,8 +601,25 @@ var a2w_isExternal = function (url) {
             $('.a2w-modal-toolbar .spinner').addClass('is-active');
             var current_attachment_id = $('.a2w-edit-photo-container').attr('data-attachment_id');
             var save = function () {
-                var data = {action: 'a2w_save_image', attachment_id: current_attachment_id, product_id: $('.a2w-edit-photo-container').attr('data-product_id'), view: $('.a2w-edit-photo-container').attr('data-view'), data: imageEditor.toDataURL(), name: imageEditor.getImageName()};
-                jQuery.post(ajaxurl, data).done(function (response) {
+                var imageBlob = dataURItoBlob(imageEditor.toDataURL());
+                var fd = new FormData();
+
+                fd.append("action", 'a2w_save_image');
+                fd.append("attachment_id", current_attachment_id);
+                fd.append("product_id", $('.a2w-edit-photo-container').attr('data-product_id'));
+                fd.append("view", $('.a2w-edit-photo-container').attr('data-view'));
+                fd.append("name", imageEditor.getImageName());
+                fd.append("data", imageBlob);
+
+
+                //var data = {action: 'a2w_save_image', attachment_id: current_attachment_id, product_id: $('.a2w-edit-photo-container').attr('data-product_id'), view: $('.a2w-edit-photo-container').attr('data-view'), name: imageEditor.getImageName()};
+                jQuery.ajax({
+                    type: 'POST',
+                    url: ajaxurl,
+                    data: fd,
+                    processData: false,
+                    contentType: false
+                }).done(function (response) {
                     var json = jQuery.parseJSON(response);
                     if (json.state !== 'ok') {
                         console.log(json);
@@ -580,4 +664,23 @@ var a2w_isExternal = function (url) {
         });
 
     });
+
+
+    function dataURItoBlob(dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        var byteString = atob(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], {type: mimeString});
+    }
 })(jQuery, window, document);

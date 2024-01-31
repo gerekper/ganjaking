@@ -2027,11 +2027,11 @@ class Table extends Module_Base {
         $settings = $this->get_settings_for_display();
         $sheet_data = $this->fetch_google_sheet();
 
-        if (isset($sheet_data['error'])) {
+        if (empty($sheet_data['values']) or isset($sheet_data['error'])) {
 
             // print_r($sheet_data['error']);//Array ( [error] => Array ( [code] => 404 [message] => Requested entity was not found. [status] => NOT_FOUND ) )
 
-            $errors = __('Requested entity was not found.', 'bdthemes-element-pack');
+            $errors = __('Requested entity was not found or empty.', 'bdthemes-element-pack');
 
             printf('<div data-bdt-alert>
                         <a class="bdt-alert-close" data-bdt-close></a>

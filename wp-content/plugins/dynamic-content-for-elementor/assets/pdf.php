@@ -69,18 +69,12 @@ if ($element_id && $id) {
         $dest = 'F';
     }
     if ($template_id || $id) {
-        if (!empty($_GET['user_id'])) {
-            $user_id = \intval($_GET['user_id']);
-        } else {
-            $user_id = get_current_user_id();
-        }
         if ($template_id) {
             $set_post = '';
-            $set_author = $set_post;
             if ($id) {
                 $set_post = ' post_id="' . $id . '"';
             }
-            $pdf_shortcode = '[dce-elementor-template id="' . $template_id . '"' . $set_author . $set_post . ']';
+            $pdf_shortcode = '[dce-elementor-template id="' . $template_id . '"' . $set_post . ']';
             $pdf_html = do_shortcode($pdf_shortcode);
         } else {
             $cookies = array();

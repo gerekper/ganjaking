@@ -22,49 +22,49 @@ class Zapier_Route implements Route_Interface {
 	 *
 	 * @var string
 	 */
-	const ROUTE_PREFIX = 'zapier';
+	public const ROUTE_PREFIX = 'zapier';
 
 	/**
 	 * The subscribe route constant.
 	 *
 	 * @var string
 	 */
-	const SUBSCRIBE_ROUTE = self::ROUTE_PREFIX . '/subscribe';
+	public const SUBSCRIBE_ROUTE = self::ROUTE_PREFIX . '/subscribe';
 
 	/**
 	 * The unsubscribe route constant.
 	 *
 	 * @var string
 	 */
-	const UNSUBSCRIBE_ROUTE = self::ROUTE_PREFIX . '/unsubscribe';
+	public const UNSUBSCRIBE_ROUTE = self::ROUTE_PREFIX . '/unsubscribe';
 
 	/**
 	 * The check route constant.
 	 *
 	 * @var string
 	 */
-	const CHECK_API_KEY_ROUTE = self::ROUTE_PREFIX . '/check';
+	public const CHECK_API_KEY_ROUTE = self::ROUTE_PREFIX . '/check';
 
 	/**
 	 * The perform list route constant.
 	 *
 	 * @var string
 	 */
-	const PERFORM_LIST = self::ROUTE_PREFIX . '/list';
+	public const PERFORM_LIST = self::ROUTE_PREFIX . '/list';
 
 	/**
 	 * The is_connected route constant.
 	 *
 	 * @var string
 	 */
-	const IS_CONNECTED = self::ROUTE_PREFIX . '/is_connected';
+	public const IS_CONNECTED = self::ROUTE_PREFIX . '/is_connected';
 
 	/**
 	 * The reset_api_key route constant.
 	 *
 	 * @var string
 	 */
-	const RESET_API_KEY = self::ROUTE_PREFIX . '/reset_api_key';
+	public const RESET_API_KEY = self::ROUTE_PREFIX . '/reset_api_key';
 
 	/**
 	 * Instance of the Zapier_Action.

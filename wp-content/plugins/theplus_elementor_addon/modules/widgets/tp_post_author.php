@@ -41,6 +41,10 @@ class ThePlus_Post_Author extends Widget_Base {
         return array('plus-builder');
     }
 
+	public function get_keywords() {
+        return ['Post Author', 'Author', 'Author Box', 'Post Author Box', 'Author Details', 'Author Bio'];
+    }
+
 	public function get_custom_help_url() {
 		$DocUrl = $this->TpDoc . "add-post-author-box-in-elementor-blog-post";
 

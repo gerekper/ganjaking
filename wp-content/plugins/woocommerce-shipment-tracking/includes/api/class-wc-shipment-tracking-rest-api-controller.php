@@ -1,4 +1,9 @@
 <?php
+/**
+ * WC_Shipment_Tracking_REST_API_Controller class file.
+ *
+ * @package WC_Shipment_Tracking
+ */
 
 /**
  * REST API shipment tracking controller.
@@ -7,7 +12,6 @@
  *
  * @since 1.5.0
  */
-
 class WC_Shipment_Tracking_REST_API_Controller extends WC_REST_Controller {
 
 	/**
@@ -26,7 +30,9 @@ class WC_Shipment_Tracking_REST_API_Controller extends WC_REST_Controller {
 	protected $rest_base = 'shipment-trackings';
 
 	/**
-	 * @param $namespace
+	 * Set rest api namespace.
+	 *
+	 * @param string $namespace Namespace.
 	 *
 	 * @return WC_Shipment_Tracking_REST_API_Controller
 	 */
@@ -39,20 +45,33 @@ class WC_Shipment_Tracking_REST_API_Controller extends WC_REST_Controller {
 	 * Register the routes for trackings.
 	 */
 	public function register_routes() {
-		// nosemgrep: audit.php.wp.security.rest-route.permission-callback.return-true
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/providers', array(
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/providers',
 			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_providers' ),
-				'permission_callback' => '__return_true',
-			),
-		) );
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_providers' ),
+					'permission_callback' => array( $this, 'rest_provider_route_permission' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Rest route permission always return true.
+	 *
+	 * @return boolean
+	 */
+	public function rest_provider_route_permission() {
+		return true;
 	}
 
 	/**
 	 * Get shipment-tracking providers.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WordPress Rest Request object.
+	 *
 	 * @return array
 	 */
 	public function get_providers( $request ) {

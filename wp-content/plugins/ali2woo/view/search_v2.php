@@ -3,9 +3,10 @@
         
         <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php';?>
         
-        <?php if (!A2W_Account::getInstance()->is_activated()): ?>
-        <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
-        <?php endif;?>
+        <?php //if (!Ali2Woo\Account::getInstance()->is_activated()): ?>
+            <?php //$link_html = "<a href=" . admin_url('admin.php?page=a2w_setting') .">" . __('settings', 'ali2woo') . "</a>"; ?>
+        <!--- <div class="a2w-pc-warn"><p><?php //echo sprintf( esc_html__( 'You didn`t activate Ali2Woo! Please open the Ali2Woo plugin %s and input your purchase key.', 'ali2woo' ), $link_html ); ?> </p></div> --->
+        <?php //endif;?>
         
 
         <?php include_once A2W()->plugin_path() . '/view/setup_wizard_notify.php';?>
@@ -21,7 +22,25 @@
 
             <div class="search-panel-header">
                 <h3 class="search-panel-title"><?php _e('Search for products', 'ali2woo');?></h3>
-                <button class="btn btn-default to-right modal-search-open" type="button"><?php _e('Import product by URL or ID', 'ali2woo');?></button>
+                <div class="upload-icon to-right _a2wfv" type="button" title="<?php _e('Import from CSV', 'ali2woo');?>">
+                    <input id="upload-csv" type="file" class="upload-icon__input" name="import_csv">
+                    <label for="upload-csv" class="upload-icon__label">
+                        <svg class="upload-icon__icon icon-csv" viewBox="-4 0 64 64">
+                            <path d="M5.106 0c-2.802 0-5.073 2.272-5.073 5.074v53.841c0 2.803 2.271 5.074 5.073 5.074h45.774c2.801 0 5.074-2.271 5.074-5.074v-38.605l-18.903-20.31h-31.945z" fill-rule="evenodd" clip-rule="evenodd" fill="#45B058"/>
+                            <path d="M20.306 43.197c.126.144.198.324.198.522 0 .378-.306.72-.703.72-.18 0-.378-.072-.504-.234-.702-.846-1.891-1.387-3.007-1.387-2.629 0-4.627 2.017-4.627 4.88 0 2.845 1.999 4.879 4.627 4.879 1.134 0 2.25-.486 3.007-1.369.125-.144.324-.233.504-.233.415 0 .703.359.703.738 0 .18-.072.36-.198.504-.937.972-2.215 1.693-4.015 1.693-3.457 0-6.176-2.521-6.176-6.212s2.719-6.212 6.176-6.212c1.8.001 3.096.721 4.015 1.711zm6.802 10.714c-1.782 0-3.187-.594-4.213-1.495-.162-.144-.234-.342-.234-.54 0-.361.27-.757.702-.757.144 0 .306.036.432.144.828.739 1.98 1.314 3.367 1.314 2.143 0 2.827-1.152 2.827-2.071 0-3.097-7.112-1.386-7.112-5.672 0-1.98 1.764-3.331 4.123-3.331 1.548 0 2.881.467 3.853 1.278.162.144.252.342.252.54 0 .36-.306.72-.703.72-.144 0-.306-.054-.432-.162-.882-.72-1.98-1.044-3.079-1.044-1.44 0-2.467.774-2.467 1.909 0 2.701 7.112 1.152 7.112 5.636.001 1.748-1.187 3.531-4.428 3.531zm16.994-11.254l-4.159 10.335c-.198.486-.685.81-1.188.81h-.036c-.522 0-1.008-.324-1.207-.81l-4.142-10.335c-.036-.09-.054-.18-.054-.288 0-.36.323-.793.81-.793.306 0 .594.18.72.486l3.889 9.992 3.889-9.992c.108-.288.396-.486.72-.486.468 0 .81.378.81.793.001.09-.017.198-.052.288z" fill="#fff"/>
+                            <g fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M56.001 20.357v1h-12.8s-6.312-1.26-6.128-6.707c0 0 .208 5.707 6.003 5.707h12.925z" fill="#349C42"/>
+                                <path d="M37.098.006v14.561c0 1.656 1.104 5.791 6.104 5.791h12.8l-18.904-20.352z" opacity=".5" fill="#fff"/>
+                            </g>
+                        </svg>
+                        <!--<svg class="upload-icon__icon icon-csv">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-csv"></use>
+                        </svg>-->
+                    </label>
+                </div>
+                <button class="btn btn-default to-right modal-search-open" type="button">
+                    <?php _e('Import product by URL or ID', 'ali2woo');?>
+                </button>
             </div>
             <div class="search-panel-body">
                 <div class="search-panel-simple">
@@ -140,7 +159,7 @@
 
         <div class="search-result">
             <div class="messages"><?php settings_errors('a2w_products_list');?></div>
-            <?php $localizator = A2W_AliexpressLocalizator::getInstance();?>
+            <?php $localizator = Ali2Woo\AliexpressLocalizator::getInstance();?>
             <?php $out_curr = $localizator->getLocaleCurr();?>
             <?php if ($load_products_result['state'] != 'error'): ?>
                 <?php if (!$load_products_result['total']): ?>

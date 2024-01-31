@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/REST API
  * @since    3.4.0
- * @version  3.4.0
+ * @version  3.6.0
  */
 
 // Exit if accessed directly.
@@ -121,6 +121,7 @@ class WC_FGC_Store_API {
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			)
+			
 		);
 	}
 
@@ -262,6 +263,7 @@ class WC_FGC_Store_API {
 				self::filter_free_gift_cart_item_prices( $item_data, $cart_item );
 				self::filter_free_gift_cart_item_totals( $item_data, $cart_item );
 				self::filter_free_gift_cart_item_quantity_limits( $item_data, $cart_item );
+				self::filter_container_cart_item_short_description( $item_data, $cart_item );
 
 			}
 		}
@@ -303,7 +305,11 @@ class WC_FGC_Store_API {
 				$cart_coupons = (array) wc()->cart->get_applied_coupons();
 
 				if ( ! in_array( $cart_item['free_gift'], $cart_coupons, true ) ) {
-					$error = esc_html__( 'This product is not valid without a coupon.', 'wc_free_gift_coupons' );
+
+					wc()->cart->set_quantity( $cart_item['key'], 0 );
+
+					$error = esc_html__( 'A gift item which is no longer available was removed from your cart.' ); 
+
 					throw new Exception( $error );
 				}
 
@@ -313,6 +319,7 @@ class WC_FGC_Store_API {
 				throw new RouteException( 'woocommerce_store_api_missing_gift_coupon_for_product', $notice );
 			}
 		}
+
 	}
 
 	/**
@@ -328,6 +335,64 @@ class WC_FGC_Store_API {
 		foreach ( wc()->cart->cart_contents as $cart_item_key => $cart_item ) {
 			self::validate_cart_item( $cart_item[ 'data' ], $cart_item );
 		}
+	}
+
+	/**
+	 * Filter cart item short description to support cart editing.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param array  $item_data
+	 * @param array  $cart_item
+	 */
+	private static function filter_container_cart_item_short_description( &$item_data, $cart_item ) {
+
+		if ( empty( $cart_item[ 'free_gift' ] ) || empty( $cart_item[ 'fgc_edit_in_cart' ] ) ) {
+			return $item_data;
+		}
+
+		$test = $cart_item;
+		unset($test['data']);
+		error_log(json_encode($test));
+
+		$trimmed_short_description = '';
+
+		if ( $item_data['short_description'] ) {
+			$trimmed_short_description = '<p class="wc-block-components-product-metadata__description-text">' . wp_trim_words( $item_data['short_description'], 12 ) . '</p>';
+		}
+
+		// Generate edit button text.
+		// If variation is selected, we are in an edit mode.
+		if ( $cart_item['variation_id'] > 0 && ! WC_FGC_Update_Variation_Cart::has_any_variation( $cart_item['variation'] ) ) {
+			// translators: %1$s Screen reader text opening <span> %2$s Product title %3$s Closing </span>
+			$edit_in_cart_text = sprintf( esc_html_x( 'Edit options %1$sfor %2$s%3$s', 'edit in cart link text', 'wc_free_gift_coupons' ),
+				'<span class="screen-reader-text">',
+				$cart_item['data']->get_title(),
+				'</span>'
+			);
+
+		} else {
+			// translators: %1$s Screen reader text opening <span> %2$s Product title %3$s Closing </span>
+			$edit_in_cart_text      = sprintf( esc_html_x( 'Choose options %1$sfor %2$s%3$s', 'edit in cart link text', 'wc_free_gift_coupons' ),
+				'<span class="screen-reader-text">',
+				$cart_item['data']->get_title(),
+				'</span>'
+			);
+
+
+		}
+
+		// Get link until we can reactify the variation selection in the cart block.
+		$edit_link = add_query_arg(
+			array(
+				'update-gift'  => $cart_item['key']
+			),
+			$cart_item['data']->get_permalink( $cart_item )
+		);
+
+		// Add button to end of short description response.
+		$item_data['short_description'] = '<p class="wc-block-cart-item__edit"><a href="' . esc_url( $edit_link ) . '" class="components-button wc-fgc-cart-item__edit-link wc-block-components-button wp-element-button outlined contained"><span class="wc-block-components-button__text">' . wp_kses_post( $edit_in_cart_text ) . '</span></a></p>' . $trimmed_short_description;
+
 	}
 
 }

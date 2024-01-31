@@ -42,8 +42,8 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
     }
 	
 	public function get_keywords() {
-		return ['post', 'custom query', 'acf', 'WooCommerce', 'Products', 'tp', 'theplus'];
-	}
+        return ['Dynamic Listing', 'Dynamic List', 'Dynamic Content', 'Dynamic Posts', 'Dynamic Grid', 'Dynamic Carousel', 'Dynamic Masonry', 'Dynamic Portfolio', 'Dynamic Gallery', 'Dynamic Filter', 'Dynamic Sorting', 'Dynamic Search', 'Dynamic Custom Post Type', 'Dynamic Custom Fields', 'Dynamic Taxonomy', 'Dynamic Pagination', 'Dynamic Load More', 'Dynamic Load on Scroll', 'Dynamic Load on Button', 'Dynamic Load on Click', 'Dynamic Load on Hover', 'Dynamic Load on Tab', 'Dynamic Load on Modal', 'Dynamic Load on Accordion', 'Dynamic Load on Slider', 'Dynamic Load'];
+    }
 
 	public function is_reload_preview_required() {
 		return true;

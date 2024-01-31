@@ -18,6 +18,14 @@ class i18n {
 
 	public static function get() {
 		return [
+			'_taxonomy_tooltip' => sprintf(
+				__( 'Add the taxonomies that should be searched for this source. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/wordpress-search-custom-fields-meta-taxonomy-terms/'
+			),
+			'_meta_tooltip' => sprintf(
+				__( 'Add the custom fields that should be searched for this source. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/wordpress-search-custom-fields-meta-taxonomy-terms/'
+			),
 			'_attribute' => sprintf(
 				// Translators: placeholder is the number "1"
 				__( '%s Attribute', 'searchwp' ),
@@ -27,6 +35,10 @@ class i18n {
 				// Translators: placeholder is the number of attributes
 				__( '%s Attributes', 'searchwp' ),
 				'{{ searchwpPlaceholder1 }}'
+			),
+			'_attribute_relevance_tooltip' => sprintf(
+				__( 'Attributes to search (slider sets relevance weight). <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/#attributes'
 			),
 			'_rule' => sprintf(
 				// Translators: placeholder is the number "1"
@@ -38,8 +50,15 @@ class i18n {
 				__( '%s Rules', 'searchwp' ),
 				'{{ searchwpPlaceholder1 }}'
 			),
+			'_rules_tooltip' => sprintf(
+				__( 'Rules determine what content can and cannot show up in search results. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/#rules'
+			),
 			'_admin_engine_note' => __( 'This engine will be used for WordPress Admin searches, it will search these sources:', 'searchwp' ),
-			'_admin_engine_tooltip' => __( 'When searching a supported Source, this Engine will be used', 'searchwp' ),
+			'_admin_engine_tooltip' => sprintf(
+				__( 'When searching a supported Source, this Engine will be used. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/#engine-settings'
+			),
 			'_admin_engine_defined_note' => sprintf(
 				// Translators: placeholder is the label of the engine.
 				__( 'Already set: %s', 'searchwp' ),
@@ -104,12 +123,21 @@ class i18n {
 			'_inactive_license_note' => __( 'Support and updates require an active license. Please activate your license to receive support.', 'searchwp' ),
 			'_index_optimization_note' => __( 'Note: the index is automatically kept up to date and maintained for optimization', 'searchwp' ),
 			'_index_outdated' => __( 'The index needs to be rebuilt.', 'searchwp' ),
-			'_index_outdated_tooltip' => __( 'After certain engine configuration changes the index must be rebuilt', 'searchwp' ),
+			'_index_outdated_tooltip' => sprintf(
+				__( 'After certain engine configuration changes the index must be rebuilt. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/'
+			),
 			'_indexer_blocked_note' => __( 'Indexer BLOCKED by HTTP Basic Authentication!', 'searchwp' ),
 			'_indexer_paused' => __( 'The indexer is paused.', 'searchwp' ),
-			'_indexer_paused_tooltip' => __( 'You can unpause the indexer from the Settings.', 'searchwp' ),
+			'_indexer_paused_tooltip' => sprintf(
+				__( 'You can unpause the indexer from the Settings. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/settings/#misc'
+			),
 			'_invalid_default_engine_source_note' => __( 'Custom content Sources cannot be used in the Default engine', 'searchwp' ),
-			'_keyword_stems_note' => __( 'Disregard keyword suffixes when searches are performed', 'searchwp' ),
+			'_keyword_stems_note' => sprintf(
+				__( 'Disregard keyword suffixes when searches are performed. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+			'https://searchwp.com/documentation/knowledge-base/keyword-stemming/'
+			),
 			'_license_activation_problem' => __( 'There was a problem activating your license. Please ensure this server can communicate with searchwp.com and try again.', 'searchwp' ),
 			'_license_deactivation_problem' => __( 'There was a problem deactivating your license. Please ensure this server can communicate with searchwp.com and try again.', 'searchwp' ),
 			'_manage_engine_source_attributes' => sprintf(
@@ -129,13 +157,20 @@ class i18n {
 			),
 			'_needs_initial_save' => __( 'To enable SearchWP, please save your initial settings which builds the index', 'searchwp' ),
 			'_no_attributes_note' => __( 'In order for results to be returned, you must add Attributes to be searched.', 'searchwp' ),
-			'_no_rules_note' => __( 'There are no rules', 'searchwp' ),
+			'_no_rules_note' => sprintf(
+				__( 'Use Rules to define what should or should not be included in your site search using different criteria. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/#rules'
+			),
 			'_no_rules_for_note' => sprintf(
 				// Translators: placeholder is the label of the Rule.
 				__( 'There are currently no rules for %s.', 'searchwp' ),
 				'{{ searchwpPlaceholder1 }}' // This is a sequential token to be processed on the front end.
 			),
 			'_no_sources_warning' => __( 'In order for this engine to return results, you must add at least one source', 'searchwp' ),
+			'_engine_source_tooltip' => sprintf(
+				__( 'This content type will be searched as part of this engine. <a href="%s" target="_blank">View&nbsp;Docs</a>', 'searchwp' ),
+				'https://searchwp.com/documentation/setup/engines/#source-settings'
+			),
 			'_no_stopwords_note' => __( 'There are currently no stopwords.', 'searchwp' ),
 			'_no_suggested_stopwords_note' => __( 'There are no suggested stopwords to add at this time.', 'searchwp' ),
 			'_no_synonyms_note' => __( 'There are currently no synonyms.', 'searchwp' ),
@@ -174,16 +209,18 @@ class i18n {
 			),
 			'_system_information_note' => __( 'Please copy and paste this System Information when requested', 'searchwp' ),
 			'_wake_indexer_note' => __( 'If the indexer appears to be stuck, first review the PHP error log to see if anything needs to be fixed before waking it up. The indexer can become stuck when customizations are not working as expected.', 'searchwp' ),
+			'_welcome_intro' => __( 'Thank you for activating SearchWP!', 'searchwp' ),
+			'_welcome_indexing' => __( 'SearchWP is currently indexing the available content to make your search better!', 'searchwp' ),
+			'_welcome_indexing_complete' => __( 'SearchWP has indexed the available content to make your search better!', 'searchwp' ),
 			'_welcome_blurb' => wp_kses(
 				sprintf(
 					// Translators: 1st placeholder opens the link, 2nd placeholder closes it.
-					__( '<p>A default Engine has been generated as a starting point for you to customize. Once saved, SearchWP will then build its index and provide terrific search results automatically!</p><p>To find out more about customizing SearchWP, please %1$sreview the documentation%2$s.</p><p class="description">Thank you!</p>', 'searchwp' ),
+					__( '<p>A default Engine has been generated as a starting point for you to customize. Once indexing is over, SearchWP will integrate into your current search and provide terrific search results automatically!</p><p>To find out more about customizing SearchWP, please %1$sreview the documentation%2$s.</p><p class="description">Thank you!</p>', 'searchwp' ),
 					'<a href="https://searchwp.com/documentation/" target="_blank">',
 					'</a>'
 				),
 				[ 'p' => [ 'class' => [] ], 'a' => [ 'href' => [], 'target' => [] ] ]
 			),
-			'_welcome_intro' => __( 'Thank you for activating SearchWP!', 'searchwp' ),
 			'_welcome_migration_intro' => wp_kses(
 				sprintf(
 					// Translators: 1st placeholder opens the link, 2nd placeholder closes it.
@@ -204,10 +241,6 @@ class i18n {
 			),
 			'_welcome_migration_warning' => wp_kses(
 				__( 'Statistics have <strong>NOT</strong> been migrated as it may take some time to do so.', 'searchwp' ),
-				[ 'strong' => [], 'em' => [] ]
-			),
-			'_welcome_warning' => wp_kses(
-				__( '<strong>Before SearchWP can take effect</strong> you will need to <em>review and save</em> your Engine(s)', 'searchwp' ),
 				[ 'strong' => [], 'em' => [] ]
 			),
 			// Translators: this is the suffix for the Statistics tooltip.
@@ -288,6 +321,10 @@ class i18n {
 			'Omitted' => __( 'Omitted', 'searchwp' ),
 			'Only show entries if:' => __( 'Only show entries if:', 'searchwp' ),
 			'Options' => __( 'Options', 'searchwp' ),
+			'_advanced_options_tooltip' => sprintf(
+				'Advanced options for configuring the return and display of search results. <a href="%s" target="_blank">View&nbsp;Docs</a>',
+				'https://searchwp.com/documentation/setup/engines/#source-options'
+			),
 			'Or choose from the following shortcuts' => __( 'Or choose from the following shortcuts', 'searchwp' ),
 			'OR' => __( 'OR', 'searchwp' ),
 			'Parse Shortcodes when indexing' => __( 'Parse Shortcodes when indexing', 'searchwp' ),
@@ -348,9 +385,15 @@ class i18n {
 			'Term' => __( 'Term', 'searchwp' ), // Translators: prefaced by (translation of) "transfer weight".
 			'There are no omitted entries at this time.' => __( 'There are no omitted entries at this time.', 'searchwp' ),
 			'to entry ID' => __( 'to entry ID', 'searchwp' ), // Translators: prefaced by (translation of) "transfer weight".
+			'_weight_transfer_ID' => __( 'Entry ID', 'searchwp' ),
+			'_weight_transfer_ID_note' => sprintf(
+				// Translators: placeholder is the label of the Source.
+				__( 'Enter a %s ID to transfer the weight to.', 'searchwp' ),
+				'{{ searchwpPlaceholder1 }}' // This is the Source label.
+			),
 			'Tokenize regex pattern matches' => __( 'Tokenize regex pattern matches', 'searchwp' ),
 			'Total' => __( 'Total', 'searchwp' ),
-			'Trim logs' => __( 'Trim logs', 'searchwp' ),
+			'Trim logs' => __( 'Auto-delete log data older than', 'searchwp' ),
 			'Type to search options...' => __( 'Type to search options...', 'searchwp' ),
 			'Unignore' => __( 'Unignore', 'searchwp' ),
 			'Update FAILED!' => __( 'Update FAILED!', 'searchwp' ),

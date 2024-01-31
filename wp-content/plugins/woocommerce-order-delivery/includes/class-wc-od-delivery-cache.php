@@ -160,4 +160,3 @@ class WC_OD_Delivery_Cache {
 		return delete_transient( $key );
 	}
 }
-

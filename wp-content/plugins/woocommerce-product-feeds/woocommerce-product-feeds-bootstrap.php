@@ -23,7 +23,6 @@ $woocommerce_gpf_di['WoocommerceGpfAdmin'] = function ( $c ) {
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceGpfCacheStatus'],
 		$c['WoocommerceProductFeedsFeedImageManager'],
-		$c['WoocommerceProductFeedsWoocommerceAdminIntegration'],
 		$c['WoocommerceProductFeedsFeedConfigRepository'],
 		$c['WoocommerceProductFeedsFeedManager']
 	);
@@ -318,6 +317,7 @@ $woocommerce_gpf_di['WoocommerceProductFeedsMain'] = function ( $c ) {
 		$c['WoocommerceProductFeedsIntegrationManager'],
 		$c['WoocommerceProductFeedsFeedConfigFactory'],
 		$c['WoocommerceProductFeedsJobManager'],
+		$c['WoocommerceProductFeedsSetupTasks'],
 		$c
 	);
 };
@@ -326,8 +326,16 @@ $woocommerce_gpf_di['WoocommerceProductFeedsTermDepthRepository'] = function () 
 	return new WoocommerceProductFeedsTermDepthRepository();
 };
 
-$woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceAdminIntegration'] = function () {
-	return new WoocommerceProductFeedsWoocommerceAdminIntegration();
+/**
+ * Setup tasks
+ */
+
+$woocommerce_gpf_di['WoocommerceProductFeedsSetupTasks'] = function () {
+	return new WoocommerceProductFeedsSetupTasks();
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsConfigureSettingsTask'] = function () {
+	return new WoocommerceProductFeedsConfigureSettingsTask();
 };
 
 /**

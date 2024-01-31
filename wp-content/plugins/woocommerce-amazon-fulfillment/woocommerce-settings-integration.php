@@ -349,6 +349,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 			// AJAX Actions.
 			add_action( 'wp_ajax_ns_fba_refresh_marketplace_options', array( $this, 'refresh_marketplace_options' ) );
+			add_action( 'wp_ajax_ns_fba_refresh_marketplace_link', array( $this, 'refresh_marketplace_link' ) );
 
 			// Run the manual full inventory sync if the button was clicked.
 			add_action( 'wp_ajax_ns_fba_sync_inventory_manually', array( $this, 'handle_manual_sync' ) );
@@ -856,6 +857,97 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			}
 
 			return $options;
+		}
+
+		/**
+		 * Get the consent url.
+		 *
+		 * @param string $marketplace The marketplace.
+		 *
+		 * @return string
+		 */
+		private function get_consent_url( $marketplace = '' ): string {
+			$consent_url = SP_API_CONSENT_URL;
+			if ( ! empty( $marketplace ) ) {
+				switch ( $marketplace ) {
+					case 'A2EUQ1WTGCTBG2':
+						// Canada.
+						$consent_url = 'https://sellercentral.amazon.ca/apps/authorize/consent';
+						break;
+
+					case 'A1AM78C64UM0Y8':
+						// Mexico.
+						$consent_url = 'https://sellercentral.amazon.com.mx/apps/authorize/consent';
+						break;
+
+					case 'A2Q3Y263D00KWC':
+						// Brazil.
+						$consent_url = 'https://sellercentral.amazon.com.br/apps/authorize/consent';
+						break;
+
+					case 'A1RKKUPIHCS9HS':
+					case 'A1F83G8C2ARO7P':
+					case 'A13V1IB3VIYZZH':
+					case 'A1PA6795UKMFR9':
+					case 'APJ6JRA9NG5V4':
+						// Spain, UK, Fance, Germany, Italy.
+						$consent_url = 'https://sellercentral-europe.amazon.com/apps/authorize/consent';
+						break;
+
+					case 'A1805IZSGTT6HS':
+						// Netherlands.
+						$consent_url = 'https://sellercentral.amazon.nl/apps/authorize/consent';
+						break;
+
+					case 'A2NODRKZP88ZB9':
+						// Sweden.
+						$consent_url = 'https://sellercentral.amazon.se/apps/authorize/consent';
+						break;
+
+					case 'A1C3SOZRARQ6R3':
+						// Poland.
+						$consent_url = 'https://sellercentral.amazon.pl/apps/authorize/consent';
+						break;
+						
+					case 'ARBP9OOSHTCHU':
+						// Egypt.
+						$consent_url = 'https://sellercentral.amazon.eg/apps/authorize/consent';
+						break;
+
+					case 'A33AVAJ2PDY3EV':
+						// Turkey.
+						$consent_url = 'https://sellercentral.amazon.tr/apps/authorize/consent';
+						break;
+					case 'A17E79C6D8DWNP':
+						// Saudi Arabia.
+						$consent_url = 'https://sellercentral.amazon.sa/apps/authorize/consent';
+						break;
+
+					case 'A2VIGQ35RCS4UG':
+						// U.A.E.
+						$consent_url = 'https://sellercentral.amazon.ae/apps/authorize/consent';
+						break;
+					case 'A21TJRUUN4KGV':
+						// India.
+						$consent_url = 'https://sellercentral.amazon.in/apps/authorize/consent';
+						break;
+
+					case 'A19VAU5U5O7RUS':
+						// Singapore.
+						$consent_url = 'https://sellercentral.amazon.sg/apps/authorize/consent';
+						break;
+					case 'A39IBJ37TRP1C6':
+						// Australia.
+						$consent_url = 'https://sellercentral.amazon.au/apps/authorize/consent';
+						break;
+
+					case 'A1VC38T7YXB528':
+						// Japan.
+						$consent_url = 'https://sellercentral.amazon.jp/apps/authorize/consent';
+						break;
+				}
+			}
+			return $this->get_lwa_consent_url( $consent_url );
 		}
 
 		/**
@@ -1607,11 +1699,12 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		 * @return string
 		 */
 		public function generate_ns_fba_lwa_button_html( string $key, array $data ): string {
-			$field = $this->plugin_id . $this->id . '_' . $key;
-			$data  = wp_parse_args( $data, $this->button_defaults );
+			$field          = $this->plugin_id . $this->id . '_' . $key;
+			$data           = wp_parse_args( $data, $this->button_defaults );
+			$marketplace_id = $this->get_option( 'ns_fba_marketplace_id', '' );
 			ob_start();
 			?>
-		<a href="<?php echo esc_url( $this->get_lwa_consent_url() ); ?>" id="LoginWithAmazon">
+		<a href="<?php echo esc_url( $this->get_consent_url( $marketplace_id ) ); ?>" id="LoginWithAmazon" class="ns_fba_login_with_amazon">
 			<img alt="<?php esc_attr_e( 'Login with Amazon', $this->text_domain ); ?>"
 				src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'assets/btnLWA.png' ); ?>"
 				width="156" height="32"/>
@@ -1626,8 +1719,12 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 		/**
 		 * This function returns the consent URL to start the LWA process.
+		 *
+		 * @param string $consent_url The optional consent url.
+		 *
+		 * @return string
 		 */
-		public function get_lwa_consent_url(): string {
+		public function get_lwa_consent_url( string $consent_url = '' ): string {
 			// Ignore the phpcs warning about base64 which is required by Amazon SP-API.
 			// phpcs:ignore
 			$state = base64_encode( random_bytes( 128 ) );
@@ -1645,7 +1742,11 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				)
 			);
 
-			$url = sprintf( '%s?application_id=%s&state=%s&redirect_uri=%s', SP_API_CONSENT_URL, SP_API_ID, $state, SP_API_REDIRECT_URI );
+			if ( empty( $consent_url ) ) {
+				$consent_url = SP_API_CONSENT_URL;
+			}
+
+			$url = sprintf( '%s?application_id=%s&state=%s&redirect_uri=%s', $consent_url, SP_API_ID, $state, SP_API_REDIRECT_URI );
 			$url = SP_API_DEBUG_MODE ? $url . '&version=beta' : $url;
 
 			return $url;
@@ -1846,6 +1947,21 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			wp_send_json_error( "Can't update Amazon Marketplace Selector" );
 		}
 		// *************************************** .
+
+		/**
+		 * Refresh the marketplace link.
+		 *
+		 * @return void
+		 */
+		public function refresh_marketplace_link() {
+			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
+			// phpcs:ignore
+			$marketplace = sanitize_text_field( wp_unslash( $_POST['marketplace'] ) );
+
+			$consent_url = $this->get_consent_url( $marketplace );
+
+			wp_send_json_success( $consent_url );
+		}
 
 		/**
 		 * Logs a message notifying that the migration failed.

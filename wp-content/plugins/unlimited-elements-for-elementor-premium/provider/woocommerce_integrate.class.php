@@ -1371,9 +1371,17 @@ $htmlItem = "
 	 */
 	public function getCartTotalsHtml($isSecond = false){
 		
-		$arrTotals = WC()->cart->get_totals();
+		if($this->isWooActive() == false)
+			return(false);
 		
-		$subtotal = UniteFunctionsUC::getVal($arrTotals, "subtotal");
+		if(empty(WC()->cart)){
+			$subtotal = 0;
+		}else{
+			
+			$arrTotals = WC()->cart->get_totals();
+			
+			$subtotal = UniteFunctionsUC::getVal($arrTotals, "subtotal");
+		}
 		
 		$subtotalHTML = wc_price($subtotal);
 		

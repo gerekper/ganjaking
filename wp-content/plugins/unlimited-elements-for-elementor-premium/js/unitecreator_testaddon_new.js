@@ -15,32 +15,24 @@ function UniteCreatorTestAddonNew(){
 	/**
 	 * on check settings values click
 	 */
-	function onCheckClick(){
-
+	function onCheckClick() {
+		
 		var values = g_settings.getSettingsValues();
-
 		var selectorsCss = g_settings.getSelectorsCss();
-
+		
 		trace("Settings Values Are:");
-
 		trace(values);
 
-		if(selectorsCss){
-
+		if (selectorsCss) {
 			trace("Selectors Css:");
-
 			trace(selectorsCss);
-
 		}
-
 	}
-
 
 	/**
 	 * on clear settings click
 	 */
 	function onClearClick(){
-
 		trace("clear settings");
 
 		g_settings.clearSettings();
@@ -49,88 +41,65 @@ function UniteCreatorTestAddonNew(){
 	/**
 	 * delete slot data
 	 */
-	function onDeleteDataClick(){
+	function onDeleteDataClick() {
+		var data = { "id": g_addonID, "slotnum": 1 };
 
-		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_delete");
-		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_delete");
+		g_ucAdmin.setAjaxLoadingButtonID("uc_testaddon_button_delete");
 
-		var data = {"id":g_addonID,"slotnum":1};
-
-		g_ucAdmin.ajaxRequest("delete_test_addon_data", data, function(response){
-
-			jQuery("#uc_testaddon_button_delete").show();
-
-			jQuery("#uc_testaddon_slot1").hide();
+		g_ucAdmin.ajaxRequest("delete_test_addon_data", data, function () {
+			jQuery("#uc_testaddon_button_restore").hide();
+			jQuery("#uc_testaddon_button_delete").hide();
 		});
-
-
 	}
 
 	/**
 	 * on save data event
 	 */
-	function onSaveDataClick(){
-
+	function onSaveDataClick() {
 		var objData = {};
-		objData["id"] = g_addonID;
-
 		var values = g_settings.getSettingsValues();
 
+		objData["id"] = g_addonID;
 		objData["settings_values"] = values;
 
 		trace("Saving Settings...");
 		trace(values);
 
+		g_ucAdmin.setAjaxLoadingButtonID("uc_testaddon_button_save");
 
-		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_save");
-		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_save");
-
-		g_ucAdmin.ajaxRequest("save_test_addon", objData, function(){
-
-			jQuery("#uc_testaddon_slot1").show();
-
-			jQuery("#uc_testaddon_button_save").show();
-
+		g_ucAdmin.ajaxRequest("save_test_addon", objData, function () {
+			jQuery("#uc_testaddon_button_restore").show();
+			jQuery("#uc_testaddon_button_delete").show();
 		});
 	}
 
 	/**
 	 * restore data from saved slot
 	 */
-	function onRestoreDataClick(){
-
-		g_ucAdmin.setAjaxLoaderID("uc_testaddon_loader_restore");
-		g_ucAdmin.setAjaxHideButtonID("uc_testaddon_button_restore");
-
-		var data = {"id":g_addonID,"slotnum":1,"combine":true};
+	function onRestoreDataClick() {
+		var data = { "id": g_addonID, "slotnum": 1, "combine": true };
 
 		trace("Restoring Settings...");
 
-		g_ucAdmin.ajaxRequest("get_test_addon_data", data, function(response){
+		g_ucAdmin.setAjaxLoadingButtonID("uc_testaddon_button_restore");
 
-			jQuery("#uc_testaddon_button_restore").show();
-
-			var objValues = g_ucAdmin.getVal(response,"settings_values");
+		g_ucAdmin.ajaxRequest("get_test_addon_data", data, function (response) {
+			var objValues = g_ucAdmin.getVal(response, "settings_values");
 
 			trace(objValues);
 
-			if(!objValues){
+			if (!objValues) {
 				trace("no settings found");
-				return(false);
+				return (false);
 			}
 
 			g_settings.setValues(objValues);
 
-			setTimeout(function(){
-
+			setTimeout(function () {
 				refreshPreview();
-
-			},500);
-
+			}, 500);
 		});
-
 	}
-
 
 	/**
 	 * output preview
@@ -139,11 +108,11 @@ function UniteCreatorTestAddonNew(){
 
 		var html = g_ucAdmin.getVal(response, "html");
 		var arrIncludes = g_ucAdmin.getVal(response, "includes");
-
+		
 		g_helper.putIncludes(window, arrIncludes, function(){
-
+			
 			g_objPreview.html(html);
-
+			
 		});
 
 	}
@@ -183,9 +152,9 @@ function UniteCreatorTestAddonNew(){
 	 * update settings selectors
 	 */
 	function updateSelectors(){
-
+		
 		var css = g_settings.getSelectorsCss();
-
+		
 		var objStyle = jQuery("[name=uc_selectors_css]");
 
 		if(objStyle.length == 0)
@@ -194,7 +163,32 @@ function UniteCreatorTestAddonNew(){
 		objStyle.text(css);
 
 	}
-
+	
+	/**
+	 * update inputs like google fonts
+	 */
+	function updateSelectorsUncludes(){
+		
+		var objStyleIncludes = g_settings.getSelectorsIncludes();
+		
+		if(objStyleIncludes.length == 0)
+			return(false);
+				
+		g_helper.putIncludes(window, objStyleIncludes);
+		
+	}
+	
+	
+	/**
+	 * update on change setting - selectors and includes
+	 */
+	function updateOnChange(){
+		
+		updateSelectorsUncludes();
+				
+		updateSelectors();
+				
+	}
 
 	/**
 	 * init the settings by it's html
@@ -211,7 +205,7 @@ function UniteCreatorTestAddonNew(){
 
 		g_settings.setEventOnChange(refreshPreview);
 
-		g_settings.setEventOnSelectorsChange(updateSelectors);
+		g_settings.setEventOnSelectorsChange(updateOnChange);
 
 	}
 
@@ -273,18 +267,12 @@ function UniteCreatorTestAddonNew(){
 	/**
 	 * init events
 	 */
-	function initEvents(){
-
-		jQuery("#uc_testaddon_button_save").on("click",onSaveDataClick);
-
-		jQuery("#uc_testaddon_button_restore").on("click",onRestoreDataClick);
-
-		jQuery("#uc_testaddon_button_clear").on("click",onClearClick);
-
-		jQuery("#uc_testaddon_button_check").on("click",onCheckClick);
-
-		jQuery("#uc_testaddon_button_delete").on("click",onDeleteDataClick);
-
+	function initEvents() {
+		jQuery("#uc_testaddon_button_save").on("click", onSaveDataClick);
+		jQuery("#uc_testaddon_button_restore").on("click", onRestoreDataClick);
+		jQuery("#uc_testaddon_button_clear").on("click", onClearClick);
+		jQuery("#uc_testaddon_button_check").on("click", onCheckClick);
+		jQuery("#uc_testaddon_button_delete").on("click", onDeleteDataClick);
 	}
 
 

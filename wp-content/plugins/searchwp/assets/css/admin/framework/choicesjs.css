@@ -1,5 +1,9 @@
 /* --- Choices.js --- */
 
+.choices {
+    min-width: 50px;
+}
+
 .choices input {
     border: none;
     background-color: transparent;

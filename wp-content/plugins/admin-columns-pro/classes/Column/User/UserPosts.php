@@ -6,10 +6,11 @@ use AC;
 use AC\View;
 use ACP;
 use ACP\Export\Exportable;
+use ACP\Search;
 use ACP\Sorting;
 use ACP\Sorting\Sortable;
 
-class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue, Exportable
+class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue, Exportable, Search\Searchable
 {
 
     public function __construct()
@@ -177,6 +178,14 @@ class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue, Expo
     public function sorting()
     {
         return new Sorting\Model\User\PostCount($this->get_selected_post_types(), $this->get_selected_post_status());
+    }
+
+    public function search()
+    {
+        return new ACP\Search\Comparison\User\UserPosts(
+            $this->get_selected_post_types(),
+            $this->get_selected_post_status()
+        );
     }
 
     protected function register_settings()

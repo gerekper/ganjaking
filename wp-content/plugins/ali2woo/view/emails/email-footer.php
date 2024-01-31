@@ -2,7 +2,7 @@
 /**
  * Email Footer
  *
- * This template can be overridden by copying it to yourtheme/ali2woo/emails/email-footer.php
+ * This template can be overridden by copying it to yourtheme/[plugin_name]/emails/email-footer.php
  * 
  */
 

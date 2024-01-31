@@ -1,5 +1,5 @@
 /** 
- * @version  4.5.3
+ * @version  4.5.5
  */
 jQuery(document).ready(function($){
 
@@ -284,24 +284,31 @@ jQuery(document).ready(function($){
 			});
 			rel_box.find('.evo_rel_events_sel_list').val( JSON.stringify( EV ));
 		})
-		// search related events @4.5
+		// search related events @4.5.5
 		.on('keyup', '.evo_rel_search_input',function(event){
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			var typed_val = $(this).val().toLowerCase();
+
+			var ev_count = 0;
 			
 			$(this).closest('.evo_rel_events_form').find('.rel_event').each(function(){
 				const n = $(this).find('.n').html().toLowerCase();
 
 				if( typed_val == ''){
 					$(this).show();
+					ev_count++;
 				}else{
 					if( n.includes(typed_val ) ){
-						$(this).show();
+						$(this).show(); ev_count++;
 					}else{
 						$(this).hide();
 					}
 				}				
-			});		
+			});	
+
+			// update count
+			const sp = $(this).siblings('span');
+			sp.html(ev_count +' ' + sp.data('t') );	
 		})
 		
 		;
@@ -599,7 +606,7 @@ jQuery(document).ready(function($){
 	$('body')
 	// end time hide or not
 		.on('click','#evo_hide_endtime', function(){
-			console.log('ss');
+			
 			// yes
 			if( !($(this).hasClass('NO')) ){
 				$('body').find('.evo_date_time_elem.evo_end').animate({'opacity':'0.5'});
@@ -608,9 +615,9 @@ jQuery(document).ready(function($){
 			}
 		})
 	// All day or not
-		.on('click','#evcal_allday', function(){
-			// yes
-			if( !($(this).hasClass('NO')) ){
+		.on('click','span._time_ext_type span', function(){
+			
+			if( $(this).attr('value') == 'dl' ){
 				$('.evo_datetimes .evo_time_edit').animate({'opacity':'0.5'});
 			}else{
 				$('.evo_datetimes .evo_time_edit').show().animate({'opacity':'1'});

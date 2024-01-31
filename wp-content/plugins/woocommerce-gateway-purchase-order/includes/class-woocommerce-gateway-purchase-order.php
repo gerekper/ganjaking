@@ -13,23 +13,47 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 	/**
 	 * The token.
+	 *
 	 * @var     string
-	 * @access  public
 	 * @since   1.0.0
 	 */
 	public $token;
 
 	/**
 	 * The version number.
+	 *
 	 * @var     string
-	 * @access  public
 	 * @since   1.0.0
 	 */
 	public $version;
 
 	/**
+	 * The plugin URL.
+	 *
+	 * @var     string
+	 * @since   1.0.0
+	 */
+	public $plugin_url;
+
+	/**
+	 * The plugin path.
+	 *
+	 * @var     string
+	 * @since   1.0.0
+	 */
+	public $plugin_path;
+
+	/**
+	 * The plugin instructions.
+	 *
+	 * @var     string
+	 * @since   1.0.0
+	 */
+	public $instructions;
+
+	/**
 	 * Constructor function.
-	 * @access  public
+	 *
 	 * @since   1.0.0
 	 * @return  void
 	 */

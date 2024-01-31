@@ -1,4 +1,10 @@
 <?php
+/**
+ * WC_Shipment_Tracking_PIP_Compat file.
+ *
+ * @package WC_Shipment_Tracking
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -31,7 +37,7 @@ class WC_Shipment_Tracking_PIP_Compat {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param array $settings Settings
+	 * @param array $settings Settings.
 	 * @return array Settings
 	 */
 	public function add_settings( $settings ) {
@@ -62,8 +68,8 @@ class WC_Shipment_Tracking_PIP_Compat {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param bool $hide Whether to hide or not the save button, default false (do not hide), true on general tab
-	 * @param string $current_section the current settings section
+	 * @param bool   $hide Whether to hide or not the save button, default false (do not hide), true on general tab.
+	 * @param string $current_section the current settings section.
 	 *
 	 * @return bool
 	 */
@@ -80,10 +86,10 @@ class WC_Shipment_Tracking_PIP_Compat {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param string $type Document type
-	 * @param string $action Current action running on Document
-	 * @param WC_PIP_Document $document Document object
-	 * @param WC_Order $order Order object
+	 * @param string          $document_type Document type.
+	 * @param string          $action Current action running on document.
+	 * @param WC_PIP_Document $document Document object.
+	 * @param WC_Order        $order Order object.
 	 */
 	public function display_shipment_tracking( $document_type, $action, $document, $order ) {
 		$order_id = is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id;
@@ -95,7 +101,7 @@ class WC_Shipment_Tracking_PIP_Compat {
 		}
 
 		$document_types = get_option( 'woocommerce_pip_shipment_tracking', array() );
-		if ( ! empty( $document_types ) && in_array( $document_type, $document_types ) ) {
+		if ( ! empty( $document_types ) && in_array( $document_type, $document_types, true ) ) {
 			wc_get_template( 'pip/tracking-info.php', array( 'items' => $items ), 'woocommerce-shipment-tracking/', $sta->get_plugin_path() . '/templates/' );
 		}
 	}

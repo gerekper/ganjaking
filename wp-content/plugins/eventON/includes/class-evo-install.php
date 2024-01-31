@@ -5,7 +5,7 @@
  * @author   AJDE
  * @category Admin
  * @package  eventon/Classes
- * @version  2.6.1
+ * @version  4.5.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -51,7 +51,7 @@ class evo_install {
 	// CRON
 	// add more cron schedules
 		static function cron_schedules($schedules){
-			 if(!isset($schedules["weekly"])){
+			if(!isset($schedules["weekly"])){
 		        $schedules["weekly"] = array(
 		            'interval' => 60*60*24*7,
 		            'display' => __('Once every week','eventon'));
@@ -59,7 +59,12 @@ class evo_install {
 		    if(!isset($schedules["3days"])){
 		        $schedules["3days"] = array(
 		            'interval' => 60*60*24*3,
-		            'display' => __('Every three days','eventon'));
+		            'display' => __('Every 3 Days','eventon'));
+		    }
+		    if(!isset($schedules["3months"])){
+		        $schedules["3months"] = array(
+		            'interval' => 2635200 * 3,
+		            'display' => __('Every 3 Months','eventon'));
 		    }
 		    return $schedules;
 		}
@@ -71,6 +76,7 @@ class evo_install {
 		$crons = apply_filters('evo_schedule_cron', array(
 			'evo_cron_daily_actions'=>array('frequency'=>'daily','callback'=>''),
 			'evo_check_updates'=>array('frequency'=>'weekly','callback'=>''),
+			'evo_flush_data_logs'=>array('frequency'=>'3months','callback'=>''),
 		));
 
 		foreach($crons as $cron_hook=>$data){
@@ -85,9 +91,15 @@ class evo_install {
 		}
 
 		add_action('evo_check_updates', array(__CLASS__, 'check_updates'));
+		add_action('evo_flush_data_logs', array(__CLASS__, '_flush_data_log'));
 
 		do_action('evo_create_cron_jobs');
 	}
+
+	// flush error log @4.5.5
+		public static function _flush_data_log(){
+			EVO_Error()->_flush_all_logs();
+		}
 
 	// check updates on remote
 		public static function check_updates(){

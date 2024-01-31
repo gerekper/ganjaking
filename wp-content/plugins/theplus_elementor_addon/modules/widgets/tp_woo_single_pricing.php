@@ -36,6 +36,7 @@ class ThePlus_Woo_Single_Pricing extends Widget_Base {
     public function get_categories() {
         return array('plus-woo-builder');
     }
+	
 	public function get_keywords() {
 		return ['Single pricing, woocomerce','post','product','cart','add to cart','add cart','price','sale price','stock','woo stock','Sold','attributes','woo attributes','product attributes'];
 	}

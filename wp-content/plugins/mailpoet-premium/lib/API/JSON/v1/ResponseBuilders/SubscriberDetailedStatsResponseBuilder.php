@@ -78,6 +78,7 @@ class SubscriberDetailedStatsResponseBuilder {
       'id' => $newsletter->getId(),
       'preview_url' => $previewUrl,
       'subject' => $newsletter->getSubject(),
+      'campaign_name' => $newsletter->getCampaignName(),
       'sent_at' => $sentAt ? $sentAt->format(self::DATE_FORMAT) : null,
       'actions' => [],
     ];

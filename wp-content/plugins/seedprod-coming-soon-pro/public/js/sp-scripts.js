@@ -494,7 +494,7 @@ jQuery('.sp-testimonial-nav button').click(function () {
   }
 });
 var testimonial_timers = {};
-jQuery(".sp-testimonials-wrapper").each(function (index) {
+jQuery(".sp-testimonials-wrapper").each(function () {
   var currentId = '#' + jQuery(this).attr('id');
   var autoPlay = jQuery(this).attr('data-autoplay');
   var speed = jQuery(this).attr('data-speed');
@@ -507,7 +507,9 @@ jQuery(".sp-testimonials-wrapper").each(function (index) {
 
   if (autoPlay !== undefined) {
     testimonial_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-testimonial-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-testimonial-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -528,7 +530,9 @@ jQuery(".sp-testimonials-wrapper").mouseleave(function () {
 
   if (autoPlay !== undefined) {
     testimonial_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-testimonial-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-testimonial-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -685,7 +689,9 @@ jQuery(".sp-imagecarousels-wrapper").each(function (index) {
 
   if (autoPlay !== undefined) {
     imagecarousel_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-imagecarousel-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-imagecarousel-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -706,7 +712,9 @@ jQuery(".sp-imagecarousels-wrapper").mouseleave(function () {
 
   if (autoPlay !== undefined) {
     imagecarousel_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-imagecarousel-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-imagecarousel-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -1174,7 +1182,9 @@ jQuery(".sp-businessreview-wrapper").each(function (index) {
 
   if (autoPlay !== undefined) {
     businessreview_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-businessreview-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-businessreview-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -1195,7 +1205,9 @@ jQuery(".sp-businessreview-wrapper").mouseleave(function () {
 
   if (autoPlay !== undefined) {
     businessreview_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-businessreview-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-businessreview-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -1224,8 +1236,7 @@ function seedprod_pro_video_pop_up_trigger_video(blockId, videoHtml, blockOption
     } else {
       // When image overlay is clicked, display video.
       jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).click(function () {
-        jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).remove(); // Check if lightbox is enabled.
-        // Create video element.
+        jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).remove(); // Create video element.
 
         jQuery("#sp-".concat(blockId, " .sp-video-wrapper")).append("<div id=\"sp-video-responsive-".concat(blockId, "\" class=\"").concat(responsiveClass, " sp-video-pop-up-video\">").concat(videoHtml, "</div>"));
         jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).css('aspect-ratio', options.aspect_ratio);
@@ -1243,12 +1254,63 @@ function seedprod_pro_video_pop_up_trigger_video(blockId, videoHtml, blockOption
           // Return original class
           jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).removeClass('sp-video-wrapper-sticky').addClass('sp-video-wrapper');
           jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).removeClass('sp-video-responsive-sticky').addClass(responsiveClass);
+
+          if (options.enable_banner) {
+            jQuery("#sp-".concat(blockId, " #sp-video-pop-up-banner-").concat(blockId)).removeClass('sp-video-pop-up-banner-sticky').addClass('sp-video-pop-up-banner');
+          }
         } else {
           // Add sticky class
           jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).removeClass('sp-video-wrapper').addClass('sp-video-wrapper-sticky');
           jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).removeClass(responsiveClass).addClass('sp-video-responsive-sticky');
+
+          if (options.enable_banner) {
+            jQuery("#sp-".concat(blockId, " #sp-video-pop-up-banner-").concat(blockId)).removeClass('sp-video-pop-up-banner').addClass('sp-video-pop-up-banner-sticky');
+          }
         }
       }
+    });
+  } // Teaser Video
+
+
+  if (options.enable_teaser_video) {
+    // When teaser video icon is clicked, play unmuted video.
+    jQuery("#sp-".concat(blockId, " .sp-video-pop-up-teaser-video-play-icon-display, #sp-").concat(blockId, " .sp-video-pop-up-teaser-video-play-icon-display i")).click(function () {
+      // Sticky video.
+      var stickyVideoClass = '';
+
+      if (options.enable_sticky_video) {
+        // Disable for mobile.
+        if (window.matchMedia('only screen and (min-width: 960px)').matches) {
+          if (jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).isInViewport()) {
+            stickyVideoClass = "sp-video-wrapper ".concat(responsiveClass);
+          } else {
+            stickyVideoClass = 'sp-video-wrapper-sticky sp-video-responsive-sticky';
+          }
+        }
+      } else {
+        stickyVideoClass = "sp-video-wrapper ".concat(responsiveClass);
+      } // Set mute to false & show controls.
+
+
+      if (options.source === 'custom') {
+        videoHtml = videoHtml.replace('muted', 'controls');
+      }
+
+      if (options.source === 'youtube') {
+        videoHtml = videoHtml.replace('mute=1', 'mute=0');
+        videoHtml = videoHtml.replace('controls=0', 'controls=1');
+      }
+
+      if (options.source === 'vimeo') {
+        videoHtml = videoHtml.replace('muted=1', 'muted=0');
+        videoHtml = videoHtml.replace('controls=0', 'controls=1');
+      }
+
+      jQuery("#sp-".concat(blockId, " .sp-video-pop-up-teaser-video-play-icon-display")).remove();
+      jQuery("#sp-".concat(blockId, " .sp-video-pop-up-teaser-video")).remove(); // Create video element.
+
+      jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).append("<div id=\"sp-video-responsive-".concat(blockId, "\" class=\"").concat(stickyVideoClass, " sp-video-pop-up-video\">").concat(videoHtml, "</div>"));
+      jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).css('aspect-ratio', options.aspect_ratio);
     });
   }
 }
@@ -1358,7 +1420,9 @@ jQuery(".sp-posts-block-wrapper.sp-posts-skinlayout-carousel").each(function (in
 
   if (autoPlay !== undefined) {
     postblock_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-postblock-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-postblock-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });
@@ -1379,7 +1443,9 @@ jQuery(".sp-posts-block-wrapper.sp-posts-skinlayout-carousel").mouseleave(functi
 
   if (autoPlay !== undefined) {
     postblock_timers[currentId] = setInterval(function () {
-      jQuery(currentId + ' .sp-postblock-nav button:last-child').trigger('click');
+      var clickEvent = jQuery.Event('click');
+      clickEvent.preventDefault();
+      jQuery(currentId + ' .sp-postblock-nav button:last-child').triggerHandler(clickEvent);
     }, speed);
   }
 });

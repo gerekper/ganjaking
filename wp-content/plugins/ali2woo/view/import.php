@@ -1,11 +1,12 @@
 <div class="a2w-content">    
     <div class="container">
         
-        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>        
+        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>
         
-        <?php if (!A2W_Account::getInstance()->is_activated()):?>
-        <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
-        <?php endif; ?>
+        <?php //if (!Ali2Woo\Account::getInstance()->is_activated()):?>
+        <?php //$link_html = "<a href=" . admin_url('admin.php?page=a2w_setting') .">" . __('settings', 'ali2woo') . "</a>"; ?>
+        <!--- <div class="a2w-pc-warn"><p><?php //echo sprintf( esc_html__( 'You didn`t activate Ali2Woo! Please open the Ali2Woo plugin %s and input your purchase key.', 'ali2woo' ), $link_html ); ?> </p></div> --->
+        <?php //endif; ?>
         
         
         <div id="a2w-import-empty" class="panel panel-default margin-top"<?php if ($serach_query || count($product_list) !== 0): ?> style="display:none;"<?php endif; ?>>
@@ -242,7 +243,7 @@
                                     ?>
                                 </div>
                                 <div class="tabs-content" rel="specs">
-                                    <?php $attribute_values_separator = a2w_get_setting('attribute_values_separator'); ?>
+                                    <?php $attribute_values_separator = Ali2Woo\get_setting('attribute_values_separator'); ?>
                                     <div class="specs-wrap">
                                         <table class="specs-table">
                                             <thead>
@@ -312,22 +313,6 @@
                                                     <?php foreach ($product['sku_products']['attributes'] as $attr): ?>
                                                         <td data-attr-id="<?php echo $attr['id']; ?>">
                                                             <div class="price-edit-selector edit-price large rename-attr">
-                                                                <div class="price-box-top">
-                                                                    <div class="container-flex">
-                                                                        <div>
-                                                                            <div class="slt"><select class="form-control"></select></div>
-                                                                        </div>
-                                                                        <div>
-                                                                            <input type="text" class="form-control" placeholder="New name">
-                                                                        </div>
-                                                                        <div>
-                                                                            <button class="apply btn btn-default margin-small-left">Apply</button>
-                                                                        </div>
-                                                                        <div>
-                                                                            <button type="button" class="close btn btn-default"><span class="btn-icon-wrap remove"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use></svg></span></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                                 <button type="button" class="btn btn-sm btn-default dropdown-toggle btn-icon-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <?php _e('Change Attr', 'ali2woo'); ?> <span class="caret"></span>
                                                                 </button>
@@ -537,6 +522,7 @@
                 <?php endforeach; ?>
             </div>
 
+            <?php include_once 'includes/rename_attributes_modal.php'; ?>
             <?php include_once 'includes/confirm_modal.php'; ?>
             <?php include_once 'includes/shipping_modal.php'; ?>
             <?php include_once 'includes/category_modal.php'; ?>
@@ -617,4 +603,3 @@
     </script>
     
 </div>
-

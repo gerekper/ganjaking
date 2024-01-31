@@ -92,7 +92,11 @@ class wfDiagnostic
 					'wafAutoPrependFilePath' => __('wordfence-waf.php path', 'wordfence'),
 					'wafFilePermissions' => __('WAF File Permissions', 'wordfence'),
 					'wafRecentlyRemoved' => __('Recently removed wflogs files', 'wordfence'),
-					'wafLoaded' => __('WAF Loaded Successfully', 'wordfence')
+					'wafLoaded' => __('WAF Loaded Successfully', 'wordfence'),
+					'wafAutoPrependHtaccess' => __('WAF .htaccess contents', 'wordfence'),
+					'wafAutoPrependUserIni' => __('WAF .user.ini contents', 'wordfence'),
+					'wafAutoPrependHtaccessOther' => __('.htaccess other auto prepend', 'wordfence'),
+					'wafAutoPrependUserIniOther' => __('.user.ini other auto prepend', 'wordfence'),
 				),
 			),
 			'MySQL' => array(
@@ -361,6 +365,78 @@ class wfDiagnostic
 
 	public function wafAutoPrepend() {
 		return array('test' => true, 'infoOnly' => true, 'message' => (defined('WFWAF_AUTO_PREPEND') && WFWAF_AUTO_PREPEND ? __('Yes', 'wordfence') : __('No', 'wordfence')));
+	}
+	public function wafAutoPrependHtaccess() {
+		$htaccessPath = wfWAFAutoPrependHelper::getHtaccessPath();
+		if (!file_exists($htaccessPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.htaccess not present)', 'wordfence'));
+		}
+		else if (!is_readable($htaccessPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.htaccess not readable)', 'wordfence'));
+		}
+		
+		$htaccessContents = file_get_contents($htaccessPath);
+		$section = wfWAFAutoPrependHelper::getHtaccessSectionContent($htaccessContents);
+		if ($section === false) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(not set)', 'wordfence'));
+		}
+		
+		$snippet = wfUtils::pregExtract("/auto_prepend_file\s+['\"]?[^'\"]*['\"]?/", $section);
+		return array('test' => true, 'infoOnly' => true, 'message' => $snippet, 'detail' => array('escaped' => nl2br(esc_html($section)), 'textonly' => $section));
+	}
+	public function wafAutoPrependHtaccessOther() {
+		$htaccessPath = wfWAFAutoPrependHelper::getHtaccessPath();
+		if (!file_exists($htaccessPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.htaccess not present)', 'wordfence'));
+		}
+		else if (!is_readable($htaccessPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.htaccess not readable)', 'wordfence'));
+		}
+		
+		$htaccessContents = file_get_contents($htaccessPath);
+		$section = wfWAFAutoPrependHelper::getHtaccessSectionContent($htaccessContents);
+		if ($section !== false) {
+			$htaccessContents = str_replace($section, '', $htaccessContents);
+		}
+		
+		$snippet = wfUtils::pregExtract("/auto_prepend_file\s+['\"]?[^'\"]*['\"]?/", $htaccessContents, true);
+		return array('test' => true, 'infoOnly' => true, 'message' => ($snippet === false ? __('(not present)', 'wordfence') : trim($snippet)));
+	}
+	public function wafAutoPrependUserIni() {
+		$userIniPath = wfWAFAutoPrependHelper::getUserIniPath();
+		if (!file_exists($userIniPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.user.ini not present)', 'wordfence'));
+		}
+		else if (!is_readable($userIniPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.user.ini not readable)', 'wordfence'));
+		}
+		
+		$userIniContents = file_get_contents($userIniPath);
+		$section = wfWAFAutoPrependHelper::getUserIniSectionContent($userIniContents);
+		if ($section === false) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(not set)', 'wordfence'));
+		}
+		
+		$snippet = wfUtils::pregExtract("/auto_prepend_file\s*=\s*['\"]?[^'\"]*['\"]?/", $section);
+		return array('test' => true, 'infoOnly' => true, 'message' => $snippet, 'detail' => $section);
+	}
+	public function wafAutoPrependUserIniOther() {
+		$userIniPath = wfWAFAutoPrependHelper::getUserIniPath();
+		if (!file_exists($userIniPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.user.ini not present)', 'wordfence'));
+		}
+		else if (!is_readable($userIniPath)) {
+			return array('test' => true, 'infoOnly' => true, 'message' => __('(.user.ini not readable)', 'wordfence'));
+		}
+		
+		$userIniContents = file_get_contents($userIniPath);
+		$section = wfWAFAutoPrependHelper::getUserIniSectionContent($userIniContents);
+		if ($section !== false) {
+			$userIniContents = str_replace($section, '', $userIniContents);
+		}
+		
+		$snippet = wfUtils::pregExtract("/auto_prepend_file\s*=\s*['\"]?[^'\"]*['\"]?/", $userIniContents, true); 
+		return array('test' => true, 'infoOnly' => true, 'message' => ($snippet === false ? __('(not present)', 'wordfence') : trim($snippet)));
 	}
 	public function wafStorageEngine() {
 		return array('test' => true, 'infoOnly' => true, 'message' => (defined('WFWAF_STORAGE_ENGINE') ? WFWAF_STORAGE_ENGINE : __('(default)', 'wordfence')));

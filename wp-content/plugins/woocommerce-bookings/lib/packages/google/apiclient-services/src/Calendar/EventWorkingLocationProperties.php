@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -22,12 +22,20 @@ namespace Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar;
 
 class EventWorkingLocationProperties extends \Automattic\WooCommerce\Bookings\Vendor\Google\Model
 {
+  /**
+   * @var EventWorkingLocationPropertiesCustomLocation
+   */
+  public $customLocation;
   protected $customLocationType = EventWorkingLocationPropertiesCustomLocation::class;
   protected $customLocationDataType = '';
   /**
    * @var array
    */
   public $homeOffice;
+  /**
+   * @var EventWorkingLocationPropertiesOfficeLocation
+   */
+  public $officeLocation;
   protected $officeLocationType = EventWorkingLocationPropertiesOfficeLocation::class;
   protected $officeLocationDataType = '';
   /**

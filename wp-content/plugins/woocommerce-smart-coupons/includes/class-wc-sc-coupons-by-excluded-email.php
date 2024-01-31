@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.5.0
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -215,10 +215,24 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 
 			$is_callable_coupon_emails_allowed = $this->is_callable( $cart, 'is_coupon_emails_allowed' );
 
-			if ( is_array( $customer_email ) && 0 < count( $customer_email ) && true === $is_callable_coupon_emails_allowed && ! $cart->is_coupon_emails_allowed( $check_emails, $customer_email ) ) {
+			$is_validate_allowed_emails = apply_filters(
+				'wc_sc_force_validate_allowed_emails',
+				true,
+				array(
+					'source'        => $this,
+					'is_valid'      => $valid,
+					'coupon_obj'    => $coupon,
+					'discounts_obj' => $discounts,
+				)
+			);
+
+			if ( true === $is_validate_allowed_emails && is_array( $customer_email ) && 0 < count( $customer_email ) && true === $is_callable_coupon_emails_allowed && ! $cart->is_coupon_emails_allowed( $check_emails, $customer_email ) ) {
 				if ( true === $is_auto_applied ) {
 					$valid = false;
 					if ( $this->is_callable( $cart, 'has_discount' ) && $cart->has_discount( $coupon_code ) && $this->is_callable( $cart, 'remove_coupon' ) ) {
+						if ( class_exists( 'WC_Coupon' ) && $this->is_callable( $coupon, 'add_coupon_message' ) ) {
+							$coupon->add_coupon_message( WC_Coupon::E_WC_COUPON_NOT_YOURS_REMOVED );
+						}
 						$cart->remove_coupon( $coupon_code );
 					}
 				} else {
@@ -230,6 +244,9 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 				if ( true === $is_auto_applied ) {
 					$valid = false;
 					if ( $this->is_callable( $cart, 'has_discount' ) && $cart->has_discount( $coupon_code ) && $this->is_callable( $cart, 'remove_coupon' ) ) {
+						if ( class_exists( 'WC_Coupon' ) && $this->is_callable( $coupon, 'add_coupon_message' ) ) {
+							$coupon->add_coupon_message( WC_Coupon::E_WC_COUPON_NOT_YOURS_REMOVED );
+						}
 						$cart->remove_coupon( $coupon_code );
 					}
 				} else {

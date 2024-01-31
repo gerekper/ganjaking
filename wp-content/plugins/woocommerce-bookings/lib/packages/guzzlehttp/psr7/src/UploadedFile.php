@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 20-November-2023 using Strauss.
+ * Modified by woocommerce on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -119,7 +119,7 @@ class UploadedFile implements UploadedFileInterface
         $this->error = $error;
     }
 
-    private function isStringNotEmpty($param): bool
+    private static function isStringNotEmpty($param): bool
     {
         return is_string($param) && false === empty($param);
     }
@@ -169,7 +169,7 @@ class UploadedFile implements UploadedFileInterface
     {
         $this->validateActive();
 
-        if (false === $this->isStringNotEmpty($targetPath)) {
+        if (false === self::isStringNotEmpty($targetPath)) {
             throw new InvalidArgumentException(
                 'Invalid path provided for move operation; must be a non-empty string'
             );

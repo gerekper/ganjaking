@@ -188,7 +188,7 @@ class WC_Points_Rewards_Admin {
 	 * Use WooCommerce Admin pages to display the WooCommerce Admin header
 	 * and to load WooCommerce CSS and JS files.
 	 *
-	 * Reference: https://developer.woocommerce.com/extension-developer-guide/working-with-woocommerce-admin-pages/
+	 * Reference: https://developer.woo.com/extension-developer-guide/working-with-woocommerce-admin-pages/
 	 *
 	 * @since 1.7.42
 	 */

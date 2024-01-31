@@ -985,23 +985,24 @@ class WCML_Bookings implements \IWPML_Action {
 
 	public function update_status_for_translations( $booking_id ) {
 
-		foreach ( $this->get_translated_bookings( $booking_id ) as $translated_booking_id ) {
+		foreach ( $this->get_translated_bookings( $booking_id, false ) as $translated_booking_id ) {
+			if ( (int) $booking_id !== (int) $translated_booking_id ) {
+				$status   = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT post_status FROM {$this->wpdb->posts} WHERE ID = %d", $booking_id ) );
+				$language = $this->sitepress->get_language_for_element( $translated_booking_id, 'post_' . self::POST_TYPE );
 
-			$status   = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT post_status FROM {$this->wpdb->posts} WHERE ID = %d", $booking_id ) );
-			$language = get_post_meta( $translated_booking_id, '_language_code', true );
+				$this->wpdb->update(
+					$this->wpdb->posts,
+					[
+						'post_status' => $status,
+						'post_parent' => wp_get_post_parent_id( $booking_id ),
+					],
+					[
+						'ID' => $translated_booking_id,
+					]
+				);
 
-			$this->wpdb->update(
-				$this->wpdb->posts,
-				[
-					'post_status' => $status,
-					'post_parent' => wp_get_post_parent_id( $booking_id ),
-				],
-				[
-					'ID' => $translated_booking_id,
-				]
-			);
-
-			$this->update_translated_booking_meta( $translated_booking_id, $booking_id, $language );
+				$this->update_translated_booking_meta( $translated_booking_id, $booking_id, $language );
+			}
 		}
 
 	}
@@ -1451,16 +1452,16 @@ class WCML_Bookings implements \IWPML_Action {
 	public function sync_booking_status( $post_id, $post, $update ) {
 
 		if ( $post->post_type === self::POST_TYPE && $update ) {
-
-			foreach ( $this->get_translated_bookings( $post_id ) as $translated_booking_id ) {
-				$this->wpdb->update(
-					$this->wpdb->posts,
-					[ 'post_status' => $post->post_status ],
-					[ 'ID' => $translated_booking_id ]
-				);
+			foreach ( $this->get_translated_bookings( $post_id, false ) as $translated_booking_id ) {
+				if ( (int) $translated_booking_id !== (int) $post_id ) {
+					$this->wpdb->update(
+						$this->wpdb->posts,
+						[ 'post_status' => $post->post_status ],
+						[ 'ID' => $translated_booking_id ]
+					);
+				}
 			}
 		}
-
 	}
 
 	/**

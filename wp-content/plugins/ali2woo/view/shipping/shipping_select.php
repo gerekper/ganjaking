@@ -91,8 +91,8 @@ $a2w_shipping_html = str_replace(array("\r", "\n"), '', $a2w_shipping_html);
     <input type="hidden" class="product_id" value="<?php echo $product_id; ?>">
     <input type="hidden" class="item_id" value="<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>">
     <?php  if ( is_product() ):  ?>
-    <input type="hidden" class="a2w_remove_cart_item" name="a2w_remove_cart_item" value="<?php echo a2w_get_setting( 'aliship_not_available_remove' ) ? 1 : 0; ?>">
-    <input type="hidden" class="a2w_fake_method" name="a2w_fake_method" value="<?php echo A2W_Shipping::get_fake_method_id(); ?>">
+    <input type="hidden" class="a2w_remove_cart_item" name="a2w_remove_cart_item" value="<?php echo Ali2Woo\get_setting( 'aliship_not_available_remove' ) ? 1 : 0; ?>">
+    <input type="hidden" class="a2w_fake_method" name="a2w_fake_method" value="<?php echo Ali2Woo\Shipping::get_fake_method_id(); ?>">
     <?php  endif; ?>
     <?php echo $a2w_shipping_country_html; ?>
     <?php echo $a2w_shipping_html; ?>

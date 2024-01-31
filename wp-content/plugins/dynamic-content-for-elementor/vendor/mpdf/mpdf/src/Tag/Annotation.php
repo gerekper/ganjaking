@@ -2,6 +2,7 @@
 
 namespace DynamicOOOS\Mpdf\Tag;
 
+use DynamicOOOS\Mpdf\Mpdf;
 class Annotation extends Tag
 {
     public function open($attr, &$ahtml, &$ihtml)
@@ -82,7 +83,7 @@ class Annotation extends Tag
                 $objattr['POPUP'] = \true;
             }
         }
-        $e = "\xbb\xa4\xactype=annot,objattr=" . \serialize($objattr) . "\xbb\xa4\xac";
+        $e = Mpdf::OBJECT_IDENTIFIER . "type=annot,objattr=" . \serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
         if ($this->mpdf->tableLevel) {
             $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['textbuffer'][] = [$e];
         } else {

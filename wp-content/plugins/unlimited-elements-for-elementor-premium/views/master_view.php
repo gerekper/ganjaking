@@ -57,12 +57,12 @@ switch($view){
 	<?php require_once(GlobalsUC::$pathTemplates . "head.php"); ?>
 
 	<div class="ue-content-wrapper">
-		
-		<?php 
+
+		<?php
 			if($showMenu == true)
-				require_once(GlobalsUC::$pathTemplates . "menu.php"); 
+				require_once(GlobalsUC::$pathTemplates . "menu.php");
 		?>
-		
+
 		<?php echo UniteProviderFunctionsUC::escCombinedHtml($htmlView); ?>
 		<?php
 
@@ -101,15 +101,10 @@ if(file_exists($filepathProviderMasterView))
 
 	<div class="unite-plugin-version-line unite-admin <?php echo esc_attr($bottomLineClass)?>">
 		<?php UniteProviderFunctionsUC::putFooterTextLine() ?>
-		<?php esc_html_e("Plugin version", "unlimited-elements-for-elementor")?> <?php echo UNLIMITED_ELEMENTS_VERSION?>
+		<?php esc_html_e("Plugin version", "unlimited-elements-for-elementor"); ?> <?php echo UNLIMITED_ELEMENTS_VERSION; ?>
 		<?php if(defined("UNLIMITED_ELEMENTS_UPRESS_VERSION")) esc_html_e("upress", "unlimited-elements-for-elementor"); ?>
-		,
-		<a id="uc_version_link" href="javascript:void(0)" class="unite-version-link">
-			<?php esc_html_e("view change log", "unlimited-elements-for-elementor")?>
-		</a>
-
+		(<a id="uc_version_link" href="#"><?php esc_html_e("view changelog", "unlimited-elements-for-elementor"); ?></a>)
 		<?php UniteProviderFunctionsUC::doAction(UniteCreatorFilters::ACTION_BOTTOM_PLUGIN_VERSION)?>
-
 	</div>
 
 <?php endif; ?>

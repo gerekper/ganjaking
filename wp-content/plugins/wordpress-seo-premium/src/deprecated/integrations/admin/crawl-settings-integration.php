@@ -90,6 +90,8 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return array<string>
 	 */
 	public static function get_conditionals() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration::get_conditionals()' );
@@ -102,6 +104,8 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration::register_hooks()' );
@@ -116,6 +120,8 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @return void
 	 */
 	public function enqueue_assets() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration::enqueue_assets()' );
@@ -135,6 +141,8 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 * @codeCoverageIgnore
 	 *
 	 * @param Yoast_Form $yform The yoast form object.
+	 *
+	 * @return void
 	 */
 	public function add_crawl_settings_tab_content( $yform ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4' );
@@ -149,6 +157,8 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 * @codeCoverageIgnore
 	 *
 	 * @param Yoast_Form $yform The yoast form object.
+	 *
+	 * @return void
 	 */
 	public function add_crawl_settings_tab_content_network( $yform ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration::add_crawl_settings_tab_content_network( $yform )' );
@@ -252,7 +262,6 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			'</a>'
 		);
 
-
 		$this->print_toggles( $this->permalink_cleanup_settings, $yform, $is_network, \__( 'Permalink cleanup settings', 'wordpress-seo-premium' ), \__( 'Remove unwanted URL parameters from your URLs.', 'wordpress-seo-premium' ), [], $permalink_warning );
 
 		if ( ! $is_network && ! empty( \get_option( 'permalink_structure' ) ) ) {
@@ -348,7 +357,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			if ( $this->should_feature_be_disabled_permalink( $setting, $is_network ) ) {
 				echo '<p class="yoast-crawl-settings-help">';
 				if ( \current_user_can( 'manage_options' ) ) {
-					echo \sprintf(
+					\printf(
 					/* translators: 1: Link start tag to the Permalinks settings page, 2: Link closing tag. */
 						\esc_html__( 'This feature is disabled when your site is not using %1$spretty permalinks%2$s.', 'wordpress-seo-premium' ),
 						'<a href="' . \esc_url( \admin_url( 'options-permalink.php' ) ) . '">',

@@ -35,6 +35,9 @@ class ThePlus_Site_Logo extends Widget_Base {
         return array('plus-header');
     }
 
+	public function get_keywords() {
+        return ['site logo', 'logo widget', 'logo', 'elementor site logo', 'logo for elementor', 'elementor logo addon'];
+    }
    
     protected function register_controls() {
 		

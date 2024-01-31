@@ -156,6 +156,26 @@ class AuthorizedEmailsController {
     }
   }
 
+  public function isSenderAddressValid(NewsletterEntity $newsletter, string $context = 'activation'): bool {
+    if (!in_array($newsletter->getType(), NewsletterEntity::CAMPAIGN_TYPES)) {
+      return true;
+    }
+
+    $isAuthorizedDomainRequired = $context === 'activation'
+      ? $this->senderDomainController->isAuthorizedDomainRequiredForNewCampaigns()
+      : $this->senderDomainController->isAuthorizedDomainRequiredForExistingCampaigns();
+
+    if (!$isAuthorizedDomainRequired) {
+      return true;
+    }
+
+    $verifiedDomains = $context === 'activation'
+      ? $this->senderDomainController->getVerifiedSenderDomainsIgnoringCache()
+      : $this->senderDomainController->getVerifiedSenderDomains();
+
+    return $this->validateEmailDomainIsVerified($verifiedDomains, $newsletter->getSenderAddress());
+  }
+
   private function validateAddressesInSettings($authorizedEmails, $verifiedDomains, $result = []) {
     $defaultSenderAddress = $this->settings->get('sender.address');
 

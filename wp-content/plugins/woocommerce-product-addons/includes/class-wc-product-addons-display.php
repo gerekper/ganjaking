@@ -91,7 +91,10 @@ class WC_Product_Addons_Display {
 
 		wp_register_script( 'accounting', WC()->plugin_url() . '/assets/js/accounting/accounting' . $suffix . '.js', array( 'jquery' ), '0.4.2' );
 
-		wp_enqueue_script( 'woocommerce-addons', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/js/frontend/addons' . $suffix . '.js', array( 'jquery', 'accounting', 'wc-add-to-cart-variation' ), WC_PRODUCT_ADDONS_VERSION, true );
+		wp_register_script( 'woocommerce-addons', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/js/frontend/addons' . $suffix . '.js', array( 'jquery', 'accounting', 'wc-add-to-cart-variation' ), WC_PRODUCT_ADDONS_VERSION, true );
+		wp_script_add_data( 'woocommerce-addons', 'strategy', 'defer' );
+
+		wp_enqueue_script( 'woocommerce-addons' );
 
 		$params = array(
 			'price_display_suffix'                     => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),

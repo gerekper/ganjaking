@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.5.4
+ * @version 4.5.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -19,19 +19,18 @@ class EVO_Event extends EVO_Data_Store{
 	private $pmv =''; // deprecated
 
 	public $tax = array();
-	private $DD;
+	private $DD, $event_tz, $timenow_etz;
 
 	public $post_title ='';
 	public $post_name = '';
 
-	public $duration;
+	public $duration, $tz;
 	public $vir_duration = false; // duration till virtual end time
 	public $start_unix_raw;
 	public $start_unix;
 
 	public $utc_offset = 0; // utc offset for the event times
 	public $utcoff = 0;
-	public $is_utcoff = false;
 
 	private $help;
 
@@ -48,34 +47,39 @@ class EVO_Event extends EVO_Data_Store{
 			$this->set_event_data($event_pmv);
 		} 		
 		
-		$this->is_utcoff = EVO()->calendar->is_utcoff;
 
 		// set event offset from utc 0
 			$tz_string = $this->get_timezone_key();
 			$this->utc_offset = $this->utcoff = $this->help->_get_tz_offset_seconds( $tz_string );
+			$this->gmt = $this->help->get_timezone_gmt( $tz_string, $this->start_unix );
+			$this->event_tz = $this->tz = new DateTimeZone( $tz_string );
+
+			//echo $this->utc_offset;
 
 		$this->localize_edata();
 		$this->ri = $ri;
 
 		// common date object
-		$this->DD = new DateTime();
-		$this->DD->setTimezone( EVO()->calendar->timezone0);
+		$this->DD = new DateTime('now');
+		//$this->DD->setTimezone( EVO()->calendar->cal_tz);
+		$this->DD->setTimezone( $this->event_tz );
+		$this->timenow_etz = $this->DD->format('U');
 
 		// set event post to class if available
-		if($post !== false){
-			$this->author = $post->post_author;
-			$this->post_date = $post->post_date;
-			$this->content = $post->post_content;
-			$this->excerpt = $post->post_excerpt;
-			$this->post_name = $post->post_name;
-			$this->post_title = $post->post_title;
-			$this->post_password = $post->post_password;
-			$this->post_type = $post->post_type;
-			$this->post_status = $post->post_status;
+			if($post !== false){
+				$this->author = $post->post_author;
+				$this->post_date = $post->post_date;
+				$this->content = $post->post_content;
+				$this->excerpt = $post->post_excerpt;
+				$this->post_name = $post->post_name;
+				$this->post_title = $post->post_title;
+				$this->post_password = $post->post_password;
+				$this->post_type = $post->post_type;
+				$this->post_status = $post->post_status;
 
-			// validate post is indeed event
-			//if( 'ajde_events' !== $this->post_type) return false;
-		}
+				// validate post is indeed event
+				//if( 'ajde_events' !== $this->post_type) return false;
+			}
 
 		$this->event_data = $this->meta_data;
 
@@ -136,39 +140,34 @@ class EVO_Event extends EVO_Data_Store{
 	
 	// time and date related
 
-		// Process event times on the load
+		// Process event times on the load @u 4.5.7
 			public function _process_eventtimes(){
 				// event unix saved at UTC0
-				$start = $this->get_prop('evcal_srow');
-				$end = $this->get_prop('evcal_erow')? $this->get_prop('evcal_erow'): $this->get_prop('evcal_srow');
+				$start = (int)$this->get_prop('evcal_srow');
+				$end = $this->get_prop('evcal_erow')? (int)$this->get_prop('evcal_erow'): $start;
 
+				// if repeating event
 				if($this->is_repeating_event() ){
-					$repeat_interval = (int)$this->ri;
+					$RI = (int)$this->ri;
 					$intervals = $this->get_prop('repeat_intervals');
 
 					if(sizeof($intervals)>0 ){
-						$start = isset($intervals[$repeat_interval][0])? $intervals[$repeat_interval][0]: $intervals[0][0];
-						$end = isset($intervals[$repeat_interval][1])? $intervals[$repeat_interval][1]:$intervals[0][1];
+						$start = isset($intervals[$RI][0])? $intervals[$RI][0]: $intervals[0][0];
+						$end = isset($intervals[$RI][1])? $intervals[$RI][1]:$intervals[0][1];
 					}				
 				}
 
-				$this->start_unix = $this->start_unix_raw = $this->_year_month_long_filter( (int)$start ,'start');
-				$this->end_unix = $this->_year_month_long_filter( (int)$end, 'end');
-				$this->duration = (int)$this->end_unix - (int)$this->start_unix;
+				$this->_process_event_start_end( $start, $end );	
 
-				// if virtual end time set
-				if($vir_end = $this->is_virtual_end() ){
-					$this->vir_duration = (int)$vir_end - (int)$start;
-				}
-				
-				// from now on start_unix is UTC adjusted based on timezone
-				// adjusted to time in UTC0 use current_time0
-				$this->start_unix =  $this->start_unix + $this->utc_offset;
-			
-				return;
+				// if virtual end time set, get virtual duration
+					if($vir_end = $this->is_virtual_end() ){
+						// virtual end time @utc0 - event start @ utc0
+						$this->vir_duration = (int)$vir_end - (int)$start;
+					}	
+
 			}
 
-		// load a repeat instance times info the object
+		// load a repeat instance times info the object @u 4.5.7
 			public function load_repeat($ri){
 				$this->ri = $ri;
 				if( !$this->is_repeating_event() ) return;
@@ -180,58 +179,116 @@ class EVO_Event extends EVO_Data_Store{
 				if( sizeof($intervals) == 0) return;
 
 				$start = isset($intervals[$repeat_interval][0])? $intervals[$repeat_interval][0]: $intervals[0][0];
-				$end = isset($intervals[$repeat_interval][1])? $intervals[$repeat_interval][1]:$intervals[0][1];
+				$end = isset($intervals[$repeat_interval][1])? $intervals[$repeat_interval][1]:$intervals[0][1];	
 
-				$this->start_unix = $this->start_unix_raw = (int)$start;
-				$this->end_unix = (int)$end;
-				$this->duration = (int)$end - (int)$start;
-				
-				if( $this->is_utcoff ){
-					// return unix offset of event time from utc 0 -- get event offset from utc 0
-					$tz_string = $this->get_timezone_key();
-					$HELP = new evo_helper();
-					$this->utc_offset = $this->utcoff = $HELP->get_timezone_offset( $tz_string , $this->start_unix );
-
-					$this->start_unix =  $this->start_unix + $this->utc_offset;
-				}
+				$this->_process_event_start_end( $start, $end );			
+								
 			}
+
+		// process start and end times according to processes and timezones +4.5.8
+			public function _process_event_start_end( $start, $end){
+
+				// adjust event time for day/ month / year long 
+				$this->start_unix_raw = $this->_process_raw_time( $start , 'start' );
+				$this->end_unix_raw = $this->_process_raw_time( $end , 'end' );
+				
+				// duration from raw
+				$this->duration = $this->end_unix_raw - $this->start_unix_raw;	
+
+				// update new raw time to event tz based time
+				$this->_process_newraw_to_etz();
+			}
+
 		// switch object times back to original event times
 			public function load_init_eventtimes(){
 				$this->ri = 0;
 				$this->_process_eventtimes();
 			}
 
+		// convert the updated raw UTC0 time to event timezone
+			private function _process_newraw_to_etz(){
 
-		// current and future
-		// @updated 4.5.4
-		function is_current_event( $cutoff='end', $current_time = ''){
-			if(empty($current_time)){
-				// current time in utc0
-				$current_time = EVO()->calendar->current_time0;
+				// if initial and adjuted unix saved in event @4.5.8
+				if( $this->ri == 0 && $this->get_prop('_unix_start_ev') && $this->get_prop('_unix_end_ev')){
+					$this->start_unix = $this->get_prop('_unix_start_ev');
+					$this->end_unix = $this->get_prop('_unix_end_ev');
+					return;
+				}
+
+				// get event time pieces @UTC0 -- as saved in event
+				$this->DD->setTimezone( EVO()->calendar->timezone0 );
+				$this->DD->setTimestamp( $this->start_unix_raw );
+
+				$R1 = $this->DD->format('Y-n-d-H-i-s');
+				$R1 = explode('-', $R1);
+
+				$this->DD->setTimestamp( $this->end_unix_raw );
+
+				$R2 = $this->DD->format('Y-n-d-H-i-s');
+				$R2 = explode('-', $R2);
+
+				// create time @ event timezone
+				$this->DD->setTimezone( $this->tz );
+				$this->DD->setDate( $R1[0] , $R1[1], $R1[2] )->setTime( $R1[3] , $R1[4], 0 );
+
+				$this->start_unix = $this->DD->format('U');
+
+				$this->DD->setDate( $R2[0] , $R2[1], $R2[2] )->setTime( $R2[3] , $R2[4], $R2[5] );
+
+				$this->end_unix = $this->DD->format('U');
 			}
 
-			$event_start_time = $this->start_unix; // start time in ouc0
-			$event_time = $cutoff == 'end' ?  $event_start_time + $this->duration : $event_start_time;
-			
-			return $event_time > $current_time? true: false;
-		}		
+		// if its year, month, day long event return correct start end unix
+		// @+ 4.5.8
+			private function _process_raw_time($unix, $type='start'){
+				
+				// adjust DD to timezone
+				$this->DD->setTimezone(  EVO()->calendar->timezone0 )->setTimestamp($unix);
+
+				if($this->is_year_long()){
+					($type == 'start')? $this->DD->modify( 'first day of january this year') : 
+						$this->DD->modify( 'last day of december this year');
+					($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
+
+					return $this->DD->format('U');
+				}else{
+
+					if($this->is_month_long()){
+						($type == 'start') ? $this->DD->modify('first day of this month'):$this->DD->modify('last day of this month');
+						($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
+						return $this->DD->format('U');
+					
+					// if all day event
+					}elseif( $this->is_all_day() ){
+						( $type == 'start') ? $this->DD->setTime(0,0,0) : $this->DD->setTime(23,59,59);
+						return $this->DD->format('U');
+					}
+					return $unix;
+				}
+			}		
+
+
+		// current and future @u 4.5.5
+			function is_current_event( $cutoff='end'){
+				
+				$event_time = $cutoff == 'end' ?  $this->end_unix : $this->start_unix;
+				
+				return $event_time > $this->timenow_etz ? true: false;
+			}		
 		
-		// if the event is live right now - @u 4.5.4
-		function is_event_live_now($CT=''){
+		// if the event is live right now - @u 4.5.8
+			function is_event_live_now(){
 
-			// time in utc0
-			if(empty($CT)) $CT = EVO()->calendar->current_time0;
+				$CT = $this->timenow_etz;
 
-			// start time in utc0
-			$event_start_time = $this->start_unix; // start_unix is in utc0
-			$end = $event_start_time + $this->duration;
+				$start = $this->start_unix; 
+				$end = $this->end_unix;
 
-			// compare time in utc0
-			$bool =  (  $CT >= $event_start_time && $CT <= $end) ? true : false;
-			//return $bool;
+				$bool =  (  $CT >= $start && $CT <= $end) ? true : false;
+				//return $bool;
 
-			return apply_filters('evodata_vir_live', $bool, $this, $event_start_time, $end, $CT);
-		}
+				return apply_filters('evodata_vir_live', $bool, $this, $start, $end, $CT);
+			}
 
 		// @~ 2.8
 		function is_past_event($cutoff = 'end'){			
@@ -240,27 +297,35 @@ class EVO_Event extends EVO_Data_Store{
 		}
 		// +3.0.6 
 		public function is_future_event( ){
-			return $this->start_unix > EVO()->calendar->utc_time ? true: false;
+			return $this->start_unix > $this->timenow_etz ? true: false;
 		}
 		// this checked if event start time is less than current time - added 3.1
 		public function is_event_started(){
-			return $this->start_unix < EVO()->calendar->utc_time ? true : false;
-		}
-
-		function is_all_day(){
-			return $this->check_yn('evcal_allday');
-		}
-		function is_hide_endtime(){
-			return $this->check_yn('evo_hide_endtime');
+			return $this->start_unix < $this->timenow_etz ? true : false;
 		}
 
 		// @+2.8 @u4.5.2
 		function is_event_in_date_range($S=0, $E=0, $start='' ,$end='' , $utc = false){
 			if(empty($start) && empty($end) ){
 				$start = $this->get_start_time( $utc );
-				$end = $start + $this->duration;
+				$end = $this->get_end_time( $utc );
 			}
+
 			return EVO()->calendar->shell->is_in_range( $S, $E, $start, $end);
+		}
+
+		// check if visible time start is within events range @4.5.5
+		function is_in_visible_range( $range_start_unix, $start = '', $end = ''){
+			if(empty($start) || empty($end) ){
+				$start = $this->start_unix;
+				$end = $this->end_unix;
+			}
+			if( $range_start_unix <1 ) return true;
+
+			if( $start >= $range_start_unix ) return true;
+
+			if( $end >= $range_start_unix ) return true;
+			return false;
 		}
 
 		// @u 4.5.4
@@ -278,12 +343,42 @@ class EVO_Event extends EVO_Data_Store{
 			return $vir_end;		
 		}
 
+		function is_hide_endtime(){
+			return $this->check_yn('evo_hide_endtime');
+		}
+
+		function is_all_day(){
+			$v = $this->get_prop('_time_ext_type');
+			if( $v && $v == 'dl') return true;
+			return $this->check_yn('evcal_allday');
+		}	
+		function is_month_long(){
+			$v = $this->get_prop('_time_ext_type');
+			if( $v && $v == 'ml') return true;
+			if($this->is_year_long()) return false; // 
+			return $this->check_yn('_evo_month_long');
+		}	
+		function is_year_long(){
+			$v = $this->get_prop('_time_ext_type');
+			if( $v && $v == 'yl') return true;
+			return $this->check_yn('evo_year_long');
+		}
+		
+		// get time extended type @4.5.6
+		function get_time_ext_type(){
+			if( $tt = $this->get_prop('_time_ext_type')) return $tt;
+			if( $this->is_year_long() ) return 'yl';
+			if( $this->is_month_long() ) return 'ml';
+			if( $this->is_all_day() ) return 'dl';
+			return 'n';
+		}
+
 	// DATE TIME
-		// primary function to get event start end unix with repeat interval adjusted @u 4.5.4
-		function get_start_end_times($custom_ri='', $return_type = 'both', $utc=false){
+		// primary function to get event start end unix with repeat interval adjusted @u 4.5.8
+		function get_start_end_times($custom_ri='', $return_type = 'both', $utc = false){
 			
 			$start = $this->start_unix_raw; // get raw time
-			$end = $start + $this->duration;
+			$end = $this->end_unix_raw;
 			
 			// if repeating event
 			if($this->is_repeating_event() ){
@@ -293,37 +388,39 @@ class EVO_Event extends EVO_Data_Store{
 				if(sizeof($intervals)>0 ){
 					$start = isset($intervals[$repeat_interval][0])? $intervals[$repeat_interval][0]: $intervals[0][0];
 					$end = isset($intervals[$repeat_interval][1])? $intervals[$repeat_interval][1]:$intervals[0][1];
-				}				
+
+					// process the raw times
+					$this->start_unix_raw = $this->_process_raw_time($start, 'start');
+					$this->end_unix_raw = $this->_process_raw_time($end, 'end');
+				}			
 			}
 
-			// if return time in utc0
-			if( $utc){
-				$start = $start + $this->utc_offset;
-				$end = $end + $this->utc_offset;
-			}
+			// set event time in event tz
+			if( !$utc) $this->_process_newraw_to_etz();
 
 			if($return_type == 'both'){
-				return array(
-					'start'=> $this->_year_month_long_filter($start, 'start'),
-					'end'=> $this->_year_month_long_filter($end, 'end')
-				);
+				if( $utc ){
+					return array('start'=>$this->start_unix_raw, 'end'=> $this->end_unix_raw);
+				}else{
+					
+					return array('start'=>$this->start_unix, 'end'=> $this->end_unix);
+				}
 			}
 
-			if( $return_type == 'start') return $this->_year_month_long_filter($start, 'start');
-			if( $return_type == 'end') return $this->_year_month_long_filter($end, 'end');			
+			if( $return_type == 'start') return $utc ? $this->start_unix_raw : $this->start_unix;
+			if( $return_type == 'end') return $utc ? $this->end_unix_raw : $this->end_unix;		
 		}
 
-		// @+ 2.6.10 @updated 4.5.2
+		// @+ 2.6.10 @updated 4.5.8
 		function get_start_time($utc = false){
-			return $start = ($utc ) ? $this->start_unix: $this->start_unix_raw;
+			return ($utc ) ? $this->start_unix: $this->start_unix_raw;
 		}
 		function get_end_time($utc = false){
-			$start = $this->get_start_time( $utc);
-			return $start + $this->duration;
+			return ($utc ) ? $this->end_unix: $this->end_unix_raw;
 		}
-		// @since 4.5.3
+		// @since 4.5.8
 		function get_start_raw(){ return $this->start_unix_raw; }
-		function get_end_raw(){ return $this->start_unix_raw + $this->duration; }
+		function get_end_raw(){ return $this->end_unix_raw; }
 
 
 		// updated 3.1.2
@@ -332,41 +429,17 @@ class EVO_Event extends EVO_Data_Store{
 			return 	$this->get_start_end_times( $custom_ri, $type , $utc );			
 		}
 
-
-		// if its year long or month long event return correct start end unix
-		// @+ 2.8
-		function _year_month_long_filter($unix, $type='start'){
-			if(empty($unix)) return $unix;
-
-			if($this->is_year_long()){
-
-				$this->DD->setTimestamp($unix);
-				($type == 'start')? $this->DD->modify( 'first day of january this year') : 
-					$this->DD->modify( 'last day of december this year');
-				($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
-
-				return $this->DD->format('U');
-			}else{
-				if($this->is_month_long()){
-					$this->DD->setTimestamp($unix);
-					($type == 'start') ? $this->DD->modify('first day of this month'):$this->DD->modify('last day of this month');
-					($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
-					return $this->DD->format('U');
-				}else{
-					return $unix;
-				}
-			}
-		}		
-
-		function get_formatted_smart_time($custom_ri=''){
+		
+		// u4.5.7
+		function get_formatted_smart_time($custom_ri='', $tz = 'utc', $utc = false ){
 			$wp_time_format = get_option('time_format');
 			$wp_date_format = get_option('date_format');
 
-			$times = $this->get_start_end_times($custom_ri);
+			$times = $this->get_start_end_times($custom_ri, 'both', $utc );
 
-			$start_ar = eventon_get_formatted_time($times['start']);
-			$end_ar = eventon_get_formatted_time($times['end']);
-			$_is_allday = $this->check_yn('evcal_allday');
+			$start_ar = eventon_get_formatted_time( $times['start'] , $tz);
+			$end_ar = eventon_get_formatted_time( $times['end'] , $tz);
+			$_is_allday = $this->is_all_day();
 			$hideend = $this->check_yn('evo_hide_endtime');
 
 			if(!is_array($start_ar) || !is_array($end_ar)) return false;
@@ -420,40 +493,41 @@ class EVO_Event extends EVO_Data_Store{
 
 		// return start and end time in array after adjusting time to UTC offset 
 		// based on site timezone passed via event edit
-		// @u 4.5.4
+		// @u 4.5.4 + 4.5.8
 		function get_utc_adjusted_times(){			
 			
 			return $new_times = array(
 				'start'=> $this->start_unix, // start time in utc0
 				'start_dst'=> false,
-				'end'=> $this->start_unix + $this->duration,
+				'end'=> $this->end_unix,
 				'end_dst'=> false,
 			);			
 		}
 
 		// return none adjusted event times
-		// added @4.0.6
+		// added @4.0.6 + 4.5.8
 		function get_non_adjusted_times(){			
-			$start = $this->start_unix_raw;
-
+			
 			return $new_times = array(
-				'start'=> $start, 
+				'start'=> $this->start_unix_raw, 
 				'start_dst'=> false,
-				'end'=> $start + $this->duration,
+				'end'=> $this->end_unix_raw,
 				'end_dst'=> false,
 			);			
 		}
 
 		// return readable evo translated date time for unix
-		// added 3.0.3 / updated 4.0.7
-		function get_readable_formatted_date($unix, $format='', $check_all_day = false){			
+		// added 3.0.3 / updated 4.5.7
+		function get_readable_formatted_date($unix, $format='', $check_all_day = false , $tz = ''){			
 
+			$tz = !empty($tz)?: 'utc';
 			$datetime = new evo_datetime();
+
 			if($this->is_all_day() && $check_all_day){
 
 				return $datetime->__get_lang_formatted_timestr(
 					EVO()->calendar->date_format, 
-					eventon_get_formatted_time( $unix )
+					eventon_get_formatted_time( $unix , $tz )
 				). 
 				' ('.evo_lang_get('evcal_lang_allday','All Day').')';
 				
@@ -463,7 +537,7 @@ class EVO_Event extends EVO_Data_Store{
 
 				return $datetime->__get_lang_formatted_timestr(
 					$format, 
-					eventon_get_formatted_time( $unix )
+					eventon_get_formatted_time( $unix , $tz )
 				);
 			}
 		}
@@ -511,7 +585,7 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 	// repeating events
-		function is_repeating_event(){
+		function is_repeating_event($return = false){
 
 			if(!$this->check_yn('evcal_repeat')) return false;
 			if(empty($this->meta_data['repeat_intervals'])) return false;
@@ -521,7 +595,7 @@ class EVO_Event extends EVO_Data_Store{
 			if(!is_array($repeats)) return false;
 			if(count($repeats)==1) return false;
 
-			return true;
+			return $return ? $repeats : true; // @4.5.5
 		}
 		function get_repeats(){
 			if(empty($this->meta_data['repeat_intervals'])) return false;
@@ -547,7 +621,7 @@ class EVO_Event extends EVO_Data_Store{
 			$repeats = $this->get_repeats();
 			if(!$repeats) return false;
 
-			$current_time = EVO()->calendar->current_time0;
+			$current_time = $this->timenow_etz;
 			
 			$return = false;
 
@@ -573,9 +647,6 @@ class EVO_Event extends EVO_Data_Store{
 			return false;
 		}
 
-		
-
-
 		function get_repeat_interval($key){
 			$repeats = $this->get_repeats();
 			if(!$repeats) return false;
@@ -598,7 +669,7 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 		// return the repeat header html
-		// added @version 4.1.2
+		// +4.1.2 u4.5.7
 		function get_repeat_header_html(){
 			if( !$this->is_repeating_event() ) return false;			
 
@@ -606,13 +677,14 @@ class EVO_Event extends EVO_Data_Store{
 
 			// if there is only one time range in the repeats that means there are no repeats
 			if($repeat_count == 0) return false;
+
+			global $EVOLANG;
 			
 			$date = new evo_datetime();
 
-			$ev_vals = $this->get_data();
 			$ri = $this->ri;
-
-			global $EVOLANG;
+			$tz = EVO()->calendar->timezone0;
+		
 
 			ob_start();
 
@@ -641,11 +713,11 @@ class EVO_Event extends EVO_Data_Store{
 					if($this->is_year_long()){
 						$text = date('Y', $prev_unix);
 					}elseif( $this->is_month_long() ){
-						$text = $date->get_readable_formatted_date( $prev_unix, 'F, Y');
+						$text = $date->get_readable_formatted_date( $prev_unix, 'F, Y', $tz );
 					}elseif($this->is_all_day()){
-						$text = $date->get_readable_formatted_date( $prev_unix, EVO()->calendar->date_format);						
+						$text = $date->get_readable_formatted_date( $prev_unix, EVO()->calendar->date_format, $tz );						
 					}else{
-						$text = $date->get_readable_formatted_date( $prev_unix );
+						$text = $date->get_readable_formatted_date( $prev_unix , '', $tz );
 					}
 
 
@@ -669,19 +741,20 @@ class EVO_Event extends EVO_Data_Store{
 					$text = '';
 
 					if($this->is_year_long()){
-						$text = date('Y', $next_unix);
+						EVO()->calendar->DD->setTimestamp( $next_unix );
+						$text = EVO()->calendar->DD->format( 'Y' );
 					}elseif( $this->is_month_long() ){
-						$text = $date->get_readable_formatted_date( $next_unix, 'F, Y');
+						$text = $date->get_readable_formatted_date( $next_unix, 'F, Y', $tz );
 					}elseif($this->is_all_day()){
-						$text = $date->get_readable_formatted_date( $next_unix, EVO()->calendar->date_format);
+						$text = $date->get_readable_formatted_date( $next_unix, EVO()->calendar->date_format, $tz );
 					}else{
-						$text = $date->get_readable_formatted_date( $next_unix );
+						$text = $date->get_readable_formatted_date( $next_unix , '', $tz );
 					}
 
 					//print_r($next); 
 					$next_link = $this->get_permalink( ($ri+1), EVO()->lang );
 
-					echo "<a href='{$next_link}' class='next' title='{$text}'><em>{$text}</em><b class='fa fa-angle-right'></b></a>";
+					echo "<a href='{$next_link}' class='next' title='{$text}' data-su='{$next_unix}'><em>{$text}</em><b class='fa fa-angle-right'></b></a>";
 
 				}				
 				
@@ -697,56 +770,9 @@ class EVO_Event extends EVO_Data_Store{
 			return $this->post_password;
 		}
 
-	// Taxonomy @+2.8.1 @~2.8.5
-		function get_tax_ids(){
-			global $wpdb;
+	
 
-			if(count($this->tax)>0) return $this->tax;
-
-			$OUT = array();
-
-			$R = $wpdb->get_results( $wpdb->prepare(
-				"SELECT term_taxonomy_id FROM {$wpdb->prefix}term_relationships WHERE object_id=%d", $this->ID
-			));
-
-			if($R && count($R)>0){
-				foreach($R as $B){
-					
-					$Q1 = $wpdb->prepare(
-						"SELECT t.term_id, t.taxonomy, t.description, tt.name
-						FROM {$wpdb->prefix}term_taxonomy AS t
-						INNER JOIN {$wpdb->prefix}terms AS tt ON (tt.term_id = t.term_id )
-						WHERE t.term_taxonomy_id=%d", $B->term_taxonomy_id
-					);
-					$R1 = $wpdb->get_results( $Q1);
-
-					if( count($R1) == 0) continue;
-
-					foreach($R1 as $C){
-						$O = $wpdb->prepare("SELECT op.option_value FROM {$wpdb->prefix}options AS op WHERE op.option_name ='evo_et_taxonomy_%d'", $C->term_id);
-						$O1 = $wpdb->get_results( $O);
-
-						if($O1 && count($O1)>0) $OUT[$C->taxonomy][$B->term_taxonomy_id] = unserialize( $O1[0]->option_value );
-
-						$OUT[$C->taxonomy][$B->term_taxonomy_id]['description'] = $C->description;
-						$OUT[$C->taxonomy][$B->term_taxonomy_id]['name'] = $C->name;
-					}					
-				}
-			}
-
-			//print_r($OUT);
-			$this->tax = $OUT;
-			return $OUT;
-		}
-
-	// GENERAL GET
-		function is_year_long(){
-			return $this->check_yn('evo_year_long');
-		}
-		function is_month_long(){
-			if($this->is_year_long()) return false; // 
-			return $this->check_yn('_evo_month_long');
-		}
+	// GENERAL GET		
 		
 		function is_featured(){	 return apply_filters('evodata_featured', $this->check_yn('_featured') , $this);		}
 		function is_completed(){ return apply_filters('evodata_completed', $this->check_yn('_completed') , $this);		}
@@ -861,12 +887,12 @@ class EVO_Event extends EVO_Data_Store{
 			return $event_link;
 		}
 
-		// @4.5
+		// @4.5.8
 		function virtual_can_show_other_info(){
 			$when_to_show = $this->get_prop('_vir_show');
 			if( $when_to_show == 'always') return true;
 
-			if( ($this->start_unix - $when_to_show ) < EVO()->calendar->current_time0 ) return true;
+			if( ($this->start_unix - $when_to_show ) < $this->timenow_etz ) return true;
 
 			return false;
 		}
@@ -880,16 +906,16 @@ class EVO_Event extends EVO_Data_Store{
 			return $url;
 		}
 
-		// @+ 2.9.2
+		// @+ 4.5.8
 		public function is_vir_after_content(){
 			if(!$this->is_virtual()) return false;
 			if( !$this->get_prop('_vir_after_content')) return false;
 
 			$when = (int)$this->get_prop('_vir_after_content_when');
 
-			$event_end_time = $this->start_unix + $this->duration;
+			$event_end_time = $this->end_unix;
 
-			if( ( $event_end_time + $when ) > EVO()->calendar->current_time0 ) return false;
+			if( ( $event_end_time + $when ) > $this->timenow_etz ) return false;
 
 			return $this->get_prop('_vir_after_content');
 		}
@@ -902,11 +928,10 @@ class EVO_Event extends EVO_Data_Store{
 			return $this->set_prop('_mod_joined', $joined);
 		}
 
-		// if event is starting in 30 minutes @u 4.5.4
+		// if event is starting in 30 minutes @u 4.5.8
 			public function is_event_starting_soon($time = 30){
 
-				// get times in utc0
-				$current_time = EVO()->calendar->current_time0;
+				$current_time = $this->timenow_etz;
 				$event_start_time = $this->start_unix;
 
 				return $current_time < $event_start_time && $current_time >= ($event_start_time - ($time*60)) ? true : false;
@@ -1147,14 +1172,31 @@ class EVO_Event extends EVO_Data_Store{
 				return false;
 			}
 		}
+		//@4.5.8
+		public function get_location_term(){
+			$location_term = wp_get_post_terms($this->ID, 'event_location', array('fields'=>'ids'));			
+			if ( $location_term && ! is_wp_error( $location_term ) && is_array($location_term) ){				
+				return $location_term;
+			}else{
+				return false;
+			}
+		}
 
 	// Organizer
 		function get_organizer_term_id($type='id'){ // @+2.8
 			$O_terms = wp_get_post_terms($this->ID, 'event_organizer');
 			if ( $O_terms && ! is_wp_error( $O_terms ) ){
+
+				if( $type == 'ids'){ // @4.5.5
+					$ids = array();
+					foreach($O_terms as $term){
+						$ids[] = $term->term_id;
+					}
+					return $ids;
+				}else{
+					return ($type == 'id')? (int)$O_terms[0]->term_id: $O_terms[0];
+				}
 				
-				
-				return ($type == 'id')? (int)$O_terms[0]->term_id: $O_terms[0];
 			}
 			return false;
 		}
@@ -1203,6 +1245,69 @@ class EVO_Event extends EVO_Data_Store{
 		function get_organizer_social_meta_array(){
 			return eventon_get_organizer_social_meta_array();
 		}
+
+	// all taxonomies
+		function get_all_taxonomies(){
+			global $wpdb;
+
+			$tax = $wpdb->get_results( $wpdb->prepare(
+				"SELECT tt.taxonomy, tt.term_id  FROM {$wpdb->term_taxonomy}  tt INNER JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id WHERE tr.object_id = %d", $this->ID
+			), ARRAY_A);
+
+			$return = array();
+			if( $tax && count($tax) > 0){
+				foreach($tax as $t){
+					$return[ $t['taxonomy'] ][] = $t['term_id'];
+				}
+			}
+
+			return count($return) > 0 ? $return : false;
+
+			print_r($return);
+		}
+
+	// Taxonomy @+2.8.1 @~2.8.5
+		function get_tax_ids(){
+			global $wpdb;
+
+			if(count($this->tax)>0) return $this->tax;
+
+			$OUT = array();
+
+			$R = $wpdb->get_results( $wpdb->prepare(
+				"SELECT term_taxonomy_id FROM {$wpdb->prefix}term_relationships WHERE object_id=%d", $this->ID
+			));
+
+			if($R && count($R)>0){
+				foreach($R as $B){
+					
+					$Q1 = $wpdb->prepare(
+						"SELECT t.term_id, t.taxonomy, t.description, tt.name
+						FROM {$wpdb->prefix}term_taxonomy AS t
+						INNER JOIN {$wpdb->prefix}terms AS tt ON (tt.term_id = t.term_id )
+						WHERE t.term_taxonomy_id=%d", $B->term_taxonomy_id
+					);
+					$R1 = $wpdb->get_results( $Q1);
+
+					if( count($R1) == 0) continue;
+
+					foreach($R1 as $C){
+						$O = $wpdb->prepare("SELECT op.option_value FROM {$wpdb->prefix}options AS op WHERE op.option_name ='evo_et_taxonomy_%d'", $C->term_id);
+						$O1 = $wpdb->get_results( $O);
+
+						if($O1 && count($O1)>0) $OUT[$C->taxonomy][$B->term_taxonomy_id] = unserialize( $O1[0]->option_value );
+
+						$OUT[$C->taxonomy][$B->term_taxonomy_id]['description'] = $C->description;
+						$OUT[$C->taxonomy][$B->term_taxonomy_id]['name'] = $C->name;
+					}					
+				}
+			}
+
+			//print_r($OUT);
+			$this->tax = $OUT;
+			return $OUT;
+		}
+
 	// event taxonomy data / @4.2
 		function get_taxonomy_data($tax, $load_meta_data = true, $term_id = false){
 			
@@ -1430,8 +1535,11 @@ class EVO_Event extends EVO_Data_Store{
 			return $VV;
 		}
 
+
+
 	// ICS file for the event
-	// @updated 4.4.4
+	// @updated 4.5.5
+		public $raw_content;
 		function get_ics_content($include_repeats = false){
 			$HELP = new evo_helper();
 

@@ -68,9 +68,15 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2024-01-29 - version 4.1.9.7
+* Retrieve tracking details during order sync.
+
+### 2024-01-22 - version 4.1.9.6
+* Better handling of digital products. Digital products will count to total fulfiled products to set the order status to sent-to-fba
+* Authorize url is now marketplace specific.
+
 ### 2023-12-14 - version 4.1.9.5
 * Improved option settings usage
-
 
 ### 2023-12-05 - version 4.1.9.4
 * Fix issues with Kint debugger.
