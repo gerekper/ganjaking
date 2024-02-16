@@ -10,6 +10,12 @@ if (!\defined('ABSPATH')) {
 }
 class DynamicTemplate extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+    }
     /**
      * Register controls after check if this feature is only for admin
      *
@@ -31,16 +37,11 @@ class DynamicTemplate extends \DynamicContentForElementor\Widgets\WidgetPrototyp
         }
         $template_id = $settings['dynamic_template'];
         $template_id = apply_filters('wpml_object_id', $template_id, 'elementor_library', \true);
-        $inlinecss = '';
-        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            $inlinecss = ' inlinecss="true"';
+        $atts = ['id' => $template_id, 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+        if (empty($settings['data_source']) && $settings['other_post_source']) {
+            $atts['post_id'] = $settings['other_post_source'];
         }
-        $post_id = '';
-        if (empty($settings['data_source'])) {
-            if ($settings['other_post_source']) {
-                $post_id .= ' post_id="' . $settings['other_post_source'] . '"';
-            }
-        }
-        echo do_shortcode('[dce-elementor-template id="' . $template_id . '"' . $post_id . $inlinecss . ']');
+        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+        echo $template_system->build_elementor_template_special($atts);
     }
 }

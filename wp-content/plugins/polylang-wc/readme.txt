@@ -4,7 +4,7 @@ Tags: multilingual, woocommerce
 Requires at least: 5.9
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.9.2
+Stable tag: 1.9.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,10 +18,23 @@ This extension can be used either with the free version of Polylang or in combin
 
 == Changelog ==
 
+= 1.9.4 (2024-01-30) =
+
+* Reduce the number of DB queries for the shop page.
+* Revert canonical redirect of the shop page to avoid an infinite redirect loop.
+* Fix a fatal error when duplicating a page with the featured product block.
+
+= 1.9.3 (2024-01-09) =
+
+* Declare HPOS compatibility even when Polylang is deactivated.
+* Fix canonical redirect of the shop page when the language code is not correct.
+* Fix fatal error when Cross-sells are corrupted in database.
+* Fix a fatal error in combination with the plugin ATUM Inventory Management for WooCommerce.
+
 = 1.9.2 (2023-12-12) =
 
 * Fix broken shop rewrite rules when saving WooCommerce settings.
-* Fix wrong terms shown after product attributes have been updated with the button "Save attributes".  
+* Fix wrong terms shown after product attributes have been updated with the button "Save attributes".
 * Fix countries list translation when the language is set from the content.
 * Fix a fatal error in cart with Composite products.
 * Fix variable products not copied when translating a product bundle.

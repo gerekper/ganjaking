@@ -81,7 +81,7 @@ class PasswordVisibility extends \DynamicContentForElementor\Extensions\Extensio
                 ?>")) {
 							if ($scope.data('dce-psw-set') === 'yes') return;
 							$scope.data('dce-psw-set', 'yes');
-				<?php 
+					<?php 
             }
             $has_psw = \false;
             foreach ($settings['form_fields'] as $key => $afield) {
@@ -94,7 +94,7 @@ class PasswordVisibility extends \DynamicContentForElementor\Extensions\Extensio
                         ?> #form-field-<?php 
                         echo $afield['custom_id'];
                         ?>').addClass('dce-form-password-toggle');
-						<?php 
+							<?php 
                     }
                 }
             }
@@ -118,7 +118,7 @@ class PasswordVisibility extends \DynamicContentForElementor\Extensions\Extensio
 						jQuery(this).toggleClass('fa-eye').toggleClass('fa-eye-slash');
 					});
 				});
-				<?php 
+					<?php 
             }
             if (!\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 ?>
@@ -129,7 +129,7 @@ class PasswordVisibility extends \DynamicContentForElementor\Extensions\Extensio
                 echo $jkey;
                 ?>);
 						});
-			<?php 
+				<?php 
             }
             ?>
 				})(jQuery, window);

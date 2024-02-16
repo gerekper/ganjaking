@@ -5,6 +5,7 @@
  * @since 3.2.3
  * @package WP_Smush
  */
+use Smush\App\Admin;
 
 $upgrade_url = add_query_arg(
 	array(
@@ -24,7 +25,15 @@ $can_use_background = $bg_optimization->can_use_background();
 		<div class="sui-upgrade-page__container">
 			<div class="sui-upgrade-page-header__content">
 				<h1><?php esc_html_e( 'Upgrade to Smush Pro', 'wp-smushit' ); ?></h1>
-				<p><?php esc_html_e( "Get Smush Pro and bulk optimize every image you've ever added to your site with one click. Smush images in the background and serve them in stunning high quality from 114 locations around the globe with our blazing-fast CDN.", 'wp-smushit' ); ?></p>
+				<p>
+				<?php
+				printf(
+					/* translators: %d: Number of CDN PoP locations */
+					esc_html__( "Get Smush Pro and bulk optimize every image you've ever added to your site with one click. Smush images in the background and serve them in stunning high quality from %d locations around the globe with our blazing-fast CDN.", 'wp-smushit' ),
+					Admin::CDN_POP_LOCATIONS
+				);
+				?>
+				</p>
 				<p>
 				<?php
 				printf(
@@ -133,7 +142,15 @@ $can_use_background = $bg_optimization->can_use_background();
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-web-globe-world" aria-hidden="true"></i>
 				<h3><?php esc_html_e( 'Streamline your images with Smush CDN', 'wp-smushit' ); ?></h3>
-				<p><?php esc_html_e( 'Use the blazing-fast Smush image CDN to automatically resize your files to the perfect size and serve WebP files (25% smaller than PNG and JPG) from 114 locations around the globe.', 'wp-smushit' ); ?></p>
+				<p>
+				<?php
+				printf(
+					/* translators: %d: Number of CDN PoP locations */
+					esc_html__( 'Use the blazing-fast Smush image CDN to automatically resize your files to the perfect size and serve WebP files (25%% smaller than PNG and JPG) from %d locations around the globe.', 'wp-smushit' ),
+					Admin::CDN_POP_LOCATIONS
+				);
+				?>
+					</p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-photo-picture" aria-hidden="true"></i>
@@ -148,7 +165,15 @@ $can_use_background = $bg_optimization->can_use_background();
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-hummingbird" aria-hidden="true"></i>
 				<h3><?php esc_html_e( 'Get faster sites with Hummingbird Pro', 'wp-smushit' ); ?></h3>
-				<p><?php esc_html_e( 'Optimize the performance of your site and ace that Google PageSpeed score with a full caching suite, automatic asset optimization, and our blazing-fast 114-point CDN.', 'wp-smushit' ); ?></p>
+				<p>
+				<?php
+				printf(
+					/* translators: %d: Number of CDN PoP locations */
+					esc_html__( 'Optimize the performance of your site and ace that Google PageSpeed score with a full caching suite, automatic asset optimization, and our blazing-fast %d-point CDN.', 'wp-smushit' ),
+					Admin::CDN_POP_LOCATIONS
+				);
+				?>
+					</p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-graph-bar" aria-hidden="true"></i>

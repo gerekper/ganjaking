@@ -20,6 +20,12 @@ if (!\defined('ABSPATH')) {
 }
 class AcfRepeaterOldVersion extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+    }
     public function get_script_depends()
     {
         return ['imagesloaded', 'swiper', 'jquery-masonry', 'dce-wow', 'dce-acf-repeater-old', 'dce-datatables'];
@@ -269,13 +275,9 @@ class AcfRepeaterOldVersion extends \DynamicContentForElementor\Widgets\WidgetPr
                         the_row();
                         $row_id++;
                         if ($settings['dce_acf_repeater_mode'] == 'template') {
-                            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                                $inlinecss = 'inlinecss="true"';
-                            } else {
-                                $inlinecss = '';
-                            }
-                            $idtemplate = $settings['dce_acf_repeater_template'];
-                            $values[$row_id]['template'] = do_shortcode('[dce-elementor-template id="' . $idtemplate . '" ' . $inlinecss . ']');
+                            $atts = ['id' => $settings['dce_acf_repeater_template'], 'inlinecss' => \true];
+                            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                            $values[$row_id]['template'] = $template_system->build_elementor_template_special($atts);
                         }
                         foreach ($sub_fields as $key => $acfitem) {
                             $value = get_sub_field($key);
@@ -554,7 +556,7 @@ class AcfRepeaterOldVersion extends \DynamicContentForElementor\Widgets\WidgetPr
             }
         } else {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                Helper::notice('', __('Select an ACF Repeater field', 'dynamic-content-for-elementor'));
+                Helper::notice(\false, __('Select an ACF Repeater field', 'dynamic-content-for-elementor'));
             }
         }
     }

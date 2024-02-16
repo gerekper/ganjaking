@@ -12,6 +12,7 @@ class WoocommerceProductFeedsSetupTasks {
 
 	public function initialise() {
 		$this->base_dir = dirname( __DIR__, 2 );
+
 		add_action( 'init', [ $this, 'register_tasks' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
@@ -57,9 +58,7 @@ class WoocommerceProductFeedsSetupTasks {
 			true
 		);
 		$l10n_data = array(
-			'configure_settings_is_complete' => get_option( 'woocommerce_gpf_configure_settings_is_complete', false ),
-			'feed_setup_is_complete'         => get_option( 'woocommerce_gpf_feed_setup_is_complete', false ),
-			'settings_link'                  => admin_url( 'admin.php?page=wc-settings&tab=gpf' ),
+			'settings_link' => admin_url( 'admin.php?page=wc-settings&tab=gpf' ),
 		);
 		wp_localize_script(
 			'woocommerce-gpf-setup-tasks',

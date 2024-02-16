@@ -187,17 +187,19 @@ final class Manager {
 		add_action( 'pa_adv_carousel_options', array( $this, 'add_adv_carousel_controls' ) );
 		add_action( 'pa_adv_carousel_navigation', array( $this, 'add_adv_carousel_effects_navigation' ) );
 
-        // Extend Testimonials controls.
-        add_action( 'pa_testimonials_skins_options', array( $this, 'add_testimonials_skins_controls' ) );
+		// Extend Testimonials controls.
+		add_action( 'pa_testimonials_skins_options', array( $this, 'add_testimonials_skins_controls' ) );
 
-        // Extend Animated Shape Divider controls.
-        add_action( 'pa_divider_custom_svg', array( $this, 'add_shape_divider_svg' ) );
-        add_action( 'pa_divider_fill_controls', array( $this, 'add_shape_divider_fill' ) );
+		// Extend Animated Shape Divider controls.
+		add_action( 'pa_divider_custom_svg', array( $this, 'add_shape_divider_svg' ) );
+		add_action( 'pa_divider_fill_controls', array( $this, 'add_shape_divider_fill' ) );
 
-        // Extend Textual Showcase controls.
-        add_action( 'pa_showcase_svg', array( $this, 'add_showcase_svg' ) );
-        add_action( 'pa_showcase_svg_hover', array( $this, 'add_showcase_svg_hover' ) );
-        add_filter(  'pa_showcase_highlights' , array( $this, 'add_showcase_highlights' ) );
+		// Extend Textual Showcase controls.
+		add_action( 'pa_showcase_svg', array( $this, 'add_showcase_svg' ) );
+		add_action( 'pa_showcase_svg_hover', array( $this, 'add_showcase_svg_hover' ) );
+		add_filter( 'pa_showcase_highlights', array( $this, 'add_showcase_highlights' ) );
+
+        add_action( 'pa_button_hover_controls', array( $this, 'add_button_hover_controls' ), 10, 2 );
 	}
 
 	/**
@@ -6042,7 +6044,7 @@ final class Manager {
 
 	}
 
-    /**
+	/**
 	 * Add Testimonials Skins Controls
 	 *
 	 * @since 2.9.8
@@ -6112,7 +6114,7 @@ final class Manager {
 
 	}
 
-    /**
+	/**
 	 * Add Shape Divider SVG
 	 *
 	 * @since 2.9.8
@@ -6139,7 +6141,7 @@ final class Manager {
 
 	}
 
-    /**
+	/**
 	 * Add Shape Divider Fill
 	 *
 	 * @since 2.9.8
@@ -6149,7 +6151,7 @@ final class Manager {
 	 */
 	public function add_shape_divider_fill( $element ) {
 
-        // Image
+		// Image
 		$element->add_control(
 			'premium_gdivider_image',
 			array(
@@ -6307,9 +6309,9 @@ final class Manager {
 			)
 		);
 
-    }
+	}
 
-    /**
+	/**
 	 * Add Showcase SVG
 	 *
 	 * @since 2.9.10
@@ -6317,9 +6319,9 @@ final class Manager {
 	 *
 	 * @param object $repeater repeater control.
 	 */
-    public function add_showcase_svg( $repeater ) {
+	public function add_showcase_svg( $repeater ) {
 
-        $repeater->add_control(
+		$repeater->add_control(
 			'custom_svg',
 			array(
 				'label'       => __( 'SVG Code', 'premium-addons-for-elementor' ),
@@ -6331,9 +6333,9 @@ final class Manager {
 			)
 		);
 
-    }
+	}
 
-    /**
+	/**
 	 * Add Showcase SVG Hover
 	 *
 	 * @since 2.9.10
@@ -6341,9 +6343,9 @@ final class Manager {
 	 *
 	 * @param object $repeater repeater control.
 	 */
-    public function add_showcase_svg_hover( $repeater ) {
+	public function add_showcase_svg_hover( $repeater ) {
 
-        $repeater->add_control(
+		$repeater->add_control(
 			'custom_svg_hov',
 			array(
 				'label'       => __( 'SVG Code', 'premium-addons-for-elementor' ),
@@ -6355,9 +6357,9 @@ final class Manager {
 			)
 		);
 
-    }
+	}
 
-    /**
+	/**
 	 * Add Showcase Highlights
 	 *
 	 * @since 2.9.10
@@ -6365,9 +6367,9 @@ final class Manager {
 	 *
 	 * @param object $repeater repeater control.
 	 */
-    public function add_showcase_highlights(  ) {
+	public function add_showcase_highlights() {
 
-        return array(
+		return array(
 			'outline'          => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="789.5px" height="238.9px" fill="none" viewBox="0 0 789.5 238.9" style="enable-background:new 0 0 789.5 238.9;" xml:space="preserve" preserveAspectRatio="none"><path d="M1.6,160.2c0,0,17.2-27.5,26.4-45.8s26.9-58.2,26.9-58.2s7.7-7.3,8.8-12.9S63.3,31.8,69,25.9  C74.7,20,86,8.1,93.9,5.7s11-3.1,18.5-2.8s23.3-1.6,37.1-1.9c13.8-0.3,70.6,8.7,78.4,8.6c7.8-0.1,23.6,3.7,29.6,3.9  c6,0.2,32.5,1.9,42.8,2.4c10.3,0.5,19.7,3.2,32.5,6.8s20.6,4,34.2,5.9c13.6,1.9,17.2,2.9,22.7,5.4s18.4,10,33.9,10.6  c15.5,0.6,53.8,2.8,74.2,4.7c20.4,1.9,31.8,4.5,40.8,4.2c8.9-0.3,32.3-5.1,42.5-5c10.2,0.1,44.6,3.5,53.5,2.8  c8.9-0.7,54.3-9.3,63.1-10.2s18.7-2.5,20.8-3.5c2.1-1,8.6-9.7,10.2-8.8s2.9,4.7,4.2,9.8s4.7,9.4,5,16.6s2.4,39.1,2.4,39.1  s1.1,23.2,3,31.7c1.9,8.5,7.2,23.5,7.4,26.6c0.2,3.1,0,7,0,7s2.2-0.2,1.9,1.2c-0.3,1.4-2.8,9.7-2.8,9.7s-5.7-4.3-13.1-2.5  c-7.4,1.8-9,4.4-12.3,8.8c-3.3,4.4-4.1,9.2-29.3,9.3c-25.2,0.1-36.5-0.6-65.6,2.1c-29.1,2.6-37.1,2.2-53.4,8.1  c-16.3,5.9-27.5,12.6-50.6,10.3c-23.2-2.3-18.9-4.3-37-2.8c-18.1,1.5-57.7,5.9-78.8,7s-54.6,3.3-67.8,1.1s-46-3.6-59.5-3.4  s-45.2-6.4-66.6-10s-31.3-4.1-36.2-5.1c-4.9-0.9-22.1-8.6-38.6-13.5c-16.5-4.9-48.7-5.3-56.6-6.7s-13.2-5.5-18.2-5.8  c-5-0.3-21.5,0.4-34.6-1.5C18.4,163.9,1.6,160.2,1.6,160.2z"></path><path d="M37.1,65l2.6-9.1c0,0,10.8,5.3,16.5,2.8s9.8-12.6,18.2-14.5c8.5-1.9,18.5-0.4,50-2c31.6-1.6,47.8,1.5,68.1-4.3  S230.2,24,245,23.1c14.9-0.9,42.8,5.9,58.5,4.7c15.7-1.2,29-5.2,61.4-5.5s63.2-4.2,76.6-0.5s58.4,3.2,73.4,4.7  c15,1.5,46.8,7.1,59.8,12.1c13,5,29.7,3.1,40.4,6.7C625.8,49,647,62.7,672.3,65c25.3,2.3,30.4,2.1,40,4.9s21.5,0,37,2.7  s31,5,36.4,6.5s1.3,3.7,1.3,3.7s-35,60.2-40.9,77.9c-5.9,17.7-18.5,23.9-19.5,31.1c-0.9,7.2-0.5,11.1-4.9,16.4  c-4.5,5.3-16.6,24.1-35.4,26.6c-18.8,2.5-52.2,3.9-63.2,2.5c-11-1.4-45.2-7.7-59.7-8.8c-14.5-1-29.4-6.1-55.4-6.4  s-64.9-16.6-83-17.5c-18.1-0.9-29.9-6.6-40.5-12.6c-10.5-6-29.6-3.2-45.1-4.5c-15.5-1.2-57.3-4.7-77.1-8.1s-36.6,0-51,0  c-14.4,0-27.7-4.4-51.4-3.2c-23.7,1.2-50.5,9.3-65.9,11c-15.4,1.7-27.8-0.2-31.5,5.6c-3.8,5.8-4.8,9.7-7.3-0.2  c-2.6-9.9-8.9-40.8-7.5-57.4s0.7-25.5-3.3-39.9S37.1,65,37.1,65z"></path></svg>',
 			'circle'           => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7 c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"></path></svg>',
 			'curly'            => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,146.1c17.1-8.8,33.5-17.8,51.4-17.8c15.6,0,17.1,18.1,30.2,18.1c22.9,0,36-18.6,53.9-18.6 c17.1,0,21.3,18.5,37.5,18.5c21.3,0,31.8-18.6,49-18.6c22.1,0,18.8,18.8,36.8,18.8c18.8,0,37.5-18.6,49-18.6c20.4,0,17.1,19,36.8,19 c22.9,0,36.8-20.6,54.7-18.6c17.7,1.4,7.1,19.5,33.5,18.8c17.1,0,47.2-6.5,61.1-15.6"></path></svg>',
@@ -6377,6 +6379,229 @@ final class Manager {
 			'diagonal'         => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M13.5,15.5c131,13.7,289.3,55.5,475,125.5"></path></svg>',
 			'strikethrough'    => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,75h493.5"></path></svg>',
 			'x'                => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M497.4,23.9C301.6,40,155.9,80.6,4,144.4"></path><path d="M14.1,27.6c204.5,20.3,393.8,74,467.3,111.7"></path></svg>',
+		);
+
+	}
+
+    /**
+	 * Add Showcase Highlights
+	 *
+	 * @since 2.9.11
+	 * @access public
+	 *
+	 * @param object $elem elementor element.
+     * @param array $conditions controls conditions.
+	 */
+    public function add_button_hover_controls( $elem, $conditions ) {
+
+        $elem->add_control(
+			'underline_style',
+			array(
+				'label'       => __( 'Underline Style', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'line1',
+				'options'     => array(
+					'line1' => __( 'Style 1', 'premium-addons-for-elementor' ),
+					'line2' => __( 'Style 2', 'premium-addons-for-elementor' ),
+					'line3' => __( 'Style 3', 'premium-addons-for-elementor' ),
+					'line4' => __( 'Style 4', 'premium-addons-for-elementor' ),
+					'line5' => __( 'Style 5', 'premium-addons-for-elementor' ),
+					'line6' => __( 'Style 6', 'premium-addons-for-elementor' ),
+					'line7' => __( 'Style 7', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style8',
+					)
+				),
+				'label_block' => true,
+			)
+		);
+
+		$elem->add_responsive_control(
+			'line_width',
+			array(
+				'label'     => __( 'Line Width (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
+					'size' => 100,
+				),
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style8',
+						'underline_style'             => array( 'line1', 'line3', 'line5' ),
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg,  {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after' => 'width: {{SIZE}}%',
+				),
+			)
+		);
+
+		$elem->add_responsive_control(
+			'line_height',
+			array(
+				'label'     => __( 'Line Height (PX)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style8',
+						'underline_style!' => [ 'line1', 'line3', 'line4' ]
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'height: {{SIZE}}px',
+				),
+			)
+		);
+
+		$elem->add_responsive_control(
+			'line_h_position',
+			array(
+				'label'     => __( 'Line Horizontal Position (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style8',
+						'underline_style'             => array( 'line3', 'line5' ),
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-line-wrap, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after' => 'left: {{SIZE}}%',
+				),
+			)
+		);
+
+		$elem->add_responsive_control(
+			'line_v_position',
+			array(
+				'label'     => __( 'Line Vertical Position (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style8',
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-line-wrap, {{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'top: {{SIZE}}%',
+					'{{WRAPPER}} .premium-button-line5::after' => 'top: calc( ( {{SIZE}}% + 2px ) + {{line_height.SIZE}}px )',
+				),
+			)
+		);
+
+        $elem->add_control(
+			'premium_button_style7_dir',
+			array(
+				'label'       => __( 'Slide Direction', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'bottom',
+				'options'     => array(
+					'top'    => __( 'Bottom to Top', 'premium-addons-for-elementor' ),
+					'bottom' => __( 'Top to Bottom', 'premium-addons-for-elementor' ),
+					'left'   => __( 'Left to Right', 'premium-addons-for-elementor' ),
+					'right'  => __( 'Right to Left', 'premium-addons-for-elementor' ),
+				),
+				'label_block' => true,
+				'condition'   => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style7',
+					)
+				),
+			)
+		);
+
+		$elem->add_control(
+			'premium_button_style5_dir',
+			array(
+				'label'       => __( 'Style', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'radialin',
+				'options'     => array(
+					'radialin'  => __( 'Radial In', 'premium-addons-for-elementor' ),
+					'radialout' => __( 'Radial Out', 'premium-addons-for-elementor' ),
+					'rectin'    => __( 'Rectangle In', 'premium-addons-for-elementor' ),
+					'rectout'   => __( 'Rectangle Out', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style5',
+					)
+				),
+				'label_block' => true,
+			)
+		);
+
+		$elem->add_responsive_control(
+			'grow_size',
+			array(
+				'label'     => __( 'Grow Layer Size', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 500,
+					),
+				),
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style6',
+						'mouse_detect!'               => 'yes',
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style6:before' => 'width: {{SIZE}}px; height: {{SIZE}}px',
+				),
+			)
+		);
+
+		$elem->add_responsive_control(
+			'grow_speed',
+			array(
+				'label'     => __( 'Grow Animation Speed (Sec)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 3,
+						'step' => 0.1,
+					),
+				),
+				'condition' => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style6',
+						'mouse_detect!'               => 'yes',
+					)
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style6:before' => 'transition-duration: {{SIZE}}s',
+				),
+			)
+		);
+
+		$elem->add_control(
+			'mouse_detect',
+			array(
+				'label'        => __( 'Detect Mouse Position', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'premium-mouse-detect-',
+				'render_type'  => 'template',
+				'separator'    => 'after',
+				'condition'    => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style6',
+					)
+				),
+			)
 		);
 
     }
@@ -6500,22 +6725,23 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_opacity',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 50,
 					),
 					'unit'  => '%',
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'         => 'yes',
 					'premium_fe_opacity_switcher' => 'yes',
 				),
@@ -6525,20 +6751,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_opacity_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'         => 'yes',
 					'premium_fe_opacity_switcher' => 'yes',
 				),
@@ -6548,16 +6775,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_opacity_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'         => 'yes',
 					'premium_fe_opacity_switcher' => 'yes',
 				),
@@ -6582,12 +6810,13 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_bg_color_from',
 			array(
-				'label'     => __( 'From', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
+				'label'              => __( 'From', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'frontend_available' => true,
+				'global'             => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_bg_color_switcher' => 'yes',
 				),
@@ -6597,12 +6826,13 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_bg_color_to',
 			array(
-				'label'     => __( 'To', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
+				'label'              => __( 'To', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::COLOR,
+				'frontend_available' => true,
+				'global'             => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_bg_color_switcher' => 'yes',
 				),
@@ -6612,20 +6842,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_bg_color_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_bg_color_switcher' => 'yes',
 				),
@@ -6635,16 +6866,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_bg_color_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_bg_color_switcher' => 'yes',
 				),
@@ -6669,29 +6901,30 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_blur_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 1,
 					),
 					'unit'  => 'px',
 				),
-				'range'     => array(
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 3,
 						'step' => 0.1,
 					),
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'      => 'yes',
 					'premium_fe_blur_switcher' => 'yes',
 				),
@@ -6701,20 +6934,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_blur_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'      => 'yes',
 					'premium_fe_blur_switcher' => 'yes',
 				),
@@ -6724,16 +6958,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_blur_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'      => 'yes',
 					'premium_fe_blur_switcher' => 'yes',
 				),
@@ -6758,29 +6993,30 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_contrast_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 50,
 					),
 					'unit'  => '%',
 				),
-				'range'     => array(
+				'range'              => array(
 					'%' => array(
 						'min'  => 0,
 						'max'  => 200,
 						'step' => 10,
 					),
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_contrast_switcher' => 'yes',
 				),
@@ -6790,20 +7026,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_contrast_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_contrast_switcher' => 'yes',
 				),
@@ -6813,16 +7050,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_contrast_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_contrast_switcher' => 'yes',
 				),
@@ -6847,22 +7085,23 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_gScale_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 50,
 					),
 					'unit'  => '%',
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'        => 'yes',
 					'premium_fe_gScale_switcher' => 'yes',
 				),
@@ -6872,20 +7111,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_gScale_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'        => 'yes',
 					'premium_fe_gScale_switcher' => 'yes',
 				),
@@ -6895,16 +7135,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_gScale_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'        => 'yes',
 					'premium_fe_gScale_switcher' => 'yes',
 				),
@@ -6929,29 +7170,30 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_hue_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 90,
 					),
 					'unit'  => 'deg',
 				),
-				'range'     => array(
+				'range'              => array(
 					'deg' => array(
 						'min'  => 0,
 						'max'  => 360,
 						'step' => 10,
 					),
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'     => 'yes',
 					'premium_fe_hue_switcher' => 'yes',
 				),
@@ -6961,20 +7203,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_hue_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'     => 'yes',
 					'premium_fe_hue_switcher' => 'yes',
 				),
@@ -6984,16 +7227,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_hue_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'     => 'yes',
 					'premium_fe_hue_switcher' => 'yes',
 				),
@@ -7018,29 +7262,30 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_brightness_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 50,
 					),
 					'unit'  => '%',
 				),
-				'range'     => array(
+				'range'              => array(
 					'%' => array(
 						'min'  => 0,
 						'max'  => 200,
 						'step' => 10,
 					),
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'            => 'yes',
 					'premium_fe_brightness_switcher' => 'yes',
 				),
@@ -7050,20 +7295,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_brightness_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'            => 'yes',
 					'premium_fe_brightness_switcher' => 'yes',
 				),
@@ -7073,16 +7319,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_brightness_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'            => 'yes',
 					'premium_fe_brightness_switcher' => 'yes',
 				),
@@ -7107,29 +7354,30 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_saturate_val',
 			array(
-				'label'     => __( 'Value', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'              => __( 'Value', 'premium-addons-pro' ),
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'default'            => array(
 					'sizes' => array(
 						'from' => 0,
 						'to'   => 50,
 					),
 					'unit'  => '%',
 				),
-				'range'     => array(
+				'range'              => array(
 					'%' => array(
 						'min'  => 0,
 						'max'  => 200,
 						'step' => 10,
 					),
 				),
-				'labels'    => array(
+				'labels'             => array(
 					__( 'From', 'premium-addons-pro' ),
 					__( 'To', 'premium-addons-pro' ),
 				),
-				'scales'    => 1,
-				'handles'   => 'range',
-				'condition' => array(
+				'scales'             => 1,
+				'handles'            => 'range',
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_saturate_switcher' => 'yes',
 				),
@@ -7139,20 +7387,21 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_saturate_duration',
 			array(
-				'label'     => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Duration', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 					'size' => 1000,
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_saturate_switcher' => 'yes',
 				),
@@ -7162,16 +7411,17 @@ final class Manager {
 		$elem->add_control(
 			'premium_fe_saturate_delay',
 			array(
-				'label'     => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
+				'label'              => __( 'Delay', 'premium-addons-pro' ) . ' (ms)',
+				'type'               => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'range'              => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 10000,
 						'step' => 100,
 					),
 				),
-				'condition' => array(
+				'condition'          => array(
 					'premium_fe_switcher'          => 'yes',
 					'premium_fe_saturate_switcher' => 'yes',
 				),

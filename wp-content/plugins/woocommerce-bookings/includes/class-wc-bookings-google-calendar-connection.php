@@ -83,6 +83,34 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	private $form_fields_initialized = false;
 
 	/**
+	 * Google Client ID.
+	 *
+	 * @var string
+	 */
+	private $client_id;
+
+	/**
+	 * Google Client Secret.
+	 *
+	 * @var string
+	 */
+	private $client_secret;
+
+	/**
+	 * Google Calendar Redirect URI.
+	 *
+	 * @var string
+	 */
+	private $redirect_uri_custom;
+
+	/**
+	 * Google Calendar Page Token.
+	 *
+	 * @var string
+	 */
+	private $page_token;
+
+	/**
 	 * Name for the option holds information about how many failures in a row we had.
 	 * If the options is not defined then we assume it is 0.
 	 *

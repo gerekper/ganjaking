@@ -53,7 +53,7 @@ class TextEditorWithTokens extends \DynamicContentForElementor\Widgets\WidgetPro
     {
         $settings = $this->get_settings_for_display();
         if (\Elementor\Plugin::$instance->editor->is_edit_mode() && empty($settings['text_w_tokens'])) {
-            Helper::notice('', __('Add text to the widget using Tokens', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Add text to the widget using Tokens', 'dynamic-content-for-elementor'));
             return;
         }
         $this->add_render_attribute('tokens', 'class', 'dce-tokens');

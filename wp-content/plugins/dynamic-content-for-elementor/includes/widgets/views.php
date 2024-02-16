@@ -108,11 +108,6 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $this->start_controls_section('section_select', ['label' => __('Select', 'dynamic-content-for-elementor')]);
         $this->add_control('dce_views_select_type', ['label' => __('Content type', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['fields' => ['title' => __('Fields', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-list'], 'text' => ['title' => __('Text', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-align-left'], 'template' => ['title' => __('Template', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-th-large']], 'toggle' => \false, 'default' => 'text']);
         $this->add_control('dce_views_select_template', ['label' => __('Render Template', 'dynamic-content-for-elementor'), 'type' => 'ooo_query', 'placeholder' => __('Template Name', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'posts', 'object_type' => 'elementor_library', 'condition' => ['dce_views_select_type' => 'template']]);
-        $this->add_control('dce_views_select_template_ajax', ['label' => __('Lazy Load', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'condition' => ['dce_views_select_type' => 'template']]);
-        $this->add_control('dce_views_select_template_ajax_progressive', ['label' => __('Progressive Load', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '']]);
-        $this->add_control('dce_views_select_template_ajax_placeholder', ['label' => __('Progressive Load', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['image' => ['title' => __('Image', 'dynamic-content-for-elementor'), 'icon' => 'eicon-image'], 'text' => ['title' => __('Text', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-font'], 'clone' => ['title' => __('Clone', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-clone'], 'fadein' => ['title' => __('FadeIn', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-low-vision']], 'toggle' => \false, 'default' => 'fadein', 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '']]);
-        $this->add_control('dce_views_select_template_ajax_placeholder_text', ['label' => __('Placeholder Text', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>', 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '', 'dce_views_select_template_ajax_placeholder' => 'text']]);
-        $this->add_control('dce_views_select_template_ajax_placeholder_image', ['label' => __('Placeholder Image', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::MEDIA, 'default' => ['url' => \Elementor\Utils::get_placeholder_image_src()], 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '', 'dce_views_select_template_ajax_placeholder' => 'image']]);
         $this->add_control('dce_views_select_text', ['label' => __('HTML & Tokens', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CODE, 'default' => '[post:thumb]<h4>[post:title|esc_html]</h4><p>[post:excerpt]</p><a class="btn btn-primary" href="[post:permalink]">' . __("Read more", 'dynamic-content-for-elementor') . '</a>', 'condition' => ['dce_views_select_type' => 'text']]);
         $repeater_fields = new \Elementor\Repeater();
         $repeater_fields->add_control('dce_views_select_field', ['label' => __('Field', 'dynamic-content-for-elementor'), 'type' => 'ooo_query', 'placeholder' => __('Meta key or field name', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'fields', 'object_type' => 'any', 'dynamic' => ['active' => \false]]);
@@ -386,12 +381,6 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $this->add_control('dce_views_style_field_color_a', ['label' => __('Link Color', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'selectors' => ['{{WRAPPER}} .dce-view-single a' => 'color: {{VALUE}};'], 'condition' => ['dce_views_select_type!' => 'template']]);
         $this->add_control('dce_views_style_field_color_a_hover', ['label' => __('Link Hover Color', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::COLOR, 'selectors' => ['{{WRAPPER}} .dce-view-single a:hover' => 'color: {{VALUE}};'], 'condition' => ['dce_views_select_type!' => 'template']]);
         $this->add_group_control(Group_Control_Typography::get_type(), ['name' => 'dce_views_style_field_typography', 'label' => __('Typography', 'dynamic-content-for-elementor'), 'selector' => '{{WRAPPER}} .dce-view-single', 'condition' => ['dce_views_select_type!' => 'template']]);
-        // Placeholder ----------------
-        $this->add_control('heading_views_result_placeholder', ['label' => __('Placeholder', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::HEADING, 'separator' => 'before', 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '']]);
-        $this->add_responsive_control('dce_views_style_field_placeholder_padding', ['label' => __('Padding', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => ['px', '%', 'em'], 'selectors' => ['{{WRAPPER}} .dce-elementor-template-placeholder' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'], 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '']]);
-        $this->add_responsive_control('dce_views_style_field_placeholder_align', ['label' => __('Alignment', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['left' => ['title' => __('Left', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-align-left'], 'center' => ['title' => __('Center', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-align-center'], 'right' => ['title' => __('Right', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-align-right'], 'justify' => ['title' => __('Justified', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-align-justify']], 'selectors' => ['{{WRAPPER}} .dce-elementor-template-placeholder' => 'text-align: {{VALUE}};'], 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '']]);
-        $this->add_control('dce_views_style_field_placeholder_clone_img', ['label' => __('Obscure image', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'selectors' => ['{{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone img' => 'filter: blur(8px) grayscale(100%) !important;'], 'default' => 'yes', 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '', 'dce_views_select_template_ajax_placeholder' => 'clone']]);
-        $this->add_control('dce_views_style_field_placeholder_clone_txt', ['label' => __('Obscure text', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'selectors' => ['{{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h1, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone .elementor-widget-container, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h2, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h3, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h4, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h5, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone h6, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone p, {{WRAPPER}} .dce-elementor-template-placeholder.dce-elementor-template-placeholder-clone span' => 'color: transparent !important; text-shadow: 0 0 5px black !important;'], 'default' => 'yes', 'condition' => ['dce_views_select_type' => 'template', 'dce_views_select_template_ajax!' => '', 'dce_views_select_template_ajax_placeholder' => 'clone']]);
         $this->end_controls_section();
         // EXPOSED FORM
         $this->start_controls_section('section_style_form', ['label' => __('Exposed Form', 'dynamic-content-for-elementor'), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => ['dce_views_where_form!' => ['', []]]]);
@@ -797,15 +786,9 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 $obj_index = $obj_display + ($page - 1) * \intval($settings['dce_views_post_per_page']);
                 switch ($settings['dce_views_object']) {
                     case 'post':
-                        $object_id = $dce_obj;
-                        if (empty($settings['dce_views_select_template_ajax'])) {
-                            $post = $wp_query->queried_object = $dce_obj;
-                            //get_post();
-                            $object_id = $wp_query->queried_object_id = $post->ID;
-                            $authordata = get_userdata($post->post_author);
-                        } else {
-                            $object_id = $dce_obj;
-                        }
+                        $post = $wp_query->queried_object = $dce_obj;
+                        $object_id = $wp_query->queried_object_id = $post->ID;
+                        $authordata = get_userdata($post->post_author);
                         break;
                     case 'user':
                         $current_user = $user = $authordata = $wp_query->queried_object = $dce_obj;
@@ -950,66 +933,41 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         }
                         break;
                     case 'template':
-                        $tmpl_opt = '';
                         $is_user = \false;
+                        $atts = ['id' => $settings['dce_views_select_template'], 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
                         switch ($settings['dce_views_object']) {
                             case 'post':
-                                $tmpl_opt = ' post_id="' . $object_id . '"';
+                                $atts['post_id'] = $object_id;
                                 break;
                             case 'user':
                                 $is_user = \true;
                                 break;
                             case 'term':
-                                $tmpl_opt = ' term_id="' . $object_id . '"';
+                                $atts['term_id'] = $object_id;
                                 break;
                         }
-                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $inlinecss = ' inlinecss="true"';
-                        } else {
-                            $inlinecss = '';
-                        }
-                        if (!\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            if ($settings['dce_views_select_template_ajax'] && $obj_display > 1) {
-                                $tmpl_opt .= ' loading="lazy"';
+                        if ($is_user) {
+                            global $wp_query;
+                            $original_queried_object = $wp_query->queried_object;
+                            $original_queried_object_id = $wp_query->queried_object_id;
+                            global $current_user;
+                            $original_user = $current_user;
+                            $current_user = $user;
+                            global $authordata;
+                            $original_author = $authordata;
+                            $authordata = $current_user;
+                            if ($authordata) {
+                                $wp_query->queried_object = $authordata;
+                                $wp_query->queried_object_id = $authordata->ID;
                             }
                         }
-                        $template_shortcode = '[dce-elementor-template id="' . $settings['dce_views_select_template'] . '"' . $tmpl_opt . $inlinecss . ']';
-                        if (\Elementor\Plugin::$instance->editor->is_edit_mode() && $settings['dce_views_select_template_ajax'] && $obj_display > 1) {
-                            if ($obj_display == 2) {
-                                $row_html = $this->_get_placeholder($row_html, $settings, \false);
-                                if ($settings['dce_views_select_template_ajax_placeholder'] == 'clone') {
-                                    $row_html = '<div class="dce-elementor-template-placeholder dce-elementor-template-placeholder-clone">' . $row_html . '</div>';
-                                }
-                                if ($settings['dce_views_select_template_ajax_placeholder'] == 'fadein') {
-                                    $row_html = '<div class="dce-elementor-template-placeholder style="opacity: 0.1;">' . $row_html . '</div>';
-                                }
-                                if ($settings['dce_views_select_template_ajax_placeholder'] == 'image' || $settings['dce_views_select_template_ajax_placeholder'] == 'text') {
-                                    $row_html = '<div class="dce-elementor-template-placeholder">' . $row_html . '</div>';
-                                }
-                            }
-                        } else {
-                            if ($is_user) {
-                                global $wp_query;
-                                $original_queried_object = $wp_query->queried_object;
-                                $original_queried_object_id = $wp_query->queried_object_id;
-                                global $current_user;
-                                $original_user = $current_user;
-                                $current_user = $user;
-                                global $authordata;
-                                $original_author = $authordata;
-                                $authordata = $current_user;
-                                if ($authordata) {
-                                    $wp_query->queried_object = $authordata;
-                                    $wp_query->queried_object_id = $authordata->ID;
-                                }
-                            }
-                            $row_html = do_shortcode($template_shortcode);
-                            if ($is_user) {
-                                $authordata = $original_author;
-                                $current_user = $original_user;
-                                $wp_query->queried_object = $original_queried_object;
-                                $wp_query->queried_object_id = $original_queried_object_id;
-                            }
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        $row_html = $template_system->build_elementor_template_special($atts);
+                        if ($is_user) {
+                            $authordata = $original_author;
+                            $current_user = $original_user;
+                            $wp_query->queried_object = $original_queried_object;
+                            $wp_query->queried_object_id = $original_queried_object_id;
                         }
                         break;
                     case 'text':
@@ -1217,7 +1175,8 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
             if (isset($settings['dce_views_fallback']) && $settings['dce_views_fallback']) {
                 echo '<div class="dce-view-results-wrapper"><div class="dce-view-results dce-view-results-fallback dce-views-no-results">';
                 if (isset($settings['dce_views_fallback_type']) && $settings['dce_views_fallback_type'] == 'template') {
-                    $fallback_content = '[dce-elementor-template id="' . $settings['dce_views_fallback_template'] . '"]';
+                    $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                    $fallback_content = $template_system->build_elementor_template_special(['id' => $settings['dce_views_fallback_template']]);
                 } else {
                     $fallback_content = $settings['dce_views_fallback_text'];
                 }
@@ -1734,181 +1693,10 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
         }
         return $asel;
     }
-    public function _get_placeholder($placeholder, $settings, $slash = \true)
-    {
-        if ($settings['dce_views_select_template_ajax_placeholder'] == 'image') {
-            $img_url = empty($settings['dce_views_select_template_ajax_placeholder_image']['url']) ? '' : $settings['dce_views_select_template_ajax_placeholder_image']['url'];
-            // TODO
-            if (!$img_url) {
-                $img_url = \Elementor\Utils::get_placeholder_image_src();
-            }
-            return '<img src="' . $img_url . '">';
-        }
-        if ($settings['dce_views_select_template_ajax_placeholder'] == 'text') {
-            $placeholder = $settings['dce_views_select_template_ajax_placeholder_text'];
-            // TODO
-            return $placeholder;
-        }
-        return $placeholder;
-    }
     public function _ajax($settings = null)
     {
         if (!$settings) {
             $settings = $this->get_settings_for_display();
-        }
-        if (!empty($settings['dce_views_select_template_ajax'])) {
-            $lazy = $jkey = 'dce_' . $this->get_type() . '_view_' . $this->get_id() . '_ajax_lazy';
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'text') {
-                echo '<div class="dce-view-single-placeholder" style="display: none;">' . $settings['dce_views_select_template_ajax_placeholder_text'] . '</div>';
-            }
-            \ob_start();
-            ?>
-			<script id="<?php 
-            echo $jkey;
-            ?>">
-				var dceAjaxPath = {"ajaxurl": "<?php 
-            echo admin_url('admin-ajax.php');
-            ?>"};
-				function dce_views_load_template_<?php 
-            echo $this->get_id();
-            ?>($scope) {
-				$scope.find('.dce-elementor-template-placeholder').each(function () {
-
-				<?php 
-            $placeholder = "\$scope.find('.dce-view-single-wrapper:first-child .elementor').parent().html()";
-            $placeholder = $this->_get_placeholder($placeholder, $settings);
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'text') {
-                $placeholder = "\$scope.find('.dce-view-single-placeholder').html()";
-            }
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'image') {
-                $placeholder = "'" . wp_slash($placeholder) . "'";
-            }
-            ?>
-				var first_html = <?php 
-            echo $placeholder;
-            ?>;
-				jQuery(this).html(first_html);
-				<?php 
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'fadein') {
-                ?>
-				jQuery(this).addClass('dce-elementor-template-placeholder-clone');
-				<?php 
-            }
-            ?>
-				<?php 
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'fadein') {
-                ?>
-				jQuery(this).css('opacity', 0);
-				<?php 
-            }
-            ?>
-
-				<?php 
-            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                ?>
-				return true;
-				<?php 
-            }
-            ?>
-
-				<?php 
-            if (!empty($settings['dce_views_select_template_ajax_progressive'])) {
-                ?>
-				var dce_load_template = function(dir){
-				if (dir == 'down'){
-				<?php 
-            }
-            ?>
-
-				var template_id = jQuery(this).data('id');
-				var dce_data = {
-				'action': 'dce_elementor_template',
-						'template_id': template_id,
-				};
-				var obj = 'post';
-				if (jQuery(this).data('post')) {
-				dce_data['post_id'] = jQuery(this).data('post');
-				}
-				if (jQuery(this).data('user')) {
-				dce_data['user_id'] = jQuery(this).data('user');
-				var obj = 'user';
-				}
-				if (jQuery(this).data('term')) {
-				dce_data['term_id'] = jQuery(this).data('term');
-				var obj = 'term';
-				}
-				if (jQuery(this).data('author')) {
-				dce_data['author_id'] = jQuery(this).data('author');
-				var obj = 'user';
-				}
-
-				dce_data['object'] = obj;
-				var ele_id = dce_data['obj_id'];
-				jQuery.ajax({
-				url: dceAjaxPath.ajaxurl,
-						dataType: "html",
-						context: jQuery(this),
-						type: 'POST',
-						data: dce_data,
-						error: function () {
-						console.log('error');
-						},
-						success: function (data, status, xhr) {
-						jQuery(this).html(data);
-						jQuery(this).children('.elementor').addClass('dce-elementor-template-loaded').unwrap()<?php 
-            if ($settings['dce_views_select_template_ajax_placeholder'] == 'fadein') {
-                ?>.hide().fadeIn("slow")<?php 
-            }
-            ?>;
-						$scope.trigger('dynamicooo/views/ajax_success');
-						},
-				});
-
-				<?php 
-            if (!empty($settings['dce_views_select_template_ajax_progressive'])) {
-                ?>
-				}
-				}
-				var waypointOptions = {
-				offset: '100%',
-						triggerOnce: true
-				};
-				elementorFrontend.waypoint(jQuery(this), dce_load_template, waypointOptions);
-				<?php 
-            }
-            ?>
-				});
-				}
-
-				(function ($) {
-				var <?php 
-            echo $jkey;
-            ?> = function ($scope, $) {
-				if ($scope.hasClass("elementor-element-<?php 
-            echo $this->get_id();
-            ?>")) {
-
-				if (typeof dce_views_load_template_<?php 
-            echo $this->get_id();
-            ?> === "function") {
-				dce_views_load_template_<?php 
-            echo $this->get_id();
-            ?>($scope);
-				}
-
-				}
-				};
-				$(window).on("elementor/frontend/init", function () {
-				elementorFrontend.hooks.addAction("frontend/element_ready/<?php 
-            echo $this->get_name();
-            ?>.default", <?php 
-            echo $jkey;
-            ?>);
-				});
-				})(jQuery, window);</script>
-			<?php 
-            $add_js = \ob_get_clean();
-            echo $add_js = \DynamicContentForElementor\Assets::dce_enqueue_script($jkey, $add_js);
         }
         if (!empty($settings['dce_views_where_form_ajax'])) {
             $jkey = 'dce_' . $this->get_type() . '_view_' . $this->get_id() . '_ajax_exposed';
@@ -2613,9 +2401,6 @@ class Views extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 if (isset($args['tax_query'])) {
                     $args['tax_query']['relation'] = $settings['dce_views_tax_relation'];
                 }
-            }
-            if (!empty($settings['dce_views_select_template_ajax'])) {
-                $args['fields'] = 'ids';
             }
         }
         // PAGINATION

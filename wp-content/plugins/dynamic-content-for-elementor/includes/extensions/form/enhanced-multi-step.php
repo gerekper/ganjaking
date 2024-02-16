@@ -224,7 +224,7 @@ class EnhancedMultiStep extends \DynamicContentForElementor\Extensions\Extension
                 }
                 $jkey = 'dce_' . $widget->get_type() . '_form_' . $widget->get_id() . '_steps';
                 $filtered_fields = \array_map(function ($field) {
-                    $allowed = ["field_label", "custom_id", "field_type"];
+                    $allowed = ['field_label', 'custom_id', 'field_type'];
                     $filtered = [];
                     foreach ($field as $key => $value) {
                         if (\in_array($key, $allowed, \true)) {

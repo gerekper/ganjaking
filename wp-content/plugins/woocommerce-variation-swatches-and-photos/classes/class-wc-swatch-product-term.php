@@ -8,6 +8,9 @@ class WC_Product_Swatch_Term extends WC_Swatch_Term {
 		global $_wp_additional_image_sizes;
 
 		$this->attribute_options = $attribute_options = $config->get_options();
+		if ( empty( $attribute_options ) ) {
+			return;
+		}
 
 		$this->taxonomy_slug = $taxonomy;
 		if ( taxonomy_exists( $taxonomy ) ) {
@@ -24,7 +27,7 @@ class WC_Product_Swatch_Term extends WC_Swatch_Term {
 		$this->selected = $selected;
 
 		$this->size = $attribute_options['size'];
-		$this->init_size($this->size);
+		$this->init_size( $this->size );
 
 		$key     = md5( sanitize_title( $this->term_slug ) );
 		$old_key = sanitize_title( $this->term_slug );
@@ -36,8 +39,12 @@ class WC_Product_Swatch_Term extends WC_Swatch_Term {
 			$lookup_key = $old_key;
 		}
 
-		$this->type = $attribute_options['attributes'][ $lookup_key ]['type'];
+		if ( ! $lookup_key ) {
+			return;
+		}
 
+
+		$this->type = $attribute_options['attributes'][ $lookup_key ]['type'];
 		if ( isset( $attribute_options['attributes'][ $lookup_key ]['image'] ) && $attribute_options['attributes'][ $lookup_key ]['image'] ) {
 			$this->thumbnail_id = $attribute_options['attributes'][ $lookup_key ]['image'];
 
@@ -51,6 +58,6 @@ class WC_Product_Swatch_Term extends WC_Swatch_Term {
 			$this->thumbnail_src = apply_filters( 'woocommerce_placeholder_img_src', WC()->plugin_url() . '/assets/images/placeholder.png' );
 		}
 
-		$this->color = isset( $attribute_options['attributes'][ $lookup_key ]['color'] ) ? $attribute_options['attributes'][ $lookup_key ]['color'] : '#FFFFFF;';
+		$this->color = $attribute_options['attributes'][ $lookup_key ]['color'] ?? '#FFFFFF;';
 	}
 }

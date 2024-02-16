@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-08-07 10:58+0200\n"
-"PO-Revision-Date: 2024-01-12 07:26+0000\n"
+"PO-Revision-Date: 2024-01-19 19:38+0000\n"
 "Language: fr-FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Loco https://localise.biz/\n"
@@ -1185,7 +1185,7 @@ msgid "Coupon Data"
 msgstr "Données du code promo"
 
 #. translators: %s: field name
-#: includes/class-wc-sc-purchase-credit.php:1348
+#: includes/class-wc-sc-purchase-credit.php:1351
 msgid "Coupon delivery date and time is a required field."
 msgstr ""
 
@@ -1809,7 +1809,7 @@ msgstr ""
 msgid "Failed to schedule email to \"%1$s\" for coupon \"%2$s\"."
 msgstr ""
 
-#: includes/class-wc-sc-purchase-credit.php:1246 
+#: includes/class-wc-sc-purchase-credit.php:1249 
 #: includes/compat/class-wc-sc-kco-compatibility.php:123
 msgid "Failed to update coupon receiver details in session."
 msgstr ""

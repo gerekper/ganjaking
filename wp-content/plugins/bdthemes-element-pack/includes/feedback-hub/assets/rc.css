@@ -1,20 +1,92 @@
 .rc-global-notice {
     z-index: 99;
+    border-color: #e2e2e5;
+    box-shadow: none;
+    border-left-color: #46d8bb;
+    padding: 0;
 }
 
 .rc-global-notice .rc-global-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 25px;
+}
+
+.rc-global-notice .bdt-notice-rc-logo img {
+    width: 45px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.rc-global-notice .bdt-notice-rc-content h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.rc-global-notice .bdt-notice-rc-content p {
+    margin: 0;
+    color: #5f6169;
+    max-width: 750px;
+}
+.rc-global-notice .bdt-notice-rc-content p a {
+    color: #2970ee;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.rc-global-notice .bdt-notice-rc-buttons  {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rc-global-notice .bdt-notice-rc-buttons button {
+    padding: 10px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.rc-global-notice .rc-button-allow {
+    background-color: transparent;
+    --primaryColor: #08AEEC;
+    --secondaryColor: #20E2AD;
+    color: white;
+    background: linear-gradient(313deg, var(--primaryColor), var(--secondaryColor) 100%);
+    transition: --primaryColor 1s, --secondaryColor 1s;
+    border: none;
+    display: inline-flex;
     gap: 10px;
 }
 
-.rc-global-notice .rc-global-header img {
-    height: 30px;
-    width: auto;
+.rc-global-notice .rc-button-allow span {
+    margin: 0 !important;
+    padding: 0;
+    font-size: 16px;
+    width: 10px;
+    height: 10px;
 }
 
-.rc-button-danger {
-    background: #ea5353 !important;
-    color: #fff !important;
-    border-color: #ea5353 !important;
+.rc-global-notice .rc-button-allow:hover {
+    --primaryColor: #20E2AD;
+    --secondaryColor: #08AEEC;
+}
+
+.rc-global-notice .rc-button-skip{
+    border: 0;
+    background-color: #e0f5ff;
+}
+
+.rc-global-notice .rc-button-skip:hover {
+    background-color: #d9f1fd;
+}
+
+.rc-global-notice .rc-button-disallow {
+    border: 0;
+    color: #3e3d41;
+    background-color: #eff0f4;
+}
+.rc-global-notice .rc-button-disallow:hover {
+    background-color: #e7e7e9;
 }

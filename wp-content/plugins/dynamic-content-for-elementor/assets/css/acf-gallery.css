@@ -74,16 +74,16 @@
   display: none;
 }
 .dce-acf-gallery-diamond .diamonds {
-    text-align: center;
-    overflow: visible;
-    white-space: nowrap;
-    display: inline-block;
+	text-align: center;
+	overflow: visible;
+	white-space: nowrap;
+	display: inline-block;
 }
 .dce-acf-gallery-diamond .diamond-row-wrap {
-    text-align: center;
-    position: relative;
-    float: left;
-    clear: both;
+	text-align: center;
+	position: relative;
+	float: left;
+	clear: both;
 }
 .dce-acf-gallery-diamond .diamond-row-upper, .diamond-row-lower {
   overflow: visible;

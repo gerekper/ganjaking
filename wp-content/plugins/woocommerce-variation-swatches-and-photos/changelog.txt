@@ -1,4 +1,16 @@
 *** WooCommerce Variation Swatches and Photos ***
+2024.02.03 - version 3.1.9
+    * Update: WC and WP compatibility tags and updates.
+    * Update: PHP 8.3 compatibility.
+
+2023.04.28 - version 3.1.8
+    * Update: Add aria roles and labels to the swatches to provide help for assistive technologies.
+    * Update: CSS updates to modernize the UI a bit.
+    * Update: Update wc_core_dropdown_variation_attribute_options to match latest wc_dropdown_variation_attribute_options function.
+    * Update: Double check that the swatch options exist before attempting to render them. Fixes issues with some themes that do not properly load the swatch options.
+    * Update: PHP 8.2+ compatibility.
+    * Update: WC and WP compatibility.
+
 2023.03.01 - version 3.1.7
     * Update: Add aria roles and labels to the swatches to provide help for assistive technologies.
     * Update: WC and WP compatibility.

@@ -216,7 +216,7 @@ class WC_Bookings_Templates {
 		$product = isset( $product_persons[0] ) ? $product_persons[0] : $product;
 
 		// Create resources.
-		if ( $product_data['resources'] ) {
+		if ( isset( $product_data['resources'] ) ) {
 			$resource_ids         = array();
 			$resource_base_costs  = array();
 			$resource_block_costs = array();

@@ -4,13 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7d5634441720934ccc1743480d4f663b
+class ComposerStaticInitd5373a7cae42d46001d654b4774f2de6
 {
     public static $prefixLengthsPsr4 = array (
-        'T' => 
-        array (
-            'Themesquad\\WC_Products_Compare\\' => 31,
-        ),
         'K' => 
         array (
             'KoiLab\\WC_Products_Compare\\' => 27,
@@ -18,10 +14,6 @@ class ComposerStaticInit7d5634441720934ccc1743480d4f663b
     );
 
     public static $prefixDirsPsr4 = array (
-        'Themesquad\\WC_Products_Compare\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'KoiLab\\WC_Products_Compare\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -35,9 +27,9 @@ class ComposerStaticInit7d5634441720934ccc1743480d4f663b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7d5634441720934ccc1743480d4f663b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7d5634441720934ccc1743480d4f663b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7d5634441720934ccc1743480d4f663b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd5373a7cae42d46001d654b4774f2de6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd5373a7cae42d46001d654b4774f2de6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd5373a7cae42d46001d654b4774f2de6::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -2,66 +2,45 @@
 /**
  * WooCommerce 360° Shortcode
  *
- * @package   WooCommerce 360° Image
- * @author    Captain Theme <info@captaintheme.com>
- * @license   GPL-2.0+
- * @link      http://captaintheme.com
- * @copyright 2014 Captain Theme
- * @since     1.0.0
+ * @package WC_360_Image
+ * @since   1.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
-/**
- * WC360 Shortcode Class
- *
- * @package  WooCommerce 360° Image
- * @author   Captain Theme <info@captaintheme.com>
- * @since    1.0.0
- */
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
+	/**
+	 * WC360 Shortcode Class.
+	 */
+	class WC_360_Image_Shortcode {
 
-  	class WC_360_Image_Shortcode {
-
-		protected static $instance = null;
+		protected static $instance;
 
 		private function __construct() {
 
-		  add_shortcode( 'wc360', array( $this, 'shortcode' ) );
-
+			add_shortcode( 'wc360', array( $this, 'shortcode' ) );
 		}
 
 		/**
 		 * Start the Class when called
 		 *
-		 * @package WooCommerce 360° Image
-		 * @author  Captain Theme <info@captaintheme.com>
-		 * @since   1.0.0
+		 * @since 1.0.0
 		 */
-
 		public static function get_instance() {
+			// If the single instance hasn't been set, set it now.
+			if ( ! self::$instance ) {
+				self::$instance = new self();
+			}
 
-		  // If the single instance hasn't been set, set it now.
-		  if ( null == self::$instance ) {
-			self::$instance = new self;
-		  }
-
-		  return self::$instance;
-
+			return self::$instance;
 		}
 
 
 		/**
 		 * Make Shortcode
 		 *
-		 * @package WooCommerce 360° Image
-		 * @author  Captain Theme <info@captaintheme.com>
-		 * @since   1.0.0
+		 * @since 1.0.0
 		 */
-
 		public function shortcode( $atts ) {
 
 			// Load in an instance of the WC_360_Image_Display Class
@@ -73,12 +52,15 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 			$default_width = $dimensions;
 
 			// Shortcode Attributes
-			extract( shortcode_atts(
-				array(
-					'width'		=> $default_width, // Width of rotator (default: image size width)
-					'height'	=> '', // Height of rotator (default: image size height)
-					'id'		=> '', // ID of post/product to get rotato for (default: none / current product)
-				), $atts )
+			extract(
+				shortcode_atts(
+					array(
+						'width'  => $default_width, // Width of rotator (default: image size width)
+						'height' => '', // Height of rotator (default: image size height)
+						'id'     => '', // ID of post/product to get rotato for (default: none / current product)
+					),
+					$atts
+				)
 			);
 
 			// If ID passed use that, if not get the current page's ID
@@ -105,9 +87,9 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 			if ( get_post_meta( get_the_ID(), 'wc360_enable', true ) !== 'yes' ) {
 
 				// Only continue if the ID received is a product
-				if ( get_post_type( $id ) == 'product' ) {
+				if ( 'product' === get_post_type( $id ) ) {
 
-					$product = wc_get_product( $id );
+					$product        = wc_get_product( $id );
 					$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 
 					// Only continue if there are gallery images
@@ -115,14 +97,14 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 
 						do_action( 'wc360_shortcode_before_image' );
 
-						$content = '<div id="container" class="wc360-container shortcode" style="width:' . $width . 'px">';
-							$content .= '<div class="wc360 threesixty">';
-								$content .= '<div class="spinner">';
+						$content              = '<div id="container" class="wc360-container shortcode" style="width:' . $width . 'px">';
+							$content         .= '<div class="wc360 threesixty">';
+								$content     .= '<div class="spinner">';
 									$content .= '<span>0%</span>';
-								$content .= '</div>';
-						 		$content .= '<ol class="threesixty_images"></ol>';
-							$content .= '</div>';
-						$content .= '</div>';
+								$content     .= '</div>';
+								$content     .= '<ol class="threesixty_images"></ol>';
+							$content         .= '</div>';
+						$content             .= '</div>';
 
 						echo apply_filters( 'wc360_shortcode_image_output', $content );
 
@@ -131,21 +113,19 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 					} else {
 
 						// Error
-						echo sprintf( __( '%s There are no gallery images for this product!', 'woocommerce-360-image' ), '<strong>' . __( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
+						printf( esc_html__( '%s There are no gallery images for this product!', 'woocommerce-360-image' ), '<strong>' . esc_html__( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
 
 					}
-
 				} else {
 
 					// Error
-					echo sprintf( __( '%s This is not a valid product ID!', 'woocommerce-360-image' ), '<strong>' . __( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
+					printf( esc_html__( '%s This is not a valid product ID!', 'woocommerce-360-image' ), '<strong>' . esc_html__( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
 
 				}
-
 			} else {
 
 				// Error
-				echo sprintf( __( '%s There can only be one rotator per page!' , 'woocommerce-360-image' ), '<strong>' . __( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
+				printf( esc_html__( '%s There can only be one rotator per page!', 'woocommerce-360-image' ), '<strong>' . esc_html__( 'Note:', 'woocommerce-360-image' ) . '</strong>' );
 
 			}
 
@@ -153,9 +133,7 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 			// End Shortcode Output
 
 			return $data;
-
 		}
-
 	}
 
 }

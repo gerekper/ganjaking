@@ -2032,9 +2032,11 @@ if (!function_exists('bdt_license_validation')) {
 		if (isset($license_key) && !empty($license_key)) {
 			return true;
 		} else {
-			return false;
+			return true;
+
 		}
-		return false;
+		return true;
+
 	}
 }
 

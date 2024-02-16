@@ -1,5 +1,8 @@
 *** Shipment Tracking Changelog ***
 
+2024-01-30 - version 2.4.4
+* Fix - Allow custom tracking link to be empty.
+
 2024-01-09 - version 2.4.3
 * Fix - Custom tracking link not being formatted correctly.
 * Fix - WordPress Coding Standards.

@@ -137,36 +137,22 @@ class Module extends Base_Module
     protected function get_posts($data)
     {
         $results = [];
-        $object_type = !empty($data['object_type']) ? $data['object_type'] : 'any';
-        if ($object_type == 'type') {
-            $list = Helper::get_public_post_types();
-            if (!empty($list)) {
-                foreach ($list as $akey => $alist) {
-                    if (\strlen($data['q']) > 2) {
-                        if (\strpos($akey, $data['q']) === \false && \strpos($alist, $data['q']) === \false) {
-                            continue;
-                        }
-                    }
-                    $results[] = ['id' => $akey, 'text' => esc_attr($alist)];
-                }
+        $object_type = $data['object_type'] ?? 'any';
+        $query_params = ['post_type' => $object_type, 's' => $data['q'], 'posts_per_page' => -1];
+        if ('attachment' === $query_params['post_type']) {
+            $query_params['post_status'] = 'inherit';
+        }
+        $query = new \WP_Query($query_params);
+        foreach ($query->posts as $post) {
+            $post_title = $post->post_title;
+            if (empty($data['object_type']) || $object_type == 'any') {
+                $post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ')';
             }
-        } else {
-            $query_params = ['post_type' => $object_type, 's' => $data['q'], 'posts_per_page' => -1];
-            if ('attachment' === $query_params['post_type']) {
-                $query_params['post_status'] = 'inherit';
+            if (!empty($data['object_type']) && $object_type == 'elementor_library') {
+                $etype = get_post_meta($post->ID, '_elementor_template_type', \true);
+                $post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ' > ' . $etype . ')';
             }
-            $query = new \WP_Query($query_params);
-            foreach ($query->posts as $post) {
-                $post_title = $post->post_title;
-                if (empty($data['object_type']) || $object_type == 'any') {
-                    $post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ')';
-                }
-                if (!empty($data['object_type']) && $object_type == 'elementor_library') {
-                    $etype = get_post_meta($post->ID, '_elementor_template_type', \true);
-                    $post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ' > ' . $etype . ')';
-                }
-                $results[] = ['id' => $post->ID, 'text' => wp_kses_post($post_title)];
-            }
+            $results[] = ['id' => $post->ID, 'text' => wp_kses_post($post_title)];
         }
         return $results;
     }
@@ -313,8 +299,7 @@ class Module extends Base_Module
     }
     protected function array_key_matches_regex($regex, $array)
     {
-        $postkeys = \array_keys($array);
-        foreach ($postkeys as $key) {
+        foreach ($array as $key => $value) {
             if (\preg_match($regex, $key)) {
                 return $key;
             }

@@ -33,6 +33,7 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
         $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
         $save_guard->register_unsafe_control($this->get_type(), 'infoWindow_query_html');
         $save_guard->register_unsafe_control($this->get_type(), 'style_map');
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
     }
     protected $positions = [];
     /**
@@ -219,11 +220,11 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
             return;
         }
         if ('acfmap' === $settings['map_data_type'] && empty($settings['acf_mapfield'])) {
-            Helper::notice('', __('Select an ACF Google Map Field', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Select an ACF Google Map Field', 'dynamic-content-for-elementor'));
             return;
         }
         if ('metabox_google_maps' === $settings['map_data_type'] && empty($settings['metabox_google_maps_field'])) {
-            Helper::notice('', __('Select a Meta Box Google Maps Field', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Select a Meta Box Google Maps Field', 'dynamic-content-for-elementor'));
             return;
         }
         // Don't render if ACF is selected but ACF is not active
@@ -681,11 +682,12 @@ class DynamicGoogleMaps extends \DynamicContentForElementor\Widgets\WidgetProtot
         ?>>
 			<?php 
         if (isset($fallback_type) && $fallback_type === 'template') {
-            $fallback_content = '[dce-elementor-template id="' . $fallback_template . '"]';
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special(['id' => $fallback_template]);
         } else {
             $fallback_content = '<p>' . $fallback_text . '</p>';
+            echo do_shortcode($fallback_content);
         }
-        echo do_shortcode($fallback_content);
         ?>
 		</div>
 

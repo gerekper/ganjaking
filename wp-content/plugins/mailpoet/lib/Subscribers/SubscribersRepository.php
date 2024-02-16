@@ -15,6 +15,7 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Entities\SubscriberTagEntity;
 use MailPoet\Entities\TagEntity;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Util\License\Features\Subscribers;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
@@ -41,14 +42,19 @@ class SubscribersRepository extends Repository {
   /** @var SubscriberChangesNotifier */
   private $changesNotifier;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
   public function __construct(
     EntityManager $entityManager,
     SubscriberChangesNotifier $changesNotifier,
-    WPFunctions $wp
+    WPFunctions $wp,
+    SegmentsRepository $segmentsRepository
   ) {
     $this->wp = $wp;
     parent::__construct($entityManager);
     $this->changesNotifier = $changesNotifier;
+    $this->segmentsRepository = $segmentsRepository;
   }
 
   protected function getEntityClassName() {
@@ -554,6 +560,35 @@ class SubscribersRepository extends Repository {
 
     $this->changesNotifier->subscribersUpdated($ids);
     return $count;
+  }
+
+  public function removeOrphanedSubscribersFromWpSegment(): void {
+    global $wpdb;
+
+    $segmentId = $this->segmentsRepository->getWpUsersSegment()->getId();
+
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
+
+    $this->entityManager->getConnection()->executeStatement(
+      "DELETE s
+       FROM {$subscribersTable} s
+       INNER JOIN {$subscriberSegmentsTable} ss ON s.id = ss.subscriber_id
+       LEFT JOIN {$wpdb->users} u ON s.wp_user_id = u.id
+       WHERE ss.segment_id = :segmentId AND (u.id IS NULL OR s.email = '')",
+      ['segmentId' => $segmentId], ['segmentId' => \PDO::PARAM_INT]
+    );
+  }
+
+  public function removeByWpUserIds(array $wpUserIds) {
+    $queryBuilder = $this->entityManager->createQueryBuilder();
+
+    $queryBuilder
+      ->delete(SubscriberEntity::class, 's')
+      ->where('s.wpUserId IN (:wpUserIds)')
+      ->setParameter('wpUserIds', $wpUserIds);
+
+    return $queryBuilder->getQuery()->execute();
   }
 
   /**

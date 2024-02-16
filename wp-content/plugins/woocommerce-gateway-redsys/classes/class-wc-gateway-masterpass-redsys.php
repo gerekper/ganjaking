@@ -2,13 +2,15 @@
 /**
  * MasterPass Gateway
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * Gateway class
  */
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -87,8 +89,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
@@ -106,8 +108,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -349,8 +351,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function get_currencies() {
 
@@ -543,8 +545,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -747,8 +749,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function warning_checkout_test_mode_masterpass() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {

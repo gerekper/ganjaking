@@ -1,5 +1,14 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.19.2 - 2024-02-07
+
+* Fix: Export data inconsistencies when using form actions in Form widget
+
+#### 3.19.1 - 2024-02-05
+
+* Fix: Enqueuing non-existing Loop Template CSS file in Loop Item template ([#24959](https://github.com/elementor/elementor/issues/24959))
+* Fix: Improved code security enforcement in Countdown widget
+
 #### 3.19.0 - 2024-01-29
 
 * New: Introducing Display Conditions for Elements - allowing users to customize content visibility based on specified criteria ([#4246](https://github.com/elementor/elementor/issues/4246), [#21152](https://github.com/elementor/elementor/issues/21152))

@@ -8,7 +8,7 @@
 
     var widgetSimpleContactForm = function ($scope, $) {
 
-        var $contactForm = $scope.find('.bdt-contact-form.without-recaptcha');
+        var $contactForm = $scope.find('.bdt-contact-form .without-recaptcha');
 
         if (!$contactForm.length) {
             return;
@@ -46,8 +46,8 @@
                 var notification = bdtUIkit.notification({
                     message: data
                 });
-                
-                if (redirectURL){
+
+                if (redirectURL) {
                     if (redirectURL != 'no') {
                         bdtUIkit.util.on(document, 'close', function (evt) {
                             if (evt.detail[0] === notification) {
@@ -56,13 +56,13 @@
                         });
                     }
                 }
-                
+
                 localStorage.setItem("bdtCouponCode", $contactForm.attr('id'));
 
                 if (resetStatus) {
                     if (resetStatus !== 'no') {
-                    $contactForm[0].reset();
-                }
+                        $contactForm[0].reset();
+                    }
                 }
 
                 // $contactForm[0].reset();

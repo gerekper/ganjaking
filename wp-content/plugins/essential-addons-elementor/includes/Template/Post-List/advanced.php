@@ -49,7 +49,9 @@ echo ($settings['eael_post_list_layout_type'] == 'advanced' ? '<div class="eael-
 if ($settings['eael_post_list_post_feature_image'] === 'yes') {
     echo '<div class="eael-post-list-thumbnail ' . (has_post_thumbnail() ? '' : 'eael-empty-thumbnail') . '">';
     if (has_post_thumbnail()) {
-        echo '<img src="' . wp_get_attachment_image_url(get_post_thumbnail_id(), $settings['eael_post_featured_image_size']) . '" alt="' . esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) . '">';
+        echo '<a href="' . get_the_permalink() . '"' . $link_settings['image_link_nofollow'] . '' . $link_settings['image_link_target_blank'] . '>
+                <img src="' . wp_get_attachment_image_url(get_post_thumbnail_id(), $settings['eael_post_featured_image_size']) . '" alt="' . esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) . '">
+            </a>';
     }
     echo '</div>';
 }

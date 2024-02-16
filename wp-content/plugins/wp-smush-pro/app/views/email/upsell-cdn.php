@@ -2,6 +2,8 @@
 /**
  * Background optimization email upsell template for old free users.
  */
+use Smush\App\Admin;
+
 $discount = WP_Smush::get_instance()->admin()->get_plugin_discount();
 ?>
 <div style="margin:0px auto;padding:0;max-width:600px;">
@@ -33,8 +35,9 @@ $discount = WP_Smush::get_instance()->admin()->get_plugin_discount();
 					<p style="color:#fff;font-size:13px;font-weight:400;margin:0;padding:0;font-family:Roboto, Arial, sans-serif;line-height:22px;text-decoration:none;">
 						<?php
 						printf(
-							/* translators: %s: Discount */
-							esc_html__( 'Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive %s welcome discount for Smush free users. Limited time only.', 'wp-smushit' ),
+							/* translators: 1: Number of CDN PoP locations, 2: Discount */
+							esc_html__( 'Serve images closer to visitors and boost site speed with our %1$d-point CDN. Exclusive %2$s welcome discount for Smush free users. Limited time only.', 'wp-smushit' ),
+							Admin::CDN_POP_LOCATIONS,
 							esc_html( $discount )
 						);
 						?>

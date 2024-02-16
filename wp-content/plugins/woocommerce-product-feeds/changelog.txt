@@ -1,5 +1,13 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2024.01.31 - version 10.12.3
+* New: Support for 'certification' attribute
+* Fix: Import/Export improvements for product_detail field
+* Fix: Import/Export improvements for product_fee field
+* Fix: Import/Export improvements for product_highlight field
+* Fix: Import/Export improvements for installment field
+* Fix: Resolve issue where GPF could fail during WooCommerce update
+
 2024.01.22 - version 10.12.2
 * Fix: Resolve issues with importing adwords_label via CSV
 

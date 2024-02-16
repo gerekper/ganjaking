@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2024-01-29 - version 2.4.0
+* Add - RMA Request can be searched by using name and order id.
+
 2023-10-06 - version 2.3.0
 * Add    - Guest customer will get a claim warranty link after the order is completed.
 * Fix    - Display a notice text for non logged-in user when submitting the return form shortcode.

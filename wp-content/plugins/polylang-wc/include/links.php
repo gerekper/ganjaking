@@ -64,10 +64,12 @@ class PLLWC_Links {
 	 */
 	protected function get_all_shop_page_slugs() {
 		$slugs = array();
-		$id = wc_get_page_id( 'shop' );
-		$translations = pll_get_post_translations( $id );
+		$id    = wc_get_page_id( 'shop' );
+		$ids   = pll_get_post_translations( $id );
 
-		foreach ( $translations as $lang => $id ) {
+		_prime_post_caches( $ids ); // Prime posts cache before `get_page_uri()` calls in the loop.
+
+		foreach ( $ids as $lang => $id ) {
 			$slugs[ $lang ] = get_page_uri( $id );
 		}
 

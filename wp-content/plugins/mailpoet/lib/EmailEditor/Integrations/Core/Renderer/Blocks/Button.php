@@ -28,7 +28,11 @@ class Button implements BlockRenderer {
       return '';
     }
 
+    $buttonOriginalWrapper = $buttonDom->getElementsByTagName('div')->item(0);
+    $buttonClasses = $buttonOriginalWrapper instanceof \DOMElement ? $buttonOriginalWrapper->getAttribute('class') : '';
+
     $markup = $this->getMarkup();
+    $markup = str_replace('{classes}', $buttonClasses, $markup);
 
     // Add Link Text
     $markup = str_replace('{linkText}', $buttonLink->textContent ?: '', $markup);
@@ -44,7 +48,9 @@ class Button implements BlockRenderer {
     $markup = str_replace('{width}', $width, $markup);
 
     // Background
-    $bgColor = $parsedBlock['attrs']['style']['color']['background'] ?? 'transparent';
+    $themeData = $settingsController->getTheme()->get_data();
+    $defaultColor = $themeData['styles']['blocks']['core/button']['color']['background'] ?? 'transparent';
+    $bgColor = $parsedBlock['attrs']['style']['color']['background'] ?? $defaultColor;
     $markup = str_replace('{backgroundColor}', $bgColor, $markup);
 
     // Styles attributes
@@ -84,19 +90,16 @@ class Button implements BlockRenderer {
       $linkStyles['padding-left'] = $padding['left'];
     }
 
-    // Typography
+    // Typography + colors
     $typography = $parsedBlock['attrs']['style']['typography'] ?? [];
-    $typography['fontSize'] = $typography['fontSize'] ?? ($parsedBlock['email_attrs']['font-size'] ?? 'inherit');
+    $color = $parsedBlock['attrs']['style']['color'] ?? [];
+    $typography['fontSize'] = $parsedBlock['email_attrs']['font-size'] ?? 'inherit';
     $typography['textDecoration'] = $typography['textDecoration'] ?? ($parsedBlock['email_attrs']['text-decoration'] ?? 'inherit');
-    $linkStyles = array_merge($linkStyles, wp_style_engine_get_styles(['typography' => $typography])['declarations']);
-    $linkStyles['color'] = $parsedBlock['email_attrs']['color'];
+    $linkStyles = array_merge($linkStyles, wp_style_engine_get_styles(['typography' => $typography, 'color' => $color])['declarations']);
 
     // Escaping
     $wrapperStyles = array_map('esc_attr', $wrapperStyles);
     $linkStyles = array_map('esc_attr', $linkStyles);
-    // Font family may contain single quotes
-    $contentStyles = $settingsController->getEmailContentStyles();
-    $linkStyles['font-family'] = str_replace('&#039;', "'", esc_attr("{$contentStyles['typography']['fontFamily']}"));
 
     $markup = str_replace('{linkStyles}', $settingsController->convertStylesToString($linkStyles), $markup);
     $markup = str_replace('{wrapperStyles}', $settingsController->convertStylesToString($wrapperStyles), $markup);
@@ -107,8 +110,8 @@ class Button implements BlockRenderer {
   private function getMarkup(): string {
     return '<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:middle;border-collapse:separate;line-height:100%;width:{width};">
         <tr>
-          <td align="center" bgcolor="{backgroundColor}" role="presentation" style="{wrapperStyles}" valign="middle">
-            <a href="{linkUrl}" style="{linkStyles}" target="_blank">{linkText}</a>
+          <td align="center" class="{classes}" bgcolor="{backgroundColor}" role="presentation" style="{wrapperStyles}" valign="middle">
+            <a class="wp-block-button__link" href="{linkUrl}" style="{linkStyles}" target="_blank">{linkText}</a>
           </td>
         </tr>
       </table>';

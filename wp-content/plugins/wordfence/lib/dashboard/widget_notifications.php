@@ -115,8 +115,22 @@
 					$('#wf-central-prompt-disconnect').on('click', function(e) {
 						e.preventDefault();
 						e.stopPropagation();
+						WFAD.colorboxClose();
 						WFAD.ajax('wordfence_wfcentral_disconnect', {}, function(response) {
-							window.location.reload(true);
+							var onClosed = function() { window.location.reload(true); };
+							if (response && response.success && response.message && response.title) {
+								WFAD.colorboxModal(
+									(self.isSmallScreen ? '300px' : '400px'),
+									response.title,
+									response.message,
+									{
+										onClosed: onClosed
+									}
+								);
+							}
+							else {
+								onClosed();
+							}
 						});
 					});
 				}

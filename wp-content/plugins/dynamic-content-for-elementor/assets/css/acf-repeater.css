@@ -1,7 +1,7 @@
 /* This creates a stacking context */
 .elementor-widget-dce-acf-repeater-v2 .elementor-widget-container {
-    position: relative;
-    z-index: 0;
+	position: relative;
+	z-index: 0;
 }
 
 .elementor-widget-dce-acf-repeater-v2 .dce-acf-repater-slider_carousel {
@@ -521,14 +521,14 @@
 }
 @-webkit-keyframes swiper-preloader-spin {
   100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
   }
 }
 @keyframes swiper-preloader-spin {
   100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
   }
 }
 .elementor-widget-dce-acf-repeater-v2 .swiper-container .swiper-notification {
@@ -664,5 +664,5 @@
   text-align: right;
 }
 .dce-accordion-icon svg {
-    width: 1em;
+	width: 1em;
 }

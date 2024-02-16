@@ -1027,7 +1027,8 @@ class UniteCreatorFiltersProcess{
 			$arrMetaQuery[] = array(
                 'key' => '_price',
                 'value' => $priceFrom,
-                'compare' => '>='
+                'compare' => '>=',
+                'type' => 'NUMERIC',
             );
 		}
 		
@@ -1036,7 +1037,8 @@ class UniteCreatorFiltersProcess{
 			$arrMetaQuery[] = array(
                 'key' => '_price',
                 'value' => $priceTo,
-                'compare' => '<='
+                'compare' => '<=',
+                'type' => 'NUMERIC'
         	);
 		}
 
@@ -2719,6 +2721,12 @@ s	 */
 					$this->putDynamicPopupCache();
 					
 				break;
+				case "custom":
+					
+					do_action("uc_custom_front_ajax_action");
+					
+					//if not catch - will throw error
+					
 				default:
 					UniteFunctionsUC::throwError("wrong front ajax action: $frontAjaxAction");
 				break;

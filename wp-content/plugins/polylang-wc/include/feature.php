@@ -9,7 +9,7 @@ use Automattic\WooCommerce\Utilities\FeaturesUtil;
  * Class to declare compatibility with a WooCommerce feature.
 
  * @since 1.9
- * @since 1.9.1 Renamed from `PLLWC_HPOS_Feature` to `PLLWC_WC_Feature`.
+ * @since 1.9.1 Renamed from `PLLWC_HPOS_Feature` to `PLLWC_Feature`.
  */
 class PLLWC_Feature {
 
@@ -78,7 +78,7 @@ class PLLWC_Feature {
 
 	/**
 	 * Tells if the feature is enabled.
-	 * Must not be used before {@see self::feature_exists()}.
+	 * Must not be used before {@see self::exists()}.
 	 *
 	 * @since 1.9
 	 *
@@ -106,7 +106,7 @@ class PLLWC_Feature {
 	}
 
 	/**
-	 * Launches the hook that declares this plugin compatible with WC's feature.
+	 * Calls the method that declares this plugin compatible with WC's feature.
 	 *
 	 * @since 1.9
 	 *
@@ -126,7 +126,7 @@ class PLLWC_Feature {
 	 * @return void
 	 */
 	public function declare_compatibility_callback() {
-		// Can only be used in the hook `before_woocommerce_init`.
+		// Can only be used in the hook `before_woocommerce_init`. See https://github.com/woocommerce/woocommerce/blob/8.4.0/plugins/woocommerce/src/Utilities/FeaturesUtil.php#L45-L57.
 		FeaturesUtil::declare_compatibility( $this->feature_id, PLLWC_FILE, true );
 	}
 }

@@ -46,8 +46,8 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 		$post_title = sprintf(
 			/* translators: %s: Booking date */
 			__( 'Booking &ndash; %s', 'woocommerce-bookings' ),
-			/* translators: Booking date format parsed by strftime */
-			strftime( _x( '%b %d, %Y @ %I:%M %p', 'Booking date format parsed by strftime', 'woocommerce-bookings' ) )
+			/* translators: Booking date format parsed by date */
+			date( _x( 'M d, Y @ h:i A', 'Booking date format parsed by date', 'woocommerce-bookings' ), time() ) // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 		);
 
 		$id = wp_insert_post( apply_filters( 'woocommerce_new_booking_data', array(
@@ -245,14 +245,26 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 	 */
 	public static function get_booking_ids_from_order_item_id( $order_item_id ) {
 		global $wpdb;
-		return wp_parse_id_list(
-			$wpdb->get_col(
-				$wpdb->prepare(
-					"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_booking_order_item_id' AND meta_value = %d;",
-					$order_item_id
+
+		// Try getting the booking IDs from order item meta.
+		$booking_ids = wc_get_order_item_meta( $order_item_id, '_booking_id', true );
+
+		// If IDs are not cached, make the database query.
+		if ( empty( $booking_ids ) ) {
+			$booking_ids = wp_parse_id_list(
+				$wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_booking_order_item_id' AND meta_value = %d;",
+						$order_item_id
+					)
 				)
-			)
-		);
+			);
+
+			// Save meta for future use.
+			wc_update_order_item_meta( $order_item_id, '_booking_id', $booking_ids );
+		}
+
+		return $booking_ids;
 	}
 
 	/**

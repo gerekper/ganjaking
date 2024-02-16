@@ -146,7 +146,7 @@ class PdfViewer extends \DynamicContentForElementor\Widgets\WidgetPrototype
         }
         if ('url' === $settings['source'] && !$settings['source_url']['url'] || 'media_file' === $settings['source'] && !$settings['source_media']['url']) {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                Helper::notice('', __('Select a PDF', 'dynamic-content-for-elementor'));
+                Helper::notice(\false, __('Select a PDF', 'dynamic-content-for-elementor'));
             }
             return;
         }

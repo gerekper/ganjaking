@@ -1,3 +1,4 @@
+/* global wc360_vars */
 window.onload = wc360_init;
 
 var product1;

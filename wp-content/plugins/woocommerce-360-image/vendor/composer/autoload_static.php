@@ -4,17 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2182ccbb4adfe02852a6f5d98c7cea73
+class ComposerStaticInite0138d214907ff1a73ad25f228158512
 {
     public static $prefixLengthsPsr4 = array (
-        'T' => 
+        'K' => 
         array (
-            'Themesquad\\WC_360_Image\\' => 24,
+            'KoiLab\\WC_360_Image\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Themesquad\\WC_360_Image\\' => 
+        'KoiLab\\WC_360_Image\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -22,18 +22,18 @@ class ComposerStaticInit2182ccbb4adfe02852a6f5d98c7cea73
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Themesquad\\WC_360_Image\\Admin\\Admin' => __DIR__ . '/../..' . '/src/Admin/Admin.php',
-        'Themesquad\\WC_360_Image\\Autoloader' => __DIR__ . '/../..' . '/src/Autoloader.php',
-        'Themesquad\\WC_360_Image\\Internal\\Traits\\Singleton' => __DIR__ . '/../..' . '/src/Internal/Traits/Singleton.php',
-        'Themesquad\\WC_360_Image\\Plugin' => __DIR__ . '/../..' . '/src/Plugin.php',
+        'KoiLab\\WC_360_Image\\Admin\\Admin' => __DIR__ . '/../..' . '/src/Admin/Admin.php',
+        'KoiLab\\WC_360_Image\\Autoloader' => __DIR__ . '/../..' . '/src/Autoloader.php',
+        'KoiLab\\WC_360_Image\\Internal\\Traits\\Singleton' => __DIR__ . '/../..' . '/src/Internal/Traits/Singleton.php',
+        'KoiLab\\WC_360_Image\\Plugin' => __DIR__ . '/../..' . '/src/Plugin.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2182ccbb4adfe02852a6f5d98c7cea73::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2182ccbb4adfe02852a6f5d98c7cea73::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2182ccbb4adfe02852a6f5d98c7cea73::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite0138d214907ff1a73ad25f228158512::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite0138d214907ff1a73ad25f228158512::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite0138d214907ff1a73ad25f228158512::$classMap;
 
         }, null, ClassLoader::class);
     }

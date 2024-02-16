@@ -2282,7 +2282,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if(!empty($arrQueryBase))
 			$args = UniteFunctionsWPUC::mergeQueryVars($arrQueryBase, $args);
 		
-		
 		$args = $this->getPostListData_getPostGetFilters_pagination($args, $value, $name, $data, $param);
 		
 		$args = $this->getPostListData_getCustomQueryFilters($args, $value, $name, $data);
@@ -2351,9 +2350,9 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		$args["cache_results"] = true;
 		$args["update_post_meta_cache"] = true;
-				
-		$query->query($args);
 		
+		$query->query($args);
+			
 		do_action("ue_after_custom_posts_query", $query);
 		
 		//custom posts debug

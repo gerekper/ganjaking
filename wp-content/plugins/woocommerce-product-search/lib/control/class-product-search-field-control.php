@@ -32,6 +32,7 @@ class Product_Search_Field_Control {
 
 	const LIMIT         = 'limit';
 	const DEFAULT_LIMIT = 10;
+	const MAX_LIMIT     = 100;
 
 	const TITLE         = 'title';
 	const EXCERPT       = 'excerpt';
@@ -152,8 +153,8 @@ class Product_Search_Field_Control {
 		$search_query = isset( $_REQUEST[Base::SEARCH_QUERY] ) && is_string( $_REQUEST[Base::SEARCH_QUERY] ) ? sanitize_text_field( $_REQUEST[Base::SEARCH_QUERY] ) : '';
 		$search_query = trim( preg_replace( '/\s+/', ' ', $search_query ) );
 
-		$limit = isset( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
-		$limit = max( 0, intval( apply_filters( 'product_search_limit', $limit ) ) );
+		$limit = isset( $_REQUEST[self::LIMIT] ) && is_numeric( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
+		$limit = max( 0, intval( apply_filters( 'product_search_limit', min( $limit, self::MAX_LIMIT ) ) ) );
 
 		$order = isset( $_REQUEST[self::ORDER] ) ? strtoupper( trim( $_REQUEST[self::ORDER] ) ) : self::DEFAULT_ORDER;
 		switch ( $order ) {
@@ -384,7 +385,8 @@ class Product_Search_Field_Control {
 		if ( $limit !== null && $limit > 0 ) {
 			$args = array(
 				'limit' => $limit,
-				'offset' => 0
+				'offset' => 0,
+				'per_page' => null
 			);
 			$stage = new \com\itthinx\woocommerce\search\engine\Engine_Stage_Pagination( $args );
 			$engine->attach_stage( $stage );

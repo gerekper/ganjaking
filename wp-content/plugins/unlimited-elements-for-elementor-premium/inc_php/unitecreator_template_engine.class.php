@@ -1660,7 +1660,7 @@ class UniteCreatorTemplateEngineWork{
 	 * init twig
 	 */
 	private function initTwig(){
-
+		
 		if(empty($this->arrTemplates))
 			UniteFunctionsUC::throwError("No templates found");
 
@@ -1668,13 +1668,33 @@ class UniteCreatorTemplateEngineWork{
 			UniteFunctionsUC::throwError("Twig template engine not loaded. Please check if it collides with some other plugin that also loading twig engine.");
 
 		$loader = new Twig\Loader\ArrayLoader($this->arrTemplates);
-
+		
 		$arrOptions = array();
 		$arrOptions["debug"] = true;
+		
+		
+		if(class_exists("Twig\\Environment") == false){
+			
+			$version = "";
+						
+			if(class_exists("Twig_Environment")){
+				
+				$version = Twig_Environment::VERSION;
+				
+				/*
+				$twigForTest = new Twig_Environment();
+				dmp($twigForTest);
+				*/
+			}
+			
+			$text = "You have some other plugin that loaded another version of twig. It's uncompatable with unlimited elements unfortunatelly.";
 
-		if(class_exists("Twig\\Environment") == false)
-			UniteFunctionsUC::throwError("You have some other plugin that loaded another version of twig. It's uncompatable with unlimited elements unfortunatelly.");
-
+			if(!empty($version))
+				$text .= " Loaded Twig Version: $version. Need 3.0";
+			
+			UniteFunctionsUC::throwError($text);
+		}
+		
 		$this->twig = new Twig\Environment($loader, $arrOptions);
 		$this->twig->addExtension(new Twig\Extension\DebugExtension());
 
@@ -1795,7 +1815,7 @@ class UniteCreatorTemplateEngineWork{
 		$this->validateInited();
 		if(array_key_exists($name, $this->arrTemplates) == false)
 			UniteFunctionsUC::throwError("Template with name: $name not exists");
-
+		
 		if(empty($this->twig))
 			$this->initTwig();
 

@@ -510,7 +510,7 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
             $element->add_control('dce_visibility_post_id', ['label' => __('Post ID', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::CHOOSE, 'options' => ['current' => ['title' => __('Current', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-list'], 'global' => ['title' => __('Global', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-globe'], 'static' => ['title' => __('Static', 'dynamic-content-for-elementor'), 'icon' => 'eicon-pencil']], 'default' => 'current', 'toggle' => \false]);
             $element->add_control('dce_visibility_post_id_static', ['label' => __('Set Post ID', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::NUMBER, 'min' => 1, 'condition' => ['dce_visibility_post_id' => 'static']]);
             $element->add_control('dce_visibility_post_id_description', ['type' => Controls_Manager::RAW_HTML, 'raw' => '<small>' . __('In some cases, Current ID and Global ID may be different. For example, if you use a widget with a loop on a page, then Global ID will be Page ID, and Current ID will be Post ID in preview inside the loop.', 'dynamic-content-for-elementor') . '</small>', 'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning']);
-            $element->add_control('dce_visibility_cpt', ['label' => __('Post Type', 'dynamic-content-for-elementor'), 'type' => 'ooo_query', 'placeholder' => __('Post Type', 'dynamic-content-for-elementor'), 'label_block' => \true, 'multiple' => \true, 'query_type' => 'posts', 'object_type' => 'type']);
+            $element->add_control('dce_visibility_cpt', ['label' => __('Post Type', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT2, 'options' => Helper::get_public_post_types(), 'multiple' => \true, 'label_block' => \true, 'query_type' => 'posts', 'object_type' => 'type']);
             $element->add_control('dce_visibility_post', ['label' => __('Page/Post', 'dynamic-content-for-elementor'), 'type' => 'ooo_query', 'placeholder' => __('Post Title', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'posts', 'multiple' => \true, 'separator' => 'before']);
             $element->add_control('dce_visibility_tax', ['label' => __('Taxonomy', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT2, 'options' => $taxonomies, 'multiple' => \false, 'separator' => 'before']);
             foreach ($taxonomies as $tkey => $atax) {
@@ -730,7 +730,9 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
     {
         if (!empty($settings['dce_visibility_fallback'])) {
             if (isset($settings['dce_visibility_fallback_type']) && $settings['dce_visibility_fallback_type'] == 'template') {
-                return do_shortcode('[dce-elementor-template id="' . $settings['dce_visibility_fallback_template'] . '"]');
+                $atts = ['id' => $settings['dce_visibility_fallback_template']];
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                return $template_system->build_elementor_template_special($atts);
             } else {
                 return $settings['dce_visibility_fallback_text'];
             }
@@ -1811,6 +1813,10 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
             return \false;
         }
         $php_code = $settings[self::CUSTOM_PHP_CONTROL_NAME];
+        if (current_user_can('manage_options') && !empty($_GET['dce_disable_visibility_custom_conditions'])) {
+            echo esc_html__('Dynamic Visibility: Custom Condition found, but custom conditions are disabled.', 'dynamic-content-for-elementor');
+            return \false;
+        }
         if (\is_string($php_code)) {
             try {
                 return eval($php_code);
@@ -1818,7 +1824,7 @@ class DynamicVisibility extends \DynamicContentForElementor\Extensions\Extension
                 echo '<pre>Dynamic Visibility - Custom Condition: ', $e->getMessage(), '</pre>';
             } catch (\Throwable $e) {
                 if (current_user_can('administrator')) {
-                    Helper::notice('', __('This message is visible only for Administrators', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('This message is visible only for Administrators', 'dynamic-content-for-elementor'));
                     echo '<pre>Dynamic Visibility - Custom Condition: ', $e->getMessage(), '</pre>';
                 }
             }

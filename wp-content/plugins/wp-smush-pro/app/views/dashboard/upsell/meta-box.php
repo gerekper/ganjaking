@@ -23,7 +23,7 @@ $can_use_background = $bg_optimization->can_use_background();
 <ol class="sui-upsell-list">
 	<li>
 		<span class="sui-icon-check sui-md" aria-hidden="true"></span>
-		<?php esc_html_e( 'Serve image faster with Ultra compression', 'wp-smushit' ); ?> <span class="sui-tag smush-sui-tag-new"><?php esc_html_e( 'NEW', 'wp-smushit' ); ?></span>
+		<?php esc_html_e( 'Serve image faster with Ultra compression', 'wp-smushit' ); ?>
 	</li>
 	<li>
 		<span class="sui-icon-check sui-md" aria-hidden="true"></span>

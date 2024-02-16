@@ -31,7 +31,7 @@ abstract class PLLWC_Translated_Object_Language extends PLLWC_Object_Language {
 	 * @phpstan-return non-empty-string
 	 */
 	public function get_tax_translations(): string {
-		return $this->object->get_tax_translations();
+		return (string) $this->object->get_tax_translations();
 	}
 
 	/**
@@ -47,8 +47,8 @@ abstract class PLLWC_Translated_Object_Language extends PLLWC_Object_Language {
 	 * @phpstan-param non-empty-array<non-empty-string, positive-int> $translations
 	 * @phpstan-return array<non-empty-string, positive-int>
 	 */
-	public function save_translations( array $translations ): array {
-		return $this->object->save_translations( reset( $translations ), $translations );
+	public function save_translations( $translations ): array {
+		return (array) $this->object->save_translations( reset( $translations ), $translations );
 	}
 
 	/**
@@ -62,15 +62,14 @@ abstract class PLLWC_Translated_Object_Language extends PLLWC_Object_Language {
 	 *
 	 * @phpstan-return array<non-empty-string, positive-int>
 	 */
-	public function get_translations( int $id ): array {
-		return $this->object->get_translations( $id );
+	public function get_translations( $id ): array {
+		return (array) $this->object->get_translations( $id );
 	}
 
 	/**
 	 * Among the object and its translations, returns the ID of the object which is in `$lang`.
 	 *
 	 * @since 1.0
-	 * @since 1.9 Type-hinted.
 	 *
 	 * @param int                      $id   Object ID.
 	 * @param PLL_Language|string|null $lang Optional language (object or slug), defaults to the current language.
@@ -78,7 +77,7 @@ abstract class PLLWC_Translated_Object_Language extends PLLWC_Object_Language {
 	 *
 	 * @phpstan-return int<0, max>|null
 	 */
-	public function get( int $id, $lang = null ) {
+	public function get( $id, $lang = null ) {
 		$lang = ! empty( $lang ) ? $lang : pll_current_language( \OBJECT );
 
 		if ( empty( $lang ) ) {

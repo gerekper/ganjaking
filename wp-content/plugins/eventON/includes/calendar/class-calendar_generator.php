@@ -40,7 +40,7 @@ class EVO_generator extends EVO_Cal_Time{
 	public $is_user_logged_in = false;
 
 	// time date values
-		public $GMT, $DD, $timezone, $timezone0, $current_time, $time_format, $date_format, $is_utcoff, $utc_time, $current_time0, $cal_tz_string,  $cal_utc_offset, $cal_tz, $cal_tz_gmt;
+		public $GMT, $DD, $timezone, $timezone0, $current_time, $time_format, $date_format, $utc_time, $current_time0, $cal_tz_string,  $cal_utc_offset, $cal_tz, $cal_tz_gmt;
 		private $utc_DD;
 	
 	public $filtering, $shell, $body, $helper, $EVENT, $cal_range_data, $help;
@@ -87,37 +87,40 @@ class EVO_generator extends EVO_Cal_Time{
 			$this->time_format = get_option('time_format');
 			$this->date_format = get_option('date_format');
 
-			$this->is_utcoff = EVO()->cal->is_utcoff();
-
 			// get calendar utc offset @4.5.6
 				$this->cal_tz_string = EVO()->cal->get_prop('evo_global_tzo','evcal_1') ? : 'UTC';				
 				$this->cal_tz_gmt = $this->help->get_timezone_gmt( $this->cal_tz_string );			
 				$this->cal_utc_offset = $this->help->_get_tz_offset_seconds( $this->cal_tz_string );
 				$this->cal_tz = new DateTimeZone( $this->cal_tz_string );
 
-			$tzstring = get_option( 'timezone_string' );
-    		
-			// Remove old Etc mappings. Fallback to gmt_offset.
-			if ( false !== strpos( $tzstring, 'Etc/GMT' ) ) {
-				$tzstring = '';
-			}
-			
-		    if( empty( $tzstring ) ){    $tzstring = 'UTC';    }
-		    $this->DD = new DateTime();
 
-			$this->timezone = new DateTimeZone( $tzstring );
+			$this->DD = new DateTime();
 			$this->timezone0 = new DateTimeZone( 'UTC' );
 
-			$this->utc_DD = new DateTime("now", $this->timezone0 );
-			$this->utc_time = $this->utc_DD->format('U');
+			// deprecating 4.5.9
+				$tzstring = get_option( 'timezone_string' );
+	    		
+				// Remove old Etc mappings. Fallback to gmt_offset.
+				if ( false !== strpos( $tzstring, 'Etc/GMT' ) ) {
+					$tzstring = '';
+				}
+				
+			    if( empty( $tzstring ) ){    $tzstring = 'UTC';    }		    
 
-			$this->current_time0 = $this->utc_time;
+				$this->timezone = new DateTimeZone( $tzstring );
+				
 
-			$this->DD->setTimezone( $this->timezone0 );
-			$this->DD->setTimestamp( $this->current_time );
+				$this->utc_DD = new DateTime("now", $this->timezone0 );
+				$this->utc_time = $this->utc_DD->format('U');
+
+				$this->current_time0 = $this->utc_time;
+
+				$this->DD->setTimezone( $this->timezone0 );
+				$this->DD->setTimestamp( $this->current_time );
 
 			// USER
 			$this->is_user_logged_in = is_user_logged_in();
+		
 		}
 
 	// INIT		
@@ -130,7 +133,6 @@ class EVO_generator extends EVO_Cal_Time{
 
 			$this->shell->verify_eventtypes();
 			$this->shell->reused();
-
 		}
 
 	// globals 

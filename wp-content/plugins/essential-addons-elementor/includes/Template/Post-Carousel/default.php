@@ -38,7 +38,7 @@ if ( $settings['eael_post_carousel_preset_style'] === 'two' ) {
 	    }
 
         if ( isset( $settings['post_block_hover_animation'] ) && 'none' !== $settings['post_block_hover_animation'] ) {
-            echo '<div class="eael-entry-overlay ' . ( $settings['post_block_hover_animation'] ) . '">';
+            echo '<div class="eael-entry-overlay ' . esc_attr( $settings['post_block_hover_animation'] ) . '">';
 
             if( $settings['eael_post_carousel_item_style'] === 'eael-overlay' ) {
                 // Show content
@@ -80,7 +80,7 @@ if ( $settings['eael_post_carousel_preset_style'] === 'two' ) {
         echo '<div class="eael-entry-media eael-entry-medianone">';
 
 	    if ($settings['eael_show_post_terms'] === 'yes') {
-		    echo Helper::get_terms_as_list($settings['eael_post_terms'], $settings['eael_post_terms_max_length']);
+		    echo Helper::get_terms_as_list($settings['eael_post_terms'], intval( $settings['eael_post_terms_max_length'] ));
 	    }
 
         if ( isset( $settings['post_block_hover_animation'] ) && 'none' !== $settings['post_block_hover_animation'] ) {
@@ -129,11 +129,11 @@ if ( $settings['eael_post_carousel_preset_style'] === 'two' ) {
             echo '<div class="eael-entry-media eael-entry-medianone">';
 
 	        if ($settings['eael_show_post_terms'] === 'yes') {
-		        echo Helper::get_terms_as_list($settings['eael_post_terms'], $settings['eael_post_terms_max_length']);
+		        echo Helper::get_terms_as_list($settings['eael_post_terms'], intval( $settings['eael_post_terms_max_length'] ));
 	        }
 
             if ( isset( $settings['post_block_hover_animation'] ) && 'none' !== $settings['post_block_hover_animation'] ) {
-                echo '<div class="eael-entry-overlay ' . ( $settings['post_block_hover_animation'] ) . '">';
+                echo '<div class="eael-entry-overlay ' . esc_attr( $settings['post_block_hover_animation'] ) . '">';
 
                 if( $settings['eael_post_carousel_item_style'] === 'eael-overlay' ) {
                     // Show content

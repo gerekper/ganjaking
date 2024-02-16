@@ -1203,6 +1203,10 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} [type="button"],
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *))' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .uael-gf-style input[type="submit"],
+            		{{WRAPPER}} .uael-gf-style input[type="button"],
+            		{{WRAPPER}} .uael-gf-style .gf_progressbar_percentage,
+            		{{WRAPPER}} .uael-gf-style .gform_wrapper .percentbar_blue' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'after',
 			)
@@ -1235,6 +1239,8 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} [type="button"],
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *))' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .uael-gf-style input[type="submit"],
+					{{WRAPPER}} .uael-gf-style input[type="button"]' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1262,7 +1268,11 @@ class GfStyler extends Common_Widget {
 				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"],
 				{{WRAPPER}} [type="button"],
 				{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
-				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)), {{WRAPPER}} .uael-gf-style .gf_progressbar_percentage, {{WRAPPER}} .uael-gf-style .gform_wrapper .percentbar_blue',
+				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
+				{{WRAPPER}} .uael-gf-style input[type="submit"],
+				{{WRAPPER}} .uael-gf-style input[type="button"],
+				{{WRAPPER}} .uael-gf-style .gf_progressbar_percentage,
+				{{WRAPPER}} .uael-gf-style .gform_wrapper .percentbar_blue',
 			)
 		);
 
@@ -1283,7 +1293,9 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"],
 					{{WRAPPER}} [type="button"],
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
-					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *))',
+					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
+					{{WRAPPER}} .uael-gf-style input[type="submit"],
+            		{{WRAPPER}} .uael-gf-style input[type="button"]',
 			)
 		);
 
@@ -1294,7 +1306,9 @@ class GfStyler extends Common_Widget {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
+					'{{WRAPPER}} .uael-gf-style input[type="submit"],
+					{{WRAPPER}} .uael-gf-style input[type="button"],
+					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
@@ -1313,7 +1327,9 @@ class GfStyler extends Common_Widget {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow',
-				'selector' => '{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
+				'selector' => '{{WRAPPER}} .uael-gf-style input[type="submit"],
+				{{WRAPPER}} .uael-gf-style input[type="button"],
+				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
 				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),
@@ -1353,6 +1369,7 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} [type="button"], 
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover, 
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .uael-gf-style input[type="submit"]:hover, {{WRAPPER}} .uael-gf-style input[type="button"]:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1374,6 +1391,7 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} [type="button"], 
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover, 
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .uael-gf-style input[type="submit"]:hover, {{WRAPPER}} .uael-gf-style input[type="button"]:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1394,7 +1412,8 @@ class GfStyler extends Common_Widget {
 				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], 
 				{{WRAPPER}} [type="button"], 
 				{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover, 
-				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover',
+				{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover,
+ 				{{WRAPPER}} .uael-gf-style input[type="submit"]:hover, {{WRAPPER}} .uael-gf-style input[type="button"]:hover',
 			)
 		);
 
@@ -1418,6 +1437,7 @@ class GfStyler extends Common_Widget {
 					{{WRAPPER}} [type="button"], 
 					{{WRAPPER}} [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover, 
 					{{WRAPPER}} .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)):hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .uael-gf-style input[type="submit"]:hover, {{WRAPPER}} .uael-gf-style input[type="button"]:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -2032,7 +2052,9 @@ class GfStyler extends Common_Widget {
 				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				),
-				'selector' => '{{WRAPPER}} .uael-gf-style input[type=submit], {{WRAPPER}} .uael-gf-style input[type="button"]',
+				'selector' => '{{WRAPPER}} .uael-gf-style input[type=submit], {{WRAPPER}} .uael-gf-style input[type="button"], 
+				{{WRAPPER}} .uael-gf-style .gform-theme.gform-theme--framework.gform_wrapper input[type=submit], 
+				{{WRAPPER}} .uael-gf-style .gform_wrapper input[type="button"]',
 			)
 		);
 		$this->end_controls_section();

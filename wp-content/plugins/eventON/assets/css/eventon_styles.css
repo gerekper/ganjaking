@@ -1,6 +1,6 @@
 /**
  * Primary Styles for EventON Calendar Front-end
- * @version		4.5.4
+ * @version		4.5.9
  */
 
 
@@ -1782,7 +1782,8 @@
 	.evcal_evdata_row.evo_metarow_ICS .evcal_evdata_cell p{margin:0;}
 
 	/* social media */
-		.evocard_box.evosocial{padding:10px;}
+		.evocard_box.evosocial{padding:10px;display: flex;align-items: center; justify-content: center; flex-wrap: wrap;}
+		.evocard_box.evosocial .evo_h3{height: 50px; line-height: 50px; padding: 0 10px;}
 		.evcal_evdata_row.evo_metarow_socialmedia{
 			padding: 0px;justify-content: center;align-items: center;flex-wrap: wrap;}
 		.evo_metarow_socialmedia .evo_sm, .eventon_cal_social .evo_sm{	
@@ -1969,52 +1970,66 @@
 		font-size: 13px;
 		opacity: 0.9;
 	}
-	.evo_metarow_rel_events .evcal_cell_rel_events a em i{display: inline-block;padding-right: 5px;}
+	.evo_metarow_rel_events .evcal_cell_rel_events a em i{display: inline-block;padding-right: 5px;font-size: 14px;}
 
 	.ajde_evcal_calendar #evcal_list .eventon_list_event .evo_metarow_rel_events a em,
-	.eventon_list_event .evo_metarow_rel_events a em{
-		color:#fff;
+	.eventon_list_event .evo_metarow_rel_events a em,
+	body .evcal_eventcard .evcal_cell_rel_events a,
+	body .evcal_eventcard .evcal_cell_rel_events a h4
+	{
+		color:var(--evo_color_1);
 	}
+	.evcal_cell_rel_events a:after{
+		content: "";
+		position: absolute; height: 100%; 
+		background-image: url( attr('img') );
+	}
+	.evcal_cell_rel_events span.img{
+		border-radius: 20px;
+		background-size: cover;
+		background-position: center;
+		width: 100%; height: 100px;
+	}
+	
 	.evcal_cell_rel_events a b{text-transform: uppercase;}
 	.evcal_cell_rel_events a em, .evcal_cell_rel_events a b{
 		line-height: 1.3; text-transform: uppercase;
-		text-shadow: 0 0 7px #000;
 	}
 	.evcal_cell_rel_events{
 		    display: flex;
 	    flex-wrap: wrap;
 	    flex-direction: row;
 	}
+	.evcal_cell_rel_events span{}
 	body .evcal_eventcard .evcal_cell_rel_events a{
-		cursor: pointer;background-color: #e2e2e2; color:#fff;
-	    padding: 40px 20px; margin-bottom:8px;border-radius: 8px;
+		cursor: pointer;background-color: #e2e2e2;
+	    padding: 20px 20px; margin-bottom:8px;border-radius: 25px;
 	    margin: 0 8px 8px 0;
 	    display: flex;  flex: 1; flex-basis: calc(33% - 8px);
 	    flex-direction: column;
 	    background-repeat:no-repeat;
 	    background-size:cover;
 	    background-position: center center;
+	    justify-content: flex-start; gap:10px;
+	    position: relative;overflow: hidden;
 	}
-	body .evcal_eventcard .evcal_cell_rel_events a::after{
-		content:"";
-	}
+	
 	body .evcal_eventcard .evcal_cell_rel_events a h4{
-		color:#fff; text-shadow: 0 0 7px #000; font-size:24px; font-weight: 800;
-		line-height: 110%
+		font-size:24px; font-weight: 800;
+		line-height: 110%; margin-bottom: 7px;
 	}
 	body .evcal_eventcard .bx2 .evcal_cell_rel_events a,
 	body .evcal_eventcard .bx3 .evcal_cell_rel_events a{flex-basis: 100%}
 	body .evcal_eventcard .evcal_cell_rel_events a:hover{
 		opacity: 0.8
 	}
-	.evcal_eventcard .evcal_cell_rel_events a span{
-		height: 100px;
-	    border-radius: 10px 10px 0 0;
-	    background-size: cover;
-	    background-position: center center;
-	    margin: -20px -20px 20px;
-	}
-	.evcal_eventcard .evcal_cell_rel_events a span.noimg{}
+
+	.ajde_evcal_calendar #evcal_list .eventon_list_event .evo_metarow_rel_events a.drk em,
+	.eventon_list_event .evo_metarow_rel_events a.drk em,
+	body .evcal_eventcard .evcal_cell_rel_events a.drk,
+	body .evcal_eventcard .evcal_cell_rel_events a.drk h4
+	{color:#fff;}
+	
 
 /* clickable row */
 	.evo_clik_row .evcal_evdata_row, .evo_clik_row.evcal_evdata_row{
@@ -2389,7 +2404,7 @@
 	}
 	.evo_metarow_organizer .evo_evdata_cell_content .evo_card_organizer{flex:1; padding:0 20px 30px 0;}
 	.evo_metarow_organizer .evo_card_organizer_image img{
-		border-radius: 10px;
+		border-radius: 30px;
 		max-height: 200px; width:150px;
 	}
 	#evcal_list .eventon_list_event .evo_metarow_organizer .evo_card_organizer .evo_data_val, 
@@ -4218,7 +4233,7 @@
 	.evcal_evdata_img {max-height: 255px !important; }
 
 	.evocard_row, .evocard_row.L{flex-direction: column; padding-bottom: 0px;}
-	.evocard_box, .evocard_row .evocard_box_h .evocard_box:last-child{margin-bottom: 8px;}
+	.evocard_box, .evocard_row .evocard_box_h .evocard_box:last-child{margin-bottom: 8px; margin-right: 0px;}
 
 	body .evcal_eventcard .evcal_cell_rel_events a{flex-basis: calc(50% - 8px);}
 

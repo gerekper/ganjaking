@@ -1,5 +1,15 @@
 *** WooCommerce Bookings Changelog ***
 
+2024-01-29 - version 2.0.9
+* Dev - Bump PHP "tested up to" version 8.3.
+* Dev - Bump WooCommerce "tested up to" version 8.5.
+* Dev - Bump WooCommerce minimum supported version to 8.3.
+* Dev - Bump WordPress minimum supported version to 6.3.
+* Fix - Set the place order label in the Block checkout page when order requires confirmation.
+* Fix - Slow checkout performance for high-volume sites.
+* Fix - Remove Cart Block incompatibility notice.
+* Tweak - Ensure New Bookable Product link goes to template selection screen.
+
 2024-01-10 - version 2.0.8
 * Add - Improved Bookings Calendar Connection & Sync Flow by adding Labels and Notifications.
 * Dev - Declare compatibility with WooCommerce Blocks

@@ -29,7 +29,6 @@ use MailPoet\AdminPages\Pages\Upgrade;
 use MailPoet\AdminPages\Pages\WelcomeWizard;
 use MailPoet\AdminPages\Pages\WooCommerceSetup;
 use MailPoet\DI\ContainerWrapper;
-use MailPoet\EmailEditor\Integrations\MailPoet\EmailEditor;
 use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Util\License\License;
 use MailPoet\WP\Functions as WPFunctions;
@@ -274,7 +273,7 @@ class Menu {
     );
 
     // newsletter editor
-    $this->wp->addSubmenuPage(
+    $emailEditorPage = $this->wp->addSubmenuPage(
       self::EMAILS_PAGE_SLUG,
       $this->setPageTitle(__('Email', 'mailpoet')),
       esc_html__('Email Editor', 'mailpoet'),
@@ -285,6 +284,14 @@ class Menu {
         'emailEditor',
       ]
     );
+
+    // Add body class for email editor page
+    // We need to mark the page as a block editor page so that some of the block editor styles are applied properly
+    $this->wp->addAction('load-' . $emailEditorPage, function() {
+      $this->wp->addFilter('admin_body_class', function ($classes) {
+        return ltrim($classes . ' block-editor-page');
+      });
+    });
 
     $this->registerAutomationMenu();
 
@@ -695,12 +702,6 @@ class Menu {
       return $parentFile;
     }
 
-    if ($this->checkIsGutenbergEmailEditorPage()) {
-      $plugin_page = self::EMAILS_PAGE_SLUG;
-      $submenu_file = self::EMAILS_PAGE_SLUG;
-      return self::EMAILS_PAGE_SLUG;
-    }
-
     if ($parentFile === self::MAIN_PAGE_SLUG || !self::isOnMailPoetAdminPage()) {
       return $parentFile;
     }
@@ -805,9 +806,5 @@ class Menu {
       return self::AUTOMATIONS_PAGE_SLUG;
     }
     return null;
-  }
-
-  private function checkIsGutenbergEmailEditorPage(): bool {
-    return $this->wp->getPostType() === EmailEditor::MAILPOET_EMAIL_POST_TYPE;
   }
 }

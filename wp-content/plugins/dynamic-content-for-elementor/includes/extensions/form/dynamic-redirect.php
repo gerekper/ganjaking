@@ -13,6 +13,14 @@ if (!\defined('ABSPATH')) {
 class DynamicRedirect extends \ElementorPro\Modules\Forms\Classes\Action_Base
 {
     public $has_action = \true;
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_form_redirect_repeater::dce_form_redirect_condition_field');
+        $save_guard->register_unsafe_control('form', 'dce_form_redirect_repeater::dce_form_redirect_condition_status');
+        $save_guard->register_unsafe_control('form', 'dce_form_redirect_repeater::dce_form_redirect_condition_value');
+        $save_guard->register_unsafe_control('form', 'dce_form_redirect_repeater::dce_form_redirect_to');
+    }
     /**
      * Get Name
      *

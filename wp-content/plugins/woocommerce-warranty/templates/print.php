@@ -127,7 +127,7 @@ defined( 'ABSPATH' ) || exit;
 		?>
 		<tr>
 			<th><?php esc_html_e( 'Tracking', 'wc_warranty' ); ?>:</th>
-			<td><?php echo $tracking_html; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></td>
+			<td><?php echo $tracking_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 		</tr>
 	</table>
 </div>

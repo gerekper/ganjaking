@@ -2,13 +2,15 @@
 /**
  * Add extra profile fields for users in admin
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2013 José Conti
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;

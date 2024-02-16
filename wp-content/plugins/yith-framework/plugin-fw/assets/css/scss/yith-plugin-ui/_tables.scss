@@ -23,6 +23,8 @@ table.yith-plugin-fw__boxed-table {
 // WP List Tables
 .yith-plugin-ui--classic-wp-list-style, .yith-plugin-ui #plugin-fw-wc .yith-plugin-ui--classic-wp-list-style {
 
+  @include wp-list-table-views;
+
   table.wp-list-table {
     @include classic-table;
 
@@ -39,6 +41,8 @@ table.yith-plugin-fw__boxed-table {
 }
 
 .yith-plugin-ui--boxed-wp-list-style, .yith-plugin-ui #plugin-fw-wc .yith-plugin-ui--boxed-wp-list-style {
+
+  @include wp-list-table-views;
 
   table.wp-list-table {
     @include boxed-table;

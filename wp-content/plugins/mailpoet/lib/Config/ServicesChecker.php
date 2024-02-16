@@ -82,7 +82,7 @@ class ServicesChecker {
 
   public function isPremiumKeyValid($displayErrorNotice = true) {
     return true;
-    
+
     $premiumKeySpecified = Bridge::isPremiumKeySpecified();
     $premiumPluginActive = License::getLicense();
     $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_STATE_SETTING_NAME);

@@ -3,7 +3,7 @@
  * helper functions for calendar
  *
  * @class 		evo_cal_help
- * @version		4.5.1
+ * @version		4.5.9
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -172,6 +172,13 @@ class evo_cal_help {
 					'favicon' => 'whatsapp.png',
 					'url' => '<a class="wa evo_ss" href="https://api.whatsapp.com/send?text=PERMALINK"
 				        data-action="share/whatsapp/share" target="_blank" title="'.evo_lang('Share on Whatsapp').'"><i class="fa fab fa-whatsapp"></i></a>'
+				),
+				// 4.5.9
+				'Reddit' => Array (
+					'key'=>'eventonsm_rd',
+					'counter' =>1,
+					'favicon' => 'reddit.png',
+					'url' => '<a class="rd evo_ss" href="https://reddit.com/submit?url=PERMALINK" rel="noopener" target="_blank" title="'.evo_lang('Share on Reddit').'"><i class="fa fab fa-reddit"></i></a>'
 				),
 				'copy' => Array (
 					'key'=>'eventonsm_copy',

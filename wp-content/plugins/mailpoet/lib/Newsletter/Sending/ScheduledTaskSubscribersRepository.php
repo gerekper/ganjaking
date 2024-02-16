@@ -97,6 +97,11 @@ class ScheduledTaskSubscribersRepository extends Repository {
         ->setParameter('task', $task)
         ->getQuery()
         ->execute();
+
+      // update was done via DQL, make sure the entities are also refreshed in the entity manager
+      $this->refreshAll(function (ScheduledTaskSubscriberEntity $entity) use ($task, $subscriberIds) {
+        return $entity->getTask() === $task && in_array($entity->getSubscriberId(), $subscriberIds, true);
+      });
     }
 
     $this->checkCompleted($task);
@@ -119,6 +124,22 @@ class ScheduledTaskSubscribersRepository extends Repository {
     $stmt->bindValue('subscribed', SubscriberEntity::STATUS_SUBSCRIBED);
     $stmt->bindValue('unconfirmed', SubscriberEntity::STATUS_UNCONFIRMED);
     $stmt->executeQuery();
+  }
+
+  /** @param int[] $ids */
+  public function deleteByTaskIds(array $ids): void {
+    $this->entityManager->createQueryBuilder()
+      ->delete(ScheduledTaskSubscriberEntity::class, 'sts')
+      ->where('sts.task IN (:taskIds)')
+      ->setParameter('taskIds', $ids)
+      ->getQuery()
+      ->execute();
+
+    // delete was done via DQL, make sure the entities are also detached from the entity manager
+    $this->detachAll(function (ScheduledTaskSubscriberEntity $entity) use ($ids) {
+      $task = $entity->getTask();
+      return $task && in_array($task->getId(), $ids, true);
+    });
   }
 
   public function deleteByScheduledTask(ScheduledTaskEntity $scheduledTask): void {

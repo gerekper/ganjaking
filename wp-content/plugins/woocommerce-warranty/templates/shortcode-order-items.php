@@ -74,8 +74,8 @@ if ( ! $order instanceof WC_Order ) {
 					wc_display_item_meta( $item );
 					?>
 				</td>
-				<td><?php echo wc_price( $order->get_line_total( $item, true ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></td>
-				<td><?php echo $warranty_string; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></td>
+				<td><?php echo wc_price( $order->get_line_total( $item, true ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+				<td><?php echo $warranty_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 			</tr>
 			<?php
 		}
@@ -184,7 +184,7 @@ if ( ! $order instanceof WC_Order ) {
 
 						echo '</ul>';
 
-						echo $warranty_actions; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+						echo $warranty_actions; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
 					</td>
 					<td><?php echo esc_html( $status_name ); ?></td>

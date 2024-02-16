@@ -539,13 +539,11 @@ trait Elementor
         $allowed_post_types = \DynamicContentForElementor\Helper::get_public_post_types();
         if (\is_string($post_type) && \array_key_exists($post_type, $allowed_post_types)) {
             return $post_type;
-        } else {
-            if (\is_array($post_type)) {
-                $post_type = \array_filter($post_type, function ($type) use($allowed_post_types) {
-                    return \array_key_exists($type, $allowed_post_types);
-                });
-                return $post_type;
-            }
+        } elseif (\is_array($post_type)) {
+            $post_type = \array_filter($post_type, function ($type) use($allowed_post_types) {
+                return \array_key_exists($type, $allowed_post_types);
+            });
+            return $post_type;
         }
         return '';
     }

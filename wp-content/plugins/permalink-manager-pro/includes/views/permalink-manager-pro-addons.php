@@ -100,7 +100,8 @@ class Permalink_Manager_Pro_Addons {
 		);
 
 		if ( defined( 'PMP_LICENCE_KEY' ) || defined( 'PMP_LICENSE_KEY' ) ) {
-			$fields['licence']['fields']['licence_key']['readonly'] = true;
+			$fields['licence']['fields']['licence_key']['disabled'] = true;
+			$fields['licence']['fields']['licence_key']['type']     = 'password';
 		}
 
 		// 2. Unblock some fields

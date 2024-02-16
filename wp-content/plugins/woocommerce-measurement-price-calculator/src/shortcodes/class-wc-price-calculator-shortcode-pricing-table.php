@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -40,6 +40,7 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 	 * Get the shortcode content
 	 *
 	 * @since 3.0
+	 *
 	 * @param array $atts associative array of shortcode parameters
 	 * @return string shortcode content
 	 */
@@ -50,7 +51,9 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 
 
 	/**
-	 * Output a pricing table
+	 * Output a pricing table.
+	 *
+	 * @since 3.0
 	 *
 	 * * product_id/product_sku - id or sku of product.  Defaults to current product, if any
 	 *
@@ -62,10 +65,10 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 	public static function output( $atts ) {
 		global $product, $wpdb;
 
-		extract( shortcode_atts( array(
+		extract( shortcode_atts( [
 			'product_id'  => '',
 			'product_sku' => '',
-		), $atts ) );
+		], $atts ) );
 
 		// product by sku?
 		if ( $product_sku ) {
@@ -77,13 +80,14 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 			$product = wc_get_product( $product_id );
 		}
 
-		// product ?
-		if ( ! $product ) {
+		// bail if no product or not accessible
+		if ( ! $product || ! static::is_product_accessible( $product ) ) {
 			return;
 		}
 
 		// pricing rules?
 		$settings = new \WC_Price_Calculator_Settings( $product );
+
 		if ( ! $settings->pricing_rules_enabled() || ! $settings->has_pricing_rules() ) {
 			return;
 		}
@@ -94,9 +98,53 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 
 
 	/**
-	 * Returns a pricing rules HTML table
+	 * Determines if a product can be accessible for outputting the shortcode data.
+	 *
+	 * @since 3.22.2
+	 *
+	 * @param WC_Product $product
+	 * @return bool
+	 */
+	private static function is_product_accessible( \WC_Product $product ) : bool {
+
+		// bail for products accessible by admins or editable by the user
+		if ( current_user_can( 'manage_woocommerce' ) || current_user_can( 'edit_product', $product->get_id() ) ) {
+
+			$is_accessible = true;
+
+			// product is not meant to be visible or is unpublished
+		} elseif ( ! $product->is_visible() || get_post_status( $product->get_id() ) !== 'publish' ) {
+
+			$is_accessible = false;
+
+		} else {
+
+			$is_accessible = true;
+			$product_post  = get_post( $product->get_id() );
+
+			// product is password-protected
+			if ( $product_post && ! empty( $product_post->post_password) && post_password_required( $product_post->ID ) ) {
+				$is_accessible = false;
+			}
+		}
+
+		/**
+		 * Filters whether a product can be accessed for outputting the shortcode data.
+		 *
+		 * @since 3.22.2
+		 *
+		 * @param bool $is_accessible
+		 * @param WC_Product $product
+		 */
+		return (bool) apply_filters( 'wc_measurement_price_calculator_is_product_accessible', $is_accessible, $product );
+	}
+
+
+	/**
+	 * Returns a pricing rules HTML table.
 	 *
 	 * @since 3.0
+	 *
 	 * @param array $rules array of pricing rules
 	 * @param \WC_Price_Calculator_Settings $settings the calculator settings object
 	 * @return string pricing rules HTML table
@@ -130,6 +178,8 @@ class WC_Price_Calculator_Shortcode_Pricing_Table {
 
 		return $html;
 	}
+
+
 }
 
 endif; // class_exists check

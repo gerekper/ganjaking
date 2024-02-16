@@ -725,30 +725,34 @@ class WC_Shipment_Tracking_Actions {
 	 * @param string|null $postcode      Postcode.
 	 * @param string|null $country_code  Country code.
 	 * @param int         $order_id      Order ID.
-	 * @param string      $link_format   Link format.
+	 * @param string|null $link_format   Link format.
 	 *
 	 * @return string
 	 */
-	public function get_formatted_tracking_link( array $tracking_item, ?string $postcode, ?string $country_code, int $order_id, string $link_format ): string {
+	public function get_formatted_tracking_link( array $tracking_item, ?string $postcode, ?string $country_code, int $order_id, ?string $link_format ): string {
+
+		$tracking_link_components = array(
+			$tracking_item['tracking_number'],
+			rawurlencode( wc_normalize_postcode( $postcode ) ),
+			$country_code,
+			$order_id,
+		);
+
 		/**
 		 * Filter for manipulating listed providers.
 		 *
-		 * @param array Value of the tracking data.
-		 * @param array $tracking_item Tracking item data.
+		 * @param array $tracking_link_components The tracking link components.
+		 * @param array $tracking_item            Tracking item data.
 		 *
 		 * @since 2.4.2
 		 */
 		$values = apply_filters(
 			'wc_shipment_tracking_provider_url_values',
-			array(
-				$tracking_item['tracking_number'],
-				rawurlencode( wc_normalize_postcode( $postcode ) ),
-				$country_code,
-				$order_id,
-			),
+			$tracking_link_components,
 			$tracking_item
 		);
 
+		$link_format = is_string( $link_format ) ? $link_format : '';
 		array_unshift( $values, $link_format );
 
 		return call_user_func_array( 'sprintf', $values );

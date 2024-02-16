@@ -79,7 +79,7 @@ class Cron
     }
     /**
      * Check license on cron
-     * 
+     *
      * @return void
      */
     public function check_license()

@@ -5,7 +5,7 @@ Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
 Tested up to: 6.4.2
-Stable tag: 4.5.8
+Stable tag: 4.5.9
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,21 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.5.9 (2024-2-1) = 
+ADDED: new tag for settings newly added feature recognition
+ADDED: Search bar enabling via shortcode
+ADDED: Reddit as social share option
+FIXED: webhook lightbox functions not working correct
+FIXED: related event times incorrect
+FIXED: day, month, year long unix calculation
+FIXED: event edit settings month and year long to fade event time
+FIXED: settings icons layout
+FIXED: event repeat calculation not taking into account event tz
+UPDATED: related events UI 
+UPDATED: user interaction UI
+UPDATED: moved live now settings into time settings section
+REMOVED: use UTC offset setting
+
 = 4.5.8 (2024-1-29) = 
 ADDED: moment timezone js
 FIXED: search box not honoring passed on shortcodes

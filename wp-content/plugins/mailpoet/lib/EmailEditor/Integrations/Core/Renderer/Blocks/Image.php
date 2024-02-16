@@ -80,19 +80,17 @@ class Image implements BlockRenderer {
 
   /**
    * This method configure the font size of the caption because it's set to 0 for the parent element to avoid unexpected white spaces
+   * We try to use font-size passed down from the parent element $parsedBlock['email_attrs']['font-size'], but if it's not set, we use the default font-size from the email theme.
    */
   private function getCaptionStyles(SettingsController $settingsController, array $parsedBlock): string {
-    $contentStyles = $settingsController->getEmailContentStyles();
+    $themeData = $settingsController->getTheme()->get_data();
 
     // If the alignment is set, we need to center the caption
     $styles = [
       'text-align' => isset($parsedBlock['attrs']['align']) ? 'center' : 'left',
     ];
 
-    if (isset($contentStyles['typography']['fontSize'])) {
-      $styles['font-size'] = $contentStyles['typography']['fontSize'];
-    }
-
+    $styles['font-size'] = $parsedBlock['email_attrs']['font-size'] ?? $themeData['styles']['typography']['fontSize'];
     return $settingsController->convertStylesToString($styles);
   }
 
@@ -117,6 +115,7 @@ class Image implements BlockRenderer {
 
     $styles['width'] = '100%';
     $align = $parsedBlock['attrs']['align'] ?? 'left';
+    $marginTop = $parsedBlock['email_attrs']['margin-top'] ?? '0px';
 
     return '
       <table
@@ -138,7 +137,7 @@ class Image implements BlockRenderer {
               width="' . $wrapperWidth . '"
             >
               <tr>
-                <td>{image_content}</td>
+                <td style="padding-top:' . $marginTop . '">{image_content}</td>
               </tr>
               <tr>
                 <td style="' . $captionStyles . '">{caption_content}</td>

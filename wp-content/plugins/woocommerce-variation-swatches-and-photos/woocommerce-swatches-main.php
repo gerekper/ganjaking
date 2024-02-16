@@ -1,8 +1,6 @@
 <?php
 class WC_SwatchesPlugin {
 
-	private $product_attribute_images;
-
 	public function __construct() {
 
 		define( 'WC_SWATCHES_VERSION', '3.0.6' );
@@ -18,24 +16,24 @@ class WC_SwatchesPlugin {
 
 		require 'classes/class-wc-swatches-ajax-handler.php';
 
-		add_action( 'init', array( &$this, 'on_init' ) );
+		add_action( 'init', array( $this, 'on_init' ) );
 
 		add_action( 'wc_quick_view_enqueue_scripts', array( $this, 'on_enqueue_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( &$this, 'on_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'on_enqueue_scripts' ) );
 
 
-		add_action( 'admin_head', array( &$this, 'on_enqueue_scripts' ) );
+		add_action( 'admin_head', array( $this, 'on_enqueue_scripts' ) );
 
-		$this->product_attribute_images = new WC_Swatches_Product_Attribute_Images( 'swatches_id', 'swatches_image_size' );
-		$this->product_data_tab         = new WC_Swatches_Product_Data_Tab();
+		WC_Swatches_Product_Attribute_Images::register( 'swatches_id', 'swatches_image_size' );
+		WC_Swatches_Product_Data_Tab::register();
 
 		//Swatch Image Size Settings
 		add_filter( 'woocommerce_catalog_settings', array(
-			&$this,
+			$this,
 			'swatches_image_size_setting'
 		) ); // pre WC 2.1
 		add_filter( 'woocommerce_product_settings', array(
-			&$this,
+			$this,
 			'swatches_image_size_setting'
 		) ); // WC 2.1+
 		add_filter( 'woocommerce_get_image_size_swatches', array( $this, 'get_image_size_swatches' ) );
@@ -45,9 +43,9 @@ class WC_SwatchesPlugin {
 		$image_size = get_option( 'swatches_image_size', array() );
 		$size       = array();
 
-		$size['width']  = isset( $image_size['width'] ) && ! empty( $image_size['width'] ) ? $image_size['width'] : '32';
-		$size['height'] = isset( $image_size['height'] ) && ! empty( $image_size['height'] ) ? $image_size['height'] : '32';
-		$size['crop']   = isset( $image_size['crop'] ) ? $image_size['crop'] : 1;
+		$size['width']  = ! empty( $image_size['width'] ) ? $image_size['width'] : '32';
+		$size['height'] = ! empty( $image_size['height'] ) ? $image_size['height'] : '32';
+		$size['crop']   = $image_size['crop'] ?? 1;
 
 		$image_size = apply_filters( 'woocommerce_get_image_size_swatches_image_size', $size );
 
@@ -121,8 +119,8 @@ class WC_SwatchesPlugin {
 		$image_size = get_option( 'swatches_image_size', array() );
 		$size       = array();
 
-		$size['width']  = isset( $image_size['width'] ) && ! empty( $image_size['width'] ) ? $image_size['width'] : '32';
-		$size['height'] = isset( $image_size['height'] ) && ! empty( $image_size['height'] ) ? $image_size['height'] : '32';
+		$size['width']  = ! empty( $image_size['width'] ) ? $image_size['width'] : '32';
+		$size['height'] = ! empty( $image_size['height'] ) ? $image_size['height'] : '32';
 		$size['crop']   = isset( $image_size['crop'] ) && $image_size['crop'] ? 1 : 0;
 
 		$image_size = apply_filters( 'woocommerce_get_image_size_swatches_image_size', $size );

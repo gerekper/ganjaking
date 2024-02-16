@@ -16,10 +16,10 @@ function UniteCreatorTestAddonNew(){
 	 * on check settings values click
 	 */
 	function onCheckClick() {
-		
+
 		var values = g_settings.getSettingsValues();
 		var selectorsCss = g_settings.getSelectorsCss();
-		
+
 		trace("Settings Values Are:");
 		trace(values);
 
@@ -108,11 +108,11 @@ function UniteCreatorTestAddonNew(){
 
 		var html = g_ucAdmin.getVal(response, "html");
 		var arrIncludes = g_ucAdmin.getVal(response, "includes");
-		
+
 		g_helper.putIncludes(window, arrIncludes, function(){
-			
+
 			g_objPreview.html(html);
-			
+
 		});
 
 	}
@@ -152,9 +152,9 @@ function UniteCreatorTestAddonNew(){
 	 * update settings selectors
 	 */
 	function updateSelectors(){
-		
+
 		var css = g_settings.getSelectorsCss();
-		
+
 		var objStyle = jQuery("[name=uc_selectors_css]");
 
 		if(objStyle.length == 0)
@@ -163,31 +163,23 @@ function UniteCreatorTestAddonNew(){
 		objStyle.text(css);
 
 	}
-	
+
 	/**
-	 * update inputs like google fonts
+	 * update selectors includes (like google font)
 	 */
-	function updateSelectorsUncludes(){
-		
-		var objStyleIncludes = g_settings.getSelectorsIncludes();
-		
-		if(objStyleIncludes.length == 0)
-			return(false);
-				
-		g_helper.putIncludes(window, objStyleIncludes);
-		
+	function updateSelectorsIncludes() {
+		var includes = g_settings.getSelectorsIncludes();
+
+		if (includes)
+			g_helper.putIncludes(window, includes);
 	}
-	
-	
+
 	/**
-	 * update on change setting - selectors and includes
+	 * update selectors and includes on settings change
 	 */
-	function updateOnChange(){
-		
-		updateSelectorsUncludes();
-				
+	function updateOnChange() {
+		updateSelectorsIncludes();
 		updateSelectors();
-				
 	}
 
 	/**

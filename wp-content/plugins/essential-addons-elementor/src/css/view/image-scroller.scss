@@ -1,0 +1,38 @@
+.eael-image-scroller {
+    position: relative;
+    overflow: auto;
+    line-height: 0
+    img {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+    }
+
+    &.eael-image-scroller-horizontal {
+        img {
+            width: inherit;
+            max-width: unset;
+            max-height: 100%;
+        }
+    }
+
+    &.eael-image-scroller-vertical {
+        img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    &.eael-image-scroller-hover {
+        cursor: all-scroll;
+        overflow: hidden;
+        img {
+            transition-property: transform;
+            transition-duration: 1s;
+            transition-timing-function: linear;
+            transition-delay: 0s;
+        }
+    }
+}

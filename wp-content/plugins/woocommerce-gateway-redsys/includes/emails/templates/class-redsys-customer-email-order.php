@@ -4,7 +4,15 @@
  *
  * An email sent to the customer when there was a Card payment problem.
  *
- * @package     WooCommerceRedsys/Classes/Emails
+ * @package WooCommerce Redsys Gateway
+ * @since 1.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +26,7 @@ if ( ! class_exists( 'WC_Email' ) ) {
  */
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 class Redsys_Customer_Email_Order extends WC_Email {
 	/**
@@ -28,7 +36,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
 		// Email slug we can use to filter other data.
@@ -79,7 +87,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function get_content_html() {
 		return wc_get_template_html(
@@ -103,7 +111,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function get_content_plain() {
 		return wc_get_template_html(

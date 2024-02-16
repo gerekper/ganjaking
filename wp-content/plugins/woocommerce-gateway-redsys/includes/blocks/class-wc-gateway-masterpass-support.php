@@ -2,7 +2,7 @@
 /**
  * WC_Gateway_Masterpass_Support class file.
  *
- * @package WooCommerce\Payments
+ * @package WooCommerce Redsys Gateway
  */
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;

@@ -4122,7 +4122,7 @@ msgid "WooCommerce Servired/RedSys Spain Gateway"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/redsys-gateway/"
+msgid "https://woo.com/products/redsys-gateway/"
 msgstr ""
 
 #. Description of the plugin/theme

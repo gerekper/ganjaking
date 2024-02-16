@@ -1,5 +1,5 @@
 <?php
-define( 'DCE_VERSION', '2.12.8' );
+define( 'DCE_VERSION', '2.12.14' );
 define( 'DCE_SLUG', 'dynamic-content-for-elementor' );
 define( 'DCE_PREFIX', 'dce' );
 define( 'DCE_BRAND', 'Dynamic.ooo' );

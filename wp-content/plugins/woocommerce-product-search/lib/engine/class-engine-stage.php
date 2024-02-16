@@ -247,6 +247,17 @@ abstract class Engine_Stage {
 	}
 
 	/**
+	 * Cache context.
+	 *
+	 * @return array
+	 */
+	protected function get_cache_context() {
+		$cache_context = $this->get_parameters();
+		$cache_context = apply_filters( 'woocommerce_product_search_engine_stage_cache_context', $cache_context, $this );
+		return $cache_context;
+	}
+
+	/**
 	 * Set the engine for this stage.
 	 *
 	 * @param Engine $engine

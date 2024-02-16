@@ -4,7 +4,7 @@ Tags: elementor, elements, addons, elementor addon, elementor widget, elementor 
 Requires at least: 4.5
 Tested Up To: 6.4.2
 Requires PHP: 7.0
-Stable tag: 2.9.10
+Stable tag: 2.9.11
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -89,6 +89,12 @@ Yes, it will work with any WordPress theme as long as you are using Elementor as
 Premium Addons for Elementor is light weight and we also gave you the control to enable only the elements you actually use on your website for faster performance.
 
 == Changelog ==
+
+= 2.9.11 =
+
+- New: Added new hover effects to all the buttons all over the plugin - [here](https://premiumaddons.com/button-widget-for-elementor-page-builder/).
+- Tweak: Alert Box widget rebuilt - [here](https://premiumaddons.com/alert-box-widget-for-elementor-page-builder/).
+- Fixed: Social icons not showing in Image Hotspots widget.
 
 = 2.9.10 =
 

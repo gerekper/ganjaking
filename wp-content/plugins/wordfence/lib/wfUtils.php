@@ -1,6 +1,13 @@
 <?php
 require_once(dirname(__FILE__) . '/wfConfig.php');
 class wfUtils {
+	//Flags for wfUtils::parse_version
+	const VERSION_MAJOR = 'major';
+	const VERSION_MINOR = 'minor';
+	const VERSION_PATCH = 'patch';
+	const VERSION_PRE_RELEASE = 'pre-release';
+	const VERSION_BUILD = 'build';
+	
 	private static $isWindows = false;
 	public static $scanLockFH = false;
 	private static $lastErrorReporting = false;
@@ -1263,6 +1270,85 @@ class wfUtils {
 			return $wp_version;
 		}
 	}
+	
+	public static function parse_version($version, $component = null) {
+		$major = 0;
+		$minor = 0;
+		$patch = 0;
+		$prerelease = '';
+		$build = '';
+		
+		if (preg_match('/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/', $version, $matches)) { //semver
+			$major = $matches[1];
+			$minor = $matches[2];
+			$patch = $matches[3];
+			
+			if (preg_match('/^([^\+]+)\+(.*)$/', $version, $matches)) {
+				$version = $matches[1];
+				$build = $matches[2];
+			}
+			
+			if (preg_match('/^([^\-]+)\-(.*)$/', $version, $matches)) {
+				$version = $matches[1];
+				$prerelease = $matches[2];
+			}
+		}
+		else { //Parse as "PHP-standardized" (see version_compare docs: "The function first replaces _, - and + with a dot . in the version strings and also inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'.")
+			$version = trim(preg_replace('/\.\.+/', '.', preg_replace('/([^0-9\.]+)/', '.$1.', preg_replace('/[_\-\+]+/', '.', $version))), '.');
+			$components = explode('.', $version);
+			$i = 0;
+			if (isset($components[$i]) && is_numeric($components[$i])) { $major = $components[$i]; $i++; }
+			if (isset($components[$i]) && is_numeric($components[$i])) { $minor = $components[$i]; $i++; }
+			if (isset($components[$i]) && is_numeric($components[$i])) { $patch = $components[$i]; $i++; }
+			while (isset($components[$i]) && is_numeric($components[$i])) {
+				if (!empty($build)) {
+					$build .= '.';
+				}
+				$build .= $components[$i];
+				$i++;
+			}
+			while (isset($components[$i])) {
+				if (!empty($prerelease)) {
+					$prerelease .= '.';
+				}
+				
+				if (preg_match('/^(?:dev|alpha|a|beta|b|rc|#|pl|p)$/i', $components[$i])) {
+					$prerelease .= strtolower($components[$i]);
+					if (isset($components[$i + 1])) {
+						if (!preg_match('/^(?:a|b|rc|#|pl|p)$/i', $components[$i])) {
+							$prerelease .= '-';
+						}
+						$i++;
+					}
+				}
+				
+				$prerelease .= $components[$i];
+				$i++;
+			}
+		}
+		
+		$version = array(
+			self::VERSION_MAJOR => $major,
+			self::VERSION_MINOR => $minor,
+			self::VERSION_PATCH => $patch,
+			self::VERSION_PRE_RELEASE => $prerelease,
+			self::VERSION_BUILD => $build,
+		);
+		
+		$version = array_filter($version, function($v) {
+			return $v !== '';
+		});
+		
+		if ($component === null) {
+			return $version;
+		}
+		else if (isset($version[$component])) {
+			return $version[$component];
+		}
+		
+		return null;
+	}
+	
 	public static function isAdminPageMU(){
 		if(preg_match('/^[\/a-zA-Z0-9\-\_\s\+\~\!\^\.]*\/wp-admin\/network\//', $_SERVER['REQUEST_URI'])){
 			return true;
@@ -3071,6 +3157,53 @@ class wfUtils {
 			implode('/', $relativeComponents),
 			($trailingSlash && (count($relativeComponents) > 0 || !$leadingSlash)) ? '/' : ''
 		));
+	}
+
+	/**
+	 * Determine the effective port given the output of parse_url
+	 * @param array $urlComponents
+	 * @return int the resolved port number
+	 */
+	private static function resolvePort($urlComponents) {
+		if (array_key_exists('port', $urlComponents) && !empty($urlComponents['port'])) {
+			return $urlComponents['port'];
+		}
+		if (array_key_exists('scheme', $urlComponents) && $urlComponents['scheme'] === 'https') {
+			return 443;
+		}
+		return 80;
+	}
+
+	/**
+	 * Check if two site URLs identify the same site
+	 * @param string $a first url
+	 * @param string $b second url
+	 * @param array $ignoredSubdomains An array of subdomains to ignore when matching (e.g., www)
+	 * @return bool true if the URLs match, false otherwise
+	 */
+	public static function compareSiteUrls($a, $b, $ignoredSubdomains = array()) {
+		$patterns = array_map(function($p) { return '/^' . preg_quote($p, '/') . '\\./i'; }, $ignoredSubdomains);
+		
+		$componentsA = parse_url($a);
+		if (isset($componentsA['host'])) { $componentsA['host'] = preg_replace($patterns, '', $componentsA['host']); }
+		$componentsB = parse_url($b);
+		if (isset($componentsB['host'])) { $componentsB['host'] = preg_replace($patterns, '', $componentsB['host']); }
+		foreach (array('host', 'port', 'path') as $component) {
+			$valueA = array_key_exists($component, $componentsA) ? $componentsA[$component] : null;
+			$valueB = array_key_exists($component, $componentsB) ? $componentsB[$component] : null;
+			if ($valueA !== $valueB) {
+				if ($component === 'port') {
+					$portA = self::resolvePort($componentsA);
+					$portB = self::resolvePort($componentsB);
+					if ($portA !== $portB)
+						return false;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static function getHomePath() {

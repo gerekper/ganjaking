@@ -2,22 +2,29 @@
 /**
  * Redsys Advanced Settings
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 23.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
-
+	/**
+	 * Redsys Advanced Settings.
+	 */
 	class Redsys_Advanced_Settings {
-
+		/**
+		 * Initialize the settings.
+		 */
 		public static function init() {
 			add_filter( 'woocommerce_settings_tabs_array', array( __CLASS__, 'add_settings_tab' ), 50 );
 			add_action( 'woocommerce_settings_tabs_redsys_advanced', array( __CLASS__, 'settings_tab' ) );
@@ -28,12 +35,18 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 			add_action( 'woocommerce_admin_field_redsysradiomcenter', __CLASS__ . '::redsys_radio_mcenter' );
 			add_action( 'woocommerce_admin_field_redsysradioframe', __CLASS__ . '::redsys_radio_frame' );
 		}
-
+		/**
+		 * Add a new settings tab to the WooCommerce settings tabs array.
+		 *
+		 * @param array $settings_tabs Array of WooCommerce setting tabs.
+		 */
 		public static function add_settings_tab( $settings_tabs ) {
 			$settings_tabs['redsys_advanced'] = esc_html__( 'Redsys Advanced', 'woocommerce-redsys' );
 			return $settings_tabs;
 		}
-
+		/**
+		 * Uses the WooCommerce admin fields API to output settings via the @see woocommerce_admin_fields() function.
+		 */
 		public static function settings_tab() {
 			global $current_section;
 			$sections      = self::get_sections();
@@ -43,17 +56,21 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 			}
 			woocommerce_admin_fields( self::get_settings( $current_section ) );
 		}
-
+		/**
+		 * Save settings.
+		 */
 		public static function save_settings() {
 			global $current_section;
 			$sections      = self::get_sections();
 			$first_section = array_keys( $sections )[0];
-			if ( $current_section == '' ) {
+			if ( $current_section === '' ) {
 				$current_section = $first_section;
 			}
 			woocommerce_update_options( self::get_settings( $current_section ) );
 		}
-
+		/**
+		 * Output the sections
+		 */
 		public static function output_sections() {
 			global $current_section;
 			$sections = self::get_sections();
@@ -83,7 +100,9 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 			}
 			</style>';
 		}
-
+		/**
+		 * Get sections
+		 */
 		public static function get_sections() {
 			$sections = array(
 				''                   => esc_html__( 'General', 'woocommerce-redsys' ),
@@ -226,8 +245,38 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 		</tr>
 			<?php
 		}
-
+		/**
+		 * Get settings array
+		 *
+		 * @param string $section section name.
+		 */
 		public static function get_settings( $section = null ) {
+
+			$log = new WC_Logger();
+
+			$saved_shipping_methods = maybe_unserialize( get_option( 'woocommerce_redsys_shipping_methods' ) );
+
+			$log->add( 'redsys-settings', 'saved_shipping_methods: ' . print_r( $saved_shipping_methods, true ) );
+
+			if ( ! is_array( $saved_shipping_methods ) ) {
+				$saved_shipping_methods = array();
+			}
+
+			$options_shipping = array();
+
+			foreach ( $saved_shipping_methods as $method_id ) {
+				// Aquí ajustamos para obtener el método de envío de forma diferente.
+				$shipping_methods = WC()->shipping()->load_shipping_methods();
+
+				if ( isset( $shipping_methods[ $method_id ] ) ) {
+					$method                         = $shipping_methods[ $method_id ];
+					$options_shipping[ $method_id ] = $method->get_method_title();
+				}
+			}
+
+			$log->add( 'redsys-settings', 'options_shipping: ' . print_r( $options_shipping, true ) );
+
+
 			switch ( $section ) {
 				case 'push_notifications':
 					$readonly = array(
@@ -640,6 +689,38 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 							'id'      => 'redsys_enable_one_click_button',
 						),
 						array(
+							'title'   => __( 'Select Shipping Methods', 'woocommerce-redsys' ),
+							'desc'    => __( 'Add the Shipping Methods that will include their rates as shipping options in the one-click payment button from the product.', 'woocommerce-redsys' ),
+							'id'      => 'woocommerce_redsys_shipping_methods',
+							'class'   => 'wc-enhanced-select',
+							'css'     => 'width: 400px;',
+							'type'    => 'multiselect',
+							'options' => $options_shipping,
+							'default' => '',
+						),
+						/*
+						array(
+							'title'   => esc_html__( 'Preauthorize All Orders', 'woocommerce-redsys' ),
+							'type'    => 'checkbox',
+							'label'   => esc_html__( 'Preauthorize All Orders', 'woocommerce-redsys' ),
+							'default' => 'no',
+							'desc'    => esc_html__( 'Preathorize all orders paid with Redsys redirection or Redsys in the Cechekout (InSite)', 'woocommerce-redsys' ),
+							'id'      => 'redsys_preauthorize_all_orders',
+						),
+						*/
+						array(
+							'title'       => esc_html__( 'Status after confirm', 'woocommerce-redsys' ),
+							'type'        => 'select',
+							'description' => esc_html__( 'Status after confirm', 'woocommerce-redsys' ),
+							'default'     => 'completed',
+							'options'     => array(
+								'completed'  => esc_html__( 'Complete', 'woocommerce-redsys' ),
+								'processing' => esc_html__( 'Processing', 'woocommerce-redsys' ),
+							),
+							'desc'        => esc_html__( 'Select the status after confirm a preauthorization. By Default is "Complete"', 'woocommerce-redsys' ),
+							'id'          => 'redsys_preathorize_status',
+						),
+						array(
 							'type' => 'sectionend',
 							'id'   => 'general_options',
 						),
@@ -662,7 +743,7 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	add_filter( 'manage_woocommerce_page_wc-orders_columns', 'redsys_add_invoice_number' );
 	add_action( 'manage_woocommerce_page_wc-orders_custom_column', 'redsys_add_invoice_number_value_hpos', 20, 2 );
 	add_filter( 'manage_woocommerce_page_wc-orders_sortable_columns', 'redsys_add_invoice_number_sortable_colum' );
-	// add_action(   'woocommerce_email_before_order_table', 'redsys_add_invoice_number_to_customer_email' );
+	// add_action( 'woocommerce_email_before_order_table', 'redsys_add_invoice_number_to_customer_email' );
 	add_action( 'woocommerce_payment_complete', 'redsys_sort_invoice_orders' );
 	add_action( 'woocommerce_order_status_processing', 'redsys_sort_invoice_orders_admin' );
 	add_action( 'woocommerce_order_status_completed', 'redsys_sort_invoice_orders_admin' );
@@ -945,7 +1026,7 @@ function redsys_use_patterns( $string ) {
 	return $final;
 }
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Redsys Check Current Year.
  */
 function redsys_check_current_year() {
 		$current_year = date_i18n( 'Y' );

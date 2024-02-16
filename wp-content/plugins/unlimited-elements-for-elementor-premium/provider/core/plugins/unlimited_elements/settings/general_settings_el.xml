@@ -232,8 +232,14 @@
     <field name="openweather_api_key"
       type="text"
       label="OpenWeather API Key"
-      description="Used in weather related widgets. &lt;a href='https://openweathermap.org/api/one-call-3#start' target='_blank'&gt;Read this article&lt;/a&gt; for instructions."
+      description="Used in weather related widgets. &lt;a href='https://openweathermap.org/api/one-call-3#start' target='_blank'&gt;Read this article&lt;/a&gt; for instructions. &lt;br&gt; It takes some time for an API key to become active. &lt;a href='https://openweathermap.org/faq#error401' target='_blank'&gt;Read error 401 description&lt;/a&gt; for more details."
       default="">
+    </field>
+
+    <field name="openweather_api_test"
+      type="custom"
+      custom_type="openweather_api_test"
+      label=" ">
     </field>
 
     <field name="exchangerate_api_heading"
@@ -265,18 +271,23 @@
   </fieldset>
   <fieldset name="forms" label="Forms">
 
+    <field name="form_general_heading"
+      type="statictext"
+      label="&lt;b&gt;General&lt;/b&gt;">
+    </field>
+
     <field name="enable_form_entries"
       type="boolean"
       default="false"
       label="Enable Form Entries"
-      description="Enable saving and viewing of the form entries">
+      description="Enable viewing and saving of form submissions.">
     </field>
 
     <field name="save_form_logs"
       type="boolean"
       default="false"
       label="Save Form Logs"
-      description="Enable saving logs of submitted forms">
+      description="Enable saving a log of form submissions.">
     </field>
 
     <field type="control"
@@ -293,11 +304,48 @@
       label=" ">
     </field>
 
-    <field name="email_test_hr"
-      type="hr">
+    <field name="form_antispam_heading"
+      type="statictext"
+      label="&lt;b&gt;Anti-spam&lt;/b&gt;">
     </field>
 
-    <field name="email_test_text"
+    <field name="form_antispam_enabled"
+      type="boolean"
+      default="true"
+      label="Enable Anti-spam"
+      description="Enable anti-spam to protect forms.">
+    </field>
+
+    <field type="bulk_control_start"
+      parent="form_antispam_enabled"
+      ctype="show"
+      value="true"
+    />
+
+    <field name="form_antispam_submissions_limit"
+      type="text"
+      label="Submissions Limit"
+      description="Specify the maximum number of submissions a user can reach in the time interval. The default value is 3."
+      default="">
+    </field>
+
+    <field name="form_antispam_submissions_period"
+      type="text"
+      label="Submissions Period"
+      description="Specify within how many seconds a user will reach the submissions limit. The default value is 60 seconds."
+      default="">
+    </field>
+
+    <field name="form_antispam_block_period"
+      type="text"
+      label="Block Period"
+      description="Specify how many minutes a user will be blocked from submitting forms after reaching the limit. The default value is 180 minutes."
+      default="">
+    </field>
+
+    <field type="bulk_control_end" />
+
+    <field name="email_test_heading"
       type="statictext"
       label="&lt;b&gt;Email Test&lt;/b&gt;">
     </field>
@@ -428,7 +476,7 @@
       label="Show Globals">
     </field>
 
-	
+
     <field name="text_globals_button"
       type="button"
       value="Show Globals"

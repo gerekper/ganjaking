@@ -98,7 +98,7 @@ class Engine_Stage_Sale extends Engine_Stage {
 
 		$this->timer->start();
 
-		$cache_context = $this->get_parameters();
+		$cache_context = $this->get_cache_context();
 		$cache_key = $this->get_cache_key( $cache_context );
 
 		$cache = Cache::get_instance();

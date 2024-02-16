@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.2.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_PRODUCTS_COMPARE_VERSION', '1.3.0' );
+		$this->define( 'WC_PRODUCTS_COMPARE_VERSION', '1.4.0' );
 		$this->define( 'WC_PRODUCTS_COMPARE_PATH', plugin_dir_path( WC_PRODUCTS_COMPARE_FILE ) );
 		$this->define( 'WC_PRODUCTS_COMPARE_URL', plugin_dir_url( WC_PRODUCTS_COMPARE_FILE ) );
 		$this->define( 'WC_PRODUCTS_COMPARE_BASENAME', plugin_basename( WC_PRODUCTS_COMPARE_FILE ) );
@@ -76,9 +76,9 @@ class Plugin {
 	 * @since 1.2.0
 	 */
 	public function declare_compatibility() {
-		// Compatible with the 'High-Performance Order Storage' feature.
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PRODUCTS_COMPARE_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_PRODUCTS_COMPARE_FILE, true );
 		}
 	}
 
@@ -104,5 +104,3 @@ class Plugin {
 		register_widget( '\KoiLab\WC_Products_Compare\Widget' );
 	}
 }
-
-class_alias( Plugin::class, 'Themesquad\WC_Products_Compare\Plugin' );

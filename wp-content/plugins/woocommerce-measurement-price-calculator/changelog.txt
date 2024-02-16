@@ -1,5 +1,8 @@
 *** WooCommerce Measurement Price Calculator Changelog ***
 
+2024.02.05 - version 3.22.2
+ * Fix - Ensure that the pricing table shortcode will not output data for a product that is unpublished or is private
+
 2023.11.17 - version 3.22.1
  * Misc - Add admin notices to help merchants reverting to the cart or checkout shortcodes if the corresponding blocks are used instead
 

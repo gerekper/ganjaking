@@ -408,18 +408,18 @@ class WC_Bookings_Init {
 			return;
 		}
 
-		// Create your custom menu item
+		// Create your custom menu item.
 		$custom_menu_item = array(
 			'parent' => 'new-content',
 			'id'     => 'new-bookable-product',
 			'title'  => __( 'Bookable product', 'woocommerce-bookings' ),
-			'href'   => admin_url( 'post-new.php?post_type=product&bookable_product=1' ),
+			'href'   => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_product_templates' ),
 		);
 
-		// Get the existing menu items
+		// Get the existing menu items.
 		$menu_items = $wp_admin_bar->get_nodes();
 
-		// Find the position of the item with ID "add-new-product"
+		// Find the position of the item with ID "add-new-product".
 		$add_new_product_position = - 1;
 		foreach ( $menu_items as $position => $menu_item ) {
 			if ( 'new-product' === $menu_item->id ) {

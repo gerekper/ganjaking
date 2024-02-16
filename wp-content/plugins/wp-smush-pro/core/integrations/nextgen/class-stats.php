@@ -50,7 +50,7 @@ class Stats extends NextGen {
 	 *
 	 * @var bool
 	 */
-	private $is_pro_user = true;
+	private $is_pro_user;
 
 	/**
 	 * @var Attachment_Id_List

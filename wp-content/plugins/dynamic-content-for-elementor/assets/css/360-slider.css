@@ -27,9 +27,9 @@
   img.previous-image {
   display: none;
   /*
-    Do not put here any other styles.
-    It causes massive recalc / repaints and image flickering,
-    especially on Firefox.
+	Do not put here any other styles.
+	It causes massive recalc / repaints and image flickering,
+	especially on Firefox.
   */
 }
 .elementor-widget-dyncontel-threesixtyslider
@@ -38,9 +38,9 @@
   img.current-image {
   display: block;
   /*
-    Do not put here any other styles.
-    It causes massive recalc / repaints and image flickering,
-    especially on Firefox.
+	Do not put here any other styles.
+	It causes massive recalc / repaints and image flickering,
+	especially on Firefox.
   */
 }
 .elementor-widget-dyncontel-threesixtyslider .threesixty .spinner {

@@ -311,6 +311,11 @@ class ScheduledTasksRepository extends Repository {
       ->setParameter('ids', $ids, Connection::PARAM_INT_ARRAY)
       ->getQuery()
       ->execute();
+
+    // update was done via DQL, make sure the entities are also refreshed in the entity manager
+    $this->refreshAll(function (ScheduledTaskEntity $entity) use ($ids) {
+      return in_array($entity->getId(), $ids, true);
+    });
   }
 
   /**
@@ -338,6 +343,21 @@ class ScheduledTasksRepository extends Repository {
     $task->setStatus( ScheduledTaskEntity::STATUS_INVALID);
     $this->persist($task);
     $this->flush();
+  }
+
+  /** @param int[] $ids */
+  public function deleteByIds(array $ids): void {
+    $this->entityManager->createQueryBuilder()
+      ->delete(ScheduledTaskEntity::class, 't')
+      ->where('t.id IN (:ids)')
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->execute();
+
+    // delete was done via DQL, make sure the entities are also detached from the entity manager
+    $this->detachAll(function (ScheduledTaskEntity $entity) use ($ids) {
+      return in_array($entity->getId(), $ids, true);
+    });
   }
 
   protected function findByTypeAndStatus($type, $status, $limit = null, $future = false) {

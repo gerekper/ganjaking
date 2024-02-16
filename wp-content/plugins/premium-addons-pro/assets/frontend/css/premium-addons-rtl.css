@@ -7465,6 +7465,9 @@ body.eb-detail-modal-active {
 }
 /**************** Premium Tabs ********************/
 /**************************************************/
+.premium-tabs {
+    overflow: hidden; }
+
 .premium-tabs:not(.premium-tabs-style-tzoid):not(.premium-tabs-style-circle) {
   border: 1px solid #e9e9e9;
 }

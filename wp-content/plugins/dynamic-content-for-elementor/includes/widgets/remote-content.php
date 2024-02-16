@@ -11,6 +11,12 @@ if (!\defined('ABSPATH')) {
 class RemoteContent extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
     const CACHE_MAX_AGES = ['1m' => 60, '5m' => 60 * 5, '15m' => 60 * 15, '1h' => 60 * 60, '6h' => 60 * 60 * 6, '12h' => 60 * 60 * 12, '24h' => 60 * 60 * 24];
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'data_template');
+    }
     /**
      * Register controls after check if this feature is only for admin
      *
@@ -57,13 +63,13 @@ class RemoteContent extends \DynamicContentForElementor\Widgets\WidgetPrototype
     {
         $settings = $this->get_settings_for_display();
         if (empty($settings['url'])) {
-            Helper::notice('', __('Add an URL to begin', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Add an URL to begin', 'dynamic-content-for-elementor'));
             return;
         }
         $url = $settings['url'];
         if (!\filter_var($url, \FILTER_VALIDATE_URL)) {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                Helper::notice('', __('URL not valid', 'dynamic-content-for-elementor'));
+                Helper::notice(\false, __('URL not valid', 'dynamic-content-for-elementor'));
             }
             return;
         }
@@ -122,7 +128,7 @@ class RemoteContent extends \DynamicContentForElementor\Widgets\WidgetPrototype
             $response = $this->get_response($url, $args, $settings['method'], $cache_age);
             if (is_wp_error($response)) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Can\'t fetch remote content. Please check url', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Can\'t fetch remote content. Please check url', 'dynamic-content-for-elementor'));
                 }
                 return;
             }

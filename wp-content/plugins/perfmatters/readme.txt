@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.4.2
-Stable tag: 2.2.3
+Tested up to: 6.4.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,12 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.2.4 - 02.05.2024 =
+* Added built-in Image Dimensions exclusion for blank placeholder SVGs.
+* Added excluded page builders function check to MU plugin file.
+* Changed method of retrieving root directory in certain classes for better compatibility with more file structures.
+* Fixed PHP warnings coming from local analytics function.
 
 = 2.2.3 - 01.08.2024 =
 * Fixed an issue where Mediavine and Modula Slider quick exclusions were not working properly.

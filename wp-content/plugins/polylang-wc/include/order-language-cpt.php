@@ -26,7 +26,6 @@ class PLLWC_Order_Language_CPT extends PLLWC_Object_Language {
 	 *
 	 * @since 1.0
 	 * @since 1.9 Returns an instance of this object.
-	 * @since 1.9 Type-hinted.
 	 *
 	 * @return self
 	 */

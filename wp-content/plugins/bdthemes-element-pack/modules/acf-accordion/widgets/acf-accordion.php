@@ -72,11 +72,11 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'field',
             [
-                'label' => __('field', 'bdthemes-element-pack'),
+                'label' => __('Repeater Field', 'bdthemes-element-pack'),
                 'dynamic' => ['active' => false],
                 'type'    => Dynamic_Select::TYPE,
                 'label_block' => true,
-                'placeholder' => __('Type and select the field...', 'bdthemes-element-pack'),
+                'placeholder' => __('Type and select the repeater field...', 'bdthemes-element-pack'),
                 'query_args'  => [
                     'query'        => 'acf',
                 ],
@@ -90,7 +90,7 @@ class Acf_Accordion extends Module_Base {
                 'dynamic' => ['active' => false],
                 'type'        => Dynamic_Select::TYPE,
                 'label_block' => true,
-                'placeholder' => __('Type and select the field...', 'bdthemes-element-pack'),
+                'placeholder' => __('Type repeater sub field for accordion title', 'bdthemes-element-pack'),
                 'query_args'  => [
                     'query'        => 'acf',
                 ],
@@ -103,7 +103,7 @@ class Acf_Accordion extends Module_Base {
                 'dynamic' => ['active' => false],
                 'type'        => Dynamic_Select::TYPE,
                 'label_block' => true,
-                'placeholder' => __('Type and select the field...', 'bdthemes-element-pack'),
+                'placeholder' => __('Type repeater sub field for accordion content', 'bdthemes-element-pack'),
                 'query_args'  => [
                     'query'        => 'acf',
                 ],
@@ -190,7 +190,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'show_custom_icon',
             [
-                'label'   => esc_html__('Show Title Icon', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'   => esc_html__('Show Title Icon', 'bdthemes-element-pack'),
                 'type'    => Controls_Manager::SWITCHER,
                 'separator' => 'before'
             ]
@@ -306,7 +306,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'schema_activity',
             [
-                'label'       => esc_html__('Schema Active', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'       => esc_html__('Schema Active', 'bdthemes-element-pack'),
                 'description' => esc_html__('Warning: If you have multiple Accordion widgets on the same page so don\'t activate schema for both Accordion widgets so you will get errors on the google index. Activate the only one which you want to show on google search.', 'bdthemes-element-pack'),
                 'type'        => Controls_Manager::SWITCHER,
                 'separator'   => 'before',
@@ -347,7 +347,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_responsive_control(
             'title_alignment',
             [
-                'label'       => __('Alignment', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'       => __('Alignment', 'bdthemes-element-pack'),
                 'type'        => Controls_Manager::CHOOSE,
                 'options'     => [
                     'flex-start'  => [
@@ -447,7 +447,7 @@ class Acf_Accordion extends Module_Base {
             Group_Control_Text_Stroke::get_type(),
             [
                 'name' => 'text_stroke',
-                'label' => __('Text Stroke', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => __('Text Stroke', 'bdthemes-element-pack'),
                 'selector' => '{{WRAPPER}} .bdt-ep-accordion-title',
             ]
         );
@@ -492,7 +492,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'title_hover_border_color',
             [
-                'label'     => __('Border Color', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'     => __('Border Color', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::COLOR,
                 'condition' => [
                     'title_border_border!' => '',
@@ -571,7 +571,7 @@ class Acf_Accordion extends Module_Base {
         $this->start_controls_section(
             'section_style_title_icon',
             [
-                'label' => __('Title Icon', 'bdthemes-element-pack') . BDTEP_NC,
+                'label' => __('Title Icon', 'bdthemes-element-pack'),
                 'tab'   => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_custom_icon' => 'yes'
@@ -747,7 +747,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_responsive_control(
             'icon_border_radius',
             [
-                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'      => esc_html__('Border Radius', 'bdthemes-element-pack'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
                 'selectors'  => [
@@ -759,7 +759,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_responsive_control(
             'icon_padding',
             [
-                'label'      => esc_html__('Padding', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'      => esc_html__('Padding', 'bdthemes-element-pack'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
                 'selectors'  => [
@@ -843,7 +843,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'icon_hover_border_color',
             [
-                'label'     => esc_html__('Border Color', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::COLOR,
                 'condition' => [
                     'icon_border_border!' => '',
@@ -886,7 +886,7 @@ class Acf_Accordion extends Module_Base {
         $this->add_control(
             'icon_active_border_color',
             [
-                'label'     => esc_html__('Border Color', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'     => esc_html__('Border Color', 'bdthemes-element-pack'),
                 'type'      => Controls_Manager::COLOR,
                 'condition' => [
                     'icon_border_border!' => '',
@@ -934,7 +934,7 @@ class Acf_Accordion extends Module_Base {
             Group_Control_Border::get_type(),
             [
                 'name'        => 'item_border',
-                'label'       => __('Border', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'       => __('Border', 'bdthemes-element-pack'),
                 'selector'    => '{{WRAPPER}} .bdt-ep-accordion-content',
             ]
         );
@@ -992,7 +992,7 @@ class Acf_Accordion extends Module_Base {
             Group_Control_Box_Shadow::get_type(),
             [
                 'name'     => 'content_shadow',
-                'label'       => __('Box Shadow', 'bdthemes-element-pack') . BDTEP_NC,
+                'label'       => __('Box Shadow', 'bdthemes-element-pack'),
                 'selector' => '{{WRAPPER}} .bdt-ep-accordion-content',
             ]
         );
@@ -1077,25 +1077,26 @@ class Acf_Accordion extends Module_Base {
         <div class="bdt-ep-accordion-container">
             <div <?php echo $this->get_render_attribute_string('accordion'); ?> <?php echo $this->get_render_attribute_string('accordion_data'); ?>>
                 <?php
+                $repeater_field = get_field_object( $settings['field'] );
 
-
-                $field = get_field_object( $settings['field'] );
-
-                $field_parent = isset($field['parent']) ? $field['parent'] : false;
+                if (empty($settings['field'] && $repeater_field)) {
+                    return;
+                }
 
                 $acf_helper = new ACF_Global();
-                $field_values = $acf_helper->get_acf_field_value( $settings['field'], $field_parent );
+                $field_values = $acf_helper->get_acf_field_value( $settings['field'], $repeater_field['parent'] );
 
                 $title = $settings['title'];
                 $content = $settings['content'];
 
-
-
-                foreach ($field_values as $index => $field) :
+                foreach ($field_values as $index => $value) :
                     $acc_count = $index + 1;
-                    if (!empty($field[$title]) or !empty($field[$content])) :                    
+                    $field_title = isset($value[$title]) ? $value[$title] : '';
+                    $field_content = isset($value[$content]) ? $value[$content] : '';
 
-                    $acc_id = ($field[$title]) ? element_pack_string_id($field[$title]) : $id . $acc_count;
+                    if (!empty($field_title) or !empty($field_content)) :                          
+
+                    $acc_id = ($field_title) ? element_pack_string_id($field_title) : $id . $acc_count;
                     $acc_id = 'bdt-ep-accordion-' . $acc_id;
 
                     $tab_title_setting_key = 'tab_title'.$index;
@@ -1130,7 +1131,7 @@ class Acf_Accordion extends Module_Base {
 
                     ?>
                     <div <?php echo $this->get_render_attribute_string($item_key); ?>>
-                        <<?php echo Utils::get_valid_html_tag($settings['title_html_tag']); ?> <?php echo $this->get_render_attribute_string($tab_title_setting_key); ?> id="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_attr($acc_id))))) ?>" data-accordion-index="<?php echo esc_attr($index); ?>"  data-title="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_html($field[$title]))))) ?>">
+                        <<?php echo Utils::get_valid_html_tag($settings['title_html_tag']); ?> <?php echo $this->get_render_attribute_string($tab_title_setting_key); ?> id="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_attr($acc_id))))) ?>" data-accordion-index="<?php echo esc_attr($index); ?>"  data-title="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_html($field_title))))) ?>">
 
                             <?php if ($settings['accordion_icon']['value']) : ?>
                                 <span class="bdt-ep-accordion-icon bdt-flex-align-<?php echo esc_attr($settings['icon_align']); ?>" aria-hidden="true">
@@ -1161,12 +1162,12 @@ class Acf_Accordion extends Module_Base {
                                         <?php Icons_Manager::render_icon($item['repeater_icon'], ['aria-hidden' => 'true', 'class' => 'fa-fw']); ?>
                                     </span>
                                 <?php endif; ?>
-                                <?php echo esc_html($field[$title]); ?>
+                                <?php echo esc_html($field_title); ?>
                             </span>
 
                         </<?php echo Utils::get_valid_html_tag($settings['title_html_tag']); ?>>
                         <div <?php echo $this->get_render_attribute_string($tab_content_setting_key); ?>>
-                        <?php echo $field[$content]; ?>
+                        <?php echo $field_content; ?>
                     
                         </div>
                     </div>

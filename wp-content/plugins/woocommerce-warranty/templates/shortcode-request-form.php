@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 					echo esc_html( $item['name'] );
 
 					if ( $variation ) {
-						echo '<div class="item-variations">' . $variation . '</div>'; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.;
+						echo '<div class="item-variations">' . $variation . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					?>
 				</label>

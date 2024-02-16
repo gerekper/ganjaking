@@ -262,7 +262,7 @@ class UniteProviderFunctionsUC{
 		$version = UNLIMITED_ELEMENTS_VERSION;
 		if(GlobalsUC::$inDev == true)	//add script
 			$version = time();
-
+		
 		wp_register_style($handle, $url, $deps, $version);
 		wp_enqueue_style($handle);
 
@@ -307,7 +307,7 @@ class UniteProviderFunctionsUC{
 	 * print custom style
 	 */
 	public static function printCustomStyle($style, $hardCoded = false){
-
+		
 		if($hardCoded == false)
 			self::$arrStyles[] = $style;
 		else
@@ -766,13 +766,12 @@ class UniteProviderFunctionsUC{
 
 		if($expiration <= 0){
 			$value = $callback();
-			
+
 			return $value;
 		}
 
 		$value = self::getTransient($transient, $supportMultisite);
-		
-				
+
 		if(empty($value)){
 			$value = $callback();
 

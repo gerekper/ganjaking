@@ -50,9 +50,9 @@ if (!class_exists('Insights_SDK')) {
 			 * Modal Trigger if not init
 			 * Show Notice Modal
 			 */
-			if (!$dci_status_db) {
+			 if (!$dci_status_db) {
 				$this->notice_modal($params);
-				return;
+			 	 return;
 			}
 
 			/**
@@ -402,20 +402,21 @@ if (!class_exists('Insights_SDK')) {
 						<input type="hidden" name="nonce" value="<?php echo esc_html(wp_create_nonce('dci_sdk')); ?>">
 			
 						<div class="bdt-dci-notice-button-wrap">
-							<button name="dci_allow_status" value="yes" class="button button-primary dci-button-allow">
+							<button name="dci_allow_status" value="yes" class="dci-button-allow">
 								Yes, I'd Love To Contribute
 							</button>
-							<button name="dci_allow_status" value="skip" class="button dci-button-skip button-secondary">
+							<button name="dci_allow_status" value="skip" class="dci-button-skip">
 								Skip For Now
 							</button>
-							<button name="dci_allow_status" value="disallow" class="button dci-button-disallow dci-button-danger">
+							<button name="dci_allow_status" value="disallow" class="dci-button-disallow dci-button-danger">
 								No Thanks
 							</button>
 						</div>
 					</div>
 				</div>
-			
+						
 			</div>
+
 <?php
 		}
 

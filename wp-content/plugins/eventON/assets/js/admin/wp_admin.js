@@ -1,6 +1,6 @@
 /*
  * EventON Back end scripts for general backend of wordpress
- * @version 4.5.1
+ * @version 4.5.9
  */
 
 jQuery(document).ready(function($){	
@@ -759,30 +759,6 @@ jQuery(document).ready(function($){
 				},complete:function(){	}
 			});
 		});
-
-	// Web hooks @since 4.5.5
-		BB.on('evo_ajax_success_evo_webhook_config',function(event, OO, data, el){
-			evo_populate_webhook_fields();
-
-			LB = BB.find('.evo_lightbox.evo_webhooks_config');
-
-			LB.find('select.wh_trigger_point').on('change',function(){
-				evo_populate_webhook_fields();
-			});
-		});
-
-		function evo_populate_webhook_fields(){
-			LB = BB.find('.evo_lightbox.evo_webhooks_config');
-
-			const whdata = LB.find('.evo_elm_webhooks_data').data('whdata');
-			var selected_key = LB.find('select').val();
-
-			var new_content = 'n/a';
-			if( selected_key in whdata ) new_content = whdata[ selected_key ];
-
-			LB.find('.evo_whdata_fields').html( new_content );
-		}
-
 		
 // Event Top Designer @version 4.1
 	$.fn.evotop_designer = function (options){

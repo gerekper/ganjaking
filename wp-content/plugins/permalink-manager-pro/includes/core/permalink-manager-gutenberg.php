@@ -19,7 +19,7 @@ class Permalink_Manager_Gutenberg {
 		global $current_screen, $post;
 
 		// Get displayed post type
-		if ( empty( $current_screen->post_type ) ) {
+		if ( empty( $current_screen->post_type ) || empty( $post->post_type ) ) {
 			return;
 		}
 

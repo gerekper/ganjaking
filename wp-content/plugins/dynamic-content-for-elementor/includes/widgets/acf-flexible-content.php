@@ -92,13 +92,9 @@ class AcfFlexibleContent extends \DynamicContentForElementor\Widgets\WidgetProto
                         echo \DynamicContentForElementor\Tokens::replace_var_tokens($html, 'ROW', $sub_fields_tokens);
                         echo '</div>';
                     } elseif ('template' === $settings['layouts'][$key_layout]['display_mode']) {
-                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $inlinecss = 'inlinecss="true"';
-                        } else {
-                            $inlinecss = '';
-                        }
-                        $template_id = $settings['layouts'][$key_layout]['template_id'];
-                        echo do_shortcode('[dce-elementor-template id="' . $template_id . '" ' . $inlinecss . ']');
+                        $atts = ['id' => $settings['layouts'][$key_layout]['template_id'], 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special($atts);
                     }
                 }
             }

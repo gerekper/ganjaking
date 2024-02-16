@@ -88,7 +88,7 @@ defined( 'ABSPATH' ) || exit;
 					$src .= '       </table>
 										</div>
 									</div>';
-					echo '<li class="wfb-field" data-key="' . esc_attr( $key ) . '" data-type="' . esc_attr( $input_type ) . '">' . $src . '</li>'; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+					echo '<li class="wfb-field" data-key="' . esc_attr( $key ) . '" data-type="' . esc_attr( $input_type ) . '">' . $src . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 					?>
 				<?php endforeach; ?>

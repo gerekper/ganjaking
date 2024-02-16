@@ -38,7 +38,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * add must scripts for any view
 		 */
 		public static function addMustScripts($specialSettings = ""){
-
+			
 			UniteProviderFunctionsUC::addScriptsFramework($specialSettings);
 
 			//add color picker scripts
@@ -68,7 +68,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			HelperUC::addScript("settings", "unitecreator_settings");
 			HelperUC::addScript("admin","unitecreator_admin");
 			HelperUC::addStyle("admin","unitecreator_admin_css");
-
+		
 			HelperUC::addScriptAbsoluteUrl(GlobalsUC::$url_provider."assets/provider_admin.js", "provider_admin_js");
 		}
 
@@ -178,6 +178,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					HelperUC::addStyle("unitecreator_browser","unitecreator_browser_css");
 					HelperUC::addScript("unitecreator_helper","unitecreator_helper");
 					HelperUC::addScript("unitecreator_testaddon_new","unitecreator_testaddon_new");
+
+					$fontData = HelperUC::getFontPanelData();
+					$googleFonts = UniteFunctionsUC::getVal($fontData, "arrGoogleFonts");
+					$googleFontsUrl = HelperHtmlUC::getGoogleFontUrl("");
+
+					wp_localize_script("unitecreator_testaddon_new", "g_ucGoogleFonts", array(
+						"fonts" => $googleFonts,
+						"url" => $googleFontsUrl,
+					));
 
 				break;
 				case GlobalsUC::VIEW_ADDON_DEFAULTS:
@@ -368,4 +377,3 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	}
 
 
-?>

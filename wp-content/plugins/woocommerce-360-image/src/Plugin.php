@@ -5,12 +5,12 @@
  * @since 1.3.0
  */
 
-namespace Themesquad\WC_360_Image;
+namespace KoiLab\WC_360_Image;
 
 defined( 'ABSPATH' ) || exit;
 
-use Themesquad\WC_360_Image\Admin\Admin;
-use Themesquad\WC_360_Image\Internal\Traits\Singleton;
+use KoiLab\WC_360_Image\Admin\Admin;
+use KoiLab\WC_360_Image\Internal\Traits\Singleton;
 
 /**
  * Plugin class.
@@ -36,7 +36,7 @@ class Plugin {
 	 * @since 1.3.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_360_IMAGE_VERSION', '1.3.0' );
+		$this->define( 'WC_360_IMAGE_VERSION', '1.4.0' );
 		$this->define( 'WC_360_IMAGE_PATH', plugin_dir_path( WC_360_IMAGE_FILE ) );
 		$this->define( 'WC_360_IMAGE_URL', plugin_dir_url( WC_360_IMAGE_FILE ) );
 		$this->define( 'WC_360_IMAGE_BASENAME', plugin_basename( WC_360_IMAGE_FILE ) );
@@ -98,9 +98,9 @@ class Plugin {
 	 * @since 1.3.0
 	 */
 	public function declare_compatibility() {
-		// Compatible with the 'High-Performance Order Storage' feature.
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_360_IMAGE_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_360_IMAGE_FILE, true );
 		}
 	}
 

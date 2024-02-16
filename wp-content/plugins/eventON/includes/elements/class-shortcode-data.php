@@ -77,6 +77,9 @@ class EVO_Shortcode_Data{
 							,$this->shortcode_default_field('bottom_nav')
 							,$this->shortcode_default_field('livenow_bar')
 							,$this->shortcode_default_field('hide_cancels')
+							,$this->shortcode_default_field('search')
+								,$this->shortcode_default_field('show_search')
+								,$this->shortcode_default_field('close_search')
 
 						,array('type'=>'close_div')	
 

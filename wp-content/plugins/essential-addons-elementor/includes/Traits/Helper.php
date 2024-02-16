@@ -84,7 +84,7 @@ trait Helper
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode('user:' . $api_key),
                 ],
-                'body' => json_encode( $body_params ),
+                'body' => wp_json_encode( $body_params ),
             ]
         );
 
@@ -147,7 +147,7 @@ trait Helper
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode('user:' . $api_key),
                 ],
-                'body' => json_encode([
+                'body' => wp_json_encode([
                     'email_address' => $email,
                     'status' => $is_double_optin ? 'pending' : 'subscribed',
                     'merge_fields' => $merge_fields,
@@ -186,7 +186,7 @@ trait Helper
             }
         }
 
-        echo ClassesHelper::eael_wp_kses( $html );
+        echo wp_kses( $html, ClassesHelper::eael_allowed_tags() );
         die();
     }
 
@@ -237,7 +237,7 @@ trait Helper
 		    $enable_coupon = '';
         }
 ?>
-        <div class="layout-split-container" data-coupon="<?php echo $enable_coupon; ?>">
+        <div class="layout-split-container" data-coupon="<?php echo esc_attr( $enable_coupon ); ?>">
             <div class="info-area">
                 <ul class="split-tabs">
                     <?php
@@ -248,17 +248,17 @@ trait Helper
                         $enable_login_reminder = true;
                         $step1_class = '';
                     ?>
-                        <li id="step-0" data-step="0" class="split-tab first active"><?php echo $settings['ea_woo_checkout_tab_login_text']; ?></li>
+                        <li id="step-0" data-step="0" class="split-tab first active"><?php echo esc_html( $settings['ea_woo_checkout_tab_login_text'] ); ?></li>
                     <?php
                     }
                     if ( get_option( 'woocommerce_enable_coupons' ) === 'yes' && $settings['ea_woo_checkout_coupon_hide'] !== 'yes' ) { ?>
-                        <li id="step-1" class="split-tab <?php echo $step1_class; ?>" data-step="1"><?php echo
-                                                                                                        $settings['ea_woo_checkout_tab_coupon_text']; ?></li>
-                        <li id="step-2" class="split-tab" data-step="2"><?php echo $settings['ea_woo_checkout_tab_billing_shipping_text']; ?></li>
-                        <li id="step-3" class="split-tab last" data-step="3"><?php echo $settings['ea_woo_checkout_tab_payment_text']; ?></li>
+                        <li id="step-1" class="split-tab <?php echo esc_attr( $step1_class ); ?>" data-step="1"><?php echo
+                                                                                                        esc_html( $settings['ea_woo_checkout_tab_coupon_text'] ); ?></li>
+                        <li id="step-2" class="split-tab" data-step="2"><?php echo esc_html( $settings['ea_woo_checkout_tab_billing_shipping_text'] ); ?></li>
+                        <li id="step-3" class="split-tab last" data-step="3"><?php echo esc_html( $settings['ea_woo_checkout_tab_payment_text'] ); ?></li>
                     <?php } else { ?>
-                        <li id="step-1" class="split-tab <?php echo $step1_class; ?>" data-step="1"><?php echo $settings['ea_woo_checkout_tab_billing_shipping_text']; ?></li>
-                        <li id="step-2" class="split-tab last" data-step="2"><?php echo $settings['ea_woo_checkout_tab_payment_text']; ?></li>
+                        <li id="step-1" class="split-tab <?php echo esc_attr( $step1_class ); ?>" data-step="1"><?php echo esc_html( $settings['ea_woo_checkout_tab_billing_shipping_text'] ); ?></li>
+                        <li id="step-2" class="split-tab last" data-step="2"><?php echo esc_html( $settings['ea_woo_checkout_tab_payment_text'] ); ?></li>
                     <?php } ?>
                 </ul>
 
@@ -300,10 +300,10 @@ trait Helper
                     <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
 
                     <div class="steps-buttons">
-                        <button class="ea-woo-checkout-btn-prev"><?php echo $settings['ea_woo_checkout_tabs_btn_prev_text']; ?></button>
-                        <button class="ea-woo-checkout-btn-next" data-text="<?php echo htmlspecialchars(json_encode($ea_woo_checkout_btn_next_data), ENT_QUOTES, 'UTF-8'); ?>"><?php echo $settings['ea_woo_checkout_tabs_btn_next_text']; ?></button>
-                        <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="ea_place_order" value="<?php echo $settings['ea_woo_checkout_place_order_text']; ?>" data-value="<?php echo $settings['ea_woo_checkout_place_order_text']; ?>" style="display:none;
-                        "><?php echo $settings['ea_woo_checkout_place_order_text']; ?></button>
+                        <button class="ea-woo-checkout-btn-prev"><?php echo esc_html( $settings['ea_woo_checkout_tabs_btn_prev_text'] ); ?></button>
+                        <button class="ea-woo-checkout-btn-next" data-text="<?php echo esc_attr(htmlspecialchars(wp_json_encode($ea_woo_checkout_btn_next_data), ENT_QUOTES, 'UTF-8')); ?>"><?php echo esc_html( $settings['ea_woo_checkout_tabs_btn_next_text'] ); ?></button>
+                        <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="ea_place_order" value="<?php echo esc_attr( $settings['ea_woo_checkout_place_order_text'] ); ?>" data-value="<?php echo esc_attr( $settings['ea_woo_checkout_place_order_text'] ); ?>" style="display:none;
+                        "><?php echo esc_html( $settings['ea_woo_checkout_place_order_text'] ); ?></button>
                     </div>
                 </div>
             </div>
@@ -358,7 +358,7 @@ trait Helper
 		    $enable_coupon = '';
 	    }
     ?>
-        <div class="layout-multi-steps-container" data-coupon="<?php echo $enable_coupon; ?>">
+        <div class="layout-multi-steps-container" data-coupon="<?php echo esc_attr( $enable_coupon ); ?>">
             <ul class="ms-tabs">
                 <?php
                 $step1_class = 'first active';
@@ -369,17 +369,17 @@ trait Helper
                     $step1_class = '';
                 ?>
                     <li class="ms-tab first active" id="step-0" data-step="0"><?php echo
-                                                                                    $settings['ea_woo_checkout_tab_login_text']; ?></li>
+                                                                                    esc_html( $settings['ea_woo_checkout_tab_login_text'] ); ?></li>
                 <?php }
                 if ( get_option( 'woocommerce_enable_coupons' ) === 'yes' && $settings['ea_woo_checkout_coupon_hide'] !== 'yes' ) { ?>
-                    <li class="ms-tab <?php echo $step1_class; ?>" id="step-1" data-step="1"><?php echo
-                                                                                                    $settings['ea_woo_checkout_tab_coupon_text']; ?></li>
-                    <li class="ms-tab" id="step-2" data-step="2"><?php echo $settings['ea_woo_checkout_tab_billing_shipping_text']; ?></li>
-                    <li class="ms-tab last" id="step-3" data-step="3"><?php echo $settings['ea_woo_checkout_tab_payment_text']; ?></li>
+                    <li class="ms-tab <?php echo esc_attr( $step1_class ); ?>" id="step-1" data-step="1"><?php echo
+                                                                                                    esc_html( $settings['ea_woo_checkout_tab_coupon_text'] ); ?></li>
+                    <li class="ms-tab" id="step-2" data-step="2"><?php echo esc_html( $settings['ea_woo_checkout_tab_billing_shipping_text'] ); ?></li>
+                    <li class="ms-tab last" id="step-3" data-step="3"><?php echo esc_html( $settings['ea_woo_checkout_tab_payment_text'] ); ?></li>
                 <?php } else { ?>
-                    <li class="ms-tab <?php echo $step1_class; ?>" id="step-1" data-step="1"><?php echo
-                                                                                                    $settings['ea_woo_checkout_tab_billing_shipping_text']; ?></li>
-                    <li class="ms-tab last" id="step-2" data-step="2"><?php echo $settings['ea_woo_checkout_tab_payment_text']; ?></li>
+                    <li class="ms-tab <?php echo esc_attr( $step1_class ); ?>" id="step-1" data-step="1"><?php echo
+                                                                                                    esc_html( $settings['ea_woo_checkout_tab_billing_shipping_text'] ); ?></li>
+                    <li class="ms-tab last" id="step-2" data-step="2"><?php echo esc_html( $settings['ea_woo_checkout_tab_payment_text'] ); ?></li>
                 <?php }
                 ?>
             </ul>
@@ -423,9 +423,9 @@ trait Helper
                     <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
 
                     <div class="steps-buttons">
-                        <button class="ea-woo-checkout-btn-prev"><?php echo $settings['ea_woo_checkout_tabs_btn_prev_text']; ?></button>
-                        <button class="ea-woo-checkout-btn-next" data-text="<?php echo htmlspecialchars(json_encode($ea_woo_checkout_btn_next_data), ENT_QUOTES, 'UTF-8'); ?>"><?php echo $settings['ea_woo_checkout_tabs_btn_next_text']; ?></button>
-                        <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="ea_place_order" value="<?php echo $settings['ea_woo_checkout_place_order_text']; ?>" data-value="<?php echo $settings['ea_woo_checkout_place_order_text']; ?>" style="display:none;"><?php echo $settings['ea_woo_checkout_place_order_text']; ?></button>
+                        <button class="ea-woo-checkout-btn-prev"><?php echo esc_html( $settings['ea_woo_checkout_tabs_btn_prev_text'] ); ?></button>
+                        <button class="ea-woo-checkout-btn-next" data-text="<?php echo esc_attr(htmlspecialchars(wp_json_encode($ea_woo_checkout_btn_next_data), ENT_QUOTES, 'UTF-8')); ?>"><?php echo esc_html( $settings['ea_woo_checkout_tabs_btn_next_text'] ); ?></button>
+                        <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="ea_place_order" value="<?php echo esc_attr( $settings['ea_woo_checkout_place_order_text'] ); ?>" data-value="<?php echo esc_html( $settings['ea_woo_checkout_place_order_text'] ); ?>" style="display:none;"><?php echo esc_html( $settings['ea_woo_checkout_place_order_text'] ); ?></button>
                     </div>
                 </div>
 
@@ -527,7 +527,7 @@ trait Helper
                     $post_lists .= is_array( $image ) ? sprintf( '<div class="item-thumb"><img src="%s"></div>', current( $image ) ) : '';
                 }
 
-				$title = '<h4>' . $this->highlight_search_keyword( html_entity_decode( strip_tags( get_the_title() ) ), ucwords( $search ) ) . '</h4>';
+				$title = '<h4>' . $this->highlight_search_keyword( html_entity_decode( wp_strip_all_tags( get_the_title() ) ), ucwords( $search ) ) . '</h4>';
 
 				$content = '<p>' . $this->highlight_search_keyword( wp_trim_words( html_entity_decode( strip_shortcodes( get_the_excerpt() ) ), 30, '…' ), $search ) . '</p>';
 

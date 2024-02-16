@@ -54,7 +54,7 @@ if ( ! class_exists( 'UAEL_Loader' ) ) {
 			define( 'UAEL_BASE', plugin_basename( UAEL_FILE ) );
 			define( 'UAEL_DIR', plugin_dir_path( UAEL_FILE ) );
 			define( 'UAEL_URL', plugins_url( '/', UAEL_FILE ) );
-			define( 'UAEL_VER', '1.36.28' );
+			define( 'UAEL_VER', '1.36.29' );
 			define( 'UAEL_MODULES_DIR', UAEL_DIR . 'modules/' );
 			define( 'UAEL_MODULES_URL', UAEL_URL . 'modules/' );
 			define( 'UAEL_SLUG', 'uae' );

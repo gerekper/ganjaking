@@ -1,7 +1,7 @@
 <?php
 /** 
  * All EventON products class
- * @version 4.0.3
+ * @version 4.5.9
  */
 
 class evo_prods{
@@ -129,8 +129,8 @@ class evo_prods{
 		update_option('_evo_products',$data);
 		$this->prods_data = $data;
 	}
-
-// get remote product information
+ 
+// get remote product information u4.5.9
 	function get_remote_prods_data($force = false, $debug = false){
 
 		// if last checked is within allowed check duration
@@ -141,17 +141,21 @@ class evo_prods{
 	
 		// get product data		
 		$data = $this->get_prods_data();
-		foreach($data as $slug=>$info){
 
-			// skip products that doesnt have saved license key
-			if( !isset($info['key']) || $slug == 'evo_subscription') continue;
+		if( $data && is_array( $data )){
 
-			$remote_data[$slug] = array(
-				'slug'=>		$slug,
-				'license_key'=> (isset($info['key'])? $info['key']: ''),
-				'version'=> (isset($info['version'])? $info['version']: ''),
-				'remote_validity'=> (isset($info['remote_validity'])? $info['remote_validity']: 'none'),
-			);
+			foreach($data as $slug=>$info){
+
+				// skip products that doesnt have saved license key
+				if( !isset($info['key']) || $slug == 'evo_subscription') continue;
+
+				$remote_data[$slug] = array(
+					'slug'=>		$slug,
+					'license_key'=> (isset($info['key'])? $info['key']: ''),
+					'version'=> (isset($info['version'])? $info['version']: ''),
+					'remote_validity'=> (isset($info['remote_validity'])? $info['remote_validity']: 'none'),
+				);
+			}
 		}
 
 		// get eventon addon data from eventon remote server
@@ -193,34 +197,36 @@ class evo_prods{
 	        	$newProducts = $prods? $prods: array();
 
 	        	// for all the prods in the site
-	        	foreach($prods as $slug=>$product){
-					if(!empty($results->products[$slug])){
-						$newProducts[$slug]['remote_version'] = $results->products[$slug]['version'];
-						$newProducts[$slug]['tested'] = $results->products[$slug]['tested'];
-						$newProducts[$slug]['requires'] = $results->products[$slug]['requires'];
-						$newProducts[$slug]['last_updated'] = $results->products[$slug]['last_updated'];
-						$newProducts[$slug]['lastchecked'] = $this->get_time_now();
-						
-						// installation
-						if(isset($results->products[$slug]['active_installs']))
-							$newProducts[$slug]['active_installs'] = $results->products[$slug]['active_installs'];
-						
+	        	if( $data && is_array( $data )){
+		        	foreach($prods as $slug=>$product){
+						if(!empty($results->products[$slug])){
+							$newProducts[$slug]['remote_version'] = $results->products[$slug]['version'];
+							$newProducts[$slug]['tested'] = $results->products[$slug]['tested'];
+							$newProducts[$slug]['requires'] = $results->products[$slug]['requires'];
+							$newProducts[$slug]['last_updated'] = $results->products[$slug]['last_updated'];
+							$newProducts[$slug]['lastchecked'] = $this->get_time_now();
 							
-						// Download package URL
-						if(
-							isset($results->products[$slug]['package']) &&
-							version_compare( $newProducts[$slug]['version'], $newProducts[$slug]['remote_version'], '<' )
-						){
-							$newProducts[$slug]['package'] = $results->products[$slug]['package'];
+							// installation
+							if(isset($results->products[$slug]['active_installs']))
+								$newProducts[$slug]['active_installs'] = $results->products[$slug]['active_installs'];
+							
+								
+							// Download package URL
+							if(
+								isset($results->products[$slug]['package']) &&
+								version_compare( $newProducts[$slug]['version'], $newProducts[$slug]['remote_version'], '<' )
+							){
+								$newProducts[$slug]['package'] = $results->products[$slug]['package'];
 
-							// include package expiration
-							if(isset($results->products[$slug]['package_expiration']) ){
-								$newProducts[$slug]['package_expiration'] = $results->products[$slug]['package_expiration'];
+								// include package expiration
+								if(isset($results->products[$slug]['package_expiration']) ){
+									$newProducts[$slug]['package_expiration'] = $results->products[$slug]['package_expiration'];
+								}
 							}
+							if($debug){ echo 'Results for: '.$slug .'<br/>'; print_r($results->products[$slug]); echo "</br>";}
+						}else{
+							if($debug) echo 'No remote data for product: '.$slug .'!</br>';
 						}
-						if($debug){ echo 'Results for: '.$slug .'<br/>'; print_r($results->products[$slug]); echo "</br>";}
-					}else{
-						if($debug) echo 'No remote data for product: '.$slug .'!</br>';
 					}
 				}
 

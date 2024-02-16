@@ -51,16 +51,16 @@ class DynamicGoogleMapsDirectionsInstructions extends Data_Tag
      * Get value
      *
      * @param array<mixed> $options
-     * @return string
+     * @return string|null
      */
     public function get_value(array $options = [])
     {
         $map_name = $this->get_settings('map_name');
         $loading_text = $this->get_settings('loading_text');
         if (empty($map_name) && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            return Helper::notice('', __('Please type a Map Name', 'dynamic-content-for-elementor'));
+            return Helper::notice(\false, __('Please type a Map Name', 'dynamic-content-for-elementor'));
         }
-        return "<div data-tag-name='" . esc_attr($map_name) . "' id='dce-gm-directions-instructions'><span id='print_instructions' data-instructions='" . esc_attr($map_name) . "' class='distance dce-gm-directions-instructions'>" . $loading_text . "</span></div>";
+        return "<div data-tag-name='" . esc_attr($map_name) . "' id='dce-gm-directions-instructions'><span id='print_instructions' data-instructions='" . esc_attr($map_name) . "' class='distance dce-gm-directions-instructions'>" . $loading_text . '</span></div>';
     }
     /**
      * Register Controls
@@ -69,7 +69,7 @@ class DynamicGoogleMapsDirectionsInstructions extends Data_Tag
      */
     protected function register_controls()
     {
-        $this->add_control('map_name', ['label' => __('Map Name', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => ""]);
+        $this->add_control('map_name', ['label' => __('Map Name', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => '']);
         $this->add_control('loading_text', ['label' => __('Loading Text', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => __('Loading...', 'dynamic-content-for-elementor'), 'label_block' => 'true']);
     }
 }

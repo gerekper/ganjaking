@@ -6,6 +6,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.15.5 ( 2024-02-06 ) =
+- Improvement: Update the number of CDN locations
+- Improvement: Minor copy and UI adjustments
+
 = 3.15.4 ( 2024-01-23 ) =
 - Fix: Media library scan gets stuck on some websites
 - Improvement: Minor copy and UI changes
@@ -210,4 +214,3 @@ Change Log:
 
 
 
-763670-1706103278

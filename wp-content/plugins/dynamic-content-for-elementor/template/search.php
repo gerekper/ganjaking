@@ -26,11 +26,14 @@ $dce_col_xs = $dce_default_options[ $dce_block_template . '_col_xs' ];
 <div class="search-container">
 		<div id="content-wrap" class="container clr">
 		<?php
+		$template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+
+
 		if ( isset( $dce_before_template ) && $dce_before_template > 1 ) {
-			echo do_shortcode( '[dce-elementor-template id="' . $dce_before_template . '"]' );
+			echo $template_system->build_elementor_template_special( [ 'id' => $dce_before_template ] );
 		}
 		if ( 'canvas' === $template_layout ) {
-			echo do_shortcode( '[dce-elementor-template id="' . $dce_default_template . '"]' );
+			echo $template_system->build_elementor_template_special( [ 'id' => $dce_default_template ] );
 		} else {
 			if ( have_posts() ) : ?>
 

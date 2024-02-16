@@ -1,4 +1,16 @@
 
+version 1.7.78
+
+added option: slider_video_muted:false
+
+
+version 1.7.77
+
+added option: slider_video_autoplay:false
+
+version 1.7.76
+
+-added option: lightbox-type:"none"
 
 version 1.7.75
 

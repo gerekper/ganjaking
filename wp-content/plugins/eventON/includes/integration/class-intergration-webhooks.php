@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON webhooks integration	
- * @version 4.5.5
+ * @version 4.5.9
  */
 
 class EVO_WebHooks{
@@ -42,6 +42,8 @@ class EVO_WebHooks{
 
 		return array_merge($A, $B);
 	}
+
+	// 4.5.9
 	public function ajax_webhook_settings(){
 		
 		$HELP = new evo_helper();
@@ -88,18 +90,29 @@ class EVO_WebHooks{
 					)
 				);
 			?>	
+				
 				<div class='evo_elm_row'>
 					<p class='evo_field_label'><?php _e('Fields passed on to webhook','eventon');?></p>
-					<p class='evo_field_container evo_whdata_fields' style='font-style: italic;' data-d=''>-</p>					
+					<p class='evo_field_container evo_whdata_fields'  style='font-style: italic;' data-d=''>-</p>					
 				</div>
 				<?php 
 
 				// data to fill fields passed on to the webhook @since 4.5
 				$webhook_data = array( 'whdata' => apply_filters('evo_webhooks_data', array() ) );
+				
+				$save_btn_data = array(
+					'd'=> array(						
+						'uid'=> 'evo_save_webhook_data',
+						'lightbox_key'=>'evo_webhooks_config',
+						'hide_lightbox'=>2000,
+						'load_new_content'=>true,
+						'load_new_content_id'=>'evowhs_container',
+					)
+				);
 
 				?>
 				<div class='evo_elm_webhooks_data' <?php echo $HELP->array_to_html_data( $webhook_data );?>></div>
-				<p><span class='evo_btn save_webhook_config ' style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>	
+				<p><span class='evo_btn save_webhook_config evo_submit_form' <?php echo $HELP->array_to_html_data( $save_btn_data );?> style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>	
 
 			<?php endif;?>
 			</form>
@@ -166,7 +179,7 @@ class EVO_WebHooks{
 
 			echo json_encode(array('status'=>'good',
 				'msg'=> __('Successfully saved webhook data'),
-				'html'=> $this->get_webhooks_html()
+				'content'=> "<div id='evowhs_container'>" . $this->get_webhooks_html() ."</div>"
 			));exit;
 		}
 

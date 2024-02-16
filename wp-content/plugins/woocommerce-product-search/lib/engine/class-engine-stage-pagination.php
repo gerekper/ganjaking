@@ -111,6 +111,20 @@ class Engine_Stage_Pagination extends Engine_Stage {
 
 	/**
 	 * {@inheritDoc}
+	 * @see \com\itthinx\woocommerce\search\engine\Engine_Stage::get_cache_context()
+	 */
+	protected function get_cache_context() {
+
+		$cache_context = $this->get_parameters();
+		if ( $this->engine !== null ) {
+			$cache_context['context'] = json_encode( $this->engine->get_parameters() );
+		}
+		$cache_context = apply_filters( 'woocommerce_product_search_engine_stage_cache_context', $cache_context, $this );
+		return $cache_context;
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * @see \com\itthinx\woocommerce\search\engine\Engine_Stage::get_matching_ids()
 	 */
 	public function get_matching_ids( &$ids ) {
@@ -120,11 +134,7 @@ class Engine_Stage_Pagination extends Engine_Stage {
 		if ( $this->engine !== null ) {
 
 			if ( $this->caching ) {
-
-				$cache_context = $this->get_parameters();
-				if ( $this->engine !== null ) {
-					$cache_context['context'] = json_encode( $this->engine->get_parameters() );
-				}
+				$cache_context = $this->get_cache_context();
 				$cache_key = $this->get_cache_key( $cache_context );
 				$cache = Cache::get_instance();
 				$ids = $cache->get( $cache_key, self::CACHE_GROUP );

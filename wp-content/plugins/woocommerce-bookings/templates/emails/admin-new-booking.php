@@ -116,7 +116,7 @@ if ( $booking_order ) {
 			<th><?php esc_html_e( 'Customer Information', 'woocommerce-bookings' ); ?></th>
 			<td>
 				<?php echo wp_kses( $booking_order->get_formatted_billing_address() ? $booking_order->get_formatted_billing_address() : __( 'No billing address set.', 'woocommerce-bookings' ), array( 'br' => array() ) ); ?><br/>
-				<?php echo esc_html( $booking_order->get_billing_phone() ? $booking_order->get_billing_phone() : $booking_order->billing_phone ); ?><br/>
+				<?php echo esc_html( is_callable( array( $booking_order, 'get_billing_phone' ) ) ? $booking_order->get_billing_phone() : $booking_order->billing_phone ); ?><br/>
 				<?php echo wp_kses_post( make_clickable( sanitize_email( $booking_order->get_billing_email() ? $booking_order->get_billing_email() : $booking_order->billing_email ) ) ); ?>
 			</td>
 		</tr>

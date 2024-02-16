@@ -2749,7 +2749,7 @@ class Woo_Thank_You extends Widget_Base {
 			$order = wc_get_orders( [ 'numberposts' => 1 ] );
 			$order = ! empty( $order ) ? $order[0] : false;
 			if ( ! $order ) {
-				_e( 'To view the widget, you must first place an order.', 'essential-addons-elementor' );
+				esc_html_e( 'To view the widget, you must first place an order.', 'essential-addons-elementor' );
 
 				return;
 			}
@@ -2776,7 +2776,7 @@ class Woo_Thank_You extends Widget_Base {
 			if ( file_exists( $template ) ):
 				include( $template );
 			else:
-				_e( '<p class="eael-no-posts-found">No layout found!</p>', 'essential-addons-elementor' );
+				echo '<p class="eael-no-posts-found"> '. esc_html__( 'No layout found!', 'essential-addons-elementor' ) .'</p>';
 			endif; ?>
         </div>
 		<?php

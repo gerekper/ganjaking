@@ -11,12 +11,17 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteCreatorForm{
 
+	const ANTISPAM_BLOCKS_OPTIONS_KEY = "unlimited_elements_form_antispam_blocks";
+	const ANTISPAM_SUBMISSIONS_OPTIONS_KEY = "unlimited_elements_form_antispam_submissions";
+
 	const LOGS_OPTIONS_KEY = "unlimited_elements_form_logs";
 	const LOGS_MAX_COUNT = 10;
 
 	const FOLDER_NAME = "unlimited_elements_form";
 	const HOOK_NAMESPACE = "ue_form";
-	const VALIDATION_ERROR_CODE = -1;
+
+	const ERROR_CODE_VALIDATION = -1;
+	const ERROR_CODE_SPAM = -2;
 
 	const ACTION_SAVE = "save";
 	const ACTION_EMAIL = "email";
@@ -210,13 +215,10 @@ class UniteCreatorForm{
 			UniteFunctionsUC::throwError("Elementor content not found.");
 
 		$addonForm = HelperProviderCoreUC_EL::getAddonWithDataFromContent($arrContent, $formID);
+		$formSettings = $addonForm->getProcessedMainParamsValues();
+		$formFields = $this->getFieldsData($arrContent, $formData, $formFiles);
 
-		// here can add some validation next...
-
-		$arrFormSettings = $addonForm->getProcessedMainParamsValues();
-		$arrFieldsData = $this->getFieldsData($arrContent, $formData, $formFiles);
-
-		$this->doSubmitActions($arrFormSettings, $arrFieldsData);
+		$this->doSubmitActions($formSettings, $formFields);
 	}
 
 	/**
@@ -246,6 +248,15 @@ class UniteCreatorForm{
 				UniteFunctionsUC::throwError("Form settings validation failed ($formErrors).");
 			}
 
+			// Check for spam
+			$isSpam = $this->detectFormSpam();
+
+			if($isSpam === true){
+				$spamError = $this->getSpamErrorMessage();
+
+				UniteFunctionsUC::throwError($spamError, self::ERROR_CODE_SPAM);
+			}
+
 			// Validate form fields
 			$fieldsErrors = $this->validateFormFields($this->formFields);
 
@@ -254,7 +265,7 @@ class UniteCreatorForm{
 
 				$validationError = $this->getValidationErrorMessage($fieldsErrors);
 
-				UniteFunctionsUC::throwError($validationError, self::VALIDATION_ERROR_CODE);
+				UniteFunctionsUC::throwError($validationError, self::ERROR_CODE_VALIDATION);
 			}
 
 			// Upload form files
@@ -340,29 +351,17 @@ class UniteCreatorForm{
 
 					$this->executeFormAction("after_{$action}_action");
 				}catch(Exception $exception){
-
-
+					$errorMessage = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
 					$debugType = UniteFunctionsUC::getVal($this->formSettings, "debug_type");
 
-					$errorMessage = "{$this->getActionTitle($action)}: {$exception->getMessage()}";
-
-					if($debugType == "full"){
-
-						$trace = "<pre>
-							{$exception->getTraceAsString()}						
-						</pre>";
-
-						$errorMessage .= $trace;
-					}
-
+					if($debugType === "full")
+						$errorMessage .= "<pre>{$exception->getTraceAsString()}</pre>";
 
 					$actionsErrors[] = $errorMessage;
-
 				}
 			}
 
 			if(empty($actionsErrors) === false){
-
 				$errors = array_merge($errors, $actionsErrors);
 
 				$actionsErrors = implode(" ", $actionsErrors);
@@ -376,7 +375,12 @@ class UniteCreatorForm{
 			$success = false;
 			$message = $this->getFormErrorMessage();
 
-			if($exception->getCode() === self::VALIDATION_ERROR_CODE)
+			$preserveMessageErrorCodes = array(
+				self::ERROR_CODE_VALIDATION,
+				self::ERROR_CODE_SPAM,
+			);
+
+			if(in_array($exception->getCode(), $preserveMessageErrorCodes) === true)
 				$message = $exception->getMessage();
 
 			$debugMessages[] = $exception->getMessage();
@@ -695,6 +699,59 @@ class UniteCreatorForm{
 	}
 
 	/**
+	 * detect form spam
+	 */
+	private function detectFormSpam(){
+
+		$antispamSettings = $this->getAntispamSettings();
+
+		// check if anti-spam is enabled
+		if($antispamSettings["enabled"] === false)
+			return false;
+
+		$userIp = UniteFunctionsUC::getUserIp();
+		$currentTime = current_time("timestamp");
+
+		// get blocks
+		$antispamBlocks = $this->getAntispamBlocks();
+		$userBlockTime = UniteFunctionsUC::getVal($antispamBlocks, $userIp, 0);
+
+		// check if the user is blocked
+		if($userBlockTime + $antispamSettings["block_period"] > $currentTime)
+			return true;
+
+		// get submissions
+		$antispamSubmissions = $this->getAntispamSubmissions();
+		$userSubmissions = UniteFunctionsUC::getVal($antispamSubmissions, $userIp, array());
+
+		// check if the user has reached the submissions limit
+		if(count($userSubmissions) >= $antispamSettings["submissions_limit"]){
+			$lastSubmissionTime = end($userSubmissions);
+
+			// check if the user's last submission is within the period
+			if($lastSubmissionTime + $antispamSettings["submissions_period"] > $currentTime){
+				// block the user
+				$antispamBlocks[$userIp] = $currentTime;
+
+				$this->saveAntispamBlocks($antispamBlocks, $antispamSettings["block_period"]);
+
+				return true;
+			}
+
+			// reset the user submissions
+			$userSubmissions = array();
+		}
+
+		// save the user submission
+		$userSubmissions[] = $currentTime;
+		$antispamSubmissions[$userIp] = $userSubmissions;
+
+		$this->saveAntispamSubmissions($antispamSubmissions, $antispamSettings["submissions_period"]);
+
+		return false;
+	}
+
+	/**
 	 * create form log
 	 */
 	private function createFormLog($messages){
@@ -882,7 +939,7 @@ class UniteCreatorForm{
 
 			$formFieldsReplace[] = "$title: $value";
 
-			if (empty($name) === false) {
+			if(empty($name) === false){
 				$placeholder = self::PLACEHOLDER_FORM_FIELDS . "." . $name;
 
 				$formFieldPlaceholders[] = $placeholder;
@@ -948,10 +1005,9 @@ class UniteCreatorForm{
 	 */
 	private function sendWebhook($webhookFields){
 
-		$response = wp_remote_request($webhookFields["url"], $webhookFields);
-		$status = wp_remote_retrieve_response_code($response);
-
-		if($status !== 200)
+		$response = UEHttp::make()->post($webhookFields["url"], $webhookFields["body"]);
+		
+		if($response->status() !== 200)
 			UniteFunctionsUC::throwError("Unable to send webhook to {$webhookFields["url"]}.");
 	}
 
@@ -1208,6 +1264,18 @@ class UniteCreatorForm{
 	}
 
 	/**
+	 * get spam error message
+	 */
+	private function getSpamErrorMessage(){
+
+		$fallback = __("Something went wrong, please try again later.", "unlimited-elements-for-elementor");
+		$message = $this->getFormMessage("spam_error_message", $fallback);
+		$message = esc_html($message);
+
+		return $message;
+	}
+
+	/**
 	 * get validation error message
 	 */
 	private function getValidationErrorMessage($errors){
@@ -1453,7 +1521,7 @@ class UniteCreatorForm{
 			$label = esc_html(basename($url));
 			$link = "<a href=\"$href\" target=\"_blank\">$label</a>";
 
-			if ($withDownload === true)
+			if($withDownload === true)
 				$link .= "<a href=\"$href\" target=\"_blank\" download><i class=\"dashicons dashicons-download\"></i></a>";
 
 			$links[] = $link;
@@ -1462,6 +1530,97 @@ class UniteCreatorForm{
 		$links = implode($separator, $links);
 
 		return $links;
+	}
+
+	/**
+	 * get anti-spam settings
+	 */
+	private function getAntispamSettings(){
+
+		$enabled = HelperProviderCoreUC_EL::getGeneralSetting("form_antispam_enabled");
+		$enabled = UniteFunctionsUC::strToBool($enabled);
+
+		$submissionsLimit = HelperProviderCoreUC_EL::getGeneralSetting("form_antispam_submissions_limit");
+		$submissionsLimit = empty($submissionsLimit) === false ? intval($submissionsLimit) : 3; // default is 3
+		$submissionsLimit = max($submissionsLimit, 1); // minimum is 1
+
+		$submissionsPeriod = HelperProviderCoreUC_EL::getGeneralSetting("form_antispam_submissions_period");
+		$submissionsPeriod = empty($submissionsPeriod) === false ? intval($submissionsPeriod) : 60; // default is 60 seconds
+		$submissionsPeriod = max($submissionsPeriod, 1); // minimum is 1 second
+
+		$blockPeriod = HelperProviderCoreUC_EL::getGeneralSetting("form_antispam_block_period");
+		$blockPeriod = empty($blockPeriod) === false ? intval($blockPeriod) : 180; // default is 180 minutes
+		$blockPeriod = max($blockPeriod * 60, 60); // minimum is 60 seconds
+
+		$settings = array(
+			"enabled" => $enabled,
+			"submissions_limit" => $submissionsLimit,
+			"submissions_period" => $submissionsPeriod,
+			"block_period" => $blockPeriod,
+		);
+
+		return $settings;
+	}
+
+	/**
+	 * get anti-spam blocks
+	 */
+	private function getAntispamBlocks(){
+
+		$blocks = get_option(self::ANTISPAM_BLOCKS_OPTIONS_KEY, array());
+
+		return $blocks;
+	}
+
+	/**
+	 * save anti-spam blocks
+	 */
+	private function saveAntispamBlocks($blocks, $preservationTime){
+
+		$currentTime = current_time("timestamp");
+
+		// purge blocks
+		foreach($blocks as $ip => $time){
+			if($time + $preservationTime <= $currentTime)
+				unset($blocks[$ip]);
+		}
+
+		update_option(self::ANTISPAM_BLOCKS_OPTIONS_KEY, $blocks);
+	}
+
+	/**
+	 * get anti-spam submissions
+	 */
+	private function getAntispamSubmissions(){
+
+		$submissions = get_option(self::ANTISPAM_SUBMISSIONS_OPTIONS_KEY, array());
+
+		return $submissions;
+	}
+
+	/**
+	 * save anti-spam submissions
+	 */
+	private function saveAntispamSubmissions($submissions, $preservationTime){
+
+		$currentTime = current_time("timestamp");
+
+		// purge submissions
+		foreach($submissions as $ip => $times){
+			$newValues = array();
+
+			foreach($times as $time){
+				if($time + $preservationTime > $currentTime)
+					$newValues[] = $time;
+			}
+
+			if(empty($newValues) === true)
+				unset($submissions[$ip]);
+			else
+				$submissions[$ip] = $newValues;
+		}
+
+		update_option(self::ANTISPAM_SUBMISSIONS_OPTIONS_KEY, $submissions);
 	}
 
 }

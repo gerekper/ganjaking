@@ -48,6 +48,9 @@ class UniteCreatorDialogParamWork{
 	const PARAM_MAP = "uc_map";
 	const PARAM_ADDONPICKER = "uc_addonpicker";
 	const PARAM_TYPOGRAPHY = "uc_typography";
+	const PARAM_TEXTSHADOW = "uc_textshadow";
+	const PARAM_BOXSHADOW = "uc_boxshadow";
+	const PARAM_BORDER = "uc_border";
 	const PARAM_STATIC_TEXT = "static_text";
 	const PARAM_MARGINS = "uc_margins";
 	const PARAM_PADDING = "uc_padding";
@@ -55,10 +58,7 @@ class UniteCreatorDialogParamWork{
 	const PARAM_GALLERY = "uc_gallery";
 
 	const PARAM_BACKGROUND = "uc_background";
-	const PARAM_BORDER = "uc_border";
 	const PARAM_DATETIME = "uc_datetime";
-	const PARAM_TEXTSHADOW = "uc_textshadow";
-	const PARAM_BOXSHADOW = "uc_boxshadow";
 
 	const PARAM_BORDER_DIMENTIONS = "uc_border_dimentions";
 	const PARAM_CSS_FILTERS = "uc_css_filters";

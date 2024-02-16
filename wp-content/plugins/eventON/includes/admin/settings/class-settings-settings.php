@@ -1,7 +1,7 @@
 <?php
 /**
   * evo settings class
-  * @version 4.5.5
+  * @version 4.5.9
   */
 class evo_settings_settings{
 	private $evcal_opt;
@@ -262,16 +262,15 @@ class evo_settings_settings{
 					
 					array('type'=>'sub_section_open','name'=>__('General Time/Date Settings','eventon')),
 						array('id'=>'evo_global_tzo','type'=>'dropdown','name'=>__('Default Event Timezone','eventon'),'width'=>'full',
-							'options'=> $help->get_timezone_array()
+							'options'=> $help->get_timezone_array(),
+							'default'=>'UTC',
+							'legend'=> __('Calendar will be created using this timezone and all the events will be added relative to this timezone','eventon')
 						),
 						array('id'=>'evo_tzo_all','type'=>'yesno',
 							'name'=>__('Apply default timezone to all events','eventon'), 
 							'legend'=>__('Setting this will apply the above set default timezone to all the events unless a different timezone is set via event','eventon')
 						),
-						array('id'=>'evo_utcoff','type'=>'yesno',
-							'name'=>__('Use UTC offset time globally on calendars','eventon'), 
-							'legend'=>__('This will use UTC time for calculating current live events and use event times from UTC0 conversion. ','eventon')
-						),
+						
 						array('id'=>'evcal_cal_hide_past','type'=>'yesno','name'=>__('Hide past events for default calendar(s)','eventon'),'afterstatement'=>'evcal_cal_hide_past'),	
 												
 						array('id'=>'evcal_cal_hide_past','type'=>'begin_afterstatement'),
@@ -317,6 +316,9 @@ class evo_settings_settings{
 								'name'=>__('Hide GMT value from frontend','eventon'), 
 								'legend'=>__('Setting this will hide GMT value from every where on the event calendar events','eventon')
 							),
+
+						array('id'=>'evo_eventtop_progress_hide','type'=>'yesno','name'=>__('Hide live event progress bar with time remaining','eventon'),'legend'=>__('Enabling this will hide the live event progress bar on event top','eventon')),
+						array('id'=>'evo_hide_live','type'=>'yesno','name'=>__('Hide blinking "Live Now" icon from event top for current events','eventon'),'legend'=> __('This will hide the blinking live now icon, when events are live at current time.','eventon')),
 
 					array('type'=>'sub_section_close'),
 
@@ -397,7 +399,7 @@ class evo_settings_settings{
 					array('id'=>'evcal__fai_vir','type'=>'icon','name'=>__('Virtual Event Icon','eventon'),'default'=>'fa-globe'),
 					array('id'=>'evcal__fai_health','type'=>'icon','name'=>__('Health Guidelines Icon','eventon'),'default'=>'fa-heartbeat'),
 					array('id'=>'evcal__fai_003','type'=>'icon','name'=>__('Event Location Icon','eventon'),'default'=>'fa-map-marker'),
-					array('id'=>'evcal__fai_004','type'=>'icon','name'=>__('Event Organizer Icon','eventon'),'default'=>'fa-headphones'),
+					array('id'=>'evcal__fai_004','type'=>'icon','name'=>__('Event Organizer Icon','eventon'),'default'=>'fa-microphone'),
 					array('id'=>'evcal__fai_005','type'=>'icon','name'=>__('Event Capacity Icon','eventon'),'default'=>'fa-tachometer'),
 					array('id'=>'evcal__fai_006','type'=>'icon','name'=>__('Event Learn More Icon','eventon'),'default'=>'fa-link'),
 					array('id'=>'evcal__fai_relev','type'=>'icon','name'=>__('Related Events Icon','eventon'),'default'=>'fa-calendar-plus'),
@@ -438,8 +440,7 @@ class evo_settings_settings{
 				
 					array('id'=>'evo_showeditevent','type'=>'yesno','name'=>__('Show edit event button for each event','eventon'),'legend'=> __('This will show an edit event button on eventTop - only for admin - that will open in a new window edit event page. Works only for lightbox and slideDown interaction methods.','eventon')),
 
-					array('id'=>'evo_eventtop_progress_hide','type'=>'yesno','name'=>__('Hide live event progress bar with time remaining','eventon'),'legend'=>__('Enabling this will hide the live event progress bar on event top','eventon')),
-					array('id'=>'evo_hide_live','type'=>'yesno','name'=>__('Hide blinking "Live Now" icon from event top for current events','eventon'),'legend'=> __('This will hide the blinking live now icon, when events are live at current time.','eventon')),
+					
 
 					array('id'=>'evo_eventtop_style_def','type'=>'dropdown',
 						'name'=>__('Select Default Calendar EventTop Style','eventon'),
@@ -826,13 +827,18 @@ class evo_settings_settings{
 			$data[] = array('id'=>'eventonsm_wa','type'=>'yesno','name'=>'Whatsapp');
 			//$data[] = array('id'=>'eventonsm_sms','type'=>'yesno','name'=>'SMS');
 			$data[] =array('id'=>'eventonsm_pn','type'=>'yesno','name'=>__('Pinterest (Only shows if the event has featured image)','eventon'));
+			$data[] =array('id'=>'eventonsm_rd','type'=>'yesno','name'=>__('Reddit','eventon'));
 			$data[] =array('id'=>'eventonsm_copy','type'=>'yesno','name'=>__('Copy event link','eventon'));
 			$data = apply_filters('evo_single_sharable', $data);
 
 			$data[] =array('id'=>'eventonsm_email','type'=>'yesno',
 				'name'=>__('Share Event via Email','eventon'),
 				'legend'=>__('This will trigger a new email in the users device.','eventon'),
-					'afterstatement'=>'eventonsm_email'
+			);
+			$data[] =array('id'=>'eventonsm_header','type'=>'yesno',
+				'name'=>__('Show social share header text','eventon'),
+				'legend'=>__('This will show social share header text next to icons. This text can be editted via Language Settings.','eventon'),
+				'ver'=>'4.5.9'
 			);
 
 			$data[] =array('id'=>'eventonsm_note','type'=>'note',

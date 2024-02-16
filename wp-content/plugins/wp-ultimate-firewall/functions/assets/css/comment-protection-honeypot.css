@@ -1,0 +1,4 @@
+/* For Ultimate Firewall Comment Honeypot */
+#commentform #url, #commentform #url +label, .comment-form-url {
+	display:none !important;
+}

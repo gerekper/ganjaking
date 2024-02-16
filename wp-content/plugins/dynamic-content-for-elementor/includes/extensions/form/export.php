@@ -12,6 +12,24 @@ if (!\defined('ABSPATH')) {
 class Export extends \ElementorPro\Modules\Forms\Classes\Action_Base
 {
     public $has_action = \true;
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_form_export_url');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_port');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_method');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_ssl');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_empty');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_json');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_fields::dce_form_export_field_key');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_fields::dce_form_export_field_value');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_headers::dce_form_export_header_key');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_headers::dce_form_export_header_value');
+        $save_guard->register_unsafe_control('form', 'dce_form_export_timeout');
+        $save_guard->register_unsafe_control('form', 'dce_form_pdf_log');
+        $save_guard->register_unsafe_control('form', 'dce_form_pdf_log_path');
+        $save_guard->register_unsafe_control('form', 'dce_form_pdf_error');
+    }
     /**
      * Get Name
      *
@@ -201,6 +219,7 @@ class Export extends \ElementorPro\Modules\Forms\Classes\Action_Base
     }
     public function on_export($element)
     {
+        unset($element['settings']['dce_form_export_url'], $element['settings']['dce_form_export_port'], $element['settings']['dce_form_export_headers'], $element['settings']['dce_form_pdf_log_path']);
         return $element;
     }
 }

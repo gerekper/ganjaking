@@ -1860,9 +1860,12 @@ class wfScanEngine {
 		$this->updateCheck = new wfUpdateCheck();
 		if ($this->isFullScan()) {
 			$this->updateCheck->checkAllUpdates(false);
-			$this->updateCheck->checkAllVulnerabilities();
+			$this->updateCheck->checkCoreVulnerabilities();
+			$this->updateCheck->checkPluginVulnerabilities();
+			$this->updateCheck->checkThemeVulnerabilities();
 		} else {
 			$this->updateCheck->checkAllUpdates();
+			$this->updateCheck->checkCoreVulnerabilities();
 		}
 
 		foreach ($this->updateCheck->getPluginSlugs() as $slug) {
@@ -1981,22 +1984,63 @@ class wfScanEngine {
 
 		// WordPress core updates needed
 		if ($this->updateCheck->needsCoreUpdate()) {
-			$added = $this->addIssue(
-				'wfUpgrade',
-				wfIssues::SEVERITY_HIGH,
-				'wfUpgrade' . $this->updateCheck->getCoreUpdateVersion(),
-				'wfUpgrade' . $this->updateCheck->getCoreUpdateVersion(),
-				__("Your WordPress version is out of date", 'wordfence'),
-				sprintf(/* translators: Software version. */ __("WordPress version %s is now available. Please upgrade immediately to get the latest security updates from WordPress.", 'wordfence'), esc_html($this->updateCheck->getCoreUpdateVersion())),
-				array(
-					'currentVersion' => $this->wp_version,
-					'newVersion'     => $this->updateCheck->getCoreUpdateVersion(),
-				)
-			);
-			if ($added == wfIssues::ISSUE_ADDED || $added == wfIssues::ISSUE_UPDATED) {
-				$haveIssues = wfIssues::STATUS_PROBLEM;
-			} else if ($haveIssues != wfIssues::STATUS_PROBLEM && ($added == wfIssues::ISSUE_IGNOREP || $added == wfIssues::ISSUE_IGNOREC)) {
-				$haveIssues = wfIssues::STATUS_IGNORED;
+			$updateVersion = $this->updateCheck->getCoreUpdateVersion();
+			$severity = wfIssues::SEVERITY_HIGH;
+			$shortMsg = __("Your WordPress version is out of date", 'wordfence');
+			$longMsg = sprintf(/* translators: Software version. */ __("WordPress version %s is now available. Please upgrade immediately to get the latest security updates from WordPress.", 'wordfence'), esc_html($updateVersion));
+			
+			$currentVulnerable = $this->updateCheck->isCoreVulnerable('current');
+			$edgeVulnerable = $this->updateCheck->isCoreVulnerable('edge');
+			if ($this->updateCheck->coreUpdatePatchAvailable()) { //Non-edge branch with available backported update
+				$updateVersion = $this->updateCheck->getCoreUpdatePatchVersion();
+				$patchVulnerable = $this->updateCheck->isCoreVulnerable('patch');
+				if (!$currentVulnerable && !$patchVulnerable) { //Non-edge branch, neither the current version or patch version have a known vulnerability
+					$severity = wfIssues::SEVERITY_MEDIUM;
+					$longMsg = sprintf(/* translators: Software version. */ __("WordPress version %s is now available for your site's current branch. Please upgrade immediately to get the latest fixes and compatibility updates from WordPress.", 'wordfence'), esc_html($updateVersion));
+				}
+				else if ($currentVulnerable && !$patchVulnerable) { //Non-edge branch, current version is vulnerable but patch version is not
+					$longMsg = sprintf(/* translators: Software version. */ __("WordPress version %s is now available for your site's current branch. Please upgrade immediately to get the latest security updates from WordPress.", 'wordfence'), esc_html($updateVersion));
+					//keep existing $severity already set
+				}
+				else { //Non-edge branch, unpatched vulnerability -- shift recommendation from patch update to edge update
+					$updateVersion = $this->updateCheck->getCoreUpdateVersion();
+					//keep existing $severity and $longMsg already set
+				}
+			}
+			else { //Edge branch or newest version of an older branch
+				if (!$currentVulnerable && !$edgeVulnerable) { //Neither the current version or edge version have a known vulnerability
+					if ($this->updateCheck->getCoreEarlierBranch()) { //Update available on the edge branch, but the older branch in current use is up-to-date for its patches
+						$severity = wfIssues::SEVERITY_LOW;
+					}
+					else {
+						$severity = wfIssues::SEVERITY_MEDIUM;
+					}
+					$longMsg = sprintf(/* translators: Software version. */ __("WordPress version %s is now available. Please upgrade immediately to get the latest fixes and compatibility updates from WordPress.", 'wordfence'), esc_html($updateVersion));
+				}
+				//else vulnerability fixed or unpatched vulnerability, keep the existing values already set
+			}
+			
+			$longMsg .= ' <a href="' . wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_CORE_UPGRADE) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more', 'wordfence') . '<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>';
+			
+			if ($updateVersion) {
+				$added = $this->addIssue(
+					'wfUpgrade',
+					$severity,
+					'wfUpgrade' . $updateVersion,
+					'wfUpgrade' . $updateVersion,
+					$shortMsg,
+					$longMsg,
+					array(
+						'currentVersion' => $this->wp_version,
+						'newVersion'     => $updateVersion,
+					)
+				);
+				
+				if ($added == wfIssues::ISSUE_ADDED || $added == wfIssues::ISSUE_UPDATED) {
+					$haveIssues = wfIssues::STATUS_PROBLEM;
+				} else if ($haveIssues != wfIssues::STATUS_PROBLEM && ($added == wfIssues::ISSUE_IGNOREP || $added == wfIssues::ISSUE_IGNOREC)) {
+					$haveIssues = wfIssues::STATUS_IGNORED;
+				}
 			}
 		}
 

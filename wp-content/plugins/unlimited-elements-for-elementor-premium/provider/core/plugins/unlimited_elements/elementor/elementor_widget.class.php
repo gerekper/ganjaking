@@ -2436,6 +2436,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
      */
    protected function ucRegisterControls_addon(){
 		
+   		
    		//$name = $this->objAddon->getAlias();
    		   	
    		//check low memory
@@ -3283,8 +3284,9 @@ class UniteCreatorElementorWidget extends Widget_Base {
     */
     protected function register_controls() {
 
-    	//$this->registerControlsTest();
-    	//return(false);
+   		//skip controls when saving builder
+    	if(UniteCreatorElementorIntegrate::$isSaveBuilderMode == true)
+    		return(false);
     	
     	try{
           
@@ -3968,6 +3970,13 @@ class UniteCreatorElementorWidget extends Widget_Base {
      */    
     protected function render() {
 		
+    	if(UniteCreatorElementorIntegrate::$isSaveBuilderMode == true){
+    		
+    		echo "skip render: ".$this->get_name();
+    		return(false);
+    	}
+    	
+    	
     	if($this->isNoMemory == true){
     		echo "no memory to render ".$this->isNoMemory_addonName." widget. <br> Please increase memory_limit in php.ini";	
     		return(false);

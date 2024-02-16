@@ -38,6 +38,8 @@ class WC_Points_Rewards_Cart_Checkout {
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'render_earn_points_message' ), 5 );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'render_redeem_points_message' ), 6 );
 
+		add_action( 'woocommerce_after_checkout_form', array( $this, 'maybe_render_redeem_points_message_after_checkout_form' ), 40 );
+
 		// Add JavaScript used by apply discount button.
 		add_action( 'woocommerce_before_checkout_form', [ $this, 'render_apply_discount_javascript' ] );
 
@@ -559,6 +561,23 @@ class WC_Points_Rewards_Cart_Checkout {
 		);
 
 		echo wp_kses( apply_filters( 'wc_points_rewards_redeem_points_message', $message, $discount_available ), $allowed_tags );
+	}
+
+	/**
+	 * Renders the redeem message and button at the end of the checkout form.
+	 *
+	 * @return void
+	 */
+	public function maybe_render_redeem_points_message_after_checkout_form() {
+		/**
+		 * Filter that allows rendering the redeem section after the checkout form.
+		 *
+		 * @param bool $should_render_redeem_section_after_checkout_form
+		 */
+		$should_render = apply_filters( 'wc_points_rewards_should_render_redeem_points_message_after_checkout_form', false );
+		if ( $should_render ) {
+			$this->render_redeem_points_message();
+		}
 	}
 
 	/**

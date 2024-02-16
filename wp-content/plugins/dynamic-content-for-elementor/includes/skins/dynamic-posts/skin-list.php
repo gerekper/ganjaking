@@ -90,7 +90,7 @@ class Skin_List extends \DynamicContentForElementor\Includes\Skins\Skin_Base
         $p_query = $this->get_parent()->get_query();
         $this->add_direction();
         $this->get_parent()->add_render_attribute('container', ['class' => ['dce-posts-container', 'dce-posts']]);
-        $this->render_pagination_top();
+        $this->maybe_render_pagination_top();
         if ('unordered' === $settings['list_type']) {
             ?>
 			<ul <?php 
@@ -140,7 +140,7 @@ class Skin_List extends \DynamicContentForElementor\Includes\Skins\Skin_Base
 			</ol>
 		<?php 
         }
-        $this->render_pagination_bottom();
+        $this->maybe_render_pagination_bottom();
         $this->render_infinite_scroll();
     }
     /**

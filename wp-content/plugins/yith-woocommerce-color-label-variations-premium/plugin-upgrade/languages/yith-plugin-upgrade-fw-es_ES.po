@@ -1,0 +1,358 @@
+# Translation of YITH Licensing in Spanish (Spain)
+# This file is distributed under the same license as the YITH Licensing package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-03-02 09:56+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"Language: es\n"
+"Project-Id-Version: YITH Licensing\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: lib/yit-licence.php:965
+msgctxt "Button label"
+msgid "set your licenses"
+msgstr "configura tus licencias"
+
+#: lib/yit-licence.php:959
+msgctxt "%s is a placeholder for a link \"set your license key\""
+msgid "Please %s to get premium features and support for:"
+msgstr "Por favor %s para obtener características premium y asistencia para:"
+
+#: lib/yit-licence.php:960
+msgid "set your license key"
+msgstr "establece tu clave de licencia"
+
+#: lib/yit-licence.php:958
+msgid "Thank you for choosing YITH to improve your shop!"
+msgstr "¡Gracias por elegir YITH para mejorar tu tienda!"
+
+#. Author of the plugin/theme
+msgid "YITHEMES"
+msgstr "YITHEMES"
+
+#. translators: %1$1s: Number of activations for the licence. %2$2s: The
+#. activations number limit
+#: templates/panel/activation/activation-row.php:56
+msgid "%1$1s out of %2$2s"
+msgstr "%1$1s de %2$2s"
+
+#: templates/panel/activation/activation-row.php:116
+msgctxt "Button label"
+msgid "Remove"
+msgstr "Eliminar"
+
+#: templates/panel/activation/activation-row.php:101
+msgctxt "this is a short text for a link"
+msgid "Or get a new license"
+msgstr "U obtener una nueva licencia"
+
+#: templates/panel/activation/activation-row.php:95
+msgctxt "button label"
+msgid "renew"
+msgstr "renovar"
+
+#: templates/panel/activation/activation-row.php:83
+msgid "Expires on:"
+msgstr "Expira el:"
+
+#: templates/panel/activation/activation-row.php:73
+msgctxt "License status"
+msgid "banned"
+msgstr "bloqueada"
+
+#: templates/panel/activation/activation-row.php:70
+msgctxt "License status"
+msgid "expired"
+msgstr "expirada"
+
+#: templates/panel/activation/activation-row.php:52
+msgid "Licenses used:"
+msgstr "Licencia usada:"
+
+#: templates/panel/activation/activation-row.php:48
+msgid "License Key:"
+msgstr "Clave de licencia:"
+
+#: templates/panel/activation/activation-row.php:23
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#: templates/panel/activation/activation-row.php:19
+msgid "License:"
+msgstr "Licencia:"
+
+#: templates/panel/activation/activation-panel.php:161
+msgctxt "Table Field"
+msgid "Expires on:"
+msgstr "Expira el:"
+
+#: templates/panel/activation/activation-panel.php:160
+msgctxt "Table Field"
+msgid "Licenses used:"
+msgstr "Licencia usada:"
+
+#: templates/panel/activation/activation-panel.php:159
+msgctxt "Table Field"
+msgid "License Key:"
+msgstr "Clave de licencia:"
+
+#: templates/panel/activation/activation-panel.php:158
+msgctxt "Table Field"
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#: templates/panel/activation/activation-panel.php:157
+msgctxt "Table Field"
+msgid "License:"
+msgstr "Licencia:"
+
+#: templates/panel/activation/activation-panel.php:154
+msgid "Licenses Activated"
+msgstr "Licencias activadas"
+
+#: templates/panel/activation/activation-panel.php:143
+msgctxt "button label"
+msgid "Update Expiry Dates"
+msgstr "Actualizar Fechas de expiración"
+
+#: templates/panel/activation/activation-panel.php:142
+msgid "If you've already renewed a license and the expiry date is not updated, click to update."
+msgstr "Si ya has renovado una licencia y la fecha de expiración no se ha actualizado, haz clic para actualizar."
+
+#: templates/panel/activation/activation-panel.php:135
+msgctxt "License section message"
+msgid "No licenses have been activated."
+msgstr "No se han activado licencias."
+
+#: templates/panel/activation/activation-panel.php:130
+msgctxt "Section Title"
+msgid "Licenses Activated"
+msgstr "Licencias activadas"
+
+#: templates/panel/activation/activation-panel.php:116
+msgctxt "Button Label"
+msgid "Activate"
+msgstr "Activar"
+
+#: templates/panel/activation/activation-panel.php:115
+msgctxt "Placeholder"
+msgid "Enter the license key"
+msgstr "Introduce la clave de licencia"
+
+#: templates/panel/activation/activation-panel.php:110
+msgctxt "Link on activation license panel"
+msgid "Where to find it ?"
+msgstr "¿Dónde encontrarla?"
+
+#: templates/panel/activation/activation-panel.php:108
+msgctxt "Link on activation license panel"
+msgid "License key"
+msgstr "Clave de licencia"
+
+#: templates/panel/activation/activation-panel.php:99
+msgctxt "Placeholder"
+msgid "Enter the e-mail address for this license"
+msgstr "Introduce la dirección de correo electrónica para esta licencia"
+
+#: templates/panel/activation/activation-panel.php:93
+msgctxt "Link on activation license panel"
+msgid "E-mail account with YITH"
+msgstr "Cuenta de correo electrónico con YITH"
+
+#: templates/panel/activation/activation-panel.php:49
+msgctxt "[Part of]: Are you having issues with the license activation? Read this article"
+msgid "Read this article"
+msgstr "Lee este artículo"
+
+#: templates/panel/activation/activation-panel.php:47
+msgctxt "[Part of]: Are you having issues with the license activation? Read this article"
+msgid "Are you having issues with the license activation?"
+msgstr "¿Estás teniendo problemas con la activación de licencia?"
+
+#: templates/panel/activation/activation-panel.php:39
+msgctxt "License section message"
+msgid "Your licenses are active."
+msgstr "Tus licencias están activas."
+
+#: templates/panel/activation/activation-panel.php:34
+msgctxt "Page Title"
+msgid "Activate your licenses"
+msgstr "Activa tus licencias"
+
+#: lib/yit-theme-licence.php:179
+msgid ""
+"If you have purchased one of our products before 27 January 2015, you can benefit from support and updates (the services offered with the license)\n"
+"                    until 27 January 2016 and you do not have to purchase it again to get a new license key, because, before this date, your license used to be activated automatically by our system.\n"
+"                    After 27 January 2016, instead, if you want to benefit from support and updates you have to buy a new license and activate it through the license key you will be\n"
+"                    provided with and that you can find in your YITH account, in section \"My licenses\"."
+msgstr ""
+"Si has comprado uno de nuestros productos antes del 27 de enero del 2015, puedes beneficiarte de soporte y actualizaciones (los servicios ofrecidos con la licencia)\n"
+"hasta el 27 de enero del 2016 y no debes comprarlo de nuevo para obtener una nueva clave de licencia, porque antes de esta fecha, la licencia solía ser activada automáticamente por nuestro sistema.\n"
+"Tras el 27 de enero del 2016, si quieres beneficiarte de actualizaciones y soporte debes comprar una nueva licencia y activarla a través de la clave de licencia provista, que puedes encontrar en tu cuenta de YITH, en la sección 'Mis licencias'."
+
+#: lib/yit-theme-licence.php:175
+msgid "I cannot find the license key for activating the theme I have bought some time ago. Where can I find it?"
+msgstr "No logro encontrar la clave de licencia para activar el tema que he comprado hace algún tiempo. ¿Dónde puedo encontrarla?"
+
+#: lib/yit-plugin-upgrade.php:715
+msgid "<br/><b>Please note:</b> You are using a higher version than the latest available one. </em>Please, make sure you've downloaded the latest version of <em>%1$s</em> from the only <a href=\"https://yithemes.com\" target=\"_blank\">YITH official website</a>, specifically, from your <a href=\"https://yithemes.com/my-account/recent-downloads/\" target=\"_blank\">Downloads page</a>. This is the only way to be sure the version you are using is 100%% malware-free."
+msgstr "<br/><b>Por favor, ten en cuenta:</b> Estás usando una versión superior a la última disponible. </em>Por favor, asegúrate de que has descargado la última version de <em>%1$s</em> desde el único <a href=\"https://yithemes.com\" target=\"_blank\">sitio oficial de YITH</a>, específicamente, desde tu <a href=\"https://yithemes.com/my-account/recent-downloads/\" target=\"_blank\">página de descargas</a>. Este es el único modo de asegurarte de que la versión que usas está 100%% libre de malware."
+
+#: lib/yit-plugin-upgrade.php:699 lib/yit-plugin-upgrade.php:711
+msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version %4$s details</a> or <a href=\"%5$s\" class=\"%6$s\" data-plugin=\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">update now</a>."
+msgstr "Hay una nueva versión de %1$s disponible. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">Ver detalles de versión %4$s</a> o <a href=\"%5$s\" class=\"%6$s\" data-plugin=\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">actualizar ahora</a>."
+
+#. translators: %1$s, %3$s, %6$s are placeholders for the plugin name, %2$s the
+#. link to open changelog modal, %4$s is the new plugin version, %5$s is the
+#. link to activation page.
+#: lib/yit-plugin-upgrade.php:709
+msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version %4$s details</a>. <em>Automatic update is unavailable for this plugin, please <a href=\"%5$s\" title=\"License activation\">activate</a> your copy of %1$s.</em>"
+msgstr "Hay una nueva versión de %1$s disponible. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">Ver detalles de versión %4$s</a>. <em>La actualización automática no está disponible para este plugin, por favor <a href=\"%5$s\" title=\"License activation\">activa</a> tu copia de %1$s.</em>"
+
+#. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
+#. to open changelog modal, %4$s is the new plugin version.
+#: lib/yit-plugin-upgrade.php:704
+msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version %4$s details</a>. <em>Make sure the plugin license has been activated on each site of the network to benefits from automatic updates.</em>"
+msgstr "Hay una nueva versión de %1$s disponible. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">Ver detalles de versión %4$s</a>. <em>Asegúrate de que la licencia haya sido activada en un sitio conectado a la red para beneficiarte de actualizaciones automáticas.</em>"
+
+#. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
+#. to open changelog modal, %4$s is the new plugin version.
+#: lib/yit-plugin-upgrade.php:696
+msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version %4$s details</a>."
+msgstr "Hay una nueva versión de %1$s disponible. <a href=\"%2$s\" class=\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">Ver detalles de versión %4$s</a>."
+
+#: lib/yit-plugin-upgrade.php:428
+msgid "Could not create Temporary file."
+msgstr "No ha sido posible crear un archivo temporal."
+
+#: lib/yit-plugin-upgrade.php:415
+msgid "Invalid URL Provided."
+msgstr "URL proporcionada no válida."
+
+#: lib/yit-plugin-upgrade.php:385
+msgid "YITH Repository"
+msgstr "Repositorio de YITH"
+
+#: lib/yit-plugin-upgrade.php:365
+msgctxt "[Update Plugin Message: License not enabled]"
+msgid "You have to activate the plugin to benefit from automatic updates."
+msgstr "Debes activar el plugin para beneficiarte de actualizaciones automáticas."
+
+#. translators: %s: Plugin name and version
+#: lib/yit-plugin-upgrade.php:234
+msgctxt "plugin-fw"
+msgid "%s update failed"
+msgstr "Actualización de %s fallida"
+
+#. translators: %s: Plugin name and version
+#: lib/yit-plugin-upgrade.php:232
+msgctxt "plugin-fw"
+msgid "%s updated!"
+msgstr "¡%s actualizado!"
+
+#. translators: %s: Plugin name and version
+#: lib/yit-plugin-upgrade.php:230
+msgctxt "plugin-fw"
+msgid "Updating %s..."
+msgstr "Actualizando %s..."
+
+#: lib/yit-plugin-upgrade.php:135
+msgid "An unexpected error occurred, please try again later. Thanks!"
+msgstr "Ha ocurrido un error. Inténtalo de nuevo más tarde, por favor. ¡Gracias!"
+
+#: lib/yit-plugin-licence.php:84 lib/yit-plugin-licence.php:85
+#: lib/yit-theme-licence.php:80 lib/yit-theme-licence.php:81
+#: lib/yit-theme-licence.php:119 lib/yit-theme-licence.php:120
+msgid "License Activation"
+msgstr "Activación de licencia"
+
+#: lib/yit-licence.php:842
+msgid "License key deactivated for website"
+msgstr "La clave de licencia ha sido desactivada para el sitio"
+
+#: lib/yit-licence.php:841
+msgid "License successfully activated"
+msgstr "Licencia activada con éxito"
+
+#: lib/yit-licence.php:841
+msgid "Great"
+msgstr "Genial"
+
+#: lib/yit-licence.php:840
+msgid "This product is not included in your YITH Club Subscription Plan"
+msgstr "Este producto no está incluido en tu plan de suscripción al Club de YITH"
+
+#: lib/yit-licence.php:839
+msgid "License key has been revoked"
+msgstr "La clave de licencia ha sido revocada"
+
+#: lib/yit-licence.php:838
+msgid "License key has expired"
+msgstr "La clave de licencia ha expirado"
+
+#: lib/yit-licence.php:837
+msgid "Invalid security key"
+msgstr "Clave de seguridad no válida"
+
+#: lib/yit-licence.php:836
+msgid "Invalid instance ID"
+msgstr "ID de instancia no válido"
+
+#: lib/yit-licence.php:835
+msgid "Maximum number of license activations reached"
+msgstr "Número máximo de activaciones de licencia alcanzado"
+
+#: lib/yit-licence.php:834
+msgid "Software has been deactivated"
+msgstr "El software ha sido desactivado"
+
+#: lib/yit-licence.php:833
+msgid "Invalid license key"
+msgstr "Clave de licencia no válida"
+
+#: lib/yit-licence.php:832
+msgid "Invalid Request"
+msgstr "Solicitud no válida"
+
+#: lib/yit-licence.php:229 lib/yit-licence.php:230
+#: templates/panel/activation/activation-panel.php:63
+msgctxt "Form Label"
+msgid "Plugin"
+msgid_plural "Choose the plugin"
+msgstr[0] "Plugin"
+msgstr[1] "Escoge el plugin"
+
+#: lib/yit-licence.php:228
+msgid "Are you sure you want to deactivate the license for current site?"
+msgstr "¿Estás seguro de que quieres desactivar la licencia para el sitio actual?"
+
+#: lib/yit-licence.php:227
+msgid "license key"
+msgstr "clave de licencia"
+
+#: lib/yit-licence.php:226
+msgid "email address"
+msgstr "dirección de correo electrónico"
+
+#: lib/yit-licence.php:225
+msgid "Unable to contact remote server: this occurs when there are issues with connecting to our own servers. Trying again after a few minutes should solve the issue. If the problem persists please submit a support ticket and we will be happy to help you."
+msgstr "No ha sido posible contactar con el servidor remoto: esto ocurre cuando hay errores de conexión entre nuestros servidores. Intentarlo de nuevo en unos minutos debe solucionar el problema. Si el error persiste, por favor, envía un ticket de soporte y estaremos encantados de ayudarte."
+
+#: lib/yit-licence.php:224
+msgid "Please, insert a valid %s and a valid %s"
+msgstr "Por favor, inserta una %s  y un %s válido"
+
+#: lib/yit-licence.php:223
+msgctxt "%s = field name"
+msgid "Please, insert a valid %s"
+msgstr "Por favor, inserta un %s válido"
+
+#: lib/yit-licence.php:112 templates/panel/activation/activation-panel.php:29
+msgid "YITH License Activation"
+msgstr "Activación de licencia de YITH"

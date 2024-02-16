@@ -174,12 +174,14 @@ class WoocommerceProductFeedsMain {
 		} else {
 			$this->add_to_cart_support = $this->container['WoocommerceProductFeedsAddToCartSupport'];
 			$this->add_to_cart_support->initialise();
-			if ( $use_expanded_schema ) {
-				$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];
-				$this->expanded_structured_data->initialise();
-			} else {
-				$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
-				$this->structured_data->initialise();
+			if ( defined( 'WC_VERSION' ) ) {
+				if ( $use_expanded_schema ) {
+					$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];
+					$this->expanded_structured_data->initialise();
+				} else {
+					$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
+					$this->structured_data->initialise();
+				}
 			}
 		}
 		if ( $use_expanded_schema ) {
@@ -191,7 +193,9 @@ class WoocommerceProductFeedsMain {
 		$this->rest_api = $this->container['WoocommerceGpfRestApi'];
 		$this->rest_api->initialise();
 
-		$this->setup_tasks->initialise();
+		if ( defined( 'WC_VERSION' ) ) {
+			$this->setup_tasks->initialise();
+		}
 
 		add_filter( 'query_vars', [ $this, 'add_query_vars' ] );
 		add_action( 'plugins_loaded', [ $this->common, 'initialise' ], 1 );

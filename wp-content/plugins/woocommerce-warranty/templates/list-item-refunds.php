@@ -13,11 +13,11 @@ defined( 'ABSPATH' ) || exit;
 		<table class="form-table">
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span></th>
-				<td><span class="value"><?php echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></span></td>
+				<td><span class="value"><?php echo wc_price( $refunded ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
 			</tr>
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span></th>
-				<td><span class="value"><?php echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></span></td>
+				<td><span class="value"><?php echo wc_price( $item_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
 			</tr>
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Refund amount:', 'wc_warranty' ); ?></span></th>
@@ -43,11 +43,11 @@ defined( 'ABSPATH' ) || exit;
 		<table class="form-table">
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span></th>
-				<td><span class="value"><?php echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></span></td>
+				<td><span class="value"><?php echo wc_price( $refunded ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
 			</tr>
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span></th>
-				<td><span class="value"><?php echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?></span></td>
+				<td><span class="value"><?php echo wc_price( $item_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
 			</tr>
 			<tr>
 				<th><span class="label"><?php esc_html_e( 'Coupon amount:', 'wc_warranty' ); ?></span></th>

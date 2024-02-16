@@ -179,7 +179,7 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 
 		$args = array(
 			'human_bytes'       => $array_utils->get_array_value( $global_stats, 'human_bytes' ),
-			'cdn_status'        => 'enabled',
+			'cdn_status'        => WP_Smush::get_instance()->core()->mod->cdn->status(),
 			'is_cdn'            => $this->settings->get( 'cdn' ),
 			'is_lazy_load'      => $this->settings->get( 'lazy_load' ),
 			'is_local_webp'     => $this->settings->get( 'webp_mod' ),
@@ -386,7 +386,7 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 		);
 
 		$args = array(
-			'cdn_status' => 'enabled',
+			'cdn_status' => WP_Smush::get_instance()->core()->mod->cdn->status(),
 			'is_webp'    => $this->settings->get( 'webp' ),
 			'upsell_url' => $upsell_url,
 		);

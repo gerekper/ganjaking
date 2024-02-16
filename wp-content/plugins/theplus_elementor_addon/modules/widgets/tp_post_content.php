@@ -93,7 +93,7 @@ class ThePlus_Post_Content extends Widget_Base {
                 'default' => 'default',
                 'options' => [
                     'default' => esc_html__('Elementor', 'theplus'),
-                    'wordpress' => esc_html__('Wordpress', 'theplus'),                    
+	                    'wordpress' => esc_html__('WordPress', 'theplus'),                    
                 ],
 				'condition' => [					
 					'posttype' => 'singlepage',

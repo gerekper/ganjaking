@@ -6,11 +6,11 @@
  * Description: WooCommerce Nested Category Catalog Page Layout
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.18.1
+ * Version: 1.20.0
  * Text Domain: woocommerce-nested-category-layout
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Nested-Category-Layout
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 142840:60d07379d28e80cf143790b8aea869a7
  * WC requires at least: 3.9.4
- * WC tested up to: 7.1.0
+ * WC tested up to: 8.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -46,7 +46,7 @@ class WC_Nested_Category_Layout_Loader {
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.4';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Nested Category Layout';

@@ -1,7 +1,7 @@
 <?php
 /**
  * Appearance settings for eventon
- * @version 4.5.7
+ * @version 4.5.9
  */
 
 class evoadmin_set_appearance{
@@ -51,7 +51,7 @@ class evoadmin_set_appearance{
 				// Calendar Header
 				array('id'=>'evcal_fcx','type'=>'hiddensection_open','name'=>__('Calendar Header','eventon'), 'display'=>'none'),
 					array('id'=>'evcal_header1_fc','type'=>'color','name'=>__('Header Month/Year text color','eventon'), 'default'=>$preset_data['evo_color_1']),
-					array('id'=>'evcal__fc2','type'=>'color','name'=>__('Calendr Date Color','eventon'), 'default'=>$preset_data['evo_color_1']),
+					array('id'=>'evcal__fc2','type'=>'color','name'=>__('Calendar Date Color','eventon'), 'default'=>$preset_data['evo_color_1']),
 					array('id'=>'fs_sort_options','type'=>'fontation','name'=>__('Sort Options Text','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__sot', 'name'=>'Default State', 'type'=>'color', 'default'=>'B8B8B8'),

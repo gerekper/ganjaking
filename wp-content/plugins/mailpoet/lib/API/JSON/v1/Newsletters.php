@@ -18,6 +18,7 @@ use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\InvalidStateException;
 use MailPoet\Listing;
 use MailPoet\Newsletter\Listing\NewsletterListingRepository;
+use MailPoet\Newsletter\NewsletterDeleteController;
 use MailPoet\Newsletter\NewsletterSaveController;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\NewsletterValidator;
@@ -76,6 +77,8 @@ class Newsletters extends APIEndpoint {
   /** @var NewsletterSaveController */
   private $newsletterSaveController;
 
+  private NewsletterDeleteController $newsletterDeleteController;
+
   /** @var NewsletterUrl */
   private $newsletterUrl;
 
@@ -101,6 +104,7 @@ class Newsletters extends APIEndpoint {
     Emoji $emoji,
     SendPreviewController $sendPreviewController,
     NewsletterSaveController $newsletterSaveController,
+    NewsletterDeleteController $newsletterDeleteController,
     NewsletterUrl $newsletterUrl,
     Scheduler $scheduler,
     NewsletterValidator $newsletterValidator,
@@ -118,6 +122,7 @@ class Newsletters extends APIEndpoint {
     $this->emoji = $emoji;
     $this->sendPreviewController = $sendPreviewController;
     $this->newsletterSaveController = $newsletterSaveController;
+    $this->newsletterDeleteController = $newsletterDeleteController;
     $this->newsletterUrl = $newsletterUrl;
     $this->scheduler = $scheduler;
     $this->newsletterValidator = $newsletterValidator;
@@ -166,8 +171,6 @@ class Newsletters extends APIEndpoint {
     $newsletter = $this->newsletterSaveController->save($data);
     $response = $this->newslettersResponseBuilder->build($newsletter, [
       NewslettersResponseBuilder::RELATION_SEGMENTS,
-      NewslettersResponseBuilder::RELATION_OPTIONS,
-      NewslettersResponseBuilder::RELATION_QUEUE,
     ]);
     $previewUrl = $this->getViewInBrowserUrl($newsletter);
     $response = $this->wp->applyFilters('mailpoet_api_newsletters_save_after', $response);
@@ -242,11 +245,7 @@ class Newsletters extends APIEndpoint {
     $this->newslettersRepository->flush();
 
     return $this->successResponse(
-      $this->newslettersResponseBuilder->build($newsletter, [
-        NewslettersResponseBuilder::RELATION_SEGMENTS,
-        NewslettersResponseBuilder::RELATION_OPTIONS,
-        NewslettersResponseBuilder::RELATION_QUEUE,
-      ])
+      $this->newslettersResponseBuilder->build($newsletter)
     );
   }
 
@@ -256,11 +255,7 @@ class Newsletters extends APIEndpoint {
       $this->newslettersRepository->bulkRestore([$newsletter->getId()]);
       $this->newslettersRepository->refresh($newsletter);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($newsletter, [
-          NewslettersResponseBuilder::RELATION_SEGMENTS,
-          NewslettersResponseBuilder::RELATION_OPTIONS,
-          NewslettersResponseBuilder::RELATION_QUEUE,
-        ]),
+        $this->newslettersResponseBuilder->build($newsletter),
         ['count' => 1]
       );
     } else {
@@ -276,11 +271,7 @@ class Newsletters extends APIEndpoint {
       $this->newslettersRepository->bulkTrash([$newsletter->getId()]);
       $this->newslettersRepository->refresh($newsletter);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($newsletter, [
-          NewslettersResponseBuilder::RELATION_SEGMENTS,
-          NewslettersResponseBuilder::RELATION_OPTIONS,
-          NewslettersResponseBuilder::RELATION_QUEUE,
-        ]),
+        $this->newslettersResponseBuilder->build($newsletter),
         ['count' => 1]
       );
     } else {
@@ -294,7 +285,7 @@ class Newsletters extends APIEndpoint {
     $newsletter = $this->getNewsletter($data);
     if ($newsletter instanceof NewsletterEntity) {
       $this->wp->doAction('mailpoet_api_newsletters_delete_before', [$newsletter->getId()]);
-      $this->newslettersRepository->bulkDelete([$newsletter->getId()]);
+      $this->newsletterDeleteController->bulkDelete([(int)$newsletter->getId()]);
       $this->wp->doAction('mailpoet_api_newsletters_delete_after', [$newsletter->getId()]);
       return $this->successResponse(null, ['count' => 1]);
     } else {
@@ -311,11 +302,7 @@ class Newsletters extends APIEndpoint {
       $duplicate = $this->newsletterSaveController->duplicate($newsletter);
       $this->wp->doAction('mailpoet_api_newsletters_duplicate_after', $newsletter, $duplicate);
       return $this->successResponse(
-        $this->newslettersResponseBuilder->build($duplicate, [
-          NewslettersResponseBuilder::RELATION_SEGMENTS,
-          NewslettersResponseBuilder::RELATION_OPTIONS,
-          NewslettersResponseBuilder::RELATION_QUEUE,
-        ]),
+        $this->newslettersResponseBuilder->build($duplicate),
         ['count' => 1]
       );
     } else {
@@ -404,7 +391,7 @@ class Newsletters extends APIEndpoint {
       $this->newslettersRepository->bulkRestore($ids);
     } elseif ($data['action'] === 'delete') {
       $this->wp->doAction('mailpoet_api_newsletters_delete_before', $ids);
-      $this->newslettersRepository->bulkDelete($ids);
+      $this->newsletterDeleteController->bulkDelete($ids);
       $this->wp->doAction('mailpoet_api_newsletters_delete_after', $ids);
     } else {
       throw UnexpectedValueException::create()

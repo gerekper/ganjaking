@@ -699,7 +699,7 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 				$wpml == 'yes' ? ' checked="checked" ' : ''
 			);
 			echo ' ';
-			echo esc_html( __( 'WMPL Language Filter', 'woocommerce-product-search' ) );
+			echo esc_html( __( 'WPML Language Filter', 'woocommerce-product-search' ) );
 			echo '</label>';
 			echo '</p>';
 		}

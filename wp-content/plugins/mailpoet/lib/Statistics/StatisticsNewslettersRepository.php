@@ -10,6 +10,7 @@ use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoetVendor\Carbon\Carbon;
 
 /**
  * @extends Repository<StatisticsNewsletterEntity>
@@ -32,7 +33,8 @@ class StatisticsNewslettersRepository extends Repository {
           continue;
         }
 
-        $entity = new StatisticsNewsletterEntity($newsletter, $queue, $subscriber);
+        $sentAt = Carbon::createFromTimestamp((int)current_time('timestamp'));
+        $entity = new StatisticsNewsletterEntity($newsletter, $queue, $subscriber, $sentAt);
 
         $this->entityManager->persist($entity);
         $entities[] = $entity;
@@ -42,5 +44,21 @@ class StatisticsNewslettersRepository extends Repository {
     if (count($entities)) {
       $this->entityManager->flush();
     }
+  }
+
+  /** @param int[] $ids */
+  public function deleteByNewsletterIds(array $ids): void {
+    $this->entityManager->createQueryBuilder()
+      ->delete(StatisticsNewsletterEntity::class, 's')
+      ->where('s.newsletter IN (:ids)')
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->execute();
+
+    // delete was done via DQL, make sure the entities are also detached from the entity manager
+    $this->detachAll(function (StatisticsNewsletterEntity $entity) use ($ids) {
+      $newsletter = $entity->getNewsletter();
+      return $newsletter && in_array($newsletter->getId(), $ids, true);
+    });
   }
 }

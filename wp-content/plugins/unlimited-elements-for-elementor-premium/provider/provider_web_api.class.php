@@ -127,9 +127,9 @@ class UniteCreatorWebAPI extends UniteCreatorWebAPIWork{
 	/**
 	 * get catalog array
 	 */
-	protected function getCatalogArray_addons(){
+	protected function getCatalogArray_addons($isBG = false){
 		
-		$arrCatalogAddons = parent::getCatalogArray_addons();
+		$arrCatalogAddons = parent::getCatalogArray_addons($isBG);
 		
 		$arrCatalogAddons = $this->filterCatalogAddons($arrCatalogAddons);
 		

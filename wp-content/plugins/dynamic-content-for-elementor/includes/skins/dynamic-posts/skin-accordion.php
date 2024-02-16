@@ -115,7 +115,7 @@ class Skin_Accordion extends \DynamicContentForElementor\Includes\Skins\Skin_Bas
         $p_query = $this->get_parent()->get_query();
         $this->get_parent()->add_render_attribute('container', ['class' => ['dce-posts-container', 'dce-posts', $this->get_scrollreveal_class(), $this->get_container_class()]]);
         $this->get_parent()->add_render_attribute('container_wrap', ['class' => ['dce-posts-wrapper', $this->get_wrapper_class()]]);
-        $this->render_pagination_top();
+        $this->maybe_render_pagination_top();
         ?>
 
 		<div <?php 
@@ -149,7 +149,7 @@ class Skin_Accordion extends \DynamicContentForElementor\Includes\Skins\Skin_Bas
         $p_query = $this->get_parent()->get_query();
         $postlength = $p_query->post_count;
         $posts_per_page = $p_query->query_vars['posts_per_page'];
-        $this->render_pagination_bottom();
+        $this->maybe_render_pagination_bottom();
         $this->render_infinite_scroll();
     }
     /**
@@ -209,7 +209,7 @@ class Skin_Accordion extends \DynamicContentForElementor\Includes\Skins\Skin_Bas
             $this->render_heading_icon();
         }
         $this->get_parent()->add_render_attribute('accordion_title', ['class' => 'accordion-title']);
-        $this->render_pagination_top();
+        $this->maybe_render_pagination_top();
         ?>
 
 		<span <?php 

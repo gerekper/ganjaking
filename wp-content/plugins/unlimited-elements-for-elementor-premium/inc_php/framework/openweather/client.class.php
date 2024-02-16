@@ -1,9 +1,10 @@
 <?php
 
 class UEOpenWeatherAPIClient{
-	
+
 	const DATA_BASE_URL = "https://api.openweathermap.org/data/3.0";
 	const GEO_BASE_URL = "http://api.openweathermap.org/geo/1.0";
+	const TEST_URL = "https://api.openweathermap.org/data/2.5/weather";
 
 	const METHOD_GET = "GET";
 
@@ -35,28 +36,65 @@ class UEOpenWeatherAPIClient{
 	}
 
 	/**
+	 * Get the test URL for the API key.
+	 *
+	 * @return string
+	 */
+	public function getApiKeyTestUrl(){
+
+		return self::DATA_BASE_URL . "/onecall?" . http_build_query(array(
+				// London, GB
+				"lat" => "51.5073219",
+				"lon" => "-0.1276474",
+				"appid" => $this->apiKey,
+			));
+	}
+
+	/**
 	 * Get a daily forecast for the given location.
 	 *
 	 * @param string $country
 	 * @param string $city
-	 * @param string $units (standard, metric or imperial)
+	 * @param string $units
 	 *
 	 * @return UEOpenWeatherAPIForecast[]
+	 * @throws Exception
 	 */
-	public function getDailyForecast($country, $city, $units = "standard"){
+	public function getForecasts($country, $city, $units = UEOpenWeatherAPIForecast::UNITS_STANDARD){
 
 		$location = $this->findLocation($country, $city);
-		
+
 		$params = array(
 			"lat" => $location["lat"],
 			"lon" => $location["lon"],
 			"units" => $units,
-			"exclude" => "current,hourly,alerts",
+			"exclude" => "",	//current,hourly,alerts
 			"lang" => get_locale(),
 		);
-				
+
 		$response = $this->get(self::DATA_BASE_URL . "/onecall", $params);
-		$forecast = UEOpenWeatherAPIForecast::transformAll($response["daily"]);
+				
+		$daily = UniteFunctionsUC::getVal($response, "daily",array());
+		$hourly = UniteFunctionsUC::getVal($response, "hourly",array());
+		$current = UniteFunctionsUC::getVal($response, "current",array());
+		$alerts = UniteFunctionsUC::getVal($response, "alerts");
+		
+		$params = array("units" => $units);
+		$params["timezone"] = UniteFunctionsUC::getVal($response, "timezone");
+		$params["timezone_offset"] = UniteFunctionsUC::getVal($response, "timezone_offset");
+		$params["lat"] = UniteFunctionsUC::getVal($response, "lat");
+		$params["lon"] = UniteFunctionsUC::getVal($response, "lon");
+		
+		$daily = UEOpenWeatherAPIForecast::transformAll($daily, $params);
+		$hourly = UEOpenWeatherAPIForecast::transformAll($hourly, $params);
+		
+		$current = UEOpenWeatherAPIForecast::transform($current, $params);
+		
+		$forecast = array();
+		$forecast["current"] = $current;
+		$forecast["daily"] = $daily;
+		$forecast["hourly"] = $hourly;
+		$forecast["alerts"] = $alerts;
 
 		return $forecast;
 	}
@@ -92,10 +130,11 @@ class UEOpenWeatherAPIClient{
 	 * @param $params
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	private function get($url, $params = array()){
 
-		return $this->request(self::METHOD_GET, $url, $params);
+		return $this->request(UEHttpRequest::METHOD_GET, $url, $params);
 	}
 
 	/**
@@ -108,66 +147,44 @@ class UEOpenWeatherAPIClient{
 	 * @return array
 	 */
 	private function request($method, $url, $params = array()){
-		
+
 		$params["appid"] = $this->apiKey;
 
-		$query = ($method === self::METHOD_GET && $params) ? "?" . http_build_query($params) : "";
-		$body = ($method !== self::METHOD_GET && $params) ? json_encode($params) : null;
+		$query = ($method === UEHttpRequest::METHOD_GET) ? $params : array();
+		$body = ($method !== UEHttpRequest::METHOD_GET) ? $params : array();
 
-		$url .= $query;
-		
-		$cacheKey = $this->getCacheKey($url);
-		$cacheTime = ($method === self::METHOD_GET) ? $this->cacheTime : 0;
-					
-		$response = UniteProviderFunctionsUC::rememberTransient($cacheKey, $cacheTime, function() use ($method, $url, $body){
-			
-			
-			$curl = curl_init();
+		$request = UEHttp::make();
+		$request->asJson();
+		$request->acceptJson();
+		$request->cacheTime($this->cacheTime);
+		$request->withQuery($query);
+		$request->withBody($body);
 
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-			
-			
-			$response = curl_exec($curl);
-			$response = json_decode($response, true);
+		$request->validateResponse(function($response){
 
-			$error = curl_error($curl);
-			$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			$data = $response->json();
 
-			curl_close($curl);
-
-			if($error)
-				throw new Exception($error);
-
-			if ($response === null)
-				throw new Exception("Unable to parse the response (status code $code).", $code);
-
-			if(isset($response["cod"]))
-				throw new Exception($response["message"] . " (" . $response["cod"] . ")");
-
-			return $response;
+			if(isset($data["cod"]) === true)
+				$this->throwError("{$data["message"]} ({$data["cod"]})");
 		});
 
-		return $response;
+		$response = $request->request($method, $url);
+		$data = $response->json();
+
+		return $data;
 	}
 
 	/**
-	 * Get the cache key for the URL.
+	 * Thrown an exception with the given message.
 	 *
-	 * @param string $url
+	 * @param string $message
 	 *
-	 * @return string
+	 * @return void
+	 * @throws Exception
 	 */
-	private function getCacheKey($url){
+	private function throwError($message){
 
-		$key = "openweather:" . md5($url);
-
-		return $key;
+		UniteFunctionsUC::throwError("OpenWeather API Error: $message");
 	}
 
 }

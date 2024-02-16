@@ -209,7 +209,7 @@ class Skin_Carousel extends \DynamicContentForElementor\Includes\Skins\Skin_Base
             }
             ?>
 			</div>
-		<?php 
+			<?php 
         }
     }
     /**

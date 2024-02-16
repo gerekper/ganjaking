@@ -4,20 +4,15 @@
  * Plugin URI: https://ultimateelementor.com/
  * Author: Brainstorm Force
  * Author URI: https://www.brainstormforce.com
- * Version: 1.36.28
- * Elementor tested up to: 3.18.0
- * Elementor Pro tested up to: 3.18.0
+ * Version: 1.36.29
+ * Elementor tested up to: 3.19.0
+ * Elementor Pro tested up to: 3.19.0
  * Description: Ultimate Addons is a premium extension for Elementor that adds 40+ widgets and works on top of any Elementor Package (Free, Pro). You can use it with any WordPress theme.
  * Text Domain: uael
  *
  * @package UAEL
  */
 
-$brainstrom = get_option( 'brainstrom_products', [] );
-$brainstrom['plugins']['uael']['status'] = 'registered';
-$brainstrom['plugins']['uael']['purchase_key'] = 'registered';
-update_option( 'brainstrom_products', $brainstrom ); 
- 
 define( 'UAEL_FILE', __FILE__ );
 
 require_once 'classes/class-uael-loader.php';

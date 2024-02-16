@@ -189,8 +189,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			 * @since 1.0.5
 			 * @param bool $availability True if the shipping method is available for the package.
 			 * @param array $package Package to check.
+			 * @param WC_Shipping_Method Current object.
 			 */
-			return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', true, $package );
+			return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', true, $package, $this );
 		}
 
 		/**

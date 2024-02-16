@@ -66,7 +66,7 @@ class Permalink_Manager_UI_Elements {
 		$container_class = ( isset( $args['container_class'] ) ) ? " class=\"{$args['container_class']} field-container\"" : " class=\"field-container\"";
 
 		// Get the field value (if it is not set in $args)
-		if ( isset( $args['value'] ) && ! empty( $args['value'] ) ) {
+		if ( ! empty( $args['value'] ) ) {
 			$value = $args['value'];
 		} else {
 			// Extract the section and field name from $input_name
@@ -173,14 +173,6 @@ class Permalink_Manager_UI_Elements {
 				$fields .= '</span>';
 				break;
 
-			case 'number' :
-				$fields .= "<input type='number' {$input_atts} value='{$value}' name='{$input_name}' />";
-				break;
-
-			case 'hidden' :
-				$fields .= "<input type='hidden' {$input_atts} value='{$value}' name='{$input_name}' />";
-				break;
-
 			case 'textarea' :
 				$fields .= "<textarea {$input_atts} name='{$input_name}' {$rows}>{$value}</textarea>";
 				break;
@@ -255,7 +247,7 @@ class Permalink_Manager_UI_Elements {
 				$fields .= sprintf( "<p class=\"default-permastruct-row columns-container\"><span class=\"column-2_4\"><strong>%s:</strong> %s</span><span class=\"column-2_4\"><a href=\"#\" class=\"restore-default\"><span class=\"dashicons dashicons-image-rotate\"></span> %s</a></span></p>", __( "Default permastructure", "permalink-manager" ), esc_html( $default_permastruct ), __( "Restore default permastructure", "permalink-manager" ) );
 
 				// 2B. Do not auto-append slug field
-				$fields .= sprintf( "<h4>%s</h4><div class=\"settings-container\">%s</div>", __( "Permastructure settings", "permalink-manager" ), self::generate_option_field( "permastructure-settings[do_not_append_slug][$content_type][{$type_name}]", array( 'type' => 'single_checkbox', 'checkbox_label' => __( "Do not automatically append the slug", "permalink-manager" ) ) ) );
+				$fields .= sprintf( "<h4>%s</h4><div class=\"settings-container\">%s</div>", __( "Permastructure settings", "permalink-manager" ), self::generate_option_field( "permastructure-settings[do_not_append_slug][$content_type][{$type_name}]", array( 'type' => 'single_checkbox', 'default' => 1, 'checkbox_label' => __( "Do not automatically append the slug", "permalink-manager" ) ) ) );
 
 				$fields .= "</div>";
 
@@ -267,7 +259,8 @@ class Permalink_Manager_UI_Elements {
 				break;
 
 			default :
-				$fields .= "<input type='text' {$input_atts} value='{$value}' name='{$input_name}'/>";
+				$input_type = ( in_array( $field_type, array( 'text', 'password', 'number', 'hidden' ) ) ) ? $field_type : 'text';
+				$fields     .= sprintf( "<%s type='%s' %s value='%s' name='%s' />", 'input', $input_type, $input_atts, $value, $input_name );
 		}
 
 		// Get the final HTML output
@@ -778,7 +771,6 @@ class Permalink_Manager_UI_Elements {
 		}
 
 		// 11. Append nonce field, element ID & native slug
-		$html .= self::generate_option_field( "permalink-manager-edit-uri-element-slug", array( "type" => "hidden", "value" => $native_slug ) );
 		$html .= self::generate_option_field( "permalink-manager-edit-uri-element-id", array( "type" => "hidden", "value" => $element_id ) );
 		$html .= wp_nonce_field( 'permalink-manager-edit-uri-box', 'permalink-manager-nonce', true, false );
 

@@ -7,13 +7,13 @@ trait Notices
     /**
      * Notice
      *
-     * @param string $title
+     * @param string|false $title
      * @param string $content
      * @param string $class
      * @param string $id
      * @return void
      */
-    public static function notice($title = '', $content = '', $class = 'elementor-alert-info', $id = '')
+    public static function notice($title, $content, $class = 'elementor-alert-info', $id = '')
     {
         ?>
 	<div <?php 

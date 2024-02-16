@@ -38,7 +38,7 @@ class PLLWC_Variation_Data_Store_CPT implements WC_Object_Data_Store_Interface {
 	 * @return void
 	 */
 	public static function init() {
-		add_filter( 'woocommerce_product-variation_data_store', array( __CLASS__, 'filter_data_store' ) );
+		add_filter( 'woocommerce_product-variation_data_store', array( __CLASS__, 'filter_data_store' ), PHP_INT_MAX - 10 );
 	}
 
 	/**
@@ -50,12 +50,15 @@ class PLLWC_Variation_Data_Store_CPT implements WC_Object_Data_Store_Interface {
 	 * @return PLLWC_Variation_Data_Store_CPT
 	 */
 	public static function filter_data_store( $store ) {
-		if ( $store instanceof WC_Object_Data_Store_Interface ) {
-			// In case the object has already been decorated by a 3rd party plugin.
-			return new self( $store );
-		} else {
-			return new self( new WC_Product_Variation_Data_Store_CPT() );
+		if ( is_string( $store ) && class_exists( $store ) ) {
+			$store = new $store();
 		}
+
+		if ( ! $store instanceof WC_Object_Data_Store_Interface ) {
+			$store = new WC_Product_Variation_Data_Store_CPT();
+		}
+
+		return new self( $store );
 	}
 
 	/**
@@ -197,7 +200,11 @@ class PLLWC_Variation_Data_Store_CPT implements WC_Object_Data_Store_Interface {
 	 * @return mixed
 	 */
 	public function __call( $method, $args ) {
-		return call_user_func_array( array( $this->variation_data_store, $method ), $args );
+		if ( is_callable( array( $this->variation_data_store, $method ) ) ) {
+			$object = array_shift( $args );
+			$args   = array_merge( array( &$object ), $args );
+			return $this->variation_data_store->$method( ...$args );
+		}
 	}
 
 	/**

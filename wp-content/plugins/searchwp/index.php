@@ -3,7 +3,7 @@
 Plugin Name: SearchWP
 Plugin URI: https://searchwp.com/
 Description: The best WordPress search you can find
-Version: 4.3.10
+Version: 4.3.13
 Author: SearchWP
 Author URI: https://searchwp.com/
 Requires at least: 5.3
@@ -27,7 +27,7 @@ For more information please see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SEARCHWP_VERSION', '4.3.10' );
+define( 'SEARCHWP_VERSION', '4.3.13' );
 define( 'SEARCHWP_PREFIX', 'searchwp_' );
 define( 'SEARCHWP_SEPARATOR', '.' );
 define( 'SEARCHWP_PLUGIN_DIR', dirname( __FILE__ ) );

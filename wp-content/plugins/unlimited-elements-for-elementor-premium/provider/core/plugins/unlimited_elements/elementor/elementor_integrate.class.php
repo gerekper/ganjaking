@@ -43,6 +43,8 @@ class UniteCreatorElementorIntegrate{
 	public static $isAjaxAction = false;
 	public static $isFrontendEditorMode = false;
 	public static $isEditMode = false;
+	public static $isSaveBuilderMode = false;
+	public static $arrSaveBuilderContent = array();
 	
 	private static $arrPostsWidgetNames = array();
 	
@@ -184,10 +186,24 @@ class UniteCreatorElementorIntegrate{
 			
 			if($isRecords == true){
 				$name = $addon["name"];
-				
 			}else{
 				$name = $addon->getName();
 			}
+			
+			//help save action and skip addons that not exists in layout
+			if(self::$isSaveBuilderMode == true){
+				
+				$arrWidgetsNames = HelperProviderCoreUC_EL::getWidgetNamesFromElementorContent(self::$arrSaveBuilderContent);
+				
+				$nameForCheck = str_replace("_elementor", "", $name);
+				
+				if(!isset($arrWidgetsNames[$nameForCheck])){
+										
+					continue;
+				}
+			}
+			 
+			
 			
 			if($isEnoughtMemory == false){
 				 
@@ -237,6 +253,7 @@ class UniteCreatorElementorIntegrate{
 		}
 		
 	}
+	
 	
 	/**
 	 * register elementor widget by class name
@@ -1282,6 +1299,8 @@ class UniteCreatorElementorIntegrate{
 	    	$nonce = UniteFunctionsUC::getPostVariable("nonce", "", UniteFunctionsUC::SANITIZE_TEXT_FIELD);
 	    	UniteProviderFunctionsUC::verifyNonce($nonce);
 	    	
+			HelperProviderUC::verifyAdminPermission();
+	    	
 	    	$arrTempFile = UniteFunctionsUC::getVal($_FILES, "file");
 	    	UniteFunctionsUC::validateNotEmpty($arrTempFile,"import file");
 	    	
@@ -1401,6 +1420,9 @@ class UniteCreatorElementorIntegrate{
 		$nonce = UniteFunctionsUC::getGetVar("_nonce", "", UniteFunctionsUC::SANITIZE_TEXT_FIELD);
 		UniteProviderFunctionsUC::verifyNonce($nonce);
 		
+		HelperProviderUC::verifyAdminPermission();
+		
+		 
 		$libraryAction = UniteFunctionsUC::getGetVar("library_action", "", UniteFunctionsUC::SANITIZE_TEXT_FIELD);
 		if($libraryAction != "export_template_withaddons")
 			UniteFunctionsUC::throwError("Wrong action: $libraryAction");
@@ -1627,6 +1649,42 @@ class UniteCreatorElementorIntegrate{
 		
 	}
 	
+	/**
+	 * check if save builder elementor action
+	 */
+	private function isSaveBuilderAction(){
+		
+		if(is_admin() == false)
+			return(false);
+			
+		$postAction = UniteFunctionsUC::getPostVariable("action","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+		
+		if($postAction != "elementor_ajax")
+			return(false);
+		
+		$actions = UniteFunctionsUC::getPostVariable("actions","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+		
+		if(empty($actions))
+			return(false);
+			
+		$arrActions = UniteFunctionsUC::jsonDecode($actions);
+		
+		if(!isset($arrActions["save_builder"]))
+			return(false);
+		
+		$actionsSave = UniteFunctionsUC::getVal($arrActions, "save_builder");
+				
+		$action = UniteFunctionsUC::getVal($actionsSave, "action");
+		
+		if($action == "save_builder"){
+			
+			self::$arrSaveBuilderContent = UniteFunctionsUC::getVal($actionsSave, "data");
+			
+			return(true);
+		}
+					
+		return(false);
+	}
 	
 	
     /**
@@ -1651,6 +1709,12 @@ class UniteCreatorElementorIntegrate{
     	
     	//set if edit mode for widget output
     	self::$isEditMode = HelperUC::isElementorEditMode();
+    	
+    	
+    	//if turn it on - please do good QA - it's for saving resources on save builder action
+    	
+    	//self::$isSaveBuilderMode = $this->isSaveBuilderAction();
+    	
     	
     	GlobalsProviderUC::$isInsideEditor = self::$isEditMode;
     	    	
@@ -1680,9 +1744,8 @@ class UniteCreatorElementorIntegrate{
     		$this->enableImportTemplate = false;
     	}
 	    
-	    
     	add_action('elementor/editor/init', array($this, 'onEditorInit'));
-    	    	
+    	
     	if($this->isOldElementorVersion == true)
     		add_action('elementor/widgets/widgets_registered', array($this, 'onWidgetsRegistered'));
     	else

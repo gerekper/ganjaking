@@ -245,22 +245,27 @@ class evo_search{
 			return $array;
 		}
 
-	// header search bar
+	// header search bar u4.5.9
 		function header_search_bar($array, $args){
+			extract( $args );
+			EVO()->cal->set_cur('evcal_1');
+
 			$opt = $this->options;
 
-			// check if search is enabled from settings or via shortcode
-			if( (!evo_settings_check_yn($opt, 'evosr_default_search_on') && !evo_settings_check_yn($args, 'search')) || 
-				(evo_settings_check_yn($opt, 'evosr_default_search_on') && (!empty($args['search']) && $args['search']=='no'))
-			)
-				return $array;
+			$search_on = $search_show = false;
 
-			// if show search input field by default enabled
-			$hidden = (!empty($opt['EVOSR_showfield']) && $opt['EVOSR_showfield']=='yes')? '':'evo_hidden';
-			
+			// check if search is enabled from settings or via shortcode
+			if( EVO()->cal->check_yn( 'evosr_default_search_on' )) $search_on = true;
+			if( !empty($search) && $search == 'yes') $search_on = true;
+
+			if( !$search_on ) return $array;
+
+			if( EVO()->cal->check_yn( 'EVOSR_showfield' )) $search_show = true;
+			if( !empty($show_search) && $show_search == 'yes') $search_show = true;
+						
 			ob_start();
 			?>					
-				<div class='evo_search_bar <?php echo $hidden;?>'>
+				<div class='evo_search_bar <?php echo $search_show ? '' : 'evo_hidden';?>'>
 					<div class='evo_search_bar_in' >
 						<input id='evo_search_bar_in_<?php echo EVO()->calendar->ID;?>' type="text" placeholder='<?php echo eventon_get_custom_language('', 'evoSR_001', 'Search Events');?>' data-role="none"/>
 						<a class="evosr_search_clear_btn"><i class="fa fa-close"></i></a>

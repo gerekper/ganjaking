@@ -296,7 +296,7 @@ class SvgImageMask extends \DynamicContentForElementor\Widgets\WidgetPrototype
 			<image width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xlink:href="{{url_image}}" mask="url(#image-mask-{{idWidget}})"></image>
 			<# } #>
 			<style>
-			   	<# if( maxWidth && maxWidth > 0 ){ #>
+				   <# if( maxWidth && maxWidth > 0 ){ #>
 				#dce-svg-{{idWidget}}{
 					max-width: {{maxWidth}}px;
 				}

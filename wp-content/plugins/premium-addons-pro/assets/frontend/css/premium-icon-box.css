@@ -5,10 +5,10 @@
   padding: 20px;
   text-align: center;
   overflow: hidden;
-  -webkit-transition: all 1s ease-in, -webkit-transform 1ms;
-  transition: all 1s ease-in, -webkit-transform 1ms;
-  transition: all 1s ease-in, transform 1ms;
-  transition: all 1s ease-in, transform 1ms, -webkit-transform 1ms; }
+  -webkit-transition: all 1s ease-in, -webkit-transform 1ms;
+  transition: all 1s ease-in, -webkit-transform 1ms;
+  transition: all 1s ease-in, transform 1ms;
+  transition: all 1s ease-in, transform 1ms, -webkit-transform 1ms; }
   .elementor-widget-premium-addon-icon-box .premium-icon-box-whole-link {
     position: absolute;
     top: 0;
@@ -64,6 +64,8 @@
     -webkit-align-items: flex-end;
     -ms-flex-align: end;
     align-items: flex-end; }
+  .premium-icon-box-more .premium-button-line6::after {
+    padding: 0; }
 
 .premium-icon-box-text-wrap {
   width: 100%; }

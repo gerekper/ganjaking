@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.1.0
+ * @version     3.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1163,6 +1163,9 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $_product->get_price() > 0 ) ) {
 				$request_credit_called           = ( ! empty( $_REQUEST['credit_called'] ) ) ? wc_clean( wp_unslash( $_REQUEST['credit_called'] ) ) : array(); // phpcs:ignore
 				$request_add_to_cart             = ( ! empty( $_REQUEST['add-to-cart'] ) ) ? wc_clean( wp_unslash( $_REQUEST['add-to-cart'] ) ) : 0; // phpcs:ignore
+				$request_wc_ajax                 = ( ! empty( $_REQUEST['wc-ajax'] ) ) ? wc_clean( wp_unslash( $_REQUEST['wc-ajax'] ) ) : ''; // phpcs:ignore
+				$request_product_id              = ( ! empty( $_REQUEST['product_id'] ) ) ? absint( $_REQUEST['product_id'] ) : 0; // phpcs:ignore
+				$request_add_to_cart             = ( 'add_to_cart' === $request_wc_ajax && ! empty( $request_product_id ) ) ? $request_product_id : $request_add_to_cart;
 				$product_id                      = apply_filters(
 					'wc_sc_call_for_credit_product_id',
 					$request_add_to_cart,

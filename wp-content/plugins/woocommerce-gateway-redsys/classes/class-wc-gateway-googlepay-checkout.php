@@ -2,13 +2,15 @@
 /**
  * Google Pay Gateway
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 22.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -213,7 +215,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
-				'default'     => __( 'Gpay', 'woocommerce-redsys' ),
+				'default'     => __( 'Google Pay', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
 			'description'      => array(
@@ -714,7 +716,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_URLOK', $gpay_data_send['url_ok'] );
 		$miobj->setParameter( 'DS_MERCHANT_URLKO', $gpay_data_send['returnfromredsys'] );
 		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gpay_data_send['gatewaylanguage'] );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', $gpay_data_send['product_description'] );
+		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $gpay_data_send['product_description'] ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $gpay_data_send['merchant_name'] );
 		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'xpay' );
 
@@ -724,7 +726,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$params       = $miobj->createMerchantParameters();
 		$signature    = $miobj->createMerchantSignature( $gpay_data_send['secretsha256'] );
 		$order_id_set = $gpay_data_send['transaction_id2'];
-		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $gpay_data_send['secretsha256'], 600 );
+		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $gpay_data_send['secretsha256'], 3600 );
 		$redsys_args = array(
 			'Ds_SignatureVersion'   => $version,
 			'Ds_MerchantParameters' => $params,
@@ -744,7 +746,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_URLOK: ' . $gpay_data_send['url_ok'] );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_URLKO: ' . $gpay_data_send['returnfromredsys'] );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gpay_data_send['gatewaylanguage'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . $gpay_data_send['product_description'] );
+			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $gpay_data_send['product_description'] ) );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PAYMETHODS: xpay' );
 		}
 		/**
@@ -807,7 +809,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
 		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
 		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', $product_description );
+		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $product_description ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $merchant_name );
 		$miobj->setParameter( 'DS_XPAYDATA', $ds_xpay_data );
 		$miobj->setParameter( 'DS_XPAYTYPE', $ds_xpay_type );
@@ -823,7 +825,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . $product_description );
+			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $product_description ) );
 			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_MERCHANTNAME: ' . $merchant_name );
 			$this->log->add( 'googlepayredsys', 'DS_XPAYDATA: ' . $ds_xpay_data );
 			$this->log->add( 'googlepayredsys', 'DS_XPAYTYPE: ' . $ds_xpay_type );
@@ -1325,7 +1327,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
+		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
@@ -1344,7 +1346,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, $this->id ) );
+			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'googlepayredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );

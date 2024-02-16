@@ -28,15 +28,21 @@ jQuery(document).ready(function($) {
         var billingTzHoraria = $('#billing_tz_horaria').val();
         var billingJsEnabledNavegador = $('#billing_js_enabled_navegador').val();
         var RedsysTokenType = $('#redsys_token_type').val();
+        var shippingMethod = '';
+        if ($('#one-click-shipping-method').length > 0) {
+            // Obtener el valor del método de envío seleccionado
+            shippingMethod = $('#one-click-shipping-method').val();
+        }
 
         console.log('tokenId: ' + tokenId );
+        console.log("Método de envío seleccionado:", $('#one-click-shipping-method').val());
+
         
         // Verificar si se obtuvo el ID del producto y el token ID antes de proceder
         if (!productId || !tokenId) {
             alert('No se pudo obtener la información necesaria del producto.');
             return;
         }
-        
         // Hacer la solicitud AJAX para crear la orden
         $.post(
             redsys_pay_one.ajax_url,
@@ -54,6 +60,7 @@ jQuery(document).ready(function($) {
                 billing_http_accept_headers: billingHttpAcceptHeaders,
                 billing_tz_horaria: billingTzHoraria,
                 billing_js_enabled_navegador: billingJsEnabledNavegador,
+                shipping_method: shippingMethod,
                 redsys_token_type: RedsysTokenType,
             },
             function(response) {

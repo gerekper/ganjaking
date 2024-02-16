@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions
- * @version     4.5.6
+ * @version     4.5.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -393,7 +393,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		$DT_format = eventon_get_timeNdate_format();
 		
 
-		$DD = new DateTime(null, EVO()->calendar->timezone0);
+		$DD = new DateTime('now', EVO()->calendar->timezone0);
 		$DD->setTimestamp( (int)$unix );
 
 		$dateformat = (!empty($dateformat))? $dateformat: $DT_format[1];
@@ -412,7 +412,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 	/**
 	 * GET event UNIX time from date and time format $_POST values in UTC0
-	 * @updated 4.5.8
+	 * @updated 4.5.9
 	 */
 	function eventon_get_unix_time($data='', $date_format='', $time_format='', $tz2= ''){
 		
@@ -425,9 +425,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 				
 		// check if start and end time are present
 		if(!empty($data['evcal_end_date']) && !empty($data['evcal_start_date'])){
-			// END DATE
-			$__evo_end_date =(empty($data['evcal_end_date']))?
-				$data['evcal_start_date']: $data['evcal_end_date'];
+			
 			
 			// date format
 			$_wp_date_format = (!empty($date_format))? $date_format: 
@@ -442,11 +440,12 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 				
 			
 			// UTC0
-			$TZ = EVO()->calendar->timezone0;
-			$DD = new DateTime( null, $TZ);
+			$TZ0 = EVO()->calendar->timezone0;
+			$DD = new DateTime( 'now', $TZ0 );
 
 			// @cal tz
-			$DDcal = new DateTime( null, ( empty($tz2) ? EVO()->calendar->cal_tz : $tz2 ) );
+			$tz2 = ( empty($tz2) ? EVO()->calendar->cal_tz : $tz2 );
+			
 
 			// ---
 			// START UNIX
@@ -454,7 +453,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 			if( !empty($data['evcal_start_date']) ){
 												
-				$datetime = DateTime::createFromFormat( $_wp_date_format, $data['evcal_start_date'] , $TZ );
+				$datetime = DateTime::createFromFormat( $_wp_date_format, $data['evcal_start_date'] , $TZ0 );
 				
 				if(!empty($data['evcal_start_time_hour'])){
 					// hour conversion to 24h
@@ -475,11 +474,16 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 					$unix_start = $DD->format('U');
 
-					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
-					->setTime( $time_hour, $data['evcal_start_time_min']);				
+					// utc adjuste unix
+					if( isset( $data['extend_type']) ){
 
-					$unix_start_ev = $DDcal->format('U');
-					
+						$_processed_unix = __evo_process_raw_utc_time( $unix_start, $data['extend_type'] );
+
+						$datetime->setTimestamp( $_processed_unix );
+						$DDcal = new DateTime( $datetime->format('Y/m/d H:i'), $tz2 );	
+
+						$unix_start_ev = $DDcal->format('U');
+					}
 				}
 			}
 
@@ -487,10 +491,11 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			
 			// ---
 			// END TIME UNIX
-			$unix_end = $unix_end_ev = 0;
-			if( !empty($data['evcal_end_date']) ){				
-				
-				$datetime = DateTime::createFromFormat( $_wp_date_format, $__evo_end_date , $TZ );
+				$__evo_end_date =(empty($data['evcal_end_date']))?	$data['evcal_start_date']: $data['evcal_end_date'];
+
+				$unix_end = $unix_end_ev = 0;				
+					
+				$datetime = DateTime::createFromFormat( $_wp_date_format, $__evo_end_date , $TZ0 );
 				$unix_end = $datetime->format('U');
 
 				if( !empty($data['evcal_end_time_hour'])  ){
@@ -511,44 +516,49 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					
 					$unix_end = $DD->format('U');	
 
-					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
-					->setTime( $time_hour, $data['evcal_end_time_min']);				
+					// utc adjuste unix
+					if( isset( $data['extend_type']) ){
+						$_processed_unix = __evo_process_raw_utc_time( $unix_end, $data['extend_type'], 'end' );
 
-					$unix_end_ev = $DDcal->format('U');					
+						$datetime->setTimestamp( $_processed_unix );
+						$DDcal = new DateTime( $datetime->format('Y/m/d H:i'), $tz2 );	
+
+						$unix_end_ev = $DDcal->format('U');
+					}				
 				}	
-			}
 
 
-			$unix_end =(!empty($unix_end) )?$unix_end:$unix_start;
+				$unix_end =(!empty($unix_end) )?$unix_end:$unix_start;
 
 			// virtual end date - @4.0.3
-			$unix_vir_end = $unix_vend_ev = $unix_end;
-			if( !empty( $data['event_vir_date_x'])){
-				
-				$datetime = DateTime::createFromFormat( $_wp_date_format, $data['event_vir_date_x'] , $TZ );
-				$unix_vir_end = $datetime->format('U');			
-
-				if( !empty($data['_vir_hour'])  ){
-
-					// hour conversion to 24h
-					$time_hour = (int)$data['_vir_hour'];
-
-					if( !empty($data['_vir_ampm']) ){
-						if( $data['_vir_ampm']=='pm' && $time_hour != 12) $time_hour += 12; 
-						if( $data['_vir_ampm']=='pm' && $time_hour == 12) $time_hour = 12; 
-						if( $data['_vir_ampm']=='am' && $time_hour == 12) $time_hour = 0; 
-					}
-
-					$DD->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
-						->setTime( $time_hour, $data['_vir_minute']);
+				$unix_vir_end = $unix_vend_ev = $unix_end;
+				if( !empty( $data['event_vir_date_x'])){
 					
-					$unix_vir_end = $DD->format('U');	
+					$datetime = DateTime::createFromFormat( $_wp_date_format, $data['event_vir_date_x'] , $TZ0 );
+					$unix_vir_end = $datetime->format('U');			
 
-					$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
-						->setTime( $time_hour, $data['_vir_minute']);					
-					$unix_vend_ev = $DDcal->format('U');						
+					if( !empty($data['_vir_hour'])  ){
+
+						// hour conversion to 24h
+						$time_hour = (int)$data['_vir_hour'];
+
+						if( !empty($data['_vir_ampm']) ){
+							if( $data['_vir_ampm']=='pm' && $time_hour != 12) $time_hour += 12; 
+							if( $data['_vir_ampm']=='pm' && $time_hour == 12) $time_hour = 12; 
+							if( $data['_vir_ampm']=='am' && $time_hour == 12) $time_hour = 0; 
+						}
+
+						$DD->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+							->setTime( $time_hour, $data['_vir_minute']);
+						
+						$unix_vir_end = $DD->format('U');	
+						
+						$DDcal = new DateTime( 'now', $tz2 );
+						$DDcal->setDate( $datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+							->setTime( $time_hour, $data['_vir_minute']);					
+						$unix_vend_ev = $DDcal->format('U');						
+					}
 				}
-			}
 			
 		}else{
 			// if no start or end present
@@ -560,13 +570,44 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			'unix_end'		=>$unix_end,
 			'unix_vir_end'	=> $unix_vir_end,
 			'unix_start_ev' => $unix_start_ev,
-			'unix_end_ev' => $unix_end_ev,
+			'unix_end_ev' 	=> $unix_end_ev,
 			'unix_vend_ev' => $unix_vend_ev,
 		);	
 
 
 		return $output;
 	}
+
+	// adjust raw UTC0 event time based on day - month - year long status
+	// @s 4.5.9
+		function __evo_process_raw_utc_time( $unix, $extend_type = 'n', $time_type = 'start'){
+
+			if( $extend_type == 'n') return $unix;
+
+			$DD = new DateTime('now' , EVO()->calendar->timezone0 );
+			$DD->setTimestamp($unix);
+
+			if( $extend_type == 'yl' ){
+				($time_type == 'start')? $DD->modify( 'first day of january this year') : 
+					$DD->modify( 'last day of december this year');
+				($time_type == 'start')? $DD->setTime(0,0,0): $DD->setTime(23,59,59);
+
+				return $DD->format('U');
+			}else{
+
+				if( $extend_type == 'ml' ){
+					($time_type == 'start') ? $DD->modify('first day of this month'):$DD->modify('last day of this month');
+					($time_type == 'start')? $DD->setTime(0,0,0): $DD->setTime(23,59,59);
+					return $DD->format('U');
+				
+				// if all day event
+				}elseif( $extend_type == 'dl' ){
+					( $time_type == 'start') ? $DD->setTime(0,0,0) : $DD->setTime(23,59,59);
+					return $DD->format('U');
+				}
+				return $unix;
+			}
+		}
 
 
 	/*
@@ -1047,7 +1088,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			if($event_duration<0) $event_duration = 1;
 
 			// timezone setup
-				$DD = new DateTime(null, EVO()->calendar->timezone0);
+				$DD = new DateTime('now', EVO()->calendar->timezone0);
 
 
 			$repeat_intervals = $ev_ri = array();

@@ -81,4 +81,11 @@ class Utilities
         }
         return false;
     }
+
+    //return root directory path
+    public static function get_root_dir_path() {
+        $wp_content_relative_path = str_replace(trailingslashit(home_url()), '', WP_CONTENT_URL);
+        $root_dir_path = str_replace($wp_content_relative_path, '', WP_CONTENT_DIR);
+        return trailingslashit($root_dir_path);
+    }
 }

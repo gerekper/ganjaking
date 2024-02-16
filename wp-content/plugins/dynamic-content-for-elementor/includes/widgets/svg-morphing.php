@@ -21,7 +21,6 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
     {
         return ['dce-svg'];
     }
-    private $coeff = 1;
     protected $svg_shapes = array('path' => 'path', 'polyline' => 'polyline');
     /**
      * Register controls after check if this feature is only for admin
@@ -30,7 +29,6 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
      */
     protected function safe_register_controls()
     {
-        $idWidget = $this->get_id();
         $this->start_controls_section('section_svg_controls', ['label' => __('Controls', 'dynamic-content-for-elementor')]);
         $this->add_control('svg_trigger', ['label' => __('Trigger', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'options' => ['animation' => __('Animation', 'dynamic-content-for-elementor'), 'rollover' => __('Rollover', 'dynamic-content-for-elementor'), 'scroll' => __('Scroll', 'dynamic-content-for-elementor')], 'frontend_available' => \true, 'default' => 'animation', 'prefix_class' => 'svg-trigger-', 'separator' => 'after', 'render_type' => 'template']);
         $this->add_control('link_to', ['label' => __('Link to', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SELECT, 'default' => 'none', 'options' => ['none' => __('None', 'dynamic-content-for-elementor'), 'home' => __('Home URL', 'dynamic-content-for-elementor'), 'custom' => __('Custom URL', 'dynamic-content-for-elementor')], 'condition' => ['svg_trigger' => 'rollover']]);
@@ -81,9 +79,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $this->end_controls_section();
         $count = 0;
         foreach ($this->svg_shapes as $svgs) {
-            if ($svgs == 'polygon') {
-                $default_shape = [['id_shape' => $svgs . '_1', 'shape_numbers' => '700,84.4 1047.1,685.6 352.9,685.6 352.9,685.6 352.9,685.6 352.9,685.6'], ['id_shape' => $svgs . '_2', 'shape_numbers' => '983.4,101.6 983.4,668.4 416.6,668.4 416.6,101.9 416.6,101.9 416.6,101.9'], ['id_shape' => $svgs . '_3', 'shape_numbers' => '890.9,54.3 1081.8,385 890.9,715.7 509.1,715.7 318.2,385 509.1,54.3'], ['id_shape' => $svgs . '_4', 'shape_numbers' => '983.4,101.6 779,385 983.4,668.4 416.6,668.4 611,388 416.6,101.9']];
-            } elseif ($svgs == 'path') {
+            if ($svgs == 'path') {
                 $default_shape = [['id_shape' => $svgs . '_1', 'shape_numbers' => 'M438.7,254.2L587,508.4H293.5H0l148.3-254.2L293.5,0L438.7,254.2z'], ['id_shape' => $svgs . '_2', 'shape_numbers' => 'M600,259.8L450,519.6H150L0,259.8L150,0h300L600,259.8z'], ['id_shape' => $svgs . '_3', 'shape_numbers' => 'M568,568H0l172.5-284L0,0h568L395.5,287L568,568z'], ['id_shape' => $svgs . '_4', 'shape_numbers' => 'M568,568H0l1.7-284L0,0h568l-1.7,287L568,568z']];
             } elseif ($svgs == 'polyline') {
                 $default_shape = [['id_shape' => $svgs . '_1', 'shape_numbers' => '0.3,131.7 142.3,42.7 210.3,239.7 265.3,8.7 307.3,220.7 378.3,1.7 443.3,232.7 554.3,175.7 '], ['id_shape' => $svgs . '_2', 'shape_numbers' => '0.2,103.2 157.2,190.2 211.2,65.2 269.2,160.2 361.2,1.2 438.2,227.2 488.2,30.2 554.2,147.2 ']];
@@ -123,7 +119,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
             return;
         }
         $id_page = Helper::get_the_id();
-        $widgetId = $this->get_id();
+        $widget_id = $this->get_id();
         $runAnimation = $settings['playpause_control'];
         if ($settings['svg_trigger'] == 'rollover' || $settings['svg_trigger'] == 'scroll') {
             $runAnimation = 'paused';
@@ -134,20 +130,9 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
             $keyVector = 'points';
             // -> Polygon
         }
-        $image_id = $settings['svg_image']['id'];
-        $image_url = Group_Control_Image_Size::get_attachment_image_src($image_id, 'image', $settings);
-        $this->coeff = '0.5';
-        $this->add_render_attribute('_wrapper', 'data-coeff', $this->coeff);
-        if ($settings['svgimage_x']['size'] == '') {
-            $posX = 0;
-        } else {
-            $posX = $settings['svgimage_x']['size'];
-        }
-        if ($settings['svgimage_y']['size'] == '') {
-            $posY = 0;
-        } else {
-            $posY = $settings['svgimage_y']['size'];
-        }
+        $coeff = '0.5';
+        $this->add_render_attribute('_wrapper', 'data-coeff', $coeff);
+        $image_url = '';
         $viewBoxW = $settings['viewbox_width'];
         $viewBoxH = $settings['viewbox_height'];
         switch ($settings['link_to']) {
@@ -175,7 +160,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
         }
         ?>
 			<svg id="dce-svg-<?php 
-        echo $widgetId;
+        echo $widget_id;
         ?>" class="dce-svg-morph" data-morphid="0" data-run="<?php 
         echo $runAnimation;
         ?>" version="1.1" xmlns="http://www.w3.org/2000/svg"  width="100%" height="100%" viewBox="0 0 <?php 
@@ -192,16 +177,20 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
 
 				<?php 
         if ($settings['enable_image']) {
+            $posX = $settings['svgimage_x']['size'] ?? 0;
+            $posY = $settings['svgimage_y']['size'] ?? 0;
+            $image_id = $settings['svg_image']['id'];
+            $image_url = Group_Control_Image_Size::get_attachment_image_src($image_id, 'image', $settings);
             ?>
-				<defs>
-					<?php 
+					<defs>
+						<?php 
             $heightPattern = $settings['svg_size']['size'] . $settings['svg_size']['unit'];
             if ($settings['svg_image']['url'] != '') {
                 $heightPattern = $this->realHeight($image_id, $settings['svg_size']['size'], $settings['image_size']) . $settings['svg_size']['unit'];
             }
             ?>
-					<pattern id="pattern-<?php 
-            echo $widgetId;
+						<pattern id="pattern-<?php 
+            echo $widget_id;
             ?>" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="<?php 
             echo $settings['svg_size']['size'] . $settings['svg_size']['unit'];
             ?>" height="<?php 
@@ -211,17 +200,17 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
             ?>" y="<?php 
             echo $posY . $settings['svgimage_y']['unit'];
             ?>">
-						<?php 
+							<?php 
             if ($settings['svg_image']['url'] != '') {
                 ?>
-							<image id="img-patt-base" xlink:href="<?php 
+								<image id="img-patt-base" xlink:href="<?php 
                 echo $image_url;
                 ?>" width="<?php 
                 echo $settings['svg_size']['size'] . $settings['svg_size']['unit'];
                 ?>" height="<?php 
                 echo $this->realHeight($image_id, $settings['svg_size']['size'], $settings['image_size']) . $settings['svg_size']['unit'];
                 ?>"> </image>
-						<?php 
+							<?php 
             }
             //
             if ($settings['repeater_shape_' . $settings['type_of_shape']]) {
@@ -237,7 +226,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         }
                         ?>
 
-										<image id="img-patt-<?php 
+											<image id="img-patt-<?php 
                         echo $count;
                         ?>" class="dce-shape-image dce-shape-image-repeater-item-<?php 
                         echo $item['_id'];
@@ -250,14 +239,14 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         ?>"<?php 
                         echo $visible;
                         ?>> </image>
-										<?php 
+											<?php 
                     }
                     $count++;
                 }
             }
             ?>
-					</pattern>
-				</defs>
+						</pattern>
+					</defs>
 				<?php 
         }
         ?>
@@ -272,8 +261,8 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
         ?>
 				<<?php 
         echo $settings['type_of_shape'];
-        ?> id="forma-<?php 
-        echo $widgetId;
+        ?> id="shape-<?php 
+        echo $widget_id;
         ?>" fill="<?php 
         echo $fill_element;
         ?>" stroke-width="<?php 
@@ -400,7 +389,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
 					#><a href="{{ link_url }}"><#
 				}
 				#>
-			   	<!--  <div>{{morphid}}</div> -->
+				   <!--  <div>{{morphid}}</div> -->
 				<svg id="dce-svg-{{idWidget}}" class="dce-svg-morph" data-run="{{runAnimation}}" data-morphid="{{morphid}}" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke-miterlimit="10" width="100%" height="100%" viewBox="0 0 {{viewBoxW}} {{viewBoxH}}" preserveAspectRatio="xMidYMid meet" xml:space="preserve" style="transform: rotate({{firstRotation}}deg) translate({{firstPosX}}px,{{firstPosY}}px);">
 
 				<# if(enable_image){
@@ -453,7 +442,7 @@ class SvgMorphing extends \DynamicContentForElementor\Widgets\WidgetPrototype
 
 				#>
 
-					<{{typeShape}} id="forma-{{idWidget}}" fill="{{fill_element}}" stroke-width="{{firstStrokeWidth}}" stroke="{{firstStrokeColor}}" {{keyVector}}="{{firstShape}}"/>
+					<{{typeShape}} id="shape-{{idWidget}}" fill="{{fill_element}}" stroke-width="{{firstStrokeWidth}}" stroke="{{firstStrokeColor}}" {{keyVector}}="{{firstShape}}"/>
 				</svg>
 				<#
 				if ( link_url ) {

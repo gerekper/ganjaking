@@ -23,7 +23,7 @@
 		var contentElemsTotal = repeaterShape.length;
 		var numberOfElements = repeaterShape.length;
 		var shapes = [];
-		var dceshape = "#forma-"+id_scope;
+		var dceshape = "#shape-"+id_scope;
 		var dceshape_svg = "#dce-svg-"+id_scope;
 
 		if(tl) {
@@ -174,7 +174,7 @@
 			return easing_morph;
 		};
 		var createTween = function(){
-			if($("#forma-"+id_scope).length){
+			if($("#shape-"+id_scope).length){
 
 				var tweenSVG = 'tlpos';
 				var tweenString = 'tl';

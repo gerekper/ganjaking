@@ -427,7 +427,9 @@ class evo_settings_lang{
 					array('label'=>'Share on Linkedin','var'=>1),
 					array('label'=>'Share on Pinterest','var'=>1),
 					array('label'=>'Share on Whatsapp','var'=>1),
+					array('label'=>'Share on Reddit','var'=>1),
 					array('label'=>'Copy Link','var'=>1),
+					array('label'=>'Share this event','var'=>1),//4.5.9
 					array('label'=>'Event Link Copied to Clipboard!','var'=>1),
 					array('type'=>'subheader','label'=>__('Add to calendar Section','eventon')),
 						array(

@@ -41,42 +41,46 @@ $reverse = ($settings['eael_product_slider_column_reverse'] == 'yes') ? 'eael-re
 if ( true === wc_get_loop_product_visibility( $product->get_id() ) || $product->is_visible() ) {
     ?>
     <li <?php post_class( ['product', 'swiper-slide'] ); ?>>
-        <div class="eael-product-slider <?php echo $reverse;?>">
+        <div class="eael-product-slider <?php echo esc_attr( $reverse );?>">
             <div class="product-details-wrap">
                 <div class="product-details">
 			        <?php
+                    $product_details_html = '';
+
 			        if ($settings['eael_show_post_terms'] === 'yes') {
-				        echo Helper::get_product_categories_list($settings['eael_post_terms']);
+				        $product_details_html .= Helper::get_product_categories_list($settings['eael_post_terms']);
 			        }
 
 			        if ( $settings['eael_product_slider_show_title'] ) {
-				        echo '<div class="eael-product-title">';
-				        echo '<' . $settings['eael_product_slider_title_tag'] . '>';
+				        $product_details_html .= '<div class="eael-product-title">';
+				        $product_details_html .= '<' . $settings['eael_product_slider_title_tag'] . '>';
 				        if ( empty( $settings['eael_product_slider_title_length'] ) ) {
-					        echo Helper::eael_wp_kses( $product->get_title() );
+					        $product_details_html .= $product->get_title();
 				        } else {
-					        echo implode( " ", array_slice( explode( " ", Helper::eael_wp_kses( $product->get_title() ) ), 0, $settings['eael_product_slider_title_length'] ) );
+					        $product_details_html .= implode( " ", array_slice( explode( " ", $product->get_title() ), 0, $settings['eael_product_slider_title_length'] ) );
 				        }
-				        echo '</' . $settings['eael_product_slider_title_tag'] . '>';
-				        echo '</div>';
+				        $product_details_html .= '</' . $settings['eael_product_slider_title_tag'] . '>';
+				        $product_details_html .= '</div>';
 			        }
 
 			         if ($should_print_rating) {
-				        echo wc_get_rating_html
-				        ($product->get_average_rating(), $product->get_rating_count());
+				        $product_details_html .= wc_get_rating_html( $product->get_average_rating(), $product->get_rating_count() );
 			        }
 
 			        if($should_print_price ){
-				        echo '<div class="eael-product-price">'.$product->get_price_html().'</div>';
+				        $product_details_html .= '<div class="eael-product-price">'. $product->get_price_html() .'</div>';
 			        }
 
 			        if ( $should_print_excerpt ) {
-				        echo '<div class="eael-product-excerpt">';
-				        echo '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt()), $settings['eael_product_slider_excerpt_length'],
-						        $settings['eael_product_slider_excerpt_expanison_indicator']) . '</p>';
-				        echo '</div>';
+				        $product_details_html .= '<div class="eael-product-excerpt">';
+				        $product_details_html .= '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt()), $settings['eael_product_slider_excerpt_length'],
+                        $settings['eael_product_slider_excerpt_expanison_indicator']) . '</p>';
+				        $product_details_html .= '</div>';
 			        }
 
+                    if( $product_details_html ){
+                        echo wp_kses( $product_details_html, Helper::eael_allowed_tags() );
+                    }
 			        ?>
                 </div>
 
@@ -85,11 +89,11 @@ if ( true === wc_get_loop_product_visibility( $product->get_id() ) || $product->
             <div class="product-image-wrap">
                 <div class="image-wrap">
                     <?php
-                    echo ( ! $product->managing_stock() && ! $product->is_in_stock() ? '<span class="eael-onsale outofstock '.$sale_badge_preset.' '.$sale_badge_align.'">'. $stockout_text .'</span>' : ($product->is_on_sale() ? '<span class="eael-onsale '.$sale_badge_preset.' '.$sale_badge_align.'">' . $sale_text . '</span>' : '') );
+                    echo ( ! $product->managing_stock() && ! $product->is_in_stock() ? '<span class="eael-onsale outofstock ' . esc_attr( $sale_badge_preset ) .' ' . esc_attr( $sale_badge_align ) . '">'. esc_html( $stockout_text ) .'</span>' : ($product->is_on_sale() ? '<span class="eael-onsale ' . esc_attr( $sale_badge_preset ) . ' ' . esc_attr( $sale_badge_align ) . '">' . esc_html( $sale_text ) . '</span>' : '') );
                     if( $should_print_image_clickable ) {
-	                    echo '<a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+	                    echo '<a href="' . esc_url( $product->get_permalink() ) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
                     }
-                    echo $product->get_image($settings['eael_product_slider_image_size_size'], ['loading' => 'eager']);
+                    echo wp_kses( $product->get_image($settings['eael_product_slider_image_size_size'], ['loading' => 'eager']), Helper::eael_allowed_tags() );
 
                     if( $should_print_image_clickable ) {
 	                    echo '</a>';
@@ -100,13 +104,13 @@ if ( true === wc_get_loop_product_visibility( $product->get_id() ) || $product->
                     <ul class="icons-wrap box-style">
 		                <?php if( $should_print_quick_view ){?>
                             <li class="eael-product-quick-view">
-                                <a id="eael_quick_view_<?php echo uniqid(); ?>" data-quickview-setting="<?php echo htmlspecialchars(json_encode($quick_view_setting),ENT_QUOTES); ?>"
+                                <a id="eael_quick_view_<?php echo esc_attr( uniqid() ); ?>" data-quickview-setting="<?php echo esc_attr( htmlspecialchars(wp_json_encode($quick_view_setting),ENT_QUOTES) ); ?>"
                                    class="open-popup-link">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </li>
 		                <?php } ?>
-                        <li class="view-details" title="Details"><?php echo '<a href="' . $product->get_permalink() . '"><i class="fas fa-link"></i></a>'; ?></li>
+                        <li class="view-details" title="Details"><?php echo '<a href="' . esc_url( $product->get_permalink() ) . '"><i class="fas fa-link"></i></a>'; ?></li>
                     </ul>
                 </div>
             </div>

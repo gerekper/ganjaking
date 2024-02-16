@@ -766,16 +766,17 @@ if (!class_exists("Element_Pack_Base")) {
 
         }
 
+
         final function _check_wp_plugin($purchase_key, &$error = "", &$response_obj = null)
         {
-            $responseObj = new \stdClass();
+	$responseObj = new \stdClass();
 	$responseObj->license_title = 'Lifetime license';
 	$responseObj->license_key = 'XXXXXXXX-XXXXXXXX';
 	$responseObj->is_valid = true;
 	$responseObj->expire_date = 'no expiry';
 	$responseObj->support_end = 'expired';
 	$this->save_wp_response($responseObj);
-	return true;
+	return true;            
             if (empty($purchase_key)) {
                 $this->remove_old_wp_response();
                 $error = "";

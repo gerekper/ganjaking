@@ -492,23 +492,13 @@
         var PremiumAlertBoxHandler = function ($scope, $) {
             var $barElem = $scope.find(".premium-notbar-outer-container"),
                 settings = $barElem.data("settings"),
-                _this = $($barElem),
-                link = settings.link,
-                currentDevice = elementorFrontend.getCurrentDeviceMode();
+                _this = $($barElem);
 
             if (_this.length > 0) {
-                if (settings.responsive) {
-                    if (settings.hideMobs) {
-                        if ('mobile' === currentDevice) {
-                            $barElem.css("display", "none");
-                        }
-                    }
 
-                    if (settings.hideTabs) {
-                        if ('tablet' === currentDevice) {
-                            $barElem.css("display", "none");
-                        }
-                    }
+                //If animation is set, we need to keep it hidden until we trigger the animation.
+                if (!settings.entranceAnimation) {
+                    $barElem.removeClass('elementor-invisible');
                 }
 
                 if (!elementorFrontend.isEditMode() && (settings.logged || !$("body").hasClass("logged-in"))) {
@@ -545,66 +535,119 @@
                 }
 
                 if (settings.location === "top" && settings.position === "premium-notbar-relative") {
+
                     $($barElem).detach();
 
+                    $($barElem).addClass('premium-notbar-top');
+
                     $("body").prepend(_this);
+
+                    if (settings.type === 'notification') {
+
+                        if ($("body").find('.premium-notbar-notification-top-' + settings.id).length > 0)
+                            return;
+
+                        else
+                            $($barElem).addClass('premium-notbar-notification-top-' + settings.id);
+                    }
                 }
 
-                if (settings.layout === "boxed") {
-                    var not_width = $barElem
-                        .find(".premium-notbar")
-                        .parent()
-                        .width();
+                if (settings.location === "top" && settings.type === 'alert') {
 
-                    $barElem.find(".premium-notbar").css("width", not_width);
-
-                    $(window).on("resize", function () {
-                        var not_width = $barElem
-                            .find(".premium-notbar")
-                            .parent()
-                            .width();
-
-                        $barElem.find(".premium-notbar").css("width", not_width);
-                    });
+                    $("body").find('.premium-notbar-notification-top-' + settings.id).remove();
                 }
 
-                if (!link) {
-                    $barElem.find(".premium-notbar-close").on("click", function () {
+                if (settings.location !== "top") {
+                    // $("body").find(".premium-notbar-top").remove();
+                }
 
-                        $barElem.find(".premium-notbar-background-overlay").remove();
+                if ('yes' === settings.customPos) {
+                    if (settings.layout === "boxed" || settings.type === 'alert') {
 
-                        if (!elementorFrontend.isEditMode() && (settings.logged || !$("body").hasClass("logged-in"))) {
-                            if (settings.cookies) {
-                                if (!notificationReadCookie("premiumNotBar-" + settings.id)) {
-                                    notificationSetCookie("premiumNotBar-" + settings.id, true);
-                                }
+                        var barWidth = $barElem.find(".premium-notbar").parent().width();
+                        $barElem.find(".premium-notbar").css("width", barWidth);
+
+                        $(window).on("resize", function () {
+                            barWidth = $barElem.find(".premium-notbar").parent().width();
+                            $barElem.find(".premium-notbar").css("width", barWidth);
+                        });
+                    }
+                }
+
+                triggerAnimations();
+
+                function triggerAnimations() {
+
+                    if (settings.entranceAnimation) {
+                        $barElem.removeClass('elementor-invisible');
+                        $barElem.find('.premium-notbar').addClass('animated ' + settings.entranceAnimation);
+                    }
+
+                }
+
+                $barElem.find(".premium-notbar-close").on("click", function () {
+
+                    //Handle cookies behavior.
+                    if (!elementorFrontend.isEditMode() && (settings.logged || !$("body").hasClass("logged-in"))) {
+                        if (settings.cookies) {
+                            if (!notificationReadCookie("premiumNotBar-" + settings.id)) {
+                                notificationSetCookie("premiumNotBar-" + settings.id, true);
                             }
                         }
+                    }
 
-                        if ($(this).hasClass("premium-notbar-top") || $(this).hasClass("premium-notbar-edit-top")) {
+                    if (settings.closeAction === 'hide') {
+
+                        if ('top' === settings.location) {
+
                             if (settings.position === "premium-notbar-fixed") {
-                                $(this)
-                                    .parentsUntil(".premium-notbar-outer-container")
-                                    .css("top", "-1000px");
+                                $barElem.find('.premium-notbar').addClass('notbar-hidden-top');
                             } else {
-                                $($barElem).animate({
+                                $barElem.css('overflow', 'hidden');
+                                $barElem.animate({
                                     height: "0"
                                 }, 300);
                             }
-                        } else if ($(this).hasClass("premium-notbar-bottom")) {
-                            $(this)
-                                .parentsUntil(".premium-notbar-outer-container")
-                                .css("bottom", "-1000px");
+
+                        } else if ('bottom' === settings.location) {
+
+                            $barElem.find('.premium-notbar').addClass('notbar-hidden-bottom');
+
                         } else {
-                            $(this)
-                                .parentsUntil(".premium-notbar-outer-container")
-                                .css({
-                                    visibility: "hidden",
-                                    opacity: "0"
-                                });
+
+                            $barElem.addClass('notbar-hidden');
                         }
-                    });
-                }
+
+                    } else {
+
+                        var $elementToRemove = null;
+                        switch (settings.elementToRemove) {
+                            case 'widget':
+                                $elementToRemove = $scope;
+                                break;
+
+                            case 'column':
+                                $elementToRemove = $scope.closest('.e-con.e-child');
+                                break;
+
+                            default:
+                                $elementToRemove = $scope.closest('.e-con.e-parent');
+                        }
+
+                        if (elementorFrontend.isEditMode())
+                            return;
+
+                        $elementToRemove.css('overflow', 'hidden');
+                        $elementToRemove.animate({
+                            height: 0,
+                            padding: 0,
+                            margin: 0,
+                            borderWidth: 0
+                        }, 300);
+
+                    }
+                });
+
             }
         };
 
@@ -1451,6 +1494,11 @@
                         $premiumTabsElem.removeClass("elementor-invisible");
                     }
 
+                }
+
+                //We use another if condition to check the carousel tabs again if disabled on the current device.
+                if (this.settings.carousel) {
+
                     //Make sure slick is initialized before showing tabs.
                     $navList.on('init', function () {
                         $premiumTabsElem.removeClass("elementor-invisible");
@@ -1758,21 +1806,21 @@
                         $currentActivetab.addClass("tab-current");
 
                         //Hide separator for arrow pointer if active background is set
-                        if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
-                            $currentActivetab.addClass("premium-zero-height");
-                            $currentActivetab.prev().addClass("premium-zero-height");
-                        }
+                        // if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
+                        //     $currentActivetab.addClass("premium-zero-height");
+                        //     $currentActivetab.prev().addClass("premium-zero-height");
+                        // }
 
                     }, 100);
                 } else {
                     $(tab).addClass("tab-current");
 
                     //Hide separator for arrow pointer if active background is set
-                    if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
+                    // if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
 
-                        $(tab).prevAll('.premium-tabs-nav-list-item').first().addClass("premium-zero-height");
-                        $(tab).addClass("premium-zero-height");
-                    }
+                    //     $(tab).prevAll('.premium-tabs-nav-list-item').first().addClass("premium-zero-height");
+                    //     $(tab).addClass("premium-zero-height");
+                    // }
 
                 }
 
@@ -1802,7 +1850,8 @@
                 }
 
 
-                self.items.find(".slick-slider").slick('pause').slick('freezeAnimation');
+                if (self.items.find(".slick-slider").length > 0)
+                    self.items.find(".slick-slider").slick('pause').slick('freezeAnimation');
 
                 if ($activeContent.find(".slick-slider").length > 0) {
 

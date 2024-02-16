@@ -254,6 +254,7 @@ class Engine {
 			$cache_context = array(
 				'parameters' => json_encode( $this->get_parameters() )
 			);
+			$cache_context = apply_filters( 'woocommerce_product_search_engine_cache_context', $cache_context, $this );
 			$cache_key = $this->get_cache_key( $cache_context );
 			$cache = Cache::get_instance();
 			$ids = $cache->get( $cache_key, self::CACHE_GROUP );

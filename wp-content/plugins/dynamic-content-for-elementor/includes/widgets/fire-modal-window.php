@@ -108,12 +108,14 @@ class FireModalWindow extends \DynamicContentForElementor\Widgets\WidgetPrototyp
 
 			<div class="cd-modal">
 				<div class="cd-modal-content">
-					<?php 
+				<?php 
         if (!empty($template)) {
-            echo do_shortcode('[dce-elementor-template id="' . $template . '"]');
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special(['id' => $template]);
         }
         ?>
-				</div>
+			</div>
+
 			</div>
 			<a href="#" class="cd-modal-close">
 				<span class="dce-quit-ics"></span>

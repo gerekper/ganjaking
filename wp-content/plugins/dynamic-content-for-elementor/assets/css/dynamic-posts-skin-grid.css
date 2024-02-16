@@ -437,7 +437,7 @@ li.dce-term-item {
 @keyframes fadeIn_reveal {
   0% {}
   100% {
-    opacity: 1;
+	opacity: 1;
   }
 }
 
@@ -451,8 +451,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: translateY(0);
-    opacity: 1;
+	transform: translateY(0);
+	opacity: 1;
   }
 }
 
@@ -466,8 +466,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: scale(1);
-    opacity: 1;
+	transform: scale(1);
+	opacity: 1;
   }
 }
 
@@ -486,8 +486,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: translateZ(0px) translateY(0px) rotateX(0deg);
-    opacity: 1;
+	transform: translateZ(0px) translateY(0px) rotateX(0deg);
+	opacity: 1;
   }
 }
 
@@ -503,8 +503,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: rotateX(0deg);
-    opacity: 1;
+	transform: rotateX(0deg);
+	opacity: 1;
   }
 }
 
@@ -524,8 +524,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: rotateX(0deg);
-    opacity: 1;
+	transform: rotateX(0deg);
+	opacity: 1;
   }
 }
 
@@ -544,8 +544,8 @@ li.dce-term-item {
   0% {}
 
   100% {
-    transform: rotateY(0deg);
-    opacity: 1;
+	transform: rotateY(0deg);
+	opacity: 1;
   }
 }
 
@@ -564,13 +564,13 @@ li.dce-term-item {
   0% {}
 
   70% {
-    transform: scale(1.1);
-    opacity: .8;
-    animation-timing-function: ease-out;
+	transform: scale(1.1);
+	opacity: .8;
+	animation-timing-function: ease-out;
   }
 
   100% {
-    transform: scale(1);
-    opacity: 1;
+	transform: scale(1);
+	opacity: 1;
   }
 }

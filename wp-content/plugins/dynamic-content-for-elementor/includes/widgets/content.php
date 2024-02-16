@@ -14,6 +14,12 @@ if (!\defined('ABSPATH')) {
 // Exit if accessed directly
 class Content extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+    }
     public static $remove_recursion_loop = [];
     public function get_script_depends()
     {
@@ -103,11 +109,9 @@ class Content extends \DynamicContentForElementor\Widgets\WidgetPrototype
                     }
                     $is_elementor = get_post_meta($id_page, '_elementor_edit_mode', \true);
                     if ($is_elementor) {
-                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $content = do_shortcode('[dce-elementor-template id="' . $id_page . '" post_id="' . $id_page . '" inlinecss="true"]');
-                        } else {
-                            $content = do_shortcode('[dce-elementor-template id="' . $id_page . '" post_id="' . $id_page . '"]');
-                        }
+                        $atts = ['id' => $id_page, 'post_id' => $id_page, 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        $content = $template_system->build_elementor_template_special($atts);
                     } else {
                         $post_wp = get_post($id_page);
                         $content = $post_wp->post_content;

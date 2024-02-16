@@ -109,29 +109,6 @@ trait Extender
         $obj->end_controls_section();
     }
 
-    public function content_ticker_custom_content($settings)
-    {
-        if ('custom' === $settings['eael_ticker_type']) {
-            foreach ($settings['eael_ticker_custom_contents'] as $content):
-                $target = $content['eael_ticker_custom_content_link']['is_external'] ? 'target="_blank"' : '';
-                $nofollow = $content['eael_ticker_custom_content_link']['nofollow'] ? 'rel="nofollow"' : '';
-                ?>
-			                <div class="swiper-slide">
-			                    <div class="ticker-content">
-									<?php if (!empty($content['eael_ticker_custom_content_link']['url'])): ?>
-			                            <a <?php echo $target; ?> <?php echo $nofollow; ?>
-			                                    href="<?php echo esc_url($content['eael_ticker_custom_content_link']['url']); ?>"
-			                                    class="ticker-content-link"><?php echo _e($content['eael_ticker_custom_content'], 'essential-addons-elementor') ?></a>
-									<?php else: ?>
-                            <p><?php echo _e($content['eael_ticker_custom_content'], 'essential-addons-elementor') ?></p>
-						<?php endif;?>
-                    </div>
-                </div>
-			<?php
-endforeach;
-        }
-    }
-
     public function progress_bar_rainbow_class(array $wrap_classes, array $settings)
     {
         if ($settings['progress_bar_layout'] == 'line_rainbow') {
@@ -303,14 +280,19 @@ endforeach;
                 'style' => '-webkit-transition-duration:' . $settings['progress_bar_animation_duration']['size'] . 'ms;-o-transition-duration:' . $settings['progress_bar_animation_duration']['size'] . 'ms;transition-duration:' . $settings['progress_bar_animation_duration']['size'] . 'ms;',
             ]);
 
-            echo '<div class="eael-progressbar-box-container ' . $settings['progress_bar_box_alignment'] . '">
-				<div ' . $obj->get_render_attribute_string('eael-progressbar-box') . '>
-	                <div class="eael-progressbar-box-inner-content">
-	                    ' . ($settings['progress_bar_title'] ? sprintf('<%1$s class="%2$s">', $settings['progress_bar_title_html_tag'], 'eael-progressbar-title') . $settings['progress_bar_title'] . sprintf('</%1$s>', $settings['progress_bar_title_html_tag']) : '') . '
-	                    ' . ($settings['progress_bar_show_count'] === 'yes' ? '<span class="eael-progressbar-count-wrap"><span class="eael-progressbar-count">0</span><span class="postfix">' . __('%', 'essential-addons-for-elementor') . '</span></span>' : '') . '
-	                </div>
-	                <div ' . $obj->get_render_attribute_string('eael-progressbar-box-fill') . '></div>
-	            </div>
+            echo '<div class="eael-progressbar-box-container ' . esc_attr( $settings['progress_bar_box_alignment'] ) . '">';
+            ?>
+                <div <?php $obj->print_render_attribute_string('eael-progressbar-box'); ?> >
+                <?php 
+                $html = '<div class="eael-progressbar-box-inner-content">
+                        ' . ($settings['progress_bar_title'] ? sprintf('<%1$s class="%2$s">', Helper::eael_validate_html_tag( $settings['progress_bar_title_html_tag'] ), 'eael-progressbar-title') . esc_html($settings['progress_bar_title']) . sprintf('</%1$s>', esc_html($settings['progress_bar_title_html_tag'])) : '') . '
+                        ' . ($settings['progress_bar_show_count'] === 'yes' ? '<span class="eael-progressbar-count-wrap"><span class="eael-progressbar-count">0</span><span class="postfix">' . esc_html__('%', 'essential-addons-for-elementor') . '</span></span>' : '') . '
+                    </div>';
+                    echo wp_kses( $html, Helper::eael_allowed_tags() );
+                ?>
+                    <div <?php $obj->print_render_attribute_string('eael-progressbar-box-fill'); ?> ></div>
+                        <?php 
+                echo '</div>
             </div>';
         }
     }
@@ -931,45 +913,49 @@ endforeach;
         $obj->end_controls_section();
     }
 
-    public function add_pricing_table_pro_styles($settings, $obj, $pricing, $target, $nofollow, $featured_class)
+    public function add_pricing_table_pro_styles($settings, $obj, $pricing, $button_link, $nofollow, $featured_class)
     {
         $settings = $obj->get_settings();
-        $button_text = $obj->get_settings_for_display('eael_pricing_table_btn');
-        $inline_style = ($settings['eael_pricing_table_featured_styles'] === 'ribbon-4' && 'yes' === $settings['eael_pricing_table_featured'] ? ' style="overflow: hidden;"' : '');
+        $widget_id = $obj->get_id();
+        $inline_style = ($settings['eael_pricing_table_featured_styles'] === 'ribbon-4' && 'yes' === $settings['eael_pricing_table_featured'] ? true : false);
+        $obj->add_render_attribute('eael_pricing_button_'.$widget_id, [ 'class' => [ 'eael-pricing-button' ] ]);
+
+        if ( ! empty( $button_link['url'] ) ) {
+            $obj->add_link_attributes( 'eael_pricing_button_'.$widget_id, $button_link );
+        }
         if ('style-3' === $settings['eael_pricing_table_style']): ?>
-            <div class="eael-pricing style-3"<?php echo $inline_style; ?>>
+            <div class="eael-pricing style-3" <?php echo $inline_style ? ' style="overflow: hidden;"' : ''; ?>>
                 <div class="eael-pricing-item <?php echo esc_attr($featured_class); ?>">
 					<?php if ('top' === $settings['eael_pricing_table_style_3_price_position']): ?>
                         <div class="eael-pricing-tag on-top">
-                            <span class="price-tag"><?php echo $pricing; ?></span>
-                            <span class="price-period"><?php echo $settings['eael_pricing_table_period_separator']; ?><?php echo $settings['eael_pricing_table_price_period']; ?></span>
+                            <span class="price-tag"><?php echo wp_kses( $pricing, Helper::eael_allowed_tags() ); ?></span>
+                            <span class="price-period"><?php echo esc_html( $settings['eael_pricing_table_period_separator'] ); ?><?php echo esc_html( $settings['eael_pricing_table_price_period'] ); ?></span>
                         </div>
 					<?php endif;?>
                     <div class="header">
-                        <h2 class="title"><?php echo $settings['eael_pricing_table_title']; ?></h2>
-                        <span class="subtitle"><?php echo $settings['eael_pricing_table_sub_title']; ?></span>
+                        <h2 class="title"><?php echo esc_html( $settings['eael_pricing_table_title'] ); ?></h2>
+                        <span class="subtitle"><?php echo esc_html( $settings['eael_pricing_table_sub_title'] ); ?></span>
                     </div>
                     <div class="body">
 						<?php $obj->render_feature_list($settings, $obj);?>
                     </div>
 					<?php if ('bottom' === $settings['eael_pricing_table_style_3_price_position']): ?>
                         <div class="eael-pricing-tag">
-                            <span class="price-tag"><?php echo $pricing; ?></span>
-                            <span class="price-period"><?php echo $settings['eael_pricing_table_period_separator']; ?><?php echo $settings['eael_pricing_table_price_period']; ?></span>
+                            <span class="price-tag"><?php echo wp_kses( $pricing, Helper::eael_allowed_tags() ); ?></span>
+                            <span class="price-period"><?php echo esc_html( $settings['eael_pricing_table_period_separator'] ); ?><?php echo esc_html( $settings['eael_pricing_table_price_period'] ); ?></span>
                         </div>
 					<?php endif;?>
                     <div class="footer">
-                        <a href="<?php echo esc_url($settings['eael_pricing_table_btn_link']['url']); ?>" <?php echo $target; ?> <?php echo $nofollow; ?>
-                           class="eael-pricing-button">
+                        <a <?php echo $obj->get_render_attribute_string('eael_pricing_button_'. esc_attr( $widget_id ) ); ?>>
 							<?php if ('left' == $settings['eael_pricing_table_button_icon_alignment']): ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-left"></i>
 								<?php } else {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon']); ?> fa-icon-left"></i>
 								<?php }?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 							<?php elseif ('right' == $settings['eael_pricing_table_button_icon_alignment']): ?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-right"></i>
 								<?php } else {?>
@@ -982,33 +968,32 @@ endforeach;
             </div>
 		<?php endif;
         if ('style-4' === $settings['eael_pricing_table_style']): ?>
-            <div class="eael-pricing style-4"<?php echo $inline_style; ?>>
+            <div class="eael-pricing style-4"<?php echo $inline_style ? ' style="overflow: hidden;"' : ''; ?>>
                 <div class="eael-pricing-item <?php echo esc_attr($featured_class); ?>">
                     <div class="eael-pricing-image">
                         <div class="eael-pricing-tag">
-                            <span class="price-tag"><?php echo $pricing; ?></span>
-                            <span class="price-period"><?php echo $settings['eael_pricing_table_period_separator']; ?><?php echo $settings['eael_pricing_table_price_period']; ?></span>
+                            <span class="price-tag"><?php echo wp_kses( $pricing, Helper::eael_allowed_tags() ); ?></span>
+                            <span class="price-period"><?php echo esc_html( $settings['eael_pricing_table_period_separator'] ) . esc_html( $settings['eael_pricing_table_price_period'] ); ?></span>
                         </div>
                     </div>
                     <div class="header">
-                        <h2 class="title"><?php echo $settings['eael_pricing_table_title']; ?></h2>
-                        <span class="subtitle"><?php echo $settings['eael_pricing_table_sub_title']; ?></span>
+                        <h2 class="title"><?php echo esc_html( $settings['eael_pricing_table_title'] ); ?></h2>
+                        <span class="subtitle"><?php echo esc_html( $settings['eael_pricing_table_sub_title'] ); ?></span>
                     </div>
                     <div class="body">
 						<?php $obj->render_feature_list($settings, $obj);?>
                     </div>
                     <div class="footer">
-                        <a href="<?php echo esc_url($settings['eael_pricing_table_btn_link']['url']); ?>" <?php echo $target; ?> <?php echo $nofollow; ?>
-                           class="eael-pricing-button">
+                        <a <?php echo $obj->get_render_attribute_string('eael_pricing_button_'.esc_attr( $widget_id )); ?> >
 							<?php if ('left' == $settings['eael_pricing_table_button_icon_alignment']): ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-left"></i>
 								<?php } else {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon']); ?> fa-icon-left"></i>
 								<?php }?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 							<?php elseif ('right' == $settings['eael_pricing_table_button_icon_alignment']): ?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-right"></i>
 								<?php } else {?>
@@ -1021,7 +1006,7 @@ endforeach;
             </div>
 		<?php endif;
         if ('style-5' === $settings['eael_pricing_table_style']): ?>
-            <div class="eael-pricing style-5"<?php echo $inline_style; ?>>
+            <div class="eael-pricing style-5" <?php echo $inline_style ? ' style="overflow: hidden;"' : ''; ?>>
                 <div class="eael-pricing-item <?php echo ($settings['eael_pricing_table_style_five_header_layout'] !== 'two' ? esc_attr($featured_class) : ''); ?>">
                     <div class="header">
 						<?php
@@ -1043,56 +1028,55 @@ if (!empty($settings['eael_pricing_table_style_2_icon_new']['value'])):
                             </span>
                             </div>
 						<?php
-endif; // icon
-        if (!empty($settings['eael_pricing_table_title'])):
-        ?>
-                            <h2 class="title<?php print($settings['eael_pricing_table_style_five_icon_and_title_style'] === 'yes' ? ' inline' : '');?>"><?php echo $settings['eael_pricing_table_title']; ?></h2>
-						<?php
-endif; // title
-        if (!empty($settings['eael_pricing_table_sub_title'])):
-        ?>
-                            <span class="subtitle"><?php echo $settings['eael_pricing_table_sub_title']; ?></span>
-						<?php
-endif;
-        if ($settings['eael_pricing_table_style_five_header_layout'] == 'one'):
-        ?>
+                        endif; // icon
+                                if (!empty($settings['eael_pricing_table_title'])):
+                                ?>
+                                    <h2 class="title <?php print($settings['eael_pricing_table_style_five_icon_and_title_style'] === 'yes' ? ' inline' : '');?>"><?php echo esc_html( $settings['eael_pricing_table_title'] ); ?></h2>
+                                <?php
+                                endif; // title
+                                if (!empty($settings['eael_pricing_table_sub_title'])):
+                                ?>
+                                    <span class="subtitle"><?php echo esc_html( $settings['eael_pricing_table_sub_title'] ); ?></span>
+                                <?php
+                                endif;
+                            if ($settings['eael_pricing_table_style_five_header_layout'] == 'one'):
+                            ?>
                             <div class="eael-pricing-image">
                                 <div class="eael-pricing-tag">
-                                    <span class="price-tag"><?php echo $pricing; ?></span>
-                                    <span class="price-period"><?php echo $settings['eael_pricing_table_period_separator']; ?><?php echo $settings['eael_pricing_table_price_period']; ?></span>
+                                    <span class="price-tag"><?php echo wp_kses( $pricing, Helper::eael_allowed_tags() ); ?></span>
+                                    <span class="price-period"><?php echo esc_html( $settings['eael_pricing_table_period_separator'] ) . esc_html( $settings['eael_pricing_table_price_period'] ); ?></span>
                                 </div>
                             </div>
-						<?php
-endif;
-        ?>
+                            <?php
+                        endif;
+                                ?>
                     </div>
 					<?php
-if ($settings['eael_pricing_table_style_five_header_layout'] == 'two'):
-        ?>
-                        <div class="eael-pricing-image <?php echo esc_attr($featured_class); ?>"<?php echo $inline_style; ?>>
+                    if ($settings['eael_pricing_table_style_five_header_layout'] == 'two'):
+                            ?>
+                        <div class="eael-pricing-image <?php echo esc_attr($featured_class); ?>" <?php echo $inline_style ? ' style="overflow: hidden;"' : ''; ?>>
                             <div class="eael-pricing-tag">
-                                <span class="price-tag"><?php echo $pricing; ?></span>
-                                <span class="price-period"><?php echo $settings['eael_pricing_table_period_separator']; ?><?php echo $settings['eael_pricing_table_price_period']; ?></span>
+                                <span class="price-tag"><?php echo wp_kses( $pricing, Helper::eael_allowed_tags() ); ?></span>
+                                <span class="price-period"><?php echo esc_html( $settings['eael_pricing_table_period_separator'] ) . esc_html( $settings['eael_pricing_table_price_period'] ); ?></span>
                             </div>
                         </div>
 					<?php
-endif;
-        ?>
+                    endif;
+                            ?>
                     <div class="body">
 						<?php $obj->render_feature_list($settings, $obj);?>
                     </div>
                     <div class="footer">
-                        <a href="<?php echo esc_url($settings['eael_pricing_table_btn_link']['url']); ?>" <?php echo $target; ?> <?php echo $nofollow; ?>
-                           class="eael-pricing-button">
+                        <a <?php echo $obj->get_render_attribute_string('eael_pricing_button_'. esc_attr( $widget_id ) ); ?>>
 							<?php if ('left' == $settings['eael_pricing_table_button_icon_alignment']): ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-left"></i>
 								<?php } else {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon']); ?> fa-icon-left"></i>
 								<?php }?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 							<?php elseif ('right' == $settings['eael_pricing_table_button_icon_alignment']): ?>
-								<?php echo $button_text; ?>
+								<?php echo esc_html( $settings['eael_pricing_table_btn'] ); ?>
 								<?php if (empty($settings['eael_pricing_table_button_icon']) || isset($settings['__fa4_migrated']['eael_pricing_table_button_icon_new'])) {?>
                                     <i class="<?php echo esc_attr($settings['eael_pricing_table_button_icon_new']['value']); ?> fa-icon-right"></i>
 								<?php } else {?>
@@ -1114,10 +1098,10 @@ endif;
     public function add_eael_premium_support_link()
     {
         ?>
-        <p><?php echo _e('Stuck with something? Get help from live chat or support ticket.', 'essential-addons-elementor'); ?></p>
+        <p><?php echo esc_html__('Stuck with something? Get help from live chat or support ticket.', 'essential-addons-elementor'); ?></p>
         <a href="https://wpdeveloper.com"
            class="ea-button"
-           target="_blank"><?php echo _e('Initiate a Chat', 'essential-addons-elementor'); ?></a>
+           target="_blank"><?php echo esc_html__('Initiate a Chat', 'essential-addons-elementor'); ?></a>
 		<?php
 }
 
@@ -1127,18 +1111,18 @@ endif;
         <div class="eael-admin-block eael-admin-block-community">
             <header class="eael-admin-block-header">
                 <div class="eael-admin-block-header-icon">
-                    <img src="<?php echo EAEL_PRO_PLUGIN_URL . 'assets/admin/images/icon-join-community.svg'; ?>"
+                    <img src="<?php echo esc_url( EAEL_PRO_PLUGIN_URL . 'assets/admin/images/icon-join-community.svg' ); ?>"
                          alt="join-essential-addons-community">
                 </div>
                 <h4 class="eael-admin-title">
                     Join the Community</h4>
             </header>
             <div class="eael-admin-block-content">
-                <p><?php echo _e('Join the Facebook community and discuss with fellow developers and users. Best way to connect with people and get feedback on your projects.', 'essential-addons-elementor'); ?></p>
+                <p><?php echo esc_html__('Join the Facebook community and discuss with fellow developers and users. Best way to connect with people and get feedback on your projects.', 'essential-addons-elementor'); ?></p>
 
                 <a href="https://www.facebook.com/groups/essentialaddons"
                    class="review-flexia ea-button"
-                   target="_blank"><?php echo _e('Join Facebook Community', 'essential-addons-elementor'); ?></a>
+                   target="_blank"><?php echo esc_html__('Join Facebook Community', 'essential-addons-elementor'); ?></a>
             </div>
         </div>
 		<?php
@@ -1147,7 +1131,7 @@ endif;
     public function add_manage_linces_action_link()
     {
         $link_text = __('Manage License', 'essential-addons-elementor');
-        printf('<a class="eael-button button__themeColor" href="https://wpdeveloper.com/account" target="_blank">%s</a>', $link_text);
+        printf('<a class="eael-button button__themeColor" href="https://wpdeveloper.com/account" target="_blank">%s</a>', esc_html( $link_text ) );
     }
 
     public function team_member_presets_condition($options)
@@ -1241,48 +1225,56 @@ endif;
         );
     }
 
-    public function add_team_member_social_bottom_markup($settings)
+    public function add_team_member_social_bottom_markup($settings, $obj)
     {
         ?>
-        <p class="eael-team-text"><?php echo $settings['eael_team_member_description']; ?></p>
+        <p class="eael-team-text"><?php echo esc_html( $settings['eael_team_member_description'] ); ?></p>
 		<?php if (!empty($settings['eael_team_member_enable_social_profiles'])): ?>
             <ul class="eael-team-member-social-profiles">
-				<?php foreach ($settings['eael_team_member_social_profile_links'] as $item): ?>
-					<?php $icon_migrated = isset($item['__fa4_migrated']['social_new']);
-        $icon_is_new = empty($item['social']);?>
-					<?php if (!empty($item['social']) || !empty($item['social_new'])): ?>
-						<?php $target = $item['link']['is_external'] ? ' target="_blank"' : '';?>
-                        <li class="eael-team-member-social-link">
-                            <a href="<?php echo esc_attr($item['link']['url']); ?>" <?php echo $target; ?>>
-								<?php if ($icon_is_new || $icon_migrated) {?>
-									<?php if (isset($item['social_new']['value']['url'])): ?>
-                                        <img src="<?php echo esc_attr($item['social_new']['value']['url']); ?>"
-                                             alt="<?php echo esc_attr(get_post_meta($item['social_new']['value']['id'], '_wp_attachment_image_alt', true)); ?>"/>
-									<?php else: ?>
-                                        <i class="<?php echo esc_attr($item['social_new']['value']); ?>"></i>
-									<?php endif;?>
-								<?php } else {?>
-                                    <i class="<?php echo esc_attr($item['social']); ?>"></i>
-								<?php }?>
-                            </a>
-                        </li>
-					<?php endif;?>
+				<?php 
+                foreach ($settings['eael_team_member_social_profile_links'] as $key => $item): 
+                    $icon_migrated = isset($item['__fa4_migrated']['social_new']);
+                    $icon_is_new = empty($item['social']);
+                    $attr_key = 'eael_team_social_link_'.$item['_id'];
+                    $obj->add_render_attribute( $attr_key, 'class', 'eael-team-social-link' );
+
+                    if( !empty( $item['link']['url'] ) ){
+                        $obj->add_link_attributes( $attr_key, $item['link'] );
+                    }
+                    ?>
+                    <li class="eael-team-member-social-link">
+                        <a <?php $obj->print_render_attribute_string( $attr_key ) ?>>
+                            <?php 
+                            if ($icon_is_new || $icon_migrated) {
+                                \Elementor\Icons_Manager::render_icon( $item['social_new'], [ 'aria-hidden' => 'true' ] );
+                            } else {?>
+                                <i class="<?php echo esc_attr($item['social']); ?>"></i>
+                            <?php }?>
+                        </a>
+                    </li>
 				<?php endforeach;?>
             </ul>
 		<?php endif;
     }
 
-    public function add_team_member_social_right_markup($settings)
+    public function add_team_member_social_right_markup($settings, $obj)
     {
         ?>
 		<?php if (!empty($settings['eael_team_member_enable_social_profiles'])): ?>
             <ul class="eael-team-member-social-profiles">
 				<?php foreach ($settings['eael_team_member_social_profile_links'] as $item): ?>
-					<?php if (!empty($item['social_new'])): ?>
-						<?php $target = $item['link']['is_external'] ? ' target="_blank"' : '';?>
+					<?php if (!empty($item['social_new'])): 
+                        $attr_key = 'eael_team_social_link_'.$item['_id'];
+                        $obj->add_render_attribute( $attr_key, 'class', 'eael-team-social-link' );
+
+                        if( !empty( $item['link']['url'] ) ){
+                            $obj->add_link_attributes( $attr_key, $item['link'] );
+                        }
+                        ?>
                         <li class="eael-team-member-social-link">
-                            <a href="<?php echo esc_attr($item['link']['url']); ?>"<?php echo $target; ?>><i
-                                        class="<?php echo esc_attr($item['social_new']['value']); ?>"></i></a>
+                            <a <?php echo $obj->get_render_attribute_string( esc_attr( $attr_key ) ) ?>>
+                                <?php \Elementor\Icons_Manager::render_icon( $item['social_new'], [ 'aria-hidden' => 'true' ] ); ?>
+                            </a>
                         </li>
 					<?php endif;?>
 				<?php endforeach;?>

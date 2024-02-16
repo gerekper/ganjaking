@@ -13,8 +13,8 @@
 .elementor-widget-dyncontel-acf:not(.elementor-drop-cap-view-default) .elementor-drop-cap {
   margin-top: 8px; }
   .elementor-widget-dyncontel-acf:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter {
-    width: 1em;
-    height: 1em;
+	width: 1em;
+	height: 1em;
 }
 .elementor-widget-dyncontel-acf .elementor-drop-cap {
   float: left;
@@ -28,8 +28,8 @@
 .elementor-widget-dyncontel-acf.forcewidth-yes img,
 .elementor-widget-dyncontel-acf.forcewidth-yes .acf-image,
 .elementor-widget-dyncontel-acf.forcewidth-yes .dynamic-content-for-elementor-acf{
-    width: 100%;
-    display: block;
+	width: 100%;
+	display: block;
 }
 .elementor-widget-dyncontel-acf .mask{
   overflow: hidden;
@@ -57,7 +57,7 @@
   margin-left: auto;
 }
 .elementor-widget-dyncontel-acf .acf-image:hover .dce-overlay_hover{
-    opacity: 1;
+	opacity: 1;
 }
 .elementor-widget-dyncontel-acf .acf-bg-image{
   position: relative;
@@ -71,7 +71,7 @@
 .elementor-widget-dyncontel-acf iframe,
 .elementor-widget-dyncontel-acf object,
 .elementor-widget-dyncontel-acf video {
-    display: block;
+	display: block;
 }
 .elementor-widget-dyncontel-acf .elementor-open-inline .elementor-custom-embed-image-overlay {
   position: absolute;
@@ -135,5 +135,5 @@
 .elementor-widget-dyncontel-acf.hyphens-yes .dynamic-content-for-elementor-acf{
   -webkit-hyphens: auto;
    -moz-hyphens: auto;
-        hyphens: auto;
+		hyphens: auto;
 }

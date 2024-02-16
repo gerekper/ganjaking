@@ -418,7 +418,19 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			return($arrPostTypes);
 		}
-
+		
+		/**
+		 * check if has post type
+		 */
+		public static function hasPostType($type){
+			
+			$arrTypes = self::getPostTypesAssoc();
+			
+			if(isset($arrTypes[$type]))
+				return(true);
+			
+			return(false);
+		}
 
 		public static function a_______TAXANOMIES_______(){}
 
@@ -507,7 +519,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(empty($currentTermID))
 				$currentTermID = self::getCurrentTermID();
-
+			
 			$arrTermData = array();
 
 			if(empty($arrTerms))
@@ -614,6 +626,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$arrTermsObjects = get_terms($args);
 
+			if(is_wp_error($arrTermsObjects)){
+								
+				$errorMessage = "getTerms error: taxonomy: $taxonomy |". $arrTermsObjects->get_error_message();
+				UniteFunctionsUC::throwError($errorMessage);
+			}
+			
+			
 			if(!empty($arrExcludeSlugs)){
 				HelperUC::addDebug("Terms Before Filter:", $arrTermsObjects);
 				HelperUC::addDebug("Exclude by:", $arrExcludeSlugs);
@@ -621,7 +640,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(!empty($arrExcludeSlugs) && is_array($arrExcludeSlugs))
 				$arrTermsObjects = self::getTerms_filterBySlugs($arrTermsObjects, $arrExcludeSlugs);
-
+			
+							
 			$arrTerms = self::getTermsObjectsData($arrTermsObjects, $taxonomy, $currentTermID);
 
 			return($arrTerms);
@@ -1811,7 +1831,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		if(empty($attachmentID))
 			return (null);
-
+		
 		$arrImage = self::getAttachmentData($attachmentID);
 
 		return ($arrImage);
@@ -2081,7 +2101,29 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		return ($arrPosts);
 	}
-
+	
+	/**
+	 * get posts that has certain taxonomy
+	 */
+	public static function getPostsByTaxonomy($postType, $taxonomy, $term_id){
+		
+		$filters = array();
+		$filters["posttype"] = $postType;
+		$filters["category"] = $taxonomy."--{$term_id}";
+		$filters["limit"] = 100;
+		
+		$filters["orderby"] = "date";
+		$filters["orderdir"] = "desc";
+		
+		$args = UniteFunctionsWPUC::getPostsArgs($filters);
+		    
+		$posts = get_posts($args);
+		
+		return($posts);
+		
+		
+	}
+	
 	/**
 	 * get tax query from a gived category
 	 */
@@ -2114,10 +2156,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			//add the search item
 
-			$field = "id";
+			$field = "term_id";
 			if(is_numeric($catID) == false)
 				$field = "slug";
-
+			
 			//check for special chars
 
 			$lastChar = substr($catID, -1);
@@ -2378,7 +2420,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	public static function getPosts($filters){
 
 		$args = self::getPostsArgs($filters);
-
+		
 		$arrPosts = get_posts($args);
 
 		if(empty($arrPosts))
@@ -2843,6 +2885,32 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	public static function a__________ATTACHMENT________(){
 	}
 
+	/**
+	 * get post featured image
+	 * if not found - return null
+	 * if found - return array of all images
+	 */
+	public static function getPostFeaturedImage($post, $size = self::THUMB_MEDIUM_LARGE){
+		
+		if(is_numeric($post))		
+			$postID = $post;
+		else
+			$postID = $post->ID;
+		
+		if(empty($post))
+			return(null);
+			
+		$attachmentID = self::getFeaturedImageID($post->ID);
+		
+		if(empty($attachmentID))
+			return(null);
+		
+		$urlImage = self::getUrlAttachmentImage($attachmentID, $size);
+		
+		return($urlImage);
+	}
+	
+	
 	/**
 	 * get attachmet id's from post
 	 */
@@ -4223,7 +4291,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	 * get permalist with check of https
 	 */
 	public static function getPermalink($post){
-
+		
 		$url = get_permalink($post);
 		if(GlobalsUC::$is_ssl == true)
 			$url = UniteFunctionsUC::urlToSsl($url);

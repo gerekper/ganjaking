@@ -59,16 +59,22 @@ class Engine_Stage_Synchrotron extends Engine_Stage {
 		return parent::get_parameters();
 	}
 
+	protected function get_cache_context() {
+		$cache_context = $this->get_parameters();
+		if ( $this->engine !== null ) {
+			$cache_context['context'] = json_encode( $this->engine->get_parameters() );
+		}
+		$cache_context = apply_filters( 'woocommerce_product_search_engine_stage_cache_context', $cache_context, $this );
+		return $cache_context;
+	}
+
 	public function get_matching_ids( &$ids ) {
 
 		global $wpdb;
 
 		$this->timer->start();
 
-		$cache_context = $this->get_parameters();
-		if ( $this->engine !== null ) {
-			$cache_context['context'] = json_encode( $this->engine->get_parameters() );
-		}
+		$cache_context = $this->get_cache_context();
 		$cache_key = $this->get_cache_key( $cache_context );
 		$cache = Cache::get_instance();
 		$ids = $cache->get( $cache_key, self::CACHE_GROUP );

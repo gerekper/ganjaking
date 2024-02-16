@@ -34,34 +34,34 @@
 }
 
 .dynamic_gallery .gallery-item a .gallery-overlay_hover{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    opacity: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	opacity: 0;
 
-    -moz-transition: all 0.5s ease;
-    -webkit-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 .dynamic_gallery .gallery-item a:hover .gallery-overlay_hover{
   opacity: 1;
 }
 
 .hovereffect-zoom .gallery-item a.is-lightbox img, .hovereffect-zoom a.is-lightbox .hex_inner{
-    transition: 0.8s transform ease;
-    transform-origin: center center;
-    transform-style: preserve-3D;
-    display: inline-block;
+	transition: 0.8s transform ease;
+	transform-origin: center center;
+	transform-style: preserve-3D;
+	display: inline-block;
 }
 .hovereffect-zoom .dynamic_gallery .gallery-item a.is-lightbox:hover img{
-    -moz-transform: scale(1.3);
-    -webkit-transform: scale(1.3);
-    -ms-transform: scale(1.3);
-    transform: scale(1.3);
+	-moz-transform: scale(1.3);
+	-webkit-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	transform: scale(1.3);
 }
 
 .figcaption span{
@@ -73,74 +73,74 @@
 }
 
 .dynamic_gallery-diamond .diamonds {
-    text-align: center;
-    overflow: visible;
-    white-space: nowrap;
-    display: inline-block;
+	text-align: center;
+	overflow: visible;
+	white-space: nowrap;
+	display: inline-block;
 }
 
 .dynamic_gallery-diamond .diamond-row-wrap {
-    text-align: center;
-    position: relative;
-    float: left;
-    clear: both;
+	text-align: center;
+	position: relative;
+	float: left;
+	clear: both;
 }
 .dynamic_gallery-diamond .diamond-row-upper, .diamond-row-lower {
-    overflow: visible;
-    clear: both;
-    width: 100%;
+	overflow: visible;
+	clear: both;
+	width: 100%;
 }
 .dynamic_gallery-diamond .diamond-row-lower {
-    position: absolute;
-    bottom: 0;
+	position: absolute;
+	bottom: 0;
 }
 .dynamic_gallery-diamond .diamond-row-lower .diamond-box {
-    margin-left: 64.644660941%; /* 1 - 1 / sqrt(2) / 2 */
-    margin-top: 64.644660941%;
+	margin-left: 64.644660941%; /* 1 - 1 / sqrt(2) / 2 */
+	margin-top: 64.644660941%;
 }
 
 .dynamic_gallery-diamond .diamond-box-wrap {
-    float: left;
-    width: 250px; /* Size of diamonds */
-    height: 250px;
+	float: left;
+	width: 250px; /* Size of diamonds */
+	height: 250px;
 }
 
 .dynamic_gallery-diamond .diamond-box {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    width: 70.710678118%; /* x = sqrt(x^2 / 2) = 1 / sqrt(2) = 0.70710678118 */
-    height: 70.710678118%;
-    margin: 14.644660941%;
-    border: 0px solid transparent;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+	width: 70.710678118%; /* x = sqrt(x^2 / 2) = 1 / sqrt(2) = 0.70710678118 */
+	height: 70.710678118%;
+	margin: 14.644660941%;
+	border: 0px solid transparent;
 }
 
 .dynamic_gallery-diamond .diamond-box-inner {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-transform-origin: center center;
-    -moz-transform-origin: center center;
-    -ms-transform-origin: center center;
-    transform-origin: center center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 141.421356237%; /* sqrt(2) */
-    height: 141.421356237%;
-    margin: -20.7106781185% 0 0 -20.7106781185%; /* (1 - sqrt(2)) / 2 */
-    position: relative;
-    z-index: -1;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-webkit-transform-origin: center center;
+	-moz-transform-origin: center center;
+	-ms-transform-origin: center center;
+	transform-origin: center center;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 141.421356237%; /* sqrt(2) */
+	height: 141.421356237%;
+	margin: -20.7106781185% 0 0 -20.7106781185%; /* (1 - sqrt(2)) / 2 */
+	position: relative;
+	z-index: -1;
 }
 .dynamic_gallery-diamond .diamond-box-inner *{
   height: 100%;
@@ -160,10 +160,10 @@
 
 }
 .hovereffect-zoom .dynamic_gallery.dynamic_gallery-diamond .grid-item a.is-lightbox:hover img{
-    -moz-transform: scale(1.3) translateX(0%);
-    -webkit-transform: scale(1.3) translateX(0%);
-    -ms-transform: scale(1.3) translateX(0%);
-    transform: scale(1.3) translateX(0%);
+	-moz-transform: scale(1.3) translateX(0%);
+	-webkit-transform: scale(1.3) translateX(0%);
+	-ms-transform: scale(1.3) translateX(0%);
+	transform: scale(1.3) translateX(0%);
 }
 .dynamic_gallery-honeycombs{
   position: relative;

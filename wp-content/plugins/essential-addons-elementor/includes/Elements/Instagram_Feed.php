@@ -10,6 +10,7 @@ use \Elementor\Group_Control_Typography;
 use Elementor\Plugin;
 use \Elementor\Utils;
 use \Elementor\Widget_Base;
+use Essential_Addons_Elementor\Classes\Helper;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -771,7 +772,7 @@ class Instagram_Feed extends Widget_Base {
 	    }
         ?>
         <div <?php $this->print_render_attribute_string('insta-wrap'); ?>>
-            <?php echo $this->instafeed_render_items(); ?>
+            <?php echo wp_kses( $this->instafeed_render_items(), Helper::eael_allowed_tags() ); ?>
         </div>
         <div class="clearfix"></div>
 
@@ -790,7 +791,7 @@ class Instagram_Feed extends Widget_Base {
             echo '<script type="text/javascript">
                 jQuery(document).ready(function($) {
                     $(".eael-instafeed").each(function() {
-                        var $node_id = "'.$this->get_id().'",
+                        var $node_id = "'. esc_attr( $this->get_id() ) .'",
                         $gallery = $(this),
                         $scope = $(".elementor-element-"+$node_id+""),
                         $settings = {

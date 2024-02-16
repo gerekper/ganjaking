@@ -416,11 +416,6 @@ if ( ! class_exists( 'Premium_Pro_Wpml' ) ) {
 						'type'        => __( 'Alert Box: Content Text', 'premium-addons-pro' ),
 						'editor_type' => 'AREA',
 					),
-					array(
-						'field'       => 'premium_notbar_close_text',
-						'type'        => __( 'Alert Box: Close Button Text', 'premium-addons-pro' ),
-						'editor_type' => 'LINE',
-					),
 					'premium_notbar_link' => array(
 						'field'       => 'url',
 						'type'        => __( 'Alert Box: URL', 'premium-addons-pro' ),

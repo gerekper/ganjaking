@@ -1,5 +1,10 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2024.01.19 - version 8.14.0
+* New: Translation files (PO & MO files) for German language
+* Fix: Product that is selling store credit of any amount, is not adding to cart when the add to cart is happening via AJAX
+* Update: POT, PO & MO file
+
 2024.01.12 - version 8.13.0
 * Fix: Uncaught Error: Cannot use object of type stdClass as array
 * Fix: When store credit is fully covering the order total making the amount to be paid as 0 (zero), on trying to place such order, it's always giving the error 'No payment method provided' [WC Blocks]

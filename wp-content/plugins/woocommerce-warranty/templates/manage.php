@@ -50,6 +50,7 @@ $products = new WP_Query(
 				<span class="displaying-num"><?php echo esc_html( $products->found_posts ); ?> items</span>
 				<span class="pagination-links">
 				<?php
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo paginate_links(
 					array(
 						'base'      => 'admin.php?page=warranties-bulk-update%_%',
@@ -60,7 +61,7 @@ $products = new WP_Query(
 						'next_text' => '&raquo;',
 						'add_args'  => array( 'per_page' => $products_per_page ),
 					)
-				); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+				);
 				?>
 				</span>
 			</div>
@@ -100,7 +101,7 @@ $products = new WP_Query(
 					</th>
 					<td><?php echo esc_html( $_product->get_id() ); ?></td>
 					<td class="thumb column-thumb">
-						<?php echo $_product->get_image( 'thumbnail' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php echo $_product->get_image( 'thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 					<td>
 						<strong><a class="editinline" data-target="edit_<?php echo esc_attr( $_product->get_id() ); ?>" href="#"><?php echo esc_attr( $_product->get_title() ); ?></a></strong>
@@ -109,7 +110,7 @@ $products = new WP_Query(
 						</div>
 					</td>
 					<td>
-						<?php echo $_product->get_price_html() ? $_product->get_price_html() : '<span class="na">&ndash;</span>'; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php echo $_product->get_price_html() ? $_product->get_price_html() : '<span class="na">&ndash;</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 					<td>
 						<?php
@@ -122,7 +123,7 @@ $products = new WP_Query(
 								$termlist[] = '<a href="' . esc_url( admin_url( 'edit.php?product_cat=' . $product_term->slug . '&post_type=product' ) ) . ' ">' . esc_html( $product_term->name ) . '</a>';
 							}
 
-							echo implode( ', ', $termlist ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+							echo implode( ', ', $termlist ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 						?>
 					</td>
@@ -272,7 +273,7 @@ $products = new WP_Query(
 							<td><?php echo esc_html( $variation_id ); ?></td>
 							<td class="thumb column-thumb">
 								<a href="post.php?post=<?php echo esc_attr( $_variation->get_id() ); ?>&action=edit">
-									<?php echo $_variation->get_image( 'thumbnail' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+									<?php echo $_variation->get_image( 'thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</a>
 							</td>
 							<td colspan="1">
@@ -280,7 +281,7 @@ $products = new WP_Query(
 								<a class="editinline" data-target="edit_<?php echo esc_attr( $child ); ?>" href="#"><?php echo esc_html( wp_strip_all_tags( $_variation->get_formatted_name() ) ); ?></a>
 							</td>
 							<td>
-								<?php echo $_variation->get_price_html() ? $_variation->get_price_html() : '<span class="na">&ndash;</span>'; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+								<?php echo $_variation->get_price_html() ? $_variation->get_price_html() : '<span class="na">&ndash;</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</td>
 							<td>
 								<?php
@@ -293,7 +294,7 @@ $products = new WP_Query(
 										$termlist[] = '<a href="' . esc_url( admin_url( 'edit.php?product_cat=' . $product_term->slug . '&post_type=product' ) ) . ' ">' . esc_html( $product_term->name ) . '</a>';
 									}
 
-										echo implode( ', ', $termlist ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+										echo implode( ', ', $termlist ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								}
 								?>
 								</td>
@@ -439,6 +440,7 @@ $products = new WP_Query(
 				<span class="displaying-num"><?php echo esc_html( $products->found_posts ); ?> items</span>
 				<span class="pagination-links">
 			<?php
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo paginate_links(
 				array(
 					'base'      => 'admin.php?page=warranties-bulk-update%_%',
@@ -449,7 +451,7 @@ $products = new WP_Query(
 					'next_text' => '&raquo;',
 					'add_args'  => array( 'per_page' => $products_per_page ),
 				)
-			); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+			);
 			?>
 			</span>
 			</div>

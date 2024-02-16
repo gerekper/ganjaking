@@ -515,14 +515,14 @@
 }
 @-webkit-keyframes swiper-preloader-spin {
   100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
   }
 }
 @keyframes swiper-preloader-spin {
   100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
   }
 }
 .elementor-widget-dyncontel-acf-repeater .swiper-container .swiper-notification {
@@ -635,7 +635,7 @@
 }
 
 .elementor-widget-dyncontel-acf-repeater .dce-acf-repater-table {
-    overflow-x: auto;
+	overflow-x: auto;
 }
 .elementor-widget-dyncontel-acf-repeater .dce-acf-repeater-masonry .dce-acf-repeater-item {
   float: left;

@@ -1,5 +1,11 @@
 *** WooCommerce Product Retailers Changelog ***
 
+2024.02.05 - version 1.17.1
+ * Fix - Prevent the shortcode from outputting retailer data for a product that is not published or is private
+
+2023.06.29 - version 1.17.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.11.22 - version 1.16.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

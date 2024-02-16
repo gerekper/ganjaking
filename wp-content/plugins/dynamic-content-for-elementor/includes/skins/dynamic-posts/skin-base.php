@@ -194,16 +194,16 @@ abstract class Skin_Base extends Elementor_Skin_Base
         $this->add_search_filter_class();
         $fallback = $this->get_parent()->get_settings_for_display('fallback');
         if ($this->get_parent()->get_settings('infiniteScroll_enable') && $this->get_parent()->get_settings('pagination_enable') && 'rand' === $this->get_parent()->get_settings('orderby') && current_user_can('edit_posts')) {
-            Helper::notice('', __('Infinite Scroll does not work correctly if you set the order randomly. Please choose another sorting type. This notice is not visible to your visitors.', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Infinite Scroll does not work correctly if you set the order randomly. Please choose another sorting type. This notice is not visible to your visitors.', 'dynamic-content-for-elementor'));
         }
         if ($this->get_parent()->get_settings('infiniteScroll_enable') && $this->get_parent()->get_settings('pagination_enable') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            Helper::notice('', __('Infinite Scroll is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Infinite Scroll is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
         }
         if ('masonry' === $this->get_instance_value('grid_type') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            Helper::notice('', __('Masonry is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Masonry is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
         }
         if ('grid-filters' === $this->get_parent()->get_settings('_skin') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            Helper::notice('', __('Grid with Filters Skin is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Grid with Filters Skin is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
         }
         if (!empty($this->get_parent()->get_settings_for_display('template_id')) && \Elementor\Plugin::$instance->editor->is_edit_mode() && 'loop' === get_post_meta($this->get_parent()->get_settings_for_display('template_id'), '_elementor_template_type', \true)) {
             Helper::notice(__('Alert', 'dynamic-content-for-elementor'), __('You have used a Loop template, created by Ele Custom Skin specifically for their features. Please use another type of template to avoid incompatibility.', 'dynamic-content-for-elementor'));
@@ -344,7 +344,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
     {
         $parent = $this->get_parent();
         $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
-        echo $template_system->build_elementor_template_special(['id' => $template_id, 'post_id' => $this->current_id, 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()]);
+        echo $template_system->build_elementor_template_special(['id' => $template_id, 'post_id' => $this->current_id, 'inlinecss' => \true]);
         $this->parent = $parent;
     }
     protected function render_post_items()
@@ -880,7 +880,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
             $link_open = '';
             $link_close = '';
             if ($link_to) {
-                $target = 'yes' == $metafield_url_target ? 'target="_blank"' : "";
+                $target = 'yes' == $metafield_url_target ? 'target="_blank"' : '';
                 $this->get_parent()->add_render_attribute($attribute_a_link, 'class', ['dce-link']);
                 $link_open = '<a ' . $target . $this->get_parent()->get_render_attribute_string($attribute_a_link) . '>';
                 $link_close = '</a>';
@@ -1286,16 +1286,17 @@ abstract class Skin_Base extends Elementor_Skin_Base
 			<div <?php 
         echo $this->get_parent()->get_render_attribute_string('container_wrap');
         ?>>
-			<?php 
+				<?php 
         if (isset($fallback_type) && $fallback_type === 'template') {
-            $fallback_content = '[dce-elementor-template id="' . $fallback_template . '"]';
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            $fallback_content = $template_system->build_elementor_template_special(['id' => $fallback_template]);
         } else {
             $fallback_content = '<p>' . $fallback_text . '</p>';
         }
-        echo do_shortcode($fallback_content);
+        echo $fallback_content;
         ?>
+			</div>
 		</div>
-	</div>
 		<?php 
     }
     /**
@@ -1321,7 +1322,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
         }
         $this->get_parent()->add_render_attribute('container', ['class' => ['dce-posts-container', 'dce-posts', 'dce-dynamic-posts-collection', $this->get_scrollreveal_class(), $this->get_container_class()]]);
         $this->get_parent()->add_render_attribute('container_wrap', ['class' => ['dce-posts-wrapper', $this->get_wrapper_class()]]);
-        $this->render_pagination_top();
+        $this->maybe_render_pagination_top();
         ?>
 
 		<div <?php 
@@ -1341,7 +1342,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
      *
      * @return void
      */
-    protected function render_pagination_top()
+    protected function maybe_render_pagination_top()
     {
         $settings = $this->get_parent()->get_settings_for_display();
         $p_query = $this->get_parent()->get_query();
@@ -1355,7 +1356,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
      *
      * @return void
      */
-    protected function render_pagination_bottom()
+    protected function maybe_render_pagination_bottom()
     {
         $settings = $this->get_parent()->get_settings_for_display();
         $p_query = $this->get_parent()->get_query();
@@ -1379,7 +1380,7 @@ abstract class Skin_Base extends Elementor_Skin_Base
         ?>
 		</div>
 		<?php 
-        $this->render_pagination_bottom();
+        $this->maybe_render_pagination_bottom();
         $this->render_infinite_scroll();
     }
     protected function render_posts_before()

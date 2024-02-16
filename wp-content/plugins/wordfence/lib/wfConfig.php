@@ -233,7 +233,7 @@ class wfConfig {
 			'satisfactionPromptOverride' => array('value' => true, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 		),
 	);
-	public static $serializedOptions = array('lastAdminLogin', 'scanSched', 'emailedIssuesList', 'wf_summaryItems', 'adminUserList', 'twoFactorUsers', 'alertFreqTrack', 'wfStatusStartMsgs', 'vulnerabilities_plugin', 'vulnerabilities_theme', 'dashboardData', 'malwarePrefixes', 'coreHashes', 'noc1ScanSchedule', 'allScansScheduled', 'disclosureStates', 'scanStageStatuses', 'adminNoticeQueue', 'suspiciousAdminUsernames', 'wordpressPluginVersions', 'wordpressThemeVersions');
+	public static $serializedOptions = array('lastAdminLogin', 'scanSched', 'emailedIssuesList', 'wf_summaryItems', 'adminUserList', 'twoFactorUsers', 'alertFreqTrack', 'wfStatusStartMsgs', 'vulnerabilities_core', 'vulnerabilities_plugin', 'vulnerabilities_theme', 'dashboardData', 'malwarePrefixes', 'coreHashes', 'noc1ScanSchedule', 'allScansScheduled', 'disclosureStates', 'scanStageStatuses', 'adminNoticeQueue', 'suspiciousAdminUsernames', 'wordpressPluginVersions', 'wordpressThemeVersions');
 	// Configuration keypairs that can be set from Central.
 	private static $wfCentralInternalConfig = array(
 		'wordfenceCentralUserSiteAuthGrant',

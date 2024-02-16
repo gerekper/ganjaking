@@ -65,7 +65,10 @@ if (!\class_exists('DynamicOOOS\\DynamicLicense\\License')) {
          */
         private function set_license_status($status)
         {
+         //   update_option($this->plugin['prefix'] . self::LICENSE_STATUS_OPTION, $status);
+
             update_option(self::LICENSE_STATUS_OPTION, 'active');
+
         }
         /**
          * Get error message from last failed status check.

@@ -1,0 +1,927 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ua-protection-lang\n"
+"POT-Creation-Date: 2017-10-06 21:02+0300\n"
+"PO-Revision-Date: 2017-10-06 21:03+0300\n"
+"Last-Translator: \n"
+"Language-Team: https://premium.divcoder.com\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: admin\n"
+"X-Poedit-SearchPath-1: functions\n"
+
+#: admin/access.php:26
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: admin/access.php:45 admin/index.php:24
+msgid "Access Settings"
+msgstr "Erişim ayarları"
+
+#: admin/access.php:50
+msgid ""
+"Please write the information into cells by top to down and by giving a space "
+"break. For instance, if you are entering an IP address, give a space break "
+"from below to write a second IP address."
+msgstr ""
+"Lütfen girdiğiniz IP adreslerini veya User Agent bilgilerini alt alta "
+"yazınız."
+
+#: admin/access.php:54
+msgid "Block IP Addresses"
+msgstr "IP Adreslerini Engelle"
+
+#: admin/access.php:55
+msgid ""
+"<strong>IP addresses</strong> enter one by one or like <strong>127.0.0.1 - "
+"127.0.0.55</strong> state the range."
+msgstr ""
+"IP adreslerini teker teker veya 127.0.0.1 - 127.0.0.55 şeklinde aralık "
+"belirleyerek yazabilirsiniz."
+
+#: admin/access.php:58
+msgid "Block Countries"
+msgstr "Engellenen Ülkeler"
+
+#: admin/access.php:59
+msgid ""
+"Enter the ISO code of the country you want to block. <strong>Example:</"
+"strong> <strong>TR</strong> for Turkey, <strong>US</strong> for United "
+"States."
+msgstr ""
+"Engellemek istediğiniz ülkenin ISO kodunu girin. <strong>Örnek:</strong> ABD "
+"için  <strong>US</strong>, Türkiye için <strong>TR</strong>."
+
+#: admin/access.php:62
+msgid "Block User Agents"
+msgstr "User Agent Engelle"
+
+#: admin/access.php:63
+msgid ""
+"<strong>Example User Agent:</strong> Mozilla/5.0 (Windows NT 6.1; Win64; "
+"x64; rv:47.0) Gecko/20100101 Firefox/47.0"
+msgstr ""
+"<strong>Örnek User Agent:</strong> Mozilla/5.0 (Windows NT 6.1; Win64; x64; "
+"rv:47.0) Gecko/20100101 Firefox/47.0"
+
+#: admin/access.php:66
+msgid "Whitelist"
+msgstr "Beyaz liste"
+
+#: admin/access.php:67
+msgid ""
+"The IP addresses you added to Whitelist are excluded from your active "
+"security settings. We recommend you to use this setting if you are using a "
+"Static IP address. <strong>Whitelist IP addresses</strong> enter one by one "
+"or like <strong>127.0.0.1 - 127.0.0.55</strong> state the range."
+msgstr ""
+"Beyaz listeye eklediğiniz IP adresleri etkin güvenlik ayarlarınızdan hariç "
+"tutulur. Statik IP adresi kullanıyorsanız, bu ayarı kullanmanızı öneririz. "
+"<strong>Beyaz liste IP adreslerini</strong> tek tek girebilir veya aralık "
+"bırakarak <strong>127.0.0.1 - 127.0.0.55</strong> şeklinde yazabilirsiniz."
+
+#: admin/admin.php:48 admin/firewall.php:20
+msgid "Please enter your reCAPTCHA API key!"
+msgstr "Lütfen reCAPTCHA API bilgilerinizi belirleyin!"
+
+#: admin/admin.php:64 admin/index.php:18
+msgid "Admin Settings"
+msgstr "Admin Ayarları"
+
+#: admin/admin.php:71 admin/firewall.php:45
+msgid "Security Settings"
+msgstr "Güvenlik Ayarları"
+
+#: admin/admin.php:75
+msgid "Security Level"
+msgstr "Güvenlik Seviyesi"
+
+#: admin/admin.php:79 admin/dashboard.php:216 admin/dashboard.php:381
+msgid "Custom Settings"
+msgstr "Özel Ayarlar"
+
+#: admin/admin.php:80 admin/dashboard.php:382 admin/firewall.php:291
+msgid "Low"
+msgstr "Düşük"
+
+#: admin/admin.php:81 admin/dashboard.php:383
+msgid "Medium"
+msgstr "Orta"
+
+#: admin/admin.php:82 admin/dashboard.php:384 admin/firewall.php:292
+msgid "High"
+msgstr "Yüksek"
+
+#: admin/admin.php:83 admin/dashboard.php:228 admin/dashboard.php:385
+msgid "I'm Under Attack!"
+msgstr "Saldırı Altındayım!"
+
+#: admin/admin.php:86
+msgid "Arrange your security level."
+msgstr "Güvenlik seviyenizi belirleyin."
+
+#: admin/admin.php:91
+msgid "Prevention Method"
+msgstr "Önleme Methodu"
+
+#: admin/admin.php:95
+msgid "Do not allow access."
+msgstr "Direkt erişimi engelle."
+
+#: admin/admin.php:96
+msgid "Protect with reCAPTCHA."
+msgstr "ReCAPTCHA kontrolünden geçir."
+
+#: admin/admin.php:99
+msgid ""
+"The prevention method is designs as two options. You can block the attacks "
+"directly if you want, or you can check it through the reCAPTCHA control. We "
+"recommend that you activate the reCAPTCHA control option."
+msgstr ""
+"Önleme methodu iki şekilde tasarlanmıştır. Birisi saldırı veya spam tespit "
+"edildiğinde direkt olarak engelleme üzerine, diğeri ise reCAPTCHA "
+"sayfayasına yönlendirerek kontrolden geçirme üzerine ayarlanabilmektedir."
+
+#: admin/admin.php:104
+msgid "API Settings"
+msgstr "API Ayarları"
+
+#: admin/admin.php:108
+msgid "reCAPTCHA API keys"
+msgstr "reCAPTCHA API Anahtarları"
+
+#: admin/admin.php:111
+msgid "reCAPTCHA Site Key"
+msgstr "reCAPTCHA Site Key"
+
+#: admin/admin.php:119
+msgid "reCAPTCHA Secret Key"
+msgstr "reCAPTCHA Secret Key"
+
+#: admin/admin.php:124
+msgid "Uptime Robot API"
+msgstr "Uptime Robot API"
+
+#: admin/admin.php:127
+msgid "Uptime Robot Monitor-Specific API Key"
+msgstr "Uptime Robot Monitor-Specific API Anahtarınız"
+
+#: admin/admin.php:132
+msgid "Notification Settings"
+msgstr "Bilgilendirme Ayarları"
+
+#: admin/admin.php:136
+msgid "Mail Notifications"
+msgstr "Mail Bilgilendirmesi"
+
+#: admin/admin.php:146
+msgid ""
+"By activating email notification tool, you can get emails of attacks that "
+"were performed to your website. If your server that you are using is not "
+"compatible with email, you can make required settings by SMTP plugins."
+msgstr ""
+"Mail bilgilendirme ayarlarını aktif ederek olası hacklenme, saldırı veya "
+"brute-force ataklarını mail adresinize alabilirsiniz. Uyarı, eğer paylaşımlı "
+"hosting kullanıyorsanız, SMTP ayarı gerektirebilir."
+
+#: admin/admin.php:153
+msgid "Notification Address"
+msgstr "Bilgilendirme için Adresiniz"
+
+#: admin/admin.php:156
+msgid "Enter your email address for notifications"
+msgstr "Mail bilgilendirmeleri için e-posta adresiniz"
+
+#: admin/admin.php:161
+msgid "Notification Types"
+msgstr "Bilgilendirici Tipi"
+
+#: admin/admin.php:165
+msgid "Admin Login Logs"
+msgstr "Admin Girişleri"
+
+#: admin/admin.php:176
+msgid "Hacker Attacks"
+msgstr "Hacker Saldırıları"
+
+#: admin/admin.php:186
+msgid "Brute-Force Attacks"
+msgstr "Brute-force Saldırıları"
+
+#: admin/admin.php:196
+msgid "Proxy Attacks"
+msgstr "Proxy Saldırıları"
+
+#: admin/admin.php:206
+msgid "Spam Attacks"
+msgstr "Spam Saldırıları"
+
+#: admin/admin.php:216
+msgid "Spam Comment Attacks"
+msgstr "Spam Yorum Saldırıları"
+
+#: admin/dashboard.php:186
+msgid "Firewall Dashboard"
+msgstr "Kontrol Paneli"
+
+#: admin/dashboard.php:186
+msgid "Documentation"
+msgstr "Dökümantasyon"
+
+#: admin/dashboard.php:193 admin/dashboard.php:196
+msgid "Status:"
+msgstr "Durum:"
+
+#: admin/dashboard.php:193
+msgid "Active"
+msgstr "Aktif"
+
+#: admin/dashboard.php:194
+msgid "Website protection is enabled."
+msgstr "Website koruması aktif."
+
+#: admin/dashboard.php:196
+msgid "Inactive"
+msgstr "Kapalı"
+
+#: admin/dashboard.php:197
+msgid "Website protection is disabled."
+msgstr "Website koruması kapalı."
+
+#: admin/dashboard.php:219
+msgid "Low Security"
+msgstr "Düşük Güvenlik"
+
+#: admin/dashboard.php:222
+msgid "Medium Security"
+msgstr "Orta Güvenlik"
+
+#: admin/dashboard.php:225
+msgid "High Security"
+msgstr "Yüksek Güvenlik"
+
+#: admin/dashboard.php:245
+msgid "Firewall &amp; Security"
+msgstr "Firewall &amp; Koruma"
+
+#: admin/dashboard.php:262
+msgid "Speed Optimization"
+msgstr "Hız Optimizasyonu"
+
+#: admin/dashboard.php:273 admin/dashboard.php:307
+msgid "Uptime Status"
+msgstr "Uptime Durumu"
+
+#: admin/dashboard.php:277
+msgid "Up"
+msgstr "Aktif"
+
+#: admin/dashboard.php:279
+msgid "Down / Paused"
+msgstr "Erişim Yok"
+
+#: admin/dashboard.php:284
+msgid "Edit API"
+msgstr "API Düzenle"
+
+#: admin/dashboard.php:302
+msgid "Total Uptime Ratio"
+msgstr "Uptime Ortalaması"
+
+#: admin/dashboard.php:308 admin/dashboard.php:316
+msgid "Last 24 Hours:"
+msgstr "Son 24 Saat:"
+
+#: admin/dashboard.php:309
+msgid "Last 7 Days:"
+msgstr "Son 7 Gün:"
+
+#: admin/dashboard.php:310
+msgid "Last 30 Days:"
+msgstr "Son 30 Gün:"
+
+#: admin/dashboard.php:314
+msgid "Response Times"
+msgstr "Erişim Süreleri"
+
+#: admin/dashboard.php:315
+msgid "Last 1 Hour:"
+msgstr "Son 1 Saat:"
+
+#: admin/dashboard.php:317
+msgid "Response Status:"
+msgstr "Erişim Durumu:"
+
+#: admin/dashboard.php:326
+msgid "Latest Events"
+msgstr "Son Raporlar"
+
+#: admin/dashboard.php:337
+msgid "DOWN"
+msgstr "ERİŞİM YOK"
+
+#: admin/dashboard.php:338
+msgid "UP"
+msgstr "AKTIF"
+
+#: admin/dashboard.php:339
+msgid "PAUSED"
+msgstr "DURDURULDU"
+
+#: admin/dashboard.php:340
+msgid "STARTED"
+msgstr "BAŞLATILDI"
+
+#: admin/dashboard.php:349
+msgid "Connection Timeout"
+msgstr "Erişim Sağlanamıyor"
+
+#: admin/dashboard.php:356
+msgid "Admin Security"
+msgstr "Admin Güvenliği"
+
+#: admin/dashboard.php:356 admin/dashboard.php:367 admin/dashboard.php:378
+msgid "Edit"
+msgstr "Düzenle"
+
+#: admin/dashboard.php:359
+msgid "Current Login:"
+msgstr "Şuan ki Giriş:"
+
+#: admin/dashboard.php:360
+msgid "Current Login IP Address:"
+msgstr "Şuan ki IP Adresiniz:"
+
+#: admin/dashboard.php:361
+msgid "Last Login:"
+msgstr "Önceki Giriş:"
+
+#: admin/dashboard.php:362
+msgid "Last Login IP Address:"
+msgstr "Önceki Giriş IP Adresi:"
+
+#: admin/dashboard.php:367
+msgid "E-Mail Summary"
+msgstr "E-Posta Özeti"
+
+#: admin/dashboard.php:369
+msgid "Username:"
+msgstr "Kullanıcı Adı:"
+
+#: admin/dashboard.php:370
+msgid "Mail Notifications:"
+msgstr "Mail Bilgilendirmeleri:"
+
+#: admin/dashboard.php:370 admin/dashboard.php:390 admin/dashboard.php:392
+#: admin/dashboard.php:397 admin/dashboard.php:398
+msgid "Enabled"
+msgstr "Aktifleştirildi"
+
+#: admin/dashboard.php:370 admin/dashboard.php:391 admin/dashboard.php:393
+#: admin/dashboard.php:396 admin/dashboard.php:399
+msgid "Disabled"
+msgstr "Kapatıldı"
+
+#: admin/dashboard.php:371
+msgid "Current Address:"
+msgstr "Aktif Adres:"
+
+#: admin/dashboard.php:372
+msgid "Notification Address:"
+msgstr "Bilgilendirme Adresi:"
+
+#: admin/dashboard.php:378
+msgid "Settings Summary"
+msgstr "Ayarlar Özeti"
+
+#: admin/dashboard.php:381
+msgid "Security Level:"
+msgstr "Güvenlik Seviyesi:"
+
+#: admin/dashboard.php:386
+msgid "Prevention Method:"
+msgstr "Önleme Methodu:"
+
+#: admin/dashboard.php:386
+msgid "Block Access"
+msgstr "Erişim Engelleme"
+
+#: admin/dashboard.php:387
+msgid "reCAPTCHA"
+msgstr "reCAPTCHA"
+
+#: admin/dashboard.php:390
+msgid "Access Security:"
+msgstr "Erişim Güvenliği:"
+
+#: admin/dashboard.php:392
+msgid "Spam Protection:"
+msgstr "Spam Koruması:"
+
+#: admin/dashboard.php:396
+msgid "Script Optimization:"
+msgstr "Script Optimizasyonu:"
+
+#: admin/dashboard.php:398
+msgid "Browser Caching:"
+msgstr "Browser Cache:"
+
+#: admin/firewall.php:37 admin/index.php:22
+msgid "Security &amp; Firewall Settings"
+msgstr "Firewall &amp; Koruma Ayarları"
+
+#: admin/firewall.php:47
+msgid "HTTP Security Headers"
+msgstr "HTTP Header Güvenliği"
+
+#: admin/firewall.php:57
+msgid ""
+"Secure your website's HTTP with X-Content-Type-Options, X-XSS-Protection and "
+"X-Frame-Options settings."
+msgstr ""
+"Web sitenizin HTTP'sini otomatik olarak X-Content-Type-Options, X-XSS-"
+"Protection ve X-Frame-Options ayarları ile koruyun."
+
+#: admin/firewall.php:62
+msgid "XML-RPC and REST-API Security"
+msgstr "XML-RPC ve REST-API Güvenliği"
+
+#: admin/firewall.php:72
+msgid "Prevent XML-RPC and REST-API requests."
+msgstr "XML-RPC ve REST-API Erişimini Kapat."
+
+#: admin/firewall.php:77
+msgid "File Editor"
+msgstr "Dosya Düzenleme"
+
+#: admin/firewall.php:87
+msgid "Disable file editing in the Wordpress Admin panel."
+msgstr "Wordpress Admin paneliniz üzerinden dosya düzenleme sistemini kapatın."
+
+#: admin/firewall.php:92
+msgid "Captcha Protection"
+msgstr "Captcha Koruması"
+
+#: admin/firewall.php:102
+msgid ""
+"Secure your User Registration, Login and Lost Password forms with reCAPTCHA."
+msgstr ""
+"Kayıt, Giriş ve Kayıp Şifre Sayfalarınızı reCAPTCHA ile korumaya başlayın."
+
+#: admin/firewall.php:107
+msgid "Captcha Protection Settings"
+msgstr "Captcha Koruması Ayarları"
+
+#: admin/firewall.php:112
+msgid "Login Form"
+msgstr "Giriş Formu"
+
+#: admin/firewall.php:123
+msgid "User Registration Form"
+msgstr "Üyelik Formu"
+
+#: admin/firewall.php:134
+msgid "Lost Password Form"
+msgstr "Kayıp Şifre Formu"
+
+#: admin/firewall.php:141
+msgid "Comment Security"
+msgstr "Yorum Güvenliği"
+
+#: admin/firewall.php:145 admin/firewall.php:290 admin/optimization.php:154
+msgid "Disable"
+msgstr "Kapat"
+
+#: admin/firewall.php:146
+msgid "Protect with Honeypot"
+msgstr "Honeypot sistemi ile koru"
+
+#: admin/firewall.php:147
+msgid "Protect with reCAPTCHA"
+msgstr "ReCAPTCHA ile Koru"
+
+#: admin/firewall.php:150
+msgid "Edit comment form protection settings."
+msgstr "Yorum formu koruması ayarlarını düzenle."
+
+#: admin/firewall.php:166
+msgid "Disable reCAPTCHA for logged-in users."
+msgstr "ReCAPTCHA korumasını giriş yapmış kullanıcılar için devre-dışı bırak."
+
+#: admin/firewall.php:182
+msgid "To prevent pingback spam attacks, disable comment pingbacks."
+msgstr "Pingback spam ataklarını engelleyin."
+
+#: admin/firewall.php:187
+msgid "Content Protection"
+msgstr "İçerik Koruması"
+
+#: admin/firewall.php:197
+msgid ""
+"With Content Protection, by turning off functions like right-click, view "
+"page source, and etc, you can prevent others from stealing your content."
+msgstr ""
+"İçerik koruması ile sağ tıklama, kopyalama, sayfa kaynağını görüntüleme vs. "
+"özellikleri ile sitenizden içerik çalınmasını önleyin."
+
+#: admin/firewall.php:202 admin/firewall.php:222 admin/firewall.php:372
+msgid "Firewall Settings"
+msgstr "Firewall Ayarları"
+
+#: admin/firewall.php:206
+msgid "Real-Time Firewall Protection"
+msgstr "Gerçek Zamanlı Firewall Koruması"
+
+#: admin/firewall.php:216
+msgid "Block Spam Attacks and Requests with Real-Time Firewall."
+msgstr "Spam saldırıları ve isteklerini engelleyin."
+
+#: admin/firewall.php:227
+msgid "Block Spam &amp; Mass Requests"
+msgstr "Spam saldırılarını ve girişimlerini engelleyin"
+
+#: admin/firewall.php:238
+msgid "Block Potential Spam Users"
+msgstr "Potansiyel spam kullanıcıları engelleyin"
+
+#: admin/firewall.php:249
+msgid "Block Brute-Force attacks from Wordpress Panel"
+msgstr "Brute-force ataklarını engelleyin"
+
+#: admin/firewall.php:256
+msgid "WPScan Protection"
+msgstr "WPScan Koruması"
+
+#: admin/firewall.php:266
+msgid "Block WPScan requests."
+msgstr "WPScan isteklerini engelleyin."
+
+#: admin/firewall.php:271
+msgid "Tor Detection"
+msgstr "Tor Koruması"
+
+#: admin/firewall.php:281
+msgid "Block access to Tor Users and Servers."
+msgstr "Tor kullanıcılarının ve sunucularının sitenize erişimini engelleyin."
+
+#: admin/firewall.php:286
+msgid "Proxy Protection"
+msgstr "Proxy Koruması"
+
+#: admin/firewall.php:295
+msgid ""
+"Real-time Proxy Protection prevents people using the Proxy from log in to "
+"your site."
+msgstr ""
+"Proxy veya ücretsiz VPN kullanan kişilerin sitenize girmesini engelleyin."
+
+#: admin/firewall.php:300
+msgid "Access Security"
+msgstr "Erişim Güvenliği"
+
+#: admin/firewall.php:310
+msgid "Take reCAPTCHA control of the people entering your site."
+msgstr "Web sitenize giriş yapan kullanıcıları reCAPTCHA kontrolünden geçir."
+
+#: admin/firewall.php:315
+msgid "Hacker Protection"
+msgstr "Hacker Koruması"
+
+#: admin/firewall.php:325
+msgid "Prevent SQL Injection attacks."
+msgstr "SQL Injection saldırılarını önle."
+
+#: admin/firewall.php:340
+msgid "Protect yourself from malicious bots."
+msgstr "Sitenizi virüslü botlardan koruyun."
+
+#: admin/firewall.php:355
+msgid "Do not allow access to fake search engine bots."
+msgstr "Sahte arama motorlarının web sitenize giriş yapmasını engelleyin."
+
+#: admin/firewall.php:376
+msgid ""
+"Security mode is enabled. If you want to, you can change the security level "
+"to '<strong>Custom Settings</strong>'."
+msgstr ""
+"Güvenlik modu aktif. İsterseniz admin ayarlarından güvenlik seviyenizi "
+"'<strong>Özel Ayarlar</strong>' olarak değiştirerek bu sayfaya "
+"erişebilirsiniz."
+
+#: admin/index.php:16
+msgid "Dashboard"
+msgstr "Kontrol Paneli"
+
+#: admin/index.php:20 admin/optimization.php:21
+msgid "Optimization Settings"
+msgstr "Optimizasyon Ayarları"
+
+#: admin/optimization.php:28
+msgid "Compression Settings"
+msgstr "Sıkıştırma Ayarları"
+
+#: admin/optimization.php:31
+msgid "GZip Compression"
+msgstr "GZip Sıkıştırması"
+
+#: admin/optimization.php:41
+msgid "You can enable that your server gets less load by GZip compression."
+msgstr ""
+"Sunucunuzun daha verimli çalışabilmesi için GZip sıkıştırma özelliğini "
+"aktifleştirin."
+
+#: admin/optimization.php:46
+msgid "HTML Compression"
+msgstr "HTML Sıkıştırması"
+
+#: admin/optimization.php:56
+msgid "You can reduce your website’s page size by HTML compression."
+msgstr ""
+"HTML sıkıştırarak web sitenizin daha hızlı açılmasını sağlayabilirsiniz."
+
+#: admin/optimization.php:60
+msgid "Cache Settings"
+msgstr "Cache Ayarları"
+
+#: admin/optimization.php:63
+msgid "Browser Caching"
+msgstr "Tarayıcı Önbelleklemesi"
+
+#: admin/optimization.php:73
+msgid ""
+"The Browser Caching option allows you to get a faster startup speed by "
+"saving a file with the user who is logging into your web site."
+msgstr ""
+"Tarayıcı önbellekleme özelliği ile kullanıcılarınızın tarayıcısında dosya "
+"barındırabilirsiniz."
+
+#: admin/optimization.php:79
+msgid "Browser Caching Time"
+msgstr "Tarayıcı Önbellekleme Süresi"
+
+#: admin/optimization.php:82
+msgid "Set Browser Caching Time (Default: 3600 seconds / 60 = 60 minutes )."
+msgstr ""
+"Tarayıcı Önbellekleme Süresini Ayarlar (Varsayılan: 3600 saniye / 60 = 60 "
+"dakika)."
+
+#: admin/optimization.php:87
+msgid "Other Optimization Settings"
+msgstr "Diğer Optimizasyon Ayarları"
+
+#: admin/optimization.php:90
+msgid "Lazy Load"
+msgstr "Lazy Load"
+
+#: admin/optimization.php:100
+msgid ""
+"Lazy Load option enables later upload of images which are in your website."
+msgstr ""
+"Lazy Load özelliği sitenizde ki resimlerin sonradan yüklenmesini sağlar. "
+"Böylece sitenizin yüklenme süresi düşer."
+
+#: admin/optimization.php:105
+msgid "Author Archives &amp; Links"
+msgstr "Yazar Arşivleri ve Linkleri"
+
+#: admin/optimization.php:115
+msgid ""
+"By disabling author pages and addresses, you can provide security and remove "
+"unnecessary queries."
+msgstr ""
+"Yazar sayfaları ve linklerini devre dışı bırakarak hem güvenliğinizi "
+"arttırabilir, hem de gereksiz istekleri azaltabilirsiniz."
+
+#: admin/optimization.php:120
+msgid "Shortlinks"
+msgstr "Kısa Linkler"
+
+#: admin/optimization.php:130
+msgid "Remove Shortlink Tags from header."
+msgstr "Kısa Link özelliğini devre dışı bırakın."
+
+#: admin/optimization.php:135
+msgid "RSS Feeds"
+msgstr "RSS Beslemeleri"
+
+#: admin/optimization.php:145
+msgid ""
+"You can speed up your website by disabling RSS Feeds feature and also you "
+"can solve problems like content stealing."
+msgstr ""
+"RSS'yi devre dışı bırakarak gereksiz istekleri devre dışı bırakabilir, "
+"sitenizin hızını arttırabilir ve yazılarınızın çalınmasını önleyebilirsiniz."
+
+#: admin/optimization.php:150
+msgid "Async & Defer Attributes"
+msgstr "Async & Defer Etiketleri"
+
+#: admin/optimization.php:155
+msgid "Async"
+msgstr "Async"
+
+#: admin/optimization.php:156
+msgid "Defer"
+msgstr "Defer"
+
+#: admin/optimization.php:159
+msgid ""
+"Please ensure that you upload your JavaScript files in your website as in "
+"the form of ASYNC or DEFER. (ASYNC Recommended)"
+msgstr ""
+"Lütfen web sitenizde bulunan JavaScript dosyalarının yüklenme şeklini "
+"belirleyin. (Önerien ASYNC seçeneğidir)"
+
+#: admin/optimization.php:164
+msgid "Script Optimization"
+msgstr "Script Optimizasyonu"
+
+#: admin/optimization.php:174
+msgid "Remove Query Strings"
+msgstr "Query String Özelliğini Devre Dışı Bırak"
+
+#: admin/optimization.php:189
+msgid "Move All Scripts to Footer"
+msgstr "Tüm JavaScript Dosyalarını Footer'e Taşı"
+
+#: admin/optimization.php:204
+msgid "Disable Wordpress Emoticon (Emoji) Feature"
+msgstr "<strong>Wordpress Shortlink</strong> özelliğini kapat"
+
+#: admin/optimization.php:219
+msgid "Remove jQuery Migrate. (Add jQuery-Core)"
+msgstr "<strong>jQuery Migrate</strong>'yi kaldır"
+
+#: admin/optimization.php:235
+msgid "Remove Woocommerce Scripts and CSS from Irrelevant Pages."
+msgstr ""
+"WooCommerce Scriptlerini ve CSS Stillerini alakasız sayfalardan kaldır."
+
+#: admin/optimization.php:252
+msgid "Remove BuddyPress Scripts and CSS from Irrelevant Pages."
+msgstr "BuddyPress Scriptlerini ve CSS Stillerini alakasız sayfalardan kaldır."
+
+#: admin/optimization.php:269
+msgid "Remove bbPress Scripts and CSS from Irrelevant Pages."
+msgstr "BBPress Scriptlerini ve CSS Stillerini alakasız sayfalardan kaldır."
+
+#: functions/wpuf-admin-functions.php:153
+msgid "An admin logged into the Wordpress admin panel:"
+msgstr "Bir admin Wordpress admin panelinize giriş yaptı:"
+
+#: functions/wpuf-admin-functions.php:153
+#: functions/wpuf-firewall-functions.php:302
+#: functions/wpuf-firewall-functions.php:496
+#: functions/wpuf-firewall-functions.php:575
+#: functions/wpuf-firewall-functions.php:851
+#: functions/wpuf-firewall-functions.php:937
+msgid ""
+"If you want, you can block this IP address or User Agents from the WP "
+"Ultimate Firewall panel."
+msgstr ""
+"Eğer isterseniz, bilgisi verilen IP Adresini veya User Agent bilgisini WP "
+"Ultimate Firewall panelinden engelleyebilirsiniz."
+
+#: functions/wpuf-admin-functions.php:153
+#: functions/wpuf-firewall-functions.php:302
+#: functions/wpuf-firewall-functions.php:496
+#: functions/wpuf-firewall-functions.php:575
+#: functions/wpuf-firewall-functions.php:851
+#: functions/wpuf-firewall-functions.php:937
+msgid "Your website is protected by WP Ultimate Firewall."
+msgstr "Web siteniz WP Ultimate Firewall ile korunmaktadır."
+
+#: functions/wpuf-admin-functions.php:213
+#: functions/wpuf-admin-functions.php:220
+#: functions/wpuf-admin-functions.php:238
+#: functions/wpuf-admin-functions.php:245
+#: functions/wpuf-admin-functions.php:291
+#: functions/wpuf-admin-functions.php:297
+#: functions/wpuf-admin-functions.php:314
+#: functions/wpuf-admin-functions.php:320
+msgid "This setting will be activated in your other admin login."
+msgstr "Bu seçenek diğer yönetici girişlerinizde aktifleştirilecektir."
+
+#: functions/wpuf-firewall-functions.php:80
+#: functions/wpuf-firewall-functions.php:187
+#: functions/wpuf-firewall-functions.php:653
+msgid "Success! Please wait..."
+msgstr "Başarılı! Lütfen bekleyin..."
+
+#: functions/wpuf-firewall-functions.php:84
+#: functions/wpuf-firewall-functions.php:191
+#: functions/wpuf-firewall-functions.php:366
+#: functions/wpuf-firewall-functions.php:657
+#: functions/wpuf-firewall-functions.php:1118
+msgid "Please verify reCAPTCHA."
+msgstr "ReCAPTCHA Doğrulaması Yapın."
+
+#: functions/wpuf-firewall-functions.php:87
+#: functions/wpuf-firewall-functions.php:194
+#: functions/wpuf-firewall-functions.php:660
+msgid "Please enable JavaScript and verify reCAPTCHA!"
+msgstr ""
+"ReCAPTCHA Doğrulaması Yapabilmek İçin JavaScript Özelliğini Aktifleştirin!"
+
+#: functions/wpuf-firewall-functions.php:109
+#: functions/wpuf-firewall-functions.php:216
+#: functions/wpuf-firewall-functions.php:682
+msgid "Please verify reCAPTCHA!"
+msgstr "Lütfen reCAPTCHA Doğrulaması Yapın!"
+
+#: functions/wpuf-firewall-functions.php:129
+msgid "Attention!"
+msgstr "Uyarı!"
+
+#: functions/wpuf-firewall-functions.php:131
+#: functions/wpuf-firewall-functions.php:238
+#: functions/wpuf-firewall-functions.php:704
+msgid "Submit"
+msgstr "Gönder"
+
+#: functions/wpuf-firewall-functions.php:136
+msgid ""
+"<strong>Information:</strong> Our systems have detected unusual traffic from "
+"your computer network. This page checks to see if it is really you sending "
+"the requests, and not a robot."
+msgstr ""
+"<strong>Bilgi:</strong> Sistemimiz tarayıcınız üzerinden olağanüstü bir "
+"trafik algıladı. Lütfen robot olmadığınızı kanıtlayın."
+
+#: functions/wpuf-firewall-functions.php:137
+#: functions/wpuf-firewall-functions.php:243
+#: functions/wpuf-firewall-functions.php:709
+msgid "Your IP Address:"
+msgstr "IP Adresiniz:"
+
+#: functions/wpuf-firewall-functions.php:138
+#: functions/wpuf-firewall-functions.php:244
+#: functions/wpuf-firewall-functions.php:710
+msgid "Your User Agent:"
+msgstr "User Agent Bilginiz:"
+
+#: functions/wpuf-firewall-functions.php:139
+#: functions/wpuf-firewall-functions.php:245
+#: functions/wpuf-firewall-functions.php:711
+msgid "Time:"
+msgstr "Zaman:"
+
+#: functions/wpuf-firewall-functions.php:236
+#: functions/wpuf-firewall-functions.php:702
+msgid "Please complete the security check."
+msgstr "Lütfen güvenlik doğrulamasını tamamlayın."
+
+#: functions/wpuf-firewall-functions.php:242
+msgid ""
+"<strong>Information:</strong> This page checks to see if it is really you "
+"sending the requests, and not a robot."
+msgstr "<strong>Bilgi:</strong> Robot olup olmadığınızı doğrulayın."
+
+#: functions/wpuf-firewall-functions.php:302
+msgid "Spam Comments detected and blocked:"
+msgstr "Spam yorumlar tespit edildi ve engellendi:"
+
+#: functions/wpuf-firewall-functions.php:374
+#: functions/wpuf-firewall-functions.php:1126
+msgid "Please enable JavaScript and verify reCAPTCHA"
+msgstr ""
+"ReCAPTCHA Doğrulaması Yapabilmek İçin JavaScript Özelliğini Aktifleştirin"
+
+#: functions/wpuf-firewall-functions.php:429
+msgid "REST API disabled."
+msgstr "REST API kapatıldı."
+
+#: functions/wpuf-firewall-functions.php:496
+msgid "Spam Attacks detected and blocked:"
+msgstr "Spam saldırıları tespit edildi ve engellendi:"
+
+#: functions/wpuf-firewall-functions.php:575
+msgid "Brute-Force Attacks detected and blocked:"
+msgstr "Brute-Force saldırıları tespit edildi ve engellendi:"
+
+#: functions/wpuf-firewall-functions.php:708
+msgid ""
+"<strong>Information:</strong> Our systems have detected unrealistic and "
+"potential spam information from your browser. This page checks to see if it "
+"is really you sending the requests, and not a robot."
+msgstr ""
+"<strong>Bilgi:</strong> Sistemlerimiz tarayıcınızı potansiyel-spam olarak "
+"tanımladı. Lütfen robot olup olmadığınızı doğrulayın."
+
+#: functions/wpuf-firewall-functions.php:851
+msgid "Proxy detected and blocked:"
+msgstr "Proxy tespit edildi ve engellendi:"
+
+#: functions/wpuf-firewall-functions.php:937
+msgid "SQL Injection detected and blocked:"
+msgstr "SQL Injection (hacker saldırısı) tespit edildi ve engellendi:"
+
+#: functions/wpuf-optimization-functions.php:298
+msgid "Feeds disabled."
+msgstr "RSS Beslemeleri devre dışı."

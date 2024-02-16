@@ -2,7 +2,7 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul, manzurahammed
 Tags: elementor, elements, widgets, page builder, builder, visual editor, wordpress page builder
 Tested up to: 6.4
-Stable tag: 5.8.7
+Stable tag: 5.8.9
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -88,6 +88,19 @@ List of Extensions :
 * Conditional Display
 
 == Changelog ==
+
+= 5.8.9 - 11/02/2024 =
+
+- Fixed: EA Instagram Feed | Feed is getting broken on the front-end view
+- Fixed: EA Smart Post List | post excerpt doesn't show
+- Fixed: Saved Template Broken issues
+- Improved: Security Enhancement
+- Few minor bug fixes & improvements
+
+= 5.8.8 - 01/02/2024 =
+
+- Fixed: EA Smart Post List | Image is not clickable issue
+- Few minor bug fixes & improvements
 
 = 5.8.7 - 17/01/2024 =
 

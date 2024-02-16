@@ -20,6 +20,7 @@
  * @var int       $total_optimized    Total nubmer of images optimized.
  * @var string|int $stats_percent
  */
+use Smush\App\Admin;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -61,11 +62,18 @@ $this->view(
 				<?php esc_html_e( 'CDN', 'wp-smushit' ); ?>
 			</span>
 			<span class="sui-list-detail">
-				<?php if ( ! WP_Smush::is_pro() ) : ?>
+				<?php
+				if ( ! WP_Smush::is_pro() ) :
+					$cdn_upsell_tooltip = sprintf(
+						/* translators: %d: Number of CDN PoP locations */
+						esc_attr__( 'Multiply the speed and savings! Serve your images from our CDN from %d blazing fast servers around the world.', 'wp-smushit' ),
+						Admin::CDN_POP_LOCATIONS
+					);
+					?>
 					<a href="<?php echo esc_url( $upsell_url_cdn ); ?>" target="_blank" class="smush-upgrade-text">
-						<?php esc_html_e( 'Upgrade', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Upgrade', 'wp-smushit' ); ?>
 					</a>
-					<span class="sui-tooltip sui-tooltip-constrained sui-tooltip-top-right" style="--tooltip-width: 360px;" data-tooltip="<?php esc_attr_e( 'Multiply the speed and savings! Serve your images from our CDN from 114 blazing fast servers around the world.', 'wp-smushit' ); ?>">
+					<span class="sui-tooltip sui-tooltip-constrained sui-tooltip-top-right" style="--tooltip-width: 360px;" data-tooltip="<?php echo esc_attr( $cdn_upsell_tooltip ); ?>">
 						<span class="sui-tag sui-tag-sm sui-tag-purple"><?php esc_html_e( 'Pro', 'wp-smushit' ); ?></span>
 					</span>
 				<?php elseif ( $is_cdn ) : ?>

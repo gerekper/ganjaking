@@ -7,7 +7,7 @@ function UniteCreatorElementorEditorAdmin(){
 	var g_objSettingsPanel;
 	var g_objAddonParams, g_objAddonParamsItems, g_lastAddonName;
 	var g_numRepeaterItems = 0;
-	var g_windowFront, g_searchDataID, g_searchData, g_frontAPI; 
+	var g_windowFront, g_searchDataID, g_searchData, g_frontAPI, g_objBody; 
 	var g_temp = {
 		startTime:0
 	};
@@ -753,11 +753,13 @@ function UniteCreatorElementorEditorAdmin(){
 	 * occure on change of settings panel
 	 */
 	function onSettingsPanelInit(){
-				
+		
 		initSpecialSelects();
-										
+		
 		//init the post type selector if exists
 		postSelectOnLoad();
+		
+		g_objBody.trigger("uc_settings_panel_change");
 		
 	}
 	
@@ -1235,7 +1237,7 @@ function UniteCreatorElementorEditorAdmin(){
 	 * ajax request to unlimited plugin from the editor
 	 */
 	function ajaxRequest(action, data, funcSuccess, funcError){
-				
+		
 		if(!data)
 			var data = {};
 		
@@ -1551,6 +1553,8 @@ function UniteCreatorElementorEditorAdmin(){
 		
 		g_frontAPI.triggerEvent("open_widget_settings", window.ucLastElementorModel);
 		
+		
+		
 	}
 	
 	
@@ -1594,6 +1598,13 @@ function UniteCreatorElementorEditorAdmin(){
 					
 	}
 	
+	/**
+	 * ajax request
+	 */
+	this.ajaxRequest = function(action, ajaxData, response){
+		ajaxRequest(action, ajaxData, response);		
+	}
+
 	
 	/**
 	 * init front end interaction
@@ -1648,6 +1659,8 @@ function UniteCreatorElementorEditorAdmin(){
 	 * init the object
 	 */
 	this.init = function(){
+		
+		g_objBody = jQuery("body");
 		
 		g_objSettingsPanel = jQuery("#elementor-panel");
 		

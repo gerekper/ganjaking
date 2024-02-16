@@ -1123,8 +1123,13 @@ class Permalink_Manager_Third_Parties {
 	 */
 	function bricks_fix_template( $query, $old_query, $uri_parts, $pm_query, $content_type ) {
 		if ( ! empty( $pm_query ) && ! empty( $query['term'] ) && ! empty( $query['taxonomy'] ) ) {
-			unset( $query['taxonomy'] );
-			unset( $query['term'] );
+			$taxonomy = get_taxonomy( $query['taxonomy'] );
+
+			// Check if the taxonomy has a 'query_var'
+			if ( ! empty( $taxonomy->query_var ) ) {
+				unset( $query['taxonomy'] );
+				unset( $query['term'] );
+			}
 		}
 
 		return $query;

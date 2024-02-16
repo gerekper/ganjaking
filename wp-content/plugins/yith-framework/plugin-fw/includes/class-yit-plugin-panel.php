@@ -258,9 +258,24 @@ if ( ! class_exists( 'YIT_Plugin_Panel' ) ) {
 				// Sort plugins by name in YITH Plugins menu.
 				add_action( 'admin_menu', array( __CLASS__, 'sort_plugins' ), 90 );
 				add_filter( 'add_menu_classes', array( __CLASS__, 'add_menu_class_in_yith_plugin' ) );
+				add_filter( 'removable_query_args', array( __CLASS__, 'removable_query_args' ), 10, 2 );
 
 				static::$actions_initialized = true;
 			}
+		}
+
+		/**
+		 * Handle removable query args.
+		 *
+		 * @param array $args Query args to be removed.
+		 *
+		 * @return array
+		 * @since 4.4.2
+		 */
+		public static function removable_query_args( $args ) {
+			$args[] = 'yith-plugin-fw-panel-skip-redirect';
+
+			return $args;
 		}
 
 		/**

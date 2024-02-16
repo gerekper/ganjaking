@@ -6112,7 +6112,7 @@ class ThePlus_Dynamic_Listing extends Widget_Base {
 					$is_archive=1;
 					$ArchivePage = array(
 						'archive_Type' => ($GetType) ? $GetType : '',
-						'archive_Name' => ($PostName) ? $PostName : 'category',
+						'archive_Name' => ($PostName) ? $PostName : '',
 						'archive_Id' => ($GetId) ? $GetId : 0,
 					);
 					

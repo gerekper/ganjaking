@@ -425,7 +425,7 @@ class EVO_AJAX{
 
 
 	// Load single event content
-	// @2.6.13
+	// @2.6.13 
 		public static function load_event_content(){
 
 			// nonce verification

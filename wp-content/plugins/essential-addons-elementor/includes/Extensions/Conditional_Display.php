@@ -988,7 +988,7 @@ class Conditional_Display {
 					$current_time = current_time( 'U' );
 					$from_date    = isset( $cl_logic['recurring_days_duration_from'] ) && $cl_logic['recurring_days_duration_from'] ? strtotime( "{$cl_logic['recurring_days_duration_from']} 00:00:00" ) : $current_time - WEEK_IN_SECONDS;
 					$to_date      = isset( $cl_logic['recurring_days_duration_to'] ) && $cl_logic['recurring_days_duration_to'] ? strtotime( "{$cl_logic['recurring_days_duration_to']} 23:59:59" ) : $current_time + WEEK_IN_SECONDS;
-					$is_today     = isset( $cl_logic['recurring_days_all'] ) && $cl_logic['recurring_days_all'] === 'yes' || in_array(strtolower(date('D')), $cl_logic['recurring_days']);
+					$is_today     = isset( $cl_logic['recurring_days_all'] ) && $cl_logic['recurring_days_all'] === 'yes' || in_array(strtolower(gmdate('D')), $cl_logic['recurring_days']);
 					$from_time    = isset( $cl_logic['from_time'] ) ? strtotime( $cl_logic['from_time'] ) : strtotime( '00:00:00' );
 					$to_time      = isset( $cl_logic['to_time'] ) ? strtotime( $cl_logic['to_time'] ) : strtotime( '23:59:59' );
 

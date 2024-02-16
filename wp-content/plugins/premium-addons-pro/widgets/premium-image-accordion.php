@@ -43,10 +43,6 @@ class Premium_Image_Accordion extends Widget_Base {
 	 */
 	public function check_icon_draw() {
 
-		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
-			return false;
-		}
-
 		$is_enabled = Admin_Helper::check_svg_draw( 'premium-image-accordion' );
 		return $is_enabled;
 	}

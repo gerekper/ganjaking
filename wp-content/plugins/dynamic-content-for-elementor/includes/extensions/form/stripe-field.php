@@ -78,7 +78,7 @@ class StripeField extends \ElementorPro\Modules\Forms\Fields\Field_Base
         $stripe = \DynamicContentForElementor\Plugin::instance()->stripe;
         $stripe_key = $stripe->get_publishable_key();
         if (empty($stripe_key)) {
-            Helper::Notice(esc_html__('Stripe Error: Missing Publishable Key.', 'dynamic-content-for-elementor'));
+            Helper::Notice(\false, esc_html__('Stripe Error: Missing Publishable Key.', 'dynamic-content-for-elementor'));
             return;
         }
         $form->add_render_attribute('input' . $item_index, 'type', 'hidden', \true);

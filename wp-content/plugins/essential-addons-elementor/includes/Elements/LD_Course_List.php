@@ -2812,7 +2812,7 @@ class LD_Course_List extends Widget_Base
     {
         if ($desc && $length) {
 
-            $desc = strip_tags(strip_shortcodes($desc)); //Strips tags and images
+            $desc = wp_strip_all_tags(strip_shortcodes($desc)); //Strips tags and images
             $words = explode(' ', $desc, $length + 1);
 
             if (count($words) > $length) :

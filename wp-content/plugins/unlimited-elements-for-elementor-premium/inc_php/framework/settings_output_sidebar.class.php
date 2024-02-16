@@ -127,7 +127,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 			?>
 			<select
-				class="unite-units-picker"
+				class="unite-units-picker <?php echo count($units) < 2 ? 'unite-hidden' : ''; ?>"
 				data-default="<?php esc_attr_e($defaultUnit); ?>"
 				data-initval="<?php esc_attr_e($initialUnit); ?>"
 			>
@@ -151,8 +151,10 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 		 */
 		protected function drawSettingRow($setting, $mode = ""){
 
+			$addAttr = "";
 			$baseClass = "unite-setting-row";
 
+			$id = UniteFunctionsUC::getVal($setting, "id");
 			$type = UniteFunctionsUC::getVal($setting, "type");
 			$text = UniteFunctionsUC::getVal($setting, "text");
 			$description = UniteFunctionsUC::getVal($setting, "description");
@@ -163,28 +165,25 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 			if(empty($attribsText) && empty($text))
 				$toDrawText = false;
 
-			$settingID = $setting["id"];
-
 			$labelBlock = UniteFunctionsUC::getVal($setting, "label_block");
 			$labelBlock = UniteFunctionsUC::strToBool($labelBlock);
 
 			if($labelBlock === false)
 				$baseClass .= " uc-inline";
 
+			$responsiveId = UniteFunctionsUC::getVal($setting, "responsive_id");
+			$responsiveType = UniteFunctionsUC::getVal($setting, "responsive_type");
 			$isResponsive = UniteFunctionsUC::getVal($setting, "is_responsive");
 			$isResponsive = UniteFunctionsUC::strToBool($isResponsive);
 
-			$responsiveType = UniteFunctionsUC::getVal($setting, "responsive_type");
+			if($isResponsive === true)
+				$addAttr .= " data-responsive-id=\"$responsiveId\" data-responsive-device=\"$responsiveType\"";
 
-			if($isResponsive === true && $responsiveType !== "desktop")
-				$baseClass .= " unite-hidden";
+			$tabsId = UniteFunctionsUC::getVal($setting, "tabs_id");
+			$tabsValue = UniteFunctionsUC::getVal($setting, "tabs_value");
 
-			$addAttr = "";
-
-			if($isResponsive === true){
-				$responsiveId = UniteFunctionsUC::getVal($setting, "responsive_id");
-				$addAttr = "data-responsive-id='$responsiveId' data-responsive-device='$responsiveType'";
-			}
+			if (empty($tabsId) === false && empty($tabsValue) === false)
+				$addAttr .= " data-tabs-id=\"$tabsId\" data-tabs-value=\"$tabsValue\"";
 
 			$units = UniteFunctionsUC::getVal($setting, "units");
 			$unitsSelected = UniteFunctionsUC::getVal($setting, "units_selected");
@@ -193,7 +192,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 			?>
 			<li
-				id="<?php esc_attr_e($settingID); ?>_row"
+				id="<?php esc_attr_e($id); ?>_row"
 				<?php echo UniteProviderFunctionsUC::escAddParam($rowClass); ?>
 				<?php echo UniteProviderFunctionsUC::escAddParam($addAttr); ?>
 				data-type="<?php esc_attr_e($type); ?>"
@@ -203,7 +202,7 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 
 					<?php if($toDrawText === true): ?>
 						<div class="unite-setting-text-wrapper">
-							<div id="<?php echo esc_attr($settingID); ?>_text" class='unite-setting-text' <?php echo UniteProviderFunctionsUC::escAddParam($attribsText); ?>>
+							<div id="<?php echo esc_attr($id); ?>_text" class='unite-setting-text' <?php echo UniteProviderFunctionsUC::escAddParam($attribsText); ?>>
 								<?php echo esc_html($text); ?>
 							</div>
 							<?php if($isResponsive === true): ?>
@@ -324,22 +323,22 @@ class UniteSettingsOutputSidebarUC extends UniteCreatorSettingsOutput{
 					$styleTitle = esc_attr($styleTitle);
 					$styleTitle = " style='$styleTitle'";
 				}
-				
+
 				$isHidden = UniteFunctionsUC::getVal($sap, "hidden");
 				$isHidden = UniteFunctionsUC::strToBool($isHidden);
-				
+
 				if($isHidden == true)
-					$class .= " unite-setting-hidden";	
-				
+					$class .= " unite-setting-hidden";
+
 				$name = UniteFunctionsUC::getVal($sap, "name");
-				
+
 				//generate name if missing
 				if(empty($name))
 					$name = "unnamed_".UniteFunctionsUC::getRandomString();
-				
-				
+
+
 				$sapID = $this->idPrefix."ucsap_{$name}";
-				
+
 			?>
 			<div id="<?php esc_attr_e($sapID)?>" class="<?php esc_attr_e($class); ?>" data-tab="<?php esc_attr_e($tab); ?>">
 

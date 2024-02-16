@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.19.0 - 29-01-2024 */
+/*! elementor-pro - v3.19.0 - 07-02-2024 */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({});
@@ -90,7 +90,7 @@
 /******/ 			if (chunkId === "animated-headline") return "" + chunkId + ".e4c2ed3934d0df18c40a.bundle.js";
 /******/ 			if (chunkId === "media-carousel") return "" + chunkId + ".d8417210e0b731dd32b8.bundle.js";
 /******/ 			if (chunkId === "carousel") return "" + chunkId + ".998a291abf70435fd698.bundle.js";
-/******/ 			if (chunkId === "countdown") return "" + chunkId + ".f6a533f1dcbc65c83181.bundle.js";
+/******/ 			if (chunkId === "countdown") return "" + chunkId + ".60cf02eaf22d71d83f3d.bundle.js";
 /******/ 			if (chunkId === "hotspot") return "" + chunkId + ".70886883c622dd8d5eb2.bundle.js";
 /******/ 			if (chunkId === "form") return "form.efd3434e4ecbe4dd5fc6.bundle.js";
 /******/ 			if (chunkId === "gallery") return "" + chunkId + ".805130d33e18cb04635f.bundle.js";

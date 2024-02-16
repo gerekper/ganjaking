@@ -300,6 +300,56 @@ jQuery(document).ajaxComplete(function (event, request, settings) {
  * End ACF Gallery widget script
  */ 
 /**
+ * Start ACF slider widget script(copy of slider widget script)
+ */
+
+( function( $, elementor ) {
+
+	'use strict';
+
+	var widgetAcfSlider = function( $scope, $ ) {
+
+		var $slider = $scope.find( '.bdt-slider' );
+				
+        if ( ! $slider.length ) {
+            return;
+        }
+
+        var $sliderContainer = $slider.find('.swiper-carousel'),
+			$settings 		 = $slider.data('settings');
+
+		// Access swiper class
+        const Swiper = elementorFrontend.utils.swiper;
+        initSwiper();
+        
+        async function initSwiper() {
+
+			var swiper = await new Swiper($sliderContainer, $settings);
+
+			if ($settings.pauseOnHover) {
+				 $($sliderContainer).hover(function() {
+					(this).swiper.autoplay.stop();
+				}, function() {
+					(this).swiper.autoplay.start();
+				});
+			}
+		};
+
+	};
+
+
+	jQuery(window).on('elementor/frontend/init', function() {
+		elementorFrontend.hooks.addAction( 'frontend/element_ready/bdt-acf-slider.default', widgetAcfSlider );
+	});
+
+}( jQuery, window.elementorFrontend ) );
+
+/**
+ * End ACF slider widget script
+ */
+
+
+/**
  * Start custom calculator widget script
  */
 
@@ -3280,7 +3330,7 @@ function circleJs(id, circleMoving, movingTime, mouseEvent) {
 
     var widgetSimpleContactForm = function ($scope, $) {
 
-        var $contactForm = $scope.find('.bdt-contact-form.without-recaptcha');
+        var $contactForm = $scope.find('.bdt-contact-form .without-recaptcha');
 
         if (!$contactForm.length) {
             return;
@@ -3318,8 +3368,8 @@ function circleJs(id, circleMoving, movingTime, mouseEvent) {
                 var notification = bdtUIkit.notification({
                     message: data
                 });
-                
-                if (redirectURL){
+
+                if (redirectURL) {
                     if (redirectURL != 'no') {
                         bdtUIkit.util.on(document, 'close', function (evt) {
                             if (evt.detail[0] === notification) {
@@ -3328,13 +3378,13 @@ function circleJs(id, circleMoving, movingTime, mouseEvent) {
                         });
                     }
                 }
-                
+
                 localStorage.setItem("bdtCouponCode", $contactForm.attr('id'));
 
                 if (resetStatus) {
                     if (resetStatus !== 'no') {
-                    $contactForm[0].reset();
-                }
+                        $contactForm[0].reset();
+                    }
                 }
 
                 // $contactForm[0].reset();
@@ -4292,8 +4342,6 @@ $(window).on('elementor/frontend/init', function () {
         if (!$formWrapper.length) {
             return;
         }
-
-        console.log($settings);
 
         $($settings.id).find(".bdt-ep-webhook-form-form").submit(function (e) {
             e.preventDefault();

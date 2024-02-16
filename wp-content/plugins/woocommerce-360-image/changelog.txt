@@ -1,5 +1,16 @@
 *** WooCommerce 360 Image Changelog ***
 
+2024-01-29 - version 1.4.0
+* Feature - Declare compatibility with the WooCommerce Cart and Checkout blocks.
+* Tweak - Only remove the plugin data when the `WC_REMOVE_ALL_DATA` constant is set to true.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.5.
+* Tweak - Tested compatibility up to WP 6.4.
+* Dev - Dropped deprecated class `WC_360_Image`.
+* Dev - Changed the plugin namespace to `KoiLab\WC_360_Image`.
+* Dev - Updated the minimum requirements to WC 3.7, WP 4.9, and PHP 5.6.
+
 2023-01-23 - version 1.3.0
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
@@ -40,10 +51,10 @@
 * Tweak - WC 4.5 compatibility.
 
 2020-08-11 - version 1.1.17
-* Tweak    - WordPress 5.5 compatibility.
+* Tweak - WordPress 5.5 compatibility.
 
 2020-07-14 - version 1.1.16
-* Tweak    - Remove CSS margins on 360 images to prevent upward scrolling.
+* Tweak - Remove CSS margins on 360 images to prevent upward scrolling.
 
 2020-06-10 - version 1.1.15
 * Tweak - WC 4.2 compatibility.
@@ -53,16 +64,16 @@
 
 2020-03-04 - version 1.1.13
 * Update - Remove legacy WooThemes checks.
-* Tweak  - Use correct versions for resources.
-* Fix    - Fix elevator effect on images when rotating.
-* Tweak  - WC 4.0 compatibility.
+* Tweak - Use correct versions for resources.
+* Tweak - WC 4.0 compatibility.
+* Fix - Fix elevator effect on images when rotating.
 
 2020-01-15 - version 1.1.12
 * Fix - Image column too wide pushing product title and price down.
 * Fix - Image height is cut off when in fullscreen mode.
 
 2019-11-06 - version 1.1.11
-* Fix   - WC header update.
+* Fix - WC header update.
 
 2019-11-06 - version 1.1.10
 * Tweak - WC tested up to 3.8.
@@ -71,7 +82,7 @@
 * Tweak - WC tested up to 3.7.
 
 2019-04-16 - version 1.1.8
-* Tweak  - WC 3.6 compatibility.
+* Tweak - WC 3.6 compatibility.
 
 2018-09-25 - version 1.1.7
 * Update - WC 3.5 compatibility.
@@ -81,32 +92,32 @@
 * Update - WC 3.4 compatibility.
 
 2018-02-08 - version 1.1.5
- * Fix - Full screen isn't clickable on Mobile.
+* Fix - Full screen isn't clickable on Mobile.
 
 2017-12-13 - version 1.1.4
- * Tweak - Adjusts compatibility to indicate WooCommerce 3.3 compatibility.
+* Tweak - Adjusts compatibility to indicate WooCommerce 3.3 compatibility.
 
 2017-06-26 - version 1.1.3
- * New - Added the new Woo plugin header, for WooCommerce 3.1 compatibility.
+* New - Added the new Woo plugin header, for WooCommerce 3.1 compatibility.
 
 2017-04-03 - version 1.1.2
- * Fix - Additional updates for WooCommerce 3.0 compatibility.
+* Fix - Additional updates for WooCommerce 3.0 compatibility.
 
 2017-02-22 - version 1.1.1
- * Fix - Update for WooCommerce 3.0 compatibility.
+* Fix - Update for WooCommerce 3.0 compatibility.
 
 2015-10-29 - version 1.1.0
- * Fixed unexpected output during plugin activation
- * Introduces wc360_js_playspeed to override speed during playing
- * Update threesixty-slider JS to v2.0.4
- * Added custom JS event 'wc360:init'
- * Better responsive CSS
+* Fixed unexpected output during plugin activation.
+* Introduces wc360_js_playspeed to override speed during playing.
+* Update threesixty-slider JS to v2.0.4.
+* Added custom JS event 'wc360:init'.
+* Better responsive CSS.
 
 2015-03-24 - version 1.0.2
- * Class ‘wc360-product’ added to 360 products
+* Class ‘wc360-product’ added to 360 products.
 
 2014-12-17 - version 1.0.1
- * Fix fatal error on 404s for some people
+* Fix fatal error on 404s for some people.
 
 2014-09-23 - version 1.0.0
- * First Release.
+* First Release.

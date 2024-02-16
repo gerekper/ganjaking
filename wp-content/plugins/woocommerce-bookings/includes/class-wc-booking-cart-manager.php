@@ -13,6 +13,13 @@ class WC_Booking_Cart_Manager {
 	public $id;
 
 	/**
+	 * The logger instance.
+	 *
+	 * @var $log
+	 */
+	public $log;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {

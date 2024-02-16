@@ -113,6 +113,13 @@ trait WooDataSourceTrait
 
     private function getPostData($post, $column)
     {
+        if (isset($post->post_author)) {
+            $user = get_user_by('id', $post->post_author);
+            if ($user) {
+                $post->post_author = $user->display_name;
+            }
+        }
+
         $original_name = $this->get($column['column_settings'], 'wp_post_custom_data_key');
         $value         = '';
         if (property_exists($post, $original_name)) {

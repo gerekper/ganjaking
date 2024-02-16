@@ -1,5 +1,12 @@
 *** WooCommerce Products Compare Changelog ***
 
+2024-01-29 - version 1.4.0
+* Feature - Declare compatibility with the WooCommerce Cart and Checkout blocks.
+* Tweak - Updated the plugin URLs to the new woo.com domain.
+* Tweak - Tested compatibility up to WC 8.5.
+* Dev - Dropped class aliases for the old plugin namespace `Themesquad\WC_Products_Compare`.
+* Dev - Updated the minimum requirements to WC 4.0, WP 5.0 and PHP 7.0.
+
 2023-10-26 - version 1.3.0
 * Feature - Added template to customize the 'Products compare' widget content.
 * Tweak - Tested compatibility up to WC 8.2.

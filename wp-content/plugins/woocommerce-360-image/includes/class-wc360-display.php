@@ -1,22 +1,20 @@
 <?php
 /**
  * WooCommerce 360° Image Display
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-/**
- * WC360 Display Class
  *
- * @package  WooCommerce 360° Image
- * @since    1.0.1
+ * @package WC_360_image
+ * @since   1.0.1
  */
-if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 
+defined( 'ABSPATH' ) || exit;
+
+if ( ! class_exists( 'WC_360_Image_Display' ) ) {
+	/**
+	 * WC360 Display Class.
+	 */
 	class WC_360_Image_Display {
 
-		protected static $instance = null;
+		protected static $instance;
 
 		public function __construct() {
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
@@ -36,7 +34,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 		 */
 		public static function get_instance() {
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
+			if ( ! self::$instance ) {
 				self::$instance = new self();
 			}
 
@@ -79,11 +77,11 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 
 			// Register Scripts / Styles.
 			$threesixty_lib_version = '2.0.4';
-			wp_register_script( 'wc360-threesixty-js', plugins_url( 'lib/threesixty/js/threesixty' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery' ), $threesixty_lib_version, true );
-			wp_register_script( 'wc360-threesixty-fullscreen-js', plugins_url( 'lib/threesixty/js/plugins/threesixty.fullscreen.js', dirname( __FILE__ ) ), array( 'jquery', 'wc360-threesixty-js' ), $threesixty_lib_version, true );
-			wp_register_style( 'wc360-threesixty-css', plugins_url( 'lib/threesixty/css/threesixty.css', dirname( __FILE__ ) ), array(), $threesixty_lib_version );
-			wp_register_script( 'wc360-js', plugins_url( 'assets/js/wc360' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery', 'wc360-threesixty-js', 'wc360-threesixty-fullscreen-js' ), WC_360_IMAGE_VERSION, true );
-			wp_register_style( 'wc360-css', plugins_url( 'assets/css/wc360.css', dirname( __FILE__ ) ), array( 'wc360-threesixty-css' ), WC_360_IMAGE_VERSION );
+			wp_register_script( 'wc360-threesixty-js', WC_360_IMAGE_URL . 'lib/threesixty/js/threesixty' . $suffix . '.js', array( 'jquery' ), $threesixty_lib_version, true );
+			wp_register_script( 'wc360-threesixty-fullscreen-js', WC_360_IMAGE_URL . 'lib/threesixty/js/plugins/threesixty.fullscreen.js', array( 'jquery', 'wc360-threesixty-js' ), $threesixty_lib_version, true );
+			wp_register_style( 'wc360-threesixty-css', WC_360_IMAGE_URL . 'lib/threesixty/css/threesixty.css', array(), $threesixty_lib_version );
+			wp_register_script( 'wc360-js', WC_360_IMAGE_URL . 'assets/js/wc360' . $suffix . '.js', array( 'jquery', 'wc360-threesixty-js', 'wc360-threesixty-fullscreen-js' ), WC_360_IMAGE_VERSION, true );
+			wp_register_style( 'wc360-css', WC_360_IMAGE_URL . 'assets/css/wc360.css', array( 'wc360-threesixty-css' ), WC_360_IMAGE_VERSION );
 
 			if ( $this->display_bool() ) {
 				wp_enqueue_script( 'wc360-js' );
@@ -104,12 +102,12 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 					width: 41%;
 				}
 				<?php
-					// Show Full Screen Plugin (if enabled)
-					if ( get_option( 'wc360_fullscreen_enable', 'no' ) === 'no' ) {
-						echo '#container.wc360-container .fullscreen-button {
+				// Show Full Screen Plugin (if enabled)
+				if ( get_option( 'wc360_fullscreen_enable', 'no' ) === 'no' ) {
+					echo '#container.wc360-container .fullscreen-button {
 							display: none !important;
 						}';
-					}
+				}
 				?>
 			</style>
 			<?php
@@ -138,7 +136,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 			// The following inserts the code for Google Rich Snippets / schema.org
 			?>
 
-			<a href="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>" itemprop="image" style="display: none;"></a>
+			<a href="<?php echo esc_url( wp_get_attachment_url( get_post_thumbnail_id() ) ); ?>" itemprop="image" style="display: none;"></a>
 
 			<?php
 			do_action( 'wc360_after_image' );
@@ -167,7 +165,6 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 				// Control the speed of play button rotation.
 				'playspeed'  => apply_filters( 'wc360_js_playspeed', 100 ),
 			);
-
 		}
 
 		/**
@@ -215,7 +212,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 				} else {
 					// If it's cropped & the shortcode defines a width, calculate the height
 					if ( $shortcode_width ) {
-						$ratio = $image_size_array['width'] / $shortcode_width;
+						$ratio  = $image_size_array['width'] / $shortcode_width;
 						$height = $image_size_array['height'] / $ratio;
 					} else {
 						// If hard cropped and no shortcode width, height is the set image size's height

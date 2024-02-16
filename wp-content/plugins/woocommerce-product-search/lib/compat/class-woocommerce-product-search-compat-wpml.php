@@ -23,6 +23,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Engine;
+use com\itthinx\woocommerce\search\engine\Engine_Stage;
+
 /**
  * WPML compatibility.
  */
@@ -45,6 +48,23 @@ class WooCommerce_Product_Search_Compat_WPML {
 		add_action( 'wcml_after_sync_product_data', array( __CLASS__, 'wcml_after_sync_product_data' ), 10, 3 );
 
 		add_filter( 'woocommerce_product_search_request_term_ids_exclude', array( __CLASS__, 'woocommerce_product_search_request_term_ids_exclude'), 10, 3 );
+
+		add_action( 'init', array( __CLASS__, 'wp_init' ), 100 );
+	}
+
+	/**
+	 * Hooked on the init action.
+	 */
+	public static function wp_init() {
+
+		global $sitepress;
+
+		if ( !empty( $sitepress ) && is_object( $sitepress ) ) {
+			add_filter( 'woocommerce_product_search_engine_cache_context', array( __CLASS__, 'woocommerce_product_search_engine_cache_context' ), 10, 2 );
+			add_filter( 'woocommerce_product_search_engine_stage_cache_context', array( __CLASS__, 'woocommerce_product_search_engine_stage_cache_context' ), 10, 2 );
+			add_filter( 'woocommerce_product_search_filter_product_loop_cache_context', array( __CLASS__, 'woocommerce_product_search_filter_product_loop_cache_context' ), 10, 3 );
+			add_filter( 'woocommerce_product_search_term_control_get_term_counts_cache_context', array( __CLASS__, 'woocommerce_product_search_term_control_get_term_counts_cache_context' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -345,6 +365,99 @@ class WooCommerce_Product_Search_Compat_WPML {
 			$exclude = array_unique( array_merge( $exclude, $translated_term_ids ) );
 		}
 		return $exclude;
+	}
+
+	/**
+	 * Establish language-dependent cache context.
+	 *
+	 * @param array $cache_context
+	 * @param Engine $engine
+	 *
+	 * @return array
+	 */
+	public static function woocommerce_product_search_engine_cache_context( $cache_context, $engine ) {
+		global $sitepress;
+		if (
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'get_current_language' )
+		) {
+			$current = $sitepress->get_current_language();
+			if ( !empty( $current ) && $current !== 'all' ) {
+				$cache_context['lang'] = $current;
+			}
+		}
+		return $cache_context;
+	}
+
+	/**
+	 * Establish language-dependent cache context.
+	 *
+	 * @param array $cache_context
+	 * @param Engine_Stage $stage
+	 *
+	 * @return array
+	 */
+	public static function woocommerce_product_search_engine_stage_cache_context( $cache_context, $stage ) {
+		global $sitepress;
+		if (
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'get_current_language' )
+		) {
+			$current = $sitepress->get_current_language();
+			if ( !empty( $current ) && $current !== 'all' ) {
+				$cache_context['lang'] = $current;
+			}
+		}
+		return $cache_context;
+	}
+
+	/**
+	 * Establish language-dependent cache context.
+	 *
+	 * @param array $cache_context
+	 * @param array $atts shortcode attributes
+	 * @param string $loop_name identifies the product filter loop
+	 *
+	 * @return array
+	 */
+	public static function woocommerce_product_search_filter_product_loop_cache_context( $cache_context, $atts, $loop_name ) {
+		global $sitepress;
+		if (
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'get_current_language' )
+		) {
+			$current = $sitepress->get_current_language();
+			if ( !empty( $current ) && $current !== 'all' ) {
+				$cache_context['lang'] = $current;
+			}
+		}
+		return $cache_context;
+	}
+
+	/**
+	 * Establish language-dependent cache context.
+	 *
+	 * @param array $cache_context
+	 * @param string $taxonomy
+	 *
+	 * @return array
+	 */
+	public static function woocommerce_product_search_term_control_get_term_counts_cache_context( $cache_context, $taxonomy ) {
+		global $sitepress;
+		if (
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'get_current_language' )
+		) {
+			$current = $sitepress->get_current_language();
+			if ( !empty( $current ) && $current !== 'all' ) {
+				$cache_context['lang'] = $current;
+			}
+		}
+		return $cache_context;
 	}
 }
 

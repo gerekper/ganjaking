@@ -130,11 +130,11 @@
 	from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
 }
 
-@-webkit-keyframes moveToRight { 
+@-webkit-keyframes moveToRight {
 	from { }
 	to { -webkit-transform: translateX(100%); }
 }
-@keyframes moveToRight { 
+@keyframes moveToRight {
 	from { }
 	to { -webkit-transform: translateX(100%); transform: translateX(100%); }
 }

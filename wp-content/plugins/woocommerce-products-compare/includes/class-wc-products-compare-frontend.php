@@ -33,7 +33,6 @@ class WC_Products_Compare_Frontend {
 	 * Constructor.
 	 *
 	 * @since 1.0.0
-	 * @return bool
 	 */
 	public function __construct() {
 		self::$instance = $this;
@@ -62,8 +61,6 @@ class WC_Products_Compare_Frontend {
 		// Yoast SEO Compatability.
 		add_filter( 'wpseo_title', array( $this, 'add_page_title' ) );
 		add_filter( 'wpseo_breadcrumb_single_link_info', array( $this, 'add_page_title' ) );
-
-		return true;
 	}
 
 	/**

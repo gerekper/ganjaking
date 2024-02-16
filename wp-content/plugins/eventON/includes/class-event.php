@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.5.8
+ * @version 4.5.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -34,7 +34,7 @@ class EVO_Event extends EVO_Data_Store{
 
 	private $help;
 
-	public $event_data, $end_unix; 
+	public $event_data, $end_unix_raw, $end_unix, $gmt; 
 
 	public function __construct($event_id, $event_pmv='', $ri = 0, $force_data_set = true, $post=false){
 
@@ -43,18 +43,13 @@ class EVO_Event extends EVO_Data_Store{
 		$this->post_type = 'ajde_events';		
 		$this->meta_array_key = '_edata';		
 		
-		if($force_data_set){			
-			$this->set_event_data($event_pmv);
-		} 		
+		if($force_data_set)	$this->set_event_data( $event_pmv );
 		
-
 		// set event offset from utc 0
 			$tz_string = $this->get_timezone_key();
 			$this->utc_offset = $this->utcoff = $this->help->_get_tz_offset_seconds( $tz_string );
 			$this->gmt = $this->help->get_timezone_gmt( $tz_string, $this->start_unix );
 			$this->event_tz = $this->tz = new DateTimeZone( $tz_string );
-
-			//echo $this->utc_offset;
 
 		$this->localize_edata();
 		$this->ri = $ri;
@@ -205,7 +200,7 @@ class EVO_Event extends EVO_Data_Store{
 				$this->_process_eventtimes();
 			}
 
-		// convert the updated raw UTC0 time to event timezone
+		// convert the updated raw UTC0 time to event timezone u4.5.9
 			private function _process_newraw_to_etz(){
 
 				// if initial and adjuted unix saved in event @4.5.8
@@ -215,58 +210,29 @@ class EVO_Event extends EVO_Data_Store{
 					return;
 				}
 
-				// get event time pieces @UTC0 -- as saved in event
-				$this->DD->setTimezone( EVO()->calendar->timezone0 );
-				$this->DD->setTimestamp( $this->start_unix_raw );
-
-				$R1 = $this->DD->format('Y-n-d-H-i-s');
-				$R1 = explode('-', $R1);
-
-				$this->DD->setTimestamp( $this->end_unix_raw );
-
-				$R2 = $this->DD->format('Y-n-d-H-i-s');
-				$R2 = explode('-', $R2);
-
-				// create time @ event timezone
-				$this->DD->setTimezone( $this->tz );
-				$this->DD->setDate( $R1[0] , $R1[1], $R1[2] )->setTime( $R1[3] , $R1[4], 0 );
-
-				$this->start_unix = $this->DD->format('U');
-
-				$this->DD->setDate( $R2[0] , $R2[1], $R2[2] )->setTime( $R2[3] , $R2[4], $R2[5] );
-
-				$this->end_unix = $this->DD->format('U');
+				$this->start_unix =  $this->__get_tz_based_unix( $this->start_unix_raw );
+				$this->end_unix =  $this->__get_tz_based_unix( $this->end_unix_raw );				
 			}
 
 		// if its year, month, day long event return correct start end unix
-		// @+ 4.5.8
-			private function _process_raw_time($unix, $type='start'){
-				
-				// adjust DD to timezone
-				$this->DD->setTimezone(  EVO()->calendar->timezone0 )->setTimestamp($unix);
-
-				if($this->is_year_long()){
-					($type == 'start')? $this->DD->modify( 'first day of january this year') : 
-						$this->DD->modify( 'last day of december this year');
-					($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
-
-					return $this->DD->format('U');
-				}else{
-
-					if($this->is_month_long()){
-						($type == 'start') ? $this->DD->modify('first day of this month'):$this->DD->modify('last day of this month');
-						($type == 'start')? $this->DD->setTime(0,0,0): $this->DD->setTime(23,59,59);
-						return $this->DD->format('U');
-					
-					// if all day event
-					}elseif( $this->is_all_day() ){
-						( $type == 'start') ? $this->DD->setTime(0,0,0) : $this->DD->setTime(23,59,59);
-						return $this->DD->format('U');
-					}
-					return $unix;
-				}
+		// @+ 4.5.9
+			private function _process_raw_time($unix, $time_type='start'){
+				return __evo_process_raw_utc_time( $unix , $this->get_time_ext_type() , $time_type );
 			}		
 
+		// convert utc0 based unix to event tz based unix
+		// @4.5.9
+			public function __get_tz_based_unix( $unix ){
+				// create datetime obj @utc0 using unix
+				$this->DD->setTimezone( EVO()->calendar->timezone0 );
+				$this->DD->setTimestamp( $unix );
+
+				// create new datetime with event tz using date numbers from utc0
+				$newD = new DateTime( $this->DD->format( 'Y/m/d H:i'), $this->tz );
+
+				return $newD->format('U');
+
+			}
 
 		// current and future @u 4.5.5
 			function is_current_event( $cutoff='end'){
@@ -330,7 +296,7 @@ class EVO_Event extends EVO_Data_Store{
 
 		// @u 4.5.4
 		function seconds_to_start_event($CT = ''){			
-			if(empty($CT)) $CT = EVO()->calendar->utc_time ;
+			if(empty($CT)) $CT = $this->timenow_etz;
 
 			$t = $this->start_unix - $CT;
 			return ($t<=0) ? false: $t;
@@ -430,12 +396,14 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 		
-		// u4.5.7
-		function get_formatted_smart_time($custom_ri='', $tz = 'utc', $utc = false ){
+		// u4.5.9
+		function get_formatted_smart_time($custom_ri='', $tz = 'etz', $utc = false ){
 			$wp_time_format = get_option('time_format');
 			$wp_date_format = get_option('date_format');
 
 			$times = $this->get_start_end_times($custom_ri, 'both', $utc );
+
+			if( $tz == 'etz') $tz = $this->tz; // 4.5.9
 
 			$start_ar = eventon_get_formatted_time( $times['start'] , $tz);
 			$end_ar = eventon_get_formatted_time( $times['end'] , $tz);
@@ -580,7 +548,6 @@ class EVO_Event extends EVO_Data_Store{
 			if( EVO()->cal->check_yn('evo_tzo_all','evcal_1') || $use_default ){
 				return EVO()->cal->get_prop('evo_global_tzo','evcal_1');
 			}
-
 			return 'UTC';
 		}
 
@@ -616,13 +583,12 @@ class EVO_Event extends EVO_Data_Store{
 			return $repeats[ $index ];
 		}
 
-		// next repeat instance that is current (not past) @updated 4.3
+		// next repeat instance that is current (not past) u4.5.9
 		function get_next_current_repeat($current_ri_index, $check_by = 'start', $type = 'next_current'){
 			$repeats = $this->get_repeats();
 			if(!$repeats) return false;
 
-			$current_time = $this->timenow_etz;
-			
+			$current_time = $this->timenow_etz;			
 			$return = false;
 
 			// return last repeat
@@ -638,9 +604,12 @@ class EVO_Event extends EVO_Data_Store{
 					if($index<= $current_ri_index) continue;
 				}				
 
+				$ri_start = $this->__get_tz_based_unix( $repeat[0] );
+				$ri_end = $this->__get_tz_based_unix( $repeat[1] );
+
 				// check if start time of repeat is current
-				if($check_by == 'start' && $repeat[0]>=  $current_time) $return = true;
-				if($check_by != 'start' && $repeat[1]>=  $current_time) $return = true;
+				if($check_by == 'start' && $ri_start >=  $current_time) $return = true;
+				if($check_by != 'start' && $ri_end >=  $current_time) $return = true;
 
 				if($return)	return array('ri'=>$index, 'times'=>$repeat);
 			}

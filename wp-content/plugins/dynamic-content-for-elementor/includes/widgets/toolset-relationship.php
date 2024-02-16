@@ -198,7 +198,8 @@ class ToolsetRelationship extends \DynamicContentForElementor\Widgets\WidgetProt
                             }
                         }
                         if ($settings['toolset_relation_render'] == 'template' && $settings['toolset_relation_template']) {
-                            echo do_shortcode('[dce-elementor-template id="' . $settings['toolset_relation_template'] . '"]');
+                            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                            echo $template_system->build_elementor_template_special(['id' => $settings['toolset_relation_template']]);
                         } elseif ($settings['toolset_relation_render'] == 'text') {
                             echo \DynamicContentForElementor\Tokens::do_tokens($settings['toolset_relation_text']);
                         } else {

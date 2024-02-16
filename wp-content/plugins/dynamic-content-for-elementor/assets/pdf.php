@@ -70,12 +70,8 @@ if ($element_id && $id) {
     }
     if ($template_id || $id) {
         if ($template_id) {
-            $set_post = '';
-            if ($id) {
-                $set_post = ' post_id="' . $id . '"';
-            }
-            $pdf_shortcode = '[dce-elementor-template id="' . $template_id . '"' . $set_post . ']';
-            $pdf_html = do_shortcode($pdf_shortcode);
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            $pdf_html = $template_system->build_elementor_template_special(['id' => $template_id, 'post_id' => $id]);
         } else {
             $cookies = array();
             foreach ($_COOKIE as $name => $value) {

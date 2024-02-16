@@ -17,6 +17,13 @@ class WC_Email_New_Booking extends WC_Email {
 	public $subject_confirmation = '';
 
 	/**
+	 * Heading for pending confirmation emails.
+	 *
+	 * @var string
+	 */
+	public $heading_confirmation = '';
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

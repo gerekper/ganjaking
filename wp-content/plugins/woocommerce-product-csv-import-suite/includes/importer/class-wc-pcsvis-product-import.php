@@ -295,7 +295,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 							if ( $enc ) {
 								setlocale( LC_ALL, 'en_US.' . $enc );
 							}
-							@ini_set( 'auto_detect_line_endings', true );
+
+							if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+								@ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+							}
 
 							$count             = 0;
 							$previous_position = 0;
@@ -602,7 +605,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		if ( $enc ) {
 			setlocale( LC_ALL, 'en_US.' . $enc );
 		}
-		@ini_set( 'auto_detect_line_endings', true );
+
+		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+			@ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		}
 
 		// Get headers
 		if ( ( $handle = fopen( $file, "r" ) ) !== FALSE ) {

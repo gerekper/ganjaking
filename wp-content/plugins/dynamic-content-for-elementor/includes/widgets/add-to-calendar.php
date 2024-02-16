@@ -94,7 +94,7 @@ class AddToCalendar extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $date_to = $settings['dce_calendar_datetime_format'] != 'string' ? $settings['dce_calendar_datetime_end'] : $settings['dce_calendar_datetime_end_string'];
         // Don't render if the start date is empty
         if (empty($date_from)) {
-            Helper::notice('', __('Please enter the start date', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Please enter the start date', 'dynamic-content-for-elementor'));
             return;
         }
         // Date Format

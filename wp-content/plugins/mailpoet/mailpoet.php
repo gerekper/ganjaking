@@ -1,23 +1,11 @@
 <?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
-add_action( 'plugins_loaded', function() {
-  add_filter( 'pre_http_request', function( $pre, $args, $url ) {
-    if ( strpos( $url, 'https://bridge.mailpoet.com/api/v0/' ) !== false ) {
-      return [
-        'response' => [ 'code' => 200, 'message' => 'ОК' ],
-        'body' => json_encode( [ 'is_approved' => 'true' ] ),
-      ];
-    }
-    return $pre;
-  }, 10, 3 );
-} );
-
 if (!defined('ABSPATH')) exit;
 
 
 /*
  * Plugin Name: MailPoet
- * Version: 4.42.0
+ * Version: 4.43.1
  * Plugin URI: https://www.mailpoet.com
  * Description: Create and send newsletters, post notifications and welcome emails from your WordPress.
  * Author: MailPoet
@@ -34,8 +22,26 @@ if (!defined('ABSPATH')) exit;
  * @since 3.0.0-beta.1
  */
 
+/* Disable updates notification */
+add_filter( 'site_transient_update_plugins', function( $value ) {
+  unset( $value->response['mailpoet/mailpoet.php'] );
+  return $value;
+} );
+
+add_action( 'plugins_loaded', function() {
+  add_filter( 'pre_http_request', function( $pre, $args, $url ) {
+    if ( strpos( $url, 'https://bridge.mailpoet.com/api/v0/' ) !== false ) {
+      return [
+        'response' => [ 'code' => 200, 'message' => 'ОК' ],
+        'body' => json_encode( [ 'is_approved' => 'true' ] ),
+      ];
+    }
+    return $pre;
+  }, 10, 3 );
+} );
+
 $mailpoetPlugin = [
-  'version' => '4.42.0',
+  'version' => '4.43.1',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',

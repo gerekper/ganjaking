@@ -403,16 +403,13 @@ class AnimatedOffCanvasMenu extends \DynamicContentForElementor\Widgets\WidgetPr
 						<?php 
         if ($settings['dynamic_template_before_choice'] && $settings['dynamic_template_before']) {
             ?>
-						<div class="dce-template-before">
-							<?php 
-            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                $inlinecss = 'inlinecss="true"';
-            } else {
-                $inlinecss = '';
-            }
-            echo do_shortcode('[dce-elementor-template id="' . $settings['dynamic_template_before'] . '" ' . $inlinecss . ']');
+							<div class="dce-template-before">
+								<?php 
+            $atts = ['id' => $settings['dynamic_template_before'], 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special($atts);
             ?>
-						</div>
+							</div>
 						<?php 
         }
         ?>
@@ -426,16 +423,13 @@ class AnimatedOffCanvasMenu extends \DynamicContentForElementor\Widgets\WidgetPr
 						<?php 
         if ($settings['dynamic_template_after_choice'] && $settings['dynamic_template_after']) {
             ?>
-						<div class="dce-template-after">
-							<?php 
-            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                $inlinecss = 'inlinecss="true"';
-            } else {
-                $inlinecss = '';
-            }
-            echo do_shortcode('[dce-elementor-template id="' . $settings['dynamic_template_after'] . '" ' . $inlinecss . ']');
+							<div class="dce-template-after">
+								<?php 
+            $atts = ['id' => $settings['dynamic_template_after'], 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special($atts);
             ?>
-						</div>
+							</div>
 						<?php 
         }
         ?>

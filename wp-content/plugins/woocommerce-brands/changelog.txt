@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2024-02-14 - version 1.6.64
+* Tweak - Bump WC requires at least to 6.0.
+* Tweak - WC 8.6 compatibility.
+
 2024-01-09 - version 1.6.63
 * Tweak - Changed minimum WC version to 5.0.
 * Tweak - WC 8.5 compatibility.

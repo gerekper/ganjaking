@@ -739,7 +739,7 @@ class Post_List extends Widget_Base
                 'type' => Controls_Manager::HEADING,
                 'condition' => [
                     'eael_post_list_post_feature_image' => 'yes',
-                    'eael_post_list_layout_type' => 'advanced',
+                    'eael_post_list_layout_type' => [ 'advanced', 'default', 'preset-2' ],
                 ],
             ]
         );
@@ -754,7 +754,7 @@ class Post_List extends Widget_Base
                 'return_value' => 'true',
                 'condition' => [
                     'eael_post_list_post_feature_image' => 'yes',
-                    'eael_post_list_layout_type' => 'advanced',
+                    'eael_post_list_layout_type' => [ 'advanced', 'default', 'preset-2' ],
                 ],
             ]
         );
@@ -769,7 +769,7 @@ class Post_List extends Widget_Base
                 'return_value' => 'true',
                 'condition' => [
                     'eael_post_list_post_feature_image' => 'yes',
-                    'eael_post_list_layout_type' => 'advanced',
+                    'eael_post_list_layout_type' => [ 'advanced', 'default', 'preset-2' ],
                 ],
                 'separator' => 'after',
             ]
@@ -2308,7 +2308,7 @@ class Post_List extends Widget_Base
             if ($settings['eael_post_list_terms'] === 'yes') {
 	            $template = $this->get_template($this->get_settings('eael_post_list_layout_type'));
 	            $dir_name = method_exists( $this, 'get_temp_dir_name' ) ? $this->get_temp_dir_name( $this->get_filename_only($template) ) : "pro";
-                echo '<div class="post-categories" data-nonce="'.wp_create_nonce( 'load_more' ).'" data-page-id="'.$this->page_id.'" data-widget-id="'.$this->get_id().'" data-template=' . json_encode(['dir'   => $dir_name, 'file_name' => $this->get_filename_only($template), 'name' => $this->process_directory_name()], 1) . ' data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($data_settings) . '" data-page="1" data-scroll-on-pagination="' . esc_attr( $eael_post_list_scroll_on_pagination ) . '" data-scroll-offset="' . esc_attr( $eael_post_list_scroll_offset ) . '" >
+                echo '<div class="post-categories" data-nonce="'.wp_create_nonce( 'load_more' ).'" data-page-id="'.$this->page_id.'" data-widget-id="'.$this->get_id().'" data-template=' . wp_json_encode(['dir'   => $dir_name, 'file_name' => $this->get_filename_only($template), 'name' => $this->process_directory_name()], 1) . ' data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($data_settings) . '" data-page="1" data-scroll-on-pagination="' . esc_attr( $eael_post_list_scroll_on_pagination ) . '" data-scroll-offset="' . esc_attr( $eael_post_list_scroll_offset ) . '" >
                             <a href="javascript:;" data-taxonomy="all" data-id="" class="active post-list-filter-item post-list-cat-' . $this->get_id() . '">' . __($settings['eael_post_list_topbar_term_all_text'], 'essential-addons-elementor') . '</a>';
 
                 if (!empty($args['tax_query'])) {
@@ -2454,7 +2454,7 @@ class Post_List extends Widget_Base
             $eael_post_list_pagination_prev_icon = (isset($settings['__fa4_migrated']['eael_post_list_pagination_prev_icon_new']) || empty($settings['eael_post_list_pagination_prev_icon']) ? $settings['eael_post_list_pagination_prev_icon_new']['value'] : $settings['eael_post_list_pagination_prev_icon']);
             $eael_post_list_pagination_next_icon = (isset($settings['__fa4_migrated']['eael_post_list_pagination_next_icon_new']) || empty($settings['eael_post_list_pagination_next_icon']) ? $settings['eael_post_list_pagination_next_icon_new']['value'] : $settings['eael_post_list_pagination_next_icon']);
 	        $dir_name = method_exists( $this, 'get_temp_dir_name' ) ? $this->get_temp_dir_name( $this->get_filename_only($template) ) : "pro";
-            echo '<div class="post-list-pagination"  data-nonce="'.wp_create_nonce( 'load_more' ).'" data-page-id="'.$this->page_id.'" data-widget-id="'.$this->get_id().'" data-template=' . json_encode(['dir'   => $dir_name, 'file_name' => $this->get_filename_only($template), 'name' => $this->process_directory_name()], 1) . ' data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($data_settings) . '" data-page="1" data-scroll-on-pagination="' . esc_attr( $eael_post_list_scroll_on_pagination ) . '" data-scroll-offset="' . esc_attr( $eael_post_list_scroll_offset ) . '" >
+            echo '<div class="post-list-pagination"  data-nonce="'.wp_create_nonce( 'load_more' ).'" data-page-id="'.$this->page_id.'" data-widget-id="'.$this->get_id().'" data-template=' . wp_json_encode(['dir'   => $dir_name, 'file_name' => $this->get_filename_only($template), 'name' => $this->process_directory_name()], 1) . ' data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($data_settings) . '" data-page="1" data-scroll-on-pagination="' . esc_attr( $eael_post_list_scroll_on_pagination ) . '" data-scroll-offset="' . esc_attr( $eael_post_list_scroll_offset ) . '" >
                 <button class="btn btn-prev-post" id="post-nav-prev-' . $this->get_id() . '" disabled="true">';
                     if (isset($settings['__fa4_migrated']['eael_post_list_pagination_prev_icon_new']) || empty($settings['eael_post_list_pagination_prev_icon'])) {
                         Icons_Manager::render_icon( $settings['eael_post_list_pagination_prev_icon_new'], [ 'aria-hidden' => 'true' ] );

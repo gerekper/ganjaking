@@ -18,8 +18,8 @@ require_once $folderIncludes . 'html_output_base.class.php';
 
 require_once $folderProvider."include_provider.php";
 
+require_once $folderIncludes . 'http/includes.php';
 require_once $folderIncludes . 'db.class.php';
-
 require_once $folderIncludes . 'settings.class.php';
 require_once $folderIncludes . 'cssparser.class.php';
 require_once $folderIncludes . 'settings_advances.class.php';

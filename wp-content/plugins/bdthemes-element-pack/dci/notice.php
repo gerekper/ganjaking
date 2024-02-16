@@ -104,7 +104,9 @@ if ( ! function_exists( 'dci_popup_notice' ) ) {
 					</div>
 				</div>
 				<?php
+				
 	}
+	
 
 	// add_action( 'in_admin_header', 'dci_popup_notice', 99999 );
 }

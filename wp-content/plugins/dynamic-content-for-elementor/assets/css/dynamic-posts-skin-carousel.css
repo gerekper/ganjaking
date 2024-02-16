@@ -1,6 +1,6 @@
 /* fix bug of carousel getting bigger and bigger in some cases */
 .dce-posts-container.swiper-container, .dce-posts-container.swiper {
-    max-width: 100%;
+	max-width: 100%;
 }
 
 .dce-dynamic-posts-collection:after {

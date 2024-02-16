@@ -52,7 +52,7 @@ $editing = isset($table_vars['editing']) ? $table_vars['editing'] : null;
                                     $script = "const {$inputElementVar} = document.getElementById('{$key}');
                                                 {$inputElementVar}.addEventListener('input', function() {
                                                     const inputText = {$inputElementVar}.value;
-                                                    const pattern = /[^0-9.,]/g;
+                                                    const pattern = /[^0-9.,-]/g;
                                                     {$inputElementVar}.value = inputText.replace(pattern, '');
                                                 });";
 

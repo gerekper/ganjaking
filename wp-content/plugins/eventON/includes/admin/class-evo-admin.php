@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon/Admin
- * @version     4.5
+ * @version     4.5.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -208,7 +208,7 @@ class evo_admin {
 			
 			wp_enqueue_style("jquery-ui-css", $protocol."://ajax.googleapis.com/ajax/libs/jqueryui/{$jquery_version}/themes/smoothness/jquery-ui.min.css");
 			
-			wp_enqueue_style( 'backend_evcal_post',AJDE_EVCAL_URL.'/assets/css/admin/backend_evcal_post.css', array(), EVO()->version );
+			wp_enqueue_style( 'evo_event_post',AJDE_EVCAL_URL.'/assets/css/admin/event_post.css', array(), EVO()->version );
 			wp_enqueue_style( 'select2',AJDE_EVCAL_URL.'/assets/lib/select2/select2.css',array(), EVO()->version);
 
 			

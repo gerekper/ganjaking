@@ -4,10 +4,10 @@
 .elementor-widget-dyncontel-pods .tx-before{
 
 }
-.elementor-widget-dyncontel-pods.forcewidth-yes img, 
+.elementor-widget-dyncontel-pods.forcewidth-yes img,
 .elementor-widget-dyncontel-pods.forcewidth-yes .pods-image{
-    width: 100%;
-    display: block;
+	width: 100%;
+	display: block;
 }
 .elementor-widget-dyncontel-pods .mask{
   overflow: hidden;
@@ -29,7 +29,7 @@
   margin-left: auto;
 }
 .elementor-widget-dyncontel-pods .pods-image:hover .dce-overlay_hover{
-    opacity: 1;
+	opacity: 1;
 }
 .elementor-widget-dyncontel-pods .pods-bg-image{
   position: relative;
@@ -43,7 +43,7 @@
 .elementor-widget-dyncontel-pods iframe,
 .elementor-widget-dyncontel-pods object,
 .elementor-widget-dyncontel-pods video {
-    display: block;
+	display: block;
 }
 .elementor-widget-dyncontel-pods .elementor-open-inline .elementor-custom-embed-image-overlay {
   position: absolute;

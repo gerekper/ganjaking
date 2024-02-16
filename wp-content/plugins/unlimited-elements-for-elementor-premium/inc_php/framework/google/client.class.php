@@ -2,10 +2,6 @@
 
 abstract class UEGoogleAPIClient{
 
-	const METHOD_GET = "GET";
-	const METHOD_PUT = "PUT";
-	const METHOD_POST = "POST";
-
 	const PARAM_QUERY = "__query__";
 
 	private $accessToken;
@@ -66,7 +62,7 @@ abstract class UEGoogleAPIClient{
 	 */
 	protected function get($endpoint, $params = array()){
 
-		return $this->request(self::METHOD_GET, $endpoint, $params);
+		return $this->request(UEHttpRequest::METHOD_GET, $endpoint, $params);
 	}
 
 	/**
@@ -80,7 +76,7 @@ abstract class UEGoogleAPIClient{
 	 */
 	protected function put($endpoint, $params = array()){
 
-		return $this->request(self::METHOD_PUT, $endpoint, $params);
+		return $this->request(UEHttpRequest::METHOD_PUT, $endpoint, $params);
 	}
 
 	/**
@@ -94,7 +90,7 @@ abstract class UEGoogleAPIClient{
 	 */
 	protected function post($endpoint, $params = array()){
 
-		return $this->request(self::METHOD_POST, $endpoint, $params);
+		return $this->request(UEHttpRequest::METHOD_POST, $endpoint, $params);
 	}
 
 	/**
@@ -109,7 +105,9 @@ abstract class UEGoogleAPIClient{
 	 */
 	private function request($method, $endpoint, $params = array()){
 
-		$query = ($method === self::METHOD_GET && $params) ? $params : array();
+		$url = $this->getBaseUrl() . $endpoint;
+		$query = ($method === UEHttpRequest::METHOD_GET) ? $params : array();
+		$body = ($method !== UEHttpRequest::METHOD_GET) ? $params : array();
 
 		if(empty($params[self::PARAM_QUERY]) === false){
 			$query = array_merge($query, $params[self::PARAM_QUERY]);
@@ -119,76 +117,35 @@ abstract class UEGoogleAPIClient{
 
 		$query = array_merge($query, $this->getAuthParams());
 
-		$body = ($method !== self::METHOD_GET && $params) ? json_encode($params) : null;
+		$request = UEHttp::make();
+		$request->asJson();
+		$request->acceptJson();
+		$request->cacheTime($this->cacheTime);
+		$request->withQuery($query);
+		$request->withBody($body);
 
-		$url = $this->getBaseUrl() . $endpoint . "?" . http_build_query($query);
+		$request->validateResponse(function($response){
 
-		$cacheKey = $this->getCacheKey($url);
-		$cacheTime = ($method === self::METHOD_GET) ? $this->cacheTime : 0;
+			$data = $response->json();
 
-		$response = UniteProviderFunctionsUC::rememberTransient($cacheKey, $cacheTime, function() use ($method, $url, $body){
-
-			$headers = array(
-				"Accept: application/json",
-				"Content-Type: application/json",
-			);
-
-			$curl = curl_init();
-
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-			$response = curl_exec($curl);
-			$response = json_decode($response, true);
-
-			$error = curl_error($curl);
-			$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-			curl_close($curl);
-
-			if($error)
-				throw new Exception($error);
-
-			if($response === null)
-				throw new Exception("Unable to parse the response (status code $code).", $code);
-
-			if(empty($response["error"]) === false){
-				$error = $response["error"];
+			if(empty($data["error"]) === false){
+				$error = $data["error"];
 				$message = $error["message"];
 				$status = isset($error["status"]) ? $error["status"] : $error["code"];
 
-				throw new Exception("$message ($status)");
-			}elseif(empty($response["error_message"]) === false){
-				$message = $response["error_message"];
-				$status = isset($response["status"]) ? $response["status"] : $response["code"];
+				$this->throwError("$message ($status)");
+			}elseif(empty($data["error_message"]) === false){
+				$message = $data["error_message"];
+				$status = isset($data["status"]) ? $data["status"] : $data["code"];
 
-				throw new Exception("$message ($status)");
+				$this->throwError("$message ($status)");
 			}
-
-			return $response;
 		});
 
-		return $response;
-	}
+		$response = $request->request($method, $url);
+		$data = $response->json();
 
-	/**
-	 * Get the cache key for the URL.
-	 *
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	private function getCacheKey($url){
-
-		$key = "google:" . md5($url);
-
-		return $key;
+		return $data;
 	}
 
 	/**
@@ -205,7 +162,20 @@ abstract class UEGoogleAPIClient{
 		if(empty($this->apiKey) === false)
 			return array("key" => $this->apiKey);
 
-		throw new Exception("Either an access token or an API key must be specified.");
+		$this->throwError("Either an access token or an API key must be specified.");
+	}
+
+	/**
+	 * Thrown an exception with the given message.
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	private function throwError($message){
+
+		UniteFunctionsUC::throwError("Google API Error: $message");
 	}
 
 }

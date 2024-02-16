@@ -9,6 +9,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
+	const SUB_SETTINGS_SELECTOR_PLACEHOLDER = "{{SELECTOR}}";
 
 	/**
 	 * add settings provider types
@@ -248,17 +249,17 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		//---- exclude user -----
 
 		$arrAuthors = UniteFunctionsWPUC::getArrAuthorsShort();
-		
+
 		$arrAuthorsFlipped = array_flip($arrAuthors);
-		
-		
+
+
 		//---------- exclude users new ---------
-						
+
 		$this->addPostIDSelect($name."_exclude_authors", __("Exclude Users", "unlimited-elements-for-elementor"), $arrConditionCustom, "users");
-		
-		
+
+
 		//---- include users -----
-		
+
 		$params = array();
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
 		$params["is_multiple"] = true;
@@ -958,42 +959,61 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 	 */
 	protected function addBackgroundSettings($name, $value, $title, $param){
 
-		$arrTypes = array();
-		$arrTypes["none"] = __("No Background", "unlimited-elements-for-elementor");
-		$arrTypes["solid"] = __("Solid", "unlimited-elements-for-elementor");
-		$arrTypes["gradient"] = __("Gradient", "unlimited-elements-for-elementor");
+		$selector = UniteFunctionsUC::getVal($param, "selector");
 
-		$arrTypes = array_flip($arrTypes);
+		// type
+		$types = array_flip(array(
+			"none" => __("None", "unlimited-elements-for-elementor"),
+			"solid" => __("Solid", "unlimited-elements-for-elementor"),
+			"gradient" => __("Gradient", "unlimited-elements-for-elementor"),
+		));
 
-		$type = UniteFunctionsUC::getVal($param, "background_type", "none");
+		$typeName = $name . "_type";
+		$typeTitle = sprintf(__("%s Type", "unlimited-elements-for-elementor"), $title);
+		$typeDefault = UniteFunctionsUC::getVal($param, "background_type", "none");
+		$typeParams = array("selector" => $selector);
 
-		$this->addRadio($name."_type", $arrTypes, "Background Type", $type);
+		$this->addSelect($typeName, $types, $typeTitle, $typeDefault, $typeParams);
 
-		$solid = UniteFunctionsUC::getVal($param, "solid_color");
-		$gradient1 = UniteFunctionsUC::getVal($param, "gradient_color1");
-		$gradient2 = UniteFunctionsUC::getVal($param, "gradient_color2");
+		// solid color
+		$solidTitle = sprintf(__("%s Color", "unlimited-elements-for-elementor"), $title);
+		$solidDefault = UniteFunctionsUC::getVal($param, "solid_color");
 
-		$this->addHr();
+		$solidParams = array(
+			"elementor_condition" => array($typeName => "solid"),
+			"selector" => $selector,
+			"selector_value" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "color"),
+		);
 
-		//solid color
-		$this->startBulkControl($name."_type", "show", "solid");
+		$this->addColorPicker($name . "_color_solid", $solidDefault, $solidTitle, $solidParams);
 
-			$this->addColorPicker($name."_color_solid", $solid, __("Solid Color", "unlimited-elements-for-elementor"));
+		// gradient color
+		$gradientName1 = $name . "_color_gradient1";
+		$gradientName2 = $name . "_color_gradient2";
+		$gradientTitle1 = sprintf(__("%s Start Color", "unlimited-elements-for-elementor"), $title);
+		$gradientTitle2 = sprintf(__("%s End Color", "unlimited-elements-for-elementor"), $title);
+		$gradientDefault1 = UniteFunctionsUC::getVal($param, "gradient_color1");
+		$gradientDefault2 = UniteFunctionsUC::getVal($param, "gradient_color2");
 
-		$this->endBulkControl();
+		$gradientGroupSelectorName = $name . "_gradient";
 
-		//gradient color
-		$this->startBulkControl($name."_type", "show", "gradient");
+		$gradientParams = array(
+			"elementor_condition" => array($typeName => "gradient"),
+			"group_selector" => $gradientGroupSelectorName,
+		);
 
-			$this->addColorPicker($name."_color_gradient1", $gradient1, __("Gradient Color1", "unlimited-elements-for-elementor"));
-			$this->addColorPicker($name."_color_gradient2", $gradient2, __("Gradient Color2", "unlimited-elements-for-elementor"));
+		$this->addColorPicker($gradientName1, $gradientDefault1, $gradientTitle1, $gradientParams);
+		$this->addColorPicker($gradientName2, $gradientDefault2, $gradientTitle2, $gradientParams);
 
-		$this->endBulkControl();
+		$gradientGroupSelector = $selector;
+		$gradientGroupSelectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "gradient");
+		$gradientGroupSelectorReplace = array("{{COLOR1}}" => $gradientName1, "{{COLOR2}}" => $gradientName2);
 
+		$this->addGroupSelector($gradientGroupSelectorName, $gradientGroupSelector, $gradientGroupSelectorValue, $gradientGroupSelectorReplace);
 	}
 
-	private function __________POSTS_______(){}
 
+	private function __________POSTS_______(){}
 
 	/**
 	 * add post ID select
@@ -1033,8 +1053,8 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 			$addAttrib = " data-datatype='users'";
 			$placeholder = "All--Users";
 		}
-		
-		
+
+
 		if(isset($params["placeholder"])){
 			$placeholder = $params["placeholder"];
 		}
@@ -1872,23 +1892,23 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["elementor_condition"] = $arrCustomOnlyCondition;
 
 		$this->addHr($name."_before_exclude_by",$params);
-		
+
 		// --------- add include by cetrain terms (for related posts) -------------
-				
+
 		$arrTaxonomies = UniteFunctionsWPUC::getAllTaxonomiesAssoc();
-		
+
 		$params = array();
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
 		$params["is_multiple"] = true;
 		$params["description"] = __("When selected, posts with listed taxonomies only will be included","unlimited-elements-for-elementor");
-		
+
 		$params["elementor_condition"] = $arrRelatedOnlyCondition;
-		
+
 		$arrTaxonomies = array_flip($arrTaxonomies);
-				
+
 		$this->addMultiSelect($name."_related_taxonomies", $arrTaxonomies, __("Include By Taxonomies", "unlimited-elements-for-elementor"), "", $params);
-		
-		
+
+
 		// --------- add exclude by -------------
 
 		$arrExclude = array();
@@ -2755,7 +2775,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
 	private function __________MULTISOURCE_______(){}
 
-
 	/**
 	 * add items multisource
 	 */
@@ -2764,12 +2783,9 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		//pro version - add all settings
 
 		if(GlobalsUC::$isProVersion == true){
-
-			require_once GlobalsUC::$pathPro."provider_settings_multisource_pro.class.php";
+			require_once GlobalsUC::$pathPro . "provider_settings_multisource_pro.class.php";
 			$objMultisourceSettings = new UniteCreatorSettingsMultisourcePro();
-
-		}else {
-
+		}else{
 			//free version - add placeholders
 
 			$objMultisourceSettings = new UniteCreatorSettingsMultisource();
@@ -2777,21 +2793,42 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
 		$objMultisourceSettings->setSettings($this);
 		$objMultisourceSettings->addItemsMultisourceSettings($name, $value, $title, $param);
-
 	}
 
 
-	private function __________TYPOGRAPHY_______(){}
+	private function __________DIALOG_SETTINGS_______(){}
+
+	/**
+	 * add dialog settings
+	 */
+	public function addDialogSettings($type){
+
+		switch($type){
+			case UniteCreatorSettings::TYPE_TYPOGRAPHY:
+				$this->addTypographyDialogSettings();
+			break;
+			case UniteCreatorSettings::TYPE_TEXTSHADOW:
+				$this->addTextShadowDialogSettings();
+			break;
+			case UniteCreatorSettings::TYPE_BOXSHADOW:
+				$this->addBoxShadowDialogSettings();
+			break;
+			case UniteCreatorSettings::TYPE_CSS_FILTERS:
+				$this->addCssFiltersDialogSettings();
+			break;
+			default:
+				UniteFunctionsUC::throwError(__FUNCTION__ . " Error: Dialog type \"$type\" is not implemented");
+		}
+	}
 
 	/**
 	 * add typography dialog settings
 	 */
-	public function addTypographyDialogSettings(){
+	private function addTypographyDialogSettings(){
 
 		$data = HelperUC::getFontPanelData();
 		$type = UniteCreatorDialogParam::PARAM_TYPOGRAPHY;
 		$units = array("px", "%", "em", "rem");
-		$selector = "{{SELECTOR}}";
 		$defaultTitle = __("Default", "unlimited-elements-for-elementor");
 
 		$responsive = array(
@@ -2806,7 +2843,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$fontFamily = array_flip($fontFamily);
 
 		$params = array();
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "family");
 
 		$this->addSelect("font_family", $fontFamily, __("Font Family", "unlimited-elements-for-elementor"), "", $params);
@@ -2817,7 +2854,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 200;
 		$params["step"] = 1;
 		$params["units"] = $units;
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "size");
 		$params["is_responsive"] = true;
 		$params["responsive_id"] = "font_size";
@@ -2834,7 +2871,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$fontWeight = array_flip($fontWeight);
 
 		$params = array();
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "weight");
 
 		$this->addSelect("font_weight", $fontWeight, __("Weight", "unlimited-elements-for-elementor"), "", $params);
@@ -2845,7 +2882,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$textTransform = array_flip($textTransform);
 
 		$params = array();
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "transform");
 
 		$this->addSelect("text_transform", $textTransform, __("Transform", "unlimited-elements-for-elementor"), "", $params);
@@ -2856,7 +2893,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$fontStyle = array_flip($fontStyle);
 
 		$params = array();
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "style");
 
 		$this->addSelect("font_style", $fontStyle, __("Style", "unlimited-elements-for-elementor"), "", $params);
@@ -2867,7 +2904,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$textDecoration = array_flip($textDecoration);
 
 		$params = array();
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "decoration");
 
 		$this->addSelect("text_decoration", $textDecoration, __("Decoration", "unlimited-elements-for-elementor"), "", $params);
@@ -2878,7 +2915,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 200;
 		$params["step"] = 1;
 		$params["units"] = $units;
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "line-height");
 		$params["is_responsive"] = true;
 		$params["responsive_id"] = "line_height";
@@ -2895,7 +2932,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 10;
 		$params["step"] = 0.1;
 		$params["units"] = $units;
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "letter-spacing");
 		$params["is_responsive"] = true;
 		$params["responsive_id"] = "letter_spacing";
@@ -2912,7 +2949,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 100;
 		$params["step"] = 1;
 		$params["units"] = $units;
-		$params["selector"] = $selector;
+		$params["selector"] = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "word-spacing");
 		$params["is_responsive"] = true;
 
@@ -2921,6 +2958,259 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
 			$this->addRangeSlider("word_spacing" . $responsiveSuffix, "", __("Word Spacing", "unlimited-elements-for-elementor"), $params);
 		}
+	}
+
+	/**
+	 * add text shadow dialog settings
+	 */
+	private function addTextShadowDialogSettings(){
+
+		$type = UniteCreatorDialogParam::PARAM_TEXTSHADOW;
+		$groupSelectorName = $type;
+
+		// color
+		$colorName = "color";
+
+		$params = array();
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addColorPicker($colorName, "", __("Color", "unlimited-elements-for-elementor"), $params);
+
+		// blur
+		$blurName = "blur";
+		$blurDefault = 10;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
+
+		// x
+		$xName = "x";
+		$xDefault = 0;
+
+		$params = array();
+		$params["min"] = -100;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($xName, $xDefault, __("Horizontal", "unlimited-elements-for-elementor"), $params);
+
+		// y
+		$yName = "y";
+		$yDefault = 0;
+
+		$params = array();
+		$params["min"] = -100;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($yName, $yDefault, __("Vertical", "unlimited-elements-for-elementor"), $params);
+
+		// group selector
+		$groupSelector = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
+		$groupSelectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_TEXTSHADOW);
+
+		$groupSelectorReplace = array(
+			"{{X}}" => $xName,
+			"{{Y}}" => $yName,
+			"{{BLUR}}" => $blurName,
+			"{{COLOR}}" => $colorName,
+		);
+
+		$this->addGroupSelector($groupSelectorName, $groupSelector, $groupSelectorValue, $groupSelectorReplace);
+	}
+
+	/**
+	 * add box shadow dialog settings
+	 */
+	private function addBoxShadowDialogSettings(){
+
+		$type = UniteCreatorDialogParam::PARAM_BOXSHADOW;
+		$groupSelectorName = $type;
+
+		// color
+		$colorName = "color";
+
+		$params = array();
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addColorPicker($colorName, "", __("Color", "unlimited-elements-for-elementor"), $params);
+
+		// x
+		$xName = "x";
+		$xDefault = 0;
+
+		$params = array();
+		$params["min"] = -100;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($xName, $xDefault, __("Horizontal", "unlimited-elements-for-elementor"), $params);
+
+		// y
+		$yName = "y";
+		$yDefault = 0;
+
+		$params = array();
+		$params["min"] = -100;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($yName, $yDefault, __("Vertical", "unlimited-elements-for-elementor"), $params);
+
+		// blur
+		$blurName = "blur";
+		$blurDefault = 10;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
+
+		// spread
+		$spreadName = "spread";
+		$spreadDefault = 0;
+
+		$params = array();
+		$params["min"] = -100;
+		$params["max"] = 100;
+		$params["step"] = 1;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($spreadName, $spreadDefault, __("Spread", "unlimited-elements-for-elementor"), $params);
+
+		// position
+		$positions = array_flip(array(
+			" " => __("Outline", "unlimited-elements-for-elementor"),
+			"inset" => __("Inset", "unlimited-elements-for-elementor"),
+		));
+
+		$positionName = "position";
+		$positionDefault = " ";
+
+		$params = array();
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addSelect($positionName, $positions, __("Position", "unlimited-elements-for-elementor"), $positionDefault, $params);
+
+		// group selector
+		$groupSelector = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
+		$groupSelectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BOXSHADOW);
+
+		$groupSelectorReplace = array(
+			"{{X}}" => $xName,
+			"{{Y}}" => $yName,
+			"{{BLUR}}" => $blurName,
+			"{{SPREAD}}" => $spreadName,
+			"{{COLOR}}" => $colorName,
+			"{{POSITION}}" => $positionName,
+		);
+
+		$this->addGroupSelector($groupSelectorName, $groupSelector, $groupSelectorValue, $groupSelectorReplace);
+	}
+
+	/**
+	 * add css filters dialog settings
+	 */
+	private function addCssFiltersDialogSettings(){
+
+		$type = UniteCreatorDialogParam::PARAM_CSS_FILTERS;
+		$groupSelectorName = $type;
+
+		// blur
+		$blurName = "blur";
+		$blurDefault = 0;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 10;
+		$params["step"] = 0.1;
+		$params["units"] = array("px");
+		$params["show_units"] = false;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
+
+		// brightness
+		$brightnessName = "brightness";
+		$brightnessDefault = 100;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 200;
+		$params["step"] = 1;
+		$params["units"] = array("%");
+		$params["show_units"] = false;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($brightnessName, $brightnessDefault, __("Brightness", "unlimited-elements-for-elementor"), $params);
+
+		// contrast
+		$contrastName = "contrast";
+		$contrastDefault = 100;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 200;
+		$params["step"] = 1;
+		$params["units"] = array("%");
+		$params["show_units"] = false;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($contrastName, $contrastDefault, __("Contrast", "unlimited-elements-for-elementor"), $params);
+
+		// saturation
+		$saturationName = "saturation";
+		$saturationDefault = 100;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 200;
+		$params["step"] = 1;
+		$params["units"] = array("%");
+		$params["show_units"] = false;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($saturationName, $saturationDefault, __("Saturation", "unlimited-elements-for-elementor"), $params);
+
+		// hue
+		$hueName = "hue";
+		$hueDefault = 0;
+
+		$params = array();
+		$params["min"] = 0;
+		$params["max"] = 360;
+		$params["step"] = 1;
+		$params["units"] = array("deg");
+		$params["show_units"] = false;
+		$params["group_selector"] = $groupSelectorName;
+
+		$this->addRangeSlider($hueName, $hueDefault, __("Hue", "unlimited-elements-for-elementor"), $params);
+
+		// group selector
+		$groupSelector = self::SUB_SETTINGS_SELECTOR_PLACEHOLDER;
+		$groupSelectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_CSS_FILTERS);
+
+		$groupSelectorReplace = array(
+			"{{BLUR}}" => $blurName,
+			"{{BRIGHTNESS}}" => $brightnessName,
+			"{{CONTRAST}}" => $contrastName,
+			"{{SATURATE}}" => $saturationName,
+			"{{HUE}}" => $hueName,
+		);
+
+		$this->addGroupSelector($groupSelectorName, $groupSelector, $groupSelectorValue, $groupSelectorReplace);
 	}
 
 }

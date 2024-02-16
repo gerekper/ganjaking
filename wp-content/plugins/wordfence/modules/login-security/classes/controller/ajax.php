@@ -25,7 +25,7 @@ class Controller_AJAX {
 	}
 	
 	public function init() {
-		$this->_actions = array(
+		$this->_actions = array(      
 			'authenticate' => array(
 				'handler' => array($this, '_ajax_authenticate_callback'),
 				'nopriv' => true,
@@ -57,17 +57,17 @@ class Controller_AJAX {
 			),
 			'save_options' => array(
 				'handler' => array($this, '_ajax_save_options_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to change options.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to change options.', 'wordfence'); }), //These are deliberately written as closures to be executed later so that WP doesn't load the translations too early, which can cause it not to pick up user-specific language settings
 				'required_parameters' => array('nonce', 'changes'),
 			),
 			'send_grace_period_notification' => array(
 				'handler' => array($this, '_ajax_send_grace_period_notification_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to send notifications.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to send notifications.', 'wordfence'); }),
 				'required_parameters' => array('nonce', 'role', 'url'),
 			),
 			'update_ip_preview' => array(
 				'handler' => array($this, '_ajax_update_ip_preview_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to change options.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to change options.', 'wordfence'); }),
 				'required_parameters' => array('nonce', 'ip_source', 'ip_source_trusted_proxies'),
 			),
 			'dismiss_notice' => array(
@@ -77,32 +77,32 @@ class Controller_AJAX {
 			),
 			'reset_recaptcha_stats' => array(
 				'handler' => array($this, '_ajax_reset_recaptcha_stats_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to reset reCAPTCHA statistics.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to reset reCAPTCHA statistics.', 'wordfence'); }),
 				'required_parameters' => array('nonce'),
 			),
 			'reset_2fa_grace_period' => array (
 				'handler' => array($this, '_ajax_reset_2fa_grace_period_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to reset the 2FA grace period.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to reset the 2FA grace period.', 'wordfence'); }),
 				'required_parameters' => array('nonce', 'user_id')
 			),
 			'revoke_2fa_grace_period' => array (
 				'handler' => array($this, '_ajax_revoke_2fa_grace_period_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to revoke the 2FA grace period.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to revoke the 2FA grace period.', 'wordfence'); }),
 				'required_parameters' => array('nonce', 'user_id')
 			),
 			'reset_ntp_failure_count' => array(
 				'handler' => array($this, '_ajax_reset_ntp_failure_count_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to reset the NTP failure count.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to reset the NTP failure count.', 'wordfence'); }),
 				'required_parameters' => array(),
 			),
 			'disable_ntp' => array(
 				'handler' => array($this, '_ajax_disable_ntp_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to disable NTP.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to disable NTP.', 'wordfence'); }),
 				'required_parameters' => array(),
 			),
 			'dismiss_persistent_notice' => array(
 				'handler' => array($this, '_ajax_dismiss_persistent_notice_callback'),
-				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => __('You do not have permission to dismiss this notice.', 'wordfence')),
+				'permissions' => array(Controller_Permissions::CAP_MANAGE_SETTINGS => function() { return __('You do not have permission to dismiss this notice.', 'wordfence'); }),
 				'required_parameters' => array('nonce', 'notice_id')
 			)
 		);
@@ -159,7 +159,7 @@ class Controller_AJAX {
 				$user = wp_get_current_user();
 				foreach ($parameters['permissions'] as $permission => $error) {
 					if (!user_can($user, $permission)) {
-						self::send_json(array('error' => $error));
+						self::send_json(array('error' => $error()));
 					}
 				}
 			}

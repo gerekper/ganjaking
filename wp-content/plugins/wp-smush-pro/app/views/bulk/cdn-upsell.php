@@ -7,6 +7,7 @@
  * @var bool  $background_in_processing Whether background is in processing or not.
  * @var string $bulk_upgrade_url        CDN upgrade url.
  */
+use Smush\App\Admin;
 ?>
 <div class="sui-box-body sui-margin-top wp-smush-upsell-cdn <?php echo ! $background_in_processing ? ' sui-hidden' : ''; ?>">
 	<div class="smush-box-image">
@@ -16,7 +17,13 @@
 		</div>
 	<div class="sui-box-content">
 		<p>
-		<?php esc_html_e( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide.', 'wp-smushit' ); ?>
+		<?php
+		printf(
+			/* translators: %d: Number of CDN PoP locations */
+			esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans %d servers worldwide.', 'wp-smushit' ),
+			Admin::CDN_POP_LOCATIONS
+		);
+		?>
 		</p>
 		<a href="<?php echo esc_url( $bulk_upgrade_url ); ?>" class="smush-upsell-link" target="_blank">
 			<?php

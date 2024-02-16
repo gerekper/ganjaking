@@ -102,11 +102,13 @@ class UniteCreatorActions{
 		$data = UniteProviderFunctionsUC::normalizeAjaxInputData($data);
 
 		try{
-			if(method_exists("UniteProviderFunctionsUC", "verifyNonce")){
-				$nonce = UniteFunctionsUC::getPostGetVariable("nonce", "", UniteFunctionsUC::SANITIZE_NOTHING);
-				UniteProviderFunctionsUC::verifyNonce($nonce);
-			}
-						
+			
+			//protection - it's intended to logged in users only with the capabilities defined in the plugin
+			
+			$nonce = UniteFunctionsUC::getPostGetVariable("nonce", "", UniteFunctionsUC::SANITIZE_NOTHING);
+			UniteProviderFunctionsUC::verifyNonce($nonce);
+			
+			
 			switch($action){
 				case "remove_category":
 

@@ -72,7 +72,7 @@ class SegmentsRepository extends Repository {
       ->getResult();
   }
 
-  public function getWPUsersSegment(): ?SegmentEntity {
+  public function getWPUsersSegment(): SegmentEntity {
     $segment = $this->findOneBy(['type' => SegmentEntity::TYPE_WP_USERS]);
 
     if (!$segment) {

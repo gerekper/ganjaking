@@ -5,7 +5,7 @@
  * @since 1.3.0
  */
 
-namespace Themesquad\WC_360_Image\Internal\Traits;
+namespace KoiLab\WC_360_Image\Internal\Traits;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -477,7 +477,7 @@ class Ajax {
 
 		// For media Library.
 		if ( 'nextgen' !== $_POST['type'] ) {
-			$resmush_list = get_option( $key );
+			
 			if ( ! empty( $resmush_list ) && is_array( $resmush_list ) ) {
 				$stats = WP_Smush::get_instance()->core()->get_stats_for_attachments( $resmush_list );
 			}

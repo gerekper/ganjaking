@@ -37,7 +37,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			Core::check_bulk_limit( true );
 			add_action( 'smush_setting_column_tag', array( $this, 'add_pro_tag' ) );
 		}
-		add_action( 'smush_setting_column_tag', array( $this, 'add_lossy_new_tag' ) );
 
 		add_action( 'smush_setting_column_right_inside', array( $this, 'settings_desc' ), 10, 2 );
 		add_action( 'smush_setting_column_right_inside', array( $this, 'auto_smush' ), 15, 2 );
@@ -618,25 +617,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'backup_exists'    => $backup_exists,
 			)
 		);
-	}
-
-	/**
-	 * Show a "new" tag near the super-smush option for free users.
-	 *
-	 * @since 3.10.0
-	 * @since 3.14.0 Showing the new tag for all users after adding Ultra level.
-	 *
-	 * @param string $name Option name.
-	 *
-	 * @return void
-	 */
-	public function add_lossy_new_tag( $name ) {
-		if ( 'lossy' !== $name ) {
-			return;
-		}
-		?>
-		<span class="sui-tag smush-sui-tag-new"><?php esc_html_e( 'New', 'wp-smushit' ); ?></span>
-		<?php
 	}
 
 	public function add_pro_tag( $name ) {

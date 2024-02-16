@@ -18,11 +18,12 @@
  * @var string          $background_in_processing_notice
  * @var string  		$in_processing_notice
  */
+use Smush\Core\Stats\Global_Stats;
+use Smush\App\Admin;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-use Smush\Core\Stats\Global_Stats;
 
 if ( 0 !== absint( $total_count ) ) :
 	if ( $background_processing_enabled ) {
@@ -89,7 +90,11 @@ $this->view( 'list-errors', array(), 'views/bulk' );
 </div>
 <?php
 if ( ! $can_use_background ) {
-	$global_upsell_desc = __( 'Process images 2x faster, leave this page while Bulk Smush runs in the background, and serve streamlined next-gen images via Smush’s 114-point CDN and Local WebP features.', 'wp-smushit' );
+	$global_upsell_desc = sprintf(
+		/* translators: %d: Number of CDN PoP locations */
+		__( 'Process images 2x faster, leave this page while Bulk Smush runs in the background, and serve streamlined next-gen images via Smush’s %d-point CDN and Local WebP features.', 'wp-smushit' ),
+		Admin::CDN_POP_LOCATIONS
+	);
 
 	$this->view(
 		'global-upsell',

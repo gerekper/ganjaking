@@ -117,11 +117,11 @@ class Select2 extends \DynamicContentForElementor\Extensions\ExtensionPrototype
                 echo $jkey;
                 ?>);
 				});
-		  	<?php 
+			<?php 
             }
             ?>
-						 	 })(jQuery, window);
-		  	</script>
+							  })(jQuery, window);
+			  </script>
 			<?php 
             $add_js = \ob_get_clean();
             if ($has_select2) {

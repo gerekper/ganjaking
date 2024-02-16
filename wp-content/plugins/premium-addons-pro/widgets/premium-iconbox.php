@@ -47,10 +47,6 @@ class Premium_Iconbox extends Widget_Base {
 	 */
 	public function check_icon_draw() {
 
-		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
-			return false;
-		}
-
 		$is_enabled = Admin_Helper::check_svg_draw( 'premium-iconbox' );
 		return $is_enabled;
 	}
@@ -1244,6 +1240,14 @@ class Premium_Iconbox extends Widget_Base {
 			)
 		);
 
+        if ( version_compare( PREMIUM_ADDONS_VERSION, '4.10.17', '>' ) ) {
+            Helper_Functions::add_btn_hover_controls( $this, array(
+                    'premium_icon_box_link_switcher' => 'yes',
+                    'box_link!'  => 'yes',
+                )
+            );
+        }
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2062,21 +2066,13 @@ class Premium_Iconbox extends Widget_Base {
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			array(
-				'name'     => 'premium_icon_box_link_shadow_normal',
-				'selector' => '{{WRAPPER}} .premium-icon-box-more',
-			)
-		);
-
 		$this->add_control(
 			'premium_icon_box_link_background_normal',
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-icon-box-more' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link, {{WRAPPER}} .premium-button-style2-shutinhor:before, {{WRAPPER}} .premium-button-style2-shutinver:before, {{WRAPPER}} .premium-button-style5-radialin:before, {{WRAPPER}} .premium-button-style5-rectin:before' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -2085,7 +2081,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_link_border_normal',
-				'selector' => '{{WRAPPER}} .premium-icon-box-more',
+				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link',
 			)
 		);
 
@@ -2096,8 +2092,16 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-more' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
+			)
+		);
+
+        $this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'premium_icon_box_link_shadow_normal',
+				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link',
 			)
 		);
 
@@ -2108,7 +2112,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-more' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2120,7 +2124,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-icon-box-more' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2137,23 +2141,68 @@ class Premium_Iconbox extends Widget_Base {
 		$this->add_control(
 			'premium_icon_box_link_color_hover',
 			array(
-				'label'     => __( 'Text Hover Color', 'premium-addons-pro' ),
+				'label'     => __( 'Text Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover'   => 'color: {{VALUE}};',
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more svg, {{WRAPPER}} .premium-icon-box-more:hover svg'   => 'fill: {{VALUE}} !important',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover, {{WRAPPER}} .premium-button-line6::after'   => 'color: {{VALUE}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more svg, {{WRAPPER}} .premium-icon-box-link:hover svg'   => 'fill: {{VALUE}} !important',
 				),
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+        $this->add_control(
+			'underline_color',
 			array(
-				'name'     => 'premium_icon_box_link_shadow_hover',
-				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover',
+				'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg'   => 'stroke: {{VALUE}};',
+                    '{{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before'   => 'background-color: {{VALUE}};'
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+				),
+			)
+		);
+
+        $this->add_control(
+			'first_layer_hover',
+			array(
+				'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+
+				),
+			)
+		);
+
+		$this->add_control(
+			'second_layer_hover',
+			array(
+				'label'     => __( 'Layer #2 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+				),
 			)
 		);
 
@@ -2162,8 +2211,11 @@ class Premium_Iconbox extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
 				'selectors' => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -2172,7 +2224,7 @@ class Premium_Iconbox extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'premium_icon_box_link_border_hover',
-				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover',
+				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover',
 			)
 		);
 
@@ -2183,8 +2235,16 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
+			)
+		);
+
+        $this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'premium_icon_box_link_shadow_hover',
+				'selector' => '{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover',
 			)
 		);
 
@@ -2195,7 +2255,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2207,7 +2267,7 @@ class Premium_Iconbox extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-more:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}.premium-icon-box-whole-text-yes:hover .premium-icon-box-more, {{WRAPPER}} .premium-icon-box-link:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2646,9 +2706,24 @@ class Premium_Iconbox extends Widget_Base {
 		}
 
 		if ( 'yes' !== $settings['box_link'] ) {
-			$this->add_render_attribute( 'link', 'class', 'premium-icon-box-link' );
+
+            $effect_class = '';
+            if ( version_compare( PREMIUM_ADDONS_VERSION, '4.10.17', '>' ) ) {
+                $effect_class = Helper_Functions::get_button_class( $settings );
+            }
+
+            $this->add_render_attribute( 'link', array(
+                'class' => array(
+                    'premium-icon-box-link',
+                    $effect_class
+                ),
+                'data-text' =>  $settings['premium_icon_box_more_text']
+            ));
+
 		} else {
+
 			$this->add_render_attribute( 'link', 'class', 'premium-icon-box-whole-link' );
+
 		}
 
 		$icon_type = $settings['premium_icon_box_selector'];
@@ -2730,6 +2805,7 @@ class Premium_Iconbox extends Widget_Base {
 		}
 
 		if ( 'yes' === $settings['premium_icon_box_link_switcher'] ) {
+
 			if ( ! empty( $settings['premium_icon_box_more_icon'] ) ) {
 				$this->add_render_attribute(
 					'more_icon',
@@ -2776,9 +2852,10 @@ class Premium_Iconbox extends Widget_Base {
 		<?php endif; ?>
 		<div class="premium-icon-box-container-in <?php echo esc_attr( $flex_pos ) . ' ' . esc_attr( $flex_ver_pos ); ?>" >
 			<div class="premium-icon-box-icon-container">
+
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon_wrap' ) ); ?>>
-					<?php
-					if ( 'font-awesome-icon' === $icon_type ) :
+					<?php if ( 'font-awesome-icon' === $icon_type ) :
+
 						if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
 							Icons_Manager::render_icon(
 								$settings['premium_icon_box_font_updated'],
@@ -2790,10 +2867,10 @@ class Premium_Iconbox extends Widget_Base {
 									'aria-hidden' => 'true',
 								)
 							);
-						else :
-							?>
+						else : ?>
 							<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
 						<?php endif; ?>
+
 					<?php elseif ( 'svg' === $icon_type ) : ?>
 						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
 							<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
@@ -2805,73 +2882,88 @@ class Premium_Iconbox extends Widget_Base {
 					<?php endif; ?>
 					</div>
 				</div>
+
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'outer_wrap' ) ); ?>>
-			<?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] || 'yes' === $settings['premium_icon_box_desc_switcher'] ) : ?>
-				<div class="premium-icon-box-text-wrap">
-				<?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] && ! empty( $title ) ) : ?>
 
-						<<?php echo wp_kses_post( $heading ) . ' ' . wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_title' ) ); ?>><?php echo wp_kses_post( $settings['premium_icon_box_title'] ); ?>
-						<?php if ( ! empty( $settings['premium_icon_box_label'] ) ) : ?>
-							<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_label' ) ); ?> ><?php echo wp_kses_post( $settings['premium_icon_box_label'] ); ?></span>
-						<?php endif; ?>
-						</<?php echo wp_kses_post( $heading ); ?>>
-				<?php endif; ?>
+                <?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] || 'yes' === $settings['premium_icon_box_desc_switcher'] ) : ?>
+                    <div class="premium-icon-box-text-wrap">
+                    <?php if ( 'yes' === $settings['premium_icon_box_title_switcher'] && ! empty( $title ) ) : ?>
 
-				<?php if ( 'yes' === $settings['premium_icon_box_desc_switcher'] && ! empty( $settings['premium_icon_box_content'] ) ) : ?>
-					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_content' ) ); ?>>
-						<?php echo $this->parse_text_editor( $settings['premium_icon_box_content'] ); ?>
-					</div>
-				<?php endif; ?>
-				</div>
-			<?php endif; ?>
+                            <<?php echo wp_kses_post( $heading ) . ' ' . wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_title' ) ); ?>><?php echo wp_kses_post( $settings['premium_icon_box_title'] ); ?>
+                            <?php if ( ! empty( $settings['premium_icon_box_label'] ) ) : ?>
+                                <span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_label' ) ); ?> ><?php echo wp_kses_post( $settings['premium_icon_box_label'] ); ?></span>
+                            <?php endif; ?>
+                            </<?php echo wp_kses_post( $heading ); ?>>
+                    <?php endif; ?>
 
-			<?php if ( 'yes' === $settings['premium_icon_box_link_switcher'] && ( 'yes' !== $settings['box_link'] || 'yes' === $settings['keep_text_link'] ) ) : ?>
-				<?php if ( 'yes' === $settings['premium_icon_box_link_text_switcher'] || 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) : ?>
-					<div class="premium-icon-box-more <?php echo esc_attr( $text_ver_pos ); ?>">
-						<?php if ( 'yes' !== $settings['box_link'] ) : ?>
-							<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>>
-						<?php endif; ?>
-						<?php
-						if ( 'before' === $icon_position && 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) :
-							if ( $read_new || $read_migrated ) :
-								Icons_Manager::render_icon(
-									$settings['premium_icon_box_more_icon_updated'],
-									array(
-										'class'       => 'premium-icon-box-more-icon',
-										'aria-hidden' => 'true',
-									)
-								);
-								else :
-									?>
-									<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'more_icon' ) ); ?>></i>
-									<?php
-							endif;
-						endif;
-						if ( 'yes' === $settings['premium_icon_box_link_text_switcher'] ) :
-							echo wp_kses_post( $settings['premium_icon_box_more_text'] );
-endif;
-						if ( 'after' === $icon_position && 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) :
-							if ( $read_new || $read_migrated ) :
-								Icons_Manager::render_icon(
-									$settings['premium_icon_box_more_icon_updated'],
-									array(
-										'class'       => 'premium-icon-box-more-icon',
-										'aria-hidden' => 'true',
-									)
-								);
-								else :
-									?>
-								<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'more_icon' ) ); ?>></i>
-									<?php
-							endif;
-						endif
-						?>
-						<?php if ( 'yes' !== $settings['box_link'] ) : ?>
-							</a>
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
-			<?php endif; ?>
+                    <?php if ( 'yes' === $settings['premium_icon_box_desc_switcher'] && ! empty( $settings['premium_icon_box_content'] ) ) : ?>
+                        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_icon_box_content' ) ); ?>>
+                            <?php echo $this->parse_text_editor( $settings['premium_icon_box_content'] ); ?>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ( 'yes' === $settings['premium_icon_box_link_switcher'] && ( 'yes' !== $settings['box_link'] || 'yes' === $settings['keep_text_link'] ) ) : ?>
+                    <?php if ( 'yes' === $settings['premium_icon_box_link_text_switcher'] || 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) : ?>
+                        <div class="premium-icon-box-more <?php echo esc_attr( $text_ver_pos ); ?>">
+
+                            <?php if ( 'yes' !== $settings['box_link'] ) : ?>
+                                <a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?>>
+                            <?php endif; ?>
+
+                            <?php if ( 'before' === $icon_position && 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) :
+                                if ( $read_new || $read_migrated ) :
+                                    Icons_Manager::render_icon(
+                                        $settings['premium_icon_box_more_icon_updated'],
+                                        array(
+                                            'class'       => 'premium-icon-box-more-icon',
+                                            'aria-hidden' => 'true',
+                                        )
+                                    );
+                                    else :
+                                        ?>
+                                        <i <?php echo wp_kses_post( $this->get_render_attribute_string( 'more_icon' ) ); ?>></i>
+                                        <?php
+                                endif;
+                            endif;
+
+                            if ( 'yes' === $settings['premium_icon_box_link_text_switcher'] ) : ?>
+                                <div class="premium-button-text-icon-wrapper">
+                                    <span><?php echo wp_kses_post( $settings['premium_icon_box_more_text'] ); ?></span>
+                                </div>
+                            <?php endif;
+
+                            if ( 'after' === $icon_position && 'yes' === $settings['premium_icon_box_link_icon_switcher'] ) :
+                                if ( $read_new || $read_migrated ) :
+                                    Icons_Manager::render_icon(
+                                        $settings['premium_icon_box_more_icon_updated'],
+                                        array(
+                                            'class'       => 'premium-icon-box-more-icon',
+                                            'aria-hidden' => 'true',
+                                        )
+                                    );
+                                    else :
+                                        ?>
+                                    <i <?php echo wp_kses_post( $this->get_render_attribute_string( 'more_icon' ) ); ?>></i>
+                                        <?php
+                                endif;
+                            endif ?>
+
+                                <?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
+                                    <span class="premium-button-style6-bg"></span>
+                                <?php endif; ?>
+
+                                <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+                                    <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); ?>
+                                <?php endif; ?>
+
+                            <?php if ( 'yes' !== $settings['box_link'] ) : ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
 			</div>
 		</div>
 
@@ -3101,28 +3193,86 @@ endif;
 						<# if( 'yes' === settings.premium_icon_box_link_text_switcher || 'yes' === settings.premium_icon_box_link_icon_switcher ) {
 							if( '' != settings.premium_icon_box_more_text || '' != settings.premium_icon_box_more_icon ) { #>
 								<div class="premium-icon-box-more {{ textVerPosition }}">
-									<# if( 'yes' !== settings.box_link ) { #>
-									<a class="premium-icon-box-link" href="{{ boxUrl }}">
-									<# } #>
-										<# if( 'before' === iconPosition  && 'yes' === settings.premium_icon_box_link_icon_switcher ) {
-											if ( moreIconHTML && moreIconHTML.rendered && ( ! settings.premium_icon_box_more_icon || moreMigrated ) ) { #>
-												{{{ moreIconHTML.value }}}
-											<# } else { #>
-												<i class="premium-icon-box-more-icon {{ settings.premium_icon_box_more_icon }}" aria-hidden="true"></i>
-											<# }
-										}
-										if( 'yes' === settings.premium_icon_box_link_text_switcher ) { #>
-											{{{ settings.premium_icon_box_more_text }}}
-										<# }
-										if( 'after' === iconPosition  && 'yes' === settings.premium_icon_box_link_icon_switcher ) {
-											if ( moreIconHTML && moreIconHTML.rendered && ( ! settings.premium_icon_box_more_icon || moreMigrated ) ) { #>
-												{{{ moreIconHTML.value }}}
-											<# } else { #>
-												<i class="premium-icon-box-more-icon {{ settings.premium_icon_box_more_icon }}" aria-hidden="true"></i>
-											<# }
-										} #>
-									<# if( 'yes' !== settings.box_link ) { #>
-									</a>
+									<# if( 'yes' !== settings.box_link ) {
+
+                                        var btnClass = '';
+
+                                        if ( 'none' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-none';
+                                        } else if ( 'style1' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-style1-' + settings.premium_button_style1_dir;
+                                        } else if ( 'style2' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-style2-' + settings.premium_button_style2_dir;
+                                        } else if ( 'style5' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-style5-' + settings.premium_button_style5_dir;
+                                        } else if ( 'style6' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-style6';
+                                        } else if ( 'style7' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-style7-' + settings.premium_button_style7_dir;
+                                        } else if ( 'style8' === settings.premium_button_hover_effect ) {
+                                            btnClass = 'premium-button-' + settings.underline_style;
+
+                                            var btnSVG = '';
+                                            switch ( settings.underline_style ) {
+                                                case 'line1':
+                                                    btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="9" viewBox="0 0 101 9"><path d="M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294" pathLength="1"></path></svg></div>';
+                                                    break;
+
+                                                case 'line3':
+                                                    btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18"><path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"></path></svg></div>';
+                                                    break;
+
+                                                case 'line4':
+                                                    btnSVG = '<svg class="premium-btn-svg" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path></svg>';
+                                                    break;
+
+                                                default:
+                                                    break;
+                                            }
+
+                                        }
+
+                                        btnClass = 'premium-button-' + settings.premium_button_hover_effect + ' ' + btnClass;
+
+                                    #>
+
+                                        <a class="premium-icon-box-link {{ btnClass }}" href="{{ boxUrl }}" data-text="{{ settings.premium_icon_box_more_text }}">
+                                        <# } #>
+
+                                            <# if( 'before' === iconPosition  && 'yes' === settings.premium_icon_box_link_icon_switcher ) {
+                                                if ( moreIconHTML && moreIconHTML.rendered && ( ! settings.premium_icon_box_more_icon || moreMigrated ) ) { #>
+                                                    {{{ moreIconHTML.value }}}
+                                                <# } else { #>
+                                                    <i class="premium-icon-box-more-icon {{ settings.premium_icon_box_more_icon }}" aria-hidden="true"></i>
+                                                <# }
+                                            }
+
+                                            if( 'yes' === settings.premium_icon_box_link_text_switcher ) {
+
+                                                #>
+                                                <div class="premium-button-text-icon-wrapper">
+                                                    <span>{{{ settings.premium_icon_box_more_text }}}</span>
+                                                </div>
+                                            <# }
+
+                                            if( 'after' === iconPosition  && 'yes' === settings.premium_icon_box_link_icon_switcher ) {
+                                                if ( moreIconHTML && moreIconHTML.rendered && ( ! settings.premium_icon_box_more_icon || moreMigrated ) ) { #>
+                                                    {{{ moreIconHTML.value }}}
+                                                <# } else { #>
+                                                    <i class="premium-icon-box-more-icon {{ settings.premium_icon_box_more_icon }}" aria-hidden="true"></i>
+                                                <# }
+                                            } #>
+
+                                            <# if ( 'style6' === settings.premium_button_hover_effect && 'yes' === settings.mouse_detect ) { #>
+                                                <span class="premium-button-style6-bg"></span>
+                                            <# } #>
+
+                                            <# if( 'style8' === settings.premium_button_hover_effect ) { #>
+                                                {{{ btnSVG }}}
+                                            <# } #>
+
+                                        <# if( 'yes' !== settings.box_link ) { #>
+                                        </a>
 									<# } #>
 								</div>
 							<# } #>

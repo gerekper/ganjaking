@@ -118,6 +118,16 @@ class WoocommerceGpfCommon {
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
 					'ui_group'         => 'common',
 				],
+				'certification'                       => [
+					'desc'                   => __( 'Certification', 'woocommerce_gpf' ),
+					'full_desc'              => __( 'Certifications, such as energy efficiency ratings, associated with your product. Use this field to provide a valid code for products from the EU EPREL database.', 'woocommerce_gpf' ),
+					'feed_types'             => [ 'google' ],
+					'can_prepopulate'        => false,
+					'callback'               => 'render_certification',
+					'skip_on_bulk_edit'      => true,
+					'skip_on_category_pages' => true,
+					'ui_group'               => 'advanced',
+				],
 				'is_bundle'                           => [
 					'desc'             => __( 'Bundle indicator (is_bundle)', 'woocommerce_gpf' ),
 					'full_desc'        => __( 'Allows you to indicate whether a product is a "bundle" of products.', 'woocommerce_gpf' ),
@@ -290,7 +300,7 @@ class WoocommerceGpfCommon {
 					'ui_group'        => 'advanced',
 				],
 				'installment'                         => [
-					'desc'              => __( 'Instalment', 'woocommerce_gpf' ),
+					'desc'              => __( 'Installment', 'woocommerce_gpf' ),
 					'full_desc'         => __( 'Use this to tell users the details of a monthly instalment plan that you offer to pay for your product.', 'woocommerce_gpf' ),
 					'feed_types'        => [ 'google' ],
 					'can_prepopulate'   => false,
@@ -522,6 +532,7 @@ class WoocommerceGpfCommon {
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
 					'ui_group'          => 'advanced',
+					'import_as_array'   => true,
 				],
 				'product_detail'                      => [
 					'desc'              => __( 'Product detail(s)', 'woocommerce_gpf' ),

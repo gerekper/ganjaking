@@ -1,6 +1,6 @@
 /* 
  * EventON Elements CSS 
- * @version 4.5.5
+ * @version 4.5.9
     General
     Lightbox Select Field
     Select in a row
@@ -11,9 +11,10 @@
     --evo_color_prime: #00aafb;
 }   
 /* General */
-    .evo_elm_row p.evo_field_container input{
-    	border-radius: 8px;
-        background-color: #f3f3f3; width:100%;
+    .evo_elm_row p.evo_field_container input,
+    .evo_elm_row p.evo_field_container textarea{
+    	border-radius: 10px;
+        background-color: #e5e5e5; width:100%;
     }
     .evo_elm_row p.evo_field_container input:focus{
     	box-shadow: 0px 0px 10px 0px #dadada;
@@ -23,6 +24,9 @@
     .evo_elm_row p.evo_field_label, .evo_elm_row p.evo_field_container{margin:0;}
     .evo_elm_row p.evo_field_label{margin-bottom: 5px; padding-bottom: 0; font-size: 14px;}
     .evo_elm_row p.evo_field_container{margin-bottom: 10px;padding:0;}
+    .evo_nesting{
+        display: flex; gap: 15px;
+    }
 
 /* yes no button */
     .ajde_yn_btn {

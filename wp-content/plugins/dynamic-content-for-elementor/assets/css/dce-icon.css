@@ -2,10 +2,10 @@
   font-family: 'dce-icon';
   src: url('../font/dce-icon.eot?25213777');
   src: url('../font/dce-icon.eot?25213777#iefix') format('embedded-opentype'),
-       url('../font/dce-icon.woff2?25213777') format('woff2'),
-       url('../font/dce-icon.woff?25213777') format('woff'),
-       url('../font/dce-icon.ttf?25213777') format('truetype'),
-       url('../font/dce-icon.svg?25213777#dce-icon') format('svg');
+	   url('../font/dce-icon.woff2?25213777') format('woff2'),
+	   url('../font/dce-icon.woff?25213777') format('woff'),
+	   url('../font/dce-icon.ttf?25213777') format('truetype'),
+	   url('../font/dce-icon.svg?25213777#dce-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,8 +14,8 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'dce-icon';
-    src: url('../font/dce-icon.svg?25213777#dce-icon') format('svg');
+	font-family: 'dce-icon';
+	src: url('../font/dce-icon.svg?25213777#dce-icon') format('svg');
   }
 }
 */

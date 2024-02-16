@@ -3160,7 +3160,7 @@ class Woo_Product_Slider extends Widget_Base {
                 if ( file_exists( $template ) ):
 	                $query = new \WP_Query( $args );
 	                if ( $query->have_posts() ):
-                        echo '<div '.$this->get_render_attribute_string( 'eael-woo-product-slider-wrap' ).'>';
+                        echo '<div '; $this->print_render_attribute_string( 'eael-woo-product-slider-wrap' ); echo '>';
                             do_action( 'eael_woo_before_product_loop' );
                             $settings['eael_page_id'] = get_the_ID();
                             echo '<ul class="swiper-wrapper products">';
@@ -3188,10 +3188,10 @@ class Woo_Product_Slider extends Widget_Base {
 		                 */
 		                $this->render_arrows();
                     else:
-	                    echo '<p class="eael-no-posts-found">'.$settings['eael_product_slider_not_found_msg'].'</p>';
+	                    echo '<p class="eael-no-posts-found">'. wp_kses( $settings['eael_product_slider_not_found_msg'], HelperClass::eael_allowed_tags() ) .'</p>';
                     endif;
                 else:
-	                _e( '<p class="eael-no-posts-found">No layout found!</p>', 'essential-addons-elementor' );
+	                echo '<p class="eael-no-posts-found"> '. esc_html__( 'No layout found!', 'essential-addons-elementor' ) .'</p>';
                 endif; ?>
             </div>
         <?php
@@ -3203,7 +3203,7 @@ class Woo_Product_Slider extends Widget_Base {
 
         if ( $settings[ 'dots' ] == 'yes' ) { ?>
             <!-- Add Pagination -->
-            <div class="swiper-pagination swiper-pagination-<?php echo esc_attr( $this->get_id() ) .' '. $settings['dots_preset'];
+            <div class="swiper-pagination swiper-pagination-<?php echo esc_attr( $this->get_id() ) .' '. esc_attr( $settings['dots_preset'] );
             ?>"></div>
         <?php }
     }
@@ -3242,7 +3242,7 @@ class Woo_Product_Slider extends Widget_Base {
 
 		if ($settings['image_dots'] === 'yes') : ?>
 
-            <div <?php echo $this->get_render_attribute_string('eael_gallery_pagination_wrapper'); ?>>
+            <div <?php $this->print_render_attribute_string('eael_gallery_pagination_wrapper'); ?>>
 
             <?php
 			if ( $query->have_posts() ) {

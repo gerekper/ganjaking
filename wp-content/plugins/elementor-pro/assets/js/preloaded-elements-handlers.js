@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.19.0 - 29-01-2024 */
+/*! elementor-pro - v3.19.0 - 07-02-2024 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
 /***/ "../assets/dev/js/frontend/preloaded-elements-handlers.js":
@@ -1478,7 +1478,7 @@ var _default = exports["default"] = elementorModules.frontend.handlers.Base.exte
           self.cache.$countDown.hide();
           break;
         case 'redirect':
-          if (action.redirect_url) {
+          if (action.redirect_url && action.redirect_url.startsWith('http')) {
             window.location.href = action.redirect_url;
           }
           break;

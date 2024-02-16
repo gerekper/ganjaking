@@ -140,7 +140,7 @@ class Product_Filter_Search_Block extends Block {
 					),
 					'info_container' => array(
 						'type' => 'string',
-						'default' => '.woocommerce-info'
+						'default' => '.woocommerce-info, .wc-block-components-notice-banner.is-info'
 					),
 					'ordering_container' => array(
 						'type' => 'string',

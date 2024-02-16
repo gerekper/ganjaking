@@ -38,7 +38,7 @@ class Control_OOO_Query extends Control_Select2
      */
     protected function get_default_settings()
     {
-        return ['dynamic' => ['active' => \true, 'categories' => [TagsModule::BASE_GROUP, TagsModule::TEXT_CATEGORY, TagsModule::NUMBER_CATEGORY]]];
+        return ['dynamic' => ['active' => \true, 'categories' => [TagsModule::BASE_GROUP, TagsModule::TEXT_CATEGORY, TagsModule::NUMBER_CATEGORY], 'returnType' => 'object']];
     }
     /**
      * Render select2 control output in the editor.

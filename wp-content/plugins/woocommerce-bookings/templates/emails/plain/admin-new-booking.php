@@ -82,7 +82,7 @@ if ( $booking->has_persons() ) {
 
 echo "Customer Information \n";
 echo wp_kses( $order->get_formatted_billing_address() ? $order->get_formatted_billing_address() : __( 'No billing address set.', 'woocommerce-bookings' ), array( 'br' => array() ) ) . "\n";
-echo esc_html( $order->get_billing_phone() ? $order->get_billing_phone() : $order->billing_phone ) . "\n";
+echo esc_html( is_callable( array( $order, 'get_billing_phone' ) ) ? $order->get_billing_phone() : $order->billing_phone ) . "\n";
 echo wp_kses_post( make_clickable( sanitize_email( $order->get_billing_email() ? $order->get_billing_email() : $order->billing_email ) ) ) . "\n";
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";

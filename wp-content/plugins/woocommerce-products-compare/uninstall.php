@@ -1,12 +1,14 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+/**
+ * WooCommerce Products Compare Uninstall.
+ *
+ * Deletes the plugin options.
+ *
+ * @package WC_Products_Compare/Uninstaller
+ * @since   1.0.0
+ */
 
-// if uninstall not called from WordPress exit
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    exit;
-}
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 /*
  * Only remove ALL product and page data if WC_REMOVE_ALL_DATA constant is set to true in user's
@@ -14,6 +16,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  * and to ensure only the site owner can perform this action.
  */
 if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
-	// remove options
+	// Remove options.
 	delete_option( 'wc_products_compare_endpoint_set' );
 }

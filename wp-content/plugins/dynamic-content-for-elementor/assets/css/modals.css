@@ -1,8 +1,8 @@
 .hidden-i {
-    display: none !important;
+	display: none !important;
 }
 .block-i {
-    display: block !important;
+	display: block !important;
 }
 .perspective{
   -webkit-perspective: 1200px;
@@ -16,36 +16,36 @@
   height: 3px;
 }
 .elementor-invisible.elementor-widget-dyncontel-popup {
-    visibility: visible;
+	visibility: visible;
 }
 .elementor-align-justify .dce-button-popup{
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 button.dce-button-popup{
-    border: none;
-    line-height: 1; /* otherwise the icon is not vertically aligned correctly */
+	border: none;
+	line-height: 1; /* otherwise the icon is not vertically aligned correctly */
 }
 .dce-button-popup:not(.dce-button-hamburger):not(.dce-button-img){
-    padding: 10px 20px;
-    transition: background-color 0.5s, color 0.5s;
+	padding: 10px 20px;
+	transition: background-color 0.5s, color 0.5s;
 
 }
 .elementor-element:not(.elementor-align-justify) .dce-button-popup:not(.dce-button-hamburger):not(.dce-button-img){
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 .elementor-widget-dyncontel-popup.elementor-align-justify .dce-button-popup:not(.dce-button-hamburger):not(.dce-button-img){
-    display: inline-block;
-    text-align: center;
+	display: inline-block;
+	text-align: center;
 }
 
 .dce-button-popup .elementor-align-icon-right {
-    order: 15;
+	order: 15;
 }
 
 .dce-button-popup .dce-button-text {
-    order: 10;
+	order: 10;
 }
 
 .dce-button-hamburger{
@@ -53,14 +53,14 @@ button.dce-button-popup{
   line-height: 0;
 }
 .dce-modal{
-    display: none;
-    visibility: visible;
-    overflow: visible;
-    position: fixed;
-    z-index: 11000;
-    -webkit-perspective: 1200px;
-    -moz-perspective: 1200px;
-    perspective: 1200px;
+	display: none;
+	visibility: visible;
+	overflow: visible;
+	position: fixed;
+	z-index: 11000;
+	-webkit-perspective: 1200px;
+	-moz-perspective: 1200px;
+	perspective: 1200px;
 
 }
 body.dce-modal-open, html.dce-modal-open{
@@ -68,17 +68,17 @@ body.dce-modal-open, html.dce-modal-open{
 }
 
 .dce-button-popup {
-    cursor: pointer;
-    transition: all 0.5s ease;
+	cursor: pointer;
+	transition: all 0.5s ease;
 }
 .dce-modal .modal-dialog {
-    margin: 0;
-    max-width: 100%;
-    max-height: 100%;
+	margin: 0;
+	max-width: 100%;
+	max-height: 100%;
 }
 .dce-modal .modal-content {
-    overflow: auto;
-    background-color: #FFF;
+	overflow: auto;
+	background-color: #FFF;
 }
 .dce-poup-full-window .dce-modal .modal-dialog{
   width: 100vw;
@@ -89,116 +89,116 @@ body.dce-modal-open, html.dce-modal-open{
   height: 100%;
 }
 .dce-modal .modal-body {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 35px 20px 20px;
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 35px 20px 20px;
 }
 .dce-modal.modal-bottom {
-    top: auto;
-    bottom: 0;
+	top: auto;
+	bottom: 0;
 }
 .dce-modal.modal-top {
-    top: 0;
-    bottom: auto;
+	top: 0;
+	bottom: auto;
 }
 .dce-modal.modal-middle {
-    top: 50%;
-    bottom: auto;
-    transform: translate(0, -50%) !important;
+	top: 50%;
+	bottom: auto;
+	transform: translate(0, -50%) !important;
 }
 
 .dce-modal.modal-left {
-    left: 0;
-    right: auto;
+	left: 0;
+	right: auto;
 }
 .dce-modal.modal-right {
-    right: 0;
-    left: auto;
+	right: 0;
+	left: auto;
 }
 .dce-modal.modal-center {
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, 0) !important;
+	left: 50%;
+	right: auto;
+	transform: translate(-50%, 0) !important;
 }
 
 .dce-modal.modal-center.modal-middle {
-    transform: translate(-50%, -50%) !important;
+	transform: translate(-50%, -50%) !important;
 }
 .dce-modal .dce-close {
-    border: none;
-    position: absolute;
-    padding: 8px;
-    margin: 0;
-    line-height: 14px;
-    height: auto;
-    font-size: 24px;
-    background-color: transparent;
+	border: none;
+	position: absolute;
+	padding: 8px;
+	margin: 0;
+	line-height: 14px;
+	height: auto;
+	font-size: 24px;
+	background-color: transparent;
 }
 .dce-modal .dce-close .dce-quit-ics{
-    position: absolute;
+	position: absolute;
 }
 .dce-modal .dce-close img{
   max-width: 100px;
 }
 .dce-modal .close-left {
-    left: 0;
+	left: 0;
 }
 .dce-modal .close-right {
-    right: 0;
+	right: 0;
 }
 
 /* button should occupy no space at all in case it's closed with X */
 .dce-modal .close-x {
-    padding: 0
+	padding: 0
 }
 
 .dce-modal .close-center {
-    left: 0;
-    right: 0;
-    width: 100%;
-    text-align: center;
+	left: 0;
+	right: 0;
+	width: 100%;
+	text-align: center;
 }
 .dce-modal .close-center.close-x {
-    left: 50%;
-    right: auto;
-    width: auto;
+	left: 50%;
+	right: auto;
+	width: auto;
 }
 .dce-modal .close-hidden {
-    display: none;
+	display: none;
 }
 .dce-modal .close-top {
-    top: 0;
+	top: 0;
 }
 .dce-modal .close-bottom {
-    bottom: 0;
+	bottom: 0;
 }
 
 .dce-popup-container .modal-background-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    visibility: visible;
-    z-index: 10000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	visibility: visible;
+	z-index: 10000;
 }
 .dce-popup-container .dce-modal-background-layer:before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.3);
 }
 .dce-popup-container .dce-modal-background-layer-close {
-    cursor: pointer;
+	cursor: pointer;
 }
 #dce-wrap.dce-wrap-animated{
-    overflow: hidden;
+	overflow: hidden;
 }
 .dce-wrap-animated{
   transform: translate3d(0,0,0);

@@ -21,6 +21,12 @@ if (!\defined('ABSPATH')) {
 }
 class AcfGallery extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+    }
     public function get_script_depends()
     {
         return ['imagesloaded', 'jquery-masonry', 'dce-wow', 'photoswipe', 'photoswipe-ui', 'dce-diamonds', 'dce-homeycombs', 'justifiedGallery-lib', 'dce-acfgallery'];
@@ -116,7 +122,7 @@ class AcfGallery extends \DynamicContentForElementor\Widgets\WidgetPrototype
             return;
         }
         if ('masonry' === $settings['gallery_type'] && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            Helper::notice('', __('Masonry is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Masonry is not displayed correctly in the Elementor editor due to technical limitations but works correctly in the frontend.', 'dynamic-content-for-elementor'));
         }
         switch ($settings['acf_gallery_from']) {
             case 'current_post':

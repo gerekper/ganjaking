@@ -228,14 +228,14 @@ class UserFields extends \DynamicContentForElementor\Widgets\WidgetPrototype
             return;
         }
         if (empty($settings['dce_user_key'])) {
-            Helper::notice('', __('Type a user field in the corresponding field', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Type a user field in the corresponding field', 'dynamic-content-for-elementor'));
             return;
         }
         switch ($settings['dce_user_user']) {
             case 'static':
                 $user_id = $settings['dce_user_user_id'];
                 if (empty($user_id)) {
-                    Helper::notice('', __('Type a user ID in the corresponding field', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Type a user ID in the corresponding field', 'dynamic-content-for-elementor'));
                     return;
                 }
                 break;
@@ -542,7 +542,8 @@ class UserFields extends \DynamicContentForElementor\Widgets\WidgetPrototype
                                 $post = $original_post;
                             }
                             if ($settings['dce_user_id_render_type'] == 'template') {
-                                $meta_html = do_shortcode('[dce-elementor-template id="' . $settings['dce_user_id_render_type_template'] . '" post_id="' . $object_id . '"]');
+                                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                                $meta_html = $template_system->build_elementor_template_special(['id' => $settings['dce_user_id_render_type_template'], 'post_id' => $object_id]);
                             }
                         }
                         break;
@@ -692,7 +693,8 @@ class UserFields extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 if ($meta_value == '' || $meta_value === \false || $meta_value == 'false' || $meta_value === null || $meta_value === 'NULL' || $settings['dce_user_fallback_zero'] && ($meta_value == 0 || $meta_value == '0')) {
                     if (isset($settings['dce_user_fallback']) && $settings['dce_user_fallback']) {
                         if (isset($settings['dce_user_fallback_type']) && $settings['dce_user_fallback_type'] == 'template') {
-                            $fallback_content = '[dce-elementor-template id="' . $settings['dce_user_fallback_template'] . '"]';
+                            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                            $fallback_content = $template_system->build_elementor_template_special(['id' => $settings['dce_user_fallback_template']]);
                         } else {
                             $fallback_content = $settings['dce_user_fallback_text'];
                             if ($settings['dce_user_fallback_autop']) {
@@ -716,30 +718,30 @@ class UserFields extends \DynamicContentForElementor\Widgets\WidgetPrototype
             if ($settings['dce_user_array']) {
                 if (isset($settings['dce_user_array_fallback']) && $settings['dce_user_array_fallback']) {
                     if (isset($settings['dce_user_array_fallback_type']) && $settings['dce_user_array_fallback_type'] == 'template') {
-                        $fallback_content = '[dce-elementor-template id="' . $settings['dce_user_array_fallback_template'] . '"]';
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        $fallback_content = $template_system->build_elementor_template_special(['id' => $settings['dce_user_array_fallback_template']]);
                     } else {
                         $fallback_content = $settings['dce_user_array_fallback_text'];
                         if ($settings['dce_user_array_fallback_autop']) {
                             $fallback_content = Helper::strip_tag($fallback_content, 'p');
                         }
+                        $fallback_content = do_shortcode($fallback_content);
                     }
-                    $fallback_content = do_shortcode($fallback_content);
-                    // TODO FIX
                     $fallback_content = Tokens::do_tokens($fallback_content);
                     echo $fallback_content;
                 }
             } else {
                 if (isset($settings['dce_user_fallback']) && $settings['dce_user_fallback']) {
                     if (isset($settings['dce_user_fallback_type']) && $settings['dce_user_fallback_type'] == 'template') {
-                        $fallback_content = '[dce-elementor-template id="' . $settings['dce_user_fallback_template'] . '"]';
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        $fallback_content = $template_system->build_elementor_template_special(['id' => $settings['dce_user_fallback_template']]);
                     } else {
                         $fallback_content = $settings['dce_user_fallback_text'];
                         if ($settings['dce_user_fallback_autop']) {
                             $fallback_content = Helper::strip_tag($fallback_content, 'p');
                         }
+                        $fallback_content = do_shortcode($fallback_content);
                     }
-                    $fallback_content = do_shortcode($fallback_content);
-                    // TODO FIX
                     $fallback_content = Tokens::do_tokens($fallback_content);
                     echo $fallback_content;
                 }

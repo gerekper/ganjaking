@@ -171,7 +171,6 @@
             <fields>
                 <field name="Alert Box: Content Template ID" editor_type="LINE">premium_notbar_content_temp</field>
                 <field name="Alert Box: Content Text" editor_type="AREA">premium_notbar_text</field>
-                <field name="Alert Box: Close Button Text" editor_type="LINE">premium_notbar_close_text</field>
                 <field name="Alert Box: URL" editor_type="LINK">premium_notbar_link>url</field>
             </fields>
         </widget>

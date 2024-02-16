@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.5.6
+ *	@version 4.5.9
  */
 
 class EVO_Settings{
@@ -329,8 +329,9 @@ class EVO_Settings{
 
 					// new label
 					if( isset($field['ver']) && $field['ver'] == EVO()->version){
-						$legend_code .= "<span class='new' title='".__('New in version','eventon') .' '. EVO()->version."'>new</span>";
+						$legend_code .= "<span class='new evonewtag' title='".__('New in version','eventon') .' '. EVO()->version."'>new</span>";
 					}
+
 									
 					switch ($field['type']){
 						// notices

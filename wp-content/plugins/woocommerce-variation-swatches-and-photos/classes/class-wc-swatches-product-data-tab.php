@@ -1,6 +1,12 @@
 <?php
 
 class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
+    private static $instance = null;
+    public static function register() {
+        if ( self::$instance == null ) {
+            self::$instance = new WC_Swatches_Product_Data_Tab();
+        }
+    }
 
 	public function __construct() {
 		parent::__construct( array('swatches', 'show_if_variable'), 'swatches', 'Swatches', plugin_dir_url( (dirname( __FILE__ ) ) ) . 'assets/product-data-icon.png' );

@@ -648,7 +648,7 @@
     width: 100%
 }
 
-span.elementor-button-content-wrapper {
+.tp-wp-lrcf .elementor-button-content-wrapper {
     position: relative;
     display: inline-block
 }
@@ -675,14 +675,14 @@ form.tp-form-stacked,
     margin: 15px 0
 }
 
-..tp-field-group.tp-remember-me [type="checkbox"]:checked,
-..tp-field-group.tp-remember-me [type="checkbox"]:not(:checked) {
+.tp-field-group.tp-remember-me [type="checkbox"]:checked,
+.tp-field-group.tp-remember-me [type="checkbox"]:not(:checked) {
     position: absolute;
     left: -9999px
 }
 
-..tp-field-group.tp-remember-me [type="checkbox"]:checked + label,
-..tp-field-group.tp-remember-me [type="checkbox"]:not(:checked) + label {
+.tp-field-group.tp-remember-me [type="checkbox"]:checked + label,
+.tp-field-group.tp-remember-me [type="checkbox"]:not(:checked) + label {
     position: relative;
     padding-left: 28px;
     cursor: pointer;

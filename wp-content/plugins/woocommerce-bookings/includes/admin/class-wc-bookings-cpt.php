@@ -4,6 +4,14 @@
  * WC_Admin_CPT_Product Class.
  */
 class WC_Bookings_CPT {
+
+	/**
+	 * Post type.
+	 *
+	 * @var string
+	 */
+	public $type;
+
 	/**
 	 * Constructor.
 	 */

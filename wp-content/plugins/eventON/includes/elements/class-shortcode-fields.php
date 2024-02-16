@@ -1,7 +1,7 @@
 <?php
 /**
  * Shortcode Field Data Array
- * @updated 4.5.2
+ * @updated 4.5.9
  */
 
 class Evo_Shortcode_Fields{
@@ -214,7 +214,7 @@ class Evo_Shortcode_Fields{
 			'hide_mult_occur'=>array(
 				'name'=>__('Hide multiple occurence (HMO)','eventon'),
 				'type'=>'YN',
-				'guide'=>__('Hide events from showing more than once in between months','eventon'),
+				'guide'=>__('Hide events from showing more than once in between months, across the entire event list.','eventon'),
 				'var'=>'hide_mult_occur',
 				'default'=>'no',
 			),
@@ -662,7 +662,26 @@ class Evo_Shortcode_Fields{
 				'guide'=>'This will hide event organizer, type etc. from event top',
 				'var'=>'hide_et_extra',
 				'default'=>'no'
-			)
+			),
+			// 4.5.9
+			'search'=>array(
+				'name'=>'Enable search on the calendar',
+				'type'=>'YN',
+				'guide'=>'Setting this will add search option for this calendar',
+				'var'=>'search',
+				'default'=>'no',
+				'afterstatement'=>'search'
+			),
+				'show_search'=>array(
+					'name'=>'Show opened search bar by default on the calendar',
+					'type'=>'YN',
+					'guide'=>'This will hide event organizer, type etc. from event top',
+					'var'=>'show_search',
+					'default'=>'no'
+				),
+			'close_search'=> array(
+				'name'=>'close search','type'=>'customcode', 'value'=>'','closestatement'=>'search'
+			),
 			
 		);
 		

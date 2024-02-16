@@ -1,0 +1,101 @@
+
+//colors
+$color_0:#eeeeee;
+$color_1:#000000;
+$color_2:rgba(255, 255, 255, .15);
+
+// animation
+@-webkit-keyframes animateRainbow {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+
+}
+
+@keyframes animateRainbow {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+
+}
+
+// line rainbow
+.eael-progressbar-line-rainbow {
+    .eael-progressbar-line-fill {
+        background: linear-gradient(270deg, #9400d3, #4b0082, #0000ff, #00ff00, #ffff00, #ff7f00, #ff0000);
+        background-size: 500% 500%;
+        animation: animateRainbow 5s ease infinite;
+    }
+
+}
+
+// circle fill
+.eael-progressbar-circle-fill {
+    .eael-progressbar-circle-half {
+        background-color: $color_1;
+    }
+
+}
+
+// half circle fill
+.eael-progressbar-half-circle-fill {
+    .eael-progressbar-circle-half {
+        background-color: $color_1;
+    }
+
+}
+
+// box
+.eael-progressbar-box {
+    width: 100%;
+    height: 200px;
+    border: 1px solid $color_0;
+    margin: 0 auto;
+
+    .eael-progressbar-box-inner-content {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        z-index: 9;
+    }
+
+    .eael-progressbar-count-wrap {
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .eael-progressbar-title {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+}
+
+.eael-progressbar-box-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background-color: $color_1;
+    transition: height 1500ms linear;
+}

@@ -116,53 +116,53 @@ button[disabled], html input[disabled] {
 
 @media only screen and (max-width: 992px) {
   .grid-page.grid-col-sm-1 .item-page {
-    flex-basis: 100%;
+	flex-basis: 100%;
   }
 
   .grid-page.grid-col-sm-2 .item-page {
-    flex-basis: 50%;
+	flex-basis: 50%;
   }
 
   .grid-page.grid-col-sm-3 .item-page {
-    flex-basis: 33.3333%;
+	flex-basis: 33.3333%;
   }
 
   .grid-page.grid-col-sm-4 .item-page {
-    flex-basis: 25%;
+	flex-basis: 25%;
   }
 
   .grid-page.grid-col-sm-5 .item-page {
-    flex-basis: 20%;
+	flex-basis: 20%;
   }
 
   .grid-page.grid-col-sm-6 .item-page {
-    flex-basis: 16.6666%;
+	flex-basis: 16.6666%;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .grid-page.grid-col-xs-1 .item-page {
-    flex-basis: 100%;
+	flex-basis: 100%;
   }
 
   .grid-page.grid-col-xs-2 .item-page {
-    flex-basis: 50%;
+	flex-basis: 50%;
   }
 
   .grid-page.grid-col-xs-3 .item-page {
-    flex-basis: 33.3333%;
+	flex-basis: 33.3333%;
   }
 
   .grid-page.grid-col-xs-4 .item-page {
-    flex-basis: 25%;
+	flex-basis: 25%;
   }
 
   .grid-page.grid-col-xs-5 .item-page {
-    flex-basis: 20%;
+	flex-basis: 20%;
   }
 
   .grid-page.grid-col-xs-6 .item-page {
-    flex-basis: 16.6666%;
+	flex-basis: 16.6666%;
   }
 }
 
@@ -436,5 +436,5 @@ body:not(.rtl) .dce-ext-select2::after {
 
 /* form autocomplete in popups, google menu was below modal:  */
 .pac-container {
-    z-index: 10000;
+	z-index: 10000;
 }

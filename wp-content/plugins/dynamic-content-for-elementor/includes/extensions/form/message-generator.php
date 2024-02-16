@@ -45,6 +45,19 @@ class MessageGenerator extends \ElementorPro\Modules\Forms\Classes\Action_Base
     {
         return __('Message Generator', 'dynamic-content-for-elementor');
     }
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_form_message_type');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_text');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_text_floating');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_text_floating_align');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_template');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_post');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_close');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_close_position');
+        $save_guard->register_unsafe_control('form', 'dce_form_message_hide');
+    }
     public function get_script_depends()
     {
         return [];
@@ -124,13 +137,12 @@ class MessageGenerator extends \ElementorPro\Modules\Forms\Classes\Action_Base
         $message_html = '';
         if ($settings['dce_form_message_type'] == 'template') {
             if (!empty($settings['dce_form_message_template'])) {
-                $dce_short = '[dce-elementor-template id="' . $settings['dce_form_message_template'] . '"';
+                $atts = ['id' => $settings['dce_form_message_template'], 'inlinecss' => \true];
                 if (!empty($settings['dce_form_message_post'])) {
-                    $dce_short .= ' post_id="' . $settings['dce_form_message_post'] . '"]';
+                    $atts['post_id'] = $settings['dce_form_message_post'];
                 }
-                $dce_short .= ' inlinecss="true"';
-                $dce_short .= ']';
-                $message_html = do_shortcode($dce_short);
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                $message_html = $template_system->build_elementor_template_special($atts);
                 $message_html = '</div><div class="elementor-message-dce" role="alert">' . $message_html;
                 $message_html .= '<style>.elementor-element-' . $element_id . ' .elementor-form .elementor-message {display: none !important;}</style>';
             }

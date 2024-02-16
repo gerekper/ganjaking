@@ -62,11 +62,11 @@ class UniteCreatorAPIIntegrations{
 	const GOOGLE_SHEETS_FIELD_CACHE_TIME = "google_sheets:cache_time";
 	const GOOGLE_SHEETS_DEFAULT_CACHE_TIME = 10;
 
-	const WEATHER_FORECAST_FIELD_EMPTY_API_KEY = "weather_forecast:empty_api_key";
-	const WEATHER_FORECAST_FIELD_COUNTRY = "weather_forecast:country";
-	const WEATHER_FORECAST_FIELD_CITY = "weather_forecast:city";
-	const WEATHER_FORECAST_FIELD_UNITS = "weather_forecast:units";
-	const WEATHER_FORECAST_FIELD_CACHE_TIME = "weather_forecast:cache_time";
+	const WEATHER_FORECAST_FIELD_EMPTY_API_KEY = "weather_forecast_empty_api_key";
+	const WEATHER_FORECAST_FIELD_COUNTRY = "weather_forecast_country";
+	const WEATHER_FORECAST_FIELD_CITY = "weather_forecast_city";
+	const WEATHER_FORECAST_FIELD_UNITS = "weather_forecast_units";
+	const WEATHER_FORECAST_FIELD_CACHE_TIME = "weather_forecast_cache_time";
 	const WEATHER_FORECAST_DEFAULT_CACHE_TIME = 60;
 	const WEATHER_FORECAST_UNITS_METRIC = "metric";
 	const WEATHER_FORECAST_UNITS_IMPERIAL = "imperial";
@@ -133,7 +133,7 @@ class UniteCreatorAPIIntegrations{
 			$types[self::TYPE_GOOGLE_SHEETS] = "Google Sheets";
 			$types[self::TYPE_YOUTUBE_PLAYLIST] = "Youtube Playlist";
 		}
-
+		
 		if(GlobalsUnlimitedElements::$enableWeatherAPI === true)
 			$types[self::TYPE_WEATHER_FORECAST] = "Weather Forecast";
 
@@ -149,11 +149,11 @@ class UniteCreatorAPIIntegrations{
 	 * @return array
 	 */
 	public function getData($type, $params){
-
+		
 		// add api keys
 		$params[self::SETTINGS_OPEN_WEATHER_API_KEY] = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_OPEN_WEATHER_API_KEY);
 		$params[self::SETTINGS_EXCHANGE_RATE_API_KEY] = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_EXCHANGE_RATE_API_KEY);
-
+		
 		$this->params = $params;
 
 		// get data
@@ -173,7 +173,9 @@ class UniteCreatorAPIIntegrations{
 				$data = $this->getGoogleSheetsData();
 			break;
 			case self::TYPE_WEATHER_FORECAST:
+				
 				$data = $this->getWeatherForecastData();
+			
 			break;
 			case self::TYPE_YOUTUBE_PLAYLIST:
 				$data = $this->getYoutubePlaylistData();
@@ -182,6 +184,7 @@ class UniteCreatorAPIIntegrations{
 				UniteFunctionsUC::throwError(__FUNCTION__ . " error - API type \"$type\" is not implemented");
 		}
 
+		
 		return $data;
 	}
 
@@ -195,6 +198,9 @@ class UniteCreatorAPIIntegrations{
 		switch($type){
 			case self::TYPE_CURRENCY_EXCHANGE:
 				$data = UniteFunctionsUC::getVal($data, "rates_chosen");
+			break;
+			case self::TYPE_WEATHER_FORECAST:
+				$data = UniteFunctionsUC::getVal($data, "daily");
 			break;
 		}
 
@@ -248,7 +254,7 @@ class UniteCreatorAPIIntegrations{
 
 		if(GlobalsUnlimitedElements::$enableWeatherAPI === true)
 			$fields[self::TYPE_WEATHER_FORECAST] = $this->getWeatherForecastSettingsFields();
-
+		
 		return $fields;
 	}
 
@@ -343,7 +349,7 @@ class UniteCreatorAPIIntegrations{
 	 * get the param value
 	 */
 	private function getParam($key, $fallback = null){
-
+		
 		$value = empty($this->params[$key]) ? $fallback : $this->params[$key];
 
 		return $value;
@@ -353,7 +359,7 @@ class UniteCreatorAPIIntegrations{
 	 * get the param value, otherwise throw an exception
 	 */
 	private function getRequiredParam($key, $label = null){
-
+		
 		$value = $this->getParam($key);
 
 		if(!empty($value))
@@ -450,15 +456,6 @@ class UniteCreatorAPIIntegrations{
 		return $key;
 	}
 
-	/**
-	 * get open weather api key
-	 */
-	private function getOpenWeatherApiKey(){
-
-		$key = $this->getRequiredParam(self::SETTINGS_OPEN_WEATHER_API_KEY, "OpenWeather API key");
-
-		return $key;
-	}
 
 	/**
 	 * get currency exchange settings fields
@@ -477,7 +474,6 @@ class UniteCreatorAPIIntegrations{
 				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
 				"text" => __("Currency Code", "unlimited-elements-for-elementor"),
 				"desc" => sprintf(__("Enter the three-letter <a href='%s' target='_blank'>currency code</a>.", "unlimited-elements-for-elementor"), "https://exchangerate-api.com/docs/supported-currencies"),
-				"default" => "USD"
 			),
 			array(
 				"id" => self::CURRENCY_EXCHANGE_FIELD_PRECISION,
@@ -490,7 +486,6 @@ class UniteCreatorAPIIntegrations{
 				"type" => UniteCreatorDialogParam::PARAM_TEXTAREA,
 				"text" => __("Include Currencies", "unlimited-elements-for-elementor"),
 				"desc" => __("Optional. You can specify a comma separated list of currency codes to include, otherwise all currencies will be displayed.", "unlimited-elements-for-elementor"),
-				"default" => "USD, EUR, JPY, GBP, AUD, CAD, CHF, CNH, HKD, NZD"
 			),
 			array(
 				"id" => self::CURRENCY_EXCHANGE_FIELD_CACHE_TIME,
@@ -627,50 +622,6 @@ class UniteCreatorAPIIntegrations{
 		return $fields;
 	}
 
-	/**
-	 * get weather forecast settings fields
-	 */
-	private function getWeatherForecastSettingsFields(){
-
-		$fields = array();
-
-		$key = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_OPEN_WEATHER_API_KEY);
-
-		$fields = $this->addEmptyApiKeyField($fields, $key, self::WEATHER_FORECAST_FIELD_EMPTY_API_KEY, "OpenWeather API");
-
-		$fields = array_merge($fields, array(
-			array(
-				"id" => self::WEATHER_FORECAST_FIELD_COUNTRY,
-				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
-				"text" => __("Country Code", "unlimited-elements-for-elementor"),
-				"desc" => sprintf(__("Specify the two-letter <a href='%s' target='_blank'>country code</a>.", "unlimited-elements-for-elementor"), "https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes"),
-			),
-			array(
-				"id" => self::WEATHER_FORECAST_FIELD_CITY,
-				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
-				"text" => __("City Name", "unlimited-elements-for-elementor"),
-			),
-			array(
-				"id" => self::WEATHER_FORECAST_FIELD_UNITS,
-				"type" => UniteCreatorDialogParam::PARAM_DROPDOWN,
-				"text" => __("Units", "unlimited-elements-for-elementor"),
-				"options" => array(
-					self::WEATHER_FORECAST_UNITS_METRIC => __("Metric", "unlimited-elements-for-elementor"),
-					self::WEATHER_FORECAST_UNITS_IMPERIAL => __("Imperial", "unlimited-elements-for-elementor"),
-				),
-				"default" => self::WEATHER_FORECAST_UNITS_METRIC,
-			),
-			array(
-				"id" => self::WEATHER_FORECAST_FIELD_CACHE_TIME,
-				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
-				"text" => __("Cache Time", "unlimited-elements-for-elementor"),
-				"desc" => sprintf(__("Optional. You can specify the cache time of results in minutes. The default value is %d minutes.", "unlimited-elements-for-elementor"), self::CURRENCY_EXCHANGE_DEFAULT_CACHE_TIME),
-				"default" => self::WEATHER_FORECAST_DEFAULT_CACHE_TIME,
-			),
-		));
-
-		return $fields;
-	}
 
 	/**
 	 * get youtube playlist settings fields
@@ -1003,28 +954,79 @@ class UniteCreatorAPIIntegrations{
 		return $data;
 	}
 
+	private function ________WEATHER_________(){}
+	
 	/**
-	 * get weather forecast data
+	 * get open weather api key
 	 */
-	private function getWeatherForecastData(){
+	private function getOpenWeatherApiKey(){
 
-		$data = array();
+		$key = $this->getRequiredParam(self::SETTINGS_OPEN_WEATHER_API_KEY, "OpenWeather API key");
 
-		$country = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_COUNTRY, "Country");
-		$city = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_CITY, "City");
-		$units = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_UNITS, "Units");
-		$cacheTime = $this->getCacheTimeParam(self::WEATHER_FORECAST_FIELD_CACHE_TIME, self::WEATHER_FORECAST_DEFAULT_CACHE_TIME);
+		return $key;
+	}
+	
+	
+	/**
+	 * get weather forecast settings fields
+	 */
+	private function getWeatherForecastSettingsFields(){
 
-		$weatherService = new UEOpenWeatherAPIClient($this->getOpenWeatherApiKey());
-		$weatherService->setCacheTime($cacheTime);
+		$fields = array();
 
-		$forecasts = $weatherService->getDailyForecast($country, $city, $units);
+		$key = HelperProviderCoreUC_EL::getGeneralSetting(self::SETTINGS_OPEN_WEATHER_API_KEY);
 
-		foreach($forecasts as $forecast){
-			$data[] = array(
+		$fields = $this->addEmptyApiKeyField($fields, $key, self::WEATHER_FORECAST_FIELD_EMPTY_API_KEY, "OpenWeather API");
+
+		
+		$fields = array_merge($fields, array(
+			array(
+				"id" => self::WEATHER_FORECAST_FIELD_COUNTRY,
+				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
+				"text" => __("Country Code", "unlimited-elements-for-elementor"),
+				"desc" => sprintf(__("Specify the two-letter <a href='%s' target='_blank'>country code</a>.", "unlimited-elements-for-elementor"), "https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes"),
+			),
+			array(
+				"id" => self::WEATHER_FORECAST_FIELD_CITY,
+				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
+				"text" => __("City Name", "unlimited-elements-for-elementor"),
+			),
+			array(
+				"id" => self::WEATHER_FORECAST_FIELD_UNITS,
+				"type" => UniteCreatorDialogParam::PARAM_DROPDOWN,
+				"text" => __("Units", "unlimited-elements-for-elementor"),
+				"options" => array(
+					self::WEATHER_FORECAST_UNITS_METRIC => __("Metric", "unlimited-elements-for-elementor"),
+					self::WEATHER_FORECAST_UNITS_IMPERIAL => __("Imperial", "unlimited-elements-for-elementor"),
+				),
+				"default" => self::WEATHER_FORECAST_UNITS_METRIC,
+			),
+			array(
+				"id" => self::WEATHER_FORECAST_FIELD_CACHE_TIME,
+				"type" => UniteCreatorDialogParam::PARAM_TEXTFIELD,
+				"text" => __("Cache Time", "unlimited-elements-for-elementor"),
+				"desc" => sprintf(__("Optional. You can specify the cache time of results in minutes. The default value is %d minutes.", "unlimited-elements-for-elementor"), self::CURRENCY_EXCHANGE_DEFAULT_CACHE_TIME),
+				"default" => self::WEATHER_FORECAST_DEFAULT_CACHE_TIME,
+			),
+		));
+		
+		
+		return $fields;
+	}
+	
+	/**
+	 * get forecast item
+	 */
+	private function getWeatherForecastItem($forecast){
+		
+			$arrItem = array(
 				"id" => $forecast->getId(),
 				"date" => $forecast->getDate(self::FORMAT_DATE),
+				"dow_full" => $forecast->getDate("l"),
+				"dow_short" => $forecast->getDate("D"),
 				"description" => $forecast->getDescription(),
+				"icon_name" => $forecast->getIconName(),
+				"icon_url" => $forecast->getIconUrl(),
 				"temp_min" => $forecast->getMinTemperature(),
 				"temp_max" => $forecast->getMaxTemperature(),
 				"temp_morning" => $forecast->getMorningTemperature(),
@@ -1042,10 +1044,80 @@ class UniteCreatorAPIIntegrations{
 				"humidity" => $forecast->getHumidity(),
 				"cloudiness" => $forecast->getCloudiness(),
 				"rain" => $forecast->getRain(),
+				"snow" => $forecast->getSnow(),
 				"uvi" => $forecast->getUvi(),
 			);
-		}
+		
+		return($arrItem);
+	}
+	
+	/**
+	 * get weather current item
+	 */
+	private function getWeatherForecastCurrentItem($forecast){
+		
+		$arrItem = array(
+			"date" => $forecast->getDate(self::FORMAT_DATE),
+			"dow_full" => $forecast->getDate("l"),
+			"dow_short" => $forecast->getDate("D"),
+			"state" => $forecast->getCurrentState(),
+			"description" => $forecast->getCurrentDescription(),
+			"icon_name" => $forecast->getIconName(),
+			"icon_url" => $forecast->getIconUrl(),
+			"temp" => $forecast->getCurrentTemperature(),
+			"feels_like" => $forecast->getCurrentFeelsLike(),
+			"sunrise" => $forecast->getSunrise(),
+			"sunset" => $forecast->getSunset(),
+			"uvi" => $forecast->getUvi(),
+			"pressure" => $forecast->getPressure(),
+			"humidity" => $forecast->getHumidity(),
+			"cloudiness" => $forecast->getCloudiness(),
+			"wind_speed" => $forecast->getWindSpeed(),
+			"wind_degree" => $forecast->getWindDegrees(),
+			"wind_gust" => $forecast->getWindGust()
+		);
+		
+		
+		return($arrItem);
+	}
+	
+	
+	
+	/**
+	 * get weather forecast data
+	 */
+	private function getWeatherForecastData(){
 
+		$data = array();
+
+		$country = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_COUNTRY, "Country");
+		$city = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_CITY, "City");
+		$units = $this->getRequiredParam(self::WEATHER_FORECAST_FIELD_UNITS, "Units");
+		$cacheTime = $this->getCacheTimeParam(self::WEATHER_FORECAST_FIELD_CACHE_TIME, self::WEATHER_FORECAST_DEFAULT_CACHE_TIME);
+		
+		$weatherService = new UEOpenWeatherAPIClient($this->getOpenWeatherApiKey());
+		$weatherService->setCacheTime($cacheTime);
+
+		$forecasts = $weatherService->getForecasts($country, $city, $units);
+		
+		$current = UniteFunctionsUC::getVal($forecasts, "current");
+		$arrDaily = UniteFunctionsUC::getVal($forecasts, "daily");
+		$arrHourly = UniteFunctionsUC::getVal($forecasts, "hourly");
+		
+		foreach($arrDaily as $index => $forecast)
+			$arrDaily[$index] = $this->getWeatherForecastItem($forecast);
+		
+		foreach($arrHourly as $index => $forecast)
+			$arrHourly[$index] = $this->getWeatherForecastItem($forecast);
+
+		$current = $this->getWeatherForecastCurrentItem($current);
+		
+		$data = array();
+		$data["current"] = $current;
+		$data["daily"] = $arrDaily;
+		$data["hourly"] = $arrHourly;
+		
+		
 		return $data;
 	}
 

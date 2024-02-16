@@ -391,7 +391,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		}
 
 		$error = UniteFunctionsUC::getGetVar("google_connect_error", $error, UniteFunctionsUC::SANITIZE_NOTHING);
-		
+
 		if(empty($accessToken) === false){
 			?>
 			<div class="uc-google-connect-message">
@@ -415,13 +415,30 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		}
 
 		if(empty($error) === false){
-			
-			$error = esc_html($error);
-			
 			?>
 			<div class="uc-google-connect-error">
 				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), $error); ?>
 			</div>
+			<?php
+		}
+	}
+
+	/**
+	 * draw openweather check button
+	 */
+	private function drawOpenWeatherCheckButton($setting){
+
+		$objServices = new UniteServicesUC();
+		$objServices->includeOpenWeatherAPI();
+
+		$key = HelperProviderCoreUC_EL::getGeneralSetting("openweather_api_key");
+		$weatherService = new UEOpenWeatherAPIClient($key);
+
+		if(empty($key) === false){
+			?>
+			<a class="button" href="<?php esc_attr_e($weatherService->getApiKeyTestUrl()); ?>" target="_blank">
+				<?php esc_html_e("Check API", "unlimited-elements-for-elementor"); ?>
+			</a>
 			<?php
 		}
 	}
@@ -473,6 +490,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			case "google_connect":
 				$this->drawConnectWithGoogleButton($setting);
 			break;
+			case "openweather_api_test":
+				$this->drawOpenWeatherCheckButton($setting);
+			break;
 		}
 	}
 
@@ -508,9 +528,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			$urlImage = $urlFull;
 
 			$previewStyle = "";
-			
+
 			$urlThumb = $value;		//maybe change
-			
+
 			$urlThumbFull = HelperUC::URLtoFull($urlThumb);
 			if(!empty($previewStyle))
 				$previewStyle .= ";";
@@ -655,7 +675,39 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			parent::drawMp3Input($setting);
 	}
 
-	private function a________DRAW_DIMENTIONS_SETTING_______(){
+	/**
+	 * draw switcher setting
+	 */
+	protected function drawSwitcherSetting($setting){
+
+		$id = UniteFunctionsUC::getVal($setting, "id");
+		$name = UniteFunctionsUC::getVal($setting, "name");
+		$items = UniteFunctionsUC::getVal($setting, "items");
+		$value = UniteFunctionsUC::getVal($setting, "value");
+
+		if(count($items) !== 2)
+			UniteFunctionsUC::throwError("Switcher requires 2 items.");
+
+		$addHtml = $this->getDefaultAddHtml($setting);
+
+		$uncheckValue = reset($items); // first item
+		$checkValue = end($items); // second item
+
+		?>
+		<div
+			id="<?php esc_attr_e($id); ?>"
+			class="unite-setting-switcher unite-setting-input-object"
+			data-settingtype="switcher"
+			data-name="<?php esc_attr_e($name); ?>"
+			data-value="<?php esc_attr_e($value); ?>"
+			data-checkedvalue="<?php esc_attr_e($checkValue); ?>"
+			data-uncheckedvalue="<?php esc_attr_e($uncheckValue); ?>"
+			<?php echo $addHtml; ?>
+		>
+			<div class="unite-setting-switcher-toggle"></div>
+		</div>
+		<?php
+
 	}
 
 	/**
@@ -687,9 +739,9 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 
 		?>
 		<div
-			class="unite-setting-input-object unite-dimentions"
-			data-name="<?php esc_attr_e($name); ?>"
+			class="unite-dimentions unite-setting-input-object unite-settings-exclude"
 			data-settingtype="dimentions"
+			data-name="<?php esc_attr_e($name); ?>"
 			<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
 		>
 

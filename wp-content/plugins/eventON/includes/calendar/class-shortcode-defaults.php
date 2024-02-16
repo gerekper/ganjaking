@@ -1,7 +1,7 @@
 <?php
 /**
  * Calendar shortcode defaults
- # @version 2.9
+ # @version 4.5.9
  */
 
 class EVO_Calendar_Shortcode_Defaults extends evo_cal_shell{
@@ -115,6 +115,7 @@ class EVO_Calendar_Shortcode_Defaults extends evo_cal_shell{
 				'social_share'=>'no', // social share the calendar
 
 				'search'=>'',
+				'show_search'=>'no',// show search on load 4.5.9
 				'search_all'=>'no',
 			);
 

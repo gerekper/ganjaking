@@ -1320,7 +1320,7 @@ class WoocommerceGpfFeedItem {
 		if ( $product instanceof WC_Product_Variation ) {
 			// Get the attributes.
 			$attributes = $product->get_variation_attributes();
-			// If the requested taxonomy is used as an attribute, grab it's value for this variation.
+			// If the requested taxonomy is used as an attribute, grab its value for this variation.
 			if ( ! empty( $attributes[ 'attribute_' . $taxonomy ] ) ) {
 				$terms = get_terms(
 					[

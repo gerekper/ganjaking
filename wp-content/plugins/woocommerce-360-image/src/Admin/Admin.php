@@ -5,7 +5,7 @@
  * @since 1.3.0
  */
 
-namespace Themesquad\WC_360_Image\Admin;
+namespace KoiLab\WC_360_Image\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,15 +61,15 @@ class Admin {
 
 		$links['docs'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/document/woocommerce-360-image/' ),
+			esc_url( 'https://woo.com/document/woocommerce-360-image/' ),
 			esc_attr_x( 'View WooCommerce 360° Image documentation', 'aria-label: documentation link', 'woocommerce-360-image' ),
 			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-360-image' )
 		);
 
 		$links['support'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=512186' ),
-			esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-360-image' ),
+			esc_url( 'https://woo.com/my-account/create-a-ticket?select=512186' ),
+			esc_attr_x( 'Open a support ticket at Woo.com', 'aria-label: support link', 'woocommerce-360-image' ),
 			esc_html_x( 'Support', 'plugin row link', 'woocommerce-360-image' )
 		);
 

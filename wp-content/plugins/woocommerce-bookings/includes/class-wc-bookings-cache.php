@@ -117,6 +117,21 @@ class WC_Bookings_Cache {
 
 		$post = get_post( $post_id );
 
+		// Delete the booking IDs from order item meta.
+		if ( 'wc_booking' === $post->post_type || 'shop_order' === $post->post_type ) {
+			$order_id = 'wc_booking' === $post->post_type
+				? WC_Booking_Data_Store::get_booking_order_id( $post_id )
+				: $post_id;
+
+			$order = wc_get_order( $order_id );
+
+			if ( $order ) {
+				foreach ( array_keys( $order->get_items() ) as $order_item_id ) {
+					wc_delete_order_item_meta( $order_item_id, '_booking_id' );
+				}
+			}
+		}
+
 		if ( 'wc_booking' !== $post->post_type && 'product' !== $post->post_type ) {
 			return $post_id;
 		}

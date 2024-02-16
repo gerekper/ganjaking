@@ -870,8 +870,8 @@ class Post_Block extends Widget_Base
             ]
         );
 
-        echo '<div ' . $this->get_render_attribute_string('eael-post-block-wrapper') . '>
-            <div ' . $this->get_render_attribute_string('eael-post-block-wrap-inner') . '>';
+        echo '<div '; $this->print_render_attribute_string('eael-post-block-wrapper'); echo '>
+            <div '; $this->print_render_attribute_string('eael-post-block-wrap-inner'); echo '>';
 
         $template = $this->get_template($settings['eael_dynamic_template_Layout']);
         $settings['loadable_file_name'] = $this->get_filename_only($template);
@@ -887,11 +887,11 @@ class Post_Block extends Widget_Base
                     include($template);
                 }
             } else {
-                _e('<p class="no-posts-found">No posts found!</p>', 'essential-addons-elementor');
+                echo '<p class="no-posts-found">'. esc_html__( 'No posts found!', 'essential-addons-elementor' ) .'</p>';
             }
             wp_reset_postdata();
         } else {
-            _e('<p class="no-posts-found">No layout found!</p>', 'essential-addons-elementor');
+            echo '<p class="no-posts-found">'. esc_html__( 'No layout found!', 'essential-addons-elementor' ) .'</p>';
         }
 
         echo '</div>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Edit Meta box Related Events
- * @4.4.1
+ * @4.5.9
  */
 
 
@@ -28,7 +28,7 @@ echo "<div class='evcal_data_block_style1'>
 				$x = isset($id[1])? $id[1]:'0';
 				$time = $EE->get_formatted_smart_time($x);
 				
-				$rel_events[ $I.'.'. $EE->get_start_time() ] =  "<span class='l' data-id='{$I}'><span class='t'>{$time}</span><span class='n'>{$N}</span><i>X</i></span>";
+				$rel_events[ $I.'.'. $EE->get_start_time() ] =  "<span class='l' data-id='{$I}'><span class='t'>{$time}</span><span class='n'>{$N}</span><i class='fa fa-close'></i></span>";
 			}
 
 			//krsort($rel_events);

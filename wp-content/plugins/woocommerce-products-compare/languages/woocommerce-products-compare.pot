@@ -1,15 +1,15 @@
-# Copyright (C) 2023 KoiLab
+# Copyright (C) 2024 KoiLab
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Products Compare 1.3.0\n"
-"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Project-Id-Version: WooCommerce Products Compare 1.4.0\n"
+"Report-Msgid-Bugs-To: https://woo.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-26T12:03:34+00:00\n"
+"POT-Creation-Date: 2024-01-29T13:03:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: woocommerce-products-compare\n"
@@ -20,7 +20,7 @@ msgid "WooCommerce Products Compare"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://woocommerce.com/products/woocommerce-products-compare/"
+msgid "https://woo.com/products/woocommerce-products-compare/"
 msgstr ""
 
 #. Description of the plugin
@@ -36,7 +36,7 @@ msgid "https://koilab.com"
 msgstr ""
 
 #: includes/class-wc-products-compare-admin.php:58
-#: includes/class-wc-products-compare-frontend.php:97
+#: includes/class-wc-products-compare-frontend.php:94
 msgid "Products Compare"
 msgstr ""
 
@@ -44,51 +44,51 @@ msgstr ""
 msgid "Template Overrides:"
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:129
+#: includes/class-wc-products-compare-frontend.php:126
 msgid "Sorry, you must have cookies enabled in your browser to use compare products feature"
 msgstr ""
 
 #. Translators: %s Number of products.
-#: includes/class-wc-products-compare-frontend.php:134
+#: includes/class-wc-products-compare-frontend.php:131
 msgid "Sorry, a maximum of %s products can be compared at one time."
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:136
+#: includes/class-wc-products-compare-frontend.php:133
 msgid "Please add at least 2 or more products to compare."
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:137
+#: includes/class-wc-products-compare-frontend.php:134
 #: templates/content-widget-products-compare.php:37
 msgid "Add some products to compare."
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:138
+#: includes/class-wc-products-compare-frontend.php:135
 #: templates/content-widget-products-compare.php:32
 #: templates/content-widget-products-compare.php:33
 msgid "Remove all products"
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:231
+#: includes/class-wc-products-compare-frontend.php:228
 msgid "Compare"
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:231
+#: includes/class-wc-products-compare-frontend.php:228
 msgid "Compare Page"
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:368
+#: includes/class-wc-products-compare-frontend.php:365
 msgid "Sorry you do not have any products to compare."
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:372
+#: includes/class-wc-products-compare-frontend.php:369
 msgid "Return to Shop."
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:372
+#: includes/class-wc-products-compare-frontend.php:369
 msgid "Return to Shop"
 msgstr ""
 
-#: includes/class-wc-products-compare-frontend.php:410
+#: includes/class-wc-products-compare-frontend.php:407
 #: templates/content-widget-products-compare.php:26
 #: templates/content-widget-products-compare.php:27
 #: templates/products-compare-page-html.php:55
@@ -107,7 +107,7 @@ msgstr ""
 
 #: src/Admin/Admin.php:50
 msgctxt "aria-label: support link"
-msgid "Open a support ticket at WooCommerce.com"
+msgid "Open a support ticket at Woo.com"
 msgstr ""
 
 #: src/Admin/Admin.php:51

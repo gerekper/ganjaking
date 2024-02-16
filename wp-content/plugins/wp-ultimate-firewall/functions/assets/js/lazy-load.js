@@ -1,0 +1,2 @@
+//WP Ultimate Firewall Lazy Load
+!function(a){function t(){a("img[data-lazy-src]").bind("scrollin",{distance:240},function(){n(this)}),a("[data-carousel-extra]").each(function(){a(this).find("img[data-lazy-src]").each(function(){n(this)})})}function n(a){var t=jQuery(a),n=t.attr("data-lazy-src");n&&void 0!==n&&(t.unbind("scrollin").hide().removeAttr("data-lazy-src").attr("data-lazy-loaded","true"),a.src=n,t.fadeIn())}t(),a("body").bind("post-load",t)}(jQuery);

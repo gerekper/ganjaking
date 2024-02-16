@@ -1,8 +1,17 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ *
+ * Private products
  *
  * @package WooCommerce Redsys Gateway
+ * @since 16.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

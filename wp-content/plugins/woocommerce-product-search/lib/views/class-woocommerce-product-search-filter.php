@@ -182,7 +182,7 @@ class WooCommerce_Product_Search_Filter extends Filter_Renderer {
 				'products_header_container' => '.woocommerce-products-header',
 				'products_container'        => '.products',
 				'product_container'         => '.product',
-				'info_container'            => '.woocommerce-info',
+				'info_container'            => '.woocommerce-info, .wc-block-components-notice-banner.is-info',
 				'ordering_container'        => '.woocommerce-ordering',
 				'pagination_container'      => '.woocommerce-pagination',
 				'result_count_container'    => '.woocommerce-result-count',
@@ -316,7 +316,7 @@ class WooCommerce_Product_Search_Filter extends Filter_Renderer {
 					case 'result_count_container' :
 					case 'heading_class' :
 					case 'heading_id' :
-						$value = preg_replace( '/[^a-zA-Z0-9 _.#-]/', '', $value );
+						$value = preg_replace( '/[^a-zA-Z0-9 _.,#-]/', '', $value );
 						$value = trim( $value );
 						break;
 					case 'heading_element' :
@@ -1019,7 +1019,10 @@ class WooCommerce_Product_Search_Filter extends Filter_Renderer {
 			$request_parameters = $query_control->get_request_parameters();
 		}
 
-		$cache_key = md5( json_encode( array( $query_args, $request_parameters ) ) );
+		$cache_context = array( $query_args, $request_parameters );
+
+		$cache_context = apply_filters( 'woocommerce_product_search_filter_product_loop_cache_context', $cache_context, $atts, $loop_name );
+		$cache_key = md5( json_encode( $cache_context ) );
 		$cache = Cache::get_instance();
 		$products = $cache->get( $cache_key, self::CACHE_GROUP );
 		if ( $products === null ) {

@@ -340,11 +340,13 @@ class Tokens
             }
             if (!$dce_author_ID) {
                 global $authordata;
-                if (!$authordata) {
+                if (!$authordata instanceof \WP_User) {
                     $post = get_post();
                     $authordata = get_user_by('ID', $post->post_author);
                 }
-                $dce_author_ID = $authordata->ID;
+                if ($authordata instanceof \WP_User) {
+                    $dce_author_ID = $authordata->ID;
+                }
             }
             if ($dce_author_ID) {
                 foreach ($pezzi as $dce_key => $avalue) {
@@ -1346,6 +1348,15 @@ class Tokens
         $wl = self::get_filters_whitelist();
         return $wl[$filter] ?? \false;
     }
+    public static function filter_error_message($filter, $parameters, $e)
+    {
+        if (current_user_can('manage_options')) {
+            $fmt = esc_html__('There was an error while calling the token filter `%1$s`, with parameters `%2$s`, the error was: %3$s', 'dynamic-content-for-elementor');
+            return \sprintf("[{$fmt}]", wp_kses_post($filter), wp_kses_post(\var_export($parameters, 1)), $e->getMessage());
+        } else {
+            return '';
+        }
+    }
     public static function apply_filters($replaceValue = \false, $filtersStr = '', $post_id = 0, $field = '')
     {
         $post_id = $post_id ? $post_id : get_the_ID();
@@ -1477,7 +1488,11 @@ class Tokens
                 }
                 if ($afilter && \is_callable($afilter) && $replaceValue != '') {
                     if (empty($parameters)) {
-                        $replaceValue = $afilter($replaceValue);
+                        try {
+                            $replaceValue = $afilter($replaceValue);
+                        } catch (\Throwable $e) {
+                            return self::filter_error_message($afilter, [$replaceValue], $e);
+                        }
                     } else {
                         if ($afilter == 'date') {
                             $afilter = 'date_i18n';
@@ -1488,7 +1503,11 @@ class Tokens
                         } else {
                             \array_unshift($parameters, $replaceValue);
                         }
-                        $replaceValue = \call_user_func_array($afilter, $parameters);
+                        try {
+                            $replaceValue = \call_user_func_array($afilter, $parameters);
+                        } catch (\Throwable $e) {
+                            return self::filter_error_message($afilter, $parameters, $e);
+                        }
                     }
                 }
             }

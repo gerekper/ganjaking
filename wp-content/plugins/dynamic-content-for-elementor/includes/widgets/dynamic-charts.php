@@ -83,25 +83,25 @@ class DynamicCharts extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if ('csv' === $settings['input']) {
             if ('url' === $settings['csv_from'] && empty($settings['csv_url'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Please insert the CSV Url', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Please insert the CSV Url', 'dynamic-content-for-elementor'));
                 }
                 return;
             }
             if ('textarea' === $settings['csv_from'] && empty($settings['csv_textarea'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Please insert the CSV values', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Please insert the CSV values', 'dynamic-content-for-elementor'));
                 }
                 return;
             }
             if (empty($settings['csv_separator'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Please insert the CSV separator', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Please insert the CSV separator', 'dynamic-content-for-elementor'));
                 }
                 return;
             }
             if (!empty($settings['csv_limit']) && empty($settings['csv_limit_records'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('You have chosen to limit the records of the CSV. Please insert the CSV limit records', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('You have chosen to limit the records of the CSV. Please insert the CSV limit records', 'dynamic-content-for-elementor'));
                 }
                 return;
             }

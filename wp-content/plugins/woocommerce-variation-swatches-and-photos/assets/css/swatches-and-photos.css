@@ -58,9 +58,9 @@ div.swatch-wrapper.disabled, div.swatch-wrapper.disabled a, .radio-select .disab
 
     cursor: not-allowed;
 
-    /* Required for IE 5, 6, 7 */	
-    zoom:1; 
-    /* Theoretically for IE 8 & 9 (more valid) */	
+    /* Required for IE 5, 6, 7 */
+    zoom:1;
+    /* Theoretically for IE 8 & 9 (more valid) */
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     /* This works in IE 8 & 9 too */
     /* ... but also 5, 6, 7 */
@@ -159,7 +159,7 @@ table.wcsap_input select{
 }
 
 table.wcsap_input select {
-    padding: 2px;
+    padding: 5px 8px
 }
 
 table.wcsap_input input[type=text]:focus,
@@ -167,8 +167,6 @@ table.wcsap_input textarea:focus,
 table.wcsap_input select:focus {
     border-color:#98B6CB;
 }
-
-
 
 /*---------------------------------------------------------------------------------------------
         Table
@@ -219,7 +217,7 @@ table.widefat.wcsap td {
 
 .wcsap tr td {
     background: transparent;
-    padding: 8px;
+    padding: 8px 8px 8px 10px;
     position: relative;
     font-size: 12px;
 }
@@ -242,10 +240,10 @@ table.widefat.wcsap td {
         Fields Header
 ---------------------------------------------------------------------------------------------*/
 .fields_header {
-    -moz-border-radius: 3px 3px 0 0; 
-    -webkit-border-radius: 3px 3px 0 0; 
-    -khtml-border-radius: 3px 3px 0 0; 
-    border-radius: 3px 3px 0 0; 
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -khtml-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
     border: #DFDFDF solid 1px;
     border-bottom: 0 none;
 }
@@ -269,8 +267,7 @@ table.widefat.wcsap td {
 #swatches .field .wcsap_field_meta strong {
     display: block;
     padding-bottom: 6px;
-    font-size: 13px;
-    line-height: 13px;
+    font-size: 1rem;
 }
 
 #swatches .field .wcsap_field_meta .row_options {

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-05 18:57+0100\n"
-"PO-Revision-Date: 2023-11-10 14:10+0100\n"
+"POT-Creation-Date: 2024-01-29 16:32+0100\n"
+"PO-Revision-Date: 2024-01-29 16:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: lib/core/class-woocommerce-product-search-service-old.php:3226
-#, php-format
-msgid " | Min Price: %1$s - Max Price: %2$s"
-msgstr " | Precio Mínimo.: %1$s - Precio Máximo: %2$s"
 
 #: lib/admin/class-woocommerce-product-search-admin.php:85
 #, php-format
@@ -91,8 +86,8 @@ msgstr ""
 "<a href=\"%1$s\">WooCommerce Product Search</a> está disponible para ti "
 "exclusivamente a través de <a href=\"%2$s\">%3$s</a>."
 
-#: lib/cache/class-rest-cache-controller.php:240
-#: lib/cache/class-rest-cache-controller.php:262
+#: lib/cache/class-rest-cache-controller.php:249
+#: lib/cache/class-rest-cache-controller.php:271
 #: lib/admin/settings/class-admin-settings.php:76
 #: lib/admin/settings/class-admin-settings.php:127
 msgid "Access denied."
@@ -119,8 +114,8 @@ msgstr "Activar el filtrado en vivo."
 msgid "Add filter widgets to the selected sidebar."
 msgstr "Agregar widgets de filtro a la barra lateral seleccionada."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:351
-#: lib/admin/class-woocommerce-product-search-admin.php:395
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:352
+#: lib/admin/class-woocommerce-product-search-admin.php:396
 #, php-format
 msgid ""
 "Add live search and filters to your shop, using the %sblocks%s, %swidgets%s "
@@ -189,7 +184,7 @@ msgstr ""
 "Permitir agregar un producto a la cesta, seleccionar opciones o leer más "
 "directamente."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:419
+#: lib/admin/class-woocommerce-product-search-admin.php:420
 msgid "Among them, you will find:"
 msgstr "Entre ellos, encontrarás:"
 
@@ -479,13 +474,12 @@ msgstr "Limpiar"
 #: lib/blocks/class-product-filter-reset-block.php:74
 #: lib/blocks/src/blocks/product-filter-reset.js:109
 #: lib/core/class-woocommerce-product-search-service.php:431
-#: lib/core/class-woocommerce-product-search-service-old.php:531
 #: lib/admin/reports/class-woocommerce-product-search-report-queries.php:515
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:179
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:215
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:243
 #: lib/views/class-woocommerce-product-search-filter-tag.php:493
-#: lib/views/class-woocommerce-product-search-filter.php:506
+#: lib/views/class-woocommerce-product-search-filter.php:515
 #: lib/views/class-woocommerce-product-search-filter-attribute.php:718
 #: lib/views/class-woocommerce-product-search-filter-attribute.php:727
 #: lib/views/class-woocommerce-product-search-field.php:355
@@ -576,30 +570,30 @@ msgstr "Contiene"
 msgid "Content"
 msgstr "Contenido"
 
-#: lib/cache/class-file-cache.php:933 lib/cache/class-file-cache.php:943
+#: lib/cache/class-file-cache.php:977 lib/cache/class-file-cache.php:987
 msgid "Could not establish a master lock"
 msgstr "No se pudo establecer una cerradura maestra"
 
-#: lib/cache/class-file-cache.php:955
+#: lib/cache/class-file-cache.php:999
 msgid "Could not establish a path lock"
 msgstr "No se pudo establecer un bloqueo de ruta"
 
-#: lib/cache/class-file-cache.php:940
+#: lib/cache/class-file-cache.php:984
 #, php-format
 msgid "Could not obtain a master read lock on %s"
 msgstr "No se pudo obtener un bloqueo de lectura maestro en %s"
 
-#: lib/cache/class-file-cache.php:930
+#: lib/cache/class-file-cache.php:974
 #, php-format
 msgid "Could not obtain a master write lock on %s"
 msgstr "No se pudo obtener un bloqueo de escritura maestro en %s"
 
-#: lib/cache/class-file-cache.php:952
+#: lib/cache/class-file-cache.php:996
 #, php-format
 msgid "Could not obtain a path lock on %s"
 msgstr "No se pudo obtener un bloqueo de ruta en %s"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:489
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:490
 msgid "Could you please take a moment and rate this extension?"
 msgstr "¿Podría tomarse un momento y calificar esta extensión?"
 
@@ -650,7 +644,7 @@ msgstr "Fecha"
 msgid "Default"
 msgstr "Por Defecto"
 
-#: lib/views/class-woocommerce-product-search-filter.php:850
+#: lib/views/class-woocommerce-product-search-filter.php:859
 msgid "Default sorting"
 msgstr "Clasificación por defecto"
 
@@ -681,12 +675,12 @@ msgstr "Borrar datos"
 msgid "Delete search settings and data on deactivation"
 msgstr "Eliminar la configuración y datos de búsqueda a la desactivación"
 
-#: lib/cache/class-file-cache.php:862
+#: lib/cache/class-file-cache.php:906
 msgid "Deleting from the cache directory is not possible."
 msgstr "No es posible eliminar del directorio de caché."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:321
-#: lib/admin/class-woocommerce-product-search-admin.php:348
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:322
+#: lib/admin/class-woocommerce-product-search-admin.php:349
 msgid ""
 "Depending on the amount of products in your store and the processing "
 "capabilities of your server, this process may take a few minutes or hours to "
@@ -958,11 +952,11 @@ msgstr "No mostrar términos que no tienen productos relacionados."
 
 #: lib/admin/class-woocommerce-product-search-admin-notice.php:243
 #: lib/admin/class-woocommerce-product-search-admin.php:270
-#: lib/admin/class-woocommerce-product-search-admin.php:508
+#: lib/admin/class-woocommerce-product-search-admin.php:509
 msgid "Documentation"
 msgstr "Documentación"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:456
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:457
 msgid ""
 "Don't worry, you can always get this back by clicking the Welcome link of "
 "the WooCommerce Product Search entry in the Plugins section."
@@ -978,7 +972,7 @@ msgstr ""
 msgid "Dropdown"
 msgstr "Desplegable"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:558
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:559
 msgid ""
 "During this process, product searches and filters may produce fewer or no "
 "results until the process is completed."
@@ -1011,7 +1005,7 @@ msgstr "Habilitar la Caché de Objetos"
 msgid "Enable the Transitory Cache"
 msgstr "Habilitar la Caché Transitoria"
 
-#: lib/admin/class-woocommerce-product-search-admin.php:380
+#: lib/admin/class-woocommerce-product-search-admin.php:381
 #, php-format
 msgid ""
 "Enable the use of <a href=\"%s\">Weights</a> to improve the relevance in "
@@ -1023,7 +1017,7 @@ msgstr ""
 "títulos de productos, descripciones, contenidos, categorías, etiquetas, "
 "atributos y su SKU."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:387
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:388
 msgid ""
 "Enable the use of Weights to improve the relevance in product search "
 "results, based on matches in product titles, descriptions, contents, "
@@ -1145,7 +1139,7 @@ msgstr "Filtrar los resultados de búsqueda en función del idioma actual."
 msgid "Filters"
 msgstr "Filtros"
 
-#: lib/views/class-woocommerce-product-search-filter-reset.php:181
+#: lib/views/class-woocommerce-product-search-filter-reset.php:184
 msgctxt "product filter reset heading"
 msgid "Filters"
 msgstr "Filtros"
@@ -1164,7 +1158,7 @@ msgstr "Resultados flotantes"
 msgid "Flush"
 msgstr "Vaciar"
 
-#: lib/admin/class-woocommerce-product-search-admin.php:458
+#: lib/admin/class-woocommerce-product-search-admin.php:459
 msgid ""
 "For ease of integration, these features are available as blocks, widgets, "
 "shortcodes and API functions."
@@ -1197,7 +1191,7 @@ msgstr ""
 msgid "For unlimited results, use 0 (zero)."
 msgstr "Usar 0 (cero) para resultados ilimitados."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:344
+#: lib/admin/class-woocommerce-product-search-admin.php:345
 msgid ""
 "For your convenience and to minimize manual setup, the search engine will "
 "start to process data automatically in the background once activated."
@@ -1211,7 +1205,7 @@ msgctxt "storage status display"
 msgid "Free storage"
 msgstr "Espacio libre"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:332
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:333
 msgid ""
 "Front-end and back-end searches are now optimized to provide the best search "
 "experience by default."
@@ -1249,7 +1243,7 @@ msgstr "General"
 msgid "General Settings"
 msgstr "Ajustes Generales"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:307
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:308
 msgid "Getting started &hellip;"
 msgstr "Comenzando &hellip;"
 
@@ -1284,7 +1278,7 @@ msgstr "Ir a la primera página de resultados cuando se aplican filtros."
 msgid "HTTP Response Status: %d %s"
 msgstr "HTTP Estado de Respuesta: %d %s"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:436
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:437
 msgid "Have fun selling!"
 msgstr "¡Diviértete vendiendo!"
 
@@ -1457,11 +1451,11 @@ msgstr "Host o socket."
 msgid "How attributes should be displayed."
 msgstr "Cómo mostrar atributos."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:494
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:495
 msgid "I have already rated it"
 msgstr "Ya lo he calificado"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:452
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:453
 msgid "I've got it, let's hide this"
 msgstr "Lo tengo, vamos a esconder esto"
 
@@ -1730,7 +1724,7 @@ msgstr ""
 "Si va a utilizar esta opción, AHORA sería un buen momento para hacer una "
 "copia de seguridad de su sitio y su base de datos."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:514
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:515
 #, php-format
 msgid ""
 "If you would rate any aspect below 5 stars, please <a href=\"%s\">let us "
@@ -1844,8 +1838,8 @@ msgstr ""
 msgid "Input the ID, slug or name of the terms, separated by comma."
 msgstr "Indicar el ID, slug o nombre de los términos, separados por comas."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:323
-#: lib/admin/class-woocommerce-product-search-admin.php:350
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:324
+#: lib/admin/class-woocommerce-product-search-admin.php:351
 msgid ""
 "It is designed to provide search results immediately, even while the "
 "indexing process continues in the background."
@@ -1853,7 +1847,7 @@ msgstr ""
 "Está diseñado para proporcionar resultados de búsqueda de forma inmediata, "
 "incluso mientras el proceso de indexación continúa en segundo plano."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:438
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:439
 msgid "It just got easier &hellip; :)"
 msgstr "Ahora es más fácil &hellip; :)"
 
@@ -1865,7 +1859,7 @@ msgstr ""
 "Contendrá los widgets que usan tus clientes para filtrar los productos en tu "
 "tienda."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:346
+#: lib/admin/class-woocommerce-product-search-admin.php:347
 msgid ""
 "It will start to index your products to optimize search results for your "
 "visitors."
@@ -1965,8 +1959,8 @@ msgid "List"
 msgstr "Lista"
 
 #: lib/admin/settings/class-section-general.php:516
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:368
-#: lib/admin/class-woocommerce-product-search-admin.php:370
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:369
+#: lib/admin/class-woocommerce-product-search-admin.php:371
 #, php-format
 msgid ""
 "Live search statistics are available in the <a href=\"%s\">Search</a> "
@@ -1975,7 +1969,7 @@ msgstr ""
 "Las estadísticas en vivo de búsqueda están disponibles en la sección <a href="
 "\"%s\">Búsqueda</a> de los informes."
 
-#: lib/cache/class-file-cache.php:859
+#: lib/cache/class-file-cache.php:903
 msgid "Locking in the cache directory fails."
 msgstr "No se puede bloquear el directorio de caché."
 
@@ -1991,7 +1985,7 @@ msgstr "Registros"
 msgid "Manage"
 msgstr "Gestionar"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:487
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:488
 msgid "Many thanks for using <strong>WooCommerce Product Search</strong>!"
 msgstr "¡Muchas gracias por usar <strong>WooCommerce Product Search</strong>!"
 
@@ -2112,8 +2106,8 @@ msgstr "Resultados navegables"
 msgid "Navigation"
 msgstr "Navegación"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:325
-#: lib/admin/class-woocommerce-product-search-admin.php:352
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:326
+#: lib/admin/class-woocommerce-product-search-admin.php:353
 msgid "New and updated content is normally indexed within seconds."
 msgstr "El contenido nuevo y actualizado normalmente se indexa en segundos."
 
@@ -2135,7 +2129,7 @@ msgid "No queries found in range"
 msgstr "No se encontraron consultas en el rango"
 
 #: lib/blocks/src/blocks/product-search-field.js:466
-#: lib/views/class-woocommerce-product-search-filter.php:810
+#: lib/views/class-woocommerce-product-search-filter.php:819
 #: lib/views/class-woocommerce-product-search-widget.php:702
 msgid "No results"
 msgstr "No hay resultados"
@@ -2169,7 +2163,7 @@ msgstr ""
 msgid "Nothing to display yet, please review the settings."
 msgstr "Nada que mostrar aún, revisar los ajustes."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:380
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:381
 #, php-format
 msgid ""
 "Now you can use <a href=\"%s\">Weights</a> to improve the relevance in "
@@ -2344,7 +2338,6 @@ msgstr "Por Página"
 msgid "Placeholder"
 msgstr "Comodín"
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4477
 #: lib/views/class-woocommerce-product-search-thumbnail.php:439
 #: lib/control/class-product-search-field-control.php:637
 msgid "Placeholder Image"
@@ -2355,8 +2348,8 @@ msgstr "Imagen Comodín"
 msgid "Placeholder thumbnails"
 msgstr "Miniaturas de comodín"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:295
-#: lib/admin/class-woocommerce-product-search-admin.php:331
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:296
+#: lib/admin/class-woocommerce-product-search-admin.php:332
 #, php-format
 msgid ""
 "Please always make sure that you obtain or renew this official extension "
@@ -2375,7 +2368,7 @@ msgstr ""
 
 #: lib/admin/class-woocommerce-product-search-admin-notice.php:249
 #: lib/admin/class-woocommerce-product-search-admin.php:276
-#: lib/admin/class-woocommerce-product-search-admin.php:462
+#: lib/admin/class-woocommerce-product-search-admin.php:463
 #, php-format
 msgid ""
 "Please refer to the <a href=\"%s\">WooCommerce Product Search</a> "
@@ -2460,7 +2453,7 @@ msgstr "Contenedor Producto"
 #: lib/blocks/src/blocks/product-filter-attribute.js:59
 #: lib/blocks/src/blocks/product-filter-attribute.js:82
 #: lib/blocks/src/blocks/product-filter-attribute.js:665
-#: lib/admin/class-woocommerce-product-search-admin.php:423
+#: lib/admin/class-woocommerce-product-search-admin.php:424
 #: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:60
 msgid "Product Filter &ndash; Attributes"
 msgstr "Filtro de Productos &ndash; Atributos"
@@ -2468,7 +2461,7 @@ msgstr "Filtro de Productos &ndash; Atributos"
 #: lib/blocks/src/blocks/product-filter-category.js:50
 #: lib/blocks/src/blocks/product-filter-category.js:63
 #: lib/blocks/src/blocks/product-filter-category.js:822
-#: lib/admin/class-woocommerce-product-search-admin.php:426
+#: lib/admin/class-woocommerce-product-search-admin.php:427
 #: lib/views/class-woocommerce-product-search-filter-category-widget.php:60
 msgid "Product Filter &ndash; Categories"
 msgstr "Filtro de Productos &ndash; Categorías"
@@ -2476,7 +2469,7 @@ msgstr "Filtro de Productos &ndash; Categorías"
 #: lib/blocks/src/blocks/product-filter-price.js:50
 #: lib/blocks/src/blocks/product-filter-price.js:63
 #: lib/blocks/src/blocks/product-filter-price.js:363
-#: lib/admin/class-woocommerce-product-search-admin.php:429
+#: lib/admin/class-woocommerce-product-search-admin.php:430
 #: lib/views/class-woocommerce-product-search-filter-price-widget.php:59
 msgid "Product Filter &ndash; Price"
 msgstr "Filtro de Productos &ndash; Precio"
@@ -2491,7 +2484,7 @@ msgstr "Filtro de Productos &ndash; Productos"
 #: lib/blocks/src/blocks/product-filter-rating.js:50
 #: lib/blocks/src/blocks/product-filter-rating.js:63
 #: lib/blocks/src/blocks/product-filter-rating.js:241
-#: lib/admin/class-woocommerce-product-search-admin.php:432
+#: lib/admin/class-woocommerce-product-search-admin.php:433
 #: lib/views/class-woocommerce-product-search-filter-rating-widget.php:59
 msgid "Product Filter &ndash; Rating"
 msgstr "Filtro de Productos &ndash; Puntuación"
@@ -2506,7 +2499,7 @@ msgstr "Filtro de Productos &ndash; Limpiar"
 #: lib/blocks/src/blocks/product-filter-sale.js:50
 #: lib/blocks/src/blocks/product-filter-sale.js:63
 #: lib/blocks/src/blocks/product-filter-sale.js:267
-#: lib/admin/class-woocommerce-product-search-admin.php:435
+#: lib/admin/class-woocommerce-product-search-admin.php:436
 #: lib/views/class-woocommerce-product-search-filter-sale-widget.php:59
 msgid "Product Filter &ndash; Sale"
 msgstr "Filtro de Productos &ndash; Oferta"
@@ -2514,7 +2507,7 @@ msgstr "Filtro de Productos &ndash; Oferta"
 #: lib/blocks/src/blocks/product-filter-search.js:50
 #: lib/blocks/src/blocks/product-filter-search.js:63
 #: lib/blocks/src/blocks/product-filter-search.js:574
-#: lib/admin/class-woocommerce-product-search-admin.php:438
+#: lib/admin/class-woocommerce-product-search-admin.php:439
 #: lib/views/class-woocommerce-product-search-filter-widget.php:60
 msgid "Product Filter &ndash; Search"
 msgstr "Filtro de Productos &ndash; Buscar"
@@ -2522,7 +2515,7 @@ msgstr "Filtro de Productos &ndash; Buscar"
 #: lib/blocks/src/blocks/product-filter-stock.js:50
 #: lib/blocks/src/blocks/product-filter-stock.js:63
 #: lib/blocks/src/blocks/product-filter-stock.js:267
-#: lib/admin/class-woocommerce-product-search-admin.php:441
+#: lib/admin/class-woocommerce-product-search-admin.php:442
 #: lib/views/class-woocommerce-product-search-filter-stock-widget.php:59
 msgid "Product Filter &ndash; Stock"
 msgstr "Filtro de Productos &ndash; Existencias"
@@ -2530,14 +2523,14 @@ msgstr "Filtro de Productos &ndash; Existencias"
 #: lib/blocks/src/blocks/product-filter-tag.js:50
 #: lib/blocks/src/blocks/product-filter-tag.js:63
 #: lib/blocks/src/blocks/product-filter-tag.js:491
-#: lib/admin/class-woocommerce-product-search-admin.php:444
+#: lib/admin/class-woocommerce-product-search-admin.php:445
 #: lib/views/class-woocommerce-product-search-filter-tag-widget.php:59
 msgid "Product Filter &ndash; Tags"
 msgstr "Filtro de Productos &ndash; Etiquetas"
 
 #: lib/blocks/src/blocks/product-search-field.js:35
 #: lib/blocks/src/blocks/product-search-field.js:593
-#: lib/admin/class-woocommerce-product-search-admin.php:453
+#: lib/admin/class-woocommerce-product-search-admin.php:454
 #: lib/views/class-woocommerce-product-search-widget.php:57
 msgid "Product Search Field"
 msgstr "Campo Buscar Productos"
@@ -2666,8 +2659,8 @@ msgstr "Relevancia"
 msgid "Remaining"
 msgstr "Restante"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:446
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:507
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:447
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:508
 msgid "Remind me later"
 msgstr "Recordar más tarde"
 
@@ -2686,7 +2679,7 @@ msgid "Replace the standard product search form"
 msgstr "Reemplazar el formulario de búsqueda de productos estándar"
 
 #: lib/admin/settings/class-admin-settings.php:191
-#: lib/admin/class-woocommerce-product-search-admin.php:491
+#: lib/admin/class-woocommerce-product-search-admin.php:492
 msgid "Reports"
 msgstr "Informes"
 
@@ -2707,7 +2700,7 @@ msgstr "Contenedor Cuenta Resultados"
 msgid "Retract automatically"
 msgstr "Retraer automáticamente"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:428
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:429
 msgid "Review the Settings"
 msgstr "Revisar la Configuración"
 
@@ -2735,7 +2728,7 @@ msgstr "Los términos de raíz son expandibles"
 msgid "Run"
 msgstr "Ejecutar"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:406
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:407
 msgid "Run the Assistant"
 msgstr "Ejecutar el Asistente"
 
@@ -2828,7 +2821,7 @@ msgstr ""
 msgid "Search"
 msgstr "Búsqueda"
 
-#: lib/views/class-woocommerce-product-search-filter.php:305
+#: lib/views/class-woocommerce-product-search-filter.php:312
 msgctxt "product search filter heading"
 msgid "Search"
 msgstr "Búsqueda"
@@ -2877,12 +2870,10 @@ msgstr "Pesos de Búsqueda"
 msgid "Search for a product&hellip;"
 msgstr "Busca un producto&hellip;"
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4550
 #: lib/control/class-product-search-field-control.php:713
 msgid "Search for more &hellip;"
 msgstr "Buscar más &hellip;"
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4589
 #: lib/control/class-product-search-field-control.php:752
 #, php-format
 msgid "Search in %s"
@@ -3064,15 +3055,15 @@ msgstr "Establecer imagen"
 
 #: lib/admin/settings/class-section-cache.php:315
 #: lib/admin/class-woocommerce-product-search-admin-navigation.php:265
-#: lib/admin/class-woocommerce-product-search-admin.php:490
+#: lib/admin/class-woocommerce-product-search-admin.php:491
 msgid "Settings"
 msgstr "Ajustes"
 
-#: lib/admin/class-woocommerce-product-search-admin.php:340
+#: lib/admin/class-woocommerce-product-search-admin.php:341
 msgid "Setup"
 msgstr "Configuración"
 
-#: lib/admin/class-woocommerce-product-search-admin.php:390
+#: lib/admin/class-woocommerce-product-search-admin.php:391
 msgid ""
 "Several live filtering facilities help your visitors to find the desired "
 "products quickly."
@@ -3080,7 +3071,7 @@ msgstr ""
 "Varias instalaciones de filtrado en vivo ayudan a los visitantes a encontrar "
 "rápidamente los productos deseados."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:399
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:400
 msgid ""
 "Shall we make it easy for your customers and add live filters to your shop "
 "pages right now?"
@@ -3361,14 +3352,14 @@ msgstr ""
 "Mostrar/ocultar resultados de búsqueda cuando el campo de entrada de "
 "búsqueda gana/pierde foco."
 
-#: lib/views/class-woocommerce-product-search-filter.php:814
+#: lib/views/class-woocommerce-product-search-filter.php:823
 #, php-format
 msgid "Showing the single result"
 msgid_plural "Showing all %d results"
 msgstr[0] "Mostrando un solo resultado"
 msgstr[1] "Mostrando todos los %d resultados"
 
-#: lib/views/class-woocommerce-product-search-filter.php:819
+#: lib/views/class-woocommerce-product-search-filter.php:828
 #, php-format
 msgctxt "with first and last result"
 msgid "Showing the single result"
@@ -3421,23 +3412,23 @@ msgstr "Slider"
 msgid "Slug"
 msgstr "Slug"
 
-#: lib/views/class-woocommerce-product-search-filter.php:852
+#: lib/views/class-woocommerce-product-search-filter.php:861
 msgid "Sort by average rating"
 msgstr "Ordenar por calificación promedio"
 
-#: lib/views/class-woocommerce-product-search-filter.php:853
+#: lib/views/class-woocommerce-product-search-filter.php:862
 msgid "Sort by newness"
 msgstr "Ordenar por novedad"
 
-#: lib/views/class-woocommerce-product-search-filter.php:851
+#: lib/views/class-woocommerce-product-search-filter.php:860
 msgid "Sort by popularity"
 msgstr "Ordenar por popularidad"
 
-#: lib/views/class-woocommerce-product-search-filter.php:855
+#: lib/views/class-woocommerce-product-search-filter.php:864
 msgid "Sort by price: high to low"
 msgstr "Ordenar por precio: de alto a bajo"
 
-#: lib/views/class-woocommerce-product-search-filter.php:854
+#: lib/views/class-woocommerce-product-search-filter.php:863
 msgid "Sort by price: low to high"
 msgstr "Ordenar por precio: de bajo a alto"
 
@@ -3454,10 +3445,6 @@ msgstr ""
 #: lib/admin/settings/class-section-general.php:207
 msgid "Standard Product Search"
 msgstr "Búsqueda de Producto Estándar"
-
-#: lib/core/class-woocommerce-product-search-service-old.php:3220
-msgid "Standard Search"
-msgstr "Búsqueda Estándar"
 
 #: lib/admin/settings/class-section-css.php:64
 msgid "Standard Stylesheet"
@@ -3548,7 +3535,7 @@ msgstr "El espacio de almacenamiento se ha agotado"
 msgid "Style"
 msgstr "Estilo"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:501
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:502
 msgid "Submit a rating"
 msgstr "Enviar una calificación"
 
@@ -3586,7 +3573,7 @@ msgstr "Sufijo"
 
 #: lib/admin/class-woocommerce-product-search-admin-notice.php:259
 #: lib/admin/class-woocommerce-product-search-admin.php:285
-#: lib/admin/class-woocommerce-product-search-admin.php:509
+#: lib/admin/class-woocommerce-product-search-admin.php:510
 msgid "Support"
 msgstr "Soporte"
 
@@ -3757,7 +3744,7 @@ msgstr ""
 "La Caché de Objetos almacena datos en la memoria o utiliza otros mecanismos "
 "proporcionados por plugins de caché."
 
-#: lib/cache/class-file-cache.php:1008 lib/cache/class-file-cache.php:1012
+#: lib/cache/class-file-cache.php:1052 lib/cache/class-file-cache.php:1056
 #, php-format
 msgid "The PHP function %s is not available"
 msgstr "La función PHP %s no está disponible"
@@ -3766,7 +3753,7 @@ msgstr "La función PHP %s no está disponible"
 msgid "The Transitory Cache stores data in memory."
 msgstr "La Caché Transitoria almacena datos en la memoria."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:540
+#: lib/admin/class-woocommerce-product-search-admin.php:541
 msgid ""
 "The WooCommerce Product Search plugin is configured to delete its data on "
 "deactivation."
@@ -3774,7 +3761,7 @@ msgstr ""
 "El plugin WooCommerce Product Search está configurado para eliminar sus "
 "datos en la desactivación."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:356
+#: lib/admin/class-woocommerce-product-search-admin.php:357
 msgid ""
 "The advanced Product Search Field automatically replaces the standard field "
 "when possible."
@@ -3782,7 +3769,7 @@ msgstr ""
 "El Campo Buscar Productos avanzado reemplaza automáticamente el campo "
 "estándar cuando sea posible."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:334
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:335
 msgid ""
 "The advanced Product Search Field will replace the standard product search "
 "field where possible."
@@ -3790,7 +3777,7 @@ msgstr ""
 "El Campo Buscar Productos avanzado reemplazará el campo de búsqueda de "
 "productos estándar cuando sea posible."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:449
+#: lib/admin/class-woocommerce-product-search-admin.php:450
 msgid ""
 "The advanced product search field that can replace the standard search is "
 "also available as a block, widget and shortcode:"
@@ -3824,11 +3811,11 @@ msgid "The cache configuration is determined by the %1$s%2$s%3$s constant."
 msgstr ""
 "La configuración de la caché viene determinada por la constante %1$s%2$s%3$s."
 
-#: lib/cache/class-file-cache.php:868
+#: lib/cache/class-file-cache.php:912
 msgid "The cache directory is not available."
 msgstr "El directorio de caché no está disponible."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:556
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:557
 msgid "The database update will run in the background and may take a while."
 msgstr ""
 "La actualización de la base de datos se ejecutará en segundo plano y puede "
@@ -3987,7 +3974,7 @@ msgstr ""
 "Los resultados mostrados con el Campo Buscar Productos pueden tener sus "
 "títulos y descripciones acortados automáticamente."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:318
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:319
 msgid ""
 "The search engine is already indexing your products to optimize search "
 "results for your visitors."
@@ -4114,7 +4101,7 @@ msgstr ""
 msgid "There are no queries to show."
 msgstr "No hay consultas para mostrar."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:414
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:415
 msgid ""
 "There are plenty of useful features and we highly recommend to have a look "
 "at the documentation for details."
@@ -4126,7 +4113,7 @@ msgstr ""
 msgid "These are used to look up products in fields."
 msgstr "Se utilizan para buscar productos en campos."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:417
+#: lib/admin/class-woocommerce-product-search-admin.php:418
 msgid ""
 "These live filters update the products shown in your shop instantly, to "
 "include those that are related."
@@ -4392,7 +4379,7 @@ msgstr "Hasta 8º nivel de hijos"
 msgid "Up to 9th level children"
 msgstr "Hasta 9º nivel de hijos"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:566
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:567
 msgid "Update"
 msgstr "Actualizar"
 
@@ -4513,8 +4500,8 @@ msgstr "Usuario"
 
 #: lib/blocks/src/blocks/product-search-field.js:577
 #: lib/views/class-woocommerce-product-search-widget.php:743
-msgid "WMPL Language Filter"
-msgstr "WMPL Filtro de Idioma"
+msgid "WPML Language Filter"
+msgstr "Filtro de idioma WPML"
 
 #: lib/admin/class-woocommerce-product-search-admin-bar.php:76
 msgctxt "index status display"
@@ -4526,7 +4513,7 @@ msgctxt "storage status display"
 msgid "Warning"
 msgstr "Atención"
 
-#: lib/admin/class-woocommerce-product-search-admin.php:536
+#: lib/admin/class-woocommerce-product-search-admin.php:537
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
@@ -4535,7 +4522,7 @@ msgstr "¡Advertencia!"
 msgid "We also welcome your suggestions through this channel."
 msgstr "También son bienvenidas tus sugerencias a través de este canal."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:560
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:561
 msgid "We recommend to run the update during low traffic hours."
 msgstr "Se recomienda actualizar durante horas de poco tráfico."
 
@@ -4549,7 +4536,7 @@ msgstr ""
 "uno para los precios y uno para cada atributo del producto que se utiliza "
 "para ofrecer variaciones del producto."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:418
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:419
 #, php-format
 msgid ""
 "We're always here for you if you need help or have suggestions, just <a href="
@@ -4563,8 +4550,8 @@ msgstr ""
 msgid "Weights"
 msgstr "Pesos"
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:389
-#: lib/admin/class-woocommerce-product-search-admin.php:386
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:390
+#: lib/admin/class-woocommerce-product-search-admin.php:387
 msgid "Weights can also be set for specific products and product categories."
 msgstr ""
 "Los pesos también se pueden establecer para productos específicos y "
@@ -4572,7 +4559,7 @@ msgstr ""
 
 #: lib/admin/class-woocommerce-product-search-admin-navigation.php:183
 #: lib/admin/class-woocommerce-product-search-admin-navigation.php:184
-#: lib/admin/class-woocommerce-product-search-admin.php:489
+#: lib/admin/class-woocommerce-product-search-admin.php:490
 msgid "Welcome"
 msgstr "Bienvenido"
 
@@ -4762,15 +4749,6 @@ msgstr ""
 "WooCommerce Product Search &mdash; El campo de búsqueda de productos "
 "instantáneo de la tienda, proporciona resultados en vivo mientras escribes."
 
-#: lib/core/class-woocommerce-product-search-service-old.php:3219
-#, php-format
-msgid ""
-"WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search Terms: "
-"%3$s"
-msgstr ""
-"WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search Terms: "
-"%3$s"
-
 #: lib/core/class-woocommerce-product-search.php:484
 #, php-format
 msgid ""
@@ -4785,7 +4763,7 @@ msgstr ""
 msgid "WooCommerce Product Search requires %s to be installed and active."
 msgstr "WooCommerce Product Search requiere %s estar instalado y activo."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:553
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:554
 msgid "WooCommerce Product Search requires a Database Update &hellip;"
 msgstr ""
 "WooCommerce Product Search necesita actualizar la Base de Datos &hellip;"
@@ -4811,7 +4789,7 @@ msgstr "Palabras en Títulos"
 msgid "Work Cycle"
 msgstr "Ciclo de Trabajo"
 
-#: lib/cache/class-file-cache.php:865
+#: lib/cache/class-file-cache.php:909
 msgid "Writing to the cache directory is not possible."
 msgstr "No es posible escribir en el directorio de caché."
 
@@ -4828,13 +4806,13 @@ msgstr ""
 "Puedes agregarlos todos o sólo algunos, siempre se puede volver aquí o "
 "simplemente agregarlos en la sección <a href=\"%s\">Widgets</a>."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:360
+#: lib/admin/class-woocommerce-product-search-admin.php:361
 #, php-format
 msgid "You can adjust its settings in the <a href=\"%s\">General</a> section."
 msgstr ""
 "Se puede ajustar su configuración en la sección <a href=\"%s\">General</a>."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:338
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:339
 #, php-format
 msgid ""
 "You can adjust these settings in the <a href=\"%s\">General</a> section."
@@ -4851,7 +4829,7 @@ msgstr ""
 "Se pueden personalizar y <a href=\"%s\">controlar</a> aún más en la sección "
 "<a href=\"%s\">Widgets</a>."
 
-#: lib/admin/class-woocommerce-product-search-admin.php:410
+#: lib/admin/class-woocommerce-product-search-admin.php:411
 #, php-format
 msgid ""
 "You can use the <a href=\"%s\">Assistant</a> to add filter widgets to your "
@@ -4864,7 +4842,7 @@ msgstr ""
 msgid "You must select a product attribute."
 msgstr "Se debe seleccionar un atributo de producto."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:311
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:312
 msgid ""
 "Your customers will love your store for this &mdash; it helps them to find "
 "the right products quickly."
@@ -4872,7 +4850,7 @@ msgstr ""
 "Tus clientes estarán encantados con tu tienda con esto &mdash; les ayuda a "
 "encontrar los productos adecuados rápidamente."
 
-#: lib/admin/class-woocommerce-product-search-admin-notice.php:511
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:512
 msgid ""
 "Your rating helps us to provide you with an excellent product and commit to "
 "continuous improvement."
@@ -4901,7 +4879,6 @@ msgstr "entradas"
 msgid "inherit"
 msgstr "heredar"
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4549
 #: lib/control/class-product-search-field-control.php:712
 msgid "more &hellip;"
 msgstr "más &hellip;"
@@ -4929,6 +4906,21 @@ msgstr "segundos"
 #: lib/admin/class-woocommerce-product-search-admin-product.php:222
 msgid "unspecified"
 msgstr "no especificado"
+
+#, php-format
+#~ msgid " | Min Price: %1$s - Max Price: %2$s"
+#~ msgstr " | Precio Mínimo.: %1$s - Precio Máximo: %2$s"
+
+#~ msgid "Standard Search"
+#~ msgstr "Búsqueda Estándar"
+
+#, php-format
+#~ msgid ""
+#~ "WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search "
+#~ "Terms: %3$s"
+#~ msgstr ""
+#~ "WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search "
+#~ "Terms: %3$s"
 
 #~ msgid "Change"
 #~ msgstr "Cambiar"

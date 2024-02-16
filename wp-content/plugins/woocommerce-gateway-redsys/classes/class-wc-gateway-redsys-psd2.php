@@ -1,14 +1,16 @@
 <?php
 /**
- * REDSYS PSD2 Class.
+ * Class WC_Gateway_Redsys_PSD2
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -345,8 +347,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_altura_pantalla( $order_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = WCRed()->get_order_meta( $order_id, '_billing_altura_pantalla_field', true );
 
@@ -367,8 +369,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_anchura_pantalla( $order_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = WCRed()->get_order_meta( $order_id, '_billing_anchura_pantalla_field', true );
 
@@ -389,8 +391,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_profundidad_color( $order_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = WCRed()->get_order_meta( $order_id, '_billing_profundidad_color_field', true );
 		$this->debug( 'get_profundidad_color() $data: ' . $data );
@@ -429,8 +431,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_diferencia_horaria( $order_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = WCRed()->get_order_meta( $order_id, '_billing_diferencia_horaria_field', true );
 
@@ -440,6 +442,23 @@ class WC_Gateway_Redsys_PSD2 {
 		} else {
 			$data = '0';
 			$this->debug( '_billing_diferencia_horaria_field: ' . $data );
+			return $data;
+		}
+	}
+	public function get_tz_horaria( $order_id ) {
+		/**
+		 * Package: WooCommerce Redsys Gateway
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
+		 */
+		$data = WCRed()->get_order_meta( $order_id, '_billing_tz_horaria_field', true );
+
+		if ( $data ) {
+			$this->debug( '_billing_tz_horaria_field: ' . $data );
+			return $data;
+		} else {
+			$data = '0';
+			$this->debug( '_billing_tz_horaria_field: ' . $data );
 			return $data;
 		}
 	}
@@ -464,8 +483,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_accept_headers_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		return get_user_meta( $user_id, '_accept_haders', true );
 	}
@@ -477,8 +496,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_agente_navegador_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_agente_navegador_field', true );
 
@@ -496,8 +515,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_idioma_navegador_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_idioma_navegador_field', true );
 
@@ -515,8 +534,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_altura_pantalla_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_altura_pantalla_field', true );
 
@@ -534,8 +553,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_anchura_pantalla_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_anchura_pantalla_field', true );
 
@@ -553,8 +572,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_profundidad_color_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_profundidad_color_field', true );
 		$this->debug( 'get_profundidad_color_user() $data: ' . $data );
@@ -593,8 +612,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function get_diferencia_horaria_user( $user_id ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_diferencia_horaria_field', true );
 
@@ -625,8 +644,8 @@ class WC_Gateway_Redsys_PSD2 {
 	public function shipnameindicator( $order ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
+		 * Plugin URI: https://woo.com/products/redsys-gateway/
+		 * Copyright: (C) 2013 - 2024 José Conti
 		 */
 
 		if ( $order->has_shipping_address() ) {
@@ -666,6 +685,190 @@ class WC_Gateway_Redsys_PSD2 {
 		return $state;
 	}
 	/**
+	 * Get acctinfo for Change Payment Subscription
+	 * 
+	 * @param int $subscription_id >Subscription ID.
+	 * @param int $user_id User ID.
+	 */
+	function get_acctinfo_subscription( $subscription_id, $user_data_3ds = false, $user_id = false  ){
+
+		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
+			$this->debug( 'get_acctinfo_subscription()' );
+			$this->debug( 'get_acctinfo_subscription( $subscription_id, $user_id = false )' );
+			$this->debug( '$user_data_3ds: ' . print_r( $user_data_3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			$this->debug( '$user_id: ' . $user_id );
+			$this->debug( ' ' );
+			$this->debug( '/**************************************/' );
+			$this->debug( '  Arrive to get_acctinfo() PSD2 Class.  ' );
+			$this->debug( '/**************************************/' );
+			$this->debug( ' ' );
+		}
+		/**
+		 * 01 = Sin cuenta (invitado)
+		 * 02 = Recién creada
+		 * 03 = Menos de 30 días
+		 * 04 = Entre 30 y 60días
+		 * 05 = Más de 60 días
+		 */
+		if ( is_user_logged_in() || $user_id ) {
+			if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
+				$this->debug( ' ' );
+				$this->debug( 'User loged in' );
+				$this->debug( ' ' );
+			}
+			$subscription = wcs_get_subscription( $subscription_id );
+			$order        = wc_get_order( $subscription->get_parent_id() );
+
+			if ( is_user_logged_in() ) {
+				$user_id = get_current_user_id();
+			} else {
+				$user_id = $user_id;
+			}
+			$usr_data         = get_userdata( $user_id );
+			$usr_registered   = $usr_data->user_registered;
+			$dt               = new DateTime( $usr_registered );
+			$usr_registered   = $dt->format( 'Ymd' );
+			$last_update      = get_user_meta( $user_id, 'last_update', true );
+			$minu_registered  = intval( ( strtotime( 'now' ) - strtotime( (int) $usr_registered ) ) / 60 );
+			$days_registered  = intval( $minu_registered / 1440 );
+			$account_modified = intval( ( ( strtotime( 'now' ) - (int) $last_update ) ) / DAY_IN_SECONDS );
+
+			if ( $minu_registered < 20 ) {
+				$ch_acc_age_ind = '02';
+			} elseif ( $days_registered < 30 ) {
+				$ch_acc_age_ind = '03';
+			} elseif ( $days_registered >= 30 && $days_registered <= 60 ) {
+				$ch_acc_age_ind = '04';
+			} else {
+				$ch_acc_age_ind = '05';
+			}
+
+			$customer         = new WC_Customer( $user_id );
+			$dt               = new DateTime( $customer->get_date_modified() );
+			$ch_acc_change    = $dt->format( 'Ymd' );
+			$account_modified = intval( ( time() - strtotime( $customer->get_date_modified() ) ) / 60 );
+			$n_days           = intval( $account_modified / 1440 );
+
+			if ( $account_modified < 20 ) {
+				$ch_acc_change_ind = '01';
+			} elseif ( $n_days < 30 ) {
+				$ch_acc_change_ind = '02';
+			} elseif ( $n_days >= 30 && $n_days <= 60 ) {
+				$ch_acc_change_ind = '03';
+			} else {
+				$ch_acc_change_ind = '04';
+			}
+
+			$nb_purchase_account = $this->get_post_num( array( 'wc-completed' ), '>' . ( time() - 6 * MONTH_IN_SECONDS ) );
+			$txn_activity_day    = $this->get_post_num( array( 'wc-completed', 'wc-pending' ), '>' . ( time() - DAY_IN_SECONDS ) );
+			$txn_activity_year   = $this->get_post_num( array( 'wc-completed', 'wc-pending' ), '>' . ( time() - YEAR_IN_SECONDS ) );
+
+			if ( $order->has_shipping_address() ) {
+				$args   = array(
+					'shipping_address_1' => $order->get_shipping_address_1(), 
+					'shipping_address_2' => $order->get_shipping_address_2(),
+					'shipping_city'      => $order->get_shipping_city(),
+					'shipping_postcode'  => $order->get_shipping_postcode(),
+					'shipping_country'   => $order->get_shipping_country(),
+					'order'              => 'ASC',
+					'paginate'           => true,
+				);
+				$orders = wc_get_orders( $args );
+				if ( $orders->total > 0 ) {
+					$order_data         = $orders->orders[0]->get_data();
+					$ship_address_usage = $order_data['date_created']->date( 'Ymd' );
+					$this->debug( 'get_post_num()' );
+					$days = intval( ( ( strtotime( 'now' ) - strtotime( $orders->orders[0]->get_date_created() ) ) / MINUTE_IN_SECONDS ) / HOUR_IN_SECONDS );
+					if ( $days < 30 ) {
+						$ship_address_usage_ind = '02';
+					} elseif ( $days >= 30 && $days <= 60 ) {
+						$ship_address_usage_ind = '03';
+					} else {
+						$ship_address_usage_ind = '04';
+					}
+				} else {
+					$ship_address_usage     = date( 'Ymd' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+					$ship_address_usage_ind = '01';
+				}
+			}
+		} else {
+			if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
+				$this->debug( ' ' );
+				$this->debug( 'User NOT loged in' );
+				$this->debug( ' ' );
+			}
+			$ch_acc_age_ind = '01';
+		}
+
+		$acct_info = array(
+			'chAccAgeInd' => $ch_acc_age_ind,
+		);
+		if ( $order->has_shipping_address() ) {
+			if ( isset( $acct_info['shipAddressUsage'] ) && isset( $acct_info['shipAddressUsageInd'] ) ) {
+				$acct_info['shipAddressUsage']    = $ship_address_usage;
+				$acct_info['shipAddressUsageInd'] = $ship_address_usage_ind;
+			}
+		}
+		if ( is_user_logged_in() ) {
+			$acct_info['chAccDate']         = $usr_registered;
+			$acct_info['chAccChange']       = $ch_acc_change;
+			$acct_info['chAccChangeInd']    = $ch_acc_change_ind;
+			$acct_info['nbPurchaseAccount'] = (string) $nb_purchase_account;
+			$acct_info['txnActivityDay']    = (string) $txn_activity_day;
+			$acct_info['txnActivityYear']   = (string) $txn_activity_year;
+		}
+
+		$ds_merchant_emv3ds = array();
+		if ( $user_data_3ds ) {
+			foreach ( $user_data_3ds as $data => $valor ) {
+				$ds_merchant_emv3ds[ $data ] = $valor;
+			}
+		}
+		$ds_merchant_emv3ds['addrMatch'] = $this->addr_match( $order );
+		if ( $order->get_billing_city() !== '' ) {
+			$ds_merchant_emv3ds['billAddrCity'] = $this->clean_data( $order->get_billing_city() );
+		}
+		if ( $order->get_billing_address_1() !== '' ) {
+			$ds_merchant_emv3ds['billAddrLine1'] = $this->clean_data( $order->get_billing_address_1() );
+		}
+		if ( $order->get_billing_postcode() !== '' ) {
+			$ds_merchant_emv3ds['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
+		}
+		$ds_merchant_emv3ds['email']    = $this->get_email( $order );
+		$ds_merchant_emv3ds['acctInfo'] = $acct_info;
+		if ( $this->get_homephone( $order ) !== '' && $order->get_billing_country() !== '' ) {
+			$ds_merchant_emv3ds['homePhone'] = array(
+				'subscriber' => $this->get_homephone( $order ),
+				'cc'         => WCRed()->get_country_codes_2( $order->get_billing_country() ),
+			);
+		}
+		/**
+		 * TO-DO: suspiciousAccActivity, en una futura versión añadiré un meta a los usuarios para que el admistrador pueda marcar alguna cuenta fraudulenta o que ha habido algún problema.
+		 */
+
+		if ( $order->has_shipping_address() ) {
+			if ( $order->get_shipping_city() !== '' ) {
+				$ds_merchant_emv3ds['shipAddrCity'] = $this->clean_data( $order->get_shipping_city() );
+			}
+
+			if ( $order->get_shipping_address_1() !== '' ) {
+				$ds_merchant_emv3ds['shipAddrLine1'] = $this->clean_data( $order->get_shipping_address_1() );
+			}
+
+			if ( $order->get_shipping_postcode() !== '' ) {
+				$ds_merchant_emv3ds['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
+			}
+		}
+		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
+			$this->debug( ' ' );
+			$this->debug( '$ds_merchant_emv3ds: ' . print_r( $ds_merchant_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			$this->debug( 'END Return wp_json_encode( $ds_merchant_emv3ds )' );
+		}
+		$ds_merchant_emv3ds = wp_json_encode( $ds_merchant_emv3ds );
+		return $ds_merchant_emv3ds;
+
+	}
+	/**
 	 * Get acctinfo
 	 *
 	 * @param obj   $order Order.
@@ -674,21 +877,18 @@ class WC_Gateway_Redsys_PSD2 {
 	 */
 	public function get_acctinfo( $order, $user_data_3ds = false, $user_id = false ) {
 
-		$this->debug( 'get_acctinfo()' );
-
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
+			$this->debug( 'get_acctinfo()' );
 			$this->debug( 'get_acctinfo( $order, $user_data_3ds = false, $user_id = false )' );
 			$this->debug( '$user_data_3ds: ' . print_r( $user_data_3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->debug( '$user_id: ' . $user_id );
-		}
-
-		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
 			$this->debug( ' ' );
 			$this->debug( '/**************************************/' );
 			$this->debug( '  Arrive to get_acctinfo() PSD2 Class.  ' );
 			$this->debug( '/**************************************/' );
 			$this->debug( ' ' );
 		}
+
 		/**
 		 * 01 = Sin cuenta (invitado)
 		 * 02 = Recién creada
@@ -749,7 +949,7 @@ class WC_Gateway_Redsys_PSD2 {
 
 			if ( $order->has_shipping_address() ) {
 				$args   = array(
-					'shipping_address_1' => $order->get_shipping_address_1(),
+					'shipping_address_1' => $order->get_shipping_address_1(), 
 					'shipping_address_2' => $order->get_shipping_address_2(),
 					'shipping_city'      => $order->get_shipping_city(),
 					'shipping_postcode'  => $order->get_shipping_postcode(),

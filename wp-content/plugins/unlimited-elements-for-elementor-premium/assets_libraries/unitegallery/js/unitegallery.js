@@ -1,4 +1,4 @@
-//Unite Gallery, Version: 1.7.77, released 15 January 2024
+//Unite Gallery, Version: 1.7.78, released 05 February 2024
 
 //------ ug-common-libraries.js------ 
 
@@ -13018,7 +13018,8 @@ function UGSlider(){
 		  slider_textpanel_always_on: true,				//true,false - text panel are always on, false - show only on mouseover
 		  
 		  slider_videoplay_button_type: "square",		//square, round - the videoplay button type, square or round	
-			slider_video_autoplay: false //autoplays the video
+			slider_video_autoplay: false, //autoplays the video
+			slider_video_muted: false //plays muted
 	};
 	
 	
@@ -14346,8 +14347,7 @@ function UGSlider(){
 	 * on item change event
 	 */
 	function onItemChange(data, arg_objItem, role){
-		
-		
+				
 		//trace("slider on change");
 		
 		var objItem = g_gallery.getSelectedItem();
@@ -15148,22 +15148,36 @@ function UGSlider(){
 		setVideoPlayerPosition();
 		
 		g_objVideoPlayer.show();
+
+		var isMuted = g_options.slider_video_muted;
 			
 		switch(objItem.type){
 			case "youtube":
 				g_objVideoPlayer.playYoutube(objItem.videoid, true, objItem.video_start);
+
+				if(isMuted == true)
+				setTimeout(function(){g_objVideoPlayer.muteVideoYoutube()},300);		
 			break;
 			case "vimeo":
 				g_objVideoPlayer.playVimeo(objItem.videoid);
+
+				if(isMuted == true)
+				setTimeout(function(){g_objVideoPlayer.muteVideoVimeo()},300);
 			break;
 			case "html5video":
 				g_objVideoPlayer.playHtml5Video(objItem.videoogv, objItem.videowebm, objItem.videomp4, objItem.urlImage);
+				
+				if(isMuted == true)
+				setTimeout(function(){g_objVideoPlayer.muteVideoHtml5()},300);			
 			break;
 			case "soundcloud":
 				g_objVideoPlayer.playSoundCloud(objItem.trackid);
 			break;			
 			case "wistia":
 				g_objVideoPlayer.playWistia(objItem.videoid);
+
+				if(isMuted == true)
+				setTimeout(function(){g_objVideoPlayer.muteVideoWistia()},300);				
 			break;		
 			case "iframe":
 				g_objVideoPlayer.playIframe(objItem.videoUrl);
@@ -18416,10 +18430,10 @@ function UGWistiaAPI(){
 			  container: htmlID,
 			  autoPlay: isAutoplay
 		});
-				
 		g_isPlayerReady = true;
-				
-		initEvents();
+		
+		initEvents();		
+		
 	}
 	
 	
@@ -18483,7 +18497,6 @@ function UGWistiaAPI(){
 		t.doCommand("play");
 	}
 	
-	
 	/**
 	 * put the vimeo video
 	 */
@@ -18520,6 +18533,12 @@ function UGWistiaAPI(){
 		return(false);
 	}	
 	
+	/**
+	 * mute video
+	 */
+	this.muteVideo = function(){
+		g_player.mute();
+	}
 	
 }
 
@@ -18740,7 +18759,7 @@ function UGSoundCloudAPI(){
 		
 	
 	/**
-	 * put the youtube video
+	 * put the video
 	 */
 	this.putSound = function(divID, trackID, width, height, isAutoplay){
 		
@@ -18999,20 +19018,26 @@ function UGHtml5MediaAPI(){
 		
 	}	
 	
-	
 	/**
 	 * pause video
 	 */
 	this.pause = function(){
 		t.doCommand("pause");
-	}
-	
+	}	
 	
 	/**
 	 * play video
 	 */
 	this.play = function(){
 		t.doCommand("play");
+	}	
+	
+	/**
+	 * mute
+	 */
+	this.muteVideo = function(){
+		g_player.volume = 0;
+		
 	}
 	
 }
@@ -19256,6 +19281,16 @@ function UGVimeoAPI(){
 			onSuccessFunction(itemIndex, obj);
 		});
 	}
+
+	/**
+	 * mute video
+	 */
+	this.muteVideo = function(){
+		
+		g_player.ready().then(function() {
+			g_player.setVolume(0);
+	});
+	}
 	
 	
 }
@@ -19370,6 +19405,9 @@ function UGYoutubeAPI(){
 	 */
 	function onPlayerReady(){
 		g_isPlayerReady = true;
+
+		if(g_player.muted == true)
+		g_player.mute();
 	}
 	
 	
@@ -19465,7 +19503,7 @@ function UGYoutubeAPI(){
 					case YT.PlayerState.PAUSED:
 						g_player.seekTo(0);
 					break;
-				}
+				}				
 			break;
 		}
 	}
@@ -19557,7 +19595,13 @@ function UGYoutubeAPI(){
 		obj.thumb = "https://i.ytimg.com/vi/"+videoID+"/default.jpg";
 		return(obj);
 	}
-	
+
+	/**
+	 * mute video
+	 */
+	this.muteVideo = function(){
+		g_player.muted = true
+	}
 	
 }
 
@@ -19979,7 +20023,13 @@ function UGVideoPlayer(){
 		g_activePlayerType = "youtube";
 	}
 	
-	
+	/**
+	 * mute video
+	 */
+	this.muteVideoYoutube = function(){
+		g_youtubeAPI.muteVideo();
+	}
+
 	/**
 	 * play vimeo
 	 */
@@ -20005,6 +20055,13 @@ function UGVideoPlayer(){
 		g_activePlayerType = "vimeo";
 
 	}
+
+	/**
+	 * mute video
+	 */
+	this.muteVideoVimeo = function(){
+		g_vimeoAPI.muteVideo();
+	}
 	
 	
 	/**
@@ -20025,13 +20082,20 @@ function UGVideoPlayer(){
 				ogv: ogv, 
 				webm: webm, 
 				mp4: mp4, 
-				posterImage: posterImage 
+				posterImage: posterImage,
 			};
-		
+			
 		g_html5API.putVideo(g_temp.html5PlayerID, data, "100%", "100%", isAutoplay);
 		
 		g_activePlayerType = "html5";
 
+	}
+
+	/**
+	 * mute video
+	 */
+	this.muteVideoHtml5 = function(){
+		g_html5API.muteVideo();
 	}
 
 	/**
@@ -20048,8 +20112,7 @@ function UGVideoPlayer(){
 		
 		g_soundCloudAPI.putSound(g_temp.soundCloudPlayerID, trackID, "100%", "100%", isAutoplay);
 
-		g_activePlayerType = "soundcloud";
-	
+		g_activePlayerType = "soundcloud";	
 	}
 	
 	
@@ -20066,9 +20129,16 @@ function UGVideoPlayer(){
 		g_objWistia.show();
 		
 		g_wistiaAPI.putVideo(g_temp.wistiaPlayerID, videoID, "100%", "100%", isAutoplay);
-	
+		
 		g_activePlayerType = "wistia";
 
+	}
+	
+	/**
+	 * mute
+	 */
+	this.muteVideoWistia = function(){
+		g_wistiaAPI.muteVideo();
 	}
 	
 	/**
@@ -20083,9 +20153,7 @@ function UGVideoPlayer(){
 		g_iframeAPI.putVideo(g_temp.iframePlayerID, "100%", "100%", src);
 	
 		g_activePlayerType = "iframe";
-
-	}
-	
+	}	
 }
 
 

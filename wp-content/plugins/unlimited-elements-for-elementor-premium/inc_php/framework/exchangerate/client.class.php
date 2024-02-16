@@ -4,8 +4,6 @@ class UEExchangeRateAPIClient{
 
 	const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
-	const METHOD_GET = "GET";
-
 	private $apiKey;
 	private $cacheTime = 0; // in seconds
 
@@ -39,6 +37,7 @@ class UEExchangeRateAPIClient{
 	 * @param string $currency
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	public function getRates($currency){
 
@@ -56,8 +55,8 @@ class UEExchangeRateAPIClient{
 			}
 
 			return $rates;
-		}catch(Exception $exception){
-			if ($exception->getCode() === 404)
+		}catch(UEHttpResponseException $exception){
+			if($exception->getResponse()->status() === 404)
 				throw new Exception("Invalid currency.");
 
 			throw $exception;
@@ -71,10 +70,11 @@ class UEExchangeRateAPIClient{
 	 * @param $params
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	private function get($endpoint, $params = array()){
 
-		return $this->request(self::METHOD_GET, $endpoint, $params);
+		return $this->request(UEHttpRequest::METHOD_GET, $endpoint, $params);
 	}
 
 	/**
@@ -85,64 +85,46 @@ class UEExchangeRateAPIClient{
 	 * @param array $params
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	private function request($method, $endpoint, $params = array()){
 
-		$query = ($method === self::METHOD_GET && $params) ? "?" . http_build_query($params) : "";
-		$body = ($method !== self::METHOD_GET && $params) ? json_encode($params) : null;
+		$url = self::BASE_URL . "/" . $this->apiKey . $endpoint;
+		$query = ($method === UEHttpRequest::METHOD_GET) ? $params : array();
+		$body = ($method !== UEHttpRequest::METHOD_GET) ? $params : array();
 
-		$url = self::BASE_URL . "/" . $this->apiKey . $endpoint . $query;
+		$request = UEHttp::make();
+		$request->asJson();
+		$request->acceptJson();
+		$request->cacheTime($this->cacheTime);
+		$request->withQuery($query);
+		$request->withBody($body);
 
-		$cacheKey = $this->getCacheKey($url);
-		$cacheTime = ($method === self::METHOD_GET) ? $this->cacheTime : 0;
+		$request->validateResponse(function($response){
 
-		$response = UniteProviderFunctionsUC::rememberTransient($cacheKey, $cacheTime, function() use ($method, $url, $body){
+			$data = $response->json();
 
-			$curl = curl_init();
-
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-			$response = curl_exec($curl);
-			$response = json_decode($response, true);
-
-			$error = curl_error($curl);
-			$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-			curl_close($curl);
-
-			if($error)
-				throw new Exception($error);
-
-			if($response === null)
-				throw new Exception("Unable to parse the response (status code $code).", $code);
-
-			if($response["result"] !== "success")
-				throw new Exception($response["error-type"]);
-
-			return $response;
+			if($data["result"] !== "success")
+				$this->throwError($data["error-type"]);
 		});
 
-		return $response;
+		$response = $request->request($method, $url);
+		$data = $response->json();
+
+		return $data;
 	}
 
 	/**
-	 * Get the cache key for the URL.
+	 * Thrown an exception with the given message.
 	 *
-	 * @param string $url
+	 * @param string $message
 	 *
-	 * @return string
+	 * @return void
+	 * @throws Exception
 	 */
-	private function getCacheKey($url){
+	private function throwError($message){
 
-		$key = "exchangerate:" . md5($url);
-
-		return $key;
+		UniteFunctionsUC::throwError("ExchangeRate API Error: $message");
 	}
 
 }

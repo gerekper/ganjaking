@@ -70,7 +70,7 @@ trait Instagram_Feed
                         $instagram_data['data'] = array_merge($instagram_data['data'], $instagram_data_new['data']);
                         $new_paging['paging'] = !empty($instagram_data_new['paging']['next']) ? $instagram_data_new['paging']: '';
                         $instagram_data = array_merge($instagram_data, $new_paging);
-                        $instagram_data = json_encode($instagram_data);
+                        $instagram_data = wp_json_encode($instagram_data);
                         set_transient($key, $instagram_data, 1800);
                     }
                 }
@@ -186,7 +186,7 @@ trait Instagram_Feed
                     $html .= '<span class="eael-instafeed-icon"><i class="fab fa-instagram" aria-hidden="true"></i></span>';
 
                     if ($settings['eael_instafeed_date'] && $settings['eael_instafeed_card_style'] == 'outer') {
-                        $html .= '<span class="eael-instafeed-post-time"><i class="far fa-clock" aria-hidden="true"></i> ' . date("d M Y",
+                        $html .= '<span class="eael-instafeed-post-time"><i class="far fa-clock" aria-hidden="true"></i> ' . gmdate("d M Y",
                             strtotime($item['timestamp'])) . '</span>';
                     }
                     $html .= '</header>
@@ -203,10 +203,10 @@ trait Instagram_Feed
                                     </div>';
                     }
                     $html .= '</a>
-                            <footer class="eael-instafeed-item-footer">
+                            <div class="eael-instafeed-item-footer">
                                 <div class="clearfix">';
                     if ($settings['eael_instafeed_card_style'] == 'inner' && $settings['eael_instafeed_date']) {
-                        $html .= '<span class="eael-instafeed-post-time"><i class="far fa-clock" aria-hidden="true"></i> ' . date("d M Y",
+                        $html .= '<span class="eael-instafeed-post-time"><i class="far fa-clock" aria-hidden="true"></i> ' . gmdate("d M Y",
                             strtotime($item['timestamp'])) . '</span>';
                     }
                     $html .= '</div>';
@@ -214,7 +214,7 @@ trait Instagram_Feed
                     if ($settings['eael_instafeed_card_style'] == 'outer' && $settings['eael_instafeed_caption'] && !empty($item['caption'])) {
                         $html .= '<p class="eael-instafeed-caption-text">' . substr( $item['caption'], 0, intval( $caption_length ) ) . '...</p>';
                     }
-                    $html .= '</footer>
+                    $html .= '</div>
                         </div>
                     </div>';
                 }
@@ -226,21 +226,8 @@ trait Instagram_Feed
                 'num_pages' => ceil(count($instagram_data['data']) / $settings['eael_instafeed_image_count']['size']),
                 'html' => $html,
             ];
-            while (ob_get_status()) {
-                ob_end_clean();
-            }
-            if (function_exists('gzencode')) {
-                $response = gzencode(wp_json_encode($data));
-                header('Content-Type: application/json; charset=utf-8');
-                header('Content-Encoding: gzip');
-                header('Content-Length: ' . strlen($response));
 
-                echo $response;
-            } else {
-                wp_send_json($data);
-            }
-            wp_die();
-
+            wp_send_json($data);
         }
 
         return $html;

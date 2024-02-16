@@ -1,9 +1,25 @@
+## 7.9.0 [15th February 2024]
+
+### Added
+
+- ACF slider widget added
+
+### Fixed
+
+- Video cover issue fixed in device slider widget
+- jQuery dependency fixed in Slinky Vertical Menu widget (Thanks to William Dias Morais)
+- Image height issue fixed in slideshow widget
+- Category accents issue fixed in Portfolio type all widget (Thanks to Mullo Alfredo)
+- Simple Contact form issue fixed
+- Lightbox autoplay issue fixed
+
 ## 7.8.0 [29th January 2024]
 
 ### Added
 
-- ACF Gallery widget added
 - ACF Accordion widget added
+- ACF Gallery widget added
+- ACF Slider widget added
 - Wincher tool for track your keyword positions & monitor your SEO feature added
 - Title hover color added in timeline widget
 - Auto height option added in testimonial slider widget

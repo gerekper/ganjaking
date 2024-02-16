@@ -39,20 +39,18 @@ class Admin {
 
 		$links['docs'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/document/woocommerce-products-compare/' ),
+			esc_url( 'https://woo.com/document/woocommerce-products-compare/' ),
 			esc_attr_x( 'View WooCommerce Products Compare documentation', 'aria-label: documentation link', 'woocommerce-products-compare' ),
 			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-products-compare' )
 		);
 
 		$links['support'] = sprintf(
 			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=853117' ),
-			esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-products-compare' ),
+			esc_url( 'https://woo.com/my-account/create-a-ticket?select=853117' ),
+			esc_attr_x( 'Open a support ticket at Woo.com', 'aria-label: support link', 'woocommerce-products-compare' ),
 			esc_html_x( 'Support', 'plugin row link', 'woocommerce-products-compare' )
 		);
 
 		return $links;
 	}
 }
-
-class_alias( Admin::class, 'Themesquad\WC_Products_Compare\Admin\Admin' );

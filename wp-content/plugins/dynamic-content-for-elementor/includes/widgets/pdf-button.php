@@ -24,6 +24,12 @@ class PdfButton extends \DynamicContentForElementor\Widgets\WidgetPrototype
     {
         return [];
     }
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'dce_pdf_button_title');
+    }
     /**
      * Register controls after check if this feature is only for admin
      *

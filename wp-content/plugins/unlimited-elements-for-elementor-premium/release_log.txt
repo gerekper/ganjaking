@@ -1,5 +1,18 @@
 
 
+version 1.5.95:
+
+
+* Feature: Ensure that the blog displayed on the "Home" page of the plugin is always up-to-date.
+* Feature: Implemented support for tags in the widget catalog.
+* Feature: Added an option for galleries to play videos in muted mode.
+* Feature: Integrated weather forecast data preparation for the widget.
+* Fix: Addressed some minor potential security risks associated with the import templates functionality.
+* Fix: Rectified email validation for Form Email2.
+* Fix: Resolved some issues with the price range filter.
+* Fix: fixed the problem where dynamic template styles disappeared after updating Elementor Pro.
+
+
 
 version 1.5.94:
 

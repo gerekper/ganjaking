@@ -60,20 +60,21 @@ class WoocommercePostsProvider
         }
         ninjaTablesValidateNonce();
 
-        $tableId          = intval($_REQUEST['table_id']);
-        $query_selections = $_REQUEST['query_selections'];
+        $inputs           = $_REQUEST;
+        $tableId          = Arr::get($inputs, 'table_id', 0);
+        $query_selections = Arr::get($inputs, 'query_selections', []);
 
 
         //$query_selections = wp_unslash($query_selections);
         update_post_meta($tableId, '_ninja_table_woo_query_selections', $query_selections);
 
-        $query_conditions = $_REQUEST['query_conditions'];
+        $query_conditions = Arr::get($inputs, 'query_conditions', []);
         //$query_conditions = wp_unslash($query_conditions);
         update_post_meta($tableId, '_ninja_table_woo_query_conditions', $query_conditions);
 
 
-        if (isset($_REQUEST['appearance_settings'])) {
-            $appearance_settings = $_REQUEST['appearance_settings'];
+        $appearance_settings = Arr::get($inputs, 'appearance_settings', []);
+        if ($appearance_settings) {
             update_post_meta($tableId, '_ninja_table_woo_appearance_settings', $appearance_settings);
         }
 
@@ -120,9 +121,10 @@ class WoocommercePostsProvider
             return;
         }
         ninjaTablesValidateNonce();
-        $messages = array();
-
-        if (empty($_REQUEST['post_title'])) {
+        $messages   = array();
+        $inputs     = $_REQUEST;
+        $post_title = Arr::get($inputs, 'post_title', '');
+        if ($post_title === '') {
             $messages['title'] = __('The title field is required.', 'ninja-tables-pro');
         }
 
@@ -232,8 +234,8 @@ class WoocommercePostsProvider
 
         $message = 'Table created successfully.';
 
-        $query_selections = isset($_REQUEST['query_selections']) ? $_REQUEST['query_selections'] : null;
-        $query_conditions = isset($_REQUEST['query_conditions']) ? $_REQUEST['query_conditions'] : null;
+        $query_selections = Arr::get($inputs, 'query_selections', []);
+        $query_conditions = Arr::get($inputs, 'query_conditions', []);
 
         update_post_meta($tableId, '_ninja_table_woo_query_selections', $query_selections);
         update_post_meta($tableId, '_ninja_table_woo_query_conditions', $query_conditions);
@@ -655,7 +657,6 @@ class WoocommercePostsProvider
                     'fragments'  => $this->customCartRefreshFragment(),
                     'cart_items' => $woocommerce->cart->get_cart()
                 ], 200);
-
             } else {
                 // If there was an error adding to the cart, redirect to the product page to show any errors
                 $data = array(

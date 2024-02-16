@@ -20,12 +20,12 @@ class Permalink_Manager_URI_Functions_Post {
 
 		add_filter( 'get_sample_permalink_html', array( $this, 'edit_uri_box' ), 20, 5 );
 
-		add_action( 'save_post', array( $this, 'update_post_uri' ), 99, 1 );
-		add_action( 'edit_attachment', array( $this, 'update_post_uri' ), 99, 1 );
-		add_action( 'wp_insert_post', array( $this, 'new_post_uri' ), 99, 1 );
-		add_action( 'add_attachment', array( $this, 'new_post_uri' ), 99, 1 );
-		add_action( 'wp_trash_post', array( $this, 'remove_post_uri' ), 100, 1 );
-		add_action( 'delete_post', array( $this, 'remove_post_uri' ), 100, 1 );
+		add_action( 'save_post', array( $this, 'update_post_hook' ), 99, 1 );
+		add_action( 'edit_attachment', array( $this, 'update_post_hook' ), 99, 1 );
+		add_action( 'wp_insert_post', array( $this, 'insert_post_hook' ), 99, 1 );
+		add_action( 'add_attachment', array( $this, 'insert_post_hook' ), 99, 1 );
+		add_action( 'wp_trash_post', array( $this, 'remove_post_hook' ), 100, 1 );
+		add_action( 'delete_post', array( $this, 'remove_post_hook' ), 100, 1 );
 	}
 
 	/**
@@ -254,6 +254,7 @@ class Permalink_Manager_URI_Functions_Post {
 		// 3B. Get the full slug
 		$post_name        = Permalink_Manager_Helper_Functions::remove_slashes( $post_name );
 		$custom_slug      = $full_custom_slug = Permalink_Manager_Helper_Functions::force_custom_slugs( $post_name, $post );
+		$post_title_slug  = Permalink_Manager_Helper_Functions::force_custom_slugs( $post_name, $post, true, 1 );
 		$full_native_slug = $post_name;
 
 		// 3A. Fix for hierarchical CPT (start)
@@ -283,8 +284,8 @@ class Permalink_Manager_URI_Functions_Post {
 		$default_uri       = str_replace( $tags, $tags_replacements, $default_base );
 
 		// 3D. Get the slug tags
-		$slug_tags             = array( $post_type_tag, "%postname%", "%postname_flat%", "%{$post_type}_flat%", "%native_slug%" );
-		$slug_tags_replacement = array( $full_slug, $full_slug, $custom_slug, $custom_slug, $full_native_slug );
+		$slug_tags             = array( $post_type_tag, "%postname%", "%postname_flat%", "%pagename_flat%", "%{$post_type}_flat%", "%native_slug%", '%native_title%' );
+		$slug_tags_replacement = array( $full_slug, $full_slug, $custom_slug, $custom_slug, $custom_slug, $full_native_slug, $post_title_slug );
 
 		// 3E. Check if any post tag is present in custom permastructure
 		$do_not_append_slug = ( ! empty( $permalink_manager_options['permastructure-settings']['do_not_append_slug']['post_types'][ $post_type ] ) ) ? true : false;
@@ -779,17 +780,17 @@ class Permalink_Manager_URI_Functions_Post {
 	function quick_edit_column_content( $column_name, $post_id ) {
 		global $permalink_manager_uris, $permalink_manager_options;
 
-		if ( $column_name == "permalink-manager-col" ) {
+		if ( $column_name == 'permalink-manager-col' ) {
 			$exclude_drafts = ( isset( $permalink_manager_options['general']['ignore_drafts'] ) ) ? $permalink_manager_options['general']['ignore_drafts'] : false;
 			$is_draft       = ( get_post_status( $post_id ) == 'draft' ) ? true : false;
 
-			// A. Disable the "Quick Edit" form for draft posts if "Exclude drafts" option is turned on
+			// A. Disable the 'Quick Edit' form for draft posts if 'Exclude drafts' option is turned on
 			if ( $exclude_drafts && $is_draft ) {
 				$disabled = 1;
 			} // B. Get auto-update settings
 			else {
-				$auto_update_val = get_post_meta( $post_id, "auto_update_uri", true );
-				$disabled        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+				$auto_update_val = get_post_meta( $post_id, 'auto_update_uri', true );
+				$disabled        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options['general']['auto_update_uris'];
 			}
 
 			$uri = ( ! empty( $permalink_manager_uris[ $post_id ] ) ) ? rawurldecode( $permalink_manager_uris[ $post_id ] ) : self::get_post_uri( $post_id, true, $is_draft );
@@ -798,12 +799,82 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Set the custom permalink for new post item
+	 * Save the custom permalink
 	 *
-	 * @param int $post_id Term ID.
+	 * @param int|WP_Post $post
+	 * @param string $new_uri
+	 * @param bool $is_new_post
+	 * @param int|bool $auto_update_mode
+	 *
+	 * @return bool
 	 */
-	function new_post_uri( $post_id ) {
-		global $permalink_manager_uris, $permalink_manager_options;
+	static function save_uri( $post, $new_uri = '', $is_new_post = false, $auto_update_mode = false ) {
+		global $permalink_manager_options;
+
+		// Do not do anything if post is auto-saved
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return false;
+		}
+
+		// Get the post object
+		if ( is_numeric( $post ) ) {
+			$post_object = get_post( $post );
+		} else if ( is_a( $post, 'WP_Post' ) ) {
+			$post_object = $post;
+		} else {
+			return false;
+		}
+
+		// Check if post is allowed
+		if ( empty( $post_object->post_type ) || ( $is_new_post && empty( $post_object->post_title ) ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true, $is_new_post ) ) {
+			return false;
+		}
+
+		// Manage 'Auto-update URI' settings
+		if ( ! empty( $auto_update_mode ) ) {
+			$auto_update_uri = $auto_update_mode;
+			update_post_meta( $post_object->ID, 'auto_update_uri', $auto_update_mode );
+		} elseif ( $auto_update_mode === 0 ) {
+			$auto_update_uri = $permalink_manager_options['general']['auto_update_uris'];
+			delete_post_meta( $post_object->ID, 'auto_update_uri' );
+		} else {
+			$auto_update_uri = get_post_meta( $post_object->ID, 'auto_update_uri', true );
+			$auto_update_uri = ( ! empty( $auto_update_uri ) ) ? $auto_update_uri : $permalink_manager_options['general']['auto_update_uris'];
+		}
+
+		$default_uri = self::get_default_post_uri( $post_object );
+		$native_uri  = self::get_default_post_uri( $post_object, true );
+		$old_uri     = self::get_post_uri( $post_object->ID, true );
+
+		if ( $is_new_post ) {
+			$new_uri    = $default_uri;
+			$allow_save = apply_filters( 'permalink_manager_allow_new_post_uri', true, $post_object );
+		} else {
+			$new_uri    = ( ( $new_uri == '' || $auto_update_uri == 1 ) && ! in_array( $post_object->post_status, array( 'draft', 'auto-draft' ) ) ) ? $default_uri : Permalink_Manager_Helper_Functions::sanitize_title( $new_uri, true );
+			$allow_save = apply_filters( 'permalink_manager_allow_update_post_uri', true, $post_object );
+		}
+
+		if ( ! $allow_save || ( ! empty( $auto_update_uri ) && $auto_update_uri == 2 ) ) {
+			$uri_saved = false;
+		} else if ( ! empty( $new_uri ) ) {
+			Permalink_Manager_URI_Functions::save_single_uri( $post_object->ID, $new_uri, false, true );
+			$uri_saved = true;
+		} else {
+			$uri_saved = false;
+		}
+
+		do_action( 'permalink_manager_updated_post_uri', $post_object->ID, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true, $uri_saved );
+
+		return $uri_saved;
+	}
+
+	/**
+	 * Generate the custom permalink when 'wp_insert_post' action is triggered
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	function insert_post_hook( $post_id ) {
+		global $permalink_manager_uris;
 
 		// Do not trigger if post is a revision or imported via WP All Import (URI should be set after the post meta is added)
 		if ( wp_is_post_revision( $post_id ) || ( ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] == 'pmxi-admin-import' ) ) {
@@ -812,11 +883,6 @@ class Permalink_Manager_URI_Functions_Post {
 
 		// Stop when products are imported with WooCommerce importer
 		if ( ! empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'woocommerce_do_ajax_product_import' ) {
-			return;
-		}
-
-		// Do not do anything if post is auto-saved
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
@@ -835,42 +901,15 @@ class Permalink_Manager_URI_Functions_Post {
 			return;
 		}
 
-		$post_object = get_post( $post_id );
-
-		// Check if post is allowed
-		if ( empty( $post_object->post_type ) || empty( $post_object->post_title ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true, true ) ) {
-			return;
-		}
-
-		// Check if the new URIs should be disabled
-		$auto_update_uri = ( ! empty( $permalink_manager_options["general"]["auto_update_uris"] ) ) ? $permalink_manager_options["general"]["auto_update_uris"] : 0;
-
-		$native_uri = self::get_default_post_uri( $post_id, true );
-		$new_uri    = self::get_default_post_uri( $post_id );
-
-		// Stop the hook (if needed)
-		$allow_new_uri = apply_filters( "permalink_manager_allow_new_post_uri", true, $post_object );
-
-		if ( ! $allow_new_uri || ( ! empty( $auto_update_uri ) && $auto_update_uri == 2 ) ) {
-			$uri_saved = false;
-		} else if ( is_array( $permalink_manager_uris ) && ! empty( $new_uri ) ) {
-			$permalink_manager_uris[ $post_object->ID ] = $new_uri;
-			$uri_saved                                  = update_option( 'permalink-manager-uris', $permalink_manager_uris );
-		} else {
-			$uri_saved = false;
-		}
-
-		do_action( 'permalink_manager_new_post_uri', $post_id, $new_uri, $native_uri, $uri_saved );
+		self::save_uri( $post_id, '', true, 0 );
 	}
 
 	/**
-	 * Update the custom permalink
+	 * Save the custom permalink when 'save_post' action is triggered
 	 *
 	 * @param int $post_id Term ID.
 	 */
-	static public function update_post_uri( $post_id ) {
-		global $permalink_manager_uris, $permalink_manager_options;
-
+	static function update_post_hook( $post_id ) {
 		// Verify nonce at first
 		if ( ! isset( $_POST['permalink-manager-nonce'] ) || ! wp_verify_nonce( $_POST['permalink-manager-nonce'], 'permalink-manager-edit-uri-box' ) ) {
 			return;
@@ -881,79 +920,37 @@ class Permalink_Manager_URI_Functions_Post {
 			return;
 		}
 
-		// Do not do anything if post is auto-saved
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
 		// Do not do anything on in "Bulk Edit" or when the post is imported via WP All Import
 		if ( ! empty( $_REQUEST['bulk_edit'] ) || ( ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] == 'pmxi-admin-import' ) ) {
 			return;
 		}
 
 		// Fix for revisions
-		$is_revision = wp_is_post_revision( $post_id );
-		$post_id     = ( $is_revision ) ? $is_revision : $post_id;
-		$post        = get_post( $post_id );
-
-		// Check if post is allowed
-		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post, true ) ) {
-			return;
-		}
+		$post_id = wp_is_post_revision( $post_id ) ? wp_is_post_revision( $post_id ) : $post_id;
+		$post    = get_post( $post_id );
 
 		// Get auto-update URI setting (if empty use global setting)
-		if ( ! empty( $_POST["auto_update_uri"] ) ) {
-			$auto_update_uri_current = intval( $_POST["auto_update_uri"] );
-		} else if ( ! empty( $_POST["action"] ) && $_POST['action'] == 'inline-save' ) {
-			$auto_update_uri_current = get_post_meta( $post_id, "auto_update_uri", true );
+		if ( isset( $_POST["auto_update_uri"] ) && is_numeric( $_POST["auto_update_uri"] ) ) {
+			$auto_update_mode = intval( $_POST["auto_update_uri"] );
+		} else {
+			$auto_update_mode = false;
 		}
-		$auto_update_uri = ( ! empty( $auto_update_uri_current ) ) ? $auto_update_uri_current : $permalink_manager_options["general"]["auto_update_uris"];
 
 		// Update the slug (if changed)
-		if ( isset( $_POST['permalink-manager-edit-uri-element-slug'] ) && isset( $_POST['native_slug'] ) && ( $_POST['native_slug'] !== $_POST['permalink-manager-edit-uri-element-slug'] ) ) {
-
+		if ( ! empty( $post->post_name ) && isset( $_POST['native_slug'] ) && ( $_POST['native_slug'] !== $post->post_name ) ) {
 			// Make sure that '_wp_old_slug' is saved
-			if ( ! empty( $_POST['post_name'] ) || ( isset( $_POST['action'] ) && $_POST['action'] == 'pm_save_permalink' ) ) {
-				$post_before = $post;
-
-				// Clone the instance of WP_Post object
-				$post_after            = unserialize( serialize( $post ) );
+			if ( ! empty( $_POST['post_name'] ) || ( isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'pm_save_permalink', 'editpost' ) ) ) ) {
+				$post_after            = clone $post;
 				$post_after->post_name = sanitize_title( $_POST['native_slug'] );
 
-				wp_check_for_changed_slugs( $post_id, $post_after, $post_before );
+				wp_check_for_changed_slugs( $post_id, $post_after, $post );
 			}
 
 			self::update_slug_by_id( $_POST['native_slug'], $post_id );
 			clean_post_cache( $post_id );
 		}
 
-		$default_uri = self::get_default_post_uri( $post_id );
-		$native_uri  = self::get_default_post_uri( $post_id, true );
-		$old_uri     = ( isset( $permalink_manager_uris[ $post->ID ] ) ) ? $permalink_manager_uris[ $post->ID ] : $native_uri;
-
-		// If the post is not draft AND "auto-update" mode is enabled OR the custom permalink field is empty, use default custom permalink
-		$new_uri = ( ( $_POST['custom_uri'] == '' || $auto_update_uri == 1 ) && ! in_array( $post->post_status, array( 'draft', 'auto-draft' ) ) ) ? $default_uri : Permalink_Manager_Helper_Functions::sanitize_title( $_POST['custom_uri'], true );
-
-		// Save or remove "Auto-update URI" settings
-		if ( ! empty( $auto_update_uri_current ) ) {
-			update_post_meta( $post_id, "auto_update_uri", $auto_update_uri_current );
-		} elseif ( isset( $_POST['auto_update_uri'] ) ) {
-			delete_post_meta( $post_id, "auto_update_uri" );
-		}
-
-		// Stop the hook (if needed)
-		$allow_update_uri = apply_filters( "permalink_manager_allow_update_post_uri", true, $post );
-
-		if ( ! $allow_update_uri || ( ! empty( $auto_update_uri ) && $auto_update_uri == 2 ) ) {
-			$uri_saved = false;
-		} else if ( is_array( $permalink_manager_uris ) && ! empty( $new_uri ) ) {
-			$permalink_manager_uris[ $post_id ] = $new_uri;
-			$uri_saved                          = update_option( 'permalink-manager-uris', $permalink_manager_uris );
-		} else {
-			$uri_saved = false;
-		}
-
-		do_action( 'permalink_manager_updated_post_uri', $post_id, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true, $uri_saved );
+		self::save_uri( $post_id, $_POST['custom_uri'], false, $auto_update_mode );
 	}
 
 	/**
@@ -961,17 +958,8 @@ class Permalink_Manager_URI_Functions_Post {
 	 *
 	 * @param int $post_id
 	 */
-	function remove_post_uri( $post_id ) {
-		global $permalink_manager_uris;
-
-		// Check if the custom permalink is assigned to this post
-		if ( isset( $permalink_manager_uris[ $post_id ] ) ) {
-			unset( $permalink_manager_uris[ $post_id ] );
-		}
-
-		if ( is_array( $permalink_manager_uris ) ) {
-			update_option( 'permalink-manager-uris', $permalink_manager_uris );
-		}
+	function remove_post_hook( $post_id ) {
+		Permalink_Manager_URI_Functions::remove_single_uri( $post_id, false, true );
 	}
 
 }

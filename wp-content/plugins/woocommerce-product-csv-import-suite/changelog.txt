@@ -1,5 +1,11 @@
 *** Product CSV Import Suite Changelog ***
 
+2024-01-29 - version 1.10.68
+* Dev - Bump WooCommerce "tested up to" version 8.5.
+* Dev - Bump WooCommerce minimum supported version to 8.3.
+* Dev - Bump WordPress minimum supported version to 6.3.
+* Dev - Bump PHP "tested up to" version 8.3.
+
 2024-01-08 - version 1.10.67
 * Dev - Bump WooCommerce "tested up to" version 8.4.
 * Dev - Bump WooCommerce minimum supported version to 8.2.

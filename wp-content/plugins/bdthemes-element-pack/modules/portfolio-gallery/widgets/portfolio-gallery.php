@@ -1600,7 +1600,7 @@ class Portfolio_Gallery extends Module_Base {
 		$item_filters = get_the_terms($post->ID, 'portfolio_filter');
 
 		foreach ($item_filters as $item_filter) {
-			$tags_array[] = '<span class="bdt-gallery-item-tag">' . $item_filter->slug . '</span>';
+			$tags_array[] = '<span class="bdt-gallery-item-tag">' . $item_filter->name . '</span>';
 		}
 
 	?>

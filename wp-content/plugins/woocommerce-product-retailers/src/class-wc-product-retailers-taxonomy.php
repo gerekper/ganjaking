@@ -18,13 +18,13 @@
  *
  * @package     WC-Product-Retailers/Classes
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Product Retailers Taxonomy

@@ -2,7 +2,7 @@
 /**
  * EventON Setup
  *
- * @since 4.5.8
+ * @since 4.5.9
  */
 
 
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.5.8';
+	public $version = '4.5.9';
 	
 	
 	public $template_url;
@@ -158,8 +158,7 @@ final class EventON {
 			include_once(EVO_ABSPATH.'includes/admin/welcome.php' );		
 			include_once(EVO_ABSPATH.'includes/admin/class-evo-admin.php' );	
 			include_once(EVO_ABSPATH.'includes/products/class-licenses.php' );						
-			include_once(EVO_ABSPATH.'includes/admin/class-evo-errors.php' );					
-			//include_once(EVO_ABSPATH.'includes/admin/class-event-indexing.php' );					
+			include_once(EVO_ABSPATH.'includes/admin/class-evo-errors.php' );							
 		}
 		if ( ! $this->is_request('admin') || $this->is_request('ajax') ){
 

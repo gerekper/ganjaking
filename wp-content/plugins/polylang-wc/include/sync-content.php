@@ -94,39 +94,39 @@ class PLLWC_Sync_Content {
 						break;
 					}
 
+					$blocks[ $k ]['attrs']['productId'] = $tr_id;
+
 					$tr_link = $product->get_permalink();
 
-					if ( empty( $tr_link ) ) {
+					if ( empty( $tr_link ) || ! is_string( $tr_link ) ) {
 						break;
 					}
 
-					// Extract the URL in the button.
-					$dom = new DOMDocument();
-					$dom->loadHTML( $block['innerBlocks'][0]['innerHTML'] );
-					$tags = $dom->getElementsByTagName( 'a' );
-					$href = $tags[0]->getAttribute( 'href' );
-
-					$blocks[ $k ]['attrs']['productId'] = $tr_id;
-					$blocks[ $k ]['innerBlocks'][0]['innerContent'][0] = $blocks[ $k ]['innerBlocks'][0]['innerHTML'] = str_replace( $href, $tr_link, $block['innerBlocks'][0]['innerHTML'] );
+					// Translates the URL in the button.
+					$this->translate_button_link( $blocks[ $k ]['innerBlocks'][0], $tr_link );
 					break;
 
 				case 'woocommerce/featured-category':
+					if ( empty( $block['innerBlocks'] ) ) {
+						break;
+					}
+
 					$tr_id = pll_get_term( $block['attrs']['categoryId'], $lang );
 
-					if ( $tr_id && ! empty( $block['innerBlocks'] ) ) {
-						$tr_link = get_term_link( $tr_id );
-
-						if ( ! is_wp_error( $tr_link ) ) {
-							// Extract the URL in the button.
-							$dom = new DOMDocument();
-							$dom->loadHTML( $block['innerBlocks'][0]['innerHTML'] );
-							$tags = $dom->getElementsByTagName( 'a' );
-							$href = $tags[0]->getAttribute( 'href' );
-
-							$blocks[ $k ]['attrs']['categoryId'] = $tr_id;
-							$blocks[ $k ]['innerBlocks'][0]['innerContent'][0] = $blocks[ $k ]['innerBlocks'][0]['innerHTML'] = str_replace( $href, $tr_link, $block['innerBlocks'][0]['innerHTML'] );
-						}
+					if ( empty( $tr_id ) ) {
+						break;
 					}
+
+					$blocks[ $k ]['attrs']['categoryId'] = $tr_id;
+
+					$tr_link = get_term_link( $tr_id );
+
+					if ( empty( $tr_link ) || ! is_string( $tr_link ) ) {
+						break;
+					}
+
+					// Translates the URL in the button.
+					$this->translate_button_link( $blocks[ $k ]['innerBlocks'][0], $tr_link );
 					break;
 
 				case 'woocommerce/reviews-by-product':
@@ -173,5 +173,45 @@ class PLLWC_Sync_Content {
 		}
 
 		return $blocks;
+	}
+
+	/**
+	 * Translates the HTML link code inside the block depending on the block version.
+	 *
+	 * @since 1.9.4
+	 *
+	 * @param array  $innerblock The block to search into and to modify.
+	 * @param string $link       The translated link for replacing.
+	 * @return void
+	 */
+	private function translate_button_link( array &$innerblock, string $link ) {
+		if ( ! empty( $innerblock['innerBlocks'] ) ) {
+			$this->translate_link( $innerblock['innerBlocks'][0], $link ); // Since WC 6.4.0.
+		} else {
+			$this->translate_link( $innerblock, $link ); // If the block was created in WC < 6.4.0.
+		}
+	}
+
+	/**
+	 * Translates one version of the HTML link code inside the block.
+	 *
+	 * @since 1.9.4
+	 *
+	 * @param array  $innerblock The block to search into and to modify.
+	 * @param string $link       The translated link for replacing.
+	 * @return void
+	 */
+	private function translate_link( array &$innerblock, string $link ) {
+		$dom = new DOMDocument();
+		$dom->loadHTML( $innerblock['innerHTML'] );
+		$tags = $dom->getElementsByTagName( 'a' );
+
+		if ( empty( $tags[0] ) ) {
+			return;
+		}
+
+		$href = $tags[0]->getAttribute( 'href' );
+
+		$innerblock['innerContent'][0] = $innerblock['innerHTML'] = str_replace( $href, $link, $innerblock['innerHTML'] );
 	}
 }

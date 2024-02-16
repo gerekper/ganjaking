@@ -10,6 +10,7 @@ use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Hooks;
 use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Automation\Engine\WordPress;
+use MailPoet\Newsletter\NewsletterDeleteController;
 use MailPoet\Newsletter\NewslettersRepository;
 
 class AutomationEditorLoadingHooks {
@@ -23,14 +24,18 @@ class AutomationEditorLoadingHooks {
   /** @var NewslettersRepository  */
   private $newslettersRepository;
 
+  private NewsletterDeleteController $newsletterDeleteController;
+
   public function __construct(
     WordPress $wp,
     AutomationStorage $automationStorage,
-    NewslettersRepository $newslettersRepository
+    NewslettersRepository $newslettersRepository,
+    NewsletterDeleteController $newsletterDeleteController
   ) {
     $this->wp = $wp;
     $this->automationStorage = $automationStorage;
     $this->newslettersRepository = $newslettersRepository;
+    $this->newsletterDeleteController = $newsletterDeleteController;
   }
 
   public function init(): void {
@@ -62,7 +67,7 @@ class AutomationEditorLoadingHooks {
         continue;
       }
 
-      $this->newslettersRepository->bulkDelete([$emailId]);
+      $this->newsletterDeleteController->bulkDelete([$emailId]);
       $args = $step->getArgs();
       unset($args['email_id']);
       $updatedStep = new Step(

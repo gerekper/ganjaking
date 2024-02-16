@@ -1,5 +1,55 @@
 *** Redsys Gateway Change Log ***
 
+2024.02.05 - version 24.3.1
+
+* FIX: Fixed an issue where an error would occur if a purchase was made through Bizum in the checkoput while simultaneously creating an account.
+* FIX: Fatal error when Woo Subscriptions is not installed.
+
+2024.02.04 - version 24.3.0
+
+* UPDATE: More sanitization.
+* UPDATE: Updated some URLs.
+* UPDATE: Now, there is no charge when changing the method in a subscription in Woo Subscriptions.
+* FIX: Notice _billing_first_name & _billing_last_name wc_doing_it_wrong.
+* FIX: Fatal error in Site Health when SOAP cannot connect to Redsys addresses.
+* FIX: PHP Warning:  Attempt to read property "total" on null (Paygold).
+* FIX: Fixed an issue where an error would occur if a purchase was made through InSite while simultaneously creating an account.
+* FIX: The subscriptions through the one-click payment button were set as manual renewal.
+* FIX: The script for the checkout button was showing up in all the footers of the site.
+* FIX: In some cases, the Redsys order number was not being saved in the order.
+* FIX: Fixed an issue with the TZ field on some servers.
+* FIX: Now the payment method can be switched without incurring an extra charge.
+
+
+2023.12.18 - version 24.2.1
+
+* UPDATE: Copyrigth date.
+* UPDATE: Added more logs.
+* UPDATE: Temporal disabled Banner Live.
+* FIX: Some notices.
+* FIX: Undefined variable $all_redsys_data
+
+2023.11.26 - version 24.2.0
+
+* NEW: Pay with one click using a button for non-virtual products (Shipping).
+* NEW: Hooks redsys_before_shipping_dropdown_product, redsys_after_shipping_dropdown_product, redsys_before_buy_now_button_product, and redsys_after_buy_now_button_product.
+* NEW: Now you can select if the order is marked as processing or complete when confirming a preauthorization. Go to WooCommerce > Settings > Redsys Advanced > General.
+* NEW: Filter to accept shipping methods not registered in WooCommerce > redsys_accepted_shipping_methods.
+* UPDATE: Improved Subscriptions. Added descriptions and customer names.
+* UPDATE: Increased the duration of redsys_signature_transient from 600 to 3600 seconds.
+* UPDATE: Renamed the default title for GPay from 'GPay' to 'Google Pay'.
+* FIX: Numerous notices.
+
+2023.11.06 - version 24.1.0
+
+* NEW: Virtual Subscriptions products Pay with one clic button compatibility.
+* UPDATED: Temporary removal of the specific code for WordPress Multisite to perform a refactoring that does not affect page load.
+* FIX: Fixed two save terminal numbers with InSite when the order is paid.
+
+2023.10.30 - version 24.0.1
+
+* FIX: Arrive to thank you page when modal is not active with redirection.
+
 2023.10.27 - version 24.0.0
 
 * NEW: Pay with one click from products. Only virtual products. It will be improved in next versions.
@@ -7,8 +57,6 @@
 * UPDATE: Improved Redsys modal.
 * UPDATE: Improved Redsys methods reload.
 * FIX: Typo error in x-www-form-urlencoded
-
-*** Redsys Gateway Change Log ***
 
 2023.10.26 - version 23.0.3
 

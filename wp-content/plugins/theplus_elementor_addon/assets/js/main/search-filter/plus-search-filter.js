@@ -1311,7 +1311,7 @@
 
 											let Pagin = item.parentNode.querySelectorAll('.theplus-pagination');
 												if(Pagin.length > 0){
-													PaginationHandler(Pagin,item,index,data,option)
+													PaginationHandler(Pagin,item,index,data,option, 'page1')
 												}
 										}
 									}else{
@@ -1833,10 +1833,10 @@
 			}
 		}
 
-		var PaginationHandler = function(Pagin,item,index,data,option) {
+		var PaginationHandler = function(Pagin,item,index,data,option, type) {
 			Pagin[0].removeAttribute("style")
 			option[index]['Paginate_sf'] = 1;
-			PaginationHtml(Pagin,index,data,option);
+			PaginationHtml(Pagin,index,data,option, type);
            
 			let Buttonajax = Pagin[0].querySelectorAll('.tp-pagelink-'+index);
 				Buttonajax.forEach(function(self) {
@@ -1867,7 +1867,7 @@
 
                                         Resizelayout(option);
                                         MetroResize(option, item, index)
-										PaginationHandler(Pagin,item,index,data,option)
+										PaginationHandler(Pagin,item,index,data,option, 'default')
 									return;
 								}
 
@@ -1911,7 +1911,7 @@
                                     
                                     Resizelayout(option);
                                     MetroResize(option, item, index)
-									PaginationHandler(Pagin,item,index,data,option)
+									PaginationHandler(Pagin,item,index,data,option, 'default')
 								return;
 							}
 
@@ -1955,7 +1955,7 @@
 
                                     Resizelayout(option);
                                     MetroResize(option, item, index)
-									PaginationHandler(Pagin,item,index,data,option)
+									PaginationHandler(Pagin,item,index,data,option, 'default')
 								return;
 							}
 							
@@ -2004,12 +2004,12 @@
                             }, delayload);
                         }
 
-                        PaginationHandler(Pagin,item,index,data,option)
+                        PaginationHandler(Pagin,item,index,data,option, 'default')
 				},
 			});
 		}
 
-		var PaginationHtml = function(Pagin,index,data,option) {
+		var PaginationHtml = function(Pagin,index,data,option, type) {
 			let HtmlLoad = option[index].PageHtmlLoad,
 				PageLimit = Math.ceil(data[index].totalrecord / option[index].display_post),
 				PageNext = (option[index].page_next) ? option[index].page_next : '',
@@ -2032,6 +2032,10 @@
                                     PageAaray = [ 1, 2, 3 ];
                                 }
                             
+                                if( type == 'page1' ) {
+                                    PageNum = 1;
+                                }
+
 							for (let i=1; i<=PageLimit; i++) {
 								if(PageNum == i){
 									$Number += '<span class="current" data-page="'+Number(i)+'">'+ Number(i) +'</span>';

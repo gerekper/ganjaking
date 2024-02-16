@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: WooCommerce Products Compare
- * Plugin URI: https://woocommerce.com/products/woocommerce-products-compare/
+ * Plugin URI: https://woo.com/products/woocommerce-products-compare/
  * Description: Have your customers to compare similar products side by side.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: KoiLab
  * Author URI: https://koilab.com
- * Requires PHP: 5.6
- * Requires at least: 4.9
+ * Requires PHP: 7.0
+ * Requires at least: 5.0
  * Tested up to: 6.4
  * Text Domain: woocommerce-products-compare
  * Domain Path: /languages
  *
- * WC requires at least: 3.7
- * WC tested up to: 8.2
+ * WC requires at least: 4.0
+ * WC tested up to: 8.5
  * Woo: 853117:c3ba0a4a3199a0cc7a6112eb24414548
  *
  * License: GNU General Public License v3.0
@@ -43,7 +43,7 @@ if ( ! defined( 'WC_PRODUCTS_COMPARE_FILE' ) ) {
  */
 function woocommerce_products_compare_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Products Compare requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-products-compare' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Products Compare requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-products-compare' ), '<a href="https://woo.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
 }
 
 if ( ! class_exists( 'WC_Products_Compare' ) ) :
@@ -57,7 +57,6 @@ if ( ! class_exists( 'WC_Products_Compare' ) ) :
 		 * Init.
 		 *
 		 * @since 1.0.0
-		 * @return bool
 		 */
 		public function __construct() {
 			parent::__construct();
@@ -68,8 +67,6 @@ if ( ! class_exists( 'WC_Products_Compare' ) ) :
 			if ( is_admin() ) {
 				require_once dirname( WC_PRODUCTS_COMPARE_FILE ) . '/includes/class-wc-products-compare-admin.php';
 			}
-
-			return true;
 		}
 
 		/**

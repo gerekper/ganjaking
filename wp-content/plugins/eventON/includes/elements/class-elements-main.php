@@ -49,11 +49,12 @@ class EVO_General_Elements{
 			'afterstatement'=>'',
 			'row_class'=>'', 'select_option_class'=>'','unqiue_class'=>'','class_2'=>'',
 			'inputAttr'=>'','attr'=>'',
-			'nesting'=>'', // pass nesting class name
+			'nesting_start'=> '', 'nesting_end'=> false, // pass nesting class name
 			'row_style'=> '',// pass styles 
 			'content'=> '', 'field_after_content'=>'', 'field_before_content'=>'',
 			'support_input'=>false,
 			'close'=>false,
+			'max_images'=>'0'
 
 		), $A);
 		extract($A);
@@ -74,15 +75,13 @@ class EVO_General_Elements{
 
 
 			// nesting
-				$nesting_start = $nesting_end = '';
-				if(!empty($nesting)){
-					$nesting_start = "<div class='{$nesting}'>";
-					$nesting_end = "</div>";
-				}
+				$_nesting_start = $_nesting_end = '';
+				if(!empty($nesting_start)) $_nesting_start = "<div class='evo_nesting {$nesting_start}'>";
+				if( $nesting_end ) $_nesting_end = "</div>";
 			
 		ob_start();
 
-		echo $nesting_start;
+		echo $_nesting_start;
 
 		switch($type){
 			// notices
@@ -128,10 +127,36 @@ class EVO_General_Elements{
 				<?php
 			break;
 
+			// 4.6 - inprog
+			case 'images':
+				$image_ids = !empty($value) ? $value: false;
+
+				// image soruce array
+				$img_src = ($image_id)? 	wp_get_attachment_image_src($image_id,'medium'): null;
+					$img_src = (!empty($img_src))? $img_src[0]: null;
+
+				$__button_text = ($image_id)? __('Remove Image','eventon'): __('Choose Image','eventon');
+				$__button_text_not = ($image_id)? __('Remove Image','eventon'): __('Choose Image','eventon');
+				$__button_class = ($image_id)? 'removeimg':'chooseimg';
+				?>
+				<p class='evo_metafield_image'>
+					<label><?php echo $name.$legend_code; ?></label>
+					
+					<input class='field <?php echo $id;?> custom_upload_image evo_meta_img' name="<?php echo $id;?>" type="hidden" value="<?php echo ($image_id)? $image_id: null;?>" /> 
+            		
+            		<input class="custom_upload_image_button button <?php echo $__button_class;?>" data-txt='<?php echo $__button_text_not;?>' type="button" value="<?php echo $__button_text;?>" /><br/>
+            		<span class='evo_loc_image_src image_src'>
+            			<img src='<?php echo $img_src;?>' style='<?php echo !empty($image_id)?'':'display:none';?>'/>
+            		</span>
+            		
+            	</p>
+				<?php
+			break;
+
 			// GENERAL Text field
 			case 'text':
 			case 'input':
-				echo "<div class='evo_elm_row {$id}' style='{$row_style}'>";
+				echo "<div class='evo_elm_row {$id} {$row_class}' style='{$row_style}'>";
 				$placeholder = (!empty($default) )? 'placeholder="'.$default.'"':null;				
 
 				$show_val = false; $hideable_text = '';
@@ -476,7 +501,7 @@ class EVO_General_Elements{
 			case 'end_afterstatement': echo "</div>"; break;
 		}
 
-		echo $nesting_end;
+		echo $_nesting_end;
 
 		return ob_get_clean();
 	}

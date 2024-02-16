@@ -11,7 +11,10 @@ class wfUpdateCheck {
 	const LAST_UPDATE_CHECK_ERROR_SLUG_KEY = 'lastUpdateCheckErrorSlug';
 
 	private $needs_core_update = false;
+	private $core_update_patch_available = false;
+	private $core_earlier_branch = false;
 	private $core_update_version = 0;
+	private $core_update_patch_version = 0;
 	private $plugin_updates = array();
 	private $all_plugins = array();
 	private $plugin_slugs = array();
@@ -199,18 +202,76 @@ class wfUpdateCheck {
 		
 		include(ABSPATH . WPINC . '/version.php'); /** @var $wp_version */
 		
-		$update_core = get_preferred_from_update_core();
-		if ($useCachedValued && isset($update_core->last_checked) && isset($update_core->version_checked) && 12 * HOUR_IN_SECONDS > (time() - $update_core->last_checked) && $update_core->version_checked == $wp_version) { //Duplicate of _maybe_update_core, which is a private call
+		$availableUpdates = get_site_transient('update_core');
+		/**
+		 * Sample Structure:
+		 * 
+		 * class stdClass#1 (4) {
+			  public $updates =>
+			  array(3) {
+				[0] =>
+				class stdClass#2 (10) {
+				  public $response => string(7) "upgrade"
+				  public $version => string(5) "6.4.2"
+				  ...
+				}
+				[1] =>
+				class stdClass#4 (11) {
+				  public $response => string(10) "autoupdate"
+				  public $version => string(5) "6.4.2"
+				  ...
+				}
+				[2] =>
+				class stdClass#6 (11) {
+				  public $response => string(10) "autoupdate"
+				  public $version => string(5) "6.3.2"
+				  ...
+				}
+			  }
+			  public $last_checked => int(1703025218)
+			  public $version_checked => string(5) "6.3.1"
+			  public $translations => ...
+			}
+
+		 */
+		
+		if ($useCachedValued && 
+			isset($availableUpdates->updates) && is_array($availableUpdates->updates) && 
+			isset($availableUpdates->last_checked) && 12 * HOUR_IN_SECONDS > (time() - $availableUpdates->last_checked) && $availableUpdates->version_checked == $wp_version) {
 			//Do nothing, use cached value
 		}
 		else {
 			wp_version_check();
-			$update_core = get_preferred_from_update_core();
+			$availableUpdates = get_site_transient('update_core');
 		}
-
-		if (isset($update_core->response) && $update_core->response == 'upgrade') {
-			$this->needs_core_update = true;
-			$this->core_update_version = $update_core->current;
+		
+		if (isset($availableUpdates->updates) && is_array($availableUpdates->updates)) {
+			$current = wfUtils::parse_version($wp_version);
+			$updates = $availableUpdates->updates;
+			foreach ($updates as $update) {
+				if (version_compare($update->version, $wp_version) <= 0) { continue; } //Array will contain the reinstall info for the current version if non-prerelease or the last production version if prerelease, skip
+				
+				if (version_compare($update->version, $this->core_update_version) > 0) {
+					$this->needs_core_update = true;
+					$this->core_update_version = $update->version;
+				}
+				
+				$checking = wfUtils::parse_version($update->version);
+				if ($checking[wfUtils::VERSION_MAJOR] == $current[wfUtils::VERSION_MAJOR] && $checking[wfUtils::VERSION_MINOR] == $current[wfUtils::VERSION_MINOR] && $checking[wfUtils::VERSION_PATCH] > $current[wfUtils::VERSION_PATCH]) {
+					$this->core_update_patch_available = true;
+					$this->core_update_patch_version = $update->version;
+				}
+			}
+			
+			if ($this->needs_core_update && $this->core_update_patch_available && version_compare($this->core_update_version, $this->core_update_patch_version) === 0) { //Patch and edge update are the same, clear patch values
+				$this->core_update_patch_available = false;
+				$this->core_update_patch_version = 0;
+			}
+			
+			if ($this->needs_core_update) {
+				$checking = wfUtils::parse_version($this->core_update_version);
+				$this->core_earlier_branch = ($checking[wfUtils::VERSION_MAJOR] > $current[wfUtils::VERSION_MAJOR] || $checking[wfUtils::VERSION_MINOR] > $current[wfUtils::VERSION_MINOR]);
+			}
 		}
 
 		return $this;
@@ -435,9 +496,36 @@ class wfUpdateCheck {
 		return $this;
 	}
 	
-	public function checkAllVulnerabilities() {
-		$this->checkPluginVulnerabilities();
-		$this->checkThemeVulnerabilities();
+	/**
+	 * @param bool $initial if true, treat as the initial scan run
+	 */
+	public function checkCoreVulnerabilities($initial = false) {
+		$vulnerabilities = array();
+		
+		include(ABSPATH . WPINC . '/version.php'); /** @var $wp_version */
+		
+		$core = array(
+			'current' => $wp_version,
+		);
+		
+		if ($this->needs_core_update) {
+			$core['edge'] = $this->core_update_version;
+		}
+		
+		if ($this->core_update_patch_available) {
+			$core['patch'] = $this->core_update_patch_version;
+		}
+		
+		try {
+			$result = $this->api->call('core_vulnerability_check', array(), array(
+				'core' => json_encode($core),
+			));
+			
+			wfConfig::set_ser('vulnerabilities_core', $result['vulnerable']); //Will have the index `current` with possibly `edge` and `patch` depending on what was provided above
+		}
+		catch (Exception $e) {
+			//Do nothing
+		}
 	}
 
 	private function initializePluginVulnerabilityData($plugin, &$installedPlugins, &$records, $values = null, $update = false) {
@@ -590,6 +678,40 @@ class wfUpdateCheck {
 		}
 	}
 	
+	/**
+	 * Returns whether the core version is vulnerable. Available $which values are `current` for the version running now,
+	 * `patch` for the patch update (if available), and `edge` for the most recent update available. `patch` and `edge`
+	 * are accurate only if an update is actually available and will return false otherwise.
+	 * 
+	 * @param string $which
+	 * @return bool
+	 */
+	public function isCoreVulnerable($which = 'current') {
+		static $_vulnerabilitiesRefreshed = false;
+		$vulnerabilities = wfConfig::get_ser('vulnerabilities_core', null);
+		if ($vulnerabilities === null) {
+			if (!$_vulnerabilitiesRefreshed) {
+				$this->checkCoreVulnerabilities(true);
+				$_vulnerabilitiesRefreshed = true;
+			}
+			
+			//Verify that we got a valid response, if not, avoid infinite recursion
+			$vulnerabilities = wfConfig::get_ser('vulnerabilities_core', null);
+			if ($vulnerabilities === null) {
+				wordfence::status(4, 'error', __("Failed obtaining core vulnerability data, skipping check.", 'wordfence'));
+				return false;
+			}
+			
+			return $this->isCoreVulnerable($which);
+		}
+		
+		if (!isset($vulnerabilities[$which])) {
+			return false;
+		}
+		
+		return !!$vulnerabilities[$which]['vulnerable'];
+	}
+	
 	public function isPluginVulnerable($slug, $version) {
 		return $this->_isSlugVulnerable('vulnerabilities_plugin', $slug, $version, function(){ $this->checkPluginVulnerabilities(true); });
 	}
@@ -599,10 +721,21 @@ class wfUpdateCheck {
 	}
 	
 	private function _isSlugVulnerable($vulnerabilitiesKey, $slug, $version, $populateVulnerabilities=null) {
+		static $_vulnerabilitiesRefreshed = array();
 		$vulnerabilities = wfConfig::get_ser($vulnerabilitiesKey, null);
-		if($vulnerabilities===null){
-			if(is_callable($populateVulnerabilities)){
-				$populateVulnerabilities();
+		if ( $vulnerabilities === null) {
+			if (is_callable($populateVulnerabilities)) {
+				if (!isset($_vulnerabilitiesRefreshed[$vulnerabilitiesKey])) {
+					$populateVulnerabilities();
+					$_vulnerabilitiesRefreshed[$vulnerabilitiesKey] = true;
+				}
+				
+				$vulnerabilities = wfConfig::get_ser($vulnerabilitiesKey, null);
+				if ($vulnerabilities === null) {
+					wordfence::status(4, 'error', __("Failed obtaining vulnerability data, skipping check.", 'wordfence'));
+					return false;
+				}
+				
 				return $this->_isSlugVulnerable($vulnerabilitiesKey, $slug, $version);
 			}
 			return false;
@@ -631,10 +764,42 @@ class wfUpdateCheck {
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
 	public function getCoreUpdateVersion() {
 		return $this->core_update_version;
+	}
+	
+	/**
+	 * Returns true if there is a patch version available for the site's current minor branch and the site is not on
+	 * the most recent minor branch (e.g., a backported security update).
+	 * 
+	 * Example: suppose the site is currently on 4.1.37. This will return true and `getCoreUpdatePatchVersion` will 
+	 * return 4.1.39. `getCoreUpdateVersion` will return 6.4.2 (as of writing this comment). 
+	 * 
+	 * @return bool
+	 */
+	public function coreUpdatePatchAvailable() {
+		return $this->core_update_patch_available;
+	}
+	
+	/**
+	 * The version number for the patch update if available.
+	 * 
+	 * @return string
+	 */
+	public function getCoreUpdatePatchVersion() {
+		return $this->core_update_patch_version;
+	}
+	
+	/**
+	 * Returns whether or not the current core version is on a major or minor release earlier than the current available 
+	 * edge update.
+	 * 
+	 * @return bool
+	 */
+	public function getCoreEarlierBranch() {
+		return $this->core_earlier_branch;
 	}
 
 	/**

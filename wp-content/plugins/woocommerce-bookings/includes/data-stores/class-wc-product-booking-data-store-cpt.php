@@ -55,10 +55,6 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	);
 
 	public function __construct() {
-		if ( is_callable( 'parent::__construct' ) ) {
-			parent::__construct();
-		}
-
 		$this->internal_meta_keys = array_merge( $this->internal_meta_keys, array_keys( $this->booking_meta_key_to_props ) );
 	}
 

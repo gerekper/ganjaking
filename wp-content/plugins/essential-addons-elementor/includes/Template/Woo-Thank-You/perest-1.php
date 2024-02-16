@@ -33,7 +33,7 @@ else:
 							'class'       => 'eael-thankyou-icon'
 						] ); ?></div>
 				<?php endif; ?>
-                <div class="eael-thankyou-message-text"><?php echo Helper::eael_wp_kses( $settings['eael_thankyou_message'] ) ?></div>
+                <div class="eael-thankyou-message-text"><?php echo wp_kses( $settings['eael_thankyou_message'], Helper::eael_allowed_tags() ); ?></div>
             </div>
 		<?php endif; ?>
 
@@ -245,11 +245,9 @@ else:
                     <table class="eael-thankyou-order-summary-table">
 						<?php
 						foreach ( $order->get_order_item_totals() as $key => $total ) {
+							$class = strtolower( str_replace( [ ' ', ':' ], [ '-', '' ], $total['label'] ) );
 							?>
-                            <tr class="eael-thankyou-order-summary-<?php echo strtolower( str_replace( [
-								' ',
-								':'
-							], [ '-', '' ], esc_attr( $total['label'] ) ) ) ?>">
+                            <tr class="eael-thankyou-order-summary-<?php echo esc_attr( $class ) ?>">
                                 <th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
                                 <td><?php echo wp_kses_post( $total['value'] ); ?></td>
                             </tr>

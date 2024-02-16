@@ -2,16 +2,14 @@
 /**
  * WooCommerce 360° Image Meta Boxes / Data
  *
- * @package WooCommerce 360° Image
+ * @package WC_360_Image
  * @since   1.1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
- * WC360 Utils Class
+ * WC360 Utils Class.
  */
 class WC_360_Image_Utils {
 

@@ -99,8 +99,8 @@ class Bootstrap
         add_action('wp_ajax_eael_ajax_post_search', [$this, 'ajax_post_search']);
         add_action('wp_ajax_nopriv_eael_ajax_post_search', [$this, 'ajax_post_search']);
         add_action('eael/team_member_circle_controls', [$this, 'add_team_member_circle_presets']);
-        add_action('eael/team_member_social_botton_markup', [$this, 'add_team_member_social_bottom_markup']);
-        add_action('eael/team_member_social_right_markup', [$this, 'add_team_member_social_right_markup']);
+        add_action('eael/team_member_social_botton_markup', [$this, 'add_team_member_social_bottom_markup'], 10, 2);
+        add_action('eael/team_member_social_right_markup', [$this, 'add_team_member_social_right_markup'], 10, 2);
         add_action('eael/controls/advanced-data-table/source', [$this, 'advanced_data_table_source_control'], 10, 1);
         add_action('eael/event-calendar/source/control', [$this, 'event_calendar_source_control'], 10, 1);
         add_action('eael/event-calendar/activation-notice', [$this, 'event_calendar_activation_notice'], 10, 1);

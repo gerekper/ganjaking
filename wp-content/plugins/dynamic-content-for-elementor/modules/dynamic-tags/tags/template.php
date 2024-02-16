@@ -55,15 +55,15 @@ class Template extends Tag
             return;
         }
         if (!empty($settings['dce_template'])) {
-            $template = '[dce-elementor-template id="' . $settings['dce_template'] . '"';
+            $atts = ['id' => $settings['dce_template']];
             if ($settings['dce_template_post_id']) {
-                $template .= ' post_id="' . $settings['dce_template_post_id'] . '"';
+                $atts['post_id'] = $settings['dce_template_post_id'];
             }
             if ($settings['dce_template_inline_css']) {
-                $template .= ' inlinecss="true"';
+                $atts['inlinecss'] = \true;
             }
-            $template .= ']';
-            echo do_shortcode($template);
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special($atts);
         }
     }
 }

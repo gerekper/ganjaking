@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Brainstorm Force
+# Copyright (C) 2024 Brainstorm Force
 # This file is distributed under the same license as the Ultimate Addons for Elementor package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Elementor 1.36.28\n"
+"Project-Id-Version: Ultimate Addons for Elementor 1.36.29\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/ultimate-elementor\n"
-"POT-Creation-Date: 2023-12-26 08:13:50+00:00\n"
+"POT-Creation-Date: 2024-01-29 09:22:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -1556,7 +1556,7 @@ msgstr ""
 #: modules/countdown/widgets/countdown.php:1271
 #: modules/faq/widgets/faq.php:1282
 #: modules/ff-styler/widgets/ff-styler.php:1874
-#: modules/gf-styler/widgets/gf-styler.php:1953
+#: modules/gf-styler/widgets/gf-styler.php:2075
 #: modules/google-map/widgets/google-map.php:778
 #: modules/headings/widgets/advanced-heading.php:1475
 #: modules/headings/widgets/dual-heading.php:755
@@ -2610,7 +2610,7 @@ msgstr ""
 #: modules/gf-styler/widgets/gf-styler.php:777
 #: modules/gf-styler/widgets/gf-styler.php:808
 #: modules/gf-styler/widgets/gf-styler.php:822
-#: modules/gf-styler/widgets/gf-styler.php:1390
+#: modules/gf-styler/widgets/gf-styler.php:1510
 #: modules/headings/widgets/advanced-heading.php:134
 #: modules/headings/widgets/advanced-heading.php:192
 #: modules/headings/widgets/advanced-heading.php:218
@@ -2768,7 +2768,7 @@ msgstr ""
 #: modules/gf-styler/widgets/gf-styler.php:778
 #: modules/gf-styler/widgets/gf-styler.php:809
 #: modules/gf-styler/widgets/gf-styler.php:823
-#: modules/gf-styler/widgets/gf-styler.php:1391
+#: modules/gf-styler/widgets/gf-styler.php:1511
 #: modules/headings/widgets/advanced-heading.php:133
 #: modules/headings/widgets/advanced-heading.php:191
 #: modules/headings/widgets/advanced-heading.php:217
@@ -3030,8 +3030,8 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:1487
 #: modules/ff-styler/widgets/ff-styler.php:1740
 #: modules/ff-styler/widgets/ff-styler.php:1784
-#: modules/gf-styler/widgets/gf-styler.php:1787
-#: modules/gf-styler/widgets/gf-styler.php:1831
+#: modules/gf-styler/widgets/gf-styler.php:1907
+#: modules/gf-styler/widgets/gf-styler.php:1951
 #: modules/google-map/widgets/google-map.php:714
 #: modules/google-map/widgets/google-map.php:744
 #: modules/headings/widgets/advanced-heading.php:496
@@ -3194,8 +3194,8 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:992
 #: modules/ff-styler/widgets/ff-styler.php:1067
 #: modules/gf-styler/widgets/gf-styler.php:871
-#: modules/gf-styler/widgets/gf-styler.php:1226
-#: modules/gf-styler/widgets/gf-styler.php:1305
+#: modules/gf-styler/widgets/gf-styler.php:1252
+#: modules/gf-styler/widgets/gf-styler.php:1403
 #: modules/headings/widgets/advanced-heading.php:1255
 #: modules/headings/widgets/dual-heading.php:377
 #: modules/headings/widgets/dual-heading.php:468
@@ -3351,7 +3351,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:1141
 #: modules/ff-styler/widgets/ff-styler.php:1245
 #: modules/gf-styler/widgets/gf-styler.php:1191
-#: modules/gf-styler/widgets/gf-styler.php:1376
+#: modules/gf-styler/widgets/gf-styler.php:1496
 #: modules/google-map/widgets/google-map.php:670
 #: modules/headings/widgets/advanced-heading.php:1123
 #: modules/headings/widgets/dual-heading.php:389
@@ -3496,7 +3496,7 @@ msgstr ""
 #: modules/buttons/widgets/buttons.php:556
 #: modules/cf-styler/widgets/cf-styler.php:1304
 #: modules/content-toggle/widgets/content-toggle.php:995
-#: modules/gf-styler/widgets/gf-styler.php:1962
+#: modules/gf-styler/widgets/gf-styler.php:2084
 #: modules/google-map/widgets/google-map.php:787
 #: modules/headings/widgets/dual-heading.php:764
 #: modules/headings/widgets/fancy-heading.php:930
@@ -4212,8 +4212,8 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:980
 #: modules/ff-styler/widgets/ff-styler.php:1044
 #: modules/gf-styler/widgets/gf-styler.php:1027
-#: modules/gf-styler/widgets/gf-styler.php:1213
-#: modules/gf-styler/widgets/gf-styler.php:1282
+#: modules/gf-styler/widgets/gf-styler.php:1227
+#: modules/gf-styler/widgets/gf-styler.php:1358
 #: modules/headings/widgets/advanced-heading.php:1009
 #: modules/headings/widgets/dual-heading.php:341
 #: modules/headings/widgets/fancy-heading.php:684
@@ -4329,7 +4329,7 @@ msgstr ""
 #: modules/content-toggle/widgets/content-toggle.php:896
 #: modules/faq/widgets/faq.php:1247
 #: modules/ff-styler/widgets/ff-styler.php:1513
-#: modules/gf-styler/widgets/gf-styler.php:1599
+#: modules/gf-styler/widgets/gf-styler.php:1719
 #: modules/how-to/widgets/how-to.php:763
 #: modules/instagram-feed/widgets/instagram-feed.php:1146
 #: modules/login-form/widgets/login-form.php:1382
@@ -4433,7 +4433,7 @@ msgstr ""
 #: modules/countdown/widgets/countdown.php:720
 #: modules/ff-styler/widgets/ff-styler.php:863
 #: modules/ff-styler/widgets/ff-styler.php:1015
-#: modules/gf-styler/widgets/gf-styler.php:1253
+#: modules/gf-styler/widgets/gf-styler.php:1305
 #: modules/headings/widgets/dual-heading.php:425
 #: modules/headings/widgets/dual-heading.php:572
 #: modules/headings/widgets/fancy-heading.php:759
@@ -4605,8 +4605,8 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:1688
 #: modules/ff-styler/widgets/ff-styler.php:1849
 #: modules/gf-styler/widgets/gf-styler.php:1040
-#: modules/gf-styler/widgets/gf-styler.php:1735
-#: modules/gf-styler/widgets/gf-styler.php:1931
+#: modules/gf-styler/widgets/gf-styler.php:1855
+#: modules/gf-styler/widgets/gf-styler.php:2051
 #: modules/hotspot/widgets/hotspot.php:1355
 #: modules/hotspot/widgets/hotspot.php:1496
 #: modules/image-gallery/widgets/image-gallery.php:755
@@ -4803,7 +4803,7 @@ msgstr ""
 #: modules/gf-styler/widgets/gf-styler.php:667
 #: modules/gf-styler/widgets/gf-styler.php:934
 #: modules/gf-styler/widgets/gf-styler.php:1097
-#: modules/gf-styler/widgets/gf-styler.php:1314
+#: modules/gf-styler/widgets/gf-styler.php:1423
 #: modules/headings/widgets/advanced-heading.php:1319
 #: modules/hotspot/widgets/hotspot.php:1194
 #: modules/hotspot/widgets/hotspot.php:1279
@@ -4861,7 +4861,7 @@ msgstr ""
 #: modules/content-toggle/widgets/content-toggle.php:849
 #: modules/ff-styler/widgets/ff-styler.php:852
 #: modules/ff-styler/widgets/ff-styler.php:1005
-#: modules/gf-styler/widgets/gf-styler.php:1243
+#: modules/gf-styler/widgets/gf-styler.php:1283
 #: modules/headings/widgets/dual-heading.php:412
 #: modules/headings/widgets/dual-heading.php:560
 #: modules/headings/widgets/fancy-heading.php:747
@@ -5553,7 +5553,7 @@ msgstr ""
 #: modules/cf-styler/widgets/cf-styler.php:730 modules/faq/widgets/faq.php:895
 #: modules/faq/widgets/faq.php:1085 modules/ff-styler/widgets/ff-styler.php:813
 #: modules/ff-styler/widgets/ff-styler.php:973
-#: modules/gf-styler/widgets/gf-styler.php:1206
+#: modules/gf-styler/widgets/gf-styler.php:1220
 #: modules/headings/widgets/advanced-heading.php:568
 #: modules/headings/widgets/advanced-heading.php:1225
 #: modules/headings/widgets/dual-heading.php:334
@@ -5625,7 +5625,7 @@ msgstr ""
 #: modules/cf-styler/widgets/cf-styler.php:799 modules/faq/widgets/faq.php:963
 #: modules/faq/widgets/faq.php:1120 modules/ff-styler/widgets/ff-styler.php:888
 #: modules/ff-styler/widgets/ff-styler.php:1037
-#: modules/gf-styler/widgets/gf-styler.php:1275
+#: modules/gf-styler/widgets/gf-styler.php:1351
 #: modules/headings/widgets/advanced-heading.php:1388
 #: modules/hotspot/widgets/hotspot.php:854
 #: modules/hotspot/widgets/hotspot.php:1629
@@ -5692,7 +5692,7 @@ msgstr ""
 #: modules/cf-styler/widgets/cf-styler.php:817
 #: modules/ff-styler/widgets/ff-styler.php:907
 #: modules/ff-styler/widgets/ff-styler.php:1055
-#: modules/gf-styler/widgets/gf-styler.php:1293
+#: modules/gf-styler/widgets/gf-styler.php:1380
 #: modules/headings/widgets/advanced-heading.php:1430
 #: modules/hotspot/widgets/hotspot.php:1677
 #: modules/image-gallery/widgets/image-gallery.php:1785
@@ -5855,7 +5855,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:258
 #: modules/ff-styler/widgets/ff-styler.php:1803
 #: modules/gf-styler/widgets/gf-styler.php:329
-#: modules/gf-styler/widgets/gf-styler.php:1850
+#: modules/gf-styler/widgets/gf-styler.php:1970
 #: modules/login-form/widgets/login-form.php:152
 #: modules/login-form/widgets/login-form.php:1733
 #: modules/registration-form/widgets/registration-form.php:221
@@ -6013,7 +6013,7 @@ msgstr ""
 #: modules/cf-styler/widgets/cf-styler.php:252
 #: modules/ff-styler/widgets/ff-styler.php:1166
 #: modules/gf-styler/widgets/gf-styler.php:388
-#: modules/gf-styler/widgets/gf-styler.php:1401
+#: modules/gf-styler/widgets/gf-styler.php:1521
 #: modules/wpf-styler/widgets/wpf-styler.php:317
 msgid "Field Background Color"
 msgstr ""
@@ -6088,7 +6088,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:452
 #: modules/ff-styler/widgets/ff-styler.php:1288
 #: modules/gf-styler/widgets/gf-styler.php:627
-#: modules/gf-styler/widgets/gf-styler.php:1491
+#: modules/gf-styler/widgets/gf-styler.php:1611
 #: modules/social-share/widgets/social-share.php:758
 #: modules/wpf-styler/widgets/wpf-styler.php:501
 msgid "Border Size"
@@ -6114,7 +6114,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:533
 #: modules/ff-styler/widgets/ff-styler.php:1319
 #: modules/gf-styler/widgets/gf-styler.php:741
-#: modules/gf-styler/widgets/gf-styler.php:1511
+#: modules/gf-styler/widgets/gf-styler.php:1631
 #: modules/headings/widgets/advanced-heading.php:1361
 #: modules/hotspot/widgets/hotspot.php:1212
 #: modules/hotspot/widgets/hotspot.php:1410
@@ -6207,7 +6207,7 @@ msgstr ""
 #: modules/caf-styler/widgets/caf-styler.php:916
 #: modules/cf-styler/widgets/cf-styler.php:853
 #: modules/ff-styler/widgets/ff-styler.php:1104
-#: modules/gf-styler/widgets/gf-styler.php:1342
+#: modules/gf-styler/widgets/gf-styler.php:1462
 #: modules/wpf-styler/widgets/wpf-styler.php:986
 msgid "Success / Error Message"
 msgstr ""
@@ -6233,7 +6233,7 @@ msgstr ""
 #: modules/cf-styler/widgets/cf-styler.php:898
 #: modules/ff-styler/widgets/ff-styler.php:1129
 #: modules/ff-styler/widgets/ff-styler.php:1264
-#: modules/gf-styler/widgets/gf-styler.php:1355
+#: modules/gf-styler/widgets/gf-styler.php:1475
 #: modules/registration-form/widgets/registration-form.php:2174
 #: modules/registration-form/widgets/registration-form.php:2204
 #: modules/woocommerce/widgets/woo-mini-cart.php:965
@@ -6259,19 +6259,19 @@ msgstr ""
 #: modules/caf-styler/widgets/caf-styler.php:1029
 #: modules/cf-styler/widgets/cf-styler.php:941
 #: modules/ff-styler/widgets/ff-styler.php:1180
-#: modules/gf-styler/widgets/gf-styler.php:1415
+#: modules/gf-styler/widgets/gf-styler.php:1535
 msgid "Highlight Border Color"
 msgstr ""
 
 #: modules/caf-styler/widgets/caf-styler.php:1044
 #: modules/ff-styler/widgets/ff-styler.php:1197
-#: modules/gf-styler/widgets/gf-styler.php:1556
+#: modules/gf-styler/widgets/gf-styler.php:1676
 msgid "Form Success Validation"
 msgstr ""
 
 #: modules/caf-styler/widgets/caf-styler.php:1053
 #: modules/cf-styler/widgets/cf-styler.php:976
-#: modules/gf-styler/widgets/gf-styler.php:1565
+#: modules/gf-styler/widgets/gf-styler.php:1685
 #: modules/registration-form/widgets/registration-form.php:2262
 msgid "Success Message Color"
 msgstr ""
@@ -6283,13 +6283,13 @@ msgstr ""
 
 #: modules/caf-styler/widgets/caf-styler.php:1151
 #: modules/ff-styler/widgets/ff-styler.php:1563
-#: modules/gf-styler/widgets/gf-styler.php:1649
+#: modules/gf-styler/widgets/gf-styler.php:1769
 msgid "Between Two Fields"
 msgstr ""
 
 #: modules/caf-styler/widgets/caf-styler.php:1169
 #: modules/ff-styler/widgets/ff-styler.php:1581
-#: modules/gf-styler/widgets/gf-styler.php:1670
+#: modules/gf-styler/widgets/gf-styler.php:1790
 #: modules/login-form/widgets/login-form.php:1412
 #: modules/registration-form/widgets/registration-form.php:1494
 #: modules/wpf-styler/widgets/wpf-styler.php:1234
@@ -6325,7 +6325,7 @@ msgstr ""
 
 #: modules/cf-styler/widgets/cf-styler.php:860
 #: modules/ff-styler/widgets/ff-styler.php:1110
-#: modules/gf-styler/widgets/gf-styler.php:1348
+#: modules/gf-styler/widgets/gf-styler.php:1468
 #: modules/woocommerce/widgets/woo-checkout.php:2041
 #: modules/wpf-styler/widgets/wpf-styler.php:993
 msgid "Field Validation"
@@ -6348,14 +6348,14 @@ msgid "Success Border Color"
 msgstr ""
 
 #: modules/cf-styler/widgets/cf-styler.php:1015
-#: modules/gf-styler/widgets/gf-styler.php:1452
+#: modules/gf-styler/widgets/gf-styler.php:1572
 #: modules/registration-form/widgets/registration-form.php:2277
 #: modules/woocommerce/widgets/woo-checkout.php:2090
 msgid "Error Message Color"
 msgstr ""
 
 #: modules/cf-styler/widgets/cf-styler.php:1027
-#: modules/gf-styler/widgets/gf-styler.php:1465
+#: modules/gf-styler/widgets/gf-styler.php:1585
 msgid "Error Message Background Color"
 msgstr ""
 
@@ -6364,7 +6364,7 @@ msgid "Error Border Color"
 msgstr ""
 
 #: modules/cf-styler/widgets/cf-styler.php:1085
-#: modules/gf-styler/widgets/gf-styler.php:1524
+#: modules/gf-styler/widgets/gf-styler.php:1644
 msgid "Message Padding"
 msgstr ""
 
@@ -6545,7 +6545,7 @@ msgstr ""
 
 #: modules/content-toggle/widgets/content-toggle.php:566
 #: modules/faq/widgets/faq.php:861 modules/ff-styler/widgets/ff-styler.php:1705
-#: modules/gf-styler/widgets/gf-styler.php:1752
+#: modules/gf-styler/widgets/gf-styler.php:1872
 #: modules/headings/widgets/advanced-heading.php:467
 #: modules/headings/widgets/advanced-heading.php:988
 #: modules/image-gallery/widgets/image-gallery.php:1334
@@ -8513,7 +8513,7 @@ msgid "Border radius"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:864 modules/ff-styler/widgets/ff-styler.php:1708
-#: modules/gf-styler/widgets/gf-styler.php:1755
+#: modules/gf-styler/widgets/gf-styler.php:1875
 #: modules/headings/widgets/advanced-heading.php:470
 #: modules/headings/widgets/advanced-heading.php:991
 #: modules/headings/widgets/dual-heading.php:213
@@ -8536,7 +8536,7 @@ msgid "H1"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:865 modules/ff-styler/widgets/ff-styler.php:1709
-#: modules/gf-styler/widgets/gf-styler.php:1756
+#: modules/gf-styler/widgets/gf-styler.php:1876
 #: modules/headings/widgets/advanced-heading.php:471
 #: modules/headings/widgets/advanced-heading.php:992
 #: modules/headings/widgets/dual-heading.php:214
@@ -8559,7 +8559,7 @@ msgid "H2"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:866 modules/ff-styler/widgets/ff-styler.php:1710
-#: modules/gf-styler/widgets/gf-styler.php:1757
+#: modules/gf-styler/widgets/gf-styler.php:1877
 #: modules/headings/widgets/advanced-heading.php:472
 #: modules/headings/widgets/advanced-heading.php:993
 #: modules/headings/widgets/dual-heading.php:215
@@ -8582,7 +8582,7 @@ msgid "H3"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:867 modules/ff-styler/widgets/ff-styler.php:1711
-#: modules/gf-styler/widgets/gf-styler.php:1758
+#: modules/gf-styler/widgets/gf-styler.php:1878
 #: modules/headings/widgets/advanced-heading.php:473
 #: modules/headings/widgets/advanced-heading.php:994
 #: modules/headings/widgets/dual-heading.php:216
@@ -8605,7 +8605,7 @@ msgid "H4"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:868 modules/ff-styler/widgets/ff-styler.php:1712
-#: modules/gf-styler/widgets/gf-styler.php:1759
+#: modules/gf-styler/widgets/gf-styler.php:1879
 #: modules/headings/widgets/advanced-heading.php:474
 #: modules/headings/widgets/advanced-heading.php:995
 #: modules/headings/widgets/dual-heading.php:217
@@ -8628,7 +8628,7 @@ msgid "H5"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:869 modules/ff-styler/widgets/ff-styler.php:1713
-#: modules/gf-styler/widgets/gf-styler.php:1760
+#: modules/gf-styler/widgets/gf-styler.php:1880
 #: modules/headings/widgets/advanced-heading.php:475
 #: modules/headings/widgets/advanced-heading.php:996
 #: modules/headings/widgets/dual-heading.php:218
@@ -8651,7 +8651,7 @@ msgid "H6"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:870 modules/ff-styler/widgets/ff-styler.php:1714
-#: modules/gf-styler/widgets/gf-styler.php:1761
+#: modules/gf-styler/widgets/gf-styler.php:1881
 #: modules/headings/widgets/dual-heading.php:219
 #: modules/headings/widgets/fancy-heading.php:537
 #: modules/how-to/widgets/how-to.php:1102
@@ -8668,7 +8668,7 @@ msgid "div"
 msgstr ""
 
 #: modules/faq/widgets/faq.php:871 modules/ff-styler/widgets/ff-styler.php:1715
-#: modules/gf-styler/widgets/gf-styler.php:1762
+#: modules/gf-styler/widgets/gf-styler.php:1882
 #: modules/headings/widgets/dual-heading.php:221
 #: modules/headings/widgets/fancy-heading.php:538
 #: modules/how-to/widgets/how-to.php:1104
@@ -8735,7 +8735,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:187
 #: modules/ff-styler/widgets/ff-styler.php:1695
 #: modules/gf-styler/widgets/gf-styler.php:257
-#: modules/gf-styler/widgets/gf-styler.php:1742
+#: modules/gf-styler/widgets/gf-styler.php:1862
 #: modules/wpf-styler/widgets/wpf-styler.php:189
 #: modules/wpf-styler/widgets/wpf-styler.php:1342
 msgid "Form Title"
@@ -8744,7 +8744,7 @@ msgstr ""
 #: modules/ff-styler/widgets/ff-styler.php:202
 #: modules/ff-styler/widgets/ff-styler.php:1759
 #: modules/gf-styler/widgets/gf-styler.php:272
-#: modules/gf-styler/widgets/gf-styler.php:1806
+#: modules/gf-styler/widgets/gf-styler.php:1926
 #: modules/wpf-styler/widgets/wpf-styler.php:204
 #: modules/wpf-styler/widgets/wpf-styler.php:1408
 msgid "Form Description"
@@ -8769,7 +8769,7 @@ msgid "Secondary Button"
 msgstr ""
 
 #: modules/ff-styler/widgets/ff-styler.php:1153
-#: modules/gf-styler/widgets/gf-styler.php:1388
+#: modules/gf-styler/widgets/gf-styler.php:1508
 #: modules/headings/widgets/fancy-heading.php:276
 #: modules/hotspot/widgets/hotspot.php:928
 #: modules/modal-popup/widgets/modal-popup.php:544
@@ -8787,24 +8787,24 @@ msgid "Section Break"
 msgstr ""
 
 #: modules/ff-styler/widgets/ff-styler.php:1521
-#: modules/gf-styler/widgets/gf-styler.php:1607
+#: modules/gf-styler/widgets/gf-styler.php:1727
 #: modules/wpf-styler/widgets/wpf-styler.php:1160
 msgid "Form Title Bottom Margin"
 msgstr ""
 
 #: modules/ff-styler/widgets/ff-styler.php:1542
-#: modules/gf-styler/widgets/gf-styler.php:1628
+#: modules/gf-styler/widgets/gf-styler.php:1748
 #: modules/wpf-styler/widgets/wpf-styler.php:1182
 msgid "Form Description Bottom Margin"
 msgstr ""
 
 #: modules/ff-styler/widgets/ff-styler.php:1599
-#: modules/gf-styler/widgets/gf-styler.php:1688
+#: modules/gf-styler/widgets/gf-styler.php:1808
 msgid "Input Top Spacing"
 msgstr ""
 
 #: modules/ff-styler/widgets/ff-styler.php:1617
-#: modules/gf-styler/widgets/gf-styler.php:1706
+#: modules/gf-styler/widgets/gf-styler.php:1826
 msgid "Input Bottom Spacing"
 msgstr ""
 
@@ -8906,15 +8906,15 @@ msgstr ""
 msgid "Bottom Spacing"
 msgstr ""
 
-#: modules/gf-styler/widgets/gf-styler.php:1443
+#: modules/gf-styler/widgets/gf-styler.php:1563
 msgid "Form Error Validation"
 msgstr ""
 
-#: modules/gf-styler/widgets/gf-styler.php:1478
+#: modules/gf-styler/widgets/gf-styler.php:1598
 msgid "Error Message Border Color"
 msgstr ""
 
-#: modules/gf-styler/widgets/gf-styler.php:1921
+#: modules/gf-styler/widgets/gf-styler.php:2041
 #: modules/wpf-styler/widgets/wpf-styler.php:1519
 msgid "Button Typography"
 msgstr ""

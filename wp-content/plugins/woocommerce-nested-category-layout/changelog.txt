@@ -1,5 +1,16 @@
 *** WooCommerce Nested Category Layout Changelog ***
 
+2024.02.02 - version 1.20.0
+ * Tweak - Do not display categories that have no products in the nested category content template
+ * Fix - Ensure to use `remove_action` instead of `remove_filter` with `woocommerce_product_query`
+ * Fix - Bail from applying filters in the main search query
+ * Fix - Suppress the WooCommerce loop template on pages managed by the plugin to avoid empty HTML elements
+ * Misc - Code hardening and improvements
+ * Dev - Add new actions and filters, and update filter parameters in the main nested category content template
+
+2023.06.28 - version 1.19.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.12.02 - version 1.18.1
  * Fix - Improve compatibility with WP filters
 

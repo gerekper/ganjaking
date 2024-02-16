@@ -10,7 +10,7 @@
  * Plugin name:          Polylang for WooCommerce
  * Plugin URI:           https://polylang.pro
  * Description:          Adds multilingual capability to WooCommerce
- * Version:              1.9.2
+ * Version:              1.9.4
  * Requires at least:    5.9
  * Requires PHP:         7.0
  * Author:               WP SYNTEX
@@ -21,10 +21,10 @@
  * License URI:          https://www.gnu.org/licenses/gpl-3.0.txt
  *
  * WC requires at least: 6.2
- * WC tested up to:      8.4
+ * WC tested up to:      8.5
  *
  * Copyright 2016-2020 Frédéric Demarle
- * Copyright 2020-2023 WP SYNTEX
+ * Copyright 2020-2024 WP SYNTEX
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Don't access directly.
 }
 
-define( 'PLLWC_VERSION', '1.9.2' );
+define( 'PLLWC_VERSION', '1.9.4' );
 define( 'PLLWC_MIN_PLL_VERSION', '3.4' );
 
 define( 'PLLWC_FILE', __FILE__ ); // This file.
@@ -207,6 +207,11 @@ class Polylang_Woocommerce {
 	public $hpos_orders_query;
 
 	/**
+	 * @var PLLWC_Feature|null
+	 */
+	public $hpos_feature;
+
+	/**
 	 * Singleton.
 	 *
 	 * @var Polylang_Woocommerce
@@ -247,6 +252,9 @@ class Polylang_Woocommerce {
 		if ( isset( $_GET['action'] ) && 'woocommerce_feature_product' === $_GET['action'] ) {  // phpcs:ignore WordPress.Security.NonceVerification
 			define( 'PLL_ADMIN', true );
 		}
+
+		// Before Polylang is loaded.
+		add_action( 'plugins_loaded', array( $this, 'declare_features_compatibility' ), 0 );
 
 		add_action( 'pll_init', array( $this, 'init' ) );
 		PLLWC_Plugins_Compat::instance();
@@ -313,27 +321,13 @@ class Polylang_Woocommerce {
 
 		add_action( 'admin_init', array( $this, 'maybe_install' ) );
 
-		// Declare compatibility with custom order tables for WooCommerce (HPOS).
-		$hpos_feature = new PLLWC_Feature(
-			'custom_order_tables',
-			// Note: `Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()` is introduced in WC 6.9.
-			class_exists( OrderUtil::class ) ? array( OrderUtil::class, 'custom_orders_table_usage_is_enabled' ) : '__return_false'
-		);
-		$hpos_feature->declare_compatibility();
-
-		$cart_checkout_blocks_feature = new PLLWC_Feature(
-			'cart_checkout_blocks',
-			'__return_true'
-		);
-		$cart_checkout_blocks_feature->declare_compatibility();
-
 		// Bail early if no language has been defined yet.
 		if ( ! pll_languages_list() ) {
 			return;
 		}
 
 		// Custom order tables for WooCommerce (HPOS).
-		if ( $hpos_feature->is_enabled() ) {
+		if ( ! empty( $this->hpos_feature ) && $this->hpos_feature->is_enabled() ) {
 			$this->hpos_orders_query = ( new PLLWC_HPOS_Orders_Query() )->init();
 		}
 
@@ -384,7 +378,7 @@ class Polylang_Woocommerce {
 				$this->admin_taxonomies        = new PLLWC_Admin_Taxonomies();
 				$this->admin_products          = new PLLWC_Admin_Products();
 				$this->admin_product_duplicate = new PLLWC_Admin_Product_Duplicate();
-				$this->admin_orders            = $hpos_feature->is_enabled() ? new PLLWC_Admin_Orders_HPOS() : new PLLWC_Admin_Orders_Legacy();
+				$this->admin_orders            = ! empty( $this->hpos_feature ) && $this->hpos_feature->is_enabled() ? new PLLWC_Admin_Orders_HPOS() : new PLLWC_Admin_Orders_Legacy();
 				$this->admin_reports           = new PLLWC_Admin_Reports();
 				$this->admin_menus             = new PLLWC_Admin_Menus();
 				$this->coupons                 = new PLLWC_Admin_Coupons();
@@ -549,6 +543,29 @@ class Polylang_Woocommerce {
 		if ( PLLWC_BASENAME === $plugin_name && class_exists( 'PLL_Wizard' ) ) {
 			set_transient( 'pll_activation_redirect', 1, 30 );
 		}
+	}
+
+	/**
+	 * Declares Polylang For WooCommerce compatibility with WooCommerce features.
+	 *
+	 * @since 1.9.3
+	 *
+	 * @return void
+	 */
+	public function declare_features_compatibility() {
+		// Declare compatibility with custom order tables for WooCommerce (HPOS).
+		$this->hpos_feature = new PLLWC_Feature(
+			'custom_order_tables',
+			// Note: `Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()` is introduced in WC 6.9.
+			class_exists( OrderUtil::class ) ? array( OrderUtil::class, 'custom_orders_table_usage_is_enabled' ) : '__return_false'
+		);
+		$this->hpos_feature->declare_compatibility();
+
+		$cart_checkout_blocks_feature = new PLLWC_Feature(
+			'cart_checkout_blocks',
+			'__return_true'
+		);
+		$cart_checkout_blocks_feature->declare_compatibility();
 	}
 }
 

@@ -9,6 +9,11 @@ class CookieAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
      * @var bool
      */
     public $has_action = \true;
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_cookie_value');
+    }
     /**
      * @return array<string>
      */
@@ -67,6 +72,7 @@ class CookieAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
     public function on_export($element)
     {
         unset($element['settings']['cookie_name'], $element['settings']['cookie_value'], $element['settings']['cookie_expiration']);
+        return $element;
     }
     public function run($record, $ajax_handler)
     {

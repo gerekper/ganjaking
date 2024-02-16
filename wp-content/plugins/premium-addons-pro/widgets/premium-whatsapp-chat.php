@@ -41,10 +41,6 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 	 */
 	public function check_icon_draw() {
 
-		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
-			return false;
-		}
-
 		$is_enabled = Admin_Helper::check_svg_draw( 'premium-whatsapp-chat' );
 		return $is_enabled;
 	}
@@ -469,7 +465,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 						'icon_type'     => array( 'icon', 'svg' ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .premium-whatsapp-icon-wrap svg *' => 'stroke-width: {{SIZE}}',
+						'{{WRAPPER}} .premium-whatsapp-icon *' => 'stroke-width: {{SIZE}}',
 					),
 				)
 			);
@@ -720,8 +716,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					'size' => 15,
 				),
 				'selectors' => array(
-					'{{WRAPPER}}.premium-whatsapp-icon-after .premium-whatsapp-icon-wrap' => 'margin-' . $icon_spacing_after . ': {{SIZE}}px',
-					'{{WRAPPER}}.premium-whatsapp-icon-before .premium-whatsapp-icon-wrap' => 'margin-' . $icon_spacing . ': {{SIZE}}px',
+					'{{WRAPPER}} .premium-whatsapp-link' => 'column-gap: {{SIZE}}px;'
 				),
 				'separator' => 'after',
 				'condition' => array(
@@ -780,38 +775,6 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'text_alignment',
-			array(
-				'label'     => __( 'Text Alignment', 'premium-addons-pro' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => array(
-					'left'   => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
-						'icon'  => 'eicon-text-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
-						'icon'  => 'eicon-text-align-center',
-					),
-					'right'  => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
-						'icon'  => 'eicon-text-align-right',
-					),
-				),
-				'toggle'    => false,
-				'default'   => 'center',
-				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-link-wrap .premium-whatsapp-link' => 'justify-content: {{VALUE}}',
-				),
-				'condition' => array(
-					'button_float!' => 'yes',
-					'icon_position' => 'row',
-					'button_size'   => 'block',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
 			'text_alignment_after',
 			array(
 				'label'     => __( 'Text Alignment', 'premium-addons-pro' ),
@@ -837,7 +800,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				),
 				'condition' => array(
 					'button_float!' => 'yes',
-					'icon_position' => 'row-reverse',
+					'icon_position' => 'before',
 					'button_size'   => 'block',
 				),
 			)
@@ -868,6 +831,10 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				'type'  => Controls_Manager::HOVER_ANIMATION,
 			)
 		);
+
+        if ( version_compare( PREMIUM_ADDONS_VERSION, '4.10.17', '>' ) ) {
+            Helper_Functions::add_btn_hover_controls( $this, array() );
+        }
 
 		$this->add_control(
 			'link_new_tab',
@@ -982,7 +949,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				'condition' => array(
 					'button_text!' => '',
 				),
-				'selector'  => '{{WRAPPER}} .premium-whatsapp-link .premium-whatsapp-text',
+				'selector'  => '{{WRAPPER}} .premium-whatsapp-link',
 			)
 		);
 
@@ -1021,8 +988,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-icon' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .premium-whatsapp-icon-wrap svg, {{WRAPPER}} .premium-whatsapp-icon-wrap svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .premium-whatsapp-icon, {{WRAPPER}} .premium-whatsapp-icon *' => 'fill: {{VALUE}}',
 				),
 				'condition' => array(
 					'icon_switcher'           => 'yes',
@@ -1046,7 +1012,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 						'icon_type'     => array( 'icon', 'svg' ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .premium-whatsapp-icon-wrap svg *' => 'stroke: {{VALUE}};',
+						'{{WRAPPER}} .premium-whatsapp-icon *' => 'stroke: {{VALUE}};',
 					),
 				)
 			);
@@ -1061,7 +1027,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					'default' => Global_Colors::COLOR_ACCENT,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-link' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-whatsapp-link, {{WRAPPER}} .premium-button-style2-shutinhor:before, {{WRAPPER}} .premium-button-style2-shutinver:before, {{WRAPPER}} .premium-button-style5-radialin:before, {{WRAPPER}} .premium-button-style5-rectin:before' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1167,7 +1133,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-whatsapp-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-whatsapp-link, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1207,7 +1173,7 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-text'   => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-text, {{WRAPPER}} .premium-button-line6::after'   => 'color: {{VALUE}};',
 				),
 				'condition' => array(
 					'button_text!' => '',
@@ -1220,12 +1186,8 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_SECONDARY,
-				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-icon'   => 'color: {{VALUE}};',
-					'{{WRAPPER}} .premium-whatsapp-link:hover svg, {{WRAPPER}} .premium-whatsapp-link:hover svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-icon, {{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-icon *' => 'fill: {{VALUE}}',
 				),
 				'condition' => array(
 					'icon_switcher'           => 'yes',
@@ -1241,19 +1203,69 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				array(
 					'label'     => __( 'Stroke Color', 'premium-addons-pro' ),
 					'type'      => Controls_Manager::COLOR,
-					'global'    => array(
-						'default' => Global_Colors::COLOR_ACCENT,
-					),
 					'condition' => array(
 						'icon_switcher' => 'yes',
 						'icon_type'     => array( 'icon', 'svg' ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .premium-whatsapp-link:hover svg *' => 'stroke: {{VALUE}};',
+						'{{WRAPPER}} .premium-whatsapp-link:hover .premium-whatsapp-icon *' => 'stroke: {{VALUE}};',
 					),
 				)
 			);
 		}
+
+        $this->add_control(
+			'underline_color',
+			array(
+				'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg'   => 'stroke: {{VALUE}};',
+                    '{{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before'   => 'background-color: {{VALUE}};'
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+				),
+			)
+		);
+
+        $this->add_control(
+			'first_layer_hover',
+			array(
+				'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+
+				),
+			)
+		);
+
+		$this->add_control(
+			'second_layer_hover',
+			array(
+				'label'     => __( 'Layer #2 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+				),
+			)
+		);
 
 		$this->add_control(
 			'button_background_hover',
@@ -1264,7 +1276,10 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					'default' => Global_Colors::COLOR_ACCENT,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-whatsapp-link:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before' => 'background-color: {{VALUE}};',
+				),
+                'condition' => array(
+					'premium_button_hover_effect!' => 'style7',
 				),
 			)
 		);
@@ -1431,8 +1446,6 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 
 		$pos = 'yes' === $settings['button_float'] ? 'premium-button-float' : '';
 
-		$button_size = 'premium-btn-' . $settings['button_size'];
-
 		$this->add_render_attribute(
 			'whatsapp',
 			array(
@@ -1440,6 +1453,13 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 				'data-settings' => wp_json_encode( $pa_whats_chat_settings ),
 			)
 		);
+
+        $button_size = 'premium-btn-' . $settings['button_size'];
+
+        $effect_class = '';
+        if ( version_compare( PREMIUM_ADDONS_VERSION, '4.10.17', '>' ) ) {
+            $effect_class = Helper_Functions::get_button_class( $settings );
+        }
 
 		$this->add_render_attribute(
 			'button_link',
@@ -1450,10 +1470,12 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 					$pos,
 					$settings['position'],
 					'elementor-animation-' . $settings['button_hover_animation'],
+                    $effect_class
 				),
 				'data-tooltip-content' => '#tooltip_content',
 				'href'                 => esc_url( $href ),
 				'target'               => $target,
+                'data-text' =>  $settings['button_text']
 			)
 		);
 
@@ -1555,38 +1577,54 @@ class Premium_Whatsapp_Chat extends Widget_Base {
 		?>
 
 	<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'whatsapp' ) ); ?>>
+
 		<div class="premium-whatsapp-link-wrap">
+
 			<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'button_link' ) ); ?>>
+
 				<?php if ( ! empty( $settings['button_text'] ) ) : ?>
-					<span class="premium-whatsapp-text"><?php echo esc_html( $settings['button_text'] ); ?></span>
+                    <div class="premium-button-text-icon-wrapper">
+                        <span class="premium-whatsapp-text">
+                            <?php echo wp_kses_post( $settings['button_text'] ); ?>
+                        </span>
+                    </div>
 				<?php endif; ?>
+
 				<?php if ( 'yes' === $settings['icon_switcher'] ) : ?>
-					<span class="premium-whatsapp-icon-wrap">
-						<?php
-						if ( 'icon' === $icon_type ) :
-							if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
-								Icons_Manager::render_icon(
-									$settings['icon_selection_updated'],
-									array(
-										'class'       => array( 'premium-whatsapp-icon', 'premium-svg-nodraw' ),
-										'aria-hidden' => 'true',
-									)
-								);
-							else :
-								?>
-								<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
-							<?php endif; ?>
-						<?php elseif ( 'svg' === $icon_type ) : ?>
-							<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
-								<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
-							</div>
-						<?php elseif ( 'image' === $icon_type ) : ?>
-							<img <?php echo wp_kses_post( $this->get_render_attribute_string( 'image' ) ); ?>>
-						<?php else : ?>
-							<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'lottie' ) ); ?>></div>
-						<?php endif; ?>
-					</span>
+
+                    <?php if ( 'icon' === $icon_type ) :
+
+                        if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
+                            Icons_Manager::render_icon(
+                                $settings['icon_selection_updated'],
+                                array(
+                                    'class'       => array( 'premium-whatsapp-icon', 'premium-svg-nodraw' ),
+                                    'aria-hidden' => 'true',
+                                )
+                            );
+                        else : ?>
+                            <i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+                        <?php endif; ?>
+
+                    <?php elseif ( 'svg' === $icon_type ) : ?>
+                        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+                            <?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+                        </div>
+                    <?php elseif ( 'image' === $icon_type ) : ?>
+                        <img <?php echo wp_kses_post( $this->get_render_attribute_string( 'image' ) ); ?>>
+                    <?php else : ?>
+                        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'lottie' ) ); ?>></div>
+                    <?php endif; ?>
+
 				<?php endif; ?>
+
+                <?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
+                    <span class="premium-button-style6-bg"></span>
+                <?php endif; ?>
+
+                <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+                    <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); ?>
+                <?php endif; ?>
 
 				<?php if ( 'yes' === $settings['tooltips'] ) : ?>
 					<div id="tooltip_content">

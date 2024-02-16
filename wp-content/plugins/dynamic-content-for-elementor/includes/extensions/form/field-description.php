@@ -106,7 +106,7 @@ class FieldDescription extends \DynamicContentForElementor\Extensions\ExtensionP
                             ?>"><?php 
                             echo $field_description;
                             ?></span>');
-						<?php 
+							<?php 
                         } else {
                             ?>
 						jQuery('.elementor-element-<?php 
@@ -118,12 +118,12 @@ class FieldDescription extends \DynamicContentForElementor\Extensions\ExtensionP
                             ?>" title="<?php 
                             echo $field_description;
                             ?>"></abbr>');
-							<?php 
+								<?php 
                         }
                     }
                     if ($afield['field_description_position'] == 'elementor-field') {
                         ?>
-				  		jQuery('.elementor-element-<?php 
+						  jQuery('.elementor-element-<?php 
                         echo $widget->get_id();
                         ?> .elementor-field-group-<?php 
                         echo $afield['custom_id'];
@@ -132,7 +132,7 @@ class FieldDescription extends \DynamicContentForElementor\Extensions\ExtensionP
                         ?>"><?php 
                         echo $field_description;
                         ?></div>');
-						<?php 
+							<?php 
                     }
                 }
             }
@@ -148,7 +148,7 @@ class FieldDescription extends \DynamicContentForElementor\Extensions\ExtensionP
                 echo $jkey;
                 ?>);
 					});
-			<?php 
+				<?php 
             }
             ?>
 			})(jQuery, window);

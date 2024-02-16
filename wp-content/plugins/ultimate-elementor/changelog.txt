@@ -1,3 +1,7 @@
+Version 1.36.29, Monday, 29th January 2024
+- Improvement: Compatibility with latest Elementor and Elementor Pro 3.19 version.
+- Fix: Gravity Forms Styler - Button style and typography controls not working.
+
 Version 1.36.28, Wednesday, 27th December 2023
 - Fix: Gravity Forms Styler - Button style controls not working.
 - Fix: Video - Fatal error due to undefined datetime function.

@@ -2,18 +2,20 @@
 /**
  * Class WC_Gateway_Paygold_Redsys
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -25,8 +27,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
 
@@ -97,8 +99,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
@@ -115,8 +117,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -163,8 +165,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function init_form_fields() {
 
@@ -410,22 +412,24 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	public function disable_paygold( $available_gateways ) {
 
-		if ( ! is_admin() && WCRed()->is_gateway_enabled( 'paygold' ) ) {
-			$total = (int) WC()->cart->total;
-			$limit = (int) $this->transactionlimit;
-			if ( ! empty( $limit ) && $limit > 0 ) {
-				$result = $limit - $total;
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '$total: ' . $total );
-					$this->log->add( 'paygold', '$limit: ' . $limit );
-					$this->log->add( 'paygold', '$result: ' . $result );
-					$this->log->add( 'paygold', ' ' );
-				}
-				if ( $result > 0 ) {
-					return $available_gateways;
-				} else {
-					unset( $available_gateways['paygold'] );
+		if ( ! is_admin() && WCRed()->is_gateway_enabled( 'paygold' ) && is_checkout() ) {
+			if ( WC()->cart && ! is_null( WC()->cart ) ) {
+				$total = (int) WC()->cart->total;
+				$limit = (int) $this->transactionlimit;
+				if ( ! empty( $limit ) && $limit > 0 ) {
+					$result = $limit - $total;
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'paygold', ' ' );
+						$this->log->add( 'paygold', '$total: ' . $total );
+						$this->log->add( 'paygold', '$limit: ' . $limit );
+						$this->log->add( 'paygold', '$result: ' . $result );
+						$this->log->add( 'paygold', ' ' );
+					}
+					if ( $result > 0 ) {
+						return $available_gateways;
+					} else {
+						unset( $available_gateways['paygold'] );
+					}
 				}
 			}
 		}
@@ -657,7 +661,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
 		$datos_entrada .= '<DS_MERCHANT_MERCHANTURL>' . $final_notify_url . '</DS_MERCHANT_MERCHANTURL>';
 		$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $ds_merchant_terminal . '</DS_MERCHANT_TERMINAL>';
-		$datos_entrada .= '<DS_MERCHANT_PRODUCTDESCRIPTION>' . $description . '</DS_MERCHANT_PRODUCTDESCRIPTION>';
+		$datos_entrada .= '<DS_MERCHANT_PRODUCTDESCRIPTION>' . WCRed()->clean_data( $description ) . '</DS_MERCHANT_PRODUCTDESCRIPTION>';
 		$datos_entrada .= '<DS_MERCHANT_CUSTOMER_MAIL>' . $customermail . '</DS_MERCHANT_CUSTOMER_MAIL>';
 		$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
 		$datos_entrada .= '<DS_MERCHANT_P2F_EXPIRYDATE>' . $expiration . '</DS_MERCHANT_P2F_EXPIRYDATE>';
@@ -724,8 +728,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 
@@ -855,8 +859,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	/**
 	 * Successful Payment!
@@ -1280,7 +1284,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
+		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
@@ -1299,7 +1303,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'paygold', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'paygold', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'paygold', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, $this->id ) );
+			$this->log->add( 'paygold', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 			$this->log->add( 'paygold', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'paygold', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'paygold', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );

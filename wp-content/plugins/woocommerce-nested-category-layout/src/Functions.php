@@ -17,10 +17,14 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-nested-category-layout/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2024, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
-defined('ABSPATH') or exit;
+
+defined( 'ABSPATH' ) or exit;
+
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
+
 
 /**
  * Returns the One True Instance of Nested Category Layout.
@@ -29,28 +33,30 @@ defined('ABSPATH') or exit;
  *
  * @return \WC_Nested_Category_Layout
  */
-function wc_nested_category_layout()
-{
-    return \WC_Nested_Category_Layout::instance();
+function wc_nested_category_layout() {
+	return \WC_Nested_Category_Layout::instance();
 }
 
+
 /**
- * Helper function to determine value exist in multi dementing array.
+ * Helper function to determine if a value exists in a multi-dimensional array.
  *
  * @since 1.18.1
- * @param string $needle
- * @param array $haystack
+ * @deprecated 1.20.0
+ *
+ * @param int|string $needle
+ * @param array<int|string, mixed> $haystack
  * @return bool
  */
-function wncl_recursive_array_search($needle, $haystack)
-{
-    foreach ($haystack as $key => $value) {
-        $current_key = $key;
-        if ($needle === $value || (is_array($value) &&
-                    wncl_recursive_array_search($needle, $value) !== false)) {
-            return true;
-        }
-    }
+function wncl_recursive_array_search( $needle, array $haystack ) : bool {
 
-    return false;
+	wc_deprecated_function( __FUNCTION__, '1.20.0' );
+
+	foreach ( $haystack as $value ) {
+		if ( $needle === $value || ( is_array( $value ) && wncl_recursive_array_search( $needle, $value )  !== false ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }

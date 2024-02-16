@@ -308,10 +308,11 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 						// Do nothing.
 						break;
 					case 'title':
-						echo '<div class="yith-plugin-fw__panel__section">';
 
+						$class_title = $field['class_title'] ?? '';
+						echo '<div class="yith-plugin-fw__panel__section">';
 						if ( ! empty( $field['title'] ) ) {
-							echo '<div class="yith-plugin-fw__panel__section__title">';
+							echo '<div class="yith-plugin-fw__panel__section__title '.esc_attr( $class_title ).'">';
 							echo '<h2>' . esc_html( $field['title'] ) . '</h2>';
 							if ( ! empty( $field['desc'] ) ) {
 								echo '<div class="yith-plugin-fw__panel__section__description">';

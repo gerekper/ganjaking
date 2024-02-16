@@ -83,7 +83,10 @@
                         this.settings.carousel = false;
                         $premiumTabsElem.removeClass("elementor-invisible");
                     }
+                }
 
+                //We use another if condition to check the carousel tabs again if disabled on the current device.
+                if (this.settings.carousel) {
 
                     //Make sure slick is initialized before showing tabs.
                     $navList.on('init', function () {
@@ -393,21 +396,21 @@
                         $currentActivetab.addClass("tab-current");
 
                         //Hide separator for arrow pointer if active background is set
-                        if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
-                            $currentActivetab.addClass("premium-zero-height");
-                            $currentActivetab.prev().addClass("premium-zero-height");
-                        }
+                        // if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
+                        //     $currentActivetab.addClass("premium-zero-height");
+                        //     $currentActivetab.prev().addClass("premium-zero-height");
+                        // }
 
                     }, 100);
                 } else {
                     $(tab).addClass("tab-current");
 
                     //Hide separator for arrow pointer if active background is set
-                    if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
+                    // if (settings.tabColor !== settings.activeTabColor && 'undefined' != typeof settings.activeTabColor) {
 
-                        $(tab).prevAll('.premium-tabs-nav-list-item').first().addClass("premium-zero-height");
-                        $(tab).addClass("premium-zero-height");
-                    }
+                    //     $(tab).prevAll('.premium-tabs-nav-list-item').first().addClass("premium-zero-height");
+                    //     $(tab).addClass("premium-zero-height");
+                    // }
 
                 }
 
@@ -436,8 +439,8 @@
 
                 }
 
-
-                self.items.find(".slick-slider").slick('pause').slick('freezeAnimation');
+                if (self.items.find(".slick-slider").length > 0)
+                    self.items.find(".slick-slider").slick('pause').slick('freezeAnimation');
 
                 if ($activeContent.find(".slick-slider").length > 0) {
 

@@ -1436,7 +1436,6 @@ function perfmatters_activate_license($network = false) {
 		$license_data->error = '';
 		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
 		$license_data->license = 'valid';
-
 		//license is valid
 		if(!empty($license_data->license) && $license_data->license == 'valid') {
 

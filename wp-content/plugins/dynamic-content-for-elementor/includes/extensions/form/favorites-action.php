@@ -32,6 +32,15 @@ class FavoritesAction extends \ElementorPro\Modules\Forms\Classes\Action_Base
     {
         return [];
     }
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_form_favorites::dce_form_favorite_action');
+        $save_guard->register_unsafe_control('form', 'dce_form_favorites::dce_form_favorite_scope');
+        $save_guard->register_unsafe_control('form', 'dce_form_favorites::dce_form_favorite_key');
+        $save_guard->register_unsafe_control('form', 'dce_form_favorites::dce_form_favorite_post_id');
+        $save_guard->register_unsafe_control('form', 'dce_form_favorites::dce_form_favorite_cookie_expiration');
+    }
     /**
      * Has Action
      *

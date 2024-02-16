@@ -67,7 +67,8 @@ $dce_col_xs = $dce_default_options[ $dce_elementor_templates . '_col_xs' ];
 
 					<?php
 					if ( $dce_default_template_base == 'canvas' ) {
-							echo do_shortcode( '[dce-elementor-template id="' . $dce_default_template . '"]' );
+						$template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+						echo $template_system->build_elementor_template_special( [ 'id' => $dce_default_template ] );
 					} else {
 						?>
 
@@ -85,7 +86,7 @@ $dce_col_xs = $dce_default_options[ $dce_elementor_templates . '_col_xs' ];
 									echo '</div>';
 							 endwhile;
 
-							\DynamicContentForElementor\Helper::numeric_posts_nav();
+								\DynamicContentForElementor\Helper::numeric_posts_nav();
 							 else : ?>
 								<p><?php __( 'No posts by this author.', 'dynamic-content-for-elementor' ); ?></p>
 							<?php endif;

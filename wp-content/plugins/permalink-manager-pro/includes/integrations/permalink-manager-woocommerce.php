@@ -298,11 +298,10 @@ class Permalink_Manager_WooCommerce {
 		$features_util_class = '\Automattic\WooCommerce\Utilities\FeaturesUtil';
 
 		if ( class_exists( $features_util_class ) && method_exists( $features_util_class, 'declare_compatibility' ) ) {
-			$plugin_name = strtok( PERMALINK_MANAGER_BASENAME, '/' );
 			$features    = method_exists( $features_util_class, 'get_features' ) ? $features_util_class::get_features( true ) : array();
 
 			foreach ( array_keys( $features ) as $feature ) {
-				$features_util_class::declare_compatibility( $feature, $plugin_name );
+				$features_util_class::declare_compatibility( $feature, PERMALINK_MANAGER_BASENAME );
 			}
 		}
 	}

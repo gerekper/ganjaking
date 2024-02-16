@@ -13,8 +13,6 @@
             return;
         }
 
-        console.log($settings);
-
         $($settings.id).find(".bdt-ep-webhook-form-form").submit(function (e) {
             e.preventDefault();
             send_form_data($form);

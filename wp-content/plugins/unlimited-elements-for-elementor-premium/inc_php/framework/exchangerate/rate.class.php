@@ -60,7 +60,7 @@ class UEExchangeRateAPIRate extends UEExchangeRateAPIModel{
 
 		$country = $this->getCountry();
 		$country = strtolower($country);
-		
+
 		$url = "https://flagcdn.com/" . $country . ".svg";
 
 		return $url;

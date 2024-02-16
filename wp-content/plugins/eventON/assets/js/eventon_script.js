@@ -582,7 +582,7 @@ jQuery(document).ready(function($){
 			CAL.find('.'+e_cl).find('.desc_trig').trigger('click');
 		});
 
-	// populate the schedule view data @4.5.6
+	// populate the schedule view data @4.5.8
 	function evosv_populate(CAL){
 		var SC = CAL.evo_shortcode_data();
 		OD = CAL.evo_get_OD(); // calendar other data 

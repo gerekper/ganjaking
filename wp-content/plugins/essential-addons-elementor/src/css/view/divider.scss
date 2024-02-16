@@ -1,0 +1,95 @@
+.eael-divider-wrap {
+    font-size: 0;
+    line-height: 0;
+}
+
+.eael-divider {
+    text-align: center;
+}
+
+.eael-divider-left .divider-border-left {
+    display: none;
+}
+
+.eael-divider-right .divider-border-right {
+    display: none;
+}
+
+/*--- Horizontal ---*/
+.eael-divider.horizontal {
+    border: 0;
+    border-color: #000;
+    border-bottom-width: 4px;
+    border-top-width: 0px;
+    display: inline-block;
+    width: 80px;
+    height: 0;
+    border-style: dashed;
+}
+
+/*--- Vertical ---*/
+.eael-divider.vertical {
+    border: 0;
+    display: inline-block;
+    border-left: 2px solid #000;
+    height: 50px;
+}
+
+/*--- divider with Text ---*/
+.divider-text-container {
+    display: inline-block;
+    max-width: 100%;
+}
+
+.divider-text-wrap {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.eael-divider-wrap.divider-direction-vertical {
+    .divider-text-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+    .divider-border {
+        border: 1px solid;
+    }
+    .divider-border-left {
+        order: 1;
+    }
+    .eael-divider-content {
+        order: 2;
+    }
+    .divider-border-right {
+        order: 3;
+    }
+    .divider-text-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.eael-divider-text {
+    font-size: 16px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.divider-border-wrap {
+    flex: 1 1 auto;
+}
+
+.divider-border {
+    border: 0;
+    height: 1px;
+    border-top: 1px solid #000;
+    display: block;
+    width: 100%;
+}
+
+.eael-divider-content {
+    display: inherit;
+    flex: 0 1 auto;
+    margin: 0 20px;
+}

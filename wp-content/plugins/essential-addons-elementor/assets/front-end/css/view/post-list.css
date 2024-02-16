@@ -643,14 +643,6 @@
   position: relative;
 }
 
-.eael-post-list-container.layout-advanced .eael-post-list-posts-wrap .eael-post-list-post .eael-post-list-thumbnail > a {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-}
-
 @media (max-width: 1024px) {
   .eael-post-list-container.layout-advanced .eael-post-list-posts-wrap .eael-post-list-post .eael-post-list-thumbnail img {
     width: 100%;

@@ -6,7 +6,7 @@
  * @author 		Ashan Jay
  * @category 	Admin
  * @package 	eventon/Admin/Taxonomies
- * @version     4.4
+ * @version     4.5.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -207,7 +207,7 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 						'placeholder'=>'eg. Irving City Park',
 						'value'=> ($event_tax_term? $event_tax_term->name:''),
 						'var'=>	'term_name',
-						'legend'=> ($is_new?'':'NOTE: If you change the location name, it will create a new location.')
+						'legend'=> ($is_new?'': __('NOTE: If you change the location name, it will create a new location.','eventon') )
 					),
 					'description'=>array(
 						'type'=>'textarea',
@@ -219,12 +219,14 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 						'type'=>'text',
 						'name'=>__('Location Address','eventon'),
 						'placeholder'=>'eg. 12 Rue de Rivoli, Paris',
-						'var'=>'location_address'				
+						'var'=>'location_address',
+						'legend'=> __('Location address will be visible on calendar as primary location information.','eventon')			
 					),
 					'location_city'=>array(
 						'type'=>'text',
 						'name'=>__('Location City (Optional)','eventon'),
-						'var'=>'location_city'				
+						'var'=>'location_city',
+						'nesting_start'=> 'evo_loc_post'					
 					),
 					'location_state'=>array(
 						'type'=>'text',
@@ -234,16 +236,20 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 					'location_country'=>array(
 						'type'=>'text',
 						'name'=>__('Location Country (Optional)','eventon'),
-						'var'=>'location_country'				
+						'var'=>'location_country',
+						'nesting_end'=> true						
 					),
 					'evcal_lat'=>array(
 						'type'=>'text',
 						'name'=>__('Latitude','eventon'),	
-						'var'=> 'location_lat'					
-					),'evcal_lon'=>array(
+						'var'=> 'location_lat'	,
+						'nesting_start'=> 'evo_elm_row_50'				
+					),
+					'evcal_lon'=>array(
 						'type'=>'text',
 						'name'=>__('Longitude','eventon'),
-						'var'=> 'location_lon'					
+						'var'=> 'location_lon'	,
+						'nesting_end'=> true				
 					),
 					'location_getdir_latlng'=>array(
 						'type'=>'yesno',
@@ -314,42 +320,50 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 					'evcal_org_tw'=> array(
 						'var'=> 'evcal_org_tw','type'=>'text',
 						'name'=>__( 'Twitter Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer Twitter page','eventon' )
+						'desc'=>__( 'Link to organizer Twitter page','eventon' ),
+						'nesting_start'=> 'evo_org'		
 					),
 					'evcal_org_ig'=> array(
 						'var'=> 'evcal_org_ig','type'=>'text',
 						'name'=>__( 'Instagram Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer Instagram page','eventon' )
+						'desc'=>__( 'Link to organizer Instagram page','eventon' ),
+						'nesting_end'=> true			
 					),					
 					'evcal_org_yt'=> array(
 						'var'=> 'evcal_org_yt','type'=>'text',
 						'name'=>__( 'Youtube Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer Youtube page','eventon' )
+						'desc'=>__( 'Link to organizer Youtube page','eventon' ),
+						'nesting_start'=> 'evo_org'		
 					),
 					'evcal_org_wa'=> array(
 						'var'=> 'evcal_org_wa','type'=>'text',
 						'name'=>__( 'WhatsApp Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer WhatsApp page','eventon' )
+						'desc'=>__( 'Link to organizer WhatsApp page','eventon' ),
+						'nesting_end'=> true			
 					),
 					'evcal_org_tt'=> array(
 						'var'=> 'evcal_org_tt','type'=>'text',
 						'name'=>__( 'TikTok Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer TikTok page','eventon' )
+						'desc'=>__( 'Link to organizer TikTok page','eventon' ),
+						'nesting_start'=> 'evo_org'		
 					),
 					'evcal_org_fb'=> array(
 						'var'=> 'evcal_org_fb','type'=>'text',
 						'name'=>__( 'Facebook Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer facebook page','eventon' )
+						'desc'=>__( 'Link to organizer facebook page','eventon' ),
+						'nesting_end'=> true			
 					),
 					'evcal_org_ln'=> array(
 						'var'=> 'evcal_org_ln','type'=>'text',
 						'name'=>__( 'Linkedin Link', 'eventon' ),
-						'desc'=>__( 'Link to organizer Linkedin page','eventon' )
+						'desc'=>__( 'Link to organizer Linkedin page','eventon' ),
+						'nesting_start'=> 'evo_org'		
 					),
 					'evcal_org_exlink'=>array(
 						'var'=> 'evcal_org_exlink','type'=>'text',
 						'name'=>__('Organizer Link','eventon'),
-						'var'=> 'evcal_org_exlink'					
+						'var'=> 'evcal_org_exlink',
+						'nesting_end'=> true				
 					),
 					'_evocal_org_exlink_target'=>array(
 						'type'=>'yesno',

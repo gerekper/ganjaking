@@ -2,13 +2,16 @@
 /**
  * Redsys QR Codes
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
+ * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,8 +26,8 @@ class Redsys_QR_Codes {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public static function init() {
 		add_filter( 'upload_mimes', __CLASS__ . '::allow_svg' );

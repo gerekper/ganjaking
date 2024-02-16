@@ -1994,7 +1994,7 @@ class Advanced_Search extends Widget_Base {
 		$this->add_render_attribute(
 			'adv_search_form',
 			[
-				'data-settings' => htmlspecialchars( json_encode( $args ), ENT_QUOTES, 'UTF-8' ),
+				'data-settings' => htmlspecialchars( wp_json_encode( $args ), ENT_QUOTES, 'UTF-8' ),
 				'method'        => 'POST',
 				'name'          => 'eael-advanced-search-form-' . $this->get_id(),
 				'class'         => [ 'eael-advanced-search-form', $form_style ],
@@ -2003,8 +2003,8 @@ class Advanced_Search extends Widget_Base {
 
 		?>
         <div class="eael-adv-search-wrapper">
-            <div <?php echo $this->get_render_attribute_string( 'adv_search' ); ?>>
-                <form <?php echo $this->get_render_attribute_string( 'adv_search_form' ); ?>>
+            <div <?php $this->print_render_attribute_string( 'adv_search' ); ?>>
+                <form <?php $this->print_render_attribute_string( 'adv_search_form' ); ?>>
                     <div class="eael-advanced-search-wrap">
                         <span class="eael-adv-search-loader"></span>
                         <span class="eael-adv-search-close"><i class="fas fa-times"></i></span>
@@ -2017,7 +2017,7 @@ class Advanced_Search extends Widget_Base {
 					<?php if ( $settings[ 'show_category_list' ] == 'yes' ): ?>
                         <div class="eael-advance-search-select">
                             <span class="icon fas fa-chevron-down"></span>
-							<?php echo $this->cate_list_render(); ?>
+							<?php echo $this->cate_list_render(); ?> <!-- Already escaped -->
                         </div>
 					<?php endif; ?>
                     <?php if ( $settings['show_search_button'] === 'yes' ): ?>
@@ -2027,9 +2027,7 @@ class Advanced_Search extends Widget_Base {
 
 				<?php $this->render_popular_keyword( $settings ); ?>
 
-
-
-				<?php echo $this->search_result_render( $settings ); ?>
+				<?php echo $this->search_result_render( $settings ); ?> <!-- Already escaped -->
             </div>
         </div>
 
@@ -2046,7 +2044,7 @@ class Advanced_Search extends Widget_Base {
 		$markup    = sprintf( "<option value=''>%s</option>", esc_html( $settings[ 'category_list_text' ] ) );
 		if ( !empty( $cat_lists ) ) {
 			foreach ( $cat_lists as $key => $item ) {
-				$markup .= sprintf( "<option value='%d'>%s</option>", $key, $item );
+				$markup .= sprintf( "<option value='%d'>%s</option>", esc_attr( $key ), esc_html( $item ) );
 			}
 		}
 		return sprintf( '<select name="eael-adv-search-cate-list" class="eael-adv-search-cate">%s</select>', $markup );
@@ -2059,13 +2057,13 @@ class Advanced_Search extends Widget_Base {
         <div class="eael-advanced-search-result">
             <div class="eael-advanced-search-popular-keyword">
 				<?php if( ! empty( $settings[ 'popular_search_text' ] ) ) { ?>
-                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?> class="eael-advanced-search-popular-keyword-text"><?php echo Helper::eael_wp_kses( $settings['popular_search_text'] ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?>>
+                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?> class="eael-advanced-search-popular-keyword-text"><?php echo wp_kses( $settings['popular_search_text'], Helper::eael_allowed_tags() ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?>>
                 <?php } ?>
                 <div class="eael-popular-keyword-content"></div>
             </div>
             <div class="eael-advanced-search-category">
 				<?php if( ! empty( $settings[ 'category_search_text' ] ) ) { ?>
-                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_category_search_text_tag'] ); ?> class="eael-advanced-search-category-text"><?php echo Helper::eael_wp_kses( $settings['category_search_text'] ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_category_search_text_tag'] ); ?>>
+                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_category_search_text_tag'] ); ?> class="eael-advanced-search-category-text"><?php echo wp_kses( $settings['category_search_text'], Helper::eael_allowed_tags() ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_category_search_text_tag'] ); ?>>
                 <?php } ?>
                 <div class="eael-popular-category-content"></div>
             </div>
@@ -2129,9 +2127,9 @@ class Advanced_Search extends Widget_Base {
 		<?php if ( !empty( $lists ) ): ?>
             <div class="eael-advanced-search-popular-keyword eael-after-adv-search">
 				<?php if( ! empty( $settings[ 'popular_search_text' ] ) ) { ?>
-                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?> class="eael-advanced-search-popular-keyword-text"><?php echo Helper::eael_wp_kses( $settings['popular_search_text'] ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?>>
+                    <<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?> class="eael-advanced-search-popular-keyword-text"><?php echo wp_kses( $settings['popular_search_text'], Helper::eael_allowed_tags() ); ?></<?php echo Helper::eael_validate_html_tag( $settings['eael_popular_search_text_tag'] ); ?>>
                 <?php } ?>
-                <div class="eael-popular-keyword-content"><?php printf("%s", $lists); ?></div>
+                <div class="eael-popular-keyword-content"><?php printf("%s", $lists); ?></div> <!-- Already escaped -->
             </div>
 		<?php endif; ?>
 		<?php

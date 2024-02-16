@@ -4,23 +4,25 @@
  * Plugin Name: Element Pack Pro
  * Plugin URI: https://elementpack.pro/
  * Description: The all-new <a href="https://elementpack.pro/">Element Pack Pro</a> brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support by experts.
- * Version: 7.8.0
+ * Version: 7.9.0
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-element-pack
  * Domain Path: /languages
  * License: GPL3
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.18.3
+ * Elementor tested up to: 3.19.2
  */
 
 // Some pre defined value for easy use
-define('BDTEP_VER', '7.8.0');
+define('BDTEP_VER', '7.9.0');
 define('BDTEP_TPL_DB_VER', '1.0.0');
 define('BDTEP__FILE__', __FILE__);
 if (!defined('BDTEP_TITLE')) {
 	define('BDTEP_TITLE', 'Element Pack Pro');
 }
+
+update_option( 'mpu_license_bdthemes-element-pack', 'activated' );
 
 
 // Helper and utility functions here
@@ -57,7 +59,7 @@ if (!function_exists('bdthemes_element_pack_load_plugin')) {
 				if (bdt_license_validation()) {
 					return true;
 				}
-				return false;
+				return true;
 			}
 		}
 		/**

@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 10.12.2\n"
+"Project-Id-Version: WooCommerce Google Product Feed 10.12.3\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2024-01-22 13:44:06+00:00\n"
+"POT-Creation-Date: 2024-02-01 10:24:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,7 +244,7 @@ msgid "Manage product feeds"
 msgstr ""
 
 #: src/common/woocommerce-product-feeds-feed-manager.php:69
-#: src/gpf/woocommerce-gpf-admin.php:1545
+#: src/gpf/woocommerce-gpf-admin.php:1571
 msgid "Product Feeds"
 msgstr ""
 
@@ -1292,132 +1292,142 @@ msgstr ""
 msgid "No default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1001
+#: src/gpf/woocommerce-gpf-admin.php:1002
 msgid "Hide this product from the feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1477
+#: src/gpf/woocommerce-gpf-admin.php:1243
+#: templates/woo-gpf-field-row-default-certification.php:4
+msgid "European commission (EC)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1244
+#: templates/woo-gpf-field-row-default-certification.php:7
+msgid "European Registry for Energy Labeling (EPREL)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1503
 msgid "Arabic"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1478
+#: src/gpf/woocommerce-gpf-admin.php:1504
 msgid "Czech"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1479
+#: src/gpf/woocommerce-gpf-admin.php:1505
 msgid "Danish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1480
+#: src/gpf/woocommerce-gpf-admin.php:1506
 msgid "German"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1481
+#: src/gpf/woocommerce-gpf-admin.php:1507
 msgid "English (Australian)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1482
+#: src/gpf/woocommerce-gpf-admin.php:1508
 msgid "English (British)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1483
+#: src/gpf/woocommerce-gpf-admin.php:1509
 msgid "English (US)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1484
+#: src/gpf/woocommerce-gpf-admin.php:1510
 msgid "Spanish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1485
+#: src/gpf/woocommerce-gpf-admin.php:1511
 msgid "Finnish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1486
+#: src/gpf/woocommerce-gpf-admin.php:1512
 msgid "French"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1487
+#: src/gpf/woocommerce-gpf-admin.php:1513
 msgid "Italian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1488
+#: src/gpf/woocommerce-gpf-admin.php:1514
 msgid "Japanese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1489
+#: src/gpf/woocommerce-gpf-admin.php:1515
 msgid "Dutch"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1490
+#: src/gpf/woocommerce-gpf-admin.php:1516
 msgid "Norwegian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1491
+#: src/gpf/woocommerce-gpf-admin.php:1517
 msgid "Polish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1492
+#: src/gpf/woocommerce-gpf-admin.php:1518
 msgid "Portuguese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1493
+#: src/gpf/woocommerce-gpf-admin.php:1519
 msgid "Russian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1494
+#: src/gpf/woocommerce-gpf-admin.php:1520
 msgid "Swedish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1495
+#: src/gpf/woocommerce-gpf-admin.php:1521
 msgid "Turkish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1496
+#: src/gpf/woocommerce-gpf-admin.php:1522
 msgid "Vietnamese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1497
+#: src/gpf/woocommerce-gpf-admin.php:1523
 msgid "Chinese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1595
+#: src/gpf/woocommerce-gpf-admin.php:1621
 msgid "Use value from existing product field: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1600
+#: src/gpf/woocommerce-gpf-admin.php:1626
 msgid "No"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1672
+#: src/gpf/woocommerce-gpf-admin.php:1698
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1679
+#: src/gpf/woocommerce-gpf-admin.php:1705
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy (full hierarchy)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1685
+#: src/gpf/woocommerce-gpf-admin.php:1711
 #. Translators: %s is the name of the field
 msgid "<em>%s</em> field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1690
+#: src/gpf/woocommerce-gpf-admin.php:1716
 #. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 msgid "<em>%1$s</em> meta (%2$s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1702
+#: src/gpf/woocommerce-gpf-admin.php:1728
 #. Translators: %s is the description of where the data will be pulled from.
 msgid "Uses value from %s if set."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1795
+#: src/gpf/woocommerce-gpf-admin.php:1821
 msgid "Store default: <br>"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1963
+#: src/gpf/woocommerce-gpf-admin.php:1989
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
@@ -1462,91 +1472,102 @@ msgid "What status to send for out of stock items."
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:122
-msgid "Bundle indicator (is_bundle)"
+msgid "Certification"
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:123
+msgid ""
+"Certifications, such as energy efficiency ratings, associated with your "
+"product. Use this field to provide a valid code for products from the EU "
+"EPREL database."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:132
+msgid "Bundle indicator (is_bundle)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:133
 msgid "Allows you to indicate whether a product is a \"bundle\" of products."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:130
+#: src/gpf/woocommerce-gpf-common.php:140
 msgid "Availability date"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:131
+#: src/gpf/woocommerce-gpf-common.php:141
 msgid ""
 "If you are accepting orders for products that are available for preorder or "
 "are on backorder, use this attribute to indicate when the product becomes "
 "available for delivery."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:137
+#: src/gpf/woocommerce-gpf-common.php:147
 msgid "Condition"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:138
+#: src/gpf/woocommerce-gpf-common.php:148
 msgid "Condition or state of items"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:146
+#: src/gpf/woocommerce-gpf-common.php:156
 #: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:23
 msgid "Brand"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:147
+#: src/gpf/woocommerce-gpf-common.php:157
 msgid "Brand of the items"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:156
+#: src/gpf/woocommerce-gpf-common.php:166
 msgid "Manufacturer Part Number (MPN)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:157
+#: src/gpf/woocommerce-gpf-common.php:167
 msgid "This code uniquely identifies the product to its manufacturer"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:165
+#: src/gpf/woocommerce-gpf-common.php:175
 msgid "Product Type"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:166
+#: src/gpf/woocommerce-gpf-common.php:176
 msgid "Your category of the items"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:176
+#: src/gpf/woocommerce-gpf-common.php:186
 msgid "Google Product Category"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:177
+#: src/gpf/woocommerce-gpf-common.php:187
 msgid "Google's category of the item"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:185
+#: src/gpf/woocommerce-gpf-common.php:195
 msgid "Tax Category (US stores only)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:186
+#: src/gpf/woocommerce-gpf-common.php:196
 msgid ""
 "The tax_category attribute allows you to organize your products according "
 "to custom tax rules."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:194
+#: src/gpf/woocommerce-gpf-common.php:204
 msgid "Global Trade Item Number (GTIN)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:195
+#: src/gpf/woocommerce-gpf-common.php:205
 msgid ""
 "Global Trade Item Numbers (GTINs) for your items. These identifiers include "
 "UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for "
 "books)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:203
+#: src/gpf/woocommerce-gpf-common.php:213
 msgid "Short title"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:204
+#: src/gpf/woocommerce-gpf-common.php:214
 msgid ""
 "Use this to briefly and clearly identify the product you’re selling. In "
 "contrast to the title attribute, the value you submit for the short title "
@@ -1554,132 +1575,132 @@ msgid ""
 "title is more user-frinedly, such as Discovery campaigns."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:213
+#: src/gpf/woocommerce-gpf-common.php:223
 msgid "Gender"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:214
+#: src/gpf/woocommerce-gpf-common.php:224
 msgid "Target gender for the item"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:222
+#: src/gpf/woocommerce-gpf-common.php:232
 msgid "Age Group"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:223
+#: src/gpf/woocommerce-gpf-common.php:233
 msgid "Target age group for the item"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:231
+#: src/gpf/woocommerce-gpf-common.php:241
 msgid "Colour"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:232
+#: src/gpf/woocommerce-gpf-common.php:242
 msgid "Item's Colour"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:240
+#: src/gpf/woocommerce-gpf-common.php:250
 #: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:27
 msgid "Size"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:241
+#: src/gpf/woocommerce-gpf-common.php:251
 msgid "Size of the items"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:248
+#: src/gpf/woocommerce-gpf-common.php:258
 msgid "Size type"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:249
+#: src/gpf/woocommerce-gpf-common.php:259
 msgid "Size type of the items"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:257
-#: src/gpf/woocommerce-gpf-common.php:258
+#: src/gpf/woocommerce-gpf-common.php:267
+#: src/gpf/woocommerce-gpf-common.php:268
 msgid "Size system"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:266
+#: src/gpf/woocommerce-gpf-common.php:276
 msgid "Unit pricing measure"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:267
+#: src/gpf/woocommerce-gpf-common.php:277
 msgid "Use this to define the measure and dimension of your product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:275
+#: src/gpf/woocommerce-gpf-common.php:285
 msgid "Unit pricing base measure"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:276
+#: src/gpf/woocommerce-gpf-common.php:286
 msgid ""
 "Use this to include the denominator for your unit price. For example, you "
 "might be selling 150ml of perfume, but users are interested in seeing the "
 "price per 100ml."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:284
+#: src/gpf/woocommerce-gpf-common.php:294
 msgid "Multipack"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:285
+#: src/gpf/woocommerce-gpf-common.php:295
 msgid ""
 "Use the multipack attribute to indicate that you've grouped multiple "
 "identical products for sale as one item."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:293
-msgid "Instalment"
+#: src/gpf/woocommerce-gpf-common.php:303
+msgid "Installment"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:294
+#: src/gpf/woocommerce-gpf-common.php:304
 msgid ""
 "Use this to tell users the details of a monthly instalment plan that you "
 "offer to pay for your product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:302
+#: src/gpf/woocommerce-gpf-common.php:312
 #: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:25
 msgid "Material"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:303
+#: src/gpf/woocommerce-gpf-common.php:313
 msgid "Item's material"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:311
+#: src/gpf/woocommerce-gpf-common.php:321
 #: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:26
 msgid "Pattern"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:312
+#: src/gpf/woocommerce-gpf-common.php:322
 msgid "Item's pattern"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:319
+#: src/gpf/woocommerce-gpf-common.php:329
 msgid "Adult content"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:320
+#: src/gpf/woocommerce-gpf-common.php:330
 msgid "Whether the product contains nudity or sexually suggestive content"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:328
+#: src/gpf/woocommerce-gpf-common.php:338
 msgid "Identifier exists flag"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:329
+#: src/gpf/woocommerce-gpf-common.php:339
 msgid ""
 "Whether to include 'Identifier exists - false' when products don't have the "
 "relevant identifiers"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:337
+#: src/gpf/woocommerce-gpf-common.php:347
 msgid "Adwords grouping filter"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:338
+#: src/gpf/woocommerce-gpf-common.php:348
 msgid ""
 "Used to group products in an arbitrary way. It can be used for Product "
 "Filters to limit a campaign to a group of products or Product Targets, to "
@@ -1688,510 +1709,510 @@ msgid ""
 "the CPC or CPA % version. It can only hold one value."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:344
+#: src/gpf/woocommerce-gpf-common.php:354
 msgid "Adwords labels"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:345
+#: src/gpf/woocommerce-gpf-common.php:355
 msgid ""
 "Very similar to adwords_grouping, but it will only work on CPC. You can "
 "enter multiple values here, separating them with a comma (,). e.g. "
 "\"widget,box\"."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:353
+#: src/gpf/woocommerce-gpf-common.php:363
 msgid "Bing Category"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:354
+#: src/gpf/woocommerce-gpf-common.php:364
 msgid "Bing's category of the item"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:362
+#: src/gpf/woocommerce-gpf-common.php:372
 msgid "Delivery label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:363
+#: src/gpf/woocommerce-gpf-common.php:373
 msgid ""
 "You can use this to control which shipping rules from your Merchant Centre "
 "account are applied to this product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:372
+#: src/gpf/woocommerce-gpf-common.php:382
 msgid "Disclosure date"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:373
+#: src/gpf/woocommerce-gpf-common.php:383
 msgid ""
 "Use the disclosure date attribute to tell Google when a product should "
 "become visible in search results across Google’s YouTube surfaces only."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:382
+#: src/gpf/woocommerce-gpf-common.php:392
 msgid "Expiration date"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:383
+#: src/gpf/woocommerce-gpf-common.php:393
 msgid ""
 "Use the expiry date attribute to stop showing a product on a specific date. "
 "For example, you can use this attribute for limited stock or seasonal "
 "products."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:392
+#: src/gpf/woocommerce-gpf-common.php:402
 msgid "Ships from country"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:393
+#: src/gpf/woocommerce-gpf-common.php:403
 msgid ""
 "You can use this to indicate which country products will typically be "
 "shipped from."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:402
+#: src/gpf/woocommerce-gpf-common.php:412
 msgid "Shopping ads excluded countries"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:403
+#: src/gpf/woocommerce-gpf-common.php:413
 msgid ""
 "Use this attribute to stop a product from showing in certain countries, "
 "while still allowing it to show in a primary country."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:414
+#: src/gpf/woocommerce-gpf-common.php:424
 msgid "Transit time label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:415
+#: src/gpf/woocommerce-gpf-common.php:425
 msgid ""
 "Label that you assign to a product to help assign different transit times "
 "in Merchant Center account settings."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:424
+#: src/gpf/woocommerce-gpf-common.php:434
 msgid "Minimum handling time"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:425
+#: src/gpf/woocommerce-gpf-common.php:435
 msgid ""
 "The minimum handling time is the shortest amount of time (in days) between "
 "when an order is placed and when the product is dispatched."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:433
+#: src/gpf/woocommerce-gpf-common.php:443
 msgid "Maximum handling time"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:434
+#: src/gpf/woocommerce-gpf-common.php:444
 msgid ""
 "The maximum handling time is the longest amount of time (in days) between "
 "when an order is placed and when the product is dispatched."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:442
+#: src/gpf/woocommerce-gpf-common.php:452
 msgid "Energy efficiency class"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:443
+#: src/gpf/woocommerce-gpf-common.php:453
 msgid "Your product's energy label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:450
+#: src/gpf/woocommerce-gpf-common.php:460
 msgid "Minimum energy efficiency class"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:451
+#: src/gpf/woocommerce-gpf-common.php:461
 msgid "Your product's minimum energy efficiency label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:458
+#: src/gpf/woocommerce-gpf-common.php:468
 msgid "Maximum energy efficiency class"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:459
+#: src/gpf/woocommerce-gpf-common.php:469
 msgid "Your product's maximum energy efficiency label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:466
+#: src/gpf/woocommerce-gpf-common.php:476
 msgid "Energy label image link"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:467
+#: src/gpf/woocommerce-gpf-common.php:477
 msgid ""
 "Image displayed when users click on the energy efficiency class, this image "
 "will be displayed [for Shopping Actions integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:477
+#: src/gpf/woocommerce-gpf-common.php:487
 msgid "Cost of goods sold"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:478
+#: src/gpf/woocommerce-gpf-common.php:488
 msgid ""
 "Use this when reporting conversions with basket data to get additional "
 "reporting on gross profit. You should enter a value and currency, e.g. "
 "\"8.08 USD\""
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:487
+#: src/gpf/woocommerce-gpf-common.php:497
 msgid "Included destination"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:488
+#: src/gpf/woocommerce-gpf-common.php:498
 msgid ""
 "Use the included destination attribute to control the type of ads your "
 "products participate in. "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:498
+#: src/gpf/woocommerce-gpf-common.php:508
 msgid "Excluded destination"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:499
+#: src/gpf/woocommerce-gpf-common.php:509
 msgid ""
 "Use the excluded destination attribute to control the type of ads your "
 "products participate in."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:509
+#: src/gpf/woocommerce-gpf-common.php:519
 msgid "Consumer notice(s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:510
+#: src/gpf/woocommerce-gpf-common.php:520
 msgid ""
 "Provide legally required warnings or disclosures [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:518
+#: src/gpf/woocommerce-gpf-common.php:528
 msgid "Product highlight(s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:519
+#: src/gpf/woocommerce-gpf-common.php:529
 msgid ""
 "The most relevant highlights of your products [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:527
+#: src/gpf/woocommerce-gpf-common.php:538
 msgid "Product detail(s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:528
+#: src/gpf/woocommerce-gpf-common.php:539
 msgid ""
 "Technical specifications or additional details of your product [for "
 "Shopping Actions integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:536
+#: src/gpf/woocommerce-gpf-common.php:547
 msgid "Consumer datasheet"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:537
+#: src/gpf/woocommerce-gpf-common.php:548
 msgid ""
 "Use this attribute to provide regulatory product data [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:545
+#: src/gpf/woocommerce-gpf-common.php:556
 msgid "Product fee"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:546
+#: src/gpf/woocommerce-gpf-common.php:557
 msgid ""
 "Use this attribute to provide additional fees that must be paid when "
 "purchasing your product, for example government-imposed recycling fees or "
 "copyright fees [for Shopping Actions integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:554
+#: src/gpf/woocommerce-gpf-common.php:565
 msgid "Sell On Google Quantity"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:555
+#: src/gpf/woocommerce-gpf-common.php:566
 msgid ""
 "The total number of items available to sell on Google [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:565
+#: src/gpf/woocommerce-gpf-common.php:576
 msgid "Pause"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:566
+#: src/gpf/woocommerce-gpf-common.php:577
 msgid ""
 "Use to tell Google when you want to temporarily stop products from showing "
 "in all ads or Shopping destinations for up to 14 days."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:579
+#: src/gpf/woocommerce-gpf-common.php:590
 msgid "Purchase quantity limit"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:580
+#: src/gpf/woocommerce-gpf-common.php:591
 msgid ""
 "The limit on the number of items your customers can buy in a single order\n"
 "\n"
 " [for Shopping Actions integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:595
+#: src/gpf/woocommerce-gpf-common.php:606
 msgid "Google-funded promotion eligibility"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:596
+#: src/gpf/woocommerce-gpf-common.php:607
 msgid ""
 "Eligibility for participating in Google's promotions. [for shopping actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:604
+#: src/gpf/woocommerce-gpf-common.php:615
 msgid "Return address label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:605
+#: src/gpf/woocommerce-gpf-common.php:616
 msgid ""
 "Specify the identifier of a specific return address [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:615
+#: src/gpf/woocommerce-gpf-common.php:626
 msgid "Return policy label"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:616
+#: src/gpf/woocommerce-gpf-common.php:627
 msgid ""
 "Specify the identifier of a specific return policy [for Shopping Actions "
 "integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:626
+#: src/gpf/woocommerce-gpf-common.php:637
 msgid "Pickup method"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:627
+#: src/gpf/woocommerce-gpf-common.php:638
 msgid "Specify the store pickup option for items [for Local Product integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:636
+#: src/gpf/woocommerce-gpf-common.php:647
 msgid "Pickup SLA"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:637
+#: src/gpf/woocommerce-gpf-common.php:648
 msgid ""
 "When will an order be ready for pickup, relative to when the order is "
 "placed [for Local Product integration]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:646
+#: src/gpf/woocommerce-gpf-common.php:657
 msgid "Custom label 0"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:647
 #: src/gpf/woocommerce-gpf-common.php:658
 #: src/gpf/woocommerce-gpf-common.php:669
 #: src/gpf/woocommerce-gpf-common.php:680
 #: src/gpf/woocommerce-gpf-common.php:691
+#: src/gpf/woocommerce-gpf-common.php:702
 msgid ""
 "Can be used to segment your products when setting up shopping campaigns in "
 "Adwords."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:657
+#: src/gpf/woocommerce-gpf-common.php:668
 msgid "Custom label 1"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:668
+#: src/gpf/woocommerce-gpf-common.php:679
 msgid "Custom label 2"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:679
+#: src/gpf/woocommerce-gpf-common.php:690
 msgid "Custom label 3"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:690
+#: src/gpf/woocommerce-gpf-common.php:701
 msgid "Custom label 4"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:701
+#: src/gpf/woocommerce-gpf-common.php:712
 msgid "Promotion ID"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:702
-#: src/gpf/woocommerce-gpf-common.php:711
+#: src/gpf/woocommerce-gpf-common.php:713
+#: src/gpf/woocommerce-gpf-common.php:722
 msgid "The unique ID of a promotion."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:710
+#: src/gpf/woocommerce-gpf-common.php:721
 msgid "Promotion ID [Bing]"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:719
+#: src/gpf/woocommerce-gpf-common.php:730
 msgid "Bing shipping info (price only)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:720
+#: src/gpf/woocommerce-gpf-common.php:731
 msgid ""
 "The shipping field is required for Bing feed for Germany only. The format "
 "of the value is &quot;price&quot;, for example : 6.49"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:728
+#: src/gpf/woocommerce-gpf-common.php:739
 msgid "Bing shipping info (country and price)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:729
+#: src/gpf/woocommerce-gpf-common.php:740
 msgid ""
 "The shipping field is required for Bing feed for Germany only. The format "
 "of the value is &quot;country:price&quot;, for example : DE:6.49"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:737
+#: src/gpf/woocommerce-gpf-common.php:748
 msgid "Bing shipping info (country, service and price)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:738
+#: src/gpf/woocommerce-gpf-common.php:749
 msgid ""
 "The shipping field is required for Bing feed for Germany only. The format "
 "of the value is &quot;country:service:price&quot;, for example : "
 "DE:Standard:6.49"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:756
+#: src/gpf/woocommerce-gpf-common.php:767
 #: woocommerce-product-feeds-install.php:96
 msgid "Google merchant centre product feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:757
+#: src/gpf/woocommerce-gpf-common.php:768
 msgid "Google merchant centre product feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:765
+#: src/gpf/woocommerce-gpf-common.php:776
 msgid "Google merchant centre product review feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:766
+#: src/gpf/woocommerce-gpf-common.php:777
 msgid "Google merchant centre product review feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:774
+#: src/gpf/woocommerce-gpf-common.php:785
 msgid "Bing merchant centre feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:775
+#: src/gpf/woocommerce-gpf-common.php:786
 msgid "Bing merchant centre feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:785
+#: src/gpf/woocommerce-gpf-common.php:796
 msgid "Google merchant centre local product inventory feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:786
+#: src/gpf/woocommerce-gpf-common.php:797
 msgid "Google merchant centre local product inventory feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:794
+#: src/gpf/woocommerce-gpf-common.php:805
 msgid "Google merchant centre local products feed (legacy)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:795
+#: src/gpf/woocommerce-gpf-common.php:806
 msgid "Google merchant centre local products feed (legacy)s"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:803
+#: src/gpf/woocommerce-gpf-common.php:814
 msgid "Google merchant centre product inventory feed (legacy)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:804
+#: src/gpf/woocommerce-gpf-common.php:815
 msgid "Google merchant centre product inventory feed (legacy)s"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1029
+#: src/gpf/woocommerce-gpf-common.php:1040
 msgid "\"Allow backorders\" setting"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1030
+#: src/gpf/woocommerce-gpf-common.php:1041
 msgid "Product title"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1031
+#: src/gpf/woocommerce-gpf-common.php:1042
 msgid "SKU"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1032
+#: src/gpf/woocommerce-gpf-common.php:1043
 msgid "Stock Qty"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1033
+#: src/gpf/woocommerce-gpf-common.php:1044
 msgid "Stock Status"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1034
+#: src/gpf/woocommerce-gpf-common.php:1045
 msgid "Tax class"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1035
+#: src/gpf/woocommerce-gpf-common.php:1046
 msgid "Weight (raw value, no units)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1036
+#: src/gpf/woocommerce-gpf-common.php:1047
 msgid "Weight (with units)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1037
+#: src/gpf/woocommerce-gpf-common.php:1048
 msgid "Variation title"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1043
+#: src/gpf/woocommerce-gpf-common.php:1054
 msgid "- Product fields -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1067
+#: src/gpf/woocommerce-gpf-common.php:1078
 #. Translators: %s is a taxonomy name
 msgid "%s (full hierarchy)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1078
+#: src/gpf/woocommerce-gpf-common.php:1089
 msgid "- Global attributes -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1082
+#: src/gpf/woocommerce-gpf-common.php:1093
 msgid "- Taxonomies -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1103
+#: src/gpf/woocommerce-gpf-common.php:1114
 msgid "- Custom attributes -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1138
+#: src/gpf/woocommerce-gpf-common.php:1149
 msgid "- Custom fields -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1157
+#: src/gpf/woocommerce-gpf-common.php:1168
 msgid "- Descriptions -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1159
+#: src/gpf/woocommerce-gpf-common.php:1170
 msgid "Main product description (full preferred) plus variation description"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1161
+#: src/gpf/woocommerce-gpf-common.php:1172
 msgid "Main product description (short preferred) plus variation description"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1163
+#: src/gpf/woocommerce-gpf-common.php:1174
 msgid "Main product description only (full preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1165
+#: src/gpf/woocommerce-gpf-common.php:1176
 msgid "Main product description only (short preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1167
+#: src/gpf/woocommerce-gpf-common.php:1178
 msgid "Variation description only, fallback to main description (full preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1169
+#: src/gpf/woocommerce-gpf-common.php:1180
 msgid "Variation description only, fallback to main description (short preferred)"
 msgstr ""
 
@@ -2586,6 +2607,10 @@ msgid ""
 "Only enter values here if you want to override the store defaults for "
 "products in this category. You can still override the values here against "
 "individual products if you want to."
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-certification.php:1
+msgid "Provide a valid code for this product as per the EU EPREL database."
 msgstr ""
 
 #: templates/woo-gpf-field-row-default-consumer-datasheet.php:1
@@ -3006,12 +3031,12 @@ msgctxt "Term name to use when passed an invalid term ID"
 msgid "Unknown"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1273
+#: src/gpf/woocommerce-gpf-common.php:1284
 msgctxt "Grouping header for settings"
 msgid "Common fields"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:1276
+#: src/gpf/woocommerce-gpf-common.php:1287
 msgctxt "Grouping header for settings"
 msgid "Advanced fields"
 msgstr ""

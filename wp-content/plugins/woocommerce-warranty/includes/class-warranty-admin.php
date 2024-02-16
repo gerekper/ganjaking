@@ -1669,7 +1669,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 									<h3><?php esc_html_e( 'RMA Status', 'wc_warranty' ); ?></h3>
 									<?php
-									echo $status_content; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+									echo $status_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									?>
 
 									<div class="codes_form closeable">
@@ -1788,7 +1788,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 									<div class="actions-block">
 										<?php
-										echo $this->get_warranty_actions( $request['ID'], true ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+										echo $this->get_warranty_actions( $request['ID'], true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										?>
 									</div>
 								</div>
@@ -1819,7 +1819,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 											<td>
 												<span class="value">
 												<?php
-												echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												echo wc_price( $refunded ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 												?>
 													</span>
 											</td>
@@ -1831,7 +1831,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 											<td>
 												<span class="value">
 												<?php
-												echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												echo wc_price( $item_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 												?>
 													</span>
 											</td>
@@ -1864,7 +1864,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 											<td>
 												<span class="value">
 												<?php
-												echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												echo wc_price( $refunded ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 												?>
 													</span>
 											</td>
@@ -1876,7 +1876,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 											<td>
 												<span class="value">
 												<?php
-												echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												echo wc_price( $item_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 												?>
 													</span>
 											</td>

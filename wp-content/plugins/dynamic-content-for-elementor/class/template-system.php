@@ -2,6 +2,8 @@
 
 namespace DynamicContentForElementor;
 
+use ElementorPro\Modules\LoopBuilder\Files\Css\Loop_Preview;
+use ElementorPro\Modules\LoopBuilder\Files\Css\Loop as Loop_CSS;
 use DynamicContentForElementor\Helper;
 if (!\defined('ABSPATH')) {
     exit;
@@ -9,12 +11,17 @@ if (!\defined('ABSPATH')) {
 class TemplateSystem
 {
     /**
-     * This is need to the style fix knows what to do. If false then try to
-     * auto-detect.
-     *
-     * @var array{type:string,id:string|int,object?:mixed}|false
+     * @var int
      */
-    public $current_object_info = \false;
+    public $template_rendering_id = 0;
+    /**
+     * @return int
+     */
+    public function new_template_rendering_id()
+    {
+        static $n = 1;
+        return $n++;
+    }
     public static $instance;
     public static $template_id;
     public static $options = [];
@@ -56,7 +63,6 @@ class TemplateSystem
      */
     public function __construct()
     {
-        add_action('elementor/init', [$this, 'template_shortcode']);
         add_action('elementor/init', [$this, 'css_fix_loop']);
         self::$options = get_option(DCE_TEMPLATE_SYSTEM_OPTION, []);
         if (!$this->is_active()) {
@@ -126,15 +132,6 @@ class TemplateSystem
             // CSS Fix for Background Images in a loop
             add_action("elementor/frontend/{$element}/after_render", [$this, 'fix_style']);
         }
-    }
-    /**
-     * Add dce-elementor-template shortcode
-     *
-     * @return void
-     */
-    public function template_shortcode()
-    {
-        add_shortcode('dce-elementor-template', [$this, 'add_shortcode_template']);
     }
     /**
      * Add Template System Columns on terms and posts for users with 'manage_options' capabilities.
@@ -277,18 +274,6 @@ class TemplateSystem
         return $content;
     }
     /**
-     * This shortcode should be removed, the function should be called instead.
-     * Add a shortcode [dce-elementor-template] to display a template in WordPress with Elementor.
-     * The shortcode accepts various attributes like 'id', 'post_id', 'term_id', 'ajax', 'loading', and 'inlinecss'.
-     *
-     * @param array<mixed> $atts The array of attributes passed to the shortcode.
-     * @return string The template HTML string or an empty string.
-     */
-    public function add_shortcode_template($atts)
-    {
-        return self::build_elementor_template_special($atts);
-    }
-    /**
      * In case you are wondering why not just use the Elementor API:
      * This function not only returns a rendered elementor templates, but it
      * has many other jobs, including:
@@ -305,7 +290,8 @@ class TemplateSystem
         $atts['post_id'] = \intval($atts['post_id']);
         $atts['term_id'] = \intval($atts['term_id']);
         if ($atts['id'] !== '') {
-            $old_current_object_info = $this->current_object_info;
+            $old_template_rendering_id = $this->template_rendering_id;
+            $this->template_rendering_id = $this->new_template_rendering_id();
             global $wp_query;
             $original_queried_object = $wp_query->queried_object;
             $original_queried_object_id = $wp_query->queried_object_id;
@@ -314,7 +300,6 @@ class TemplateSystem
                 $original_post = $post;
                 $post = get_post($atts['post_id']);
                 if ($post) {
-                    $this->current_object_info = ['object' => $post, 'type' => 'post', 'id' => $atts['post_id']];
                     $wp_query->queried_object = $post;
                     $wp_query->queried_object_id = $atts['post_id'];
                 }
@@ -322,7 +307,6 @@ class TemplateSystem
                 global $term;
                 $term = get_term($atts['term_id']);
                 if ($term) {
-                    $this->current_object_info = ['object' => $term, 'type' => 'term', 'id' => $atts['term_id']];
                     $wp_query->queried_object = $term;
                     $wp_query->queried_object_id = $atts['term_id'];
                 }
@@ -346,7 +330,7 @@ class TemplateSystem
             } else {
                 $template_page = $this->get_template($dce_default_template, $inlinecss);
             }
-            $this->current_object_info = $old_current_object_info;
+            $this->template_rendering_id = $old_template_rendering_id;
             if (!empty($atts['post_id'])) {
                 $post = $original_post;
             }
@@ -436,7 +420,7 @@ class TemplateSystem
         }
         $default_template = $dce_default_template;
         if ($dce_default_template) {
-            echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
+            echo $this->build_elementor_template_special(['id' => $dce_default_template]);
         }
     }
     /**
@@ -467,7 +451,8 @@ class TemplateSystem
         }
         $default_template = $dce_default_template;
         if ($dce_default_template) {
-            echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
+            $atts = ['id' => $dce_default_template];
+            echo $this->build_elementor_template_special($atts);
         }
     }
     /**
@@ -930,6 +915,20 @@ class TemplateSystem
         return $dce_template;
     }
     /**
+     * Elementor function for enqueuing loop item template CSS
+     */
+    function print_loop_document_css($post_id)
+    {
+        if (wp_is_post_autosave($post_id)) {
+            $css_file = Loop_Preview::create($post_id);
+        } else {
+            $css_file = Loop_CSS::create($post_id);
+        }
+        /** @var Loop|Loop_Preview $css_file */
+        /** passing true for compatibility with older versions of elementor */
+        $css_file->print_all_css($post_id);
+    }
+    /**
      * $queried_object_type and $queried_object_id are for the class fix, if
      * they are null they'll be auto-detected.
      */
@@ -947,6 +946,10 @@ class TemplateSystem
         $template_id = \intval($template_id);
         $doc = \Elementor\Plugin::$instance->documents->get($template_id);
         if ($doc && $doc->is_built_with_elementor()) {
+            if ($doc->get_name() === 'loop-item') {
+                // Loop Item templates do not seem to enqueue css unless you do this:
+                $this->print_loop_document_css($template_id);
+            }
             $template_page = \Elementor\Plugin::instance()->frontend->get_builder_content($template_id, $inline_css);
             $template_page = $this->css_class_fix($template_page, $template_id);
             return $template_page;
@@ -1036,42 +1039,10 @@ class TemplateSystem
         } else {
             $template_id = $template_html_id;
         }
+        $queried_object_type = 'rendering';
         if ($template_id) {
-            if ($this->current_object_info !== \false) {
-                $queried_object = $this->current_object_info['object'] ?? get_queried_object();
-                $queried_object_id = $this->current_object_info['id'];
-                $queried_object_type = $this->current_object_info['type'];
-            } else {
-                // auto-detected queried object:
-                $queried_object = get_queried_object();
-                $queried_object_id = get_queried_object_id();
-                $queried_object_type = Helper::get_queried_object_type();
-                if ('post' === $queried_object_type) {
-                    $queried_object_id = get_the_ID();
-                }
-                if (Helper::is_acfpro_active()) {
-                    $row = acf_get_loop('active');
-                    if ($row) {
-                        $queried_object_type = 'row';
-                        $queried_object_id = get_row_index();
-                    }
-                }
-            }
-            $content = \str_replace('class="elementor elementor-' . $template_id . ' ', 'class="elementor elementor-' . $template_id . ' dce-elementor-' . $queried_object_type . '-' . $queried_object_id . ' ', $content);
-            $content = \str_replace('class="elementor elementor-' . $template_id . '"', 'class="elementor elementor-' . $template_id . ' dce-elementor-' . $queried_object_type . '-' . $queried_object_id . '"', $content);
-            $pieces = \explode('data-elementor-id="', $content, 2);
-            foreach ($pieces as $pkey => $apiece) {
-                if ($pkey) {
-                    list($eid, $more) = \explode('"', $apiece, 2);
-                    $new_content .= 'data-elementor-id="' . $eid . '" data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-obj-id="' . $queried_object_id . '"' . $more;
-                } else {
-                    $new_content = $apiece;
-                }
-            }
-            $content = $new_content;
-            $content = \str_replace('data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-' . $queried_object_type . '-id="' . $queried_object_id . '"', 'data-' . $queried_object_type . '-id="' . $queried_object_id . '"', $content);
-            $content = \str_replace('data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-' . $queried_object_type . '-id="', 'data-' . $queried_object_type . '-id="', $content);
-            $content = \str_replace('data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-obj-id="' . $queried_object_id . '" data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-obj-id="' . $queried_object_id . '"', 'data-' . $queried_object_type . '-id="' . $queried_object_id . '" data-obj-id="' . $queried_object_id . '"', $content);
+            $content = \str_replace('class="elementor elementor-' . $template_id . ' ', 'class="elementor elementor-' . $template_id . ' dce-elementor-rendering-id-' . $this->template_rendering_id . ' ', $content);
+            $content = \str_replace('class="elementor elementor-' . $template_id . '"', 'class="elementor elementor-' . $template_id . ' dce-elementor-rendering-id-' . $this->template_rendering_id . '"', $content);
         }
         return $content;
     }
@@ -1095,20 +1066,6 @@ class TemplateSystem
         $css = '';
         $element_id = $element->get_id();
         $element_controls = $element->get_controls();
-        if ($this->current_object_info !== \false) {
-            $queried_object_type = $this->current_object_info['type'];
-            $queried_object_id = $this->current_object_info['id'];
-        } else {
-            $queried_object_type = Helper::get_queried_object_type();
-            $queried_object_id = get_queried_object_id();
-            if (Helper::is_acfpro_active()) {
-                $row = acf_get_loop('active');
-                if ($row) {
-                    $queried_object_type = 'row';
-                    $queried_object_id = get_row_index();
-                }
-            }
-        }
         foreach ($settings['__dynamic__'] as $key => $dsetting) {
             $tmp = \explode('_', $key);
             $device_detected = \array_pop($tmp);
@@ -1118,7 +1075,7 @@ class TemplateSystem
                 $devices = ['desktop' => $key];
             }
             foreach ($devices as $device => $setting_key) {
-                $selector = '.dce-fix-background-loop .dce-elementor-' . $queried_object_type . '-' . $queried_object_id;
+                $selector = '.dce-fix-background-loop .dce-elementor-rendering-id-' . $this->template_rendering_id;
                 if ('desktop' !== $device) {
                     $selector = '[data-elementor-device-mode="' . $device . '"] ' . $selector;
                 }

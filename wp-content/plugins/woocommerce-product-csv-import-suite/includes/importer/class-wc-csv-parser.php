@@ -120,7 +120,9 @@ class WC_CSV_Parser {
 		$enc = wc_pcsvis_is_first_row_encoded_in( $file, 'UTF-8, ISO-8859-1' );
 		if ( $enc )
 			setlocale( LC_ALL, 'en_US.' . $enc );
-		@ini_set( 'auto_detect_line_endings', true );
+		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+			@ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		}
 
 		$parsed_data = array();
 		$raw_headers = array();

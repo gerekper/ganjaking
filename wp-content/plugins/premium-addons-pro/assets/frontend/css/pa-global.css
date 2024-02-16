@@ -366,8 +366,8 @@ img.kenburns-scale-infinite-out {
 .premium-cursor-icon .premium-global-cursor,
 .premium-cursor-img .premium-global-cursor,
 .premium-cursor-lottie .premium-global-cursor {
-  -webkit-transition: left 0s linear, top 0s linear;
-  transition: left 0s linear, top 0s linear; }
+  -webkit-transition: left 0s linear, top 0s linear;
+  transition: left 0s linear, top 0s linear; }
 
 .premium-pulse-yes {
   -webkit-animation: hvr-pulse-grow 0.5s ease-in-out alternate infinite;

@@ -1014,27 +1014,27 @@ body.rtl .notice img.dce-logo {
 
 @media only screen and (max-width: 1200px) {
   .dce-modules>div.dce-feature {
-    width: 23%;
+	width: 23%;
   }
 }
 
 @media only screen and (max-width: 1000px) {
   .dce-modules>div.dce-feature {
-    width: 31%;
+	width: 31%;
   }
 }
 
 @media only screen and (max-width: 600px) {
   /* For tablets: */
   .dce-modules>div.dce-feature {
-    width: 31%;
+	width: 31%;
   }
 }
 
 @media only screen and (max-width: 480px) {
   /* For smartphone: */
   .dce-modules>div.dce-feature {
-    width: 44%;
+	width: 44%;
   }
 }
 
@@ -1126,25 +1126,25 @@ a.dce-feature-activate-all, a.dce-feature-deactivate-all {
 }
 .dce-check [id^="dce-feature-"]
 {
-    display: none !important;
+	display: none !important;
 }
 .dce-check label
 {
-    position: absolute;
-    top: 10%;
-    right: 0;
-    left: 0;
-    width: 50px;
-    height: 50px;
-    margin: 0 auto;
-    background-color: #f72414;
-    transform: translateY(-25%);
-    border-radius: 50%;
-    box-shadow: 0 7px 10px #ffbeb8;
-    cursor: pointer;
-    transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
-    overflow: hidden;
-    z-index: 1;
+	position: absolute;
+	top: 10%;
+	right: 0;
+	left: 0;
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	background-color: #f72414;
+	transform: translateY(-25%);
+	border-radius: 50%;
+	box-shadow: 0 7px 10px #ffbeb8;
+	cursor: pointer;
+	transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
+	overflow: hidden;
+	z-index: 1;
 }
 .dce-check-all {
   position: relative;
@@ -1154,174 +1154,174 @@ a.dce-feature-activate-all, a.dce-feature-deactivate-all {
 }
 
 .dce-check label:before {
-    content: "";
-    position: absolute;
-    top: 33%;
-    right: 0;
-    left: 0;
-    width: 35px;
-    height: 35px;
-    margin: 0 auto;
-    background-color: #fff;
-    transform: translateY(-25%);
-    border-radius: 50%;
-    box-shadow: inset 0 7px 10px #ffbeb8;
-    transition: 0.2s ease width, 0.2s ease height;
+	content: "";
+	position: absolute;
+	top: 33%;
+	right: 0;
+	left: 0;
+	width: 35px;
+	height: 35px;
+	margin: 0 auto;
+	background-color: #fff;
+	transform: translateY(-25%);
+	border-radius: 50%;
+	box-shadow: inset 0 7px 10px #ffbeb8;
+	transition: 0.2s ease width, 0.2s ease height;
 }
 
 .dce-check label:hover:before
 {
-    top: 34%;
-    width: 30px;
-    height: 30px;
-    box-shadow: inset 0 7px 10px #ff9d96;
+	top: 34%;
+	width: 30px;
+	height: 30px;
+	box-shadow: inset 0 7px 10px #ff9d96;
 }
 
 .dce-check label:active
 {
-    transform: translateY(-10%) scale(0.9);
+	transform: translateY(-10%) scale(0.9);
 }
 
 .dce-check #tick_mark
 {
-    position: absolute;
-    top: -1px;
-    right: 0;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    margin: 0 auto;
-    margin-left: 6px;
-    transform: rotateZ(-40deg);
+	position: absolute;
+	top: -1px;
+	right: 0;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	margin-left: 6px;
+	transform: rotateZ(-40deg);
 }
 
 .dce-check #tick_mark:before, .dce-check #tick_mark:after
 {
-    content: "";
-    position: absolute;
-    background-color: #fff;
-    border-radius: 2px;
-    opacity: 0;
-    transition: 0.2s ease transform, 0.2s ease opacity;
+	content: "";
+	position: absolute;
+	background-color: #fff;
+	border-radius: 2px;
+	opacity: 0;
+	transition: 0.2s ease transform, 0.2s ease opacity;
 }
 
 .dce-check #tick_mark:before
 {
-    left: 0;
-    bottom: 0;
-    width: 5px;
-    height: 15px;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.23);
-    transform: translateY(-34px)
+	left: 0;
+	bottom: 0;
+	width: 5px;
+	height: 15px;
+	box-shadow: -2px 0 5px rgba(0,0,0,0.23);
+	transform: translateY(-34px)
 }
 
 .dce-check #tick_mark:after
 {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 5px;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.23);
-    transform: translateX(39px)
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 5px;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.23);
+	transform: translateX(39px)
 }
 
 .dce-check [id^="dce-feature-"]:checked + label
 {
-    background-color: #5ABF4B;
-    box-shadow: 0 3px 5px rgb(43, 75, 11);
+	background-color: #5ABF4B;
+	box-shadow: 0 3px 5px rgb(43, 75, 11);
 }
 
 .dce-check [id^="dce-feature-"]:checked + label:before
 {
-    width: 0;
-    height: 0;
+	width: 0;
+	height: 0;
 }
 
 .dce-check [id^="dce-feature-"]:checked + label #tick_mark:before, .dce-check [id^="dce-feature-"]:checked + label #tick_mark:after
 {
-    transform: translate(0);
-    opacity: 1;
+	transform: translate(0);
+	opacity: 1;
 }
 
 .dce-check #tick_mark_small
 {
-    position: absolute;
-    top: -1px;
-    right: 0;
-    left: 0;
-    width: 7px;
-    height: 7px;
-    margin: 0 auto;
-    margin-left: 3px;
-    transform: rotateZ(-40deg);
+	position: absolute;
+	top: -1px;
+	right: 0;
+	left: 0;
+	width: 7px;
+	height: 7px;
+	margin: 0 auto;
+	margin-left: 3px;
+	transform: rotateZ(-40deg);
 }
 
 .dce-check #tick_mark_small:before, .dce-check #tick_mark_small:after
 {
-    content: "";
-    position: absolute;
-    background-color: #fff;
-    border-radius: 1px;
-    opacity: 0;
-    transition: 0.2s ease transform, 0.2s ease opacity;
+	content: "";
+	position: absolute;
+	background-color: #fff;
+	border-radius: 1px;
+	opacity: 0;
+	transition: 0.2s ease transform, 0.2s ease opacity;
 }
 
 .dce-check #tick_mark_small:before
 {
-    left: 0;
-    bottom: 0;
-    width: 3px;
-    height: 7px;
-    box-shadow: -1px 0 3px rgba(0,0,0,0.23);
-    transform: translateY(-34px)
+	left: 0;
+	bottom: 0;
+	width: 3px;
+	height: 7px;
+	box-shadow: -1px 0 3px rgba(0,0,0,0.23);
+	transform: translateY(-34px)
 }
 
 .dce-check #tick_mark_small:after
 {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.23);
-    transform: translateX(39px)
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 3px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.23);
+	transform: translateX(39px)
 }
 
 .dce-check-all label
 {
-    top: 10%;
-    right: 0;
-    left: 0;
-    width: 25px;
-    height: 25px;
-    transform: translateY(-25%);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
-    overflow: hidden;
-    z-index: 1;
+	top: 10%;
+	right: 0;
+	left: 0;
+	width: 25px;
+	height: 25px;
+	transform: translateY(-25%);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
+	overflow: hidden;
+	z-index: 1;
 }
 .dce-check-all label:before
 {
-    content: "";
-    position: absolute;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    transform: translateY(-25%);
-    transition: 0.2s ease width, 0.2s ease height;
-    background-color: #f72414;
+	content: "";
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	transform: translateY(-25%);
+	transition: 0.2s ease width, 0.2s ease height;
+	background-color: #f72414;
 }
 
 .dce-pdf-preview-button {
-    padding: 0.5em;
-    font-size: 1.5em;
-    box-shadow: 0 0 0.5em orange ;
-    margin: 0.5em;
+	padding: 0.5em;
+	font-size: 1.5em;
+	box-shadow: 0 0 0.5em orange ;
+	margin: 0.5em;
 }
 
 .dce-pdf-template-notice {
-    border-left: 3px solid red;
-    background-color: #eee;
-    padding: 0.4em 0.4em 0.4em 0.8em;
-    font-size: 1.2em;
+	border-left: 3px solid red;
+	background-color: #eee;
+	padding: 0.4em 0.4em 0.4em 0.8em;
+	font-size: 1.2em;
 }

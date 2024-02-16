@@ -1,0 +1,945 @@
+.eael-thankyou-wrapper {
+    .eael-thankyou-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .eael-thankyou-product-image {
+        height: 50px;
+        width: 50px;
+    }
+
+    .eael-thankyou-phone,
+    .eael-thankyou-email {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .eael-thankyou-message {
+        .eael-thankyou-message-text {
+            p, h1, h2, h3, h4, h4, h6 {
+                margin: 0;
+            }
+        }
+    }
+
+    .eael-thankyou-order-items {
+        @media screen and (max-width: 768px) {
+            overflow-x: scroll;
+        }
+    }
+
+    .eael-thankyou-order-summary-table {
+        tr.eael-thankyou-order-summary-payment-method {
+            th {
+                min-width: 165px;
+            }
+        }
+    }
+
+    &.preset-1 {
+        .eael-thankyou-message {
+            position: relative;
+            background: linear-gradient(233.14deg, #2EB2C4 -31.1%, #6344EA 71.42%);
+            border-radius: 8px;
+            padding: 40px;
+            margin-top: 45px;
+            margin-bottom: 30px;
+
+            .eael-thankyou-message-icon {
+                position: absolute;
+                left: 47%;
+                top: -41px;
+                background: #fff;
+                border: 2px solid #4D74DA;
+                border-radius: 50px;
+                height: 68px;
+                width: 68px;
+                text-align: center;
+                @media screen and (max-width: 768px) {
+                    left: 40%;
+                }
+
+                svg,
+                .eael-thankyou-icon {
+                    font-size: 40px;
+                    width: 40px;
+                    height: 40px;
+                    position: relative;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .eael-thankyou-message-text {
+                color: #fff;
+                font-weight: 600;
+                font-size: 40px;
+                line-height: 40px;
+                text-align: center;
+            }
+        }
+
+        .eael-thankyou-order-overview {
+            margin-bottom: 50px;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 10px;
+                list-style: none;
+                @media screen and (max-width: 768px) {
+                    display: grid;
+                    gap: 10px;
+                }
+
+                li {
+                    border-right: 1px solid #C8DDEF;
+                    padding: 0px 15px;
+                    display: grid;
+                    justify-content: center;
+                    width: 100%;
+
+                    &:last-child {
+                        border: none;
+                    }
+
+                    @media screen and (max-width: 768px) {
+                        justify-content: start;
+                        border: none;
+                        &:first-child {
+                            padding-left: 15px;
+                        }
+                    }
+
+                    .woocommerce-order-overview-label {
+                        font-size: 14px;
+                        color: #9696A5;
+                        margin-bottom: 5px;
+                    }
+
+                    .woocommerce-order-overview-value {
+                        font-size: 16px;
+                        color: #1E1E1E;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+
+        .eael-thankyou-order-details {
+            .woocommerce-order-details__title {
+                font-weight: 600;
+                font-size: 24px;
+                color: #1E1E1E;
+                margin-bottom: 30px;
+            }
+
+            .eael-thankyou-order-items-table {
+                border: 1px solid #D6DEF3;
+                border-radius: 8px;
+                margin-bottom: 40px;
+                overflow: hidden;
+                border-collapse: separate;
+
+                thead {
+                    background: #D6DEF3;
+
+                    th {
+                        padding: 20px;
+                        font-weight: 600;
+                        font-size: 20px;
+                        color: #1E1E1E;
+                        border: none;
+
+                        &.eael-thankyou-order-products {
+                            text-align: left;
+                        }
+
+                        &.eael-thankyou-order-totals {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                tbody {
+                    background: #F9FBFF;
+
+                    td {
+                        border: none;
+
+                        .eael-thankyou-product-summary {
+                            display: flex;
+                        }
+
+                        .eael-thankyou-product-meta {
+                            border-right: 1px solid #C8DDEF;
+                            margin-right: 10px;
+
+                            &.hide-meta-label {
+                                .wc-item-meta-label {
+                                    display: none;
+                                }
+                            }
+
+                            ul {
+                                margin: 0;
+                                list-style: none;
+                                display: flex;
+
+                                li {
+                                    display: flex;
+                                    margin-right: 10px;
+
+                                    .wc-item-meta-label {
+                                        margin-right: 5px;
+                                    }
+
+                                    p {
+                                        margin: 0;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.eael-thankyou-order-item-total {
+                            text-align: right;
+                            padding: 25px;
+
+                            font-weight: 600;
+                            font-size: 16px;
+                            color: #1E1E1E;
+                        }
+                    }
+                }
+            }
+
+            .eael-thankyou-order-item-details {
+                text-align: left;
+                display: flex;
+                gap: 50px;
+                align-items: center;
+                padding: 25px;
+
+                .eael-thankyou-product-name {
+                    a {
+                        font-size: 18px;
+                        font-wight: 500;
+                        text-decoration: none;
+                        color: #000000;
+                    }
+                }
+
+                img {
+                    height: 88px;
+                    width: 88px;
+                }
+            }
+        }
+
+        .eael-thankyou-billing-shipping-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            @media screen and (max-width: 768px) {
+                display: flex;
+                flex-flow: column-reverse;
+            }
+
+            .eael-thankyou-order-summary-table {
+                margin: 0;
+                padding: 25px;
+                background: #F9FBFF;
+                border: 1px solid #C8DDEF;
+                border-radius: 8px;
+                border-collapse: separate;
+
+                th, td {
+                    border: none;
+                    padding: 15px;
+
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #8C8B9A;
+                }
+
+                th {
+                    text-align: left;
+                }
+
+                td {
+                    text-align: right;
+                }
+
+                .eael-thankyou-order-summary-note td {
+                    text-align: left;
+                }
+
+                .eael-thankyou-order-summary-subtotal,
+                .eael-thankyou-order-summary-total {
+                    th, td {
+                        font-size: 16px;
+                        color: #1E1E1E;
+                    }
+                }
+
+                .eael-thankyou-order-summary-total {
+                    th, td {
+                        font-weight: 600;
+                        font-size: 18px;
+                        border-top: 1px dashed #9696A5;
+                    }
+                }
+            }
+
+            .eael-thankyou-billing,
+            .eael-thankyou-shipping {
+                margin-bottom: 20px;
+            }
+
+            .eael-thankyou-billing-title,
+            .eael-thankyou-shipping-title {
+                font-weight: 600;
+                font-size: 18px;
+                color: #1E1E1E;
+                margin-bottom: 10px;
+            }
+
+            .eael-thankyou-billing-address,
+            .eael-thankyou-shipping-address {
+                font-weight: 500;
+                font-size: 16px;
+                color: #8C8B9A;
+            }
+
+            .eael-thankyou-phone,
+            .eael-thankyou-email {
+                font-weight: 500;
+                font-size: 16px;
+                color: #8C8B9A;
+                fill: #8C8B9A;
+            }
+        }
+    }
+
+    &.preset-2 {
+        .eael-thankyou-message {
+            padding: 15px;
+            margin-bottom: 40px;
+            @media screen and (max-width: 768px) {
+                padding-left: 0;
+            }
+
+            .eael-thankyou-hello {
+                font-weight: 600;
+                font-size: 18px;
+                color: #1E1E1E;
+                margin-bottom: 10px;
+            }
+
+            .eael-thankyou-message-text {
+                font-weight: 600;
+                font-size: 32px;
+                color: #1E1E1E;
+                line-height: 32px;
+            }
+        }
+
+        .eael-thankyou-order-overview {
+            margin-bottom: 10px;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 10px;
+                list-style: none;
+
+                @media screen and (max-width: 768px) {
+                    display: grid;
+                    gap: 10px;
+                }
+
+                li {
+                    padding-right: 15px;
+                    display: grid;
+                    justify-content: center;
+                    width: 100%;
+
+                    @media screen and (max-width: 768px) {
+                        justify-content: start;
+                    }
+
+                    .woocommerce-order-overview-label {
+                        font-size: 14px;
+                        color: #9696A5;
+                        margin-bottom: 5px;
+                    }
+
+                    .woocommerce-order-overview-value {
+                        font-size: 16px;
+                        color: #1E1E1E;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+
+        .eael-thankyou-order-details {
+            .eael-thankyou-order-items-table {
+                border: none;
+
+                tbody,
+                thead {
+                    td, th {
+                        border: none;
+                    }
+
+                    tr {
+                        position: relative;
+                        z-index: 2;
+
+                        &::after {
+                            position: absolute;
+                            content: "";
+                            top: 0;
+                            left: 0;
+                            height: 100%;
+                            width: 100%;
+                            z-index: -1;
+                        }
+                    }
+                }
+
+                thead {
+                    tr {
+                        &::after {
+                            border-top: 1px solid #1E1E1E;
+                            border-bottom: 1px solid #1E1E1E;
+                        }
+                    }
+
+                    th {
+                        text-align: left;
+
+                        font-weight: 600;
+                        font-size: 18px;
+                        color: #1E1E1E;
+
+                        &.eael-thankyou-order-totals {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        &::after {
+                            border-bottom: 1px solid #C6C6D0;
+                        }
+                    }
+
+                    .eael-thankyou-order-item-details {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+
+                    .eael-thankyou-product-name {
+                        font-weight: 500;
+                        font-size: 16px;
+
+                        a {
+                            color: #000000;
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+                .eael-thankyou-product-meta {
+                    .wc-item-meta {
+                        margin: 0;
+                        list-style: none;
+
+                        li {
+                            display: flex;
+                            gap: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .eael-thankyou-order-summary {
+            display: flex;
+            justify-content: end;
+
+            .eael-thankyou-order-summary-table {
+                width: 50%;
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .eael-thankyou-billing-shipping {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            @media screen and (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .eael-thankyou-order-summary {
+            margin-bottom: 50px;
+        }
+
+        .eael-thankyou-order-summary-table {
+            border: none;
+            margin: 0;
+
+            td, th {
+                border: none;
+            }
+
+            th {
+                text-align: left;
+            }
+
+            td {
+                text-align: right;
+            }
+
+            .eael-thankyou-order-summary-note td {
+                text-align: left;
+            }
+
+            tr.eael-thankyou-order-summary-total {
+                position: relative;
+                z-index: 2;
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    z-index: -1;
+                    border-top: 1px solid #1E1E1E;
+                    border-bottom: 1px solid #1E1E1E;
+                }
+            }
+        }
+
+        .eael-thankyou-billing-shipping {
+            .eael-thankyou-billing,
+            .eael-thankyou-shipping {
+                padding: 20px;
+                background: #F8F8F8;
+            }
+
+            .eael-thankyou-billing-title,
+            .eael-thankyou-shipping-title {
+                font-weight: 600;
+                font-size: 20px;
+                color: #1E1E1E;
+            }
+
+            .eael-thankyou-billing-address,
+            .eael-thankyou-shipping-address,
+            .eael-thankyou-phone,
+            .eael-thankyou-email {
+                font-weight: 500;
+                font-size: 16px;
+                color: #8C8B9A;
+            }
+
+            .eael-thankyou-phone svg.eael-thankyou-icon,
+            .eael-thankyou-email svg.eael-thankyou-icon {
+                height: 16px;
+                width: 16px;
+                fill: #8C8B9A;
+            }
+        }
+    }
+
+    &.preset-3 {
+        .eael-thankyou-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+
+            .eael-thankyou-billing-shipping-for-mobile {
+                display: none;
+            }
+
+            @media screen and (max-width: 768px) {
+                display: block;
+                .eael-thankyou-billing-shipping-for-mobile {
+                    display: block;
+                }
+                .eael-thankyou-billing-shipping-for-desktop {
+                    display: none;
+                }
+            }
+        }
+
+        .eael-thankyou-message {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(233.14deg, #2EB2C4 -31.1%, #6344EA 71.42%);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+
+            .eael-thankyou-message-icon {
+                background: #fff;
+                border: 2px solid #4D74DA;
+                border-radius: 50px;
+                height: 68px;
+                width: 68px;
+                text-align: center;
+
+                svg,
+                .eael-thankyou-icon {
+                    font-size: 40px;
+                    width: 40px;
+                    height: 40px;
+                    position: relative;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .eael-thankyou-text {
+                font-weight: 600;
+                font-size: 32px;
+                color: #FFFFFF;
+                line-height: 40px;
+            }
+
+            .eael-thankyou-message-text {
+                font-weight: 500;
+                font-size: 16px;
+                color: #D4DCE8;
+            }
+        }
+
+        .eael-thankyou-order-overview {
+            background: #F9FBFF;
+            border: 1px solid #C8DDEF;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+
+            .eael-order-overview-title {
+                font-weight: 600;
+                font-size: 18px;
+                color: #1E1E1E;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                margin: 0;
+                list-style: none;
+
+                li {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    margin-bottom: 8px;
+                    font-weight: 500;
+                    font-size: 16px;
+                }
+            }
+
+            .woocommerce-order-overview-label {
+                color: #8C8B9A;
+            }
+
+            .woocommerce-order-overview-value {
+                color: #1E1E1E;
+            }
+        }
+
+        .eael-thankyou-billing-shipping {
+            .eael-thankyou-billing-title,
+            .eael-thankyou-shipping-title {
+                font-size: 18px;
+                color: #1E1E1E;
+                margin-bottom: 8px;
+            }
+
+            .eael-thankyou-billing {
+                margin-bottom: 20px;
+            }
+
+            .eael-thankyou-billing-address,
+            .eael-thankyou-shipping-address,
+            .eael-thankyou-phone,
+            .eael-thankyou-email {
+                font-weight: 500;
+                font-size: 16px;
+                color: #8C8B9A;
+            }
+
+            .eael-thankyou-phone svg,
+            .eael-thankyou-email svg {
+                fill: #8C8B9A;
+            }
+        }
+
+        .eael-thankyou-order-details {
+            border: 1px solid #D6DEF3;
+            overflow: hidden;
+            border-radius: 8px;
+
+            .woocommerce-order-details__title {
+                font-weight: 600;
+                font-size: 24px;
+                color: #1E1E1E;
+                margin-bottom: 30px;
+            }
+
+            .eael-thankyou-order-items-table {
+                border-radius: 4px;
+                margin: 0;
+                border: none;
+
+                thead {
+                    background: #D6DEF3;
+
+                    th {
+                        padding: 20px;
+                        font-weight: 600;
+                        font-size: 20px;
+                        color: #1E1E1E;
+                        border: none;
+
+                        &.eael-thankyou-order-products {
+                            text-align: left;
+                        }
+
+                        &.eael-thankyou-order-totals {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                tbody {
+                    background: #F9FBFF;
+
+                    td {
+                        border: none;
+
+                        .eael-thankyou-product-summary {
+                            display: flex;
+                        }
+
+                        .eael-thankyou-product-meta {
+                            border-right: 1px solid #C8DDEF;
+                            margin-right: 10px;
+
+                            &.hide-meta-label {
+                                .wc-item-meta-label {
+                                    display: none;
+                                }
+                            }
+
+                            ul {
+                                margin: 0;
+                                list-style: none;
+                                display: flex;
+
+                                li {
+                                    display: flex;
+                                    margin-right: 10px;
+
+                                    .wc-item-meta-label {
+                                        margin-right: 5px;
+                                    }
+
+                                    p {
+                                        margin: 0;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.eael-thankyou-order-item-total {
+                            text-align: right;
+                            padding: 25px;
+
+                            font-weight: 600;
+                            font-size: 16px;
+                            color: #1E1E1E;
+                        }
+                    }
+                }
+            }
+
+            .eael-thankyou-order-item {
+                &:last-child {
+                    position: relative;
+                    z-index: 2;
+
+                    &::after {
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 4%;
+                        height: 100%;
+                        width: 92%;
+                        z-index: -1;
+                        border-bottom: 1px solid #cddae6;
+                    }
+                }
+            }
+
+            .eael-thankyou-order-item-details {
+                text-align: left;
+                display: flex;
+                gap: 50px;
+                align-items: center;
+                padding: 25px;
+
+                .eael-thankyou-product-name {
+                    a {
+                        font-size: 18px;
+                        font-wight: 500;
+                        text-decoration: none;
+                        color: #000000;
+                    }
+                }
+
+                img {
+                    height: 88px;
+                    width: 88px;
+                }
+            }
+        }
+
+        .eael-thankyou-order-summary {
+            padding: 25px;
+            background: #F9FBFF;
+            display: flex;
+            justify-content: end;
+
+            .eael-thankyou-order-summary-table {
+                margin: 0;
+                border: none;
+
+                @media screen and (min-width: 768px) {
+                    width: 80%;
+                }
+            }
+
+            th, td {
+                border: none;
+                padding: 15px;
+
+                font-weight: 500;
+                font-size: 16px;
+                color: #8C8B9A;
+            }
+
+            th {
+                text-align: left;
+            }
+
+            td {
+                text-align: right;
+            }
+
+            .eael-thankyou-order-summary-note td {
+                text-align: left;
+            }
+
+            .eael-thankyou-order-summary-subtotal,
+            .eael-thankyou-order-summary-total {
+                th, td {
+                    font-size: 16px;
+                    color: #1E1E1E;
+                }
+            }
+
+            .eael-thankyou-order-summary-total {
+                th, td {
+                    font-weight: 600;
+                    font-size: 18px;
+                    border-top: 1px solid #CDDAE6;
+                }
+            }
+        }
+    }
+}
+
+//theme compatibility
+.theme-hello-elementor {
+    .eael-thankyou-wrapper {
+        table {
+            tbody {
+                > tr {
+                    &:nth-child(odd) > td, &:nth-child(odd) > th,
+                    &:nth-child(odd):hover > td, &:nth-child(odd):hover > th,
+                    &:nth-child(even) > td, &:nth-child(even) > th,
+                    &:nth-child(even):hover > td, &:nth-child(even):hover > th {
+                        background: transparent;
+                    }
+                }
+            }
+
+            td .eael-thankyou-product-meta ul {
+                padding: 0;
+            }
+
+            .eael-thankyou-product-price ins {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.theme-oceanwp {
+    table {
+        .eael-thankyou-product-price ins {
+            text-decoration: none;
+        }
+    }
+}
+
+.theme-flexia {
+    table {
+        .eael-thankyou-product-price ins {
+            background-color: transparent;
+        }
+    }
+}
+
+.theme-storefront {
+    .eael-thankyou-wrapper {
+        .order_details {
+            background-color: transparent;
+
+            &:before, &:after {
+                background: none;
+            }
+
+            > li {
+                border: none;
+            }
+        }
+
+        table:not( .has-background ) {
+            th, td {
+                background-color: transparent;
+            }
+        }
+    }
+}

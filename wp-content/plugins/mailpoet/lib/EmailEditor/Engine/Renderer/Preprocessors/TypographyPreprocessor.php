@@ -15,7 +15,6 @@ class TypographyPreprocessor implements Preprocessor {
   private const TYPOGRAPHY_STYLES = [
     'color',
     'font-size',
-    'font-family',
     'text-decoration',
   ];
 
@@ -57,9 +56,12 @@ class TypographyPreprocessor implements Preprocessor {
     if (isset($block['attrs']['style']['color']['text'])) {
       $emailAttrs['color'] = $block['attrs']['style']['color']['text'];
     }
-    if (isset($block['attrs']['style']['typography']['fontFamily'])) {
-      $emailAttrs['font-family'] = $block['attrs']['style']['typography']['fontFamily'];
+    // In case the fontSize is set via a slug (small, medium, large, etc.) we translate it to a number
+    // The font size slug is set in $block['attrs']['fontSize'] and value in $block['attrs']['style']['typography']['fontSize']
+    if (isset($block['attrs']['fontSize'])) {
+      $block['attrs']['style']['typography']['fontSize'] = $this->settingsController->translateSlugToFontSize($block['attrs']['fontSize']);
     }
+    // Pass font size to email_attrs
     if (isset($block['attrs']['style']['typography']['fontSize'])) {
       $emailAttrs['font-size'] = $block['attrs']['style']['typography']['fontSize'];
     }
@@ -76,12 +78,11 @@ class TypographyPreprocessor implements Preprocessor {
 
   private function setDefaultsFromTheme(array $block): array {
     $themeData = $this->settingsController->getTheme()->get_data();
-    $contentStyles = $this->settingsController->getEmailContentStyles();
     if (!($block['email_attrs']['color'] ?? '')) {
       $block['email_attrs']['color'] = $themeData['styles']['color']['text'] ?? null;
     }
     if (!($block['email_attrs']['font-size'] ?? '')) {
-      $block['email_attrs']['font-size'] = $contentStyles['typography']['fontSize'];
+      $block['email_attrs']['font-size'] = $themeData['styles']['typography']['fontSize'];
     }
     return $block;
   }

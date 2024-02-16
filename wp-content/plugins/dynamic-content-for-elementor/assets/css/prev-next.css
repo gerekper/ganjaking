@@ -1,7 +1,7 @@
 .single .elementor-widget-dyncontel-post-nextprev nav.post-navigation {
-    margin-top: 0px;
-    padding-top: 0px;
-    border-top: none;
+	margin-top: 0px;
+	padding-top: 0px;
+	border-top: none;
 }
 .single .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous{
   border: none;
@@ -43,14 +43,14 @@
   clear: both;
 }
 .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous{
-    display: inline-block;
-    border: none;
+	display: inline-block;
+	border: none;
 }
 .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next:after, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous:after,
 .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next:before, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous:before{
-    content: "";
-    display: block;
-    clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 .elementor-widget-dyncontel-post-nextprev.floatyes nav.post-navigation .nav-previous{
   position: fixed;

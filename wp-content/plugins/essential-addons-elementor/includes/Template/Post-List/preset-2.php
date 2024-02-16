@@ -48,7 +48,9 @@ echo ($settings['eael_post_list_layout_type'] == 'advanced' ? '<div class="eael-
 if ($settings['eael_post_list_post_feature_image'] === 'yes') {
     echo '<div class="eael-post-list-thumbnail ' . (has_post_thumbnail() ? '' : 'eael-empty-thumbnail') . '">';
     if (has_post_thumbnail()) {
-        echo '<img src="' . wp_get_attachment_image_url(get_post_thumbnail_id(), $settings['eael_post_featured_image_size']) . '" alt="' . esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) . '">';
+        echo '<a href="' . get_the_permalink() . '"' . $link_settings['image_link_nofollow'] . '' . $link_settings['image_link_target_blank'] . '>
+                <img src="' . wp_get_attachment_image_url(get_post_thumbnail_id(), $settings['eael_post_featured_image_size']) . '" alt="' . esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) . '">
+            </a>';
     }
        echo '</div>';
 }
@@ -97,10 +99,8 @@ if ($settings['eael_post_list_post_meta'] === 'yes') {
                 </div>';
 }
 
-if ($settings['eael_post_list_post_excerpt'] === 'yes') {
-    if ($settings['eael_post_list_layout_type'] == 'default' || ($settings['eael_post_list_layout_type'] == 'advanced' && $iterator !== 8)) {
-        echo '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt() ? get_the_excerpt() : get_the_content()), $settings['eael_post_list_post_excerpt_length'], $settings['eael_post_list_excerpt_expanison_indicator']) . '</p>';
-    }
+if ( $settings['eael_post_list_post_excerpt'] === 'yes' ) {
+	echo '<p>' . wp_trim_words( strip_shortcodes( get_the_excerpt() ? get_the_excerpt() : get_the_content() ), $settings['eael_post_list_post_excerpt_length'], $settings['eael_post_list_excerpt_expanison_indicator'] ) . '</p>';
 }
 
 if ( isset($settings['eael_show_read_more_button']) && $settings['eael_show_read_more_button'] ) {

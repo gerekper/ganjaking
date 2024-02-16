@@ -16,10 +16,35 @@ class Save extends \ElementorPro\Modules\Forms\Classes\Action_Base
     public function run_once()
     {
         $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
-        $save_guard->register_unsafe_control('form', 'dce_form_save_type_obj_id');
-        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_role');
-        $save_guard->register_unsafe_control('form', 'dce_form_save_metas');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_ignore_empty');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_file');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_array');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_redirect');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_anonymous');
         $save_guard->register_unsafe_control('form', 'dce_form_save_override');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_obj_id');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_post');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_user');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_term_term');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_metas');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_title');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_content');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_type');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_term');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_post_status');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_parent');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_username');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_email');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_pass');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_role');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_role_mode');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_login');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_error');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_user_error_stop');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_term_name');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_term_description');
+        $save_guard->register_unsafe_control('form', 'dce_form_save_type_term_taxonomy');
     }
     public function get_script_depends()
     {

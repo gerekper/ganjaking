@@ -1501,9 +1501,9 @@ class DynamicPostsOldVersion extends \DynamicContentForElementor\Widgets\WidgetP
                     }
                     // template DCE
                     if ($settings['templatemode_enable'] && $settings['templatemode_enable_2'] == '') {
-                        //
-                        // qui chiamo il template Elementor per generare il contenuti dei Blocks.
-                        echo do_shortcode('[dce-elementor-template id="' . $settings['templatemode_template'] . '" post_id="' . get_the_id() . '" ' . $inlinecss . ']');
+                        $atts = ['id' => $settings['templatemode_template'], 'post_id' => get_the_id(), 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special($atts);
                     } elseif ($settings['native_templatemode_enable']) {
                         $type_of_posts = get_post_type(get_the_ID());
                         $cptaxonomy = get_post_taxonomies(get_the_ID());
@@ -1539,13 +1539,17 @@ class DynamicPostsOldVersion extends \DynamicContentForElementor\Widgets\WidgetP
                                 }
                             }
                         }
-                        echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '" post_id="' . get_the_id() . '" ' . $inlinecss . ']');
+                        $atts = ['id' => $dce_default_template, 'post_id' => get_the_id(), 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special($atts);
                     } elseif ($settings['templatemode_enable'] && $settings['templatemode_enable_2']) {
                         if ($counter % 2 == 0) {
-                            echo do_shortcode('[dce-elementor-template id="' . $settings['templatemode_template'] . '" post_id="' . get_the_id() . '" ' . $inlinecss . ']');
+                            $atts = ['id' => $settings['templatemode_template'], 'post_id' => get_the_id(), 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
                         } else {
-                            echo do_shortcode('[dce-elementor-template id="' . $settings['templatemode_template_2'] . '" post_id="' . get_the_id() . '" ' . $inlinecss . ']');
+                            $atts = ['id' => $settings['templatemode_template_2'], 'post_id' => get_the_id(), 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()];
                         }
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special($atts);
                     }
                 }
                 // end Template mode..

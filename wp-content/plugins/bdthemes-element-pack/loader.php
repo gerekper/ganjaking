@@ -318,7 +318,7 @@ class Element_Pack_Loader {
 			wp_register_script( 'tippyjs', BDTEP_ASSETS_URL . 'vendor/js/tippy.all.min.js', [ 'jquery' ], null, true );
 		}
 		if ( element_pack_is_widget_enabled( 'slinky-vertical-menu' ) ) {
-			wp_register_script( 'slinky', BDTEP_ASSETS_URL . 'vendor/js/slinky.js', [], '4.2.1', true );
+			wp_register_script( 'slinky', BDTEP_ASSETS_URL . 'vendor/js/slinky.js', [ 'jquery' ], '4.2.1', true );
 		}
 		//advanced-image-gallery
 		if ( element_pack_is_widget_enabled( 'testimonial-grid' ) or element_pack_is_widget_enabled( 'post-gallery' ) or element_pack_is_widget_enabled( 'custom-gallery' ) or element_pack_is_widget_enabled( 'advanced-image-gallery' ) or element_pack_is_widget_enabled( 'portfolio-list' ) or element_pack_is_widget_enabled( 'portfolio-gallery' ) or element_pack_is_widget_enabled( 'portfolio-carousel' ) or element_pack_is_widget_enabled( 'tutor-lms-course-grid' ) ) {

@@ -219,7 +219,8 @@ class PodsRelationship extends \DynamicContentForElementor\Widgets\WidgetPrototy
                 }
             }
             if ($settings['pods_relation_render'] == 'template' && $settings['pods_relation_template']) {
-                echo do_shortcode('[dce-elementor-template id="' . $settings['pods_relation_template'] . '"]');
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                echo $template_system->build_elementor_template_special(['id' => $settings['pods_relation_template']]);
             } elseif ($settings['pods_relation_render'] == 'text') {
                 echo \DynamicContentForElementor\Helper::get_dynamic_value($settings['pods_relation_text']);
             } else {

@@ -37,7 +37,7 @@ else:
 				?>
                 <div class="eael-thankyou-hello"><?php printf( '%s %s,', esc_html( $settings['eael_thankyou_hello_text'] ), esc_html( $customer_name ) ); ?></div>
 
-                <div class="eael-thankyou-message-text"><?php echo Helper::eael_wp_kses( $settings['eael_thankyou_message'] ) ?></div>
+                <div class="eael-thankyou-message-text"><?php echo wp_kses( $settings['eael_thankyou_message'], Helper::eael_allowed_tags() ); ?></div>
             </div>
 		<?php endif; ?>
 
@@ -168,7 +168,7 @@ else:
                                     <td>
 										<?php
 										echo "<div class='eael-thankyou-product-price'>";
-										echo $product->get_price_html();
+										echo wp_kses( $product->get_price_html(), Helper::eael_allowed_tags() );
 										echo "</div>";
 										?>
                                     </td>
@@ -216,11 +216,9 @@ else:
                 <table class="eael-thankyou-order-summary-table">
 					<?php
 					foreach ( $order->get_order_item_totals() as $key => $total ) {
+						$class = strtolower( str_replace( [ ' ', ':' ], [ '-', '' ], $total['label'] ) );
 						?>
-                        <tr class="eael-thankyou-order-summary-<?php echo strtolower( str_replace( [ ' ', ':' ], [
-							'-',
-							''
-						], esc_attr( $total['label'] ) ) ) ?>">
+                        <tr class="eael-thankyou-order-summary-<?php echo esc_attr( $class ); ?>">
                             <th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
                             <td><?php echo wp_kses_post( $total['value'] ); ?></td>
                         </tr>

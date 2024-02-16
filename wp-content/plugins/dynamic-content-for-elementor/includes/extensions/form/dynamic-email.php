@@ -23,6 +23,19 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
         self::add_dce_email_template_type();
         // Add specific Template Type
     }
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $base_settings = ['dce_form_pdf_converter', 'dce_form_pdf_svg_not_recommended', 'dce_form_pdf_missing_imagick', 'dce_form_pdf_disable_imagick', 'dce_form_pdf_name', 'dce_form_pdf_folder', 'dce_pdf_html_template', 'dce_form_pdf_template', 'dce_form_pdf_size', 'dce_form_pdf_orientation', 'dce_form_pdf_margin', 'dce_form_pdf_button_dpi', 'dce_form_section_page', 'dce_form_pdf_save', 'dce_form_pdf_title', 'dce_form_pdf_content'];
+        foreach ($base_settings as $setting) {
+            $save_guard->register_unsafe_control('form', $setting);
+        }
+        $email_repeater_settings = ['dce_form_email_repeater::dce_form_email_enable', 'dce_form_email_repeater::dce_form_email_condition_field', 'dce_form_email_repeater::dce_form_email_condition_status', 'dce_form_email_repeater::dce_form_email_condition_value', 'dce_form_email_repeater::dce_form_email_subject', 'dce_form_email_repeater::dce_form_email_to', 'dce_form_email_repeater::dce_form_email_from', 'dce_form_email_repeater::dce_form_email_from_name', 'dce_form_email_repeater::dce_form_email_reply_to', 'dce_form_email_repeater::dce_form_email_to_cc', 'dce_form_email_repeater::dce_form_email_to_bcc', 'dce_form_email_repeater::dce_form_email_content_type', 'dce_form_email_repeater::dce_form_email_content_type_advanced', 'dce_form_email_repeater::dce_form_email_content', 'dce_form_email_repeater::dce_form_email_content_template', 'dce_form_email_repeater::dce_form_email_content_template_style', 'dce_form_email_repeater::dce_form_email_content_template_layout', 'dce_form_email_repeater::dce_form_email_attachments', 'dce_form_email_repeater::dce_form_email_attachments_delete', 'dce_form_email_repeater::dce_form_pdf_attachments_delete'];
+        // Registrazione dei settings del repeater
+        foreach ($email_repeater_settings as $setting) {
+            $save_guard->register_unsafe_control('form', $setting);
+        }
+    }
     /**
      * Get Name
      *
@@ -237,16 +250,15 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
                  * @param string $email_content Email content.
                  */
                 if ($use_template) {
-                    // using a template
-                    $inline = '';
+                    $atts = ['id' => $amail['dce_form_email_content_template']];
                     if ($amail['dce_form_email_content_template_style'] == 'embed') {
-                        $inline = ' inlinecss="true"';
+                        $atts['inlinecss'] = \true;
                     }
-                    $t_post = '';
                     if (get_the_ID()) {
-                        $t_post = ' post_id="' . get_the_ID() . '"';
+                        $atts['post_id'] = get_the_ID();
                     }
-                    $dce_form_email_content = do_shortcode('[dce-elementor-template id="' . $amail['dce_form_email_content_template'] . '"' . $t_post . $inline . ']');
+                    $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                    $dce_form_email_content = $template_system->build_elementor_template_special($atts);
                     $pdf_attachments = $this->get_email_pdf_attachments($dce_form_email_content, $fields, $amail, $settings);
                     $all_pdf_attachments += $pdf_attachments;
                     $upload_attachments = $this->get_email_upload_attachments($dce_form_email_content, $fields, $amail, $settings);
@@ -324,7 +336,7 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
                     $remove_pdf_files = \true;
                 }
                 global $phpmailer;
-                if (isset($phpmailer) && $phpmailer !== NULL) {
+                if (isset($phpmailer) && $phpmailer !== null) {
                     $phpmailer->AltBody = '';
                     // clear the previous alt body for the next email.
                 }
@@ -361,7 +373,7 @@ class DynamicEmail extends \ElementorPro\Modules\Forms\Classes\Action_Base
     }
     public static function set_wp_mail_altbody($phpmailer)
     {
-        if (isset($phpmailer) && $phpmailer !== NULL) {
+        if (isset($phpmailer) && $phpmailer !== null) {
             $phpmailer->AltBody = self::$txt;
         }
     }

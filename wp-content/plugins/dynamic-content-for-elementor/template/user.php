@@ -37,7 +37,8 @@ $dce_col_xs = $dce_default_options[ $dce_block_template . '_col_xs' ];
 
 		// Questa è la pagina del template che viene impostata nei settings di User
 		if ( isset( $dce_before_template ) && $dce_before_template > 1 ) {
-			echo do_shortcode( '[dce-elementor-template id="' . $dce_before_template . '"]' );
+			$template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+			echo $template_system->build_elementor_template_special( [ 'id' => $dce_before_template ] );
 		}
 		?>
 			</div>
@@ -48,7 +49,8 @@ $dce_col_xs = $dce_default_options[ $dce_block_template . '_col_xs' ];
 				// Questo è il BLOCCO template che viene impostata nei settings di User
 				if ( $dce_default_template ) {
 					if ( $dce_template_layout == 'canvas' ) {
-						echo do_shortcode( '[dce-elementor-template id="' . $dce_default_template . '"]' );
+						$template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+						echo $template_system->build_elementor_template_special( [ 'id' => $dce_default_template ] );
 					} else {
 						if ( have_posts() ) :
 							while ( have_posts() ) :
@@ -68,7 +70,8 @@ $dce_col_xs = $dce_default_options[ $dce_block_template . '_col_xs' ];
 			}
 
 			if ( isset( $dce_after_template ) && $dce_after_template > 1 ) {
-				echo do_shortcode( '[dce-elementor-template id="' . $dce_after_template . '"]' );
+				$template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+				echo $template_system->build_elementor_template_special( [ 'id' => $dce_after_template ] );
 			}
 			?>
 

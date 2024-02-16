@@ -134,11 +134,6 @@ class Permalink_Manager_Actions {
 			self::fix_uri_duplicates();
 		}
 
-		// 4. Remove items without keys
-		/*if(!empty($permalink_manager_uris[null])) {
-			unset($permalink_manager_uris[null]);
-		}*/
-
 		// Save cleared URIs & Redirects
 		if ( $removed_uris > 0 || $removed_redirects > 0 ) {
 			update_option( 'permalink-manager-uris', array_filter( $permalink_manager_uris ) );
@@ -707,7 +702,7 @@ class Permalink_Manager_Actions {
 		$element_id = ( ! empty( $_POST['permalink-manager-edit-uri-element-id'] ) ) ? sanitize_text_field( $_POST['permalink-manager-edit-uri-element-id'] ) : '';
 
 		if ( ! empty( $element_id ) && is_numeric( $element_id ) ) {
-			Permalink_Manager_URI_Functions_Post::update_post_uri( $element_id );
+			Permalink_Manager_URI_Functions_Post::update_post_hook( $element_id );
 
 			// Reload URI Editor & clean post cache
 			clean_post_cache( $element_id );

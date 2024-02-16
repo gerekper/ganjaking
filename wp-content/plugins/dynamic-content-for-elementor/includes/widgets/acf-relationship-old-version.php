@@ -28,6 +28,7 @@ class AcfRelationshipOldVersion extends \DynamicContentForElementor\Widgets\Widg
         parent::run_once();
         $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
         $save_guard->register_unsafe_control($this->get_type(), 'acf_relation_label');
+        $save_guard->register_unsafe_control($this->get_type(), 'acf_relation_draft');
     }
     /**
      * Register controls after check if this feature is only for admin
@@ -288,7 +289,9 @@ class AcfRelationshipOldVersion extends \DynamicContentForElementor\Widgets\Widg
                 }
             }
             if ($settings['acf_relation_render'] == 'template' && $settings['acf_relation_template']) {
-                echo do_shortcode('[dce-elementor-template id="' . $settings['acf_relation_template'] . '" post_id="' . get_the_id() . '"]');
+                $atts = ['id' => $settings['acf_relation_template'], 'post_id' => get_the_id()];
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                echo $template_system->build_elementor_template_special($atts);
             } elseif ($settings['acf_relation_render'] == 'text') {
                 echo \DynamicContentForElementor\Helper::get_dynamic_value($settings['acf_relation_text']);
             } else {

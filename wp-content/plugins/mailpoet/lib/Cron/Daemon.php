@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Cron\Workers\WorkersFactory;
 use MailPoet\Logging\LoggerFactory;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class Daemon {
   public $timer;
@@ -17,6 +18,9 @@ class Daemon {
   /** @var CronWorkerRunner */
   private $cronWorkerRunner;
 
+  /** @var EntityManager */
+  private $entityManager;
+
   /** @var WorkersFactory */
   private $workersFactory;
 
@@ -26,12 +30,14 @@ class Daemon {
   public function __construct(
     CronHelper $cronHelper,
     CronWorkerRunner $cronWorkerRunner,
+    EntityManager $entityManager,
     WorkersFactory $workersFactory,
     LoggerFactory $loggerFactory
   ) {
     $this->timer = microtime(true);
     $this->workersFactory = $workersFactory;
     $this->cronWorkerRunner = $cronWorkerRunner;
+    $this->entityManager = $entityManager;
     $this->cronHelper = $cronHelper;
     $this->loggerFactory = $loggerFactory;
   }
@@ -43,6 +49,10 @@ class Daemon {
     $errors = [];
     foreach ($this->getWorkers() as $worker) {
       try {
+        // Clear the entity manager memory for every cron run.
+        // This avoids using stale data and prevents memory leaks.
+        $this->entityManager->clear();
+
         if ($worker instanceof CronWorkerInterface) {
           $this->cronWorkerRunner->run($worker);
         } else {

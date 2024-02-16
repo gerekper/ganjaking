@@ -142,7 +142,7 @@
 .permalink-manager.postbox .heading{border-bottom:3px double #eee}
 .permalink-manager.postbox a{color:#444;text-decoration:none;white-space:nowrap}
 
-.edit-post-meta-boxes-area #permalink-manager.postbox .inside{padding:0 24px 24px}
+.edit-post-meta-boxes-area #permalink-manager.postbox .inside{padding:0 24px 24px;background:none}
 #permalink-manager .permalink-manager-gutenberg .uri_locked{margin-top:1em}
 #permalink-manager .permalink-manager-gutenberg > div{margin-top:15px}
 #permalink-manager .permalink-manager-gutenberg .default-permalink-row > *{width:100%;float:none}
@@ -185,14 +185,14 @@
 #permalink-manager .all-permastruct-container > *{margin-bottom:15px}
 #permalink-manager .all-permastruct-container > *:last-child{margin:0}
 #permalink-manager .all-permastruct-container .permastruct-toggle{display:none;padding-bottom:15px;border-bottom:1px dashed #ddd}
+#permalink-manager .all-permastruct-container .permastruct-toggle > *:first-child{margin-top:0}
+#permalink-manager .all-permastruct-container .permastruct-toggle .default-permastruct-row{margin-top:15px}
 #permalink-manager .all-permastruct-container h4{font-size:14px}
 #permalink-manager .all-permastruct-container p{font-size:13px}
-#permalink-manager .all-permastruct-container p.default-permastruct-row{margin-top:15px}
 #permalink-manager .all-permastruct-container label{font-weight:600;margin-top:15px!important;font-size:13px;margin-bottom:5px!important;display:block;clear:both}
 #permalink-manager .all-permastruct-container .permastruct-field:disabled{cursor:not-allowed}
 #permalink-manager .all-permastruct-container .settings-container label{font-weight:400}
 #permalink-manager .permastruct-buttons a{font-size:90%;font-weight:bold}
-
 
 /**
  * TagEditor custom theme & "Stop Words"

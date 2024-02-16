@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2023-11-10 14:06+0100\n"
+        "POT-Creation-Date: 2024-01-29 16:32+0100\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,6 @@ msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Content-Type: text/plain; charset=UTF-8\n"
         "Content-Transfer-Encoding: 8bit\n"
         "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: lib/core/class-woocommerce-product-search-service-old.php:3226
-#, php-format
-msgid   " | Min Price: %1$s - Max Price: %2$s"
-msgstr  ""
 
 #: lib/admin/class-woocommerce-product-search-admin.php:85
 #, php-format
@@ -456,13 +451,12 @@ msgstr  ""
 #: lib/blocks/class-product-filter-reset-block.php:74
 #: lib/blocks/src/blocks/product-filter-reset.js:109
 #: lib/core/class-woocommerce-product-search-service.php:431
-#: lib/core/class-woocommerce-product-search-service-old.php:531
 #: lib/admin/reports/class-woocommerce-product-search-report-queries.php:515
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:179
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:215
 #: lib/admin/reports/class-woocommerce-product-search-report-searches.php:243
 #: lib/views/class-woocommerce-product-search-filter-tag.php:493
-#: lib/views/class-woocommerce-product-search-filter.php:506
+#: lib/views/class-woocommerce-product-search-filter.php:515
 #: lib/views/class-woocommerce-product-search-filter-attribute.php:718
 #: lib/views/class-woocommerce-product-search-filter-attribute.php:727
 #: lib/views/class-woocommerce-product-search-field.php:355
@@ -626,7 +620,7 @@ msgstr  ""
 msgid   "Default"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:850
+#: lib/views/class-woocommerce-product-search-filter.php:859
 msgid   "Default sorting"
 msgstr  ""
 
@@ -1085,7 +1079,7 @@ msgstr  ""
 msgid   "Filters"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter-reset.php:181
+#: lib/views/class-woocommerce-product-search-filter-reset.php:184
 msgctxt "product filter reset heading"
 msgid   "Filters"
 msgstr  ""
@@ -1945,7 +1939,7 @@ msgid   "No queries found in range"
 msgstr  ""
 
 #: lib/blocks/src/blocks/product-search-field.js:466
-#: lib/views/class-woocommerce-product-search-filter.php:810
+#: lib/views/class-woocommerce-product-search-filter.php:819
 #: lib/views/class-woocommerce-product-search-widget.php:702
 msgid   "No results"
 msgstr  ""
@@ -2148,7 +2142,6 @@ msgstr  ""
 msgid   "Placeholder"
 msgstr  ""
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4477
 #: lib/views/class-woocommerce-product-search-thumbnail.php:439
 #: lib/control/class-product-search-field-control.php:637
 msgid   "Placeholder Image"
@@ -2614,7 +2607,7 @@ msgstr  ""
 msgid   "Search"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:305
+#: lib/views/class-woocommerce-product-search-filter.php:312
 msgctxt "product search filter heading"
 msgid   "Search"
 msgstr  ""
@@ -2663,12 +2656,10 @@ msgstr  ""
 msgid   "Search for a product&hellip;"
 msgstr  ""
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4550
 #: lib/control/class-product-search-field-control.php:713
 msgid   "Search for more &hellip;"
 msgstr  ""
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4589
 #: lib/control/class-product-search-field-control.php:752
 #, php-format
 msgid   "Search in %s"
@@ -3119,14 +3110,14 @@ msgid   "Show/hide search results when the search input field gains/loses "
         "focus."
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:814
+#: lib/views/class-woocommerce-product-search-filter.php:823
 #, php-format
 msgid   "Showing the single result"
 msgid_plural    "Showing all %d results"
 msgstr[0]       ""
 msgstr[1]       ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:819
+#: lib/views/class-woocommerce-product-search-filter.php:828
 #, php-format
 msgctxt "with first and last result"
 msgid   "Showing the single result"
@@ -3176,23 +3167,23 @@ msgstr  ""
 msgid   "Slug"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:852
+#: lib/views/class-woocommerce-product-search-filter.php:861
 msgid   "Sort by average rating"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:853
+#: lib/views/class-woocommerce-product-search-filter.php:862
 msgid   "Sort by newness"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:851
+#: lib/views/class-woocommerce-product-search-filter.php:860
 msgid   "Sort by popularity"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:855
+#: lib/views/class-woocommerce-product-search-filter.php:864
 msgid   "Sort by price: high to low"
 msgstr  ""
 
-#: lib/views/class-woocommerce-product-search-filter.php:854
+#: lib/views/class-woocommerce-product-search-filter.php:863
 msgid   "Sort by price: low to high"
 msgstr  ""
 
@@ -3207,10 +3198,6 @@ msgstr  ""
 
 #: lib/admin/settings/class-section-general.php:207
 msgid   "Standard Product Search"
-msgstr  ""
-
-#: lib/core/class-woocommerce-product-search-service-old.php:3220
-msgid   "Standard Search"
 msgstr  ""
 
 #: lib/admin/settings/class-section-css.php:64
@@ -4149,7 +4136,7 @@ msgstr  ""
 
 #: lib/blocks/src/blocks/product-search-field.js:577
 #: lib/views/class-woocommerce-product-search-widget.php:743
-msgid   "WMPL Language Filter"
+msgid   "WPML Language Filter"
 msgstr  ""
 
 #: lib/admin/class-woocommerce-product-search-admin-bar.php:76
@@ -4335,12 +4322,6 @@ msgid   "WooCommerce Product Search &mdash; Your shop's instant product "
         "search field, it provides live results while you type."
 msgstr  ""
 
-#: lib/core/class-woocommerce-product-search-service-old.php:3219
-#, php-format
-msgid   "WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search "
-        "Terms: %3$s"
-msgstr  ""
-
 #: lib/core/class-woocommerce-product-search.php:484
 #, php-format
 msgid   "WooCommerce Product Search - Buffer %sK / %sK %s%% - Processing "
@@ -4448,7 +4429,6 @@ msgstr  ""
 msgid   "inherit"
 msgstr  ""
 
-#: lib/core/class-woocommerce-product-search-service-old.php:4549
 #: lib/control/class-product-search-field-control.php:712
 msgid   "more &hellip;"
 msgstr  ""

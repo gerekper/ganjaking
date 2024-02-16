@@ -549,7 +549,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
         // [Post Term]
         foreach ($taxonomies as $tax_key => $a_tax) {
             if ($tax_key) {
-                $this->add_control('include_term_' . $tax_key, ['label' => __('Terms Included for', 'dynamic-content-for-elementor') . ' ' . $a_tax, 'type' => 'ooo_query', 'placeholder' => __('All Terms', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'terms', 'object_type' => $tax_key, 'render_type' => 'template', 'multiple' => \true, 'condition' => ['taxonomy' => $tax_key, 'query_filter' => 'term', 'term_from' => 'post_term', 'terms_current_post' => '']]);
+                $this->add_control('include_term_' . $tax_key, ['label' => __('Terms Included for', 'dynamic-content-for-elementor') . ' ' . $a_tax, 'type' => 'ooo_query', 'placeholder' => __('All Terms', 'dynamic-content-for-elementor'), 'label_block' => \true, 'query_type' => 'terms', 'object_type' => $tax_key, 'render_type' => 'template', 'multiple' => \true, 'condition' => ['taxonomy' => $tax_key, 'query_filter' => 'term', 'term_from' => 'post_term', 'terms_current_post' => ''], 'dynamic' => ['active' => \true]]);
             }
         }
         $this->add_control('terms_include_children', ['label' => __('Include Children Terms', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes', 'condition' => ['taxonomy!' => '', 'query_filter' => 'term', 'term_from' => 'post_term']]);
@@ -819,7 +819,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
             // Query Type - ACF Relationship
             if (empty($settings['relationship_meta'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Select an ACF Relationship Field', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Select an ACF Relationship Field', 'dynamic-content-for-elementor'));
                 }
                 $this->query = '';
                 return;
@@ -880,7 +880,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
             // Query Type - Meta Box Relationship
             if (empty($settings['metabox_relationship_id'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Type the Meta Box Relationship ID', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Type the Meta Box Relationship ID', 'dynamic-content-for-elementor'));
                 }
                 $this->query = '';
                 return;
@@ -889,7 +889,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
             // Check if the Meta Box Relationship ID exists
             if (!\array_key_exists($metabox_relationship['id'], \MB_Relationships_API::get_all_relationships())) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __("The Meta Box Relationship ID doesn't exist", 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __("The Meta Box Relationship ID doesn't exist", 'dynamic-content-for-elementor'));
                 }
                 $this->query = '';
                 return;
@@ -975,7 +975,7 @@ class DynamicPostsBase extends \DynamicContentForElementor\Widgets\WidgetPrototy
             // Query Type - Favorites
             if (empty($settings['favorites_key'])) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Select the Favorites key', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Select the Favorites key', 'dynamic-content-for-elementor'));
                 }
                 return;
             }

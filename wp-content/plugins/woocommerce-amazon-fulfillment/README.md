@@ -68,6 +68,9 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2024-02-05 - version 4.1.9.8
+* Fix order sync tracking details.
+
 ### 2024-01-29 - version 4.1.9.7
 * Retrieve tracking details during order sync.
 

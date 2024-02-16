@@ -1,10 +1,17 @@
 <?php
-	/**
-	 * License Manager for WooCommerce - License Handler
-	 *
-	 * @version 0.0.1
-	 * @package WC_Gateway_Redsys_License
-	 */
+/**
+ * Class WC_Gateway_Redsys_License
+ *
+ * @package WooCommerce Redsys Gateway
+ * @since 24.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -62,17 +69,12 @@ class WC_Gateway_Redsys_License {
 	 * @return void
 	 */
 	public function init() {
-		if ( current_user_can( 'manage_options' ) ) {
-			add_action( 'admin_menu', array( &$this, 'license_menu' ) );
-		}
 
+		add_action( 'admin_menu', array( $this, 'license_menu' ), 10 );
 		add_action( 'admin_init', array( $this, 'activate_license' ) );
-
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ), 9999, 1 );
 		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 9999, 3 );
-
 		add_action( "in_plugin_update_message-{$this->slug}", array( $this, 'in_plugin_update_message' ) );
-
 		add_filter( 'upgrader_pre_install', array( $this, 'upgrader_pre_install' ), 10, 2 );
 	}
 	/**
@@ -135,11 +137,11 @@ class WC_Gateway_Redsys_License {
 			'woocommerce',
 			$this->menu_title,
 			$this->menu_title,
-			'manage_plugins',
+			'manage_options',
 			$this->menu_slug,
-			array( &$this, 'license_page' )
+			array( $this, 'license_page' )
 		);
-		add_action( 'admin_notices', array( &$this, 'admin_notice' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 	}
 	/**
 	 * Render HTML for License options page

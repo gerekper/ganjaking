@@ -62,7 +62,7 @@ humbug_phpscoper_expose_class('Mustache_Parser', 'DynamicOOOS\Mustache_Parser');
 humbug_phpscoper_expose_class('Mustache_Source', 'DynamicOOOS\Mustache_Source');
 humbug_phpscoper_expose_class('Mustache_Template', 'DynamicOOOS\Mustache_Template');
 humbug_phpscoper_expose_class('Mustache_Tokenizer', 'DynamicOOOS\Mustache_Tokenizer');
-humbug_phpscoper_expose_class('ComposerAutoloaderInit6d766fd847cda17e857a3e151829c707', 'DynamicOOOS\ComposerAutoloaderInit6d766fd847cda17e857a3e151829c707');
+humbug_phpscoper_expose_class('ComposerAutoloaderInit7ac7d4d6116181c3d5610c8db8fca956', 'DynamicOOOS\ComposerAutoloaderInit7ac7d4d6116181c3d5610c8db8fca956');
 humbug_phpscoper_expose_class('Attribute', 'DynamicOOOS\Attribute');
 humbug_phpscoper_expose_class('PhpToken', 'DynamicOOOS\PhpToken');
 humbug_phpscoper_expose_class('Stringable', 'DynamicOOOS\Stringable');
@@ -141,7 +141,7 @@ if (!function_exists('array_key_last')) { function array_key_last() { return \Dy
 if (!function_exists('balanceTags')) { function balanceTags() { return \DynamicOOOS\balanceTags(...func_get_args()); } }
 if (!function_exists('check_admin_referer')) { function check_admin_referer() { return \DynamicOOOS\check_admin_referer(...func_get_args()); } }
 if (!function_exists('check_ajax_referer')) { function check_ajax_referer() { return \DynamicOOOS\check_ajax_referer(...func_get_args()); } }
-if (!function_exists('composerRequire6d766fd847cda17e857a3e151829c707')) { function composerRequire6d766fd847cda17e857a3e151829c707() { return \DynamicOOOS\composerRequire6d766fd847cda17e857a3e151829c707(...func_get_args()); } }
+if (!function_exists('composerRequire7ac7d4d6116181c3d5610c8db8fca956')) { function composerRequire7ac7d4d6116181c3d5610c8db8fca956() { return \DynamicOOOS\composerRequire7ac7d4d6116181c3d5610c8db8fca956(...func_get_args()); } }
 if (!function_exists('ctype_alnum')) { function ctype_alnum() { return \DynamicOOOS\ctype_alnum(...func_get_args()); } }
 if (!function_exists('ctype_alpha')) { function ctype_alpha() { return \DynamicOOOS\ctype_alpha(...func_get_args()); } }
 if (!function_exists('ctype_cntrl')) { function ctype_cntrl() { return \DynamicOOOS\ctype_cntrl(...func_get_args()); } }
@@ -170,7 +170,6 @@ if (!function_exists('delete_site_option')) { function delete_site_option() { re
 if (!function_exists('delete_site_transient')) { function delete_site_transient() { return \DynamicOOOS\delete_site_transient(...func_get_args()); } }
 if (!function_exists('did_action')) { function did_action() { return \DynamicOOOS\did_action(...func_get_args()); } }
 if (!function_exists('do_action')) { function do_action() { return \DynamicOOOS\do_action(...func_get_args()); } }
-if (!function_exists('do_shortcode')) { function do_shortcode() { return \DynamicOOOS\do_shortcode(...func_get_args()); } }
 if (!function_exists('dump')) { function dump() { return \DynamicOOOS\dump(...func_get_args()); } }
 if (!function_exists('encodeit')) { function encodeit() { return \DynamicOOOS\encodeit(...func_get_args()); } }
 if (!function_exists('esc_attr')) { function esc_attr() { return \DynamicOOOS\esc_attr(...func_get_args()); } }

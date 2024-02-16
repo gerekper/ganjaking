@@ -1511,7 +1511,7 @@ class Device_Slider extends Module_Base
 		$video_src = $link['video_link'];
 
 		?>
-		<video autoplay loop muted playsinline bdt-cover>
+		<video autoplay loop muted playsinline>
 			<source src="<?php echo esc_url($video_src); ?>" type="video/mp4">
 		</video>
 		<?php

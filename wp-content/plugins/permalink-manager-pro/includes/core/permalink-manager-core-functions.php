@@ -79,7 +79,7 @@ class Permalink_Manager_Core_Functions {
 		 * 1. Prepare URL and check if it is correct (make sure that both requested URL & home_url share the same protocol and get rid of www prefix)
 		 */
 		$request_url = ( ! empty( $request_url ) ) ? parse_url( $request_url, PHP_URL_PATH ) : $_SERVER['REQUEST_URI'];
-		$request_url = strtok( $request_url, "?" );
+		$request_url = ( ! empty( $request_url ) ) ? strtok( $request_url, "?" ) : $request_url;
 
 		// Make sure that either $_SERVER['SERVER_NAME'] or $_SERVER['HTTP_HOST'] are set
 		if ( empty( $_SERVER['HTTP_HOST'] ) && empty( $_SERVER['SERVER_NAME'] ) ) {

@@ -717,6 +717,7 @@ class Term_Control {
 			'taxonomy' => $taxonomy,
 			'params' => $params
 		);
+		$cache_context = apply_filters( 'woocommerce_product_search_term_control_get_term_counts_cache_context', $cache_context, $taxonomy );
 		$cache_key = self::get_cache_key( $cache_context );
 		$cache = Cache::get_instance();
 		$counts = $cache->get( $cache_key, self::COUNTS_CACHE_GROUP );
@@ -765,6 +766,7 @@ class Term_Control {
 		}
 
 		$post_ids = $query_control->get_ids( $params );
+
 		if ( count( $post_ids ) > 0 ) {
 			$object_term_counts = array();
 			$object_term_table = \WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );

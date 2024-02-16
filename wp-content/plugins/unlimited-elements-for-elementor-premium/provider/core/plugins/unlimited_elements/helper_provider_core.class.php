@@ -814,6 +814,15 @@ class HelperProviderCoreUC_EL{
 		if(empty($templateID))
 			return(false);
 		
+		//fix some bug with dissapearing styles
+				
+		global $wp_filter;
+		$keyElementorFilter = "elementor/css-file/post/enqueue";
+		$arrElementorFilter = UniteFunctionsUC::getVal($wp_filter, $keyElementorFilter);
+		
+		if(!empty($arrElementorFilter))
+			unset( $wp_filter[ "elementor/css-file/post/enqueue" ] );
+		
 			
 		//change the template ID according the language for wpml
 		
@@ -970,6 +979,10 @@ class HelperProviderCoreUC_EL{
 		}
 		
 		GlobalsProviderUC::$isUnderDynamicTemplateLoop = false;
+		
+		//bring back the filter
+		if(!empty($arrElementorFilter) && !isset($wp_filter[$keyElementorFilter]))
+			$wp_filter[$keyElementorFilter] = $arrElementorFilter;
 		
 	}
 	

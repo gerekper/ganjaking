@@ -890,6 +890,46 @@ class EVO_Cal_Event_Structure{
 						}
 					break;
 
+				
+
+				// Location Image
+					case 'locImg':
+
+						if(empty($location_img_id)) break;
+						$img_src = wp_get_attachment_image_src($location_img_id,'full');
+						if(empty($img_src)) break;
+
+						$fullheight = (int)EVO()->calendar->get_opt1_prop('evo_locimgheight',400);
+
+						if(!empty($img_src)){
+							
+							// text over location image
+							$inside = $inner = '';
+							if(!empty($location_name) && $EVENT->check_yn('evcal_name_over_img') ){
+
+								if(!empty($location_address))	$inner .= '<span style="padding-bottom:10px">'. stripslashes($location_address) .'</span>';
+								if(!empty($location_description)) $inner .= '<span class="location_description">'.$location_description.'</span>';
+								
+								$inside = "<p class='evoLOCtxt'><span class='evo_loc_text_title'>{$location_name}</span>{$inner}</p>";
+							}
+							$OT.="<div class='evcal_evdata_row evo_metarow_locImg evorow ".( !empty($inside)?'tvi':null)."' style='height:{$fullheight}px; background-image:url(".$img_src[0].")' id='".$location_img_id."_locimg' >{$inside}</div>";
+						}
+					break;
+
+				// GOOGLE map
+					case 'gmap':	
+
+						// since 4.5
+						$is_google_map_good = true;
+						if( !EVO()->cal->get_prop('evo_gmap_api_key','evcal_1')) $is_google_map_good = false;
+
+						if( !$is_google_map_good ) break;
+
+						if( $EventData['location_type'] != 'virtual' || !isset($EventData['location_type'])){
+							$OT.="<div class='evcal_evdata_row evo_metarow_gmap evorow evcal_gmaps ".$object->id."_gmap' id='".$object->id."_gmap' style='max-width:none'></div>";
+						}
+					break;
+
 				// REPEAT SERIES
 					case 'repeats':
 						$OT.="<div class='evo_metarow_repeats evorow evcal_evdata_row evcal_evrow_sm ".$end_row_class."'>
@@ -942,44 +982,6 @@ class EVO_Cal_Event_Structure{
 							}
 
 						$OT.="</p></div></div>";
-					break;
-
-				// Location Image
-					case 'locImg':
-
-						if(empty($location_img_id)) break;
-						$img_src = wp_get_attachment_image_src($location_img_id,'full');
-						if(empty($img_src)) break;
-
-						$fullheight = (int)EVO()->calendar->get_opt1_prop('evo_locimgheight',400);
-
-						if(!empty($img_src)){
-							
-							// text over location image
-							$inside = $inner = '';
-							if(!empty($location_name) && $EVENT->check_yn('evcal_name_over_img') ){
-
-								if(!empty($location_address))	$inner .= '<span style="padding-bottom:10px">'. stripslashes($location_address) .'</span>';
-								if(!empty($location_description)) $inner .= '<span class="location_description">'.$location_description.'</span>';
-								
-								$inside = "<p class='evoLOCtxt'><span class='evo_loc_text_title'>{$location_name}</span>{$inner}</p>";
-							}
-							$OT.="<div class='evcal_evdata_row evo_metarow_locImg evorow ".( !empty($inside)?'tvi':null)."' style='height:{$fullheight}px; background-image:url(".$img_src[0].")' id='".$location_img_id."_locimg' >{$inside}</div>";
-						}
-					break;
-
-				// GOOGLE map
-					case 'gmap':	
-
-						// since 4.5
-						$is_google_map_good = true;
-						if( !EVO()->cal->get_prop('evo_gmap_api_key','evcal_1')) $is_google_map_good = false;
-
-						if( !$is_google_map_good ) break;
-
-						if( $EventData['location_type'] != 'virtual' || !isset($EventData['location_type'])){
-							$OT.="<div class='evcal_evdata_row evo_metarow_gmap evorow evcal_gmaps ".$object->id."_gmap' id='".$object->id."_gmap' style='max-width:none'></div>";
-						}
 					break;
 				
 				// Featured image
@@ -1047,112 +1049,14 @@ class EVO_Cal_Event_Structure{
 				
 				// event organizer
 					case 'organizer':					
-						$evcal_evcard_org = eventon_get_custom_language($evoOPT2, 'evcal_evcard_org','Organizer');
+						
 
 						if(empty($ED['event_organizer'])) break;
 						
+						ob_start();
+						include_once('views/html-eventcard-organizer.php');
+						return ob_get_clean();
 						
-						
-						$OT.= "<div class='evo_metarow_organizer evorow evcal_evdata_row evcal_evrow_sm ".$end_row_class."'>
-								<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__fai_004', 'fa-headphones',$evOPT )."'></i></span>
-								<div class='evcal_evdata_cell'>							
-									<h3 class='evo_h3'>".$evcal_evcard_org."</h3>";
-									
-								$OT.= "<div class='evo_evdata_cell_content'>";
-
-						// foreach organizer
-						foreach( $event_organizer as $EOID=>$EO){
-
-
-							// image
-							$img_src = (!empty($EO->organizer_img_id)? 
-								wp_get_attachment_image_src($EO->organizer_img_id,'medium'): null);
-
-							$newdinwow = (!empty($EO->organizer_link_target) && $EO->organizer_link_target=='yes')? 'target="_blank"':'';
-
-							// Organizer link
-								$org_link = '';
-								if(!empty($EO->organizer_link) || !empty($EO->link) ){	
-
-									if( !empty($EO->link) ) $org_link = $EO->link;
-									if( !empty($EO->organizer_link) ) $org_link = $EO->organizer_link;
-
-									$orgNAME = "<span class='evo_card_organizer_name_t marb5'><a ".( $newdinwow )." href='" . 
-										evo_format_link( $org_link ) . "'>".$EO->name."</a></span>";
-								}else{
-									$orgNAME = "<span class='evo_card_organizer_name_t marb5'>". $EO->name."</span>";
-								}	
-
-								//$orgNAME = "<span class='evo_card_organizer_name_t marb5'>". $EO->name."</span>";
-
-
-							$OT.= "<div class='evo_card_organizer'>";
-
-							// image
-								$OT.= (!empty($img_src)? 
-										"<p class='evo_data_val evo_card_organizer_image'><img src='{$img_src[0]}'/></p>":null);
-
-							
-
-							$org_data = '';
-							$org_data .= "<h4 class='evo_h4 marb5'>" . $orgNAME . "</h4>" ;
-							
-							/* // hide this in 4.5.5 
-							$org_data .= "<div class='evo_data_val'>".
-								
-								( $description? "<div class='evo_card_organizer_description marb5 db'>".$description."</div>":'')
-
-								.(!empty($EO->organizer_contact)? 
-								"<span class='evo_card_organizer_contact marb5'>". stripslashes($EO->organizer_contact). "</span>":null)."
-								".(!empty($EO->organizer_address)? 
-								"<span class='evo_card_organizer_address marb5'>". stripslashes($EO->organizer_address). "</span>":null)."
-								</div>";
-
-
-
-							// organizer social share
-								$org_social = '';
-								foreach($EVENT->get_organizer_social_meta_array() as $key=>$val){
-
-									if( empty($EO->$key )) continue;
-
-									if( $key == 'twitter') $key = 'x-'. $key;
-										
-									$org_social .= "<a target='_blank' href='". urldecode( $EO->$key ) . "'><i class='fa fa-{$key}'></i></a>";
-								}
-								if( !empty($org_social)) 
-									$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
-
-							*/
-
-							// learn more button
-								$btn_data = array(
-									'lbvals'=> array(
-										'lbc'=>'evo_organizer_lb',
-										't'=>	$EO->name,
-										'ajax'=>'yes',
-										'ajax_type'=>'endpoint',
-										'ajax_action'=>'eventon_get_tax_card_content',
-										'end'=>'client',
-										'd'=> array(					
-											'eventid'=> $EVENT->ID,
-											'ri'=> $EVENT->ri,
-											'term_id'=> $EO->term_id,
-											'tax'=>'event_organizer',
-											'load_lbcontent'=>true
-										)
-									)
-								);
-								$org_data .= "<p class='evo_card_organizer_more'><a class='evolb_trigger evcal_btn mart10' ".$this->helper->array_to_html_data($btn_data).">". evo_lang('Learn More') . "</a></p>";
-
-							$OT .= apply_filters('evo_organizer_event_card', $org_data, $ED, $EO->term_id);
-
-							$OT .= "</div>";
-
-						}
-								$OT.= "</div>";															
-								$OT .= "</div>
-							</div>";
 						
 					break;
 				
@@ -1250,62 +1154,20 @@ class EVO_Cal_Event_Structure{
 					break;
 						
 			
-				// Related Events @+2.8
+				// Related Events @2.8 u4.5.9 
 					case 'relatedEvents':
 						$events = $EVENT->get_prop('ev_releated');
-						$events = !empty($events)? json_decode($events, true): false;
+						if( !$events ) break;
 
-						if($events && is_array($events)){
-							
-							ob_start();
-							?>
-								<div class='evo_metarow_rel_events evorow evcal_evdata_row'>
-									<span class='evcal_evdata_icons'><i class='fa <?php echo get_eventON_icon('evcal__fai_relev', 'fa-calendar-plus',$evOPT );?>'></i></span>
-									<div class='evcal_evdata_cell'>
-										<h3 class='evo_h3'><?php echo evo_lang('Related Events');?></h3>
-										<div class='evcal_cell_rel_events'>
-										<?php
+						$events = json_decode($events, true);
 
-										$rel_events = array();
-
-										foreach($events as $I=>$N){
-											$id = explode('-', $I);
-											$EE = new EVO_Event($id[0]);
-											$x = isset($id[1])? $id[1]:'0';
-											$time = $EE->get_formatted_smart_time($x);
+						if( !is_array( $events )) break;
 
 
-											$img_bg_url = '';
-											$__a_class = '';
+						ob_start();
+						include_once('views/html-eventcard-related.php');
+						return ob_get_clean();
 
-											// if event image to be visible
-											if( !$EVENT->check_yn('_evo_relevs_hide_img')){
-												$__a_class = 'hasimg';
-												$imgs = $EE->get_image_urls();
-												if($imgs){
-													$img_bg_url = $imgs['full'];
-												}
-											}
-
-											$rel_events[ $I .'.'. $EE->get_start_time() ] =  
-												"<a class='{$__a_class}' style='background-color:#{$EE->get_hex()}; background-image: url({$img_bg_url}) ' href='". $EE->get_permalink($x). "'>
-												<h4 class='evo_h4'>{$N}</h4>
-												<em><i class='fa fa-clock-o'></i> {$time}</em>
-												</a>";
-										}
-
-										//krsort($rel_events);
-										foreach($rel_events as $html){
-											echo $html;
-										}
-										?>
-										</div>
-									</div>
-								</div>
-							<?php
-							$OT.= ob_get_clean();
-
-						}
 					break;
 				
 				// Virtual Event
@@ -1323,58 +1185,11 @@ class EVO_Cal_Event_Structure{
 				// health guidance
 					case 'health':
 
-
 						if( !$EVENT->check_yn('_health')) break;
 
-						$EVENT->localize_edata('_edata');
-
 						ob_start();
-						?>
-						<div class='evo_metarow_health evorow evcal_evdata_row'>
-							<span class='evcal_evdata_icons'><i class='fa <?php echo get_eventON_icon('evcal__fai_health', 'fa-heartbeat',$evOPT );?>'></i></span>
-							<div class='evcal_evdata_cell'>
-								<h3 class='evo_h3'><?php echo evo_lang('Health Guidelines for this Event');?></h3>
-								<div class='evcal_cell'>
-									<div class='evo_card_health_boxes'>
-									<?php
-
-									foreach(apply_filters('evo_healthcaredata_frontend', array(
-										'_health_mask'=> array('svg','mask', evo_lang('Masks Required')),
-										'_health_temp'=> array('i','thermometer-half', evo_lang('Temperature Checked At Entrance')),
-										'_health_pdis'=> array('svg','distance', evo_lang('Physical Distance Maintained')),
-										'_health_san'=> array('i','clinic-medical', evo_lang('Event Area Sanitized')),
-										'_health_out'=> array('i','tree', evo_lang('Outdoor Event')),
-										'_health_vac'=> array('i','syringe', evo_lang('Vaccination Required')),
-									), $EVENT) as $k=>$v){
-
-										if(!$EVENT->echeck_yn( $k )) continue;
-										
-										echo "<div class='evo_health_b_o'><div class='evo_health_b'>";
-									 	if($v[0]=='svg')
-											echo "<svg class='evo_svg_icon' enable-background='new 0 0 20 20' height='20' viewBox='0 0 512 512' width='20' xmlns='http://www.w3.org/2000/svg'>". EVO()->elements->svg->get_icon_path( $v[1]) ."</svg>";
-										if($v[0]=='i') echo "<i class='fa fa-{$v[1]}'></i>";
-										echo "<span>". $v[2] ."</span>
-										</div></div>";
-									}
-
-									?>
-
-									</div>
-
-									<?php if($EVENT->get_eprop('_health_other')):?>
-									<div class='evo_health_b ehb_other'>
-										<span class='evo_health_bo_title'>
-											<i class='fa fa-laptop-medical'></i><span><?php evo_lang_e('Other Health Guidelines');?></span>
-										</span>
-										<span class='evo_health_bo_data'><?php echo $EVENT->get_eprop('_health_other');?></span>
-									</div>
-									<?php endif;?>
-										
-
-								</div>
-							</div>
-						</div>
-						<?php 	$OT.= ob_get_clean();
+						include_once('views/html-eventcard-health.php');
+						return ob_get_clean();
 
 
 					break;
@@ -1414,52 +1229,9 @@ class EVO_Cal_Event_Structure{
 
 				// social share u4.5.7
 					case 'evosocial':
-						$__calendar_type = EVO()->calendar->__calendar_type;
-						$evo_opt = $evOPT;
-
-						$event_id = $EVENT->ID;
-						$repeat_interval = $EVENT->ri;
-						$event_post_meta = get_post_custom($event_id);
-						
-						// check if social media to show or not
-						if( (!empty($evo_opt['evosm_som']) && $evo_opt['evosm_som']=='yes' && $__calendar_type=='single') 
-							|| ( empty($evo_opt['evosm_som']) ) || ( !empty($evo_opt['evosm_som']) && $evo_opt['evosm_som']=='no' ) ){
-							
-							$post_title = get_the_title($event_id);
-							$event_permalink = get_permalink($event_id);
-
-							// Link to event
-								$permalink = $EVENT->get_permalink();
-								$encodeURL = EVO()->cal->check_yn('evosm_diencode','evcal_1') ? $permalink:  urlencode($permalink);
-
-							// thumbnail
-								$img_id = get_post_thumbnail_id($event_id);
-								$img_src = ($img_id)? wp_get_attachment_image_src($img_id,'thumbnail'): false;
-
-							// event details
-								$summary = EVO()->frontend->filter_evo_content(get_post_field('post_content',$event_id));
-							
-							$summary = (!empty($summary)? urlencode(eventon_get_normal_excerpt($summary, 16)): '--');
-							$imgurl = $img_src? urlencode($img_src[0]):'';
-							
-							
-							$output_sm = EVO()->calendar->helper->get_social_share_htmls(array(
-								'post_title'=> $post_title,
-								'summary'=> $summary,
-								'imgurl'=> $imgurl,
-								'permalink'=> $permalink,
-								'encodeURL'=> $encodeURL,
-								'datetime_string'=> $EVENT->get_formatted_smart_time( )
-							));
-
-							if(!empty($output_sm)){
-								$O= "<div class='evo_metarow_socialmedia evcal_evdata_row '>".$output_sm."</div>";
-								return $O;
-							}
-						}
-					
-						EVO()->calendar->__calendar_type ='default';
-
+						ob_start();
+						include_once('views/html-eventcard-social.php');
+						return ob_get_clean();
 					break;
 				
 			}// end switch

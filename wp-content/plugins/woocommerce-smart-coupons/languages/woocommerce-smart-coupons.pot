@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 8.13.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 8.14.0\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-12T12:54:20+05:30\n"
+"POT-Creation-Date: 2024-01-20T01:04:02+05:30\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-smart-coupons\n"
 
@@ -2874,13 +2874,13 @@ msgstr ""
 msgid "of"
 msgstr ""
 
-#: includes/class-wc-sc-purchase-credit.php:1246
+#: includes/class-wc-sc-purchase-credit.php:1249
 #: includes/compat/class-wc-sc-kco-compatibility.php:123
 msgid "Failed to update coupon receiver details in session."
 msgstr ""
 
 #. translators: %s: field name
-#: includes/class-wc-sc-purchase-credit.php:1348
+#: includes/class-wc-sc-purchase-credit.php:1351
 msgid "Coupon delivery date and time is a required field."
 msgstr ""
 

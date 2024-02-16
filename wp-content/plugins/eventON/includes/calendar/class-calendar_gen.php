@@ -157,10 +157,7 @@ class EVO_Cal_Gen{
 	
 
 	// Initial loading values for calendars
-		// returns whether UTC offset times are used globally
-			public function is_utcoff(){
-				return $this->check_yn('evo_utcoff','evcal_1');
-			}
+		
 		// return full or short
 		function get_all_day_names($type = 'full'){
 			$N = array(0=>'sunday','monday','tuesday','wednesday','thursday','friday','saturday');

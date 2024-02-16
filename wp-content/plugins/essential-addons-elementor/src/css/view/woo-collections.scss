@@ -1,0 +1,131 @@
+.eael-woo-collections {
+    position: relative;
+    overflow: hidden;
+    .eael-woo-collection-badge {
+        position: absolute;
+        top: 25px;
+        left: 0;
+        background: #278cff;
+        color: #fff;
+        padding: 5px 15px 5px 10px;
+        line-height: 15px;
+        font-size: 14px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .eael-woo-collections-bg {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .eael-woo-collections-thumbnail {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    // image hover
+    .eael-woo-collections-bg-hover-zoom-in {
+        transition: transform 300ms;
+    }
+
+    .eael-woo-collections-bg-hover-zoom-out {
+        transform: scale(1.1);
+        transition: transform 300ms;
+    }
+
+    .eael-woo-collections-bg-hover-blur {
+        transition: filter 300ms;
+    }
+    // overlay
+    .eael-woo-collections-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        padding: 25px;
+        transition: background-color 300ms;
+
+        &.eael-woo-collections-overlay-center {
+	        justify-content: center;
+	        text-align: center;
+        }
+
+        &.eael-woo-collections-overlay-right {
+	        justify-content: flex-end;
+	        text-align: right;
+        }
+
+        .eael-woo-collections-overlay-inner {
+            align-self: flex-end;
+
+            &.eael-woo-collections-overlay-inner-middle {
+	            align-self: center;
+	        }
+
+	        &.eael-woo-collections-overlay-inner-top {
+	            align-self: flex-start;
+	        }
+
+            span {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1;
+                color: #000;
+                transition: all 300ms;
+            }
+
+            h2 {
+                font-size: 34px;
+                font-weight: 400;
+                line-height: 1.2;
+                color: #000;
+                transition: all 300ms;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    &:hover {
+        .eael-woo-collections-bg-hover-zoom-in {
+            transform: scale(1.1);
+        }
+
+        .eael-woo-collections-bg-hover-zoom-out {
+            transform: scale(1);
+        }
+
+        .eael-woo-collections-bg-hover-blur {
+            filter: blur(2px);
+        }
+    }
+
+    // layout two
+    &.eael-woo-collections-layout-two {
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        > a {
+            display: block;
+            //padding: 20px;
+            color: inherit;
+            overflow: hidden;
+        }
+        .eael-woo-collections-thumbnail {
+            border-radius: 5px;
+        }
+        .eael-woo-collections-content {
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .eael-woo-collections-overlay {
+            padding: 20px;
+        }
+    }
+}
+
+.rtl {
+    .eael-woo-collections .eael-woo-collections-overlay {
+        direction: ltr;
+    }
+}

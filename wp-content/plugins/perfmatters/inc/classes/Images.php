@@ -31,7 +31,8 @@ class Images
 
             //exclude specific images
             $image_exclusions = array(
-                ';base64'
+                ';base64',
+                'w3.org'
             );
             $image_exclusions = apply_filters('perfmatters_image_dimensions_exclusions', $image_exclusions);
 
@@ -82,7 +83,13 @@ class Images
             return array('width' => $matches[1], 'height' => $matches[2]);
         }
 
-        $image_path = str_replace(site_url('/'), ABSPATH, $url);
+        //get image path
+        $parsed_url = parse_url($url);
+        if(empty($parsed_url['path'])) {
+            return false;
+        }
+        
+        $image_path = Utilities::get_root_dir_path() . ltrim($parsed_url['path'], '/');
 
         if(file_exists($image_path)) {
 

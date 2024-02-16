@@ -813,7 +813,8 @@ if ( ! function_exists( 'yit_load_js_file' ) ) {
 	 * @since  2.0.0
 	 */
 	function yit_load_js_file( $filename ) {
-		if ( ! ( ( defined( 'WP_DEBUG' ) && WP_DEBUG ) || ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || isset( $_GET['yith_script_debug'] ) ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( ! ( ( defined( 'WP_DEBUG' ) && WP_DEBUG ) || ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || isset( $_GET['yith_script_debug'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$filename = str_replace( '.js', '.min.js', $filename );
 		}
 

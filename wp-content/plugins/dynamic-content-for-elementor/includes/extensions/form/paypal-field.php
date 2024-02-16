@@ -22,6 +22,14 @@ if (!\defined('ABSPATH')) {
 class PaypalField extends \ElementorPro\Modules\Forms\Fields\Field_Base
 {
     public $has_action = \false;
+    public function run_once()
+    {
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control('form', 'dce_form_paypal_item_name');
+        $save_guard->register_unsafe_control('form', 'dce_form_paypal_item_value');
+        $save_guard->register_unsafe_control('form', 'dce_form_paypal_item_sku');
+        $save_guard->register_unsafe_control('form', 'dce_form_paypal_item_description');
+    }
     public $depended_scripts = ['dce-paypal'];
     public static $validated_orders = [];
     public function __construct()

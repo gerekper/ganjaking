@@ -1,10 +1,11 @@
 /**
  * EventON Settings scripts
- * @version  4.5.5
+ * @version  4.5.9
  */
 jQuery(document).ready(function($){
 
 	init();
+	const BB = $('body');
 
 	function init(){
 		// focusing on correct settings tabs
@@ -38,30 +39,27 @@ jQuery(document).ready(function($){
 			var init = function(){
 				interaction();
 			}
-			var interaction = function(){
-				$('body').on('click','.save_webhook_config',function(){
-					var FORM = $(this).closest('form'),
-					dataajax = {},
-					LB = $('.evo_webhook_settings.ajde_admin_lightbox');
-					
-					FORM.ajaxSubmit({
-						beforeSubmit: function(){	
-							$('body').trigger('evo_show_loading_animation',['evo_webhook_settings','saving']);	
-						},
-						dataType: 	'json',
-						url: 		the_ajax_script.ajaxurl,
-						type: 	'POST',
-						success:function(data){
-							if( data.status == 'good'){
-								$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'evo_webhook_settings','good',true]);
-								$('body').find('#evowhs_container').html( data.html );
-							}else{
-								$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'evo_webhook_settings','bad']);
-							}
-						},
-						complete:function(){
-							$('body').trigger('evo_hide_loading_animation',['evo_webhook_settings']);
-						}
+
+			var populate_wh_fields = function(){
+				LB = BB.find('.evo_lightbox.evo_webhooks_config');
+
+				const whdata = LB.find('.evo_elm_webhooks_data').data('whdata');
+				var selected_key = LB.find('select').val();
+
+				var new_content = 'n/a';
+				if( selected_key in whdata ) new_content = whdata[ selected_key ];
+
+				LB.find('.evo_whdata_fields').html( new_content );
+			}
+			var interaction = function(){				
+
+				BB.on('evo_ajax_success_evo_webhook_config',function(event, OO, data, el){
+					populate_wh_fields();
+
+					LB = BB.find('.evo_lightbox.evo_webhooks_config');
+
+					LB.find('select.wh_trigger_point').on('change',function(){
+						populate_wh_fields();
 					});
 				});
 
@@ -72,9 +70,10 @@ jQuery(document).ready(function($){
 					var dataajax = {};
 					dataajax['id']= $(this).closest('p').data('id');
 					dataajax['action']= 'evo_webhook_delete';
+					const PAR = BB.find('#evowhs_container');
 
 					$.ajax({
-						beforeSend: function(){ },
+						beforeSend: function(){ PAR.addClass('evoloading');},
 						url:	the_ajax_script.ajaxurl,
 						data: 	dataajax,	dataType:'json', type: 	'POST',
 						success:function(data){
@@ -84,8 +83,7 @@ jQuery(document).ready(function($){
 
 							}
 						},
-						complete:function(){ 
-						}
+						complete:function(){ PAR.removeClass('evoloading');	}
 					});
 				});
 
@@ -93,6 +91,8 @@ jQuery(document).ready(function($){
 			init();
 		}
 		$('#ajde_customization').evo_webhooks();
+
+		
 
 // Other
 	// remove extra save changes button @since 4.2

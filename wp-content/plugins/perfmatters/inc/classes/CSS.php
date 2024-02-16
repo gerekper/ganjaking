@@ -130,7 +130,9 @@ class CSS
                 if(!$used_css_exists) {
 
                     //get local stylesheet path
-                    $file = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), ABSPATH, explode('?', $stylesheet[2])[0]);
+                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : home_url()))), '', explode('?', $stylesheet[2])[0]);
+    
+                    $file = Utilities::get_root_dir_path() . ltrim($url, '/');
 
                     //make sure local file exists
                     if(!file_exists($file)) {

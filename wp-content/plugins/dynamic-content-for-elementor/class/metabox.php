@@ -87,10 +87,8 @@ class Metabox
             foreach ($elementor_templates as $template) {
                 if (\array_key_exists($template, $_POST)) {
                     update_post_meta($post_id, $template, sanitize_text_field($_POST[$template]));
-                } else {
-                    if ($template == 'dyncontel_elementor_templates_parent') {
-                        delete_post_meta($post_id, $template);
-                    }
+                } elseif ($template == 'dyncontel_elementor_templates_parent') {
+                    delete_post_meta($post_id, $template);
                 }
             }
         }

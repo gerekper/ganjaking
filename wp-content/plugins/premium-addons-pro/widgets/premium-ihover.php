@@ -45,10 +45,6 @@ class Premium_Ihover extends Widget_Base {
 	 */
 	public function check_icon_draw() {
 
-		if ( version_compare( PREMIUM_ADDONS_VERSION, '4.9.26', '<' ) ) {
-			return false;
-		}
-
 		$is_enabled = Admin_Helper::check_svg_draw( 'premium-ihover' );
 		return $is_enabled;
 	}

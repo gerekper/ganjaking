@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.5
 Tested up to: 6.4
-Stable tag: 7.11.1
+Stable tag: 7.11.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,18 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.11.3 - February 15, 2024 =
+* Fix: Fixed an issue with sites containing invalid Wordfence Central site data where they could throw an error when viewing Wordfence pages
+
+= 7.11.2 - February 14, 2024 =
+* Improvement: Enhanced the vulnerability scan to check and alert for WordPress core vulnerabilities and to adjust the severity of the scan result based on findings or available updates
+* Improvement: Updated the bundled GeoIP database
+* Improvement: Increased compatibility of brute force protection with plugins that override the normal login flow and omit traditional hooks
+* Change: Adjusted the behavior of automatic quick scans to schedule themselves further away from full scans
+* Fix: Added detection for a site being linked to a non-matching Wordfence Central record (e.g., when cloning the database to a staging site)
+* Fix: Streamlined the license and terms of use installation flow to avoid unnecessary prompting
+* Fix: Fixed an issue where user profiles with a selected locale different from the site itself could end up loading the site's locale instead
 
 = 7.11.1 - January 2, 2024 =
 * Improvement: Added ".env" to the files checked for "Scan for publicly accessible configuration, backup, or log files"

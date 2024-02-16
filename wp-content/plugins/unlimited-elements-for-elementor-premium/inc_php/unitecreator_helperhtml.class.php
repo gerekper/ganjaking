@@ -44,6 +44,27 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 
 		/**
+		 * get select options
+		 */
+		public static function getHTMLSelectOptions($arrAssoc){
+			
+			if(empty($arrAssoc))
+				return("");
+				
+			$options = "";
+			foreach($arrAssoc as $value=>$text){
+				
+				$value = esc_attr($value);
+				$text = esc_html($text);
+				
+				$options .= "<option value=\"{$value}\">{$text}</option>\n";
+			}
+			
+			
+			return($options);
+		}
+			
+		/**
 		 *
 		 * get select from array
 		 */
@@ -926,6 +947,23 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static function getCSSSelectorValueByParam($type, $subtype = null){
 
 			switch($type){
+				case UniteCreatorDialogParam::PARAM_BACKGROUND:
+					switch($subtype){
+						case "color":
+							return "background-color:{{VALUE}};";
+						case "gradient":
+							return "background-image:linear-gradient({{COLOR1}},{{COLOR2}});";
+						case "image":
+							return "background-image:url('{{VALUE}}');";
+						case "position":
+							return "background-position:{{VALUE}};";
+						case "repeat":
+							return "background-repeat:{{VALUE}};";
+						case "size":
+							return "background-size:{{VALUE}};";
+						default:
+							UniteFunctionsUC::throwError("Param \"$type\" subtype \"$subtype\" is not implemented.");
+					}
 				case UniteCreatorDialogParam::PARAM_BORDER:
 					switch($subtype){
 						case "width":
@@ -966,6 +1004,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					return "margin-top:{{TOP}};margin-right:{{RIGHT}};margin-bottom:{{BOTTOM}};margin-left:{{LEFT}};";
 				case UniteCreatorDialogParam::PARAM_BORDER_DIMENTIONS:
 					return "border-top-left-radius:{{TOP}};border-top-right-radius:{{RIGHT}};border-bottom-right-radius:{{BOTTOM}};border-bottom-left-radius:{{LEFT}};";
+				case UniteCreatorDialogParam::PARAM_TEXTSHADOW:
+					return "text-shadow:{{X}} {{Y}} {{BLUR}} {{COLOR}};";
+				case UniteCreatorDialogParam::PARAM_BOXSHADOW:
+					return "box-shadow:{{X}} {{Y}} {{BLUR}} {{SPREAD}} {{COLOR}} {{POSITION}};";
+				case UniteCreatorDialogParam::PARAM_CSS_FILTERS:
+					return "filter:brightness({{BRIGHTNESS}}) contrast({{CONTRAST}}) saturate({{SATURATE}}) blur({{BLUR}}) hue-rotate({{HUE}});";
 				default:
 					UniteFunctionsUC::throwError("Param \"$type\" is not implemented.");
 			}

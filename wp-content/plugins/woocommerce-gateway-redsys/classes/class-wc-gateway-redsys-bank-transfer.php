@@ -2,13 +2,15 @@
 /**
  * Redsys Bank Transfer Gateway
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2023 José Conti.
+ * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -25,8 +27,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
 		global $woocommerce, $checkfor254;
@@ -91,8 +93,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
 
@@ -109,8 +111,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -371,7 +373,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miobj->setParameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
 		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
+		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'R' );
 		$version = 'HMAC_SHA256_V1';
@@ -397,7 +399,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->product_description( $order, $this->id ) );
+			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PAYMETHODS: R' );
 		}
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
@@ -510,8 +512,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -563,8 +565,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_response() {
 		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged

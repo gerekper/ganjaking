@@ -2,7 +2,15 @@
 /**
  * Notices
  *
- * @package WooCommerce Redsys Gateway WooCommerce.com
+ * @package WooCommerce Redsys Gateway
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 	$class   = 'error';
@@ -19,7 +27,7 @@ function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_admin_notice_lite_version() {
 	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' ) || is_plugin_active( 'redsys/wc-redsys.php' ) || is_plugin_active( 'redsysoficial/wc-redsys.php' ) || is_plugin_active( 'bizum/class-wc-bizum.php' ) ) {
@@ -29,7 +37,7 @@ function redsys_admin_notice_lite_version() {
 add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_add_notice_intalled_new() {
 
@@ -67,7 +75,7 @@ function redsys_add_notice_intalled_new() {
 					<p class="submit">
 						<a href="<?php echo esc_url( REDSYS_ADD_LICENSE ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Acquire a license.', 'woocommerce-redsys' ); ?></a>
 						<a href="<?php echo esc_url( REDSYS_TICKET ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Open a ticket NOW for help with installation', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo esc_url( admin_url() ); ?>admin.php?page=wc-addons&section=helper" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( admin_url() ); ?>admin.php?page=wc-admin&tab=my-subscriptions&path=%2Fextensions" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' ); ?></a>
 					</p>
 				</div>
 			</div>
@@ -78,7 +86,7 @@ function redsys_add_notice_intalled_new() {
 add_action( 'admin_notices', 'redsys_add_notice_intalled_new' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_add_notice_new_version() {
 
@@ -121,7 +129,7 @@ function redsys_add_notice_new_version() {
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_notice_style() {
 	wp_register_style( 'redsys_notice_css', REDSYS_PLUGIN_URL_P . 'assets/css/redsys-notice.css', false, REDSYS_VERSION );
@@ -130,9 +138,13 @@ function redsys_notice_style() {
 add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function check_redsys_connected() {
+
+	if ( ! REDSYS_CHECK_WOO_CONNECTION ) {
+		return;
+	}
 
 	if ( ! WCRed()->check_product_key() ) {
 		$allowed_html = array(
@@ -142,11 +154,11 @@ function check_redsys_connected() {
 			),
 		);
 		$class        = 'notice notice-error';
-		$link         = admin_url( 'admin.php?page=wc-addons&section=helper' );
+		$link         = admin_url( 'admin.php?page=wc-admin&tab=my-subscriptions&path=%2Fextensions' );
 		$message      = '<a href="' . esc_url( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com and Activate License', 'woocommerce-redsys' ) . '</a>';
 		$message2     = __( 'to get WooCommerce Redsys Gateway updates. This connection & activation will allow you to update the plugin automatically and be advised of new updates. If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
 		printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), wp_kses( $message, $allowed_html ), esc_html( $message2 ) );
 	}
 }
 
-add_action( 'admin_notices', 'check_redsys_connected' );
+// add_action( 'admin_notices', 'check_redsys_connected' );

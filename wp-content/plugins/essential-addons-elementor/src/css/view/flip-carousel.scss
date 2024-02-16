@@ -1,0 +1,92 @@
+.eael-flip-carousel {
+    .flip-custom-nav {
+        display: block;
+    }
+
+    &.flipster--carousel{
+        overflow: hidden;
+    }
+    &.show-active-only{
+        .flip-items{
+            .flipster__item{
+                &.flipster__item--current{
+                    .eael-flip-carousel-content,
+                    .eael-flip-carousel-content-overlay{
+                        display: block;
+                    }
+                }
+            }
+        }
+        &.hover{
+            .flip-items{
+                .flipster__item{
+                    &.flipster__item--current{
+                        .eael-flip-carousel-content,
+                        .eael-flip-carousel-content-overlay{
+                            display: none;
+                        }
+                    }
+                    &.flipster__item--current:hover{
+                        .eael-flip-carousel-content,
+                        .eael-flip-carousel-content-overlay{
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.show-all{
+        .flip-items{
+            .flipster__item{
+                .eael-flip-carousel-content,
+                .eael-flip-carousel-content-overlay{
+                    display: block;
+                }
+            }
+        }
+        &.hover{
+            .flip-items{
+                .flipster__item{
+                    .eael-flip-carousel-content,
+                    .eael-flip-carousel-content-overlay{
+                        display: none;
+                    }
+                }
+                .flipster__item:hover{
+                    .eael-flip-carousel-content,
+                    .eael-flip-carousel-content-overlay{
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .flipster__item__content{
+        position: relative;
+
+        .eael-flip-carousel-content,
+        .eael-flip-carousel-content-overlay{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            padding: 50px;
+            display: none;
+        }
+        .eael-flip-carousel-content{
+            padding: 50px;
+        }
+        .eael-flip-carousel-content-overlay{
+            background: #fff;
+            opacity: .6;
+        }
+    }
+}
+// RTL
+.rtl {
+    .eael-flip-carousel {
+        direction: ltr;
+    }
+}

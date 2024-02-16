@@ -1,0 +1,41 @@
+.eael-counter {
+	display: inline-block;
+}
+
+.eael-counter-icon-wrap, .eael-counter-icon, .eael-counter-icon-divider, .eael-counter-num-divider {
+	display: inline-block;
+}
+
+.eael-counter-icon {
+	line-height: 1;
+}
+
+.eael-counter-layout-3-number-wrap,
+.eael-counter-layout-3 .eael-icon-title-wrap,
+.eael-counter-layout-4-number-wrap,
+.eael-counter-layout-4 .eael-icon-title-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.eael-counter-layout-5, .eael-counter-layout-6 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.eael-counter-layout-6 .eael-counter-icon-wrap {
+	order: 2;
+}
+
+.eael-counter .eael-icon-title-wrap .eael-counter-title {
+	display: inline-block;
+}
+
+.rtl {
+	.eael-counter .odometer-inside {
+		display: flex;
+		direction: ltr;
+	}
+}

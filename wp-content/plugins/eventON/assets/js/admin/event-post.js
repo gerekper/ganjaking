@@ -614,10 +614,10 @@ jQuery(document).ready(function($){
 				$('body').find('.evo_date_time_elem.evo_end').animate({'opacity':'1'});
 			}
 		})
-	// All day or not
+	// All day or not u4.5.9
 		.on('click','span._time_ext_type span', function(){
-			
-			if( $(this).attr('value') == 'dl' ){
+			const v = $(this).attr('value');
+			if( v == 'dl' || v == 'ml' || v == 'yl' ){
 				$('.evo_datetimes .evo_time_edit').animate({'opacity':'0.5'});
 			}else{
 				$('.evo_datetimes .evo_time_edit').show().animate({'opacity':'1'});

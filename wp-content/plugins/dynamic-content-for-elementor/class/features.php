@@ -106,7 +106,7 @@ class Features {
 	 * @return string
 	 */
 	public function get_feature_title( string $feature_id ) {
-		return $this->all_features[ $feature_id ][ 'title' ];
+		return $this->all_features[ $feature_id ]['title'];
 	}
 
 	public function get_feature_info_by_array( array $features, string $key ) {
@@ -172,9 +172,9 @@ class Features {
 		});
 		// bundled features should have the same status as the main features
 		// they are bundled with:
-		foreach( $this->bundled_features as $key => $data) {
+		foreach ( $this->bundled_features as $key => $data ) {
 			$status = $this->all_features[ $data['activated_by'] ]['status'];
-			$this->bundled_features[$key]['status'] = $status;
+			$this->bundled_features[ $key ]['status'] = $status;
 		}
 	}
 

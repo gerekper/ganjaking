@@ -3,7 +3,7 @@
  * EVO_Shortcodes class.
  *
  * @class 		EVO_Shortcodes
- * @version		4.1
+ * @version		4.5.9
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE

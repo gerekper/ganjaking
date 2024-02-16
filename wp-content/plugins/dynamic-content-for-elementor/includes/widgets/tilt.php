@@ -49,7 +49,8 @@ class Tilt extends \DynamicContentForElementor\Widgets\WidgetPrototype
         echo '<div class="dce_tilt">';
         echo '<div class="js-tilt">';
         if ($template != '') {
-            echo '<div class="template-inner">' . do_shortcode('[dce-elementor-template id="' . $template . '"]') . '</div>';
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo '<div class="template-inner">' . $template_system->build_elementor_template_special(['id' => $template]) . '</div>';
         } else {
             echo '<div class="tilt-inner"></div>';
         }

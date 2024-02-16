@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin
- * @version     4.0.6
+ * @version     4.5.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -157,6 +157,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				}				
 			}
 		
+		// extend type
+			$date_POST_values['extend_type'] = isset( $post_data['_time_ext_type'] ) ? $post_data['_time_ext_type'] : 'n';
+
 		// convert the post times into proper unix time stamps
 			$date_format = !empty($post_data['_evo_date_format']) ? $post_data['_evo_date_format']: get_option('date_format');
 			$time_format = !empty($post_data['_evo_time_format']) ? $post_data['_evo_time_format']: get_option('time_format');

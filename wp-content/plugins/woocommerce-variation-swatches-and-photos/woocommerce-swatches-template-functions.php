@@ -1,7 +1,7 @@
 <?php
 
-//Override the WooCommerce wc_dropdown_variation_attribute_options function. 
-//To do this this file MUST be loaded before WooCommerce core. 
+//Override the WooCommerce wc_dropdown_variation_attribute_options function.
+//To do this this file MUST be loaded before WooCommerce core.
 function wc_dropdown_variation_attribute_options( $args = array() ) {
 	if ( is_admin() && ! wp_doing_ajax() ) {
 		wc_core_dropdown_variation_attribute_options( $args );
@@ -108,21 +108,27 @@ function wc_swatches_variation_attribute_options( $args = array() ) {
  *
  */
 function wc_core_dropdown_variation_attribute_options( $args = array() ) {
-	$args = wp_parse_args( apply_filters( 'woocommerce_dropdown_variation_attribute_options_args', $args ), array(
-		'options'          => false,
-		'attribute'        => false,
-		'product'          => false,
-		'selected'         => false,
-		'name'             => '',
-		'id'               => '',
-		'class'            => '',
-		'show_option_none' => __( 'Choose an option', 'woocommerce' ),
-	) );
+	$args = wp_parse_args(
+		apply_filters( 'woocommerce_dropdown_variation_attribute_options_args', $args ),
+		array(
+			'options'          => false,
+			'attribute'        => false,
+			'product'          => false,
+			'selected'         => false,
+			'required'         => false,
+			'name'             => '',
+			'id'               => '',
+			'class'            => '',
+			'show_option_none' => __( 'Choose an option', 'woocommerce' ),
+		)
+	);
 
 	// Get selected value.
 	if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
-		$selected_key     = 'attribute_' . sanitize_title( $args['attribute'] );
-		$args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( urldecode( wp_unslash( $_REQUEST[ $selected_key ] ) ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	$options               = $args['options'];
@@ -131,6 +137,7 @@ function wc_core_dropdown_variation_attribute_options( $args = array() ) {
 	$name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
 	$id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
 	$class                 = $args['class'];
+	$required              = (bool) $args['required'];
 	$show_option_none      = (bool) $args['show_option_none'];
 	$show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
 
@@ -139,34 +146,40 @@ function wc_core_dropdown_variation_attribute_options( $args = array() ) {
 		$options    = $attributes[ $attribute ];
 	}
 
-	$html = '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
+	$html = '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '"' . ( $required ? ' required' : '' ) . '>';
 	$html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
 
 	if ( ! empty( $options ) ) {
 		if ( $product && taxonomy_exists( $attribute ) ) {
 			// Get terms if this is a taxonomy - ordered. We need the names too.
-			$terms = wc_get_product_terms( $product->get_id(), $attribute, array(
-				'fields' => 'all',
-			) );
+			$terms = wc_get_product_terms(
+				$product->get_id(),
+				$attribute,
+				array(
+					'fields' => 'all',
+				)
+			);
 
 			foreach ( $terms as $term ) {
 				if ( in_array( $term->slug, $options, true ) ) {
-					$html .= '<option value="' . esc_attr( $term->slug ) . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name ) ) . '</option>';
+					$html .= '<option value="' . esc_attr( $term->slug ) . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name, $term, $attribute, $product ) ) . '</option>';
 				}
 			}
 		} else {
 			foreach ( $options as $option ) {
 				// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
 				$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
-				$html     .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) ) . '</option>';
+				$html     .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
 			}
 		}
 	}
 
 	$html .= '</select>';
 
-	echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args ); // WPCS: XSS ok.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
 }
+
 
 function wc_radio_variation_attribute_options( $args = array() ) {
 	$args = wp_parse_args( apply_filters( 'woocommerce_radio_variation_attribute_options_args', $args ), array(

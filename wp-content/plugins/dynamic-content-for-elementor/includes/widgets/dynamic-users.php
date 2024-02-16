@@ -441,11 +441,6 @@ class DynamicUsers extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         echo '</div>';
                     }
                 } else {
-                    if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                        $inlinecss = 'inlinecss="true"';
-                    } else {
-                        $inlinecss = '';
-                    }
                     global $wp_query;
                     $original_queried_object = $wp_query->queried_object;
                     $original_queried_object_id = $wp_query->queried_object_id;
@@ -459,7 +454,8 @@ class DynamicUsers extends \DynamicContentForElementor\Widgets\WidgetPrototype
                         $wp_query->queried_object = $authordata;
                         $wp_query->queried_object_id = $authordata->ID;
                     }
-                    echo do_shortcode('[dce-elementor-template id="' . $settings['users_render_template'] . '" ' . $inlinecss . ']');
+                    $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                    echo $template_system->build_elementor_template_special(['id' => $settings['users_render_template'], 'inlinecss' => \Elementor\Plugin::$instance->editor->is_edit_mode()]);
                     $authordata = $original_author;
                     $current_user = $original_user;
                     $wp_query->queried_object = $original_queried_object;

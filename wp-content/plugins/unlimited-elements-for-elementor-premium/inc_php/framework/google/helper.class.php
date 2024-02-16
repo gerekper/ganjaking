@@ -3,7 +3,7 @@
 class UEGoogleAPIHelper{
 
 	const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-	
+
 	const SCOPE_CALENDAR_EVENTS = "https://www.googleapis.com/auth/calendar.events.readonly";
 	const SCOPE_SHEETS_ALL = "https://www.googleapis.com/auth/spreadsheets";
 	const SCOPE_USER_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
@@ -108,7 +108,7 @@ class UEGoogleAPIHelper{
 		);
 
 		$url = GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL . "?" . http_build_query($params);
-		
+
 		return $url;
 	}
 
@@ -310,37 +310,18 @@ class UEGoogleAPIHelper{
 		if(empty($refreshToken) === true)
 			UniteFunctionsUC::throwError("Refresh token is missing.");
 
-		$params = array("refresh_token" => $refreshToken);
-		$url = GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL . "?" . http_build_query($params);
-		
-		$curl = curl_init();
-		
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		$request = UEHttp::make();
+		$request->acceptJson();
 
-		$response = curl_exec($curl);
-		$response = json_decode($response, true);
+		$response = $request->get(GlobalsUnlimitedElements::GOOGLE_CONNECTION_URL, array("refresh_token" => $refreshToken));
+		$data = $response->json();
 
-		$error = curl_error($curl);
-		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		if(isset($data["error"]) === true)
+			UniteFunctionsUC::throwError("Unable to refresh the access token: {$data["error"]}");
 
-		curl_close($curl);
-
-		if($error)
-			UniteFunctionsUC::throwError("Unable to execute the request: $error");
-
-		if($response === null)
-			UniteFunctionsUC::throwError("Unable to parse the response (status code $code).");
-
-		if(empty($response["error"]) === false)
-			UniteFunctionsUC::throwError("Unable to refresh the access token: {$response["error"]}");
-
-		$accessToken = UniteFunctionsUC::getVal($response, "access_token");
-		$expiresAt = UniteFunctionsUC::getVal($response, "expires_at", 0);
-		$scopes = UniteFunctionsUC::getVal($response, "scopes", array());
+		$accessToken = UniteFunctionsUC::getVal($data, "access_token");
+		$expiresAt = UniteFunctionsUC::getVal($data, "expires_at", 0);
+		$scopes = UniteFunctionsUC::getVal($data, "scopes", array());
 
 		UniteFunctionsUC::validateNotEmpty($accessToken, "access_token");
 		UniteFunctionsUC::validateNotEmpty($expiresAt, "expires_at");

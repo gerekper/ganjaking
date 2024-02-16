@@ -64,7 +64,7 @@ class Counter extends \ElementorPro\Modules\Forms\Fields\Field_Base
         if ($settings['dce_counter_use_other'] === 'yes') {
             $ref = \explode(':', $settings['dce_counter_other_ref']);
             if (\count($ref) != 2) {
-                return [null, "Invalid reference"];
+                return [null, 'Invalid reference'];
             }
             $meta = 'dce_counter_' . $ref[0];
             $post_id = $ref[1];

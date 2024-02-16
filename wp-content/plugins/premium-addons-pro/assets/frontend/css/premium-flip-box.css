@@ -31,6 +31,8 @@
   .premium-flip-main-box .premium-flip-front-icon,
   .premium-flip-main-box .premium-flip-back-icon {
     font-size: 40px; }
+  .premium-flip-main-box .premium-button-line6::after {
+    padding: 0.3em 1.2em; }
 
 /*Front and Back Sides Style*/
 .premium-flip-style-flip .premium-flip-main-box > div {

@@ -1,5 +1,23 @@
 *** WooCommerce Product Search ***
 
+2024.01.31 - version 5.2.0
+* Update - WordPress 6.4 compatible.
+* Update - WooCommerce 8.5 compatible.
+* Update - Requires at least WooCommerce 8.2.
+* Update - Requires at least PHP 7.4.
+* Add - Added compatibility plugin header fields.
+* Fix - Fixed instances of wrong spelling of WPML.
+* Update - Updated the translation template.
+* Update - Updated the included translations.
+* Fix - Limit set on Product Search Field without effect on results included.
+* Dev - Added a cap of 100 on the requestable results for the Product Search Field which can be overridden via the product_search_limit filter.
+* Dev - Revised the WPML compatibility to determine extended cache context.
+* Add - Added the woocommerce_product_search_engine_cache_context filter.
+* Add - Added the woocommerce_product_search_engine_stage_cache_context filter.
+* Add - Added the woocommerce_product_search_filter_product_loop_cache_context filter.
+* Add - Added the woocommerce_product_search_term_control_get_term_counts_cache_context filter.
+* Update - Added the .wc-block-components-notice-banner.is-info selector in addition to the previous .woocommerce-info selector when updating filtered products.
+
 2023.12.18 - version 5.1.1
 * Dev - Revised coherency tests in the query control on incoming request values to prevent odd values from causing errors.
 * Dev - Made our query control less restrictive for backend taxonomy term requests like wp-admin/edit.php?pa_example=foo&post_type=product where we would previously filter out variable products with no variations related to a requested term.

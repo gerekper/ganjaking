@@ -21,7 +21,7 @@ class Module extends Module_Base {
 		parent::__construct();
 
 		// TODO: Should we move this to the `is_active` method?
-		if ( ! API::is_licence_has_feature( static::LICENSE_FEATURE_NAME ) ) {
+		if ( API::is_licence_has_feature( static::LICENSE_FEATURE_NAME ) ) {
 			return;
 		}
 

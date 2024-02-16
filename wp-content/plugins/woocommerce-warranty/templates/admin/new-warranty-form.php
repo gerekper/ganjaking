@@ -41,7 +41,7 @@ if ( empty( $this_order ) || ! $this_order instanceof WC_Order ) {
 			<label>
 				<?php
 				echo esc_html( $item->get_name() );
-				echo $variation ? '<div class="item-variations">' . $variation . '</div>' : ''; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+				echo $variation ? '<div class="item-variations">' . $variation . '</div>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				?>
 			</label>
 			<select name="warranty_qty[<?php echo esc_attr( $idx ); ?>]" class="wfb-field">

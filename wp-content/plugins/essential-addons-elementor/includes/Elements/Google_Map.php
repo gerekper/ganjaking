@@ -1240,7 +1240,7 @@ class Google_Map extends Widget_Base
 	{
 
 		if ($settings['eael_google_map_theme_source'] == 'custom') {
-			return strip_tags($settings['eael_google_map_custom_style']);
+			return wp_strip_all_tags($settings['eael_google_map_custom_style']);
 		} else {
 			$themes = include('advance-gmap-themes.php');
 			if (isset($themes[$settings['eael_google_map_theme_source']][$settings['eael_google_map_gstandards']])) {
@@ -1269,12 +1269,12 @@ class Google_Map extends Widget_Base
 			'data-map_basic_marker_icon_height'	=> esc_attr($new_settings['eael_google_map_basic_marker_icon_height']['size']),
 			'data-map_zoom'				=> esc_attr($settings['eael_google_map_zoom']),
 			'data-map_marker_content'	=> isset($settings['eael_google_map_marker_content']) ? esc_attr($settings['eael_google_map_marker_content']) : '',
-			'data-map_markers'				=> urlencode(json_encode($new_settings['eael_google_map_markers'])),
+			'data-map_markers'				=> urlencode(wp_json_encode($new_settings['eael_google_map_markers'])),
 			'data-map_static_width'			=> esc_attr($new_settings['eael_google_map_static_width']['size']),
 			'data-map_static_height'		=> esc_attr($new_settings['eael_google_map_static_height']['size']),
 			'data-map_static_lat'			=> esc_attr($settings['eael_google_map_static_lat']),
 			'data-map_static_lng'			=> esc_attr($settings['eael_google_map_static_lng']),
-			'data-map_polylines'			=> urlencode(json_encode($settings['eael_google_map_polylines'])),
+			'data-map_polylines'			=> urlencode(wp_json_encode($settings['eael_google_map_polylines'])),
 			'data-map_stroke_color'			=> esc_attr($new_settings['eael_google_map_stroke_color']),
 			'data-map_stroke_opacity'		=> esc_attr($new_settings['eael_google_map_stroke_opacity']['size']),
 			'data-map_stroke_weight'		=> esc_attr($new_settings['eael_google_map_stroke_weight']['size']),
@@ -1288,7 +1288,7 @@ class Google_Map extends Widget_Base
 			'data-map_routes_travel_mode'	=> esc_attr($settings['eael_google_map_routes_travel_mode']),
 			'data-map_panorama_lat'			=> esc_attr($settings['eael_google_map_panorama_lat']),
 			'data-map_panorama_lng'			=> esc_attr($settings['eael_google_map_panorama_lng']),
-			'data-map_theme'				=> urlencode(json_encode($this->get_map_theme($settings))),
+			'data-map_theme'				=> urlencode(wp_json_encode($this->get_map_theme($settings))),
 			'data-map_streeview_control'	=> ($settings['eael_map_streeview_control'] ? 'true' : 'false'),
 			'data-map_type_control'			=> ($settings['eael_map_type_control'] ? 'true' : 'false'),
 			'data-map_zoom_control'			=> ($settings['eael_map_zoom_control'] ? 'true' : 'false'),
@@ -1297,19 +1297,15 @@ class Google_Map extends Widget_Base
 		];
 	}
 
-	protected function get_map_render_data_attribute_string($settings)
+	protected function print_map_render_data_attribute_string($settings)
 	{
-
 		$data_attributes = $this->map_render_data_attributes($settings);
-		$data_string = '';
 
 		foreach ($data_attributes as $key => $value) {
 			if (isset($key) && !empty($value)) {
-				$data_string .= ' ' . $key . '="' . $value . '"';
+				echo ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 			}
 		}
-
-		return $data_string;
 	}
 
 	protected function get_polyline_center_point( $obj ) {
@@ -1354,7 +1350,10 @@ class Google_Map extends Widget_Base
 ?>
 
 		<?php if (!empty($settings['eael_google_map_type'])) : ?>
-			<div <?php echo $this->get_render_attribute_string('eael_google_map_wrap'), $this->get_map_render_data_attribute_string($settings); ?>></div>
+			<div <?php 
+				$this->print_render_attribute_string('eael_google_map_wrap'); 
+				$this->print_map_render_data_attribute_string($settings); // Already Escaped
+				?>></div>
 		<?php endif; ?>
 		<div class="google-map-notice"></div>
 <?php

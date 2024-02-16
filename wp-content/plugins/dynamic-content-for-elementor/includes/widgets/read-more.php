@@ -18,6 +18,12 @@ if (!\defined('ABSPATH')) {
 }
 class ReadMore extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+    }
     public function get_style_depends()
     {
         return ['dce-readmore'];

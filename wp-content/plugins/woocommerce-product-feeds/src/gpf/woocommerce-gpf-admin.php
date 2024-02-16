@@ -690,14 +690,14 @@ class WoocommerceGpfAdmin {
 						$loop_idx
 					);
 				} elseif ( isset( $current_data[ $key ] ) ) {
-						$variables['field_input'] = call_user_func(
-							array( $this, $fieldinfo['callback'] ),
-							$key,
-							'variation',
-							$current_data[ $key ],
-							$placeholder,
-							$loop_idx
-						);
+					$variables['field_input'] = call_user_func(
+						array( $this, $fieldinfo['callback'] ),
+						$key,
+						'variation',
+						$current_data[ $key ],
+						$placeholder,
+						$loop_idx
+					);
 				} else {
 					$variables['field_input'] = call_user_func(
 						array( $this, $fieldinfo['callback'] ),
@@ -872,7 +872,7 @@ class WoocommerceGpfAdmin {
 					unset( $current_data[ $key ] );
 				}
 			} elseif ( is_array( $value ) ) {
-					$post_data[ $key ] = stripslashes_deep( $value );
+				$post_data[ $key ] = stripslashes_deep( $value );
 			} else {
 				$post_data[ $key ] = stripslashes( $value );
 			}
@@ -954,6 +954,7 @@ class WoocommerceGpfAdmin {
 		} else {
 			$variables['emptytext'] = __( 'No default', 'woocommerce_gpf' );
 		}
+
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return $variables;
@@ -1224,7 +1225,7 @@ class WoocommerceGpfAdmin {
 	}
 
 	/**
-	 * Used to render the fields for instalments.
+	 * Used to render the fields for 'certification'.
 	 *
 	 * @access private
 	 *
@@ -1232,6 +1233,31 @@ class WoocommerceGpfAdmin {
 	 * @param string $current_data The current value of this key
 	 *
 	 * @return string
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 */
+	private function render_certification( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
+		$variables                                    = $this->default_field_variables( $key, $loop_idx );
+		$variables['certification_code']              = $current_data[0]['certification_code'] ?? '';
+		$variables['certification_authority_options'] = [ 'EC' => __( 'European commission (EC)', 'woocommerce_gpf' ) ];
+		$variables['certification_name_options']      = [ 'EPREL' => __( 'European Registry for Energy Labeling (EPREL)', 'woocommerce_gpf' ) ];
+
+		return $this->template_loader->get_template_with_variables(
+			'woo-gpf',
+			'field-row-default-certification',
+			$variables
+		);
+	}
+
+	/**
+	 * Used to render the fields for 'installment'.
+	 *
+	 * @param string $key The key being processed
+	 * @param string $current_data The current value of this key
+	 *
+	 * @return string
+	 * @throws Exception
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)

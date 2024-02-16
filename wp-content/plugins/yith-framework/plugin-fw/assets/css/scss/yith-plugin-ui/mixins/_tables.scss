@@ -91,6 +91,7 @@
             display: none;
         }
     }
+
     @include table-action-buttons;
 }
 
@@ -183,5 +184,38 @@
 
     tbody tr:hover {
         background: var(--yith-table-row-highlight);
+    }
+}
+
+@mixin wp-list-table-views {
+    .subsubsub {
+        border-bottom: 1px solid var(--yith-table-border-light);
+        margin: 25px 0;
+        display: flex;
+
+        li {
+            color: transparent;
+            margin-right: 10px;
+            display: flex;
+
+            a {
+                text-transform: capitalize;
+                color: var(--yith-content-text);
+                font-size: 14px;
+                padding: 7px 5px;
+                line-height: 1em;
+                font-weight: 600;
+
+                &.current {
+                    border-bottom: 2px solid var(--yith-primary);
+                    color: var(--yith-primary);
+                }
+
+                .count {
+                    font-size: 0.9em;
+                    margin-left: 2px;
+                }
+            }
+        }
     }
 }

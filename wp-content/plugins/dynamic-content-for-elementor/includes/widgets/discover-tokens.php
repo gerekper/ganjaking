@@ -61,10 +61,10 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         }
         // Check if tokens are active
         if (get_option('dce_tokens_status') === 'disable') {
-            Helper::notice('', __('Tokens are not active. You can activate it from WP Dashboard > Dynamic Content for Elementor > Settings > Tokens', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Tokens are not active. You can activate it from WP Dashboard > Dynamic Content for Elementor > Settings > Tokens', 'dynamic-content-for-elementor'));
             return;
         }
-        Helper::notice('', __('This widget is only visible to administrators in order to better understand the tokens syntax, so you can put it on any public page without problem.', 'dynamic-content-for-elementor'));
+        Helper::notice(\false, __('This widget is only visible to administrators in order to better understand the tokens syntax, so you can put it on any public page without problem.', 'dynamic-content-for-elementor'));
         $type = sanitize_text_field($settings['type']);
         $this->show_list($type);
     }
@@ -263,7 +263,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
     {
         $fields_with_prefix = [];
         foreach ($fields as $key => $value) {
-            if (\str_contains($prefix, '|')) {
+            if (\strpos($prefix, '|') !== \false) {
                 $fields_with_prefix[$prefix . $key] = '';
             } else {
                 $fields_with_prefix[$prefix . ':' . $key] = '';
@@ -301,7 +301,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if (!empty($plugin_depends) && !Helper::check_plugin_dependencies(\false, $plugin_depends)) {
             $plugins = Helper::to_string(Helper::check_plugin_dependencies(\true, $plugin_depends));
             $message = \sprintf(__('You need %1$s plugin to use this token', 'dynamic-content-for-elementor'), $plugins);
-            Helper::notice('', $message);
+            Helper::notice(\false, $message);
             return \false;
         }
         return \true;
@@ -320,7 +320,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $sanitize_all = $this->get_demo_value($type, 'sanitize_all');
         if (!empty($sanitizations)) {
             foreach ($sanitizations as $sanitization_field => $sanitization_function) {
-                if (\str_starts_with($field, $sanitization_field) && !empty($sanitization_function)) {
+                if (\strncmp($field, $sanitization_field, \strlen($sanitization_field)) === 0 && !empty($sanitization_function)) {
                     return $this->add_sanitization($token, $sanitization_function);
                 }
             }
@@ -331,7 +331,7 @@ class DiscoverTokens extends \DynamicContentForElementor\Widgets\WidgetPrototype
         if (!empty($sanitize_all['exclude_filters'])) {
             // Don't sanitize some filters
             foreach ($sanitize_all['exclude_filters'] as $key => $filter) {
-                if (\str_contains($token, '|' . $filter)) {
+                if (\strpos($token, '|' . $filter) !== \false) {
                     return $token;
                 }
             }

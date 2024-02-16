@@ -265,8 +265,8 @@ class WC_Bookings_Admin {
 		}
 
 		// Limit hourly duration up to 24.
-		$default_date_availability = filter_input( INPUT_POST, '_wc_booking_default_date_availability', FILTER_SANITIZE_STRING );
-		$duration_unit             = filter_input( INPUT_POST, '_wc_booking_duration_unit', FILTER_SANITIZE_STRING );
+		$default_date_availability = filter_input( INPUT_POST, '_wc_booking_default_date_availability', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$duration_unit             = filter_input( INPUT_POST, '_wc_booking_duration_unit', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		$duration                  = filter_input( INPUT_POST, '_wc_booking_duration', FILTER_SANITIZE_NUMBER_INT );
 		$duration                  = 'hour' === $duration_unit && 24 < $duration && 'non-available' === $default_date_availability ? 24 : $duration;
 

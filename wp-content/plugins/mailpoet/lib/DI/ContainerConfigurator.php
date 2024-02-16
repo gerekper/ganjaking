@@ -342,6 +342,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\EmailEditor\Engine\SettingsController::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Preprocessors\BlocksWidthPreprocessor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Preprocessors\CleanupPreprocessor::class)->setPublic(true);
+    $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Preprocessors\SpacingPreprocessor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Preprocessors\TopLevelPreprocessor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Preprocessors\TypographyPreprocessor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Renderer::class)->setPublic(true);
@@ -545,6 +546,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Newsletter\ApiDataSanitizer::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\AutomatedLatestContent::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\NewsletterSaveController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Newsletter\NewsletterDeleteController::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\NewsletterPostsRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\NewslettersRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\AutomaticEmailsRepository::class)->setPublic(true);

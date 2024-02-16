@@ -726,7 +726,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 							break;
 					}
 
-					if ( $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_display_order_tracking', 'no' ) ) ) {
+					if ( $this->ns_fba->utils->isset_on( $this->ns_fba->get_option( 'ns_fba_display_order_tracking', 'no' ) ) ) {
 						$this->get_fulfillment_order_shipping_info( $order_id );
 					}
 

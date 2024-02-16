@@ -67,7 +67,7 @@ class DynamicGoogleMapsDirections extends \DynamicContentForElementor\Widgets\Wi
         $this->add_control('destination_longitude', ['label' => __('Longitude', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => '9.1797373', 'condition' => ['map_data_type' => 'latlng']]);
         $this->end_controls_section();
         $this->start_controls_section('section_map_name', ['label' => __('Map Name', 'dynamic-content-for-elementor')]);
-        $this->add_control('map_name', ['label' => __('Map Name', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => "", 'description' => __('Enter a name without spaces and lower case to identify the map when used with Dynamic Tags', 'dynamic-content-for-elementor'), 'label_block' => 'true', 'frontend_available' => \true]);
+        $this->add_control('map_name', ['label' => __('Map Name', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::TEXT, 'default' => '', 'description' => __('Enter a name without spaces and lower case to identify the map when used with Dynamic Tags', 'dynamic-content-for-elementor'), 'label_block' => 'true', 'frontend_available' => \true]);
         $this->end_controls_section();
         $this->start_controls_section('section_controlling', ['label' => __('Controlling', 'dynamic-content-for-elementor')]);
         $this->add_control('geolocation', ['label' => __('Geolocation', 'dynamic-content-for-elementor'), 'description' => __('Display the geographic location of the user on the map, using browser\'s HTML5 Geolocation', 'dynamic-content-for-elementor'), 'type' => Controls_Manager::SWITCHER, 'frontend_available' => \true]);
@@ -161,7 +161,7 @@ class DynamicGoogleMapsDirections extends \DynamicContentForElementor\Widgets\Wi
 		<div <?php 
         echo $this->get_render_attribute_string('map');
         ?>></div>
-	<?php 
+		<?php 
     }
     /**
      * Get Positions

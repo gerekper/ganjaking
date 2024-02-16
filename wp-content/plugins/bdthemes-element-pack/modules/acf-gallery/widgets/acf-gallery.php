@@ -81,11 +81,11 @@ class Acf_Gallery extends Module_Base {
 		$this->add_control(
             'field',
             [
-                'label' => __('field', 'bdthemes-element-pack'),
+                'label' => __('Gallery Field', 'bdthemes-element-pack'),
                 'dynamic' => ['active' => false],
                 'type'    => Dynamic_Select::TYPE,
                 'label_block' => true,
-                'placeholder' => __('Type and select the field...', 'bdthemes-element-pack'),
+                'placeholder' => __('Type and select the gallery field...', 'bdthemes-element-pack'),
                 'query_args'  => [
                     'query'        => 'acf',
                 ],
@@ -336,7 +336,7 @@ class Acf_Gallery extends Module_Base {
 		$this->add_control(
 			'link_type',
 			[
-				'label'   => esc_html__('Link Type', 'bdthemes-element-pack') . BDTEP_NC,
+				'label'   => esc_html__('Link Type', 'bdthemes-element-pack'),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'icon',
 				'options' => [
@@ -941,7 +941,7 @@ class Acf_Gallery extends Module_Base {
 		$this->add_control(
 			'overlay_blur_effect',
 			[
-				'label' => esc_html__('Glassmorphism', 'bdthemes-element-pack') . BDTEP_NC,
+				'label' => esc_html__('Glassmorphism', 'bdthemes-element-pack'),
 				'type'  => Controls_Manager::SWITCHER,
 				'description' => sprintf(__('This feature will not work in the Firefox browser untill you enable browser compatibility so please %1s look here %2s', 'bdthemes-element-pack'), '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility" target="_blank">', '</a>'),
 
@@ -1962,13 +1962,13 @@ class Acf_Gallery extends Module_Base {
 			$id       = $this->get_id();
 
 			// ACF - Gallery fields.
-			$images = get_field( $settings['field'] );
-			if (empty($images)) {
+			$gallery_field = get_field( $settings['field'] );
+			if (empty($gallery_field)) {
 				return;
 			}
 
 			$this->render_header();
-			$this->render_gallery_image($settings, $images);
+			$this->render_gallery_image($settings, $gallery_field);
 			$this->render_footer();
 		}
 

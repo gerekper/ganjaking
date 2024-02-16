@@ -150,7 +150,7 @@ class Engine_Stage_Words extends Engine_Stage {
 		$search_terms = explode( ' ', $search_query );
 		$search_terms = array_unique( $search_terms );
 
-		$cache_context = $this->get_parameters();
+		$cache_context = $this->get_cache_context();
 
 		unset( $cache_context['q'] );
 		$cache_context['search_query'] = $search_query;
@@ -277,7 +277,7 @@ class Engine_Stage_Words extends Engine_Stage {
 			foreach ( $atoms as $atom ) {
 				$results = null;
 				if ( $this->atomic_caching ) {
-					$atomic_cache_context = $this->get_parameters();
+					$atomic_cache_context = $this->get_cache_context();
 
 					unset( $atomic_cache_context['q'] );
 					$atomic_cache_context['atom'] = $atom['atom'];

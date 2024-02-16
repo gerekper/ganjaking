@@ -732,7 +732,7 @@
 	}
 	.event_type_id span.evoterm_icon{margin-left: 10px;margin-top: 2px;}
 	.evo_metafield_image .image_src{display: block;}
-	.evo_metafield_image .image_src img{margin-top:10px;width: 100%; height: auto;border-radius: 12px;}
+	.evo_metafield_image .image_src img{margin-top:10px;width: 100%; height: auto;border-radius: 20px;}
 
 	/* location */
 		.evotax_location_image img{width: 50px; height: 50px; border-radius: 50%; overflow: hidden;}

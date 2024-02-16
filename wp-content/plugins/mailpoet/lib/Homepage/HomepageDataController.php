@@ -13,10 +13,12 @@ use MailPoet\Automation\Integrations\MailPoet\Triggers\UserRegistrationTrigger;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Form\FormsRepository;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Services\AuthorizedSenderDomainController;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
+use MailPoet\Util\Notices\SenderDomainAuthenticationNotices;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 
 class HomepageDataController {
@@ -43,6 +45,12 @@ class HomepageDataController {
   /** @var SubscribersCountsController */
   private $subscribersCountsController;
 
+  /** @var AuthorizedSenderDomainController */
+  private $senderDomainController;
+
+  /** @var SenderDomainAuthenticationNotices */
+  private $senderDomainAuthenticationNotices;
+
   public function __construct(
     SettingsController $settingsController,
     FormsRepository $formsRepository,
@@ -50,6 +58,8 @@ class HomepageDataController {
     AutomationStorage $automationStorage,
     SubscribersFeature $subscribersFeature,
     SubscribersCountsController $subscribersCountsController,
+    AuthorizedSenderDomainController $senderDomainController,
+    SenderDomainAuthenticationNotices $senderDomainAuthenticationNotices,
     WooCommerceHelper $wooCommerceHelper
   ) {
     $this->settingsController = $settingsController;
@@ -59,6 +69,8 @@ class HomepageDataController {
     $this->wooCommerceHelper = $wooCommerceHelper;
     $this->subscribersFeature = $subscribersFeature;
     $this->subscribersCountsController = $subscribersCountsController;
+    $this->senderDomainController = $senderDomainController;
+    $this->senderDomainAuthenticationNotices = $senderDomainAuthenticationNotices;
   }
 
   public function getPageData(): array {
@@ -67,29 +79,34 @@ class HomepageDataController {
     $showTaskList = !$this->settingsController->get('homepage.task_list_dismissed', false);
     $showProductDiscovery = !$this->settingsController->get('homepage.product_discovery_dismissed', false);
     $showUpsell = !$this->settingsController->get('homepage.upsell_dismissed', false);
+    $fullyVerifiedSenderDomains = $this->senderDomainController->getFullyVerifiedSenderDomains(true);
+    $senderDomainsCount = count($fullyVerifiedSenderDomains);
     return [
       'taskListDismissed' => !$showTaskList,
       'productDiscoveryDismissed' => !$showProductDiscovery,
       'upsellDismissed' => !$showUpsell,
-      'taskListStatus' => $showTaskList ? $this->getTaskListStatus($subscribersCount, $formsCount) : null,
+      'taskListStatus' => $showTaskList ? $this->getTaskListStatus($subscribersCount, $formsCount, $senderDomainsCount) : null,
       'productDiscoveryStatus' => $showProductDiscovery ? $this->getProductDiscoveryStatus($formsCount) : null,
       'upsellStatus' => $showUpsell ? $this->getUpsellStatus($subscribersCount) : null,
       'wooCustomersCount' => $this->wooCommerceHelper->getCustomersCount(),
       'subscribersCount' => $subscribersCount,
       'formsCount' => $formsCount,
       'subscribersStats' => $this->getSubscribersStats(),
+      'isNewUserForSenderDomainAuth' => $this->senderDomainController->isNewUser(),
+      'isFreeMailUser' => $this->senderDomainAuthenticationNotices->isFreeMailUser(),
     ];
   }
 
   /**
-   * @return array{senderSet:bool, mssConnected:bool, wooSubscribersImported:bool, subscribersAdded:bool}
+   * @return array{senderSet:bool, mssConnected:bool, wooSubscribersImported:bool, subscribersAdded:bool, senderDomainAuthenticated:bool}
    */
-  private function getTaskListStatus(int $subscribersCount, int $formsCount): array {
+  private function getTaskListStatus(int $subscribersCount, int $formsCount, int $senderDomainsCount): array {
     return [
       'senderSet' => $this->settingsController->get('sender.address', false) && $this->settingsController->get('sender.name', false),
       'mssConnected' => Bridge::isMSSKeySpecified(),
       'wooSubscribersImported' => (bool)$this->settingsController->get('woocommerce_import_screen_displayed', false),
       'subscribersAdded' => $formsCount || ($subscribersCount > 10),
+      'senderDomainAuthenticated' => $senderDomainsCount > 0,
     ];
   }
 

@@ -207,6 +207,7 @@ class Permalink_Manager_URI_Functions_Tax {
 			// 3B. Get the full slug
 			$term_slug        = Permalink_Manager_Helper_Functions::remove_slashes( $term_slug );
 			$custom_slug      = $full_custom_slug = Permalink_Manager_Helper_Functions::force_custom_slugs( $term_slug, $term );
+			$term_title_slug  = Permalink_Manager_Helper_Functions::force_custom_slugs( $term_slug, $term, true, 1 );
 			$full_native_slug = $term_slug;
 
 			// Add ancestors to hierarchical taxonomy
@@ -243,8 +244,8 @@ class Permalink_Manager_URI_Functions_Tax {
 			}
 			$taxonomy_name_slug = apply_filters( 'permalink_manager_filter_taxonomy_slug', $taxonomy_name_slug, $term, $taxonomy_name );
 
-			$slug_tags             = array( "%term_name%", "%term_flat%", "%{$taxonomy_name}%", "%{$taxonomy_name}_flat%", "%term_top%", "%{$taxonomy_name}_top%", "%native_slug%", "%taxonomy%", "%term_id%" );
-			$slug_tags_replacement = array( $full_slug, $custom_slug, $full_slug, $custom_slug, $top_parent_slug, $top_parent_slug, $full_native_slug, $taxonomy_name_slug, $term->term_id );
+			$slug_tags             = array( "%term_name%", "%term_flat%", "%{$taxonomy_name}%", "%{$taxonomy_name}_flat%", "%term_top%", "%{$taxonomy_name}_top%", "%native_slug%", "%native_title%", "%taxonomy%", "%term_id%" );
+			$slug_tags_replacement = array( $full_slug, $custom_slug, $full_slug, $custom_slug, $top_parent_slug, $top_parent_slug, $full_native_slug, $term_title_slug, $taxonomy_name_slug, $term->term_id );
 
 			// Check if any term tag is present in custom permastructure
 			$do_not_append_slug = ( ! empty( $permalink_manager_options['permastructure-settings']['do_not_append_slug']['taxonomies'][ $taxonomy_name ] ) ) ? true : false;
@@ -699,16 +700,7 @@ class Permalink_Manager_URI_Functions_Tax {
 	 * @param int $term_id
 	 */
 	function remove_term_uri( $term_id ) {
-		global $permalink_manager_uris;
-
-		// Check if the custom permalink is assigned to this post
-		if ( isset( $permalink_manager_uris["tax-{$term_id}"] ) ) {
-			unset( $permalink_manager_uris["tax-{$term_id}"] );
-		}
-
-		if ( is_array( $permalink_manager_uris ) ) {
-			update_option( 'permalink-manager-uris', $permalink_manager_uris );
-		}
+		Permalink_Manager_URI_Functions::remove_single_uri( $term_id, true, true );
 	}
 
 }

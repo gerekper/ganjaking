@@ -17,7 +17,6 @@ class Permalink_Manager_Debug_Functions {
 		add_filter( 'permalink_manager_filter_redirect', array( $this, 'debug_redirect' ), 9, 3 );
 		add_filter( 'wp_redirect', array( $this, 'debug_wp_redirect' ), 9, 2 );
 
-		self::debug_custom_redirects();
 		self::debug_custom_fields();
 	}
 
@@ -104,78 +103,6 @@ class Permalink_Manager_Debug_Functions {
 	}
 
 	/**
-	 * Display the list of native & custom redirects
-	 */
-	public function debug_custom_redirects() {
-		global $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_ignore_permalink_filters;
-
-		if ( isset( $_GET['debug_custom_redirects'] ) && current_user_can( 'manage_options' ) ) {
-			$home_url       = Permalink_Manager_Helper_Functions::get_permalink_base();
-			$csv = array();
-
-			if ( ! empty( $permalink_manager_uris ) ) {
-				$permalink_manager_ignore_permalink_filters = true;
-
-				// Native redirects
-				foreach ( $permalink_manager_uris as $element_id => $uri ) {
-					if ( is_numeric( $element_id ) ) {
-						$original_permalink = user_trailingslashit( get_permalink( $element_id ) );
-					} else {
-						$term_id = preg_replace( "/[^0-9]/", "", $element_id );
-						$term    = get_term( $term_id );
-
-						if ( empty( $term->taxonomy ) ) {
-							continue;
-						}
-
-						$original_permalink = user_trailingslashit( get_term_link( $term->term_id, $term->taxonomy ) );
-					}
-
-					$custom_permalink   = user_trailingslashit( $home_url . "/" . $uri );
-
-					if ( $original_permalink == $custom_permalink && $original_permalink !== '/' ) {
-						continue;
-					}
-
-					$csv[ $element_id ] = array(
-						'type' => 'native_redirect',
-						'from' => $original_permalink,
-						'to'   => $custom_permalink
-					);
-				}
-			}
-
-			// Custom redirects
-			if ( $permalink_manager_redirects ) {
-				foreach ( $permalink_manager_redirects as $element_id => $redirects ) {
-					if ( empty( $permalink_manager_uris[ $element_id ] ) ) {
-						continue;
-					}
-					$custom_permalink = user_trailingslashit( $home_url . "/" . $permalink_manager_uris[ $element_id ] );
-
-					if ( is_array( $redirects ) ) {
-						$redirects       = array_values( $redirects );
-						// $redirects_count = count( $redirects );
-
-						foreach ( $redirects as $index => $redirect ) {
-							$redirect_url = user_trailingslashit( $home_url . "/" . $redirect );
-
-							$csv["extra-redirect-{$index}-{$element_id}"] = array(
-								'type' => 'extra_redirect',
-								'from' => $redirect_url,
-								'to'   => $custom_permalink
-							);
-						}
-					}
-				}
-			}
-
-			echo self::output_csv( $csv );
-			die();
-		}
-	}
-
-	/**
 	 * Display the list of all custom fields assigned to specific post
 	 */
 	public static function debug_custom_fields() {
@@ -219,7 +146,7 @@ class Permalink_Manager_Debug_Functions {
 	 * @param array $array
 	 * @param string $filename
 	 */
-	public static function output_csv( $array, $filename = 'debug.csv' ) {
+	public static function output_csv( $array, $filename = 'debug.csv', $separator = ',' ) {
 		if ( count( $array ) == 0 ) {
 			return null;
 		}
@@ -246,7 +173,7 @@ class Permalink_Manager_Debug_Functions {
 
 		fputcsv( $df, array_keys( reset( $array ) ) );
 		foreach ( $array as $row ) {
-			fputcsv( $df, $row );
+			fputcsv( $df, $row, $separator );
 		}
 		fclose( $df );
 

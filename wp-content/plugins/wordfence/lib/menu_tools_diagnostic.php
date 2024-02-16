@@ -808,7 +808,8 @@ if (!isset($sendingDiagnosticEmail)) {
 						<li>
 							<span>
 								<?php esc_html_e('Clear all Wordfence Central connection data', 'wordfence'); ?> <a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_DIAGNOSTICS_REMOVE_CENTRAL_DATA); ?>" target="_blank" rel="noopener noreferrer" class="wfhelp wf-inline-help"><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a>
-								<input class="wf-btn wf-btn-default wf-btn-sm" type="button" value="<?php esc_attr_e('Clear Connection Data', 'wordfence'); ?>" onclick="WFAD.ajax('wordfence_wfcentral_disconnect', {}, function() { WFAD.colorboxModal((self.isSmallScreen ? '300px' : '400px'), 'Successfully removed data', 'All associated Wordfence Central data has been removed from the database.'); });"/>
+								<input class="wf-btn wf-btn-default wf-btn-sm" type="button" value="<?php esc_attr_e('Clear All Connection Data', 'wordfence'); ?>" onclick="WFAD.ajax('wordfence_wfcentral_disconnect', { force: true }, function() { WFAD.colorboxModal((self.isSmallScreen ? '300px' : '400px'), <?php echo esc_attr(json_encode(__('Successfully removed data', 'wordfence'))) ?>, <?php echo esc_attr(json_encode(__('All associated Wordfence Central connection data has been cleared.', 'wordfence'))) ?>); });"/>
+								<input class="wf-btn wf-btn-default wf-btn-sm" type="button" value="<?php esc_attr_e('Clear Local Connection Data', 'wordfence'); ?>" onclick="WFAD.ajax('wordfence_wfcentral_disconnect', { local: true }, function() { WFAD.colorboxModal((self.isSmallScreen ? '300px' : '400px'), <?php echo esc_attr(json_encode(__('Successfully removed data', 'wordfence'))) ?>, <?php echo esc_attr(json_encode(__('All associated Wordfence Central connection data has been removed from the local database.', 'wordfence'))) ?>); });"/>
 							</span>
 						</li>
 					</ul>

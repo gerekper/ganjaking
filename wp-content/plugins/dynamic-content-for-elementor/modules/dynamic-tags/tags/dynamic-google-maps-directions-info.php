@@ -51,18 +51,18 @@ class DynamicGoogleMapsDirectionsInfo extends Data_Tag
      * Get Value
      *
      * @param array<mixed> $options
-     * @return string
+     * @return string|null
      */
     public function get_value(array $options = [])
     {
         $map_name = $this->get_settings('map_name');
         if (empty($map_name) && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            return Helper::notice('', __('Please type a Map Name', 'dynamic-content-for-elementor'));
+            return Helper::notice(\false, __('Please type a Map Name', 'dynamic-content-for-elementor'));
         }
         $loading_text = $this->get_settings('loading_text');
         $option = $this->get_settings('options');
         $data = \json_encode(['map_name' => $map_name, 'loading_text' => $loading_text, 'option' => $option]);
-        return "<div data-tag-name='" . esc_attr($map_name) . "' id='dce-directions-info'><span data-directions='" . esc_attr($data) . "' class='distance dce-directions-info'>" . $loading_text . "</span></div>";
+        return "<div data-tag-name='" . esc_attr($map_name) . "' id='dce-directions-info'><span data-directions='" . esc_attr($data) . "' class='distance dce-directions-info'>" . $loading_text . '</span></div>';
     }
     /**
      * Register Controls

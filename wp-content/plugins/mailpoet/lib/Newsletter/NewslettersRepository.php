@@ -12,22 +12,12 @@ use MailPoet\AutomaticEmails\WooCommerce\Events\PurchasedInCategory;
 use MailPoet\AutomaticEmails\WooCommerce\Events\PurchasedProduct;
 use MailPoet\Doctrine\Repository;
 use MailPoet\Entities\NewsletterEntity;
-use MailPoet\Entities\NewsletterLinkEntity;
-use MailPoet\Entities\NewsletterOptionEntity;
 use MailPoet\Entities\NewsletterOptionFieldEntity;
-use MailPoet\Entities\NewsletterPostEntity;
 use MailPoet\Entities\NewsletterSegmentEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
-use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\SendingQueueEntity;
-use MailPoet\Entities\StatisticsClickEntity;
-use MailPoet\Entities\StatisticsNewsletterEntity;
-use MailPoet\Entities\StatisticsOpenEntity;
-use MailPoet\Entities\StatisticsWooCommercePurchaseEntity;
-use MailPoet\Entities\StatsNotificationEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Util\Helpers;
-use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
@@ -37,19 +27,13 @@ use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
  * @extends Repository<NewsletterEntity>
  */
 class NewslettersRepository extends Repository {
-  /** @var LoggerFactory */
-  private $loggerFactory;
-
-  /** @var WPFunctions */
-  private $wp;
+  private LoggerFactory $loggerFactory;
 
   public function __construct(
-    EntityManager $entityManager,
-    WPFunctions $wp
+    EntityManager $entityManager
   ) {
     parent::__construct($entityManager);
     $this->loggerFactory = LoggerFactory::getInstance();
-    $this->wp = $wp;
   }
 
   protected function getEntityClassName() {
@@ -363,167 +347,25 @@ class NewslettersRepository extends Repository {
     return count($ids);
   }
 
-  public function bulkDelete(array $ids) {
-    if (empty($ids)) {
-      return 0;
-    }
-    // Fetch children ids for deleting
-    $childrenIds = $this->fetchChildrenIds($ids);
-    $ids = array_merge($ids, $childrenIds);
+  /** @param int[] $ids */
+  public function deleteByIds(array $ids): void {
+    $this->entityManager->createQueryBuilder()
+      ->delete(NewsletterEntity::class, 'n')
+      ->where('n.id IN (:ids)')
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->execute();
 
-    $isRelatedNewsletterToBeDeleted = function($entity) use ($ids): bool {
-      if (is_string($entity) || !method_exists($entity, 'getNewsletter')) {
-        return false;
-      }
-      $newsletter = $entity->getNewsletter();
-      $newsletterId = $newsletter ? $newsletter->getId() : null;
-      return in_array($newsletterId, $ids, true);
-    };
-    $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids, $isRelatedNewsletterToBeDeleted) {
-      // Delete statistics data
-      $newsletterStatisticsTable = $entityManager->getClassMetadata(StatisticsNewsletterEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE s FROM $newsletterStatisticsTable s
-         WHERE s.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      $statisticsOpensTable = $entityManager->getClassMetadata(StatisticsOpenEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE s FROM $statisticsOpensTable s
-         WHERE s.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      $statisticsClicksTable = $entityManager->getClassMetadata(StatisticsClickEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE s FROM $statisticsClicksTable s
-         WHERE s.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Update WooCommerce statistics and remove newsletter and click id
-      $statisticsPurchasesTable = $entityManager->getClassMetadata(StatisticsWooCommercePurchaseEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         UPDATE $statisticsPurchasesTable s
-         SET s.`newsletter_id` = 0 WHERE s.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete newsletter posts
-      $postsTable = $entityManager->getClassMetadata(NewsletterPostEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE np FROM $postsTable np
-         WHERE np.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete newsletter options
-      $optionsTable = $entityManager->getClassMetadata(NewsletterOptionEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE no FROM $optionsTable no
-         WHERE no.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete newsletter links
-      $linksTable = $entityManager->getClassMetadata(NewsletterLinkEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE nl FROM $linksTable nl
-         WHERE nl.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete stats notifications tasks
-      $scheduledTasksTable = $entityManager->getClassMetadata(ScheduledTaskEntity::class)->getTableName();
-      $statsNotificationsTable = $entityManager->getClassMetadata(StatsNotificationEntity::class)->getTableName();
-      $taskIds = $entityManager->getConnection()->executeQuery("
-         SELECT task_id FROM $statsNotificationsTable sn
-         WHERE sn.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY])->fetchAllAssociative();
-      $taskIds = array_column($taskIds, 'task_id');
-      $entityManager->getConnection()->executeStatement("
-         DELETE st FROM $scheduledTasksTable st
-         WHERE st.`id` IN (:ids)
-      ", ['ids' => $taskIds], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete stats notifications
-      $entityManager->getConnection()->executeStatement("
-         DELETE sn FROM $statsNotificationsTable sn
-         WHERE sn.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete scheduled tasks and scheduled task subscribers
-      $sendingQueueTable = $entityManager->getClassMetadata(SendingQueueEntity::class)->getTableName();
-      $scheduledTaskSubscribersTable = $entityManager->getClassMetadata(ScheduledTaskSubscriberEntity::class)->getTableName();
-
-      // Delete scheduled tasks subscribers
-      $entityManager->getConnection()->executeStatement("
-         DELETE ts FROM $scheduledTaskSubscribersTable ts
-         JOIN $scheduledTasksTable t ON t.`id` = ts.`task_id`
-         JOIN $sendingQueueTable q ON q.`task_id` = t.`id`
-         WHERE q.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      $entityManager->getConnection()->executeStatement("
-         DELETE t FROM $scheduledTasksTable t
-         JOIN $sendingQueueTable q ON t.`id` = q.`task_id`
-         WHERE q.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete sending queues
-      $entityManager->getConnection()->executeStatement("
-         DELETE q FROM $sendingQueueTable q
-         WHERE q.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Delete newsletter segments
-      $newsletterSegmentsTable = $entityManager->getClassMetadata(NewsletterSegmentEntity::class)->getTableName();
-      $entityManager->getConnection()->executeStatement("
-         DELETE ns FROM $newsletterSegmentsTable ns
-         WHERE ns.`newsletter_id` IN (:ids)
-      ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
-
-      // Fetch WP Posts IDs and delete them
-      /** @var int[] $wpPostsIds */
-      $wpPostsIds = $entityManager->createQueryBuilder()->select('wpp.id')
-        ->from(NewsletterEntity::class, 'n')
-        ->join('n.wpPost', 'wpp')
-        ->where('n.id IN (:ids)')
-        ->setParameter('ids', $ids)
-        ->getQuery()->getSingleColumnResult();
-      foreach ($wpPostsIds as $wpPostId) {
-        $this->wp->wpDeletePost(intval($wpPostId), true);
-      }
-
-      // Delete newsletter entities
-      $queryBuilder = $entityManager->createQueryBuilder();
-      $queryBuilder->delete(NewsletterEntity::class, 'n')
-        ->where('n.id IN (:ids)')
-        ->setParameter('ids', $ids)
-        ->getQuery()->execute();
-
-
-      $entityTypesToBeDetached = [
-        StatisticsNewsletterEntity::class,
-        StatisticsOpenEntity::class,
-        StatisticsClickEntity::class,
-        NewsletterPostEntity::class,
-        NewsletterOptionEntity::class,
-        NewsletterLinkEntity::class,
-        StatsNotificationEntity::class,
-        SendingQueueEntity::class,
-        ScheduledTaskSubscriberEntity::class,
-        NewsletterSegmentEntity::class,
-      ];
-      foreach ($entityTypesToBeDetached as $entityType) {
-        $this->detachEntitiesOfType($entityType, $isRelatedNewsletterToBeDeleted);
-      }
-
-      $this->detachEntitiesOfType(ScheduledTaskEntity::class, function($entity) use ($taskIds): bool {
-        return !is_string($entity) && method_exists($entity, 'getId') && in_array($entity->getId(), $taskIds, true);
-      });
+    // delete was done via DQL, make sure the entities are also detached from the entity manager
+    $this->detachAll(function (NewsletterEntity $entity) use ($ids) {
+      return in_array($entity->getId(), $ids, true);
     });
-    return count($ids);
   }
 
   /**
    * @return NewsletterEntity[]
    */
-  public function findSendingNotificationHistoryWithoutPausedTask(NewsletterEntity $newsletter): array {
+  public function findSendingNotificationHistoryWithoutPausedOrInvalidTask(NewsletterEntity $newsletter): array {
     return $this->entityManager->createQueryBuilder()
       ->select('n')
       ->from(NewsletterEntity::class, 'n')
@@ -533,11 +375,13 @@ class NewslettersRepository extends Repository {
       ->andWhere('n.type = :type')
       ->andWhere('n.status = :status')
       ->andWhere('n.deletedAt IS NULL')
-      ->andWhere('t.status != :taskStatus')
+      ->andWhere('t.status != :taskStatusPaused')
+      ->andWhere('t.status != :taskStatusInvalid')
       ->setParameter('parent', $newsletter)
       ->setParameter('type', NewsletterEntity::TYPE_NOTIFICATION_HISTORY)
       ->setParameter('status', NewsletterEntity::STATUS_SENDING)
-      ->setParameter('taskStatus', ScheduledTaskEntity::STATUS_PAUSED)
+      ->setParameter('taskStatusPaused', ScheduledTaskEntity::STATUS_PAUSED)
+      ->setParameter('taskStatusInvalid', ScheduledTaskEntity::STATUS_INVALID)
       ->getQuery()->getResult();
   }
 
@@ -689,12 +533,19 @@ class NewslettersRepository extends Repository {
     $this->flush();
   }
 
-  private function fetchChildrenIds(array $parentIds) {
-    $ids = $this->entityManager->createQueryBuilder()->select('n.id')
+  /**
+   * @param int[] $parentIds
+   * @return int[]
+   */
+  public function fetchChildrenIds(array $parentIds): array {
+    /** @var string[] $ids */
+    $ids = $this->entityManager->createQueryBuilder()
+      ->select('n.id')
       ->from(NewsletterEntity::class, 'n')
       ->where('n.parent IN (:ids)')
       ->setParameter('ids', $parentIds)
-      ->getQuery()->getScalarResult();
-    return array_column($ids, 'id');
+      ->getQuery()
+      ->getSingleColumnResult();
+    return array_map('intval', $ids);
   }
 }

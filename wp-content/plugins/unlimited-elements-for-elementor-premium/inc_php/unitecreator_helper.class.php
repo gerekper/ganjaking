@@ -1778,7 +1778,17 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				HelperHtmlUC::outputExceptionBox($e, HelperUC::getText("addon_library") . " Error");
 		}
 	}
-
+	
+	/**
+	 * some test function for auto completion. keep empty
+	 */
+	public static function testFunc(){
+		
+				
+		
+		
+	}
+	
 }
 
 //init the operations

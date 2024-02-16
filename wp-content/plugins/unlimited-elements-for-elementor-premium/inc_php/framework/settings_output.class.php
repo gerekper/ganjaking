@@ -22,7 +22,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		protected $idPrefix;
 		protected $addCss = "";
 		protected $settingsMainClass = "";
-		protected $isParent = false;		//variable that this class is parent
+		protected $isParent = false;    //variable that this class is parent
 		protected $isSidebar = false;
 
 		const INPUT_CLASS_NORMAL = "unite-input-regular";
@@ -37,11 +37,11 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		protected $sapsType = null;
 		protected $activeSap = 0;
 
-		protected $isTypographyExists = false;
+		private $subSettingsDialogs = array();
 
-		const SAPS_TYPE_INLINE = "saps_type_inline";	//inline sapts type
-		const SAPS_TYPE_CUSTOM = "saps_type_custom";	//custom saps tyle
-	    const SAPS_TYPE_ACCORDION = "saps_type_accordion";
+		const SAPS_TYPE_INLINE = "saps_type_inline";  //inline sapts type
+		const SAPS_TYPE_CUSTOM = "saps_type_custom";  //custom saps tyle
+		const SAPS_TYPE_ACCORDION = "saps_type_accordion";
 
 
 		/**
@@ -55,9 +55,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			$this->settings = new UniteSettingsUC();
 			$this->settings = $settings;
-			
+
 			$this->idPrefix = $settings->getIDPrefix();
-			
+
 		}
 
 
@@ -138,7 +138,12 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$defaultValue = htmlspecialchars($defaultValue);
 			$value = htmlspecialchars($value);
 
-			$addHtml = " data-default=\"{$defaultValue}\" data-initval=\"{$value}\" ";
+			$addHtml = " data-default=\"$defaultValue\" data-initval=\"$value\"";
+
+			$addAttrGroupSelector = $this->getGroupSelectorAddAttr($setting);
+
+			if(!empty($addAttrGroupSelector))
+				$addHtml .= " " . $addAttrGroupSelector;
 
 			$addAttrSelectors = $this->getSelectorsAddAttr($setting);
 
@@ -798,6 +803,20 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		private function ___________SELECTORS________________(){}
 
+		/**
+		 * get group selector add attributes
+		 */
+		private function getGroupSelectorAddAttr($setting){
+
+			$selectorName = UniteFunctionsUC::getVal($setting, "group_selector");
+
+			if(empty($selectorName))
+				return null;
+
+			$output = "data-group-selector='$selectorName'";
+
+			return $output;
+		}
 
 		/**
 		 * get selectors add attributes
@@ -808,26 +827,23 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$selector1 = UniteFunctionsUC::getVal($setting, "selector1");
 
 			if(empty($selector) && empty($selector1))
-				return(null);
+				return null;
 
 			$arrData = array();
 
-			foreach($setting as $key=>$value){
-
+			foreach($setting as $key => $value){
 				if(strpos($key, "selector") !== false)
 					$arrData[$key] = $value;
 			}
 
 			if(empty($arrData))
-				return(null);
+				return null;
 
 			$strAttr = UniteFunctionsUC::jsonEncodeForHtmlData($arrData);
+			$output = "data-selectors='$strAttr'";
 
-			$output = "data-selectors='{$strAttr}'";
-
-			return($output);
+			return $output;
 		}
-
 
 
 		/**
@@ -983,6 +999,76 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			exit();
 		}
 
+		/**
+		 * draw tabs setting
+		 */
+		protected function drawTabsSetting($setting){
+
+			$id = UniteFunctionsUC::getVal($setting, "id");
+			$name = UniteFunctionsUC::getVal($setting, "name");
+			$items = UniteFunctionsUC::getVal($setting, "items");
+
+			$addHtml = $this->getDefaultAddHtml($setting);
+
+			$counter = 0;
+
+			?>
+			<div
+				id="<?php esc_attr_e($id); ?>"
+				class="unite-setting-tabs unite-setting-input-object unite-settings-exclude"
+				data-settingtype="tabs"
+				data-name="<?php esc_attr_e($name); ?>"
+				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+			>
+				<?php foreach($items as $itemText => $itemValue): ?>
+
+					<?php $itemId = $id . "_" . ++$counter; ?>
+
+					<div class="unite-setting-tabs-item">
+						<input
+							id="<?php esc_attr_e($itemId); ?>"
+							class="unite-setting-tabs-item-input"
+							type="radio"
+							name="<?php esc_attr_e($name); ?>"
+							value="<?php esc_attr_e($itemValue); ?>"
+						/>
+						<label
+							class="unite-setting-tabs-item-label"
+							for="<?php esc_attr_e($itemId); ?>"
+						>
+							<?php esc_html_e($itemText); ?>
+						</label>
+					</div>
+
+				<?php endforeach; ?>
+			</div>
+			<?php
+		}
+
+		/**
+		 * draw group selector setting
+		 */
+		protected function drawGroupSelectorSetting($setting){
+
+			$id = UniteFunctionsUC::getVal($setting, "id");
+			$name = UniteFunctionsUC::getVal($setting, "name");
+			$selectorReplace = UniteFunctionsUC::getVal($setting, "selector_replace");
+			$selectorReplace = json_encode($selectorReplace);
+
+			$addHtml = $this->getDefaultAddHtml($setting);
+
+			?>
+			<div
+				id="<?php esc_attr_e($id); ?>"
+				class="unite-setting-group-selector unite-setting-input-object"
+				data-settingtype="group_selector"
+				data-name="<?php esc_attr_e($name); ?>"
+				data-replace="<?php esc_attr_e($selectorReplace); ?>"
+				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+			></div>
+			<?php
+		}
+
 
 		/**
 		 * draw setting input by type
@@ -1054,13 +1140,25 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					$this->drawRepeaterInput($setting);
 				break;
 				case UniteCreatorSettings::TYPE_TYPOGRAPHY:
-					$this->drawTypographySetting($setting);
+				case UniteCreatorSettings::TYPE_TEXTSHADOW:
+				case UniteCreatorSettings::TYPE_BOXSHADOW:
+				case UniteCreatorSettings::TYPE_CSS_FILTERS:
+					$this->drawSubSettings($setting);
+				break;
+				case UniteSettingsUC::TYPE_SWITCHER:
+					$this->drawSwitcherSetting($setting);
 				break;
 				case UniteCreatorSettings::TYPE_DIMENTIONS:
 					$this->drawDimentionsSetting($setting);
 				break;
 				case UniteCreatorSettings::TYPE_GALLERY:
 					$this->drawGallerySetting($setting);
+				break;
+				case UniteCreatorSettings::TYPE_TABS:
+					$this->drawTabsSetting($setting);
+				break;
+				case UniteCreatorSettings::TYPE_GROUP_SELECTOR:
+					$this->drawGroupSelectorSetting($setting);
 				break;
 				case UniteSettingsUC::TYPE_CUSTOM:
 					if(method_exists($this,"drawCustomInputs") == false){
@@ -1098,9 +1196,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			?>
 			<div
-				class="unite-setting-input-object unite-setting-range"
-				data-name="<?php esc_attr_e($name); ?>"
+				id="<?php esc_attr_e($id); ?>"
+				class="unite-setting-range unite-setting-input-object unite-settings-exclude"
 				data-settingtype="range"
+				data-name="<?php esc_attr_e($name); ?>"
 				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
 			>
 				<div
@@ -1112,7 +1211,6 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				></div>
 				<input
 					class="unite-setting-range-input"
-					id="<?php esc_attr_e($id); ?>"
 					type="number"
 					value="<?php esc_attr_e($value); ?>"
 				/>
@@ -1181,13 +1279,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			?>
 			<div
 				id="<?php esc_attr_e($setting["id"]); ?>"
-				class="unite-setting-input-object unite-setting-repeater"
-				<?php echo UniteProviderFunctionsUC::escAddParam($strData); ?>
+				class="unite-setting-repeater unite-setting-input-object"
 				data-settingtype="repeater"
 				data-name="<?php esc_attr_e($setting["name"]); ?>"
 				data-item-title="<?php esc_attr_e($itemTitle); ?>"
 				data-text-delete="<?php esc_attr_e($deleteButtonText); ?>"
 				data-text-duplicate="<?php esc_attr_e($duplicateButtonText); ?>"
+				<?php echo UniteProviderFunctionsUC::escAddParam($strData); ?>
 			>
 				<div class="unite-repeater-template unite-hidden">
 					<?php $output->draw("settings_item_repeater", false); ?>
@@ -1369,159 +1467,63 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 		/**
-		 * draw switcher
-		 */
-		private function drawSwitcher($setting){
-
-			$items = $setting["items"];
-			$counter = 0;
-			$settingID = $setting["id"];
-			$settingName = $setting["name"];
-			$value = $setting["value"];
-
-
-			$class = $this->getInputClassAttr($setting);
-
-			if(count($items) != 2)
-				UniteFunctionsUC::throwError("switcher require 2 items");
-
-			$uncheckValue = null;
-			$checkValue = null;
-
-			foreach($items as $itemTitle=>$itemValue){
-
-				if($uncheckValue === null)
-					$uncheckValue = $itemValue;
-				else
-					$checkValue = $itemValue;
-			}
-
-			$isChecked = false;
-			if($checkValue === $value)
-				$isChecked = true;
-
-			$addHtml = $this->getDefaultAddHtml($setting);
-
-			$class = $this->getInputClassAttr($setting);
-
-			$checkedClass = "";
-			if($isChecked == true)
-				$checkedClass = " uc-checked";
-
-			?>
-
-			<div id="<?php echo esc_attr($setting["id"])?>" class="unite-setting-switcher unite-setting-input-object unite-settings-exclude <?php echo $class?> <?php echo $checkedClass?>"
-				data-settingtype="switcher"
-				data-uncheckedvalue="<?php echo $uncheckValue?>"
-				data-checkedvalue="<?php echo $checkValue?>"
-				data-name="<?php echo esc_attr($settingName)?>"
-				data-value="<?php echo esc_attr($value)?>"
-				<?php echo $addHtml?>>
-
-				<div class="unite-setting-switcher__object"></div>
-
-			</div>
-
-			<?php
-
-		}
-
-		/**
 		 * draw radio input
 		 */
 		protected function drawRadioInput($setting){
 
-			$items = $setting["items"];
-			$counter = 0;
-			$settingID = $setting["id"];
-			$isDisabled = UniteFunctionsUC::getVal($setting, "disabled");
-			$isDisabled = UniteFunctionsUC::strToBool($isDisabled);
-			$settingName = $setting["name"];
+			$id = UniteFunctionsUC::getVal($setting, "id");
+			$name = UniteFunctionsUC::getVal($setting, "name");
+			$items = UniteFunctionsUC::getVal($setting, "items");
+			$value = UniteFunctionsUC::getVal($setting, "value");
 			$defaultValue = UniteFunctionsUC::getVal($setting, "default_value");
-			$settingValue = UniteFunctionsUC::getVal($setting, "value");
+			$disabled = UniteFunctionsUC::getVal($setting, "disabled");
+			$disabled = UniteFunctionsUC::strToBool($disabled);
 
-			$class = $this->getInputClassAttr($setting);
-
-			$specialDesign = UniteFunctionsUC::getVal($setting, "special_design");
-			$specialDesign = UniteFunctionsUC::strToBool($specialDesign);
-
-			if($this->isSidebar == false)
-				$specialDesign = false;
-
-
-			$addClass = "";
-			$addAttr = "";
-
-			if($specialDesign == true){
-				$addClass = " unite-radio-special";
-				$numItems = count($items);
-				switch($numItems){
-					case 2:
-
-						$this->drawSwitcher($setting);
-						return(false);
-
-					break;
-					case 3:
-						$addClass .= " split-three-columns";
-					break;
-					case 4:
-						$addClass .= " split-four-columns";
-					break;
-					default:
-						$addClass = "";
-					break;
-				}
-
-				$designColor = UniteFunctionsUC::getVal($setting, "special_design_color");
-				if(!empty($designColor))
-					$addClass .= " unite-radio-color-$designColor";
-
-			}
+			$addHtml = $this->getDefaultAddHtml($setting);
+			$classAttr = $this->getInputClassAttr($setting, "", "unite-radio-item-input");
+			$counter = 0;
 
 			?>
-			<div id="<?php echo esc_attr($settingID) ?>" <?php echo $addAttr?> class="radio_wrapper<?php echo esc_attr($addClass)?>">
+			<div
+				id="<?php esc_attr_e($id) ?>"
+				class="unite-radio-wrapper"
+				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+			>
+				<?php foreach($items as $itemText => $itemValue): ?>
 
-			<?php
+					<?php
 
-			foreach($items as $text=>$value):
-				$counter++;
-				$radioID = $settingID."_".$counter;
+					$itemId = $id . "_" . ++$counter;
+					$itemAttr = $classAttr;
 
-				$classLabel = "unite-radio-item-label-$counter";
+					if($disabled === true)
+						$itemAttr .= " disabled";
 
-				$strChecked = "";
-				if($value == $settingValue)
-					$strChecked = " checked";
+					if($itemValue == $defaultValue)
+						$itemAttr .= ' data-defaultchecked="true"';
 
-				$strDisabled = "";
-				if($isDisabled)
-					$strDisabled = 'disabled = "disabled"';
+					if($itemValue == $value)
+						$itemAttr .= ' data-initchecked="true"';
 
-				$addHtml = "";
-				if($value == $defaultValue)
-					$addHtml .= " data-defaultchecked=\"true\"";
+					?>
 
-				if($value == $settingValue){
-					$addHtml .= " data-initchecked=\"true\"";
-				}
+					<input
+						id="<?php esc_attr_e($itemId); ?>"
+						type="radio"
+						name="<?php esc_attr_e($name); ?>"
+						value="<?php esc_attr_e($itemValue); ?>"
+						<?php echo UniteProviderFunctionsUC::escAddParam($itemAttr); ?>
+					/>
+					<label
+						class="unite-radio-item-label"
+						for="<?php esc_attr_e($itemId); ?>"
+					>
+						<?php esc_html_e($itemText); ?>
+					</label>
 
-				$props = "style=\"cursor:pointer;\" {$strChecked} {$strDisabled} {$addHtml} {$class}";
-
-				?>
-					<input type="radio" id="<?php echo esc_attr($radioID)?>" value="<?php echo esc_attr($value)?>" name="<?php echo esc_attr($settingName)?>" <?php echo UniteProviderFunctionsUC::escAddParam($props)?>/>
-					<label class="<?php echo esc_attr($classLabel)?>" for="<?php echo esc_attr($radioID)?>" ><?php echo UniteProviderFunctionsUC::escAddParam($text)?></label>
-
-					<?php if($specialDesign == false):?>
-					&nbsp; &nbsp;
-					<?php endif?>
-				<?php
-			endforeach;
-
-			?>
+				<?php endforeach; ?>
 			</div>
 			<?php
-
 		}
 
 
@@ -1672,19 +1674,15 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * draw select input
 		 */
 		protected function drawMultiSelectInput($setting){
-
 			$this->drawSelectInput($setting);
-
 		}
 
 		/**
 		 * draw text row
-		 * @param unknown_type $setting
 		 */
 		protected function drawTextRow($setting){
 			echo "draw text row - override this function";
 		}
-
 
 		/**
 		 * draw hr row - override
@@ -1693,20 +1691,19 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			echo "draw hr row - override this function";
 		}
 
-
-
+		/**
+		 * draw switcher setting
+		 */
+		protected function drawSwitcherSetting($setting){
+			echo "draw switcher setting - override this function";
+		}
 
 		/**
 		 * draw dimentions setting
 		 */
 		protected function drawDimentionsSetting($setting){
-
-			dmp("draw dimentions setting - function for override");
-			// function for override
-
+			echo "draw dimentions setting - override this function";
 		}
-
-
 
 		/**
 		 * draw input additinos like unit / description etc
@@ -1751,13 +1748,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$options["show_saps"] = $this->showSaps;
 			$options["saps_type"] = $this->sapsType;
 			$options["id_prefix"] = $idPrefix;
-			
+
 			//add google fonts
 			$fontData = HelperUC::getFontPanelData();
 			$googleFonts = UniteFunctionsUC::getVal($fontData, "arrGoogleFonts");
-			
+
 			$options["google_fonts"] = $googleFonts;
-			
+
 			return($options);
 		}
 
@@ -1784,7 +1781,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * insert settings into saps array
 		 */
 		private function groupSettingsIntoSaps(){
-			
+
 		    $arrSaps = $this->settings->getArrSaps();
 		    $arrSettings = $this->settings->getArrSettings();
 
@@ -1792,7 +1789,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		    foreach($arrSettings as $key=>$setting){
 
 		        $sapID = $setting["sap"];
-				
+
 		        if(isset($arrSaps[$sapID]["settings"]))
 		            $arrSaps[$sapID]["settings"][] = $setting;
 		            else
@@ -1802,38 +1799,52 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		    return($arrSaps);
 		}
 
-		private function a______TYPOGRAPHY_SETTING_____(){}
 
+		private function a______SUB_SETTINGS_____(){}
 
 		/**
-		 * draw typography setting
+		 * draw sub settings
 		 */
-		protected function drawTypographySetting($setting){
+		private function drawSubSettings($setting){
 
 			if($this->isSidebar === false){
-				dmp("the typography attribute will be available in elementor");
+				dmp("the attribute will be available in elementor");
 
 				return;
 			}
 
-			$this->isTypographyExists = true;
+			$id = UniteFunctionsUC::getVal($setting, "id");
+			$name = UniteFunctionsUC::getVal($setting, "name");
+			$type = UniteFunctionsUC::getVal($setting, "type");
 
 			$addHtml = $this->getDefaultAddHtml($setting);
 
+			$this->addSubSettingsDialog($type);
+
 			?>
 			<div
-				id="<?php esc_attr_e($setting["id"]); ?>"
-				class="unite-setting-input-object unite-typography"
-				data-name="<?php esc_attr_e($setting["name"]); ?>"
-				data-settingtype="typography"
+				id="<?php esc_attr_e($id); ?>"
+				class="unite-sub-settings unite-setting-input-object"
+				data-settingtype="<?php esc_attr_e($type); ?>"
+				data-name="<?php esc_attr_e($name); ?>"
+				data-dialog-id="<?php esc_attr_e($type); ?>"
 				<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
 			>
 				<button
-					class="unite-typography-button uc-tip"
+					class="unite-sub-settings-reset uc-tip unite-hidden"
+					title="<?php esc_attr_e("Reset", "unlimited-elements-for-elementor"); ?>"
+				>
+					<svg class="unite-sub-settings-reset-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+						<path d="M10.606 9.008a5.5 5.5 0 1 1 .68-4.535"/>
+						<path d="M11.5.5v4l-3.969-.493"/>
+					</svg>
+				</button>
+				<button
+					class="unite-sub-settings-edit uc-tip"
 					title="<?php esc_attr_e("Edit", "unlimited-elements-for-elementor"); ?>"
 				>
-					<svg class="unite-typography-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-						<path stroke-linejoin="round" d="m9 1 2 2-7 7-3 1 1-3 7-7Z" />
+					<svg class="unite-sub-settings-edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+						<path d="m9 1 2 2-7 7-3 1 1-3 7-7Z" />
 					</svg>
 				</button>
 			</div>
@@ -1841,21 +1852,34 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		}
 
 		/**
-		 * draw typography dialog
+		 * add sub settings dialog
 		 */
-		protected function drawTypographyDialog(){
+		private function addSubSettingsDialog($type){
 
-			$settings = new UniteCreatorSettings();
-			$settings->addTypographyDialogSettings();
+			$this->subSettingsDialogs[$type] = $type;
+		}
 
-			$output = new UniteSettingsOutputSidebarUC();
-			$output->init($settings);
+		/**
+		 * draw sub settings dialogs
+		 */
+		private function drawSubSettingsDialogs(){
 
-			?>
-			<div class="unite-typography-dialog unite-settings-exclude">
-				<?php $output->draw("settings_typography_dialog", false); ?>
-			</div>
-			<?php
+			foreach($this->subSettingsDialogs as $type){
+				$settings = new UniteCreatorSettings();
+				$settings->addDialogSettings($type);
+
+				$output = new UniteSettingsOutputSidebarUC();
+				$output->init($settings);
+
+				?>
+				<div
+					class="unite-sub-settings-dialog unite-settings-exclude"
+					data-id="<?php esc_attr_e($type); ?>"
+				>
+					<?php $output->draw($type . "_sub_settings_dialog", false); ?>
+				</div>
+				<?php
+			}
 		}
 
 
@@ -2130,8 +2154,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		protected function drawSettingsBottom(){
 
-			if($this->isSidebar === true && $this->isTypographyExists === true)
-				$this->drawTypographyDialog();
+			if($this->isSidebar === true)
+				$this->drawSubSettingsDialogs();
 		}
 
 		/**

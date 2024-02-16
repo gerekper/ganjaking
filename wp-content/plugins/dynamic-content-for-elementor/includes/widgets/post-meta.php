@@ -494,7 +494,8 @@ class PostMeta extends \DynamicContentForElementor\Widgets\WidgetPrototype
                                 $post = $original_post;
                             }
                             if ($settings['dce_meta_id_render_type'] == 'template') {
-                                $meta_html = do_shortcode('[dce-elementor-template id="' . $settings['dce_meta_id_render_type_template'] . '" post_id="' . $object_id . '"]');
+                                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                                $meta_html = $template_system->build_elementor_template_special(['id' => $settings['dce_meta_id_render_type_template'], 'post_id' => $object_id]);
                             }
                         }
                         break;
@@ -638,14 +639,15 @@ class PostMeta extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 if ($meta_value == '' || $meta_value === \false || $meta_value == 'false' || $meta_value === null || $meta_value === 'NULL' || $settings['dce_meta_fallback_zero'] && ($meta_value == 0 || $meta_value == '0')) {
                     if (isset($settings['dce_meta_fallback']) && $settings['dce_meta_fallback']) {
                         if (isset($settings['dce_meta_fallback_type']) && $settings['dce_meta_fallback_type'] == 'template') {
-                            $fallback_content = '[dce-elementor-template id="' . $settings['dce_meta_fallback_template'] . '"]';
+                            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                            echo $template_system->build_elementor_template_special(['id' => $settings['dce_meta_fallback_template']]);
                         } else {
                             $fallback_content = $settings['dce_meta_fallback_text'];
                             if ($settings['dce_meta_fallback_autop']) {
                                 $fallback_content = Helper::strip_tag($fallback_content, 'p');
                             }
+                            echo do_shortcode($fallback_content);
                         }
-                        echo do_shortcode($fallback_content);
                     }
                 } else {
                     // PRINT RESULT HTML
@@ -660,26 +662,28 @@ class PostMeta extends \DynamicContentForElementor\Widgets\WidgetPrototype
             if ($settings['dce_meta_array']) {
                 if (isset($settings['dce_meta_array_fallback']) && $settings['dce_meta_array_fallback']) {
                     if (isset($settings['dce_meta_array_fallback_type']) && $settings['dce_meta_array_fallback_type'] == 'template') {
-                        $fallback_content = '[dce-elementor-template id="' . $settings['dce_meta_array_fallback_template'] . '"]';
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special(['id' => $settings['dce_meta_array_fallback_template']]);
                     } else {
                         $fallback_content = $settings['dce_meta_array_fallback_text'];
                         if ($settings['dce_meta_array_fallback_autop']) {
                             $fallback_content = Helper::strip_tag($fallback_content, 'p');
                         }
+                        echo do_shortcode($fallback_content);
                     }
-                    echo do_shortcode($fallback_content);
                 }
             } else {
                 if (isset($settings['dce_meta_fallback']) && $settings['dce_meta_fallback']) {
                     if (isset($settings['dce_meta_fallback_type']) && $settings['dce_meta_fallback_type'] == 'template') {
-                        $fallback_content = '[dce-elementor-template id="' . $settings['dce_meta_fallback_template'] . '"]';
+                        $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                        echo $template_system->build_elementor_template_special(['id' => $settings['dce_meta_fallback_template']]);
                     } else {
                         $fallback_content = $settings['dce_meta_fallback_text'];
                         if ($settings['dce_meta_fallback_autop']) {
                             $fallback_content = Helper::strip_tag($fallback_content, 'p');
                         }
+                        echo do_shortcode($fallback_content);
                     }
-                    echo do_shortcode($fallback_content);
                 }
             }
         }

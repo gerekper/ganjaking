@@ -110,7 +110,7 @@ trait Meta
         }
         $query = 'SELECT DISTINCT meta_key FROM ' . esc_sql($table);
         if ($like) {
-            $query .= $wpdb->prepare(" WHERE meta_key LIKE %s", '%' . $wpdb->esc_like($like) . '%');
+            $query .= $wpdb->prepare(' WHERE meta_key LIKE %s', '%' . $wpdb->esc_like($like) . '%');
         }
         $results = $wpdb->get_results($query);
         if (!empty($results)) {
@@ -412,7 +412,7 @@ trait Meta
         global $wpdb;
         $query = 'SELECT DISTINCT meta_key FROM ' . $wpdb->prefix . 'postmeta';
         if ($like) {
-            $query .= " WHERE meta_key LIKE %s";
+            $query .= ' WHERE meta_key LIKE %s';
             $prepared_query = $wpdb->prepare($query, '%' . $wpdb->esc_like($like) . '%');
         } else {
             $prepared_query = $query;

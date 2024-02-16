@@ -54,10 +54,6 @@ $populated = $existing && $email && $license;
 					<small class="wf-onboarding-subscription-option-required" style="display: none;"><?php esc_html_e('You must select either "Yes" or "No"', 'wordfence') ?></small>
 				</div>
 			</div>
-			<div class="wf-onboarding-form-group wf-onboarding-consent-group"<?php if ($populated): ?> style="display: none;"<?php endif ?>>
-				<input type="checkbox" id="wf-onboarding-consent-input" required<?php if ($populated): ?> checked<?php endif ?>>
-				<label for="wf-onboarding-consent-input"><?php echo wp_kses(__('I have read and agree to the <a href="https://www.wordfence.com/license-terms-and-conditions/" target="_blank" rel="noopener noreferrer">Wordfence License Terms and Conditions</a>, the <a href="https://www.wordfence.com/services-subscription-agreement" rel="noopener noreferrer" target="_blank">Services Subscription Agreement</a>, and <a href="https://www.wordfence.com/terms-of-service/" target="_blank" rel="noopener noreferrer">Terms of Service</a>, and have read and acknowledge the <a href="https://www.wordfence.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Wordfence Privacy Policy</a>.', 'wordfence'), array('a' => array('href' => array(), 'target' => array(), 'rel' => array()))) ?></label>
-			</div>
 			<button class="wf-btn wf-btn-primary wf-onboarding-install-license" type="submit"><?php esc_html_e('Install License', 'wordfence') ?></button>
 		</form>
 		<?php if (!$populated): ?>

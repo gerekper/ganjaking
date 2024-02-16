@@ -5,12 +5,12 @@
 .dce_svgblob-wrapper .dce-svg-blob,
 .dce_svgpathtext-wrapper .dce-svg-pathtext
 {
-    overflow: visible;
+	overflow: visible;
 }
 .elementor-editor-active svg.dce-svg-morph{
-    outline: 1px dotted #999;
+	outline: 1px dotted #999;
 }
 .svg-trigger-rollover svg.dce-svg-morph:hover,
 .svg-trigger-rollover svg.dce-svg-distortion:hover{
-    cursor: pointer;
+	cursor: pointer;
 }

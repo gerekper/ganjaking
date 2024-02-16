@@ -23,6 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Admin {
 	const PLUGIN_DISCOUNT_PERCENT = 80;
+	const CDN_POP_LOCATIONS       = 123;
 
 	/**
 	 * Plugin pages.
@@ -77,7 +78,7 @@ class Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2 );
 
 		// Prints a membership validation issue notice in Media Library.
-		add_action( 'admin_notices', array( $this, 'media_library_membership_notice' ) );
+		
 
 		// Plugin conflict notice.
 		add_action( 'admin_notices', array( $this, 'show_plugin_conflict_notice' ) );
@@ -375,7 +376,6 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
-		return;
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;

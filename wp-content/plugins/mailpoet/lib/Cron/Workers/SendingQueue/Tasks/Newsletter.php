@@ -17,11 +17,13 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Newsletter\Links\Links as NewsletterLinks;
+use MailPoet\Newsletter\NewsletterDeleteController;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\PostProcess\OpenTracking;
 use MailPoet\Newsletter\Renderer\Renderer;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
 use MailPoet\Newsletter\Sending\SendingQueuesRepository;
+use MailPoet\RuntimeException;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\GATracking;
@@ -53,6 +55,9 @@ class Newsletter {
 
   /** @var NewslettersRepository */
   private $newslettersRepository;
+
+  /** @var NewsletterDeleteController  */
+  private $newsletterDeleteController;
 
   /** @var Emoji */
   private $emoji;
@@ -99,6 +104,7 @@ class Newsletter {
     $this->emoji = $emoji;
     $this->renderer = ContainerWrapper::getInstance()->get(Renderer::class);
     $this->newslettersRepository = ContainerWrapper::getInstance()->get(NewslettersRepository::class);
+    $this->newsletterDeleteController = ContainerWrapper::getInstance()->get(NewsletterDeleteController::class);
     $this->linksTask = ContainerWrapper::getInstance()->get(LinksTask::class);
     $this->newsletterLinks = ContainerWrapper::getInstance()->get(NewsletterLinks::class);
     $this->sendingQueuesRepository = ContainerWrapper::getInstance()->get(SendingQueuesRepository::class);
@@ -137,11 +143,22 @@ class Newsletter {
     return $newsletter;
   }
 
+  /**
+   * Pre-processes the newsletter before sending.
+   * - Renders the newsletter
+   * - Adds tracking
+   * - Extracts links
+   * - Checks if the newsletter is a post notification and if it contains at least 1 ALC post.
+   *   If not it deletes the notification history record and all associate entities.
+   *
+   * @return NewsletterEntity|false - Returns false only if the newsletter is a post notification history and was deleted.
+   *
+   */
   public function preProcessNewsletter(NewsletterEntity $newsletter, ScheduledTaskEntity $task) {
     // return the newsletter if it was previously rendered
     $queue = $task->getSendingQueue();
     if (!$queue) {
-      return false;
+      throw new RuntimeException('Can‘t pre-process newsletter without queue.');
     }
     if ($queue->getNewsletterRenderedBody() !== null) {
       return $newsletter;
@@ -194,7 +211,7 @@ class Newsletter {
         'no posts in post notification, deleting it',
         ['newsletter_id' => $newsletter->getId(), 'task_id' => $task->getId()]
       );
-      $this->newslettersRepository->bulkDelete([(int)$newsletter->getId()]);
+      $this->newsletterDeleteController->bulkDelete([(int)$newsletter->getId()]);
       return false;
     }
     // extract and save newsletter posts

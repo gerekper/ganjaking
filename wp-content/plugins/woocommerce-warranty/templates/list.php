@@ -141,11 +141,40 @@ class Warranty_List_Table extends WP_List_Table {
 		}
 
 		if ( isset( $get_data['s'] ) && ! empty( $get_data['s'] ) ) {
-			$query_args['meta_query'][] = array(
+
+			$full_name  = explode( ' ', $get_data['s'] );
+			$order_args = array(
+				'billing_first_name' => $full_name[0],
+				'return'             => 'ids',
+				'limit'              => -1,
+			);
+
+			if ( ! empty( $full_name[1] ) ) {
+				$order_args['billing_last_name'] = $full_name[1];
+			}
+
+			$existing_orders = wc_get_orders( $order_args );
+
+			$query_args['meta_query']['relation'] = 'OR';
+			$query_args['meta_query'][]           = array(
 				'key'     => '_code',
 				'value'   => $get_data['s'],
 				'compare' => 'LIKE',
 			);
+
+			$query_args['meta_query'][] = array(
+				'key'     => '_order_id',
+				'value'   => $get_data['s'],
+				'compare' => 'LIKE',
+			);
+
+			if ( ! empty( $existing_orders ) ) {
+				$query_args['meta_query'][] = array(
+					'key'     => '_order_id',
+					'value'   => $existing_orders,
+					'compare' => 'IN',
+				);
+			}
 		}
 
 		if ( class_exists( 'WC_Product_Vendors_Utils' ) ) {
@@ -439,7 +468,7 @@ $warranty_table->prepare_items();
 
 		<p class="search-box">
 			<label class="screen-reader-text" for="search"><?php esc_html_e( 'Search', 'wc_warranty' ); ?>:</label>
-			<input type="search" id="search" name="s" value="<?php _admin_search_query(); ?>" placeholder="RMA #" />
+			<input type="search" id="search" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php esc_html_e( 'RMA Number, Order ID, or Name', 'wc_warranty' ); ?>" />
 			<?php submit_button( __( 'Search', 'wc_warranty' ), 'button', false, false, array( 'id' => 'search-submit' ) ); ?>
 		</p>
 	</form>

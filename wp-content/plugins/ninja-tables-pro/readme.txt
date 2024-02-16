@@ -5,7 +5,7 @@ Tags: wp table builder, table plugin, wpdatatables, wordpress tables, Table buil
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 5.0.5
+Stable tag: 5.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -265,7 +265,17 @@ Ninja Tables let's you connect Google spreadsheets to the WordPress tables. Chec
 
 == Changelog ==
 We released several updates for Ninja Tables in the years of development. These include improvements to the existing features and some wonderful additions to help you design tables more effectively.
-### What's New on 5.0.5?
+### What's New on 5.0.7?
+
+= 5.0.7 (Date: February 05, 2024) =
+* Fixes custom filter disappear issue
+
+= 5.0.6 (Date: January 23, 2024) =
+* Fixes: Fixes CSV/JSON export permission issue
+* Fixes post author name display issue in woocommerce table
+* Fixes cart & checkout button text save issue
+* Fixes Custom filter number_range minus sing(-) issue
+* Removed href if image doesn't have URL for drag & drop table
 
 = 5.0.5 (Date: December 19, 2023) =
 * Fixes: European number range filter issue with the use of transform value

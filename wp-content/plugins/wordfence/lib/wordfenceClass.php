@@ -1,12 +1,4 @@
 <?php
-add_action('plugins_loaded', function(){
-    if( !class_exists('wfConfig') ) return;
-    wfConfig::set('isPaid', 1);
-	wfConfig::set('success', 1);
-    wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
-	wfConfig::set('licenseType', wfLicense::TYPE_RESPONSE);
-    wfConfig::set('premiumNextRenew', time()+31536000);  
-}, 99);
 require_once(dirname(__FILE__) . '/wordfenceConstants.php');
 require_once(dirname(__FILE__) . '/wfScanEngine.php');
 require_once(dirname(__FILE__) . '/wfScan.php');
@@ -187,8 +179,18 @@ class wordfence {
 		wfRateLimit::trimData();
 		
 		wfCentral::checkForUnsentSecurityEvents();
+		wfCentral::populateCentralSiteUrl();
 
 		wfVersionCheckController::shared()->checkVersionsAndWarn();
+		
+		$scanLastCompletion = (int) wfScanner::shared()->lastScanTime();
+		if (time() - $scanLastCompletion > 28800 /* 8 hours */ && ((int) (wfConfig::get('lastQuickScan', 0) / 86400)) < ((int) (time() / 86400))) {
+			$next = self::getNextScanStartTimestamp();
+			if ($next - time() > 3600 && wfConfig::get('scheduledScansEnabled')) {
+				wfConfig::set('lastQuickScan', time());
+				wfScanEngine::startScan(false, wfScanner::SCAN_TYPE_QUICK);
+			}
+		}
 	}
 	private static function keyAlert($msg){
 		self::alert($msg, $msg . " " . __("To ensure uninterrupted Premium Wordfence protection on your site,\nplease renew your license by visiting http://www.wordfence.com/ Sign in, go to your dashboard,\nselect the license about to expire and click the button to renew that license.", 'wordfence'), false);
@@ -353,11 +355,6 @@ class wordfence {
 		$report = new wfActivityReport();
 		$report->rotateIPLog();
 		self::_refreshUpdateNotification($report, true);
-		
-		$next = self::getNextScanStartTimestamp();
-		if ($next - time() > 3600 && wfConfig::get('scheduledScansEnabled')) {
-			wfScanEngine::startScan(false, wfScanner::SCAN_TYPE_QUICK);
-		}
 
 		wfUpdateCheck::syncAllVersionInfo();
 
@@ -1118,7 +1115,8 @@ SQL
 	public static function _refreshVulnerabilityCache($upgrader = null, $hook_extra = null) {
 		if($hook_extra ===null || in_array($hook_extra['type'], array('plugin', 'theme'))){
 			$update_check = new wfUpdateCheck();
-			$update_check->checkAllVulnerabilities();
+			$update_check->checkPluginVulnerabilities();
+			$update_check->checkThemeVulnerabilities();
 		}
 	}
 	private static function doEarlyAccessLogging(){
@@ -1231,12 +1229,9 @@ SQL
 		
 		//add_action('wp_enqueue_scripts', 'wordfence::enqueueDashboard');
 		add_action('admin_enqueue_scripts', 'wordfence::enqueueDashboard');
-
-		if(version_compare(PHP_VERSION, '5.4.0') >= 0){
-			add_action('wp_authenticate','wordfence::authActionNew', 1, 2);
-		} else {
-			add_action('wp_authenticate','wordfence::authActionOld', 1, 2);
-		}
+		
+		add_action('wp_authenticate','wordfence::authAction', 1, 2);
+		add_action('wp_authenticate_user', 'wordfence::authUserAction', 1, 2); //A secondary lockout check for plugins that override the login flow and don't call the complete set of hooks
 		add_filter('authenticate', 'wordfence::authenticateFilter', 99, 3);
 		
 		$lockout = wfBlock::lockoutForIP(wfUtils::getIP());
@@ -3483,7 +3478,7 @@ SQL
 		
 		self::doEarlyAccessLogging(); //Rate limiting
 	}
-	public static function authActionNew(&$username, &$passwd){ //As of php 5.4 we must denote passing by ref in the function definition, not the function call (as WordPress core does, which is a bug in WordPress).
+	public static function authAction(&$username, &$passwd){
 		$lockout = wfBlock::lockoutForIP(wfUtils::getIP());
 		if ($lockout !== false) {
 			$lockout->recordBlock();
@@ -3519,41 +3514,14 @@ SQL
 			$_POST['pwd'] = $passwd;
 		}
 	}
-	public static function authActionOld($username, $passwd){ //Code is identical to Newer function above except passing by ref ampersand. Some versions of PHP are throwing an error if we include the ampersand in PHP prior to 5.4.
+	public static function authUserAction($user, $password) {
 		$lockout = wfBlock::lockoutForIP(wfUtils::getIP());
 		if ($lockout !== false) {
 			$lockout->recordBlock();
 			$customText = wpautop(wp_strip_all_tags(wfConfig::get('blockCustomText', '')));
 			require(dirname(__FILE__) . '/wfLockedOut.php');
 		}
-		
-		if (isset($_POST['wordfence_twoFactorUser'])) { //Final stage of login -- get and verify 2fa code, make sure we load the appropriate user
-			$userID = intval($_POST['wordfence_twoFactorUser']);
-			$twoFactorNonce = preg_replace('/[^a-f0-9]/i', '', $_POST['wordfence_twoFactorNonce']);
-			if (self::verifyTwoFactorIntermediateValues($userID, $twoFactorNonce)) {
-				$user = get_user_by('ID', $userID);
-				$username = $user->user_login;
-				$passwd = $twoFactorNonce;
-				self::$userDat = $user;
-				return;
-			}
-		}
-		
-		if (is_array($username) || is_array($passwd)) { return; }
-		
-		//Intermediate stage of login
-		if(! $username){ return; }
-		$userDat = get_user_by('login', $username);
-		if (!$userDat) {
-			$userDat = get_user_by('email', $username);
-		}
-		
-		self::$userDat = $userDat;
-		if(preg_match(self::$passwordCodePattern, $passwd, $matches)){
-			$_POST['wordfence_authFactor'] = $matches[1];
-			$passwd = preg_replace('/^(.+)\s+wf([a-z0-9 ]+)$/i', '$1', $passwd);
-			$_POST['pwd'] = $passwd;
-		}
+		return $user;
 	}
 	public static function getWPFileContent($file, $cType, $cName, $cVersion){
 		if ($cType == 'plugin') {
@@ -6782,6 +6750,16 @@ HTML;
 			$warningAdded = true;
 		}
 		
+		if (!$warningAdded && self::isWordfencePage() && wfCentral::isCentralSiteUrlMismatched() && !wfUtils::truthyToBoolean(wfConfig::get('centralUrlMismatchChoice'))) {
+			$warningAdded = true;
+			if (wfUtils::isAdminPageMU()) {
+				add_action('network_admin_notices', 'wfCentral::mismatchedCentralUrlNotice');
+			}
+			else {
+				add_action('admin_notices', 'wfCentral::mismatchedCentralUrlNotice');
+			}
+		}
+		
 		$existing = wfConfig::get('howGetIPs', '');
 		$recommendation = wfConfig::get('detectProxyRecommendation', '');
 		$canDisplayMisconfiguredHowGetIPs = true;
@@ -9851,26 +9829,52 @@ if (file_exists(__DIR__.%1$s)) {
 	}
 
 	public static function ajax_wfcentral_disconnect_callback() {
-		try {
-			$request = new wfCentralAuthenticatedAPIRequest(
-				sprintf('/site/%s', wfConfig::get('wordfenceCentralSiteID')),
-				'DELETE');
-			$response = $request->execute();
+		$dismiss = array_key_exists('dismiss', $_POST) && wfUtils::truthyToBoolean($_POST['dismiss']);
+		if ($dismiss) {
+			wfConfig::set('centralUrlMismatchChoice', '1');
+			return array(
+				'success' => true,
+			);
 		}
-		catch (wfCentralAPIException $e) {
-
-		}
-		catch (Exception $e) {
-			wfCentralAPIRequest::handleInternalCentralAPIError($e);
-		}
-		catch (Throwable $t) {
-			wfCentralAPIRequest::handleInternalCentralAPIError($t);
+		
+		$force = array_key_exists('force', $_POST) && $_POST['force'] === 'true';
+		$localOnly = array_key_exists('local', $_POST) && $_POST['local'] === 'true';
+		$message = null;
+		if (!$localOnly) {
+			try {
+				if ($force || !wfCentral::isCentralSiteUrlMismatched()) {
+					$request = new wfCentralAuthenticatedAPIRequest(
+						sprintf('/site/%s', wfConfig::get('wordfenceCentralSiteID')),
+						'DELETE');
+					$response = $request->execute();
+					if ($response->isError()) {
+						return $response->returnErrorArray();
+					}
+				}
+				else {
+					$message = sprintf(__('The current site URL does not match the Wordfence Central connection information. Local connection information has been removed, but %s is still registered in Wordfence Central.', 'wordfence'), wfCentral::getCentralSiteUrl());
+				}
+			}
+			catch (wfCentralAPIException $e) {
+				return array(
+					'success' => false,
+					'errorMsg' => __('Unable to communicate with Wordfence Central', 'wordfence')
+				);
+			}
+			catch (Exception $e) {
+				wfCentralAPIRequest::handleInternalCentralAPIError($e);
+			}
+			catch (Throwable $t) {
+				wfCentralAPIRequest::handleInternalCentralAPIError($t);
+			}
 		}
 
 		wfRESTConfigController::disconnectConfig();
 
 		return array(
-			'success' => 1,
+			'success' => true,
+			'message' => $message,
+			'title' => __('Disconnected from Wordfence Central')
 		);
 	}
 

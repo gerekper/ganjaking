@@ -337,12 +337,12 @@ class FileBrowser extends \DynamicContentForElementor\Widgets\WidgetPrototype
                 $this->editorJavascript();
             } else {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    Helper::notice('', __('Root folder not found', 'dynamic-content-for-elementor'));
+                    Helper::notice(\false, __('Root folder not found', 'dynamic-content-for-elementor'));
                 }
             }
         } else {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                Helper::notice('', __('Select root folder or files', 'dynamic-content-for-elementor'));
+                Helper::notice(\false, __('Select root folder or files', 'dynamic-content-for-elementor'));
             }
         }
     }

@@ -2,14 +2,22 @@
 /**
  * Register new status with ID "wc-redsys-pre".
  *
- * @package WooCommerce Redsys Gateway (WooCommerce.com)
+ * @package WooCommerce Redsys Gateway
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @link https://redsys.joseconti.com
+ * @link https://woo.com/products/redsys-gateway/
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2024 José Conti.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_register_preauthorized_status() {
 
@@ -28,7 +36,7 @@ function redsys_register_preauthorized_status() {
 add_action( 'init', 'redsys_register_preauthorized_status' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_register_resident_payment_status() {
 
@@ -47,7 +55,7 @@ function redsys_register_resident_payment_status() {
 add_action( 'init', 'redsys_register_resident_payment_status' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_register_pending_bank_transfer_payment_status() {
 
@@ -66,7 +74,7 @@ function redsys_register_pending_bank_transfer_payment_status() {
 add_action( 'init', 'redsys_register_pending_bank_transfer_payment_status' );
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Copyright: (C) 2013 - 2024 José Conti
  */
 function redsys_register_pending_payment_status() {
 

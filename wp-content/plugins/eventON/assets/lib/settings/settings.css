@@ -65,7 +65,7 @@
 	.evo_settings_box .postbox .inside{border:none;margin:0; padding:20px;}
 
 /* new tag */
-	.acus_line .new{
+	.acus_line .new, .ajde_backender_uix .evonewtag{
 		    position: absolute;
 	    right: 10px;
 	    background-color: var(--evo_color_prime);
@@ -690,6 +690,7 @@
 	.row_multicolor .multicolor_alt{margin-left: 25px;}
 	
 	.row_fontation p.color{margin-top: 2px;}
+	.customization_right_in .row_faicons{ display: flex;  align-items: center; }
 	.row_fontation p, .row_faicons p{float: left;}
 	.row_fontation p.fieldname, .row_faicons p.fieldname{
 		padding-right: 10px; min-width: 175px;

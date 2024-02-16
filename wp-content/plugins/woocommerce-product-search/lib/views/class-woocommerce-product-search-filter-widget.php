@@ -209,14 +209,14 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'products_header_container' => '.woocommerce-products-header',
 			'products_container'        => '.products',
 			'product_container'         => '.product',
-			'info_container'            => '.woocommerce-info',
+			'info_container'            => '.woocommerce-info, .wc-block-components-notice-banner.is-info',
 			'ordering_container'        => '.woocommerce-ordering',
 			'pagination_container'      => '.woocommerce-pagination',
 			'result_count_container'    => '.woocommerce-result-count'
 		);
 		foreach( $containers as $key => $selector ) {
 			$value = !empty( $new_instance[$key] ) ? $new_instance[$key] : $selector;
-			$value = preg_replace( '/[^a-zA-Z0-9 _.#-]/', '', $value );
+			$value = preg_replace( '/[^a-zA-Z0-9 _.,#-]/', '', $value );
 			$value = trim( $value );
 			if ( empty( $value ) ) {
 				$value = $selector;
@@ -605,7 +605,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'products_header_container' => '.woocommerce-products-header',
 			'products_container'        => '.products',
 			'product_container'         => '.product',
-			'info_container'            => '.woocommerce-info',
+			'info_container'            => '.woocommerce-info, .wc-block-components-notice-banner.is-info',
 			'ordering_container'        => '.woocommerce-ordering',
 			'pagination_container'      => '.woocommerce-pagination',
 			'result_count_container'    => '.woocommerce-result-count'
@@ -687,7 +687,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'products_header_container' => '.woocommerce-products-header',
 			'products_container'        => '.products',
 			'product_container'         => '.product',
-			'info_container'            => '.woocommerce-info',
+			'info_container'            => '.woocommerce-info, .wc-block-components-notice-banner.is-info',
 			'ordering_container'        => '.woocommerce-ordering',
 			'pagination_container'      => '.woocommerce-pagination',
 			'result_count_container'    => '.woocommerce-result-count',

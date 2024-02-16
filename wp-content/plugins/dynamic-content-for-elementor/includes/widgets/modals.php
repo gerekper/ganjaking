@@ -410,13 +410,14 @@ class Modals extends \DynamicContentForElementor\Widgets\WidgetPrototype
 							<div class="modal-body">
 								<?php 
             if ($settings['template']) {
-                $modal_content = '[dce-elementor-template id="' . $settings['template'] . '" inlinecss="true"]';
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                echo $template_system->build_elementor_template_special(['id' => $settings['template'], 'inlinecss' => \true]);
             } else {
-                $modal_content = wp_kses_post($settings['modal_content']);
+                echo do_shortcode(wp_kses_post($settings['modal_content']));
             }
-            echo do_shortcode($modal_content);
             ?>
 							</div>
+
 
 								<?php 
             if ($settings['enable_close_button']) {

@@ -43,17 +43,17 @@ class UniteFunctionsUC{
 		echo "</pre>";
 
 	}
-	
+
 	/**
 	 * show some class static variables values
 	 */
 	public static function showClassStaticVariables($className){
-		
+
 		 $reflectionClass = new ReflectionClass($className);
 		 $staticProperties = $reflectionClass->getStaticProperties();
 		 dmp($staticProperties);
 	}
-	
+
 
 	/**
 	 * throw error and show function trace
@@ -1643,77 +1643,10 @@ class UniteFunctionsUC{
 		}
 
 
-	public static function z__________URLS__________(){}
-
-	/**
-	 *
-	 * get url contents
-	 */
-	public static function getUrlContents($url,$arrPost=array(),$method = "post",$debug=false){
-
-		$ch = curl_init();
-		$timeout = 0;
-
-		if(empty($arrPost))
-			$arrPost = array();
-
-		$strPost = '';
-		foreach($arrPost as $key=>$value){
-			if(!empty($strPost))
-				$strPost .= "&";
-
-			if(is_array($value))
-				$value = json_encode($value);
-
-			$value = urlencode($value);
-			$strPost .= "$key=$value";
-		}
-
-		//set curl options
-		if(strtolower($method) == "post"){
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS,$strPost);
-		}
-		else{
-			if(!empty($strPost))
-				$url = self::addUrlParams($url, $strPost);
-		}
-
-
-
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-
-		$headers = array();
-		$headers[] = "User-Agent:Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8";
-		$headers[] = "Accept-Charset:utf-8;q=0.7,*;q=0.7";
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-		$response = curl_exec($ch);
-
-
-		if($debug == true){
-			dmp($url);
-			dmp($response);
-			exit();
-		}
-
-		if($response == false)
-			throw new Exception("getUrlContents Request failed");
-
-		curl_close($ch);
-		return($response);
-	}
-
+	public static function z__________URL__________(){}
 
 	/**
 	 * convert url to handle
-	 *
 	 */
 	public static function urlToHandle($url = ''){
 
@@ -1723,7 +1656,6 @@ class UniteFunctionsUC{
 		// Only allow one dash separator at a time (and make string lowercase)
 		return mb_strtolower(preg_replace('/--+/u', '-', $url), 'UTF-8');
 	}
-
 
 	/**
 	 * add params to url
@@ -2960,7 +2892,7 @@ class UniteFunctionsUC{
 	public static function getYoutubeVideoID($url){
 
 		preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
-				
+
 		if(empty($matches))
 			return($url);
 

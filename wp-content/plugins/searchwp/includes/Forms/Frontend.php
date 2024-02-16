@@ -2,6 +2,7 @@
 
 namespace SearchWP\Forms;
 
+use SearchWP\Settings;
 use SearchWP\Source;
 
 /**
@@ -39,6 +40,8 @@ class Frontend {
 		}
 
 		add_action( 'wp_enqueue_scripts', [ __CLASS__, 'assets' ] );
+
+		add_filter( 'searchwp\native\args', [ __CLASS__, 'set_native_search_engine' ] );
 
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'taxonomy_mod' ], 20, 2 );
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'author_mod' ], 20, 2 );
@@ -507,6 +510,62 @@ class Frontend {
 		}
 
 		return $authors;
+	}
+
+	/**
+	 * Conditionally set native search engine to a form engine.
+	 * Form engine must not have any custom (non-WP_Post) sources.
+	 *
+	 * @since 4.3.12
+	 *
+	 * @param array $args Native search args.
+	 *
+	 * @return array
+	 */
+	public static function set_native_search_engine( $args ) {
+
+		if ( is_admin() ) {
+			return $args; // Search Forms are not designed to work on admin side or via AJAX.
+		}
+
+		$form_id = isset( $_GET['swp_form']['form_id'] ) ? absint( $_GET['swp_form']['form_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form    = Storage::get( $form_id );
+
+		if ( empty( $form ) ) {
+			return $args;
+		}
+
+		// Assume WP default results page if input_name is not explicitly set.
+		if ( ! empty( $form['input_name'] ) && $form['input_name'] !== 's' ) {
+			return $args;
+		}
+
+		$engine_name = ! empty( $form['engine'] ) ? $form['engine'] : 'default';
+
+		if ( $engine_name === 'default' ) {
+			return $args;
+		}
+
+		$engine_settings = Settings::get_engine_settings( $engine_name );
+
+		if ( empty( $engine_settings ) ) {
+			return $args;
+		}
+
+		$custom_sources = array_filter(
+			isset( $engine_settings['sources'] ) ? $engine_settings['sources'] : [],
+			function ( $key ) {
+				return strpos( $key, 'post' . SEARCHWP_SEPARATOR ) !== 0;
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		// Set form engine as native engine only if it doesn't contain custom (non-WP_Post) sources.
+		if ( empty( $custom_sources ) ) {
+			$args['engine'] = $engine_name;
+		}
+
+		return $args;
 	}
 
 	/**

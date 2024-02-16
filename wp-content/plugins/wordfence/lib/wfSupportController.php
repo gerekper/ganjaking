@@ -159,6 +159,7 @@ class wfSupportController {
 	const ITEM_SCAN_RESULT_MODIFIED_PLUGIN = 'scan-result-modified-plugin';
 	const ITEM_SCAN_RESULT_MODIFIED_THEME = 'scan-result-modified-theme';
 	const ITEM_SCAN_RESULT_PLUGIN_VULNERABLE = 'scan-result-plugin-vulnerable';
+	const ITEM_SCAN_RESULT_CORE_UPGRADE = 'scan-result-core-upgrade';
 
 	const ITEM_TOOLS_TWO_FACTOR = 'tools-two-factor';
 	const ITEM_TOOLS_LIVE_TRAFFIC = 'tools-live-traffic';
@@ -353,6 +354,7 @@ class wfSupportController {
 			case self::ITEM_SCAN_RESULT_MODIFIED_PLUGIN:
 			case self::ITEM_SCAN_RESULT_MODIFIED_THEME:
 			case self::ITEM_SCAN_RESULT_PLUGIN_VULNERABLE:
+			case self::ITEM_SCAN_RESULT_CORE_UPGRADE:
 
 			case self::ITEM_TOOLS_TWO_FACTOR:
 			case self::ITEM_TOOLS_LIVE_TRAFFIC:

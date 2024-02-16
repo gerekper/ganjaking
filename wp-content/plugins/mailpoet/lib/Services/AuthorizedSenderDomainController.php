@@ -11,21 +11,18 @@ use MailPoet\Services\Bridge\API;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\License\Features\Subscribers;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Carbon\Carbon;
 
 class AuthorizedSenderDomainController {
-  const OVERALL_STATUS_VERIFIED = 'verified';
-  const OVERALL_STATUS_PARTIALLY_VERIFIED = 'partially-verified';
-  const OVERALL_STATUS_UNVERIFIED = 'unverified';
+  const DOMAIN_STATUS_VERIFIED = 'verified';
+  const DOMAIN_STATUS_PARTIALLY_VERIFIED = 'partially-verified';
+  const DOMAIN_STATUS_UNVERIFIED = 'unverified';
 
   const AUTHORIZED_SENDER_DOMAIN_ERROR_ALREADY_CREATED = 'Sender domain exist';
   const AUTHORIZED_SENDER_DOMAIN_ERROR_NOT_CREATED = 'Sender domain does not exist';
   const AUTHORIZED_SENDER_DOMAIN_ERROR_ALREADY_VERIFIED = 'Sender domain already verified';
 
-  const LOWER_LIMIT = 500;
-  const UPPER_LIMIT = 1000;
-
-  const ENFORCEMENT_START_TIME = '2024-02-01 00:00:00 UTC';
+  const LOWER_LIMIT = 100;
+  const UPPER_LIMIT = 200;
 
   const INSTALLED_AFTER_NEW_RESTRICTIONS_OPTION = 'installed_after_new_domain_restrictions';
 
@@ -119,12 +116,13 @@ class AuthorizedSenderDomainController {
 
     $response = $this->bridge->createAuthorizedSenderDomain($domain);
 
-    if ($response['status'] === API::RESPONSE_STATUS_ERROR) {
+    if (isset($response['status']) && $response['status'] === API::RESPONSE_STATUS_ERROR) {
       throw new \InvalidArgumentException($response['message']);
     }
 
     // Reset cached value since a new domain was added
     $this->currentRecords = null;
+    $this->reloadCache();
 
     return $response;
   }
@@ -153,7 +151,6 @@ class AuthorizedSenderDomainController {
       throw new \InvalidArgumentException(self::AUTHORIZED_SENDER_DOMAIN_ERROR_NOT_CREATED);
     }
 
-    $this->reloadCache();
     $verifiedDomains = $this->getFullyVerifiedSenderDomains(true);
     $alreadyVerified = in_array($domain, $verifiedDomains);
 
@@ -169,6 +166,9 @@ class AuthorizedSenderDomainController {
       throw new \InvalidArgumentException($response['message']);
     }
 
+    $this->currentRecords = null;
+    $this->reloadCache();
+
     return $response;
   }
 
@@ -182,7 +182,7 @@ class AuthorizedSenderDomainController {
    * Returns sender domains that have all required records, including DMARC.
    */
   public function getFullyVerifiedSenderDomains($domainsOnly = false): array {
-    $domainData = $this->getSenderDomainsByStatus([self::OVERALL_STATUS_VERIFIED]);
+    $domainData = $this->getSenderDomainsByStatus([self::DOMAIN_STATUS_VERIFIED]);
     return $domainsOnly ? $this->extractDomains($domainData) : $domainData;
   }
 
@@ -190,17 +190,17 @@ class AuthorizedSenderDomainController {
    * Returns sender domains that were verified before DMARC record was required.
    */
   public function getPartiallyVerifiedSenderDomains($domainsOnly = false): array {
-    $domainData = $this->getSenderDomainsByStatus([self::OVERALL_STATUS_PARTIALLY_VERIFIED]);
+    $domainData = $this->getSenderDomainsByStatus([self::DOMAIN_STATUS_PARTIALLY_VERIFIED]);
     return $domainsOnly ? $this->extractDomains($domainData) : $domainData;
   }
 
   public function getUnverifiedSenderDomains($domainsOnly = false): array {
-    $domainData = $this->getSenderDomainsByStatus([self::OVERALL_STATUS_UNVERIFIED]);
+    $domainData = $this->getSenderDomainsByStatus([self::DOMAIN_STATUS_UNVERIFIED]);
     return $domainsOnly ? $this->extractDomains($domainData) : $domainData;
   }
 
   public function getFullyOrPartiallyVerifiedSenderDomains($domainsOnly = false): array {
-    $domainData = $this->getSenderDomainsByStatus([self::OVERALL_STATUS_PARTIALLY_VERIFIED,self::OVERALL_STATUS_VERIFIED]);
+    $domainData = $this->getSenderDomainsByStatus([self::DOMAIN_STATUS_PARTIALLY_VERIFIED,self::DOMAIN_STATUS_VERIFIED]);
     return $domainsOnly ? $this->extractDomains($domainData) : $domainData;
   }
 
@@ -239,7 +239,6 @@ class AuthorizedSenderDomainController {
   }
 
   private function reloadCache() {
-    $this->currentRecords = null;
     $this->currentRawData = $this->bridge->getRawSenderDomainData();
     $this->wp->setTransient(self::SENDER_DOMAINS_KEY, $this->currentRawData, 60 * 60 * 24);
   }
@@ -262,11 +261,6 @@ class AuthorizedSenderDomainController {
       $this->currentRecords = $this->bridge->getAuthorizedSenderDomains();
     }
     return $this->currentRecords;
-  }
-
-  // TODO: Remove after the enforcement date has passed
-  public function isEnforcementOfNewRestrictionsInEffect(): bool {
-    return Carbon::now() >= Carbon::parse(self::ENFORCEMENT_START_TIME);
   }
 
   public function isNewUser(): bool {
@@ -294,24 +288,29 @@ class AuthorizedSenderDomainController {
     return $this->subscribers->getSubscribersCount() > self::UPPER_LIMIT;
   }
 
-  private function restrictionsApply(): bool {
-    if ($this->settingsController->get('mta.method') !== Mailer::METHOD_MAILPOET) {
-      return false;
-    }
-
-    // TODO: Remove after the enforcement date has passed
-    if (!$this->isNewUser() && !$this->isEnforcementOfNewRestrictionsInEffect()) {
-      return false;
-    }
-
-    return true;
-  }
-
   public function isAuthorizedDomainRequiredForNewCampaigns(): bool {
-    return $this->restrictionsApply() && !$this->isSmallSender();
+    return $this->settingsController->get('mta.method') === Mailer::METHOD_MAILPOET && !$this->isSmallSender();
   }
 
   public function isAuthorizedDomainRequiredForExistingCampaigns(): bool {
-    return $this->restrictionsApply() && $this->isBigSender();
+    return $this->settingsController->get('mta.method') === Mailer::METHOD_MAILPOET && $this->isBigSender();
+  }
+
+  public function getContextData(): array {
+    return [
+      'verifiedSenderDomains' => $this->getFullyVerifiedSenderDomains(true),
+      'partiallyVerifiedSenderDomains' => $this->getPartiallyVerifiedSenderDomains(true),
+      'allSenderDomains' => $this->getAllSenderDomains(),
+      'senderRestrictions' => [
+        'lowerLimit' => self::LOWER_LIMIT,
+        'alwaysRewrite' => false,
+      ],
+    ];
+  }
+
+  public function getContextDataForAutomations(): array {
+    $data = $this->getContextData();
+    $data['senderRestrictions']['alwaysRewrite'] = true;
+    return $data;
   }
 }

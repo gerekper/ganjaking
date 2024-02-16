@@ -875,6 +875,32 @@ class Premium_Tables extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'img_size',
+			array(
+				'label'      => __( 'Icons Size', 'premium-addons-pro' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 150,
+					),
+					'em' => array(
+						'min' => 1,
+						'max' => 15,
+					),
+				),
+                'condition'  => array(
+                    'premium_table_data_type' => 'csv'
+                ),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-table-text i'   => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-table-text img, {{WRAPPER}} .premium-table-text svg' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
+				),
+			)
+		);
+
 		$this->add_control(
 			'premium_table_blur',
 			array(

@@ -21,6 +21,13 @@ if (!\defined('ABSPATH')) {
 }
 class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
 {
+    public function run_once()
+    {
+        parent::run_once();
+        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
+        $save_guard->register_unsafe_control($this->get_type(), 'other_post_source');
+        $save_guard->register_unsafe_control($this->get_type(), 'dce_acf_repeater_thead_custom_html');
+    }
     /**
      * Return an array with key ACF subfield id and value
      *
@@ -43,17 +50,6 @@ class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
     public function get_style_depends()
     {
         return ['dce-acf-repeater', 'datatables', 'dce-accordionjs'];
-    }
-    /**
-     * Run Once
-     *
-     * @return void
-     */
-    public function run_once()
-    {
-        parent::run_once();
-        $save_guard = \DynamicContentForElementor\Plugin::instance()->save_guard;
-        $save_guard->register_unsafe_control($this->get_type(), 'dce_acf_repeater_thead_custom_html');
     }
     /**
      * Register controls after check if this feature is only for admin
@@ -330,7 +326,7 @@ class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
             $this->add_render_attribute('container', 'class', 'dce-acf-repeater');
             echo '<div ' . $this->get_render_attribute_string('container') . '>';
             if ($settings['dce_acf_repeater_mode'] == 'subfields' && empty($settings['dce_acf_repeater_subfields']) && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                Helper::notice('', __('Select at least one sub field', 'dynamic-content-for-elementor'));
+                Helper::notice(\false, __('Select at least one sub field', 'dynamic-content-for-elementor'));
             }
             $this->add_render_attribute('wrapper', 'class', 'dce-acf-repeater-' . $settings['dce_acf_repeater_format']);
             if ($settings['dce_acf_repeater_format'] == 'slider_carousel') {
@@ -685,7 +681,7 @@ class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
             }
             echo '</div>';
         } elseif (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            Helper::notice('', __('Select an ACF Repeater field', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Select an ACF Repeater field', 'dynamic-content-for-elementor'));
         }
     }
     public function get_pagination($pages, $count = 0)
@@ -810,7 +806,7 @@ class AcfRepeater extends \DynamicContentForElementor\Widgets\WidgetPrototype
         $settings = $this->get_settings_for_display();
         foreach ($settings['filters'] as $key => $filter) {
             if (!isset($sub_fields[$filter['filter_field']])) {
-                Helper::notice('', \sprintf(__('Filter Error: the subfield %1$s doesn\'t exist', 'dynamic-content-for-elementor'), '<strong>' . $filter['filter_field'] . '</strong>'));
+                Helper::notice(\false, \sprintf(__('Filter Error: the subfield %1$s doesn\'t exist', 'dynamic-content-for-elementor'), '<strong>' . $filter['filter_field'] . '</strong>'));
             }
             $field = $sub_fields[$filter['filter_field']] ?? '';
             $condition_satisfied = Helper::is_condition_satisfied($field, $filter['filter_operator'], $filter['filter_value'] ?? '');

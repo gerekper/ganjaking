@@ -15,6 +15,7 @@ use \Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use \Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use \Elementor\Utils;
 use \Elementor\Widget_Base;
+use Essential_Addons_Elementor\Classes\Helper;
 
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
@@ -855,7 +856,7 @@ class Team_Member_Carousel extends Widget_Base
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Border::get_type(),
+			Group_Control_Border::get_type(),
 			[
 				'name'     => 'member_box_border',
 				'label'    => __('Border', 'essential-addons-elementor'),
@@ -864,7 +865,7 @@ class Team_Member_Carousel extends Widget_Base
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'member_box_shadow',
 				'label'    => __('Box Shadow', 'essential-addons-elementor'),
@@ -873,7 +874,7 @@ class Team_Member_Carousel extends Widget_Base
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Background::get_type(),
 			[
 				'name'     => 'member_box_background',
 				'label'    => __('Background', 'essential-addons-elementor'),
@@ -2456,8 +2457,8 @@ class Team_Member_Carousel extends Widget_Base
 		}
 
 		?>
-        <div <?php echo $this->get_render_attribute_string('team-member-carousel-wrap'); ?>>
-            <div <?php echo $this->get_render_attribute_string('team-member-carousel'); ?>>
+        <div <?php $this->print_render_attribute_string('team-member-carousel-wrap'); ?>>
+            <div <?php $this->print_render_attribute_string('team-member-carousel'); ?>>
                 <div class="swiper-wrapper">
 					<?php foreach ($settings['team_member_details'] as $index => $item) : ?>
                         <div class="swiper-slide">
@@ -2487,14 +2488,14 @@ class Team_Member_Carousel extends Widget_Base
 												}
 											}
 										}
-										echo "<a " . $this->get_render_attribute_string('eael-team-member-img-link-'.$item['_id']) . ">";
+										echo "<a "; $this->print_render_attribute_string('eael-team-member-img-link-'.$item['_id']); echo ">";
 									}
 									$image_url = Group_Control_Image_Size::get_attachment_image_src( $item['team_member_image']['id'], 'image_size', $settings );
 
 									if ( $image_url ) {
-										echo $image_html = '<img src="' . esc_url( $image_url ) . '"alt="' . esc_attr(get_post_meta($item['team_member_image']['id'], '_wp_attachment_image_alt', true)) . '">';
+										echo '<img src="' . esc_url( $image_url ) . '"alt="' . esc_attr(get_post_meta($item['team_member_image']['id'], '_wp_attachment_image_alt', true)) . '">';
 									} else {
-										echo $image_html = '<img src="' . esc_url( $item['team_member_image']['url'] ) .'">';
+										echo '<img src="' . esc_url( $item['team_member_image']['url'] ) .'">';
 									}
 									if ( isset( $item['team_member_image_hyperlink'] ) && $item['team_member_image_hyperlink']['url'] != '' ) {
 										echo "</a>";
@@ -2582,7 +2583,8 @@ class Team_Member_Carousel extends Widget_Base
 		$settings = $this->get_settings_for_display();
 
 		if ($item['team_member_name'] != '') {
-			printf('<%1$s class="eael-tm-name">%2$s</%1$s>', $settings['name_html_tag'], $item['team_member_name']);
+			$name = sprintf('<%1$s class="eael-tm-name">%2$s</%1$s>', $settings['name_html_tag'], $item['team_member_name']);
+			echo wp_kses( $name, Helper::eael_allowed_tags() );
 		}
 		?>
 		<?php if ($settings['member_title_divider'] == 'yes') { ?>
@@ -2597,7 +2599,8 @@ class Team_Member_Carousel extends Widget_Base
 		$settings = $this->get_settings_for_display();
 
 		if ($item['team_member_position'] != '') {
-			printf('<%1$s class="eael-tm-position">%2$s</%1$s>', $settings['position_html_tag'], $item['team_member_position']);
+			$position = sprintf('<%1$s class="eael-tm-position">%2$s</%1$s>', $settings['position_html_tag'], $item['team_member_position']);
+			echo wp_kses( $position, Helper::eael_allowed_tags() );
 		}
 		?>
 		<?php if ($settings['member_position_divider'] == 'yes') { ?>
@@ -2612,7 +2615,7 @@ class Team_Member_Carousel extends Widget_Base
 		$settings = $this->get_settings_for_display();
 		if ($item['team_member_description'] != '') { ?>
             <div class="eael-tm-description">
-				<?php echo $this->parse_text_editor($item['team_member_description']); ?>
+				<?php echo wp_kses( $this->parse_text_editor($item['team_member_description']), Helper::eael_allowed_tags() ); ?>
             </div>
 		<?php } ?>
 		<?php if ($settings['member_description_divider'] == 'yes') { ?>

@@ -1,0 +1,30 @@
+/* Centered Style */
+.eael-team-item.eael-team-members-centered .eael-team-content {
+    text-align: center;
+}
+
+/* Circle Style */
+.eael-team-item.eael-team-members-circle .eael-team-image {
+    text-align: center;
+}
+.eael-team-item.eael-team-members-circle figure img {
+    width: 150px;
+    height: 150px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.eael-team-item.eael-team-members-circle .eael-team-content {
+    text-align: center;
+}
+/* social icon thumbnail right */
+.eael-team-item.eael-team-members-social-right {
+    .eael-team-image {
+        display: flex;
+        .eael-team-member-social-profiles {
+            list-style: none;
+            display: inline-block;
+            margin: 0;
+            padding: 15px 10px;
+        }
+    }
+}

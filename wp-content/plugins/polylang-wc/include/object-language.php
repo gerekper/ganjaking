@@ -41,7 +41,7 @@ abstract class PLLWC_Object_Language {
 	 * @phpstan-return non-empty-string
 	 */
 	public function get_tax_language(): string {
-		return $this->object->get_tax_language();
+		return (string) $this->object->get_tax_language();
 	}
 
 	/**
@@ -55,15 +55,14 @@ abstract class PLLWC_Object_Language {
 	 * @return bool True when successfully assigned. False otherwise (or if the given language is already assigned to
 	 *              the object).
 	 */
-	public function set_language( int $id, $lang ): bool {
-		return $this->object->set_language( $id, $lang );
+	public function set_language( $id, $lang ): bool {
+		return (bool) $this->object->set_language( $id, $lang );
 	}
 
 	/**
 	 * Returns the language of an object.
 	 *
 	 * @since 1.0
-	 * @since 1.9 Type-hinted.
 	 *
 	 * @param int    $id    Object ID.
 	 * @param string $field Optional, the language field to return (@see PLL_Language), defaults to `'slug'`.
@@ -78,7 +77,7 @@ abstract class PLLWC_Object_Language {
 	 *     $field is 'slug' ? non-empty-string : string|int|bool|list<non-empty-string>
 	 * )|false
 	 */
-	public function get_language( int $id, string $field = 'slug' ) {
+	public function get_language( $id, $field = 'slug' ) {
 		$lang = $this->object->get_language( $id );
 		return ! empty( $lang ) ? $lang->get_prop( $field ) : false;
 	}
@@ -94,8 +93,8 @@ abstract class PLLWC_Object_Language {
 	 *
 	 * @phpstan-return non-empty-string
 	 */
-	public function join_clause( string $alias = '' ): string {
-		return $this->object->join_clause( $alias );
+	public function join_clause( $alias = '' ): string {
+		return (string) $this->object->join_clause( $alias );
 	}
 
 	/**
@@ -111,6 +110,6 @@ abstract class PLLWC_Object_Language {
 	 * @phpstan-param PLL_Language|PLL_Language[]|non-empty-string|non-empty-string[] $lang
 	 */
 	public function where_clause( $lang ): string {
-		return $this->object->where_clause( $lang );
+		return (string) $this->object->where_clause( $lang );
 	}
 }

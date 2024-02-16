@@ -530,85 +530,6 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 	private function ______CSS_SELECTORS_______(){}
 
 	/**
-	 * process css selector of text shadow param
-	 */
-	private function processParamCSSSelector_textShadow($param, $selector){
-
-		$isEnable = UniteFunctionsUC::getVal($param, "enable_default_values");
-		$isEnable = UniteFunctionsUC::strToBool($isEnable);
-
-		if($isEnable == false)
-			return (false);
-
-		$color = UniteFunctionsUC::getVal($param, "color");
-		$blur = UniteFunctionsUC::getVal($param, "blur");
-		$horizontal = UniteFunctionsUC::getVal($param, "horizontal");
-		$vertical = UniteFunctionsUC::getVal($param, "vertical");
-
-		$shadow = "{$horizontal}px {$vertical}px {$blur}px {$color}";
-
-		$css = "text-shadow:$shadow";
-
-		$style = "{$selector}{{$css}}";
-
-		return ($style);
-	}
-
-	/**
-	 * process css selector of background param
-	 */
-	private function processParamCSSSelector_background($param, $selector){
-
-		$name = UniteFunctionsUC::getVal($param, "name");
-		$value = UniteFunctionsUC::getVal($param, "value");
-
-		$type = UniteFunctionsUC::getVal($value, $name . "_type");
-
-		$css = "";
-		switch($type){
-			case "solid":
-				$color = UniteFunctionsUC::getVal($value, $name . "_color_solid");
-				$css = "background-color:{$color} !important;";
-
-				$bgImage = UniteFunctionsUC::getVal($param, "solid_bg_image");
-				$bgPosition = UniteFunctionsUC::getVal($param, "solid_bg_image_position");
-				$bgSize = UniteFunctionsUC::getVal($param, "solid_bg_image_size");
-				$bgRepeat = UniteFunctionsUC::getVal($param, "solid_bg_image_repeat");
-
-				if(!empty($bgImage)){
-					$bgImage = $this->addon->convertFromUrlAssets($bgImage);
-
-					$css .= "background-image:url('$bgImage');";
-
-					if(!empty($bgPosition))
-						$css .= "background-position:{$bgPosition};";
-
-					if(!empty($bgSize))
-						$css .= "background-size:{$bgSize};";
-
-					if(!empty($bgRepeat))
-						$css .= "background-repeat:{$bgRepeat};";
-				}
-			break;
-			case "gradient":
-				$color1 = UniteFunctionsUC::getVal($value, $name . "_color_gradient1");
-				$color2 = UniteFunctionsUC::getVal($value, $name . "_color_gradient2");
-
-				if(!empty($color1) && !empty($color2))
-					$css = "background:linear-gradient({$color1}, {$color2}) !important;";
-
-			break;
-		}
-
-		if(empty($css))
-			return (false);
-
-		$style = "{$selector}{{$css}}";
-
-		return ($style);
-	}
-
-	/**
 	 * process css selector of number param
 	 */
 	private function processParamCSSSelector_number($param, $selector){
@@ -638,6 +559,61 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			$css = $this->prepareCSSSelectorValueCSS($selectorValue, $value . $unit);
 			$style .= $this->prepareCSSSelectorStyle($selector, $css, $device);
 		}
+
+		return $style;
+	}
+
+	/**
+	 * process css selector of background param
+	 */
+	private function processParamCSSSelector_background($param, $selector){
+
+		$name = UniteFunctionsUC::getVal($param, "name");
+		$value = UniteFunctionsUC::getVal($param, "value");
+		$type = UniteFunctionsUC::getVal($value, $name . "_type");
+
+		$css = "";
+
+		switch($type){
+			case "solid":
+				$color = UniteFunctionsUC::getVal($value, $name . "_color_solid");
+				$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "color");
+				$css = $this->prepareCSSSelectorValueCSS($selectorValue, $color);
+
+				$image = UniteFunctionsUC::getVal($param, "solid_bg_image");
+				$image = empty($image) === false ? $this->addon->convertFromUrlAssets($image) : null;
+				$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "image");
+				$css .= $this->prepareCSSSelectorValueCSS($selectorValue, $image);
+
+				$position = UniteFunctionsUC::getVal($param, "solid_bg_image_position");
+				$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "position");
+				$css .= $this->prepareCSSSelectorValueCSS($selectorValue, $position);
+
+				$repeat = UniteFunctionsUC::getVal($param, "solid_bg_image_repeat");
+				$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "repeat");
+				$css .= $this->prepareCSSSelectorValueCSS($selectorValue, $repeat);
+
+				$size = UniteFunctionsUC::getVal($param, "solid_bg_image_size");
+				$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "size");
+				$css .= $this->prepareCSSSelectorValueCSS($selectorValue, $size);
+			break;
+			case "gradient":
+				$color1 = UniteFunctionsUC::getVal($value, $name . "_color_gradient1");
+				$color2 = UniteFunctionsUC::getVal($value, $name . "_color_gradient2");
+
+				if($color1 !== "" && $color2 !== ""){
+					$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "gradient");
+
+					$css = str_replace(
+						array("{{COLOR1}}", "{{COLOR2}}"),
+						array($color1, $color2),
+						$selectorValue
+					);
+				}
+			break;
+		}
+
+		$style = $this->prepareCSSSelectorStyle($selector, $css);
 
 		return $style;
 	}
@@ -731,15 +707,7 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			if(empty($value) === true)
 				continue;
 
-			$size = UniteFunctionsUC::getVal($value, "size");
-			$unit = UniteFunctionsUC::getVal($value, "unit", "px");
-
-			$css = str_replace(
-				array("{{SIZE}}", "{{UNIT}}"),
-				array($size, $unit),
-				$selectorValue
-			);
-
+			$css = $this->prepareCSSSelectorSliderCSS($selectorValue, $value);
 			$style .= $this->prepareCSSSelectorStyle($selector, $css, $device);
 		}
 
@@ -750,10 +718,9 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 	 * process css selector of typography param
 	 */
 	private function processParamCSSSelector_typography($param, $selector){
-		
+
 		$value = UniteFunctionsUC::getVal($param, "value");
-		
-		
+
 		$regularFields = array(
 			"font_family" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_TYPOGRAPHY, "family"),
 			"font_style" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_TYPOGRAPHY, "style"),
@@ -781,16 +748,13 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 		$fontFamily = UniteFunctionsUC::getVal($value, "font_family");
 
 		if(empty($fontFamily) === false){
-			
 			$fontData = HelperUC::getFontPanelData();
 			$googleFonts = UniteFunctionsUC::getVal($fontData, "arrGoogleFonts");
-		
+
 			if(empty($googleFonts[$fontFamily]) === false){
-				
 				$fontUrl = HelperHtmlUC::getGoogleFontUrl($googleFonts[$fontFamily]);
-				
+
 				$this->addon->addCssInclude($fontUrl);
-				
 			}
 		}
 
@@ -815,6 +779,108 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 				$style .= $this->prepareCSSSelectorStyle($selector, $css, $device);
 			}
 		}
+
+		return $style;
+	}
+
+	/**
+	 * process css selector of text shadow param
+	 */
+	private function processParamCSSSelector_textShadow($param, $selector){
+
+		$value = UniteFunctionsUC::getVal($param, "value");
+		$x = UniteFunctionsUC::getVal($value, "x");
+		$y = UniteFunctionsUC::getVal($value, "y");
+		$blur = UniteFunctionsUC::getVal($value, "blur");
+		$color = UniteFunctionsUC::getVal($value, "color");
+
+		$x = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $x);
+		$y = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $y);
+		$blur = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $blur);
+
+		$css = "";
+
+		if($x !== "" && $y !== "" && $blur !== "" && $color !== ""){
+			$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_TEXTSHADOW);
+
+			$css = str_replace(
+				array("{{X}}", "{{Y}}", "{{BLUR}}", "{{COLOR}}"),
+				array($x, $y, $blur, $color),
+				$selectorValue
+			);
+		}
+
+		$style = $this->prepareCSSSelectorStyle($selector, $css);
+
+		return $style;
+	}
+
+	/**
+	 * process css selector of box shadow param
+	 */
+	private function processParamCSSSelector_boxShadow($param, $selector){
+
+		$value = UniteFunctionsUC::getVal($param, "value");
+		$x = UniteFunctionsUC::getVal($value, "x");
+		$y = UniteFunctionsUC::getVal($value, "y");
+		$blur = UniteFunctionsUC::getVal($value, "blur");
+		$spread = UniteFunctionsUC::getVal($value, "spread");
+		$color = UniteFunctionsUC::getVal($value, "color");
+		$position = UniteFunctionsUC::getVal($value, "position");
+
+		$x = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $x);
+		$y = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $y);
+		$blur = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $blur);
+		$spread = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $spread);
+
+		$css = "";
+
+		if($x !== "" && $y !== "" && $blur !== "" && $spread !== "" && $color !== "" && $position !== ""){
+			$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BOXSHADOW);
+
+			$css = str_replace(
+				array("{{X}}", "{{Y}}", "{{BLUR}}", "{{SPREAD}}", "{{COLOR}}", "{{POSITION}}"),
+				array($x, $y, $blur, $spread, $color, $position),
+				$selectorValue
+			);
+		}
+
+		$style = $this->prepareCSSSelectorStyle($selector, $css);
+
+		return $style;
+	}
+
+	/**
+	 * process css selector of css filters param
+	 */
+	private function processParamCSSSelector_cssFilters($param, $selector){
+
+		$value = UniteFunctionsUC::getVal($param, "value");
+		$blur = UniteFunctionsUC::getVal($value, "blur");
+		$brightness = UniteFunctionsUC::getVal($value, "brightness");
+		$contrast = UniteFunctionsUC::getVal($value, "contrast");
+		$saturation = UniteFunctionsUC::getVal($value, "saturation");
+		$hue = UniteFunctionsUC::getVal($value, "hue");
+
+		$blur = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $blur);
+		$brightness = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $brightness);
+		$contrast = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $contrast);
+		$saturation = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $saturation);
+		$hue = $this->prepareCSSSelectorSliderCSS("{{VALUE}}", $hue);
+
+		$css = "";
+
+		if($blur !== "" && $brightness !== "" && $contrast !== "" && $saturation !== "" && $hue !== ""){
+			$selectorValue = HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_CSS_FILTERS);
+
+			$css = str_replace(
+				array("{{BLUR}}", "{{BRIGHTNESS}}", "{{CONTRAST}}", "{{SATURATE}}", "{{HUE}}"),
+				array($blur, $brightness, $contrast, $saturation, $hue),
+				$selectorValue
+			);
+		}
+
+		$style = $this->prepareCSSSelectorStyle($selector, $css);
 
 		return $style;
 	}
@@ -886,6 +952,9 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 		$size = UniteFunctionsUC::getVal($value, "size");
 		$unit = UniteFunctionsUC::getVal($value, "unit", "px");
 
+		if($size === "")
+			return "";
+
 		$css = str_replace(
 			array("{{VALUE}}", "{{SIZE}}", "{{UNIT}}"),
 			array($size . $unit, $size, $unit),
@@ -900,6 +969,9 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 	 */
 	private function prepareCSSSelectorValueCSS($selectorValue, $value){
 
+		if($value === null || $value === "")
+			return "";
+
 		$css = str_replace("{{VALUE}}", $value, $selectorValue);
 
 		return $css;
@@ -909,6 +981,9 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 	 * prepare css selector style
 	 */
 	private function prepareCSSSelectorStyle($selector, $css, $device = "desktop"){
+
+		if(empty($css) === true)
+			return "";
 
 		$style = $selector . "{" . $css . "}";
 
@@ -957,6 +1032,9 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			case UniteCreatorDialogParam::PARAM_NUMBER:
 				$style = $this->processParamCSSSelector_number($param, $selector);
 			break;
+			case UniteCreatorDialogParam::PARAM_BACKGROUND:
+				$style = $this->processParamCSSSelector_background($param, $selector);
+			break;
 			case UniteCreatorDialogParam::PARAM_BORDER:
 				$style = $this->processParamCSSSelector_border($param, $selector);
 			break;
@@ -971,11 +1049,14 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			case UniteCreatorDialogParam::PARAM_TYPOGRAPHY:
 				$style = $this->processParamCSSSelector_typography($param, $selector);
 			break;
-			case UniteCreatorDialogParam::PARAM_BACKGROUND:
-				$style = $this->processParamCSSSelector_background($param, $selector);
-			break;
 			case UniteCreatorDialogParam::PARAM_TEXTSHADOW:
 				$style = $this->processParamCSSSelector_textShadow($param, $selector);
+			break;
+			case UniteCreatorDialogParam::PARAM_BOXSHADOW:
+				$style = $this->processParamCSSSelector_boxShadow($param, $selector);
+			break;
+			case UniteCreatorDialogParam::PARAM_CSS_FILTERS:
+				$style = $this->processParamCSSSelector_cssFilters($param, $selector);
 			break;
 			case UniteCreatorDialogParam::PARAM_DROPDOWN:
 			case UniteCreatorDialogParam::PARAM_COLORPICKER:
@@ -988,7 +1069,7 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 
 			return null;
 		}
-		
+
 		UniteProviderFunctionsUC::printCustomStyle($style);
 
 		$this->lastSelectorStyle = $style;
@@ -1009,7 +1090,7 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 		$styles = "";
 
 		foreach($mainParams as $param){
-			
+
 			$this->processParamCSSSelector($param);
 
 			if($isOutput === true && empty($this->lastSelectorStyle) === false)
@@ -1694,20 +1775,20 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			$css = $this->objTemplate->getRenderedHtml(self::TEMPLATE_CSS);
 
 			$js = $this->objTemplate->getRenderedHtml(self::TEMPLATE_JS);
-			
+
 			//fetch selectors (add google font includes on the way)
- 			
+
 			$isAddSelectors = UniteFunctionsUC::getVal($params, "add_selectors_css");
 			$isAddSelectors = UniteFunctionsUC::strToBool($isAddSelectors);
 
 			$cssSelectors = "";
-			
+
 			if($isAddSelectors == true)
 				$cssSelectors = $this->getSelectorsCss();
-			
-				
+
+
 			//get css includes if needed
-			
+
 			$arrCssIncludes = array();
 			if($putCssIncludes == true)
 				$arrCssIncludes = $this->getProcessedIncludes(true, true, "css");
@@ -1716,13 +1797,13 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 				$output = "<!-- start {$title} -->";
 			else
 				$output = "";
-	
+
 			//add css includes if needed
-			
+
 			if(!empty($arrCssIncludes)){
 
 				$htmlIncludes = $this->getHtmlIncludes($arrCssIncludes);
-				
+
 				if(self::$isBufferingCssActive == true)
 					self::$bufferCssIncludes .= self::BR.$htmlIncludes;
 				else
@@ -1756,12 +1837,12 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 
 			//add css selectors:
 			if($isAddSelectors == true){
-			
+
 				$selectorsStyleID = "selectors_css_".$this->generatedID;
-				
+
 				if(empty($cssSelectors))
 					$cssSelectors = "";
-				
+
 				$output .= "\n			<style id=\"{$selectorsStyleID}\" name=\"uc_selectors_css\" type=\"text/css\">{$cssSelectors}</style>";
 			}
 

@@ -20,14 +20,9 @@ class Ajax
         add_action('wp_ajax_nopriv_dce_file_browser_hits', array($this, 'dce_file_browser_hits'));
         add_action('wp_ajax_dce_get_next_post', array($this, 'dce_get_next_post'));
         add_action('wp_ajax_nopriv_dce_get_next_post', array($this, 'dce_get_next_post'));
-        add_action('wp_ajax_dce_visibility_is_hidden', array($this, 'dce_visibility_is_hidden'));
         // Ajax page open Actions
         add_action('wp_ajax_modale_action', array($this, 'dce_ajax_action'));
         add_action('wp_ajax_nopriv_modale_action', array($this, 'dce_ajax_action'));
-        add_action('wp_ajax_dualview_action', array($this, 'dce_dual_view_ajax_action'));
-        add_action('wp_ajax_nopriv_dualview_action', array($this, 'dce_dual_view_ajax_action'));
-        add_action('wp_ajax_dce_elementor_template', array($this, 'dce_elementor_template'));
-        add_action('wp_ajax_nopriv_dce_elementor_template', array($this, 'dce_elementor_template'));
         add_action('wp_ajax_dce_add_to_favorites', [$this, 'add_to_favorites']);
         add_action('wp_ajax_nopriv_dce_add_to_favorites', [$this, 'add_to_favorites']);
         // Ajax Select2 autocomplete
@@ -161,23 +156,6 @@ class Ajax
         wp_die();
         // this is required to terminate immediately and return a proper response
     }
-    public function dce_visibility_is_hidden()
-    {
-        // The $_REQUEST contains all the data sent via ajax
-        if (isset($_REQUEST['element_id']) && isset($_REQUEST['post_id'])) {
-            $element_id = sanitize_text_field($_REQUEST['element_id']);
-            $post_id = \intval($_REQUEST['post_id']);
-            $settings = \DynamicContentForElementor\Helper::get_settings_by_id($element_id, $post_id);
-            if (!empty($settings['enabled_visibility']) && \DynamicContentForElementor\Extensions\DynamicVisibility::is_hidden($settings)) {
-                echo $element_id;
-                wp_die();
-            }
-        }
-        echo '0';
-        // Always die in functions echoing ajax content
-        wp_die();
-        // this is required to terminate immediately and return a proper response
-    }
     /**
      * Get Next Post
      *
@@ -204,9 +182,12 @@ class Ajax
     public static function dce_ajax_action()
     {
         $postid = url_to_postid(sanitize_text_field($_POST['post_href']));
+        if (!is_post_publicly_viewable($postid)) {
+            return;
+        }
         $template_id = 0;
         if (isset($_POST['template_id']) && \is_numeric($_POST['template_id'])) {
-            $template_id = sanitize_text_field($_POST['template_id']);
+            $template_id = \intval($_POST['template_id']);
         }
         $titolo_seo = get_post_meta($postid, '_yoast_wpseo_title', \true);
         $titolo_nativo = wp_kses_post(get_the_title($postid)) . ' - ' . get_bloginfo('name');
@@ -219,74 +200,27 @@ class Ajax
         echo '</div>';
         wp_die();
     }
-    public static function dce_dual_view_ajax_action()
-    {
-        $postid = url_to_postid(sanitize_text_field($_POST['post_href']));
-        $template_id = sanitize_text_field($_POST['template_id']);
-        $featuredImage = get_the_post_thumbnail($postid);
-        ?>
-		<div class="cd-contenuto">
-			<div class="cd-slider-wrapper">
-				<ul class="cd-slider">
-					<li class="selected"><?php 
-        echo $featuredImage;
-        ?></li>
-				</ul> <!-- cd-slider -->
-
-				<ul class="cd-slider-navigation">
-					<li><a class="cd-next" href="#0">Prev</a></li>
-					<li><a class="cd-prev" href="#0">Next</a></li>
-				</ul> <!-- cd-slider-navigation -->
-			</div> <!-- cd-slider-wrapper -->
-
-			<div class="cd-item-info">
-		<?php 
-        self::get_template_for_ajax($template_id, $postid);
-        ?>
-			</div> <!-- cd-item-info -->
-			<a href="#0" class="cd-close">Close</a>
-		</div>
-		<?php 
-    }
-    public static function get_template_for_ajax($t_id, $p_id, $type = 'post')
+    public static function get_template_for_ajax($t_id, $p_id)
     {
         if ($t_id > 0) {
-            echo do_shortcode('[dce-elementor-template id="' . $t_id . '" ' . $type . '_id="' . $p_id . '" inlinecss="true" ajax="true"]');
+            $atts = ['id' => $t_id, 'post_id' => $p_id, 'inlinecss' => \true, 'ajax' => \true];
+            $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+            echo $template_system->build_elementor_template_special($atts);
         } else {
             // Check if the template is created with Elementor
             $elementor = get_post_meta($p_id, '_elementor_edit_mode', \true);
             if ($elementor) {
-                echo do_shortcode('[dce-elementor-template id="' . $p_id . '" ' . $type . '_id="' . $p_id . '" inlinecss="true" ajax="true"]');
+                $atts = ['id' => $p_id, 'post_id' => $p_id, 'inlinecss' => \true, 'ajax' => \true];
+                $template_system = \DynamicContentForElementor\Plugin::instance()->template_system;
+                echo $template_system->build_elementor_template_special($atts);
             } else {
+                if (!is_post_publicly_viewable($p_id)) {
+                    return;
+                }
                 $post_template = get_post($p_id);
                 $contenuto = $post_template->post_content;
                 echo $contenuto;
             }
         }
-    }
-    public function dce_elementor_template()
-    {
-        if (isset($_POST['template_id']) && \is_numeric($_POST['template_id'])) {
-            $template_id = sanitize_text_field($_POST['template_id']);
-            $obj_id = 0;
-            $type = null;
-            if (!empty($_POST['post_id']) && \is_numeric($_POST['post_id'])) {
-                $obj_id = \intval($_POST['post_id']);
-            }
-            if (!empty($_POST['user_id']) && \is_numeric($_POST['user_id'])) {
-                $obj_id = \intval($_POST['user_id']);
-            }
-            if (!empty($_POST['term_id']) && \is_numeric($_POST['term_id'])) {
-                $obj_id = \intval($_POST['term_id']);
-            }
-            if (!empty($_POST['object'])) {
-                $type = sanitize_text_field($_POST['object']);
-            }
-            if ($type == 'post' && !$obj_id && !empty($_SERVER['HTTP_REFERER'])) {
-                $obj_id = url_to_postid(sanitize_text_field($_SERVER['HTTP_REFERER']));
-            }
-            self::get_template_for_ajax($template_id, $obj_id, $type);
-        }
-        wp_die();
     }
 }

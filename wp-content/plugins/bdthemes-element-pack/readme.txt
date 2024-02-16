@@ -2,14 +2,14 @@
 Contributors: bdthemes, selimmw
 Donate link: http://bdthemes.com/
 Tags: elementor addons, elementor widget, elementor extensions, elementor addon, addons, elementor, addons for elementor, addons pack, live copy, template library, bdthemes
-Stable tag: 7.8.0
+Stable tag: 7.9.0
 Requires PHP: 7.4.0
 Requires at least: 5.0.0
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 License: GPL3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.18.3
+Elementor tested up to: 3.19.2
 
 The all-new Element Pack Pro brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support, risk-free! Get a full-refund if you’re not 100% satisfied.*
 
@@ -35,6 +35,21 @@ e.g.
 
 
 == Changelog ==
+
+= 7.9.0 [15th February 2024] =
+
+= Added =
+
+* ACF slider widget added
+
+= Fixed =
+
+* Video cover issue fixed in device slider widget
+* jQuery dependency fixed in Slinky Vertical Menu widget (Thanks to William Dias Morais)
+* Image height issue fixed in slideshow widget
+* Category accents issue fixed in Portfolio type all widget (Thanks to Mullo Alfredo)
+* Simple Contact form issue fixed
+* Lightbox autoplay issue fixed
 
 = 7.8.0 [29th January 2024] =
 

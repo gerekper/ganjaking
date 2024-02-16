@@ -1,7 +1,7 @@
 <?php
 /**
  * Function ajax for backend
- * @version   4.5.5
+ * @version   4.5.9
  */
 class EVO_admin_ajax{
 	public $helper, $post_data;
@@ -210,7 +210,7 @@ class EVO_admin_ajax{
 			}
 			
 			// nonce validation
-			if( empty($_POST['evo_noncename']) && !wp_verify_nonce( $_POST['evo_noncename'], 'evo_save_virtual_event_settings' ) ){
+			if( empty($_POST['evo_noncename']) || !wp_verify_nonce( $_POST['evo_noncename'], 'evo_save_virtual_event_settings' ) ){
 				wp_send_json(array(
 					'status'=>'bad','msg'=> __('Nonce validation failed','eventon')
 				));	wp_die();
@@ -269,7 +269,7 @@ class EVO_admin_ajax{
 			
 		}
 
-	// Related Events @4.5.5
+	// Related Events @4.5.9
 		function rel_event_list(){
 
 			// Check User Caps.

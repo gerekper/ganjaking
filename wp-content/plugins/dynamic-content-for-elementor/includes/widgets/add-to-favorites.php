@@ -140,7 +140,7 @@ class AddToFavorites extends \DynamicContentForElementor\Widgets\WidgetPrototype
             return;
         }
         if (empty($settings['dce_favorite_key'])) {
-            Helper::notice('', __('Please set a key for your favorites', 'dynamic-content-for-elementor'));
+            Helper::notice(\false, __('Please set a key for your favorites', 'dynamic-content-for-elementor'));
             return;
         }
         $user_id = get_current_user_id();

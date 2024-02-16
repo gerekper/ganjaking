@@ -29,6 +29,41 @@ class WC_Bookings_Calendar {
 	);
 
 	/**
+	 * Stores the available minutes for a day.
+	 *
+	 * @var array
+	 */
+	private $global_availability_minutes;
+
+	/**
+	 * Stores the days for the schedule view.
+	 *
+	 * @var array
+	 */
+	private $days;
+
+	/**
+	 * Stores the events data for the schedule view.
+	 *
+	 * @var array
+	 */
+	private $events_data;
+
+	/**
+	 * Stores the day for the day view.
+	 *
+	 * @var int
+	 */
+	private $day;
+
+	/**
+	 * Stores the colors for the bookings.
+	 *
+	 * @var array
+	 */
+	private $colours;
+
+	/**
 	 * Output the calendar view.
 	 */
 	public function output() {
